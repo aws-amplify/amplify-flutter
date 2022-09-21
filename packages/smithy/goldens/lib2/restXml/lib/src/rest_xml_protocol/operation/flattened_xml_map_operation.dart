@@ -21,8 +21,10 @@ class FlattenedXmlMapOperation extends _i1.HttpOperation<
     _i2.FlattenedXmlMapInputOutput,
     _i2.FlattenedXmlMapInputOutput> {
   /// Flattened maps
-  FlattenedXmlMapOperation({required String region, Uri? baseUri})
-      : _region = region,
+  FlattenedXmlMapOperation({
+    required String region,
+    Uri? baseUri,
+  })  : _region = region,
         _baseUri = baseUri;
 
   @override
@@ -33,21 +35,24 @@ class FlattenedXmlMapOperation extends _i1.HttpOperation<
           _i2.FlattenedXmlMapInputOutput,
           _i2.FlattenedXmlMapInputOutput>> protocols = [
     _i3.RestXmlProtocol(
-        serializers: _i4.serializers,
-        builderFactories: _i4.builderFactories,
-        requestInterceptors: [
-          const _i1.WithHost(),
-          const _i1.WithContentLength(),
-          const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
-          const _i3.WithSdkInvocationId(),
-          const _i3.WithSdkRequest()
-        ],
-        responseInterceptors: [],
-        noErrorWrapping: false)
+      serializers: _i4.serializers,
+      builderFactories: _i4.builderFactories,
+      requestInterceptors: [
+        const _i1.WithHost(),
+        const _i1.WithContentLength(),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i3.WithSdkInvocationId(),
+        const _i3.WithSdkRequest(),
+      ],
+      responseInterceptors: [],
+      noErrorWrapping: false,
+    )
   ];
 
-  late final _i3.AWSEndpoint _awsEndpoint =
-      _i5.endpointResolver.resolve(_i5.sdkId, _region);
+  late final _i3.AWSEndpoint _awsEndpoint = _i5.endpointResolver.resolve(
+    _i5.sdkId,
+    _region,
+  );
 
   final String _region;
 
@@ -63,9 +68,13 @@ class FlattenedXmlMapOperation extends _i1.HttpOperation<
   int successCode([_i2.FlattenedXmlMapInputOutput? output]) => 200;
   @override
   _i2.FlattenedXmlMapInputOutput buildOutput(
-          _i2.FlattenedXmlMapInputOutput payload,
-          _i6.AWSStreamedHttpResponse response) =>
-      _i2.FlattenedXmlMapInputOutput.fromResponse(payload, response);
+    _i2.FlattenedXmlMapInputOutput payload,
+    _i6.AWSStreamedHttpResponse response,
+  ) =>
+      _i2.FlattenedXmlMapInputOutput.fromResponse(
+        payload,
+        response,
+      );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
   @override
@@ -76,14 +85,20 @@ class FlattenedXmlMapOperation extends _i1.HttpOperation<
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
   _i7.Future<_i2.FlattenedXmlMapInputOutput> run(
-      _i2.FlattenedXmlMapInputOutput input,
-      {_i1.HttpClient? client,
-      _i1.ShapeId? useProtocol}) {
+    _i2.FlattenedXmlMapInputOutput input, {
+    _i1.HttpClient? client,
+    _i1.ShapeId? useProtocol,
+  }) {
     return _i7.runZoned(
-        () => super.run(input, client: client, useProtocol: useProtocol),
-        zoneValues: {
-          ...?_awsEndpoint.credentialScope?.zoneValues,
-          ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
-        });
+      () => super.run(
+        input,
+        client: client,
+        useProtocol: useProtocol,
+      ),
+      zoneValues: {
+        ...?_awsEndpoint.credentialScope?.zoneValues,
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+      },
+    );
   }
 }

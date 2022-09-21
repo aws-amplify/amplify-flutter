@@ -15,10 +15,14 @@ abstract class SimpleScalarPropertiesOutput
     implements
         Built<SimpleScalarPropertiesOutput,
             SimpleScalarPropertiesOutputBuilder> {
-  factory SimpleScalarPropertiesOutput(
-      {double? doubleValue, double? floatValue}) {
+  factory SimpleScalarPropertiesOutput({
+    double? doubleValue,
+    double? floatValue,
+  }) {
     return _$SimpleScalarPropertiesOutput._(
-        doubleValue: doubleValue, floatValue: floatValue);
+      doubleValue: doubleValue,
+      floatValue: floatValue,
+    );
   }
 
   factory SimpleScalarPropertiesOutput.build(
@@ -29,8 +33,9 @@ abstract class SimpleScalarPropertiesOutput
 
   /// Constructs a [SimpleScalarPropertiesOutput] from a [payload] and [response].
   factory SimpleScalarPropertiesOutput.fromResponse(
-          SimpleScalarPropertiesOutput payload,
-          _i1.AWSBaseHttpResponse response) =>
+    SimpleScalarPropertiesOutput payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i2.SmithySerializer> serializers = [
@@ -42,12 +47,21 @@ abstract class SimpleScalarPropertiesOutput
   double? get doubleValue;
   double? get floatValue;
   @override
-  List<Object?> get props => [doubleValue, floatValue];
+  List<Object?> get props => [
+        doubleValue,
+        floatValue,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SimpleScalarPropertiesOutput');
-    helper.add('doubleValue', doubleValue);
-    helper.add('floatValue', floatValue);
+    helper.add(
+      'doubleValue',
+      doubleValue,
+    );
+    helper.add(
+      'floatValue',
+      floatValue,
+    );
     return helper.toString();
   }
 }
@@ -58,15 +72,23 @@ class SimpleScalarPropertiesOutputAwsJson10Serializer
       : super('SimpleScalarPropertiesOutput');
 
   @override
-  Iterable<Type> get types =>
-      const [SimpleScalarPropertiesOutput, _$SimpleScalarPropertiesOutput];
+  Iterable<Type> get types => const [
+        SimpleScalarPropertiesOutput,
+        _$SimpleScalarPropertiesOutput,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_0',
+        )
+      ];
   @override
   SimpleScalarPropertiesOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = SimpleScalarPropertiesOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -76,14 +98,18 @@ class SimpleScalarPropertiesOutputAwsJson10Serializer
       switch (key) {
         case 'doubleValue':
           if (value != null) {
-            result.doubleValue = (serializers.deserialize(value,
-                specifiedType: const FullType(double)) as double);
+            result.doubleValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(double),
+            ) as double);
           }
           break;
         case 'floatValue':
           if (value != null) {
-            result.floatValue = (serializers.deserialize(value,
-                specifiedType: const FullType(double)) as double);
+            result.floatValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(double),
+            ) as double);
           }
           break;
       }
@@ -93,21 +119,28 @@ class SimpleScalarPropertiesOutputAwsJson10Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as SimpleScalarPropertiesOutput);
     final result = <Object?>[];
     if (payload.doubleValue != null) {
       result
         ..add('doubleValue')
-        ..add(serializers.serialize(payload.doubleValue!,
-            specifiedType: const FullType(double)));
+        ..add(serializers.serialize(
+          payload.doubleValue!,
+          specifiedType: const FullType(double),
+        ));
     }
     if (payload.floatValue != null) {
       result
         ..add('floatValue')
-        ..add(serializers.serialize(payload.floatValue!,
-            specifiedType: const FullType(double)));
+        ..add(serializers.serialize(
+          payload.floatValue!,
+          specifiedType: const FullType(double),
+        ));
     }
     return result;
   }

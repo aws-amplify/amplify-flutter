@@ -13,9 +13,11 @@ import 'package:smithy/smithy.dart' as _i1;
 /// A REST XML service that sends XML requests and responses. This service and test case is complementary to the test cases in the \`restXml\` directory, but the service under test here has the \`xmlNamespace\` trait applied to it. See https://github.com/awslabs/smithy/issues/616
 class RestXmlProtocolNamespaceClient {
   /// A REST XML service that sends XML requests and responses. This service and test case is complementary to the test cases in the \`restXml\` directory, but the service under test here has the \`xmlNamespace\` trait applied to it. See https://github.com/awslabs/smithy/issues/616
-  const RestXmlProtocolNamespaceClient(
-      {_i1.HttpClient? client, required String region, Uri? baseUri})
-      : _client = client,
+  const RestXmlProtocolNamespaceClient({
+    _i1.HttpClient? client,
+    required String region,
+    Uri? baseUri,
+  })  : _client = client,
         _region = region,
         _baseUri = baseUri;
 
@@ -26,10 +28,15 @@ class RestXmlProtocolNamespaceClient {
   final Uri? _baseUri;
 
   _i2.Future<_i3.SimpleScalarPropertiesInputOutput> simpleScalarProperties(
-      _i3.SimpleScalarPropertiesInputOutput input,
-      {_i1.HttpClient? client}) {
+    _i3.SimpleScalarPropertiesInputOutput input, {
+    _i1.HttpClient? client,
+  }) {
     return _i4.SimpleScalarPropertiesOperation(
-            region: _region, baseUri: _baseUri)
-        .run(input, client: client ?? _client);
+      region: _region,
+      baseUri: _baseUri,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 }

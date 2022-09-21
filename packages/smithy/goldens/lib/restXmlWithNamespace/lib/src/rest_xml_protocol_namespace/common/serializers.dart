@@ -42,10 +42,14 @@ const List<_i1.SmithySerializer> serializers = [
   ..._i10.ClientConfig.serializers,
   ..._i11.OperationConfig.serializers,
   ..._i12.ScopedConfig.serializers,
-  ..._i13.AwsConfig.serializers
+  ..._i13.AwsConfig.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
   const FullType(
-          _i14.BuiltMap, [FullType(String), FullType(_i8.FileConfigSettings)]):
-      _i14.MapBuilder<String, _i8.FileConfigSettings>.new
+    _i14.BuiltMap,
+    [
+      FullType(String),
+      FullType(_i8.FileConfigSettings),
+    ],
+  ): _i14.MapBuilder<String, _i8.FileConfigSettings>.new
 };

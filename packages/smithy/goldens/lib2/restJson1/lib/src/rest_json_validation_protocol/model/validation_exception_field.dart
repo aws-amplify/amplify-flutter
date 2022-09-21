@@ -15,9 +15,14 @@ abstract class ValidationExceptionField
     implements
         Built<ValidationExceptionField, ValidationExceptionFieldBuilder> {
   /// Describes one specific validation failure for an input member.
-  factory ValidationExceptionField(
-      {required String message, required String path}) {
-    return _$ValidationExceptionField._(message: message, path: path);
+  factory ValidationExceptionField({
+    required String message,
+    required String path,
+  }) {
+    return _$ValidationExceptionField._(
+      message: message,
+      path: path,
+    );
   }
 
   /// Describes one specific validation failure for an input member.
@@ -40,12 +45,21 @@ abstract class ValidationExceptionField
   /// A JSONPointer expression to the structure member whose value failed to satisfy the modeled constraints.
   String get path;
   @override
-  List<Object?> get props => [message, path];
+  List<Object?> get props => [
+        message,
+        path,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ValidationExceptionField');
-    helper.add('message', message);
-    helper.add('path', path);
+    helper.add(
+      'message',
+      message,
+    );
+    helper.add(
+      'path',
+      path,
+    );
     return helper.toString();
   }
 }
@@ -56,15 +70,23 @@ class ValidationExceptionFieldRestJson1Serializer
       : super('ValidationExceptionField');
 
   @override
-  Iterable<Type> get types =>
-      const [ValidationExceptionField, _$ValidationExceptionField];
+  Iterable<Type> get types => const [
+        ValidationExceptionField,
+        _$ValidationExceptionField,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   ValidationExceptionField deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = ValidationExceptionFieldBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -73,12 +95,16 @@ class ValidationExceptionFieldRestJson1Serializer
       final value = iterator.current;
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.message = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'path':
-          result.path = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.path = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
       }
     }
@@ -87,15 +113,23 @@ class ValidationExceptionFieldRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as ValidationExceptionField);
     final result = <Object?>[
       'message',
-      serializers.serialize(payload.message,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        payload.message,
+        specifiedType: const FullType(String),
+      ),
       'path',
-      serializers.serialize(payload.path, specifiedType: const FullType(String))
+      serializers.serialize(
+        payload.path,
+        specifiedType: const FullType(String),
+      ),
     ];
     return result;
   }

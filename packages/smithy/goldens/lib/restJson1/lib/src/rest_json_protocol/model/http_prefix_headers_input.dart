@@ -19,9 +19,14 @@ abstract class HttpPrefixHeadersInput
         Built<HttpPrefixHeadersInput, HttpPrefixHeadersInputBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<HttpPrefixHeadersInputPayload> {
-  factory HttpPrefixHeadersInput(
-      {String? foo, _i3.BuiltMap<String, String>? fooMap}) {
-    return _$HttpPrefixHeadersInput._(foo: foo, fooMap: fooMap);
+  factory HttpPrefixHeadersInput({
+    String? foo,
+    _i3.BuiltMap<String, String>? fooMap,
+  }) {
+    return _$HttpPrefixHeadersInput._(
+      foo: foo,
+      fooMap: fooMap,
+    );
   }
 
   factory HttpPrefixHeadersInput.build(
@@ -31,16 +36,23 @@ abstract class HttpPrefixHeadersInput
   const HttpPrefixHeadersInput._();
 
   factory HttpPrefixHeadersInput.fromRequest(
-          HttpPrefixHeadersInputPayload payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    HttpPrefixHeadersInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       HttpPrefixHeadersInput.build((b) {
         if (request.headers['X-Foo'] != null) {
           b.foo = request.headers['X-Foo']!;
         }
         b.fooMap.addEntries(request.headers.entries
             .where((el) => el.key.startsWith('X-Foo-'))
-            .map(
-                (el) => MapEntry(el.key.replaceFirst('X-Foo-', ''), el.value)));
+            .map((el) => MapEntry(
+                  el.key.replaceFirst(
+                    'X-Foo-',
+                    '',
+                  ),
+                  el.value,
+                )));
       });
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -54,12 +66,21 @@ abstract class HttpPrefixHeadersInput
   @override
   HttpPrefixHeadersInputPayload getPayload() => HttpPrefixHeadersInputPayload();
   @override
-  List<Object?> get props => [foo, fooMap];
+  List<Object?> get props => [
+        foo,
+        fooMap,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HttpPrefixHeadersInput');
-    helper.add('foo', foo);
-    helper.add('fooMap', fooMap);
+    helper.add(
+      'foo',
+      foo,
+    );
+    helper.add(
+      'fooMap',
+      fooMap,
+    );
     return helper.toString();
   }
 }
@@ -99,20 +120,29 @@ class HttpPrefixHeadersInputRestJson1Serializer
         HttpPrefixHeadersInput,
         _$HttpPrefixHeadersInput,
         HttpPrefixHeadersInputPayload,
-        _$HttpPrefixHeadersInputPayload
+        _$HttpPrefixHeadersInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   HttpPrefixHeadersInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return HttpPrefixHeadersInputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

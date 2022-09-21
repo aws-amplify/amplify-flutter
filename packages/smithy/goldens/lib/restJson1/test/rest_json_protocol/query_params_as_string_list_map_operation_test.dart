@@ -18,39 +18,52 @@ void main() {
     'RestJsonQueryParamsStringListMap (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.QueryParamsAsStringListMapOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'RestJsonQueryParamsStringListMap',
-              documentation: 'Serialize query params from map of list strings',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: '',
-              bodyMediaType: null,
-              params: {
-                'qux': 'named',
-                'foo': {
-                  'baz': ['bar', 'qux']
-                }
-              },
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: _i2.AppliesTo.client,
-              method: 'POST',
-              uri: '/StringListMap',
-              host: null,
-              resolvedHost: null,
-              queryParams: ['corge=named', 'baz=bar', 'baz=qux'],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [
-            QueryParamsAsStringListMapInputRestJson1Serializer()
-          ]);
+        operation: _i3.QueryParamsAsStringListMapOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonQueryParamsStringListMap',
+          documentation: 'Serialize query params from map of list strings',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: null,
+          params: {
+            'qux': 'named',
+            'foo': {
+              'baz': [
+                'bar',
+                'qux',
+              ]
+            },
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: _i2.AppliesTo.client,
+          method: 'POST',
+          uri: '/StringListMap',
+          host: null,
+          resolvedHost: null,
+          queryParams: [
+            'corge=named',
+            'baz=bar',
+            'baz=qux',
+          ],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          QueryParamsAsStringListMapInputRestJson1Serializer()
+        ],
+      );
     },
   );
 }
@@ -63,12 +76,18 @@ class QueryParamsAsStringListMapInputRestJson1Serializer extends _i4
   @override
   Iterable<Type> get types => const [_i5.QueryParamsAsStringListMapInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i5.QueryParamsAsStringListMapInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.QueryParamsAsStringListMapInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -78,17 +97,24 @@ class QueryParamsAsStringListMapInputRestJson1Serializer extends _i4
       switch (key) {
         case 'foo':
           if (value != null) {
-            result.foo.replace((serializers.deserialize(value,
-                specifiedType: const FullType(_i6.BuiltListMultimap, [
+            result.foo.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltListMultimap,
+                [
                   FullType(String),
-                  FullType(String)
-                ])) as _i6.BuiltListMultimap<String, String>));
+                  FullType(String),
+                ],
+              ),
+            ) as _i6.BuiltListMultimap<String, String>));
           }
           break;
         case 'qux':
           if (value != null) {
-            result.qux = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.qux = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -98,8 +124,11 @@ class QueryParamsAsStringListMapInputRestJson1Serializer extends _i4
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

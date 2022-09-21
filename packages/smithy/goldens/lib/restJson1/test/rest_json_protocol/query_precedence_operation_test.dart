@@ -18,35 +18,47 @@ void main() {
     'RestJsonQueryPrecedence (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.QueryPrecedenceOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'RestJsonQueryPrecedence',
-              documentation: 'Prefer named query parameters when serializing',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: '',
-              bodyMediaType: null,
-              params: {
-                'foo': 'named',
-                'baz': {'bar': 'fromMap', 'qux': 'alsoFromMap'}
-              },
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: _i2.AppliesTo.client,
-              method: 'POST',
-              uri: '/Precedence',
-              host: null,
-              resolvedHost: null,
-              queryParams: ['bar=named', 'qux=alsoFromMap'],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [QueryPrecedenceInputRestJson1Serializer()]);
+        operation: _i3.QueryPrecedenceOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonQueryPrecedence',
+          documentation: 'Prefer named query parameters when serializing',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: null,
+          params: {
+            'foo': 'named',
+            'baz': {
+              'bar': 'fromMap',
+              'qux': 'alsoFromMap',
+            },
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: _i2.AppliesTo.client,
+          method: 'POST',
+          uri: '/Precedence',
+          host: null,
+          resolvedHost: null,
+          queryParams: [
+            'bar=named',
+            'qux=alsoFromMap',
+          ],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [QueryPrecedenceInputRestJson1Serializer()],
+      );
     },
   );
 }
@@ -59,12 +71,18 @@ class QueryPrecedenceInputRestJson1Serializer
   @override
   Iterable<Type> get types => const [_i5.QueryPrecedenceInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i5.QueryPrecedenceInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.QueryPrecedenceInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -74,16 +92,24 @@ class QueryPrecedenceInputRestJson1Serializer
       switch (key) {
         case 'baz':
           if (value != null) {
-            result.baz.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(
-                        _i6.BuiltMap, [FullType(String), FullType(String)]))
-                as _i6.BuiltMap<String, String>));
+            result.baz.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltMap,
+                [
+                  FullType(String),
+                  FullType(String),
+                ],
+              ),
+            ) as _i6.BuiltMap<String, String>));
           }
           break;
         case 'foo':
           if (value != null) {
-            result.foo = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.foo = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -93,8 +119,11 @@ class QueryPrecedenceInputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

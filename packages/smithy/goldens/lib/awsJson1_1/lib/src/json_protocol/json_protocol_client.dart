@@ -52,12 +52,12 @@ import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
 
 class JsonProtocolClient {
-  const JsonProtocolClient(
-      {_i1.HttpClient? client,
-      required String region,
-      Uri? baseUri,
-      required _i2.AWSCredentialsProvider credentialsProvider})
-      : _client = client,
+  const JsonProtocolClient({
+    _i1.HttpClient? client,
+    required String region,
+    Uri? baseUri,
+    required _i2.AWSCredentialsProvider credentialsProvider,
+  })  : _client = client,
         _region = region,
         _baseUri = baseUri,
         _credentialsProvider = credentialsProvider;
@@ -72,116 +72,163 @@ class JsonProtocolClient {
 
   _i3.Future<void> emptyOperation({_i1.HttpClient? client}) {
     return _i4.EmptyOperation(
-            region: _region,
-            baseUri: _baseUri,
-            credentialsProvider: _credentialsProvider)
-        .run(const _i1.Unit(), client: client ?? _client);
+      region: _region,
+      baseUri: _baseUri,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      const _i1.Unit(),
+      client: client ?? _client,
+    );
   }
 
   _i3.Future<void> endpointOperation({_i1.HttpClient? client}) {
     return _i5.EndpointOperation(
-            region: _region,
-            baseUri: _baseUri,
-            credentialsProvider: _credentialsProvider)
-        .run(const _i1.Unit(), client: client ?? _client);
+      region: _region,
+      baseUri: _baseUri,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      const _i1.Unit(),
+      client: client ?? _client,
+    );
   }
 
-  _i3.Future<void> endpointWithHostLabelOperation(_i6.HostLabelInput input,
-      {_i1.HttpClient? client}) {
+  _i3.Future<void> endpointWithHostLabelOperation(
+    _i6.HostLabelInput input, {
+    _i1.HttpClient? client,
+  }) {
     return _i7.EndpointWithHostLabelOperation(
-            region: _region,
-            baseUri: _baseUri,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client ?? _client);
+      region: _region,
+      baseUri: _baseUri,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   /// This operation has three possible return values: 1. A successful response in the form of GreetingWithErrorsOutput 2. An InvalidGreeting error. 3. A ComplexError error. Implementations must be able to successfully take a response and properly deserialize successful and error responses.
   _i3.Future<_i8.GreetingWithErrorsOutput> greetingWithErrors(
       {_i1.HttpClient? client}) {
     return _i9.GreetingWithErrorsOperation(
-            region: _region,
-            baseUri: _baseUri,
-            credentialsProvider: _credentialsProvider)
-        .run(const _i1.Unit(), client: client ?? _client);
+      region: _region,
+      baseUri: _baseUri,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      const _i1.Unit(),
+      client: client ?? _client,
+    );
   }
 
   _i3.Future<void> hostWithPathOperation({_i1.HttpClient? client}) {
     return _i10.HostWithPathOperation(
-            region: _region,
-            baseUri: _baseUri,
-            credentialsProvider: _credentialsProvider)
-        .run(const _i1.Unit(), client: client ?? _client);
+      region: _region,
+      baseUri: _baseUri,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      const _i1.Unit(),
+      client: client ?? _client,
+    );
   }
 
   /// This example serializes enums as top level properties, in lists, sets, and maps.
   _i3.Future<_i11.JsonEnumsInputOutput> jsonEnums(
-      _i11.JsonEnumsInputOutput input,
-      {_i1.HttpClient? client}) {
+    _i11.JsonEnumsInputOutput input, {
+    _i1.HttpClient? client,
+  }) {
     return _i12.JsonEnumsOperation(
-            region: _region,
-            baseUri: _baseUri,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client ?? _client);
+      region: _region,
+      baseUri: _baseUri,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   /// This operation uses unions for inputs and outputs.
-  _i3.Future<_i13.UnionInputOutput> jsonUnions(_i13.UnionInputOutput input,
-      {_i1.HttpClient? client}) {
+  _i3.Future<_i13.UnionInputOutput> jsonUnions(
+    _i13.UnionInputOutput input, {
+    _i1.HttpClient? client,
+  }) {
     return _i14.JsonUnionsOperation(
-            region: _region,
-            baseUri: _baseUri,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client ?? _client);
+      region: _region,
+      baseUri: _baseUri,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
-  _i3.Future<_i15.KitchenSink> kitchenSinkOperation(_i15.KitchenSink input,
-      {_i1.HttpClient? client}) {
+  _i3.Future<_i15.KitchenSink> kitchenSinkOperation(
+    _i15.KitchenSink input, {
+    _i1.HttpClient? client,
+  }) {
     return _i16.KitchenSinkOperation(
-            region: _region,
-            baseUri: _baseUri,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client ?? _client);
+      region: _region,
+      baseUri: _baseUri,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   _i3.Future<_i17.NullOperationInputOutput> nullOperation(
-      _i17.NullOperationInputOutput input,
-      {_i1.HttpClient? client}) {
+    _i17.NullOperationInputOutput input, {
+    _i1.HttpClient? client,
+  }) {
     return _i18.NullOperation(
-            region: _region,
-            baseUri: _baseUri,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client ?? _client);
+      region: _region,
+      baseUri: _baseUri,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   _i3.Future<_i19.OperationWithOptionalInputOutputOutput>
       operationWithOptionalInputOutput(
-          _i20.OperationWithOptionalInputOutputInput input,
-          {_i1.HttpClient? client}) {
+    _i20.OperationWithOptionalInputOutputInput input, {
+    _i1.HttpClient? client,
+  }) {
     return _i21.OperationWithOptionalInputOutputOperation(
-            region: _region,
-            baseUri: _baseUri,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client ?? _client);
+      region: _region,
+      baseUri: _baseUri,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   /// This example serializes an inline document as part of the payload.
   _i3.Future<_i22.PutAndGetInlineDocumentsInputOutput> putAndGetInlineDocuments(
-      _i22.PutAndGetInlineDocumentsInputOutput input,
-      {_i1.HttpClient? client}) {
+    _i22.PutAndGetInlineDocumentsInputOutput input, {
+    _i1.HttpClient? client,
+  }) {
     return _i23.PutAndGetInlineDocumentsOperation(
-            region: _region,
-            baseUri: _baseUri,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client ?? _client);
+      region: _region,
+      baseUri: _baseUri,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   _i3.Future<_i24.SimpleScalarPropertiesInputOutput> simpleScalarProperties(
-      _i24.SimpleScalarPropertiesInputOutput input,
-      {_i1.HttpClient? client}) {
+    _i24.SimpleScalarPropertiesInputOutput input, {
+    _i1.HttpClient? client,
+  }) {
     return _i25.SimpleScalarPropertiesOperation(
-            region: _region,
-            baseUri: _baseUri,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client ?? _client);
+      region: _region,
+      baseUri: _baseUri,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 }

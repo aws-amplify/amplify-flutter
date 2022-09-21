@@ -22,8 +22,10 @@ class HttpPayloadTraitsOperation extends _i1.HttpOperation<
     _i2.Uint8List,
     _i3.HttpPayloadTraitsInputOutput> {
   /// This examples serializes a blob shape in the payload. In this example, no JSON document is synthesized because the payload is not a structure or a union type.
-  HttpPayloadTraitsOperation({required String region, Uri? baseUri})
-      : _region = region,
+  HttpPayloadTraitsOperation({
+    required String region,
+    Uri? baseUri,
+  })  : _region = region,
         _baseUri = baseUri;
 
   @override
@@ -31,20 +33,23 @@ class HttpPayloadTraitsOperation extends _i1.HttpOperation<
       _i1.HttpProtocol<_i2.Uint8List, _i3.HttpPayloadTraitsInputOutput,
           _i2.Uint8List, _i3.HttpPayloadTraitsInputOutput>> protocols = [
     _i4.RestJson1Protocol(
-        serializers: _i5.serializers,
-        builderFactories: _i5.builderFactories,
-        requestInterceptors: [
-          const _i1.WithHost(),
-          const _i1.WithContentLength(),
-          const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
-          const _i4.WithSdkInvocationId(),
-          const _i4.WithSdkRequest()
-        ],
-        responseInterceptors: [])
+      serializers: _i5.serializers,
+      builderFactories: _i5.builderFactories,
+      requestInterceptors: [
+        const _i1.WithHost(),
+        const _i1.WithContentLength(),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i4.WithSdkInvocationId(),
+        const _i4.WithSdkRequest(),
+      ],
+      responseInterceptors: [],
+    )
   ];
 
-  late final _i4.AWSEndpoint _awsEndpoint =
-      _i6.endpointResolver.resolve(_i6.sdkId, _region);
+  late final _i4.AWSEndpoint _awsEndpoint = _i6.endpointResolver.resolve(
+    _i6.sdkId,
+    _region,
+  );
 
   final String _region;
 
@@ -65,8 +70,13 @@ class HttpPayloadTraitsOperation extends _i1.HttpOperation<
   int successCode([_i3.HttpPayloadTraitsInputOutput? output]) => 200;
   @override
   _i3.HttpPayloadTraitsInputOutput buildOutput(
-          _i2.Uint8List? payload, _i7.AWSStreamedHttpResponse response) =>
-      _i3.HttpPayloadTraitsInputOutput.fromResponse(payload, response);
+    _i2.Uint8List? payload,
+    _i7.AWSStreamedHttpResponse response,
+  ) =>
+      _i3.HttpPayloadTraitsInputOutput.fromResponse(
+        payload,
+        response,
+      );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
   @override
@@ -77,14 +87,20 @@ class HttpPayloadTraitsOperation extends _i1.HttpOperation<
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
   _i8.Future<_i3.HttpPayloadTraitsInputOutput> run(
-      _i3.HttpPayloadTraitsInputOutput input,
-      {_i1.HttpClient? client,
-      _i1.ShapeId? useProtocol}) {
+    _i3.HttpPayloadTraitsInputOutput input, {
+    _i1.HttpClient? client,
+    _i1.ShapeId? useProtocol,
+  }) {
     return _i8.runZoned(
-        () => super.run(input, client: client, useProtocol: useProtocol),
-        zoneValues: {
-          ...?_awsEndpoint.credentialScope?.zoneValues,
-          ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
-        });
+      () => super.run(
+        input,
+        client: client,
+        useProtocol: useProtocol,
+      ),
+      zoneValues: {
+        ...?_awsEndpoint.credentialScope?.zoneValues,
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+      },
+    );
   }
 }

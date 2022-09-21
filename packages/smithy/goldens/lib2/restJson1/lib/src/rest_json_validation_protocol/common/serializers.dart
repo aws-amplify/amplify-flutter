@@ -96,23 +96,47 @@ const List<_i1.SmithySerializer> serializers = [
   ..._i28.ClientConfig.serializers,
   ..._i29.OperationConfig.serializers,
   ..._i30.ScopedConfig.serializers,
-  ..._i31.AwsConfig.serializers
+  ..._i31.AwsConfig.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
-  const FullType(_i32.BuiltList, [FullType(_i2.EnumString)]):
-      _i32.ListBuilder<_i2.EnumString>.new,
   const FullType(
-          _i32.BuiltMap, [FullType(_i2.EnumString), FullType(_i2.EnumString)]):
-      _i32.MapBuilder<_i2.EnumString, _i2.EnumString>.new,
-  const FullType(_i32.BuiltList, [FullType(_i5.ValidationExceptionField)]):
-      _i32.ListBuilder<_i5.ValidationExceptionField>.new,
-  const FullType(_i32.BuiltList, [FullType(String)]):
-      _i32.ListBuilder<String>.new,
-  const FullType(_i32.BuiltListMultimap, [FullType(String), FullType(String)]):
-      _i32.ListMultimapBuilder<String, String>.new,
-  const FullType(_i32.BuiltMap, [FullType(String), FullType(String)]):
-      _i32.MapBuilder<String, String>.new,
+    _i32.BuiltList,
+    [FullType(_i2.EnumString)],
+  ): _i32.ListBuilder<_i2.EnumString>.new,
   const FullType(
-          _i32.BuiltMap, [FullType(String), FullType(_i26.FileConfigSettings)]):
-      _i32.MapBuilder<String, _i26.FileConfigSettings>.new
+    _i32.BuiltMap,
+    [
+      FullType(_i2.EnumString),
+      FullType(_i2.EnumString),
+    ],
+  ): _i32.MapBuilder<_i2.EnumString, _i2.EnumString>.new,
+  const FullType(
+    _i32.BuiltList,
+    [FullType(_i5.ValidationExceptionField)],
+  ): _i32.ListBuilder<_i5.ValidationExceptionField>.new,
+  const FullType(
+    _i32.BuiltList,
+    [FullType(String)],
+  ): _i32.ListBuilder<String>.new,
+  const FullType(
+    _i32.BuiltListMultimap,
+    [
+      FullType(String),
+      FullType(String),
+    ],
+  ): _i32.ListMultimapBuilder<String, String>.new,
+  const FullType(
+    _i32.BuiltMap,
+    [
+      FullType(String),
+      FullType(String),
+    ],
+  ): _i32.MapBuilder<String, String>.new,
+  const FullType(
+    _i32.BuiltMap,
+    [
+      FullType(String),
+      FullType(_i26.FileConfigSettings),
+    ],
+  ): _i32.MapBuilder<String, _i26.FileConfigSettings>.new,
 };

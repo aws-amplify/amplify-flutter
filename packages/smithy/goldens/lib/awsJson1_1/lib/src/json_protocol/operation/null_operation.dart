@@ -20,12 +20,12 @@ class NullOperation extends _i1.HttpOperation<
     _i2.NullOperationInputOutput,
     _i2.NullOperationInputOutput,
     _i2.NullOperationInputOutput> {
-  NullOperation(
-      {required String region,
-      Uri? baseUri,
-      _i3.AWSCredentialsProvider credentialsProvider =
-          const _i3.AWSCredentialsProvider.environment()})
-      : _region = region,
+  NullOperation({
+    required String region,
+    Uri? baseUri,
+    _i3.AWSCredentialsProvider credentialsProvider =
+        const _i3.AWSCredentialsProvider.environment(),
+  })  : _region = region,
         _baseUri = baseUri,
         _credentialsProvider = credentialsProvider;
 
@@ -37,25 +37,32 @@ class NullOperation extends _i1.HttpOperation<
           _i2.NullOperationInputOutput,
           _i2.NullOperationInputOutput>> protocols = [
     _i4.AwsJson1_1Protocol(
-        serializers: _i5.serializers,
-        builderFactories: _i5.builderFactories,
-        requestInterceptors: [
-          const _i1.WithHost(),
-          const _i1.WithContentLength(),
-          const _i1.WithHeader('X-Amz-Target', 'JsonProtocol.NullOperation'),
-          _i4.WithSigV4(
-              region: _region,
-              service: _i6.AWSService.iam,
-              credentialsProvider: _credentialsProvider),
-          const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
-          const _i4.WithSdkInvocationId(),
-          const _i4.WithSdkRequest()
-        ],
-        responseInterceptors: [])
+      serializers: _i5.serializers,
+      builderFactories: _i5.builderFactories,
+      requestInterceptors: [
+        const _i1.WithHost(),
+        const _i1.WithContentLength(),
+        const _i1.WithHeader(
+          'X-Amz-Target',
+          'JsonProtocol.NullOperation',
+        ),
+        _i4.WithSigV4(
+          region: _region,
+          service: _i6.AWSService.iam,
+          credentialsProvider: _credentialsProvider,
+        ),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i4.WithSdkInvocationId(),
+        const _i4.WithSdkRequest(),
+      ],
+      responseInterceptors: [],
+    )
   ];
 
-  late final _i4.AWSEndpoint _awsEndpoint =
-      _i7.endpointResolver.resolve(_i7.sdkId, _region);
+  late final _i4.AWSEndpoint _awsEndpoint = _i7.endpointResolver.resolve(
+    _i7.sdkId,
+    _region,
+  );
 
   final String _region;
 
@@ -72,9 +79,14 @@ class NullOperation extends _i1.HttpOperation<
   @override
   int successCode([_i2.NullOperationInputOutput? output]) => 200;
   @override
-  _i2.NullOperationInputOutput buildOutput(_i2.NullOperationInputOutput payload,
-          _i6.AWSStreamedHttpResponse response) =>
-      _i2.NullOperationInputOutput.fromResponse(payload, response);
+  _i2.NullOperationInputOutput buildOutput(
+    _i2.NullOperationInputOutput payload,
+    _i6.AWSStreamedHttpResponse response,
+  ) =>
+      _i2.NullOperationInputOutput.fromResponse(
+        payload,
+        response,
+      );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
   @override
@@ -85,14 +97,20 @@ class NullOperation extends _i1.HttpOperation<
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
   _i8.Future<_i2.NullOperationInputOutput> run(
-      _i2.NullOperationInputOutput input,
-      {_i1.HttpClient? client,
-      _i1.ShapeId? useProtocol}) {
+    _i2.NullOperationInputOutput input, {
+    _i1.HttpClient? client,
+    _i1.ShapeId? useProtocol,
+  }) {
     return _i8.runZoned(
-        () => super.run(input, client: client, useProtocol: useProtocol),
-        zoneValues: {
-          ...?_awsEndpoint.credentialScope?.zoneValues,
-          ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
-        });
+      () => super.run(
+        input,
+        client: client,
+        useProtocol: useProtocol,
+      ),
+      zoneValues: {
+        ...?_awsEndpoint.credentialScope?.zoneValues,
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+      },
+    );
   }
 }

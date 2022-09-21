@@ -23,8 +23,10 @@ class PostPlayerActionOperation extends _i1.HttpOperation<
     _i3.PostPlayerActionOutput,
     _i3.PostPlayerActionOutput> {
   /// This operation defines a union with a Unit member.
-  PostPlayerActionOperation({required String region, Uri? baseUri})
-      : _region = region,
+  PostPlayerActionOperation({
+    required String region,
+    Uri? baseUri,
+  })  : _region = region,
         _baseUri = baseUri;
 
   @override
@@ -32,20 +34,23 @@ class PostPlayerActionOperation extends _i1.HttpOperation<
       _i1.HttpProtocol<_i2.PostPlayerActionInput, _i2.PostPlayerActionInput,
           _i3.PostPlayerActionOutput, _i3.PostPlayerActionOutput>> protocols = [
     _i4.RestJson1Protocol(
-        serializers: _i5.serializers,
-        builderFactories: _i5.builderFactories,
-        requestInterceptors: [
-          const _i1.WithHost(),
-          const _i1.WithContentLength(),
-          const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
-          const _i4.WithSdkInvocationId(),
-          const _i4.WithSdkRequest()
-        ],
-        responseInterceptors: [])
+      serializers: _i5.serializers,
+      builderFactories: _i5.builderFactories,
+      requestInterceptors: [
+        const _i1.WithHost(),
+        const _i1.WithContentLength(),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i4.WithSdkInvocationId(),
+        const _i4.WithSdkRequest(),
+      ],
+      responseInterceptors: [],
+    )
   ];
 
-  late final _i4.AWSEndpoint _awsEndpoint =
-      _i6.endpointResolver.resolve(_i6.sdkId, _region);
+  late final _i4.AWSEndpoint _awsEndpoint = _i6.endpointResolver.resolve(
+    _i6.sdkId,
+    _region,
+  );
 
   final String _region;
 
@@ -60,9 +65,14 @@ class PostPlayerActionOperation extends _i1.HttpOperation<
   @override
   int successCode([_i3.PostPlayerActionOutput? output]) => 200;
   @override
-  _i3.PostPlayerActionOutput buildOutput(_i3.PostPlayerActionOutput payload,
-          _i7.AWSStreamedHttpResponse response) =>
-      _i3.PostPlayerActionOutput.fromResponse(payload, response);
+  _i3.PostPlayerActionOutput buildOutput(
+    _i3.PostPlayerActionOutput payload,
+    _i7.AWSStreamedHttpResponse response,
+  ) =>
+      _i3.PostPlayerActionOutput.fromResponse(
+        payload,
+        response,
+      );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
   @override
@@ -72,13 +82,21 @@ class PostPlayerActionOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i8.Future<_i3.PostPlayerActionOutput> run(_i2.PostPlayerActionInput input,
-      {_i1.HttpClient? client, _i1.ShapeId? useProtocol}) {
+  _i8.Future<_i3.PostPlayerActionOutput> run(
+    _i2.PostPlayerActionInput input, {
+    _i1.HttpClient? client,
+    _i1.ShapeId? useProtocol,
+  }) {
     return _i8.runZoned(
-        () => super.run(input, client: client, useProtocol: useProtocol),
-        zoneValues: {
-          ...?_awsEndpoint.credentialScope?.zoneValues,
-          ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
-        });
+      () => super.run(
+        input,
+        client: client,
+        useProtocol: useProtocol,
+      ),
+      zoneValues: {
+        ...?_awsEndpoint.credentialScope?.zoneValues,
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+      },
+    );
   }
 }

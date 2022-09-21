@@ -19,68 +19,87 @@ void main() {
     'RestJsonStreamingTraitsRequireLengthWithBlob (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.StreamingTraitsRequireLengthOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'RestJsonStreamingTraitsRequireLengthWithBlob',
-              documentation:
-                  'Serializes a blob in the HTTP payload with a required length',
-              protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: 'blobby blob blob',
-              bodyMediaType: 'application/octet-stream',
-              params: {'foo': 'Foo', 'blob': 'blobby blob blob'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'X-Foo': 'Foo', 'Content-Type': 'application/octet-stream'},
-              forbidHeaders: [],
-              requireHeaders: ['Content-Length'],
-              tags: [],
-              appliesTo: null,
-              method: 'POST',
-              uri: '/StreamingTraitsRequireLength',
-              host: null,
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [
-            StreamingTraitsRequireLengthInputRestJson1Serializer()
-          ]);
+        operation: _i3.StreamingTraitsRequireLengthOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonStreamingTraitsRequireLengthWithBlob',
+          documentation:
+              'Serializes a blob in the HTTP payload with a required length',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: 'blobby blob blob',
+          bodyMediaType: 'application/octet-stream',
+          params: {
+            'foo': 'Foo',
+            'blob': 'blobby blob blob',
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {
+            'X-Foo': 'Foo',
+            'Content-Type': 'application/octet-stream',
+          },
+          forbidHeaders: [],
+          requireHeaders: ['Content-Length'],
+          tags: [],
+          appliesTo: null,
+          method: 'POST',
+          uri: '/StreamingTraitsRequireLength',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          StreamingTraitsRequireLengthInputRestJson1Serializer()
+        ],
+      );
     },
   );
   _i1.test(
     'RestJsonStreamingTraitsRequireLengthWithNoBlobBody (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.StreamingTraitsRequireLengthOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'RestJsonStreamingTraitsRequireLengthWithNoBlobBody',
-              documentation: 'Serializes an empty blob in the HTTP payload',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: '',
-              bodyMediaType: 'application/octet-stream',
-              params: {'foo': 'Foo'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'X-Foo': 'Foo'},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              method: 'POST',
-              uri: '/StreamingTraitsRequireLength',
-              host: null,
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [
-            StreamingTraitsRequireLengthInputRestJson1Serializer()
-          ]);
+        operation: _i3.StreamingTraitsRequireLengthOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonStreamingTraitsRequireLengthWithNoBlobBody',
+          documentation: 'Serializes an empty blob in the HTTP payload',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: 'application/octet-stream',
+          params: {'foo': 'Foo'},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'X-Foo': 'Foo'},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'POST',
+          uri: '/StreamingTraitsRequireLength',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          StreamingTraitsRequireLengthInputRestJson1Serializer()
+        ],
+      );
     },
   );
 }
@@ -93,12 +112,18 @@ class StreamingTraitsRequireLengthInputRestJson1Serializer extends _i4
   @override
   Iterable<Type> get types => const [_i5.StreamingTraitsRequireLengthInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i5.StreamingTraitsRequireLengthInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.StreamingTraitsRequireLengthInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -108,16 +133,26 @@ class StreamingTraitsRequireLengthInputRestJson1Serializer extends _i4
       switch (key) {
         case 'blob':
           if (value != null) {
-            result.blob = (serializers.deserialize(value,
-                specifiedType: const FullType(_i6.Stream, [
-                  FullType(List, [FullType(int)])
-                ])) as _i6.Stream<List<int>>);
+            result.blob = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.Stream,
+                [
+                  FullType(
+                    List,
+                    [FullType(int)],
+                  )
+                ],
+              ),
+            ) as _i6.Stream<List<int>>);
           }
           break;
         case 'foo':
           if (value != null) {
-            result.foo = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.foo = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -128,8 +163,11 @@ class StreamingTraitsRequireLengthInputRestJson1Serializer extends _i4
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

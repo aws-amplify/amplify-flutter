@@ -19,9 +19,16 @@ abstract class NullAndEmptyHeadersIo
         Built<NullAndEmptyHeadersIo, NullAndEmptyHeadersIoBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<NullAndEmptyHeadersIoPayload> {
-  factory NullAndEmptyHeadersIo(
-      {String? a, String? b, _i3.BuiltList<String>? c}) {
-    return _$NullAndEmptyHeadersIo._(a: a, b: b, c: c);
+  factory NullAndEmptyHeadersIo({
+    String? a,
+    String? b,
+    _i3.BuiltList<String>? c,
+  }) {
+    return _$NullAndEmptyHeadersIo._(
+      a: a,
+      b: b,
+      c: c,
+    );
   }
 
   factory NullAndEmptyHeadersIo.build(
@@ -31,8 +38,10 @@ abstract class NullAndEmptyHeadersIo
   const NullAndEmptyHeadersIo._();
 
   factory NullAndEmptyHeadersIo.fromRequest(
-          NullAndEmptyHeadersIoPayload payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    NullAndEmptyHeadersIoPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       NullAndEmptyHeadersIo.build((b) {
         if (request.headers['X-A'] != null) {
           b.a = request.headers['X-A']!;
@@ -48,8 +57,9 @@ abstract class NullAndEmptyHeadersIo
 
   /// Constructs a [NullAndEmptyHeadersIo] from a [payload] and [response].
   factory NullAndEmptyHeadersIo.fromResponse(
-          NullAndEmptyHeadersIoPayload payload,
-          _i2.AWSBaseHttpResponse response) =>
+    NullAndEmptyHeadersIoPayload payload,
+    _i2.AWSBaseHttpResponse response,
+  ) =>
       NullAndEmptyHeadersIo.build((b) {
         if (response.headers['X-A'] != null) {
           b.a = response.headers['X-A']!;
@@ -75,13 +85,26 @@ abstract class NullAndEmptyHeadersIo
   @override
   NullAndEmptyHeadersIoPayload getPayload() => NullAndEmptyHeadersIoPayload();
   @override
-  List<Object?> get props => [a, b, c];
+  List<Object?> get props => [
+        a,
+        b,
+        c,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NullAndEmptyHeadersIo');
-    helper.add('a', a);
-    helper.add('b', b);
-    helper.add('c', c);
+    helper.add(
+      'a',
+      a,
+    );
+    helper.add(
+      'b',
+      b,
+    );
+    helper.add(
+      'c',
+      c,
+    );
     return helper.toString();
   }
 }
@@ -121,21 +144,30 @@ class NullAndEmptyHeadersIoRestXmlSerializer
         NullAndEmptyHeadersIo,
         _$NullAndEmptyHeadersIo,
         NullAndEmptyHeadersIoPayload,
-        _$NullAndEmptyHeadersIoPayload
+        _$NullAndEmptyHeadersIoPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   NullAndEmptyHeadersIoPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return NullAndEmptyHeadersIoPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[const _i1.XmlElementName('NullAndEmptyHeadersIo')];
     return result;
   }

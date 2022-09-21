@@ -27,13 +27,17 @@ abstract class XmlBlobsInputOutput
   const XmlBlobsInputOutput._();
 
   factory XmlBlobsInputOutput.fromRequest(
-          XmlBlobsInputOutput payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    XmlBlobsInputOutput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   /// Constructs a [XmlBlobsInputOutput] from a [payload] and [response].
   factory XmlBlobsInputOutput.fromResponse(
-          XmlBlobsInputOutput payload, _i2.AWSBaseHttpResponse response) =>
+    XmlBlobsInputOutput payload,
+    _i2.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -50,7 +54,10 @@ abstract class XmlBlobsInputOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlBlobsInputOutput');
-    helper.add('data', data);
+    helper.add(
+      'data',
+      data,
+    );
     return helper.toString();
   }
 }
@@ -60,15 +67,23 @@ class XmlBlobsInputOutputRestXmlSerializer
   const XmlBlobsInputOutputRestXmlSerializer() : super('XmlBlobsInputOutput');
 
   @override
-  Iterable<Type> get types =>
-      const [XmlBlobsInputOutput, _$XmlBlobsInputOutput];
+  Iterable<Type> get types => const [
+        XmlBlobsInputOutput,
+        _$XmlBlobsInputOutput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   XmlBlobsInputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = XmlBlobsInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -78,8 +93,10 @@ class XmlBlobsInputOutputRestXmlSerializer
       switch (key as String) {
         case 'data':
           if (value != null) {
-            result.data = (serializers.deserialize(value,
-                specifiedType: const FullType(_i3.Uint8List)) as _i3.Uint8List);
+            result.data = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.Uint8List),
+            ) as _i3.Uint8List);
           }
           break;
       }
@@ -89,15 +106,20 @@ class XmlBlobsInputOutputRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as XmlBlobsInputOutput);
     final result = <Object?>[const _i1.XmlElementName('XmlBlobsInputOutput')];
     if (payload.data != null) {
       result
         ..add(const _i1.XmlElementName('data'))
-        ..add(serializers.serialize(payload.data!,
-            specifiedType: const FullType.nullable(_i3.Uint8List)));
+        ..add(serializers.serialize(
+          payload.data!,
+          specifiedType: const FullType.nullable(_i3.Uint8List),
+        ));
     }
     return result;
   }

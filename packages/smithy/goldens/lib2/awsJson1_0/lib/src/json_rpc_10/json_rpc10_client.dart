@@ -45,9 +45,11 @@ import 'package:aws_json1_0_v2/src/json_rpc_10/operation/simple_scalar_propertie
 import 'package:smithy/smithy.dart' as _i1;
 
 class JsonRpc10Client {
-  const JsonRpc10Client(
-      {_i1.HttpClient? client, required String region, Uri? baseUri})
-      : _client = client,
+  const JsonRpc10Client({
+    _i1.HttpClient? client,
+    required String region,
+    Uri? baseUri,
+  })  : _client = client,
         _region = region,
         _baseUri = baseUri;
 
@@ -59,64 +61,112 @@ class JsonRpc10Client {
 
   /// The example tests how requests and responses are serialized when there's no request or response payload because the operation has an empty input and empty output structure that reuses the same shape. While this should be rare, code generators must support this.
   _i2.Future<_i3.EmptyInputAndEmptyOutputOutput> emptyInputAndEmptyOutput(
-      _i4.EmptyInputAndEmptyOutputInput input,
-      {_i1.HttpClient? client}) {
+    _i4.EmptyInputAndEmptyOutputInput input, {
+    _i1.HttpClient? client,
+  }) {
     return _i5.EmptyInputAndEmptyOutputOperation(
-            region: _region, baseUri: _baseUri)
-        .run(input, client: client ?? _client);
+      region: _region,
+      baseUri: _baseUri,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   _i2.Future<void> endpointOperation({_i1.HttpClient? client}) {
-    return _i6.EndpointOperation(region: _region, baseUri: _baseUri)
-        .run(const _i1.Unit(), client: client ?? _client);
+    return _i6.EndpointOperation(
+      region: _region,
+      baseUri: _baseUri,
+    ).run(
+      const _i1.Unit(),
+      client: client ?? _client,
+    );
   }
 
   _i2.Future<void> endpointWithHostLabelOperation(
-      _i7.EndpointWithHostLabelOperationInput input,
-      {_i1.HttpClient? client}) {
+    _i7.EndpointWithHostLabelOperationInput input, {
+    _i1.HttpClient? client,
+  }) {
     return _i8.EndpointWithHostLabelOperation(
-            region: _region, baseUri: _baseUri)
-        .run(input, client: client ?? _client);
+      region: _region,
+      baseUri: _baseUri,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   /// This operation has three possible return values: 1. A successful response in the form of GreetingWithErrorsOutput 2. An InvalidGreeting error. 3. A ComplexError error. Implementations must be able to successfully take a response and properly deserialize successful and error responses.
   _i2.Future<_i9.GreetingWithErrorsOutput> greetingWithErrors(
-      _i10.GreetingWithErrorsInput input,
-      {_i1.HttpClient? client}) {
-    return _i11.GreetingWithErrorsOperation(region: _region, baseUri: _baseUri)
-        .run(input, client: client ?? _client);
+    _i10.GreetingWithErrorsInput input, {
+    _i1.HttpClient? client,
+  }) {
+    return _i11.GreetingWithErrorsOperation(
+      region: _region,
+      baseUri: _baseUri,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   _i2.Future<void> hostWithPathOperation({_i1.HttpClient? client}) {
-    return _i12.HostWithPathOperation(region: _region, baseUri: _baseUri)
-        .run(const _i1.Unit(), client: client ?? _client);
+    return _i12.HostWithPathOperation(
+      region: _region,
+      baseUri: _baseUri,
+    ).run(
+      const _i1.Unit(),
+      client: client ?? _client,
+    );
   }
 
   /// This operation uses unions for inputs and outputs.
-  _i2.Future<_i13.JsonUnionsOutput> jsonUnions(_i14.JsonUnionsInput input,
-      {_i1.HttpClient? client}) {
-    return _i15.JsonUnionsOperation(region: _region, baseUri: _baseUri)
-        .run(input, client: client ?? _client);
+  _i2.Future<_i13.JsonUnionsOutput> jsonUnions(
+    _i14.JsonUnionsInput input, {
+    _i1.HttpClient? client,
+  }) {
+    return _i15.JsonUnionsOperation(
+      region: _region,
+      baseUri: _baseUri,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   /// The example tests how requests and responses are serialized when there's no request or response payload because the operation has no input or output. While this should be rare, code generators must support this.
   _i2.Future<void> noInputAndNoOutput({_i1.HttpClient? client}) {
-    return _i16.NoInputAndNoOutputOperation(region: _region, baseUri: _baseUri)
-        .run(const _i1.Unit(), client: client ?? _client);
+    return _i16.NoInputAndNoOutputOperation(
+      region: _region,
+      baseUri: _baseUri,
+    ).run(
+      const _i1.Unit(),
+      client: client ?? _client,
+    );
   }
 
   /// The example tests how requests and responses are serialized when there's no request or response payload because the operation has no input and the output is empty. While this should be rare, code generators must support this.
   _i2.Future<_i17.NoInputAndOutputOutput> noInputAndOutput(
       {_i1.HttpClient? client}) {
-    return _i18.NoInputAndOutputOperation(region: _region, baseUri: _baseUri)
-        .run(const _i1.Unit(), client: client ?? _client);
+    return _i18.NoInputAndOutputOperation(
+      region: _region,
+      baseUri: _baseUri,
+    ).run(
+      const _i1.Unit(),
+      client: client ?? _client,
+    );
   }
 
   _i2.Future<_i19.SimpleScalarPropertiesOutput> simpleScalarProperties(
-      _i20.SimpleScalarPropertiesInput input,
-      {_i1.HttpClient? client}) {
+    _i20.SimpleScalarPropertiesInput input, {
+    _i1.HttpClient? client,
+  }) {
     return _i21.SimpleScalarPropertiesOperation(
-            region: _region, baseUri: _baseUri)
-        .run(input, client: client ?? _client);
+      region: _region,
+      baseUri: _baseUri,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 }

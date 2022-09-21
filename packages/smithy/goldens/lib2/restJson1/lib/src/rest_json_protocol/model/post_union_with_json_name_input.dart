@@ -28,8 +28,10 @@ abstract class PostUnionWithJsonNameInput
   const PostUnionWithJsonNameInput._();
 
   factory PostUnionWithJsonNameInput.fromRequest(
-          PostUnionWithJsonNameInput payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    PostUnionWithJsonNameInput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -46,7 +48,10 @@ abstract class PostUnionWithJsonNameInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PostUnionWithJsonNameInput');
-    helper.add('value', value);
+    helper.add(
+      'value',
+      value,
+    );
     return helper.toString();
   }
 }
@@ -57,15 +62,23 @@ class PostUnionWithJsonNameInputRestJson1Serializer
       : super('PostUnionWithJsonNameInput');
 
   @override
-  Iterable<Type> get types =>
-      const [PostUnionWithJsonNameInput, _$PostUnionWithJsonNameInput];
+  Iterable<Type> get types => const [
+        PostUnionWithJsonNameInput,
+        _$PostUnionWithJsonNameInput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   PostUnionWithJsonNameInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = PostUnionWithJsonNameInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -75,9 +88,10 @@ class PostUnionWithJsonNameInputRestJson1Serializer
       switch (key) {
         case 'value':
           if (value != null) {
-            result.value = (serializers.deserialize(value,
-                    specifiedType: const FullType(_i3.UnionWithJsonName))
-                as _i3.UnionWithJsonName);
+            result.value = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.UnionWithJsonName),
+            ) as _i3.UnionWithJsonName);
           }
           break;
       }
@@ -87,15 +101,20 @@ class PostUnionWithJsonNameInputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as PostUnionWithJsonNameInput);
     final result = <Object?>[];
     if (payload.value != null) {
       result
         ..add('value')
-        ..add(serializers.serialize(payload.value!,
-            specifiedType: const FullType(_i3.UnionWithJsonName)));
+        ..add(serializers.serialize(
+          payload.value!,
+          specifiedType: const FullType(_i3.UnionWithJsonName),
+        ));
     }
     return result;
   }

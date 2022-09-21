@@ -28,8 +28,9 @@ abstract class EmptyInputAndEmptyOutputOutput
 
   /// Constructs a [EmptyInputAndEmptyOutputOutput] from a [payload] and [response].
   factory EmptyInputAndEmptyOutputOutput.fromResponse(
-          EmptyInputAndEmptyOutputOutput payload,
-          _i1.AWSBaseHttpResponse response) =>
+    EmptyInputAndEmptyOutputOutput payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i2.SmithySerializer> serializers = [
@@ -54,21 +55,32 @@ class EmptyInputAndEmptyOutputOutputRestXmlSerializer
       : super('EmptyInputAndEmptyOutputOutput');
 
   @override
-  Iterable<Type> get types =>
-      const [EmptyInputAndEmptyOutputOutput, _$EmptyInputAndEmptyOutputOutput];
+  Iterable<Type> get types => const [
+        EmptyInputAndEmptyOutputOutput,
+        _$EmptyInputAndEmptyOutputOutput,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   EmptyInputAndEmptyOutputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return EmptyInputAndEmptyOutputOutputBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       const _i2.XmlElementName('EmptyInputAndEmptyOutputOutput')
     ];

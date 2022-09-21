@@ -17,34 +17,41 @@ void main() {
     'RestJsonToleratesRegexCharsInSegments (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.HttpRequestWithRegexLiteralOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'RestJsonToleratesRegexCharsInSegments',
-              documentation:
-                  'Path matching is not broken by regex expressions in literal segments',
-              protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: '',
-              bodyMediaType: null,
-              params: {'str': 'abc'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              method: 'GET',
-              uri: '/ReDosLiteral/abc/(a+)+',
-              host: null,
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [
-            HttpRequestWithRegexLiteralInputRestJson1Serializer()
-          ]);
+        operation: _i3.HttpRequestWithRegexLiteralOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonToleratesRegexCharsInSegments',
+          documentation:
+              'Path matching is not broken by regex expressions in literal segments',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: null,
+          params: {'str': 'abc'},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'GET',
+          uri: '/ReDosLiteral/abc/(a+)+',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          HttpRequestWithRegexLiteralInputRestJson1Serializer()
+        ],
+      );
     },
   );
 }
@@ -57,12 +64,18 @@ class HttpRequestWithRegexLiteralInputRestJson1Serializer extends _i4
   @override
   Iterable<Type> get types => const [_i5.HttpRequestWithRegexLiteralInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i5.HttpRequestWithRegexLiteralInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.HttpRequestWithRegexLiteralInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -71,8 +84,10 @@ class HttpRequestWithRegexLiteralInputRestJson1Serializer extends _i4
       final value = iterator.current;
       switch (key) {
         case 'str':
-          result.str = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.str = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
       }
     }
@@ -81,8 +96,11 @@ class HttpRequestWithRegexLiteralInputRestJson1Serializer extends _i4
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

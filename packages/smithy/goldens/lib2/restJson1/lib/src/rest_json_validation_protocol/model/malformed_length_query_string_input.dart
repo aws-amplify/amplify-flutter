@@ -30,9 +30,10 @@ abstract class MalformedLengthQueryStringInput
   const MalformedLengthQueryStringInput._();
 
   factory MalformedLengthQueryStringInput.fromRequest(
-          MalformedLengthQueryStringInputPayload payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    MalformedLengthQueryStringInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       MalformedLengthQueryStringInput.build((b) {
         if (request.queryParameters['string'] != null) {
           b.string = request.queryParameters['string']!;
@@ -55,7 +56,10 @@ abstract class MalformedLengthQueryStringInput
   String toString() {
     final helper =
         newBuiltValueToStringHelper('MalformedLengthQueryStringInput');
-    helper.add('string', string);
+    helper.add(
+      'string',
+      string,
+    );
     return helper.toString();
   }
 }
@@ -96,20 +100,29 @@ class MalformedLengthQueryStringInputRestJson1Serializer extends _i1
         MalformedLengthQueryStringInput,
         _$MalformedLengthQueryStringInput,
         MalformedLengthQueryStringInputPayload,
-        _$MalformedLengthQueryStringInputPayload
+        _$MalformedLengthQueryStringInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   MalformedLengthQueryStringInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return MalformedLengthQueryStringInputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

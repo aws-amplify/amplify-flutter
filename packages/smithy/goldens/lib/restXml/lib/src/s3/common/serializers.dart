@@ -53,14 +53,22 @@ const List<_i1.SmithySerializer> serializers = [
   ..._i20.RequestPayer.serializers,
   ..._i21.ObjectStorageClass.serializers,
   ..._i22.RetryMode.serializers,
-  ..._i23.S3AddressingStyle.serializers
+  ..._i23.S3AddressingStyle.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
   const FullType(
-          _i24.BuiltMap, [FullType(String), FullType(_i9.FileConfigSettings)]):
-      _i24.MapBuilder<String, _i9.FileConfigSettings>.new,
-  const FullType(_i24.BuiltList, [FullType(_i17.CommonPrefix)]):
-      _i24.ListBuilder<_i17.CommonPrefix>.new,
-  const FullType(_i24.BuiltList, [FullType(_i15.S3Object)]):
-      _i24.ListBuilder<_i15.S3Object>.new
+    _i24.BuiltMap,
+    [
+      FullType(String),
+      FullType(_i9.FileConfigSettings),
+    ],
+  ): _i24.MapBuilder<String, _i9.FileConfigSettings>.new,
+  const FullType(
+    _i24.BuiltList,
+    [FullType(_i17.CommonPrefix)],
+  ): _i24.ListBuilder<_i17.CommonPrefix>.new,
+  const FullType(
+    _i24.BuiltList,
+    [FullType(_i15.S3Object)],
+  ): _i24.ListBuilder<_i15.S3Object>.new,
 };

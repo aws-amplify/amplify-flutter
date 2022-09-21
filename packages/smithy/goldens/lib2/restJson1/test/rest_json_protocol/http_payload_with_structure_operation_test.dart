@@ -19,68 +19,86 @@ void main() {
     'RestJsonHttpPayloadWithStructure (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.HttpPayloadWithStructureOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'RestJsonHttpPayloadWithStructure',
-              documentation: 'Serializes a structure in the payload',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: '{\n    "greeting": "hello",\n    "name": "Phreddy"\n}',
-              bodyMediaType: 'application/json',
-              params: {
-                'nested': {'greeting': 'hello', 'name': 'Phreddy'}
-              },
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'Content-Type': 'application/json'},
-              forbidHeaders: [],
-              requireHeaders: ['Content-Length'],
-              tags: [],
-              appliesTo: null,
-              method: 'PUT',
-              uri: '/HttpPayloadWithStructure',
-              host: null,
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [
-            HttpPayloadWithStructureInputOutputRestJson1Serializer(),
-            NestedPayloadRestJson1Serializer()
-          ]);
+        operation: _i3.HttpPayloadWithStructureOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonHttpPayloadWithStructure',
+          documentation: 'Serializes a structure in the payload',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '{\n    "greeting": "hello",\n    "name": "Phreddy"\n}',
+          bodyMediaType: 'application/json',
+          params: {
+            'nested': {
+              'greeting': 'hello',
+              'name': 'Phreddy',
+            }
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'Content-Type': 'application/json'},
+          forbidHeaders: [],
+          requireHeaders: ['Content-Length'],
+          tags: [],
+          appliesTo: null,
+          method: 'PUT',
+          uri: '/HttpPayloadWithStructure',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          HttpPayloadWithStructureInputOutputRestJson1Serializer(),
+          NestedPayloadRestJson1Serializer(),
+        ],
+      );
     },
   );
   _i1.test(
     'RestJsonHttpPayloadWithStructure (response)',
     () async {
       await _i2.httpResponseTest(
-          operation: _i3.HttpPayloadWithStructureOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpResponseTestCase(
-              id: 'RestJsonHttpPayloadWithStructure',
-              documentation: 'Serializes a structure in the payload',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: '{\n    "greeting": "hello",\n    "name": "Phreddy"\n}',
-              bodyMediaType: 'application/json',
-              params: {
-                'nested': {'greeting': 'hello', 'name': 'Phreddy'}
-              },
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'Content-Type': 'application/json'},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              code: 200),
-          outputSerializers: const [
-            HttpPayloadWithStructureInputOutputRestJson1Serializer(),
-            NestedPayloadRestJson1Serializer()
-          ]);
+        operation: _i3.HttpPayloadWithStructureOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpResponseTestCase(
+          id: 'RestJsonHttpPayloadWithStructure',
+          documentation: 'Serializes a structure in the payload',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '{\n    "greeting": "hello",\n    "name": "Phreddy"\n}',
+          bodyMediaType: 'application/json',
+          params: {
+            'nested': {
+              'greeting': 'hello',
+              'name': 'Phreddy',
+            }
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'Content-Type': 'application/json'},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          code: 200,
+        ),
+        outputSerializers: const [
+          HttpPayloadWithStructureInputOutputRestJson1Serializer(),
+          NestedPayloadRestJson1Serializer(),
+        ],
+      );
     },
   );
 }
@@ -93,12 +111,18 @@ class HttpPayloadWithStructureInputOutputRestJson1Serializer extends _i4
   @override
   Iterable<Type> get types => const [_i5.HttpPayloadWithStructureInputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i5.HttpPayloadWithStructureInputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.HttpPayloadWithStructureInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -108,9 +132,10 @@ class HttpPayloadWithStructureInputOutputRestJson1Serializer extends _i4
       switch (key) {
         case 'nested':
           if (value != null) {
-            result.nested.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i6.NestedPayload))
-                as _i6.NestedPayload));
+            result.nested.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i6.NestedPayload),
+            ) as _i6.NestedPayload));
           }
           break;
       }
@@ -120,8 +145,11 @@ class HttpPayloadWithStructureInputOutputRestJson1Serializer extends _i4
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }
@@ -133,12 +161,18 @@ class NestedPayloadRestJson1Serializer
   @override
   Iterable<Type> get types => const [_i6.NestedPayload];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i6.NestedPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i6.NestedPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -148,14 +182,18 @@ class NestedPayloadRestJson1Serializer
       switch (key) {
         case 'greeting':
           if (value != null) {
-            result.greeting = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.greeting = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'name':
           if (value != null) {
-            result.name = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.name = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -165,8 +203,11 @@ class NestedPayloadRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

@@ -18,32 +18,47 @@ void main() {
     'RestJsonNullAndEmptyHeaders (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.NullAndEmptyHeadersClientOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'RestJsonNullAndEmptyHeaders',
-              documentation:
-                  'Do not send null values, empty strings, or empty lists over the wire in headers',
-              protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: '',
-              bodyMediaType: null,
-              params: {'a': null, 'b': '', 'c': []},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {},
-              forbidHeaders: ['X-A', 'X-B', 'X-C'],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: _i2.AppliesTo.client,
-              method: 'GET',
-              uri: '/NullAndEmptyHeadersClient',
-              host: null,
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [NullAndEmptyHeadersIoRestJson1Serializer()]);
+        operation: _i3.NullAndEmptyHeadersClientOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonNullAndEmptyHeaders',
+          documentation:
+              'Do not send null values, empty strings, or empty lists over the wire in headers',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: null,
+          params: {
+            'a': null,
+            'b': '',
+            'c': [],
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {},
+          forbidHeaders: [
+            'X-A',
+            'X-B',
+            'X-C',
+          ],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: _i2.AppliesTo.client,
+          method: 'GET',
+          uri: '/NullAndEmptyHeadersClient',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [NullAndEmptyHeadersIoRestJson1Serializer()],
+      );
     },
   );
 }
@@ -56,12 +71,18 @@ class NullAndEmptyHeadersIoRestJson1Serializer
   @override
   Iterable<Type> get types => const [_i5.NullAndEmptyHeadersIo];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i5.NullAndEmptyHeadersIo deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.NullAndEmptyHeadersIoBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -71,22 +92,29 @@ class NullAndEmptyHeadersIoRestJson1Serializer
       switch (key) {
         case 'a':
           if (value != null) {
-            result.a = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.a = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'b':
           if (value != null) {
-            result.b = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.b = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'c':
           if (value != null) {
-            result.c.replace((serializers.deserialize(value,
-                    specifiedType:
-                        const FullType(_i6.BuiltList, [FullType(String)]))
-                as _i6.BuiltList<String>));
+            result.c.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltList,
+                [FullType(String)],
+              ),
+            ) as _i6.BuiltList<String>));
           }
           break;
       }
@@ -96,8 +124,11 @@ class NullAndEmptyHeadersIoRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

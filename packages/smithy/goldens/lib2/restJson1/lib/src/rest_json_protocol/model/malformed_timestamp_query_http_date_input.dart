@@ -30,15 +30,16 @@ abstract class MalformedTimestampQueryHttpDateInput
   const MalformedTimestampQueryHttpDateInput._();
 
   factory MalformedTimestampQueryHttpDateInput.fromRequest(
-          MalformedTimestampQueryHttpDateInputPayload payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    MalformedTimestampQueryHttpDateInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       MalformedTimestampQueryHttpDateInput.build((b) {
         if (request.queryParameters['timestamp'] != null) {
           b.timestamp = _i1.Timestamp.parse(
-                  request.queryParameters['timestamp']!,
-                  format: _i1.TimestampFormat.httpDate)
-              .asDateTime;
+            request.queryParameters['timestamp']!,
+            format: _i1.TimestampFormat.httpDate,
+          ).asDateTime;
         }
       });
 
@@ -58,7 +59,10 @@ abstract class MalformedTimestampQueryHttpDateInput
   String toString() {
     final helper =
         newBuiltValueToStringHelper('MalformedTimestampQueryHttpDateInput');
-    helper.add('timestamp', timestamp);
+    helper.add(
+      'timestamp',
+      timestamp,
+    );
     return helper.toString();
   }
 }
@@ -99,20 +103,29 @@ class MalformedTimestampQueryHttpDateInputRestJson1Serializer extends _i1
         MalformedTimestampQueryHttpDateInput,
         _$MalformedTimestampQueryHttpDateInput,
         MalformedTimestampQueryHttpDateInputPayload,
-        _$MalformedTimestampQueryHttpDateInputPayload
+        _$MalformedTimestampQueryHttpDateInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   MalformedTimestampQueryHttpDateInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return MalformedTimestampQueryHttpDateInputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

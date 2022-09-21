@@ -17,37 +17,43 @@ void main() {
     'RestJsonHttpChecksumRequired (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.HttpChecksumRequiredOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'RestJsonHttpChecksumRequired',
-              documentation: 'Adds Content-MD5 header',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: '{\n    "foo":"base64 encoded md5 checksum"\n}\n',
-              bodyMediaType: 'application/json',
-              params: {'foo': 'base64 encoded md5 checksum'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {
-                'Content-Type': 'application/json',
-                'Content-MD5': 'iB0/3YSo7maijL0IGOgA9g=='
-              },
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              method: 'POST',
-              uri: '/HttpChecksumRequired',
-              host: null,
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [
-            HttpChecksumRequiredInputOutputRestJson1Serializer()
-          ]);
+        operation: _i3.HttpChecksumRequiredOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonHttpChecksumRequired',
+          documentation: 'Adds Content-MD5 header',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '{\n    "foo":"base64 encoded md5 checksum"\n}\n',
+          bodyMediaType: 'application/json',
+          params: {'foo': 'base64 encoded md5 checksum'},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {
+            'Content-Type': 'application/json',
+            'Content-MD5': 'iB0/3YSo7maijL0IGOgA9g==',
+          },
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'POST',
+          uri: '/HttpChecksumRequired',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          HttpChecksumRequiredInputOutputRestJson1Serializer()
+        ],
+      );
     },
   );
 }
@@ -60,12 +66,18 @@ class HttpChecksumRequiredInputOutputRestJson1Serializer extends _i4
   @override
   Iterable<Type> get types => const [_i5.HttpChecksumRequiredInputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i5.HttpChecksumRequiredInputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.HttpChecksumRequiredInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -75,8 +87,10 @@ class HttpChecksumRequiredInputOutputRestJson1Serializer extends _i4
       switch (key) {
         case 'foo':
           if (value != null) {
-            result.foo = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.foo = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -86,8 +100,11 @@ class HttpChecksumRequiredInputOutputRestJson1Serializer extends _i4
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

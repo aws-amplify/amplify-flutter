@@ -32,8 +32,10 @@ abstract class XmlAttributesOnPayloadInputOutput
   const XmlAttributesOnPayloadInputOutput._();
 
   factory XmlAttributesOnPayloadInputOutput.fromRequest(
-          _i2.XmlAttributesInputOutput? payload, _i3.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    _i2.XmlAttributesInputOutput? payload,
+    _i3.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       XmlAttributesOnPayloadInputOutput.build((b) {
         if (payload != null) {
           b.payload.replace(payload);
@@ -42,8 +44,9 @@ abstract class XmlAttributesOnPayloadInputOutput
 
   /// Constructs a [XmlAttributesOnPayloadInputOutput] from a [payload] and [response].
   factory XmlAttributesOnPayloadInputOutput.fromResponse(
-          _i2.XmlAttributesInputOutput? payload,
-          _i3.AWSBaseHttpResponse response) =>
+    _i2.XmlAttributesInputOutput? payload,
+    _i3.AWSBaseHttpResponse response,
+  ) =>
       XmlAttributesOnPayloadInputOutput.build((b) {
         if (payload != null) {
           b.payload.replace(payload);
@@ -66,7 +69,10 @@ abstract class XmlAttributesOnPayloadInputOutput
   String toString() {
     final helper =
         newBuiltValueToStringHelper('XmlAttributesOnPayloadInputOutput');
-    helper.add('payload', payload);
+    helper.add(
+      'payload',
+      payload,
+    );
     return helper.toString();
   }
 }
@@ -79,15 +85,21 @@ class XmlAttributesOnPayloadInputOutputRestXmlSerializer
   @override
   Iterable<Type> get types => const [
         XmlAttributesOnPayloadInputOutput,
-        _$XmlAttributesOnPayloadInputOutput
+        _$XmlAttributesOnPayloadInputOutput,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   _i2.XmlAttributesInputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i2.XmlAttributesInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -97,14 +109,18 @@ class XmlAttributesOnPayloadInputOutputRestXmlSerializer
       switch (key as String) {
         case 'foo':
           if (value != null) {
-            result.foo = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.foo = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'test':
           if (value != null) {
-            result.attr = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.attr = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -114,8 +130,11 @@ class XmlAttributesOnPayloadInputOutputRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is XmlAttributesOnPayloadInputOutput
         ? object.getPayload()
         : (object as _i2.XmlAttributesInputOutput?);
@@ -127,15 +146,20 @@ class XmlAttributesOnPayloadInputOutputRestXmlSerializer
     }
     if (payload.attr != null) {
       result.add(_i4.XmlAttribute(
-          _i4.XmlName('test'),
-          (serializers.serialize(payload.attr!,
-              specifiedType: const FullType(String)) as String)));
+        _i4.XmlName('test'),
+        (serializers.serialize(
+          payload.attr!,
+          specifiedType: const FullType(String),
+        ) as String),
+      ));
     }
     if (payload.foo != null) {
       result
         ..add(const _i1.XmlElementName('foo'))
-        ..add(serializers.serialize(payload.foo!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.foo!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

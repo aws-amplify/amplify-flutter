@@ -28,14 +28,17 @@ abstract class BodyWithXmlNameInputOutput
   const BodyWithXmlNameInputOutput._();
 
   factory BodyWithXmlNameInputOutput.fromRequest(
-          BodyWithXmlNameInputOutput payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    BodyWithXmlNameInputOutput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   /// Constructs a [BodyWithXmlNameInputOutput] from a [payload] and [response].
   factory BodyWithXmlNameInputOutput.fromResponse(
-          BodyWithXmlNameInputOutput payload,
-          _i2.AWSBaseHttpResponse response) =>
+    BodyWithXmlNameInputOutput payload,
+    _i2.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -52,7 +55,10 @@ abstract class BodyWithXmlNameInputOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('BodyWithXmlNameInputOutput');
-    helper.add('nested', nested);
+    helper.add(
+      'nested',
+      nested,
+    );
     return helper.toString();
   }
 }
@@ -63,15 +69,23 @@ class BodyWithXmlNameInputOutputRestXmlSerializer
       : super('BodyWithXmlNameInputOutput');
 
   @override
-  Iterable<Type> get types =>
-      const [BodyWithXmlNameInputOutput, _$BodyWithXmlNameInputOutput];
+  Iterable<Type> get types => const [
+        BodyWithXmlNameInputOutput,
+        _$BodyWithXmlNameInputOutput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   BodyWithXmlNameInputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = BodyWithXmlNameInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -81,9 +95,10 @@ class BodyWithXmlNameInputOutputRestXmlSerializer
       switch (key as String) {
         case 'nested':
           if (value != null) {
-            result.nested.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i3.PayloadWithXmlName))
-                as _i3.PayloadWithXmlName));
+            result.nested.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.PayloadWithXmlName),
+            ) as _i3.PayloadWithXmlName));
           }
           break;
       }
@@ -93,15 +108,20 @@ class BodyWithXmlNameInputOutputRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as BodyWithXmlNameInputOutput);
     final result = <Object?>[const _i1.XmlElementName('Ahoy')];
     if (payload.nested != null) {
       result
         ..add(const _i1.XmlElementName('nested'))
-        ..add(serializers.serialize(payload.nested!,
-            specifiedType: const FullType(_i3.PayloadWithXmlName)));
+        ..add(serializers.serialize(
+          payload.nested!,
+          specifiedType: const FullType(_i3.PayloadWithXmlName),
+        ));
     }
     return result;
   }

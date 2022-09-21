@@ -19,70 +19,82 @@ void main() {
     'BodyWithXmlName (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.BodyWithXmlNameOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'BodyWithXmlName',
-              documentation:
-                  'Serializes a payload using a wrapper name based on the xmlName',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
-              authScheme: null,
-              body: '<Ahoy><nested><name>Phreddy</name></nested></Ahoy>',
-              bodyMediaType: 'application/xml',
-              params: {
-                'nested': {'name': 'Phreddy'}
-              },
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'Content-Type': 'application/xml'},
-              forbidHeaders: [],
-              requireHeaders: ['Content-Length'],
-              tags: [],
-              appliesTo: null,
-              method: 'PUT',
-              uri: '/BodyWithXmlName',
-              host: null,
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [
-            BodyWithXmlNameInputOutputRestXmlSerializer(),
-            PayloadWithXmlNameRestXmlSerializer()
-          ]);
+        operation: _i3.BodyWithXmlNameOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'BodyWithXmlName',
+          documentation:
+              'Serializes a payload using a wrapper name based on the xmlName',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restXml',
+          ),
+          authScheme: null,
+          body: '<Ahoy><nested><name>Phreddy</name></nested></Ahoy>',
+          bodyMediaType: 'application/xml',
+          params: {
+            'nested': {'name': 'Phreddy'}
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'Content-Type': 'application/xml'},
+          forbidHeaders: [],
+          requireHeaders: ['Content-Length'],
+          tags: [],
+          appliesTo: null,
+          method: 'PUT',
+          uri: '/BodyWithXmlName',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          BodyWithXmlNameInputOutputRestXmlSerializer(),
+          PayloadWithXmlNameRestXmlSerializer(),
+        ],
+      );
     },
   );
   _i1.test(
     'BodyWithXmlName (response)',
     () async {
       await _i2.httpResponseTest(
-          operation: _i3.BodyWithXmlNameOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpResponseTestCase(
-              id: 'BodyWithXmlName',
-              documentation:
-                  'Serializes a payload using a wrapper name based on the xmlName',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
-              authScheme: null,
-              body: '<Ahoy><nested><name>Phreddy</name></nested></Ahoy>',
-              bodyMediaType: 'application/xml',
-              params: {
-                'nested': {'name': 'Phreddy'}
-              },
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'Content-Type': 'application/xml'},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              code: 200),
-          outputSerializers: const [
-            BodyWithXmlNameInputOutputRestXmlSerializer(),
-            PayloadWithXmlNameRestXmlSerializer()
-          ]);
+        operation: _i3.BodyWithXmlNameOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpResponseTestCase(
+          id: 'BodyWithXmlName',
+          documentation:
+              'Serializes a payload using a wrapper name based on the xmlName',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restXml',
+          ),
+          authScheme: null,
+          body: '<Ahoy><nested><name>Phreddy</name></nested></Ahoy>',
+          bodyMediaType: 'application/xml',
+          params: {
+            'nested': {'name': 'Phreddy'}
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'Content-Type': 'application/xml'},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          code: 200,
+        ),
+        outputSerializers: const [
+          BodyWithXmlNameInputOutputRestXmlSerializer(),
+          PayloadWithXmlNameRestXmlSerializer(),
+        ],
+      );
     },
   );
 }
@@ -95,12 +107,18 @@ class BodyWithXmlNameInputOutputRestXmlSerializer
   @override
   Iterable<Type> get types => const [_i5.BodyWithXmlNameInputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   _i5.BodyWithXmlNameInputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.BodyWithXmlNameInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -110,9 +128,10 @@ class BodyWithXmlNameInputOutputRestXmlSerializer
       switch (key) {
         case 'nested':
           if (value != null) {
-            result.nested.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i6.PayloadWithXmlName))
-                as _i6.PayloadWithXmlName));
+            result.nested.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i6.PayloadWithXmlName),
+            ) as _i6.PayloadWithXmlName));
           }
           break;
       }
@@ -122,8 +141,11 @@ class BodyWithXmlNameInputOutputRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }
@@ -135,12 +157,18 @@ class PayloadWithXmlNameRestXmlSerializer
   @override
   Iterable<Type> get types => const [_i6.PayloadWithXmlName];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   _i6.PayloadWithXmlName deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i6.PayloadWithXmlNameBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -150,8 +178,10 @@ class PayloadWithXmlNameRestXmlSerializer
       switch (key) {
         case 'name':
           if (value != null) {
-            result.name = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.name = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -161,8 +191,11 @@ class PayloadWithXmlNameRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

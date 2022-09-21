@@ -29,9 +29,10 @@ abstract class GetBucketLocationRequest
   const GetBucketLocationRequest._();
 
   factory GetBucketLocationRequest.fromRequest(
-          GetBucketLocationRequestPayload payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    GetBucketLocationRequestPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       GetBucketLocationRequest.build((b) {
         if (labels['bucket'] != null) {
           b.bucket = labels['bucket']!;
@@ -51,7 +52,10 @@ abstract class GetBucketLocationRequest
       case 'Bucket':
         return bucket;
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -62,7 +66,10 @@ abstract class GetBucketLocationRequest
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetBucketLocationRequest');
-    helper.add('bucket', bucket);
+    helper.add(
+      'bucket',
+      bucket,
+    );
     return helper.toString();
   }
 }
@@ -103,24 +110,35 @@ class GetBucketLocationRequestRestXmlSerializer
         GetBucketLocationRequest,
         _$GetBucketLocationRequest,
         GetBucketLocationRequestPayload,
-        _$GetBucketLocationRequestPayload
+        _$GetBucketLocationRequestPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   GetBucketLocationRequestPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return GetBucketLocationRequestPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
-      const _i1.XmlElementName('GetBucketLocationRequest',
-          _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i1.XmlElementName(
+        'GetBucketLocationRequest',
+        _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     return result;
   }

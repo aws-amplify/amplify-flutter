@@ -33,7 +33,10 @@ abstract class GreetingStruct
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GreetingStruct');
-    helper.add('hi', hi);
+    helper.add(
+      'hi',
+      hi,
+    );
     return helper.toString();
   }
 }
@@ -43,14 +46,23 @@ class GreetingStructAwsJson10Serializer
   const GreetingStructAwsJson10Serializer() : super('GreetingStruct');
 
   @override
-  Iterable<Type> get types => const [GreetingStruct, _$GreetingStruct];
+  Iterable<Type> get types => const [
+        GreetingStruct,
+        _$GreetingStruct,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_0',
+        )
+      ];
   @override
   GreetingStruct deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = GreetingStructBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -60,8 +72,10 @@ class GreetingStructAwsJson10Serializer
       switch (key) {
         case 'hi':
           if (value != null) {
-            result.hi = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.hi = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -71,15 +85,20 @@ class GreetingStructAwsJson10Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as GreetingStruct);
     final result = <Object?>[];
     if (payload.hi != null) {
       result
         ..add('hi')
-        ..add(serializers.serialize(payload.hi!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.hi!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

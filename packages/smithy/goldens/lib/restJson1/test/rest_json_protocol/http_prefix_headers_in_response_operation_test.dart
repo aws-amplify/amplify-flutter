@@ -20,30 +20,42 @@ void main() {
     'HttpPrefixHeadersResponse (response)',
     () async {
       await _i2.httpResponseTest(
-          operation: _i3.HttpPrefixHeadersInResponseOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpResponseTestCase(
-              id: 'HttpPrefixHeadersResponse',
-              documentation: '(de)serializes all response headers',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: null,
-              bodyMediaType: null,
-              params: {
-                'prefixHeaders': {'X-Foo': 'Foo', 'Hello': 'Hello'}
-              },
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'X-Foo': 'Foo', 'Hello': 'Hello'},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              code: 200),
-          outputSerializers: const [
-            HttpPrefixHeadersInResponseOutputRestJson1Serializer()
-          ]);
+        operation: _i3.HttpPrefixHeadersInResponseOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpResponseTestCase(
+          id: 'HttpPrefixHeadersResponse',
+          documentation: '(de)serializes all response headers',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: null,
+          bodyMediaType: null,
+          params: {
+            'prefixHeaders': {
+              'X-Foo': 'Foo',
+              'Hello': 'Hello',
+            }
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {
+            'X-Foo': 'Foo',
+            'Hello': 'Hello',
+          },
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          code: 200,
+        ),
+        outputSerializers: const [
+          HttpPrefixHeadersInResponseOutputRestJson1Serializer()
+        ],
+      );
     },
   );
 }
@@ -56,18 +68,27 @@ class HttpPrefixHeadersInResponseInputRestJson1Serializer extends _i4
   @override
   Iterable<Type> get types => const [_i5.HttpPrefixHeadersInResponseInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i5.HttpPrefixHeadersInResponseInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return _i5.HttpPrefixHeadersInResponseInputBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }
@@ -80,12 +101,18 @@ class HttpPrefixHeadersInResponseOutputRestJson1Serializer extends _i4
   @override
   Iterable<Type> get types => const [_i6.HttpPrefixHeadersInResponseOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i6.HttpPrefixHeadersInResponseOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i6.HttpPrefixHeadersInResponseOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -95,10 +122,16 @@ class HttpPrefixHeadersInResponseOutputRestJson1Serializer extends _i4
       switch (key) {
         case 'prefixHeaders':
           if (value != null) {
-            result.prefixHeaders.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(
-                        _i7.BuiltMap, [FullType(String), FullType(String)]))
-                as _i7.BuiltMap<String, String>));
+            result.prefixHeaders.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i7.BuiltMap,
+                [
+                  FullType(String),
+                  FullType(String),
+                ],
+              ),
+            ) as _i7.BuiltMap<String, String>));
           }
           break;
       }
@@ -108,8 +141,11 @@ class HttpPrefixHeadersInResponseOutputRestJson1Serializer extends _i4
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

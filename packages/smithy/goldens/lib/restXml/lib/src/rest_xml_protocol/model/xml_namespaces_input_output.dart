@@ -28,13 +28,17 @@ abstract class XmlNamespacesInputOutput
   const XmlNamespacesInputOutput._();
 
   factory XmlNamespacesInputOutput.fromRequest(
-          XmlNamespacesInputOutput payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    XmlNamespacesInputOutput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   /// Constructs a [XmlNamespacesInputOutput] from a [payload] and [response].
   factory XmlNamespacesInputOutput.fromResponse(
-          XmlNamespacesInputOutput payload, _i2.AWSBaseHttpResponse response) =>
+    XmlNamespacesInputOutput payload,
+    _i2.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -51,7 +55,10 @@ abstract class XmlNamespacesInputOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlNamespacesInputOutput');
-    helper.add('nested', nested);
+    helper.add(
+      'nested',
+      nested,
+    );
     return helper.toString();
   }
 }
@@ -62,15 +69,23 @@ class XmlNamespacesInputOutputRestXmlSerializer
       : super('XmlNamespacesInputOutput');
 
   @override
-  Iterable<Type> get types =>
-      const [XmlNamespacesInputOutput, _$XmlNamespacesInputOutput];
+  Iterable<Type> get types => const [
+        XmlNamespacesInputOutput,
+        _$XmlNamespacesInputOutput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   XmlNamespacesInputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = XmlNamespacesInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -80,9 +95,10 @@ class XmlNamespacesInputOutputRestXmlSerializer
       switch (key as String) {
         case 'nested':
           if (value != null) {
-            result.nested.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i3.XmlNamespaceNested))
-                as _i3.XmlNamespaceNested));
+            result.nested.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.XmlNamespaceNested),
+            ) as _i3.XmlNamespaceNested));
           }
           break;
       }
@@ -92,18 +108,25 @@ class XmlNamespacesInputOutputRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as XmlNamespacesInputOutput);
     final result = <Object?>[
       const _i1.XmlElementName(
-          'XmlNamespacesInputOutput', _i1.XmlNamespace('http://foo.com'))
+        'XmlNamespacesInputOutput',
+        _i1.XmlNamespace('http://foo.com'),
+      )
     ];
     if (payload.nested != null) {
       result
         ..add(const _i1.XmlElementName('nested'))
-        ..add(serializers.serialize(payload.nested!,
-            specifiedType: const FullType(_i3.XmlNamespaceNested)));
+        ..add(serializers.serialize(
+          payload.nested!,
+          specifiedType: const FullType(_i3.XmlNamespaceNested),
+        ));
     }
     return result;
   }

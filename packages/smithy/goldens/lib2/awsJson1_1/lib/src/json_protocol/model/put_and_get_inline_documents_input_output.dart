@@ -30,15 +30,17 @@ abstract class PutAndGetInlineDocumentsInputOutput
   const PutAndGetInlineDocumentsInputOutput._();
 
   factory PutAndGetInlineDocumentsInputOutput.fromRequest(
-          PutAndGetInlineDocumentsInputOutput payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    PutAndGetInlineDocumentsInputOutput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   /// Constructs a [PutAndGetInlineDocumentsInputOutput] from a [payload] and [response].
   factory PutAndGetInlineDocumentsInputOutput.fromResponse(
-          PutAndGetInlineDocumentsInputOutput payload,
-          _i2.AWSBaseHttpResponse response) =>
+    PutAndGetInlineDocumentsInputOutput payload,
+    _i2.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -56,7 +58,10 @@ abstract class PutAndGetInlineDocumentsInputOutput
   String toString() {
     final helper =
         newBuiltValueToStringHelper('PutAndGetInlineDocumentsInputOutput');
-    helper.add('inlineDocument', inlineDocument);
+    helper.add(
+      'inlineDocument',
+      inlineDocument,
+    );
     return helper.toString();
   }
 }
@@ -69,15 +74,21 @@ class PutAndGetInlineDocumentsInputOutputAwsJson11Serializer extends _i1
   @override
   Iterable<Type> get types => const [
         PutAndGetInlineDocumentsInputOutput,
-        _$PutAndGetInlineDocumentsInputOutput
+        _$PutAndGetInlineDocumentsInputOutput,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   PutAndGetInlineDocumentsInputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = PutAndGetInlineDocumentsInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -87,9 +98,10 @@ class PutAndGetInlineDocumentsInputOutputAwsJson11Serializer extends _i1
       switch (key) {
         case 'inlineDocument':
           if (value != null) {
-            result.inlineDocument = (serializers.deserialize(value,
-                    specifiedType: const FullType(_i3.JsonObject))
-                as _i3.JsonObject);
+            result.inlineDocument = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.JsonObject),
+            ) as _i3.JsonObject);
           }
           break;
       }
@@ -99,15 +111,20 @@ class PutAndGetInlineDocumentsInputOutputAwsJson11Serializer extends _i1
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as PutAndGetInlineDocumentsInputOutput);
     final result = <Object?>[];
     if (payload.inlineDocument != null) {
       result
         ..add('inlineDocument')
-        ..add(serializers.serialize(payload.inlineDocument!,
-            specifiedType: const FullType(_i3.JsonObject)));
+        ..add(serializers.serialize(
+          payload.inlineDocument!,
+          specifiedType: const FullType(_i3.JsonObject),
+        ));
     }
     return result;
   }

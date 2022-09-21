@@ -18,8 +18,14 @@ abstract class GetRestApisRequest
         Built<GetRestApisRequest, GetRestApisRequestBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<GetRestApisRequestPayload> {
-  factory GetRestApisRequest({int? limit, String? position}) {
-    return _$GetRestApisRequest._(limit: limit, position: position);
+  factory GetRestApisRequest({
+    int? limit,
+    String? position,
+  }) {
+    return _$GetRestApisRequest._(
+      limit: limit,
+      position: position,
+    );
   }
 
   factory GetRestApisRequest.build(
@@ -29,8 +35,10 @@ abstract class GetRestApisRequest
   const GetRestApisRequest._();
 
   factory GetRestApisRequest.fromRequest(
-          GetRestApisRequestPayload payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    GetRestApisRequestPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       GetRestApisRequest.build((b) {
         if (request.queryParameters['position'] != null) {
           b.position = request.queryParameters['position']!;
@@ -51,12 +59,21 @@ abstract class GetRestApisRequest
   @override
   GetRestApisRequestPayload getPayload() => GetRestApisRequestPayload();
   @override
-  List<Object?> get props => [limit, position];
+  List<Object?> get props => [
+        limit,
+        position,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetRestApisRequest');
-    helper.add('limit', limit);
-    helper.add('position', position);
+    helper.add(
+      'limit',
+      limit,
+    );
+    helper.add(
+      'position',
+      position,
+    );
     return helper.toString();
   }
 }
@@ -93,20 +110,29 @@ class GetRestApisRequestRestJson1Serializer
         GetRestApisRequest,
         _$GetRestApisRequest,
         GetRestApisRequestPayload,
-        _$GetRestApisRequestPayload
+        _$GetRestApisRequestPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   GetRestApisRequestPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return GetRestApisRequestPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

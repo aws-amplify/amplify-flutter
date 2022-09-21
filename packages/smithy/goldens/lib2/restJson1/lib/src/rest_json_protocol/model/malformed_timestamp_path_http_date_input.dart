@@ -30,14 +30,16 @@ abstract class MalformedTimestampPathHttpDateInput
   const MalformedTimestampPathHttpDateInput._();
 
   factory MalformedTimestampPathHttpDateInput.fromRequest(
-          MalformedTimestampPathHttpDateInputPayload payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    MalformedTimestampPathHttpDateInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       MalformedTimestampPathHttpDateInput.build((b) {
         if (labels['timestamp'] != null) {
-          b.timestamp = _i1.Timestamp.parse(labels['timestamp']!,
-                  format: _i1.TimestampFormat.httpDate)
-              .asDateTime;
+          b.timestamp = _i1.Timestamp.parse(
+            labels['timestamp']!,
+            format: _i1.TimestampFormat.httpDate,
+          ).asDateTime;
         }
       });
 
@@ -56,7 +58,10 @@ abstract class MalformedTimestampPathHttpDateInput
             .format(_i1.TimestampFormat.httpDate)
             .toString();
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -68,7 +73,10 @@ abstract class MalformedTimestampPathHttpDateInput
   String toString() {
     final helper =
         newBuiltValueToStringHelper('MalformedTimestampPathHttpDateInput');
-    helper.add('timestamp', timestamp);
+    helper.add(
+      'timestamp',
+      timestamp,
+    );
     return helper.toString();
   }
 }
@@ -109,20 +117,29 @@ class MalformedTimestampPathHttpDateInputRestJson1Serializer extends _i1
         MalformedTimestampPathHttpDateInput,
         _$MalformedTimestampPathHttpDateInput,
         MalformedTimestampPathHttpDateInputPayload,
-        _$MalformedTimestampPathHttpDateInputPayload
+        _$MalformedTimestampPathHttpDateInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   MalformedTimestampPathHttpDateInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return MalformedTimestampPathHttpDateInputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

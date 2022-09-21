@@ -22,9 +22,10 @@ class HttpPayloadTraitsWithMediaTypeOperation extends _i1.HttpOperation<
     _i2.Uint8List,
     _i3.HttpPayloadTraitsWithMediaTypeInputOutput> {
   /// This examples uses a `@mediaType` trait on the payload to force a custom content-type to be serialized.
-  HttpPayloadTraitsWithMediaTypeOperation(
-      {required String region, Uri? baseUri})
-      : _region = region,
+  HttpPayloadTraitsWithMediaTypeOperation({
+    required String region,
+    Uri? baseUri,
+  })  : _region = region,
         _baseUri = baseUri;
 
   @override
@@ -35,21 +36,24 @@ class HttpPayloadTraitsWithMediaTypeOperation extends _i1.HttpOperation<
           _i2.Uint8List,
           _i3.HttpPayloadTraitsWithMediaTypeInputOutput>> protocols = [
     _i4.RestJson1Protocol(
-        serializers: _i5.serializers,
-        builderFactories: _i5.builderFactories,
-        requestInterceptors: [
-          const _i1.WithHost(),
-          const _i1.WithContentLength(),
-          const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
-          const _i4.WithSdkInvocationId(),
-          const _i4.WithSdkRequest()
-        ],
-        responseInterceptors: [],
-        mediaType: 'text/plain')
+      serializers: _i5.serializers,
+      builderFactories: _i5.builderFactories,
+      requestInterceptors: [
+        const _i1.WithHost(),
+        const _i1.WithContentLength(),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i4.WithSdkInvocationId(),
+        const _i4.WithSdkRequest(),
+      ],
+      responseInterceptors: [],
+      mediaType: 'text/plain',
+    )
   ];
 
-  late final _i4.AWSEndpoint _awsEndpoint =
-      _i6.endpointResolver.resolve(_i6.sdkId, _region);
+  late final _i4.AWSEndpoint _awsEndpoint = _i6.endpointResolver.resolve(
+    _i6.sdkId,
+    _region,
+  );
 
   final String _region;
 
@@ -72,9 +76,13 @@ class HttpPayloadTraitsWithMediaTypeOperation extends _i1.HttpOperation<
       200;
   @override
   _i3.HttpPayloadTraitsWithMediaTypeInputOutput buildOutput(
-          _i2.Uint8List? payload, _i7.AWSStreamedHttpResponse response) =>
+    _i2.Uint8List? payload,
+    _i7.AWSStreamedHttpResponse response,
+  ) =>
       _i3.HttpPayloadTraitsWithMediaTypeInputOutput.fromResponse(
-          payload, response);
+        payload,
+        response,
+      );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
   @override
@@ -85,14 +93,20 @@ class HttpPayloadTraitsWithMediaTypeOperation extends _i1.HttpOperation<
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
   _i8.Future<_i3.HttpPayloadTraitsWithMediaTypeInputOutput> run(
-      _i3.HttpPayloadTraitsWithMediaTypeInputOutput input,
-      {_i1.HttpClient? client,
-      _i1.ShapeId? useProtocol}) {
+    _i3.HttpPayloadTraitsWithMediaTypeInputOutput input, {
+    _i1.HttpClient? client,
+    _i1.ShapeId? useProtocol,
+  }) {
     return _i8.runZoned(
-        () => super.run(input, client: client, useProtocol: useProtocol),
-        zoneValues: {
-          ...?_awsEndpoint.credentialScope?.zoneValues,
-          ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
-        });
+      () => super.run(
+        input,
+        client: client,
+        useProtocol: useProtocol,
+      ),
+      zoneValues: {
+        ...?_awsEndpoint.credentialScope?.zoneValues,
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+      },
+    );
   }
 }

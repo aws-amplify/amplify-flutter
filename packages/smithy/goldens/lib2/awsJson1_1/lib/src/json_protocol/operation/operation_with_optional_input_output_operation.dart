@@ -22,12 +22,12 @@ class OperationWithOptionalInputOutputOperation extends _i1.HttpOperation<
     _i2.OperationWithOptionalInputOutputInput,
     _i3.OperationWithOptionalInputOutputOutput,
     _i3.OperationWithOptionalInputOutputOutput> {
-  OperationWithOptionalInputOutputOperation(
-      {required String region,
-      Uri? baseUri,
-      _i4.AWSCredentialsProvider credentialsProvider =
-          const _i4.AWSCredentialsProvider.environment()})
-      : _region = region,
+  OperationWithOptionalInputOutputOperation({
+    required String region,
+    Uri? baseUri,
+    _i4.AWSCredentialsProvider credentialsProvider =
+        const _i4.AWSCredentialsProvider.environment(),
+  })  : _region = region,
         _baseUri = baseUri,
         _credentialsProvider = credentialsProvider;
 
@@ -39,26 +39,32 @@ class OperationWithOptionalInputOutputOperation extends _i1.HttpOperation<
           _i3.OperationWithOptionalInputOutputOutput,
           _i3.OperationWithOptionalInputOutputOutput>> protocols = [
     _i5.AwsJson1_1Protocol(
-        serializers: _i6.serializers,
-        builderFactories: _i6.builderFactories,
-        requestInterceptors: [
-          const _i1.WithHost(),
-          const _i1.WithContentLength(),
-          const _i1.WithHeader(
-              'X-Amz-Target', 'JsonProtocol.OperationWithOptionalInputOutput'),
-          _i5.WithSigV4(
-              region: _region,
-              service: _i7.AWSService.iam,
-              credentialsProvider: _credentialsProvider),
-          const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
-          const _i5.WithSdkInvocationId(),
-          const _i5.WithSdkRequest()
-        ],
-        responseInterceptors: [])
+      serializers: _i6.serializers,
+      builderFactories: _i6.builderFactories,
+      requestInterceptors: [
+        const _i1.WithHost(),
+        const _i1.WithContentLength(),
+        const _i1.WithHeader(
+          'X-Amz-Target',
+          'JsonProtocol.OperationWithOptionalInputOutput',
+        ),
+        _i5.WithSigV4(
+          region: _region,
+          service: _i7.AWSService.iam,
+          credentialsProvider: _credentialsProvider,
+        ),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i5.WithSdkInvocationId(),
+        const _i5.WithSdkRequest(),
+      ],
+      responseInterceptors: [],
+    )
   ];
 
-  late final _i5.AWSEndpoint _awsEndpoint =
-      _i8.endpointResolver.resolve(_i8.sdkId, _region);
+  late final _i5.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
+    _i8.sdkId,
+    _region,
+  );
 
   final String _region;
 
@@ -77,10 +83,13 @@ class OperationWithOptionalInputOutputOperation extends _i1.HttpOperation<
   int successCode([_i3.OperationWithOptionalInputOutputOutput? output]) => 200;
   @override
   _i3.OperationWithOptionalInputOutputOutput buildOutput(
-          _i3.OperationWithOptionalInputOutputOutput payload,
-          _i7.AWSStreamedHttpResponse response) =>
+    _i3.OperationWithOptionalInputOutputOutput payload,
+    _i7.AWSStreamedHttpResponse response,
+  ) =>
       _i3.OperationWithOptionalInputOutputOutput.fromResponse(
-          payload, response);
+        payload,
+        response,
+      );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
   @override
@@ -91,14 +100,20 @@ class OperationWithOptionalInputOutputOperation extends _i1.HttpOperation<
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
   _i9.Future<_i3.OperationWithOptionalInputOutputOutput> run(
-      _i2.OperationWithOptionalInputOutputInput input,
-      {_i1.HttpClient? client,
-      _i1.ShapeId? useProtocol}) {
+    _i2.OperationWithOptionalInputOutputInput input, {
+    _i1.HttpClient? client,
+    _i1.ShapeId? useProtocol,
+  }) {
     return _i9.runZoned(
-        () => super.run(input, client: client, useProtocol: useProtocol),
-        zoneValues: {
-          ...?_awsEndpoint.credentialScope?.zoneValues,
-          ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
-        });
+      () => super.run(
+        input,
+        client: client,
+        useProtocol: useProtocol,
+      ),
+      zoneValues: {
+        ...?_awsEndpoint.credentialScope?.zoneValues,
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+      },
+    );
   }
 }

@@ -22,13 +22,13 @@ class GetBucketLocationOperation extends _i1.HttpOperation<
     _i2.GetBucketLocationRequest,
     _i3.BucketLocationConstraint,
     _i4.GetBucketLocationOutput> {
-  GetBucketLocationOperation(
-      {required String region,
-      Uri? baseUri,
-      _i5.S3ClientConfig s3ClientConfig = const _i5.S3ClientConfig(),
-      _i6.AWSCredentialsProvider credentialsProvider =
-          const _i6.AWSCredentialsProvider.environment()})
-      : _region = region,
+  GetBucketLocationOperation({
+    required String region,
+    Uri? baseUri,
+    _i5.S3ClientConfig s3ClientConfig = const _i5.S3ClientConfig(),
+    _i6.AWSCredentialsProvider credentialsProvider =
+        const _i6.AWSCredentialsProvider.environment(),
+  })  : _region = region,
         _baseUri = baseUri,
         _s3ClientConfig = s3ClientConfig,
         _credentialsProvider = credentialsProvider;
@@ -41,26 +41,30 @@ class GetBucketLocationOperation extends _i1.HttpOperation<
           _i3.BucketLocationConstraint,
           _i4.GetBucketLocationOutput>> protocols = [
     _i5.RestXmlProtocol(
-        serializers: _i7.serializers,
-        builderFactories: _i7.builderFactories,
-        requestInterceptors: [
-          const _i1.WithHost(),
-          _i5.WithSigV4(
-              region: _region,
-              service: _i8.AWSService.s3,
-              credentialsProvider: _credentialsProvider,
-              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
-                  _i6.S3ServiceConfiguration()),
-          const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
-          const _i5.WithSdkInvocationId(),
-          const _i5.WithSdkRequest()
-        ],
-        responseInterceptors: [],
-        noErrorWrapping: true)
+      serializers: _i7.serializers,
+      builderFactories: _i7.builderFactories,
+      requestInterceptors: [
+        const _i1.WithHost(),
+        _i5.WithSigV4(
+          region: _region,
+          service: _i8.AWSService.s3,
+          credentialsProvider: _credentialsProvider,
+          serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+              _i6.S3ServiceConfiguration(),
+        ),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i5.WithSdkInvocationId(),
+        const _i5.WithSdkRequest(),
+      ],
+      responseInterceptors: [],
+      noErrorWrapping: true,
+    )
   ];
 
-  late final _i5.AWSEndpoint _awsEndpoint =
-      _i9.endpointResolver.resolve(_i9.sdkId, _region);
+  late final _i5.AWSEndpoint _awsEndpoint = _i9.endpointResolver.resolve(
+    _i9.sdkId,
+    _region,
+  );
 
   final String _region;
 
@@ -82,9 +86,14 @@ class GetBucketLocationOperation extends _i1.HttpOperation<
   @override
   int successCode([_i4.GetBucketLocationOutput? output]) => 200;
   @override
-  _i4.GetBucketLocationOutput buildOutput(_i3.BucketLocationConstraint? payload,
-          _i8.AWSStreamedHttpResponse response) =>
-      _i4.GetBucketLocationOutput.fromResponse(payload, response);
+  _i4.GetBucketLocationOutput buildOutput(
+    _i3.BucketLocationConstraint? payload,
+    _i8.AWSStreamedHttpResponse response,
+  ) =>
+      _i4.GetBucketLocationOutput.fromResponse(
+        payload,
+        response,
+      );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
   @override
@@ -111,14 +120,20 @@ class GetBucketLocationOperation extends _i1.HttpOperation<
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
   _i10.Future<_i4.GetBucketLocationOutput> run(
-      _i2.GetBucketLocationRequest input,
-      {_i1.HttpClient? client,
-      _i1.ShapeId? useProtocol}) {
+    _i2.GetBucketLocationRequest input, {
+    _i1.HttpClient? client,
+    _i1.ShapeId? useProtocol,
+  }) {
     return _i10.runZoned(
-        () => super.run(input, client: client, useProtocol: useProtocol),
-        zoneValues: {
-          ...?_awsEndpoint.credentialScope?.zoneValues,
-          ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)}
-        });
+      () => super.run(
+        input,
+        client: client,
+        useProtocol: useProtocol,
+      ),
+      zoneValues: {
+        ...?_awsEndpoint.credentialScope?.zoneValues,
+        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)}
+      },
+    );
   }
 }

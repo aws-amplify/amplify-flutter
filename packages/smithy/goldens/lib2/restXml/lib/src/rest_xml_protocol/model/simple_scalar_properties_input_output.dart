@@ -19,28 +19,30 @@ abstract class SimpleScalarPropertiesInputOutput
         Built<SimpleScalarPropertiesInputOutput,
             SimpleScalarPropertiesInputOutputBuilder>,
         _i1.HasPayload<SimpleScalarPropertiesInputOutputPayload> {
-  factory SimpleScalarPropertiesInputOutput(
-      {int? byteValue,
-      double? doubleValue,
-      bool? falseBooleanValue,
-      double? floatValue,
-      String? foo,
-      int? integerValue,
-      _i3.Int64? longValue,
-      int? shortValue,
-      String? stringValue,
-      bool? trueBooleanValue}) {
+  factory SimpleScalarPropertiesInputOutput({
+    int? byteValue,
+    double? doubleValue,
+    bool? falseBooleanValue,
+    double? floatValue,
+    String? foo,
+    int? integerValue,
+    _i3.Int64? longValue,
+    int? shortValue,
+    String? stringValue,
+    bool? trueBooleanValue,
+  }) {
     return _$SimpleScalarPropertiesInputOutput._(
-        byteValue: byteValue,
-        doubleValue: doubleValue,
-        falseBooleanValue: falseBooleanValue,
-        floatValue: floatValue,
-        foo: foo,
-        integerValue: integerValue,
-        longValue: longValue,
-        shortValue: shortValue,
-        stringValue: stringValue,
-        trueBooleanValue: trueBooleanValue);
+      byteValue: byteValue,
+      doubleValue: doubleValue,
+      falseBooleanValue: falseBooleanValue,
+      floatValue: floatValue,
+      foo: foo,
+      integerValue: integerValue,
+      longValue: longValue,
+      shortValue: shortValue,
+      stringValue: stringValue,
+      trueBooleanValue: trueBooleanValue,
+    );
   }
 
   factory SimpleScalarPropertiesInputOutput.build(
@@ -50,9 +52,10 @@ abstract class SimpleScalarPropertiesInputOutput
   const SimpleScalarPropertiesInputOutput._();
 
   factory SimpleScalarPropertiesInputOutput.fromRequest(
-          SimpleScalarPropertiesInputOutputPayload payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    SimpleScalarPropertiesInputOutputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       SimpleScalarPropertiesInputOutput.build((b) {
         b.byteValue = payload.byteValue;
         b.doubleValue = payload.doubleValue;
@@ -70,8 +73,9 @@ abstract class SimpleScalarPropertiesInputOutput
 
   /// Constructs a [SimpleScalarPropertiesInputOutput] from a [payload] and [response].
   factory SimpleScalarPropertiesInputOutput.fromResponse(
-          SimpleScalarPropertiesInputOutputPayload payload,
-          _i2.AWSBaseHttpResponse response) =>
+    SimpleScalarPropertiesInputOutputPayload payload,
+    _i2.AWSBaseHttpResponse response,
+  ) =>
       SimpleScalarPropertiesInputOutput.build((b) {
         b.byteValue = payload.byteValue;
         b.doubleValue = payload.doubleValue;
@@ -127,22 +131,52 @@ abstract class SimpleScalarPropertiesInputOutput
         longValue,
         shortValue,
         stringValue,
-        trueBooleanValue
+        trueBooleanValue,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('SimpleScalarPropertiesInputOutput');
-    helper.add('byteValue', byteValue);
-    helper.add('doubleValue', doubleValue);
-    helper.add('falseBooleanValue', falseBooleanValue);
-    helper.add('floatValue', floatValue);
-    helper.add('foo', foo);
-    helper.add('integerValue', integerValue);
-    helper.add('longValue', longValue);
-    helper.add('shortValue', shortValue);
-    helper.add('stringValue', stringValue);
-    helper.add('trueBooleanValue', trueBooleanValue);
+    helper.add(
+      'byteValue',
+      byteValue,
+    );
+    helper.add(
+      'doubleValue',
+      doubleValue,
+    );
+    helper.add(
+      'falseBooleanValue',
+      falseBooleanValue,
+    );
+    helper.add(
+      'floatValue',
+      floatValue,
+    );
+    helper.add(
+      'foo',
+      foo,
+    );
+    helper.add(
+      'integerValue',
+      integerValue,
+    );
+    helper.add(
+      'longValue',
+      longValue,
+    );
+    helper.add(
+      'shortValue',
+      shortValue,
+    );
+    helper.add(
+      'stringValue',
+      stringValue,
+    );
+    helper.add(
+      'trueBooleanValue',
+      trueBooleanValue,
+    );
     return helper.toString();
   }
 }
@@ -181,21 +215,48 @@ abstract class SimpleScalarPropertiesInputOutputPayload
         longValue,
         shortValue,
         stringValue,
-        trueBooleanValue
+        trueBooleanValue,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('SimpleScalarPropertiesInputOutputPayload');
-    helper.add('byteValue', byteValue);
-    helper.add('doubleValue', doubleValue);
-    helper.add('falseBooleanValue', falseBooleanValue);
-    helper.add('floatValue', floatValue);
-    helper.add('integerValue', integerValue);
-    helper.add('longValue', longValue);
-    helper.add('shortValue', shortValue);
-    helper.add('stringValue', stringValue);
-    helper.add('trueBooleanValue', trueBooleanValue);
+    helper.add(
+      'byteValue',
+      byteValue,
+    );
+    helper.add(
+      'doubleValue',
+      doubleValue,
+    );
+    helper.add(
+      'falseBooleanValue',
+      falseBooleanValue,
+    );
+    helper.add(
+      'floatValue',
+      floatValue,
+    );
+    helper.add(
+      'integerValue',
+      integerValue,
+    );
+    helper.add(
+      'longValue',
+      longValue,
+    );
+    helper.add(
+      'shortValue',
+      shortValue,
+    );
+    helper.add(
+      'stringValue',
+      stringValue,
+    );
+    helper.add(
+      'trueBooleanValue',
+      trueBooleanValue,
+    );
     return helper.toString();
   }
 }
@@ -210,15 +271,21 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i1
         SimpleScalarPropertiesInputOutput,
         _$SimpleScalarPropertiesInputOutput,
         SimpleScalarPropertiesInputOutputPayload,
-        _$SimpleScalarPropertiesInputOutputPayload
+        _$SimpleScalarPropertiesInputOutputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   SimpleScalarPropertiesInputOutputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = SimpleScalarPropertiesInputOutputPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -228,56 +295,74 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i1
       switch (key as String) {
         case 'byteValue':
           if (value != null) {
-            result.byteValue = (serializers.deserialize(value,
-                specifiedType: const FullType(int)) as int);
+            result.byteValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
         case 'DoubleDribble':
           if (value != null) {
-            result.doubleValue = (serializers.deserialize(value,
-                specifiedType: const FullType(double)) as double);
+            result.doubleValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(double),
+            ) as double);
           }
           break;
         case 'falseBooleanValue':
           if (value != null) {
-            result.falseBooleanValue = (serializers.deserialize(value,
-                specifiedType: const FullType(bool)) as bool);
+            result.falseBooleanValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
           }
           break;
         case 'floatValue':
           if (value != null) {
-            result.floatValue = (serializers.deserialize(value,
-                specifiedType: const FullType(double)) as double);
+            result.floatValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(double),
+            ) as double);
           }
           break;
         case 'integerValue':
           if (value != null) {
-            result.integerValue = (serializers.deserialize(value,
-                specifiedType: const FullType(int)) as int);
+            result.integerValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
         case 'longValue':
           if (value != null) {
-            result.longValue = (serializers.deserialize(value,
-                specifiedType: const FullType(_i3.Int64)) as _i3.Int64);
+            result.longValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.Int64),
+            ) as _i3.Int64);
           }
           break;
         case 'shortValue':
           if (value != null) {
-            result.shortValue = (serializers.deserialize(value,
-                specifiedType: const FullType(int)) as int);
+            result.shortValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
         case 'stringValue':
           if (value != null) {
-            result.stringValue = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.stringValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'trueBooleanValue':
           if (value != null) {
-            result.trueBooleanValue = (serializers.deserialize(value,
-                specifiedType: const FullType(bool)) as bool);
+            result.trueBooleanValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
           }
           break;
       }
@@ -287,8 +372,11 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i1
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is SimpleScalarPropertiesInputOutput
         ? object.getPayload()
         : (object as SimpleScalarPropertiesInputOutputPayload);
@@ -298,56 +386,74 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i1
     if (payload.byteValue != null) {
       result
         ..add(const _i1.XmlElementName('byteValue'))
-        ..add(serializers.serialize(payload.byteValue!,
-            specifiedType: const FullType.nullable(int)));
+        ..add(serializers.serialize(
+          payload.byteValue!,
+          specifiedType: const FullType.nullable(int),
+        ));
     }
     if (payload.doubleValue != null) {
       result
         ..add(const _i1.XmlElementName('DoubleDribble'))
-        ..add(serializers.serialize(payload.doubleValue!,
-            specifiedType: const FullType.nullable(double)));
+        ..add(serializers.serialize(
+          payload.doubleValue!,
+          specifiedType: const FullType.nullable(double),
+        ));
     }
     if (payload.falseBooleanValue != null) {
       result
         ..add(const _i1.XmlElementName('falseBooleanValue'))
-        ..add(serializers.serialize(payload.falseBooleanValue!,
-            specifiedType: const FullType.nullable(bool)));
+        ..add(serializers.serialize(
+          payload.falseBooleanValue!,
+          specifiedType: const FullType.nullable(bool),
+        ));
     }
     if (payload.floatValue != null) {
       result
         ..add(const _i1.XmlElementName('floatValue'))
-        ..add(serializers.serialize(payload.floatValue!,
-            specifiedType: const FullType.nullable(double)));
+        ..add(serializers.serialize(
+          payload.floatValue!,
+          specifiedType: const FullType.nullable(double),
+        ));
     }
     if (payload.integerValue != null) {
       result
         ..add(const _i1.XmlElementName('integerValue'))
-        ..add(serializers.serialize(payload.integerValue!,
-            specifiedType: const FullType.nullable(int)));
+        ..add(serializers.serialize(
+          payload.integerValue!,
+          specifiedType: const FullType.nullable(int),
+        ));
     }
     if (payload.longValue != null) {
       result
         ..add(const _i1.XmlElementName('longValue'))
-        ..add(serializers.serialize(payload.longValue!,
-            specifiedType: const FullType.nullable(_i3.Int64)));
+        ..add(serializers.serialize(
+          payload.longValue!,
+          specifiedType: const FullType.nullable(_i3.Int64),
+        ));
     }
     if (payload.shortValue != null) {
       result
         ..add(const _i1.XmlElementName('shortValue'))
-        ..add(serializers.serialize(payload.shortValue!,
-            specifiedType: const FullType.nullable(int)));
+        ..add(serializers.serialize(
+          payload.shortValue!,
+          specifiedType: const FullType.nullable(int),
+        ));
     }
     if (payload.stringValue != null) {
       result
         ..add(const _i1.XmlElementName('stringValue'))
-        ..add(serializers.serialize(payload.stringValue!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.stringValue!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.trueBooleanValue != null) {
       result
         ..add(const _i1.XmlElementName('trueBooleanValue'))
-        ..add(serializers.serialize(payload.trueBooleanValue!,
-            specifiedType: const FullType.nullable(bool)));
+        ..add(serializers.serialize(
+          payload.trueBooleanValue!,
+          specifiedType: const FullType.nullable(bool),
+        ));
     }
     return result;
   }

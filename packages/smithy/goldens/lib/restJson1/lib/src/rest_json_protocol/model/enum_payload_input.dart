@@ -26,15 +26,19 @@ abstract class EnumPayloadInput
   const EnumPayloadInput._();
 
   factory EnumPayloadInput.fromRequest(
-          _i2.StringEnum? payload, _i3.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    _i2.StringEnum? payload,
+    _i3.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       EnumPayloadInput.build((b) {
         b.payload = payload;
       });
 
   /// Constructs a [EnumPayloadInput] from a [payload] and [response].
   factory EnumPayloadInput.fromResponse(
-          _i2.StringEnum? payload, _i3.AWSBaseHttpResponse response) =>
+    _i2.StringEnum? payload,
+    _i3.AWSBaseHttpResponse response,
+  ) =>
       EnumPayloadInput.build((b) {
         b.payload = payload;
       });
@@ -53,7 +57,10 @@ abstract class EnumPayloadInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EnumPayloadInput');
-    helper.add('payload', payload);
+    helper.add(
+      'payload',
+      payload,
+    );
     return helper.toString();
   }
 }
@@ -63,24 +70,41 @@ class EnumPayloadInputRestJson1Serializer
   const EnumPayloadInputRestJson1Serializer() : super('EnumPayloadInput');
 
   @override
-  Iterable<Type> get types => const [EnumPayloadInput, _$EnumPayloadInput];
+  Iterable<Type> get types => const [
+        EnumPayloadInput,
+        _$EnumPayloadInput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
-  _i2.StringEnum deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return (serializers.deserialize(serialized,
-        specifiedType: const FullType(_i2.StringEnum)) as _i2.StringEnum);
+  _i2.StringEnum deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return (serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(_i2.StringEnum),
+    ) as _i2.StringEnum);
   }
 
   @override
-  Object serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is EnumPayloadInput
         ? object.getPayload()
         : (object as _i2.StringEnum?);
-    return (serializers.serialize(payload!,
-        specifiedType: const FullType(_i2.StringEnum)) as Object);
+    return (serializers.serialize(
+      payload!,
+      specifiedType: const FullType(_i2.StringEnum),
+    ) as Object);
   }
 }

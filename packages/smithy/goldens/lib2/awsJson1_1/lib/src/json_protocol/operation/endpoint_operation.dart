@@ -15,12 +15,12 @@ import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 class EndpointOperation
     extends _i1.HttpOperation<_i1.Unit, _i1.Unit, _i1.Unit, _i1.Unit> {
-  EndpointOperation(
-      {required String region,
-      Uri? baseUri,
-      _i2.AWSCredentialsProvider credentialsProvider =
-          const _i2.AWSCredentialsProvider.environment()})
-      : _region = region,
+  EndpointOperation({
+    required String region,
+    Uri? baseUri,
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.environment(),
+  })  : _region = region,
         _baseUri = baseUri,
         _credentialsProvider = credentialsProvider;
 
@@ -28,25 +28,31 @@ class EndpointOperation
   late final List<_i1.HttpProtocol<_i1.Unit, _i1.Unit, _i1.Unit, _i1.Unit>>
       protocols = [
     _i3.AwsJson1_1Protocol(
-        serializers: _i4.serializers,
-        builderFactories: _i4.builderFactories,
-        requestInterceptors: [
-          const _i1.WithHost(),
-          const _i1.WithHeader(
-              'X-Amz-Target', 'JsonProtocol.EndpointOperation'),
-          _i3.WithSigV4(
-              region: _region,
-              service: _i5.AWSService.iam,
-              credentialsProvider: _credentialsProvider),
-          const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
-          const _i3.WithSdkInvocationId(),
-          const _i3.WithSdkRequest()
-        ],
-        responseInterceptors: [])
+      serializers: _i4.serializers,
+      builderFactories: _i4.builderFactories,
+      requestInterceptors: [
+        const _i1.WithHost(),
+        const _i1.WithHeader(
+          'X-Amz-Target',
+          'JsonProtocol.EndpointOperation',
+        ),
+        _i3.WithSigV4(
+          region: _region,
+          service: _i5.AWSService.iam,
+          credentialsProvider: _credentialsProvider,
+        ),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i3.WithSdkInvocationId(),
+        const _i3.WithSdkRequest(),
+      ],
+      responseInterceptors: [],
+    )
   ];
 
-  late final _i3.AWSEndpoint _awsEndpoint =
-      _i6.endpointResolver.resolve(_i6.sdkId, _region);
+  late final _i3.AWSEndpoint _awsEndpoint = _i6.endpointResolver.resolve(
+    _i6.sdkId,
+    _region,
+  );
 
   final String _region;
 
@@ -64,7 +70,9 @@ class EndpointOperation
   int successCode([_i1.Unit? output]) => 200;
   @override
   _i1.Unit buildOutput(
-          _i1.Unit payload, _i5.AWSStreamedHttpResponse response) =>
+    _i1.Unit payload,
+    _i5.AWSStreamedHttpResponse response,
+  ) =>
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [];
@@ -75,13 +83,21 @@ class EndpointOperation
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i7.Future<_i1.Unit> run(_i1.Unit input,
-      {_i1.HttpClient? client, _i1.ShapeId? useProtocol}) {
+  _i7.Future<_i1.Unit> run(
+    _i1.Unit input, {
+    _i1.HttpClient? client,
+    _i1.ShapeId? useProtocol,
+  }) {
     return _i7.runZoned(
-        () => super.run(input, client: client, useProtocol: useProtocol),
-        zoneValues: {
-          ...?_awsEndpoint.credentialScope?.zoneValues,
-          ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)}
-        });
+      () => super.run(
+        input,
+        client: client,
+        useProtocol: useProtocol,
+      ),
+      zoneValues: {
+        ...?_awsEndpoint.credentialScope?.zoneValues,
+        ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)}
+      },
+    );
   }
 }

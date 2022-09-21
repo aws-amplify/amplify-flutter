@@ -34,7 +34,10 @@ abstract class ComplexNestedErrorData
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ComplexNestedErrorData');
-    helper.add('foo', foo);
+    helper.add(
+      'foo',
+      foo,
+    );
     return helper.toString();
   }
 }
@@ -45,15 +48,23 @@ class ComplexNestedErrorDataRestJson1Serializer
       : super('ComplexNestedErrorData');
 
   @override
-  Iterable<Type> get types =>
-      const [ComplexNestedErrorData, _$ComplexNestedErrorData];
+  Iterable<Type> get types => const [
+        ComplexNestedErrorData,
+        _$ComplexNestedErrorData,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   ComplexNestedErrorData deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = ComplexNestedErrorDataBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -63,8 +74,10 @@ class ComplexNestedErrorDataRestJson1Serializer
       switch (key) {
         case 'Fooooo':
           if (value != null) {
-            result.foo = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.foo = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -74,15 +87,20 @@ class ComplexNestedErrorDataRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as ComplexNestedErrorData);
     final result = <Object?>[];
     if (payload.foo != null) {
       result
         ..add('Fooooo')
-        ..add(serializers.serialize(payload.foo!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.foo!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

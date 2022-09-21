@@ -26,7 +26,9 @@ abstract class NoSuchBucket
 
   /// Constructs a [NoSuchBucket] from a [payload] and [response].
   factory NoSuchBucket.fromResponse(
-          NoSuchBucket payload, _i1.AWSBaseHttpResponse response) =>
+    NoSuchBucket payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.statusCode = response.statusCode;
         b.headers = response.headers;
@@ -39,8 +41,10 @@ abstract class NoSuchBucket
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NoSuchBucketBuilder b) {}
   @override
-  _i2.ShapeId get shapeId =>
-      const _i2.ShapeId(namespace: 'com.amazonaws.s3', shape: 'NoSuchBucket');
+  _i2.ShapeId get shapeId => const _i2.ShapeId(
+        namespace: 'com.amazonaws.s3',
+        shape: 'NoSuchBucket',
+      );
   @override
   String? get message => null;
   @override
@@ -67,23 +71,37 @@ class NoSuchBucketRestXmlSerializer
   const NoSuchBucketRestXmlSerializer() : super('NoSuchBucket');
 
   @override
-  Iterable<Type> get types => const [NoSuchBucket, _$NoSuchBucket];
+  Iterable<Type> get types => const [
+        NoSuchBucket,
+        _$NoSuchBucket,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   NoSuchBucket deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return NoSuchBucketBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
-      const _i2.XmlElementName('NoSuchBucket',
-          _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i2.XmlElementName(
+        'NoSuchBucket',
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     return result;
   }

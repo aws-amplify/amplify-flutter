@@ -17,68 +17,83 @@ void main() {
     'RestJsonHttpWithNoModeledBody (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.TestNoPayloadOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'RestJsonHttpWithNoModeledBody',
-              documentation: 'Serializes a GET request with no modeled body',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: '',
-              bodyMediaType: null,
-              params: {},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {},
-              forbidHeaders: ['Content-Length', 'Content-Type'],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              method: 'GET',
-              uri: '/no_payload',
-              host: null,
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [
-            TestNoPayloadInputOutputRestJson1Serializer()
-          ]);
+        operation: _i3.TestNoPayloadOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonHttpWithNoModeledBody',
+          documentation: 'Serializes a GET request with no modeled body',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: null,
+          params: {},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {},
+          forbidHeaders: [
+            'Content-Length',
+            'Content-Type',
+          ],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'GET',
+          uri: '/no_payload',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [TestNoPayloadInputOutputRestJson1Serializer()],
+      );
     },
   );
   _i1.test(
     'RestJsonHttpWithHeaderMemberNoModeledBody (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.TestNoPayloadOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'RestJsonHttpWithHeaderMemberNoModeledBody',
-              documentation:
-                  'Serializes a GET request with header member but no modeled body',
-              protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: '',
-              bodyMediaType: null,
-              params: {'testId': 't-12345'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'X-Amz-Test-Id': 't-12345'},
-              forbidHeaders: ['Content-Length', 'Content-Type'],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              method: 'GET',
-              uri: '/no_payload',
-              host: null,
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [
-            TestNoPayloadInputOutputRestJson1Serializer()
-          ]);
+        operation: _i3.TestNoPayloadOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonHttpWithHeaderMemberNoModeledBody',
+          documentation:
+              'Serializes a GET request with header member but no modeled body',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: null,
+          params: {'testId': 't-12345'},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'X-Amz-Test-Id': 't-12345'},
+          forbidHeaders: [
+            'Content-Length',
+            'Content-Type',
+          ],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'GET',
+          uri: '/no_payload',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [TestNoPayloadInputOutputRestJson1Serializer()],
+      );
     },
   );
 }
@@ -91,12 +106,18 @@ class TestNoPayloadInputOutputRestJson1Serializer
   @override
   Iterable<Type> get types => const [_i5.TestNoPayloadInputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i5.TestNoPayloadInputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.TestNoPayloadInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -106,8 +127,10 @@ class TestNoPayloadInputOutputRestJson1Serializer
       switch (key) {
         case 'testId':
           if (value != null) {
-            result.testId = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.testId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -117,8 +140,11 @@ class TestNoPayloadInputOutputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

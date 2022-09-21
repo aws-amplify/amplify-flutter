@@ -32,8 +32,10 @@ abstract class MalformedStringInput
   const MalformedStringInput._();
 
   factory MalformedStringInput.fromRequest(
-          MalformedStringInputPayload payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    MalformedStringInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       MalformedStringInput.build((b) {
         if (request.headers['amz-media-typed-header'] != null) {
           b.blob = _i3.JsonObject(_i4.jsonDecode(_i4.utf8.decode(
@@ -55,7 +57,10 @@ abstract class MalformedStringInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedStringInput');
-    helper.add('blob', blob);
+    helper.add(
+      'blob',
+      blob,
+    );
     return helper.toString();
   }
 }
@@ -93,20 +98,29 @@ class MalformedStringInputRestJson1Serializer
         MalformedStringInput,
         _$MalformedStringInput,
         MalformedStringInputPayload,
-        _$MalformedStringInputPayload
+        _$MalformedStringInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   MalformedStringInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return MalformedStringInputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

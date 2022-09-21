@@ -27,13 +27,17 @@ abstract class UnionInputOutput
   const UnionInputOutput._();
 
   factory UnionInputOutput.fromRequest(
-          UnionInputOutput payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    UnionInputOutput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   /// Constructs a [UnionInputOutput] from a [payload] and [response].
   factory UnionInputOutput.fromResponse(
-          UnionInputOutput payload, _i2.AWSBaseHttpResponse response) =>
+    UnionInputOutput payload,
+    _i2.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -52,7 +56,10 @@ abstract class UnionInputOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UnionInputOutput');
-    helper.add('contents', contents);
+    helper.add(
+      'contents',
+      contents,
+    );
     return helper.toString();
   }
 }
@@ -62,14 +69,23 @@ class UnionInputOutputRestJson1Serializer
   const UnionInputOutputRestJson1Serializer() : super('UnionInputOutput');
 
   @override
-  Iterable<Type> get types => const [UnionInputOutput, _$UnionInputOutput];
+  Iterable<Type> get types => const [
+        UnionInputOutput,
+        _$UnionInputOutput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   UnionInputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = UnionInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -79,8 +95,10 @@ class UnionInputOutputRestJson1Serializer
       switch (key) {
         case 'contents':
           if (value != null) {
-            result.contents = (serializers.deserialize(value,
-                specifiedType: const FullType(_i3.MyUnion)) as _i3.MyUnion);
+            result.contents = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.MyUnion),
+            ) as _i3.MyUnion);
           }
           break;
       }
@@ -90,15 +108,20 @@ class UnionInputOutputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as UnionInputOutput);
     final result = <Object?>[];
     if (payload.contents != null) {
       result
         ..add('contents')
-        ..add(serializers.serialize(payload.contents!,
-            specifiedType: const FullType(_i3.MyUnion)));
+        ..add(serializers.serialize(
+          payload.contents!,
+          specifiedType: const FullType(_i3.MyUnion),
+        ));
     }
     return result;
   }

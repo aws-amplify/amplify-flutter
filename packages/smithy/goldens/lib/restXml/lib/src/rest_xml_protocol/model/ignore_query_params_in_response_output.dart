@@ -27,8 +27,9 @@ abstract class IgnoreQueryParamsInResponseOutput
 
   /// Constructs a [IgnoreQueryParamsInResponseOutput] from a [payload] and [response].
   factory IgnoreQueryParamsInResponseOutput.fromResponse(
-          IgnoreQueryParamsInResponseOutput payload,
-          _i1.AWSBaseHttpResponse response) =>
+    IgnoreQueryParamsInResponseOutput payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i2.SmithySerializer> serializers = [
@@ -44,7 +45,10 @@ abstract class IgnoreQueryParamsInResponseOutput
   String toString() {
     final helper =
         newBuiltValueToStringHelper('IgnoreQueryParamsInResponseOutput');
-    helper.add('baz', baz);
+    helper.add(
+      'baz',
+      baz,
+    );
     return helper.toString();
   }
 }
@@ -57,15 +61,21 @@ class IgnoreQueryParamsInResponseOutputRestXmlSerializer
   @override
   Iterable<Type> get types => const [
         IgnoreQueryParamsInResponseOutput,
-        _$IgnoreQueryParamsInResponseOutput
+        _$IgnoreQueryParamsInResponseOutput,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   IgnoreQueryParamsInResponseOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = IgnoreQueryParamsInResponseOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -75,8 +85,10 @@ class IgnoreQueryParamsInResponseOutputRestXmlSerializer
       switch (key as String) {
         case 'baz':
           if (value != null) {
-            result.baz = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.baz = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -86,8 +98,11 @@ class IgnoreQueryParamsInResponseOutputRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as IgnoreQueryParamsInResponseOutput);
     final result = <Object?>[
       const _i2.XmlElementName('IgnoreQueryParamsInResponseOutput')
@@ -95,8 +110,10 @@ class IgnoreQueryParamsInResponseOutputRestXmlSerializer
     if (payload.baz != null) {
       result
         ..add(const _i2.XmlElementName('baz'))
-        ..add(serializers.serialize(payload.baz!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.baz!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

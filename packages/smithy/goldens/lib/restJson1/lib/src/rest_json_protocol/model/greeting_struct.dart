@@ -22,13 +22,17 @@ abstract class GreetingStruct
   const GreetingStruct._();
 
   factory GreetingStruct.fromRequest(
-          GreetingStruct payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    GreetingStruct payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   /// Constructs a [GreetingStruct] from a [payload] and [response].
   factory GreetingStruct.fromResponse(
-          GreetingStruct payload, _i2.AWSBaseHttpResponse response) =>
+    GreetingStruct payload,
+    _i2.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -45,7 +49,10 @@ abstract class GreetingStruct
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GreetingStruct');
-    helper.add('hi', hi);
+    helper.add(
+      'hi',
+      hi,
+    );
     return helper.toString();
   }
 }
@@ -55,14 +62,23 @@ class GreetingStructRestJson1Serializer
   const GreetingStructRestJson1Serializer() : super('GreetingStruct');
 
   @override
-  Iterable<Type> get types => const [GreetingStruct, _$GreetingStruct];
+  Iterable<Type> get types => const [
+        GreetingStruct,
+        _$GreetingStruct,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   GreetingStruct deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = GreetingStructBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -72,8 +88,10 @@ class GreetingStructRestJson1Serializer
       switch (key) {
         case 'hi':
           if (value != null) {
-            result.hi = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.hi = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -83,15 +101,20 @@ class GreetingStructRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as GreetingStruct);
     final result = <Object?>[];
     if (payload.hi != null) {
       result
         ..add('hi')
-        ..add(serializers.serialize(payload.hi!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.hi!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

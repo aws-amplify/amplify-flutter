@@ -17,58 +17,70 @@ void main() {
     'StringPayloadRequest (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.HttpStringPayloadOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'StringPayloadRequest',
-              documentation: null,
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: 'rawstring',
-              bodyMediaType: null,
-              params: {'payload': 'rawstring'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              method: 'POST',
-              uri: '/StringPayload',
-              host: null,
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [StringPayloadInputRestJson1Serializer()]);
+        operation: _i3.HttpStringPayloadOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'StringPayloadRequest',
+          documentation: null,
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: 'rawstring',
+          bodyMediaType: null,
+          params: {'payload': 'rawstring'},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'POST',
+          uri: '/StringPayload',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [StringPayloadInputRestJson1Serializer()],
+      );
     },
   );
   _i1.test(
     'StringPayloadResponse (response)',
     () async {
       await _i2.httpResponseTest(
-          operation: _i3.HttpStringPayloadOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpResponseTestCase(
-              id: 'StringPayloadResponse',
-              documentation: null,
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: 'rawstring',
-              bodyMediaType: null,
-              params: {'payload': 'rawstring'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              code: 200),
-          outputSerializers: const [StringPayloadInputRestJson1Serializer()]);
+        operation: _i3.HttpStringPayloadOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpResponseTestCase(
+          id: 'StringPayloadResponse',
+          documentation: null,
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: 'rawstring',
+          bodyMediaType: null,
+          params: {'payload': 'rawstring'},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          code: 200,
+        ),
+        outputSerializers: const [StringPayloadInputRestJson1Serializer()],
+      );
     },
   );
 }
@@ -80,12 +92,18 @@ class StringPayloadInputRestJson1Serializer
   @override
   Iterable<Type> get types => const [_i5.StringPayloadInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i5.StringPayloadInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.StringPayloadInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -95,8 +113,10 @@ class StringPayloadInputRestJson1Serializer
       switch (key) {
         case 'payload':
           if (value != null) {
-            result.payload = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.payload = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -106,8 +126,11 @@ class StringPayloadInputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

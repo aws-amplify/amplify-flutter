@@ -17,18 +17,25 @@ import 'package:smithy_aws/smithy_aws.dart' as _i2;
 abstract class RestXmlProtocolNamespaceServerBase extends _i1.HttpServerBase {
   @override
   late final _i1.HttpProtocol protocol = _i2.RestXmlProtocol(
-      serializers: _i3.serializers, builderFactories: _i3.builderFactories);
+    serializers: _i3.serializers,
+    builderFactories: _i3.builderFactories,
+  );
 
   late final Router _router = () {
     final service = _RestXmlProtocolNamespaceServer(this);
     final router = Router();
     router.add(
-        'PUT', r'/SimpleScalarProperties', service.simpleScalarProperties);
+      'PUT',
+      r'/SimpleScalarProperties',
+      service.simpleScalarProperties,
+    );
     return router;
   }();
 
   _i4.Future<_i5.SimpleScalarPropertiesInputOutput> simpleScalarProperties(
-      _i5.SimpleScalarPropertiesInputOutput input, _i1.Context context);
+    _i5.SimpleScalarPropertiesInputOutput input,
+    _i1.Context context,
+  );
   _i4.Future<_i6.Response> call(_i6.Request request) => _router(request);
 }
 
@@ -45,9 +52,10 @@ class _RestXmlProtocolNamespaceServer
           _i5.SimpleScalarPropertiesInputOutputPayload,
           _i5.SimpleScalarPropertiesInputOutput>
       _simpleScalarPropertiesProtocol = _i2.RestXmlProtocol(
-          serializers: _i3.serializers,
-          builderFactories: _i3.builderFactories,
-          noErrorWrapping: false);
+    serializers: _i3.serializers,
+    builderFactories: _i3.builderFactories,
+    noErrorWrapping: false,
+  );
 
   _i4.Future<_i6.Response> simpleScalarProperties(_i6.Request request) async {
     final awsRequest = request.awsRequest;
@@ -56,25 +64,40 @@ class _RestXmlProtocolNamespaceServer
         _simpleScalarPropertiesProtocol.contentType;
     try {
       final payload = (await _simpleScalarPropertiesProtocol.deserialize(
-              awsRequest.split(),
-              specifiedType:
-                  const FullType(_i5.SimpleScalarPropertiesInputOutputPayload))
-          as _i5.SimpleScalarPropertiesInputOutputPayload);
+        awsRequest.split(),
+        specifiedType:
+            const FullType(_i5.SimpleScalarPropertiesInputOutputPayload),
+      ) as _i5.SimpleScalarPropertiesInputOutputPayload);
       final input = _i5.SimpleScalarPropertiesInputOutput.fromRequest(
-          payload, awsRequest,
-          labels: {});
-      final output = await service.simpleScalarProperties(input, context);
+        payload,
+        awsRequest,
+        labels: {},
+      );
+      final output = await service.simpleScalarProperties(
+        input,
+        context,
+      );
       if (output.foo != null) {
         context.response.headers['X-Foo'] = output.foo!;
       }
       const statusCode = 200;
-      final body = _simpleScalarPropertiesProtocol.serialize(output,
-          specifiedType: const FullType(_i5.SimpleScalarPropertiesInputOutput,
-              [FullType(_i5.SimpleScalarPropertiesInputOutputPayload)]));
-      return _i6.Response(statusCode,
-          body: body, headers: context.response.build().headers.toMap());
+      final body = _simpleScalarPropertiesProtocol.serialize(
+        output,
+        specifiedType: const FullType(
+          _i5.SimpleScalarPropertiesInputOutput,
+          [FullType(_i5.SimpleScalarPropertiesInputOutputPayload)],
+        ),
+      );
+      return _i6.Response(
+        statusCode,
+        body: body,
+        headers: context.response.build().headers.toMap(),
+      );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(e, st);
+      return service.handleUncaughtError(
+        e,
+        st,
+      );
     }
   }
 }

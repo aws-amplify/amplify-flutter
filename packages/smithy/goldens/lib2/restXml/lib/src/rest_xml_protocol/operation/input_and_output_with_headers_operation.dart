@@ -21,8 +21,10 @@ class InputAndOutputWithHeadersOperation extends _i1.HttpOperation<
     _i2.InputAndOutputWithHeadersIoPayload,
     _i2.InputAndOutputWithHeadersIo> {
   /// The example tests how requests and responses are serialized when there is no input or output payload but there are HTTP header bindings.
-  InputAndOutputWithHeadersOperation({required String region, Uri? baseUri})
-      : _region = region,
+  InputAndOutputWithHeadersOperation({
+    required String region,
+    Uri? baseUri,
+  })  : _region = region,
         _baseUri = baseUri;
 
   @override
@@ -33,20 +35,23 @@ class InputAndOutputWithHeadersOperation extends _i1.HttpOperation<
           _i2.InputAndOutputWithHeadersIoPayload,
           _i2.InputAndOutputWithHeadersIo>> protocols = [
     _i3.RestXmlProtocol(
-        serializers: _i4.serializers,
-        builderFactories: _i4.builderFactories,
-        requestInterceptors: [
-          const _i1.WithHost(),
-          const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
-          const _i3.WithSdkInvocationId(),
-          const _i3.WithSdkRequest()
-        ],
-        responseInterceptors: [],
-        noErrorWrapping: false)
+      serializers: _i4.serializers,
+      builderFactories: _i4.builderFactories,
+      requestInterceptors: [
+        const _i1.WithHost(),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i3.WithSdkInvocationId(),
+        const _i3.WithSdkRequest(),
+      ],
+      responseInterceptors: [],
+      noErrorWrapping: false,
+    )
   ];
 
-  late final _i3.AWSEndpoint _awsEndpoint =
-      _i5.endpointResolver.resolve(_i5.sdkId, _region);
+  late final _i3.AWSEndpoint _awsEndpoint = _i5.endpointResolver.resolve(
+    _i5.sdkId,
+    _region,
+  );
 
   final String _region;
 
@@ -122,7 +127,10 @@ class InputAndOutputWithHeadersOperation extends _i1.HttpOperation<
                 .map((el) => _i1.Timestamp(el)
                     .format(_i1.TimestampFormat.httpDate)
                     .toString())
-                .map((el) => _i1.sanitizeHeader(el, isTimestampList: true))
+                .map((el) => _i1.sanitizeHeader(
+                      el,
+                      isTimestampList: true,
+                    ))
                 .join(', ');
           }
         }
@@ -142,9 +150,13 @@ class InputAndOutputWithHeadersOperation extends _i1.HttpOperation<
   int successCode([_i2.InputAndOutputWithHeadersIo? output]) => 200;
   @override
   _i2.InputAndOutputWithHeadersIo buildOutput(
-          _i2.InputAndOutputWithHeadersIoPayload payload,
-          _i6.AWSStreamedHttpResponse response) =>
-      _i2.InputAndOutputWithHeadersIo.fromResponse(payload, response);
+    _i2.InputAndOutputWithHeadersIoPayload payload,
+    _i6.AWSStreamedHttpResponse response,
+  ) =>
+      _i2.InputAndOutputWithHeadersIo.fromResponse(
+        payload,
+        response,
+      );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
   @override
@@ -155,14 +167,20 @@ class InputAndOutputWithHeadersOperation extends _i1.HttpOperation<
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
   _i7.Future<_i2.InputAndOutputWithHeadersIo> run(
-      _i2.InputAndOutputWithHeadersIo input,
-      {_i1.HttpClient? client,
-      _i1.ShapeId? useProtocol}) {
+    _i2.InputAndOutputWithHeadersIo input, {
+    _i1.HttpClient? client,
+    _i1.ShapeId? useProtocol,
+  }) {
     return _i7.runZoned(
-        () => super.run(input, client: client, useProtocol: useProtocol),
-        zoneValues: {
-          ...?_awsEndpoint.credentialScope?.zoneValues,
-          ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
-        });
+      () => super.run(
+        input,
+        client: client,
+        useProtocol: useProtocol,
+      ),
+      zoneValues: {
+        ...?_awsEndpoint.credentialScope?.zoneValues,
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+      },
+    );
   }
 }

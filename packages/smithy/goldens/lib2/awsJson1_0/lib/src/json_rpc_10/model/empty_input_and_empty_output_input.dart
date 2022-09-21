@@ -28,8 +28,10 @@ abstract class EmptyInputAndEmptyOutputInput
   const EmptyInputAndEmptyOutputInput._();
 
   factory EmptyInputAndEmptyOutputInput.fromRequest(
-          EmptyInputAndEmptyOutputInput payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    EmptyInputAndEmptyOutputInput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -55,20 +57,31 @@ class EmptyInputAndEmptyOutputInputAwsJson10Serializer
       : super('EmptyInputAndEmptyOutputInput');
 
   @override
-  Iterable<Type> get types =>
-      const [EmptyInputAndEmptyOutputInput, _$EmptyInputAndEmptyOutputInput];
+  Iterable<Type> get types => const [
+        EmptyInputAndEmptyOutputInput,
+        _$EmptyInputAndEmptyOutputInput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_0',
+        )
+      ];
   @override
   EmptyInputAndEmptyOutputInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return EmptyInputAndEmptyOutputInputBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

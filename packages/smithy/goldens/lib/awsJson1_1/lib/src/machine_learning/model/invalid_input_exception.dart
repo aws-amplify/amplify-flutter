@@ -14,8 +14,14 @@ abstract class InvalidInputException
     implements
         Built<InvalidInputException, InvalidInputExceptionBuilder>,
         _i2.SmithyHttpException {
-  factory InvalidInputException({int? code, String? message}) {
-    return _$InvalidInputException._(code: code, message: message);
+  factory InvalidInputException({
+    int? code,
+    String? message,
+  }) {
+    return _$InvalidInputException._(
+      code: code,
+      message: message,
+    );
   }
 
   factory InvalidInputException.build(
@@ -26,7 +32,9 @@ abstract class InvalidInputException
 
   /// Constructs a [InvalidInputException] from a [payload] and [response].
   factory InvalidInputException.fromResponse(
-          InvalidInputException payload, _i1.AWSBaseHttpResponse response) =>
+    InvalidInputException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
@@ -42,8 +50,9 @@ abstract class InvalidInputException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.machinelearning',
-      shape: 'InvalidInputException');
+        namespace: 'com.amazonaws.machinelearning',
+        shape: 'InvalidInputException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -55,12 +64,21 @@ abstract class InvalidInputException
   @override
   Exception? get underlyingException => null;
   @override
-  List<Object?> get props => [code, message];
+  List<Object?> get props => [
+        code,
+        message,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InvalidInputException');
-    helper.add('code', code);
-    helper.add('message', message);
+    helper.add(
+      'code',
+      code,
+    );
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
@@ -71,15 +89,23 @@ class InvalidInputExceptionAwsJson11Serializer
       : super('InvalidInputException');
 
   @override
-  Iterable<Type> get types =>
-      const [InvalidInputException, _$InvalidInputException];
+  Iterable<Type> get types => const [
+        InvalidInputException,
+        _$InvalidInputException,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   InvalidInputException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = InvalidInputExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -89,14 +115,18 @@ class InvalidInputExceptionAwsJson11Serializer
       switch (key) {
         case 'code':
           if (value != null) {
-            result.code = (serializers.deserialize(value,
-                specifiedType: const FullType(int)) as int);
+            result.code = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -106,21 +136,28 @@ class InvalidInputExceptionAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as InvalidInputException);
     final result = <Object?>[];
     if (payload.code != null) {
       result
         ..add('code')
-        ..add(serializers.serialize(payload.code!,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(
+          payload.code!,
+          specifiedType: const FullType(int),
+        ));
     }
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

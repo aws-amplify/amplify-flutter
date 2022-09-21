@@ -14,12 +14,12 @@ import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
 
 class MachineLearningClient {
-  const MachineLearningClient(
-      {_i1.HttpClient? client,
-      required String region,
-      Uri? baseUri,
-      required _i2.AWSCredentialsProvider credentialsProvider})
-      : _client = client,
+  const MachineLearningClient({
+    _i1.HttpClient? client,
+    required String region,
+    Uri? baseUri,
+    required _i2.AWSCredentialsProvider credentialsProvider,
+  })  : _client = client,
         _region = region,
         _baseUri = baseUri,
         _credentialsProvider = credentialsProvider;
@@ -32,12 +32,17 @@ class MachineLearningClient {
 
   final _i2.AWSCredentialsProvider _credentialsProvider;
 
-  _i3.Future<_i4.PredictOutput> predict(_i5.PredictInput input,
-      {_i1.HttpClient? client}) {
+  _i3.Future<_i4.PredictOutput> predict(
+    _i5.PredictInput input, {
+    _i1.HttpClient? client,
+  }) {
     return _i6.PredictOperation(
-            region: _region,
-            baseUri: _baseUri,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client ?? _client);
+      region: _region,
+      baseUri: _baseUri,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 }

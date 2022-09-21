@@ -28,8 +28,9 @@ abstract class HttpResponseCodeOutput
 
   /// Constructs a [HttpResponseCodeOutput] from a [payload] and [response].
   factory HttpResponseCodeOutput.fromResponse(
-          HttpResponseCodeOutputPayload payload,
-          _i1.AWSBaseHttpResponse response) =>
+    HttpResponseCodeOutputPayload payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       HttpResponseCodeOutput.build((b) {
         b.status = response.statusCode;
       });
@@ -48,7 +49,10 @@ abstract class HttpResponseCodeOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HttpResponseCodeOutput');
-    helper.add('status', status);
+    helper.add(
+      'status',
+      status,
+    );
     return helper.toString();
   }
 }
@@ -88,21 +92,30 @@ class HttpResponseCodeOutputRestXmlSerializer
         HttpResponseCodeOutput,
         _$HttpResponseCodeOutput,
         HttpResponseCodeOutputPayload,
-        _$HttpResponseCodeOutputPayload
+        _$HttpResponseCodeOutputPayload,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   HttpResponseCodeOutputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return HttpResponseCodeOutputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       const _i2.XmlElementName('HttpResponseCodeOutput')
     ];

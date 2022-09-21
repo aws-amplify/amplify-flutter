@@ -16,8 +16,10 @@ abstract class PatternUnionOverride
   const factory PatternUnionOverride.second(String second) =
       PatternUnionOverrideSecond;
 
-  const factory PatternUnionOverride.sdkUnknown(String name, Object value) =
-      PatternUnionOverrideSdkUnknown;
+  const factory PatternUnionOverride.sdkUnknown(
+    String name,
+    Object value,
+  ) = PatternUnionOverrideSdkUnknown;
 
   static const List<_i1.SmithySerializer<PatternUnionOverride>> serializers = [
     PatternUnionOverrideRestJson1Serializer()
@@ -28,27 +30,41 @@ abstract class PatternUnionOverride
   @override
   Object get value => (first ?? second)!;
   @override
-  T? when<T>(
-      {T Function(String)? first,
-      T Function(String)? second,
-      T Function(String, Object)? sdkUnknown}) {
+  T? when<T>({
+    T Function(String)? first,
+    T Function(String)? second,
+    T Function(
+      String,
+      Object,
+    )?
+        sdkUnknown,
+  }) {
     if (this is PatternUnionOverrideFirst) {
       return first?.call((this as PatternUnionOverrideFirst).first);
     }
     if (this is PatternUnionOverrideSecond) {
       return second?.call((this as PatternUnionOverrideSecond).second);
     }
-    return sdkUnknown?.call(name, value);
+    return sdkUnknown?.call(
+      name,
+      value,
+    );
   }
 
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'PatternUnionOverride');
     if (first != null) {
-      helper.add(r'first', first);
+      helper.add(
+        r'first',
+        first,
+      );
     }
     if (second != null) {
-      helper.add(r'second', second);
+      helper.add(
+        r'second',
+        second,
+      );
     }
     return helper.toString();
   }
@@ -75,7 +91,10 @@ class PatternUnionOverrideSecond extends PatternUnionOverride {
 }
 
 class PatternUnionOverrideSdkUnknown extends PatternUnionOverride {
-  const PatternUnionOverrideSdkUnknown(this.name, this.value) : super._();
+  const PatternUnionOverrideSdkUnknown(
+    this.name,
+    this.value,
+  ) : super._();
 
   @override
   final String name;
@@ -92,12 +111,18 @@ class PatternUnionOverrideRestJson1Serializer
   @override
   Iterable<Type> get types => const [PatternUnionOverride];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   PatternUnionOverride deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final iterator = serialized.iterator;
     iterator.moveNext();
     final key = iterator.current as String;
@@ -105,27 +130,46 @@ class PatternUnionOverrideRestJson1Serializer
     final value = iterator.current as Object;
     switch (key) {
       case 'first':
-        return PatternUnionOverride.first((serializers.deserialize(value,
-            specifiedType: const FullType(String)) as String));
+        return PatternUnionOverride.first((serializers.deserialize(
+          value,
+          specifiedType: const FullType(String),
+        ) as String));
       case 'second':
-        return PatternUnionOverride.second((serializers.deserialize(value,
-            specifiedType: const FullType(String)) as String));
+        return PatternUnionOverride.second((serializers.deserialize(
+          value,
+          specifiedType: const FullType(String),
+        ) as String));
     }
-    return PatternUnionOverride.sdkUnknown(key, value);
+    return PatternUnionOverride.sdkUnknown(
+      key,
+      value,
+    );
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     (object as PatternUnionOverride);
     return [
       object.name,
       object.when<Object?>(
-          first: (String first) => serializers.serialize(first,
-              specifiedType: const FullType(String)),
-          second: (String second) => serializers.serialize(second,
-              specifiedType: const FullType(String)),
-          sdkUnknown: (String _, Object sdkUnknown) => sdkUnknown)!
+        first: (String first) => serializers.serialize(
+          first,
+          specifiedType: const FullType(String),
+        ),
+        second: (String second) => serializers.serialize(
+          second,
+          specifiedType: const FullType(String),
+        ),
+        sdkUnknown: (
+          String _,
+          Object sdkUnknown,
+        ) =>
+            sdkUnknown,
+      )!,
     ];
   }
 }

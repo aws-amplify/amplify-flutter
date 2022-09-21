@@ -26,7 +26,9 @@ abstract class PostPlayerActionOutput
 
   /// Constructs a [PostPlayerActionOutput] from a [payload] and [response].
   factory PostPlayerActionOutput.fromResponse(
-          PostPlayerActionOutput payload, _i1.AWSBaseHttpResponse response) =>
+    PostPlayerActionOutput payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i3.SmithySerializer> serializers = [
@@ -41,7 +43,10 @@ abstract class PostPlayerActionOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PostPlayerActionOutput');
-    helper.add('action', action);
+    helper.add(
+      'action',
+      action,
+    );
     return helper.toString();
   }
 }
@@ -52,15 +57,23 @@ class PostPlayerActionOutputRestJson1Serializer
       : super('PostPlayerActionOutput');
 
   @override
-  Iterable<Type> get types =>
-      const [PostPlayerActionOutput, _$PostPlayerActionOutput];
+  Iterable<Type> get types => const [
+        PostPlayerActionOutput,
+        _$PostPlayerActionOutput,
+      ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols =>
-      const [_i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   PostPlayerActionOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = PostPlayerActionOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -69,9 +82,10 @@ class PostPlayerActionOutputRestJson1Serializer
       final value = iterator.current;
       switch (key) {
         case 'action':
-          result.action = (serializers.deserialize(value!,
-                  specifiedType: const FullType(_i2.PlayerAction))
-              as _i2.PlayerAction);
+          result.action = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(_i2.PlayerAction),
+          ) as _i2.PlayerAction);
           break;
       }
     }
@@ -80,13 +94,18 @@ class PostPlayerActionOutputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as PostPlayerActionOutput);
     final result = <Object?>[
       'action',
-      serializers.serialize(payload.action,
-          specifiedType: const FullType(_i2.PlayerAction))
+      serializers.serialize(
+        payload.action,
+        specifiedType: const FullType(_i2.PlayerAction),
+      ),
     ];
     return result;
   }

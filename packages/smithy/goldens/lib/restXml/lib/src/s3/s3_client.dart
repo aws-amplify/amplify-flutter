@@ -19,13 +19,13 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 class S3Client {
-  const S3Client(
-      {_i1.HttpClient? client,
-      required String region,
-      Uri? baseUri,
-      required _i2.S3ClientConfig s3ClientConfig,
-      required _i3.AWSCredentialsProvider credentialsProvider})
-      : _client = client,
+  const S3Client({
+    _i1.HttpClient? client,
+    required String region,
+    Uri? baseUri,
+    required _i2.S3ClientConfig s3ClientConfig,
+    required _i3.AWSCredentialsProvider credentialsProvider,
+  })  : _client = client,
         _region = region,
         _baseUri = baseUri,
         _s3ClientConfig = s3ClientConfig,
@@ -42,24 +42,32 @@ class S3Client {
   final _i3.AWSCredentialsProvider _credentialsProvider;
 
   _i4.Future<_i5.GetBucketLocationOutput> getBucketLocation(
-      _i6.GetBucketLocationRequest input,
-      {_i1.HttpClient? client}) {
+    _i6.GetBucketLocationRequest input, {
+    _i1.HttpClient? client,
+  }) {
     return _i7.GetBucketLocationOperation(
-            region: _region,
-            baseUri: _baseUri,
-            s3ClientConfig: _s3ClientConfig,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client ?? _client);
+      region: _region,
+      baseUri: _baseUri,
+      s3ClientConfig: _s3ClientConfig,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   _i4.Future<_i1.PaginatedResult<_i8.ListObjectsV2Output, int>> listObjectsV2(
-      _i9.ListObjectsV2Request input,
-      {_i1.HttpClient? client}) {
+    _i9.ListObjectsV2Request input, {
+    _i1.HttpClient? client,
+  }) {
     return _i10.ListObjectsV2Operation(
-            region: _region,
-            baseUri: _baseUri,
-            s3ClientConfig: _s3ClientConfig,
-            credentialsProvider: _credentialsProvider)
-        .runPaginated(input, client: client ?? _client);
+      region: _region,
+      baseUri: _baseUri,
+      s3ClientConfig: _s3ClientConfig,
+      credentialsProvider: _credentialsProvider,
+    ).runPaginated(
+      input,
+      client: client ?? _client,
+    );
   }
 }

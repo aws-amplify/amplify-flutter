@@ -24,42 +24,45 @@ void main() {
     'RestJsonRecursiveStructuresValidate (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.RecursiveStructuresOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'RestJsonRecursiveStructuresValidate',
-              documentation:
-                  'Validation should work with recursive structures.',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body:
-                  '{ "union" : {\n    "union" : {\n        "union" : { "string" : "abc" }\n    }\n  }\n}',
-              bodyMediaType: 'application/json',
-              params: {
-                'union': {
-                  'union': {
-                    'union': {'string': 'abc'}
-                  }
-                }
-              },
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'content-type': 'application/json'},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              method: 'POST',
-              uri: '/RecursiveStructures',
-              host: null,
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [
-            RecursiveStructuresInputRestJson1Serializer()
-          ]);
+        operation: _i3.RecursiveStructuresOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonRecursiveStructuresValidate',
+          documentation: 'Validation should work with recursive structures.',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body:
+              '{ "union" : {\n    "union" : {\n        "union" : { "string" : "abc" }\n    }\n  }\n}',
+          bodyMediaType: 'application/json',
+          params: {
+            'union': {
+              'union': {
+                'union': {'string': 'abc'}
+              }
+            }
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'content-type': 'application/json'},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'POST',
+          uri: '/RecursiveStructures',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [RecursiveStructuresInputRestJson1Serializer()],
+      );
     },
   );
 }
@@ -72,12 +75,18 @@ class RecursiveStructuresInputRestJson1Serializer
   @override
   Iterable<Type> get types => const [_i5.RecursiveStructuresInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i5.RecursiveStructuresInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.RecursiveStructuresInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -87,9 +96,10 @@ class RecursiveStructuresInputRestJson1Serializer
       switch (key) {
         case 'union':
           if (value != null) {
-            result.union = (serializers.deserialize(value,
-                    specifiedType: const FullType(_i6.RecursiveUnionOne))
-                as _i6.RecursiveUnionOne);
+            result.union = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i6.RecursiveUnionOne),
+            ) as _i6.RecursiveUnionOne);
           }
           break;
       }
@@ -99,8 +109,11 @@ class RecursiveStructuresInputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }
@@ -112,12 +125,18 @@ class ValidationExceptionRestJson1Serializer
   @override
   Iterable<Type> get types => const [_i7.ValidationException];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i7.ValidationException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i7.ValidationExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -127,15 +146,20 @@ class ValidationExceptionRestJson1Serializer
       switch (key) {
         case 'fieldList':
           if (value != null) {
-            result.fieldList.replace((serializers.deserialize(value,
-                specifiedType: const FullType(_i8.BuiltList, [
-                  FullType(_i9.ValidationExceptionField)
-                ])) as _i8.BuiltList<_i9.ValidationExceptionField>));
+            result.fieldList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i8.BuiltList,
+                [FullType(_i9.ValidationExceptionField)],
+              ),
+            ) as _i8.BuiltList<_i9.ValidationExceptionField>));
           }
           break;
         case 'message':
-          result.message = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.message = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
       }
     }
@@ -144,8 +168,11 @@ class ValidationExceptionRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }
@@ -158,12 +185,18 @@ class ValidationExceptionFieldRestJson1Serializer
   @override
   Iterable<Type> get types => const [_i9.ValidationExceptionField];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i9.ValidationExceptionField deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i9.ValidationExceptionFieldBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -172,12 +205,16 @@ class ValidationExceptionFieldRestJson1Serializer
       final value = iterator.current;
       switch (key) {
         case 'message':
-          result.message = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.message = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'path':
-          result.path = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.path = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
       }
     }
@@ -186,8 +223,11 @@ class ValidationExceptionFieldRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

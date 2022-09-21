@@ -17,68 +17,80 @@ void main() {
     'RestXmlOmitsNullQuery (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.OmitsNullSerializesEmptyStringOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'RestXmlOmitsNullQuery',
-              documentation: 'Omits null query values',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
-              authScheme: null,
-              body: '',
-              bodyMediaType: null,
-              params: {'nullValue': null},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: _i2.AppliesTo.client,
-              method: 'GET',
-              uri: '/OmitsNullSerializesEmptyString',
-              host: null,
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [
-            OmitsNullSerializesEmptyStringInputRestXmlSerializer()
-          ]);
+        operation: _i3.OmitsNullSerializesEmptyStringOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestXmlOmitsNullQuery',
+          documentation: 'Omits null query values',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restXml',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: null,
+          params: {'nullValue': null},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: _i2.AppliesTo.client,
+          method: 'GET',
+          uri: '/OmitsNullSerializesEmptyString',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          OmitsNullSerializesEmptyStringInputRestXmlSerializer()
+        ],
+      );
     },
   );
   _i1.test(
     'RestXmlSerializesEmptyString (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.OmitsNullSerializesEmptyStringOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'RestXmlSerializesEmptyString',
-              documentation: 'Serializes empty query strings',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
-              authScheme: null,
-              body: '',
-              bodyMediaType: null,
-              params: {'emptyString': ''},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              method: 'GET',
-              uri: '/OmitsNullSerializesEmptyString',
-              host: null,
-              resolvedHost: null,
-              queryParams: ['Empty='],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [
-            OmitsNullSerializesEmptyStringInputRestXmlSerializer()
-          ]);
+        operation: _i3.OmitsNullSerializesEmptyStringOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestXmlSerializesEmptyString',
+          documentation: 'Serializes empty query strings',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restXml',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: null,
+          params: {'emptyString': ''},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'GET',
+          uri: '/OmitsNullSerializesEmptyString',
+          host: null,
+          resolvedHost: null,
+          queryParams: ['Empty='],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          OmitsNullSerializesEmptyStringInputRestXmlSerializer()
+        ],
+      );
     },
   );
 }
@@ -91,12 +103,18 @@ class OmitsNullSerializesEmptyStringInputRestXmlSerializer extends _i4
   @override
   Iterable<Type> get types => const [_i5.OmitsNullSerializesEmptyStringInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   _i5.OmitsNullSerializesEmptyStringInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.OmitsNullSerializesEmptyStringInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -106,14 +124,18 @@ class OmitsNullSerializesEmptyStringInputRestXmlSerializer extends _i4
       switch (key) {
         case 'emptyString':
           if (value != null) {
-            result.emptyString = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.emptyString = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'nullValue':
           if (value != null) {
-            result.nullValue = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.nullValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -123,8 +145,11 @@ class OmitsNullSerializesEmptyStringInputRestXmlSerializer extends _i4
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

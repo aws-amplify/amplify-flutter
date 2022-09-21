@@ -38,7 +38,10 @@ abstract class PayloadWithXmlNamespaceAndPrefix
   String toString() {
     final helper =
         newBuiltValueToStringHelper('PayloadWithXmlNamespaceAndPrefix');
-    helper.add('name', name);
+    helper.add(
+      'name',
+      name,
+    );
     return helper.toString();
   }
 }
@@ -51,15 +54,21 @@ class PayloadWithXmlNamespaceAndPrefixRestXmlSerializer
   @override
   Iterable<Type> get types => const [
         PayloadWithXmlNamespaceAndPrefix,
-        _$PayloadWithXmlNamespaceAndPrefix
+        _$PayloadWithXmlNamespaceAndPrefix,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   PayloadWithXmlNamespaceAndPrefix deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = PayloadWithXmlNamespaceAndPrefixBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -69,8 +78,10 @@ class PayloadWithXmlNamespaceAndPrefixRestXmlSerializer
       switch (key as String) {
         case 'name':
           if (value != null) {
-            result.name = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.name = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -80,18 +91,28 @@ class PayloadWithXmlNamespaceAndPrefixRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as PayloadWithXmlNamespaceAndPrefix);
     final result = <Object?>[
-      const _i2.XmlElementName('PayloadWithXmlNamespaceAndPrefix',
-          _i2.XmlNamespace('http://foo.com', 'baz'))
+      const _i2.XmlElementName(
+        'PayloadWithXmlNamespaceAndPrefix',
+        _i2.XmlNamespace(
+          'http://foo.com',
+          'baz',
+        ),
+      )
     ];
     if (payload.name != null) {
       result
         ..add(const _i2.XmlElementName('name'))
-        ..add(serializers.serialize(payload.name!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.name!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

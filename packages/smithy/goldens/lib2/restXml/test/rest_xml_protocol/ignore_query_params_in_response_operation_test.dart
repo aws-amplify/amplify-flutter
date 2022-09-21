@@ -17,28 +17,36 @@ void main() {
     'IgnoreQueryParamsInResponse (response)',
     () async {
       await _i2.httpResponseTest(
-          operation: _i3.IgnoreQueryParamsInResponseOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpResponseTestCase(
-              id: 'IgnoreQueryParamsInResponse',
-              documentation:
-                  'Query parameters must be ignored when serializing the output of an operation',
-              protocol: _i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
-              authScheme: null,
-              body: '<IgnoreQueryParamsInResponseOutput><baz>bam</baz></IgnoreQueryParamsInResponseOutput>',
-              bodyMediaType: 'application/xml',
-              params: {'baz': 'bam'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'Content-Type': 'application/xml'},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              code: 200),
-          outputSerializers: const [
-            IgnoreQueryParamsInResponseOutputRestXmlSerializer()
-          ]);
+        operation: _i3.IgnoreQueryParamsInResponseOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpResponseTestCase(
+          id: 'IgnoreQueryParamsInResponse',
+          documentation:
+              'Query parameters must be ignored when serializing the output of an operation',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restXml',
+          ),
+          authScheme: null,
+          body:
+              '<IgnoreQueryParamsInResponseOutput><baz>bam</baz></IgnoreQueryParamsInResponseOutput>',
+          bodyMediaType: 'application/xml',
+          params: {'baz': 'bam'},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'Content-Type': 'application/xml'},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          code: 200,
+        ),
+        outputSerializers: const [
+          IgnoreQueryParamsInResponseOutputRestXmlSerializer()
+        ],
+      );
     },
   );
 }
@@ -51,12 +59,18 @@ class IgnoreQueryParamsInResponseOutputRestXmlSerializer extends _i4
   @override
   Iterable<Type> get types => const [_i5.IgnoreQueryParamsInResponseOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   _i5.IgnoreQueryParamsInResponseOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.IgnoreQueryParamsInResponseOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -66,8 +80,10 @@ class IgnoreQueryParamsInResponseOutputRestXmlSerializer extends _i4
       switch (key) {
         case 'baz':
           if (value != null) {
-            result.baz = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.baz = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -77,8 +93,11 @@ class IgnoreQueryParamsInResponseOutputRestXmlSerializer extends _i4
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

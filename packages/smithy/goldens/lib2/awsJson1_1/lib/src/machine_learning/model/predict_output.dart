@@ -25,7 +25,9 @@ abstract class PredictOutput
 
   /// Constructs a [PredictOutput] from a [payload] and [response].
   factory PredictOutput.fromResponse(
-          PredictOutput payload, _i1.AWSBaseHttpResponse response) =>
+    PredictOutput payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i3.SmithySerializer> serializers = [
@@ -40,7 +42,10 @@ abstract class PredictOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PredictOutput');
-    helper.add('prediction', prediction);
+    helper.add(
+      'prediction',
+      prediction,
+    );
     return helper.toString();
   }
 }
@@ -50,14 +55,23 @@ class PredictOutputAwsJson11Serializer
   const PredictOutputAwsJson11Serializer() : super('PredictOutput');
 
   @override
-  Iterable<Type> get types => const [PredictOutput, _$PredictOutput];
+  Iterable<Type> get types => const [
+        PredictOutput,
+        _$PredictOutput,
+      ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols =>
-      const [_i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   PredictOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = PredictOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -67,9 +81,10 @@ class PredictOutputAwsJson11Serializer
       switch (key) {
         case 'Prediction':
           if (value != null) {
-            result.prediction.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i2.Prediction))
-                as _i2.Prediction));
+            result.prediction.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.Prediction),
+            ) as _i2.Prediction));
           }
           break;
       }
@@ -79,15 +94,20 @@ class PredictOutputAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as PredictOutput);
     final result = <Object?>[];
     if (payload.prediction != null) {
       result
         ..add('Prediction')
-        ..add(serializers.serialize(payload.prediction!,
-            specifiedType: const FullType(_i2.Prediction)));
+        ..add(serializers.serialize(
+          payload.prediction!,
+          specifiedType: const FullType(_i2.Prediction),
+        ));
     }
     return result;
   }

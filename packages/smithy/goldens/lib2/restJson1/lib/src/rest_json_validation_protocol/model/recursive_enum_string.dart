@@ -5,28 +5,48 @@ library rest_json1_v2.rest_json_validation_protocol.model.recursive_enum_string;
 import 'package:smithy/smithy.dart' as _i1;
 
 class RecursiveEnumString extends _i1.SmithyEnum<RecursiveEnumString> {
-  const RecursiveEnumString._(int index, String name, String value)
-      : super(index, name, value);
+  const RecursiveEnumString._(
+    int index,
+    String name,
+    String value,
+  ) : super(
+          index,
+          name,
+          value,
+        );
 
   const RecursiveEnumString._sdkUnknown(String value) : super.sdkUnknown(value);
 
-  static const abc = RecursiveEnumString._(0, 'ABC', 'abc');
+  static const abc = RecursiveEnumString._(
+    0,
+    'ABC',
+    'abc',
+  );
 
-  static const def = RecursiveEnumString._(1, 'DEF', 'def');
+  static const def = RecursiveEnumString._(
+    1,
+    'DEF',
+    'def',
+  );
 
   /// All values of [RecursiveEnumString].
   static const values = <RecursiveEnumString>[
     RecursiveEnumString.abc,
-    RecursiveEnumString.def
+    RecursiveEnumString.def,
   ];
 
   static const List<_i1.SmithySerializer<RecursiveEnumString>> serializers = [
-    _i1.SmithyEnumSerializer('RecursiveEnumString',
-        values: values,
-        sdkUnknown: RecursiveEnumString._sdkUnknown,
-        supportedProtocols: [
-          _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')
-        ])
+    _i1.SmithyEnumSerializer(
+      'RecursiveEnumString',
+      values: values,
+      sdkUnknown: RecursiveEnumString._sdkUnknown,
+      supportedProtocols: [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ],
+    )
   ];
 }
 

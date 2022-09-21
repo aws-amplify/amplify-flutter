@@ -19,60 +19,72 @@ void main() {
     'XmlBlobs (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.XmlBlobsOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'XmlBlobs',
-              documentation: 'Blobs are base64 encoded',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
-              authScheme: null,
-              body:
-                  '<XmlBlobsInputOutput>\n    <data>dmFsdWU=</data>\n</XmlBlobsInputOutput>\n',
-              bodyMediaType: 'application/xml',
-              params: {'data': 'value'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'Content-Type': 'application/xml'},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              method: 'POST',
-              uri: '/XmlBlobs',
-              host: null,
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [XmlBlobsInputOutputRestXmlSerializer()]);
+        operation: _i3.XmlBlobsOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'XmlBlobs',
+          documentation: 'Blobs are base64 encoded',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restXml',
+          ),
+          authScheme: null,
+          body:
+              '<XmlBlobsInputOutput>\n    <data>dmFsdWU=</data>\n</XmlBlobsInputOutput>\n',
+          bodyMediaType: 'application/xml',
+          params: {'data': 'value'},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'Content-Type': 'application/xml'},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'POST',
+          uri: '/XmlBlobs',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [XmlBlobsInputOutputRestXmlSerializer()],
+      );
     },
   );
   _i1.test(
     'XmlBlobs (response)',
     () async {
       await _i2.httpResponseTest(
-          operation: _i3.XmlBlobsOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpResponseTestCase(
-              id: 'XmlBlobs',
-              documentation: 'Blobs are base64 encoded',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml'),
-              authScheme: null,
-              body:
-                  '<XmlBlobsInputOutput>\n    <data>dmFsdWU=</data>\n</XmlBlobsInputOutput>\n',
-              bodyMediaType: 'application/xml',
-              params: {'data': 'value'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'Content-Type': 'application/xml'},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              code: 200),
-          outputSerializers: const [XmlBlobsInputOutputRestXmlSerializer()]);
+        operation: _i3.XmlBlobsOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpResponseTestCase(
+          id: 'XmlBlobs',
+          documentation: 'Blobs are base64 encoded',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restXml',
+          ),
+          authScheme: null,
+          body:
+              '<XmlBlobsInputOutput>\n    <data>dmFsdWU=</data>\n</XmlBlobsInputOutput>\n',
+          bodyMediaType: 'application/xml',
+          params: {'data': 'value'},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'Content-Type': 'application/xml'},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          code: 200,
+        ),
+        outputSerializers: const [XmlBlobsInputOutputRestXmlSerializer()],
+      );
     },
   );
 }
@@ -84,12 +96,18 @@ class XmlBlobsInputOutputRestXmlSerializer
   @override
   Iterable<Type> get types => const [_i5.XmlBlobsInputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   _i5.XmlBlobsInputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.XmlBlobsInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -99,8 +117,10 @@ class XmlBlobsInputOutputRestXmlSerializer
       switch (key) {
         case 'data':
           if (value != null) {
-            result.data = (serializers.deserialize(value,
-                specifiedType: const FullType(_i6.Uint8List)) as _i6.Uint8List);
+            result.data = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i6.Uint8List),
+            ) as _i6.Uint8List);
           }
           break;
       }
@@ -110,8 +130,11 @@ class XmlBlobsInputOutputRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

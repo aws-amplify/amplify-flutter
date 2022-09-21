@@ -23,20 +23,34 @@ import 'package:smithy_aws/smithy_aws.dart' as _i2;
 abstract class S3ServerBase extends _i1.HttpServerBase {
   @override
   late final _i1.HttpProtocol protocol = _i2.RestXmlProtocol(
-      serializers: _i3.serializers, builderFactories: _i3.builderFactories);
+    serializers: _i3.serializers,
+    builderFactories: _i3.builderFactories,
+  );
 
   late final Router _router = () {
     final service = _S3Server(this);
     final router = Router();
-    router.add('GET', r'/<Bucket>?location', service.getBucketLocation);
-    router.add('GET', r'/<Bucket>?list-type=2', service.listObjectsV2);
+    router.add(
+      'GET',
+      r'/<Bucket>?location',
+      service.getBucketLocation,
+    );
+    router.add(
+      'GET',
+      r'/<Bucket>?list-type=2',
+      service.listObjectsV2,
+    );
     return router;
   }();
 
   _i4.Future<_i5.GetBucketLocationOutput> getBucketLocation(
-      _i6.GetBucketLocationRequest input, _i1.Context context);
+    _i6.GetBucketLocationRequest input,
+    _i1.Context context,
+  );
   _i4.Future<_i7.ListObjectsV2Output> listObjectsV2(
-      _i8.ListObjectsV2Request input, _i1.Context context);
+    _i8.ListObjectsV2Request input,
+    _i1.Context context,
+  );
   _i4.Future<_i9.Response> call(_i9.Request request) => _router(request);
 }
 
@@ -52,77 +66,119 @@ class _S3Server extends _i1.HttpServer<S3ServerBase> {
           _i10.BucketLocationConstraint,
           _i5.GetBucketLocationOutput> _getBucketLocationProtocol =
       _i2.RestXmlProtocol(
-          serializers: _i3.serializers,
-          builderFactories: _i3.builderFactories,
-          noErrorWrapping: true);
+    serializers: _i3.serializers,
+    builderFactories: _i3.builderFactories,
+    noErrorWrapping: true,
+  );
 
   late final _i1.HttpProtocol<
-          _i8.ListObjectsV2RequestPayload,
-          _i8.ListObjectsV2Request,
-          _i7.ListObjectsV2Output,
-          _i7.ListObjectsV2Output> _listObjectsV2Protocol =
-      _i2.RestXmlProtocol(
-          serializers: _i3.serializers,
-          builderFactories: _i3.builderFactories,
-          noErrorWrapping: true);
+      _i8.ListObjectsV2RequestPayload,
+      _i8.ListObjectsV2Request,
+      _i7.ListObjectsV2Output,
+      _i7.ListObjectsV2Output> _listObjectsV2Protocol = _i2.RestXmlProtocol(
+    serializers: _i3.serializers,
+    builderFactories: _i3.builderFactories,
+    noErrorWrapping: true,
+  );
 
   _i4.Future<_i9.Response> getBucketLocation(
-      _i9.Request request, String Bucket) async {
+    _i9.Request request,
+    String Bucket,
+  ) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
         _getBucketLocationProtocol.contentType;
     try {
       final payload = (await _getBucketLocationProtocol.deserialize(
-              awsRequest.split(),
-              specifiedType:
-                  const FullType(_i6.GetBucketLocationRequestPayload))
-          as _i6.GetBucketLocationRequestPayload);
+        awsRequest.split(),
+        specifiedType: const FullType(_i6.GetBucketLocationRequestPayload),
+      ) as _i6.GetBucketLocationRequestPayload);
       final input = _i6.GetBucketLocationRequest.fromRequest(
-          payload, awsRequest,
-          labels: {'Bucket': Bucket});
-      final output = await service.getBucketLocation(input, context);
+        payload,
+        awsRequest,
+        labels: {'Bucket': Bucket},
+      );
+      final output = await service.getBucketLocation(
+        input,
+        context,
+      );
       const statusCode = 200;
-      final body = _getBucketLocationProtocol.serialize(output,
-          specifiedType: const FullType(_i5.GetBucketLocationOutput,
-              [FullType.nullable(_i10.BucketLocationConstraint)]));
-      return _i9.Response(statusCode,
-          body: body, headers: context.response.build().headers.toMap());
+      final body = _getBucketLocationProtocol.serialize(
+        output,
+        specifiedType: const FullType(
+          _i5.GetBucketLocationOutput,
+          [FullType.nullable(_i10.BucketLocationConstraint)],
+        ),
+      );
+      return _i9.Response(
+        statusCode,
+        body: body,
+        headers: context.response.build().headers.toMap(),
+      );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(e, st);
+      return service.handleUncaughtError(
+        e,
+        st,
+      );
     }
   }
 
   _i4.Future<_i9.Response> listObjectsV2(
-      _i9.Request request, String Bucket) async {
+    _i9.Request request,
+    String Bucket,
+  ) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
         _listObjectsV2Protocol.contentType;
     try {
       final payload = (await _listObjectsV2Protocol.deserialize(
-              awsRequest.split(),
-              specifiedType: const FullType(_i8.ListObjectsV2RequestPayload))
-          as _i8.ListObjectsV2RequestPayload);
-      final input = _i8.ListObjectsV2Request.fromRequest(payload, awsRequest,
-          labels: {'Bucket': Bucket});
-      final output = await service.listObjectsV2(input, context);
+        awsRequest.split(),
+        specifiedType: const FullType(_i8.ListObjectsV2RequestPayload),
+      ) as _i8.ListObjectsV2RequestPayload);
+      final input = _i8.ListObjectsV2Request.fromRequest(
+        payload,
+        awsRequest,
+        labels: {'Bucket': Bucket},
+      );
+      final output = await service.listObjectsV2(
+        input,
+        context,
+      );
       const statusCode = 200;
-      final body = _listObjectsV2Protocol.serialize(output,
-          specifiedType: const FullType(
-              _i7.ListObjectsV2Output, [FullType(_i7.ListObjectsV2Output)]));
-      return _i9.Response(statusCode,
-          body: body, headers: context.response.build().headers.toMap());
+      final body = _listObjectsV2Protocol.serialize(
+        output,
+        specifiedType: const FullType(
+          _i7.ListObjectsV2Output,
+          [FullType(_i7.ListObjectsV2Output)],
+        ),
+      );
+      return _i9.Response(
+        statusCode,
+        body: body,
+        headers: context.response.build().headers.toMap(),
+      );
     } on _i11.NoSuchBucket catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'NoSuchBucket';
-      final body = _listObjectsV2Protocol.serialize(e,
-          specifiedType:
-              const FullType(_i11.NoSuchBucket, [FullType(_i11.NoSuchBucket)]));
+      final body = _listObjectsV2Protocol.serialize(
+        e,
+        specifiedType: const FullType(
+          _i11.NoSuchBucket,
+          [FullType(_i11.NoSuchBucket)],
+        ),
+      );
       const statusCode = 400;
-      return _i9.Response(statusCode,
-          body: body, headers: context.response.build().headers.toMap());
+      return _i9.Response(
+        statusCode,
+        body: body,
+        headers: context.response.build().headers.toMap(),
+      );
     } on Object catch (e, st) {
-      return service.handleUncaughtError(e, st);
+      return service.handleUncaughtError(
+        e,
+        st,
+      );
     }
   }
 }
