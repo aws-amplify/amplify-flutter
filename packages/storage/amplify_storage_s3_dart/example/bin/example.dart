@@ -33,11 +33,14 @@ Future<void> main() async {
 
   stdout.writeln('Sign in your account');
   final username = prompt('Enter username: ');
+  stdin.echoMode = false;
   final password = prompt('Enter password: ');
+  stdin.echoMode = true;
 
   stdout.writeln('Signing in...');
 
   try {
+    stdout.writeln('Signing in...');
     await Amplify.Auth.signIn(username: username, password: password);
   } on Object catch (e, st) {
     exitError(e, st);
@@ -47,14 +50,23 @@ Future<void> main() async {
   while (true) {
     final operation = prompt('''Choose an operation:
 1. list
-2. getUrl
+2. getProperties
+3. getUrl
 0. exit
 ''');
-    final operationNum = int.parse(operation);
+    final operationNum = int.tryParse(operation);
 
     switch (operationNum) {
       case 1:
         await listOperation();
+        break;
+      case 2:
+        await getPropertiesOperation();
+        break;
+      case 3:
+        await getUrlOperation();
+        break;
+      case null:
         break;
       case 0:
       default:
@@ -66,18 +78,7 @@ Future<void> main() async {
 
 Future<void> listOperation() async {
   final path = prompt('Enter a path to list objects for: ');
-  final accessLevel =
-      int.parse(prompt('''Enter storage access level for the objects:
-1. guest
-2. protected
-3. private
-'''));
-  var storageAccessLevel = StorageAccessLevel.guest;
-  if (accessLevel == 2) {
-    storageAccessLevel = StorageAccessLevel.protected;
-  } else if (accessLevel == 3) {
-    storageAccessLevel = StorageAccessLevel.private;
-  }
+  final storageAccessLevel = promptStorageAccessLevel();
 
   // get plugin with plugin key to gain S3 specific interface
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
@@ -124,6 +125,56 @@ Future<void> listOperation() async {
   }
 }
 
+Future<void> getPropertiesOperation() async {
+  final key = prompt('Enter the object to get properties for: ');
+  final storageAccessLevel = promptStorageAccessLevel();
+
+  final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
+  final getPropertiesOperation = s3Plugin.getProperties(
+    key: key,
+    options: S3StorageGetPropertiesOptions(
+      storageAccessLevel: storageAccessLevel,
+    ),
+  );
+  final result = await getPropertiesOperation.result;
+
+  stdout
+    ..writeln('Got properties: ')
+    ..writeln('key: ${result.storageItem.key}')
+    ..writeln('size: ${result.storageItem.size}')
+    ..writeln('lastModified: ${result.storageItem.lastModified}')
+    ..writeln('eTag: ${result.storageItem.eTag}')
+    ..writeln('metadata: ${result.storageItem.metadata}');
+}
+
+Future<void> getUrlOperation() async {
+  final key = prompt('Enter the object key to get url for: ');
+  final storageAccessLevel = promptStorageAccessLevel();
+
+  final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
+  final getUrlOperation = s3Plugin.getUrl(
+    key: key,
+    options: S3StorageGetUrlOptions(
+      storageAccessLevel: storageAccessLevel,
+      expiresIn: const Duration(
+        minutes: 10,
+      ),
+      checkObjectExistence: true,
+    ),
+  );
+
+  try {
+    final result = await getUrlOperation.result;
+    stdout
+      ..writeln('Generated url for key: $key, the url expires in 10 minutes:')
+      ..writeln(result.url.toString());
+  } on S3StorageException catch (error) {
+    stderr
+      ..writeln('Something went wrong...')
+      ..writeln(error.message);
+  }
+}
+
 String prompt(String prompt) {
   String? value;
   while (value == null || value.isEmpty) {
@@ -133,8 +184,35 @@ String prompt(String prompt) {
   return value;
 }
 
+StorageAccessLevel promptStorageAccessLevel() {
+  int? value;
+  bool valueInRange(int? value) {
+    return [1, 2, 3].contains(value);
+  }
+
+  while (value == null || !valueInRange(value)) {
+    stdout.write('''Enter storage access level for the objects:
+1. guest
+2. protected
+3. private
+''');
+    final input = stdin.readLineSync(encoding: utf8);
+    value = int.tryParse(input ?? '');
+  }
+
+  var storageAccessLevel = StorageAccessLevel.guest;
+  if (value == 2) {
+    storageAccessLevel = StorageAccessLevel.protected;
+  } else if (value == 3) {
+    storageAccessLevel = StorageAccessLevel.private;
+  }
+
+  return storageAccessLevel;
+}
+
 Never exitError(Object error, [StackTrace? stackTrace]) {
-  stderr.writeln(error);
-  stderr.writeln(stackTrace);
+  stderr
+    ..writeln(error)
+    ..writeln(stackTrace);
   exit(1);
 }

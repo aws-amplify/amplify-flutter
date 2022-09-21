@@ -19,7 +19,7 @@ import 'package:test/test.dart';
 void main() {
   group('StorageS3Exception', () {
     test(
-        'should create StorageS3Exception.unknownServiceException on unrecognizable UnknownSmithyHttpException',
+        'should create S3StorageException.unknownServiceException on unrecognizable UnknownSmithyHttpException',
         () {
       const smithyException =
           UnknownSmithyHttpException(statusCode: 500, body: 'some error');
@@ -32,5 +32,19 @@ void main() {
         S3StorageException.unknownServiceException().message,
       );
     });
+
+    for (final smithyException in [
+      const UnknownSmithyHttpException(statusCode: 404, body: 'Not found.'),
+      const UnknownSmithyHttpException(statusCode: 403, body: 'Access denied.'),
+    ]) {
+      test(
+          'should create S3StorageException for UnknownSmithyHttpException with status code: ${smithyException.statusCode}',
+          () {
+        final exception =
+            S3StorageException.fromUnknownSmithyHttpException(smithyException);
+
+        expect(exception.underlyingException, smithyException);
+      });
+    }
   });
 }
