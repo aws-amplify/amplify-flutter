@@ -71,7 +71,7 @@ const testApiKeyConfig = AWSApiConfig(
   endpointType: EndpointType.graphQL,
   endpoint: 'https://abc123.appsync-api.us-east-1.amazonaws.com/graphql',
   region: 'us-east-1',
-  authorizationType: APIAuthorizationMode.apiKey,
+  authorizationType: APIAuthorizationType.apiKey,
   apiKey: 'abc-123',
 );
 
@@ -81,7 +81,7 @@ const expectedApiKeyWebSocketConnectionUrl =
 AmplifyAuthProviderRepository getTestAuthProviderRepo() {
   final testAuthProviderRepo = AmplifyAuthProviderRepository();
   testAuthProviderRepo.registerAuthProvider(
-    APIAuthorizationMode.apiKey.authProviderToken,
+    APIAuthorizationType.apiKey.authProviderToken,
     AppSyncApiKeyAuthProvider(),
   );
 

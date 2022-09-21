@@ -47,7 +47,7 @@ class AmplifyAPIDart extends AmplifyAPI {
   final Map<String, WebSocketConnection> _webSocketConnectionPool = {};
 
   /// The registered [APIAuthProvider] instances.
-  final Map<APIAuthorizationMode, APIAuthProvider> _authProviders = {};
+  final Map<APIAuthorizationType, APIAuthProvider> _authProviders = {};
 
   /// {@macro amplify_api.amplify_api_dart}
   AmplifyAPIDart({
@@ -87,7 +87,7 @@ class AmplifyAPIDart extends AmplifyAPI {
       // have a key if not the primary auth mode.
       if (value.apiKey != null) {
         _authProviderRepo.registerAuthProvider(
-          APIAuthorizationMode.apiKey.authProviderToken,
+          APIAuthorizationType.apiKey.authProviderToken,
           AppSyncApiKeyAuthProvider(),
         );
       }
@@ -135,7 +135,7 @@ class AmplifyAPIDart extends AmplifyAPI {
   AWSHttpClient getHttpClient(
     EndpointType type, {
     String? apiName,
-    APIAuthorizationMode? authorizationMode,
+    APIAuthorizationType? authorizationMode,
   }) {
     final endpoint = _apiConfig.getEndpoint(
       type: type,
@@ -347,13 +347,13 @@ class _NativeAmplifyApi
     with AWSDebuggable, AmplifyLoggerMixin
     implements NativeApiPlugin {
   /// The registered [APIAuthProvider] instances.
-  final Map<APIAuthorizationMode, APIAuthProvider> _authProviders;
+  final Map<APIAuthorizationType, APIAuthProvider> _authProviders;
 
   _NativeAmplifyApi(this._authProviders);
 
   @override
   Future<String?> getLatestAuthToken(String providerName) {
-    final provider = APIAuthorizationModeX.from(providerName);
+    final provider = APIAuthorizationTypeX.from(providerName);
     if (provider == null) {
       throw PlatformException(code: 'BAD_ARGUMENTS');
     }

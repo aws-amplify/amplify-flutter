@@ -263,11 +263,11 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     // without requiring other plugins to call `Amplify.Auth...` directly.
     authProviderRepo
       ..registerAuthProvider(
-        APIAuthorizationMode.iam.authProviderToken,
+        APIAuthorizationType.iam.authProviderToken,
         CognitoIamAuthProvider(),
       )
       ..registerAuthProvider(
-        APIAuthorizationMode.userPools.authProviderToken,
+        APIAuthorizationType.userPools.authProviderToken,
         CognitoUserPoolsAuthProvider(),
       );
 

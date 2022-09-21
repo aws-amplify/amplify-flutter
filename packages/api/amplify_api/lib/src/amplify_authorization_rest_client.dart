@@ -31,7 +31,7 @@ class AmplifyAuthorizationRestClient extends AWSBaseHttpClient {
   /// The authorization mode to use for requests with this client.
   ///
   /// If provided, will override the [authorizationType] of [endpointConfig].
-  final APIAuthorizationMode? authorizationMode;
+  final APIAuthorizationType? authorizationMode;
 
   /// Provide an [AWSApiConfig] which will determine how requests from this
   /// client are authorized.

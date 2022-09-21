@@ -6,11 +6,11 @@ part of 'api_authorization_type.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-const _$APIAuthorizationModeEnumMap = {
-  APIAuthorizationMode.none: 'NONE',
-  APIAuthorizationMode.apiKey: 'API_KEY',
-  APIAuthorizationMode.iam: 'AWS_IAM',
-  APIAuthorizationMode.oidc: 'OPENID_CONNECT',
-  APIAuthorizationMode.userPools: 'AMAZON_COGNITO_USER_POOLS',
-  APIAuthorizationMode.function: 'AWS_LAMBDA',
+const _$APIAuthorizationTypeEnumMap = {
+  APIAuthorizationType.none: 'NONE',
+  APIAuthorizationType.apiKey: 'API_KEY',
+  APIAuthorizationType.iam: 'AWS_IAM',
+  APIAuthorizationType.oidc: 'OPENID_CONNECT',
+  APIAuthorizationType.userPools: 'AMAZON_COGNITO_USER_POOLS',
+  APIAuthorizationType.function: 'AWS_LAMBDA',
 };

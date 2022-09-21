@@ -25,7 +25,7 @@ part 'api_authorization_type.g.dart';
 /// See also:
 /// - [AppSync Security](https://docs.aws.amazon.com/appsync/latest/devguide/security.html)
 @JsonEnum(alwaysCreate: true)
-enum APIAuthorizationMode<T extends AmplifyAuthProvider> {
+enum APIAuthorizationType<T extends AmplifyAuthProvider> {
   /// For public APIs.
   @JsonValue('NONE')
   none(AmplifyAuthProviderToken<AmplifyAuthProvider>('NONE')),
@@ -69,17 +69,17 @@ enum APIAuthorizationMode<T extends AmplifyAuthProvider> {
   @JsonValue('AWS_LAMBDA')
   function(AmplifyAuthProviderToken<TokenAmplifyAuthProvider>('AWS_LAMBDA'));
 
-  const APIAuthorizationMode(this.authProviderToken);
+  const APIAuthorizationType(this.authProviderToken);
   final AmplifyAuthProviderToken<T> authProviderToken;
 }
 
-/// Helper methods for [APIAuthorizationMode].
-extension APIAuthorizationModeX on APIAuthorizationMode {
-  /// Returns the [APIAuthorizationMode] value for [value].
-  static APIAuthorizationMode? from(String? value) =>
-      APIAuthorizationMode.values
+/// Helper methods for [APIAuthorizationType].
+extension APIAuthorizationTypeX on APIAuthorizationType {
+  /// Returns the [APIAuthorizationType] value for [value].
+  static APIAuthorizationType? from(String? value) =>
+      APIAuthorizationType.values
           .firstWhereOrNull((el) => el.rawValue == value);
 
   /// Returns the underlying [String] backing [this].
-  String get rawValue => _$APIAuthorizationModeEnumMap[this]!;
+  String get rawValue => _$APIAuthorizationTypeEnumMap[this]!;
 }

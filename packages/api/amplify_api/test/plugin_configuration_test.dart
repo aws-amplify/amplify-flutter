@@ -69,7 +69,7 @@ void main() {
 
   final authProviderRepo = AmplifyAuthProviderRepository();
   authProviderRepo.registerAuthProvider(
-      APIAuthorizationMode.iam.authProviderToken, TestIamAuthProvider());
+      APIAuthorizationType.iam.authProviderToken, TestIamAuthProvider());
   final config = AmplifyConfig.fromJson(
     jsonDecode(amplifyconfig) as Map<String, Object?>,
   );
@@ -87,7 +87,7 @@ void main() {
         config: config,
       );
       final apiKeyAuthProvider = authProviderRepo.getAuthProvider(
-        APIAuthorizationMode.apiKey.authProviderToken,
+        APIAuthorizationType.apiKey.authProviderToken,
       );
       expect(apiKeyAuthProvider, isA<AppSyncApiKeyAuthProvider>());
     });
@@ -101,7 +101,7 @@ void main() {
         config: configIamWithApiKey,
       );
       final apiKeyAuthProvider = authProviderRepo.getAuthProvider(
-        APIAuthorizationMode.apiKey.authProviderToken,
+        APIAuthorizationType.apiKey.authProviderToken,
       );
       expect(apiKeyAuthProvider, isA<AppSyncApiKeyAuthProvider>());
     });
@@ -115,10 +115,10 @@ void main() {
         config: config,
       );
       final oidcAuthProvider = authProviderRepo
-          .getAuthProvider(APIAuthorizationMode.oidc.authProviderToken);
+          .getAuthProvider(APIAuthorizationType.oidc.authProviderToken);
       expect(oidcAuthProvider, isA<OidcFunctionAuthProvider>());
       final actualRegisteredProvider = authProviderRepo
-          .getAuthProvider(APIAuthorizationMode.oidc.authProviderToken);
+          .getAuthProvider(APIAuthorizationType.oidc.authProviderToken);
       final actualToken = await actualRegisteredProvider!.getLatestAuthToken();
       expect(actualToken, testOidcToken);
     });
@@ -133,10 +133,10 @@ void main() {
         config: config,
       );
       final functionAuthProvider = authProviderRepo
-          .getAuthProvider(APIAuthorizationMode.function.authProviderToken);
+          .getAuthProvider(APIAuthorizationType.function.authProviderToken);
       expect(functionAuthProvider, isA<OidcFunctionAuthProvider>());
       final actualRegisteredProvider = authProviderRepo
-          .getAuthProvider(APIAuthorizationMode.function.authProviderToken);
+          .getAuthProvider(APIAuthorizationType.function.authProviderToken);
       final actualToken = await actualRegisteredProvider!.getLatestAuthToken();
       expect(actualToken, testFunctionToken);
     });

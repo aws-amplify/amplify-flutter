@@ -28,7 +28,7 @@ void main() {
     const endpoint =
         'https://abc123.appsync-api.us-east-1.amazonaws.com/graphql';
     const region = 'us-east-1';
-    const authorizationType = APIAuthorizationMode.apiKey;
+    const authorizationType = APIAuthorizationType.apiKey;
     const apiKey = 'abc-123';
 
     setUpAll(() async {
@@ -54,7 +54,7 @@ void main() {
     const endpointType = EndpointType.rest;
     const endpoint = 'https://abc123.appsync-api.us-east-1.amazonaws.com/test';
     const region = 'us-east-1';
-    const authorizationType = APIAuthorizationMode.iam;
+    const authorizationType = APIAuthorizationType.iam;
 
     setUpAll(() async {
       const config = AWSApiConfig(

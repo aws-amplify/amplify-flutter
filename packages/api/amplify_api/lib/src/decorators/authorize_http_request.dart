@@ -25,20 +25,20 @@ Future<AWSBaseHttpRequest> authorizeHttpRequest(
   AWSBaseHttpRequest request, {
   required AWSApiConfig endpointConfig,
   required AmplifyAuthProviderRepository authProviderRepo,
-  APIAuthorizationMode? authorizationMode,
+  APIAuthorizationType? authorizationMode,
 }) async {
   final authType = authorizationMode ?? endpointConfig.authorizationType;
   if (request.headers.containsKey(AWSHeaders.authorization) ||
       (request.headers.containsKey(xApiKey) &&
-          authType == APIAuthorizationMode.apiKey)) {
+          authType == APIAuthorizationType.apiKey)) {
     return request;
   }
 
   switch (authType) {
-    case APIAuthorizationMode.apiKey:
+    case APIAuthorizationType.apiKey:
       final authProvider = _validateAuthProvider(
         authProviderRepo.getAuthProvider(
-          APIAuthorizationMode.apiKey.authProviderToken,
+          APIAuthorizationType.apiKey.authProviderToken,
         ),
         authType,
       );
@@ -53,10 +53,10 @@ Future<AWSBaseHttpRequest> authorizeHttpRequest(
         options: ApiKeyAuthProviderOptions(apiKey),
       );
       return authorizedRequest;
-    case APIAuthorizationMode.iam:
+    case APIAuthorizationType.iam:
       final authProvider = _validateAuthProvider(
           authProviderRepo
-              .getAuthProvider(APIAuthorizationMode.iam.authProviderToken),
+              .getAuthProvider(APIAuthorizationType.iam.authProviderToken),
           authType);
       final service = endpointConfig.endpointType == EndpointType.graphQL
           ? AWSService.appSync
@@ -70,22 +70,22 @@ Future<AWSBaseHttpRequest> authorizeHttpRequest(
         ),
       );
       return authorizedRequest;
-    case APIAuthorizationMode.function:
-    case APIAuthorizationMode.oidc:
-    case APIAuthorizationMode.userPools:
+    case APIAuthorizationType.function:
+    case APIAuthorizationType.oidc:
+    case APIAuthorizationType.userPools:
       final authProvider = _validateAuthProvider(
         authProviderRepo.getAuthProvider(authType.authProviderToken),
         authType,
       );
       final authorizedRequest = await authProvider.authorizeRequest(request);
       return authorizedRequest;
-    case APIAuthorizationMode.none:
+    case APIAuthorizationType.none:
       return request;
   }
 }
 
 T _validateAuthProvider<T extends AmplifyAuthProvider>(
-    T? authProvider, APIAuthorizationMode authType) {
+    T? authProvider, APIAuthorizationType authType) {
   if (authProvider == null) {
     throw ApiException('No auth provider found for auth mode ${authType.name}.',
         recoverySuggestion: 'Ensure auth plugin correctly configured.');

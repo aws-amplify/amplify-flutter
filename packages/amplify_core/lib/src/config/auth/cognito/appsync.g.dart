@@ -11,7 +11,7 @@ CognitoAppSyncConfig _$CognitoAppSyncConfigFromJson(
     CognitoAppSyncConfig(
       apiUrl: json['ApiUrl'] as String,
       region: json['Region'] as String,
-      authMode: $enumDecode(_$APIAuthorizationModeEnumMap, json['AuthMode']),
+      authMode: $enumDecode(_$APIAuthorizationTypeEnumMap, json['AuthMode']),
       apiKey: json['ApiKey'] as String?,
       clientDatabasePrefix: json['ClientDatabasePrefix'] as String,
     );
@@ -21,7 +21,7 @@ Map<String, dynamic> _$CognitoAppSyncConfigToJson(
   final val = <String, dynamic>{
     'ApiUrl': instance.apiUrl,
     'Region': instance.region,
-    'AuthMode': _$APIAuthorizationModeEnumMap[instance.authMode]!,
+    'AuthMode': _$APIAuthorizationTypeEnumMap[instance.authMode]!,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -35,11 +35,11 @@ Map<String, dynamic> _$CognitoAppSyncConfigToJson(
   return val;
 }
 
-const _$APIAuthorizationModeEnumMap = {
-  APIAuthorizationMode.none: 'NONE',
-  APIAuthorizationMode.apiKey: 'API_KEY',
-  APIAuthorizationMode.iam: 'AWS_IAM',
-  APIAuthorizationMode.oidc: 'OPENID_CONNECT',
-  APIAuthorizationMode.userPools: 'AMAZON_COGNITO_USER_POOLS',
-  APIAuthorizationMode.function: 'AWS_LAMBDA',
+const _$APIAuthorizationTypeEnumMap = {
+  APIAuthorizationType.none: 'NONE',
+  APIAuthorizationType.apiKey: 'API_KEY',
+  APIAuthorizationType.iam: 'AWS_IAM',
+  APIAuthorizationType.oidc: 'OPENID_CONNECT',
+  APIAuthorizationType.userPools: 'AMAZON_COGNITO_USER_POOLS',
+  APIAuthorizationType.function: 'AWS_LAMBDA',
 };

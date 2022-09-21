@@ -30,7 +30,7 @@ class CognitoAppSyncConfig
 
   final String apiUrl;
   final String region;
-  final APIAuthorizationMode authMode;
+  final APIAuthorizationType authMode;
   final String? apiKey;
   final String clientDatabasePrefix;
 
@@ -49,7 +49,7 @@ class CognitoAppSyncConfig
   CognitoAppSyncConfig copyWith({
     String? apiUrl,
     String? region,
-    APIAuthorizationMode? authMode,
+    APIAuthorizationType? authMode,
     String? apiKey,
     String? clientDatabasePrefix,
   }) {

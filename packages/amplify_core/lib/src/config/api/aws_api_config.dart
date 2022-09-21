@@ -71,7 +71,7 @@ class AWSApiPluginConfig extends ConfigMap<AWSApiConfig>
   AWSApiConfig? get default$ =>
       entries
           .firstWhereOrNull(
-            (el) => el.value.authorizationType == APIAuthorizationMode.apiKey,
+            (el) => el.value.authorizationType == APIAuthorizationType.apiKey,
           )
           ?.value ??
       entries.firstOrNull?.value;
