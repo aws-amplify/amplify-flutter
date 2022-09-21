@@ -73,6 +73,8 @@ abstract class QueryFieldOperator<T> {
       return value.toSeconds();
     } else if (value is Enum) {
       return enumToString(value);
+    } else if (value is ModelIdentifier) {
+      return value.serializeAsList();
     }
 
     // TODO sanitize other types appropriately
@@ -103,6 +105,22 @@ class EqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   }
 }
 
+class EqualModelIdentifierQueryOperator<T extends ModelIdentifier>
+    extends QueryFieldOperatorSingleValue<T> {
+  const EqualModelIdentifierQueryOperator(T value)
+      : super(value, QueryFieldOperatorType.equal);
+
+  @override
+  bool evaluate(T? other) {
+    return other == value;
+  }
+
+  @override
+  Map<String, dynamic> serializeAsMap() {
+    return serializeAsMapWithOperator(type.toShortString(), value);
+  }
+}
+
 class NotEqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   const NotEqualQueryOperator(T value)
       : super(value, QueryFieldOperatorType.not_equal);
@@ -110,6 +128,22 @@ class NotEqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   @override
   bool evaluate(T? other) {
     return other != value;
+  }
+}
+
+class NotEqualModelIdentifierQueryOperator<T extends ModelIdentifier>
+    extends QueryFieldOperatorSingleValue<T> {
+  const NotEqualModelIdentifierQueryOperator(T value)
+      : super(value, QueryFieldOperatorType.not_equal);
+
+  @override
+  bool evaluate(T? other) {
+    return other != value;
+  }
+
+  @override
+  Map<String, dynamic> serializeAsMap() {
+    return serializeAsMapWithOperator(type.toShortString(), value);
   }
 }
 
