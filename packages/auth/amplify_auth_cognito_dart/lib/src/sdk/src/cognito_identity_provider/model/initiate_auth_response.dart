@@ -33,16 +33,18 @@ abstract class InitiateAuthResponse
     with _i1.AWSEquatable<InitiateAuthResponse>
     implements Built<InitiateAuthResponse, InitiateAuthResponseBuilder> {
   /// Initiates the authentication response.
-  factory InitiateAuthResponse(
-      {_i2.AuthenticationResultType? authenticationResult,
-      _i3.ChallengeNameType? challengeName,
-      _i4.BuiltMap<String, String>? challengeParameters,
-      String? session}) {
+  factory InitiateAuthResponse({
+    _i2.AuthenticationResultType? authenticationResult,
+    _i3.ChallengeNameType? challengeName,
+    _i4.BuiltMap<String, String>? challengeParameters,
+    String? session,
+  }) {
     return _$InitiateAuthResponse._(
-        authenticationResult: authenticationResult,
-        challengeName: challengeName,
-        challengeParameters: challengeParameters,
-        session: session);
+      authenticationResult: authenticationResult,
+      challengeName: challengeName,
+      challengeParameters: challengeParameters,
+      session: session,
+    );
   }
 
   /// Initiates the authentication response.
@@ -54,7 +56,9 @@ abstract class InitiateAuthResponse
 
   /// Constructs a [InitiateAuthResponse] from a [payload] and [response].
   factory InitiateAuthResponse.fromResponse(
-          InitiateAuthResponse payload, _i1.AWSBaseHttpResponse response) =>
+    InitiateAuthResponse payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i5.SmithySerializer> serializers = [
@@ -102,15 +106,31 @@ abstract class InitiateAuthResponse
   /// The session that should pass both ways in challenge-response calls to the service. If the caller must pass another challenge, they return a session with other challenge parameters. This session should be passed as it is to the next `RespondToAuthChallenge` API call.
   String? get session;
   @override
-  List<Object?> get props =>
-      [authenticationResult, challengeName, challengeParameters, session];
+  List<Object?> get props => [
+        authenticationResult,
+        challengeName,
+        challengeParameters,
+        session,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InitiateAuthResponse');
-    helper.add('authenticationResult', authenticationResult);
-    helper.add('challengeName', challengeName);
-    helper.add('challengeParameters', challengeParameters);
-    helper.add('session', session);
+    helper.add(
+      'authenticationResult',
+      authenticationResult,
+    );
+    helper.add(
+      'challengeName',
+      challengeName,
+    );
+    helper.add(
+      'challengeParameters',
+      challengeParameters,
+    );
+    helper.add(
+      'session',
+      session,
+    );
     return helper.toString();
   }
 }
@@ -121,15 +141,23 @@ class InitiateAuthResponseAwsJson11Serializer
       : super('InitiateAuthResponse');
 
   @override
-  Iterable<Type> get types =>
-      const [InitiateAuthResponse, _$InitiateAuthResponse];
+  Iterable<Type> get types => const [
+        InitiateAuthResponse,
+        _$InitiateAuthResponse,
+      ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols =>
-      const [_i5.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i5.ShapeId> get supportedProtocols => const [
+        _i5.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   InitiateAuthResponse deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = InitiateAuthResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -139,30 +167,40 @@ class InitiateAuthResponseAwsJson11Serializer
       switch (key) {
         case 'AuthenticationResult':
           if (value != null) {
-            result.authenticationResult.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i2.AuthenticationResultType))
-                as _i2.AuthenticationResultType));
+            result.authenticationResult.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.AuthenticationResultType),
+            ) as _i2.AuthenticationResultType));
           }
           break;
         case 'ChallengeName':
           if (value != null) {
-            result.challengeName = (serializers.deserialize(value,
-                    specifiedType: const FullType(_i3.ChallengeNameType))
-                as _i3.ChallengeNameType);
+            result.challengeName = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.ChallengeNameType),
+            ) as _i3.ChallengeNameType);
           }
           break;
         case 'ChallengeParameters':
           if (value != null) {
-            result.challengeParameters.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(
-                        _i4.BuiltMap, [FullType(String), FullType(String)]))
-                as _i4.BuiltMap<String, String>));
+            result.challengeParameters.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i4.BuiltMap,
+                [
+                  FullType(String),
+                  FullType(String),
+                ],
+              ),
+            ) as _i4.BuiltMap<String, String>));
           }
           break;
         case 'Session':
           if (value != null) {
-            result.session = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.session = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -172,34 +210,50 @@ class InitiateAuthResponseAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as InitiateAuthResponse);
     final result = <Object?>[];
     if (payload.authenticationResult != null) {
       result
         ..add('AuthenticationResult')
-        ..add(serializers.serialize(payload.authenticationResult!,
-            specifiedType: const FullType(_i2.AuthenticationResultType)));
+        ..add(serializers.serialize(
+          payload.authenticationResult!,
+          specifiedType: const FullType(_i2.AuthenticationResultType),
+        ));
     }
     if (payload.challengeName != null) {
       result
         ..add('ChallengeName')
-        ..add(serializers.serialize(payload.challengeName!,
-            specifiedType: const FullType(_i3.ChallengeNameType)));
+        ..add(serializers.serialize(
+          payload.challengeName!,
+          specifiedType: const FullType(_i3.ChallengeNameType),
+        ));
     }
     if (payload.challengeParameters != null) {
       result
         ..add('ChallengeParameters')
-        ..add(serializers.serialize(payload.challengeParameters!,
-            specifiedType: const FullType(
-                _i4.BuiltMap, [FullType(String), FullType(String)])));
+        ..add(serializers.serialize(
+          payload.challengeParameters!,
+          specifiedType: const FullType(
+            _i4.BuiltMap,
+            [
+              FullType(String),
+              FullType(String),
+            ],
+          ),
+        ));
     }
     if (payload.session != null) {
       result
         ..add('Session')
-        ..add(serializers.serialize(payload.session!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.session!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

@@ -45,8 +45,9 @@ abstract class InvalidLambdaResponseException
 
   /// Constructs a [InvalidLambdaResponseException] from a [payload] and [response].
   factory InvalidLambdaResponseException.fromResponse(
-          InvalidLambdaResponseException payload,
-          _i1.AWSBaseHttpResponse response) =>
+    InvalidLambdaResponseException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
@@ -63,8 +64,9 @@ abstract class InvalidLambdaResponseException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.cognitoidentityprovider',
-      shape: 'InvalidLambdaResponseException');
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'InvalidLambdaResponseException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -81,7 +83,10 @@ abstract class InvalidLambdaResponseException
   String toString() {
     final helper =
         newBuiltValueToStringHelper('InvalidLambdaResponseException');
-    helper.add('message', message);
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
@@ -92,15 +97,23 @@ class InvalidLambdaResponseExceptionAwsJson11Serializer
       : super('InvalidLambdaResponseException');
 
   @override
-  Iterable<Type> get types =>
-      const [InvalidLambdaResponseException, _$InvalidLambdaResponseException];
+  Iterable<Type> get types => const [
+        InvalidLambdaResponseException,
+        _$InvalidLambdaResponseException,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   InvalidLambdaResponseException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = InvalidLambdaResponseExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -110,8 +123,10 @@ class InvalidLambdaResponseExceptionAwsJson11Serializer
       switch (key) {
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -121,15 +136,20 @@ class InvalidLambdaResponseExceptionAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as InvalidLambdaResponseException);
     final result = <Object?>[];
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

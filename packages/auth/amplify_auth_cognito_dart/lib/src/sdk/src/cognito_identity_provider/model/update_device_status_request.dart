@@ -33,14 +33,16 @@ abstract class UpdateDeviceStatusRequest
     implements
         Built<UpdateDeviceStatusRequest, UpdateDeviceStatusRequestBuilder> {
   /// Represents the request to update the device status.
-  factory UpdateDeviceStatusRequest(
-      {required String accessToken,
-      required String deviceKey,
-      _i3.DeviceRememberedStatusType? deviceRememberedStatus}) {
+  factory UpdateDeviceStatusRequest({
+    required String accessToken,
+    required String deviceKey,
+    _i3.DeviceRememberedStatusType? deviceRememberedStatus,
+  }) {
     return _$UpdateDeviceStatusRequest._(
-        accessToken: accessToken,
-        deviceKey: deviceKey,
-        deviceRememberedStatus: deviceRememberedStatus);
+      accessToken: accessToken,
+      deviceKey: deviceKey,
+      deviceRememberedStatus: deviceRememberedStatus,
+    );
   }
 
   /// Represents the request to update the device status.
@@ -51,8 +53,10 @@ abstract class UpdateDeviceStatusRequest
   const UpdateDeviceStatusRequest._();
 
   factory UpdateDeviceStatusRequest.fromRequest(
-          UpdateDeviceStatusRequest payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    UpdateDeviceStatusRequest payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -73,13 +77,26 @@ abstract class UpdateDeviceStatusRequest
   @override
   UpdateDeviceStatusRequest getPayload() => this;
   @override
-  List<Object?> get props => [accessToken, deviceKey, deviceRememberedStatus];
+  List<Object?> get props => [
+        accessToken,
+        deviceKey,
+        deviceRememberedStatus,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateDeviceStatusRequest');
-    helper.add('accessToken', '***SENSITIVE***');
-    helper.add('deviceKey', deviceKey);
-    helper.add('deviceRememberedStatus', deviceRememberedStatus);
+    helper.add(
+      'accessToken',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'deviceKey',
+      deviceKey,
+    );
+    helper.add(
+      'deviceRememberedStatus',
+      deviceRememberedStatus,
+    );
     return helper.toString();
   }
 }
@@ -90,15 +107,23 @@ class UpdateDeviceStatusRequestAwsJson11Serializer
       : super('UpdateDeviceStatusRequest');
 
   @override
-  Iterable<Type> get types =>
-      const [UpdateDeviceStatusRequest, _$UpdateDeviceStatusRequest];
+  Iterable<Type> get types => const [
+        UpdateDeviceStatusRequest,
+        _$UpdateDeviceStatusRequest,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   UpdateDeviceStatusRequest deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = UpdateDeviceStatusRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -107,19 +132,23 @@ class UpdateDeviceStatusRequestAwsJson11Serializer
       final value = iterator.current;
       switch (key) {
         case 'AccessToken':
-          result.accessToken = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.accessToken = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'DeviceKey':
-          result.deviceKey = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.deviceKey = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'DeviceRememberedStatus':
           if (value != null) {
-            result.deviceRememberedStatus = (serializers.deserialize(value,
-                    specifiedType:
-                        const FullType(_i3.DeviceRememberedStatusType))
-                as _i3.DeviceRememberedStatusType);
+            result.deviceRememberedStatus = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.DeviceRememberedStatusType),
+            ) as _i3.DeviceRememberedStatusType);
           }
           break;
       }
@@ -129,22 +158,31 @@ class UpdateDeviceStatusRequestAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as UpdateDeviceStatusRequest);
     final result = <Object?>[
       'AccessToken',
-      serializers.serialize(payload.accessToken,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        payload.accessToken,
+        specifiedType: const FullType(String),
+      ),
       'DeviceKey',
-      serializers.serialize(payload.deviceKey,
-          specifiedType: const FullType(String))
+      serializers.serialize(
+        payload.deviceKey,
+        specifiedType: const FullType(String),
+      ),
     ];
     if (payload.deviceRememberedStatus != null) {
       result
         ..add('DeviceRememberedStatus')
-        ..add(serializers.serialize(payload.deviceRememberedStatus!,
-            specifiedType: const FullType(_i3.DeviceRememberedStatusType)));
+        ..add(serializers.serialize(
+          payload.deviceRememberedStatus!,
+          specifiedType: const FullType(_i3.DeviceRememberedStatusType),
+        ));
     }
     return result;
   }

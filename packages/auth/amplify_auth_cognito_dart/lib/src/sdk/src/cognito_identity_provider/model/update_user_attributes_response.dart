@@ -49,8 +49,9 @@ abstract class UpdateUserAttributesResponse
 
   /// Constructs a [UpdateUserAttributesResponse] from a [payload] and [response].
   factory UpdateUserAttributesResponse.fromResponse(
-          UpdateUserAttributesResponse payload,
-          _i1.AWSBaseHttpResponse response) =>
+    UpdateUserAttributesResponse payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i4.SmithySerializer> serializers = [
@@ -67,7 +68,10 @@ abstract class UpdateUserAttributesResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateUserAttributesResponse');
-    helper.add('codeDeliveryDetailsList', codeDeliveryDetailsList);
+    helper.add(
+      'codeDeliveryDetailsList',
+      codeDeliveryDetailsList,
+    );
     return helper.toString();
   }
 }
@@ -78,15 +82,23 @@ class UpdateUserAttributesResponseAwsJson11Serializer
       : super('UpdateUserAttributesResponse');
 
   @override
-  Iterable<Type> get types =>
-      const [UpdateUserAttributesResponse, _$UpdateUserAttributesResponse];
+  Iterable<Type> get types => const [
+        UpdateUserAttributesResponse,
+        _$UpdateUserAttributesResponse,
+      ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   UpdateUserAttributesResponse deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = UpdateUserAttributesResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -97,10 +109,12 @@ class UpdateUserAttributesResponseAwsJson11Serializer
         case 'CodeDeliveryDetailsList':
           if (value != null) {
             result.codeDeliveryDetailsList.replace((serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                        _i2.BuiltList, [FullType(_i3.CodeDeliveryDetailsType)]))
-                as _i2.BuiltList<_i3.CodeDeliveryDetailsType>));
+              value,
+              specifiedType: const FullType(
+                _i2.BuiltList,
+                [FullType(_i3.CodeDeliveryDetailsType)],
+              ),
+            ) as _i2.BuiltList<_i3.CodeDeliveryDetailsType>));
           }
           break;
       }
@@ -110,16 +124,23 @@ class UpdateUserAttributesResponseAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as UpdateUserAttributesResponse);
     final result = <Object?>[];
     if (payload.codeDeliveryDetailsList != null) {
       result
         ..add('CodeDeliveryDetailsList')
-        ..add(serializers.serialize(payload.codeDeliveryDetailsList!,
-            specifiedType: const FullType(
-                _i2.BuiltList, [FullType(_i3.CodeDeliveryDetailsType)])));
+        ..add(serializers.serialize(
+          payload.codeDeliveryDetailsList!,
+          specifiedType: const FullType(
+            _i2.BuiltList,
+            [FullType(_i3.CodeDeliveryDetailsType)],
+          ),
+        ));
     }
     return result;
   }

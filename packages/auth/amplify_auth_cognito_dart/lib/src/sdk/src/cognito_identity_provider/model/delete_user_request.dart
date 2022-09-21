@@ -39,8 +39,10 @@ abstract class DeleteUserRequest
   const DeleteUserRequest._();
 
   factory DeleteUserRequest.fromRequest(
-          DeleteUserRequest payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    DeleteUserRequest payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -59,7 +61,10 @@ abstract class DeleteUserRequest
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteUserRequest');
-    helper.add('accessToken', '***SENSITIVE***');
+    helper.add(
+      'accessToken',
+      '***SENSITIVE***',
+    );
     return helper.toString();
   }
 }
@@ -69,14 +74,23 @@ class DeleteUserRequestAwsJson11Serializer
   const DeleteUserRequestAwsJson11Serializer() : super('DeleteUserRequest');
 
   @override
-  Iterable<Type> get types => const [DeleteUserRequest, _$DeleteUserRequest];
+  Iterable<Type> get types => const [
+        DeleteUserRequest,
+        _$DeleteUserRequest,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   DeleteUserRequest deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = DeleteUserRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -85,8 +99,10 @@ class DeleteUserRequestAwsJson11Serializer
       final value = iterator.current;
       switch (key) {
         case 'AccessToken':
-          result.accessToken = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.accessToken = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
       }
     }
@@ -95,13 +111,18 @@ class DeleteUserRequestAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as DeleteUserRequest);
     final result = <Object?>[
       'AccessToken',
-      serializers.serialize(payload.accessToken,
-          specifiedType: const FullType(String))
+      serializers.serialize(
+        payload.accessToken,
+        specifiedType: const FullType(String),
+      ),
     ];
     return result;
   }

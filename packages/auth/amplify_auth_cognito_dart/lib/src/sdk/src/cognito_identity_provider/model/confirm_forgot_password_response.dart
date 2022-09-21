@@ -45,8 +45,9 @@ abstract class ConfirmForgotPasswordResponse
 
   /// Constructs a [ConfirmForgotPasswordResponse] from a [payload] and [response].
   factory ConfirmForgotPasswordResponse.fromResponse(
-          ConfirmForgotPasswordResponse payload,
-          _i1.AWSBaseHttpResponse response) =>
+    ConfirmForgotPasswordResponse payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i2.SmithySerializer> serializers = [
@@ -70,20 +71,31 @@ class ConfirmForgotPasswordResponseAwsJson11Serializer
       : super('ConfirmForgotPasswordResponse');
 
   @override
-  Iterable<Type> get types =>
-      const [ConfirmForgotPasswordResponse, _$ConfirmForgotPasswordResponse];
+  Iterable<Type> get types => const [
+        ConfirmForgotPasswordResponse,
+        _$ConfirmForgotPasswordResponse,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   ConfirmForgotPasswordResponse deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return ConfirmForgotPasswordResponseBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }
