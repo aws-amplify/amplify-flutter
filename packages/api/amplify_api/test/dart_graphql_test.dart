@@ -182,7 +182,7 @@ void main() {
       );
 
       final operation = Amplify.API.query(request: req);
-      final res = await operation.value;
+      final res = await operation.response;
 
       final expected = json.encode(_expectedQuerySuccessResponseBody['data']);
 
@@ -206,7 +206,7 @@ void main() {
       );
 
       final operation = Amplify.API.query(request: req);
-      final res = await operation.value;
+      final res = await operation.response;
 
       final expected = json.encode(_expectedQuerySuccessResponseBody['data']);
 
@@ -229,7 +229,7 @@ void main() {
       );
 
       final operation = Amplify.API.mutate(request: req);
-      final res = await operation.value;
+      final res = await operation.response;
 
       final expected = json.encode(_expectedMutateSuccessResponseBody['data']);
 
@@ -277,7 +277,7 @@ void main() {
           ModelQueries.get<Blog>(Blog.classType, _modelQueryId);
 
       final operation = Amplify.API.query(request: req);
-      final res = await operation.value;
+      final res = await operation.response;
 
       // request asserts
       expect(req.document, expectedDoc);
@@ -318,7 +318,7 @@ void main() {
       );
 
       final operation = Amplify.API.query(request: req);
-      final res = await operation.value;
+      final res = await operation.response;
 
       const errorExpected = GraphQLResponseError(
         message: _errorMessage,
@@ -365,18 +365,20 @@ void main() {
       final req = GraphQLRequest<String>(document: '', variables: {});
       final operation = Amplify.API.query(request: req);
       operation.cancel();
-      operation.then((p0) => fail('Request should have been cancelled.'));
-      await operation.valueOrCancellation();
-      expect(operation.isCanceled, isTrue);
+      operation.operation
+          .then((p0) => fail('Request should have been cancelled.'));
+      await operation.operation.valueOrCancellation();
+      expect(operation.operation.isCanceled, isTrue);
     });
 
     test('canceled mutation request should never resolve', () async {
       final req = GraphQLRequest<String>(document: '', variables: {});
       final operation = Amplify.API.mutate(request: req);
       operation.cancel();
-      operation.then((p0) => fail('Request should have been cancelled.'));
-      await operation.valueOrCancellation();
-      expect(operation.isCanceled, isTrue);
+      operation.operation
+          .then((p0) => fail('Request should have been cancelled.'));
+      await operation.operation.valueOrCancellation();
+      expect(operation.operation.isCanceled, isTrue);
     });
   });
 }

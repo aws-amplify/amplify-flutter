@@ -12,13 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:convert';
-
 import 'package:amplify_api/src/amplify_api_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'test_data/fake_amplify_configuration.dart';
 
 void main() {
   late EndpointConfig endpointConfig;
@@ -67,7 +63,7 @@ void main() {
     });
 
     test('should return valid URI with params', () async {
-      final path = 'path/to/nowhere';
+      const path = 'path/to/nowhere';
       final params = {'foo': 'bar', 'bar': 'baz'};
       final uri = endpointConfig.getUri(path: path, queryParameters: params);
 
@@ -77,7 +73,7 @@ void main() {
     });
 
     test('should handle a leading slash', () async {
-      final path = '/path/to/nowhere';
+      const path = '/path/to/nowhere';
       final params = {'foo': 'bar', 'bar': 'baz'};
       final uri = endpointConfig.getUri(path: path, queryParameters: params);
 

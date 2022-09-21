@@ -159,7 +159,7 @@ void main() {
         }''';
       final request =
           GraphQLRequest<String>(document: graphQLDocument, variables: {});
-      await plugin.query(request: request).value;
+      await plugin.query(request: request).response;
       // no assertion here because assertion implemented in mock HTTP client
     });
 

@@ -28,7 +28,7 @@ final mockHttpClient = MockAWSHttpClient((request) async {
   if (request.bodyBytes.isNotEmpty) {
     expect(request.headers['Content-Type'], 'application/json; charset=utf-8');
   }
-  if (request.host.contains(_pathThatShouldFail)) {
+  if (request.path.contains(_pathThatShouldFail)) {
     return AWSHttpResponse(
       statusCode: 404,
       body: utf8.encode('Not found'),
@@ -100,6 +100,11 @@ void main() {
       final operation = Amplify.API
           .delete('items', body: HttpPayload.json({'name': 'Mow the lawn'}));
       await verifyRestOperation(operation);
+    });
+
+    test('404 should throw RestException', () async {
+      final operation = Amplify.API.get(_pathThatShouldFail);
+      await expectLater(operation.response, throwsA(isA<RestException>()));
     });
 
     test('canceled request should never resolve', () async {

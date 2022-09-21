@@ -56,4 +56,22 @@ class AmplifyAuthorizationRestClient extends AWSBaseHttpClient {
       authorizationMode: authorizationMode,
     );
   }
+
+  @override
+  Future<AWSBaseHttpResponse> transformResponse(
+    AWSBaseHttpResponse response,
+  ) async {
+    // For REST endpoints, throw [RestException] on non-successful responses.
+    if (endpointConfig.endpointType == EndpointType.rest &&
+        (response.statusCode < 200 || response.statusCode >= 300)) {
+      late AWSHttpResponse responseForException;
+      if (response is AWSStreamedHttpResponse) {
+        responseForException = await response.read();
+      } else {
+        responseForException = response as AWSHttpResponse;
+      }
+      throw RestException(responseForException);
+    }
+    return response;
+  }
 }

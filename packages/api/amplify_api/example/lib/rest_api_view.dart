@@ -14,7 +14,6 @@
  */
 
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 
 class RestApiView extends StatefulWidget {

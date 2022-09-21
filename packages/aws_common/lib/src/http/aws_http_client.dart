@@ -131,8 +131,12 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
     responseProgressCompleter.setSourceStream(operation.responseProgress);
     operation.operation.then(
       (resp) async {
-        resp = await transformResponse(resp);
-        completer.complete(resp);
+        try {
+          resp = await transformResponse(resp);
+          completer.complete(resp);
+        } on Exception catch (e, st) {
+          completer.completeError(e, st);
+        }
       },
       onError: completer.completeError,
       onCancel: completer.operation.cancel,

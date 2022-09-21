@@ -14,7 +14,6 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:async/async.dart';
 import 'package:meta/meta.dart';
 
 abstract class APIPluginInterface extends AmplifyPluginInterface {
@@ -26,13 +25,11 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
   ModelProviderInterface? get modelProvider => throw UnimplementedError();
 
   // ====== GraphQL =======
-  CancelableOperation<GraphQLResponse<T>> query<T>(
-      {required GraphQLRequest<T> request}) {
+  GraphQLOperation<T> query<T>({required GraphQLRequest<T> request}) {
     throw UnimplementedError('query() has not been implemented.');
   }
 
-  CancelableOperation<GraphQLResponse<T>> mutate<T>(
-      {required GraphQLRequest<T> request}) {
+  GraphQLOperation<T> mutate<T>({required GraphQLRequest<T> request}) {
     throw UnimplementedError('mutate() has not been implemented.');
   }
 

@@ -21,12 +21,10 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
   Category get category => Category.api;
 
   // ====== GraphQL =======
-  CancelableOperation<GraphQLResponse<T>> query<T>(
-          {required GraphQLRequest<T> request}) =>
+  GraphQLOperation<T> query<T>({required GraphQLRequest<T> request}) =>
       defaultPlugin.query(request: request);
 
-  CancelableOperation<GraphQLResponse<T>> mutate<T>(
-          {required GraphQLRequest<T> request}) =>
+  GraphQLOperation<T> mutate<T>({required GraphQLRequest<T> request}) =>
       defaultPlugin.mutate(request: request);
 
   /// Subscribes to the given [request] and returns the stream of response events.

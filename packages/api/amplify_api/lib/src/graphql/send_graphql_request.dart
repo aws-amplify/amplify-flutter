@@ -22,7 +22,7 @@ import 'graphql_response_decoder.dart';
 
 /// Converts the [GraphQLRequest] to an HTTP POST request and sends with ///[client].
 @internal
-CancelableOperation<GraphQLResponse<T>> sendGraphQLRequest<T>({
+GraphQLOperation<T> sendGraphQLRequest<T>({
   required GraphQLRequest<T> request,
   required AWSHttpClient client,
   required Uri uri,
@@ -34,7 +34,7 @@ CancelableOperation<GraphQLResponse<T>> sendGraphQLRequest<T>({
     headers: request.headers,
   ));
 
-  return graphQLOperation.operation.then(
+  return GraphQLOperation(graphQLOperation.operation.then(
     (response) async {
       final responseJson = await response.decodeBody();
       final responseBody = json.decode(responseJson);
@@ -60,5 +60,5 @@ CancelableOperation<GraphQLResponse<T>> sendGraphQLRequest<T>({
         stackTrace,
       );
     },
-  );
+  ));
 }

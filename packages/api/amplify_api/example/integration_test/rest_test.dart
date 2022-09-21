@@ -70,9 +70,13 @@ void main({bool useExistingTestUser = false}) {
         },
       );
 
-      testWidgets('should get an error for POST', (WidgetTester tester) async {
-        final res = await Amplify.API.post(path).response;
-        expect(res.statusCode, 403);
+      testWidgets('should throw a RestException for POST',
+          (WidgetTester tester) async {
+        final operation = Amplify.API.post(path);
+        await expectLater(
+          operation.response,
+          throwsA(isA<RestException>()),
+        );
       });
     });
 
