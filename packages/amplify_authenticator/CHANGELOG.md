@@ -1,3 +1,10 @@
+## 1.0.0-next.0+3
+
+### Features
+- feat(authenticator): handle `AuthHubEventType.signedIn` ([#2049](https://github.com/aws-amplify/amplify-flutter/pull/2049))
+- feat(secure_storage): handle package uninstall/re-install on Linux and Windows ([#2044](https://github.com/aws-amplify/amplify-flutter/pull/2044))
+- feat(secure_storage): remove items on re-install for iOS & MacOS ([#2118](https://github.com/aws-amplify/amplify-flutter/pull/2118))
+
 ## 1.0.0-next.0+2
 
 - Fix package analysis issue

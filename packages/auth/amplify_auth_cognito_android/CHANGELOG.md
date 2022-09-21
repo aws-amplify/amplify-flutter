@@ -1,3 +1,11 @@
+## 1.0.0-next.0+2
+
+### Fixes
+- fix(auth): Android redirect in older Chromes
+
+### Features
+- feat(auth): migrate legacy credentials on Android ([#2004](https://github.com/aws-amplify/amplify-flutter/pull/2004))
+
 ## 1.0.0-next.0+1
 
 - fix(auth): Multi-auth DataStore bindings ([#2012](https://github.com/aws-amplify/amplify-flutter/pull/2012))

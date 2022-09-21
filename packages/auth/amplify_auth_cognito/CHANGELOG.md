@@ -1,3 +1,14 @@
+## 1.0.0-next.0+5
+
+### Features
+- feat(auth): Multiple plugin registration
+- feat(auth): migrate legacy credentials on Android ([#2004](https://github.com/aws-amplify/amplify-flutter/pull/2004))
+- feat(secure_storage): handle package uninstall/re-install on Linux and Windows ([#2044](https://github.com/aws-amplify/amplify-flutter/pull/2044))
+- feat(secure_storage): remove items on re-install for iOS & MacOS ([#2118](https://github.com/aws-amplify/amplify-flutter/pull/2118))
+
+### Fixes
+- fix(auth): Erase plugin interface input types
+
 ## 1.0.0-next.0+4
 
 - Bump `amplify_auth_cognito_dart` dependency
