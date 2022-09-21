@@ -21,6 +21,9 @@ enum FetchAuthSessionEventType {
   /// {@macro amplify_auth_cognito.fetch_auth_session_fetch}
   fetch,
 
+  /// {@macro amplify_auth_cognito.fetch_auth_session_federate}
+  federate,
+
   /// {@macro amplify_auth_cognito.fetch_auth_session_refresh}
   refresh,
 
@@ -40,6 +43,11 @@ abstract class FetchAuthSessionEvent extends StateMachineEvent<
   const factory FetchAuthSessionEvent.fetch([
     CognitoSessionOptions? options,
   ]) = FetchAuthSessionFetch;
+
+  /// {@macro amplify_auth_cognito.fetch_auth_session_federate}
+  const factory FetchAuthSessionEvent.federate(
+    FederateToIdentityPoolRequest request,
+  ) = FetchAuthSessionFederate;
 
   /// {@macro amplify_auth_cognito.fetch_auth_session_fetch}
   const factory FetchAuthSessionEvent.refresh({
@@ -92,6 +100,36 @@ class FetchAuthSessionFetch extends FetchAuthSessionEvent {
   }
 }
 
+/// {@template amplify_auth_cognito.fetch_auth_session_federate}
+/// Fetch AWS credentials by federating to the registered identity pool.
+/// {@endtemplate}
+class FetchAuthSessionFederate extends FetchAuthSessionEvent {
+  /// {@macro amplify_auth_cognito.fetch_auth_session_federate}
+  const FetchAuthSessionFederate(this.request) : super._();
+
+  /// The federation request.
+  final FederateToIdentityPoolRequest request;
+
+  @override
+  FetchAuthSessionEventType get type => FetchAuthSessionEventType.federate;
+
+  @override
+  List<Object?> get props => [type, request];
+
+  @override
+  PreconditionException? checkPrecondition(
+    FetchAuthSessionState currentState,
+  ) {
+    if (currentState.type == FetchAuthSessionStateType.refreshing ||
+        currentState.type == FetchAuthSessionStateType.fetching) {
+      return const AuthPreconditionException(
+        'Credentials are already being fetched',
+      );
+    }
+    return null;
+  }
+}
+
 /// {@template amplify_auth_cognito.fetch_auth_session_refresh}
 /// Refresh the current user's auth session.
 /// {@endtemplate}
@@ -100,6 +138,7 @@ class FetchAuthSessionRefresh extends FetchAuthSessionEvent {
   const FetchAuthSessionRefresh({
     required this.refreshUserPoolTokens,
     required this.refreshAwsCredentials,
+    this.federationOptions,
   }) : super._();
 
   /// Whether to refresh the user pool tokens.
@@ -107,6 +146,9 @@ class FetchAuthSessionRefresh extends FetchAuthSessionEvent {
 
   /// Whether to refresh or retrieve AWS credentials.
   final bool refreshAwsCredentials;
+
+  /// Options for federation to an identity pool.
+  final FederateToIdentityPoolOptions? federationOptions;
 
   @override
   FetchAuthSessionEventType get type => FetchAuthSessionEventType.refresh;
@@ -116,6 +158,7 @@ class FetchAuthSessionRefresh extends FetchAuthSessionEvent {
         type,
         refreshAwsCredentials,
         refreshUserPoolTokens,
+        federationOptions,
       ];
 
   @override

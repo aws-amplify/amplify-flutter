@@ -15,6 +15,7 @@
 import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
@@ -321,6 +322,49 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
     // This should never happen.
     throw const UnknownException('fetchAuthSession could not be completed');
+  }
+
+  /// {@template amplify_auth_cognito_dart.impl.federate_to_identity_pool}
+  /// Federate to a Cognito Identity pool using an external identity provider
+  /// previously registered for the identity pool.
+  ///
+  /// For more information about federation, see the
+  /// [docs](https://docs.aws.amazon.com/cognito/latest/developerguide/external-identity-providers.html).
+  ///
+  /// See also:
+  /// - [FederateToIdentityPoolRequest.token]
+  /// - [FederateToIdentityPoolRequest.provider]
+  /// - [FederateToIdentityPoolRequest.options]
+  /// {@endtemplate}
+  Future<FederateToIdentityPoolResult> federateToIdentityPool({
+    required FederateToIdentityPoolRequest request,
+  }) async {
+    _stateMachine.dispatch(FetchAuthSessionEvent.federate(request));
+    final session = await fetchAuthSession(request: const AuthSessionRequest());
+    return FederateToIdentityPoolResult(
+      identityId: session.identityId!,
+      credentials: session.credentials!,
+    );
+  }
+
+  /// {@template amplify_auth_cognito_dart.impl.clear_federation_to_identity_pool}
+  /// Clears the federation previously retrieved via [federateToIdentityPool].
+  ///
+  /// If there is no federation active, this is a no-op.
+  /// {@endtemplate}
+  Future<void> clearFederationToIdentityPool() async {
+    final identityPoolConfig = _identityPoolConfig;
+    if (identityPoolConfig == null) {
+      throw const InvalidAccountTypeException.noIdentityPool();
+    }
+    await _stateMachine.dispatch(
+      CredentialStoreEvent.clearCredentials(
+        CognitoIdentityPoolKeys(identityPoolConfig),
+      ),
+    );
+    await _stateMachine
+        .expect(CredentialStoreStateMachine.type)
+        .getCredentialsResult();
   }
 
   @override
@@ -1062,4 +1106,62 @@ class _AmplifyAuthCognitoDartPluginKey extends AuthPluginKey<
 
   @override
   String get runtimeTypeName => 'AmplifyAuthCognitoDart';
+}
+
+/// Extensions to [AuthCategory] when using [AmplifyAuthCognitoDart].
+extension AmplifyAuthCognitoDartCategoryExtensions on AuthCategory<
+    AuthUser,
+    CognitoUserAttributeKey,
+    AuthUserAttribute<CognitoUserAttributeKey>,
+    CognitoDevice,
+    CognitoSignUpOptions,
+    CognitoSignUpResult,
+    CognitoConfirmSignUpOptions,
+    CognitoSignUpResult,
+    CognitoResendSignUpCodeOptions,
+    CognitoResendSignUpCodeResult,
+    CognitoSignInOptions,
+    CognitoSignInResult,
+    CognitoConfirmSignInOptions,
+    CognitoSignInResult,
+    SignOutOptions,
+    SignOutResult,
+    CognitoUpdatePasswordOptions,
+    UpdatePasswordResult,
+    CognitoResetPasswordOptions,
+    CognitoResetPasswordResult,
+    CognitoConfirmResetPasswordOptions,
+    UpdatePasswordResult,
+    AuthUserOptions,
+    FetchUserAttributesOptions,
+    CognitoSessionOptions,
+    CognitoAuthSession,
+    CognitoSignInWithWebUIOptions,
+    CognitoSignInResult,
+    CognitoUpdateUserAttributeOptions,
+    UpdateUserAttributeResult,
+    CognitoUpdateUserAttributesOptions,
+    ConfirmUserAttributeOptions,
+    ConfirmUserAttributeResult,
+    CognitoResendUserAttributeConfirmationCodeOptions,
+    ResendUserAttributeConfirmationCodeResult,
+    AmplifyAuthCognitoDart> {
+  /// {@macro amplify_auth_cognito_dart.impl.federate_to_identity_pool}
+  Future<FederateToIdentityPoolResult> federateToIdentityPool({
+    required String token,
+    required AuthProvider provider,
+    FederateToIdentityPoolOptions? options,
+  }) async {
+    final request = FederateToIdentityPoolRequest(
+      token: token,
+      provider: provider,
+      options: options,
+    );
+    return plugin.federateToIdentityPool(request: request);
+  }
+
+  /// {@macro amplify_auth_cognito_dart.impl.clear_federation_to_identity_pool}
+  Future<void> clearFederationToIdentityPool() async {
+    return plugin.clearFederationToIdentityPool();
+  }
 }
