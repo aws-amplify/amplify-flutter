@@ -245,7 +245,7 @@ class AmplifyAPIDart extends AmplifyAPI {
   // ====== REST =======
 
   @override
-  AWSHttpOperation delete(
+  RestOperation delete(
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
@@ -254,15 +254,17 @@ class AmplifyAPIDart extends AmplifyAPI {
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
     final client = getHttpClient(EndpointType.rest, apiName: apiName);
-    return AWSStreamedHttpRequest.delete(
-      uri,
-      body: body,
-      headers: headers,
-    ).send(client);
+    return RestOperation.fromHttpOperation(
+      AWSStreamedHttpRequest.delete(
+        uri,
+        body: body,
+        headers: headers,
+      ).send(client),
+    );
   }
 
   @override
-  AWSHttpOperation get(
+  RestOperation get(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
@@ -270,14 +272,16 @@ class AmplifyAPIDart extends AmplifyAPI {
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
     final client = getHttpClient(EndpointType.rest, apiName: apiName);
-    return AWSHttpRequest.get(
-      uri,
-      headers: headers,
-    ).send(client);
+    return RestOperation.fromHttpOperation(
+      AWSHttpRequest.get(
+        uri,
+        headers: headers,
+      ).send(client),
+    );
   }
 
   @override
-  AWSHttpOperation head(
+  RestOperation head(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
@@ -285,31 +289,16 @@ class AmplifyAPIDart extends AmplifyAPI {
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
     final client = getHttpClient(EndpointType.rest, apiName: apiName);
-    return AWSHttpRequest.head(
-      uri,
-      headers: headers,
-    ).send(client);
+    return RestOperation.fromHttpOperation(
+      AWSHttpRequest.head(
+        uri,
+        headers: headers,
+      ).send(client),
+    );
   }
 
   @override
-  AWSHttpOperation patch(
-    String path, {
-    HttpPayload? body,
-    Map<String, String>? headers,
-    Map<String, String>? queryParameters,
-    String? apiName,
-  }) {
-    final uri = _getRestUri(path, apiName, queryParameters);
-    final client = getHttpClient(EndpointType.rest, apiName: apiName);
-    return AWSStreamedHttpRequest.patch(
-      uri,
-      headers: headers,
-      body: body ?? const HttpPayload.empty(),
-    ).send(client);
-  }
-
-  @override
-  AWSHttpOperation post(
+  RestOperation patch(
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
@@ -318,15 +307,17 @@ class AmplifyAPIDart extends AmplifyAPI {
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
     final client = getHttpClient(EndpointType.rest, apiName: apiName);
-    return AWSStreamedHttpRequest.post(
-      uri,
-      headers: headers,
-      body: body ?? const HttpPayload.empty(),
-    ).send(client);
+    return RestOperation.fromHttpOperation(
+      AWSStreamedHttpRequest.patch(
+        uri,
+        headers: headers,
+        body: body ?? const HttpPayload.empty(),
+      ).send(client),
+    );
   }
 
   @override
-  AWSHttpOperation put(
+  RestOperation post(
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
@@ -335,11 +326,32 @@ class AmplifyAPIDart extends AmplifyAPI {
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
     final client = getHttpClient(EndpointType.rest, apiName: apiName);
-    return AWSStreamedHttpRequest.put(
-      uri,
-      headers: headers,
-      body: body ?? const HttpPayload.empty(),
-    ).send(client);
+    return RestOperation.fromHttpOperation(
+      AWSStreamedHttpRequest.post(
+        uri,
+        headers: headers,
+        body: body ?? const HttpPayload.empty(),
+      ).send(client),
+    );
+  }
+
+  @override
+  RestOperation put(
+    String path, {
+    HttpPayload? body,
+    Map<String, String>? headers,
+    Map<String, String>? queryParameters,
+    String? apiName,
+  }) {
+    final uri = _getRestUri(path, apiName, queryParameters);
+    final client = getHttpClient(EndpointType.rest, apiName: apiName);
+    return RestOperation.fromHttpOperation(
+      AWSStreamedHttpRequest.put(
+        uri,
+        headers: headers,
+        body: body ?? const HttpPayload.empty(),
+      ).send(client),
+    );
   }
 }
 

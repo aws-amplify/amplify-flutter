@@ -41,7 +41,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
 
   // ====== RestAPI ======
 
-  AWSHttpOperation delete(
+  RestOperation delete(
     String path, {
     Map<String, String>? headers,
     HttpPayload? body,
@@ -55,7 +55,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
         apiName: apiName,
       );
 
-  AWSHttpOperation get(
+  RestOperation get(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
@@ -67,7 +67,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
         apiName: apiName,
       );
 
-  AWSHttpOperation head(
+  RestOperation head(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
@@ -79,7 +79,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
         apiName: apiName,
       );
 
-  AWSHttpOperation patch(
+  RestOperation patch(
     String path, {
     Map<String, String>? headers,
     HttpPayload? body,
@@ -93,7 +93,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
         apiName: apiName,
       );
 
-  AWSHttpOperation post(
+  RestOperation post(
     String path, {
     Map<String, String>? headers,
     HttpPayload? body,
@@ -107,7 +107,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
         apiName: apiName,
       );
 
-  AWSHttpOperation put(
+  RestOperation put(
     String path, {
     Map<String, String>? headers,
     HttpPayload? body,
