@@ -85,14 +85,14 @@ void main() {
       () {
     test('registers CognitoIamAuthProvider', () async {
       final authProvider = testAuthRepo.getAuthProvider(
-        APIAuthorizationType.iam.authProviderToken,
+        APIAuthorizationMode.iam.authProviderToken,
       );
       expect(authProvider, isA<CognitoIamAuthProvider>());
     });
 
     test('registers CognitoUserPoolsAuthProvider', () async {
       final authProvider = testAuthRepo.getAuthProvider(
-        APIAuthorizationType.userPools.authProviderToken,
+        APIAuthorizationMode.userPools.authProviderToken,
       );
       expect(authProvider, isA<CognitoUserPoolsAuthProvider>());
     });

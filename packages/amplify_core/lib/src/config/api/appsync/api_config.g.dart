@@ -11,7 +11,7 @@ AWSApiConfig _$AWSApiConfigFromJson(Map<String, dynamic> json) => AWSApiConfig(
       endpoint: json['endpoint'] as String,
       region: json['region'] as String,
       authorizationType:
-          $enumDecode(_$APIAuthorizationTypeEnumMap, json['authorizationType']),
+          $enumDecode(_$APIAuthorizationModeEnumMap, json['authorizationType']),
       apiKey: json['apiKey'] as String?,
     );
 
@@ -21,7 +21,7 @@ Map<String, dynamic> _$AWSApiConfigToJson(AWSApiConfig instance) {
     'endpoint': instance.endpoint,
     'region': instance.region,
     'authorizationType':
-        _$APIAuthorizationTypeEnumMap[instance.authorizationType]!,
+        _$APIAuthorizationModeEnumMap[instance.authorizationType]!,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -39,11 +39,11 @@ const _$EndpointTypeEnumMap = {
   EndpointType.graphQL: 'GraphQL',
 };
 
-const _$APIAuthorizationTypeEnumMap = {
-  APIAuthorizationType.none: 'NONE',
-  APIAuthorizationType.apiKey: 'API_KEY',
-  APIAuthorizationType.iam: 'AWS_IAM',
-  APIAuthorizationType.oidc: 'OPENID_CONNECT',
-  APIAuthorizationType.userPools: 'AMAZON_COGNITO_USER_POOLS',
-  APIAuthorizationType.function: 'AWS_LAMBDA',
+const _$APIAuthorizationModeEnumMap = {
+  APIAuthorizationMode.none: 'NONE',
+  APIAuthorizationMode.apiKey: 'API_KEY',
+  APIAuthorizationMode.iam: 'AWS_IAM',
+  APIAuthorizationMode.oidc: 'OPENID_CONNECT',
+  APIAuthorizationMode.userPools: 'AMAZON_COGNITO_USER_POOLS',
+  APIAuthorizationMode.function: 'AWS_LAMBDA',
 };

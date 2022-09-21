@@ -99,7 +99,7 @@ Future<Map<String, String>> _generateAuthorizationHeaders(
   required bool isConnectionInit,
   required AmplifyAuthProviderRepository authRepo,
   required Map<String, dynamic> body,
-  APIAuthorizationType? authorizationMode,
+  APIAuthorizationMode? authorizationMode,
 }) async {
   final endpointHost = Uri.parse(config.endpoint).host;
   // Create canonical HTTP request to authorize but never send.

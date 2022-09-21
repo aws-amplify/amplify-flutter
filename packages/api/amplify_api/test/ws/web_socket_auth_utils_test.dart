@@ -25,11 +25,11 @@ void main() {
 
   final authProviderRepo = AmplifyAuthProviderRepository();
   authProviderRepo.registerAuthProvider(
-    APIAuthorizationType.apiKey.authProviderToken,
+    APIAuthorizationMode.apiKey.authProviderToken,
     AppSyncApiKeyAuthProvider(),
   );
   authProviderRepo.registerAuthProvider(
-    APIAuthorizationType.userPools.authProviderToken,
+    APIAuthorizationMode.userPools.authProviderToken,
     TestTokenAuthProvider(),
   );
 
@@ -91,7 +91,7 @@ void main() {
         () async {
       final subscriptionRequestUserPools = GraphQLRequest<String>(
         document: graphQLDocument,
-        authorizationMode: APIAuthorizationType.userPools,
+        authorizationMode: APIAuthorizationMode.userPools,
       );
 
       final authorizedMessage = await generateSubscriptionRegistrationMessage(

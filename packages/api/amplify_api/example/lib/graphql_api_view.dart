@@ -100,7 +100,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
       request: GraphQLRequest<String>(
         document: graphQLDocument,
         variables: <String, dynamic>{'name': 'Test App Blog'},
-        authorizationMode: APIAuthorizationType.userPools,
+        authorizationMode: APIAuthorizationMode.userPools,
       ),
     );
     _lastOperation = operation;

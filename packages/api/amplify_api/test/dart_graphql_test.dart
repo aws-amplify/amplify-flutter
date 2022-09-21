@@ -347,7 +347,7 @@ void main() {
       final req = GraphQLRequest<String>(
         document: graphQLDocument,
         variables: {},
-        authorizationMode: APIAuthorizationType.function,
+        authorizationMode: APIAuthorizationMode.function,
       );
 
       final operation = Amplify.API.query(request: req);

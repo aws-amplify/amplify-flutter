@@ -46,7 +46,7 @@ void main() {
     // Register IAM auth provider like amplify_auth_cognito would do.
     final authProviderRepo = AmplifyAuthProviderRepository();
     authProviderRepo.registerAuthProvider(
-      APIAuthorizationType.iam.authProviderToken,
+      APIAuthorizationMode.iam.authProviderToken,
       TestIamAuthProvider(),
     );
     final config = AmplifyConfig.fromJson(

@@ -30,7 +30,7 @@ class GraphQLRequest<T> {
   /// Authorization type to use for this request.
   ///
   /// If not supplied, the request will use the default endpoint mode.
-  final APIAuthorizationType? authorizationMode;
+  final APIAuthorizationMode? authorizationMode;
 
   /// A map of Strings to dynamically use for custom headers in the http request.
   final Map<String, String>? headers;

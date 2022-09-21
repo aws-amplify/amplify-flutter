@@ -171,7 +171,7 @@ GraphQLRequest<T> authorizeRequestForUserPools<T>(GraphQLRequest<T> request) {
     variables: request.variables,
     modelType: request.modelType,
     decodePath: request.decodePath,
-    authorizationMode: APIAuthorizationType.userPools,
+    authorizationMode: APIAuthorizationMode.userPools,
   );
 }
 
@@ -181,7 +181,7 @@ GraphQLRequest<T> authorizeRequestForApiKey<T>(GraphQLRequest<T> request) {
     variables: request.variables,
     modelType: request.modelType,
     decodePath: request.decodePath,
-    authorizationMode: APIAuthorizationType.apiKey,
+    authorizationMode: APIAuthorizationMode.apiKey,
   );
 }
 
