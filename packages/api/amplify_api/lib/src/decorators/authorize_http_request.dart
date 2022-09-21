@@ -27,11 +27,12 @@ Future<AWSBaseHttpRequest> authorizeHttpRequest(
   required AmplifyAuthProviderRepository authProviderRepo,
   APIAuthorizationType? authorizationMode,
 }) async {
+  final authType = authorizationMode ?? endpointConfig.authorizationType;
   if (request.headers.containsKey(AWSHeaders.authorization) ||
-      request.headers.containsKey(xApiKey)) {
+      (request.headers.containsKey(xApiKey) &&
+          authType == APIAuthorizationType.apiKey)) {
     return request;
   }
-  final authType = authorizationMode ?? endpointConfig.authorizationType;
 
   switch (authType) {
     case APIAuthorizationType.apiKey:

@@ -31,8 +31,9 @@ void main({bool useExistingTestUser = false}) {
 
     group('queries', () {
       testWidgets('should query authorized model', (WidgetTester tester) async {
-        final req =
-            authorizeRequestForApiKey(ModelQueries.list<Blog>(Blog.classType));
+        final req = authorizeRequestForApiKey(
+          ModelQueries.list<Blog>(Blog.classType),
+        );
         final res = await Amplify.API.query(request: req).response;
         final data = res.data;
         expect(res, hasNoGraphQLErrors);
