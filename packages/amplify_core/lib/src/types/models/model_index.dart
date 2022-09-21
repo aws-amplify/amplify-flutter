@@ -13,8 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'dart:convert';
-
 import 'package:aws_common/aws_common.dart';
 
 /// {@template amplify_core.models.model_index}

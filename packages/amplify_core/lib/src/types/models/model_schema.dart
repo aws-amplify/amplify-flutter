@@ -18,7 +18,6 @@ library model_schema;
 import 'dart:convert';
 
 import 'package:aws_common/aws_common.dart';
-import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
 import 'auth_rule.dart';
