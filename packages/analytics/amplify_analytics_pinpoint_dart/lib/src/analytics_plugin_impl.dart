@@ -24,8 +24,6 @@ import 'impl/analytics_client/analytics_client.dart';
 import 'impl/analytics_client/shared_prefs.dart';
 import 'impl/device_context_info_provider.dart';
 
-// TODO - what are campaignattributes android? (setCampaignAttributes)
-
 /// Public facing Plugin
 /// Validate and parse inputs
 /// Before delegating to AnalyticsClient
@@ -43,23 +41,16 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   }
 
   @override
-  Future<void> configure({
-    AmplifyConfig? config,
-  }) async {
+  Future<void> configure({AmplifyConfig? config}) async {
     if (config == null ||
         config.analytics == null ||
         config.analytics?.awsPlugin == null) {
       throw const AnalyticsException('No Pinpoint plugin config available');
     }
 
-    // TODO PUT IN SEPARATE FACTORY CLASS ?
     PinpointPluginConfig pinpointConfig = config.analytics!.awsPlugin!;
     String appId = pinpointConfig.pinpointAnalytics.appId;
     String region = pinpointConfig.pinpointAnalytics.region;
-
-    /// TODO: missing config fields
-    /// - Auto flush interval
-    /// - Track app lifecycle events (bool)
 
     // TODO - values hardcoded because default CredentialProvider is giving null values ...
     AWSCredentialsProvider credentialsProvider =
