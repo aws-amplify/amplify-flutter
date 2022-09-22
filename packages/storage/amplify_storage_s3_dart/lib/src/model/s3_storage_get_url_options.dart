@@ -20,17 +20,15 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class S3StorageGetUrlOptions extends StorageGetUrlOptions {
   /// {@macro storage.amplify_storage_s3.get_url_options}
-  factory S3StorageGetUrlOptions({
+  const S3StorageGetUrlOptions({
     StorageAccessLevel storageAccessLevel = StorageAccessLevel.guest,
     Duration expiresIn = const Duration(days: 1),
     bool checkObjectExistence = false,
-  }) {
-    return S3StorageGetUrlOptions._(
-      storageAccessLevel: storageAccessLevel,
-      expiresIn: expiresIn,
-      checkObjectExistence: checkObjectExistence,
-    );
-  }
+  }) : this._(
+          storageAccessLevel: storageAccessLevel,
+          expiresIn: expiresIn,
+          checkObjectExistence: checkObjectExistence,
+        );
 
   const S3StorageGetUrlOptions._({
     super.storageAccessLevel = StorageAccessLevel.guest,
@@ -43,18 +41,16 @@ class S3StorageGetUrlOptions extends StorageGetUrlOptions {
   ///
   /// Use when call `getUrl` on an object that belongs to other user (identified
   /// by `targetIdentityId`) rather than the currently signed user.
-  factory S3StorageGetUrlOptions.forIdentity(
+  const S3StorageGetUrlOptions.forIdentity(
     String targetIdentityId, {
     Duration expiresIn = const Duration(days: 1),
     bool checkObjectExistence = false,
-  }) {
-    return S3StorageGetUrlOptions._(
-      storageAccessLevel: StorageAccessLevel.protected,
-      expiresIn: expiresIn,
-      checkObjectExistence: checkObjectExistence,
-      targetIdentityId: targetIdentityId,
-    );
-  }
+  }) : this._(
+          storageAccessLevel: StorageAccessLevel.protected,
+          expiresIn: expiresIn,
+          checkObjectExistence: checkObjectExistence,
+          targetIdentityId: targetIdentityId,
+        );
 
   /// Specifies the period of time that the generated url expires in.
   final Duration expiresIn;

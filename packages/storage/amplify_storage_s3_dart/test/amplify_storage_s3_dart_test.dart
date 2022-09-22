@@ -144,7 +144,7 @@ void main() {
       );
 
       setUpAll(() {
-        registerFallbackValue(S3StorageListOptions());
+        registerFallbackValue(const S3StorageListOptions());
       });
 
       test(
@@ -195,7 +195,7 @@ void main() {
       );
 
       setUpAll(() {
-        registerFallbackValue(S3StorageGetPropertiesOptions());
+        registerFallbackValue(const S3StorageGetPropertiesOptions());
       });
 
       test(
@@ -244,7 +244,7 @@ void main() {
       );
 
       setUpAll(() {
-        registerFallbackValue(S3StorageGetUrlOptions());
+        registerFallbackValue(const S3StorageGetUrlOptions());
       });
 
       test(
