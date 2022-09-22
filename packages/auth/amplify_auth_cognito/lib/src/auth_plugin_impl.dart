@@ -16,7 +16,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:amplify_auth_cognito/src/credentials/legacy_credential_provider_impl.dart';
-import 'package:amplify_auth_cognito/src/native_auth_plugin.dart';
+import 'package:amplify_auth_cognito/src/native_auth_plugin.g.dart';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_stub.dart'
     if (dart.library.html) 'flows/hosted_ui/hosted_ui_platform_html.dart'
