@@ -1,0 +1,22 @@
+type Query {
+    getRecord(id: ID!): Record @aws_api_key
+    listRecords: [Record] @aws_api_key
+}
+
+type Mutation {
+    createRecord(input: RecordInput!): Record @aws_api_key
+}
+
+type Subscription {
+    onCreateRecord: Record @aws_subscribe(mutations: ["createRecord"])
+}
+
+type Record {
+    id: ID!
+    payload: String!
+}
+
+input RecordInput {
+    id: ID!
+    payload: String!
+}
