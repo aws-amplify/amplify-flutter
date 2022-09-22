@@ -1,0 +1,17 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+type ManyToManyPrimary @model {
+  id: ID!
+  name: String!
+  firstMtmToSecondary: [ManyToManySecondary] @manyToMany(relationName: "firstMtmRelation")
+  secondMtmToSecondary: [ManyToManySecondary] @manyToMany(relationName: "secondMtmRelation")
+}
+
+type ManyToManySecondary @model {
+  id: ID!
+  name: String!
+  firstMtmToPrimary: [ManyToManyPrimary] @manyToMany(relationName: "firstMtmRelation")
+  secondMtmToPrimary: [ManyToManyPrimary] @manyToMany(relationName: "secondMtmRelation")
+}
