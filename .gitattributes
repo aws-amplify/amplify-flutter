@@ -19,7 +19,11 @@ tool/ci.sh linguist-generated=true
 **/pigeons/*.m linguist-generated=true
 
 ## Generated SDK files
-packages/**/src/lib/sdk/src linguist-generated=true
+packages/**/lib/src/sdk/src linguist-generated=true
 
 ## Genrated dart files
 *.g.dart linguist-generated=true
+
+## Generated lock files
+package-lock.json linguist-generated=true
+yarn.lock linguist-generated=true
