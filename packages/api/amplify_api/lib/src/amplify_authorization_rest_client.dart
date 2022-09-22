@@ -28,25 +28,32 @@ class AmplifyAuthorizationRestClient extends AWSBaseHttpClient {
   /// Determines how requests with this client are authorized.
   final AWSApiConfig endpointConfig;
 
+  /// The authorization mode to use for requests with this client.
+  ///
+  /// If provided, will override the [authorizationType] of [endpointConfig].
+  final APIAuthorizationType? authorizationMode;
+
   /// Provide an [AWSApiConfig] which will determine how requests from this
   /// client are authorized.
   AmplifyAuthorizationRestClient({
     required this.endpointConfig,
     required this.authProviderRepo,
+    this.authorizationMode,
     AWSHttpClient? baseClient,
   }) : baseClient = baseClient ?? AWSHttpClient();
 
   @override
   final AWSHttpClient baseClient;
 
-  /// Implementation of [send] that authorizes any request without "Authorization"
-  /// header already set.
+  /// Implementation of [transformRequest] that authorizes any request without "Authorization"
+  /// or "X-Api-Key" header already set.
   @override
   Future<AWSBaseHttpRequest> transformRequest(AWSBaseHttpRequest request) {
     return authorizeHttpRequest(
       request,
       endpointConfig: endpointConfig,
       authProviderRepo: authProviderRepo,
+      authorizationMode: authorizationMode,
     );
   }
 }

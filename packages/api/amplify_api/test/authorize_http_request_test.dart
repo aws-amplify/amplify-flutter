@@ -213,6 +213,33 @@ void main() {
       );
     });
 
+    test('authorizes with authorizationMode parameter that overrides config',
+        () async {
+      const testApiKey = 'abc-123-fake-key';
+      const endpointConfig = AWSApiConfig(
+        authorizationType: APIAuthorizationType.userPools,
+        apiKey: testApiKey,
+        endpoint: _gqlEndpoint,
+        endpointType: EndpointType.graphQL,
+        region: _region,
+      );
+      final inputRequest = _generateTestRequest(endpointConfig.endpoint);
+      final authorizedRequest = await authorizeHttpRequest(
+        inputRequest,
+        endpointConfig: endpointConfig,
+        authProviderRepo: authProviderRepo,
+        authorizationMode: APIAuthorizationType.apiKey,
+      );
+      expect(
+        authorizedRequest.headers[xApiKey],
+        testApiKey,
+      );
+      expect(
+        authorizedRequest.headers[AWSHeaders.authorization],
+        isNull,
+      );
+    });
+
     test('throws when no auth provider found', () async {
       final emptyAuthRepo = AmplifyAuthProviderRepository();
       const endpointConfig = AWSApiConfig(
