@@ -38,8 +38,8 @@ class AmplifyAPIDart extends AmplifyAPI {
   late final AmplifyAuthProviderRepository _authProviderRepo;
   final _logger = AmplifyLogger.category(Category.api);
 
-  /// A map of the keys from the Amplify API config to HTTP clients to use for
-  /// requests to that endpoint.
+  /// A map of the keys from the Amplify API config with auth modes to HTTP clients
+  /// to use for requests to that endpoint/auth mode. e.g. { "myEndpoint.AWS_IAM": AWSHttpClient}
   final Map<String, AWSHttpClient> _clientPool = {};
 
   /// A map of the keys from the Amplify API config websocket connections to use
@@ -87,7 +87,7 @@ class AmplifyAPIDart extends AmplifyAPI {
       // have a key if not the primary auth mode.
       if (value.apiKey != null) {
         _authProviderRepo.registerAuthProvider(
-          value.authorizationType.authProviderToken,
+          APIAuthorizationType.apiKey.authProviderToken,
           AppSyncApiKeyAuthProvider(),
         );
       }
@@ -132,15 +132,23 @@ class AmplifyAPIDart extends AmplifyAPI {
   ///
   /// Use [apiName] if there are multiple endpoints of the same type.
   @visibleForTesting
-  AWSHttpClient getHttpClient(EndpointType type, {String? apiName}) {
+  AWSHttpClient getHttpClient(
+    EndpointType type, {
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+  }) {
     final endpoint = _apiConfig.getEndpoint(
       type: type,
       apiName: apiName,
     );
-    return _clientPool[endpoint.name] ??= AmplifyHttpClient(
+    final authModeForClientKey =
+        authorizationMode ?? endpoint.config.authorizationType;
+    final clientPoolKey = '${endpoint.name}.${authModeForClientKey.name}';
+    return _clientPool[clientPoolKey] ??= AmplifyHttpClient(
       baseClient: AmplifyAuthorizationRestClient(
         endpointConfig: endpoint.config,
         baseClient: _baseHttpClient,
+        authorizationMode: authorizationMode,
         authProviderRepo: _authProviderRepo,
       ),
     )..supportedProtocols = SupportedProtocols.http1;
@@ -194,8 +202,11 @@ class AmplifyAPIDart extends AmplifyAPI {
   @override
   CancelableOperation<GraphQLResponse<T>> query<T>(
       {required GraphQLRequest<T> request}) {
-    final graphQLClient =
-        getHttpClient(EndpointType.graphQL, apiName: request.apiName);
+    final graphQLClient = getHttpClient(
+      EndpointType.graphQL,
+      apiName: request.apiName,
+      authorizationMode: request.authorizationMode,
+    );
     final uri = _getGraphQLUri(request.apiName);
 
     return sendGraphQLRequest<T>(
@@ -208,8 +219,11 @@ class AmplifyAPIDart extends AmplifyAPI {
   @override
   CancelableOperation<GraphQLResponse<T>> mutate<T>(
       {required GraphQLRequest<T> request}) {
-    final graphQLClient =
-        getHttpClient(EndpointType.graphQL, apiName: request.apiName);
+    final graphQLClient = getHttpClient(
+      EndpointType.graphQL,
+      apiName: request.apiName,
+      authorizationMode: request.authorizationMode,
+    );
     final uri = _getGraphQLUri(request.apiName);
 
     return sendGraphQLRequest<T>(
