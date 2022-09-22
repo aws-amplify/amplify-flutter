@@ -21,6 +21,7 @@ import 'package:aws_common/testing.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'test_data/fake_amplify_configuration.dart';
+import 'test_data/fake_amplify_configuration_iam_with_api_key.dart';
 import 'util.dart';
 
 const _expectedQuerySuccessResponseBody = {
@@ -69,8 +70,12 @@ void main() {
   final authProviderRepo = AmplifyAuthProviderRepository();
   authProviderRepo.registerAuthProvider(
       APIAuthorizationType.iam.authProviderToken, TestIamAuthProvider());
-  final config =
-      AmplifyConfig.fromJson(jsonDecode(amplifyconfig) as Map<String, Object?>);
+  final config = AmplifyConfig.fromJson(
+    jsonDecode(amplifyconfig) as Map<String, Object?>,
+  );
+  final configIamWithApiKey = AmplifyConfig.fromJson(
+    jsonDecode(amplifyconfigwithapikey) as Map<String, Object?>,
+  );
 
   group('AmplifyAPI plugin configuration', () {
     test(
@@ -78,9 +83,26 @@ void main() {
         () async {
       final plugin = AmplifyAPIDart();
       await plugin.configure(
-          authProviderRepo: authProviderRepo, config: config);
-      final apiKeyAuthProvider = authProviderRepo
-          .getAuthProvider(APIAuthorizationType.apiKey.authProviderToken);
+        authProviderRepo: authProviderRepo,
+        config: config,
+      );
+      final apiKeyAuthProvider = authProviderRepo.getAuthProvider(
+        APIAuthorizationType.apiKey.authProviderToken,
+      );
+      expect(apiKeyAuthProvider, isA<AppSyncApiKeyAuthProvider>());
+    });
+
+    test(
+        'should register an API key auth provider when the configuration has an API key and IAM is default auth mode',
+        () async {
+      final plugin = AmplifyAPIDart();
+      await plugin.configure(
+        authProviderRepo: authProviderRepo,
+        config: configIamWithApiKey,
+      );
+      final apiKeyAuthProvider = authProviderRepo.getAuthProvider(
+        APIAuthorizationType.apiKey.authProviderToken,
+      );
       expect(apiKeyAuthProvider, isA<AppSyncApiKeyAuthProvider>());
     });
 

@@ -25,8 +25,13 @@ void main() {
 
   final authProviderRepo = AmplifyAuthProviderRepository();
   authProviderRepo.registerAuthProvider(
-      APIAuthorizationType.apiKey.authProviderToken,
-      AppSyncApiKeyAuthProvider());
+    APIAuthorizationType.apiKey.authProviderToken,
+    AppSyncApiKeyAuthProvider(),
+  );
+  authProviderRepo.registerAuthProvider(
+    APIAuthorizationType.userPools.authProviderToken,
+    TestTokenAuthProvider(),
+  );
 
   const graphQLDocument = '''subscription MySubscription {
     onCreateBlog {
@@ -37,7 +42,7 @@ void main() {
   }''';
   final subscriptionRequest = GraphQLRequest<String>(document: graphQLDocument);
 
-  void _assertBasicSubscriptionPayloadHeaders(
+  void assertBasicSubscriptionPayloadHeaders(
       SubscriptionRegistrationPayload payload) {
     expect(
       payload.authorizationHeaders[AWSHeaders.contentType],
@@ -75,10 +80,37 @@ void main() {
       final payload =
           authorizedMessage.payload as SubscriptionRegistrationPayload;
 
-      _assertBasicSubscriptionPayloadHeaders(payload);
+      assertBasicSubscriptionPayloadHeaders(payload);
       expect(
         payload.authorizationHeaders[xApiKey],
         testApiKeyConfig.apiKey,
+      );
+    });
+
+    test('should generate an authorized message with custom authorizationMode',
+        () async {
+      final subscriptionRequestUserPools = GraphQLRequest<String>(
+        document: graphQLDocument,
+        authorizationMode: APIAuthorizationType.userPools,
+      );
+
+      final authorizedMessage = await generateSubscriptionRegistrationMessage(
+        testApiKeyConfig,
+        id: 'abc123',
+        authRepo: authProviderRepo,
+        request: subscriptionRequestUserPools,
+      );
+      final payload =
+          authorizedMessage.payload as SubscriptionRegistrationPayload;
+
+      assertBasicSubscriptionPayloadHeaders(payload);
+      expect(
+        payload.authorizationHeaders[xApiKey],
+        isNull,
+      );
+      expect(
+        payload.authorizationHeaders[AWSHeaders.authorization],
+        testAccessToken,
       );
     });
   });
