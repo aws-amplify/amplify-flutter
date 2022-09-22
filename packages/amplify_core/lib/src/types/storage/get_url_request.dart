@@ -19,7 +19,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class StorageGetUrlRequest<Options extends StorageGetUrlOptions> {
   /// {@macro amplify_core.storage.get_url_request}
-  StorageGetUrlRequest({
+  const StorageGetUrlRequest({
     required this.key,
     this.options,
   });

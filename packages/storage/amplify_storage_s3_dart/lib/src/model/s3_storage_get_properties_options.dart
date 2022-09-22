@@ -14,46 +14,39 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template storage.amplify_storage_s3.list_options}
-/// The configurable parameters for Storage S3 plugin `list` requests.
+/// {@template storage.amplify_storage_s3.get_properties_options}
+/// The configurable parameters invoking Storage S3 plugin `getProperties` API.
 /// {@endtemplate}
-class S3StorageListOptions extends StorageListOptions {
-  /// {@macro storage.amplify_storage_s3.list_options}
-  factory S3StorageListOptions({
+class S3StorageGetPropertiesOptions extends StorageGetPropertiesOptions {
+  /// {@macro storage.amplify_storage_s3.get_properties_options}
+  factory S3StorageGetPropertiesOptions({
     StorageAccessLevel storageAccessLevel = StorageAccessLevel.guest,
-    int pageSize = 1000,
   }) {
-    return S3StorageListOptions._(
+    return S3StorageGetPropertiesOptions._(
       storageAccessLevel: storageAccessLevel,
-      pageSize: pageSize,
     );
   }
 
-  const S3StorageListOptions._({
+  const S3StorageGetPropertiesOptions._({
     super.storageAccessLevel = StorageAccessLevel.guest,
-    super.pageSize = 1000,
     this.targetIdentityId,
   });
 
-  /// {@macro storage.amplify_storage_s3.list_options}
+  /// {@macro storage.amplify_storage_s3.get_properties_options}
   ///
-  /// Use when list objects that belongs to other user (identified by
-  /// `targetIdentityId`) rather than the currently signed user.
-  factory S3StorageListOptions.forIdentity(
-    String targetIdentityId, {
-    int pageSize = 1000,
-  }) {
-    return S3StorageListOptions._(
+  /// Use when call `getProperties` on an object that belongs to other user
+  /// (identified by `targetIdentityId`) rather than the currently signed user.
+  factory S3StorageGetPropertiesOptions.forIdentity(String targetIdentityId) {
+    return S3StorageGetPropertiesOptions._(
       storageAccessLevel: StorageAccessLevel.protected,
-      pageSize: pageSize,
       targetIdentityId: targetIdentityId,
     );
   }
 
-  /// The identity id of another user who uploaded the objects that to be
-  /// listed.
+  /// The identity id of another user who uploaded the object that to get
+  /// properties for.
   ///
-  /// Should be set by `StorageS3ListOptions.forIdentity()`
+  /// Should be set by `S3StorageGetPropertiesOptions.forIdentity()`
   /// constructor.
   final String? targetIdentityId;
 }

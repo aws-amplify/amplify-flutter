@@ -25,10 +25,10 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     // TODO(HuiSF): replace with Storage S3 types
     S3StorageListOperation,
     S3StorageListOptions,
-    StorageGetPropertiesOperation,
-    StorageGetPropertiesOptions,
-    StorageGetUrlOperation,
-    StorageGetUrlOptions,
+    S3StorageGetPropertiesOperation,
+    S3StorageGetPropertiesOptions,
+    S3StorageGetUrlOperation,
+    S3StorageGetUrlOptions,
     StorageUploadDataOperation,
     StorageUploadDataOptions,
     StorageCopyOperation,
@@ -53,10 +53,10 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
   static const StoragePluginKey<
       S3StorageListOperation,
       S3StorageListOptions,
-      StorageGetPropertiesOperation,
-      StorageGetPropertiesOptions,
-      StorageGetUrlOperation,
-      StorageGetUrlOptions,
+      S3StorageGetPropertiesOperation,
+      S3StorageGetPropertiesOptions,
+      S3StorageGetUrlOperation,
+      S3StorageGetUrlOptions,
       StorageUploadDataOperation,
       StorageUploadDataOptions,
       StorageCopyOperation,
@@ -154,17 +154,45 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
   }
 
   @override
-  StorageGetPropertiesOperation getProperties({
+  S3StorageGetPropertiesOperation getProperties({
     required StorageGetPropertiesRequest request,
   }) {
-    throw UnimplementedError();
+    final s3Options = request.options as S3StorageGetPropertiesOptions?;
+
+    return S3StorageGetPropertiesOperation(
+      request: StorageGetPropertiesRequest(
+        key: request.key,
+        options: s3Options,
+      ),
+      result: _storageS3Service.getProperties(
+        key: request.key,
+        options: s3Options ??
+            S3StorageGetPropertiesOptions(
+              storageAccessLevel: _s3pluginConfig.defaultAccessLevel,
+            ),
+      ),
+    );
   }
 
   @override
-  StorageGetUrlOperation getUrl({
+  S3StorageGetUrlOperation getUrl({
     required StorageGetUrlRequest request,
   }) {
-    throw UnimplementedError();
+    final s3Options = request.options as S3StorageGetUrlOptions?;
+
+    return S3StorageGetUrlOperation(
+      request: StorageGetUrlRequest(
+        key: request.key,
+        options: s3Options,
+      ),
+      result: _storageS3Service.getUrl(
+        key: request.key,
+        options: s3Options ??
+            S3StorageGetUrlOptions(
+              storageAccessLevel: _s3pluginConfig.defaultAccessLevel,
+            ),
+      ),
+    );
   }
 
   @override
@@ -199,10 +227,10 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
 class _AmplifyStorageS3DartPluginKey extends StoragePluginKey<
     S3StorageListOperation,
     S3StorageListOptions,
-    StorageGetPropertiesOperation,
-    StorageGetPropertiesOptions,
-    StorageGetUrlOperation,
-    StorageGetUrlOptions,
+    S3StorageGetPropertiesOperation,
+    S3StorageGetPropertiesOptions,
+    S3StorageGetUrlOperation,
+    S3StorageGetUrlOptions,
     StorageUploadDataOperation,
     StorageUploadDataOptions,
     StorageCopyOperation,
