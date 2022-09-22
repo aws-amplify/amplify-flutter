@@ -12,6 +12,8 @@ dependencies:
   async: ^2.8.2
   aws_common: ">=0.2.3 <0.3.0"
   aws_signature_v4: ">=0.2.2 <0.3.0"
+  built_collection: ^5.0.0
+  built_value: ">=8.4.0 <8.5.0"
   collection: ^1.15.0
   intl: ^0.17.0
   json_annotation: ^4.6.0
@@ -25,6 +27,7 @@ dev_dependencies:
   build_runner: ^2.0.0
   build_test: ^2.1.5
   build_web_compilers: ^3.2.4
+  built_value_generator: 8.4.1
   json_serializable: 6.3.1
   path: any
   test: ^1.17.0

@@ -40,3 +40,6 @@ amplifytools.xcconfig
 
 # Smithy
 .smithy.lsp.log
+
+# git-spr
+.spr.yml

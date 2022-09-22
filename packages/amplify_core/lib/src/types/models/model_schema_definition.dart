@@ -14,9 +14,9 @@
  */
 
 import 'auth_rule.dart';
+import 'mipr.dart';
 import 'model_field.dart';
 import 'model_field_definition.dart';
-import 'model_index.dart';
 import 'model_schema.dart';
 
 class ModelSchemaDefinition {
