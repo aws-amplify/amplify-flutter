@@ -51,8 +51,10 @@ _RelatedFields _getRelatedFields(ModelSchema modelSchema) {
   return _fieldsMemo[modelSchema]!;
 }
 
-ModelField? getBelongsToFieldFromModelSchema(ModelSchema modelSchema) {
-  return _getRelatedFields(modelSchema).singleFields.firstWhereOrNull((entry) =>
+/// Get all belongsToFields from modelSchema
+Iterable<ModelField> getBelongsToFieldsFromModelSchema(
+    ModelSchema modelSchema) {
+  return _getRelatedFields(modelSchema).singleFields.where((entry) =>
       entry.association?.associationType == ModelAssociationEnum.BelongsTo);
 }
 
