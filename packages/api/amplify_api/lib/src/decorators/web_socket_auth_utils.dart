@@ -72,6 +72,7 @@ Future<WebSocketSubscriptionRegistrationMessage>
     isConnectionInit: false,
     authRepo: authRepo,
     body: body,
+    authorizationMode: request.authorizationMode,
   );
 
   return WebSocketSubscriptionRegistrationMessage(
@@ -98,6 +99,7 @@ Future<Map<String, String>> _generateAuthorizationHeaders(
   required bool isConnectionInit,
   required AmplifyAuthProviderRepository authRepo,
   required Map<String, dynamic> body,
+  APIAuthorizationType? authorizationMode,
 }) async {
   final endpointHost = Uri.parse(config.endpoint).host;
   // Create canonical HTTP request to authorize but never send.
@@ -114,6 +116,7 @@ Future<Map<String, String>> _generateAuthorizationHeaders(
     canonicalHttpRequest,
     endpointConfig: config,
     authProviderRepo: authRepo,
+    authorizationMode: authorizationMode,
   );
 
   // Take authorized HTTP headers as map with "host" value added.

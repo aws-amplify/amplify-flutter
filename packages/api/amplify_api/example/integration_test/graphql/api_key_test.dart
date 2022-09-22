@@ -12,10 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-import 'dart:convert';
-
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_api_example/amplifyconfiguration.dart';
 import 'package:amplify_api_example/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -27,17 +24,6 @@ void main({bool useExistingTestUser = false}) {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('GraphQL API key', () {
-    // TODO(ragingsquirrel3): get apiKey from config until multiauth param
-    final amplifyConfig = AmplifyConfig.fromJson(
-      json.decode(amplifyconfig) as Map<String, dynamic>,
-    );
-    final gqlEndpoint = amplifyConfig.api!.awsPlugin!.entries
-        .firstWhere(
-          (element) => element.value.endpointType == EndpointType.graphQL,
-        )
-        .value;
-    final apiKey = gqlEndpoint.apiKey!;
-
     setUpAll(() async {
       await configureAmplify();
       await signOutTestUser();
@@ -47,7 +33,6 @@ void main({bool useExistingTestUser = false}) {
       testWidgets('should query authorized model', (WidgetTester tester) async {
         final req = authorizeRequestForApiKey(
           ModelQueries.list<Blog>(Blog.classType),
-          apiKey,
         );
         final res = await Amplify.API.query(request: req).response;
         final data = res.data;
@@ -60,7 +45,6 @@ void main({bool useExistingTestUser = false}) {
       ) async {
         final req = authorizeRequestForApiKey(
           ModelQueries.list<Post>(Post.classType),
-          apiKey,
         );
         final res = await Amplify.API.query(request: req).response;
         expect(res.hasErrors, true);
@@ -71,13 +55,36 @@ void main({bool useExistingTestUser = false}) {
     group(
       'subscriptions',
       () {
-        // TODO(ragingsquirrel3): auth workaround not working for subs
-        // when authType param added or headers passed to sub reqs, fix
+        setUpAll(() async {
+          if (!useExistingTestUser) {
+            await signUpTestUser();
+          }
+          await signInTestUser();
+        });
+
+        tearDownAll(() async {
+          await deleteTestModels();
+          if (!useExistingTestUser) {
+            await deleteTestUser();
+          }
+        });
+
         testWidgets(
-          'should emit event when onCreate subscription made with model helper',
-          (WidgetTester tester) async {},
-          skip: true,
-        );
+            'should emit event when onCreate subscription made with model helper',
+            (WidgetTester tester) async {
+          String name = 'Integration Test Blog - subscription create ${uuid()}';
+          final subscriptionRequest = authorizeRequestForApiKey(
+            ModelSubscriptions.onCreate(Blog.classType),
+          );
+
+          final eventResponse = await establishSubscriptionAndMutate(
+            subscriptionRequest,
+            () => addBlog(name),
+          );
+          Blog? blogFromEvent = eventResponse.data;
+
+          expect(blogFromEvent?.name, equals(name));
+        });
       },
     );
   });
