@@ -21,12 +21,11 @@ import 'package:meta/meta.dart';
 /// user-defined authProvider passed when instantiating the API plugin.
 @internal
 class OidcFunctionAuthProvider extends TokenAmplifyAuthProvider {
-  // ignore: public_member_api_docs
-  final APIAuthProvider authProvider;
-
   /// [APIAuthProvider] will simply pass its `getLatestAuthToken` value to "Authorization"
   /// header of authorized HTTP request.
   OidcFunctionAuthProvider(this.authProvider);
+  // ignore: public_member_api_docs
+  final APIAuthProvider authProvider;
 
   @override
   Future<String> getLatestAuthToken() async {

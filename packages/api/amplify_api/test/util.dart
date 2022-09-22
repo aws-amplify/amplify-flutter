@@ -29,7 +29,9 @@ class TestIamAuthProvider extends AWSIamAmplifyAuthProvider {
   @override
   Future<AWSCredentials> retrieve() async {
     return const AWSCredentials(
-        'fake-access-key-123', 'fake-secret-access-key-456');
+      'fake-access-key-123',
+      'fake-secret-access-key-456',
+    );
   }
 
   @override
@@ -79,11 +81,11 @@ const expectedApiKeyWebSocketConnectionUrl =
     'wss://abc123.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=eyJBY2NlcHQiOiJhcHBsaWNhdGlvbi9qc29uLCB0ZXh0L2phdmFzY3JpcHQiLCJDb250ZW50LUVuY29kaW5nIjoiYW16LTEuMCIsIkNvbnRlbnQtVHlwZSI6ImFwcGxpY2F0aW9uL2pzb247IGNoYXJzZXQ9dXRmLTgiLCJYLUFwaS1LZXkiOiJhYmMtMTIzIiwiSG9zdCI6ImFiYzEyMy5hcHBzeW5jLWFwaS51cy1lYXN0LTEuYW1hem9uYXdzLmNvbSJ9&payload=e30%3D';
 
 AmplifyAuthProviderRepository getTestAuthProviderRepo() {
-  final testAuthProviderRepo = AmplifyAuthProviderRepository();
-  testAuthProviderRepo.registerAuthProvider(
-    APIAuthorizationType.apiKey.authProviderToken,
-    AppSyncApiKeyAuthProvider(),
-  );
+  final testAuthProviderRepo = AmplifyAuthProviderRepository()
+    ..registerAuthProvider(
+      APIAuthorizationType.apiKey.authProviderToken,
+      AppSyncApiKeyAuthProvider(),
+    );
 
   return testAuthProviderRepo;
 }
@@ -111,6 +113,9 @@ const mockSubscriptionData = {
 /// Extension of [WebSocketConnection] that stores messages internally instead
 /// of sending them.
 class MockWebSocketConnection extends WebSocketConnection {
+  MockWebSocketConnection(super.config, super.authProviderRepo)
+      : super(logger: AmplifyLogger());
+
   /// Instead of actually connecting, just set the URI here so it can be inspected
   /// for testing.
   Uri? connectedUri;
@@ -118,10 +123,6 @@ class MockWebSocketConnection extends WebSocketConnection {
   /// Instead of sending messages, they are pushed to end of list so they can be
   /// inspected for testing.
   final List<WebSocketMessage> sentMessages = [];
-
-  MockWebSocketConnection(
-      AWSApiConfig config, AmplifyAuthProviderRepository authProviderRepo)
-      : super(config, authProviderRepo, logger: AmplifyLogger());
 
   WebSocketMessage? get lastSentMessage => sentMessages.lastOrNull;
 
@@ -132,35 +133,43 @@ class MockWebSocketConnection extends WebSocketConnection {
     connectedUri = connectionUri;
 
     // mock some message responses (acks and mock data) from server
-    final broadcast = messageStream.stream.asBroadcastStream();
-    broadcast.listen((event) {
-      final eventJson = json.decode(event as String);
-      final messageFromEvent = WebSocketMessage.fromJson(eventJson as Map);
+    final broadcast = messageStream.stream.asBroadcastStream()
+      ..listen((event) {
+        final eventJson = json.decode(event as String);
+        final messageFromEvent = WebSocketMessage.fromJson(eventJson as Map);
 
-      // connection_init, respond with connection_ack
-      final mockResponseMessages = <WebSocketMessage>[];
-      if (messageFromEvent.messageType == MessageType.connectionInit) {
-        mockResponseMessages.add(WebSocketMessage(
-          messageType: MessageType.connectionAck,
-          payload: const ConnectionAckMessagePayload(10000),
-        ));
-        // start, respond with start_ack and mock data
-      } else if (messageFromEvent.messageType == MessageType.start) {
-        mockResponseMessages.add(WebSocketMessage(
-          messageType: MessageType.startAck,
-          id: messageFromEvent.id,
-        ));
-        mockResponseMessages.add(WebSocketMessage(
-          messageType: MessageType.data,
-          id: messageFromEvent.id,
-          payload: const SubscriptionDataPayload(mockSubscriptionData, null),
-        ));
-      }
+        // connection_init, respond with connection_ack
+        final mockResponseMessages = <WebSocketMessage>[];
+        if (messageFromEvent.messageType == MessageType.connectionInit) {
+          mockResponseMessages.add(
+            WebSocketMessage(
+              messageType: MessageType.connectionAck,
+              payload: const ConnectionAckMessagePayload(10000),
+            ),
+          );
+          // start, respond with start_ack and mock data
+        } else if (messageFromEvent.messageType == MessageType.start) {
+          mockResponseMessages
+            ..add(
+              WebSocketMessage(
+                messageType: MessageType.startAck,
+                id: messageFromEvent.id,
+              ),
+            )
+            ..add(
+              WebSocketMessage(
+                messageType: MessageType.data,
+                id: messageFromEvent.id,
+                payload:
+                    const SubscriptionDataPayload(mockSubscriptionData, null),
+              ),
+            );
+        }
 
-      for (var mockMessage in mockResponseMessages) {
-        messageStream.add(json.encode(mockMessage));
-      }
-    });
+        for (final mockMessage in mockResponseMessages) {
+          messageStream.add(json.encode(mockMessage));
+        }
+      });
 
     // ensures connected to _onDone events in parent class
     getStreamSubscription(broadcast);
