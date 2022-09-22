@@ -13,9 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 
 class GraphQLApiView extends StatefulWidget {
@@ -98,23 +96,11 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
       }
     }''';
 
-    // TODO(ragingsquirrel3): convert to authorizationType parameter when implemented.
-    final authSession =
-        await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
-    final accessToken = authSession.userPoolTokens?.accessToken.raw;
-    if (accessToken == null) {
-      throw const AmplifyException(
-        'Could not get access token from cognito.',
-        recoverySuggestion: 'Ensure user signed in.',
-      );
-    }
-    final headers = {AWSHeaders.authorization: accessToken};
-
     var operation = Amplify.API.mutate(
       request: GraphQLRequest<String>(
         document: graphQLDocument,
         variables: <String, dynamic>{'name': 'Test App Blog'},
-        headers: headers,
+        authorizationMode: APIAuthorizationType.userPools,
       ),
     );
     _lastOperation = operation;
