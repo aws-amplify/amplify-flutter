@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'auth_rule.dart';
 import 'mipr.dart';
 import 'model_field.dart';
 import 'model_field_definition.dart';

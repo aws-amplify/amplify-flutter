@@ -220,6 +220,7 @@ void main() {
       'authRules': [
         {
           'authStrategy': 'OWNER',
+          'provider': 'USERPOOLS',
           'ownerField': 'owner',
           'identityClaim': 'cognito:username',
           'operations': ['CREATE', 'UPDATE', 'DELETE', 'READ']

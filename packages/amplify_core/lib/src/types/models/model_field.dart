@@ -18,7 +18,7 @@ import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
-import 'auth_rule.dart';
+import 'mipr.dart';
 import 'model_association.dart';
 import 'model_field_type.dart';
 
@@ -81,7 +81,7 @@ class ModelField {
       'isArray': isArray,
       'isReadOnly': isReadOnly,
       'association': association?.toMap(),
-      'authRules': authRules?.map((x) => x.toMap()).toList(),
+      'authRules': authRules?.map((x) => x.toJson()).toList(),
     };
     return Map<String, dynamic>.from(map)
       ..removeWhere((k, dynamic v) => v == null);

@@ -143,14 +143,14 @@ class PostAuthComplex extends Model {
 
     modelSchemaDefinition.authRules = [
       AuthRule(
-          authStrategy: AuthStrategy.OWNER,
+          authStrategy: AuthStrategy.owner,
           ownerField: "owner",
           identityClaim: "cognito:username",
           operations: [
-            ModelOperation.CREATE,
-            ModelOperation.UPDATE,
-            ModelOperation.DELETE,
-            ModelOperation.READ
+            ModelOperation.create,
+            ModelOperation.update,
+            ModelOperation.delete,
+            ModelOperation.read
           ])
     ];
 

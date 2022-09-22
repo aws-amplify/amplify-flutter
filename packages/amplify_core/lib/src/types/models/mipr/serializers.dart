@@ -16,12 +16,17 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
 
+import 'auth_rule.dart';
 import 'model_index.dart';
 
 part 'serializers.g.dart';
 
 /// Serializers for MIPR types.
 @SerializersFor([
+  AuthStrategy,
+  AuthRuleProvider,
+  ModelOperation,
+  AuthRule,
   ModelIndex,
 ])
 final Serializers serializers =
