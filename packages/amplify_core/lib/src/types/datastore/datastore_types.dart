@@ -12,7 +12,8 @@
 // express or implied. See the License for the specific language governing
 // permissions and limitations under the License.
 //
-export 'package:amplify_core/src/types/models/auth_rule.dart';
+
+export 'package:amplify_core/src/types/models/mipr/auth_rule.dart';
 export 'package:amplify_core/src/types/models/model.dart';
 export 'package:amplify_core/src/types/models/model_field.dart';
 export 'package:amplify_core/src/types/models/model_field_definition.dart';

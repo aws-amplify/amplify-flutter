@@ -20,7 +20,6 @@ import 'dart:convert';
 import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
 
-import 'auth_rule.dart';
 import 'mipr.dart';
 import 'model_field.dart';
 
@@ -69,7 +68,7 @@ class ModelSchema with AWSEquatable<ModelSchema> {
         'name': name,
         if (pluralName != null) 'pluralName': pluralName,
         if (authRules != null)
-          'authRules': authRules?.map((x) => x.toMap()).toList(),
+          'authRules': authRules?.map((x) => x.toJson()).toList(),
         if (fields != null)
           'fields': fields?.map((key, value) => MapEntry(key, value.toMap())),
         if (indexes != null)
