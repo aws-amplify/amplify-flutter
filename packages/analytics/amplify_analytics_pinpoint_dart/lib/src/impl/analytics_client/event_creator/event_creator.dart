@@ -1,10 +1,10 @@
-import 'package:amplify_analytics_pinpoint_dart/src/impl/device_context_info_provider.dart';
+import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 import 'package:built_collection/built_collection.dart';
 
-import '../shared_prefs.dart';
+import '../key_value_store.dart';
 import 'event_global_fields_manager.dart';
 
 class EventCreator {
@@ -18,10 +18,10 @@ class EventCreator {
   EventCreator._getInstance(
       this._globalFieldsManager, this._deviceContextInfoProvider);
 
-  static Future<EventCreator> getInstance(SharedPrefs sharedPrefs,
+  static Future<EventCreator> getInstance(KeyValueStore keyValueStore,
           DeviceContextInfoProvider? deviceContextInfoProvider) async =>
       EventCreator._getInstance(
-          await EventGlobalFieldsManager.getInstance(sharedPrefs),
+          await EventGlobalFieldsManager.getInstance(keyValueStore),
           deviceContextInfoProvider);
 
   Event createPinpointEvent(String eventType, SessionBuilder? sessionBuilder,

@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/common/serializers.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:built_value/serializer.dart';
 
 import '../../drift/drift_tables.dart';
@@ -10,10 +12,20 @@ import '../../drift/drift_tables.dart';
 /// Interface with underlying native storage
 /// Present generic interface for saving PinpointEvents
 class EventStorageAdapter {
-  static final _db = DriftDatabaseJsonStrings();
+  late final _db;
   late final Serializers _serializer;
 
-  EventStorageAdapter() {
+  /// Pinpoint max event size
+  static const int _maxEventKbSize = 1000;
+
+  /// Pinpoint max events per event flush batch
+  static const int _maxEventsInBatch = 100;
+
+  final PathProvider? _pathProvider;
+
+  EventStorageAdapter(this._pathProvider) {
+    _db = DriftDatabaseJsonStrings(_pathProvider);
+
     // Create Serializer
     final serializerBuilder = (Serializers().toBuilder()..addAll(serializers));
     for (final entry in builderFactories.entries) {
@@ -24,15 +36,18 @@ class EventStorageAdapter {
 
   Future<void> saveEvent(Event event) async {
     final jsonString = jsonEncode(_serializer.serialize(event));
+
+    if (jsonString.length > _maxEventKbSize) {
+      throw AnalyticsException(
+          'Pinpoint event size limit exceeded.  Max size is: ${_maxEventKbSize} bytes');
+    }
+
     await _db.addJsonString(jsonString);
   }
 
-  /// Android
-  /// DEFAULT_MAX_SUBMISSION_SIZE = 1024 * 100; - size determine by java org.json.jsonobject.lenght field
-  /// SERVICE_DEFINED_MAX_EVENTS_PER_BATCH = 100;
-
-  // TODO - define max kb send size ?
-  Future<List<Event>> retrieveEvents({int maxEvents = 100}) async {
+  // TODO - just double check event send is within pinpoint limits
+  Future<List<Event>> retrieveEvents(
+      {int maxEvents = _maxEventsInBatch}) async {
     List<DriftJsonString> driftJsonStrings =
         await _db.getJsonStrings(maxEvents);
     List<Event> events = <Event>[];

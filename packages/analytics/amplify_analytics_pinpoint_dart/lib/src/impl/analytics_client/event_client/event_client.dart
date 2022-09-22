@@ -1,9 +1,10 @@
+import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../sdk/pinpoint.dart';
 import '../endpoint_client/endpoint_client.dart';
-import '../shared_prefs.dart';
+import '../key_value_store.dart';
 import 'events_storage_adapter.dart';
 
 /// Manage sending of AnalyticsEvent
@@ -13,17 +14,20 @@ import 'events_storage_adapter.dart';
 ///
 
 class EventClient {
-  final EventStorageAdapter _storageAdapter = EventStorageAdapter();
+  late final EventStorageAdapter _storageAdapter;
 
   final String _appId;
   final PinpointClient _pinpointClient;
   final EndpointClient _endpointClient;
-  final SharedPrefs _sharedPrefs;
+  final KeyValueStore _keyValueStore;
+  final PathProvider? _pathProvider;
 
   final _uuid = const Uuid();
 
-  EventClient(this._appId, this._sharedPrefs, this._endpointClient,
-      this._pinpointClient);
+  EventClient(this._appId, this._keyValueStore, this._endpointClient,
+      this._pinpointClient, this._pathProvider) {
+    _storageAdapter = EventStorageAdapter(_pathProvider);
+  }
 
   void recordEvent(Event event) {
     _storageAdapter.saveEvent(event);
@@ -47,7 +51,7 @@ class EventClient {
     // TODO : handle response object???
 
     var batchItems =
-        BuiltMap<String, EventsBatch>({_sharedPrefs.getUniqueId(): batch});
+        BuiltMap<String, EventsBatch>({_keyValueStore.getUniqueId(): batch});
     await _pinpointClient.putEvents(PutEventsRequest(
         applicationId: _appId,
         eventsRequest: EventsRequest(batchItem: batchItems)));

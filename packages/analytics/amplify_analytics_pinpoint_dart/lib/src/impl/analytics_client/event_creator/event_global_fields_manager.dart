@@ -1,9 +1,8 @@
 import 'dart:collection';
 import 'dart:convert';
 
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/key_value_store.dart';
 import 'package:amplify_core/amplify_core.dart';
-
-import '../shared_prefs.dart';
 
 class EventGlobalFieldsManager {
   late final Map<String, String> _globalAttributes;
@@ -14,21 +13,21 @@ class EventGlobalFieldsManager {
   UnmodifiableMapView<String, double> get globalMetrics =>
       UnmodifiableMapView(_globalMetrics);
 
-  late final SharedPrefs _sharedPrefs;
+  late final KeyValueStore _keyValueStore;
 
   EventGlobalFieldsManager._getInstance(
-      this._sharedPrefs, this._globalAttributes, this._globalMetrics);
+      this._keyValueStore, this._globalAttributes, this._globalMetrics);
 
   static Future<EventGlobalFieldsManager> getInstance(
-          SharedPrefs sharedPrefs) async =>
+          KeyValueStore keyValueStore) async =>
       EventGlobalFieldsManager._getInstance(
-          sharedPrefs,
-          jsonDecode(
-              await sharedPrefs.getJson(SharedPrefs.eventsGlobalAttrsKey) ??
-                  '{}'),
-          jsonDecode(
-              await sharedPrefs.getJson(SharedPrefs.endpointGlobalMetricsKey) ??
-                  '{}'));
+          keyValueStore,
+          Map<String, String>.from(jsonDecode(
+              await keyValueStore.getJson(KeyValueStore.eventsGlobalAttrsKey) ??
+                  '{}')),
+          Map<String, double>.from(jsonDecode(await keyValueStore
+                  .getJson(KeyValueStore.endpointGlobalMetricsKey) ??
+              '{}')));
 
 // Note: no max size for global properties
   Future<void> addGlobalProperties(AnalyticsProperties globalProperties) async {
@@ -48,10 +47,10 @@ class EventGlobalFieldsManager {
   }
 
   Future<void> _saveProperties() async {
-    await _sharedPrefs.saveJson(
-        SharedPrefs.eventsGlobalAttrsKey, jsonEncode(_globalAttributes));
-    await _sharedPrefs.saveJson(
-        SharedPrefs.eventsGlobalMetricsKey, jsonEncode(_globalMetrics));
+    await _keyValueStore.saveJson(
+        KeyValueStore.eventsGlobalAttrsKey, jsonEncode(_globalAttributes));
+    await _keyValueStore.saveJson(
+        KeyValueStore.eventsGlobalMetricsKey, jsonEncode(_globalMetrics));
   }
 
   static void extractAnalyticsProperties(Map<String, String> attrs,
@@ -68,10 +67,10 @@ class EventGlobalFieldsManager {
           attrs[k] = propertiesMap[k] as String;
           break;
         case 'BOOL':
-          attrs[k] = propertiesMap[k] as String;
+          attrs[k] = propertiesMap[k].toString(); // as String;
           break;
         case 'INT':
-          metrics[k] = propertiesMap[k] as double;
+          metrics[k] = (propertiesMap[k] as int).toDouble();
           break;
         case 'DOUBLE':
           metrics[k] = propertiesMap[k] as double;

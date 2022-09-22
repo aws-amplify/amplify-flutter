@@ -27,7 +27,7 @@ class DeviceInfoProvider {
             webInfo.browserName.toString(),
             webInfo.appVersion, // version of browser
             'WEB',
-            webInfo.platform // version of brower?
+            webInfo.platform // version of browser?
             );
       } else if (Platform.isAndroid) {
         var androidInfo = await deviceInfo.androidInfo;

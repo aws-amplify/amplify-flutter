@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:uuid/uuid.dart';
 
-class SharedPrefs {
+class KeyValueStore {
   // Stored Keys
   static const String uniqueIdKey = 'UniqueId';
 
@@ -14,27 +14,31 @@ class SharedPrefs {
 
   static const String endpointGlobalMetricsKey = 'EndpointGlobalMetricsKey';
 
-  late AmplifySecureStorageInterface storage;
+  late SecureStorageInterface _storage;
 
   late String uniqueId;
 
   // Keep as class to allow extensibility / inheritance
-  SharedPrefs._getInstance() {
-    storage = AmplifySecureStorageDart(
-      config: AmplifySecureStorageConfig(
+  KeyValueStore._getInstance(SecureStorageInterface? storage) {
+    if (storage == null) {
+      _storage = AmplifySecureStorageWorker(
+          config: AmplifySecureStorageConfig(
         scope: 'analytics',
-      ),
-    );
+      ));
+    } else {
+      _storage = storage;
+    }
   }
 
-  static Future<SharedPrefs> getInstance() async {
-    var instance = SharedPrefs._getInstance();
+  static Future<KeyValueStore> getInstance(
+      SecureStorageInterface? storage) async {
+    var instance = KeyValueStore._getInstance(storage);
 
     // Retrieve Unique ID
-    var storedUniqueId = await instance.storage.read(key: uniqueIdKey);
+    var storedUniqueId = await instance._storage.read(key: uniqueIdKey);
     if (storedUniqueId == null) {
       storedUniqueId = const Uuid().v1();
-      await instance.storage.write(key: uniqueIdKey, value: storedUniqueId);
+      await instance._storage.write(key: uniqueIdKey, value: storedUniqueId);
     }
     instance.uniqueId = storedUniqueId;
 
@@ -42,11 +46,11 @@ class SharedPrefs {
   }
 
   Future<void> saveJson(String key, String json) async {
-    await storage.write(key: key, value: json);
+    await _storage.write(key: key, value: json);
   }
 
   Future<String?> getJson(String key) async {
-    return await storage.read(key: key);
+    return await _storage.read(key: key);
   }
 
   String getUniqueId() {

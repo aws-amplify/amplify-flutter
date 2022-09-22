@@ -16,5 +16,6 @@
 library amplify_analytics_pinpoint_dart;
 
 export 'src/analytics_plugin_impl.dart';
-export 'src/impl/app_lifecycle_provider.dart';
-export 'src/impl/device_context_info_provider.dart';
+export 'src/impl/flutter_provider_interfaces/app_lifecycle_provider.dart';
+export 'src/impl/flutter_provider_interfaces/device_context_info_provider.dart';
+export 'src/impl/flutter_provider_interfaces/path_provider.dart';
