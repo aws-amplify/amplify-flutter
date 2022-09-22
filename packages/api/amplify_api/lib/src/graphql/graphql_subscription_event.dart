@@ -50,6 +50,14 @@ extension GraphQLSubscriptionEventTypeX on GraphQLSubscriptionEventType {
 /// An event which occurs on a GraphQL subscription.
 /// {@endtemplate}
 class GraphQLSubscriptionEvent {
+  /// {@macro graphql_subscription_event}
+  const GraphQLSubscriptionEvent({
+    required this.subscriptionId,
+    required this.type,
+    this.rawResponse,
+    this.error,
+  });
+
   /// The ID of the subscription.
   final String subscriptionId;
 
@@ -62,26 +70,16 @@ class GraphQLSubscriptionEvent {
   /// Platform error, if an error event.
   final ApiException? error;
 
-  /// {@macro graphql_subscription_event}
-  const GraphQLSubscriptionEvent({
-    required this.subscriptionId,
-    required this.type,
-    this.rawResponse,
-    this.error,
-  });
-
   /// Deserializes a platform channel event map.
-  static GraphQLSubscriptionEvent fromJson(Map json) {
+  static GraphQLSubscriptionEvent fromJson(Map<String, dynamic> json) {
     GraphQLResponse<String?>? rawResponse;
     final payload = json['payload'] as Map?;
     if (payload != null) {
       rawResponse = GraphQLResponse.raw(
         data: payload['data'] as String?,
         errors: (payload['errors'] as List?)
-            ?.cast<Map>()
-            .map((error) => GraphQLResponseError.fromJson(
-                  error.cast<String, dynamic>(),
-                ))
+            ?.cast<Map<String, dynamic>>()
+            .map(GraphQLResponseError.fromJson)
             .toList(),
       );
     }

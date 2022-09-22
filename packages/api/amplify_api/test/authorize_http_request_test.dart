@@ -74,8 +74,10 @@ void main() {
         endpointConfig: endpointConfig,
         authProviderRepo: authProviderRepo,
       );
-      expect(authorizedRequest.headers.containsKey(AWSHeaders.authorization),
-          isFalse);
+      expect(
+        authorizedRequest.headers.containsKey(AWSHeaders.authorization),
+        isFalse,
+      );
       expect(authorizedRequest, inputRequest);
     });
 
@@ -97,7 +99,9 @@ void main() {
         authProviderRepo: authProviderRepo,
       );
       expect(
-          authorizedRequest.headers[AWSHeaders.authorization], testAuthValue);
+        authorizedRequest.headers[AWSHeaders.authorization],
+        testAuthValue,
+      );
       expect(authorizedRequest, inputRequest);
     });
 
@@ -147,13 +151,14 @@ void main() {
         region: _region,
       );
       final inputRequest = _generateTestRequest(endpointConfig.endpoint);
-      expectLater(
-          authorizeHttpRequest(
-            inputRequest,
-            endpointConfig: endpointConfig,
-            authProviderRepo: authProviderRepo,
-          ),
-          throwsA(isA<ApiException>()));
+      await expectLater(
+        authorizeHttpRequest(
+          inputRequest,
+          endpointConfig: endpointConfig,
+          authProviderRepo: authProviderRepo,
+        ),
+        throwsA(isA<ApiException>()),
+      );
     });
 
     test('authorizes with Cognito User Pools auth mode', () async {
@@ -250,7 +255,7 @@ void main() {
         region: _region,
       );
       final inputRequest = _generateTestRequest(endpointConfig.endpoint);
-      expectLater(
+      await expectLater(
         authorizeHttpRequest(
           inputRequest,
           endpointConfig: endpointConfig,
