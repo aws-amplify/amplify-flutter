@@ -7,6 +7,7 @@ orbs:
       macos: circleci/macos@2.2.0
       android: circleci/android@2.0.3
       flutter-orb: circleci/flutter@1.1.0
+      aws-cli: circleci/aws-cli@3.1.1
 
     executors:
       mac-executor:
@@ -20,6 +21,16 @@ orbs:
         resource_class: large
 
     commands:
+      send-metric-on-fail:
+        description: Send failure datapoint to cloudwatch
+        steps:
+          - run:
+              name: Send failure datapoint to cloudwatch
+              command: |
+                payload="{\"jobName\": \"${CIRCLE_JOB}\", \"projectRepoName\": \"${CIRCLE_PROJECT_REPONAME}\"}"
+                echo $payload
+                aws lambda invoke --function-name CircleCIWorkflowFailureHandler --payload "$payload" --cli-binary-format raw-in-base64-out response.json
+              when: on_fail
       run-with-retry:
         description: Run command with retry
         parameters:
@@ -115,6 +126,10 @@ orbs:
         steps:
           - checkout:
               path: ~/flutter-canaries
+          - aws-cli/setup:
+              role-session-name: ${CIRCLE_WORKFLOW_JOB_ID}
+              role-arn: ${AWS_ROLE_ARN}
+              session-duration: '2000'
           - install-flutter:
               flutter_branch: << parameters.flutter-version >>
           - run:
@@ -143,6 +158,7 @@ orbs:
               command: flutter test integration_test
               no_output_timeout: 1h
               retry-count: 5
+          - send-metric-on-fail
 
       flutter-ios:
         parameters:
@@ -153,6 +169,10 @@ orbs:
         steps:
           - checkout:
               path: ~/flutter-canaries
+          - aws-cli/setup:
+              role-session-name: ${CIRCLE_WORKFLOW_JOB_ID}
+              role-arn: ${AWS_ROLE_ARN}
+              session-duration: '2000'
           - run:
               name: Install gnu-sed
               command: brew install gnu-sed
@@ -179,6 +199,7 @@ orbs:
               label: Run Flutter Tests
               command: flutter test integration_test
               no_output_timeout: 20m
+          - send-metric-on-fail
 
 
 executors:
@@ -452,10 +473,14 @@ workflows:
         - equal: [ "Canaries", << pipeline.schedule.name >> ]
     jobs:
       - getting-started-smoke-test/flutter-android:
+          context:
+            - cloudwatch-monitoring
           matrix:
             parameters:
               flutter-version: [ "stable", "beta" ]
       - getting-started-smoke-test/flutter-ios:
+          context:
+            - cloudwatch-monitoring
           matrix:
             parameters:
               flutter-version: [ "stable", "beta" ]
