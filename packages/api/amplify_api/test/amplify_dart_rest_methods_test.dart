@@ -14,46 +14,50 @@
 import 'dart:convert';
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_common/testing.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'test_data/fake_amplify_configuration.dart';
+import 'util.dart';
 
 const _expectedRestResponseBody = '"Hello from Lambda!"';
 const _pathThatShouldFail = 'notHere';
 
-class MockAmplifyAPI extends AmplifyAPIDart {
-  @override
-  AWSHttpClient getHttpClient(EndpointType type, {String? apiName}) =>
-      MockAWSHttpClient((request) async {
-        if (request.bodyBytes.isNotEmpty) {
-          expect(request.headers['Content-Type'],
-              'application/json; charset=utf-8');
-        }
-        if (request.host.contains(_pathThatShouldFail)) {
-          return AWSHttpResponse(
-            statusCode: 404,
-            body: utf8.encode('Not found'),
-          );
-        }
-        return AWSHttpResponse(
-          statusCode: 200,
-          body: utf8.encode(_expectedRestResponseBody),
-        );
-      });
-}
+final mockHttpClient = MockAWSHttpClient((request) async {
+  if (request.bodyBytes.isNotEmpty) {
+    expect(request.headers['Content-Type'], 'application/json; charset=utf-8');
+  }
+  if (request.host.contains(_pathThatShouldFail)) {
+    return AWSHttpResponse(
+      statusCode: 404,
+      body: utf8.encode('Not found'),
+    );
+  }
+  return AWSHttpResponse(
+    statusCode: 200,
+    body: utf8.encode(_expectedRestResponseBody),
+  );
+});
 
 void main() {
-  late AmplifyAPI api;
-
   setUpAll(() async {
-    await Amplify.addPlugin(MockAmplifyAPI());
-    await Amplify.configure(amplifyconfig);
+    final apiPlugin = AmplifyAPI(baseHttpClient: mockHttpClient);
+    // Register IAM auth provider like amplify_auth_cognito would do.
+    final authProviderRepo = AmplifyAuthProviderRepository();
+    authProviderRepo.registerAuthProvider(
+      APIAuthorizationType.iam.authProviderToken,
+      TestIamAuthProvider(),
+    );
+    final config = AmplifyConfig.fromJson(
+      jsonDecode(amplifyconfig) as Map<String, Object?>,
+    );
+    apiPlugin.configure(config: config, authProviderRepo: authProviderRepo);
+
+    await Amplify.addPlugin(apiPlugin);
   });
   group('REST API', () {
-    Future<void> _verifyRestOperation(
+    Future<void> verifyRestOperation(
       AWSHttpOperation<AWSBaseHttpResponse> operation,
     ) async {
       final response =
@@ -65,7 +69,7 @@ void main() {
 
     test('get() should get 200', () async {
       final operation = Amplify.API.get('items');
-      await _verifyRestOperation(operation);
+      await verifyRestOperation(operation);
     });
 
     test('head() should get 200', () async {
@@ -77,25 +81,25 @@ void main() {
     test('patch() should get 200', () async {
       final operation = Amplify.API
           .patch('items', body: HttpPayload.json({'name': 'Mow the lawn'}));
-      await _verifyRestOperation(operation);
+      await verifyRestOperation(operation);
     });
 
     test('post() should get 200', () async {
       final operation = Amplify.API
           .post('items', body: HttpPayload.json({'name': 'Mow the lawn'}));
-      await _verifyRestOperation(operation);
+      await verifyRestOperation(operation);
     });
 
     test('put() should get 200', () async {
       final operation = Amplify.API
           .put('items', body: HttpPayload.json({'name': 'Mow the lawn'}));
-      await _verifyRestOperation(operation);
+      await verifyRestOperation(operation);
     });
 
     test('delete() should get 200', () async {
       final operation = Amplify.API
           .delete('items', body: HttpPayload.json({'name': 'Mow the lawn'}));
-      await _verifyRestOperation(operation);
+      await verifyRestOperation(operation);
     });
 
     test('canceled request should never resolve', () async {

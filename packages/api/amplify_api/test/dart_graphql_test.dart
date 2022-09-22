@@ -17,6 +17,7 @@ import 'dart:convert';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/api_plugin_impl.dart';
+import 'package:amplify_api/src/graphql/app_sync_api_key_auth_provider.dart';
 import 'package:amplify_api/src/graphql/ws/web_socket_connection.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
@@ -87,39 +88,66 @@ const _expectedErrorResponseBody = {
   ]
 };
 
+const _authErrorMessage = 'Not authorized';
+const _expectedAuthErrorResponseBody = {
+  'data': null,
+  'errors': [
+    {
+      'message': _authErrorMessage,
+    },
+  ]
+};
+
+final mockHttpClient = MockAWSHttpClient((request) async {
+  if (request.headers[xApiKey] != 'abc123' &&
+      request.headers[AWSHeaders.authorization] == testFunctionToken) {
+    // Not authorized w API key but has lambda auth token, mock that auth mode
+    // does not work for this query.
+    return AWSHttpResponse(
+      statusCode: 401,
+      body: utf8.encode(json.encode(_expectedAuthErrorResponseBody)),
+    );
+  }
+  if (request.headers[xApiKey] != 'abc123') {
+    // Not expected in test.
+    throw const AmplifyException('Unexpected auth error in test HTTP client');
+  }
+  final body = await utf8.decodeStream(request.body);
+  if (body.contains('getBlog')) {
+    return AWSHttpResponse(
+      statusCode: 200,
+      body: utf8.encode(json.encode(_expectedModelQueryResult)),
+    );
+  }
+  if (body.contains('TestMutate')) {
+    return AWSHttpResponse(
+      statusCode: 400,
+      body: utf8.encode(json.encode(_expectedMutateSuccessResponseBody)),
+    );
+  }
+  if (body.contains('TestError')) {
+    return AWSHttpResponse(
+      statusCode: 400,
+      body: utf8.encode(json.encode(_expectedErrorResponseBody)),
+    );
+  }
+
+  return AWSHttpResponse(
+    statusCode: 400,
+    body: utf8.encode((json.encode(_expectedQuerySuccessResponseBody))),
+  );
+});
+
 class MockAmplifyAPI extends AmplifyAPIDart {
   MockAmplifyAPI({
+    List<APIAuthProvider> authProviders = const [],
     ModelProviderInterface? modelProvider,
-  }) : super(modelProvider: modelProvider);
-
-  @override
-  AWSHttpClient getHttpClient(EndpointType type, {String? apiName}) =>
-      MockAWSHttpClient((request) async {
-        final body = await utf8.decodeStream(request.body);
-        if (body.contains('getBlog')) {
-          return AWSHttpResponse(
-            statusCode: 200,
-            body: utf8.encode(json.encode(_expectedModelQueryResult)),
-          );
-        }
-        if (body.contains('TestMutate')) {
-          return AWSHttpResponse(
-            statusCode: 400,
-            body: utf8.encode(json.encode(_expectedMutateSuccessResponseBody)),
-          );
-        }
-        if (body.contains('TestError')) {
-          return AWSHttpResponse(
-            statusCode: 400,
-            body: utf8.encode(json.encode(_expectedErrorResponseBody)),
-          );
-        }
-
-        return AWSHttpResponse(
-          statusCode: 400,
-          body: utf8.encode((json.encode(_expectedQuerySuccessResponseBody))),
+    AWSHttpClient? baseHttpClient,
+  }) : super(
+          authProviders: authProviders,
+          modelProvider: modelProvider,
+          baseHttpClient: baseHttpClient,
         );
-      });
 
   @override
   WebSocketConnection getWebSocketConnection({String? apiName}) =>
@@ -128,9 +156,13 @@ class MockAmplifyAPI extends AmplifyAPIDart {
 
 void main() {
   setUpAll(() async {
-    await Amplify.addPlugin(MockAmplifyAPI(
+    final api = MockAmplifyAPI(
+      authProviders: [const CustomFunctionProvider()],
+      baseHttpClient: mockHttpClient,
       modelProvider: ModelProvider.instance,
-    ));
+    );
+
+    await Amplify.addPlugin(api);
     await Amplify.configure(amplifyconfig);
   });
   group('Vanilla GraphQL', () {
@@ -296,6 +328,33 @@ void main() {
         ],
         path: <dynamic>[..._errorPath],
         extensions: <String, dynamic>{..._errorExtensions},
+      );
+
+      expect(res.data, equals(null));
+      expect(res.errors?.single, equals(errorExpected));
+    });
+
+    test('request with custom auth mode and auth error', () async {
+      String graphQLDocument = ''' query TestQuery {
+          listBlogs {
+            items {
+              id
+              name
+              createdAt
+            }
+          }
+        } ''';
+      final req = GraphQLRequest<String>(
+        document: graphQLDocument,
+        variables: {},
+        authorizationMode: APIAuthorizationType.function,
+      );
+
+      final operation = Amplify.API.query(request: req);
+      final res = await operation.value;
+
+      const errorExpected = GraphQLResponseError(
+        message: _authErrorMessage,
       );
 
       expect(res.data, equals(null));
