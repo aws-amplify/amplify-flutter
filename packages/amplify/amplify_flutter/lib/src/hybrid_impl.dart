@@ -35,6 +35,7 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
     await Future.wait(
       [
         ...Auth.plugins,
+        ...Analytics.plugins,
       ].map((p) => p.configure(config: amplifyConfig)),
       eagerError: true,
     );

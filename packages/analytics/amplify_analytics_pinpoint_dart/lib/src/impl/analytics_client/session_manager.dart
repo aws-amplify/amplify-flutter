@@ -1,8 +1,8 @@
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/shared_prefs.dart';
 import 'package:intl/intl.dart';
 
 import '../../sdk/pinpoint.dart';
+import 'key_value_store.dart';
 
 const String sessionStartEventType = '_session.start';
 const String sessionStopEventType = '_session.stop';
@@ -28,9 +28,9 @@ class SessionManager {
 
   final AppLifecycleProvider? _lifecycleObserver;
 
-  final SharedPrefs _sharedPrefs;
+  final KeyValueStore _keyValueStore;
 
-  SessionManager(this._sharedPrefs, this._lifecycleObserver,
+  SessionManager(this._keyValueStore, this._lifecycleObserver,
       {required SessionFunc onSessionStart,
       required SessionFunc onSessionEnd}) {
     _onSessionStart = onSessionStart;
@@ -78,7 +78,7 @@ class SessionManager {
   }
 
   String _generateSessionId() {
-    String id = _sharedPrefs.getUniqueId();
+    String id = _keyValueStore.getUniqueId();
     id = id.padLeft(_maxIdLength, '_');
     id = id.substring(0, _maxIdLength);
 

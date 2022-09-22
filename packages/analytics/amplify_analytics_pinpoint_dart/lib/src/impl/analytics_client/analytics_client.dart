@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/session_manager.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/shared_prefs.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/stoppable_timer.dart';
 import 'package:amplify_core/amplify_core.dart';
 
@@ -11,6 +10,7 @@ import '../../sdk/pinpoint.dart';
 import 'endpoint_client/endpoint_client.dart';
 import 'event_client/event_client.dart';
 import 'event_creator/event_creator.dart';
+import 'key_value_store.dart';
 
 class AnalyticsClient {
   // Should be managed by SessionTracker
@@ -26,25 +26,26 @@ class AnalyticsClient {
 
   Future<void> configure(
       String appId,
-      SharedPrefs sharedPrefs,
+      KeyValueStore keyValueStore,
       PinpointClient pinpointClient,
+      PathProvider? pathProvider,
       AppLifecycleProvider? appLifecycleProvider,
       DeviceContextInfoProvider? deviceInfoProvider) async {
     _eventClient =
-        await EventCreator.getInstance(sharedPrefs, deviceInfoProvider);
+        await EventCreator.getInstance(keyValueStore, deviceInfoProvider);
 
     _endpointClient = await EndpointClient.getInstance(
-        appId, sharedPrefs, pinpointClient, deviceInfoProvider);
+        appId, keyValueStore, pinpointClient, deviceInfoProvider);
 
     /// TODO - clarify - what is behavior on app refresh / hot reload?
     _autoEventSubmitter =
         StoppableTimer(const Duration(seconds: 10), (Timer t) => flushEvents);
 
-    _eventManager =
-        EventClient(appId, sharedPrefs, _endpointClient, pinpointClient);
+    _eventManager = EventClient(
+        appId, keyValueStore, _endpointClient, pinpointClient, pathProvider);
 
     _sessionManager =
-        SessionManager(sharedPrefs, appLifecycleProvider, onSessionEnd: (sb) {
+        SessionManager(keyValueStore, appLifecycleProvider, onSessionEnd: (sb) {
       _eventManager.recordEvent(
           _eventClient.createPinpointEvent(sessionStopEventType, sb));
       _eventManager.flushEvents();

@@ -19,9 +19,9 @@ dependencies:
   smithy: ^0.1.0
   smithy_aws: ^0.1.0
   uuid: ^3.0.0
-  sqlite3: ^1.7.1
+  sqlite3: ^1.8.0
   path: ^1.8.1 # path manipulation
-  drift: ^1.7.0 # local database
+  drift: ^2.1.0 # local database
 
   # amplify_flutter: ^0.5.0 # widgetbinding - FLUTTER ONLY
   # USE SECURE STORAGE INSTEAD ... shared_preferences: ^2.0.15 # key/value storage - FLUTTER ONLY
@@ -36,8 +36,8 @@ dependencies:
 dev_dependencies:
   amplify_lints:
     path: ../../amplify_lints
-  drift_dev: ^1.7.0
-  build_runner: ^2.0.0
+  drift_dev: ^2.1.0
+  build_runner: ^2.2.0
   build_verify: ^3.0.0
   built_value_generator: 8.4.1
   test: ^1.16.0

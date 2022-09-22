@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
-import '../shared_prefs.dart';
+
+import '../key_value_store.dart';
 
 class EndpointGlobalFieldsManager {
   final int _maxKeyLength = 50;
@@ -17,21 +18,21 @@ class EndpointGlobalFieldsManager {
       UnmodifiableMapView(_globalMetrics);
 
   // External dependencies
-  late final SharedPrefs _sharedPrefs;
+  late final KeyValueStore _keyValueStore;
 
   EndpointGlobalFieldsManager._getInstance(
-      this._sharedPrefs, this._globalAttributes, this._globalMetrics);
+      this._keyValueStore, this._globalAttributes, this._globalMetrics);
 
   static Future<EndpointGlobalFieldsManager> getInstance(
-          SharedPrefs sharedPrefs) async =>
+          KeyValueStore sharedPrefs) async =>
       EndpointGlobalFieldsManager._getInstance(
           sharedPrefs,
-          jsonDecode(
-              await sharedPrefs.getJson(SharedPrefs.endpointGlobalAttrsKey) ??
-                  '{}'),
-          jsonDecode(
-              await sharedPrefs.getJson(SharedPrefs.endpointGlobalMetricsKey) ??
-                  '{}'));
+          Map<String, List<String>>.from(jsonDecode(
+              await sharedPrefs.getJson(KeyValueStore.endpointGlobalAttrsKey) ??
+                  '{}')),
+          Map<String, double>.from(jsonDecode(await sharedPrefs
+                  .getJson(KeyValueStore.endpointGlobalMetricsKey) ??
+              '{}')));
 
   String processKey(String key) {
     if (key.length > _maxKeyLength) {
@@ -84,8 +85,8 @@ class EndpointGlobalFieldsManager {
   }
 
   void _saveAttributes() {
-    _sharedPrefs.saveJson(
-        SharedPrefs.endpointGlobalAttrsKey, jsonEncode(_globalAttributes));
+    _keyValueStore.saveJson(
+        KeyValueStore.endpointGlobalAttrsKey, jsonEncode(_globalAttributes));
   }
 
   void addMetric(String name, double value) {
@@ -104,7 +105,7 @@ class EndpointGlobalFieldsManager {
   }
 
   void _saveMetrics() {
-    _sharedPrefs.saveJson(
-        SharedPrefs.endpointGlobalMetricsKey, jsonEncode(_globalMetrics));
+    _keyValueStore.saveJson(
+        KeyValueStore.endpointGlobalMetricsKey, jsonEncode(_globalMetrics));
   }
 }

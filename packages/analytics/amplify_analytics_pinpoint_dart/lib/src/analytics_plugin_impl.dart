@@ -18,27 +18,32 @@ import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 
 import 'impl/analytics_client/analytics_client.dart';
-import 'impl/analytics_client/shared_prefs.dart';
-import 'impl/device_context_info_provider.dart';
+import 'impl/analytics_client/key_value_store.dart';
 
 /// Public facing Plugin
 /// Validate and parse inputs
 /// Before delegating to AnalyticsClient
 class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
+  AmplifyAnalyticsPinpointDart({
+    SecureStorageInterface? keyValueStorage,
+    PathProvider? pathProvider,
+    AppLifecycleProvider? appLifecycleProvider,
+    DeviceContextInfoProvider? deviceContextInfoProvider,
+  })  : _credentialStorage = keyValueStorage,
+        _pathProvider = pathProvider,
+        _appLifecycleProvider = appLifecycleProvider,
+        _deviceContextInfoProvider = deviceContextInfoProvider;
+
   late AnalyticsClient? _analyticsClient;
 
-  AppLifecycleProvider? _appLifecycleProvider;
-  DeviceContextInfoProvider? _deviceContextInfoProvider;
-
-  AmplifyAnalyticsPinpointDart(
-      {AppLifecycleProvider? appLifecycleProvider,
-      DeviceContextInfoProvider? deviceContextInfoProvider}) {
-    _appLifecycleProvider = appLifecycleProvider;
-    _deviceContextInfoProvider = deviceContextInfoProvider;
-  }
+  final PathProvider? _pathProvider;
+  final SecureStorageInterface? _credentialStorage;
+  final AppLifecycleProvider? _appLifecycleProvider;
+  final DeviceContextInfoProvider? _deviceContextInfoProvider;
 
   @override
   Future<void> configure({AmplifyConfig? config}) async {
@@ -59,15 +64,16 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     var pinpointClient = PinpointClient(
         region: region, credentialsProvider: credentialsProvider);
 
-    var sharedPrefs = await SharedPrefs.getInstance();
+    // custom class switch to dependency injection
+    var keyValueStore = await KeyValueStore.getInstance(_credentialStorage);
 
     if (_deviceContextInfoProvider != null) {
       await _deviceContextInfoProvider!.getDeviceInfoDetails();
     }
 
     _analyticsClient = AnalyticsClient();
-    await _analyticsClient!.configure(appId, sharedPrefs, pinpointClient,
-        _appLifecycleProvider, _deviceContextInfoProvider);
+    await _analyticsClient!.configure(appId, keyValueStore, pinpointClient,
+        _pathProvider, _appLifecycleProvider, _deviceContextInfoProvider);
   }
 
   @override

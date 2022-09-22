@@ -3,24 +3,14 @@
 part of 'drift_tables.dart';
 
 // **************************************************************************
-// MoorGenerator
+// DriftDatabaseGenerator
 // **************************************************************************
 
 // ignore_for_file: type=lint
 class DriftJsonString extends DataClass implements Insertable<DriftJsonString> {
   final int id;
   final String jsonString;
-  DriftJsonString({required this.id, required this.jsonString});
-  factory DriftJsonString.fromData(Map<String, dynamic> data,
-      {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return DriftJsonString(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      jsonString: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}json_string'])!,
-    );
-  }
+  const DriftJsonString({required this.id, required this.jsonString});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -135,16 +125,16 @@ class $DriftJsonStringsTable extends DriftJsonStrings
   $DriftJsonStringsTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      type: const IntType(),
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _jsonStringMeta = const VerificationMeta('jsonString');
   @override
-  late final GeneratedColumn<String?> jsonString = GeneratedColumn<String?>(
+  late final GeneratedColumn<String> jsonString = GeneratedColumn<String>(
       'json_string', aliasedName, false,
-      type: const StringType(), requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [id, jsonString];
   @override
@@ -174,8 +164,13 @@ class $DriftJsonStringsTable extends DriftJsonStrings
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   DriftJsonString map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return DriftJsonString.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DriftJsonString(
+      id: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      jsonString: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}json_string'])!,
+    );
   }
 
   @override
@@ -185,12 +180,12 @@ class $DriftJsonStringsTable extends DriftJsonStrings
 }
 
 abstract class _$DriftDatabaseJsonStrings extends GeneratedDatabase {
-  _$DriftDatabaseJsonStrings(QueryExecutor e)
-      : super(SqlTypeSystem.defaultInstance, e);
+  _$DriftDatabaseJsonStrings(QueryExecutor e) : super(e);
   late final $DriftJsonStringsTable driftJsonStrings =
       $DriftJsonStringsTable(this);
   @override
-  Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
+  Iterable<TableInfo<Table, dynamic>> get allTables =>
+      allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [driftJsonStrings];
 }

@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/key_value_store.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:built_collection/built_collection.dart';
 
 import '../../../sdk/pinpoint.dart';
-import '../shared_prefs.dart';
 import 'endpoint_global_fields_manager.dart';
 
 class EndpointClient {
@@ -19,11 +19,11 @@ class EndpointClient {
 
   late final String _appId;
   late final PinpointClient _pinpointClient;
-  late final SharedPrefs _sharedPrefs;
+  late final KeyValueStore _keyValueStore;
 
   EndpointClient._getInstance(
       this._appId,
-      this._sharedPrefs,
+      this._keyValueStore,
       this._pinpointClient,
       DeviceContextInfoProvider? deviceInfoProvider,
       this._globalFieldsManager) {
@@ -41,18 +41,18 @@ class EndpointClient {
       ..timezone = deviceInfoProvider?.timezone;
     _endpointBuilder.location = EndpointLocationBuilder()
       ..country = deviceInfoProvider?.countryCode;
-    _endpointBuilder.requestId = _sharedPrefs.getUniqueId();
+    _endpointBuilder.requestId = _keyValueStore.getUniqueId();
   }
 
   // External dependencies
   static Future<EndpointClient> getInstance(
       String appId,
-      SharedPrefs sharedPrefs,
+      KeyValueStore keyValueStore,
       PinpointClient pinpointClient,
       DeviceContextInfoProvider? deviceInfoProvider) async {
     var globalFieldsManager =
-        await EndpointGlobalFieldsManager.getInstance(sharedPrefs);
-    return EndpointClient._getInstance(appId, sharedPrefs, pinpointClient,
+        await EndpointGlobalFieldsManager.getInstance(keyValueStore);
+    return EndpointClient._getInstance(appId, keyValueStore, pinpointClient,
         deviceInfoProvider, globalFieldsManager);
   }
 
@@ -133,7 +133,7 @@ class EndpointClient {
   Future<void> updateEndpoint() async {
     await _pinpointClient.updateEndpoint(UpdateEndpointRequest(
         applicationId: _appId,
-        endpointId: _sharedPrefs.getUniqueId(),
+        endpointId: _keyValueStore.getUniqueId(),
         endpointRequest: endpointToRequest(getPublicEndpoint())));
   }
 
