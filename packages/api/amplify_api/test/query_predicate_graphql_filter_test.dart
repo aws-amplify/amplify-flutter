@@ -36,18 +36,16 @@ void main() {
     });
 
     // helper method for all the tests
-    void testQueryPredicateTranslation(
-      QueryPredicate? queryPredicate,
-      Map<String, dynamic>? expectedFilter, {
-      ModelType modelType = Blog.classType,
-    }) {
+    void _testQueryPredicateTranslation(
+        QueryPredicate? queryPredicate, Map<String, dynamic>? expectedFilter,
+        {ModelType modelType = Blog.classType}) {
       final resultFilter = GraphQLRequestFactory.instance
           .queryPredicateToGraphQLFilter(queryPredicate, modelType);
       expect(resultFilter, expectedFilter);
     }
 
     test('should be null safe', () {
-      testQueryPredicateTranslation(null, null);
+      _testQueryPredicateTranslation(null, null);
     });
 
     test('simple query predicate converts to expected filter', () {
@@ -57,7 +55,7 @@ void main() {
       };
 
       final queryPredicate = Blog.NAME.eq(expectedTitle);
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      _testQueryPredicateTranslation(queryPredicate, expectedFilter);
     });
 
     test('and query with string, and date', () {
@@ -74,7 +72,7 @@ void main() {
           },
         ]
       };
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      _testQueryPredicateTranslation(queryPredicate, expectedFilter);
     });
 
     test('not query converts to expected filter', () {
@@ -84,7 +82,7 @@ void main() {
           'id': {'eq': 'id'}
         }
       };
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      _testQueryPredicateTranslation(queryPredicate, expectedFilter);
     });
 
     test(
@@ -134,7 +132,7 @@ void main() {
           }
         ]
       };
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      _testQueryPredicateTranslation(queryPredicate, expectedFilter);
     });
 
     test('nested and(or()) operator converts to expected filter', () {
@@ -157,7 +155,7 @@ void main() {
           }
         ]
       };
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      _testQueryPredicateTranslation(queryPredicate, expectedFilter);
     });
 
     test('nested or(and()) operator converts to expected filter', () {
@@ -180,7 +178,7 @@ void main() {
           },
         ]
       };
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      _testQueryPredicateTranslation(queryPredicate, expectedFilter);
     });
 
     test('TemporalDateTime query converts to expected filter', () {
@@ -191,7 +189,7 @@ void main() {
       };
       final queryPredicate = Blog.CREATEDAT.le(exampleValue);
 
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      _testQueryPredicateTranslation(queryPredicate, expectedFilter);
     });
 
     test('TemporalDate query converts to expected filter', () {
@@ -202,7 +200,7 @@ void main() {
       };
       final queryPredicate = Blog.CREATEDAT.le(exampleValue);
 
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      _testQueryPredicateTranslation(queryPredicate, expectedFilter);
     });
 
     test('TemporalTime query converts to expected filter', () {
@@ -213,7 +211,7 @@ void main() {
       };
       final queryPredicate = Blog.CREATEDAT.le(exampleValue);
 
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      _testQueryPredicateTranslation(queryPredicate, expectedFilter);
     });
 
     test('DateTime converted to TemporalDateTime query', () {
@@ -224,7 +222,7 @@ void main() {
       };
       final queryPredicate = Blog.CREATEDAT.le(exampleValue);
 
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      _testQueryPredicateTranslation(queryPredicate, expectedFilter);
     });
 
     test('query child by parent ID', () {
@@ -234,11 +232,8 @@ void main() {
         'blogID': {'eq': blogId}
       };
 
-      testQueryPredicateTranslation(
-        queryPredicate,
-        expectedFilter,
-        modelType: Post.classType,
-      );
+      _testQueryPredicateTranslation(queryPredicate, expectedFilter,
+          modelType: Post.classType);
     });
 
     test('query with enum should serialize to string', () {
@@ -249,11 +244,8 @@ void main() {
         'title': {'eq': describeEnum(Size.medium)}
       };
 
-      testQueryPredicateTranslation(
-        queryPredicate,
-        expectedFilter,
-        modelType: Post.classType,
-      );
+      _testQueryPredicateTranslation(queryPredicate, expectedFilter,
+          modelType: Post.classType);
     });
   });
 }

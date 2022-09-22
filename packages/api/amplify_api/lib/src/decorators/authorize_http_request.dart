@@ -45,8 +45,7 @@ Future<AWSBaseHttpRequest> authorizeHttpRequest(
       final apiKey = endpointConfig.apiKey;
       if (apiKey == null) {
         throw const ApiException(
-          'Auth mode is API Key, but no API Key was found in config.',
-        );
+            'Auth mode is API Key, but no API Key was found in config.');
       }
 
       final authorizedRequest = await authProvider.authorizeRequest(
@@ -56,10 +55,9 @@ Future<AWSBaseHttpRequest> authorizeHttpRequest(
       return authorizedRequest;
     case APIAuthorizationType.iam:
       final authProvider = _validateAuthProvider(
-        authProviderRepo
-            .getAuthProvider(APIAuthorizationType.iam.authProviderToken),
-        authType,
-      );
+          authProviderRepo
+              .getAuthProvider(APIAuthorizationType.iam.authProviderToken),
+          authType);
       final service = endpointConfig.endpointType == EndpointType.graphQL
           ? AWSService.appSync
           : AWSService.apiGatewayManagementApi; // resolves to "execute-api"
@@ -87,14 +85,10 @@ Future<AWSBaseHttpRequest> authorizeHttpRequest(
 }
 
 T _validateAuthProvider<T extends AmplifyAuthProvider>(
-  T? authProvider,
-  APIAuthorizationType authType,
-) {
+    T? authProvider, APIAuthorizationType authType) {
   if (authProvider == null) {
-    throw ApiException(
-      'No auth provider found for auth mode ${authType.name}.',
-      recoverySuggestion: 'Ensure auth plugin correctly configured.',
-    );
+    throw ApiException('No auth provider found for auth mode ${authType.name}.',
+        recoverySuggestion: 'Ensure auth plugin correctly configured.');
   }
   return authProvider;
 }

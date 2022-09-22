@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_catches_without_on_clauses, prefer_single_quotes, prefer_const_literals_to_create_immutables, inference_failure_on_untyped_parameter
+// ignore_for_file: avoid_catches_without_on_clauses, prefer_single_quotes, prefer_const_literals_to_create_immutables
 
 /*
 * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -50,6 +50,7 @@ class Post extends Model {
   String get title {
     try {
       return _title!;
+      // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages

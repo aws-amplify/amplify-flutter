@@ -65,11 +65,9 @@ class AmplifyAPIDart extends AmplifyAPI {
   }) async {
     final apiConfig = config?.api?.awsPlugin;
     if (apiConfig == null) {
-      throw const ApiException(
-        'No AWS API config found',
-        recoverySuggestion: 'Add API from the Amplify CLI. See '
-            'https://docs.amplify.aws/lib/graphqlapi/getting-started/q/platform/flutter/#configure-api',
-      );
+      throw const ApiException('No AWS API config found',
+          recoverySuggestion: 'Add API from the Amplify CLI. See '
+              'https://docs.amplify.aws/lib/graphqlapi/getting-started/q/platform/flutter/#configure-api');
     }
     _apiConfig = apiConfig;
     _authProviderRepo = authProviderRepo;
@@ -121,10 +119,9 @@ class AmplifyAPIDart extends AmplifyAPI {
     } on PlatformException catch (e) {
       if (e.code == 'AmplifyAlreadyConfiguredException') {
         throw const AmplifyAlreadyConfiguredException(
-          AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
-          recoverySuggestion:
-              AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion,
-        );
+            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+            recoverySuggestion:
+                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
       }
       throw AmplifyException.fromMap((e.details as Map).cast());
     }

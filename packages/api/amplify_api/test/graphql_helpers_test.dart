@@ -26,13 +26,10 @@ import 'package:flutter_test/flutter_test.dart';
 
 final _deepEquals = const DeepCollectionEquality().equals;
 
-// Local variable types used as a type check.
-// ignore_for_file: omit_local_variable_types
-
 class MockAmplifyAPI extends AmplifyAPIDart {
   MockAmplifyAPI({
-    super.modelProvider,
-  });
+    ModelProviderInterface? modelProvider,
+  }) : super(modelProvider: modelProvider);
 
   @override
   void registerAuthProvider(APIAuthProvider authProvider) {}
@@ -67,12 +64,11 @@ void main() {
 
     group('ModelQueries', () {
       test('ModelQueries.get() should build a valid request', () {
-        final String id = UUID.getUUID();
+        String id = UUID.getUUID();
         const expected =
             'query getBlog(\$id: ID!) { getBlog(id: \$id) { $blogSelectionSet } }';
 
-        final GraphQLRequest<Blog> req =
-            ModelQueries.get<Blog>(Blog.classType, id);
+        GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, id);
 
         expect(req.document, expected);
         expect(_deepEquals(req.variables, {'id': id}), isTrue);
@@ -83,10 +79,9 @@ void main() {
       test(
           'ModelQueries.get() returns a GraphQLRequest<Blog> when provided a modelType',
           () async {
-        final String id = UUID.getUUID();
-        final GraphQLRequest<Blog> req =
-            ModelQueries.get<Blog>(Blog.classType, id);
-        final String data = '''{
+        String id = UUID.getUUID();
+        GraphQLRequest<Blog> req = ModelQueries.get<Blog>(Blog.classType, id);
+        String data = '''{
         "getBlog": {
             "createdAt": "2021-01-01T01:00:00.000000000Z",
             "id": "$id",
@@ -94,7 +89,7 @@ void main() {
         }
     }''';
 
-        final GraphQLResponse<Blog> response = _decodeResponseData(req, data);
+        GraphQLResponse<Blog> response = _decodeResponseData(req, data);
 
         expect(response.data, isA<Blog>());
         expect(response.data?.id, id);
@@ -103,7 +98,7 @@ void main() {
         const expected =
             'query listBlogs(\$filter: ModelBlogFilterInput, \$limit: Int, \$nextToken: String) { listBlogs(filter: \$filter, limit: \$limit, nextToken: \$nextToken) { items { $blogSelectionSet } nextToken } }';
 
-        final GraphQLRequest<PaginatedResult<Blog>> req =
+        GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType);
 
         expect(req.document, expected);
@@ -116,7 +111,7 @@ void main() {
         const expected =
             'query listBlogs(\$filter: ModelBlogFilterInput, \$limit: Int, \$nextToken: String) { listBlogs(filter: \$filter, limit: \$limit, nextToken: \$nextToken) { items { $blogSelectionSet } nextToken } }';
 
-        final GraphQLRequest<PaginatedResult<Blog>> req =
+        GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType, limit: 1);
 
         expect(req.document, expected);
@@ -128,17 +123,17 @@ void main() {
       test(
           'ModelQueries.get() returns a GraphQLRequest<String> when not provided a modelType',
           () async {
-        final String id = UUID.getUUID();
-        const doc = '''query MyQuery {
+        String id = UUID.getUUID();
+        String doc = '''query MyQuery {
       getBlog {
         id
         name
         createdAt
       }
     }''';
-        final GraphQLRequest<String> req =
+        GraphQLRequest<String> req =
             GraphQLRequest(document: doc, variables: <String, String>{id: id});
-        final String data = '''{
+        String data = '''{
         "getBlog": {
             "createdAt": "2021-01-01T01:00:00.000000000Z",
             "id": "$id",
@@ -146,7 +141,7 @@ void main() {
         }
     }''';
 
-        final GraphQLResponse<String> response = _decodeResponseData(req, data);
+        GraphQLResponse<String> response = _decodeResponseData(req, data);
 
         expect(response.data, isA<String>());
       });
@@ -154,10 +149,10 @@ void main() {
       test(
           'ModelQueries.list() returns a GraphQLRequest<PaginatedResult<Blog>> when provided a modelType',
           () async {
-        final GraphQLRequest<PaginatedResult<Blog>> req =
+        GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType, limit: 2);
 
-        const data = '''{
+        String data = '''{
           "listBlogs": {
               "items": [
                 {
@@ -175,7 +170,7 @@ void main() {
             }
         }''';
 
-        final GraphQLResponse<PaginatedResult<Blog>> response =
+        GraphQLResponse<PaginatedResult<Blog>> response =
             _decodeResponseData(req, data);
 
         expect(response.data, isA<PaginatedResult<Blog>>());
@@ -186,10 +181,10 @@ void main() {
       test(
           'ModelQueries.list() should decode gracefully when there is a null in the items list',
           () async {
-        final GraphQLRequest<PaginatedResult<Blog>> req =
+        GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType, limit: 2);
 
-        const data = '''{
+        String data = '''{
           "listBlogs": {
               "items": [
                 {
@@ -203,7 +198,7 @@ void main() {
             }
         }''';
 
-        final GraphQLResponse<PaginatedResult<Blog>> response =
+        GraphQLResponse<PaginatedResult<Blog>> response =
             _decodeResponseData(req, data);
 
         expect(response.data, isA<PaginatedResult<Blog>>());
@@ -216,10 +211,10 @@ void main() {
           'GraphQLResponse<PaginatedResult<Blog>> can get the request for next page of data',
           () async {
         const limit = 2;
-        final GraphQLRequest<PaginatedResult<Blog>> req =
+        GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType, limit: limit);
 
-        const data = '''{
+        String data = '''{
           "listBlogs": {
               "items": [
                 {
@@ -237,7 +232,7 @@ void main() {
             }
         }''';
 
-        final GraphQLResponse<PaginatedResult<Blog>> response =
+        GraphQLResponse<PaginatedResult<Blog>> response =
             _decodeResponseData(req, data);
         expect(response.data?.hasNextResult, true);
         const expectedDocument =
@@ -252,10 +247,10 @@ void main() {
           'GraphQLResponse<PaginatedResult<Blog>> will not have data for next page when result has no nextToken',
           () async {
         const limit = 2;
-        final GraphQLRequest<PaginatedResult<Blog>> req =
+        GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType, limit: limit);
 
-        const data = '''{
+        String data = '''{
           "listBlogs": {
               "items": [
                 {
@@ -272,7 +267,7 @@ void main() {
             }
         }''';
 
-        final GraphQLResponse<PaginatedResult<Blog>> response =
+        GraphQLResponse<PaginatedResult<Blog>> response =
             _decodeResponseData(req, data);
         expect(response.data?.hasNextResult, false);
       });
@@ -288,7 +283,7 @@ void main() {
         };
 
         final queryPredicate = Blog.NAME.eq(expectedTitle);
-        final GraphQLRequest<PaginatedResult<Blog>> req =
+        GraphQLRequest<PaginatedResult<Blog>> req =
             ModelQueries.list<Blog>(Blog.classType, where: queryPredicate);
 
         expect(req.document, expectedDocument);
@@ -307,10 +302,11 @@ void main() {
         };
 
         final queryPredicate = Blog.NAME.eq(expectedTitle);
-        final GraphQLRequest<PaginatedResult<Blog>> req =
-            ModelQueries.list<Blog>(Blog.classType,
-                limit: limit, where: queryPredicate);
-        const data = '''{
+        GraphQLRequest<PaginatedResult<Blog>> req = ModelQueries.list<Blog>(
+            Blog.classType,
+            limit: limit,
+            where: queryPredicate);
+        String data = '''{
           "listBlogs": {
               "items": [
                 {
@@ -327,11 +323,11 @@ void main() {
               "nextToken": "super-secret-next-token"
             }
         }''';
-        final GraphQLResponse<PaginatedResult<Blog>> response =
+        GraphQLResponse<PaginatedResult<Blog>> response =
             _decodeResponseData(req, data);
-        final Map<String, dynamic> firstRequestFilter =
+        Map<String, dynamic> firstRequestFilter =
             req.variables['filter'] as Map<String, dynamic>;
-        final resultRequest = response.data?.requestForNextResult;
+        final resultRequest = response.data?.requestForNextResult!;
 
         expect(resultRequest?.variables['filter'], firstRequestFilter);
         expect(resultRequest?.variables['filter'], expectedFilter);
@@ -345,7 +341,7 @@ void main() {
         const time = '2021-08-03T16:39:18.000000651Z';
         final createdAt = TemporalDateTime.fromString(time);
 
-        final Blog blog = Blog(id: id, name: name, createdAt: createdAt);
+        Blog blog = Blog(id: id, name: name, createdAt: createdAt);
         final expectedVars = {
           'input': {
             'id': id,
@@ -358,7 +354,7 @@ void main() {
         const expectedDoc =
             'mutation createBlog(\$input: CreateBlogInput!, \$condition:  ModelBlogConditionInput) { createBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
 
-        final GraphQLRequest<Blog> req = ModelMutations.create<Blog>(blog);
+        GraphQLRequest<Blog> req = ModelMutations.create<Blog>(blog);
 
         expect(req.document, expectedDoc);
         expect(_deepEquals(req.variables, expectedVars), isTrue);
@@ -373,13 +369,12 @@ void main() {
         const name = 'Test Blog';
         const time = '2021-08-03T16:39:18.000000651Z';
         final createdAt = TemporalDateTime.fromString(time);
-        final Blog blog = Blog(id: blogId, name: name, createdAt: createdAt);
+        Blog blog = Blog(id: blogId, name: name, createdAt: createdAt);
 
         final postId = UUID.getUUID();
         const title = 'Lorem Ipsum';
         const rating = 1;
-        final Post post =
-            Post(id: postId, title: title, rating: rating, blog: blog);
+        Post post = Post(id: postId, title: title, rating: rating, blog: blog);
 
         final expectedVars = {
           'input': <String, dynamic>{
@@ -392,7 +387,7 @@ void main() {
         };
         const expectedDoc =
             'mutation createPost(\$input: CreatePostInput!, \$condition:  ModelPostConditionInput) { createPost(input: \$input, condition: \$condition) { id title rating created createdAt updatedAt blog { $blogSelectionSet } } }';
-        final GraphQLRequest<Post> req = ModelMutations.create<Post>(post);
+        GraphQLRequest<Post> req = ModelMutations.create<Post>(post);
 
         expect(req.document, expectedDoc);
         expect(_deepEquals(req.variables, expectedVars), isTrue);
@@ -406,13 +401,9 @@ void main() {
         final postId = UUID.getUUID();
         const title = 'Lorem Ipsum';
         const rating = 1;
-        final Post post = Post(id: postId, title: title, rating: rating);
-        final GraphQLRequest<Post> req = ModelMutations.create<Post>(post);
-        expect(
-          (req.variables['input'] as Map<String, dynamic>)
-              .containsKey('blogID'),
-          isFalse,
-        );
+        Post post = Post(id: postId, title: title, rating: rating);
+        GraphQLRequest<Post> req = ModelMutations.create<Post>(post);
+        expect(req.variables['input'].containsKey('blogID'), isFalse);
       });
 
       test('ModelMutations.delete() should build a valid request', () {
@@ -421,7 +412,7 @@ void main() {
         const time = '2021-08-03T16:39:18.000000651Z';
         final createdAt = TemporalDateTime.fromString(time);
 
-        final Blog blog = Blog(id: id, name: name, createdAt: createdAt);
+        Blog blog = Blog(id: id, name: name, createdAt: createdAt);
 
         final expectedVars = {
           'input': {'id': id},
@@ -430,7 +421,7 @@ void main() {
         const expectedDoc =
             'mutation deleteBlog(\$input: DeleteBlogInput!, \$condition:  ModelBlogConditionInput) { deleteBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
 
-        final GraphQLRequest<Blog> req = ModelMutations.delete<Blog>(blog);
+        GraphQLRequest<Blog> req = ModelMutations.delete<Blog>(blog);
 
         expect(req.document, expectedDoc);
         expect(_deepEquals(req.variables, expectedVars), isTrue);
@@ -448,7 +439,7 @@ void main() {
         const expectedDoc =
             'mutation deleteBlog(\$input: DeleteBlogInput!, \$condition:  ModelBlogConditionInput) { deleteBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
 
-        final GraphQLRequest<Blog> req =
+        GraphQLRequest<Blog> req =
             ModelMutations.deleteById<Blog>(Blog.classType, id);
 
         expect(req.document, expectedDoc);
@@ -463,7 +454,7 @@ void main() {
         const time = '2021-08-03T16:39:18.000000651Z';
         final createdAt = TemporalDateTime.fromString(time);
 
-        final Blog blog = Blog(id: id, name: name, createdAt: createdAt);
+        Blog blog = Blog(id: id, name: name, createdAt: createdAt);
 
         final expectedVars = {
           'input': {
@@ -478,7 +469,7 @@ void main() {
         const expectedDoc =
             'mutation updateBlog(\$input: UpdateBlogInput!, \$condition:  ModelBlogConditionInput) { updateBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
 
-        final GraphQLRequest<Blog> req = ModelMutations.update<Blog>(blog);
+        GraphQLRequest<Blog> req = ModelMutations.update<Blog>(blog);
 
         expect(req.document, expectedDoc);
         expect(_deepEquals(req.variables, expectedVars), isTrue);
@@ -493,13 +484,12 @@ void main() {
         const name = 'Test Blog';
         const time = '2021-08-03T16:39:18.000000651Z';
         final createdAt = TemporalDateTime.fromString(time);
-        final Blog blog = Blog(id: blogId, name: name, createdAt: createdAt);
+        Blog blog = Blog(id: blogId, name: name, createdAt: createdAt);
 
         final postId = UUID.getUUID();
         const title = 'Lorem Ipsum';
         const rating = 1;
-        final Post post =
-            Post(id: postId, title: title, rating: rating, blog: blog);
+        Post post = Post(id: postId, title: title, rating: rating, blog: blog);
 
         final expectedVars = {
           'input': <String, dynamic>{
@@ -513,7 +503,7 @@ void main() {
         };
         const expectedDoc =
             'mutation updatePost(\$input: UpdatePostInput!, \$condition:  ModelPostConditionInput) { updatePost(input: \$input, condition: \$condition) { id title rating created createdAt updatedAt blog { $blogSelectionSet } } }';
-        final GraphQLRequest<Post> req = ModelMutations.update<Post>(post);
+        GraphQLRequest<Post> req = ModelMutations.update<Post>(post);
 
         expect(req.document, expectedDoc);
         expect(_deepEquals(req.variables, expectedVars), isTrue);
@@ -528,7 +518,7 @@ void main() {
         const name = 'Test Blog';
         const time = '2021-08-03T16:39:18.000000651Z';
         final createdAt = TemporalDateTime.fromString(time);
-        final Blog blog = Blog(id: id, name: name, createdAt: createdAt);
+        Blog blog = Blog(id: id, name: name, createdAt: createdAt);
         final expectedVars = {
           'input': {
             'id': id,
@@ -544,7 +534,7 @@ void main() {
         const expectedDoc =
             'mutation updateBlog(\$input: UpdateBlogInput!, \$condition:  ModelBlogConditionInput) { updateBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
 
-        final GraphQLRequest<Blog> req =
+        GraphQLRequest<Blog> req =
             ModelMutations.update(blog, where: Blog.CREATEDAT.lt(createdAt));
 
         expect(req.document, expectedDoc);
@@ -558,7 +548,7 @@ void main() {
         const name = 'Test Blog';
         const time = '2021-08-03T16:39:18.000000651Z';
         final createdAt = TemporalDateTime.fromString(time);
-        final Blog blog = Blog(id: id, name: name, createdAt: createdAt);
+        Blog blog = Blog(id: id, name: name, createdAt: createdAt);
         final expectedVars = {
           'input': {'id': id},
           'condition': {
@@ -568,7 +558,7 @@ void main() {
         const expectedDoc =
             'mutation deleteBlog(\$input: DeleteBlogInput!, \$condition:  ModelBlogConditionInput) { deleteBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
 
-        final GraphQLRequest<Blog> req = ModelMutations.delete<Blog>(blog,
+        GraphQLRequest<Blog> req = ModelMutations.delete<Blog>(blog,
             where: Blog.CREATEDAT.lt(createdAt));
 
         expect(req.document, expectedDoc);
@@ -582,7 +572,7 @@ void main() {
       test('ModelSubscriptions.onCreate() should build a valid request', () {
         const expected =
             'subscription onCreateBlog { onCreateBlog { $blogSelectionSet } }';
-        final GraphQLRequest<Blog> req =
+        GraphQLRequest<Blog> req =
             ModelSubscriptions.onCreate<Blog>(Blog.classType);
 
         expect(req.document, expected);
@@ -593,7 +583,7 @@ void main() {
       test('ModelSubscriptions.onUpdate() should build a valid request', () {
         const expected =
             'subscription onUpdateBlog { onUpdateBlog { $blogSelectionSet } }';
-        final GraphQLRequest<Blog> req =
+        GraphQLRequest<Blog> req =
             ModelSubscriptions.onUpdate<Blog>(Blog.classType);
 
         expect(req.document, expected);
@@ -604,7 +594,7 @@ void main() {
       test('ModelSubscriptions.onDelete() should build a valid request', () {
         const expected =
             'subscription onDeleteBlog { onDeleteBlog { $blogSelectionSet } }';
-        final GraphQLRequest<Blog> req =
+        GraphQLRequest<Blog> req =
             ModelSubscriptions.onDelete<Blog>(Blog.classType);
 
         expect(req.document, expected);
@@ -738,11 +728,8 @@ void main() {
             }
           ]
         };
-        final output = transformAppSyncJsonToModelJson(
-          input,
-          Post.schema,
-          isPaginated: true,
-        );
+        final output = transformAppSyncJsonToModelJson(input, Post.schema,
+            isPaginated: true);
         expect(output, expectedOutput);
       });
 
@@ -771,11 +758,8 @@ void main() {
             null
           ]
         };
-        final output = transformAppSyncJsonToModelJson(
-          input,
-          Post.schema,
-          isPaginated: true,
-        );
+        final output = transformAppSyncJsonToModelJson(input, Post.schema,
+            isPaginated: true);
         expect(output, expectedOutput);
       });
 
@@ -826,10 +810,8 @@ void main() {
         ModelQueries.get<Blog>(Blog.classType, '');
       } on ApiException catch (e) {
         expect(e.message, 'No modelProvider found');
-        expect(
-          e.recoverySuggestion,
-          'Pass in a modelProvider instance while instantiating APIPlugin',
-        );
+        expect(e.recoverySuggestion,
+            'Pass in a modelProvider instance while instantiating APIPlugin');
         return;
       }
       fail('Expected an ApiException');

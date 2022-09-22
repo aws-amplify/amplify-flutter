@@ -17,16 +17,11 @@ import 'package:meta/meta.dart';
 
 const _slash = '/';
 
-/// Allows formatting the URL from the config with new paths/query params.
 @internal
 class EndpointConfig with AWSEquatable<EndpointConfig> {
-  // ignore: public_member_api_docs
   const EndpointConfig(this.name, this.config);
 
-  /// The key used in the Amplify configuration file for this config entry.
   final String name;
-
-  /// The value in the Amplify configuration file which as config details.
   final AWSApiConfig config;
 
   @override
@@ -44,20 +39,15 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
     }
     // Avoid URI-encoding slashes in path from caller.
     final pathSegmentsFromPath = path.split(_slash);
-    return parsed.replace(
-      pathSegments: [
-        ...parsed.pathSegments,
-        ...pathSegmentsFromPath,
-      ],
-      queryParameters: queryParameters,
-    );
+    return parsed.replace(pathSegments: [
+      ...parsed.pathSegments,
+      ...pathSegmentsFromPath,
+    ], queryParameters: queryParameters);
   }
 }
 
-/// Allows getting desired endpoint more easily.
 @internal
 extension AWSApiPluginConfigHelpers on AWSApiPluginConfig {
-  /// Finds the first endpoint matching the type and apiName.
   EndpointConfig getEndpoint({
     required EndpointType type,
     String? apiName,

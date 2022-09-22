@@ -27,13 +27,11 @@ GraphQLOperation<T> sendGraphQLRequest<T>({
   required Uri uri,
 }) {
   final body = {'variables': request.variables, 'query': request.document};
-  final graphQLOperation = client.send(
-    AWSStreamedHttpRequest.post(
-      uri,
-      body: HttpPayload.json(body),
-      headers: request.headers,
-    ),
-  );
+  final graphQLOperation = client.send(AWSStreamedHttpRequest.post(
+    uri,
+    body: HttpPayload.json(body),
+    headers: request.headers,
+  ));
 
   return GraphQLOperation(
     graphQLOperation.operation.then(

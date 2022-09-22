@@ -29,13 +29,12 @@ class ModelQueriesFactory extends ModelQueriesInterface {
 
   @override
   GraphQLRequest<T> get<T extends Model>(ModelType<T> modelType, String id) {
-    final variables = {idFieldName: id};
+    Map<String, String> variables = {idFieldName: id};
     return GraphQLRequestFactory.instance.buildRequest<T>(
-      modelType: modelType,
-      variables: variables,
-      requestType: GraphQLRequestType.query,
-      requestOperation: GraphQLRequestOperation.get,
-    );
+        modelType: modelType,
+        variables: variables,
+        requestType: GraphQLRequestType.query,
+        requestOperation: GraphQLRequestOperation.get);
   }
 
   @override
@@ -50,10 +49,9 @@ class ModelQueriesFactory extends ModelQueriesInterface {
         .buildVariablesForListRequest(limit: limit, filter: filter);
 
     return GraphQLRequestFactory.instance.buildRequest<PaginatedResult<T>>(
-      modelType: PaginatedModelType(modelType),
-      variables: variables,
-      requestType: GraphQLRequestType.query,
-      requestOperation: GraphQLRequestOperation.list,
-    );
+        modelType: PaginatedModelType(modelType),
+        variables: variables,
+        requestType: GraphQLRequestType.query,
+        requestOperation: GraphQLRequestOperation.list);
   }
 }

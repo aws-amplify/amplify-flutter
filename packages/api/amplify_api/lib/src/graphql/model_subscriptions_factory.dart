@@ -31,30 +31,27 @@ class ModelSubscriptionsFactory extends ModelSubscriptionsInterface {
   @override
   GraphQLRequest<T> onCreate<T extends Model>(ModelType<T> modelType) {
     return GraphQLRequestFactory.instance.buildRequest<T>(
-      modelType: modelType,
-      variables: <String, dynamic>{},
-      requestType: GraphQLRequestType.subscription,
-      requestOperation: GraphQLRequestOperation.onCreate,
-    );
+        modelType: modelType,
+        variables: <String, dynamic>{},
+        requestType: GraphQLRequestType.subscription,
+        requestOperation: GraphQLRequestOperation.onCreate);
   }
 
   @override
   GraphQLRequest<T> onUpdate<T extends Model>(ModelType<T> modelType) {
     return GraphQLRequestFactory.instance.buildRequest<T>(
-      modelType: modelType,
-      variables: <String, dynamic>{},
-      requestType: GraphQLRequestType.subscription,
-      requestOperation: GraphQLRequestOperation.onUpdate,
-    );
+        modelType: modelType,
+        variables: <String, dynamic>{},
+        requestType: GraphQLRequestType.subscription,
+        requestOperation: GraphQLRequestOperation.onUpdate);
   }
 
   @override
   GraphQLRequest<T> onDelete<T extends Model>(ModelType<T> modelType) {
     return GraphQLRequestFactory.instance.buildRequest<T>(
-      modelType: modelType,
-      variables: <String, dynamic>{},
-      requestType: GraphQLRequestType.subscription,
-      requestOperation: GraphQLRequestOperation.onDelete,
-    );
+        modelType: modelType,
+        variables: <String, dynamic>{},
+        requestType: GraphQLRequestType.subscription,
+        requestOperation: GraphQLRequestOperation.onDelete);
   }
 }

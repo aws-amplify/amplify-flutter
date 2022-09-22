@@ -48,7 +48,7 @@ void main() {
         'init() should connect with authorized query params in URI and send connection init message',
         () async {
       await connection.init();
-      await expectLater(connection.ready, completes);
+      expectLater(connection.ready, completes);
       expect(
         connection.connectedUri.toString(),
         expectedApiKeyWebSocketConnectionUrl,
@@ -60,23 +60,24 @@ void main() {
     test('subscribe() should initialize the connection and call onEstablished',
         () async {
       connection.subscribe(subscriptionRequest, expectAsync0(() {}));
-      await expectLater(connection.ready, completes);
+      expectLater(connection.ready, completes);
     });
 
     test(
         'subscribe() should send SubscriptionRegistrationMessage with authorized payload correctly serialized',
         () async {
-      await connection.init();
+      connection.init();
       await connection.ready;
-      final establishedCompleter = Completer<void>();
-      connection.subscribe(subscriptionRequest, establishedCompleter.complete);
+      Completer<void> establishedCompleter = Completer();
+      connection.subscribe(subscriptionRequest, () {
+        establishedCompleter.complete();
+      });
       await establishedCompleter.future;
 
       final lastMessage = connection.lastSentMessage;
       expect(lastMessage?.messageType, MessageType.start);
       final payloadJson = lastMessage?.payload?.toJson();
       final apiKeyFromPayload =
-          // ignore: avoid_dynamic_calls
           payloadJson?['extensions']['authorization'][xApiKey];
       expect(apiKeyFromPayload, testApiKeyConfig.apiKey);
     });
@@ -97,14 +98,13 @@ void main() {
     });
 
     test('cancel() should send a stop message', () async {
-      final dataCompleter = Completer<String>();
+      Completer<String> dataCompleter = Completer();
       final subscription = connection.subscribe(subscriptionRequest, null);
       final streamSub = subscription.listen(
         (event) => dataCompleter.complete(event.data),
       );
       await dataCompleter.future;
-
-      unawaited(streamSub.cancel());
+      streamSub.cancel();
       expect(connection.lastSentMessage?.messageType, MessageType.stop);
     });
   });

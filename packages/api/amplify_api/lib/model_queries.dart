@@ -27,9 +27,7 @@ class ModelQueries {
   /// final request = ModelQueries.get(Todo.classType, 'some-todo-id-123');
   /// ```
   static GraphQLRequest<T> get<T extends Model>(
-    ModelType<T> modelType,
-    String id,
-  ) {
+      ModelType<T> modelType, String id) {
     return ModelQueriesFactory.instance.get<T>(modelType, id);
   }
 
