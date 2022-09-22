@@ -19,15 +19,13 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class S3StorageListOptions extends StorageListOptions {
   /// {@macro storage.amplify_storage_s3.list_options}
-  factory S3StorageListOptions({
+  const S3StorageListOptions({
     StorageAccessLevel storageAccessLevel = StorageAccessLevel.guest,
     int pageSize = 1000,
-  }) {
-    return S3StorageListOptions._(
-      storageAccessLevel: storageAccessLevel,
-      pageSize: pageSize,
-    );
-  }
+  }) : this._(
+          storageAccessLevel: storageAccessLevel,
+          pageSize: pageSize,
+        );
 
   const S3StorageListOptions._({
     super.storageAccessLevel = StorageAccessLevel.guest,
@@ -39,16 +37,14 @@ class S3StorageListOptions extends StorageListOptions {
   ///
   /// Use when list objects that belongs to other user (identified by
   /// `targetIdentityId`) rather than the currently signed user.
-  factory S3StorageListOptions.forIdentity(
+  const S3StorageListOptions.forIdentity(
     String targetIdentityId, {
     int pageSize = 1000,
-  }) {
-    return S3StorageListOptions._(
-      storageAccessLevel: StorageAccessLevel.protected,
-      pageSize: pageSize,
-      targetIdentityId: targetIdentityId,
-    );
-  }
+  }) : this._(
+          storageAccessLevel: StorageAccessLevel.protected,
+          pageSize: pageSize,
+          targetIdentityId: targetIdentityId,
+        );
 
   /// The identity id of another user who uploaded the objects that to be
   /// listed.

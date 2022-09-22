@@ -74,7 +74,7 @@ void main() {
       test(
           'should throw a StorageS3Exception if supplied prefix resolver throws an exception',
           () async {
-        final testOptions =
+        const testOptions =
             S3StorageListOptions.forIdentity('throw exception for me');
 
         try {
@@ -114,7 +114,7 @@ void main() {
         );
         const testPath = 'album';
         const testTargetIdentityId = 'someone-else-id';
-        final testOptions = S3StorageListOptions.forIdentity(
+        const testOptions = S3StorageListOptions.forIdentity(
           testTargetIdentityId,
           pageSize: testPageSize,
         );
@@ -190,7 +190,7 @@ void main() {
       test(
           'should throw S3StorageException when UnknownSmithHttpException is returned from service',
           () async {
-        final testOptions = S3StorageListOptions();
+        const testOptions = S3StorageListOptions();
         const testUnknownException = UnknownSmithyHttpException(
           statusCode: 403,
           body: 'some exception',
@@ -234,7 +234,7 @@ void main() {
       test('should invoke S3Client.headObject with expected parameters',
           () async {
         const testTargetIdentityId = 'someone-else-id';
-        final testOptions = S3StorageGetPropertiesOptions.forIdentity(
+        const testOptions = S3StorageGetPropertiesOptions.forIdentity(
           testTargetIdentityId,
         );
         final testHeadObjectOutput = HeadObjectOutput(
@@ -286,7 +286,7 @@ void main() {
       test(
           'should throw S3StorageException when UnknownSmithHttpException is returned from service',
           () async {
-        final testOptions = S3StorageGetPropertiesOptions();
+        const testOptions = S3StorageGetPropertiesOptions();
         const testUnknownException = UnknownSmithyHttpException(
           statusCode: 404,
           body: 'Nod found.',
@@ -339,7 +339,7 @@ void main() {
       test('should invoke AWSSigV4Signer.presign with correct parameters',
           () async {
         const testTargetIdentityId = 'someone-else-id';
-        final testOptions = S3StorageGetUrlOptions.forIdentity(
+        const testOptions = S3StorageGetUrlOptions.forIdentity(
           testTargetIdentityId,
           expiresIn: testExpiresIn,
         );
@@ -402,7 +402,7 @@ void main() {
       test(
           'should invoke s3Client.headObject when checkObjectExistence option is set to true',
           () async {
-        final testOptions = S3StorageGetUrlOptions(
+        const testOptions = S3StorageGetUrlOptions(
           storageAccessLevel: StorageAccessLevel.private,
           checkObjectExistence: true,
         );
@@ -444,7 +444,7 @@ void main() {
           'should invoke s3Client.headObject when checkObjectExistence option is set to true and specified targetIdentityId',
           () async {
         const testTargetIdentityId = 'some-else-id';
-        final testOptions = S3StorageGetUrlOptions.forIdentity(
+        const testOptions = S3StorageGetUrlOptions.forIdentity(
           testTargetIdentityId,
           checkObjectExistence: true,
         );
