@@ -46,7 +46,10 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   final DeviceContextInfoProvider? _deviceContextInfoProvider;
 
   @override
-  Future<void> configure({AmplifyConfig? config}) async {
+  Future<void> configure({
+    AmplifyConfig? config,
+    required AmplifyAuthProviderRepository authProviderRepo,
+  }) async {
     if (config == null ||
         config.analytics == null ||
         config.analytics?.awsPlugin == null) {
@@ -58,8 +61,19 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     String region = pinpointConfig.pinpointAnalytics.region;
 
     // TODO - values hardcoded because default CredentialProvider is giving null values ...
+
+    const providerKey = AmplifyAuthProviderToken<AWSIamAmplifyAuthProvider>();
+    AWSIamAmplifyAuthProvider? authProvider =
+        authProviderRepo.getAuthProvider(providerKey);
+
+    if (authProvider == null) {
+      throw const AnalyticsException(
+          'No AWSIamAmplifyAuthProvider available.  Is Auth cateogry added and configured?');
+    }
+
+    AWSCredentials credentials = await authProvider.retrieve();
     AWSCredentialsProvider credentialsProvider =
-        const AWSCredentialsProvider.environment();
+        AWSCredentialsProvider(credentials);
 
     var pinpointClient = PinpointClient(
         region: region, credentialsProvider: credentialsProvider);

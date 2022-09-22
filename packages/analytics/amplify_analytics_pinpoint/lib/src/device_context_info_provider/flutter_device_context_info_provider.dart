@@ -1,5 +1,3 @@
-import 'dart:io' show Platform;
-
 import 'package:amplify_analytics_pinpoint/src/device_context_info_provider/app_info_provider.dart';
 import 'package:amplify_analytics_pinpoint/src/device_context_info_provider/device_info_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';

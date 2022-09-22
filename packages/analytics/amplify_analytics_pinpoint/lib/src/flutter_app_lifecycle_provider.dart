@@ -45,6 +45,7 @@ class FlutterAppLifecycleProvider extends WidgetsBindingObserver
         break;
       // backgrounded
       case AppLifecycleState.paused:
+        _onBackground?.call();
         // stopSession
         // submitEvents
         break;

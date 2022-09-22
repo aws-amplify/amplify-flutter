@@ -52,7 +52,7 @@ class DeviceInfoProvider {
           null,
           null,
           null,
-          'WINDOW',
+          'WINDOWS',
           null,
         );
       }
