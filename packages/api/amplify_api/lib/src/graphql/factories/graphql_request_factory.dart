@@ -315,13 +315,6 @@ class GraphQLRequestFactory {
         .map((entry) => entry.key)
         .toSet();
     modelJson.removeWhere((key, dynamic value) => fieldsToRemove.contains(key));
-    // Assign the parent ID if the model has a parent.
-    if (belongsToKey != null && belongsToModelName != null) {
-      modelJson.remove(belongsToModelName);
-      if (belongsToValue != null) {
-        modelJson[belongsToKey] = belongsToValue;
-      }
-    }
 
     return modelJson;
   }
