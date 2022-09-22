@@ -21,8 +21,8 @@ import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
 
 import 'auth_rule.dart';
+import 'mipr.dart';
 import 'model_field.dart';
-import 'model_index.dart';
 
 @immutable
 class ModelSchema with AWSEquatable<ModelSchema> {
