@@ -140,14 +140,10 @@ final mockHttpClient = MockAWSHttpClient((request) async {
 
 class MockAmplifyAPI extends AmplifyAPIDart {
   MockAmplifyAPI({
-    List<APIAuthProvider> authProviders = const [],
-    ModelProviderInterface? modelProvider,
-    AWSHttpClient? baseHttpClient,
-  }) : super(
-          authProviders: authProviders,
-          modelProvider: modelProvider,
-          baseHttpClient: baseHttpClient,
-        );
+    super.authProviders,
+    super.modelProvider,
+    super.baseHttpClient,
+  });
 
   @override
   WebSocketConnection getWebSocketConnection({String? apiName}) =>
@@ -167,7 +163,7 @@ void main() {
   });
   group('Vanilla GraphQL', () {
     test('Query returns proper response.data', () async {
-      String graphQLDocument = ''' query TestQuery {
+      const graphQLDocument = ''' query TestQuery {
           listBlogs {
             items {
               id
@@ -182,7 +178,7 @@ void main() {
       );
 
       final operation = Amplify.API.query(request: req);
-      final res = await operation.value;
+      final res = await operation.response;
 
       final expected = json.encode(_expectedQuerySuccessResponseBody['data']);
 
@@ -191,7 +187,7 @@ void main() {
     });
 
     test('Query returns proper response.data with dynamic type', () async {
-      String graphQLDocument = ''' query TestQuery {
+      const graphQLDocument = ''' query TestQuery {
           listBlogs {
             items {
               id
@@ -206,7 +202,7 @@ void main() {
       );
 
       final operation = Amplify.API.query(request: req);
-      final res = await operation.value;
+      final res = await operation.response;
 
       final expected = json.encode(_expectedQuerySuccessResponseBody['data']);
 
@@ -215,8 +211,8 @@ void main() {
     });
 
     test('Mutate returns proper response.data', () async {
-      String graphQLDocument = ''' mutation TestMutate(\$name: String!) {
-          createBlog(input: {name: \$name}) {
+      const graphQLDocument = r''' mutation TestMutate($name: String!) {
+          createBlog(input: {name: $name}) {
             id
             name
             createdAt
@@ -229,7 +225,7 @@ void main() {
       );
 
       final operation = Amplify.API.mutate(request: req);
-      final res = await operation.value;
+      final res = await operation.response;
 
       final expected = json.encode(_expectedMutateSuccessResponseBody['data']);
 
@@ -238,8 +234,8 @@ void main() {
     });
 
     test('subscribe() should return a subscription stream', () async {
-      Completer<void> establishedCompleter = Completer();
-      Completer<String> dataCompleter = Completer();
+      final establishedCompleter = Completer<void>();
+      final dataCompleter = Completer<String>();
       const graphQLDocument = '''subscription MySubscription {
         onCreateBlog {
           id
@@ -251,7 +247,7 @@ void main() {
           GraphQLRequest<String>(document: graphQLDocument);
       final subscription = Amplify.API.subscribe(
         subscriptionRequest,
-        onEstablished: () => establishedCompleter.complete(),
+        onEstablished: establishedCompleter.complete,
       );
 
       final streamSub = subscription.listen(
@@ -261,7 +257,7 @@ void main() {
 
       final subscriptionData = await dataCompleter.future;
       expect(subscriptionData, json.encode(mockSubscriptionData));
-      streamSub.cancel();
+      await streamSub.cancel();
     });
   });
   group('Model Helpers', () {
@@ -273,11 +269,10 @@ void main() {
           'query getBlog(\$id: ID!) { getBlog(id: \$id) { $blogSelectionSet } }';
       const decodePath = 'getBlog';
 
-      GraphQLRequest<Blog> req =
-          ModelQueries.get<Blog>(Blog.classType, _modelQueryId);
+      final req = ModelQueries.get<Blog>(Blog.classType, _modelQueryId);
 
       final operation = Amplify.API.query(request: req);
-      final res = await operation.value;
+      final res = await operation.response;
 
       // request asserts
       expect(req.document, expectedDoc);
@@ -291,11 +286,11 @@ void main() {
     });
 
     test('subscribe() should decode model data', () async {
-      Completer<void> establishedCompleter = Completer();
+      final establishedCompleter = Completer<void>();
       final subscriptionRequest = ModelSubscriptions.onCreate(Post.classType);
       final subscription = Amplify.API.subscribe(
         subscriptionRequest,
-        onEstablished: () => establishedCompleter.complete(),
+        onEstablished: establishedCompleter.complete,
       );
       await establishedCompleter.future;
 
@@ -311,14 +306,14 @@ void main() {
 
   group('Error Handling', () {
     test('response errors are decoded', () async {
-      String graphQLDocument = ''' TestError ''';
+      const graphQLDocument = ''' TestError ''';
       final req = GraphQLRequest<String>(
         document: graphQLDocument,
         variables: {},
       );
 
       final operation = Amplify.API.query(request: req);
-      final res = await operation.value;
+      final res = await operation.response;
 
       const errorExpected = GraphQLResponseError(
         message: _errorMessage,
@@ -335,7 +330,7 @@ void main() {
     });
 
     test('request with custom auth mode and auth error', () async {
-      String graphQLDocument = ''' query TestQuery {
+      const graphQLDocument = ''' query TestQuery {
           listBlogs {
             items {
               id
@@ -351,7 +346,7 @@ void main() {
       );
 
       final operation = Amplify.API.query(request: req);
-      final res = await operation.value;
+      final res = await operation.response;
 
       const errorExpected = GraphQLResponseError(
         message: _authErrorMessage,
@@ -364,19 +359,21 @@ void main() {
     test('canceled query request should never resolve', () async {
       final req = GraphQLRequest<String>(document: '', variables: {});
       final operation = Amplify.API.query(request: req);
-      operation.cancel();
-      operation.then((p0) => fail('Request should have been cancelled.'));
-      await operation.valueOrCancellation();
-      expect(operation.isCanceled, isTrue);
+      await operation.cancel();
+      operation.operation
+          .then((p0) => fail('Request should have been cancelled.'));
+      await operation.operation.valueOrCancellation();
+      expect(operation.operation.isCanceled, isTrue);
     });
 
     test('canceled mutation request should never resolve', () async {
       final req = GraphQLRequest<String>(document: '', variables: {});
       final operation = Amplify.API.mutate(request: req);
-      operation.cancel();
-      operation.then((p0) => fail('Request should have been cancelled.'));
-      await operation.valueOrCancellation();
-      expect(operation.isCanceled, isTrue);
+      await operation.cancel();
+      operation.operation
+          .then((p0) => fail('Request should have been cancelled.'));
+      await operation.operation.valueOrCancellation();
+      expect(operation.operation.isCanceled, isTrue);
     });
   });
 }
