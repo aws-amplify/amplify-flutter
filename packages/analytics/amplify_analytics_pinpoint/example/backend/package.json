@@ -1,15 +1,14 @@
 {
-  "name": "backend",
+  "name": "analytics_integration_test",
   "version": "0.1.0",
-  "bin": {
-    "backend": "bin/backend.js"
-  },
+  "private": "true",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",
-    "deploy": "cdk deploy --outputs-file=outputs.json && tool/create_config.dart"
+    "setup": "cdk bootstrap --profile=${AWS_PROFILE:=default}",
+    "deploy": "cdk deploy --profile=${AWS_PROFILE:=default} --outputs-file=outputs.json && tool/create_config.dart"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.104",

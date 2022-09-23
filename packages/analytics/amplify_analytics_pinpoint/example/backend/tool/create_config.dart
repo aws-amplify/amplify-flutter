@@ -87,7 +87,7 @@ const amplifyconfig = \'\'\'{
 
 void main() {
   final outputs = (jsonDecode(File('outputs.json').readAsStringSync())
-      as Map<String, dynamic>)['BackendStack'] as Map;
+      as Map<String, dynamic>)['AnalyticsIntegrationTestStack'] as Map;
   final config = createConfig(
     region: outputs['Region'] as String,
     pinpointAppId: outputs['PinpointAppId'] as String,

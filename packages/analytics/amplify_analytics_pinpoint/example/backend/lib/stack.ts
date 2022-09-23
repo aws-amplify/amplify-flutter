@@ -22,10 +22,17 @@ import * as lambda_nodejs from "aws-cdk-lib/aws-lambda-nodejs";
 import * as lambda_events from "aws-cdk-lib/aws-lambda-event-sources";
 import * as appsync from "@aws-cdk/aws-appsync-alpha";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
+import * as s3 from "aws-cdk-lib/aws-s3";
 import * as path from "path";
-import { CfnOutput, Duration, Expiration, RemovalPolicy } from "aws-cdk-lib";
+import {
+  CfnOutput,
+  Duration,
+  Expiration,
+  Fn,
+  RemovalPolicy,
+} from "aws-cdk-lib";
 
-export class BackendStack extends cdk.Stack {
+export class AnalyticsIntegrationTestStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
@@ -67,7 +74,7 @@ export class BackendStack extends cdk.Stack {
                 "mobiletargeting:UpdateEndpoint",
               ],
               resources: [
-                // All subresources on the Pinpoint app. This is how Amplify 
+                // All subresources on the Pinpoint app. This is how Amplify
                 // does it even though it can probably be tweaked for the
                 // the two actions above:
                 // https://docs.aws.amazon.com/pinpoint/latest/developerguide/permissions-actions.html
@@ -201,7 +208,7 @@ export class BackendStack extends cdk.Stack {
     // Create the Kinesis consumer Lambda which will capture events from the
     // Kinesis Data Stream and forward them to AppSync.
 
-    const kinesisConumer = new lambda_nodejs.NodejsFunction(
+    const kinesisConsumer = new lambda_nodejs.NodejsFunction(
       this,
       "kinesis-consumer",
       {
@@ -217,7 +224,23 @@ export class BackendStack extends cdk.Stack {
       startingPosition: lambda.StartingPosition.TRIM_HORIZON,
     });
 
-    kinesisConumer.addEventSource(eventSource);
+    kinesisConsumer.addEventSource(eventSource);
+
+    // S3 bucket to store generated config so that it can be pulled by
+    // CI pipelines.
+
+    const bucket = new s3.Bucket(this, "Bucket", {
+      // Naming to match Amplify CLI, suffixed with a segment of the stack ID
+      // https://github.com/aws-amplify/amplify-ci-support/blob/1abe7f7a1d75fa19675ad8ca17ab625a299b765e/src/integ_test_resources/flutter/amplify/cloudformation_template.yaml#L32
+      bucketName: Fn.join("-", [
+        `amplify-test-${name.toLowerCase()}`,
+        // https://stackoverflow.com/questions/54897459/how-to-set-semi-random-name-for-s3-bucket-using-cloud-formation
+        Fn.select(0, Fn.split("-", Fn.select(2, Fn.split("/", this.stackId)))),
+      ]),
+      removalPolicy: RemovalPolicy.DESTROY,
+      autoDeleteObjects: true,
+      enforceSSL: true,
+    });
 
     // Output the values needed to build our Amplify configuration.
 
@@ -239,6 +262,10 @@ export class BackendStack extends cdk.Stack {
 
     new CfnOutput(this, "GraphQLApiKey", {
       value: graphQLApi.apiKey!,
+    });
+
+    new CfnOutput(this, "BucketName", {
+      value: bucket.bucketName,
     });
   }
 }
