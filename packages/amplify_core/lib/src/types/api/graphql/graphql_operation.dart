@@ -13,14 +13,31 @@
  * permissions and limitations under the License.
  */
 
-import 'package:async/async.dart';
+import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/src/operation/aws_operation.dart';
 
-import 'graphql_response.dart';
+/// {@template amplify_core.graphql.graphql_operation}
+/// A wrapper over a [CancelableOperation] specific to [GraphQLResponse].
+/// {@endtemplate}
+class GraphQLOperation<T> extends AWSOperation<GraphQLResponse<T>> {
+  /// Creates an [GraphQLOperation] from a [CancelableOperation].
+  GraphQLOperation(
+    super.operation, {
+    super.onCancel,
+  });
 
-/// Allows callers to synchronously get the unstreamed response with decoded body.
-extension GraphQLOperation<T> on CancelableOperation<GraphQLResponse<T>> {
-  @Deprecated('use .value instead')
-  Future<GraphQLResponse<T>> get response {
-    return value;
+  /// The [GraphQLResponse] returned from this [operation].
+  ///
+  /// If [operation] is canceled before completing, this throws a
+  /// [CancellationException].
+  Future<GraphQLResponse<T>> get response async {
+    final result = await operation.valueOrCancellation();
+    if (result is! GraphQLResponse<T> || operation.isCanceled) {
+      throw CancellationException(id);
+    }
+    return result;
   }
+
+  @override
+  String get runtimeTypeName => 'GraphQLOperation';
 }
