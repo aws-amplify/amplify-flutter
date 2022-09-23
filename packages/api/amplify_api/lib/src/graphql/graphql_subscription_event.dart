@@ -14,6 +14,7 @@
  */
 
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// GraphQL subscription event types.
@@ -73,14 +74,11 @@ class GraphQLSubscriptionEvent {
   /// Deserializes a platform channel event map.
   static GraphQLSubscriptionEvent fromJson(Map<String, dynamic> json) {
     GraphQLResponse<String?>? rawResponse;
-    final payload = json['payload'] as Map?;
+    final payload = json['payload'] as Map<String, dynamic>?;
     if (payload != null) {
       rawResponse = GraphQLResponse.raw(
         data: payload['data'] as String?,
-        errors: (payload['errors'] as List?)
-            ?.cast<Map<String, dynamic>>()
-            .map(GraphQLResponseError.fromJson)
-            .toList(),
+        errors: deserializeGraphQLResponseErrors(payload),
       );
     }
     return GraphQLSubscriptionEvent(

@@ -22,7 +22,7 @@ import 'package:amplify_api/src/graphql/oidc_function_api_auth_provider.dart';
 import 'package:amplify_api/src/graphql/send_graphql_request.dart';
 import 'package:amplify_api/src/graphql/ws/web_socket_connection.dart';
 import 'package:amplify_api/src/native_api_plugin.dart';
-import 'package:amplify_api/src/util/amplify_api_config.dart.dart';
+import 'package:amplify_api/src/util/amplify_api_config.dart';
 import 'package:amplify_api/src/util/amplify_authorization_rest_client.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';

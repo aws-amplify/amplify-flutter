@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_api/src/util/amplify_api_config.dart.dart';
+import 'package:amplify_api/src/util/amplify_api_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 
