@@ -21,9 +21,18 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
   Category get category => Category.api;
 
   // ====== GraphQL =======
+
+  /// Sends a GraphQL query request and returns the response in a cancelable `GraphQLOperation`.
+  ///
+  /// See https://docs.amplify.aws/lib/graphqlapi/query-data/q/platform/flutter/
+  /// and for more information.
   GraphQLOperation<T> query<T>({required GraphQLRequest<T> request}) =>
       defaultPlugin.query(request: request);
 
+  /// Sends a GraphQL mutate request and returns the response in a cancelable `GraphQLOperation`.
+  ///
+  /// See https://docs.amplify.aws/lib/graphqlapi/mutate-data/q/platform/flutter/
+  /// for more information.
   GraphQLOperation<T> mutate<T>({required GraphQLRequest<T> request}) =>
       defaultPlugin.mutate(request: request);
 
@@ -41,6 +50,20 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
 
   // ====== RestAPI ======
 
+  /// Sends an HTTP DELETE request to the REST API endpoint.
+  ///
+  /// See https://docs.amplify.aws/lib/restapi/update/q/platform/flutter/ for more
+  /// information.
+  ///
+  /// Example:
+  /// ```dart
+  /// final restOperation = Amplify.API.delete(
+  ///   'items',
+  ///   body: HttpPayload.json({'name': 'Mow the lawn'}),
+  /// );
+  /// final response = await restOperation.response;
+  /// print(response.decodeBody()); // 'Hello from lambda!'
+  /// ```
   RestOperation delete(
     String path, {
     Map<String, String>? headers,
@@ -55,6 +78,18 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
         apiName: apiName,
       );
 
+  /// Sends an HTTP GET request to the REST API endpoint.
+  ///
+  /// See https://docs.amplify.aws/lib/restapi/fetch/q/platform/flutter/ for more
+  /// information.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// final restOperation = Amplify.API.get('items');
+  /// final response = await restOperation.response;
+  /// print(response.decodeBody()); // 'Hello from lambda!'
+  /// ```
   RestOperation get(
     String path, {
     Map<String, String>? headers,
@@ -67,6 +102,15 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
         apiName: apiName,
       );
 
+  /// Sends an HTTP HEAD request to the REST API endpoint.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// final restOperation = Amplify.API.head('items');
+  /// final response = await restOperation.response;
+  /// print(response.decodeBody()); // 'Hello from lambda!'
+  /// ```
   RestOperation head(
     String path, {
     Map<String, String>? headers,
@@ -79,6 +123,20 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
         apiName: apiName,
       );
 
+  /// Sends an HTTP PATCH request to the REST API endpoint.
+  ///
+  /// See https://docs.amplify.aws/lib/restapi/update/q/platform/flutter/ for more
+  /// information.
+  ///
+  /// Example:
+  /// ```dart
+  /// final restOperation = Amplify.API.patch(
+  ///   'items',
+  ///   body: HttpPayload.json({'name': 'Mow the lawn'}),
+  /// );
+  /// final response = await restOperation.response;
+  /// print(response.decodeBody()); // 'Hello from lambda!'
+  /// ```
   RestOperation patch(
     String path, {
     Map<String, String>? headers,
@@ -93,6 +151,20 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
         apiName: apiName,
       );
 
+  /// Sends an HTTP POST request to the REST API endpoint.
+  ///
+  /// See https://docs.amplify.aws/lib/restapi/update/q/platform/flutter/ for more
+  /// information.
+  ///
+  /// Example:
+  /// ```dart
+  /// final restOperation = Amplify.API.post(
+  ///   'items',
+  ///   body: HttpPayload.json({'name': 'Mow the lawn'}),
+  /// );
+  /// final response = await restOperation.response;
+  /// print(response.decodeBody()); // 'Hello from lambda!'
+  /// ```
   RestOperation post(
     String path, {
     Map<String, String>? headers,
@@ -107,6 +179,20 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
         apiName: apiName,
       );
 
+  /// Sends an HTTP PUT request to the REST API endpoint.
+  ///
+  /// See https://docs.amplify.aws/lib/restapi/update/q/platform/flutter/ for more
+  /// information.
+  ///
+  /// Example:
+  /// ```dart
+  /// final restOperation = Amplify.API.put(
+  ///   'items',
+  ///   body: HttpPayload.json({'name': 'Mow the lawn'}),
+  /// );
+  /// final response = await restOperation.response;
+  /// print(response.decodeBody()); // 'Hello from lambda!'
+  /// ```
   RestOperation put(
     String path, {
     Map<String, String>? headers,

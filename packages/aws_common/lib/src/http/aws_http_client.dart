@@ -134,7 +134,7 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
         try {
           resp = await transformResponse(resp);
           completer.complete(resp);
-        } on Exception catch (e, st) {
+        } on Object catch (e, st) {
           completer.completeError(e, st);
         }
       },

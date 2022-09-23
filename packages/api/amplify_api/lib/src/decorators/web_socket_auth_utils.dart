@@ -114,8 +114,8 @@ Future<Map<String, String>> _generateAuthorizationHeaders(
   final canonicalHttpRequest = AWSStreamedHttpRequest.post(
     Uri.parse('${config.endpoint}$maybeConnect'),
     headers: {
+      ...?customHeaders,
       ..._requiredHeaders,
-      ...(customHeaders ?? {}),
     },
     body: HttpPayload.json(body),
   );
