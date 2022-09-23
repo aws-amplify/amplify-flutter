@@ -19,7 +19,6 @@ import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
 import 'mipr.dart';
-import 'model_association.dart';
 import 'model_field_type.dart';
 
 @immutable
@@ -80,7 +79,7 @@ class ModelField {
       'isRequired': isRequired,
       'isArray': isArray,
       'isReadOnly': isReadOnly,
-      'association': association?.toMap(),
+      'association': association?.toJson(),
       'authRules': authRules?.map((x) => x.toJson()).toList(),
     };
     return Map<String, dynamic>.from(map)

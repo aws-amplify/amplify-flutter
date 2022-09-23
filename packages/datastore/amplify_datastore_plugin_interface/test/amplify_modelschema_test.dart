@@ -20,6 +20,7 @@ We need to verify that each conversion step (->) is done correctly and each stat
  */
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'testData/ModelProvider.dart';
@@ -65,7 +66,7 @@ void main() {
             isRequired: false,
             isArray: true,
             association: ModelAssociation(
-                associationType: ModelAssociationEnum.HasMany,
+                associationType: ModelAssociationType.hasMany,
                 associatedName: Post.BLOG.fieldName,
                 associatedType: Post.BLOG.fieldType!.ofModelName)));
   });
@@ -96,15 +97,17 @@ void main() {
             isArray: false));
 
     expect(
-        commentSchema.fields!["post"],
-        ModelField(
-            name: "post",
-            type: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: "Post"),
-            isRequired: false,
-            isArray: false,
-            association: ModelAssociation(
-                associationType: ModelAssociationEnum.BelongsTo,
-                targetName: "postID")));
+      commentSchema.fields["post"],
+      ModelField(
+        name: "post",
+        type: const SchemaType.model('Post'),
+        association: ModelAssociation(
+          associationType: ModelAssociationType.belongsTo,
+          associatedType: 'Post',
+          targetNames: ["postID"],
+        ),
+      ),
+    );
 
     expect(
         commentSchema.fields!["content"],
@@ -149,15 +152,17 @@ void main() {
             isArray: false));
 
     expect(
-        postSchema.fields!["blog"],
-        ModelField(
-            name: "blog",
-            type: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: "Blog"),
-            isRequired: false,
-            isArray: false,
-            association: ModelAssociation(
-                associationType: ModelAssociationEnum.BelongsTo,
-                targetName: "blogID")));
+      postSchema.fields["blog"],
+      ModelField(
+        name: "blog",
+        type: const SchemaType.model('Blog'),
+        association: ModelAssociation(
+          associationType: ModelAssociationType.belongsTo,
+          associatedType: 'Blog',
+          targetNames: ["blogID"],
+        ),
+      ),
+    );
   });
 
   test('PostAuthComplex codegen model generates modelschema with proper fields',

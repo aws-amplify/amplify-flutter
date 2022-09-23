@@ -87,9 +87,9 @@ export 'src/types/exception/url_launcher_exception.dart';
 
 /// Model-based types used in datastore and API
 export 'src/types/models/mipr/auth_rule.dart';
+export 'src/types/models/mipr/model_association.dart';
 export 'src/types/models/mipr/model_index.dart';
 export 'src/types/models/model.dart';
-export 'src/types/models/model_association.dart';
 export 'src/types/models/model_field.dart';
 export 'src/types/models/model_field_definition.dart';
 export 'src/types/models/model_field_type.dart';

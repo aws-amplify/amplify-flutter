@@ -123,7 +123,7 @@ class ModelFieldDefinition {
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
             ofModelName: ofModelName),
         association: ModelAssociation(
-            associationType: ModelAssociationEnum.HasMany,
+            associationType: ModelAssociationType.hasMany,
             associatedName: associatedKey.fieldName,
             associatedType: ofModelName));
   }
@@ -140,7 +140,7 @@ class ModelFieldDefinition {
         ofType:
             ModelFieldType(ModelFieldTypeEnum.model, ofModelName: ofModelName),
         association: ModelAssociation(
-            associationType: ModelAssociationEnum.HasOne,
+            associationType: ModelAssociationType.hasOne,
             associatedName: associatedKey.fieldName,
             associatedType: ofModelName));
   }
@@ -164,8 +164,8 @@ class ModelFieldDefinition {
         ofType:
             ModelFieldType(ModelFieldTypeEnum.model, ofModelName: ofModelName),
         association: ModelAssociation(
-            associationType: ModelAssociationEnum.BelongsTo,
-            targetName: targetName,
+            associationType: ModelAssociationType.belongsTo,
+            targetNames: targetName == null ? null : [targetName],
             associatedName: associatedName,
             associatedType: associatedType));
   }
