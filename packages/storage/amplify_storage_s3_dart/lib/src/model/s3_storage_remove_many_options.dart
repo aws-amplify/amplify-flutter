@@ -14,15 +14,13 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_core.storage.remove_many_result}
-/// Presents the result of a [StorageRemoveManyOperation].
+/// {@template storage.amplify_storage_s3.remove_many_options}
+/// The configurable parameters invoking Storage S3 plugin `removeMany`
+/// API.
 /// {@endtemplate}
-class StorageRemoveManyResult<Item extends StorageItem> {
-  /// {@macro amplify_core.storage.remove_many_result}
-  const StorageRemoveManyResult({
-    required this.removedItems,
+class S3StorageRemoveManyOptions extends StorageRemoveManyOptions {
+  /// {@macro storage.amplify_storage_s3.remove_many_options}
+  const S3StorageRemoveManyOptions({
+    super.storageAccessLevel = StorageAccessLevel.guest,
   });
-
-  /// The removed objects of the [StorageRemoveManyOperation].
-  final List<Item> removedItems;
 }

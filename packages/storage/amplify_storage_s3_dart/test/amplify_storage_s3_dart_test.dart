@@ -148,7 +148,7 @@ void main() {
       });
 
       test(
-          'should forward default StorageS3Options with default StorageAccessLevel to StorageS3Service.list() API',
+          'should forward options with default StorageAccessLevel to to StorageS3Service.list() API',
           () {
         const testRequest =
             StorageListRequest<S3StorageListOptions>(path: testPath);
@@ -171,10 +171,13 @@ void main() {
           ),
         ).captured.last;
 
-        expect(capturedOptions is S3StorageListOptions, isTrue);
         expect(
-          (capturedOptions as S3StorageListOptions).storageAccessLevel,
-          testDefaultStorageAccessLevel,
+          capturedOptions,
+          isA<S3StorageListOptions>().having(
+            (o) => o.storageAccessLevel,
+            'storageAccessLevel',
+            testDefaultStorageAccessLevel,
+          ),
         );
       });
     });
@@ -225,10 +228,13 @@ void main() {
           ),
         ).captured.last;
 
-        expect(capturedOptions is S3StorageGetPropertiesOptions, isTrue);
         expect(
-          (capturedOptions as S3StorageGetPropertiesOptions).storageAccessLevel,
-          testDefaultStorageAccessLevel,
+          capturedOptions,
+          isA<S3StorageGetPropertiesOptions>().having(
+            (o) => o.storageAccessLevel,
+            'storageAccessLevel',
+            testDefaultStorageAccessLevel,
+          ),
         );
       });
     });
@@ -270,14 +276,115 @@ void main() {
           ),
         ).captured.last;
 
-        expect(capturedOptions is S3StorageGetUrlOptions, isTrue);
         expect(
-          (capturedOptions as S3StorageGetUrlOptions).storageAccessLevel,
-          testDefaultStorageAccessLevel,
+          capturedOptions,
+          isA<S3StorageGetUrlOptions>().having(
+            (o) => o.storageAccessLevel,
+            'storageAccessLevel',
+            testDefaultStorageAccessLevel,
+          ),
         );
 
         final result = await getUrlOperation.result;
         expect(result.url, testResult.url);
+      });
+    });
+
+    group('remove() API', () {
+      const testKey = 'object-to-remove';
+      final testResult = S3StorageRemoveResult(
+        removedItem: S3StorageItem(
+          key: testKey,
+        ),
+      );
+
+      setUpAll(() {
+        registerFallbackValue(const S3StorageRemoveOptions());
+      });
+
+      test(
+          'should forward options with default StorageAccessLevel StorageS3Service.remove() API',
+          () async {
+        const testRequest = StorageRemoveRequest(key: testKey);
+
+        when(
+          () => storageS3Service.remove(
+            key: testKey,
+            options: any(named: 'options'),
+          ),
+        ).thenAnswer((_) async => testResult);
+
+        final removeOperation = storageS3Plugin.remove(request: testRequest);
+
+        final capturedOptions = verify(
+          () => storageS3Service.remove(
+            key: testKey,
+            options: captureAny<S3StorageRemoveOptions>(named: 'options'),
+          ),
+        ).captured.last;
+
+        expect(
+          capturedOptions,
+          isA<S3StorageRemoveOptions>().having(
+            (o) => o.storageAccessLevel,
+            'storageAccessLevel',
+            testDefaultStorageAccessLevel,
+          ),
+        );
+
+        final result = await removeOperation.result;
+        expect(result, testResult);
+      });
+    });
+
+    group('removeMany() API', () {
+      final testKeys = List.generate(
+        20,
+        (index) => 'object-to-remove-${index + 1}',
+      );
+      final resultRemoveItems =
+          testKeys.map((key) => S3StorageItem(key: key)).toList();
+      final testResult = S3StorageRemoveManyResult(
+        removedItems: resultRemoveItems,
+      );
+
+      setUpAll(() {
+        registerFallbackValue(const S3StorageRemoveManyOptions());
+      });
+
+      test(
+          'should forward options with default StorageAccessLevel StorageS3Service.removeMany() API',
+          () async {
+        final testRequest = StorageRemoveManyRequest(keys: testKeys);
+
+        when(
+          () => storageS3Service.removeMany(
+            keys: testKeys,
+            options: any(named: 'options'),
+          ),
+        ).thenAnswer((_) async => testResult);
+
+        final removeManyOperation =
+            storageS3Plugin.removeMany(request: testRequest);
+
+        final capturedOptions = verify(
+          () => storageS3Service.removeMany(
+            keys: testKeys,
+            options: captureAny(named: 'options'),
+          ),
+        ).captured.last;
+
+        expect(
+          capturedOptions,
+          isA<S3StorageRemoveManyOptions>().having(
+            (o) => o.storageAccessLevel,
+            'storageAccessLevel',
+            testDefaultStorageAccessLevel,
+          ),
+        );
+
+        final result = await removeManyOperation.result;
+        expect(result.removedItems, resultRemoveItems);
       });
     });
   });

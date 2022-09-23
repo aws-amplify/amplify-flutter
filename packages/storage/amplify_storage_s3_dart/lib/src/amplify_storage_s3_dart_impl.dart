@@ -33,10 +33,10 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     StorageUploadDataOptions,
     StorageCopyOperation,
     StorageMoveOperation,
-    StorageRemoveOperation,
-    StorageRemoveOptions,
-    StorageRemoveManyOperation,
-    StorageRemoveManyOptions,
+    S3StorageRemoveOperation,
+    S3StorageRemoveOptions,
+    S3StorageRemoveManyOperation,
+    S3StorageRemoveManyOptions,
     S3StorageItem> with AWSDebuggable, AWSLoggerMixin {
   /// {@macro amplify_storage_s3_dart.amplify_storage_s3_plugin_dart}
   AmplifyStorageS3Dart({
@@ -61,10 +61,10 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
       StorageUploadDataOptions,
       StorageCopyOperation,
       StorageMoveOperation,
-      StorageRemoveOperation,
-      StorageRemoveOptions,
-      StorageRemoveManyOperation,
-      StorageRemoveManyOptions,
+      S3StorageRemoveOperation,
+      S3StorageRemoveOptions,
+      S3StorageRemoveManyOperation,
+      S3StorageRemoveManyOptions,
       S3StorageItem,
       AmplifyStorageS3Dart> pluginKey = _AmplifyStorageS3DartPluginKey();
 
@@ -203,17 +203,45 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
   }
 
   @override
-  StorageRemoveOperation remove({
+  S3StorageRemoveOperation remove({
     required StorageRemoveRequest request,
   }) {
-    throw UnimplementedError();
+    final s3Options = request.options as S3StorageRemoveOptions?;
+
+    return S3StorageRemoveOperation(
+      request: StorageRemoveRequest(
+        key: request.key,
+        options: s3Options,
+      ),
+      result: _storageS3Service.remove(
+        key: request.key,
+        options: s3Options ??
+            S3StorageRemoveOptions(
+              storageAccessLevel: _s3pluginConfig.defaultAccessLevel,
+            ),
+      ),
+    );
   }
 
   @override
-  StorageRemoveManyOperation removeMany({
+  S3StorageRemoveManyOperation removeMany({
     required StorageRemoveManyRequest request,
   }) {
-    throw UnimplementedError();
+    final s3Options = request.options as S3StorageRemoveManyOptions?;
+
+    return S3StorageRemoveManyOperation(
+      request: StorageRemoveManyRequest(
+        keys: request.keys,
+        options: s3Options,
+      ),
+      result: _storageS3Service.removeMany(
+        keys: request.keys,
+        options: s3Options ??
+            S3StorageRemoveManyOptions(
+              storageAccessLevel: _s3pluginConfig.defaultAccessLevel,
+            ),
+      ),
+    );
   }
 
   // TODO(HuiSF): add interface for remaining APIs
@@ -235,10 +263,10 @@ class _AmplifyStorageS3DartPluginKey extends StoragePluginKey<
     StorageUploadDataOptions,
     StorageCopyOperation,
     StorageMoveOperation,
-    StorageRemoveOperation,
-    StorageRemoveOptions,
-    StorageRemoveManyOperation,
-    StorageRemoveManyOptions,
+    S3StorageRemoveOperation,
+    S3StorageRemoveOptions,
+    S3StorageRemoveManyOperation,
+    S3StorageRemoveManyOptions,
     S3StorageItem,
     AmplifyStorageS3Dart> {
   const _AmplifyStorageS3DartPluginKey();

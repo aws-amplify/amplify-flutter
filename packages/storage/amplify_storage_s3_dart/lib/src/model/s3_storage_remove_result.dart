@@ -14,15 +14,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_core.storage.remove_many_result}
-/// Presents the result of a [StorageRemoveManyOperation].
+/// {@template storage.amplify_storage_s3.remove_result}
+/// The result returned by Storage S3 plugin `remove` API.
 /// {@endtemplate}
-class StorageRemoveManyResult<Item extends StorageItem> {
-  /// {@macro amplify_core.storage.remove_many_result}
-  const StorageRemoveManyResult({
-    required this.removedItems,
-  });
-
-  /// The removed objects of the [StorageRemoveManyOperation].
-  final List<Item> removedItems;
-}
+typedef S3StorageRemoveResult = StorageRemoveResult;
