@@ -23,15 +23,15 @@ import '../util.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  final authProviderRepo = AmplifyAuthProviderRepository();
-  authProviderRepo.registerAuthProvider(
-    APIAuthorizationType.apiKey.authProviderToken,
-    AppSyncApiKeyAuthProvider(),
-  );
-  authProviderRepo.registerAuthProvider(
-    APIAuthorizationType.userPools.authProviderToken,
-    TestTokenAuthProvider(),
-  );
+  final authProviderRepo = AmplifyAuthProviderRepository()
+    ..registerAuthProvider(
+      APIAuthorizationType.apiKey.authProviderToken,
+      AppSyncApiKeyAuthProvider(),
+    )
+    ..registerAuthProvider(
+      APIAuthorizationType.userPools.authProviderToken,
+      TestTokenAuthProvider(),
+    );
 
   const graphQLDocument = '''subscription MySubscription {
     onCreateBlog {
@@ -111,6 +111,33 @@ void main() {
       expect(
         payload.authorizationHeaders[AWSHeaders.authorization],
         testAccessToken,
+      );
+    });
+
+    test('should generate an authorized message with custom headers', () async {
+      const testCustomToken = 'xyz567';
+      final subscriptionRequestUserCustomHeader = GraphQLRequest<String>(
+        document: graphQLDocument,
+        headers: {AWSHeaders.authorization: testCustomToken},
+      );
+
+      final authorizedMessage = await generateSubscriptionRegistrationMessage(
+        testApiKeyConfig,
+        id: 'abc123',
+        authRepo: authProviderRepo,
+        request: subscriptionRequestUserCustomHeader,
+      );
+      final payload =
+          authorizedMessage.payload as SubscriptionRegistrationPayload;
+
+      assertBasicSubscriptionPayloadHeaders(payload);
+      expect(
+        payload.authorizationHeaders[xApiKey],
+        isNull,
+      );
+      expect(
+        payload.authorizationHeaders[AWSHeaders.authorization],
+        testCustomToken,
       );
     });
   });
