@@ -102,8 +102,11 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
   ) sync* {
     yield DartTypes.smithy.withHost.constInstance([]);
 
-    // HTTP checksum (supported by all)
-    if (shape.hasTrait<HttpChecksumRequiredTrait>()) {
+    // HTTP checksum
+    final checksumTrait = shape.getTrait<HttpChecksumTrait>();
+    if (shape.hasTrait<HttpChecksumRequiredTrait>() &&
+        (checksumTrait == null ||
+            checksumTrait.requestAlgorithmMember == null)) {
       yield DartTypes.smithy.withChecksum.constInstance([]);
     }
 
@@ -223,8 +226,11 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
     OperationShape shape,
     CodegenContext context,
   ) sync* {
-    // HTTP checksum (supported by all)
-    if (shape.hasTrait<HttpChecksumRequiredTrait>()) {
+    // HTTP checksum
+    final checksumTrait = shape.getTrait<HttpChecksumTrait>();
+    if (shape.hasTrait<HttpChecksumRequiredTrait>() &&
+        (checksumTrait == null ||
+            checksumTrait.requestChecksumRequired != false)) {
       yield DartTypes.smithy.validateChecksum.constInstance([]);
     }
   }

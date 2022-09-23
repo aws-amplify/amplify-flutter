@@ -17,6 +17,10 @@ class _$HttpRequest extends HttpRequest {
   final BuiltMap<String, String> headers;
   @override
   final BuiltListMultimap<String, String> queryParameters;
+  @override
+  final BuiltList<HttpRequestInterceptor> requestInterceptors;
+  @override
+  final BuiltList<HttpResponseInterceptor> responseInterceptors;
 
   factory _$HttpRequest([void Function(HttpRequestBuilder)? updates]) =>
       (new HttpRequestBuilder()..update(updates))._build();
@@ -26,13 +30,19 @@ class _$HttpRequest extends HttpRequest {
       required this.method,
       required this.path,
       required this.headers,
-      required this.queryParameters})
+      required this.queryParameters,
+      required this.requestInterceptors,
+      required this.responseInterceptors})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(method, r'HttpRequest', 'method');
     BuiltValueNullFieldError.checkNotNull(path, r'HttpRequest', 'path');
     BuiltValueNullFieldError.checkNotNull(headers, r'HttpRequest', 'headers');
     BuiltValueNullFieldError.checkNotNull(
         queryParameters, r'HttpRequest', 'queryParameters');
+    BuiltValueNullFieldError.checkNotNull(
+        requestInterceptors, r'HttpRequest', 'requestInterceptors');
+    BuiltValueNullFieldError.checkNotNull(
+        responseInterceptors, r'HttpRequest', 'responseInterceptors');
   }
 
   @override
@@ -50,17 +60,23 @@ class _$HttpRequest extends HttpRequest {
         method == other.method &&
         path == other.path &&
         headers == other.headers &&
-        queryParameters == other.queryParameters;
+        queryParameters == other.queryParameters &&
+        requestInterceptors == other.requestInterceptors &&
+        responseInterceptors == other.responseInterceptors;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc($jc($jc(0, hostPrefix.hashCode), method.hashCode),
-                path.hashCode),
-            headers.hashCode),
-        queryParameters.hashCode));
+            $jc(
+                $jc(
+                    $jc($jc($jc(0, hostPrefix.hashCode), method.hashCode),
+                        path.hashCode),
+                    headers.hashCode),
+                queryParameters.hashCode),
+            requestInterceptors.hashCode),
+        responseInterceptors.hashCode));
   }
 
   @override
@@ -70,7 +86,9 @@ class _$HttpRequest extends HttpRequest {
           ..add('method', method)
           ..add('path', path)
           ..add('headers', headers)
-          ..add('queryParameters', queryParameters))
+          ..add('queryParameters', queryParameters)
+          ..add('requestInterceptors', requestInterceptors)
+          ..add('responseInterceptors', responseInterceptors))
         .toString();
   }
 }
@@ -101,6 +119,21 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
   set queryParameters(ListMultimapBuilder<String, String>? queryParameters) =>
       _$this._queryParameters = queryParameters;
 
+  ListBuilder<HttpRequestInterceptor>? _requestInterceptors;
+  ListBuilder<HttpRequestInterceptor> get requestInterceptors =>
+      _$this._requestInterceptors ??= new ListBuilder<HttpRequestInterceptor>();
+  set requestInterceptors(
+          ListBuilder<HttpRequestInterceptor>? requestInterceptors) =>
+      _$this._requestInterceptors = requestInterceptors;
+
+  ListBuilder<HttpResponseInterceptor>? _responseInterceptors;
+  ListBuilder<HttpResponseInterceptor> get responseInterceptors =>
+      _$this._responseInterceptors ??=
+          new ListBuilder<HttpResponseInterceptor>();
+  set responseInterceptors(
+          ListBuilder<HttpResponseInterceptor>? responseInterceptors) =>
+      _$this._responseInterceptors = responseInterceptors;
+
   HttpRequestBuilder();
 
   HttpRequestBuilder get _$this {
@@ -111,6 +144,8 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
       _path = $v.path;
       _headers = $v.headers.toBuilder();
       _queryParameters = $v.queryParameters.toBuilder();
+      _requestInterceptors = $v.requestInterceptors.toBuilder();
+      _responseInterceptors = $v.responseInterceptors.toBuilder();
       _$v = null;
     }
     return this;
@@ -141,7 +176,9 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
               path: BuiltValueNullFieldError.checkNotNull(
                   path, r'HttpRequest', 'path'),
               headers: headers.build(),
-              queryParameters: queryParameters.build());
+              queryParameters: queryParameters.build(),
+              requestInterceptors: requestInterceptors.build(),
+              responseInterceptors: responseInterceptors.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -149,6 +186,10 @@ class HttpRequestBuilder implements Builder<HttpRequest, HttpRequestBuilder> {
         headers.build();
         _$failedField = 'queryParameters';
         queryParameters.build();
+        _$failedField = 'requestInterceptors';
+        requestInterceptors.build();
+        _$failedField = 'responseInterceptors';
+        responseInterceptors.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'HttpRequest', _$failedField, e.toString());
