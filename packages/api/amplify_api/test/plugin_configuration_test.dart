@@ -15,7 +15,7 @@ import 'dart:convert';
 
 import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_api/src/graphql/app_sync_api_key_auth_provider.dart';
-import 'package:amplify_api/src/oidc_function_api_auth_provider.dart';
+import 'package:amplify_api/src/graphql/oidc_function_api_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_common/testing.dart';
 import 'package:flutter_test/flutter_test.dart';
