@@ -30,12 +30,12 @@ class _RelatedFields {
 
 _RelatedFields _getRelatedFieldsUncached(ModelSchema modelSchema) {
   final singleFields = modelSchema.fields!.values.where((field) =>
-      field.association?.associationType == ModelAssociationEnum.HasOne ||
-      field.association?.associationType == ModelAssociationEnum.BelongsTo ||
+      field.association?.associationType == ModelAssociationType.hasOne ||
+      field.association?.associationType == ModelAssociationType.belongsTo ||
       field.type.fieldType == ModelFieldTypeEnum.embedded ||
       field.type.fieldType == ModelFieldTypeEnum.embeddedCollection);
   final hasManyFields = modelSchema.fields!.values.where((field) =>
-      field.association?.associationType == ModelAssociationEnum.HasMany);
+      field.association?.associationType == ModelAssociationType.hasMany);
 
   return _RelatedFields(singleFields, hasManyFields);
 }
@@ -53,7 +53,7 @@ _RelatedFields _getRelatedFields(ModelSchema modelSchema) {
 
 ModelField? getBelongsToFieldFromModelSchema(ModelSchema modelSchema) {
   return _getRelatedFields(modelSchema).singleFields.firstWhereOrNull((entry) =>
-      entry.association?.associationType == ModelAssociationEnum.BelongsTo);
+      entry.association?.associationType == ModelAssociationType.belongsTo);
 }
 
 /// Gets the modelSchema from provider that matches the name and validates its fields.
