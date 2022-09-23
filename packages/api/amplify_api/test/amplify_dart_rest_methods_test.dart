@@ -28,7 +28,7 @@ final mockHttpClient = MockAWSHttpClient((request) async {
   if (request.bodyBytes.isNotEmpty) {
     expect(request.headers['Content-Type'], 'application/json; charset=utf-8');
   }
-  if (request.host.contains(_pathThatShouldFail)) {
+  if (request.path.contains(_pathThatShouldFail)) {
     return AWSHttpResponse(
       statusCode: 404,
       body: utf8.encode('Not found'),
@@ -44,15 +44,18 @@ void main() {
   setUpAll(() async {
     final apiPlugin = AmplifyAPI(baseHttpClient: mockHttpClient);
     // Register IAM auth provider like amplify_auth_cognito would do.
-    final authProviderRepo = AmplifyAuthProviderRepository();
-    authProviderRepo.registerAuthProvider(
-      APIAuthorizationType.iam.authProviderToken,
-      TestIamAuthProvider(),
-    );
+    final authProviderRepo = AmplifyAuthProviderRepository()
+      ..registerAuthProvider(
+        APIAuthorizationType.iam.authProviderToken,
+        TestIamAuthProvider(),
+      );
     final config = AmplifyConfig.fromJson(
       jsonDecode(amplifyconfig) as Map<String, Object?>,
     );
-    apiPlugin.configure(config: config, authProviderRepo: authProviderRepo);
+    await apiPlugin.configure(
+      config: config,
+      authProviderRepo: authProviderRepo,
+    );
 
     await Amplify.addPlugin(apiPlugin);
   });
@@ -102,9 +105,14 @@ void main() {
       await verifyRestOperation(operation);
     });
 
+    test('404 should throw RestException', () async {
+      final operation = Amplify.API.get(_pathThatShouldFail);
+      await expectLater(operation.response, throwsA(isA<RestException>()));
+    });
+
     test('canceled request should never resolve', () async {
       final operation = Amplify.API.get('items');
-      operation.cancel();
+      await operation.cancel();
       operation.operation
           .then((p0) => fail('Request should have been cancelled.'));
 
