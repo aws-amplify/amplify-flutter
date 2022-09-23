@@ -20,5 +20,6 @@
 library amplify_core.models.mipr;
 
 export 'mipr/auth_rule.dart';
+export 'mipr/model_association.dart';
 export 'mipr/model_index.dart';
 export 'mipr/serializers.dart';

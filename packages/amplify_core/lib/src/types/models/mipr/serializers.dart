@@ -17,6 +17,7 @@ import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
 
 import 'auth_rule.dart';
+import 'model_association.dart';
 import 'model_index.dart';
 
 part 'serializers.g.dart';
@@ -28,6 +29,8 @@ part 'serializers.g.dart';
   ModelOperation,
   AuthRule,
   ModelIndex,
+  ModelAssociation,
+  ModelAssociationType,
 ])
 final Serializers serializers =
     (_$serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();

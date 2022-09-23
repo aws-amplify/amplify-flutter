@@ -16,6 +16,7 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
 import 'utils.dart';
@@ -204,8 +205,8 @@ class GraphQLRequestFactory {
 
     // e.g. { 'name': { 'eq': 'foo }}
     if (queryPredicate is QueryPredicateOperation) {
-      final associatedTargetName =
-          schema.fields?[queryPredicate.field]?.association?.targetName;
+      final associatedTargetName = schema.fields?[queryPredicate.field]
+          ?.association?.targetNames?.singleOrNull;
       String fieldName = queryPredicate.field;
       if (queryPredicate.field ==
           '${_lowerCaseFirstCharacter(schema.name)}.$idFieldName') {
@@ -275,7 +276,8 @@ class GraphQLRequestFactory {
     final belongsToAssociation = getBelongsToFieldFromModelSchema(schema);
     if (belongsToAssociation != null) {
       belongsToModelName = belongsToAssociation.name;
-      belongsToKey = belongsToAssociation.association?.targetName;
+      belongsToKey =
+          belongsToAssociation.association?.targetNames?.singleOrNull;
       belongsToValue =
           (modelJson[belongsToModelName] as Map?)?[idFieldName] as String?;
     }
