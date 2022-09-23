@@ -14,7 +14,6 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:async/async.dart';
 import 'package:meta/meta.dart';
 
 abstract class APIPluginInterface extends AmplifyPluginInterface {
@@ -26,13 +25,11 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
   ModelProviderInterface? get modelProvider => throw UnimplementedError();
 
   // ====== GraphQL =======
-  CancelableOperation<GraphQLResponse<T>> query<T>(
-      {required GraphQLRequest<T> request}) {
+  GraphQLOperation<T> query<T>({required GraphQLRequest<T> request}) {
     throw UnimplementedError('query() has not been implemented.');
   }
 
-  CancelableOperation<GraphQLResponse<T>> mutate<T>(
-      {required GraphQLRequest<T> request}) {
+  GraphQLOperation<T> mutate<T>({required GraphQLRequest<T> request}) {
     throw UnimplementedError('mutate() has not been implemented.');
   }
 
@@ -53,7 +50,7 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
   void registerAuthProvider(APIAuthProvider authProvider);
 
   // ====== RestAPI ======
-  AWSHttpOperation delete(
+  RestOperation delete(
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
@@ -66,7 +63,7 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
   /// Uses Amplify configuration to authorize request to [path] and returns
   /// [CancelableOperation] which resolves to standard HTTP
   /// [Response](https://pub.dev/documentation/http/latest/http/Response-class.html).
-  AWSHttpOperation get(
+  RestOperation get(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
@@ -75,7 +72,7 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('get() has not been implemented');
   }
 
-  AWSHttpOperation head(
+  RestOperation head(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
@@ -84,7 +81,7 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('head() has not been implemented');
   }
 
-  AWSHttpOperation patch(
+  RestOperation patch(
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
@@ -94,7 +91,7 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('patch() has not been implemented');
   }
 
-  AWSHttpOperation post(
+  RestOperation post(
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
@@ -104,7 +101,7 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('post() has not been implemented');
   }
 
-  AWSHttpOperation put(
+  RestOperation put(
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
