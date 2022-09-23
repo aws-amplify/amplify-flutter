@@ -257,16 +257,16 @@ jobs:
         working-directory: packages/secure_storage/amplify_secure_storage_test
         run: "dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox"
   job_008:
-    name: "unit_test; linux; Dart dev; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/aws_common, packages/smithy/goldens/lib/awsJson1_0, packages/smithy/goldens/lib/awsJson1_1, packages/smithy/goldens/lib/restJson1, packages/smithy/goldens/lib/restXml, packages/smithy/goldens/lib/restXmlWithNamespace, packages/smithy/goldens/lib2/awsJson1_0, packages/smithy/goldens/lib2/awsJson1_1, packages/smithy/goldens/lib2/restJson1, packages/smithy/goldens/lib2/restXml, packages/smithy/goldens/lib2/restXmlWithNamespace, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen, packages/worker_bee/e2e_test; `dart test`"
+    name: "unit_test; linux; Dart dev; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/aws_common, packages/smithy/goldens/lib/awsJson1_0, packages/smithy/goldens/lib/awsJson1_1, packages/smithy/goldens/lib/restJson1, packages/smithy/goldens/lib/restXml, packages/smithy/goldens/lib/restXmlWithNamespace, packages/smithy/goldens/lib2/awsJson1_0, packages/smithy/goldens/lib2/awsJson1_1, packages/smithy/goldens/lib2/custom, packages/smithy/goldens/lib2/restJson1, packages/smithy/goldens/lib2/restXml, packages/smithy/goldens/lib2/restXmlWithNamespace, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen, packages/worker_bee/e2e_test; `dart test`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/aws_common-packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/re-!!too_long!!-665-1014879439"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/aws_common-packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/custom-packages/smithy/goldens/lib2/restJso-!!too_long!!-701-97002503"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/aws_common-packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/res-!!too_long!!-649-609344208
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/aws_common-packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/custom-packages/smithy/goldens/lib2/restJs-!!too_long!!-685-480752647
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -364,6 +364,15 @@ jobs:
       - name: packages/smithy/goldens/lib2/awsJson1_1; dart test
         if: "always() && steps.packages_smithy_goldens_lib2_awsJson1_1_pub_upgrade.conclusion == 'success'"
         working-directory: packages/smithy/goldens/lib2/awsJson1_1
+        run: dart test
+      - id: packages_smithy_goldens_lib2_custom_pub_upgrade
+        name: packages/smithy/goldens/lib2/custom; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/custom
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib2/custom; dart test
+        if: "always() && steps.packages_smithy_goldens_lib2_custom_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/custom
         run: dart test
       - id: packages_smithy_goldens_lib2_restJson1_pub_upgrade
         name: packages/smithy/goldens/lib2/restJson1; dart pub upgrade
@@ -521,16 +530,16 @@ jobs:
         working-directory: packages/aws_signature_v4
         run: "dart test -p chrome,firefox"
   job_012:
-    name: "unit_test; linux; Dart dev; PKGS: packages/example_common, packages/smithy/goldens/lib/awsJson1_0, packages/smithy/goldens/lib/awsJson1_1, packages/smithy/goldens/lib/restJson1, packages/smithy/goldens/lib/restXml, packages/smithy/goldens/lib/restXmlWithNamespace, packages/smithy/goldens/lib2/awsJson1_0, packages/smithy/goldens/lib2/awsJson1_1, packages/smithy/goldens/lib2/restJson1, packages/smithy/goldens/lib2/restXml, packages/smithy/goldens/lib2/restXmlWithNamespace, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test -p chrome`"
+    name: "unit_test; linux; Dart dev; PKGS: packages/example_common, packages/smithy/goldens/lib/awsJson1_0, packages/smithy/goldens/lib/awsJson1_1, packages/smithy/goldens/lib/restJson1, packages/smithy/goldens/lib/restXml, packages/smithy/goldens/lib/restXmlWithNamespace, packages/smithy/goldens/lib2/awsJson1_0, packages/smithy/goldens/lib2/awsJson1_1, packages/smithy/goldens/lib2/custom, packages/smithy/goldens/lib2/restJson1, packages/smithy/goldens/lib2/restXml, packages/smithy/goldens/lib2/restXmlWithNamespace, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test -p chrome`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/example_common-packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/restXml-packages/smithy/goldens/lib2/restXmlWithNamespace-pa-!!too_long!!-578-1000799790"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/example_common-packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/custom-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/restXml-packages/smithy/g-!!too_long!!-614-660894975"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/example_common-packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/restXml-packages/smithy/goldens/lib2/restXmlWithNamespace-packa-!!too_long!!-562-1013938
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/example_common-packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/custom-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/restXml-packages/smithy/g-!!too_long!!-598-785633026
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -610,6 +619,15 @@ jobs:
       - name: "packages/smithy/goldens/lib2/awsJson1_1; dart test -p chrome"
         if: "always() && steps.packages_smithy_goldens_lib2_awsJson1_1_pub_upgrade.conclusion == 'success'"
         working-directory: packages/smithy/goldens/lib2/awsJson1_1
+        run: dart test -p chrome
+      - id: packages_smithy_goldens_lib2_custom_pub_upgrade
+        name: packages/smithy/goldens/lib2/custom; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/custom
+        run: dart pub upgrade
+      - name: "packages/smithy/goldens/lib2/custom; dart test -p chrome"
+        if: "always() && steps.packages_smithy_goldens_lib2_custom_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/custom
         run: dart test -p chrome
       - id: packages_smithy_goldens_lib2_restJson1_pub_upgrade
         name: packages/smithy/goldens/lib2/restJson1; dart pub upgrade
@@ -750,16 +768,16 @@ jobs:
         working-directory: packages/worker_bee/e2e_test
         run: "dart run build_runner test --release --delete-conflicting-outputs --verbose -- -p chrome,firefox"
   job_016:
-    name: "unit_test; linux; Dart stable; PKGS: packages/aft, packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/aws_common, packages/smithy/goldens/lib/awsJson1_0, packages/smithy/goldens/lib/awsJson1_1, packages/smithy/goldens/lib/restJson1, packages/smithy/goldens/lib/restXml, packages/smithy/goldens/lib/restXmlWithNamespace, packages/smithy/goldens/lib2/awsJson1_0, packages/smithy/goldens/lib2/awsJson1_1, packages/smithy/goldens/lib2/restJson1, packages/smithy/goldens/lib2/restXml, packages/smithy/goldens/lib2/restXmlWithNamespace, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen, packages/worker_bee/e2e_test; `dart test`"
+    name: "unit_test; linux; Dart stable; PKGS: packages/aft, packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/aws_common, packages/smithy/goldens/lib/awsJson1_0, packages/smithy/goldens/lib/awsJson1_1, packages/smithy/goldens/lib/restJson1, packages/smithy/goldens/lib/restXml, packages/smithy/goldens/lib/restXmlWithNamespace, packages/smithy/goldens/lib2/awsJson1_0, packages/smithy/goldens/lib2/awsJson1_1, packages/smithy/goldens/lib2/custom, packages/smithy/goldens/lib2/restJson1, packages/smithy/goldens/lib2/restXml, packages/smithy/goldens/lib2/restXmlWithNamespace, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen, packages/worker_bee/e2e_test; `dart test`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/aws_common-packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/restJson1-packages/smithy/-!!too_long!!-681-279897976"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/aws_common-packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/custom-packages/smithy/gol-!!too_long!!-717-246844013"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/aws_common-packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/restJson1-packages/smithy/-!!too_long!!-665-461664242
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/aws_common-packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/custom-packages/smithy/go-!!too_long!!-701-1065427412
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -866,6 +884,15 @@ jobs:
       - name: packages/smithy/goldens/lib2/awsJson1_1; dart test
         if: "always() && steps.packages_smithy_goldens_lib2_awsJson1_1_pub_upgrade.conclusion == 'success'"
         working-directory: packages/smithy/goldens/lib2/awsJson1_1
+        run: dart test
+      - id: packages_smithy_goldens_lib2_custom_pub_upgrade
+        name: packages/smithy/goldens/lib2/custom; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/custom
+        run: dart pub upgrade
+      - name: packages/smithy/goldens/lib2/custom; dart test
+        if: "always() && steps.packages_smithy_goldens_lib2_custom_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/custom
         run: dart test
       - id: packages_smithy_goldens_lib2_restJson1_pub_upgrade
         name: packages/smithy/goldens/lib2/restJson1; dart pub upgrade
@@ -1143,16 +1170,16 @@ jobs:
         working-directory: packages/aws_signature_v4
         run: "dart test -p chrome,firefox"
   job_023:
-    name: "unit_test; linux; Dart stable; PKGS: packages/example_common, packages/smithy/goldens/lib/awsJson1_0, packages/smithy/goldens/lib/awsJson1_1, packages/smithy/goldens/lib/restJson1, packages/smithy/goldens/lib/restXml, packages/smithy/goldens/lib/restXmlWithNamespace, packages/smithy/goldens/lib2/awsJson1_0, packages/smithy/goldens/lib2/awsJson1_1, packages/smithy/goldens/lib2/restJson1, packages/smithy/goldens/lib2/restXml, packages/smithy/goldens/lib2/restXmlWithNamespace, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test -p chrome`"
+    name: "unit_test; linux; Dart stable; PKGS: packages/example_common, packages/smithy/goldens/lib/awsJson1_0, packages/smithy/goldens/lib/awsJson1_1, packages/smithy/goldens/lib/restJson1, packages/smithy/goldens/lib/restXml, packages/smithy/goldens/lib/restXmlWithNamespace, packages/smithy/goldens/lib2/awsJson1_0, packages/smithy/goldens/lib2/awsJson1_1, packages/smithy/goldens/lib2/custom, packages/smithy/goldens/lib2/restJson1, packages/smithy/goldens/lib2/restXml, packages/smithy/goldens/lib2/restXmlWithNamespace, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen; `dart test -p chrome`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/example_common-packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/restXml-packages/smithy/goldens/lib2/restXmlWithNamespace-p-!!too_long!!-581-12171976"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/example_common-packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/custom-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/restXml-packages/smit-!!too_long!!-617-1018081839"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/example_common-packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/restXml-packages/smithy/goldens/lib2/restXmlWithNamespace--!!too_long!!-565-751938637
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/example_common-packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/custom-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/restXml-packages/smithy-!!too_long!!-601-41963508
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -1232,6 +1259,15 @@ jobs:
       - name: "packages/smithy/goldens/lib2/awsJson1_1; dart test -p chrome"
         if: "always() && steps.packages_smithy_goldens_lib2_awsJson1_1_pub_upgrade.conclusion == 'success'"
         working-directory: packages/smithy/goldens/lib2/awsJson1_1
+        run: dart test -p chrome
+      - id: packages_smithy_goldens_lib2_custom_pub_upgrade
+        name: packages/smithy/goldens/lib2/custom; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/custom
+        run: dart pub upgrade
+      - name: "packages/smithy/goldens/lib2/custom; dart test -p chrome"
+        if: "always() && steps.packages_smithy_goldens_lib2_custom_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/smithy/goldens/lib2/custom
         run: dart test -p chrome
       - id: packages_smithy_goldens_lib2_restJson1_pub_upgrade
         name: packages/smithy/goldens/lib2/restJson1; dart pub upgrade

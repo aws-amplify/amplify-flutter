@@ -25,7 +25,7 @@ MODELS=models2
 
 for PROTOCOL in $PROTOCOLS; do
     DIR=$MODELS/$PROTOCOL
-    rm -rf $DIR
+    rm -r $DIR
     mkdir -p $DIR
     cp -R smithy/smithy-aws-protocol-tests/model/$PROTOCOL/* $DIR
 done

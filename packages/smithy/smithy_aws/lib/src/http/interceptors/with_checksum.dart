@@ -72,10 +72,14 @@ class WithChecksum extends HttpRequestInterceptor {
   // https://awslabs.github.io/smithy/2.0/aws/aws-core.html#resolving-checksum-name
   String get _header {
     switch (_algorithm) {
-      case 'MD5':
-        return 'Content-MD5';
-      default:
+      case 'CRC32C':
+      case 'CRC32':
+      case 'SHA1':
+      case 'SHA256':
         return 'x-amz-checksum-${_algorithm.toLowerCase()}';
+      case 'MD5':
+      default:
+        return 'Content-MD5';
     }
   }
 
@@ -89,8 +93,10 @@ class WithChecksum extends HttpRequestInterceptor {
         return sha1.fuse(const _DigestToHeaderConverter());
       case 'SHA256':
         return sha256.fuse(const _DigestToHeaderConverter());
+      case 'MD5':
+      default:
+        return md5.fuse(const _DigestToHeaderConverter());
     }
-    return md5.fuse(const _DigestToHeaderConverter());
   }
 
   @override
