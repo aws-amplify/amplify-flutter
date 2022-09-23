@@ -57,6 +57,10 @@ void seedStorage(
       ..write(
         key: userPoolKeys[CognitoUserPoolKey.userSub],
         value: userSub,
+      )
+      ..write(
+        key: userPoolKeys[CognitoUserPoolKey.username],
+        value: username,
       );
   }
   if (deviceKeys != null) {

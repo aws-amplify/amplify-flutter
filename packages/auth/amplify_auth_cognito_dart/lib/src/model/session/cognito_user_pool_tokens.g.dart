@@ -35,6 +35,8 @@ class _$CognitoUserPoolTokens extends CognitoUserPoolTokens {
   final String refreshToken;
   @override
   final JsonWebToken idToken;
+  @override
+  final String username;
 
   factory _$CognitoUserPoolTokens(
           [void Function(CognitoUserPoolTokensBuilder)? updates]) =>
@@ -44,7 +46,8 @@ class _$CognitoUserPoolTokens extends CognitoUserPoolTokens {
       {required this.signInMethod,
       required this.accessToken,
       required this.refreshToken,
-      required this.idToken})
+      required this.idToken,
+      required this.username})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         signInMethod, r'CognitoUserPoolTokens', 'signInMethod');
@@ -54,6 +57,8 @@ class _$CognitoUserPoolTokens extends CognitoUserPoolTokens {
         refreshToken, r'CognitoUserPoolTokens', 'refreshToken');
     BuiltValueNullFieldError.checkNotNull(
         idToken, r'CognitoUserPoolTokens', 'idToken');
+    BuiltValueNullFieldError.checkNotNull(
+        username, r'CognitoUserPoolTokens', 'username');
   }
 
   @override
@@ -72,15 +77,18 @@ class _$CognitoUserPoolTokens extends CognitoUserPoolTokens {
         signInMethod == other.signInMethod &&
         accessToken == other.accessToken &&
         refreshToken == other.refreshToken &&
-        idToken == other.idToken;
+        idToken == other.idToken &&
+        username == other.username;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, signInMethod.hashCode), accessToken.hashCode),
-            refreshToken.hashCode),
-        idToken.hashCode));
+        $jc(
+            $jc($jc($jc(0, signInMethod.hashCode), accessToken.hashCode),
+                refreshToken.hashCode),
+            idToken.hashCode),
+        username.hashCode));
   }
 }
 
@@ -106,6 +114,10 @@ class CognitoUserPoolTokensBuilder
   JsonWebToken? get idToken => _$this._idToken;
   set idToken(JsonWebToken? idToken) => _$this._idToken = idToken;
 
+  String? _username;
+  String? get username => _$this._username;
+  set username(String? username) => _$this._username = username;
+
   CognitoUserPoolTokensBuilder();
 
   CognitoUserPoolTokensBuilder get _$this {
@@ -115,6 +127,7 @@ class CognitoUserPoolTokensBuilder
       _accessToken = $v.accessToken;
       _refreshToken = $v.refreshToken;
       _idToken = $v.idToken;
+      _username = $v.username;
       _$v = null;
     }
     return this;
@@ -145,7 +158,9 @@ class CognitoUserPoolTokensBuilder
             refreshToken: BuiltValueNullFieldError.checkNotNull(
                 refreshToken, r'CognitoUserPoolTokens', 'refreshToken'),
             idToken: BuiltValueNullFieldError.checkNotNull(
-                idToken, r'CognitoUserPoolTokens', 'idToken'));
+                idToken, r'CognitoUserPoolTokens', 'idToken'),
+            username: BuiltValueNullFieldError.checkNotNull(
+                username, r'CognitoUserPoolTokens', 'username'));
     replace(_$result);
     return _$result;
   }
@@ -169,6 +184,7 @@ CognitoUserPoolTokens _$CognitoUserPoolTokensFromJson(
       refreshToken: json['refreshToken'] as String,
       idToken:
           const JsonWebTokenSerializer().fromJson(json['idToken'] as String),
+      username: json['username'] as String?,
     );
 
 Map<String, dynamic> _$CognitoUserPoolTokensToJson(
@@ -188,5 +204,6 @@ Map<String, dynamic> _$CognitoUserPoolTokensToJson(
   val['refreshToken'] = instance.refreshToken;
   writeNotNull(
       'idToken', const JsonWebTokenSerializer().toJson(instance.idToken));
+  val['username'] = instance.username;
   return val;
 }

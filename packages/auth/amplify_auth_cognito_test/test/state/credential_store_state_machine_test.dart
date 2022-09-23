@@ -99,6 +99,7 @@ void main() {
       expect(result.data.userPoolTokens?.accessToken, accessToken);
       expect(result.data.userPoolTokens?.refreshToken, refreshToken);
       expect(result.data.userPoolTokens?.idToken, idToken);
+      expect(result.data.userPoolTokens?.username, username);
 
       await stateMachine.close();
     });
@@ -133,6 +134,7 @@ void main() {
               accessToken: accessToken,
               refreshToken: refreshToken,
               idToken: idToken,
+              username: username,
             ),
           ),
         );
@@ -158,6 +160,7 @@ void main() {
         expect(result.data.userPoolTokens?.accessToken, accessToken);
         expect(result.data.userPoolTokens?.refreshToken, refreshToken);
         expect(result.data.userPoolTokens?.idToken, idToken);
+        expect(result.data.userPoolTokens?.username, username);
 
         await stateMachine.close();
       });
@@ -211,6 +214,7 @@ void main() {
         expect(result.data.userPoolTokens?.accessToken, accessToken);
         expect(result.data.userPoolTokens?.refreshToken, refreshToken);
         expect(result.data.userPoolTokens?.idToken, idToken);
+        expect(result.data.userPoolTokens?.username, username);
 
         await stateMachine.close();
       });
@@ -430,6 +434,7 @@ void main() {
         expect(result.data.userPoolTokens?.accessToken, accessToken);
         expect(result.data.userPoolTokens?.refreshToken, refreshToken);
         expect(result.data.userPoolTokens?.idToken, idToken);
+        expect(result.data.userPoolTokens?.username, username);
 
         // verify credential store version has been updated.
         expect(await sm.getVersion(), CredentialStoreVersion.v1);
@@ -476,9 +481,6 @@ void main() {
         expect(result.data.awsCredentials?.expiration, expiration);
         expect(result.data.identityId, identityId);
         expect(result.data.userPoolTokens, isNull);
-        expect(result.data.userPoolTokens?.accessToken, isNull);
-        expect(result.data.userPoolTokens?.refreshToken, isNull);
-        expect(result.data.userPoolTokens?.idToken, isNull);
 
         // verify credential store version has been updated.
         expect(await sm.getVersion(), CredentialStoreVersion.v1);
@@ -525,9 +527,6 @@ void main() {
         expect(result.data.awsCredentials?.expiration, isNull);
         expect(result.data.identityId, isNull);
         expect(result.data.userPoolTokens, isNull);
-        expect(result.data.userPoolTokens?.accessToken, isNull);
-        expect(result.data.userPoolTokens?.refreshToken, isNull);
-        expect(result.data.userPoolTokens?.idToken, isNull);
 
         await stateMachine.close();
       });

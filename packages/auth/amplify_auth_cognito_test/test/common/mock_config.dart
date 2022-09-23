@@ -74,7 +74,7 @@ const idToken = JsonWebToken(
   claims: JsonWebClaims(
     subject: userSub,
     customClaims: {
-      'cognito:username': username,
+      'cognito:username': userSub,
     },
   ),
   signature: [],
@@ -100,6 +100,7 @@ final userPoolTokens = CognitoUserPoolTokens(
   accessToken: accessToken,
   idToken: idToken,
   refreshToken: refreshToken,
+  username: username,
 );
 final awsCredentials = AWSCredentials(
   accessKeyId,

@@ -39,12 +39,14 @@ abstract class CognitoUserPoolTokens
     required JsonWebToken accessToken,
     required String refreshToken,
     required JsonWebToken idToken,
+    String? username,
   }) {
     return _$CognitoUserPoolTokens._(
       signInMethod: signInMethod,
       accessToken: accessToken,
       refreshToken: refreshToken,
       idToken: idToken,
+      username: username ?? CognitoIdToken(idToken).username,
     );
   }
 
@@ -61,7 +63,9 @@ abstract class CognitoUserPoolTokens
 
   @BuiltValueHook(finalizeBuilder: true)
   static void _finalize(CognitoUserPoolTokensBuilder b) {
-    b.signInMethod ??= CognitoSignInMethod.default$;
+    b
+      ..signInMethod ??= CognitoSignInMethod.default$
+      ..username ??= CognitoIdToken(b.idToken!).username;
   }
 
   /// The method by which the user signed in and retrieved these tokens.
@@ -90,7 +94,7 @@ abstract class CognitoUserPoolTokens
   String get userId => idToken.userId;
 
   /// The Cognito user's username.
-  String get username => CognitoIdToken(idToken).username;
+  String get username;
 
   /// Validates the tokens against the client state.
   void validate({

@@ -36,6 +36,12 @@ enum CognitoUserPoolKey {
 
   /// The user ID.
   userSub,
+
+  /// The username with which the user logged in.
+  ///
+  /// This is stored so that calls to `getCurrentUser` return the expected
+  /// username instead of the one assigned by Cognito.
+  username,
 }
 
 /// Discrete keys stored for Cognito User Pool device tracking operations in

@@ -95,12 +95,16 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
       final idToken = await _secureStorage.read(
         key: keys[CognitoUserPoolKey.idToken],
       );
+      final username = await _secureStorage.read(
+        key: keys[CognitoUserPoolKey.username],
+      );
       if (accessToken != null && refreshToken != null && idToken != null) {
         userPoolTokens = CognitoUserPoolTokens(
           signInMethod: CognitoSignInMethod.default$,
           accessToken: JsonWebToken.parse(accessToken),
           refreshToken: refreshToken,
           idToken: JsonWebToken.parse(idToken),
+          username: username,
         );
       }
     }
@@ -187,6 +191,7 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
           keys[CognitoUserPoolKey.accessToken]: userPoolTokens.accessToken.raw,
           keys[CognitoUserPoolKey.refreshToken]: userPoolTokens.refreshToken,
           keys[CognitoUserPoolKey.idToken]: userPoolTokens.idToken.raw,
+          keys[CognitoUserPoolKey.username]: userPoolTokens.username,
         });
       }
     }

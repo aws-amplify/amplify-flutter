@@ -51,10 +51,8 @@ void main() {
     });
 
     testWidgets('should return the current user', (WidgetTester tester) async {
-      var authUser = await Amplify.Auth.getCurrentUser();
-      // usernames need to be compared case insensitive due to
-      // https://github.com/aws-amplify/amplify-flutter/issues/723
-      expect(authUser.username.toLowerCase(), username.toLowerCase());
+      final authUser = await Amplify.Auth.getCurrentUser();
+      expect(authUser.username, username);
       expect(isValidUserSub(authUser.userId), isTrue);
     });
 

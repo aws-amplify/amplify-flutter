@@ -398,6 +398,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
         idToken: idToken != null
             ? JsonWebToken.parse(idToken)
             : userPoolTokens.idToken,
+        username: userPoolTokens.username,
       );
 
       await dispatch(

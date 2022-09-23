@@ -13,8 +13,10 @@
 // limitations under the License.
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+import 'package:amplify_auth_cognito_dart/src/jwt/src/cognito.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
+import 'package:amplify_auth_cognito_dart/src/state/machines/credential_store_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/machines/sign_in_state_machine.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
@@ -152,6 +154,22 @@ void main() {
           isA<SignInInitiating>(),
           isA<SignInSuccess>(),
         ]),
+      );
+
+      final credentialStoreMachine =
+          stateMachine.expect(CredentialStoreStateMachine.type);
+      expect(CognitoIdToken(idToken).username, isNot(username));
+      expect(
+        credentialStoreMachine.stream,
+        emitsThrough(
+          isA<CredentialStoreSuccess>().having(
+            (e) => e.data.userPoolTokens?.username,
+            'username',
+            username,
+          ),
+        ),
+        reason: 'Username should match what was used to sign in, not what '
+            'Cognito returns as part of the JWT tokens',
       );
     });
   });

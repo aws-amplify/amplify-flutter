@@ -572,7 +572,9 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
     user.userPoolTokens
       ..accessToken = accessTokenJwt
       ..refreshToken = refreshToken
-      ..idToken = idTokenJwt;
+      ..idToken = idTokenJwt
+      // Use the username which was used to sign in.
+      ..username = parameters.username;
 
     await dispatch(
       CredentialStoreEvent.storeCredentials(
