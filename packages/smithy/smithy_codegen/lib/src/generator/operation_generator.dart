@@ -176,6 +176,43 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
     if (httpInputTraits.httpQueryParams != null) {
       yield _httpQueryParameters(httpInputTraits.httpQueryParams!);
     }
+
+    // HTTP checksums (dependent on input)
+    final checksumTrait = shape.getTrait<HttpChecksumTrait>();
+    if (checksumTrait != null) {
+      final checksumRequired = checksumTrait.requestChecksumRequired ?? false;
+      final requestMemberName = checksumTrait.requestAlgorithmMember;
+      if (requestMemberName == null) {
+        if (checksumRequired) {
+          yield builder.property('requestInterceptors').property('add').call([
+            DartTypes.smithyAws.withChecksum.constInstance([]),
+          ]).statement;
+        }
+      } else {
+        final requestMember = inputShape.members[requestMemberName]!;
+        final memberIsNullable = requestMember.isNullable(context, inputShape);
+        final inputProperty = input.property(
+          requestMember.dartName(ShapeType.structure),
+        );
+        if (checksumRequired) {
+          yield builder.property('requestInterceptors').property('add').call([
+            DartTypes.smithyAws.withChecksum.newInstance([
+              inputProperty.nullableProperty('value', memberIsNullable),
+            ]),
+          ]).statement;
+        } else {
+          yield builder.property('requestInterceptors').property('add').call([
+            DartTypes.smithyAws.withChecksum.newInstance([
+              (memberIsNullable ? inputProperty.nullChecked : inputProperty)
+                  .property('value'),
+            ])
+          ]).wrapWithBlockIf(
+            inputProperty.notEqualTo(literalNull),
+            memberIsNullable,
+          );
+        }
+      }
+    }
   }
 
   /// Adds the header to the request's headers map.

@@ -74,6 +74,12 @@ abstract class HttpRequest implements Built<HttpRequest, HttpRequestBuilder> {
 
   /// The HTTP query parameters.
   BuiltListMultimap<String, String> get queryParameters;
+
+  /// Runtime request interceptors determined by operation input.
+  BuiltList<HttpRequestInterceptor> get requestInterceptors;
+
+  /// Runtime response interceptors determined by operation input.
+  BuiltList<HttpResponseInterceptor> get responseInterceptors;
 }
 
 abstract class HttpResponse

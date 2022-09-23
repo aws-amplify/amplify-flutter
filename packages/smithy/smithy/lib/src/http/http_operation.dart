@@ -201,6 +201,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     // Transform request using the interceptors
     // TODO(dnys1): Move to a subclass of AWSHttpClient
     final interceptors = List.of(protocol.requestInterceptors)
+      ..addAll(request.requestInterceptors)
       ..sort((a, b) => a.order.compareTo(b.order));
     for (final interceptor in interceptors) {
       final interception = interceptor.intercept(awsRequest);
