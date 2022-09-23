@@ -7,12 +7,7 @@ import '../endpoint_client/endpoint_client.dart';
 import '../key_value_store.dart';
 import 'events_storage_adapter.dart';
 
-/// Manage sending of AnalyticsEvent
-///
-///
-///
-///
-
+/// Manage sending of AnalyticsEvent with PinpointClient
 class EventClient {
   late final EventStorageAdapter _storageAdapter;
 
@@ -39,10 +34,6 @@ class EventClient {
     var eventsMap = <String, Event>{};
     for (var event in eventsToFlush) {
       eventsMap[_uuid.v1()] = event;
-      // How event ids are created in Android ->
-      //  a UUID must be sent as key for eventbatch, Android
-      //  InternalEvent stores this, but it is converted to a
-      //  Pinpoint Event class on Request object creation
     }
 
     EventsBatch batch = EventsBatch(

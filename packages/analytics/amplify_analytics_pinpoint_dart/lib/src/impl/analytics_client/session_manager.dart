@@ -7,13 +7,9 @@ import 'key_value_store.dart';
 const String sessionStartEventType = '_session.start';
 const String sessionStopEventType = '_session.stop';
 
-// Note: Android allows manual session pause/resume.  But this is only possible via escapeHatch
-
 enum SessionState { inactive, active, paused }
 
 typedef SessionFunc = Function(SessionBuilder);
-
-// TODO instructions if no session provider is given?
 
 /// Manage Session object
 class SessionManager {
@@ -39,8 +35,6 @@ class SessionManager {
     _sessionBuilder = SessionBuilder()
       ..id = _noSessionId
       ..startTimestamp = DateTime(0).toIso8601String();
-
-    //  Android retrieves a serialized session JSON here ... but doesn't make sense as app close is supposed to kill session
 
     _lifecycleObserver?.setOnForegroundListener(startSession);
     _lifecycleObserver?.setOnBackgroundListener(stopSession);
@@ -68,13 +62,6 @@ class SessionManager {
     if (_sessionBuilder == null) return SessionState.inactive;
 
     return SessionState.active;
-
-    // Android doesn't call code path for pause/resume of Session ..
-    if (sessionBuilder!.stopTimestamp == null) {
-      return SessionState.active;
-    } else {
-      return SessionState.paused;
-    }
   }
 
   String _generateSessionId() {
