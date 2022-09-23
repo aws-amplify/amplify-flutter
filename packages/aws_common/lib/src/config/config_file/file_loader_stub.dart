@@ -16,9 +16,8 @@
 
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_common/src/config/aws_profile_file.dart';
+import 'package:aws_common/src/config/config_file/file_loader.dart';
 import 'package:aws_common/src/config/config_file/resolved_file.dart';
-
-import 'file_loader.dart';
 
 /// {@macro aws_common.config_file.file_loader}
 class AWSFileLoaderImpl extends AWSFileLoader {

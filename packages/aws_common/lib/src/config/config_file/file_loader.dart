@@ -17,13 +17,12 @@ library aws_common.config_file.file_loader;
 
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_common/src/config/aws_profile_file.dart';
+import 'package:aws_common/src/config/config_file/file_loader_stub.dart'
+    if (dart.library.io) 'package:aws_common/src/config/config_file/file_loader_io.dart';
 import 'package:aws_common/src/config/config_file/parser.dart';
+import 'package:aws_common/src/config/config_file/resolved_file.dart';
 import 'package:aws_common/src/config/config_file/standardizer.dart';
-import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
-
-import 'file_loader_stub.dart' if (dart.library.io) 'file_loader_io.dart';
-import 'resolved_file.dart';
 
 /// {@template aws_common.config_file.file_loader}
 /// Manages loading of files.
@@ -39,7 +38,7 @@ abstract class AWSFileLoader {
   const AWSFileLoader.protected();
 
   /// Logger for [AWSFileLoader].
-  static final Logger logger = Logger('AWSFileLoader');
+  static final AWSLogger logger = AWSLogger('AWSFileLoader');
 
   /// Loads the file at [filepath] or returns the empty string if unavailable.
   Future<ResolvedFile> loadFile(

@@ -13,9 +13,8 @@
 // limitations under the License.
 
 import 'package:aws_common/src/config/aws_config_value.dart';
+import 'package:aws_common/src/config/aws_path_provider.dart';
 import 'package:os_detect/os_detect.dart' as os;
-
-import 'aws_path_provider.dart';
 
 /// The `dart:io` implementation of [AWSPathProvider].
 ///

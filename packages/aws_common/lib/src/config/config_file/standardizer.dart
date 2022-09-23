@@ -12,12 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:aws_common/aws_common.dart';
 import 'package:aws_common/src/config/aws_profile_file.dart';
+import 'package:aws_common/src/config/config_file/terms.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
-
-import 'terms.dart';
 
 /// {@template aws_common.config_file.standardizer}
 /// Handles standardization/canonicalization of AWS profile files.
@@ -27,7 +26,7 @@ class AWSProfileFileStandardizer {
   /// {@macro aws_common.config_file.standardizer}
   const AWSProfileFileStandardizer();
 
-  static final _logger = Logger('AWSProfileFileStandardizer');
+  static final _logger = AWSLogger('AWSProfileFileStandardizer');
 
   /// Merges a property with values from the config and credentials files.
   static AWSProperty _mergeProperties(
@@ -36,7 +35,7 @@ class AWSProfileFileStandardizer {
     String profileName,
   ) {
     final propertyName = credentialsProperty.name;
-    _logger.warning(
+    _logger.warn(
       'Warning: Duplicate property "$propertyName" detected in '
       'profile "$profileName". The credentials file value will be used.',
     );
@@ -49,7 +48,7 @@ class AWSProfileFileStandardizer {
     AWSProfile credentialsProfile,
   ) {
     final profileName = credentialsProfile.name;
-    _logger.warning(
+    _logger.warn(
       'Warning: The profile "$profileName" was found in both the '
       'configuration and credentials configuration file. The properties will '
       'be merged using the property in the credentials file if there are '
@@ -99,7 +98,7 @@ class AWSProfileFileStandardizer {
       if (profileName.startsWith(profilePrefix)) {
         profileName = profileName.replaceFirst(profilePrefix, '').trim();
       } else if (profileName != 'default') {
-        _logger.warning(
+        _logger.warn(
           'Ignoring profile "$profileName" because it did not start with '
           'profile and it was not "default".',
         );
@@ -108,7 +107,7 @@ class AWSProfileFileStandardizer {
     }
 
     if (!validIdentifier.hasMatch(profileName)) {
-      _logger.warning(
+      _logger.warn(
         'Ignoring profile "$profileName" because it was not '
         'alphanumeric with dashes or underscores.',
       );
@@ -120,7 +119,7 @@ class AWSProfileFileStandardizer {
 
   String? _standardizePropertyName(String profileName, String propertyName) {
     if (!validIdentifier.hasMatch(propertyName)) {
-      _logger.warning(
+      _logger.warn(
         'Ignoring property "$propertyName" in profile "$profileName" because '
         'it was not alphanumeric with dashes or underscores.',
       );
@@ -178,14 +177,14 @@ class AWSProfileFileStandardizer {
 
         if (type == AWSProfileFileType.config && isDefaultProfile) {
           if (!profileHasPrefix && hasDefaultProfileWithPrefix) {
-            _logger.warning(
+            _logger.warn(
               'Ignoring profile "[default]" because "[profile default]" was '
               'found in the same file.',
             );
             continue;
           }
           if (profileHasPrefix && !hasDefaultProfileWithPrefix) {
-            _logger.warning(
+            _logger.warn(
               'Dropping earlier-seen "[default]" because "[profile default]" '
               'was found in the same file.',
             );

@@ -13,12 +13,10 @@
 // limitations under the License.
 
 import 'package:aws_common/aws_common.dart';
-import 'package:logging/logging.dart';
+import 'package:aws_common/src/config/config_file/resolved_file.dart';
+import 'package:aws_common/src/config/config_file/standardizer.dart';
+import 'package:aws_common/src/config/config_file/terms.dart';
 import 'package:meta/meta.dart';
-
-import 'resolved_file.dart';
-import 'standardizer.dart';
-import 'terms.dart';
 
 /// {@template aws_common.aws_profile_file_parser}
 /// Handles parsing of an AWS profile file.
@@ -28,7 +26,7 @@ class AWSProfileFileParser {
   /// {@macro aws_common.aws_profile_file_parser}
   AWSProfileFileParser(this._resolvedFile);
 
-  static final _logger = Logger('AWSProfileFileParser');
+  static final _logger = AWSLogger('AWSProfileFileParser');
   static final _cache = <ResolvedFile, AWSProfileFile>{};
   static const _standardizer = AWSProfileFileStandardizer();
 
@@ -128,7 +126,7 @@ class AWSProfileFileParser {
     currentProfile.properties.updateValue(
       propertyName,
       (existing) {
-        _logger.warning(
+        _logger.warn(
           'Duplicate property `$propertyName` detected in profile '
           '`${_currentProfile!.name}. The later one will be used.',
         );

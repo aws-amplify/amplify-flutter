@@ -16,9 +16,8 @@ import 'dart:io';
 
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_common/src/config/aws_profile_file.dart';
+import 'package:aws_common/src/config/config_file/file_loader.dart';
 import 'package:aws_common/src/config/config_file/resolved_file.dart';
-
-import 'file_loader.dart';
 
 /// {@macro aws_common.config_file.file_loader}
 class AWSFileLoaderImpl extends AWSFileLoader {
@@ -42,12 +41,12 @@ class AWSFileLoaderImpl extends AWSFileLoader {
   ) async {
     final resolvedFilepath = await _pathProvider.resolve(filepath);
     if (resolvedFilepath == null) {
-      AWSFileLoader.logger.warning('Could not resolve filepath for: $filepath');
+      AWSFileLoader.logger.warn('Could not resolve filepath for: $filepath');
       return _empty(type);
     }
     final file = File(resolvedFilepath);
     if (!await file.exists()) {
-      AWSFileLoader.logger.warning('File does not exist: $resolvedFilepath');
+      AWSFileLoader.logger.warn('File does not exist: $resolvedFilepath');
       return _empty(type);
     }
     return ResolvedFile(

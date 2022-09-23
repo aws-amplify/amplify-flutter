@@ -115,17 +115,17 @@ class DartEnvironmentCredentialsProvider extends AWSCredentialsProvider {
   @override
   AWSCredentials retrieve() {
     var accessKeyId = const String.fromEnvironment(zAccessKeyId);
-    if (accessKeyId.isEmpty && zIsWeb) {
+    if (zIsWeb && zAssertsEnabled && accessKeyId.isEmpty) {
       // Fallback for testing on Web
       accessKeyId = lookupPlatformEnv(zAccessKeyId) ?? '';
     }
     var secretAccessKey = const String.fromEnvironment(zSecretAccessKey);
-    if (secretAccessKey.isEmpty && zIsWeb) {
+    if (zIsWeb && zAssertsEnabled && secretAccessKey.isEmpty) {
       // Fallback for testing on Web
       secretAccessKey = lookupPlatformEnv(zSecretAccessKey) ?? '';
     }
     var sessionToken = const String.fromEnvironment(zSessionToken);
-    if (sessionToken.isEmpty && zIsWeb) {
+    if (zIsWeb && zAssertsEnabled && sessionToken.isEmpty) {
       // Fallback for testing on Web
       sessionToken = lookupPlatformEnv(zSessionToken) ?? '';
     }

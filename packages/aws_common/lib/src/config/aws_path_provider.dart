@@ -14,14 +14,12 @@
 
 import 'dart:async';
 
-import 'package:aws_common/src/config/aws_config_value.dart';
-import 'package:logging/logging.dart';
+import 'package:aws_common/aws_common.dart';
+import 'package:aws_common/src/config/aws_path_provider_stub.dart'
+    if (dart.library.io) 'package:aws_common/src/config/aws_path_provider_io.dart';
 import 'package:meta/meta.dart';
 import 'package:os_detect/os_detect.dart' as os;
 import 'package:path/path.dart';
-
-import 'aws_path_provider_stub.dart'
-    if (dart.library.io) 'aws_path_provider_io.dart';
 
 /// Matches home directory placeholders + optional user specifier, e.g. `~user`.
 final RegExp _homeDirExp = RegExp(r'^~(\w+)?');
@@ -38,7 +36,7 @@ abstract class AWSPathProvider {
   const AWSPathProvider.protected();
 
   /// Logger for [AWSPathProvider].
-  static final Logger logger = Logger('AWSPathProvider');
+  static final AWSLogger logger = AWSLogger('AWSPathProvider');
 
   /// The OS-dependent `package:path` [Context], with support for overrides
   /// via `package:os_detect`.
@@ -58,11 +56,11 @@ abstract class AWSPathProvider {
       return filepath;
     }
     final specifiedUser = homeDirExp.group(1);
-    logger.finest('Getting home directory for user: $specifiedUser');
+    logger.debug('Getting home directory for user: $specifiedUser');
     final resolvedHome = await getHomeDirectory(
       forUser: specifiedUser,
     );
-    logger.finest('Resolved home directory: $resolvedHome');
+    logger.debug('Resolved home directory: $resolvedHome');
     if (resolvedHome == null) {
       return null;
     }

@@ -33,7 +33,7 @@ Map<String, dynamic> _$FileLocationTestToJson(FileLocationTest instance) {
   }
 
   writeNotNull('languageSpecificHome', instance.languageSpecificHome);
-  val['platform'] = _$TestPlatformEnumMap[instance.platform];
+  val['platform'] = _$TestPlatformEnumMap[instance.platform]!;
   writeNotNull('profile', instance.profile);
   val['configLocation'] = instance.configLocation;
   val['credentialsLocation'] = instance.credentialsLocation;

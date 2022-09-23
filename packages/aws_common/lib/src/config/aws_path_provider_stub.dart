@@ -12,9 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:logging/logging.dart';
-
-import 'aws_path_provider.dart';
+import 'package:aws_common/aws_common.dart';
 
 /// The stubbed implementation of [AWSPathProvider].
 ///
@@ -23,11 +21,11 @@ class AWSPathProviderImpl extends AWSPathProvider {
   /// {@macro aws_common.aws_path_provider}
   const AWSPathProviderImpl() : super.protected();
 
-  static final _logger = Logger('AWSPathProvider');
+  static final _logger = AWSLogger('AWSPathProvider');
 
   @override
   Future<String?> getHomeDirectory({String? forUser}) async {
-    _logger.warning('Home directory lookup not available on this platform');
+    _logger.warn('Home directory lookup not available on this platform');
     return null;
   }
 }
