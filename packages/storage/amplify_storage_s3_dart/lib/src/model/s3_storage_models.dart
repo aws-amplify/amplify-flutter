@@ -25,3 +25,11 @@ export 's3_storage_item.dart';
 export 's3_storage_list_operation.dart';
 export 's3_storage_list_options.dart';
 export 's3_storage_list_result.dart';
+
+export 's3_storage_remove_many_operation.dart';
+export 's3_storage_remove_many_options.dart';
+export 's3_storage_remove_many_result.dart';
+
+export 's3_storage_remove_operation.dart';
+export 's3_storage_remove_options.dart';
+export 's3_storage_remove_result.dart';

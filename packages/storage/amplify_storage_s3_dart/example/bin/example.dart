@@ -52,6 +52,7 @@ Future<void> main() async {
 1. list
 2. getProperties
 3. getUrl
+4. remove
 0. exit
 ''');
     final operationNum = int.tryParse(operation);
@@ -65,6 +66,9 @@ Future<void> main() async {
         break;
       case 3:
         await getUrlOperation();
+        break;
+      case 4:
+        await removeOperation();
         break;
       case null:
         break;
@@ -168,10 +172,34 @@ Future<void> getUrlOperation() async {
     stdout
       ..writeln('Generated url for key: $key, the url expires in 10 minutes:')
       ..writeln(result.url.toString());
-  } on S3StorageException catch (error) {
+  } on Exception catch (error) {
     stderr
       ..writeln('Something went wrong...')
-      ..writeln(error.message);
+      ..writeln(error);
+  }
+}
+
+Future<void> removeOperation() async {
+  final key = prompt('Enter the object key to remove: ');
+  final storageAccessLevel = promptStorageAccessLevel();
+
+  final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
+  final removeOperation = s3Plugin.remove(
+    key: key,
+    options: S3StorageRemoveOptions(
+      storageAccessLevel: storageAccessLevel,
+    ),
+  );
+
+  try {
+    final result = await removeOperation.result;
+    stdout
+      ..writeln('Remove completed.')
+      ..writeln('Removed object: ${result.removedItem.key}');
+  } on Exception catch (error) {
+    stderr
+      ..writeln('Something went wrong...')
+      ..writeln(error);
   }
 }
 

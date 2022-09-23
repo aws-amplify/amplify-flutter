@@ -13,16 +13,16 @@
 // limitations under the License.
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_storage_s3_dart/src/model/s3_storage_models.dart';
 
-/// {@template amplify_core.storage.remove_many_result}
-/// Presents the result of a [StorageRemoveManyOperation].
+/// {@template storage.amplify_storage_s3.remove_operation}
+/// An operation created by calling Storage S3 plugin `remove` API.
 /// {@endtemplate}
-class StorageRemoveManyResult<Item extends StorageItem> {
-  /// {@macro amplify_core.storage.remove_many_result}
-  const StorageRemoveManyResult({
-    required this.removedItems,
+class S3StorageRemoveOperation extends StorageRemoveOperation<
+    StorageRemoveRequest<S3StorageRemoveOptions>, S3StorageRemoveResult> {
+  /// {@macro storage.amplify_storage_s3.remove_operation}
+  S3StorageRemoveOperation({
+    required super.request,
+    required super.result,
   });
-
-  /// The removed objects of the [StorageRemoveManyOperation].
-  final List<Item> removedItems;
 }
