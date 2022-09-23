@@ -1,5 +1,6 @@
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/version.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 import 'package:built_collection/built_collection.dart';
@@ -12,8 +13,6 @@ class EventCreator {
 
   final EventGlobalFieldsManager _globalFieldsManager;
   final DeviceContextInfoProvider? _deviceContextInfoProvider;
-
-  // TODO - consider failure to save event
 
   EventCreator._getInstance(
       this._globalFieldsManager, this._deviceContextInfoProvider);
@@ -35,10 +34,8 @@ class EventCreator {
 
     // Fill in defaults for all events
     eventBuilder.eventType = eventType;
-    eventBuilder.sdkName = 'aws-sdk-dart';
-    // TODO get from pubspec
-    eventBuilder.clientSdkVersion = '0.1.0';
-
+    eventBuilder.sdkName = 'amplify-flutter';
+    eventBuilder.clientSdkVersion = packageVersion;
     eventBuilder.session = sessionBuilder;
 
     eventBuilder.timestamp = DateTime.now().toIso8601String();

@@ -60,8 +60,6 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     String appId = pinpointConfig.pinpointAnalytics.appId;
     String region = pinpointConfig.pinpointAnalytics.region;
 
-    // TODO - values hardcoded because default CredentialProvider is giving null values ...
-
     const providerKey = AmplifyAuthProviderToken<AWSIamAmplifyAuthProvider>();
     AWSIamAmplifyAuthProvider? authProvider =
         authProviderRepo.getAuthProvider(providerKey);

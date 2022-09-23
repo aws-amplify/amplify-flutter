@@ -3,9 +3,6 @@ import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.
 import 'package:drift/drift.dart';
 
 import 'package:drift/native.dart';
-// no web ...
-// TODO - how find storage location on web?
-//import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 
 part 'drift_tables.g.dart';
@@ -46,17 +43,10 @@ class DriftDatabaseJsonStrings extends _$DriftDatabaseJsonStrings {
 LazyDatabase _openConnection(PathProvider? pathProvider) {
   // the LazyDatabase util lets us find the right location for the file async.
   return LazyDatabase(() async {
-    // put the database file, called db.sqlite here, into the documents folder
-    // for your app.
-
-    // FOR NATIVE (not web though ...)
-    //final dbFolder = await getApplicationDocumentsDirectory();
-
-    // TEMP TODO - define final cross platform storage location
-    //final file = File(p.join(dbFolder.path, 'db.sqlite'));
     final dir = await pathProvider!.getApplicationSupportPath();
-
     final file = File(p.join(dir.path, 'db.sqlite'));
+
+    // TODO - WEB?
     return NativeDatabase(file);
   });
 }

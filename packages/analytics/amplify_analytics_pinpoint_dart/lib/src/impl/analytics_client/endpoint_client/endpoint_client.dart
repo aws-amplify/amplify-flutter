@@ -108,14 +108,16 @@ class EndpointClient {
     }
 
     // TODO: Android has the class AWSPinpointUserProfile with an additional AnalyticsProperties
+    // Note: iOS doesn't have that though ...
     /*
-    if (userProfile.properties != null) {
+    if userProfile is AWSPinpointUserProfile
+    look through its additional analytics properties fields
+    and add to userBuilder as follows =>
       var userAttributesBuilder = ListMultimapBuilder<String, String>();
       userProfile.properties!.getAllProperties().forEach((key, value) {
         userAttributesBuilder.add(key, value.toString());
       });
       userBuilder.userAttributes = userAttributesBuilder;
-    }
      */
 
     _endpointBuilder.user = newUserBuilder;
