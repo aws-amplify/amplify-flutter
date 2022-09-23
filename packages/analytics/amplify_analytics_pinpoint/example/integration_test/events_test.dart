@@ -11,6 +11,7 @@
 // express or implied. See the License for the specific language governing
 // permissions and limitations under the License.
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
@@ -47,16 +48,21 @@ void main() {
       ]);
       await Amplify.configure(amplifyconfig);
 
+      final subscriptionEstablished = Completer<void>();
+
       eventsStream = Amplify.API
           .subscribe(
-        GraphQLRequest<String>(document: '''
-subscription {
-  onCreateRecord {
-    id
-    payload
-  }
-}
-'''),
+        GraphQLRequest<String>(
+          document: '''
+            subscription {
+              onCreateRecord {
+                id
+                payload
+              }
+            }
+            ''',
+        ),
+        onEstablished: subscriptionEstablished.complete,
       )
           .map((event) {
         if (event.errors.isNotEmpty) {
@@ -71,15 +77,24 @@ subscription {
             as Map<String, Object?>;
       }).asBroadcastStream();
 
-      eventsStream.listen((event) {
-        print('Got event: ${jsonEncode(event)}');
-      });
+      expect(
+        eventsStream,
+        emitsThrough(
+          containsPair('event_type', '_session.start'),
+        ),
+      );
+
+      await subscriptionEstablished.future.timeout(
+        const Duration(seconds: 30),
+        onTimeout: () => fail('Subscription could not be established'),
+      );
     });
 
     test(
       'can record custom event',
       () async {
-        final customEvent = AnalyticsEvent('MyCustomEvent');
+        final customEventId = uuid();
+        final customEvent = AnalyticsEvent(customEventId);
 
         customEvent.properties
           ..addBoolProperty(boolProperty.key, boolProperty.value)
@@ -109,7 +124,7 @@ subscription {
         expect(
           eventsStream,
           emitsThrough(allOf([
-            containsPair('event_type', 'MyCustomEvent'),
+            containsPair('event_type', customEventId),
             containsPair(
               'attributes',
               // Boolean properties are recorded as strings
@@ -126,7 +141,7 @@ subscription {
         await Amplify.Analytics.recordEvent(event: customEvent);
         await Amplify.Analytics.flushEvents();
       },
-      timeout: const Timeout(Duration(minutes: 1)),
+      timeout: const Timeout(Duration(minutes: 2)),
     );
   });
 }
