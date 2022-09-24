@@ -36,13 +36,15 @@ abstract class InitiateAuthResponse
   factory InitiateAuthResponse({
     _i2.AuthenticationResultType? authenticationResult,
     _i3.ChallengeNameType? challengeName,
-    _i4.BuiltMap<String, String>? challengeParameters,
+    Map<String, String>? challengeParameters,
     String? session,
   }) {
     return _$InitiateAuthResponse._(
       authenticationResult: authenticationResult,
       challengeName: challengeName,
-      challengeParameters: challengeParameters,
+      challengeParameters: challengeParameters == null
+          ? null
+          : _i4.BuiltMap(challengeParameters),
       session: session,
     );
   }

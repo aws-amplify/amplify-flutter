@@ -8,13 +8,13 @@ part of amplify_auth_cognito_dart.cognito_identity_provider.model.get_user_respo
 
 class _$GetUserResponse extends GetUserResponse {
   @override
-  final _i2.BuiltList<_i3.MfaOptionType>? mfaOptions;
+  final _i4.BuiltList<_i2.MfaOptionType>? mfaOptions;
   @override
   final String? preferredMfaSetting;
   @override
-  final _i2.BuiltList<_i4.AttributeType> userAttributes;
+  final _i4.BuiltList<_i3.AttributeType> userAttributes;
   @override
-  final _i2.BuiltList<String>? userMfaSettingList;
+  final _i4.BuiltList<String>? userMfaSettingList;
   @override
   final String username;
 
@@ -68,10 +68,10 @@ class GetUserResponseBuilder
     implements Builder<GetUserResponse, GetUserResponseBuilder> {
   _$GetUserResponse? _$v;
 
-  _i2.ListBuilder<_i3.MfaOptionType>? _mfaOptions;
-  _i2.ListBuilder<_i3.MfaOptionType> get mfaOptions =>
-      _$this._mfaOptions ??= new _i2.ListBuilder<_i3.MfaOptionType>();
-  set mfaOptions(_i2.ListBuilder<_i3.MfaOptionType>? mfaOptions) =>
+  _i4.ListBuilder<_i2.MfaOptionType>? _mfaOptions;
+  _i4.ListBuilder<_i2.MfaOptionType> get mfaOptions =>
+      _$this._mfaOptions ??= new _i4.ListBuilder<_i2.MfaOptionType>();
+  set mfaOptions(_i4.ListBuilder<_i2.MfaOptionType>? mfaOptions) =>
       _$this._mfaOptions = mfaOptions;
 
   String? _preferredMfaSetting;
@@ -79,16 +79,16 @@ class GetUserResponseBuilder
   set preferredMfaSetting(String? preferredMfaSetting) =>
       _$this._preferredMfaSetting = preferredMfaSetting;
 
-  _i2.ListBuilder<_i4.AttributeType>? _userAttributes;
-  _i2.ListBuilder<_i4.AttributeType> get userAttributes =>
-      _$this._userAttributes ??= new _i2.ListBuilder<_i4.AttributeType>();
-  set userAttributes(_i2.ListBuilder<_i4.AttributeType>? userAttributes) =>
+  _i4.ListBuilder<_i3.AttributeType>? _userAttributes;
+  _i4.ListBuilder<_i3.AttributeType> get userAttributes =>
+      _$this._userAttributes ??= new _i4.ListBuilder<_i3.AttributeType>();
+  set userAttributes(_i4.ListBuilder<_i3.AttributeType>? userAttributes) =>
       _$this._userAttributes = userAttributes;
 
-  _i2.ListBuilder<String>? _userMfaSettingList;
-  _i2.ListBuilder<String> get userMfaSettingList =>
-      _$this._userMfaSettingList ??= new _i2.ListBuilder<String>();
-  set userMfaSettingList(_i2.ListBuilder<String>? userMfaSettingList) =>
+  _i4.ListBuilder<String>? _userMfaSettingList;
+  _i4.ListBuilder<String> get userMfaSettingList =>
+      _$this._userMfaSettingList ??= new _i4.ListBuilder<String>();
+  set userMfaSettingList(_i4.ListBuilder<String>? userMfaSettingList) =>
       _$this._userMfaSettingList = userMfaSettingList;
 
   String? _username;

@@ -36,12 +36,12 @@ abstract class GetCredentialsForIdentityInput
   factory GetCredentialsForIdentityInput({
     String? customRoleArn,
     required String identityId,
-    _i3.BuiltMap<String, String>? logins,
+    Map<String, String>? logins,
   }) {
     return _$GetCredentialsForIdentityInput._(
       customRoleArn: customRoleArn,
       identityId: identityId,
-      logins: logins,
+      logins: logins == null ? null : _i3.BuiltMap(logins),
     );
   }
 

@@ -27,7 +27,6 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
 import 'package:amplify_auth_cognito_dart/src/state/machines/generated/fetch_auth_session_state_machine_base.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:stream_transform/stream_transform.dart';
 
 /// {@template amplify_auth_cognito.fetch_auth_session_state_machine}
@@ -112,7 +111,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
       () => _cognitoIdentityClient.getId(
         GetIdInput(
           identityPoolId: config.poolId,
-          logins: BuiltMap(_logins(federatedIdentity)),
+          logins: _logins(federatedIdentity),
         ),
       ),
     );
@@ -132,7 +131,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
       () => _cognitoIdentityClient.getCredentialsForIdentity(
         GetCredentialsForIdentityInput(
           identityId: identityId,
-          logins: BuiltMap(_logins(federatedIdentity)),
+          logins: _logins(federatedIdentity),
         ),
       ),
     );

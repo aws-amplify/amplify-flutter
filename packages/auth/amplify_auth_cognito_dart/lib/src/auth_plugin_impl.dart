@@ -53,7 +53,6 @@ import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
@@ -767,7 +766,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       cognito.GetUserAttributeVerificationCodeRequest(
         accessToken: userPoolTokens.accessToken.raw,
         attributeName: request.userAttributeKey.key,
-        clientMetadata: BuiltMap(options?.clientMetadata ?? const {}),
+        clientMetadata: options?.clientMetadata,
       ),
     );
     final codeDeliveryDetails =
