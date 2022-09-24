@@ -19,9 +19,9 @@ library amplify_auth_cognito_dart.cognito_identity_provider.model.confirm_sign_u
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart'
     as _i3;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/user_context_data_type.dart'
-    as _i5;
+    as _i4;
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i5;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
@@ -38,17 +38,18 @@ abstract class ConfirmSignUpRequest
   factory ConfirmSignUpRequest({
     _i3.AnalyticsMetadataType? analyticsMetadata,
     required String clientId,
-    _i4.BuiltMap<String, String>? clientMetadata,
+    Map<String, String>? clientMetadata,
     required String confirmationCode,
     bool? forceAliasCreation,
     String? secretHash,
-    _i5.UserContextDataType? userContextData,
+    _i4.UserContextDataType? userContextData,
     required String username,
   }) {
     return _$ConfirmSignUpRequest._(
       analyticsMetadata: analyticsMetadata,
       clientId: clientId,
-      clientMetadata: clientMetadata,
+      clientMetadata:
+          clientMetadata == null ? null : _i5.BuiltMap(clientMetadata),
       confirmationCode: confirmationCode,
       forceAliasCreation: forceAliasCreation,
       secretHash: secretHash,
@@ -97,7 +98,7 @@ abstract class ConfirmSignUpRequest
   /// *   Validate the ClientMetadata value.
   ///
   /// *   Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
-  _i4.BuiltMap<String, String>? get clientMetadata;
+  _i5.BuiltMap<String, String>? get clientMetadata;
 
   /// The confirmation code sent by a user's request to confirm registration.
   String get confirmationCode;
@@ -109,7 +110,7 @@ abstract class ConfirmSignUpRequest
   String? get secretHash;
 
   /// Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito advanced security evaluates the risk of an authentication event based on the context that your app generates and passes to Amazon Cognito when it makes API requests.
-  _i5.UserContextDataType? get userContextData;
+  _i4.UserContextDataType? get userContextData;
 
   /// The user name of the user whose registration you want to confirm.
   String get username;
@@ -214,13 +215,13 @@ class ConfirmSignUpRequestAwsJson11Serializer
             result.clientMetadata.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i4.BuiltMap,
+                _i5.BuiltMap,
                 [
                   FullType(String),
                   FullType(String),
                 ],
               ),
-            ) as _i4.BuiltMap<String, String>));
+            ) as _i5.BuiltMap<String, String>));
           }
           break;
         case 'ConfirmationCode':
@@ -249,8 +250,8 @@ class ConfirmSignUpRequestAwsJson11Serializer
           if (value != null) {
             result.userContextData.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i5.UserContextDataType),
-            ) as _i5.UserContextDataType));
+              specifiedType: const FullType(_i4.UserContextDataType),
+            ) as _i4.UserContextDataType));
           }
           break;
         case 'Username':
@@ -303,7 +304,7 @@ class ConfirmSignUpRequestAwsJson11Serializer
         ..add(serializers.serialize(
           payload.clientMetadata!,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i5.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -332,7 +333,7 @@ class ConfirmSignUpRequestAwsJson11Serializer
         ..add('UserContextData')
         ..add(serializers.serialize(
           payload.userContextData!,
-          specifiedType: const FullType(_i5.UserContextDataType),
+          specifiedType: const FullType(_i4.UserContextDataType),
         ));
     }
     return result;

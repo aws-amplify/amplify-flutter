@@ -10,9 +10,9 @@ class _$UpdateUserAttributesRequest extends UpdateUserAttributesRequest {
   @override
   final String accessToken;
   @override
-  final _i3.BuiltMap<String, String>? clientMetadata;
+  final _i4.BuiltMap<String, String>? clientMetadata;
   @override
-  final _i3.BuiltList<_i4.AttributeType> userAttributes;
+  final _i4.BuiltList<_i3.AttributeType> userAttributes;
 
   factory _$UpdateUserAttributesRequest(
           [void Function(UpdateUserAttributesRequestBuilder)? updates]) =>
@@ -64,16 +64,16 @@ class UpdateUserAttributesRequestBuilder
   String? get accessToken => _$this._accessToken;
   set accessToken(String? accessToken) => _$this._accessToken = accessToken;
 
-  _i3.MapBuilder<String, String>? _clientMetadata;
-  _i3.MapBuilder<String, String> get clientMetadata =>
-      _$this._clientMetadata ??= new _i3.MapBuilder<String, String>();
-  set clientMetadata(_i3.MapBuilder<String, String>? clientMetadata) =>
+  _i4.MapBuilder<String, String>? _clientMetadata;
+  _i4.MapBuilder<String, String> get clientMetadata =>
+      _$this._clientMetadata ??= new _i4.MapBuilder<String, String>();
+  set clientMetadata(_i4.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
-  _i3.ListBuilder<_i4.AttributeType>? _userAttributes;
-  _i3.ListBuilder<_i4.AttributeType> get userAttributes =>
-      _$this._userAttributes ??= new _i3.ListBuilder<_i4.AttributeType>();
-  set userAttributes(_i3.ListBuilder<_i4.AttributeType>? userAttributes) =>
+  _i4.ListBuilder<_i3.AttributeType>? _userAttributes;
+  _i4.ListBuilder<_i3.AttributeType> get userAttributes =>
+      _$this._userAttributes ??= new _i4.ListBuilder<_i3.AttributeType>();
+  set userAttributes(_i4.ListBuilder<_i3.AttributeType>? userAttributes) =>
       _$this._userAttributes = userAttributes;
 
   UpdateUserAttributesRequestBuilder() {
