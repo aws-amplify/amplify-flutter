@@ -21,9 +21,9 @@ import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/auth_flow_type.dart'
     as _i4;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/user_context_data_type.dart'
-    as _i6;
+    as _i5;
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
@@ -40,17 +40,19 @@ abstract class InitiateAuthRequest
   factory InitiateAuthRequest({
     _i3.AnalyticsMetadataType? analyticsMetadata,
     required _i4.AuthFlowType authFlow,
-    _i5.BuiltMap<String, String>? authParameters,
+    Map<String, String>? authParameters,
     required String clientId,
-    _i5.BuiltMap<String, String>? clientMetadata,
-    _i6.UserContextDataType? userContextData,
+    Map<String, String>? clientMetadata,
+    _i5.UserContextDataType? userContextData,
   }) {
     return _$InitiateAuthRequest._(
       analyticsMetadata: analyticsMetadata,
       authFlow: authFlow,
-      authParameters: authParameters,
+      authParameters:
+          authParameters == null ? null : _i6.BuiltMap(authParameters),
       clientId: clientId,
-      clientMetadata: clientMetadata,
+      clientMetadata:
+          clientMetadata == null ? null : _i6.BuiltMap(clientMetadata),
       userContextData: userContextData,
     );
   }
@@ -109,7 +111,7 @@ abstract class InitiateAuthRequest
   /// *   For `REFRESH\_TOKEN\_AUTH/REFRESH_TOKEN`: `REFRESH_TOKEN` (required), `SECRET_HASH` (required if the app client is configured with a client secret), `DEVICE_KEY`.
   ///
   /// *   For `CUSTOM_AUTH`: `USERNAME` (required), `SECRET_HASH` (if app client is configured with client secret), `DEVICE_KEY`. To start the authentication flow with password verification, include `ChallengeName: SRP_A` and `SRP\_A: (The SRP\_A Value)`.
-  _i5.BuiltMap<String, String>? get authParameters;
+  _i6.BuiltMap<String, String>? get authParameters;
 
   /// The app client ID.
   String get clientId;
@@ -151,10 +153,10 @@ abstract class InitiateAuthRequest
   /// *   Validate the ClientMetadata value.
   ///
   /// *   Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
-  _i5.BuiltMap<String, String>? get clientMetadata;
+  _i6.BuiltMap<String, String>? get clientMetadata;
 
   /// Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito advanced security evaluates the risk of an authentication event based on the context that your app generates and passes to Amazon Cognito when it makes API requests.
-  _i6.UserContextDataType? get userContextData;
+  _i5.UserContextDataType? get userContextData;
   @override
   InitiateAuthRequest getPayload() => this;
   @override
@@ -245,13 +247,13 @@ class InitiateAuthRequestAwsJson11Serializer
             result.authParameters.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i5.BuiltMap,
+                _i6.BuiltMap,
                 [
                   FullType(String),
                   FullType(String),
                 ],
               ),
-            ) as _i5.BuiltMap<String, String>));
+            ) as _i6.BuiltMap<String, String>));
           }
           break;
         case 'ClientId':
@@ -265,21 +267,21 @@ class InitiateAuthRequestAwsJson11Serializer
             result.clientMetadata.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i5.BuiltMap,
+                _i6.BuiltMap,
                 [
                   FullType(String),
                   FullType(String),
                 ],
               ),
-            ) as _i5.BuiltMap<String, String>));
+            ) as _i6.BuiltMap<String, String>));
           }
           break;
         case 'UserContextData':
           if (value != null) {
             result.userContextData.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i6.UserContextDataType),
-            ) as _i6.UserContextDataType));
+              specifiedType: const FullType(_i5.UserContextDataType),
+            ) as _i5.UserContextDataType));
           }
           break;
       }
@@ -321,7 +323,7 @@ class InitiateAuthRequestAwsJson11Serializer
         ..add(serializers.serialize(
           payload.authParameters!,
           specifiedType: const FullType(
-            _i5.BuiltMap,
+            _i6.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -335,7 +337,7 @@ class InitiateAuthRequestAwsJson11Serializer
         ..add(serializers.serialize(
           payload.clientMetadata!,
           specifiedType: const FullType(
-            _i5.BuiltMap,
+            _i6.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -348,7 +350,7 @@ class InitiateAuthRequestAwsJson11Serializer
         ..add('UserContextData')
         ..add(serializers.serialize(
           payload.userContextData!,
-          specifiedType: const FullType(_i6.UserContextDataType),
+          specifiedType: const FullType(_i5.UserContextDataType),
         ));
     }
     return result;

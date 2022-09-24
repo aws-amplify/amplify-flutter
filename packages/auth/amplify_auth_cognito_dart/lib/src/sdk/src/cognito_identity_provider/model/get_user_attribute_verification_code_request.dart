@@ -36,12 +36,13 @@ abstract class GetUserAttributeVerificationCodeRequest
   factory GetUserAttributeVerificationCodeRequest({
     required String accessToken,
     required String attributeName,
-    _i3.BuiltMap<String, String>? clientMetadata,
+    Map<String, String>? clientMetadata,
   }) {
     return _$GetUserAttributeVerificationCodeRequest._(
       accessToken: accessToken,
       attributeName: attributeName,
-      clientMetadata: clientMetadata,
+      clientMetadata:
+          clientMetadata == null ? null : _i3.BuiltMap(clientMetadata),
     );
   }
 

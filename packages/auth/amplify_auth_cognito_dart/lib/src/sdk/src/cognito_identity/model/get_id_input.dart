@@ -32,12 +32,12 @@ abstract class GetIdInput
   factory GetIdInput({
     String? accountId,
     required String identityPoolId,
-    _i3.BuiltMap<String, String>? logins,
+    Map<String, String>? logins,
   }) {
     return _$GetIdInput._(
       accountId: accountId,
       identityPoolId: identityPoolId,
-      logins: logins,
+      logins: logins == null ? null : _i3.BuiltMap(logins),
     );
   }
 
