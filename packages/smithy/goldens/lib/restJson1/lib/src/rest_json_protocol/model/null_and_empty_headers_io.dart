@@ -22,12 +22,12 @@ abstract class NullAndEmptyHeadersIo
   factory NullAndEmptyHeadersIo({
     String? a,
     String? b,
-    _i3.BuiltList<String>? c,
+    List<String>? c,
   }) {
     return _$NullAndEmptyHeadersIo._(
       a: a,
       b: b,
-      c: c,
+      c: c == null ? null : _i3.BuiltList(c),
     );
   }
 

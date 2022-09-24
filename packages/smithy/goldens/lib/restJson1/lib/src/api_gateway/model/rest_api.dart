@@ -3,13 +3,13 @@
 library rest_json1_v1.api_gateway.model.rest_api; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:rest_json1_v1/src/api_gateway/model/api_key_source_type.dart'
     as _i2;
 import 'package:rest_json1_v1/src/api_gateway/model/endpoint_configuration.dart'
-    as _i4;
+    as _i3;
 import 'package:smithy/smithy.dart' as _i5;
 
 part 'rest_api.g.dart';
@@ -19,22 +19,23 @@ abstract class RestApi
     implements Built<RestApi, RestApiBuilder> {
   factory RestApi({
     _i2.ApiKeySourceType? apiKeySource,
-    _i3.BuiltList<String>? binaryMediaTypes,
+    List<String>? binaryMediaTypes,
     DateTime? createdDate,
     String? description,
     bool? disableExecuteApiEndpoint,
-    _i4.EndpointConfiguration? endpointConfiguration,
+    _i3.EndpointConfiguration? endpointConfiguration,
     String? id,
     int? minimumCompressionSize,
     String? name,
     String? policy,
-    _i3.BuiltMap<String, String>? tags,
+    Map<String, String>? tags,
     String? version,
-    _i3.BuiltList<String>? warnings,
+    List<String>? warnings,
   }) {
     return _$RestApi._(
       apiKeySource: apiKeySource,
-      binaryMediaTypes: binaryMediaTypes,
+      binaryMediaTypes:
+          binaryMediaTypes == null ? null : _i4.BuiltList(binaryMediaTypes),
       createdDate: createdDate,
       description: description,
       disableExecuteApiEndpoint: disableExecuteApiEndpoint,
@@ -43,9 +44,9 @@ abstract class RestApi
       minimumCompressionSize: minimumCompressionSize,
       name: name,
       policy: policy,
-      tags: tags,
+      tags: tags == null ? null : _i4.BuiltMap(tags),
       version: version,
-      warnings: warnings,
+      warnings: warnings == null ? null : _i4.BuiltList(warnings),
     );
   }
 
@@ -60,18 +61,18 @@ abstract class RestApi
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RestApiBuilder b) {}
   _i2.ApiKeySourceType? get apiKeySource;
-  _i3.BuiltList<String>? get binaryMediaTypes;
+  _i4.BuiltList<String>? get binaryMediaTypes;
   DateTime? get createdDate;
   String? get description;
   bool? get disableExecuteApiEndpoint;
-  _i4.EndpointConfiguration? get endpointConfiguration;
+  _i3.EndpointConfiguration? get endpointConfiguration;
   String? get id;
   int? get minimumCompressionSize;
   String? get name;
   String? get policy;
-  _i3.BuiltMap<String, String>? get tags;
+  _i4.BuiltMap<String, String>? get tags;
   String? get version;
-  _i3.BuiltList<String>? get warnings;
+  _i4.BuiltList<String>? get warnings;
   @override
   List<Object?> get props => [
         apiKeySource,
@@ -189,10 +190,10 @@ class RestApiRestJson1Serializer
             result.binaryMediaTypes.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i3.BuiltList,
+                _i4.BuiltList,
                 [FullType(String)],
               ),
-            ) as _i3.BuiltList<String>));
+            ) as _i4.BuiltList<String>));
           }
           break;
         case 'createdDate':
@@ -223,8 +224,8 @@ class RestApiRestJson1Serializer
           if (value != null) {
             result.endpointConfiguration.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.EndpointConfiguration),
-            ) as _i4.EndpointConfiguration));
+              specifiedType: const FullType(_i3.EndpointConfiguration),
+            ) as _i3.EndpointConfiguration));
           }
           break;
         case 'id':
@@ -264,13 +265,13 @@ class RestApiRestJson1Serializer
             result.tags.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i3.BuiltMap,
+                _i4.BuiltMap,
                 [
                   FullType(String),
                   FullType(String),
                 ],
               ),
-            ) as _i3.BuiltMap<String, String>));
+            ) as _i4.BuiltMap<String, String>));
           }
           break;
         case 'version':
@@ -286,10 +287,10 @@ class RestApiRestJson1Serializer
             result.warnings.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i3.BuiltList,
+                _i4.BuiltList,
                 [FullType(String)],
               ),
-            ) as _i3.BuiltList<String>));
+            ) as _i4.BuiltList<String>));
           }
           break;
       }
@@ -320,7 +321,7 @@ class RestApiRestJson1Serializer
         ..add(serializers.serialize(
           payload.binaryMediaTypes!,
           specifiedType: const FullType(
-            _i3.BuiltList,
+            _i4.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -354,7 +355,7 @@ class RestApiRestJson1Serializer
         ..add('endpointConfiguration')
         ..add(serializers.serialize(
           payload.endpointConfiguration!,
-          specifiedType: const FullType(_i4.EndpointConfiguration),
+          specifiedType: const FullType(_i3.EndpointConfiguration),
         ));
     }
     if (payload.id != null) {
@@ -395,7 +396,7 @@ class RestApiRestJson1Serializer
         ..add(serializers.serialize(
           payload.tags!,
           specifiedType: const FullType(
-            _i3.BuiltMap,
+            _i4.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -417,7 +418,7 @@ class RestApiRestJson1Serializer
         ..add(serializers.serialize(
           payload.warnings!,
           specifiedType: const FullType(
-            _i3.BuiltList,
+            _i4.BuiltList,
             [FullType(String)],
           ),
         ));

@@ -10,7 +10,7 @@ class _$RestApi extends RestApi {
   @override
   final _i2.ApiKeySourceType? apiKeySource;
   @override
-  final _i3.BuiltList<String>? binaryMediaTypes;
+  final _i4.BuiltList<String>? binaryMediaTypes;
   @override
   final DateTime? createdDate;
   @override
@@ -18,7 +18,7 @@ class _$RestApi extends RestApi {
   @override
   final bool? disableExecuteApiEndpoint;
   @override
-  final _i4.EndpointConfiguration? endpointConfiguration;
+  final _i3.EndpointConfiguration? endpointConfiguration;
   @override
   final String? id;
   @override
@@ -28,11 +28,11 @@ class _$RestApi extends RestApi {
   @override
   final String? policy;
   @override
-  final _i3.BuiltMap<String, String>? tags;
+  final _i4.BuiltMap<String, String>? tags;
   @override
   final String? version;
   @override
-  final _i3.BuiltList<String>? warnings;
+  final _i4.BuiltList<String>? warnings;
 
   factory _$RestApi([void Function(RestApiBuilder)? updates]) =>
       (new RestApiBuilder()..update(updates))._build();
@@ -118,10 +118,10 @@ class RestApiBuilder implements Builder<RestApi, RestApiBuilder> {
   set apiKeySource(_i2.ApiKeySourceType? apiKeySource) =>
       _$this._apiKeySource = apiKeySource;
 
-  _i3.ListBuilder<String>? _binaryMediaTypes;
-  _i3.ListBuilder<String> get binaryMediaTypes =>
-      _$this._binaryMediaTypes ??= new _i3.ListBuilder<String>();
-  set binaryMediaTypes(_i3.ListBuilder<String>? binaryMediaTypes) =>
+  _i4.ListBuilder<String>? _binaryMediaTypes;
+  _i4.ListBuilder<String> get binaryMediaTypes =>
+      _$this._binaryMediaTypes ??= new _i4.ListBuilder<String>();
+  set binaryMediaTypes(_i4.ListBuilder<String>? binaryMediaTypes) =>
       _$this._binaryMediaTypes = binaryMediaTypes;
 
   DateTime? _createdDate;
@@ -137,11 +137,11 @@ class RestApiBuilder implements Builder<RestApi, RestApiBuilder> {
   set disableExecuteApiEndpoint(bool? disableExecuteApiEndpoint) =>
       _$this._disableExecuteApiEndpoint = disableExecuteApiEndpoint;
 
-  _i4.EndpointConfigurationBuilder? _endpointConfiguration;
-  _i4.EndpointConfigurationBuilder get endpointConfiguration =>
-      _$this._endpointConfiguration ??= new _i4.EndpointConfigurationBuilder();
+  _i3.EndpointConfigurationBuilder? _endpointConfiguration;
+  _i3.EndpointConfigurationBuilder get endpointConfiguration =>
+      _$this._endpointConfiguration ??= new _i3.EndpointConfigurationBuilder();
   set endpointConfiguration(
-          _i4.EndpointConfigurationBuilder? endpointConfiguration) =>
+          _i3.EndpointConfigurationBuilder? endpointConfiguration) =>
       _$this._endpointConfiguration = endpointConfiguration;
 
   String? _id;
@@ -161,19 +161,19 @@ class RestApiBuilder implements Builder<RestApi, RestApiBuilder> {
   String? get policy => _$this._policy;
   set policy(String? policy) => _$this._policy = policy;
 
-  _i3.MapBuilder<String, String>? _tags;
-  _i3.MapBuilder<String, String> get tags =>
-      _$this._tags ??= new _i3.MapBuilder<String, String>();
-  set tags(_i3.MapBuilder<String, String>? tags) => _$this._tags = tags;
+  _i4.MapBuilder<String, String>? _tags;
+  _i4.MapBuilder<String, String> get tags =>
+      _$this._tags ??= new _i4.MapBuilder<String, String>();
+  set tags(_i4.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
   String? _version;
   String? get version => _$this._version;
   set version(String? version) => _$this._version = version;
 
-  _i3.ListBuilder<String>? _warnings;
-  _i3.ListBuilder<String> get warnings =>
-      _$this._warnings ??= new _i3.ListBuilder<String>();
-  set warnings(_i3.ListBuilder<String>? warnings) =>
+  _i4.ListBuilder<String>? _warnings;
+  _i4.ListBuilder<String> get warnings =>
+      _$this._warnings ??= new _i4.ListBuilder<String>();
+  set warnings(_i4.ListBuilder<String>? warnings) =>
       _$this._warnings = warnings;
 
   RestApiBuilder() {

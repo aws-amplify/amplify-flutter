@@ -15,11 +15,11 @@ abstract class XmlNamespaceNested
     implements Built<XmlNamespaceNested, XmlNamespaceNestedBuilder> {
   factory XmlNamespaceNested({
     String? foo,
-    _i2.BuiltList<String>? values,
+    List<String>? values,
   }) {
     return _$XmlNamespaceNested._(
       foo: foo,
-      values: values,
+      values: values == null ? null : _i2.BuiltList(values),
     );
   }
 

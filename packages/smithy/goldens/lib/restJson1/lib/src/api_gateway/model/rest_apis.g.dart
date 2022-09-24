@@ -8,7 +8,7 @@ part of rest_json1_v1.api_gateway.model.rest_apis;
 
 class _$RestApis extends RestApis {
   @override
-  final _i2.BuiltList<_i3.RestApi>? items;
+  final _i3.BuiltList<_i2.RestApi>? items;
   @override
   final String? position;
 
@@ -41,10 +41,10 @@ class _$RestApis extends RestApis {
 class RestApisBuilder implements Builder<RestApis, RestApisBuilder> {
   _$RestApis? _$v;
 
-  _i2.ListBuilder<_i3.RestApi>? _items;
-  _i2.ListBuilder<_i3.RestApi> get items =>
-      _$this._items ??= new _i2.ListBuilder<_i3.RestApi>();
-  set items(_i2.ListBuilder<_i3.RestApi>? items) => _$this._items = items;
+  _i3.ListBuilder<_i2.RestApi>? _items;
+  _i3.ListBuilder<_i2.RestApi> get items =>
+      _$this._items ??= new _i3.ListBuilder<_i2.RestApi>();
+  set items(_i3.ListBuilder<_i2.RestApi>? items) => _$this._items = items;
 
   String? _position;
   String? get position => _$this._position;

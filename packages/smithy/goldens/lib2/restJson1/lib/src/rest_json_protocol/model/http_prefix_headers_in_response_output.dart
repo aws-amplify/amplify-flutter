@@ -20,8 +20,10 @@ abstract class HttpPrefixHeadersInResponseOutput
         _i2.EmptyPayload,
         _i2.HasPayload<HttpPrefixHeadersInResponseOutputPayload> {
   factory HttpPrefixHeadersInResponseOutput(
-      {_i3.BuiltMap<String, String>? prefixHeaders}) {
-    return _$HttpPrefixHeadersInResponseOutput._(prefixHeaders: prefixHeaders);
+      {Map<String, String>? prefixHeaders}) {
+    return _$HttpPrefixHeadersInResponseOutput._(
+        prefixHeaders:
+            prefixHeaders == null ? null : _i3.BuiltMap(prefixHeaders));
   }
 
   factory HttpPrefixHeadersInResponseOutput.build(

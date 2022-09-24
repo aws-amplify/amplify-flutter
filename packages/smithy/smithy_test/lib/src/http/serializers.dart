@@ -20,7 +20,6 @@ import 'package:built_value/src/bool_serializer.dart';
 import 'package:built_value/src/built_list_serializer.dart';
 import 'package:built_value/src/built_map_serializer.dart';
 import 'package:built_value/src/built_set_serializer.dart';
-import 'package:fixnum/fixnum.dart';
 import 'package:smithy/smithy.dart' hide Serializer;
 
 /// Built [Serializers] used when running Smithy tests, normalizing all types

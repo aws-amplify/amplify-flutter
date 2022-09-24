@@ -20,17 +20,17 @@ abstract class XmlEnumsInputOutput
     _i3.FooEnum? fooEnum1,
     _i3.FooEnum? fooEnum2,
     _i3.FooEnum? fooEnum3,
-    _i4.BuiltList<_i3.FooEnum>? fooEnumList,
-    _i4.BuiltMap<String, _i3.FooEnum>? fooEnumMap,
-    _i4.BuiltSet<_i3.FooEnum>? fooEnumSet,
+    List<_i3.FooEnum>? fooEnumList,
+    Map<String, _i3.FooEnum>? fooEnumMap,
+    Set<_i3.FooEnum>? fooEnumSet,
   }) {
     return _$XmlEnumsInputOutput._(
       fooEnum1: fooEnum1,
       fooEnum2: fooEnum2,
       fooEnum3: fooEnum3,
-      fooEnumList: fooEnumList,
-      fooEnumMap: fooEnumMap,
-      fooEnumSet: fooEnumSet,
+      fooEnumList: fooEnumList == null ? null : _i4.BuiltList(fooEnumList),
+      fooEnumMap: fooEnumMap == null ? null : _i4.BuiltMap(fooEnumMap),
+      fooEnumSet: fooEnumSet == null ? null : _i4.BuiltSet(fooEnumSet),
     );
   }
 

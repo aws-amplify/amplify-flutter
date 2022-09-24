@@ -3,12 +3,12 @@
 library rest_xml_v1.s3.model.list_objects_v2_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i5;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v1/src/s3/model/common_prefix.dart' as _i3;
-import 'package:rest_xml_v1/src/s3/model/encoding_type.dart' as _i5;
-import 'package:rest_xml_v1/src/s3/model/object.dart' as _i4;
+import 'package:rest_xml_v1/src/s3/model/common_prefix.dart' as _i2;
+import 'package:rest_xml_v1/src/s3/model/encoding_type.dart' as _i4;
+import 'package:rest_xml_v1/src/s3/model/object.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i6;
 
 part 'list_objects_v2_output.g.dart';
@@ -17,11 +17,11 @@ abstract class ListObjectsV2Output
     with _i1.AWSEquatable<ListObjectsV2Output>
     implements Built<ListObjectsV2Output, ListObjectsV2OutputBuilder> {
   factory ListObjectsV2Output({
-    _i2.BuiltList<_i3.CommonPrefix>? commonPrefixes,
-    _i2.BuiltList<_i4.S3Object>? contents,
+    List<_i2.CommonPrefix>? commonPrefixes,
+    List<_i3.S3Object>? contents,
     String? continuationToken,
     String? delimiter,
-    _i5.EncodingType? encodingType,
+    _i4.EncodingType? encodingType,
     bool? isTruncated,
     int? keyCount,
     int? maxKeys,
@@ -31,8 +31,9 @@ abstract class ListObjectsV2Output
     String? startAfter,
   }) {
     return _$ListObjectsV2Output._(
-      commonPrefixes: commonPrefixes,
-      contents: contents,
+      commonPrefixes:
+          commonPrefixes == null ? null : _i5.BuiltList(commonPrefixes),
+      contents: contents == null ? null : _i5.BuiltList(contents),
       continuationToken: continuationToken,
       delimiter: delimiter,
       encodingType: encodingType,
@@ -65,11 +66,11 @@ abstract class ListObjectsV2Output
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListObjectsV2OutputBuilder b) {}
-  _i2.BuiltList<_i3.CommonPrefix>? get commonPrefixes;
-  _i2.BuiltList<_i4.S3Object>? get contents;
+  _i5.BuiltList<_i2.CommonPrefix>? get commonPrefixes;
+  _i5.BuiltList<_i3.S3Object>? get contents;
   String? get continuationToken;
   String? get delimiter;
-  _i5.EncodingType? get encodingType;
+  _i4.EncodingType? get encodingType;
   bool? get isTruncated;
   int? get keyCount;
   int? get maxKeys;
@@ -180,16 +181,16 @@ class ListObjectsV2OutputRestXmlSerializer
           if (value != null) {
             result.commonPrefixes.add((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.CommonPrefix),
-            ) as _i3.CommonPrefix));
+              specifiedType: const FullType(_i2.CommonPrefix),
+            ) as _i2.CommonPrefix));
           }
           break;
         case 'Contents':
           if (value != null) {
             result.contents.add((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.S3Object),
-            ) as _i4.S3Object));
+              specifiedType: const FullType(_i3.S3Object),
+            ) as _i3.S3Object));
           }
           break;
         case 'ContinuationToken':
@@ -212,8 +213,8 @@ class ListObjectsV2OutputRestXmlSerializer
           if (value != null) {
             result.encodingType = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i5.EncodingType),
-            ) as _i5.EncodingType);
+              specifiedType: const FullType(_i4.EncodingType),
+            ) as _i4.EncodingType);
           }
           break;
         case 'IsTruncated':
@@ -298,8 +299,8 @@ class ListObjectsV2OutputRestXmlSerializer
         serializers,
         payload.commonPrefixes!,
         specifiedType: const FullType.nullable(
-          _i2.BuiltList,
-          [FullType(_i3.CommonPrefix)],
+          _i5.BuiltList,
+          [FullType(_i2.CommonPrefix)],
         ),
       ));
     }
@@ -309,8 +310,8 @@ class ListObjectsV2OutputRestXmlSerializer
         serializers,
         payload.contents!,
         specifiedType: const FullType.nullable(
-          _i2.BuiltList,
-          [FullType(_i4.S3Object)],
+          _i5.BuiltList,
+          [FullType(_i3.S3Object)],
         ),
       ));
     }
@@ -335,7 +336,7 @@ class ListObjectsV2OutputRestXmlSerializer
         ..add(const _i6.XmlElementName('EncodingType'))
         ..add(serializers.serialize(
           payload.encodingType!,
-          specifiedType: const FullType.nullable(_i5.EncodingType),
+          specifiedType: const FullType.nullable(_i4.EncodingType),
         ));
     }
     if (payload.isTruncated != null) {

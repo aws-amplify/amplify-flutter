@@ -19,11 +19,11 @@ abstract class HttpPrefixHeadersOutput
         _i2.HasPayload<HttpPrefixHeadersOutputPayload> {
   factory HttpPrefixHeadersOutput({
     String? foo,
-    _i3.BuiltMap<String, String>? fooMap,
+    Map<String, String>? fooMap,
   }) {
     return _$HttpPrefixHeadersOutput._(
       foo: foo,
-      fooMap: fooMap,
+      fooMap: fooMap == null ? null : _i3.BuiltMap(fooMap),
     );
   }
 

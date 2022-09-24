@@ -8,9 +8,9 @@ part of rest_xml_v2.rest_xml_protocol.model.nested_xml_maps_input_output;
 
 class _$NestedXmlMapsInputOutput extends NestedXmlMapsInputOutput {
   @override
-  final _i3.BuiltMap<String, _i3.BuiltMap<String, _i4.FooEnum>>? flatNestedMap;
+  final _i4.BuiltMap<String, _i4.BuiltMap<String, _i3.FooEnum>>? flatNestedMap;
   @override
-  final _i3.BuiltMap<String, _i3.BuiltMap<String, _i4.FooEnum>>? nestedMap;
+  final _i4.BuiltMap<String, _i4.BuiltMap<String, _i3.FooEnum>>? nestedMap;
 
   factory _$NestedXmlMapsInputOutput(
           [void Function(NestedXmlMapsInputOutputBuilder)? updates]) =>
@@ -47,21 +47,21 @@ class NestedXmlMapsInputOutputBuilder
         Builder<NestedXmlMapsInputOutput, NestedXmlMapsInputOutputBuilder> {
   _$NestedXmlMapsInputOutput? _$v;
 
-  _i3.MapBuilder<String, _i3.BuiltMap<String, _i4.FooEnum>>? _flatNestedMap;
-  _i3.MapBuilder<String, _i3.BuiltMap<String, _i4.FooEnum>> get flatNestedMap =>
+  _i4.MapBuilder<String, _i4.BuiltMap<String, _i3.FooEnum>>? _flatNestedMap;
+  _i4.MapBuilder<String, _i4.BuiltMap<String, _i3.FooEnum>> get flatNestedMap =>
       _$this._flatNestedMap ??=
-          new _i3.MapBuilder<String, _i3.BuiltMap<String, _i4.FooEnum>>();
+          new _i4.MapBuilder<String, _i4.BuiltMap<String, _i3.FooEnum>>();
   set flatNestedMap(
-          _i3.MapBuilder<String, _i3.BuiltMap<String, _i4.FooEnum>>?
+          _i4.MapBuilder<String, _i4.BuiltMap<String, _i3.FooEnum>>?
               flatNestedMap) =>
       _$this._flatNestedMap = flatNestedMap;
 
-  _i3.MapBuilder<String, _i3.BuiltMap<String, _i4.FooEnum>>? _nestedMap;
-  _i3.MapBuilder<String, _i3.BuiltMap<String, _i4.FooEnum>> get nestedMap =>
+  _i4.MapBuilder<String, _i4.BuiltMap<String, _i3.FooEnum>>? _nestedMap;
+  _i4.MapBuilder<String, _i4.BuiltMap<String, _i3.FooEnum>> get nestedMap =>
       _$this._nestedMap ??=
-          new _i3.MapBuilder<String, _i3.BuiltMap<String, _i4.FooEnum>>();
+          new _i4.MapBuilder<String, _i4.BuiltMap<String, _i3.FooEnum>>();
   set nestedMap(
-          _i3.MapBuilder<String, _i3.BuiltMap<String, _i4.FooEnum>>?
+          _i4.MapBuilder<String, _i4.BuiltMap<String, _i3.FooEnum>>?
               nestedMap) =>
       _$this._nestedMap = nestedMap;
 

@@ -8,13 +8,13 @@ part of rest_json1_v2.rest_json_validation_protocol.model.malformed_enum_input;
 
 class _$MalformedEnumInput extends MalformedEnumInput {
   @override
-  final _i3.BuiltList<_i4.EnumString>? list;
+  final _i5.BuiltList<_i3.EnumString>? list;
   @override
-  final _i3.BuiltMap<_i4.EnumString, _i4.EnumString>? map;
+  final _i5.BuiltMap<_i3.EnumString, _i3.EnumString>? map;
   @override
-  final _i4.EnumString? string;
+  final _i3.EnumString? string;
   @override
-  final _i5.EnumUnion? union;
+  final _i4.EnumUnion? union;
 
   factory _$MalformedEnumInput(
           [void Function(MalformedEnumInputBuilder)? updates]) =>
@@ -54,24 +54,24 @@ class MalformedEnumInputBuilder
     implements Builder<MalformedEnumInput, MalformedEnumInputBuilder> {
   _$MalformedEnumInput? _$v;
 
-  _i3.ListBuilder<_i4.EnumString>? _list;
-  _i3.ListBuilder<_i4.EnumString> get list =>
-      _$this._list ??= new _i3.ListBuilder<_i4.EnumString>();
-  set list(_i3.ListBuilder<_i4.EnumString>? list) => _$this._list = list;
+  _i5.ListBuilder<_i3.EnumString>? _list;
+  _i5.ListBuilder<_i3.EnumString> get list =>
+      _$this._list ??= new _i5.ListBuilder<_i3.EnumString>();
+  set list(_i5.ListBuilder<_i3.EnumString>? list) => _$this._list = list;
 
-  _i3.MapBuilder<_i4.EnumString, _i4.EnumString>? _map;
-  _i3.MapBuilder<_i4.EnumString, _i4.EnumString> get map =>
-      _$this._map ??= new _i3.MapBuilder<_i4.EnumString, _i4.EnumString>();
-  set map(_i3.MapBuilder<_i4.EnumString, _i4.EnumString>? map) =>
+  _i5.MapBuilder<_i3.EnumString, _i3.EnumString>? _map;
+  _i5.MapBuilder<_i3.EnumString, _i3.EnumString> get map =>
+      _$this._map ??= new _i5.MapBuilder<_i3.EnumString, _i3.EnumString>();
+  set map(_i5.MapBuilder<_i3.EnumString, _i3.EnumString>? map) =>
       _$this._map = map;
 
-  _i4.EnumString? _string;
-  _i4.EnumString? get string => _$this._string;
-  set string(_i4.EnumString? string) => _$this._string = string;
+  _i3.EnumString? _string;
+  _i3.EnumString? get string => _$this._string;
+  set string(_i3.EnumString? string) => _$this._string = string;
 
-  _i5.EnumUnion? _union;
-  _i5.EnumUnion? get union => _$this._union;
-  set union(_i5.EnumUnion? union) => _$this._union = union;
+  _i4.EnumUnion? _union;
+  _i4.EnumUnion? get union => _$this._union;
+  set union(_i4.EnumUnion? union) => _$this._union = union;
 
   MalformedEnumInputBuilder() {
     MalformedEnumInput._init(this);

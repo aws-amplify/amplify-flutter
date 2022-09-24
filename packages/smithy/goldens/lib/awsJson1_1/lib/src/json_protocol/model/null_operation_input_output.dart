@@ -17,13 +17,15 @@ abstract class NullOperationInputOutput
     implements
         Built<NullOperationInputOutput, NullOperationInputOutputBuilder> {
   factory NullOperationInputOutput({
-    _i3.BuiltList<String?>? sparseStringList,
-    _i3.BuiltMap<String, String?>? sparseStringMap,
+    List<String?>? sparseStringList,
+    Map<String, String?>? sparseStringMap,
     String? string,
   }) {
     return _$NullOperationInputOutput._(
-      sparseStringList: sparseStringList,
-      sparseStringMap: sparseStringMap,
+      sparseStringList:
+          sparseStringList == null ? null : _i3.BuiltList(sparseStringList),
+      sparseStringMap:
+          sparseStringMap == null ? null : _i3.BuiltMap(sparseStringMap),
       string: string,
     );
   }
