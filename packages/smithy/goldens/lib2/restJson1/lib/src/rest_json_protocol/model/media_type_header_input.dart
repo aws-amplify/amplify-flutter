@@ -21,8 +21,9 @@ abstract class MediaTypeHeaderInput
         Built<MediaTypeHeaderInput, MediaTypeHeaderInputBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<MediaTypeHeaderInputPayload> {
-  factory MediaTypeHeaderInput({_i3.JsonObject? json}) {
-    return _$MediaTypeHeaderInput._(json: json);
+  factory MediaTypeHeaderInput({Object? json}) {
+    return _$MediaTypeHeaderInput._(
+        json: json == null ? null : _i3.JsonObject(json));
   }
 
   factory MediaTypeHeaderInput.build(

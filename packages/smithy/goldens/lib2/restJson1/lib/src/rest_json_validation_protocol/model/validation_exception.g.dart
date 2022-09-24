@@ -8,7 +8,7 @@ part of rest_json1_v2.rest_json_validation_protocol.model.validation_exception;
 
 class _$ValidationException extends ValidationException {
   @override
-  final _i3.BuiltList<_i4.ValidationExceptionField>? fieldList;
+  final _i4.BuiltList<_i3.ValidationExceptionField>? fieldList;
   @override
   final String message;
   @override
@@ -54,10 +54,10 @@ class ValidationExceptionBuilder
     implements Builder<ValidationException, ValidationExceptionBuilder> {
   _$ValidationException? _$v;
 
-  _i3.ListBuilder<_i4.ValidationExceptionField>? _fieldList;
-  _i3.ListBuilder<_i4.ValidationExceptionField> get fieldList =>
-      _$this._fieldList ??= new _i3.ListBuilder<_i4.ValidationExceptionField>();
-  set fieldList(_i3.ListBuilder<_i4.ValidationExceptionField>? fieldList) =>
+  _i4.ListBuilder<_i3.ValidationExceptionField>? _fieldList;
+  _i4.ListBuilder<_i3.ValidationExceptionField> get fieldList =>
+      _$this._fieldList ??= new _i4.ListBuilder<_i3.ValidationExceptionField>();
+  set fieldList(_i4.ListBuilder<_i3.ValidationExceptionField>? fieldList) =>
       _$this._fieldList = fieldList;
 
   String? _message;

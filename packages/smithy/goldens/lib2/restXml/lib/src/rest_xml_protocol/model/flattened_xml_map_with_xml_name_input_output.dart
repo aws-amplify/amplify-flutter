@@ -17,9 +17,9 @@ abstract class FlattenedXmlMapWithXmlNameInputOutput
     implements
         Built<FlattenedXmlMapWithXmlNameInputOutput,
             FlattenedXmlMapWithXmlNameInputOutputBuilder> {
-  factory FlattenedXmlMapWithXmlNameInputOutput(
-      {_i3.BuiltMap<String, String>? myMap}) {
-    return _$FlattenedXmlMapWithXmlNameInputOutput._(myMap: myMap);
+  factory FlattenedXmlMapWithXmlNameInputOutput({Map<String, String>? myMap}) {
+    return _$FlattenedXmlMapWithXmlNameInputOutput._(
+        myMap: myMap == null ? null : _i3.BuiltMap(myMap));
   }
 
   factory FlattenedXmlMapWithXmlNameInputOutput.build(

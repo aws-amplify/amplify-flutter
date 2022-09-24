@@ -15,6 +15,9 @@
 /// Smithy client runtime for Dart.
 library smithy;
 
+// External types used in public APIs
+export 'package:fixnum/fixnum.dart';
+
 // AST types
 export 'package:aws_common/aws_common.dart' show AlpnProtocol;
 export 'ast.dart'

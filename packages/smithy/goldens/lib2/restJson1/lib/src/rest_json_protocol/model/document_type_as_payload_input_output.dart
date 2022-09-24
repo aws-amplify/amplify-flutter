@@ -18,8 +18,10 @@ abstract class DocumentTypeAsPayloadInputOutput
         Built<DocumentTypeAsPayloadInputOutput,
             DocumentTypeAsPayloadInputOutputBuilder>,
         _i1.HasPayload<_i2.JsonObject> {
-  factory DocumentTypeAsPayloadInputOutput({_i2.JsonObject? documentValue}) {
-    return _$DocumentTypeAsPayloadInputOutput._(documentValue: documentValue);
+  factory DocumentTypeAsPayloadInputOutput({Object? documentValue}) {
+    return _$DocumentTypeAsPayloadInputOutput._(
+        documentValue:
+            documentValue == null ? null : _i2.JsonObject(documentValue));
   }
 
   factory DocumentTypeAsPayloadInputOutput.build(

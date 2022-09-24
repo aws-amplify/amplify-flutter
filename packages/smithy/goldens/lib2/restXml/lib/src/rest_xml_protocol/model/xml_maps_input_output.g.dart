@@ -8,7 +8,7 @@ part of rest_xml_v2.rest_xml_protocol.model.xml_maps_input_output;
 
 class _$XmlMapsInputOutput extends XmlMapsInputOutput {
   @override
-  final _i3.BuiltMap<String, _i4.GreetingStruct>? myMap;
+  final _i4.BuiltMap<String, _i3.GreetingStruct>? myMap;
 
   factory _$XmlMapsInputOutput(
           [void Function(XmlMapsInputOutputBuilder)? updates]) =>
@@ -41,10 +41,10 @@ class XmlMapsInputOutputBuilder
     implements Builder<XmlMapsInputOutput, XmlMapsInputOutputBuilder> {
   _$XmlMapsInputOutput? _$v;
 
-  _i3.MapBuilder<String, _i4.GreetingStruct>? _myMap;
-  _i3.MapBuilder<String, _i4.GreetingStruct> get myMap =>
-      _$this._myMap ??= new _i3.MapBuilder<String, _i4.GreetingStruct>();
-  set myMap(_i3.MapBuilder<String, _i4.GreetingStruct>? myMap) =>
+  _i4.MapBuilder<String, _i3.GreetingStruct>? _myMap;
+  _i4.MapBuilder<String, _i3.GreetingStruct> get myMap =>
+      _$this._myMap ??= new _i4.MapBuilder<String, _i3.GreetingStruct>();
+  set myMap(_i4.MapBuilder<String, _i3.GreetingStruct>? myMap) =>
       _$this._myMap = myMap;
 
   XmlMapsInputOutputBuilder() {

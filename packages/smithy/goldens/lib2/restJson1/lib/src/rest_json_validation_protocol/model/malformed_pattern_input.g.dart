@@ -10,13 +10,13 @@ class _$MalformedPatternInput extends MalformedPatternInput {
   @override
   final String? evilString;
   @override
-  final _i3.BuiltList<String>? list;
+  final _i4.BuiltList<String>? list;
   @override
-  final _i3.BuiltMap<String, String>? map;
+  final _i4.BuiltMap<String, String>? map;
   @override
   final String? string;
   @override
-  final _i4.PatternUnion? union;
+  final _i3.PatternUnion? union;
 
   factory _$MalformedPatternInput(
           [void Function(MalformedPatternInputBuilder)? updates]) =>
@@ -63,23 +63,23 @@ class MalformedPatternInputBuilder
   String? get evilString => _$this._evilString;
   set evilString(String? evilString) => _$this._evilString = evilString;
 
-  _i3.ListBuilder<String>? _list;
-  _i3.ListBuilder<String> get list =>
-      _$this._list ??= new _i3.ListBuilder<String>();
-  set list(_i3.ListBuilder<String>? list) => _$this._list = list;
+  _i4.ListBuilder<String>? _list;
+  _i4.ListBuilder<String> get list =>
+      _$this._list ??= new _i4.ListBuilder<String>();
+  set list(_i4.ListBuilder<String>? list) => _$this._list = list;
 
-  _i3.MapBuilder<String, String>? _map;
-  _i3.MapBuilder<String, String> get map =>
-      _$this._map ??= new _i3.MapBuilder<String, String>();
-  set map(_i3.MapBuilder<String, String>? map) => _$this._map = map;
+  _i4.MapBuilder<String, String>? _map;
+  _i4.MapBuilder<String, String> get map =>
+      _$this._map ??= new _i4.MapBuilder<String, String>();
+  set map(_i4.MapBuilder<String, String>? map) => _$this._map = map;
 
   String? _string;
   String? get string => _$this._string;
   set string(String? string) => _$this._string = string;
 
-  _i4.PatternUnion? _union;
-  _i4.PatternUnion? get union => _$this._union;
-  set union(_i4.PatternUnion? union) => _$this._union = union;
+  _i3.PatternUnion? _union;
+  _i3.PatternUnion? get union => _$this._union;
+  set union(_i3.PatternUnion? union) => _$this._union = union;
 
   MalformedPatternInputBuilder() {
     MalformedPatternInput._init(this);

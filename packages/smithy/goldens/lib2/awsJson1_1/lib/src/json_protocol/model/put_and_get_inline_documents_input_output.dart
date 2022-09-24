@@ -17,10 +17,10 @@ abstract class PutAndGetInlineDocumentsInputOutput
     implements
         Built<PutAndGetInlineDocumentsInputOutput,
             PutAndGetInlineDocumentsInputOutputBuilder> {
-  factory PutAndGetInlineDocumentsInputOutput(
-      {_i3.JsonObject? inlineDocument}) {
+  factory PutAndGetInlineDocumentsInputOutput({Object? inlineDocument}) {
     return _$PutAndGetInlineDocumentsInputOutput._(
-        inlineDocument: inlineDocument);
+        inlineDocument:
+            inlineDocument == null ? null : _i3.JsonObject(inlineDocument));
   }
 
   factory PutAndGetInlineDocumentsInputOutput.build(

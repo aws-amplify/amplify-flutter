@@ -19,16 +19,16 @@ abstract class MalformedLengthInput
     implements Built<MalformedLengthInput, MalformedLengthInputBuilder> {
   factory MalformedLengthInput({
     _i3.Uint8List? blob,
-    _i4.BuiltList<String>? list,
-    _i4.BuiltListMultimap<String, String>? map,
+    List<String>? list,
+    Map<String, List<String>>? map,
     String? maxString,
     String? minString,
     String? string,
   }) {
     return _$MalformedLengthInput._(
       blob: blob,
-      list: list,
-      map: map,
+      list: list == null ? null : _i4.BuiltList(list),
+      map: map == null ? null : _i4.BuiltListMultimap(map),
       maxString: maxString,
       minString: minString,
       string: string,
