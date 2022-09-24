@@ -4,8 +4,8 @@ library aws_json1_1_v1.machine_learning.model.prediction; // ignore_for_file: no
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:aws_json1_1_v1/src/machine_learning/model/details_attributes.dart'
-    as _i3;
-import 'package:built_collection/built_collection.dart' as _i2;
+    as _i2;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i4;
@@ -16,15 +16,16 @@ abstract class Prediction
     with _i1.AWSEquatable<Prediction>
     implements Built<Prediction, PredictionBuilder> {
   factory Prediction({
-    _i2.BuiltMap<_i3.DetailsAttributes, String>? details,
+    Map<_i2.DetailsAttributes, String>? details,
     String? predictedLabel,
-    _i2.BuiltMap<String, double>? predictedScores,
+    Map<String, double>? predictedScores,
     double? predictedValue,
   }) {
     return _$Prediction._(
-      details: details,
+      details: details == null ? null : _i3.BuiltMap(details),
       predictedLabel: predictedLabel,
-      predictedScores: predictedScores,
+      predictedScores:
+          predictedScores == null ? null : _i3.BuiltMap(predictedScores),
       predictedValue: predictedValue,
     );
   }
@@ -40,9 +41,9 @@ abstract class Prediction
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PredictionBuilder b) {}
-  _i2.BuiltMap<_i3.DetailsAttributes, String>? get details;
+  _i3.BuiltMap<_i2.DetailsAttributes, String>? get details;
   String? get predictedLabel;
-  _i2.BuiltMap<String, double>? get predictedScores;
+  _i3.BuiltMap<String, double>? get predictedScores;
   double? get predictedValue;
   @override
   List<Object?> get props => [
@@ -108,13 +109,13 @@ class PredictionAwsJson11Serializer
             result.details.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i2.BuiltMap,
+                _i3.BuiltMap,
                 [
-                  FullType(_i3.DetailsAttributes),
+                  FullType(_i2.DetailsAttributes),
                   FullType(String),
                 ],
               ),
-            ) as _i2.BuiltMap<_i3.DetailsAttributes, String>));
+            ) as _i3.BuiltMap<_i2.DetailsAttributes, String>));
           }
           break;
         case 'predictedLabel':
@@ -130,13 +131,13 @@ class PredictionAwsJson11Serializer
             result.predictedScores.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i2.BuiltMap,
+                _i3.BuiltMap,
                 [
                   FullType(String),
                   FullType(double),
                 ],
               ),
-            ) as _i2.BuiltMap<String, double>));
+            ) as _i3.BuiltMap<String, double>));
           }
           break;
         case 'predictedValue':
@@ -167,9 +168,9 @@ class PredictionAwsJson11Serializer
         ..add(serializers.serialize(
           payload.details!,
           specifiedType: const FullType(
-            _i2.BuiltMap,
+            _i3.BuiltMap,
             [
-              FullType(_i3.DetailsAttributes),
+              FullType(_i2.DetailsAttributes),
               FullType(String),
             ],
           ),
@@ -189,7 +190,7 @@ class PredictionAwsJson11Serializer
         ..add(serializers.serialize(
           payload.predictedScores!,
           specifiedType: const FullType(
-            _i2.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(double),

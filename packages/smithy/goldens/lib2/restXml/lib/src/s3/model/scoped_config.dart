@@ -3,13 +3,13 @@
 library rest_xml_v2.s3.model.scoped_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:rest_xml_v2/src/s3/model/client_config.dart' as _i2;
-import 'package:rest_xml_v2/src/s3/model/environment_config.dart' as _i5;
-import 'package:rest_xml_v2/src/s3/model/file_config_settings.dart' as _i4;
-import 'package:rest_xml_v2/src/s3/model/operation_config.dart' as _i6;
+import 'package:rest_xml_v2/src/s3/model/environment_config.dart' as _i4;
+import 'package:rest_xml_v2/src/s3/model/file_config_settings.dart' as _i3;
+import 'package:rest_xml_v2/src/s3/model/operation_config.dart' as _i5;
 import 'package:smithy/smithy.dart' as _i7;
 
 part 'scoped_config.g.dart';
@@ -21,15 +21,16 @@ abstract class ScopedConfig
   /// Config settings that are scoped to different sources, such as environment variables or the AWS config file.
   factory ScopedConfig({
     _i2.ClientConfig? client,
-    _i3.BuiltMap<String, _i4.FileConfigSettings>? configFile,
-    _i3.BuiltMap<String, _i4.FileConfigSettings>? credentialsFile,
-    _i5.EnvironmentConfig? environment,
-    _i6.OperationConfig? operation,
+    Map<String, _i3.FileConfigSettings>? configFile,
+    Map<String, _i3.FileConfigSettings>? credentialsFile,
+    _i4.EnvironmentConfig? environment,
+    _i5.OperationConfig? operation,
   }) {
     return _$ScopedConfig._(
       client: client,
-      configFile: configFile,
-      credentialsFile: credentialsFile,
+      configFile: configFile == null ? null : _i6.BuiltMap(configFile),
+      credentialsFile:
+          credentialsFile == null ? null : _i6.BuiltMap(credentialsFile),
       environment: environment,
       operation: operation,
     );
@@ -52,16 +53,16 @@ abstract class ScopedConfig
   _i2.ClientConfig? get client;
 
   /// A shape representing a parsed config file, which is a map of profile names to configuration sets.
-  _i3.BuiltMap<String, _i4.FileConfigSettings>? get configFile;
+  _i6.BuiltMap<String, _i3.FileConfigSettings>? get configFile;
 
   /// A shape representing a parsed config file, which is a map of profile names to configuration sets.
-  _i3.BuiltMap<String, _i4.FileConfigSettings>? get credentialsFile;
+  _i6.BuiltMap<String, _i3.FileConfigSettings>? get credentialsFile;
 
   /// Config settings that can be set as environment variables.
-  _i5.EnvironmentConfig? get environment;
+  _i4.EnvironmentConfig? get environment;
 
   /// Configuration that is set for the scope of a single operation.
-  _i6.OperationConfig? get operation;
+  _i5.OperationConfig? get operation;
   @override
   List<Object?> get props => [
         client,
@@ -141,10 +142,10 @@ class ScopedConfigRestXmlSerializer
               serializers,
               (value as Iterable<Object?>),
               specifiedType: const FullType(
-                _i3.BuiltMap,
+                _i6.BuiltMap,
                 [
                   FullType(String),
-                  FullType(_i4.FileConfigSettings),
+                  FullType(_i3.FileConfigSettings),
                 ],
               ),
             ));
@@ -157,10 +158,10 @@ class ScopedConfigRestXmlSerializer
               serializers,
               (value as Iterable<Object?>),
               specifiedType: const FullType(
-                _i3.BuiltMap,
+                _i6.BuiltMap,
                 [
                   FullType(String),
-                  FullType(_i4.FileConfigSettings),
+                  FullType(_i3.FileConfigSettings),
                 ],
               ),
             ));
@@ -170,16 +171,16 @@ class ScopedConfigRestXmlSerializer
           if (value != null) {
             result.environment.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i5.EnvironmentConfig),
-            ) as _i5.EnvironmentConfig));
+              specifiedType: const FullType(_i4.EnvironmentConfig),
+            ) as _i4.EnvironmentConfig));
           }
           break;
         case 'operation':
           if (value != null) {
             result.operation.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i6.OperationConfig),
-            ) as _i6.OperationConfig));
+              specifiedType: const FullType(_i5.OperationConfig),
+            ) as _i5.OperationConfig));
           }
           break;
       }
@@ -216,10 +217,10 @@ class ScopedConfigRestXmlSerializer
           serializers,
           payload.configFile!,
           specifiedType: const FullType.nullable(
-            _i3.BuiltMap,
+            _i6.BuiltMap,
             [
               FullType(String),
-              FullType(_i4.FileConfigSettings),
+              FullType(_i3.FileConfigSettings),
             ],
           ),
         ));
@@ -231,10 +232,10 @@ class ScopedConfigRestXmlSerializer
           serializers,
           payload.credentialsFile!,
           specifiedType: const FullType.nullable(
-            _i3.BuiltMap,
+            _i6.BuiltMap,
             [
               FullType(String),
-              FullType(_i4.FileConfigSettings),
+              FullType(_i3.FileConfigSettings),
             ],
           ),
         ));
@@ -244,7 +245,7 @@ class ScopedConfigRestXmlSerializer
         ..add(const _i7.XmlElementName('environment'))
         ..add(serializers.serialize(
           payload.environment!,
-          specifiedType: const FullType(_i5.EnvironmentConfig),
+          specifiedType: const FullType(_i4.EnvironmentConfig),
         ));
     }
     if (payload.operation != null) {
@@ -252,7 +253,7 @@ class ScopedConfigRestXmlSerializer
         ..add(const _i7.XmlElementName('operation'))
         ..add(serializers.serialize(
           payload.operation!,
-          specifiedType: const FullType(_i6.OperationConfig),
+          specifiedType: const FullType(_i5.OperationConfig),
         ));
     }
     return result;

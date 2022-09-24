@@ -21,11 +21,11 @@ abstract class QueryParamsAsStringListMapInput
         _i1.EmptyPayload,
         _i1.HasPayload<QueryParamsAsStringListMapInputPayload> {
   factory QueryParamsAsStringListMapInput({
-    _i3.BuiltListMultimap<String, String>? foo,
+    Map<String, List<String>>? foo,
     String? qux,
   }) {
     return _$QueryParamsAsStringListMapInput._(
-      foo: foo,
+      foo: foo == null ? null : _i3.BuiltListMultimap(foo),
       qux: qux,
     );
   }

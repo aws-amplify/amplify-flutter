@@ -8,23 +8,23 @@ part of rest_json1_v2.rest_json_protocol.model.json_lists_input_output;
 
 class _$JsonListsInputOutput extends JsonListsInputOutput {
   @override
-  final _i3.BuiltList<bool>? booleanList;
+  final _i5.BuiltList<bool>? booleanList;
   @override
-  final _i3.BuiltList<_i4.FooEnum>? enumList;
+  final _i5.BuiltList<_i3.FooEnum>? enumList;
   @override
-  final _i3.BuiltList<int>? integerList;
+  final _i5.BuiltList<int>? integerList;
   @override
-  final _i3.BuiltList<_i3.BuiltList<String>>? nestedStringList;
+  final _i5.BuiltList<_i5.BuiltList<String>>? nestedStringList;
   @override
-  final _i3.BuiltList<String?>? sparseStringList;
+  final _i5.BuiltList<String?>? sparseStringList;
   @override
-  final _i3.BuiltList<String>? stringList;
+  final _i5.BuiltList<String>? stringList;
   @override
-  final _i3.BuiltSet<String>? stringSet;
+  final _i5.BuiltSet<String>? stringSet;
   @override
-  final _i3.BuiltList<_i5.StructureListMember>? structureList;
+  final _i5.BuiltList<_i4.StructureListMember>? structureList;
   @override
-  final _i3.BuiltList<DateTime>? timestampList;
+  final _i5.BuiltList<DateTime>? timestampList;
 
   factory _$JsonListsInputOutput(
           [void Function(JsonListsInputOutputBuilder)? updates]) =>
@@ -91,59 +91,59 @@ class JsonListsInputOutputBuilder
     implements Builder<JsonListsInputOutput, JsonListsInputOutputBuilder> {
   _$JsonListsInputOutput? _$v;
 
-  _i3.ListBuilder<bool>? _booleanList;
-  _i3.ListBuilder<bool> get booleanList =>
-      _$this._booleanList ??= new _i3.ListBuilder<bool>();
-  set booleanList(_i3.ListBuilder<bool>? booleanList) =>
+  _i5.ListBuilder<bool>? _booleanList;
+  _i5.ListBuilder<bool> get booleanList =>
+      _$this._booleanList ??= new _i5.ListBuilder<bool>();
+  set booleanList(_i5.ListBuilder<bool>? booleanList) =>
       _$this._booleanList = booleanList;
 
-  _i3.ListBuilder<_i4.FooEnum>? _enumList;
-  _i3.ListBuilder<_i4.FooEnum> get enumList =>
-      _$this._enumList ??= new _i3.ListBuilder<_i4.FooEnum>();
-  set enumList(_i3.ListBuilder<_i4.FooEnum>? enumList) =>
+  _i5.ListBuilder<_i3.FooEnum>? _enumList;
+  _i5.ListBuilder<_i3.FooEnum> get enumList =>
+      _$this._enumList ??= new _i5.ListBuilder<_i3.FooEnum>();
+  set enumList(_i5.ListBuilder<_i3.FooEnum>? enumList) =>
       _$this._enumList = enumList;
 
-  _i3.ListBuilder<int>? _integerList;
-  _i3.ListBuilder<int> get integerList =>
-      _$this._integerList ??= new _i3.ListBuilder<int>();
-  set integerList(_i3.ListBuilder<int>? integerList) =>
+  _i5.ListBuilder<int>? _integerList;
+  _i5.ListBuilder<int> get integerList =>
+      _$this._integerList ??= new _i5.ListBuilder<int>();
+  set integerList(_i5.ListBuilder<int>? integerList) =>
       _$this._integerList = integerList;
 
-  _i3.ListBuilder<_i3.BuiltList<String>>? _nestedStringList;
-  _i3.ListBuilder<_i3.BuiltList<String>> get nestedStringList =>
-      _$this._nestedStringList ??= new _i3.ListBuilder<_i3.BuiltList<String>>();
+  _i5.ListBuilder<_i5.BuiltList<String>>? _nestedStringList;
+  _i5.ListBuilder<_i5.BuiltList<String>> get nestedStringList =>
+      _$this._nestedStringList ??= new _i5.ListBuilder<_i5.BuiltList<String>>();
   set nestedStringList(
-          _i3.ListBuilder<_i3.BuiltList<String>>? nestedStringList) =>
+          _i5.ListBuilder<_i5.BuiltList<String>>? nestedStringList) =>
       _$this._nestedStringList = nestedStringList;
 
-  _i3.ListBuilder<String?>? _sparseStringList;
-  _i3.ListBuilder<String?> get sparseStringList =>
-      _$this._sparseStringList ??= new _i3.ListBuilder<String?>();
-  set sparseStringList(_i3.ListBuilder<String?>? sparseStringList) =>
+  _i5.ListBuilder<String?>? _sparseStringList;
+  _i5.ListBuilder<String?> get sparseStringList =>
+      _$this._sparseStringList ??= new _i5.ListBuilder<String?>();
+  set sparseStringList(_i5.ListBuilder<String?>? sparseStringList) =>
       _$this._sparseStringList = sparseStringList;
 
-  _i3.ListBuilder<String>? _stringList;
-  _i3.ListBuilder<String> get stringList =>
-      _$this._stringList ??= new _i3.ListBuilder<String>();
-  set stringList(_i3.ListBuilder<String>? stringList) =>
+  _i5.ListBuilder<String>? _stringList;
+  _i5.ListBuilder<String> get stringList =>
+      _$this._stringList ??= new _i5.ListBuilder<String>();
+  set stringList(_i5.ListBuilder<String>? stringList) =>
       _$this._stringList = stringList;
 
-  _i3.SetBuilder<String>? _stringSet;
-  _i3.SetBuilder<String> get stringSet =>
-      _$this._stringSet ??= new _i3.SetBuilder<String>();
-  set stringSet(_i3.SetBuilder<String>? stringSet) =>
+  _i5.SetBuilder<String>? _stringSet;
+  _i5.SetBuilder<String> get stringSet =>
+      _$this._stringSet ??= new _i5.SetBuilder<String>();
+  set stringSet(_i5.SetBuilder<String>? stringSet) =>
       _$this._stringSet = stringSet;
 
-  _i3.ListBuilder<_i5.StructureListMember>? _structureList;
-  _i3.ListBuilder<_i5.StructureListMember> get structureList =>
-      _$this._structureList ??= new _i3.ListBuilder<_i5.StructureListMember>();
-  set structureList(_i3.ListBuilder<_i5.StructureListMember>? structureList) =>
+  _i5.ListBuilder<_i4.StructureListMember>? _structureList;
+  _i5.ListBuilder<_i4.StructureListMember> get structureList =>
+      _$this._structureList ??= new _i5.ListBuilder<_i4.StructureListMember>();
+  set structureList(_i5.ListBuilder<_i4.StructureListMember>? structureList) =>
       _$this._structureList = structureList;
 
-  _i3.ListBuilder<DateTime>? _timestampList;
-  _i3.ListBuilder<DateTime> get timestampList =>
-      _$this._timestampList ??= new _i3.ListBuilder<DateTime>();
-  set timestampList(_i3.ListBuilder<DateTime>? timestampList) =>
+  _i5.ListBuilder<DateTime>? _timestampList;
+  _i5.ListBuilder<DateTime> get timestampList =>
+      _$this._timestampList ??= new _i5.ListBuilder<DateTime>();
+  set timestampList(_i5.ListBuilder<DateTime>? timestampList) =>
       _$this._timestampList = timestampList;
 
   JsonListsInputOutputBuilder() {

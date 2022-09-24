@@ -55,7 +55,7 @@ abstract class DartTypes {
   static const convert = _Convert();
 
   /// `package:fixnum` types.
-  static const fixNum = _FixNum();
+  static const fixNum = FixNum();
 
   /// `package:meta` types.
   static const meta = _Meta();
@@ -289,9 +289,8 @@ class BuiltValueType {
 
   static const mainUrl = 'package:built_value/built_value.dart';
   static const serializerUrl = 'package:built_value/serializer.dart';
-  static const _jsonUrl = 'package:built_value/json_object.dart';
-  static const _collectionUrl =
-      'package:built_collection/built_collection.dart';
+  static const jsonUrl = 'package:built_value/json_object.dart';
+  static const collectionUrl = 'package:built_collection/built_collection.dart';
 
   /// A [built_value.BuiltValue] reference.
   Reference get builtValue => const Reference('BuiltValue', mainUrl);
@@ -315,7 +314,7 @@ class BuiltValueType {
   Reference builtList(Reference ref) => TypeReference(
         (t) => t
           ..symbol = 'BuiltList'
-          ..url = _collectionUrl
+          ..url = collectionUrl
           ..types.add(ref),
       );
 
@@ -328,7 +327,7 @@ class BuiltValueType {
   Reference builtListMultimap(Reference key, Reference value) => TypeReference(
         (t) => t
           ..symbol = 'BuiltListMultimap'
-          ..url = _collectionUrl
+          ..url = collectionUrl
           ..types.addAll([key, value]),
       );
 
@@ -337,7 +336,7 @@ class BuiltValueType {
   Reference builtMap(Reference key, Reference value) => TypeReference(
         (t) => t
           ..symbol = 'BuiltMap'
-          ..url = _collectionUrl
+          ..url = collectionUrl
           ..types.add(key)
           ..types.add(value),
       );
@@ -346,7 +345,7 @@ class BuiltValueType {
   Reference builtSet(Reference ref) => TypeReference(
         (t) => t
           ..symbol = 'BuiltSet'
-          ..url = _collectionUrl
+          ..url = collectionUrl
           ..types.add(ref),
       );
 
@@ -359,7 +358,7 @@ class BuiltValueType {
   Reference builtSetMultimap(Reference key, Reference value) => TypeReference(
         (t) => t
           ..symbol = 'BuiltSetMultimap'
-          ..url = _collectionUrl
+          ..url = collectionUrl
           ..types.addAll([key, value]),
       );
 
@@ -367,13 +366,13 @@ class BuiltValueType {
   Reference get fullType => const Reference('FullType', serializerUrl);
 
   /// Creates a [built_value_json_object.JsonObject] reference.
-  Reference get jsonObject => const Reference('JsonObject', _jsonUrl);
+  Reference get jsonObject => const Reference('JsonObject', jsonUrl);
 
   /// The builder for [built_collection.ListBuilder].
   Reference listBuilder(Reference ref) => TypeReference(
         (t) => t
           ..symbol = 'ListBuilder'
-          ..url = _collectionUrl
+          ..url = collectionUrl
           ..types.add(ref),
       );
 
@@ -382,7 +381,7 @@ class BuiltValueType {
       TypeReference(
         (t) => t
           ..symbol = 'ListMultimapBuilder'
-          ..url = _collectionUrl
+          ..url = collectionUrl
           ..types.addAll([key, value]),
       );
 
@@ -390,7 +389,7 @@ class BuiltValueType {
   Reference mapBuilder(Reference key, Reference value) => TypeReference(
         (t) => t
           ..symbol = 'MapBuilder'
-          ..url = _collectionUrl
+          ..url = collectionUrl
           ..types.addAll([key, value]),
       );
 
@@ -411,7 +410,7 @@ class BuiltValueType {
   Reference setBuilder(Reference ref) => TypeReference(
         (t) => t
           ..symbol = 'SetBuilder'
-          ..url = _collectionUrl
+          ..url = collectionUrl
           ..types.add(ref),
       );
 
@@ -419,7 +418,7 @@ class BuiltValueType {
   Reference setMultimapBuilder(Reference key, Reference value) => TypeReference(
         (t) => t
           ..symbol = 'SetMultimapBuilder'
-          ..url = _collectionUrl
+          ..url = collectionUrl
           ..types.addAll([key, value]),
       );
 
@@ -450,13 +449,13 @@ class _Convert {
 }
 
 /// `package:fixnum` types
-class _FixNum {
-  const _FixNum();
+class FixNum {
+  const FixNum();
 
-  static const _url = 'package:fixnum/fixnum.dart';
+  static const url = 'package:fixnum/fixnum.dart';
 
   /// Creates an [Int64] reference.
-  Reference get int64 => const Reference('Int64', _url);
+  Reference get int64 => const Reference('Int64', url);
 }
 
 /// `package:meta` types.

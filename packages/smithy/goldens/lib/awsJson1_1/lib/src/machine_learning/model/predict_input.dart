@@ -16,12 +16,12 @@ abstract class PredictInput
   factory PredictInput({
     required String mlModelId,
     required String predictEndpoint,
-    required _i3.BuiltMap<String, String> record,
+    required Map<String, String> record,
   }) {
     return _$PredictInput._(
       mlModelId: mlModelId,
       predictEndpoint: predictEndpoint,
-      record: record,
+      record: _i3.BuiltMap(record),
     );
   }
 

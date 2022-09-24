@@ -14,6 +14,8 @@ import 'package:custom_v2/src/custom_service/model/http_checksum_required_input.
     as _i9;
 import 'package:custom_v2/src/custom_service/model/http_checksum_required_with_member_input.dart'
     as _i11;
+import 'package:custom_v2/src/custom_service/model/nested_collections_input.dart'
+    as _i13;
 import 'package:custom_v2/src/custom_service/operation/http_checksum_not_required_with_member_operation.dart'
     as _i4;
 import 'package:custom_v2/src/custom_service/operation/http_checksum_really_not_required_operation.dart'
@@ -24,6 +26,8 @@ import 'package:custom_v2/src/custom_service/operation/http_checksum_required_op
     as _i10;
 import 'package:custom_v2/src/custom_service/operation/http_checksum_required_with_member_operation.dart'
     as _i12;
+import 'package:custom_v2/src/custom_service/operation/nested_collections_operation.dart'
+    as _i14;
 import 'package:smithy/smithy.dart' as _i1;
 
 class CustomClient {
@@ -100,6 +104,19 @@ class CustomClient {
     _i1.HttpClient? client,
   }) {
     return _i12.HttpChecksumRequiredWithMemberOperation(
+      region: _region,
+      baseUri: _baseUri,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
+  }
+
+  _i2.Future<void> nestedCollections(
+    _i13.NestedCollectionsInput input, {
+    _i1.HttpClient? client,
+  }) {
+    return _i14.NestedCollectionsOperation(
       region: _region,
       baseUri: _baseUri,
     ).run(
