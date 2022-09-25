@@ -39,7 +39,11 @@ class AnalyticsClient {
 
     /// TODO - clarify - what is behavior on app refresh / hot reload?
     _autoEventSubmitter =
-        StoppableTimer(const Duration(seconds: 10), (Timer t) => flushEvents);
+        StoppableTimer(const Duration(seconds: 10), (Timer t) {
+      safePrint('StoppableTimer - beginning flushEvents');
+      flushEvents();
+      safePrint('StoppableTimer - finished flushEvents');
+    });
 
     _eventManager = EventClient(
         appId, keyValueStore, _endpointClient, pinpointClient, pathProvider);

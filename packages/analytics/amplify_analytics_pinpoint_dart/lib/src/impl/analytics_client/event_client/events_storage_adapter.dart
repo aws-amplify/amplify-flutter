@@ -12,7 +12,7 @@ import '../../drift/drift_tables.dart';
 /// Interface with underlying native storage
 /// Present generic interface for saving PinpointEvents
 class EventStorageAdapter {
-  late final _db;
+  late final DriftDatabaseJsonStrings _db;
   late final Serializers _serializer;
 
   /// Pinpoint max event size
@@ -56,5 +56,10 @@ class EventStorageAdapter {
           as Event);
     }
     return events;
+  }
+
+  // TODO - verify oldest saved are retrieved/deleted first! - might change with support for only deleting successfully sent events
+  Future<void> deleteEvents({int numEvents = _maxEventsInBatch}) async {
+    await _db.deleteOldestJsonString(_maxEventsInBatch);
   }
 }
