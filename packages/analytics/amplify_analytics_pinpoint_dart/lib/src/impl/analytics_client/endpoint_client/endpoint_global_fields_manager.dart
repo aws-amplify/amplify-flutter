@@ -24,15 +24,21 @@ class EndpointGlobalFieldsManager {
       this._keyValueStore, this._globalAttributes, this._globalMetrics);
 
   static Future<EndpointGlobalFieldsManager> getInstance(
-          KeyValueStore sharedPrefs) async =>
-      EndpointGlobalFieldsManager._getInstance(
-          sharedPrefs,
-          Map<String, List<String>>.from(jsonDecode(
-              await sharedPrefs.getJson(KeyValueStore.endpointGlobalAttrsKey) ??
-                  '{}')),
-          Map<String, double>.from(jsonDecode(await sharedPrefs
-                  .getJson(KeyValueStore.endpointGlobalMetricsKey) ??
-              '{}')));
+      KeyValueStore sharedPrefs) async {
+    Map<String, dynamic> decodedGlobalAttributesJson = jsonDecode(
+        await sharedPrefs.getJson(KeyValueStore.endpointGlobalAttrsKey) ??
+            '{}');
+
+    final globalAttributes = decodedGlobalAttributesJson
+        .map((key, value) => MapEntry(key, List<String>.from(value)));
+
+    final globalMetrics = Map<String, double>.from(jsonDecode(
+        await sharedPrefs.getJson(KeyValueStore.endpointGlobalMetricsKey) ??
+            '{}'));
+
+    return EndpointGlobalFieldsManager._getInstance(
+        sharedPrefs, globalAttributes, globalMetrics);
+  }
 
   String processKey(String key) {
     if (key.length > _maxKeyLength) {
