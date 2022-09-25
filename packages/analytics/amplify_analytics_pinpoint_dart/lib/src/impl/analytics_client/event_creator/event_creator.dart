@@ -38,7 +38,7 @@ class EventCreator {
     eventBuilder.clientSdkVersion = packageVersion;
     eventBuilder.session = sessionBuilder;
 
-    eventBuilder.timestamp = DateTime.now().toIso8601String();
+    eventBuilder.timestamp = DateTime.now().toUtc().toIso8601String();
 
     eventBuilder.appTitle = _deviceContextInfoProvider?.appName;
     eventBuilder.appPackageName = _deviceContextInfoProvider?.appPackageName;

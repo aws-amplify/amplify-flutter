@@ -1,4 +1,5 @@
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:uuid/uuid.dart';
 
@@ -39,12 +40,64 @@ class EventClient {
     EventsBatch batch = EventsBatch(
         endpoint: _endpointClient.getPublicEndpoint(),
         events: BuiltMap<String, Event>(eventsMap));
-    // TODO : handle response object???
 
-    var batchItems =
-        BuiltMap<String, EventsBatch>({_keyValueStore.getUniqueId(): batch});
-    await _pinpointClient.putEvents(PutEventsRequest(
-        applicationId: _appId,
-        eventsRequest: EventsRequest(batchItem: batchItems)));
+    var batchItems = BuiltMap<String, EventsBatch>(
+        {_keyValueStore.getFixedEndpointId(): batch});
+
+    try {
+      final result = await _pinpointClient.putEvents(PutEventsRequest(
+          applicationId: _appId,
+          eventsRequest: EventsRequest(batchItem: batchItems)));
+
+      final endpointResponse =
+          result.eventsResponse.results?[_keyValueStore.getFixedEndpointId()];
+
+      if (endpointResponse == null) {
+        return;
+      }
+
+      final endpointItemResponse = endpointResponse.endpointItemResponse;
+
+      if (endpointItemResponse == null) {
+        safePrint(
+            'putEvents - no PinpointEndpoint response received from Pinpoint');
+      }
+      if (endpointItemResponse?.statusCode != 202) {
+        safePrint(
+            'putEvents - issue with PinpointEndpoint response: ${endpointItemResponse?.toString()}');
+      }
+
+      final eventsItemResponse = endpointResponse.eventsItemResponse;
+
+      if (eventsItemResponse == null) {
+        safePrint(
+            'putEvents - no EventsItemResponse response received from Pinpoint');
+      }
+      eventsItemResponse?.forEach((eventID, eventItemResponse) {
+        if (!equalsIgnoreCase(eventItemResponse.message ?? '', 'Accepted')) {
+          safePrint(
+              'putEvents - issue with eventId: ${eventID} \n ${eventItemResponse.toString()}');
+
+          if (isRetryable(eventItemResponse.message ?? '')) {
+            safePrint(
+                'putEvents - recoverable issue, will attempt to resend: ${eventID} in next FlushEvents');
+            // TODO: AVOID DELETING EVENTS THAT NEED TO BE RESENT
+          }
+        }
+      });
+    } catch (error) {
+      safePrint('putEvents - exception encountered: ${error.toString()}');
+    }
+  }
+
+  bool equalsIgnoreCase(String string1, String string2) {
+    return string1.toLowerCase() == string2.toLowerCase();
+  }
+
+  bool isRetryable(String? message) {
+    return message != null &&
+        !equalsIgnoreCase(message, "ValidationException") &&
+        !equalsIgnoreCase(message, "SerializationException") &&
+        !equalsIgnoreCase(message, "BadRequestException");
   }
 }

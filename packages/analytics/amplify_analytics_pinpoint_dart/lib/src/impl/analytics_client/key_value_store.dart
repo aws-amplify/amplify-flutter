@@ -53,7 +53,7 @@ class KeyValueStore {
     return await _storage.read(key: key);
   }
 
-  String getUniqueId() {
+  String getFixedEndpointId() {
     return uniqueId;
   }
 }

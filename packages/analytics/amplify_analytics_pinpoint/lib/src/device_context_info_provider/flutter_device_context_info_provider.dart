@@ -10,8 +10,13 @@ class FlutterDeviceContextInfoProvider implements DeviceContextInfoProvider {
   @override
   String? get locale => WidgetsBinding.instance.window.locale.toString();
 
+  // https://github.com/dart-lang/sdk/issues/21758
+  // Flutter timezone.name provides time dependent names PDT/PST
+  // which are not accepted by Pinpoint
+  // Other packages require location objects (tz database) or don't work on all platforms
+  // NOTE: all times sent to Pinpoint must be in UTC ... (DateTime.now().toUtc()...)
   @override
-  String? get timezone => DateTime.now().timeZoneName;
+  String? get timezone => 'UTC';
 
   // App Info
   @override

@@ -65,14 +65,13 @@ class SessionManager {
   }
 
   String _generateSessionId() {
-    String id = _keyValueStore.getUniqueId();
+    String id = _keyValueStore.getFixedEndpointId();
     id = id.padLeft(_maxIdLength, '_');
     id = id.substring(0, _maxIdLength);
 
     DateTime date = DateTime.now().toUtc();
 
-    // TODO: confirm locale is set correctly
-    DateFormat dateFormat = DateFormat('yyyyMMdd-HHmmss', 'en_US');
+    DateFormat dateFormat = DateFormat('yyyyMMdd-HHmmssSSS', 'en_US');
 
     String dateString = dateFormat.format(date) + date.millisecond.toString();
 
@@ -82,7 +81,7 @@ class SessionManager {
   void _executeStart() {
     _sessionBuilder = SessionBuilder()
       ..id = _generateSessionId()
-      ..startTimestamp = DateTime.now().toIso8601String();
+      ..startTimestamp = DateTime.now().toUtc().toIso8601String();
 
     _onSessionStart(_sessionBuilder!);
   }
@@ -90,7 +89,7 @@ class SessionManager {
   void _executeStop() {
     if (_sessionBuilder == null) return;
 
-    _sessionBuilder!.stopTimestamp = DateTime.now().toIso8601String();
+    _sessionBuilder!.stopTimestamp = DateTime.now().toUtc().toIso8601String();
 
     _onSessionEnd(_sessionBuilder!);
 

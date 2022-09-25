@@ -28,7 +28,7 @@ class EndpointHelper {
         platform: 'platform',
         platformVersion: 'platformVersion',
         timezone: 'EST'),
-    effectiveDate: DateTime.now()
+    effectiveDate: DateTime.now().toUtc()
         .toIso8601String(), // '2020-04-30T00:00:00.000Z', // MUST BE ISO 8601 format
     endpointStatus: 'effectiveStatus',
     location: EndpointLocation(

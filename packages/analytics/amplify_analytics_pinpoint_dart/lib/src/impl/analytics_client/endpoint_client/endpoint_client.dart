@@ -29,7 +29,7 @@ class EndpointClient {
       this._globalFieldsManager) {
     _endpointBuilder = PublicEndpointBuilder();
 
-    _endpointBuilder.effectiveDate = DateTime.now().toIso8601String();
+    _endpointBuilder.effectiveDate = DateTime.now().toUtc().toIso8601String();
     _endpointBuilder.demographic = EndpointDemographicBuilder()
       ..appVersion = deviceInfoProvider?.appVersion
       ..locale = deviceInfoProvider?.locale
@@ -41,7 +41,7 @@ class EndpointClient {
       ..timezone = deviceInfoProvider?.timezone;
     _endpointBuilder.location = EndpointLocationBuilder()
       ..country = deviceInfoProvider?.countryCode;
-    _endpointBuilder.requestId = _keyValueStore.getUniqueId();
+    _endpointBuilder.requestId = _keyValueStore.getFixedEndpointId();
   }
 
   // External dependencies
@@ -133,10 +133,14 @@ class EndpointClient {
   }
 
   Future<void> updateEndpoint() async {
-    await _pinpointClient.updateEndpoint(UpdateEndpointRequest(
-        applicationId: _appId,
-        endpointId: _keyValueStore.getUniqueId(),
-        endpointRequest: endpointToRequest(getPublicEndpoint())));
+    try {
+      await _pinpointClient.updateEndpoint(UpdateEndpointRequest(
+          applicationId: _appId,
+          endpointId: _keyValueStore.getFixedEndpointId(),
+          endpointRequest: endpointToRequest(getPublicEndpoint())));
+    } catch (error) {
+      safePrint('updateEndpoint - exception encountered: ${error.toString()}');
+    }
   }
 
   EndpointRequest endpointToRequest(PublicEndpoint publicEndpoint) {
