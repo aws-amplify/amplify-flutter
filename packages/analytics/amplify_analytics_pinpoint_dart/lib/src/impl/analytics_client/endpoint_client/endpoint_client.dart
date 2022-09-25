@@ -100,7 +100,11 @@ class EndpointClient {
       var typesMap = copyFromProfile.properties!.getAllPropertiesTypes();
       copyFromProfile.properties!.getAllProperties().forEach((key, value) {
         if (typesMap[key] == 'DOUBLE' || typesMap[key] == 'INT') {
-          _globalFieldsManager.addMetric(key, value as double);
+          if (value is int) {
+            _globalFieldsManager.addMetric(key, value.toDouble());
+          } else {
+            _globalFieldsManager.addMetric(key, value as double);
+          }
         } else {
           _globalFieldsManager.addAttribute(key, [value.toString()]);
         }
