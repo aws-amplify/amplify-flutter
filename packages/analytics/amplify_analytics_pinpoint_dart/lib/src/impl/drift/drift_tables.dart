@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:io';
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:drift/drift.dart';
@@ -24,8 +25,15 @@ class DriftDatabaseJsonStrings extends _$DriftDatabaseJsonStrings {
   @override
   int get schemaVersion => 1;
 
+  Future<List<DriftJsonString>> get allJsonStrings =>
+      select(driftJsonStrings).get();
+
   Future<List<DriftJsonString>> getJsonStrings(int maxToGet) {
-    return (select(driftJsonStrings)..limit(maxToGet)).get();
+    final statement = (select(driftJsonStrings)
+      ..orderBy([(v) => OrderingTerm.asc(v.id)])
+      ..limit(maxToGet));
+
+    return statement.get();
   }
 
   Future<int> addJsonString(String jsonString) {
@@ -33,10 +41,11 @@ class DriftDatabaseJsonStrings extends _$DriftDatabaseJsonStrings {
         .insert(DriftJsonStringsCompanion(jsonString: Value(jsonString)));
   }
 
-  Future deleteOldestJsonString(int numToDelete) {
-    var del = delete(driftJsonStrings);
-    del.limitExpr = Limit(numToDelete, 0);
-    return del.go(); //limitExpr(Limit(5))).go();
+  //
+  Future<int> deleteJsonStrings(Iterable<int> idsToDelete) {
+    final statement = delete(driftJsonStrings)
+      ..where((t) => t.id.isIn(idsToDelete));
+    return statement.go();
   }
 }
 
