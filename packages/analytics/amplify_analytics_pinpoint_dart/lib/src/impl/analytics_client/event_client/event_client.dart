@@ -1,6 +1,9 @@
+import 'dart:collection';
+
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:smithy/smithy.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../sdk/pinpoint.dart';
@@ -30,11 +33,15 @@ class EventClient {
   }
 
   Future<void> flushEvents() async {
-    List<Event> eventsToFlush = await _storageAdapter.retrieveEvents();
+    List<StoredEvent> storedEvents = await _storageAdapter.retrieveEvents();
 
     var eventsMap = <String, Event>{};
-    for (var event in eventsToFlush) {
-      eventsMap[_uuid.v1()] = event;
+    var eventIdsToDelete = HashMap<String, int>();
+    for (var storedEvent in storedEvents) {
+      final id = _uuid.v1();
+      eventsMap[id] = storedEvent.event;
+      // Mapping PinpointID -> StoredEventId
+      eventIdsToDelete[id] = storedEvent.id;
     }
 
     EventsBatch batch = EventsBatch(
@@ -81,13 +88,41 @@ class EventClient {
           if (isRetryable(eventItemResponse.message ?? '')) {
             safePrint(
                 'putEvents - recoverable issue, will attempt to resend: ${eventID} in next FlushEvents');
-            // TODO: AVOID DELETING EVENTS THAT NEED TO BE RESENT
+            eventIdsToDelete.remove(eventID);
           }
         }
       });
-    } catch (error) {
-      safePrint('putEvents - exception encountered: ${error.toString()}');
+    } on BadRequestException catch (e) {
+      handleRecoverableException(e, eventIdsToDelete);
+    } on InternalServerErrorException catch (e) {
+      handleRecoverableException(e, eventIdsToDelete);
+    } on NotFoundException catch (e) {
+      handleRecoverableException(e, eventIdsToDelete);
+    } on TooManyRequestsException catch (e) {
+      handleRecoverableException(e, eventIdsToDelete);
+    } on PayloadTooLargeException catch (e) {
+      safePrint('putEvents - exception encountered: ${e.toString}');
+      safePrint(
+          'Pinpoint event batch limits exceeded: 100 events / 4 mb total size / 1 mb max size per event \n '
+          'Reduce your event size or change number of events in a batch');
+      eventIdsToDelete.clear();
+    } catch (e) {
+      safePrint('putEvents - exception encountered: ${e.toString()}');
+      safePrint('Unrecoverable issue, deleting cache for local event batch');
     }
+    // Always delete local store of events
+    // Unless a retryable exception has been received (see above)
+     finally {
+      _storageAdapter.deleteEvents(eventIdsToDelete.values);
+    }
+  }
+
+  // If exception is recoverable, do not delete eventIds from local cache
+  void handleRecoverableException(
+      SmithyHttpException e, HashMap eventIdsToDelete) {
+    safePrint('putEvents - exception encountered: ${e.toString}');
+    safePrint('Recoverable issue, will attempt to resend event batch');
+    eventIdsToDelete.clear();
   }
 
   bool equalsIgnoreCase(String string1, String string2) {
