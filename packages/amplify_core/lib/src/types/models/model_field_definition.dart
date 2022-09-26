@@ -14,7 +14,9 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart';
 
+// TODO(dnys1): Remove when codegen is updated
 class ModelFieldDefinition {
   final String name;
   final ModelFieldType type;
@@ -173,9 +175,11 @@ class ModelFieldDefinition {
   ModelField build() {
     return ModelField(
         name: name,
-        type: type,
-        isRequired: isRequired,
-        isArray: isArray,
+        type: SchemaType.fromLegacyType(
+          type,
+          isRequired: isRequired,
+          isArray: isArray,
+        ),
         isReadOnly: isReadOnly,
         association: association,
         authRules: authRules);

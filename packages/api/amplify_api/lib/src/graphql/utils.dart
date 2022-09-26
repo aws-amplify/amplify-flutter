@@ -32,8 +32,9 @@ _RelatedFields _getRelatedFieldsUncached(ModelSchema modelSchema) {
   final singleFields = modelSchema.fields!.values.where((field) =>
       field.association?.associationType == ModelAssociationType.hasOne ||
       field.association?.associationType == ModelAssociationType.belongsTo ||
-      field.type.fieldType == ModelFieldTypeEnum.embedded ||
-      field.type.fieldType == ModelFieldTypeEnum.embeddedCollection);
+      field.type.asLegacyType.fieldType == ModelFieldTypeEnum.embedded ||
+      field.type.asLegacyType.fieldType ==
+          ModelFieldTypeEnum.embeddedCollection);
   final hasManyFields = modelSchema.fields!.values.where((field) =>
       field.association?.associationType == ModelAssociationType.hasMany);
 
@@ -120,8 +121,8 @@ Map<String, dynamic> transformAppSyncJsonToModelJson(
 
   // transform parents/hasOne recursively
   for (var parentField in relatedFields.singleFields) {
-    final ofModelName =
-        parentField.type.ofModelName ?? parentField.type.ofCustomTypeName;
+    final type = parentField.type.asLegacyType;
+    final ofModelName = type.ofModelName ?? type.ofCustomTypeName;
     dynamic inputValue = input[parentField.name];
     if ((inputValue is Map || inputValue is List) && ofModelName != null) {
       final parentSchema = getModelSchemaByModelName(ofModelName, null);
@@ -145,7 +146,8 @@ Map<String, dynamic> transformAppSyncJsonToModelJson(
 
   // transform children recursively
   for (var childField in relatedFields.hasManyFields) {
-    final ofModelName = childField.type.ofModelName;
+    final type = childField.type.asLegacyType;
+    final ofModelName = type.ofModelName;
     dynamic inputValue = input[childField.name];
     List<dynamic>? inputItems =
         (inputValue is Map) ? inputValue[items] as List? : null;

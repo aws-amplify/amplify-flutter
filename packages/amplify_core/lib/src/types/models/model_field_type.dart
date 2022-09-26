@@ -15,6 +15,7 @@
 
 import 'package:meta/meta.dart';
 
+// TODO(dnys1): Remove with platform channel code
 @immutable
 class ModelFieldType {
   final ModelFieldTypeEnum fieldType;

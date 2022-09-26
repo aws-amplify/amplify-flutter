@@ -12,13 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_core/src/types/models/mipr.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
-
-import 'auth_rule.dart';
-import 'model_association.dart';
-import 'model_index.dart';
 
 part 'serializers.g.dart';
 
@@ -31,6 +28,9 @@ part 'serializers.g.dart';
   ModelIndex,
   ModelAssociation,
   ModelAssociationType,
+  AppSyncScalar,
 ])
-final Serializers serializers =
-    (_$serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();
+final Serializers serializers = (_$serializers.toBuilder()
+      ..add(SchemaType.serializer)
+      ..addPlugin(StandardJsonPlugin()))
+    .build();
