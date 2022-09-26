@@ -12,17 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/s3.dart';
+import 'package:test/test.dart';
 
-/// {@template amplify_core.storage.remove_many_result}
-/// Presents the result of a [StorageRemoveManyOperation].
-/// {@endtemplate}
-class StorageRemoveManyResult<Item extends StorageItem> {
-  /// {@macro amplify_core.storage.remove_many_result}
-  const StorageRemoveManyResult({
-    required this.removedItems,
-  });
+class DeleteObjectsLength extends CustomMatcher {
+  DeleteObjectsLength(Matcher matcher)
+      : super(
+          'DeleteObjectsRequest that is',
+          'delete objects length',
+          matcher,
+        );
 
-  /// The removed objects of the [StorageRemoveManyOperation].
-  final List<Item> removedItems;
+  @override
+  Object? featureValueOf(dynamic actual) =>
+      (actual as DeleteObjectsRequest).delete.objects.length;
 }

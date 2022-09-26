@@ -23,6 +23,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:smithy/smithy.dart';
 import 'package:test/test.dart';
 
+import '../utils/custom_matchers.dart';
 import '../utils/mocks.dart';
 import '../utils/test_token_provider.dart';
 
@@ -74,7 +75,7 @@ void main() {
       test(
           'should throw a StorageS3Exception if supplied prefix resolver throws an exception',
           () async {
-        final testOptions =
+        const testOptions =
             S3StorageListOptions.forIdentity('throw exception for me');
 
         try {
@@ -114,7 +115,7 @@ void main() {
         );
         const testPath = 'album';
         const testTargetIdentityId = 'someone-else-id';
-        final testOptions = S3StorageListOptions.forIdentity(
+        const testOptions = S3StorageListOptions.forIdentity(
           testTargetIdentityId,
           pageSize: testPageSize,
         );
@@ -190,7 +191,7 @@ void main() {
       test(
           'should throw S3StorageException when UnknownSmithHttpException is returned from service',
           () async {
-        final testOptions = S3StorageListOptions();
+        const testOptions = S3StorageListOptions();
         const testUnknownException = UnknownSmithyHttpException(
           statusCode: 403,
           body: 'some exception',
@@ -202,12 +203,13 @@ void main() {
           ),
         ).thenThrow(testUnknownException);
 
-        try {
-          await storageS3Service.list(path: 'a path', options: testOptions);
-          fail('Expected exception wasn\'t thrown.');
-        } on Object catch (error) {
-          expect(error is S3StorageException, isTrue);
-        }
+        expect(
+          storageS3Service.list(
+            path: 'a path',
+            options: testOptions,
+          ),
+          throwsA(isA<S3StorageException>()),
+        );
       });
     });
 
@@ -234,7 +236,7 @@ void main() {
       test('should invoke S3Client.headObject with expected parameters',
           () async {
         const testTargetIdentityId = 'someone-else-id';
-        final testOptions = S3StorageGetPropertiesOptions.forIdentity(
+        const testOptions = S3StorageGetPropertiesOptions.forIdentity(
           testTargetIdentityId,
         );
         final testHeadObjectOutput = HeadObjectOutput(
@@ -286,7 +288,7 @@ void main() {
       test(
           'should throw S3StorageException when UnknownSmithHttpException is returned from service',
           () async {
-        final testOptions = S3StorageGetPropertiesOptions();
+        const testOptions = S3StorageGetPropertiesOptions();
         const testUnknownException = UnknownSmithyHttpException(
           statusCode: 404,
           body: 'Nod found.',
@@ -298,14 +300,13 @@ void main() {
           ),
         ).thenThrow(testUnknownException);
 
-        try {
-          await storageS3Service.getProperties(
+        expect(
+          storageS3Service.getProperties(
             key: 'a key',
             options: testOptions,
-          );
-        } on Object catch (error) {
-          expect(error is S3StorageException, isTrue);
-        }
+          ),
+          throwsA(isA<S3StorageException>()),
+        );
       });
     });
 
@@ -339,7 +340,7 @@ void main() {
       test('should invoke AWSSigV4Signer.presign with correct parameters',
           () async {
         const testTargetIdentityId = 'someone-else-id';
-        final testOptions = S3StorageGetUrlOptions.forIdentity(
+        const testOptions = S3StorageGetUrlOptions.forIdentity(
           testTargetIdentityId,
           expiresIn: testExpiresIn,
         );
@@ -402,7 +403,7 @@ void main() {
       test(
           'should invoke s3Client.headObject when checkObjectExistence option is set to true',
           () async {
-        final testOptions = S3StorageGetUrlOptions(
+        const testOptions = S3StorageGetUrlOptions(
           storageAccessLevel: StorageAccessLevel.private,
           checkObjectExistence: true,
         );
@@ -422,6 +423,7 @@ void main() {
             key: testKey,
             options: testOptions,
           );
+          fail('Expected exception wasn\'t thrown.');
         } on Object catch (error) {
           expect(error is S3StorageException, isTrue);
         }
@@ -444,7 +446,7 @@ void main() {
           'should invoke s3Client.headObject when checkObjectExistence option is set to true and specified targetIdentityId',
           () async {
         const testTargetIdentityId = 'some-else-id';
-        final testOptions = S3StorageGetUrlOptions.forIdentity(
+        const testOptions = S3StorageGetUrlOptions.forIdentity(
           testTargetIdentityId,
           checkObjectExistence: true,
         );
@@ -464,6 +466,7 @@ void main() {
             key: testKey,
             options: testOptions,
           );
+          fail('Expected exception wasn\'t thrown.');
         } on Object catch (error) {
           expect(error is S3StorageException, isTrue);
         }
@@ -479,6 +482,230 @@ void main() {
           '${await testPrefixResolver.resolvePrefix(
             storageAccessLevel: testOptions.storageAccessLevel,
           )}$testKey',
+        );
+      });
+    });
+
+    group('remove() API', () {
+      late S3StorageRemoveResult removeResult;
+      const testKey = 'object-to-remove';
+
+      setUpAll(() {
+        registerFallbackValue(
+          DeleteObjectRequest(
+            bucket: 'fake bucket',
+            key: 'dummy key',
+          ),
+        );
+      });
+
+      test('should invoke S3Client.deleteObject with expected parameters',
+          () async {
+        const testOptions = S3StorageRemoveOptions(
+          storageAccessLevel: StorageAccessLevel.private,
+        );
+        final testDeleteObjectOutput = DeleteObjectOutput();
+
+        when(
+          () => s3Client.deleteObject(any()),
+        ).thenAnswer((_) async => testDeleteObjectOutput);
+
+        removeResult = await storageS3Service.remove(
+          key: testKey,
+          options: testOptions,
+        );
+
+        final capturedRequest = verify(
+          () => s3Client.deleteObject(
+            captureAny<DeleteObjectRequest>(),
+          ),
+        ).captured.last;
+        expect(capturedRequest is DeleteObjectRequest, isTrue);
+
+        final request = capturedRequest as DeleteObjectRequest;
+        expect(request.bucket, testBucket);
+        expect(
+          request.key,
+          '${await testPrefixResolver.resolvePrefix(
+            storageAccessLevel: testOptions.storageAccessLevel,
+          )}$testKey',
+        );
+      });
+
+      test('should return correct S3StorageRemoveResult', () {
+        expect(removeResult.removedItem.key, testKey);
+      });
+
+      test(
+          'should throw S3StorageException when UnknownSmithHttpException is returned from service',
+          () async {
+        const testOptions = S3StorageRemoveOptions();
+        const testUnknownException = UnknownSmithyHttpException(
+          statusCode: 403,
+          body: 'Access denied.',
+        );
+
+        when(
+          () => s3Client.deleteObject(any()),
+        ).thenThrow(testUnknownException);
+
+        expect(
+          storageS3Service.remove(
+            key: 'a key',
+            options: testOptions,
+          ),
+          throwsA(isA<S3StorageException>()),
+        );
+      });
+    });
+
+    group('removeMany() API', () {
+      late S3StorageRemoveManyResult removeManyResult;
+      const testNumOfRemovedItems = 955;
+      const testNumOfRemoveErrors = 50;
+      final testKeys = List.generate(
+        1005,
+        (index) => 'object-to-remove-${index + 1}',
+      ).toList();
+
+      setUpAll(() {
+        registerFallbackValue(
+          DeleteObjectsRequest(
+            bucket: 'fake bucket',
+            delete: Delete(objects: BuiltList(<ObjectIdentifier>[])),
+          ),
+        );
+      });
+
+      test('should invoke S3Client.deleteObjects with expected parameters',
+          () async {
+        const testOptions = S3StorageRemoveManyOptions(
+          storageAccessLevel: StorageAccessLevel.protected,
+        );
+        final testPrefix =
+            '${testOptions.storageAccessLevel.defaultPrefix}$testDelimiter';
+        final testDeleteObjectsOutput1 = DeleteObjectsOutput(
+          deleted: BuiltList(
+            testKeys
+                .take(1000 - testNumOfRemoveErrors)
+                .map((key) => DeletedObject(key: '$testPrefix$key')),
+          ),
+          errors: BuiltList(
+            testKeys
+                .skip(1000 - testNumOfRemoveErrors)
+                .take(testNumOfRemoveErrors)
+                .map(
+                  (key) => Error(
+                    key: '$testPrefix$key',
+                    message: 'some error',
+                  ),
+                ),
+          ),
+        );
+        final testDeleteObjectsOutput2 = DeleteObjectsOutput(
+          deleted: BuiltList(
+            testKeys
+                .skip(1000)
+                .take(5)
+                .map((key) => DeletedObject(key: '$testPrefix$key')),
+          ),
+        );
+
+        // response to the first 1000 delete objects request
+        when(
+          () => s3Client.deleteObjects(
+            any(that: DeleteObjectsLength(equals(1000))),
+          ),
+        ).thenAnswer((_) async => testDeleteObjectsOutput1);
+
+        // response to the remaining delete objects request
+        when(
+          () => s3Client.deleteObjects(
+            any(that: DeleteObjectsLength(equals(5))),
+          ),
+        ).thenAnswer((_) async => testDeleteObjectsOutput2);
+
+        removeManyResult = await storageS3Service.removeMany(
+          keys: testKeys,
+          options: testOptions,
+        );
+
+        final capturedRequests = verify(
+          () => s3Client.deleteObjects(captureAny<DeleteObjectsRequest>()),
+        ).captured;
+
+        // 1005 objects to remove therefore should send 2 requests for
+        // 2 batches
+        expect(capturedRequests, hasLength(2));
+
+        final capturedRequest1 = capturedRequests.first;
+        final capturedRequest2 = capturedRequests.last;
+
+        expect(capturedRequest1 is DeleteObjectsRequest, isTrue);
+        expect(capturedRequest2 is DeleteObjectsRequest, isTrue);
+
+        final request1 = capturedRequest1 as DeleteObjectsRequest;
+        final request2 = capturedRequest2 as DeleteObjectsRequest;
+
+        final expectedKeysForRequest1 = await Future.wait(
+          testKeys.take(1000).map(
+                (key) async => '${await testPrefixResolver.resolvePrefix(
+                  storageAccessLevel: testOptions.storageAccessLevel,
+                )}$key',
+              ),
+        );
+        final expectedKeysForRequest2 = await Future.wait(
+          testKeys.skip(1000).map(
+                (key) async => '${await testPrefixResolver.resolvePrefix(
+                  storageAccessLevel: testOptions.storageAccessLevel,
+                )}$key',
+              ),
+        );
+
+        expect(
+          request1.delete.objects.map((object) => object.key),
+          containsAllInOrder(expectedKeysForRequest1),
+        );
+
+        expect(
+          request2.delete.objects.map((object) => object.key),
+          containsAllInOrder(expectedKeysForRequest2),
+        );
+      });
+
+      test('should return correct S3StorageRemoveManyResult', () {
+        final removedItems = removeManyResult.removedItems;
+        final removeErrors = removeManyResult.removeErrors;
+
+        expect(removedItems, hasLength(testNumOfRemovedItems));
+        expect(removeErrors, hasLength(testNumOfRemoveErrors));
+
+        removedItems.asMap().forEach((index, item) {
+          final lookupIndex =
+              index < 950 ? index : index + testNumOfRemoveErrors;
+          expect(item.key, testKeys[lookupIndex]);
+        });
+      });
+
+      test(
+          'should throw S3StorageException when UnknownSmithHttpException is returned from service',
+          () async {
+        const testOptions = S3StorageRemoveManyOptions();
+        const testUnknownException = UnknownSmithyHttpException(
+          statusCode: 403,
+          body: 'Access denied.',
+        );
+
+        when(
+          () => s3Client.deleteObjects(any()),
+        ).thenThrow(testUnknownException);
+
+        expect(
+          storageS3Service.removeMany(
+            keys: testKeys,
+            options: testOptions,
+          ),
+          throwsA(isA<S3StorageException>()),
         );
       });
     });

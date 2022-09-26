@@ -20,9 +20,9 @@ import 'package:amplify_core/amplify_core.dart';
 class StorageRemoveResult<Item extends StorageItem> {
   /// {@macro amplify_core.storage.remove_result}
   const StorageRemoveResult({
-    required this.storageItem,
+    required this.removedItem,
   });
 
   /// The removed object of the [StorageRemoveOperation].
-  final Item storageItem;
+  final Item removedItem;
 }

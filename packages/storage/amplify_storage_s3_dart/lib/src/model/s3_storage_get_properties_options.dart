@@ -19,13 +19,11 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class S3StorageGetPropertiesOptions extends StorageGetPropertiesOptions {
   /// {@macro storage.amplify_storage_s3.get_properties_options}
-  factory S3StorageGetPropertiesOptions({
+  const S3StorageGetPropertiesOptions({
     StorageAccessLevel storageAccessLevel = StorageAccessLevel.guest,
-  }) {
-    return S3StorageGetPropertiesOptions._(
-      storageAccessLevel: storageAccessLevel,
-    );
-  }
+  }) : this._(
+          storageAccessLevel: storageAccessLevel,
+        );
 
   const S3StorageGetPropertiesOptions._({
     super.storageAccessLevel = StorageAccessLevel.guest,
@@ -36,12 +34,12 @@ class S3StorageGetPropertiesOptions extends StorageGetPropertiesOptions {
   ///
   /// Use when call `getProperties` on an object that belongs to other user
   /// (identified by `targetIdentityId`) rather than the currently signed user.
-  factory S3StorageGetPropertiesOptions.forIdentity(String targetIdentityId) {
-    return S3StorageGetPropertiesOptions._(
-      storageAccessLevel: StorageAccessLevel.protected,
-      targetIdentityId: targetIdentityId,
-    );
-  }
+  const S3StorageGetPropertiesOptions.forIdentity(
+    String targetIdentityId,
+  ) : this._(
+          storageAccessLevel: StorageAccessLevel.protected,
+          targetIdentityId: targetIdentityId,
+        );
 
   /// The identity id of another user who uploaded the object that to get
   /// properties for.
