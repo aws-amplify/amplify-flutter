@@ -7,6 +7,7 @@ part of 'serializers.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(AppSyncScalar.serializer)
       ..add(AuthRule.serializer)
       ..add(AuthRuleProvider.serializer)
       ..add(AuthStrategy.serializer)

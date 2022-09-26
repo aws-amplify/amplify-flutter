@@ -19,7 +19,6 @@ import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
 import 'mipr.dart';
-import 'model_field_type.dart';
 
 @immutable
 class ModelField {
@@ -29,12 +28,12 @@ class ModelField {
 
   // Type of the field is the data type of the instance variables
   // of the Model class.
-  final ModelFieldType type;
+  final SchemaType type;
 
   // If the field is a required or an optional field
-  final bool isRequired;
+  bool get isRequired => type.isRequired;
 
-  final bool isArray;
+  bool get isArray => type is ListType;
 
   final bool isReadOnly;
 
@@ -43,39 +42,18 @@ class ModelField {
   // An array of rules for owner based authorization
   final List<AuthRule>? authRules;
 
-  const ModelField(
-      {required this.name,
-      required this.type,
-      required this.isRequired,
-      this.isArray = false,
-      this.isReadOnly = false,
-      this.association,
-      this.authRules});
-
-  ModelField copyWith({
-    String? name,
-    ModelFieldType? type,
-    bool? isRequired,
-    bool? isArray,
-    bool? isReadOnly,
-    ModelAssociation? association,
-    List<AuthRule>? authRules,
-  }) {
-    return ModelField(
-      name: name ?? this.name,
-      type: type ?? this.type,
-      isRequired: isRequired ?? this.isRequired,
-      isArray: isArray ?? this.isArray,
-      isReadOnly: isReadOnly ?? this.isReadOnly,
-      association: association ?? this.association,
-      authRules: authRules ?? this.authRules,
-    );
-  }
+  const ModelField({
+    required this.name,
+    required this.type,
+    this.isReadOnly = false,
+    this.association,
+    this.authRules,
+  });
 
   Map<String, dynamic> toMap() {
     final map = {
       'name': name,
-      'type': type.toMap(),
+      'type': type.asLegacyType.toMap(),
       'isRequired': isRequired,
       'isArray': isArray,
       'isReadOnly': isReadOnly,

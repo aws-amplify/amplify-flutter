@@ -56,10 +56,11 @@ class GraphQLRequestFactory {
         .where((entry) =>
             entry.value.association == null) // ignore related model fields
         .map((entry) {
-      if (entry.value.type.fieldType == ModelFieldTypeEnum.embedded ||
-          entry.value.type.fieldType == ModelFieldTypeEnum.embeddedCollection) {
+      final type = entry.value.type.asLegacyType;
+      if (type.fieldType == ModelFieldTypeEnum.embedded ||
+          type.fieldType == ModelFieldTypeEnum.embeddedCollection) {
         final embeddedSchema =
-            getModelSchemaByModelName(entry.value.type.ofCustomTypeName!, null);
+            getModelSchemaByModelName(type.ofCustomTypeName!, null);
         final embeddedSelectionSet = _getSelectionSetFromModelSchema(
             embeddedSchema, GraphQLRequestOperation.get);
         return '${entry.key} { $embeddedSelectionSet }';
@@ -69,7 +70,8 @@ class GraphQLRequestFactory {
 
     // If belongsTo, also add selection set of parent.
     final belongsToAssociation = getBelongsToFieldFromModelSchema(schema);
-    String? belongsToModelName = belongsToAssociation?.type.ofModelName;
+    String? belongsToModelName =
+        belongsToAssociation?.type.asLegacyType.ofModelName;
     if (belongsToModelName != null && !ignoreParents) {
       final parentSchema = getModelSchemaByModelName(belongsToModelName, null);
       String parentSelectionSet = _getSelectionSetFromModelSchema(

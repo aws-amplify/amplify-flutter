@@ -42,33 +42,39 @@ void main() {
     expect(blogSchema.authRules, null);
 
     expect(
-        blogSchema.fields!["id"],
-        ModelField(
-            name: "id",
-            type: const ModelFieldType(ModelFieldTypeEnum.string),
-            isRequired: true,
-            isArray: false));
+      blogSchema.fields!["id"],
+      ModelField(
+        name: "id",
+        type: const SchemaType.scalar(
+          AppSyncScalar.string,
+          isRequired: true,
+        ),
+      ),
+    );
 
     expect(
-        blogSchema.fields!["name"],
-        ModelField(
-            name: "name",
-            type: const ModelFieldType(ModelFieldTypeEnum.string),
-            isRequired: true,
-            isArray: false));
+      blogSchema.fields!["name"],
+      ModelField(
+        name: "name",
+        type: const SchemaType.scalar(
+          AppSyncScalar.string,
+          isRequired: true,
+        ),
+      ),
+    );
 
     expect(
-        blogSchema.fields!["posts"],
-        ModelField(
-            name: "posts",
-            type: const ModelFieldType(ModelFieldTypeEnum.collection,
-                ofModelName: "Post"),
-            isRequired: false,
-            isArray: true,
-            association: ModelAssociation(
-                associationType: ModelAssociationType.hasMany,
-                associatedName: Post.BLOG.fieldName,
-                associatedType: Post.BLOG.fieldType!.ofModelName)));
+      blogSchema.fields!["posts"],
+      ModelField(
+        name: "posts",
+        type: const SchemaType.list(SchemaType.model('Post')),
+        association: ModelAssociation(
+          associationType: ModelAssociationType.hasMany,
+          associatedName: Post.BLOG.fieldName,
+          associatedType: Post.BLOG.fieldType!.ofModelName,
+        ),
+      ),
+    );
   });
 
   test('Comment codegen model generates modelschema with proper fields',
@@ -89,12 +95,15 @@ void main() {
     expect(commentSchema.authRules, null);
 
     expect(
-        commentSchema.fields!["id"],
-        ModelField(
-            name: "id",
-            type: const ModelFieldType(ModelFieldTypeEnum.string),
-            isRequired: true,
-            isArray: false));
+      commentSchema.fields!["id"],
+      ModelField(
+        name: "id",
+        type: const SchemaType.scalar(
+          AppSyncScalar.string,
+          isRequired: true,
+        ),
+      ),
+    );
 
     expect(
       commentSchema.fields["post"],
@@ -110,12 +119,15 @@ void main() {
     );
 
     expect(
-        commentSchema.fields!["content"],
-        ModelField(
-            name: "content",
-            type: ModelFieldType(ModelFieldTypeEnum.string),
-            isRequired: true,
-            isArray: false));
+      commentSchema.fields!["content"],
+      ModelField(
+        name: "content",
+        type: const SchemaType.scalar(
+          AppSyncScalar.string,
+          isRequired: true,
+        ),
+      ),
+    );
   });
 
   test('Post codegen model generates modelschema with proper fields', () async {
@@ -136,20 +148,26 @@ void main() {
     expect(postSchema.authRules, null);
 
     expect(
-        postSchema.fields!["id"],
-        ModelField(
-            name: "id",
-            type: const ModelFieldType(ModelFieldTypeEnum.string),
-            isRequired: true,
-            isArray: false));
+      postSchema.fields!["id"],
+      ModelField(
+        name: "id",
+        type: const SchemaType.scalar(
+          AppSyncScalar.string,
+          isRequired: true,
+        ),
+      ),
+    );
 
     expect(
-        postSchema.fields!["title"],
-        ModelField(
-            name: "title",
-            type: ModelFieldType(ModelFieldTypeEnum.string),
-            isRequired: true,
-            isArray: false));
+      postSchema.fields!["title"],
+      ModelField(
+        name: "title",
+        type: const SchemaType.scalar(
+          AppSyncScalar.string,
+          isRequired: true,
+        ),
+      ),
+    );
 
     expect(
       postSchema.fields["blog"],
@@ -224,38 +242,48 @@ void main() {
     */
     final expectedPersonFields = {
       'id': ModelField(
-          name: "id",
-          type: const ModelFieldType(ModelFieldTypeEnum.string),
+        name: "id",
+        type: const SchemaType.scalar(
+          AppSyncScalar.string,
           isRequired: true,
-          isArray: false),
+        ),
+      ),
       'name': ModelField(
-          name: "name",
-          type: const ModelFieldType(ModelFieldTypeEnum.string),
+        name: "name",
+        type: const SchemaType.scalar(
+          AppSyncScalar.string,
           isRequired: true,
-          isArray: false),
+        ),
+      ),
       'contact': ModelField(
-          name: 'contact',
+        name: 'contact',
+        type: const SchemaType.nonModel(
+          'Contact',
           isRequired: true,
-          type: ModelFieldType(ModelFieldTypeEnum.embedded,
-              ofCustomTypeName: 'Contact')),
+        ),
+      ),
       'propertiesAddresses': ModelField(
-          name: 'propertiesAddresses',
-          isRequired: false,
-          isArray: true,
-          type: ModelFieldType(ModelFieldTypeEnum.embeddedCollection,
-              ofCustomTypeName: 'Address')),
+        name: 'propertiesAddresses',
+        type: const SchemaType.list(
+          SchemaType.nonModel('Address'),
+        ),
+      ),
       'createdAt': ModelField(
-          name: 'createdAt',
+        name: 'createdAt',
+        isReadOnly: true,
+        type: const SchemaType.scalar(
+          AppSyncScalar.awsDateTime,
           isRequired: false,
-          isArray: false,
-          isReadOnly: true,
-          type: ModelFieldType(ModelFieldTypeEnum.dateTime)),
+        ),
+      ),
       'updatedAt': ModelField(
-          name: 'updatedAt',
+        name: 'updatedAt',
+        isReadOnly: true,
+        type: const SchemaType.scalar(
+          AppSyncScalar.awsDateTime,
           isRequired: false,
-          isArray: false,
-          isReadOnly: true,
-          type: ModelFieldType(ModelFieldTypeEnum.dateTime))
+        ),
+      )
     };
     final personSchema = Person.schema;
     expect(personSchema.name, 'Person');

@@ -14,6 +14,7 @@
  */
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:amplify_core/src/types/models/mipr.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
 import 'testData/ModelProvider.dart';
@@ -42,58 +43,90 @@ import 'testData/ModelProvider.dart';
 void main() {
   final expectedContactFields = {
     'email': ModelField(
-        name: 'email',
+      name: 'email',
+      type: SchemaType.scalar(
+        AppSyncScalar.string,
         isRequired: true,
-        type: ModelFieldType(ModelFieldTypeEnum.string)),
+      ),
+    ),
     'phone': ModelField(
-        name: 'phone',
+      name: 'phone',
+      type: SchemaType.nonModel(
+        'Phone',
         isRequired: true,
-        type: ModelFieldType(ModelFieldTypeEnum.embedded,
-            ofCustomTypeName: 'Phone')),
+      ),
+    ),
     'mailingAddresses': ModelField(
-        name: 'mailingAddresses',
+      name: 'mailingAddresses',
+      type: SchemaType.list(
+        SchemaType.nonModel(
+          'Address',
+        ),
         isRequired: false,
-        isArray: true,
-        type: ModelFieldType(ModelFieldTypeEnum.embeddedCollection,
-            ofCustomTypeName: 'Address')),
+      ),
+    ),
   };
 
   final expectedPhoneFields = {
     'country': ModelField(
-        name: 'country',
+      name: 'country',
+      type: SchemaType.scalar(
+        AppSyncScalar.string,
         isRequired: true,
-        type: ModelFieldType(ModelFieldTypeEnum.string)),
+      ),
+    ),
     'area': ModelField(
-        name: 'area',
+      name: 'area',
+      type: SchemaType.scalar(
+        AppSyncScalar.string,
         isRequired: true,
-        type: ModelFieldType(ModelFieldTypeEnum.string)),
+      ),
+    ),
     'number': ModelField(
-        name: 'number',
+      name: 'number',
+      type: SchemaType.scalar(
+        AppSyncScalar.string,
         isRequired: true,
-        type: ModelFieldType(ModelFieldTypeEnum.string)),
+      ),
+    ),
   };
 
   final expectedAddressFields = {
     'line1': ModelField(
-        name: 'line1',
+      name: 'line1',
+      type: SchemaType.scalar(
+        AppSyncScalar.string,
         isRequired: true,
-        type: ModelFieldType(ModelFieldTypeEnum.string)),
+      ),
+    ),
     'line2': ModelField(
-        name: 'line2',
+      name: 'line2',
+      type: SchemaType.scalar(
+        AppSyncScalar.string,
         isRequired: false,
-        type: ModelFieldType(ModelFieldTypeEnum.string)),
+      ),
+    ),
     'city': ModelField(
-        name: 'city',
+      name: 'city',
+      type: SchemaType.scalar(
+        AppSyncScalar.string,
         isRequired: true,
-        type: ModelFieldType(ModelFieldTypeEnum.string)),
+      ),
+    ),
     'state': ModelField(
-        name: 'state',
+      name: 'state',
+      type: SchemaType.scalar(
+        AppSyncScalar.string,
         isRequired: true,
-        type: ModelFieldType(ModelFieldTypeEnum.string)),
+      ),
+    ),
     'postalCode': ModelField(
-        name: 'postalCode',
+      name: 'postalCode',
+      type: SchemaType.scalar(
+        AppSyncScalar.string,
         isRequired: true,
-        type: ModelFieldType(ModelFieldTypeEnum.string)),
+      ),
+    ),
   };
 
   test('Generated Dart class Contact should provide correct schema', () {
