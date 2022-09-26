@@ -13,7 +13,7 @@
 
 import 'package:amplify_api/src/decorators/authorize_http_request.dart';
 import 'package:amplify_api/src/graphql/app_sync_api_key_auth_provider.dart';
-import 'package:amplify_api/src/oidc_function_api_auth_provider.dart';
+import 'package:amplify_api/src/graphql/oidc_function_api_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'util.dart';
@@ -74,8 +74,10 @@ void main() {
         endpointConfig: endpointConfig,
         authProviderRepo: authProviderRepo,
       );
-      expect(authorizedRequest.headers.containsKey(AWSHeaders.authorization),
-          isFalse);
+      expect(
+        authorizedRequest.headers.containsKey(AWSHeaders.authorization),
+        isFalse,
+      );
       expect(authorizedRequest, inputRequest);
     });
 
@@ -97,7 +99,9 @@ void main() {
         authProviderRepo: authProviderRepo,
       );
       expect(
-          authorizedRequest.headers[AWSHeaders.authorization], testAuthValue);
+        authorizedRequest.headers[AWSHeaders.authorization],
+        testAuthValue,
+      );
       expect(authorizedRequest, inputRequest);
     });
 
@@ -147,13 +151,14 @@ void main() {
         region: _region,
       );
       final inputRequest = _generateTestRequest(endpointConfig.endpoint);
-      expectLater(
-          authorizeHttpRequest(
-            inputRequest,
-            endpointConfig: endpointConfig,
-            authProviderRepo: authProviderRepo,
-          ),
-          throwsA(isA<ApiException>()));
+      await expectLater(
+        authorizeHttpRequest(
+          inputRequest,
+          endpointConfig: endpointConfig,
+          authProviderRepo: authProviderRepo,
+        ),
+        throwsA(isA<ApiException>()),
+      );
     });
 
     test('authorizes with Cognito User Pools auth mode', () async {
@@ -250,7 +255,7 @@ void main() {
         region: _region,
       );
       final inputRequest = _generateTestRequest(endpointConfig.endpoint);
-      expectLater(
+      await expectLater(
         authorizeHttpRequest(
           inputRequest,
           endpointConfig: endpointConfig,

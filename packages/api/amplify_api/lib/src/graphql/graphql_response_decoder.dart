@@ -17,8 +17,8 @@
 
 import 'dart:convert';
 
+import 'package:amplify_api/src/graphql/utils.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'utils.dart';
 
 const _nextToken = 'nextToken';
 
@@ -32,7 +32,7 @@ class GraphQLResponseDecoder {
   static GraphQLResponseDecoder get instance => _instance;
 
   GraphQLResponse<T> decode<T>({
-    required GraphQLRequest request,
+    required GraphQLRequest<T> request,
     required Map<String, dynamic> response,
   }) {
     final errors = _deserializeGraphQLResponseErrors(response);
@@ -68,7 +68,7 @@ class GraphQLResponseDecoder {
     // nested in a small JSON object in the `decodePath`. Its structure varies by
     // platform when null. Unpack the JSON object and null check the result along
     // the way. If null at any point, return null response.
-    Map<String, dynamic>? dataJson = data as Map<String, dynamic>?;
+    var dataJson = data as Map<String, dynamic>?;
     if (dataJson == null) {
       return GraphQLResponse(data: null, errors: errors);
     }
@@ -89,14 +89,16 @@ class GraphQLResponseDecoder {
     // Found a JSON object to represent the model, parse it using model's fromJSON.
     T decodedData;
     final modelSchema = getModelSchemaByModelName(modelType.modelName(), null);
-    dataJson = transformAppSyncJsonToModelJson(dataJson!, modelSchema,
-        isPaginated: modelType is PaginatedModelType);
+    dataJson = transformAppSyncJsonToModelJson(
+      dataJson!,
+      modelSchema,
+      isPaginated: modelType is PaginatedModelType,
+    );
     if (modelType is PaginatedModelType) {
-      Map<String, dynamic>? filter =
-          request.variables['filter'] as Map<String, dynamic>?;
-      int? limit = request.variables['limit'] as int?;
+      final filter = request.variables['filter'] as Map<String, dynamic>?;
+      final limit = request.variables['limit'] as int?;
 
-      String? resultNextToken = dataJson![_nextToken] as String?;
+      final resultNextToken = dataJson![_nextToken] as String?;
       dynamic requestForNextResult;
       // If result has nextToken property, prepare a request for the next page of results.
       if (resultNextToken != null) {
@@ -105,10 +107,11 @@ class GraphQLResponseDecoder {
           _nextToken: resultNextToken
         };
         requestForNextResult = GraphQLRequest<T>(
-            document: request.document,
-            decodePath: request.decodePath,
-            variables: variablesWithNextToken,
-            modelType: request.modelType);
+          document: request.document,
+          decodePath: request.decodePath,
+          variables: variablesWithNextToken,
+          modelType: request.modelType,
+        );
       }
       decodedData = modelType.fromJson(
         dataJson!,
@@ -132,9 +135,7 @@ List<GraphQLResponseError>? _deserializeGraphQLResponseErrors(
     return null;
   }
   return errors
-      .cast<Map>()
-      .map((message) => GraphQLResponseError.fromJson(
-            message.cast<String, dynamic>(),
-          ))
+      .cast<Map<String, dynamic>>()
+      .map(GraphQLResponseError.fromJson)
       .toList();
 }
