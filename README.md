@@ -58,24 +58,24 @@ We are iterating and looking for feedback and collaboration, so please [**let us
 ### Stable Release
 
 | Category       | Android | iOS | Web | Windows | MacOS | Linux |
-| -------------- | ------- | --- | --- | ------- | ----- | ----- |
-| Analytics      | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
-| API (REST)     | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
-| API (GraphQL)  | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
-| Authentication | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
-| DataStore      | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
-| Storage        | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+| -------------- | :-----: | :-: | :-: | :-----: | :---: | :---: |
+| Analytics      |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| API (REST)     |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| API (GraphQL)  |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| Authentication |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| DataStore      |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| Storage        |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
 
 ### Developer Preview Release
 
 | Category       | Android | iOS | Web | Windows | MacOS | Linux |
-| -------------- | ------- | --- | --- | ------- | ----- | ----- |
-| Analytics      | [ ]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
-| API (REST)     | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
-| API (GraphQL)  | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
-| Authentication | [X]     | [X] | [X] | [X]     | [X]   | [X]   |
-| DataStore      | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
-| Storage        | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+| -------------- | :-----: | :-: | :-: | :-----: | :---: | :---: |
+| Analytics      |   🔴    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| API (REST)     |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| API (GraphQL)  |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| Authentication |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
+| DataStore      |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| Storage        |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
 
 ### To Be Implemented
 
