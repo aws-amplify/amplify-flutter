@@ -35,7 +35,7 @@ class GraphQLResponseDecoder {
     required GraphQLRequest<T> request,
     required Map<String, dynamic> response,
   }) {
-    final errors = deserializeGraphQLResponseErrors(response);
+    final errors = _deserializeGraphQLResponseErrors(response);
     final data = response['data'];
 
     // If no modelType fallback to default (likely String).
@@ -127,7 +127,7 @@ class GraphQLResponseDecoder {
   }
 }
 
-List<GraphQLResponseError>? deserializeGraphQLResponseErrors(
+List<GraphQLResponseError>? _deserializeGraphQLResponseErrors(
   Map<String, dynamic>? response,
 ) {
   final errors = response?['errors'] as List?;
