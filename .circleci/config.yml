@@ -246,7 +246,6 @@ workflows:
                   "amplify_analytics_pinpoint_android",
                   "amplify_api_android",
                   "amplify_auth_cognito",
-                  "amplify_datastore",
                   "amplify_flutter",
                 ]
       - unit_test_ios:
@@ -257,6 +256,5 @@ workflows:
                   "amplify_analytics_pinpoint_ios",
                   "amplify_api_ios",
                   "amplify_auth_cognito",
-                  "amplify_datastore",
                   "amplify_flutter",
                 ]
