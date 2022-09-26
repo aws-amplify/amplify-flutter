@@ -35,24 +35,26 @@ abstract class ConfirmSignUpRequest
         _i2.AWSEquatable<ConfirmSignUpRequest>
     implements Built<ConfirmSignUpRequest, ConfirmSignUpRequestBuilder> {
   /// Represents the request to confirm registration of a user.
-  factory ConfirmSignUpRequest(
-      {_i3.AnalyticsMetadataType? analyticsMetadata,
-      required String clientId,
-      _i4.BuiltMap<String, String>? clientMetadata,
-      required String confirmationCode,
-      bool? forceAliasCreation,
-      String? secretHash,
-      _i5.UserContextDataType? userContextData,
-      required String username}) {
+  factory ConfirmSignUpRequest({
+    _i3.AnalyticsMetadataType? analyticsMetadata,
+    required String clientId,
+    _i4.BuiltMap<String, String>? clientMetadata,
+    required String confirmationCode,
+    bool? forceAliasCreation,
+    String? secretHash,
+    _i5.UserContextDataType? userContextData,
+    required String username,
+  }) {
     return _$ConfirmSignUpRequest._(
-        analyticsMetadata: analyticsMetadata,
-        clientId: clientId,
-        clientMetadata: clientMetadata,
-        confirmationCode: confirmationCode,
-        forceAliasCreation: forceAliasCreation,
-        secretHash: secretHash,
-        userContextData: userContextData,
-        username: username);
+      analyticsMetadata: analyticsMetadata,
+      clientId: clientId,
+      clientMetadata: clientMetadata,
+      confirmationCode: confirmationCode,
+      forceAliasCreation: forceAliasCreation,
+      secretHash: secretHash,
+      userContextData: userContextData,
+      username: username,
+    );
   }
 
   /// Represents the request to confirm registration of a user.
@@ -63,8 +65,10 @@ abstract class ConfirmSignUpRequest
   const ConfirmSignUpRequest._();
 
   factory ConfirmSignUpRequest.fromRequest(
-          ConfirmSignUpRequest payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    ConfirmSignUpRequest payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -120,19 +124,43 @@ abstract class ConfirmSignUpRequest
         forceAliasCreation,
         secretHash,
         userContextData,
-        username
+        username,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfirmSignUpRequest');
-    helper.add('analyticsMetadata', analyticsMetadata);
-    helper.add('clientId', '***SENSITIVE***');
-    helper.add('clientMetadata', clientMetadata);
-    helper.add('confirmationCode', confirmationCode);
-    helper.add('forceAliasCreation', forceAliasCreation);
-    helper.add('secretHash', '***SENSITIVE***');
-    helper.add('userContextData', userContextData);
-    helper.add('username', '***SENSITIVE***');
+    helper.add(
+      'analyticsMetadata',
+      analyticsMetadata,
+    );
+    helper.add(
+      'clientId',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'clientMetadata',
+      clientMetadata,
+    );
+    helper.add(
+      'confirmationCode',
+      confirmationCode,
+    );
+    helper.add(
+      'forceAliasCreation',
+      forceAliasCreation,
+    );
+    helper.add(
+      'secretHash',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'userContextData',
+      userContextData,
+    );
+    helper.add(
+      'username',
+      '***SENSITIVE***',
+    );
     return helper.toString();
   }
 }
@@ -143,15 +171,23 @@ class ConfirmSignUpRequestAwsJson11Serializer
       : super('ConfirmSignUpRequest');
 
   @override
-  Iterable<Type> get types =>
-      const [ConfirmSignUpRequest, _$ConfirmSignUpRequest];
+  Iterable<Type> get types => const [
+        ConfirmSignUpRequest,
+        _$ConfirmSignUpRequest,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   ConfirmSignUpRequest deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = ConfirmSignUpRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -161,49 +197,67 @@ class ConfirmSignUpRequestAwsJson11Serializer
       switch (key) {
         case 'AnalyticsMetadata':
           if (value != null) {
-            result.analyticsMetadata.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i3.AnalyticsMetadataType))
-                as _i3.AnalyticsMetadataType));
+            result.analyticsMetadata.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.AnalyticsMetadataType),
+            ) as _i3.AnalyticsMetadataType));
           }
           break;
         case 'ClientId':
-          result.clientId = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.clientId = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'ClientMetadata':
           if (value != null) {
-            result.clientMetadata.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(
-                        _i4.BuiltMap, [FullType(String), FullType(String)]))
-                as _i4.BuiltMap<String, String>));
+            result.clientMetadata.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i4.BuiltMap,
+                [
+                  FullType(String),
+                  FullType(String),
+                ],
+              ),
+            ) as _i4.BuiltMap<String, String>));
           }
           break;
         case 'ConfirmationCode':
-          result.confirmationCode = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.confirmationCode = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'ForceAliasCreation':
           if (value != null) {
-            result.forceAliasCreation = (serializers.deserialize(value,
-                specifiedType: const FullType(bool)) as bool);
+            result.forceAliasCreation = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
           }
           break;
         case 'SecretHash':
           if (value != null) {
-            result.secretHash = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.secretHash = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'UserContextData':
           if (value != null) {
-            result.userContextData.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i5.UserContextDataType))
-                as _i5.UserContextDataType));
+            result.userContextData.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i5.UserContextDataType),
+            ) as _i5.UserContextDataType));
           }
           break;
         case 'Username':
-          result.username = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.username = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
       }
     }
@@ -212,50 +266,74 @@ class ConfirmSignUpRequestAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as ConfirmSignUpRequest);
     final result = <Object?>[
       'ClientId',
-      serializers.serialize(payload.clientId,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        payload.clientId,
+        specifiedType: const FullType(String),
+      ),
       'ConfirmationCode',
-      serializers.serialize(payload.confirmationCode,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        payload.confirmationCode,
+        specifiedType: const FullType(String),
+      ),
       'Username',
-      serializers.serialize(payload.username,
-          specifiedType: const FullType(String))
+      serializers.serialize(
+        payload.username,
+        specifiedType: const FullType(String),
+      ),
     ];
     if (payload.analyticsMetadata != null) {
       result
         ..add('AnalyticsMetadata')
-        ..add(serializers.serialize(payload.analyticsMetadata!,
-            specifiedType: const FullType(_i3.AnalyticsMetadataType)));
+        ..add(serializers.serialize(
+          payload.analyticsMetadata!,
+          specifiedType: const FullType(_i3.AnalyticsMetadataType),
+        ));
     }
     if (payload.clientMetadata != null) {
       result
         ..add('ClientMetadata')
-        ..add(serializers.serialize(payload.clientMetadata!,
-            specifiedType: const FullType(
-                _i4.BuiltMap, [FullType(String), FullType(String)])));
+        ..add(serializers.serialize(
+          payload.clientMetadata!,
+          specifiedType: const FullType(
+            _i4.BuiltMap,
+            [
+              FullType(String),
+              FullType(String),
+            ],
+          ),
+        ));
     }
     if (payload.forceAliasCreation != null) {
       result
         ..add('ForceAliasCreation')
-        ..add(serializers.serialize(payload.forceAliasCreation!,
-            specifiedType: const FullType(bool)));
+        ..add(serializers.serialize(
+          payload.forceAliasCreation!,
+          specifiedType: const FullType(bool),
+        ));
     }
     if (payload.secretHash != null) {
       result
         ..add('SecretHash')
-        ..add(serializers.serialize(payload.secretHash!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.secretHash!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.userContextData != null) {
       result
         ..add('UserContextData')
-        ..add(serializers.serialize(payload.userContextData!,
-            specifiedType: const FullType(_i5.UserContextDataType)));
+        ..add(serializers.serialize(
+          payload.userContextData!,
+          specifiedType: const FullType(_i5.UserContextDataType),
+        ));
     }
     return result;
   }

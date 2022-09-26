@@ -2,7 +2,8 @@ include: package:amplify_lints/library.yaml
 
 analyzer:
   exclude:
-    - '**/*.g.dart'
+    - "**/*.g.dart"
+    - "pigeons/**"
 
 linter:
   rules:

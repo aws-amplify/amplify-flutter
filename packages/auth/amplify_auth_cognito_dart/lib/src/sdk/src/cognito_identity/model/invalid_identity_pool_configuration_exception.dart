@@ -45,8 +45,9 @@ abstract class InvalidIdentityPoolConfigurationException
 
   /// Constructs a [InvalidIdentityPoolConfigurationException] from a [payload] and [response].
   factory InvalidIdentityPoolConfigurationException.fromResponse(
-          InvalidIdentityPoolConfigurationException payload,
-          _i1.AWSBaseHttpResponse response) =>
+    InvalidIdentityPoolConfigurationException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
@@ -63,8 +64,9 @@ abstract class InvalidIdentityPoolConfigurationException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.cognitoidentity',
-      shape: 'InvalidIdentityPoolConfigurationException');
+        namespace: 'com.amazonaws.cognitoidentity',
+        shape: 'InvalidIdentityPoolConfigurationException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -81,7 +83,10 @@ abstract class InvalidIdentityPoolConfigurationException
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'InvalidIdentityPoolConfigurationException');
-    helper.add('message', message);
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
@@ -94,15 +99,21 @@ class InvalidIdentityPoolConfigurationExceptionAwsJson11Serializer extends _i2
   @override
   Iterable<Type> get types => const [
         InvalidIdentityPoolConfigurationException,
-        _$InvalidIdentityPoolConfigurationException
+        _$InvalidIdentityPoolConfigurationException,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   InvalidIdentityPoolConfigurationException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = InvalidIdentityPoolConfigurationExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -112,8 +123,10 @@ class InvalidIdentityPoolConfigurationExceptionAwsJson11Serializer extends _i2
       switch (key) {
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -123,15 +136,20 @@ class InvalidIdentityPoolConfigurationExceptionAwsJson11Serializer extends _i2
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as InvalidIdentityPoolConfigurationException);
     final result = <Object?>[];
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

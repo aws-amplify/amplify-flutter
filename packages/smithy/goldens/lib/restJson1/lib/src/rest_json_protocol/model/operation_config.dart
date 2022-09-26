@@ -1,11 +1,12 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.operation_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.operation_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1/src/rest_json_protocol/model/s3_config.dart' as _i2;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/s3_config.dart'
+    as _i2;
 import 'package:smithy/smithy.dart' as _i3;
 
 part 'operation_config.g.dart';
@@ -39,7 +40,10 @@ abstract class OperationConfig
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('OperationConfig');
-    helper.add('s3', s3);
+    helper.add(
+      's3',
+      s3,
+    );
     return helper.toString();
   }
 }
@@ -49,14 +53,23 @@ class OperationConfigRestJson1Serializer
   const OperationConfigRestJson1Serializer() : super('OperationConfig');
 
   @override
-  Iterable<Type> get types => const [OperationConfig, _$OperationConfig];
+  Iterable<Type> get types => const [
+        OperationConfig,
+        _$OperationConfig,
+      ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols =>
-      const [_i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   OperationConfig deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = OperationConfigBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -66,8 +79,10 @@ class OperationConfigRestJson1Serializer
       switch (key) {
         case 's3':
           if (value != null) {
-            result.s3.replace((serializers.deserialize(value,
-                specifiedType: const FullType(_i2.S3Config)) as _i2.S3Config));
+            result.s3.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.S3Config),
+            ) as _i2.S3Config));
           }
           break;
       }
@@ -77,15 +92,20 @@ class OperationConfigRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as OperationConfig);
     final result = <Object?>[];
     if (payload.s3 != null) {
       result
         ..add('s3')
-        ..add(serializers.serialize(payload.s3!,
-            specifiedType: const FullType(_i2.S3Config)));
+        ..add(serializers.serialize(
+          payload.s3!,
+          specifiedType: const FullType(_i2.S3Config),
+        ));
     }
     return result;
   }

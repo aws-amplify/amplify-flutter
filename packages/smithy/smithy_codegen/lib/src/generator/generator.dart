@@ -69,15 +69,11 @@ abstract class ShapeGenerator<T extends Shape, U> implements Generator<U> {
       case ShapeType.long:
         return DartTypes.fixNum.int64.property('parseInt').call([ref]);
 
-      case ShapeType.string:
-        if (targetShape.isEnum) {
-          final targetSymbol = context.symbolFor(targetShape.shapeId).unboxed;
-          return targetSymbol
-              .property('values')
-              .property('byValue')
-              .call([ref]);
-        }
+      case ShapeType.enum_:
+        final targetSymbol = context.symbolFor(targetShape.shapeId).unboxed;
+        return targetSymbol.property('values').property('byValue').call([ref]);
 
+      case ShapeType.string:
         // From the restJson1 test suite:
         // "Headers that target strings with a mediaType are base64 encoded"
         final mediaType = targetShape.getTrait<MediaTypeTrait>()?.value;
@@ -169,11 +165,11 @@ abstract class ShapeGenerator<T extends Shape, U> implements Generator<U> {
       case ShapeType.short:
         return ref.property('toString').call([]);
 
+      case ShapeType.enum_:
+        return ref.property('value');
+
       // string values with a mediaType trait are always base64 encoded.
       case ShapeType.string:
-        if (targetShape.isEnum) {
-          return ref.property('value');
-        }
         final mediaType = targetShape.getTrait<MediaTypeTrait>()?.value;
         if (mediaType != null) {
           switch (mediaType) {

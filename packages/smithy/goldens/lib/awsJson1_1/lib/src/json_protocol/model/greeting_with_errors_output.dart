@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library aws_json1_1.json_protocol.model.greeting_with_errors_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_1_v1.json_protocol.model.greeting_with_errors_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -25,7 +25,9 @@ abstract class GreetingWithErrorsOutput
 
   /// Constructs a [GreetingWithErrorsOutput] from a [payload] and [response].
   factory GreetingWithErrorsOutput.fromResponse(
-          GreetingWithErrorsOutput payload, _i1.AWSBaseHttpResponse response) =>
+    GreetingWithErrorsOutput payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i2.SmithySerializer> serializers = [
@@ -40,7 +42,10 @@ abstract class GreetingWithErrorsOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GreetingWithErrorsOutput');
-    helper.add('greeting', greeting);
+    helper.add(
+      'greeting',
+      greeting,
+    );
     return helper.toString();
   }
 }
@@ -51,15 +56,23 @@ class GreetingWithErrorsOutputAwsJson11Serializer
       : super('GreetingWithErrorsOutput');
 
   @override
-  Iterable<Type> get types =>
-      const [GreetingWithErrorsOutput, _$GreetingWithErrorsOutput];
+  Iterable<Type> get types => const [
+        GreetingWithErrorsOutput,
+        _$GreetingWithErrorsOutput,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   GreetingWithErrorsOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = GreetingWithErrorsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -69,8 +82,10 @@ class GreetingWithErrorsOutputAwsJson11Serializer
       switch (key) {
         case 'greeting':
           if (value != null) {
-            result.greeting = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.greeting = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -80,15 +95,20 @@ class GreetingWithErrorsOutputAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as GreetingWithErrorsOutput);
     final result = <Object?>[];
     if (payload.greeting != null) {
       result
         ..add('greeting')
-        ..add(serializers.serialize(payload.greeting!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.greeting!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

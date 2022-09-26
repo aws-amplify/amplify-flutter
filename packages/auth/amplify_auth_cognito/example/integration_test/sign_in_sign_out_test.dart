@@ -87,6 +87,27 @@ void main() {
           await Amplify.Auth.signIn(username: username, password: password);
       expect(result.nextStep?.additionalInfo, isNull);
     });
+
+    testWidgets('unauthenticated identity ID should persist', (_) async {
+      // Get unauthenticated identity
+      final unauthSession = await Amplify.Auth.fetchAuthSession(
+        options: const CognitoSessionOptions(getAWSCredentials: true),
+      ) as CognitoAuthSession;
+
+      // Sign in
+      final signInRes = await Amplify.Auth.signIn(
+        username: username,
+        password: password,
+      );
+      expect(signInRes.nextStep?.signInStep, 'DONE');
+
+      // Get authenticated identity
+      final authSession = await Amplify.Auth.fetchAuthSession(
+        options: const CognitoSessionOptions(getAWSCredentials: true),
+      ) as CognitoAuthSession;
+      expect(authSession.identityId, unauthSession.identityId);
+      expect(authSession.credentials, isNot(unauthSession.credentials));
+    });
   });
 
   group('signOut', () {

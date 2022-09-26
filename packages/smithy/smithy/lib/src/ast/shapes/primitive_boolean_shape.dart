@@ -30,7 +30,9 @@ abstract class PrimitiveBooleanShape
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PrimitiveBooleanShapeBuilder b) {
     b.shapeId = id;
-    b.traits = TraitMap({});
+    b.traits = TraitMap.fromTraits(const [
+      DefaultTrait(false),
+    ]);
   }
 
   static const id = ShapeId.core('PrimitiveBoolean');

@@ -36,6 +36,11 @@ abstract class FetchAuthSessionStateMachineBase
         emit(const FetchAuthSessionState.fetching());
         await onFetchAuthSession(event);
         break;
+      case FetchAuthSessionEventType.federate:
+        event as FetchAuthSessionFederate;
+        emit(const FetchAuthSessionState.fetching());
+        await onFederate(event);
+        break;
       case FetchAuthSessionEventType.refresh:
         event as FetchAuthSessionRefresh;
         emit(const FetchAuthSessionState.refreshing());
@@ -62,6 +67,9 @@ abstract class FetchAuthSessionStateMachineBase
 
   /// State machine callback for the [FetchAuthSessionFetch] event.
   Future<void> onFetchAuthSession(FetchAuthSessionFetch event);
+
+  /// State machine callback for the [FetchAuthSessionFederate] event.
+  Future<void> onFederate(FetchAuthSessionFederate event);
 
   /// State machine callback for the [FetchAuthSessionRefresh] event.
   Future<void> onRefresh(FetchAuthSessionRefresh event);

@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.malformed_timestamp_header_default_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.malformed_timestamp_header_default_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -30,14 +30,16 @@ abstract class MalformedTimestampHeaderDefaultInput
   const MalformedTimestampHeaderDefaultInput._();
 
   factory MalformedTimestampHeaderDefaultInput.fromRequest(
-          MalformedTimestampHeaderDefaultInputPayload payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    MalformedTimestampHeaderDefaultInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       MalformedTimestampHeaderDefaultInput.build((b) {
         if (request.headers['timestamp'] != null) {
-          b.timestamp = _i1.Timestamp.parse(request.headers['timestamp']!,
-                  format: _i1.TimestampFormat.httpDate)
-              .asDateTime;
+          b.timestamp = _i1.Timestamp.parse(
+            request.headers['timestamp']!,
+            format: _i1.TimestampFormat.httpDate,
+          ).asDateTime;
         }
       });
 
@@ -57,7 +59,10 @@ abstract class MalformedTimestampHeaderDefaultInput
   String toString() {
     final helper =
         newBuiltValueToStringHelper('MalformedTimestampHeaderDefaultInput');
-    helper.add('timestamp', timestamp);
+    helper.add(
+      'timestamp',
+      timestamp,
+    );
     return helper.toString();
   }
 }
@@ -98,20 +103,29 @@ class MalformedTimestampHeaderDefaultInputRestJson1Serializer extends _i1
         MalformedTimestampHeaderDefaultInput,
         _$MalformedTimestampHeaderDefaultInput,
         MalformedTimestampHeaderDefaultInputPayload,
-        _$MalformedTimestampHeaderDefaultInputPayload
+        _$MalformedTimestampHeaderDefaultInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   MalformedTimestampHeaderDefaultInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return MalformedTimestampHeaderDefaultInputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

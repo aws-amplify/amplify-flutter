@@ -10,6 +10,7 @@ const ShapeType _$apply = const ShapeType._('apply');
 const ShapeType _$blob = const ShapeType._('blob');
 const ShapeType _$boolean = const ShapeType._('boolean');
 const ShapeType _$string = const ShapeType._('string');
+const ShapeType _$enum = const ShapeType._('enum_');
 const ShapeType _$timestamp = const ShapeType._('timestamp');
 const ShapeType _$byte = const ShapeType._('byte');
 const ShapeType _$short = const ShapeType._('short');
@@ -40,6 +41,8 @@ ShapeType _$shapeTypeValueOf(String name) {
       return _$boolean;
     case 'string':
       return _$string;
+    case 'enum_':
+      return _$enum;
     case 'timestamp':
       return _$timestamp;
     case 'byte':
@@ -89,6 +92,7 @@ final BuiltSet<ShapeType> _$shapeTypeValues =
   _$blob,
   _$boolean,
   _$string,
+  _$enum,
   _$timestamp,
   _$byte,
   _$short,
@@ -113,6 +117,13 @@ final BuiltSet<ShapeType> _$shapeTypeValues =
 Serializer<ShapeType> _$shapeTypeSerializer = new _$ShapeTypeSerializer();
 
 class _$ShapeTypeSerializer implements PrimitiveSerializer<ShapeType> {
+  static const Map<String, Object> _toWire = const <String, Object>{
+    'enum_': 'enum',
+  };
+  static const Map<Object, String> _fromWire = const <Object, String>{
+    'enum': 'enum_',
+  };
+
   @override
   final Iterable<Type> types = const <Type>[ShapeType];
   @override
@@ -121,12 +132,13 @@ class _$ShapeTypeSerializer implements PrimitiveSerializer<ShapeType> {
   @override
   Object serialize(Serializers serializers, ShapeType object,
           {FullType specifiedType = FullType.unspecified}) =>
-      object.name;
+      _toWire[object.name] ?? object.name;
 
   @override
   ShapeType deserialize(Serializers serializers, Object serialized,
           {FullType specifiedType = FullType.unspecified}) =>
-      ShapeType.valueOf(serialized as String);
+      ShapeType.valueOf(
+          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
 }
 
 // ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

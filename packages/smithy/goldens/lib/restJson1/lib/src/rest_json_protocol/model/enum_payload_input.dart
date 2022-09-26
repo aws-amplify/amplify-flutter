@@ -1,11 +1,11 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.enum_payload_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.enum_payload_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1/src/rest_json_protocol/model/string_enum.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/string_enum.dart'
     as _i2;
 import 'package:smithy/smithy.dart' as _i1;
 
@@ -26,15 +26,19 @@ abstract class EnumPayloadInput
   const EnumPayloadInput._();
 
   factory EnumPayloadInput.fromRequest(
-          _i2.StringEnum? payload, _i3.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    _i2.StringEnum? payload,
+    _i3.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       EnumPayloadInput.build((b) {
         b.payload = payload;
       });
 
   /// Constructs a [EnumPayloadInput] from a [payload] and [response].
   factory EnumPayloadInput.fromResponse(
-          _i2.StringEnum? payload, _i3.AWSBaseHttpResponse response) =>
+    _i2.StringEnum? payload,
+    _i3.AWSBaseHttpResponse response,
+  ) =>
       EnumPayloadInput.build((b) {
         b.payload = payload;
       });
@@ -53,34 +57,54 @@ abstract class EnumPayloadInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EnumPayloadInput');
-    helper.add('payload', payload);
+    helper.add(
+      'payload',
+      payload,
+    );
     return helper.toString();
   }
 }
 
 class EnumPayloadInputRestJson1Serializer
-    extends _i1.PrimitiveSmithySerializer<Object> {
+    extends _i1.PrimitiveSmithySerializer<_i2.StringEnum> {
   const EnumPayloadInputRestJson1Serializer() : super('EnumPayloadInput');
 
   @override
-  Iterable<Type> get types => const [EnumPayloadInput, _$EnumPayloadInput];
+  Iterable<Type> get types => const [
+        EnumPayloadInput,
+        _$EnumPayloadInput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
-  _i2.StringEnum deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return (serializers.deserialize(serialized,
-        specifiedType: const FullType(_i2.StringEnum)) as _i2.StringEnum);
+  _i2.StringEnum deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return (serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(_i2.StringEnum),
+    ) as _i2.StringEnum);
   }
 
   @override
-  Object serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is EnumPayloadInput
         ? object.getPayload()
         : (object as _i2.StringEnum?);
-    return (serializers.serialize(payload!,
-        specifiedType: const FullType(_i2.StringEnum)) as Object);
+    return (serializers.serialize(
+      payload!,
+      specifiedType: const FullType(_i2.StringEnum),
+    ) as Object);
   }
 }

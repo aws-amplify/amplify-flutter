@@ -45,8 +45,9 @@ abstract class UserLambdaValidationException
 
   /// Constructs a [UserLambdaValidationException] from a [payload] and [response].
   factory UserLambdaValidationException.fromResponse(
-          UserLambdaValidationException payload,
-          _i1.AWSBaseHttpResponse response) =>
+    UserLambdaValidationException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
@@ -63,8 +64,9 @@ abstract class UserLambdaValidationException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.cognitoidentityprovider',
-      shape: 'UserLambdaValidationException');
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'UserLambdaValidationException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -80,7 +82,10 @@ abstract class UserLambdaValidationException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UserLambdaValidationException');
-    helper.add('message', message);
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
@@ -91,15 +96,23 @@ class UserLambdaValidationExceptionAwsJson11Serializer
       : super('UserLambdaValidationException');
 
   @override
-  Iterable<Type> get types =>
-      const [UserLambdaValidationException, _$UserLambdaValidationException];
+  Iterable<Type> get types => const [
+        UserLambdaValidationException,
+        _$UserLambdaValidationException,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   UserLambdaValidationException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = UserLambdaValidationExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -109,8 +122,10 @@ class UserLambdaValidationExceptionAwsJson11Serializer
       switch (key) {
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -120,15 +135,20 @@ class UserLambdaValidationExceptionAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as UserLambdaValidationException);
     final result = <Object?>[];
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

@@ -47,7 +47,10 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
 
   @override
   bool get isStructuredSerializer =>
-      !config.usePayload || payloadMember == null;
+      !config.usePayload ||
+      payloadMember == null ||
+      payloadMember is SimpleShape ||
+      payloadMember is EnumShape;
 
   /// Metadata about [shape] in the context of [protocol], including renames and
   /// other protocol-specific traits.
@@ -137,7 +140,7 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
         ..name = serializerClassName
         ..extend = isStructuredSerializer
             ? DartTypes.smithy.structuredSmithySerializer(serializedSymbol)
-            : DartTypes.smithy.primitiveSmithySerializer(DartTypes.core.object)
+            : DartTypes.smithy.primitiveSmithySerializer(serializedSymbol)
         ..constructors.add(constructor)
         ..methods.addAll([
           _typesGetter,

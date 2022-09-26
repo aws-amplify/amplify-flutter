@@ -39,22 +39,24 @@ abstract class RespondToAuthChallengeRequest
         Built<RespondToAuthChallengeRequest,
             RespondToAuthChallengeRequestBuilder> {
   /// The request to respond to an authentication challenge.
-  factory RespondToAuthChallengeRequest(
-      {_i3.AnalyticsMetadataType? analyticsMetadata,
-      required _i4.ChallengeNameType challengeName,
-      _i5.BuiltMap<String, String>? challengeResponses,
-      required String clientId,
-      _i5.BuiltMap<String, String>? clientMetadata,
-      String? session,
-      _i6.UserContextDataType? userContextData}) {
+  factory RespondToAuthChallengeRequest({
+    _i3.AnalyticsMetadataType? analyticsMetadata,
+    required _i4.ChallengeNameType challengeName,
+    _i5.BuiltMap<String, String>? challengeResponses,
+    required String clientId,
+    _i5.BuiltMap<String, String>? clientMetadata,
+    String? session,
+    _i6.UserContextDataType? userContextData,
+  }) {
     return _$RespondToAuthChallengeRequest._(
-        analyticsMetadata: analyticsMetadata,
-        challengeName: challengeName,
-        challengeResponses: challengeResponses,
-        clientId: clientId,
-        clientMetadata: clientMetadata,
-        session: session,
-        userContextData: userContextData);
+      analyticsMetadata: analyticsMetadata,
+      challengeName: challengeName,
+      challengeResponses: challengeResponses,
+      clientId: clientId,
+      clientMetadata: clientMetadata,
+      session: session,
+      userContextData: userContextData,
+    );
   }
 
   /// The request to respond to an authentication challenge.
@@ -65,8 +67,10 @@ abstract class RespondToAuthChallengeRequest
   const RespondToAuthChallengeRequest._();
 
   factory RespondToAuthChallengeRequest.fromRequest(
-          RespondToAuthChallengeRequest payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    RespondToAuthChallengeRequest payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -140,18 +144,39 @@ abstract class RespondToAuthChallengeRequest
         clientId,
         clientMetadata,
         session,
-        userContextData
+        userContextData,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RespondToAuthChallengeRequest');
-    helper.add('analyticsMetadata', analyticsMetadata);
-    helper.add('challengeName', challengeName);
-    helper.add('challengeResponses', challengeResponses);
-    helper.add('clientId', '***SENSITIVE***');
-    helper.add('clientMetadata', clientMetadata);
-    helper.add('session', session);
-    helper.add('userContextData', userContextData);
+    helper.add(
+      'analyticsMetadata',
+      analyticsMetadata,
+    );
+    helper.add(
+      'challengeName',
+      challengeName,
+    );
+    helper.add(
+      'challengeResponses',
+      challengeResponses,
+    );
+    helper.add(
+      'clientId',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'clientMetadata',
+      clientMetadata,
+    );
+    helper.add(
+      'session',
+      session,
+    );
+    helper.add(
+      'userContextData',
+      userContextData,
+    );
     return helper.toString();
   }
 }
@@ -162,15 +187,23 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
       : super('RespondToAuthChallengeRequest');
 
   @override
-  Iterable<Type> get types =>
-      const [RespondToAuthChallengeRequest, _$RespondToAuthChallengeRequest];
+  Iterable<Type> get types => const [
+        RespondToAuthChallengeRequest,
+        _$RespondToAuthChallengeRequest,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   RespondToAuthChallengeRequest deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = RespondToAuthChallengeRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -180,47 +213,66 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
       switch (key) {
         case 'AnalyticsMetadata':
           if (value != null) {
-            result.analyticsMetadata.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i3.AnalyticsMetadataType))
-                as _i3.AnalyticsMetadataType));
+            result.analyticsMetadata.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.AnalyticsMetadataType),
+            ) as _i3.AnalyticsMetadataType));
           }
           break;
         case 'ChallengeName':
-          result.challengeName = (serializers.deserialize(value!,
-                  specifiedType: const FullType(_i4.ChallengeNameType))
-              as _i4.ChallengeNameType);
+          result.challengeName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(_i4.ChallengeNameType),
+          ) as _i4.ChallengeNameType);
           break;
         case 'ChallengeResponses':
           if (value != null) {
-            result.challengeResponses.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(
-                        _i5.BuiltMap, [FullType(String), FullType(String)]))
-                as _i5.BuiltMap<String, String>));
+            result.challengeResponses.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i5.BuiltMap,
+                [
+                  FullType(String),
+                  FullType(String),
+                ],
+              ),
+            ) as _i5.BuiltMap<String, String>));
           }
           break;
         case 'ClientId':
-          result.clientId = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.clientId = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'ClientMetadata':
           if (value != null) {
-            result.clientMetadata.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(
-                        _i5.BuiltMap, [FullType(String), FullType(String)]))
-                as _i5.BuiltMap<String, String>));
+            result.clientMetadata.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i5.BuiltMap,
+                [
+                  FullType(String),
+                  FullType(String),
+                ],
+              ),
+            ) as _i5.BuiltMap<String, String>));
           }
           break;
         case 'Session':
           if (value != null) {
-            result.session = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.session = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'UserContextData':
           if (value != null) {
-            result.userContextData.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i6.UserContextDataType))
-                as _i6.UserContextDataType));
+            result.userContextData.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i6.UserContextDataType),
+            ) as _i6.UserContextDataType));
           }
           break;
       }
@@ -230,48 +282,75 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as RespondToAuthChallengeRequest);
     final result = <Object?>[
       'ChallengeName',
-      serializers.serialize(payload.challengeName,
-          specifiedType: const FullType(_i4.ChallengeNameType)),
+      serializers.serialize(
+        payload.challengeName,
+        specifiedType: const FullType(_i4.ChallengeNameType),
+      ),
       'ClientId',
-      serializers.serialize(payload.clientId,
-          specifiedType: const FullType(String))
+      serializers.serialize(
+        payload.clientId,
+        specifiedType: const FullType(String),
+      ),
     ];
     if (payload.analyticsMetadata != null) {
       result
         ..add('AnalyticsMetadata')
-        ..add(serializers.serialize(payload.analyticsMetadata!,
-            specifiedType: const FullType(_i3.AnalyticsMetadataType)));
+        ..add(serializers.serialize(
+          payload.analyticsMetadata!,
+          specifiedType: const FullType(_i3.AnalyticsMetadataType),
+        ));
     }
     if (payload.challengeResponses != null) {
       result
         ..add('ChallengeResponses')
-        ..add(serializers.serialize(payload.challengeResponses!,
-            specifiedType: const FullType(
-                _i5.BuiltMap, [FullType(String), FullType(String)])));
+        ..add(serializers.serialize(
+          payload.challengeResponses!,
+          specifiedType: const FullType(
+            _i5.BuiltMap,
+            [
+              FullType(String),
+              FullType(String),
+            ],
+          ),
+        ));
     }
     if (payload.clientMetadata != null) {
       result
         ..add('ClientMetadata')
-        ..add(serializers.serialize(payload.clientMetadata!,
-            specifiedType: const FullType(
-                _i5.BuiltMap, [FullType(String), FullType(String)])));
+        ..add(serializers.serialize(
+          payload.clientMetadata!,
+          specifiedType: const FullType(
+            _i5.BuiltMap,
+            [
+              FullType(String),
+              FullType(String),
+            ],
+          ),
+        ));
     }
     if (payload.session != null) {
       result
         ..add('Session')
-        ..add(serializers.serialize(payload.session!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.session!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.userContextData != null) {
       result
         ..add('UserContextData')
-        ..add(serializers.serialize(payload.userContextData!,
-            specifiedType: const FullType(_i6.UserContextDataType)));
+        ..add(serializers.serialize(
+          payload.userContextData!,
+          specifiedType: const FullType(_i6.UserContextDataType),
+        ));
     }
     return result;
   }

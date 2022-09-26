@@ -22,17 +22,72 @@ import 'serializers.dart';
 
 part 'smithy_ast.g.dart';
 
+class SmithyVersion extends EnumClass {
+  static const SmithyVersion v1 = _$v1;
+  static const SmithyVersion v2 = _$v2;
+
+  const SmithyVersion._(String name) : super(name);
+
+  static BuiltSet<SmithyVersion> get values => _$SmithyVersionValues;
+  static SmithyVersion valueOf(String name) => _$SmithyVersionValueOf(name);
+
+  @BuiltValueSerializer(custom: true)
+  static Serializer<SmithyVersion> get serializer =>
+      const SmithyVersionSerializer();
+}
+
+class SmithyVersionSerializer implements PrimitiveSerializer<SmithyVersion> {
+  const SmithyVersionSerializer();
+
+  @override
+  Iterable<Type> get types => [SmithyVersion];
+
+  @override
+  String get wireName => 'SmithyVersion';
+
+  @override
+  SmithyVersion deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final deserialized = serialized.toString();
+    if (deserialized.startsWith('1')) {
+      return SmithyVersion.v1;
+    }
+    if (deserialized.startsWith('2')) {
+      return SmithyVersion.v2;
+    }
+    throw ArgumentError('Unknown Smithy version: $deserialized');
+  }
+
+  @override
+  Object serialize(
+    Serializers serializers,
+    SmithyVersion object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    switch (object) {
+      case SmithyVersion.v1:
+        return '1.0';
+      case SmithyVersion.v2:
+        return '2.0';
+    }
+    throw ArgumentError('Unknown Smithy version: $object');
+  }
+}
+
 abstract class SmithyAst implements Built<SmithyAst, SmithyAstBuilder> {
   factory SmithyAst([void Function(SmithyAstBuilder) updates]) = _$SmithyAst;
   SmithyAst._();
 
-  @BuiltValueHook(initializeBuilder: true)
+  @BuiltValueHook(finalizeBuilder: true)
   static void _init(SmithyAstBuilder b) {
-    b.version = '1.0';
+    b.version ??= SmithyVersion.v1;
   }
 
   @BuiltValueField(wireName: 'smithy')
-  String get version;
+  SmithyVersion get version;
   BuiltMap<String, JsonObject> get metadata;
   ShapeMap get shapes;
 

@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.response_code_http_fallback_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.response_code_http_fallback_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -28,15 +28,17 @@ abstract class ResponseCodeHttpFallbackInputOutput
   const ResponseCodeHttpFallbackInputOutput._();
 
   factory ResponseCodeHttpFallbackInputOutput.fromRequest(
-          ResponseCodeHttpFallbackInputOutput payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    ResponseCodeHttpFallbackInputOutput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   /// Constructs a [ResponseCodeHttpFallbackInputOutput] from a [payload] and [response].
   factory ResponseCodeHttpFallbackInputOutput.fromResponse(
-          ResponseCodeHttpFallbackInputOutput payload,
-          _i2.AWSBaseHttpResponse response) =>
+    ResponseCodeHttpFallbackInputOutput payload,
+    _i2.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -65,20 +67,29 @@ class ResponseCodeHttpFallbackInputOutputRestJson1Serializer extends _i1
   @override
   Iterable<Type> get types => const [
         ResponseCodeHttpFallbackInputOutput,
-        _$ResponseCodeHttpFallbackInputOutput
+        _$ResponseCodeHttpFallbackInputOutput,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   ResponseCodeHttpFallbackInputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return ResponseCodeHttpFallbackInputOutputBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

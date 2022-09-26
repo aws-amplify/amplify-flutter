@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml.s3.model.get_bucket_location_output;
+part of rest_xml_v1.s3.model.get_bucket_location_output;
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -8,7 +8,7 @@ part of rest_xml.s3.model.get_bucket_location_output;
 
 class _$GetBucketLocationOutput extends GetBucketLocationOutput {
   @override
-  final _i2.BucketLocationConstraint? locationConstraint;
+  final _i3.BucketLocationConstraint? locationConstraint;
 
   factory _$GetBucketLocationOutput(
           [void Function(GetBucketLocationOutputBuilder)? updates]) =>
@@ -43,10 +43,10 @@ class GetBucketLocationOutputBuilder
         Builder<GetBucketLocationOutput, GetBucketLocationOutputBuilder> {
   _$GetBucketLocationOutput? _$v;
 
-  _i2.BucketLocationConstraint? _locationConstraint;
-  _i2.BucketLocationConstraint? get locationConstraint =>
+  _i3.BucketLocationConstraint? _locationConstraint;
+  _i3.BucketLocationConstraint? get locationConstraint =>
       _$this._locationConstraint;
-  set locationConstraint(_i2.BucketLocationConstraint? locationConstraint) =>
+  set locationConstraint(_i3.BucketLocationConstraint? locationConstraint) =>
       _$this._locationConstraint = locationConstraint;
 
   GetBucketLocationOutputBuilder() {

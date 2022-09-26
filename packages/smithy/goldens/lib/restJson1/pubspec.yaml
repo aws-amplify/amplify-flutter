@@ -1,5 +1,5 @@
-name: rest_json1
-description: Rest Json1 client SDK
+name: rest_json1_v1
+description: Rest Json1 V1 client SDK
 version: 0.1.0
 publish_to: none
 

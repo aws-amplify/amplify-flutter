@@ -168,6 +168,14 @@ class Security {
   set kSecMatchLimitOne(coreFoundation.CFStringRef value) =>
       _kSecMatchLimitOne.value = value;
 
+  late final ffi.Pointer<coreFoundation.CFStringRef> _kSecMatchLimitAll =
+      _lookup<coreFoundation.CFStringRef>('kSecMatchLimitAll');
+
+  coreFoundation.CFStringRef get kSecMatchLimitAll => _kSecMatchLimitAll.value;
+
+  set kSecMatchLimitAll(coreFoundation.CFStringRef value) =>
+      _kSecMatchLimitAll.value = value;
+
   late final ffi.Pointer<coreFoundation.CFStringRef> _kSecReturnData =
       _lookup<coreFoundation.CFStringRef>('kSecReturnData');
 

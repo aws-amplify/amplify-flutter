@@ -1,11 +1,11 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_xml.rest_xml_protocol.model.xml_union_shape; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.model.xml_union_shape; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:fixnum/fixnum.dart' as _i2;
-import 'package:rest_xml/src/rest_xml_protocol/model/xml_nested_union_struct.dart'
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/xml_nested_union_struct.dart'
     as _i3;
 import 'package:smithy/smithy.dart' as _i1;
 
@@ -41,8 +41,10 @@ abstract class XmlUnionShape extends _i1.SmithyUnion<XmlUnionShape> {
   const factory XmlUnionShape.unionValue(XmlUnionShape unionValue) =
       XmlUnionShapeUnionValue;
 
-  const factory XmlUnionShape.sdkUnknown(String name, Object value) =
-      XmlUnionShapeSdkUnknown;
+  const factory XmlUnionShape.sdkUnknown(
+    String name,
+    Object value,
+  ) = XmlUnionShapeSdkUnknown;
 
   static const List<_i1.SmithySerializer<XmlUnionShape>> serializers = [
     XmlUnionShapeRestXmlSerializer()
@@ -70,18 +72,23 @@ abstract class XmlUnionShape extends _i1.SmithyUnion<XmlUnionShape> {
       structValue ??
       unionValue)!;
   @override
-  T? when<T>(
-      {T Function(bool)? booleanValue,
-      T Function(int)? byteValue,
-      T Function(double)? doubleValue,
-      T Function(double)? floatValue,
-      T Function(int)? integerValue,
-      T Function(_i2.Int64)? longValue,
-      T Function(int)? shortValue,
-      T Function(String)? stringValue,
-      T Function(_i3.XmlNestedUnionStruct)? structValue,
-      T Function(XmlUnionShape)? unionValue,
-      T Function(String, Object)? sdkUnknown}) {
+  T? when<T>({
+    T Function(bool)? booleanValue,
+    T Function(int)? byteValue,
+    T Function(double)? doubleValue,
+    T Function(double)? floatValue,
+    T Function(int)? integerValue,
+    T Function(_i2.Int64)? longValue,
+    T Function(int)? shortValue,
+    T Function(String)? stringValue,
+    T Function(_i3.XmlNestedUnionStruct)? structValue,
+    T Function(XmlUnionShape)? unionValue,
+    T Function(
+      String,
+      Object,
+    )?
+        sdkUnknown,
+  }) {
     if (this is XmlUnionShapeBooleanValue) {
       return booleanValue
           ?.call((this as XmlUnionShapeBooleanValue).booleanValue);
@@ -114,41 +121,74 @@ abstract class XmlUnionShape extends _i1.SmithyUnion<XmlUnionShape> {
     if (this is XmlUnionShapeUnionValue) {
       return unionValue?.call((this as XmlUnionShapeUnionValue).unionValue);
     }
-    return sdkUnknown?.call(name, value);
+    return sdkUnknown?.call(
+      name,
+      value,
+    );
   }
 
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'XmlUnionShape');
     if (booleanValue != null) {
-      helper.add(r'booleanValue', booleanValue);
+      helper.add(
+        r'booleanValue',
+        booleanValue,
+      );
     }
     if (byteValue != null) {
-      helper.add(r'byteValue', byteValue);
+      helper.add(
+        r'byteValue',
+        byteValue,
+      );
     }
     if (doubleValue != null) {
-      helper.add(r'doubleValue', doubleValue);
+      helper.add(
+        r'doubleValue',
+        doubleValue,
+      );
     }
     if (floatValue != null) {
-      helper.add(r'floatValue', floatValue);
+      helper.add(
+        r'floatValue',
+        floatValue,
+      );
     }
     if (integerValue != null) {
-      helper.add(r'integerValue', integerValue);
+      helper.add(
+        r'integerValue',
+        integerValue,
+      );
     }
     if (longValue != null) {
-      helper.add(r'longValue', longValue);
+      helper.add(
+        r'longValue',
+        longValue,
+      );
     }
     if (shortValue != null) {
-      helper.add(r'shortValue', shortValue);
+      helper.add(
+        r'shortValue',
+        shortValue,
+      );
     }
     if (stringValue != null) {
-      helper.add(r'stringValue', stringValue);
+      helper.add(
+        r'stringValue',
+        stringValue,
+      );
     }
     if (structValue != null) {
-      helper.add(r'structValue', structValue);
+      helper.add(
+        r'structValue',
+        structValue,
+      );
     }
     if (unionValue != null) {
-      helper.add(r'unionValue', unionValue);
+      helper.add(
+        r'unionValue',
+        unionValue,
+      );
     }
     return helper.toString();
   }
@@ -255,7 +295,10 @@ class XmlUnionShapeUnionValue extends XmlUnionShape {
 }
 
 class XmlUnionShapeSdkUnknown extends XmlUnionShape {
-  const XmlUnionShapeSdkUnknown(this.name, this.value) : super._();
+  const XmlUnionShapeSdkUnknown(
+    this.name,
+    this.value,
+  ) : super._();
 
   @override
   final String name;
@@ -271,12 +314,18 @@ class XmlUnionShapeRestXmlSerializer
   @override
   Iterable<Type> get types => const [XmlUnionShape];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   XmlUnionShape deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final iterator = serialized.iterator;
     iterator.moveNext();
     final key = iterator.current as String;
@@ -284,66 +333,119 @@ class XmlUnionShapeRestXmlSerializer
     final value = iterator.current as Object;
     switch (key) {
       case 'booleanValue':
-        return XmlUnionShape.booleanValue((serializers.deserialize(value,
-            specifiedType: const FullType(bool)) as bool));
+        return XmlUnionShape.booleanValue((serializers.deserialize(
+          value,
+          specifiedType: const FullType(bool),
+        ) as bool));
       case 'byteValue':
-        return XmlUnionShape.byteValue((serializers.deserialize(value,
-            specifiedType: const FullType(int)) as int));
+        return XmlUnionShape.byteValue((serializers.deserialize(
+          value,
+          specifiedType: const FullType(int),
+        ) as int));
       case 'doubleValue':
-        return XmlUnionShape.doubleValue((serializers.deserialize(value,
-            specifiedType: const FullType(double)) as double));
+        return XmlUnionShape.doubleValue((serializers.deserialize(
+          value,
+          specifiedType: const FullType(double),
+        ) as double));
       case 'floatValue':
-        return XmlUnionShape.floatValue((serializers.deserialize(value,
-            specifiedType: const FullType(double)) as double));
+        return XmlUnionShape.floatValue((serializers.deserialize(
+          value,
+          specifiedType: const FullType(double),
+        ) as double));
       case 'integerValue':
-        return XmlUnionShape.integerValue((serializers.deserialize(value,
-            specifiedType: const FullType(int)) as int));
+        return XmlUnionShape.integerValue((serializers.deserialize(
+          value,
+          specifiedType: const FullType(int),
+        ) as int));
       case 'longValue':
-        return XmlUnionShape.longValue((serializers.deserialize(value,
-            specifiedType: const FullType(_i2.Int64)) as _i2.Int64));
+        return XmlUnionShape.longValue((serializers.deserialize(
+          value,
+          specifiedType: const FullType(_i2.Int64),
+        ) as _i2.Int64));
       case 'shortValue':
-        return XmlUnionShape.shortValue((serializers.deserialize(value,
-            specifiedType: const FullType(int)) as int));
+        return XmlUnionShape.shortValue((serializers.deserialize(
+          value,
+          specifiedType: const FullType(int),
+        ) as int));
       case 'stringValue':
-        return XmlUnionShape.stringValue((serializers.deserialize(value,
-            specifiedType: const FullType(String)) as String));
+        return XmlUnionShape.stringValue((serializers.deserialize(
+          value,
+          specifiedType: const FullType(String),
+        ) as String));
       case 'structValue':
-        return XmlUnionShape.structValue((serializers.deserialize(value,
-                specifiedType: const FullType(_i3.XmlNestedUnionStruct))
-            as _i3.XmlNestedUnionStruct));
+        return XmlUnionShape.structValue((serializers.deserialize(
+          value,
+          specifiedType: const FullType(_i3.XmlNestedUnionStruct),
+        ) as _i3.XmlNestedUnionStruct));
       case 'unionValue':
-        return XmlUnionShape.unionValue((serializers.deserialize(value,
-            specifiedType: const FullType(XmlUnionShape)) as XmlUnionShape));
+        return XmlUnionShape.unionValue((serializers.deserialize(
+          value,
+          specifiedType: const FullType(XmlUnionShape),
+        ) as XmlUnionShape));
     }
-    return XmlUnionShape.sdkUnknown(key, value);
+    return XmlUnionShape.sdkUnknown(
+      key,
+      value,
+    );
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     (object as XmlUnionShape);
     return [
       object.name,
       object.when<Object?>(
-          booleanValue: (bool booleanValue) => serializers
-              .serialize(booleanValue, specifiedType: const FullType(bool)),
-          byteValue: (int byteValue) => serializers.serialize(byteValue,
-              specifiedType: const FullType(int)),
-          doubleValue: (double doubleValue) => serializers
-              .serialize(doubleValue, specifiedType: const FullType(double)),
-          floatValue: (double floatValue) => serializers.serialize(floatValue,
-              specifiedType: const FullType(double)),
-          integerValue: (int integerValue) => serializers
-              .serialize(integerValue, specifiedType: const FullType(int)),
-          longValue: (_i2.Int64 longValue) => serializers.serialize(longValue,
-              specifiedType: const FullType(_i2.Int64)),
-          shortValue: (int shortValue) => serializers.serialize(shortValue,
-              specifiedType: const FullType(int)),
-          stringValue: (String stringValue) => serializers
-              .serialize(stringValue, specifiedType: const FullType(String)),
-          structValue: (_i3.XmlNestedUnionStruct structValue) => serializers.serialize(structValue, specifiedType: const FullType(_i3.XmlNestedUnionStruct)),
-          unionValue: (XmlUnionShape unionValue) => serializers.serialize(unionValue, specifiedType: const FullType(XmlUnionShape)),
-          sdkUnknown: (String _, Object sdkUnknown) => sdkUnknown)!
+        booleanValue: (bool booleanValue) => serializers.serialize(
+          booleanValue,
+          specifiedType: const FullType(bool),
+        ),
+        byteValue: (int byteValue) => serializers.serialize(
+          byteValue,
+          specifiedType: const FullType(int),
+        ),
+        doubleValue: (double doubleValue) => serializers.serialize(
+          doubleValue,
+          specifiedType: const FullType(double),
+        ),
+        floatValue: (double floatValue) => serializers.serialize(
+          floatValue,
+          specifiedType: const FullType(double),
+        ),
+        integerValue: (int integerValue) => serializers.serialize(
+          integerValue,
+          specifiedType: const FullType(int),
+        ),
+        longValue: (_i2.Int64 longValue) => serializers.serialize(
+          longValue,
+          specifiedType: const FullType(_i2.Int64),
+        ),
+        shortValue: (int shortValue) => serializers.serialize(
+          shortValue,
+          specifiedType: const FullType(int),
+        ),
+        stringValue: (String stringValue) => serializers.serialize(
+          stringValue,
+          specifiedType: const FullType(String),
+        ),
+        structValue: (_i3.XmlNestedUnionStruct structValue) =>
+            serializers.serialize(
+          structValue,
+          specifiedType: const FullType(_i3.XmlNestedUnionStruct),
+        ),
+        unionValue: (XmlUnionShape unionValue) => serializers.serialize(
+          unionValue,
+          specifiedType: const FullType(XmlUnionShape),
+        ),
+        sdkUnknown: (
+          String _,
+          Object sdkUnknown,
+        ) =>
+            sdkUnknown,
+      )!,
     ];
   }
 }

@@ -43,8 +43,9 @@ abstract class VerifyUserAttributeResponse
 
   /// Constructs a [VerifyUserAttributeResponse] from a [payload] and [response].
   factory VerifyUserAttributeResponse.fromResponse(
-          VerifyUserAttributeResponse payload,
-          _i1.AWSBaseHttpResponse response) =>
+    VerifyUserAttributeResponse payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i2.SmithySerializer> serializers = [
@@ -68,20 +69,31 @@ class VerifyUserAttributeResponseAwsJson11Serializer
       : super('VerifyUserAttributeResponse');
 
   @override
-  Iterable<Type> get types =>
-      const [VerifyUserAttributeResponse, _$VerifyUserAttributeResponse];
+  Iterable<Type> get types => const [
+        VerifyUserAttributeResponse,
+        _$VerifyUserAttributeResponse,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   VerifyUserAttributeResponse deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return VerifyUserAttributeResponseBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

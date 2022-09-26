@@ -30,7 +30,9 @@ abstract class PrimitiveByteShape
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PrimitiveByteShapeBuilder b) {
     b.shapeId = id;
-    b.traits = TraitMap({});
+    b.traits = TraitMap.fromTraits(const [
+      DefaultTrait(0),
+    ]);
   }
 
   static const id = ShapeId.core('PrimitiveByte');

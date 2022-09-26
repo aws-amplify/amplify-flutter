@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.test_payload_blob_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.test_payload_blob_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:typed_data' as _i2;
 
@@ -18,9 +18,14 @@ abstract class TestPayloadBlobInputOutput
     implements
         Built<TestPayloadBlobInputOutput, TestPayloadBlobInputOutputBuilder>,
         _i1.HasPayload<_i2.Uint8List> {
-  factory TestPayloadBlobInputOutput(
-      {String? contentType, _i2.Uint8List? data}) {
-    return _$TestPayloadBlobInputOutput._(contentType: contentType, data: data);
+  factory TestPayloadBlobInputOutput({
+    String? contentType,
+    _i2.Uint8List? data,
+  }) {
+    return _$TestPayloadBlobInputOutput._(
+      contentType: contentType,
+      data: data,
+    );
   }
 
   factory TestPayloadBlobInputOutput.build(
@@ -30,8 +35,10 @@ abstract class TestPayloadBlobInputOutput
   const TestPayloadBlobInputOutput._();
 
   factory TestPayloadBlobInputOutput.fromRequest(
-          _i2.Uint8List? payload, _i3.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    _i2.Uint8List? payload,
+    _i3.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       TestPayloadBlobInputOutput.build((b) {
         b.data = payload;
         if (request.headers['Content-Type'] != null) {
@@ -41,7 +48,9 @@ abstract class TestPayloadBlobInputOutput
 
   /// Constructs a [TestPayloadBlobInputOutput] from a [payload] and [response].
   factory TestPayloadBlobInputOutput.fromResponse(
-          _i2.Uint8List? payload, _i3.AWSBaseHttpResponse response) =>
+    _i2.Uint8List? payload,
+    _i3.AWSBaseHttpResponse response,
+  ) =>
       TestPayloadBlobInputOutput.build((b) {
         b.data = payload;
         if (response.headers['Content-Type'] != null) {
@@ -60,41 +69,66 @@ abstract class TestPayloadBlobInputOutput
   @override
   _i2.Uint8List? getPayload() => data;
   @override
-  List<Object?> get props => [contentType, data];
+  List<Object?> get props => [
+        contentType,
+        data,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TestPayloadBlobInputOutput');
-    helper.add('contentType', contentType);
-    helper.add('data', data);
+    helper.add(
+      'contentType',
+      contentType,
+    );
+    helper.add(
+      'data',
+      data,
+    );
     return helper.toString();
   }
 }
 
 class TestPayloadBlobInputOutputRestJson1Serializer
-    extends _i1.PrimitiveSmithySerializer<Object> {
+    extends _i1.PrimitiveSmithySerializer<_i2.Uint8List> {
   const TestPayloadBlobInputOutputRestJson1Serializer()
       : super('TestPayloadBlobInputOutput');
 
   @override
-  Iterable<Type> get types =>
-      const [TestPayloadBlobInputOutput, _$TestPayloadBlobInputOutput];
+  Iterable<Type> get types => const [
+        TestPayloadBlobInputOutput,
+        _$TestPayloadBlobInputOutput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
-  _i2.Uint8List deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return (serializers.deserialize(serialized,
-        specifiedType: const FullType(_i2.Uint8List)) as _i2.Uint8List);
+  _i2.Uint8List deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return (serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(_i2.Uint8List),
+    ) as _i2.Uint8List);
   }
 
   @override
-  Object serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is TestPayloadBlobInputOutput
         ? object.getPayload()
         : (object as _i2.Uint8List?);
-    return (serializers.serialize(payload!,
-        specifiedType: const FullType(_i2.Uint8List)) as Object);
+    return (serializers.serialize(
+      payload!,
+      specifiedType: const FullType(_i2.Uint8List),
+    ) as Object);
   }
 }

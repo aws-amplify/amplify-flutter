@@ -10,3 +10,4 @@
 [submodule "packages/smithy/goldens/smithy"]
 	path = packages/smithy/goldens/smithy
 	url = https://github.com/awslabs/smithy.git
+	branch = main

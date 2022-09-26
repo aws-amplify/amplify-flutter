@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1.rest_json_protocol.model.json_maps_input_output;
+part of rest_json1_v1.rest_json_protocol.model.json_maps_input_output;
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -12,7 +12,7 @@ class _$JsonMapsInputOutput extends JsonMapsInputOutput {
   @override
   final _i3.BuiltMap<String, int>? denseNumberMap;
   @override
-  final _i3.BuiltListMultimap<String, String>? denseSetMap;
+  final _i3.BuiltSetMultimap<String, String>? denseSetMap;
   @override
   final _i3.BuiltMap<String, String>? denseStringMap;
   @override
@@ -22,7 +22,7 @@ class _$JsonMapsInputOutput extends JsonMapsInputOutput {
   @override
   final _i3.BuiltMap<String, int?>? sparseNumberMap;
   @override
-  final _i3.BuiltListMultimap<String, String>? sparseSetMap;
+  final _i3.BuiltSetMultimap<String, String>? sparseSetMap;
   @override
   final _i3.BuiltMap<String, String?>? sparseStringMap;
   @override
@@ -109,10 +109,10 @@ class JsonMapsInputOutputBuilder
   set denseNumberMap(_i3.MapBuilder<String, int>? denseNumberMap) =>
       _$this._denseNumberMap = denseNumberMap;
 
-  _i3.ListMultimapBuilder<String, String>? _denseSetMap;
-  _i3.ListMultimapBuilder<String, String> get denseSetMap =>
-      _$this._denseSetMap ??= new _i3.ListMultimapBuilder<String, String>();
-  set denseSetMap(_i3.ListMultimapBuilder<String, String>? denseSetMap) =>
+  _i3.SetMultimapBuilder<String, String>? _denseSetMap;
+  _i3.SetMultimapBuilder<String, String> get denseSetMap =>
+      _$this._denseSetMap ??= new _i3.SetMultimapBuilder<String, String>();
+  set denseSetMap(_i3.SetMultimapBuilder<String, String>? denseSetMap) =>
       _$this._denseSetMap = denseSetMap;
 
   _i3.MapBuilder<String, String>? _denseStringMap;
@@ -141,10 +141,10 @@ class JsonMapsInputOutputBuilder
   set sparseNumberMap(_i3.MapBuilder<String, int?>? sparseNumberMap) =>
       _$this._sparseNumberMap = sparseNumberMap;
 
-  _i3.ListMultimapBuilder<String, String>? _sparseSetMap;
-  _i3.ListMultimapBuilder<String, String> get sparseSetMap =>
-      _$this._sparseSetMap ??= new _i3.ListMultimapBuilder<String, String>();
-  set sparseSetMap(_i3.ListMultimapBuilder<String, String>? sparseSetMap) =>
+  _i3.SetMultimapBuilder<String, String>? _sparseSetMap;
+  _i3.SetMultimapBuilder<String, String> get sparseSetMap =>
+      _$this._sparseSetMap ??= new _i3.SetMultimapBuilder<String, String>();
+  set sparseSetMap(_i3.SetMultimapBuilder<String, String>? sparseSetMap) =>
       _$this._sparseSetMap = sparseSetMap;
 
   _i3.MapBuilder<String, String?>? _sparseStringMap;

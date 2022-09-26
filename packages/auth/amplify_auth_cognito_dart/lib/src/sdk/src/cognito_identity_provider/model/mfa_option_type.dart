@@ -30,10 +30,14 @@ abstract class MfaOptionType
     with _i1.AWSEquatable<MfaOptionType>
     implements Built<MfaOptionType, MfaOptionTypeBuilder> {
   /// _This data type is no longer supported._ Applies only to SMS multi-factor authentication (MFA) configurations. Does not apply to time-based one-time password (TOTP) software token MFA configurations.
-  factory MfaOptionType(
-      {String? attributeName, _i2.DeliveryMediumType? deliveryMedium}) {
+  factory MfaOptionType({
+    String? attributeName,
+    _i2.DeliveryMediumType? deliveryMedium,
+  }) {
     return _$MfaOptionType._(
-        attributeName: attributeName, deliveryMedium: deliveryMedium);
+      attributeName: attributeName,
+      deliveryMedium: deliveryMedium,
+    );
   }
 
   /// _This data type is no longer supported._ Applies only to SMS multi-factor authentication (MFA) configurations. Does not apply to time-based one-time password (TOTP) software token MFA configurations.
@@ -55,12 +59,21 @@ abstract class MfaOptionType
   /// The delivery medium to send the MFA code. You can use this parameter to set only the `SMS` delivery medium value.
   _i2.DeliveryMediumType? get deliveryMedium;
   @override
-  List<Object?> get props => [attributeName, deliveryMedium];
+  List<Object?> get props => [
+        attributeName,
+        deliveryMedium,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MfaOptionType');
-    helper.add('attributeName', attributeName);
-    helper.add('deliveryMedium', deliveryMedium);
+    helper.add(
+      'attributeName',
+      attributeName,
+    );
+    helper.add(
+      'deliveryMedium',
+      deliveryMedium,
+    );
     return helper.toString();
   }
 }
@@ -70,14 +83,23 @@ class MfaOptionTypeAwsJson11Serializer
   const MfaOptionTypeAwsJson11Serializer() : super('MfaOptionType');
 
   @override
-  Iterable<Type> get types => const [MfaOptionType, _$MfaOptionType];
+  Iterable<Type> get types => const [
+        MfaOptionType,
+        _$MfaOptionType,
+      ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols =>
-      const [_i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   MfaOptionType deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = MfaOptionTypeBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -87,15 +109,18 @@ class MfaOptionTypeAwsJson11Serializer
       switch (key) {
         case 'AttributeName':
           if (value != null) {
-            result.attributeName = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.attributeName = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'DeliveryMedium':
           if (value != null) {
-            result.deliveryMedium = (serializers.deserialize(value,
-                    specifiedType: const FullType(_i2.DeliveryMediumType))
-                as _i2.DeliveryMediumType);
+            result.deliveryMedium = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.DeliveryMediumType),
+            ) as _i2.DeliveryMediumType);
           }
           break;
       }
@@ -105,21 +130,28 @@ class MfaOptionTypeAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as MfaOptionType);
     final result = <Object?>[];
     if (payload.attributeName != null) {
       result
         ..add('AttributeName')
-        ..add(serializers.serialize(payload.attributeName!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.attributeName!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.deliveryMedium != null) {
       result
         ..add('DeliveryMedium')
-        ..add(serializers.serialize(payload.deliveryMedium!,
-            specifiedType: const FullType(_i2.DeliveryMediumType)));
+        ..add(serializers.serialize(
+          payload.deliveryMedium!,
+          specifiedType: const FullType(_i2.DeliveryMediumType),
+        ));
     }
     return result;
   }

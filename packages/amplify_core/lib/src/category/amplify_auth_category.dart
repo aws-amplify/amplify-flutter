@@ -103,7 +103,7 @@ class AuthCategory<
   AuthCategory([Plugin? plugin]) : _pluginOverride = plugin;
 
   final Plugin? _pluginOverride;
-  Plugin get _plugin => _pluginOverride ?? defaultPlugin;
+  Plugin get plugin => _pluginOverride ?? defaultPlugin;
 
   @override
   @nonVirtual
@@ -294,7 +294,7 @@ class AuthCategory<
       password: password,
       options: options,
     );
-    return _plugin.signUp(request: request);
+    return plugin.signUp(request: request);
   }
 
   /// {@template amplify_core.amplify_auth_category.confirm_sign_up}
@@ -311,7 +311,7 @@ class AuthCategory<
       confirmationCode: confirmationCode,
       options: options,
     );
-    return _plugin.confirmSignUp(request: request);
+    return plugin.confirmSignUp(request: request);
   }
 
   /// {@template amplify_core.amplify_auth_category.resend_sign_up_code}
@@ -330,7 +330,7 @@ class AuthCategory<
       username: username,
       options: options,
     );
-    return _plugin.resendSignUpCode(request: request);
+    return plugin.resendSignUpCode(request: request);
   }
 
   /// {@template amplify_core.amplify_auth_category.sign_in}
@@ -349,7 +349,7 @@ class AuthCategory<
       password: password,
       options: options,
     );
-    return _plugin.signIn(request: request);
+    return plugin.signIn(request: request);
   }
 
   /// {@template amplify_core.amplify_auth_category.confirm_sign_in}
@@ -364,7 +364,7 @@ class AuthCategory<
       confirmationValue: confirmationValue,
       options: options,
     );
-    return _plugin.confirmSignIn(request: request);
+    return plugin.confirmSignIn(request: request);
   }
 
   /// {@template amplify_core.amplify_auth_category.sign_out}
@@ -377,7 +377,7 @@ class AuthCategory<
     PluginSignOutOptions? options,
   }) {
     final request = SignOutRequest(options: options);
-    return _plugin.signOut(request: request);
+    return plugin.signOut(request: request);
   }
 
   /// {@template amplify_core.amplify_auth_category.update_password}
@@ -397,7 +397,7 @@ class AuthCategory<
       newPassword: newPassword,
       options: options,
     );
-    return _plugin.updatePassword(request: request);
+    return plugin.updatePassword(request: request);
   }
 
   /// {@template amplify_core.amplify_auth_category.reset_password}
@@ -416,7 +416,7 @@ class AuthCategory<
       username: username,
       options: options,
     );
-    return _plugin.resetPassword(request: request);
+    return plugin.resetPassword(request: request);
   }
 
   /// {@template amplify_core.amplify_auth_category.confirm_reset_password}
@@ -440,7 +440,7 @@ class AuthCategory<
       confirmationCode: confirmationCode,
       options: options,
     );
-    return _plugin.confirmResetPassword(request: request);
+    return plugin.confirmResetPassword(request: request);
   }
 
   /// {@template amplify_core.amplify_auth_category.get_current_user}
@@ -450,7 +450,7 @@ class AuthCategory<
     PluginAuthUserOptions? options,
   }) {
     final request = AuthUserRequest(options: options);
-    return _plugin.getCurrentUser(request: request);
+    return plugin.getCurrentUser(request: request);
   }
 
   /// {@template amplify_core.amplify_auth_category.fetch_user_attributes}
@@ -460,7 +460,7 @@ class AuthCategory<
     PluginFetchUserAttributeOptions? options,
   }) {
     final request = FetchUserAttributesRequest(options: options);
-    return _plugin.fetchUserAttributes(request: request);
+    return plugin.fetchUserAttributes(request: request);
   }
 
   /// {@template amplify_core.amplify_auth_category.fetch_auth_session}
@@ -474,7 +474,7 @@ class AuthCategory<
     PluginAuthSessionOptions? options,
   }) {
     final request = AuthSessionRequest(options: options);
-    return _plugin.fetchAuthSession(request: request);
+    return plugin.fetchAuthSession(request: request);
   }
 
   /// {@template amplify_core.amplify_auth_category.sign_in_with_web_ui}
@@ -488,7 +488,7 @@ class AuthCategory<
       provider: provider,
       options: options,
     );
-    return _plugin.signInWithWebUI(request: request);
+    return plugin.signInWithWebUI(request: request);
   }
 
   /// {@template amplify_core.amplify_auth_category.update_user_attribute}
@@ -506,7 +506,7 @@ class AuthCategory<
       value: value,
       options: options,
     );
-    return _plugin.updateUserAttribute(request: request);
+    return plugin.updateUserAttribute(request: request);
   }
 
   /// {@template amplify_core.amplify_auth_category.update_user_attributes}
@@ -524,7 +524,7 @@ class AuthCategory<
       attributes: attributes,
       options: options,
     );
-    return _plugin.updateUserAttributes(request: request);
+    return plugin.updateUserAttributes(request: request);
   }
 
   /// {@template amplify_core.amplify_auth_category.confirm_user_attribute}
@@ -541,7 +541,7 @@ class AuthCategory<
       confirmationCode: confirmationCode,
       options: options,
     );
-    return _plugin.confirmUserAttribute(request: request);
+    return plugin.confirmUserAttribute(request: request);
   }
 
   /// {@template amplify_core.amplify_auth_category.resend_user_attribute_confirmation_code}
@@ -559,27 +559,27 @@ class AuthCategory<
       userAttributeKey: userAttributeKey,
       options: options,
     );
-    return _plugin.resendUserAttributeConfirmationCode(request: request);
+    return plugin.resendUserAttributeConfirmationCode(request: request);
   }
 
   /// {@template amplify_core.amplify_auth_category.remember_device}
   /// Remembers the current device.
   /// {@endtemplate}
-  Future<void> rememberDevice() => _plugin.rememberDevice();
+  Future<void> rememberDevice() => plugin.rememberDevice();
 
   /// {@template amplify_core.amplify_auth_category.forget_device}
   /// Forgets [device], or the current device, if no parameters are given.
   /// {@endtemplate}
   Future<void> forgetDevice([PluginAuthDevice? device]) =>
-      _plugin.forgetDevice(device);
+      plugin.forgetDevice(device);
 
   /// {@template amplify_core.amplify_auth_category.fetch_devices}
   /// Retrieves all tracked devices for the current user.
   /// {@endtemplate}
-  Future<List<PluginAuthDevice>> fetchDevices() => _plugin.fetchDevices();
+  Future<List<PluginAuthDevice>> fetchDevices() => plugin.fetchDevices();
 
   /// {@template amplify_core.amplify_auth_category.delete_user}
   /// Deletes the current authenticated user.
   /// {@endtemplate}
-  Future<void> deleteUser() => _plugin.deleteUser();
+  Future<void> deleteUser() => plugin.deleteUser();
 }

@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_xml.rest_xml_protocol.model.constant_and_variable_query_string_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.model.constant_and_variable_query_string_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -19,9 +19,14 @@ abstract class ConstantAndVariableQueryStringInput
             ConstantAndVariableQueryStringInputBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<ConstantAndVariableQueryStringInputPayload> {
-  factory ConstantAndVariableQueryStringInput({String? baz, String? maybeSet}) {
+  factory ConstantAndVariableQueryStringInput({
+    String? baz,
+    String? maybeSet,
+  }) {
     return _$ConstantAndVariableQueryStringInput._(
-        baz: baz, maybeSet: maybeSet);
+      baz: baz,
+      maybeSet: maybeSet,
+    );
   }
 
   factory ConstantAndVariableQueryStringInput.build(
@@ -31,9 +36,10 @@ abstract class ConstantAndVariableQueryStringInput
   const ConstantAndVariableQueryStringInput._();
 
   factory ConstantAndVariableQueryStringInput.fromRequest(
-          ConstantAndVariableQueryStringInputPayload payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    ConstantAndVariableQueryStringInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       ConstantAndVariableQueryStringInput.build((b) {
         if (request.queryParameters['baz'] != null) {
           b.baz = request.queryParameters['baz']!;
@@ -55,13 +61,22 @@ abstract class ConstantAndVariableQueryStringInput
   ConstantAndVariableQueryStringInputPayload getPayload() =>
       ConstantAndVariableQueryStringInputPayload();
   @override
-  List<Object?> get props => [baz, maybeSet];
+  List<Object?> get props => [
+        baz,
+        maybeSet,
+      ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('ConstantAndVariableQueryStringInput');
-    helper.add('baz', baz);
-    helper.add('maybeSet', maybeSet);
+    helper.add(
+      'baz',
+      baz,
+    );
+    helper.add(
+      'maybeSet',
+      maybeSet,
+    );
     return helper.toString();
   }
 }
@@ -102,21 +117,30 @@ class ConstantAndVariableQueryStringInputRestXmlSerializer extends _i1
         ConstantAndVariableQueryStringInput,
         _$ConstantAndVariableQueryStringInput,
         ConstantAndVariableQueryStringInputPayload,
-        _$ConstantAndVariableQueryStringInputPayload
+        _$ConstantAndVariableQueryStringInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   ConstantAndVariableQueryStringInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return ConstantAndVariableQueryStringInputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       const _i1.XmlElementName('ConstantAndVariableQueryStringInput')
     ];

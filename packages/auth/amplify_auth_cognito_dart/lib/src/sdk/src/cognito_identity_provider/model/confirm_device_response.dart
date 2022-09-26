@@ -42,7 +42,9 @@ abstract class ConfirmDeviceResponse
 
   /// Constructs a [ConfirmDeviceResponse] from a [payload] and [response].
   factory ConfirmDeviceResponse.fromResponse(
-          ConfirmDeviceResponse payload, _i1.AWSBaseHttpResponse response) =>
+    ConfirmDeviceResponse payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i2.SmithySerializer> serializers = [
@@ -59,7 +61,10 @@ abstract class ConfirmDeviceResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfirmDeviceResponse');
-    helper.add('userConfirmationNecessary', userConfirmationNecessary);
+    helper.add(
+      'userConfirmationNecessary',
+      userConfirmationNecessary,
+    );
     return helper.toString();
   }
 }
@@ -70,15 +75,23 @@ class ConfirmDeviceResponseAwsJson11Serializer
       : super('ConfirmDeviceResponse');
 
   @override
-  Iterable<Type> get types =>
-      const [ConfirmDeviceResponse, _$ConfirmDeviceResponse];
+  Iterable<Type> get types => const [
+        ConfirmDeviceResponse,
+        _$ConfirmDeviceResponse,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   ConfirmDeviceResponse deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = ConfirmDeviceResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -88,8 +101,10 @@ class ConfirmDeviceResponseAwsJson11Serializer
       switch (key) {
         case 'UserConfirmationNecessary':
           if (value != null) {
-            result.userConfirmationNecessary = (serializers.deserialize(value,
-                specifiedType: const FullType(bool)) as bool);
+            result.userConfirmationNecessary = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
           }
           break;
       }
@@ -99,15 +114,20 @@ class ConfirmDeviceResponseAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as ConfirmDeviceResponse);
     final result = <Object?>[];
     if (payload.userConfirmationNecessary != null) {
       result
         ..add('UserConfirmationNecessary')
-        ..add(serializers.serialize(payload.userConfirmationNecessary!,
-            specifiedType: const FullType(bool)));
+        ..add(serializers.serialize(
+          payload.userConfirmationNecessary!,
+          specifiedType: const FullType(bool),
+        ));
     }
     return result;
   }

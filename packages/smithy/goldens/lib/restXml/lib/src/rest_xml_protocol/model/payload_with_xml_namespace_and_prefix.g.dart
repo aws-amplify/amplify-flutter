@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml.rest_xml_protocol.model.payload_with_xml_namespace_and_prefix;
+part of rest_xml_v1.rest_xml_protocol.model.payload_with_xml_namespace_and_prefix;
 
 // **************************************************************************
 // BuiltValueGenerator

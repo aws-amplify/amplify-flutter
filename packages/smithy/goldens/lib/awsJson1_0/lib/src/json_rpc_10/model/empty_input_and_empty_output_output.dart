@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library aws_json1_0.json_rpc_10.model.empty_input_and_empty_output_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_0_v1.json_rpc_10.model.empty_input_and_empty_output_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -28,8 +28,9 @@ abstract class EmptyInputAndEmptyOutputOutput
 
   /// Constructs a [EmptyInputAndEmptyOutputOutput] from a [payload] and [response].
   factory EmptyInputAndEmptyOutputOutput.fromResponse(
-          EmptyInputAndEmptyOutputOutput payload,
-          _i1.AWSBaseHttpResponse response) =>
+    EmptyInputAndEmptyOutputOutput payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i2.SmithySerializer> serializers = [
@@ -54,20 +55,31 @@ class EmptyInputAndEmptyOutputOutputAwsJson10Serializer
       : super('EmptyInputAndEmptyOutputOutput');
 
   @override
-  Iterable<Type> get types =>
-      const [EmptyInputAndEmptyOutputOutput, _$EmptyInputAndEmptyOutputOutput];
+  Iterable<Type> get types => const [
+        EmptyInputAndEmptyOutputOutput,
+        _$EmptyInputAndEmptyOutputOutput,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_0',
+        )
+      ];
   @override
   EmptyInputAndEmptyOutputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return EmptyInputAndEmptyOutputOutputBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

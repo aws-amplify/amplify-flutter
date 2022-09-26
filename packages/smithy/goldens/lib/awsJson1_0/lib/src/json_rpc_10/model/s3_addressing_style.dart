@@ -1,36 +1,60 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library aws_json1_0.json_rpc_10.model.s3_addressing_style; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_0_v1.json_rpc_10.model.s3_addressing_style; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:smithy/smithy.dart' as _i1;
 
 /// Controls the S3 addressing bucket style.
 class S3AddressingStyle extends _i1.SmithyEnum<S3AddressingStyle> {
-  const S3AddressingStyle._(int index, String name, String value)
-      : super(index, name, value);
+  const S3AddressingStyle._(
+    int index,
+    String name,
+    String value,
+  ) : super(
+          index,
+          name,
+          value,
+        );
 
   const S3AddressingStyle._sdkUnknown(String value) : super.sdkUnknown(value);
 
-  static const auto = S3AddressingStyle._(0, 'AUTO', 'auto');
+  static const auto = S3AddressingStyle._(
+    0,
+    'AUTO',
+    'auto',
+  );
 
-  static const path = S3AddressingStyle._(1, 'PATH', 'path');
+  static const path = S3AddressingStyle._(
+    1,
+    'PATH',
+    'path',
+  );
 
-  static const virtual = S3AddressingStyle._(2, 'VIRTUAL', 'virtual');
+  static const virtual = S3AddressingStyle._(
+    2,
+    'VIRTUAL',
+    'virtual',
+  );
 
   /// All values of [S3AddressingStyle].
   static const values = <S3AddressingStyle>[
     S3AddressingStyle.auto,
     S3AddressingStyle.path,
-    S3AddressingStyle.virtual
+    S3AddressingStyle.virtual,
   ];
 
   static const List<_i1.SmithySerializer<S3AddressingStyle>> serializers = [
-    _i1.SmithyEnumSerializer('S3AddressingStyle',
-        values: values,
-        sdkUnknown: S3AddressingStyle._sdkUnknown,
-        supportedProtocols: [
-          _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0')
-        ])
+    _i1.SmithyEnumSerializer(
+      'S3AddressingStyle',
+      values: values,
+      sdkUnknown: S3AddressingStyle._sdkUnknown,
+      supportedProtocols: [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_0',
+        )
+      ],
+    )
   ];
 }
 

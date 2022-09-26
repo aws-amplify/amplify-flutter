@@ -66,6 +66,8 @@ abstract class ShapeVisitor<R> {
 
   R stringShape(StringShape shape, [Shape? parent]);
 
+  R enumShape(EnumShape shape, [Shape? parent]);
+
   R structureShape(StructureShape shape, [Shape? parent]);
 
   R unionShape(UnionShape shape, [Shape? parent]);

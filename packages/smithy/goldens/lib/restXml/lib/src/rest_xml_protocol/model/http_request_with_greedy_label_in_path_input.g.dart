@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml.rest_xml_protocol.model.http_request_with_greedy_label_in_path_input;
+part of rest_xml_v1.rest_xml_protocol.model.http_request_with_greedy_label_in_path_input;
 
 // **************************************************************************
 // BuiltValueGenerator

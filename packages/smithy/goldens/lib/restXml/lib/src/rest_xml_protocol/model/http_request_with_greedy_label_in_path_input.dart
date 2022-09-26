@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_xml.rest_xml_protocol.model.http_request_with_greedy_label_in_path_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.model.http_request_with_greedy_label_in_path_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -19,9 +19,14 @@ abstract class HttpRequestWithGreedyLabelInPathInput
             HttpRequestWithGreedyLabelInPathInputBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<HttpRequestWithGreedyLabelInPathInputPayload> {
-  factory HttpRequestWithGreedyLabelInPathInput(
-      {required String baz, required String foo}) {
-    return _$HttpRequestWithGreedyLabelInPathInput._(baz: baz, foo: foo);
+  factory HttpRequestWithGreedyLabelInPathInput({
+    required String baz,
+    required String foo,
+  }) {
+    return _$HttpRequestWithGreedyLabelInPathInput._(
+      baz: baz,
+      foo: foo,
+    );
   }
 
   factory HttpRequestWithGreedyLabelInPathInput.build(
@@ -31,9 +36,10 @@ abstract class HttpRequestWithGreedyLabelInPathInput
   const HttpRequestWithGreedyLabelInPathInput._();
 
   factory HttpRequestWithGreedyLabelInPathInput.fromRequest(
-          HttpRequestWithGreedyLabelInPathInputPayload payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    HttpRequestWithGreedyLabelInPathInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       HttpRequestWithGreedyLabelInPathInput.build((b) {
         if (labels['foo'] != null) {
           b.foo = labels['foo']!;
@@ -59,20 +65,32 @@ abstract class HttpRequestWithGreedyLabelInPathInput
       case 'baz':
         return baz;
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
   HttpRequestWithGreedyLabelInPathInputPayload getPayload() =>
       HttpRequestWithGreedyLabelInPathInputPayload();
   @override
-  List<Object?> get props => [baz, foo];
+  List<Object?> get props => [
+        baz,
+        foo,
+      ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('HttpRequestWithGreedyLabelInPathInput');
-    helper.add('baz', baz);
-    helper.add('foo', foo);
+    helper.add(
+      'baz',
+      baz,
+    );
+    helper.add(
+      'foo',
+      foo,
+    );
     return helper.toString();
   }
 }
@@ -113,21 +131,30 @@ class HttpRequestWithGreedyLabelInPathInputRestXmlSerializer extends _i1
         HttpRequestWithGreedyLabelInPathInput,
         _$HttpRequestWithGreedyLabelInPathInput,
         HttpRequestWithGreedyLabelInPathInputPayload,
-        _$HttpRequestWithGreedyLabelInPathInputPayload
+        _$HttpRequestWithGreedyLabelInPathInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   HttpRequestWithGreedyLabelInPathInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return HttpRequestWithGreedyLabelInPathInputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       const _i1.XmlElementName('HttpRequestWithGreedyLabelInPathInput')
     ];

@@ -17,6 +17,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'delete_user_test.dart' as delete_user_tests;
+import 'federated_sign_in_test.dart' as federated_sign_in;
 import 'fetch_session_test.dart' as fetch_session_tests;
 import 'get_current_user_test.dart' as get_current_user_tests;
 import 'hub_events_test.dart' as hub_events_tests;
@@ -34,6 +35,7 @@ void main() async {
     user_attributes_tests.main();
     hub_events_tests.main();
     update_password_tests.main();
+    federated_sign_in.main();
     fetch_session_tests.main();
     get_current_user_tests.main();
     delete_user_tests.main();

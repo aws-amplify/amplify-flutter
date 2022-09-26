@@ -254,15 +254,11 @@ void main() {
           stateMachine.dispatch(AuthEvent.configure(mockConfig));
           await stateMachine.stream.whereType<AuthConfigured>().first;
 
-          const newIdentityId = 'newIdentityId';
           const newAccessKeyId = 'newAccessKeyId';
           const newSecretAccessKey = 'newSecretAccessKey';
           stateMachine
             ..addInstance<CognitoIdentityClient>(
               MockCognitoIdentityClient(
-                getId: expectAsync0(
-                  () async => GetIdResponse(identityId: newIdentityId),
-                ),
                 getCredentialsForIdentity: expectAsync0(
                   () async => GetCredentialsForIdentityResponse(
                     credentials: Credentials(
@@ -292,7 +288,11 @@ void main() {
           );
 
           final state = sm.currentState as FetchAuthSessionSuccess;
-          expect(state.session.identityId, newIdentityId);
+          expect(
+            state.session.identityId,
+            identityId,
+            reason: 'Should retain identity ID',
+          );
           expect(
             state.session.credentials?.accessKeyId,
             newAccessKeyId,
@@ -320,7 +320,7 @@ void main() {
           stateMachine
             ..addInstance<CognitoIdentityClient>(
               MockCognitoIdentityClient(
-                getId: expectAsync0(
+                getCredentialsForIdentity: expectAsync0(
                   () async => throw _FetchAuthSessionException(),
                 ),
               ),
@@ -538,15 +538,11 @@ void main() {
           stateMachine.dispatch(AuthEvent.configure(mockConfig));
           await stateMachine.stream.whereType<AuthConfigured>().first;
 
-          const newIdentityId = 'newIdentityId';
           const newAccessKeyId = 'newAccessKeyId';
           const newSecretAccessKey = 'newSecretAccessKey';
           stateMachine
             ..addInstance<CognitoIdentityClient>(
               MockCognitoIdentityClient(
-                getId: expectAsync0(
-                  () async => GetIdResponse(identityId: newIdentityId),
-                ),
                 getCredentialsForIdentity: expectAsync0(
                   () async => GetCredentialsForIdentityResponse(
                     credentials: Credentials(
@@ -580,7 +576,11 @@ void main() {
           );
 
           final state = sm.currentState as FetchAuthSessionSuccess;
-          expect(state.session.identityId, newIdentityId);
+          expect(
+            state.session.identityId,
+            identityId,
+            reason: 'Should retain identity ID',
+          );
           expect(
             state.session.credentials?.accessKeyId,
             newAccessKeyId,

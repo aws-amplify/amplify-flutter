@@ -29,12 +29,16 @@ abstract class GetIdInput
     with _i1.HttpInput<GetIdInput>, _i2.AWSEquatable<GetIdInput>
     implements Built<GetIdInput, GetIdInputBuilder> {
   /// Input to the GetId action.
-  factory GetIdInput(
-      {String? accountId,
-      required String identityPoolId,
-      _i3.BuiltMap<String, String>? logins}) {
+  factory GetIdInput({
+    String? accountId,
+    required String identityPoolId,
+    _i3.BuiltMap<String, String>? logins,
+  }) {
     return _$GetIdInput._(
-        accountId: accountId, identityPoolId: identityPoolId, logins: logins);
+      accountId: accountId,
+      identityPoolId: identityPoolId,
+      logins: logins,
+    );
   }
 
   /// Input to the GetId action.
@@ -44,8 +48,10 @@ abstract class GetIdInput
   const GetIdInput._();
 
   factory GetIdInput.fromRequest(
-          GetIdInput payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    GetIdInput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -78,13 +84,26 @@ abstract class GetIdInput
   @override
   GetIdInput getPayload() => this;
   @override
-  List<Object?> get props => [accountId, identityPoolId, logins];
+  List<Object?> get props => [
+        accountId,
+        identityPoolId,
+        logins,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetIdInput');
-    helper.add('accountId', accountId);
-    helper.add('identityPoolId', identityPoolId);
-    helper.add('logins', logins);
+    helper.add(
+      'accountId',
+      accountId,
+    );
+    helper.add(
+      'identityPoolId',
+      identityPoolId,
+    );
+    helper.add(
+      'logins',
+      logins,
+    );
     return helper.toString();
   }
 }
@@ -94,13 +113,23 @@ class GetIdInputAwsJson11Serializer
   const GetIdInputAwsJson11Serializer() : super('GetIdInput');
 
   @override
-  Iterable<Type> get types => const [GetIdInput, _$GetIdInput];
+  Iterable<Type> get types => const [
+        GetIdInput,
+        _$GetIdInput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
-  GetIdInput deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  GetIdInput deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = GetIdInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -110,20 +139,30 @@ class GetIdInputAwsJson11Serializer
       switch (key) {
         case 'AccountId':
           if (value != null) {
-            result.accountId = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.accountId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'IdentityPoolId':
-          result.identityPoolId = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.identityPoolId = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'Logins':
           if (value != null) {
-            result.logins.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(
-                        _i3.BuiltMap, [FullType(String), FullType(String)]))
-                as _i3.BuiltMap<String, String>));
+            result.logins.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i3.BuiltMap,
+                [
+                  FullType(String),
+                  FullType(String),
+                ],
+              ),
+            ) as _i3.BuiltMap<String, String>));
           }
           break;
       }
@@ -133,26 +172,40 @@ class GetIdInputAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as GetIdInput);
     final result = <Object?>[
       'IdentityPoolId',
-      serializers.serialize(payload.identityPoolId,
-          specifiedType: const FullType(String))
+      serializers.serialize(
+        payload.identityPoolId,
+        specifiedType: const FullType(String),
+      ),
     ];
     if (payload.accountId != null) {
       result
         ..add('AccountId')
-        ..add(serializers.serialize(payload.accountId!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.accountId!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.logins != null) {
       result
         ..add('Logins')
-        ..add(serializers.serialize(payload.logins!,
-            specifiedType: const FullType(
-                _i3.BuiltMap, [FullType(String), FullType(String)])));
+        ..add(serializers.serialize(
+          payload.logins!,
+          specifiedType: const FullType(
+            _i3.BuiltMap,
+            [
+              FullType(String),
+              FullType(String),
+            ],
+          ),
+        ));
     }
     return result;
   }

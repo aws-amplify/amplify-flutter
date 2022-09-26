@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml.rest_xml_protocol.model.query_idempotency_token_auto_fill_input;
+part of rest_xml_v1.rest_xml_protocol.model.query_idempotency_token_auto_fill_input;
 
 // **************************************************************************
 // BuiltValueGenerator

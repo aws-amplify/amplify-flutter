@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.foo_error; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.foo_error; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -28,7 +28,9 @@ abstract class FooError
 
   /// Constructs a [FooError] from a [payload] and [response].
   factory FooError.fromResponse(
-          FooError payload, _i1.AWSBaseHttpResponse response) =>
+    FooError payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
@@ -41,7 +43,9 @@ abstract class FooError
   static void _init(FooErrorBuilder b) {}
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'aws.protocoltests.restjson', shape: 'FooError');
+        namespace: 'aws.protocoltests.restjson',
+        shape: 'FooError',
+      );
   @override
   String? get message => null;
   @override
@@ -68,18 +72,31 @@ class FooErrorRestJson1Serializer
   const FooErrorRestJson1Serializer() : super('FooError');
 
   @override
-  Iterable<Type> get types => const [FooError, _$FooError];
+  Iterable<Type> get types => const [
+        FooError,
+        _$FooError,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
-  FooError deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  FooError deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return FooErrorBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

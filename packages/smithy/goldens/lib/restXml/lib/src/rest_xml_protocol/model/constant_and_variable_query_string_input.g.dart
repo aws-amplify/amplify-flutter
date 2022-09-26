@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml.rest_xml_protocol.model.constant_and_variable_query_string_input;
+part of rest_xml_v1.rest_xml_protocol.model.constant_and_variable_query_string_input;
 
 // **************************************************************************
 // BuiltValueGenerator

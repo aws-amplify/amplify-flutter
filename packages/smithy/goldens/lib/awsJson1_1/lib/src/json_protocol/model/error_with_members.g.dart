@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1.json_protocol.model.error_with_members;
+part of aws_json1_1_v1.json_protocol.model.error_with_members;
 
 // **************************************************************************
 // BuiltValueGenerator

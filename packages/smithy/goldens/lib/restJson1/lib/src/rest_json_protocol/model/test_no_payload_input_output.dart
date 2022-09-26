@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.test_no_payload_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.test_no_payload_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -29,9 +29,10 @@ abstract class TestNoPayloadInputOutput
   const TestNoPayloadInputOutput._();
 
   factory TestNoPayloadInputOutput.fromRequest(
-          TestNoPayloadInputOutputPayload payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    TestNoPayloadInputOutputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       TestNoPayloadInputOutput.build((b) {
         if (request.headers['X-Amz-Test-Id'] != null) {
           b.testId = request.headers['X-Amz-Test-Id']!;
@@ -40,8 +41,9 @@ abstract class TestNoPayloadInputOutput
 
   /// Constructs a [TestNoPayloadInputOutput] from a [payload] and [response].
   factory TestNoPayloadInputOutput.fromResponse(
-          TestNoPayloadInputOutputPayload payload,
-          _i2.AWSBaseHttpResponse response) =>
+    TestNoPayloadInputOutputPayload payload,
+    _i2.AWSBaseHttpResponse response,
+  ) =>
       TestNoPayloadInputOutput.build((b) {
         if (response.headers['X-Amz-Test-Id'] != null) {
           b.testId = response.headers['X-Amz-Test-Id']!;
@@ -63,7 +65,10 @@ abstract class TestNoPayloadInputOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TestNoPayloadInputOutput');
-    helper.add('testId', testId);
+    helper.add(
+      'testId',
+      testId,
+    );
     return helper.toString();
   }
 }
@@ -104,20 +109,29 @@ class TestNoPayloadInputOutputRestJson1Serializer
         TestNoPayloadInputOutput,
         _$TestNoPayloadInputOutput,
         TestNoPayloadInputOutputPayload,
-        _$TestNoPayloadInputOutputPayload
+        _$TestNoPayloadInputOutputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   TestNoPayloadInputOutputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return TestNoPayloadInputOutputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

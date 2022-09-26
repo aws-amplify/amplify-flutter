@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1.json_protocol.model.file_config_settings;
+part of aws_json1_1_v1.json_protocol.model.file_config_settings;
 
 // **************************************************************************
 // BuiltValueGenerator

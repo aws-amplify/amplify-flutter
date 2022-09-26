@@ -34,7 +34,7 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
   ///
   /// To change the default behavior of credential storage,
   /// provide a [credentialStorage] value. If no value is provided,
-  /// [AmplifySecureStorage] will be used with a `scope` of "auth".
+  /// [AmplifySecureStorage] will be used with a `scope` of "awsCognitoAuthPlugin".
   ///
   /// **NOTE**: Switching credential storage providers will likely result in
   /// end-users needing to re-authenticate since no migrations are performed in
@@ -45,7 +45,7 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
           credentialStorage: credentialStorage ??
               AmplifySecureStorage(
                 config: AmplifySecureStorageConfig(
-                  scope: 'auth',
+                  scope: 'awsCognitoAuthPlugin',
                 ),
               ),
           hostedUiPlatformFactory: HostedUiPlatformImpl.new,
@@ -293,4 +293,62 @@ class _AmplifyAuthCognitoPluginKey extends AuthPluginKey<
 
   @override
   String get runtimeTypeName => 'AmplifyAuthCognito';
+}
+
+/// Extensions to [AuthCategory] when using [AmplifyAuthCognito].
+extension AmplifyAuthCognitoCategoryExtensions on AuthCategory<
+    AuthUser,
+    CognitoUserAttributeKey,
+    AuthUserAttribute<CognitoUserAttributeKey>,
+    CognitoDevice,
+    CognitoSignUpOptions,
+    CognitoSignUpResult,
+    CognitoConfirmSignUpOptions,
+    CognitoSignUpResult,
+    CognitoResendSignUpCodeOptions,
+    CognitoResendSignUpCodeResult,
+    CognitoSignInOptions,
+    CognitoSignInResult,
+    CognitoConfirmSignInOptions,
+    CognitoSignInResult,
+    SignOutOptions,
+    SignOutResult,
+    CognitoUpdatePasswordOptions,
+    UpdatePasswordResult,
+    CognitoResetPasswordOptions,
+    CognitoResetPasswordResult,
+    CognitoConfirmResetPasswordOptions,
+    UpdatePasswordResult,
+    AuthUserOptions,
+    FetchUserAttributesOptions,
+    CognitoSessionOptions,
+    CognitoAuthSession,
+    CognitoSignInWithWebUIOptions,
+    CognitoSignInResult,
+    CognitoUpdateUserAttributeOptions,
+    UpdateUserAttributeResult,
+    CognitoUpdateUserAttributesOptions,
+    ConfirmUserAttributeOptions,
+    ConfirmUserAttributeResult,
+    CognitoResendUserAttributeConfirmationCodeOptions,
+    ResendUserAttributeConfirmationCodeResult,
+    AmplifyAuthCognito> {
+  /// {@macro amplify_auth_cognito_dart.impl.federate_to_identity_pool}
+  Future<FederateToIdentityPoolResult> federateToIdentityPool({
+    required String token,
+    required AuthProvider provider,
+    FederateToIdentityPoolOptions? options,
+  }) async {
+    final request = FederateToIdentityPoolRequest(
+      token: token,
+      provider: provider,
+      options: options,
+    );
+    return plugin.federateToIdentityPool(request: request);
+  }
+
+  /// {@macro amplify_auth_cognito_dart.impl.clear_federation_to_identity_pool}
+  Future<void> clearFederationToIdentityPool() async {
+    return plugin.clearFederationToIdentityPool();
+  }
 }
