@@ -18,11 +18,10 @@ library amplify_api.graphql.ws.web_socket_message_stream_transformer;
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
+import 'package:amplify_api/src/graphql/ws/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
-
-import '../graphql_response_decoder.dart';
-import 'web_socket_types.dart';
 
 /// Top-level transformer.
 class WebSocketMessageStreamTransformer
@@ -43,15 +42,6 @@ class WebSocketMessageStreamTransformer
 /// of `GraphQLResponse` that is eventually passed to public API `Amplify.API.subscribe`.
 class WebSocketSubscriptionStreamTransformer<T>
     extends StreamTransformerBase<WebSocketMessage, GraphQLResponse<T>> {
-  /// request for this stream, needed to properly decode response events
-  final GraphQLRequest<T> request;
-
-  /// logs complete messages to better provide visibility to cancels
-  final AmplifyLogger logger;
-
-  /// executes when start_ack message received
-  final void Function()? onEstablished;
-
   /// [request] is used to properly decode response events
   /// [onEstablished] is executed when start_ack message received
   /// [logger] logs cancel messages when complete message received
@@ -61,9 +51,18 @@ class WebSocketSubscriptionStreamTransformer<T>
     required this.logger,
   });
 
+  /// request for this stream, needed to properly decode response events
+  final GraphQLRequest<T> request;
+
+  /// logs complete messages to better provide visibility to cancels
+  final AmplifyLogger logger;
+
+  /// executes when start_ack message received
+  final void Function()? onEstablished;
+
   @override
   Stream<GraphQLResponse<T>> bind(Stream<WebSocketMessage> stream) async* {
-    await for (var event in stream) {
+    await for (final event in stream) {
       switch (event.messageType) {
         case MessageType.startAck:
           onEstablished?.call();

@@ -54,27 +54,30 @@ enum MessageType {
   @JsonValue('complete')
   complete('complete');
 
-  final String type;
-
   const MessageType(this.type);
 
   factory MessageType.fromJson(dynamic json) {
     return MessageType.values.firstWhere((el) => json == el.type);
   }
+
+  final String type;
 }
 
 @immutable
 abstract class WebSocketMessagePayload {
   const WebSocketMessagePayload();
 
-  static const Map<MessageType, WebSocketMessagePayload Function(Map)>
-      _factories = {
+  static const Map<MessageType,
+      WebSocketMessagePayload Function(Map<String, dynamic>)> _factories = {
     MessageType.connectionAck: ConnectionAckMessagePayload.fromJson,
     MessageType.data: SubscriptionDataPayload.fromJson,
     MessageType.error: WebSocketError.fromJson,
   };
 
-  static WebSocketMessagePayload? fromJson(Map json, MessageType type) {
+  static WebSocketMessagePayload? fromJson(
+    Map<String, dynamic> json,
+    MessageType type,
+  ) {
     return _factories[type]?.call(json);
   }
 
@@ -86,11 +89,10 @@ abstract class WebSocketMessagePayload {
 
 @internal
 class ConnectionAckMessagePayload extends WebSocketMessagePayload {
+  const ConnectionAckMessagePayload(this.connectionTimeoutMs);
   final int connectionTimeoutMs;
 
-  const ConnectionAckMessagePayload(this.connectionTimeoutMs);
-
-  static ConnectionAckMessagePayload fromJson(Map json) {
+  static ConnectionAckMessagePayload fromJson(Map<String, dynamic> json) {
     final connectionTimeoutMs = json['connectionTimeoutMs'] as int;
     return ConnectionAckMessagePayload(connectionTimeoutMs);
   }
@@ -102,21 +104,21 @@ class ConnectionAckMessagePayload extends WebSocketMessagePayload {
 }
 
 class SubscriptionRegistrationPayload extends WebSocketMessagePayload {
-  final GraphQLRequest request;
-  final AWSApiConfig config;
-  final Map<String, String> authorizationHeaders;
-
   const SubscriptionRegistrationPayload({
     required this.request,
     required this.config,
     required this.authorizationHeaders,
   });
+  final GraphQLRequest<dynamic> request;
+  final AWSApiConfig config;
+  final Map<String, String> authorizationHeaders;
 
   @override
   Map<String, Object> toJson() {
     return <String, Object>{
       'data': jsonEncode(
-          {'variables': request.variables, 'query': request.document}),
+        {'variables': request.variables, 'query': request.document},
+      ),
       'extensions': <String, Map<String, String>>{
         'authorization': authorizationHeaders
       }
@@ -125,12 +127,11 @@ class SubscriptionRegistrationPayload extends WebSocketMessagePayload {
 }
 
 class SubscriptionDataPayload extends WebSocketMessagePayload {
+  const SubscriptionDataPayload(this.data, this.errors);
   final Map<String, dynamic>? data;
   final Map<String, dynamic>? errors;
 
-  const SubscriptionDataPayload(this.data, this.errors);
-
-  static SubscriptionDataPayload fromJson(Map json) {
+  static SubscriptionDataPayload fromJson(Map<String, dynamic> json) {
     final data = json['data'] as Map?;
     final errors = json['errors'] as Map?;
     return SubscriptionDataPayload(
@@ -147,11 +148,10 @@ class SubscriptionDataPayload extends WebSocketMessagePayload {
 }
 
 class WebSocketError extends WebSocketMessagePayload implements Exception {
-  final List<Map> errors;
-
   const WebSocketError(this.errors);
+  final List<Map<String, dynamic>> errors;
 
-  static WebSocketError fromJson(Map json) {
+  static WebSocketError fromJson(Map<String, dynamic> json) {
     final errors = json['errors'] as List?;
     return WebSocketError(errors?.cast() ?? []);
   }
@@ -164,27 +164,25 @@ class WebSocketError extends WebSocketMessagePayload implements Exception {
 
 @immutable
 class WebSocketMessage {
-  final String? id;
-  final MessageType messageType;
-  final WebSocketMessagePayload? payload;
-
   WebSocketMessage({
     String? id,
     required this.messageType,
     this.payload,
   }) : id = id ?? uuid();
-
   const WebSocketMessage._({
     this.id,
     required this.messageType,
     this.payload,
   });
+  final String? id;
+  final MessageType messageType;
+  final WebSocketMessagePayload? payload;
 
-  static WebSocketMessage fromJson(Map json) {
+  static WebSocketMessage fromJson(Map<String, dynamic> json) {
     final id = json['id'] as String?;
     final type = json['type'] as String;
     final messageType = MessageType.fromJson(type);
-    final payloadMap = json['payload'] as Map?;
+    final payloadMap = json['payload'] as Map<String, dynamic>?;
     final payload = payloadMap == null
         ? null
         : WebSocketMessagePayload.fromJson(
