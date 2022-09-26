@@ -13,8 +13,12 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(AuthStrategy.serializer)
       ..add(ModelAssociation.serializer)
       ..add(ModelAssociationType.serializer)
+      ..add(ModelField.serializer)
       ..add(ModelIndex.serializer)
       ..add(ModelOperation.serializer)
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(AuthRule)]),
+          () => new ListBuilder<AuthRule>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())

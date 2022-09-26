@@ -21,7 +21,6 @@ import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
 
 import 'mipr.dart';
-import 'model_field.dart';
 
 @immutable
 class ModelSchema with AWSEquatable<ModelSchema> {
@@ -70,7 +69,7 @@ class ModelSchema with AWSEquatable<ModelSchema> {
         if (authRules != null)
           'authRules': authRules?.map((x) => x.toJson()).toList(),
         if (fields != null)
-          'fields': fields?.map((key, value) => MapEntry(key, value.toMap())),
+          'fields': fields?.map((key, value) => MapEntry(key, value.toJson())),
         if (indexes != null)
           'indexes': indexes?.map((value) => value.toJson()).toList(),
       };
