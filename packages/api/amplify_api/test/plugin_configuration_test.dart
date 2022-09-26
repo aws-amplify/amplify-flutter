@@ -15,7 +15,7 @@ import 'dart:convert';
 
 import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_api/src/graphql/app_sync_api_key_auth_provider.dart';
-import 'package:amplify_api/src/oidc_function_api_auth_provider.dart';
+import 'package:amplify_api/src/graphql/oidc_function_api_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_common/testing.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -67,9 +67,11 @@ final _mockRestClient = MockAWSHttpClient((request) async {
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  final authProviderRepo = AmplifyAuthProviderRepository();
-  authProviderRepo.registerAuthProvider(
-      APIAuthorizationType.iam.authProviderToken, TestIamAuthProvider());
+  final authProviderRepo = AmplifyAuthProviderRepository()
+    ..registerAuthProvider(
+      APIAuthorizationType.iam.authProviderToken,
+      TestIamAuthProvider(),
+    );
   final config = AmplifyConfig.fromJson(
     jsonDecode(amplifyconfig) as Map<String, Object?>,
   );
@@ -146,9 +148,11 @@ void main() {
         () async {
       final plugin = AmplifyAPIDart(baseHttpClient: _mockGqlClient);
       await plugin.configure(
-          authProviderRepo: authProviderRepo, config: config);
+        authProviderRepo: authProviderRepo,
+        config: config,
+      );
 
-      String graphQLDocument = '''query TestQuery {
+      const graphQLDocument = '''query TestQuery {
           listBlogs {
             items {
               id
@@ -168,7 +172,9 @@ void main() {
         () async {
       final plugin = AmplifyAPIDart(baseHttpClient: _mockRestClient);
       await plugin.configure(
-          authProviderRepo: authProviderRepo, config: config);
+        authProviderRepo: authProviderRepo,
+        config: config,
+      );
 
       await plugin.get('/items').response;
       // no assertion here because assertion implemented in mock HTTP client

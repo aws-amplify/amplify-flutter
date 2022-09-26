@@ -16,14 +16,13 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_api/src/decorators/web_socket_auth_utils.dart';
+import 'package:amplify_api/src/graphql/ws/web_socket_message_stream_transformer.dart';
+import 'package:amplify_api/src/graphql/ws/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 import 'package:meta/meta.dart';
 import 'package:web_socket_channel/status.dart' as status;
 import 'package:web_socket_channel/web_socket_channel.dart';
-
-import 'web_socket_message_stream_transformer.dart';
-import 'web_socket_types.dart';
 
 /// 1001, going away
 const _defaultCloseStatus = status.goingAway;
@@ -33,6 +32,13 @@ const _defaultCloseStatus = status.goingAway;
 /// {@endtemplate}
 @internal
 class WebSocketConnection implements Closeable {
+  /// {@macro amplify_api.ws.web_socket_connection}
+  WebSocketConnection(
+    this._config,
+    this._authProviderRepo, {
+    required AmplifyLogger logger,
+  }) : _logger = logger;
+
   /// Allowed protocols for this connection.
   static const webSocketProtocols = ['graphql-ws'];
   final AmplifyLogger _logger;
@@ -63,15 +69,11 @@ class WebSocketConnection implements Closeable {
   /// `connection_ack` message.
   Future<void> get ready => _connectionReady.future;
 
-  /// {@macro amplify_api.ws.web_socket_connection}
-  WebSocketConnection(this._config, this._authProviderRepo,
-      {required AmplifyLogger logger})
-      : _logger = logger;
-
   /// Connects _subscription stream to _onData handler.
   @visibleForTesting
   StreamSubscription<WebSocketMessage> getStreamSubscription(
-      Stream<dynamic> stream) {
+    Stream<dynamic> stream,
+  ) {
     return stream.transform(const WebSocketMessageStreamTransformer()).listen(
       _onData,
       cancelOnError: true,
@@ -138,7 +140,8 @@ class WebSocketConnection implements Closeable {
   }
 
   Future<void> _sendSubscriptionRegistrationMessage<T>(
-      GraphQLRequest<T> request) async {
+    GraphQLRequest<T> request,
+  ) async {
     await init(); // no-op if already connected
     final subscriptionRegistrationMessage =
         await generateSubscriptionRegistrationMessage(
@@ -169,11 +172,13 @@ class WebSocketConnection implements Closeable {
     // stream with messages converted to GraphQLResponse<T>.
     _messageStream
         .where((msg) => msg.id == request.id)
-        .transform(WebSocketSubscriptionStreamTransformer(
-          request,
-          onEstablished,
-          logger: _logger,
-        ))
+        .transform(
+          WebSocketSubscriptionStreamTransformer(
+            request,
+            onEstablished,
+            logger: _logger,
+          ),
+        )
         .listen(
           controller.add,
           onError: controller.addError,
@@ -232,8 +237,11 @@ class WebSocketConnection implements Closeable {
         _logger.verbose('Connection established. Registered timer');
         return;
       case MessageType.connectionError:
-        _connectionError(const ApiException(
-            'Error occurred while connecting to the websocket'));
+        _connectionError(
+          const ApiException(
+            'Error occurred while connecting to the websocket',
+          ),
+        );
         return;
       case MessageType.keepAlive:
         _timeoutTimer?.reset();
