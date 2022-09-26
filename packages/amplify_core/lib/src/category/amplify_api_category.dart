@@ -25,7 +25,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
   /// Sends a GraphQL query request and returns the response in a cancelable `GraphQLOperation`.
   ///
   /// See https://docs.amplify.aws/lib/graphqlapi/query-data/q/platform/flutter/
-  /// and for more information.
+  /// for more information.
   GraphQLOperation<T> query<T>({required GraphQLRequest<T> request}) =>
       defaultPlugin.query(request: request);
 

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_catches_without_on_clauses, prefer_const_literals_to_create_immutables, prefer_single_quotes
+// ignore_for_file: avoid_catches_without_on_clauses, prefer_const_literals_to_create_immutables, prefer_single_quotes, inference_failure_on_untyped_parameter
 
 /*
 * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.

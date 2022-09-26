@@ -43,7 +43,8 @@ void main() {
   final subscriptionRequest = GraphQLRequest<String>(document: graphQLDocument);
 
   void assertBasicSubscriptionPayloadHeaders(
-      SubscriptionRegistrationPayload payload) {
+    SubscriptionRegistrationPayload payload,
+  ) {
     expect(
       payload.authorizationHeaders[AWSHeaders.contentType],
       'application/json; charset=utf-8',
