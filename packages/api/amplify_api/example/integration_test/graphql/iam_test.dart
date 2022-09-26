@@ -369,6 +369,35 @@ void main({bool useExistingTestUser = false}) {
 
           expect(postFromEvent?.title, equals(title));
         });
+
+        testWidgets(
+            'stream should emit response with error when subscription fails',
+            (WidgetTester tester) async {
+          const document = '''subscription MyInvalidSubscription {
+            onCreateInvalidBlog {
+              id
+              name
+              createdAt
+            }
+          }''';
+          final subscriptionRequest =
+              GraphQLRequest<String>(document: document);
+          final stream = Amplify.API.subscribe(subscriptionRequest,
+              onEstablished: () => fail(
+                    'onEstablished should not be called during failed subscription',
+                  ));
+
+          await expectLater(
+            stream,
+            emits(predicate<GraphQLResponse<String>>(
+              (GraphQLResponse<String> response) =>
+                  response.hasErrors && response.data == null,
+              'Has GraphQL Errors',
+            )),
+          );
+          // Cleanup.
+          await stream.listen((_) {}).cancel();
+        });
       },
     );
   });
