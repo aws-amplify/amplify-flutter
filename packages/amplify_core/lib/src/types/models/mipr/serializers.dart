@@ -29,6 +29,7 @@ part 'serializers.g.dart';
   ModelAssociation,
   ModelAssociationType,
   AppSyncScalar,
+  ModelField,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(SchemaType.serializer)

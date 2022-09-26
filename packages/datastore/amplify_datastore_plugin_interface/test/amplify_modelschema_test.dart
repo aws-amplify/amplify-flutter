@@ -71,7 +71,7 @@ void main() {
         association: ModelAssociation(
           associationType: ModelAssociationType.hasMany,
           associatedName: Post.BLOG.fieldName,
-          associatedType: Post.BLOG.fieldType!.ofModelName,
+          associatedType: 'Post',
         ),
       ),
     );
