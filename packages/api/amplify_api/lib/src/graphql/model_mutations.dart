@@ -39,8 +39,10 @@ class ModelMutations {
   /// ```
   ///
   /// An optional `where` parameter can be supplied as a condition for the deletion to be evaluated on the server.
-  static GraphQLRequest<T> delete<T extends Model>(T model,
-      {QueryPredicate? where}) {
+  static GraphQLRequest<T> delete<T extends Model>(
+    T model, {
+    QueryPredicate? where,
+  }) {
     return ModelMutationsFactory.instance.delete<T>(model, where: where);
   }
 
@@ -52,8 +54,10 @@ class ModelMutations {
   ///
   /// An optional `where` parameter can be supplied as a condition for the deletion to be evaluated on the server.
   static GraphQLRequest<T> deleteById<T extends Model>(
-      ModelType<T> modelType, String id,
-      {QueryPredicate? where}) {
+    ModelType<T> modelType,
+    String id, {
+    QueryPredicate? where,
+  }) {
     return ModelMutationsFactory.instance
         .deleteById<T>(modelType, id, where: where);
   }
@@ -66,8 +70,10 @@ class ModelMutations {
   /// ```
   ///
   /// An optional `where` parameter can be supplied as a condition for the update to be evaluated on the server.
-  static GraphQLRequest<T> update<T extends Model>(T model,
-      {QueryPredicate? where}) {
+  static GraphQLRequest<T> update<T extends Model>(
+    T model, {
+    QueryPredicate? where,
+  }) {
     return ModelMutationsFactory.instance.update<T>(model, where: where);
   }
 }

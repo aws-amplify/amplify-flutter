@@ -19,11 +19,10 @@ import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
+export 'package:amplify_api/src/graphql/model_mutations.dart';
+export 'package:amplify_api/src/graphql/model_queries.dart';
+export 'package:amplify_api/src/graphql/model_subscriptions.dart';
 export 'package:amplify_core/src/types/api/api_types.dart';
-
-export './model_mutations.dart';
-export './model_queries.dart';
-export './model_subscriptions.dart';
 
 /// {@template amplify_api.amplify_api}
 /// The AWS implementation of the Amplify API category.
