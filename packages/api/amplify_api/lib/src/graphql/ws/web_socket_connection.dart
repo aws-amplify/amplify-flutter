@@ -196,7 +196,6 @@ class WebSocketConnection implements Closeable {
   void _cancel(String subscriptionId) {
     _logger.info('Attempting to cancel Operation $subscriptionId');
     send(WebSocketStopMessage(id: subscriptionId));
-    // ignore: todo
     // TODO(equartey): if this is the only subscription, close the connection.
   }
 
