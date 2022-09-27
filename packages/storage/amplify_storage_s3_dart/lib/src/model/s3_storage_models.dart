@@ -12,6 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+export 's3_storage_copy_operation.dart';
+export 's3_storage_copy_options.dart';
+export 's3_storage_copy_result.dart';
+
 export 's3_storage_get_properties_operation.dart';
 export 's3_storage_get_properties_options.dart';
 export 's3_storage_get_properties_result.dart';
@@ -21,10 +25,15 @@ export 's3_storage_get_url_options.dart';
 export 's3_storage_get_url_result.dart';
 
 export 's3_storage_item.dart';
+export 's3_storage_item_with_access_level.dart';
 
 export 's3_storage_list_operation.dart';
 export 's3_storage_list_options.dart';
 export 's3_storage_list_result.dart';
+
+export 's3_storage_move_operation.dart';
+export 's3_storage_move_options.dart';
+export 's3_storage_move_result.dart';
 
 export 's3_storage_remove_many_operation.dart';
 export 's3_storage_remove_many_options.dart';

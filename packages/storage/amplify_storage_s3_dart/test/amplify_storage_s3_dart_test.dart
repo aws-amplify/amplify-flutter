@@ -290,9 +290,123 @@ void main() {
       });
     });
 
+    group('copy() API', () {
+      const testTargetIdentityId = 'someone-else';
+      const testSourceItem = S3StorageItem(key: 'source');
+      const testDestinationItem = S3StorageItem(key: 'destination');
+      const testSource = S3StorageItemWithAccessLevel(
+        storageItem: testSourceItem,
+      );
+      const testDestination = S3StorageItemWithAccessLevel.forIdentity(
+        testTargetIdentityId,
+        storageItem: testDestinationItem,
+      );
+      const testResult = S3StorageCopyResult(copiedItem: testDestinationItem);
+
+      setUpAll(() {
+        registerFallbackValue(const S3StorageCopyOptions());
+      });
+
+      test(
+          'should forward options with default getProperties value to StorageS3Service.copy() API',
+          () async {
+        const testRequest = StorageCopyRequest(
+          source: testSource,
+          destination: testDestination,
+        );
+
+        when(
+          () => storageS3Service.copy(
+            source: testSource,
+            destination: testDestination,
+            options: any(named: 'options'),
+          ),
+        ).thenAnswer((_) async => testResult);
+
+        final copyOperation = storageS3Plugin.copy(request: testRequest);
+
+        final capturedOptions = verify(
+          () => storageS3Service.copy(
+            source: testSource,
+            destination: testDestination,
+            options: captureAny<S3StorageCopyOptions>(named: 'options'),
+          ),
+        ).captured.last;
+
+        expect(
+          capturedOptions,
+          isA<S3StorageCopyOptions>().having(
+            (o) => o.getProperties,
+            'getProperties',
+            false,
+          ),
+        );
+
+        final result = await copyOperation.result;
+        expect(result, testResult);
+      });
+    });
+
+    group('move() API', () {
+      const testSourceItem = S3StorageItem(key: 'source');
+      const testDestinationItem = S3StorageItem(key: 'destination');
+      const testSource = S3StorageItemWithAccessLevel(
+        storageItem: testSourceItem,
+        storageAccessLevel: StorageAccessLevel.private,
+      );
+      const testDestination = S3StorageItemWithAccessLevel(
+        storageItem: testDestinationItem,
+        storageAccessLevel: StorageAccessLevel.guest,
+      );
+      const testResult = S3StorageMoveResult(movedItem: testDestinationItem);
+
+      setUpAll(() {
+        registerFallbackValue(const S3StorageMoveOptions());
+      });
+
+      test(
+          'should forward options with default getProperties value to StorageS3Service.move() API',
+          () async {
+        const testRequest = StorageMoveRequest(
+          source: testSource,
+          destination: testDestination,
+        );
+
+        when(
+          () => storageS3Service.move(
+            source: testSource,
+            destination: testDestination,
+            options: any(named: 'options'),
+          ),
+        ).thenAnswer((_) async => testResult);
+
+        final moveOperation = storageS3Plugin.move(request: testRequest);
+
+        final capturedOptions = verify(
+          () => storageS3Service.move(
+            source: testSource,
+            destination: testDestination,
+            options: captureAny<S3StorageMoveOptions>(named: 'options'),
+          ),
+        ).captured.last;
+
+        expect(
+          capturedOptions,
+          isA<S3StorageMoveOptions>().having(
+            (o) => o.getProperties,
+            'getProperties',
+            false,
+          ),
+        );
+
+        final result = await moveOperation.result;
+        expect(result, testResult);
+      });
+    });
+
     group('remove() API', () {
       const testKey = 'object-to-remove';
-      final testResult = S3StorageRemoveResult(
+      const testResult = S3StorageRemoveResult(
         removedItem: S3StorageItem(
           key: testKey,
         ),

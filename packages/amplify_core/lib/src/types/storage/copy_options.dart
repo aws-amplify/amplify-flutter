@@ -12,17 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_core/amplify_core.dart';
-
-/// {@template amplify_core.storage.copy_result}
-/// Presents the result of a [StorageCopyOperation].
+/// {@template amplify_core.storage.copy_options}
+/// Configurable options to initiate a [StorageCopyRequest].
 /// {@endtemplate}
-class StorageCopyResult<Item extends StorageItem> {
-  /// {@macro amplify_core.storage.copy_result}
-  const StorageCopyResult({
-    required this.copiedItem,
-  });
-
-  /// The result object of the [StorageCopyOperation].
-  final Item copiedItem;
+abstract class StorageCopyOptions {
+  const StorageCopyOptions();
 }

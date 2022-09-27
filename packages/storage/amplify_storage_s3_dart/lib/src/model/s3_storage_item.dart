@@ -14,7 +14,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
-import 'package:amplify_storage_s3_dart/src/sdk/s3.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:meta/meta.dart';
 
 /// {@template storage.amplify_storage_s3.storage_s3_item}
@@ -22,7 +22,7 @@ import 'package:meta/meta.dart';
 /// {@endtemplate}
 class S3StorageItem extends StorageItem {
   /// {@macro storage.amplify_storage_s3.storage_s3_item}
-  S3StorageItem({
+  const S3StorageItem({
     required super.key,
     super.size,
     super.lastModified,
@@ -31,12 +31,12 @@ class S3StorageItem extends StorageItem {
     this.versionId,
   });
 
-  /// Creates a [S3StorageItem] from [S3Object] provided by smithy.
+  /// Creates a [S3StorageItem] from [s3.S3Object] provided by S3 Client.
   ///
   /// This named constructor should be used internally only.
   @internal
   factory S3StorageItem.fromS3Object(
-    S3Object object, {
+    s3.S3Object object, {
     required String prefixToDrop,
   }) {
     final key = object.key;
@@ -56,6 +56,25 @@ class S3StorageItem extends StorageItem {
       size: object.size?.toInt(),
       lastModified: object.lastModified,
       eTag: object.eTag,
+    );
+  }
+
+  /// Creates a [S3StorageItem] from [s3.HeadObjectOutput] provided by S3
+  /// Client.
+  ///
+  /// This named constructor should be used internally only.
+  @internal
+  factory S3StorageItem.fromHeadObjectOutput(
+    s3.HeadObjectOutput headObjectOutput, {
+    required String key,
+  }) {
+    return S3StorageItem(
+      key: key,
+      lastModified: headObjectOutput.lastModified,
+      eTag: headObjectOutput.eTag,
+      metadata: headObjectOutput.metadata?.toMap() ?? const {},
+      versionId: headObjectOutput.versionId,
+      size: headObjectOutput.contentLength?.toInt(),
     );
   }
 

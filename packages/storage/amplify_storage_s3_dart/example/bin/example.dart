@@ -49,10 +49,9 @@ Future<void> main() async {
   stdout.writeln('Signed in!');
   while (true) {
     final operation = prompt('''Choose an operation:
-1. list
-2. getProperties
-3. getUrl
-4. remove
+1. list        2. getProperties
+3. getUrl      4. copy
+5. move        6. remove
 0. exit
 ''');
     final operationNum = int.tryParse(operation);
@@ -68,6 +67,12 @@ Future<void> main() async {
         await getUrlOperation();
         break;
       case 4:
+        await copyOperation();
+        break;
+      case 5:
+        await moveOperation();
+        break;
+      case 6:
         await removeOperation();
         break;
       case null:
@@ -82,7 +87,9 @@ Future<void> main() async {
 
 Future<void> listOperation() async {
   final path = prompt('Enter a path to list objects for: ');
-  final storageAccessLevel = promptStorageAccessLevel();
+  final storageAccessLevel = promptStorageAccessLevel(
+    'Choose the storage access level associated with the path: ',
+  );
 
   // get plugin with plugin key to gain S3 specific interface
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
@@ -109,6 +116,7 @@ Future<void> listOperation() async {
 
   while (true) {
     stdout.writeln('Listed ${result.items.length} objects.');
+    stdout.writeln('${result.pluginMetadata}');
     result.items.asMap().forEach((index, item) {
       stdout.writeln('$index. key: ${item.key} | size: ${item.size}');
     });
@@ -131,7 +139,9 @@ Future<void> listOperation() async {
 
 Future<void> getPropertiesOperation() async {
   final key = prompt('Enter the object to get properties for: ');
-  final storageAccessLevel = promptStorageAccessLevel();
+  final storageAccessLevel = promptStorageAccessLevel(
+    'Choose the storage access level associated with the object: ',
+  );
 
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
   final getPropertiesOperation = s3Plugin.getProperties(
@@ -153,7 +163,9 @@ Future<void> getPropertiesOperation() async {
 
 Future<void> getUrlOperation() async {
   final key = prompt('Enter the object key to get url for: ');
-  final storageAccessLevel = promptStorageAccessLevel();
+  final storageAccessLevel = promptStorageAccessLevel(
+    'Choose the storage access level associated with the object: ',
+  );
 
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
   final getUrlOperation = s3Plugin.getUrl(
@@ -179,9 +191,89 @@ Future<void> getUrlOperation() async {
   }
 }
 
+Future<void> copyOperation() async {
+  final sourceKey = prompt('Enter the key of the source object: ');
+  final sourceStorageAccessLevel = promptStorageAccessLevel(
+    'Choose the storage access level associated with the source object: ',
+  );
+  final destinationKey = prompt('Enter the key of the destination object: ');
+  final destinationStorageAccessLevel = promptStorageAccessLevel(
+    'Choose the storage access level associated with the destination object: ',
+  );
+
+  final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
+  final copyOperation = s3Plugin.copy(
+    source: S3StorageItemWithAccessLevel(
+      storageItem: S3StorageItem(key: sourceKey),
+      storageAccessLevel: sourceStorageAccessLevel,
+    ),
+    destination: S3StorageItemWithAccessLevel(
+      storageItem: S3StorageItem(key: destinationKey),
+      storageAccessLevel: destinationStorageAccessLevel,
+    ),
+    options: const S3StorageCopyOptions(getProperties: true),
+  );
+
+  try {
+    final result = await copyOperation.result;
+    stdout
+      ..writeln('Copied object: ')
+      ..writeln('key: ${result.copiedItem.key}')
+      ..writeln('size: ${result.copiedItem.size}')
+      ..writeln('lastModified: ${result.copiedItem.lastModified}')
+      ..writeln('eTag: ${result.copiedItem.eTag}')
+      ..writeln('metadata: ${result.copiedItem.metadata}');
+  } on Exception catch (error) {
+    stderr
+      ..writeln('Something went wrong...')
+      ..writeln(error);
+  }
+}
+
+Future<void> moveOperation() async {
+  final sourceKey = prompt('Enter the key of the source object: ');
+  final sourceStorageAccessLevel = promptStorageAccessLevel(
+    'Choose the storage access level associated with the source object: ',
+  );
+  final destinationKey = prompt('Enter the key of the destination object: ');
+  final destinationStorageAccessLevel = promptStorageAccessLevel(
+    'Choose the storage access level associated with the destination object: ',
+  );
+
+  final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
+  final moveOperation = s3Plugin.move(
+    source: S3StorageItemWithAccessLevel(
+      storageItem: S3StorageItem(key: sourceKey),
+      storageAccessLevel: sourceStorageAccessLevel,
+    ),
+    destination: S3StorageItemWithAccessLevel(
+      storageItem: S3StorageItem(key: destinationKey),
+      storageAccessLevel: destinationStorageAccessLevel,
+    ),
+    options: const S3StorageMoveOptions(getProperties: true),
+  );
+
+  try {
+    final result = await moveOperation.result;
+    stdout
+      ..writeln('Copied object: ')
+      ..writeln('key: ${result.movedItem.key}')
+      ..writeln('size: ${result.movedItem.size}')
+      ..writeln('lastModified: ${result.movedItem.lastModified}')
+      ..writeln('eTag: ${result.movedItem.eTag}')
+      ..writeln('metadata: ${result.movedItem.metadata}');
+  } on Exception catch (error) {
+    stderr
+      ..writeln('Something went wrong...')
+      ..writeln(error);
+  }
+}
+
 Future<void> removeOperation() async {
   final key = prompt('Enter the object key to remove: ');
-  final storageAccessLevel = promptStorageAccessLevel();
+  final storageAccessLevel = promptStorageAccessLevel(
+    'Choose the storage access level associated with the object: ',
+  );
 
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
   final removeOperation = s3Plugin.remove(
@@ -212,14 +304,14 @@ String prompt(String prompt) {
   return value;
 }
 
-StorageAccessLevel promptStorageAccessLevel() {
+StorageAccessLevel promptStorageAccessLevel(String message) {
   int? value;
   bool valueInRange(int? value) {
     return [1, 2, 3].contains(value);
   }
 
   while (value == null || !valueInRange(value)) {
-    stdout.write('''Enter storage access level for the objects:
+    stdout.write('''$message:
 1. guest
 2. protected
 3. private
