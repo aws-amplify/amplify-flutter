@@ -199,6 +199,15 @@ class CpkInventory extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'productId': _productId,
+        'productName': _productName,
+        'warehouseId': _warehouseId,
+        'description': _description,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<CpkInventoryModelIdentifier>
       MODEL_IDENTIFIER = QueryModelIdentifier<CpkInventoryModelIdentifier>();
   static final QueryField PRODUCTID = QueryField(fieldName: "productId");

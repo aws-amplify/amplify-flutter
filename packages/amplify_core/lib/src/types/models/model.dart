@@ -39,6 +39,10 @@ abstract class Model {
     throw UnimplementedError('toJson() has not been implemented on Model.');
   }
 
+  Map<String, Object?> toMap() {
+    throw UnimplementedError('toMap() has not been implemented on Model.');
+  }
+
   const Model();
 
   static ModelSchema defineSchema(

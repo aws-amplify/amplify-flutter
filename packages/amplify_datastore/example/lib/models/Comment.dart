@@ -143,6 +143,14 @@ class Comment extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'post': _post,
+        'content': _content,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<CommentModelIdentifier> MODEL_IDENTIFIER =
       QueryModelIdentifier<CommentModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");

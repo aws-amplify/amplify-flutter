@@ -293,6 +293,23 @@ class CpkOneToOneBidirectionalParentCD extends Model {
             _cpkOneToOneBidirectionalParentCDExplicitChildName
       };
 
+  Map<String, Object?> toMap() => {
+        'customId': _customId,
+        'name': _name,
+        'implicitChild': _implicitChild,
+        'explicitChild': _explicitChild,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt,
+        'cpkOneToOneBidirectionalParentCDImplicitChildId':
+            _cpkOneToOneBidirectionalParentCDImplicitChildId,
+        'cpkOneToOneBidirectionalParentCDImplicitChildName':
+            _cpkOneToOneBidirectionalParentCDImplicitChildName,
+        'cpkOneToOneBidirectionalParentCDExplicitChildId':
+            _cpkOneToOneBidirectionalParentCDExplicitChildId,
+        'cpkOneToOneBidirectionalParentCDExplicitChildName':
+            _cpkOneToOneBidirectionalParentCDExplicitChildName
+      };
+
   static final QueryModelIdentifier<
           CpkOneToOneBidirectionalParentCDModelIdentifier> MODEL_IDENTIFIER =
       QueryModelIdentifier<CpkOneToOneBidirectionalParentCDModelIdentifier>();

@@ -170,6 +170,14 @@ class MultiRelatedRegistration extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'meeting': _meeting,
+        'attendee': _attendee,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<MultiRelatedRegistrationModelIdentifier>
       MODEL_IDENTIFIER =
       QueryModelIdentifier<MultiRelatedRegistrationModelIdentifier>();

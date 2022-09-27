@@ -180,6 +180,15 @@ class HasManyParent extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'name': _name,
+        'implicitChildren': _implicitChildren,
+        'explicitChildren': _explicitChildren,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<HasManyParentModelIdentifier>
       MODEL_IDENTIFIER = QueryModelIdentifier<HasManyParentModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
