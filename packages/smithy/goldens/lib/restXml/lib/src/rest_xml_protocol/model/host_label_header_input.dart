@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_xml.rest_xml_protocol.model.host_label_header_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.model.host_label_header_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -29,8 +29,10 @@ abstract class HostLabelHeaderInput
   const HostLabelHeaderInput._();
 
   factory HostLabelHeaderInput.fromRequest(
-          HostLabelHeaderInputPayload payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    HostLabelHeaderInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       HostLabelHeaderInput.build((b) {
         if (request.headers['X-Amz-Account-Id'] != null) {
           b.accountId = request.headers['X-Amz-Account-Id']!;
@@ -50,7 +52,10 @@ abstract class HostLabelHeaderInput
       case 'accountId':
         return accountId;
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -60,7 +65,10 @@ abstract class HostLabelHeaderInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HostLabelHeaderInput');
-    helper.add('accountId', accountId);
+    helper.add(
+      'accountId',
+      accountId,
+    );
     return helper.toString();
   }
 }
@@ -97,21 +105,30 @@ class HostLabelHeaderInputRestXmlSerializer
         HostLabelHeaderInput,
         _$HostLabelHeaderInput,
         HostLabelHeaderInputPayload,
-        _$HostLabelHeaderInputPayload
+        _$HostLabelHeaderInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   HostLabelHeaderInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return HostLabelHeaderInputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[const _i1.XmlElementName('HostLabelHeaderInput')];
     return result;
   }

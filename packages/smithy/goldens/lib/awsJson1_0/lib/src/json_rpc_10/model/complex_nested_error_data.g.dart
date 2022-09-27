@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_0.json_rpc_10.model.complex_nested_error_data;
+part of aws_json1_0_v1.json_rpc_10.model.complex_nested_error_data;
 
 // **************************************************************************
 // BuiltValueGenerator

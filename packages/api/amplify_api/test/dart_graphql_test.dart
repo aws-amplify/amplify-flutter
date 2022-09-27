@@ -17,6 +17,7 @@ import 'dart:convert';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/api_plugin_impl.dart';
+import 'package:amplify_api/src/graphql/app_sync_api_key_auth_provider.dart';
 import 'package:amplify_api/src/graphql/ws/web_socket_connection.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
@@ -87,39 +88,62 @@ const _expectedErrorResponseBody = {
   ]
 };
 
+const _authErrorMessage = 'Not authorized';
+const _expectedAuthErrorResponseBody = {
+  'data': null,
+  'errors': [
+    {
+      'message': _authErrorMessage,
+    },
+  ]
+};
+
+final mockHttpClient = MockAWSHttpClient((request) async {
+  if (request.headers[xApiKey] != 'abc123' &&
+      request.headers[AWSHeaders.authorization] == testFunctionToken) {
+    // Not authorized w API key but has lambda auth token, mock that auth mode
+    // does not work for this query.
+    return AWSHttpResponse(
+      statusCode: 401,
+      body: utf8.encode(json.encode(_expectedAuthErrorResponseBody)),
+    );
+  }
+  if (request.headers[xApiKey] != 'abc123') {
+    // Not expected in test.
+    throw const AmplifyException('Unexpected auth error in test HTTP client');
+  }
+  final body = await utf8.decodeStream(request.body);
+  if (body.contains('getBlog')) {
+    return AWSHttpResponse(
+      statusCode: 200,
+      body: utf8.encode(json.encode(_expectedModelQueryResult)),
+    );
+  }
+  if (body.contains('TestMutate')) {
+    return AWSHttpResponse(
+      statusCode: 400,
+      body: utf8.encode(json.encode(_expectedMutateSuccessResponseBody)),
+    );
+  }
+  if (body.contains('TestError')) {
+    return AWSHttpResponse(
+      statusCode: 400,
+      body: utf8.encode(json.encode(_expectedErrorResponseBody)),
+    );
+  }
+
+  return AWSHttpResponse(
+    statusCode: 400,
+    body: utf8.encode((json.encode(_expectedQuerySuccessResponseBody))),
+  );
+});
+
 class MockAmplifyAPI extends AmplifyAPIDart {
   MockAmplifyAPI({
-    ModelProviderInterface? modelProvider,
-  }) : super(modelProvider: modelProvider);
-
-  @override
-  AWSHttpClient getHttpClient(EndpointType type, {String? apiName}) =>
-      MockAWSHttpClient((request) async {
-        final body = await utf8.decodeStream(request.body);
-        if (body.contains('getBlog')) {
-          return AWSHttpResponse(
-            statusCode: 200,
-            body: utf8.encode(json.encode(_expectedModelQueryResult)),
-          );
-        }
-        if (body.contains('TestMutate')) {
-          return AWSHttpResponse(
-            statusCode: 400,
-            body: utf8.encode(json.encode(_expectedMutateSuccessResponseBody)),
-          );
-        }
-        if (body.contains('TestError')) {
-          return AWSHttpResponse(
-            statusCode: 400,
-            body: utf8.encode(json.encode(_expectedErrorResponseBody)),
-          );
-        }
-
-        return AWSHttpResponse(
-          statusCode: 400,
-          body: utf8.encode((json.encode(_expectedQuerySuccessResponseBody))),
-        );
-      });
+    super.authProviders,
+    super.modelProvider,
+    super.baseHttpClient,
+  });
 
   @override
   WebSocketConnection getWebSocketConnection({String? apiName}) =>
@@ -132,14 +156,18 @@ class MockAmplifyAPI extends AmplifyAPIDart {
 
 void main() {
   setUpAll(() async {
-    await Amplify.addPlugin(MockAmplifyAPI(
+    final api = MockAmplifyAPI(
+      authProviders: [const CustomFunctionProvider()],
+      baseHttpClient: mockHttpClient,
       modelProvider: ModelProvider.instance,
-    ));
+    );
+
+    await Amplify.addPlugin(api);
     await Amplify.configure(amplifyconfig);
   });
   group('Vanilla GraphQL', () {
     test('Query returns proper response.data', () async {
-      String graphQLDocument = ''' query TestQuery {
+      const graphQLDocument = ''' query TestQuery {
           listBlogs {
             items {
               id
@@ -154,7 +182,7 @@ void main() {
       );
 
       final operation = Amplify.API.query(request: req);
-      final res = await operation.value;
+      final res = await operation.response;
 
       final expected = json.encode(_expectedQuerySuccessResponseBody['data']);
 
@@ -163,7 +191,7 @@ void main() {
     });
 
     test('Query returns proper response.data with dynamic type', () async {
-      String graphQLDocument = ''' query TestQuery {
+      const graphQLDocument = ''' query TestQuery {
           listBlogs {
             items {
               id
@@ -178,7 +206,7 @@ void main() {
       );
 
       final operation = Amplify.API.query(request: req);
-      final res = await operation.value;
+      final res = await operation.response;
 
       final expected = json.encode(_expectedQuerySuccessResponseBody['data']);
 
@@ -187,8 +215,8 @@ void main() {
     });
 
     test('Mutate returns proper response.data', () async {
-      String graphQLDocument = ''' mutation TestMutate(\$name: String!) {
-          createBlog(input: {name: \$name}) {
+      const graphQLDocument = r''' mutation TestMutate($name: String!) {
+          createBlog(input: {name: $name}) {
             id
             name
             createdAt
@@ -201,7 +229,7 @@ void main() {
       );
 
       final operation = Amplify.API.mutate(request: req);
-      final res = await operation.value;
+      final res = await operation.response;
 
       final expected = json.encode(_expectedMutateSuccessResponseBody['data']);
 
@@ -210,8 +238,8 @@ void main() {
     });
 
     test('subscribe() should return a subscription stream', () async {
-      Completer<void> establishedCompleter = Completer();
-      Completer<String> dataCompleter = Completer();
+      final establishedCompleter = Completer<void>();
+      final dataCompleter = Completer<String>();
       const graphQLDocument = '''subscription MySubscription {
         onCreateBlog {
           id
@@ -223,7 +251,7 @@ void main() {
           GraphQLRequest<String>(document: graphQLDocument);
       final subscription = Amplify.API.subscribe(
         subscriptionRequest,
-        onEstablished: () => establishedCompleter.complete(),
+        onEstablished: establishedCompleter.complete,
       );
 
       final streamSub = subscription.listen(
@@ -233,7 +261,7 @@ void main() {
 
       final subscriptionData = await dataCompleter.future;
       expect(subscriptionData, json.encode(mockSubscriptionData));
-      streamSub.cancel();
+      await streamSub.cancel();
     });
   });
   group('Model Helpers', () {
@@ -245,11 +273,10 @@ void main() {
           'query getBlog(\$id: ID!) { getBlog(id: \$id) { $blogSelectionSet } }';
       const decodePath = 'getBlog';
 
-      GraphQLRequest<Blog> req =
-          ModelQueries.get<Blog>(Blog.classType, _modelQueryId);
+      final req = ModelQueries.get<Blog>(Blog.classType, _modelQueryId);
 
       final operation = Amplify.API.query(request: req);
-      final res = await operation.value;
+      final res = await operation.response;
 
       // request asserts
       expect(req.document, expectedDoc);
@@ -263,11 +290,11 @@ void main() {
     });
 
     test('subscribe() should decode model data', () async {
-      Completer<void> establishedCompleter = Completer();
+      final establishedCompleter = Completer<void>();
       final subscriptionRequest = ModelSubscriptions.onCreate(Post.classType);
       final subscription = Amplify.API.subscribe(
         subscriptionRequest,
-        onEstablished: () => establishedCompleter.complete(),
+        onEstablished: establishedCompleter.complete,
       );
       await establishedCompleter.future;
 
@@ -283,14 +310,14 @@ void main() {
 
   group('Error Handling', () {
     test('response errors are decoded', () async {
-      String graphQLDocument = ''' TestError ''';
+      const graphQLDocument = ''' TestError ''';
       final req = GraphQLRequest<String>(
         document: graphQLDocument,
         variables: {},
       );
 
       final operation = Amplify.API.query(request: req);
-      final res = await operation.value;
+      final res = await operation.response;
 
       const errorExpected = GraphQLResponseError(
         message: _errorMessage,
@@ -306,22 +333,51 @@ void main() {
       expect(res.errors?.single, equals(errorExpected));
     });
 
+    test('request with custom auth mode and auth error', () async {
+      const graphQLDocument = ''' query TestQuery {
+          listBlogs {
+            items {
+              id
+              name
+              createdAt
+            }
+          }
+        } ''';
+      final req = GraphQLRequest<String>(
+        document: graphQLDocument,
+        variables: {},
+        authorizationMode: APIAuthorizationType.function,
+      );
+
+      final operation = Amplify.API.query(request: req);
+      final res = await operation.response;
+
+      const errorExpected = GraphQLResponseError(
+        message: _authErrorMessage,
+      );
+
+      expect(res.data, equals(null));
+      expect(res.errors?.single, equals(errorExpected));
+    });
+
     test('canceled query request should never resolve', () async {
       final req = GraphQLRequest<String>(document: '', variables: {});
       final operation = Amplify.API.query(request: req);
-      operation.cancel();
-      operation.then((p0) => fail('Request should have been cancelled.'));
-      await operation.valueOrCancellation();
-      expect(operation.isCanceled, isTrue);
+      await operation.cancel();
+      operation.operation
+          .then((p0) => fail('Request should have been cancelled.'));
+      await operation.operation.valueOrCancellation();
+      expect(operation.operation.isCanceled, isTrue);
     });
 
     test('canceled mutation request should never resolve', () async {
       final req = GraphQLRequest<String>(document: '', variables: {});
       final operation = Amplify.API.mutate(request: req);
-      operation.cancel();
-      operation.then((p0) => fail('Request should have been cancelled.'));
-      await operation.valueOrCancellation();
-      expect(operation.isCanceled, isTrue);
+      await operation.cancel();
+      operation.operation
+          .then((p0) => fail('Request should have been cancelled.'));
+      await operation.operation.valueOrCancellation();
+      expect(operation.operation.isCanceled, isTrue);
     });
   });
 }

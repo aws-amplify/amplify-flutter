@@ -1,12 +1,12 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_xml.rest_xml_protocol.model.file_config_settings; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.model.file_config_settings; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml/src/rest_xml_protocol/model/retry_mode.dart' as _i2;
-import 'package:rest_xml/src/rest_xml_protocol/model/s3_config.dart' as _i3;
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/retry_mode.dart' as _i2;
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/s3_config.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i4;
 
 part 'file_config_settings.g.dart';
@@ -16,22 +16,24 @@ abstract class FileConfigSettings
     with _i1.AWSEquatable<FileConfigSettings>
     implements Built<FileConfigSettings, FileConfigSettingsBuilder> {
   /// Config settings that can be set in the AWS config / credentials file as part of a profile.
-  factory FileConfigSettings(
-      {String? awsAccessKeyId,
-      String? awsSecretAccessKey,
-      String? awsSessionToken,
-      int? maxAttempts,
-      String? region,
-      _i2.RetryMode? retryMode,
-      _i3.S3Config? s3}) {
+  factory FileConfigSettings({
+    String? awsAccessKeyId,
+    String? awsSecretAccessKey,
+    String? awsSessionToken,
+    int? maxAttempts,
+    String? region,
+    _i2.RetryMode? retryMode,
+    _i3.S3Config? s3,
+  }) {
     return _$FileConfigSettings._(
-        awsAccessKeyId: awsAccessKeyId,
-        awsSecretAccessKey: awsSecretAccessKey,
-        awsSessionToken: awsSessionToken,
-        maxAttempts: maxAttempts,
-        region: region,
-        retryMode: retryMode,
-        s3: s3);
+      awsAccessKeyId: awsAccessKeyId,
+      awsSecretAccessKey: awsSecretAccessKey,
+      awsSessionToken: awsSessionToken,
+      maxAttempts: maxAttempts,
+      region: region,
+      retryMode: retryMode,
+      s3: s3,
+    );
   }
 
   /// Config settings that can be set in the AWS config / credentials file as part of a profile.
@@ -66,18 +68,39 @@ abstract class FileConfigSettings
         maxAttempts,
         region,
         retryMode,
-        s3
+        s3,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('FileConfigSettings');
-    helper.add('awsAccessKeyId', awsAccessKeyId);
-    helper.add('awsSecretAccessKey', awsSecretAccessKey);
-    helper.add('awsSessionToken', awsSessionToken);
-    helper.add('maxAttempts', maxAttempts);
-    helper.add('region', region);
-    helper.add('retryMode', retryMode);
-    helper.add('s3', s3);
+    helper.add(
+      'awsAccessKeyId',
+      awsAccessKeyId,
+    );
+    helper.add(
+      'awsSecretAccessKey',
+      awsSecretAccessKey,
+    );
+    helper.add(
+      'awsSessionToken',
+      awsSessionToken,
+    );
+    helper.add(
+      'maxAttempts',
+      maxAttempts,
+    );
+    helper.add(
+      'region',
+      region,
+    );
+    helper.add(
+      'retryMode',
+      retryMode,
+    );
+    helper.add(
+      's3',
+      s3,
+    );
     return helper.toString();
   }
 }
@@ -87,14 +110,23 @@ class FileConfigSettingsRestXmlSerializer
   const FileConfigSettingsRestXmlSerializer() : super('FileConfigSettings');
 
   @override
-  Iterable<Type> get types => const [FileConfigSettings, _$FileConfigSettings];
+  Iterable<Type> get types => const [
+        FileConfigSettings,
+        _$FileConfigSettings,
+      ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   FileConfigSettings deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = FileConfigSettingsBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -104,44 +136,58 @@ class FileConfigSettingsRestXmlSerializer
       switch (key as String) {
         case 'aws_access_key_id':
           if (value != null) {
-            result.awsAccessKeyId = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.awsAccessKeyId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'aws_secret_access_key':
           if (value != null) {
-            result.awsSecretAccessKey = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.awsSecretAccessKey = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'aws_session_token':
           if (value != null) {
-            result.awsSessionToken = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.awsSessionToken = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'max_attempts':
           if (value != null) {
-            result.maxAttempts = (serializers.deserialize(value,
-                specifiedType: const FullType(int)) as int);
+            result.maxAttempts = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
         case 'region':
           if (value != null) {
-            result.region = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.region = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'retry_mode':
           if (value != null) {
-            result.retryMode = (serializers.deserialize(value,
-                specifiedType: const FullType(_i2.RetryMode)) as _i2.RetryMode);
+            result.retryMode = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.RetryMode),
+            ) as _i2.RetryMode);
           }
           break;
         case 's3':
           if (value != null) {
-            result.s3.replace((serializers.deserialize(value,
-                specifiedType: const FullType(_i3.S3Config)) as _i3.S3Config));
+            result.s3.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.S3Config),
+            ) as _i3.S3Config));
           }
           break;
       }
@@ -151,51 +197,68 @@ class FileConfigSettingsRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as FileConfigSettings);
     final result = <Object?>[const _i4.XmlElementName('FileConfigSettings')];
     if (payload.awsAccessKeyId != null) {
       result
         ..add(const _i4.XmlElementName('aws_access_key_id'))
-        ..add(serializers.serialize(payload.awsAccessKeyId!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.awsAccessKeyId!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.awsSecretAccessKey != null) {
       result
         ..add(const _i4.XmlElementName('aws_secret_access_key'))
-        ..add(serializers.serialize(payload.awsSecretAccessKey!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.awsSecretAccessKey!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.awsSessionToken != null) {
       result
         ..add(const _i4.XmlElementName('aws_session_token'))
-        ..add(serializers.serialize(payload.awsSessionToken!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.awsSessionToken!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.maxAttempts != null) {
       result
         ..add(const _i4.XmlElementName('max_attempts'))
-        ..add(serializers.serialize(payload.maxAttempts!,
-            specifiedType: const FullType.nullable(int)));
+        ..add(serializers.serialize(
+          payload.maxAttempts!,
+          specifiedType: const FullType.nullable(int),
+        ));
     }
     if (payload.region != null) {
       result
         ..add(const _i4.XmlElementName('region'))
-        ..add(serializers.serialize(payload.region!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.region!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.retryMode != null) {
       result
         ..add(const _i4.XmlElementName('retry_mode'))
-        ..add(serializers.serialize(payload.retryMode!,
-            specifiedType: const FullType.nullable(_i2.RetryMode)));
+        ..add(serializers.serialize(
+          payload.retryMode!,
+          specifiedType: const FullType.nullable(_i2.RetryMode),
+        ));
     }
     if (payload.s3 != null) {
       result
         ..add(const _i4.XmlElementName('s3'))
-        ..add(serializers.serialize(payload.s3!,
-            specifiedType: const FullType(_i3.S3Config)));
+        ..add(serializers.serialize(
+          payload.s3!,
+          specifiedType: const FullType(_i3.S3Config),
+        ));
     }
     return result;
   }

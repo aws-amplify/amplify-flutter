@@ -4,6 +4,7 @@
 ffi_bindings_linux:
 	git submodule update --init
 	dart run ffigen --config ffigen.glib.config.yaml
+	dart run ffigen --config ffigen.gio.config.yaml
 	dart run ffigen --config ffigen.libsecret.config.yaml
 
 ffi_bindings_macos:

@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.glacier.model.archive_creation_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.glacier.model.archive_creation_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -16,10 +16,16 @@ abstract class ArchiveCreationOutput
         Built<ArchiveCreationOutput, ArchiveCreationOutputBuilder>,
         _i2.EmptyPayload,
         _i2.HasPayload<ArchiveCreationOutputPayload> {
-  factory ArchiveCreationOutput(
-      {String? archiveId, String? checksum, String? location}) {
+  factory ArchiveCreationOutput({
+    String? archiveId,
+    String? checksum,
+    String? location,
+  }) {
     return _$ArchiveCreationOutput._(
-        archiveId: archiveId, checksum: checksum, location: location);
+      archiveId: archiveId,
+      checksum: checksum,
+      location: location,
+    );
   }
 
   factory ArchiveCreationOutput.build(
@@ -30,8 +36,9 @@ abstract class ArchiveCreationOutput
 
   /// Constructs a [ArchiveCreationOutput] from a [payload] and [response].
   factory ArchiveCreationOutput.fromResponse(
-          ArchiveCreationOutputPayload payload,
-          _i1.AWSBaseHttpResponse response) =>
+    ArchiveCreationOutputPayload payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       ArchiveCreationOutput.build((b) {
         if (response.headers['Location'] != null) {
           b.location = response.headers['Location']!;
@@ -56,13 +63,26 @@ abstract class ArchiveCreationOutput
   @override
   ArchiveCreationOutputPayload getPayload() => ArchiveCreationOutputPayload();
   @override
-  List<Object?> get props => [archiveId, checksum, location];
+  List<Object?> get props => [
+        archiveId,
+        checksum,
+        location,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ArchiveCreationOutput');
-    helper.add('archiveId', archiveId);
-    helper.add('checksum', checksum);
-    helper.add('location', location);
+    helper.add(
+      'archiveId',
+      archiveId,
+    );
+    helper.add(
+      'checksum',
+      checksum,
+    );
+    helper.add(
+      'location',
+      location,
+    );
     return helper.toString();
   }
 }
@@ -102,20 +122,29 @@ class ArchiveCreationOutputRestJson1Serializer
         ArchiveCreationOutput,
         _$ArchiveCreationOutput,
         ArchiveCreationOutputPayload,
-        _$ArchiveCreationOutputPayload
+        _$ArchiveCreationOutputPayload,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   ArchiveCreationOutputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return ArchiveCreationOutputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

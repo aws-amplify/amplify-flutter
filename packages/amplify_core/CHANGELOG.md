@@ -1,3 +1,11 @@
+## 1.0.0-next.0+1
+
+### Features
+- feat(core): Multiple plugin registration
+
+### Fixes
+- fix(datastore): correct plugin configuration ([#2122](https://github.com/aws-amplify/amplify-flutter/pull/2122))
+
 ## 1.0.0-next.0 (2022-08-02)
 
 Initial developer preview release for all platforms.

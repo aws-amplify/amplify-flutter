@@ -15,18 +15,9 @@
 import 'dart:ffi';
 import 'dart:typed_data';
 
+import 'package:amplify_secure_storage_dart/src/exception/secure_storage_exception.dart';
+import 'package:amplify_secure_storage_dart/src/exception/unknown_exception.dart';
 import 'package:win32/win32.dart';
-
-/// A flag for cred* apis that uses default behavior.
-///
-/// CredReadA, CredWriteA, and CredDeleteA require a flags param. For
-/// read/delete this value must be 0. Write allows for one other option
-/// of [CRED_PRESERVE_CREDENTIAL_BLOB], which is used to preserve
-/// the credential blob when updating the credentials attributes.
-///
-/// Reference: https://docs.microsoft.com/en-us/windows/win32/api/wincred/nf-wincred-credwritea#parameters
-// ignore: constant_identifier_names
-const CRED_FLAG_DEFAULT = 0;
 
 extension Uint8ListBlobConversion on Uint8List {
   /// Alternative to [allocatePointer] from win32, which accepts an allocator
@@ -35,4 +26,16 @@ extension Uint8ListBlobConversion on Uint8List {
     blob.asTypedList(length).setAll(0, this);
     return blob;
   }
+}
+
+/// Returns a [SecureStorageException] from the Win32 error code
+SecureStorageException getExceptionFromErrorCode(int errorCode) {
+  final underlying = WindowsException(
+    HRESULT_FROM_WIN32(errorCode),
+  );
+  return UnknownException(
+    'An unknown exception occurred.',
+    recoverySuggestion: SecureStorageException.missingRecovery,
+    underlyingException: underlying,
+  );
 }

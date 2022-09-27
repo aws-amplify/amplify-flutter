@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library aws_json1_1.json_protocol.model.operation_with_optional_input_output_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_1_v1.json_protocol.model.operation_with_optional_input_output_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -27,9 +27,10 @@ abstract class OperationWithOptionalInputOutputInput
   const OperationWithOptionalInputOutputInput._();
 
   factory OperationWithOptionalInputOutputInput.fromRequest(
-          OperationWithOptionalInputOutputInput payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    OperationWithOptionalInputOutputInput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -47,7 +48,10 @@ abstract class OperationWithOptionalInputOutputInput
   String toString() {
     final helper =
         newBuiltValueToStringHelper('OperationWithOptionalInputOutputInput');
-    helper.add('value', value);
+    helper.add(
+      'value',
+      value,
+    );
     return helper.toString();
   }
 }
@@ -60,15 +64,21 @@ class OperationWithOptionalInputOutputInputAwsJson11Serializer extends _i1
   @override
   Iterable<Type> get types => const [
         OperationWithOptionalInputOutputInput,
-        _$OperationWithOptionalInputOutputInput
+        _$OperationWithOptionalInputOutputInput,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   OperationWithOptionalInputOutputInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = OperationWithOptionalInputOutputInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -78,8 +88,10 @@ class OperationWithOptionalInputOutputInputAwsJson11Serializer extends _i1
       switch (key) {
         case 'Value':
           if (value != null) {
-            result.value = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.value = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -89,15 +101,20 @@ class OperationWithOptionalInputOutputInputAwsJson11Serializer extends _i1
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as OperationWithOptionalInputOutputInput);
     final result = <Object?>[];
     if (payload.value != null) {
       result
         ..add('Value')
-        ..add(serializers.serialize(payload.value!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.value!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

@@ -1,5 +1,5 @@
-name: rest_xml_with_namespace
-description: Rest Xml With Namespace client SDK
+name: rest_xml_with_namespace_v1
+description: Rest Xml With Namespace V1 client SDK
 version: 0.1.0
 publish_to: none
 

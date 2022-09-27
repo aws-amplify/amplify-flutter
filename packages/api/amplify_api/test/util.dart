@@ -28,6 +28,9 @@ import 'package:mocktail/mocktail.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:stream_channel/stream_channel.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:aws_signature_v4/aws_signature_v4.dart';
+import 'package:collection/collection.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 const testAccessToken = 'test-access-token-123';
 
@@ -35,7 +38,9 @@ class TestIamAuthProvider extends AWSIamAmplifyAuthProvider {
   @override
   Future<AWSCredentials> retrieve() async {
     return const AWSCredentials(
-        'fake-access-key-123', 'fake-secret-access-key-456');
+      'fake-access-key-123',
+      'fake-secret-access-key-456',
+    );
   }
 
   @override
@@ -85,11 +90,11 @@ const expectedApiKeyWebSocketConnectionUrl =
     'wss://abc123.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=eyJBY2NlcHQiOiJhcHBsaWNhdGlvbi9qc29uLCB0ZXh0L2phdmFzY3JpcHQiLCJDb250ZW50LUVuY29kaW5nIjoiYW16LTEuMCIsIkNvbnRlbnQtVHlwZSI6ImFwcGxpY2F0aW9uL2pzb247IGNoYXJzZXQ9dXRmLTgiLCJYLUFwaS1LZXkiOiJhYmMtMTIzIiwiSG9zdCI6ImFiYzEyMy5hcHBzeW5jLWFwaS51cy1lYXN0LTEuYW1hem9uYXdzLmNvbSJ9&payload=e30%3D';
 
 AmplifyAuthProviderRepository getTestAuthProviderRepo() {
-  final testAuthProviderRepo = AmplifyAuthProviderRepository();
-  testAuthProviderRepo.registerAuthProvider(
-    APIAuthorizationType.apiKey.authProviderToken,
-    AppSyncApiKeyAuthProvider(),
-  );
+  final testAuthProviderRepo = AmplifyAuthProviderRepository()
+    ..registerAuthProvider(
+      APIAuthorizationType.apiKey.authProviderToken,
+      AppSyncApiKeyAuthProvider(),
+    );
 
   return testAuthProviderRepo;
 }
@@ -228,4 +233,23 @@ class MockConnectivityPlatform extends Mock
   Stream<ConnectivityResult> get onConnectivityChanged {
     return controller.stream;
   }
+}
+
+// From https://docs.amplify.aws/lib/graphqlapi/authz/q/platform/flutter/#oidc
+
+const testOidcToken = '[OPEN-ID-CONNECT-TOKEN]';
+const testFunctionToken = '[FUNCTION-CONNECT-TOKEN]';
+
+class CustomOIDCProvider extends OIDCAuthProvider {
+  const CustomOIDCProvider();
+
+  @override
+  Future<String?> getLatestAuthToken() async => testOidcToken;
+}
+
+class CustomFunctionProvider extends FunctionAuthProvider {
+  const CustomFunctionProvider();
+
+  @override
+  Future<String?> getLatestAuthToken() async => testFunctionToken;
 }

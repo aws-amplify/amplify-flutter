@@ -1,9 +1,9 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library aws_json1_0.json_rpc_10.model.json_unions_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_0_v1.json_rpc_10.model.json_unions_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:aws_json1_0/src/json_rpc_10/model/my_union.dart' as _i3;
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/my_union.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
@@ -23,8 +23,10 @@ abstract class JsonUnionsInput
   const JsonUnionsInput._();
 
   factory JsonUnionsInput.fromRequest(
-          JsonUnionsInput payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    JsonUnionsInput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -43,7 +45,10 @@ abstract class JsonUnionsInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('JsonUnionsInput');
-    helper.add('contents', contents);
+    helper.add(
+      'contents',
+      contents,
+    );
     return helper.toString();
   }
 }
@@ -53,14 +58,23 @@ class JsonUnionsInputAwsJson10Serializer
   const JsonUnionsInputAwsJson10Serializer() : super('JsonUnionsInput');
 
   @override
-  Iterable<Type> get types => const [JsonUnionsInput, _$JsonUnionsInput];
+  Iterable<Type> get types => const [
+        JsonUnionsInput,
+        _$JsonUnionsInput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_0')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_0',
+        )
+      ];
   @override
   JsonUnionsInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = JsonUnionsInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -70,8 +84,10 @@ class JsonUnionsInputAwsJson10Serializer
       switch (key) {
         case 'contents':
           if (value != null) {
-            result.contents = (serializers.deserialize(value,
-                specifiedType: const FullType(_i3.MyUnion)) as _i3.MyUnion);
+            result.contents = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.MyUnion),
+            ) as _i3.MyUnion);
           }
           break;
       }
@@ -81,15 +97,20 @@ class JsonUnionsInputAwsJson10Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as JsonUnionsInput);
     final result = <Object?>[];
     if (payload.contents != null) {
       result
         ..add('contents')
-        ..add(serializers.serialize(payload.contents!,
-            specifiedType: const FullType(_i3.MyUnion)));
+        ..add(serializers.serialize(
+          payload.contents!,
+          specifiedType: const FullType(_i3.MyUnion),
+        ));
     }
     return result;
   }

@@ -17,17 +17,16 @@ library amplify_api;
 import 'dart:io';
 
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api/src/graphql/app_sync_api_key_auth_provider.dart';
+import 'package:amplify_api/src/graphql/oidc_function_api_auth_provider.dart';
+import 'package:amplify_api/src/graphql/send_graphql_request.dart';
 import 'package:amplify_api/src/graphql/ws/web_socket_connection.dart';
 import 'package:amplify_api/src/native_api_plugin.dart';
+import 'package:amplify_api/src/util/amplify_api_config.dart';
+import 'package:amplify_api/src/util/amplify_authorization_rest_client.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
-
-import 'amplify_api_config.dart';
-import 'amplify_authorization_rest_client.dart';
-import 'graphql/app_sync_api_key_auth_provider.dart';
-import 'graphql/send_graphql_request.dart';
-import 'util.dart';
 
 /// {@template amplify_api.amplify_api_dart}
 /// The AWS implementation of the Amplify API category.
@@ -38,8 +37,8 @@ class AmplifyAPIDart extends AmplifyAPI {
   late final AmplifyAuthProviderRepository _authProviderRepo;
   final _logger = AmplifyLogger.category(Category.api);
 
-  /// A map of the keys from the Amplify API config to HTTP clients to use for
-  /// requests to that endpoint.
+  /// A map of the keys from the Amplify API config with auth modes to HTTP clients
+  /// to use for requests to that endpoint/auth mode. e.g. { "myEndpoint.AWS_IAM": AWSHttpClient}
   final Map<String, AWSHttpClient> _clientPool = {};
 
   /// A map of the keys from the Amplify API config websocket connections to use
@@ -70,26 +69,42 @@ class AmplifyAPIDart extends AmplifyAPI {
   }) async {
     final apiConfig = config?.api?.awsPlugin;
     if (apiConfig == null) {
-      throw const ApiException('No AWS API config found',
-          recoverySuggestion: 'Add API from the Amplify CLI. See '
-              'https://docs.amplify.aws/lib/graphqlapi/getting-started/q/platform/flutter/#configure-api');
+      throw const ApiException(
+        'No AWS API config found',
+        recoverySuggestion: 'Add API from the Amplify CLI. See '
+            'https://docs.amplify.aws/lib/graphqlapi/getting-started/q/platform/flutter/#configure-api',
+      );
     }
     _apiConfig = apiConfig;
     _authProviderRepo = authProviderRepo;
     _registerApiPluginAuthProviders();
   }
 
+  /// Register AmplifyAuthProviders that are specific to API category (API key,
+  /// OIDC or Lambda).
+  ///
   /// If an endpoint has an API key, ensure valid auth provider registered.
+  ///
+  /// Register OIDC/Lambda set to _authProviders in constructor.
   void _registerApiPluginAuthProviders() {
     _apiConfig.endpoints.forEach((key, value) {
       // Check the presence of apiKey (not auth type) because other modes might
       // have a key if not the primary auth mode.
       if (value.apiKey != null) {
         _authProviderRepo.registerAuthProvider(
-            value.authorizationType.authProviderToken,
-            AppSyncApiKeyAuthProvider());
+          APIAuthorizationType.apiKey.authProviderToken,
+          AppSyncApiKeyAuthProvider(),
+        );
       }
     });
+
+    // Register OIDC/Lambda auth providers.
+    for (final authProvider in _authProviders.values) {
+      _authProviderRepo.registerAuthProvider(
+        authProvider.type.authProviderToken,
+        OidcFunctionAuthProvider(authProvider),
+      );
+    }
   }
 
   @override
@@ -97,6 +112,10 @@ class AmplifyAPIDart extends AmplifyAPI {
     if (zIsWeb || !(Platform.isAndroid || Platform.isIOS)) {
       return;
     }
+
+    // Configure this plugin to act as a native iOS/Android plugin.
+    final nativePlugin = _NativeAmplifyApi(_authProviders);
+    NativeApiPlugin.setup(nativePlugin);
 
     final nativeBridge = NativeApiBridge();
     try {
@@ -119,15 +138,23 @@ class AmplifyAPIDart extends AmplifyAPI {
   ///
   /// Use [apiName] if there are multiple endpoints of the same type.
   @visibleForTesting
-  AWSHttpClient getHttpClient(EndpointType type, {String? apiName}) {
+  AWSHttpClient getHttpClient(
+    EndpointType type, {
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+  }) {
     final endpoint = _apiConfig.getEndpoint(
       type: type,
       apiName: apiName,
     );
-    return _clientPool[endpoint.name] ??= AmplifyHttpClient(
+    final authModeForClientKey =
+        authorizationMode ?? endpoint.config.authorizationType;
+    final clientPoolKey = '${endpoint.name}.${authModeForClientKey.name}';
+    return _clientPool[clientPoolKey] ??= AmplifyHttpClient(
       baseClient: AmplifyAuthorizationRestClient(
         endpointConfig: endpoint.config,
         baseClient: _baseHttpClient,
+        authorizationMode: authorizationMode,
         authProviderRepo: _authProviderRepo,
       ),
     )..supportedProtocols = SupportedProtocols.http1;
@@ -161,7 +188,10 @@ class AmplifyAPIDart extends AmplifyAPI {
   }
 
   Uri _getRestUri(
-      String path, String? apiName, Map<String, dynamic>? queryParameters) {
+    String path,
+    String? apiName,
+    Map<String, dynamic>? queryParameters,
+  ) {
     final endpoint = _apiConfig.getEndpoint(
       type: EndpointType.rest,
       apiName: apiName,
@@ -180,10 +210,12 @@ class AmplifyAPIDart extends AmplifyAPI {
   // ====== GraphQL ======
 
   @override
-  CancelableOperation<GraphQLResponse<T>> query<T>(
-      {required GraphQLRequest<T> request}) {
-    final graphQLClient =
-        getHttpClient(EndpointType.graphQL, apiName: request.apiName);
+  GraphQLOperation<T> query<T>({required GraphQLRequest<T> request}) {
+    final graphQLClient = getHttpClient(
+      EndpointType.graphQL,
+      apiName: request.apiName,
+      authorizationMode: request.authorizationMode,
+    );
     final uri = _getGraphQLUri(request.apiName);
 
     return sendGraphQLRequest<T>(
@@ -194,10 +226,12 @@ class AmplifyAPIDart extends AmplifyAPI {
   }
 
   @override
-  CancelableOperation<GraphQLResponse<T>> mutate<T>(
-      {required GraphQLRequest<T> request}) {
-    final graphQLClient =
-        getHttpClient(EndpointType.graphQL, apiName: request.apiName);
+  GraphQLOperation<T> mutate<T>({required GraphQLRequest<T> request}) {
+    final graphQLClient = getHttpClient(
+      EndpointType.graphQL,
+      apiName: request.apiName,
+      authorizationMode: request.authorizationMode,
+    );
     final uri = _getGraphQLUri(request.apiName);
 
     return sendGraphQLRequest<T>(
@@ -219,7 +253,7 @@ class AmplifyAPIDart extends AmplifyAPI {
   // ====== REST =======
 
   @override
-  AWSHttpOperation delete(
+  RestOperation delete(
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
@@ -228,15 +262,17 @@ class AmplifyAPIDart extends AmplifyAPI {
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
     final client = getHttpClient(EndpointType.rest, apiName: apiName);
-    return AWSStreamedHttpRequest.delete(
-      uri,
-      body: body,
-      headers: addContentTypeToHeaders(headers, body),
-    ).send(client);
+    return RestOperation.fromHttpOperation(
+      AWSStreamedHttpRequest.delete(
+        uri,
+        body: body,
+        headers: headers,
+      ).send(client),
+    );
   }
 
   @override
-  AWSHttpOperation get(
+  RestOperation get(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
@@ -244,14 +280,16 @@ class AmplifyAPIDart extends AmplifyAPI {
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
     final client = getHttpClient(EndpointType.rest, apiName: apiName);
-    return AWSHttpRequest.get(
-      uri,
-      headers: headers,
-    ).send(client);
+    return RestOperation.fromHttpOperation(
+      AWSHttpRequest.get(
+        uri,
+        headers: headers,
+      ).send(client),
+    );
   }
 
   @override
-  AWSHttpOperation head(
+  RestOperation head(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
@@ -259,31 +297,16 @@ class AmplifyAPIDart extends AmplifyAPI {
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
     final client = getHttpClient(EndpointType.rest, apiName: apiName);
-    return AWSHttpRequest.head(
-      uri,
-      headers: headers,
-    ).send(client);
+    return RestOperation.fromHttpOperation(
+      AWSHttpRequest.head(
+        uri,
+        headers: headers,
+      ).send(client),
+    );
   }
 
   @override
-  AWSHttpOperation patch(
-    String path, {
-    HttpPayload? body,
-    Map<String, String>? headers,
-    Map<String, String>? queryParameters,
-    String? apiName,
-  }) {
-    final uri = _getRestUri(path, apiName, queryParameters);
-    final client = getHttpClient(EndpointType.rest, apiName: apiName);
-    return AWSStreamedHttpRequest.patch(
-      uri,
-      headers: addContentTypeToHeaders(headers, body),
-      body: body ?? const HttpPayload.empty(),
-    ).send(client);
-  }
-
-  @override
-  AWSHttpOperation post(
+  RestOperation patch(
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
@@ -292,15 +315,17 @@ class AmplifyAPIDart extends AmplifyAPI {
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
     final client = getHttpClient(EndpointType.rest, apiName: apiName);
-    return AWSStreamedHttpRequest.post(
-      uri,
-      headers: addContentTypeToHeaders(headers, body),
-      body: body ?? const HttpPayload.empty(),
-    ).send(client);
+    return RestOperation.fromHttpOperation(
+      AWSStreamedHttpRequest.patch(
+        uri,
+        headers: headers,
+        body: body ?? const HttpPayload.empty(),
+      ).send(client),
+    );
   }
 
   @override
-  AWSHttpOperation put(
+  RestOperation post(
     String path, {
     HttpPayload? body,
     Map<String, String>? headers,
@@ -309,10 +334,59 @@ class AmplifyAPIDart extends AmplifyAPI {
   }) {
     final uri = _getRestUri(path, apiName, queryParameters);
     final client = getHttpClient(EndpointType.rest, apiName: apiName);
-    return AWSStreamedHttpRequest.put(
-      uri,
-      headers: addContentTypeToHeaders(headers, body),
-      body: body ?? const HttpPayload.empty(),
-    ).send(client);
+    return RestOperation.fromHttpOperation(
+      AWSStreamedHttpRequest.post(
+        uri,
+        headers: headers,
+        body: body ?? const HttpPayload.empty(),
+      ).send(client),
+    );
   }
+
+  @override
+  RestOperation put(
+    String path, {
+    HttpPayload? body,
+    Map<String, String>? headers,
+    Map<String, String>? queryParameters,
+    String? apiName,
+  }) {
+    final uri = _getRestUri(path, apiName, queryParameters);
+    final client = getHttpClient(EndpointType.rest, apiName: apiName);
+    return RestOperation.fromHttpOperation(
+      AWSStreamedHttpRequest.put(
+        uri,
+        headers: headers,
+        body: body ?? const HttpPayload.empty(),
+      ).send(client),
+    );
+  }
+}
+
+class _NativeAmplifyApi
+    with AWSDebuggable, AmplifyLoggerMixin
+    implements NativeApiPlugin {
+  _NativeAmplifyApi(this._authProviders);
+
+  /// The registered [APIAuthProvider] instances.
+  final Map<APIAuthorizationType, APIAuthProvider> _authProviders;
+
+  @override
+  Future<String?> getLatestAuthToken(String providerName) {
+    final provider = APIAuthorizationTypeX.from(providerName);
+    if (provider == null) {
+      throw PlatformException(code: 'BAD_ARGUMENTS');
+    }
+    final authProvider = _authProviders[provider];
+    if (authProvider == null) {
+      throw PlatformException(
+        code: 'NO_PROVIDER',
+        message: 'No provider found for $authProvider',
+      );
+    }
+    return authProvider.getLatestAuthToken();
+  }
+
+  @override
+  String get runtimeTypeName => '_NativeAmplifyApi';
 }

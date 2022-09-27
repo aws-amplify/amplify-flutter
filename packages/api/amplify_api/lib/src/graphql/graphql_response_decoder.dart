@@ -17,8 +17,8 @@
 
 import 'dart:convert';
 
+import 'package:amplify_api/src/graphql/utils.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'utils.dart';
 
 const _nextToken = 'nextToken';
 
@@ -31,19 +31,23 @@ class GraphQLResponseDecoder {
 
   static GraphQLResponseDecoder get instance => _instance;
 
-  GraphQLResponse<T> decode<T>(
-      {required GraphQLRequest request,
-      String? data,
-      List<GraphQLResponseError>? errors}) {
-    if (data == null) {
-      return GraphQLResponse(data: null, errors: errors);
-    }
+  GraphQLResponse<T> decode<T>({
+    required GraphQLRequest<T> request,
+    required Map<String, dynamic> response,
+  }) {
+    final errors = _deserializeGraphQLResponseErrors(response);
+    final data = response['data'];
+
     // If no modelType fallback to default (likely String).
     final modelType = request.modelType;
     if (modelType == null) {
       if (T == String || T == dynamic) {
+        // Preserve `null`. json.encode(null) returns "null" not `null`
+        final encodedData = data != null ? json.encode(data) : null;
         return GraphQLResponse(
-            data: data as T, errors: errors); // <T> is implied
+          data: encodedData as T?,
+          errors: errors,
+        ); // <T> is implied
       } else {
         throw const ApiException(
           'Decoding of the response type provided is currently unsupported',
@@ -64,7 +68,7 @@ class GraphQLResponseDecoder {
     // nested in a small JSON object in the `decodePath`. Its structure varies by
     // platform when null. Unpack the JSON object and null check the result along
     // the way. If null at any point, return null response.
-    Map<String, dynamic>? dataJson = json.decode(data) as Map<String, dynamic>?;
+    var dataJson = data as Map<String, dynamic>?;
     if (dataJson == null) {
       return GraphQLResponse(data: null, errors: errors);
     }
@@ -85,14 +89,16 @@ class GraphQLResponseDecoder {
     // Found a JSON object to represent the model, parse it using model's fromJSON.
     T decodedData;
     final modelSchema = getModelSchemaByModelName(modelType.modelName(), null);
-    dataJson = transformAppSyncJsonToModelJson(dataJson!, modelSchema,
-        isPaginated: modelType is PaginatedModelType);
+    dataJson = transformAppSyncJsonToModelJson(
+      dataJson!,
+      modelSchema,
+      isPaginated: modelType is PaginatedModelType,
+    );
     if (modelType is PaginatedModelType) {
-      Map<String, dynamic>? filter =
-          request.variables['filter'] as Map<String, dynamic>?;
-      int? limit = request.variables['limit'] as int?;
+      final filter = request.variables['filter'] as Map<String, dynamic>?;
+      final limit = request.variables['limit'] as int?;
 
-      String? resultNextToken = dataJson![_nextToken] as String?;
+      final resultNextToken = dataJson![_nextToken] as String?;
       dynamic requestForNextResult;
       // If result has nextToken property, prepare a request for the next page of results.
       if (resultNextToken != null) {
@@ -101,10 +107,11 @@ class GraphQLResponseDecoder {
           _nextToken: resultNextToken
         };
         requestForNextResult = GraphQLRequest<T>(
-            document: request.document,
-            decodePath: request.decodePath,
-            variables: variablesWithNextToken,
-            modelType: request.modelType);
+          document: request.document,
+          decodePath: request.decodePath,
+          variables: variablesWithNextToken,
+          modelType: request.modelType,
+        );
       }
       decodedData = modelType.fromJson(
         dataJson!,
@@ -118,4 +125,17 @@ class GraphQLResponseDecoder {
     }
     return GraphQLResponse<T>(data: decodedData, errors: errors);
   }
+}
+
+List<GraphQLResponseError>? _deserializeGraphQLResponseErrors(
+  Map<String, dynamic>? response,
+) {
+  final errors = response?['errors'] as List?;
+  if (errors == null || errors.isEmpty) {
+    return null;
+  }
+  return errors
+      .cast<Map<String, dynamic>>()
+      .map(GraphQLResponseError.fromJson)
+      .toList();
 }

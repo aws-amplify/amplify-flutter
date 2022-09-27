@@ -36,7 +36,6 @@ export 'hub/api_subscription_hub_event.dart';
 
 export 'rest/rest_exception.dart';
 export 'rest/rest_operation.dart';
-export 'rest/rest_options.dart';
 
 export 'types/pagination/paginated_model_type.dart';
 export 'types/pagination/paginated_result.dart';

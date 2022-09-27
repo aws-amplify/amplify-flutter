@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1.rest_json_protocol.model.all_query_string_types_input;
+part of rest_json1_v1.rest_json_protocol.model.all_query_string_types_input;
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -28,7 +28,7 @@ class _$AllQueryStringTypesInput extends AllQueryStringTypesInput {
   @override
   final _i3.BuiltList<int>? queryIntegerList;
   @override
-  final _i3.BuiltList<int>? queryIntegerSet;
+  final _i3.BuiltSet<int>? queryIntegerSet;
   @override
   final _i5.Int64? queryLong;
   @override
@@ -40,7 +40,7 @@ class _$AllQueryStringTypesInput extends AllQueryStringTypesInput {
   @override
   final _i3.BuiltList<String>? queryStringList;
   @override
-  final _i3.BuiltList<String>? queryStringSet;
+  final _i3.BuiltSet<String>? queryStringSet;
   @override
   final DateTime? queryTimestamp;
   @override
@@ -208,10 +208,10 @@ class AllQueryStringTypesInputBuilder
   set queryIntegerList(_i3.ListBuilder<int>? queryIntegerList) =>
       _$this._queryIntegerList = queryIntegerList;
 
-  _i3.ListBuilder<int>? _queryIntegerSet;
-  _i3.ListBuilder<int> get queryIntegerSet =>
-      _$this._queryIntegerSet ??= new _i3.ListBuilder<int>();
-  set queryIntegerSet(_i3.ListBuilder<int>? queryIntegerSet) =>
+  _i3.SetBuilder<int>? _queryIntegerSet;
+  _i3.SetBuilder<int> get queryIntegerSet =>
+      _$this._queryIntegerSet ??= new _i3.SetBuilder<int>();
+  set queryIntegerSet(_i3.SetBuilder<int>? queryIntegerSet) =>
       _$this._queryIntegerSet = queryIntegerSet;
 
   _i5.Int64? _queryLong;
@@ -241,10 +241,10 @@ class AllQueryStringTypesInputBuilder
   set queryStringList(_i3.ListBuilder<String>? queryStringList) =>
       _$this._queryStringList = queryStringList;
 
-  _i3.ListBuilder<String>? _queryStringSet;
-  _i3.ListBuilder<String> get queryStringSet =>
-      _$this._queryStringSet ??= new _i3.ListBuilder<String>();
-  set queryStringSet(_i3.ListBuilder<String>? queryStringSet) =>
+  _i3.SetBuilder<String>? _queryStringSet;
+  _i3.SetBuilder<String> get queryStringSet =>
+      _$this._queryStringSet ??= new _i3.SetBuilder<String>();
+  set queryStringSet(_i3.SetBuilder<String>? queryStringSet) =>
       _$this._queryStringSet = queryStringSet;
 
   DateTime? _queryTimestamp;

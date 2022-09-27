@@ -162,7 +162,7 @@ class WaiterGenerator extends LibraryGenerator<OperationShape>
     final value = refer('value');
 
     builder.statements.add(const Code('if (output == null) return false;'));
-    builder.addExpression(valueExpression.assignFinal('value'));
+    builder.addExpression(declareFinal('value').assign(valueExpression));
 
     switch (matcher.comparator) {
       case PathComparator.stringEquals:

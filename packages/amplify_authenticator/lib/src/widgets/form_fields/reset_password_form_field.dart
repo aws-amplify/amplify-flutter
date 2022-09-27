@@ -19,8 +19,8 @@ part of authenticator.form_field;
 /// {@template amplify_authenticator.confirm_sign_up_form_field}
 /// A prebuild form field widget for use on the Reset Password Step.
 /// {@endtemplate}
-class ResetPasswordFormField extends AuthenticatorFormField<ResetPasswordField,
-    String, ResetPasswordFormField> {
+class ResetPasswordFormField
+    extends AuthenticatorFormField<ResetPasswordField, String> {
   /// {@macro amplify_authenticator.sign_up_form_field}
   ///
   /// Either [titleKey] or [title] is required.
@@ -71,8 +71,8 @@ class ResetPasswordFormField extends AuthenticatorFormField<ResetPasswordField,
   bool get required => true;
 
   @override
-  AuthenticatorComponentState<ResetPasswordFormField> createState() =>
-      _ResetPasswordFormFieldState();
+  AuthenticatorFormFieldState<ResetPasswordField, String,
+      ResetPasswordFormField> createState() => _ResetPasswordFormFieldState();
 }
 
 class _ResetPasswordFormFieldState extends AuthenticatorFormFieldState<

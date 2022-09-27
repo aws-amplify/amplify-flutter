@@ -51,7 +51,7 @@ final dependencyVersions = {
   // Dev Dependencies
   'smithy_test': const Dependency.dev('^0.5.0', DependencyType.smithy),
   'build_runner': const Dependency.dev('^2.0.0'),
-  'built_value_generator': const Dependency.dev('8.3.3'),
+  'built_value_generator': const Dependency.dev('8.4.1'),
   'lints': const Dependency.dev('^1.0.0'),
   'test': const Dependency.dev('^1.16.0'),
 };

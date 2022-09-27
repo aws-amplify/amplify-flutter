@@ -43,8 +43,9 @@ abstract class UnexpectedLambdaException
 
   /// Constructs a [UnexpectedLambdaException] from a [payload] and [response].
   factory UnexpectedLambdaException.fromResponse(
-          UnexpectedLambdaException payload,
-          _i1.AWSBaseHttpResponse response) =>
+    UnexpectedLambdaException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
@@ -61,8 +62,9 @@ abstract class UnexpectedLambdaException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.cognitoidentityprovider',
-      shape: 'UnexpectedLambdaException');
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'UnexpectedLambdaException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -78,7 +80,10 @@ abstract class UnexpectedLambdaException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UnexpectedLambdaException');
-    helper.add('message', message);
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
@@ -89,15 +94,23 @@ class UnexpectedLambdaExceptionAwsJson11Serializer
       : super('UnexpectedLambdaException');
 
   @override
-  Iterable<Type> get types =>
-      const [UnexpectedLambdaException, _$UnexpectedLambdaException];
+  Iterable<Type> get types => const [
+        UnexpectedLambdaException,
+        _$UnexpectedLambdaException,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   UnexpectedLambdaException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = UnexpectedLambdaExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -107,8 +120,10 @@ class UnexpectedLambdaExceptionAwsJson11Serializer
       switch (key) {
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -118,15 +133,20 @@ class UnexpectedLambdaExceptionAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as UnexpectedLambdaException);
     final result = <Object?>[];
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

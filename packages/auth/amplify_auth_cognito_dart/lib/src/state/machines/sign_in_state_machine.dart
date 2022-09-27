@@ -17,7 +17,6 @@ import 'dart:convert';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
     hide UpdateUserAttributesRequest;
-import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/device/confirm_device_worker.dart';
@@ -575,7 +574,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       ..refreshToken = refreshToken
       ..idToken = idTokenJwt;
 
-    dispatch(
+    await dispatch(
       CredentialStoreEvent.storeCredentials(
         CredentialStoreData(
           userPoolTokens: user.userPoolTokens.build(),
@@ -583,18 +582,12 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       ),
     );
 
-    // Clear anonymous credentials, if there were any, and fetch authenticated
+    // Upgrade anonymous credentials, if there were any, or fetch authenticated
     // credentials.
     if (hasIdentityPool) {
-      dispatch(
-        CredentialStoreEvent.clearCredentials(
-          CognitoIdentityPoolKeys(identityPoolConfig!),
-        ),
-      );
-
       await dispatch(
         const FetchAuthSessionEvent.fetch(
-          CognitoSessionOptions(getAWSCredentials: true),
+          CognitoSessionOptions(getAWSCredentials: true, forceRefresh: true),
         ),
       );
 

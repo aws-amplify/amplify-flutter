@@ -25,19 +25,25 @@ abstract class LinuxSecureStorageOptions
     implements
         Built<LinuxSecureStorageOptions, LinuxSecureStorageOptionsBuilder> {
   /// {@macro amplify_secure_storage_dart.linux_secure_storage_options}
+  ///
+  /// #### [accessGroup]
+  /// {@template amplify_secure_storage_dart.linux_secure_storage_options.access_group}
+  /// Used as a namespace for the keys, if provided.
+  ///
+  /// If no value is provided, the application ID will be used. Can be
+  /// used to share data across multiple apps. This value will be combined
+  /// with [AmplifySecureStorageConfig.defaultNamespace] to form the full
+  /// [SecretSchema](https://developer-old.gnome.org/libsecret/unstable/libsecret-SecretSchema.html#SecretSchema)
+  /// schema name.
+  /// {@endtemplate}
   factory LinuxSecureStorageOptions({
-    String? schemaName,
+    String? accessGroup,
   }) = _$LinuxSecureStorageOptions._;
 
   const LinuxSecureStorageOptions._();
 
-  /// The name of schema used for all key-value pairs.
-  ///
-  /// If no value is provided, [AmplifySecureStorageConfig.defaultNamespace]
-  /// will be used as the schema name.
-  ///
-  /// Reference: [SecretSchema](https://developer-old.gnome.org/libsecret/unstable/libsecret-SecretSchema.html#SecretSchema)
-  String? get schemaName;
+  /// {@macro amplify_secure_storage_dart.linux_secure_storage_options.access_group}
+  String? get accessGroup;
 
   /// The [LinuxSecureStorageOptions] serializer.
   static Serializer<LinuxSecureStorageOptions> get serializer =>

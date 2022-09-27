@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_xml.rest_xml_protocol.model.payload_with_xml_namespace; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.model.payload_with_xml_namespace; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -34,7 +34,10 @@ abstract class PayloadWithXmlNamespace
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PayloadWithXmlNamespace');
-    helper.add('name', name);
+    helper.add(
+      'name',
+      name,
+    );
     return helper.toString();
   }
 }
@@ -45,15 +48,23 @@ class PayloadWithXmlNamespaceRestXmlSerializer
       : super('PayloadWithXmlNamespace');
 
   @override
-  Iterable<Type> get types =>
-      const [PayloadWithXmlNamespace, _$PayloadWithXmlNamespace];
+  Iterable<Type> get types => const [
+        PayloadWithXmlNamespace,
+        _$PayloadWithXmlNamespace,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   PayloadWithXmlNamespace deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = PayloadWithXmlNamespaceBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -63,8 +74,10 @@ class PayloadWithXmlNamespaceRestXmlSerializer
       switch (key as String) {
         case 'name':
           if (value != null) {
-            result.name = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.name = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -74,18 +87,25 @@ class PayloadWithXmlNamespaceRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as PayloadWithXmlNamespace);
     final result = <Object?>[
       const _i2.XmlElementName(
-          'PayloadWithXmlNamespace', _i2.XmlNamespace('http://foo.com'))
+        'PayloadWithXmlNamespace',
+        _i2.XmlNamespace('http://foo.com'),
+      )
     ];
     if (payload.name != null) {
       result
         ..add(const _i2.XmlElementName('name'))
-        ..add(serializers.serialize(payload.name!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.name!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

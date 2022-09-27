@@ -26,10 +26,10 @@ class _$WindowsSecureStorageOptionsSerializer
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[];
     Object? value;
-    value = object.targetNamePrefix;
+    value = object.storagePath;
     if (value != null) {
       result
-        ..add('targetNamePrefix')
+        ..add('storagePath')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
@@ -48,8 +48,8 @@ class _$WindowsSecureStorageOptionsSerializer
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
-        case 'targetNamePrefix':
-          result.targetNamePrefix = serializers.deserialize(value,
+        case 'storagePath':
+          result.storagePath = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
       }
@@ -61,13 +61,13 @@ class _$WindowsSecureStorageOptionsSerializer
 
 class _$WindowsSecureStorageOptions extends WindowsSecureStorageOptions {
   @override
-  final String? targetNamePrefix;
+  final String? storagePath;
 
   factory _$WindowsSecureStorageOptions(
           [void Function(WindowsSecureStorageOptionsBuilder)? updates]) =>
       (new WindowsSecureStorageOptionsBuilder()..update(updates))._build();
 
-  _$WindowsSecureStorageOptions._({this.targetNamePrefix}) : super._();
+  _$WindowsSecureStorageOptions._({this.storagePath}) : super._();
 
   @override
   WindowsSecureStorageOptions rebuild(
@@ -82,18 +82,18 @@ class _$WindowsSecureStorageOptions extends WindowsSecureStorageOptions {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is WindowsSecureStorageOptions &&
-        targetNamePrefix == other.targetNamePrefix;
+        storagePath == other.storagePath;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, targetNamePrefix.hashCode));
+    return $jf($jc(0, storagePath.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'WindowsSecureStorageOptions')
-          ..add('targetNamePrefix', targetNamePrefix))
+          ..add('storagePath', storagePath))
         .toString();
   }
 }
@@ -104,17 +104,16 @@ class WindowsSecureStorageOptionsBuilder
             WindowsSecureStorageOptionsBuilder> {
   _$WindowsSecureStorageOptions? _$v;
 
-  String? _targetNamePrefix;
-  String? get targetNamePrefix => _$this._targetNamePrefix;
-  set targetNamePrefix(String? targetNamePrefix) =>
-      _$this._targetNamePrefix = targetNamePrefix;
+  String? _storagePath;
+  String? get storagePath => _$this._storagePath;
+  set storagePath(String? storagePath) => _$this._storagePath = storagePath;
 
   WindowsSecureStorageOptionsBuilder();
 
   WindowsSecureStorageOptionsBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _targetNamePrefix = $v.targetNamePrefix;
+      _storagePath = $v.storagePath;
       _$v = null;
     }
     return this;
@@ -135,8 +134,8 @@ class WindowsSecureStorageOptionsBuilder
   WindowsSecureStorageOptions build() => _build();
 
   _$WindowsSecureStorageOptions _build() {
-    final _$result = _$v ??
-        new _$WindowsSecureStorageOptions._(targetNamePrefix: targetNamePrefix);
+    final _$result =
+        _$v ?? new _$WindowsSecureStorageOptions._(storagePath: storagePath);
     replace(_$result);
     return _$result;
   }

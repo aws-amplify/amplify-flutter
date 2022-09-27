@@ -34,23 +34,29 @@ class ModelMutationsFactory extends ModelMutationsInterface {
     final variables = {'input': input};
 
     return GraphQLRequestFactory.instance.buildRequest(
-        model: model,
-        variables: variables,
-        modelType: model.getInstanceType(),
-        requestType: GraphQLRequestType.mutation,
-        requestOperation: GraphQLRequestOperation.create);
+      model: model,
+      variables: variables,
+      modelType: model.getInstanceType(),
+      requestType: GraphQLRequestType.mutation,
+      requestOperation: GraphQLRequestOperation.create,
+    );
   }
 
   @override
   GraphQLRequest<T> delete<T extends Model>(T model, {QueryPredicate? where}) {
-    return deleteById(model.getInstanceType() as ModelType<T>, model.getId(),
-        where: where);
+    return deleteById(
+      model.getInstanceType() as ModelType<T>,
+      model.getId(),
+      where: where,
+    );
   }
 
   @override
   GraphQLRequest<T> deleteById<T extends Model>(
-      ModelType<T> modelType, String id,
-      {QueryPredicate? where}) {
+    ModelType<T> modelType,
+    String id, {
+    QueryPredicate? where,
+  }) {
     final condition = GraphQLRequestFactory.instance
         .queryPredicateToGraphQLFilter(where, modelType);
     final input = {
@@ -60,10 +66,11 @@ class ModelMutationsFactory extends ModelMutationsInterface {
         .buildVariablesForMutationRequest(input: input, condition: condition);
 
     return GraphQLRequestFactory.instance.buildRequest(
-        variables: variables,
-        modelType: modelType,
-        requestType: GraphQLRequestType.mutation,
-        requestOperation: GraphQLRequestOperation.delete);
+      variables: variables,
+      modelType: modelType,
+      requestType: GraphQLRequestType.mutation,
+      requestOperation: GraphQLRequestOperation.delete,
+    );
   }
 
   @override
@@ -77,10 +84,11 @@ class ModelMutationsFactory extends ModelMutationsInterface {
         .buildVariablesForMutationRequest(input: input, condition: condition);
 
     return GraphQLRequestFactory.instance.buildRequest(
-        model: model,
-        variables: variables,
-        modelType: model.getInstanceType(),
-        requestType: GraphQLRequestType.mutation,
-        requestOperation: GraphQLRequestOperation.update);
+      model: model,
+      variables: variables,
+      modelType: model.getInstanceType(),
+      requestType: GraphQLRequestType.mutation,
+      requestOperation: GraphQLRequestOperation.update,
+    );
   }
 }

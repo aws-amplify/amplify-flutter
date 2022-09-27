@@ -22,7 +22,7 @@ CodegenContext createTestContext(
   String serviceName = 'Test',
 }) {
   return CodegenContext(
-    smithyVersion: '1.0',
+    smithyVersion: SmithyVersion.v2,
     shapes: ShapeMap({for (var shape in shapes) shape.shapeId: shape}),
     packageName: packageName,
     serviceName: serviceName,

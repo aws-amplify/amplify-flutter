@@ -14,7 +14,7 @@
 
 import 'dart:async';
 
-import 'package:amplify_secure_storage/src/messages.g.dart';
+import 'package:amplify_secure_storage/src/messages.android.g.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
 class AmplifySecureStorageAndroid extends AmplifySecureStorageInterface {

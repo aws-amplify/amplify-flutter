@@ -19,16 +19,21 @@ import 'package:amplify_core/amplify_core.dart';
 class GraphQLRequest<T> {
   final String id = UUID.getUUID();
 
+  /// The body of the request, starting with the operation type and operation name.
+  ///
+  /// See https://graphql.org/learn/queries/#operation-name for examples and more information.
+  final String document;
+
   /// Only required if your backend has multiple GraphQL endpoints in the amplifyconfiguration.dart file. This parameter is then needed to specify which one to use for this request.
   final String? apiName;
 
   /// A map of Strings to dynamically use for custom headers in the http request.
   final Map<String, String>? headers;
 
-  /// The body of the request, starting with the operation type and operation name.
+  /// Authorization type to use for this request.
   ///
-  /// See https://graphql.org/learn/queries/#operation-name for examples and more information.
-  final String document;
+  /// If not supplied, the request will use the default endpoint mode.
+  final APIAuthorizationType? authorizationMode;
 
   /// A map of values to dynamically use for variable names in the `document`.
   ///
@@ -56,13 +61,15 @@ class GraphQLRequest<T> {
   /// See https://docs.amplify.aws/lib/graphqlapi/advanced-workflows/q/platform/flutter/.
   final ModelType? modelType;
 
-  GraphQLRequest(
-      {this.apiName,
-      required this.document,
-      this.variables = const <String, dynamic>{},
-      this.headers,
-      this.decodePath,
-      this.modelType});
+  GraphQLRequest({
+    required this.document,
+    this.apiName,
+    this.authorizationMode,
+    this.variables = const <String, dynamic>{},
+    this.headers,
+    this.decodePath,
+    this.modelType,
+  });
 
   Map<String, dynamic> serializeAsMap() => <String, dynamic>{
         'document': document,

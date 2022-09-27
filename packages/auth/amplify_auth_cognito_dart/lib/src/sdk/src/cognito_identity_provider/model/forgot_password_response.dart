@@ -44,7 +44,9 @@ abstract class ForgotPasswordResponse
 
   /// Constructs a [ForgotPasswordResponse] from a [payload] and [response].
   factory ForgotPasswordResponse.fromResponse(
-          ForgotPasswordResponse payload, _i1.AWSBaseHttpResponse response) =>
+    ForgotPasswordResponse payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i3.SmithySerializer> serializers = [
@@ -61,7 +63,10 @@ abstract class ForgotPasswordResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ForgotPasswordResponse');
-    helper.add('codeDeliveryDetails', codeDeliveryDetails);
+    helper.add(
+      'codeDeliveryDetails',
+      codeDeliveryDetails,
+    );
     return helper.toString();
   }
 }
@@ -72,15 +77,23 @@ class ForgotPasswordResponseAwsJson11Serializer
       : super('ForgotPasswordResponse');
 
   @override
-  Iterable<Type> get types =>
-      const [ForgotPasswordResponse, _$ForgotPasswordResponse];
+  Iterable<Type> get types => const [
+        ForgotPasswordResponse,
+        _$ForgotPasswordResponse,
+      ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols =>
-      const [_i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   ForgotPasswordResponse deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = ForgotPasswordResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -90,9 +103,10 @@ class ForgotPasswordResponseAwsJson11Serializer
       switch (key) {
         case 'CodeDeliveryDetails':
           if (value != null) {
-            result.codeDeliveryDetails.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i2.CodeDeliveryDetailsType))
-                as _i2.CodeDeliveryDetailsType));
+            result.codeDeliveryDetails.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.CodeDeliveryDetailsType),
+            ) as _i2.CodeDeliveryDetailsType));
           }
           break;
       }
@@ -102,15 +116,20 @@ class ForgotPasswordResponseAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as ForgotPasswordResponse);
     final result = <Object?>[];
     if (payload.codeDeliveryDetails != null) {
       result
         ..add('CodeDeliveryDetails')
-        ..add(serializers.serialize(payload.codeDeliveryDetails!,
-            specifiedType: const FullType(_i2.CodeDeliveryDetailsType)));
+        ..add(serializers.serialize(
+          payload.codeDeliveryDetails!,
+          specifiedType: const FullType(_i2.CodeDeliveryDetailsType),
+        ));
     }
     return result;
   }

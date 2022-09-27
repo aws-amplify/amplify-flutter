@@ -75,7 +75,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
 
     var operation = Amplify.API
         .query<String>(request: GraphQLRequest(document: graphQLDocument));
-    _lastOperation = operation;
+    _lastOperation = operation.operation;
 
     var response = await operation.response;
     var data = response.data;
@@ -103,9 +103,10 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
       request: GraphQLRequest<String>(
         document: graphQLDocument,
         variables: <String, dynamic>{'name': 'Test App Blog'},
+        authorizationMode: APIAuthorizationType.userPools,
       ),
     );
-    _lastOperation = operation;
+    _lastOperation = operation.operation;
 
     var response = await operation.response;
     var data = response.data;

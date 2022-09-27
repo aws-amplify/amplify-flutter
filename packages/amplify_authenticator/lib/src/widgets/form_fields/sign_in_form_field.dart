@@ -23,8 +23,8 @@ part of authenticator.form_field;
 ///
 /// See also: [SignInForm.custom]
 /// {@endtemplate}
-abstract class SignInFormField<FieldValue> extends AuthenticatorFormField<
-    SignInField, FieldValue, SignInFormField<FieldValue>> {
+abstract class SignInFormField<FieldValue>
+    extends AuthenticatorFormField<SignInField, FieldValue> {
   /// {@macro amplify_authenticator.sign_in_form_field}
   ///
   /// Either [titleKey] or [title] is required.

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml.rest_xml_protocol.model.http_request_with_labels_and_timestamp_format_input;
+part of rest_xml_v1.rest_xml_protocol.model.http_request_with_labels_and_timestamp_format_input;
 
 // **************************************************************************
 // BuiltValueGenerator

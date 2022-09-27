@@ -21,12 +21,19 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
   Category get category => Category.api;
 
   // ====== GraphQL =======
-  CancelableOperation<GraphQLResponse<T>> query<T>(
-          {required GraphQLRequest<T> request}) =>
+
+  /// Sends a GraphQL query request and returns the response in a cancelable `GraphQLOperation`.
+  ///
+  /// See https://docs.amplify.aws/lib/graphqlapi/query-data/q/platform/flutter/
+  /// for more information.
+  GraphQLOperation<T> query<T>({required GraphQLRequest<T> request}) =>
       defaultPlugin.query(request: request);
 
-  CancelableOperation<GraphQLResponse<T>> mutate<T>(
-          {required GraphQLRequest<T> request}) =>
+  /// Sends a GraphQL mutate request and returns the response in a cancelable `GraphQLOperation`.
+  ///
+  /// See https://docs.amplify.aws/lib/graphqlapi/mutate-data/q/platform/flutter/
+  /// for more information.
+  GraphQLOperation<T> mutate<T>({required GraphQLRequest<T> request}) =>
       defaultPlugin.mutate(request: request);
 
   /// Subscribes to the given [request] and returns the stream of response events.

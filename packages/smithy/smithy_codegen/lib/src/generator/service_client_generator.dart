@@ -78,15 +78,15 @@ class ServiceClientGenerator extends LibraryGenerator<ServiceShape> {
         equals: (a, b) => a.name == b.name,
         hashCode: (key) => key.name.hashCode,
       )..addAll(
-          _operations.expand((op) => op.protocolFields(context)).map(
-                // Fields won't be overriding anything on the service client
-                (field) => field.rebuild((f) {
-                  f.annotations.clear();
-                  if (!f.name!.startsWith('_')) {
-                    f.name = '_${f.name}';
-                  }
-                }),
-              ),
+          _operations
+              .expand((op) => op.operationParameters(context))
+              .where((p) => p.location.inConstructor)
+              .map((parameter) => Field(
+                    (f) => f
+                      ..modifier = FieldModifier.final$
+                      ..type = parameter.type
+                      ..name = '_${parameter.name}',
+                  )),
         );
 
   Iterable<Parameter> get constructorParameters =>
@@ -162,7 +162,7 @@ class ServiceClientGenerator extends LibraryGenerator<ServiceShape> {
           ..body = context
               .symbolFor(operation.shapeId)
               .newInstance([], {
-                for (final field in protocolFields)
+                for (final field in operation.protocolFields(context))
                   public(field.name): refer(field.name),
               })
               .property(isPaginated ? 'runPaginated' : 'run')
@@ -174,7 +174,9 @@ class ServiceClientGenerator extends LibraryGenerator<ServiceShape> {
               ], {
                 for (final param
                     in operationParameters.where((p) => p.location.inRun))
-                  param.name: refer(param.name)
+                  param.name: param.location.inConstructor
+                      ? refer(param.name).ifNullThen(refer('_${param.name}'))
+                      : refer(param.name)
               })
               .returned
               .statement,

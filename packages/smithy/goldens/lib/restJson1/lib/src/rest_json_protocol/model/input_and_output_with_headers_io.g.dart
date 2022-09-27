@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1.rest_json_protocol.model.input_and_output_with_headers_io;
+part of rest_json1_v1.rest_json_protocol.model.input_and_output_with_headers_io;
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -34,7 +34,7 @@ class _$InputAndOutputWithHeadersIo extends InputAndOutputWithHeadersIo {
   @override
   final _i3.BuiltList<String>? headerStringList;
   @override
-  final _i3.BuiltList<String>? headerStringSet;
+  final _i3.BuiltSet<String>? headerStringSet;
   @override
   final _i3.BuiltList<DateTime>? headerTimestampList;
   @override
@@ -203,10 +203,10 @@ class InputAndOutputWithHeadersIoBuilder
   set headerStringList(_i3.ListBuilder<String>? headerStringList) =>
       _$this._headerStringList = headerStringList;
 
-  _i3.ListBuilder<String>? _headerStringSet;
-  _i3.ListBuilder<String> get headerStringSet =>
-      _$this._headerStringSet ??= new _i3.ListBuilder<String>();
-  set headerStringSet(_i3.ListBuilder<String>? headerStringSet) =>
+  _i3.SetBuilder<String>? _headerStringSet;
+  _i3.SetBuilder<String> get headerStringSet =>
+      _$this._headerStringSet ??= new _i3.SetBuilder<String>();
+  set headerStringSet(_i3.SetBuilder<String>? headerStringSet) =>
       _$this._headerStringSet = headerStringSet;
 
   _i3.ListBuilder<DateTime>? _headerTimestampList;

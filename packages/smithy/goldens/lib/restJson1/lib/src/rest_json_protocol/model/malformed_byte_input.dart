@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.malformed_byte_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.malformed_byte_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -17,16 +17,19 @@ abstract class MalformedByteInput
     implements
         Built<MalformedByteInput, MalformedByteInputBuilder>,
         _i1.HasPayload<MalformedByteInputPayload> {
-  factory MalformedByteInput(
-      {int? byteInBody,
-      int? byteInHeader,
-      required int byteInPath,
-      int? byteInQuery}) {
+  factory MalformedByteInput({
+    int? byteInBody,
+    int? byteInHeader,
+    int? byteInPath,
+    int? byteInQuery,
+  }) {
+    byteInPath ??= 0;
     return _$MalformedByteInput._(
-        byteInBody: byteInBody,
-        byteInHeader: byteInHeader,
-        byteInPath: byteInPath,
-        byteInQuery: byteInQuery);
+      byteInBody: byteInBody,
+      byteInHeader: byteInHeader,
+      byteInPath: byteInPath,
+      byteInQuery: byteInQuery,
+    );
   }
 
   factory MalformedByteInput.build(
@@ -36,8 +39,10 @@ abstract class MalformedByteInput
   const MalformedByteInput._();
 
   factory MalformedByteInput.fromRequest(
-          MalformedByteInputPayload payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    MalformedByteInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       MalformedByteInput.build((b) {
         b.byteInBody = payload.byteInBody;
         if (request.headers['byteInHeader'] != null) {
@@ -56,7 +61,10 @@ abstract class MalformedByteInput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedByteInputBuilder b) {}
+  static void _init(MalformedByteInputBuilder b) {
+    b.byteInPath = 0;
+  }
+
   int? get byteInBody;
   int? get byteInHeader;
   int get byteInPath;
@@ -67,7 +75,10 @@ abstract class MalformedByteInput
       case 'byteInPath':
         return byteInPath.toString();
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -75,15 +86,31 @@ abstract class MalformedByteInput
         b.byteInBody = byteInBody;
       });
   @override
-  List<Object?> get props =>
-      [byteInBody, byteInHeader, byteInPath, byteInQuery];
+  List<Object?> get props => [
+        byteInBody,
+        byteInHeader,
+        byteInPath,
+        byteInQuery,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedByteInput');
-    helper.add('byteInBody', byteInBody);
-    helper.add('byteInHeader', byteInHeader);
-    helper.add('byteInPath', byteInPath);
-    helper.add('byteInQuery', byteInQuery);
+    helper.add(
+      'byteInBody',
+      byteInBody,
+    );
+    helper.add(
+      'byteInHeader',
+      byteInHeader,
+    );
+    helper.add(
+      'byteInPath',
+      byteInPath,
+    );
+    helper.add(
+      'byteInQuery',
+      byteInQuery,
+    );
     return helper.toString();
   }
 }
@@ -107,7 +134,10 @@ abstract class MalformedByteInputPayload
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedByteInputPayload');
-    helper.add('byteInBody', byteInBody);
+    helper.add(
+      'byteInBody',
+      byteInBody,
+    );
     return helper.toString();
   }
 }
@@ -121,15 +151,21 @@ class MalformedByteInputRestJson1Serializer
         MalformedByteInput,
         _$MalformedByteInput,
         MalformedByteInputPayload,
-        _$MalformedByteInputPayload
+        _$MalformedByteInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   MalformedByteInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = MalformedByteInputPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -139,8 +175,10 @@ class MalformedByteInputRestJson1Serializer
       switch (key) {
         case 'byteInBody':
           if (value != null) {
-            result.byteInBody = (serializers.deserialize(value,
-                specifiedType: const FullType(int)) as int);
+            result.byteInBody = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
       }
@@ -150,8 +188,11 @@ class MalformedByteInputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is MalformedByteInput
         ? object.getPayload()
         : (object as MalformedByteInputPayload);
@@ -159,8 +200,10 @@ class MalformedByteInputRestJson1Serializer
     if (payload.byteInBody != null) {
       result
         ..add('byteInBody')
-        ..add(serializers.serialize(payload.byteInBody!,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(
+          payload.byteInBody!,
+          specifiedType: const FullType(int),
+        ));
     }
     return result;
   }

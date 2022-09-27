@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.malformed_short_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.malformed_short_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -17,16 +17,19 @@ abstract class MalformedShortInput
     implements
         Built<MalformedShortInput, MalformedShortInputBuilder>,
         _i1.HasPayload<MalformedShortInputPayload> {
-  factory MalformedShortInput(
-      {int? shortInBody,
-      int? shortInHeader,
-      required int shortInPath,
-      int? shortInQuery}) {
+  factory MalformedShortInput({
+    int? shortInBody,
+    int? shortInHeader,
+    int? shortInPath,
+    int? shortInQuery,
+  }) {
+    shortInPath ??= 0;
     return _$MalformedShortInput._(
-        shortInBody: shortInBody,
-        shortInHeader: shortInHeader,
-        shortInPath: shortInPath,
-        shortInQuery: shortInQuery);
+      shortInBody: shortInBody,
+      shortInHeader: shortInHeader,
+      shortInPath: shortInPath,
+      shortInQuery: shortInQuery,
+    );
   }
 
   factory MalformedShortInput.build(
@@ -36,8 +39,10 @@ abstract class MalformedShortInput
   const MalformedShortInput._();
 
   factory MalformedShortInput.fromRequest(
-          MalformedShortInputPayload payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    MalformedShortInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       MalformedShortInput.build((b) {
         b.shortInBody = payload.shortInBody;
         if (request.headers['shortInHeader'] != null) {
@@ -56,7 +61,10 @@ abstract class MalformedShortInput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedShortInputBuilder b) {}
+  static void _init(MalformedShortInputBuilder b) {
+    b.shortInPath = 0;
+  }
+
   int? get shortInBody;
   int? get shortInHeader;
   int get shortInPath;
@@ -67,7 +75,10 @@ abstract class MalformedShortInput
       case 'shortInPath':
         return shortInPath.toString();
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -75,15 +86,31 @@ abstract class MalformedShortInput
         b.shortInBody = shortInBody;
       });
   @override
-  List<Object?> get props =>
-      [shortInBody, shortInHeader, shortInPath, shortInQuery];
+  List<Object?> get props => [
+        shortInBody,
+        shortInHeader,
+        shortInPath,
+        shortInQuery,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedShortInput');
-    helper.add('shortInBody', shortInBody);
-    helper.add('shortInHeader', shortInHeader);
-    helper.add('shortInPath', shortInPath);
-    helper.add('shortInQuery', shortInQuery);
+    helper.add(
+      'shortInBody',
+      shortInBody,
+    );
+    helper.add(
+      'shortInHeader',
+      shortInHeader,
+    );
+    helper.add(
+      'shortInPath',
+      shortInPath,
+    );
+    helper.add(
+      'shortInQuery',
+      shortInQuery,
+    );
     return helper.toString();
   }
 }
@@ -107,7 +134,10 @@ abstract class MalformedShortInputPayload
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedShortInputPayload');
-    helper.add('shortInBody', shortInBody);
+    helper.add(
+      'shortInBody',
+      shortInBody,
+    );
     return helper.toString();
   }
 }
@@ -121,15 +151,21 @@ class MalformedShortInputRestJson1Serializer
         MalformedShortInput,
         _$MalformedShortInput,
         MalformedShortInputPayload,
-        _$MalformedShortInputPayload
+        _$MalformedShortInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   MalformedShortInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = MalformedShortInputPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -139,8 +175,10 @@ class MalformedShortInputRestJson1Serializer
       switch (key) {
         case 'shortInBody':
           if (value != null) {
-            result.shortInBody = (serializers.deserialize(value,
-                specifiedType: const FullType(int)) as int);
+            result.shortInBody = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
       }
@@ -150,8 +188,11 @@ class MalformedShortInputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is MalformedShortInput
         ? object.getPayload()
         : (object as MalformedShortInputPayload);
@@ -159,8 +200,10 @@ class MalformedShortInputRestJson1Serializer
     if (payload.shortInBody != null) {
       result
         ..add('shortInBody')
-        ..add(serializers.serialize(payload.shortInBody!,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(
+          payload.shortInBody!,
+          specifiedType: const FullType(int),
+        ));
     }
     return result;
   }

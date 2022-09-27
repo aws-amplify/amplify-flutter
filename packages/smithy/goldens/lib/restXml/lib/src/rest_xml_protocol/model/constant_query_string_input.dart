@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_xml.rest_xml_protocol.model.constant_query_string_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.model.constant_query_string_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -29,9 +29,10 @@ abstract class ConstantQueryStringInput
   const ConstantQueryStringInput._();
 
   factory ConstantQueryStringInput.fromRequest(
-          ConstantQueryStringInputPayload payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    ConstantQueryStringInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       ConstantQueryStringInput.build((b) {
         if (labels['hello'] != null) {
           b.hello = labels['hello']!;
@@ -51,7 +52,10 @@ abstract class ConstantQueryStringInput
       case 'hello':
         return hello;
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -62,7 +66,10 @@ abstract class ConstantQueryStringInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConstantQueryStringInput');
-    helper.add('hello', hello);
+    helper.add(
+      'hello',
+      hello,
+    );
     return helper.toString();
   }
 }
@@ -103,21 +110,30 @@ class ConstantQueryStringInputRestXmlSerializer
         ConstantQueryStringInput,
         _$ConstantQueryStringInput,
         ConstantQueryStringInputPayload,
-        _$ConstantQueryStringInputPayload
+        _$ConstantQueryStringInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   ConstantQueryStringInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return ConstantQueryStringInputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       const _i1.XmlElementName('ConstantQueryStringInput')
     ];

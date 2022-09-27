@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.json_blobs_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.json_blobs_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:typed_data' as _i3;
 
@@ -27,13 +27,17 @@ abstract class JsonBlobsInputOutput
   const JsonBlobsInputOutput._();
 
   factory JsonBlobsInputOutput.fromRequest(
-          JsonBlobsInputOutput payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    JsonBlobsInputOutput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   /// Constructs a [JsonBlobsInputOutput] from a [payload] and [response].
   factory JsonBlobsInputOutput.fromResponse(
-          JsonBlobsInputOutput payload, _i2.AWSBaseHttpResponse response) =>
+    JsonBlobsInputOutput payload,
+    _i2.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -50,7 +54,10 @@ abstract class JsonBlobsInputOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('JsonBlobsInputOutput');
-    helper.add('data', data);
+    helper.add(
+      'data',
+      data,
+    );
     return helper.toString();
   }
 }
@@ -61,15 +68,23 @@ class JsonBlobsInputOutputRestJson1Serializer
       : super('JsonBlobsInputOutput');
 
   @override
-  Iterable<Type> get types =>
-      const [JsonBlobsInputOutput, _$JsonBlobsInputOutput];
+  Iterable<Type> get types => const [
+        JsonBlobsInputOutput,
+        _$JsonBlobsInputOutput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   JsonBlobsInputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = JsonBlobsInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -79,8 +94,10 @@ class JsonBlobsInputOutputRestJson1Serializer
       switch (key) {
         case 'data':
           if (value != null) {
-            result.data = (serializers.deserialize(value,
-                specifiedType: const FullType(_i3.Uint8List)) as _i3.Uint8List);
+            result.data = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.Uint8List),
+            ) as _i3.Uint8List);
           }
           break;
       }
@@ -90,15 +107,20 @@ class JsonBlobsInputOutputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as JsonBlobsInputOutput);
     final result = <Object?>[];
     if (payload.data != null) {
       result
         ..add('data')
-        ..add(serializers.serialize(payload.data!,
-            specifiedType: const FullType(_i3.Uint8List)));
+        ..add(serializers.serialize(
+          payload.data!,
+          specifiedType: const FullType(_i3.Uint8List),
+        ));
     }
     return result;
   }

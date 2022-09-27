@@ -1,5 +1,5 @@
-name: aws_json1_1
-description: Aws Json1 1 client SDK
+name: aws_json1_1_v1
+description: Aws Json1 1 V1 client SDK
 version: 0.1.0
 publish_to: none
 

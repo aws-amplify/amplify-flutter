@@ -1,3 +1,12 @@
+## 1.0.0-next.0+3
+
+- Minor bug fixes and improvements
+
+## 1.0.0-next.0+2
+
+### Features
+- feat(auth): migrate legacy credentials on Android ([#2004](https://github.com/aws-amplify/amplify-flutter/pull/2004))
+
 ## 1.0.0-next.0+1
 
 - fix(auth): Hosted UI task continuation ([#2017](https://github.com/aws-amplify/amplify-flutter/pull/2017))

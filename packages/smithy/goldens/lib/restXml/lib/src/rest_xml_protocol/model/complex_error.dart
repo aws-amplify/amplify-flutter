@@ -1,12 +1,12 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_xml.rest_xml_protocol.model.complex_error; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.model.complex_error; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:meta/meta.dart' as _i4;
-import 'package:rest_xml/src/rest_xml_protocol/model/complex_nested_error_data.dart'
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/complex_nested_error_data.dart'
     as _i3;
 import 'package:smithy/smithy.dart' as _i2;
 
@@ -20,9 +20,16 @@ abstract class ComplexError
         _i2.HasPayload<ComplexErrorPayload>,
         _i2.SmithyHttpException {
   /// This error is thrown when a request is invalid.
-  factory ComplexError(
-      {String? header, _i3.ComplexNestedErrorData? nested, String? topLevel}) {
-    return _$ComplexError._(header: header, nested: nested, topLevel: topLevel);
+  factory ComplexError({
+    String? header,
+    _i3.ComplexNestedErrorData? nested,
+    String? topLevel,
+  }) {
+    return _$ComplexError._(
+      header: header,
+      nested: nested,
+      topLevel: topLevel,
+    );
   }
 
   /// This error is thrown when a request is invalid.
@@ -33,7 +40,9 @@ abstract class ComplexError
 
   /// Constructs a [ComplexError] from a [payload] and [response].
   factory ComplexError.fromResponse(
-          ComplexErrorPayload payload, _i1.AWSBaseHttpResponse response) =>
+    ComplexErrorPayload payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       ComplexError.build((b) {
         if (payload.nested != null) {
           b.nested.replace(payload.nested!);
@@ -63,7 +72,9 @@ abstract class ComplexError
       });
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'aws.protocoltests.restxml', shape: 'ComplexError');
+        namespace: 'aws.protocoltests.restxml',
+        shape: 'ComplexError',
+      );
   @override
   String? get message => null;
   @override
@@ -77,13 +88,26 @@ abstract class ComplexError
   @override
   Exception? get underlyingException => null;
   @override
-  List<Object?> get props => [header, nested, topLevel];
+  List<Object?> get props => [
+        header,
+        nested,
+        topLevel,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ComplexError');
-    helper.add('header', header);
-    helper.add('nested', nested);
-    helper.add('topLevel', topLevel);
+    helper.add(
+      'header',
+      header,
+    );
+    helper.add(
+      'nested',
+      nested,
+    );
+    helper.add(
+      'topLevel',
+      topLevel,
+    );
     return helper.toString();
   }
 }
@@ -103,12 +127,21 @@ abstract class ComplexErrorPayload
   _i3.ComplexNestedErrorData? get nested;
   String? get topLevel;
   @override
-  List<Object?> get props => [nested, topLevel];
+  List<Object?> get props => [
+        nested,
+        topLevel,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ComplexErrorPayload');
-    helper.add('nested', nested);
-    helper.add('topLevel', topLevel);
+    helper.add(
+      'nested',
+      nested,
+    );
+    helper.add(
+      'topLevel',
+      topLevel,
+    );
     return helper.toString();
   }
 }
@@ -122,15 +155,21 @@ class ComplexErrorRestXmlSerializer
         ComplexError,
         _$ComplexError,
         ComplexErrorPayload,
-        _$ComplexErrorPayload
+        _$ComplexErrorPayload,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   ComplexErrorPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = ComplexErrorPayloadBuilder();
     final errorIterator = serialized.iterator;
     while (errorIterator.moveNext()) {
@@ -148,15 +187,18 @@ class ComplexErrorRestXmlSerializer
       switch (key as String) {
         case 'Nested':
           if (value != null) {
-            result.nested.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i3.ComplexNestedErrorData))
-                as _i3.ComplexNestedErrorData));
+            result.nested.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.ComplexNestedErrorData),
+            ) as _i3.ComplexNestedErrorData));
           }
           break;
         case 'TopLevel':
           if (value != null) {
-            result.topLevel = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.topLevel = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -166,8 +208,11 @@ class ComplexErrorRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is ComplexError
         ? object.getPayload()
         : (object as ComplexErrorPayload);
@@ -175,14 +220,18 @@ class ComplexErrorRestXmlSerializer
     if (payload.nested != null) {
       result
         ..add(const _i2.XmlElementName('Nested'))
-        ..add(serializers.serialize(payload.nested!,
-            specifiedType: const FullType(_i3.ComplexNestedErrorData)));
+        ..add(serializers.serialize(
+          payload.nested!,
+          specifiedType: const FullType(_i3.ComplexNestedErrorData),
+        ));
     }
     if (payload.topLevel != null) {
       result
         ..add(const _i2.XmlElementName('TopLevel'))
-        ..add(serializers.serialize(payload.topLevel!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.topLevel!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

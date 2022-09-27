@@ -20,32 +20,50 @@ import 'package:smithy/smithy.dart' as _i1;
 
 class DeviceRememberedStatusType
     extends _i1.SmithyEnum<DeviceRememberedStatusType> {
-  const DeviceRememberedStatusType._(int index, String name, String value)
-      : super(index, name, value);
+  const DeviceRememberedStatusType._(
+    int index,
+    String name,
+    String value,
+  ) : super(
+          index,
+          name,
+          value,
+        );
 
   const DeviceRememberedStatusType._sdkUnknown(String value)
       : super.sdkUnknown(value);
 
-  static const notRemembered =
-      DeviceRememberedStatusType._(0, 'NOT_REMEMBERED', 'not_remembered');
+  static const notRemembered = DeviceRememberedStatusType._(
+    0,
+    'NOT_REMEMBERED',
+    'not_remembered',
+  );
 
-  static const remembered =
-      DeviceRememberedStatusType._(1, 'REMEMBERED', 'remembered');
+  static const remembered = DeviceRememberedStatusType._(
+    1,
+    'REMEMBERED',
+    'remembered',
+  );
 
   /// All values of [DeviceRememberedStatusType].
   static const values = <DeviceRememberedStatusType>[
     DeviceRememberedStatusType.notRemembered,
-    DeviceRememberedStatusType.remembered
+    DeviceRememberedStatusType.remembered,
   ];
 
   static const List<_i1.SmithySerializer<DeviceRememberedStatusType>>
       serializers = [
-    _i1.SmithyEnumSerializer('DeviceRememberedStatusType',
-        values: values,
-        sdkUnknown: DeviceRememberedStatusType._sdkUnknown,
-        supportedProtocols: [
-          _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')
-        ])
+    _i1.SmithyEnumSerializer(
+      'DeviceRememberedStatusType',
+      values: values,
+      sdkUnknown: DeviceRememberedStatusType._sdkUnknown,
+      supportedProtocols: [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ],
+    )
   ];
 }
 

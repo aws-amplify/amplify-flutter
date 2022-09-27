@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.malformed_timestamp_body_http_date_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.malformed_timestamp_body_http_date_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -27,9 +27,10 @@ abstract class MalformedTimestampBodyHttpDateInput
   const MalformedTimestampBodyHttpDateInput._();
 
   factory MalformedTimestampBodyHttpDateInput.fromRequest(
-          MalformedTimestampBodyHttpDateInput payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    MalformedTimestampBodyHttpDateInput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -47,7 +48,10 @@ abstract class MalformedTimestampBodyHttpDateInput
   String toString() {
     final helper =
         newBuiltValueToStringHelper('MalformedTimestampBodyHttpDateInput');
-    helper.add('timestamp', timestamp);
+    helper.add(
+      'timestamp',
+      timestamp,
+    );
     return helper.toString();
   }
 }
@@ -60,15 +64,21 @@ class MalformedTimestampBodyHttpDateInputRestJson1Serializer extends _i1
   @override
   Iterable<Type> get types => const [
         MalformedTimestampBodyHttpDateInput,
-        _$MalformedTimestampBodyHttpDateInput
+        _$MalformedTimestampBodyHttpDateInput,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   MalformedTimestampBodyHttpDateInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = MalformedTimestampBodyHttpDateInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -77,8 +87,10 @@ class MalformedTimestampBodyHttpDateInputRestJson1Serializer extends _i1
       final value = iterator.current;
       switch (key) {
         case 'timestamp':
-          result.timestamp =
-              _i1.TimestampSerializer.httpDate.deserialize(serializers, value!);
+          result.timestamp = _i1.TimestampSerializer.httpDate.deserialize(
+            serializers,
+            value!,
+          );
           break;
       }
     }
@@ -87,12 +99,18 @@ class MalformedTimestampBodyHttpDateInputRestJson1Serializer extends _i1
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as MalformedTimestampBodyHttpDateInput);
     final result = <Object?>[
       'timestamp',
-      _i1.TimestampSerializer.httpDate.serialize(serializers, payload.timestamp)
+      _i1.TimestampSerializer.httpDate.serialize(
+        serializers,
+        payload.timestamp,
+      ),
     ];
     return result;
   }

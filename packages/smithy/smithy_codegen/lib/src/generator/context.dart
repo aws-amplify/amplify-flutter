@@ -49,7 +49,7 @@ class CodegenContext {
   }
 
   /// The version of Smithy being generated for.
-  final String smithyVersion;
+  final SmithyVersion smithyVersion;
 
   /// Metadata about the model.
   final Map<String, Object> metadata;

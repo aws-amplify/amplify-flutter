@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library aws_json1_1.machine_learning.model.limit_exceeded_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_1_v1.machine_learning.model.limit_exceeded_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -14,8 +14,14 @@ abstract class LimitExceededException
     implements
         Built<LimitExceededException, LimitExceededExceptionBuilder>,
         _i2.SmithyHttpException {
-  factory LimitExceededException({int? code, String? message}) {
-    return _$LimitExceededException._(code: code, message: message);
+  factory LimitExceededException({
+    int? code,
+    String? message,
+  }) {
+    return _$LimitExceededException._(
+      code: code,
+      message: message,
+    );
   }
 
   factory LimitExceededException.build(
@@ -26,7 +32,9 @@ abstract class LimitExceededException
 
   /// Constructs a [LimitExceededException] from a [payload] and [response].
   factory LimitExceededException.fromResponse(
-          LimitExceededException payload, _i1.AWSBaseHttpResponse response) =>
+    LimitExceededException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
@@ -42,8 +50,9 @@ abstract class LimitExceededException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.machinelearning',
-      shape: 'LimitExceededException');
+        namespace: 'com.amazonaws.machinelearning',
+        shape: 'LimitExceededException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -55,12 +64,21 @@ abstract class LimitExceededException
   @override
   Exception? get underlyingException => null;
   @override
-  List<Object?> get props => [code, message];
+  List<Object?> get props => [
+        code,
+        message,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('LimitExceededException');
-    helper.add('code', code);
-    helper.add('message', message);
+    helper.add(
+      'code',
+      code,
+    );
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
@@ -71,15 +89,23 @@ class LimitExceededExceptionAwsJson11Serializer
       : super('LimitExceededException');
 
   @override
-  Iterable<Type> get types =>
-      const [LimitExceededException, _$LimitExceededException];
+  Iterable<Type> get types => const [
+        LimitExceededException,
+        _$LimitExceededException,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   LimitExceededException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = LimitExceededExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -89,14 +115,18 @@ class LimitExceededExceptionAwsJson11Serializer
       switch (key) {
         case 'code':
           if (value != null) {
-            result.code = (serializers.deserialize(value,
-                specifiedType: const FullType(int)) as int);
+            result.code = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -106,21 +136,28 @@ class LimitExceededExceptionAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as LimitExceededException);
     final result = <Object?>[];
     if (payload.code != null) {
       result
         ..add('code')
-        ..add(serializers.serialize(payload.code!,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(
+          payload.code!,
+          specifiedType: const FullType(int),
+        ));
     }
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

@@ -38,6 +38,9 @@ class SrpDevicePasswordVerifierWorkerImpl
     const relativePath = zDebugMode
         ? 'packages/amplify_auth_cognito_dart/src/workers/workers.debug.dart.js'
         : 'packages/amplify_auth_cognito_dart/src/workers/workers.release.dart.js';
-    return [relativePath, testDir.resolve(relativePath).toString()];
+    return [
+      relativePath,
+      testDir.resolve(relativePath).toString(),
+    ];
   }
 }

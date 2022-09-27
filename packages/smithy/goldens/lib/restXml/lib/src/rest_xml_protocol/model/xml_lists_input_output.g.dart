@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml.rest_xml_protocol.model.xml_lists_input_output;
+part of rest_xml_v1.rest_xml_protocol.model.xml_lists_input_output;
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -30,7 +30,7 @@ class _$XmlListsInputOutput extends XmlListsInputOutput {
   @override
   final _i3.BuiltList<String>? stringList;
   @override
-  final _i3.BuiltList<String>? stringSet;
+  final _i3.BuiltSet<String>? stringSet;
   @override
   final _i3.BuiltList<_i5.StructureListMember>? structureList;
   @override
@@ -200,10 +200,10 @@ class XmlListsInputOutputBuilder
   set stringList(_i3.ListBuilder<String>? stringList) =>
       _$this._stringList = stringList;
 
-  _i3.ListBuilder<String>? _stringSet;
-  _i3.ListBuilder<String> get stringSet =>
-      _$this._stringSet ??= new _i3.ListBuilder<String>();
-  set stringSet(_i3.ListBuilder<String>? stringSet) =>
+  _i3.SetBuilder<String>? _stringSet;
+  _i3.SetBuilder<String> get stringSet =>
+      _$this._stringSet ??= new _i3.SetBuilder<String>();
+  set stringSet(_i3.SetBuilder<String>? stringSet) =>
       _$this._stringSet = stringSet;
 
   _i3.ListBuilder<_i5.StructureListMember>? _structureList;
