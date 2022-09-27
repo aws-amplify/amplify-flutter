@@ -32,10 +32,10 @@ class QuerySortBy {
   const QuerySortBy({required this.order, required this.field});
 
   int compare<T extends Model>(T a, T b) {
-    String fieldName = getFieldName(field);
-    dynamic valueA = a.toJson()[fieldName];
-    dynamic valueB = b.toJson()[fieldName];
-    int orderMultiplier = order == QuerySortOrder.ascending ? 1 : -1;
+    final fieldName = getFieldName(field);
+    final valueA = a.toMap()[fieldName];
+    final valueB = b.toMap()[fieldName];
+    final orderMultiplier = order == QuerySortOrder.ascending ? 1 : -1;
     if (valueA == null || valueB == null) {
       return orderMultiplier * _compareNull(valueA, valueB);
     } else if (valueA is bool && valueB is bool) {

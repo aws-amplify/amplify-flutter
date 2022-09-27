@@ -79,22 +79,6 @@ abstract class QueryFieldOperator<T> {
     // TODO sanitize other types appropriately
     return value;
   }
-
-  /// Gets the correct field to use as a comparison for nested models.
-  ///
-  /// TODO: Remove when codegen supports a `toMap()` method.
-  Object? _getOtherField(Object? other, Object? value) {
-    // if `other` is type Map and `value` is type String, the
-    // only valid query predicate is for a nested model by ID.
-    //
-    // For example: `Comment.POST.eq('post-id-123')`
-    //
-    // Return the ID to use as the comparison field.
-    if (other is Map && value is String) {
-      return other['id'];
-    }
-    return other;
-  }
 }
 
 abstract class QueryFieldOperatorSingleValue<T> extends QueryFieldOperator<T> {
@@ -115,9 +99,19 @@ class EqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
 
   @override
   bool evaluate(T? other) {
-    dynamic serializedValue = serializeDynamicValue(value);
-    final otherField = _getOtherField(other, value);
-    return otherField == serializedValue;
+    // if `other` is Model, the query predicate is on a
+    // nested model, such as `Post.BLOG.eq(myBlog.modelIdentifier))`,
+    // and the value should be compared against the model ID.
+    if (other is Model) {
+      if (value is ModelIdentifier) {
+        return value == other.modelIdentifier;
+      } else {
+        // TODO: remove when `getId()` is removed.
+        // ignore: deprecated_member_use_from_same_package
+        return value == other.getId();
+      }
+    }
+    return other == value;
   }
 }
 
@@ -143,9 +137,19 @@ class NotEqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
 
   @override
   bool evaluate(T? other) {
-    Object? serializedValue = serializeDynamicValue(value);
-    final otherField = _getOtherField(other, value);
-    return otherField != serializedValue;
+    // if `other` is Model, the query predicate is on a
+    // nested model, such as `Post.BLOG.eq(myBlog.modelIdentifier))`,
+    // and the value should be compared against the model ID.
+    if (other is Model) {
+      if (value is ModelIdentifier) {
+        return value != other.modelIdentifier;
+      } else {
+        // TODO: remove when getId is removed.
+        // ignore: deprecated_member_use_from_same_package
+        return value != other.getId();
+      }
+    }
+    return other != value;
   }
 }
 
@@ -175,8 +179,7 @@ class LessOrEqualQueryOperator<T extends Comparable>
     if (other == null) {
       return false;
     }
-    dynamic serializedValue = serializeDynamicValue(value);
-    return other.compareTo(serializedValue) <= 0;
+    return other.compareTo(value) <= 0;
   }
 }
 
@@ -190,8 +193,7 @@ class LessThanQueryOperator<T extends Comparable>
     if (other == null) {
       return false;
     }
-    dynamic serializedValue = serializeDynamicValue(value);
-    return other.compareTo(serializedValue) < 0;
+    return other.compareTo(value) < 0;
   }
 }
 
@@ -205,8 +207,7 @@ class GreaterOrEqualQueryOperator<T extends Comparable>
     if (other == null) {
       return false;
     }
-    dynamic serializedValue = serializeDynamicValue(value);
-    return other.compareTo(serializedValue) >= 0;
+    return other.compareTo(value) >= 0;
   }
 }
 
@@ -220,8 +221,7 @@ class GreaterThanQueryOperator<T extends Comparable>
     if (other == null) {
       return false;
     }
-    dynamic serializedValue = serializeDynamicValue(value);
-    return other.compareTo(serializedValue) > 0;
+    return other.compareTo(value) > 0;
   }
 }
 
@@ -258,10 +258,7 @@ class BetweenQueryOperator<T extends Comparable> extends QueryFieldOperator<T> {
     if (other == null) {
       return false;
     }
-    dynamic serializedStart = serializeDynamicValue(start);
-    dynamic serializedEnd = serializeDynamicValue(end);
-    return other.compareTo(serializedStart) >= 0 &&
-        other.compareTo(serializedEnd) <= 0;
+    return other.compareTo(start) >= 0 && other.compareTo(end) <= 0;
   }
 
   @override
