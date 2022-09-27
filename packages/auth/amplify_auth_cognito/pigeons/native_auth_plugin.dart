@@ -21,11 +21,11 @@
     dartOptions: DartOptions(),
     dartOut: 'lib/src/native_auth_plugin.g.dart',
     javaOptions: JavaOptions(
-      className: 'NativeAuthPluginBindings',
-      package: 'com.amazonaws.amplify.amplify_auth_cognito.pigeons',
+      className: 'NativeAuthPluginBindingsPigeon',
+      package: 'com.amazonaws.amplify.amplify_auth_cognito',
     ),
     javaOut:
-        '../amplify_auth_cognito_android/android/src/main/kotlin/com/amazonaws/amplify/amplify_auth_cognito/pigeons/NativeAuthPluginBindings.java',
+        '../amplify_auth_cognito_android/android/src/main/kotlin/com/amazonaws/amplify/amplify_auth_cognito/NativeAuthPluginBindingsPigeon.java',
     objcOptions: ObjcOptions(
       header: 'NativeAuthPlugin.h',
     ),

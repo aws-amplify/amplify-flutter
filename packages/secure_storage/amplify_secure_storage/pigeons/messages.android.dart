@@ -20,11 +20,11 @@ import 'package:pigeon/pigeon.dart';
   PigeonOptions(
     dartOut: 'lib/src/messages.android.g.dart',
     javaOut:
-        'android/src/main/java/com/amazonaws/amplify/amplify_secure_storage/amplify_secure_storage/pigeons/Messages.java',
+        'android/src/main/java/com/amazonaws/amplify/amplify_secure_storage/amplify_secure_storage/Messages.java',
     javaOptions: JavaOptions(
       className: "Messages",
       package:
-          'com.amazonaws.amplify.amplify_secure_storage.amplify_secure_storage.pigeons',
+          'com.amazonaws.amplify.amplify_secure_storage.amplify_secure_storage',
     ),
     copyrightHeader: 'pigeons/copyright.txt',
   ),

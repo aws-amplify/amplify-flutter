@@ -24,7 +24,6 @@ import android.net.Uri
 import android.os.Build
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsService.ACTION_CUSTOM_TABS_CONNECTION
-import com.amazonaws.amplify.amplify_auth_cognito.pigeons.NativeAuthPluginBindings
 import com.amplifyframework.auth.AuthUser
 import com.amplifyframework.core.Amplify
 import io.flutter.Log
