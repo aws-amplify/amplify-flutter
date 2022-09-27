@@ -34,7 +34,7 @@ class ModelProvider implements ModelProviderInterface {
   @override
   String version = "f43670a12adedf95a96cd58377c6c2bc";
   @override
-  List<ModelSchema> modelSchemas = [
+  List<ModelTypeDefinition> modelSchemas = [
     Blog.schema,
     Comment.schema,
     Post.schema,
@@ -42,7 +42,7 @@ class ModelProvider implements ModelProviderInterface {
   ];
   static final ModelProvider _instance = ModelProvider();
   @override
-  List<ModelSchema> customTypeSchemas = [];
+  List<ModelTypeDefinition> customTypeSchemas = [];
 
   static ModelProvider get instance => _instance;
 

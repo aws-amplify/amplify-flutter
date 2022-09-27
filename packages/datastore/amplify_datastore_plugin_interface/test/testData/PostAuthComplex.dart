@@ -136,12 +136,12 @@ class PostAuthComplex extends Model {
   static final QueryField ID = QueryField(fieldName: "postAuthComplex.id");
   static final QueryField TITLE = QueryField(fieldName: "title");
   static final QueryField OWNER = QueryField(fieldName: "owner");
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "PostAuthComplex";
     modelSchemaDefinition.pluralName = "PostAuthComplexes";
 
-    modelSchemaDefinition.authRules = [
+    modelSchemaDefinition.authRules.addAll([
       AuthRule(
           authStrategy: AuthStrategy.owner,
           ownerField: "owner",
@@ -152,7 +152,7 @@ class PostAuthComplex extends Model {
             ModelOperation.delete,
             ModelOperation.read
           ])
-    ];
+    ]);
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 

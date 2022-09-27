@@ -78,8 +78,8 @@ class SimpleCustomType {
 
   Map<String, dynamic> toJson() => {'foo': _foo};
 
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "SimpleCustomType";
     modelSchemaDefinition.pluralName = "SimpleCustomTypes";
 

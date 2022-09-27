@@ -107,10 +107,10 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
       return await _channel
           .invokeMethod('configureDataStore', <String, dynamic>{
         'modelSchemas': modelProvider?.modelSchemas
-            .map((schema) => schema.toMap())
+            .map((schema) => schema.toJson())
             .toList(),
         'customTypeSchemas': modelProvider?.customTypeSchemas
-            .map((schema) => schema.toMap())
+            .map((schema) => schema.toJson())
             .toList(),
         'hasErrorHandler': errorHandler != null,
         'hasConflictHandler': conflictHandler != null,

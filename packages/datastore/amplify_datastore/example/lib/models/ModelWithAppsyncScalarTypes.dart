@@ -707,8 +707,8 @@ class ModelWithAppsyncScalarTypes extends Model {
       QueryField(fieldName: "awsIPAddressValue");
   static final QueryField LISTOFAWSIPADDRESSVALUE =
       QueryField(fieldName: "listOfAWSIPAddressValue");
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "ModelWithAppsyncScalarTypes";
     modelSchemaDefinition.pluralName = "ModelWithAppsyncScalarTypes";
 

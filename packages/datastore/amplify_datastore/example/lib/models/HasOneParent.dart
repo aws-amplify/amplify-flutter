@@ -207,8 +207,8 @@ class HasOneParent extends Model {
           ofModelName: (HasOneChild).toString()));
   static final QueryField HASONEPARENTIMPLICITCHILDID =
       QueryField(fieldName: "hasOneParentImplicitChildId");
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "HasOneParent";
     modelSchemaDefinition.pluralName = "HasOneParents";
 

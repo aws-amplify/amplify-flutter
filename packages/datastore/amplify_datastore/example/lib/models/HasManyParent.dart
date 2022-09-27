@@ -187,8 +187,8 @@ class HasManyParent extends Model {
       fieldName: "explicitChildren",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (HasManyChildExplicit).toString()));
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "HasManyParent";
     modelSchemaDefinition.pluralName = "HasManyParents";
 

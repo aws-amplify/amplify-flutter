@@ -12,14 +12,15 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+
+import 'mipr.dart' as mipr;
 import 'model.dart';
-import 'model_schema.dart';
 
 abstract class ModelProviderInterface {
   late String version;
 
-  late List<ModelSchema> modelSchemas;
-  late List<ModelSchema> customTypeSchemas;
+  late List<mipr.ModelTypeDefinition> modelSchemas;
+  late List<mipr.ModelTypeDefinition> customTypeSchemas;
 
   ModelType getModelTypeByModelName(String modelName) {
     throw UnimplementedError(

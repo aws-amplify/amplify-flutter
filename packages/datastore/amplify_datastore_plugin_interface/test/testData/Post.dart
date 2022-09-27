@@ -245,8 +245,8 @@ class Post extends Model {
       fieldName: "comments",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (Comment).toString()));
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "Post";
     modelSchemaDefinition.pluralName = "Posts";
 

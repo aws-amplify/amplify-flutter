@@ -136,8 +136,8 @@ class Contact {
             _mailingAddresses?.map((Address? e) => e?.toJson()).toList()
       };
 
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "Contact";
     modelSchemaDefinition.pluralName = "Contacts";
 

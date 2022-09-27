@@ -152,8 +152,8 @@ class Tag extends Model {
       fieldName: "posts",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (PostTags).toString()));
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "Tag";
     modelSchemaDefinition.pluralName = "Tags";
 

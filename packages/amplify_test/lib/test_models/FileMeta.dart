@@ -74,8 +74,8 @@ class FileMeta {
 
   Map<String, dynamic> toJson() => {'name': _name};
 
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "FileMeta";
     modelSchemaDefinition.pluralName = "FileMetas";
 

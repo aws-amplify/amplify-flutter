@@ -14,13 +14,12 @@
 //
 
 export 'package:amplify_core/src/types/models/mipr/auth_rule.dart';
+export 'package:amplify_core/src/types/models/mipr/model.dart';
 export 'package:amplify_core/src/types/models/mipr/model_field.dart';
 export 'package:amplify_core/src/types/models/model.dart';
 export 'package:amplify_core/src/types/models/model_field_definition.dart';
 export 'package:amplify_core/src/types/models/model_field_type.dart';
 export 'package:amplify_core/src/types/models/model_provider.dart';
-export 'package:amplify_core/src/types/models/model_schema.dart';
-export 'package:amplify_core/src/types/models/model_schema_definition.dart';
 export 'package:amplify_core/src/types/query/query_field.dart';
 export 'package:amplify_core/src/types/query/query_field.dart';
 export 'package:amplify_core/src/types/temporal/datetime_parse.dart';

@@ -15,8 +15,7 @@
 
 import 'package:meta/meta.dart';
 
-import 'model_schema.dart';
-import 'model_schema_definition.dart';
+import 'mipr.dart';
 
 abstract class Model {
   ModelType getInstanceType() {
@@ -41,9 +40,9 @@ abstract class Model {
 
   const Model();
 
-  static ModelSchema defineSchema(
-      {required void Function(ModelSchemaDefinition) define}) {
-    var definition = ModelSchemaDefinition();
+  static ModelTypeDefinition defineSchema(
+      {required void Function(ModelTypeDefinitionBuilder) define}) {
+    var definition = ModelTypeDefinitionBuilder();
 
     define(definition);
 

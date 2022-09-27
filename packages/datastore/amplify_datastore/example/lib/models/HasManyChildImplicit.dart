@@ -145,8 +145,8 @@ class HasManyChildImplicit extends Model {
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField HASMANYPARENTIMPLICITCHILDRENID =
       QueryField(fieldName: "hasManyParentImplicitChildrenId");
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "HasManyChildImplicit";
     modelSchemaDefinition.pluralName = "HasManyChildImplicits";
 

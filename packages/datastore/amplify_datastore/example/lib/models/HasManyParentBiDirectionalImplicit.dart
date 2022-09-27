@@ -162,8 +162,8 @@ class HasManyParentBiDirectionalImplicit extends Model {
       fieldName: "biDirectionalImplicitChildren",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (HasManyChildBiDirectionalImplicit).toString()));
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "HasManyParentBiDirectionalImplicit";
     modelSchemaDefinition.pluralName = "HasManyParentBiDirectionalImplicits";
 

@@ -40,19 +40,20 @@ class GraphQLRequestFactory {
 
   static GraphQLRequestFactory get instance => _instance;
 
-  String _getName(ModelSchema schema, GraphQLRequestOperation operation) {
+  String _getName(
+      ModelTypeDefinition schema, GraphQLRequestOperation operation) {
     // schema has been validated & schema.pluralName is non-nullable
     return operation == GraphQLRequestOperation.list
-        ? schema.pluralName!
+        ? schema.pluralName
         : schema.name;
   }
 
   String _getSelectionSetFromModelSchema(
-      ModelSchema schema, GraphQLRequestOperation operation,
+      ModelTypeDefinition schema, GraphQLRequestOperation operation,
       {bool ignoreParents = false}) {
     // Schema has been validated & schema.fields is non-nullable.
     // Get a list of field names to include in the request body.
-    List<String> fields = schema.fields!.entries
+    List<String> fields = schema.fields.entries
         .where((entry) =>
             entry.value.association == null) // ignore related model fields
         .map((entry) {
@@ -96,7 +97,7 @@ class GraphQLRequestFactory {
       s[0].toLowerCase() + s.substring(1);
 
   DocumentInputs _buildDocumentInputs(
-      ModelSchema schema, GraphQLRequestOperation operation) {
+      ModelTypeDefinition schema, GraphQLRequestOperation operation) {
     String upperOutput = '';
     String lowerOutput = '';
     String modelName = schema.name;
@@ -147,7 +148,7 @@ class GraphQLRequestFactory {
       required Map<String, dynamic> variables,
       int depth = 0}) {
     // retrieve schema from ModelType and validate required properties
-    ModelSchema schema =
+    ModelTypeDefinition schema =
         getModelSchemaByModelName(modelType.modelName(), requestOperation);
 
     // e.g. "Blog" or "Blogs"
@@ -203,12 +204,13 @@ class GraphQLRequestFactory {
     if (queryPredicate == null) {
       return null;
     }
-    ModelSchema schema = getModelSchemaByModelName(modelType.modelName(), null);
+    ModelTypeDefinition schema =
+        getModelSchemaByModelName(modelType.modelName(), null);
 
     // e.g. { 'name': { 'eq': 'foo }}
     if (queryPredicate is QueryPredicateOperation) {
-      final associatedTargetName = schema.fields?[queryPredicate.field]
-          ?.association?.targetNames?.singleOrNull;
+      final associatedTargetName = schema
+          .fields[queryPredicate.field]?.association?.targetNames?.singleOrNull;
       String fieldName = queryPredicate.field;
       if (queryPredicate.field ==
           '${_lowerCaseFirstCharacter(schema.name)}.$idFieldName') {
@@ -267,7 +269,7 @@ class GraphQLRequestFactory {
   /// When the model has a parent via a belongsTo, the id from the parent is added
   /// as a field similar to "blogID" where the value is `post.blog.id`.
   Map<String, dynamic> buildInputVariableForMutations(Model model) {
-    ModelSchema schema =
+    ModelTypeDefinition schema =
         getModelSchemaByModelName(model.getInstanceType().modelName(), null);
     final modelJson = model.toJson();
 
@@ -285,7 +287,7 @@ class GraphQLRequestFactory {
     }
 
     // Remove any relational fields or readonly.
-    Set<String> fieldsToRemove = schema.fields!.entries
+    Set<String> fieldsToRemove = schema.fields.entries
         .where((entry) =>
             entry.value.association != null || entry.value.isReadOnly)
         .map((entry) => entry.key)

@@ -32,14 +32,14 @@ class ModelProvider implements ModelProviderInterface {
   @override
   String version = "c4d29b43024b973d2fd3ba65fe7f0a5b";
   @override
-  List<ModelSchema> modelSchemas = [
+  List<ModelTypeDefinition> modelSchemas = [
     BelongsToChildExplicit.schema,
     BelongsToChildImplicit.schema,
     BelongsToParent.schema,
   ];
   static final ModelProvider _instance = ModelProvider();
   @override
-  List<ModelSchema> customTypeSchemas = [];
+  List<ModelTypeDefinition> customTypeSchemas = [];
 
   static ModelProvider get instance => _instance;
 

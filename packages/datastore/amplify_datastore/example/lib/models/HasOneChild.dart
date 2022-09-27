@@ -114,8 +114,8 @@ class HasOneChild extends Model {
 
   static final QueryField ID = QueryField(fieldName: "hasOneChild.id");
   static final QueryField NAME = QueryField(fieldName: "name");
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "HasOneChild";
     modelSchemaDefinition.pluralName = "HasOneChildren";
 

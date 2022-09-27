@@ -171,8 +171,8 @@ class Address {
         'postalCode': _postalCode
       };
 
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "Address";
     modelSchemaDefinition.pluralName = "Addresses";
 

@@ -153,8 +153,8 @@ class ModelWithEnum extends Model {
   static final QueryField ENUMFIELD = QueryField(fieldName: "enumField");
   static final QueryField LISTOFENUMFIELD =
       QueryField(fieldName: "listOfEnumField");
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "ModelWithEnum";
     modelSchemaDefinition.pluralName = "ModelWithEnums";
 

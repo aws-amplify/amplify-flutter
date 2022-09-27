@@ -35,14 +35,14 @@ void main() {
     }
     */
 
-    ModelSchema blogSchema = Blog.schema;
+    ModelTypeDefinition blogSchema = Blog.schema;
 
     expect(blogSchema.name, "Blog");
     expect(blogSchema.pluralName, "Blogs");
-    expect(blogSchema.authRules, null);
+    expect(blogSchema.authRules, isEmpty);
 
     expect(
-      blogSchema.fields!["id"],
+      blogSchema.fields["id"],
       ModelField(
         name: "id",
         type: const SchemaType.scalar(
@@ -53,7 +53,7 @@ void main() {
     );
 
     expect(
-      blogSchema.fields!["name"],
+      blogSchema.fields["name"],
       ModelField(
         name: "name",
         type: const SchemaType.scalar(
@@ -64,7 +64,7 @@ void main() {
     );
 
     expect(
-      blogSchema.fields!["posts"],
+      blogSchema.fields["posts"],
       ModelField(
         name: "posts",
         type: const SchemaType.list(SchemaType.model('Post')),
@@ -88,14 +88,14 @@ void main() {
     }
      */
 
-    ModelSchema commentSchema = Comment.schema;
+    ModelTypeDefinition commentSchema = Comment.schema;
 
     expect(commentSchema.name, "Comment");
     expect(commentSchema.pluralName, "Comments");
-    expect(commentSchema.authRules, null);
+    expect(commentSchema.authRules, isEmpty);
 
     expect(
-      commentSchema.fields!["id"],
+      commentSchema.fields["id"],
       ModelField(
         name: "id",
         type: const SchemaType.scalar(
@@ -119,7 +119,7 @@ void main() {
     );
 
     expect(
-      commentSchema.fields!["content"],
+      commentSchema.fields["content"],
       ModelField(
         name: "content",
         type: const SchemaType.scalar(
@@ -141,14 +141,14 @@ void main() {
     }
      */
 
-    ModelSchema postSchema = Post.schema;
+    ModelTypeDefinition postSchema = Post.schema;
 
     expect(postSchema.name, "Post");
     expect(postSchema.pluralName, "Posts");
-    expect(postSchema.authRules, null);
+    expect(postSchema.authRules, isEmpty);
 
     expect(
-      postSchema.fields!["id"],
+      postSchema.fields["id"],
       ModelField(
         name: "id",
         type: const SchemaType.scalar(
@@ -159,7 +159,7 @@ void main() {
     );
 
     expect(
-      postSchema.fields!["title"],
+      postSchema.fields["title"],
       ModelField(
         name: "title",
         type: const SchemaType.scalar(
@@ -199,7 +199,7 @@ void main() {
     }
      */
 
-    ModelSchema postSchema = PostAuthComplex.schema;
+    ModelTypeDefinition postSchema = PostAuthComplex.schema;
 
     expect(postSchema.name, "PostAuthComplex");
     expect(postSchema.pluralName, "PostAuthComplexes");
@@ -288,10 +288,10 @@ void main() {
     final personSchema = Person.schema;
     expect(personSchema.name, 'Person');
     expect(personSchema.pluralName, 'People');
-    expect(personSchema.authRules, null);
-    expect(personSchema.fields is Map, true);
+    expect(personSchema.authRules, isEmpty);
+    expect(personSchema.fields, isNotEmpty);
 
-    final fields = personSchema.fields!;
+    final fields = personSchema.fields;
 
     fields.forEach((fieldName, field) {
       expect(field, expectedPersonFields[fieldName]);

@@ -96,8 +96,8 @@ class Phone {
 
   Map<String, dynamic> toJson() => {'country': _country, 'number': _number};
 
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "Phone";
     modelSchemaDefinition.pluralName = "Phones";
 

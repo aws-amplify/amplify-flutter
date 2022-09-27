@@ -15,7 +15,6 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_core/src/types/models/mipr.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
 import 'testData/ModelProvider.dart';
 
@@ -133,10 +132,10 @@ void main() {
     final contactSchema = Contact.schema;
     expect(contactSchema.name, 'Contact');
     expect(contactSchema.pluralName, 'Contacts');
-    expect(contactSchema.authRules, null);
-    expect(contactSchema.fields is Map, true);
+    expect(contactSchema.authRules, isEmpty);
+    expect(contactSchema.fields, isNotEmpty);
 
-    final fields = contactSchema.fields!;
+    final fields = contactSchema.fields;
 
     fields.forEach((fieldName, field) {
       expect(field, expectedContactFields[fieldName]);
@@ -147,10 +146,10 @@ void main() {
     final phoneSchema = Phone.schema;
     expect(phoneSchema.name, 'Phone');
     expect(phoneSchema.pluralName, 'Phones');
-    expect(phoneSchema.authRules, null);
-    expect(phoneSchema.fields is Map, true);
+    expect(phoneSchema.authRules, isEmpty);
+    expect(phoneSchema.fields, isNotEmpty);
 
-    final fields = phoneSchema.fields!;
+    final fields = phoneSchema.fields;
 
     fields.forEach((fieldName, field) {
       expect(field, expectedPhoneFields[fieldName]);
@@ -161,10 +160,10 @@ void main() {
     final addressSchema = Address.schema;
     expect(addressSchema.name, 'Address');
     expect(addressSchema.pluralName, 'Addresses');
-    expect(addressSchema.authRules, null);
-    expect(addressSchema.fields is Map, true);
+    expect(addressSchema.authRules, isEmpty);
+    expect(addressSchema.fields, isNotEmpty);
 
-    final fields = addressSchema.fields!;
+    final fields = addressSchema.fields;
 
     fields.forEach((fieldName, field) {
       expect(field, expectedAddressFields[fieldName]);

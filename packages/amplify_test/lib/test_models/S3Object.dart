@@ -142,8 +142,8 @@ class S3Object {
         'meta': _meta?.toJson()
       };
 
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "S3Object";
     modelSchemaDefinition.pluralName = "S3Objects";
 

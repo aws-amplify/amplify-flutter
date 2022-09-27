@@ -194,8 +194,8 @@ class Person extends Model {
   static final QueryField PROPERTIESADDRESSES =
       QueryField(fieldName: "propertiesAddresses");
   static final QueryField CONTACT = QueryField(fieldName: "contact");
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "Person";
     modelSchemaDefinition.pluralName = "People";
 

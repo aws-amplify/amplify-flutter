@@ -60,7 +60,7 @@ void main() {
         expect(
             modelSchemas,
             ModelProvider.instance.modelSchemas
-                .map((schema) => schema.toMap())
+                .map((schema) => schema.toJson())
                 .toList());
         expect(syncExpressions.map((expression) {
           // Ignore generated ID

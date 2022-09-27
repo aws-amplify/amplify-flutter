@@ -16,6 +16,8 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(ModelField.serializer)
       ..add(ModelIndex.serializer)
       ..add(ModelOperation.serializer)
+      ..add(ModelTypeDefinition.serializer)
+      ..add(NonModelTypeDefinition.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(AuthRule)]),
           () => new ListBuilder<AuthRule>())
@@ -25,6 +27,20 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltMap,
+              const [const FullType(String), const FullType(ModelField)]),
+          () => new MapBuilder<String, ModelField>())
+      ..addBuilderFactory(
+          const FullType(BuiltMap,
+              const [const FullType(String), const FullType(ModelField)]),
+          () => new MapBuilder<String, ModelField>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(AuthRule)]),
+          () => new ListBuilder<AuthRule>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(ModelIndex)]),
+          () => new ListBuilder<ModelIndex>())
       ..addBuilderFactory(
           const FullType(BuiltSet, const [const FullType(String)]),
           () => new SetBuilder<String>())

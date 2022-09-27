@@ -170,8 +170,8 @@ class ModelWithCustomType extends Model {
       QueryField(fieldName: "customTypeValue");
   static final QueryField LISTOFCUSTOMTYPEVALUE =
       QueryField(fieldName: "listOfCustomTypeValue");
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "ModelWithCustomType";
     modelSchemaDefinition.pluralName = "ModelWithCustomTypes";
 

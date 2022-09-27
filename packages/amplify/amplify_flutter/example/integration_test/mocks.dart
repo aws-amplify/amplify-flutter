@@ -46,18 +46,19 @@ class MockModelProvider extends ModelProviderInterface {
   String get version => '12345';
 
   @override
-  List<ModelSchema> get modelSchemas => [
-        ModelSchema(
+  List<ModelTypeDefinition> get modelSchemas => [
+        ModelTypeDefinition(
           name: 'MockModel',
           pluralName: 'MockModels',
           fields: {
             'id': ModelFieldDefinition.id().build(),
           },
+          indexes: [],
         )
       ];
 
   @override
-  List<ModelSchema> get customTypeSchemas => const [];
+  List<ModelTypeDefinition> get customTypeSchemas => const [];
 
   @override
   ModelType<Model> getModelTypeByModelName(String modelName) {

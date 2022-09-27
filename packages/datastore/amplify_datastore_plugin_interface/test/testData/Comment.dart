@@ -144,8 +144,8 @@ class Comment extends Model {
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (Post).toString()));
   static final QueryField CONTENT = QueryField(fieldName: "content");
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "Comment";
     modelSchemaDefinition.pluralName = "Comments";
 

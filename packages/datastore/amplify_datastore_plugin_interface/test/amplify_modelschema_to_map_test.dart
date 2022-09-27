@@ -20,8 +20,8 @@ import 'testData/ModelProvider.dart';
 
 void main() {
   test('Blog codegen model generates modelschema with proper fields', () async {
-    ModelSchema blogSchema = Blog.schema;
-    Map<String, dynamic> map = blogSchema.toMap();
+    ModelTypeDefinition blogSchema = Blog.schema;
+    Map<String, dynamic> map = blogSchema.toJson();
 
     expect(map, {
       'name': "Blog",
@@ -73,8 +73,8 @@ void main() {
 
   test('Comment codegen model generates modelschema with proper fields',
       () async {
-    ModelSchema commentSchema = Comment.schema;
-    Map<String, dynamic> map = commentSchema.toMap();
+    ModelTypeDefinition commentSchema = Comment.schema;
+    Map<String, dynamic> map = commentSchema.toJson();
 
     expect(map, {
       'name': 'Comment',
@@ -125,8 +125,8 @@ void main() {
   });
 
   test('Post codegen model generates modelschema with proper fields', () async {
-    ModelSchema postSchema = Post.schema;
-    Map<String, dynamic> map = postSchema.toMap();
+    ModelTypeDefinition postSchema = Post.schema;
+    Map<String, dynamic> map = postSchema.toJson();
 
     expect(map, {
       'name': 'Post',
@@ -211,8 +211,8 @@ void main() {
 
   test('PostAuthComplex codegen model generates modelschema with proper fields',
       () async {
-    ModelSchema postAuthComplexSchema = PostAuthComplex.schema;
-    Map<String, dynamic> map = postAuthComplexSchema.toMap();
+    ModelTypeDefinition postAuthComplexSchema = PostAuthComplex.schema;
+    Map<String, dynamic> map = postAuthComplexSchema.toJson();
 
     expect(map, {
       'name': 'PostAuthComplex',

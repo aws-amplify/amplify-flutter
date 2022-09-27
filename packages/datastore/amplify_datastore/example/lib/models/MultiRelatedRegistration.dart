@@ -178,8 +178,8 @@ class MultiRelatedRegistration extends Model {
       fieldName: "attendee",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (MultiRelatedAttendee).toString()));
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "MultiRelatedRegistration";
     modelSchemaDefinition.pluralName = "MultiRelatedRegistrations";
 

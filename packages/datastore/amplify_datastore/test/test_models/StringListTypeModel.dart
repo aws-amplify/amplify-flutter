@@ -86,8 +86,8 @@ class StringListTypeModel extends Model {
 
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField VALUE = QueryField(fieldName: "value");
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "StringListTypeModel";
     modelSchemaDefinition.pluralName = "StringListTypeModels";
 

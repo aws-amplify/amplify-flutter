@@ -214,8 +214,8 @@ class BelongsToParent extends Model {
       QueryField(fieldName: "belongsToParentImplicitChildId");
   static final QueryField BELONGSTOPARENTEXPLICITCHILDID =
       QueryField(fieldName: "belongsToParentExplicitChildId");
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "BelongsToParent";
     modelSchemaDefinition.pluralName = "BelongsToParents";
 

@@ -160,8 +160,8 @@ class PostTags extends Model {
       fieldName: "tag",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (Tag).toString()));
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(
+      define: (ModelTypeDefinitionBuilder modelSchemaDefinition) {
     modelSchemaDefinition.name = "PostTags";
     modelSchemaDefinition.pluralName = "PostTags";
 

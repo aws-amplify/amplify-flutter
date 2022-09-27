@@ -28,22 +28,22 @@ class _RelatedFields {
   _RelatedFields(this.singleFields, this.hasManyFields);
 }
 
-_RelatedFields _getRelatedFieldsUncached(ModelSchema modelSchema) {
-  final singleFields = modelSchema.fields!.values.where((field) =>
+_RelatedFields _getRelatedFieldsUncached(ModelTypeDefinition modelSchema) {
+  final singleFields = modelSchema.fields.values.where((field) =>
       field.association?.associationType == ModelAssociationType.hasOne ||
       field.association?.associationType == ModelAssociationType.belongsTo ||
       field.type.asLegacyType.fieldType == ModelFieldTypeEnum.embedded ||
       field.type.asLegacyType.fieldType ==
           ModelFieldTypeEnum.embeddedCollection);
-  final hasManyFields = modelSchema.fields!.values.where((field) =>
+  final hasManyFields = modelSchema.fields.values.where((field) =>
       field.association?.associationType == ModelAssociationType.hasMany);
 
   return _RelatedFields(singleFields, hasManyFields);
 }
 
-final _fieldsMemo = <ModelSchema, _RelatedFields>{};
+final _fieldsMemo = <ModelTypeDefinition, _RelatedFields>{};
 // cached to avoid repeat iterations over fields in schema to get related fields
-_RelatedFields _getRelatedFields(ModelSchema modelSchema) {
+_RelatedFields _getRelatedFields(ModelTypeDefinition modelSchema) {
   if (_fieldsMemo[modelSchema] != null) {
     return _fieldsMemo[modelSchema]!;
   }
@@ -52,13 +52,13 @@ _RelatedFields _getRelatedFields(ModelSchema modelSchema) {
   return _fieldsMemo[modelSchema]!;
 }
 
-ModelField? getBelongsToFieldFromModelSchema(ModelSchema modelSchema) {
+ModelField? getBelongsToFieldFromModelSchema(ModelTypeDefinition modelSchema) {
   return _getRelatedFields(modelSchema).singleFields.firstWhereOrNull((entry) =>
       entry.association?.associationType == ModelAssociationType.belongsTo);
 }
 
 /// Gets the modelSchema from provider that matches the name and validates its fields.
-ModelSchema getModelSchemaByModelName(
+ModelTypeDefinition getModelSchemaByModelName(
     String modelName, GraphQLRequestOperation? operation) {
   // ignore: invalid_use_of_protected_member
   final provider = Amplify.API.defaultPlugin.modelProvider;
@@ -78,7 +78,7 @@ ModelSchema getModelSchemaByModelName(
                     'instantiating APIPlugin or provide a valid ModelType',
               ));
 
-  if (schema.fields == null) {
+  if (schema.fields.isEmpty) {
     throw const ApiException(
       'Schema found does not have a fields property',
       recoverySuggestion: 'Pass in a valid modelProvider instance while '
@@ -101,7 +101,7 @@ ModelSchema getModelSchemaByModelName(
 /// 1) Look for a parent in the schema. If that parent exists in the JSON, transform it.
 /// 2) Look for list of children under [fieldName]["items"] and hoist up so no more ["items"].
 Map<String, dynamic> transformAppSyncJsonToModelJson(
-    Map<String, dynamic> input, ModelSchema modelSchema,
+    Map<String, dynamic> input, ModelTypeDefinition modelSchema,
     {bool isPaginated = false}) {
   input = <String, dynamic>{...input}; // avoid mutating original
 
