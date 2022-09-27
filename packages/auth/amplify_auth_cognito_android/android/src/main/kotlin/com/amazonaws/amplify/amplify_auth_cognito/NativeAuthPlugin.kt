@@ -20,6 +20,7 @@ import android.content.Context
 import android.content.Intent
 import aws.sdk.kotlin.runtime.auth.credentials.Credentials
 import aws.smithy.kotlin.runtime.time.Instant
+import com.amazonaws.amplify.amplify_auth_cognito.pigeons.NativeAuthPluginBindings
 import com.amplifyframework.auth.AuthCodeDeliveryDetails
 import com.amplifyframework.auth.AuthDevice
 import com.amplifyframework.auth.AuthException

@@ -18,6 +18,7 @@ package com.amazonaws.amplify.amplify_secure_storage.amplify_secure_storage
 
 import android.content.Context
 import androidx.annotation.NonNull
+import com.amazonaws.amplify.amplify_secure_storage.amplify_secure_storage.pigeons.Messages
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 

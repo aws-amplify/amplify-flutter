@@ -14,6 +14,7 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito
 
+import com.amazonaws.amplify.amplify_auth_cognito.pigeons.NativeAuthPluginBindings
 import io.flutter.Log
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch

@@ -18,4 +18,4 @@ pigeons_macos:
 	flutter format --fix lib/src/messages.cupertino.g.dart
 	# TODO(Jordan-Nelson): Remove when swift codegen in pigeon is no longer experimental.
 	# See: https://github.com/flutter/flutter/issues/73738#issuecomment-903927725
-	sed -i '' -e 's/\<Flutter\/Flutter\.h\>/\<FlutterMacOS\/FlutterMacOS\.h\>/' macos/Classes/Messages.m
+	sed -i '' -e 's/\<Flutter\/Flutter\.h\>/\<FlutterMacOS\/FlutterMacOS\.h\>/' macos/Classes/pigeons/Messages.m
