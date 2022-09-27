@@ -14,15 +14,17 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_core.storage.copy_result}
-/// Presents the result of a [StorageCopyOperation].
+/// {@template storage.amplify_storage_s3.move_options}
+/// The configurable parameters invoking Storage S3 plugin `copy`
+/// API.
 /// {@endtemplate}
-class StorageCopyResult<Item extends StorageItem> {
-  /// {@macro amplify_core.storage.copy_result}
-  const StorageCopyResult({
-    required this.copiedItem,
+class S3StorageMoveOptions extends StorageMoveOptions {
+  /// {@macro storage.amplify_storage_s3.move_options}
+  const S3StorageMoveOptions({
+    this.getProperties = false,
   });
 
-  /// The result object of the [StorageCopyOperation].
-  final Item copiedItem;
+  /// The flag that indicates whether to retrieve properties for the move
+  /// result object via the `getProperties` API.
+  final bool getProperties;
 }

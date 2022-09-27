@@ -31,8 +31,10 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     S3StorageGetUrlOptions,
     StorageUploadDataOperation,
     StorageUploadDataOptions,
-    StorageCopyOperation,
-    StorageMoveOperation,
+    S3StorageCopyOperation,
+    S3StorageCopyOptions,
+    S3StorageMoveOperation,
+    S3StorageMoveOptions,
     S3StorageRemoveOperation,
     S3StorageRemoveOptions,
     S3StorageRemoveManyOperation,
@@ -59,8 +61,10 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
       S3StorageGetUrlOptions,
       StorageUploadDataOperation,
       StorageUploadDataOptions,
-      StorageCopyOperation,
-      StorageMoveOperation,
+      S3StorageCopyOperation,
+      S3StorageCopyOptions,
+      S3StorageMoveOperation,
+      S3StorageMoveOptions,
       S3StorageRemoveOperation,
       S3StorageRemoveOptions,
       S3StorageRemoveManyOperation,
@@ -203,6 +207,42 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
   }
 
   @override
+  S3StorageCopyOperation copy({
+    required StorageCopyRequest request,
+  }) {
+    final source = request.source as S3StorageItemWithAccessLevel;
+    final destination = request.destination as S3StorageItemWithAccessLevel;
+    final s3Options = request.options as S3StorageCopyOptions?;
+
+    return S3StorageCopyOperation(
+      request: StorageCopyRequest(source: source, destination: destination),
+      result: _storageS3Service.copy(
+        source: source,
+        destination: destination,
+        options: s3Options ?? const S3StorageCopyOptions(),
+      ),
+    );
+  }
+
+  @override
+  S3StorageMoveOperation move({
+    required StorageMoveRequest request,
+  }) {
+    final source = request.source as S3StorageItemWithAccessLevel;
+    final destination = request.destination as S3StorageItemWithAccessLevel;
+    final s3Options = request.options as S3StorageMoveOptions?;
+
+    return S3StorageMoveOperation(
+      request: StorageMoveRequest(source: source, destination: destination),
+      result: _storageS3Service.move(
+        source: source,
+        destination: destination,
+        options: s3Options ?? const S3StorageMoveOptions(),
+      ),
+    );
+  }
+
+  @override
   S3StorageRemoveOperation remove({
     required StorageRemoveRequest request,
   }) {
@@ -261,8 +301,10 @@ class _AmplifyStorageS3DartPluginKey extends StoragePluginKey<
     S3StorageGetUrlOptions,
     StorageUploadDataOperation,
     StorageUploadDataOptions,
-    StorageCopyOperation,
-    StorageMoveOperation,
+    S3StorageCopyOperation,
+    S3StorageCopyOptions,
+    S3StorageMoveOperation,
+    S3StorageMoveOptions,
     S3StorageRemoveOperation,
     S3StorageRemoveOptions,
     S3StorageRemoveManyOperation,

@@ -20,9 +20,9 @@ import 'package:amplify_core/amplify_core.dart';
 class StorageMoveResult<Item extends StorageItem> {
   /// {@macro amplify_core.storage.move_result}
   const StorageMoveResult({
-    required this.storageItem,
+    required this.movedItem,
   });
 
   /// The result object of the [StorageCopyOperation].
-  final Item storageItem;
+  final Item movedItem;
 }

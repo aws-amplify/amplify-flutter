@@ -17,6 +17,7 @@ export '../exception/storage/storage_exception.dart';
 export 'access_level.dart';
 
 export 'copy_operation.dart';
+export 'copy_options.dart';
 export 'copy_request.dart';
 export 'copy_result.dart';
 
@@ -36,6 +37,7 @@ export 'list_request.dart';
 export 'list_result.dart';
 
 export 'move_operation.dart';
+export 'move_options.dart';
 export 'move_request.dart';
 export 'move_result.dart';
 

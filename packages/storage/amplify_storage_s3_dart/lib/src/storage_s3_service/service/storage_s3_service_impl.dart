@@ -74,8 +74,8 @@ class StorageS3Service {
   /// [s3.S3Client.listObjectsV2] API.
   ///
   /// {@template storage.s3_service.throw_exception_unknown_smithy_exception}
-  /// May throw [S3StorageException] based on [smithy.UnknownSmithyHttpException] if
-  /// any.
+  /// May throw [S3StorageException] based on
+  /// service returned [smithy.UnknownSmithyHttpException] if any.
   /// {@endtemplate}
   Future<S3StorageListResult> list({
     String? path,
@@ -108,8 +108,8 @@ class StorageS3Service {
 
   /// Takes in input from [AmplifyStorageS3Dart.getProperties] to compose a
   /// [s3.HeadObjectRequest] and send to S3 service, then returns a
-  /// [S3StorageGetPropertiesResult] based on [s3.HeadObjectOutput] returned by
-  /// [s3.S3Client.headObject] API.
+  /// [S3StorageGetPropertiesResult] based on the [s3.HeadObjectOutput] returned
+  /// by [s3.S3Client.headObject] API.
   ///
   /// {@macro storage.s3_service.throw_exception_unknown_smithy_exception}
   Future<S3StorageGetPropertiesResult> getProperties({
@@ -123,21 +123,15 @@ class StorageS3Service {
 
     final keyToGetProperties = '$resolvedPrefix$key';
 
-    final request = s3.HeadObjectRequest.build((builder) {
-      builder
-        ..bucket = _defaultBucket
-        ..key = keyToGetProperties;
-    });
-
-    try {
-      return S3StorageGetPropertiesResult.fromHeadObjectOutput(
-        await _defaultS3Client.headObject(request),
+    return S3StorageGetPropertiesResult(
+      storageItem: S3StorageItem.fromHeadObjectOutput(
+        await _headObject(
+          bucket: _defaultBucket,
+          key: keyToGetProperties,
+        ),
         key: key,
-      );
-    } on smithy.UnknownSmithyHttpException catch (error) {
-      // S3Client.headObject may return 403 or 404 error
-      throw S3StorageException.fromUnknownSmithyHttpException(error);
-    }
+      ),
+    );
   }
 
   /// Takes in input from [AmplifyStorageS3Dart.getUrl] to create a
@@ -189,6 +183,118 @@ class StorageS3Service {
     );
   }
 
+  /// Takes in input from [AmplifyStorageS3Dart.copy] to compose a
+  /// [s3.CopyObjectRequest] and send to S3 service to copy `source` to
+  /// `destination`, then returns a [S3StorageCopyResult] based on the `key` of
+  /// `destination`.
+  ///
+  /// When [S3StorageCopyOptions.getProperties] is set to `true`, when the
+  /// [s3.CopyObjectRequest] succeeds, the API creates a [s3.HeadObjectRequest]
+  /// with the `key` of the `destination`, and sends to S3 Service, then
+  /// returns a [S3StorageCopyResult] based on the [s3.HeadObjectOutput]
+  /// returned by [s3.S3Client.headObject] API.
+  ///
+  /// {@macro storage.s3_service.throw_exception_unknown_smithy_exception}
+  Future<S3StorageCopyResult> copy({
+    required S3StorageItemWithAccessLevel source,
+    required S3StorageItemWithAccessLevel destination,
+    required S3StorageCopyOptions options,
+  }) async {
+    final resolvedPrefixes = await Future.wait([
+      _getResolvedPrefix(
+        storageAccessLevel: source.storageAccessLevel,
+        identityId: source.targetIdentityId,
+      ),
+      _getResolvedPrefix(
+        storageAccessLevel: destination.storageAccessLevel,
+        identityId: destination.targetIdentityId,
+      )
+    ]);
+    final sourceKey = '${resolvedPrefixes[0]}${source.storageItem.key}';
+    final destinationKey =
+        '${resolvedPrefixes[1]}${destination.storageItem.key}';
+
+    final copyRequest = s3.CopyObjectRequest.build((builder) {
+      builder
+        ..bucket = _defaultBucket
+        ..copySource = '$_defaultBucket/$sourceKey'
+        ..key = destinationKey
+        ..metadataDirective = s3.MetadataDirective.copy;
+    });
+
+    try {
+      await _defaultS3Client.copyObject(copyRequest);
+    } on smithy.UnknownSmithyHttpException catch (error) {
+      // S3Client.copyObject may return 403 or 404 error
+      throw S3StorageException.fromUnknownSmithyHttpException(error);
+    }
+
+    return S3StorageCopyResult(
+      copiedItem: options.getProperties
+          ? S3StorageItem.fromHeadObjectOutput(
+              await _headObject(bucket: _defaultBucket, key: destinationKey),
+              key: destination.storageItem.key,
+            )
+          : S3StorageItem(key: destination.storageItem.key),
+    );
+  }
+
+  /// Takes in input from [AmplifyStorageS3Dart.move] to compose a
+  /// [s3.CopyObjectRequest] and send to S3 service to copy `source` to
+  /// `destination`, followed by a [s3.DeleteObjectRequest] to delete the
+  /// `source`, then returns a [S3StorageMoveResult] based on the `key` of
+  /// `destination`.
+  ///
+  /// When [S3StorageCopyOptions.getProperties] is set to `true`, when both
+  /// [s3.CopyObjectRequest] and [s3.DeleteObjectRequest] succeed, the API
+  /// creates a [s3.HeadObjectRequest] with the `key` of the `destination`,
+  /// and sends to S3 Service, then returns a [S3StorageCopyResult] based on
+  /// the [s3.HeadObjectOutput] returned by [s3.S3Client.headObject] API.
+  ///
+  /// {@macro storage.s3_service.throw_exception_unknown_smithy_exception}
+  Future<S3StorageMoveResult> move({
+    required S3StorageItemWithAccessLevel source,
+    required S3StorageItemWithAccessLevel destination,
+    required S3StorageMoveOptions options,
+  }) async {
+    late S3StorageCopyResult copyResult;
+
+    try {
+      copyResult = await copy(
+        source: source,
+        destination: destination,
+        options: S3StorageCopyOptions(
+          getProperties: options.getProperties,
+        ),
+      );
+    } on S3StorageException catch (error) {
+      throw S3StorageException(
+        'Copy the source object failed while moving it due to: ${error.message}',
+        recoverySuggestion: error.recoverySuggestion,
+        underlyingException: error.underlyingException,
+      );
+    }
+
+    final resolvedSourcePrefix = await _getResolvedPrefix(
+      storageAccessLevel: source.storageAccessLevel,
+      identityId: source.targetIdentityId,
+    );
+
+    final keyToRemove = '$resolvedSourcePrefix${source.storageItem.key}';
+
+    try {
+      await _deleteObject(bucket: _defaultBucket, key: keyToRemove);
+    } on S3StorageException catch (error) {
+      throw S3StorageException(
+        'Delete the source object failed while moving it due to: ${error.message}',
+        recoverySuggestion: error.recoverySuggestion,
+        underlyingException: error.underlyingException,
+      );
+    }
+
+    return S3StorageMoveResult(movedItem: copyResult.copiedItem);
+  }
+
   /// Takes in input from [AmplifyStorageS3Dart.remove] to compose a
   /// [s3.DeleteObjectRequest] and send to S3 service, then returns a
   /// [S3StorageRemoveResult] based on the `key` to be removed.
@@ -204,24 +310,11 @@ class StorageS3Service {
 
     final keyToRemove = '$resolvedPrefix$key';
 
-    final request = s3.DeleteObjectRequest.build((builder) {
-      builder
-        ..bucket = _defaultBucket
-        ..key = keyToRemove;
-    });
+    await _deleteObject(bucket: _defaultBucket, key: keyToRemove);
 
-    try {
-      // The current capability of the `remove` API doesn't require parsing
-      // the [DeleteObjectOutput] returned by [S3Client.deleteObject].
-      await _defaultS3Client.deleteObject(request);
-      return S3StorageRemoveResult(
-        removedItem: S3StorageItem(key: key),
-      );
-    } on smithy.UnknownSmithyHttpException catch (error) {
-      // S3Client.deleteObject may return 403, for deleting a non-existing
-      // object, the API call returns a successful response
-      throw S3StorageException.fromUnknownSmithyHttpException(error);
-    }
+    return S3StorageRemoveResult(
+      removedItem: S3StorageItem(key: key),
+    );
   }
 
   /// Takes in input from [AmplifyStorageS3Dart.removeMany] to compose a
@@ -288,6 +381,45 @@ class StorageS3Service {
       removedItems: removedItems,
       removeErrors: removedErrors,
     );
+  }
+
+  Future<s3.HeadObjectOutput> _headObject({
+    required String bucket,
+    required String key,
+  }) async {
+    final request = s3.HeadObjectRequest.build((builder) {
+      builder
+        ..bucket = bucket
+        ..key = key;
+    });
+
+    try {
+      return await _defaultS3Client.headObject(request);
+    } on smithy.UnknownSmithyHttpException catch (error) {
+      // S3Client.headObject may return 403 or 404 error
+      throw S3StorageException.fromUnknownSmithyHttpException(error);
+    }
+  }
+
+  Future<s3.DeleteObjectOutput> _deleteObject({
+    required String bucket,
+    required String key,
+  }) async {
+    final request = s3.DeleteObjectRequest.build((builder) {
+      builder
+        ..bucket = _defaultBucket
+        ..key = key;
+    });
+
+    try {
+      // The current capability of the `remove` API doesn't require parsing
+      // the [DeleteObjectOutput] returned by [S3Client.deleteObject].
+      return await _defaultS3Client.deleteObject(request);
+    } on smithy.UnknownSmithyHttpException catch (error) {
+      // S3Client.deleteObject may return 403, for deleting a non-existing
+      // object, the API call returns a successful response
+      throw S3StorageException.fromUnknownSmithyHttpException(error);
+    }
   }
 
   Future<String> _getResolvedPrefix({

@@ -14,8 +14,6 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
-import 'package:amplify_storage_s3_dart/src/sdk/s3.dart';
-import 'package:meta/meta.dart';
 
 /// {@template storage.amplify_storage_s3.list_result}
 /// The result returned by Storage S3 plugin `getProperties` API.
@@ -26,25 +24,4 @@ class S3StorageGetPropertiesResult
   const S3StorageGetPropertiesResult({
     required super.storageItem,
   });
-
-  /// Creates a [S3StorageGetPropertiesResult] from a [HeadObjectOutput]
-  /// provided by smithy.
-  ///
-  /// This named constructor should be used internally only.
-  @internal
-  factory S3StorageGetPropertiesResult.fromHeadObjectOutput(
-    HeadObjectOutput output, {
-    required String key,
-  }) {
-    return S3StorageGetPropertiesResult(
-      storageItem: S3StorageItem(
-        key: key,
-        lastModified: output.lastModified,
-        eTag: output.eTag,
-        metadata: output.metadata?.toMap() ?? <String, String>{},
-        versionId: output.versionId,
-        size: output.contentLength?.toInt(),
-      ),
-    );
-  }
 }
