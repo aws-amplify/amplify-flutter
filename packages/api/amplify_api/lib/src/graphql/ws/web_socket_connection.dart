@@ -21,7 +21,6 @@ import 'package:amplify_api/src/decorators/web_socket_auth_utils.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:web_socket_channel/status.dart' as status;
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -62,7 +61,7 @@ class WebSocketConnection implements Closeable {
       StreamController<ApiHubEvent>.broadcast();
   RestartableTimer? _timeoutTimer;
 
-  late http.Client _pingClient;
+  late AWSHttpClient _pingClient;
   Timer? _pingTimer;
   late Uri _pingUri;
   bool _hasNetwork = false;
@@ -113,12 +112,12 @@ class WebSocketConnection implements Closeable {
     required AmplifyLogger logger,
     GraphQLSubscriptionOptions? subscriptionOptions,
     @visibleForTesting WebSocketFactory? webSocketFactoryOverride,
-    @visibleForTesting http.Client? clientOverride,
+    @visibleForTesting AWSHttpClient? clientOverride,
     @visibleForTesting Connectivity? connectivityOverride,
   }) {
     _logger = logger;
     _subscriptionOptions = subscriptionOptions;
-    _pingClient = clientOverride ?? http.Client();
+    _pingClient = clientOverride ?? AWSHttpClient();
     _connectivityOverride = connectivityOverride;
     _webSocketFactoryOverride = webSocketFactoryOverride;
     _pingUri = Uri.parse(_config.endpoint).replace(path: 'ping');
@@ -293,8 +292,10 @@ class WebSocketConnection implements Closeable {
   }
 
   /// [GET] request on the configured AppSync url via the `/ping` endpoint
-  Future<http.Response> _getPollRequest() {
-    return _pingClient.get(_pingUri);
+  Future<AWSBaseHttpResponse> _getPollRequest() {
+    return AWSHttpRequest.get(
+      _pingUri,
+    ).send(_pingClient).response;
   }
 
   /// Clear variables used to track subscriptions and other helper variables

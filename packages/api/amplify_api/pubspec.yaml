@@ -21,7 +21,6 @@ dependencies:
   connectivity_plus: ^2.3.6
   flutter:
     sdk: flutter
-  http: ^0.13.4
   json_annotation: ^4.6.0
   meta: ^1.7.0
   plugin_platform_interface: ^2.0.0

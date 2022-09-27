@@ -17,11 +17,10 @@ import 'dart:convert';
 
 import 'package:amplify_api/src/graphql/ws/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/testing.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart' as http;
-import 'package:http/testing.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../util.dart';
@@ -72,16 +71,18 @@ void main() {
   }
 
   MockWebSocketConnection getWebSocketConnection() {
-    MockClient mockClient = MockClient((request) async {
-      return http.Response('healthy', 200);
+    final mockClient = MockAWSHttpClient((request) async {
+      return AWSHttpResponse(
+        statusCode: 200,
+        body: utf8.encode('healthy'),
+      );
     });
 
     fakePlatform = MockConnectivityPlatform();
     ConnectivityPlatform.instance = fakePlatform;
     connectivity = Connectivity();
 
-    GraphQLSubscriptionOptions subscriptionOptions =
-        const GraphQLSubscriptionOptions();
+    const subscriptionOptions = GraphQLSubscriptionOptions();
 
     connection = MockWebSocketConnection(
       testApiKeyConfig,
