@@ -150,11 +150,12 @@ void main() {
           await Amplify.DataStore.save(post);
         }
 
-        // assert initial snapshot has posts for blog1 only
-        var observeQueryItemStream = Amplify.DataStore.observeQuery(
+        final observeQueryItemStream = Amplify.DataStore.observeQuery(
           Post.classType,
-          where: Post.BLOG.eq(blog1.id),
+          where: Post.BLOG.eq(BlogModelIdentifier(id: blog1.id)),
         ).map((event) => event.items);
+
+        // assert initial snapshot has posts for blog1 only
         final firstSnapshot = await observeQueryItemStream.first;
         expect(firstSnapshot, orderedEquals(blog1Posts));
 

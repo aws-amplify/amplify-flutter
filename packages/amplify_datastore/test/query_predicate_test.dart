@@ -344,15 +344,31 @@ void main() {
       final post1 = Post(title: 'post 1', rating: 1, blog: blog1);
       final post2 = Post(title: 'post 2', rating: 1, blog: blog1);
       final post3 = Post(title: 'post 3', rating: 1, blog: blog2);
-      test('equals', () {
+
+      // TODO: remove when `getId()` is removed.
+      test('equals (id)', () {
         final testPredicate = Post.BLOG.eq(blog1.id);
         expect(testPredicate.evaluate(post1), isTrue);
         expect(testPredicate.evaluate(post2), isTrue);
         expect(testPredicate.evaluate(post3), isFalse);
       });
 
-      test('not equals', () {
+      // TODO: remove when `getId()` is removed.
+      test('not equals (id)', () {
         final testPredicate = Post.BLOG.ne(blog1.id);
+        expect(testPredicate.evaluate(post1), isFalse);
+        expect(testPredicate.evaluate(post2), isFalse);
+        expect(testPredicate.evaluate(post3), isTrue);
+      });
+      test('equals', () {
+        final testPredicate = Post.BLOG.eq(BlogModelIdentifier(id: blog1.id));
+        expect(testPredicate.evaluate(post1), isTrue);
+        expect(testPredicate.evaluate(post2), isTrue);
+        expect(testPredicate.evaluate(post3), isFalse);
+      });
+
+      test('not equals', () {
+        final testPredicate = Post.BLOG.ne(BlogModelIdentifier(id: blog1.id));
         expect(testPredicate.evaluate(post1), isFalse);
         expect(testPredicate.evaluate(post2), isFalse);
         expect(testPredicate.evaluate(post3), isTrue);
