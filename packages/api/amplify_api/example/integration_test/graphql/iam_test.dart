@@ -387,7 +387,7 @@ void main({bool useExistingTestUser = false}) {
                     'onEstablished should not be called during failed subscription',
                   ));
 
-          await expectLater(
+          expect(
             stream,
             emits(predicate<GraphQLResponse<String>>(
               (GraphQLResponse<String> response) =>
@@ -396,7 +396,10 @@ void main({bool useExistingTestUser = false}) {
             )),
           );
           // Cleanup.
-          await stream.listen((_) {}).cancel();
+          await stream.listen(null).cancel();
+          // Give AppSync a few seconds to send an error, which happens when
+          // canceling a failed subscription and throws if not handled correctly.
+          await Future<void>.delayed(const Duration(seconds: 3));
         });
       },
     );
