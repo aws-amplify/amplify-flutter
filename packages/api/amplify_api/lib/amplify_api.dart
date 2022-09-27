@@ -37,6 +37,7 @@ abstract class AmplifyAPI extends APIPluginInterface {
   }) =>
       AmplifyAPIDart(
         authProviders: authProviders,
+        baseHttpClient: baseHttpClient,
         modelProvider: modelProvider,
         subscriptionOptions: subscriptionOptions,
       );
