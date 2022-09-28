@@ -41,10 +41,21 @@ schema=${schema//$'\n'/}
 # create the request with the actual schema
 request="${requestTemplate/<SCHEMA_PLACEHOLDER>/$schema}"
 
+# Prevents CLI from running codegen locally on push/pull which causes runtime errors.
+CODEGEN="{\
+\"generateCode\":false,\
+\"codeLanguage\":\"dart\",\
+\"fileNamePattern\":\"lib/models/**/*.dart\",\
+\"generatedFileName\":\"API\",\
+\"generateDocs\":false\
+}"
+
 amplify init \
 --amplify $AMPLIFY \
 --frontend $FRONTEND \
 --providers $PROVIDERS \
 --yes
 echo "$request" | jq -c | amplify add api --headless
-amplify push --yes
+amplify push \
+--codegen $CODEGEN \
+--yes

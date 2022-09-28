@@ -8,6 +8,7 @@ fi
 DEFAULT_DEVICE_ID="sdk"
 DEFAULT_ENABLE_CLOUD_SYNC="true"
 DEFAULT_RETRIES=0
+DEFAULT_SMALL="false"
 
 while [ $# -gt 0 ]; do
     case "$1" in
@@ -35,6 +36,7 @@ done
 deviceId=${deviceId:-$DEFAULT_DEVICE_ID}
 enableCloudSync=${enableCloudSync:-$DEFAULT_ENABLE_CLOUD_SYNC}
 retries=${retries:-$DEFAULT_RETRIES}
+small=${small:-$DEFAULT_SMALL}
 
 declare -a testsList
 declare -a resultsList
@@ -70,6 +72,12 @@ do
 done
 
 TEST_ENTRIES="integration_test/separate_integration_tests/*.dart"
+# For small option (summarized) just test basic cloud operation.
+if [ $small == "true" ]
+then
+  TEST_ENTRIES="integration_test/separate_integration_tests/basic_model_operation_test.dart"
+fi
+
 for ENTRY in $TEST_ENTRIES; do
     if [ ! -f "${ENTRY}" ]; then
         continue
