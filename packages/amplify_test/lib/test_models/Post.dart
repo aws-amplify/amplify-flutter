@@ -100,6 +100,27 @@ class Post extends Model {
     return _updatedAt;
   }
 
+  // TODO(Jordan-Nelson): Remove at next major version bump.
+  // This was added manually so that Post can be extended in tests.
+  const Post.internal(
+      {required this.id,
+      required title,
+      required rating,
+      created,
+      likeCount,
+      blog,
+      comments,
+      createdAt,
+      updatedAt})
+      : _title = title,
+        _rating = rating,
+        _created = created,
+        _likeCount = likeCount,
+        _blog = blog,
+        _comments = comments,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
+
   const Post._internal(
       {required this.id,
       required title,

@@ -40,7 +40,17 @@ abstract class QueryFieldOperator<T> {
 
   const QueryFieldOperator(this.type);
 
+  /// Evaluates this QueryFieldOperator against [other],
+  /// where [other] is a field on the model.
   bool evaluate(T? other);
+
+  /// Similar to `evaluate`, except `other` should be the
+  /// *serialized* value of a field on the model.
+  ///
+  /// This should be used to support comparisons with models
+  /// that were generated prior to `toMap()` being added.
+  @Deprecated('To be removed in next major release')
+  bool evaluateSerialized(T? other);
 
   Map<String, dynamic> serializeAsMap();
 
@@ -112,7 +122,20 @@ class EqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
         return value == other.getId();
       }
     }
-    return other == value;
+
+    return value == other;
+  }
+
+  @override
+  bool evaluateSerialized(T? other) {
+    // if `other` is a Map and has an "id" field, the query predicate is on a
+    // nested model, such as `Post.BLOG.eq(myBlog.modelIdentifier))`,
+    // and the value should be compared against the model ID.
+    if (other is Map && other['id'] != null && value is String) {
+      return value == other['id'];
+    }
+    dynamic serializedValue = serializeDynamicValue(value);
+    return other == serializedValue;
   }
 }
 
@@ -124,6 +147,13 @@ class EqualModelIdentifierQueryOperator<T extends ModelIdentifier>
   @override
   bool evaluate(T? other) {
     return other == value;
+  }
+
+  @override
+  bool evaluateSerialized(T? other) {
+    throw UnimplementedError(
+      'evaluateSerialized is not implemented for EqualModelIdentifierQueryOperator',
+    );
   }
 
   @override
@@ -153,6 +183,18 @@ class NotEqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
     }
     return other != value;
   }
+
+  @override
+  bool evaluateSerialized(T? other) {
+    // if `other` is a Map and has an "id" field, the query predicate is on a
+    // nested model, such as `Post.BLOG.eq(myBlog.modelIdentifier))`,
+    // and the value should be compared against the model ID.
+    if (other is Map && other['id'] != null && value is String) {
+      return value != other['id'];
+    }
+    dynamic serializedValue = serializeDynamicValue(value);
+    return other != serializedValue;
+  }
 }
 
 class NotEqualModelIdentifierQueryOperator<T extends ModelIdentifier>
@@ -163,6 +205,13 @@ class NotEqualModelIdentifierQueryOperator<T extends ModelIdentifier>
   @override
   bool evaluate(T? other) {
     return other != value;
+  }
+
+  @override
+  bool evaluateSerialized(T? other) {
+    throw UnimplementedError(
+      'evaluateSerialized is not implemented for NotEqualModelIdentifierQueryOperator',
+    );
   }
 
   @override
@@ -183,6 +232,15 @@ class LessOrEqualQueryOperator<T extends Comparable>
     }
     return other.compareTo(value) <= 0;
   }
+
+  @override
+  bool evaluateSerialized(T? other) {
+    if (other == null) {
+      return false;
+    }
+    dynamic serializedValue = serializeDynamicValue(value);
+    return other.compareTo(serializedValue) <= 0;
+  }
 }
 
 class LessThanQueryOperator<T extends Comparable>
@@ -196,6 +254,15 @@ class LessThanQueryOperator<T extends Comparable>
       return false;
     }
     return other.compareTo(value) < 0;
+  }
+
+  @override
+  bool evaluateSerialized(T? other) {
+    if (other == null) {
+      return false;
+    }
+    dynamic serializedValue = serializeDynamicValue(value);
+    return other.compareTo(serializedValue) < 0;
   }
 }
 
@@ -211,6 +278,15 @@ class GreaterOrEqualQueryOperator<T extends Comparable>
     }
     return other.compareTo(value) >= 0;
   }
+
+  @override
+  bool evaluateSerialized(T? other) {
+    if (other == null) {
+      return false;
+    }
+    dynamic serializedValue = serializeDynamicValue(value);
+    return other.compareTo(serializedValue) >= 0;
+  }
 }
 
 class GreaterThanQueryOperator<T extends Comparable>
@@ -224,6 +300,15 @@ class GreaterThanQueryOperator<T extends Comparable>
       return false;
     }
     return other.compareTo(value) > 0;
+  }
+
+  @override
+  bool evaluateSerialized(T? other) {
+    if (other == null) {
+      return false;
+    }
+    dynamic serializedValue = serializeDynamicValue(value);
+    return other.compareTo(serializedValue) > 0;
   }
 }
 
@@ -246,6 +331,9 @@ class ContainsQueryOperator extends QueryFieldOperatorSingleValue<String> {
       );
     }
   }
+
+  @override
+  bool evaluateSerialized(dynamic other) => evaluate(other);
 }
 
 class BetweenQueryOperator<T extends Comparable> extends QueryFieldOperator<T> {
@@ -261,6 +349,17 @@ class BetweenQueryOperator<T extends Comparable> extends QueryFieldOperator<T> {
       return false;
     }
     return other.compareTo(start) >= 0 && other.compareTo(end) <= 0;
+  }
+
+  @override
+  bool evaluateSerialized(T? other) {
+    if (other == null) {
+      return false;
+    }
+    dynamic serializedStart = serializeDynamicValue(start);
+    dynamic serializedEnd = serializeDynamicValue(end);
+    return other.compareTo(serializedStart) >= 0 &&
+        other.compareTo(serializedEnd) <= 0;
   }
 
   @override
@@ -284,4 +383,7 @@ class BeginsWithQueryOperator extends QueryFieldOperatorSingleValue<String> {
     }
     return other.startsWith(value);
   }
+
+  @override
+  bool evaluateSerialized(dynamic other) => evaluate(other);
 }

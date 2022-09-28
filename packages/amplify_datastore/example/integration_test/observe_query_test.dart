@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:io';
+
 import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -195,7 +197,8 @@ void main() {
         await Amplify.DataStore.save(blog2NewPosts[1]);
         await Amplify.DataStore.save(blog1NewPosts[1].copyWith(blog: blog2));
       },
-      timeout: Timeout(Duration(seconds: 30)),
+      // See: https://github.com/aws-amplify/amplify-flutter/issues/2183
+      skip: Platform.isAndroid,
     );
 
     testWidgets('should respect sort orders', (WidgetTester tester) async {
