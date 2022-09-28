@@ -39,6 +39,10 @@ runs:
         DATASTORE_APP_ID=${{ inputs.datastore-app-id }} \
         STORAGE_APP_ID=${{ inputs.storage-app-id }} \
           melos exec --scope=${{ inputs.scope }} ./tool/pull_test_backend.sh
+
+    - name: Undo any codegen changes from amplify pull
+      run: |    
+        melos exec --scope=${{ inputs.scope }} git checkout lib/models/
       shell: bash
 
     - name: Delete AWS profile
