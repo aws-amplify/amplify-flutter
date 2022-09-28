@@ -65,7 +65,12 @@ Future<void> testCloudSyncedModelOperation<R extends Model, A extends Model>({
             var model = event.element.model;
 
             if (model is R) {
-              return model.modelIdentifier == rootModel.modelIdentifier &&
+              // When feature flag no longer needed for custom primary key, this
+              // can be returned to `.modelIdentifier`. In CI, `amplify pull` runs
+              // codegen which leaves `.modelIdentifier` undefined.
+
+              // ignore: deprecated_member_use
+              return model.getId() == rootModel.getId() &&
                   event.element.version == expectedRootModelVersion;
             }
 
