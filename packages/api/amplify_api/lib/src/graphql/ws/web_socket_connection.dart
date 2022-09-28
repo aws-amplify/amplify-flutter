@@ -85,7 +85,7 @@ class WebSocketConnection implements Closeable {
       StreamController<ApiHubEvent>.broadcast();
   RestartableTimer? _timeoutTimer;
 
-  late AWSHttpClient? _pingClient;
+  late AWSHttpClient? _pingClient = httpClientOverride ?? AWSHttpClient();
   Timer? _pingTimer;
   late Uri _pingUri;
   bool _hasNetwork = false;
