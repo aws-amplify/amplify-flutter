@@ -13,11 +13,12 @@
 // limitations under the License.
 
 import 'dart:async';
-
 import 'dart:collection';
 import 'dart:convert';
 
 import 'package:amplify_api/src/decorators/web_socket_auth_utils.dart';
+import 'package:amplify_api/src/graphql/ws/web_socket_message_stream_transformer.dart';
+import 'package:amplify_api/src/graphql/ws/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -25,14 +26,13 @@ import 'package:meta/meta.dart';
 import 'package:web_socket_channel/status.dart' as status;
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-import 'web_socket_message_stream_transformer.dart';
-import 'web_socket_types.dart';
-
 /// 1001, going away
 const _defaultCloseStatus = status.goingAway;
 const Duration _defaultPingInterval = Duration(seconds: 30);
 const Duration _defaultRetryTimeout = Duration(seconds: 5);
 
+/// Exposed WebSocketChannel hook used in testing.
+@visibleForTesting
 typedef WebSocketFactory = WebSocketChannel Function(Uri connectionUri);
 
 /// {@template amplify_api.ws.web_socket_connection}
@@ -40,6 +40,21 @@ typedef WebSocketFactory = WebSocketChannel Function(Uri connectionUri);
 /// {@endtemplate}
 @internal
 class WebSocketConnection implements Closeable {
+  /// {@macro amplify_api.ws.web_socket_connection}
+  WebSocketConnection(
+    this._config,
+    this._authProviderRepo, {
+    required AmplifyLogger logger,
+    GraphQLSubscriptionOptions? subscriptionOptions,
+  }) {
+    _logger = logger;
+    _subscriptionOptions = subscriptionOptions;
+    _pingUri = Uri.parse(_config.endpoint).replace(path: 'ping');
+
+    // Establish HubEvents Stream
+    Amplify.Hub.addChannel(HubChannel.Api, _hubEventsController.stream);
+  }
+
   /// Allowed protocols for this connection.
   static const webSocketProtocols = ['graphql-ws'];
   late final AmplifyLogger _logger;
@@ -49,11 +64,20 @@ class WebSocketConnection implements Closeable {
   final AmplifyAuthProviderRepository _authProviderRepo;
   final AWSApiConfig _config;
 
-  // Manages all incoming messages from server. Primarily handles messages related
-  // to the entire connection. E.g. connection_ack, connection_error, ka, error.
-  // Other events (for single subscriptions) rebroadcast to rebroadcastController.
+  /// Manages all incoming messages from server. Primarily handles messages related
+  /// to the entire connection. E.g. connection_ack, connection_error, ka, error.
+  /// Other events (for single subscriptions) rebroadcast to rebroadcastController.
+  WebSocketChannel? _channel;
+
+  /// Expose Channel for testing
   @visibleForTesting
-  WebSocketChannel? channel;
+  WebSocketChannel? get channel => _channel;
+
+  @visibleForTesting
+  set stateMachine(WebSocketChannel? channel) {
+    _isTesting();
+    _channel = channel;
+  }
 
   StreamSubscription<WebSocketMessage>? _subscription;
   StreamSubscription<ConnectivityResult>? _network;
@@ -61,7 +85,7 @@ class WebSocketConnection implements Closeable {
       StreamController<ApiHubEvent>.broadcast();
   RestartableTimer? _timeoutTimer;
 
-  late AWSHttpClient _pingClient;
+  late AWSHttpClient? _pingClient;
   Timer? _pingTimer;
   late Uri _pingUri;
   bool _hasNetwork = false;
@@ -73,12 +97,55 @@ class WebSocketConnection implements Closeable {
 
   /// Subscription options
   late final GraphQLSubscriptionOptions? _subscriptionOptions;
-  final Duration _defaultPingInterval = const Duration(seconds: 30);
-  final Duration _defaultRetryTimeout = const Duration(seconds: 5);
 
-  // Overrides
-  late final Connectivity? _connectivityOverride;
-  late final WebSocketFactory? _webSocketFactoryOverride;
+  static void _isTesting() {
+    if (!zAssertsEnabled) throw StateError('Can only be called in tests');
+  }
+
+  /// Overrides
+  static AWSHttpClient? _httpClientOverride;
+  static Connectivity? _connectivityOverride;
+  static WebSocketFactory? _webSocketFactoryOverride;
+
+  /// The underlying connectivity object getter, for use in testing.
+  @visibleForTesting
+  static AWSHttpClient? get httpClientOverride => _httpClientOverride;
+
+  /// The underlying connectivity object setter, for use in testing.
+  @visibleForTesting
+  static set httpClientOverride(
+    AWSHttpClient? httpClientOverride,
+  ) {
+    _isTesting();
+    _httpClientOverride = httpClientOverride;
+  }
+
+  /// The underlying connectivity object getter, for use in testing.
+  @visibleForTesting
+  static Connectivity? get connectivityOverride => _connectivityOverride;
+
+  /// The underlying connectivity object setter, for use in testing.
+  @visibleForTesting
+  static set connectivityOverride(
+    Connectivity? connectivityOverride,
+  ) {
+    _isTesting();
+    _connectivityOverride = connectivityOverride;
+  }
+
+  /// The underlying web socket getter, for use in testing.
+  @visibleForTesting
+  static WebSocketFactory? get webSocketFactoryOverride =>
+      _webSocketFactoryOverride;
+
+  /// The underlying web socket setter, for use in testing.
+  @visibleForTesting
+  static set webSocketFactoryOverride(
+    WebSocketFactory? webSocketFactoryOverride,
+  ) {
+    _isTesting();
+    _webSocketFactoryOverride = webSocketFactoryOverride;
+  }
 
   /// Re-broadcasts incoming messages for child streams (single GraphQL subscriptions).
   /// start_ack, data, error
@@ -105,31 +172,11 @@ class WebSocketConnection implements Closeable {
   @visibleForTesting
   Future<void> get connectionStart => _connectionStart.future;
 
-  /// {@macro amplify_api.ws.web_socket_connection}
-  WebSocketConnection(
-    this._config,
-    this._authProviderRepo, {
-    required AmplifyLogger logger,
-    GraphQLSubscriptionOptions? subscriptionOptions,
-    @visibleForTesting WebSocketFactory? webSocketFactoryOverride,
-    @visibleForTesting AWSHttpClient? clientOverride,
-    @visibleForTesting Connectivity? connectivityOverride,
-  }) {
-    _logger = logger;
-    _subscriptionOptions = subscriptionOptions;
-    _pingClient = clientOverride ?? AWSHttpClient();
-    _connectivityOverride = connectivityOverride;
-    _webSocketFactoryOverride = webSocketFactoryOverride;
-    _pingUri = Uri.parse(_config.endpoint).replace(path: 'ping');
-
-    // Establish HubEvents Stream
-    Amplify.Hub.addChannel(HubChannel.Api, _hubEventsController.stream);
-  }
-
   /// Connects _subscription stream to _onData handler.
   @visibleForTesting
   StreamSubscription<WebSocketMessage> getStreamSubscription(
-      Stream<dynamic> stream) {
+    Stream<dynamic> stream,
+  ) {
     return stream.transform(const WebSocketMessageStreamTransformer()).listen(
       _onData,
       onDone: () {
@@ -140,7 +187,7 @@ class WebSocketConnection implements Closeable {
       },
       onError: (Object e, StackTrace st) {
         if (_hasNetwork && _subscriptionRequests.isNotEmpty) {
-          _retry();
+          _reEstablishConnection();
         } else {
           _hubEventsController.add(SubscriptionHubEvent.failed());
           _connectionError(
@@ -168,7 +215,7 @@ class WebSocketConnection implements Closeable {
         case ConnectivityResult.wifi:
           _hasNetwork = true;
           // only reconnect if connection was lost
-          if (_hasConnectionBroken) _retry();
+          if (_hasConnectionBroken) await _reEstablishConnection();
           break;
         case ConnectivityResult.none:
           _hasNetwork = false;
@@ -181,16 +228,16 @@ class WebSocketConnection implements Closeable {
     });
   }
 
-  /// Connects WebSocket channel to _subscription stream but does not send connection
+  /// Connects WebSocket _channel to _subscription stream but does not send connection
   /// init message.
   @visibleForTesting
   Future<void> connect(Uri connectionUri) async {
-    channel = _webSocketFactoryOverride?.call(connectionUri) ??
+    _channel = _webSocketFactoryOverride?.call(connectionUri) ??
         WebSocketChannel.connect(
           connectionUri,
           protocols: webSocketProtocols,
         );
-    _subscription = getStreamSubscription(channel!.stream);
+    _subscription = getStreamSubscription(_channel!.stream);
     _network = getStreamNetwork();
   }
 
@@ -198,7 +245,7 @@ class WebSocketConnection implements Closeable {
     if (!_connectionReady.isCompleted) {
       _connectionReady.completeError(exception);
     }
-    channel?.sink.close();
+    _channel?.sink.close();
     _resetConnectionInit();
     _resetConnectionVariables();
   }
@@ -219,7 +266,7 @@ class WebSocketConnection implements Closeable {
     _resetConnectionVariables(closeStatus);
 
     _subscriptionRequests.clear();
-    _pingClient.close();
+    _pingClient?.close();
   }
 
   /// Initiate polling
@@ -236,7 +283,8 @@ class WebSocketConnection implements Closeable {
   Future<void> _poll() async {
     try {
       final res = await _getPollRequest();
-      if (res.body != 'healthy') {
+      final body = await utf8.decodeStream(res.body);
+      if (body != 'healthy') {
         throw ApiException(
           'Subscription connection broken. AppSync status check returned: ${res.body}',
           recoverySuggestion:
@@ -255,7 +303,7 @@ class WebSocketConnection implements Closeable {
 
       // only try to recover if network is turned on
       if (_hasNetwork) {
-        _retry();
+        await _reEstablishConnection();
       } else {
         _hubEventsController.add(SubscriptionHubEvent.connecting());
       }
@@ -264,8 +312,8 @@ class WebSocketConnection implements Closeable {
 
   /// Attempts to connect to the configured graphql endpoint.
   /// Upon successful ping, a new websocket connection is initialized.
-  Future<void> _retry() async {
-    RetryOptions retryStrategy =
+  Future<void> _reEstablishConnection() async {
+    final retryStrategy =
         _subscriptionOptions?.retryOptions ?? const RetryOptions();
 
     try {
@@ -273,25 +321,27 @@ class WebSocketConnection implements Closeable {
       _hubEventsController.add(SubscriptionHubEvent.connecting());
 
       await retryStrategy.retry(
-          // Make a GET request
-          () => _getPollRequest().timeout(_defaultRetryTimeout));
+        // Make a GET request
+        () => _getPollRequest().timeout(_defaultRetryTimeout),
+      );
 
       // we can reach AppSync, precede with reconnect
-      _init();
+      await _init();
     } on Exception catch (e) {
       // no network, can't reconnect
       _hubEventsController.add(SubscriptionHubEvent.disconnected());
       close();
       _connectionError(
         ApiException(
-            'Unable to recover network connection, web socket will close.',
-            recoverySuggestion: 'Check internet connection.',
-            underlyingException: e),
+          'Unable to recover network connection, web socket will close.',
+          recoverySuggestion: 'Check internet connection.',
+          underlyingException: e,
+        ),
       );
     }
   }
 
-  /// [GET] request on the configured AppSync url via the `/ping` endpoint
+  /// GET request on the configured AppSync url via the `/ping` endpoint
   Future<AWSBaseHttpResponse> _getPollRequest() {
     return AWSHttpRequest.get(
       _pingUri,
@@ -304,17 +354,19 @@ class WebSocketConnection implements Closeable {
     final reason =
         closeStatus == _defaultCloseStatus ? 'client closed' : 'unknown';
 
-    channel?.sink.done.whenComplete(() {
+    _channel?.sink.done.whenComplete(() {
       _network?.cancel();
       _subscription?.cancel();
       _timeoutTimer?.cancel();
+      _pingTimer?.cancel();
 
-      channel = null;
+      _channel = null;
       _network = null;
       _subscription = null;
       _timeoutTimer = null;
+      _pingTimer = null;
     });
-    channel?.sink.close(closeStatus, reason);
+    _channel?.sink.close(closeStatus, reason);
   }
 
   /// Initializes the connection.
@@ -342,14 +394,20 @@ class WebSocketConnection implements Closeable {
 
     await ready;
 
+    _pingClient ??= httpClientOverride ?? AWSHttpClient();
+
     // connection ready, start polling
     _startPolling();
 
     // resubscribe to previous subscriptions
-    for (var req in _subscriptionRequests) {
+    for (final req in _subscriptionRequests) {
       final subscriptionRegistrationMessage =
-          await generateSubscriptionRegistrationMessage(_config,
-              id: req.id, authRepo: _authProviderRepo, request: req);
+          await generateSubscriptionRegistrationMessage(
+        _config,
+        id: req.id,
+        authRepo: _authProviderRepo,
+        request: req,
+      );
       send(subscriptionRegistrationMessage);
     }
 
@@ -357,7 +415,8 @@ class WebSocketConnection implements Closeable {
   }
 
   Future<void> _sendSubscriptionRegistrationMessage<T>(
-      GraphQLRequest<T> request) async {
+    GraphQLRequest<T> request,
+  ) async {
     await init(); // no-op if already connected
     final subscriptionRegistrationMessage =
         await generateSubscriptionRegistrationMessage(
@@ -389,11 +448,13 @@ class WebSocketConnection implements Closeable {
     // stream with messages converted to GraphQLResponse<T>.
     _messageStream
         .where((msg) => msg.id == request.id)
-        .transform(WebSocketSubscriptionStreamTransformer(
-          request,
-          onEstablished,
-          logger: _logger,
-        ))
+        .transform(
+          WebSocketSubscriptionStreamTransformer(
+            request,
+            onEstablished,
+            logger: _logger,
+          ),
+        )
         .listen(
           controller.add,
           onError: controller.addError,
@@ -417,11 +478,11 @@ class WebSocketConnection implements Closeable {
     // if (_subscriptionRequests.isEmpty) close(status.normalClosure);
   }
 
-  /// Serializes a message as JSON string and sends over WebSocket channel.
+  /// Serializes a message as JSON string and sends over WebSocket _channel.
   @visibleForTesting
   void send(WebSocketMessage message) {
     final msgJson = json.encode(message.toJson());
-    channel?.sink.add(msgJson);
+    _channel?.sink.add(msgJson);
   }
 
   /// Times out the connection (usually if a keep alive has not been received in time).
@@ -442,8 +503,7 @@ class WebSocketConnection implements Closeable {
   /// Here, handle connection-wide messages and pass subscription events to
   /// `rebroadcastController`.
   void _onData(WebSocketMessage message) {
-    // _logger.verbose('websocket received message: ${prettyPrintJson(message)}');
-    print('onData: $message');
+    _logger.verbose('websocket received message: ${prettyPrintJson(message)}');
     switch (message.messageType) {
       case MessageType.connectionAck:
         final messageAck = message.payload as ConnectionAckMessagePayload;
@@ -458,8 +518,11 @@ class WebSocketConnection implements Closeable {
         _logger.verbose('Connection established. Registered timer');
         return;
       case MessageType.connectionError:
-        _connectionError(const ApiException(
-            'Error occurred while connecting to the websocket'));
+        _connectionError(
+          const ApiException(
+            'Error occurred while connecting to the websocket',
+          ),
+        );
         return;
       case MessageType.keepAlive:
         _timeoutTimer?.reset();

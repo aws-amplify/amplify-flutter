@@ -32,6 +32,17 @@ import 'package:meta/meta.dart';
 /// The AWS implementation of the Amplify API category.
 /// {@endtemplate}
 class AmplifyAPIDart extends AmplifyAPI {
+  /// {@macro amplify_api.amplify_api_dart}
+  AmplifyAPIDart({
+    List<APIAuthProvider> authProviders = const [],
+    AWSHttpClient? baseHttpClient,
+    this.modelProvider,
+    this.subscriptionOptions,
+  })  : _baseHttpClient = baseHttpClient,
+        super.protected() {
+    authProviders.forEach(registerAuthProvider);
+  }
+
   late final AWSApiPluginConfig _apiConfig;
   final AWSHttpClient? _baseHttpClient;
   late final AmplifyAuthProviderRepository _authProviderRepo;
@@ -50,17 +61,6 @@ class AmplifyAPIDart extends AmplifyAPI {
 
   /// Subscription options
   final GraphQLSubscriptionOptions? subscriptionOptions;
-
-  /// {@macro amplify_api.amplify_api_dart}
-  AmplifyAPIDart({
-    List<APIAuthProvider> authProviders = const [],
-    AWSHttpClient? baseHttpClient,
-    this.modelProvider,
-    this.subscriptionOptions,
-  })  : _baseHttpClient = baseHttpClient,
-        super.protected() {
-    authProviders.forEach(registerAuthProvider);
-  }
 
   @override
   Future<void> configure({
@@ -126,9 +126,10 @@ class AmplifyAPIDart extends AmplifyAPI {
       if (e.code == 'AmplifyAlreadyConfiguredException' ||
           e.code == 'AlreadyConfiguredException') {
         throw const AmplifyAlreadyConfiguredException(
-            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
-            recoverySuggestion:
-                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion);
+          AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+          recoverySuggestion:
+              AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion,
+        );
       }
       throw AmplifyException.fromMap((e.details as Map).cast());
     }

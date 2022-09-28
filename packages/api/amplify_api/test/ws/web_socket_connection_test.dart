@@ -15,13 +15,12 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_api/src/graphql/ws/web_socket_types.dart';
+import 'package:amplify_api/src/graphql/ws/web_socket_connection.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_common/testing.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../util.dart';
 
@@ -45,11 +44,6 @@ void main() {
   }''';
   final subscriptionRequest = GraphQLRequest<String>(document: graphQLDocument);
 
-  final startAck = WebSocketMessage(
-    messageType: MessageType.startAck,
-    id: subscriptionRequest.id,
-  );
-
   final mockSubscriptionData = {
     'onCreateBlog': {
       'id': '<blog id>',
@@ -66,58 +60,44 @@ void main() {
     },
   };
 
-  WebSocketChannel getWebSocketChannel(Uri uri) {
-    return MockWebSocketChannel();
-  }
+  final mockClient = MockAWSHttpClient((request) async {
+    return AWSHttpResponse(
+      statusCode: 200,
+      body: utf8.encode('healthy'),
+    );
+  });
 
   MockWebSocketConnection getWebSocketConnection() {
-    final mockClient = MockAWSHttpClient((request) async {
-      return AWSHttpResponse(
-        statusCode: 200,
-        body: utf8.encode('healthy'),
-      );
-    });
-
-    fakePlatform = MockConnectivityPlatform();
-    ConnectivityPlatform.instance = fakePlatform;
-    connectivity = Connectivity();
-
     const subscriptionOptions = GraphQLSubscriptionOptions();
 
-    connection = MockWebSocketConnection(
+    return connection = MockWebSocketConnection(
       testApiKeyConfig,
       getTestAuthProviderRepo(),
       subscriptionOptions: subscriptionOptions,
-      connectivityOverride: connectivity,
-      clientOverride: mockClient,
-      webSocketFactoryOverride: getWebSocketChannel,
       logger: AmplifyLogger(),
     );
-
-    return connection;
-  }
-
-  Future<void> assertConnected() async {
-    await expectLater(connection.connectionPending, completes);
-
-    connection.channel!.sink.add(jsonEncode(mockAckMessage));
-
-    await expectLater(connection.ready, completes);
-
-    connection.channel!.sink.add(jsonEncode(startAck));
   }
 
   group('WebSocketConnection', () {
     setUp(() {
-      // hubEventsController = StreamController();
-      // hubEvents = hubEventsController.stream;
-      // Amplify.Hub.listen(HubChannel.Api, hubEventsController.add);
+      fakePlatform = MockConnectivityPlatform();
+      ConnectivityPlatform.instance = fakePlatform;
+      connectivity = Connectivity();
+
+      WebSocketConnection.httpClientOverride = mockClient;
+      WebSocketConnection.connectivityOverride = connectivity;
+      WebSocketConnection.webSocketFactoryOverride = getMockWebSocketChannel;
+
+      hubEventsController = StreamController.broadcast();
+      hubEvents = hubEventsController.stream;
+      Amplify.Hub.listen(HubChannel.Api, hubEventsController.add);
     });
-    tearDown(() {
+    tearDown(() async {
       connection.close();
-      // Amplify.Hub.close();
-      // hubEventsController.close();
+      Amplify.Hub.close();
+      await hubEventsController.close();
     });
+    tearDownAll(() {});
 
     test('should init a connection & call onEstablishCallback', () async {
       getWebSocketConnection().subscribe(
@@ -125,17 +105,17 @@ void main() {
         expectAsync0(() {}),
       );
 
-      await assertConnected();
+      expect(
+        hubEvents,
+        emitsInOrder(
+          [
+            connectingHubEvent,
+            connectedHubEvent,
+          ],
+        ),
+      );
 
-      // expect(
-      //   hubEvents,
-      //   emitsInOrder(
-      //     [
-      //       emitsThrough(connectingHubEvent),
-      //       emitsThrough(connectedHubEvent),
-      //     ],
-      //   ),
-      // );
+      await assertWebSocketConnected(connection, subscriptionRequest.id);
     });
 
     test('subscribe() should return a subscription stream', () async {
@@ -144,7 +124,7 @@ void main() {
         () {},
       );
 
-      await assertConnected();
+      await assertWebSocketConnected(connection, subscriptionRequest.id);
 
       final streamSub = subscription.listen(
         expectAsync1((event) {
@@ -157,45 +137,46 @@ void main() {
       addTearDown(streamSub.cancel);
     });
 
-    test('should reconnect when network turns on/off', () async {
-      Completer<String> dataCompleter = Completer();
-      final subscription = getWebSocketConnection().subscribe(
-        subscriptionRequest,
-        () {},
-      );
+    // todo(equartey): Implement reconnection logic tests
+    // test('should reconnect when network turns on/off', () async {
+    //   final dataCompleter = Completer<String>();
+    //   final subscription = getWebSocketConnection().subscribe(
+    //     subscriptionRequest,
+    //     () {},
+    //   );
 
-      await assertConnected();
+    //   await assertWebSocketConnected(connection, subscriptionRequest.id);
 
-      final streamSub = subscription.listen(
-        expectAsync1(
-          (event) => dataCompleter.complete(event.data),
-        ),
-      );
+    //   final streamSub = subscription.listen(
+    //     expectAsync1(
+    //       (event) => dataCompleter.complete(event.data),
+    //     ),
+    //   );
 
-      connection.channel!.sink.add(jsonEncode(mockSubscriptionEvent));
+    //   connection.channel!.sink.add(jsonEncode(mockSubscriptionEvent));
 
-      fakePlatform.controller.sink.add(ConnectivityResult.none);
+    //   fakePlatform.controller.sink.add(ConnectivityResult.none);
 
-      // expect(
-      //   hubEvents,
-      //   emitsInOrder(
-      //     [
-      //       emitsThrough(connectingHubEvent),
-      //       emitsThrough(connectedHubEvent),
-      //       emitsThrough(connectingHubEvent),
-      //     ],
-      //   ),
-      // );
+    //   expect(
+    //     hubEvents,
+    //     emitsInOrder(
+    //       [
+    //         connectingHubEvent,
+    //         connectedHubEvent,
+    //         connectingHubEvent,
+    //       ],
+    //     ),
+    //   );
 
-      addTearDown(streamSub.cancel);
-    });
+    //   addTearDown(streamSub.cancel);
+    // });
 
     test('cancel() should send a stop message', () async {
-      Completer<String> dataCompleter = Completer();
+      final dataCompleter = Completer<String>();
       final subscription =
           getWebSocketConnection().subscribe(subscriptionRequest, null);
 
-      await assertConnected();
+      await assertWebSocketConnected(connection, subscriptionRequest.id);
 
       final streamSub = subscription.listen(
         (event) => dataCompleter.complete(event.data),
@@ -204,8 +185,12 @@ void main() {
       connection.channel!.sink.add(jsonEncode(mockSubscriptionEvent));
       await dataCompleter.future;
 
-      streamSub.cancel();
-      expect(connection.lastSentMessage!.messageType, MessageType.stop);
+      connection.channel!.stream.listen(
+        expectAsync1((event) {
+          expect(json.decode(event as String), containsPair('type', 'stop'));
+        }),
+      );
+      await streamSub.cancel();
     });
   });
 }

@@ -28,9 +28,6 @@ import 'package:mocktail/mocktail.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:stream_channel/stream_channel.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
-import 'package:aws_signature_v4/aws_signature_v4.dart';
-import 'package:collection/collection.dart';
-import 'package:flutter_test/flutter_test.dart';
 
 const testAccessToken = 'test-access-token-123';
 
@@ -155,9 +152,38 @@ final failedHubEvent = isA<SubscriptionHubEvent>().having(
   SubscriptionStatus.failed,
 );
 
+WebSocketChannel getMockWebSocketChannel(Uri uri) {
+  return MockWebSocketChannel();
+}
+
+WebSocketMessage startAck(String subscriptionID) => WebSocketMessage(
+      messageType: MessageType.startAck,
+      id: subscriptionID,
+    );
+
+Future<void> assertWebSocketConnected(
+  MockWebSocketConnection connection,
+  String subscriptionID,
+) async {
+  await expectLater(connection.connectionPending, completes);
+
+  connection.channel!.sink.add(jsonEncode(mockAckMessage));
+
+  await expectLater(connection.ready, completes);
+
+  connection.channel!.sink.add(jsonEncode(startAck(subscriptionID)));
+}
+
 /// Extension of [WebSocketConnection] that stores messages internally instead
 /// of sending them.
 class MockWebSocketConnection extends WebSocketConnection {
+  MockWebSocketConnection(
+    super.config,
+    super.authProviderRepo, {
+    required super.logger,
+    super.subscriptionOptions,
+  });
+
   /// Instead of actually connecting, just set the URI here so it can be inspected
   /// for testing.
   Uri? connectedUri;
@@ -165,16 +191,6 @@ class MockWebSocketConnection extends WebSocketConnection {
   /// Instead of sending messages, they are pushed to end of list so they can be
   /// inspected for testing.
   final List<WebSocketMessage> sentMessages = [];
-
-  MockWebSocketConnection(
-    super.config,
-    super.authProviderRepo, {
-    required super.logger,
-    super.clientOverride,
-    super.connectivityOverride,
-    super.subscriptionOptions,
-    super.webSocketFactoryOverride,
-  });
 
   WebSocketMessage? get lastSentMessage => sentMessages.lastOrNull;
 
@@ -188,26 +204,27 @@ class MockWebSocketConnection extends WebSocketConnection {
 
 // Mock WebSocket
 
-class MockWebSocketSink extends DelegatingStreamSink implements WebSocketSink {
+class MockWebSocketSink extends DelegatingStreamSink<dynamic>
+    implements WebSocketSink {
   MockWebSocketSink(super.sink);
 
   @override
-  Future close([int? closeCode, String? closeReason]) => super.close();
+  Future<void> close([int? closeCode, String? closeReason]) => super.close();
 }
 
 class MockWebSocketChannel extends WebSocketChannel {
-  // ignore: close_sinks
-  final StreamController controller = StreamController.broadcast();
-
-  static StreamChannel<List<int>> streamChannel =
-      StreamChannel(const Stream.empty(), NullStreamSink());
-
   MockWebSocketChannel() : super(streamChannel) {
     // controller.sink.add(mockAckMessage);
   }
 
+  // ignore: close_sinks
+  final controller = StreamController<dynamic>.broadcast();
+
+  static StreamChannel<List<int>> streamChannel =
+      StreamChannel(const Stream.empty(), NullStreamSink());
+
   @override
-  Stream get stream => StreamView(controller.stream);
+  Stream<dynamic> get stream => StreamView(controller.stream);
 
   @override
   WebSocketSink get sink => MockWebSocketSink(controller.sink);
