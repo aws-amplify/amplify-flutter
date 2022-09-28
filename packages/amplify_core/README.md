@@ -11,10 +11,10 @@ For production use cases please use the latest, non-tagged versions of amplify-f
 ## Category / Platform Support (Developer Preview)
 
 | Category       | Android | iOS | Web | Windows | MacOS | Linux |
-| -------------- | ------- | --- | --- | ------- | ----- | ----- |
-| Analytics      | [ ]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
-| API (REST)     | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
-| API (GraphQL)  | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
-| Authentication | [X]     | [X] | [X] | [X]     | [X]   | [X]   |
-| DataStore      | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
-| Storage        | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+| -------------- | :-----: | :-: | :-: | :-----: | :---: | :---: |
+| Analytics      |   🔴    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| API (REST)     |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| API (GraphQL)  |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| Authentication |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
+| DataStore      |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| Storage        |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
