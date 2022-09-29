@@ -12,7 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Temporary codegen package for vNext.
-library amplify_codegen;
+import 'package:aws_common/aws_common.dart';
+import 'package:gql/ast.dart';
 
-export 'src/parser/parser.dart' hide makeConnectionAttributeName;
+/// Helpers for [EnumValueDefinitionNode].
+extension EnumHelpers on EnumValueDefinitionNode {
+  /// The name of the enum value as defined in the schema.
+  String get wireValue => name.value;
+
+  /// The Dart name of the enum value.
+  String get dartName => wireValue.camelCase;
+}
