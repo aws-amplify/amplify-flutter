@@ -43,7 +43,7 @@ runs:
 
     - name: Undo any codegen changes from amplify pull
       run: |    
-        melos exec --scope=${{ inputs.scope }} git checkout lib/models/
+        melos exec --scope=${{ inputs.scope }} "[ -d "lib/models" ] && git checkout lib/models/ || exit 0"
       shell: bash
 
     - name: Delete AWS profile
