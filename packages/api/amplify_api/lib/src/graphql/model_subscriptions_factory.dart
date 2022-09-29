@@ -35,7 +35,7 @@ class ModelSubscriptionsFactory extends ModelSubscriptionsInterface {
       P extends PartialModel<ModelIdentifier, M>>(
     ModelType<ModelIdentifier, M, P> modelType,
   ) {
-    return GraphQLRequestFactory.instance.buildRequest(
+    return GraphQLRequestFactory.instance.buildRequest<ModelIdentifier, M>(
       modelType: modelType,
       variables: <String, dynamic>{},
       requestType: GraphQLRequestType.subscription,
@@ -50,7 +50,7 @@ class ModelSubscriptionsFactory extends ModelSubscriptionsInterface {
       P extends PartialModel<ModelIdentifier, M>>(
     ModelType<ModelIdentifier, M, P> modelType,
   ) {
-    return GraphQLRequestFactory.instance.buildRequest(
+    return GraphQLRequestFactory.instance.buildRequest<ModelIdentifier, M>(
       modelType: modelType,
       variables: <String, dynamic>{},
       requestType: GraphQLRequestType.subscription,
@@ -65,7 +65,7 @@ class ModelSubscriptionsFactory extends ModelSubscriptionsInterface {
       P extends PartialModel<ModelIdentifier, M>>(
     ModelType<ModelIdentifier, M, P> modelType,
   ) {
-    return GraphQLRequestFactory.instance.buildRequest(
+    return GraphQLRequestFactory.instance.buildRequest<ModelIdentifier, M>(
       modelType: modelType,
       variables: <String, dynamic>{},
       requestType: GraphQLRequestType.subscription,

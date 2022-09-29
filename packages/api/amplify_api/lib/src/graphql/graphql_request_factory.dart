@@ -50,7 +50,7 @@ class GraphQLRequestFactory {
   }
 
   String _getSelectionSetFromModelSchema(
-      SchemaTypeDefinition schema, GraphQLRequestOperation operation,
+      StructureTypeDefinition schema, GraphQLRequestOperation operation,
       {bool ignoreParents = false}) {
     // Schema has been validated & schema.fields is non-nullable.
     // Get a list of field names to include in the request body.
@@ -145,7 +145,7 @@ class GraphQLRequestFactory {
     required GraphQLRequestOperation requestOperation,
   }) {
     // retrieve schema from ModelType and validate required properties
-    SchemaTypeDefinition schema = getModelSchemaByModelName(
+    StructureTypeDefinition schema = getModelSchemaByModelName(
       modelType.modelName,
       requestOperation,
     );
@@ -174,12 +174,10 @@ class GraphQLRequestFactory {
 
   /// Example:
   ///   query getBlog($id: ID!, $content: String) { getBlog(id: $id, content: $content) { id name createdAt } }
-  GraphQLRequest<T> buildRequest<
-      ModelIdentifier extends Object,
-      M extends Model<ModelIdentifier, M>,
-      P extends PartialModel<ModelIdentifier, M>,
-      T extends PartialModel<ModelIdentifier, M>>({
-    required ModelType<ModelIdentifier, M, P> modelType,
+  GraphQLRequest<M> buildRequest<ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>>({
+    required ModelType<ModelIdentifier, M, PartialModel<ModelIdentifier, M>>
+        modelType,
     M? model,
     required GraphQLRequestType requestType,
     required GraphQLRequestOperation requestOperation,
@@ -191,7 +189,7 @@ class GraphQLRequestFactory {
       requestType: requestType,
       requestOperation: requestOperation,
     );
-    return GraphQLRequest.model<ModelIdentifier, M, P, T>(
+    return _ModelGraphQLRequest(
       document: document.document,
       variables: variables,
       modelType: modelType,
@@ -199,11 +197,10 @@ class GraphQLRequestFactory {
     );
   }
 
-  GraphQLRequest<PaginatedResult<ModelIdentifier, M, P, T>> buildListRequest<
+  GraphQLRequest<PaginatedResult<ModelIdentifier, M, P, M>> buildListRequest<
       ModelIdentifier extends Object,
       M extends Model<ModelIdentifier, M>,
-      P extends PartialModel<ModelIdentifier, M>,
-      T extends PartialModel<ModelIdentifier, M>>({
+      P extends PartialModel<ModelIdentifier, M>>({
     required ModelType<ModelIdentifier, M, P> modelType,
     M? model,
     required GraphQLRequestType requestType,
@@ -215,7 +212,7 @@ class GraphQLRequestFactory {
       requestType: requestType,
       requestOperation: requestOperation,
     );
-    return GraphQLRequest.list<ModelIdentifier, M, P, T>(
+    return _ListGraphQLRequest<ModelIdentifier, M, P>(
       document: document.document,
       variables: variables,
       modelType: modelType,
@@ -253,7 +250,7 @@ class GraphQLRequestFactory {
     if (queryPredicate == null) {
       return null;
     }
-    SchemaTypeDefinition schema =
+    StructureTypeDefinition schema =
         getModelSchemaByModelName(modelType.modelName, null);
 
     // e.g. { 'name': { 'eq': 'foo }}
@@ -318,7 +315,7 @@ class GraphQLRequestFactory {
   /// When the model has a parent via a belongsTo, the id from the parent is added
   /// as a field similar to "blogID" where the value is `post.blog.id`.
   Map<String, dynamic> buildInputVariableForMutations(Model model) {
-    SchemaTypeDefinition schema =
+    StructureTypeDefinition schema =
         getModelSchemaByModelName(model.modelType.modelName, null);
     final modelJson = model.toJson();
 
@@ -423,4 +420,76 @@ class GraphQLDocument {
 
   final String document;
   final String decodePath;
+}
+
+class _ModelGraphQLRequest<ModelIdentifier extends Object,
+    M extends Model<ModelIdentifier, M>> extends GraphQLRequest<M> {
+  _ModelGraphQLRequest({
+    super.apiName,
+    super.decodePath,
+    required super.document,
+    required this.modelType,
+    super.headers,
+    super.variables,
+  });
+
+  final ModelType<ModelIdentifier, M, PartialModel<ModelIdentifier, M>>
+      modelType;
+
+  @override
+  M decode(Map<String, Object?> json) => modelType.fromJson(json);
+}
+
+class _ListGraphQLRequest<
+        ModelIdentifier extends Object,
+        M extends Model<ModelIdentifier, M>,
+        P extends PartialModel<ModelIdentifier, M>>
+    extends GraphQLRequest<PaginatedResult<ModelIdentifier, M, P, M>> {
+  _ListGraphQLRequest({
+    super.apiName,
+    super.decodePath,
+    required super.document,
+    required this.modelType,
+    super.headers,
+    super.variables,
+  });
+
+  /// The GraphQL parameter for locating the next pagination token.
+  static const _nextToken = 'nextToken';
+
+  final ModelType<ModelIdentifier, M, PartialModel<ModelIdentifier, M>>
+      modelType;
+
+  @override
+  PaginatedResult<ModelIdentifier, M, P, M> decode(Map<String, Object?> json) {
+    final itemsJson = json['items'] as List?;
+
+    if (itemsJson == null || itemsJson.isEmpty) {
+      return const PaginatedResult.empty();
+    }
+
+    final items = itemsJson
+        .cast<Map?>()
+        .map((el) => el == null ? null : modelType.fromJson<M>(el.cast()))
+        .toList();
+
+    final nextToken = json[_nextToken] as String?;
+
+    return PaginatedResult(
+      items: items,
+      requestForNextResult: nextToken == null
+          ? null
+          : _ListGraphQLRequest<ModelIdentifier, M, P>(
+              apiName: apiName,
+              document: document,
+              variables: {...variables, _nextToken: nextToken},
+              headers: headers,
+              decodePath: decodePath,
+              modelType: modelType,
+            ),
+      limit: variables['limit'] as int?,
+      filter: variables['filter'] as Map<String, Object?>?,
+      nextToken: nextToken,
+    );
+  }
 }

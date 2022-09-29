@@ -36,7 +36,7 @@ class ModelQueriesFactory extends ModelQueriesInterface {
     ModelIdentifier id,
   ) {
     Map<String, Object> variables = {idFieldName: id};
-    return GraphQLRequestFactory.instance.buildRequest(
+    return GraphQLRequestFactory.instance.buildRequest<ModelIdentifier, M>(
       modelType: modelType,
       variables: variables,
       requestType: GraphQLRequestType.query,
@@ -58,7 +58,8 @@ class ModelQueriesFactory extends ModelQueriesInterface {
     final variables = GraphQLRequestFactory.instance
         .buildVariablesForListRequest(limit: limit, filter: filter);
 
-    return GraphQLRequestFactory.instance.buildListRequest(
+    return GraphQLRequestFactory.instance
+        .buildListRequest<ModelIdentifier, M, P>(
       modelType: modelType,
       variables: variables,
       requestType: GraphQLRequestType.query,

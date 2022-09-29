@@ -28,7 +28,7 @@ class _RelatedFields {
   _RelatedFields(this.singleFields, this.hasManyFields);
 }
 
-_RelatedFields _getRelatedFieldsUncached(SchemaTypeDefinition modelSchema) {
+_RelatedFields _getRelatedFieldsUncached(StructureTypeDefinition modelSchema) {
   final singleFields = modelSchema.fields.values.where((field) =>
       field.association?.associationType == ModelAssociationType.hasOne ||
       field.association?.associationType == ModelAssociationType.belongsTo ||
@@ -43,7 +43,7 @@ _RelatedFields _getRelatedFieldsUncached(SchemaTypeDefinition modelSchema) {
 
 final _fieldsMemo = <SchemaTypeDefinition, _RelatedFields>{};
 // cached to avoid repeat iterations over fields in schema to get related fields
-_RelatedFields _getRelatedFields(SchemaTypeDefinition modelSchema) {
+_RelatedFields _getRelatedFields(StructureTypeDefinition modelSchema) {
   if (_fieldsMemo[modelSchema] != null) {
     return _fieldsMemo[modelSchema]!;
   }
@@ -52,13 +52,14 @@ _RelatedFields _getRelatedFields(SchemaTypeDefinition modelSchema) {
   return _fieldsMemo[modelSchema]!;
 }
 
-ModelField? getBelongsToFieldFromModelSchema(SchemaTypeDefinition modelSchema) {
+ModelField? getBelongsToFieldFromModelSchema(
+    StructureTypeDefinition modelSchema) {
   return _getRelatedFields(modelSchema).singleFields.firstWhereOrNull((entry) =>
       entry.association?.associationType == ModelAssociationType.belongsTo);
 }
 
 /// Gets the modelSchema from provider that matches the name and validates its fields.
-SchemaTypeDefinition getModelSchemaByModelName(
+StructureTypeDefinition getModelSchemaByModelName(
     String modelName, GraphQLRequestOperation? operation) {
   // ignore: invalid_use_of_protected_member
   final provider = Amplify.API.defaultPlugin.modelProvider;
@@ -69,7 +70,7 @@ SchemaTypeDefinition getModelSchemaByModelName(
           'Pass in a modelProvider instance while instantiating APIPlugin',
     );
   }
-  final schema = <SchemaTypeDefinition>[
+  final schema = <StructureTypeDefinition>[
     ...provider.modelSchemas,
     ...provider.customTypeSchemas,
   ].firstWhere((elem) => elem.name == modelName,
@@ -95,7 +96,7 @@ SchemaTypeDefinition getModelSchemaByModelName(
 /// 2) Look for list of children under [fieldName]["items"] and hoist up so no more ["items"].
 Map<String, dynamic> transformAppSyncJsonToModelJson(
   Map<String, dynamic> input,
-  SchemaTypeDefinition modelSchema,
+  StructureTypeDefinition modelSchema,
 ) {
   input = <String, dynamic>{...input}; // avoid mutating original
 

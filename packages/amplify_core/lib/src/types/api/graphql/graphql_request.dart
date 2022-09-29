@@ -18,7 +18,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// A GraphQL request with a few extra properties used to decode the response or use the correct API if the backend has multiple.
 abstract class GraphQLRequest<T>
     with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
-  GraphQLRequest._({
+  GraphQLRequest({
     this.apiName,
     required this.document,
     this.variables = const <String, dynamic>{},
@@ -53,7 +53,7 @@ abstract class GraphQLRequest<T>
           ModelIdentifier extends Object,
           M extends Model<ModelIdentifier, M>,
           P extends PartialModel<ModelIdentifier, M>,
-          T extends PartialModel<ModelIdentifier, M>>({
+          T extends P>({
     String? apiName,
     required String document,
     required ModelType<ModelIdentifier, M, P> modelType,
@@ -78,7 +78,7 @@ abstract class GraphQLRequest<T>
           ModelIdentifier extends Object,
           M extends Model<ModelIdentifier, M>,
           P extends PartialModel<ModelIdentifier, M>,
-          T extends PartialModel<ModelIdentifier, M>>({
+          T extends P>({
     String? apiName,
     required String document,
     required ModelType<ModelIdentifier, M, P> modelType,
@@ -155,7 +155,7 @@ class _RawGraphQLRequest extends GraphQLRequest<Map<String, Object?>> {
     super.variables,
     super.headers,
     super.decodePath,
-  }) : super._();
+  });
 
   @override
   Map<String, Object?> decode(Map<String, Object?> json) {
@@ -177,7 +177,7 @@ class _ModelGraphQLRequest<
     super.headers,
     super.decodePath,
     required this.modelType,
-  }) : super._();
+  });
 
   final ModelType<ModelIdentifier, M, dynamic> modelType;
 
@@ -200,7 +200,7 @@ class _ListGraphQLRequest<
     super.headers,
     super.decodePath,
     required this.modelType,
-  }) : super._();
+  });
 
   /// The GraphQL parameter for locating the next pagination token.
   static const _nextToken = 'nextToken';

@@ -18,8 +18,8 @@ class _$ModelIndexSerializer implements StructuredSerializer<ModelIndex> {
   Iterable<Object?> serialize(Serializers serializers, ModelIndex object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
-      'field',
-      serializers.serialize(object.field,
+      'primaryField',
+      serializers.serialize(object.primaryField,
           specifiedType: const FullType(String)),
       'sortKeyFields',
       serializers.serialize(object.sortKeyFields,
@@ -52,8 +52,8 @@ class _$ModelIndexSerializer implements StructuredSerializer<ModelIndex> {
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'field':
-          result.field = serializers.deserialize(value,
+        case 'primaryField':
+          result.primaryField = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
         case 'sortKeyFields':
@@ -73,16 +73,18 @@ class _$ModelIndex extends ModelIndex {
   @override
   final String? name;
   @override
-  final String field;
+  final String primaryField;
   @override
   final BuiltList<String> sortKeyFields;
 
   factory _$ModelIndex([void Function(ModelIndexBuilder)? updates]) =>
       (new ModelIndexBuilder()..update(updates))._build();
 
-  _$ModelIndex._({this.name, required this.field, required this.sortKeyFields})
+  _$ModelIndex._(
+      {this.name, required this.primaryField, required this.sortKeyFields})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(field, r'ModelIndex', 'field');
+    BuiltValueNullFieldError.checkNotNull(
+        primaryField, r'ModelIndex', 'primaryField');
     BuiltValueNullFieldError.checkNotNull(
         sortKeyFields, r'ModelIndex', 'sortKeyFields');
   }
@@ -99,21 +101,21 @@ class _$ModelIndex extends ModelIndex {
     if (identical(other, this)) return true;
     return other is ModelIndex &&
         name == other.name &&
-        field == other.field &&
+        primaryField == other.primaryField &&
         sortKeyFields == other.sortKeyFields;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc($jc(0, name.hashCode), field.hashCode), sortKeyFields.hashCode));
+    return $jf($jc($jc($jc(0, name.hashCode), primaryField.hashCode),
+        sortKeyFields.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'ModelIndex')
           ..add('name', name)
-          ..add('field', field)
+          ..add('primaryField', primaryField)
           ..add('sortKeyFields', sortKeyFields))
         .toString();
   }
@@ -126,9 +128,9 @@ class ModelIndexBuilder implements Builder<ModelIndex, ModelIndexBuilder> {
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  String? _field;
-  String? get field => _$this._field;
-  set field(String? field) => _$this._field = field;
+  String? _primaryField;
+  String? get primaryField => _$this._primaryField;
+  set primaryField(String? primaryField) => _$this._primaryField = primaryField;
 
   ListBuilder<String>? _sortKeyFields;
   ListBuilder<String> get sortKeyFields =>
@@ -142,7 +144,7 @@ class ModelIndexBuilder implements Builder<ModelIndex, ModelIndexBuilder> {
     final $v = _$v;
     if ($v != null) {
       _name = $v.name;
-      _field = $v.field;
+      _primaryField = $v.primaryField;
       _sortKeyFields = $v.sortKeyFields.toBuilder();
       _$v = null;
     }
@@ -169,8 +171,8 @@ class ModelIndexBuilder implements Builder<ModelIndex, ModelIndexBuilder> {
       _$result = _$v ??
           new _$ModelIndex._(
               name: name,
-              field: BuiltValueNullFieldError.checkNotNull(
-                  field, r'ModelIndex', 'field'),
+              primaryField: BuiltValueNullFieldError.checkNotNull(
+                  primaryField, r'ModelIndex', 'primaryField'),
               sortKeyFields: sortKeyFields.build());
     } catch (_) {
       late String _$failedField;

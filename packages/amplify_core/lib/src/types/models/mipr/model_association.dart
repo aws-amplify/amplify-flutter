@@ -82,15 +82,50 @@ abstract class ModelAssociation
   /// {@macro amplify_core.models.mipr.model_association}
   factory ModelAssociation({
     required ModelAssociationType associationType,
-    List<String>? targetNames,
     required String associatedType,
-    String? associatedName,
+    List<String>? associatedFields,
+    List<String>? targetNames,
   }) =>
       _$ModelAssociation._(
         associationType: associationType,
-        targetNames: targetNames?.toBuiltList(),
-        associatedName: associatedName,
         associatedType: associatedType,
+        associatedFields: associatedFields?.toBuiltList(),
+        targetNames: targetNames?.toBuiltList(),
+      );
+
+  /// Creates a `hasOne` association.
+  factory ModelAssociation.hasOne({
+    required String associatedType,
+    required List<String> associatedFields,
+    required List<String> targetNames,
+  }) =>
+      ModelAssociation(
+        associationType: ModelAssociationType.hasOne,
+        associatedType: associatedType,
+        associatedFields: associatedFields,
+        targetNames: targetNames,
+      );
+
+  /// Creates a `hasMany` association.
+  factory ModelAssociation.hasMany({
+    required String associatedType,
+    required List<String> associatedFields,
+  }) =>
+      ModelAssociation(
+        associationType: ModelAssociationType.hasMany,
+        associatedType: associatedType,
+        associatedFields: associatedFields,
+      );
+
+  /// Creates a `belongsTo` association.
+  factory ModelAssociation.belongsTo({
+    required String associatedType,
+    required List<String> targetNames,
+  }) =>
+      ModelAssociation(
+        associationType: ModelAssociationType.belongsTo,
+        associatedType: associatedType,
+        targetNames: targetNames,
       );
 
   /// {@template amplify_core.models.mipr.model_association}
@@ -108,14 +143,14 @@ abstract class ModelAssociation
   /// {@macro amplify_core.models.mipr.model_association}
   ModelAssociationType get associationType;
 
-  /// The foreign key, i.e. the field(s) targeted by this association.
-  BuiltList<String>? get targetNames;
-
   /// The name of the associated model.
   String get associatedType;
 
-  /// The name of the related field in the associated model.
-  String? get associatedName;
+  /// The names of the related fields in the associated model.
+  BuiltList<String>? get associatedFields;
+
+  /// The foreign key, i.e. the local field(s) targeted by this association.
+  BuiltList<String>? get targetNames;
 
   @override
   Map<String, Object?> toJson() {

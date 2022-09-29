@@ -20,8 +20,7 @@ class ModelMutationsFactory extends ModelMutationsInterface {
     // Does not use buildVariablesForMutationRequest because creations don't have conditions.
     final variables = {'input': input};
 
-    return GraphQLRequestFactory.instance
-        .buildRequest<ModelIdentifier, M, PartialModel<ModelIdentifier, M>, M>(
+    return GraphQLRequestFactory.instance.buildRequest<ModelIdentifier, M>(
       model: model,
       variables: variables,
       modelType: model.modelType,
@@ -60,8 +59,7 @@ class ModelMutationsFactory extends ModelMutationsInterface {
     final variables = GraphQLRequestFactory.instance
         .buildVariablesForMutationRequest(input: input, condition: condition);
 
-    return GraphQLRequestFactory.instance
-        .buildRequest<ModelIdentifier, M, P, M>(
+    return GraphQLRequestFactory.instance.buildRequest<ModelIdentifier, M>(
       variables: variables,
       modelType: modelType,
       requestType: GraphQLRequestType.mutation,
@@ -86,7 +84,7 @@ class ModelMutationsFactory extends ModelMutationsInterface {
     final variables = GraphQLRequestFactory.instance
         .buildVariablesForMutationRequest(input: input, condition: condition);
 
-    return GraphQLRequestFactory.instance.buildRequest(
+    return GraphQLRequestFactory.instance.buildRequest<ModelIdentifier, M>(
         model: model,
         variables: variables,
         modelType: model.modelType,

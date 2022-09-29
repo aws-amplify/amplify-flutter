@@ -11,6 +11,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(AuthRule.serializer)
       ..add(AuthRuleProvider.serializer)
       ..add(AuthStrategy.serializer)
+      ..add(EnumTypeDefinition.serializer)
       ..add(ModelAssociation.serializer)
       ..add(ModelAssociationType.serializer)
       ..add(ModelField.serializer)
@@ -18,9 +19,16 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(ModelOperation.serializer)
       ..add(ModelTypeDefinition.serializer)
       ..add(NonModelTypeDefinition.serializer)
+      ..add(SchemaDefinition.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(AuthRule)]),
           () => new ListBuilder<AuthRule>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())
@@ -41,6 +49,12 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(ModelIndex)]),
           () => new ListBuilder<ModelIndex>())
+      ..addBuilderFactory(
+          const FullType(BuiltMap, const [
+            const FullType(String),
+            const FullType(SchemaTypeDefinition)
+          ]),
+          () => new MapBuilder<String, SchemaTypeDefinition>())
       ..addBuilderFactory(
           const FullType(BuiltSet, const [const FullType(String)]),
           () => new SetBuilder<String>())

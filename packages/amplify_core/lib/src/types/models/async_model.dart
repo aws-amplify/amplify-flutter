@@ -16,13 +16,14 @@ import 'dart:async';
 import 'dart:collection';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:async/async.dart';
 
 class AsyncModel<
     ModelIdentifier extends Object,
     M extends Model<ModelIdentifier, M>,
     P extends PartialModel<ModelIdentifier, M>,
     T extends P> with AWSSerializable<Map<String, Object?>?> {
-  AsyncModel(FutureOr<T> Function() this._model);
+  AsyncModel(FutureOr<T> Function(DataStorePluginInterface) this._model);
 
   T _save(T model) {
     _cache = model;
@@ -31,35 +32,34 @@ class AsyncModel<
   }
 
   T? _cache;
-  FutureOr<T> Function()? _model;
+  FutureOr<T> Function(DataStorePluginInterface)? _model;
+  AsyncMemoizer<T>? _getMemo;
 
   /// Returns the cached model, if any.
   ///
   /// Use [get] to retrieve the model if it is not cached.
-  T? get cache {
-    final cache = _cache;
-    if (cache != null) {
-      return cache;
-    }
-    final model = _model!;
-    if (model is T Function()) {
-      return _save(model());
-    }
-    return null;
-  }
+  T? get cache => _cache;
 
   /// Retrieves the model, returning a [Future] if the model is not available
   /// synchronously.
-  FutureOr<T> get() {
+  FutureOr<T> get([DataStorePluginInterface? dataStore]) {
+    // TODO(dnys1): Decide how to expose this publicly.
+    // ignore: invalid_use_of_protected_member
+    final plugin = dataStore ?? Amplify.DataStore.defaultPlugin;
     final cache = _cache;
     if (cache != null) {
       return cache;
     }
-    final model = _model!();
-    if (model is T) {
-      return _save(model);
+    if (_getMemo != null) {
+      return _getMemo!.future;
     }
-    return model.then(_save);
+    final model = _model!;
+    _model = null;
+    if (model is T Function(DataStorePluginInterface)) {
+      return _save(model(plugin));
+    }
+    _getMemo = AsyncMemoizer();
+    return _getMemo!.runOnce(() => model(plugin)).then(_save);
   }
 
   @override
@@ -73,8 +73,8 @@ class AsyncModelCollection<
         T extends PartialModel<ModelIdentifier, M>>
     with AWSSerializable<List<Map<String, Object?>>> {
   AsyncModelCollection.fromResult(
-      PaginatedResult<ModelIdentifier, M, P, T> result)
-      : _cache = List.of(result.items.whereType()),
+    PaginatedResult<ModelIdentifier, M, P, T> result,
+  )   : _cache = List.of(result.items.whereType()),
         _stream = null,
         _latestResult = result;
 
@@ -103,6 +103,10 @@ class AsyncModelCollection<
       final response = await Amplify.API
           .query(request: _latestResult.requestForNextResult!)
           .response;
+      if (response.errors.isNotEmpty) {
+        // TODO(dnys1): Replace with a GraphQL-specific exception type.
+        throw Exception(response.errors);
+      }
       _latestResult = response.data ?? const PaginatedResult.empty();
       _cache.addAll(_latestResult.items.whereType());
       return _latestResult.items.whereType<T>().toList();
