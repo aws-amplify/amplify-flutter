@@ -1,13 +1,13 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.s3_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/abort_multipart_upload_output.dart'
-    as _i4;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/abort_multipart_upload_request.dart'
     as _i5;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/abort_multipart_upload_request.dart'
+    as _i6;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/complete_multipart_upload_output.dart'
     as _i8;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/complete_multipart_upload_request.dart'
@@ -93,29 +93,33 @@ import 'package:amplify_storage_s3_dart/src/sdk/src/s3/operation/upload_part_cop
     as _i50;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/operation/upload_part_operation.dart'
     as _i47;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
 import 'package:built_collection/built_collection.dart' as _i35;
-import 'package:smithy/smithy.dart' as _i6;
-import 'package:smithy_aws/smithy_aws.dart' as _i1;
+import 'package:smithy/smithy.dart' as _i1;
+import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 class S3Client {
-  const S3Client(
-      {required String region,
-      Uri? baseUri,
-      required _i1.S3ClientConfig s3ClientConfig,
-      required _i2.AWSCredentialsProvider credentialsProvider})
-      : _region = region,
+  const S3Client({
+    _i1.HttpClient? client,
+    required String region,
+    Uri? baseUri,
+    required _i2.S3ClientConfig s3ClientConfig,
+    required _i3.AWSCredentialsProvider credentialsProvider,
+  })  : _client = client,
+        _region = region,
         _baseUri = baseUri,
         _s3ClientConfig = s3ClientConfig,
         _credentialsProvider = credentialsProvider;
+
+  final _i1.HttpClient? _client;
 
   final String _region;
 
   final Uri? _baseUri;
 
-  final _i1.S3ClientConfig _s3ClientConfig;
+  final _i2.S3ClientConfig _s3ClientConfig;
 
-  final _i2.AWSCredentialsProvider _credentialsProvider;
+  final _i3.AWSCredentialsProvider _credentialsProvider;
 
   /// This action aborts a multipart upload. After a multipart upload is aborted, no additional parts can be uploaded using that upload ID. The storage consumed by any previously uploaded parts will be freed. However, if any part uploads are currently in progress, those part uploads might or might not succeed. As a result, it might be necessary to abort a given multipart upload multiple times in order to completely free all storage consumed by all parts.
   ///
@@ -134,15 +138,19 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i3.Future<_i4.AbortMultipartUploadOutput> abortMultipartUpload(
-      _i5.AbortMultipartUploadRequest input,
-      {_i6.HttpClient? client}) {
+  _i4.Future<_i5.AbortMultipartUploadOutput> abortMultipartUpload(
+    _i6.AbortMultipartUploadRequest input, {
+    _i1.HttpClient? client,
+  }) {
     return _i7.AbortMultipartUploadOperation(
-            region: _region,
-            baseUri: _baseUri,
-            s3ClientConfig: _s3ClientConfig,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client);
+      region: _region,
+      baseUri: _baseUri,
+      s3ClientConfig: _s3ClientConfig,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   /// Completes a multipart upload by assembling previously uploaded parts.
@@ -197,15 +205,19 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i3.Future<_i8.CompleteMultipartUploadOutput> completeMultipartUpload(
-      _i9.CompleteMultipartUploadRequest input,
-      {_i6.HttpClient? client}) {
+  _i4.Future<_i8.CompleteMultipartUploadOutput> completeMultipartUpload(
+    _i9.CompleteMultipartUploadRequest input, {
+    _i1.HttpClient? client,
+  }) {
     return _i10.CompleteMultipartUploadOperation(
-            region: _region,
-            baseUri: _baseUri,
-            s3ClientConfig: _s3ClientConfig,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client);
+      region: _region,
+      baseUri: _baseUri,
+      s3ClientConfig: _s3ClientConfig,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   /// Creates a copy of an object that is already stored in Amazon S3.
@@ -301,14 +313,19 @@ class S3Client {
   ///
   ///
   /// For more information, see [Copying Objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/CopyingObjectsExamples.html).
-  _i3.Future<_i11.CopyObjectOutput> copyObject(_i12.CopyObjectRequest input,
-      {_i6.HttpClient? client}) {
+  _i4.Future<_i11.CopyObjectOutput> copyObject(
+    _i12.CopyObjectRequest input, {
+    _i1.HttpClient? client,
+  }) {
     return _i13.CopyObjectOperation(
-            region: _region,
-            baseUri: _baseUri,
-            s3ClientConfig: _s3ClientConfig,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client);
+      region: _region,
+      baseUri: _baseUri,
+      s3ClientConfig: _s3ClientConfig,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   /// This action initiates a multipart upload and returns an upload ID. This upload ID is used to associate all of the parts in the specific multipart upload. You specify this upload ID in each of your subsequent upload part requests (see [UploadPart](https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html)). You also include this upload ID in the final request to either complete or abort the multipart upload request.
@@ -438,15 +455,19 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i3.Future<_i14.CreateMultipartUploadOutput> createMultipartUpload(
-      _i15.CreateMultipartUploadRequest input,
-      {_i6.HttpClient? client}) {
+  _i4.Future<_i14.CreateMultipartUploadOutput> createMultipartUpload(
+    _i15.CreateMultipartUploadRequest input, {
+    _i1.HttpClient? client,
+  }) {
     return _i16.CreateMultipartUploadOperation(
-            region: _region,
-            baseUri: _baseUri,
-            s3ClientConfig: _s3ClientConfig,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client);
+      region: _region,
+      baseUri: _baseUri,
+      s3ClientConfig: _s3ClientConfig,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   /// Removes the null version (if there is one) of an object and inserts a delete marker, which becomes the latest version of the object. If there isn't a null version, Amazon S3 does not remove any objects but will still respond that the command was successful.
@@ -462,15 +483,19 @@ class S3Client {
   /// The following action is related to `DeleteObject`:
   ///
   /// *   [PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
-  _i3.Future<_i17.DeleteObjectOutput> deleteObject(
-      _i18.DeleteObjectRequest input,
-      {_i6.HttpClient? client}) {
+  _i4.Future<_i17.DeleteObjectOutput> deleteObject(
+    _i18.DeleteObjectRequest input, {
+    _i1.HttpClient? client,
+  }) {
     return _i19.DeleteObjectOperation(
-            region: _region,
-            baseUri: _baseUri,
-            s3ClientConfig: _s3ClientConfig,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client);
+      region: _region,
+      baseUri: _baseUri,
+      s3ClientConfig: _s3ClientConfig,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   /// This action enables you to delete multiple objects from a bucket using a single HTTP request. If you know the object keys that you want to delete, then this action provides a suitable alternative to sending individual delete requests, reducing per-request overhead.
@@ -494,15 +519,19 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [AbortMultipartUpload](https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html)
-  _i3.Future<_i20.DeleteObjectsOutput> deleteObjects(
-      _i21.DeleteObjectsRequest input,
-      {_i6.HttpClient? client}) {
+  _i4.Future<_i20.DeleteObjectsOutput> deleteObjects(
+    _i21.DeleteObjectsRequest input, {
+    _i1.HttpClient? client,
+  }) {
     return _i22.DeleteObjectsOperation(
-            region: _region,
-            baseUri: _baseUri,
-            s3ClientConfig: _s3ClientConfig,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client);
+      region: _region,
+      baseUri: _baseUri,
+      s3ClientConfig: _s3ClientConfig,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   /// Retrieves objects from Amazon S3. To use `GET`, you must have `READ` access to the object. If you grant `READ` access to the anonymous user, you can return the object without using an authorization header.
@@ -584,14 +613,19 @@ class S3Client {
   /// *   [ListBuckets](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBuckets.html)
   ///
   /// *   [GetObjectAcl](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAcl.html)
-  _i3.Future<_i23.GetObjectOutput> getObject(_i24.GetObjectRequest input,
-      {_i6.HttpClient? client}) {
+  _i4.Future<_i23.GetObjectOutput> getObject(
+    _i24.GetObjectRequest input, {
+    _i1.HttpClient? client,
+  }) {
     return _i25.GetObjectOperation(
-            region: _region,
-            baseUri: _baseUri,
-            s3ClientConfig: _s3ClientConfig,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client);
+      region: _region,
+      baseUri: _baseUri,
+      s3ClientConfig: _s3ClientConfig,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   /// The HEAD action retrieves metadata from an object without returning the object itself. This action is useful if you're only interested in an object's metadata. To use HEAD, you must have READ access to the object.
@@ -653,14 +687,19 @@ class S3Client {
   /// *   [GetObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html)
   ///
   /// *   [GetObjectAttributes](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html)
-  _i3.Future<_i26.HeadObjectOutput> headObject(_i27.HeadObjectRequest input,
-      {_i6.HttpClient? client}) {
+  _i4.Future<_i26.HeadObjectOutput> headObject(
+    _i27.HeadObjectRequest input, {
+    _i1.HttpClient? client,
+  }) {
     return _i28.HeadObjectOperation(
-            region: _region,
-            baseUri: _baseUri,
-            s3ClientConfig: _s3ClientConfig,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client);
+      region: _region,
+      baseUri: _baseUri,
+      s3ClientConfig: _s3ClientConfig,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   /// This action lists in-progress multipart uploads. An in-progress multipart upload is a multipart upload that has been initiated using the Initiate Multipart Upload request, but has not yet been completed or aborted.
@@ -684,15 +723,19 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [AbortMultipartUpload](https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html)
-  _i3.Future<_i29.ListMultipartUploadsOutput> listMultipartUploads(
-      _i30.ListMultipartUploadsRequest input,
-      {_i6.HttpClient? client}) {
+  _i4.Future<_i29.ListMultipartUploadsOutput> listMultipartUploads(
+    _i30.ListMultipartUploadsRequest input, {
+    _i1.HttpClient? client,
+  }) {
     return _i31.ListMultipartUploadsOperation(
-            region: _region,
-            baseUri: _baseUri,
-            s3ClientConfig: _s3ClientConfig,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client);
+      region: _region,
+      baseUri: _baseUri,
+      s3ClientConfig: _s3ClientConfig,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   /// Returns some or all (up to 1,000) of the objects in a bucket with each request. You can use the request parameters as selection criteria to return a subset of the objects in a bucket. A `200 OK` response can contain valid or invalid XML. Make sure to design your application to parse the contents of the response and handle it appropriately. Objects are returned sorted in an ascending order of the respective key names in the list. For more information about listing objects, see [Listing object keys programmatically](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ListingKeysUsingAPIs.html)
@@ -712,15 +755,19 @@ class S3Client {
   /// *   [PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
   ///
   /// *   [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
-  _i3.Future<_i6.PaginatedResult<_i32.ListObjectsV2Output, int>> listObjectsV2(
-      _i33.ListObjectsV2Request input,
-      {_i6.HttpClient? client}) {
+  _i4.Future<_i1.PaginatedResult<_i32.ListObjectsV2Output, int>> listObjectsV2(
+    _i33.ListObjectsV2Request input, {
+    _i1.HttpClient? client,
+  }) {
     return _i34.ListObjectsV2Operation(
-            region: _region,
-            baseUri: _baseUri,
-            s3ClientConfig: _s3ClientConfig,
-            credentialsProvider: _credentialsProvider)
-        .runPaginated(input, client: client);
+      region: _region,
+      baseUri: _baseUri,
+      s3ClientConfig: _s3ClientConfig,
+      credentialsProvider: _credentialsProvider,
+    ).runPaginated(
+      input,
+      client: client ?? _client,
+    );
   }
 
   /// Lists the parts that have been uploaded for a specific multipart upload. This operation must include the upload ID, which you obtain by sending the initiate multipart upload request (see [CreateMultipartUpload](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html)). This request returns a maximum of 1,000 uploaded parts. The default number of parts returned is 1,000 parts. You can restrict the number of parts returned by specifying the `max-parts` request parameter. If your multipart upload consists of more than 1,000 parts, the response returns an `IsTruncated` field with the value of true, and a `NextPartNumberMarker` element. In subsequent `ListParts` requests you can include the part-number-marker query string parameter and set its value to the `NextPartNumberMarker` field value from the previous response.
@@ -744,15 +791,19 @@ class S3Client {
   /// *   [GetObjectAttributes](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i3.Future<_i6.PaginatedResult<_i35.BuiltList<_i36.Part>, int>> listParts(
-      _i37.ListPartsRequest input,
-      {_i6.HttpClient? client}) {
+  _i4.Future<_i1.PaginatedResult<_i35.BuiltList<_i36.Part>, int>> listParts(
+    _i37.ListPartsRequest input, {
+    _i1.HttpClient? client,
+  }) {
     return _i38.ListPartsOperation(
-            region: _region,
-            baseUri: _baseUri,
-            s3ClientConfig: _s3ClientConfig,
-            credentialsProvider: _credentialsProvider)
-        .runPaginated(input, client: client);
+      region: _region,
+      baseUri: _baseUri,
+      s3ClientConfig: _s3ClientConfig,
+      credentialsProvider: _credentialsProvider,
+    ).runPaginated(
+      input,
+      client: client ?? _client,
+    );
   }
 
   /// Adds an object to a bucket. You must have WRITE permissions on a bucket to add an object to it.
@@ -801,14 +852,19 @@ class S3Client {
   /// *   [CopyObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html)
   ///
   /// *   [DeleteObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html)
-  _i3.Future<_i39.PutObjectOutput> putObject(_i40.PutObjectRequest input,
-      {_i6.HttpClient? client}) {
+  _i4.Future<_i39.PutObjectOutput> putObject(
+    _i40.PutObjectRequest input, {
+    _i1.HttpClient? client,
+  }) {
     return _i41.PutObjectOperation(
-            region: _region,
-            baseUri: _baseUri,
-            s3ClientConfig: _s3ClientConfig,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client);
+      region: _region,
+      baseUri: _baseUri,
+      s3ClientConfig: _s3ClientConfig,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   /// This action filters the contents of an Amazon S3 object based on a simple structured query language (SQL) statement. In the request, along with the SQL expression, you must also specify a data serialization format (JSON, CSV, or Apache Parquet) of the object. Amazon S3 uses this format to parse object data into records, and returns only records that match the specified SQL expression. You must also specify the data serialization format for the response.
@@ -864,15 +920,19 @@ class S3Client {
   /// *   [GetBucketLifecycleConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLifecycleConfiguration.html)
   ///
   /// *   [PutBucketLifecycleConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html)
-  _i3.Future<_i42.SelectObjectContentOutput> selectObjectContent(
-      _i43.SelectObjectContentRequest input,
-      {_i6.HttpClient? client}) {
+  _i4.Future<_i42.SelectObjectContentOutput> selectObjectContent(
+    _i43.SelectObjectContentRequest input, {
+    _i1.HttpClient? client,
+  }) {
     return _i44.SelectObjectContentOperation(
-            region: _region,
-            baseUri: _baseUri,
-            s3ClientConfig: _s3ClientConfig,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client);
+      region: _region,
+      baseUri: _baseUri,
+      s3ClientConfig: _s3ClientConfig,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   /// Uploads a part in a multipart upload.
@@ -930,14 +990,19 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i3.Future<_i45.UploadPartOutput> uploadPart(_i46.UploadPartRequest input,
-      {_i6.HttpClient? client}) {
+  _i4.Future<_i45.UploadPartOutput> uploadPart(
+    _i46.UploadPartRequest input, {
+    _i1.HttpClient? client,
+  }) {
     return _i47.UploadPartOperation(
-            region: _region,
-            baseUri: _baseUri,
-            s3ClientConfig: _s3ClientConfig,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client);
+      region: _region,
+      baseUri: _baseUri,
+      s3ClientConfig: _s3ClientConfig,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 
   /// Uploads a part by copying data from an existing object as data source. You specify the data source by adding the request header `x-amz-copy-source` in your request and a byte range by adding the request header `x-amz-copy-source-range` in your request.
@@ -1014,14 +1079,18 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i3.Future<_i48.UploadPartCopyOutput> uploadPartCopy(
-      _i49.UploadPartCopyRequest input,
-      {_i6.HttpClient? client}) {
+  _i4.Future<_i48.UploadPartCopyOutput> uploadPartCopy(
+    _i49.UploadPartCopyRequest input, {
+    _i1.HttpClient? client,
+  }) {
     return _i50.UploadPartCopyOperation(
-            region: _region,
-            baseUri: _baseUri,
-            s3ClientConfig: _s3ClientConfig,
-            credentialsProvider: _credentialsProvider)
-        .run(input, client: client);
+      region: _region,
+      baseUri: _baseUri,
+      s3ClientConfig: _s3ClientConfig,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
   }
 }

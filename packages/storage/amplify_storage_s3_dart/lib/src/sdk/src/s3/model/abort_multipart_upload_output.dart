@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.abort_multipart_upload_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -30,8 +30,9 @@ abstract class AbortMultipartUploadOutput
 
   /// Constructs a [AbortMultipartUploadOutput] from a [payload] and [response].
   factory AbortMultipartUploadOutput.fromResponse(
-          AbortMultipartUploadOutputPayload payload,
-          _i1.AWSBaseHttpResponse response) =>
+    AbortMultipartUploadOutputPayload payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       AbortMultipartUploadOutput.build((b) {
         if (response.headers['x-amz-request-charged'] != null) {
           b.requestCharged = _i3.RequestCharged.values
@@ -56,7 +57,10 @@ abstract class AbortMultipartUploadOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AbortMultipartUploadOutput');
-    helper.add('requestCharged', requestCharged);
+    helper.add(
+      'requestCharged',
+      requestCharged,
+    );
     return helper.toString();
   }
 }
@@ -97,24 +101,35 @@ class AbortMultipartUploadOutputRestXmlSerializer
         AbortMultipartUploadOutput,
         _$AbortMultipartUploadOutput,
         AbortMultipartUploadOutputPayload,
-        _$AbortMultipartUploadOutputPayload
+        _$AbortMultipartUploadOutputPayload,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   AbortMultipartUploadOutputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return AbortMultipartUploadOutputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
-      const _i2.XmlElementName('AbortMultipartUploadOutput',
-          _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i2.XmlElementName(
+        'AbortMultipartUploadOutput',
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     return result;
   }

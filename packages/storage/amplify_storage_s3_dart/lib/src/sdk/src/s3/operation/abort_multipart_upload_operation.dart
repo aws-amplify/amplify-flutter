@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.operation.abort_multipart_upload_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -58,13 +58,13 @@ class AbortMultipartUploadOperation extends _i1.HttpOperation<
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  AbortMultipartUploadOperation(
-      {required String region,
-      Uri? baseUri,
-      _i4.S3ClientConfig s3ClientConfig = const _i4.S3ClientConfig(),
-      _i5.AWSCredentialsProvider credentialsProvider =
-          const _i5.AWSCredentialsProvider.environment()})
-      : _region = region,
+  AbortMultipartUploadOperation({
+    required String region,
+    Uri? baseUri,
+    _i4.S3ClientConfig s3ClientConfig = const _i4.S3ClientConfig(),
+    _i5.AWSCredentialsProvider credentialsProvider =
+        const _i5.AWSCredentialsProvider.environment(),
+  })  : _region = region,
         _baseUri = baseUri,
         _s3ClientConfig = s3ClientConfig,
         _credentialsProvider = credentialsProvider;
@@ -77,26 +77,30 @@ class AbortMultipartUploadOperation extends _i1.HttpOperation<
           _i3.AbortMultipartUploadOutputPayload,
           _i3.AbortMultipartUploadOutput>> protocols = [
     _i4.RestXmlProtocol(
-        serializers: _i6.serializers,
-        builderFactories: _i6.builderFactories,
-        requestInterceptors: [
-          const _i1.WithHost(),
-          _i4.WithSigV4(
-              region: _region,
-              service: _i7.AWSService.s3,
-              credentialsProvider: _credentialsProvider,
-              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
-                  _i5.S3ServiceConfiguration()),
-          const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
-          const _i4.WithSdkInvocationId(),
-          const _i4.WithSdkRequest()
-        ],
-        responseInterceptors: [],
-        noErrorWrapping: true)
+      serializers: _i6.serializers,
+      builderFactories: _i6.builderFactories,
+      requestInterceptors: [
+        const _i1.WithHost(),
+        _i4.WithSigV4(
+          region: _region,
+          service: _i7.AWSService.s3,
+          credentialsProvider: _credentialsProvider,
+          serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+              _i5.S3ServiceConfiguration(),
+        ),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
+        const _i4.WithSdkInvocationId(),
+        const _i4.WithSdkRequest(),
+      ],
+      responseInterceptors: [],
+      noErrorWrapping: true,
+    )
   ];
 
-  late final _i4.AWSEndpoint _awsEndpoint =
-      _i8.endpointResolver.resolve(_i8.sdkId, _region);
+  late final _i4.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
+    _i8.sdkId,
+    _region,
+  );
 
   final String _region;
 
@@ -123,22 +127,33 @@ class AbortMultipartUploadOperation extends _i1.HttpOperation<
                 input.expectedBucketOwner!;
           }
         }
-        b.queryParameters.add('uploadId', input.uploadId);
+        b.queryParameters.add(
+          'uploadId',
+          input.uploadId,
+        );
       });
   @override
   int successCode([_i3.AbortMultipartUploadOutput? output]) => 204;
   @override
   _i3.AbortMultipartUploadOutput buildOutput(
-          _i3.AbortMultipartUploadOutputPayload payload,
-          _i7.AWSStreamedHttpResponse response) =>
-      _i3.AbortMultipartUploadOutput.fromResponse(payload, response);
+    _i3.AbortMultipartUploadOutputPayload payload,
+    _i7.AWSStreamedHttpResponse response,
+  ) =>
+      _i3.AbortMultipartUploadOutput.fromResponse(
+        payload,
+        response,
+      );
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError(
-            _i1.ShapeId(namespace: 'com.amazonaws.s3', shape: 'NoSuchUpload'),
-            _i1.ErrorKind.client,
-            _i9.NoSuchUpload,
-            builder: _i9.NoSuchUpload.fromResponse)
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.s3',
+            shape: 'NoSuchUpload',
+          ),
+          _i1.ErrorKind.client,
+          _i9.NoSuchUpload,
+          builder: _i9.NoSuchUpload.fromResponse,
+        )
       ];
   @override
   _i4.AWSRetryer get retryer => _i4.AWSRetryer();
@@ -164,14 +179,20 @@ class AbortMultipartUploadOperation extends _i1.HttpOperation<
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
   _i10.Future<_i3.AbortMultipartUploadOutput> run(
-      _i2.AbortMultipartUploadRequest input,
-      {_i1.HttpClient? client,
-      _i1.ShapeId? useProtocol}) {
+    _i2.AbortMultipartUploadRequest input, {
+    _i1.HttpClient? client,
+    _i1.ShapeId? useProtocol,
+  }) {
     return _i10.runZoned(
-        () => super.run(input, client: client, useProtocol: useProtocol),
-        zoneValues: {
-          ...?_awsEndpoint.credentialScope?.zoneValues,
-          ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
-        });
+      () => super.run(
+        input,
+        client: client,
+        useProtocol: useProtocol,
+      ),
+      zoneValues: {
+        ...?_awsEndpoint.credentialScope?.zoneValues,
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+      },
+    );
   }
 }

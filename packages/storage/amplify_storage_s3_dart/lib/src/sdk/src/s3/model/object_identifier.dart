@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.object_identifier; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -14,8 +14,14 @@ abstract class ObjectIdentifier
     with _i1.AWSEquatable<ObjectIdentifier>
     implements Built<ObjectIdentifier, ObjectIdentifierBuilder> {
   /// Object Identifier is unique value to identify objects.
-  factory ObjectIdentifier({required String key, String? versionId}) {
-    return _$ObjectIdentifier._(key: key, versionId: versionId);
+  factory ObjectIdentifier({
+    required String key,
+    String? versionId,
+  }) {
+    return _$ObjectIdentifier._(
+      key: key,
+      versionId: versionId,
+    );
   }
 
   /// Object Identifier is unique value to identify objects.
@@ -39,12 +45,21 @@ abstract class ObjectIdentifier
   /// VersionId for the specific version of the object to delete.
   String? get versionId;
   @override
-  List<Object?> get props => [key, versionId];
+  List<Object?> get props => [
+        key,
+        versionId,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ObjectIdentifier');
-    helper.add('key', key);
-    helper.add('versionId', versionId);
+    helper.add(
+      'key',
+      key,
+    );
+    helper.add(
+      'versionId',
+      versionId,
+    );
     return helper.toString();
   }
 }
@@ -54,14 +69,23 @@ class ObjectIdentifierRestXmlSerializer
   const ObjectIdentifierRestXmlSerializer() : super('ObjectIdentifier');
 
   @override
-  Iterable<Type> get types => const [ObjectIdentifier, _$ObjectIdentifier];
+  Iterable<Type> get types => const [
+        ObjectIdentifier,
+        _$ObjectIdentifier,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   ObjectIdentifier deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = ObjectIdentifierBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -70,13 +94,17 @@ class ObjectIdentifierRestXmlSerializer
       final value = iterator.current;
       switch (key as String) {
         case 'Key':
-          result.key = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.key = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'VersionId':
           if (value != null) {
-            result.versionId = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.versionId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -86,22 +114,31 @@ class ObjectIdentifierRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as ObjectIdentifier);
     final result = <Object?>[
-      const _i2.XmlElementName('ObjectIdentifier',
-          _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i2.XmlElementName(
+        'ObjectIdentifier',
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     result
       ..add(const _i2.XmlElementName('Key'))
-      ..add(serializers.serialize(payload.key,
-          specifiedType: const FullType(String)));
+      ..add(serializers.serialize(
+        payload.key,
+        specifiedType: const FullType(String),
+      ));
     if (payload.versionId != null) {
       result
         ..add(const _i2.XmlElementName('VersionId'))
-        ..add(serializers.serialize(payload.versionId!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.versionId!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

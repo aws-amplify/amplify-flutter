@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.delete_object_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,14 +18,16 @@ abstract class DeleteObjectOutput
         Built<DeleteObjectOutput, DeleteObjectOutputBuilder>,
         _i2.EmptyPayload,
         _i2.HasPayload<DeleteObjectOutputPayload> {
-  factory DeleteObjectOutput(
-      {bool? deleteMarker,
-      _i3.RequestCharged? requestCharged,
-      String? versionId}) {
+  factory DeleteObjectOutput({
+    bool? deleteMarker,
+    _i3.RequestCharged? requestCharged,
+    String? versionId,
+  }) {
     return _$DeleteObjectOutput._(
-        deleteMarker: deleteMarker,
-        requestCharged: requestCharged,
-        versionId: versionId);
+      deleteMarker: deleteMarker,
+      requestCharged: requestCharged,
+      versionId: versionId,
+    );
   }
 
   factory DeleteObjectOutput.build(
@@ -35,8 +37,10 @@ abstract class DeleteObjectOutput
   const DeleteObjectOutput._();
 
   /// Constructs a [DeleteObjectOutput] from a [payload] and [response].
-  factory DeleteObjectOutput.fromResponse(DeleteObjectOutputPayload payload,
-          _i1.AWSBaseHttpResponse response) =>
+  factory DeleteObjectOutput.fromResponse(
+    DeleteObjectOutputPayload payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       DeleteObjectOutput.build((b) {
         if (response.headers['x-amz-delete-marker'] != null) {
           b.deleteMarker = response.headers['x-amz-delete-marker']! == 'true';
@@ -68,13 +72,26 @@ abstract class DeleteObjectOutput
   @override
   DeleteObjectOutputPayload getPayload() => DeleteObjectOutputPayload();
   @override
-  List<Object?> get props => [deleteMarker, requestCharged, versionId];
+  List<Object?> get props => [
+        deleteMarker,
+        requestCharged,
+        versionId,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteObjectOutput');
-    helper.add('deleteMarker', deleteMarker);
-    helper.add('requestCharged', requestCharged);
-    helper.add('versionId', versionId);
+    helper.add(
+      'deleteMarker',
+      deleteMarker,
+    );
+    helper.add(
+      'requestCharged',
+      requestCharged,
+    );
+    helper.add(
+      'versionId',
+      versionId,
+    );
     return helper.toString();
   }
 }
@@ -111,24 +128,35 @@ class DeleteObjectOutputRestXmlSerializer
         DeleteObjectOutput,
         _$DeleteObjectOutput,
         DeleteObjectOutputPayload,
-        _$DeleteObjectOutputPayload
+        _$DeleteObjectOutputPayload,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   DeleteObjectOutputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return DeleteObjectOutputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
-      const _i2.XmlElementName('DeleteObjectOutput',
-          _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i2.XmlElementName(
+        'DeleteObjectOutput',
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     return result;
   }

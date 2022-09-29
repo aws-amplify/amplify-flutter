@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.upload_part_copy_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,24 +20,26 @@ abstract class UploadPartCopyOutput
     implements
         Built<UploadPartCopyOutput, UploadPartCopyOutputBuilder>,
         _i2.HasPayload<_i3.CopyPartResult> {
-  factory UploadPartCopyOutput(
-      {bool? bucketKeyEnabled,
-      _i3.CopyPartResult? copyPartResult,
-      String? copySourceVersionId,
-      _i4.RequestCharged? requestCharged,
-      _i5.ServerSideEncryption? serverSideEncryption,
-      String? sseCustomerAlgorithm,
-      String? sseCustomerKeyMd5,
-      String? ssekmsKeyId}) {
+  factory UploadPartCopyOutput({
+    bool? bucketKeyEnabled,
+    _i3.CopyPartResult? copyPartResult,
+    String? copySourceVersionId,
+    _i4.RequestCharged? requestCharged,
+    _i5.ServerSideEncryption? serverSideEncryption,
+    String? sseCustomerAlgorithm,
+    String? sseCustomerKeyMd5,
+    String? ssekmsKeyId,
+  }) {
     return _$UploadPartCopyOutput._(
-        bucketKeyEnabled: bucketKeyEnabled,
-        copyPartResult: copyPartResult,
-        copySourceVersionId: copySourceVersionId,
-        requestCharged: requestCharged,
-        serverSideEncryption: serverSideEncryption,
-        sseCustomerAlgorithm: sseCustomerAlgorithm,
-        sseCustomerKeyMd5: sseCustomerKeyMd5,
-        ssekmsKeyId: ssekmsKeyId);
+      bucketKeyEnabled: bucketKeyEnabled,
+      copyPartResult: copyPartResult,
+      copySourceVersionId: copySourceVersionId,
+      requestCharged: requestCharged,
+      serverSideEncryption: serverSideEncryption,
+      sseCustomerAlgorithm: sseCustomerAlgorithm,
+      sseCustomerKeyMd5: sseCustomerKeyMd5,
+      ssekmsKeyId: ssekmsKeyId,
+    );
   }
 
   factory UploadPartCopyOutput.build(
@@ -48,7 +50,9 @@ abstract class UploadPartCopyOutput
 
   /// Constructs a [UploadPartCopyOutput] from a [payload] and [response].
   factory UploadPartCopyOutput.fromResponse(
-          _i3.CopyPartResult? payload, _i1.AWSBaseHttpResponse response) =>
+    _i3.CopyPartResult? payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       UploadPartCopyOutput.build((b) {
         if (payload != null) {
           b.copyPartResult.replace(payload);
@@ -131,19 +135,43 @@ abstract class UploadPartCopyOutput
         serverSideEncryption,
         sseCustomerAlgorithm,
         sseCustomerKeyMd5,
-        ssekmsKeyId
+        ssekmsKeyId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UploadPartCopyOutput');
-    helper.add('bucketKeyEnabled', bucketKeyEnabled);
-    helper.add('copyPartResult', copyPartResult);
-    helper.add('copySourceVersionId', copySourceVersionId);
-    helper.add('requestCharged', requestCharged);
-    helper.add('serverSideEncryption', serverSideEncryption);
-    helper.add('sseCustomerAlgorithm', sseCustomerAlgorithm);
-    helper.add('sseCustomerKeyMd5', sseCustomerKeyMd5);
-    helper.add('ssekmsKeyId', '***SENSITIVE***');
+    helper.add(
+      'bucketKeyEnabled',
+      bucketKeyEnabled,
+    );
+    helper.add(
+      'copyPartResult',
+      copyPartResult,
+    );
+    helper.add(
+      'copySourceVersionId',
+      copySourceVersionId,
+    );
+    helper.add(
+      'requestCharged',
+      requestCharged,
+    );
+    helper.add(
+      'serverSideEncryption',
+      serverSideEncryption,
+    );
+    helper.add(
+      'sseCustomerAlgorithm',
+      sseCustomerAlgorithm,
+    );
+    helper.add(
+      'sseCustomerKeyMd5',
+      sseCustomerKeyMd5,
+    );
+    helper.add(
+      'ssekmsKeyId',
+      '***SENSITIVE***',
+    );
     return helper.toString();
   }
 }
@@ -153,15 +181,23 @@ class UploadPartCopyOutputRestXmlSerializer
   const UploadPartCopyOutputRestXmlSerializer() : super('UploadPartCopyOutput');
 
   @override
-  Iterable<Type> get types =>
-      const [UploadPartCopyOutput, _$UploadPartCopyOutput];
+  Iterable<Type> get types => const [
+        UploadPartCopyOutput,
+        _$UploadPartCopyOutput,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   _i3.CopyPartResult deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i3.CopyPartResultBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -171,38 +207,50 @@ class UploadPartCopyOutputRestXmlSerializer
       switch (key as String) {
         case 'ETag':
           if (value != null) {
-            result.eTag = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.eTag = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'LastModified':
           if (value != null) {
-            result.lastModified = (serializers.deserialize(value,
-                specifiedType: const FullType(DateTime)) as DateTime);
+            result.lastModified = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
           }
           break;
         case 'ChecksumCRC32':
           if (value != null) {
-            result.checksumCrc32 = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.checksumCrc32 = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'ChecksumCRC32C':
           if (value != null) {
-            result.checksumCrc32C = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.checksumCrc32C = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'ChecksumSHA1':
           if (value != null) {
-            result.checksumSha1 = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.checksumSha1 = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'ChecksumSHA256':
           if (value != null) {
-            result.checksumSha256 = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.checksumSha256 = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -212,14 +260,19 @@ class UploadPartCopyOutputRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is UploadPartCopyOutput
         ? object.getPayload()
         : (object as _i3.CopyPartResult?);
     final result = <Object?>[
-      const _i2.XmlElementName('CopyPartResult',
-          _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i2.XmlElementName(
+        'CopyPartResult',
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     if (payload == null) {
       return result;
@@ -227,38 +280,50 @@ class UploadPartCopyOutputRestXmlSerializer
     if (payload.eTag != null) {
       result
         ..add(const _i2.XmlElementName('ETag'))
-        ..add(serializers.serialize(payload.eTag!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.eTag!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.lastModified != null) {
       result
         ..add(const _i2.XmlElementName('LastModified'))
-        ..add(serializers.serialize(payload.lastModified!,
-            specifiedType: const FullType.nullable(DateTime)));
+        ..add(serializers.serialize(
+          payload.lastModified!,
+          specifiedType: const FullType.nullable(DateTime),
+        ));
     }
     if (payload.checksumCrc32 != null) {
       result
         ..add(const _i2.XmlElementName('ChecksumCRC32'))
-        ..add(serializers.serialize(payload.checksumCrc32!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.checksumCrc32!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.checksumCrc32C != null) {
       result
         ..add(const _i2.XmlElementName('ChecksumCRC32C'))
-        ..add(serializers.serialize(payload.checksumCrc32C!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.checksumCrc32C!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.checksumSha1 != null) {
       result
         ..add(const _i2.XmlElementName('ChecksumSHA1'))
-        ..add(serializers.serialize(payload.checksumSha1!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.checksumSha1!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.checksumSha256 != null) {
       result
         ..add(const _i2.XmlElementName('ChecksumSHA256'))
-        ..add(serializers.serialize(payload.checksumSha256!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.checksumSha256!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

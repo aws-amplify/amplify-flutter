@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.operation.list_parts_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -69,13 +69,13 @@ class ListPartsOperation extends _i1.PaginatedHttpOperation<
   /// *   [GetObjectAttributes](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  ListPartsOperation(
-      {required String region,
-      Uri? baseUri,
-      _i6.S3ClientConfig s3ClientConfig = const _i6.S3ClientConfig(),
-      _i7.AWSCredentialsProvider credentialsProvider =
-          const _i7.AWSCredentialsProvider.environment()})
-      : _region = region,
+  ListPartsOperation({
+    required String region,
+    Uri? baseUri,
+    _i6.S3ClientConfig s3ClientConfig = const _i6.S3ClientConfig(),
+    _i7.AWSCredentialsProvider credentialsProvider =
+        const _i7.AWSCredentialsProvider.environment(),
+  })  : _region = region,
         _baseUri = baseUri,
         _s3ClientConfig = s3ClientConfig,
         _credentialsProvider = credentialsProvider;
@@ -85,26 +85,30 @@ class ListPartsOperation extends _i1.PaginatedHttpOperation<
       _i1.HttpProtocol<_i2.ListPartsRequestPayload, _i2.ListPartsRequest,
           _i3.ListPartsOutputPayload, _i3.ListPartsOutput>> protocols = [
     _i6.RestXmlProtocol(
-        serializers: _i8.serializers,
-        builderFactories: _i8.builderFactories,
-        requestInterceptors: [
-          const _i1.WithHost(),
-          _i6.WithSigV4(
-              region: _region,
-              service: _i9.AWSService.s3,
-              credentialsProvider: _credentialsProvider,
-              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
-                  _i7.S3ServiceConfiguration()),
-          const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
-          const _i6.WithSdkInvocationId(),
-          const _i6.WithSdkRequest()
-        ],
-        responseInterceptors: [],
-        noErrorWrapping: true)
+      serializers: _i8.serializers,
+      builderFactories: _i8.builderFactories,
+      requestInterceptors: [
+        const _i1.WithHost(),
+        _i6.WithSigV4(
+          region: _region,
+          service: _i9.AWSService.s3,
+          credentialsProvider: _credentialsProvider,
+          serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+              _i7.S3ServiceConfiguration(),
+        ),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
+        const _i6.WithSdkInvocationId(),
+        const _i6.WithSdkRequest(),
+      ],
+      responseInterceptors: [],
+      noErrorWrapping: true,
+    )
   ];
 
-  late final _i6.AWSEndpoint _awsEndpoint =
-      _i10.endpointResolver.resolve(_i10.sdkId, _region);
+  late final _i6.AWSEndpoint _awsEndpoint = _i10.endpointResolver.resolve(
+    _i10.sdkId,
+    _region,
+  );
 
   final String _region;
 
@@ -150,19 +154,33 @@ class ListPartsOperation extends _i1.PaginatedHttpOperation<
           }
         }
         if (input.maxParts != null) {
-          b.queryParameters.add('max-parts', input.maxParts!.toString());
+          b.queryParameters.add(
+            'max-parts',
+            input.maxParts!.toString(),
+          );
         }
         if (input.partNumberMarker != null) {
-          b.queryParameters.add('part-number-marker', input.partNumberMarker!);
+          b.queryParameters.add(
+            'part-number-marker',
+            input.partNumberMarker!,
+          );
         }
-        b.queryParameters.add('uploadId', input.uploadId);
+        b.queryParameters.add(
+          'uploadId',
+          input.uploadId,
+        );
       });
   @override
   int successCode([_i3.ListPartsOutput? output]) => 200;
   @override
-  _i3.ListPartsOutput buildOutput(_i3.ListPartsOutputPayload payload,
-          _i9.AWSStreamedHttpResponse response) =>
-      _i3.ListPartsOutput.fromResponse(payload, response);
+  _i3.ListPartsOutput buildOutput(
+    _i3.ListPartsOutputPayload payload,
+    _i9.AWSStreamedHttpResponse response,
+  ) =>
+      _i3.ListPartsOutput.fromResponse(
+        payload,
+        response,
+      );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
   @override
@@ -188,14 +206,22 @@ class ListPartsOperation extends _i1.PaginatedHttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i11.Future<_i3.ListPartsOutput> run(_i2.ListPartsRequest input,
-      {_i1.HttpClient? client, _i1.ShapeId? useProtocol}) {
+  _i11.Future<_i3.ListPartsOutput> run(
+    _i2.ListPartsRequest input, {
+    _i1.HttpClient? client,
+    _i1.ShapeId? useProtocol,
+  }) {
     return _i11.runZoned(
-        () => super.run(input, client: client, useProtocol: useProtocol),
-        zoneValues: {
-          ...?_awsEndpoint.credentialScope?.zoneValues,
-          ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)}
-        });
+      () => super.run(
+        input,
+        client: client,
+        useProtocol: useProtocol,
+      ),
+      zoneValues: {
+        ...?_awsEndpoint.credentialScope?.zoneValues,
+        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)}
+      },
+    );
   }
 
   @override
@@ -205,7 +231,10 @@ class ListPartsOperation extends _i1.PaginatedHttpOperation<
       output.parts ?? _i4.BuiltList();
   @override
   _i2.ListPartsRequest rebuildInput(
-          _i2.ListPartsRequest input, String token, int? pageSize) =>
+    _i2.ListPartsRequest input,
+    String token,
+    int? pageSize,
+  ) =>
       input.rebuild((b) {
         b.partNumberMarker = token;
         if (pageSize != null) {

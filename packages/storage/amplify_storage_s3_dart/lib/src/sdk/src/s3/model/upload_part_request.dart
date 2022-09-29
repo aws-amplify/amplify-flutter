@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.upload_part_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,42 +23,45 @@ abstract class UploadPartRequest
     implements
         Built<UploadPartRequest, UploadPartRequestBuilder>,
         _i1.HasPayload<_i2.Stream<List<int>>> {
-  factory UploadPartRequest(
-      {_i2.Stream<List<int>>? body,
-      required String bucket,
-      _i4.ChecksumAlgorithm? checksumAlgorithm,
-      String? checksumCrc32,
-      String? checksumCrc32C,
-      String? checksumSha1,
-      String? checksumSha256,
-      _i5.Int64? contentLength,
-      String? contentMd5,
-      String? expectedBucketOwner,
-      required String key,
-      required int partNumber,
-      _i6.RequestPayer? requestPayer,
-      String? sseCustomerAlgorithm,
-      String? sseCustomerKey,
-      String? sseCustomerKeyMd5,
-      required String uploadId}) {
+  factory UploadPartRequest({
+    _i2.Stream<List<int>>? body,
+    required String bucket,
+    _i4.ChecksumAlgorithm? checksumAlgorithm,
+    String? checksumCrc32,
+    String? checksumCrc32C,
+    String? checksumSha1,
+    String? checksumSha256,
+    _i5.Int64? contentLength,
+    String? contentMd5,
+    String? expectedBucketOwner,
+    required String key,
+    int? partNumber,
+    _i6.RequestPayer? requestPayer,
+    String? sseCustomerAlgorithm,
+    String? sseCustomerKey,
+    String? sseCustomerKeyMd5,
+    required String uploadId,
+  }) {
+    partNumber ??= 0;
     return _$UploadPartRequest._(
-        body: body,
-        bucket: bucket,
-        checksumAlgorithm: checksumAlgorithm,
-        checksumCrc32: checksumCrc32,
-        checksumCrc32C: checksumCrc32C,
-        checksumSha1: checksumSha1,
-        checksumSha256: checksumSha256,
-        contentLength: contentLength,
-        contentMd5: contentMd5,
-        expectedBucketOwner: expectedBucketOwner,
-        key: key,
-        partNumber: partNumber,
-        requestPayer: requestPayer,
-        sseCustomerAlgorithm: sseCustomerAlgorithm,
-        sseCustomerKey: sseCustomerKey,
-        sseCustomerKeyMd5: sseCustomerKeyMd5,
-        uploadId: uploadId);
+      body: body,
+      bucket: bucket,
+      checksumAlgorithm: checksumAlgorithm,
+      checksumCrc32: checksumCrc32,
+      checksumCrc32C: checksumCrc32C,
+      checksumSha1: checksumSha1,
+      checksumSha256: checksumSha256,
+      contentLength: contentLength,
+      contentMd5: contentMd5,
+      expectedBucketOwner: expectedBucketOwner,
+      key: key,
+      partNumber: partNumber,
+      requestPayer: requestPayer,
+      sseCustomerAlgorithm: sseCustomerAlgorithm,
+      sseCustomerKey: sseCustomerKey,
+      sseCustomerKeyMd5: sseCustomerKeyMd5,
+      uploadId: uploadId,
+    );
   }
 
   factory UploadPartRequest.build(
@@ -67,8 +70,10 @@ abstract class UploadPartRequest
   const UploadPartRequest._();
 
   factory UploadPartRequest.fromRequest(
-          _i2.Stream<List<int>>? payload, _i3.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    _i2.Stream<List<int>>? payload,
+    _i3.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       UploadPartRequest.build((b) {
         b.body = payload;
         if (request.headers['Content-Length'] != null) {
@@ -137,7 +142,9 @@ abstract class UploadPartRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadPartRequestBuilder b) {}
+  static void _init(UploadPartRequestBuilder b) {
+    b.partNumber = 0;
+  }
 
   /// Object data.
   _i2.Stream<List<int>>? get body;
@@ -205,7 +212,10 @@ abstract class UploadPartRequest
       case 'Key':
         return this.key;
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -228,57 +238,149 @@ abstract class UploadPartRequest
         sseCustomerAlgorithm,
         sseCustomerKey,
         sseCustomerKeyMd5,
-        uploadId
+        uploadId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UploadPartRequest');
-    helper.add('body', body);
-    helper.add('bucket', bucket);
-    helper.add('checksumAlgorithm', checksumAlgorithm);
-    helper.add('checksumCrc32', checksumCrc32);
-    helper.add('checksumCrc32C', checksumCrc32C);
-    helper.add('checksumSha1', checksumSha1);
-    helper.add('checksumSha256', checksumSha256);
-    helper.add('contentLength', contentLength);
-    helper.add('contentMd5', contentMd5);
-    helper.add('expectedBucketOwner', expectedBucketOwner);
-    helper.add('key', key);
-    helper.add('partNumber', partNumber);
-    helper.add('requestPayer', requestPayer);
-    helper.add('sseCustomerAlgorithm', sseCustomerAlgorithm);
-    helper.add('sseCustomerKey', '***SENSITIVE***');
-    helper.add('sseCustomerKeyMd5', sseCustomerKeyMd5);
-    helper.add('uploadId', uploadId);
+    helper.add(
+      'body',
+      body,
+    );
+    helper.add(
+      'bucket',
+      bucket,
+    );
+    helper.add(
+      'checksumAlgorithm',
+      checksumAlgorithm,
+    );
+    helper.add(
+      'checksumCrc32',
+      checksumCrc32,
+    );
+    helper.add(
+      'checksumCrc32C',
+      checksumCrc32C,
+    );
+    helper.add(
+      'checksumSha1',
+      checksumSha1,
+    );
+    helper.add(
+      'checksumSha256',
+      checksumSha256,
+    );
+    helper.add(
+      'contentLength',
+      contentLength,
+    );
+    helper.add(
+      'contentMd5',
+      contentMd5,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
+    );
+    helper.add(
+      'key',
+      key,
+    );
+    helper.add(
+      'partNumber',
+      partNumber,
+    );
+    helper.add(
+      'requestPayer',
+      requestPayer,
+    );
+    helper.add(
+      'sseCustomerAlgorithm',
+      sseCustomerAlgorithm,
+    );
+    helper.add(
+      'sseCustomerKey',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'sseCustomerKeyMd5',
+      sseCustomerKeyMd5,
+    );
+    helper.add(
+      'uploadId',
+      uploadId,
+    );
     return helper.toString();
   }
 }
 
 class UploadPartRequestRestXmlSerializer
-    extends _i1.PrimitiveSmithySerializer<Object> {
+    extends _i1.PrimitiveSmithySerializer<_i2.Stream<List<int>>> {
   const UploadPartRequestRestXmlSerializer() : super('UploadPartRequest');
 
   @override
-  Iterable<Type> get types => const [UploadPartRequest, _$UploadPartRequest];
+  Iterable<Type> get types => const [
+        UploadPartRequest,
+        _$UploadPartRequest,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
-  _i2.Stream<List<int>> deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return (serializers.deserialize(serialized,
-        specifiedType: const FullType(_i2.Stream, [
-          FullType(List, [FullType(int)])
-        ])) as _i2.Stream<List<int>>);
+  _i2.Stream<List<int>> deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return (serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(
+        _i2.Stream,
+        [
+          FullType(
+            List,
+            [FullType(int)],
+          )
+        ],
+      ),
+    ) as _i2.Stream<List<int>>);
   }
 
   @override
-  Object serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final payload = object is UploadPartRequest
+        ? object.getPayload()
+        : (object as _i2.Stream<List<int>>?);
     final result = <Object?>[
-      const _i1.XmlElementName('UploadPartRequest',
-          _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i1.XmlElementName(
+        'UploadPartRequest',
+        _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
+    if (payload == null) {
+      return result;
+    }
+    result.add(serializers.serialize(
+      payload,
+      specifiedType: const FullType(
+        _i2.Stream,
+        [
+          FullType(
+            List,
+            [FullType(int)],
+          )
+        ],
+      ),
+    ));
     return result;
   }
 }

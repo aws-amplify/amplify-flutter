@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.deleted_object; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -14,16 +14,18 @@ abstract class DeletedObject
     with _i1.AWSEquatable<DeletedObject>
     implements Built<DeletedObject, DeletedObjectBuilder> {
   /// Information about the deleted object.
-  factory DeletedObject(
-      {bool? deleteMarker,
-      String? deleteMarkerVersionId,
-      String? key,
-      String? versionId}) {
+  factory DeletedObject({
+    bool? deleteMarker,
+    String? deleteMarkerVersionId,
+    String? key,
+    String? versionId,
+  }) {
     return _$DeletedObject._(
-        deleteMarker: deleteMarker,
-        deleteMarkerVersionId: deleteMarkerVersionId,
-        key: key,
-        versionId: versionId);
+      deleteMarker: deleteMarker,
+      deleteMarkerVersionId: deleteMarkerVersionId,
+      key: key,
+      versionId: versionId,
+    );
   }
 
   /// Information about the deleted object.
@@ -51,15 +53,31 @@ abstract class DeletedObject
   /// The version ID of the deleted object.
   String? get versionId;
   @override
-  List<Object?> get props =>
-      [deleteMarker, deleteMarkerVersionId, key, versionId];
+  List<Object?> get props => [
+        deleteMarker,
+        deleteMarkerVersionId,
+        key,
+        versionId,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeletedObject');
-    helper.add('deleteMarker', deleteMarker);
-    helper.add('deleteMarkerVersionId', deleteMarkerVersionId);
-    helper.add('key', key);
-    helper.add('versionId', versionId);
+    helper.add(
+      'deleteMarker',
+      deleteMarker,
+    );
+    helper.add(
+      'deleteMarkerVersionId',
+      deleteMarkerVersionId,
+    );
+    helper.add(
+      'key',
+      key,
+    );
+    helper.add(
+      'versionId',
+      versionId,
+    );
     return helper.toString();
   }
 }
@@ -69,14 +87,23 @@ class DeletedObjectRestXmlSerializer
   const DeletedObjectRestXmlSerializer() : super('DeletedObject');
 
   @override
-  Iterable<Type> get types => const [DeletedObject, _$DeletedObject];
+  Iterable<Type> get types => const [
+        DeletedObject,
+        _$DeletedObject,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   DeletedObject deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = DeletedObjectBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -86,26 +113,34 @@ class DeletedObjectRestXmlSerializer
       switch (key as String) {
         case 'DeleteMarker':
           if (value != null) {
-            result.deleteMarker = (serializers.deserialize(value,
-                specifiedType: const FullType(bool)) as bool);
+            result.deleteMarker = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
           }
           break;
         case 'DeleteMarkerVersionId':
           if (value != null) {
-            result.deleteMarkerVersionId = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.deleteMarkerVersionId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'Key':
           if (value != null) {
-            result.key = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.key = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'VersionId':
           if (value != null) {
-            result.versionId = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.versionId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -115,36 +150,49 @@ class DeletedObjectRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as DeletedObject);
     final result = <Object?>[
-      const _i2.XmlElementName('DeletedObject',
-          _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i2.XmlElementName(
+        'DeletedObject',
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     if (payload.deleteMarker != null) {
       result
         ..add(const _i2.XmlElementName('DeleteMarker'))
-        ..add(serializers.serialize(payload.deleteMarker!,
-            specifiedType: const FullType.nullable(bool)));
+        ..add(serializers.serialize(
+          payload.deleteMarker!,
+          specifiedType: const FullType.nullable(bool),
+        ));
     }
     if (payload.deleteMarkerVersionId != null) {
       result
         ..add(const _i2.XmlElementName('DeleteMarkerVersionId'))
-        ..add(serializers.serialize(payload.deleteMarkerVersionId!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.deleteMarkerVersionId!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.key != null) {
       result
         ..add(const _i2.XmlElementName('Key'))
-        ..add(serializers.serialize(payload.key!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.key!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.versionId != null) {
       result
         ..add(const _i2.XmlElementName('VersionId'))
-        ..add(serializers.serialize(payload.versionId!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.versionId!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

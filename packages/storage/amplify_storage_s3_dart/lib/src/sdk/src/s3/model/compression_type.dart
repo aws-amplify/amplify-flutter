@@ -1,35 +1,59 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.compression_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:smithy/smithy.dart' as _i1;
 
 class CompressionType extends _i1.SmithyEnum<CompressionType> {
-  const CompressionType._(int index, String name, String value)
-      : super(index, name, value);
+  const CompressionType._(
+    int index,
+    String name,
+    String value,
+  ) : super(
+          index,
+          name,
+          value,
+        );
 
   const CompressionType._sdkUnknown(String value) : super.sdkUnknown(value);
 
-  static const bzip2 = CompressionType._(0, 'BZIP2', 'BZIP2');
+  static const bzip2 = CompressionType._(
+    0,
+    'BZIP2',
+    'BZIP2',
+  );
 
-  static const gzip = CompressionType._(1, 'GZIP', 'GZIP');
+  static const gzip = CompressionType._(
+    1,
+    'GZIP',
+    'GZIP',
+  );
 
-  static const none = CompressionType._(2, 'NONE', 'NONE');
+  static const none = CompressionType._(
+    2,
+    'NONE',
+    'NONE',
+  );
 
   /// All values of [CompressionType].
   static const values = <CompressionType>[
     CompressionType.bzip2,
     CompressionType.gzip,
-    CompressionType.none
+    CompressionType.none,
   ];
 
   static const List<_i1.SmithySerializer<CompressionType>> serializers = [
-    _i1.SmithyEnumSerializer('CompressionType',
-        values: values,
-        sdkUnknown: CompressionType._sdkUnknown,
-        supportedProtocols: [
-          _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')
-        ])
+    _i1.SmithyEnumSerializer(
+      'CompressionType',
+      values: values,
+      sdkUnknown: CompressionType._sdkUnknown,
+      supportedProtocols: [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ],
+    )
   ];
 }
 

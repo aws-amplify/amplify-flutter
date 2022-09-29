@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.abort_multipart_upload_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,18 +20,20 @@ abstract class AbortMultipartUploadRequest
         Built<AbortMultipartUploadRequest, AbortMultipartUploadRequestBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<AbortMultipartUploadRequestPayload> {
-  factory AbortMultipartUploadRequest(
-      {required String bucket,
-      String? expectedBucketOwner,
-      required String key,
-      _i3.RequestPayer? requestPayer,
-      required String uploadId}) {
+  factory AbortMultipartUploadRequest({
+    required String bucket,
+    String? expectedBucketOwner,
+    required String key,
+    _i3.RequestPayer? requestPayer,
+    required String uploadId,
+  }) {
     return _$AbortMultipartUploadRequest._(
-        bucket: bucket,
-        expectedBucketOwner: expectedBucketOwner,
-        key: key,
-        requestPayer: requestPayer,
-        uploadId: uploadId);
+      bucket: bucket,
+      expectedBucketOwner: expectedBucketOwner,
+      key: key,
+      requestPayer: requestPayer,
+      uploadId: uploadId,
+    );
   }
 
   factory AbortMultipartUploadRequest.build(
@@ -41,9 +43,10 @@ abstract class AbortMultipartUploadRequest
   const AbortMultipartUploadRequest._();
 
   factory AbortMultipartUploadRequest.fromRequest(
-          AbortMultipartUploadRequestPayload payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    AbortMultipartUploadRequestPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       AbortMultipartUploadRequest.build((b) {
         if (request.headers['x-amz-request-payer'] != null) {
           b.requestPayer = _i3.RequestPayer.values
@@ -97,23 +100,46 @@ abstract class AbortMultipartUploadRequest
       case 'Key':
         return this.key;
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
   AbortMultipartUploadRequestPayload getPayload() =>
       AbortMultipartUploadRequestPayload();
   @override
-  List<Object?> get props =>
-      [bucket, expectedBucketOwner, key, requestPayer, uploadId];
+  List<Object?> get props => [
+        bucket,
+        expectedBucketOwner,
+        key,
+        requestPayer,
+        uploadId,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AbortMultipartUploadRequest');
-    helper.add('bucket', bucket);
-    helper.add('expectedBucketOwner', expectedBucketOwner);
-    helper.add('key', key);
-    helper.add('requestPayer', requestPayer);
-    helper.add('uploadId', uploadId);
+    helper.add(
+      'bucket',
+      bucket,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
+    );
+    helper.add(
+      'key',
+      key,
+    );
+    helper.add(
+      'requestPayer',
+      requestPayer,
+    );
+    helper.add(
+      'uploadId',
+      uploadId,
+    );
     return helper.toString();
   }
 }
@@ -154,24 +180,35 @@ class AbortMultipartUploadRequestRestXmlSerializer
         AbortMultipartUploadRequest,
         _$AbortMultipartUploadRequest,
         AbortMultipartUploadRequestPayload,
-        _$AbortMultipartUploadRequestPayload
+        _$AbortMultipartUploadRequestPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   AbortMultipartUploadRequestPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return AbortMultipartUploadRequestPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
-      const _i1.XmlElementName('AbortMultipartUploadRequest',
-          _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i1.XmlElementName(
+        'AbortMultipartUploadRequest',
+        _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     return result;
   }

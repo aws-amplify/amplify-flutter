@@ -1,38 +1,66 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.replication_status; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:smithy/smithy.dart' as _i1;
 
 class ReplicationStatus extends _i1.SmithyEnum<ReplicationStatus> {
-  const ReplicationStatus._(int index, String name, String value)
-      : super(index, name, value);
+  const ReplicationStatus._(
+    int index,
+    String name,
+    String value,
+  ) : super(
+          index,
+          name,
+          value,
+        );
 
   const ReplicationStatus._sdkUnknown(String value) : super.sdkUnknown(value);
 
-  static const complete = ReplicationStatus._(0, 'COMPLETE', 'COMPLETE');
+  static const complete = ReplicationStatus._(
+    0,
+    'COMPLETE',
+    'COMPLETE',
+  );
 
-  static const failed = ReplicationStatus._(1, 'FAILED', 'FAILED');
+  static const failed = ReplicationStatus._(
+    1,
+    'FAILED',
+    'FAILED',
+  );
 
-  static const pending = ReplicationStatus._(2, 'PENDING', 'PENDING');
+  static const pending = ReplicationStatus._(
+    2,
+    'PENDING',
+    'PENDING',
+  );
 
-  static const replica = ReplicationStatus._(3, 'REPLICA', 'REPLICA');
+  static const replica = ReplicationStatus._(
+    3,
+    'REPLICA',
+    'REPLICA',
+  );
 
   /// All values of [ReplicationStatus].
   static const values = <ReplicationStatus>[
     ReplicationStatus.complete,
     ReplicationStatus.failed,
     ReplicationStatus.pending,
-    ReplicationStatus.replica
+    ReplicationStatus.replica,
   ];
 
   static const List<_i1.SmithySerializer<ReplicationStatus>> serializers = [
-    _i1.SmithyEnumSerializer('ReplicationStatus',
-        values: values,
-        sdkUnknown: ReplicationStatus._sdkUnknown,
-        supportedProtocols: [
-          _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')
-        ])
+    _i1.SmithyEnumSerializer(
+      'ReplicationStatus',
+      values: values,
+      sdkUnknown: ReplicationStatus._sdkUnknown,
+      supportedProtocols: [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ],
+    )
   ];
 }
 

@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.object_not_in_active_tier_error; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -30,8 +30,9 @@ abstract class ObjectNotInActiveTierError
 
   /// Constructs a [ObjectNotInActiveTierError] from a [payload] and [response].
   factory ObjectNotInActiveTierError.fromResponse(
-          ObjectNotInActiveTierError payload,
-          _i1.AWSBaseHttpResponse response) =>
+    ObjectNotInActiveTierError payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.statusCode = response.statusCode;
         b.headers = response.headers;
@@ -45,7 +46,9 @@ abstract class ObjectNotInActiveTierError
   static void _init(ObjectNotInActiveTierErrorBuilder b) {}
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.s3', shape: 'ObjectNotInActiveTierError');
+        namespace: 'com.amazonaws.s3',
+        shape: 'ObjectNotInActiveTierError',
+      );
   @override
   String? get message => null;
   @override
@@ -73,24 +76,37 @@ class ObjectNotInActiveTierErrorRestXmlSerializer
       : super('ObjectNotInActiveTierError');
 
   @override
-  Iterable<Type> get types =>
-      const [ObjectNotInActiveTierError, _$ObjectNotInActiveTierError];
+  Iterable<Type> get types => const [
+        ObjectNotInActiveTierError,
+        _$ObjectNotInActiveTierError,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   ObjectNotInActiveTierError deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return ObjectNotInActiveTierErrorBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
-      const _i2.XmlElementName('ObjectNotInActiveTierError',
-          _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i2.XmlElementName(
+        'ObjectNotInActiveTierError',
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     return result;
   }

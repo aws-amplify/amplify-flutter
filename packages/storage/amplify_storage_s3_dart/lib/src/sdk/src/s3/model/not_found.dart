@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.not_found; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -28,7 +28,9 @@ abstract class NotFound
 
   /// Constructs a [NotFound] from a [payload] and [response].
   factory NotFound.fromResponse(
-          NotFound payload, _i1.AWSBaseHttpResponse response) =>
+    NotFound payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.statusCode = response.statusCode;
         b.headers = response.headers;
@@ -41,8 +43,10 @@ abstract class NotFound
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NotFoundBuilder b) {}
   @override
-  _i2.ShapeId get shapeId =>
-      const _i2.ShapeId(namespace: 'com.amazonaws.s3', shape: 'NotFound');
+  _i2.ShapeId get shapeId => const _i2.ShapeId(
+        namespace: 'com.amazonaws.s3',
+        shape: 'NotFound',
+      );
   @override
   String? get message => null;
   @override
@@ -69,22 +73,37 @@ class NotFoundRestXmlSerializer
   const NotFoundRestXmlSerializer() : super('NotFound');
 
   @override
-  Iterable<Type> get types => const [NotFound, _$NotFound];
+  Iterable<Type> get types => const [
+        NotFound,
+        _$NotFound,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
-  NotFound deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  NotFound deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return NotFoundBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
-      const _i2.XmlElementName('NotFound',
-          _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i2.XmlElementName(
+        'NotFound',
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     return result;
   }
