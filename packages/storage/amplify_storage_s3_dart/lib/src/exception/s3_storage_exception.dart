@@ -27,9 +27,9 @@ class S3StorageException extends StorageException {
   /// {@macro amplify_storage_s3_dart.s3_storage_exception}
   const S3StorageException(
     super.message, {
-    required String super.recoverySuggestion,
+    required String recoverySuggestion,
     super.underlyingException,
-  });
+  }) : _recoverySuggestion = recoverySuggestion;
 
   /// Creates a [S3StorageException] from [UnknownSmithyHttpException] that
   /// represents an exception returned from S3 service.
@@ -72,4 +72,9 @@ class S3StorageException extends StorageException {
       underlyingException: exception,
     );
   }
+
+  final String _recoverySuggestion;
+
+  @override
+  String get recoverySuggestion => _recoverySuggestion;
 }

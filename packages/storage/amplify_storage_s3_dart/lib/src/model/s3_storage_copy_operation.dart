@@ -13,16 +13,17 @@
 // limitations under the License.
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 
-/// {@template amplify_core.storage.copy_result}
-/// Presents the result of a [StorageCopyOperation].
+/// {@template storage.amplify_storage_s3.copy_operation}
+/// An operation created by calling Storage S3 plugin `copy` API.
 /// {@endtemplate}
-class StorageCopyResult<Item extends StorageItem> {
-  /// {@macro amplify_core.storage.copy_result}
-  const StorageCopyResult({
-    required this.copiedItem,
+class S3StorageCopyOperation extends StorageCopyOperation<
+    StorageCopyRequest<S3StorageItem, S3StorageCopyOptions>,
+    S3StorageCopyResult> {
+  /// {@macro storage.amplify_storage_s3.copy_operation}
+  S3StorageCopyOperation({
+    required super.request,
+    required super.result,
   });
-
-  /// The result object of the [StorageCopyOperation].
-  final Item copiedItem;
 }

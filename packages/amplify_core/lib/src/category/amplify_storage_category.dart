@@ -35,7 +35,9 @@ class StorageCategory<
     PluginStorageUploadDataOperation extends StorageUploadDataOperation,
     PluginStorageUploadDataOptions extends StorageUploadDataOptions,
     PluginStorageCopyOperation extends StorageCopyOperation,
+    PluginStorageCopyOptions extends StorageCopyOptions,
     PluginStorageMoveOperation extends StorageMoveOperation,
+    PluginStorageMoveOptions extends StorageMoveOptions,
     PluginStorageRemoveOperation extends StorageRemoveOperation,
     PluginStorageRemoveOptions extends StorageRemoveOptions,
     PluginStorageRemoveManyOperation extends StorageRemoveManyOperation,
@@ -51,7 +53,9 @@ class StorageCategory<
         PluginStorageUploadDataOperation,
         PluginStorageUploadDataOptions,
         PluginStorageCopyOperation,
+        PluginStorageCopyOptions,
         PluginStorageMoveOperation,
+        PluginStorageMoveOptions,
         PluginStorageRemoveOperation,
         PluginStorageRemoveOptions,
         PluginStorageRemoveManyOperation,
@@ -76,7 +80,9 @@ class StorageCategory<
       GetPluginStorageUploadDataOperation,
       GetPluginStorageUploadDataOptions,
       GetPluginStorageCopyOperation,
+      GetPluginStorageCopyOptions,
       GetPluginStorageMoveOperation,
+      GetPluginStorageMoveOptions,
       GetPluginStorageRemoveOperation,
       GetPluginStorageRemoveOptions,
       GetPluginStorageRemoveManyOperation,
@@ -92,7 +98,9 @@ class StorageCategory<
           GetPluginStorageUploadDataOperation extends StorageUploadDataOperation,
           GetPluginStorageUploadDataOptions extends StorageUploadDataOptions,
           GetPluginStorageCopyOperation extends StorageCopyOperation,
+          GetPluginStorageCopyOptions extends StorageCopyOptions,
           GetPluginStorageMoveOperation extends StorageMoveOperation,
+          GetPluginStorageMoveOptions extends StorageMoveOptions,
           GetPluginStorageRemoveOperation extends StorageRemoveOperation,
           GetPluginStorageRemoveOptions extends StorageRemoveOptions,
           GetPluginStorageRemoveManyOperation extends StorageRemoveManyOperation,
@@ -108,7 +116,9 @@ class StorageCategory<
               GetPluginStorageUploadDataOperation,
               GetPluginStorageUploadDataOptions,
               GetPluginStorageCopyOperation,
+              GetPluginStorageCopyOptions,
               GetPluginStorageMoveOperation,
+              GetPluginStorageMoveOptions,
               GetPluginStorageRemoveOperation,
               GetPluginStorageRemoveOptions,
               GetPluginStorageRemoveManyOperation,
@@ -124,7 +134,9 @@ class StorageCategory<
             GetPluginStorageUploadDataOperation,
             GetPluginStorageUploadDataOptions,
             GetPluginStorageCopyOperation,
+            GetPluginStorageCopyOptions,
             GetPluginStorageMoveOperation,
+            GetPluginStorageMoveOptions,
             GetPluginStorageRemoveOperation,
             GetPluginStorageRemoveOptions,
             GetPluginStorageRemoveManyOperation,
@@ -213,13 +225,20 @@ class StorageCategory<
   /// {@template amplify_core.amplify_storage_category.copy}
   /// Makes a copy of the `source` to `destination` with [StorageCopyOptions].
   /// {@endtemplate}
+  ///
+  /// {@template amplify_core.amplify_storage_category.copy_source}
+  /// The `source` should be readable to the API call originator following
+  /// corresponding [StorageAccessLevel].
+  /// {@endtemplate}
   PluginStorageCopyOperation copy({
     required StorageItemWithAccessLevel<PluginStorageItem> source,
     required StorageItemWithAccessLevel<PluginStorageItem> destination,
+    PluginStorageCopyOptions? options,
   }) {
     final request = StorageCopyRequest(
       source: source,
       destination: destination,
+      options: options,
     );
     return _plugin.copy(request: request);
   }
@@ -231,14 +250,18 @@ class StorageCategory<
   /// This API performs two consecutive S3 service calls:
   ///   1. copy the source object to destination objection
   ///   2. delete the source object
+  ///
+  /// {@macro amplify_core.amplify_storage_category.copy_source}
   /// {@endtemplate}
   PluginStorageMoveOperation move({
     required StorageItemWithAccessLevel<PluginStorageItem> source,
     required StorageItemWithAccessLevel<PluginStorageItem> destination,
+    PluginStorageMoveOptions? options,
   }) {
     final request = StorageMoveRequest(
       source: source,
       destination: destination,
+      options: options,
     );
     return _plugin.move(request: request);
   }

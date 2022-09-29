@@ -189,7 +189,7 @@ void main() {
       });
 
       test(
-          'should throw S3StorageException when UnknownSmithHttpException is returned from service',
+          'should throw S3StorageException when UnknownSmithyHttpException is returned from service',
           () async {
         const testOptions = S3StorageListOptions();
         const testUnknownException = UnknownSmithyHttpException(
@@ -286,7 +286,7 @@ void main() {
       });
 
       test(
-          'should throw S3StorageException when UnknownSmithHttpException is returned from service',
+          'should throw S3StorageException when UnknownSmithyHttpException is returned from service',
           () async {
         const testOptions = S3StorageGetPropertiesOptions();
         const testUnknownException = UnknownSmithyHttpException(
@@ -486,6 +486,314 @@ void main() {
       });
     });
 
+    group('copy() API', () {
+      late S3StorageCopyResult copyResult;
+      const testSourceItem = S3StorageItem(key: 'source');
+      const testDestinationItem = S3StorageItem(key: 'destination');
+      const testSource =
+          S3StorageItemWithAccessLevel(storageItem: testSourceItem);
+      const testDestination =
+          S3StorageItemWithAccessLevel(storageItem: testDestinationItem);
+
+      setUpAll(() {
+        registerFallbackValue(
+          CopyObjectRequest(
+            bucket: 'fake bucket',
+            copySource: 'dummy source',
+            key: 'imposing destination',
+          ),
+        );
+        registerFallbackValue(
+          HeadObjectRequest(
+            bucket: 'fake bucket',
+            key: 'dummy key',
+          ),
+        );
+      });
+
+      test('should invoke S3Client.copyObject with expected parameters',
+          () async {
+        const testOptions = S3StorageCopyOptions();
+        final testCopyObjectOutput = CopyObjectOutput();
+
+        when(
+          () => s3Client.copyObject(any()),
+        ).thenAnswer((_) async => testCopyObjectOutput);
+
+        copyResult = await storageS3Service.copy(
+          source: testSource,
+          destination: testDestination,
+          options: testOptions,
+        );
+
+        final capturedRequest = verify(
+          () => s3Client.copyObject(captureAny<CopyObjectRequest>()),
+        ).captured.last;
+
+        expect(capturedRequest is CopyObjectRequest, isTrue);
+        final request = capturedRequest as CopyObjectRequest;
+
+        expect(request.bucket, testBucket);
+        expect(
+          request.copySource,
+          '$testBucket/${await testPrefixResolver.resolvePrefix(
+            storageAccessLevel: testSource.storageAccessLevel,
+          )}${testSourceItem.key}',
+        );
+      });
+
+      test('should return correct S3StorageCopyResult', () {
+        expect(copyResult.copiedItem.key, testDestination.storageItem.key);
+      });
+
+      test(
+          'should throw S3StorageException when UnknownSmithyHttpException is returned from service',
+          () async {
+        const testOptions = S3StorageCopyOptions();
+        const testUnknownException = UnknownSmithyHttpException(
+          statusCode: 403,
+          body: 'Access denied.',
+        );
+
+        when(
+          () => s3Client.copyObject(
+            any(),
+          ),
+        ).thenThrow(testUnknownException);
+
+        expect(
+          storageS3Service.copy(
+            source: testSource,
+            destination: testDestination,
+            options: testOptions,
+          ),
+          throwsA(isA<S3StorageException>()),
+        );
+      });
+
+      test(
+          'should invoke S3Client.headObject with correct parameters when getProperties option is set to true',
+          () async {
+        const testOptions = S3StorageCopyOptions(getProperties: true);
+        final testCopyObjectOutput = CopyObjectOutput();
+        final testHeadObjectOutput = HeadObjectOutput();
+
+        when(
+          () => s3Client.copyObject(any()),
+        ).thenAnswer((_) async => testCopyObjectOutput);
+
+        when(
+          () => s3Client.headObject(any()),
+        ).thenAnswer((_) async => testHeadObjectOutput);
+
+        await storageS3Service.copy(
+          source: testSource,
+          destination: testDestination,
+          options: testOptions,
+        );
+
+        final headObjectRequest = verify(
+          () => s3Client.headObject(captureAny<HeadObjectRequest>()),
+        ).captured.last;
+
+        expect(headObjectRequest is HeadObjectRequest, isTrue);
+        final request = headObjectRequest as HeadObjectRequest;
+
+        expect(request.bucket, testBucket);
+        expect(
+          request.key,
+          '${await testPrefixResolver.resolvePrefix(
+            storageAccessLevel: testDestination.storageAccessLevel,
+          )}${testDestinationItem.key}',
+        );
+      });
+    });
+
+    group('move() API', () {
+      late S3StorageMoveResult moveResult;
+      const testSourceItem = S3StorageItem(key: 'source');
+      const testDestinationItem = S3StorageItem(key: 'destination');
+      const testSource =
+          S3StorageItemWithAccessLevel(storageItem: testSourceItem);
+      const testDestination =
+          S3StorageItemWithAccessLevel(storageItem: testDestinationItem);
+
+      setUpAll(() {
+        registerFallbackValue(
+          CopyObjectRequest(
+            bucket: 'fake bucket',
+            copySource: 'dummy source',
+            key: 'imposing destination',
+          ),
+        );
+        registerFallbackValue(
+          DeleteObjectRequest(
+            bucket: 'fake bucket',
+            key: 'dummy key',
+          ),
+        );
+        registerFallbackValue(
+          HeadObjectRequest(
+            bucket: 'fake bucket',
+            key: 'dummy key',
+          ),
+        );
+      });
+
+      test(
+          'should invoke S3Client.copyObject and S3Client.deleteObject with expected parameters',
+          () async {
+        const testOptions = S3StorageMoveOptions();
+        final testCopyObjectOutput = CopyObjectOutput();
+        final testDeleteObjectOutput = DeleteObjectOutput();
+
+        when(
+          () => s3Client.copyObject(any()),
+        ).thenAnswer((_) async => testCopyObjectOutput);
+
+        when(
+          () => s3Client.deleteObject(any()),
+        ).thenAnswer((_) async => testDeleteObjectOutput);
+
+        moveResult = await storageS3Service.move(
+          source: testSource,
+          destination: testDestination,
+          options: testOptions,
+        );
+
+        final capturedCopyRequest = verify(
+          () => s3Client.copyObject(captureAny<CopyObjectRequest>()),
+        ).captured.last;
+
+        final capturedDeleteRequest = verify(
+          () => s3Client.deleteObject(captureAny<DeleteObjectRequest>()),
+        ).captured.last;
+
+        expect(capturedCopyRequest is CopyObjectRequest, isTrue);
+        final copyRequest = capturedCopyRequest as CopyObjectRequest;
+
+        expect(capturedDeleteRequest is DeleteObjectRequest, isTrue);
+        final deleteRequest = capturedDeleteRequest as DeleteObjectRequest;
+
+        expect(copyRequest.bucket, testBucket);
+        expect(
+          copyRequest.copySource,
+          '$testBucket/${await testPrefixResolver.resolvePrefix(
+            storageAccessLevel: testSource.storageAccessLevel,
+          )}${testSourceItem.key}',
+        );
+
+        expect(deleteRequest.bucket, testBucket);
+        expect(
+          deleteRequest.key,
+          '${await testPrefixResolver.resolvePrefix(
+            storageAccessLevel: testSource.storageAccessLevel,
+          )}${testSourceItem.key}',
+        );
+      });
+
+      test('should return correct S3StorageCopyResult', () {
+        expect(moveResult.movedItem.key, testDestination.storageItem.key);
+      });
+
+      test(
+          'should throw S3StorageException when UnknownSmithyHttpException is returned from service while copying the source',
+          () async {
+        const testOptions = S3StorageMoveOptions();
+        const testUnknownException = UnknownSmithyHttpException(
+          statusCode: 403,
+          body: 'Access denied.',
+        );
+
+        when(
+          () => s3Client.copyObject(
+            any(),
+          ),
+        ).thenThrow(testUnknownException);
+
+        expect(
+          storageS3Service.move(
+            source: testSource,
+            destination: testDestination,
+            options: testOptions,
+          ),
+          throwsA(isA<S3StorageException>()),
+        );
+      });
+
+      test(
+          'should throw S3StorageException when UnknownSmithyHttpException is returned from service while deleting the source',
+          () async {
+        const testOptions = S3StorageMoveOptions();
+        const testUnknownException = UnknownSmithyHttpException(
+          statusCode: 500,
+          body: 'Internal error',
+        );
+        final testCopyObjectOutput = CopyObjectOutput();
+
+        when(
+          () => s3Client.copyObject(any()),
+        ).thenAnswer((_) async => testCopyObjectOutput);
+
+        when(
+          () => s3Client.deleteObject(
+            any(),
+          ),
+        ).thenThrow(testUnknownException);
+
+        expect(
+          storageS3Service.move(
+            source: testSource,
+            destination: testDestination,
+            options: testOptions,
+          ),
+          throwsA(isA<S3StorageException>()),
+        );
+      });
+
+      test(
+          'should invoke S3Client.headObject with correct parameters when getProperties option is set to true',
+          () async {
+        const testOptions = S3StorageMoveOptions(getProperties: true);
+        final testCopyObjectOutput = CopyObjectOutput();
+        final testDeleteObjectOutput = DeleteObjectOutput();
+        final testHeadObjectOutput = HeadObjectOutput();
+
+        when(
+          () => s3Client.copyObject(any()),
+        ).thenAnswer((_) async => testCopyObjectOutput);
+
+        when(
+          () => s3Client.deleteObject(any()),
+        ).thenAnswer((_) async => testDeleteObjectOutput);
+
+        when(
+          () => s3Client.headObject(any()),
+        ).thenAnswer((_) async => testHeadObjectOutput);
+
+        await storageS3Service.move(
+          source: testSource,
+          destination: testDestination,
+          options: testOptions,
+        );
+
+        final headObjectRequest = verify(
+          () => s3Client.headObject(captureAny<HeadObjectRequest>()),
+        ).captured.last;
+
+        expect(headObjectRequest is HeadObjectRequest, isTrue);
+        final request = headObjectRequest as HeadObjectRequest;
+
+        expect(request.bucket, testBucket);
+        expect(
+          request.key,
+          '${await testPrefixResolver.resolvePrefix(
+            storageAccessLevel: testDestination.storageAccessLevel,
+          )}${testDestinationItem.key}',
+        );
+      });
+    });
+
     group('remove() API', () {
       late S3StorageRemoveResult removeResult;
       const testKey = 'object-to-remove';
@@ -537,7 +845,7 @@ void main() {
       });
 
       test(
-          'should throw S3StorageException when UnknownSmithHttpException is returned from service',
+          'should throw S3StorageException when UnknownSmithyHttpException is returned from service',
           () async {
         const testOptions = S3StorageRemoveOptions();
         const testUnknownException = UnknownSmithyHttpException(
@@ -688,7 +996,7 @@ void main() {
       });
 
       test(
-          'should throw S3StorageException when UnknownSmithHttpException is returned from service',
+          'should throw S3StorageException when UnknownSmithyHttpException is returned from service',
           () async {
         const testOptions = S3StorageRemoveManyOptions();
         const testUnknownException = UnknownSmithyHttpException(

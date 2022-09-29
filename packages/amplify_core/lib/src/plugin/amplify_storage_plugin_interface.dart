@@ -31,7 +31,9 @@ abstract class StoragePluginInterface<
     PluginStorageUploadDataOperation extends StorageUploadDataOperation,
     PluginStorageUploadDataOptions extends StorageUploadDataOptions,
     PluginStorageCopyOperation extends StorageCopyOperation,
+    PluginStorageCopyOptions extends StorageCopyOptions,
     PluginStorageMoveOperation extends StorageMoveOperation,
+    PluginStorageMoveOptions extends StorageMoveOptions,
     PluginStorageRemoveOperation extends StorageRemoveOperation,
     PluginStorageRemoveOptions extends StorageRemoveOptions,
     PluginStorageRemoveManyOperation extends StorageRemoveManyOperation,
@@ -52,7 +54,7 @@ abstract class StoragePluginInterface<
   PluginStorageGetPropertiesOperation getProperties({
     required StorageGetPropertiesRequest<StorageGetPropertiesOptions> request,
   }) {
-    throw UnimplementedError('stat() has not been implemented.');
+    throw UnimplementedError('getProperties() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_storage_category.get_url}
@@ -71,16 +73,18 @@ abstract class StoragePluginInterface<
 
   /// {@macro amplify_core.amplify_storage_category.copy}
   PluginStorageCopyOperation copy({
-    required StorageCopyRequest<PluginStorageItem> request,
+    required StorageCopyRequest<PluginStorageItem, PluginStorageCopyOptions>
+        request,
   }) {
-    throw UnimplementedError('uploadFile() has not been implemented.');
+    throw UnimplementedError('copy() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_storage_category.move}
   PluginStorageMoveOperation move({
-    required StorageMoveRequest<PluginStorageItem> request,
+    required StorageMoveRequest<PluginStorageItem, PluginStorageMoveOptions>
+        request,
   }) {
-    throw UnimplementedError('uploadFile() has not been implemented.');
+    throw UnimplementedError('move() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_storage_category.remove}
