@@ -10,6 +10,8 @@ Serializer<ModelTypeDefinition> _$modelTypeDefinitionSerializer =
     new _$ModelTypeDefinitionSerializer();
 Serializer<NonModelTypeDefinition> _$nonModelTypeDefinitionSerializer =
     new _$NonModelTypeDefinitionSerializer();
+Serializer<EnumTypeDefinition> _$enumTypeDefinitionSerializer =
+    new _$EnumTypeDefinitionSerializer();
 
 class _$ModelTypeDefinitionSerializer
     implements StructuredSerializer<ModelTypeDefinition> {
@@ -150,14 +152,74 @@ class _$NonModelTypeDefinitionSerializer
   }
 }
 
+class _$EnumTypeDefinitionSerializer
+    implements StructuredSerializer<EnumTypeDefinition> {
+  @override
+  final Iterable<Type> types = const [EnumTypeDefinition, _$EnumTypeDefinition];
+  @override
+  final String wireName = 'EnumTypeDefinition';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, EnumTypeDefinition object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'values',
+      serializers.serialize(object.values,
+          specifiedType:
+              const FullType(BuiltList, const [const FullType(String)])),
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  EnumTypeDefinition deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new EnumTypeDefinitionBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'values':
+          result.values.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 abstract class SchemaTypeDefinitionBuilder {
   void replace(SchemaTypeDefinition other);
   void update(void Function(SchemaTypeDefinitionBuilder) updates);
   String? get name;
   set name(String? name);
+}
 
+abstract class StructureTypeDefinitionBuilder
+    implements SchemaTypeDefinitionBuilder {
+  void replace(covariant StructureTypeDefinition other);
+  void update(void Function(StructureTypeDefinitionBuilder) updates);
   MapBuilder<String, ModelField> get fields;
-  set fields(MapBuilder<String, ModelField>? fields);
+  set fields(covariant MapBuilder<String, ModelField>? fields);
+
+  String? get name;
+  set name(covariant String? name);
 }
 
 class _$ModelTypeDefinition extends ModelTypeDefinition {
@@ -239,7 +301,7 @@ class _$ModelTypeDefinition extends ModelTypeDefinition {
 class ModelTypeDefinitionBuilder
     implements
         Builder<ModelTypeDefinition, ModelTypeDefinitionBuilder>,
-        SchemaTypeDefinitionBuilder {
+        StructureTypeDefinitionBuilder {
   _$ModelTypeDefinition? _$v;
 
   String? _name;
@@ -382,7 +444,7 @@ class _$NonModelTypeDefinition extends NonModelTypeDefinition {
 class NonModelTypeDefinitionBuilder
     implements
         Builder<NonModelTypeDefinition, NonModelTypeDefinitionBuilder>,
-        SchemaTypeDefinitionBuilder {
+        StructureTypeDefinitionBuilder {
   _$NonModelTypeDefinition? _$v;
 
   String? _name;
@@ -437,6 +499,119 @@ class NonModelTypeDefinitionBuilder
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'NonModelTypeDefinition', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$EnumTypeDefinition extends EnumTypeDefinition {
+  @override
+  final BuiltList<String> values;
+  @override
+  final String name;
+
+  factory _$EnumTypeDefinition(
+          [void Function(EnumTypeDefinitionBuilder)? updates]) =>
+      (new EnumTypeDefinitionBuilder()..update(updates))._build();
+
+  _$EnumTypeDefinition._({required this.values, required this.name})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        values, r'EnumTypeDefinition', 'values');
+    BuiltValueNullFieldError.checkNotNull(name, r'EnumTypeDefinition', 'name');
+  }
+
+  @override
+  EnumTypeDefinition rebuild(
+          void Function(EnumTypeDefinitionBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  EnumTypeDefinitionBuilder toBuilder() =>
+      new EnumTypeDefinitionBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is EnumTypeDefinition &&
+        values == other.values &&
+        name == other.name;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc($jc(0, values.hashCode), name.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'EnumTypeDefinition')
+          ..add('values', values)
+          ..add('name', name))
+        .toString();
+  }
+}
+
+class EnumTypeDefinitionBuilder
+    implements
+        Builder<EnumTypeDefinition, EnumTypeDefinitionBuilder>,
+        SchemaTypeDefinitionBuilder {
+  _$EnumTypeDefinition? _$v;
+
+  ListBuilder<String>? _values;
+  ListBuilder<String> get values =>
+      _$this._values ??= new ListBuilder<String>();
+  set values(covariant ListBuilder<String>? values) => _$this._values = values;
+
+  String? _name;
+  String? get name => _$this._name;
+  set name(covariant String? name) => _$this._name = name;
+
+  EnumTypeDefinitionBuilder();
+
+  EnumTypeDefinitionBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _values = $v.values.toBuilder();
+      _name = $v.name;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(covariant EnumTypeDefinition other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$EnumTypeDefinition;
+  }
+
+  @override
+  void update(void Function(EnumTypeDefinitionBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  EnumTypeDefinition build() => _build();
+
+  _$EnumTypeDefinition _build() {
+    _$EnumTypeDefinition _$result;
+    try {
+      _$result = _$v ??
+          new _$EnumTypeDefinition._(
+              values: values.build(),
+              name: BuiltValueNullFieldError.checkNotNull(
+                  name, r'EnumTypeDefinition', 'name'));
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'values';
+        values.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'EnumTypeDefinition', _$failedField, e.toString());
       }
       rethrow;
     }

@@ -32,6 +32,8 @@ part 'serializers.g.dart';
   ModelField,
   ModelTypeDefinition,
   NonModelTypeDefinition,
+  EnumTypeDefinition,
+  SchemaDefinition,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(SchemaType.serializer)

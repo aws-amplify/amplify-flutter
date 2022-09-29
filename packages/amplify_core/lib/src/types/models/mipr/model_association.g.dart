@@ -92,6 +92,14 @@ class _$ModelAssociationSerializer
           specifiedType: const FullType(String)),
     ];
     Object? value;
+    value = object.associatedFields;
+    if (value != null) {
+      result
+        ..add('associatedFields')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
     value = object.targetNames;
     if (value != null) {
       result
@@ -99,13 +107,6 @@ class _$ModelAssociationSerializer
         ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
-    }
-    value = object.associatedName;
-    if (value != null) {
-      result
-        ..add('associatedName')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
     }
     return result;
   }
@@ -127,19 +128,21 @@ class _$ModelAssociationSerializer
                   specifiedType: const FullType(ModelAssociationType))!
               as ModelAssociationType;
           break;
+        case 'associatedType':
+          result.associatedType = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'associatedFields':
+          result.associatedFields.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
         case 'targetNames':
           result.targetNames.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(String)]))!
               as BuiltList<Object?>);
-          break;
-        case 'associatedType':
-          result.associatedType = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'associatedName':
-          result.associatedName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -152,11 +155,11 @@ class _$ModelAssociation extends ModelAssociation {
   @override
   final ModelAssociationType associationType;
   @override
-  final BuiltList<String>? targetNames;
-  @override
   final String associatedType;
   @override
-  final String? associatedName;
+  final BuiltList<String>? associatedFields;
+  @override
+  final BuiltList<String>? targetNames;
 
   factory _$ModelAssociation(
           [void Function(ModelAssociationBuilder)? updates]) =>
@@ -164,9 +167,9 @@ class _$ModelAssociation extends ModelAssociation {
 
   _$ModelAssociation._(
       {required this.associationType,
-      this.targetNames,
       required this.associatedType,
-      this.associatedName})
+      this.associatedFields,
+      this.targetNames})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         associationType, r'ModelAssociation', 'associationType');
@@ -187,26 +190,26 @@ class _$ModelAssociation extends ModelAssociation {
     if (identical(other, this)) return true;
     return other is ModelAssociation &&
         associationType == other.associationType &&
-        targetNames == other.targetNames &&
         associatedType == other.associatedType &&
-        associatedName == other.associatedName;
+        associatedFields == other.associatedFields &&
+        targetNames == other.targetNames;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, associationType.hashCode), targetNames.hashCode),
-            associatedType.hashCode),
-        associatedName.hashCode));
+        $jc($jc($jc(0, associationType.hashCode), associatedType.hashCode),
+            associatedFields.hashCode),
+        targetNames.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'ModelAssociation')
           ..add('associationType', associationType)
-          ..add('targetNames', targetNames)
           ..add('associatedType', associatedType)
-          ..add('associatedName', associatedName))
+          ..add('associatedFields', associatedFields)
+          ..add('targetNames', targetNames))
         .toString();
   }
 }
@@ -220,21 +223,22 @@ class ModelAssociationBuilder
   set associationType(ModelAssociationType? associationType) =>
       _$this._associationType = associationType;
 
-  ListBuilder<String>? _targetNames;
-  ListBuilder<String> get targetNames =>
-      _$this._targetNames ??= new ListBuilder<String>();
-  set targetNames(ListBuilder<String>? targetNames) =>
-      _$this._targetNames = targetNames;
-
   String? _associatedType;
   String? get associatedType => _$this._associatedType;
   set associatedType(String? associatedType) =>
       _$this._associatedType = associatedType;
 
-  String? _associatedName;
-  String? get associatedName => _$this._associatedName;
-  set associatedName(String? associatedName) =>
-      _$this._associatedName = associatedName;
+  ListBuilder<String>? _associatedFields;
+  ListBuilder<String> get associatedFields =>
+      _$this._associatedFields ??= new ListBuilder<String>();
+  set associatedFields(ListBuilder<String>? associatedFields) =>
+      _$this._associatedFields = associatedFields;
+
+  ListBuilder<String>? _targetNames;
+  ListBuilder<String> get targetNames =>
+      _$this._targetNames ??= new ListBuilder<String>();
+  set targetNames(ListBuilder<String>? targetNames) =>
+      _$this._targetNames = targetNames;
 
   ModelAssociationBuilder();
 
@@ -242,9 +246,9 @@ class ModelAssociationBuilder
     final $v = _$v;
     if ($v != null) {
       _associationType = $v.associationType;
-      _targetNames = $v.targetNames?.toBuilder();
       _associatedType = $v.associatedType;
-      _associatedName = $v.associatedName;
+      _associatedFields = $v.associatedFields?.toBuilder();
+      _targetNames = $v.targetNames?.toBuilder();
       _$v = null;
     }
     return this;
@@ -271,13 +275,15 @@ class ModelAssociationBuilder
           new _$ModelAssociation._(
               associationType: BuiltValueNullFieldError.checkNotNull(
                   associationType, r'ModelAssociation', 'associationType'),
-              targetNames: _targetNames?.build(),
               associatedType: BuiltValueNullFieldError.checkNotNull(
                   associatedType, r'ModelAssociation', 'associatedType'),
-              associatedName: associatedName);
+              associatedFields: _associatedFields?.build(),
+              targetNames: _targetNames?.build());
     } catch (_) {
       late String _$failedField;
       try {
+        _$failedField = 'associatedFields';
+        _associatedFields?.build();
         _$failedField = 'targetNames';
         _targetNames?.build();
       } catch (e) {

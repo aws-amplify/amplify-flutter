@@ -124,10 +124,10 @@ class ModelFieldDefinition {
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
             ofModelName: ofModelName),
-        association: ModelAssociation(
-            associationType: ModelAssociationType.hasMany,
-            associatedName: associatedKey.fieldName,
-            associatedType: ofModelName));
+        association: ModelAssociation.hasMany(
+          associatedFields: [associatedKey.fieldName],
+          associatedType: ofModelName,
+        ));
   }
 
   static ModelFieldDefinition hasOne({
@@ -141,10 +141,11 @@ class ModelFieldDefinition {
         isRequired: isRequired,
         ofType:
             ModelFieldType(ModelFieldTypeEnum.model, ofModelName: ofModelName),
-        association: ModelAssociation(
-            associationType: ModelAssociationType.hasOne,
-            associatedName: associatedKey.fieldName,
-            associatedType: ofModelName));
+        association: ModelAssociation.hasOne(
+          associatedFields: [associatedKey.fieldName],
+          associatedType: ofModelName,
+          targetNames: [],
+        ));
   }
 
   static ModelFieldDefinition belongsTo(
@@ -153,21 +154,15 @@ class ModelFieldDefinition {
       required String ofModelName,
       QueryField? associatedKey,
       String? targetName}) {
-    // Extra code needed due to lack of nullability support
-    String? associatedName;
-
-    associatedName = associatedKey?.fieldName;
-
     return field(
         key: key,
         isRequired: isRequired,
         ofType:
             ModelFieldType(ModelFieldTypeEnum.model, ofModelName: ofModelName),
-        association: ModelAssociation(
-            associationType: ModelAssociationType.belongsTo,
-            targetNames: targetName == null ? null : [targetName],
-            associatedName: associatedName,
-            associatedType: ofModelName));
+        association: ModelAssociation.belongsTo(
+          targetNames: [targetName!],
+          associatedType: ofModelName,
+        ));
   }
 
   ModelField build() {

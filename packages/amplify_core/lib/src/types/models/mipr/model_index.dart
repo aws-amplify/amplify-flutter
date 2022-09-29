@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/types/models/mipr.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -35,7 +35,7 @@ abstract class ModelIndex
   }) =>
       _$ModelIndex._(
         name: name,
-        field: field,
+        primaryField: field,
         sortKeyFields: BuiltList(sortKeyFields),
       );
 
@@ -45,8 +45,21 @@ abstract class ModelIndex
     List<String> sortKeyFields = const [],
   }) =>
       _$ModelIndex._(
-        field: field,
+        primaryField: field,
         sortKeyFields: BuiltList(sortKeyFields),
+      );
+
+  /// Creates a foreign key on a model, used to hold the composite key of
+  /// another model. Unlike a normal [ModelIndex], a foreign key index must
+  /// specify a [field] which points to a [ModelType].
+  factory ModelIndex.foreignKey({
+    required String field,
+    required List<String> keyFields,
+  }) =>
+      _$ModelIndex._(
+        name: '${field}ForeignKey',
+        primaryField: field,
+        sortKeyFields: BuiltList(keyFields),
       );
 
   /// {@macro amplify_core.models.mipr.model_index}
@@ -70,10 +83,10 @@ abstract class ModelIndex
   ///
   /// This is the field to which the `@index` or `@primaryKey` directive is
   /// attached.
-  String get field;
+  String get primaryField;
 
-  /// The list of field names which, combined with [field], form a composite
-  /// key or index.
+  /// The list of field names which, combined with [primaryField], form a
+  /// composite key or index.
   ///
   /// This is the list of fields specified by the `sortKeyFields` argument
   /// to the `@index` or `@primaryKey` directive.
@@ -81,6 +94,9 @@ abstract class ModelIndex
 
   /// Whether this index represents the primary key/index.
   bool get isPrimaryIndex => name == null;
+
+  /// All the fields of the index.
+  List<String> get fields => [primaryField, ...sortKeyFields];
 
   @override
   Map<String, Object?> toJson() {

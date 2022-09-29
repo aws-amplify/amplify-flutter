@@ -34,12 +34,24 @@ abstract class SchemaTypeDefinition {
   /// The name of the custom type, as defined in the GraphQL schema.
   String get name;
 
-  /// The fields of the custom type.
-  BuiltMap<String, ModelField> get fields;
-
   /// Rebuilds `this` by updating properties via [updates].
   SchemaTypeDefinition rebuild(
     void Function(SchemaTypeDefinitionBuilder) updates,
+  );
+}
+
+/// {@template amplify_core.models.mipr.structured_schema_type_definition}
+/// A structured type definition, e.g. a [ModelTypeDefinition] or
+/// [NonModelTypeDefinition].
+/// {@endtemplate}
+@BuiltValue(instantiable: false)
+abstract class StructureTypeDefinition implements SchemaTypeDefinition {
+  /// The fields of the custom type.
+  BuiltMap<String, ModelField> get fields;
+
+  @override
+  StructureTypeDefinition rebuild(
+    void Function(StructureTypeDefinitionBuilder) updates,
   );
 }
 
@@ -47,7 +59,7 @@ abstract class SchemaTypeDefinition {
 /// Adds a field to the type definition.
 /// {@endtemplate}
 // TODO(dnys1): Remove when codegen is updated
-extension SchemaTypeDefinitionAddField on SchemaTypeDefinitionBuilder {
+extension StructureTypeDefinitionAddField on StructureTypeDefinitionBuilder {
   /// {@macro amplify_core.models.mipr.schema_type_definition_add_field}
   void addField(ModelFieldDefinition fieldDefinition) {
     fields[fieldDefinition.name] = fieldDefinition.build();
@@ -60,7 +72,7 @@ extension SchemaTypeDefinitionAddField on SchemaTypeDefinitionBuilder {
 abstract class ModelTypeDefinition
     with AWSSerializable<Map<String, Object?>>
     implements
-        SchemaTypeDefinition,
+        StructureTypeDefinition,
         Built<ModelTypeDefinition, ModelTypeDefinitionBuilder> {
   /// {@macro amplify_core.models.mipr.model_definition}
   factory ModelTypeDefinition({
@@ -110,6 +122,10 @@ abstract class ModelTypeDefinition
   /// The `@index` directives.
   BuiltList<ModelIndex> get indexes;
 
+  /// Returns the index named [indexName].
+  ModelIndex indexNamed(String indexName) =>
+      indexes.singleWhere((index) => index.name == indexName);
+
   @override
   Map<String, Object?> toJson() {
     // TODO(dnys1): Remove when codegen is updated
@@ -136,7 +152,7 @@ abstract class ModelTypeDefinition
 abstract class NonModelTypeDefinition
     with AWSSerializable<Map<String, Object?>>
     implements
-        SchemaTypeDefinition,
+        StructureTypeDefinition,
         Built<NonModelTypeDefinition, NonModelTypeDefinitionBuilder> {
   /// {@macro amplify_core.models.mipr.non_model_definition}
   factory NonModelTypeDefinition({
@@ -169,10 +185,58 @@ abstract class NonModelTypeDefinition
 
   @override
   Map<String, Object?> toJson() {
-    return serializers.serializeWith(serializer, this) as Map<String, Object?>;
+    // TODO(dnys1): Remove when codegen is updated
+    return {
+      'name': name,
+      'fields':
+          fields.map((key, value) => MapEntry(key, value.toJson())).toMap(),
+    };
   }
 
   /// The serializer for [NonModelTypeDefinition].
   static Serializer<NonModelTypeDefinition> get serializer =>
       _$nonModelTypeDefinitionSerializer;
+}
+
+/// {@template amplify_core.models.mipr.enum_type_definition}
+/// The definition of an [EnumType].
+/// {@endtemplate}
+abstract class EnumTypeDefinition
+    with AWSSerializable<Map<String, Object?>>
+    implements
+        SchemaTypeDefinition,
+        Built<EnumTypeDefinition, EnumTypeDefinitionBuilder> {
+  /// {@macro amplify_core.models.mipr.enum_type_definition}
+  factory EnumTypeDefinition({
+    required String name,
+    required List<String> values,
+  }) =>
+      _$EnumTypeDefinition._(
+        name: name,
+        values: values.toBuiltList(),
+      );
+
+  /// {@macro amplify_core.models.mipr.enum_type_definition}
+  factory EnumTypeDefinition.fromJson(Map<String, Object?> json) {
+    return serializers.deserializeWith(serializer, json) as EnumTypeDefinition;
+  }
+
+  /// {@macro amplify_core.models.mipr.enum_type_definition}
+  factory EnumTypeDefinition.build([
+    void Function(EnumTypeDefinitionBuilder) updates,
+  ]) = _$EnumTypeDefinition;
+
+  const EnumTypeDefinition._();
+
+  /// The discrete values of the enum.
+  BuiltList<String> get values;
+
+  @override
+  Map<String, Object?> toJson() {
+    return serializers.serializeWith(serializer, this) as Map<String, Object?>;
+  }
+
+  /// The serializer for [EnumTypeDefinition].
+  static Serializer<EnumTypeDefinition> get serializer =>
+      _$enumTypeDefinitionSerializer;
 }
