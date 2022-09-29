@@ -20,9 +20,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # TEMP
-        scope: ["amplify_datastore_example"]
-        # scope: ["amplify_api_example", "amplify_storage_s3_example", "amplify_auth_cognito_example"]
+        scope:
+          - "amplify_api_example"
+          - "amplify_auth_cognito_example"
+          - "amplify_datastore_example"
+          - "amplify_storage_s3_example"
     steps:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
         with:
@@ -69,9 +71,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # TEMP
-        scope: ["amplify_datastore_example"]
-        # scope: ["amplify_api_example", "amplify_storage_s3_example", "amplify_auth_cognito_example"]
+        scope:
+          - "amplify_api_example"
+          - "amplify_auth_cognito_example"
+          - "amplify_datastore_example"
+          - "amplify_storage_s3_example"
     steps:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # 2.4.0
         with:
