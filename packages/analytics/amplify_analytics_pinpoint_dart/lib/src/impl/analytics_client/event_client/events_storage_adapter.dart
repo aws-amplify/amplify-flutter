@@ -54,7 +54,7 @@ class EventStorageAdapter {
     List<DriftJsonString> driftJsonStrings =
         await _db.getJsonStrings(maxEvents);
     List<StoredEvent> storedEvents = <StoredEvent>[];
-    for (var driftJsonString in driftJsonStrings) {
+    for (final driftJsonString in driftJsonStrings) {
       final storedEvent = StoredEvent(driftJsonString, _serializers);
       storedEvents.add(storedEvent);
     }

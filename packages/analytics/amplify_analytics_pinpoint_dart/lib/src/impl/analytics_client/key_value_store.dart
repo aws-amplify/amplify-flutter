@@ -32,7 +32,7 @@ class KeyValueStore {
 
   static Future<KeyValueStore> getInstance(
       SecureStorageInterface? storage) async {
-    var instance = KeyValueStore._getInstance(storage);
+    final instance = KeyValueStore._getInstance(storage);
 
     // Retrieve Unique ID
     var storedUniqueId = await instance._storage.read(key: uniqueIdKey);

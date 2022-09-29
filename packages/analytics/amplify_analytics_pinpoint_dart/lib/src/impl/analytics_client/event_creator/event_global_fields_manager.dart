@@ -38,11 +38,15 @@ class EventGlobalFieldsManager {
   }
 
   Future<void> removeGlobalProperties(List<String> propertyNames) async {
-    for (var key in propertyNames) {
-      _globalAttributes.remove(key);
-      _globalMetrics.remove(key);
+    if (propertyNames.isEmpty) {
+      _globalAttributes.clear();
+      _globalMetrics.clear();
+    } else {
+      for (final key in propertyNames) {
+        _globalAttributes.remove(key);
+        _globalMetrics.remove(key);
+      }
     }
-
     await _saveProperties();
   }
 

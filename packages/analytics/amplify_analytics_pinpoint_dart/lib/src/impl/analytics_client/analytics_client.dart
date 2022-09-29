@@ -16,11 +16,11 @@ class AnalyticsClient {
   // Should be managed by SessionTracker
   late final SessionManager _sessionManager; // = SessionManager();
 
-  late final EventClient _eventManager;
+  late final EventClient _eventClient;
 
   late final StoppableTimer _autoEventSubmitter;
 
-  late final EventCreator _eventClient;
+  late final EventCreator _eventCreator;
 
   late final EndpointClient _endpointClient;
 
@@ -30,12 +30,12 @@ class AnalyticsClient {
       PinpointClient pinpointClient,
       PathProvider? pathProvider,
       AppLifecycleProvider? appLifecycleProvider,
-      DeviceContextInfoProvider? deviceInfoProvider) async {
-    _eventClient =
-        await EventCreator.getInstance(keyValueStore, deviceInfoProvider);
+      DeviceContextInfo? deviceContextInfo) async {
+    _eventCreator =
+        await EventCreator.getInstance(keyValueStore, deviceContextInfo);
 
     _endpointClient = await EndpointClient.getInstance(
-        appId, keyValueStore, pinpointClient, deviceInfoProvider);
+        appId, keyValueStore, pinpointClient, deviceContextInfo);
 
     /// TODO - clarify - what is behavior on app refresh / hot reload?
     _autoEventSubmitter =
@@ -45,29 +45,29 @@ class AnalyticsClient {
       safePrint('StoppableTimer - finished flushEvents');
     });
 
-    _eventManager = EventClient(
+    _eventClient = EventClient(
         appId, keyValueStore, _endpointClient, pinpointClient, pathProvider);
 
     _sessionManager =
         SessionManager(keyValueStore, appLifecycleProvider, onSessionEnd: (sb) {
-      _eventManager.recordEvent(
-          _eventClient.createPinpointEvent(sessionStopEventType, sb));
-      _eventManager.flushEvents();
+      _eventClient.recordEvent(
+          _eventCreator.createPinpointEvent(sessionStopEventType, sb));
+      _eventClient.flushEvents();
     }, onSessionStart: (sb) async {
       await _endpointClient.updateEndpoint();
-      _eventManager.recordEvent(
-          _eventClient.createPinpointEvent(sessionStartEventType, sb));
+      _eventClient.recordEvent(
+          _eventCreator.createPinpointEvent(sessionStartEventType, sb));
     });
   }
 
   Future<void> flushEvents() async {
-    await _eventManager.flushEvents();
+    await _eventClient.flushEvents();
   }
 
   void recordEvent(AnalyticsEvent analyticsEvent) {
-    Event pinpointEvent = _eventClient.createPinpointEvent(
+    Event pinpointEvent = _eventCreator.createPinpointEvent(
         analyticsEvent.name, _sessionManager.sessionBuilder, analyticsEvent);
-    _eventManager.recordEvent(pinpointEvent);
+    _eventClient.recordEvent(pinpointEvent);
   }
 
   void enable() {
@@ -83,10 +83,10 @@ class AnalyticsClient {
   Future<void> registerGlobalProperties(
     AnalyticsProperties globalProperties,
   ) =>
-      _eventClient.registerGlobalProperties(globalProperties);
+      _eventCreator.registerGlobalProperties(globalProperties);
 
   Future<void> unregisterGlobalProperties(List<String> propertyNames) =>
-      _eventClient.unregisterGlobalProperties(propertyNames);
+      _eventCreator.unregisterGlobalProperties(propertyNames);
 
   Future<void> identifyUser(
     String userId,

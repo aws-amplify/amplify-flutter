@@ -12,13 +12,12 @@ class EventCreator {
   static const int _maxEventTypeLength = 50;
 
   final EventGlobalFieldsManager _globalFieldsManager;
-  final DeviceContextInfoProvider? _deviceContextInfoProvider;
+  final DeviceContextInfo? _deviceContextInfo;
 
-  EventCreator._getInstance(
-      this._globalFieldsManager, this._deviceContextInfoProvider);
+  EventCreator._getInstance(this._globalFieldsManager, this._deviceContextInfo);
 
   static Future<EventCreator> getInstance(KeyValueStore keyValueStore,
-          DeviceContextInfoProvider? deviceContextInfoProvider) async =>
+          DeviceContextInfo? deviceContextInfoProvider) async =>
       EventCreator._getInstance(
           await EventGlobalFieldsManager.getInstance(keyValueStore),
           deviceContextInfoProvider);
@@ -40,13 +39,13 @@ class EventCreator {
 
     eventBuilder.timestamp = DateTime.now().toUtc().toIso8601String();
 
-    eventBuilder.appTitle = _deviceContextInfoProvider?.appName;
-    eventBuilder.appPackageName = _deviceContextInfoProvider?.appPackageName;
-    eventBuilder.appVersionCode = _deviceContextInfoProvider?.appVersion;
+    eventBuilder.appTitle = _deviceContextInfo?.appName;
+    eventBuilder.appPackageName = _deviceContextInfo?.appPackageName;
+    eventBuilder.appVersionCode = _deviceContextInfo?.appVersion;
 
-    var eventAttrs =
+    final eventAttrs =
         Map<String, String>.from(_globalFieldsManager.globalAttributes);
-    var eventMetrics =
+    final eventMetrics =
         Map<String, double>.from(_globalFieldsManager.globalMetrics);
 
     if (analyticsEvent != null) {

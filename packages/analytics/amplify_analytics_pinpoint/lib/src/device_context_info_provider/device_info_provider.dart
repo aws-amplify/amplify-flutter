@@ -1,64 +1,106 @@
 import 'dart:io';
 
+import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
+/// DeviceInfo required for Pinpoint EndpointDemographic:
+/// https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html
 class DeviceInfo {
-  String? make; // manufacturer
-  String? model; // device model?
+  /// Manufacturer
+  String? make;
+
+  /// Model name or number of device
+  String? model;
+
+  /// Model version of device
   String? modelVersion;
-  String? platform; // web/ios/android
+
+  /// Platform: iOS/Android, etc.
+  DevicePlatform? platform;
+
+  /// Version of platform
   String? platformVersion;
 
-  DeviceInfo(this.make, this.model, this.modelVersion, this.platform,
-      this.platformVersion);
+  ///
+  DeviceInfo({
+    this.make,
+    this.model,
+    this.modelVersion,
+    this.platform,
+    this.platformVersion,
+  });
 }
 
+/// Provides DeviceInfo from Flutter -> Dart
 class DeviceInfoProvider {
-  static Future<DeviceInfo> getDeviceData() async {
-    var deviceInfo = DeviceInfoPlugin();
+  ///
+  static Future<DeviceInfo> getDeviceInfo() async {
+    final deviceInfo = DeviceInfoPlugin();
 
     try {
       if (kIsWeb) {
-        var webInfo = await deviceInfo.webBrowserInfo;
+        final webInfo = await deviceInfo.webBrowserInfo;
         return DeviceInfo(
-            webInfo.vendor, // vendor of the browser
-            webInfo.browserName.toString(),
-            webInfo.appVersion, // version of browser
-            'WEB',
-            webInfo.platform // version of browser?
-            );
+          make: webInfo.vendor, // vendor of the browser
+          model: webInfo.browserName.toString(),
+          modelVersion: webInfo.appVersion, // version of browser
+          platform: DevicePlatform.web,
+          platformVersion: webInfo.platform, // version of browser?
+        );
       } else if (Platform.isAndroid) {
-        var androidInfo = await deviceInfo.androidInfo;
-        return DeviceInfo(androidInfo.manufacturer, androidInfo.model, null,
-            'ANDROID', androidInfo.version.release // version string
-            );
+        final androidInfo = await deviceInfo.androidInfo;
+        return DeviceInfo(
+          make: androidInfo.manufacturer,
+          model: androidInfo.model,
+          modelVersion: null,
+          platform: DevicePlatform.android,
+          platformVersion: androidInfo.version.release, // version string
+        );
       } else if (Platform.isIOS) {
-        var iosInfo = await deviceInfo.iosInfo;
-        return DeviceInfo(null, iosInfo.model, null, 'IOS',
-            iosInfo.systemVersion // os version
-            );
+        final iosInfo = await deviceInfo.iosInfo;
+        return DeviceInfo(
+          make: null,
+          model: iosInfo.model,
+          modelVersion: null,
+          platform: DevicePlatform.iOS,
+          platformVersion: iosInfo.systemVersion, // os version
+        );
       } else if (Platform.isLinux) {
-        var linuxInfo = await deviceInfo.linuxInfo;
+        final linuxInfo = await deviceInfo.linuxInfo;
         return DeviceInfo(
-            null, linuxInfo.variant, null, 'LINUX', linuxInfo.prettyName);
+          make: null,
+          model: linuxInfo.variant,
+          modelVersion: null,
+          platform: DevicePlatform.linux,
+          platformVersion: linuxInfo.prettyName,
+        );
       } else if (Platform.isMacOS) {
-        var macInfo = await deviceInfo.macOsInfo;
+        final macInfo = await deviceInfo.macOsInfo;
         return DeviceInfo(
-            null, macInfo.model, null, 'MACOS', macInfo.osRelease);
+          make: null,
+          model: macInfo.model,
+          modelVersion: null,
+          platform: DevicePlatform.macOS,
+          platformVersion: macInfo.osRelease,
+        );
       } else if (Platform.isWindows) {
         return DeviceInfo(
-          null,
-          null,
-          null,
-          'WINDOWS',
-          null,
+          make: null,
+          model: null,
+          modelVersion: null,
+          platform: DevicePlatform.windows,
+          platformVersion: null,
         );
       }
     } on PlatformException {
-      return DeviceInfo(null, null, null, 'UNKNOWN', null);
+      return DeviceInfo(
+        platform: DevicePlatform.unknown,
+      );
     }
-    return DeviceInfo(null, null, null, 'UNKNOWN', null);
+    return DeviceInfo(
+      platform: DevicePlatform.unknown,
+    );
   }
 }

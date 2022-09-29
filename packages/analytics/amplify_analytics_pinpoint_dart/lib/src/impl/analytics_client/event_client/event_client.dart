@@ -35,9 +35,9 @@ class EventClient {
   Future<void> flushEvents() async {
     List<StoredEvent> storedEvents = await _storageAdapter.retrieveEvents();
 
-    var eventsMap = <String, Event>{};
-    var eventIdsToDelete = HashMap<String, int>();
-    for (var storedEvent in storedEvents) {
+    final eventsMap = <String, Event>{};
+    final eventIdsToDelete = HashMap<String, int>();
+    for (final storedEvent in storedEvents) {
       final id = _uuid.v1();
       eventsMap[id] = storedEvent.event;
       // Mapping PinpointID -> StoredEventId
@@ -48,7 +48,7 @@ class EventClient {
         endpoint: _endpointClient.getPublicEndpoint(),
         events: BuiltMap<String, Event>(eventsMap));
 
-    var batchItems = BuiltMap<String, EventsBatch>(
+    final batchItems = BuiltMap<String, EventsBatch>(
         {_keyValueStore.getFixedEndpointId(): batch});
 
     try {

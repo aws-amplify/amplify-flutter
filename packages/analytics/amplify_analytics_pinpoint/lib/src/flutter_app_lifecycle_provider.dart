@@ -35,19 +35,14 @@ class FlutterAppLifecycleProvider extends WidgetsBindingObserver
     switch (state) {
       case AppLifecycleState.resumed:
         _onForeground?.call();
-        // startSession
         break;
       // foreground inactive due to phone call / etc.
       case AppLifecycleState.inactive:
         _onBackground?.call();
-        // stopSession
-        // submitEvents
         break;
       // backgrounded
       case AppLifecycleState.paused:
         _onBackground?.call();
-        // stopSession
-        // submitEvents
         break;
       // flutter engine running without view
       case AppLifecycleState.detached:

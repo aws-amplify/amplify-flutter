@@ -25,22 +25,22 @@ class EndpointClient {
       this._appId,
       this._keyValueStore,
       this._pinpointClient,
-      DeviceContextInfoProvider? deviceInfoProvider,
+      DeviceContextInfo? deviceContextInfo,
       this._globalFieldsManager) {
     _endpointBuilder = PublicEndpointBuilder();
 
     _endpointBuilder.effectiveDate = DateTime.now().toUtc().toIso8601String();
     _endpointBuilder.demographic = EndpointDemographicBuilder()
-      ..appVersion = deviceInfoProvider?.appVersion
-      ..locale = deviceInfoProvider?.locale
-      ..make = deviceInfoProvider?.make
-      ..model = deviceInfoProvider?.model
-      ..modelVersion = deviceInfoProvider?.modelVersion
-      ..platform = deviceInfoProvider?.platform
-      ..platformVersion = deviceInfoProvider?.platformVersion
-      ..timezone = deviceInfoProvider?.timezone;
+      ..appVersion = deviceContextInfo?.appVersion
+      ..locale = deviceContextInfo?.locale
+      ..make = deviceContextInfo?.make
+      ..model = deviceContextInfo?.model
+      ..modelVersion = deviceContextInfo?.modelVersion
+      ..platform = deviceContextInfo?.platform?.name
+      ..platformVersion = deviceContextInfo?.platformVersion
+      ..timezone = deviceContextInfo?.timezone;
     _endpointBuilder.location = EndpointLocationBuilder()
-      ..country = deviceInfoProvider?.countryCode;
+      ..country = deviceContextInfo?.countryCode;
     _endpointBuilder.requestId = _keyValueStore.getFixedEndpointId();
   }
 
@@ -49,11 +49,11 @@ class EndpointClient {
       String appId,
       KeyValueStore keyValueStore,
       PinpointClient pinpointClient,
-      DeviceContextInfoProvider? deviceInfoProvider) async {
-    var globalFieldsManager =
+      DeviceContextInfo? deviceContextInfo) async {
+    final globalFieldsManager =
         await EndpointGlobalFieldsManager.getInstance(keyValueStore);
     return EndpointClient._getInstance(appId, keyValueStore, pinpointClient,
-        deviceInfoProvider, globalFieldsManager);
+        deviceContextInfo, globalFieldsManager);
   }
 
   void addAttribute(String name, List<String> values) =>
@@ -71,6 +71,28 @@ class EndpointClient {
 
     newUserBuilder.userId = userId;
 
+    // todo - special type extra properties
+    /*
+    if (userProfile instanceof AWSPinpointUserProfile) {
+            AWSPinpointUserProfile pinpointUserProfile = (AWSPinpointUserProfile) userProfile;
+            if (pinpointUserProfile.getUserAttributes() != null) {
+                addUserAttributes(user, pinpointUserProfile.getUserAttributes());
+            }
+        }
+     */
+    // TODO: Android has the class AWSPinpointUserProfile with an additional AnalyticsProperties
+    // Note: iOS doesn't have that though ...
+    /*
+    if userProfile is AWSPinpointUserProfile
+    look through its additional analytics properties fields
+    and add to userBuilder as follows =>
+      finaluserAttributesBuilder = ListMultimapBuilder<String, String>();
+      userProfile.properties!.getAllProperties().forEach((key, value) {
+        userAttributesBuilder.add(key, value.toString());
+      });
+      userBuilder.userAttributes = userAttributesBuilder;
+     */
+
     if (copyFromProfile.name != null) {
       addAttribute('name', [copyFromProfile.name!]);
     }
@@ -82,8 +104,8 @@ class EndpointClient {
     }
 
     if (copyFromProfile.location != null) {
-      var newLoc = copyFromProfile.location!;
-      var lb = _endpointBuilder.location;
+      final newLoc = copyFromProfile.location!;
+      final lb = _endpointBuilder.location;
 
       // We null check so we don't overwrite existing non null values
       if (newLoc.latitude != null) lb.latitude = newLoc.latitude;
@@ -97,7 +119,7 @@ class EndpointClient {
     // Note that properties are currently copied to Endpoint metrics/attributes
     // Instead of the User's Properties
     if (copyFromProfile.properties != null) {
-      var typesMap = copyFromProfile.properties!.getAllPropertiesTypes();
+      final typesMap = copyFromProfile.properties!.getAllPropertiesTypes();
       copyFromProfile.properties!.getAllProperties().forEach((key, value) {
         if (typesMap[key] == 'DOUBLE' || typesMap[key] == 'INT') {
           if (value is int) {
@@ -110,19 +132,6 @@ class EndpointClient {
         }
       });
     }
-
-    // TODO: Android has the class AWSPinpointUserProfile with an additional AnalyticsProperties
-    // Note: iOS doesn't have that though ...
-    /*
-    if userProfile is AWSPinpointUserProfile
-    look through its additional analytics properties fields
-    and add to userBuilder as follows =>
-      var userAttributesBuilder = ListMultimapBuilder<String, String>();
-      userProfile.properties!.getAllProperties().forEach((key, value) {
-        userAttributesBuilder.add(key, value.toString());
-      });
-      userBuilder.userAttributes = userAttributesBuilder;
-     */
 
     _endpointBuilder.user = newUserBuilder;
 
