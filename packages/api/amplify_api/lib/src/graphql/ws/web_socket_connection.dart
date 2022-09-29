@@ -85,7 +85,7 @@ class WebSocketConnection implements Closeable {
       StreamController<ApiHubEvent>.broadcast();
   RestartableTimer? _timeoutTimer;
 
-  late AWSHttpClient? _pingClient = httpClientOverride ?? AWSHttpClient();
+  AWSHttpClient? _pingClient = httpClientOverride ?? AWSHttpClient();
   Timer? _pingTimer;
   late Uri _pingUri;
   bool _hasNetwork = false;
@@ -475,7 +475,7 @@ class WebSocketConnection implements Closeable {
     _logger.info('Attempting to cancel Operation $subscriptionId');
     send(WebSocketStopMessage(id: subscriptionId));
     _subscriptionRequests.removeWhere((r) => r.id == subscriptionId);
-    // if (_subscriptionRequests.isEmpty) close(status.normalClosure);
+    if (_subscriptionRequests.isEmpty) close(status.normalClosure);
   }
 
   /// Serializes a message as JSON string and sends over WebSocket _channel.

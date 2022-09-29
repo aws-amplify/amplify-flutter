@@ -137,39 +137,42 @@ void main() {
       addTearDown(streamSub.cancel);
     });
 
-    // todo(equartey): Implement reconnection logic tests
-    // test('should reconnect when network turns on/off', () async {
-    //   final dataCompleter = Completer<String>();
-    //   final subscription = getWebSocketConnection().subscribe(
-    //     subscriptionRequest,
-    //     () {},
-    //   );
+    test(
+      'should reconnect when network turns on/off',
+      () async {
+        final dataCompleter = Completer<String>();
+        final subscription = getWebSocketConnection().subscribe(
+          subscriptionRequest,
+          () {},
+        );
 
-    //   await assertWebSocketConnected(connection, subscriptionRequest.id);
+        await assertWebSocketConnected(connection, subscriptionRequest.id);
 
-    //   final streamSub = subscription.listen(
-    //     expectAsync1(
-    //       (event) => dataCompleter.complete(event.data),
-    //     ),
-    //   );
+        final streamSub = subscription.listen(
+          expectAsync1(
+            (event) => dataCompleter.complete(event.data),
+          ),
+        );
 
-    //   connection.channel!.sink.add(jsonEncode(mockSubscriptionEvent));
+        connection.channel!.sink.add(jsonEncode(mockSubscriptionEvent));
 
-    //   fakePlatform.controller.sink.add(ConnectivityResult.none);
+        fakePlatform.controller.sink.add(ConnectivityResult.none);
 
-    //   expect(
-    //     hubEvents,
-    //     emitsInOrder(
-    //       [
-    //         connectingHubEvent,
-    //         connectedHubEvent,
-    //         connectingHubEvent,
-    //       ],
-    //     ),
-    //   );
+        expect(
+          hubEvents,
+          emitsInOrder(
+            [
+              connectingHubEvent,
+              connectedHubEvent,
+              connectingHubEvent,
+            ],
+          ),
+        );
 
-    //   addTearDown(streamSub.cancel);
-    // });
+        addTearDown(streamSub.cancel);
+      },
+      skip: 'todo(equartey): Implement reconnection logic tests',
+    );
 
     test('cancel() should send a stop message', () async {
       final dataCompleter = Completer<String>();

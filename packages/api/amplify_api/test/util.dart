@@ -137,7 +137,7 @@ final connectingHubEvent = isA<SubscriptionHubEvent>().having(
 final disconnectedHubEvent = isA<SubscriptionHubEvent>().having(
   (event) => event.status,
   'status',
-  SubscriptionStatus.connecting,
+  SubscriptionStatus.disconnected,
 );
 
 final pendingDisconnectedHubEvent = isA<SubscriptionHubEvent>().having(
