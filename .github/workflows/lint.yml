@@ -548,16 +548,16 @@ jobs:
         working-directory: packages/secure_storage/amplify_secure_storage_test
         run: dart analyze --fatal-infos lib test
   job_009:
-    name: "analyze_and_format; Dart stable; PKGS: packages/aft, packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/aws_common, packages/aws_signature_v4/example, packages/example_common, packages/secure_storage/amplify_secure_storage_dart/example, packages/smithy/goldens/lib/awsJson1_0, packages/smithy/goldens/lib/awsJson1_1, packages/smithy/goldens/lib/restJson1, packages/smithy/goldens/lib/restXml, packages/smithy/goldens/lib/restXmlWithNamespace, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen, packages/smithy/smithy_test, packages/worker_bee/e2e, packages/worker_bee/e2e_test, packages/worker_bee/worker_bee, packages/worker_bee/worker_bee_builder; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos .`"
+    name: "analyze_and_format; Dart stable; PKGS: packages/aft, packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/aws_common, packages/aws_signature_v4/example, packages/datastore/amplify_codegen, packages/example_common, packages/secure_storage/amplify_secure_storage_dart/example, packages/smithy/goldens/lib/awsJson1_0, packages/smithy/goldens/lib/awsJson1_1, packages/smithy/goldens/lib/restJson1, packages/smithy/goldens/lib/restXml, packages/smithy/goldens/lib/restXmlWithNamespace, packages/smithy/smithy, packages/smithy/smithy_aws, packages/smithy/smithy_codegen, packages/smithy/smithy_test, packages/worker_bee/e2e, packages/worker_bee/e2e_test, packages/worker_bee/worker_bee, packages/worker_bee/worker_bee_builder; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos .`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/aws_common-packages/aws_signature_v4/example-packages/example_common-packages/secure_storage/amplify_secure_storage_dart/example-packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/s-!!too_long!!-725-339769703"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/aws_common-packages/aws_signature_v4/example-packages/datastore/amplify_codegen-packages/example_common-packages/secure_storage/amplify_secure_storage_dart/example-packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/res-!!too_long!!-760-374930231"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/aws_common-packages/aws_signature_v4/example-packages/example_common-packages/secure_storage/amplify_secure_storage_dart/example-packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/s-!!too_long!!-699-852681108
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aft-packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/aws_common-packages/aws_signature_v4/example-packages/datastore/amplify_codegen-packages/example_common-packages/secure_storage/amplify_secure_storage_dart/example-packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/res-!!too_long!!-734-471768725
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -630,6 +630,19 @@ jobs:
       - name: "packages/aws_signature_v4/example; dart analyze --fatal-infos ."
         if: "always() && steps.packages_aws_signature_v4_example_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_signature_v4/example
+        run: dart analyze --fatal-infos .
+      - id: packages_datastore_amplify_codegen_pub_upgrade
+        name: packages/datastore/amplify_codegen; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/datastore/amplify_codegen
+        run: dart pub upgrade
+      - name: "packages/datastore/amplify_codegen; dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_datastore_amplify_codegen_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/datastore/amplify_codegen
+        run: "dart format --output=none --set-exit-if-changed ."
+      - name: "packages/datastore/amplify_codegen; dart analyze --fatal-infos ."
+        if: "always() && steps.packages_datastore_amplify_codegen_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/datastore/amplify_codegen
         run: dart analyze --fatal-infos .
       - id: packages_example_common_pub_upgrade
         name: packages/example_common; dart pub upgrade
