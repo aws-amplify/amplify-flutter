@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.delete_objects_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,12 +21,16 @@ abstract class DeleteObjectsOutput
     implements
         Built<DeleteObjectsOutput, DeleteObjectsOutputBuilder>,
         _i2.HasPayload<DeleteObjectsOutputPayload> {
-  factory DeleteObjectsOutput(
-      {_i3.BuiltList<_i4.DeletedObject>? deleted,
-      _i3.BuiltList<_i5.Error>? errors,
-      _i6.RequestCharged? requestCharged}) {
+  factory DeleteObjectsOutput({
+    _i3.BuiltList<_i4.DeletedObject>? deleted,
+    _i3.BuiltList<_i5.Error>? errors,
+    _i6.RequestCharged? requestCharged,
+  }) {
     return _$DeleteObjectsOutput._(
-        deleted: deleted, errors: errors, requestCharged: requestCharged);
+      deleted: deleted,
+      errors: errors,
+      requestCharged: requestCharged,
+    );
   }
 
   factory DeleteObjectsOutput.build(
@@ -36,8 +40,10 @@ abstract class DeleteObjectsOutput
   const DeleteObjectsOutput._();
 
   /// Constructs a [DeleteObjectsOutput] from a [payload] and [response].
-  factory DeleteObjectsOutput.fromResponse(DeleteObjectsOutputPayload payload,
-          _i1.AWSBaseHttpResponse response) =>
+  factory DeleteObjectsOutput.fromResponse(
+    DeleteObjectsOutputPayload payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       DeleteObjectsOutput.build((b) {
         if (payload.deleted != null) {
           b.deleted.replace(payload.deleted!);
@@ -76,13 +82,26 @@ abstract class DeleteObjectsOutput
         }
       });
   @override
-  List<Object?> get props => [deleted, errors, requestCharged];
+  List<Object?> get props => [
+        deleted,
+        errors,
+        requestCharged,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteObjectsOutput');
-    helper.add('deleted', deleted);
-    helper.add('errors', errors);
-    helper.add('requestCharged', requestCharged);
+    helper.add(
+      'deleted',
+      deleted,
+    );
+    helper.add(
+      'errors',
+      errors,
+    );
+    helper.add(
+      'requestCharged',
+      requestCharged,
+    );
     return helper.toString();
   }
 }
@@ -107,12 +126,21 @@ abstract class DeleteObjectsOutputPayload
   /// Container for a failed delete action that describes the object that Amazon S3 attempted to delete and the error it encountered.
   _i3.BuiltList<_i5.Error>? get errors;
   @override
-  List<Object?> get props => [deleted, errors];
+  List<Object?> get props => [
+        deleted,
+        errors,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteObjectsOutputPayload');
-    helper.add('deleted', deleted);
-    helper.add('errors', errors);
+    helper.add(
+      'deleted',
+      deleted,
+    );
+    helper.add(
+      'errors',
+      errors,
+    );
     return helper.toString();
   }
 }
@@ -126,15 +154,21 @@ class DeleteObjectsOutputRestXmlSerializer
         DeleteObjectsOutput,
         _$DeleteObjectsOutput,
         DeleteObjectsOutputPayload,
-        _$DeleteObjectsOutputPayload
+        _$DeleteObjectsOutputPayload,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   DeleteObjectsOutputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = DeleteObjectsOutputPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -144,15 +178,18 @@ class DeleteObjectsOutputRestXmlSerializer
       switch (key as String) {
         case 'Deleted':
           if (value != null) {
-            result.deleted.add((serializers.deserialize(value,
-                    specifiedType: const FullType(_i4.DeletedObject))
-                as _i4.DeletedObject));
+            result.deleted.add((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i4.DeletedObject),
+            ) as _i4.DeletedObject));
           }
           break;
         case 'Error':
           if (value != null) {
-            result.errors.add((serializers.deserialize(value,
-                specifiedType: const FullType(_i5.Error)) as _i5.Error));
+            result.errors.add((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i5.Error),
+            ) as _i5.Error));
           }
           break;
       }
@@ -162,27 +199,41 @@ class DeleteObjectsOutputRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is DeleteObjectsOutput
         ? object.getPayload()
         : (object as DeleteObjectsOutputPayload);
     final result = <Object?>[
-      const _i2.XmlElementName('DeleteResult',
-          _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i2.XmlElementName(
+        'DeleteResult',
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     if (payload.deleted != null) {
-      result.addAll(const _i2.XmlBuiltListSerializer(memberName: 'Deleted')
-          .serialize(serializers, payload.deleted!,
-              specifiedType: const FullType.nullable(
-                  _i3.BuiltList, [FullType(_i4.DeletedObject)])));
+      result.addAll(
+          const _i2.XmlBuiltListSerializer(memberName: 'Deleted').serialize(
+        serializers,
+        payload.deleted!,
+        specifiedType: const FullType.nullable(
+          _i3.BuiltList,
+          [FullType(_i4.DeletedObject)],
+        ),
+      ));
     }
     if (payload.errors != null) {
-      result.addAll(const _i2.XmlBuiltListSerializer(memberName: 'Error')
-          .serialize(
-              serializers, payload.errors!,
-              specifiedType: const FullType.nullable(
-                  _i3.BuiltList, [FullType(_i5.Error)])));
+      result.addAll(
+          const _i2.XmlBuiltListSerializer(memberName: 'Error').serialize(
+        serializers,
+        payload.errors!,
+        specifiedType: const FullType.nullable(
+          _i3.BuiltList,
+          [FullType(_i5.Error)],
+        ),
+      ));
     }
     return result;
   }

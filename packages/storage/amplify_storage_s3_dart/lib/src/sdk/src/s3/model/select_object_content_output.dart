@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.select_object_content_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -28,8 +28,9 @@ abstract class SelectObjectContentOutput
 
   /// Constructs a [SelectObjectContentOutput] from a [payload] and [response].
   factory SelectObjectContentOutput.fromResponse(
-          _i3.SelectObjectContentEventStream? payload,
-          _i1.AWSBaseHttpResponse response) =>
+    _i3.SelectObjectContentEventStream? payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       SelectObjectContentOutput.build((b) {
         b.payload = payload;
       });
@@ -48,7 +49,10 @@ abstract class SelectObjectContentOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SelectObjectContentOutput');
-    helper.add('payload', payload);
+    helper.add(
+      'payload',
+      payload,
+    );
     return helper.toString();
   }
 }

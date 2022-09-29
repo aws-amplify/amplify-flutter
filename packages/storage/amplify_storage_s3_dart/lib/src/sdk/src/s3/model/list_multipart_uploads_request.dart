@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.list_multipart_uploads_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,24 +20,26 @@ abstract class ListMultipartUploadsRequest
         Built<ListMultipartUploadsRequest, ListMultipartUploadsRequestBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<ListMultipartUploadsRequestPayload> {
-  factory ListMultipartUploadsRequest(
-      {required String bucket,
-      String? delimiter,
-      _i3.EncodingType? encodingType,
-      String? expectedBucketOwner,
-      String? keyMarker,
-      int? maxUploads,
-      String? prefix,
-      String? uploadIdMarker}) {
+  factory ListMultipartUploadsRequest({
+    required String bucket,
+    String? delimiter,
+    _i3.EncodingType? encodingType,
+    String? expectedBucketOwner,
+    String? keyMarker,
+    int? maxUploads,
+    String? prefix,
+    String? uploadIdMarker,
+  }) {
     return _$ListMultipartUploadsRequest._(
-        bucket: bucket,
-        delimiter: delimiter,
-        encodingType: encodingType,
-        expectedBucketOwner: expectedBucketOwner,
-        keyMarker: keyMarker,
-        maxUploads: maxUploads,
-        prefix: prefix,
-        uploadIdMarker: uploadIdMarker);
+      bucket: bucket,
+      delimiter: delimiter,
+      encodingType: encodingType,
+      expectedBucketOwner: expectedBucketOwner,
+      keyMarker: keyMarker,
+      maxUploads: maxUploads,
+      prefix: prefix,
+      uploadIdMarker: uploadIdMarker,
+    );
   }
 
   factory ListMultipartUploadsRequest.build(
@@ -47,9 +49,10 @@ abstract class ListMultipartUploadsRequest
   const ListMultipartUploadsRequest._();
 
   factory ListMultipartUploadsRequest.fromRequest(
-          ListMultipartUploadsRequestPayload payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    ListMultipartUploadsRequestPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       ListMultipartUploadsRequest.build((b) {
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
           b.expectedBucketOwner =
@@ -125,7 +128,10 @@ abstract class ListMultipartUploadsRequest
       case 'Bucket':
         return bucket;
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -140,19 +146,43 @@ abstract class ListMultipartUploadsRequest
         keyMarker,
         maxUploads,
         prefix,
-        uploadIdMarker
+        uploadIdMarker,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListMultipartUploadsRequest');
-    helper.add('bucket', bucket);
-    helper.add('delimiter', delimiter);
-    helper.add('encodingType', encodingType);
-    helper.add('expectedBucketOwner', expectedBucketOwner);
-    helper.add('keyMarker', keyMarker);
-    helper.add('maxUploads', maxUploads);
-    helper.add('prefix', prefix);
-    helper.add('uploadIdMarker', uploadIdMarker);
+    helper.add(
+      'bucket',
+      bucket,
+    );
+    helper.add(
+      'delimiter',
+      delimiter,
+    );
+    helper.add(
+      'encodingType',
+      encodingType,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
+    );
+    helper.add(
+      'keyMarker',
+      keyMarker,
+    );
+    helper.add(
+      'maxUploads',
+      maxUploads,
+    );
+    helper.add(
+      'prefix',
+      prefix,
+    );
+    helper.add(
+      'uploadIdMarker',
+      uploadIdMarker,
+    );
     return helper.toString();
   }
 }
@@ -193,24 +223,35 @@ class ListMultipartUploadsRequestRestXmlSerializer
         ListMultipartUploadsRequest,
         _$ListMultipartUploadsRequest,
         ListMultipartUploadsRequestPayload,
-        _$ListMultipartUploadsRequestPayload
+        _$ListMultipartUploadsRequestPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   ListMultipartUploadsRequestPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return ListMultipartUploadsRequestPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
-      const _i1.XmlElementName('ListMultipartUploadsRequest',
-          _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i1.XmlElementName(
+        'ListMultipartUploadsRequest',
+        _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     return result;
   }

@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.create_multipart_upload_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,68 +34,70 @@ abstract class CreateMultipartUploadRequest
             CreateMultipartUploadRequestBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<CreateMultipartUploadRequestPayload> {
-  factory CreateMultipartUploadRequest(
-      {_i3.ObjectCannedAcl? acl,
-      required String bucket,
-      bool? bucketKeyEnabled,
-      String? cacheControl,
-      _i4.ChecksumAlgorithm? checksumAlgorithm,
-      String? contentDisposition,
-      String? contentEncoding,
-      String? contentLanguage,
-      String? contentType,
-      String? expectedBucketOwner,
-      DateTime? expires,
-      String? grantFullControl,
-      String? grantRead,
-      String? grantReadAcp,
-      String? grantWriteAcp,
-      required String key,
-      _i5.BuiltMap<String, String>? metadata,
-      _i6.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
-      _i7.ObjectLockMode? objectLockMode,
-      DateTime? objectLockRetainUntilDate,
-      _i8.RequestPayer? requestPayer,
-      _i9.ServerSideEncryption? serverSideEncryption,
-      String? sseCustomerAlgorithm,
-      String? sseCustomerKey,
-      String? sseCustomerKeyMd5,
-      String? ssekmsEncryptionContext,
-      String? ssekmsKeyId,
-      _i10.StorageClass? storageClass,
-      String? tagging,
-      String? websiteRedirectLocation}) {
+  factory CreateMultipartUploadRequest({
+    _i3.ObjectCannedAcl? acl,
+    required String bucket,
+    bool? bucketKeyEnabled,
+    String? cacheControl,
+    _i4.ChecksumAlgorithm? checksumAlgorithm,
+    String? contentDisposition,
+    String? contentEncoding,
+    String? contentLanguage,
+    String? contentType,
+    String? expectedBucketOwner,
+    DateTime? expires,
+    String? grantFullControl,
+    String? grantRead,
+    String? grantReadAcp,
+    String? grantWriteAcp,
+    required String key,
+    _i5.BuiltMap<String, String>? metadata,
+    _i6.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
+    _i7.ObjectLockMode? objectLockMode,
+    DateTime? objectLockRetainUntilDate,
+    _i8.RequestPayer? requestPayer,
+    _i9.ServerSideEncryption? serverSideEncryption,
+    String? sseCustomerAlgorithm,
+    String? sseCustomerKey,
+    String? sseCustomerKeyMd5,
+    String? ssekmsEncryptionContext,
+    String? ssekmsKeyId,
+    _i10.StorageClass? storageClass,
+    String? tagging,
+    String? websiteRedirectLocation,
+  }) {
     return _$CreateMultipartUploadRequest._(
-        acl: acl,
-        bucket: bucket,
-        bucketKeyEnabled: bucketKeyEnabled,
-        cacheControl: cacheControl,
-        checksumAlgorithm: checksumAlgorithm,
-        contentDisposition: contentDisposition,
-        contentEncoding: contentEncoding,
-        contentLanguage: contentLanguage,
-        contentType: contentType,
-        expectedBucketOwner: expectedBucketOwner,
-        expires: expires,
-        grantFullControl: grantFullControl,
-        grantRead: grantRead,
-        grantReadAcp: grantReadAcp,
-        grantWriteAcp: grantWriteAcp,
-        key: key,
-        metadata: metadata,
-        objectLockLegalHoldStatus: objectLockLegalHoldStatus,
-        objectLockMode: objectLockMode,
-        objectLockRetainUntilDate: objectLockRetainUntilDate,
-        requestPayer: requestPayer,
-        serverSideEncryption: serverSideEncryption,
-        sseCustomerAlgorithm: sseCustomerAlgorithm,
-        sseCustomerKey: sseCustomerKey,
-        sseCustomerKeyMd5: sseCustomerKeyMd5,
-        ssekmsEncryptionContext: ssekmsEncryptionContext,
-        ssekmsKeyId: ssekmsKeyId,
-        storageClass: storageClass,
-        tagging: tagging,
-        websiteRedirectLocation: websiteRedirectLocation);
+      acl: acl,
+      bucket: bucket,
+      bucketKeyEnabled: bucketKeyEnabled,
+      cacheControl: cacheControl,
+      checksumAlgorithm: checksumAlgorithm,
+      contentDisposition: contentDisposition,
+      contentEncoding: contentEncoding,
+      contentLanguage: contentLanguage,
+      contentType: contentType,
+      expectedBucketOwner: expectedBucketOwner,
+      expires: expires,
+      grantFullControl: grantFullControl,
+      grantRead: grantRead,
+      grantReadAcp: grantReadAcp,
+      grantWriteAcp: grantWriteAcp,
+      key: key,
+      metadata: metadata,
+      objectLockLegalHoldStatus: objectLockLegalHoldStatus,
+      objectLockMode: objectLockMode,
+      objectLockRetainUntilDate: objectLockRetainUntilDate,
+      requestPayer: requestPayer,
+      serverSideEncryption: serverSideEncryption,
+      sseCustomerAlgorithm: sseCustomerAlgorithm,
+      sseCustomerKey: sseCustomerKey,
+      sseCustomerKeyMd5: sseCustomerKeyMd5,
+      ssekmsEncryptionContext: ssekmsEncryptionContext,
+      ssekmsKeyId: ssekmsKeyId,
+      storageClass: storageClass,
+      tagging: tagging,
+      websiteRedirectLocation: websiteRedirectLocation,
+    );
   }
 
   factory CreateMultipartUploadRequest.build(
@@ -105,9 +107,10 @@ abstract class CreateMultipartUploadRequest
   const CreateMultipartUploadRequest._();
 
   factory CreateMultipartUploadRequest.fromRequest(
-          CreateMultipartUploadRequestPayload payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    CreateMultipartUploadRequestPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       CreateMultipartUploadRequest.build((b) {
         if (request.headers['x-amz-acl'] != null) {
           b.acl =
@@ -129,9 +132,10 @@ abstract class CreateMultipartUploadRequest
           b.contentType = request.headers['Content-Type']!;
         }
         if (request.headers['Expires'] != null) {
-          b.expires = _i1.Timestamp.parse(request.headers['Expires']!,
-                  format: _i1.TimestampFormat.httpDate)
-              .asDateTime;
+          b.expires = _i1.Timestamp.parse(
+            request.headers['Expires']!,
+            format: _i1.TimestampFormat.httpDate,
+          ).asDateTime;
         }
         if (request.headers['x-amz-grant-full-control'] != null) {
           b.grantFullControl = request.headers['x-amz-grant-full-control']!;
@@ -202,9 +206,9 @@ abstract class CreateMultipartUploadRequest
         }
         if (request.headers['x-amz-object-lock-retain-until-date'] != null) {
           b.objectLockRetainUntilDate = _i1.Timestamp.parse(
-                  request.headers['x-amz-object-lock-retain-until-date']!,
-                  format: _i1.TimestampFormat.dateTime)
-              .asDateTime;
+            request.headers['x-amz-object-lock-retain-until-date']!,
+            format: _i1.TimestampFormat.dateTime,
+          ).asDateTime;
         }
         if (request.headers['x-amz-object-lock-legal-hold'] != null) {
           b.objectLockLegalHoldStatus = _i6.ObjectLockLegalHoldStatus.values
@@ -220,8 +224,13 @@ abstract class CreateMultipartUploadRequest
         }
         b.metadata.addEntries(request.headers.entries
             .where((el) => el.key.startsWith('x-amz-meta-'))
-            .map((el) =>
-                MapEntry(el.key.replaceFirst('x-amz-meta-', ''), el.value)));
+            .map((el) => MapEntry(
+                  el.key.replaceFirst(
+                    'x-amz-meta-',
+                    '',
+                  ),
+                  el.value,
+                )));
         if (labels['bucket'] != null) {
           b.bucket = labels['bucket']!;
         }
@@ -350,7 +359,10 @@ abstract class CreateMultipartUploadRequest
       case 'Key':
         return this.key;
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -387,41 +399,131 @@ abstract class CreateMultipartUploadRequest
         ssekmsKeyId,
         storageClass,
         tagging,
-        websiteRedirectLocation
+        websiteRedirectLocation,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CreateMultipartUploadRequest');
-    helper.add('acl', acl);
-    helper.add('bucket', bucket);
-    helper.add('bucketKeyEnabled', bucketKeyEnabled);
-    helper.add('cacheControl', cacheControl);
-    helper.add('checksumAlgorithm', checksumAlgorithm);
-    helper.add('contentDisposition', contentDisposition);
-    helper.add('contentEncoding', contentEncoding);
-    helper.add('contentLanguage', contentLanguage);
-    helper.add('contentType', contentType);
-    helper.add('expectedBucketOwner', expectedBucketOwner);
-    helper.add('expires', expires);
-    helper.add('grantFullControl', grantFullControl);
-    helper.add('grantRead', grantRead);
-    helper.add('grantReadAcp', grantReadAcp);
-    helper.add('grantWriteAcp', grantWriteAcp);
-    helper.add('key', key);
-    helper.add('metadata', metadata);
-    helper.add('objectLockLegalHoldStatus', objectLockLegalHoldStatus);
-    helper.add('objectLockMode', objectLockMode);
-    helper.add('objectLockRetainUntilDate', objectLockRetainUntilDate);
-    helper.add('requestPayer', requestPayer);
-    helper.add('serverSideEncryption', serverSideEncryption);
-    helper.add('sseCustomerAlgorithm', sseCustomerAlgorithm);
-    helper.add('sseCustomerKey', '***SENSITIVE***');
-    helper.add('sseCustomerKeyMd5', sseCustomerKeyMd5);
-    helper.add('ssekmsEncryptionContext', '***SENSITIVE***');
-    helper.add('ssekmsKeyId', '***SENSITIVE***');
-    helper.add('storageClass', storageClass);
-    helper.add('tagging', tagging);
-    helper.add('websiteRedirectLocation', websiteRedirectLocation);
+    helper.add(
+      'acl',
+      acl,
+    );
+    helper.add(
+      'bucket',
+      bucket,
+    );
+    helper.add(
+      'bucketKeyEnabled',
+      bucketKeyEnabled,
+    );
+    helper.add(
+      'cacheControl',
+      cacheControl,
+    );
+    helper.add(
+      'checksumAlgorithm',
+      checksumAlgorithm,
+    );
+    helper.add(
+      'contentDisposition',
+      contentDisposition,
+    );
+    helper.add(
+      'contentEncoding',
+      contentEncoding,
+    );
+    helper.add(
+      'contentLanguage',
+      contentLanguage,
+    );
+    helper.add(
+      'contentType',
+      contentType,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
+    );
+    helper.add(
+      'expires',
+      expires,
+    );
+    helper.add(
+      'grantFullControl',
+      grantFullControl,
+    );
+    helper.add(
+      'grantRead',
+      grantRead,
+    );
+    helper.add(
+      'grantReadAcp',
+      grantReadAcp,
+    );
+    helper.add(
+      'grantWriteAcp',
+      grantWriteAcp,
+    );
+    helper.add(
+      'key',
+      key,
+    );
+    helper.add(
+      'metadata',
+      metadata,
+    );
+    helper.add(
+      'objectLockLegalHoldStatus',
+      objectLockLegalHoldStatus,
+    );
+    helper.add(
+      'objectLockMode',
+      objectLockMode,
+    );
+    helper.add(
+      'objectLockRetainUntilDate',
+      objectLockRetainUntilDate,
+    );
+    helper.add(
+      'requestPayer',
+      requestPayer,
+    );
+    helper.add(
+      'serverSideEncryption',
+      serverSideEncryption,
+    );
+    helper.add(
+      'sseCustomerAlgorithm',
+      sseCustomerAlgorithm,
+    );
+    helper.add(
+      'sseCustomerKey',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'sseCustomerKeyMd5',
+      sseCustomerKeyMd5,
+    );
+    helper.add(
+      'ssekmsEncryptionContext',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'ssekmsKeyId',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'storageClass',
+      storageClass,
+    );
+    helper.add(
+      'tagging',
+      tagging,
+    );
+    helper.add(
+      'websiteRedirectLocation',
+      websiteRedirectLocation,
+    );
     return helper.toString();
   }
 }
@@ -462,24 +564,35 @@ class CreateMultipartUploadRequestRestXmlSerializer extends _i1
         CreateMultipartUploadRequest,
         _$CreateMultipartUploadRequest,
         CreateMultipartUploadRequestPayload,
-        _$CreateMultipartUploadRequestPayload
+        _$CreateMultipartUploadRequestPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   CreateMultipartUploadRequestPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return CreateMultipartUploadRequestPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
-      const _i1.XmlElementName('CreateMultipartUploadRequest',
-          _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i1.XmlElementName(
+        'CreateMultipartUploadRequest',
+        _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     return result;
   }

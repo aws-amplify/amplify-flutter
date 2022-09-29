@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.object; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,22 +21,24 @@ abstract class S3Object
     with _i1.AWSEquatable<S3Object>
     implements Built<S3Object, S3ObjectBuilder> {
   /// An object consists of data and its descriptive metadata.
-  factory S3Object(
-      {_i2.BuiltList<_i3.ChecksumAlgorithm>? checksumAlgorithm,
-      String? eTag,
-      String? key,
-      DateTime? lastModified,
-      _i4.Owner? owner,
-      _i5.Int64? size,
-      _i6.ObjectStorageClass? storageClass}) {
+  factory S3Object({
+    _i2.BuiltList<_i3.ChecksumAlgorithm>? checksumAlgorithm,
+    String? eTag,
+    String? key,
+    DateTime? lastModified,
+    _i4.Owner? owner,
+    _i5.Int64? size,
+    _i6.ObjectStorageClass? storageClass,
+  }) {
     return _$S3Object._(
-        checksumAlgorithm: checksumAlgorithm,
-        eTag: eTag,
-        key: key,
-        lastModified: lastModified,
-        owner: owner,
-        size: size,
-        storageClass: storageClass);
+      checksumAlgorithm: checksumAlgorithm,
+      eTag: eTag,
+      key: key,
+      lastModified: lastModified,
+      owner: owner,
+      size: size,
+      storageClass: storageClass,
+    );
   }
 
   /// An object consists of data and its descriptive metadata.
@@ -78,18 +80,46 @@ abstract class S3Object
   /// The class of storage used to store the object.
   _i6.ObjectStorageClass? get storageClass;
   @override
-  List<Object?> get props =>
-      [checksumAlgorithm, eTag, key, lastModified, owner, size, storageClass];
+  List<Object?> get props => [
+        checksumAlgorithm,
+        eTag,
+        key,
+        lastModified,
+        owner,
+        size,
+        storageClass,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('S3Object');
-    helper.add('checksumAlgorithm', checksumAlgorithm);
-    helper.add('eTag', eTag);
-    helper.add('key', key);
-    helper.add('lastModified', lastModified);
-    helper.add('owner', owner);
-    helper.add('size', size);
-    helper.add('storageClass', storageClass);
+    helper.add(
+      'checksumAlgorithm',
+      checksumAlgorithm,
+    );
+    helper.add(
+      'eTag',
+      eTag,
+    );
+    helper.add(
+      'key',
+      key,
+    );
+    helper.add(
+      'lastModified',
+      lastModified,
+    );
+    helper.add(
+      'owner',
+      owner,
+    );
+    helper.add(
+      'size',
+      size,
+    );
+    helper.add(
+      'storageClass',
+      storageClass,
+    );
     return helper.toString();
   }
 }
@@ -98,13 +128,23 @@ class ObjectRestXmlSerializer extends _i7.StructuredSmithySerializer<S3Object> {
   const ObjectRestXmlSerializer() : super('Object');
 
   @override
-  Iterable<Type> get types => const [S3Object, _$S3Object];
+  Iterable<Type> get types => const [
+        S3Object,
+        _$S3Object,
+      ];
   @override
-  Iterable<_i7.ShapeId> get supportedProtocols =>
-      const [_i7.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i7.ShapeId> get supportedProtocols => const [
+        _i7.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
-  S3Object deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  S3Object deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = S3ObjectBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -114,46 +154,58 @@ class ObjectRestXmlSerializer extends _i7.StructuredSmithySerializer<S3Object> {
       switch (key as String) {
         case 'ChecksumAlgorithm':
           if (value != null) {
-            result.checksumAlgorithm.add((serializers.deserialize(value,
-                    specifiedType: const FullType(_i3.ChecksumAlgorithm))
-                as _i3.ChecksumAlgorithm));
+            result.checksumAlgorithm.add((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.ChecksumAlgorithm),
+            ) as _i3.ChecksumAlgorithm));
           }
           break;
         case 'ETag':
           if (value != null) {
-            result.eTag = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.eTag = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'Key':
           if (value != null) {
-            result.key = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.key = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'LastModified':
           if (value != null) {
-            result.lastModified = (serializers.deserialize(value,
-                specifiedType: const FullType(DateTime)) as DateTime);
+            result.lastModified = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
           }
           break;
         case 'Owner':
           if (value != null) {
-            result.owner.replace((serializers.deserialize(value,
-                specifiedType: const FullType(_i4.Owner)) as _i4.Owner));
+            result.owner.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i4.Owner),
+            ) as _i4.Owner));
           }
           break;
         case 'Size':
           if (value != null) {
-            result.size = (serializers.deserialize(value,
-                specifiedType: const FullType(_i5.Int64)) as _i5.Int64);
+            result.size = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i5.Int64),
+            ) as _i5.Int64);
           }
           break;
         case 'StorageClass':
           if (value != null) {
-            result.storageClass = (serializers.deserialize(value,
-                    specifiedType: const FullType(_i6.ObjectStorageClass))
-                as _i6.ObjectStorageClass);
+            result.storageClass = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i6.ObjectStorageClass),
+            ) as _i6.ObjectStorageClass);
           }
           break;
       }
@@ -163,55 +215,77 @@ class ObjectRestXmlSerializer extends _i7.StructuredSmithySerializer<S3Object> {
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as S3Object);
     final result = <Object?>[
       const _i7.XmlElementName(
-          'Object', _i7.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+        'Object',
+        _i7.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     if (payload.checksumAlgorithm != null) {
       result.addAll(
           const _i7.XmlBuiltListSerializer(memberName: 'ChecksumAlgorithm')
-              .serialize(serializers, payload.checksumAlgorithm!,
-                  specifiedType: const FullType.nullable(
-                      _i2.BuiltList, [FullType(_i3.ChecksumAlgorithm)])));
+              .serialize(
+        serializers,
+        payload.checksumAlgorithm!,
+        specifiedType: const FullType.nullable(
+          _i2.BuiltList,
+          [FullType(_i3.ChecksumAlgorithm)],
+        ),
+      ));
     }
     if (payload.eTag != null) {
       result
         ..add(const _i7.XmlElementName('ETag'))
-        ..add(serializers.serialize(payload.eTag!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.eTag!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.key != null) {
       result
         ..add(const _i7.XmlElementName('Key'))
-        ..add(serializers.serialize(payload.key!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.key!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.lastModified != null) {
       result
         ..add(const _i7.XmlElementName('LastModified'))
-        ..add(serializers.serialize(payload.lastModified!,
-            specifiedType: const FullType.nullable(DateTime)));
+        ..add(serializers.serialize(
+          payload.lastModified!,
+          specifiedType: const FullType.nullable(DateTime),
+        ));
     }
     if (payload.owner != null) {
       result
         ..add(const _i7.XmlElementName('Owner'))
-        ..add(serializers.serialize(payload.owner!,
-            specifiedType: const FullType(_i4.Owner)));
+        ..add(serializers.serialize(
+          payload.owner!,
+          specifiedType: const FullType(_i4.Owner),
+        ));
     }
     if (payload.size != null) {
       result
         ..add(const _i7.XmlElementName('Size'))
-        ..add(serializers.serialize(payload.size!,
-            specifiedType: const FullType.nullable(_i5.Int64)));
+        ..add(serializers.serialize(
+          payload.size!,
+          specifiedType: const FullType.nullable(_i5.Int64),
+        ));
     }
     if (payload.storageClass != null) {
       result
         ..add(const _i7.XmlElementName('StorageClass'))
-        ..add(serializers.serialize(payload.storageClass!,
-            specifiedType: const FullType.nullable(_i6.ObjectStorageClass)));
+        ..add(serializers.serialize(
+          payload.storageClass!,
+          specifiedType: const FullType.nullable(_i6.ObjectStorageClass),
+        ));
     }
     return result;
   }

@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.select_object_content_event_stream; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,7 +37,9 @@ abstract class SelectObjectContentEventStream
       SelectObjectContentEventStreamStats;
 
   const factory SelectObjectContentEventStream.sdkUnknown(
-      String name, Object value) = SelectObjectContentEventStreamSdkUnknown;
+    String name,
+    Object value,
+  ) = SelectObjectContentEventStreamSdkUnknown;
 
   static const List<_i1.SmithySerializer<SelectObjectContentEventStream>>
       serializers = [SelectObjectContentEventStreamRestXmlSerializer()];
@@ -59,13 +61,18 @@ abstract class SelectObjectContentEventStream
   @override
   Object get value => (cont ?? end ?? progress ?? records ?? stats)!;
   @override
-  T? when<T>(
-      {T Function(_i2.ContinuationEvent)? cont,
-      T Function(_i3.EndEvent)? end,
-      T Function(_i4.ProgressEvent)? progress,
-      T Function(_i5.RecordsEvent)? records,
-      T Function(_i6.StatsEvent)? stats,
-      T Function(String, Object)? sdkUnknown}) {
+  T? when<T>({
+    T Function(_i2.ContinuationEvent)? cont,
+    T Function(_i3.EndEvent)? end,
+    T Function(_i4.ProgressEvent)? progress,
+    T Function(_i5.RecordsEvent)? records,
+    T Function(_i6.StatsEvent)? stats,
+    T Function(
+      String,
+      Object,
+    )?
+        sdkUnknown,
+  }) {
     if (this is SelectObjectContentEventStreamCont) {
       return cont?.call((this as SelectObjectContentEventStreamCont).cont);
     }
@@ -83,7 +90,10 @@ abstract class SelectObjectContentEventStream
     if (this is SelectObjectContentEventStreamStats) {
       return stats?.call((this as SelectObjectContentEventStreamStats).stats);
     }
-    return sdkUnknown?.call(name, value);
+    return sdkUnknown?.call(
+      name,
+      value,
+    );
   }
 
   @override
@@ -91,19 +101,34 @@ abstract class SelectObjectContentEventStream
     final helper =
         newBuiltValueToStringHelper(r'SelectObjectContentEventStream');
     if (cont != null) {
-      helper.add(r'cont', cont);
+      helper.add(
+        r'cont',
+        cont,
+      );
     }
     if (end != null) {
-      helper.add(r'end', end);
+      helper.add(
+        r'end',
+        end,
+      );
     }
     if (progress != null) {
-      helper.add(r'progress', progress);
+      helper.add(
+        r'progress',
+        progress,
+      );
     }
     if (records != null) {
-      helper.add(r'records', records);
+      helper.add(
+        r'records',
+        records,
+      );
     }
     if (stats != null) {
-      helper.add(r'stats', stats);
+      helper.add(
+        r'stats',
+        stats,
+      );
     }
     return helper.toString();
   }
@@ -165,8 +190,10 @@ class SelectObjectContentEventStreamStats
 
 class SelectObjectContentEventStreamSdkUnknown
     extends SelectObjectContentEventStream {
-  const SelectObjectContentEventStreamSdkUnknown(this.name, this.value)
-      : super._();
+  const SelectObjectContentEventStreamSdkUnknown(
+    this.name,
+    this.value,
+  ) : super._();
 
   @override
   final String name;
@@ -183,12 +210,18 @@ class SelectObjectContentEventStreamRestXmlSerializer
   @override
   Iterable<Type> get types => const [SelectObjectContentEventStream];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   SelectObjectContentEventStream deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final iterator = serialized.iterator;
     iterator.moveNext();
     final key = iterator.current as String;
@@ -197,50 +230,72 @@ class SelectObjectContentEventStreamRestXmlSerializer
     switch (key) {
       case 'Cont':
         return SelectObjectContentEventStream.cont((serializers.deserialize(
-                value,
-                specifiedType: const FullType(_i2.ContinuationEvent))
-            as _i2.ContinuationEvent));
+          value,
+          specifiedType: const FullType(_i2.ContinuationEvent),
+        ) as _i2.ContinuationEvent));
       case 'End':
         return SelectObjectContentEventStream.end((serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i3.EndEvent)) as _i3.EndEvent));
+          value,
+          specifiedType: const FullType(_i3.EndEvent),
+        ) as _i3.EndEvent));
       case 'Progress':
         return SelectObjectContentEventStream.progress((serializers.deserialize(
-                value,
-                specifiedType: const FullType(_i4.ProgressEvent))
-            as _i4.ProgressEvent));
+          value,
+          specifiedType: const FullType(_i4.ProgressEvent),
+        ) as _i4.ProgressEvent));
       case 'Records':
         return SelectObjectContentEventStream.records((serializers.deserialize(
-                value,
-                specifiedType: const FullType(_i5.RecordsEvent))
-            as _i5.RecordsEvent));
+          value,
+          specifiedType: const FullType(_i5.RecordsEvent),
+        ) as _i5.RecordsEvent));
       case 'Stats':
         return SelectObjectContentEventStream.stats((serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i6.StatsEvent)) as _i6.StatsEvent));
+          value,
+          specifiedType: const FullType(_i6.StatsEvent),
+        ) as _i6.StatsEvent));
     }
-    return SelectObjectContentEventStream.sdkUnknown(key, value);
+    return SelectObjectContentEventStream.sdkUnknown(
+      key,
+      value,
+    );
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     (object as SelectObjectContentEventStream);
     return [
       object.name,
       object.when<Object?>(
-          cont: (_i2.ContinuationEvent cont) => serializers.serialize(cont,
-              specifiedType: const FullType(_i2.ContinuationEvent)),
-          end: (_i3.EndEvent end) => serializers.serialize(end,
-              specifiedType: const FullType(_i3.EndEvent)),
-          progress: (_i4.ProgressEvent progress) => serializers.serialize(
-              progress,
-              specifiedType: const FullType(_i4.ProgressEvent)),
-          records: (_i5.RecordsEvent records) => serializers.serialize(records,
-              specifiedType: const FullType(_i5.RecordsEvent)),
-          stats: (_i6.StatsEvent stats) => serializers.serialize(stats,
-              specifiedType: const FullType(_i6.StatsEvent)),
-          sdkUnknown: (String _, Object sdkUnknown) => sdkUnknown)!
+        cont: (_i2.ContinuationEvent cont) => serializers.serialize(
+          cont,
+          specifiedType: const FullType(_i2.ContinuationEvent),
+        ),
+        end: (_i3.EndEvent end) => serializers.serialize(
+          end,
+          specifiedType: const FullType(_i3.EndEvent),
+        ),
+        progress: (_i4.ProgressEvent progress) => serializers.serialize(
+          progress,
+          specifiedType: const FullType(_i4.ProgressEvent),
+        ),
+        records: (_i5.RecordsEvent records) => serializers.serialize(
+          records,
+          specifiedType: const FullType(_i5.RecordsEvent),
+        ),
+        stats: (_i6.StatsEvent stats) => serializers.serialize(
+          stats,
+          specifiedType: const FullType(_i6.StatsEvent),
+        ),
+        sdkUnknown: (
+          String _,
+          Object sdkUnknown,
+        ) =>
+            sdkUnknown,
+      )!,
     ];
   }
 }

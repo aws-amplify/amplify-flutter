@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.stats; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,14 +15,16 @@ abstract class Stats
     with _i1.AWSEquatable<Stats>
     implements Built<Stats, StatsBuilder> {
   /// Container for the stats details.
-  factory Stats(
-      {_i2.Int64? bytesProcessed,
-      _i2.Int64? bytesReturned,
-      _i2.Int64? bytesScanned}) {
+  factory Stats({
+    _i2.Int64? bytesProcessed,
+    _i2.Int64? bytesReturned,
+    _i2.Int64? bytesScanned,
+  }) {
     return _$Stats._(
-        bytesProcessed: bytesProcessed,
-        bytesReturned: bytesReturned,
-        bytesScanned: bytesScanned);
+      bytesProcessed: bytesProcessed,
+      bytesReturned: bytesReturned,
+      bytesScanned: bytesScanned,
+    );
   }
 
   /// Container for the stats details.
@@ -46,13 +48,26 @@ abstract class Stats
   /// The total number of object bytes scanned.
   _i2.Int64? get bytesScanned;
   @override
-  List<Object?> get props => [bytesProcessed, bytesReturned, bytesScanned];
+  List<Object?> get props => [
+        bytesProcessed,
+        bytesReturned,
+        bytesScanned,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Stats');
-    helper.add('bytesProcessed', bytesProcessed);
-    helper.add('bytesReturned', bytesReturned);
-    helper.add('bytesScanned', bytesScanned);
+    helper.add(
+      'bytesProcessed',
+      bytesProcessed,
+    );
+    helper.add(
+      'bytesReturned',
+      bytesReturned,
+    );
+    helper.add(
+      'bytesScanned',
+      bytesScanned,
+    );
     return helper.toString();
   }
 }
@@ -61,13 +76,23 @@ class StatsRestXmlSerializer extends _i3.StructuredSmithySerializer<Stats> {
   const StatsRestXmlSerializer() : super('Stats');
 
   @override
-  Iterable<Type> get types => const [Stats, _$Stats];
+  Iterable<Type> get types => const [
+        Stats,
+        _$Stats,
+      ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols =>
-      const [_i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
-  Stats deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  Stats deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = StatsBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -77,20 +102,26 @@ class StatsRestXmlSerializer extends _i3.StructuredSmithySerializer<Stats> {
       switch (key as String) {
         case 'BytesProcessed':
           if (value != null) {
-            result.bytesProcessed = (serializers.deserialize(value,
-                specifiedType: const FullType(_i2.Int64)) as _i2.Int64);
+            result.bytesProcessed = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.Int64),
+            ) as _i2.Int64);
           }
           break;
         case 'BytesReturned':
           if (value != null) {
-            result.bytesReturned = (serializers.deserialize(value,
-                specifiedType: const FullType(_i2.Int64)) as _i2.Int64);
+            result.bytesReturned = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.Int64),
+            ) as _i2.Int64);
           }
           break;
         case 'BytesScanned':
           if (value != null) {
-            result.bytesScanned = (serializers.deserialize(value,
-                specifiedType: const FullType(_i2.Int64)) as _i2.Int64);
+            result.bytesScanned = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.Int64),
+            ) as _i2.Int64);
           }
           break;
       }
@@ -100,30 +131,41 @@ class StatsRestXmlSerializer extends _i3.StructuredSmithySerializer<Stats> {
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as Stats);
     final result = <Object?>[
       const _i3.XmlElementName(
-          'Stats', _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+        'Stats',
+        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     if (payload.bytesProcessed != null) {
       result
         ..add(const _i3.XmlElementName('BytesProcessed'))
-        ..add(serializers.serialize(payload.bytesProcessed!,
-            specifiedType: const FullType.nullable(_i2.Int64)));
+        ..add(serializers.serialize(
+          payload.bytesProcessed!,
+          specifiedType: const FullType.nullable(_i2.Int64),
+        ));
     }
     if (payload.bytesReturned != null) {
       result
         ..add(const _i3.XmlElementName('BytesReturned'))
-        ..add(serializers.serialize(payload.bytesReturned!,
-            specifiedType: const FullType.nullable(_i2.Int64)));
+        ..add(serializers.serialize(
+          payload.bytesReturned!,
+          specifiedType: const FullType.nullable(_i2.Int64),
+        ));
     }
     if (payload.bytesScanned != null) {
       result
         ..add(const _i3.XmlElementName('BytesScanned'))
-        ..add(serializers.serialize(payload.bytesScanned!,
-            specifiedType: const FullType.nullable(_i2.Int64)));
+        ..add(serializers.serialize(
+          payload.bytesScanned!,
+          specifiedType: const FullType.nullable(_i2.Int64),
+        ));
     }
     return result;
   }

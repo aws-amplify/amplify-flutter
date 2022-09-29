@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.csv_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,18 +16,20 @@ abstract class CsvOutput
     with _i1.AWSEquatable<CsvOutput>
     implements Built<CsvOutput, CsvOutputBuilder> {
   /// Describes how uncompressed comma-separated values (CSV)-formatted results are formatted.
-  factory CsvOutput(
-      {String? fieldDelimiter,
-      String? quoteCharacter,
-      String? quoteEscapeCharacter,
-      _i2.QuoteFields? quoteFields,
-      String? recordDelimiter}) {
+  factory CsvOutput({
+    String? fieldDelimiter,
+    String? quoteCharacter,
+    String? quoteEscapeCharacter,
+    _i2.QuoteFields? quoteFields,
+    String? recordDelimiter,
+  }) {
     return _$CsvOutput._(
-        fieldDelimiter: fieldDelimiter,
-        quoteCharacter: quoteCharacter,
-        quoteEscapeCharacter: quoteEscapeCharacter,
-        quoteFields: quoteFields,
-        recordDelimiter: recordDelimiter);
+      fieldDelimiter: fieldDelimiter,
+      quoteCharacter: quoteCharacter,
+      quoteEscapeCharacter: quoteEscapeCharacter,
+      quoteFields: quoteFields,
+      recordDelimiter: recordDelimiter,
+    );
   }
 
   /// Describes how uncompressed comma-separated values (CSV)-formatted results are formatted.
@@ -67,16 +69,31 @@ abstract class CsvOutput
         quoteCharacter,
         quoteEscapeCharacter,
         quoteFields,
-        recordDelimiter
+        recordDelimiter,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CsvOutput');
-    helper.add('fieldDelimiter', fieldDelimiter);
-    helper.add('quoteCharacter', quoteCharacter);
-    helper.add('quoteEscapeCharacter', quoteEscapeCharacter);
-    helper.add('quoteFields', quoteFields);
-    helper.add('recordDelimiter', recordDelimiter);
+    helper.add(
+      'fieldDelimiter',
+      fieldDelimiter,
+    );
+    helper.add(
+      'quoteCharacter',
+      quoteCharacter,
+    );
+    helper.add(
+      'quoteEscapeCharacter',
+      quoteEscapeCharacter,
+    );
+    helper.add(
+      'quoteFields',
+      quoteFields,
+    );
+    helper.add(
+      'recordDelimiter',
+      recordDelimiter,
+    );
     return helper.toString();
   }
 }
@@ -86,13 +103,23 @@ class CsvOutputRestXmlSerializer
   const CsvOutputRestXmlSerializer() : super('CsvOutput');
 
   @override
-  Iterable<Type> get types => const [CsvOutput, _$CsvOutput];
+  Iterable<Type> get types => const [
+        CsvOutput,
+        _$CsvOutput,
+      ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols =>
-      const [_i3.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
-  CsvOutput deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  CsvOutput deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = CsvOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -102,33 +129,42 @@ class CsvOutputRestXmlSerializer
       switch (key as String) {
         case 'FieldDelimiter':
           if (value != null) {
-            result.fieldDelimiter = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.fieldDelimiter = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'QuoteCharacter':
           if (value != null) {
-            result.quoteCharacter = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.quoteCharacter = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'QuoteEscapeCharacter':
           if (value != null) {
-            result.quoteEscapeCharacter = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.quoteEscapeCharacter = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'QuoteFields':
           if (value != null) {
-            result.quoteFields = (serializers.deserialize(value,
-                    specifiedType: const FullType(_i2.QuoteFields))
-                as _i2.QuoteFields);
+            result.quoteFields = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.QuoteFields),
+            ) as _i2.QuoteFields);
           }
           break;
         case 'RecordDelimiter':
           if (value != null) {
-            result.recordDelimiter = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.recordDelimiter = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -138,42 +174,57 @@ class CsvOutputRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as CsvOutput);
     final result = <Object?>[
-      const _i3.XmlElementName('CsvOutput',
-          _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i3.XmlElementName(
+        'CsvOutput',
+        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     if (payload.fieldDelimiter != null) {
       result
         ..add(const _i3.XmlElementName('FieldDelimiter'))
-        ..add(serializers.serialize(payload.fieldDelimiter!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.fieldDelimiter!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.quoteCharacter != null) {
       result
         ..add(const _i3.XmlElementName('QuoteCharacter'))
-        ..add(serializers.serialize(payload.quoteCharacter!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.quoteCharacter!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.quoteEscapeCharacter != null) {
       result
         ..add(const _i3.XmlElementName('QuoteEscapeCharacter'))
-        ..add(serializers.serialize(payload.quoteEscapeCharacter!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.quoteEscapeCharacter!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.quoteFields != null) {
       result
         ..add(const _i3.XmlElementName('QuoteFields'))
-        ..add(serializers.serialize(payload.quoteFields!,
-            specifiedType: const FullType.nullable(_i2.QuoteFields)));
+        ..add(serializers.serialize(
+          payload.quoteFields!,
+          specifiedType: const FullType.nullable(_i2.QuoteFields),
+        ));
     }
     if (payload.recordDelimiter != null) {
       result
         ..add(const _i3.XmlElementName('RecordDelimiter'))
-        ..add(serializers.serialize(payload.recordDelimiter!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.recordDelimiter!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.common.serializers; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -269,27 +269,50 @@ const List<_i1.SmithySerializer> serializers = [
   ..._i86.UploadPartOutput.serializers,
   ..._i87.UploadPartCopyRequest.serializers,
   ..._i88.CopyPartResult.serializers,
-  ..._i89.UploadPartCopyOutput.serializers
+  ..._i89.UploadPartCopyOutput.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
-  const FullType(_i90.BuiltList, [FullType(_i7.CompletedPart)]):
-      _i90.ListBuilder<_i7.CompletedPart>.new,
-  const FullType(_i90.BuiltMap, [FullType(String), FullType(String)]):
-      _i90.MapBuilder<String, String>.new,
-  const FullType(_i90.BuiltList, [FullType(_i27.ObjectIdentifier)]):
-      _i90.ListBuilder<_i27.ObjectIdentifier>.new,
-  const FullType(_i90.BuiltList, [FullType(_i30.DeletedObject)]):
-      _i90.ListBuilder<_i30.DeletedObject>.new,
-  const FullType(_i90.BuiltList, [FullType(_i31.Error)]):
-      _i90.ListBuilder<_i31.Error>.new,
-  const FullType(_i90.BuiltList, [FullType(_i49.CommonPrefix)]):
-      _i90.ListBuilder<_i49.CommonPrefix>.new,
-  const FullType(_i90.BuiltList, [FullType(_i48.MultipartUpload)]):
-      _i90.ListBuilder<_i48.MultipartUpload>.new,
-  const FullType(_i90.BuiltList, [FullType(_i13.ChecksumAlgorithm)]):
-      _i90.ListBuilder<_i13.ChecksumAlgorithm>.new,
-  const FullType(_i90.BuiltList, [FullType(_i53.S3Object)]):
-      _i90.ListBuilder<_i53.S3Object>.new,
-  const FullType(_i90.BuiltList, [FullType(_i57.Part)]):
-      _i90.ListBuilder<_i57.Part>.new
+  const FullType(
+    _i90.BuiltList,
+    [FullType(_i7.CompletedPart)],
+  ): _i90.ListBuilder<_i7.CompletedPart>.new,
+  const FullType(
+    _i90.BuiltMap,
+    [
+      FullType(String),
+      FullType(String),
+    ],
+  ): _i90.MapBuilder<String, String>.new,
+  const FullType(
+    _i90.BuiltList,
+    [FullType(_i27.ObjectIdentifier)],
+  ): _i90.ListBuilder<_i27.ObjectIdentifier>.new,
+  const FullType(
+    _i90.BuiltList,
+    [FullType(_i30.DeletedObject)],
+  ): _i90.ListBuilder<_i30.DeletedObject>.new,
+  const FullType(
+    _i90.BuiltList,
+    [FullType(_i31.Error)],
+  ): _i90.ListBuilder<_i31.Error>.new,
+  const FullType(
+    _i90.BuiltList,
+    [FullType(_i49.CommonPrefix)],
+  ): _i90.ListBuilder<_i49.CommonPrefix>.new,
+  const FullType(
+    _i90.BuiltList,
+    [FullType(_i48.MultipartUpload)],
+  ): _i90.ListBuilder<_i48.MultipartUpload>.new,
+  const FullType(
+    _i90.BuiltList,
+    [FullType(_i13.ChecksumAlgorithm)],
+  ): _i90.ListBuilder<_i13.ChecksumAlgorithm>.new,
+  const FullType(
+    _i90.BuiltList,
+    [FullType(_i53.S3Object)],
+  ): _i90.ListBuilder<_i53.S3Object>.new,
+  const FullType(
+    _i90.BuiltList,
+    [FullType(_i57.Part)],
+  ): _i90.ListBuilder<_i57.Part>.new,
 };

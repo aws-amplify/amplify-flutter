@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.error; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -14,10 +14,18 @@ abstract class Error
     with _i1.AWSEquatable<Error>
     implements Built<Error, ErrorBuilder> {
   /// Container for all error elements.
-  factory Error(
-      {String? code, String? key, String? message, String? versionId}) {
+  factory Error({
+    String? code,
+    String? key,
+    String? message,
+    String? versionId,
+  }) {
     return _$Error._(
-        code: code, key: key, message: message, versionId: versionId);
+      code: code,
+      key: key,
+      message: message,
+      versionId: versionId,
+    );
   }
 
   /// Container for all error elements.
@@ -750,14 +758,31 @@ abstract class Error
   /// The version ID of the error.
   String? get versionId;
   @override
-  List<Object?> get props => [code, key, message, versionId];
+  List<Object?> get props => [
+        code,
+        key,
+        message,
+        versionId,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Error');
-    helper.add('code', code);
-    helper.add('key', key);
-    helper.add('message', message);
-    helper.add('versionId', versionId);
+    helper.add(
+      'code',
+      code,
+    );
+    helper.add(
+      'key',
+      key,
+    );
+    helper.add(
+      'message',
+      message,
+    );
+    helper.add(
+      'versionId',
+      versionId,
+    );
     return helper.toString();
   }
 }
@@ -766,13 +791,23 @@ class ErrorRestXmlSerializer extends _i2.StructuredSmithySerializer<Error> {
   const ErrorRestXmlSerializer() : super('Error');
 
   @override
-  Iterable<Type> get types => const [Error, _$Error];
+  Iterable<Type> get types => const [
+        Error,
+        _$Error,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
-  Error deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  Error deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = ErrorBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -782,26 +817,34 @@ class ErrorRestXmlSerializer extends _i2.StructuredSmithySerializer<Error> {
       switch (key as String) {
         case 'Code':
           if (value != null) {
-            result.code = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.code = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'Key':
           if (value != null) {
-            result.key = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.key = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'Message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'VersionId':
           if (value != null) {
-            result.versionId = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.versionId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -811,36 +854,49 @@ class ErrorRestXmlSerializer extends _i2.StructuredSmithySerializer<Error> {
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as Error);
     final result = <Object?>[
       const _i2.XmlElementName(
-          'Error', _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+        'Error',
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     if (payload.code != null) {
       result
         ..add(const _i2.XmlElementName('Code'))
-        ..add(serializers.serialize(payload.code!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.code!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.key != null) {
       result
         ..add(const _i2.XmlElementName('Key'))
-        ..add(serializers.serialize(payload.key!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.key!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.message != null) {
       result
         ..add(const _i2.XmlElementName('Message'))
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.versionId != null) {
       result
         ..add(const _i2.XmlElementName('VersionId'))
-        ..add(serializers.serialize(payload.versionId!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.versionId!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

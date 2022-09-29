@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.operation.get_object_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -181,13 +181,13 @@ class GetObjectOperation extends _i1.HttpOperation<_i2.GetObjectRequestPayload,
   /// *   [ListBuckets](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBuckets.html)
   ///
   /// *   [GetObjectAcl](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAcl.html)
-  GetObjectOperation(
-      {required String region,
-      Uri? baseUri,
-      _i5.S3ClientConfig s3ClientConfig = const _i5.S3ClientConfig(),
-      _i6.AWSCredentialsProvider credentialsProvider =
-          const _i6.AWSCredentialsProvider.environment()})
-      : _region = region,
+  GetObjectOperation({
+    required String region,
+    Uri? baseUri,
+    _i5.S3ClientConfig s3ClientConfig = const _i5.S3ClientConfig(),
+    _i6.AWSCredentialsProvider credentialsProvider =
+        const _i6.AWSCredentialsProvider.environment(),
+  })  : _region = region,
         _baseUri = baseUri,
         _s3ClientConfig = s3ClientConfig,
         _credentialsProvider = credentialsProvider;
@@ -197,26 +197,30 @@ class GetObjectOperation extends _i1.HttpOperation<_i2.GetObjectRequestPayload,
       _i1.HttpProtocol<_i2.GetObjectRequestPayload, _i2.GetObjectRequest,
           _i3.Stream<List<int>>, _i4.GetObjectOutput>> protocols = [
     _i5.RestXmlProtocol(
-        serializers: _i7.serializers,
-        builderFactories: _i7.builderFactories,
-        requestInterceptors: [
-          const _i1.WithHost(),
-          _i5.WithSigV4(
-              region: _region,
-              service: _i8.AWSService.s3,
-              credentialsProvider: _credentialsProvider,
-              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
-                  _i6.S3ServiceConfiguration()),
-          const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
-          const _i5.WithSdkInvocationId(),
-          const _i5.WithSdkRequest()
-        ],
-        responseInterceptors: [],
-        noErrorWrapping: true)
+      serializers: _i7.serializers,
+      builderFactories: _i7.builderFactories,
+      requestInterceptors: [
+        const _i1.WithHost(),
+        _i5.WithSigV4(
+          region: _region,
+          service: _i8.AWSService.s3,
+          credentialsProvider: _credentialsProvider,
+          serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+              _i6.S3ServiceConfiguration(),
+        ),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
+        const _i5.WithSdkInvocationId(),
+        const _i5.WithSdkRequest(),
+      ],
+      responseInterceptors: [],
+      noErrorWrapping: true,
+    )
   ];
 
-  late final _i5.AWSEndpoint _awsEndpoint =
-      _i9.endpointResolver.resolve(_i9.sdkId, _region);
+  late final _i5.AWSEndpoint _awsEndpoint = _i9.endpointResolver.resolve(
+    _i9.sdkId,
+    _region,
+  );
 
   final String _region;
 
@@ -291,58 +295,87 @@ class GetObjectOperation extends _i1.HttpOperation<_i2.GetObjectRequestPayload,
           b.headers['x-amz-checksum-mode'] = input.checksumMode!.value;
         }
         if (input.responseCacheControl != null) {
-          b.queryParameters
-              .add('response-cache-control', input.responseCacheControl!);
+          b.queryParameters.add(
+            'response-cache-control',
+            input.responseCacheControl!,
+          );
         }
         if (input.responseContentDisposition != null) {
-          b.queryParameters.add('response-content-disposition',
-              input.responseContentDisposition!);
+          b.queryParameters.add(
+            'response-content-disposition',
+            input.responseContentDisposition!,
+          );
         }
         if (input.responseContentEncoding != null) {
-          b.queryParameters
-              .add('response-content-encoding', input.responseContentEncoding!);
+          b.queryParameters.add(
+            'response-content-encoding',
+            input.responseContentEncoding!,
+          );
         }
         if (input.responseContentLanguage != null) {
-          b.queryParameters
-              .add('response-content-language', input.responseContentLanguage!);
+          b.queryParameters.add(
+            'response-content-language',
+            input.responseContentLanguage!,
+          );
         }
         if (input.responseContentType != null) {
-          b.queryParameters
-              .add('response-content-type', input.responseContentType!);
+          b.queryParameters.add(
+            'response-content-type',
+            input.responseContentType!,
+          );
         }
         if (input.responseExpires != null) {
           b.queryParameters.add(
-              'response-expires',
-              _i1.Timestamp(input.responseExpires!)
-                  .format(_i1.TimestampFormat.httpDate)
-                  .toString());
+            'response-expires',
+            _i1.Timestamp(input.responseExpires!)
+                .format(_i1.TimestampFormat.httpDate)
+                .toString(),
+          );
         }
         if (input.versionId != null) {
-          b.queryParameters.add('versionId', input.versionId!);
+          b.queryParameters.add(
+            'versionId',
+            input.versionId!,
+          );
         }
         if (input.partNumber != null) {
-          b.queryParameters.add('partNumber', input.partNumber!.toString());
+          b.queryParameters.add(
+            'partNumber',
+            input.partNumber!.toString(),
+          );
         }
       });
   @override
   int successCode([_i4.GetObjectOutput? output]) => 200;
   @override
-  _i4.GetObjectOutput buildOutput(_i3.Stream<List<int>>? payload,
-          _i8.AWSStreamedHttpResponse response) =>
-      _i4.GetObjectOutput.fromResponse(payload, response);
+  _i4.GetObjectOutput buildOutput(
+    _i3.Stream<List<int>>? payload,
+    _i8.AWSStreamedHttpResponse response,
+  ) =>
+      _i4.GetObjectOutput.fromResponse(
+        payload,
+        response,
+      );
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError(
-            _i1.ShapeId(
-                namespace: 'com.amazonaws.s3', shape: 'InvalidObjectState'),
-            _i1.ErrorKind.client,
-            _i10.InvalidObjectState,
-            builder: _i10.InvalidObjectState.fromResponse),
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.s3',
+            shape: 'InvalidObjectState',
+          ),
+          _i1.ErrorKind.client,
+          _i10.InvalidObjectState,
+          builder: _i10.InvalidObjectState.fromResponse,
+        ),
         _i1.SmithyError(
-            _i1.ShapeId(namespace: 'com.amazonaws.s3', shape: 'NoSuchKey'),
-            _i1.ErrorKind.client,
-            _i11.NoSuchKey,
-            builder: _i11.NoSuchKey.fromResponse)
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.s3',
+            shape: 'NoSuchKey',
+          ),
+          _i1.ErrorKind.client,
+          _i11.NoSuchKey,
+          builder: _i11.NoSuchKey.fromResponse,
+        ),
       ];
   @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
@@ -367,13 +400,21 @@ class GetObjectOperation extends _i1.HttpOperation<_i2.GetObjectRequestPayload,
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i3.Future<_i4.GetObjectOutput> run(_i2.GetObjectRequest input,
-      {_i1.HttpClient? client, _i1.ShapeId? useProtocol}) {
+  _i3.Future<_i4.GetObjectOutput> run(
+    _i2.GetObjectRequest input, {
+    _i1.HttpClient? client,
+    _i1.ShapeId? useProtocol,
+  }) {
     return _i3.runZoned(
-        () => super.run(input, client: client, useProtocol: useProtocol),
-        zoneValues: {
-          ...?_awsEndpoint.credentialScope?.zoneValues,
-          ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)}
-        });
+      () => super.run(
+        input,
+        client: client,
+        useProtocol: useProtocol,
+      ),
+      zoneValues: {
+        ...?_awsEndpoint.credentialScope?.zoneValues,
+        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)}
+      },
+    );
   }
 }

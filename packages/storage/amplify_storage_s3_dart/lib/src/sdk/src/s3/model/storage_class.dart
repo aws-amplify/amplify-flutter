@@ -1,34 +1,75 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.storage_class; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:smithy/smithy.dart' as _i1;
 
 class StorageClass extends _i1.SmithyEnum<StorageClass> {
-  const StorageClass._(int index, String name, String value)
-      : super(index, name, value);
+  const StorageClass._(
+    int index,
+    String name,
+    String value,
+  ) : super(
+          index,
+          name,
+          value,
+        );
 
   const StorageClass._sdkUnknown(String value) : super.sdkUnknown(value);
 
-  static const deepArchive = StorageClass._(0, 'DEEP_ARCHIVE', 'DEEP_ARCHIVE');
+  static const deepArchive = StorageClass._(
+    0,
+    'DEEP_ARCHIVE',
+    'DEEP_ARCHIVE',
+  );
 
-  static const glacier = StorageClass._(1, 'GLACIER', 'GLACIER');
+  static const glacier = StorageClass._(
+    1,
+    'GLACIER',
+    'GLACIER',
+  );
 
-  static const glacierIr = StorageClass._(2, 'GLACIER_IR', 'GLACIER_IR');
+  static const glacierIr = StorageClass._(
+    2,
+    'GLACIER_IR',
+    'GLACIER_IR',
+  );
 
-  static const intelligentTiering =
-      StorageClass._(3, 'INTELLIGENT_TIERING', 'INTELLIGENT_TIERING');
+  static const intelligentTiering = StorageClass._(
+    3,
+    'INTELLIGENT_TIERING',
+    'INTELLIGENT_TIERING',
+  );
 
-  static const onezoneIa = StorageClass._(4, 'ONEZONE_IA', 'ONEZONE_IA');
+  static const onezoneIa = StorageClass._(
+    4,
+    'ONEZONE_IA',
+    'ONEZONE_IA',
+  );
 
-  static const outposts = StorageClass._(5, 'OUTPOSTS', 'OUTPOSTS');
+  static const outposts = StorageClass._(
+    5,
+    'OUTPOSTS',
+    'OUTPOSTS',
+  );
 
-  static const reducedRedundancy =
-      StorageClass._(6, 'REDUCED_REDUNDANCY', 'REDUCED_REDUNDANCY');
+  static const reducedRedundancy = StorageClass._(
+    6,
+    'REDUCED_REDUNDANCY',
+    'REDUCED_REDUNDANCY',
+  );
 
-  static const standard = StorageClass._(7, 'STANDARD', 'STANDARD');
+  static const standard = StorageClass._(
+    7,
+    'STANDARD',
+    'STANDARD',
+  );
 
-  static const standardIa = StorageClass._(8, 'STANDARD_IA', 'STANDARD_IA');
+  static const standardIa = StorageClass._(
+    8,
+    'STANDARD_IA',
+    'STANDARD_IA',
+  );
 
   /// All values of [StorageClass].
   static const values = <StorageClass>[
@@ -40,16 +81,21 @@ class StorageClass extends _i1.SmithyEnum<StorageClass> {
     StorageClass.outposts,
     StorageClass.reducedRedundancy,
     StorageClass.standard,
-    StorageClass.standardIa
+    StorageClass.standardIa,
   ];
 
   static const List<_i1.SmithySerializer<StorageClass>> serializers = [
-    _i1.SmithyEnumSerializer('StorageClass',
-        values: values,
-        sdkUnknown: StorageClass._sdkUnknown,
-        supportedProtocols: [
-          _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')
-        ])
+    _i1.SmithyEnumSerializer(
+      'StorageClass',
+      values: values,
+      sdkUnknown: StorageClass._sdkUnknown,
+      supportedProtocols: [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ],
+    )
   ];
 }
 

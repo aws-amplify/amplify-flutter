@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.put_object_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,36 +20,38 @@ abstract class PutObjectOutput
         Built<PutObjectOutput, PutObjectOutputBuilder>,
         _i2.EmptyPayload,
         _i2.HasPayload<PutObjectOutputPayload> {
-  factory PutObjectOutput(
-      {bool? bucketKeyEnabled,
-      String? checksumCrc32,
-      String? checksumCrc32C,
-      String? checksumSha1,
-      String? checksumSha256,
-      String? eTag,
-      String? expiration,
-      _i3.RequestCharged? requestCharged,
-      _i4.ServerSideEncryption? serverSideEncryption,
-      String? sseCustomerAlgorithm,
-      String? sseCustomerKeyMd5,
-      String? ssekmsEncryptionContext,
-      String? ssekmsKeyId,
-      String? versionId}) {
+  factory PutObjectOutput({
+    bool? bucketKeyEnabled,
+    String? checksumCrc32,
+    String? checksumCrc32C,
+    String? checksumSha1,
+    String? checksumSha256,
+    String? eTag,
+    String? expiration,
+    _i3.RequestCharged? requestCharged,
+    _i4.ServerSideEncryption? serverSideEncryption,
+    String? sseCustomerAlgorithm,
+    String? sseCustomerKeyMd5,
+    String? ssekmsEncryptionContext,
+    String? ssekmsKeyId,
+    String? versionId,
+  }) {
     return _$PutObjectOutput._(
-        bucketKeyEnabled: bucketKeyEnabled,
-        checksumCrc32: checksumCrc32,
-        checksumCrc32C: checksumCrc32C,
-        checksumSha1: checksumSha1,
-        checksumSha256: checksumSha256,
-        eTag: eTag,
-        expiration: expiration,
-        requestCharged: requestCharged,
-        serverSideEncryption: serverSideEncryption,
-        sseCustomerAlgorithm: sseCustomerAlgorithm,
-        sseCustomerKeyMd5: sseCustomerKeyMd5,
-        ssekmsEncryptionContext: ssekmsEncryptionContext,
-        ssekmsKeyId: ssekmsKeyId,
-        versionId: versionId);
+      bucketKeyEnabled: bucketKeyEnabled,
+      checksumCrc32: checksumCrc32,
+      checksumCrc32C: checksumCrc32C,
+      checksumSha1: checksumSha1,
+      checksumSha256: checksumSha256,
+      eTag: eTag,
+      expiration: expiration,
+      requestCharged: requestCharged,
+      serverSideEncryption: serverSideEncryption,
+      sseCustomerAlgorithm: sseCustomerAlgorithm,
+      sseCustomerKeyMd5: sseCustomerKeyMd5,
+      ssekmsEncryptionContext: ssekmsEncryptionContext,
+      ssekmsKeyId: ssekmsKeyId,
+      versionId: versionId,
+    );
   }
 
   factory PutObjectOutput.build(
@@ -59,7 +61,9 @@ abstract class PutObjectOutput
 
   /// Constructs a [PutObjectOutput] from a [payload] and [response].
   factory PutObjectOutput.fromResponse(
-          PutObjectOutputPayload payload, _i1.AWSBaseHttpResponse response) =>
+    PutObjectOutputPayload payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       PutObjectOutput.build((b) {
         if (response.headers['x-amz-expiration'] != null) {
           b.expiration = response.headers['x-amz-expiration']!;
@@ -184,25 +188,67 @@ abstract class PutObjectOutput
         sseCustomerKeyMd5,
         ssekmsEncryptionContext,
         ssekmsKeyId,
-        versionId
+        versionId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PutObjectOutput');
-    helper.add('bucketKeyEnabled', bucketKeyEnabled);
-    helper.add('checksumCrc32', checksumCrc32);
-    helper.add('checksumCrc32C', checksumCrc32C);
-    helper.add('checksumSha1', checksumSha1);
-    helper.add('checksumSha256', checksumSha256);
-    helper.add('eTag', eTag);
-    helper.add('expiration', expiration);
-    helper.add('requestCharged', requestCharged);
-    helper.add('serverSideEncryption', serverSideEncryption);
-    helper.add('sseCustomerAlgorithm', sseCustomerAlgorithm);
-    helper.add('sseCustomerKeyMd5', sseCustomerKeyMd5);
-    helper.add('ssekmsEncryptionContext', '***SENSITIVE***');
-    helper.add('ssekmsKeyId', '***SENSITIVE***');
-    helper.add('versionId', versionId);
+    helper.add(
+      'bucketKeyEnabled',
+      bucketKeyEnabled,
+    );
+    helper.add(
+      'checksumCrc32',
+      checksumCrc32,
+    );
+    helper.add(
+      'checksumCrc32C',
+      checksumCrc32C,
+    );
+    helper.add(
+      'checksumSha1',
+      checksumSha1,
+    );
+    helper.add(
+      'checksumSha256',
+      checksumSha256,
+    );
+    helper.add(
+      'eTag',
+      eTag,
+    );
+    helper.add(
+      'expiration',
+      expiration,
+    );
+    helper.add(
+      'requestCharged',
+      requestCharged,
+    );
+    helper.add(
+      'serverSideEncryption',
+      serverSideEncryption,
+    );
+    helper.add(
+      'sseCustomerAlgorithm',
+      sseCustomerAlgorithm,
+    );
+    helper.add(
+      'sseCustomerKeyMd5',
+      sseCustomerKeyMd5,
+    );
+    helper.add(
+      'ssekmsEncryptionContext',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'ssekmsKeyId',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'versionId',
+      versionId,
+    );
     return helper.toString();
   }
 }
@@ -239,24 +285,35 @@ class PutObjectOutputRestXmlSerializer
         PutObjectOutput,
         _$PutObjectOutput,
         PutObjectOutputPayload,
-        _$PutObjectOutputPayload
+        _$PutObjectOutputPayload,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   PutObjectOutputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return PutObjectOutputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
-      const _i2.XmlElementName('PutObjectOutput',
-          _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i2.XmlElementName(
+        'PutObjectOutput',
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     return result;
   }
