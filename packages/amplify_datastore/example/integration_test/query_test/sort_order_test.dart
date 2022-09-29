@@ -116,8 +116,7 @@ void main() {
         queryField: ModelWithAppsyncScalarTypes.AWSDATEVALUE,
         sort: sortAWSDateTypeModel,
       );
-      // Fails in CI.
-    }, skip: true);
+    });
 
     group('for type AWSDateTime', () {
       var values = [
