@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.put_object_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,82 +34,84 @@ abstract class PutObjectRequest
     implements
         Built<PutObjectRequest, PutObjectRequestBuilder>,
         _i1.HasPayload<_i2.Stream<List<int>>> {
-  factory PutObjectRequest(
-      {_i4.ObjectCannedAcl? acl,
-      _i2.Stream<List<int>>? body,
-      required String bucket,
-      bool? bucketKeyEnabled,
-      String? cacheControl,
-      _i5.ChecksumAlgorithm? checksumAlgorithm,
-      String? checksumCrc32,
-      String? checksumCrc32C,
-      String? checksumSha1,
-      String? checksumSha256,
-      String? contentDisposition,
-      String? contentEncoding,
-      String? contentLanguage,
-      _i6.Int64? contentLength,
-      String? contentMd5,
-      String? contentType,
-      String? expectedBucketOwner,
-      DateTime? expires,
-      String? grantFullControl,
-      String? grantRead,
-      String? grantReadAcp,
-      String? grantWriteAcp,
-      required String key,
-      _i7.BuiltMap<String, String>? metadata,
-      _i8.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
-      _i9.ObjectLockMode? objectLockMode,
-      DateTime? objectLockRetainUntilDate,
-      _i10.RequestPayer? requestPayer,
-      _i11.ServerSideEncryption? serverSideEncryption,
-      String? sseCustomerAlgorithm,
-      String? sseCustomerKey,
-      String? sseCustomerKeyMd5,
-      String? ssekmsEncryptionContext,
-      String? ssekmsKeyId,
-      _i12.StorageClass? storageClass,
-      String? tagging,
-      String? websiteRedirectLocation}) {
+  factory PutObjectRequest({
+    _i4.ObjectCannedAcl? acl,
+    _i2.Stream<List<int>>? body,
+    required String bucket,
+    bool? bucketKeyEnabled,
+    String? cacheControl,
+    _i5.ChecksumAlgorithm? checksumAlgorithm,
+    String? checksumCrc32,
+    String? checksumCrc32C,
+    String? checksumSha1,
+    String? checksumSha256,
+    String? contentDisposition,
+    String? contentEncoding,
+    String? contentLanguage,
+    _i6.Int64? contentLength,
+    String? contentMd5,
+    String? contentType,
+    String? expectedBucketOwner,
+    DateTime? expires,
+    String? grantFullControl,
+    String? grantRead,
+    String? grantReadAcp,
+    String? grantWriteAcp,
+    required String key,
+    _i7.BuiltMap<String, String>? metadata,
+    _i8.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
+    _i9.ObjectLockMode? objectLockMode,
+    DateTime? objectLockRetainUntilDate,
+    _i10.RequestPayer? requestPayer,
+    _i11.ServerSideEncryption? serverSideEncryption,
+    String? sseCustomerAlgorithm,
+    String? sseCustomerKey,
+    String? sseCustomerKeyMd5,
+    String? ssekmsEncryptionContext,
+    String? ssekmsKeyId,
+    _i12.StorageClass? storageClass,
+    String? tagging,
+    String? websiteRedirectLocation,
+  }) {
     return _$PutObjectRequest._(
-        acl: acl,
-        body: body,
-        bucket: bucket,
-        bucketKeyEnabled: bucketKeyEnabled,
-        cacheControl: cacheControl,
-        checksumAlgorithm: checksumAlgorithm,
-        checksumCrc32: checksumCrc32,
-        checksumCrc32C: checksumCrc32C,
-        checksumSha1: checksumSha1,
-        checksumSha256: checksumSha256,
-        contentDisposition: contentDisposition,
-        contentEncoding: contentEncoding,
-        contentLanguage: contentLanguage,
-        contentLength: contentLength,
-        contentMd5: contentMd5,
-        contentType: contentType,
-        expectedBucketOwner: expectedBucketOwner,
-        expires: expires,
-        grantFullControl: grantFullControl,
-        grantRead: grantRead,
-        grantReadAcp: grantReadAcp,
-        grantWriteAcp: grantWriteAcp,
-        key: key,
-        metadata: metadata,
-        objectLockLegalHoldStatus: objectLockLegalHoldStatus,
-        objectLockMode: objectLockMode,
-        objectLockRetainUntilDate: objectLockRetainUntilDate,
-        requestPayer: requestPayer,
-        serverSideEncryption: serverSideEncryption,
-        sseCustomerAlgorithm: sseCustomerAlgorithm,
-        sseCustomerKey: sseCustomerKey,
-        sseCustomerKeyMd5: sseCustomerKeyMd5,
-        ssekmsEncryptionContext: ssekmsEncryptionContext,
-        ssekmsKeyId: ssekmsKeyId,
-        storageClass: storageClass,
-        tagging: tagging,
-        websiteRedirectLocation: websiteRedirectLocation);
+      acl: acl,
+      body: body,
+      bucket: bucket,
+      bucketKeyEnabled: bucketKeyEnabled,
+      cacheControl: cacheControl,
+      checksumAlgorithm: checksumAlgorithm,
+      checksumCrc32: checksumCrc32,
+      checksumCrc32C: checksumCrc32C,
+      checksumSha1: checksumSha1,
+      checksumSha256: checksumSha256,
+      contentDisposition: contentDisposition,
+      contentEncoding: contentEncoding,
+      contentLanguage: contentLanguage,
+      contentLength: contentLength,
+      contentMd5: contentMd5,
+      contentType: contentType,
+      expectedBucketOwner: expectedBucketOwner,
+      expires: expires,
+      grantFullControl: grantFullControl,
+      grantRead: grantRead,
+      grantReadAcp: grantReadAcp,
+      grantWriteAcp: grantWriteAcp,
+      key: key,
+      metadata: metadata,
+      objectLockLegalHoldStatus: objectLockLegalHoldStatus,
+      objectLockMode: objectLockMode,
+      objectLockRetainUntilDate: objectLockRetainUntilDate,
+      requestPayer: requestPayer,
+      serverSideEncryption: serverSideEncryption,
+      sseCustomerAlgorithm: sseCustomerAlgorithm,
+      sseCustomerKey: sseCustomerKey,
+      sseCustomerKeyMd5: sseCustomerKeyMd5,
+      ssekmsEncryptionContext: ssekmsEncryptionContext,
+      ssekmsKeyId: ssekmsKeyId,
+      storageClass: storageClass,
+      tagging: tagging,
+      websiteRedirectLocation: websiteRedirectLocation,
+    );
   }
 
   factory PutObjectRequest.build(
@@ -118,8 +120,10 @@ abstract class PutObjectRequest
   const PutObjectRequest._();
 
   factory PutObjectRequest.fromRequest(
-          _i2.Stream<List<int>>? payload, _i3.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    _i2.Stream<List<int>>? payload,
+    _i3.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       PutObjectRequest.build((b) {
         b.body = payload;
         if (request.headers['x-amz-acl'] != null) {
@@ -165,9 +169,10 @@ abstract class PutObjectRequest
           b.checksumSha256 = request.headers['x-amz-checksum-sha256']!;
         }
         if (request.headers['Expires'] != null) {
-          b.expires = _i1.Timestamp.parse(request.headers['Expires']!,
-                  format: _i1.TimestampFormat.httpDate)
-              .asDateTime;
+          b.expires = _i1.Timestamp.parse(
+            request.headers['Expires']!,
+            format: _i1.TimestampFormat.httpDate,
+          ).asDateTime;
         }
         if (request.headers['x-amz-grant-full-control'] != null) {
           b.grantFullControl = request.headers['x-amz-grant-full-control']!;
@@ -238,9 +243,9 @@ abstract class PutObjectRequest
         }
         if (request.headers['x-amz-object-lock-retain-until-date'] != null) {
           b.objectLockRetainUntilDate = _i1.Timestamp.parse(
-                  request.headers['x-amz-object-lock-retain-until-date']!,
-                  format: _i1.TimestampFormat.dateTime)
-              .asDateTime;
+            request.headers['x-amz-object-lock-retain-until-date']!,
+            format: _i1.TimestampFormat.dateTime,
+          ).asDateTime;
         }
         if (request.headers['x-amz-object-lock-legal-hold'] != null) {
           b.objectLockLegalHoldStatus = _i8.ObjectLockLegalHoldStatus.values
@@ -252,8 +257,13 @@ abstract class PutObjectRequest
         }
         b.metadata.addEntries(request.headers.entries
             .where((el) => el.key.startsWith('x-amz-meta-'))
-            .map((el) =>
-                MapEntry(el.key.replaceFirst('x-amz-meta-', ''), el.value)));
+            .map((el) => MapEntry(
+                  el.key.replaceFirst(
+                    'x-amz-meta-',
+                    '',
+                  ),
+                  el.value,
+                )));
         if (labels['bucket'] != null) {
           b.bucket = labels['bucket']!;
         }
@@ -415,7 +425,10 @@ abstract class PutObjectRequest
       case 'Key':
         return this.key;
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -458,77 +471,229 @@ abstract class PutObjectRequest
         ssekmsKeyId,
         storageClass,
         tagging,
-        websiteRedirectLocation
+        websiteRedirectLocation,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PutObjectRequest');
-    helper.add('acl', acl);
-    helper.add('body', body);
-    helper.add('bucket', bucket);
-    helper.add('bucketKeyEnabled', bucketKeyEnabled);
-    helper.add('cacheControl', cacheControl);
-    helper.add('checksumAlgorithm', checksumAlgorithm);
-    helper.add('checksumCrc32', checksumCrc32);
-    helper.add('checksumCrc32C', checksumCrc32C);
-    helper.add('checksumSha1', checksumSha1);
-    helper.add('checksumSha256', checksumSha256);
-    helper.add('contentDisposition', contentDisposition);
-    helper.add('contentEncoding', contentEncoding);
-    helper.add('contentLanguage', contentLanguage);
-    helper.add('contentLength', contentLength);
-    helper.add('contentMd5', contentMd5);
-    helper.add('contentType', contentType);
-    helper.add('expectedBucketOwner', expectedBucketOwner);
-    helper.add('expires', expires);
-    helper.add('grantFullControl', grantFullControl);
-    helper.add('grantRead', grantRead);
-    helper.add('grantReadAcp', grantReadAcp);
-    helper.add('grantWriteAcp', grantWriteAcp);
-    helper.add('key', key);
-    helper.add('metadata', metadata);
-    helper.add('objectLockLegalHoldStatus', objectLockLegalHoldStatus);
-    helper.add('objectLockMode', objectLockMode);
-    helper.add('objectLockRetainUntilDate', objectLockRetainUntilDate);
-    helper.add('requestPayer', requestPayer);
-    helper.add('serverSideEncryption', serverSideEncryption);
-    helper.add('sseCustomerAlgorithm', sseCustomerAlgorithm);
-    helper.add('sseCustomerKey', '***SENSITIVE***');
-    helper.add('sseCustomerKeyMd5', sseCustomerKeyMd5);
-    helper.add('ssekmsEncryptionContext', '***SENSITIVE***');
-    helper.add('ssekmsKeyId', '***SENSITIVE***');
-    helper.add('storageClass', storageClass);
-    helper.add('tagging', tagging);
-    helper.add('websiteRedirectLocation', websiteRedirectLocation);
+    helper.add(
+      'acl',
+      acl,
+    );
+    helper.add(
+      'body',
+      body,
+    );
+    helper.add(
+      'bucket',
+      bucket,
+    );
+    helper.add(
+      'bucketKeyEnabled',
+      bucketKeyEnabled,
+    );
+    helper.add(
+      'cacheControl',
+      cacheControl,
+    );
+    helper.add(
+      'checksumAlgorithm',
+      checksumAlgorithm,
+    );
+    helper.add(
+      'checksumCrc32',
+      checksumCrc32,
+    );
+    helper.add(
+      'checksumCrc32C',
+      checksumCrc32C,
+    );
+    helper.add(
+      'checksumSha1',
+      checksumSha1,
+    );
+    helper.add(
+      'checksumSha256',
+      checksumSha256,
+    );
+    helper.add(
+      'contentDisposition',
+      contentDisposition,
+    );
+    helper.add(
+      'contentEncoding',
+      contentEncoding,
+    );
+    helper.add(
+      'contentLanguage',
+      contentLanguage,
+    );
+    helper.add(
+      'contentLength',
+      contentLength,
+    );
+    helper.add(
+      'contentMd5',
+      contentMd5,
+    );
+    helper.add(
+      'contentType',
+      contentType,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
+    );
+    helper.add(
+      'expires',
+      expires,
+    );
+    helper.add(
+      'grantFullControl',
+      grantFullControl,
+    );
+    helper.add(
+      'grantRead',
+      grantRead,
+    );
+    helper.add(
+      'grantReadAcp',
+      grantReadAcp,
+    );
+    helper.add(
+      'grantWriteAcp',
+      grantWriteAcp,
+    );
+    helper.add(
+      'key',
+      key,
+    );
+    helper.add(
+      'metadata',
+      metadata,
+    );
+    helper.add(
+      'objectLockLegalHoldStatus',
+      objectLockLegalHoldStatus,
+    );
+    helper.add(
+      'objectLockMode',
+      objectLockMode,
+    );
+    helper.add(
+      'objectLockRetainUntilDate',
+      objectLockRetainUntilDate,
+    );
+    helper.add(
+      'requestPayer',
+      requestPayer,
+    );
+    helper.add(
+      'serverSideEncryption',
+      serverSideEncryption,
+    );
+    helper.add(
+      'sseCustomerAlgorithm',
+      sseCustomerAlgorithm,
+    );
+    helper.add(
+      'sseCustomerKey',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'sseCustomerKeyMd5',
+      sseCustomerKeyMd5,
+    );
+    helper.add(
+      'ssekmsEncryptionContext',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'ssekmsKeyId',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'storageClass',
+      storageClass,
+    );
+    helper.add(
+      'tagging',
+      tagging,
+    );
+    helper.add(
+      'websiteRedirectLocation',
+      websiteRedirectLocation,
+    );
     return helper.toString();
   }
 }
 
 class PutObjectRequestRestXmlSerializer
-    extends _i1.PrimitiveSmithySerializer<Object> {
+    extends _i1.PrimitiveSmithySerializer<_i2.Stream<List<int>>> {
   const PutObjectRequestRestXmlSerializer() : super('PutObjectRequest');
 
   @override
-  Iterable<Type> get types => const [PutObjectRequest, _$PutObjectRequest];
+  Iterable<Type> get types => const [
+        PutObjectRequest,
+        _$PutObjectRequest,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
-  _i2.Stream<List<int>> deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return (serializers.deserialize(serialized,
-        specifiedType: const FullType(_i2.Stream, [
-          FullType(List, [FullType(int)])
-        ])) as _i2.Stream<List<int>>);
+  _i2.Stream<List<int>> deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return (serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(
+        _i2.Stream,
+        [
+          FullType(
+            List,
+            [FullType(int)],
+          )
+        ],
+      ),
+    ) as _i2.Stream<List<int>>);
   }
 
   @override
-  Object serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final payload = object is PutObjectRequest
+        ? object.getPayload()
+        : (object as _i2.Stream<List<int>>?);
     final result = <Object?>[
-      const _i1.XmlElementName('PutObjectRequest',
-          _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i1.XmlElementName(
+        'PutObjectRequest',
+        _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
+    if (payload == null) {
+      return result;
+    }
+    result.add(serializers.serialize(
+      payload,
+      specifiedType: const FullType(
+        _i2.Stream,
+        [
+          FullType(
+            List,
+            [FullType(int)],
+          )
+        ],
+      ),
+    ));
     return result;
   }
 }

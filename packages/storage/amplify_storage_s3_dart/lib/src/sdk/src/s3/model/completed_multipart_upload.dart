@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.completed_multipart_upload; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -45,7 +45,10 @@ abstract class CompletedMultipartUpload
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CompletedMultipartUpload');
-    helper.add('parts', parts);
+    helper.add(
+      'parts',
+      parts,
+    );
     return helper.toString();
   }
 }
@@ -56,15 +59,23 @@ class CompletedMultipartUploadRestXmlSerializer
       : super('CompletedMultipartUpload');
 
   @override
-  Iterable<Type> get types =>
-      const [CompletedMultipartUpload, _$CompletedMultipartUpload];
+  Iterable<Type> get types => const [
+        CompletedMultipartUpload,
+        _$CompletedMultipartUpload,
+      ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   CompletedMultipartUpload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = CompletedMultipartUploadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -74,9 +85,10 @@ class CompletedMultipartUploadRestXmlSerializer
       switch (key as String) {
         case 'Part':
           if (value != null) {
-            result.parts.add((serializers.deserialize(value,
-                    specifiedType: const FullType(_i3.CompletedPart))
-                as _i3.CompletedPart));
+            result.parts.add((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.CompletedPart),
+            ) as _i3.CompletedPart));
           }
           break;
       }
@@ -86,18 +98,28 @@ class CompletedMultipartUploadRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as CompletedMultipartUpload);
     final result = <Object?>[
-      const _i4.XmlElementName('CompletedMultipartUpload',
-          _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i4.XmlElementName(
+        'CompletedMultipartUpload',
+        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     if (payload.parts != null) {
-      result.addAll(const _i4.XmlBuiltListSerializer(memberName: 'Part')
-          .serialize(serializers, payload.parts!,
-              specifiedType: const FullType.nullable(
-                  _i2.BuiltList, [FullType(_i3.CompletedPart)])));
+      result.addAll(
+          const _i4.XmlBuiltListSerializer(memberName: 'Part').serialize(
+        serializers,
+        payload.parts!,
+        specifiedType: const FullType.nullable(
+          _i2.BuiltList,
+          [FullType(_i3.CompletedPart)],
+        ),
+      ));
     }
     return result;
   }

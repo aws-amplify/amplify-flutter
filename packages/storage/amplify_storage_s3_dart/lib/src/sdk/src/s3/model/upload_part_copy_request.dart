@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.upload_part_copy_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,46 +20,49 @@ abstract class UploadPartCopyRequest
         Built<UploadPartCopyRequest, UploadPartCopyRequestBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<UploadPartCopyRequestPayload> {
-  factory UploadPartCopyRequest(
-      {required String bucket,
-      required String copySource,
-      String? copySourceIfMatch,
-      DateTime? copySourceIfModifiedSince,
-      String? copySourceIfNoneMatch,
-      DateTime? copySourceIfUnmodifiedSince,
-      String? copySourceRange,
-      String? copySourceSseCustomerAlgorithm,
-      String? copySourceSseCustomerKey,
-      String? copySourceSseCustomerKeyMd5,
-      String? expectedBucketOwner,
-      String? expectedSourceBucketOwner,
-      required String key,
-      required int partNumber,
-      _i3.RequestPayer? requestPayer,
-      String? sseCustomerAlgorithm,
-      String? sseCustomerKey,
-      String? sseCustomerKeyMd5,
-      required String uploadId}) {
+  factory UploadPartCopyRequest({
+    required String bucket,
+    required String copySource,
+    String? copySourceIfMatch,
+    DateTime? copySourceIfModifiedSince,
+    String? copySourceIfNoneMatch,
+    DateTime? copySourceIfUnmodifiedSince,
+    String? copySourceRange,
+    String? copySourceSseCustomerAlgorithm,
+    String? copySourceSseCustomerKey,
+    String? copySourceSseCustomerKeyMd5,
+    String? expectedBucketOwner,
+    String? expectedSourceBucketOwner,
+    required String key,
+    int? partNumber,
+    _i3.RequestPayer? requestPayer,
+    String? sseCustomerAlgorithm,
+    String? sseCustomerKey,
+    String? sseCustomerKeyMd5,
+    required String uploadId,
+  }) {
+    partNumber ??= 0;
     return _$UploadPartCopyRequest._(
-        bucket: bucket,
-        copySource: copySource,
-        copySourceIfMatch: copySourceIfMatch,
-        copySourceIfModifiedSince: copySourceIfModifiedSince,
-        copySourceIfNoneMatch: copySourceIfNoneMatch,
-        copySourceIfUnmodifiedSince: copySourceIfUnmodifiedSince,
-        copySourceRange: copySourceRange,
-        copySourceSseCustomerAlgorithm: copySourceSseCustomerAlgorithm,
-        copySourceSseCustomerKey: copySourceSseCustomerKey,
-        copySourceSseCustomerKeyMd5: copySourceSseCustomerKeyMd5,
-        expectedBucketOwner: expectedBucketOwner,
-        expectedSourceBucketOwner: expectedSourceBucketOwner,
-        key: key,
-        partNumber: partNumber,
-        requestPayer: requestPayer,
-        sseCustomerAlgorithm: sseCustomerAlgorithm,
-        sseCustomerKey: sseCustomerKey,
-        sseCustomerKeyMd5: sseCustomerKeyMd5,
-        uploadId: uploadId);
+      bucket: bucket,
+      copySource: copySource,
+      copySourceIfMatch: copySourceIfMatch,
+      copySourceIfModifiedSince: copySourceIfModifiedSince,
+      copySourceIfNoneMatch: copySourceIfNoneMatch,
+      copySourceIfUnmodifiedSince: copySourceIfUnmodifiedSince,
+      copySourceRange: copySourceRange,
+      copySourceSseCustomerAlgorithm: copySourceSseCustomerAlgorithm,
+      copySourceSseCustomerKey: copySourceSseCustomerKey,
+      copySourceSseCustomerKeyMd5: copySourceSseCustomerKeyMd5,
+      expectedBucketOwner: expectedBucketOwner,
+      expectedSourceBucketOwner: expectedSourceBucketOwner,
+      key: key,
+      partNumber: partNumber,
+      requestPayer: requestPayer,
+      sseCustomerAlgorithm: sseCustomerAlgorithm,
+      sseCustomerKey: sseCustomerKey,
+      sseCustomerKeyMd5: sseCustomerKeyMd5,
+      uploadId: uploadId,
+    );
   }
 
   factory UploadPartCopyRequest.build(
@@ -69,8 +72,10 @@ abstract class UploadPartCopyRequest
   const UploadPartCopyRequest._();
 
   factory UploadPartCopyRequest.fromRequest(
-          UploadPartCopyRequestPayload payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    UploadPartCopyRequestPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       UploadPartCopyRequest.build((b) {
         if (request.headers['x-amz-copy-source'] != null) {
           b.copySource = request.headers['x-amz-copy-source']!;
@@ -80,9 +85,9 @@ abstract class UploadPartCopyRequest
         }
         if (request.headers['x-amz-copy-source-if-modified-since'] != null) {
           b.copySourceIfModifiedSince = _i1.Timestamp.parse(
-                  request.headers['x-amz-copy-source-if-modified-since']!,
-                  format: _i1.TimestampFormat.httpDate)
-              .asDateTime;
+            request.headers['x-amz-copy-source-if-modified-since']!,
+            format: _i1.TimestampFormat.httpDate,
+          ).asDateTime;
         }
         if (request.headers['x-amz-copy-source-if-none-match'] != null) {
           b.copySourceIfNoneMatch =
@@ -90,9 +95,9 @@ abstract class UploadPartCopyRequest
         }
         if (request.headers['x-amz-copy-source-if-unmodified-since'] != null) {
           b.copySourceIfUnmodifiedSince = _i1.Timestamp.parse(
-                  request.headers['x-amz-copy-source-if-unmodified-since']!,
-                  format: _i1.TimestampFormat.httpDate)
-              .asDateTime;
+            request.headers['x-amz-copy-source-if-unmodified-since']!,
+            format: _i1.TimestampFormat.httpDate,
+          ).asDateTime;
         }
         if (request.headers['x-amz-copy-source-range'] != null) {
           b.copySourceRange = request.headers['x-amz-copy-source-range']!;
@@ -162,7 +167,9 @@ abstract class UploadPartCopyRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadPartCopyRequestBuilder b) {}
+  static void _init(UploadPartCopyRequestBuilder b) {
+    b.partNumber = 0;
+  }
 
   /// The bucket name.
   ///
@@ -243,7 +250,10 @@ abstract class UploadPartCopyRequest
       case 'Key':
         return this.key;
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -268,31 +278,87 @@ abstract class UploadPartCopyRequest
         sseCustomerAlgorithm,
         sseCustomerKey,
         sseCustomerKeyMd5,
-        uploadId
+        uploadId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UploadPartCopyRequest');
-    helper.add('bucket', bucket);
-    helper.add('copySource', copySource);
-    helper.add('copySourceIfMatch', copySourceIfMatch);
-    helper.add('copySourceIfModifiedSince', copySourceIfModifiedSince);
-    helper.add('copySourceIfNoneMatch', copySourceIfNoneMatch);
-    helper.add('copySourceIfUnmodifiedSince', copySourceIfUnmodifiedSince);
-    helper.add('copySourceRange', copySourceRange);
     helper.add(
-        'copySourceSseCustomerAlgorithm', copySourceSseCustomerAlgorithm);
-    helper.add('copySourceSseCustomerKey', '***SENSITIVE***');
-    helper.add('copySourceSseCustomerKeyMd5', copySourceSseCustomerKeyMd5);
-    helper.add('expectedBucketOwner', expectedBucketOwner);
-    helper.add('expectedSourceBucketOwner', expectedSourceBucketOwner);
-    helper.add('key', key);
-    helper.add('partNumber', partNumber);
-    helper.add('requestPayer', requestPayer);
-    helper.add('sseCustomerAlgorithm', sseCustomerAlgorithm);
-    helper.add('sseCustomerKey', '***SENSITIVE***');
-    helper.add('sseCustomerKeyMd5', sseCustomerKeyMd5);
-    helper.add('uploadId', uploadId);
+      'bucket',
+      bucket,
+    );
+    helper.add(
+      'copySource',
+      copySource,
+    );
+    helper.add(
+      'copySourceIfMatch',
+      copySourceIfMatch,
+    );
+    helper.add(
+      'copySourceIfModifiedSince',
+      copySourceIfModifiedSince,
+    );
+    helper.add(
+      'copySourceIfNoneMatch',
+      copySourceIfNoneMatch,
+    );
+    helper.add(
+      'copySourceIfUnmodifiedSince',
+      copySourceIfUnmodifiedSince,
+    );
+    helper.add(
+      'copySourceRange',
+      copySourceRange,
+    );
+    helper.add(
+      'copySourceSseCustomerAlgorithm',
+      copySourceSseCustomerAlgorithm,
+    );
+    helper.add(
+      'copySourceSseCustomerKey',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'copySourceSseCustomerKeyMd5',
+      copySourceSseCustomerKeyMd5,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
+    );
+    helper.add(
+      'expectedSourceBucketOwner',
+      expectedSourceBucketOwner,
+    );
+    helper.add(
+      'key',
+      key,
+    );
+    helper.add(
+      'partNumber',
+      partNumber,
+    );
+    helper.add(
+      'requestPayer',
+      requestPayer,
+    );
+    helper.add(
+      'sseCustomerAlgorithm',
+      sseCustomerAlgorithm,
+    );
+    helper.add(
+      'sseCustomerKey',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'sseCustomerKeyMd5',
+      sseCustomerKeyMd5,
+    );
+    helper.add(
+      'uploadId',
+      uploadId,
+    );
     return helper.toString();
   }
 }
@@ -332,24 +398,35 @@ class UploadPartCopyRequestRestXmlSerializer
         UploadPartCopyRequest,
         _$UploadPartCopyRequest,
         UploadPartCopyRequestPayload,
-        _$UploadPartCopyRequestPayload
+        _$UploadPartCopyRequestPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   UploadPartCopyRequestPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return UploadPartCopyRequestPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
-      const _i1.XmlElementName('UploadPartCopyRequest',
-          _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i1.XmlElementName(
+        'UploadPartCopyRequest',
+        _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     return result;
   }

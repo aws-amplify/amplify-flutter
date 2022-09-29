@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.copy_object_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,90 +37,92 @@ abstract class CopyObjectRequest
         Built<CopyObjectRequest, CopyObjectRequestBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<CopyObjectRequestPayload> {
-  factory CopyObjectRequest(
-      {_i3.ObjectCannedAcl? acl,
-      required String bucket,
-      bool? bucketKeyEnabled,
-      String? cacheControl,
-      _i4.ChecksumAlgorithm? checksumAlgorithm,
-      String? contentDisposition,
-      String? contentEncoding,
-      String? contentLanguage,
-      String? contentType,
-      required String copySource,
-      String? copySourceIfMatch,
-      DateTime? copySourceIfModifiedSince,
-      String? copySourceIfNoneMatch,
-      DateTime? copySourceIfUnmodifiedSince,
-      String? copySourceSseCustomerAlgorithm,
-      String? copySourceSseCustomerKey,
-      String? copySourceSseCustomerKeyMd5,
-      String? expectedBucketOwner,
-      String? expectedSourceBucketOwner,
-      DateTime? expires,
-      String? grantFullControl,
-      String? grantRead,
-      String? grantReadAcp,
-      String? grantWriteAcp,
-      required String key,
-      _i5.BuiltMap<String, String>? metadata,
-      _i6.MetadataDirective? metadataDirective,
-      _i7.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
-      _i8.ObjectLockMode? objectLockMode,
-      DateTime? objectLockRetainUntilDate,
-      _i9.RequestPayer? requestPayer,
-      _i10.ServerSideEncryption? serverSideEncryption,
-      String? sseCustomerAlgorithm,
-      String? sseCustomerKey,
-      String? sseCustomerKeyMd5,
-      String? ssekmsEncryptionContext,
-      String? ssekmsKeyId,
-      _i11.StorageClass? storageClass,
-      String? tagging,
-      _i12.TaggingDirective? taggingDirective,
-      String? websiteRedirectLocation}) {
+  factory CopyObjectRequest({
+    _i3.ObjectCannedAcl? acl,
+    required String bucket,
+    bool? bucketKeyEnabled,
+    String? cacheControl,
+    _i4.ChecksumAlgorithm? checksumAlgorithm,
+    String? contentDisposition,
+    String? contentEncoding,
+    String? contentLanguage,
+    String? contentType,
+    required String copySource,
+    String? copySourceIfMatch,
+    DateTime? copySourceIfModifiedSince,
+    String? copySourceIfNoneMatch,
+    DateTime? copySourceIfUnmodifiedSince,
+    String? copySourceSseCustomerAlgorithm,
+    String? copySourceSseCustomerKey,
+    String? copySourceSseCustomerKeyMd5,
+    String? expectedBucketOwner,
+    String? expectedSourceBucketOwner,
+    DateTime? expires,
+    String? grantFullControl,
+    String? grantRead,
+    String? grantReadAcp,
+    String? grantWriteAcp,
+    required String key,
+    _i5.BuiltMap<String, String>? metadata,
+    _i6.MetadataDirective? metadataDirective,
+    _i7.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
+    _i8.ObjectLockMode? objectLockMode,
+    DateTime? objectLockRetainUntilDate,
+    _i9.RequestPayer? requestPayer,
+    _i10.ServerSideEncryption? serverSideEncryption,
+    String? sseCustomerAlgorithm,
+    String? sseCustomerKey,
+    String? sseCustomerKeyMd5,
+    String? ssekmsEncryptionContext,
+    String? ssekmsKeyId,
+    _i11.StorageClass? storageClass,
+    String? tagging,
+    _i12.TaggingDirective? taggingDirective,
+    String? websiteRedirectLocation,
+  }) {
     return _$CopyObjectRequest._(
-        acl: acl,
-        bucket: bucket,
-        bucketKeyEnabled: bucketKeyEnabled,
-        cacheControl: cacheControl,
-        checksumAlgorithm: checksumAlgorithm,
-        contentDisposition: contentDisposition,
-        contentEncoding: contentEncoding,
-        contentLanguage: contentLanguage,
-        contentType: contentType,
-        copySource: copySource,
-        copySourceIfMatch: copySourceIfMatch,
-        copySourceIfModifiedSince: copySourceIfModifiedSince,
-        copySourceIfNoneMatch: copySourceIfNoneMatch,
-        copySourceIfUnmodifiedSince: copySourceIfUnmodifiedSince,
-        copySourceSseCustomerAlgorithm: copySourceSseCustomerAlgorithm,
-        copySourceSseCustomerKey: copySourceSseCustomerKey,
-        copySourceSseCustomerKeyMd5: copySourceSseCustomerKeyMd5,
-        expectedBucketOwner: expectedBucketOwner,
-        expectedSourceBucketOwner: expectedSourceBucketOwner,
-        expires: expires,
-        grantFullControl: grantFullControl,
-        grantRead: grantRead,
-        grantReadAcp: grantReadAcp,
-        grantWriteAcp: grantWriteAcp,
-        key: key,
-        metadata: metadata,
-        metadataDirective: metadataDirective,
-        objectLockLegalHoldStatus: objectLockLegalHoldStatus,
-        objectLockMode: objectLockMode,
-        objectLockRetainUntilDate: objectLockRetainUntilDate,
-        requestPayer: requestPayer,
-        serverSideEncryption: serverSideEncryption,
-        sseCustomerAlgorithm: sseCustomerAlgorithm,
-        sseCustomerKey: sseCustomerKey,
-        sseCustomerKeyMd5: sseCustomerKeyMd5,
-        ssekmsEncryptionContext: ssekmsEncryptionContext,
-        ssekmsKeyId: ssekmsKeyId,
-        storageClass: storageClass,
-        tagging: tagging,
-        taggingDirective: taggingDirective,
-        websiteRedirectLocation: websiteRedirectLocation);
+      acl: acl,
+      bucket: bucket,
+      bucketKeyEnabled: bucketKeyEnabled,
+      cacheControl: cacheControl,
+      checksumAlgorithm: checksumAlgorithm,
+      contentDisposition: contentDisposition,
+      contentEncoding: contentEncoding,
+      contentLanguage: contentLanguage,
+      contentType: contentType,
+      copySource: copySource,
+      copySourceIfMatch: copySourceIfMatch,
+      copySourceIfModifiedSince: copySourceIfModifiedSince,
+      copySourceIfNoneMatch: copySourceIfNoneMatch,
+      copySourceIfUnmodifiedSince: copySourceIfUnmodifiedSince,
+      copySourceSseCustomerAlgorithm: copySourceSseCustomerAlgorithm,
+      copySourceSseCustomerKey: copySourceSseCustomerKey,
+      copySourceSseCustomerKeyMd5: copySourceSseCustomerKeyMd5,
+      expectedBucketOwner: expectedBucketOwner,
+      expectedSourceBucketOwner: expectedSourceBucketOwner,
+      expires: expires,
+      grantFullControl: grantFullControl,
+      grantRead: grantRead,
+      grantReadAcp: grantReadAcp,
+      grantWriteAcp: grantWriteAcp,
+      key: key,
+      metadata: metadata,
+      metadataDirective: metadataDirective,
+      objectLockLegalHoldStatus: objectLockLegalHoldStatus,
+      objectLockMode: objectLockMode,
+      objectLockRetainUntilDate: objectLockRetainUntilDate,
+      requestPayer: requestPayer,
+      serverSideEncryption: serverSideEncryption,
+      sseCustomerAlgorithm: sseCustomerAlgorithm,
+      sseCustomerKey: sseCustomerKey,
+      sseCustomerKeyMd5: sseCustomerKeyMd5,
+      ssekmsEncryptionContext: ssekmsEncryptionContext,
+      ssekmsKeyId: ssekmsKeyId,
+      storageClass: storageClass,
+      tagging: tagging,
+      taggingDirective: taggingDirective,
+      websiteRedirectLocation: websiteRedirectLocation,
+    );
   }
 
   factory CopyObjectRequest.build(
@@ -129,8 +131,10 @@ abstract class CopyObjectRequest
   const CopyObjectRequest._();
 
   factory CopyObjectRequest.fromRequest(
-          CopyObjectRequestPayload payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    CopyObjectRequestPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       CopyObjectRequest.build((b) {
         if (request.headers['x-amz-acl'] != null) {
           b.acl =
@@ -163,9 +167,9 @@ abstract class CopyObjectRequest
         }
         if (request.headers['x-amz-copy-source-if-modified-since'] != null) {
           b.copySourceIfModifiedSince = _i1.Timestamp.parse(
-                  request.headers['x-amz-copy-source-if-modified-since']!,
-                  format: _i1.TimestampFormat.httpDate)
-              .asDateTime;
+            request.headers['x-amz-copy-source-if-modified-since']!,
+            format: _i1.TimestampFormat.httpDate,
+          ).asDateTime;
         }
         if (request.headers['x-amz-copy-source-if-none-match'] != null) {
           b.copySourceIfNoneMatch =
@@ -173,14 +177,15 @@ abstract class CopyObjectRequest
         }
         if (request.headers['x-amz-copy-source-if-unmodified-since'] != null) {
           b.copySourceIfUnmodifiedSince = _i1.Timestamp.parse(
-                  request.headers['x-amz-copy-source-if-unmodified-since']!,
-                  format: _i1.TimestampFormat.httpDate)
-              .asDateTime;
+            request.headers['x-amz-copy-source-if-unmodified-since']!,
+            format: _i1.TimestampFormat.httpDate,
+          ).asDateTime;
         }
         if (request.headers['Expires'] != null) {
-          b.expires = _i1.Timestamp.parse(request.headers['Expires']!,
-                  format: _i1.TimestampFormat.httpDate)
-              .asDateTime;
+          b.expires = _i1.Timestamp.parse(
+            request.headers['Expires']!,
+            format: _i1.TimestampFormat.httpDate,
+          ).asDateTime;
         }
         if (request.headers['x-amz-grant-full-control'] != null) {
           b.grantFullControl = request.headers['x-amz-grant-full-control']!;
@@ -277,9 +282,9 @@ abstract class CopyObjectRequest
         }
         if (request.headers['x-amz-object-lock-retain-until-date'] != null) {
           b.objectLockRetainUntilDate = _i1.Timestamp.parse(
-                  request.headers['x-amz-object-lock-retain-until-date']!,
-                  format: _i1.TimestampFormat.dateTime)
-              .asDateTime;
+            request.headers['x-amz-object-lock-retain-until-date']!,
+            format: _i1.TimestampFormat.dateTime,
+          ).asDateTime;
         }
         if (request.headers['x-amz-object-lock-legal-hold'] != null) {
           b.objectLockLegalHoldStatus = _i7.ObjectLockLegalHoldStatus.values
@@ -295,8 +300,13 @@ abstract class CopyObjectRequest
         }
         b.metadata.addEntries(request.headers.entries
             .where((el) => el.key.startsWith('x-amz-meta-'))
-            .map((el) =>
-                MapEntry(el.key.replaceFirst('x-amz-meta-', ''), el.value)));
+            .map((el) => MapEntry(
+                  el.key.replaceFirst(
+                    'x-amz-meta-',
+                    '',
+                  ),
+                  el.value,
+                )));
         if (labels['bucket'] != null) {
           b.bucket = labels['bucket']!;
         }
@@ -469,7 +479,10 @@ abstract class CopyObjectRequest
       case 'Key':
         return this.key;
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -516,53 +529,175 @@ abstract class CopyObjectRequest
         storageClass,
         tagging,
         taggingDirective,
-        websiteRedirectLocation
+        websiteRedirectLocation,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CopyObjectRequest');
-    helper.add('acl', acl);
-    helper.add('bucket', bucket);
-    helper.add('bucketKeyEnabled', bucketKeyEnabled);
-    helper.add('cacheControl', cacheControl);
-    helper.add('checksumAlgorithm', checksumAlgorithm);
-    helper.add('contentDisposition', contentDisposition);
-    helper.add('contentEncoding', contentEncoding);
-    helper.add('contentLanguage', contentLanguage);
-    helper.add('contentType', contentType);
-    helper.add('copySource', copySource);
-    helper.add('copySourceIfMatch', copySourceIfMatch);
-    helper.add('copySourceIfModifiedSince', copySourceIfModifiedSince);
-    helper.add('copySourceIfNoneMatch', copySourceIfNoneMatch);
-    helper.add('copySourceIfUnmodifiedSince', copySourceIfUnmodifiedSince);
     helper.add(
-        'copySourceSseCustomerAlgorithm', copySourceSseCustomerAlgorithm);
-    helper.add('copySourceSseCustomerKey', '***SENSITIVE***');
-    helper.add('copySourceSseCustomerKeyMd5', copySourceSseCustomerKeyMd5);
-    helper.add('expectedBucketOwner', expectedBucketOwner);
-    helper.add('expectedSourceBucketOwner', expectedSourceBucketOwner);
-    helper.add('expires', expires);
-    helper.add('grantFullControl', grantFullControl);
-    helper.add('grantRead', grantRead);
-    helper.add('grantReadAcp', grantReadAcp);
-    helper.add('grantWriteAcp', grantWriteAcp);
-    helper.add('key', key);
-    helper.add('metadata', metadata);
-    helper.add('metadataDirective', metadataDirective);
-    helper.add('objectLockLegalHoldStatus', objectLockLegalHoldStatus);
-    helper.add('objectLockMode', objectLockMode);
-    helper.add('objectLockRetainUntilDate', objectLockRetainUntilDate);
-    helper.add('requestPayer', requestPayer);
-    helper.add('serverSideEncryption', serverSideEncryption);
-    helper.add('sseCustomerAlgorithm', sseCustomerAlgorithm);
-    helper.add('sseCustomerKey', '***SENSITIVE***');
-    helper.add('sseCustomerKeyMd5', sseCustomerKeyMd5);
-    helper.add('ssekmsEncryptionContext', '***SENSITIVE***');
-    helper.add('ssekmsKeyId', '***SENSITIVE***');
-    helper.add('storageClass', storageClass);
-    helper.add('tagging', tagging);
-    helper.add('taggingDirective', taggingDirective);
-    helper.add('websiteRedirectLocation', websiteRedirectLocation);
+      'acl',
+      acl,
+    );
+    helper.add(
+      'bucket',
+      bucket,
+    );
+    helper.add(
+      'bucketKeyEnabled',
+      bucketKeyEnabled,
+    );
+    helper.add(
+      'cacheControl',
+      cacheControl,
+    );
+    helper.add(
+      'checksumAlgorithm',
+      checksumAlgorithm,
+    );
+    helper.add(
+      'contentDisposition',
+      contentDisposition,
+    );
+    helper.add(
+      'contentEncoding',
+      contentEncoding,
+    );
+    helper.add(
+      'contentLanguage',
+      contentLanguage,
+    );
+    helper.add(
+      'contentType',
+      contentType,
+    );
+    helper.add(
+      'copySource',
+      copySource,
+    );
+    helper.add(
+      'copySourceIfMatch',
+      copySourceIfMatch,
+    );
+    helper.add(
+      'copySourceIfModifiedSince',
+      copySourceIfModifiedSince,
+    );
+    helper.add(
+      'copySourceIfNoneMatch',
+      copySourceIfNoneMatch,
+    );
+    helper.add(
+      'copySourceIfUnmodifiedSince',
+      copySourceIfUnmodifiedSince,
+    );
+    helper.add(
+      'copySourceSseCustomerAlgorithm',
+      copySourceSseCustomerAlgorithm,
+    );
+    helper.add(
+      'copySourceSseCustomerKey',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'copySourceSseCustomerKeyMd5',
+      copySourceSseCustomerKeyMd5,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
+    );
+    helper.add(
+      'expectedSourceBucketOwner',
+      expectedSourceBucketOwner,
+    );
+    helper.add(
+      'expires',
+      expires,
+    );
+    helper.add(
+      'grantFullControl',
+      grantFullControl,
+    );
+    helper.add(
+      'grantRead',
+      grantRead,
+    );
+    helper.add(
+      'grantReadAcp',
+      grantReadAcp,
+    );
+    helper.add(
+      'grantWriteAcp',
+      grantWriteAcp,
+    );
+    helper.add(
+      'key',
+      key,
+    );
+    helper.add(
+      'metadata',
+      metadata,
+    );
+    helper.add(
+      'metadataDirective',
+      metadataDirective,
+    );
+    helper.add(
+      'objectLockLegalHoldStatus',
+      objectLockLegalHoldStatus,
+    );
+    helper.add(
+      'objectLockMode',
+      objectLockMode,
+    );
+    helper.add(
+      'objectLockRetainUntilDate',
+      objectLockRetainUntilDate,
+    );
+    helper.add(
+      'requestPayer',
+      requestPayer,
+    );
+    helper.add(
+      'serverSideEncryption',
+      serverSideEncryption,
+    );
+    helper.add(
+      'sseCustomerAlgorithm',
+      sseCustomerAlgorithm,
+    );
+    helper.add(
+      'sseCustomerKey',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'sseCustomerKeyMd5',
+      sseCustomerKeyMd5,
+    );
+    helper.add(
+      'ssekmsEncryptionContext',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'ssekmsKeyId',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'storageClass',
+      storageClass,
+    );
+    helper.add(
+      'tagging',
+      tagging,
+    );
+    helper.add(
+      'taggingDirective',
+      taggingDirective,
+    );
+    helper.add(
+      'websiteRedirectLocation',
+      websiteRedirectLocation,
+    );
     return helper.toString();
   }
 }
@@ -599,24 +734,35 @@ class CopyObjectRequestRestXmlSerializer
         CopyObjectRequest,
         _$CopyObjectRequest,
         CopyObjectRequestPayload,
-        _$CopyObjectRequestPayload
+        _$CopyObjectRequestPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   CopyObjectRequestPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return CopyObjectRequestPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
-      const _i1.XmlElementName('CopyObjectRequest',
-          _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i1.XmlElementName(
+        'CopyObjectRequest',
+        _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     return result;
   }

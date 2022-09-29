@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.get_object_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,50 +22,52 @@ abstract class GetObjectRequest
         Built<GetObjectRequest, GetObjectRequestBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<GetObjectRequestPayload> {
-  factory GetObjectRequest(
-      {required String bucket,
-      _i3.ChecksumMode? checksumMode,
-      String? expectedBucketOwner,
-      String? ifMatch,
-      DateTime? ifModifiedSince,
-      String? ifNoneMatch,
-      DateTime? ifUnmodifiedSince,
-      required String key,
-      int? partNumber,
-      String? range,
-      _i4.RequestPayer? requestPayer,
-      String? responseCacheControl,
-      String? responseContentDisposition,
-      String? responseContentEncoding,
-      String? responseContentLanguage,
-      String? responseContentType,
-      DateTime? responseExpires,
-      String? sseCustomerAlgorithm,
-      String? sseCustomerKey,
-      String? sseCustomerKeyMd5,
-      String? versionId}) {
+  factory GetObjectRequest({
+    required String bucket,
+    _i3.ChecksumMode? checksumMode,
+    String? expectedBucketOwner,
+    String? ifMatch,
+    DateTime? ifModifiedSince,
+    String? ifNoneMatch,
+    DateTime? ifUnmodifiedSince,
+    required String key,
+    int? partNumber,
+    String? range,
+    _i4.RequestPayer? requestPayer,
+    String? responseCacheControl,
+    String? responseContentDisposition,
+    String? responseContentEncoding,
+    String? responseContentLanguage,
+    String? responseContentType,
+    DateTime? responseExpires,
+    String? sseCustomerAlgorithm,
+    String? sseCustomerKey,
+    String? sseCustomerKeyMd5,
+    String? versionId,
+  }) {
     return _$GetObjectRequest._(
-        bucket: bucket,
-        checksumMode: checksumMode,
-        expectedBucketOwner: expectedBucketOwner,
-        ifMatch: ifMatch,
-        ifModifiedSince: ifModifiedSince,
-        ifNoneMatch: ifNoneMatch,
-        ifUnmodifiedSince: ifUnmodifiedSince,
-        key: key,
-        partNumber: partNumber,
-        range: range,
-        requestPayer: requestPayer,
-        responseCacheControl: responseCacheControl,
-        responseContentDisposition: responseContentDisposition,
-        responseContentEncoding: responseContentEncoding,
-        responseContentLanguage: responseContentLanguage,
-        responseContentType: responseContentType,
-        responseExpires: responseExpires,
-        sseCustomerAlgorithm: sseCustomerAlgorithm,
-        sseCustomerKey: sseCustomerKey,
-        sseCustomerKeyMd5: sseCustomerKeyMd5,
-        versionId: versionId);
+      bucket: bucket,
+      checksumMode: checksumMode,
+      expectedBucketOwner: expectedBucketOwner,
+      ifMatch: ifMatch,
+      ifModifiedSince: ifModifiedSince,
+      ifNoneMatch: ifNoneMatch,
+      ifUnmodifiedSince: ifUnmodifiedSince,
+      key: key,
+      partNumber: partNumber,
+      range: range,
+      requestPayer: requestPayer,
+      responseCacheControl: responseCacheControl,
+      responseContentDisposition: responseContentDisposition,
+      responseContentEncoding: responseContentEncoding,
+      responseContentLanguage: responseContentLanguage,
+      responseContentType: responseContentType,
+      responseExpires: responseExpires,
+      sseCustomerAlgorithm: sseCustomerAlgorithm,
+      sseCustomerKey: sseCustomerKey,
+      sseCustomerKeyMd5: sseCustomerKeyMd5,
+      versionId: versionId,
+    );
   }
 
   factory GetObjectRequest.build(
@@ -74,26 +76,28 @@ abstract class GetObjectRequest
   const GetObjectRequest._();
 
   factory GetObjectRequest.fromRequest(
-          GetObjectRequestPayload payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    GetObjectRequestPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       GetObjectRequest.build((b) {
         if (request.headers['If-Match'] != null) {
           b.ifMatch = request.headers['If-Match']!;
         }
         if (request.headers['If-Modified-Since'] != null) {
           b.ifModifiedSince = _i1.Timestamp.parse(
-                  request.headers['If-Modified-Since']!,
-                  format: _i1.TimestampFormat.httpDate)
-              .asDateTime;
+            request.headers['If-Modified-Since']!,
+            format: _i1.TimestampFormat.httpDate,
+          ).asDateTime;
         }
         if (request.headers['If-None-Match'] != null) {
           b.ifNoneMatch = request.headers['If-None-Match']!;
         }
         if (request.headers['If-Unmodified-Since'] != null) {
           b.ifUnmodifiedSince = _i1.Timestamp.parse(
-                  request.headers['If-Unmodified-Since']!,
-                  format: _i1.TimestampFormat.httpDate)
-              .asDateTime;
+            request.headers['If-Unmodified-Since']!,
+            format: _i1.TimestampFormat.httpDate,
+          ).asDateTime;
         }
         if (request.headers['Range'] != null) {
           b.range = request.headers['Range']!;
@@ -148,9 +152,9 @@ abstract class GetObjectRequest
         }
         if (request.queryParameters['response-expires'] != null) {
           b.responseExpires = _i1.Timestamp.parse(
-                  request.queryParameters['response-expires']!,
-                  format: _i1.TimestampFormat.httpDate)
-              .asDateTime;
+            request.queryParameters['response-expires']!,
+            format: _i1.TimestampFormat.httpDate,
+          ).asDateTime;
         }
         if (request.queryParameters['versionId'] != null) {
           b.versionId = request.queryParameters['versionId']!;
@@ -251,7 +255,10 @@ abstract class GetObjectRequest
       case 'Key':
         return this.key;
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -278,32 +285,95 @@ abstract class GetObjectRequest
         sseCustomerAlgorithm,
         sseCustomerKey,
         sseCustomerKeyMd5,
-        versionId
+        versionId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetObjectRequest');
-    helper.add('bucket', bucket);
-    helper.add('checksumMode', checksumMode);
-    helper.add('expectedBucketOwner', expectedBucketOwner);
-    helper.add('ifMatch', ifMatch);
-    helper.add('ifModifiedSince', ifModifiedSince);
-    helper.add('ifNoneMatch', ifNoneMatch);
-    helper.add('ifUnmodifiedSince', ifUnmodifiedSince);
-    helper.add('key', key);
-    helper.add('partNumber', partNumber);
-    helper.add('range', range);
-    helper.add('requestPayer', requestPayer);
-    helper.add('responseCacheControl', responseCacheControl);
-    helper.add('responseContentDisposition', responseContentDisposition);
-    helper.add('responseContentEncoding', responseContentEncoding);
-    helper.add('responseContentLanguage', responseContentLanguage);
-    helper.add('responseContentType', responseContentType);
-    helper.add('responseExpires', responseExpires);
-    helper.add('sseCustomerAlgorithm', sseCustomerAlgorithm);
-    helper.add('sseCustomerKey', '***SENSITIVE***');
-    helper.add('sseCustomerKeyMd5', sseCustomerKeyMd5);
-    helper.add('versionId', versionId);
+    helper.add(
+      'bucket',
+      bucket,
+    );
+    helper.add(
+      'checksumMode',
+      checksumMode,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
+    );
+    helper.add(
+      'ifMatch',
+      ifMatch,
+    );
+    helper.add(
+      'ifModifiedSince',
+      ifModifiedSince,
+    );
+    helper.add(
+      'ifNoneMatch',
+      ifNoneMatch,
+    );
+    helper.add(
+      'ifUnmodifiedSince',
+      ifUnmodifiedSince,
+    );
+    helper.add(
+      'key',
+      key,
+    );
+    helper.add(
+      'partNumber',
+      partNumber,
+    );
+    helper.add(
+      'range',
+      range,
+    );
+    helper.add(
+      'requestPayer',
+      requestPayer,
+    );
+    helper.add(
+      'responseCacheControl',
+      responseCacheControl,
+    );
+    helper.add(
+      'responseContentDisposition',
+      responseContentDisposition,
+    );
+    helper.add(
+      'responseContentEncoding',
+      responseContentEncoding,
+    );
+    helper.add(
+      'responseContentLanguage',
+      responseContentLanguage,
+    );
+    helper.add(
+      'responseContentType',
+      responseContentType,
+    );
+    helper.add(
+      'responseExpires',
+      responseExpires,
+    );
+    helper.add(
+      'sseCustomerAlgorithm',
+      sseCustomerAlgorithm,
+    );
+    helper.add(
+      'sseCustomerKey',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'sseCustomerKeyMd5',
+      sseCustomerKeyMd5,
+    );
+    helper.add(
+      'versionId',
+      versionId,
+    );
     return helper.toString();
   }
 }
@@ -340,24 +410,35 @@ class GetObjectRequestRestXmlSerializer
         GetObjectRequest,
         _$GetObjectRequest,
         GetObjectRequestPayload,
-        _$GetObjectRequestPayload
+        _$GetObjectRequestPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   GetObjectRequestPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return GetObjectRequestPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
-      const _i1.XmlElementName('GetObjectRequest',
-          _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i1.XmlElementName(
+        'GetObjectRequest',
+        _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     return result;
   }

@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.head_object_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,76 +32,78 @@ abstract class HeadObjectOutput
         Built<HeadObjectOutput, HeadObjectOutputBuilder>,
         _i2.EmptyPayload,
         _i2.HasPayload<HeadObjectOutputPayload> {
-  factory HeadObjectOutput(
-      {String? acceptRanges,
-      _i3.ArchiveStatus? archiveStatus,
-      bool? bucketKeyEnabled,
-      String? cacheControl,
-      String? checksumCrc32,
-      String? checksumCrc32C,
-      String? checksumSha1,
-      String? checksumSha256,
-      String? contentDisposition,
-      String? contentEncoding,
-      String? contentLanguage,
-      _i4.Int64? contentLength,
-      String? contentType,
-      bool? deleteMarker,
-      String? eTag,
-      String? expiration,
-      DateTime? expires,
-      DateTime? lastModified,
-      _i5.BuiltMap<String, String>? metadata,
-      int? missingMeta,
-      _i6.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
-      _i7.ObjectLockMode? objectLockMode,
-      DateTime? objectLockRetainUntilDate,
-      int? partsCount,
-      _i8.ReplicationStatus? replicationStatus,
-      _i9.RequestCharged? requestCharged,
-      String? restore,
-      _i10.ServerSideEncryption? serverSideEncryption,
-      String? sseCustomerAlgorithm,
-      String? sseCustomerKeyMd5,
-      String? ssekmsKeyId,
-      _i11.StorageClass? storageClass,
-      String? versionId,
-      String? websiteRedirectLocation}) {
+  factory HeadObjectOutput({
+    String? acceptRanges,
+    _i3.ArchiveStatus? archiveStatus,
+    bool? bucketKeyEnabled,
+    String? cacheControl,
+    String? checksumCrc32,
+    String? checksumCrc32C,
+    String? checksumSha1,
+    String? checksumSha256,
+    String? contentDisposition,
+    String? contentEncoding,
+    String? contentLanguage,
+    _i4.Int64? contentLength,
+    String? contentType,
+    bool? deleteMarker,
+    String? eTag,
+    String? expiration,
+    DateTime? expires,
+    DateTime? lastModified,
+    _i5.BuiltMap<String, String>? metadata,
+    int? missingMeta,
+    _i6.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
+    _i7.ObjectLockMode? objectLockMode,
+    DateTime? objectLockRetainUntilDate,
+    int? partsCount,
+    _i8.ReplicationStatus? replicationStatus,
+    _i9.RequestCharged? requestCharged,
+    String? restore,
+    _i10.ServerSideEncryption? serverSideEncryption,
+    String? sseCustomerAlgorithm,
+    String? sseCustomerKeyMd5,
+    String? ssekmsKeyId,
+    _i11.StorageClass? storageClass,
+    String? versionId,
+    String? websiteRedirectLocation,
+  }) {
     return _$HeadObjectOutput._(
-        acceptRanges: acceptRanges,
-        archiveStatus: archiveStatus,
-        bucketKeyEnabled: bucketKeyEnabled,
-        cacheControl: cacheControl,
-        checksumCrc32: checksumCrc32,
-        checksumCrc32C: checksumCrc32C,
-        checksumSha1: checksumSha1,
-        checksumSha256: checksumSha256,
-        contentDisposition: contentDisposition,
-        contentEncoding: contentEncoding,
-        contentLanguage: contentLanguage,
-        contentLength: contentLength,
-        contentType: contentType,
-        deleteMarker: deleteMarker,
-        eTag: eTag,
-        expiration: expiration,
-        expires: expires,
-        lastModified: lastModified,
-        metadata: metadata,
-        missingMeta: missingMeta,
-        objectLockLegalHoldStatus: objectLockLegalHoldStatus,
-        objectLockMode: objectLockMode,
-        objectLockRetainUntilDate: objectLockRetainUntilDate,
-        partsCount: partsCount,
-        replicationStatus: replicationStatus,
-        requestCharged: requestCharged,
-        restore: restore,
-        serverSideEncryption: serverSideEncryption,
-        sseCustomerAlgorithm: sseCustomerAlgorithm,
-        sseCustomerKeyMd5: sseCustomerKeyMd5,
-        ssekmsKeyId: ssekmsKeyId,
-        storageClass: storageClass,
-        versionId: versionId,
-        websiteRedirectLocation: websiteRedirectLocation);
+      acceptRanges: acceptRanges,
+      archiveStatus: archiveStatus,
+      bucketKeyEnabled: bucketKeyEnabled,
+      cacheControl: cacheControl,
+      checksumCrc32: checksumCrc32,
+      checksumCrc32C: checksumCrc32C,
+      checksumSha1: checksumSha1,
+      checksumSha256: checksumSha256,
+      contentDisposition: contentDisposition,
+      contentEncoding: contentEncoding,
+      contentLanguage: contentLanguage,
+      contentLength: contentLength,
+      contentType: contentType,
+      deleteMarker: deleteMarker,
+      eTag: eTag,
+      expiration: expiration,
+      expires: expires,
+      lastModified: lastModified,
+      metadata: metadata,
+      missingMeta: missingMeta,
+      objectLockLegalHoldStatus: objectLockLegalHoldStatus,
+      objectLockMode: objectLockMode,
+      objectLockRetainUntilDate: objectLockRetainUntilDate,
+      partsCount: partsCount,
+      replicationStatus: replicationStatus,
+      requestCharged: requestCharged,
+      restore: restore,
+      serverSideEncryption: serverSideEncryption,
+      sseCustomerAlgorithm: sseCustomerAlgorithm,
+      sseCustomerKeyMd5: sseCustomerKeyMd5,
+      ssekmsKeyId: ssekmsKeyId,
+      storageClass: storageClass,
+      versionId: versionId,
+      websiteRedirectLocation: websiteRedirectLocation,
+    );
   }
 
   factory HeadObjectOutput.build(
@@ -111,7 +113,9 @@ abstract class HeadObjectOutput
 
   /// Constructs a [HeadObjectOutput] from a [payload] and [response].
   factory HeadObjectOutput.fromResponse(
-          HeadObjectOutputPayload payload, _i1.AWSBaseHttpResponse response) =>
+    HeadObjectOutputPayload payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       HeadObjectOutput.build((b) {
         if (response.headers['x-amz-delete-marker'] != null) {
           b.deleteMarker = response.headers['x-amz-delete-marker']! == 'true';
@@ -131,9 +135,9 @@ abstract class HeadObjectOutput
         }
         if (response.headers['Last-Modified'] != null) {
           b.lastModified = _i2.Timestamp.parse(
-                  response.headers['Last-Modified']!,
-                  format: _i2.TimestampFormat.httpDate)
-              .asDateTime;
+            response.headers['Last-Modified']!,
+            format: _i2.TimestampFormat.httpDate,
+          ).asDateTime;
         }
         if (response.headers['Content-Length'] != null) {
           b.contentLength =
@@ -176,9 +180,10 @@ abstract class HeadObjectOutput
           b.contentType = response.headers['Content-Type']!;
         }
         if (response.headers['Expires'] != null) {
-          b.expires = _i2.Timestamp.parse(response.headers['Expires']!,
-                  format: _i2.TimestampFormat.httpDate)
-              .asDateTime;
+          b.expires = _i2.Timestamp.parse(
+            response.headers['Expires']!,
+            format: _i2.TimestampFormat.httpDate,
+          ).asDateTime;
         }
         if (response.headers['x-amz-website-redirect-location'] != null) {
           b.websiteRedirectLocation =
@@ -232,9 +237,9 @@ abstract class HeadObjectOutput
         }
         if (response.headers['x-amz-object-lock-retain-until-date'] != null) {
           b.objectLockRetainUntilDate = _i2.Timestamp.parse(
-                  response.headers['x-amz-object-lock-retain-until-date']!,
-                  format: _i2.TimestampFormat.dateTime)
-              .asDateTime;
+            response.headers['x-amz-object-lock-retain-until-date']!,
+            format: _i2.TimestampFormat.dateTime,
+          ).asDateTime;
         }
         if (response.headers['x-amz-object-lock-legal-hold'] != null) {
           b.objectLockLegalHoldStatus = _i6.ObjectLockLegalHoldStatus.values
@@ -242,8 +247,13 @@ abstract class HeadObjectOutput
         }
         b.metadata.addEntries(response.headers.entries
             .where((el) => el.key.startsWith('x-amz-meta-'))
-            .map((el) =>
-                MapEntry(el.key.replaceFirst('x-amz-meta-', ''), el.value)));
+            .map((el) => MapEntry(
+                  el.key.replaceFirst(
+                    'x-amz-meta-',
+                    '',
+                  ),
+                  el.value,
+                )));
       });
 
   static const List<_i2.SmithySerializer> serializers = [
@@ -414,45 +424,147 @@ abstract class HeadObjectOutput
         ssekmsKeyId,
         storageClass,
         versionId,
-        websiteRedirectLocation
+        websiteRedirectLocation,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HeadObjectOutput');
-    helper.add('acceptRanges', acceptRanges);
-    helper.add('archiveStatus', archiveStatus);
-    helper.add('bucketKeyEnabled', bucketKeyEnabled);
-    helper.add('cacheControl', cacheControl);
-    helper.add('checksumCrc32', checksumCrc32);
-    helper.add('checksumCrc32C', checksumCrc32C);
-    helper.add('checksumSha1', checksumSha1);
-    helper.add('checksumSha256', checksumSha256);
-    helper.add('contentDisposition', contentDisposition);
-    helper.add('contentEncoding', contentEncoding);
-    helper.add('contentLanguage', contentLanguage);
-    helper.add('contentLength', contentLength);
-    helper.add('contentType', contentType);
-    helper.add('deleteMarker', deleteMarker);
-    helper.add('eTag', eTag);
-    helper.add('expiration', expiration);
-    helper.add('expires', expires);
-    helper.add('lastModified', lastModified);
-    helper.add('metadata', metadata);
-    helper.add('missingMeta', missingMeta);
-    helper.add('objectLockLegalHoldStatus', objectLockLegalHoldStatus);
-    helper.add('objectLockMode', objectLockMode);
-    helper.add('objectLockRetainUntilDate', objectLockRetainUntilDate);
-    helper.add('partsCount', partsCount);
-    helper.add('replicationStatus', replicationStatus);
-    helper.add('requestCharged', requestCharged);
-    helper.add('restore', restore);
-    helper.add('serverSideEncryption', serverSideEncryption);
-    helper.add('sseCustomerAlgorithm', sseCustomerAlgorithm);
-    helper.add('sseCustomerKeyMd5', sseCustomerKeyMd5);
-    helper.add('ssekmsKeyId', '***SENSITIVE***');
-    helper.add('storageClass', storageClass);
-    helper.add('versionId', versionId);
-    helper.add('websiteRedirectLocation', websiteRedirectLocation);
+    helper.add(
+      'acceptRanges',
+      acceptRanges,
+    );
+    helper.add(
+      'archiveStatus',
+      archiveStatus,
+    );
+    helper.add(
+      'bucketKeyEnabled',
+      bucketKeyEnabled,
+    );
+    helper.add(
+      'cacheControl',
+      cacheControl,
+    );
+    helper.add(
+      'checksumCrc32',
+      checksumCrc32,
+    );
+    helper.add(
+      'checksumCrc32C',
+      checksumCrc32C,
+    );
+    helper.add(
+      'checksumSha1',
+      checksumSha1,
+    );
+    helper.add(
+      'checksumSha256',
+      checksumSha256,
+    );
+    helper.add(
+      'contentDisposition',
+      contentDisposition,
+    );
+    helper.add(
+      'contentEncoding',
+      contentEncoding,
+    );
+    helper.add(
+      'contentLanguage',
+      contentLanguage,
+    );
+    helper.add(
+      'contentLength',
+      contentLength,
+    );
+    helper.add(
+      'contentType',
+      contentType,
+    );
+    helper.add(
+      'deleteMarker',
+      deleteMarker,
+    );
+    helper.add(
+      'eTag',
+      eTag,
+    );
+    helper.add(
+      'expiration',
+      expiration,
+    );
+    helper.add(
+      'expires',
+      expires,
+    );
+    helper.add(
+      'lastModified',
+      lastModified,
+    );
+    helper.add(
+      'metadata',
+      metadata,
+    );
+    helper.add(
+      'missingMeta',
+      missingMeta,
+    );
+    helper.add(
+      'objectLockLegalHoldStatus',
+      objectLockLegalHoldStatus,
+    );
+    helper.add(
+      'objectLockMode',
+      objectLockMode,
+    );
+    helper.add(
+      'objectLockRetainUntilDate',
+      objectLockRetainUntilDate,
+    );
+    helper.add(
+      'partsCount',
+      partsCount,
+    );
+    helper.add(
+      'replicationStatus',
+      replicationStatus,
+    );
+    helper.add(
+      'requestCharged',
+      requestCharged,
+    );
+    helper.add(
+      'restore',
+      restore,
+    );
+    helper.add(
+      'serverSideEncryption',
+      serverSideEncryption,
+    );
+    helper.add(
+      'sseCustomerAlgorithm',
+      sseCustomerAlgorithm,
+    );
+    helper.add(
+      'sseCustomerKeyMd5',
+      sseCustomerKeyMd5,
+    );
+    helper.add(
+      'ssekmsKeyId',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'storageClass',
+      storageClass,
+    );
+    helper.add(
+      'versionId',
+      versionId,
+    );
+    helper.add(
+      'websiteRedirectLocation',
+      websiteRedirectLocation,
+    );
     return helper.toString();
   }
 }
@@ -489,24 +601,35 @@ class HeadObjectOutputRestXmlSerializer
         HeadObjectOutput,
         _$HeadObjectOutput,
         HeadObjectOutputPayload,
-        _$HeadObjectOutputPayload
+        _$HeadObjectOutputPayload,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   HeadObjectOutputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return HeadObjectOutputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
-      const _i2.XmlElementName('HeadObjectOutput',
-          _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i2.XmlElementName(
+        'HeadObjectOutput',
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     return result;
   }

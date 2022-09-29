@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.get_object_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -30,80 +30,82 @@ abstract class GetObjectOutput
     implements
         Built<GetObjectOutput, GetObjectOutputBuilder>,
         _i2.HasPayload<_i3.Stream<List<int>>> {
-  factory GetObjectOutput(
-      {String? acceptRanges,
-      _i3.Stream<List<int>>? body,
-      bool? bucketKeyEnabled,
-      String? cacheControl,
-      String? checksumCrc32,
-      String? checksumCrc32C,
-      String? checksumSha1,
-      String? checksumSha256,
-      String? contentDisposition,
-      String? contentEncoding,
-      String? contentLanguage,
-      _i4.Int64? contentLength,
-      String? contentRange,
-      String? contentType,
-      bool? deleteMarker,
-      String? eTag,
-      String? expiration,
-      DateTime? expires,
-      DateTime? lastModified,
-      _i5.BuiltMap<String, String>? metadata,
-      int? missingMeta,
-      _i6.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
-      _i7.ObjectLockMode? objectLockMode,
-      DateTime? objectLockRetainUntilDate,
-      int? partsCount,
-      _i8.ReplicationStatus? replicationStatus,
-      _i9.RequestCharged? requestCharged,
-      String? restore,
-      _i10.ServerSideEncryption? serverSideEncryption,
-      String? sseCustomerAlgorithm,
-      String? sseCustomerKeyMd5,
-      String? ssekmsKeyId,
-      _i11.StorageClass? storageClass,
-      int? tagCount,
-      String? versionId,
-      String? websiteRedirectLocation}) {
+  factory GetObjectOutput({
+    String? acceptRanges,
+    _i3.Stream<List<int>>? body,
+    bool? bucketKeyEnabled,
+    String? cacheControl,
+    String? checksumCrc32,
+    String? checksumCrc32C,
+    String? checksumSha1,
+    String? checksumSha256,
+    String? contentDisposition,
+    String? contentEncoding,
+    String? contentLanguage,
+    _i4.Int64? contentLength,
+    String? contentRange,
+    String? contentType,
+    bool? deleteMarker,
+    String? eTag,
+    String? expiration,
+    DateTime? expires,
+    DateTime? lastModified,
+    _i5.BuiltMap<String, String>? metadata,
+    int? missingMeta,
+    _i6.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
+    _i7.ObjectLockMode? objectLockMode,
+    DateTime? objectLockRetainUntilDate,
+    int? partsCount,
+    _i8.ReplicationStatus? replicationStatus,
+    _i9.RequestCharged? requestCharged,
+    String? restore,
+    _i10.ServerSideEncryption? serverSideEncryption,
+    String? sseCustomerAlgorithm,
+    String? sseCustomerKeyMd5,
+    String? ssekmsKeyId,
+    _i11.StorageClass? storageClass,
+    int? tagCount,
+    String? versionId,
+    String? websiteRedirectLocation,
+  }) {
     return _$GetObjectOutput._(
-        acceptRanges: acceptRanges,
-        body: body,
-        bucketKeyEnabled: bucketKeyEnabled,
-        cacheControl: cacheControl,
-        checksumCrc32: checksumCrc32,
-        checksumCrc32C: checksumCrc32C,
-        checksumSha1: checksumSha1,
-        checksumSha256: checksumSha256,
-        contentDisposition: contentDisposition,
-        contentEncoding: contentEncoding,
-        contentLanguage: contentLanguage,
-        contentLength: contentLength,
-        contentRange: contentRange,
-        contentType: contentType,
-        deleteMarker: deleteMarker,
-        eTag: eTag,
-        expiration: expiration,
-        expires: expires,
-        lastModified: lastModified,
-        metadata: metadata,
-        missingMeta: missingMeta,
-        objectLockLegalHoldStatus: objectLockLegalHoldStatus,
-        objectLockMode: objectLockMode,
-        objectLockRetainUntilDate: objectLockRetainUntilDate,
-        partsCount: partsCount,
-        replicationStatus: replicationStatus,
-        requestCharged: requestCharged,
-        restore: restore,
-        serverSideEncryption: serverSideEncryption,
-        sseCustomerAlgorithm: sseCustomerAlgorithm,
-        sseCustomerKeyMd5: sseCustomerKeyMd5,
-        ssekmsKeyId: ssekmsKeyId,
-        storageClass: storageClass,
-        tagCount: tagCount,
-        versionId: versionId,
-        websiteRedirectLocation: websiteRedirectLocation);
+      acceptRanges: acceptRanges,
+      body: body,
+      bucketKeyEnabled: bucketKeyEnabled,
+      cacheControl: cacheControl,
+      checksumCrc32: checksumCrc32,
+      checksumCrc32C: checksumCrc32C,
+      checksumSha1: checksumSha1,
+      checksumSha256: checksumSha256,
+      contentDisposition: contentDisposition,
+      contentEncoding: contentEncoding,
+      contentLanguage: contentLanguage,
+      contentLength: contentLength,
+      contentRange: contentRange,
+      contentType: contentType,
+      deleteMarker: deleteMarker,
+      eTag: eTag,
+      expiration: expiration,
+      expires: expires,
+      lastModified: lastModified,
+      metadata: metadata,
+      missingMeta: missingMeta,
+      objectLockLegalHoldStatus: objectLockLegalHoldStatus,
+      objectLockMode: objectLockMode,
+      objectLockRetainUntilDate: objectLockRetainUntilDate,
+      partsCount: partsCount,
+      replicationStatus: replicationStatus,
+      requestCharged: requestCharged,
+      restore: restore,
+      serverSideEncryption: serverSideEncryption,
+      sseCustomerAlgorithm: sseCustomerAlgorithm,
+      sseCustomerKeyMd5: sseCustomerKeyMd5,
+      ssekmsKeyId: ssekmsKeyId,
+      storageClass: storageClass,
+      tagCount: tagCount,
+      versionId: versionId,
+      websiteRedirectLocation: websiteRedirectLocation,
+    );
   }
 
   factory GetObjectOutput.build(
@@ -113,7 +115,9 @@ abstract class GetObjectOutput
 
   /// Constructs a [GetObjectOutput] from a [payload] and [response].
   factory GetObjectOutput.fromResponse(
-          _i3.Stream<List<int>>? payload, _i1.AWSBaseHttpResponse response) =>
+    _i3.Stream<List<int>>? payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       GetObjectOutput.build((b) {
         b.body = payload;
         if (response.headers['x-amz-delete-marker'] != null) {
@@ -130,9 +134,9 @@ abstract class GetObjectOutput
         }
         if (response.headers['Last-Modified'] != null) {
           b.lastModified = _i2.Timestamp.parse(
-                  response.headers['Last-Modified']!,
-                  format: _i2.TimestampFormat.httpDate)
-              .asDateTime;
+            response.headers['Last-Modified']!,
+            format: _i2.TimestampFormat.httpDate,
+          ).asDateTime;
         }
         if (response.headers['Content-Length'] != null) {
           b.contentLength =
@@ -178,9 +182,10 @@ abstract class GetObjectOutput
           b.contentType = response.headers['Content-Type']!;
         }
         if (response.headers['Expires'] != null) {
-          b.expires = _i2.Timestamp.parse(response.headers['Expires']!,
-                  format: _i2.TimestampFormat.httpDate)
-              .asDateTime;
+          b.expires = _i2.Timestamp.parse(
+            response.headers['Expires']!,
+            format: _i2.TimestampFormat.httpDate,
+          ).asDateTime;
         }
         if (response.headers['x-amz-website-redirect-location'] != null) {
           b.websiteRedirectLocation =
@@ -237,9 +242,9 @@ abstract class GetObjectOutput
         }
         if (response.headers['x-amz-object-lock-retain-until-date'] != null) {
           b.objectLockRetainUntilDate = _i2.Timestamp.parse(
-                  response.headers['x-amz-object-lock-retain-until-date']!,
-                  format: _i2.TimestampFormat.dateTime)
-              .asDateTime;
+            response.headers['x-amz-object-lock-retain-until-date']!,
+            format: _i2.TimestampFormat.dateTime,
+          ).asDateTime;
         }
         if (response.headers['x-amz-object-lock-legal-hold'] != null) {
           b.objectLockLegalHoldStatus = _i6.ObjectLockLegalHoldStatus.values
@@ -247,8 +252,13 @@ abstract class GetObjectOutput
         }
         b.metadata.addEntries(response.headers.entries
             .where((el) => el.key.startsWith('x-amz-meta-'))
-            .map((el) =>
-                MapEntry(el.key.replaceFirst('x-amz-meta-', ''), el.value)));
+            .map((el) => MapEntry(
+                  el.key.replaceFirst(
+                    'x-amz-meta-',
+                    '',
+                  ),
+                  el.value,
+                )));
       });
 
   static const List<_i2.SmithySerializer> serializers = [
@@ -404,76 +414,225 @@ abstract class GetObjectOutput
         storageClass,
         tagCount,
         versionId,
-        websiteRedirectLocation
+        websiteRedirectLocation,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetObjectOutput');
-    helper.add('acceptRanges', acceptRanges);
-    helper.add('body', body);
-    helper.add('bucketKeyEnabled', bucketKeyEnabled);
-    helper.add('cacheControl', cacheControl);
-    helper.add('checksumCrc32', checksumCrc32);
-    helper.add('checksumCrc32C', checksumCrc32C);
-    helper.add('checksumSha1', checksumSha1);
-    helper.add('checksumSha256', checksumSha256);
-    helper.add('contentDisposition', contentDisposition);
-    helper.add('contentEncoding', contentEncoding);
-    helper.add('contentLanguage', contentLanguage);
-    helper.add('contentLength', contentLength);
-    helper.add('contentRange', contentRange);
-    helper.add('contentType', contentType);
-    helper.add('deleteMarker', deleteMarker);
-    helper.add('eTag', eTag);
-    helper.add('expiration', expiration);
-    helper.add('expires', expires);
-    helper.add('lastModified', lastModified);
-    helper.add('metadata', metadata);
-    helper.add('missingMeta', missingMeta);
-    helper.add('objectLockLegalHoldStatus', objectLockLegalHoldStatus);
-    helper.add('objectLockMode', objectLockMode);
-    helper.add('objectLockRetainUntilDate', objectLockRetainUntilDate);
-    helper.add('partsCount', partsCount);
-    helper.add('replicationStatus', replicationStatus);
-    helper.add('requestCharged', requestCharged);
-    helper.add('restore', restore);
-    helper.add('serverSideEncryption', serverSideEncryption);
-    helper.add('sseCustomerAlgorithm', sseCustomerAlgorithm);
-    helper.add('sseCustomerKeyMd5', sseCustomerKeyMd5);
-    helper.add('ssekmsKeyId', '***SENSITIVE***');
-    helper.add('storageClass', storageClass);
-    helper.add('tagCount', tagCount);
-    helper.add('versionId', versionId);
-    helper.add('websiteRedirectLocation', websiteRedirectLocation);
+    helper.add(
+      'acceptRanges',
+      acceptRanges,
+    );
+    helper.add(
+      'body',
+      body,
+    );
+    helper.add(
+      'bucketKeyEnabled',
+      bucketKeyEnabled,
+    );
+    helper.add(
+      'cacheControl',
+      cacheControl,
+    );
+    helper.add(
+      'checksumCrc32',
+      checksumCrc32,
+    );
+    helper.add(
+      'checksumCrc32C',
+      checksumCrc32C,
+    );
+    helper.add(
+      'checksumSha1',
+      checksumSha1,
+    );
+    helper.add(
+      'checksumSha256',
+      checksumSha256,
+    );
+    helper.add(
+      'contentDisposition',
+      contentDisposition,
+    );
+    helper.add(
+      'contentEncoding',
+      contentEncoding,
+    );
+    helper.add(
+      'contentLanguage',
+      contentLanguage,
+    );
+    helper.add(
+      'contentLength',
+      contentLength,
+    );
+    helper.add(
+      'contentRange',
+      contentRange,
+    );
+    helper.add(
+      'contentType',
+      contentType,
+    );
+    helper.add(
+      'deleteMarker',
+      deleteMarker,
+    );
+    helper.add(
+      'eTag',
+      eTag,
+    );
+    helper.add(
+      'expiration',
+      expiration,
+    );
+    helper.add(
+      'expires',
+      expires,
+    );
+    helper.add(
+      'lastModified',
+      lastModified,
+    );
+    helper.add(
+      'metadata',
+      metadata,
+    );
+    helper.add(
+      'missingMeta',
+      missingMeta,
+    );
+    helper.add(
+      'objectLockLegalHoldStatus',
+      objectLockLegalHoldStatus,
+    );
+    helper.add(
+      'objectLockMode',
+      objectLockMode,
+    );
+    helper.add(
+      'objectLockRetainUntilDate',
+      objectLockRetainUntilDate,
+    );
+    helper.add(
+      'partsCount',
+      partsCount,
+    );
+    helper.add(
+      'replicationStatus',
+      replicationStatus,
+    );
+    helper.add(
+      'requestCharged',
+      requestCharged,
+    );
+    helper.add(
+      'restore',
+      restore,
+    );
+    helper.add(
+      'serverSideEncryption',
+      serverSideEncryption,
+    );
+    helper.add(
+      'sseCustomerAlgorithm',
+      sseCustomerAlgorithm,
+    );
+    helper.add(
+      'sseCustomerKeyMd5',
+      sseCustomerKeyMd5,
+    );
+    helper.add(
+      'ssekmsKeyId',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'storageClass',
+      storageClass,
+    );
+    helper.add(
+      'tagCount',
+      tagCount,
+    );
+    helper.add(
+      'versionId',
+      versionId,
+    );
+    helper.add(
+      'websiteRedirectLocation',
+      websiteRedirectLocation,
+    );
     return helper.toString();
   }
 }
 
 class GetObjectOutputRestXmlSerializer
-    extends _i2.PrimitiveSmithySerializer<Object> {
+    extends _i2.PrimitiveSmithySerializer<_i3.Stream<List<int>>> {
   const GetObjectOutputRestXmlSerializer() : super('GetObjectOutput');
 
   @override
-  Iterable<Type> get types => const [GetObjectOutput, _$GetObjectOutput];
+  Iterable<Type> get types => const [
+        GetObjectOutput,
+        _$GetObjectOutput,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
-  _i3.Stream<List<int>> deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return (serializers.deserialize(serialized,
-        specifiedType: const FullType(_i3.Stream, [
-          FullType(List, [FullType(int)])
-        ])) as _i3.Stream<List<int>>);
+  _i3.Stream<List<int>> deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return (serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(
+        _i3.Stream,
+        [
+          FullType(
+            List,
+            [FullType(int)],
+          )
+        ],
+      ),
+    ) as _i3.Stream<List<int>>);
   }
 
   @override
-  Object serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final payload = object is GetObjectOutput
+        ? object.getPayload()
+        : (object as _i3.Stream<List<int>>?);
     final result = <Object?>[
-      const _i2.XmlElementName('GetObjectOutput',
-          _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i2.XmlElementName(
+        'GetObjectOutput',
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
+    if (payload == null) {
+      return result;
+    }
+    result.add(serializers.serialize(
+      payload,
+      specifiedType: const FullType(
+        _i3.Stream,
+        [
+          FullType(
+            List,
+            [FullType(int)],
+          )
+        ],
+      ),
+    ));
     return result;
   }
 }

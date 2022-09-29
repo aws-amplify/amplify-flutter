@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.upload_part_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,30 +20,32 @@ abstract class UploadPartOutput
         Built<UploadPartOutput, UploadPartOutputBuilder>,
         _i2.EmptyPayload,
         _i2.HasPayload<UploadPartOutputPayload> {
-  factory UploadPartOutput(
-      {bool? bucketKeyEnabled,
-      String? checksumCrc32,
-      String? checksumCrc32C,
-      String? checksumSha1,
-      String? checksumSha256,
-      String? eTag,
-      _i3.RequestCharged? requestCharged,
-      _i4.ServerSideEncryption? serverSideEncryption,
-      String? sseCustomerAlgorithm,
-      String? sseCustomerKeyMd5,
-      String? ssekmsKeyId}) {
+  factory UploadPartOutput({
+    bool? bucketKeyEnabled,
+    String? checksumCrc32,
+    String? checksumCrc32C,
+    String? checksumSha1,
+    String? checksumSha256,
+    String? eTag,
+    _i3.RequestCharged? requestCharged,
+    _i4.ServerSideEncryption? serverSideEncryption,
+    String? sseCustomerAlgorithm,
+    String? sseCustomerKeyMd5,
+    String? ssekmsKeyId,
+  }) {
     return _$UploadPartOutput._(
-        bucketKeyEnabled: bucketKeyEnabled,
-        checksumCrc32: checksumCrc32,
-        checksumCrc32C: checksumCrc32C,
-        checksumSha1: checksumSha1,
-        checksumSha256: checksumSha256,
-        eTag: eTag,
-        requestCharged: requestCharged,
-        serverSideEncryption: serverSideEncryption,
-        sseCustomerAlgorithm: sseCustomerAlgorithm,
-        sseCustomerKeyMd5: sseCustomerKeyMd5,
-        ssekmsKeyId: ssekmsKeyId);
+      bucketKeyEnabled: bucketKeyEnabled,
+      checksumCrc32: checksumCrc32,
+      checksumCrc32C: checksumCrc32C,
+      checksumSha1: checksumSha1,
+      checksumSha256: checksumSha256,
+      eTag: eTag,
+      requestCharged: requestCharged,
+      serverSideEncryption: serverSideEncryption,
+      sseCustomerAlgorithm: sseCustomerAlgorithm,
+      sseCustomerKeyMd5: sseCustomerKeyMd5,
+      ssekmsKeyId: ssekmsKeyId,
+    );
   }
 
   factory UploadPartOutput.build(
@@ -53,7 +55,9 @@ abstract class UploadPartOutput
 
   /// Constructs a [UploadPartOutput] from a [payload] and [response].
   factory UploadPartOutput.fromResponse(
-          UploadPartOutputPayload payload, _i1.AWSBaseHttpResponse response) =>
+    UploadPartOutputPayload payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       UploadPartOutput.build((b) {
         if (response.headers['x-amz-server-side-encryption'] != null) {
           b.serverSideEncryption = _i4.ServerSideEncryption.values
@@ -156,22 +160,55 @@ abstract class UploadPartOutput
         serverSideEncryption,
         sseCustomerAlgorithm,
         sseCustomerKeyMd5,
-        ssekmsKeyId
+        ssekmsKeyId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UploadPartOutput');
-    helper.add('bucketKeyEnabled', bucketKeyEnabled);
-    helper.add('checksumCrc32', checksumCrc32);
-    helper.add('checksumCrc32C', checksumCrc32C);
-    helper.add('checksumSha1', checksumSha1);
-    helper.add('checksumSha256', checksumSha256);
-    helper.add('eTag', eTag);
-    helper.add('requestCharged', requestCharged);
-    helper.add('serverSideEncryption', serverSideEncryption);
-    helper.add('sseCustomerAlgorithm', sseCustomerAlgorithm);
-    helper.add('sseCustomerKeyMd5', sseCustomerKeyMd5);
-    helper.add('ssekmsKeyId', '***SENSITIVE***');
+    helper.add(
+      'bucketKeyEnabled',
+      bucketKeyEnabled,
+    );
+    helper.add(
+      'checksumCrc32',
+      checksumCrc32,
+    );
+    helper.add(
+      'checksumCrc32C',
+      checksumCrc32C,
+    );
+    helper.add(
+      'checksumSha1',
+      checksumSha1,
+    );
+    helper.add(
+      'checksumSha256',
+      checksumSha256,
+    );
+    helper.add(
+      'eTag',
+      eTag,
+    );
+    helper.add(
+      'requestCharged',
+      requestCharged,
+    );
+    helper.add(
+      'serverSideEncryption',
+      serverSideEncryption,
+    );
+    helper.add(
+      'sseCustomerAlgorithm',
+      sseCustomerAlgorithm,
+    );
+    helper.add(
+      'sseCustomerKeyMd5',
+      sseCustomerKeyMd5,
+    );
+    helper.add(
+      'ssekmsKeyId',
+      '***SENSITIVE***',
+    );
     return helper.toString();
   }
 }
@@ -208,24 +245,35 @@ class UploadPartOutputRestXmlSerializer
         UploadPartOutput,
         _$UploadPartOutput,
         UploadPartOutputPayload,
-        _$UploadPartOutputPayload
+        _$UploadPartOutputPayload,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   UploadPartOutputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return UploadPartOutputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
-      const _i2.XmlElementName('UploadPartOutput',
-          _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i2.XmlElementName(
+        'UploadPartOutput',
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     return result;
   }

@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.complete_multipart_upload_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -24,34 +24,36 @@ abstract class CompleteMultipartUploadRequest
         Built<CompleteMultipartUploadRequest,
             CompleteMultipartUploadRequestBuilder>,
         _i1.HasPayload<_i2.CompletedMultipartUpload> {
-  factory CompleteMultipartUploadRequest(
-      {required String bucket,
-      String? checksumCrc32,
-      String? checksumCrc32C,
-      String? checksumSha1,
-      String? checksumSha256,
-      String? expectedBucketOwner,
-      required String key,
-      _i2.CompletedMultipartUpload? multipartUpload,
-      _i4.RequestPayer? requestPayer,
-      String? sseCustomerAlgorithm,
-      String? sseCustomerKey,
-      String? sseCustomerKeyMd5,
-      required String uploadId}) {
+  factory CompleteMultipartUploadRequest({
+    required String bucket,
+    String? checksumCrc32,
+    String? checksumCrc32C,
+    String? checksumSha1,
+    String? checksumSha256,
+    String? expectedBucketOwner,
+    required String key,
+    _i2.CompletedMultipartUpload? multipartUpload,
+    _i4.RequestPayer? requestPayer,
+    String? sseCustomerAlgorithm,
+    String? sseCustomerKey,
+    String? sseCustomerKeyMd5,
+    required String uploadId,
+  }) {
     return _$CompleteMultipartUploadRequest._(
-        bucket: bucket,
-        checksumCrc32: checksumCrc32,
-        checksumCrc32C: checksumCrc32C,
-        checksumSha1: checksumSha1,
-        checksumSha256: checksumSha256,
-        expectedBucketOwner: expectedBucketOwner,
-        key: key,
-        multipartUpload: multipartUpload,
-        requestPayer: requestPayer,
-        sseCustomerAlgorithm: sseCustomerAlgorithm,
-        sseCustomerKey: sseCustomerKey,
-        sseCustomerKeyMd5: sseCustomerKeyMd5,
-        uploadId: uploadId);
+      bucket: bucket,
+      checksumCrc32: checksumCrc32,
+      checksumCrc32C: checksumCrc32C,
+      checksumSha1: checksumSha1,
+      checksumSha256: checksumSha256,
+      expectedBucketOwner: expectedBucketOwner,
+      key: key,
+      multipartUpload: multipartUpload,
+      requestPayer: requestPayer,
+      sseCustomerAlgorithm: sseCustomerAlgorithm,
+      sseCustomerKey: sseCustomerKey,
+      sseCustomerKeyMd5: sseCustomerKeyMd5,
+      uploadId: uploadId,
+    );
   }
 
   factory CompleteMultipartUploadRequest.build(
@@ -61,8 +63,10 @@ abstract class CompleteMultipartUploadRequest
   const CompleteMultipartUploadRequest._();
 
   factory CompleteMultipartUploadRequest.fromRequest(
-          _i2.CompletedMultipartUpload? payload, _i3.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    _i2.CompletedMultipartUpload? payload,
+    _i3.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       CompleteMultipartUploadRequest.build((b) {
         if (payload != null) {
           b.multipartUpload.replace(payload);
@@ -171,7 +175,10 @@ abstract class CompleteMultipartUploadRequest
       case 'Key':
         return this.key;
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -191,25 +198,64 @@ abstract class CompleteMultipartUploadRequest
         sseCustomerAlgorithm,
         sseCustomerKey,
         sseCustomerKeyMd5,
-        uploadId
+        uploadId,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('CompleteMultipartUploadRequest');
-    helper.add('bucket', bucket);
-    helper.add('checksumCrc32', checksumCrc32);
-    helper.add('checksumCrc32C', checksumCrc32C);
-    helper.add('checksumSha1', checksumSha1);
-    helper.add('checksumSha256', checksumSha256);
-    helper.add('expectedBucketOwner', expectedBucketOwner);
-    helper.add('key', key);
-    helper.add('multipartUpload', multipartUpload);
-    helper.add('requestPayer', requestPayer);
-    helper.add('sseCustomerAlgorithm', sseCustomerAlgorithm);
-    helper.add('sseCustomerKey', '***SENSITIVE***');
-    helper.add('sseCustomerKeyMd5', sseCustomerKeyMd5);
-    helper.add('uploadId', uploadId);
+    helper.add(
+      'bucket',
+      bucket,
+    );
+    helper.add(
+      'checksumCrc32',
+      checksumCrc32,
+    );
+    helper.add(
+      'checksumCrc32C',
+      checksumCrc32C,
+    );
+    helper.add(
+      'checksumSha1',
+      checksumSha1,
+    );
+    helper.add(
+      'checksumSha256',
+      checksumSha256,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
+    );
+    helper.add(
+      'key',
+      key,
+    );
+    helper.add(
+      'multipartUpload',
+      multipartUpload,
+    );
+    helper.add(
+      'requestPayer',
+      requestPayer,
+    );
+    helper.add(
+      'sseCustomerAlgorithm',
+      sseCustomerAlgorithm,
+    );
+    helper.add(
+      'sseCustomerKey',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'sseCustomerKeyMd5',
+      sseCustomerKeyMd5,
+    );
+    helper.add(
+      'uploadId',
+      uploadId,
+    );
     return helper.toString();
   }
 }
@@ -220,15 +266,23 @@ class CompleteMultipartUploadRequestRestXmlSerializer
       : super('CompleteMultipartUploadRequest');
 
   @override
-  Iterable<Type> get types =>
-      const [CompleteMultipartUploadRequest, _$CompleteMultipartUploadRequest];
+  Iterable<Type> get types => const [
+        CompleteMultipartUploadRequest,
+        _$CompleteMultipartUploadRequest,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   _i2.CompletedMultipartUpload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i2.CompletedMultipartUploadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -238,9 +292,10 @@ class CompleteMultipartUploadRequestRestXmlSerializer
       switch (key as String) {
         case 'Part':
           if (value != null) {
-            result.parts.add((serializers.deserialize(value,
-                    specifiedType: const FullType(_i5.CompletedPart))
-                as _i5.CompletedPart));
+            result.parts.add((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i5.CompletedPart),
+            ) as _i5.CompletedPart));
           }
           break;
       }
@@ -250,23 +305,33 @@ class CompleteMultipartUploadRequestRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is CompleteMultipartUploadRequest
         ? object.getPayload()
         : (object as _i2.CompletedMultipartUpload?);
     final result = <Object?>[
-      const _i1.XmlElementName('CompleteMultipartUpload',
-          _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i1.XmlElementName(
+        'CompleteMultipartUpload',
+        _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     if (payload == null) {
       return result;
     }
     if (payload.parts != null) {
-      result.addAll(const _i1.XmlBuiltListSerializer(memberName: 'Part')
-          .serialize(serializers, payload.parts!,
-              specifiedType: const FullType.nullable(
-                  _i6.BuiltList, [FullType(_i5.CompletedPart)])));
+      result.addAll(
+          const _i1.XmlBuiltListSerializer(memberName: 'Part').serialize(
+        serializers,
+        payload.parts!,
+        specifiedType: const FullType.nullable(
+          _i6.BuiltList,
+          [FullType(_i5.CompletedPart)],
+        ),
+      ));
     }
     return result;
   }

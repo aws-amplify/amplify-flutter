@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.operation.delete_object_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -48,13 +48,13 @@ class DeleteObjectOperation extends _i1.HttpOperation<
   /// The following action is related to `DeleteObject`:
   ///
   /// *   [PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
-  DeleteObjectOperation(
-      {required String region,
-      Uri? baseUri,
-      _i4.S3ClientConfig s3ClientConfig = const _i4.S3ClientConfig(),
-      _i5.AWSCredentialsProvider credentialsProvider =
-          const _i5.AWSCredentialsProvider.environment()})
-      : _region = region,
+  DeleteObjectOperation({
+    required String region,
+    Uri? baseUri,
+    _i4.S3ClientConfig s3ClientConfig = const _i4.S3ClientConfig(),
+    _i5.AWSCredentialsProvider credentialsProvider =
+        const _i5.AWSCredentialsProvider.environment(),
+  })  : _region = region,
         _baseUri = baseUri,
         _s3ClientConfig = s3ClientConfig,
         _credentialsProvider = credentialsProvider;
@@ -64,26 +64,30 @@ class DeleteObjectOperation extends _i1.HttpOperation<
       _i1.HttpProtocol<_i2.DeleteObjectRequestPayload, _i2.DeleteObjectRequest,
           _i3.DeleteObjectOutputPayload, _i3.DeleteObjectOutput>> protocols = [
     _i4.RestXmlProtocol(
-        serializers: _i6.serializers,
-        builderFactories: _i6.builderFactories,
-        requestInterceptors: [
-          const _i1.WithHost(),
-          _i4.WithSigV4(
-              region: _region,
-              service: _i7.AWSService.s3,
-              credentialsProvider: _credentialsProvider,
-              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
-                  _i5.S3ServiceConfiguration()),
-          const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
-          const _i4.WithSdkInvocationId(),
-          const _i4.WithSdkRequest()
-        ],
-        responseInterceptors: [],
-        noErrorWrapping: true)
+      serializers: _i6.serializers,
+      builderFactories: _i6.builderFactories,
+      requestInterceptors: [
+        const _i1.WithHost(),
+        _i4.WithSigV4(
+          region: _region,
+          service: _i7.AWSService.s3,
+          credentialsProvider: _credentialsProvider,
+          serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+              _i5.S3ServiceConfiguration(),
+        ),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
+        const _i4.WithSdkInvocationId(),
+        const _i4.WithSdkRequest(),
+      ],
+      responseInterceptors: [],
+      noErrorWrapping: true,
+    )
   ];
 
-  late final _i4.AWSEndpoint _awsEndpoint =
-      _i8.endpointResolver.resolve(_i8.sdkId, _region);
+  late final _i4.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
+    _i8.sdkId,
+    _region,
+  );
 
   final String _region;
 
@@ -120,15 +124,23 @@ class DeleteObjectOperation extends _i1.HttpOperation<
           }
         }
         if (input.versionId != null) {
-          b.queryParameters.add('versionId', input.versionId!);
+          b.queryParameters.add(
+            'versionId',
+            input.versionId!,
+          );
         }
       });
   @override
   int successCode([_i3.DeleteObjectOutput? output]) => 204;
   @override
-  _i3.DeleteObjectOutput buildOutput(_i3.DeleteObjectOutputPayload payload,
-          _i7.AWSStreamedHttpResponse response) =>
-      _i3.DeleteObjectOutput.fromResponse(payload, response);
+  _i3.DeleteObjectOutput buildOutput(
+    _i3.DeleteObjectOutputPayload payload,
+    _i7.AWSStreamedHttpResponse response,
+  ) =>
+      _i3.DeleteObjectOutput.fromResponse(
+        payload,
+        response,
+      );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
   @override
@@ -154,13 +166,21 @@ class DeleteObjectOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i9.Future<_i3.DeleteObjectOutput> run(_i2.DeleteObjectRequest input,
-      {_i1.HttpClient? client, _i1.ShapeId? useProtocol}) {
+  _i9.Future<_i3.DeleteObjectOutput> run(
+    _i2.DeleteObjectRequest input, {
+    _i1.HttpClient? client,
+    _i1.ShapeId? useProtocol,
+  }) {
     return _i9.runZoned(
-        () => super.run(input, client: client, useProtocol: useProtocol),
-        zoneValues: {
-          ...?_awsEndpoint.credentialScope?.zoneValues,
-          ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
-        });
+      () => super.run(
+        input,
+        client: client,
+        useProtocol: useProtocol,
+      ),
+      zoneValues: {
+        ...?_awsEndpoint.credentialScope?.zoneValues,
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+      },
+    );
   }
 }

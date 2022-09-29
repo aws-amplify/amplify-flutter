@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.list_objects_v2_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,28 +22,30 @@ abstract class ListObjectsV2Request
         Built<ListObjectsV2Request, ListObjectsV2RequestBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<ListObjectsV2RequestPayload> {
-  factory ListObjectsV2Request(
-      {required String bucket,
-      String? continuationToken,
-      String? delimiter,
-      _i3.EncodingType? encodingType,
-      String? expectedBucketOwner,
-      bool? fetchOwner,
-      int? maxKeys,
-      String? prefix,
-      _i4.RequestPayer? requestPayer,
-      String? startAfter}) {
+  factory ListObjectsV2Request({
+    required String bucket,
+    String? continuationToken,
+    String? delimiter,
+    _i3.EncodingType? encodingType,
+    String? expectedBucketOwner,
+    bool? fetchOwner,
+    int? maxKeys,
+    String? prefix,
+    _i4.RequestPayer? requestPayer,
+    String? startAfter,
+  }) {
     return _$ListObjectsV2Request._(
-        bucket: bucket,
-        continuationToken: continuationToken,
-        delimiter: delimiter,
-        encodingType: encodingType,
-        expectedBucketOwner: expectedBucketOwner,
-        fetchOwner: fetchOwner,
-        maxKeys: maxKeys,
-        prefix: prefix,
-        requestPayer: requestPayer,
-        startAfter: startAfter);
+      bucket: bucket,
+      continuationToken: continuationToken,
+      delimiter: delimiter,
+      encodingType: encodingType,
+      expectedBucketOwner: expectedBucketOwner,
+      fetchOwner: fetchOwner,
+      maxKeys: maxKeys,
+      prefix: prefix,
+      requestPayer: requestPayer,
+      startAfter: startAfter,
+    );
   }
 
   factory ListObjectsV2Request.build(
@@ -53,8 +55,10 @@ abstract class ListObjectsV2Request
   const ListObjectsV2Request._();
 
   factory ListObjectsV2Request.fromRequest(
-          ListObjectsV2RequestPayload payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    ListObjectsV2RequestPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       ListObjectsV2Request.build((b) {
         if (request.headers['x-amz-request-payer'] != null) {
           b.requestPayer = _i4.RequestPayer.values
@@ -137,7 +141,10 @@ abstract class ListObjectsV2Request
       case 'Bucket':
         return bucket;
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -153,21 +160,51 @@ abstract class ListObjectsV2Request
         maxKeys,
         prefix,
         requestPayer,
-        startAfter
+        startAfter,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListObjectsV2Request');
-    helper.add('bucket', bucket);
-    helper.add('continuationToken', continuationToken);
-    helper.add('delimiter', delimiter);
-    helper.add('encodingType', encodingType);
-    helper.add('expectedBucketOwner', expectedBucketOwner);
-    helper.add('fetchOwner', fetchOwner);
-    helper.add('maxKeys', maxKeys);
-    helper.add('prefix', prefix);
-    helper.add('requestPayer', requestPayer);
-    helper.add('startAfter', startAfter);
+    helper.add(
+      'bucket',
+      bucket,
+    );
+    helper.add(
+      'continuationToken',
+      continuationToken,
+    );
+    helper.add(
+      'delimiter',
+      delimiter,
+    );
+    helper.add(
+      'encodingType',
+      encodingType,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
+    );
+    helper.add(
+      'fetchOwner',
+      fetchOwner,
+    );
+    helper.add(
+      'maxKeys',
+      maxKeys,
+    );
+    helper.add(
+      'prefix',
+      prefix,
+    );
+    helper.add(
+      'requestPayer',
+      requestPayer,
+    );
+    helper.add(
+      'startAfter',
+      startAfter,
+    );
     return helper.toString();
   }
 }
@@ -204,24 +241,35 @@ class ListObjectsV2RequestRestXmlSerializer
         ListObjectsV2Request,
         _$ListObjectsV2Request,
         ListObjectsV2RequestPayload,
-        _$ListObjectsV2RequestPayload
+        _$ListObjectsV2RequestPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   ListObjectsV2RequestPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return ListObjectsV2RequestPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
-      const _i1.XmlElementName('ListObjectsV2Request',
-          _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i1.XmlElementName(
+        'ListObjectsV2Request',
+        _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     return result;
   }

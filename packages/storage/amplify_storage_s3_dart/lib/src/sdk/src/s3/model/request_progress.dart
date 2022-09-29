@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.request_progress; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,7 +38,10 @@ abstract class RequestProgress
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RequestProgress');
-    helper.add('enabled', enabled);
+    helper.add(
+      'enabled',
+      enabled,
+    );
     return helper.toString();
   }
 }
@@ -48,14 +51,23 @@ class RequestProgressRestXmlSerializer
   const RequestProgressRestXmlSerializer() : super('RequestProgress');
 
   @override
-  Iterable<Type> get types => const [RequestProgress, _$RequestProgress];
+  Iterable<Type> get types => const [
+        RequestProgress,
+        _$RequestProgress,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   RequestProgress deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = RequestProgressBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -65,8 +77,10 @@ class RequestProgressRestXmlSerializer
       switch (key as String) {
         case 'Enabled':
           if (value != null) {
-            result.enabled = (serializers.deserialize(value,
-                specifiedType: const FullType(bool)) as bool);
+            result.enabled = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
           }
           break;
       }
@@ -76,18 +90,25 @@ class RequestProgressRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as RequestProgress);
     final result = <Object?>[
-      const _i2.XmlElementName('RequestProgress',
-          _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i2.XmlElementName(
+        'RequestProgress',
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     if (payload.enabled != null) {
       result
         ..add(const _i2.XmlElementName('Enabled'))
-        ..add(serializers.serialize(payload.enabled!,
-            specifiedType: const FullType.nullable(bool)));
+        ..add(serializers.serialize(
+          payload.enabled!,
+          specifiedType: const FullType.nullable(bool),
+        ));
     }
     return result;
   }

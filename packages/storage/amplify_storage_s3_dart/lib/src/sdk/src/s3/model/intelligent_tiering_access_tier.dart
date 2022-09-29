@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.intelligent_tiering_access_tier; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -6,32 +6,50 @@ import 'package:smithy/smithy.dart' as _i1;
 
 class IntelligentTieringAccessTier
     extends _i1.SmithyEnum<IntelligentTieringAccessTier> {
-  const IntelligentTieringAccessTier._(int index, String name, String value)
-      : super(index, name, value);
+  const IntelligentTieringAccessTier._(
+    int index,
+    String name,
+    String value,
+  ) : super(
+          index,
+          name,
+          value,
+        );
 
   const IntelligentTieringAccessTier._sdkUnknown(String value)
       : super.sdkUnknown(value);
 
-  static const archiveAccess =
-      IntelligentTieringAccessTier._(0, 'ARCHIVE_ACCESS', 'ARCHIVE_ACCESS');
+  static const archiveAccess = IntelligentTieringAccessTier._(
+    0,
+    'ARCHIVE_ACCESS',
+    'ARCHIVE_ACCESS',
+  );
 
   static const deepArchiveAccess = IntelligentTieringAccessTier._(
-      1, 'DEEP_ARCHIVE_ACCESS', 'DEEP_ARCHIVE_ACCESS');
+    1,
+    'DEEP_ARCHIVE_ACCESS',
+    'DEEP_ARCHIVE_ACCESS',
+  );
 
   /// All values of [IntelligentTieringAccessTier].
   static const values = <IntelligentTieringAccessTier>[
     IntelligentTieringAccessTier.archiveAccess,
-    IntelligentTieringAccessTier.deepArchiveAccess
+    IntelligentTieringAccessTier.deepArchiveAccess,
   ];
 
   static const List<_i1.SmithySerializer<IntelligentTieringAccessTier>>
       serializers = [
-    _i1.SmithyEnumSerializer('IntelligentTieringAccessTier',
-        values: values,
-        sdkUnknown: IntelligentTieringAccessTier._sdkUnknown,
-        supportedProtocols: [
-          _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')
-        ])
+    _i1.SmithyEnumSerializer(
+      'IntelligentTieringAccessTier',
+      values: values,
+      sdkUnknown: IntelligentTieringAccessTier._sdkUnknown,
+      supportedProtocols: [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ],
+    )
   ];
 }
 

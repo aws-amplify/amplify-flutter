@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.model.complete_multipart_upload_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,36 +21,38 @@ abstract class CompleteMultipartUploadOutput
         Built<CompleteMultipartUploadOutput,
             CompleteMultipartUploadOutputBuilder>,
         _i2.HasPayload<CompleteMultipartUploadOutputPayload> {
-  factory CompleteMultipartUploadOutput(
-      {String? bucket,
-      bool? bucketKeyEnabled,
-      String? checksumCrc32,
-      String? checksumCrc32C,
-      String? checksumSha1,
-      String? checksumSha256,
-      String? eTag,
-      String? expiration,
-      String? key,
-      String? location,
-      _i3.RequestCharged? requestCharged,
-      _i4.ServerSideEncryption? serverSideEncryption,
-      String? ssekmsKeyId,
-      String? versionId}) {
+  factory CompleteMultipartUploadOutput({
+    String? bucket,
+    bool? bucketKeyEnabled,
+    String? checksumCrc32,
+    String? checksumCrc32C,
+    String? checksumSha1,
+    String? checksumSha256,
+    String? eTag,
+    String? expiration,
+    String? key,
+    String? location,
+    _i3.RequestCharged? requestCharged,
+    _i4.ServerSideEncryption? serverSideEncryption,
+    String? ssekmsKeyId,
+    String? versionId,
+  }) {
     return _$CompleteMultipartUploadOutput._(
-        bucket: bucket,
-        bucketKeyEnabled: bucketKeyEnabled,
-        checksumCrc32: checksumCrc32,
-        checksumCrc32C: checksumCrc32C,
-        checksumSha1: checksumSha1,
-        checksumSha256: checksumSha256,
-        eTag: eTag,
-        expiration: expiration,
-        key: key,
-        location: location,
-        requestCharged: requestCharged,
-        serverSideEncryption: serverSideEncryption,
-        ssekmsKeyId: ssekmsKeyId,
-        versionId: versionId);
+      bucket: bucket,
+      bucketKeyEnabled: bucketKeyEnabled,
+      checksumCrc32: checksumCrc32,
+      checksumCrc32C: checksumCrc32C,
+      checksumSha1: checksumSha1,
+      checksumSha256: checksumSha256,
+      eTag: eTag,
+      expiration: expiration,
+      key: key,
+      location: location,
+      requestCharged: requestCharged,
+      serverSideEncryption: serverSideEncryption,
+      ssekmsKeyId: ssekmsKeyId,
+      versionId: versionId,
+    );
   }
 
   factory CompleteMultipartUploadOutput.build(
@@ -61,8 +63,9 @@ abstract class CompleteMultipartUploadOutput
 
   /// Constructs a [CompleteMultipartUploadOutput] from a [payload] and [response].
   factory CompleteMultipartUploadOutput.fromResponse(
-          CompleteMultipartUploadOutputPayload payload,
-          _i1.AWSBaseHttpResponse response) =>
+    CompleteMultipartUploadOutputPayload payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       CompleteMultipartUploadOutput.build((b) {
         b.bucket = payload.bucket;
         b.checksumCrc32 = payload.checksumCrc32;
@@ -179,25 +182,67 @@ abstract class CompleteMultipartUploadOutput
         requestCharged,
         serverSideEncryption,
         ssekmsKeyId,
-        versionId
+        versionId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CompleteMultipartUploadOutput');
-    helper.add('bucket', bucket);
-    helper.add('bucketKeyEnabled', bucketKeyEnabled);
-    helper.add('checksumCrc32', checksumCrc32);
-    helper.add('checksumCrc32C', checksumCrc32C);
-    helper.add('checksumSha1', checksumSha1);
-    helper.add('checksumSha256', checksumSha256);
-    helper.add('eTag', eTag);
-    helper.add('expiration', expiration);
-    helper.add('key', key);
-    helper.add('location', location);
-    helper.add('requestCharged', requestCharged);
-    helper.add('serverSideEncryption', serverSideEncryption);
-    helper.add('ssekmsKeyId', '***SENSITIVE***');
-    helper.add('versionId', versionId);
+    helper.add(
+      'bucket',
+      bucket,
+    );
+    helper.add(
+      'bucketKeyEnabled',
+      bucketKeyEnabled,
+    );
+    helper.add(
+      'checksumCrc32',
+      checksumCrc32,
+    );
+    helper.add(
+      'checksumCrc32C',
+      checksumCrc32C,
+    );
+    helper.add(
+      'checksumSha1',
+      checksumSha1,
+    );
+    helper.add(
+      'checksumSha256',
+      checksumSha256,
+    );
+    helper.add(
+      'eTag',
+      eTag,
+    );
+    helper.add(
+      'expiration',
+      expiration,
+    );
+    helper.add(
+      'key',
+      key,
+    );
+    helper.add(
+      'location',
+      location,
+    );
+    helper.add(
+      'requestCharged',
+      requestCharged,
+    );
+    helper.add(
+      'serverSideEncryption',
+      serverSideEncryption,
+    );
+    helper.add(
+      'ssekmsKeyId',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'versionId',
+      versionId,
+    );
     return helper.toString();
   }
 }
@@ -254,20 +299,44 @@ abstract class CompleteMultipartUploadOutputPayload
         checksumSha256,
         eTag,
         key,
-        location
+        location,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('CompleteMultipartUploadOutputPayload');
-    helper.add('bucket', bucket);
-    helper.add('checksumCrc32', checksumCrc32);
-    helper.add('checksumCrc32C', checksumCrc32C);
-    helper.add('checksumSha1', checksumSha1);
-    helper.add('checksumSha256', checksumSha256);
-    helper.add('eTag', eTag);
-    helper.add('key', key);
-    helper.add('location', location);
+    helper.add(
+      'bucket',
+      bucket,
+    );
+    helper.add(
+      'checksumCrc32',
+      checksumCrc32,
+    );
+    helper.add(
+      'checksumCrc32C',
+      checksumCrc32C,
+    );
+    helper.add(
+      'checksumSha1',
+      checksumSha1,
+    );
+    helper.add(
+      'checksumSha256',
+      checksumSha256,
+    );
+    helper.add(
+      'eTag',
+      eTag,
+    );
+    helper.add(
+      'key',
+      key,
+    );
+    helper.add(
+      'location',
+      location,
+    );
     return helper.toString();
   }
 }
@@ -282,15 +351,21 @@ class CompleteMultipartUploadOutputRestXmlSerializer extends _i2
         CompleteMultipartUploadOutput,
         _$CompleteMultipartUploadOutput,
         CompleteMultipartUploadOutputPayload,
-        _$CompleteMultipartUploadOutputPayload
+        _$CompleteMultipartUploadOutputPayload,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   CompleteMultipartUploadOutputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = CompleteMultipartUploadOutputPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -300,50 +375,66 @@ class CompleteMultipartUploadOutputRestXmlSerializer extends _i2
       switch (key as String) {
         case 'Bucket':
           if (value != null) {
-            result.bucket = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.bucket = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'ChecksumCRC32':
           if (value != null) {
-            result.checksumCrc32 = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.checksumCrc32 = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'ChecksumCRC32C':
           if (value != null) {
-            result.checksumCrc32C = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.checksumCrc32C = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'ChecksumSHA1':
           if (value != null) {
-            result.checksumSha1 = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.checksumSha1 = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'ChecksumSHA256':
           if (value != null) {
-            result.checksumSha256 = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.checksumSha256 = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'ETag':
           if (value != null) {
-            result.eTag = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.eTag = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'Key':
           if (value != null) {
-            result.key = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.key = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'Location':
           if (value != null) {
-            result.location = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.location = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -353,62 +444,83 @@ class CompleteMultipartUploadOutputRestXmlSerializer extends _i2
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is CompleteMultipartUploadOutput
         ? object.getPayload()
         : (object as CompleteMultipartUploadOutputPayload);
     final result = <Object?>[
-      const _i2.XmlElementName('CompleteMultipartUploadResult',
-          _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'))
+      const _i2.XmlElementName(
+        'CompleteMultipartUploadResult',
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+      )
     ];
     if (payload.bucket != null) {
       result
         ..add(const _i2.XmlElementName('Bucket'))
-        ..add(serializers.serialize(payload.bucket!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.bucket!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.checksumCrc32 != null) {
       result
         ..add(const _i2.XmlElementName('ChecksumCRC32'))
-        ..add(serializers.serialize(payload.checksumCrc32!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.checksumCrc32!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.checksumCrc32C != null) {
       result
         ..add(const _i2.XmlElementName('ChecksumCRC32C'))
-        ..add(serializers.serialize(payload.checksumCrc32C!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.checksumCrc32C!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.checksumSha1 != null) {
       result
         ..add(const _i2.XmlElementName('ChecksumSHA1'))
-        ..add(serializers.serialize(payload.checksumSha1!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.checksumSha1!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.checksumSha256 != null) {
       result
         ..add(const _i2.XmlElementName('ChecksumSHA256'))
-        ..add(serializers.serialize(payload.checksumSha256!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.checksumSha256!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.eTag != null) {
       result
         ..add(const _i2.XmlElementName('ETag'))
-        ..add(serializers.serialize(payload.eTag!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.eTag!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.key != null) {
       result
         ..add(const _i2.XmlElementName('Key'))
-        ..add(serializers.serialize(payload.key!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.key!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.location != null) {
       result
         ..add(const _i2.XmlElementName('Location'))
-        ..add(serializers.serialize(payload.location!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.location!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }
