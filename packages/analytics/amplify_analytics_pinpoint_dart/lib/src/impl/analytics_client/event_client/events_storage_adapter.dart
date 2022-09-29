@@ -22,7 +22,7 @@ class EventStorageAdapter {
   /// Pinpoint max events per event flush batch
   static const int _maxEventsInBatch = 100;
 
-  final PathProvider? _pathProvider;
+  final CachedEventsPathProvider? _pathProvider;
 
   EventStorageAdapter(this._pathProvider) {
     _db = DriftDatabaseJsonStrings(_pathProvider);

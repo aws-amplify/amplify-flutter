@@ -6,6 +6,8 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
 
+import 'connection/connection.dart' as impl;
+
 part 'drift_tables.g.dart';
 
 /// This file determines results of auto generated drift_tables.g.dart file on dart build
@@ -17,8 +19,8 @@ class DriftJsonStrings extends Table {
 
 @DriftDatabase(tables: [DriftJsonStrings])
 class DriftDatabaseJsonStrings extends _$DriftDatabaseJsonStrings {
-  DriftDatabaseJsonStrings(PathProvider? pathProvider)
-      : super(_openConnection(pathProvider));
+  DriftDatabaseJsonStrings(CachedEventsPathProvider? pathProvider)
+      : super(impl.connect(pathProvider).executor);
 
   // you should bump this number whenever you change or add a table definition.
   // Migrations are covered later in the documentation.
@@ -47,15 +49,4 @@ class DriftDatabaseJsonStrings extends _$DriftDatabaseJsonStrings {
       ..where((t) => t.id.isIn(idsToDelete));
     return statement.go();
   }
-}
-
-LazyDatabase _openConnection(PathProvider? pathProvider) {
-  // the LazyDatabase util lets us find the right location for the file async.
-  return LazyDatabase(() async {
-    final dir = await pathProvider!.getApplicationSupportPath();
-    final file = File(p.join(dir.path, 'db.sqlite'));
-
-    // TODO - WEB?
-    return NativeDatabase(file);
-  });
 }

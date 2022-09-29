@@ -31,7 +31,7 @@ import 'impl/analytics_client/key_value_store.dart';
 class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   AmplifyAnalyticsPinpointDart({
     SecureStorageInterface? keyValueStorage,
-    PathProvider? pathProvider,
+    CachedEventsPathProvider? pathProvider,
     AppLifecycleProvider? appLifecycleProvider,
     DeviceContextInfoProvider? deviceContextInfoProvider,
   })  : _credentialStorage = keyValueStorage,
@@ -43,7 +43,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   final SecureStorageInterface? _credentialStorage;
 
   /// External Flutter Provider implementations
-  final PathProvider? _pathProvider;
+  final CachedEventsPathProvider? _pathProvider;
   final AppLifecycleProvider? _appLifecycleProvider;
   final DeviceContextInfoProvider? _deviceContextInfoProvider;
 

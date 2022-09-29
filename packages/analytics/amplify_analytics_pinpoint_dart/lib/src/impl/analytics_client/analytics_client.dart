@@ -28,7 +28,7 @@ class AnalyticsClient {
       String appId,
       KeyValueStore keyValueStore,
       PinpointClient pinpointClient,
-      PathProvider? pathProvider,
+      CachedEventsPathProvider? pathProvider,
       AppLifecycleProvider? appLifecycleProvider,
       DeviceContextInfo? deviceContextInfo) async {
     _eventCreator =

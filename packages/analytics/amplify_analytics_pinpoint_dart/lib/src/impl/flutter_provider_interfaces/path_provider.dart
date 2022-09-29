@@ -1,5 +1,5 @@
 import 'dart:io';
 
-abstract class PathProvider {
+abstract class CachedEventsPathProvider {
   Future<Directory> getApplicationSupportPath();
 }

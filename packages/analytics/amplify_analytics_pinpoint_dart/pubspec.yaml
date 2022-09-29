@@ -19,7 +19,7 @@ dependencies:
   smithy: ^0.1.0
   smithy_aws: ^0.1.0
   uuid: ^3.0.0
-  sqlite3: ^1.8.0
+  # recent sep 28: sqlite3: ^1.8.0
   path: ^1.8.1 # path manipulation
   drift: ^2.1.0 # local database
 

@@ -19,7 +19,7 @@ class EventClient {
   final PinpointClient _pinpointClient;
   final EndpointClient _endpointClient;
   final KeyValueStore _keyValueStore;
-  final PathProvider? _pathProvider;
+  final CachedEventsPathProvider? _pathProvider;
 
   final _uuid = const Uuid();
 
