@@ -57,9 +57,9 @@ class AmplifyClassImpl extends AmplifyClass {
     );
     await Future.wait(
       [
+        ...Auth.plugins,
         ...Analytics.plugins,
         ...API.plugins,
-        ...Auth.plugins,
         ...DataStore.plugins,
         ...Storage.plugins,
       ].map((p) => p.configure(

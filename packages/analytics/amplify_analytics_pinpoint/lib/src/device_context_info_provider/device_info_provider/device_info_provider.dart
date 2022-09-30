@@ -12,12 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/path_provider.dart';
-import 'package:drift/drift.dart';
-
-/// Multi platform class that opens [Drift] [DatabaseConnection] to platform specific database
-/// Fallback case for unsupported platforms
-DatabaseConnection connect(CachedEventsPathProvider? pathProvider) {
-  throw UnsupportedError(
-      'No suitable database implementation was found on this platform.');
-}
+/// Multi platform class that provides DeviceInfo
+/// Requires Flutter specific dependencies
+export 'device_info_provider_none.dart'
+    if (dart.library.html) 'device_info_provider_html.dart'
+    if (dart.library.io) 'device_info_provider_io.dart';

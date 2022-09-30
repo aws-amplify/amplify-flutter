@@ -12,12 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/path_provider.dart';
-import 'package:drift/drift.dart';
+import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
+import 'package:path_provider/path_provider.dart';
 
-/// Multi platform class that opens [Drift] [DatabaseConnection] to platform specific database
-/// Fallback case for unsupported platforms
-DatabaseConnection connect(CachedEventsPathProvider? pathProvider) {
-  throw UnsupportedError(
-      'No suitable database implementation was found on this platform.');
+/// Provides storage location from Flutter -> Dart
+class FlutterPathProvider extends CachedEventsPathProvider {
+  @override
+  Future<String> getApplicationSupportPath() async {
+    return (await getApplicationSupportDirectory()).path;
+  }
 }

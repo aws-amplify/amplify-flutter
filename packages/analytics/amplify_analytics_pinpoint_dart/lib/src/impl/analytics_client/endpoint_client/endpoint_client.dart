@@ -1,18 +1,29 @@
-import 'dart:convert';
+// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/key_value_store.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:built_collection/built_collection.dart';
 
-import '../../../sdk/pinpoint.dart';
 import 'endpoint_global_fields_manager.dart';
 
+/// Manages fields of a Pinpoint Endpoint local object
+/// Uses [PinpointClient] to update AWS Pinpoint Endpoint
+/// For more details see Pinpoint Endpoint online spec: https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html
 class EndpointClient {
-  // string userAgent = PinpointManager.class.getName + / + versionUtils.getVersion
-
-  // max event operations = 1000
-
   // Current Endpoint being managed
   late PublicEndpointBuilder _endpointBuilder;
   late final EndpointGlobalFieldsManager _globalFieldsManager;
@@ -44,7 +55,6 @@ class EndpointClient {
     _endpointBuilder.requestId = _keyValueStore.getFixedEndpointId();
   }
 
-  // External dependencies
   static Future<EndpointClient> getInstance(
       String appId,
       KeyValueStore keyValueStore,
@@ -64,35 +74,17 @@ class EndpointClient {
       _globalFieldsManager.addMetric(name, value);
   void removeMetric(String name) => _globalFieldsManager.removeMetric(name);
 
-  // update the UserProfile on the EndpointProfile
+  /// Update the UserProfile object on the EndpointProfile
   Future<void> setUser(
       String userId, AnalyticsUserProfile copyFromProfile) async {
     EndpointUserBuilder newUserBuilder = EndpointUserBuilder();
 
     newUserBuilder.userId = userId;
 
-    // todo - special type extra properties
-    /*
-    if (userProfile instanceof AWSPinpointUserProfile) {
-            AWSPinpointUserProfile pinpointUserProfile = (AWSPinpointUserProfile) userProfile;
-            if (pinpointUserProfile.getUserAttributes() != null) {
-                addUserAttributes(user, pinpointUserProfile.getUserAttributes());
-            }
-        }
-     */
-    // TODO: Android has the class AWSPinpointUserProfile with an additional AnalyticsProperties
-    // Note: iOS doesn't have that though ...
-    /*
-    if userProfile is AWSPinpointUserProfile
-    look through its additional analytics properties fields
-    and add to userBuilder as follows =>
-      finaluserAttributesBuilder = ListMultimapBuilder<String, String>();
-      userProfile.properties!.getAllProperties().forEach((key, value) {
-        userAttributesBuilder.add(key, value.toString());
-      });
-      userBuilder.userAttributes = userAttributesBuilder;
-     */
+    // TODO - introduce a new AWSPinpointUserProfile subclass of AnalyticsUserProfile
+    // Which will contain 'userAttributes' that will be stored on EndpointUserBuilder
 
+    // The [AnalyticsUserProfile] name, email, and plan fields are added as regular attributes to the local Endpoint
     if (copyFromProfile.name != null) {
       addAttribute('name', [copyFromProfile.name!]);
     }
@@ -107,7 +99,7 @@ class EndpointClient {
       final newLoc = copyFromProfile.location!;
       final lb = _endpointBuilder.location;
 
-      // We null check so we don't overwrite existing non null values
+      // Null check so we don't overwrite existing non null values
       if (newLoc.latitude != null) lb.latitude = newLoc.latitude;
       if (newLoc.longitude != null) lb.longitude = newLoc.longitude;
       if (newLoc.postalCode != null) lb.postalCode = newLoc.postalCode;
@@ -116,8 +108,8 @@ class EndpointClient {
       if (newLoc.country != null) lb.country = newLoc.country;
     }
 
-    // Note that properties are currently copied to Endpoint metrics/attributes
-    // Instead of the User's Properties
+    // Note that the [copyFromProfile]'s properties are copied to Endpoint metrics/attributes
+    // Instead of the [EndpointUserBuilder] object
     if (copyFromProfile.properties != null) {
       final typesMap = copyFromProfile.properties!.getAllPropertiesTypes();
       copyFromProfile.properties!.getAllProperties().forEach((key, value) {
@@ -138,6 +130,8 @@ class EndpointClient {
     await updateEndpoint();
   }
 
+  /// Return Endpoint instance
+  /// Copy [globalAttributes] and [globalMetrics] into EndpointBuilder before build()
   PublicEndpoint getPublicEndpoint() {
     _endpointBuilder.attributes =
         ListMultimapBuilder(_globalFieldsManager.globalAttributes);
@@ -145,18 +139,20 @@ class EndpointClient {
     return _endpointBuilder.build();
   }
 
+  /// Send local Endpoint instance to AWS Pinpoint
   Future<void> updateEndpoint() async {
     try {
       await _pinpointClient.updateEndpoint(UpdateEndpointRequest(
           applicationId: _appId,
           endpointId: _keyValueStore.getFixedEndpointId(),
-          endpointRequest: endpointToRequest(getPublicEndpoint())));
+          endpointRequest: _endpointToRequest(getPublicEndpoint())));
     } catch (error) {
       safePrint('updateEndpoint - exception encountered: ${error.toString()}');
     }
   }
 
-  EndpointRequest endpointToRequest(PublicEndpoint publicEndpoint) {
+  /// Create an EndpointRequest object from a local Endpoint instance
+  EndpointRequest _endpointToRequest(PublicEndpoint publicEndpoint) {
     return EndpointRequest(
         address: publicEndpoint.address,
         attributes: publicEndpoint.attributes,

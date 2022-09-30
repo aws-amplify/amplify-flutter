@@ -1,7 +1,21 @@
+// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:flutter/material.dart';
 
-/// To be implemented by other classes
+/// Provides callbacks to notify listeners when app is foregrounded or backgrounded
 class FlutterAppLifecycleProvider extends WidgetsBindingObserver
     implements AppLifecycleProvider {
   bool _isObserving = false;
@@ -30,6 +44,10 @@ class FlutterAppLifecycleProvider extends WidgetsBindingObserver
     WidgetsBinding.instance.removeObserver(this);
   }
 
+  // Current implementation based on Android
+  // TODO - consider supporting session pause like iOS
+  // If app paused for X seconds, on app resume, a new session is created
+  // But the old session is sent as session end
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {

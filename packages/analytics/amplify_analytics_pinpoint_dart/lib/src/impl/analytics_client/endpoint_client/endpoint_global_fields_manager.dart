@@ -1,8 +1,26 @@
+// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:collection';
 import 'dart:convert';
 
-import '../key_value_store.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/key_value_store.dart';
 
+/// Manages the storage, retrieval, and update of [Attributes] and [Metrics] of a PinpointEndpoint
+/// Attributes are String/Bool
+/// Metrics are Double/Int
+/// For more details see Pinpoint Endpoint online spec: https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html
 class EndpointGlobalFieldsManager {
   final int _maxKeyLength = 50;
   final int _maxAttributeValues = 50;
@@ -25,13 +43,14 @@ class EndpointGlobalFieldsManager {
 
   static Future<EndpointGlobalFieldsManager> getInstance(
       KeyValueStore sharedPrefs) async {
+    /// Retrieve stored GlobalAttributes
     Map<String, dynamic> decodedGlobalAttributesJson = jsonDecode(
         await sharedPrefs.getJson(KeyValueStore.endpointGlobalAttrsKey) ??
             '{}');
-
     final globalAttributes = decodedGlobalAttributesJson
         .map((key, value) => MapEntry(key, List<String>.from(value)));
 
+    /// Retrieve stored GlobalMetrics
     final globalMetrics = Map<String, double>.from(jsonDecode(
         await sharedPrefs.getJson(KeyValueStore.endpointGlobalMetricsKey) ??
             '{}'));
@@ -40,7 +59,7 @@ class EndpointGlobalFieldsManager {
         sharedPrefs, globalAttributes, globalMetrics);
   }
 
-  String processKey(String key) {
+  String _processKey(String key) {
     if (key.length > _maxKeyLength) {
       print(
           'The attribute key has been trimmed to a length of $_maxKeyLength characters.');
@@ -49,7 +68,7 @@ class EndpointGlobalFieldsManager {
     return key;
   }
 
-  List<String> processAttributeValues(List<String> values) {
+  List<String> _processAttributeValues(List<String> values) {
     List<String> trimmedValues = <String>[];
 
     // Restrict list length to "_max_attribute_values"
@@ -77,7 +96,7 @@ class EndpointGlobalFieldsManager {
 
   void addAttribute(String name, List<String> values) {
     if (_globalAttributes.length + _globalMetrics.length < _maxAttributes) {
-      _globalAttributes[processKey(name)] = processAttributeValues(values);
+      _globalAttributes[_processKey(name)] = _processAttributeValues(values);
       _saveAttributes();
     } else {
       print(
@@ -97,7 +116,7 @@ class EndpointGlobalFieldsManager {
 
   void addMetric(String name, double value) {
     if (_globalAttributes.length + _globalMetrics.length < _maxAttributes) {
-      _globalMetrics[processKey(name)] = value;
+      _globalMetrics[_processKey(name)] = value;
       _saveMetrics();
     } else {
       print(

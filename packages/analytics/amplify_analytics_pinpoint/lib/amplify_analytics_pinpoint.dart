@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+/// Amplify Analytics Pinpoint
 library amplify_analytics_pinpoint;
 
 export 'src/analytics_plugin_impl.dart';

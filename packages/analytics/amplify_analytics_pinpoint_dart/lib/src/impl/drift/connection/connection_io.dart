@@ -1,8 +1,24 @@
+// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
+import 'package:drift/drift.dart';
+
 import 'dart:io';
 import 'dart:isolate';
 
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/path_provider.dart';
-import 'package:drift/drift.dart';
 import 'package:drift/isolate.dart';
 import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
@@ -18,9 +34,8 @@ import 'package:path/path.dart' as p;
 /// hood.
 DatabaseConnection connect(CachedEventsPathProvider? pathProvider) {
   return DatabaseConnection.delayed(Future.sync(() async {
-    final dir = await pathProvider!.getApplicationSupportPath();
-    final dbPath = p.join(dir.path, 'amplify_flutter_analytics.sqlite');
-    //final dbPath = p.join(appDir.path, 'todos.db');
+    final String dir = await pathProvider!.getApplicationSupportPath();
+    final dbPath = p.join(dir, 'amplify_flutter_analytics.sqlite');
 
     final receiveDriftIsolate = ReceivePort();
     await Isolate.spawn(_entrypointForDriftIsolate,

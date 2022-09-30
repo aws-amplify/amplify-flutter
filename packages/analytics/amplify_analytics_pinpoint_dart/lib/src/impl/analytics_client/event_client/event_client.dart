@@ -1,17 +1,34 @@
+// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:collection';
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/key_value_store.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:smithy/smithy.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../../sdk/pinpoint.dart';
-import '../endpoint_client/endpoint_client.dart';
-import '../key_value_store.dart';
 import 'events_storage_adapter.dart';
 
-/// Manage sending of AnalyticsEvent with PinpointClient
+/// Manages storage and flush of analytics events
+/// Uses [EventStorageAdapter] to cached analytics events
+/// Uses [PinpointClient] to flush analytics events to AWS Pinpoint
+/// For more details see Pinpoint Event online spec: https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-events.html
 class EventClient {
   late final EventStorageAdapter _storageAdapter;
 
@@ -28,22 +45,31 @@ class EventClient {
     _storageAdapter = EventStorageAdapter(_pathProvider);
   }
 
+  /// Received events are NEVER sent immediately but cached to be sent in a batch
   void recordEvent(Event event) {
     _storageAdapter.saveEvent(event);
   }
 
+  /// Send cached events as a batch to Pinpoint
+  /// Parse and response to Pinpoint response
   Future<void> flushEvents() async {
     List<StoredEvent> storedEvents = await _storageAdapter.retrieveEvents();
 
     final eventsMap = <String, Event>{};
     final eventIdsToDelete = HashMap<String, int>();
+
     for (final storedEvent in storedEvents) {
       final id = _uuid.v1();
+      // Assign unique id to every event we will send
       eventsMap[id] = storedEvent.event;
-      // Mapping PinpointID -> StoredEventId
+
+      // Mapping EventId -> StoredEventId to help with deleting cached events
+      // EventId identifies if event was sent to Pinpoint successfully
+      // StoredEventId identifies cached event
       eventIdsToDelete[id] = storedEvent.id;
     }
 
+    // The Event batch to be sent to Pinpoint
     EventsBatch batch = EventsBatch(
         endpoint: _endpointClient.getPublicEndpoint(),
         events: BuiltMap<String, Event>(eventsMap));
@@ -56,14 +82,17 @@ class EventClient {
           applicationId: _appId,
           eventsRequest: EventsRequest(batchItem: batchItems)));
 
+      // Parse the EndpointResponse portion of Result
       final endpointResponse =
           result.eventsResponse.results?[_keyValueStore.getFixedEndpointId()];
 
       if (endpointResponse == null) {
-        return;
+        safePrint(
+            'putEvents - no EndpointResponse object received from Pinpoint');
       }
 
-      final endpointItemResponse = endpointResponse.endpointItemResponse;
+      // Parse the EndpointItemResponse portion of Result
+      final endpointItemResponse = endpointResponse?.endpointItemResponse;
 
       if (endpointItemResponse == null) {
         safePrint(
@@ -74,18 +103,19 @@ class EventClient {
             'putEvents - issue with PinpointEndpoint response: ${endpointItemResponse?.toString()}');
       }
 
-      final eventsItemResponse = endpointResponse.eventsItemResponse;
+      // Parse the individual response for each Event in batch
+      final eventsItemResponse = endpointResponse?.eventsItemResponse;
 
       if (eventsItemResponse == null) {
         safePrint(
             'putEvents - no EventsItemResponse response received from Pinpoint');
       }
       eventsItemResponse?.forEach((eventID, eventItemResponse) {
-        if (!equalsIgnoreCase(eventItemResponse.message ?? '', 'Accepted')) {
+        if (!_equalsIgnoreCase(eventItemResponse.message ?? '', 'Accepted')) {
           safePrint(
               'putEvents - issue with eventId: ${eventID} \n ${eventItemResponse.toString()}');
 
-          if (isRetryable(eventItemResponse.message ?? '')) {
+          if (_isRetryable(eventItemResponse.message ?? '')) {
             safePrint(
                 'putEvents - recoverable issue, will attempt to resend: ${eventID} in next FlushEvents');
             eventIdsToDelete.remove(eventID);
@@ -93,13 +123,13 @@ class EventClient {
         }
       });
     } on BadRequestException catch (e) {
-      handleRecoverableException(e, eventIdsToDelete);
+      _handleRecoverableException(e, eventIdsToDelete);
     } on InternalServerErrorException catch (e) {
-      handleRecoverableException(e, eventIdsToDelete);
+      _handleRecoverableException(e, eventIdsToDelete);
     } on NotFoundException catch (e) {
-      handleRecoverableException(e, eventIdsToDelete);
+      _handleRecoverableException(e, eventIdsToDelete);
     } on TooManyRequestsException catch (e) {
-      handleRecoverableException(e, eventIdsToDelete);
+      _handleRecoverableException(e, eventIdsToDelete);
     } on PayloadTooLargeException catch (e) {
       safePrint('putEvents - exception encountered: ${e.toString}');
       safePrint(
@@ -112,27 +142,27 @@ class EventClient {
     }
     // Always delete local store of events
     // Unless a retryable exception has been received (see above)
-     finally {
+    finally {
       _storageAdapter.deleteEvents(eventIdsToDelete.values);
     }
   }
 
   // If exception is recoverable, do not delete eventIds from local cache
-  void handleRecoverableException(
+  void _handleRecoverableException(
       SmithyHttpException e, HashMap eventIdsToDelete) {
     safePrint('putEvents - exception encountered: ${e.toString}');
     safePrint('Recoverable issue, will attempt to resend event batch');
     eventIdsToDelete.clear();
   }
 
-  bool equalsIgnoreCase(String string1, String string2) {
-    return string1.toLowerCase() == string2.toLowerCase();
+  bool _isRetryable(String? message) {
+    return message != null &&
+        !_equalsIgnoreCase(message, "ValidationException") &&
+        !_equalsIgnoreCase(message, "SerializationException") &&
+        !_equalsIgnoreCase(message, "BadRequestException");
   }
 
-  bool isRetryable(String? message) {
-    return message != null &&
-        !equalsIgnoreCase(message, "ValidationException") &&
-        !equalsIgnoreCase(message, "SerializationException") &&
-        !equalsIgnoreCase(message, "BadRequestException");
+  bool _equalsIgnoreCase(String string1, String string2) {
+    return string1.toLowerCase() == string2.toLowerCase();
   }
 }

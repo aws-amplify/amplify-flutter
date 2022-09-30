@@ -64,21 +64,20 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     String region = pinpointConfig.pinpointAnalytics.region;
 
     /// Prepare PinpointClient
-    const providerKey = AmplifyAuthProviderToken<AWSIamAmplifyAuthProvider>();
-    AWSIamAmplifyAuthProvider? authProvider =
-        authProviderRepo.getAuthProvider(providerKey);
+    AWSIamAmplifyAuthProvider? authProvider = authProviderRepo
+        .getAuthProvider(APIAuthorizationType.iam.authProviderToken);
 
     if (authProvider == null) {
       throw const AnalyticsException(
-          'No AWSIamAmplifyAuthProvider available.  Is Auth cateogry added and configured?');
+          'No AWSIamAmplifyAuthProvider available.  Is Auth category added and configured?');
     }
 
     AWSCredentials credentials = await authProvider.retrieve();
-    AWSCredentialsProvider credentialsProvider =
-        AWSCredentialsProvider(credentials);
 
     final pinpointClient = PinpointClient(
-        region: region, credentialsProvider: credentialsProvider);
+      region: region,
+      credentialsProvider: AWSCredentialsProvider(credentials),
+    );
 
     /// Prepare AnalyticsClient
     final keyValueStore = await KeyValueStore.getInstance(_credentialStorage);
@@ -96,16 +95,19 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
 
   @override
   Future<void> enable() async {
+    _checkConfigured();
     _analyticsClient?.enable();
   }
 
   @override
   Future<void> disable() async {
+    _checkConfigured();
     _analyticsClient?.disable();
   }
 
   @override
   Future<void> flushEvents() async {
+    _checkConfigured();
     await _analyticsClient?.flushEvents();
   }
 
@@ -113,6 +115,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   Future<void> recordEvent({
     required AnalyticsEvent event,
   }) async {
+    _checkConfigured();
     _analyticsClient?.recordEvent(event);
   }
 
@@ -120,6 +123,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   Future<void> registerGlobalProperties({
     required AnalyticsProperties globalProperties,
   }) async {
+    _checkConfigured();
     await _analyticsClient?.registerGlobalProperties(globalProperties);
   }
 
@@ -127,6 +131,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   Future<void> unregisterGlobalProperties({
     List<String> propertyNames = const <String>[],
   }) async {
+    _checkConfigured();
     await _analyticsClient?.unregisterGlobalProperties(propertyNames);
   }
 
@@ -135,6 +140,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     required String userId,
     required AnalyticsUserProfile userProfile,
   }) async {
+    _checkConfigured();
     _analyticsClient?.identifyUser(userId, userProfile);
   }
 
