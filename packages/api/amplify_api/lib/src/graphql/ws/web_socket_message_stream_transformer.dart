@@ -45,7 +45,7 @@ class WebSocketSubscriptionStreamTransformer<T>
   /// [request] is used to properly decode response events
   /// [onEstablished] is executed when start_ack message received
   /// [logger] logs cancel messages when complete message received
-  const WebSocketSubscriptionStreamTransformer(
+  WebSocketSubscriptionStreamTransformer(
     this.request,
     this.onEstablished, {
     required this.logger,
@@ -59,13 +59,17 @@ class WebSocketSubscriptionStreamTransformer<T>
 
   /// executes when start_ack message received
   final void Function()? onEstablished;
+  bool _establishedRequest = false;
 
   @override
   Stream<GraphQLResponse<T>> bind(Stream<WebSocketMessage> stream) async* {
     await for (final event in stream) {
       switch (event.messageType) {
         case MessageType.startAck:
-          onEstablished?.call();
+          if (!_establishedRequest) {
+            onEstablished?.call();
+            _establishedRequest = true;
+          }
           break;
         case MessageType.data:
           final payload = event.payload as SubscriptionDataPayload;
@@ -73,6 +77,7 @@ class WebSocketSubscriptionStreamTransformer<T>
             request: request,
             response: payload.toJson(),
           );
+
           break;
         case MessageType.error:
           final error = event.payload as WebSocketError;

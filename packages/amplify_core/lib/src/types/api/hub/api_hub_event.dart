@@ -13,22 +13,15 @@
  * permissions and limitations under the License.
  */
 
-// ignore_for_file: constant_identifier_names
-
 import 'package:amplify_core/amplify_core.dart';
 
-/// A channel which can be listened on via [AmplifyHub] (`Amplify.Hub`).
-enum HubChannel<HubEventPayload, E extends HubEvent<HubEventPayload>> {
-  /// Events of the Auth category.
-  ///
-  /// See also:
-  /// - [AuthHubEvent]
-  /// - [AuthHubEventType]
-  Auth<AuthUser, AuthHubEvent>(),
+class ApiHubEvent extends HubEvent<ApiHubEventPayload> {
+  ApiHubEvent(
+    super.eventName, {
+    super.payload,
+  });
+}
 
-  /// Events of the DataStore category.
-  DataStore<DataStoreHubEventPayload, DataStoreHubEvent>(),
-
-  /// Events of the API category
-  Api<ApiHubEventPayload, ApiHubEvent>();
+abstract class ApiHubEventPayload {
+  const ApiHubEventPayload();
 }

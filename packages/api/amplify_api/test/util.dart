@@ -19,9 +19,15 @@ import 'package:amplify_api/src/graphql/app_sync_api_key_auth_provider.dart';
 import 'package:amplify_api/src/graphql/ws/web_socket_connection.dart';
 import 'package:amplify_api/src/graphql/ws/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:async/async.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:collection/collection.dart';
+import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:stream_channel/stream_channel.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 const testAccessToken = 'test-access-token-123';
 
@@ -110,11 +116,73 @@ const mockSubscriptionData = {
   }
 };
 
+const mockAckMessage = {
+  'type': 'connection_ack',
+  'payload': {'connectionTimeoutMs': 300000}
+};
+
+/// Hub Event Matchers
+final connectedHubEvent = isA<SubscriptionHubEvent>().having(
+  (event) => event.status,
+  'status',
+  SubscriptionStatus.connected,
+);
+
+final connectingHubEvent = isA<SubscriptionHubEvent>().having(
+  (event) => event.status,
+  'status',
+  SubscriptionStatus.connecting,
+);
+
+final disconnectedHubEvent = isA<SubscriptionHubEvent>().having(
+  (event) => event.status,
+  'status',
+  SubscriptionStatus.disconnected,
+);
+
+final pendingDisconnectedHubEvent = isA<SubscriptionHubEvent>().having(
+  (event) => event.status,
+  'status',
+  SubscriptionStatus.pendingDisconnected,
+);
+
+final failedHubEvent = isA<SubscriptionHubEvent>().having(
+  (event) => event.status,
+  'status',
+  SubscriptionStatus.failed,
+);
+
+WebSocketChannel getMockWebSocketChannel(Uri uri) {
+  return MockWebSocketChannel();
+}
+
+WebSocketMessage startAck(String subscriptionID) => WebSocketMessage(
+      messageType: MessageType.startAck,
+      id: subscriptionID,
+    );
+
+Future<void> assertWebSocketConnected(
+  MockWebSocketConnection connection,
+  String subscriptionID,
+) async {
+  await expectLater(connection.connectionPending, completes);
+
+  connection.channel!.sink.add(jsonEncode(mockAckMessage));
+
+  await expectLater(connection.ready, completes);
+
+  connection.channel!.sink.add(jsonEncode(startAck(subscriptionID)));
+}
+
 /// Extension of [WebSocketConnection] that stores messages internally instead
 /// of sending them.
 class MockWebSocketConnection extends WebSocketConnection {
-  MockWebSocketConnection(super.config, super.authProviderRepo)
-      : super(logger: AmplifyLogger());
+  MockWebSocketConnection(
+    super.config,
+    super.authProviderRepo, {
+    required super.logger,
+    super.subscriptionOptions,
+  });
 
   /// Instead of actually connecting, just set the URI here so it can be inspected
   /// for testing.
@@ -126,62 +194,61 @@ class MockWebSocketConnection extends WebSocketConnection {
 
   WebSocketMessage? get lastSentMessage => sentMessages.lastOrNull;
 
-  final messageStream = StreamController<dynamic>();
-
-  @override
-  Future<void> connect(Uri connectionUri) async {
-    connectedUri = connectionUri;
-
-    // mock some message responses (acks and mock data) from server
-    final broadcast = messageStream.stream.asBroadcastStream()
-      ..listen((event) {
-        final eventJson = json.decode(event as String);
-        final messageFromEvent =
-            WebSocketMessage.fromJson(eventJson as Map<String, dynamic>);
-
-        // connection_init, respond with connection_ack
-        final mockResponseMessages = <WebSocketMessage>[];
-        if (messageFromEvent.messageType == MessageType.connectionInit) {
-          mockResponseMessages.add(
-            WebSocketMessage(
-              messageType: MessageType.connectionAck,
-              payload: const ConnectionAckMessagePayload(10000),
-            ),
-          );
-          // start, respond with start_ack and mock data
-        } else if (messageFromEvent.messageType == MessageType.start) {
-          mockResponseMessages
-            ..add(
-              WebSocketMessage(
-                messageType: MessageType.startAck,
-                id: messageFromEvent.id,
-              ),
-            )
-            ..add(
-              WebSocketMessage(
-                messageType: MessageType.data,
-                id: messageFromEvent.id,
-                payload:
-                    const SubscriptionDataPayload(mockSubscriptionData, null),
-              ),
-            );
-        }
-
-        for (final mockMessage in mockResponseMessages) {
-          messageStream.add(json.encode(mockMessage));
-        }
-      });
-
-    // ensures connected to _onDone events in parent class
-    getStreamSubscription(broadcast);
-  }
-
   /// Pushes message in sentMessages and adds to stream (to support mocking result).
   @override
   void send(WebSocketMessage message) {
     sentMessages.add(message);
-    final messageStr = json.encode(message.toJson());
-    messageStream.add(messageStr);
+    super.send(message);
+  }
+}
+
+// Mock WebSocket
+
+class MockWebSocketSink extends DelegatingStreamSink<dynamic>
+    implements WebSocketSink {
+  MockWebSocketSink(super.sink);
+
+  @override
+  Future<void> close([int? closeCode, String? closeReason]) => super.close();
+}
+
+class MockWebSocketChannel extends WebSocketChannel {
+  MockWebSocketChannel() : super(streamChannel) {
+    // controller.sink.add(mockAckMessage);
+  }
+
+  // ignore: close_sinks
+  final controller = StreamController<dynamic>.broadcast();
+
+  static StreamChannel<List<int>> streamChannel =
+      StreamChannel(const Stream.empty(), NullStreamSink());
+
+  @override
+  Stream<dynamic> get stream => controller.stream;
+
+  @override
+  WebSocketSink get sink => MockWebSocketSink(controller.sink);
+}
+
+// Mock Connectivity Plus
+
+const ConnectivityResult kCheckConnectivityResult = ConnectivityResult.wifi;
+
+class MockConnectivityPlatform extends Mock
+    with MockPlatformInterfaceMixin
+    implements ConnectivityPlatform {
+  // ignore: close_sinks
+  final StreamController<ConnectivityResult> controller =
+      StreamController<ConnectivityResult>.broadcast();
+
+  @override
+  Future<ConnectivityResult> checkConnectivity() async {
+    return kCheckConnectivityResult;
+  }
+
+  @override
+  Stream<ConnectivityResult> get onConnectivityChanged {
+    return controller.stream;
   }
 }
 
