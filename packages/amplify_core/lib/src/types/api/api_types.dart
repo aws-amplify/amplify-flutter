@@ -13,6 +13,9 @@
  * permissions and limitations under the License.
  */
 
+// Packages
+export 'package:retry/retry.dart' show RetryOptions;
+
 // API Authorization
 export 'auth/api_auth_provider.dart';
 export 'auth/api_authorization_type.dart';
@@ -26,6 +29,10 @@ export 'graphql/graphql_request_type.dart';
 export 'graphql/graphql_response.dart';
 export 'graphql/graphql_response_error.dart';
 export 'graphql/graphql_subscription_operation.dart';
+export 'graphql/graphql_subscription_options.dart';
+
+export 'hub/api_hub_event.dart';
+export 'hub/api_subscription_hub_event.dart';
 
 export 'rest/rest_exception.dart';
 export 'rest/rest_operation.dart';
