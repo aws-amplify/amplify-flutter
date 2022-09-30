@@ -24,6 +24,6 @@ class StorageGetPropertiesResult<Item extends StorageItem> {
   });
 
   /// The result object containing the properties retrieved from the
-  /// [StorageCopyOperation].
+  /// [StorageGetPropertiesOperation].
   final Item storageItem;
 }
