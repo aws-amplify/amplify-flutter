@@ -45,7 +45,10 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _configureAmplify() async {
-    await Amplify.addPlugins([AmplifyAuthCognito(), AmplifyAPI()]);
+    await Amplify.addPlugins([
+      AmplifyAuthCognito(),
+      AmplifyAPI(),
+    ]);
 
     try {
       await Amplify.configure(amplifyconfig);
@@ -56,6 +59,15 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _isAmplifyConfigured = true;
     });
+
+    Amplify.Hub.listen(
+      HubChannel.Api,
+      (ApiHubEvent event) {
+        if (event is SubscriptionHubEvent) {
+          safePrint(event);
+        }
+      },
+    );
   }
 
   void _onRestApiViewButtonClick() {

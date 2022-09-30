@@ -27,13 +27,13 @@ class GraphQLRequest<T> {
   /// Only required if your backend has multiple GraphQL endpoints in the amplifyconfiguration.dart file. This parameter is then needed to specify which one to use for this request.
   final String? apiName;
 
+  /// A map of Strings to dynamically use for custom headers in the http request.
+  final Map<String, String>? headers;
+
   /// Authorization type to use for this request.
   ///
   /// If not supplied, the request will use the default endpoint mode.
   final APIAuthorizationType? authorizationMode;
-
-  /// A map of Strings to dynamically use for custom headers in the http request.
-  final Map<String, String>? headers;
 
   /// A map of values to dynamically use for variable names in the `document`.
   ///

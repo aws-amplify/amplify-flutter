@@ -15,9 +15,11 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_api/src/graphql/app_sync_api_key_auth_provider.dart';
-import 'package:amplify_api/src/graphql/ws/web_socket_types.dart';
+import 'package:amplify_api/src/graphql/ws/web_socket_connection.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/testing.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../util.dart';
@@ -25,7 +27,13 @@ import '../util.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  late Connectivity connectivity;
+  late MockConnectivityPlatform fakePlatform;
+
   late MockWebSocketConnection connection;
+
+  late StreamController<ApiHubEvent> hubEventsController;
+  late Stream<ApiHubEvent> hubEvents;
 
   const graphQLDocument = '''subscription MySubscription {
     onCreateBlog {
@@ -36,78 +44,156 @@ void main() {
   }''';
   final subscriptionRequest = GraphQLRequest<String>(document: graphQLDocument);
 
-  setUp(() {
-    connection = MockWebSocketConnection(
-      testApiKeyConfig,
-      getTestAuthProviderRepo(),
+  final mockSubscriptionData = {
+    'onCreateBlog': {
+      'id': '<blog id>',
+      'name': 'Unit Test Blog',
+      'createdAt': '2022-09-12T18:03:36.230Z'
+    }
+  };
+
+  final mockSubscriptionEvent = {
+    'id': subscriptionRequest.id,
+    'type': 'data',
+    'payload': {
+      'data': mockSubscriptionData,
+    },
+  };
+
+  final mockClient = MockAWSHttpClient((request) async {
+    return AWSHttpResponse(
+      statusCode: 200,
+      body: utf8.encode('healthy'),
     );
   });
 
+  MockWebSocketConnection getWebSocketConnection() {
+    const subscriptionOptions = GraphQLSubscriptionOptions();
+
+    return connection = MockWebSocketConnection(
+      testApiKeyConfig,
+      getTestAuthProviderRepo(),
+      subscriptionOptions: subscriptionOptions,
+      logger: AmplifyLogger(),
+    );
+  }
+
   group('WebSocketConnection', () {
-    test(
-        'init() should connect with authorized query params in URI and send connection init message',
-        () async {
-      await connection.init();
-      await expectLater(connection.ready, completes);
-      expect(
-        connection.connectedUri.toString(),
-        expectedApiKeyWebSocketConnectionUrl,
-      );
-      expect(
-        connection.lastSentMessage?.messageType,
-        MessageType.connectionInit,
-      );
+    setUp(() {
+      fakePlatform = MockConnectivityPlatform();
+      ConnectivityPlatform.instance = fakePlatform;
+      connectivity = Connectivity();
+
+      WebSocketConnection.httpClientOverride = mockClient;
+      WebSocketConnection.connectivityOverride = connectivity;
+      WebSocketConnection.webSocketFactoryOverride = getMockWebSocketChannel;
+
+      hubEventsController = StreamController.broadcast();
+      hubEvents = hubEventsController.stream;
+      Amplify.Hub.listen(HubChannel.Api, hubEventsController.add);
     });
-
-    test('subscribe() should initialize the connection and call onEstablished',
-        () async {
-      connection.subscribe(subscriptionRequest, expectAsync0(() {}));
-      await expectLater(connection.ready, completes);
+    tearDown(() async {
+      connection.close();
+      Amplify.Hub.close();
+      await hubEventsController.close();
     });
+    tearDownAll(() {});
 
-    test(
-        'subscribe() should send SubscriptionRegistrationMessage with authorized payload correctly serialized',
-        () async {
-      await connection.init();
-      await connection.ready;
-      final establishedCompleter = Completer<void>();
-      connection.subscribe(subscriptionRequest, establishedCompleter.complete);
-      await establishedCompleter.future;
+    test('should init a connection & call onEstablishCallback', () async {
+      getWebSocketConnection().subscribe(
+        subscriptionRequest,
+        expectAsync0(() {}),
+      );
 
-      final lastMessage = connection.lastSentMessage;
-      expect(lastMessage?.messageType, MessageType.start);
-      final payloadJson = lastMessage?.payload?.toJson();
-      final apiKeyFromPayload =
-          // ignore: avoid_dynamic_calls
-          payloadJson?['extensions']['authorization'][xApiKey];
-      expect(apiKeyFromPayload, testApiKeyConfig.apiKey);
+      expect(
+        hubEvents,
+        emitsInOrder(
+          [
+            connectingHubEvent,
+            connectedHubEvent,
+          ],
+        ),
+      );
+
+      await assertWebSocketConnected(connection, subscriptionRequest.id);
     });
 
     test('subscribe() should return a subscription stream', () async {
-      final subscription = connection.subscribe(
+      final subscription = getWebSocketConnection().subscribe(
         subscriptionRequest,
-        null,
+        () {},
       );
 
-      late StreamSubscription<GraphQLResponse<String>> streamSub;
-      streamSub = subscription.listen(
+      await assertWebSocketConnected(connection, subscriptionRequest.id);
+
+      final streamSub = subscription.listen(
         expectAsync1((event) {
           expect(event.data, json.encode(mockSubscriptionData));
-          streamSub.cancel();
         }),
       );
+
+      connection.channel!.sink.add(jsonEncode(mockSubscriptionEvent));
+
+      addTearDown(streamSub.cancel);
     });
+
+    test(
+      'should reconnect when network turns on/off',
+      () async {
+        final dataCompleter = Completer<String>();
+        final subscription = getWebSocketConnection().subscribe(
+          subscriptionRequest,
+          () {},
+        );
+
+        await assertWebSocketConnected(connection, subscriptionRequest.id);
+
+        final streamSub = subscription.listen(
+          expectAsync1(
+            (event) => dataCompleter.complete(event.data),
+          ),
+        );
+
+        connection.channel!.sink.add(jsonEncode(mockSubscriptionEvent));
+
+        fakePlatform.controller.sink.add(ConnectivityResult.none);
+
+        expect(
+          hubEvents,
+          emitsInOrder(
+            [
+              connectingHubEvent,
+              connectedHubEvent,
+              connectingHubEvent,
+            ],
+          ),
+        );
+
+        addTearDown(streamSub.cancel);
+      },
+      skip: 'todo(equartey): Implement reconnection logic tests',
+    );
 
     test('cancel() should send a stop message', () async {
       final dataCompleter = Completer<String>();
-      final subscription = connection.subscribe(subscriptionRequest, null);
+      final subscription =
+          getWebSocketConnection().subscribe(subscriptionRequest, null);
+
+      await assertWebSocketConnected(connection, subscriptionRequest.id);
+
       final streamSub = subscription.listen(
         (event) => dataCompleter.complete(event.data),
       );
+
+      connection.channel!.sink.add(jsonEncode(mockSubscriptionEvent));
       await dataCompleter.future;
 
-      unawaited(streamSub.cancel());
-      expect(connection.lastSentMessage?.messageType, MessageType.stop);
+      connection.channel!.stream.listen(
+        expectAsync1((event) {
+          expect(json.decode(event as String), containsPair('type', 'stop'));
+        }),
+      );
+      await streamSub.cancel();
     });
   });
 }
