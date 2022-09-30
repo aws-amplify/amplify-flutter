@@ -28,58 +28,68 @@ import 'key_value_store.dart';
 /// Top level client for executing all behaviors of the Analytics Plugin
 /// by managing behaviors and inter dependencies of sub clients and helper classes
 class AnalyticsClient {
-  late final SessionManager _sessionManager;
+  final SessionManager _sessionManager;
+  final EventClient _eventClient;
+  final EventCreator _eventCreator;
+  final EndpointClient _endpointClient;
 
-  late final EventClient _eventClient;
-
-  late final StoppableTimer _autoEventSubmitter;
-
-  late final EventCreator _eventCreator;
-
-  late final EndpointClient _endpointClient;
+  /// TODO - clarify - what is behavior on app refresh / hot reload?
+  late final StoppableTimer _autoEventSubmitter = StoppableTimer(
+    duration: const Duration(seconds: 10),
+    function: (Timer t) => flushEvents(),
+  );
 
   /// Use parameters to initialize sub clients and helper classes
-  Future<void> configure(
-      String appId,
-      KeyValueStore keyValueStore,
-      PinpointClient pinpointClient,
-      CachedEventsPathProvider? pathProvider,
-      AppLifecycleProvider? appLifecycleProvider,
-      DeviceContextInfo? deviceContextInfo) async {
-    _eventCreator =
+  static Future<AnalyticsClient> getInstance(
+    String appId,
+    KeyValueStore keyValueStore,
+    PinpointClient pinpointClient,
+    CachedEventsPathProvider? pathProvider,
+    AppLifecycleProvider? appLifecycleProvider,
+    DeviceContextInfo? deviceContextInfo,
+  ) async {
+    final eventCreator =
         await EventCreator.getInstance(keyValueStore, deviceContextInfo);
 
-    _endpointClient = await EndpointClient.getInstance(
+    final endpointClient = await EndpointClient.getInstance(
         appId, keyValueStore, pinpointClient, deviceContextInfo);
 
-    /// TODO - clarify - what is behavior on app refresh / hot reload?
-    _autoEventSubmitter = StoppableTimer(
-      const Duration(seconds: 10),
-      (Timer t) => flushEvents(),
-    );
-
-    _eventClient = EventClient(
-        appId, keyValueStore, _endpointClient, pinpointClient, pathProvider);
+    final eventClient = EventClient(
+        appId, keyValueStore, endpointClient, pinpointClient, pathProvider);
 
     // Initialize session manager
     // And define auto session start/end Events to be sent on session start/end events
-    _sessionManager = SessionManager(
+    final sessionManager = SessionManager(
       keyValueStore,
       appLifecycleProvider,
       onSessionEnd: (sb) {
-        _eventClient.recordEvent(
-          _eventCreator.createPinpointEvent(sessionStopEventType, sb),
+        eventClient.recordEvent(
+          eventCreator.createPinpointEvent(sessionStopEventType, sb),
         );
-        _eventClient.flushEvents();
+        eventClient.flushEvents();
       },
       onSessionStart: (sb) async {
-        await _endpointClient.updateEndpoint();
-        _eventClient.recordEvent(
-          _eventCreator.createPinpointEvent(sessionStartEventType, sb),
+        await endpointClient.updateEndpoint();
+        eventClient.recordEvent(
+          eventCreator.createPinpointEvent(sessionStartEventType, sb),
         );
       },
     );
+
+    return AnalyticsClient._(
+      sessionManager,
+      eventClient,
+      eventCreator,
+      endpointClient,
+    );
   }
+
+  AnalyticsClient._(
+    this._sessionManager,
+    this._eventClient,
+    this._eventCreator,
+    this._endpointClient,
+  );
 
   Future<void> flushEvents() async {
     await _eventClient.flushEvents();

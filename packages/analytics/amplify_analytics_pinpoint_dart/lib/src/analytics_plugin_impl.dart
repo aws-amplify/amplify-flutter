@@ -88,9 +88,14 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
           await _deviceContextInfoProvider!.getDeviceInfoDetails();
     }
 
-    _analyticsClient = AnalyticsClient();
-    await _analyticsClient!.configure(appId, keyValueStore, pinpointClient,
-        _pathProvider, _appLifecycleProvider, deviceContextInfo);
+    _analyticsClient = await AnalyticsClient.getInstance(
+      appId,
+      keyValueStore,
+      pinpointClient,
+      _pathProvider,
+      _appLifecycleProvider,
+      deviceContextInfo,
+    );
   }
 
   @override

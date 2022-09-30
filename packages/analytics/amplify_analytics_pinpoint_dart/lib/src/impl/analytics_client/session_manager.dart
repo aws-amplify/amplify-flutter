@@ -32,8 +32,8 @@ typedef SessionFunc = Function(SessionBuilder);
 class SessionManager {
   final _maxIdLength = 8;
 
-  late SessionFunc _onSessionStart;
-  late SessionFunc _onSessionEnd;
+  SessionFunc _onSessionStart;
+  SessionFunc _onSessionEnd;
 
   SessionBuilder? _sessionBuilder;
   SessionBuilder? get sessionBuilder => _sessionBuilder;
@@ -51,10 +51,8 @@ class SessionManager {
     this._lifecycleObserver, {
     required SessionFunc onSessionStart,
     required SessionFunc onSessionEnd,
-  }) {
-    _onSessionStart = onSessionStart;
-    _onSessionEnd = onSessionEnd;
-
+  })  : _onSessionStart = onSessionStart,
+        _onSessionEnd = onSessionEnd {
     // Start session by _executeStart()
     // By the time we start observing on lifecycleObserver,
     // we have missed the first onForeground event

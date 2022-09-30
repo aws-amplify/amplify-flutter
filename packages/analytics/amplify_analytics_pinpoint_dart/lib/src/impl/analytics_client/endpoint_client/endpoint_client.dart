@@ -24,36 +24,13 @@ import 'endpoint_global_fields_manager.dart';
 /// Uses [PinpointClient] to update AWS Pinpoint Endpoint
 /// For more details see Pinpoint Endpoint online spec: https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html
 class EndpointClient {
+  final String _appId;
+  final PinpointClient _pinpointClient;
+  final KeyValueStore _keyValueStore;
+
   // Current Endpoint being managed
-  late PublicEndpointBuilder _endpointBuilder;
-  late final EndpointGlobalFieldsManager _globalFieldsManager;
-
-  late final String _appId;
-  late final PinpointClient _pinpointClient;
-  late final KeyValueStore _keyValueStore;
-
-  EndpointClient._getInstance(
-      this._appId,
-      this._keyValueStore,
-      this._pinpointClient,
-      DeviceContextInfo? deviceContextInfo,
-      this._globalFieldsManager) {
-    _endpointBuilder = PublicEndpointBuilder();
-
-    _endpointBuilder.effectiveDate = DateTime.now().toUtc().toIso8601String();
-    _endpointBuilder.demographic = EndpointDemographicBuilder()
-      ..appVersion = deviceContextInfo?.appVersion
-      ..locale = deviceContextInfo?.locale
-      ..make = deviceContextInfo?.make
-      ..model = deviceContextInfo?.model
-      ..modelVersion = deviceContextInfo?.modelVersion
-      ..platform = deviceContextInfo?.platform?.name
-      ..platformVersion = deviceContextInfo?.platformVersion
-      ..timezone = deviceContextInfo?.timezone;
-    _endpointBuilder.location = EndpointLocationBuilder()
-      ..country = deviceContextInfo?.countryCode;
-    _endpointBuilder.requestId = _keyValueStore.getFixedEndpointId();
-  }
+  PublicEndpointBuilder _endpointBuilder;
+  final EndpointGlobalFieldsManager _globalFieldsManager;
 
   static Future<EndpointClient> getInstance(
       String appId,
@@ -62,9 +39,39 @@ class EndpointClient {
       DeviceContextInfo? deviceContextInfo) async {
     final globalFieldsManager =
         await EndpointGlobalFieldsManager.getInstance(keyValueStore);
-    return EndpointClient._getInstance(appId, keyValueStore, pinpointClient,
-        deviceContextInfo, globalFieldsManager);
+
+    final endpointBuilder = PublicEndpointBuilder();
+
+    endpointBuilder.effectiveDate = DateTime.now().toUtc().toIso8601String();
+    endpointBuilder.demographic = EndpointDemographicBuilder()
+      ..appVersion = deviceContextInfo?.appVersion
+      ..locale = deviceContextInfo?.locale
+      ..make = deviceContextInfo?.make
+      ..model = deviceContextInfo?.model
+      ..modelVersion = deviceContextInfo?.modelVersion
+      ..platform = deviceContextInfo?.platform?.name
+      ..platformVersion = deviceContextInfo?.platformVersion
+      ..timezone = deviceContextInfo?.timezone;
+    endpointBuilder.location = EndpointLocationBuilder()
+      ..country = deviceContextInfo?.countryCode;
+    endpointBuilder.requestId = keyValueStore.getFixedEndpointId();
+
+    return EndpointClient._(
+      appId,
+      keyValueStore,
+      pinpointClient,
+      globalFieldsManager,
+      endpointBuilder,
+    );
   }
+
+  EndpointClient._(
+    this._appId,
+    this._keyValueStore,
+    this._pinpointClient,
+    this._globalFieldsManager,
+    this._endpointBuilder,
+  );
 
   void addAttribute(String name, List<String> values) =>
       _globalFieldsManager.addAttribute(name, values);

@@ -24,15 +24,15 @@ import 'package:amplify_core/amplify_core.dart';
 /// These values are sent with every new Event
 /// For more details see Pinpoint Event online spec: https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-events.html
 class EventGlobalFieldsManager {
-  late final Map<String, String> _globalAttributes;
-  late final Map<String, double> _globalMetrics;
+  final Map<String, String> _globalAttributes;
+  final Map<String, double> _globalMetrics;
 
   UnmodifiableMapView<String, String> get globalAttributes =>
       UnmodifiableMapView(_globalAttributes);
   UnmodifiableMapView<String, double> get globalMetrics =>
       UnmodifiableMapView(_globalMetrics);
 
-  late final KeyValueStore _keyValueStore;
+  final KeyValueStore _keyValueStore;
 
   EventGlobalFieldsManager._getInstance(
       this._keyValueStore, this._globalAttributes, this._globalMetrics);

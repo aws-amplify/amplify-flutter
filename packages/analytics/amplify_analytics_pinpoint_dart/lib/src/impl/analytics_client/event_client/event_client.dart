@@ -30,20 +30,22 @@ import 'events_storage_adapter.dart';
 /// Uses [PinpointClient] to flush analytics events to AWS Pinpoint
 /// For more details see Pinpoint Event online spec: https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-events.html
 class EventClient {
-  late final EventStorageAdapter _storageAdapter;
+  final EventStorageAdapter _storageAdapter;
 
   final String _appId;
   final PinpointClient _pinpointClient;
   final EndpointClient _endpointClient;
   final KeyValueStore _keyValueStore;
-  final CachedEventsPathProvider? _pathProvider;
 
   final _uuid = const Uuid();
 
-  EventClient(this._appId, this._keyValueStore, this._endpointClient,
-      this._pinpointClient, this._pathProvider) {
-    _storageAdapter = EventStorageAdapter(_pathProvider);
-  }
+  EventClient(
+    this._appId,
+    this._keyValueStore,
+    this._endpointClient,
+    this._pinpointClient,
+    CachedEventsPathProvider? _pathProvider,
+  ) : _storageAdapter = EventStorageAdapter(_pathProvider);
 
   /// Received events are NEVER sent immediately but cached to be sent in a batch
   void recordEvent(Event event) {

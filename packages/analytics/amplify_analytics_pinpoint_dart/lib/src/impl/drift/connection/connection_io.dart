@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:drift/drift.dart';
 
 import 'dart:io';
@@ -34,7 +35,14 @@ import 'package:path/path.dart' as p;
 /// hood.
 DatabaseConnection connect(CachedEventsPathProvider? pathProvider) {
   return DatabaseConnection.delayed(Future.sync(() async {
-    final String dir = await pathProvider!.getApplicationSupportPath();
+    String dir = '';
+    if (pathProvider == null) {
+      safePrint(
+          'No pathProvider provided for non web platform.  Analytics events might not be cached properly');
+    } else {
+      dir = await pathProvider.getApplicationSupportPath();
+    }
+
     final dbPath = p.join(dir, 'amplify_flutter_analytics.sqlite');
 
     final receiveDriftIsolate = ReceivePort();

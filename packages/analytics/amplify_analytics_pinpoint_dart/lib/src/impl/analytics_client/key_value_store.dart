@@ -30,35 +30,34 @@ class KeyValueStore {
 
   static const String endpointGlobalMetricsKey = 'EndpointGlobalMetricsKey';
 
-  late SecureStorageInterface _storage;
+  final SecureStorageInterface _storage;
 
-  late String uniqueId;
+  final String uniqueId;
 
-  KeyValueStore._getInstance(SecureStorageInterface? storage) {
+  static Future<KeyValueStore> getInstance(
+    SecureStorageInterface? storage,
+  ) async {
+    // Initialize storage component
     if (storage == null) {
-      _storage = AmplifySecureStorageWorker(
+      storage = AmplifySecureStorageWorker(
           config: AmplifySecureStorageConfig(
         scope: 'analytics',
       ));
     } else {
-      _storage = storage;
+      storage = storage;
     }
-  }
-
-  static Future<KeyValueStore> getInstance(
-      SecureStorageInterface? storage) async {
-    final instance = KeyValueStore._getInstance(storage);
 
     // Retrieve Unique ID
-    var storedUniqueId = await instance._storage.read(key: uniqueIdKey);
+    var storedUniqueId = await storage.read(key: uniqueIdKey);
     if (storedUniqueId == null) {
       storedUniqueId = const Uuid().v1();
-      await instance._storage.write(key: uniqueIdKey, value: storedUniqueId);
+      await storage.write(key: uniqueIdKey, value: storedUniqueId);
     }
-    instance.uniqueId = storedUniqueId;
 
-    return instance;
+    return KeyValueStore._(storedUniqueId, storage);
   }
+
+  KeyValueStore._(this.uniqueId, this._storage);
 
   Future<void> saveJson(String key, String json) async {
     await _storage.write(key: key, value: json);

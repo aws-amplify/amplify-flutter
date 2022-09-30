@@ -26,8 +26,8 @@ import 'package:built_value/serializer.dart';
 /// Present interface for saving/retrieving PinpointEvents
 class EventStorageAdapter {
   /// Underlying drift database used to store Events
-  late final DriftDatabaseJsonStrings _db;
-  late final Serializers _serializers;
+  final DriftDatabaseJsonStrings _db;
+  final Serializers _serializers;
 
   /// Pinpoint max event size
   static const int _maxEventKbSize = 1000;
@@ -35,10 +35,8 @@ class EventStorageAdapter {
   /// Pinpoint max events per event flush batch
   static const int _maxEventsInBatch = 100;
 
-  final CachedEventsPathProvider? _pathProvider;
-
-  EventStorageAdapter(this._pathProvider) {
-    _db = DriftDatabaseJsonStrings(_pathProvider);
+  factory EventStorageAdapter(CachedEventsPathProvider? pathProvider) {
+    final db = DriftDatabaseJsonStrings(pathProvider);
 
     // Create Serializer
     // jsonDecode JsonString -> Map
@@ -47,8 +45,12 @@ class EventStorageAdapter {
     for (final entry in builderFactories.entries) {
       serializerBuilder.addBuilderFactory(entry.key, entry.value);
     }
-    _serializers = serializerBuilder.build();
+    final builtSerializers = serializerBuilder.build();
+
+    return EventStorageAdapter._(db, builtSerializers);
   }
+
+  EventStorageAdapter._(this._db, this._serializers);
 
   /// Serialize and save Event to device storage
   Future<void> saveEvent(Event event) async {

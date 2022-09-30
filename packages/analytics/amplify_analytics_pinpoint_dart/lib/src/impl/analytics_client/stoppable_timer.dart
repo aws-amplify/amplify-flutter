@@ -17,14 +17,17 @@ import 'dart:async';
 /// Used for auto flush of events
 /// Timer must be stoppable to support the public API's [disable] method
 class StoppableTimer {
-  late Timer _timer;
+  Timer _timer;
 
   final Duration _duration;
   final Function _function;
 
-  StoppableTimer(this._duration, this._function) {
-    _timer = Timer.periodic(_duration, (Timer t) => _function);
-  }
+  StoppableTimer({
+    required Duration duration,
+    required Function function,
+  })  : _duration = duration,
+        _function = function,
+        _timer = Timer.periodic(duration, (Timer t) => function);
 
   void start() {
     if (_timer.isActive) return;

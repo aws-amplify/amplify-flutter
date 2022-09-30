@@ -27,8 +27,8 @@ class EndpointGlobalFieldsManager {
   final int _maxAttributes = 20;
   final int _maxAttributeValueLength = 100;
 
-  late final Map<String, List<String>> _globalAttributes;
-  late final Map<String, double> _globalMetrics;
+  final Map<String, List<String>> _globalAttributes;
+  final Map<String, double> _globalMetrics;
 
   UnmodifiableMapView<String, List<String>> get globalAttributes =>
       UnmodifiableMapView(_globalAttributes);
@@ -36,7 +36,7 @@ class EndpointGlobalFieldsManager {
       UnmodifiableMapView(_globalMetrics);
 
   // External dependencies
-  late final KeyValueStore _keyValueStore;
+  final KeyValueStore _keyValueStore;
 
   EndpointGlobalFieldsManager._getInstance(
       this._keyValueStore, this._globalAttributes, this._globalMetrics);
