@@ -23,6 +23,8 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:aws_common/testing.dart';
 import 'package:collection/collection.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'test_data/fake_amplify_configuration.dart';
@@ -99,6 +101,12 @@ const _expectedAuthErrorResponseBody = {
 };
 
 final mockHttpClient = MockAWSHttpClient((request) async {
+  if (request.uri.path == '/ping') {
+    return AWSHttpResponse(
+      statusCode: 200,
+      body: utf8.encode('healthy'),
+    );
+  }
   if (request.headers[xApiKey] != 'abc123' &&
       request.headers[AWSHeaders.authorization] == testFunctionToken) {
     // Not authorized w API key but has lambda auth token, mock that auth mode
@@ -138,6 +146,12 @@ final mockHttpClient = MockAWSHttpClient((request) async {
   );
 });
 
+final mockWebSocketConnection = MockWebSocketConnection(
+  testApiKeyConfig,
+  getTestAuthProviderRepo(),
+  logger: AmplifyLogger(),
+);
+
 class MockAmplifyAPI extends AmplifyAPIDart {
   MockAmplifyAPI({
     super.authProviders,
@@ -146,8 +160,9 @@ class MockAmplifyAPI extends AmplifyAPIDart {
   });
 
   @override
-  WebSocketConnection getWebSocketConnection({String? apiName}) =>
-      MockWebSocketConnection(testApiKeyConfig, getTestAuthProviderRepo());
+  WebSocketConnection getWebSocketConnection({String? apiName}) {
+    return mockWebSocketConnection;
+  }
 }
 
 void main() {
@@ -232,33 +247,6 @@ void main() {
       expect(res.data, equals(expected));
       expect(res.errors, equals(null));
     });
-
-    test('subscribe() should return a subscription stream', () async {
-      final establishedCompleter = Completer<void>();
-      final dataCompleter = Completer<String>();
-      const graphQLDocument = '''subscription MySubscription {
-        onCreateBlog {
-          id
-          name
-          createdAt
-        }
-      }''';
-      final subscriptionRequest =
-          GraphQLRequest<String>(document: graphQLDocument);
-      final subscription = Amplify.API.subscribe(
-        subscriptionRequest,
-        onEstablished: establishedCompleter.complete,
-      );
-
-      final streamSub = subscription.listen(
-        (event) => dataCompleter.complete(event.data),
-      );
-      await expectLater(establishedCompleter.future, completes);
-
-      final subscriptionData = await dataCompleter.future;
-      expect(subscriptionData, json.encode(mockSubscriptionData));
-      await streamSub.cancel();
-    });
   });
   group('Model Helpers', () {
     const blogSelectionSet =
@@ -284,6 +272,22 @@ void main() {
       expect(res.data?.id, _modelQueryId);
       expect(res.errors, equals(null));
     });
+  });
+
+  group('Subscriptions', () {
+    setUp(() {
+      final fakePlatform = MockConnectivityPlatform();
+      ConnectivityPlatform.instance = fakePlatform;
+      final connectivity = Connectivity();
+
+      WebSocketConnection.httpClientOverride = mockHttpClient;
+      WebSocketConnection.connectivityOverride = connectivity;
+      WebSocketConnection.webSocketFactoryOverride = getMockWebSocketChannel;
+    });
+
+    tearDown(() async {
+      mockWebSocketConnection.close();
+    });
 
     test('subscribe() should decode model data', () async {
       final establishedCompleter = Completer<void>();
@@ -292,15 +296,72 @@ void main() {
         subscriptionRequest,
         onEstablished: establishedCompleter.complete,
       );
+      await assertWebSocketConnected(
+        mockWebSocketConnection,
+        subscriptionRequest.id,
+      );
+
       await establishedCompleter.future;
 
       late StreamSubscription<GraphQLResponse<Post>> streamSub;
       streamSub = subscription.listen(
         expectAsync1((event) {
           expect(event.data, isA<Post>());
-          streamSub.cancel();
         }),
       );
+
+      final mockSubscriptionEvent = {
+        'id': subscriptionRequest.id,
+        'type': 'data',
+        'payload': {'data': mockSubscriptionData},
+      };
+
+      mockWebSocketConnection.channel!.sink
+          .add(jsonEncode(mockSubscriptionEvent));
+
+      addTearDown(streamSub.cancel);
+    });
+
+    test('subscribe() should return a subscription stream', () async {
+      final establishedCompleter = Completer<void>();
+      final dataCompleter = Completer<String>();
+      const graphQLDocument = '''subscription MySubscription {
+        onCreateBlog {
+          id
+          name
+          createdAt
+        }
+      }''';
+      final subscriptionRequest =
+          GraphQLRequest<String>(document: graphQLDocument);
+      final subscription = Amplify.API.subscribe(
+        subscriptionRequest,
+        onEstablished: establishedCompleter.complete,
+      );
+
+      await assertWebSocketConnected(
+        mockWebSocketConnection,
+        subscriptionRequest.id,
+      );
+
+      final streamSub = subscription.listen(
+        (event) => dataCompleter.complete(event.data),
+      );
+      await expectLater(establishedCompleter.future, completes);
+
+      final mockSubscriptionEvent = {
+        'id': subscriptionRequest.id,
+        'type': 'data',
+        'payload': {'data': mockSubscriptionData},
+      };
+
+      mockWebSocketConnection.channel!.sink
+          .add(jsonEncode(mockSubscriptionEvent));
+
+      final subscriptionData = await dataCompleter.future;
+      expect(subscriptionData, json.encode(mockSubscriptionData));
+
+      addTearDown(streamSub.cancel);
     });
   });
 
