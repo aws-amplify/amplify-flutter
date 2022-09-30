@@ -85,6 +85,10 @@ class AmplifyHubImpl extends AmplifyHub {
     Future.wait<void>([
       for (final stream in _availableStreams.values) stream.close(),
     ]).ignore();
+    Future.wait<void>([
+      for (final subs in _subscriptions.values)
+        for (final sub in subs) sub.cancel()
+    ]).ignore();
     _availableStreams.clear();
     _subscriptions.clear();
   }
