@@ -436,31 +436,5 @@ void main() {
       await operation.operation.valueOrCancellation();
       expect(operation.operation.isCanceled, isTrue);
     });
-
-    test('stream should emit response with error when subscription fails',
-        () async {
-      const document = '''subscription MyInvalidSubscription {
-            onCreateInvalidBlog {
-              id
-              name
-              createdAt
-            }
-          }''';
-      final subscriptionRequest = GraphQLRequest<String>(document: document);
-      final stream = Amplify.API.subscribe(subscriptionRequest);
-
-      await expectLater(
-        stream,
-        emits(
-          predicate<GraphQLResponse<String>>(
-            (GraphQLResponse<String> response) =>
-                response.hasErrors && response.data == null,
-            'Has GraphQL Errors',
-          ),
-        ),
-      );
-      // cleanup
-      await stream.listen((_) {}).cancel();
-    });
   });
 }
