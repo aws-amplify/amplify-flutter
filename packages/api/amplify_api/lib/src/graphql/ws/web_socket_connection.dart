@@ -27,7 +27,7 @@ import 'package:web_socket_channel/status.dart' as status;
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 /// 1001, going away
-const _defaultCloseStatus = status.goingAway;
+const _defaultCloseStatus = status.normalClosure;
 const Duration _defaultPingInterval = Duration(seconds: 30);
 const Duration _defaultRetryTimeout = Duration(seconds: 5);
 
@@ -475,7 +475,7 @@ class WebSocketConnection implements Closeable {
     _logger.info('Attempting to cancel Operation $subscriptionId');
     send(WebSocketStopMessage(id: subscriptionId));
     _subscriptionRequests.removeWhere((r) => r.id == subscriptionId);
-    if (_subscriptionRequests.isEmpty) close(status.normalClosure);
+    if (_subscriptionRequests.isEmpty) close();
   }
 
   /// Serializes a message as JSON string and sends over WebSocket _channel.

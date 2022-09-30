@@ -224,7 +224,7 @@ class MockWebSocketChannel extends WebSocketChannel {
       StreamChannel(const Stream.empty(), NullStreamSink());
 
   @override
-  Stream<dynamic> get stream => StreamView(controller.stream);
+  Stream<dynamic> get stream => controller.stream;
 
   @override
   WebSocketSink get sink => MockWebSocketSink(controller.sink);

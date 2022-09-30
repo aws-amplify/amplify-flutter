@@ -62,11 +62,11 @@ class _MyAppState extends State<MyApp> {
 
     Amplify.Hub.listen(
       HubChannel.Api,
-      ((ApiHubEvent event) {
+      (ApiHubEvent event) {
         if (event is SubscriptionHubEvent) {
           safePrint(event);
         }
-      }),
+      },
     );
   }
 
