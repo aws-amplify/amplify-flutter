@@ -376,12 +376,12 @@ void main({bool useExistingTestUser = false}) {
             (WidgetTester tester) async {
           // Create a subscription we will ignore to keep the connection open after
           // canceling a failed subscription.
-          final fistSubscriptionCompleter = Completer<void>();
+          final firstSubscriptionCompleter = Completer<void>();
           final firstStream = Amplify.API.subscribe(
             ModelSubscriptions.onCreate(Blog.classType),
-            onEstablished: fistSubscriptionCompleter.complete,
+            onEstablished: firstSubscriptionCompleter.complete,
           );
-          await fistSubscriptionCompleter.future;
+          await firstSubscriptionCompleter.future;
 
           // Then create a 2nd subscription with an error
           const document = '''subscription MyInvalidSubscription {
