@@ -33,11 +33,13 @@ abstract class AmplifyAPI extends APIPluginInterface {
     List<APIAuthProvider> authProviders = const [],
     AWSHttpClient? baseHttpClient,
     ModelProviderInterface? modelProvider,
+    GraphQLSubscriptionOptions? subscriptionOptions,
   }) =>
       AmplifyAPIDart(
         authProviders: authProviders,
         baseHttpClient: baseHttpClient,
         modelProvider: modelProvider,
+        subscriptionOptions: subscriptionOptions,
       );
 
   /// Protected constructor for subclasses.
