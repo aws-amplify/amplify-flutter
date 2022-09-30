@@ -219,8 +219,15 @@ class WebSocketConnection implements Closeable {
           break;
         case ConnectivityResult.none:
           _hasNetwork = false;
-          _hasConnectionBroken = true;
-          _hubEventsController.add(SubscriptionHubEvent.connecting());
+          // Only consider the connection broken if already established.
+          // Should be noted there is an issue with ios where ConnectivityResult
+          // is `none` despite a valid connection. Relevant issues are:
+          // https://github.com/fluttercommunity/plus_plugins/issues/852
+          // https://github.com/fluttercommunity/plus_plugins/issues/858
+          if (_connectionReady.isCompleted) {
+            _hasConnectionBroken = true;
+            _hubEventsController.add(SubscriptionHubEvent.connecting());
+          }
           break;
         default:
           break;
