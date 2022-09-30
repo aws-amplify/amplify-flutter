@@ -24,7 +24,6 @@ import android.net.Uri
 import android.os.Build
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsService.ACTION_CUSTOM_TABS_CONNECTION
-import com.amazonaws.amplify.amplify_auth_cognito.pigeons.NativeAuthPluginBindings
 import com.amplifyframework.auth.AuthUser
 import com.amplifyframework.core.Amplify
 import io.flutter.Log
@@ -44,7 +43,7 @@ open class AuthCognito :
     ActivityAware,
     PluginRegistry.NewIntentListener,
     PluginRegistry.ActivityResultListener,
-    NativeAuthPluginBindings.NativeAuthBridge {
+    NativeAuthPluginBindingsPigeon.NativeAuthBridge {
     private companion object {
         const val TAG = "AmplifyHostedUiPlugin"
 
@@ -77,17 +76,17 @@ open class AuthCognito :
     /**
      * The pending sign in result.
      */
-    private var signInResult: NativeAuthPluginBindings.Result<MutableMap<String, String>>? = null
+    private var signInResult: NativeAuthPluginBindingsPigeon.Result<MutableMap<String, String>>? = null
 
     /**
      * The pending sign out result.
      */
-    private var signOutResult: NativeAuthPluginBindings.Result<Void>? = null
+    private var signOutResult: NativeAuthPluginBindingsPigeon.Result<Void>? = null
 
     /**
      * The plugin used to communicate with Dart.
      */
-    private var nativePlugin: NativeAuthPluginBindings.NativeAuthPlugin? = null
+    private var nativePlugin: NativeAuthPluginBindingsPigeon.NativeAuthPlugin? = null
 
     /**
      * The local cache of the current Dart user.
@@ -128,8 +127,8 @@ open class AuthCognito :
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         applicationContext = binding.applicationContext
-        nativePlugin = NativeAuthPluginBindings.NativeAuthPlugin(binding.binaryMessenger)
-        NativeAuthPluginBindings.NativeAuthBridge.setup(
+        nativePlugin = NativeAuthPluginBindingsPigeon.NativeAuthPlugin(binding.binaryMessenger)
+        NativeAuthPluginBindingsPigeon.NativeAuthBridge.setup(
             binding.binaryMessenger,
             this,
         )
@@ -139,7 +138,7 @@ open class AuthCognito :
         applicationContext = null
         cancelCurrentOperation()
         nativePlugin = null
-        NativeAuthPluginBindings.NativeAuthBridge.setup(
+        NativeAuthPluginBindingsPigeon.NativeAuthBridge.setup(
             binding.binaryMessenger,
             null,
         )
@@ -176,7 +175,7 @@ open class AuthCognito :
         mainActivity = null
     }
 
-    override fun addPlugin(result: NativeAuthPluginBindings.Result<Void>) {
+    override fun addPlugin(result: NativeAuthPluginBindingsPigeon.Result<Void>) {
         if (initialParameters != null) {
             nativePlugin!!.exchange(initialParameters!!) {}
             initialParameters = null
@@ -201,7 +200,7 @@ open class AuthCognito :
     /**
      * Updates the local cache of the Dart user.
      */
-    override fun updateCurrentUser(user: NativeAuthPluginBindings.NativeAuthUser?) {
+    override fun updateCurrentUser(user: NativeAuthPluginBindingsPigeon.NativeAuthUser?) {
         currentUser = if (user != null) {
             AuthUser(user.userId, user.username)
         } else {
@@ -216,8 +215,8 @@ open class AuthCognito :
      *  - https://github.com/aws-amplify/aws-sdk-android/blob/main/aws-android-sdk-core/src/main/java/com/amazonaws/auth/CognitoCachingCredentialsProvider.java
      *  - https://github.com/aws-amplify/aws-sdk-android/blob/main/aws-android-sdk-cognitoauth/src/main/java/com/amazonaws/mobileconnectors/cognitoauth/util/ClientConstants.java
      */
-    override fun getLegacyCredentials(identityPoolId: String?, appClientId: String?, result: NativeAuthPluginBindings.Result<NativeAuthPluginBindings.LegacyCredentialStoreData>) {
-        var data = NativeAuthPluginBindings.LegacyCredentialStoreData.Builder()
+    override fun getLegacyCredentials(identityPoolId: String?, appClientId: String?, result: NativeAuthPluginBindingsPigeon.Result<NativeAuthPluginBindingsPigeon.LegacyCredentialStoreData>) {
+        var data = NativeAuthPluginBindingsPigeon.LegacyCredentialStoreData.Builder()
 
         if (appClientId != null) {
             val lastAuthUser = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.LastAuthUser"]
@@ -248,7 +247,7 @@ open class AuthCognito :
     /**
      * Clears the legacy credentials set by the Android SDK
      */
-    override fun clearLegacyCredentials(result: NativeAuthPluginBindings.Result<Void>) {
+    override fun clearLegacyCredentials(result: NativeAuthPluginBindingsPigeon.Result<Void>) {
         legacyUserPoolStore.clear()
         legacyIdentityStore.clear()
         result.success(null)
@@ -365,7 +364,7 @@ open class AuthCognito :
         callbackUrlScheme: String,
         preferPrivateSession: Boolean,
         browserPackageName: String?,
-        unsafeResult: NativeAuthPluginBindings.Result<MutableMap<String, String>>
+        unsafeResult: NativeAuthPluginBindingsPigeon.Result<MutableMap<String, String>>
     ) {
         val result = AtomicResult(unsafeResult, "signIn")
         try {
@@ -384,7 +383,7 @@ open class AuthCognito :
         callbackUrlScheme: String,
         preferPrivateSession: Boolean,
         browserPackageName: String?,
-        unsafeResult: NativeAuthPluginBindings.Result<Void>
+        unsafeResult: NativeAuthPluginBindingsPigeon.Result<Void>
     ) {
         val result = AtomicResult(unsafeResult, "signOut")
         try {
