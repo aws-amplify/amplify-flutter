@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
 import 'dart:math';
 
 import 'package:amplify_core/amplify_core.dart' hide PaginatedResult;
@@ -23,6 +24,10 @@ import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart' as smithy;
 import 'package:smithy_aws/smithy_aws.dart';
+
+/// Zone value symbol for testing.
+@visibleForTesting
+const testDateTimeNowOverride = #_testDateTimeNowOverride;
 
 /// {@template amplify_storage_s3.storage_s3_service}
 /// This is a wrapper implementation over Smithy S3Client as a glue layer
@@ -180,6 +185,9 @@ class StorageS3Service {
         expiresIn: options.expiresIn,
         serviceConfiguration: _defaultS3SignerConfiguration,
       ),
+      expiresAt:
+          (Zone.current[testDateTimeNowOverride] as DateTime? ?? DateTime.now())
+              .add(options.expiresIn),
     );
   }
 

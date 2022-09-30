@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
 import 'package:amplify_core/amplify_core.dart' hide PaginatedResult;
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart';
@@ -319,6 +321,7 @@ void main() {
         path: 'album/1.jpg',
         scheme: 'https',
       );
+      final testBaseDateTime = DateTime(2022, 09, 30);
 
       setUpAll(() {
         registerFallbackValue(
@@ -337,67 +340,75 @@ void main() {
         );
       });
 
-      test('should invoke AWSSigV4Signer.presign with correct parameters',
+      test('should invoke AWSSigV4Signer.presign with correct parameters', () {
+        runZoned(
           () async {
-        const testTargetIdentityId = 'someone-else-id';
-        const testOptions = S3StorageGetUrlOptions.forIdentity(
-          testTargetIdentityId,
-          expiresIn: testExpiresIn,
+            const testTargetIdentityId = 'someone-else-id';
+            const testOptions = S3StorageGetUrlOptions.forIdentity(
+              testTargetIdentityId,
+              expiresIn: testExpiresIn,
+            );
+
+            when(
+              () => awsSigV4Signer.presign(
+                any(),
+                credentialScope: any(named: 'credentialScope'),
+                serviceConfiguration: any(named: 'serviceConfiguration'),
+                expiresIn: any(named: 'expiresIn'),
+              ),
+            ).thenAnswer((_) async => testUrl);
+
+            getUrlResult = await storageS3Service.getUrl(
+              key: testKey,
+              options: testOptions,
+            );
+
+            final capturedParams = verify(
+              () => awsSigV4Signer.presign(
+                captureAny<AWSHttpRequest>(),
+                credentialScope:
+                    captureAny<AWSCredentialScope>(named: 'credentialScope'),
+                expiresIn: captureAny<Duration>(named: 'expiresIn'),
+                serviceConfiguration: captureAny<S3ServiceConfiguration>(
+                  named: 'serviceConfiguration',
+                ),
+              ),
+            ).captured;
+
+            expect(capturedParams.first is AWSHttpRequest, isTrue);
+            final requestParam = capturedParams.first as AWSHttpRequest;
+            expect(
+              requestParam.uri.toString(),
+              endsWith(
+                Uri.encodeComponent('${await testPrefixResolver.resolvePrefix(
+                  storageAccessLevel: testOptions.storageAccessLevel,
+                  identityId: testTargetIdentityId,
+                )}$testKey'),
+              ),
+            );
+
+            expect(capturedParams[1] is AWSCredentialScope, isTrue);
+            final credentialScopeParam =
+                capturedParams[1] as AWSCredentialScope;
+            expect(credentialScopeParam.region, testRegion);
+            expect(credentialScopeParam.service, AWSService.s3.service);
+
+            expect(capturedParams[2] is S3ServiceConfiguration, isTrue);
+            final configParam = capturedParams[2] as S3ServiceConfiguration;
+            expect(configParam.signPayload, true);
+            expect(configParam.chunked, false);
+
+            expect(capturedParams.last, testExpiresIn);
+          },
+          zoneValues: {
+            testDateTimeNowOverride: testBaseDateTime,
+          },
         );
-
-        when(
-          () => awsSigV4Signer.presign(
-            any(),
-            credentialScope: any(named: 'credentialScope'),
-            serviceConfiguration: any(named: 'serviceConfiguration'),
-            expiresIn: any(named: 'expiresIn'),
-          ),
-        ).thenAnswer((_) async => testUrl);
-
-        getUrlResult = await storageS3Service.getUrl(
-          key: testKey,
-          options: testOptions,
-        );
-
-        final capturedParams = verify(
-          () => awsSigV4Signer.presign(
-            captureAny<AWSHttpRequest>(),
-            credentialScope:
-                captureAny<AWSCredentialScope>(named: 'credentialScope'),
-            expiresIn: captureAny<Duration>(named: 'expiresIn'),
-            serviceConfiguration: captureAny<S3ServiceConfiguration>(
-              named: 'serviceConfiguration',
-            ),
-          ),
-        ).captured;
-
-        expect(capturedParams.first is AWSHttpRequest, isTrue);
-        final requestParam = capturedParams.first as AWSHttpRequest;
-        expect(
-          requestParam.uri.toString(),
-          endsWith(
-            Uri.encodeComponent('${await testPrefixResolver.resolvePrefix(
-              storageAccessLevel: testOptions.storageAccessLevel,
-              identityId: testTargetIdentityId,
-            )}$testKey'),
-          ),
-        );
-
-        expect(capturedParams[1] is AWSCredentialScope, isTrue);
-        final credentialScopeParam = capturedParams[1] as AWSCredentialScope;
-        expect(credentialScopeParam.region, testRegion);
-        expect(credentialScopeParam.service, AWSService.s3.service);
-
-        expect(capturedParams[2] is S3ServiceConfiguration, isTrue);
-        final configParam = capturedParams[2] as S3ServiceConfiguration;
-        expect(configParam.signPayload, true);
-        expect(configParam.chunked, false);
-
-        expect(capturedParams.last, testExpiresIn);
       });
 
       test('should return correct url result', () {
         expect(getUrlResult.url, testUrl);
+        expect(getUrlResult.expiresAt, testBaseDateTime.add(testExpiresIn));
       });
 
       test(
