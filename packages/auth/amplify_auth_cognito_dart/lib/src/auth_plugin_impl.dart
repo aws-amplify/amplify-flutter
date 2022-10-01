@@ -252,14 +252,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   }
 
   @override
-  Future<void> configure({
-    AmplifyConfig? config,
-    required AmplifyAuthProviderRepository authProviderRepo,
-  }) async {
-    if (config == null) {
-      throw const AuthException('No Cognito plugin config detected');
-    }
-
+  void initializeAuthProviderRepo(AmplifyAuthProviderRepository authProviderRepo) {
     // Register auth providers to provide auth functionality to other plugins
     // without requiring other plugins to call `Amplify.Auth...` directly.
     authProviderRepo
@@ -271,6 +264,16 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         APIAuthorizationType.userPools.authProviderToken,
         CognitoUserPoolsAuthProvider(),
       );
+  }
+
+  @override
+  Future<void> configure({
+    AmplifyConfig? config,
+    required AmplifyAuthProviderRepository authProviderRepo,
+  }) async {
+    if (config == null) {
+      throw const AuthException('No Cognito plugin config detected');
+    }
 
     if (_stateMachine.getOrCreate(AuthStateMachine.type).currentState.type !=
         AuthStateType.notConfigured) {

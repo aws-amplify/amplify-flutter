@@ -34,8 +34,8 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
     );
     await Future.wait(
       [
-        ...Auth.plugins,
         ...Analytics.plugins,
+        ...Auth.plugins,
       ].map((p) => p.configure(
           config: amplifyConfig, authProviderRepo: authProviderRepo)),
       eagerError: true,
@@ -57,7 +57,9 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
     }
     try {
       if (plugin is AuthPluginInterface) {
-        await Auth.addPlugin(plugin);
+        final future = Auth.addPlugin(plugin);
+        Auth.plugin.initializeAuthProviderRepo(authProviderRepo);
+        await future;
       } else if (plugin is AnalyticsPluginInterface) {
         await Analytics.addPlugin(plugin);
       } else if (plugin is StoragePluginInterface) {

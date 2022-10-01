@@ -38,7 +38,9 @@ class AmplifyClassImpl extends AmplifyClass {
       case Category.analytics:
         return Analytics.addPlugin(plugin.cast());
       case Category.auth:
-        return Auth.addPlugin(plugin.cast());
+        final future = Auth.addPlugin(plugin.cast());
+        Auth.plugin.initializeAuthProviderRepo(authProviderRepo);
+        return future;
       case Category.storage:
         return Storage.addPlugin(plugin.cast());
       case Category.api:
@@ -57,8 +59,8 @@ class AmplifyClassImpl extends AmplifyClass {
     );
     await Future.wait(
       [
-        ...Auth.plugins,
         ...Analytics.plugins,
+        ...Auth.plugins,
         ...API.plugins,
         ...DataStore.plugins,
         ...Storage.plugins,

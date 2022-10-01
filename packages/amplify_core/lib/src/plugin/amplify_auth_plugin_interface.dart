@@ -62,6 +62,12 @@ abstract class AuthPluginInterface<
   @nonVirtual
   Category get category => Category.auth;
 
+  void initializeAuthProviderRepo(
+      AmplifyAuthProviderRepository authProviderRepo) {
+    throw UnimplementedError(
+        'initializeAuthProviderRepo() has not been implemented');
+  }
+
   /// {@macro amplify_core.amplify_auth_category.sign_up}
   Future<PluginSignUpResult> signUp({
     required SignUpRequest<PluginSignUpOptions> request,
