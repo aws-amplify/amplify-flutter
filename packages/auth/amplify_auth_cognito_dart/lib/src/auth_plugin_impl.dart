@@ -52,6 +52,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
         VerifyUserAttributeRequest;
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
+import 'package:amplify_auth_cognito_dart/src/util/cognito_iam_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:built_collection/built_collection.dart';
@@ -250,10 +251,21 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   }
 
   @override
-  Future<void> configure({AmplifyConfig? config}) async {
+  Future<void> configure({
+    AmplifyConfig? config,
+    required AmplifyAuthProviderRepository authProviderRepo,
+  }) async {
     if (config == null) {
       throw const AuthException('No Cognito plugin config detected');
     }
+
+    // Register auth providers to provide auth functionality to other plugins
+    // without requiring other plugins to call `Amplify.Auth...` directly.
+    authProviderRepo.registerAuthProvider(
+      APIAuthorizationType.iam.authProviderToken,
+      const CognitoIamAuthProvider(),
+    );
+
     if (_stateMachine.getOrCreate(AuthStateMachine.type).currentState.type !=
         AuthStateType.notConfigured) {
       throw const AmplifyAlreadyConfiguredException(
