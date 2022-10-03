@@ -152,7 +152,9 @@ void main() {
   test('downloadFile request returns proper transfer events in the happy case',
       () async {
     setupTransferEventChannel();
-    await storage.addPlugin();
+    await storage.addPlugin(
+      authProviderRepo: AmplifyAuthProviderRepository(),
+    );
 
     await downloadTask("A");
   });
@@ -161,7 +163,9 @@ void main() {
       'multiple downloadFile request returns proper transfer events in the happy case',
       () async {
     setupTransferEventChannel();
-    await storage.addPlugin();
+    await storage.addPlugin(
+      authProviderRepo: AmplifyAuthProviderRepository(),
+    );
 
     Future task1 = downloadTask("A");
     Future task2 = downloadTask("B");
@@ -206,7 +210,9 @@ void main() {
   test('uploadFile request returns proper transfer events in the happy case',
       () async {
     setupTransferEventChannel();
-    await storage.addPlugin();
+    await storage.addPlugin(
+      authProviderRepo: AmplifyAuthProviderRepository(),
+    );
 
     await uploadTask("A");
   });
@@ -215,7 +221,9 @@ void main() {
       'multiple uploadFile request returns proper transfer events in the happy case',
       () async {
     setupTransferEventChannel();
-    await storage.addPlugin();
+    await storage.addPlugin(
+      authProviderRepo: AmplifyAuthProviderRepository(),
+    );
 
     Future task1 = uploadTask("A");
     Future task2 = uploadTask("B");

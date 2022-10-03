@@ -20,7 +20,6 @@ import 'package:amplify_auth_cognito_dart/src/util/cognito_iam_auth_provider.dar
 import 'package:amplify_core/amplify_core.dart';
 import 'package:test/test.dart';
 
-import '../common/mock_config.dart';
 import '../common/mock_secure_storage.dart';
 
 AWSHttpRequest _generateTestRequest() {
@@ -45,18 +44,14 @@ class TestAmplifyAuth extends AmplifyAuthCognitoDart {
 
 void main() {
   test(
-    'AmplifyAuthCognitoDart plugin registers auth providers '
-    'during configuration',
+    'AmplifyAuthCognitoDart plugin registers auth providers during addPlugin',
     () async {
       final plugin = AmplifyAuthCognitoDart(
         credentialStorage: MockSecureStorage(),
       );
 
       final testAuthRepo = AmplifyAuthProviderRepository();
-      await plugin.configure(
-        config: mockConfig,
-        authProviderRepo: testAuthRepo,
-      );
+      await plugin.addPlugin(authProviderRepo: testAuthRepo);
       final authProvider = testAuthRepo.getAuthProvider(
         APIAuthorizationType.iam.authProviderToken,
       );
