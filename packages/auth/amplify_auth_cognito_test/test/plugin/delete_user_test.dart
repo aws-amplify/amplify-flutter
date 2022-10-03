@@ -58,6 +58,8 @@ void main() {
   late StreamController<AuthHubEvent> hubEventsController;
   late Stream<AuthHubEvent> hubEvents;
 
+  final testAuthRepo = AmplifyAuthProviderRepository();
+
   final userDeletedEvent = isA<AuthHubEvent>().having(
     (event) => event.type,
     'type',
@@ -83,7 +85,10 @@ void main() {
 
     group('deleteUser', () {
       test('throws when signed out', () async {
-        await plugin.configure(config: mockConfig);
+        await plugin.configure(
+          config: mockConfig,
+          authProviderRepo: testAuthRepo,
+        );
         await expectLater(plugin.deleteUser(), throwsSignedOutException);
 
         expect(hubEvents, neverEmits(userDeletedEvent));
@@ -96,7 +101,10 @@ void main() {
           userPoolKeys: userPoolKeys,
           identityPoolKeys: identityPoolKeys,
         );
-        await plugin.configure(config: mockConfig);
+        await plugin.configure(
+          config: mockConfig,
+          authProviderRepo: testAuthRepo,
+        );
 
         final mockIdp = MockCognitoIdpClient(() async {});
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
@@ -113,7 +121,10 @@ void main() {
           userPoolKeys: userPoolKeys,
           identityPoolKeys: identityPoolKeys,
         );
-        await plugin.configure(config: mockConfig);
+        await plugin.configure(
+          config: mockConfig,
+          authProviderRepo: testAuthRepo,
+        );
 
         final mockIdp = MockCognitoIdpClient(() async {
           throw InternalErrorException();

@@ -69,6 +69,8 @@ void main() {
   late StreamController<AuthHubEvent> hubEventsController;
   late Stream<AuthHubEvent> hubEvents;
 
+  final testAuthRepo = AmplifyAuthProviderRepository();
+
   final emitsSignOutEvent = emitsThrough(
     isA<AuthHubEvent>().having(
       (event) => event.type,
@@ -112,14 +114,20 @@ void main() {
 
     group('signOut', () {
       test('completes when already signed out', () async {
-        await plugin.configure(config: mockConfig);
+        await plugin.configure(
+          config: mockConfig,
+          authProviderRepo: testAuthRepo,
+        );
         expect(plugin.signOut(), completes);
         expect(hubEvents, emitsSignOutEvent);
       });
 
       test('does not clear AWS creds when already signed out', () async {
         seedStorage(secureStorage, identityPoolKeys: identityPoolKeys);
-        await plugin.configure(config: mockConfig);
+        await plugin.configure(
+          config: mockConfig,
+          authProviderRepo: testAuthRepo,
+        );
         await expectLater(plugin.signOut(), completes);
         expect(hubEvents, emitsSignOutEvent);
 
@@ -144,7 +152,10 @@ void main() {
           userPoolKeys: userPoolKeys,
           identityPoolKeys: identityPoolKeys,
         );
-        await plugin.configure(config: mockConfig);
+        await plugin.configure(
+          config: mockConfig,
+          authProviderRepo: testAuthRepo,
+        );
 
         final mockIdp = MockCognitoIdpClient(
           globalSignOut: () async => GlobalSignOutResponse(),
@@ -165,7 +176,10 @@ void main() {
           userPoolKeys: userPoolKeys,
           identityPoolKeys: identityPoolKeys,
         );
-        await plugin.configure(config: mockConfig);
+        await plugin.configure(
+          config: mockConfig,
+          authProviderRepo: testAuthRepo,
+        );
 
         final mockIdp = MockCognitoIdpClient(
           globalSignOut:
@@ -194,7 +208,10 @@ void main() {
           userPoolKeys: userPoolKeys,
           identityPoolKeys: identityPoolKeys,
         );
-        await plugin.configure(config: mockConfig);
+        await plugin.configure(
+          config: mockConfig,
+          authProviderRepo: testAuthRepo,
+        );
 
         final mockIdp = MockCognitoIdpClient(
           globalSignOut: () async => GlobalSignOutResponse(),
@@ -217,7 +234,10 @@ void main() {
 
       test('can sign out in user pool-only mode', () async {
         seedStorage(secureStorage, userPoolKeys: userPoolKeys);
-        await plugin.configure(config: userPoolOnlyConfig);
+        await plugin.configure(
+          config: userPoolOnlyConfig,
+          authProviderRepo: testAuthRepo,
+        );
         expect(plugin.signOut(), completes);
       });
 
@@ -229,7 +249,10 @@ void main() {
             identityPoolKeys: identityPoolKeys,
             hostedUiKeys: hostedUiKeys,
           );
-          await plugin.configure(config: mockConfig);
+          await plugin.configure(
+            config: mockConfig,
+            authProviderRepo: testAuthRepo,
+          );
 
           final mockIdp = MockCognitoIdpClient(
             globalSignOut: () async => GlobalSignOutResponse(),
@@ -250,7 +273,10 @@ void main() {
             identityPoolKeys: identityPoolKeys,
             hostedUiKeys: hostedUiKeys,
           );
-          await plugin.configure(config: mockConfig);
+          await plugin.configure(
+            config: mockConfig,
+            authProviderRepo: testAuthRepo,
+          );
 
           final mockIdp = MockCognitoIdpClient(
             globalSignOut:
@@ -279,7 +305,10 @@ void main() {
             identityPoolKeys: identityPoolKeys,
             hostedUiKeys: hostedUiKeys,
           );
-          await plugin.configure(config: mockConfig);
+          await plugin.configure(
+            config: mockConfig,
+            authProviderRepo: testAuthRepo,
+          );
 
           final mockIdp = MockCognitoIdpClient(
             globalSignOut: () async => GlobalSignOutResponse(),
@@ -321,7 +350,10 @@ void main() {
             ),
             HostedUiPlatform.token,
           );
-          await plugin.configure(config: mockConfig);
+          await plugin.configure(
+            config: mockConfig,
+            authProviderRepo: testAuthRepo,
+          );
 
           await expectLater(plugin.getCredentials(), completes);
           await expectLater(
