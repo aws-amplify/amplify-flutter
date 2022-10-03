@@ -12,6 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_api/amplify_api.dart';
@@ -368,6 +369,52 @@ void main({bool useExistingTestUser = false}) {
           Post? postFromEvent = eventResponse.data;
 
           expect(postFromEvent?.title, equals(title));
+        });
+
+        testWidgets(
+            'stream should emit response with error when subscription fails',
+            (WidgetTester tester) async {
+          // Create a subscription we will ignore to keep the connection open after
+          // canceling a failed subscription.
+          final firstSubscriptionCompleter = Completer<void>();
+          final firstStream = Amplify.API.subscribe(
+            ModelSubscriptions.onCreate(Blog.classType),
+            onEstablished: firstSubscriptionCompleter.complete,
+          );
+          await firstSubscriptionCompleter.future;
+
+          // Then create a 2nd subscription with an error
+          const document = '''subscription MyInvalidSubscription {
+            onCreateInvalidBlog {
+              id
+              name
+              createdAt
+            }
+          }''';
+          final invalidSubscriptionRequest =
+              GraphQLRequest<String>(document: document);
+          final streamWithError =
+              Amplify.API.subscribe(invalidSubscriptionRequest,
+                  onEstablished: () => fail(
+                        'onEstablished should not be called during failed subscription',
+                      ));
+
+          expect(
+            streamWithError,
+            emits(predicate<GraphQLResponse<String>>(
+              (GraphQLResponse<String> response) =>
+                  response.hasErrors && response.data == null,
+              'Has GraphQL Errors',
+            )),
+          );
+          // Cancel subscription that had an error.
+          await streamWithError.listen(null).cancel();
+          // Give AppSync a few seconds to send an error, which happens when
+          // canceling a failed subscription and throws if not handled correctly.
+          // Needs to be on a canceled error subscription with an open connection.
+          await Future<void>.delayed(const Duration(seconds: 3));
+          // Cancel the first subscription, which will close the WebSocket connection.
+          await firstStream.listen(null).cancel();
         });
       },
     );
