@@ -17,6 +17,8 @@ dependencies:
     # The example app is bundled with the plugin so we use a path dependency on
     # the parent directory to use the current plugin's version.
     path: ../
+  amplify_api:
+    path: ../../../api/amplify_api
   amplify_auth_cognito:
     path: ../../../auth/amplify_auth_cognito
   amplify_flutter:
@@ -30,6 +32,8 @@ dev_dependencies:
   amplify_test:
     path: ../../../amplify_test
   flutter_test:
+    sdk: flutter
+  integration_test:
     sdk: flutter
 
 # For information on the generic Dart part of this file, see the
