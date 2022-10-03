@@ -97,7 +97,9 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   final ModelProviderInterface? modelProvider;
 
   @override
-  Future<void> addPlugin() async {
+  Future<void> addPlugin({
+    required AmplifyAuthProviderRepository authProviderRepo,
+  }) async {
     try {
       setupAuthProviders();
       await _channel.invokeMethod<void>('addPlugin', {

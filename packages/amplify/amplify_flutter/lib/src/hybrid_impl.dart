@@ -57,14 +57,26 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
     }
     try {
       if (plugin is AuthPluginInterface) {
-        await Auth.addPlugin(plugin);
+        await Auth.addPlugin(
+          plugin,
+          authProviderRepo: authProviderRepo,
+        );
       } else if (plugin is AnalyticsPluginInterface) {
-        await Analytics.addPlugin(plugin);
+        await Analytics.addPlugin(
+          plugin,
+          authProviderRepo: authProviderRepo,
+        );
       } else if (plugin is StoragePluginInterface) {
-        await Storage.addPlugin(plugin);
+        await Storage.addPlugin(
+          plugin,
+          authProviderRepo: authProviderRepo,
+        );
       } else if (plugin is DataStorePluginInterface) {
         try {
-          await DataStore.addPlugin(plugin);
+          await DataStore.addPlugin(
+            plugin,
+            authProviderRepo: authProviderRepo,
+          );
         } on AmplifyAlreadyConfiguredException {
           // A new plugin is added in native libraries during `addPlugin`
           // call for DataStore, which means during an app restart, this
@@ -76,7 +88,7 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
           plugin.streamController.stream,
         );
       } else if (plugin is APIPluginInterface) {
-        await API.addPlugin(plugin);
+        await API.addPlugin(plugin, authProviderRepo: authProviderRepo);
       } else {
         throw AmplifyException(
           'The type of plugin ${plugin.runtimeType} is not yet supported '

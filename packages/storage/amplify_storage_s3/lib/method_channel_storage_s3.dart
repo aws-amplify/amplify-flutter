@@ -35,7 +35,9 @@ class AmplifyStorageS3MethodChannel extends AmplifyStorageS3 {
   AmplifyStorageS3MethodChannel() : super.protected();
 
   @override
-  Future<void> addPlugin() async {
+  Future<void> addPlugin({
+    required AmplifyAuthProviderRepository authProviderRepo,
+  }) async {
     try {
       _transferProgressEventChannel.receiveBroadcastStream(0).listen((event) {
         var eventData = (event as Map).cast<String, dynamic>();

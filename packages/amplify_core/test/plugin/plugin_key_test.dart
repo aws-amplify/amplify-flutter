@@ -84,6 +84,7 @@ void main() {
     late MockCategory category;
     late IntMockPlugin intPlugin;
     late StringMockPlugin stringPlugin;
+    final authProviderRepo = AmplifyAuthProviderRepository();
 
     setUp(() {
       category = MockCategory();
@@ -92,8 +93,20 @@ void main() {
     });
 
     test('can register multiple plugins', () {
-      expect(category.addPlugin(intPlugin), completes);
-      expect(category.addPlugin(stringPlugin), completes);
+      expect(
+        category.addPlugin(
+          intPlugin,
+          authProviderRepo: authProviderRepo,
+        ),
+        completes,
+      );
+      expect(
+        category.addPlugin(
+          stringPlugin,
+          authProviderRepo: authProviderRepo,
+        ),
+        completes,
+      );
     });
 
     test('getting unregistered plugin throws', () async {
@@ -104,8 +117,14 @@ void main() {
     });
 
     test('getPlugin returns reified types', () async {
-      await category.addPlugin(intPlugin);
-      await category.addPlugin(stringPlugin);
+      await category.addPlugin(
+        intPlugin,
+        authProviderRepo: authProviderRepo,
+      );
+      await category.addPlugin(
+        stringPlugin,
+        authProviderRepo: authProviderRepo,
+      );
 
       final getIntPlugin = category.getPlugin(const IntMockPluginKey());
       final getStringPlugin = category.getPlugin(const StringMockPluginKey());

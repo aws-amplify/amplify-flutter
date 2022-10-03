@@ -92,7 +92,9 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
       AmplifyAuthCognito> pluginKey = _AmplifyAuthCognitoPluginKey();
 
   @override
-  Future<void> addPlugin() async {
+  Future<void> addPlugin({
+    required AmplifyAuthProviderRepository authProviderRepo,
+  }) async {
     if (zIsWeb || !(Platform.isAndroid || Platform.isIOS)) {
       return;
     }
