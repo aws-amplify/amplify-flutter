@@ -463,11 +463,17 @@ class WebSocketConnection implements Closeable {
           ),
         )
         .listen(
-          controller.add,
-          onError: controller.addError,
-          onDone: controller.close,
-          cancelOnError: true,
-        );
+      (response) {
+        // Check if closed to stop messages related to errors after cancel.
+        // e.g. Cancel a failed subscription, AppSync sends errors here.
+        if (!controller.isClosed) {
+          controller.add(response);
+        }
+      },
+      onError: controller.addError,
+      onDone: controller.close,
+      cancelOnError: true,
+    );
 
     _sendSubscriptionRegistrationMessage(request).catchError((Object e) {
       _logger.error(e.toString());
@@ -541,7 +547,12 @@ class WebSocketConnection implements Closeable {
           break;
         }
         final wsError = message.payload as WebSocketError;
-        rebroadcastController.addError(wsError);
+        rebroadcastController.addError(
+          ApiException(
+            'Error in GraphQL subscription.',
+            underlyingException: wsError,
+          ),
+        );
         return;
       default:
         break;

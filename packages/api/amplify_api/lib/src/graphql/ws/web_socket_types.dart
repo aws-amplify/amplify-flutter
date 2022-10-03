@@ -39,8 +39,8 @@ enum MessageType {
   @JsonValue('start_ack')
   startAck('start_ack'),
 
-  @JsonValue('connection_error')
-  error('connection_error'),
+  @JsonValue('error')
+  error('error'),
 
   @JsonValue('data')
   data('data'),
