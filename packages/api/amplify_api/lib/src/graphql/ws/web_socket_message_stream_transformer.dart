@@ -80,8 +80,12 @@ class WebSocketSubscriptionStreamTransformer<T>
 
           break;
         case MessageType.error:
-          final error = event.payload as WebSocketError;
-          throw error;
+          final wsError = event.payload as WebSocketError;
+          yield GraphQLResponseDecoder.instance.decode<T>(
+            request: request,
+            response: wsError.toJson(),
+          );
+          break;
         case MessageType.complete:
           logger.info('Cancel succeeded for Operation: ${event.id}');
           return;
