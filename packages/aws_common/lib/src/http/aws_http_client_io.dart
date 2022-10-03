@@ -148,12 +148,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
         },
       ),
     );
-    if (response.headers.contentLength >= 0 &&
-        !response.headers.chunkedTransferEncoding) {
-      completer.complete(streamedResponse.read());
-    } else {
-      completer.complete(streamedResponse);
-    }
+    completer.complete(streamedResponse);
   }
 
   // Copied from `dart:io`.
@@ -418,11 +413,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
 
     final response = await makeRequest(request.method, request.uri);
     if (response != null) {
-      if (response.headers.containsKey(AWSHeaders.contentLength)) {
-        completer.complete(response.read());
-      } else {
-        completer.complete(response);
-      }
+      completer.complete(response);
     }
   }
 

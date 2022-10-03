@@ -35,9 +35,7 @@ void main() {
     test('response with content length', () async {
       final request = AWSHttpRequest.get(createUri(''));
       final response = await client().send(request).response;
-      expect(response, isA<AWSHttpResponse>());
-      expect(response.decodeBody(), message);
-      expect(response.bodyBytes, message.codeUnits);
+      expect(await response.decodeBody(), message);
       expect(response.headers[AWSHeaders.contentLength], '${message.length}');
       expect(response.headers[AWSHeaders.contentType], 'text/plain');
     });
