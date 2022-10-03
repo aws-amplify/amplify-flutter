@@ -104,7 +104,7 @@ void main() {
         DateTime(0000, 01, 01, 00, 00, 00),
         DateTime(1970, 01, 01, 00, 00, 00),
         DateTime(2020, 01, 01, 00, 00, 00),
-        DateTime(2020, 01, 01, 23, 59, 59),
+        DateTime(2020, 01, 02, 23, 59, 59),
         DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
       var models = values
