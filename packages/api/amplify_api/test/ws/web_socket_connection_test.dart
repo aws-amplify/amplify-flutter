@@ -60,7 +60,17 @@ void main() {
     },
   };
 
+  var pleaseFail = false;
+  final pingFailed = Completer<void>();
+
   final mockClient = MockAWSHttpClient((request) async {
+    if (pleaseFail) {
+      pingFailed.complete();
+      return AWSHttpResponse(
+        statusCode: 400,
+        body: utf8.encode('unhealthy'),
+      );
+    }
     return AWSHttpResponse(
       statusCode: 200,
       body: utf8.encode('healthy'),
@@ -68,7 +78,8 @@ void main() {
   });
 
   MockWebSocketConnection getWebSocketConnection() {
-    const subscriptionOptions = GraphQLSubscriptionOptions();
+    const subscriptionOptions =
+        GraphQLSubscriptionOptions(pingInterval: Duration(seconds: 1));
 
     return connection = MockWebSocketConnection(
       testApiKeyConfig,
@@ -83,6 +94,7 @@ void main() {
       fakePlatform = MockConnectivityPlatform();
       ConnectivityPlatform.instance = fakePlatform;
       connectivity = Connectivity();
+      fakePlatform.controller.sink.add(ConnectivityResult.wifi);
 
       WebSocketConnection.httpClientOverride = mockClient;
       WebSocketConnection.connectivityOverride = connectivity;
@@ -137,42 +149,67 @@ void main() {
       addTearDown(streamSub.cancel);
     });
 
-    test(
-      'should reconnect when network turns on/off',
-      () async {
-        final dataCompleter = Completer<String>();
-        final subscription = getWebSocketConnection().subscribe(
-          subscriptionRequest,
-          () {},
-        );
+    test('should reconnect when network turns on/off', () async {
+      getWebSocketConnection().subscribe(
+        subscriptionRequest,
+        expectAsync0(() {}),
+      );
 
-        await assertWebSocketConnected(connection, subscriptionRequest.id);
+      expect(
+        hubEvents,
+        emitsInOrder(
+          [
+            connectingHubEvent,
+            connectedHubEvent,
+            connectingHubEvent,
+            connectedHubEvent,
+          ],
+        ),
+      );
 
-        final streamSub = subscription.listen(
-          expectAsync1(
-            (event) => dataCompleter.complete(event.data),
-          ),
-        );
+      await assertWebSocketConnected(connection, subscriptionRequest.id);
 
-        connection.channel!.sink.add(jsonEncode(mockSubscriptionEvent));
+      connection.channel!.sink.add(jsonEncode(mockSubscriptionEvent));
 
-        fakePlatform.controller.sink.add(ConnectivityResult.none);
+      fakePlatform.controller.sink.add(ConnectivityResult.none);
+      fakePlatform.controller.sink.add(ConnectivityResult.wifi);
 
-        expect(
-          hubEvents,
-          emitsInOrder(
-            [
-              connectingHubEvent,
-              connectedHubEvent,
-              connectingHubEvent,
-            ],
-          ),
-        );
+      await expectLater(connection.reconnectPending, completes);
 
-        addTearDown(streamSub.cancel);
-      },
-      skip: 'todo(equartey): Implement reconnection logic tests',
-    );
+      await assertWebSocketConnected(connection, subscriptionRequest.id);
+    });
+
+    test('should reconnect when appsync ping fails', () async {
+      getWebSocketConnection().subscribe(
+        subscriptionRequest,
+        expectAsync0(() {}),
+      );
+
+      expect(
+        hubEvents,
+        emitsInOrder(
+          [
+            connectingHubEvent,
+            connectedHubEvent,
+            connectingHubEvent,
+            connectedHubEvent,
+          ],
+        ),
+      );
+
+      await assertWebSocketConnected(connection, subscriptionRequest.id);
+      fakePlatform.controller.sink.add(ConnectivityResult.wifi);
+
+      pleaseFail = true;
+
+      await expectLater(pingFailed.future, completes);
+
+      pleaseFail = false;
+
+      await expectLater(connection.reconnectPending, completes);
+
+      await assertWebSocketConnected(connection, subscriptionRequest.id);
+    });
 
     test('cancel() should send a stop message', () async {
       final dataCompleter = Completer<String>();
