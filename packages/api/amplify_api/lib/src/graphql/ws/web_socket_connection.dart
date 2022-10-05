@@ -398,10 +398,10 @@ class WebSocketConnection implements Closeable {
   /// connection_ack message received from server. If the connection was previously
   /// established then will return previously completed future.
   Future<void> init() => _initMemo.runOnce(
-        (() {
+        () {
           _hubEventsController.add(SubscriptionHubEvent.connecting());
           _init();
-        }),
+        },
       );
 
   Future<void> _init() async {
