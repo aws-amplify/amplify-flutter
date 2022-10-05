@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_codegen/src/parser/field.dart';
+import 'package:amplify_codegen/src/helpers/field.dart';
 import 'package:amplify_core/src/types/models/mipr.dart';
 import 'package:gql/ast.dart';
 import 'package:gql/language.dart';

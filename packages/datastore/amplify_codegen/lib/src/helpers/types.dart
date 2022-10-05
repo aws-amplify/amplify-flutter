@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_codegen/src/helpers/language.dart';
 import 'package:amplify_core/src/types/models/mipr.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:gql/ast.dart';
 
 /// Helpers for [TypeNode].
@@ -49,4 +51,16 @@ extension SchemaTypeHelpers on SchemaType {
 
   /// Whether this type represents a list.
   bool get isList => this is ListType;
+}
+
+/// Helpers for [TypeDefinitionNode].
+extension TypeDefinitionHelpers on TypeDefinitionNode {
+  /// This type's name as a library name.
+  String get libraryName {
+    final libName = name.value.snakeCase;
+    if (hardReservedWords.contains(libName)) {
+      return '${libName}_';
+    }
+    return libName;
+  }
 }

@@ -12,14 +12,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:aws_common/aws_common.dart';
-import 'package:gql/ast.dart';
+import 'package:amplify_codegen/src/generate.dart';
+import 'package:test/test.dart';
 
-/// Helpers for [EnumValueDefinitionNode].
-extension EnumHelpers on EnumValueDefinitionNode {
-  /// The name of the enum value as defined in the schema.
-  String get wireValue => name.value;
+void main() {
+  group('EnumGenerator', () {
+    test('names values according to Dart conventions', () {
+      const schema = '''
+      enum MY_ENUM {
+        value_a
+        ValueB
+        VALUE_C
+      }
+      ''';
 
-  /// The Dart name of the enum value.
-  String get dartName => wireValue.camelCase;
+      final generated = generateForSchema(schema);
+      expect(generated, hasLength(1));
+      expect(
+        generated['models.my_enum']!.emit(),
+        allOf(
+          contains("valueA('value_a')"),
+          contains("valueB('ValueB')"),
+          contains("valueC('VALUE_C')"),
+        ),
+      );
+    });
+  });
 }

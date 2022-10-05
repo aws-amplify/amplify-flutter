@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_codegen/src/parser/model.dart';
+import 'package:amplify_codegen/src/helpers/model.dart';
 import 'package:amplify_codegen/src/parser/parser.dart';
 import 'package:amplify_core/src/types/models/mipr.dart';
 import 'package:test/test.dart';

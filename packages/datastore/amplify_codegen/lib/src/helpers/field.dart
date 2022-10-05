@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_codegen/src/parser/node.dart';
+import 'package:amplify_codegen/src/helpers/node.dart';
 import 'package:amplify_core/src/types/models/mipr.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';

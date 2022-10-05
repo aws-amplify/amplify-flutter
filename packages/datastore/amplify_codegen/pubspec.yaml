@@ -10,7 +10,9 @@ dependencies:
   aws_common:
   built_collection: ^5.1.1
   built_value: ">=8.4.0 <8.5.0"
+  code_builder: ^4.3.0
   collection: ^1.16.0
+  dart_style: ^2.2.4
   gql: ^0.14.0
   graphs: ^2.1.0
   meta: ^1.8.0
