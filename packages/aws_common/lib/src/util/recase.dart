@@ -53,7 +53,7 @@ extension StringRecase on String {
   // "AcmSuccess" -> "Acm Success"
   // Workaround for lack of support for lookbehinds in Safari:
   // https://caniuse.com/js-regexp-lookbehind
-  static final _camelCasedWords = RegExp(r'[a-z][A-Z]([a-zA-Z]|[0-9])');
+  static final _camelCasedWords = RegExp(r'(?=[a-z][A-Z](?:[a-zA-Z0-9]|$))');
 
   // "ACMSuccess" -> "ACM Success"
   static final _acronyms = RegExp(r'([A-Z]+)([A-Z][a-z])');
