@@ -65,7 +65,7 @@ void main() {
 
   final mockClient = MockAWSHttpClient((request) async {
     if (pleaseFail) {
-      pingFailed.complete();
+      if (!pingFailed.isCompleted) pingFailed.complete();
       return AWSHttpResponse(
         statusCode: 400,
         body: utf8.encode('unhealthy'),
@@ -149,7 +149,37 @@ void main() {
       addTearDown(streamSub.cancel);
     });
 
-    test('should reconnect when network turns on/off', () async {
+    test('should reconnect when data turns on/off', () async {
+      getWebSocketConnection().subscribe(
+        subscriptionRequest,
+        expectAsync0(() {}),
+      );
+
+      expect(
+        hubEvents,
+        emitsInOrder(
+          [
+            connectingHubEvent,
+            connectedHubEvent,
+            connectingHubEvent,
+            connectedHubEvent,
+          ],
+        ),
+      );
+
+      await assertWebSocketConnected(connection, subscriptionRequest.id);
+
+      connection.channel!.sink.add(jsonEncode(mockSubscriptionEvent));
+
+      fakePlatform.controller.sink.add(ConnectivityResult.none);
+      fakePlatform.controller.sink.add(ConnectivityResult.mobile);
+
+      await expectLater(connection.reconnectPending, completes);
+
+      await assertWebSocketConnected(connection, subscriptionRequest.id);
+    });
+
+    test('should reconnect after repeated wifi toggling', () async {
       getWebSocketConnection().subscribe(
         subscriptionRequest,
         expectAsync0(() {}),
@@ -173,13 +203,23 @@ void main() {
 
       fakePlatform.controller.sink.add(ConnectivityResult.none);
       fakePlatform.controller.sink.add(ConnectivityResult.wifi);
+      fakePlatform.controller.sink.add(ConnectivityResult.none);
+      fakePlatform.controller.sink.add(ConnectivityResult.wifi);
+      fakePlatform.controller.sink.add(ConnectivityResult.none);
+      fakePlatform.controller.sink.add(ConnectivityResult.wifi);
+      fakePlatform.controller.sink.add(ConnectivityResult.none);
+      fakePlatform.controller.sink.add(ConnectivityResult.wifi);
+      fakePlatform.controller.sink.add(ConnectivityResult.none);
+      fakePlatform.controller.sink.add(ConnectivityResult.wifi);
 
       await expectLater(connection.reconnectPending, completes);
 
       await assertWebSocketConnected(connection, subscriptionRequest.id);
     });
 
-    test('should reconnect when appsync ping fails', () async {
+    test(
+        'should reconnect after 15 seconds when appsync ping fails multiple times',
+        () async {
       getWebSocketConnection().subscribe(
         subscriptionRequest,
         expectAsync0(() {}),
@@ -203,6 +243,8 @@ void main() {
       pleaseFail = true;
 
       await expectLater(pingFailed.future, completes);
+
+      await Future<void>.delayed(const Duration(seconds: 15));
 
       pleaseFail = false;
 

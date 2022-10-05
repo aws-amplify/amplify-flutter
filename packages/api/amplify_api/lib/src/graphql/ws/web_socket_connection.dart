@@ -159,7 +159,7 @@ class WebSocketConnection implements Closeable {
   Completer<void> _connectionPending = Completer<void>();
   Completer<void> _connectionReady = Completer<void>();
   Completer<void> _connectionStart = Completer<void>();
-  final Completer<void> _reconnectPending = Completer<void>();
+  Completer<void> _reconnectPending = Completer<void>();
 
   /// Fires when connection is waiting for the first `connection_ack` message.
   @visibleForTesting
@@ -214,7 +214,8 @@ class WebSocketConnection implements Closeable {
   StreamSubscription<ConnectivityResult> getStreamNetwork() {
     return (_connectivityOverride ?? Connectivity())
         .onConnectivityChanged
-        .listen((ConnectivityResult connectivityResult) async {
+        .asyncExpand<ConnectivityResult>(
+            (ConnectivityResult connectivityResult) async* {
       switch (connectivityResult) {
         case ConnectivityResult.ethernet:
         case ConnectivityResult.mobile:
@@ -238,7 +239,7 @@ class WebSocketConnection implements Closeable {
         default:
           break;
       }
-    });
+    }).listen(null);
   }
 
   /// Connects WebSocket _channel to _subscription stream but does not send connection
@@ -343,6 +344,10 @@ class WebSocketConnection implements Closeable {
 
       // we can reach AppSync, precede with reconnect
       await _init();
+
+      _reconnectPending = Completer<void>();
+
+      return;
     } on Exception catch (e) {
       // no network, can't reconnect
       _hubEventsController.add(SubscriptionHubEvent.disconnected());
