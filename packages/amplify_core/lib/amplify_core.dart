@@ -46,6 +46,9 @@ export 'src/hub/amplify_hub.dart';
 export 'src/hub/hub_channel.dart';
 export 'src/hub/hub_event.dart';
 
+// io
+export 'src/io/aws_file.dart';
+
 // Logger
 export 'src/logger/amplify_logger.dart';
 
