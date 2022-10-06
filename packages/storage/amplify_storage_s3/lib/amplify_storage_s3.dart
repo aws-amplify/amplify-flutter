@@ -12,4 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+export 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart'
+    hide AmplifyStorageS3Dart;
+
 export 'src/amplify_storage_s3_impl.dart';

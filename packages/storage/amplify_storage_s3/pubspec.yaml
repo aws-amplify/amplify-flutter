@@ -24,10 +24,13 @@ dependencies:
   flutter:
     sdk: flutter
   meta: ^1.7.0
+  path_provider: ^2.0.0
 
 dev_dependencies:
   amplify_lints: ^2.0.0
   amplify_test:
     path: ../../amplify_test
+  aws_signature_v4: ^0.2.0
   flutter_test:
     sdk: flutter
+  mocktail: ^0.3.0

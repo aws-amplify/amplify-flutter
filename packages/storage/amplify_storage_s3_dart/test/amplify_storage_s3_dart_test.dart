@@ -19,25 +19,9 @@ import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_servic
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-import 'utils/mocks.dart';
-import 'utils/test_token_provider.dart';
-
-class TestCustomPrefixResolver extends S3StoragePrefixResolver {
-  @override
-  Future<String> resolvePrefix({
-    required StorageAccessLevel storageAccessLevel,
-    String? identityId,
-  }) async {
-    switch (storageAccessLevel) {
-      case StorageAccessLevel.guest:
-        return 'normal/';
-      case StorageAccessLevel.private:
-        return 'vip/';
-      case StorageAccessLevel.protected:
-        return 'premium/';
-    }
-  }
-}
+import 'test_utils/mocks.dart';
+import 'test_utils/test_custom_prefix_resolver.dart';
+import 'test_utils/test_token_provider.dart';
 
 void main() {
   const testDefaultStorageAccessLevel = StorageAccessLevel.private;
@@ -287,6 +271,92 @@ void main() {
 
         final result = await getUrlOperation.result;
         expect(result.url, testResult.url);
+      });
+    });
+
+    group('downloadData() API', () {
+      const testKey = 'some-object-key';
+      final testItem = S3StorageItem(
+        key: testKey,
+        lastModified: DateTime(2022, 9, 19),
+        eTag: '12345',
+        size: 1024,
+        metadata: {
+          'filename': 'file.jpg',
+          'uploader': 'user-id',
+        },
+      );
+      final testS3DownloadTask = MockS3DownloadTask();
+      late S3StorageDownloadDataOperation downloadDataOperation;
+
+      setUpAll(() {
+        registerFallbackValue(const S3StorageDownloadDataOptions());
+      });
+
+      test(
+          'should forward options with default StorageAccessLevel to StorageS3Service.downloadData API',
+          () async {
+        const testRequest =
+            StorageDownloadDataRequest<S3StorageDownloadDataOptions>(
+          key: testKey,
+        );
+
+        when(
+          () => storageS3Service.downloadData(
+            key: testKey,
+            options: any(named: 'options'),
+            preStart: any(named: 'preStart'),
+            onProgress: any(named: 'onProgress'),
+            onData: any(named: 'onData'),
+            onDone: any(named: 'onDone'),
+          ),
+        ).thenAnswer((_) => testS3DownloadTask);
+
+        when(() => testS3DownloadTask.result).thenAnswer((_) async => testItem);
+
+        downloadDataOperation = storageS3Plugin.downloadData(
+          request: testRequest,
+        );
+
+        final capturedOptions = verify(
+          () => storageS3Service.downloadData(
+            key: testKey,
+            options: captureAny<S3StorageDownloadDataOptions>(named: 'options'),
+            preStart: any(named: 'preStart'),
+            onProgress: any(named: 'onProgress'),
+            onData: any(named: 'onData'),
+            onDone: any(named: 'onDone'),
+          ),
+        ).captured.last;
+
+        expect(
+          capturedOptions,
+          isA<S3StorageDownloadDataOptions>().having(
+            (o) => o.storageAccessLevel,
+            'storageAccessLevel',
+            testDefaultStorageAccessLevel,
+          ),
+        );
+
+        final result = await downloadDataOperation.result;
+        expect(result.bytes.isEmpty, true);
+        expect(result.downloadedItem, testItem);
+      });
+
+      test(
+          'S3DownloadDataOperation pause resume and cancel APIs should interact with S3DownloadTask',
+          () async {
+        when(testS3DownloadTask.pause).thenAnswer((_) async {});
+        when(testS3DownloadTask.resume).thenAnswer((_) async {});
+        when(testS3DownloadTask.cancel).thenAnswer((_) async {});
+
+        await downloadDataOperation.pause();
+        await downloadDataOperation.resume();
+        await downloadDataOperation.cancel();
+
+        verify(testS3DownloadTask.pause).called(1);
+        verify(testS3DownloadTask.resume).called(1);
+        verify(testS3DownloadTask.cancel).called(1);
       });
     });
 

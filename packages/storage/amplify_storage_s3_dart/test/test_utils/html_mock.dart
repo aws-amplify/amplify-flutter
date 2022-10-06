@@ -12,21 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-abstract class StorageControllableOperation {
-  /// {@template amplify_core.storage.controllable_operation.cancel}
-  /// Cancels the operation.
-  ///
-  /// A cancelled operation cannot be resumed.
-  /// {@endtemplate}
-  Future<void> cancel();
+import 'package:amplify_storage_s3_dart/src/platform_impl/download_file/dom_helper.dart';
+import 'package:mocktail/mocktail.dart';
 
-  /// {@template amplify_core.storage.controllable_operation.pause}
-  /// Pauses the operation that is in progress.
-  /// {@endtemplate}
-  Future<void> pause();
+class MockDomHelper extends Mock implements DomHelper {
+  MockDomHelper._();
 
-  /// {@template amplify_core.storage.controllable_operation.resume}
-  /// Resumes the operation that is in a paused state.
-  /// {@endtemplate}
-  Future<void> resume();
+  static final DomHelper _instance = MockDomHelper._();
+
+  static DomHelper get instance => _instance;
 }

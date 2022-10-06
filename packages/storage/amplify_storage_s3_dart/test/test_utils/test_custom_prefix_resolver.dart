@@ -12,21 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-abstract class StorageControllableOperation {
-  /// {@template amplify_core.storage.controllable_operation.cancel}
-  /// Cancels the operation.
-  ///
-  /// A cancelled operation cannot be resumed.
-  /// {@endtemplate}
-  Future<void> cancel();
+import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 
-  /// {@template amplify_core.storage.controllable_operation.pause}
-  /// Pauses the operation that is in progress.
-  /// {@endtemplate}
-  Future<void> pause();
-
-  /// {@template amplify_core.storage.controllable_operation.resume}
-  /// Resumes the operation that is in a paused state.
-  /// {@endtemplate}
-  Future<void> resume();
+class TestCustomPrefixResolver extends S3StoragePrefixResolver {
+  @override
+  Future<String> resolvePrefix({
+    required StorageAccessLevel storageAccessLevel,
+    String? identityId,
+  }) async {
+    switch (storageAccessLevel) {
+      case StorageAccessLevel.guest:
+        return 'normal/';
+      case StorageAccessLevel.private:
+        return 'vip/';
+      case StorageAccessLevel.protected:
+        return 'premium/';
+    }
+  }
 }

@@ -13,8 +13,9 @@ dependencies:
   aws_common: ^0.2.2
   aws_signature_v4: ^0.2.0
   built_collection: ^5.0.0
-  built_value: ^8.4.0
+  built_value: ">=8.4.0 <8.5.0"
   meta: ^1.7.0
+  path: any
   smithy: ^0.1.0
   smithy_aws: ^0.1.0
 

@@ -12,21 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-abstract class StorageControllableOperation {
-  /// {@template amplify_core.storage.controllable_operation.cancel}
-  /// Cancels the operation.
-  ///
-  /// A cancelled operation cannot be resumed.
-  /// {@endtemplate}
-  Future<void> cancel();
-
-  /// {@template amplify_core.storage.controllable_operation.pause}
-  /// Pauses the operation that is in progress.
-  /// {@endtemplate}
-  Future<void> pause();
-
-  /// {@template amplify_core.storage.controllable_operation.resume}
-  /// Resumes the operation that is in a paused state.
-  /// {@endtemplate}
-  Future<void> resume();
-}
+export 'download_file_stub.dart'
+    if (dart.library.html) 'download_file_html.dart'
+    if (dart.library.io) 'download_file_io.dart';

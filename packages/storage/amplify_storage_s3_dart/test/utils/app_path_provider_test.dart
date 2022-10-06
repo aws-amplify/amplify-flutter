@@ -11,22 +11,27 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+@TestOn('vm')
 
-abstract class StorageControllableOperation {
-  /// {@template amplify_core.storage.controllable_operation.cancel}
-  /// Cancels the operation.
-  ///
-  /// A cancelled operation cannot be resumed.
-  /// {@endtemplate}
-  Future<void> cancel();
+import 'dart:io';
 
-  /// {@template amplify_core.storage.controllable_operation.pause}
-  /// Pauses the operation that is in progress.
-  /// {@endtemplate}
-  Future<void> pause();
+import 'package:amplify_storage_s3_dart/src/utils/app_path_provider.dart';
+import 'package:test/test.dart';
 
-  /// {@template amplify_core.storage.controllable_operation.resume}
-  /// Resumes the operation that is in a paused state.
-  /// {@endtemplate}
-  Future<void> resume();
+void main() {
+  group('S3DartAppPathProvider', () {
+    const pathProvider = S3DartAppPathProvider();
+
+    test('should return application support path as current working path',
+        () async {
+      expect(
+        await pathProvider.getApplicationSupportPath(),
+        Directory.current.path,
+      );
+    });
+
+    test('should return temporary path as system temporary path', () async {
+      expect(await pathProvider.getTemporaryPath(), Directory.systemTemp.path);
+    });
+  });
 }

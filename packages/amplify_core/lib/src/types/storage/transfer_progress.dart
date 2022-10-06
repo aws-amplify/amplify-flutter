@@ -18,10 +18,13 @@
 /// {@endtemplate}
 class StorageTransferProgress {
   /// {@macro amplify_storage_s3.transfer_progress}
-  const StorageTransferProgress(this.currentBytes, this.totalBytes);
+  const StorageTransferProgress({
+    required this.transferredBytes,
+    required this.totalBytes,
+  });
 
   /// The current progress, in bytes, for the storage transfer operation.
-  final int currentBytes;
+  final int transferredBytes;
 
   /// The total number of bytes for the storage transfer operation.
   final int totalBytes;
@@ -30,6 +33,6 @@ class StorageTransferProgress {
   ///
   /// 0 <= `fractionCompleted` <= 1
   double getFractionCompleted() {
-    return currentBytes / totalBytes;
+    return transferredBytes / totalBytes;
   }
 }

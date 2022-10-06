@@ -12,21 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-abstract class StorageControllableOperation {
-  /// {@template amplify_core.storage.controllable_operation.cancel}
-  /// Cancels the operation.
-  ///
-  /// A cancelled operation cannot be resumed.
-  /// {@endtemplate}
-  Future<void> cancel();
+import 'package:amplify_core/amplify_core.dart';
 
-  /// {@template amplify_core.storage.controllable_operation.pause}
-  /// Pauses the operation that is in progress.
-  /// {@endtemplate}
-  Future<void> pause();
+/// {@template amplify_core.storage.download_file_result}
+/// The result of a [StorageDownloadFileOperation].
+/// {@endtemplate}
+class StorageDownloadFileResult<Item extends StorageItem> {
+  /// {@macro amplify_core.storage.download_file_result}
+  const StorageDownloadFileResult({
+    required this.localFile,
+    required this.downloadedItem,
+  });
 
-  /// {@template amplify_core.storage.controllable_operation.resume}
-  /// Resumes the operation that is in a paused state.
-  /// {@endtemplate}
-  Future<void> resume();
+  /// Reference to the local file that download the object to.
+  final AWSFile localFile;
+
+  /// The result object containing the properties retrieved from the
+  /// [StorageDownloadFileOperation].
+  final Item downloadedItem;
 }
