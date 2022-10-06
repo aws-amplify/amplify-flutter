@@ -378,18 +378,18 @@ class WebSocketConnection implements Closeable {
         closeStatus == _defaultCloseStatus ? 'client closed' : 'unknown';
 
     await _channel?.sink.close(closeStatus, reason);
-    await _channel?.sink.done.whenComplete(() {
-      _network?.cancel();
-      _subscription?.cancel();
-      _timeoutTimer?.cancel();
-      _pingTimer?.cancel();
+    await _channel?.sink.done;
 
-      _channel = null;
-      _network = null;
-      _subscription = null;
-      _timeoutTimer = null;
-      _pingTimer = null;
-    });
+    await _network?.cancel();
+    await _subscription?.cancel();
+    _timeoutTimer?.cancel();
+    _pingTimer?.cancel();
+
+    _channel = null;
+    _network = null;
+    _subscription = null;
+    _timeoutTimer = null;
+    _pingTimer = null;
   }
 
   /// Initializes the connection.
@@ -400,7 +400,7 @@ class WebSocketConnection implements Closeable {
   Future<void> init() => _initMemo.runOnce(
         () {
           _hubEventsController.add(SubscriptionHubEvent.connecting());
-          _init();
+          return _init();
         },
       );
 
