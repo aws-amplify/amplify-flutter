@@ -49,9 +49,10 @@ Future<void> main() async {
   stdout.writeln('Signed in!');
   while (true) {
     final operation = prompt('''Choose an operation:
-1. list        2. getProperties
-3. getUrl      4. copy
-5. move        6. remove
+1. list             2. getProperties
+3. getUrl           4. download data
+5. download file    6. copy
+7. move             8. remove
 0. exit
 ''');
     final operationNum = int.tryParse(operation);
@@ -67,12 +68,18 @@ Future<void> main() async {
         await getUrlOperation();
         break;
       case 4:
-        await copyOperation();
+        await downloadDataOperation();
         break;
       case 5:
-        await moveOperation();
+        await downloadFileOperation();
         break;
       case 6:
+        await copyOperation();
+        break;
+      case 7:
+        await moveOperation();
+        break;
+      case 8:
         await removeOperation();
         break;
       case null:
@@ -184,6 +191,81 @@ Future<void> getUrlOperation() async {
     stdout
       ..writeln('Generated url for key: $key, the url expires in 10 minutes:')
       ..writeln(result.url.toString());
+  } on Exception catch (error) {
+    stderr
+      ..writeln('Something went wrong...')
+      ..writeln(error);
+  }
+}
+
+Future<void> downloadDataOperation() async {
+  final key = prompt('Enter the key of the object to download: ');
+  final storageAccessLevel = promptStorageAccessLevel(
+    'Choose the storage access level associated with the object: ',
+  );
+
+  final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
+  final downloadDataOperation = s3Plugin.downloadData(
+    key: key,
+    options: S3StorageDownloadDataOptions(
+      storageAccessLevel: storageAccessLevel,
+      getProperties: true,
+    ),
+    onProgress: onDownloadProgress,
+  );
+
+  stdout.writeln('Downloading...');
+  await Future<void>.delayed(const Duration(seconds: 1));
+  await downloadDataOperation.pause();
+
+  await Future<void>.delayed(const Duration(seconds: 4));
+  await downloadDataOperation.resume();
+
+  try {
+    final result = await downloadDataOperation.result;
+    stdout.writeln('\nDownload completed!');
+    stdout.writeln('Download bytes size: ${result.bytes.length}');
+    await File('output').writeAsBytes(result.bytes);
+  } on Exception catch (error) {
+    stderr
+      ..writeln('Something went wrong...')
+      ..writeln(error);
+  }
+}
+
+Future<void> downloadFileOperation() async {
+  final key = prompt('Enter the key of the object to download: ');
+  final storageAccessLevel = promptStorageAccessLevel(
+    'Choose the storage access level associated with the object: ',
+  );
+  final destinationPath = prompt(
+    'Enter the destination file path (ensure the file path is writable): ',
+  );
+  final localFile = AWSFile.fromPath(destinationPath);
+
+  final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
+  final downloadFileOperation = s3Plugin.downloadFile(
+    key: key,
+    localFile: localFile,
+    options: S3StorageDownloadFileOptions(
+      getProperties: true,
+      storageAccessLevel: storageAccessLevel,
+    ),
+    onProgress: onDownloadProgress,
+  );
+
+  stdout.writeln('Downloading...');
+  await Future<void>.delayed(const Duration(seconds: 1));
+  await downloadFileOperation.pause();
+
+  await Future<void>.delayed(const Duration(seconds: 4));
+  await downloadFileOperation.resume();
+
+  try {
+    final result = await downloadFileOperation.result;
+    stdout.writeln('\nDownload completed!');
+    stdout.writeln('Download file eTag: ${result.downloadedItem.eTag}');
+    stdout.writeln('Download file path: ${result.localFile.path}');
   } on Exception catch (error) {
     stderr
       ..writeln('Something went wrong...')
@@ -335,4 +417,24 @@ Never exitError(Object error, [StackTrace? stackTrace]) {
     ..writeln(error)
     ..writeln(stackTrace);
   exit(1);
+}
+
+void onDownloadProgress(S3TransferProgress progress) {
+  final numberOfSigns = (progress.getFractionCompleted() * 20).ceil();
+  final sb = StringBuffer();
+  sb.write('[');
+  sb.writeAll(
+    List.generate(numberOfSigns, (index) => index).map(
+      (e) => '=',
+    ),
+  );
+  sb.writeAll(
+    List.generate(20 - numberOfSigns, (index) => index).map(
+      (e) => '-',
+    ),
+  );
+  sb.write(
+    '] | ${(progress.getFractionCompleted() * 100).ceil()}% | ${progress.transferredBytes}/${progress.totalBytes} | ${progress.state}     ',
+  );
+  stdout.write('\r${sb.toString()}');
 }

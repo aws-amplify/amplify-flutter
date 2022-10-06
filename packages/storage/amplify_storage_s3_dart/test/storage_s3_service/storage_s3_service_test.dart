@@ -25,9 +25,9 @@ import 'package:mocktail/mocktail.dart';
 import 'package:smithy/smithy.dart';
 import 'package:test/test.dart';
 
-import '../utils/custom_matchers.dart';
-import '../utils/mocks.dart';
-import '../utils/test_token_provider.dart';
+import '../test_utils/custom_matchers.dart';
+import '../test_utils/mocks.dart';
+import '../test_utils/test_token_provider.dart';
 
 const testDelimiter = '#';
 

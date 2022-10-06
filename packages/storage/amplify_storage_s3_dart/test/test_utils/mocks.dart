@@ -12,21 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-abstract class StorageControllableOperation {
-  /// {@template amplify_core.storage.controllable_operation.cancel}
-  /// Cancels the operation.
-  ///
-  /// A cancelled operation cannot be resumed.
-  /// {@endtemplate}
-  Future<void> cancel();
+import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/s3.dart';
+import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
+import 'package:aws_signature_v4/aws_signature_v4.dart';
+import 'package:mocktail/mocktail.dart';
 
-  /// {@template amplify_core.storage.controllable_operation.pause}
-  /// Pauses the operation that is in progress.
-  /// {@endtemplate}
-  Future<void> pause();
+class MockStorageS3Service extends Mock implements StorageS3Service {}
 
-  /// {@template amplify_core.storage.controllable_operation.resume}
-  /// Resumes the operation that is in a paused state.
-  /// {@endtemplate}
-  Future<void> resume();
-}
+class MockS3Client extends Mock implements S3Client {}
+
+class MockAWSLogger extends Mock implements AWSLogger {}
+
+class MockAWSSigV4Signer extends Mock implements AWSSigV4Signer {}
+
+class MockS3DownloadTask extends Mock implements S3DownloadTask {}
