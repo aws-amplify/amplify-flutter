@@ -24,10 +24,13 @@ import 'utils/setup_utils.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final username = generateUsername();
-  final password = generatePassword();
+  group('Auth Hub', () {
+    final authEventStream =
+        Amplify.Hub.availableStreams[HubChannel.Auth]!.cast<AuthHubEvent>();
 
-  group('auth hub', () {
+    final username = generateUsername();
+    final password = generatePassword();
+
     setUpAll(() async {
       await configureAuth();
 
@@ -43,87 +46,47 @@ void main() {
 
     tearDownAll(Amplify.reset);
 
-    test(
-      'should broadcast events for sign in and sign out',
-      () async {
-        // setup
-        Future<HubEvent> nextEvent;
-        HubEvent event;
-        var eventCount = 0;
-        var authEventStream = Amplify.Hub.availableStreams[HubChannel.Auth]!;
-        authEventStream.listen((event) => eventCount++);
+    Matcher hasEventName(String name) =>
+        isA<AuthHubEvent>().having((e) => e.eventName, 'eventName', name);
 
-        // assert sign in event is broadcast
-        nextEvent = authEventStream.first;
-        await Amplify.Auth.signIn(username: username, password: password);
-        event = await nextEvent;
-        expect(
-          event.eventName,
-          'SIGNED_IN',
-        );
+    test('should broadcast events for sign in and sign out', () async {
+      expect(
+        authEventStream,
+        emitsInOrder([
+          hasEventName('SIGNED_IN'),
+          hasEventName('SIGNED_OUT'),
+          hasEventName('SIGNED_IN'),
+          hasEventName('SIGNED_OUT'),
+        ]),
+      );
 
-        // assert sign out event is broadcast
-        nextEvent = authEventStream.first;
-        await Amplify.Auth.signOut();
-        event = await nextEvent;
-        expect(event.eventName, 'SIGNED_OUT');
+      await Amplify.Auth.signIn(
+        username: username,
+        password: password,
+      );
+      await Amplify.Auth.signOut();
+      await Amplify.Auth.signIn(
+        username: username,
+        password: password,
+      );
+      await Amplify.Auth.signOut();
+    });
 
-        // assert a second sign in event is broadcast
-        nextEvent = authEventStream.first;
-        await Amplify.Auth.signIn(
-          username: username,
-          password: password,
-        );
-        event = await nextEvent;
-        expect(event.eventName, 'SIGNED_IN');
+    test('should broadcast events for deleteUser', () async {
+      expect(
+        authEventStream,
+        emitsInOrder([
+          hasEventName('SIGNED_IN'),
+          hasEventName('SIGNED_OUT'),
+          hasEventName('USER_DELETED'),
+        ]),
+      );
 
-        // assert a second sign out event is broadcast
-        nextEvent = authEventStream.first;
-        await Amplify.Auth.signOut();
-        event = await nextEvent;
-        expect(event.eventName, 'SIGNED_OUT');
-
-        // assert that no other events are broadcast
-        expect(eventCount, 4);
-      },
-    );
-
-    test(
-      'should broadcast events for deleteUser',
-      () async {
-        // setup
-        Future<HubEvent> signinEvent;
-        Future<HubEvent> deleteEvent;
-        Future<HubEvent> signoutEvent;
-        var eventCount = 0;
-        var authEventStream = Amplify.Hub.availableStreams[HubChannel.Auth]!;
-        authEventStream.listen((event) => eventCount++);
-
-        // assert sign in event is broadcast
-        signinEvent =
-            authEventStream.firstWhere((el) => el.eventName == 'SIGNED_IN');
-        deleteEvent =
-            authEventStream.firstWhere((el) => el.eventName == 'USER_DELETED');
-        signoutEvent =
-            authEventStream.firstWhere((el) => el.eventName == 'SIGNED_OUT');
-
-        await Amplify.Auth.signIn(
-          username: username,
-          password: password,
-        );
-        var event1 = await signinEvent;
-        expect(event1.eventName, 'SIGNED_IN');
-
-        // assert signed out event is broadcast
-        await Amplify.Auth.deleteUser();
-        var event2 = await signoutEvent;
-        var event3 = await deleteEvent;
-        expect(event2.eventName, 'SIGNED_OUT');
-
-        expect(event3.eventName, 'USER_DELETED');
-
-        expect(eventCount, 3);
-      },
-    );
+      await Amplify.Auth.signIn(
+        username: username,
+        password: password,
+      );
+      await Amplify.Auth.deleteUser();
+    });
   });
 }

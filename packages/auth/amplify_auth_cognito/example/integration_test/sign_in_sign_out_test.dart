@@ -24,7 +24,8 @@ import 'utils/setup_utils.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  group('signIn', () {
+
+  group('signIn (SRP)', () {
     late String username;
     late String password;
 
@@ -48,26 +49,30 @@ void main() {
     });
 
     test('should signIn a user', () async {
-      final res =
-          await Amplify.Auth.signIn(username: username, password: password);
+      final res = await Amplify.Auth.signIn(
+        username: username,
+        password: password,
+      );
       expect(res.isSignedIn, true);
     });
 
-    test('should throw a NotAuthorizedException with an incorrect password',
-        () async {
-      final incorrectPassword = generatePassword();
-      expect(
-        Amplify.Auth.signIn(
-          username: username,
-          password: incorrectPassword,
-        ),
-        throwsA(isA<NotAuthorizedException>()),
-      );
-    });
+    test(
+      'should throw a NotAuthorizedException with an incorrect password',
+      () async {
+        final incorrectPassword = generatePassword();
+        expect(
+          Amplify.Auth.signIn(
+            username: username,
+            password: incorrectPassword,
+          ),
+          throwsA(isA<NotAuthorizedException>()),
+        );
+      },
+    );
 
     test(
       'should throw an InvalidParameterException if a password is not provided '
-      'and Custom Auth is not configured without SRP',
+      'and Custom Auth is not configured',
       () async {
         expect(
           Amplify.Auth.signIn(username: username),
@@ -80,14 +85,19 @@ void main() {
         () async {
       final incorrectUsername = generateUsername();
       expect(
-        Amplify.Auth.signIn(username: incorrectUsername, password: password),
+        Amplify.Auth.signIn(
+          username: incorrectUsername,
+          password: password,
+        ),
         throwsA(isA<UserNotFoundException>()),
       );
     });
 
-    test('additionalInfo should be null', () async {
-      final result =
-          await Amplify.Auth.signIn(username: username, password: password);
+    test('additionalInfo should be null for SRP sign-in', () async {
+      final result = await Amplify.Auth.signIn(
+        username: username,
+        password: password,
+      );
       expect(result.nextStep?.additionalInfo, isNull);
     });
 
@@ -114,10 +124,15 @@ void main() {
   });
 
   group('signOut', () {
-    setUp(() async {
+    setUpAll(() async {
       await configureAuth();
+    });
+
+    setUp(() async {
       await signOutUser();
     });
+
+    tearDownAll(Amplify.reset);
 
     test('should sign a user out', () async {
       final username = generateUsername();
@@ -130,24 +145,19 @@ void main() {
         verifyAttributes: true,
       );
 
-      // Ensure signed in before testing signOut.
       await Amplify.Auth.signIn(username: username, password: password);
       final authSession = await Amplify.Auth.fetchAuthSession();
       expect(authSession.isSignedIn, isTrue);
 
-      // assert user is signed out after calling signOut
       await Amplify.Auth.signOut();
       final finalAuthSession = await Amplify.Auth.fetchAuthSession();
       expect(finalAuthSession.isSignedIn, isFalse);
     });
 
     test('should not throw even if there is no user to sign out', () async {
-      // ensure that no user is currently logged in
       final authSession = await Amplify.Auth.fetchAuthSession();
       expect(authSession.isSignedIn, isFalse);
-
-      // call signOut without an expectation for an exception
-      await Amplify.Auth.signOut();
+      expect(Amplify.Auth.signOut(), completes);
     });
   });
 }

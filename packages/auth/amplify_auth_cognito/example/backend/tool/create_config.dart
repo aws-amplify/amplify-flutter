@@ -54,17 +54,19 @@ String createConfig({
           CognitoUserAttributeKey.phoneNumber,
         ],
       ),
-      api: ApiConfig(plugins: {
-        AWSApiPluginConfig.pluginKey: AWSApiPluginConfig({
-          'authIntegrationTest': AWSApiConfig(
-            endpointType: EndpointType.graphQL,
-            authorizationType: APIAuthorizationType.apiKey,
-            endpoint: graphQLApiEndpoint,
-            apiKey: graphQLApiKey,
-            region: region,
-          ),
-        })
-      }),
+      api: ApiConfig(
+        plugins: {
+          AWSApiPluginConfig.pluginKey: AWSApiPluginConfig({
+            'authIntegrationTest': AWSApiConfig(
+              endpointType: EndpointType.graphQL,
+              authorizationType: APIAuthorizationType.apiKey,
+              endpoint: graphQLApiEndpoint,
+              apiKey: graphQLApiKey,
+              region: region,
+            ),
+          })
+        },
+      ),
     ),
   );
   return '''

@@ -36,7 +36,7 @@ void main() {
       final username = generateUsername();
       final password = generatePassword();
 
-      await Amplify.Auth.signUp(
+      final res = await Amplify.Auth.signUp(
         username: username,
         password: password,
         options: CognitoSignUpOptions(
@@ -46,75 +46,86 @@ void main() {
           },
         ),
       );
-      // should be uncommented when https://github.com/aws-amplify/amplify-flutter/issues/581 is closed
-      // currently this just confirms there is no error thrown
-      // expect(res.isSignUpComplete, true);
-    });
-
-    test(
-        'should throw an InvalidParameterException without required attributes',
-        () async {
-      final username = generateUsername();
-      final password = generatePassword();
       expect(
-        Amplify.Auth.signUp(username: username, password: password),
-        throwsA(isA<InvalidParameterException>()),
+        res.isSignUpComplete,
+        isFalse,
+        reason: 'Sign up is not complete until user is confirmed',
       );
     });
 
     test(
-        'should throw an InvalidPasswordException for a password that does not meet requirements',
-        () async {
-      final username = generateUsername();
-      const invalidPassword = '123';
-      final options = CognitoSignUpOptions(
-        userAttributes: {
-          CognitoUserAttributeKey.email: generateEmail(),
-          CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
-        },
-      );
-      expect(
-        Amplify.Auth.signUp(
+      'should throw an InvalidParameterException without required attributes',
+      () async {
+        final username = generateUsername();
+        final password = generatePassword();
+        expect(
+          Amplify.Auth.signUp(username: username, password: password),
+          throwsA(isA<InvalidParameterException>()),
+        );
+      },
+    );
+
+    test(
+      'should throw an InvalidPasswordException for a password that does not '
+      'meet requirements',
+      () async {
+        final username = generateUsername();
+        const invalidPassword = '123';
+        final options = CognitoSignUpOptions(
+          userAttributes: {
+            CognitoUserAttributeKey.email: generateEmail(),
+            CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
+          },
+        );
+        expect(
+          Amplify.Auth.signUp(
+            username: username,
+            password: invalidPassword,
+            options: options,
+          ),
+          throwsA(isA<InvalidPasswordException>()),
+        );
+      },
+    );
+
+    test(
+      'should throw a UsernameExistsException for a username that '
+      'already exists',
+      () async {
+        // create username for both sign up attempts
+        final username = generateUsername();
+
+        // sign up first user
+        final userOnePassword = generatePassword();
+        final userOneOptions = CognitoSignUpOptions(
+          userAttributes: {
+            CognitoUserAttributeKey.email: generateEmail(),
+            CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
+          },
+        );
+        await Amplify.Auth.signUp(
           username: username,
-          password: invalidPassword,
-          options: options,
-        ),
-        throwsA(isA<InvalidPasswordException>()),
-      );
-    });
+          password: userOnePassword,
+          options: userOneOptions,
+        );
 
-    test(
-        'should throw a UsernameExistsException for a username that already exists',
-        () async {
-      // create username for both sign up attempts
-      final username = generateUsername();
-
-      // sign up first user
-      final userOnePassword = generatePassword();
-      final userOneOptions = CognitoSignUpOptions(userAttributes: {
-        CognitoUserAttributeKey.email: generateEmail(),
-        CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
-      });
-      await Amplify.Auth.signUp(
-        username: username,
-        password: userOnePassword,
-        options: userOneOptions,
-      );
-
-      // attempt to sign up second user with the same username
-      final userTwoPassword = generatePassword();
-      final userTwoOptions = CognitoSignUpOptions(userAttributes: {
-        CognitoUserAttributeKey.email: generateEmail(),
-        CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
-      });
-      expect(
-        Amplify.Auth.signUp(
-          username: username,
-          password: userTwoPassword,
-          options: userTwoOptions,
-        ),
-        throwsA(isA<UsernameExistsException>()),
-      );
-    });
+        // attempt to sign up second user with the same username
+        final userTwoPassword = generatePassword();
+        final userTwoOptions = CognitoSignUpOptions(
+          userAttributes: {
+            CognitoUserAttributeKey.email: generateEmail(),
+            CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
+          },
+        );
+        expect(
+          Amplify.Auth.signUp(
+            username: username,
+            password: userTwoPassword,
+            options: userTwoOptions,
+          ),
+          throwsA(isA<UsernameExistsException>()),
+        );
+      },
+    );
   });
 }

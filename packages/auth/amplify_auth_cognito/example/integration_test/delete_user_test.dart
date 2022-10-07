@@ -44,53 +44,52 @@ void main() {
         verifyAttributes: true,
       );
 
-      // Sign the user in
-      SignInResult preDeleteSignIn = await Amplify.Auth.signIn(
+      final res = await Amplify.Auth.signIn(
         username: username,
         password: password,
       );
-      expect(preDeleteSignIn.isSignedIn, true);
+      expect(res.isSignedIn, true);
 
-      // Delete the user
       await Amplify.Auth.deleteUser();
 
-      // Expect subsequent sign in to fail
       expect(
         Amplify.Auth.signIn(
           username: username,
           password: password,
         ),
         throwsA(isA<UserNotFoundException>()),
+        reason: 'Subsequent signIn calls should fail',
       );
     });
 
     test(
-        'fetchAuthSession should throw NotAuthorizedException '
-        'after user deletion', () async {
-      final username = generateUsername();
-      final password = generatePassword();
+      'fetchAuthSession should show signed out after user deletion',
+      () async {
+        final username = generateUsername();
+        final password = generatePassword();
 
-      // Create a confirmed user
-      await adminCreateUser(
-        username,
-        password,
-        autoConfirm: true,
-        verifyAttributes: true,
-      );
+        await adminCreateUser(
+          username,
+          password,
+          autoConfirm: true,
+          verifyAttributes: true,
+        );
 
-      // Sign the user in
-      SignInResult preDeleteSignIn = await Amplify.Auth.signIn(
-        username: username,
-        password: password,
-      );
-      expect(preDeleteSignIn.isSignedIn, true);
+        final res = await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+        );
+        expect(res.isSignedIn, true);
 
-      // Delete the user
-      await Amplify.Auth.deleteUser();
+        await Amplify.Auth.deleteUser();
 
-      // Expect user to be signed out
-      final session = await Amplify.Auth.fetchAuthSession();
-      expect(session.isSignedIn, false);
-    });
+        final session = await Amplify.Auth.fetchAuthSession();
+        expect(
+          session.isSignedIn,
+          isFalse,
+          reason: 'deleteUser should sign out user',
+        );
+      },
+    );
   });
 }
