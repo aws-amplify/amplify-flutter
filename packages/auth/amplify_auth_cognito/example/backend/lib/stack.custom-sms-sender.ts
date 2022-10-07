@@ -49,6 +49,8 @@ type CustomSMSSenderVerifyUserAttributeTriggerEvent =
   BaseCustomSMSSenderTriggerEvent<"CustomSMSSender_VerifyUserAttribute">;
 type CustomSMSSenderAdminCreateUserTriggerEvent =
   BaseCustomSMSSenderTriggerEvent<"CustomSMSSender_AdminCreateUser">;
+type CustomSMSSenderAuthenticationTriggerEvent =
+  BaseCustomSMSSenderTriggerEvent<"CustomSMSSender_Authentication">;
 
 type CustomSMSSenderTriggerEvent =
   | CustomSMSSenderSignUpTriggerEvent
@@ -56,7 +58,8 @@ type CustomSMSSenderTriggerEvent =
   | CustomSMSSenderForgotPasswordTriggerEvent
   | CustomSMSSenderUpdateUserAttributeTriggerEvent
   | CustomSMSSenderVerifyUserAttributeTriggerEvent
-  | CustomSMSSenderAdminCreateUserTriggerEvent;
+  | CustomSMSSenderAdminCreateUserTriggerEvent
+  | CustomSMSSenderAuthenticationTriggerEvent;
 
 type CustomSMSSenderTriggerHandler =
   lambda.Handler<CustomSMSSenderTriggerEvent>;
@@ -73,6 +76,11 @@ export const handler: CustomSMSSenderTriggerHandler = async (
   event: CustomSMSSenderTriggerEvent
 ): Promise<CustomSMSSenderTriggerEvent> => {
   console.log(`Got event: ${JSON.stringify(event, null, 2)}`);
+
+  if (event.triggerSource === 'CustomSMSSender_AdminCreateUser') {
+    console.warn(`Not handling trigger source: ${event.triggerSource}`);
+    return event;
+  }
 
   const { userName } = event;
   const { code } = event.request;

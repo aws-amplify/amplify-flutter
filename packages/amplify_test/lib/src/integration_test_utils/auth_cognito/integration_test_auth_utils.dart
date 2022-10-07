@@ -19,7 +19,10 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:graphql/client.dart';
 import 'package:stream_transform/stream_transform.dart';
 
-import 'types/confirm_sign_up_response.dart';
+import 'types/create_mfa_code_response.dart';
+
+final _logger =
+    AmplifyLogger.category(Category.auth).createChild('IntegrationTestUtils');
 
 /// A GraphQL document used by the [deleteUser] test utility method.
 const deleteDocument = r'''
@@ -95,9 +98,44 @@ Future<void> adminCreateUser(
     ),
   );
 
+  final createUserParams = <String, dynamic>{
+    'autoConfirm': autoConfirm,
+    'email': attributes
+        .firstWhere(
+            (el) => el.userAttributeKey == CognitoUserAttributeKey.email,
+            orElse: () => const AuthUserAttribute(
+                userAttributeKey: CognitoUserAttributeKey.email,
+                value: 'example@example.com'))
+        .value,
+    'enableMFA': enableMfa,
+    'givenName': attributes
+        .firstWhere(
+            (el) => el.userAttributeKey == CognitoUserAttributeKey.givenName,
+            orElse: () => const AuthUserAttribute(
+                userAttributeKey: CognitoUserAttributeKey.givenName,
+                value: 'default_given_name'))
+        .value,
+    'name': attributes
+        .firstWhere((el) => el.userAttributeKey == CognitoUserAttributeKey.name,
+            orElse: () => const AuthUserAttribute(
+                userAttributeKey: CognitoUserAttributeKey.name,
+                value: 'default_name'))
+        .value,
+    'phoneNumber': attributes
+        .firstWhere(
+            (el) => el.userAttributeKey == CognitoUserAttributeKey.phoneNumber,
+            orElse: () => const AuthUserAttribute(
+                userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+                value: '+15555555'))
+        .value,
+    'username': username,
+    'verifyAttributes': verifyAttributes,
+  };
+
+  _logger.debug('Creating user "$username" with values: $createUserParams');
   final options = MutationOptions(
-      document: gql(
-        r'''
+    document: gql(
+      r'''
           mutation CreateUser($input: CreateUserInput!) {
             createUser(input: $input) {
               success
@@ -105,47 +143,14 @@ Future<void> adminCreateUser(
             }
           }
       ''',
-      ),
-      variables: <String, dynamic>{
-        'input': {
-          'autoConfirm': autoConfirm,
-          'email': attributes
-              .firstWhere(
-                  (el) => el.userAttributeKey == CognitoUserAttributeKey.email,
-                  orElse: () => const AuthUserAttribute(
-                      userAttributeKey: CognitoUserAttributeKey.email,
-                      value: 'example@example.com'))
-              .value,
-          'enableMFA': enableMfa,
-          'givenName': attributes
-              .firstWhere(
-                  (el) =>
-                      el.userAttributeKey == CognitoUserAttributeKey.givenName,
-                  orElse: () => const AuthUserAttribute(
-                      userAttributeKey: CognitoUserAttributeKey.givenName,
-                      value: 'default_given_name'))
-              .value,
-          'name': attributes
-              .firstWhere(
-                  (el) => el.userAttributeKey == CognitoUserAttributeKey.name,
-                  orElse: () => const AuthUserAttribute(
-                      userAttributeKey: CognitoUserAttributeKey.name,
-                      value: 'default_name'))
-              .value,
-          'password': password,
-          'phoneNumber': attributes
-              .firstWhere(
-                  (el) =>
-                      el.userAttributeKey ==
-                      CognitoUserAttributeKey.phoneNumber,
-                  orElse: () => const AuthUserAttribute(
-                      userAttributeKey: CognitoUserAttributeKey.phoneNumber,
-                      value: '+15555555'))
-              .value,
-          'username': username,
-          'verifyAttributes': verifyAttributes,
-        },
-      });
+    ),
+    variables: {
+      'input': {
+        ...createUserParams,
+        'password': password,
+      },
+    },
+  );
 
   final result = await client.mutate(options);
   final createError =
@@ -155,35 +160,37 @@ Future<void> adminCreateUser(
   }
 }
 
-/// Returns the OTP code for [email]. Must be called before the network call
+/// Returns the OTP code for [username]. Must be called before the network call
 /// generating the OTP code.
-Future<String> getOtpCode(String email) async {
-  const subscriptionDocument = '''subscription {
-          onCreateConfirmSignUpTestRun {
-            id
-            username
-            currentCode
-          }
-        }''';
+Future<String> getOtpCode(String username) async {
+  const subscriptionDocument = r'''
+    subscription OnCreateMFACode($username: String!) {
+      onCreateMFACode(username: $username) {
+        username
+        code
+      }
+    }''';
 
   final Stream<GraphQLResponse<String>> operation = Amplify.API.subscribe(
-    GraphQLRequest<String>(document: subscriptionDocument),
+    GraphQLRequest<String>(
+      document: subscriptionDocument,
+      variables: {
+        'username': username,
+      },
+    ),
+    onEstablished: () => _logger.debug('Established connection'),
   );
 
-  // Collect codes delivered via Lambda
+  // Collect code delivered via Lambda
   return operation
+      .tap((event) => _logger.debug('Got event: $event'))
       .map((event) {
-        final json =
-            jsonDecode(event.data!)['onCreateConfirmSignUpTestRun'] as Map;
-        return ConfirmSignUpResponse.fromJson(json.cast());
+        if (event.errors.isNotEmpty) {
+          throw Exception(event.errors);
+        }
+        final json = jsonDecode(event.data!)['onCreateMFACode'] as Map;
+        return CreateMFACodeResponse.fromJson(json.cast());
       })
-      .where((event) => event.username == email)
-      .map((event) => event.currentCode)
-      // When multiple Cognito events happen in a test, we must use the newest
-      // code, since the others will have been invalidated.
-      //
-      // Instead of taking a fixed number here, we take the most recent code
-      // after 5 seconds, which is hopefully a more general solution.
-      .audit(const Duration(seconds: 5))
+      .map((event) => event.code)
       .first;
 }

@@ -52,11 +52,15 @@ export const handler: lambda.AppSyncResolverHandler<
   const { input } = event.arguments;
   const { username } = input;
 
+  const baseParams = {
+    UserPoolId: USER_POOL_ID,
+    Username: username,
+  }
+
   console.log(`Creating user ${username}...`);
   try {
     const createUserParams: cognito.AdminCreateUserCommandInput = {
-      UserPoolId: USER_POOL_ID,
-      Username: username,
+      ...baseParams,
       TemporaryPassword: input.password,
       UserAttributes: [
         { Name: "email", Value: input.email },
@@ -79,8 +83,7 @@ export const handler: lambda.AppSyncResolverHandler<
     console.log(`Updating password for ${username}...`);
     try {
       const setPasswordParams: cognito.AdminSetUserPasswordCommandInput = {
-        UserPoolId: USER_POOL_ID,
-        Username: username,
+        ...baseParams,
         Password: input.password,
         Permanent: true,
       };
@@ -103,8 +106,7 @@ export const handler: lambda.AppSyncResolverHandler<
     console.log(`Enabling MFA for ${username}...`);
     try {
       const mfaParams: cognito.AdminSetUserMFAPreferenceCommandInput = {
-        UserPoolId: USER_POOL_ID,
-        Username: username,
+        ...baseParams,
         SMSMfaSettings: {
           Enabled: true,
           PreferredMfa: true,
@@ -128,8 +130,7 @@ export const handler: lambda.AppSyncResolverHandler<
     try {
       const userAttributesParams: cognito.AdminUpdateUserAttributesCommandInput =
         {
-          UserPoolId: USER_POOL_ID,
-          Username: username,
+          ...baseParams,
           UserAttributes: [
             { Name: "phone_number_verified", Value: "true" },
             { Name: "email_verified", Value: "true" },
