@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:io';
 import 'dart:math';
 
 import 'package:amplify_datastore_example/models/ModelProvider.dart';
@@ -160,6 +161,7 @@ void main() {
         models: models,
         queryField: ModelWithAppsyncScalarTypes.AWSTIMEVALUE,
         sort: sortAWSTimeTypeModel,
+        skip: Platform.isAndroid,
       );
     });
 

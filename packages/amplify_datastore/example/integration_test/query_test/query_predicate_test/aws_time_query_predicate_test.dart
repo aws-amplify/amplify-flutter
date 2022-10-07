@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:io';
+
 import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -147,5 +149,5 @@ void main() {
         expectedModels: rangeMatchModels,
       );
     });
-  });
+  }, skip: Platform.isAndroid);
 }

@@ -14,6 +14,7 @@
  */
 
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:amplify_datastore/amplify_datastore.dart';
@@ -162,7 +163,15 @@ void main() {
           .map((value) =>
               ModelWithAppsyncScalarTypes(awsTimeValue: TemporalTime(value)))
           .toList();
-      testModelOperations(models: models);
+      testModelOperations(
+        models: models,
+        skips: {
+          DataStoreOperation.save: Platform.isAndroid,
+          DataStoreOperation.query: Platform.isAndroid,
+          DataStoreOperation.delete: Platform.isAndroid,
+          DataStoreOperation.observe: Platform.isAndroid,
+        },
+      );
     });
 
     group('List<AWSTime>', () {
