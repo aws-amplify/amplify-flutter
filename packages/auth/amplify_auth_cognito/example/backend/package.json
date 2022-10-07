@@ -1,0 +1,37 @@
+{
+  "name": "backend",
+  "version": "0.1.0",
+  "private": "true",
+  "bin": {
+    "backend": "bin/backend.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "cdk": "cdk",
+    "setup": "cdk bootstrap --profile=${AWS_PROFILE:=default}",
+    "deploy": "cdk deploy --profile=${AWS_PROFILE:=default} --outputs-file=outputs.json && tool/create_config.dart"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.106",
+    "@types/jest": "^27.5.2",
+    "@types/node": "10.17.27",
+    "@types/prettier": "2.6.0",
+    "aws-cdk": "2.45.0",
+    "jest": "^27.5.1",
+    "ts-jest": "^27.1.4",
+    "ts-node": "^10.9.1",
+    "typescript": "~3.9.7"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-appsync-alpha": "^2.45.0-alpha.0",
+    "@aws-crypto/client-node": "^1.9.1",
+    "@aws-sdk/client-cognito-identity-provider": "^3.185.0",
+    "aws-cdk-lib": "2.45.0",
+    "base64-js": "^1.5.1",
+    "constructs": "^10.0.0",
+    "node-fetch": "^3.2.10",
+    "source-map-support": "^0.5.21"
+  }
+}

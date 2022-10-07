@@ -22,8 +22,9 @@ import 'package:stream_transform/stream_transform.dart';
 import 'types/confirm_sign_up_response.dart';
 
 /// A GraphQL document used by the [deleteUser] test utility method.
-const deleteDocument = '''mutation DeleteUser(\$Username: String!) {
-  deleteUser(Username: \$Username) {
+const deleteDocument = r'''
+mutation DeleteUser($username: String!) {
+  deleteUser(username: $username) {
     error
     success
   }
@@ -48,38 +49,29 @@ Future<void> deleteUser(String username) async {
   );
 
   final options = MutationOptions(
-      document: gql(
-        r'''
-          mutation DeleteUser(
-            $Username: String!
-          ) {
-          deleteUser(Username: $Username) {
-              success
-              exception
-            }
-          }
-      ''',
-      ),
+      document: gql(deleteDocument),
       variables: <String, dynamic>{
-        'Username': username,
+        'username': username,
       });
 
-  final QueryResult result = await client.mutate(options);
-  if (result.data?['deleteUser']?['exception'] != null) {
-    throw Exception(result.data?['deleteUser']?['exception']);
+  final result = await client.mutate(options);
+  final deleteError =
+      result.data?['deleteUser']?['error'] ?? result.exception?.toString();
+  if (deleteError != null) {
+    throw Exception(deleteError);
   }
 }
 
 /// Creates a Cognito user in backend infrastructure. This documention describes
 /// how each parameter is expected to be used in the backend .
 ///
-/// Throws [GraphQLResponseErrors] if present in the response.
+/// Throws an [Exception] if present in the response.
 ///
 /// The [username] parameter can be plain text or a phone_number or email,
 /// depending on the backend configuration.
-/// The [password] is used as the temporary password if [autoconfirm] is true.
-/// The [autoconfirm] flag will mark the user as confirmed and give them a permanent password.
-/// The [enableMFA] flag will opt-in the user to using SMS MFA.
+/// The [password] is used as the temporary password if [autoConfirm] is true.
+/// The [autoConfirm] flag will mark the user as confirmed and give them a permanent password.
+/// The [enableMfa] flag will opt-in the user to using SMS MFA.
 /// The [verifyAttributes] flag will verify the email and phone, and should be used
 /// if tests need to bypass the verification step.
 /// The [attributes] list passes additional attributes.
@@ -92,14 +84,13 @@ Future<void> adminCreateUser(
   List<AuthUserAttribute> attributes = const [],
 }) async {
   final config = await Amplify.asyncConfig;
-  final url = config.auth?.awsPlugin?.appSync?.default$?.apiUrl;
-  final key = config.auth?.awsPlugin?.appSync?.default$?.apiKey;
+  final api = config.api!.awsPlugin!.default$!;
   final client = GraphQLClient(
     cache: GraphQLCache(),
     link: HttpLink(
-      url!,
+      api.endpoint,
       defaultHeaders: {
-        'x-api-key': key!,
+        'x-api-key': api.apiKey!,
       },
     ),
   );
@@ -107,74 +98,60 @@ Future<void> adminCreateUser(
   final options = MutationOptions(
       document: gql(
         r'''
-          mutation AdminCreateUser(
-            $AutoConfirm: Boolean,
-            $Email:String,
-            $EnabledMFA: Boolean,
-            $Given_Name: String,
-            $Name: String,
-            $Password: String!, 
-            $Phone_Number:String, 
-            $Username: String!, 
-            $VerifyAttributes: Boolean) {
-            adminCreateUser(
-              AutoConfirm: $AutoConfirm, 
-              Email: $Email, 
-              EnableMFA: $EnabledMFA, 
-              Given_Name: $Given_Name, 
-              Name: $Name,
-              Phone_Number: $Phone_Number,
-              Password: $Password,
-              Username: $Username,
-              VerifyAttributes: $VerifyAttributes
-            ){
+          mutation CreateUser($input: CreateUserInput!) {
+            createUser(input: $input) {
               success
-              exception
+              error
             }
           }
       ''',
       ),
       variables: <String, dynamic>{
-        'AutoConfirm': autoConfirm,
-        'Email': attributes
-            .firstWhere(
-                (el) => el.userAttributeKey == CognitoUserAttributeKey.email,
-                orElse: () => const AuthUserAttribute(
-                    userAttributeKey: CognitoUserAttributeKey.email,
-                    value: 'example@example.com'))
-            .value,
-        'EnabledMFA': enableMfa,
-        'Given_Name': attributes
-            .firstWhere(
-                (el) =>
-                    el.userAttributeKey == CognitoUserAttributeKey.givenName,
-                orElse: () => const AuthUserAttribute(
-                    userAttributeKey: CognitoUserAttributeKey.givenName,
-                    value: 'default_given_name'))
-            .value,
-        'Name': attributes
-            .firstWhere(
-                (el) => el.userAttributeKey == CognitoUserAttributeKey.name,
-                orElse: () => const AuthUserAttribute(
-                    userAttributeKey: CognitoUserAttributeKey.name,
-                    value: 'default_name'))
-            .value,
-        'Password': password,
-        'Phone_Number': attributes
-            .firstWhere(
-                (el) =>
-                    el.userAttributeKey == CognitoUserAttributeKey.phoneNumber,
-                orElse: () => const AuthUserAttribute(
-                    userAttributeKey: CognitoUserAttributeKey.phoneNumber,
-                    value: '+15555555'))
-            .value,
-        'Username': username,
-        'VerifyAttributes': verifyAttributes
+        'input': {
+          'autoConfirm': autoConfirm,
+          'email': attributes
+              .firstWhere(
+                  (el) => el.userAttributeKey == CognitoUserAttributeKey.email,
+                  orElse: () => const AuthUserAttribute(
+                      userAttributeKey: CognitoUserAttributeKey.email,
+                      value: 'example@example.com'))
+              .value,
+          'enableMFA': enableMfa,
+          'givenName': attributes
+              .firstWhere(
+                  (el) =>
+                      el.userAttributeKey == CognitoUserAttributeKey.givenName,
+                  orElse: () => const AuthUserAttribute(
+                      userAttributeKey: CognitoUserAttributeKey.givenName,
+                      value: 'default_given_name'))
+              .value,
+          'name': attributes
+              .firstWhere(
+                  (el) => el.userAttributeKey == CognitoUserAttributeKey.name,
+                  orElse: () => const AuthUserAttribute(
+                      userAttributeKey: CognitoUserAttributeKey.name,
+                      value: 'default_name'))
+              .value,
+          'password': password,
+          'phoneNumber': attributes
+              .firstWhere(
+                  (el) =>
+                      el.userAttributeKey ==
+                      CognitoUserAttributeKey.phoneNumber,
+                  orElse: () => const AuthUserAttribute(
+                      userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+                      value: '+15555555'))
+              .value,
+          'username': username,
+          'verifyAttributes': verifyAttributes,
+        },
       });
 
-  final QueryResult result = await client.mutate(options);
-  if (result.data?['adminCreateUser']?['exception'] != null) {
-    throw Exception(result.data?['adminCreateUser']?['exception']);
+  final result = await client.mutate(options);
+  final createError =
+      result.data?['createUser']?['error'] ?? result.exception?.toString();
+  if (createError != null) {
+    throw Exception(createError);
   }
 }
 

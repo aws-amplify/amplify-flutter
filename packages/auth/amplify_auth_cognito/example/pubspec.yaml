@@ -19,6 +19,8 @@ dependencies:
     path: ../
   amplify_authenticator:
     path: ../../../amplify_authenticator
+  amplify_core:
+    path: ../../../amplify_core
   amplify_flutter:
     path: ../../../amplify/amplify_flutter
   flutter:
