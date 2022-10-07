@@ -25,14 +25,13 @@ import 'utils/validation_utils.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final username = generateUsername();
-  final password = generatePassword();
-
   group('getCurrentUser', () {
+    final username = generateUsername();
+    final password = generatePassword();
+
     setUpAll(() async {
       await configureAuth();
 
-      // create one user for all tests
       await adminCreateUser(
         username,
         password,
@@ -43,7 +42,6 @@ void main() {
 
     tearDownAll(Amplify.reset);
 
-    // sign in prior to each test
     setUp(() async {
       await signOutUser();
       await Amplify.Auth.signIn(
@@ -53,10 +51,8 @@ void main() {
     });
 
     test('should return the current user', () async {
-      var authUser = await Amplify.Auth.getCurrentUser();
-      // usernames need to be compared case insensitive due to
-      // https://github.com/aws-amplify/amplify-flutter/issues/723
-      expect(authUser.username.toLowerCase(), username.toLowerCase());
+      final authUser = await Amplify.Auth.getCurrentUser();
+      expect(authUser.username, username);
       expect(isValidUserSub(authUser.userId), isTrue);
     });
 

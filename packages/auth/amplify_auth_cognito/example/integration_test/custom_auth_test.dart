@@ -24,166 +24,137 @@ import 'utils/setup_utils.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  late String username;
-  late String password;
-  CognitoSignInOptions options = const CognitoSignInOptions(
-      authFlowType: AuthenticationFlowType.customAuth);
-  group(
-    'custom auth passwordless signIn',
-    () {
-      setUpAll(() async {
-        await configureAuth();
-        // create new user for each test
-        username = generateUsername();
-        password = generatePassword();
 
-        await adminCreateUser(
-          username,
-          password,
-          autoConfirm: true,
-          verifyAttributes: true,
+  group('signIn (custom)', () {
+    // Arbitrary challenge answer defined in Lambda
+    const confirmationValue = '123';
+    const options = CognitoSignInOptions(
+      authFlowType: AuthenticationFlowType.customAuth,
+    );
+
+    final username = generateUsername();
+    final password = generatePassword();
+
+    setUpAll(() async {
+      await configureAuth();
+
+      await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        verifyAttributes: true,
+      );
+    });
+
+    tearDownAll(Amplify.reset);
+
+    setUp(() async {
+      await signOutUser();
+    });
+
+    test(
+      'signIn should return data from the auth challenge lambda '
+      '(passwordless)',
+      () async {
+        final res = await Amplify.Auth.signIn(
+          username: username,
+          options: options,
         );
-      });
+        expect(
+          res.nextStep!.signInStep,
+          'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE',
+        );
 
-      setUp(() async {
-        await signOutUser();
-      });
+        final additionalInfo = res.nextStep!.additionalInfo ?? const {};
 
-      tearDownAll(Amplify.reset);
+        // additionalInfo key values defined in lambda code
+        expect(additionalInfo, hasLength(2));
+        expect(additionalInfo, containsPair('test-key', 'test-value'));
+        expect(additionalInfo, contains('USERNAME'));
+      },
+    );
 
-      test(
-        'signIn should return data from the auth challenge lambda '
-        '(passwordless)',
-        () async {
-          final res = await Amplify.Auth.signIn(
+    test(
+      'a correct challenge reply should sign in the user in',
+      () async {
+        await Amplify.Auth.signIn(
+          username: username,
+          options: options,
+        );
+        final res = await Amplify.Auth.confirmSignIn(
+          confirmationValue: confirmationValue,
+        );
+        expect(res.isSignedIn, true);
+      },
+    );
+
+    test(
+      'an incorrect challenge reply should throw a NotAuthorizedException',
+      () async {
+        await Amplify.Auth.signIn(
+          username: username,
+          options: options,
+        );
+        // '123' is the arbitrary challenge answer defined in lambda code
+        expect(
+          Amplify.Auth.confirmSignIn(confirmationValue: 'wrong'),
+          throwsA(isA<NotAuthorizedException>()),
+        );
+      },
+    );
+
+    test(
+      'if a password is provided but is incorrect, throw '
+      'NotAuthorizedException',
+      () async {
+        // '123' is the arbitrary challenge answer defined in lambda code
+        expect(
+          Amplify.Auth.signIn(
             username: username,
+            password: 'wrong',
             options: options,
-          );
-          expect(
-            res.isSignedIn,
-            false,
-          );
-          // additionalInfo key values defined in lambda code
-          expect(
-            res.nextStep!.additionalInfo?['test-key'],
-            'test-value',
-          );
-          expect(
-            res.nextStep!.additionalInfo?['USERNAME'],
-            isNotNull,
-          );
-          expect(
-            res.nextStep!.additionalInfo?.length,
-            2,
-          );
-          expect(
-            res.nextStep?.signInStep,
-            'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE',
-          );
-        },
-      );
+          ),
+          throwsA(isA<NotAuthorizedException>()),
+        );
+      },
+    );
 
-      test(
-        'a correct challenge reply should sign in the user in',
-        () async {
-          await Amplify.Auth.signIn(
-            username: username,
-            options: options,
-          );
-          // '123' is the arbitrary challenge answer defined in lambda code
-          final res = await Amplify.Auth.confirmSignIn(
-            confirmationValue: '123',
-          );
-          expect(
-            res.isSignedIn,
-            true,
-          );
-        },
-      );
+    test(
+      'a correct password and correct challenge reply should sign in '
+      'the user',
+      () async {
+        await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+          options: options,
+        );
+        final res = await Amplify.Auth.confirmSignIn(
+          confirmationValue: confirmationValue,
+        );
+        expect(res.isSignedIn, true);
+      },
+    );
 
-      test(
-        'an incorrect challenge reply should throw a NotAuthorizedException',
-        () async {
-          await Amplify.Auth.signIn(
-            username: username,
-            options: options,
-          );
-          // '123' is the arbitrary challenge answer defined in lambda code
-          expect(
-            Amplify.Auth.confirmSignIn(confirmationValue: 'wrong'),
-            throwsA(
-              isA<NotAuthorizedException>(),
-            ),
-          );
-        },
-      );
+    test(
+      'should return data from the auth challenge lambda '
+      '(with password)',
+      () async {
+        final res = await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+          options: options,
+        );
+        expect(
+          res.nextStep?.signInStep,
+          'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE',
+        );
 
-      test(
-        'if a password is provided but is incorrect, throw '
-        'NotAuthorizedException',
-        () async {
-          // '123' is the arbitrary challenge answer defined in lambda code
-          expect(
-            Amplify.Auth.signIn(
-              username: username,
-              password: 'wrong',
-              options: options,
-            ),
-            throwsA(
-              isA<NotAuthorizedException>(),
-            ),
-          );
-        },
-      );
+        final additionalInfo = res.nextStep!.additionalInfo ?? const {};
 
-      test(
-        'a correct password and correct challenge reply should sign in '
-        'the user',
-        () async {
-          await Amplify.Auth.signIn(
-            username: username,
-            password: password,
-            options: options,
-          );
-          // '123' is the arbitrary challenge answer defined in lambda code
-          final res = await Amplify.Auth.confirmSignIn(
-            confirmationValue: '123',
-          );
-          expect(
-            res.isSignedIn,
-            true,
-          );
-        },
-      );
-
-      test(
-        'signIn should return data from the auth challenge lambda '
-        '(with password)',
-        () async {
-          final res = await Amplify.Auth.signIn(
-            username: username,
-            password: password,
-            options: options,
-          );
-          expect(
-            res.isSignedIn,
-            false,
-          );
-          // additionalInfo key values defined in lambda code
-          expect(
-            res.nextStep!.additionalInfo?['test-key'],
-            'test-value',
-          );
-          expect(
-            res.nextStep!.additionalInfo?.length,
-            1,
-          );
-          expect(
-            res.nextStep?.signInStep,
-            'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE',
-          );
-        },
-      );
-    },
-  );
+        // additionalInfo key values defined in lambda code
+        expect(additionalInfo, hasLength(1));
+        expect(additionalInfo, containsPair('test-key', 'test-value'));
+      },
+    );
+  });
 }

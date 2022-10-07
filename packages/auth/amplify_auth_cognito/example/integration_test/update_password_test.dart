@@ -25,10 +25,10 @@ import 'utils/setup_utils.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  late String username;
-  late String password;
-
   group('updatePassword', () {
+    late String username;
+    late String password;
+
     setUpAll(() async {
       await configureAuth();
     });
@@ -36,9 +36,9 @@ void main() {
     tearDownAll(Amplify.reset);
 
     setUp(() async {
-      // create new user for each test
       username = generateUsername();
       password = generatePassword();
+
       await adminCreateUser(
         username,
         password,
@@ -47,11 +47,13 @@ void main() {
       );
 
       await signOutUser();
-      // sign in with current password
-      await Amplify.Auth.signIn(
+
+      // Sign in with current password
+      final res = await Amplify.Auth.signIn(
         username: username,
         password: password,
       );
+      expect(res.isSignedIn, isTrue);
     });
 
     test('should update a user\'s password', () async {
@@ -68,36 +70,38 @@ void main() {
         username: username,
         password: newPassword,
       );
-      expect(res.isSignedIn, true);
+      expect(res.isSignedIn, isTrue);
     });
 
     test(
-        'should throw a NotAuthorizedException for an incorrect current password',
-        () async {
-      // attempt to change password using an incorrect password
-      final incorrectPassword = generatePassword();
-      final newPassword = generatePassword();
-      expect(
-        Amplify.Auth.updatePassword(
-          oldPassword: incorrectPassword,
-          newPassword: newPassword,
-        ),
-        throwsA(isA<NotAuthorizedException>()),
-      );
-    });
+      'should throw a NotAuthorizedException for an incorrect '
+      'current password',
+      () async {
+        final incorrectPassword = generatePassword();
+        final newPassword = generatePassword();
+        expect(
+          Amplify.Auth.updatePassword(
+            oldPassword: incorrectPassword,
+            newPassword: newPassword,
+          ),
+          throwsA(isA<NotAuthorizedException>()),
+        );
+      },
+    );
 
     test(
-        'should throw an InvalidPasswordException for a new password that doesn\'t meet password requirements',
-        () async {
-      // attempt to change password to an invalid password
-      const invalidPassword = '123';
-      expect(
-        Amplify.Auth.updatePassword(
-          oldPassword: password,
-          newPassword: invalidPassword,
-        ),
-        throwsA(isA<InvalidPasswordException>()),
-      );
-    });
+      'should throw an InvalidPasswordException for a new password that '
+      "doesn't meet password requirements",
+      () async {
+        const invalidPassword = '123';
+        expect(
+          Amplify.Auth.updatePassword(
+            oldPassword: password,
+            newPassword: invalidPassword,
+          ),
+          throwsA(isA<InvalidPasswordException>()),
+        );
+      },
+    );
   });
 }

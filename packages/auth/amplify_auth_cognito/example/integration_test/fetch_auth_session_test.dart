@@ -26,14 +26,13 @@ import 'utils/validation_utils.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final username = generateUsername();
-  final password = generatePassword();
+  group('fetchAuthSession', () {
+    final username = generateUsername();
+    final password = generatePassword();
 
-  group('fetchSession', () {
     setUpAll(() async {
       await configureAuth();
 
-      // create one confirmed user for all tests
       await adminCreateUser(
         username,
         password,
@@ -44,27 +43,29 @@ void main() {
 
     tearDownAll(Amplify.reset);
 
-    // sign in prior to each test
     setUp(() async {
       await signOutUser();
-      await Amplify.Auth.signIn(
+      final res = await Amplify.Auth.signIn(
         username: username,
         password: password,
       );
-    });
-
-    test('should return user credentials if getAWSCredentials is true',
-        () async {
-      final res = await Amplify.Auth.fetchAuthSession(
-        options: const CognitoSessionOptions(getAWSCredentials: true),
-      ) as CognitoAuthSession;
-
       expect(res.isSignedIn, isTrue);
-      expect(isValidUserSub(res.userSub), isTrue);
-      expect(isValidIdentityId(res.identityId), isTrue);
-      expect(isValidAWSCredentials(res.credentials), isTrue);
-      expect(isValidAWSCognitoUserPoolTokens(res.userPoolTokens), isTrue);
     });
+
+    test(
+      'should return user credentials if getAWSCredentials is true',
+      () async {
+        final res = await Amplify.Auth.fetchAuthSession(
+          options: const CognitoSessionOptions(getAWSCredentials: true),
+        ) as CognitoAuthSession;
+
+        expect(res.isSignedIn, isTrue);
+        expect(isValidUserSub(res.userSub), isTrue);
+        expect(isValidIdentityId(res.identityId), isTrue);
+        expect(isValidAWSCredentials(res.credentials), isTrue);
+        expect(isValidAWSCognitoUserPoolTokens(res.userPoolTokens), isTrue);
+      },
+    );
 
     test('should return user credentials without getAWSCredentials', () async {
       final res = await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
@@ -80,7 +81,8 @@ void main() {
       'should return isSignedIn as false if the user is signed out',
       () async {
         await Amplify.Auth.signOut();
-        var res = await Amplify.Auth.fetchAuthSession();
+
+        final res = await Amplify.Auth.fetchAuthSession();
         expect(res.isSignedIn, isFalse);
       },
     );
