@@ -35,17 +35,20 @@ class _ConfirmUserAttributeScreenState
 
   void _showSuccess(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(backgroundColor: Colors.green[800], content: Text(message)));
+      SnackBar(backgroundColor: Colors.green[800], content: Text(message)),
+    );
   }
 
   void _showInfo(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(backgroundColor: Colors.blue[800], content: Text(message)));
+      SnackBar(backgroundColor: Colors.blue[800], content: Text(message)),
+    );
   }
 
   void _showError(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(backgroundColor: Colors.red[900], content: Text(message)));
+      SnackBar(backgroundColor: Colors.red[900], content: Text(message)),
+    );
   }
 
   Future<void> _confirmUpdate() async {

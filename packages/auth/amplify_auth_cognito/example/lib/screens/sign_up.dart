@@ -18,11 +18,6 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
 class SignUpWidget extends StatefulWidget {
-  final Function showResult;
-  final Function changeDisplay;
-  final Function setError;
-  final VoidCallback backToSignIn;
-
   const SignUpWidget(
     this.showResult,
     this.changeDisplay,
@@ -30,6 +25,11 @@ class SignUpWidget extends StatefulWidget {
     this.backToSignIn, {
     super.key,
   });
+
+  final void Function(String) showResult;
+  final void Function(String) changeDisplay;
+  final void Function(Object?) setError;
+  final VoidCallback backToSignIn;
 
   @override
   State<SignUpWidget> createState() => _SignUpWidgetState();
@@ -42,19 +42,21 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   final phoneController = TextEditingController();
 
   void _signUp() async {
-    var userAttributes = {
+    final userAttributes = {
       CognitoUserAttributeKey.email: emailController.text,
       CognitoUserAttributeKey.phoneNumber: phoneController.text,
     };
     try {
-      var res = await Amplify.Auth.signUp(
-          username: usernameController.text.trim(),
-          password: passwordController.text.trim(),
-          options: CognitoSignUpOptions(userAttributes: userAttributes));
+      final res = await Amplify.Auth.signUp(
+        username: usernameController.text.trim(),
+        password: passwordController.text.trim(),
+        options: CognitoSignUpOptions(userAttributes: userAttributes),
+      );
       widget.showResult('Sign Up Status = ${res.nextStep.signUpStep}');
       widget.changeDisplay(
-          res.nextStep.signUpStep != 'DONE' ? 'SHOW_CONFIRM' : 'SHOW_SIGN_UP');
-    } on AmplifyException catch (e) {
+        res.nextStep.signUpStep != 'DONE' ? 'SHOW_CONFIRM' : 'SHOW_SIGN_UP',
+      );
+    } on Exception catch (e) {
       widget.setError(e);
     }
   }
@@ -106,13 +108,13 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                   labelText: 'Phone number *',
                 ),
               ),
-              const Padding(padding: EdgeInsets.all(10.0)),
+              const Padding(padding: EdgeInsets.all(10)),
               ElevatedButton(
                 key: const Key('signup-button'),
                 onPressed: _signUp,
                 child: const Text('Sign Up'),
               ),
-              const Padding(padding: EdgeInsets.all(10.0)),
+              const Padding(padding: EdgeInsets.all(10)),
               ElevatedButton(
                 key: const Key('goto-signin-button'),
                 onPressed: widget.backToSignIn,

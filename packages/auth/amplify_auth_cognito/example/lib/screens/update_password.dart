@@ -17,15 +17,20 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
 class UpdatePasswordWidget extends StatefulWidget {
-  final Function showResult;
-  final Function changeDisplay;
-  final Function setError;
+  const UpdatePasswordWidget(
+    this.showResult,
+    this.changeDisplay,
+    this.setError,
+    this.backToSignIn,
+    this.backToApp, {
+    super.key,
+  });
+
+  final void Function(String) showResult;
+  final void Function(String) changeDisplay;
+  final void Function(Object) setError;
   final VoidCallback backToSignIn;
   final VoidCallback backToApp;
-
-  const UpdatePasswordWidget(this.showResult, this.changeDisplay, this.setError,
-      this.backToSignIn, this.backToApp,
-      {super.key});
 
   @override
   State<UpdatePasswordWidget> createState() => _UpdatePasswordWidgetState();
@@ -38,11 +43,12 @@ class _UpdatePasswordWidgetState extends State<UpdatePasswordWidget> {
   void _updatePassword() async {
     try {
       await Amplify.Auth.updatePassword(
-          newPassword: newPasswordController.text.trim(),
-          oldPassword: oldPasswordController.text.trim());
+        newPassword: newPasswordController.text.trim(),
+        oldPassword: oldPasswordController.text.trim(),
+      );
       widget.showResult('Password Updated');
       widget.changeDisplay('SIGNED_IN');
-    } on AmplifyException catch (e) {
+    } on Exception catch (e) {
       widget.setError(e);
     }
   }
@@ -56,34 +62,36 @@ class _UpdatePasswordWidgetState extends State<UpdatePasswordWidget> {
           // wrap your Column in Expanded
           child: Column(
             children: [
-              const Padding(padding: EdgeInsets.all(10.0)),
+              const Padding(padding: EdgeInsets.all(10)),
               TextFormField(
-                  controller: oldPasswordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.question_answer),
-                    hintText: 'Your old password',
-                    labelText: 'Old Password *',
-                  )),
+                controller: oldPasswordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.question_answer),
+                  hintText: 'Your old password',
+                  labelText: 'Old Password *',
+                ),
+              ),
               TextFormField(
-                  controller: newPasswordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.question_answer),
-                    hintText: 'Your new password',
-                    labelText: 'New Password *',
-                  )),
-              const Padding(padding: EdgeInsets.all(10.0)),
+                controller: newPasswordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.question_answer),
+                  hintText: 'Your new password',
+                  labelText: 'New Password *',
+                ),
+              ),
+              const Padding(padding: EdgeInsets.all(10)),
               ElevatedButton(
                 onPressed: _updatePassword,
                 child: const Text('Update Password'),
               ),
-              const Padding(padding: EdgeInsets.all(10.0)),
+              const Padding(padding: EdgeInsets.all(10)),
               ElevatedButton(
                 onPressed: widget.backToApp,
                 child: const Text('Back to App'),
               ),
-              const Padding(padding: EdgeInsets.all(10.0)),
+              const Padding(padding: EdgeInsets.all(10)),
               ElevatedButton(
                 key: const Key('goto-signin-button'),
                 onPressed: widget.backToSignIn,
