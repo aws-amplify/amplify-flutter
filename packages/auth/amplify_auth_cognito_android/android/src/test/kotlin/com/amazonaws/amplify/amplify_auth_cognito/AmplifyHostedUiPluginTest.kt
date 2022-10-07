@@ -49,7 +49,7 @@ internal class AmplifyHostedUiPluginTest {
             atLeastOnce()
         ).setMessageHandler(anyString(), handler.capture())
 
-        val codec = NativeAuthPluginBindings.NativeAuthBridge.getCodec()
+        val codec = NativeAuthPluginBindingsPigeon.NativeAuthBridge.getCodec()
         val args = listOf("url", "callbackUrlScheme", true, null)
         val message = codec.encodeMessage(args)
         message?.rewind()
@@ -87,7 +87,7 @@ internal class AmplifyHostedUiPluginTest {
             atLeastOnce()
         ).setMessageHandler(anyString(), handler.capture())
 
-        val codec = NativeAuthPluginBindings.NativeAuthBridge.getCodec()
+        val codec = NativeAuthPluginBindingsPigeon.NativeAuthBridge.getCodec()
         val args = listOf("url", "callbackUrlScheme", true, null)
         val message = codec.encodeMessage(args)
         message?.rewind()

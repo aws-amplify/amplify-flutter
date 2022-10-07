@@ -858,6 +858,9 @@ class _SmithyAws {
   /// Creates a [smithy_aws.S3ClientConfig] refererence.
   Reference get s3ClientConfig => const Reference('S3ClientConfig', _url);
 
+  /// Creates a [smithy_aws.WithChecksum] refererence.
+  Reference get withChecksum => const Reference('WithChecksum', _url);
+
   /// Creates a [smithy_aws.WithSdkInvocationId] refererence.
   Reference get withSdkInvocationId =>
       const Reference('WithSdkInvocationId', _url);

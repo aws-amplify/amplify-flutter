@@ -14,7 +14,6 @@
 
 package com.amazonaws.amplify.amplify_auth_cognito
 
-import com.amazonaws.amplify.amplify_auth_cognito.pigeons.NativeAuthPluginBindings
 import io.flutter.Log
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -25,9 +24,9 @@ import java.util.concurrent.atomic.AtomicBoolean
  * automatically posts results to the main thread.
  */
 class AtomicResult<T>(
-    private val result: NativeAuthPluginBindings.Result<T>,
+    private val result: NativeAuthPluginBindingsPigeon.Result<T>,
     private val operation: String
-) : NativeAuthPluginBindings.Result<T> {
+) : NativeAuthPluginBindingsPigeon.Result<T> {
     private companion object {
         /**
          * Scope for performing result handling.
