@@ -113,7 +113,7 @@ class EqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
     // nested model, such as `Post.BLOG.eq(myBlog.modelIdentifier))`,
     // and the value should be compared against the model ID.
     if (other is Model) {
-      // TODO: Update to `return value == other.modelIdentifier`
+      // TODO(Jordan-Nelson): Update to `return value == other.modelIdentifier`
       // when `getId()` is removed from Model.
       if (value is ModelIdentifier) {
         return value == other.modelIdentifier;
@@ -172,7 +172,7 @@ class NotEqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
     // nested model, such as `Post.BLOG.eq(myBlog.modelIdentifier))`,
     // and the value should be compared against the model ID.
     if (other is Model) {
-      // TODO: Update to `return value != other.modelIdentifier`
+      // TODO(Jordan-Nelson): Update to `return value != other.modelIdentifier`
       // when `getId()` is removed from Model.
       if (value is ModelIdentifier) {
         return value != other.modelIdentifier;
