@@ -71,5 +71,6 @@ class AmplifyClassImpl extends AmplifyClass {
       DataStore.reset(),
       Storage.reset(),
     ]);
+    await super.reset();
   }
 }

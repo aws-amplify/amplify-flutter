@@ -66,10 +66,12 @@ void main() {
       await Amplify.Auth.signIn(username: username, password: password);
     });
 
+    tearDownAll(Amplify.reset);
+
     group('fetchUserAttributes', () {
-      testWidgets(
+      test(
         'should fetch a users attributes',
-        (WidgetTester tester) async {
+        () async {
           var userAttributes = await Amplify.Auth.fetchUserAttributes();
 
           var emailAttributeValue = getAttributeValueFromList(
@@ -89,14 +91,11 @@ void main() {
           expect(phoneNumberAttributeValue, phoneNumber);
           expect(nameAttributeValue, name);
         },
-        // TODO: enable after adminCreateUser can properly create user attributes
-        skip: true,
       );
     });
 
     group('updateUserAttribute', () {
-      testWidgets('should update a single users attribute',
-          (WidgetTester tester) async {
+      test('should update a single users attribute', () async {
         final updatedName = generateNameAttribute();
         var res = await Amplify.Auth.updateUserAttribute(
           userAttributeKey: nameAttributeKey,
@@ -115,9 +114,9 @@ void main() {
         expect(nameAttributeValue, updatedName);
       });
 
-      testWidgets(
+      test(
           'should throw an InvalidParameterException for an invalid attribute key',
-          (WidgetTester tester) async {
+          () async {
         expect(
           Amplify.Auth.updateUserAttribute(
             userAttributeKey: CognitoUserAttributeKey.parse('fake-key-name'),
@@ -127,9 +126,9 @@ void main() {
         );
       });
 
-      testWidgets(
+      test(
           'should throw an InvalidParameterException for an invalid attribute value',
-          (WidgetTester tester) async {
+          () async {
         const invalidEmailAddress = 'invalidEmailFormat.com';
         expect(
           Amplify.Auth.updateUserAttribute(
@@ -142,8 +141,7 @@ void main() {
     });
 
     group('updateUserAttributes', () {
-      testWidgets('should update multiple users attributes',
-          (WidgetTester tester) async {
+      test('should update multiple users attributes', () async {
         final updatedName = generateNameAttribute();
         final updatedGivenName = generateNameAttribute();
         await Amplify.Auth.updateUserAttributes(
@@ -174,9 +172,9 @@ void main() {
         expect(givenNameAttributeValue, updatedGivenName);
       });
 
-      testWidgets(
+      test(
           'should throw an InvalidParameterException and not update any attributes if one is invalid',
-          (WidgetTester tester) async {
+          () async {
         // set initial state
         await Amplify.Auth.updateUserAttribute(
           userAttributeKey: nameAttributeKey,
@@ -197,7 +195,7 @@ void main() {
             ),
           ]);
         } on Object catch (e) {
-          expect(e, const TypeMatcher<InvalidParameterException>());
+          expect(e, isA<InvalidParameterException>());
           var userAttributes = await Amplify.Auth.fetchUserAttributes();
           var nameAttributeValue = getAttributeValueFromList(
             userAttributes,
