@@ -88,7 +88,7 @@ class WebSocketConnection implements Closeable {
   AWSHttpClient? _pingClient = httpClientOverride ?? AWSHttpClient();
   Timer? _pingTimer;
   late Uri _pingUri;
-  bool _hasNetwork = false;
+  bool _hasNetwork = true;
   bool _hasConnectionBroken = false;
   final Set<GraphQLRequest<Object?>> _subscriptionRequests = HashSet(
     hashCode: ((p0) => p0.id.hashCode),
@@ -158,7 +158,8 @@ class WebSocketConnection implements Closeable {
   var _initMemo = AsyncMemoizer<void>();
   Completer<void> _connectionPending = Completer<void>();
   Completer<void> _connectionReady = Completer<void>();
-  final Completer<void> _connectionStart = Completer<void>();
+  Completer<void> _connectionStart = Completer<void>();
+  Completer<void> _reconnectPending = Completer<void>();
 
   /// Fires when connection is waiting for the first `connection_ack` message.
   @visibleForTesting
@@ -172,6 +173,10 @@ class WebSocketConnection implements Closeable {
   @visibleForTesting
   Future<void> get connectionStart => _connectionStart.future;
 
+  /// Fires when reconnection is occurring.
+  @visibleForTesting
+  Future<void> get reconnectPending => _reconnectPending.future;
+
   /// Connects _subscription stream to _onData handler.
   @visibleForTesting
   StreamSubscription<WebSocketMessage> getStreamSubscription(
@@ -179,14 +184,15 @@ class WebSocketConnection implements Closeable {
   ) {
     return stream.transform(const WebSocketMessageStreamTransformer()).listen(
       _onData,
-      onDone: () {
+      onDone: () async {
         _logger.verbose('Web socket connection done.');
 
         _resetConnectionInit();
-        _resetConnectionVariables();
+        await _resetConnectionVariables();
       },
       onError: (Object e, StackTrace st) {
         if (_hasNetwork && _subscriptionRequests.isNotEmpty) {
+          _hubEventsController.add(SubscriptionHubEvent.connecting());
           _reEstablishConnection();
         } else {
           _hubEventsController.add(SubscriptionHubEvent.failed());
@@ -208,7 +214,8 @@ class WebSocketConnection implements Closeable {
   StreamSubscription<ConnectivityResult> getStreamNetwork() {
     return (_connectivityOverride ?? Connectivity())
         .onConnectivityChanged
-        .listen((ConnectivityResult connectivityResult) async {
+        .asyncExpand<ConnectivityResult>(
+            (ConnectivityResult connectivityResult) async* {
       switch (connectivityResult) {
         case ConnectivityResult.ethernet:
         case ConnectivityResult.mobile:
@@ -232,7 +239,7 @@ class WebSocketConnection implements Closeable {
         default:
           break;
       }
-    });
+    }).listen(null);
   }
 
   /// Connects WebSocket _channel to _subscription stream but does not send connection
@@ -261,6 +268,8 @@ class WebSocketConnection implements Closeable {
   void _resetConnectionInit() {
     _initMemo = AsyncMemoizer<void>();
     _connectionReady = Completer<void>();
+    _connectionPending = Completer<void>();
+    _connectionStart = Completer<void>();
   }
 
   /// Closes the WebSocket connection and cleans up local variables.
@@ -293,14 +302,14 @@ class WebSocketConnection implements Closeable {
       final body = await utf8.decodeStream(res.body);
       if (body != 'healthy') {
         throw ApiException(
-          'Subscription connection broken. AppSync status check returned: ${res.body}',
+          'Subscription connection broken. AppSync status check returned "$body", attempting reconnection',
           recoverySuggestion:
               'Unable to ping the configured AppSync URL. Check internet connection or the configured AppSync URL',
         );
       }
     } on Exception catch (e) {
       if (e is ApiException) {
-        _logger.error(e.message, e.recoverySuggestion);
+        _logger.warn(e.message, e.recoverySuggestion);
       }
       _pingTimer?.cancel();
       _timeoutTimer?.cancel();
@@ -310,9 +319,8 @@ class WebSocketConnection implements Closeable {
 
       // only try to recover if network is turned on
       if (_hasNetwork) {
-        await _reEstablishConnection();
-      } else {
         _hubEventsController.add(SubscriptionHubEvent.connecting());
+        await _reEstablishConnection();
       }
     }
   }
@@ -325,15 +333,21 @@ class WebSocketConnection implements Closeable {
 
     try {
       _hasConnectionBroken = false;
-      _hubEventsController.add(SubscriptionHubEvent.connecting());
 
       await retryStrategy.retry(
         // Make a GET request
         () => _getPollRequest().timeout(_defaultRetryTimeout),
       );
+      _resetConnectionInit();
+      await _resetConnectionVariables();
+      _reconnectPending.complete();
 
       // we can reach AppSync, precede with reconnect
       await _init();
+
+      _reconnectPending = Completer<void>();
+
+      return;
     } on Exception catch (e) {
       // no network, can't reconnect
       _hubEventsController.add(SubscriptionHubEvent.disconnected());
@@ -357,23 +371,25 @@ class WebSocketConnection implements Closeable {
 
   /// Clear variables used to track subscriptions and other helper variables
   /// related to web socket connection.
-  void _resetConnectionVariables([int closeStatus = _defaultCloseStatus]) {
+  Future<void> _resetConnectionVariables([
+    int closeStatus = _defaultCloseStatus,
+  ]) async {
     final reason =
         closeStatus == _defaultCloseStatus ? 'client closed' : 'unknown';
 
-    _channel?.sink.done.whenComplete(() {
-      _network?.cancel();
-      _subscription?.cancel();
-      _timeoutTimer?.cancel();
-      _pingTimer?.cancel();
+    await _channel?.sink.close(closeStatus, reason);
+    await _channel?.sink.done;
 
-      _channel = null;
-      _network = null;
-      _subscription = null;
-      _timeoutTimer = null;
-      _pingTimer = null;
-    });
-    _channel?.sink.close(closeStatus, reason);
+    await _network?.cancel();
+    await _subscription?.cancel();
+    _timeoutTimer?.cancel();
+    _pingTimer?.cancel();
+
+    _channel = null;
+    _network = null;
+    _subscription = null;
+    _timeoutTimer = null;
+    _pingTimer = null;
   }
 
   /// Initializes the connection.
@@ -381,15 +397,20 @@ class WebSocketConnection implements Closeable {
   /// Connects to WebSocket, sends connection message and resolves future once
   /// connection_ack message received from server. If the connection was previously
   /// established then will return previously completed future.
-  Future<void> init() => _initMemo.runOnce(_init);
+  Future<void> init() => _initMemo.runOnce(
+        () {
+          _hubEventsController.add(SubscriptionHubEvent.connecting());
+          return _init();
+        },
+      );
 
   Future<void> _init() async {
     // Prep new connection with a clean slate
-    _connectionReady = Completer<void>();
-    _connectionPending = Completer<void>();
-    _resetConnectionVariables();
-
-    _hubEventsController.add(SubscriptionHubEvent.connecting());
+    if (_connectionReady.isCompleted || _channel != null) {
+      _connectionReady = Completer<void>();
+      _connectionPending = Completer<void>();
+      await _resetConnectionVariables();
+    }
 
     final connectionUri =
         await generateConnectionUri(_config, _authProviderRepo);
