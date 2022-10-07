@@ -42,6 +42,8 @@ void main() {
       );
     });
 
+    tearDownAll(Amplify.reset);
+
     // sign in prior to each test
     setUp(() async {
       await signOutUser();
@@ -51,9 +53,9 @@ void main() {
       );
     });
 
-    testWidgets('should return user credentials if getAWSCredentials is true',
-        (WidgetTester tester) async {
-      var res = await Amplify.Auth.fetchAuthSession(
+    test('should return user credentials if getAWSCredentials is true',
+        () async {
+      final res = await Amplify.Auth.fetchAuthSession(
         options: const CognitoSessionOptions(getAWSCredentials: true),
       ) as CognitoAuthSession;
 
@@ -64,9 +66,8 @@ void main() {
       expect(isValidAWSCognitoUserPoolTokens(res.userPoolTokens), isTrue);
     });
 
-    testWidgets('should return user credentials without getAWSCredentials',
-        (WidgetTester tester) async {
-      var res = await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
+    test('should return user credentials without getAWSCredentials', () async {
+      final res = await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
 
       expect(res.isSignedIn, isTrue);
       expect(isValidUserSub(res.userSub), isTrue);
@@ -75,11 +76,13 @@ void main() {
       expect(isValidAWSCognitoUserPoolTokens(res.userPoolTokens), isTrue);
     });
 
-    testWidgets('should return isSignedIn as false if the user is signed out',
-        (WidgetTester tester) async {
-      await Amplify.Auth.signOut();
-      var res = await Amplify.Auth.fetchAuthSession();
-      expect(res.isSignedIn, isFalse);
-    });
+    test(
+      'should return isSignedIn as false if the user is signed out',
+      () async {
+        await Amplify.Auth.signOut();
+        var res = await Amplify.Auth.fetchAuthSession();
+        expect(res.isSignedIn, isFalse);
+      },
+    );
   });
 }

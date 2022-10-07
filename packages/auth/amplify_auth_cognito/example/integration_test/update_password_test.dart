@@ -33,6 +33,8 @@ void main() {
       await configureAuth();
     });
 
+    tearDownAll(Amplify.reset);
+
     setUp(() async {
       // create new user for each test
       username = generateUsername();
@@ -52,8 +54,7 @@ void main() {
       );
     });
 
-    testWidgets('should update a user\'s password',
-        (WidgetTester tester) async {
+    test('should update a user\'s password', () async {
       // change password
       final newPassword = generatePassword();
       await Amplify.Auth.updatePassword(
@@ -70,9 +71,9 @@ void main() {
       expect(res.isSignedIn, true);
     });
 
-    testWidgets(
+    test(
         'should throw a NotAuthorizedException for an incorrect current password',
-        (WidgetTester tester) async {
+        () async {
       // attempt to change password using an incorrect password
       final incorrectPassword = generatePassword();
       final newPassword = generatePassword();
@@ -85,9 +86,9 @@ void main() {
       );
     });
 
-    testWidgets(
+    test(
         'should throw an InvalidPasswordException for a new password that doesn\'t meet password requirements',
-        (WidgetTester tester) async {
+        () async {
       // attempt to change password to an invalid password
       const invalidPassword = '123';
       expect(

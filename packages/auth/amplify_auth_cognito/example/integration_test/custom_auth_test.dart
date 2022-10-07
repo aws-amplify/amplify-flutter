@@ -31,10 +31,6 @@ void main() {
   group(
     'custom auth passwordless signIn',
     () {
-      setUp(() async {
-        await signOutUser();
-      });
-
       setUpAll(() async {
         await configureAuth();
         // create new user for each test
@@ -49,9 +45,16 @@ void main() {
         );
       });
 
-      testWidgets(
-        'signIn should return data from the auth challenge lambda (passwordless)',
-        (WidgetTester tester) async {
+      setUp(() async {
+        await signOutUser();
+      });
+
+      tearDownAll(Amplify.reset);
+
+      test(
+        'signIn should return data from the auth challenge lambda '
+        '(passwordless)',
+        () async {
           final res = await Amplify.Auth.signIn(
             username: username,
             options: options,
@@ -80,9 +83,9 @@ void main() {
         },
       );
 
-      testWidgets(
+      test(
         'a correct challenge reply should sign in the user in',
-        (WidgetTester tester) async {
+        () async {
           await Amplify.Auth.signIn(
             username: username,
             options: options,
@@ -98,9 +101,9 @@ void main() {
         },
       );
 
-      testWidgets(
+      test(
         'an incorrect challenge reply should throw a NotAuthorizedException',
-        (WidgetTester tester) async {
+        () async {
           await Amplify.Auth.signIn(
             username: username,
             options: options,
@@ -115,9 +118,10 @@ void main() {
         },
       );
 
-      testWidgets(
-        'if a password is provided but is incorrect, throw NotAuthorizedException',
-        (WidgetTester tester) async {
+      test(
+        'if a password is provided but is incorrect, throw '
+        'NotAuthorizedException',
+        () async {
           // '123' is the arbitrary challenge answer defined in lambda code
           expect(
             Amplify.Auth.signIn(
@@ -132,9 +136,10 @@ void main() {
         },
       );
 
-      testWidgets(
-        'a correct password and correct challenge reply should sign in the user',
-        (WidgetTester tester) async {
+      test(
+        'a correct password and correct challenge reply should sign in '
+        'the user',
+        () async {
           await Amplify.Auth.signIn(
             username: username,
             password: password,
@@ -151,9 +156,10 @@ void main() {
         },
       );
 
-      testWidgets(
-        'signIn should return data from the auth challenge lambda (with password)',
-        (WidgetTester tester) async {
+      test(
+        'signIn should return data from the auth challenge lambda '
+        '(with password)',
+        () async {
           final res = await Amplify.Auth.signIn(
             username: username,
             password: password,
