@@ -11,7 +11,8 @@
     "test": "jest",
     "cdk": "cdk",
     "setup": "cdk bootstrap --profile=${AWS_PROFILE:=default}",
-    "deploy": "cdk deploy --profile=${AWS_PROFILE:=default} --outputs-file=outputs.json && tool/create_config.dart"
+    "deploy": "cdk deploy --all --profile=${AWS_PROFILE:=default} --outputs-file=outputs.json && tool/create_config.dart",
+    "destroy": "cdk destroy --all --profile=${AWS_PROFILE:=default}"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.106",

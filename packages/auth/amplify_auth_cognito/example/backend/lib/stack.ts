@@ -35,11 +35,29 @@ import {
 } from "aws-cdk-lib";
 import * as path from "path";
 
-export class AuthIntegrationTestStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
-    super(scope, id, props);
+interface AuthIntegrationTestStackProps extends cdk.StackProps {
+  /**
+   * The name for the environment.
+   *
+   * @default "main"
+   */
+  environmentName: string;
 
-    const name = "authIntegrationTest";
+  /**
+   * The Cognito User Pool device tracking settings.
+   */
+  deviceTracking?: cognito.DeviceTracking;
+}
+
+export class AuthIntegrationTestStack extends cdk.Stack {
+  constructor(
+    scope: Construct,
+    props: AuthIntegrationTestStackProps = { environmentName: "main" }
+  ) {
+    super(scope, `AuthIntegrationTestStack-${props.environmentName}`, props);
+
+    const baseName = "authInteg";
+    const name = `${baseName}-${props.environmentName}`;
 
     // Create the GraphQL API for admin actions
 
@@ -140,6 +158,7 @@ export class AuthIntegrationTestStack extends cdk.Stack {
         customSmsSender,
       },
       customSenderKmsKey,
+      deviceTracking: props.deviceTracking,
     });
 
     const userPoolClient = userPool.addClient("UserPoolClient", {
@@ -403,20 +422,33 @@ export class AuthIntegrationTestStack extends cdk.Stack {
     // S3 bucket to store generated config so that it can be pulled by
     // CI pipelines.
 
-    const bucket = new s3.Bucket(this, "Bucket", {
-      // Naming to match Amplify CLI, suffixed with a segment of the stack ID
-      // https://github.com/aws-amplify/amplify-ci-support/blob/1abe7f7a1d75fa19675ad8ca17ab625a299b765e/src/integ_test_resources/flutter/amplify/cloudformation_template.yaml#L32
-      bucketName: Fn.join("-", [
-        `amplify-test-${name.toLowerCase()}`,
-        // https://stackoverflow.com/questions/54897459/how-to-set-semi-random-name-for-s3-bucket-using-cloud-formation
-        Fn.select(0, Fn.split("-", Fn.select(2, Fn.split("/", this.stackId)))),
-      ]),
-      removalPolicy: RemovalPolicy.DESTROY,
-      autoDeleteObjects: true,
-      enforceSSL: true,
-    });
+    if (props.environmentName === "main") {
+      const bucket = new s3.Bucket(this, "Bucket", {
+        // Naming to match Amplify CLI, suffixed with a segment of the stack ID
+        // https://github.com/aws-amplify/amplify-ci-support/blob/1abe7f7a1d75fa19675ad8ca17ab625a299b765e/src/integ_test_resources/flutter/amplify/cloudformation_template.yaml#L32
+        bucketName: Fn.join("-", [
+          `amplify-test-${baseName.toLowerCase()}`,
+          // https://stackoverflow.com/questions/54897459/how-to-set-semi-random-name-for-s3-bucket-using-cloud-formation
+          Fn.select(
+            0,
+            Fn.split("-", Fn.select(2, Fn.split("/", this.stackId)))
+          ),
+        ]),
+        removalPolicy: RemovalPolicy.DESTROY,
+        autoDeleteObjects: true,
+        enforceSSL: true,
+      });
+
+      new CfnOutput(this, "BucketName", {
+        value: bucket.bucketName,
+      });
+    }
 
     // Output the values needed to build our Amplify configuration.
+
+    new CfnOutput(this, "EnvironmentName", {
+      value: props.environmentName,
+    });
 
     new CfnOutput(this, "Region", {
       value: this.region,
@@ -440,10 +472,6 @@ export class AuthIntegrationTestStack extends cdk.Stack {
 
     new CfnOutput(this, "GraphQLApiKey", {
       value: graphQLApi.apiKey!,
-    });
-
-    new CfnOutput(this, "BucketName", {
-      value: bucket.bucketName,
     });
   }
 }

@@ -33,29 +33,33 @@ mutation DeleteUser($username: String!) {
   }
 }''';
 
+Future<GraphQLClient> get _graphQLClient async {
+  final config = await Amplify.asyncConfig;
+  final api = config.api!.awsPlugin!.default$!;
+  return GraphQLClient(
+    cache: GraphQLCache(),
+    link: HttpLink(
+      api.endpoint,
+      defaultHeaders: {
+        'x-api-key': api.apiKey!,
+      },
+    ),
+  );
+}
+
 /// Deletes a Cognito user in backend infrastructure.
 ///
 /// This method differs from the Auth.deleteUser API in that
 /// an access token is not required.
 Future<void> deleteUser(String username) async {
-  final config = await Amplify.asyncConfig;
-  final url = config.auth?.awsPlugin?.appSync?.default$?.apiUrl;
-  final key = config.auth?.awsPlugin?.appSync?.default$?.apiKey;
-  final client = GraphQLClient(
-    cache: GraphQLCache(),
-    link: HttpLink(
-      url!,
-      defaultHeaders: {
-        'x-api-key': key!,
-      },
-    ),
-  );
+  final client = await _graphQLClient;
 
   final options = MutationOptions(
-      document: gql(deleteDocument),
-      variables: <String, dynamic>{
-        'username': username,
-      });
+    document: gql(deleteDocument),
+    variables: <String, dynamic>{
+      'username': username,
+    },
+  );
 
   final result = await client.mutate(options);
   final deleteError =
@@ -86,17 +90,7 @@ Future<void> adminCreateUser(
   bool verifyAttributes = false,
   List<AuthUserAttribute> attributes = const [],
 }) async {
-  final config = await Amplify.asyncConfig;
-  final api = config.api!.awsPlugin!.default$!;
-  final client = GraphQLClient(
-    cache: GraphQLCache(),
-    link: HttpLink(
-      api.endpoint,
-      defaultHeaders: {
-        'x-api-key': api.apiKey!,
-      },
-    ),
-  );
+  final client = await _graphQLClient;
 
   final createUserParams = <String, dynamic>{
     'autoConfirm': autoConfirm,
@@ -183,7 +177,11 @@ Future<String> getOtpCode(String username) async {
 
   // Collect code delivered via Lambda
   return operation
-      .tap((event) => _logger.debug('Got event: $event'))
+      .tap(
+        (event) => _logger.debug(
+          'Got event: ${event.data}, errors: ${event.errors}',
+        ),
+      )
       .map((event) {
         if (event.errors.isNotEmpty) {
           throw Exception(event.errors);

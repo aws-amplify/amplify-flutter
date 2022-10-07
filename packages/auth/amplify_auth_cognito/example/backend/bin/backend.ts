@@ -15,9 +15,28 @@
  * limitations under the License.
  */
 
-import 'source-map-support/register';
-import * as cdk from 'aws-cdk-lib';
-import { AuthIntegrationTestStack } from '../lib/stack';
+import "source-map-support/register";
+import * as cdk from "aws-cdk-lib";
+import { AuthIntegrationTestStack } from "../lib/stack";
 
 const app = new cdk.App();
-new AuthIntegrationTestStack(app, 'AuthIntegrationTestStack');
+
+new AuthIntegrationTestStack(app);
+new AuthIntegrationTestStack(app, {
+  environmentName: "device-tracking-always",
+  deviceTracking: {
+    // Trust remembered devices (allow MFA bypass)
+    challengeRequiredOnNewDevice: true,
+    // Always track
+    deviceOnlyRememberedOnUserPrompt: false,
+  },
+});
+new AuthIntegrationTestStack(app, {
+  environmentName: "device-tracking-opt-in",
+  deviceTracking: {
+    // Do not trust remembered devices (always prompt MFA)
+    challengeRequiredOnNewDevice: false,
+    // Opt-in to tracking
+    deviceOnlyRememberedOnUserPrompt: true,
+  },
+});
