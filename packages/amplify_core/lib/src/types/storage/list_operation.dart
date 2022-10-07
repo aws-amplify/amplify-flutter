@@ -19,8 +19,8 @@ import 'base/storage_operation.dart';
 /// Presents a storage list operation.
 /// {@endtemplate}
 class StorageListOperation<Request extends StorageListRequest,
-        Response extends StorageListResult>
-    extends StorageOperation<Request, Response> {
+        Result extends StorageListResult>
+    extends StorageOperation<Request, Result> {
   /// {@macro amplify_core.storage.list_operation}
   StorageListOperation({
     required super.request,
