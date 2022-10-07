@@ -22,6 +22,7 @@ import 'fetch_session_test.dart' as fetch_session_tests;
 import 'force_refresh_test.dart' as force_refresh;
 import 'get_current_user_test.dart' as get_current_user_tests;
 import 'hub_events_test.dart' as hub_events_tests;
+import 'mfa_sms_test.dart' as mfa_sms;
 import 'sign_in_sign_out_test.dart' as sign_in_sign_out_tests;
 import 'sign_up_test.dart' as sign_up_tests;
 import 'update_password_test.dart' as update_password_tests;
@@ -37,6 +38,7 @@ void main() async {
     force_refresh.main();
     get_current_user_tests.main();
     hub_events_tests.main();
+    mfa_sms.main();
     sign_in_sign_out_tests.main();
     sign_up_tests.main();
     update_password_tests.main();

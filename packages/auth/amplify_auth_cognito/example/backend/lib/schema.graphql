@@ -9,7 +9,8 @@ type Mutation {
 }
 
 type Subscription {
-  onCreateMFACode(username: String): MFACode @aws_subscribe(mutations: ["createMFACode"])
+  onCreateMFACode(username: String): MFACode
+    @aws_subscribe(mutations: ["createMFACode"])
 }
 
 input CreateUserInput {
@@ -30,8 +31,8 @@ type CreateUserResponse {
 }
 
 input DeleteMFACodeInput {
-	username: String!
-	code: String!
+  username: String!
+  code: String!
 }
 
 type DeleteUserResponse {
@@ -41,10 +42,10 @@ type DeleteUserResponse {
 
 input CreateMFACodeInput {
   username: String!
-	code: String!
+  code: String!
 }
 
 type MFACode {
-	username: String!
-	code: String!
+  username: String!
+  code: String!
 }
