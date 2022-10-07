@@ -48,7 +48,10 @@ enum CognitoDeviceKey {
   deviceGroupKey,
 
   /// The device password.
-  devicePassword
+  devicePassword,
+
+  /// The status of the device (i.e. tracked or remembered)
+  deviceStatus,
 }
 
 /// Discrete keys stored for Cognito Identity Pool operations in secure storage.
