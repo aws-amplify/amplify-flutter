@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_xml_v1.rest_xml_protocol.operation.constant_and_variable_query_string_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,7 +39,7 @@ class ConstantAndVariableQueryStringOperation extends _i1.HttpOperation<
       builderFactories: _i4.builderFactories,
       requestInterceptors: [
         const _i1.WithHost(),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
         const _i3.WithSdkInvocationId(),
         const _i3.WithSdkRequest(),
       ],
