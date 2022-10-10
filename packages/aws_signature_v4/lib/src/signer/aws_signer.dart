@@ -312,6 +312,7 @@ class AWSSigV4Signer {
       method: originalRequest.method,
       host: originalRequest.host,
       path: originalRequest.path,
+      port: originalRequest.port,
       body: body,
       contentLength: contentLength,
       headers: headers,
