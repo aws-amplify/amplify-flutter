@@ -148,6 +148,14 @@ class Blog extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'name': _name,
+        'posts': _posts,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<BlogModelIdentifier> MODEL_IDENTIFIER =
       QueryModelIdentifier<BlogModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");

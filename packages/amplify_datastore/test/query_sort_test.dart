@@ -16,9 +16,56 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:amplify_datastore/amplify_datastore.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
+
+// TODO(Jordan-Nelson): Remove at next major version bump.
+/// A `Post` model that does not have a `toMap()` impl.
+class PostWithNoToMap extends Post {
+  PostWithNoToMap({
+    String? id,
+    required String title,
+    required int rating,
+    TemporalDateTime? created,
+    int? likeCount,
+    Blog? blog,
+    List<Comment>? comments,
+  }) : super.internal(
+          id: id == null ? UUID.getUUID() : id,
+          title: title,
+          rating: rating,
+          created: created,
+          likeCount: likeCount,
+          blog: blog,
+          comments: comments,
+        );
+
+  @override
+  Map<String, Object?> toMap() {
+    throw UnimplementedError('toMap has not been implemented');
+  }
+
+  @override
+  PostWithNoToMap copyWith({
+    String? title,
+    int? rating,
+    TemporalDateTime? created,
+    int? likeCount,
+    Blog? blog,
+    List<Comment>? comments,
+  }) {
+    return PostWithNoToMap(
+      id: id,
+      title: title ?? this.title,
+      rating: rating ?? this.rating,
+      created: created ?? this.created,
+      likeCount: likeCount ?? this.likeCount,
+      blog: blog ?? this.blog,
+      comments: comments ?? this.comments,
+    );
+  }
+}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -82,6 +129,28 @@ void main() {
 
     Post post4Copy = post4.copyWith();
 
+    PostWithNoToMap postWithNoToMap1 = PostWithNoToMap(
+      id: '123e4567-e89b-12d3-a456-426614174000',
+      title: 'post1',
+      rating: 1,
+      created: TemporalDateTime(DateTime(2020, 01, 01, 10, 30)),
+    );
+
+    PostWithNoToMap postWithNoToMap2 = PostWithNoToMap(
+      id: '123e4567-e89b-12d3-a456-426614174001',
+      title: 'post2',
+      rating: 2,
+      created: TemporalDateTime(DateTime(2020, 01, 01, 12, 30)),
+    );
+
+    PostWithNoToMap postWithNoToMap2Copy = postWithNoToMap2.copyWith();
+
+    PostWithNoToMap postWithNoToMap3 = postWithNoToMap1.copyWith(likeCount: 0);
+
+    PostWithNoToMap postWithNoToMap4 = postWithNoToMap1.copyWith(likeCount: 1);
+
+    PostWithNoToMap postWithNoToMap4Copy = postWithNoToMap4.copyWith();
+
     test('should compare ID fields', () {
       QuerySortBy sortByAsc = Post.ID.ascending();
       QuerySortBy sortByDesc = Post.ID.descending();
@@ -93,6 +162,19 @@ void main() {
       expect(sortByDesc.compare(post1, post2), 1);
       expect(sortByDesc.compare(post2, post1), -1);
       expect(sortByDesc.compare(post2, post2Copy), 0);
+    });
+
+    test('should compare ID fields (serialized)', () {
+      QuerySortBy sortByAsc = Post.ID.ascending();
+      QuerySortBy sortByDesc = Post.ID.descending();
+
+      expect(sortByAsc.compare(postWithNoToMap1, postWithNoToMap2), -1);
+      expect(sortByAsc.compare(postWithNoToMap2, postWithNoToMap1), 1);
+      expect(sortByAsc.compare(postWithNoToMap2, postWithNoToMap2Copy), 0);
+
+      expect(sortByDesc.compare(postWithNoToMap1, postWithNoToMap2), 1);
+      expect(sortByDesc.compare(postWithNoToMap2, postWithNoToMap1), -1);
+      expect(sortByDesc.compare(postWithNoToMap2, postWithNoToMap2Copy), 0);
     });
 
     test('should compare int fields', () {
@@ -108,6 +190,19 @@ void main() {
       expect(sortByDesc.compare(post2, post2Copy), 0);
     });
 
+    test('should compare int fields (serialized)', () {
+      QuerySortBy sortByAsc = Post.RATING.ascending();
+      QuerySortBy sortByDesc = Post.RATING.descending();
+
+      expect(sortByAsc.compare(postWithNoToMap1, postWithNoToMap2), -1);
+      expect(sortByAsc.compare(postWithNoToMap2, postWithNoToMap1), 1);
+      expect(sortByAsc.compare(postWithNoToMap2, postWithNoToMap2Copy), 0);
+
+      expect(sortByDesc.compare(postWithNoToMap1, postWithNoToMap2), 1);
+      expect(sortByDesc.compare(postWithNoToMap2, postWithNoToMap1), -1);
+      expect(sortByDesc.compare(postWithNoToMap2, postWithNoToMap2Copy), 0);
+    });
+
     test('should compare bool fields', () {
       QuerySortBy sortByAsc = Post.LIKECOUNT.ascending();
       QuerySortBy sortByDesc = Post.LIKECOUNT.descending();
@@ -119,6 +214,19 @@ void main() {
       expect(sortByDesc.compare(post3, post4), 1);
       expect(sortByDesc.compare(post4, post3), -1);
       expect(sortByDesc.compare(post4, post4Copy), 0);
+    });
+
+    test('should compare bool fields (serialized)', () {
+      QuerySortBy sortByAsc = Post.LIKECOUNT.ascending();
+      QuerySortBy sortByDesc = Post.LIKECOUNT.descending();
+
+      expect(sortByAsc.compare(postWithNoToMap3, postWithNoToMap4), -1);
+      expect(sortByAsc.compare(postWithNoToMap4, postWithNoToMap3), 1);
+      expect(sortByAsc.compare(postWithNoToMap4, postWithNoToMap4Copy), 0);
+
+      expect(sortByDesc.compare(postWithNoToMap3, postWithNoToMap4), 1);
+      expect(sortByDesc.compare(postWithNoToMap4, postWithNoToMap3), -1);
+      expect(sortByDesc.compare(postWithNoToMap4, postWithNoToMap4Copy), 0);
     });
 
     test('should compare string fields', () {
@@ -134,6 +242,19 @@ void main() {
       expect(sortByDesc.compare(post2, post2Copy), 0);
     });
 
+    test('should compare string fields (serialized)', () {
+      QuerySortBy sortByAsc = Post.TITLE.ascending();
+      QuerySortBy sortByDesc = Post.TITLE.descending();
+
+      expect(sortByAsc.compare(postWithNoToMap1, postWithNoToMap2), -1);
+      expect(sortByAsc.compare(postWithNoToMap2, postWithNoToMap1), 1);
+      expect(sortByAsc.compare(postWithNoToMap2, postWithNoToMap2Copy), 0);
+
+      expect(sortByDesc.compare(postWithNoToMap1, postWithNoToMap2), 1);
+      expect(sortByDesc.compare(postWithNoToMap2, postWithNoToMap1), -1);
+      expect(sortByDesc.compare(postWithNoToMap2, postWithNoToMap2Copy), 0);
+    });
+
     test('should compare date/time fields', () {
       QuerySortBy sortByAsc = Post.CREATED.ascending();
       QuerySortBy sortByDesc = Post.CREATED.descending();
@@ -147,6 +268,19 @@ void main() {
       expect(sortByDesc.compare(post2, post2Copy), 0);
     });
 
+    test('should compare date/time fields (serialized)', () {
+      QuerySortBy sortByAsc = Post.CREATED.ascending();
+      QuerySortBy sortByDesc = Post.CREATED.descending();
+
+      expect(sortByAsc.compare(postWithNoToMap1, postWithNoToMap2), -1);
+      expect(sortByAsc.compare(postWithNoToMap2, postWithNoToMap1), 1);
+      expect(sortByAsc.compare(postWithNoToMap2, postWithNoToMap2Copy), 0);
+
+      expect(sortByDesc.compare(postWithNoToMap1, postWithNoToMap2), 1);
+      expect(sortByDesc.compare(postWithNoToMap2, postWithNoToMap1), -1);
+      expect(sortByDesc.compare(postWithNoToMap2, postWithNoToMap2Copy), 0);
+    });
+
     test('should handle null values', () {
       QuerySortBy sortByAsc = Post.LIKECOUNT.ascending();
       QuerySortBy sortByDesc = Post.LIKECOUNT.descending();
@@ -158,6 +292,19 @@ void main() {
       expect(sortByDesc.compare(post1, post3), 1);
       expect(sortByDesc.compare(post1, post4), 1);
       expect(sortByDesc.compare(post1, post2), 0);
+    });
+
+    test('should handle null values (serialized)', () {
+      QuerySortBy sortByAsc = Post.LIKECOUNT.ascending();
+      QuerySortBy sortByDesc = Post.LIKECOUNT.descending();
+
+      expect(sortByAsc.compare(postWithNoToMap1, postWithNoToMap3), -1);
+      expect(sortByAsc.compare(postWithNoToMap1, postWithNoToMap4), -1);
+      expect(sortByAsc.compare(postWithNoToMap1, postWithNoToMap2), 0);
+
+      expect(sortByDesc.compare(postWithNoToMap1, postWithNoToMap3), 1);
+      expect(sortByDesc.compare(postWithNoToMap1, postWithNoToMap4), 1);
+      expect(sortByDesc.compare(postWithNoToMap1, postWithNoToMap2), 0);
     });
   });
 }

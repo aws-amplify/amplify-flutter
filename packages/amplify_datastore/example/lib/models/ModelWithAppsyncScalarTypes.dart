@@ -661,6 +661,40 @@ class ModelWithAppsyncScalarTypes extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'stringValue': _stringValue,
+        'altStringValue': _altStringValue,
+        'listOfStringValue': _listOfStringValue,
+        'intValue': _intValue,
+        'altIntValue': _altIntValue,
+        'listOfIntValue': _listOfIntValue,
+        'floatValue': _floatValue,
+        'listOfFloatValue': _listOfFloatValue,
+        'booleanValue': _booleanValue,
+        'listOfBooleanValue': _listOfBooleanValue,
+        'awsDateValue': _awsDateValue,
+        'listOfAWSDateValue': _listOfAWSDateValue,
+        'awsTimeValue': _awsTimeValue,
+        'listOfAWSTimeValue': _listOfAWSTimeValue,
+        'awsDateTimeValue': _awsDateTimeValue,
+        'listOfAWSDateTimeValue': _listOfAWSDateTimeValue,
+        'awsTimestampValue': _awsTimestampValue,
+        'listOfAWSTimestampValue': _listOfAWSTimestampValue,
+        'awsEmailValue': _awsEmailValue,
+        'listOfAWSEmailValue': _listOfAWSEmailValue,
+        'awsJsonValue': _awsJsonValue,
+        'listOfAWSJsonValue': _listOfAWSJsonValue,
+        'awsPhoneValue': _awsPhoneValue,
+        'listOfAWSPhoneValue': _listOfAWSPhoneValue,
+        'awsURLValue': _awsURLValue,
+        'listOfAWSURLValue': _listOfAWSURLValue,
+        'awsIPAddressValue': _awsIPAddressValue,
+        'listOfAWSIPAddressValue': _listOfAWSIPAddressValue,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<ModelWithAppsyncScalarTypesModelIdentifier>
       MODEL_IDENTIFIER =
       QueryModelIdentifier<ModelWithAppsyncScalarTypesModelIdentifier>();

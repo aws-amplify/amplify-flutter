@@ -116,6 +116,13 @@ class HasOneChild extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'name': _name,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<HasOneChildModelIdentifier>
       MODEL_IDENTIFIER = QueryModelIdentifier<HasOneChildModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");

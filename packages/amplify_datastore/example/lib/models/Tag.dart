@@ -148,6 +148,14 @@ class Tag extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'label': _label,
+        'posts': _posts,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<TagModelIdentifier> MODEL_IDENTIFIER =
       QueryModelIdentifier<TagModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");

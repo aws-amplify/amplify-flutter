@@ -153,6 +153,14 @@ class ModelWithEnum extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'enumField': _enumField,
+        'listOfEnumField': _listOfEnumField,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<ModelWithEnumModelIdentifier>
       MODEL_IDENTIFIER = QueryModelIdentifier<ModelWithEnumModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");

@@ -149,6 +149,14 @@ class CpkManyToManyPost extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'title': _title,
+        'tags': _tags,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<CpkManyToManyPostModelIdentifier>
       MODEL_IDENTIFIER =
       QueryModelIdentifier<CpkManyToManyPostModelIdentifier>();

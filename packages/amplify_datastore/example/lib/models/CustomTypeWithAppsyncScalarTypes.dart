@@ -676,6 +676,39 @@ class CustomTypeWithAppsyncScalarTypes {
             .toList()
       };
 
+  Map<String, Object?> toMap() => {
+        'stringValue': _stringValue,
+        'listOfStringValue': _listOfStringValue,
+        'intValue': _intValue,
+        'listOfIntValue': _listOfIntValue,
+        'floatValue': _floatValue,
+        'listOfFloatValue': _listOfFloatValue,
+        'booleanValue': _booleanValue,
+        'listOfBooleanValue': _listOfBooleanValue,
+        'awsDateValue': _awsDateValue,
+        'listOfAWSDateValue': _listOfAWSDateValue,
+        'awsDateTimeValue': _awsDateTimeValue,
+        'listOfAWSDateTimeValue': _listOfAWSDateTimeValue,
+        'awsTimeValue': _awsTimeValue,
+        'listOfAWSTimeValue': _listOfAWSTimeValue,
+        'awsTimestampValue': _awsTimestampValue,
+        'listOfAWSTimestampValue': _listOfAWSTimestampValue,
+        'awsEmailValue': _awsEmailValue,
+        'listOfAWSEmailValue': _listOfAWSEmailValue,
+        'awsJsonValue': _awsJsonValue,
+        'listOfAWSJsonValue': _listOfAWSJsonValue,
+        'awsPhoneValue': _awsPhoneValue,
+        'listOfAWSPhoneValue': _listOfAWSPhoneValue,
+        'awsURLValue': _awsURLValue,
+        'listOfAWSURLValue': _listOfAWSURLValue,
+        'awsIPAddressValue': _awsIPAddressValue,
+        'listOfAWSIPAddressValue': _listOfAWSIPAddressValue,
+        'enumValue': _enumValue,
+        'listOfEnumValue': _listOfEnumValue,
+        'customTypeValue': _customTypeValue,
+        'listOfCustomTypeValue': _listOfCustomTypeValue
+      };
+
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "CustomTypeWithAppsyncScalarTypes";

@@ -158,6 +158,14 @@ class MultiRelatedMeeting extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'title': _title,
+        'attendees': _attendees,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<MultiRelatedMeetingModelIdentifier>
       MODEL_IDENTIFIER =
       QueryModelIdentifier<MultiRelatedMeetingModelIdentifier>();

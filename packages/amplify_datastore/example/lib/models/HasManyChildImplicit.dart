@@ -145,6 +145,14 @@ class HasManyChildImplicit extends Model {
         'hasManyParentImplicitChildrenId': _hasManyParentImplicitChildrenId
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'name': _name,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt,
+        'hasManyParentImplicitChildrenId': _hasManyParentImplicitChildrenId
+      };
+
   static final QueryModelIdentifier<HasManyChildImplicitModelIdentifier>
       MODEL_IDENTIFIER =
       QueryModelIdentifier<HasManyChildImplicitModelIdentifier>();
