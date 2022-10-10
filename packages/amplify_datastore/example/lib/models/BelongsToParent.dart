@@ -203,6 +203,17 @@ class BelongsToParent extends Model {
         'belongsToParentExplicitChildId': _belongsToParentExplicitChildId
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'name': _name,
+        'implicitChild': _implicitChild,
+        'explicitChild': _explicitChild,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt,
+        'belongsToParentImplicitChildId': _belongsToParentImplicitChildId,
+        'belongsToParentExplicitChildId': _belongsToParentExplicitChildId
+      };
+
   static final QueryModelIdentifier<BelongsToParentModelIdentifier>
       MODEL_IDENTIFIER = QueryModelIdentifier<BelongsToParentModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");

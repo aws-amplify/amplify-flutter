@@ -144,6 +144,14 @@ class HasManyChildExplicit extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'name': _name,
+        'hasManyParentID': _hasManyParentID,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<HasManyChildExplicitModelIdentifier>
       MODEL_IDENTIFIER =
       QueryModelIdentifier<HasManyChildExplicitModelIdentifier>();

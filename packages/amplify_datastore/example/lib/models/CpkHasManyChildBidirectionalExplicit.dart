@@ -162,6 +162,14 @@ class CpkHasManyChildBidirectionalExplicit extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'name': _name,
+        'hasManyParent': _hasManyParent,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<
           CpkHasManyChildBidirectionalExplicitModelIdentifier>
       MODEL_IDENTIFIER = QueryModelIdentifier<

@@ -155,6 +155,14 @@ class PostTags extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'post': _post,
+        'tag': _tag,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<PostTagsModelIdentifier> MODEL_IDENTIFIER =
       QueryModelIdentifier<PostTagsModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");

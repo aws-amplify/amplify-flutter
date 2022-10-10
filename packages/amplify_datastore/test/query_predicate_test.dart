@@ -20,6 +20,33 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:flutter_test/flutter_test.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
 
+// TODO(Jordan-Nelson): Remove at next major version bump.
+/// A `Post` model that does not have a `toMap()` impl.
+class PostWithNoToMap extends Post {
+  PostWithNoToMap({
+    String? id,
+    required String title,
+    required int rating,
+    TemporalDateTime? created,
+    int? likeCount,
+    Blog? blog,
+    List<Comment>? comments,
+  }) : super.internal(
+          id: id == null ? UUID.getUUID() : id,
+          title: title,
+          rating: rating,
+          created: created,
+          likeCount: likeCount,
+          blog: blog,
+          comments: comments,
+        );
+
+  @override
+  Map<String, Object?> toMap() {
+    throw UnimplementedError('toMap has not been implemented');
+  }
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -214,6 +241,32 @@ void main() {
       rating: 1000,
     );
 
+    PostWithNoToMap postWithNoToMap1 = PostWithNoToMap(
+      title: 'post one',
+      rating: 1,
+      likeCount: 1,
+      created: TemporalDateTime(DateTime(2020, 01, 01, 10, 30)),
+    );
+
+    PostWithNoToMap postWithNoToMap2 = PostWithNoToMap(
+      title: 'post two',
+      rating: 10,
+      likeCount: 10,
+      created: TemporalDateTime(DateTime(2020, 01, 01, 12, 00)),
+    );
+
+    PostWithNoToMap postWithNoToMap3 = PostWithNoToMap(
+      title: 'post three',
+      rating: 100,
+      likeCount: 100,
+      created: TemporalDateTime(DateTime(2021, 01, 01, 12, 00)),
+    );
+
+    PostWithNoToMap postWithNoToMap4 = PostWithNoToMap(
+      title: 'post four',
+      rating: 1000,
+    );
+
     StringListTypeModel stringListTypeModel1 = StringListTypeModel(
       value: ['abc'],
     );
@@ -233,8 +286,31 @@ void main() {
       expect(testPredicate.evaluate(post4), isFalse);
     });
 
+    test('equals (serialized)', () {
+      QueryPredicate testPredicate = Post.LIKECOUNT.eq(1);
+      expect(testPredicate.evaluate(postWithNoToMap1), isTrue);
+      expect(testPredicate.evaluate(postWithNoToMap2), isFalse);
+      expect(testPredicate.evaluate(postWithNoToMap4), isFalse);
+    });
+
     test('equals (ID)', () {
       QueryPredicate testPredicate = Post.ID.eq(post2.id);
+      expect(testPredicate.evaluate(post1), isFalse);
+      expect(testPredicate.evaluate(post2), isTrue);
+      expect(testPredicate.evaluate(post4), isFalse);
+    });
+
+    test('equals (ID) (serialized)', () {
+      QueryPredicate testPredicate = Post.ID.eq(postWithNoToMap2.id);
+      expect(testPredicate.evaluate(postWithNoToMap1), isFalse);
+      expect(testPredicate.evaluate(postWithNoToMap2), isTrue);
+      expect(testPredicate.evaluate(postWithNoToMap4), isFalse);
+    });
+
+    test('equals (ModelIdentifier)', () {
+      QueryPredicate testPredicate = Post.MODEL_IDENTIFIER.eq(
+        PostModelIdentifier(id: post2.id),
+      );
       expect(testPredicate.evaluate(post1), isFalse);
       expect(testPredicate.evaluate(post2), isTrue);
       expect(testPredicate.evaluate(post4), isFalse);
@@ -247,11 +323,25 @@ void main() {
       expect(testPredicate.evaluate(post4), isTrue);
     });
 
+    test('not equals (serialized)', () {
+      QueryPredicate testPredicate = Post.LIKECOUNT.ne(1);
+      expect(testPredicate.evaluate(postWithNoToMap1), isFalse);
+      expect(testPredicate.evaluate(postWithNoToMap2), isTrue);
+      expect(testPredicate.evaluate(postWithNoToMap4), isTrue);
+    });
+
     test('less than', () {
       QueryPredicate testPredicate = Post.LIKECOUNT.lt(5);
       expect(testPredicate.evaluate(post1), isTrue);
       expect(testPredicate.evaluate(post2), isFalse);
       expect(testPredicate.evaluate(post4), isFalse);
+    });
+
+    test('less than (serialized)', () {
+      QueryPredicate testPredicate = Post.LIKECOUNT.lt(5);
+      expect(testPredicate.evaluate(postWithNoToMap1), isTrue);
+      expect(testPredicate.evaluate(postWithNoToMap2), isFalse);
+      expect(testPredicate.evaluate(postWithNoToMap4), isFalse);
     });
 
     test('less than or equal', () {
@@ -262,11 +352,26 @@ void main() {
       expect(testPredicate.evaluate(post4), isFalse);
     });
 
+    test('less than or equal (serialized)', () {
+      QueryPredicate testPredicate = Post.LIKECOUNT.le(10);
+      expect(testPredicate.evaluate(postWithNoToMap1), isTrue);
+      expect(testPredicate.evaluate(postWithNoToMap2), isTrue);
+      expect(testPredicate.evaluate(postWithNoToMap3), isFalse);
+      expect(testPredicate.evaluate(postWithNoToMap4), isFalse);
+    });
+
     test('greater than', () {
       QueryPredicate testPredicate = Post.LIKECOUNT.gt(5);
       expect(testPredicate.evaluate(post1), isFalse);
       expect(testPredicate.evaluate(post2), isTrue);
       expect(testPredicate.evaluate(post4), isFalse);
+    });
+
+    test('greater than (serialized)', () {
+      QueryPredicate testPredicate = Post.LIKECOUNT.gt(5);
+      expect(testPredicate.evaluate(postWithNoToMap1), isFalse);
+      expect(testPredicate.evaluate(postWithNoToMap2), isTrue);
+      expect(testPredicate.evaluate(postWithNoToMap4), isFalse);
     });
 
     test('greater than or equal', () {
@@ -277,6 +382,14 @@ void main() {
       expect(testPredicate.evaluate(post4), isFalse);
     });
 
+    test('greater than or equal (serialized)', () {
+      QueryPredicate testPredicate = Post.LIKECOUNT.ge(10);
+      expect(testPredicate.evaluate(postWithNoToMap1), isFalse);
+      expect(testPredicate.evaluate(postWithNoToMap2), isTrue);
+      expect(testPredicate.evaluate(postWithNoToMap3), isTrue);
+      expect(testPredicate.evaluate(postWithNoToMap4), isFalse);
+    });
+
     test('between', () {
       QueryPredicate testPredicate = Post.LIKECOUNT.between(5, 100);
       expect(testPredicate.evaluate(post1), isFalse);
@@ -285,16 +398,36 @@ void main() {
       expect(testPredicate.evaluate(post4), isFalse);
     });
 
+    test('between (serialized)', () {
+      QueryPredicate testPredicate = Post.LIKECOUNT.between(5, 100);
+      expect(testPredicate.evaluate(postWithNoToMap1), isFalse);
+      expect(testPredicate.evaluate(postWithNoToMap2), isTrue);
+      expect(testPredicate.evaluate(postWithNoToMap3), isTrue);
+      expect(testPredicate.evaluate(postWithNoToMap4), isFalse);
+    });
+
     test('contains', () {
       QueryPredicate testPredicate = Post.TITLE.contains("one");
       expect(testPredicate.evaluate(post1), isTrue);
       expect(testPredicate.evaluate(post2), isFalse);
     });
 
+    test('contains (serialized)', () {
+      QueryPredicate testPredicate = Post.TITLE.contains("one");
+      expect(testPredicate.evaluate(postWithNoToMap1), isTrue);
+      expect(testPredicate.evaluate(postWithNoToMap2), isFalse);
+    });
+
     test('beginsWith', () {
       QueryPredicate testPredicate = Post.TITLE.beginsWith("post o");
       expect(testPredicate.evaluate(post1), isTrue);
       expect(testPredicate.evaluate(post2), isFalse);
+    });
+
+    test('beginsWith (serialized)', () {
+      QueryPredicate testPredicate = Post.TITLE.beginsWith("post o");
+      expect(testPredicate.evaluate(postWithNoToMap1), isTrue);
+      expect(testPredicate.evaluate(postWithNoToMap2), isFalse);
     });
 
     test('and', () {
@@ -326,6 +459,14 @@ void main() {
       expect(testPredicate.evaluate(post2), isFalse);
     });
 
+    test('Temporal type (serialized)', () {
+      QueryPredicate testPredicate = Post.CREATED.lt(TemporalDateTime(
+        DateTime(2020, 01, 01, 12, 00),
+      ));
+      expect(testPredicate.evaluate(postWithNoToMap1), isTrue);
+      expect(testPredicate.evaluate(postWithNoToMap2), isFalse);
+    });
+
     group('List type', () {
       test('contains', () {
         QueryPredicate testPredicate = StringListTypeModel.VALUE.contains(
@@ -334,6 +475,76 @@ void main() {
         expect(testPredicate.evaluate(stringListTypeModel1), isTrue);
         expect(testPredicate.evaluate(stringListTypeModel2), isTrue);
         expect(testPredicate.evaluate(stringListTypeModel3), isFalse);
+      });
+    });
+
+    group('nested models', () {
+      final blog1 = Blog(name: 'Blog 1');
+      final blog2 = Blog(name: 'Blog 1');
+
+      final post1 = Post(title: 'post 1', rating: 1, blog: blog1);
+      final post2 = Post(title: 'post 2', rating: 1, blog: blog1);
+      final post3 = Post(title: 'post 3', rating: 1, blog: blog2);
+
+      final postWithNoToMap1 = PostWithNoToMap(
+        title: 'post 1',
+        rating: 1,
+        blog: blog1,
+      );
+      final postWithNoToMap2 = PostWithNoToMap(
+        title: 'post 2',
+        rating: 1,
+        blog: blog1,
+      );
+      final postWithNoToMap3 = PostWithNoToMap(
+        title: 'post 3',
+        rating: 1,
+        blog: blog2,
+      );
+
+      // TODO(Jordan-Nelson): Remove at next major version bump.
+      // can be removed when `getId()` is removed.
+      test('equals (id)', () {
+        final testPredicate = Post.BLOG.eq(blog1.id);
+        expect(testPredicate.evaluate(post1), isTrue);
+        expect(testPredicate.evaluate(post2), isTrue);
+        expect(testPredicate.evaluate(post3), isFalse);
+      });
+
+      // TODO(Jordan-Nelson): Remove at next major version bump.
+      // can be removed when `getId()` is removed.
+      test('not equals (id)', () {
+        final testPredicate = Post.BLOG.ne(blog1.id);
+        expect(testPredicate.evaluate(post1), isFalse);
+        expect(testPredicate.evaluate(post2), isFalse);
+        expect(testPredicate.evaluate(post3), isTrue);
+      });
+
+      test('equals (id) (serialized)', () {
+        final testPredicate = Post.BLOG.eq(blog1.id);
+        expect(testPredicate.evaluate(postWithNoToMap1), isTrue);
+        expect(testPredicate.evaluate(postWithNoToMap2), isTrue);
+        expect(testPredicate.evaluate(postWithNoToMap3), isFalse);
+      });
+
+      test('not equals (id) (serialized)', () {
+        final testPredicate = Post.BLOG.ne(blog1.id);
+        expect(testPredicate.evaluate(postWithNoToMap1), isFalse);
+        expect(testPredicate.evaluate(postWithNoToMap2), isFalse);
+        expect(testPredicate.evaluate(postWithNoToMap3), isTrue);
+      });
+      test('equals', () {
+        final testPredicate = Post.BLOG.eq(BlogModelIdentifier(id: blog1.id));
+        expect(testPredicate.evaluate(post1), isTrue);
+        expect(testPredicate.evaluate(post2), isTrue);
+        expect(testPredicate.evaluate(post3), isFalse);
+      });
+
+      test('not equals', () {
+        final testPredicate = Post.BLOG.ne(BlogModelIdentifier(id: blog1.id));
+        expect(testPredicate.evaluate(post1), isFalse);
+        expect(testPredicate.evaluate(post2), isFalse);
+        expect(testPredicate.evaluate(post3), isTrue);
       });
     });
   });

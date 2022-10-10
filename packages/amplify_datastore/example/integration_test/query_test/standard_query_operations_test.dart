@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:io';
+
 import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -64,6 +66,31 @@ void main() {
       var blog = blogs[0];
       expect(blog, testBlog1);
     });
+
+    testWidgets(
+      'should return the correct record when queried by a nested model id',
+      (WidgetTester tester) async {
+        final blog1 = Blog(name: 'blog one');
+        final blog2 = Blog(name: 'blog two');
+        final post1 = Post(title: 'post 1', rating: 0, blog: blog1);
+        final post2 = Post(title: 'post 2', rating: 0, blog: blog2);
+
+        await Amplify.DataStore.save(blog1);
+        await Amplify.DataStore.save(blog2);
+        await Amplify.DataStore.save(post1);
+        await Amplify.DataStore.save(post2);
+
+        final posts = await Amplify.DataStore.query(
+          Post.classType,
+          where: Post.BLOG.eq(BlogModelIdentifier(id: blog1.id)),
+        );
+
+        expect(posts.length, 1);
+        expect(posts[0], post1);
+      },
+      // See: https://github.com/aws-amplify/amplify-flutter/issues/2183
+      skip: Platform.isAndroid,
+    );
 
     testWidgets('should return the ID of nested objects',
         (WidgetTester tester) async {

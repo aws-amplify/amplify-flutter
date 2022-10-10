@@ -168,6 +168,14 @@ class ModelWithCustomType extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'customTypeValue': _customTypeValue,
+        'listOfCustomTypeValue': _listOfCustomTypeValue,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<ModelWithCustomTypeModelIdentifier>
       MODEL_IDENTIFIER =
       QueryModelIdentifier<ModelWithCustomTypeModelIdentifier>();
