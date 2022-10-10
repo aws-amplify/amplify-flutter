@@ -147,14 +147,30 @@ class GenerateSdkCommand extends AmplifyCommand {
       packageName = pubspec.name;
     }
 
+    final includeShapes = <ShapeId>[];
+    for (final shapeIdEntries in config.apis.entries) {
+      final shapeIds = shapeIdEntries.value;
+      if (shapeIds != null && shapeIds.isNotEmpty) {
+        includeShapes.addAll(shapeIds);
+        continue;
+      }
+
+      final apiName = shapeIdEntries.key;
+      final serviceShape = smithyModel.shapes!.values
+          .whereType<ServiceShape>()
+          .singleWhere(
+            (service) =>
+                service.expectTrait<ServiceTrait>().endpointPrefix == apiName,
+          );
+      includeShapes.addAll(serviceShape.operations.map((op) => op.target));
+    }
+
     // Generate SDK for combined operations
     final libraries = generateForAst(
       smithyAst,
       packageName: packageName,
       basePath: outputPath,
-      includeShapes: [
-        for (final shapeIds in config.apis.values) ...shapeIds,
-      ],
+      includeShapes: includeShapes,
     );
 
     final dependencies = <String>{};

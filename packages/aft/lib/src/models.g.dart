@@ -55,8 +55,8 @@ SdkConfig _$SdkConfigFromJson(Map json) => $checkedCreate(
               (v) => (v as Map).map(
                     (k, e) => MapEntry(
                         k as String,
-                        (e as List<dynamic>)
-                            .map((e) =>
+                        (e as List<dynamic>?)
+                            ?.map((e) =>
                                 const ShapeIdConverter().fromJson(e as String))
                             .toList()),
                   )),
@@ -67,5 +67,5 @@ SdkConfig _$SdkConfigFromJson(Map json) => $checkedCreate(
 
 Map<String, dynamic> _$SdkConfigToJson(SdkConfig instance) => <String, dynamic>{
       'apis': instance.apis.map((k, e) =>
-          MapEntry(k, e.map(const ShapeIdConverter().toJson).toList())),
+          MapEntry(k, e?.map(const ShapeIdConverter().toJson).toList())),
     };
