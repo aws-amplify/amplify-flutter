@@ -49,7 +49,8 @@ abstract class QueryFieldOperator<T> {
   ///
   /// This should be used to support comparisons with models
   /// that were generated prior to `toMap()` being added.
-  @Deprecated('To be removed in next major release')
+  // TODO(Jordan-Nelson): remove at next major version bump
+  @Deprecated('Regenerate models with latest CLI and use `evaluate` instead.')
   bool evaluateSerialized(T? other);
 
   Map<String, dynamic> serializeAsMap();
