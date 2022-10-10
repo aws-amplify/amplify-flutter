@@ -1,0 +1,21 @@
+# Selected AWS services for smoke testing, representative
+# of the six AWS protocols
+apis:
+  # API Gateway V1 (restJson1)
+  apigateway:
+
+  # Config (awsJson1_1)
+  config:
+
+  # EC2 (ec2Query)
+  # ec2:
+
+  # DynamoDB (awsJson1_0)
+  dynamodb:
+  streams.dynamodb:
+
+  # STS (awsQuery)
+  # sts:
+
+  # S3 (restXml)
+  s3:
