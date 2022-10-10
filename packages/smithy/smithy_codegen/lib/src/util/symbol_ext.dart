@@ -91,7 +91,14 @@ extension ReferenceHelpers on Reference {
         ? (args) =>
             DartTypes.builtValue.fullType.constInstanceNamed('nullable', args)
         : DartTypes.builtValue.fullType.constInstance;
-    if (typeRef.types.isEmpty && (parameters == null || parameters.isEmpty)) {
+
+    // Stream types do not use built_value's generic system during
+    // serialization. Types are fully encoded, e.g.
+    // `FullType(Stream<List<int>>)` vs.
+    // `FullType(Stream, [FullType(List, [FullType(int)])])`
+    final isStream = typeRef.symbol == 'Stream';
+    if (isStream ||
+        typeRef.types.isEmpty && (parameters == null || parameters.isEmpty)) {
       return ctor([typeRef.unboxed]);
     }
     return ctor([

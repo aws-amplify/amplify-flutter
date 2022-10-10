@@ -103,15 +103,7 @@ class StreamingTraitsRequireLengthInputRestJson1Serializer
   }) {
     return (serializers.deserialize(
       serialized,
-      specifiedType: const FullType(
-        _i2.Stream,
-        [
-          FullType(
-            List,
-            [FullType(int)],
-          )
-        ],
-      ),
+      specifiedType: const FullType(_i2.Stream<List<int>>),
     ) as _i2.Stream<List<int>>);
   }
 
@@ -126,15 +118,7 @@ class StreamingTraitsRequireLengthInputRestJson1Serializer
         : (object as _i2.Stream<List<int>>?);
     return (serializers.serialize(
       payload!,
-      specifiedType: const FullType(
-        _i2.Stream,
-        [
-          FullType(
-            List,
-            [FullType(int)],
-          )
-        ],
-      ),
+      specifiedType: const FullType(_i2.Stream<List<int>>),
     ) as Object);
   }
 }

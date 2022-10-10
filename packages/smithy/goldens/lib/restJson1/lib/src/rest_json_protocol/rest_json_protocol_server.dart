@@ -5205,15 +5205,7 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _streamingTraitsProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType.nullable(
-          _i4.Stream,
-          [
-            FullType(
-              List,
-              [FullType(int)],
-            )
-          ],
-        ),
+        specifiedType: const FullType.nullable(_i4.Stream<List<int>>),
       ) as _i4.Stream<List<int>>?);
       final input = _i84.StreamingTraitsInputOutput.fromRequest(
         payload,
@@ -5232,17 +5224,7 @@ class _RestJsonProtocolServer
         output,
         specifiedType: const FullType(
           _i84.StreamingTraitsInputOutput,
-          [
-            FullType.nullable(
-              _i4.Stream,
-              [
-                FullType(
-                  List,
-                  [FullType(int)],
-                )
-              ],
-            )
-          ],
+          [FullType.nullable(_i4.Stream<List<int>>)],
         ),
       );
       return _i92.Response(
@@ -5267,15 +5249,7 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _streamingTraitsRequireLengthProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType.nullable(
-          _i4.Stream,
-          [
-            FullType(
-              List,
-              [FullType(int)],
-            )
-          ],
-        ),
+        specifiedType: const FullType.nullable(_i4.Stream<List<int>>),
       ) as _i4.Stream<List<int>>?);
       final input = _i85.StreamingTraitsRequireLengthInput.fromRequest(
         payload,
@@ -5316,15 +5290,7 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _streamingTraitsWithMediaTypeProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType.nullable(
-          _i4.Stream,
-          [
-            FullType(
-              List,
-              [FullType(int)],
-            )
-          ],
-        ),
+        specifiedType: const FullType.nullable(_i4.Stream<List<int>>),
       ) as _i4.Stream<List<int>>?);
       final input = _i86.StreamingTraitsWithMediaTypeInputOutput.fromRequest(
         payload,
@@ -5343,17 +5309,7 @@ class _RestJsonProtocolServer
         output,
         specifiedType: const FullType(
           _i86.StreamingTraitsWithMediaTypeInputOutput,
-          [
-            FullType.nullable(
-              _i4.Stream,
-              [
-                FullType(
-                  List,
-                  [FullType(int)],
-                )
-              ],
-            )
-          ],
+          [FullType.nullable(_i4.Stream<List<int>>)],
         ),
       );
       return _i92.Response(

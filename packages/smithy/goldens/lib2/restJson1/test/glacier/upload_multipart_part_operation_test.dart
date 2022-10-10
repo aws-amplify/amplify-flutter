@@ -119,15 +119,7 @@ class UploadMultipartPartInputRestJson1Serializer
           if (value != null) {
             result.body = (serializers.deserialize(
               value,
-              specifiedType: const FullType(
-                _i7.Stream,
-                [
-                  FullType(
-                    List,
-                    [FullType(int)],
-                  )
-                ],
-              ),
+              specifiedType: const FullType(_i7.Stream<List<int>>),
             ) as _i7.Stream<List<int>>);
           }
           break;

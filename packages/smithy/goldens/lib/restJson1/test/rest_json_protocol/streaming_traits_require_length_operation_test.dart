@@ -135,15 +135,7 @@ class StreamingTraitsRequireLengthInputRestJson1Serializer extends _i4
           if (value != null) {
             result.blob = (serializers.deserialize(
               value,
-              specifiedType: const FullType(
-                _i6.Stream,
-                [
-                  FullType(
-                    List,
-                    [FullType(int)],
-                  )
-                ],
-              ),
+              specifiedType: const FullType(_i6.Stream<List<int>>),
             ) as _i6.Stream<List<int>>);
           }
           break;
