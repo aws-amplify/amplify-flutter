@@ -137,6 +137,13 @@ class CpkHasOneUnidirectionalChild extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'name': _name,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<CpkHasOneUnidirectionalChildModelIdentifier>
       MODEL_IDENTIFIER =
       QueryModelIdentifier<CpkHasOneUnidirectionalChildModelIdentifier>();

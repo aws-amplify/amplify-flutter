@@ -258,6 +258,21 @@ class CpkHasOneUnidirectionalParent extends Model {
             _cpkHasOneUnidirectionalParentImplicitChildName
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'name': _name,
+        'implicitChild': _implicitChild,
+        'explicitChildID': _explicitChildID,
+        'explicitChildName': _explicitChildName,
+        'explicitChild': _explicitChild,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt,
+        'cpkHasOneUnidirectionalParentImplicitChildId':
+            _cpkHasOneUnidirectionalParentImplicitChildId,
+        'cpkHasOneUnidirectionalParentImplicitChildName':
+            _cpkHasOneUnidirectionalParentImplicitChildName
+      };
+
   static final QueryModelIdentifier<
           CpkHasOneUnidirectionalParentModelIdentifier> MODEL_IDENTIFIER =
       QueryModelIdentifier<CpkHasOneUnidirectionalParentModelIdentifier>();

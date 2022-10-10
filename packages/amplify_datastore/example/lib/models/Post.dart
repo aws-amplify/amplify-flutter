@@ -241,6 +241,18 @@ class Post extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'title': _title,
+        'rating': _rating,
+        'created': _created,
+        'blog': _blog,
+        'comments': _comments,
+        'tags': _tags,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<PostModelIdentifier> MODEL_IDENTIFIER =
       QueryModelIdentifier<PostModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");

@@ -142,6 +142,14 @@ class BelongsToChildExplicit extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'name': _name,
+        'belongsToParent': _belongsToParent,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<BelongsToChildExplicitModelIdentifier>
       MODEL_IDENTIFIER =
       QueryModelIdentifier<BelongsToChildExplicitModelIdentifier>();

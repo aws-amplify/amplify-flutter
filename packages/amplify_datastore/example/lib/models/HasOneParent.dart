@@ -196,6 +196,17 @@ class HasOneParent extends Model {
         'hasOneParentImplicitChildId': _hasOneParentImplicitChildId
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'name': _name,
+        'implicitChild': _implicitChild,
+        'explicitChildID': _explicitChildID,
+        'explicitChild': _explicitChild,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt,
+        'hasOneParentImplicitChildId': _hasOneParentImplicitChildId
+      };
+
   static final QueryModelIdentifier<HasOneParentModelIdentifier>
       MODEL_IDENTIFIER = QueryModelIdentifier<HasOneParentModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");

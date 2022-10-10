@@ -69,10 +69,16 @@ class QueryPredicateOperation extends QueryPredicate {
 
   @override
   bool evaluate(Model model) {
-    String fieldName = getFieldName(field);
-    //ignore:implicit_dynamic_variable
-    var value = model.toJson()[fieldName];
-    return queryFieldOperator.evaluate(value);
+    final fieldName = getFieldName(field);
+    // TODO(Jordan-Nelson): Remove try/catch at next major version bump
+    try {
+      final value = model.toMap()[fieldName];
+      return queryFieldOperator.evaluate(value);
+    } on UnimplementedError {
+      final value = model.toJson()[fieldName];
+      // ignore: deprecated_member_use_from_same_package
+      return queryFieldOperator.evaluateSerialized(value);
+    }
   }
 
   @override

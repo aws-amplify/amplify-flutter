@@ -194,6 +194,17 @@ class CpkHasManyUnidirectionalChildImplicit extends Model {
             _cpkHasManyUnidirectionalParentImplicitChildrenName
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'name': _name,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt,
+        'cpkHasManyUnidirectionalParentImplicitChildrenId':
+            _cpkHasManyUnidirectionalParentImplicitChildrenId,
+        'cpkHasManyUnidirectionalParentImplicitChildrenName':
+            _cpkHasManyUnidirectionalParentImplicitChildrenName
+      };
+
   static final QueryModelIdentifier<
           CpkHasManyUnidirectionalChildImplicitModelIdentifier>
       MODEL_IDENTIFIER = QueryModelIdentifier<

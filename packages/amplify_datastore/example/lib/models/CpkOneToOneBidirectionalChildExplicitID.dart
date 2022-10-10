@@ -164,6 +164,14 @@ class CpkOneToOneBidirectionalChildExplicitID extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'name': _name,
+        'belongsToParent': _belongsToParent,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<
           CpkOneToOneBidirectionalChildExplicitIDModelIdentifier>
       MODEL_IDENTIFIER = QueryModelIdentifier<

@@ -173,6 +173,14 @@ class CpkPostTags extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'cpkManyToManyPost': _cpkManyToManyPost,
+        'cpkManyToManyTag': _cpkManyToManyTag,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<CpkPostTagsModelIdentifier>
       MODEL_IDENTIFIER = QueryModelIdentifier<CpkPostTagsModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");

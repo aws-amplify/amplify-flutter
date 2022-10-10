@@ -158,6 +158,14 @@ class HasManyParentBiDirectionalExplicit extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'name': _name,
+        'biDirectionalExplicitChildren': _biDirectionalExplicitChildren,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<
           HasManyParentBiDirectionalExplicitModelIdentifier> MODEL_IDENTIFIER =
       QueryModelIdentifier<HasManyParentBiDirectionalExplicitModelIdentifier>();
