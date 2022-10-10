@@ -16,7 +16,9 @@ import 'package:built_value/serializer.dart';
 
 class StreamSerializer<T extends Object>
     implements PrimitiveSerializer<Stream<T>> {
-  const StreamSerializer();
+  StreamSerializer();
+
+  late final streamType = FullType(T);
 
   @override
   Stream<T> deserialize(
@@ -24,9 +26,6 @@ class StreamSerializer<T extends Object>
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) async* {
-    final streamType = specifiedType.isUnspecified
-        ? FullType.unspecified
-        : specifiedType.parameters.first;
     if (serialized is Stream) {
       await for (final value in serialized) {
         yield serializers.deserialize(value, specifiedType: streamType) as T;
@@ -42,16 +41,13 @@ class StreamSerializer<T extends Object>
     Stream<T> object, {
     FullType specifiedType = FullType.unspecified,
   }) async* {
-    final streamType = specifiedType.isUnspecified
-        ? FullType.unspecified
-        : specifiedType.parameters.first;
     await for (final value in object) {
       yield serializers.serialize(value, specifiedType: streamType);
     }
   }
 
   @override
-  Iterable<Type> get types => [Stream<T>];
+  late final Iterable<Type> types = [Stream<T>];
 
   @override
   String get wireName => 'Stream<$T>';

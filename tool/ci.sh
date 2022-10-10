@@ -72,54 +72,70 @@ for PKG in ${PKGS}; do
         dart analyze --fatal-infos . || EXIT_CODE=$?
         ;;
       analyze_1)
-        echo 'flutter analyze --fatal-infos lib'
-        flutter analyze --fatal-infos lib || EXIT_CODE=$?
-        ;;
-      analyze_2)
-        echo 'dart analyze --fatal-infos lib'
-        dart analyze --fatal-infos lib || EXIT_CODE=$?
-        ;;
-      analyze_3)
-        echo 'dart analyze --fatal-infos lib test'
-        dart analyze --fatal-infos lib test || EXIT_CODE=$?
-        ;;
-      analyze_4)
         echo 'flutter analyze --fatal-infos lib pigeons'
         flutter analyze --fatal-infos lib pigeons || EXIT_CODE=$?
         ;;
-      command_0)
+      analyze_2)
+        echo 'flutter analyze --fatal-infos lib'
+        flutter analyze --fatal-infos lib || EXIT_CODE=$?
+        ;;
+      analyze_3)
+        echo 'dart analyze --fatal-infos lib'
+        dart analyze --fatal-infos lib || EXIT_CODE=$?
+        ;;
+      analyze_4)
+        echo 'dart analyze --fatal-infos lib test'
+        dart analyze --fatal-infos lib test || EXIT_CODE=$?
+        ;;
+      command_00)
         echo 'dart --version'
         dart --version || EXIT_CODE=$?
         ;;
-      command_1)
+      command_01)
         echo 'dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox'
         dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox || EXIT_CODE=$?
         ;;
-      command_2)
+      command_02)
         echo 'dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox'
         dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox || EXIT_CODE=$?
         ;;
-      command_3)
+      command_03)
         echo 'dart run build_runner test -- -p chrome,firefox'
         dart run build_runner test -- -p chrome,firefox || EXIT_CODE=$?
         ;;
-      command_4)
+      command_04)
         echo 'dart test -p chrome,firefox'
         dart test -p chrome,firefox || EXIT_CODE=$?
         ;;
-      command_5)
+      command_05)
         echo 'git submodule update --init'
         git submodule update --init || EXIT_CODE=$?
         ;;
-      command_6)
+      command_06)
         echo 'tool/test-desktop.sh'
         tool/test-desktop.sh || EXIT_CODE=$?
         ;;
-      command_7)
+      command_07)
+        echo 'dart run build_runner test --delete-conflicting-outputs -- -p chrome'
+        dart run build_runner test --delete-conflicting-outputs -- -p chrome || EXIT_CODE=$?
+        ;;
+      command_08)
+        echo 'dart run build_runner test --release --delete-conflicting-outputs -- -p chrome'
+        dart run build_runner test --release --delete-conflicting-outputs -- -p chrome || EXIT_CODE=$?
+        ;;
+      command_09)
+        echo 'dart run build_runner test --delete-conflicting-outputs -- -p firefox'
+        dart run build_runner test --delete-conflicting-outputs -- -p firefox || EXIT_CODE=$?
+        ;;
+      command_10)
+        echo 'dart run build_runner test --release --delete-conflicting-outputs -- -p firefox'
+        dart run build_runner test --release --delete-conflicting-outputs -- -p firefox || EXIT_CODE=$?
+        ;;
+      command_11)
         echo 'dart run build_runner test --delete-conflicting-outputs --verbose -- -p chrome,firefox'
         dart run build_runner test --delete-conflicting-outputs --verbose -- -p chrome,firefox || EXIT_CODE=$?
         ;;
-      command_8)
+      command_12)
         echo 'dart run build_runner test --release --delete-conflicting-outputs --verbose -- -p chrome,firefox'
         dart run build_runner test --release --delete-conflicting-outputs --verbose -- -p chrome,firefox || EXIT_CODE=$?
         ;;

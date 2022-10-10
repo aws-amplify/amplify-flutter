@@ -46,8 +46,8 @@ class RestJson1Protocol<InputPayload, Input, OutputPayload, Output>
           Int64Serializer.asNum,
           TimestampSerializer.epochSeconds,
           UnitSerializer(),
-          StreamSerializer<List<int>>(),
-        ]))
+        ])
+        ..add(StreamSerializer<List<int>>()))
       .build();
 
   @override
