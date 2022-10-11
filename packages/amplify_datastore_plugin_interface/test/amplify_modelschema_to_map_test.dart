@@ -125,7 +125,10 @@ void main() {
           'isReadOnly': false,
           'association': {
             'associationType': 'BelongsTo',
+            // TODO(Jordan-Nelson): Remove `targetName` when API category has been
+            // updated to support CPK changes.
             'targetName': 'postID',
+            'targetNames': ['postID'],
             'associatedType': 'Post'
           },
         },
@@ -211,7 +214,10 @@ void main() {
           'isReadOnly': false,
           'association': {
             'associationType': 'BelongsTo',
+            // TODO(Jordan-Nelson): Remove `targetName` when API category has been
+            // updated to support CPK changes.
             'targetName': 'blogID',
+            'targetNames': ['blogID'],
             'associatedType': 'Blog'
           }
         },
