@@ -24,6 +24,8 @@ import * as s3 from "aws-cdk-lib/aws-s3";
 import * as appsync from "@aws-cdk/aws-appsync-alpha";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as kms from "aws-cdk-lib/aws-kms";
+import * as wafv2 from "aws-cdk-lib/aws-wafv2";
+import * as waf_regional from "aws-cdk-lib/aws-waf";
 import {
   CfnOutput,
   Duration,
@@ -207,6 +209,96 @@ export class AuthIntegrationTestStack extends cdk.Stack {
         },
       }
     );
+
+    // Create a Web Application Firewall (WAF) and attach it to the AppSync API and User Pool
+
+    const waf = new wafv2.CfnWebACL(this, "WAF", {
+      name,
+      scope: "REGIONAL",
+      defaultAction: {
+        allow: {},
+      },
+      rules: [
+        // AWS IP Reputation list includes known malicious actors/bots and is regularly updated
+        // https://docs.aws.amazon.com/waf/latest/developerguide/aws-managed-rule-groups-ip-rep.html#aws-managed-rule-groups-ip-rep-amazon
+        {
+          name: "AWS-AWSManagedRulesAmazonIpReputationList",
+          priority: 0,
+          statement: {
+            managedRuleGroupStatement: {
+              vendorName: "AWS",
+              name: "AWSManagedRulesAmazonIpReputationList",
+            },
+          },
+          overrideAction: {
+            none: {},
+          },
+          visibilityConfig: {
+            sampledRequestsEnabled: true,
+            cloudWatchMetricsEnabled: true,
+            metricName: "AWS-AWSManagedRulesAmazonIpReputationList",
+          },
+        },
+
+        // Anonymous IP list blocks IP addresses from obscuring services like VPNs/proxies
+        // https://docs.aws.amazon.com/waf/latest/developerguide/aws-managed-rule-groups-ip-rep.html#aws-managed-rule-groups-ip-rep-anonymous
+        {
+          name: "AWS-AWSManagedRulesAnonymousIpList",
+          priority: 10,
+          statement: {
+            managedRuleGroupStatement: {
+              vendorName: "AWS",
+              name: "AWSManagedRulesAnonymousIpList",
+            },
+          },
+          overrideAction: {
+            none: {},
+          },
+          visibilityConfig: {
+            sampledRequestsEnabled: true,
+            cloudWatchMetricsEnabled: true,
+            metricName: "AWS-AWSManagedRulesAnonymousIpList",
+          },
+        },
+
+        // Basic rate limiting to prevent overuse of endpoints
+        {
+          name: "RateLimit",
+          priority: 30,
+          action: {
+            block: {}
+          },
+          statement: {
+            rateBasedStatement: {
+              aggregateKeyType: "IP",
+              // The number of requests which can be performed by
+              // a single IP in a 5-minute window.
+              limit: 1000,
+            }
+          },
+          visibilityConfig: {
+            sampledRequestsEnabled: true,
+            cloudWatchMetricsEnabled: true,
+            metricName: "RateLimit",
+          },
+        }
+      ],
+      visibilityConfig: {
+        sampledRequestsEnabled: false,
+        cloudWatchMetricsEnabled: true,
+        metricName: "WAFViolations",
+      },
+    });
+
+    new wafv2.CfnWebACLAssociation(this, "WAFAppSyncAssociation", {
+      resourceArn: graphQLApi.arn,
+      webAclArn: waf.attrArn,
+    });
+
+    new wafv2.CfnWebACLAssociation(this, "WAFCognitoAssociation", {
+      resourceArn: userPool.userPoolArn,
+      webAclArn: waf.attrArn,
+    });
 
     // Create the DynamoDB table to store MFA codes for AppSync subscriptions
 
