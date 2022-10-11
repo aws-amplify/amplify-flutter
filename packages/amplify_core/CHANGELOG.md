@@ -1,3 +1,5 @@
+## 0.6.9 (2022-10-12)
+
 ## 0.6.8 (2022-09-19)
 
 - chore(core): Export `safePrint` from amplify_core (#2114)

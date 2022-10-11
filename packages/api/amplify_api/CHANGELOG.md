@@ -1,3 +1,8 @@
+## 0.6.9 (2022-10-12)
+
+- fix(api): support multiple belongsTo (#2087)
+- chore(api): add targetName to generated models used in tests (#2234)
+
 ## 0.6.8 (2022-09-19)
 
 - chore(api): add field to schema in provision script (#1909)

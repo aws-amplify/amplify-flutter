@@ -1,3 +1,8 @@
+## 0.6.9 (2022-10-12)
+
+- feat(storage) : Support custom prefix (#2071)
+- fix(storage): Custom Prefix Android (#2142)
+
 ## 0.6.8 (2022-09-19)
 
 - fix(storage): Download to existing file (#2116)
