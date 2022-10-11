@@ -53,6 +53,8 @@ android {
         htmlReport false
     }
     compileOptions {
+        // Support for Java 8 features
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -69,6 +71,9 @@ android {
 }
 
 dependencies {
+    // Support for Java 8 features
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+
     implementation "com.amplifyframework:aws-datastore:1.37.2"
     implementation "com.amplifyframework:aws-api-appsync:1.37.2"
 
