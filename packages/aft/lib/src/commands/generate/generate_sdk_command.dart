@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
@@ -179,7 +180,7 @@ class GenerateSdkCommand extends AmplifyCommand {
     }
 
     // Generate SDK for combined operations
-    final libraries = generateForAst(
+    final output = generateForAst(
       smithyAst,
       packageName: packageName,
       basePath: outputPath,
@@ -187,7 +188,7 @@ class GenerateSdkCommand extends AmplifyCommand {
     );
 
     final dependencies = <String>{};
-    for (final library in libraries) {
+    for (final library in output.values.expand((out) => out.libraries)) {
       final smithyLibrary = library.smithyLibrary;
       final outPath = p.join(
         'lib',
@@ -200,6 +201,33 @@ class GenerateSdkCommand extends AmplifyCommand {
       await outFile.writeAsString(output);
     }
 
+    for (final plugin in config.plugins) {
+      logger.stdout('Running plugin $plugin...');
+      final generatedShapes = ShapeMap(
+        Map.fromEntries(
+          output.values.expand((out) => out.context.shapes.entries),
+        ),
+      );
+      final generatedAst = SmithyAst(
+        (b) => b
+          ..shapes = generatedShapes
+          ..metadata.replace(smithyAst.metadata)
+          ..version = smithyAst.version,
+      );
+      final pluginCmd = await Process.start(
+        'dart',
+        [
+          plugin,
+          jsonEncode(generatedAst),
+        ],
+        mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
+      );
+      final exitCode = await pluginCmd.exitCode;
+      if (exitCode != 0) {
+        exitError('`dart $plugin <AST>` failed: $exitCode.');
+      }
+    }
+
     // Run built_value generator
     final buildRunnerCmd = await Process.start(
       'dart',
@@ -209,11 +237,8 @@ class GenerateSdkCommand extends AmplifyCommand {
         'build',
         '--delete-conflicting-outputs',
       ],
+      mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
     );
-    if (verbose) {
-      unawaited(buildRunnerCmd.stdout.pipe(stdout));
-      unawaited(buildRunnerCmd.stderr.pipe(stderr));
-    }
     final exitCode = await buildRunnerCmd.exitCode;
     if (exitCode != 0) {
       exitError('`dart run build_runner build` failed: $exitCode.');
