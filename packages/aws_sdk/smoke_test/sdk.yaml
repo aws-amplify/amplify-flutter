@@ -19,3 +19,6 @@ apis:
 
   # S3 (restXml)
   s3:
+
+# TODO(dnys1): Remove when Smithy 2.0 migration is complete
+ref: bf750f19766048467c676f6841053f9da6c87bf3

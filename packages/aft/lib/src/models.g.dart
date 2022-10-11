@@ -47,9 +47,10 @@ SdkConfig _$SdkConfigFromJson(Map json) => $checkedCreate(
       ($checkedConvert) {
         $checkKeys(
           json,
-          allowedKeys: const ['apis'],
+          allowedKeys: const ['ref', 'apis'],
         );
         final val = SdkConfig(
+          ref: $checkedConvert('ref', (v) => v as String? ?? 'main'),
           apis: $checkedConvert(
               'apis',
               (v) => (v as Map).map(
@@ -66,6 +67,7 @@ SdkConfig _$SdkConfigFromJson(Map json) => $checkedCreate(
     );
 
 Map<String, dynamic> _$SdkConfigToJson(SdkConfig instance) => <String, dynamic>{
+      'ref': instance.ref,
       'apis': instance.apis.map((k, e) =>
           MapEntry(k, e?.map(const ShapeIdConverter().toJson).toList())),
     };
