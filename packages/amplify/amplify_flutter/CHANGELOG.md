@@ -1,3 +1,23 @@
+## 0.6.9 (2022-10-12)
+
+- feat(storage): Support custom prefix (#2071)
+
+- fix(api): support multiple belongsTo (#2087)
+- fix(datastore): support nested predicates for observe and observeQuery (#2043)
+- fix(datastore): enable java8 desugaring for amplify-android datastore (#2232)
+- fix(storage): Custom Prefix Android (#2142)
+
+- chore: add cloudwatch monitoring for getting started smoke test (#2157)
+- chore: update category support tables (#2138)
+- chore(analytics): Integration test stack improvements
+- chore(api): add targetName to generated models used in tests (#2234)
+- chore(datastore): run integ tests in CI (#2182)
+
+- test(analytics): Add integration test backend
+- test(analytics): Add events integration tests
+
+
+
 ## 0.6.8 (2022-09-19)
 
 - feat(authenticator): listen to all auth hub events (#2053)

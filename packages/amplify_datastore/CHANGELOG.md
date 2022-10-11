@@ -1,3 +1,9 @@
+## 0.6.9 (2022-10-12)
+
+- chore(datastore): run integ tests in CI (#2182)
+- fix(datastore): support nested predicates for observe and observeQuery (#2043)
+- fix(datastore): enable java8 desugaring for amplify-android datastore (#2232)
+
 ## 0.6.8 (2022-09-19)
 
 - fix(datastore): cpk errors on a custom type (#2134)
