@@ -197,12 +197,17 @@ class SdkConfig
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   const SdkConfig({
+    this.ref = 'main',
     required this.apis,
   });
 
   factory SdkConfig.fromJson(Map<Object?, Object?>? json) =>
       _$SdkConfigFromJson(json ?? const {});
 
+  /// The `aws-models` ref to pull.
+  ///
+  /// Defaults to `main`.
+  final String ref;
   final Map<String, List<ShapeId>?> apis;
 
   @override

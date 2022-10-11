@@ -63,7 +63,7 @@ class GenerateSdkCommand extends AmplifyCommand {
   }
 
   /// Downloads AWS models from GitHub into a temporary directory.
-  Future<Directory> _downloadModels() async {
+  Future<Directory> _downloadModels(String ref) async {
     final cloneDir = await Directory.systemTemp.createTemp('models');
     logger.trace('Cloning models to ${cloneDir.path}');
     await runGit([
@@ -71,6 +71,10 @@ class GenerateSdkCommand extends AmplifyCommand {
       'https://github.com/aws/aws-models.git',
       cloneDir.path,
     ]);
+    await runGit(
+      ['checkout', ref],
+      processWorkingDir: cloneDir.path,
+    );
     logger.trace('Successfully cloned models');
     final modelsDir = await Directory.systemTemp.createTemp('models');
     logger.trace('Organizing models in ${modelsDir.path}');
@@ -101,6 +105,10 @@ class GenerateSdkCommand extends AmplifyCommand {
       exitError('Config file ($configFilepath) does not exist');
     }
 
+    final configYaml = await configFile.readAsString();
+    final config = checkedYamlDecode(configYaml, SdkConfig.fromJson);
+    logger.stdout('Got config: $config');
+
     final modelsPath = args['models'] as String?;
     final Directory modelsDir;
     if (modelsPath != null) {
@@ -109,7 +117,7 @@ class GenerateSdkCommand extends AmplifyCommand {
         exitError('Model directory ($modelsDir) does not exist');
       }
     } else {
-      modelsDir = await _downloadModels();
+      modelsDir = await _downloadModels(config.ref);
     }
 
     final outputPath = args['output'] as String;
@@ -117,10 +125,6 @@ class GenerateSdkCommand extends AmplifyCommand {
     if (!await outputDir.exists()) {
       await outputDir.create(recursive: true);
     }
-
-    final configYaml = await configFile.readAsString();
-    final config = checkedYamlDecode(configYaml, SdkConfig.fromJson);
-    logger.stdout('Got config: $config');
 
     final smithyModel = SmithyAstBuilder();
 
