@@ -174,7 +174,7 @@ class Comment extends Model {
         key: Comment.POST,
         isRequired: false,
         // TODO(Jordan-Nelson): Remove `targetName` when API category has been
-        // updated to  support CPK changes. This was added manually.
+        // updated to support CPK changes. This was added manually.
         targetName: "postID",
         targetNames: ["postID"],
         ofModelName: (Post).toString()));
