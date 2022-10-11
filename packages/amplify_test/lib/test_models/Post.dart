@@ -321,7 +321,7 @@ class Post extends Model {
         key: Post.BLOG,
         isRequired: false,
         // TODO(Jordan-Nelson): Remove `targetName` when API category has been
-        // updated to  support CPK changes. This was added manually.
+        // updated to support CPK changes. This was added manually.
         targetName: "blogID",
         targetNames: ["blogID"],
         ofModelName: (Blog).toString()));
