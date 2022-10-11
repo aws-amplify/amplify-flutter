@@ -29,9 +29,9 @@ class FlutterPrefixResolver : AWSS3PluginPrefixResolver{
                        targetIdentityId: String?,
                        completion: @escaping (Result<String, StorageError>) -> Void) {
         
-        var accessLevelString : String = accessLevel.serviceAccessPrefix
+        let accessLevelString : String = accessLevel.serviceAccessPrefix
         
-        let args: [String: Any] = [
+        let args: [String: String?] = [
             "accessLevel" : accessLevelString,
             "targetIdentity" : targetIdentityId
         ]
