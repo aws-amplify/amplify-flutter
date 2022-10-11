@@ -320,8 +320,8 @@ class Post extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: Post.BLOG,
         isRequired: false,
-        // TODO: Remove when API category has been updated to support
-        // CPK changes. This was added manually.
+        // TODO(Jordan-Nelson): Remove `targetName` when API category has been
+        // updated to  support CPK changes. This was added manually.
         targetName: "blogID",
         targetNames: ["blogID"],
         ofModelName: (Blog).toString()));
