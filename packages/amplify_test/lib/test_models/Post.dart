@@ -17,12 +17,13 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously, implicit_dynamic_parameter, implicit_dynamic_map_literal, implicit_dynamic_type
-
-import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
+
+// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously, implicit_dynamic_parameter, implicit_dynamic_map_literal, implicit_dynamic_type
+
+import 'ModelProvider.dart';
 
 /// This is an auto generated class representing the Post type in your schema.
 @immutable
@@ -39,7 +40,7 @@ class Post extends Model {
   final TemporalDateTime? _updatedAt;
 
   @override
-  getInstanceType() => classType;
+  _PostModelType getInstanceType() => classType;
 
   @Deprecated(
       '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
@@ -100,25 +101,6 @@ class Post extends Model {
     return _updatedAt;
   }
 
-  const Post._internal(
-      {required this.id,
-      required title,
-      required rating,
-      created,
-      likeCount,
-      blog,
-      comments,
-      createdAt,
-      updatedAt})
-      : _title = title,
-        _rating = rating,
-        _created = created,
-        _likeCount = likeCount,
-        _blog = blog,
-        _comments = comments,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
-
   factory Post(
       {String? id,
       required String title,
@@ -137,6 +119,25 @@ class Post extends Model {
         comments:
             comments != null ? List<Comment>.unmodifiable(comments) : comments);
   }
+
+  const Post._internal(
+      {required this.id,
+      required title,
+      required rating,
+      created,
+      likeCount,
+      blog,
+      comments,
+      createdAt,
+      updatedAt})
+      : _title = title,
+        _rating = rating,
+        _created = created,
+        _likeCount = likeCount,
+        _blog = blog,
+        _comments = comments,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
 
   bool equals(Object other) {
     return this == other;
@@ -162,23 +163,23 @@ class Post extends Model {
   String toString() {
     var buffer = StringBuffer();
 
-    buffer.write("Post {");
-    buffer.write("id=" + "$id" + ", ");
-    buffer.write("title=" + "$_title" + ", ");
+    buffer.write('Post {');
+    buffer.write('id=' + '$id' + ', ');
+    buffer.write('title=' + '$_title' + ', ');
     buffer.write(
-        "rating=" + (_rating != null ? _rating!.toString() : "null") + ", ");
+        'rating=' + (_rating != null ? _rating!.toString() : 'null') + ', ');
     buffer.write(
-        "created=" + (_created != null ? _created!.format() : "null") + ", ");
-    buffer.write("likeCount=" +
-        (_likeCount != null ? _likeCount!.toString() : "null") +
-        ", ");
-    buffer.write("blog=" + (_blog != null ? _blog!.toString() : "null") + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
+        'created=' + (_created != null ? _created!.format() : 'null') + ', ');
+    buffer.write('likeCount=' +
+        (_likeCount != null ? _likeCount!.toString() : 'null') +
+        ', ');
+    buffer.write('blog=' + (_blog != null ? _blog!.toString() : 'null') + ', ');
+    buffer.write('createdAt=' +
+        (_createdAt != null ? _createdAt!.format() : 'null') +
+        ', ');
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
-    buffer.write("}");
+        'updatedAt=' + (_updatedAt != null ? _updatedAt!.format() : 'null'));
+    buffer.write('}');
 
     return buffer.toString();
   }
@@ -239,26 +240,26 @@ class Post extends Model {
       };
 
   static final QueryModelIdentifier MODEL_IDENTIFIER = QueryModelIdentifier();
-  static final QueryField ID = QueryField(fieldName: "post.id");
-  static final QueryField TITLE = QueryField(fieldName: "title");
-  static final QueryField RATING = QueryField(fieldName: "rating");
-  static final QueryField CREATED = QueryField(fieldName: "created");
-  static final QueryField LIKECOUNT = QueryField(fieldName: "likeCount");
+  static final QueryField ID = QueryField(fieldName: 'post.id');
+  static final QueryField TITLE = QueryField(fieldName: 'title');
+  static final QueryField RATING = QueryField(fieldName: 'rating');
+  static final QueryField CREATED = QueryField(fieldName: 'created');
+  static final QueryField LIKECOUNT = QueryField(fieldName: 'likeCount');
   static final QueryField BLOG = QueryField(
-      fieldName: "blog",
+      fieldName: 'blog',
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (Blog).toString()));
   static final QueryField COMMENTS = QueryField(
-      fieldName: "comments",
+      fieldName: 'comments',
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (Comment).toString()));
-  static var schema =
+  static ModelSchema schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Post";
-    modelSchemaDefinition.pluralName = "Posts";
+    modelSchemaDefinition.name = 'Post';
+    modelSchemaDefinition.pluralName = 'Posts';
 
     modelSchemaDefinition.indexes = [
-      ModelIndex(fields: const ["blogID"], name: "byBlog")
+      ModelIndex(fields: const ['blogID'], name: 'byBlog')
     ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
@@ -286,7 +287,10 @@ class Post extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: Post.BLOG,
         isRequired: false,
-        targetName: "blogID",
+        // TODO(Jordan-Nelson): Remove `targetName` when API category has been
+        // updated to support CPK changes. This was added manually.
+        targetName: 'blogID',
+        targetNames: ['blogID'],
         ofModelName: (Blog).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(

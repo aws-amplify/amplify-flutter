@@ -17,11 +17,12 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
+import 'package:amplify_core/amplify_core.dart';
+import 'package:flutter/foundation.dart';
+
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously, implicit_dynamic_parameter, implicit_dynamic_map_literal, implicit_dynamic_type
 
 import 'ModelProvider.dart';
-import 'package:amplify_core/amplify_core.dart';
-import 'package:flutter/foundation.dart';
 
 /// This is an auto generated class representing the Comment type in your schema.
 @immutable
@@ -34,7 +35,7 @@ class Comment extends Model {
   final TemporalDateTime? _updatedAt;
 
   @override
-  getInstanceType() => classType;
+  _CommentModelType getInstanceType() => classType;
 
   @Deprecated(
       '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
@@ -70,17 +71,17 @@ class Comment extends Model {
     return _updatedAt;
   }
 
+  factory Comment({String? id, Post? post, required String content}) {
+    return Comment._internal(
+        id: id == null ? UUID.getUUID() : id, post: post, content: content);
+  }
+
   const Comment._internal(
       {required this.id, post, required content, createdAt, updatedAt})
       : _post = post,
         _content = content,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
-
-  factory Comment({String? id, Post? post, required String content}) {
-    return Comment._internal(
-        id: id == null ? UUID.getUUID() : id, post: post, content: content);
-  }
 
   bool equals(Object other) {
     return this == other;
@@ -102,16 +103,16 @@ class Comment extends Model {
   String toString() {
     var buffer = StringBuffer();
 
-    buffer.write("Comment {");
-    buffer.write("id=" + "$id" + ", ");
-    buffer.write("post=" + (_post != null ? _post!.toString() : "null") + ", ");
-    buffer.write("content=" + "$_content" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
+    buffer.write('Comment {');
+    buffer.write('id=' + '$id' + ', ');
+    buffer.write('post=' + (_post != null ? _post!.toString() : 'null') + ', ');
+    buffer.write('content=' + '$_content' + ', ');
+    buffer.write('createdAt=' +
+        (_createdAt != null ? _createdAt!.format() : 'null') +
+        ', ');
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
-    buffer.write("}");
+        'updatedAt=' + (_updatedAt != null ? _updatedAt!.format() : 'null'));
+    buffer.write('}');
 
     return buffer.toString();
   }
@@ -144,19 +145,19 @@ class Comment extends Model {
       };
 
   static final QueryModelIdentifier MODEL_IDENTIFIER = QueryModelIdentifier();
-  static final QueryField ID = QueryField(fieldName: "comment.id");
+  static final QueryField ID = QueryField(fieldName: 'comment.id');
   static final QueryField POST = QueryField(
-      fieldName: "post",
+      fieldName: 'post',
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (Post).toString()));
-  static final QueryField CONTENT = QueryField(fieldName: "content");
-  static var schema =
+  static final QueryField CONTENT = QueryField(fieldName: 'content');
+  static ModelSchema schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Comment";
-    modelSchemaDefinition.pluralName = "Comments";
+    modelSchemaDefinition.name = 'Comment';
+    modelSchemaDefinition.pluralName = 'Comments';
 
     modelSchemaDefinition.indexes = [
-      ModelIndex(fields: const ["postID", "content"], name: "byPost")
+      ModelIndex(fields: const ['postID', 'content'], name: 'byPost')
     ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
@@ -164,7 +165,10 @@ class Comment extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: Comment.POST,
         isRequired: false,
-        targetName: "postID",
+        // TODO(Jordan-Nelson): Remove `targetName` when API category has been
+        // updated to support CPK changes. This was added manually.
+        targetName: 'postID',
+        targetNames: ['postID'],
         ofModelName: (Post).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
