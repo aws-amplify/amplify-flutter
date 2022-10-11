@@ -277,10 +277,26 @@ extension ShapeUtils on Shape {
         : this;
     final defaultTrait =
         getTrait<DefaultTrait>() ?? targetShape.getTrait<DefaultTrait>();
-    if (defaultTrait != null) {
-      final defaultValue = defaultTrait.value;
-      final isBlobShape = targetShape.getType() == ShapeType.blob;
-      if (defaultValue is String && isBlobShape) {
+    final defaultValue = defaultTrait?.value;
+    switch (targetShape.getType()) {
+      case ShapeType.byte:
+      case ShapeType.short:
+      case ShapeType.integer:
+      case ShapeType.float:
+      case ShapeType.double:
+        return literalNum(defaultValue as num? ?? 0);
+      case ShapeType.long:
+        return defaultValue == null || defaultValue == 0
+            ? DartTypes.fixNum.int64.property('ZERO')
+            : DartTypes.fixNum.int64.newInstance([
+                literalNum(defaultValue as int),
+              ]);
+      case ShapeType.boolean:
+        return literalBool(defaultValue as bool? ?? false);
+      case ShapeType.blob:
+        if (defaultValue is! String) {
+          return null;
+        }
         final encoded = utf8.encode(defaultValue);
         final encodedExp = literalConstList(encoded);
         if (!targetShape.isStreaming) {
@@ -292,20 +308,6 @@ extension ShapeUtils on Shape {
         return DartTypes.async.stream().newInstanceNamed('value', [
           encodedExp,
         ]);
-      }
-      return literal(defaultValue);
-    }
-    switch (targetShape.getType()) {
-      case ShapeType.byte:
-      case ShapeType.short:
-      case ShapeType.integer:
-      case ShapeType.float:
-      case ShapeType.double:
-        return literalNum(0);
-      case ShapeType.long:
-        return DartTypes.fixNum.int64.property('ZERO');
-      case ShapeType.boolean:
-        return literalFalse;
       default:
         return null;
     }
