@@ -19,7 +19,7 @@ import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
 
 /// {@template storage.amplify_storage_s3.list_result}
-/// The result returned by Storage S3 plugin `list` API.
+/// The result returned by the Storage S3 plugin `list` API.
 /// {@endtemplate}
 class S3StorageListResult extends StorageListResult<List<S3StorageItem>> {
   /// {@macro storage.amplify_storage_s3.list_result}

@@ -16,7 +16,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 
 /// {@template storage.amplify_storage_s3.get_properties_result}
-/// The result returned by Storage S3 plugin `getProperties` API.
+/// The result returned by the Storage S3 plugin `getProperties` API.
 /// {@endtemplate}
 class S3StorageGetPropertiesResult
     extends StorageGetPropertiesResult<S3StorageItem> {

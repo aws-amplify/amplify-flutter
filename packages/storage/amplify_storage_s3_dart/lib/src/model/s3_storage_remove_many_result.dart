@@ -17,7 +17,7 @@ import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 
 /// {@template storage.amplify_storage_s3.remove_many_result}
-/// The result returned by Storage S3 plugin `removeMany` API.
+/// The result returned by the Storage S3 plugin `removeMany` API.
 /// {@endtemplate}
 class S3StorageRemoveManyResult extends StorageRemoveManyResult<S3StorageItem> {
   /// {@macro storage.amplify_storage_s3.remove_many_result}

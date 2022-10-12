@@ -15,7 +15,7 @@
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template storage.amplify_storage_s3.list_options}
-/// The configurable parameters for Storage S3 plugin `list` requests.
+/// The configurable parameters for the Storage S3 plugin `list` requests.
 /// {@endtemplate}
 class S3StorageListOptions extends StorageListOptions {
   /// {@macro storage.amplify_storage_s3.list_options}
@@ -35,8 +35,8 @@ class S3StorageListOptions extends StorageListOptions {
 
   /// {@macro storage.amplify_storage_s3.list_options}
   ///
-  /// Use when list objects that belongs to other user (identified by
-  /// `targetIdentityId`) rather than the currently signed user.
+  /// Use this when list objects that belongs to other user (identified by
+  /// [targetIdentityId]) rather than the currently signed user.
   const S3StorageListOptions.forIdentity(
     String targetIdentityId, {
     int pageSize = 1000,
@@ -49,7 +49,6 @@ class S3StorageListOptions extends StorageListOptions {
   /// The identity id of another user who uploaded the objects that to be
   /// listed.
   ///
-  /// Should be set by `StorageS3ListOptions.forIdentity()`
-  /// constructor.
+  /// This can be set by calling the [S3StorageListOptions.forIdentity].
   final String? targetIdentityId;
 }
