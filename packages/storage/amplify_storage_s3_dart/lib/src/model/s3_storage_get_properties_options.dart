@@ -15,7 +15,7 @@
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template storage.amplify_storage_s3.get_properties_options}
-/// The configurable parameters invoking Storage S3 plugin `getProperties` API.
+/// The configurable parameters invoking the Storage S3 plugin `getProperties` API.
 /// {@endtemplate}
 class S3StorageGetPropertiesOptions extends StorageGetPropertiesOptions {
   /// {@macro storage.amplify_storage_s3.get_properties_options}
@@ -32,8 +32,9 @@ class S3StorageGetPropertiesOptions extends StorageGetPropertiesOptions {
 
   /// {@macro storage.amplify_storage_s3.get_properties_options}
   ///
-  /// Use when call `getProperties` on an object that belongs to other user
-  /// (identified by `targetIdentityId`) rather than the currently signed user.
+  /// Use this when calling `getProperties` on an object that belongs to other
+  /// user (identified by [targetIdentityId]) rather than the currently signed
+  /// user.
   const S3StorageGetPropertiesOptions.forIdentity(
     String targetIdentityId,
   ) : this._(
@@ -44,7 +45,6 @@ class S3StorageGetPropertiesOptions extends StorageGetPropertiesOptions {
   /// The identity id of another user who uploaded the object that to get
   /// properties for.
   ///
-  /// Should be set by `S3StorageGetPropertiesOptions.forIdentity()`
-  /// constructor.
+  /// This can be set by calling the [S3StorageGetPropertiesOptions.forIdentity].
   final String? targetIdentityId;
 }

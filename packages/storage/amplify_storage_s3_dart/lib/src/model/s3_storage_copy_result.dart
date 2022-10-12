@@ -16,7 +16,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 
 /// {@template storage.amplify_storage_s3.get_url_result}
-/// The result returned by Storage S3 plugin `copy` API.
+/// The result returned by the Storage S3 plugin `copy` API.
 /// {@endtemplate}
 class S3StorageCopyResult extends StorageCopyResult<S3StorageItem> {
   /// {@macro storage.amplify_storage_s3.get_url_result}

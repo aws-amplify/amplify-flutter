@@ -16,7 +16,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 
 /// {@template storage.amplify_storage_s3.list_operation}
-/// An operation created by calling Storage S3 plugin `list` API.
+/// An operation created by calling the Storage S3 plugin `list` API.
 /// {@endtemplate}
 class S3StorageListOperation extends StorageListOperation<
     StorageListRequest<S3StorageListOptions>, S3StorageListResult> {

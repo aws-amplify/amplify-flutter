@@ -16,7 +16,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 
 /// {@template storage.amplify_storage_s3.remove_many_operation}
-/// An operation created by calling Storage S3 plugin `removeMany` API.
+/// An operation created by calling the Storage S3 plugin `removeMany` API.
 /// {@endtemplate}
 class S3StorageRemoveManyOperation extends StorageRemoveManyOperation<
     StorageRemoveManyRequest<S3StorageRemoveManyOptions>,

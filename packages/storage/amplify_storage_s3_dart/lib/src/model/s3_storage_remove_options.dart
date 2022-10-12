@@ -15,7 +15,7 @@
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template storage.amplify_storage_s3.remove_options}
-/// The configurable parameters invoking Storage S3 plugin `remove`
+/// The configurable parameters invoking the Storage S3 plugin `remove`
 /// API.
 /// {@endtemplate}
 class S3StorageRemoveOptions extends StorageRemoveOptions {

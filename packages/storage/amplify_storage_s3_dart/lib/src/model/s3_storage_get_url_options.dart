@@ -15,7 +15,7 @@
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template storage.amplify_storage_s3.get_url_options}
-/// The configurable parameters invoking Storage S3 plugin `getUrl`
+/// The configurable parameters invoking the Storage S3 plugin `getUrl`
 /// API.
 /// {@endtemplate}
 class S3StorageGetUrlOptions extends StorageGetUrlOptions {
@@ -39,8 +39,8 @@ class S3StorageGetUrlOptions extends StorageGetUrlOptions {
 
   /// {@macro storage.amplify_storage_s3.get_url_options}
   ///
-  /// Use when call `getUrl` on an object that belongs to other user (identified
-  /// by `targetIdentityId`) rather than the currently signed user.
+  /// Use this when calling `getUrl` on an object that belongs to other user
+  /// (identified by [targetIdentityId]) rather than the currently signed user.
   const S3StorageGetUrlOptions.forIdentity(
     String targetIdentityId, {
     Duration expiresIn = const Duration(days: 1),
@@ -62,7 +62,6 @@ class S3StorageGetUrlOptions extends StorageGetUrlOptions {
   /// The identity id of another user who uploaded the object that to get url
   /// for.
   ///
-  /// Should be set by `S3StorageGetUrlOptions.forIdentity()`
-  /// constructor.
+  /// This can be set by calling the [S3StorageGetUrlOptions.forIdentity].
   final String? targetIdentityId;
 }

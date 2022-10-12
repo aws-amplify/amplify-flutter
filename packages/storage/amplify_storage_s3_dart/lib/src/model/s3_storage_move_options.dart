@@ -15,7 +15,7 @@
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template storage.amplify_storage_s3.move_options}
-/// The configurable parameters invoking Storage S3 plugin `copy`
+/// The configurable parameters invoking the Storage S3 plugin `copy`
 /// API.
 /// {@endtemplate}
 class S3StorageMoveOptions extends StorageMoveOptions {
@@ -24,7 +24,7 @@ class S3StorageMoveOptions extends StorageMoveOptions {
     this.getProperties = false,
   });
 
-  /// The flag that indicates whether to retrieve properties for the move
-  /// result object via the `getProperties` API.
+  /// Whether to retrieve properties for the moved object using the
+  /// `getProperties` API.
   final bool getProperties;
 }
