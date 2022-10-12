@@ -74,7 +74,7 @@ class HttpChecksumNotRequiredWithMemberOperation extends _i1.HttpOperation<
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override
