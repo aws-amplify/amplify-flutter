@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity_provider.operation.forget_device_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -81,7 +81,7 @@ class ForgetDeviceOperation extends _i1.HttpOperation<_i2.ForgetDeviceRequest,
           service: _i6.AWSService.cognitoIdentityProvider,
           credentialsProvider: _credentialsProvider,
         ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
         const _i4.WithSdkInvocationId(),
         const _i4.WithSdkRequest(),
       ],
@@ -111,7 +111,7 @@ class ForgetDeviceOperation extends _i1.HttpOperation<_i2.ForgetDeviceRequest,
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override

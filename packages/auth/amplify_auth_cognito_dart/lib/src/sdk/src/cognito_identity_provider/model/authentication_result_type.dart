@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.authentication_result_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,6 +39,7 @@ abstract class AuthenticationResultType
     String? refreshToken,
     String? tokenType,
   }) {
+    expiresIn ??= 0;
     return _$AuthenticationResultType._(
       accessToken: accessToken,
       expiresIn: expiresIn,
@@ -61,13 +62,15 @@ abstract class AuthenticationResultType
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(AuthenticationResultTypeBuilder b) {}
+  static void _init(AuthenticationResultTypeBuilder b) {
+    b.expiresIn = 0;
+  }
 
   /// A valid access token that Amazon Cognito issued to the user who you want to authenticate.
   String? get accessToken;
 
   /// The expiration period of the authentication result in seconds.
-  int? get expiresIn;
+  int get expiresIn;
 
   /// The ID token.
   String? get idToken;
@@ -159,12 +162,10 @@ class AuthenticationResultTypeAwsJson11Serializer
           }
           break;
         case 'ExpiresIn':
-          if (value != null) {
-            result.expiresIn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.expiresIn = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'IdToken':
           if (value != null) {
@@ -211,21 +212,19 @@ class AuthenticationResultTypeAwsJson11Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as AuthenticationResultType);
-    final result = <Object?>[];
+    final result = <Object?>[
+      'ExpiresIn',
+      serializers.serialize(
+        payload.expiresIn,
+        specifiedType: const FullType(int),
+      ),
+    ];
     if (payload.accessToken != null) {
       result
         ..add('AccessToken')
         ..add(serializers.serialize(
           payload.accessToken!,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.expiresIn != null) {
-      result
-        ..add('ExpiresIn')
-        ..add(serializers.serialize(
-          payload.expiresIn!,
-          specifiedType: const FullType(int),
         ));
     }
     if (payload.idToken != null) {

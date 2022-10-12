@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.confirm_sign_up_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -45,6 +45,7 @@ abstract class ConfirmSignUpRequest
     _i4.UserContextDataType? userContextData,
     required String username,
   }) {
+    forceAliasCreation ??= false;
     return _$ConfirmSignUpRequest._(
       analyticsMetadata: analyticsMetadata,
       clientId: clientId,
@@ -77,7 +78,9 @@ abstract class ConfirmSignUpRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConfirmSignUpRequestBuilder b) {}
+  static void _init(ConfirmSignUpRequestBuilder b) {
+    b.forceAliasCreation = false;
+  }
 
   /// The Amazon Pinpoint analytics metadata for collecting metrics for `ConfirmSignUp` calls.
   _i3.AnalyticsMetadataType? get analyticsMetadata;
@@ -104,7 +107,7 @@ abstract class ConfirmSignUpRequest
   String get confirmationCode;
 
   /// Boolean to be specified to force user confirmation irrespective of existing alias. By default set to `False`. If this parameter is set to `True` and the phone number/email used for sign up confirmation already exists as an alias with a different user, the API call will migrate the alias from the previous user to the newly created user being confirmed. If set to `False`, the API will throw an **AliasExistsException** error.
-  bool? get forceAliasCreation;
+  bool get forceAliasCreation;
 
   /// A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and username plus the client ID in the message.
   String? get secretHash;
@@ -231,12 +234,10 @@ class ConfirmSignUpRequestAwsJson11Serializer
           ) as String);
           break;
         case 'ForceAliasCreation':
-          if (value != null) {
-            result.forceAliasCreation = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.forceAliasCreation = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
         case 'SecretHash':
           if (value != null) {
@@ -284,6 +285,11 @@ class ConfirmSignUpRequestAwsJson11Serializer
         payload.confirmationCode,
         specifiedType: const FullType(String),
       ),
+      'ForceAliasCreation',
+      serializers.serialize(
+        payload.forceAliasCreation,
+        specifiedType: const FullType(bool),
+      ),
       'Username',
       serializers.serialize(
         payload.username,
@@ -310,14 +316,6 @@ class ConfirmSignUpRequestAwsJson11Serializer
               FullType(String),
             ],
           ),
-        ));
-    }
-    if (payload.forceAliasCreation != null) {
-      result
-        ..add('ForceAliasCreation')
-        ..add(serializers.serialize(
-          payload.forceAliasCreation!,
-          specifiedType: const FullType(bool),
         ));
     }
     if (payload.secretHash != null) {

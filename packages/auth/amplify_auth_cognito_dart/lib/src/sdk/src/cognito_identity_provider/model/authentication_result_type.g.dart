@@ -10,7 +10,7 @@ class _$AuthenticationResultType extends AuthenticationResultType {
   @override
   final String? accessToken;
   @override
-  final int? expiresIn;
+  final int expiresIn;
   @override
   final String? idToken;
   @override
@@ -26,12 +26,15 @@ class _$AuthenticationResultType extends AuthenticationResultType {
 
   _$AuthenticationResultType._(
       {this.accessToken,
-      this.expiresIn,
+      required this.expiresIn,
       this.idToken,
       this.newDeviceMetadata,
       this.refreshToken,
       this.tokenType})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        expiresIn, r'AuthenticationResultType', 'expiresIn');
+  }
 
   @override
   AuthenticationResultType rebuild(
@@ -136,7 +139,8 @@ class AuthenticationResultTypeBuilder
       _$result = _$v ??
           new _$AuthenticationResultType._(
               accessToken: accessToken,
-              expiresIn: expiresIn,
+              expiresIn: BuiltValueNullFieldError.checkNotNull(
+                  expiresIn, r'AuthenticationResultType', 'expiresIn'),
               idToken: idToken,
               newDeviceMetadata: _newDeviceMetadata?.build(),
               refreshToken: refreshToken,
