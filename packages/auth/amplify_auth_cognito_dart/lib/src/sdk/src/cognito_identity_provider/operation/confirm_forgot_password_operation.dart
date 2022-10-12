@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity_provider.operation.confirm_forgot_password_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -102,7 +102,7 @@ class ConfirmForgotPasswordOperation extends _i1.HttpOperation<
           credentialsProvider: _credentialsProvider,
           isOptional: true,
         ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
         const _i5.WithSdkInvocationId(),
         const _i5.WithSdkRequest(),
       ],
@@ -132,7 +132,7 @@ class ConfirmForgotPasswordOperation extends _i1.HttpOperation<
   @override
   _i3.ConfirmForgotPasswordResponse buildOutput(
     _i3.ConfirmForgotPasswordResponse payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.ConfirmForgotPasswordResponse.fromResponse(
         payload,
