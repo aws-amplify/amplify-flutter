@@ -199,6 +199,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   final StreamController<AuthHubEvent> _hubEventController =
       StreamController.broadcast();
 
+  static final AmplifyLogger _logger = AmplifyLogger.category(Category.auth);
+
   @override
   Future<void> close() async {
     await _hubEventController.close();
@@ -887,14 +889,25 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     final username = tokens.username;
     final deviceSecrets = await _deviceRepo.get(username);
     final deviceKey = deviceSecrets?.deviceKey;
-    if (deviceKey == null) {
+    if (deviceSecrets == null || deviceKey == null) {
       throw const DeviceNotTrackedException();
+    }
+    if (deviceSecrets.deviceStatus ==
+        cognito.DeviceRememberedStatusType.remembered) {
+      _logger.info('Device is already remembered');
+      return;
     }
     await _cognitoIdp.updateDeviceStatus(
       cognito.UpdateDeviceStatusRequest(
         accessToken: tokens.accessToken.raw,
         deviceKey: deviceKey,
         deviceRememberedStatus: cognito.DeviceRememberedStatusType.remembered,
+      ),
+    );
+    await _deviceRepo.put(
+      username,
+      deviceSecrets.rebuild(
+        (b) => b.deviceStatus = cognito.DeviceRememberedStatusType.remembered,
       ),
     );
   }
@@ -1021,6 +1034,16 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       await _stateMachine.dispatch(
         const CredentialStoreEvent.clearCredentials(),
       );
+
+      // Clear device secrets if unconfirmed
+      final username = tokens.username;
+      final deviceSecrets = await _deviceRepo.get(username);
+      if (deviceSecrets != null &&
+          deviceSecrets.deviceStatus ==
+              cognito.DeviceRememberedStatusType.notRemembered) {
+        await _deviceRepo.remove(username);
+      }
+
       _hubEventController.add(AuthHubEvent.signedOut());
     }
     return const SignOutResult();

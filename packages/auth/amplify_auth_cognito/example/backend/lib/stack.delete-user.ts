@@ -17,6 +17,10 @@
 import * as lambda from "aws-lambda";
 import * as cognito from "@aws-sdk/client-cognito-identity-provider";
 
+interface DeleteUserRequest {
+  username: string;
+}
+
 interface DeleteUserResponse {
   success: boolean;
   error?: string;
@@ -28,14 +32,14 @@ const CLIENT = new cognito.CognitoIdentityProviderClient({
 });
 
 export const handler: lambda.AppSyncResolverHandler<
-  string,
+  DeleteUserRequest,
   DeleteUserResponse
 > = async (
-  event: lambda.AppSyncResolverEvent<string>
+  event: lambda.AppSyncResolverEvent<DeleteUserRequest>
 ): Promise<DeleteUserResponse> => {
   console.log(`Got event: ${JSON.stringify(event, null, 2)}`);
 
-  const username = event.arguments;
+  const { username } = event.arguments;
   console.log(`Deleting user ${username}...`);
   try {
     await CLIENT.send(

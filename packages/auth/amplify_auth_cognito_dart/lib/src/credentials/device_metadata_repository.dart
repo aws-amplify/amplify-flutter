@@ -14,6 +14,7 @@
 
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
@@ -50,12 +51,18 @@ class DeviceMetadataRepository {
     final devicePassword = await _secureStorage.read(
       key: deviceKeys[CognitoDeviceKey.devicePassword],
     );
+    final deviceStatus = await _secureStorage.read(
+      key: deviceKeys[CognitoDeviceKey.deviceStatus],
+    );
     if (deviceKey != null && deviceGroupKey != null && devicePassword != null) {
       deviceSecrets = CognitoDeviceSecrets(
         (b) => b
           ..deviceKey = deviceKey
           ..deviceGroupKey = deviceGroupKey
-          ..devicePassword = devicePassword,
+          ..devicePassword = devicePassword
+          ..deviceStatus = deviceStatus == null
+              ? null
+              : DeviceRememberedStatusType.values.byValue(deviceStatus),
       );
     }
     return deviceSecrets;
@@ -75,6 +82,10 @@ class DeviceMetadataRepository {
     await _secureStorage.write(
       key: deviceKeys[CognitoDeviceKey.devicePassword],
       value: deviceSecrets.devicePassword,
+    );
+    await _secureStorage.write(
+      key: deviceKeys[CognitoDeviceKey.deviceStatus],
+      value: deviceSecrets.deviceStatus.value,
     );
   }
 

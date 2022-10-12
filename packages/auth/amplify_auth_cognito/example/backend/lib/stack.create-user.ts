@@ -28,7 +28,7 @@ interface CreateUserInput {
     phoneNumber?: string;
     name?: string;
     givenName?: string;
-  }
+  };
 }
 
 interface CreateUserResponse {
@@ -48,7 +48,7 @@ export const handler: lambda.AppSyncResolverHandler<
   event: lambda.AppSyncResolverEvent<CreateUserInput>
 ): Promise<CreateUserResponse> => {
   console.log(`Got event: ${JSON.stringify(event, null, 2)}`);
-  
+
   const { input } = event.arguments;
   const { username } = input;
 
@@ -69,8 +69,10 @@ export const handler: lambda.AppSyncResolverHandler<
         { Name: "given_name", Value: input.givenName },
       ],
     };
-    await CLIENT.send(new cognito.AdminCreateUserCommand(createUserParams));
-    console.log(`Successfully created user: ${username}`);
+    const resp = await CLIENT.send(
+      new cognito.AdminCreateUserCommand(createUserParams)
+    );
+    console.log(`Successfully created user: ${username}`, resp);
   } catch (err: any) {
     console.error(`Could not create user ${username}`, err);
     return {
@@ -87,11 +89,12 @@ export const handler: lambda.AppSyncResolverHandler<
         Password: input.password,
         Permanent: true,
       };
-      await CLIENT.send(
+      const resp = await CLIENT.send(
         new cognito.AdminSetUserPasswordCommand(setPasswordParams)
       );
       console.log(
-        `Updated password for ${username} to ${input.password}`
+        `Updated password for ${username} to ${input.password}`,
+        resp
       );
     } catch (err: any) {
       console.log(`Could not update password for ${username}`, err);
@@ -112,10 +115,10 @@ export const handler: lambda.AppSyncResolverHandler<
           PreferredMfa: true,
         },
       };
-      await CLIENT.send(
+      const resp = await CLIENT.send(
         new cognito.AdminSetUserMFAPreferenceCommand(mfaParams)
       );
-      console.log(`Successfully enabled MFA for ${username}`);
+      console.log(`Successfully enabled MFA for ${username}`, resp);
     } catch (err: any) {
       console.log(`Could not enable MFA for ${username}`, err);
       return {
@@ -136,10 +139,10 @@ export const handler: lambda.AppSyncResolverHandler<
             { Name: "email_verified", Value: "true" },
           ],
         };
-      await CLIENT.send(
+      const resp = await CLIENT.send(
         new cognito.AdminUpdateUserAttributesCommand(userAttributesParams)
       );
-      console.log(`Successfully verified attributes for ${username}`);
+      console.log(`Successfully verified attributes for ${username}`, resp);
     } catch (err: any) {
       console.log(`Could not verify attributes for ${username}`, err);
       return {

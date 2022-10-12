@@ -632,7 +632,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
   /// If device tracking is set to opt-in, a second call to `rememberDevice` is
   /// needed to remember the device. If device tracking is set to always, then
   /// the device is remembered as part of this call.
-  Future<String> _createDevice(
+  Future<_CreateDeviceResult> _createDevice(
     String accessToken,
     NewDeviceMetadataType newDeviceMetadata,
   ) async {
@@ -644,10 +644,18 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
           ..newDeviceMetadata.replace(newDeviceMetadata),
       ),
     );
-    final response = await worker.stream.first;
-    await cognitoIdentityProvider.confirmDevice(response.request);
+    final workerResult = await worker.stream.first;
+    final response = await cognitoIdentityProvider.confirmDevice(
+      workerResult.request,
+    );
+    final requiresConfirmation = response.userConfirmationNecessary ?? false;
 
-    return response.devicePassword;
+    return _CreateDeviceResult(
+      devicePassword: workerResult.devicePassword,
+      deviceStatus: requiresConfirmation
+          ? DeviceRememberedStatusType.notRemembered
+          : DeviceRememberedStatusType.remembered,
+    );
   }
 
   /// Update any user attributes which could not be sent in the
@@ -696,13 +704,15 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       if (newDeviceMetadata != null &&
           // ConfirmDevice API requires an identity pool
           hasIdentityPool) {
+        final createDeviceResult = await _createDevice(
+          accessToken,
+          newDeviceMetadata,
+        );
         user.deviceSecrets = CognitoDeviceSecretsBuilder()
           ..deviceGroupKey = newDeviceMetadata.deviceGroupKey
           ..deviceKey = newDeviceMetadata.deviceKey
-          ..devicePassword = await _createDevice(
-            accessToken,
-            newDeviceMetadata,
-          );
+          ..devicePassword = createDeviceResult.devicePassword
+          ..deviceStatus = createDeviceResult.deviceStatus;
 
         await getOrCreate(DeviceMetadataRepository.token).put(
           user.username!,
@@ -823,4 +833,14 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
     }
     return null;
   }
+}
+
+class _CreateDeviceResult {
+  const _CreateDeviceResult({
+    required this.devicePassword,
+    required this.deviceStatus,
+  });
+
+  final String devicePassword;
+  final DeviceRememberedStatusType deviceStatus;
 }

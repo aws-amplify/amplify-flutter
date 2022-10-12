@@ -69,23 +69,30 @@ String createConfig({
       ),
     ),
   );
-  return '''
-const amplifyconfig = \'\'\'
-$configJson
-\'\'\';
-''';
+  return configJson;
 }
 
 void main() {
-  final outputs = (jsonDecode(File('outputs.json').readAsStringSync())
-      as Map<String, dynamic>)['AuthIntegrationTestStack'] as Map;
-  final config = createConfig(
-    region: outputs['Region'] as String,
-    userPoolId: outputs['UserPoolId'] as String,
-    userPoolClientId: outputs['UserPoolClientId'] as String,
-    identityPoolId: outputs['IdentityPoolId'] as String,
-    graphQLApiEndpoint: outputs['GraphQLApiEndpoint'] as String,
-    graphQLApiKey: outputs['GraphQLApiKey'] as String,
-  );
-  File('../lib/amplifyconfiguration.dart').writeAsStringSync(config);
+  final outputs = jsonDecode(File('outputs.json').readAsStringSync())
+      as Map<String, dynamic>;
+  final config = StringBuffer();
+  config.writeln('const amplifyEnvironments = <String, String>{');
+  for (final environment in outputs.values.cast<Map<Object?, Object?>>()) {
+    final environmentName = environment['EnvironmentName'] as String;
+    final environmentConfig = createConfig(
+      region: environment['Region'] as String,
+      userPoolId: environment['UserPoolId'] as String,
+      userPoolClientId: environment['UserPoolClientId'] as String,
+      identityPoolId: environment['IdentityPoolId'] as String,
+      graphQLApiEndpoint: environment['GraphQLApiEndpoint'] as String,
+      graphQLApiKey: environment['GraphQLApiKey'] as String,
+    );
+    config.writeln("'$environmentName': '''$environmentConfig''',");
+  }
+  config.write('''
+};
+
+final String amplifyconfig = amplifyEnvironments['main']!;
+''');
+  File('../lib/amplifyconfiguration.dart').writeAsStringSync(config.toString());
 }
