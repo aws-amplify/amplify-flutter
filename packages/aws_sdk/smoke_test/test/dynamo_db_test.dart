@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:aws_common/aws_common.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:smoke_test/src/sdk/dynamo_db.dart';
@@ -57,7 +58,7 @@ void main() {
         await client.deleteTable(
           DeleteTableInput(tableName: tableName),
         );
-      } catch (_) {}
+      } on Object catch (_) {}
     }
 
     // Create a table:
@@ -126,7 +127,7 @@ void main() {
             tableName: tableName,
           ),
         );
-        print('Put item: $response');
+        safePrint('Put item: $response');
       }
 
       // Read an item:
@@ -138,7 +139,7 @@ void main() {
             tableName: tableName,
           ),
         );
-        print('Retrieved item: $response');
+        safePrint('Retrieved item: $response');
         expect(response.item?.toMap(), equals(item));
       }
 
@@ -152,23 +153,23 @@ void main() {
             expressionAttributeNames: {'#p': 'plot'},
             updateExpression: 'set #p = :p',
             expressionAttributeValues: {
-              ':p': AttributeValue.s('James Bond plays poker'),
+              ':p': const AttributeValue.s('James Bond plays poker'),
             },
           ),
         );
-        print('Updated item: $updateResponse');
+        safePrint('Updated item: $updateResponse');
         final response = await client.getItem(
           GetItemInput(
             key: item,
             tableName: tableName,
           ),
         );
-        print('Retrieved updated item: $response');
+        safePrint('Retrieved updated item: $response');
         expect(
           response.item?.toMap(),
           equals({
             ...item,
-            'plot': AttributeValue.s('James Bond plays poker'),
+            'plot': const AttributeValue.s('James Bond plays poker'),
           }),
         );
       }
@@ -179,7 +180,7 @@ void main() {
         final response = await client.deleteItem(
           DeleteItemInput(key: item, tableName: tableName),
         );
-        print('Deleted item: $response');
+        safePrint('Deleted item: $response');
       }
 
       const movies = <Map<String, AttributeValue>>[
@@ -215,22 +216,22 @@ void main() {
             filterExpression: 'contains (plot, :topic)',
             expressionAttributeNames: {'#y': 'year'},
             expressionAttributeValues: {
-              ':y': AttributeValue.n('2008'),
-              ':topic': AttributeValue.s('James Bond'),
+              ':y': const AttributeValue.n('2008'),
+              ':topic': const AttributeValue.s('James Bond'),
             },
           ),
         );
         final items = response.items.map((item) => item.toMap()).toList();
-        print('Queried items: $items');
+        safePrint('Queried items: $items');
         expect(response.hasNext, false);
         expect(items, hasLength(1));
         expect(
           items,
           equals([
             {
-              'year': AttributeValue.n('2008'),
-              'title': AttributeValue.s('Quantum of Solace'),
-              'plot': AttributeValue.s('James Bond goes to the desert'),
+              'year': const AttributeValue.n('2008'),
+              'title': const AttributeValue.s('Quantum of Solace'),
+              'plot': const AttributeValue.s('James Bond goes to the desert'),
             }
           ]),
         );
@@ -245,8 +246,8 @@ void main() {
             filterExpression: '#y >= :start_year AND contains (plot, :topic)',
             expressionAttributeNames: {'#y': 'year'},
             expressionAttributeValues: {
-              ':start_year': AttributeValue.n('2008'),
-              ':topic': AttributeValue.s('James Bond'),
+              ':start_year': const AttributeValue.n('2008'),
+              ':topic': const AttributeValue.s('James Bond'),
             },
             projectionExpression: '#y, title',
             limit: 1,
@@ -258,7 +259,7 @@ void main() {
         final items = <Map<String, AttributeValue>>[];
         do {
           items.addAll(response.items.map((item) => item.toMap()).toList());
-          print('Scanned items (${i++}): $items');
+          safePrint('Scanned items (${i++}): $items');
           response = await response.next();
         } while (response.hasNext);
 
@@ -266,12 +267,12 @@ void main() {
           items,
           unorderedEquals([
             {
-              'year': AttributeValue.n('2008'),
-              'title': AttributeValue.s('Quantum of Solace'),
+              'year': const AttributeValue.n('2008'),
+              'title': const AttributeValue.s('Quantum of Solace'),
             },
             {
-              'year': AttributeValue.n('2012'),
-              'title': AttributeValue.s('Skyfall'),
+              'year': const AttributeValue.n('2012'),
+              'title': const AttributeValue.s('Skyfall'),
             }
           ]),
         );
@@ -299,7 +300,7 @@ void main() {
         final response = await client.describeTable(
           DescribeTableInput(tableName: tableName),
         );
-        print('Describe table: $response');
+        safePrint('Describe table: $response');
         final streamArn = response.table?.latestStreamArn;
         expect(streamArn, isNotNull);
         expect(response.table?.streamSpecification, streamSpecification);
@@ -308,7 +309,7 @@ void main() {
         const itemCount = 10;
         const startYear = 2000;
         for (var i = 1; i <= itemCount; i++) {
-          print('Processing $i/$itemCount...');
+          safePrint('Processing $i/$itemCount...');
 
           final year = startYear + i;
           final movie = {
@@ -357,7 +358,7 @@ void main() {
           // Process each shard on this page
           for (final shard in shards!) {
             final shardId = shard.shardId;
-            print('Processing shard: $shardId');
+            safePrint('Processing shard: $shardId');
             expect(shardId, isNotNull);
 
             final shardIteratorRes = await streamsClient.getShardIterator(
@@ -376,7 +377,7 @@ void main() {
             var processedRecordCount = 0;
             while (currentShardIterator != null &&
                 processedRecordCount < 3 * itemCount) {
-              print('    Shard iterator: $currentShardIterator');
+              safePrint('    Shard iterator: $currentShardIterator');
 
               // Use the shard iterator to read the stream records
               final recordsRes = await streamsClient.getRecords(
@@ -389,7 +390,7 @@ void main() {
               allRecords.addAll(records!);
 
               for (final record in records) {
-                print('      Record: ${record.dynamodb}\n');
+                safePrint('      Record: ${record.dynamodb}\n');
               }
               processedRecordCount += records.length;
               currentShardIterator = recordsRes.nextShardIterator;

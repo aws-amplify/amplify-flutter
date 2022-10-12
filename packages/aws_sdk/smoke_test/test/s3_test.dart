@@ -15,6 +15,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:aws_common/aws_common.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:smithy_aws/smithy_aws.dart';
 import 'package:smoke_test/src/sdk/s3.dart';
@@ -31,7 +32,7 @@ void main() {
       client = S3Client(
         region: 'us-west-2',
         baseUri: Uri.http(host),
-        s3ClientConfig: S3ClientConfig(),
+        s3ClientConfig: const S3ClientConfig(),
         credentialsProvider: const AWSCredentialsProvider(
           AWSCredentials('accessKeyId', 'secretAccessKey'),
         ),
@@ -66,7 +67,7 @@ void main() {
             body: Stream.value(utf8.encode(jsonEncode(data))),
           ),
         );
-        print('Put object: $response');
+        safePrint('Put object: $response');
       }
 
       // Get file metadata
@@ -74,7 +75,7 @@ void main() {
         final response = await client.headObject(
           HeadObjectRequest(bucket: bucket, key: key),
         );
-        print('Got metadata: $response');
+        safePrint('Got metadata: $response');
         expect(response.contentType, 'application/json');
       }
 
@@ -83,7 +84,7 @@ void main() {
         final response = await client.getObject(
           GetObjectRequest(bucket: bucket, key: key),
         );
-        print('Got object: $response');
+        safePrint('Got object: $response');
         expect(response.contentType, 'application/json');
         final body = await utf8.decodeStream(
           response.body ?? const Stream.empty(),
@@ -96,7 +97,7 @@ void main() {
         final response = await client.listObjectsV2(
           ListObjectsV2Request(bucket: bucket),
         );
-        print('All objects: ${response.items}');
+        safePrint('All objects: ${response.items}');
         expect(response.hasNext, false);
         expect(response.items.keyCount, 1);
         expect(response.items.contents, hasLength(1));
@@ -109,7 +110,7 @@ void main() {
         final response = await client.deleteObject(
           DeleteObjectRequest(bucket: bucket, key: key),
         );
-        print('Deleted item: $response');
+        safePrint('Deleted item: $response');
         expect(response.deleteMarker, isNot(false));
       }
 
@@ -121,7 +122,7 @@ void main() {
           ),
           completes,
         );
-        print('Deleted bucket');
+        safePrint('Deleted bucket');
       }
     });
   });
