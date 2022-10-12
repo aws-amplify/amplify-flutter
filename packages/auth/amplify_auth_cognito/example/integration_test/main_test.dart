@@ -17,7 +17,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'delete_user_test.dart' as delete_user_tests;
-import 'device_tracking_test.dart' as device_tracking_tests;
 import 'federated_sign_in_test.dart' as federated_sign_in_tests;
 import 'fetch_auth_session_test.dart' as fetch_auth_session_tests;
 import 'force_refresh_test.dart' as force_refresh_tests;
@@ -34,7 +33,6 @@ void main() async {
   group('amplify_auth_cognito', () {
     // TODO(dnys1): Add tests requiring API when dartified
     delete_user_tests.main();
-    device_tracking_tests.main();
     federated_sign_in_tests.main();
     fetch_auth_session_tests.main();
     force_refresh_tests.main();
