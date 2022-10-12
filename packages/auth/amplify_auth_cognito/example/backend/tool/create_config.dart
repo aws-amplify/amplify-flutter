@@ -21,9 +21,10 @@ String createConfig({
   required String region,
   required String userPoolId,
   required String userPoolClientId,
-  required String identityPoolId,
-  required String graphQLApiEndpoint,
-  required String graphQLApiKey,
+  required String? identityPoolId,
+  required String? graphQLApiEndpoint,
+  required String? graphQLApiKey,
+  required String? restApiUrl,
 }) {
   final configJson = const JsonEncoder.withIndent('  ').convert(
     AmplifyConfig(
@@ -33,10 +34,12 @@ String createConfig({
           poolId: userPoolId,
           region: region,
         ),
-        identityPoolConfig: CognitoIdentityCredentialsProvider(
-          region: region,
-          poolId: identityPoolId,
-        ),
+        identityPoolConfig: identityPoolId == null
+            ? null
+            : CognitoIdentityCredentialsProvider(
+                region: region,
+                poolId: identityPoolId,
+              ),
         authenticationFlowType: AuthenticationFlowType.userSrpAuth,
         passwordProtectionSettings: const PasswordProtectionSettings(
           passwordPolicyMinLength: 8,
@@ -57,13 +60,21 @@ String createConfig({
       api: ApiConfig(
         plugins: {
           AWSApiPluginConfig.pluginKey: AWSApiPluginConfig({
-            'authIntegrationTest': AWSApiConfig(
-              endpointType: EndpointType.graphQL,
-              authorizationType: APIAuthorizationType.apiKey,
-              endpoint: graphQLApiEndpoint,
-              apiKey: graphQLApiKey,
-              region: region,
-            ),
+            if (graphQLApiEndpoint != null)
+              'authIntegrationTest': AWSApiConfig(
+                endpointType: EndpointType.graphQL,
+                authorizationType: APIAuthorizationType.apiKey,
+                endpoint: graphQLApiEndpoint,
+                apiKey: graphQLApiKey,
+                region: region,
+              ),
+            if (restApiUrl != null)
+              'customAuthorizer': AWSApiConfig(
+                endpointType: EndpointType.rest,
+                authorizationType: APIAuthorizationType.userPools,
+                endpoint: restApiUrl,
+                region: region,
+              ),
           })
         },
       ),
@@ -83,9 +94,10 @@ void main() {
       region: environment['Region'] as String,
       userPoolId: environment['UserPoolId'] as String,
       userPoolClientId: environment['UserPoolClientId'] as String,
-      identityPoolId: environment['IdentityPoolId'] as String,
-      graphQLApiEndpoint: environment['GraphQLApiEndpoint'] as String,
-      graphQLApiKey: environment['GraphQLApiKey'] as String,
+      identityPoolId: environment['IdentityPoolId'] as String?,
+      graphQLApiEndpoint: environment['GraphQLApiEndpoint'] as String?,
+      graphQLApiKey: environment['GraphQLApiKey'] as String?,
+      restApiUrl: environment['RestApiUrl'] as String?,
     );
     config.writeln("'$environmentName': '''$environmentConfig''',");
   }

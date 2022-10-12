@@ -18,6 +18,7 @@
 import "source-map-support/register";
 import * as cdk from "aws-cdk-lib";
 import { AuthIntegrationTestStack } from "../lib/stack";
+import { CustomAuthorizerStack } from "../lib/custom-authorizer/stack";
 
 const app = new cdk.App();
 
@@ -45,4 +46,7 @@ new AuthIntegrationTestStack(app, {
   signInAliases: {
     phone: true,
   }
+});
+new CustomAuthorizerStack(app, {
+  environmentName: "custom-authorizer",
 });
