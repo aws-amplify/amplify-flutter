@@ -50,7 +50,7 @@ abstract class AmplifyClass {
   /// The Amplify event hub.
   final AmplifyHub Hub = AmplifyHub();
 
-  final _configCompleter = Completer<AmplifyConfig>();
+  var _configCompleter = Completer<AmplifyConfig>();
 
   /// Adds one plugin at a time. Note: this method can only
   /// be called before Amplify has been configured. Customers are expected
@@ -128,7 +128,10 @@ abstract class AmplifyClass {
   /// Resets the Amplify implementation, removing all traces of Amplify from
   /// the device.
   @visibleForTesting
-  Future<void> reset();
+  @mustCallSuper
+  Future<void> reset() async {
+    _configCompleter = Completer();
+  }
 }
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_getters_setters

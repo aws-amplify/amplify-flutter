@@ -60,6 +60,8 @@ void main() {
       await signOutUser();
     });
 
+    tearDownAll(Amplify.reset);
+
     tearDown(signOutUser);
 
     Future<FederateToIdentityPoolResult> federateToIdentityPool() async {

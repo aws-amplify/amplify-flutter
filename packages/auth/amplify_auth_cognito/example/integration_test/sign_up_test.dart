@@ -30,8 +30,9 @@ void main() {
       await signOutUser();
     });
 
-    testWidgets('should signUp a user with valid parameters',
-        (WidgetTester tester) async {
+    tearDownAll(Amplify.reset);
+
+    test('should signUp a user with valid parameters', () async {
       final username = generateUsername();
       final password = generatePassword();
 
@@ -50,9 +51,9 @@ void main() {
       // expect(res.isSignUpComplete, true);
     });
 
-    testWidgets(
+    test(
         'should throw an InvalidParameterException without required attributes',
-        (WidgetTester tester) async {
+        () async {
       final username = generateUsername();
       final password = generatePassword();
       expect(
@@ -61,9 +62,9 @@ void main() {
       );
     });
 
-    testWidgets(
+    test(
         'should throw an InvalidPasswordException for a password that does not meet requirements',
-        (WidgetTester tester) async {
+        () async {
       final username = generateUsername();
       const invalidPassword = '123';
       final options = CognitoSignUpOptions(
@@ -82,9 +83,9 @@ void main() {
       );
     });
 
-    testWidgets(
+    test(
         'should throw a UsernameExistsException for a username that already exists',
-        (WidgetTester tester) async {
+        () async {
       // create username for both sign up attempts
       final username = generateUsername();
 

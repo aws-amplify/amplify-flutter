@@ -41,9 +41,11 @@ void main() {
       await signOutUser();
     });
 
-    testWidgets(
+    tearDownAll(Amplify.reset);
+
+    test(
       'should broadcast events for sign in and sign out',
-      (WidgetTester tester) async {
+      () async {
         // setup
         Future<HubEvent> nextEvent;
         HubEvent event;
@@ -86,9 +88,9 @@ void main() {
       },
     );
 
-    testWidgets(
+    test(
       'should broadcast events for deleteUser',
-      (WidgetTester tester) async {
+      () async {
         // setup
         Future<HubEvent> signinEvent;
         Future<HubEvent> deleteEvent;

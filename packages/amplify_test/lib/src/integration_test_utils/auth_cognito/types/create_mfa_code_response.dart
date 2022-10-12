@@ -13,22 +13,19 @@
  * permissions and limitations under the License.
  */
 
-class ConfirmSignUpResponse {
-  const ConfirmSignUpResponse({
-    required this.id,
+class CreateMFACodeResponse {
+  const CreateMFACodeResponse({
     required this.username,
-    required this.currentCode,
+    required this.code,
   });
 
-  final String id;
-  final String username;
-  final String currentCode;
-
-  factory ConfirmSignUpResponse.fromJson(Map<String, Object?> json) {
-    return ConfirmSignUpResponse(
-      id: json['id'] as String,
+  factory CreateMFACodeResponse.fromJson(Map<String, Object?> json) {
+    return CreateMFACodeResponse(
       username: json['username'] as String,
-      currentCode: json['currentCode'] as String,
+      code: json['code'] as String,
     );
   }
+
+  final String username;
+  final String code;
 }

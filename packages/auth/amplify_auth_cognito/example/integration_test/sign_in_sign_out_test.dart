@@ -28,6 +28,8 @@ void main() {
     late String username;
     late String password;
 
+    tearDownAll(Amplify.reset);
+
     setUp(() async {
       await configureAuth();
 
@@ -45,15 +47,14 @@ void main() {
       await signOutUser();
     });
 
-    testWidgets('should signIn a user', (WidgetTester tester) async {
+    test('should signIn a user', () async {
       final res =
           await Amplify.Auth.signIn(username: username, password: password);
       expect(res.isSignedIn, true);
     });
 
-    testWidgets(
-        'should throw a NotAuthorizedException with an incorrect password',
-        (WidgetTester tester) async {
+    test('should throw a NotAuthorizedException with an incorrect password',
+        () async {
       final incorrectPassword = generatePassword();
       expect(
         Amplify.Auth.signIn(
@@ -64,17 +65,19 @@ void main() {
       );
     });
 
-    testWidgets(
-        'should throw an NotAuthorizedException if a password is not provided and Custom Auth is not configured without SRP',
-        (WidgetTester tester) async {
-      expect(
-        Amplify.Auth.signIn(username: username),
-        throwsA(isA<NotAuthorizedException>()),
-      );
-    });
+    test(
+      'should throw an InvalidParameterException if a password is not provided '
+      'and Custom Auth is not configured without SRP',
+      () async {
+        expect(
+          Amplify.Auth.signIn(username: username),
+          throwsA(isA<InvalidParameterException>()),
+        );
+      },
+    );
 
-    testWidgets('should throw a UserNotFoundException with a non-existent user',
-        (WidgetTester tester) async {
+    test('should throw a UserNotFoundException with a non-existent user',
+        () async {
       final incorrectUsername = generateUsername();
       expect(
         Amplify.Auth.signIn(username: incorrectUsername, password: password),
@@ -82,13 +85,13 @@ void main() {
       );
     });
 
-    testWidgets('additionalInfo should be null', (WidgetTester tester) async {
+    test('additionalInfo should be null', () async {
       final result =
           await Amplify.Auth.signIn(username: username, password: password);
       expect(result.nextStep?.additionalInfo, isNull);
     });
 
-    testWidgets('unauthenticated identity ID should persist', (_) async {
+    test('unauthenticated identity ID should persist', () async {
       // Get unauthenticated identity
       final unauthSession = await Amplify.Auth.fetchAuthSession(
         options: const CognitoSessionOptions(getAWSCredentials: true),
@@ -116,7 +119,7 @@ void main() {
       await signOutUser();
     });
 
-    testWidgets('should sign a user out', (WidgetTester tester) async {
+    test('should sign a user out', () async {
       final username = generateUsername();
       final password = generatePassword();
 
@@ -138,8 +141,7 @@ void main() {
       expect(finalAuthSession.isSignedIn, isFalse);
     });
 
-    testWidgets('should not throw even if there is no user to sign out',
-        (WidgetTester tester) async {
+    test('should not throw even if there is no user to sign out', () async {
       // ensure that no user is currently logged in
       final authSession = await Amplify.Auth.fetchAuthSession();
       expect(authSession.isSignedIn, isFalse);
