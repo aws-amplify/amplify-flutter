@@ -1,0 +1,48 @@
+name: amplify_storage_s3_example
+description: Demonstrates how to use the amplify_storage_s3 plugin.
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+  flutter: ">=3.0.0"
+
+dependencies:
+  amplify_core:
+    path: ../../../amplify_core
+  amplify_storage_s3:
+    path: ../
+  amplify_secure_storage:
+    path: ../../../secure_storage/amplify_secure_storage
+  amplify_auth_cognito:
+    # When depending on this package from a real application you should use:
+    #   amplify_auth_cognito: ^x.y.z
+    # See https://dart.dev/tools/pub/dependencies#version-constraints
+    # The example app is bundled with the plugin so we use a path dependency on
+    # the parent directory to use the current plugin's version.
+    path: ../../../auth/amplify_auth_cognito
+  amplify_authenticator:
+    path: ../../../amplify_authenticator
+  amplify_flutter:
+    path: ../../../amplify/amplify_flutter
+  flutter:
+    sdk: flutter
+  go_router: ^5.0.5
+
+dev_dependencies:
+  amplify_storage_s3_dart:
+    path: ../../amplify_storage_s3_dart
+  amplify_lints:
+    path: ../../../amplify_lints
+  amplify_test:
+    path: ../../../amplify_test
+  flutter_driver:
+    sdk: flutter
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  test: any
+
+flutter:
+  uses-material-design: true
