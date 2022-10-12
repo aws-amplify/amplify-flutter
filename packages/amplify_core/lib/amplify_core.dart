@@ -76,6 +76,9 @@ export 'src/types/analytics/analytics_types.dart';
 /// API
 export 'src/types/api/api_types.dart';
 
+/// App path provider
+export 'src/types/app_path_provider/app_path_provider.dart';
+
 /// Auth
 export 'src/types/auth/auth_types.dart';
 
