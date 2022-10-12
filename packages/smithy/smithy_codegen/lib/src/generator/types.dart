@@ -255,10 +255,6 @@ class _AwsCommon {
   Reference get awsStreamedHttpRequest =>
       const Reference('AWSStreamedHttpRequest', _url);
 
-  /// Creates an [aws_common.AWSStreamedHttpResponse] reference.
-  Reference get awsStreamedHttpResponse =>
-      const Reference('AWSStreamedHttpResponse', _url);
-
   /// Creates a secure [aws_common.uuid] instance.
   Expression uuid() => const Reference('uuid', _url).call([], {
         'secure': literalTrue,
@@ -833,6 +829,10 @@ class _SmithyAws {
   /// Creates a [smithy_aws.AWSSignatureVersion] refererence.
   Reference get awsSignatureVersion =>
       const Reference('AWSSignatureVersion', _url);
+
+  /// Creates a [smithy_aws.CheckPartialResponse] refererence.
+  Reference get checkPartialResponse =>
+      const Reference('CheckPartialResponse', _url);
 
   /// Creates a [smithy_aws.CredentialScope] refererence.
   Reference get credentialScope => const Reference('CredentialScope', _url);

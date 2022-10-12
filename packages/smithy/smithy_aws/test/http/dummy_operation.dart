@@ -32,7 +32,7 @@ class DummyHttpOperation extends HttpOperation<Unit, Unit, Unit, Unit> {
   Uri get baseUri => Uri.parse('https://example.com');
 
   @override
-  Unit buildOutput(Unit payload, AWSStreamedHttpResponse response) => payload;
+  Unit buildOutput(Unit payload, AWSBaseHttpResponse response) => payload;
 
   @override
   HttpRequest buildRequest(Unit input) => HttpRequest((b) => b

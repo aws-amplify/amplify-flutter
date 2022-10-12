@@ -79,7 +79,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     // even if the payload type is nullable. We need the non-null version to
     // interop with built_value correctly.
     covariant Object? payload,
-    AWSStreamedHttpResponse response,
+    AWSBaseHttpResponse response,
   );
 
   /// The protocols used by this operation for all serialization/deserialization
@@ -216,13 +216,19 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
 
   /// Validates the server's response against the protocol's registered
   /// interceptors.
-  Future<void> _validateResponse({
-    required AWSStreamedHttpResponse response,
+  Future<AWSBaseHttpResponse> _validateResponse({
+    required AWSBaseHttpResponse response,
     required HttpProtocol protocol,
   }) async {
     for (final interceptor in protocol.responseInterceptors) {
-      await interceptor.intercept(response);
+      final interception = interceptor.intercept(response);
+      if (interception is Future<AWSBaseHttpResponse>) {
+        response = await interception;
+      } else {
+        response = interception;
+      }
     }
+    return response;
   }
 
   @visibleForOverriding
@@ -236,8 +242,8 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       () async {
         // Re-create the request on each retry to perform signing again, etc.
         final httpRequest = await createRequest();
-        final response = await client.send(httpRequest);
-        await _validateResponse(
+        AWSBaseHttpResponse response = await client.send(httpRequest);
+        response = await _validateResponse(
           response: response,
           protocol: protocol,
         );
@@ -255,7 +261,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
   @visibleForTesting
   Future<Output> deserializeOutput({
     required HttpProtocol<InputPayload, Input, OutputPayload, Output> protocol,
-    required AWSStreamedHttpResponse response,
+    required AWSBaseHttpResponse response,
   }) async {
     Output? output;
     Object? error;

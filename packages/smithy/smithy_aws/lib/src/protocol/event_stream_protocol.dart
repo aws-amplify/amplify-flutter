@@ -53,7 +53,7 @@ class EventStreamProtocol<InputPayload, Input, OutputPayload, Output>
       _baseProtocol.requestInterceptors;
 
   @override
-  Future<String?> resolveErrorType(AWSStreamedHttpResponse response) =>
+  Future<String?> resolveErrorType(AWSBaseHttpResponse response) =>
       _baseProtocol.resolveErrorType(response);
 
   @override

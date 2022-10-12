@@ -116,6 +116,5 @@ class GenericJsonProtocol<InputPayload, Input, OutputPayload, Output>
       JsonSerializer(serializers, EmptyPayloadType.object);
 
   @override
-  Future<String?> resolveErrorType(AWSStreamedHttpResponse response) async =>
-      null;
+  Future<String?> resolveErrorType(AWSBaseHttpResponse response) async => null;
 }

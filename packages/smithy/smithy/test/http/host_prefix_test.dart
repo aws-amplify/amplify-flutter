@@ -67,7 +67,7 @@ class TestOp1 extends HttpOperation<Unit, Unit, Unit, Unit> {
   @override
   Unit buildOutput(
     Unit payload,
-    AWSStreamedHttpResponse response,
+    AWSBaseHttpResponse response,
   ) =>
       payload;
 
@@ -113,7 +113,7 @@ class TestOp2 extends HttpOperation<TestOp2Input, TestOp2Input, Unit, Unit> {
   @override
   Unit buildOutput(
     Unit payload,
-    AWSStreamedHttpResponse response,
+    AWSBaseHttpResponse response,
   ) =>
       payload;
 

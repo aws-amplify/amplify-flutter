@@ -48,5 +48,5 @@ abstract class HttpResponseInterceptor {
   const HttpResponseInterceptor();
 
   /// Intercepts an HTTP response.
-  FutureOr<void> intercept(AWSStreamedHttpResponse response);
+  FutureOr<AWSBaseHttpResponse> intercept(AWSBaseHttpResponse response);
 }
