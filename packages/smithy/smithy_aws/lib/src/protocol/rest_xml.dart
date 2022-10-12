@@ -80,7 +80,7 @@ class RestXmlProtocol<InputPayload, Input, OutputPayload, Output>
       XmlSerializer(serializers);
 
   @override
-  Future<String?> resolveErrorType(AWSStreamedHttpResponse response) async {
+  Future<String?> resolveErrorType(AWSBaseHttpResponse response) async {
     try {
       final body = await utf8.decodeStream(response.split());
       final el = XmlDocument.parse(body).rootElement;

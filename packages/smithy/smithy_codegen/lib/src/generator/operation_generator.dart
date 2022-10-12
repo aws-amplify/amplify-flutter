@@ -409,7 +409,7 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
             ..type = outputPayload.symbol),
           Parameter((p) => p
             ..name = 'response'
-            ..type = DartTypes.awsCommon.awsStreamedHttpResponse),
+            ..type = DartTypes.awsCommon.awsBaseHttpResponse),
         ])
         ..body = output.code,
     );

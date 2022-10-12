@@ -49,7 +49,7 @@ abstract class HttpProtocol<InputPayload, Input, OutputPayload, Output>
 
   /// Resolves the error type to use based off the operation's supported types
   /// and the response from the server.
-  Future<String?> resolveErrorType(AWSStreamedHttpResponse response);
+  Future<String?> resolveErrorType(AWSBaseHttpResponse response);
 
   @override
   HttpClient getClient(Input input) {

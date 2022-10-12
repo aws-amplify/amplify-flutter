@@ -31,7 +31,7 @@ mixin AWSJsonErrorProtocol<InputPayload, Input, OutputPayload, Output>
   /// name code, or a body field named __type. The value of this component
   /// SHOULD contain the error's Shape ID.
   @override
-  Future<String?> resolveErrorType(AWSStreamedHttpResponse response) async {
+  Future<String?> resolveErrorType(AWSBaseHttpResponse response) async {
     var header = response.headers['X-Amzn-Errortype'];
     if (header != null) {
       return _sanitizeError(header);
