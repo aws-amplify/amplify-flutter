@@ -65,7 +65,7 @@ class JsonBlobsOperation extends _i1.HttpOperation<
   @override
   _i2.JsonBlobsInputOutput buildOutput(
     _i2.JsonBlobsInputOutput payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.JsonBlobsInputOutput.fromResponse(
         payload,

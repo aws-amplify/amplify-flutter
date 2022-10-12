@@ -70,7 +70,7 @@ class HostWithPathOperation
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i5.AWSStreamedHttpResponse response,
+    _i5.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override

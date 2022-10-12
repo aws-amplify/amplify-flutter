@@ -68,7 +68,7 @@ class IgnoreQueryParamsInResponseOperation extends _i1.HttpOperation<
   @override
   _i2.IgnoreQueryParamsInResponseOutput buildOutput(
     _i2.IgnoreQueryParamsInResponseOutput payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.IgnoreQueryParamsInResponseOutput.fromResponse(
         payload,

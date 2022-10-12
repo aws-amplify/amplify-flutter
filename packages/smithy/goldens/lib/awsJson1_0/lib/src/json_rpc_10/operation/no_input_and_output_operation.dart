@@ -63,7 +63,7 @@ class NoInputAndOutputOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
   @override
   _i2.NoInputAndOutputOutput buildOutput(
     _i2.NoInputAndOutputOutput payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.NoInputAndOutputOutput.fromResponse(
         payload,

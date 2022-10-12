@@ -71,7 +71,7 @@ class HttpPayloadWithXmlNameOperation extends _i1.HttpOperation<
   @override
   _i3.HttpPayloadWithXmlNameInputOutput buildOutput(
     _i2.PayloadWithXmlName? payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.HttpPayloadWithXmlNameInputOutput.fromResponse(
         payload,

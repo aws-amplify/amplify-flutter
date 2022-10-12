@@ -105,7 +105,7 @@ class TimestampFormatHeadersOperation extends _i1.HttpOperation<
   @override
   _i2.TimestampFormatHeadersIo buildOutput(
     _i2.TimestampFormatHeadersIoPayload payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.TimestampFormatHeadersIo.fromResponse(
         payload,

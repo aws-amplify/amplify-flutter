@@ -60,7 +60,7 @@ class HttpStringPayloadOperation extends _i1.HttpOperation<String,
   @override
   _i2.StringPayloadInput buildOutput(
     String? payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.StringPayloadInput.fromResponse(
         payload,

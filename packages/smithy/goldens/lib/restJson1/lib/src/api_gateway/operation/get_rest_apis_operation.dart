@@ -102,7 +102,7 @@ class GetRestApisOperation extends _i1.PaginatedHttpOperation<
   @override
   _i3.RestApis buildOutput(
     _i3.RestApis payload,
-    _i9.AWSStreamedHttpResponse response,
+    _i9.AWSBaseHttpResponse response,
   ) =>
       _i3.RestApis.fromResponse(
         payload,

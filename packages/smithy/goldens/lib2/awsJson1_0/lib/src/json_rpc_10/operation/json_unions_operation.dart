@@ -67,7 +67,7 @@ class JsonUnionsOperation extends _i1.HttpOperation<_i2.JsonUnionsInput,
   @override
   _i3.JsonUnionsOutput buildOutput(
     _i3.JsonUnionsOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.JsonUnionsOutput.fromResponse(
         payload,

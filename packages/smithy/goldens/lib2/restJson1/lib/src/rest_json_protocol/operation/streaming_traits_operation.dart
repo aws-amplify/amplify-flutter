@@ -69,7 +69,7 @@ class StreamingTraitsOperation extends _i1.HttpOperation<
   @override
   _i3.StreamingTraitsInputOutput buildOutput(
     _i2.Stream<List<int>>? payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.StreamingTraitsInputOutput.fromResponse(
         payload,

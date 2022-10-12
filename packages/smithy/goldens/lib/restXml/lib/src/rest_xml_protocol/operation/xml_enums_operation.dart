@@ -63,7 +63,7 @@ class XmlEnumsOperation extends _i1.HttpOperation<_i2.XmlEnumsInputOutput,
   @override
   _i2.XmlEnumsInputOutput buildOutput(
     _i2.XmlEnumsInputOutput payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.XmlEnumsInputOutput.fromResponse(
         payload,

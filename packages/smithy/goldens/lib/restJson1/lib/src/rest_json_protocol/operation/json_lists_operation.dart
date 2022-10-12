@@ -65,7 +65,7 @@ class JsonListsOperation extends _i1.HttpOperation<
   @override
   _i2.JsonListsInputOutput buildOutput(
     _i2.JsonListsInputOutput payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.JsonListsInputOutput.fromResponse(
         payload,

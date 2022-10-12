@@ -72,7 +72,7 @@ class HttpPayloadWithXmlNamespaceOperation extends _i1.HttpOperation<
   @override
   _i3.HttpPayloadWithXmlNamespaceInputOutput buildOutput(
     _i2.PayloadWithXmlNamespace? payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.HttpPayloadWithXmlNamespaceInputOutput.fromResponse(
         payload,

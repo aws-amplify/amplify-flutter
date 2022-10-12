@@ -67,7 +67,7 @@ class XmlNamespacesOperation extends _i1.HttpOperation<
   @override
   _i2.XmlNamespacesInputOutput buildOutput(
     _i2.XmlNamespacesInputOutput payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.XmlNamespacesInputOutput.fromResponse(
         payload,

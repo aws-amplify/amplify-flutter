@@ -74,7 +74,7 @@ class StreamingTraitsWithMediaTypeOperation extends _i1.HttpOperation<
   @override
   _i3.StreamingTraitsWithMediaTypeInputOutput buildOutput(
     _i2.Stream<List<int>>? payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.StreamingTraitsWithMediaTypeInputOutput.fromResponse(
         payload,

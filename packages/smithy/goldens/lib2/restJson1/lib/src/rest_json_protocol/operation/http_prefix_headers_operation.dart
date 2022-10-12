@@ -89,7 +89,7 @@ class HttpPrefixHeadersOperation extends _i1.HttpOperation<
   @override
   _i3.HttpPrefixHeadersOutput buildOutput(
     _i3.HttpPrefixHeadersOutputPayload payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.HttpPrefixHeadersOutput.fromResponse(
         payload,

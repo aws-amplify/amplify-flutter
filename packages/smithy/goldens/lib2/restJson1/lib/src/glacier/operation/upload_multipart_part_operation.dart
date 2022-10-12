@@ -97,7 +97,7 @@ class UploadMultipartPartOperation extends _i1.HttpOperation<
   @override
   _i4.UploadMultipartPartOutput buildOutput(
     _i4.UploadMultipartPartOutputPayload payload,
-    _i8.AWSStreamedHttpResponse response,
+    _i8.AWSBaseHttpResponse response,
   ) =>
       _i4.UploadMultipartPartOutput.fromResponse(
         payload,

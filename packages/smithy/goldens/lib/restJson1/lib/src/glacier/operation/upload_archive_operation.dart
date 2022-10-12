@@ -96,7 +96,7 @@ class UploadArchiveOperation extends _i1.HttpOperation<
   @override
   _i4.ArchiveCreationOutput buildOutput(
     _i4.ArchiveCreationOutputPayload payload,
-    _i8.AWSStreamedHttpResponse response,
+    _i8.AWSBaseHttpResponse response,
   ) =>
       _i4.ArchiveCreationOutput.fromResponse(
         payload,

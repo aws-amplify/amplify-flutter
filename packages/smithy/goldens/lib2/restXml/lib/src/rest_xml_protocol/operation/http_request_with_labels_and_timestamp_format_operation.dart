@@ -71,7 +71,7 @@ class HttpRequestWithLabelsAndTimestampFormatOperation
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override

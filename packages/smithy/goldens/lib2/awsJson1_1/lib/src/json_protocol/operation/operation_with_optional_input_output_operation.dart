@@ -84,7 +84,7 @@ class OperationWithOptionalInputOutputOperation extends _i1.HttpOperation<
   @override
   _i3.OperationWithOptionalInputOutputOutput buildOutput(
     _i3.OperationWithOptionalInputOutputOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.OperationWithOptionalInputOutputOutput.fromResponse(
         payload,

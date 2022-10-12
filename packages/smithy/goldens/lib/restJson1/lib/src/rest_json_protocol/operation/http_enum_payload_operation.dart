@@ -62,7 +62,7 @@ class HttpEnumPayloadOperation extends _i1.HttpOperation<_i2.StringEnum,
   @override
   _i3.EnumPayloadInput buildOutput(
     _i2.StringEnum? payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.EnumPayloadInput.fromResponse(
         payload,

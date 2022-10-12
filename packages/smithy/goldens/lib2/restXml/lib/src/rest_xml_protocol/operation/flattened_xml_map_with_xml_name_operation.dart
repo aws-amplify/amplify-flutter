@@ -70,7 +70,7 @@ class FlattenedXmlMapWithXmlNameOperation extends _i1.HttpOperation<
   @override
   _i2.FlattenedXmlMapWithXmlNameInputOutput buildOutput(
     _i2.FlattenedXmlMapWithXmlNameInputOutput payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.FlattenedXmlMapWithXmlNameInputOutput.fromResponse(
         payload,

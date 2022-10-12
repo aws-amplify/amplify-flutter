@@ -86,7 +86,7 @@ class PredictOperation extends _i1.HttpOperation<_i2.PredictInput,
   @override
   _i3.PredictOutput buildOutput(
     _i3.PredictOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.PredictOutput.fromResponse(
         payload,

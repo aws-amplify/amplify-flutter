@@ -62,7 +62,7 @@ class MalformedRangeOperation extends _i1.HttpOperation<_i2.MalformedRangeInput,
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override
