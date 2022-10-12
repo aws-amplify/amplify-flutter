@@ -78,7 +78,7 @@ class KitchenSinkOperation extends _i1.HttpOperation<_i2.KitchenSink,
   @override
   _i2.KitchenSink buildOutput(
     _i2.KitchenSink payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.KitchenSink.fromResponse(
         payload,

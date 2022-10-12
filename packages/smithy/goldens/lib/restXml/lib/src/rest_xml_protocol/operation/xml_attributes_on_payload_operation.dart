@@ -71,7 +71,7 @@ class XmlAttributesOnPayloadOperation extends _i1.HttpOperation<
   @override
   _i3.XmlAttributesOnPayloadInputOutput buildOutput(
     _i2.XmlAttributesInputOutput? payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.XmlAttributesOnPayloadInputOutput.fromResponse(
         payload,

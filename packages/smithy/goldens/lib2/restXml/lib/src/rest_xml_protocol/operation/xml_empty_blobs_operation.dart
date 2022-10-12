@@ -63,7 +63,7 @@ class XmlEmptyBlobsOperation extends _i1.HttpOperation<_i2.XmlBlobsInputOutput,
   @override
   _i2.XmlBlobsInputOutput buildOutput(
     _i2.XmlBlobsInputOutput payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.XmlBlobsInputOutput.fromResponse(
         payload,

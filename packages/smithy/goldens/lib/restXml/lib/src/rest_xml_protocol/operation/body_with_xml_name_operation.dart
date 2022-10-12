@@ -69,7 +69,7 @@ class BodyWithXmlNameOperation extends _i1.HttpOperation<
   @override
   _i2.BodyWithXmlNameInputOutput buildOutput(
     _i2.BodyWithXmlNameInputOutput payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.BodyWithXmlNameInputOutput.fromResponse(
         payload,

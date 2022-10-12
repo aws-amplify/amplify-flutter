@@ -63,7 +63,7 @@ class XmlListsOperation extends _i1.HttpOperation<_i2.XmlListsInputOutput,
   @override
   _i2.XmlListsInputOutput buildOutput(
     _i2.XmlListsInputOutput payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.XmlListsInputOutput.fromResponse(
         payload,

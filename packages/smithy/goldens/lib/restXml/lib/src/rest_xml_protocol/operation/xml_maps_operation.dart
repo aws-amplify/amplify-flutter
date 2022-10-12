@@ -63,7 +63,7 @@ class XmlMapsOperation extends _i1.HttpOperation<_i2.XmlMapsInputOutput,
   @override
   _i2.XmlMapsInputOutput buildOutput(
     _i2.XmlMapsInputOutput payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.XmlMapsInputOutput.fromResponse(
         payload,

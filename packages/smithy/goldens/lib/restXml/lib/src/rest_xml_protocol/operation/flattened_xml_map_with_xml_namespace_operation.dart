@@ -67,7 +67,7 @@ class FlattenedXmlMapWithXmlNamespaceOperation extends _i1.HttpOperation<
   @override
   _i2.FlattenedXmlMapWithXmlNamespaceOutput buildOutput(
     _i2.FlattenedXmlMapWithXmlNamespaceOutput payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.FlattenedXmlMapWithXmlNamespaceOutput.fromResponse(
         payload,

@@ -66,7 +66,7 @@ class DocumentTypeAsPayloadOperation extends _i1.HttpOperation<
   @override
   _i3.DocumentTypeAsPayloadInputOutput buildOutput(
     _i2.JsonObject? payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.DocumentTypeAsPayloadInputOutput.fromResponse(
         payload,

@@ -83,7 +83,7 @@ class PutAndGetInlineDocumentsOperation extends _i1.HttpOperation<
   @override
   _i2.PutAndGetInlineDocumentsInputOutput buildOutput(
     _i2.PutAndGetInlineDocumentsInputOutput payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.PutAndGetInlineDocumentsInputOutput.fromResponse(
         payload,

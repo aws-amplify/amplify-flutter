@@ -67,7 +67,7 @@ class NestedXmlMapsOperation extends _i1.HttpOperation<
   @override
   _i2.NestedXmlMapsInputOutput buildOutput(
     _i2.NestedXmlMapsInputOutput payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.NestedXmlMapsInputOutput.fromResponse(
         payload,

@@ -77,7 +77,7 @@ class GreetingWithErrorsOperation extends _i1.HttpOperation<
   @override
   _i3.GreetingWithErrorsOutput buildOutput(
     _i3.GreetingWithErrorsOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.GreetingWithErrorsOutput.fromResponse(
         payload,

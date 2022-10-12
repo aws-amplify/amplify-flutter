@@ -71,7 +71,7 @@ class SimpleScalarPropertiesOperation extends _i1.HttpOperation<
   @override
   _i3.SimpleScalarPropertiesOutput buildOutput(
     _i3.SimpleScalarPropertiesOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.SimpleScalarPropertiesOutput.fromResponse(
         payload,

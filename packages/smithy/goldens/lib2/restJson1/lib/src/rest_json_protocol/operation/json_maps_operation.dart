@@ -62,7 +62,7 @@ class JsonMapsOperation extends _i1.HttpOperation<_i2.JsonMapsInputOutput,
   @override
   _i2.JsonMapsInputOutput buildOutput(
     _i2.JsonMapsInputOutput payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.JsonMapsInputOutput.fromResponse(
         payload,

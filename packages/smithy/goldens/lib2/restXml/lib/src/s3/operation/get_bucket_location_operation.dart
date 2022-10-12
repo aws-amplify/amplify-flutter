@@ -88,7 +88,7 @@ class GetBucketLocationOperation extends _i1.HttpOperation<
   @override
   _i4.GetBucketLocationOutput buildOutput(
     _i3.BucketLocationConstraint? payload,
-    _i8.AWSStreamedHttpResponse response,
+    _i8.AWSBaseHttpResponse response,
   ) =>
       _i4.GetBucketLocationOutput.fromResponse(
         payload,

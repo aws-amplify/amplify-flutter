@@ -68,7 +68,7 @@ class DocumentTypeOperation extends _i1.HttpOperation<
   @override
   _i2.DocumentTypeInputOutput buildOutput(
     _i2.DocumentTypeInputOutput payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.DocumentTypeInputOutput.fromResponse(
         payload,

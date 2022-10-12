@@ -139,7 +139,7 @@ class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
   @override
   _i3.ListObjectsV2Output buildOutput(
     _i3.ListObjectsV2Output payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.ListObjectsV2Output.fromResponse(
         payload,

@@ -71,7 +71,7 @@ class EmptyInputAndEmptyOutputOperation extends _i1.HttpOperation<
   @override
   _i3.EmptyInputAndEmptyOutputOutput buildOutput(
     _i3.EmptyInputAndEmptyOutputOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.EmptyInputAndEmptyOutputOutput.fromResponse(
         payload,

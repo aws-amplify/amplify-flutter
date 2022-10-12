@@ -71,7 +71,7 @@ class TestPayloadBlobOperation extends _i1.HttpOperation<
   @override
   _i3.TestPayloadBlobInputOutput buildOutput(
     _i2.Uint8List? payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.TestPayloadBlobInputOutput.fromResponse(
         payload,

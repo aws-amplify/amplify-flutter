@@ -80,7 +80,7 @@ class JsonEnumsOperation extends _i1.HttpOperation<
   @override
   _i2.JsonEnumsInputOutput buildOutput(
     _i2.JsonEnumsInputOutput payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.JsonEnumsInputOutput.fromResponse(
         payload,

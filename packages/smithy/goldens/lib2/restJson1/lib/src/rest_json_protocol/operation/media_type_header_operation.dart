@@ -76,7 +76,7 @@ class MediaTypeHeaderOperation extends _i1.HttpOperation<
   @override
   _i3.MediaTypeHeaderOutput buildOutput(
     _i3.MediaTypeHeaderOutputPayload payload,
-    _i8.AWSStreamedHttpResponse response,
+    _i8.AWSBaseHttpResponse response,
   ) =>
       _i3.MediaTypeHeaderOutput.fromResponse(
         payload,

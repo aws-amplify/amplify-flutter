@@ -73,7 +73,7 @@ class TestBodyStructureOperation extends _i1.HttpOperation<
   @override
   _i2.TestBodyStructureInputOutput buildOutput(
     _i2.TestBodyStructureInputOutputPayload payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.TestBodyStructureInputOutput.fromResponse(
         payload,
