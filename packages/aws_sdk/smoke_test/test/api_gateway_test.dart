@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:aws_common/aws_common.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:smoke_test/src/sdk/api_gateway.dart' hide Tags;
 import 'package:test/test.dart';
@@ -45,7 +46,7 @@ void main() {
           version: '0.00.001',
         ),
       );
-      print('Successfully created REST API: $restApi');
+      safePrint('Successfully created REST API: $restApi');
       expect(restApi.id, isNotNull);
 
       // Verify creation of the REST API
@@ -53,7 +54,7 @@ void main() {
       final resources = await client.getResources(
         GetResourcesRequest(restApiId: restApiId),
       );
-      print('REST API resources: $resources');
+      safePrint('REST API resources: $resources');
       expect(resources.items, hasLength(1));
 
       // Create the /pets resource
@@ -65,7 +66,7 @@ void main() {
           restApiId: restApiId,
         ),
       );
-      print('Created /pets resources: $petsResource');
+      safePrint('Created /pets resources: $petsResource');
       expect(petsResource.id, isNotNull);
 
       // Create the /pets/{petId} resource
@@ -77,7 +78,7 @@ void main() {
           restApiId: restApiId,
         ),
       );
-      print('Created /pets/{petId} resource: $petResource');
+      safePrint('Created /pets/{petId} resource: $petResource');
       expect(petResource.id, isNotNull);
       final petResourceId = petResource.id!;
 
@@ -90,7 +91,7 @@ void main() {
           restApiId: restApiId,
         ),
       );
-      print('Created method GET /pets: $getPetsMethod');
+      safePrint('Created method GET /pets: $getPetsMethod');
 
       // Create the method for GET /pets/{petId}
       final getPetMethod = await client.putMethod(
@@ -104,7 +105,7 @@ void main() {
           },
         ),
       );
-      print('Created method GET /pets/{petId}: $getPetMethod');
+      safePrint('Created method GET /pets/{petId}: $getPetMethod');
       expect(
         getPetMethod.requestParameters?.toMap(),
         equals({
@@ -122,7 +123,7 @@ void main() {
           statusCode: '200',
         ),
       );
-      print('Created response for GET /pets: $getPetsResponse');
+      safePrint('Created response for GET /pets: $getPetsResponse');
       expect(
         getPetsResponse.statusCode,
         '200',
@@ -138,7 +139,7 @@ void main() {
           statusCode: '200',
         ),
       );
-      print('Created response for GET /pets/{petId}: $getPetResponse');
+      safePrint('Created response for GET /pets/{petId}: $getPetResponse');
       expect(
         getPetResponse.statusCode,
         '200',
@@ -155,7 +156,7 @@ void main() {
           type: IntegrationType.mock,
         ),
       );
-      print('Added integration for GET /pets: $getPetsIntegration');
+      safePrint('Added integration for GET /pets: $getPetsIntegration');
       expect(
         getPetsIntegration.type,
         IntegrationType.mock,
@@ -175,7 +176,7 @@ void main() {
           },
         ),
       );
-      print(
+      safePrint(
         'Added integration for GET /pets/{petId}: '
         '$getPetIntegration',
       );
@@ -201,7 +202,7 @@ void main() {
           statusCode: '200',
         ),
       );
-      print(
+      safePrint(
         'Added integration response for GET /pets: '
         '$getPetsIntegrationResponse',
       );
@@ -220,7 +221,7 @@ void main() {
           statusCode: '200',
         ),
       );
-      print(
+      safePrint(
         'Added integration response for GET /pets/{petId}: '
         '$getPetIntegrationResponse',
       );
@@ -239,7 +240,7 @@ void main() {
           pathWithQueryString: '/',
         ),
       );
-      print('Successfully executed GET /pets: $getPetsTestResponse');
+      safePrint('Successfully executed GET /pets: $getPetsTestResponse');
       expect(getPetsTestResponse.status, 200);
 
       // Test invoke GET /pets/{petId}
@@ -251,7 +252,7 @@ void main() {
           pathWithQueryString: '/',
         ),
       );
-      print('Successfully executed GET /pets/{petId}: $getPetTestResponse');
+      safePrint('Successfully executed GET /pets/{petId}: $getPetTestResponse');
       expect(getPetTestResponse.status, 200);
 
       // Create deployment
@@ -263,7 +264,7 @@ void main() {
           description: 'API deployment',
         ),
       );
-      print('Successfully deployed pets API: $petsDeployment');
+      safePrint('Successfully deployed pets API: $petsDeployment');
       expect(petsDeployment.id, isNotNull);
     });
   });
