@@ -22,6 +22,7 @@ export 'src/endpoint/credential_scope.dart';
 export 'src/endpoint/partition.dart';
 
 // HTTP
+export 'src/http/interceptors/s3/check_partial_response.dart';
 export 'src/http/interceptors/with_checksum.dart';
 export 'src/http/interceptors/with_sdk_invocation.dart';
 export 'src/http/interceptors/with_sdk_request.dart';
