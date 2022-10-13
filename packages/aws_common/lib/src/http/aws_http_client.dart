@@ -76,22 +76,32 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
   /// Overriding this will change the underlying [send] method without
   /// interferring with transformations from [transformRequest] and
   /// [transformResponse].
-  AWSHttpClient get baseClient => this;
+  AWSHttpClient? get baseClient => null;
 
   @override
-  BadCertificateCallback get onBadCertificate => baseClient.onBadCertificate;
+  BadCertificateCallback get onBadCertificate =>
+      baseClient?.onBadCertificate ?? super.onBadCertificate;
 
   @override
   set onBadCertificate(BadCertificateCallback onBadCertificate) {
-    baseClient.onBadCertificate = onBadCertificate;
+    if (baseClient != null) {
+      baseClient!.onBadCertificate = onBadCertificate;
+    } else {
+      super.onBadCertificate = onBadCertificate;
+    }
   }
 
   @override
-  SupportedProtocols get supportedProtocols => baseClient.supportedProtocols;
+  SupportedProtocols get supportedProtocols =>
+      baseClient?.supportedProtocols ?? super.supportedProtocols;
 
   @override
   set supportedProtocols(SupportedProtocols supportedProtocols) {
-    baseClient.supportedProtocols = supportedProtocols;
+    if (baseClient != null) {
+      baseClient!.supportedProtocols = supportedProtocols;
+    } else {
+      super.supportedProtocols = supportedProtocols;
+    }
   }
 
   /// Transforms a [request] before sending.
@@ -126,7 +136,7 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
       responseProgressCompleter.setEmpty();
       return;
     }
-    final operation = baseClient.send(request);
+    final operation = baseClient?.send(request) ?? super.send(request);
     requestProgressCompleter.setSourceStream(operation.requestProgress);
     responseProgressCompleter.setSourceStream(operation.responseProgress);
     operation.operation.then(
@@ -169,8 +179,7 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
   @override
   Future<void> close({bool force = false}) {
     return Future.wait<void>([
-      if (!identical(this, baseClient))
-        Future.value(baseClient.close(force: force)),
+      Future.value(baseClient?.close(force: force)),
       super.close(force: force),
     ]);
   }
