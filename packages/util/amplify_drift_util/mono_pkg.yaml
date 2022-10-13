@@ -1,0 +1,17 @@
+sdk:
+  - stable
+  - dev
+
+stages:
+  - analyze_and_format:
+      - group:
+          - format
+          - analyze: --fatal-infos lib test
+  - unit_test:
+      - command: dart --version
+      - command: test
+        os:
+          - windows
+          - macos
+          - linux
+      - command: dart test -p chrome,firefox

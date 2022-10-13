@@ -1,0 +1,27 @@
+name: amplify_drift_util
+description: Utilities for using pkg:drift within Amplify.
+version: 0.1.0
+homepage: https://github.com/aws-amplify/amplify-flutter/tree/next
+repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/util/amplify_drift_util
+issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  amplify_core: ">=1.0.0-next.0+1 <1.0.0-next.1"
+  async: ^2.8.0
+  drift: ^2.2.0
+  path: ^1.8.0
+  sqlite3: ^1.9.0
+
+dev_dependencies:
+  amplify_lints:
+    path: ../../amplify_lints
+  build_test: ^2.0.0
+  drift_dev: ^2.2.0+1
+  example_common:
+    path: ../../example_common
+  build_runner: ^2.2.1
+  build_web_compilers: ^3.2.3
+  test: ^1.16.0
