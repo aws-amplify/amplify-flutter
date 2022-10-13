@@ -245,6 +245,13 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
           if (operationName == 'GetObject') {
             yield DartTypes.smithyAws.checkPartialResponse.constInstance([]);
           }
+          // These S3 operations require checking for errors on 2xx responses:
+          // https://aws.amazon.com/premiumsupport/knowledge-center/s3-resolve-200-internalerror/
+          if (operationName == 'CopyObject' ||
+              operationName == 'CompleteMultipartUpload' ||
+              operationName == 'UploadPartCopy') {
+            yield DartTypes.smithyAws.checkErrorOnSuccess.constInstance([]);
+          }
       }
     }
   }

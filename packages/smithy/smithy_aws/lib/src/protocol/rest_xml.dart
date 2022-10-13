@@ -79,8 +79,7 @@ class RestXmlProtocol<InputPayload, Input, OutputPayload, Output>
   late final FullSerializer<List<int>> wireSerializer =
       XmlSerializer(serializers);
 
-  @override
-  Future<String?> resolveErrorType(AWSBaseHttpResponse response) async {
+  static Future<String?> resolveError(AWSBaseHttpResponse response) async {
     try {
       final body = await utf8.decodeStream(response.split());
       final el = XmlDocument.parse(body).rootElement;
@@ -95,5 +94,10 @@ class RestXmlProtocol<InputPayload, Input, OutputPayload, Output>
     } on Exception {
       return null;
     }
+  }
+
+  @override
+  Future<String?> resolveErrorType(AWSBaseHttpResponse response) async {
+    return resolveError(response);
   }
 }

@@ -5,9 +5,12 @@ library custom_v2.s3.s3_client; // ignore_for_file: no_leading_underscores_for_l
 import 'dart:async' as _i4;
 
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
-import 'package:custom_v2/src/s3/model/get_object_output.dart' as _i5;
-import 'package:custom_v2/src/s3/model/get_object_request.dart' as _i6;
-import 'package:custom_v2/src/s3/operation/get_object_operation.dart' as _i7;
+import 'package:custom_v2/src/s3/model/copy_object_output.dart' as _i5;
+import 'package:custom_v2/src/s3/model/copy_object_request.dart' as _i6;
+import 'package:custom_v2/src/s3/model/get_object_output.dart' as _i8;
+import 'package:custom_v2/src/s3/model/get_object_request.dart' as _i9;
+import 'package:custom_v2/src/s3/operation/copy_object_operation.dart' as _i7;
+import 'package:custom_v2/src/s3/operation/get_object_operation.dart' as _i10;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
@@ -34,11 +37,26 @@ class S3Client {
 
   final _i3.AWSCredentialsProvider _credentialsProvider;
 
-  _i4.Future<_i5.GetObjectOutput> getObject(
-    _i6.GetObjectRequest input, {
+  _i4.Future<_i5.CopyObjectOutput> copyObject(
+    _i6.CopyObjectRequest input, {
     _i1.HttpClient? client,
   }) {
-    return _i7.GetObjectOperation(
+    return _i7.CopyObjectOperation(
+      region: _region,
+      baseUri: _baseUri,
+      s3ClientConfig: _s3ClientConfig,
+      credentialsProvider: _credentialsProvider,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
+  }
+
+  _i4.Future<_i8.GetObjectOutput> getObject(
+    _i9.GetObjectRequest input, {
+    _i1.HttpClient? client,
+  }) {
+    return _i10.GetObjectOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: _s3ClientConfig,

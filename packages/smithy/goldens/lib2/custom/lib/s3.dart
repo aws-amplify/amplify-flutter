@@ -5,6 +5,11 @@ library custom_v2.s3;
 
 export 'package:custom_v2/src/s3/model/aws_config.dart';
 export 'package:custom_v2/src/s3/model/client_config.dart';
+export 'package:custom_v2/src/s3/model/copy_object_error.dart';
+export 'package:custom_v2/src/s3/model/copy_object_output.dart';
+export 'package:custom_v2/src/s3/model/copy_object_request.dart'
+    hide CopyObjectRequestPayload;
+export 'package:custom_v2/src/s3/model/copy_object_result.dart';
 export 'package:custom_v2/src/s3/model/environment_config.dart';
 export 'package:custom_v2/src/s3/model/file_config_settings.dart';
 export 'package:custom_v2/src/s3/model/get_object_output.dart';
