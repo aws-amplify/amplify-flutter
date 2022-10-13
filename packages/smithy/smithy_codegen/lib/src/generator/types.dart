@@ -830,6 +830,10 @@ class _SmithyAws {
   Reference get awsSignatureVersion =>
       const Reference('AWSSignatureVersion', _url);
 
+  /// Creates a [smithy_aws.CheckErrorOnSuccess] refererence.
+  Reference get checkErrorOnSuccess =>
+      const Reference('CheckErrorOnSuccess', _url);
+
   /// Creates a [smithy_aws.CheckPartialResponse] refererence.
   Reference get checkPartialResponse =>
       const Reference('CheckPartialResponse', _url);

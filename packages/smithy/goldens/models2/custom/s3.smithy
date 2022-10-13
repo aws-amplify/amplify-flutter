@@ -49,6 +49,7 @@ service AmazonS3 {
     version: "2006-03-01",
     operations: [
         GetObject,
+        CopyObject,
     ],
 }
 
@@ -128,6 +129,71 @@ apply GetObject @httpResponseTests([
             "Content-Length": "5",
             "Content-Range": "bytes 0-5/12"
         },
+        protocol: restXml
+    }
+])
+
+@http(method: "PUT", uri: "/{Bucket}/{Key+}?x-id=CopyObject", code: 200)
+operation CopyObject {
+    input: CopyObjectRequest,
+    output: CopyObjectOutput,
+    errors: [
+        CopyObjectError
+    ]
+}
+
+structure CopyObjectRequest {
+    @httpLabel
+    @required
+    Bucket: String,
+    
+    @httpHeader("x-amz-copy-source")
+    @required
+    CopySource: String,
+
+    @httpLabel
+    @required
+    Key: String
+}
+
+structure CopyObjectResult {
+    ETag: String
+}
+
+structure CopyObjectOutput {
+    @httpPayload
+    CopyObjectResult: CopyObjectResult
+}
+
+@error("server")
+@httpError(500)
+structure CopyObjectError {}
+
+apply CopyObject @httpResponseTests([
+    {
+        id: "CopyObjectSuccess",
+        documentation: """
+            S3 clients should properly decode a successful response.
+        """,
+        code: 200,
+        body: "<?xml version=\"1.0\" encoding=\"UTF-8\"?><CopyObjectResult><ETag>123</ETag></CopyObjectResult>",
+        params: {
+            "CopyObjectResult": {
+                "ETag": "123"
+            }
+        },
+        protocol: restXml
+    }
+])
+
+apply CopyObjectError @httpResponseTests([
+    {
+        id: "CopyObjectErrorOnSuccess",
+        documentation: """
+            S3 clients should properly decode an error response on a 200 status code.
+        """,
+        code: 200,
+        body: "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Error><Code>CopyObjectError</Code></Error>",
         protocol: restXml
     }
 ])
