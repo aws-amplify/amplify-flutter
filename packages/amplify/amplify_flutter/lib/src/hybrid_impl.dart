@@ -42,9 +42,6 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
   }
 
   @override
-  Future<void> reset() async {}
-
-  @override
   Future<void> addPlugin(AmplifyPluginInterface plugin) async {
     if (isConfigured) {
       throw const AmplifyAlreadyConfiguredException(
@@ -90,7 +87,7 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
       throw AmplifyException(
         'Amplify plugin ${plugin.runtimeType} was not added successfully.',
         recoverySuggestion: AmplifyExceptionMessages.missingRecoverySuggestion,
-        underlyingException: e.toString(),
+        underlyingException: e,
       );
     }
   }

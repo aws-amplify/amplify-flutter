@@ -17,7 +17,7 @@ import 'dart:convert';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
     hide UpdateUserAttributesRequest;
-import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
+import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/device/confirm_device_worker.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
@@ -25,7 +25,7 @@ import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_device_password_veri
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_init_result.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_init_worker.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_password_verifier_worker.dart';
-import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
+import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_user.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
@@ -37,7 +37,6 @@ import 'package:amplify_core/amplify_core.dart'
 import 'package:async/async.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:meta/meta.dart';
-import 'package:worker_bee/worker_bee.dart';
 
 /// {@template amplify_auth_cognito.sign_in_state_machine}
 /// Base class for state machines which perform some auth flow. These all follow
@@ -88,12 +87,6 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
   /// The user built via the auth flow process.
   final CognitoUserBuilder user = CognitoUserBuilder();
 
-  /// The user's password when performing SRP sign-in.
-  ///
-  /// Needed for post-login device creation in user pools with device tracking
-  /// enabled.
-  late final String _password;
-
   // Lazy initializers for worker types.
   final AsyncMemoizer<SrpInitWorker> _initWorkerMemoizer = AsyncMemoizer();
   final AsyncMemoizer<SrpPasswordVerifierWorker>
@@ -103,6 +96,15 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
   final AsyncMemoizer<ConfirmDeviceWorker> _confirmDeviceWorkerMemoizer =
       AsyncMemoizer();
 
+  void _logWorkerBeeMessage(AWSLogger logger, LogEntry logEntry) {
+    logger.log(
+      logEntry.level,
+      logEntry.message,
+      logEntry.error,
+      logEntry.stackTrace,
+    );
+  }
+
   /// The SRP init worker.
   Future<SrpInitWorker> get initWorker async =>
       _initWorkerMemoizer.runOnce(() async {
@@ -111,8 +113,8 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
           return worker;
         }
         worker = SrpInitWorker.create();
-        // TODO(dnys1): Log
-        worker.logs.listen(safePrint);
+        final logger = this.logger.createChild(worker.name);
+        worker.logs.listen((entry) => _logWorkerBeeMessage(logger, entry));
         await worker.spawn();
         addInstance<SrpInitWorker>(worker);
         return worker;
@@ -126,8 +128,8 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
           return worker;
         }
         worker = SrpPasswordVerifierWorker.create();
-        // TODO(dnys1): Log
-        worker.logs.listen(safePrint);
+        final logger = this.logger.createChild(worker.name);
+        worker.logs.listen((entry) => _logWorkerBeeMessage(logger, entry));
         await worker.spawn();
         addInstance<SrpPasswordVerifierWorker>(worker);
         return worker;
@@ -141,8 +143,8 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
           return worker;
         }
         worker = SrpDevicePasswordVerifierWorker.create();
-        // TODO(dnys1): Log
-        worker.logs.listen(safePrint);
+        final logger = this.logger.createChild(worker.name);
+        worker.logs.listen((entry) => _logWorkerBeeMessage(logger, entry));
         await worker.spawn();
         addInstance<SrpDevicePasswordVerifierWorker>(worker);
         return worker;
@@ -156,8 +158,8 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
           return worker;
         }
         worker = ConfirmDeviceWorker.create();
-        // TODO(dnys1): Log
-        worker.logs.listen(safePrint);
+        final logger = this.logger.createChild(worker.name);
+        worker.logs.listen((entry) => _logWorkerBeeMessage(logger, entry));
         await worker.spawn();
         addInstance<ConfirmDeviceWorker>(worker);
         return worker;
@@ -173,13 +175,8 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
 
   /// Creates the `InitiateAuth` request.
   Future<InitiateAuthRequest> initiate(SignInInitiate event) async {
-    // Save password for device flow
-    final password = parameters.password;
-    if (password != null) {
-      _password = password;
-    }
-
     String expectPassword() {
+      final password = parameters.password;
       if (password == null) {
         throw const InvalidParameterException('No password was provided');
       }
@@ -251,7 +248,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         ..clientId = config.appClientId
         ..clientSecret = config.appClientSecret
         ..poolId = config.poolId
-        ..deviceKey = user.device?.id
+        ..deviceKey = user.deviceSecrets?.deviceKey
         ..challengeParameters = challengeParameters
         ..parameters = SignInParameters(
           (b) => b
@@ -276,7 +273,8 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         ..challengeName = ChallengeNameType.deviceSrpAuth
         ..challengeResponses.addAll({
           CognitoConstants.challengeParamUsername: user.username!,
-          CognitoConstants.challengeParamDeviceKey: user.device!.id,
+          CognitoConstants.challengeParamDeviceKey:
+              user.deviceSecrets!.deviceKey!,
           CognitoConstants.challengeParamSrpA:
               initResult.publicA.toRadixString(16),
         });
@@ -306,7 +304,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
     final worker = await devicePasswordVerifierWorker;
     final workerMessage = SrpDevicePasswordVerifierMessage((b) {
       b
-        ..deviceSecrets = user.deviceSecrets.build()
+        ..deviceSecrets = user.deviceSecrets!.build()
         ..initResult = _initResult
         ..clientId = config.appClientId
         ..clientSecret = config.appClientSecret
@@ -437,7 +435,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         );
       }
 
-      final deviceKey = user.device?.id;
+      final deviceKey = user.deviceSecrets?.deviceKey;
       if (deviceKey != null) {
         b.authParameters[CognitoConstants.challengeParamDeviceKey] = deviceKey;
       }
@@ -469,7 +467,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         );
       }
 
-      final deviceKey = user.device?.id;
+      final deviceKey = user.deviceSecrets?.deviceKey;
       if (deviceKey != null) {
         b.authParameters[CognitoConstants.challengeParamDeviceKey] = deviceKey;
       }
@@ -510,7 +508,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         );
       }
 
-      final deviceKey = user.device?.id;
+      final deviceKey = user.deviceSecrets?.deviceKey;
       if (deviceKey != null) {
         b.authParameters[CognitoConstants.challengeParamDeviceKey] = deviceKey;
       }
@@ -575,7 +573,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       ..refreshToken = refreshToken
       ..idToken = idTokenJwt;
 
-    dispatch(
+    await dispatch(
       CredentialStoreEvent.storeCredentials(
         CredentialStoreData(
           userPoolTokens: user.userPoolTokens.build(),
@@ -583,18 +581,12 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       ),
     );
 
-    // Clear anonymous credentials, if there were any, and fetch authenticated
+    // Upgrade anonymous credentials, if there were any, or fetch authenticated
     // credentials.
     if (hasIdentityPool) {
-      dispatch(
-        CredentialStoreEvent.clearCredentials(
-          CognitoIdentityPoolKeys(identityPoolConfig!),
-        ),
-      );
-
       await dispatch(
         const FetchAuthSessionEvent.fetch(
-          CognitoSessionOptions(getAWSCredentials: true),
+          CognitoSessionOptions(getAWSCredentials: true, forceRefresh: true),
         ),
       );
 
@@ -612,11 +604,10 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
 
     // Collect current user info which may influence SRP flow.
     try {
-      final result =
-          await expect(CredentialStoreStateMachine.type).getCredentialsResult();
-      final deviceSecrets = result.data.deviceSecrets;
+      final deviceSecrets = await getOrCreate(DeviceMetadataRepository.token)
+          .get(event.parameters.username);
       if (deviceSecrets != null) {
-        user.deviceSecrets.replace(deviceSecrets);
+        user.deviceSecrets = deviceSecrets.toBuilder();
       }
     } on Exception catch (e, st) {
       logger.debug('Could not retrieve credentials', e, st);
@@ -641,7 +632,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
   /// If device tracking is set to opt-in, a second call to `rememberDevice` is
   /// needed to remember the device. If device tracking is set to always, then
   /// the device is remembered as part of this call.
-  Future<void> _createDevice(
+  Future<_CreateDeviceResult> _createDevice(
     String accessToken,
     NewDeviceMetadataType newDeviceMetadata,
   ) async {
@@ -650,13 +641,21 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       ConfirmDeviceMessage(
         (b) => b
           ..accessToken = accessToken
-          ..newDeviceMetadata.replace(newDeviceMetadata)
-          ..password = _password,
+          ..newDeviceMetadata.replace(newDeviceMetadata),
       ),
     );
-    final request = await worker.stream.first;
+    final workerResult = await worker.stream.first;
+    final response = await cognitoIdentityProvider.confirmDevice(
+      workerResult.request,
+    );
+    final requiresConfirmation = response.userConfirmationNecessary ?? false;
 
-    await cognitoIdentityProvider.confirmDevice(request);
+    return _CreateDeviceResult(
+      devicePassword: workerResult.devicePassword,
+      deviceStatus: requiresConfirmation
+          ? DeviceRememberedStatusType.notRemembered
+          : DeviceRememberedStatusType.remembered,
+    );
   }
 
   /// Update any user attributes which could not be sent in the
@@ -705,21 +704,19 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       if (newDeviceMetadata != null &&
           // ConfirmDevice API requires an identity pool
           hasIdentityPool) {
-        user.deviceSecrets
-          ..deviceGroupKey = newDeviceMetadata.deviceGroupKey
-          ..deviceKey = newDeviceMetadata.deviceKey;
-
-        await _createDevice(
+        final createDeviceResult = await _createDevice(
           accessToken,
           newDeviceMetadata,
         );
+        user.deviceSecrets = CognitoDeviceSecretsBuilder()
+          ..deviceGroupKey = newDeviceMetadata.deviceGroupKey
+          ..deviceKey = newDeviceMetadata.deviceKey
+          ..devicePassword = createDeviceResult.devicePassword
+          ..deviceStatus = createDeviceResult.deviceStatus;
 
-        dispatch(
-          CredentialStoreEvent.storeCredentials(
-            CredentialStoreData(
-              deviceSecrets: user.deviceSecrets.build(),
-            ),
-          ),
+        await getOrCreate(DeviceMetadataRepository.token).put(
+          user.username!,
+          user.deviceSecrets!.build(),
         );
       }
 
@@ -836,4 +833,14 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
     }
     return null;
   }
+}
+
+class _CreateDeviceResult {
+  const _CreateDeviceResult({
+    required this.devicePassword,
+    required this.deviceStatus,
+  });
+
+  final String devicePassword;
+  final DeviceRememberedStatusType deviceStatus;
 }

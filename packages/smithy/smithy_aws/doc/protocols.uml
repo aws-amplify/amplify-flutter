@@ -1,0 +1,35 @@
+@startuml
+set namespaceSeparator ::
+
+class "smithy_aws::src::protocol::rest_json_1.dart::RestJson1Protocol" {
+}
+
+"smithy_aws::src::protocol::aws_http_protocol.dart::AWSHttpProtocol" <|-- "smithy_aws::src::protocol::rest_json_1.dart::RestJson1Protocol"
+"smithy_aws::src::protocol::aws_json_error_protocol.dart::AWSJsonErrorProtocol" <|-- "smithy_aws::src::protocol::rest_json_1.dart::RestJson1Protocol"
+
+class "smithy_aws::src::protocol::aws_json_1_1.dart::AwsJson1_1Protocol" {
+}
+
+"smithy_aws::src::protocol::aws_json_1_0.dart::AwsJson1_0Protocol" <|-- "smithy_aws::src::protocol::aws_json_1_1.dart::AwsJson1_1Protocol"
+
+abstract class "smithy_aws::src::protocol::aws_http_protocol.dart::AWSHttpProtocol" {
+}
+
+"smithy::src::http::http_protocol.dart::HttpProtocol" <|-- "smithy_aws::src::protocol::aws_http_protocol.dart::AWSHttpProtocol"
+
+class "smithy_aws::src::protocol::rest_xml.dart::RestXmlProtocol" {
+}
+
+"smithy_aws::src::protocol::aws_http_protocol.dart::AWSHttpProtocol" <|-- "smithy_aws::src::protocol::rest_xml.dart::RestXmlProtocol"
+
+class "smithy_aws::src::protocol::aws_json_1_0.dart::AwsJson1_0Protocol" {
+}
+
+"smithy_aws::src::protocol::aws_http_protocol.dart::AWSHttpProtocol" <|-- "smithy_aws::src::protocol::aws_json_1_0.dart::AwsJson1_0Protocol"
+"smithy_aws::src::protocol::aws_json_error_protocol.dart::AWSJsonErrorProtocol" <|-- "smithy_aws::src::protocol::aws_json_1_0.dart::AwsJson1_0Protocol"
+
+abstract class "smithy_aws::src::protocol::aws_json_error_protocol.dart::AWSJsonErrorProtocol" {
+}
+
+
+@enduml

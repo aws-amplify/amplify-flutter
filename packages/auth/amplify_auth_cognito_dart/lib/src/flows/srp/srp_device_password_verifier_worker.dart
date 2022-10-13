@@ -16,6 +16,7 @@ import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
+import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_device_password_verifier_worker.worker.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_helper.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_init_result.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
@@ -26,8 +27,6 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:intl/intl.dart';
 import 'package:worker_bee/worker_bee.dart';
-
-import 'srp_device_password_verifier_worker.worker.dart';
 
 part 'srp_device_password_verifier_worker.g.dart';
 
@@ -92,8 +91,6 @@ abstract class SrpDevicePasswordVerifierWorker extends WorkerBeeBase<
     await for (final message in listen) {
       final username =
           message.challengeParameters[CognitoConstants.challengeParamUsername]!;
-      final userId = message
-          .challengeParameters[CognitoConstants.challengeParamUserIdForSrp]!;
       final deviceKey = message
           .challengeParameters[CognitoConstants.challengeParamDeviceKey]!;
       final secretBlock = message
@@ -106,15 +103,14 @@ abstract class SrpDevicePasswordVerifierWorker extends WorkerBeeBase<
       final formattedTimestamp = _dateFormat.format(timestamp);
 
       final encodedClaim = SrpHelper.createDeviceClaim(
-        deviceKey,
-        message.deviceSecrets,
-        userId,
-        message.parameters,
-        message.initResult,
-        encodedSalt,
-        encodedB,
-        secretBlock,
-        formattedTimestamp,
+        deviceKey: deviceKey,
+        deviceSecrets: message.deviceSecrets,
+        username: username,
+        initResult: message.initResult,
+        encodedSalt: encodedSalt,
+        encodedB: encodedB,
+        secretBlock: secretBlock,
+        formattedTimestamp: formattedTimestamp,
       );
       final response = RespondToAuthChallengeRequest.build((b) {
         b

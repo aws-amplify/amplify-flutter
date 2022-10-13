@@ -12,16 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
 /// # Amazon Cognito Identity Provider
 ///
-/// Using the Amazon Cognito User Pools API, you can create a user pool to manage directories and users. You can authenticate a user to obtain tokens related to user identity and access policies.
+/// Using the Amazon Cognito user pools API, you can create a user pool to manage directories and users. You can authenticate a user to obtain tokens related to user identity and access policies.
 ///
-/// This API reference provides information about user pools in Amazon Cognito User Pools.
+/// This API reference provides information about user pools in Amazon Cognito user pools.
 ///
 /// For more information, see the [Amazon Cognito Documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/what-is-amazon-cognito.html).
-library amplify_auth_cognito.cognito_identity_provider;
+library amplify_auth_cognito_dart.cognito_identity_provider;
 
 export 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/cognito_identity_provider_client.dart';
 export 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/alias_exists_exception.dart';
@@ -51,6 +51,7 @@ export 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/
 export 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/device_type.dart';
 export 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/enable_software_token_mfa_exception.dart';
 export 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/expired_code_exception.dart';
+export 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/forbidden_exception.dart';
 export 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/forget_device_request.dart';
 export 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/forgot_password_request.dart';
 export 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/forgot_password_response.dart';

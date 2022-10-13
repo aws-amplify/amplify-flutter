@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.enable_software_token_mfa_exception;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.enable_software_token_mfa_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -45,14 +45,15 @@ abstract class EnableSoftwareTokenMfaException
 
   /// Constructs a [EnableSoftwareTokenMfaException] from a [payload] and [response].
   factory EnableSoftwareTokenMfaException.fromResponse(
-          EnableSoftwareTokenMfaException payload,
-          _i1.AWSBaseHttpResponse response) =>
+    EnableSoftwareTokenMfaException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _EnableSoftwareTokenMfaExceptionAwsJson11Serializer()
+    EnableSoftwareTokenMfaExceptionAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -61,8 +62,9 @@ abstract class EnableSoftwareTokenMfaException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.cognitoidentityprovider',
-      shape: 'EnableSoftwareTokenMFAException');
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'EnableSoftwareTokenMFAException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -79,28 +81,37 @@ abstract class EnableSoftwareTokenMfaException
   String toString() {
     final helper =
         newBuiltValueToStringHelper('EnableSoftwareTokenMfaException');
-    helper.add('message', message);
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
 
-class _EnableSoftwareTokenMfaExceptionAwsJson11Serializer
+class EnableSoftwareTokenMfaExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<EnableSoftwareTokenMfaException> {
-  const _EnableSoftwareTokenMfaExceptionAwsJson11Serializer()
+  const EnableSoftwareTokenMfaExceptionAwsJson11Serializer()
       : super('EnableSoftwareTokenMfaException');
 
   @override
   Iterable<Type> get types => const [
         EnableSoftwareTokenMfaException,
-        _$EnableSoftwareTokenMfaException
+        _$EnableSoftwareTokenMfaException,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   EnableSoftwareTokenMfaException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = EnableSoftwareTokenMfaExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -110,8 +121,10 @@ class _EnableSoftwareTokenMfaExceptionAwsJson11Serializer
       switch (key) {
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -121,15 +134,20 @@ class _EnableSoftwareTokenMfaExceptionAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as EnableSoftwareTokenMfaException);
     final result = <Object?>[];
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.get_user_attribute_verification_code_response;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.get_user_attribute_verification_code_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/code_delivery_details_type.dart'
     as _i2;
@@ -48,12 +48,13 @@ abstract class GetUserAttributeVerificationCodeResponse
 
   /// Constructs a [GetUserAttributeVerificationCodeResponse] from a [payload] and [response].
   factory GetUserAttributeVerificationCodeResponse.fromResponse(
-          GetUserAttributeVerificationCodeResponse payload,
-          _i1.AWSBaseHttpResponse response) =>
+    GetUserAttributeVerificationCodeResponse payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i3.SmithySerializer> serializers = [
-    _GetUserAttributeVerificationCodeResponseAwsJson11Serializer()
+    GetUserAttributeVerificationCodeResponseAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -67,28 +68,37 @@ abstract class GetUserAttributeVerificationCodeResponse
   String toString() {
     final helper =
         newBuiltValueToStringHelper('GetUserAttributeVerificationCodeResponse');
-    helper.add('codeDeliveryDetails', codeDeliveryDetails);
+    helper.add(
+      'codeDeliveryDetails',
+      codeDeliveryDetails,
+    );
     return helper.toString();
   }
 }
 
-class _GetUserAttributeVerificationCodeResponseAwsJson11Serializer extends _i3
+class GetUserAttributeVerificationCodeResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<GetUserAttributeVerificationCodeResponse> {
-  const _GetUserAttributeVerificationCodeResponseAwsJson11Serializer()
+  const GetUserAttributeVerificationCodeResponseAwsJson11Serializer()
       : super('GetUserAttributeVerificationCodeResponse');
 
   @override
   Iterable<Type> get types => const [
         GetUserAttributeVerificationCodeResponse,
-        _$GetUserAttributeVerificationCodeResponse
+        _$GetUserAttributeVerificationCodeResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols =>
-      const [_i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   GetUserAttributeVerificationCodeResponse deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = GetUserAttributeVerificationCodeResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -98,9 +108,10 @@ class _GetUserAttributeVerificationCodeResponseAwsJson11Serializer extends _i3
       switch (key) {
         case 'CodeDeliveryDetails':
           if (value != null) {
-            result.codeDeliveryDetails.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i2.CodeDeliveryDetailsType))
-                as _i2.CodeDeliveryDetailsType));
+            result.codeDeliveryDetails.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.CodeDeliveryDetailsType),
+            ) as _i2.CodeDeliveryDetailsType));
           }
           break;
       }
@@ -110,15 +121,20 @@ class _GetUserAttributeVerificationCodeResponseAwsJson11Serializer extends _i3
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as GetUserAttributeVerificationCodeResponse);
     final result = <Object?>[];
     if (payload.codeDeliveryDetails != null) {
       result
         ..add('CodeDeliveryDetails')
-        ..add(serializers.serialize(payload.codeDeliveryDetails!,
-            specifiedType: const FullType(_i2.CodeDeliveryDetailsType)));
+        ..add(serializers.serialize(
+          payload.codeDeliveryDetails!,
+          specifiedType: const FullType(_i2.CodeDeliveryDetailsType),
+        ));
     }
     return result;
   }

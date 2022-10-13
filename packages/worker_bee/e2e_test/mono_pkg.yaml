@@ -8,14 +8,14 @@ stages:
           - format
           - analyze: --fatal-infos .
   - unit_test:
-      - group:
-          - command: dart run build_runner build --delete-conflicting-outputs
-          - test:
-      - command: tool/test.sh -p chrome
-      - command: tool/test.sh -p firefox
-  # TODO: Safari tests cannot be run in CI
-  # https://github.com/dart-lang/test/issues/1253
-  # - unit_test_safari:
-  #     - command: tool/test.sh -p safari
-  #       os:
-  #         - macos
+      - test:
+        os:
+          - windows
+          - macos
+          - linux
+      - command: dart run build_runner test --delete-conflicting-outputs --verbose -- -p chrome,firefox
+        sdk:
+          # TODO(dnys1): Disabled due to staticInterop failures in stable which have been fixed in 2.19.0-dev.52
+          # - stable
+          - dev
+      - command: dart run build_runner test --release --delete-conflicting-outputs --verbose -- -p chrome,firefox

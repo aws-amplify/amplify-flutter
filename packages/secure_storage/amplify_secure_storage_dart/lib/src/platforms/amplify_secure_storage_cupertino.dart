@@ -51,6 +51,10 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
       ? config.iOSOptions.accessGroup
       : config.macOSOptions.accessGroup;
 
+  CFStringRef get _accessible => Platform.isIOS
+      ? config.iOSOptions.accessible.toCFStringRef()
+      : config.macOSOptions.accessible.toCFStringRef();
+
   bool get _useDataProtection =>
       Platform.isMacOS && config.macOSOptions.useDataProtection;
 
@@ -83,6 +87,17 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
         _remove(key: key, arena: arena);
       } on ItemNotFoundException {
         // do nothing if the item is not found
+      }
+    });
+  }
+
+  @override
+  void removeAll() {
+    using((Arena arena) {
+      try {
+        _removeAll(arena: arena);
+      } on ItemNotFoundException {
+        // do nothing if no items are found
       }
     });
   }
@@ -150,6 +165,32 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     }
   }
 
+  /// Removes all items from the keychain.
+  ///
+  /// throws [ItemNotFoundException] if no items are found in the keychain.
+  void _removeAll({
+    required Arena arena,
+  }) {
+    final baseQueryAttributes = _getBaseAttributes(arena: arena);
+    final query = _createCFDictionary(
+      map: {
+        ...baseQueryAttributes,
+        // when useDataProtection (MacOS only) is disabled, SecItemDelete
+        // requires a match limit of kSecMatchLimitAll. However, SecItemDelete
+        // will return `errSecParam` when used on iOS with a match limit of kSecMatchLimitAll.
+        // When useDataProtection is true on MacOS, this match limit has no effect.
+        // This behavior is undocumented, and possibly a bug in keychain on iOS.
+        if (Platform.isMacOS && !config.macOSOptions.useDataProtection)
+          security.kSecMatchLimit: security.kSecMatchLimitAll,
+      },
+      arena: arena,
+    );
+    final status = security.SecItemDelete(query);
+    if (status != errSecSuccess) {
+      throw _getExceptionFromResultCode(status);
+    }
+  }
+
   /// Returns the value for a given key in the keychain.
   ///
   /// throws [ItemNotFoundException] if the item is not in the keychain.
@@ -186,15 +227,16 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
 
   /// Get the query attributes that are common to all queries.
   Map<Pointer<NativeType>, Pointer<NativeType>> _getBaseAttributes({
-    required String key,
+    String? key,
     required Arena arena,
   }) {
-    final account = _createCFString(value: key, arena: arena);
     final service = _createCFString(value: _serviceName, arena: arena);
     return {
       security.kSecClass: security.kSecClassGenericPassword,
-      security.kSecAttrAccount: account,
       security.kSecAttrService: service,
+      security.kSecAttrAccessible: _accessible,
+      if (key != null)
+        security.kSecAttrAccount: _createCFString(value: key, arena: arena),
       if (_accessGroup != null)
         security.kSecAttrAccessGroup: _createCFString(
           value: _accessGroup!,
@@ -318,7 +360,6 @@ class _SecurityFrameworkError {
 
   /// Maps the error to a [SecureStorageException].
   SecureStorageException toSecureStorageException() {
-    final underlyingException = toString();
     switch (code) {
       case errSecItemNotFound:
         // A missing recovery is used because this should be caught
@@ -326,7 +367,7 @@ class _SecurityFrameworkError {
         return ItemNotFoundException(
           'Them item was not found in the keychain.',
           recoverySuggestion: SecureStorageException.missingRecovery,
-          underlyingException: underlyingException,
+          underlyingException: this,
         );
       case errSecDuplicateItem:
         // A missing recovery is used because this should be caught
@@ -334,7 +375,7 @@ class _SecurityFrameworkError {
         return DuplicateItemException(
           'The item is already present in the keychain.',
           recoverySuggestion: SecureStorageException.missingRecovery,
-          underlyingException: underlyingException,
+          underlyingException: this,
         );
       case errSecUserCanceled:
       case errSecAuthFailed:
@@ -343,7 +384,7 @@ class _SecurityFrameworkError {
           'Could not access the items in the keychain.',
           recoverySuggestion:
               'Ensure that the keychain is available and unlocked.',
-          underlyingException: underlyingException,
+          underlyingException: this,
         );
       case errSecMissingEntitlement:
         // TODO(Jordan-Nelson): point to amplify documentation when available.
@@ -353,13 +394,13 @@ class _SecurityFrameworkError {
         return AccessDeniedException(
           'Could not access the items in the keychain due to a missing entitlement.',
           recoverySuggestion: recoverySuggestion,
-          underlyingException: underlyingException,
+          underlyingException: this,
         );
       default:
         return UnknownException(
           'An unknown exception occurred.',
           recoverySuggestion: SecureStorageException.missingRecovery,
-          underlyingException: underlyingException,
+          underlyingException: this,
         );
     }
   }

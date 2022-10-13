@@ -35,16 +35,12 @@ void main() {
       final allPackages = await command.allPackages;
       expect(
         allPackages,
-        contains(
-          predicate<PackageInfo>(
-            (info) => info.name == 'amplify_flutter',
-          ),
-        ),
+        contains('amplify_flutter'),
       );
     });
 
     test('globalDependencyConfig', () async {
-      final config = await command.globalDependencyConfig;
+      final config = await command.aftConfig;
       expect(config.dependencies, contains('uuid'));
     });
   });

@@ -14,8 +14,6 @@ class _$CognitoUser extends CognitoUser {
   @override
   final CognitoUserPoolTokens? userPoolTokens;
   @override
-  final CognitoDevice? device;
-  @override
   final CognitoDeviceSecrets? deviceSecrets;
   @override
   final String userId;
@@ -31,7 +29,6 @@ class _$CognitoUser extends CognitoUser {
       {this.identityId,
       this.awsCredentials,
       this.userPoolTokens,
-      this.device,
       this.deviceSecrets,
       required this.userId,
       required this.username,
@@ -57,7 +54,6 @@ class _$CognitoUser extends CognitoUser {
         identityId == other.identityId &&
         awsCredentials == other.awsCredentials &&
         userPoolTokens == other.userPoolTokens &&
-        device == other.device &&
         deviceSecrets == other.deviceSecrets &&
         userId == other.userId &&
         username == other.username &&
@@ -71,11 +67,9 @@ class _$CognitoUser extends CognitoUser {
             $jc(
                 $jc(
                     $jc(
-                        $jc(
-                            $jc($jc(0, identityId.hashCode),
-                                awsCredentials.hashCode),
-                            userPoolTokens.hashCode),
-                        device.hashCode),
+                        $jc($jc(0, identityId.hashCode),
+                            awsCredentials.hashCode),
+                        userPoolTokens.hashCode),
                     deviceSecrets.hashCode),
                 userId.hashCode),
             username.hashCode),
@@ -88,7 +82,6 @@ class _$CognitoUser extends CognitoUser {
           ..add('identityId', identityId)
           ..add('awsCredentials', awsCredentials)
           ..add('userPoolTokens', userPoolTokens)
-          ..add('device', device)
           ..add('deviceSecrets', deviceSecrets)
           ..add('userId', userId)
           ..add('username', username)
@@ -115,13 +108,8 @@ class CognitoUserBuilder implements Builder<CognitoUser, CognitoUserBuilder> {
   set userPoolTokens(CognitoUserPoolTokensBuilder? userPoolTokens) =>
       _$this._userPoolTokens = userPoolTokens;
 
-  CognitoDevice? _device;
-  CognitoDevice? get device => _$this._device;
-  set device(CognitoDevice? device) => _$this._device = device;
-
   CognitoDeviceSecretsBuilder? _deviceSecrets;
-  CognitoDeviceSecretsBuilder get deviceSecrets =>
-      _$this._deviceSecrets ??= new CognitoDeviceSecretsBuilder();
+  CognitoDeviceSecretsBuilder? get deviceSecrets => _$this._deviceSecrets;
   set deviceSecrets(CognitoDeviceSecretsBuilder? deviceSecrets) =>
       _$this._deviceSecrets = deviceSecrets;
 
@@ -147,7 +135,6 @@ class CognitoUserBuilder implements Builder<CognitoUser, CognitoUserBuilder> {
       _identityId = $v.identityId;
       _awsCredentials = $v.awsCredentials;
       _userPoolTokens = $v.userPoolTokens?.toBuilder();
-      _device = $v.device;
       _deviceSecrets = $v.deviceSecrets?.toBuilder();
       _userId = $v.userId;
       _username = $v.username;
@@ -180,7 +167,6 @@ class CognitoUserBuilder implements Builder<CognitoUser, CognitoUserBuilder> {
               identityId: identityId,
               awsCredentials: awsCredentials,
               userPoolTokens: _userPoolTokens?.build(),
-              device: device,
               deviceSecrets: _deviceSecrets?.build(),
               userId: BuiltValueNullFieldError.checkNotNull(
                   userId, r'CognitoUser', 'userId'),
@@ -192,7 +178,6 @@ class CognitoUserBuilder implements Builder<CognitoUser, CognitoUserBuilder> {
       try {
         _$failedField = 'userPoolTokens';
         _userPoolTokens?.build();
-
         _$failedField = 'deviceSecrets';
         _deviceSecrets?.build();
 

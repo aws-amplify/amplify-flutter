@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.confirm_device_response;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.confirm_device_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -42,43 +42,56 @@ abstract class ConfirmDeviceResponse
 
   /// Constructs a [ConfirmDeviceResponse] from a [payload] and [response].
   factory ConfirmDeviceResponse.fromResponse(
-          ConfirmDeviceResponse payload, _i1.AWSBaseHttpResponse response) =>
+    ConfirmDeviceResponse payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i2.SmithySerializer> serializers = [
-    _ConfirmDeviceResponseAwsJson11Serializer()
+    ConfirmDeviceResponseAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConfirmDeviceResponseBuilder b) {}
 
-  /// Indicates whether the user confirmation is necessary to confirm the device response.
+  /// Indicates whether the user confirmation must confirm the device response.
   bool? get userConfirmationNecessary;
   @override
   List<Object?> get props => [userConfirmationNecessary];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfirmDeviceResponse');
-    helper.add('userConfirmationNecessary', userConfirmationNecessary);
+    helper.add(
+      'userConfirmationNecessary',
+      userConfirmationNecessary,
+    );
     return helper.toString();
   }
 }
 
-class _ConfirmDeviceResponseAwsJson11Serializer
+class ConfirmDeviceResponseAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<ConfirmDeviceResponse> {
-  const _ConfirmDeviceResponseAwsJson11Serializer()
+  const ConfirmDeviceResponseAwsJson11Serializer()
       : super('ConfirmDeviceResponse');
 
   @override
-  Iterable<Type> get types =>
-      const [ConfirmDeviceResponse, _$ConfirmDeviceResponse];
+  Iterable<Type> get types => const [
+        ConfirmDeviceResponse,
+        _$ConfirmDeviceResponse,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   ConfirmDeviceResponse deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = ConfirmDeviceResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -88,8 +101,10 @@ class _ConfirmDeviceResponseAwsJson11Serializer
       switch (key) {
         case 'UserConfirmationNecessary':
           if (value != null) {
-            result.userConfirmationNecessary = (serializers.deserialize(value,
-                specifiedType: const FullType(bool)) as bool);
+            result.userConfirmationNecessary = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
           }
           break;
       }
@@ -99,15 +114,20 @@ class _ConfirmDeviceResponseAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as ConfirmDeviceResponse);
     final result = <Object?>[];
     if (payload.userConfirmationNecessary != null) {
       result
         ..add('UserConfirmationNecessary')
-        ..add(serializers.serialize(payload.userConfirmationNecessary!,
-            specifiedType: const FullType(bool)));
+        ..add(serializers.serialize(
+          payload.userConfirmationNecessary!,
+          specifiedType: const FullType(bool),
+        ));
     }
     return result;
   }

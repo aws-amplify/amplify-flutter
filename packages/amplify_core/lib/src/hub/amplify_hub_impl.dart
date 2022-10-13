@@ -32,27 +32,21 @@ class AmplifyHubImpl extends AmplifyHub {
 
   static final AmplifyLogger _logger = AmplifyLogger.category(Category.hub);
 
-  final Map<HubChannel, StreamCompleter<HubEvent>> _streamCompleters = {};
   final Map<HubChannel, StreamGroup<HubEvent>> _availableStreams = {};
   final Map<HubChannel, List<StreamSubscription>> _subscriptions = {};
 
   @override
   Map<HubChannel, Stream<HubEvent>> get availableStreams =>
-      UnmodifiableMapView(_availableStreams.map(
-        (channel, group) => MapEntry(channel, group.stream),
-      ));
+      UnmodifiableMapView({
+        for (final channel in HubChannel.values)
+          channel: _initChannel(channel).stream,
+      });
 
-  StreamGroup<E>
+  StreamGroup<HubEvent>
       _initChannel<HubEventPayload, E extends HubEvent<HubEventPayload>>(
     HubChannel<HubEventPayload, E> channel,
   ) {
-    final streamCompleter = _streamCompleters[channel] ??= StreamCompleter<E>();
-    _availableStreams[channel] ??= () {
-      final streamGroup = StreamGroup<E>.broadcast();
-      streamCompleter.setSourceStream(streamGroup.stream);
-      return streamGroup;
-    }();
-    return _availableStreams[channel] as StreamGroup<E>;
+    return _availableStreams[channel] ??= StreamGroup<E>.broadcast();
   }
 
   @override
@@ -62,14 +56,15 @@ class AmplifyHubImpl extends AmplifyHub {
     HubEventListener<E> listener, {
     Function? onError,
   }) {
-    final subscription = _initChannel(channel).stream.listen(
-          listener,
-          onError: onError ??
-              (Object? e, StackTrace st) {
-                _logger.error('Error in channel $channel', e, st);
-              },
-          cancelOnError: true,
-        );
+    final stream = _initChannel(channel).stream.cast<E>();
+    final subscription = stream.listen(
+      listener,
+      onError: onError ??
+          (Object? e, StackTrace st) {
+            _logger.error('Error in channel $channel', e, st);
+          },
+      cancelOnError: true,
+    );
 
     _subscriptions[channel] ??= [];
     _subscriptions[channel]!.add(subscription);
@@ -90,7 +85,6 @@ class AmplifyHubImpl extends AmplifyHub {
     Future.wait<void>([
       for (final stream in _availableStreams.values) stream.close(),
     ]).ignore();
-    _streamCompleters.clear();
     _availableStreams.clear();
     _subscriptions.clear();
   }

@@ -49,7 +49,8 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
     final result = await getOrCreate(CredentialStoreStateMachine.type)
         .getCredentialsResult();
     final userPoolTokens = result.data.userPoolTokens;
-    if (userPoolTokens != null) {
+    if (userPoolTokens != null &&
+        userPoolTokens.signInMethod == CognitoSignInMethod.hostedUi) {
       emit(HostedUiState.signedIn(userPoolTokens.authUser));
       return;
     }
@@ -83,8 +84,7 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
     }
   }
 
-  @override
-  Future<void> onSignIn(HostedUiSignIn event) async {
+  Future<void> _handleSignIn(HostedUiSignIn event) async {
     try {
       _secureStorage.write(
         key: _keys[HostedUiKey.options],
@@ -100,8 +100,16 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
   }
 
   @override
+  Future<void> onSignIn(HostedUiSignIn event) async {
+    unawaited(_handleSignIn(event));
+  }
+
+  @override
   Future<void> onCancelSignIn(HostedUiCancelSignIn event) async {
-    await dispatch(CredentialStoreEvent.clearCredentials(_keys));
+    await _platform.cancelSignIn();
+    await dispatch(
+      CredentialStoreEvent.clearCredentials(_keys),
+    );
     dispatch(
       const HostedUiEvent.failed(
         UserCancelledException('The user cancelled the sign-in flow'),
@@ -159,4 +167,10 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
 
   @override
   Future<void> onFailed(HostedUiFailed event) async {}
+
+  @override
+  Future<void> close() async {
+    await _platform.close();
+    return super.close();
+  }
 }

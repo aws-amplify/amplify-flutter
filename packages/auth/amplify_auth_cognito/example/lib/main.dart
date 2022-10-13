@@ -29,55 +29,60 @@ import 'package:go_router/go_router.dart';
 
 import 'amplifyconfiguration.dart';
 
+final AmplifyLogger _logger = AmplifyLogger('MyApp');
+
 void main() {
+  AmplifyLogger().logLevel = LogLevel.debug;
   runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  static final _router = GoRouter(routes: [
-    GoRoute(
-      path: '/',
-      builder: (BuildContext _, GoRouterState __) => const HomeScreen(),
-    ),
-    GoRoute(
-      path: '/view-user-attributes',
-      builder: (BuildContext _, GoRouterState __) =>
-          const ViewUserAttributesScreen(),
-    ),
-    GoRoute(
-      path: '/update-user-attribute',
-      builder: (BuildContext _, GoRouterState state) =>
-          UpdateUserAttributeScreen(
-        userAttributeKey: state.extra as CognitoUserAttributeKey?,
+  static final _router = GoRouter(
+    routes: [
+      GoRoute(
+        path: '/',
+        builder: (BuildContext _, GoRouterState __) => const HomeScreen(),
       ),
-    ),
-    GoRoute(
-      path: '/update-user-attributes',
-      builder: (BuildContext _, GoRouterState state) =>
-          const UpdateUserAttributesScreen(),
-    ),
-    GoRoute(
-      path: '/confirm-user-attribute/email',
-      builder: (BuildContext _, GoRouterState state) =>
-          const ConfirmUserAttributeScreen(
-        userAttributeKey: CognitoUserAttributeKey.email,
+      GoRoute(
+        path: '/view-user-attributes',
+        builder: (BuildContext _, GoRouterState __) =>
+            const ViewUserAttributesScreen(),
       ),
-    ),
-    GoRoute(
-      path: '/confirm-user-attribute/phone_number',
-      builder: (BuildContext _, GoRouterState state) =>
-          const ConfirmUserAttributeScreen(
-        userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+      GoRoute(
+        path: '/update-user-attribute',
+        builder: (BuildContext _, GoRouterState state) =>
+            UpdateUserAttributeScreen(
+          userAttributeKey: state.extra as CognitoUserAttributeKey?,
+        ),
       ),
-    ),
-  ]);
+      GoRoute(
+        path: '/update-user-attributes',
+        builder: (BuildContext _, GoRouterState state) =>
+            const UpdateUserAttributesScreen(),
+      ),
+      GoRoute(
+        path: '/confirm-user-attribute/email',
+        builder: (BuildContext _, GoRouterState state) =>
+            const ConfirmUserAttributeScreen(
+          userAttributeKey: CognitoUserAttributeKey.email,
+        ),
+      ),
+      GoRoute(
+        path: '/confirm-user-attribute/phone_number',
+        builder: (BuildContext _, GoRouterState state) =>
+            const ConfirmUserAttributeScreen(
+          userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+        ),
+      ),
+    ],
+  );
 
   @override
   void initState() {
@@ -91,23 +96,28 @@ class _MyAppState extends State<MyApp> {
         await Amplify.addPlugin(AmplifyAPI());
       }
       await Amplify.addPlugin(AmplifyAuthCognito());
-      // Uncomment this block, and comment out the one above, in order to persist credentials
-      // await Amplify.addPlugin(AmplifyAuthCognito(credentialStorage: AmplifySecureStorage(
+      // Uncomment this block, and comment out the one above to change how
+      // credentials are persisted.
+      // await Amplify.addPlugin(
+      //   AmplifyAuthCognito(
+      //     credentialStorage: AmplifySecureStorage(
       //       config: AmplifySecureStorageConfig(
       //         scope: 'authtest',
       //         webOptions: WebSecureStorageOptions(
       //           persistenceOption: WebPersistenceOption.inMemory,
       //         ),
       //       ),
-      //     )));
+      //     ),
+      //   ),
+      // );
       await Amplify.configure(amplifyconfig);
-      safePrint('Successfully configured Amplify');
+      _logger.debug('Successfully configured Amplify');
 
       Amplify.Hub.listen(HubChannel.Auth, (event) {
-        safePrint('Auth Event: $event');
+        _logger.info('Auth Event: $event');
       });
-    } on Exception catch (e) {
-      safePrint('Configuring Amplify failed: $e');
+    } on Exception catch (e, st) {
+      _logger.error('Configuring Amplify failed', e, st);
     }
   }
 
@@ -157,7 +167,9 @@ class _HomeScreenState extends State<HomeScreen> {
     final authSession = await Amplify.Auth.fetchAuthSession(
       options: const CognitoSessionOptions(getAWSCredentials: true),
     ) as CognitoAuthSession;
-    safePrint(authSession);
+    _logger.info(
+      prettyPrintJson(authSession.toJson()),
+    );
   }
 
   Future<void> _requestGreeting() async {

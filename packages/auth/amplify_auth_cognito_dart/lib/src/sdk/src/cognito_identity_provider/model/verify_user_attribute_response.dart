@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.verify_user_attribute_response;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.verify_user_attribute_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -43,12 +43,13 @@ abstract class VerifyUserAttributeResponse
 
   /// Constructs a [VerifyUserAttributeResponse] from a [payload] and [response].
   factory VerifyUserAttributeResponse.fromResponse(
-          VerifyUserAttributeResponse payload,
-          _i1.AWSBaseHttpResponse response) =>
+    VerifyUserAttributeResponse payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i2.SmithySerializer> serializers = [
-    _VerifyUserAttributeResponseAwsJson11Serializer()
+    VerifyUserAttributeResponseAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -62,26 +63,37 @@ abstract class VerifyUserAttributeResponse
   }
 }
 
-class _VerifyUserAttributeResponseAwsJson11Serializer
+class VerifyUserAttributeResponseAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<VerifyUserAttributeResponse> {
-  const _VerifyUserAttributeResponseAwsJson11Serializer()
+  const VerifyUserAttributeResponseAwsJson11Serializer()
       : super('VerifyUserAttributeResponse');
 
   @override
-  Iterable<Type> get types =>
-      const [VerifyUserAttributeResponse, _$VerifyUserAttributeResponse];
+  Iterable<Type> get types => const [
+        VerifyUserAttributeResponse,
+        _$VerifyUserAttributeResponse,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   VerifyUserAttributeResponse deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return VerifyUserAttributeResponseBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

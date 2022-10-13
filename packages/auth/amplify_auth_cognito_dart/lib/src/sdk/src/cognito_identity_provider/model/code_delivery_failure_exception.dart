@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.code_delivery_failure_exception;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.code_delivery_failure_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -45,14 +45,15 @@ abstract class CodeDeliveryFailureException
 
   /// Constructs a [CodeDeliveryFailureException] from a [payload] and [response].
   factory CodeDeliveryFailureException.fromResponse(
-          CodeDeliveryFailureException payload,
-          _i1.AWSBaseHttpResponse response) =>
+    CodeDeliveryFailureException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _CodeDeliveryFailureExceptionAwsJson11Serializer()
+    CodeDeliveryFailureExceptionAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -63,8 +64,9 @@ abstract class CodeDeliveryFailureException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.cognitoidentityprovider',
-      shape: 'CodeDeliveryFailureException');
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'CodeDeliveryFailureException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -80,26 +82,37 @@ abstract class CodeDeliveryFailureException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CodeDeliveryFailureException');
-    helper.add('message', message);
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
 
-class _CodeDeliveryFailureExceptionAwsJson11Serializer
+class CodeDeliveryFailureExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<CodeDeliveryFailureException> {
-  const _CodeDeliveryFailureExceptionAwsJson11Serializer()
+  const CodeDeliveryFailureExceptionAwsJson11Serializer()
       : super('CodeDeliveryFailureException');
 
   @override
-  Iterable<Type> get types =>
-      const [CodeDeliveryFailureException, _$CodeDeliveryFailureException];
+  Iterable<Type> get types => const [
+        CodeDeliveryFailureException,
+        _$CodeDeliveryFailureException,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   CodeDeliveryFailureException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = CodeDeliveryFailureExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -109,8 +122,10 @@ class _CodeDeliveryFailureExceptionAwsJson11Serializer
       switch (key) {
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -120,15 +135,20 @@ class _CodeDeliveryFailureExceptionAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as CodeDeliveryFailureException);
     final result = <Object?>[];
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

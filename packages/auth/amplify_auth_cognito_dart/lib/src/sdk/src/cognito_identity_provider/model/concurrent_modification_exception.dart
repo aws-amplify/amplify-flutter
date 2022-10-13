@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.concurrent_modification_exception;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.concurrent_modification_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -45,14 +45,15 @@ abstract class ConcurrentModificationException
 
   /// Constructs a [ConcurrentModificationException] from a [payload] and [response].
   factory ConcurrentModificationException.fromResponse(
-          ConcurrentModificationException payload,
-          _i1.AWSBaseHttpResponse response) =>
+    ConcurrentModificationException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _ConcurrentModificationExceptionAwsJson11Serializer()
+    ConcurrentModificationExceptionAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -63,8 +64,9 @@ abstract class ConcurrentModificationException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.cognitoidentityprovider',
-      shape: 'ConcurrentModificationException');
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'ConcurrentModificationException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -81,28 +83,37 @@ abstract class ConcurrentModificationException
   String toString() {
     final helper =
         newBuiltValueToStringHelper('ConcurrentModificationException');
-    helper.add('message', message);
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
 
-class _ConcurrentModificationExceptionAwsJson11Serializer
+class ConcurrentModificationExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<ConcurrentModificationException> {
-  const _ConcurrentModificationExceptionAwsJson11Serializer()
+  const ConcurrentModificationExceptionAwsJson11Serializer()
       : super('ConcurrentModificationException');
 
   @override
   Iterable<Type> get types => const [
         ConcurrentModificationException,
-        _$ConcurrentModificationException
+        _$ConcurrentModificationException,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   ConcurrentModificationException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = ConcurrentModificationExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -112,8 +123,10 @@ class _ConcurrentModificationExceptionAwsJson11Serializer
       switch (key) {
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -123,15 +136,20 @@ class _ConcurrentModificationExceptionAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as ConcurrentModificationException);
     final result = <Object?>[];
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

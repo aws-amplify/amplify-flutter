@@ -21,26 +21,30 @@ part 'confirm_user_attribute_request.g.dart';
 /// Encapsulates parameters for a request to confirm a user attribute update.
 /// {@endtemplate}
 @zAmplifyGenericSerializable
-class ConfirmUserAttributeRequest<Key extends UserAttributeKey>
+class ConfirmUserAttributeRequest<Key extends UserAttributeKey,
+        Options extends ConfirmUserAttributeOptions>
     with
         // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49484
-        AWSEquatable<ConfirmUserAttributeRequest<Key>>,
+        AWSEquatable<ConfirmUserAttributeRequest<Key, Options>>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.confirm_user_attribute_request}
   const ConfirmUserAttributeRequest({
     required this.userAttributeKey,
     required this.confirmationCode,
+    this.options,
   });
 
   /// {@macro amplify_core.confirm_user_attribute_request}
   factory ConfirmUserAttributeRequest.fromJson(
     Map<String, Object?> json,
     Key Function(String) fromJsonKey,
+    Options Function(Map<String, Object?>) fromJsonOptions,
   ) =>
       _$ConfirmUserAttributeRequestFromJson(
         json,
         (json) => fromJsonKey(json as String),
+        (json) => fromJsonOptions((json as Map).cast()),
       );
 
   /// The key of the user attribute to update.
@@ -50,11 +54,14 @@ class ConfirmUserAttributeRequest<Key extends UserAttributeKey>
   /// operation.
   final String confirmationCode;
 
+  /// Additional, plugin-specific options to the request.
+  final Options? options;
+
   @Deprecated('Use toJson instead')
   Map<String, Object?> serializeAsMap() => toJson();
 
   @override
-  List<Object?> get props => [userAttributeKey, confirmationCode];
+  List<Object?> get props => [userAttributeKey, confirmationCode, options];
 
   @override
   String get runtimeTypeName => 'ConfirmUserAttributeRequest';
@@ -63,5 +70,6 @@ class ConfirmUserAttributeRequest<Key extends UserAttributeKey>
   Map<String, Object?> toJson() => _$ConfirmUserAttributeRequestToJson(
         this,
         (Key key) => key.toJson(),
+        (Options options) => options.toJson(),
       );
 }

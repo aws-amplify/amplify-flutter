@@ -119,7 +119,8 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
     // ignore: prefer_asserts_with_message
     assert(() {
       if (state == null) {
-        throw FlutterError.fromParts([
+        FlutterError.presentError(FlutterErrorDetails(
+            exception: FlutterError.fromParts([
           ErrorSummary('No AuthenticatorForm widget found.'),
           ErrorDescription(
             'All Form Field widgets from amplify_authenticator must be a descendant of a AuthenticatorForm widget.',
@@ -128,7 +129,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
             'If you are using prebuilt Form Field widgets to create a custom Authenticator UI, '
             'ensure that they are a descendant of a AuthenticatorForm widget.',
           )
-        ]);
+        ])));
       }
       return true;
     }());

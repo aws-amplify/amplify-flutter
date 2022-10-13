@@ -131,7 +131,7 @@ Future<void> main(List<String> args) async {
     credentialScope: scope,
     serviceConfiguration: serviceConfiguration,
   );
-  final createResponse = await signedCreateRequest.send();
+  final createResponse = await signedCreateRequest.send().response;
   final createStatus = createResponse.statusCode;
   stdout.writeln('Create Bucket Response: $createStatus');
   if (createStatus == 409) {
@@ -160,7 +160,7 @@ Future<void> main(List<String> args) async {
     credentialScope: scope,
     serviceConfiguration: serviceConfiguration,
   );
-  final uploadResponse = await signedUploadRequest.send();
+  final uploadResponse = await signedUploadRequest.send().response;
   final uploadStatus = uploadResponse.statusCode;
   stdout.writeln('Upload File Response: $uploadStatus');
   if (uploadStatus != 200) {

@@ -17,11 +17,6 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
 class ConfirmSignInWidget extends StatefulWidget {
-  final Function showResult;
-  final Function changeDisplay;
-  final Function setError;
-  final VoidCallback backToSignIn;
-
   const ConfirmSignInWidget(
     this.showResult,
     this.changeDisplay,
@@ -29,6 +24,11 @@ class ConfirmSignInWidget extends StatefulWidget {
     this.backToSignIn, {
     super.key,
   });
+
+  final void Function(String) showResult;
+  final void Function(String) changeDisplay;
+  final void Function(Object?) setError;
+  final VoidCallback backToSignIn;
 
   @override
   State<ConfirmSignInWidget> createState() => _ConfirmSignInWidgetState();
@@ -40,13 +40,18 @@ class _ConfirmSignInWidgetState extends State<ConfirmSignInWidget> {
 
   void _confirmSignIn() async {
     try {
-      var res = await Amplify.Auth.confirmSignIn(
-          confirmationValue: confirmationCodeController.text.trim());
-      widget.showResult('Confirm Sign In Status = ${res.nextStep?.signInStep}');
-      widget.changeDisplay(res.nextStep?.signInStep == 'DONE'
-          ? 'SIGNED_IN'
-          : 'SHOW_CONFIRM_SIGN_IN');
-    } on AmplifyException catch (e) {
+      final res = await Amplify.Auth.confirmSignIn(
+        confirmationValue: confirmationCodeController.text.trim(),
+      );
+      widget.showResult(
+        'Confirm Sign In Status = ${res.nextStep?.signInStep}',
+      );
+      widget.changeDisplay(
+        res.nextStep?.signInStep == 'DONE'
+            ? 'SIGNED_IN'
+            : 'SHOW_CONFIRM_SIGN_IN',
+      );
+    } on Exception catch (e) {
       widget.setError(e);
     }
   }
@@ -60,20 +65,21 @@ class _ConfirmSignInWidgetState extends State<ConfirmSignInWidget> {
           // wrap your Column in Expanded
           child: Column(
             children: [
-              const Padding(padding: EdgeInsets.all(10.0)),
+              const Padding(padding: EdgeInsets.all(10)),
               TextFormField(
-                  controller: confirmationCodeController,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.question_answer),
-                    hintText: 'The secret answer to the auth challange',
-                    labelText: 'Challange Response *',
-                  )),
-              const Padding(padding: EdgeInsets.all(10.0)),
+                controller: confirmationCodeController,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.question_answer),
+                  hintText: 'The secret answer to the auth challange',
+                  labelText: 'Challange Response *',
+                ),
+              ),
+              const Padding(padding: EdgeInsets.all(10)),
               ElevatedButton(
                 onPressed: _confirmSignIn,
                 child: const Text('Confirm SignIn'),
               ),
-              const Padding(padding: EdgeInsets.all(10.0)),
+              const Padding(padding: EdgeInsets.all(10)),
               ElevatedButton(
                 key: const Key('goto-signin-button'),
                 onPressed: widget.backToSignIn,

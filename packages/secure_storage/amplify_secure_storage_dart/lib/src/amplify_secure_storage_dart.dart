@@ -51,7 +51,8 @@ class AmplifySecureStorageDart extends AmplifySecureStorageInterface
 /// A `package:worker_bee` variant of [AmplifySecureStorageDart] which runs
 /// storage operations in a background thread.
 /// {@endtemplate}
-class AmplifySecureStorageWorker extends AmplifySecureStorageInterface {
+class AmplifySecureStorageWorker extends AmplifySecureStorageInterface
+    with AWSDebuggable, AWSLoggerMixin {
   /// {@macro amplify_secure_storage_dart.amplify_secure_storage_worker}
   AmplifySecureStorageWorker({
     required super.config,
@@ -60,17 +61,27 @@ class AmplifySecureStorageWorker extends AmplifySecureStorageInterface {
   late final SecureStorageWorker _worker;
   final _workerMemo = AsyncMemoizer<void>();
 
+  void _logWorkerBeeMessage(LogEntry logEntry) {
+    logger.log(
+      logEntry.level,
+      logEntry.message,
+      logEntry.error,
+      logEntry.stackTrace,
+    );
+  }
+
   /// {@template amplify_secure_storage_dart.secure_storage_interface.init}
   /// Initializes the secure storage and performs any work which should be
   /// performed once before any secure storage operations.
   /// {@endtemplate}
   Future<void> _init() => _workerMemo.runOnce(() async {
         _worker = SecureStorageWorker.create();
-        // TODO(dnys1): Log
-        _worker.logs.listen(safePrint);
+        _worker.logs.listen(_logWorkerBeeMessage);
         await _worker.spawn();
         _worker.add(
-          SecureStorageRequest.init(config: config),
+          SecureStorageRequest.init(
+            config: config,
+          ),
         );
         await _worker.stream.first;
       });
@@ -100,6 +111,17 @@ class AmplifySecureStorageWorker extends AmplifySecureStorageInterface {
   Future<void> write({required String key, required String value}) async {
     await _init();
     final request = SecureStorageRequest.write(key: key, value: value);
+    _worker.add(request);
+    await _worker.stream.firstWhere((event) => event.id == request.id);
+  }
+
+  @override
+  String get runtimeTypeName => 'AmplifySecureStorageWorker';
+
+  @override
+  Future<void> removeAll() async {
+    await _init();
+    final request = SecureStorageRequest.removeAll();
     _worker.add(request);
     await _worker.stream.firstWhere((event) => event.id == request.id);
   }

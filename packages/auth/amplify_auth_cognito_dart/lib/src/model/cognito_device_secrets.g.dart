@@ -30,6 +30,12 @@ class _$CognitoDeviceSecretsSerializer
       'deviceKey',
       serializers.serialize(object.deviceKey,
           specifiedType: const FullType(String)),
+      'devicePassword',
+      serializers.serialize(object.devicePassword,
+          specifiedType: const FullType(String)),
+      'deviceStatus',
+      serializers.serialize(object.deviceStatus,
+          specifiedType: const FullType(DeviceRememberedStatusType)),
     ];
 
     return result;
@@ -55,6 +61,15 @@ class _$CognitoDeviceSecretsSerializer
           result.deviceKey = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
+        case 'devicePassword':
+          result.devicePassword = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'deviceStatus':
+          result.deviceStatus = serializers.deserialize(value,
+                  specifiedType: const FullType(DeviceRememberedStatusType))!
+              as DeviceRememberedStatusType;
+          break;
       }
     }
 
@@ -67,18 +82,29 @@ class _$CognitoDeviceSecrets extends CognitoDeviceSecrets {
   final String deviceGroupKey;
   @override
   final String deviceKey;
+  @override
+  final String devicePassword;
+  @override
+  final DeviceRememberedStatusType deviceStatus;
 
   factory _$CognitoDeviceSecrets(
           [void Function(CognitoDeviceSecretsBuilder)? updates]) =>
       (new CognitoDeviceSecretsBuilder()..update(updates))._build();
 
   _$CognitoDeviceSecrets._(
-      {required this.deviceGroupKey, required this.deviceKey})
+      {required this.deviceGroupKey,
+      required this.deviceKey,
+      required this.devicePassword,
+      required this.deviceStatus})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         deviceGroupKey, r'CognitoDeviceSecrets', 'deviceGroupKey');
     BuiltValueNullFieldError.checkNotNull(
         deviceKey, r'CognitoDeviceSecrets', 'deviceKey');
+    BuiltValueNullFieldError.checkNotNull(
+        devicePassword, r'CognitoDeviceSecrets', 'devicePassword');
+    BuiltValueNullFieldError.checkNotNull(
+        deviceStatus, r'CognitoDeviceSecrets', 'deviceStatus');
   }
 
   @override
@@ -95,19 +121,26 @@ class _$CognitoDeviceSecrets extends CognitoDeviceSecrets {
     if (identical(other, this)) return true;
     return other is CognitoDeviceSecrets &&
         deviceGroupKey == other.deviceGroupKey &&
-        deviceKey == other.deviceKey;
+        deviceKey == other.deviceKey &&
+        devicePassword == other.devicePassword &&
+        deviceStatus == other.deviceStatus;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, deviceGroupKey.hashCode), deviceKey.hashCode));
+    return $jf($jc(
+        $jc($jc($jc(0, deviceGroupKey.hashCode), deviceKey.hashCode),
+            devicePassword.hashCode),
+        deviceStatus.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'CognitoDeviceSecrets')
           ..add('deviceGroupKey', deviceGroupKey)
-          ..add('deviceKey', deviceKey))
+          ..add('deviceKey', deviceKey)
+          ..add('devicePassword', devicePassword)
+          ..add('deviceStatus', deviceStatus))
         .toString();
   }
 }
@@ -125,6 +158,16 @@ class CognitoDeviceSecretsBuilder
   String? get deviceKey => _$this._deviceKey;
   set deviceKey(String? deviceKey) => _$this._deviceKey = deviceKey;
 
+  String? _devicePassword;
+  String? get devicePassword => _$this._devicePassword;
+  set devicePassword(String? devicePassword) =>
+      _$this._devicePassword = devicePassword;
+
+  DeviceRememberedStatusType? _deviceStatus;
+  DeviceRememberedStatusType? get deviceStatus => _$this._deviceStatus;
+  set deviceStatus(DeviceRememberedStatusType? deviceStatus) =>
+      _$this._deviceStatus = deviceStatus;
+
   CognitoDeviceSecretsBuilder();
 
   CognitoDeviceSecretsBuilder get _$this {
@@ -132,6 +175,8 @@ class CognitoDeviceSecretsBuilder
     if ($v != null) {
       _deviceGroupKey = $v.deviceGroupKey;
       _deviceKey = $v.deviceKey;
+      _devicePassword = $v.devicePassword;
+      _deviceStatus = $v.deviceStatus;
       _$v = null;
     }
     return this;
@@ -152,12 +197,17 @@ class CognitoDeviceSecretsBuilder
   CognitoDeviceSecrets build() => _build();
 
   _$CognitoDeviceSecrets _build() {
+    CognitoDeviceSecrets._init(this);
     final _$result = _$v ??
         new _$CognitoDeviceSecrets._(
             deviceGroupKey: BuiltValueNullFieldError.checkNotNull(
                 deviceGroupKey, r'CognitoDeviceSecrets', 'deviceGroupKey'),
             deviceKey: BuiltValueNullFieldError.checkNotNull(
-                deviceKey, r'CognitoDeviceSecrets', 'deviceKey'));
+                deviceKey, r'CognitoDeviceSecrets', 'deviceKey'),
+            devicePassword: BuiltValueNullFieldError.checkNotNull(
+                devicePassword, r'CognitoDeviceSecrets', 'devicePassword'),
+            deviceStatus: BuiltValueNullFieldError.checkNotNull(
+                deviceStatus, r'CognitoDeviceSecrets', 'deviceStatus'));
     replace(_$result);
     return _$result;
   }

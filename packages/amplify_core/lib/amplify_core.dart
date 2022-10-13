@@ -47,9 +47,6 @@ export 'src/hub/hub_event.dart';
 
 // Logger
 export 'src/logger/amplify_logger.dart';
-export 'src/logger/log_entry.dart';
-export 'src/logger/log_level.dart';
-export 'src/logger/simple_printer.dart';
 
 /// Plugin
 export 'src/plugin/amplify_analytics_plugin_interface.dart';
@@ -57,6 +54,7 @@ export 'src/plugin/amplify_api_plugin_interface.dart';
 export 'src/plugin/amplify_auth_plugin_interface.dart';
 export 'src/plugin/amplify_datastore_plugin_interface.dart';
 export 'src/plugin/amplify_plugin_interface.dart';
+export 'src/plugin/amplify_plugin_key.dart';
 export 'src/plugin/amplify_storage_plugin_interface.dart';
 
 // State Machine
@@ -94,12 +92,14 @@ export 'src/types/models/model_association.dart';
 export 'src/types/models/model_field.dart';
 export 'src/types/models/model_field_definition.dart';
 export 'src/types/models/model_field_type.dart';
+export 'src/types/models/model_index.dart';
 export 'src/types/models/model_provider.dart';
 export 'src/types/models/model_schema.dart';
 export 'src/types/models/model_schema_definition.dart';
 
 /// Query
 export 'src/types/query/query_field.dart';
+export 'src/types/query/query_model_identifier.dart';
 
 /// Storage
 export 'src/types/storage/storage_types.dart';

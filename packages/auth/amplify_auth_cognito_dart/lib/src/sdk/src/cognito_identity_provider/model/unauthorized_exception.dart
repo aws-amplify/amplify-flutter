@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.unauthorized_exception;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.unauthorized_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -23,18 +23,18 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'unauthorized_exception.g.dart';
 
-/// This exception is thrown when the request is not authorized. This can happen due to an invalid access token in the request.
+/// Exception that is thrown when the request isn't authorized. This can happen due to an invalid access token in the request.
 abstract class UnauthorizedException
     with _i1.AWSEquatable<UnauthorizedException>
     implements
         Built<UnauthorizedException, UnauthorizedExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// This exception is thrown when the request is not authorized. This can happen due to an invalid access token in the request.
+  /// Exception that is thrown when the request isn't authorized. This can happen due to an invalid access token in the request.
   factory UnauthorizedException({String? message}) {
     return _$UnauthorizedException._(message: message);
   }
 
-  /// This exception is thrown when the request is not authorized. This can happen due to an invalid access token in the request.
+  /// Exception that is thrown when the request isn't authorized. This can happen due to an invalid access token in the request.
   factory UnauthorizedException.build(
           [void Function(UnauthorizedExceptionBuilder) updates]) =
       _$UnauthorizedException;
@@ -43,13 +43,15 @@ abstract class UnauthorizedException
 
   /// Constructs a [UnauthorizedException] from a [payload] and [response].
   factory UnauthorizedException.fromResponse(
-          UnauthorizedException payload, _i1.AWSBaseHttpResponse response) =>
+    UnauthorizedException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _UnauthorizedExceptionAwsJson11Serializer()
+    UnauthorizedExceptionAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -58,8 +60,9 @@ abstract class UnauthorizedException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.cognitoidentityprovider',
-      shape: 'UnauthorizedException');
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'UnauthorizedException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -75,26 +78,37 @@ abstract class UnauthorizedException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UnauthorizedException');
-    helper.add('message', message);
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
 
-class _UnauthorizedExceptionAwsJson11Serializer
+class UnauthorizedExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<UnauthorizedException> {
-  const _UnauthorizedExceptionAwsJson11Serializer()
+  const UnauthorizedExceptionAwsJson11Serializer()
       : super('UnauthorizedException');
 
   @override
-  Iterable<Type> get types =>
-      const [UnauthorizedException, _$UnauthorizedException];
+  Iterable<Type> get types => const [
+        UnauthorizedException,
+        _$UnauthorizedException,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   UnauthorizedException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = UnauthorizedExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -104,8 +118,10 @@ class _UnauthorizedExceptionAwsJson11Serializer
       switch (key) {
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -115,15 +131,20 @@ class _UnauthorizedExceptionAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as UnauthorizedException);
     final result = <Object?>[];
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

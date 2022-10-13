@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.invalid_lambda_response_exception;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.invalid_lambda_response_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -23,7 +23,7 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'invalid_lambda_response_exception.g.dart';
 
-/// This exception is thrown when the Amazon Cognito service encounters an invalid Lambda response.
+/// This exception is thrown when Amazon Cognito encounters an invalid Lambda response.
 abstract class InvalidLambdaResponseException
     with
         _i1.AWSEquatable<InvalidLambdaResponseException>
@@ -31,12 +31,12 @@ abstract class InvalidLambdaResponseException
         Built<InvalidLambdaResponseException,
             InvalidLambdaResponseExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// This exception is thrown when the Amazon Cognito service encounters an invalid Lambda response.
+  /// This exception is thrown when Amazon Cognito encounters an invalid Lambda response.
   factory InvalidLambdaResponseException({String? message}) {
     return _$InvalidLambdaResponseException._(message: message);
   }
 
-  /// This exception is thrown when the Amazon Cognito service encounters an invalid Lambda response.
+  /// This exception is thrown when Amazon Cognito encounters an invalid Lambda response.
   factory InvalidLambdaResponseException.build(
           [void Function(InvalidLambdaResponseExceptionBuilder) updates]) =
       _$InvalidLambdaResponseException;
@@ -45,26 +45,28 @@ abstract class InvalidLambdaResponseException
 
   /// Constructs a [InvalidLambdaResponseException] from a [payload] and [response].
   factory InvalidLambdaResponseException.fromResponse(
-          InvalidLambdaResponseException payload,
-          _i1.AWSBaseHttpResponse response) =>
+    InvalidLambdaResponseException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _InvalidLambdaResponseExceptionAwsJson11Serializer()
+    InvalidLambdaResponseExceptionAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidLambdaResponseExceptionBuilder b) {}
 
-  /// The message returned when the Amazon Cognito service throws an invalid Lambda response exception.
+  /// The message returned when Amazon Cognito throws an invalid Lambda response exception.
   @override
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.cognitoidentityprovider',
-      shape: 'InvalidLambdaResponseException');
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'InvalidLambdaResponseException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -81,26 +83,37 @@ abstract class InvalidLambdaResponseException
   String toString() {
     final helper =
         newBuiltValueToStringHelper('InvalidLambdaResponseException');
-    helper.add('message', message);
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
 
-class _InvalidLambdaResponseExceptionAwsJson11Serializer
+class InvalidLambdaResponseExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<InvalidLambdaResponseException> {
-  const _InvalidLambdaResponseExceptionAwsJson11Serializer()
+  const InvalidLambdaResponseExceptionAwsJson11Serializer()
       : super('InvalidLambdaResponseException');
 
   @override
-  Iterable<Type> get types =>
-      const [InvalidLambdaResponseException, _$InvalidLambdaResponseException];
+  Iterable<Type> get types => const [
+        InvalidLambdaResponseException,
+        _$InvalidLambdaResponseException,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   InvalidLambdaResponseException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = InvalidLambdaResponseExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -110,8 +123,10 @@ class _InvalidLambdaResponseExceptionAwsJson11Serializer
       switch (key) {
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -121,15 +136,20 @@ class _InvalidLambdaResponseExceptionAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as InvalidLambdaResponseException);
     final result = <Object?>[];
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

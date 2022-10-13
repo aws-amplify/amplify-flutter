@@ -12,20 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/crypto/oauth.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_config.dart';
+import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_stub.dart'
+    if (dart.library.html) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_html.dart'
+    if (dart.library.io) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_io.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:oauth2/oauth2.dart' as oauth2;
-
-// Order here matters to ensure Web/Desktop work without Flutter.
-import 'hosted_ui_platform_stub.dart'
-    if (dart.library.html) 'hosted_ui_platform_html.dart'
-    if (dart.library.io) 'hosted_ui_platform_io.dart';
 
 /// A factory constructor for a [HostedUiPlatform] instance.
 typedef HostedUiPlatformFactory = HostedUiPlatform Function(
@@ -35,7 +35,7 @@ typedef HostedUiPlatformFactory = HostedUiPlatform Function(
 /// {@template amplify_auth_cognito.hosted_ui_platform}
 /// Platform-specific behavior for the Hosted UI flow.
 /// {@endtemplate}
-abstract class HostedUiPlatform {
+abstract class HostedUiPlatform implements Closeable {
   /// {@macro amplify_auth_cognito.hosted_ui_platform}
   factory HostedUiPlatform(DependencyManager dependencyManager) =
       HostedUiPlatformImpl;
@@ -93,10 +93,12 @@ abstract class HostedUiPlatform {
 
   /// The default redirect URI for sign in.
   @protected
+  @visibleForTesting
   Uri get signInRedirectUri;
 
   /// The default redirect URI for sign out.
   @protected
+  @visibleForTesting
   Uri get signOutRedirectUri;
 
   /// Gets the authrorization URL for presenting to the user.
@@ -287,8 +289,14 @@ abstract class HostedUiPlatform {
     AuthProvider? provider,
   });
 
+  /// Cancels the active sign in.
+  Future<void> cancelSignIn() async {}
+
   /// Sign out the current user.
   Future<void> signOut({
     required CognitoSignOutWithWebUIOptions options,
   });
+
+  @override
+  FutureOr<void> close() {}
 }

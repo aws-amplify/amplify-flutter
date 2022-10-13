@@ -72,6 +72,8 @@ abstract class AuthService {
   Future<AmplifyConfig> waitForConfiguration();
 
   Future<void> rememberDevice();
+
+  Stream<AuthHubEvent> get hubEvents;
 }
 
 class AmplifyAuthService implements AuthService {
@@ -264,6 +266,10 @@ class AmplifyAuthService implements AuthService {
   Future<AmplifyConfig> waitForConfiguration() {
     return Amplify.asyncConfig;
   }
+
+  @override
+  Stream<AuthHubEvent> get hubEvents =>
+      Amplify.Hub.availableStreams[HubChannel.Auth]!.cast();
 }
 
 class GetAttributeVerificationStatusResult {

@@ -15,11 +15,8 @@
 /// Exception types bridged from generated SDKs to their legacy counterparts.
 library amplify_auth_cognito_dart.sdk.sdk_exception;
 
-import 'package:amplify_core/amplify_core.dart' as core;
-import 'package:meta/meta.dart';
-import 'package:smithy/smithy.dart';
-
-import 'cognito_identity.dart' as cognito_identity
+import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart'
+    as cognito_identity
     show
         InternalErrorException,
         InvalidParameterException,
@@ -27,7 +24,8 @@ import 'cognito_identity.dart' as cognito_identity
         NotAuthorizedException,
         ResourceNotFoundException,
         TooManyRequestsException;
-import 'cognito_identity_provider.dart' as cognito_idp
+import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
+    as cognito_idp
     show
         ExpiredCodeException,
         InternalErrorException,
@@ -42,15 +40,17 @@ import 'cognito_identity_provider.dart' as cognito_idp
         TooManyRequestsException,
         UnexpectedLambdaException,
         UserLambdaValidationException;
+import 'package:amplify_core/amplify_core.dart' as core;
+import 'package:meta/meta.dart';
+import 'package:smithy/smithy.dart';
 
-export 'cognito_identity.dart'
+export 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart'
     show
         ExternalServiceException,
         InvalidIdentityPoolConfigurationException,
         LimitExceededException,
         ResourceConflictException;
-
-export 'cognito_identity_provider.dart'
+export 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     show
         AliasExistsException,
         CodeDeliveryFailureException,
@@ -91,7 +91,7 @@ Exception transformSdkException(Exception e) {
       e is cognito_idp.InvalidLambdaResponseException ||
       e is cognito_idp.UnexpectedLambdaException ||
       e is cognito_idp.UserLambdaValidationException) {
-    return LambdaException(message, underlyingException: e.toString());
+    return LambdaException(message, underlyingException: e);
   }
   if (e is cognito_identity.LimitExceededException ||
       e is cognito_idp.LimitExceededException) {
@@ -149,7 +149,7 @@ class InvalidParameterException extends core.AmplifyException
 /// {@endtemplate}
 class LambdaException extends core.AmplifyException with core.AWSDebuggable {
   /// {@macro amplify_auth_cognito_dart.sdk.lambda_exception}
-  factory LambdaException(String message, {String? underlyingException}) {
+  factory LambdaException(String message, {Object? underlyingException}) {
     final match = _errorRegex.firstMatch(message);
     final lambdaName = match?.group(1);
     final parsedMessage = match?.group(2);

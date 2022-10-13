@@ -20,8 +20,7 @@ part of authenticator.form_field;
 /// A prebuilt form field widget for use on the Confirm Sign In step.
 /// {@endtemplate}
 abstract class ConfirmSignInFormField<FieldValue>
-    extends AuthenticatorFormField<ConfirmSignInField, FieldValue,
-        ConfirmSignInFormField<FieldValue>> {
+    extends AuthenticatorFormField<ConfirmSignInField, FieldValue> {
   /// {@macro amplify_authenticator.confirm_sign_in_form_field}
   ///
   /// Either [titleKey] or [title] is required.
@@ -440,7 +439,9 @@ class _ConfirmSignInPhoneField extends ConfirmSignInFormField<String> {
 }
 
 class _ConfirmSignInPhoneFieldState extends _ConfirmSignInTextFieldState
-    with AuthenticatorPhoneFieldMixin {
+    with
+        AuthenticatorPhoneFieldMixin<ConfirmSignInField,
+            ConfirmSignInFormField<String>> {
   @override
   String? get initialValue {
     var initialValue = state.getAttribute(CognitoUserAttributeKey.phoneNumber);
@@ -499,7 +500,9 @@ class _ConfirmSignInTextField extends ConfirmSignInFormField<String> {
 }
 
 class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
-    with AuthenticatorTextField {
+    with
+        AuthenticatorTextField<ConfirmSignInField,
+            ConfirmSignInFormField<String>> {
   @override
   String? get initialValue {
     switch (widget.field) {

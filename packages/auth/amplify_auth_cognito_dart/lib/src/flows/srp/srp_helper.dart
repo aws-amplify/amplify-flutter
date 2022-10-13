@@ -22,7 +22,6 @@ import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_init_result.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:crypto/crypto.dart';
-import 'package:meta/meta.dart';
 
 /// Helper utilities for the SRP flow.
 ///
@@ -68,22 +67,26 @@ class SrpHelper {
   }
 
   /// Generates the claim for authenticating the user via the SRP protocol.
-  static String authenticateUser(
-    String userId,
-    SignInParameters parameters,
-    SrpInitResult initResult,
-    String poolName,
-    BigInt salt,
-    BigInt publicB,
-    String encodedSecretBlock,
-    String formattedTimestamp,
-  ) {
+  static String authenticateUser({
+    required String userId,
+    required SignInParameters parameters,
+    required SrpInitResult initResult,
+    required String poolName,
+    required BigInt salt,
+    required BigInt publicB,
+    required String encodedSecretBlock,
+    required String formattedTimestamp,
+  }) {
     final secretBlock = base64Decode(encodedSecretBlock);
     final passwordAuthKey = getAuthenticationKey(
-      initResult,
-      publicB,
-      salt,
-      privateKeyIdentifier(poolName, userId, parameters.password!),
+      initResult: initResult,
+      publicB: publicB,
+      salt: salt,
+      privateKeyIdentifier: privateKeyIdentifier(
+        poolName,
+        userId,
+        parameters.password!,
+      ),
     );
 
     final hmac = Hmac(sha256, passwordAuthKey);
@@ -98,23 +101,26 @@ class SrpHelper {
   }
 
   /// Generates the claim for authenticating the device via the SRP protocol.
-  static String authenticateDevice(
-    String deviceKey,
-    String deviceGroup,
-    String devicePassword,
-    String userId,
-    SrpInitResult initResult,
-    BigInt salt,
-    BigInt publicB,
-    String encodedSecretBlock,
-    String formattedTimestamp,
-  ) {
+  static String authenticateDevice({
+    required String deviceKey,
+    required String deviceGroup,
+    required String devicePassword,
+    required SrpInitResult initResult,
+    required BigInt salt,
+    required BigInt publicB,
+    required String encodedSecretBlock,
+    required String formattedTimestamp,
+  }) {
     final secretBlock = base64Decode(encodedSecretBlock);
     final passwordAuthKey = getAuthenticationKey(
-      initResult,
-      publicB,
-      salt,
-      privateKeyIdentifier(deviceGroup, userId, devicePassword),
+      initResult: initResult,
+      publicB: publicB,
+      salt: salt,
+      privateKeyIdentifier: privateKeyIdentifier(
+        deviceGroup,
+        deviceKey,
+        devicePassword,
+      ),
     );
 
     final hmac = Hmac(sha256, passwordAuthKey);
@@ -129,8 +135,7 @@ class SrpHelper {
   }
 
   /// Caclulates H(identifier | username | ":" | password)
-  @visibleForTesting
-  static List<int> privateKeyIdentifier(
+  static Uint8List privateKeyIdentifier(
     String identifier,
     String username,
     String password,
@@ -142,16 +147,16 @@ class SrpHelper {
       ..add(':'.codeUnits)
       ..add(utf8.encode(password))
       ..close();
-    return content.bytes;
+    return Uint8List.fromList(content.bytes);
   }
 
   /// Creates the password authentication key for the SRP flow.
-  static List<int> getAuthenticationKey(
-    SrpInitResult initResult,
-    BigInt publicB,
-    BigInt salt,
-    List<int> privateKeyIdentifier,
-  ) {
+  static List<int> getAuthenticationKey({
+    required SrpInitResult initResult,
+    required BigInt publicB,
+    required BigInt salt,
+    required List<int> privateKeyIdentifier,
+  }) {
     // u = H(A, B)
     final contentDigest = DigestSink();
     sha256.startChunkedConversion(contentDigest)
@@ -198,17 +203,16 @@ class SrpHelper {
 
   /// Creates the device password verifier claim, or signature, for the SRP
   /// flow.
-  static String createDeviceClaim(
-    String deviceKey,
-    CognitoDeviceSecrets deviceSecrets,
-    String userId,
-    SignInParameters parameters,
-    SrpInitResult initResult,
-    String encodedSalt,
-    String encodedB,
-    String secretBlock,
-    String formattedTimestamp,
-  ) {
+  static String createDeviceClaim({
+    required String deviceKey,
+    required CognitoDeviceSecrets deviceSecrets,
+    required String username,
+    required SrpInitResult initResult,
+    required String encodedSalt,
+    required String encodedB,
+    required String secretBlock,
+    required String formattedTimestamp,
+  }) {
     final salt = BigInt.parse(encodedSalt, radix: 16);
     final publicB = BigInt.parse(encodedB, radix: 16);
 
@@ -218,29 +222,28 @@ class SrpHelper {
     }
 
     return authenticateDevice(
-      deviceKey,
-      deviceSecrets.deviceGroupKey,
-      deviceSecrets.deviceKey,
-      userId,
-      initResult,
-      salt,
-      publicB,
-      secretBlock,
-      formattedTimestamp,
+      deviceKey: deviceKey,
+      deviceGroup: deviceSecrets.deviceGroupKey,
+      devicePassword: deviceSecrets.devicePassword,
+      initResult: initResult,
+      salt: salt,
+      publicB: publicB,
+      encodedSecretBlock: secretBlock,
+      formattedTimestamp: formattedTimestamp,
     );
   }
 
   /// Creates the password verifier claim, or signature, for the SRP flow.
-  static String createPasswordClaim(
-    String userId,
-    SignInParameters parameters,
-    SrpInitResult initResult,
-    String encodedSalt,
-    String encodedB,
-    String poolName,
-    String secretBlock,
-    String formattedTimestamp,
-  ) {
+  static String createPasswordClaim({
+    required String userId,
+    required SignInParameters parameters,
+    required SrpInitResult initResult,
+    required String encodedSalt,
+    required String encodedB,
+    required String poolName,
+    required String secretBlock,
+    required String formattedTimestamp,
+  }) {
     final salt = BigInt.parse(encodedSalt, radix: 16);
     final publicB = BigInt.parse(encodedB, radix: 16);
 
@@ -252,14 +255,14 @@ class SrpHelper {
     }
 
     return authenticateUser(
-      userId,
-      parameters,
-      initResult,
-      poolName,
-      salt,
-      publicB,
-      secretBlock,
-      formattedTimestamp,
+      userId: userId,
+      parameters: parameters,
+      initResult: initResult,
+      poolName: poolName,
+      salt: salt,
+      publicB: publicB,
+      encodedSecretBlock: secretBlock,
+      formattedTimestamp: formattedTimestamp,
     );
   }
 
@@ -267,14 +270,14 @@ class SrpHelper {
   /// [salt] and [deviceKeyHash].
   static BigInt calculateDeviceVerifier(
     Uint8List salt,
-    String deviceKeyHash,
+    Uint8List deviceKeyHash,
   ) {
     final digest = DigestSink();
     sha256.startChunkedConversion(digest)
       ..add(salt)
-      ..add(base64Decode(deviceKeyHash))
+      ..add(deviceKeyHash)
       ..close();
     final x = decodeBigInt(Uint8List.fromList(digest.bytes));
-    return x.modPow(g, N);
+    return g.modPow(x, N);
   }
 }

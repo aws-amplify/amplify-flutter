@@ -86,6 +86,12 @@ abstract class CognitoUserPoolTokens
   /// The issued at time of [accessToken].
   DateTime? get issuedTime => accessToken.claims.issuedAt;
 
+  /// The Cognito user's ID.
+  String get userId => idToken.userId;
+
+  /// The Cognito user's username.
+  String get username => CognitoIdToken(idToken).username;
+
   /// Validates the tokens against the client state.
   void validate({
     String? nonce,
@@ -112,9 +118,7 @@ abstract class CognitoUserPoolTokens
 /// The method by which the user logged in and retrieved the accompanying
 /// [CognitoUserPoolTokens].
 class CognitoSignInMethod extends EnumClass with AWSSerializable<String> {
-  // TODO(dnys1): Remove when built_value supports super parameters.
-  // ignore: use_super_parameters
-  const CognitoSignInMethod._(String name) : super(name);
+  const CognitoSignInMethod._(super.name);
 
   /// Default (non-Hosted UI) method.
   static const CognitoSignInMethod default$ = _$default$;

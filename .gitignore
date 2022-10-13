@@ -14,8 +14,10 @@ Podfile.lock
 **/test-results/
 .test_coverage.dart
 .last_build_id
+temp/
 .fvm/
 .packages
+pubspec_overrides.yaml
 
 # IDEs
 .idea/
@@ -35,3 +37,6 @@ amplifyconfiguration.dart
 amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
+
+# Smithy
+.smithy.lsp.log

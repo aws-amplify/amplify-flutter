@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of amplify_auth_cognito.cognito_identity.model.limit_exceeded_exception;
+part of amplify_auth_cognito_dart.cognito_identity.model.limit_exceeded_exception;
 
 // **************************************************************************
 // BuiltValueGenerator

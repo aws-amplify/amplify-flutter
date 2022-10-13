@@ -6,28 +6,40 @@ part of 'models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-GlobalDependencyConfig _$GlobalDependencyConfigFromJson(Map json) =>
-    $checkedCreate(
-      'GlobalDependencyConfig',
+AftConfig _$AftConfigFromJson(Map json) => $checkedCreate(
+      'AftConfig',
       json,
       ($checkedConvert) {
         $checkKeys(
           json,
-          allowedKeys: const ['dependencies'],
+          allowedKeys: const ['dependencies', 'ignore'],
         );
-        final val = GlobalDependencyConfig(
+        final val = AftConfig(
           dependencies: $checkedConvert(
               'dependencies',
-              (v) => (v as Map).map(
+              (v) =>
+                  (v as Map?)?.map(
                     (k, e) => MapEntry(
                         k as String,
                         const _VersionConstraintConverter()
                             .fromJson(e as String)),
-                  )),
+                  ) ??
+                  const {}),
+          ignore: $checkedConvert(
+              'ignore',
+              (v) =>
+                  (v as List<dynamic>?)?.map((e) => e as String).toList() ??
+                  const []),
         );
         return val;
       },
     );
+
+Map<String, dynamic> _$AftConfigToJson(AftConfig instance) => <String, dynamic>{
+      'dependencies': instance.dependencies.map(
+          (k, e) => MapEntry(k, const _VersionConstraintConverter().toJson(e))),
+      'ignore': instance.ignore,
+    };
 
 SdkConfig _$SdkConfigFromJson(Map json) => $checkedCreate(
       'SdkConfig',

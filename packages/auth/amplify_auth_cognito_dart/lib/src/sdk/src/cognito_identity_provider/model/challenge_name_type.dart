@@ -12,45 +12,84 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.challenge_name_type;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.challenge_name_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:smithy/smithy.dart' as _i1;
 
 class ChallengeNameType extends _i1.SmithyEnum<ChallengeNameType> {
-  const ChallengeNameType._(int index, String name, String value)
-      : super(index, name, value);
+  const ChallengeNameType._(
+    int index,
+    String name,
+    String value,
+  ) : super(
+          index,
+          name,
+          value,
+        );
 
   const ChallengeNameType._sdkUnknown(String value) : super.sdkUnknown(value);
 
-  static const adminNoSrpAuth =
-      ChallengeNameType._(0, 'ADMIN_NO_SRP_AUTH', 'ADMIN_NO_SRP_AUTH');
+  static const adminNoSrpAuth = ChallengeNameType._(
+    0,
+    'ADMIN_NO_SRP_AUTH',
+    'ADMIN_NO_SRP_AUTH',
+  );
 
-  static const customChallenge =
-      ChallengeNameType._(1, 'CUSTOM_CHALLENGE', 'CUSTOM_CHALLENGE');
+  static const customChallenge = ChallengeNameType._(
+    1,
+    'CUSTOM_CHALLENGE',
+    'CUSTOM_CHALLENGE',
+  );
 
   static const devicePasswordVerifier = ChallengeNameType._(
-      2, 'DEVICE_PASSWORD_VERIFIER', 'DEVICE_PASSWORD_VERIFIER');
+    2,
+    'DEVICE_PASSWORD_VERIFIER',
+    'DEVICE_PASSWORD_VERIFIER',
+  );
 
-  static const deviceSrpAuth =
-      ChallengeNameType._(3, 'DEVICE_SRP_AUTH', 'DEVICE_SRP_AUTH');
+  static const deviceSrpAuth = ChallengeNameType._(
+    3,
+    'DEVICE_SRP_AUTH',
+    'DEVICE_SRP_AUTH',
+  );
 
-  static const mfaSetup = ChallengeNameType._(4, 'MFA_SETUP', 'MFA_SETUP');
+  static const mfaSetup = ChallengeNameType._(
+    4,
+    'MFA_SETUP',
+    'MFA_SETUP',
+  );
 
-  static const newPasswordRequired =
-      ChallengeNameType._(5, 'NEW_PASSWORD_REQUIRED', 'NEW_PASSWORD_REQUIRED');
+  static const newPasswordRequired = ChallengeNameType._(
+    5,
+    'NEW_PASSWORD_REQUIRED',
+    'NEW_PASSWORD_REQUIRED',
+  );
 
-  static const passwordVerifier =
-      ChallengeNameType._(6, 'PASSWORD_VERIFIER', 'PASSWORD_VERIFIER');
+  static const passwordVerifier = ChallengeNameType._(
+    6,
+    'PASSWORD_VERIFIER',
+    'PASSWORD_VERIFIER',
+  );
 
-  static const selectMfaType =
-      ChallengeNameType._(7, 'SELECT_MFA_TYPE', 'SELECT_MFA_TYPE');
+  static const selectMfaType = ChallengeNameType._(
+    7,
+    'SELECT_MFA_TYPE',
+    'SELECT_MFA_TYPE',
+  );
 
-  static const smsMfa = ChallengeNameType._(8, 'SMS_MFA', 'SMS_MFA');
+  static const smsMfa = ChallengeNameType._(
+    8,
+    'SMS_MFA',
+    'SMS_MFA',
+  );
 
-  static const softwareTokenMfa =
-      ChallengeNameType._(9, 'SOFTWARE_TOKEN_MFA', 'SOFTWARE_TOKEN_MFA');
+  static const softwareTokenMfa = ChallengeNameType._(
+    9,
+    'SOFTWARE_TOKEN_MFA',
+    'SOFTWARE_TOKEN_MFA',
+  );
 
   /// All values of [ChallengeNameType].
   static const values = <ChallengeNameType>[
@@ -63,16 +102,21 @@ class ChallengeNameType extends _i1.SmithyEnum<ChallengeNameType> {
     ChallengeNameType.passwordVerifier,
     ChallengeNameType.selectMfaType,
     ChallengeNameType.smsMfa,
-    ChallengeNameType.softwareTokenMfa
+    ChallengeNameType.softwareTokenMfa,
   ];
 
   static const List<_i1.SmithySerializer<ChallengeNameType>> serializers = [
-    _i1.SmithyEnumSerializer('ChallengeNameType',
-        values: values,
-        sdkUnknown: ChallengeNameType._sdkUnknown,
-        supportedProtocols: [
-          _i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')
-        ])
+    _i1.SmithyEnumSerializer(
+      'ChallengeNameType',
+      values: values,
+      sdkUnknown: ChallengeNameType._sdkUnknown,
+      supportedProtocols: [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ],
+    )
   ];
 }
 

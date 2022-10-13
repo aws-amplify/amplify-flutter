@@ -19,6 +19,8 @@ dependencies:
     path: ../
   amplify_authenticator:
     path: ../../../amplify_authenticator
+  amplify_core:
+    path: ../../../amplify_core
   amplify_flutter:
     path: ../../../amplify/amplify_flutter
   flutter:
@@ -26,10 +28,13 @@ dependencies:
   go_router: ^3.0.0
 
 dev_dependencies:
+  amplify_auth_cognito_dart:
+    path: ../../amplify_auth_cognito_dart
   amplify_lints:
     path: ../../../amplify_lints
   amplify_test:
     path: ../../../amplify_test
+  collection: any
   flutter_driver:
     sdk: flutter
   flutter_test:

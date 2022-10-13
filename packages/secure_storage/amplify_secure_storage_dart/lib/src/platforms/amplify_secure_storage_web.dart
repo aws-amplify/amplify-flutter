@@ -14,15 +14,65 @@
 
 import 'dart:async';
 
+import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/exception/not_available_exception.dart';
 import 'package:amplify_secure_storage_dart/src/exception/secure_storage_exception.dart';
-import 'package:amplify_secure_storage_dart/src/interfaces/amplify_secure_storage_interface.dart';
-import 'package:amplify_secure_storage_dart/src/interfaces/secure_storage_interface.dart';
-import 'package:amplify_secure_storage_dart/src/js/indexed_db.dart';
+import 'package:amplify_secure_storage_dart/src/platforms/amplify_secure_storage_in_memory.dart';
+import 'package:aws_common/src/js/indexed_db.dart';
 
 /// The web implementation of [SecureStorageInterface].
 class AmplifySecureStorageWeb extends AmplifySecureStorageInterface {
   AmplifySecureStorageWeb({required super.config});
+
+  /// The [SecureStorageInterface] instance to use.
+  late final Future<SecureStorageInterface> _instance = () async {
+    if (config.webOptions.persistenceOption == WebPersistenceOption.inMemory) {
+      return const AmplifySecureStorageInMemory();
+    }
+    if (indexedDB == null) {
+      logger.warn(
+        'IndexedDB is not available. '
+        'Falling back to in-memory storage.',
+      );
+      return const AmplifySecureStorageInMemory();
+    }
+    // indexedDB will be non-null in Firefox private browsing,
+    // but will fail to open.
+    try {
+      final openRequest = indexedDB!.open('test', 1);
+      await openRequest.future;
+      return _IndexedDBStorage(config: config);
+    } on Object {
+      logger.warn(
+        'Could not open IndexedDB database. '
+        'It may not be supported by the current browser. '
+        'Falling back to in-memory storage.',
+      );
+      return const AmplifySecureStorageInMemory();
+    }
+  }();
+
+  @override
+  Future<void> write({required String key, required String value}) async {
+    final instance = await _instance;
+    return instance.write(key: key, value: value);
+  }
+
+  @override
+  Future<String?> read({required String key}) async {
+    final instance = await _instance;
+    return instance.read(key: key);
+  }
+
+  @override
+  Future<void> delete({required String key}) async {
+    final instance = await _instance;
+    return instance.delete(key: key);
+  }
+}
+
+class _IndexedDBStorage extends AmplifySecureStorageInterface {
+  _IndexedDBStorage({required super.config});
 
   /// The name of the database
   ///
@@ -40,9 +90,9 @@ class AmplifySecureStorageWeb extends AmplifySecureStorageInterface {
 
   late final IDBDatabase _database;
 
-  /// Opens the database and returns it as a future.
+  /// Checks for IDB availability and attempts to open the database.
   ///
-  /// Will throw a [NotAvailableException] if IndexedDB is not supported.
+  /// Will throw a [NotAvailableException] if IndexedDB is not available.
   Future<void> _openDatabase() async {
     if (indexedDB == null) {
       throw const NotAvailableException(
@@ -61,7 +111,11 @@ class AmplifySecureStorageWeb extends AmplifySecureStorageInterface {
     // TODO(Jordan-Nelson): update once https://github.com/dart-lang/sdk/issues/48835
     // is resolved in a stable version. setting _database instead of returning
     // it is a work around.
-    _database = await openRequest.future;
+    try {
+      _database = await openRequest.future;
+    } on Object catch (e) {
+      throw SecureStorageException(e.toString());
+    }
   }
 
   /// Returns a new [IDBObjectStore] instance after waiting for initialization
@@ -79,21 +133,33 @@ class AmplifySecureStorageWeb extends AmplifySecureStorageInterface {
   Future<void> write({required String key, required String value}) async {
     await _databaseOpenEvent;
     final store = _getObjectStore();
-    await store.put(value, key).future;
+    try {
+      await store.put(value, key).future;
+    } on Object catch (e) {
+      throw SecureStorageException(e.toString());
+    }
   }
 
   @override
   Future<String?> read({required String key}) async {
     await _databaseOpenEvent;
     final store = _getObjectStore();
-    final value = await store.getObject(key).future;
-    return value;
+    try {
+      final value = await store.getObject(key).future;
+      return value;
+    } on Object catch (e) {
+      throw SecureStorageException(e.toString());
+    }
   }
 
   @override
   Future<void> delete({required String key}) async {
     await _databaseOpenEvent;
     final store = _getObjectStore();
-    await store.delete(key).future;
+    try {
+      await store.delete(key).future;
+    } on Object catch (e) {
+      throw SecureStorageException(e.toString());
+    }
   }
 }

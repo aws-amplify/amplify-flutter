@@ -19,18 +19,20 @@
   PigeonOptions(
     copyrightHeader: '../../../tool/license.txt',
     dartOptions: DartOptions(),
-    dartOut: 'lib/src/native_auth_plugin.dart',
+    dartOut: 'lib/src/native_auth_plugin.g.dart',
     javaOptions: JavaOptions(
-      className: 'NativeAuthPluginBindings',
+      className: 'NativeAuthPluginBindingsPigeon',
       package: 'com.amazonaws.amplify.amplify_auth_cognito',
     ),
     javaOut:
-        '../amplify_auth_cognito_android/android/src/main/kotlin/com/amazonaws/amplify/amplify_auth_cognito/NativeAuthPluginBindings.java',
+        '../amplify_auth_cognito_android/android/src/main/kotlin/com/amazonaws/amplify/amplify_auth_cognito/NativeAuthPluginBindingsPigeon.java',
     objcOptions: ObjcOptions(
       header: 'NativeAuthPlugin.h',
     ),
-    objcHeaderOut: '../amplify_auth_cognito_ios/ios/Classes/NativeAuthPlugin.h',
-    objcSourceOut: '../amplify_auth_cognito_ios/ios/Classes/NativeAuthPlugin.m',
+    objcHeaderOut:
+        '../amplify_auth_cognito_ios/ios/Classes/pigeons/NativeAuthPlugin.h',
+    objcSourceOut:
+        '../amplify_auth_cognito_ios/ios/Classes/pigeons/NativeAuthPlugin.m',
   ),
 )
 library native_auth_plugin;
@@ -83,6 +85,20 @@ abstract class NativeAuthBridge {
   Map<String, String> getValidationData();
 
   String getBundleId();
+
+  /// Updates the native cache of the current user.
+  void updateCurrentUser(NativeAuthUser? user);
+
+  /// Fetch legacy credentials stored by native SDKs.
+  @async
+  LegacyCredentialStoreData getLegacyCredentials(
+    String? identityPoolId,
+    String? appClientId,
+  );
+
+  /// Clears the legacy credential store data.
+  @async
+  void clearLegacyCredentials();
 }
 
 class NativeAuthSession {
@@ -93,6 +109,11 @@ class NativeAuthSession {
 
   String? identityId;
   NativeAWSCredentials? awsCredentials;
+}
+
+class NativeAuthUser {
+  late String userId;
+  late String username;
 }
 
 class NativeUserPoolTokens {
@@ -106,4 +127,15 @@ class NativeAWSCredentials {
   late String secretAccessKey;
   String? sessionToken;
   String? expirationIso8601Utc;
+}
+
+class LegacyCredentialStoreData {
+  String? identityId;
+  String? accessKeyId;
+  String? secretAccessKey;
+  String? sessionToken;
+  int? expirationMsSinceEpoch;
+  String? accessToken;
+  String? refreshToken;
+  String? idToken;
 }

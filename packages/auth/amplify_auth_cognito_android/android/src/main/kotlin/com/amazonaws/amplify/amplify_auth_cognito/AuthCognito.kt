@@ -21,8 +21,10 @@ import android.content.Intent
 import android.content.pm.PackageManager.MATCH_ALL
 import android.content.pm.PackageManager.MATCH_DEFAULT_ONLY
 import android.net.Uri
+import android.os.Build
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsService.ACTION_CUSTOM_TABS_CONNECTION
+import com.amplifyframework.auth.AuthUser
 import com.amplifyframework.core.Amplify
 import io.flutter.Log
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -41,7 +43,7 @@ open class AuthCognito :
     ActivityAware,
     PluginRegistry.NewIntentListener,
     PluginRegistry.ActivityResultListener,
-    NativeAuthPluginBindings.NativeAuthBridge {
+    NativeAuthPluginBindingsPigeon.NativeAuthBridge {
     private companion object {
         const val TAG = "AmplifyHostedUiPlugin"
 
@@ -74,17 +76,22 @@ open class AuthCognito :
     /**
      * The pending sign in result.
      */
-    private var signInResult: NativeAuthPluginBindings.Result<MutableMap<String, String>>? = null
+    private var signInResult: NativeAuthPluginBindingsPigeon.Result<MutableMap<String, String>>? = null
 
     /**
      * The pending sign out result.
      */
-    private var signOutResult: NativeAuthPluginBindings.Result<Void>? = null
+    private var signOutResult: NativeAuthPluginBindingsPigeon.Result<Void>? = null
 
     /**
      * The plugin used to communicate with Dart.
      */
-    private var nativePlugin: NativeAuthPluginBindings.NativeAuthPlugin? = null
+    private var nativePlugin: NativeAuthPluginBindingsPigeon.NativeAuthPlugin? = null
+
+    /**
+     * The local cache of the current Dart user.
+     */
+    private var currentUser: AuthUser? = null
 
     /**
      * The initial route parameters used to launch the main activity, which can happen when using
@@ -93,10 +100,35 @@ open class AuthCognito :
      */
     private var initialParameters: Map<String, String>? = null
 
+    /**
+     * Legacy User Pool Key-Value Storage.
+     *
+     * Reference: https://github.com/aws-amplify/aws-sdk-android/blob/8f6f2281acf40297a078219a0fd97ae8cbc079c1/aws-android-sdk-cognitoauth/src/main/java/com/amazonaws/mobileconnectors/cognitoauth/util/ClientConstants.java#L27
+     */
+    private val legacyUserPoolStore: LegacyKeyValueStore by lazy {
+        LegacyKeyValueStore(
+            applicationContext!!,
+            "CognitoIdentityProviderCache"
+        )
+    }
+
+    /**
+     * Legacy Identity Store Key-Value Storage.
+     *
+     * Reference: https://github.com/aws-amplify/aws-sdk-android/blob/8f6f2281acf40297a078219a0fd97ae8cbc079c1/aws-android-sdk-auth-core/src/main/java/com/amazonaws/mobile/auth/core/IdentityManager.java#L143
+     */
+    private val legacyIdentityStore: LegacyKeyValueStore by lazy {
+        LegacyKeyValueStore(
+            applicationContext!!,
+            "com.amazonaws.android.auth"
+        )
+    }
+
+
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         applicationContext = binding.applicationContext
-        nativePlugin = NativeAuthPluginBindings.NativeAuthPlugin(binding.binaryMessenger)
-        NativeAuthPluginBindings.NativeAuthBridge.setup(
+        nativePlugin = NativeAuthPluginBindingsPigeon.NativeAuthPlugin(binding.binaryMessenger)
+        NativeAuthPluginBindingsPigeon.NativeAuthBridge.setup(
             binding.binaryMessenger,
             this,
         )
@@ -106,7 +138,7 @@ open class AuthCognito :
         applicationContext = null
         cancelCurrentOperation()
         nativePlugin = null
-        NativeAuthPluginBindings.NativeAuthBridge.setup(
+        NativeAuthPluginBindingsPigeon.NativeAuthBridge.setup(
             binding.binaryMessenger,
             null,
         )
@@ -143,7 +175,7 @@ open class AuthCognito :
         mainActivity = null
     }
 
-    override fun addPlugin(result: NativeAuthPluginBindings.Result<Void>) {
+    override fun addPlugin(result: NativeAuthPluginBindingsPigeon.Result<Void>) {
         if (initialParameters != null) {
             nativePlugin!!.exchange(initialParameters!!) {}
             initialParameters = null
@@ -163,6 +195,62 @@ open class AuthCognito :
 
     override fun getBundleId(): String {
         return applicationContext!!.packageName
+    }
+
+    /**
+     * Updates the local cache of the Dart user.
+     */
+    override fun updateCurrentUser(user: NativeAuthPluginBindingsPigeon.NativeAuthUser?) {
+        currentUser = if (user != null) {
+            AuthUser(user.userId, user.username)
+        } else {
+            null
+        }
+    }
+
+    /**
+     * Fetches the legacy credentials set by the Android SDK.
+     *
+     * References:
+     *  - https://github.com/aws-amplify/aws-sdk-android/blob/main/aws-android-sdk-core/src/main/java/com/amazonaws/auth/CognitoCachingCredentialsProvider.java
+     *  - https://github.com/aws-amplify/aws-sdk-android/blob/main/aws-android-sdk-cognitoauth/src/main/java/com/amazonaws/mobileconnectors/cognitoauth/util/ClientConstants.java
+     */
+    override fun getLegacyCredentials(identityPoolId: String?, appClientId: String?, result: NativeAuthPluginBindingsPigeon.Result<NativeAuthPluginBindingsPigeon.LegacyCredentialStoreData>) {
+        var data = NativeAuthPluginBindingsPigeon.LegacyCredentialStoreData.Builder()
+
+        if (appClientId != null) {
+            val lastAuthUser = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.LastAuthUser"]
+            val accessToken = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.$lastAuthUser.accessToken"]
+            val refreshToken = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.$lastAuthUser.refreshToken"]
+            val idToken = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.$lastAuthUser.idToken"]
+            data = data.setAccessToken(accessToken)
+                .setRefreshToken(refreshToken)
+                .setIdToken(idToken)
+        }
+
+        if (identityPoolId != null) {
+            val accessKey =  legacyIdentityStore["$identityPoolId.accessKey"]
+            val secretKey = legacyIdentityStore["$identityPoolId.secretKey"]
+            val sessionKey = legacyIdentityStore["$identityPoolId.sessionToken"]
+            val expiration = legacyIdentityStore["$identityPoolId.expirationDate"]
+            val identityId = legacyIdentityStore["$identityPoolId.identityId"]
+            data = data.setIdentityId(identityId)
+                .setAccessKeyId(accessKey)
+                .setSecretAccessKey(secretKey)
+                .setSessionToken(sessionKey)
+                .setExpirationMsSinceEpoch(expiration?.toLong())
+        }
+
+        result.success(data.build())
+    }
+
+    /**
+     * Clears the legacy credentials set by the Android SDK
+     */
+    override fun clearLegacyCredentials(result: NativeAuthPluginBindingsPigeon.Result<Void>) {
+        legacyUserPoolStore.clear()
+        legacyIdentityStore.clear()
+        result.success(null)
     }
 
     /**
@@ -248,6 +336,17 @@ open class AuthCognito :
             Uri.parse("android-app://${mainActivity!!.packageName}")
         )
         intent.intent.data = Uri.parse(url)
+
+        // Fixes an issue for older Android versions where the custom tab will background the app on
+        // redirect. Setting `FLAG_ACTIVITY_NEW_TASK` is the only fix since Flutter specifies
+        // `android:launchMode="singleInstance"` in the manifest.
+        //
+        // See: https://stackoverflow.com/questions/36084681/chrome-custom-tabs-redirect-to-android-app-will-close-the-app
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            intent.intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+            intent.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+
         // Should be launched from the main activity and not the application context so that
         // FLAG_ACTIVITY_NEW_TASK does not have to be used which would always launch the tab
         // in a separate process instead of an embedded tab.
@@ -265,7 +364,7 @@ open class AuthCognito :
         callbackUrlScheme: String,
         preferPrivateSession: Boolean,
         browserPackageName: String?,
-        unsafeResult: NativeAuthPluginBindings.Result<MutableMap<String, String>>
+        unsafeResult: NativeAuthPluginBindingsPigeon.Result<MutableMap<String, String>>
     ) {
         val result = AtomicResult(unsafeResult, "signIn")
         try {
@@ -284,7 +383,7 @@ open class AuthCognito :
         callbackUrlScheme: String,
         preferPrivateSession: Boolean,
         browserPackageName: String?,
-        unsafeResult: NativeAuthPluginBindings.Result<Void>
+        unsafeResult: NativeAuthPluginBindingsPigeon.Result<Void>
     ) {
         val result = AtomicResult(unsafeResult, "signOut")
         try {

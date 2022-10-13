@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:e2e_test/common.dart';
+import 'package:e2e/common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -25,14 +25,14 @@ void main() {
       testWidgets(
         '',
         (_) => testWorker(
-          jsEntrypoint: 'packages/e2e_test/workers.js',
+          jsEntrypoint: 'packages/e2e/workers.js',
         ),
       );
 
       testWidgets(
         '(m, O4)',
         (_) => testWorker(
-          jsEntrypoint: 'packages/e2e_test/workers.min.js',
+          jsEntrypoint: 'packages/e2e/workers.min.js',
         ),
         skip: !kIsWeb,
       );
@@ -42,14 +42,14 @@ void main() {
       testWidgets(
         '',
         (_) => testWorkerNoResult(
-          jsEntrypoint: 'packages/e2e_test/workers.js',
+          jsEntrypoint: 'packages/e2e/workers.js',
         ),
       );
 
       testWidgets(
         '(m, O4)',
         (_) => testWorkerNoResult(
-          jsEntrypoint: 'packages/e2e_test/workers.min.js',
+          jsEntrypoint: 'packages/e2e/workers.min.js',
         ),
         skip: !kIsWeb,
       );
@@ -59,14 +59,14 @@ void main() {
       testWidgets(
         '',
         (_) => testWorkerVoidResult(
-          jsEntrypoint: 'packages/e2e_test/workers.js',
+          jsEntrypoint: 'packages/e2e/workers.js',
         ),
       );
 
       testWidgets(
         '(m, O4)',
         (_) => testWorkerVoidResult(
-          jsEntrypoint: 'packages/e2e_test/workers.min.js',
+          jsEntrypoint: 'packages/e2e/workers.min.js',
         ),
         skip: !kIsWeb,
       );
@@ -76,14 +76,14 @@ void main() {
       testWidgets(
         '',
         (_) => testWorkerNullResult(
-          jsEntrypoint: 'packages/e2e_test/workers.js',
+          jsEntrypoint: 'packages/e2e/workers.js',
         ),
       );
 
       testWidgets(
         '(m, O4)',
         (_) => testWorkerNullResult(
-          jsEntrypoint: 'packages/e2e_test/workers.min.js',
+          jsEntrypoint: 'packages/e2e/workers.min.js',
         ),
         skip: !kIsWeb,
       );
@@ -93,14 +93,14 @@ void main() {
       testWidgets(
         '',
         (_) => testWorkerThrows(
-          jsEntrypoint: 'packages/e2e_test/workers.js',
+          jsEntrypoint: 'packages/e2e/workers.js',
         ),
       );
 
       testWidgets(
         '(m, O4)',
         (_) => testWorkerThrows(
-          jsEntrypoint: 'packages/e2e_test/workers.min.js',
+          jsEntrypoint: 'packages/e2e/workers.min.js',
         ),
         skip: !kIsWeb,
       );

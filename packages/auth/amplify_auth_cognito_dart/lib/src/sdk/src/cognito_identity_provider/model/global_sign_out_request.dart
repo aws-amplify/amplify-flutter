@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.global_sign_out_request;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.global_sign_out_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -42,18 +42,20 @@ abstract class GlobalSignOutRequest
   const GlobalSignOutRequest._();
 
   factory GlobalSignOutRequest.fromRequest(
-          GlobalSignOutRequest payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    GlobalSignOutRequest payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
-    _GlobalSignOutRequestAwsJson11Serializer()
+    GlobalSignOutRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GlobalSignOutRequestBuilder b) {}
 
-  /// The access token.
+  /// A valid access token that Amazon Cognito issued to the user who you want to sign out.
   String get accessToken;
   @override
   GlobalSignOutRequest getPayload() => this;
@@ -62,26 +64,37 @@ abstract class GlobalSignOutRequest
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GlobalSignOutRequest');
-    helper.add('accessToken', '***SENSITIVE***');
+    helper.add(
+      'accessToken',
+      '***SENSITIVE***',
+    );
     return helper.toString();
   }
 }
 
-class _GlobalSignOutRequestAwsJson11Serializer
+class GlobalSignOutRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<GlobalSignOutRequest> {
-  const _GlobalSignOutRequestAwsJson11Serializer()
+  const GlobalSignOutRequestAwsJson11Serializer()
       : super('GlobalSignOutRequest');
 
   @override
-  Iterable<Type> get types =>
-      const [GlobalSignOutRequest, _$GlobalSignOutRequest];
+  Iterable<Type> get types => const [
+        GlobalSignOutRequest,
+        _$GlobalSignOutRequest,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   GlobalSignOutRequest deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = GlobalSignOutRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -90,8 +103,10 @@ class _GlobalSignOutRequestAwsJson11Serializer
       final value = iterator.current;
       switch (key) {
         case 'AccessToken':
-          result.accessToken = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.accessToken = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
       }
     }
@@ -100,13 +115,18 @@ class _GlobalSignOutRequestAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as GlobalSignOutRequest);
     final result = <Object?>[
       'AccessToken',
-      serializers.serialize(payload.accessToken,
-          specifiedType: const FullType(String))
+      serializers.serialize(
+        payload.accessToken,
+        specifiedType: const FullType(String),
+      ),
     ];
     return result;
   }

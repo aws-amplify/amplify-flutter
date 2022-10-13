@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity.model.get_credentials_for_identity_response;
+library amplify_auth_cognito_dart.cognito_identity.model.get_credentials_for_identity_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity/model/credentials.dart'
     as _i2;
@@ -33,10 +33,14 @@ abstract class GetCredentialsForIdentityResponse
         Built<GetCredentialsForIdentityResponse,
             GetCredentialsForIdentityResponseBuilder> {
   /// Returned in response to a successful `GetCredentialsForIdentity` operation.
-  factory GetCredentialsForIdentityResponse(
-      {_i2.Credentials? credentials, String? identityId}) {
+  factory GetCredentialsForIdentityResponse({
+    _i2.Credentials? credentials,
+    String? identityId,
+  }) {
     return _$GetCredentialsForIdentityResponse._(
-        credentials: credentials, identityId: identityId);
+      credentials: credentials,
+      identityId: identityId,
+    );
   }
 
   /// Returned in response to a successful `GetCredentialsForIdentity` operation.
@@ -48,12 +52,13 @@ abstract class GetCredentialsForIdentityResponse
 
   /// Constructs a [GetCredentialsForIdentityResponse] from a [payload] and [response].
   factory GetCredentialsForIdentityResponse.fromResponse(
-          GetCredentialsForIdentityResponse payload,
-          _i1.AWSBaseHttpResponse response) =>
+    GetCredentialsForIdentityResponse payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i3.SmithySerializer> serializers = [
-    _GetCredentialsForIdentityResponseAwsJson11Serializer()
+    GetCredentialsForIdentityResponseAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -65,34 +70,49 @@ abstract class GetCredentialsForIdentityResponse
   /// A unique identifier in the format REGION:GUID.
   String? get identityId;
   @override
-  List<Object?> get props => [credentials, identityId];
+  List<Object?> get props => [
+        credentials,
+        identityId,
+      ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('GetCredentialsForIdentityResponse');
-    helper.add('credentials', credentials);
-    helper.add('identityId', identityId);
+    helper.add(
+      'credentials',
+      credentials,
+    );
+    helper.add(
+      'identityId',
+      identityId,
+    );
     return helper.toString();
   }
 }
 
-class _GetCredentialsForIdentityResponseAwsJson11Serializer
+class GetCredentialsForIdentityResponseAwsJson11Serializer
     extends _i3.StructuredSmithySerializer<GetCredentialsForIdentityResponse> {
-  const _GetCredentialsForIdentityResponseAwsJson11Serializer()
+  const GetCredentialsForIdentityResponseAwsJson11Serializer()
       : super('GetCredentialsForIdentityResponse');
 
   @override
   Iterable<Type> get types => const [
         GetCredentialsForIdentityResponse,
-        _$GetCredentialsForIdentityResponse
+        _$GetCredentialsForIdentityResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols =>
-      const [_i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   GetCredentialsForIdentityResponse deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = GetCredentialsForIdentityResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -102,15 +122,18 @@ class _GetCredentialsForIdentityResponseAwsJson11Serializer
       switch (key) {
         case 'Credentials':
           if (value != null) {
-            result.credentials.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i2.Credentials))
-                as _i2.Credentials));
+            result.credentials.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.Credentials),
+            ) as _i2.Credentials));
           }
           break;
         case 'IdentityId':
           if (value != null) {
-            result.identityId = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.identityId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -120,21 +143,28 @@ class _GetCredentialsForIdentityResponseAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as GetCredentialsForIdentityResponse);
     final result = <Object?>[];
     if (payload.credentials != null) {
       result
         ..add('Credentials')
-        ..add(serializers.serialize(payload.credentials!,
-            specifiedType: const FullType(_i2.Credentials)));
+        ..add(serializers.serialize(
+          payload.credentials!,
+          specifiedType: const FullType(_i2.Credentials),
+        ));
     }
     if (payload.identityId != null) {
       result
         ..add('IdentityId')
-        ..add(serializers.serialize(payload.identityId!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.identityId!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

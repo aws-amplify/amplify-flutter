@@ -20,11 +20,26 @@ class SecureStorageWorkerImpl extends SecureStorageWorker {
   }
 
   @override
-  List<String> get fallbackUrls => zDebugMode
-      ? const [
-          'packages/amplify_secure_storage_dart/src/worker/workers.debug.dart.js'
-        ]
-      : const [
-          'packages/amplify_secure_storage_dart/src/worker/workers.release.dart.js'
-        ];
+  List<String> get fallbackUrls {
+    // When running in a test, we need to find the `packages` directory which
+    // is symlinked in the root `test/` directory.
+    final baseUri = Uri.base;
+    final basePath = baseUri.pathSegments
+        .takeWhile((segment) => segment != 'test')
+        .map(Uri.encodeComponent)
+        .join('/');
+    final testDir = Uri(
+      scheme: baseUri.scheme,
+      host: baseUri.host,
+      port: baseUri.port,
+      path: '$basePath/test',
+    );
+    const relativePath = zDebugMode
+        ? 'packages/amplify_secure_storage_dart/src/worker/workers.debug.dart.js'
+        : 'packages/amplify_secure_storage_dart/src/worker/workers.release.dart.js';
+    return [
+      relativePath,
+      testDir.resolve(relativePath).toString(),
+    ];
+  }
 }

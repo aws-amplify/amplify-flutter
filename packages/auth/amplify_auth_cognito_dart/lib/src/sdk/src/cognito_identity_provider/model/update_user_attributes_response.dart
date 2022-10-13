@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.update_user_attributes_response;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.update_user_attributes_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/code_delivery_details_type.dart'
     as _i3;
@@ -49,12 +49,13 @@ abstract class UpdateUserAttributesResponse
 
   /// Constructs a [UpdateUserAttributesResponse] from a [payload] and [response].
   factory UpdateUserAttributesResponse.fromResponse(
-          UpdateUserAttributesResponse payload,
-          _i1.AWSBaseHttpResponse response) =>
+    UpdateUserAttributesResponse payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i4.SmithySerializer> serializers = [
-    _UpdateUserAttributesResponseAwsJson11Serializer()
+    UpdateUserAttributesResponseAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -67,26 +68,37 @@ abstract class UpdateUserAttributesResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateUserAttributesResponse');
-    helper.add('codeDeliveryDetailsList', codeDeliveryDetailsList);
+    helper.add(
+      'codeDeliveryDetailsList',
+      codeDeliveryDetailsList,
+    );
     return helper.toString();
   }
 }
 
-class _UpdateUserAttributesResponseAwsJson11Serializer
+class UpdateUserAttributesResponseAwsJson11Serializer
     extends _i4.StructuredSmithySerializer<UpdateUserAttributesResponse> {
-  const _UpdateUserAttributesResponseAwsJson11Serializer()
+  const UpdateUserAttributesResponseAwsJson11Serializer()
       : super('UpdateUserAttributesResponse');
 
   @override
-  Iterable<Type> get types =>
-      const [UpdateUserAttributesResponse, _$UpdateUserAttributesResponse];
+  Iterable<Type> get types => const [
+        UpdateUserAttributesResponse,
+        _$UpdateUserAttributesResponse,
+      ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   UpdateUserAttributesResponse deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = UpdateUserAttributesResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -97,10 +109,12 @@ class _UpdateUserAttributesResponseAwsJson11Serializer
         case 'CodeDeliveryDetailsList':
           if (value != null) {
             result.codeDeliveryDetailsList.replace((serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                        _i2.BuiltList, [FullType(_i3.CodeDeliveryDetailsType)]))
-                as _i2.BuiltList<_i3.CodeDeliveryDetailsType>));
+              value,
+              specifiedType: const FullType(
+                _i2.BuiltList,
+                [FullType(_i3.CodeDeliveryDetailsType)],
+              ),
+            ) as _i2.BuiltList<_i3.CodeDeliveryDetailsType>));
           }
           break;
       }
@@ -110,16 +124,23 @@ class _UpdateUserAttributesResponseAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as UpdateUserAttributesResponse);
     final result = <Object?>[];
     if (payload.codeDeliveryDetailsList != null) {
       result
         ..add('CodeDeliveryDetailsList')
-        ..add(serializers.serialize(payload.codeDeliveryDetailsList!,
-            specifiedType: const FullType(
-                _i2.BuiltList, [FullType(_i3.CodeDeliveryDetailsType)])));
+        ..add(serializers.serialize(
+          payload.codeDeliveryDetailsList!,
+          specifiedType: const FullType(
+            _i2.BuiltList,
+            [FullType(_i3.CodeDeliveryDetailsType)],
+          ),
+        ));
     }
     return result;
   }

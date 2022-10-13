@@ -10,6 +10,16 @@ dependencies:
   test: ^1.16.0
   amplify_secure_storage_dart:
     path: ../amplify_secure_storage_dart
-  
+
+dependency_overrides:
+  aws_common:
+    path: ../../aws_common
+  worker_bee:
+    path: ../../worker_bee/worker_bee
+
 dev_dependencies:
-  amplify_lints: ^1.0.0
+  amplify_lints:
+    path: ../../amplify_lints
+  build_runner: ^2.0.0
+  build_test: ^2.0.0
+  build_web_compilers: ^3.2.3

@@ -1,3 +1,43 @@
+## 1.0.0-next.0+5
+
+### Features
+- feat(auth): Multiple plugin registration
+- feat(auth): migrate legacy credentials on Android ([#2004](https://github.com/aws-amplify/amplify-flutter/pull/2004))
+- feat(secure_storage): handle package uninstall/re-install on Linux and Windows ([#2044](https://github.com/aws-amplify/amplify-flutter/pull/2044))
+- feat(secure_storage): remove items on re-install for iOS & MacOS ([#2118](https://github.com/aws-amplify/amplify-flutter/pull/2118))
+
+### Fixes
+- fix(auth): Erase plugin interface input types
+
+## 1.0.0-next.0+4
+
+- Bump `amplify_auth_cognito_dart` dependency
+
+## 1.0.0-next.0+3
+
+- fix(auth): Multi-auth DataStore bindings ([#2012](https://github.com/aws-amplify/amplify-flutter/pull/2012))
+- fix(auth): Remember device metadata ([#2010](https://github.com/aws-amplify/amplify-flutter/pull/2010))
+- fix(auth): Hosted UI task continuation ([#2017](https://github.com/aws-amplify/amplify-flutter/pull/2017))
+- fix(auth): Hosted UI server contention ([#2002](https://github.com/aws-amplify/amplify-flutter/pull/2002))
+
+## 1.0.0-next.0+2
+
+- Fix package analysis issues
+
+## 1.0.0-next.0+1
+
+- Fix package analysis issues
+
+## 1.0.0-next.0 (2022-08-02)
+
+Initial developer preview release for all platforms.
+
+### Developer Preview
+
+The Amplify Flutter libraries are being rewritten in Dart. This version is part of our developer preview for all platforms and is **not** intended for production usage. Please follow our [Web](https://github.com/aws-amplify/amplify-flutter/issues/234) and [Desktop](https://github.com/aws-amplify/amplify-flutter/issues/133) support tickets to monitor the status of supported categories. We will be releasing Web and Desktop support for all Amplify categories incrementally.
+
+For production use cases please use the latest, non-tagged versions of amplify-flutter packages from `pub.dev`. They offer a stable, production-ready experience for Android and iOS.
+
 ## 0.5.0 (2022-05-17)
 
 ### Chores

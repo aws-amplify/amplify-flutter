@@ -1,10 +1,7 @@
 name: amplify_api_android_example
 description: Test bed for amplify_api_android
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/api/amplify_api_android
-
-# The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: "none" # Remove this line if you wish to publish to pub.dev
+publish_to: "none"
 
 environment:
   sdk: ">=2.17.0 <3.0.0"

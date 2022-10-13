@@ -25,6 +25,7 @@ export 'src/exception/srp_exception.dart';
 
 export 'src/flows/hosted_ui/hosted_ui_platform.dart';
 
+export 'src/jwt/src/cognito.dart';
 export 'src/jwt/src/token.dart';
 
 // Models
@@ -41,6 +42,9 @@ export 'src/model/password/cognito_update_password_options.dart';
 export 'src/model/session/cognito_auth_session.dart';
 export 'src/model/session/cognito_session_options.dart';
 export 'src/model/session/cognito_user_pool_tokens.dart';
+export 'src/model/session/federate_to_identity_pool_options.dart';
+export 'src/model/session/federate_to_identity_pool_request.dart';
+export 'src/model/session/federate_to_identity_pool_result.dart';
 export 'src/model/signin/cognito_confirm_sign_in_options.dart';
 export 'src/model/signin/cognito_sign_in_options.dart';
 export 'src/model/signin/cognito_sign_in_result.dart';

@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.password_reset_required_exception;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.password_reset_required_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -45,14 +45,15 @@ abstract class PasswordResetRequiredException
 
   /// Constructs a [PasswordResetRequiredException] from a [payload] and [response].
   factory PasswordResetRequiredException.fromResponse(
-          PasswordResetRequiredException payload,
-          _i1.AWSBaseHttpResponse response) =>
+    PasswordResetRequiredException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _PasswordResetRequiredExceptionAwsJson11Serializer()
+    PasswordResetRequiredExceptionAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -63,8 +64,9 @@ abstract class PasswordResetRequiredException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.cognitoidentityprovider',
-      shape: 'PasswordResetRequiredException');
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'PasswordResetRequiredException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -81,26 +83,37 @@ abstract class PasswordResetRequiredException
   String toString() {
     final helper =
         newBuiltValueToStringHelper('PasswordResetRequiredException');
-    helper.add('message', message);
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
 
-class _PasswordResetRequiredExceptionAwsJson11Serializer
+class PasswordResetRequiredExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<PasswordResetRequiredException> {
-  const _PasswordResetRequiredExceptionAwsJson11Serializer()
+  const PasswordResetRequiredExceptionAwsJson11Serializer()
       : super('PasswordResetRequiredException');
 
   @override
-  Iterable<Type> get types =>
-      const [PasswordResetRequiredException, _$PasswordResetRequiredException];
+  Iterable<Type> get types => const [
+        PasswordResetRequiredException,
+        _$PasswordResetRequiredException,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   PasswordResetRequiredException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = PasswordResetRequiredExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -110,8 +123,10 @@ class _PasswordResetRequiredExceptionAwsJson11Serializer
       switch (key) {
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -121,15 +136,20 @@ class _PasswordResetRequiredExceptionAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as PasswordResetRequiredException);
     final result = <Object?>[];
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

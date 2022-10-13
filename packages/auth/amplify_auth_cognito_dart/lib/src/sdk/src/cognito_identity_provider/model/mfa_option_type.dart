@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.mfa_option_type;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.mfa_option_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/delivery_medium_type.dart'
     as _i2;
@@ -25,25 +25,29 @@ import 'package:smithy/smithy.dart' as _i3;
 
 part 'mfa_option_type.g.dart';
 
-/// _This data type is no longer supported._ You can use it only for SMS MFA configurations. You can't use it for TOTP software token MFA configurations.
+/// _This data type is no longer supported._ Applies only to SMS multi-factor authentication (MFA) configurations. Does not apply to time-based one-time password (TOTP) software token MFA configurations.
 abstract class MfaOptionType
     with _i1.AWSEquatable<MfaOptionType>
     implements Built<MfaOptionType, MfaOptionTypeBuilder> {
-  /// _This data type is no longer supported._ You can use it only for SMS MFA configurations. You can't use it for TOTP software token MFA configurations.
-  factory MfaOptionType(
-      {String? attributeName, _i2.DeliveryMediumType? deliveryMedium}) {
+  /// _This data type is no longer supported._ Applies only to SMS multi-factor authentication (MFA) configurations. Does not apply to time-based one-time password (TOTP) software token MFA configurations.
+  factory MfaOptionType({
+    String? attributeName,
+    _i2.DeliveryMediumType? deliveryMedium,
+  }) {
     return _$MfaOptionType._(
-        attributeName: attributeName, deliveryMedium: deliveryMedium);
+      attributeName: attributeName,
+      deliveryMedium: deliveryMedium,
+    );
   }
 
-  /// _This data type is no longer supported._ You can use it only for SMS MFA configurations. You can't use it for TOTP software token MFA configurations.
+  /// _This data type is no longer supported._ Applies only to SMS multi-factor authentication (MFA) configurations. Does not apply to time-based one-time password (TOTP) software token MFA configurations.
   factory MfaOptionType.build([void Function(MfaOptionTypeBuilder) updates]) =
       _$MfaOptionType;
 
   const MfaOptionType._();
 
   static const List<_i3.SmithySerializer> serializers = [
-    _MfaOptionTypeAwsJson11Serializer()
+    MfaOptionTypeAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -55,29 +59,47 @@ abstract class MfaOptionType
   /// The delivery medium to send the MFA code. You can use this parameter to set only the `SMS` delivery medium value.
   _i2.DeliveryMediumType? get deliveryMedium;
   @override
-  List<Object?> get props => [attributeName, deliveryMedium];
+  List<Object?> get props => [
+        attributeName,
+        deliveryMedium,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MfaOptionType');
-    helper.add('attributeName', attributeName);
-    helper.add('deliveryMedium', deliveryMedium);
+    helper.add(
+      'attributeName',
+      attributeName,
+    );
+    helper.add(
+      'deliveryMedium',
+      deliveryMedium,
+    );
     return helper.toString();
   }
 }
 
-class _MfaOptionTypeAwsJson11Serializer
+class MfaOptionTypeAwsJson11Serializer
     extends _i3.StructuredSmithySerializer<MfaOptionType> {
-  const _MfaOptionTypeAwsJson11Serializer() : super('MfaOptionType');
+  const MfaOptionTypeAwsJson11Serializer() : super('MfaOptionType');
 
   @override
-  Iterable<Type> get types => const [MfaOptionType, _$MfaOptionType];
+  Iterable<Type> get types => const [
+        MfaOptionType,
+        _$MfaOptionType,
+      ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols =>
-      const [_i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   MfaOptionType deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = MfaOptionTypeBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -87,15 +109,18 @@ class _MfaOptionTypeAwsJson11Serializer
       switch (key) {
         case 'AttributeName':
           if (value != null) {
-            result.attributeName = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.attributeName = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'DeliveryMedium':
           if (value != null) {
-            result.deliveryMedium = (serializers.deserialize(value,
-                    specifiedType: const FullType(_i2.DeliveryMediumType))
-                as _i2.DeliveryMediumType);
+            result.deliveryMedium = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.DeliveryMediumType),
+            ) as _i2.DeliveryMediumType);
           }
           break;
       }
@@ -105,21 +130,28 @@ class _MfaOptionTypeAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as MfaOptionType);
     final result = <Object?>[];
     if (payload.attributeName != null) {
       result
         ..add('AttributeName')
-        ..add(serializers.serialize(payload.attributeName!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.attributeName!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.deliveryMedium != null) {
       result
         ..add('DeliveryMedium')
-        ..add(serializers.serialize(payload.deliveryMedium!,
-            specifiedType: const FullType(_i2.DeliveryMediumType)));
+        ..add(serializers.serialize(
+          payload.deliveryMedium!,
+          specifiedType: const FullType(_i2.DeliveryMediumType),
+        ));
     }
     return result;
   }

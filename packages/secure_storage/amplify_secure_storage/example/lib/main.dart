@@ -34,8 +34,9 @@ class _MyAppState extends State<MyApp> {
   final storage = AmplifySecureStorage(
     config: AmplifySecureStorageConfig(
       scope: 'test',
-      // enabling this requires adding the app to an app group,
-      // which requires setting a development team
+      // enabling useDataProtection requires adding the app to an
+      // app group, which requires setting a development team
+      // ignore: invalid_use_of_visible_for_testing_member
       macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
     ),
   );

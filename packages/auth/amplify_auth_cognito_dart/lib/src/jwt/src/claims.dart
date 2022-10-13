@@ -15,13 +15,12 @@
 import 'dart:collection';
 import 'dart:convert';
 
+import 'package:amplify_auth_cognito_dart/src/jwt/src/prefs.dart';
+import 'package:amplify_auth_cognito_dart/src/jwt/src/token.dart';
+import 'package:amplify_auth_cognito_dart/src/jwt/src/util.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
-
-import 'prefs.dart';
-import 'token.dart';
-import 'util.dart';
 
 part 'claims.g.dart';
 

@@ -1,0 +1,53 @@
+name: "Fetch backends"
+description: "Downloads Amplify configurations after getting temporary AWS credentials"
+inputs:
+  aws-region:
+    required: true
+  role-to-assume:
+    required: true
+  # scope for melos, e.g. "amplify_api_example"
+  scope:
+    required: true
+  # Amplify app IDs for specific categories
+  api-app-id:
+    required: true
+  auth-app-id:
+    required: true
+  datastore-app-id:
+    required: true
+  storage-app-id:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@05b148adc31e091bafbaf404f745055d4d3bc9d2 # 1.6.1
+      with:
+        role-to-assume: ${{ inputs.role-to-assume }}
+        aws-region: ${{ inputs.aws-region }}
+        role-duration-seconds: 900
+
+    - name: Create AWS profile
+      run: ./build-support/create_integration_test_profile.sh
+      shell: bash
+
+    # The dummy configuration produced by aft has some characters which cause the
+    # Amplify CLI to throw when running pull, so just delete the dummy file.
+    - name: Remove config file created by aft
+      run: melos exec --scope=${{ inputs.scope }} rm lib/amplifyconfiguration.dart
+      shell: bash
+
+    - name: Pull Amplify Configurations
+      run: |
+        API_APP_ID=${{ inputs.api-app-id }} \
+        AUTH_APP_ID=${{ inputs.auth-app-id }} \
+        DATASTORE_APP_ID=${{ inputs.datastore-app-id }} \
+        STORAGE_APP_ID=${{ inputs.storage-app-id }} \
+          melos exec --scope=${{ inputs.scope }} ./tool/pull_test_backend.sh
+      shell: bash
+
+    - name: Delete AWS profile
+      run: rm -rf ~/.aws
+      shell: bash
+

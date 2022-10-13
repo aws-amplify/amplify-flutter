@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of amplify_auth_cognito.cognito_identity_provider.model.respond_to_auth_challenge_request;
+part of amplify_auth_cognito_dart.cognito_identity_provider.model.respond_to_auth_challenge_request;
 
 // **************************************************************************
 // BuiltValueGenerator

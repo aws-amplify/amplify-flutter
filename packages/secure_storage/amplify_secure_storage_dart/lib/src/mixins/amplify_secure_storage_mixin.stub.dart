@@ -45,4 +45,9 @@ mixin AmplifySecureStorageDartMixin on AmplifySecureStorageInterface
   FutureOr<void> delete({required String key}) {
     throw UnimplementedError('delete() has not been implemented.');
   }
+
+  @override
+  FutureOr<void> removeAll() {
+    throw UnimplementedError('removeAll() has not been implemented.');
+  }
 }

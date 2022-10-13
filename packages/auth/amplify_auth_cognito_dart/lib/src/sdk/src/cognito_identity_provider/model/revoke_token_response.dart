@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.revoke_token_response;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.revoke_token_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -40,11 +40,13 @@ abstract class RevokeTokenResponse
 
   /// Constructs a [RevokeTokenResponse] from a [payload] and [response].
   factory RevokeTokenResponse.fromResponse(
-          RevokeTokenResponse payload, _i1.AWSBaseHttpResponse response) =>
+    RevokeTokenResponse payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i2.SmithySerializer> serializers = [
-    _RevokeTokenResponseAwsJson11Serializer()
+    RevokeTokenResponseAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -58,26 +60,36 @@ abstract class RevokeTokenResponse
   }
 }
 
-class _RevokeTokenResponseAwsJson11Serializer
+class RevokeTokenResponseAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<RevokeTokenResponse> {
-  const _RevokeTokenResponseAwsJson11Serializer()
-      : super('RevokeTokenResponse');
+  const RevokeTokenResponseAwsJson11Serializer() : super('RevokeTokenResponse');
 
   @override
-  Iterable<Type> get types =>
-      const [RevokeTokenResponse, _$RevokeTokenResponse];
+  Iterable<Type> get types => const [
+        RevokeTokenResponse,
+        _$RevokeTokenResponse,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   RevokeTokenResponse deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return RevokeTokenResponseBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

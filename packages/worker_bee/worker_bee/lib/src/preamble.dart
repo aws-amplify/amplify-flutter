@@ -14,6 +14,7 @@
 
 import 'dart:async';
 
+import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
 import 'package:stack_trace/stack_trace.dart';
 import 'package:worker_bee/src/exception/worker_bee_exception.dart';
@@ -32,7 +33,7 @@ class WorkerAssignment {
   final String role;
 
   /// The log channel to communicate over.
-  final StreamChannel<LogMessage> logsChannel;
+  final StreamChannel<LogEntry> logsChannel;
 }
 
 /// Factory for a worker bee.
@@ -59,17 +60,6 @@ Future<void> runHive(
   }
 }
 
-bool get _isDebugMode {
-  var isDebugMode = false;
-  // ignore: prefer_asserts_with_message
-  assert(
-    () {
-      return isDebugMode = true;
-    }(),
-  );
-  return isDebugMode;
-}
-
 /// Runs [action] in an error zone and automatically handles serialization
 /// of unhandled errors.
 @internal
@@ -87,7 +77,7 @@ R runTraced<R>(
     onError(workerException, stackTrace);
   }
 
-  if (_isDebugMode) {
+  if (zDebugMode) {
     return Chain.capture(
       action,
       onError: wrappedOnError,

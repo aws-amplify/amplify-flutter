@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.update_device_status_response;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.update_device_status_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -43,12 +43,13 @@ abstract class UpdateDeviceStatusResponse
 
   /// Constructs a [UpdateDeviceStatusResponse] from a [payload] and [response].
   factory UpdateDeviceStatusResponse.fromResponse(
-          UpdateDeviceStatusResponse payload,
-          _i1.AWSBaseHttpResponse response) =>
+    UpdateDeviceStatusResponse payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i2.SmithySerializer> serializers = [
-    _UpdateDeviceStatusResponseAwsJson11Serializer()
+    UpdateDeviceStatusResponseAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -62,26 +63,37 @@ abstract class UpdateDeviceStatusResponse
   }
 }
 
-class _UpdateDeviceStatusResponseAwsJson11Serializer
+class UpdateDeviceStatusResponseAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<UpdateDeviceStatusResponse> {
-  const _UpdateDeviceStatusResponseAwsJson11Serializer()
+  const UpdateDeviceStatusResponseAwsJson11Serializer()
       : super('UpdateDeviceStatusResponse');
 
   @override
-  Iterable<Type> get types =>
-      const [UpdateDeviceStatusResponse, _$UpdateDeviceStatusResponse];
+  Iterable<Type> get types => const [
+        UpdateDeviceStatusResponse,
+        _$UpdateDeviceStatusResponse,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   UpdateDeviceStatusResponse deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return UpdateDeviceStatusResponseBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

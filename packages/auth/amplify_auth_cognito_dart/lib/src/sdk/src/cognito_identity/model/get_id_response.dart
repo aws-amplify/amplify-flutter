@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity.model.get_id_response;
+library amplify_auth_cognito_dart.cognito_identity.model.get_id_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -40,11 +40,13 @@ abstract class GetIdResponse
 
   /// Constructs a [GetIdResponse] from a [payload] and [response].
   factory GetIdResponse.fromResponse(
-          GetIdResponse payload, _i1.AWSBaseHttpResponse response) =>
+    GetIdResponse payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i2.SmithySerializer> serializers = [
-    _GetIdResponseAwsJson11Serializer()
+    GetIdResponseAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -57,24 +59,36 @@ abstract class GetIdResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetIdResponse');
-    helper.add('identityId', identityId);
+    helper.add(
+      'identityId',
+      identityId,
+    );
     return helper.toString();
   }
 }
 
-class _GetIdResponseAwsJson11Serializer
+class GetIdResponseAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<GetIdResponse> {
-  const _GetIdResponseAwsJson11Serializer() : super('GetIdResponse');
+  const GetIdResponseAwsJson11Serializer() : super('GetIdResponse');
 
   @override
-  Iterable<Type> get types => const [GetIdResponse, _$GetIdResponse];
+  Iterable<Type> get types => const [
+        GetIdResponse,
+        _$GetIdResponse,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   GetIdResponse deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = GetIdResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -84,8 +98,10 @@ class _GetIdResponseAwsJson11Serializer
       switch (key) {
         case 'IdentityId':
           if (value != null) {
-            result.identityId = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.identityId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -95,15 +111,20 @@ class _GetIdResponseAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as GetIdResponse);
     final result = <Object?>[];
     if (payload.identityId != null) {
       result
         ..add('IdentityId')
-        ..add(serializers.serialize(payload.identityId!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.identityId!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

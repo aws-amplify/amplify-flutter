@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.forgot_password_response;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.forgot_password_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/code_delivery_details_type.dart'
     as _i2;
@@ -25,17 +25,17 @@ import 'package:smithy/smithy.dart' as _i3;
 
 part 'forgot_password_response.g.dart';
 
-/// Respresents the response from the server regarding the request to reset a password.
+/// The response from Amazon Cognito to a request to reset a password.
 abstract class ForgotPasswordResponse
     with _i1.AWSEquatable<ForgotPasswordResponse>
     implements Built<ForgotPasswordResponse, ForgotPasswordResponseBuilder> {
-  /// Respresents the response from the server regarding the request to reset a password.
+  /// The response from Amazon Cognito to a request to reset a password.
   factory ForgotPasswordResponse(
       {_i2.CodeDeliveryDetailsType? codeDeliveryDetails}) {
     return _$ForgotPasswordResponse._(codeDeliveryDetails: codeDeliveryDetails);
   }
 
-  /// Respresents the response from the server regarding the request to reset a password.
+  /// The response from Amazon Cognito to a request to reset a password.
   factory ForgotPasswordResponse.build(
           [void Function(ForgotPasswordResponseBuilder) updates]) =
       _$ForgotPasswordResponse;
@@ -44,11 +44,13 @@ abstract class ForgotPasswordResponse
 
   /// Constructs a [ForgotPasswordResponse] from a [payload] and [response].
   factory ForgotPasswordResponse.fromResponse(
-          ForgotPasswordResponse payload, _i1.AWSBaseHttpResponse response) =>
+    ForgotPasswordResponse payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i3.SmithySerializer> serializers = [
-    _ForgotPasswordResponseAwsJson11Serializer()
+    ForgotPasswordResponseAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -61,26 +63,37 @@ abstract class ForgotPasswordResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ForgotPasswordResponse');
-    helper.add('codeDeliveryDetails', codeDeliveryDetails);
+    helper.add(
+      'codeDeliveryDetails',
+      codeDeliveryDetails,
+    );
     return helper.toString();
   }
 }
 
-class _ForgotPasswordResponseAwsJson11Serializer
+class ForgotPasswordResponseAwsJson11Serializer
     extends _i3.StructuredSmithySerializer<ForgotPasswordResponse> {
-  const _ForgotPasswordResponseAwsJson11Serializer()
+  const ForgotPasswordResponseAwsJson11Serializer()
       : super('ForgotPasswordResponse');
 
   @override
-  Iterable<Type> get types =>
-      const [ForgotPasswordResponse, _$ForgotPasswordResponse];
+  Iterable<Type> get types => const [
+        ForgotPasswordResponse,
+        _$ForgotPasswordResponse,
+      ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols =>
-      const [_i3.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   ForgotPasswordResponse deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = ForgotPasswordResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -90,9 +103,10 @@ class _ForgotPasswordResponseAwsJson11Serializer
       switch (key) {
         case 'CodeDeliveryDetails':
           if (value != null) {
-            result.codeDeliveryDetails.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i2.CodeDeliveryDetailsType))
-                as _i2.CodeDeliveryDetailsType));
+            result.codeDeliveryDetails.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.CodeDeliveryDetailsType),
+            ) as _i2.CodeDeliveryDetailsType));
           }
           break;
       }
@@ -102,15 +116,20 @@ class _ForgotPasswordResponseAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as ForgotPasswordResponse);
     final result = <Object?>[];
     if (payload.codeDeliveryDetails != null) {
       result
         ..add('CodeDeliveryDetails')
-        ..add(serializers.serialize(payload.codeDeliveryDetails!,
-            specifiedType: const FullType(_i2.CodeDeliveryDetailsType)));
+        ..add(serializers.serialize(
+          payload.codeDeliveryDetails!,
+          specifiedType: const FullType(_i2.CodeDeliveryDetailsType),
+        ));
     }
     return result;
   }

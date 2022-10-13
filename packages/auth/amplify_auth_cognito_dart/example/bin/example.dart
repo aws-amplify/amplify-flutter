@@ -22,12 +22,16 @@ import 'package:cognito_example/amplifyconfiguration.dart';
 import 'package:cognito_example/common.dart';
 
 Future<void> main() async {
+  AWSLogger().logLevel = LogLevel.debug;
   try {
     await Amplify.addPlugin(
       AmplifyAuthCognitoDart(
         credentialStorage: AmplifySecureStorageDart(
           config: AmplifySecureStorageConfig(
             scope: 'auth',
+            // enabling useDataProtection requires adding the app to an
+            // app group, which requires setting a development team
+            // ignore: invalid_use_of_visible_for_testing_member
             macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
           ),
         ),

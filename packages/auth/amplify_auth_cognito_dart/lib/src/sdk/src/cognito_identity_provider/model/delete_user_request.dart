@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.delete_user_request;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.delete_user_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -39,18 +39,20 @@ abstract class DeleteUserRequest
   const DeleteUserRequest._();
 
   factory DeleteUserRequest.fromRequest(
-          DeleteUserRequest payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    DeleteUserRequest payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
-    _DeleteUserRequestAwsJson11Serializer()
+    DeleteUserRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteUserRequestBuilder b) {}
 
-  /// The access token from a request to delete a user.
+  /// A valid access token that Amazon Cognito issued to the user whose user profile you want to delete.
   String get accessToken;
   @override
   DeleteUserRequest getPayload() => this;
@@ -59,24 +61,36 @@ abstract class DeleteUserRequest
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteUserRequest');
-    helper.add('accessToken', '***SENSITIVE***');
+    helper.add(
+      'accessToken',
+      '***SENSITIVE***',
+    );
     return helper.toString();
   }
 }
 
-class _DeleteUserRequestAwsJson11Serializer
+class DeleteUserRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<DeleteUserRequest> {
-  const _DeleteUserRequestAwsJson11Serializer() : super('DeleteUserRequest');
+  const DeleteUserRequestAwsJson11Serializer() : super('DeleteUserRequest');
 
   @override
-  Iterable<Type> get types => const [DeleteUserRequest, _$DeleteUserRequest];
+  Iterable<Type> get types => const [
+        DeleteUserRequest,
+        _$DeleteUserRequest,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   DeleteUserRequest deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = DeleteUserRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -85,8 +99,10 @@ class _DeleteUserRequestAwsJson11Serializer
       final value = iterator.current;
       switch (key) {
         case 'AccessToken':
-          result.accessToken = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.accessToken = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
       }
     }
@@ -95,13 +111,18 @@ class _DeleteUserRequestAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as DeleteUserRequest);
     final result = <Object?>[
       'AccessToken',
-      serializers.serialize(payload.accessToken,
-          specifiedType: const FullType(String))
+      serializers.serialize(
+        payload.accessToken,
+        specifiedType: const FullType(String),
+      ),
     ];
     return result;
   }

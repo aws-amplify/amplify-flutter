@@ -29,7 +29,7 @@ final _voidType = _typeOf<void>();
 /// The actual base class mixes in platform-specific code to this class.
 /// {@endtemplate}
 abstract class WorkerBeeCommon<Request extends Object, Response>
-    implements Closeable {
+    implements AWSLoggerPlugin, Closeable {
   /// {@template worker_bee.worker_bee_common}
   WorkerBeeCommon({
     Serializers? serializers,
@@ -66,27 +66,21 @@ abstract class WorkerBeeCommon<Request extends Object, Response>
     }
   }
 
-  /// Listens for local messages.
-  void _initLogger() {
-    logger.level = Level.ALL;
-    logger.onRecord.listen((record) {
-      logSink.sink.add(
-        LogMessage.fromRecord(
-          name,
-          record,
-          local: false,
-        ),
-      );
-      if (logsController.isClosed) return;
-      logsController.add(
-        LogMessage.fromRecord(
-          isRemoteWorker ? name : 'Main',
-          record,
-          local: !isRemoteWorker,
-        ),
-      );
-    });
+  @override
+  void handleLogEntry(LogEntry logEntry) {
+    logSink.sink.add(
+      WorkerLogEntry.fromLogEntry(logEntry, local: false),
+    );
+    if (logsController.isClosed) return;
+    logsController.add(
+      WorkerLogEntry.fromLogEntry(logEntry, local: !isRemoteWorker),
+    );
   }
+
+  /// Listens for local messages.
+  void _initLogger() => logger
+    ..logLevel = LogLevel.verbose
+    ..registerPlugin(this);
 
   /// Operations which must complete before calling [close].
   final List<CancelableOperation<void>> _pendingOperations = [];
@@ -107,14 +101,14 @@ abstract class WorkerBeeCommon<Request extends Object, Response>
 
   /// The internal-use logger.
   @protected
-  late final Logger logger = Logger.detached(name);
+  late final AWSLogger logger = AWSLogger.detached(name);
 
   /// The logs sink, for outgoing messages (when in a worker).
   @protected
-  final StreamSinkCompleter<LogMessage> logSink = StreamSinkCompleter();
+  final StreamSinkCompleter<LogEntry> logSink = StreamSinkCompleter();
 
   /// Configures logging for the worker.
-  set _logsChannel(StreamChannel<LogMessage> channel) {
+  set _logsChannel(StreamChannel<LogEntry> channel) {
     logSink.setDestinationSink(channel.sink);
 
     // Incoming messages (from the worker) should be logged locally
@@ -126,11 +120,11 @@ abstract class WorkerBeeCommon<Request extends Object, Response>
 
   /// The log stream for external listening.
   @protected
-  final StreamController<LogMessage> logsController =
+  final StreamController<LogEntry> logsController =
       StreamController.broadcast(sync: true);
 
   /// The logger to use for all messages.
-  Stream<LogMessage> get logs => logsController.stream;
+  Stream<LogEntry> get logs => logsController.stream;
 
   /// Serializers for message and result types.
   @protected
@@ -173,13 +167,13 @@ abstract class WorkerBeeCommon<Request extends Object, Response>
   /// Should only be called from a worker bee.
   @mustCallSuper
   Future<void> connect({
-    StreamChannel<LogMessage>? logsChannel,
+    StreamChannel<LogEntry>? logsChannel,
   }) async {
     _isRemoteWorker = true;
     if (logsChannel != null) {
       _logsChannel = logsChannel;
     }
-    logger.finest('Connected from worker');
+    logger.debug('Connected from worker');
   }
 
   /// The asynchronous ready trigger.
@@ -198,7 +192,7 @@ abstract class WorkerBeeCommon<Request extends Object, Response>
   @protected
   void complete(Response? result) {
     if (isCompleted) return;
-    logger.finest('Finished with result: $result');
+    logger.debug('Finished with result: $result');
     _resultCompleter.complete(Result.value(result));
     close(force: false);
   }
@@ -206,7 +200,7 @@ abstract class WorkerBeeCommon<Request extends Object, Response>
   /// Internal method for completing with an error.
   @protected
   void completeError(Object error, [StackTrace? stackTrace]) {
-    logger.severe('Error in worker', error, stackTrace);
+    logger.debug('Error in worker', error, stackTrace);
     if (!isCompleted) {
       _resultCompleter.complete(Result.error(error, stackTrace));
     }
@@ -247,7 +241,7 @@ abstract class WorkerBeeCommon<Request extends Object, Response>
     bool force = false,
   }) =>
       _closeMemoizer.runOnce(() async {
-        logger.finest('Closing worker (force=$force)');
+        logger.debug('Closing worker (force=$force)');
         await Future.wait(
           _pendingOperations.map(
             (op) => force ? op.cancel() : op.valueOrCancellation(),

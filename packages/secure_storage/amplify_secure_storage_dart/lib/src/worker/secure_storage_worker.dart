@@ -17,10 +17,9 @@ import 'dart:async';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/worker/secure_storage_action.dart';
 import 'package:amplify_secure_storage_dart/src/worker/secure_storage_request.dart';
+import 'package:amplify_secure_storage_dart/src/worker/secure_storage_worker.worker.dart';
 import 'package:built_value/serializer.dart';
 import 'package:worker_bee/worker_bee.dart';
-
-import 'secure_storage_worker.worker.dart';
 
 part 'secure_storage_worker.g.dart';
 
@@ -36,7 +35,7 @@ abstract class SecureStorageWorker
   /// {@macro amplify_secure_storage_dart.secure_storage_worker}
   factory SecureStorageWorker.create() = SecureStorageWorkerImpl;
 
-  SecureStorageInterface? _storage;
+  AmplifySecureStorageInterface? _storage;
 
   @override
   Future<SecureStorageRequest?> run(
@@ -47,7 +46,9 @@ abstract class SecureStorageWorker
       var response = request;
       if (request.action == SecureStorageAction.init) {
         final config = request.config!;
-        _storage ??= AmplifySecureStorageDart(config: config);
+        _storage ??= AmplifySecureStorageDart(
+          config: config,
+        );
       }
       final storage = _storage;
       if (storage == null) {
@@ -70,6 +71,9 @@ abstract class SecureStorageWorker
           final key = request.key!;
           final value = request.value!;
           await storage.write(key: key, value: value);
+          break;
+        case SecureStorageAction.removeAll:
+          await storage.removeAll();
           break;
       }
       respond.add(response);

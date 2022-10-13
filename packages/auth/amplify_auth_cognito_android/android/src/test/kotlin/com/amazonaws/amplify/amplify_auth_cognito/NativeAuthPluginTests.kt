@@ -29,14 +29,14 @@ internal class NativeAuthPluginTests {
 
     private fun runFetchAuthSessionTest(isSignedIn: Boolean) {
         val mockBinaryMessenger = mock<BinaryMessenger>()
-        val nativeAuthPlugin = NativeAuthPluginBindings.NativeAuthPlugin(mockBinaryMessenger)
+        val nativeAuthPlugin = NativeAuthPluginBindingsPigeon.NativeAuthPlugin(mockBinaryMessenger)
         val mockCallback =
-            mock<NativeAuthPluginBindings.NativeAuthPlugin.Reply<NativeAuthPluginBindings.NativeAuthSession>>()
+            mock<NativeAuthPluginBindingsPigeon.NativeAuthPlugin.Reply<NativeAuthPluginBindingsPigeon.NativeAuthSession>>()
         nativeAuthPlugin.fetchAuthSession(true, mockCallback)
         val callback = argumentCaptor<BinaryMessenger.BinaryReply>()
         verify(mockBinaryMessenger).send(any(), any(), callback.capture())
-        val codec = NativeAuthPluginBindings.NativeAuthPlugin.getCodec()
-        val authSession = NativeAuthPluginBindings.NativeAuthSession.Builder().apply {
+        val codec = NativeAuthPluginBindingsPigeon.NativeAuthPlugin.getCodec()
+        val authSession = NativeAuthPluginBindingsPigeon.NativeAuthSession.Builder().apply {
             setIsSignedIn(isSignedIn)
         }.build()
         val encodedAuthSession = codec.encodeMessage(authSession)

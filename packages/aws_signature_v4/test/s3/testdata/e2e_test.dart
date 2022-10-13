@@ -18,9 +18,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:aws_common/aws_common.dart';
+import 'package:aws_common/testing.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
-import 'package:http/http.dart';
-import 'package:http/testing.dart';
 import 'package:test/test.dart';
 
 import 'util.dart';
@@ -50,11 +49,14 @@ void main() {
         ),
       );
 
-      final client = MockClient((req) async {
+      final client = MockAWSHttpClient((req) async {
         await Future<void>.delayed(const Duration(milliseconds: 500));
-        return Response('OK', 200);
+        return AWSStreamedHttpResponse(
+          statusCode: 200,
+          body: HttpPayload.string('OK'),
+        );
       });
-      final resp = await signedReq.send(client);
+      final resp = await signedReq.send(client).response;
 
       expect(resp.statusCode, equals(200));
       expect(await utf8.decodeStream(resp.body), equals('OK'));

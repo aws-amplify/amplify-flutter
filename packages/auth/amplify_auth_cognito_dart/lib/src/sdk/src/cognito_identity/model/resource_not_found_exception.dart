@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity.model.resource_not_found_exception;
+library amplify_auth_cognito_dart.cognito_identity.model.resource_not_found_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -43,14 +43,15 @@ abstract class ResourceNotFoundException
 
   /// Constructs a [ResourceNotFoundException] from a [payload] and [response].
   factory ResourceNotFoundException.fromResponse(
-          ResourceNotFoundException payload,
-          _i1.AWSBaseHttpResponse response) =>
+    ResourceNotFoundException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _ResourceNotFoundExceptionAwsJson11Serializer()
+    ResourceNotFoundExceptionAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -61,8 +62,9 @@ abstract class ResourceNotFoundException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.cognitoidentity',
-      shape: 'ResourceNotFoundException');
+        namespace: 'com.amazonaws.cognitoidentity',
+        shape: 'ResourceNotFoundException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -78,26 +80,37 @@ abstract class ResourceNotFoundException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ResourceNotFoundException');
-    helper.add('message', message);
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
 
-class _ResourceNotFoundExceptionAwsJson11Serializer
+class ResourceNotFoundExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<ResourceNotFoundException> {
-  const _ResourceNotFoundExceptionAwsJson11Serializer()
+  const ResourceNotFoundExceptionAwsJson11Serializer()
       : super('ResourceNotFoundException');
 
   @override
-  Iterable<Type> get types =>
-      const [ResourceNotFoundException, _$ResourceNotFoundException];
+  Iterable<Type> get types => const [
+        ResourceNotFoundException,
+        _$ResourceNotFoundException,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   ResourceNotFoundException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = ResourceNotFoundExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -107,8 +120,10 @@ class _ResourceNotFoundExceptionAwsJson11Serializer
       switch (key) {
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -118,15 +133,20 @@ class _ResourceNotFoundExceptionAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as ResourceNotFoundException);
     final result = <Object?>[];
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

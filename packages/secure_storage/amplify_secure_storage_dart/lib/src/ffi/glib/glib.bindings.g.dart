@@ -95,6 +95,28 @@ typedef GEqualFunc = ffi.Pointer<
 typedef gboolean = gint;
 typedef gpointer = ffi.Pointer<ffi.Void>;
 
+class GObject extends ffi.Struct {
+  external GTypeInstance g_type_instance;
+
+  @ffi.Int()
+  external int ref_count;
+
+  external ffi.Pointer<ffi.Int> qdata;
+}
+
+typedef GTypeInstance = _GTypeInstance;
+
+class _GTypeInstance extends ffi.Struct {
+  external ffi.Pointer<GTypeClass> g_class;
+}
+
+typedef GTypeClass = _GTypeClass;
+
+class _GTypeClass extends ffi.Struct {
+  @ffi.Int()
+  external int g_type;
+}
+
 class GCancellable extends ffi.Struct {
   @ffi.Int()
   external int parent_instance;

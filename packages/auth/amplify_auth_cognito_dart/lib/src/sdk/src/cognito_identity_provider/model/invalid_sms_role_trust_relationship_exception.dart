@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.invalid_sms_role_trust_relationship_exception;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.invalid_sms_role_trust_relationship_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -23,7 +23,7 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'invalid_sms_role_trust_relationship_exception.g.dart';
 
-/// This exception is thrown when the trust relationship is invalid for the role provided for SMS configuration. This can happen if you do not trust `cognito-idp.amazonaws.com` or the external ID provided in the role does not match what is provided in the SMS configuration for the user pool.
+/// This exception is thrown when the trust relationship is not valid for the role provided for SMS configuration. This can happen if you don't trust `cognito-idp.amazonaws.com` or the external ID provided in the role does not match what is provided in the SMS configuration for the user pool.
 abstract class InvalidSmsRoleTrustRelationshipException
     with
         _i1.AWSEquatable<InvalidSmsRoleTrustRelationshipException>
@@ -31,12 +31,12 @@ abstract class InvalidSmsRoleTrustRelationshipException
         Built<InvalidSmsRoleTrustRelationshipException,
             InvalidSmsRoleTrustRelationshipExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// This exception is thrown when the trust relationship is invalid for the role provided for SMS configuration. This can happen if you do not trust `cognito-idp.amazonaws.com` or the external ID provided in the role does not match what is provided in the SMS configuration for the user pool.
+  /// This exception is thrown when the trust relationship is not valid for the role provided for SMS configuration. This can happen if you don't trust `cognito-idp.amazonaws.com` or the external ID provided in the role does not match what is provided in the SMS configuration for the user pool.
   factory InvalidSmsRoleTrustRelationshipException({String? message}) {
     return _$InvalidSmsRoleTrustRelationshipException._(message: message);
   }
 
-  /// This exception is thrown when the trust relationship is invalid for the role provided for SMS configuration. This can happen if you do not trust `cognito-idp.amazonaws.com` or the external ID provided in the role does not match what is provided in the SMS configuration for the user pool.
+  /// This exception is thrown when the trust relationship is not valid for the role provided for SMS configuration. This can happen if you don't trust `cognito-idp.amazonaws.com` or the external ID provided in the role does not match what is provided in the SMS configuration for the user pool.
   factory InvalidSmsRoleTrustRelationshipException.build(
       [void Function(InvalidSmsRoleTrustRelationshipExceptionBuilder)
           updates]) = _$InvalidSmsRoleTrustRelationshipException;
@@ -45,26 +45,28 @@ abstract class InvalidSmsRoleTrustRelationshipException
 
   /// Constructs a [InvalidSmsRoleTrustRelationshipException] from a [payload] and [response].
   factory InvalidSmsRoleTrustRelationshipException.fromResponse(
-          InvalidSmsRoleTrustRelationshipException payload,
-          _i1.AWSBaseHttpResponse response) =>
+    InvalidSmsRoleTrustRelationshipException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _InvalidSmsRoleTrustRelationshipExceptionAwsJson11Serializer()
+    InvalidSmsRoleTrustRelationshipExceptionAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidSmsRoleTrustRelationshipExceptionBuilder b) {}
 
-  /// The message returned when the role trust relationship for the SMS message is invalid.
+  /// The message returned when the role trust relationship for the SMS message is not valid.
   @override
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.cognitoidentityprovider',
-      shape: 'InvalidSmsRoleTrustRelationshipException');
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'InvalidSmsRoleTrustRelationshipException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -81,28 +83,37 @@ abstract class InvalidSmsRoleTrustRelationshipException
   String toString() {
     final helper =
         newBuiltValueToStringHelper('InvalidSmsRoleTrustRelationshipException');
-    helper.add('message', message);
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
 
-class _InvalidSmsRoleTrustRelationshipExceptionAwsJson11Serializer extends _i2
+class InvalidSmsRoleTrustRelationshipExceptionAwsJson11Serializer extends _i2
     .StructuredSmithySerializer<InvalidSmsRoleTrustRelationshipException> {
-  const _InvalidSmsRoleTrustRelationshipExceptionAwsJson11Serializer()
+  const InvalidSmsRoleTrustRelationshipExceptionAwsJson11Serializer()
       : super('InvalidSmsRoleTrustRelationshipException');
 
   @override
   Iterable<Type> get types => const [
         InvalidSmsRoleTrustRelationshipException,
-        _$InvalidSmsRoleTrustRelationshipException
+        _$InvalidSmsRoleTrustRelationshipException,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   InvalidSmsRoleTrustRelationshipException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = InvalidSmsRoleTrustRelationshipExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -112,8 +123,10 @@ class _InvalidSmsRoleTrustRelationshipExceptionAwsJson11Serializer extends _i2
       switch (key) {
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -123,15 +136,20 @@ class _InvalidSmsRoleTrustRelationshipExceptionAwsJson11Serializer extends _i2
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as InvalidSmsRoleTrustRelationshipException);
     final result = <Object?>[];
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.too_many_requests_exception;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.too_many_requests_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -43,13 +43,15 @@ abstract class TooManyRequestsException
 
   /// Constructs a [TooManyRequestsException] from a [payload] and [response].
   factory TooManyRequestsException.fromResponse(
-          TooManyRequestsException payload, _i1.AWSBaseHttpResponse response) =>
+    TooManyRequestsException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _TooManyRequestsExceptionAwsJson11Serializer()
+    TooManyRequestsExceptionAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -60,8 +62,9 @@ abstract class TooManyRequestsException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.cognitoidentityprovider',
-      shape: 'TooManyRequestsException');
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'TooManyRequestsException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -77,26 +80,37 @@ abstract class TooManyRequestsException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TooManyRequestsException');
-    helper.add('message', message);
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
 
-class _TooManyRequestsExceptionAwsJson11Serializer
+class TooManyRequestsExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<TooManyRequestsException> {
-  const _TooManyRequestsExceptionAwsJson11Serializer()
+  const TooManyRequestsExceptionAwsJson11Serializer()
       : super('TooManyRequestsException');
 
   @override
-  Iterable<Type> get types =>
-      const [TooManyRequestsException, _$TooManyRequestsException];
+  Iterable<Type> get types => const [
+        TooManyRequestsException,
+        _$TooManyRequestsException,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   TooManyRequestsException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = TooManyRequestsExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -106,8 +120,10 @@ class _TooManyRequestsExceptionAwsJson11Serializer
       switch (key) {
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -117,15 +133,20 @@ class _TooManyRequestsExceptionAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as TooManyRequestsException);
     final result = <Object?>[];
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

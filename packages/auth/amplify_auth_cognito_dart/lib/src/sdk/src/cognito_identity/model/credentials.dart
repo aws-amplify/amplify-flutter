@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity.model.credentials;
+library amplify_auth_cognito_dart.cognito_identity.model.credentials; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -28,16 +28,18 @@ abstract class Credentials
     with _i1.AWSEquatable<Credentials>
     implements Built<Credentials, CredentialsBuilder> {
   /// Credentials for the provided identity ID.
-  factory Credentials(
-      {String? accessKeyId,
-      DateTime? expiration,
-      String? secretKey,
-      String? sessionToken}) {
+  factory Credentials({
+    String? accessKeyId,
+    DateTime? expiration,
+    String? secretKey,
+    String? sessionToken,
+  }) {
     return _$Credentials._(
-        accessKeyId: accessKeyId,
-        expiration: expiration,
-        secretKey: secretKey,
-        sessionToken: sessionToken);
+      accessKeyId: accessKeyId,
+      expiration: expiration,
+      secretKey: secretKey,
+      sessionToken: sessionToken,
+    );
   }
 
   /// Credentials for the provided identity ID.
@@ -47,7 +49,7 @@ abstract class Credentials
   const Credentials._();
 
   static const List<_i2.SmithySerializer> serializers = [
-    _CredentialsAwsJson11Serializer()
+    CredentialsAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -65,30 +67,57 @@ abstract class Credentials
   /// The Session Token portion of the credentials
   String? get sessionToken;
   @override
-  List<Object?> get props => [accessKeyId, expiration, secretKey, sessionToken];
+  List<Object?> get props => [
+        accessKeyId,
+        expiration,
+        secretKey,
+        sessionToken,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Credentials');
-    helper.add('accessKeyId', accessKeyId);
-    helper.add('expiration', expiration);
-    helper.add('secretKey', secretKey);
-    helper.add('sessionToken', sessionToken);
+    helper.add(
+      'accessKeyId',
+      accessKeyId,
+    );
+    helper.add(
+      'expiration',
+      expiration,
+    );
+    helper.add(
+      'secretKey',
+      secretKey,
+    );
+    helper.add(
+      'sessionToken',
+      sessionToken,
+    );
     return helper.toString();
   }
 }
 
-class _CredentialsAwsJson11Serializer
+class CredentialsAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<Credentials> {
-  const _CredentialsAwsJson11Serializer() : super('Credentials');
+  const CredentialsAwsJson11Serializer() : super('Credentials');
 
   @override
-  Iterable<Type> get types => const [Credentials, _$Credentials];
+  Iterable<Type> get types => const [
+        Credentials,
+        _$Credentials,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
-  Credentials deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  Credentials deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = CredentialsBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -98,26 +127,34 @@ class _CredentialsAwsJson11Serializer
       switch (key) {
         case 'AccessKeyId':
           if (value != null) {
-            result.accessKeyId = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.accessKeyId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'Expiration':
           if (value != null) {
-            result.expiration = (serializers.deserialize(value,
-                specifiedType: const FullType(DateTime)) as DateTime);
+            result.expiration = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
           }
           break;
         case 'SecretKey':
           if (value != null) {
-            result.secretKey = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.secretKey = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'SessionToken':
           if (value != null) {
-            result.sessionToken = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.sessionToken = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -127,33 +164,44 @@ class _CredentialsAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as Credentials);
     final result = <Object?>[];
     if (payload.accessKeyId != null) {
       result
         ..add('AccessKeyId')
-        ..add(serializers.serialize(payload.accessKeyId!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.accessKeyId!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.expiration != null) {
       result
         ..add('Expiration')
-        ..add(serializers.serialize(payload.expiration!,
-            specifiedType: const FullType(DateTime)));
+        ..add(serializers.serialize(
+          payload.expiration!,
+          specifiedType: const FullType(DateTime),
+        ));
     }
     if (payload.secretKey != null) {
       result
         ..add('SecretKey')
-        ..add(serializers.serialize(payload.secretKey!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.secretKey!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.sessionToken != null) {
       result
         ..add('SessionToken')
-        ..add(serializers.serialize(payload.sessionToken!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.sessionToken!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

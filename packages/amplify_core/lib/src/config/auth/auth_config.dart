@@ -31,6 +31,52 @@ class AuthConfig extends AmplifyPluginConfigMap {
   factory AuthConfig.fromJson(Map<String, Object?> json) =>
       _$AuthConfigFromJson(json);
 
+  /// Creates an [AuthConfig] with the given Cognito configurations.
+  factory AuthConfig.cognito({
+    CognitoUserPoolConfig? userPoolConfig,
+    CognitoIdentityPoolConfig? identityPoolConfig,
+    CognitoOAuthConfig? hostedUiConfig,
+    AuthenticationFlowType? authenticationFlowType,
+    List<SocialProvider>? socialProviders,
+    List<CognitoUserAttributeKey>? usernameAttributes,
+    List<CognitoUserAttributeKey>? signupAttributes,
+    PasswordProtectionSettings? passwordProtectionSettings,
+    MfaConfiguration? mfaConfiguration,
+    List<MfaType>? mfaTypes,
+    List<CognitoUserAttributeKey>? verificationMechanisms,
+  }) =>
+      AuthConfig(
+        plugins: {
+          CognitoPluginConfig.pluginKey: CognitoPluginConfig(
+            auth: AWSConfigMap.withDefault(
+              CognitoAuthConfig(
+                oAuth: hostedUiConfig,
+                authenticationFlowType: authenticationFlowType,
+                socialProviders: socialProviders,
+                usernameAttributes: usernameAttributes ?? const [],
+                signupAttributes: signupAttributes ?? const [],
+                passwordProtectionSettings: passwordProtectionSettings ??
+                    const PasswordProtectionSettings(),
+                mfaConfiguration: mfaConfiguration,
+                mfaTypes: mfaTypes,
+                verificationMechanisms: verificationMechanisms,
+              ),
+            ),
+            cognitoUserPool: userPoolConfig == null
+                ? null
+                : AWSConfigMap.withDefault(userPoolConfig),
+            credentialsProvider: identityPoolConfig == null
+                ? null
+                : CredentialsProviders(
+                    AWSConfigMap({
+                      CognitoIdentityCredentialsProvider.configKey:
+                          AWSConfigMap.withDefault(identityPoolConfig),
+                    }),
+                  ),
+          ),
+        },
+      );
+
   /// The AWS Cognito plugin configuration, if available.
   @override
   CognitoPluginConfig? get awsPlugin =>

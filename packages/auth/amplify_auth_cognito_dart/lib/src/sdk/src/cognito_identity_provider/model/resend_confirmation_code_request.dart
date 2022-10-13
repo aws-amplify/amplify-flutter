@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.resend_confirmation_code_request;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.resend_confirmation_code_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart'
     as _i3;
@@ -37,20 +37,22 @@ abstract class ResendConfirmationCodeRequest
         Built<ResendConfirmationCodeRequest,
             ResendConfirmationCodeRequestBuilder> {
   /// Represents the request to resend the confirmation code.
-  factory ResendConfirmationCodeRequest(
-      {_i3.AnalyticsMetadataType? analyticsMetadata,
-      required String clientId,
-      _i4.BuiltMap<String, String>? clientMetadata,
-      String? secretHash,
-      _i5.UserContextDataType? userContextData,
-      required String username}) {
+  factory ResendConfirmationCodeRequest({
+    _i3.AnalyticsMetadataType? analyticsMetadata,
+    required String clientId,
+    _i4.BuiltMap<String, String>? clientMetadata,
+    String? secretHash,
+    _i5.UserContextDataType? userContextData,
+    required String username,
+  }) {
     return _$ResendConfirmationCodeRequest._(
-        analyticsMetadata: analyticsMetadata,
-        clientId: clientId,
-        clientMetadata: clientMetadata,
-        secretHash: secretHash,
-        userContextData: userContextData,
-        username: username);
+      analyticsMetadata: analyticsMetadata,
+      clientId: clientId,
+      clientMetadata: clientMetadata,
+      secretHash: secretHash,
+      userContextData: userContextData,
+      username: username,
+    );
   }
 
   /// Represents the request to resend the confirmation code.
@@ -61,18 +63,20 @@ abstract class ResendConfirmationCodeRequest
   const ResendConfirmationCodeRequest._();
 
   factory ResendConfirmationCodeRequest.fromRequest(
-          ResendConfirmationCodeRequest payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    ResendConfirmationCodeRequest payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
-    _ResendConfirmationCodeRequestAwsJson11Serializer()
+    ResendConfirmationCodeRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResendConfirmationCodeRequestBuilder b) {}
 
-  /// The Amazon Pinpoint analytics metadata for collecting metrics for `ResendConfirmationCode` calls.
+  /// The Amazon Pinpoint analytics metadata that contributes to your metrics for `ResendConfirmationCode` calls.
   _i3.AnalyticsMetadataType? get analyticsMetadata;
 
   /// The ID of the client associated with the user pool.
@@ -82,24 +86,24 @@ abstract class ResendConfirmationCodeRequest
   ///
   /// You create custom workflows by assigning Lambda functions to user pool triggers. When you use the ResendConfirmationCode API action, Amazon Cognito invokes the function that is assigned to the _custom message_ trigger. When Amazon Cognito invokes this function, it passes a JSON payload, which the function receives as input. This payload contains a `clientMetadata` attribute, which provides the data that you assigned to the ClientMetadata parameter in your ResendConfirmationCode request. In your function code in Lambda, you can process the `clientMetadata` value to enhance your workflow for your specific needs.
   ///
-  /// For more information, see [Customizing User Pool Workflows with Lambda Triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html) in the _Amazon Cognito Developer Guide_.
+  /// For more information, see [Customizing user pool Workflows with Lambda Triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html) in the _Amazon Cognito Developer Guide_.
   ///
-  /// Take the following limitations into consideration when you use the ClientMetadata parameter:
+  /// When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
   ///
-  /// *   Amazon Cognito does not store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool to support custom workflows. If your user pool configuration does not include triggers, the ClientMetadata parameter serves no purpose.
+  /// *   Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata parameter serves no purpose.
   ///
-  /// *   Amazon Cognito does not validate the ClientMetadata value.
+  /// *   Validate the ClientMetadata value.
   ///
-  /// *   Amazon Cognito does not encrypt the the ClientMetadata value, so don't use it to provide sensitive information.
+  /// *   Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
   _i4.BuiltMap<String, String>? get clientMetadata;
 
   /// A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and username plus the client ID in the message.
   String? get secretHash;
 
-  /// Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.
+  /// Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito advanced security evaluates the risk of an authentication event based on the context that your app generates and passes to Amazon Cognito when it makes API requests.
   _i5.UserContextDataType? get userContextData;
 
-  /// The user name of the user to whom you wish to resend a confirmation code.
+  /// The `username` attribute of the user to whom you want to resend a confirmation code.
   String get username;
   @override
   ResendConfirmationCodeRequest getPayload() => this;
@@ -110,36 +114,62 @@ abstract class ResendConfirmationCodeRequest
         clientMetadata,
         secretHash,
         userContextData,
-        username
+        username,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ResendConfirmationCodeRequest');
-    helper.add('analyticsMetadata', analyticsMetadata);
-    helper.add('clientId', '***SENSITIVE***');
-    helper.add('clientMetadata', clientMetadata);
-    helper.add('secretHash', '***SENSITIVE***');
-    helper.add('userContextData', userContextData);
-    helper.add('username', '***SENSITIVE***');
+    helper.add(
+      'analyticsMetadata',
+      analyticsMetadata,
+    );
+    helper.add(
+      'clientId',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'clientMetadata',
+      clientMetadata,
+    );
+    helper.add(
+      'secretHash',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'userContextData',
+      userContextData,
+    );
+    helper.add(
+      'username',
+      '***SENSITIVE***',
+    );
     return helper.toString();
   }
 }
 
-class _ResendConfirmationCodeRequestAwsJson11Serializer
+class ResendConfirmationCodeRequestAwsJson11Serializer
     extends _i1.StructuredSmithySerializer<ResendConfirmationCodeRequest> {
-  const _ResendConfirmationCodeRequestAwsJson11Serializer()
+  const ResendConfirmationCodeRequestAwsJson11Serializer()
       : super('ResendConfirmationCodeRequest');
 
   @override
-  Iterable<Type> get types =>
-      const [ResendConfirmationCodeRequest, _$ResendConfirmationCodeRequest];
+  Iterable<Type> get types => const [
+        ResendConfirmationCodeRequest,
+        _$ResendConfirmationCodeRequest,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   ResendConfirmationCodeRequest deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = ResendConfirmationCodeRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -149,39 +179,53 @@ class _ResendConfirmationCodeRequestAwsJson11Serializer
       switch (key) {
         case 'AnalyticsMetadata':
           if (value != null) {
-            result.analyticsMetadata.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i3.AnalyticsMetadataType))
-                as _i3.AnalyticsMetadataType));
+            result.analyticsMetadata.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.AnalyticsMetadataType),
+            ) as _i3.AnalyticsMetadataType));
           }
           break;
         case 'ClientId':
-          result.clientId = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.clientId = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'ClientMetadata':
           if (value != null) {
-            result.clientMetadata.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(
-                        _i4.BuiltMap, [FullType(String), FullType(String)]))
-                as _i4.BuiltMap<String, String>));
+            result.clientMetadata.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i4.BuiltMap,
+                [
+                  FullType(String),
+                  FullType(String),
+                ],
+              ),
+            ) as _i4.BuiltMap<String, String>));
           }
           break;
         case 'SecretHash':
           if (value != null) {
-            result.secretHash = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.secretHash = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'UserContextData':
           if (value != null) {
-            result.userContextData.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i5.UserContextDataType))
-                as _i5.UserContextDataType));
+            result.userContextData.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i5.UserContextDataType),
+            ) as _i5.UserContextDataType));
           }
           break;
         case 'Username':
-          result.username = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.username = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
       }
     }
@@ -190,41 +234,61 @@ class _ResendConfirmationCodeRequestAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as ResendConfirmationCodeRequest);
     final result = <Object?>[
       'ClientId',
-      serializers.serialize(payload.clientId,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        payload.clientId,
+        specifiedType: const FullType(String),
+      ),
       'Username',
-      serializers.serialize(payload.username,
-          specifiedType: const FullType(String))
+      serializers.serialize(
+        payload.username,
+        specifiedType: const FullType(String),
+      ),
     ];
     if (payload.analyticsMetadata != null) {
       result
         ..add('AnalyticsMetadata')
-        ..add(serializers.serialize(payload.analyticsMetadata!,
-            specifiedType: const FullType(_i3.AnalyticsMetadataType)));
+        ..add(serializers.serialize(
+          payload.analyticsMetadata!,
+          specifiedType: const FullType(_i3.AnalyticsMetadataType),
+        ));
     }
     if (payload.clientMetadata != null) {
       result
         ..add('ClientMetadata')
-        ..add(serializers.serialize(payload.clientMetadata!,
-            specifiedType: const FullType(
-                _i4.BuiltMap, [FullType(String), FullType(String)])));
+        ..add(serializers.serialize(
+          payload.clientMetadata!,
+          specifiedType: const FullType(
+            _i4.BuiltMap,
+            [
+              FullType(String),
+              FullType(String),
+            ],
+          ),
+        ));
     }
     if (payload.secretHash != null) {
       result
         ..add('SecretHash')
-        ..add(serializers.serialize(payload.secretHash!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.secretHash!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.userContextData != null) {
       result
         ..add('UserContextData')
-        ..add(serializers.serialize(payload.userContextData!,
-            specifiedType: const FullType(_i5.UserContextDataType)));
+        ..add(serializers.serialize(
+          payload.userContextData!,
+          specifiedType: const FullType(_i5.UserContextDataType),
+        ));
     }
     return result;
   }

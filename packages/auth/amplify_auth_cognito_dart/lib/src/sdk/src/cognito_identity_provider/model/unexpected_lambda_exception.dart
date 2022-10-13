@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.5.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
 
-library amplify_auth_cognito.cognito_identity_provider.model.unexpected_lambda_exception;
+library amplify_auth_cognito_dart.cognito_identity_provider.model.unexpected_lambda_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -23,18 +23,18 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'unexpected_lambda_exception.g.dart';
 
-/// This exception is thrown when the Amazon Cognito service encounters an unexpected exception with the Lambda service.
+/// This exception is thrown when Amazon Cognito encounters an unexpected exception with Lambda.
 abstract class UnexpectedLambdaException
     with _i1.AWSEquatable<UnexpectedLambdaException>
     implements
         Built<UnexpectedLambdaException, UnexpectedLambdaExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// This exception is thrown when the Amazon Cognito service encounters an unexpected exception with the Lambda service.
+  /// This exception is thrown when Amazon Cognito encounters an unexpected exception with Lambda.
   factory UnexpectedLambdaException({String? message}) {
     return _$UnexpectedLambdaException._(message: message);
   }
 
-  /// This exception is thrown when the Amazon Cognito service encounters an unexpected exception with the Lambda service.
+  /// This exception is thrown when Amazon Cognito encounters an unexpected exception with Lambda.
   factory UnexpectedLambdaException.build(
           [void Function(UnexpectedLambdaExceptionBuilder) updates]) =
       _$UnexpectedLambdaException;
@@ -43,26 +43,28 @@ abstract class UnexpectedLambdaException
 
   /// Constructs a [UnexpectedLambdaException] from a [payload] and [response].
   factory UnexpectedLambdaException.fromResponse(
-          UnexpectedLambdaException payload,
-          _i1.AWSBaseHttpResponse response) =>
+    UnexpectedLambdaException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _UnexpectedLambdaExceptionAwsJson11Serializer()
+    UnexpectedLambdaExceptionAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UnexpectedLambdaExceptionBuilder b) {}
 
-  /// The message returned when the Amazon Cognito service returns an unexpected Lambda exception.
+  /// The message returned when Amazon Cognito returns an unexpected Lambda exception.
   @override
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.cognitoidentityprovider',
-      shape: 'UnexpectedLambdaException');
+        namespace: 'com.amazonaws.cognitoidentityprovider',
+        shape: 'UnexpectedLambdaException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -78,26 +80,37 @@ abstract class UnexpectedLambdaException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UnexpectedLambdaException');
-    helper.add('message', message);
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
 
-class _UnexpectedLambdaExceptionAwsJson11Serializer
+class UnexpectedLambdaExceptionAwsJson11Serializer
     extends _i2.StructuredSmithySerializer<UnexpectedLambdaException> {
-  const _UnexpectedLambdaExceptionAwsJson11Serializer()
+  const UnexpectedLambdaExceptionAwsJson11Serializer()
       : super('UnexpectedLambdaException');
 
   @override
-  Iterable<Type> get types =>
-      const [UnexpectedLambdaException, _$UnexpectedLambdaException];
+  Iterable<Type> get types => const [
+        UnexpectedLambdaException,
+        _$UnexpectedLambdaException,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   UnexpectedLambdaException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = UnexpectedLambdaExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -107,8 +120,10 @@ class _UnexpectedLambdaExceptionAwsJson11Serializer
       switch (key) {
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -118,15 +133,20 @@ class _UnexpectedLambdaExceptionAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as UnexpectedLambdaException);
     final result = <Object?>[];
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

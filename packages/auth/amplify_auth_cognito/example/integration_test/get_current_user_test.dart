@@ -25,14 +25,13 @@ import 'utils/validation_utils.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final username = generateUsername();
-  final password = generatePassword();
-
   group('getCurrentUser', () {
+    final username = generateUsername();
+    final password = generatePassword();
+
     setUpAll(() async {
       await configureAuth();
 
-      // create one user for all tests
       await adminCreateUser(
         username,
         password,
@@ -41,7 +40,8 @@ void main() {
       );
     });
 
-    // sign in prior to each test
+    tearDownAll(Amplify.reset);
+
     setUp(() async {
       await signOutUser();
       await Amplify.Auth.signIn(
@@ -50,16 +50,13 @@ void main() {
       );
     });
 
-    testWidgets('should return the current user', (WidgetTester tester) async {
-      var authUser = await Amplify.Auth.getCurrentUser();
-      // usernames need to be compared case insensitive due to
-      // https://github.com/aws-amplify/amplify-flutter/issues/723
-      expect(authUser.username.toLowerCase(), username.toLowerCase());
+    test('should return the current user', () async {
+      final authUser = await Amplify.Auth.getCurrentUser();
+      expect(authUser.username, username);
       expect(isValidUserSub(authUser.userId), isTrue);
     });
 
-    testWidgets('should throw SignedOutException if the user is signed out',
-        (WidgetTester tester) async {
+    test('should throw SignedOutException if the user is signed out', () async {
       await Amplify.Auth.signOut();
       expect(
         Amplify.Auth.getCurrentUser(),

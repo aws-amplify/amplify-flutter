@@ -13,11 +13,10 @@
 // limitations under the License.
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:amplify_secure_storage_dart/src/worker/secure_storage_action.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-
-import 'secure_storage_action.dart';
 
 part 'secure_storage_request.g.dart';
 
@@ -76,6 +75,13 @@ abstract class SecureStorageRequest
       (b) => b
         ..action = SecureStorageAction.delete
         ..key = key,
+    );
+  }
+
+  /// {@macro amplify_secure_storage_dart.amplify_secure_storage_interface.remove_all}
+  factory SecureStorageRequest.removeAll() {
+    return SecureStorageRequest(
+      (b) => b..action = SecureStorageAction.removeAll,
     );
   }
 

@@ -16,31 +16,36 @@ import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/platform/platform.dart';
-import 'package:http/http.dart' as http;
 
 /// {@template amplify_common.amplify_http_client}
 /// Base client for Amplify HTTP operations.
 /// {@endtemplate}
-class AmplifyHttpClient extends http.BaseClient {
+class AmplifyHttpClient extends AWSBaseHttpClient {
   /// {@macro amplify_common.amplify_http_client}
   AmplifyHttpClient({
-    http.Client? baseClient,
-  }) : _baseClient = baseClient ?? http.Client();
+    AWSHttpClient? baseClient,
+  }) : baseClient = baseClient ?? AWSHttpClient();
 
-  final http.Client _baseClient;
+  @override
+  final AWSHttpClient baseClient;
 
   late final String _userAgent = [
-    'amplify-flutter/${Amplify.version}',
+    if (zIsFlutter)
+      'amplify-flutter/${Amplify.version}'
+    else
+      'amplify-dart/${Amplify.version}',
     osIdentifier,
   ].join(' ');
 
   @override
-  Future<http.StreamedResponse> send(http.BaseRequest request) async {
+  Future<AWSBaseHttpRequest> transformRequest(
+    AWSBaseHttpRequest request,
+  ) async {
     request.headers.update(
       zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent,
       (value) => '$value $_userAgent',
       ifAbsent: () => _userAgent,
     );
-    return _baseClient.send(request);
+    return request;
   }
 }
