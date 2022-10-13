@@ -46,8 +46,8 @@ abstract class AWSHttpClient implements Closeable {
 
   /// The supported HTTP protocols, used for negotiating with remote servers.
   ///
-  /// By default, only HTTP/2 and HTTP/3 servers are supported.
-  SupportedProtocols supportedProtocols = SupportedProtocols.http2_3;
+  /// By default, all protocols are supported.
+  SupportedProtocols supportedProtocols = SupportedProtocols.http1_2_3;
 
   /// Sends [request] using the underlying HTTP protocol and returns the
   /// streaming response.
