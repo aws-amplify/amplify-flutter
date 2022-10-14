@@ -61,7 +61,7 @@ import 'package:meta/meta.dart';
 /// The AWS Cognito implementation of the Amplify Auth category.
 /// {@endtemplate}
 class AmplifyAuthCognitoDart extends AuthPluginInterface<
-        AuthUser,
+        CognitoAuthUser,
         CognitoUserAttributeKey,
         AuthUserAttribute<CognitoUserAttributeKey>,
         CognitoDevice,
@@ -108,7 +108,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   /// A plugin key which can be used with `Amplify.Auth.getPlugin` to retrieve
   /// a Cognito-specific Auth category interface.
   static const AuthPluginKey<
-      AuthUser,
+      CognitoAuthUser,
       CognitoUserAttributeKey,
       AuthUserAttribute<CognitoUserAttributeKey>,
       CognitoDevice,
@@ -668,10 +668,11 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<List<AuthUserAttribute<CognitoUserAttributeKey>>> fetchUserAttributes({
     FetchUserAttributesRequest request = const FetchUserAttributesRequest(),
   }) async {
-    final userPoolTokens = await getUserPoolTokens();
+    final credentials = await getCredentials();
+    final tokens = credentials.userPoolTokens!;
     final resp = await _cognitoIdp.getUser(
       cognito.GetUserRequest(
-        accessToken: userPoolTokens.accessToken.raw,
+        accessToken: tokens.accessToken.raw,
       ),
     );
     return [
@@ -701,12 +702,13 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       updateUserAttributes({
     required UpdateUserAttributesRequest request,
   }) async {
-    final userPoolTokens = await getUserPoolTokens();
+    final credentials = await getCredentials();
+    final tokens = credentials.userPoolTokens!;
     final options = request.options as CognitoUpdateUserAttributesOptions?;
     final response = await _cognitoIdp.updateUserAttributes(
       cognito.UpdateUserAttributesRequest.build(
         (b) => b
-          ..accessToken = userPoolTokens.accessToken.raw
+          ..accessToken = tokens.accessToken.raw
           ..clientMetadata.addAll(options?.clientMetadata ?? const {})
           ..userAttributes.addAll({
             for (final attr in request.attributes) attr.asAttributeType,
@@ -744,10 +746,11 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<ConfirmUserAttributeResult> confirmUserAttribute({
     required ConfirmUserAttributeRequest request,
   }) async {
-    final userPoolTokens = await getUserPoolTokens();
+    final credentials = await getCredentials();
+    final tokens = credentials.userPoolTokens!;
     await _cognitoIdp.verifyUserAttribute(
       cognito.VerifyUserAttributeRequest(
-        accessToken: userPoolTokens.accessToken.raw,
+        accessToken: tokens.accessToken.raw,
         attributeName: request.userAttributeKey.key,
         code: request.confirmationCode,
       ),
@@ -760,12 +763,13 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       resendUserAttributeConfirmationCode({
     required ResendUserAttributeConfirmationCodeRequest request,
   }) async {
-    final userPoolTokens = await getUserPoolTokens();
+    final credentials = await getCredentials();
+    final tokens = credentials.userPoolTokens!;
     final options =
         request.options as CognitoResendUserAttributeConfirmationCodeOptions?;
     final result = await _cognitoIdp.getUserAttributeVerificationCode(
       cognito.GetUserAttributeVerificationCodeRequest(
-        accessToken: userPoolTokens.accessToken.raw,
+        accessToken: tokens.accessToken.raw,
         attributeName: request.userAttributeKey.key,
         clientMetadata: BuiltMap(options?.clientMetadata ?? const {}),
       ),
@@ -788,7 +792,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     // ignore: unused_local_variable
     final options = request.options as CognitoUpdatePasswordOptions?;
 
-    final tokens = await getUserPoolTokens();
+    final credentials = await getCredentials();
+    final tokens = credentials.userPoolTokens!;
     await _cognitoIdp.changePassword(
       cognito.ChangePasswordRequest(
         accessToken: tokens.accessToken.raw,
@@ -871,21 +876,24 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   }
 
   @override
-  Future<AuthUser> getCurrentUser({
+  Future<CognitoAuthUser> getCurrentUser({
     AuthUserRequest request = const AuthUserRequest(),
   }) async {
-    final userPoolTokens = await getUserPoolTokens();
-    final userId = userPoolTokens.idToken.userId;
-    final username = userPoolTokens.username;
-    return AuthUser(
+    final credentials = await getCredentials();
+    final tokens = credentials.userPoolTokens!;
+    final userId = tokens.idToken.userId;
+    final username = tokens.username;
+    return CognitoAuthUser(
       userId: userId,
       username: username,
+      signInDetails: credentials.signInDetails!,
     );
   }
 
   @override
   Future<void> rememberDevice() async {
-    final tokens = await getUserPoolTokens();
+    final credentials = await getCredentials();
+    final tokens = credentials.userPoolTokens!;
     final username = tokens.username;
     final deviceSecrets = await _deviceRepo.get(username);
     final deviceKey = deviceSecrets?.deviceKey;
@@ -914,7 +922,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
   @override
   Future<void> forgetDevice([AuthDevice? device]) async {
-    final tokens = await getUserPoolTokens();
+    final credentials = await getCredentials();
+    final tokens = credentials.userPoolTokens!;
     final username = tokens.username;
     final deviceSecrets = await _deviceRepo.get(username);
     final deviceKey = device?.id ?? deviceSecrets?.deviceKey;
@@ -936,7 +945,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
     String? paginationToken;
     do {
-      final tokens = await getUserPoolTokens();
+      final credentials = await getCredentials();
+      final tokens = credentials.userPoolTokens!;
       const devicePageLimit = 60;
       final resp = await _cognitoIdp.listDevices(
         cognito.ListDevicesRequest(
@@ -983,7 +993,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     // since an unauthenticated user may still be cached.
     final CognitoUserPoolTokens tokens;
     try {
-      tokens = await getUserPoolTokens();
+      final credentials = await getCredentials();
+      tokens = credentials.userPoolTokens!;
     } on SignedOutException {
       _hubEventController.add(AuthHubEvent.signedOut());
       return const SignOutResult();
@@ -1051,7 +1062,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
   @override
   Future<void> deleteUser() async {
-    final tokens = await getUserPoolTokens();
+    final credentials = await getCredentials();
+    final tokens = credentials.userPoolTokens!;
     await _cognitoIdp.deleteUser(
       cognito.DeleteUserRequest(
         accessToken: tokens.accessToken.raw,
@@ -1070,17 +1082,15 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   ///
   /// Throws [SignedOutException] if tokens are not present.
   @visibleForTesting
-  Future<CognitoUserPoolTokens> getUserPoolTokens() async {
-    final credentials = await fetchAuthSession(
-      request: const AuthSessionRequest(
-        options: CognitoSessionOptions(getAWSCredentials: false),
-      ),
-    );
-    final userPoolTokens = credentials.userPoolTokens;
+  Future<CredentialStoreData> getCredentials() async {
+    final credentialState = await stateMachine
+        .getOrCreate<CredentialStoreStateMachine>()
+        .getCredentialsResult();
+    final userPoolTokens = credentialState.data.userPoolTokens;
     if (userPoolTokens == null) {
       throw const SignedOutException('No user is currently signed in');
     }
-    return userPoolTokens;
+    return credentialState.data;
   }
 
   @override
@@ -1088,7 +1098,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 }
 
 class _AmplifyAuthCognitoDartPluginKey extends AuthPluginKey<
-    AuthUser,
+    CognitoAuthUser,
     CognitoUserAttributeKey,
     AuthUserAttribute<CognitoUserAttributeKey>,
     CognitoDevice,
@@ -1132,7 +1142,7 @@ class _AmplifyAuthCognitoDartPluginKey extends AuthPluginKey<
 
 /// Extensions to [AuthCategory] when using [AmplifyAuthCognitoDart].
 extension AmplifyAuthCognitoDartCategoryExtensions on AuthCategory<
-    AuthUser,
+    CognitoAuthUser,
     CognitoUserAttributeKey,
     AuthUserAttribute<CognitoUserAttributeKey>,
     CognitoDevice,

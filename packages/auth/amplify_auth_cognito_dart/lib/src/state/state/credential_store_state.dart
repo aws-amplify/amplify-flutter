@@ -77,7 +77,7 @@ abstract class CredentialStoreState
 }
 
 /// {@template amplify_auth_cognito.credential_store_not_configured}
-///
+/// The credential store has not yet been configured.
 /// {@endtemplate}
 class CredentialStoreNotConfigured extends CredentialStoreState {
   /// {@macro amplify_auth_cognito.credential_store_not_configured}
@@ -91,7 +91,7 @@ class CredentialStoreNotConfigured extends CredentialStoreState {
 }
 
 /// {@template amplify_auth_cognito.credential_store_migrating_legacy_store}
-///
+/// Credentials are being migrated from the V1 credential store.
 /// {@endtemplate}
 class CredentialStoreMigratingLegacyStore extends CredentialStoreState {
   /// {@macro amplify_auth_cognito.credential_store_migrating_legacy_store}
@@ -106,7 +106,7 @@ class CredentialStoreMigratingLegacyStore extends CredentialStoreState {
 }
 
 /// {@template amplify_auth_cognito.credential_store_loading_stored_credentials}
-///
+/// Credentials are being loading from the credential store.
 /// {@endtemplate}
 class CredentialStoreLoadingStoredCredentials extends CredentialStoreState {
   /// {@macro amplify_auth_cognito.credential_store_loading_stored_credentials}
@@ -121,7 +121,7 @@ class CredentialStoreLoadingStoredCredentials extends CredentialStoreState {
 }
 
 /// {@template amplify_auth_cognito.credential_store_storing_credentials}
-///
+/// Credentials are being written to the credential store.
 /// {@endtemplate}
 class CredentialStoreStoringCredentials extends CredentialStoreState {
   /// {@macro amplify_auth_cognito.credential_store_storing_credentials}
@@ -136,7 +136,7 @@ class CredentialStoreStoringCredentials extends CredentialStoreState {
 }
 
 /// {@template amplify_auth_cognito.credential_store_clearing_credentials}
-///
+/// Credentials are being cleared from the credential store.
 /// {@endtemplate}
 class CredentialStoreClearingCredentials extends CredentialStoreState {
   /// {@macro amplify_auth_cognito.credential_store_clearing_credentials}
@@ -151,7 +151,7 @@ class CredentialStoreClearingCredentials extends CredentialStoreState {
 }
 
 /// {@template amplify_auth_cognito.credential_store_success}
-///
+/// A successful result to a requested save/load of credentials.
 /// {@endtemplate}
 class CredentialStoreSuccess extends CredentialStoreState {
   /// {@macro amplify_auth_cognito.credential_store_success}
@@ -171,7 +171,7 @@ class CredentialStoreSuccess extends CredentialStoreState {
 }
 
 /// {@template amplify_auth_cognito.credential_store_failure}
-///
+/// A failure saving/loading data from the credential store.
 /// {@endtemplate}
 class CredentialStoreFailure extends CredentialStoreState with ErrorState {
   /// {@macro amplify_auth_cognito.credential_store_failure}
@@ -197,6 +197,7 @@ class CredentialStoreData with AWSEquatable<CredentialStoreData> {
     this.identityId,
     this.awsCredentials,
     this.userPoolTokens,
+    this.signInDetails,
   });
 
   /// AWS Identity ID
@@ -208,10 +209,14 @@ class CredentialStoreData with AWSEquatable<CredentialStoreData> {
   /// Cognito User Pool tokens
   final CognitoUserPoolTokens? userPoolTokens;
 
+  /// Cognito sign-in details
+  final CognitoSignInDetails? signInDetails;
+
   @override
   List<Object?> get props => [
         identityId,
         awsCredentials,
         userPoolTokens,
+        signInDetails,
       ];
 }

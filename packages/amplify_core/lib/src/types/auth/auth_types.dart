@@ -68,6 +68,7 @@ export 'session/auth_session_request.dart';
 export 'session/auth_user.dart';
 export 'session/auth_user_options.dart';
 export 'session/auth_user_request.dart';
+export 'session/sign_in_details.dart';
 
 /// Sign In
 export 'sign_in/auth_next_sign_in_step.dart';
