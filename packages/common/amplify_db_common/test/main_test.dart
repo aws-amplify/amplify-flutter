@@ -15,7 +15,7 @@
 // TODO(Jordan-Nelson): Run tests on web. This will require loading sqlite3.wasm
 @TestOn('vm')
 
-import 'package:amplify_drift_util/amplify_drift_util.dart';
+import 'package:amplify_db_common/amplify_db_common.dart';
 import 'package:drift/drift.dart';
 import 'package:test/test.dart';
 

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_drift_util_example/database.dart';
+import 'package:amplify_db_common_example/database.dart';
 import 'package:example_common/example_common.dart';
 
 final db = MyDatabase();

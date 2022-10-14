@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Utilities for using Drift within Amplify packages.
-library amplify_drift_utilities;
+/// Common utilities for working with databases such as sqlite.
+library amplify_db_common;
 
 export 'src/connect.dart';

@@ -264,11 +264,11 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "packages/util/amplify_drift_util/"
+    directory: "packages/common/amplify_db_common/"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "packages/util/amplify_drift_util/example/"
+    directory: "packages/common/amplify_db_common/example/"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"

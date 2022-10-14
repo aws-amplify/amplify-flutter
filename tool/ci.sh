@@ -112,12 +112,12 @@ for PKG in ${PKGS}; do
         git submodule update --init || EXIT_CODE=$?
         ;;
       command_6)
-        echo 'tool/test-desktop.sh'
-        tool/test-desktop.sh || EXIT_CODE=$?
-        ;;
-      command_7)
         echo 'dart test'
         dart test || EXIT_CODE=$?
+        ;;
+      command_7)
+        echo 'tool/test-desktop.sh'
+        tool/test-desktop.sh || EXIT_CODE=$?
         ;;
       command_8)
         echo 'dart run build_runner test --delete-conflicting-outputs --verbose -- -p chrome,firefox'

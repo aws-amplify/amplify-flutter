@@ -17,7 +17,7 @@
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_drift_util/src/connect.web.dart';
+import 'package:amplify_db_common/src/connect.web.dart';
 import 'package:async/async.dart';
 import 'package:drift/drift.dart';
 import 'package:test/test.dart';

@@ -14,7 +14,7 @@
 
 // The example below is taken from https://drift.simonbinder.eu/docs/getting-started/
 
-import 'package:amplify_drift_util/amplify_drift_util.dart';
+import 'package:amplify_db_common/amplify_db_common.dart';
 import 'package:drift/drift.dart';
 
 // assuming that your file is called filename.dart. This will give an error at

@@ -20,7 +20,7 @@ import 'package:drift/isolate.dart';
 import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
 
-/// {@macro amplify_drift_util.connect}
+/// {@macro amplify_db_common.connect}
 QueryExecutor connect({
   required String name,
   String? path,

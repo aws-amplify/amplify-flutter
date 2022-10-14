@@ -28,7 +28,7 @@ const _loadSqlRecoveryMessage =
     'See Amplify Platform Setup docs for more info: '
     'https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/';
 
-/// {@macro amplify_drift_util.connect}
+/// {@macro amplify_db_common.connect}
 QueryExecutor connect({
   required String name,
   String? path,

@@ -14,7 +14,7 @@
 
 import 'package:drift/drift.dart';
 
-/// {@template amplify_drift_util.connect}
+/// {@template amplify_db_common.connect}
 /// Returns a [QueryExecutor] on vm and web platforms.
 /// {@endtemplate}
 ///
