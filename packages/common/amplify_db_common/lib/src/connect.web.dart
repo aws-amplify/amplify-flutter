@@ -62,7 +62,7 @@ Future<Uint8List> loadSqlite3([
       final operation = client!.send(request);
       final response = await operation.response;
       final code = response.statusCode;
-      if (code >= 400) {
+      if (code >= 300) {
         throw AmplifyException(
           'Request to load sqlite3.wasm returned status code: $code.',
           recoverySuggestion: _loadSqlRecoveryMessage,
