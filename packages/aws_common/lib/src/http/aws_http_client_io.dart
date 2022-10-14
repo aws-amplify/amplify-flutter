@@ -225,17 +225,34 @@ class AWSHttpClientImpl extends AWSHttpClient {
       AWSHttpMethod method,
       Uri uri,
     ) async {
+      final socket = await SecureSocket.connect(
+        uri.host,
+        uri.port,
+        supportedProtocols: supportedProtocols.alpnValues,
+        onBadCertificate: (cert) {
+          return onBadCertificate(cert.asInternalCert(), uri.host, uri.port);
+        },
+      );
+      logger.verbose('Negotiated ALPN: ${socket.selectedProtocol}');
+      if (socket.selectedProtocol != 'h2' &&
+          supportedProtocols.supports(AlpnProtocol.http1_1)) {
+        logger.verbose('Could not negotiate HTTP/2. Falling back to HTTP/1.1');
+        socket.destroy();
+        unawaited(
+          _sendH1(
+            logger: logger,
+            request: request,
+            completer: completer,
+            cancelTrigger: cancelTrigger,
+            requestProgress: requestProgress,
+            responseProgress: responseProgress,
+          ),
+        );
+        return null;
+      }
       final transport = _http2Connections[uri.authority] ??=
-          ClientTransportConnection.viaSocket(
-        await SecureSocket.connect(
-          uri.host,
-          uri.port,
-          supportedProtocols: supportedProtocols.alpnValues,
-          onBadCertificate: (cert) {
-            return onBadCertificate(cert.asInternalCert(), uri.host, uri.port);
-          },
-        ),
-      )..onActiveStateChanged = (isActive) {
+          ClientTransportConnection.viaSocket(socket)
+            ..onActiveStateChanged = (isActive) {
               if (!isActive) {
                 _logger.verbose('Closing transport: ${uri.authority}');
                 _http2Connections.remove(uri.authority)?.finish();
@@ -445,6 +462,21 @@ class AWSHttpClientImpl extends AWSHttpClient {
     );
 
     Future<void>(() async {
+      if (supportedProtocols.supports(AlpnProtocol.http2)) {
+        if (request.scheme == 'https') {
+          return _sendH2(
+            request: request,
+            logger: operation.logger,
+            completer: completer,
+            cancelTrigger: cancelTrigger.future,
+            requestProgress: requestProgressController,
+            responseProgress: responseProgressController,
+          );
+        }
+        operation.logger.warn(
+          'HTTP/2 does not support insecure "http://" requests',
+        );
+      }
       if (supportedProtocols.supports(AlpnProtocol.http1_1)) {
         return _sendH1(
           logger: operation.logger,
@@ -454,16 +486,13 @@ class AWSHttpClientImpl extends AWSHttpClient {
           requestProgress: requestProgressController,
           responseProgress: responseProgressController,
         );
-      } else {
-        return _sendH2(
-          request: request,
-          logger: operation.logger,
-          completer: completer,
-          cancelTrigger: cancelTrigger.future,
-          requestProgress: requestProgressController,
-          responseProgress: responseProgressController,
-        );
       }
+      completer.completeError(
+        AWSHttpException(
+          request,
+          const SocketException('Unsupported protocol/scheme combination'),
+        ),
+      );
     }).catchError((Object e, StackTrace st) {
       completer.completeError(AWSHttpException(request, e), st);
     });
