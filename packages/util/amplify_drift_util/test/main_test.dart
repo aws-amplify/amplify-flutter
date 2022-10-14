@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// TODO(Jordan-Nelson): Run tests on web. This will require loading sqlite3.wasm
+@TestOn('vm')
+
 import 'package:amplify_drift_util/amplify_drift_util.dart';
 import 'package:test/test.dart';
 
@@ -19,7 +22,7 @@ import 'package:test/test.dart';
 import '../example/lib/database.dart';
 
 void main() {
-  group('A group of tests', () {
+  group('drift utils', () {
     test('can constructDb ', () async {
       expect(
         constructDb(name: 'TestDatabase', path: '/tmp').opener(),

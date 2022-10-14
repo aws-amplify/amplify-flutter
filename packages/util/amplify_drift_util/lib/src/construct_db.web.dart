@@ -18,6 +18,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/wasm.dart';
+import 'package:meta/meta.dart';
 import 'package:sqlite3/wasm.dart';
 
 final _sqlite3Memo = AsyncMemoizer<Uint8List>();
@@ -26,7 +27,7 @@ final _sqlite3Memo = AsyncMemoizer<Uint8List>();
 LazyDatabase constructDb({
   required String name,
   String? path,
-  AWSHttpClient? client,
+  @visibleForTesting AWSHttpClient? client,
 }) {
   return LazyDatabase(() async {
     final sqlite3Bytes = await _loadSqlite3(client);
