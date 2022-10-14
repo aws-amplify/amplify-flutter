@@ -19,6 +19,8 @@ dependencies:
 dev_dependencies:
   amplify_lints:
     path: ../../amplify_lints
+  aws_common:
+    path: ../../aws_common
   build_test: ^2.0.0
   drift_dev: ^2.2.0+1
   example_common:

@@ -19,6 +19,7 @@ import 'dart:async';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_db_common/src/connect.web.dart';
 import 'package:async/async.dart';
+import 'package:aws_common/testing.dart';
 import 'package:drift/drift.dart';
 import 'package:test/test.dart';
 
@@ -28,17 +29,23 @@ void main() {
   group('drift utils (web)', () {
     test('calling connect multiple times should only result in one http call',
         () async {
-      final client = MockFetchSqlAWSHttpClient();
+      var requestCount = 0;
+      final client = MockAWSHttpClient((request) {
+        requestCount++;
+        return AWSHttpResponse(statusCode: 200, body: Uint8List.fromList([]));
+      });
       for (var i = 0; i < 100; i++) {
         final db = connect(name: 'TestDatabase', path: '/tmp', client: client);
         unawaited(db.ensureOpen(TestQueryExecutorUser()));
       }
-      expect(client.requestCount, 1);
+      expect(requestCount, 1);
     });
 
     test('loadSqlite3 should throw AmplifyException for a 4xx/5xx status code',
         () async {
-      final client = MockFetchSqlAWSHttpClient(statusCode: 404);
+      final client = MockAWSHttpClient((request) {
+        return AWSHttpResponse(statusCode: 404, body: Uint8List.fromList([]));
+      });
       final memo = AsyncMemoizer<Uint8List>();
       expect(
         () => loadSqlite3(client, memo),
@@ -46,50 +53,4 @@ void main() {
       );
     });
   });
-}
-
-/// A mock http client that returns an empty Uint8List and counts requests.
-class MockFetchSqlAWSHttpClient extends AWSCustomHttpClient {
-  MockFetchSqlAWSHttpClient({this.statusCode = 200});
-
-  /// The number of requests this client has made.
-  int requestCount = 0;
-
-  final int statusCode;
-
-  @override
-  AWSHttpOperation send(
-    AWSBaseHttpRequest request, {
-    FutureOr<void> Function()? onCancel,
-  }) {
-    requestCount++;
-    return MockFetchSqlAWSHttpOperation(statusCode: statusCode);
-  }
-}
-
-class MockFetchSqlAWSHttpOperation
-    extends AWSHttpOperation<AWSBaseHttpResponse> {
-  MockFetchSqlAWSHttpOperation({this.statusCode = 200})
-      : super(
-          CancelableOperation.fromFuture(
-            Future.value(
-              AWSHttpResponse(
-                statusCode: statusCode,
-                body: _bytes,
-              ),
-            ),
-          ),
-          requestProgress: const Stream.empty(),
-          responseProgress: const Stream.empty(),
-        );
-
-  /// Mock Sqlite3.wasm bytes.
-  static final Uint8List _bytes = Uint8List.fromList([]);
-
-  final int statusCode;
-
-  @override
-  Future<AWSBaseHttpResponse> get response async {
-    return AWSHttpResponse(statusCode: statusCode, body: _bytes);
-  }
 }
