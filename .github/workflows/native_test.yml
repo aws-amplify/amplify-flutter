@@ -24,7 +24,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4;commands:command_5-test_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4;commands:command_5-command_7"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:2.17.0
@@ -57,7 +57,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4;commands:command_5-test_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4;commands:command_5-command_7"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
@@ -265,7 +265,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4;commands:command_5-test_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4;commands:command_5-command_7"
           restore-keys: |
             os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
@@ -444,7 +444,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:macos-latest;pub-cache-hosted;sdk:dev;packages:packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/custom-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/restXml-packages/smithy/goldens/lib2/restXmlWithNa-!!too_long!!-589-940612423"
+          key: "os:macos-latest;pub-cache-hosted;sdk:dev;packages:packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/custom-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/restXml-packages/smithy/goldens/lib2/restXmlWithN-!!too_long!!-592-1034569542"
           restore-keys: |
             os:macos-latest;pub-cache-hosted;sdk:dev;packages:packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/custom-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/restXml-packages/smithy/goldens/lib2/restXmlWithNa-!!too_long!!-573-897748075
             os:macos-latest;pub-cache-hosted;sdk:dev
@@ -590,7 +590,7 @@ jobs:
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/custom-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/restXml-packages/smithy/goldens/lib2/restXmlWit-!!too_long!!-592-846050532"
+          key: "os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/custom-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/restXml-packages/smithy/goldens/lib2/restXmlWit-!!too_long!!-595-219085427"
           restore-keys: |
             os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/smithy/goldens/lib/awsJson1_0-packages/smithy/goldens/lib/awsJson1_1-packages/smithy/goldens/lib/restJson1-packages/smithy/goldens/lib/restXml-packages/smithy/goldens/lib/restXmlWithNamespace-packages/smithy/goldens/lib2/awsJson1_0-packages/smithy/goldens/lib2/awsJson1_1-packages/smithy/goldens/lib2/custom-packages/smithy/goldens/lib2/restJson1-packages/smithy/goldens/lib2/restXml-packages/smithy/goldens/lib2/restXmlWit-!!too_long!!-576-415910943
             os:macos-latest;pub-cache-hosted;sdk:stable
