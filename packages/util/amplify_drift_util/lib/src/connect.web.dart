@@ -45,6 +45,9 @@ QueryExecutor connect({
   });
 }
 
+/// Loads the sqlite.wasm file.
+///
+/// Available for testing only.
 @visibleForTesting
 Future<Uint8List> loadSqlite3([
   AWSHttpClient? client,

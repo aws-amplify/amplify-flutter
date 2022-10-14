@@ -72,10 +72,12 @@ class MockFetchSqlAWSHttpOperation
   MockFetchSqlAWSHttpOperation({this.statusCode = 200})
       : super(
           CancelableOperation.fromFuture(
-            Future.value(AWSHttpResponse(
-              statusCode: statusCode,
-              body: _bytes,
-            )),
+            Future.value(
+              AWSHttpResponse(
+                statusCode: statusCode,
+                body: _bytes,
+              ),
+            ),
           ),
           requestProgress: const Stream.empty(),
           responseProgress: const Stream.empty(),
