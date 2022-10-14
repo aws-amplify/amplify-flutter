@@ -23,6 +23,11 @@ import 'package:sqlite3/wasm.dart';
 
 final _sqlite3Memo = AsyncMemoizer<Uint8List>();
 
+const _loadSqlRecoveryMessage =
+    'sqlite3.wasm needs to be included in your /web dir. '
+    'See Amplify Platform Setup docs for more info: '
+    'https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/';
+
 /// {@macro amplify_drift_util.connect}
 QueryExecutor connect({
   required String name,
@@ -30,7 +35,7 @@ QueryExecutor connect({
   @visibleForTesting AWSHttpClient? client,
 }) {
   return LazyDatabase(() async {
-    final sqlite3Bytes = await _loadSqlite3(client);
+    final sqlite3Bytes = await loadSqlite3(client);
     final fs = await IndexedDbFileSystem.open(dbName: 'com.amplify.$name');
     final sqlite3 = await WasmSqlite3.load(
       sqlite3Bytes,
@@ -40,8 +45,12 @@ QueryExecutor connect({
   });
 }
 
-Future<Uint8List> _loadSqlite3([AWSHttpClient? client]) {
-  return _sqlite3Memo.runOnce(() async {
+@visibleForTesting
+Future<Uint8List> loadSqlite3([
+  AWSHttpClient? client,
+  AsyncMemoizer<Uint8List>? memo,
+]) {
+  return (memo ?? _sqlite3Memo).runOnce(() async {
     client ??= AWSHttpClient();
     final request = AWSHttpRequest(
       method: AWSHttpMethod.get,
@@ -52,27 +61,19 @@ Future<Uint8List> _loadSqlite3([AWSHttpClient? client]) {
       final response = await operation.response;
       final code = response.statusCode;
       if (code >= 400) {
-        _handleSqliteLoadError(
-          message: 'Request to load sqlite3.wasm returned status code: $code.',
+        throw AmplifyException(
+          'Request to load sqlite3.wasm returned status code: $code.',
+          recoverySuggestion: _loadSqlRecoveryMessage,
         );
       }
       return response.bodyBytes as Uint8List;
     } on Object catch (e) {
       if (e is AmplifyException) rethrow;
-      _handleSqliteLoadError(underlyingException: e);
+      throw AmplifyException(
+        'An unknown exception occurred loading sqlite3.wasm.',
+        recoverySuggestion: _loadSqlRecoveryMessage,
+        underlyingException: e,
+      );
     }
   });
-}
-
-Never _handleSqliteLoadError({
-  String? message = 'An unknown exception occurred loading sqlite3.wasm.',
-  Object? underlyingException,
-}) {
-  throw AmplifyException(
-    '$message '
-    'sqlite3.wasm needs to be included in your /web dir. '
-    'See Amplify Platform Setup docs for more info: '
-    'https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/',
-    underlyingException: underlyingException,
-  );
 }

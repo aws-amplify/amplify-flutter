@@ -18,6 +18,7 @@ import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_drift_util/src/connect.web.dart';
+import 'package:async/async.dart';
 import 'package:drift/drift.dart';
 import 'package:test/test.dart';
 
@@ -34,15 +35,27 @@ void main() {
       }
       expect(client.requestCount, 1);
     });
+
+    test('loadSqlite3 should throw AmplifyException for a 4xx/5xx status code',
+        () async {
+      final client = MockFetchSqlAWSHttpClient(statusCode: 404);
+      final memo = AsyncMemoizer<Uint8List>();
+      expect(
+        () => loadSqlite3(client, memo),
+        throwsA(isA<AmplifyException>()),
+      );
+    });
   });
 }
 
 /// A mock http client that returns an empty Uint8List and counts requests.
 class MockFetchSqlAWSHttpClient extends AWSCustomHttpClient {
-  MockFetchSqlAWSHttpClient();
+  MockFetchSqlAWSHttpClient({this.statusCode = 200});
 
   /// The number of requests this client has made.
   int requestCount = 0;
+
+  final int statusCode;
 
   @override
   AWSHttpOperation send(
@@ -50,16 +63,19 @@ class MockFetchSqlAWSHttpClient extends AWSCustomHttpClient {
     FutureOr<void> Function()? onCancel,
   }) {
     requestCount++;
-    return MockFetchSqlAWSHttpOperation();
+    return MockFetchSqlAWSHttpOperation(statusCode: statusCode);
   }
 }
 
 class MockFetchSqlAWSHttpOperation
     extends AWSHttpOperation<AWSBaseHttpResponse> {
-  MockFetchSqlAWSHttpOperation()
+  MockFetchSqlAWSHttpOperation({this.statusCode = 200})
       : super(
           CancelableOperation.fromFuture(
-            Future.value(AWSHttpResponse(statusCode: 200, body: _bytes)),
+            Future.value(AWSHttpResponse(
+              statusCode: statusCode,
+              body: _bytes,
+            )),
           ),
           requestProgress: const Stream.empty(),
           responseProgress: const Stream.empty(),
@@ -68,8 +84,10 @@ class MockFetchSqlAWSHttpOperation
   /// Mock Sqlite3.wasm bytes.
   static final Uint8List _bytes = Uint8List.fromList([]);
 
+  final int statusCode;
+
   @override
   Future<AWSBaseHttpResponse> get response async {
-    return AWSHttpResponse(statusCode: 200, body: _bytes);
+    return AWSHttpResponse(statusCode: statusCode, body: _bytes);
   }
 }
