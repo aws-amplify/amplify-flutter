@@ -12,4 +12,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include: package:amplify_lints/library.yaml
+include: package:amplify_lints/app.yaml
