@@ -12,5 +12,5 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export 'get_base_element_href_from_dom.dart'
+export 'get_base_element_href_from_dom.stub.dart'
     if (dart.library.html) 'get_base_element_href_from_dom.web.dart';
