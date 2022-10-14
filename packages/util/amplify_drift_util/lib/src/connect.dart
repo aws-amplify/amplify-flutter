@@ -12,21 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:drift/drift.dart';
-
-/// {@template amplify_drift_util.construct_db}
-/// Constructs a [LazyDatabase] on vm and web platforms.
-/// {@endtemplate}
-///
-/// [name] should uniquely identify the database across Amplify plugins. For
-/// example, "AnalyticsEventCache".
-///
-/// [path] must be provided on vm platforms. It will be unused on web.
-LazyDatabase constructDb({
-  required String name,
-  String? path,
-}) {
-  throw UnimplementedError(
-    'constructDb has not been implemented for this platform.',
-  );
-}
+export 'connect.stub.dart'
+    if (dart.library.html) 'connect.web.dart'
+    if (dart.library.io) 'connect.vm.dart';

@@ -17,19 +17,20 @@
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_drift_util/src/construct_db.web.dart';
+import 'package:amplify_drift_util/src/connect.web.dart';
 import 'package:drift/drift.dart';
 import 'package:test/test.dart';
 
+import 'main_test.dart';
+
 void main() {
   group('drift utils (web)', () {
-    test(
-        'calling constructDb multiple times should only result in one http call',
+    test('calling connect multiple times should only result in one http call',
         () async {
       final client = MockFetchSqlAWSHttpClient();
       for (var i = 0; i < 100; i++) {
-        constructDb(name: 'TestDatabase', path: '/tmp', client: client)
-            .opener();
+        final db = connect(name: 'TestDatabase', path: '/tmp', client: client);
+        unawaited(db.ensureOpen(TestQueryExecutorUser()));
       }
       expect(client.requestCount, 1);
     });

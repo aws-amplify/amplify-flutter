@@ -44,7 +44,7 @@ class Categories extends Table {
 @DriftDatabase(tables: [Todos, Categories])
 class MyDatabase extends _$MyDatabase {
   // we tell the database where to store the data with this constructor
-  MyDatabase() : super(constructDb(name: 'MyDatabase', path: '/tmp'));
+  MyDatabase() : super(connect(name: 'MyDatabase', path: '/tmp'));
 
   // you should bump this number whenever you change or add a table definition.
   // Migrations are covered later in the documentation.

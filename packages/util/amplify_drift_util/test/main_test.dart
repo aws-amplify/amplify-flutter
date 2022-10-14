@@ -16,6 +16,7 @@
 @TestOn('vm')
 
 import 'package:amplify_drift_util/amplify_drift_util.dart';
+import 'package:drift/drift.dart';
 import 'package:test/test.dart';
 
 // ignore: avoid_relative_lib_imports
@@ -23,9 +24,11 @@ import '../example/lib/database.dart';
 
 void main() {
   group('drift utils', () {
-    test('can constructDb ', () async {
+    test('connect completes ', () async {
       expect(
-        constructDb(name: 'TestDatabase', path: '/tmp').opener(),
+        connect(name: 'TestDatabase', path: '/tmp').ensureOpen(
+          TestQueryExecutorUser(),
+        ),
         completes,
       );
     });
@@ -44,4 +47,17 @@ void main() {
       expect(items[0].title, 'New todo');
     });
   });
+}
+
+class TestQueryExecutorUser implements QueryExecutorUser {
+  @override
+  Future<void> beforeOpen(
+    QueryExecutor executor,
+    OpeningDetails details,
+  ) async {
+    // do nothing
+  }
+
+  @override
+  int get schemaVersion => 1;
 }

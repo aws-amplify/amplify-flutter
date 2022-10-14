@@ -23,8 +23,8 @@ import 'package:sqlite3/wasm.dart';
 
 final _sqlite3Memo = AsyncMemoizer<Uint8List>();
 
-/// {@macro amplify_drift_util.construct_db}
-LazyDatabase constructDb({
+/// {@macro amplify_drift_util.connect}
+QueryExecutor connect({
   required String name,
   String? path,
   @visibleForTesting AWSHttpClient? client,

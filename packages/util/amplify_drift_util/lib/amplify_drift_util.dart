@@ -15,4 +15,4 @@
 /// Utilities for using Drift within Amplify packages.
 library amplify_drift_utilities;
 
-export 'src/construct_db.dart';
+export 'src/connect.dart';

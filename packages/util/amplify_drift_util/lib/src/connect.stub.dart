@@ -12,21 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:io';
-
 import 'package:drift/drift.dart';
-import 'package:drift/native.dart';
-import 'package:path/path.dart' as p;
 
-/// {@macro amplify_drift_util.construct_db}
-LazyDatabase constructDb({
+/// {@template amplify_drift_util.connect}
+/// Returns a [QueryExecutor] on vm and web platforms.
+/// {@endtemplate}
+///
+/// [name] should uniquely identify the database across Amplify plugins. For
+/// example, "AnalyticsEventCache".
+///
+/// [path] must be provided on vm platforms. It will be unused on web.
+QueryExecutor connect({
   required String name,
   String? path,
 }) {
-  assert(path != null, 'path cannot be null on vm.');
-  final db = LazyDatabase(() async {
-    final file = File(p.join(path!, 'com.amplify.$name.sqlite'));
-    return NativeDatabase(file);
-  });
-  return db;
+  throw UnimplementedError(
+    'constructDb has not been implemented for this platform.',
+  );
 }
