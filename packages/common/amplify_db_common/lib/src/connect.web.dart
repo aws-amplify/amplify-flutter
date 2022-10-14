@@ -55,10 +55,9 @@ Future<Uint8List> loadSqlite3([
 ]) {
   return (memo ?? _sqlite3Memo).runOnce(() async {
     client ??= AWSHttpClient();
-    final request = AWSHttpRequest(
-      method: AWSHttpMethod.get,
-      uri: Uri.parse('${window.location.origin}/sqlite3.wasm'),
-    );
+    final baseRef = getBaseElementHrefFromDom() ?? '/';
+    final uri = Uri.parse('${window.location.origin}${baseRef}sqlite3.wasm');
+    final request = AWSHttpRequest(method: AWSHttpMethod.get, uri: uri);
     try {
       final operation = client!.send(request);
       final response = await operation.response;
