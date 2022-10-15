@@ -30,6 +30,8 @@ abstract class StoragePluginInterface<
         PluginStorageGetUrlOptions extends StorageGetUrlOptions,
         PluginStorageUploadDataOperation extends StorageUploadDataOperation,
         PluginStorageUploadDataOptions extends StorageUploadDataOptions,
+        PluginStorageUploadFileOperation extends StorageUploadFileOperation,
+        PluginStorageUploadFileOptions extends StorageUploadFileOptions,
         PluginStorageDownloadDataOperation extends StorageDownloadDataOperation,
         PluginStorageDownloadDataOptions extends StorageDownloadDataOptions,
         PluginStorageDownloadFileOperation extends StorageDownloadFileOperation,
@@ -70,13 +72,6 @@ abstract class StoragePluginInterface<
     throw UnimplementedError('getUrl() has not been implemented.');
   }
 
-  /// {@macro amplify_core.amplify_storage_category.upload_data}
-  PluginStorageUploadDataOperation uploadData({
-    required StorageUploadDataRequest<PluginStorageUploadDataOptions> request,
-  }) {
-    throw UnimplementedError('uploadData() has not been implemented.');
-  }
-
   /// {@macro amplify_core.amplify_storage_category.download_data}
   PluginStorageDownloadDataOperation downloadData({
     required StorageDownloadDataRequest<PluginStorageDownloadDataOptions>
@@ -93,6 +88,22 @@ abstract class StoragePluginInterface<
     void Function(PluginTransferProgress)? onProgress,
   }) {
     throw UnimplementedError('downloadFile() has not been implemented.');
+  }
+
+  /// {@macro amplify_core.amplify_storage_category.upload_data}
+  PluginStorageUploadDataOperation uploadData({
+    required StorageUploadDataRequest<PluginStorageUploadDataOptions> request,
+    void Function(PluginTransferProgress)? onProgress,
+  }) {
+    throw UnimplementedError('uploadData() has not been implemented.');
+  }
+
+  /// {@macro amplify_core.amplify_storage_category.upload_file}
+  PluginStorageUploadFileOperation uploadFile({
+    required StorageUploadFileRequest<PluginStorageUploadFileOptions> request,
+    void Function(PluginTransferProgress)? onProgress,
+  }) {
+    throw UnimplementedError('uploadFile() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_storage_category.copy}
@@ -124,7 +135,4 @@ abstract class StoragePluginInterface<
   }) {
     throw UnimplementedError('removeMany() has not been implemented.');
   }
-
-  // TODO(HuiSF): add interface for remaining APIs
-  //  uploadFile, downloadFile, downloadData
 }

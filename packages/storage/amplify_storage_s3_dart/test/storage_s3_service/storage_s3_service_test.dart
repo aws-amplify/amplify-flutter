@@ -20,7 +20,6 @@ import 'package:amplify_storage_s3_dart/src/sdk/s3.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:fixnum/fixnum.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:smithy/smithy.dart';
 import 'package:test/test.dart';
@@ -69,7 +68,7 @@ void main() {
         prefixResolver: testPrefixResolver,
         credentialsProvider: TestIamAuthProvider(),
         logger: logger,
-        dependencyManagerOverride: dependencyManager,
+        dependencyManager: dependencyManager,
       );
     });
 

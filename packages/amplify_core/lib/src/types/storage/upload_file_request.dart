@@ -14,15 +14,25 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_core.storage.upload_data_result}
-/// Presents the result of a [StorageUploadDataOperation].
+import 'base/storage_operation_options.dart';
+
+/// {@template amplify_core.storage.upload_file_request}
+/// Presents a storage upload data request.
 /// {@endtemplate}
-class StorageUploadDataResult<Item extends StorageItem> {
-  /// {@macro amplify_core.storage.upload_data_result}
-  const StorageUploadDataResult({
-    required this.uploadedItem,
+class StorageUploadFileRequest<Options extends StorageOperationOptions> {
+  /// {@macro amplify_core.storage.upload_file_request}
+  const StorageUploadFileRequest({
+    required this.localFile,
+    required this.key,
+    this.options,
   });
 
-  /// The uploaded object of the [StorageUploadDataOperation].
-  final Item uploadedItem;
+  /// The key of the object upload to.
+  final String key;
+
+  /// The local file to upload.
+  final AWSFile localFile;
+
+  /// The configurable options of the [StorageUploadFileRequest].
+  final Options? options;
 }

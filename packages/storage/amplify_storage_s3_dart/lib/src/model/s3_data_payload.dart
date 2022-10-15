@@ -14,15 +14,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_core.storage.upload_data_result}
-/// Presents the result of a [StorageUploadDataOperation].
+/// {@template storage.amplify_storage_s3.data_payload}
+/// Creates a stream of bytes from data in memory.
 /// {@endtemplate}
-class StorageUploadDataResult<Item extends StorageItem> {
-  /// {@macro amplify_core.storage.upload_data_result}
-  const StorageUploadDataResult({
-    required this.uploadedItem,
-  });
-
-  /// The uploaded object of the [StorageUploadDataOperation].
-  final Item uploadedItem;
-}
+typedef S3DataPayload = StorageDataPayload;

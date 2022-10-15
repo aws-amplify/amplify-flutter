@@ -48,9 +48,26 @@ void main() {
     );
 
   group('AmplifyStorageS3Dart', () {
+    late DependencyManager dependencyManager;
+    late StorageS3Service storageS3Service;
+
+    setUp(() async {
+      dependencyManager = DependencyManager();
+      storageS3Service = MockStorageS3Service();
+
+      when(
+        () => storageS3Service.abortIncompleteMultipartUploads(),
+      ).thenAnswer((_) async {});
+    });
+
+    tearDown(() {
+      dependencyManager.close();
+    });
+
     test('constructor should take in custom prefix resolver', () {
       final s3Plugin = AmplifyStorageS3Dart(
         prefixResolver: TestCustomPrefixResolver(),
+        dependencyManagerOverride: dependencyManager,
       );
       final prefixResolver = s3Plugin.prefixResolver;
       expect(prefixResolver is TestCustomPrefixResolver, isTrue);
@@ -59,11 +76,14 @@ void main() {
     test(
         'configure should set up default prefix resolver when custom prefix resolver is NOT supplied',
         () async {
-      final s3Plugin = AmplifyStorageS3Dart();
+      final s3Plugin = AmplifyStorageS3Dart(
+        dependencyManagerOverride: dependencyManager,
+      );
       await s3Plugin.configure(
         config: testConfig,
         authProviderRepo: testAuthProviderRepo,
       );
+      dependencyManager.addInstance<StorageS3Service>(storageS3Service);
       final prefixResolver = s3Plugin.prefixResolver;
       expect(prefixResolver is StorageAccessLevelAwarePrefixResolver, isTrue);
     });
@@ -71,11 +91,14 @@ void main() {
     test(
         'configure should set identityProvider for the default prefix resolver',
         () async {
-      final s3Plugin = AmplifyStorageS3Dart();
+      final s3Plugin = AmplifyStorageS3Dart(
+        dependencyManagerOverride: dependencyManager,
+      );
       await s3Plugin.configure(
         config: testConfig,
         authProviderRepo: testAuthProviderRepo,
       );
+      dependencyManager.addInstance<StorageS3Service>(storageS3Service);
       final prefixResolver =
           s3Plugin.prefixResolver as StorageAccessLevelAwarePrefixResolver;
       final identityProvider = prefixResolver.identityProvider;
@@ -99,12 +122,17 @@ void main() {
       storageS3Plugin = AmplifyStorageS3Dart(
         dependencyManagerOverride: dependencyManager,
       );
+
       await storageS3Plugin.configure(
         config: testConfig,
         authProviderRepo: testAuthProviderRepo,
       );
 
       dependencyManager.addInstance<StorageS3Service>(storageS3Service);
+
+      when(
+        () => storageS3Service.abortIncompleteMultipartUploads(),
+      ).thenAnswer((_) async {});
     });
 
     tearDown(() {
@@ -358,6 +386,188 @@ void main() {
         verify(testS3DownloadTask.resume).called(1);
         verify(testS3DownloadTask.cancel).called(1);
       });
+    });
+
+    group('uploadData() API', () {
+      const testKey = 'object-upload-to';
+      final testItem = S3StorageItem(
+        key: testKey,
+        lastModified: DateTime(2022, 10, 14),
+        eTag: '12345',
+        size: 1024,
+        metadata: {
+          'filename': 'file.jpg',
+          'uploader': 'user-id',
+        },
+      );
+      final testS3UploadTask = MockS3UploadTask();
+      late S3StorageUploadDataOperation uploadDataOperation;
+
+      setUpAll(() {
+        registerFallbackValue(const S3StorageUploadDataOptions());
+        registerFallbackValue(S3DataPayload());
+      });
+
+      test(
+          'should forward options with default StorageAccessLevel to StorageS3Service.uploadData API',
+          () async {
+        final testRequest = StorageUploadDataRequest(
+          data: S3DataPayload.string('Hello S3.'),
+          key: testKey,
+        );
+
+        when(
+          () => storageS3Service.uploadData(
+            key: testKey,
+            dataPayload: any(named: 'dataPayload'),
+            options: any(named: 'options'),
+            onProgress: any(named: 'onProgress'),
+            onDone: any(named: 'onDone'),
+            onError: any(named: 'onError'),
+          ),
+        ).thenAnswer((_) => testS3UploadTask);
+
+        when(() => testS3UploadTask.result).thenAnswer((_) async => testItem);
+
+        uploadDataOperation = storageS3Plugin.uploadData(request: testRequest);
+
+        final capturedParams = verify(
+          () => storageS3Service.uploadData(
+            key: testKey,
+            dataPayload: captureAny<S3DataPayload>(named: 'dataPayload'),
+            options: captureAny<S3StorageUploadDataOptions>(named: 'options'),
+            onProgress: any(named: 'onProgress'),
+            onDone: any(named: 'onDone'),
+            onError: any(named: 'onError'),
+          ),
+        ).captured;
+
+        final capturedDataPayload = capturedParams[0];
+        final capturedOptions = capturedParams[1];
+
+        expect(capturedDataPayload, testRequest.data);
+
+        expect(
+          capturedOptions,
+          isA<S3StorageUploadDataOptions>().having(
+            (o) => o.storageAccessLevel,
+            'storageAccessLevel',
+            testDefaultStorageAccessLevel,
+          ),
+        );
+
+        final result = await uploadDataOperation.result;
+        expect(result.uploadedItem, testItem);
+      });
+
+      // test(
+      //     'S3UploadDataOperation pause resume and cancel APIs should interact with S3DownloadTask',
+      //     () async {
+      //   when(testS3UploadTask.pause).thenAnswer((_) async {});
+      //   when(testS3UploadTask.resume).thenAnswer((_) async {});
+      //   when(testS3UploadTask.cancel).thenAnswer((_) async {});
+
+      //   await uploadDataOperation.pause();
+      //   await uploadDataOperation.resume();
+      //   await uploadDataOperation.cancel();
+
+      //   verify(testS3UploadTask.pause).called(1);
+      //   verify(testS3UploadTask.resume).called(1);
+      //   verify(testS3UploadTask.cancel).called(1);
+      // });
+    });
+
+    group('uploadFile() API', () {
+      const testKey = 'object-upload-to';
+      final testItem = S3StorageItem(
+        key: testKey,
+        lastModified: DateTime(2022, 10, 14),
+        eTag: '12345',
+        size: 1024,
+        metadata: {
+          'filename': 'file.jpg',
+          'uploader': 'user-id',
+        },
+      );
+      final testS3UploadTask = MockS3UploadTask();
+      late S3StorageUploadFileOperation uploadFileOperation;
+
+      setUpAll(() {
+        registerFallbackValue(const S3StorageUploadFileOptions());
+        registerFallbackValue(const S3StorageUploadDataOptions());
+        registerFallbackValue(S3DataPayload());
+        registerFallbackValue(AWSFile.fromData([]));
+      });
+
+      test(
+          'should forward options with default StorageAccessLevel to StorageS3Service.uploadFile API',
+          () async {
+        final testRequest = StorageUploadFileRequest(
+          localFile: AWSFile.fromData([101]),
+          key: testKey,
+        );
+
+        when(
+          () => storageS3Service.uploadFile(
+            key: testKey,
+            localFile: any(named: 'localFile'),
+            options: any(named: 'options'),
+            onProgress: any(named: 'onProgress'),
+            onDone: any(named: 'onDone'),
+            onError: any(named: 'onError'),
+          ),
+        ).thenAnswer((_) => testS3UploadTask);
+
+        when(() => testS3UploadTask.result).thenAnswer((_) async => testItem);
+
+        uploadFileOperation = storageS3Plugin.uploadFile(request: testRequest);
+
+        final capturedParams = verify(
+          () => storageS3Service.uploadFile(
+            key: testKey,
+            localFile: captureAny<AWSFile>(named: 'localFile'),
+            options: captureAny<S3StorageUploadFileOptions>(named: 'options'),
+            onProgress: any(named: 'onProgress'),
+            onDone: any(named: 'onDone'),
+            onError: any(named: 'onError'),
+          ),
+        ).captured;
+
+        final capturedLocalFile = capturedParams[0];
+        final capturedOptions = capturedParams[1];
+
+        expect(capturedLocalFile, testRequest.localFile);
+
+        expect(
+          capturedOptions,
+          isA<S3StorageUploadFileOptions>().having(
+            (o) => o.storageAccessLevel,
+            'storageAccessLevel',
+            testDefaultStorageAccessLevel,
+          ),
+        );
+
+        final result = await uploadFileOperation.result;
+        expect(result.uploadedItem, testItem);
+      });
+
+      // TODO(HuiSF): enable this test when upload opeartion regain the control
+      //  APIs.
+      // test(
+      //     'S3DownloadUploadOperation pause resume and cancel APIs should interact with S3DownloadTask',
+      //     () async {
+      //   when(testS3UploadTask.pause).thenAnswer((_) async {});
+      //   when(testS3UploadTask.resume).thenAnswer((_) async {});
+      //   when(testS3UploadTask.cancel).thenAnswer((_) async {});
+
+      //   await uploadFileOperation.pause();
+      //   await uploadFileOperation.resume();
+      //   await uploadFileOperation.cancel();
+
+      //   verify(testS3UploadTask.pause).called(1);
+      //   verify(testS3UploadTask.resume).called(1);
+      //   verify(testS3UploadTask.cancel).called(1);
+      // });
     });
 
     group('copy() API', () {

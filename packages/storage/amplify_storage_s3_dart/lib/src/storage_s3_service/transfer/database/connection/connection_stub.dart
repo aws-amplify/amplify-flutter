@@ -13,16 +13,14 @@
 // limitations under the License.
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/database.dart';
+import 'package:drift/backends.dart';
 
-/// {@template amplify_core.storage.upload_data_result}
-/// Presents the result of a [StorageUploadDataOperation].
+/// {@template amplify_storage_s3_dart.transfer_database_connect}
+/// Function to connect the [TransferDatabase].
 /// {@endtemplate}
-class StorageUploadDataResult<Item extends StorageItem> {
-  /// {@macro amplify_core.storage.upload_data_result}
-  const StorageUploadDataResult({
-    required this.uploadedItem,
-  });
-
-  /// The uploaded object of the [StorageUploadDataOperation].
-  final Item uploadedItem;
+QueryExecutor connect(AppPathProvider? pathProvider) {
+  throw UnsupportedError(
+    'No suitable database implementation was found on this platform.',
+  );
 }

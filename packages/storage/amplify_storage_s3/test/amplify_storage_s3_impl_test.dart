@@ -12,8 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_storage_s3/src/amplify_storage_s3_impl.dart';
+import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:amplify_storage_s3/src/utils/app_path_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -42,15 +44,23 @@ void main() {
       );
     test(
         'configure() should override AppPathProvider with the Flutter provider',
+        () {
+      runZoned(
         () async {
-      final s3Plugin = AmplifyStorageS3();
-      await s3Plugin.configure(
-        config: testConfig,
-        authProviderRepo: testAuthProviderRepo,
+          final s3Plugin = AmplifyStorageS3();
+          await s3Plugin.configure(
+            config: testConfig,
+            authProviderRepo: testAuthProviderRepo,
+          );
+          final pathProvider =
+              // ignore: invalid_use_of_protected_member
+              s3Plugin.dependencyManager.getOrCreate<AppPathProvider>();
+          expect(pathProvider, isA<S3AppPathProvider>());
+        },
+        zoneValues: {
+          zIsTest: true,
+        },
       );
-      // ignore: omit_local_variable_types, invalid_use_of_protected_member
-      final AppPathProvider pathProvider = s3Plugin.dependencyManager.expect();
-      expect(pathProvider, isA<S3AppPathProvider>());
     });
   });
 }

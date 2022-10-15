@@ -11,6 +11,8 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+import 'dart:async';
+
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3/src/utils/app_path_provider.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
@@ -34,8 +36,10 @@ class AmplifyStorageS3 extends AmplifyStorageS3Dart {
       S3StorageGetPropertiesOptions,
       S3StorageGetUrlOperation,
       S3StorageGetUrlOptions,
-      StorageUploadDataOperation,
-      StorageUploadDataOptions,
+      S3StorageUploadDataOperation,
+      S3StorageUploadDataOptions,
+      S3StorageUploadFileOperation,
+      S3StorageUploadFileOptions,
       S3StorageDownloadDataOperation,
       S3StorageDownloadDataOptions,
       S3StorageDownloadFileOperation,
@@ -60,9 +64,7 @@ class AmplifyStorageS3 extends AmplifyStorageS3Dart {
     await super.configure(config: config, authProviderRepo: authProviderRepo);
 
     // override the path provider dependency added by AmplifyStorageS3Dart
-    dependencyManager.addInstance<AppPathProvider>(
-      S3AppPathProvider(),
-    );
+    dependencyManager.addBuilder<AppPathProvider>(S3AppPathProvider.new);
   }
 }
 
@@ -73,8 +75,10 @@ class _AmplifyStorageS3PluginKey extends StoragePluginKey<
     S3StorageGetPropertiesOptions,
     S3StorageGetUrlOperation,
     S3StorageGetUrlOptions,
-    StorageUploadDataOperation,
-    StorageUploadDataOptions,
+    S3StorageUploadDataOperation,
+    S3StorageUploadDataOptions,
+    S3StorageUploadFileOperation,
+    S3StorageUploadFileOptions,
     S3StorageDownloadDataOperation,
     S3StorageDownloadDataOptions,
     S3StorageDownloadFileOperation,
