@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:amplify_core/amplify_core.dart';
@@ -20,8 +21,16 @@ import 'package:amplify_storage_s3_dart/src/platform_impl/download_file/download
     as download_file_impl;
 import 'package:amplify_storage_s3_dart/src/prefix_resolver/storage_access_level_aware_prefix_resolver.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
+import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/transfer.dart'
+    as transfer;
 import 'package:amplify_storage_s3_dart/src/utils/app_path_provider.dart';
 import 'package:meta/meta.dart';
+
+/// A symbol used for unit tests.
+@visibleForTesting
+const zIsTest = #_zIsTest;
+
+bool get _zIsTest => Zone.current[zIsTest] as bool? ?? false;
 
 /// {@template amplify_storage_s3_dart.amplify_storage_s3_plugin_dart}
 /// The Dart Storage S3 plugin for the Amplify Storage Category.
@@ -33,8 +42,10 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     S3StorageGetPropertiesOptions,
     S3StorageGetUrlOperation,
     S3StorageGetUrlOptions,
-    StorageUploadDataOperation,
-    StorageUploadDataOptions,
+    S3StorageUploadDataOperation,
+    S3StorageUploadDataOptions,
+    S3StorageUploadFileOperation,
+    S3StorageUploadFileOptions,
     S3StorageDownloadDataOperation,
     S3StorageDownloadDataOptions,
     S3StorageDownloadFileOperation,
@@ -69,8 +80,10 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
       S3StorageGetPropertiesOptions,
       S3StorageGetUrlOperation,
       S3StorageGetUrlOptions,
-      StorageUploadDataOperation,
-      StorageUploadDataOptions,
+      S3StorageUploadDataOperation,
+      S3StorageUploadDataOptions,
+      S3StorageUploadFileOperation,
+      S3StorageUploadFileOptions,
       S3StorageDownloadDataOperation,
       S3StorageDownloadDataOptions,
       S3StorageDownloadFileOperation,
@@ -106,7 +119,8 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
   /// Gets the instance of dependent [StorageS3Service].
   @protected
   StorageS3Service get storageS3Service => dependencyManager.expect();
-  AppPathProvider get _appPathProvider => dependencyManager.expect();
+
+  AppPathProvider get _appPathProvider => dependencyManager.getOrCreate();
 
   @override
   Future<void> configure({
@@ -149,6 +163,11 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     }
 
     dependencyManager
+      ..addBuilder<AppPathProvider>(S3DartAppPathProvider.new)
+      ..addBuilder(
+        transfer.TransferDatabase.new,
+        const Token<transfer.TransferDatabase>([Token<AppPathProvider>()]),
+      )
       ..addInstance<StorageS3Service>(
         StorageS3Service(
           credentialsProvider: credentialsProvider,
@@ -156,9 +175,18 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
           defaultRegion: s3pluginConfig.region,
           prefixResolver: _prefixResolver!,
           logger: logger,
+          dependencyManager: dependencyManager,
         ),
-      )
-      ..addInstance<AppPathProvider>(const S3DartAppPathProvider());
+      );
+
+    // Run this later
+    scheduleMicrotask(() async {
+      await Amplify.asyncConfig;
+      if (_zIsTest) {
+        return;
+      }
+      unawaited(storageS3Service.abortIncompleteMultipartUploads());
+    });
   }
 
   @override
@@ -273,10 +301,67 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
   }
 
   @override
-  StorageUploadDataOperation uploadData({
+  S3StorageUploadDataOperation uploadData({
     required StorageUploadDataRequest request,
+    void Function(S3TransferProgress)? onProgress,
   }) {
-    throw UnimplementedError();
+    final s3Options = request.options as S3StorageUploadDataOptions? ??
+        S3StorageUploadDataOptions(
+          storageAccessLevel: s3pluginConfig.defaultAccessLevel,
+        );
+
+    final uploadTask = storageS3Service.uploadData(
+      key: request.key,
+      dataPayload: request.data,
+      options: s3Options,
+      onProgress: onProgress,
+    );
+
+    return S3StorageUploadDataOperation(
+      request: StorageUploadDataRequest(
+        data: request.data,
+        key: request.key,
+        options: s3Options,
+      ),
+      result: uploadTask.result.then(
+        (uploadedItem) => S3StorageUploadDataResult(uploadedItem: uploadedItem),
+      ),
+      resume: uploadTask.resume,
+      pause: uploadTask.pause,
+      cancel: uploadTask.cancel,
+    );
+  }
+
+  @override
+  S3StorageUploadFileOperation uploadFile({
+    required StorageUploadFileRequest request,
+    void Function(S3TransferProgress)? onProgress,
+  }) {
+    final s3Options = request.options as S3StorageUploadFileOptions? ??
+        S3StorageUploadFileOptions(
+          storageAccessLevel: s3pluginConfig.defaultAccessLevel,
+        );
+
+    final uploadTask = storageS3Service.uploadFile(
+      key: request.key,
+      localFile: request.localFile,
+      options: s3Options,
+      onProgress: onProgress,
+    );
+
+    return S3StorageUploadFileOperation(
+      request: StorageUploadFileRequest(
+        localFile: request.localFile,
+        key: request.key,
+        options: s3Options,
+      ),
+      result: uploadTask.result.then(
+        (uploadedItem) => S3StorageUploadFileResult(uploadedItem: uploadedItem),
+      ),
+      resume: uploadTask.resume,
+      pause: uploadTask.pause,
+      cancel: uploadTask.cancel,
+    );
   }
 
   @override
@@ -368,8 +453,10 @@ class _AmplifyStorageS3DartPluginKey extends StoragePluginKey<
     S3StorageGetPropertiesOptions,
     S3StorageGetUrlOperation,
     S3StorageGetUrlOptions,
-    StorageUploadDataOperation,
-    StorageUploadDataOptions,
+    S3StorageUploadDataOperation,
+    S3StorageUploadDataOptions,
+    S3StorageUploadFileOperation,
+    S3StorageUploadFileOptions,
     S3StorageDownloadDataOperation,
     S3StorageDownloadDataOptions,
     S3StorageDownloadFileOperation,

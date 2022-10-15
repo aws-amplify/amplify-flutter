@@ -13,6 +13,7 @@
 // limitations under the License.
 
 export 's3_data_bytes_range.dart';
+export 's3_data_payload.dart';
 
 export 's3_storage_copy_operation.dart';
 export 's3_storage_copy_options.dart';
@@ -52,5 +53,13 @@ export 's3_storage_remove_many_result.dart';
 export 's3_storage_remove_operation.dart';
 export 's3_storage_remove_options.dart';
 export 's3_storage_remove_result.dart';
+
+export 's3_storage_upload_data_operation.dart';
+export 's3_storage_upload_data_options.dart';
+export 's3_storage_upload_data_result.dart';
+
+export 's3_storage_upload_file_operation.dart';
+export 's3_storage_upload_file_options.dart';
+export 's3_storage_upload_file_result.dart';
 
 export 's3_transfer_progress.dart';

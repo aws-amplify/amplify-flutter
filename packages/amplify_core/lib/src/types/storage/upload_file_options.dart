@@ -12,17 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_core/amplify_core.dart';
+import 'base/storage_operation_options.dart';
 
-/// {@template amplify_core.storage.upload_data_result}
-/// Presents the result of a [StorageUploadDataOperation].
+/// {@template amplify_core.storage.upload_file_options}
+/// Configurable options to initiate a [StorageUploadFileRequest].
 /// {@endtemplate}
-class StorageUploadDataResult<Item extends StorageItem> {
-  /// {@macro amplify_core.storage.upload_data_result}
-  const StorageUploadDataResult({
-    required this.uploadedItem,
+class StorageUploadFileOptions extends StorageOperationOptions {
+  /// {@macro amplify_core.storage.upload_file_options}
+  const StorageUploadFileOptions({
+    required super.storageAccessLevel,
   });
-
-  /// The uploaded object of the [StorageUploadDataOperation].
-  final Item uploadedItem;
 }

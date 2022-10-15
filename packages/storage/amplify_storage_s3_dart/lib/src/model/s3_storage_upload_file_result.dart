@@ -13,16 +13,14 @@
 // limitations under the License.
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_storage_s3_dart/src/model/s3_storage_models.dart';
 
-/// {@template amplify_core.storage.upload_data_result}
-/// Presents the result of a [StorageUploadDataOperation].
+/// {@template storage.amplify_storage_s3.upload_file_result}
+/// The result returned by the Storage S3 plugin `uploadFile` API.
 /// {@endtemplate}
-class StorageUploadDataResult<Item extends StorageItem> {
-  /// {@macro amplify_core.storage.upload_data_result}
-  const StorageUploadDataResult({
-    required this.uploadedItem,
+class S3StorageUploadFileResult extends StorageUploadFileResult<S3StorageItem> {
+  /// {@macro storage.amplify_storage_s3.upload_file_result}
+  const S3StorageUploadFileResult({
+    required super.uploadedItem,
   });
-
-  /// The uploaded object of the [StorageUploadDataOperation].
-  final Item uploadedItem;
 }

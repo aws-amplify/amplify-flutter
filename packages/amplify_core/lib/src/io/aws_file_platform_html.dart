@@ -77,6 +77,7 @@ class AWSFilePlatform extends AWSFile {
           bytes: data,
           name: name,
           contentType: contentType,
+          stream: Stream.value(data),
         );
 
   final File? _inputFile;

@@ -39,6 +39,12 @@ class S3StorageException extends StorageException {
     UnknownSmithyHttpException exception,
   ) {
     switch (exception.statusCode) {
+      case 400:
+        return S3StorageException(
+          'Unexpected client error occurred.',
+          recoverySuggestion: _fileIssueMessage,
+          underlyingException: exception,
+        );
       case 403:
         return S3StorageException(
           'S3 access denied when making the API call.',
@@ -149,6 +155,54 @@ class S3StorageException extends StorageException {
       'The operation has been canceled and can\'t be resumed.',
       recoverySuggestion:
           'You can only resume an operation that is paused by calling `pause()`.',
+    );
+  }
+
+  /// An exception thrown when the service doesn't return a valid uploadId on a
+  /// successful `CreateMultipartUploadRequest`.
+  factory S3StorageException.unexpectedMultipartUploadId() {
+    return const S3StorageException(
+      'Create multipart upload request succeeded, but it did not return a valid uploadId.',
+      recoverySuggestion: _fileIssueMessage,
+    );
+  }
+
+  /// An exception thrown when the file to be uploaded is too large to create
+  /// a multipart upload.
+  factory S3StorageException.uploadSourceIsTooLarge() {
+    return const S3StorageException(
+      'Upload source is too large to initiate multipart upload.',
+      recoverySuggestion:
+          'Make sure the size of the uploaded file is less than 50GB.',
+    );
+  }
+
+  /// An exception thrown when attempting to upload part with a non-existing
+  /// multipart upload.
+  factory S3StorageException.fromS3NoSuchUpload(Object? exception) {
+    return S3StorageException(
+      'Multipart upload is not found while initiating a part upload.',
+      recoverySuggestion: _fileIssueMessage,
+      underlyingException: exception,
+    );
+  }
+
+  /// An exception thrown when any step during multipart upload fails.
+  factory S3StorageException.multipartUploadAborted(Object? exception) {
+    return S3StorageException(
+      'An error occurred during multipart upload. The upload has been canceled.',
+      recoverySuggestion: _fileIssueMessage,
+      underlyingException: exception,
+    );
+  }
+
+  /// An exception thrown when service response doesn't contain a valid eTag.
+  /// e.g. the response of an [s3.UploadPartRequest] must contain a eTag in order to
+  /// close multipart upload correctly.
+  factory S3StorageException.unexpectedETagFromService() {
+    return const S3StorageException(
+      'Service API call output doesn\'t contain a valid eTag.',
+      recoverySuggestion: _fileIssueMessage,
     );
   }
 

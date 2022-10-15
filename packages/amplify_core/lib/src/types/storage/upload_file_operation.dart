@@ -13,16 +13,20 @@
 // limitations under the License.
 
 import 'package:amplify_core/amplify_core.dart';
+import 'base/storage_controllable_operation.dart';
+import 'base/storage_operation.dart';
 
-/// {@template amplify_core.storage.upload_data_result}
-/// Presents the result of a [StorageUploadDataOperation].
+/// {@template amplify_core.storage.upload_file_operation}
+/// Presents a upload file operation.
 /// {@endtemplate}
-class StorageUploadDataResult<Item extends StorageItem> {
-  /// {@macro amplify_core.storage.upload_data_result}
-  const StorageUploadDataResult({
-    required this.uploadedItem,
+abstract class StorageUploadFileOperation<
+        Request extends StorageUploadFileRequest,
+        Result extends StorageUploadFileResult>
+    extends StorageOperation<Request, Result>
+    implements StorageControllableOperation {
+  /// {@macro amplify_core.storage.upload_file_operation}
+  StorageUploadFileOperation({
+    required super.request,
+    required super.result,
   });
-
-  /// The uploaded object of the [StorageUploadDataOperation].
-  final Item uploadedItem;
 }
