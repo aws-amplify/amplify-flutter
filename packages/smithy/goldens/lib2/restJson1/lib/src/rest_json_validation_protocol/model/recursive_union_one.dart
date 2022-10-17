@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_json1_v2.rest_json_validation_protocol.model.recursive_union_one; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -111,7 +111,11 @@ class RecursiveUnionOneRestJson1Serializer
   const RecursiveUnionOneRestJson1Serializer() : super('RecursiveUnionOne');
 
   @override
-  Iterable<Type> get types => const [RecursiveUnionOne];
+  Iterable<Type> get types => const [
+        RecursiveUnionOne,
+        RecursiveUnionOneString,
+        RecursiveUnionOneUnion,
+      ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(

@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_json1_v2.rest_json_protocol.model.union_with_json_name; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -128,7 +128,12 @@ class UnionWithJsonNameRestJson1Serializer
   const UnionWithJsonNameRestJson1Serializer() : super('UnionWithJsonName');
 
   @override
-  Iterable<Type> get types => const [UnionWithJsonName];
+  Iterable<Type> get types => const [
+        UnionWithJsonName,
+        UnionWithJsonNameBar,
+        UnionWithJsonNameBaz,
+        UnionWithJsonNameFoo,
+      ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(

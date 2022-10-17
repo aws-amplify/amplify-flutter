@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library aws_json1_0_v1.json_rpc_10.model.my_union; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -287,7 +287,18 @@ class MyUnionAwsJson10Serializer
   const MyUnionAwsJson10Serializer() : super('MyUnion');
 
   @override
-  Iterable<Type> get types => const [MyUnion];
+  Iterable<Type> get types => const [
+        MyUnion,
+        MyUnionBlobValue,
+        MyUnionBooleanValue,
+        MyUnionEnumValue,
+        MyUnionListValue,
+        MyUnionMapValue,
+        MyUnionNumberValue,
+        MyUnionStringValue,
+        MyUnionStructureValue,
+        MyUnionTimestampValue,
+      ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
