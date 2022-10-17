@@ -1,5 +1,5 @@
 # Generated with `aft`. Do not modify by hand or check into source control.
-dependency_overrides:
+dependency_overrides: 
   amplify_core:
     path: ../../../amplify_core
   amplify_db_common:
