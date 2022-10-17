@@ -15,7 +15,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:amplify_db_common_example/database.dart';
+import 'database.dart';
 
 enum InputMode {
   query,

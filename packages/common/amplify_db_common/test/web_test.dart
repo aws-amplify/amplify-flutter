@@ -36,7 +36,11 @@ void main() {
       });
       for (var i = 0; i < 100; i++) {
         final db = connect(name: 'TestDatabase', path: '/tmp', client: client);
-        unawaited(db.ensureOpen(TestQueryExecutorUser()));
+        try {
+          unawaited(db.ensureOpen(TestQueryExecutorUser()));
+        } on Object {
+          // This is expect to throw since the http request is mocked.
+        }
       }
       expect(requestCount, 1);
     });
