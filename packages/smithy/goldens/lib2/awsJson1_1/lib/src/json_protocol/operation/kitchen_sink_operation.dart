@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library aws_json1_1_v2.json_protocol.operation.kitchen_sink_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -49,7 +49,7 @@ class KitchenSinkOperation extends _i1.HttpOperation<_i2.KitchenSink,
           service: _i6.AWSService.iam,
           credentialsProvider: _credentialsProvider,
         ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
         const _i4.WithSdkInvocationId(),
         const _i4.WithSdkRequest(),
       ],

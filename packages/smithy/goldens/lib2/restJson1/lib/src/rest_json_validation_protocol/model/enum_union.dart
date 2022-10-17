@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_json1_v2.rest_json_validation_protocol.model.enum_union; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -107,7 +107,11 @@ class EnumUnionRestJson1Serializer
   const EnumUnionRestJson1Serializer() : super('EnumUnion');
 
   @override
-  Iterable<Type> get types => const [EnumUnion];
+  Iterable<Type> get types => const [
+        EnumUnion,
+        EnumUnionFirst,
+        EnumUnionSecond,
+      ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(

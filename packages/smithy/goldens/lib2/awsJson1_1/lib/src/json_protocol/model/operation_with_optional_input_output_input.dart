@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library aws_json1_1_v2.json_protocol.model.operation_with_optional_input_output_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
