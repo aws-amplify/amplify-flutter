@@ -18,7 +18,9 @@
 ///
 /// Returns null if the element isn't found within a flutter app.
 ///
-/// throws [UnsupportedError] on non web platforms.
+/// Throws [UnsupportedError] on non web platforms.
+///
+/// Based on [getBaseElementHrefFromDom](https://api.flutter.dev/flutter/flutter_web_plugins/getBaseElementHrefFromDom.html)
 /// {@endtemplate}
 String? getBaseElementHrefFromDom() {
   throw UnsupportedError(
