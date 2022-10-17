@@ -1,3 +1,12 @@
+## 0.2.4
+
+### Features
+- feat(http): Downgrade to HTTP/1.1 when possible ([#2243](https://github.com/aws-amplify/amplify-flutter/pull/2243))
+- feat(smithy): IDL 2.0
+
+### Fixes
+- fix(http): `transformRequest` results in loop
+
 ## 0.2.3
 
 ### Fixes

@@ -1,3 +1,9 @@
+## 1.0.0-next.0+2
+
+### Features
+- feat(auth): Federated sign-in
+- feat(core): custom primary key supporting interface changes ([#2141](https://github.com/aws-amplify/amplify-flutter/pull/2141))
+
 ## 1.0.0-next.0+1
 
 ### Features

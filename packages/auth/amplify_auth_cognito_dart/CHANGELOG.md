@@ -1,3 +1,12 @@
+## 0.2.0
+
+### Fixes
+- fix(auth): Opt-in device tracking
+- fix(auth): Retain unauthenticated identities
+
+### Features
+- feat(auth): Federated sign-in
+
 ## 0.1.6
 
 ### Features
