@@ -14,8 +14,6 @@
 
 @TestOn('browser')
 
-import 'dart:async';
-
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_db_common/src/connect.web.dart';
 import 'package:async/async.dart';
@@ -35,11 +33,15 @@ void main() {
         return AWSHttpResponse(statusCode: 200, body: Uint8List.fromList([]));
       });
       for (var i = 0; i < 100; i++) {
-        final db = connect(name: 'TestDatabase', path: '/tmp', client: client);
         try {
-          unawaited(db.ensureOpen(TestQueryExecutorUser()));
+          final db = connect(
+            name: 'TestDatabase',
+            path: '/tmp',
+            client: client,
+          );
+          await db.ensureOpen(TestQueryExecutorUser());
         } on Object {
-          // This is expect to throw since the http request is mocked.
+          // This is expected to throw since the http request is mocked.
         }
       }
       expect(requestCount, 1);
