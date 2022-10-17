@@ -23,7 +23,7 @@ import 'package:aws_common/testing.dart';
 import 'package:drift/drift.dart';
 import 'package:test/test.dart';
 
-import 'main_test.dart';
+import 'util.dart';
 
 void main() {
   group('drift utils (web)', () {

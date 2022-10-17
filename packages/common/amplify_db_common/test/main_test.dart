@@ -16,11 +16,11 @@
 @TestOn('vm')
 
 import 'package:amplify_db_common/amplify_db_common.dart';
-import 'package:drift/drift.dart';
 import 'package:test/test.dart';
 
 // ignore: avoid_relative_lib_imports
 import '../example/lib/database.dart';
+import 'util.dart';
 
 void main() {
   group('drift utils', () {
@@ -47,17 +47,4 @@ void main() {
       expect(items[0].title, 'New todo');
     });
   });
-}
-
-class TestQueryExecutorUser implements QueryExecutorUser {
-  @override
-  Future<void> beforeOpen(
-    QueryExecutor executor,
-    OpeningDetails details,
-  ) async {
-    // do nothing
-  }
-
-  @override
-  int get schemaVersion => 1;
 }
