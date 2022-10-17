@@ -15,6 +15,7 @@
 import 'dart:html';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/web.dart';
 import 'package:async/async.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/wasm.dart';

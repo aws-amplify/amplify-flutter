@@ -111,7 +111,6 @@ export 'src/types/temporal/temporal_time.dart';
 export 'src/types/temporal/temporal_timestamp.dart';
 
 // Util
-export 'src/util/get_base_element_href_from_dom.dart';
 export 'src/util/parsers.dart';
 export 'src/util/serializable.dart';
 export 'src/util/uuid.dart';

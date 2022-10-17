@@ -12,18 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// {@template amplify_core.get_base_element_href_from_dom}
-/// Returns the href attribute of the element in the document for flutter apps,
-/// and null for non flutter apps.
-///
-/// Returns null if the element isn't found within a flutter app.
-///
-/// Throws [UnsupportedError] on non web platforms.
-///
-/// Based on [getBaseElementHrefFromDom](https://api.flutter.dev/flutter/flutter_web_plugins/getBaseElementHrefFromDom.html)
-/// {@endtemplate}
-String? getBaseElementHrefFromDom() {
-  throw UnsupportedError(
-    'getBaseElementHrefFromDom() is not supported on this platform.',
-  );
-}
+/// Web-specific Amplify utilities.
+library amplify_core.web;
+
+export 'src/util/get_base_element_href_from_dom.dart';
