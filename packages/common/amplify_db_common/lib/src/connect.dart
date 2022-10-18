@@ -12,6 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export 'connect.stub.dart'
-    if (dart.library.html) 'connect.web.dart'
-    if (dart.library.io) 'connect.vm.dart';
+export 'connect_stub.dart'
+    if (dart.library.html) 'connect_html.dart'
+    if (dart.library.io) 'connect_io.dart';
