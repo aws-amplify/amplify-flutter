@@ -22,14 +22,14 @@ import * as lambda_nodejs from "aws-cdk-lib/aws-lambda-nodejs";
 import { CfnOutput, RemovalPolicy } from "aws-cdk-lib";
 import { Runtime } from "aws-cdk-lib/aws-lambda";
 
-interface CustomAuthorizerStackProps extends cdk.StackProps {
+export interface CustomAuthorizerStackProps extends cdk.StackProps {
   /**
    * The name for the environment.
    */
   environmentName: string;
 }
 
-export class CustomAuthorizerStack extends cdk.Stack {
+export class CustomAuthorizerUserPoolsStack extends cdk.Stack {
   constructor(scope: Construct, props: CustomAuthorizerStackProps) {
     super(scope, `AuthIntegrationTestStack-${props.environmentName}`, props);
 

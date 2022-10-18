@@ -19,8 +19,8 @@ import 'package:amplify_core/amplify_core.dart';
 
 String createConfig({
   required String region,
-  required String userPoolId,
-  required String userPoolClientId,
+  required String? userPoolId,
+  required String? userPoolClientId,
   required String? identityPoolId,
   required String? graphQLApiEndpoint,
   required String? graphQLApiKey,
@@ -29,11 +29,13 @@ String createConfig({
   final configJson = const JsonEncoder.withIndent('  ').convert(
     AmplifyConfig(
       auth: AuthConfig.cognito(
-        userPoolConfig: CognitoUserPoolConfig(
-          appClientId: userPoolClientId,
-          poolId: userPoolId,
-          region: region,
-        ),
+        userPoolConfig: userPoolClientId == null || userPoolId == null
+            ? null
+            : CognitoUserPoolConfig(
+                appClientId: userPoolClientId,
+                poolId: userPoolId,
+                region: region,
+              ),
         identityPoolConfig: identityPoolId == null
             ? null
             : CognitoIdentityCredentialsProvider(
@@ -92,8 +94,8 @@ void main() {
     final environmentName = environment['EnvironmentName'] as String;
     final environmentConfig = createConfig(
       region: environment['Region'] as String,
-      userPoolId: environment['UserPoolId'] as String,
-      userPoolClientId: environment['UserPoolClientId'] as String,
+      userPoolId: environment['UserPoolId'] as String?,
+      userPoolClientId: environment['UserPoolClientId'] as String?,
       identityPoolId: environment['IdentityPoolId'] as String?,
       graphQLApiEndpoint: environment['GraphQLApiEndpoint'] as String?,
       graphQLApiKey: environment['GraphQLApiKey'] as String?,
