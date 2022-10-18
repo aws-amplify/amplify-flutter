@@ -22,23 +22,35 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'cognito_sign_in_details.g.dart';
 
+/// {@template amplify_auth_cognito_dart.cognito_sign_in_type}
+/// The type of sign-in initiated by the user.
+/// {@endtemplate}
+enum CognitoSignInType {
+  /// {@macro amplify_auth_cognito_dart.cognito_sign_in_details_api_based}
+  apiBased,
+
+  /// {@macro amplify_auth_cognito_dart.cognito_sign_in_details_hosted_ui}
+  hostedUi,
+}
+
 /// {@template amplify_auth_cognito_dart.cognito_sign_in_details}
 /// The details of how a user logged in.
 /// {@endtemplate}
 abstract class CognitoSignInDetails extends SignInDetails {
   /// {@macro amplify_auth_cognito_dart.cognito_sign_in_details}
-  const CognitoSignInDetails();
+  const CognitoSignInDetails(this.signInType);
 
   /// {@macro amplify_auth_cognito_dart.cognito_sign_in_details}
   factory CognitoSignInDetails.fromJson(Map<String, Object?> json) {
-    final method = CognitoSignInMethod.valueOf(json['method'] as String);
-    switch (method) {
-      case CognitoSignInMethod.default$:
+    final signInType = CognitoSignInType.values.byName(
+      json['signInType'] as String,
+    );
+    switch (signInType) {
+      case CognitoSignInType.apiBased:
         return CognitoSignInDetailsApiBased.fromJson(json);
-      case CognitoSignInMethod.hostedUi:
+      case CognitoSignInType.hostedUi:
         return CognitoSignInDetailsHostedUi.fromJson(json);
     }
-    throw StateError('Unknown CognitoSignInDetails type: $method');
   }
 
   /// {@macro amplify_auth_cognito_dart.cognito_sign_in_details_api_based}
@@ -51,6 +63,9 @@ abstract class CognitoSignInDetails extends SignInDetails {
   const factory CognitoSignInDetails.hostedUi({
     AuthProvider? provider,
   }) = CognitoSignInDetailsHostedUi;
+
+  /// {@macro amplify_auth_cognito_dart.cognito_sign_in_type}
+  final CognitoSignInType signInType;
 }
 
 /// {@template amplify_auth_cognito_dart.cognito_sign_in_details_api_based}
@@ -64,7 +79,7 @@ class CognitoSignInDetailsApiBased extends CognitoSignInDetails
   const CognitoSignInDetailsApiBased({
     required this.username,
     this.authFlowType,
-  });
+  }) : super(CognitoSignInType.apiBased);
 
   /// {@macro amplify_auth_cognito_dart.cognito_sign_in_details_api_based}
   factory CognitoSignInDetailsApiBased.fromJson(Map<String, Object?> json) =>
@@ -81,7 +96,7 @@ class CognitoSignInDetailsApiBased extends CognitoSignInDetails
 
   @override
   Map<String, Object?> toJson() => {
-        'method': CognitoSignInMethod.default$.toJson(),
+        'signInType': signInType.name,
         ..._$CognitoSignInDetailsApiBasedToJson(this),
       };
 }
@@ -95,7 +110,7 @@ class CognitoSignInDetailsHostedUi extends CognitoSignInDetails
   /// {@macro amplify_auth_cognito_dart.cognito_sign_in_details_hosted_ui}
   const CognitoSignInDetailsHostedUi({
     this.provider,
-  });
+  }) : super(CognitoSignInType.hostedUi);
 
   /// {@macro amplify_auth_cognito_dart.cognito_sign_in_details_hosted_ui}
   factory CognitoSignInDetailsHostedUi.fromJson(Map<String, Object?> json) =>
@@ -109,7 +124,7 @@ class CognitoSignInDetailsHostedUi extends CognitoSignInDetails
 
   @override
   Map<String, Object?> toJson() => {
-        'method': CognitoSignInMethod.hostedUi.toJson(),
+        'signInType': signInType.name,
         ..._$CognitoSignInDetailsHostedUiToJson(this),
       };
 }
