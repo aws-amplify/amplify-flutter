@@ -16,7 +16,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 
 /// {@template storage.amplify_storage_s3.copy_operation}
-/// An operation created by calling Storage S3 plugin `copy` API.
+/// An operation created by calling the Storage S3 plugin `copy` API.
 /// {@endtemplate}
 class S3StorageCopyOperation extends StorageCopyOperation<
     StorageCopyRequest<S3StorageItem, S3StorageCopyOptions>,

@@ -12,57 +12,83 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_storage_s3/src/utils/app_path_provider.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 
+/// {@template amplify_storage_s3_.amplify_storage_s3_plugin}
+/// The Flutter Storage S3 plugin for the Amplify Storage Category.
+/// {@endtemplate}
 class AmplifyStorageS3 extends AmplifyStorageS3Dart {
+  /// {@macro amplify_storage_s3_.amplify_storage_s3_plugin}
   AmplifyStorageS3({
     super.delimiter,
     super.prefixResolver,
   });
 
-  // TODO(HuiSF): replace with S3 specific types to the generic parameters
   /// A plugin key which can be used with `Amplify.Storage.getPlugin` to retrieve
   /// a S3-specific Storage category interface.
   static const StoragePluginKey<
-      StorageListOperation,
-      StorageListOptions,
-      StorageGetPropertiesOperation,
-      StorageGetPropertiesOptions,
-      StorageGetUrlOperation,
-      StorageGetUrlOptions,
+      S3StorageListOperation,
+      S3StorageListOptions,
+      S3StorageGetPropertiesOperation,
+      S3StorageGetPropertiesOptions,
+      S3StorageGetUrlOperation,
+      S3StorageGetUrlOptions,
       StorageUploadDataOperation,
       StorageUploadDataOptions,
-      StorageCopyOperation,
-      StorageCopyOptions,
-      StorageMoveOperation,
-      StorageMoveOptions,
-      StorageRemoveOperation,
-      StorageRemoveOptions,
-      StorageRemoveManyOperation,
-      StorageRemoveManyOptions,
-      StorageItem,
+      S3StorageDownloadDataOperation,
+      S3StorageDownloadDataOptions,
+      S3StorageDownloadFileOperation,
+      S3StorageDownloadFileOptions,
+      S3StorageCopyOperation,
+      S3StorageCopyOptions,
+      S3StorageMoveOperation,
+      S3StorageMoveOptions,
+      S3StorageRemoveOperation,
+      S3StorageRemoveOptions,
+      S3StorageRemoveManyOperation,
+      S3StorageRemoveManyOptions,
+      S3StorageItem,
+      S3TransferProgress,
       AmplifyStorageS3Dart> pluginKey = _AmplifyStorageS3PluginKey();
+
+  @override
+  Future<void> configure({
+    AmplifyConfig? config,
+    required AmplifyAuthProviderRepository authProviderRepo,
+  }) async {
+    await super.configure(config: config, authProviderRepo: authProviderRepo);
+
+    // override the path provider dependency added by AmplifyStorageS3Dart
+    dependencyManager.addInstance<AppPathProvider>(
+      S3AppPathProvider(),
+    );
+  }
 }
 
-// TODO(HuiSF): replace with S3 specific types to the generic parameters
 class _AmplifyStorageS3PluginKey extends StoragePluginKey<
-    StorageListOperation,
-    StorageListOptions,
-    StorageGetPropertiesOperation,
-    StorageGetPropertiesOptions,
-    StorageGetUrlOperation,
-    StorageGetUrlOptions,
+    S3StorageListOperation,
+    S3StorageListOptions,
+    S3StorageGetPropertiesOperation,
+    S3StorageGetPropertiesOptions,
+    S3StorageGetUrlOperation,
+    S3StorageGetUrlOptions,
     StorageUploadDataOperation,
     StorageUploadDataOptions,
-    StorageCopyOperation,
-    StorageCopyOptions,
-    StorageMoveOperation,
-    StorageMoveOptions,
-    StorageRemoveOperation,
-    StorageRemoveOptions,
-    StorageRemoveManyOperation,
-    StorageRemoveManyOptions,
-    StorageItem,
+    S3StorageDownloadDataOperation,
+    S3StorageDownloadDataOptions,
+    S3StorageDownloadFileOperation,
+    S3StorageDownloadFileOptions,
+    S3StorageCopyOperation,
+    S3StorageCopyOptions,
+    S3StorageMoveOperation,
+    S3StorageMoveOptions,
+    S3StorageRemoveOperation,
+    S3StorageRemoveOptions,
+    S3StorageRemoveManyOperation,
+    S3StorageRemoveManyOptions,
+    S3StorageItem,
+    S3TransferProgress,
     AmplifyStorageS3Dart> {
   const _AmplifyStorageS3PluginKey();
 

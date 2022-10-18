@@ -23,8 +23,10 @@ import 'amplifyconfiguration.dart';
 Future<void> configureAmplify() async {
   final secureStorage = AmplifySecureStorageDart(
     config: AmplifySecureStorageConfig(
-      scope: 'auth',
-      macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
+      scope: 'storage.example.dart.cli',
+      macOSOptions: MacOSSecureStorageOptions(
+        useDataProtection: false,
+      ),
     ),
   );
 

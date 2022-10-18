@@ -45,6 +45,9 @@ export 'src/hub/amplify_hub.dart';
 export 'src/hub/hub_channel.dart';
 export 'src/hub/hub_event.dart';
 
+// io
+export 'src/io/aws_file.dart';
+
 // Logger
 export 'src/logger/amplify_logger.dart';
 
@@ -71,6 +74,9 @@ export 'src/types/analytics/analytics_types.dart';
 
 /// API
 export 'src/types/api/api_types.dart';
+
+/// App path provider
+export 'src/types/app_path_provider/app_path_provider.dart';
 
 /// Auth
 export 'src/types/auth/auth_types.dart';

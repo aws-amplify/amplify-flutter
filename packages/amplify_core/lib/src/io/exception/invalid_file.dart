@@ -12,8 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter_test/flutter_test.dart';
+import 'package:amplify_core/src/types/exception/amplify_exception.dart';
 
-void main() {
-  test('', () {});
+class InvalidFileException extends AmplifyException {
+  const InvalidFileException({
+    String? message,
+    String? recoverySuggestion,
+  }) : super(
+          message ?? 'Invalid file.',
+          recoverySuggestion: recoverySuggestion ??
+              'Make sure to initialize AWSFile correctly.',
+        );
 }

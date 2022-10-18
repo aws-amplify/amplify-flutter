@@ -16,7 +16,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/src/prefix_resolver/storage_access_level_aware_prefix_resolver.dart';
 import 'package:test/test.dart';
 
-import '../utils/test_token_provider.dart';
+import '../test_utils/test_token_provider.dart';
 
 void main() {
   group('StorageAccessLevelAwarePrefixResolver', () {
