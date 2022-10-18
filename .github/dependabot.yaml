@@ -264,6 +264,14 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
+    directory: "packages/common/amplify_db_common/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/common/amplify_db_common/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
     directory: "packages/worker_bee/e2e/"
     schedule:
       interval: "daily"
