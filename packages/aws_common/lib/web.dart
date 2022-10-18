@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Web-specific Amplify utilities.
-library amplify_core.web;
+/// Web-specific types and utilities used across AWS and Amplify packages.
+library aws_common.web;
 
 export 'src/util/get_base_element_href_from_dom.dart';
