@@ -150,5 +150,6 @@ final Serializers serializers = (_$serializers.toBuilder()
         ...AnalyticsMetadataType.serializers,
         ...ChallengeNameType.serializers,
         ...UserContextDataType.serializers,
+        ...DeviceRememberedStatusType.serializers,
       ]))
     .build();
