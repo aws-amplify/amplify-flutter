@@ -34,6 +34,8 @@ dev_dependencies:
     path: ../../../amplify_lints
   amplify_test:
     path: ../../../amplify_test
+  aws_signature_v4: 
+    path: ../../../aws_signature_v4
   collection: any
   flutter_driver:
     sdk: flutter
