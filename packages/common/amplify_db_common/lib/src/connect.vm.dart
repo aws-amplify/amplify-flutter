@@ -21,7 +21,7 @@ import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
 
 /// {@macro amplify_db_common.connect}
-/// 
+///
 /// Creates the executor in a new background isolate.
 /// See [Using drift in a background isolate](https://drift.simonbinder.eu/docs/advanced-features/isolates/#initialization-on-the-main-thread)
 /// and [the drift native example](https://github.com/simolus3/drift/blob/3253cd7ead51d7b163542929eb0fc8daee573fce/examples/app/lib/database/connection/native.dart)
