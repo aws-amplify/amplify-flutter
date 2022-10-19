@@ -622,7 +622,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
 
     final initRequest = await initiate(event);
     final initResponse =
-        await cognitoIdentityProvider.initiateAuth(initRequest);
+        await cognitoIdentityProvider.initiateAuth(initRequest).result;
 
     // Current flow state
     _authenticationResult = initResponse.authenticationResult;
@@ -652,10 +652,12 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       ),
     );
     final workerResult = await worker.stream.first;
-    final response = await cognitoIdentityProvider.confirmDevice(
-      workerResult.request,
-    );
-    final requiresConfirmation = response.userConfirmationNecessary ?? false;
+    final response = await cognitoIdentityProvider
+        .confirmDevice(
+          workerResult.request,
+        )
+        .result;
+    final requiresConfirmation = response.userConfirmationNecessary;
 
     return _CreateDeviceResult(
       devicePassword: workerResult.devicePassword,
@@ -675,20 +677,22 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       return;
     }
     try {
-      await cognitoIdentityProvider.updateUserAttributes(
-        UpdateUserAttributesRequest.build(
-          (b) => b
-            ..accessToken = accessToken
-            ..clientMetadata.addAll(clientMetadata)
-            ..userAttributes.addAll([
-              for (final userAttribute in _attributesNeedingUpdate!.entries)
-                AttributeType(
-                  name: userAttribute.toString(),
-                  value: userAttribute.value,
-                )
-            ]),
-        ),
-      );
+      await cognitoIdentityProvider
+          .updateUserAttributes(
+            UpdateUserAttributesRequest.build(
+              (b) => b
+                ..accessToken = accessToken
+                ..clientMetadata.addAll(clientMetadata)
+                ..userAttributes.addAll([
+                  for (final userAttribute in _attributesNeedingUpdate!.entries)
+                    AttributeType(
+                      name: userAttribute.toString(),
+                      value: userAttribute.value,
+                    )
+                ]),
+            ),
+          )
+          .result;
     } finally {
       _attributesNeedingUpdate = null;
     }
@@ -789,8 +793,9 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         ..clientMetadata.replace(clientMetadata ?? const <String, String>{}),
     );
 
-    final challengeResp =
-        await cognitoIdentityProvider.respondToAuthChallenge(respondRequest);
+    final challengeResp = await cognitoIdentityProvider
+        .respondToAuthChallenge(respondRequest)
+        .result;
 
     // Update flow state
     _authenticationResult = challengeResp.authenticationResult;

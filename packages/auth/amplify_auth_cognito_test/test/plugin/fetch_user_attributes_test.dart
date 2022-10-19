@@ -17,6 +17,8 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
 import 'package:amplify_auth_cognito_dart/src/crypto/crypto.dart';
 import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
+import 'package:amplify_core/amplify_core.dart'
+    show AWSHttpClient, CancelableOperation;
 import 'package:mockito/mockito.dart';
 import 'package:smithy/smithy.dart';
 import 'package:test/test.dart';
@@ -105,25 +107,39 @@ class MockCognitoIdpClient extends Fake
   final Future<UpdateUserAttributesResponse> Function()? _updateUserAttributes;
 
   @override
-  Future<GetUserResponse> getUser(
+  SmithyOperation<GetUserResponse> getUser(
     GetUserRequest input, {
-    HttpClient? client,
+    AWSHttpClient? client,
   }) {
     if (_getUser == null) {
       throw UnimplementedError();
     }
-    return _getUser!();
+    return SmithyOperation(
+      CancelableOperation.fromFuture(
+        Future.value(_getUser!()),
+      ),
+      operationName: 'GetUser',
+      requestProgress: const Stream.empty(),
+      responseProgress: const Stream.empty(),
+    );
   }
 
   @override
-  Future<UpdateUserAttributesResponse> updateUserAttributes(
+  SmithyOperation<UpdateUserAttributesResponse> updateUserAttributes(
     UpdateUserAttributesRequest input, {
-    HttpClient? client,
+    AWSHttpClient? client,
   }) {
     if (_updateUserAttributes == null) {
       throw UnimplementedError();
     }
-    return _updateUserAttributes!();
+    return SmithyOperation(
+      CancelableOperation.fromFuture(
+        Future.value(_updateUserAttributes!()),
+      ),
+      operationName: 'UpdateUserAttributes',
+      requestProgress: const Stream.empty(),
+      responseProgress: const Stream.empty(),
+    );
   }
 }
 

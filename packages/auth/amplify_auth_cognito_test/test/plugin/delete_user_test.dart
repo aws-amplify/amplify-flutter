@@ -37,11 +37,18 @@ class MockCognitoIdpClient extends Fake
   final Future<void> Function() _deleteUser;
 
   @override
-  Future<void> deleteUser(
+  SmithyOperation<void> deleteUser(
     DeleteUserRequest input, {
-    HttpClient? client,
-  }) async =>
-      _deleteUser();
+    AWSHttpClient? client,
+  }) =>
+      SmithyOperation(
+        CancelableOperation.fromFuture(
+          Future.value(_deleteUser()),
+        ),
+        operationName: 'GetId',
+        requestProgress: const Stream.empty(),
+        responseProgress: const Stream.empty(),
+      );
 }
 
 void main() {

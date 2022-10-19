@@ -74,7 +74,7 @@ class SignUpStateMachine extends SignUpStateMachineBase {
           }
         },
       ),
-    );
+    ).result;
 
     if (resp.userConfirmed) {
       dispatch(const SignUpEvent.succeeded());
@@ -102,7 +102,7 @@ class SignUpStateMachine extends SignUpStateMachineBase {
           );
         }
       }),
-    );
+    ).result;
 
     dispatch(const SignUpEvent.succeeded());
   }
