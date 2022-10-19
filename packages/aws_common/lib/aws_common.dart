@@ -45,6 +45,10 @@ export 'src/logging/log_entry.dart';
 export 'src/logging/log_level.dart';
 export 'src/logging/simple_log_printer.dart';
 
+// Operation
+export 'src/operation/aws_operation.dart';
+export 'src/operation/aws_progress_operation.dart';
+
 // Utils
 export 'src/util/cancelable.dart';
 export 'src/util/closeable.dart';
