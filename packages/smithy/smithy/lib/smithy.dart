@@ -36,12 +36,10 @@ export 'src/behavior/retryer.dart';
 export 'src/endpoint.dart';
 
 // Operation
-export 'src/client.dart';
 export 'src/operation.dart';
 
 // HTTP
 export 'src/http/exceptions.dart';
-export 'src/http/http_client.dart';
 export 'src/http/http_operation.dart' hide isSmithyHttpTest;
 export 'src/http/http_protocol.dart';
 export 'src/http/http_request.dart';
@@ -85,8 +83,5 @@ export 'src/types/unit.dart';
 
 // Exceptions
 export 'src/exceptions/exceptions.dart';
-
-// Waiters
-export 'src/waiter/waitable.dart';
 
 // ignore_for_file: directives_ordering

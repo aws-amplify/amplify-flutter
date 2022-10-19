@@ -24,11 +24,13 @@ void main() {
     test('Test Case 1', () async {
       final op = TestOp1();
       const input = Unit();
-      final req = await op.createRequest(
-        op.buildRequest(input),
-        GenericJsonProtocol(),
-        input,
-      );
+      final req = await op
+          .createRequest(
+            op.buildRequest(input),
+            GenericJsonProtocol(),
+            input,
+          )
+          .transformRequest();
       expect(
         req.uri.host,
         equalsIgnoringCase('data.service.us-west-2.amazonaws.com'),
@@ -38,11 +40,13 @@ void main() {
     test('Test Case 2', () async {
       final op = TestOp2();
       const input = TestOp2Input();
-      final req = await op.createRequest(
-        op.buildRequest(input),
-        GenericJsonProtocol(),
-        input,
-      );
+      final req = await op
+          .createRequest(
+            op.buildRequest(input),
+            GenericJsonProtocol(),
+            input,
+          )
+          .transformRequest();
       expect(
         req.uri.host,
         equalsIgnoringCase(
@@ -81,6 +85,9 @@ class TestOp1 extends HttpOperation<Unit, Unit, Unit, Unit> {
 
   @override
   int successCode([Unit? output]) => 200;
+
+  @override
+  String get runtimeTypeName => 'TestOp1';
 }
 
 class TestOp2Input with HasLabel {
@@ -128,4 +135,7 @@ class TestOp2 extends HttpOperation<TestOp2Input, TestOp2Input, Unit, Unit> {
 
   @override
   int successCode([Unit? output]) => 200;
+
+  @override
+  String get runtimeTypeName => 'TestOp2';
 }

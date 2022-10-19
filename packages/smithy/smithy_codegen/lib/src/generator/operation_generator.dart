@@ -427,6 +427,17 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
         ]).code,
     );
 
+    // The `runtimeTypeName` getter
+    yield Method(
+      (m) => m
+        ..annotations.add(DartTypes.core.override)
+        ..returns = DartTypes.core.string
+        ..type = MethodType.getter
+        ..name = 'runtimeTypeName'
+        ..lambda = true
+        ..body = literalString(shape.shapeId.shape).code,
+    );
+
     final resolvedService = context.service?.resolvedService;
     final isAwsService = resolvedService != null;
     if (isAwsService) {
@@ -506,14 +517,14 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
       yield Method(
         (m) => m
           ..annotations.add(DartTypes.core.override)
-          ..returns = DartTypes.async.future(outputSymbol)
+          ..returns = DartTypes.smithy.smithyOperation(outputSymbol)
           ..name = 'run'
           ..requiredParameters.add(Parameter((p) => p
             ..type = inputSymbol
             ..name = 'input'))
           ..optionalParameters.addAll([
             Parameter((p) => p
-              ..type = DartTypes.smithy.httpClient.boxed
+              ..type = DartTypes.awsCommon.awsHttpClient.boxed
               ..name = 'client'
               ..named = true),
             Parameter((p) => p

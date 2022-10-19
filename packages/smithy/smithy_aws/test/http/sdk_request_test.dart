@@ -24,25 +24,25 @@ import 'package:test/test.dart';
 import 'dummy_operation.dart';
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
+
   group('WithSdkRequest', () {
     test('w/ max attempts', () async {
       var attempt = 1;
       final headers = <Map<String, String>>[];
-      final httpClient = HttpClient.v1(
-        baseClient: MockAWSHttpClient((request) async {
-          headers.add(request.headers);
-          if (attempt > 1) {
-            return AWSHttpResponse(statusCode: 200, body: '{}'.codeUnits);
-          }
-          attempt++;
-          return AWSHttpResponse(statusCode: 500, body: '{}'.codeUnits);
-        }),
-      );
+      final httpClient = MockAWSHttpClient((request) async {
+        headers.add(request.headers);
+        if (attempt > 1) {
+          return AWSHttpResponse(statusCode: 200, body: '{}'.codeUnits);
+        }
+        attempt++;
+        return AWSHttpResponse(statusCode: 500, body: '{}'.codeUnits);
+      });
       final retryer = AWSRetryer();
       final op = DummyHttpOperation(retryer);
       const maxAttempts = 5;
       await runZoned(
-        () => op.run(const Unit(), client: httpClient),
+        () => op.run(const Unit(), client: httpClient).result,
         zoneValues: {
           #retryable: true,
           AWSConfigValue.maxAttempts: maxAttempts,
@@ -63,20 +63,18 @@ void main() {
   test('WithSdkInvocationId', () async {
     var attempt = 1;
     final headers = <Map<String, String>>[];
-    final httpClient = HttpClient.v1(
-      baseClient: MockAWSHttpClient((request) async {
-        headers.add(request.headers);
-        if (attempt > 1) {
-          return AWSHttpResponse(statusCode: 200, body: '{}'.codeUnits);
-        }
-        attempt++;
-        return AWSHttpResponse(statusCode: 500, body: '{}'.codeUnits);
-      }),
-    );
+    final httpClient = MockAWSHttpClient((request) async {
+      headers.add(request.headers);
+      if (attempt > 1) {
+        return AWSHttpResponse(statusCode: 200, body: '{}'.codeUnits);
+      }
+      attempt++;
+      return AWSHttpResponse(statusCode: 500, body: '{}'.codeUnits);
+    });
     final retryer = AWSRetryer();
     final op = DummyHttpOperation(retryer);
     await runZoned(
-      () => op.run(const Unit(), client: httpClient),
+      () => op.run(const Unit(), client: httpClient).result,
       zoneValues: {
         #retryable: true,
         AWSHeaders.sdkInvocationId: uuid(),
