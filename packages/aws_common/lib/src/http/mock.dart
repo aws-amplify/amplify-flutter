@@ -37,13 +37,9 @@ class MockAWSHttpClient extends AWSCustomHttpClient {
   }) {
     return AWSHttpOperation(
       CancelableOperation.fromFuture(
-        () async {
-          return request is AWSHttpRequest
-              ? await _handler(request)
-              : await _handler(
-                  await (request as AWSStreamedHttpRequest).read(),
-                );
-        }(),
+        Future(() async {
+          return _handler(await request.read());
+        }),
       ),
       requestProgress: const Stream.empty(),
       responseProgress: const Stream.empty(),
