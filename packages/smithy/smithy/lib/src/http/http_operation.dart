@@ -351,7 +351,7 @@ abstract class PaginatedHttpOperation<
   Input rebuildInput(Input input, Token token, PageSize? pageSize);
 
   /// Runs the operation returning a [PaginatedResult] which can be paged.
-  SmithyOperation<PaginatedResult<Items, PageSize>> runPaginated(
+  SmithyOperation<PaginatedResult<Items, PageSize, Token>> runPaginated(
     Input input, {
     AWSHttpClient? client,
     ShapeId? useProtocol,
@@ -363,17 +363,11 @@ abstract class PaginatedHttpOperation<
     );
     final paginatedOperation = operation.operation.then((output) {
       final token = getToken(output);
-
-      // If the received response does not contain a continuation token in the
-      // referenced outputToken member, then there are no more results to retrieve
-      // and the process is complete.
-      final hasNext = token != null;
-
       final items = getItems(output);
-      late PaginatedResult<Items, PageSize> result;
+      late PaginatedResult<Items, PageSize, Token> result;
       result = PaginatedResult(
         items,
-        hasNext: hasNext,
+        nextContinuationToken: token,
 
         // If there is a continuation token in the referenced outputToken member
         // of the response, then the client sends a subsequent request using the
