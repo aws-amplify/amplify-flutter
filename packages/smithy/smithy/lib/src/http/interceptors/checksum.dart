@@ -31,8 +31,8 @@ class WithChecksum extends HttpRequestInterceptor {
   const WithChecksum();
 
   @override
-  Future<AWSStreamedHttpRequest> intercept(
-    AWSStreamedHttpRequest request,
+  Future<AWSBaseHttpRequest> intercept(
+    AWSBaseHttpRequest request,
   ) async {
     if (request.headers.containsKey(_header)) {
       return request;

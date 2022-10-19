@@ -22,8 +22,8 @@ class WithContentLength extends HttpRequestInterceptor {
   const WithContentLength();
 
   @override
-  Future<AWSStreamedHttpRequest> intercept(
-    AWSStreamedHttpRequest request,
+  Future<AWSBaseHttpRequest> intercept(
+    AWSBaseHttpRequest request,
   ) async {
     final includeHeader = !zIsWeb || isSmithyHttpTest;
     if (includeHeader) {

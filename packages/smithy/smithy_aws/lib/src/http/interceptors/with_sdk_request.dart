@@ -26,7 +26,7 @@ class WithSdkRequest extends HttpRequestInterceptor {
   const WithSdkRequest();
 
   @override
-  AWSStreamedHttpRequest intercept(AWSStreamedHttpRequest request) {
+  AWSBaseHttpRequest intercept(AWSBaseHttpRequest request) {
     if (!request.headers.containsKey(AWSHeaders.sdkRequest)) {
       // TODO(dnys1): Add ttl when config is complete
 
