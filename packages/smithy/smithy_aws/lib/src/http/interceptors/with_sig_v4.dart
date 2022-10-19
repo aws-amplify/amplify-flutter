@@ -41,9 +41,7 @@ class WithSigV4 extends HttpRequestInterceptor {
   final ServiceConfiguration serviceConfiguration;
 
   @override
-  Future<AWSStreamedHttpRequest> intercept(
-    AWSStreamedHttpRequest request,
-  ) async {
+  Future<AWSBaseHttpRequest> intercept(AWSBaseHttpRequest request) async {
     // Try to retrieve credentials. If it fails, continue without authentication
     // for optional auth requests only.
     try {

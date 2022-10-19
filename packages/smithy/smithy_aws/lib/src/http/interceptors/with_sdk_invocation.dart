@@ -25,7 +25,7 @@ class WithSdkInvocationId extends HttpRequestInterceptor {
   const WithSdkInvocationId();
 
   @override
-  AWSStreamedHttpRequest intercept(AWSStreamedHttpRequest request) {
+  AWSBaseHttpRequest intercept(AWSBaseHttpRequest request) {
     if (!request.headers.containsKey(AWSHeaders.sdkInvocationId)) {
       request.headers[AWSHeaders.sdkInvocationId] =
           Zone.current[AWSHeaders.sdkInvocationId] as String? ??
