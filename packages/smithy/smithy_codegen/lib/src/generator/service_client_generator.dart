@@ -134,12 +134,14 @@ class ServiceClientGenerator extends LibraryGenerator<ServiceShape> {
             if (operation.hasDocs(context)) operation.formattedDocs(context),
           ])
           ..returns = isPaginated
-              ? DartTypes.smithy
-                  .smithyOperation(DartTypes.smithy.paginatedResult(
-                  paginatedTraits.items?.symbol.unboxed ?? operationOutput,
-                  paginatedTraits.pageSize?.symbol.unboxed ??
-                      DartTypes.core.void$,
-                ))
+              ? DartTypes.smithy.smithyOperation(
+                  DartTypes.smithy.paginatedResult(
+                    paginatedTraits.items?.symbol.unboxed ?? operationOutput,
+                    paginatedTraits.pageSize?.symbol.unboxed ??
+                        DartTypes.core.void$,
+                    paginatedTraits.outputToken!.symbol.unboxed,
+                  ),
+                )
               : DartTypes.smithy.smithyOperation(operationOutput)
           ..name = operation.shapeId.shape.camelCase
           ..lambda = false

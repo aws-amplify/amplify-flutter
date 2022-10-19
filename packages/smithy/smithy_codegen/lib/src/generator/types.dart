@@ -647,12 +647,16 @@ class _Smithy {
       );
 
   /// Creates a [smithy.PaginatedResult] reference.
-  Reference paginatedResult(Reference itemsRef, Reference pageSizeRef) =>
+  Reference paginatedResult(
+    Reference itemsRef,
+    Reference pageSizeRef,
+    Reference tokenRef,
+  ) =>
       TypeReference(
         (t) => t
           ..url = _url
           ..symbol = 'PaginatedResult'
-          ..types.addAll([itemsRef, pageSizeRef]),
+          ..types.addAll([itemsRef, pageSizeRef, tokenRef]),
       );
 
   /// Creates a [smithy.parseHeader] reference.
