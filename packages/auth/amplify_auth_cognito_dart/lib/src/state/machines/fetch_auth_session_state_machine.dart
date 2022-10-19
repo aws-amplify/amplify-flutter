@@ -107,12 +107,14 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
     _FederatedIdentity? federatedIdentity,
   }) async {
     final resp = await _withZoneOverrides(
-      () => _cognitoIdentityClient.getId(
-        GetIdInput(
-          identityPoolId: config.poolId,
-          logins: _logins(federatedIdentity),
-        ),
-      ),
+      () => _cognitoIdentityClient
+          .getId(
+            GetIdInput(
+              identityPoolId: config.poolId,
+              logins: _logins(federatedIdentity),
+            ),
+          )
+          .result,
     );
     final identityId = resp.identityId;
     if (identityId == null) {
@@ -127,12 +129,14 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
     required _FederatedIdentity? federatedIdentity,
   }) async {
     final resp = await _withZoneOverrides(
-      () => _cognitoIdentityClient.getCredentialsForIdentity(
-        GetCredentialsForIdentityInput(
-          identityId: identityId,
-          logins: _logins(federatedIdentity),
-        ),
-      ),
+      () => _cognitoIdentityClient
+          .getCredentialsForIdentity(
+            GetCredentialsForIdentityInput(
+              identityId: identityId,
+              logins: _logins(federatedIdentity),
+            ),
+          )
+          .result,
     );
     final credentials = resp.credentials;
     if (credentials == null) {
@@ -378,7 +382,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
     });
     try {
       final result = await _withZoneOverrides(
-        () => _cognitoIdpClient.initiateAuth(refreshRequest),
+        () => _cognitoIdpClient.initiateAuth(refreshRequest).result,
       );
       final authResult = result.authenticationResult;
 

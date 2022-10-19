@@ -43,18 +43,32 @@ class MockCognitoIdpClient extends Fake
   final Future<RevokeTokenResponse> Function() _revokeToken;
 
   @override
-  Future<GlobalSignOutResponse> globalSignOut(
+  SmithyOperation<GlobalSignOutResponse> globalSignOut(
     GlobalSignOutRequest input, {
-    HttpClient? client,
+    AWSHttpClient? client,
   }) =>
-      _globalSignOut();
+      SmithyOperation(
+        CancelableOperation.fromFuture(
+          Future.value(_globalSignOut()),
+        ),
+        operationName: 'GlobalSignOut',
+        requestProgress: const Stream.empty(),
+        responseProgress: const Stream.empty(),
+      );
 
   @override
-  Future<RevokeTokenResponse> revokeToken(
+  SmithyOperation<RevokeTokenResponse> revokeToken(
     RevokeTokenRequest input, {
-    HttpClient? client,
+    AWSHttpClient? client,
   }) =>
-      _revokeToken();
+      SmithyOperation(
+        CancelableOperation.fromFuture(
+          Future.value(_revokeToken()),
+        ),
+        operationName: 'RevokeToken',
+        requestProgress: const Stream.empty(),
+        responseProgress: const Stream.empty(),
+      );
 }
 
 void main() {

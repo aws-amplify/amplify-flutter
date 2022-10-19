@@ -548,7 +548,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         final clientMetadata = options?.clientMetadata ?? const {};
         b.clientMetadata.addAll(clientMetadata);
       }),
-    );
+    ).result;
 
     final codeDeliveryDetails =
         result.codeDeliveryDetails?.asAuthCodeDeliveryDetails;
@@ -686,11 +686,13 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   }) async {
     final credentials = await getCredentials();
     final tokens = credentials.userPoolTokens!;
-    final resp = await _cognitoIdp.getUser(
-      cognito.GetUserRequest(
-        accessToken: tokens.accessToken.raw,
-      ),
-    );
+    final resp = await _cognitoIdp
+        .getUser(
+          cognito.GetUserRequest(
+            accessToken: tokens.accessToken.raw,
+          ),
+        )
+        .result;
     return [
       for (final attributeType in resp.userAttributes)
         attributeType.asAuthUserAttribute,
@@ -721,16 +723,18 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     final credentials = await getCredentials();
     final tokens = credentials.userPoolTokens!;
     final options = request.options as CognitoUpdateUserAttributesOptions?;
-    final response = await _cognitoIdp.updateUserAttributes(
-      cognito.UpdateUserAttributesRequest.build(
-        (b) => b
-          ..accessToken = tokens.accessToken.raw
-          ..clientMetadata.addAll(options?.clientMetadata ?? const {})
-          ..userAttributes.addAll({
-            for (final attr in request.attributes) attr.asAttributeType,
-          }),
-      ),
-    );
+    final response = await _cognitoIdp
+        .updateUserAttributes(
+          cognito.UpdateUserAttributesRequest.build(
+            (b) => b
+              ..accessToken = tokens.accessToken.raw
+              ..clientMetadata.addAll(options?.clientMetadata ?? const {})
+              ..userAttributes.addAll({
+                for (final attr in request.attributes) attr.asAttributeType,
+              }),
+          ),
+        )
+        .result;
     final result = <CognitoUserAttributeKey, UpdateUserAttributeResult>{};
     final codeDeliveryDetailsList = response.codeDeliveryDetailsList ??
         const <cognito.CodeDeliveryDetailsType>[];
@@ -764,13 +768,15 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   }) async {
     final credentials = await getCredentials();
     final tokens = credentials.userPoolTokens!;
-    await _cognitoIdp.verifyUserAttribute(
-      cognito.VerifyUserAttributeRequest(
-        accessToken: tokens.accessToken.raw,
-        attributeName: request.userAttributeKey.key,
-        code: request.confirmationCode,
-      ),
-    );
+    await _cognitoIdp
+        .verifyUserAttribute(
+          cognito.VerifyUserAttributeRequest(
+            accessToken: tokens.accessToken.raw,
+            attributeName: request.userAttributeKey.key,
+            code: request.confirmationCode,
+          ),
+        )
+        .result;
     return const ConfirmUserAttributeResult();
   }
 
@@ -783,13 +789,15 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     final tokens = credentials.userPoolTokens!;
     final options =
         request.options as CognitoResendUserAttributeConfirmationCodeOptions?;
-    final result = await _cognitoIdp.getUserAttributeVerificationCode(
-      cognito.GetUserAttributeVerificationCodeRequest(
-        accessToken: tokens.accessToken.raw,
-        attributeName: request.userAttributeKey.key,
-        clientMetadata: options?.clientMetadata,
-      ),
-    );
+    final result = await _cognitoIdp
+        .getUserAttributeVerificationCode(
+          cognito.GetUserAttributeVerificationCodeRequest(
+            accessToken: tokens.accessToken.raw,
+            attributeName: request.userAttributeKey.key,
+            clientMetadata: options?.clientMetadata,
+          ),
+        )
+        .result;
     final codeDeliveryDetails =
         result.codeDeliveryDetails?.asAuthCodeDeliveryDetails;
     if (codeDeliveryDetails == null) {
@@ -810,13 +818,15 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
     final credentials = await getCredentials();
     final tokens = credentials.userPoolTokens!;
-    await _cognitoIdp.changePassword(
-      cognito.ChangePasswordRequest(
-        accessToken: tokens.accessToken.raw,
-        previousPassword: request.oldPassword,
-        proposedPassword: request.newPassword,
-      ),
-    );
+    await _cognitoIdp
+        .changePassword(
+          cognito.ChangePasswordRequest(
+            accessToken: tokens.accessToken.raw,
+            previousPassword: request.oldPassword,
+            proposedPassword: request.newPassword,
+          ),
+        )
+        .result;
     return const UpdatePasswordResult();
   }
 
@@ -843,7 +853,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         final clientMetadata = options?.clientMetadata ?? const {};
         b.clientMetadata.addAll(clientMetadata);
       }),
-    );
+    ).result;
 
     final codeDeliveryDetails =
         result.codeDeliveryDetails?.asAuthCodeDeliveryDetails;
@@ -886,7 +896,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         final clientMetadata = options?.clientMetadata ?? const {};
         b.clientMetadata.addAll(clientMetadata);
       }),
-    );
+    ).result;
 
     return const UpdatePasswordResult();
   }
@@ -921,13 +931,16 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       _logger.info('Device is already remembered');
       return;
     }
-    await _cognitoIdp.updateDeviceStatus(
-      cognito.UpdateDeviceStatusRequest(
-        accessToken: tokens.accessToken.raw,
-        deviceKey: deviceKey,
-        deviceRememberedStatus: cognito.DeviceRememberedStatusType.remembered,
-      ),
-    );
+    await _cognitoIdp
+        .updateDeviceStatus(
+          cognito.UpdateDeviceStatusRequest(
+            accessToken: tokens.accessToken.raw,
+            deviceKey: deviceKey,
+            deviceRememberedStatus:
+                cognito.DeviceRememberedStatusType.remembered,
+          ),
+        )
+        .result;
     await _deviceRepo.put(
       username,
       deviceSecrets.rebuild(
@@ -947,12 +960,14 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       throw const DeviceNotTrackedException();
     }
     await _deviceRepo.remove(username);
-    await _cognitoIdp.forgetDevice(
-      cognito.ForgetDeviceRequest(
-        accessToken: tokens.accessToken.raw,
-        deviceKey: deviceKey,
-      ),
-    );
+    await _cognitoIdp
+        .forgetDevice(
+          cognito.ForgetDeviceRequest(
+            accessToken: tokens.accessToken.raw,
+            deviceKey: deviceKey,
+          ),
+        )
+        .result;
   }
 
   @override
@@ -964,13 +979,15 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       final credentials = await getCredentials();
       final tokens = credentials.userPoolTokens!;
       const devicePageLimit = 60;
-      final resp = await _cognitoIdp.listDevices(
-        cognito.ListDevicesRequest(
-          accessToken: tokens.accessToken.raw,
-          limit: devicePageLimit,
-          paginationToken: paginationToken,
-        ),
-      );
+      final resp = await _cognitoIdp
+          .listDevices(
+            cognito.ListDevicesRequest(
+              accessToken: tokens.accessToken.raw,
+              limit: devicePageLimit,
+              paginationToken: paginationToken,
+            ),
+          )
+          .result;
       final devices = resp.devices ?? const <cognito.DeviceType>[];
       for (final device in devices) {
         final attributes =
@@ -1042,20 +1059,24 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         );
         if (options.globalSignOut) {
           // Revokes the refresh token
-          await _cognitoIdp.globalSignOut(
-            cognito.GlobalSignOutRequest(
-              accessToken: tokens.accessToken.raw,
-            ),
-          );
+          await _cognitoIdp
+              .globalSignOut(
+                cognito.GlobalSignOutRequest(
+                  accessToken: tokens.accessToken.raw,
+                ),
+              )
+              .result;
         }
         // Revokes the access token
-        await _cognitoIdp.revokeToken(
-          cognito.RevokeTokenRequest(
-            clientId: _userPoolConfig.appClientId,
-            clientSecret: _userPoolConfig.appClientSecret,
-            token: tokens.refreshToken,
-          ),
-        );
+        await _cognitoIdp
+            .revokeToken(
+              cognito.RevokeTokenRequest(
+                clientId: _userPoolConfig.appClientId,
+                clientSecret: _userPoolConfig.appClientSecret,
+                token: tokens.refreshToken,
+              ),
+            )
+            .result;
       }
     } finally {
       await _stateMachine.dispatch(
@@ -1071,11 +1092,13 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<void> deleteUser() async {
     final credentials = await getCredentials();
     final tokens = credentials.userPoolTokens!;
-    await _cognitoIdp.deleteUser(
-      cognito.DeleteUserRequest(
-        accessToken: tokens.accessToken.raw,
-      ),
-    );
+    await _cognitoIdp
+        .deleteUser(
+          cognito.DeleteUserRequest(
+            accessToken: tokens.accessToken.raw,
+          ),
+        )
+        .result;
     await _stateMachine.dispatch(
       const CredentialStoreEvent.clearCredentials(),
     );
