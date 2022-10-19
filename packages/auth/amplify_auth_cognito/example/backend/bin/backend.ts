@@ -22,6 +22,10 @@ import { CustomAuthorizerUserPoolsStack } from "../lib/custom-authorizer-user-po
 import { CustomAuthorizerIamStack } from "../lib/custom-authorizer-iam/stack";
 
 const app = new cdk.App();
+const env: cdk.Environment = {
+  account: process.env.CDK_DEFAULT_ACCOUNT,
+  region: process.env.CDK_DEFAULT_REGION,
+};
 
 new AuthIntegrationTestStack(app);
 new AuthIntegrationTestStack(app, {
@@ -54,3 +58,12 @@ new CustomAuthorizerUserPoolsStack(app, {
 new CustomAuthorizerIamStack(app, {
   environmentName: "custom-authorizer-iam",
 });
+
+const customDomain = app.node.tryGetContext('domainName');
+if (customDomain) {
+  new CustomAuthorizerIamStack(app, {
+    env,
+    environmentName: "custom-authorizer-custom-domain",
+    customDomain,
+  });
+}

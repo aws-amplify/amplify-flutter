@@ -7,5 +7,6 @@ node_modules
 .cdk.staging
 cdk.out
 
-# CDK outputs
+# CDK inputs/outputs
+cdk.context.json
 outputs.json

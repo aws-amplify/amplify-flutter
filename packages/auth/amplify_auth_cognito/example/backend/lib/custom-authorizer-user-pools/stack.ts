@@ -19,6 +19,7 @@ import { Construct } from "constructs";
 import * as cognito from "aws-cdk-lib/aws-cognito";
 import * as apigw from "aws-cdk-lib/aws-apigateway";
 import * as lambda_nodejs from "aws-cdk-lib/aws-lambda-nodejs";
+import * as route53 from "aws-cdk-lib/aws-route53";
 import { CfnOutput, RemovalPolicy } from "aws-cdk-lib";
 import { Runtime } from "aws-cdk-lib/aws-lambda";
 
@@ -27,6 +28,13 @@ export interface CustomAuthorizerStackProps extends cdk.StackProps {
    * The name for the environment.
    */
   environmentName: string;
+
+  /**
+   * The custom domain name to use for the API Gateway.
+   * 
+   * Must exist in the account already.
+   */
+  customDomain?: string;
 }
 
 export class CustomAuthorizerUserPoolsStack extends cdk.Stack {

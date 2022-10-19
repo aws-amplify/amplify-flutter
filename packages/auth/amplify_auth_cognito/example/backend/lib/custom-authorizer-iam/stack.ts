@@ -20,13 +20,48 @@ import * as cognito from "aws-cdk-lib/aws-cognito";
 import * as apigw from "aws-cdk-lib/aws-apigateway";
 import * as lambda_nodejs from "aws-cdk-lib/aws-lambda-nodejs";
 import * as iam from "aws-cdk-lib/aws-iam";
+import * as acm from "aws-cdk-lib/aws-certificatemanager";
+import * as route53 from "aws-cdk-lib/aws-route53";
+import * as targets from "aws-cdk-lib/aws-route53-targets";
 import { CfnOutput } from "aws-cdk-lib";
 import { Runtime } from "aws-cdk-lib/aws-lambda";
 import { CustomAuthorizerStackProps } from "../custom-authorizer-user-pools/stack";
+import { DomainNameOptions } from "aws-cdk-lib/aws-apigateway";
 
 export class CustomAuthorizerIamStack extends cdk.Stack {
   constructor(scope: Construct, props: CustomAuthorizerStackProps) {
     super(scope, `AuthIntegrationTestStack-${props.environmentName}`, props);
+
+    const { customDomain } = props;
+    let domainProperties:
+      | {
+          domainName: string;
+          hostedZone: route53.IHostedZone;
+          domainOptions: DomainNameOptions;
+        }
+      | undefined;
+    if (customDomain) {
+      const domainName = `${props.environmentName}.${customDomain}`;
+      const hostedZone = route53.HostedZone.fromLookup(this, "HostedZone", {
+        domainName: customDomain,
+      });
+      const certificate = new acm.DnsValidatedCertificate(
+        this,
+        "SslCertificate",
+        {
+          hostedZone,
+          domainName,
+        }
+      );
+      domainProperties = {
+        domainName,
+        hostedZone,
+        domainOptions: {
+          domainName,
+          certificate,
+        },
+      };
+    }
 
     // Create the API Gateway and proxy handler
 
@@ -38,11 +73,23 @@ export class CustomAuthorizerIamStack extends cdk.Stack {
       handler: apiHandler,
       defaultCorsPreflightOptions: {
         allowOrigins: apigw.Cors.ALL_ORIGINS,
+        allowHeaders: [...apigw.Cors.DEFAULT_HEADERS, "x-amz-content-sha256"],
       },
       defaultMethodOptions: {
         authorizationType: apigw.AuthorizationType.IAM,
-      }
+      },
+      domainName: domainProperties?.domainOptions,
     });
+
+    if (domainProperties) {
+      new route53.ARecord(this, "CustomDomainAliasRecord", {
+        zone: domainProperties.hostedZone,
+        recordName: domainProperties.domainName,
+        target: route53.RecordTarget.fromAlias(
+          new targets.ApiGateway(apiGateway)
+        ),
+      });
+    }
 
     // Create the Cognito Identity Pool with permissions to invoke the API.
 
@@ -70,16 +117,12 @@ export class CustomAuthorizerIamStack extends cdk.Stack {
           statements: [
             new iam.PolicyStatement({
               effect: iam.Effect.ALLOW,
-              actions: [
-                "execute-api:Invoke"
-              ],
-              resources: [
-                apiGateway.arnForExecuteApi(),
-              ]
-            })
-          ]
-        })
-      }
+              actions: ["execute-api:Invoke"],
+              resources: [apiGateway.arnForExecuteApi()],
+            }),
+          ],
+        }),
+      },
     });
 
     new cognito.CfnIdentityPoolRoleAttachment(
@@ -105,8 +148,12 @@ export class CustomAuthorizerIamStack extends cdk.Stack {
       value: identityPool.ref,
     });
 
+    let domainName = apiGateway.url;
+    if (apiGateway.domainName?.domainName) {
+      domainName = `https://${apiGateway.domainName?.domainName}`;
+    }
     new CfnOutput(this, "RestApiUrl", {
-      value: apiGateway.url,
+      value: domainName,
     });
   }
 }
