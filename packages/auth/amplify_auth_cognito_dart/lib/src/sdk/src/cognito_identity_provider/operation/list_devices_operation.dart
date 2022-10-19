@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.2.0. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity_provider.operation.list_devices_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -83,7 +83,7 @@ class ListDevicesOperation extends _i1.HttpOperation<_i2.ListDevicesRequest,
           service: _i7.AWSService.cognitoIdentityProvider,
           credentialsProvider: _credentialsProvider,
         ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.2.0'),
         const _i5.WithSdkInvocationId(),
         const _i5.WithSdkRequest(),
       ],
@@ -222,15 +222,17 @@ class ListDevicesOperation extends _i1.HttpOperation<_i2.ListDevicesRequest,
         ),
       ];
   @override
+  String get runtimeTypeName => 'ListDevices';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i19.Future<_i3.ListDevicesResponse> run(
+  _i1.SmithyOperation<_i3.ListDevicesResponse> run(
     _i2.ListDevicesRequest input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i19.runZoned(
