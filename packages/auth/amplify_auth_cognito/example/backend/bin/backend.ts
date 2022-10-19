@@ -34,8 +34,8 @@ new AuthIntegrationTestStack(app, {
 new AuthIntegrationTestStack(app, {
   environmentName: "device-tracking-opt-in",
   deviceTracking: {
-    // Do not trust remembered devices (always prompt MFA)
-    challengeRequiredOnNewDevice: false,
+    // Trust remembered devices (allow MFA bypass)
+    challengeRequiredOnNewDevice: true,
     // Opt-in to tracking
     deviceOnlyRememberedOnUserPrompt: true,
   },
