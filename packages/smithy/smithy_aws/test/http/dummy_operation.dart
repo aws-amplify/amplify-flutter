@@ -65,6 +65,9 @@ class DummyHttpOperation extends HttpOperation<Unit, Unit, Unit, Unit> {
 
   @override
   int successCode([Unit? output]) => 200;
+
+  @override
+  String get runtimeTypeName => 'DummyOperation';
 }
 
 class DummySmithyException implements SmithyHttpException {
@@ -72,7 +75,7 @@ class DummySmithyException implements SmithyHttpException {
 
   factory DummySmithyException.fromResponse(
     DummySmithyException payload,
-    AWSStreamedHttpResponse response,
+    AWSBaseHttpResponse response,
   ) =>
       DummySmithyException(
         statusCode: response.statusCode,

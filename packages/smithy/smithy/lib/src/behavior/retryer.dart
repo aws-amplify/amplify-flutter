@@ -14,6 +14,8 @@
 
 import 'dart:async';
 
+import 'package:async/async.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:retry/retry.dart';
 import 'package:smithy/smithy.dart';
 
@@ -31,14 +33,35 @@ class Retryer {
   /// if [isRetryable] returns `true`.
   ///
   /// Provide [onRetry] to do work on every retry attempt.
-  Future<R> retry<R>(
-    Future<R> Function() f, {
+  CancelableOperation<R> retry<R>(
+    CancelableOperation<R> Function() fn, {
     FutureOr<void> Function(Exception, [Duration?])? onRetry,
   }) {
-    return _options.retry(
-      f,
-      retryIf: isRetryable,
-      onRetry: onRetry,
-    );
+    final completer = CancelableCompleter<R>();
+    Future<void>(() async {
+      var attempt = 0;
+      while (true) {
+        attempt++; // first invocation is the first attempt
+        try {
+          final operation = fn();
+          final result = await operation.valueOrCancellation();
+          if (result is! R || operation.isCanceled) {
+            return completer.operation.cancel();
+          }
+          return completer.complete(result);
+        } on Exception catch (e) {
+          if (attempt >= _options.maxAttempts) {
+            rethrow;
+          }
+          if (onRetry != null) {
+            await onRetry(e);
+          }
+        }
+
+        // Sleep for a delay
+        await Future<void>.delayed(_options.delay(attempt));
+      }
+    }).onError(completer.completeError);
+    return completer.operation;
   }
 }

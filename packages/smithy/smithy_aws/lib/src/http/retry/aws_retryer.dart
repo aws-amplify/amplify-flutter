@@ -164,39 +164,56 @@ class AWSRetryer implements Retryer {
       );
 
   @override
-  Future<R> retry<R>(
-    Future<R> Function() f, {
+  CancelableOperation<R> retry<R>(
+    CancelableOperation<R> Function() f, {
     FutureOr<void> Function(Exception, [Duration?])? onRetry,
-  }) async {
-    var attempts = 0;
-    int? retryToken;
-    while (true) {
-      try {
-        final result = await runZoned(f, zoneValues: {
-          zRetryAttempt: attempts,
-          zMaxAttempts: _maxAttempts,
-        });
-        if (retryToken == null) {
-          _returnRetryToken(_noRetryIncrement);
-        } else {
-          _returnRetryToken(retryToken);
+  }) {
+    final completer = CancelableCompleter<R>();
+    Future<void>(() async {
+      var attempts = 0;
+      int? retryToken;
+      while (true) {
+        if (completer.isCanceled) {
+          return;
         }
-        return result;
-      } on Exception catch (e) {
-        if (!isRetryable(e)) {
-          rethrow;
+        try {
+          late CancelableOperation<R> operation;
+          final result = await runZoned(
+            () {
+              operation = f();
+              return operation.valueOrCancellation();
+            },
+            zoneValues: {
+              zRetryAttempt: attempts,
+              zMaxAttempts: _maxAttempts,
+            },
+          );
+          if (result is! R || operation.isCanceled) {
+            return;
+          }
+          if (retryToken == null) {
+            _returnRetryToken(_noRetryIncrement);
+          } else {
+            _returnRetryToken(retryToken);
+          }
+          return completer.complete(result);
+        } on Exception catch (e) {
+          if (!isRetryable(e)) {
+            rethrow;
+          }
+          retryToken = _retrieveRetryToken(e);
+          if (retryToken == null) {
+            rethrow;
+          }
+          final delay = _delayFor(e, attempts);
+          if (++attempts >= _maxAttempts) {
+            rethrow;
+          }
+          await onRetry?.call(e, delay);
+          await Future<void>.delayed(delay);
         }
-        retryToken = _retrieveRetryToken(e);
-        if (retryToken == null) {
-          rethrow;
-        }
-        final delay = _delayFor(e, attempts);
-        if (++attempts >= _maxAttempts) {
-          rethrow;
-        }
-        await onRetry?.call(e, delay);
-        await Future<void>.delayed(delay);
       }
-    }
+    }).catchError(completer.completeError);
+    return completer.operation;
   }
 }

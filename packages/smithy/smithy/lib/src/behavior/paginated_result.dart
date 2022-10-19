@@ -12,19 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:smithy/smithy.dart';
+
+typedef NextPaginatedResultFn<Items, PageSize>
+    = SmithyOperation<PaginatedResult<Items, PageSize>> Function([
+  PageSize?,
+]);
+
 class PaginatedResult<Items, PageSize> {
   const PaginatedResult(
     this.items, {
     required this.hasNext,
-    required Future<PaginatedResult<Items, PageSize>> Function([PageSize?])
-        next,
+    required NextPaginatedResultFn<Items, PageSize> next,
   }) : _next = next;
 
   final Items items;
   final bool hasNext;
-  final Future<PaginatedResult<Items, PageSize>> Function([PageSize?]) _next;
+  final NextPaginatedResultFn<Items, PageSize> _next;
 
   /// Retrieves the next set of results.
-  Future<PaginatedResult<Items, PageSize>> next([PageSize? pageSize]) =>
+  SmithyOperation<PaginatedResult<Items, PageSize>> next([
+    PageSize? pageSize,
+  ]) =>
       _next(pageSize);
 }

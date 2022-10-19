@@ -14,6 +14,7 @@
 
 import 'dart:async';
 
+import 'package:aws_common/aws_common.dart';
 import 'package:aws_common/src/config/aws_config_value.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:smithy/smithy.dart';
@@ -158,13 +159,16 @@ void main() {
             var retry = 0;
             TestCase testCase() => testSuite.responses[retry];
             await expectLater(
-              retryer.retry(
-                () async {
+              retryer.retry<void>(
+                () {
+                  final completer = CancelableCompleter<void>();
                   final response = testCase().response;
                   if (response.statusCode == 200) {
-                    return;
+                    completer.complete();
+                  } else {
+                    completer.completeError(const _TransientSmithyException());
                   }
-                  throw const _TransientSmithyException();
+                  return completer.operation;
                 },
                 onRetry: (e, [delay]) {
                   final expectedDelay = testCase().expected.delay;
@@ -175,7 +179,7 @@ void main() {
                   );
                   retry++;
                 },
-              ),
+              ).valueOrCancellation(),
               expectation,
             );
 

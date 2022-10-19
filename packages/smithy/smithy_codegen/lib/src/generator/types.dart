@@ -231,6 +231,9 @@ class _AwsCommon {
   /// Creates an [aws_common.AWSHeaders] reference.
   Reference get awsHeaders => const Reference('AWSHeaders', _url);
 
+  /// Creates an [aws_common.AWSHttpClient] reference.
+  Reference get awsHttpClient => const Reference('AWSHttpClient', _url);
+
   /// Creates an [aws_common.AWSHttpMethod] reference.
   Reference get awsHttpMethod => const Reference('AWSHttpMethod', _url);
 
@@ -541,9 +544,6 @@ class _Smithy {
           ..types.add(ref),
       );
 
-  /// Creates a [smithy.HttpClient] refererence.
-  Reference get httpClient => const Reference('HttpClient', _url);
-
   /// Creates a [smithy.HttpServerBase] refererence.
   Reference get httpServerBase => const Reference('HttpServerBase', _url);
 
@@ -619,14 +619,6 @@ class _Smithy {
   /// Creates a [smithy.MissingLabelException] reference.
   Reference get missingLabelException =>
       const Reference('MissingLabelException', _url);
-
-  /// Creates a [smithy.Operation] reference.
-  Reference operation(Reference input, Reference output) => TypeReference(
-        (t) => t
-          ..symbol = 'Operation'
-          ..url = _url
-          ..types.addAll([input, output]),
-      );
 
   /// Creates a [smithy.PaginatedHttpOperation] reference for an operation with input
   /// payload type [inputPayload], input type [input], and output type [output].
@@ -710,6 +702,15 @@ class _Smithy {
   /// Creates a [smithy.SmithyHttpException] reference.
   Reference get smithyHttpException =>
       const Reference('SmithyHttpException', _url);
+
+  /// Creates a [smithy.SmithyOperation] reference for an operation with output
+  /// type [output].
+  Reference smithyOperation(Reference output) => TypeReference(
+        (t) => t
+          ..symbol = 'SmithyOperation'
+          ..url = _url
+          ..types.add(output),
+      );
 
   /// Creates a [smithy.SmithyUnion] reference for [ref], the union class.
   Reference smithyUnion(Reference ref) => TypeReference(
