@@ -30,11 +30,11 @@ abstract class CanonicalPath {
     // `normalize` removes leading and trailing slashes which should be
     // preserved.
     if (serviceConfiguration.normalizePath) {
+      canonicalPath = canonicalPath.ensureStartsWith('/');
       canonicalPath = url.normalize(canonicalPath);
       if (path.endsWith('/')) {
         canonicalPath = canonicalPath.ensureEndsWith('/');
       }
-      canonicalPath = canonicalPath.ensureStartsWith('/');
     }
 
     return canonicalPath.split('/').map((segment) {
