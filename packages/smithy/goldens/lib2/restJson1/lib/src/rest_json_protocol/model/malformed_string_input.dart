@@ -21,8 +21,9 @@ abstract class MalformedStringInput
         Built<MalformedStringInput, MalformedStringInputBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<MalformedStringInputPayload> {
-  factory MalformedStringInput({_i3.JsonObject? blob}) {
-    return _$MalformedStringInput._(blob: blob);
+  factory MalformedStringInput({Object? blob}) {
+    return _$MalformedStringInput._(
+        blob: blob == null ? null : _i3.JsonObject(blob));
   }
 
   factory MalformedStringInput.build(

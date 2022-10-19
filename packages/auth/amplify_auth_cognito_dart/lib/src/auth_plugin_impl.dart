@@ -21,7 +21,6 @@ import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters_stub.dart'
     if (dart.library.html) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters_html.dart';
-import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_user_ext.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_up_parameters.dart';
@@ -56,7 +55,6 @@ import 'package:amplify_auth_cognito_dart/src/util/cognito_iam_auth_provider.dar
 import 'package:amplify_auth_cognito_dart/src/util/cognito_user_pools_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
@@ -201,6 +199,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
   final StreamController<AuthHubEvent> _hubEventController =
       StreamController.broadcast();
+
+  static final AmplifyLogger _logger = AmplifyLogger.category(Category.auth);
 
   @override
   Future<void> close() async {
@@ -784,7 +784,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       cognito.GetUserAttributeVerificationCodeRequest(
         accessToken: userPoolTokens.accessToken.raw,
         attributeName: request.userAttributeKey.key,
-        clientMetadata: BuiltMap(options?.clientMetadata ?? const {}),
+        clientMetadata: options?.clientMetadata,
       ),
     );
     final codeDeliveryDetails =
@@ -906,14 +906,25 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     final username = tokens.username;
     final deviceSecrets = await _deviceRepo.get(username);
     final deviceKey = deviceSecrets?.deviceKey;
-    if (deviceKey == null) {
+    if (deviceSecrets == null || deviceKey == null) {
       throw const DeviceNotTrackedException();
+    }
+    if (deviceSecrets.deviceStatus ==
+        cognito.DeviceRememberedStatusType.remembered) {
+      _logger.info('Device is already remembered');
+      return;
     }
     await _cognitoIdp.updateDeviceStatus(
       cognito.UpdateDeviceStatusRequest(
         accessToken: tokens.accessToken.raw,
         deviceKey: deviceKey,
         deviceRememberedStatus: cognito.DeviceRememberedStatusType.remembered,
+      ),
+    );
+    await _deviceRepo.put(
+      username,
+      deviceSecrets.rebuild(
+        (b) => b.deviceStatus = cognito.DeviceRememberedStatusType.remembered,
       ),
     );
   }
@@ -1040,6 +1051,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       await _stateMachine.dispatch(
         const CredentialStoreEvent.clearCredentials(),
       );
+
       _hubEventController.add(AuthHubEvent.signedOut());
     }
     return const SignOutResult();

@@ -12,13 +12,13 @@ class _$InitiateAuthRequest extends InitiateAuthRequest {
   @override
   final _i4.AuthFlowType authFlow;
   @override
-  final _i5.BuiltMap<String, String>? authParameters;
+  final _i6.BuiltMap<String, String>? authParameters;
   @override
   final String clientId;
   @override
-  final _i5.BuiltMap<String, String>? clientMetadata;
+  final _i6.BuiltMap<String, String>? clientMetadata;
   @override
-  final _i6.UserContextDataType? userContextData;
+  final _i5.UserContextDataType? userContextData;
 
   factory _$InitiateAuthRequest(
           [void Function(InitiateAuthRequestBuilder)? updates]) =>
@@ -86,26 +86,26 @@ class InitiateAuthRequestBuilder
   _i4.AuthFlowType? get authFlow => _$this._authFlow;
   set authFlow(_i4.AuthFlowType? authFlow) => _$this._authFlow = authFlow;
 
-  _i5.MapBuilder<String, String>? _authParameters;
-  _i5.MapBuilder<String, String> get authParameters =>
-      _$this._authParameters ??= new _i5.MapBuilder<String, String>();
-  set authParameters(_i5.MapBuilder<String, String>? authParameters) =>
+  _i6.MapBuilder<String, String>? _authParameters;
+  _i6.MapBuilder<String, String> get authParameters =>
+      _$this._authParameters ??= new _i6.MapBuilder<String, String>();
+  set authParameters(_i6.MapBuilder<String, String>? authParameters) =>
       _$this._authParameters = authParameters;
 
   String? _clientId;
   String? get clientId => _$this._clientId;
   set clientId(String? clientId) => _$this._clientId = clientId;
 
-  _i5.MapBuilder<String, String>? _clientMetadata;
-  _i5.MapBuilder<String, String> get clientMetadata =>
-      _$this._clientMetadata ??= new _i5.MapBuilder<String, String>();
-  set clientMetadata(_i5.MapBuilder<String, String>? clientMetadata) =>
+  _i6.MapBuilder<String, String>? _clientMetadata;
+  _i6.MapBuilder<String, String> get clientMetadata =>
+      _$this._clientMetadata ??= new _i6.MapBuilder<String, String>();
+  set clientMetadata(_i6.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
-  _i6.UserContextDataTypeBuilder? _userContextData;
-  _i6.UserContextDataTypeBuilder get userContextData =>
-      _$this._userContextData ??= new _i6.UserContextDataTypeBuilder();
-  set userContextData(_i6.UserContextDataTypeBuilder? userContextData) =>
+  _i5.UserContextDataTypeBuilder? _userContextData;
+  _i5.UserContextDataTypeBuilder get userContextData =>
+      _$this._userContextData ??= new _i5.UserContextDataTypeBuilder();
+  set userContextData(_i5.UserContextDataTypeBuilder? userContextData) =>
       _$this._userContextData = userContextData;
 
   InitiateAuthRequestBuilder() {

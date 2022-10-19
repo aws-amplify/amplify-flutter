@@ -44,9 +44,6 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
   }
 
   @override
-  Future<void> reset() async {}
-
-  @override
   Future<void> addPlugin(AmplifyPluginInterface plugin) async {
     if (isConfigured) {
       throw const AmplifyAlreadyConfiguredException(

@@ -17,7 +17,6 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
 import 'package:amplify_auth_cognito_dart/src/crypto/crypto.dart';
 import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:mockito/mockito.dart';
 import 'package:smithy/smithy.dart';
 import 'package:test/test.dart';
@@ -138,10 +137,10 @@ void main() {
     stateMachine.addInstance<CognitoIdentityProviderClient>(
       MockCognitoIdpClient(
         getUser: () async => GetUserResponse(
-          userAttributes: BuiltList([
+          userAttributes: [
             for (final entry in claims.entries)
               AttributeType(name: entry.key, value: entry.value),
-          ]),
+          ],
           username: username,
         ),
       ),

@@ -17,14 +17,6 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
 class SignInWidget extends StatefulWidget {
-  final Function showResult;
-  final Function changeDisplay;
-  final VoidCallback showCreateUser;
-  final VoidCallback signOut;
-  final VoidCallback fetchSession;
-  final VoidCallback getCurrentUser;
-  final Function setError;
-
   const SignInWidget(
     this.showResult,
     this.changeDisplay,
@@ -35,6 +27,14 @@ class SignInWidget extends StatefulWidget {
     this.setError, {
     super.key,
   });
+
+  final void Function(String) showResult;
+  final void Function(String) changeDisplay;
+  final VoidCallback showCreateUser;
+  final VoidCallback signOut;
+  final VoidCallback fetchSession;
+  final VoidCallback getCurrentUser;
+  final void Function(Object?) setError;
 
   @override
   State<SignInWidget> createState() => _SignInWidgetState();
@@ -47,48 +47,51 @@ class _SignInWidgetState extends State<SignInWidget> {
 
   void _signIn() async {
     try {
-      var res = await Amplify.Auth.signIn(
-          username: usernameController.text.trim(),
-          password: passwordController.text.trim());
-      widget
-          .showResult('Sign In Status = ${res.nextStep?.signInStep ?? 'null'}');
-      widget
-          .changeDisplay(res.isSignedIn ? 'SIGNED_IN' : 'SHOW_CONFIRM_SIGN_IN');
-    } on AmplifyException catch (e) {
+      final res = await Amplify.Auth.signIn(
+        username: usernameController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      widget.showResult(
+        'Sign In Status = ${res.nextStep?.signInStep ?? 'null'}',
+      );
+      widget.changeDisplay(
+        res.isSignedIn ? 'SIGNED_IN' : 'SHOW_CONFIRM_SIGN_IN',
+      );
+    } on Exception catch (e) {
       widget.setError(e);
     }
   }
 
   void _signInWithWebUI() async {
     try {
-      var res = await Amplify.Auth.signInWithWebUI();
+      final res = await Amplify.Auth.signInWithWebUI();
       widget.showResult('Social Sign In Success = $res');
       widget.changeDisplay(res.isSignedIn ? 'SIGNED_IN' : 'SHOW_SIGN_IN');
       safePrint(res);
-    } on AmplifyException catch (e) {
+    } on Exception catch (e) {
       widget.setError(e);
     }
   }
 
   void _signInWithSocialWebUI() async {
     try {
-      var res = await Amplify.Auth.signInWithWebUI(provider: provider);
+      final res = await Amplify.Auth.signInWithWebUI(provider: provider);
       widget.showResult('Social Sign In Success = $res');
       widget.changeDisplay(res.isSignedIn ? 'SIGNED_IN' : 'SHOW_SIGN_IN');
       safePrint(res);
-    } on AmplifyException catch (e) {
+    } on Exception catch (e) {
       widget.setError(e);
     }
   }
 
   void _resetPassword() async {
     try {
-      var res = await Amplify.Auth.resetPassword(
+      final res = await Amplify.Auth.resetPassword(
         username: usernameController.text.trim(),
       );
       widget.showResult('Reset Password Status = ${res.nextStep.updateStep}');
       widget.changeDisplay('SHOW_CONFIRM_RESET');
-    } on AmplifyException catch (e) {
+    } on Exception catch (e) {
       widget.setError(e);
       safePrint(e);
     }
@@ -105,30 +108,32 @@ class _SignInWidgetState extends State<SignInWidget> {
           child: Column(
             children: [
               TextFormField(
-                  key: const Key('signin-username-input'),
-                  controller: usernameController,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.person),
-                    hintText: 'Your username',
-                    labelText: 'Username *',
-                  )),
+                key: const Key('signin-username-input'),
+                controller: usernameController,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.person),
+                  hintText: 'Your username',
+                  labelText: 'Username *',
+                ),
+              ),
               TextFormField(
-                  key: const Key('signin-password-input'),
-                  obscureText: true,
-                  controller: passwordController,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.lock),
-                    hintText: 'Your password',
-                    labelText: 'Password *',
-                  )),
-              const Padding(padding: EdgeInsets.all(5.0)),
+                key: const Key('signin-password-input'),
+                obscureText: true,
+                controller: passwordController,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.lock),
+                  hintText: 'Your password',
+                  labelText: 'Password *',
+                ),
+              ),
+              const Padding(padding: EdgeInsets.all(5)),
               GridView.count(
                 shrinkWrap: true,
                 crossAxisCount: 3,
                 crossAxisSpacing: 3,
                 mainAxisSpacing: 4,
                 childAspectRatio: 3,
-                padding: const EdgeInsets.all(5.0),
+                padding: const EdgeInsets.all(5),
                 children: [
                   ElevatedButton(
                     key: const Key('signin-button'),
@@ -168,44 +173,44 @@ class _SignInWidgetState extends State<SignInWidget> {
                 ],
               ),
               ListView(
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.all(5.0),
-                  children: [
-                    ElevatedButton(
-                      key: const Key('signin-webui-button'),
-                      onPressed: _signInWithSocialWebUI,
-                      child: const Text('Sign In With Social Provider'),
+                shrinkWrap: true,
+                padding: const EdgeInsets.all(5),
+                children: [
+                  ElevatedButton(
+                    key: const Key('signin-webui-button'),
+                    onPressed: _signInWithSocialWebUI,
+                    child: const Text('Sign In With Social Provider'),
+                  ),
+                  DropdownButton<AuthProvider>(
+                    value: provider,
+                    icon: const Icon(Icons.arrow_downward),
+                    iconSize: 24,
+                    elevation: 16,
+                    style: const TextStyle(color: Colors.deepPurple),
+                    underline: Container(
+                      height: 2,
+                      color: Colors.deepPurpleAccent,
                     ),
-                    DropdownButton<AuthProvider>(
-                      value: provider,
-                      icon: const Icon(Icons.arrow_downward),
-                      iconSize: 24,
-                      elevation: 16,
-                      style: const TextStyle(color: Colors.deepPurple),
-                      underline: Container(
-                        height: 2,
-                        color: Colors.deepPurpleAccent,
-                      ),
-                      onChanged: (AuthProvider? newValue) {
-                        setState(() {
-                          if (newValue != null) {
-                            provider = newValue;
-                          }
-                        });
-                      },
-                      items: <AuthProvider>[
-                        AuthProvider.google,
-                        AuthProvider.facebook,
-                        AuthProvider.amazon
-                      ].map<DropdownMenuItem<AuthProvider>>(
-                          (AuthProvider value) {
-                        return DropdownMenuItem<AuthProvider>(
-                          value: value,
-                          child: Text(value.toString()),
-                        );
-                      }).toList(),
-                    ),
-                  ])
+                    onChanged: (AuthProvider? newValue) {
+                      setState(() {
+                        if (newValue != null) {
+                          provider = newValue;
+                        }
+                      });
+                    },
+                    items: <AuthProvider>[
+                      AuthProvider.google,
+                      AuthProvider.facebook,
+                      AuthProvider.amazon
+                    ].map<DropdownMenuItem<AuthProvider>>((AuthProvider value) {
+                      return DropdownMenuItem<AuthProvider>(
+                        value: value,
+                        child: Text(value.toString()),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              )
             ],
           ),
         ),

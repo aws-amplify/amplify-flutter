@@ -13,8 +13,9 @@ part 'malformed_map_input.g.dart';
 abstract class MalformedMapInput
     with _i1.HttpInput<MalformedMapInput>, _i2.AWSEquatable<MalformedMapInput>
     implements Built<MalformedMapInput, MalformedMapInputBuilder> {
-  factory MalformedMapInput({_i3.BuiltMap<String, String>? bodyMap}) {
-    return _$MalformedMapInput._(bodyMap: bodyMap);
+  factory MalformedMapInput({Map<String, String>? bodyMap}) {
+    return _$MalformedMapInput._(
+        bodyMap: bodyMap == null ? null : _i3.BuiltMap(bodyMap));
   }
 
   factory MalformedMapInput.build(

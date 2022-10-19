@@ -32,12 +32,14 @@ class _ViewUserAttributesScreenState extends State<ViewUserAttributesScreen> {
 
   void _showSuccess(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(backgroundColor: Colors.green[800], content: Text(message)));
+      SnackBar(backgroundColor: Colors.green[800], content: Text(message)),
+    );
   }
 
   void _showError(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(backgroundColor: Colors.red[900], content: Text(message)));
+      SnackBar(backgroundColor: Colors.red[900], content: Text(message)),
+    );
   }
 
   Future<void> _fetchAttributes({bool isRefresh = false}) async {
@@ -102,10 +104,10 @@ class _ViewUserAttributesScreenState extends State<ViewUserAttributesScreen> {
               child: ListView.builder(
                 itemCount: _userAttributes.length,
                 itemBuilder: (context, index) {
-                  AuthUserAttribute attribute = _userAttributes[index];
-                  CognitoUserAttributeKey userAttributeKey =
+                  final attribute = _userAttributes[index];
+                  final userAttributeKey =
                       attribute.userAttributeKey as CognitoUserAttributeKey;
-                  String value = attribute.value;
+                  final value = attribute.value;
                   return ListTile(
                     title: Text(userAttributeKey.key),
                     subtitle: Text(value),

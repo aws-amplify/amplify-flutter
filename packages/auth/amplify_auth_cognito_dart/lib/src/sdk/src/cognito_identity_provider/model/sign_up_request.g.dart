@@ -12,19 +12,19 @@ class _$SignUpRequest extends SignUpRequest {
   @override
   final String clientId;
   @override
-  final _i4.BuiltMap<String, String>? clientMetadata;
+  final _i6.BuiltMap<String, String>? clientMetadata;
   @override
   final String password;
   @override
   final String? secretHash;
   @override
-  final _i4.BuiltList<_i5.AttributeType>? userAttributes;
+  final _i6.BuiltList<_i4.AttributeType>? userAttributes;
   @override
-  final _i6.UserContextDataType? userContextData;
+  final _i5.UserContextDataType? userContextData;
   @override
   final String username;
   @override
-  final _i4.BuiltList<_i5.AttributeType>? validationData;
+  final _i6.BuiltList<_i4.AttributeType>? validationData;
 
   factory _$SignUpRequest([void Function(SignUpRequestBuilder)? updates]) =>
       (new SignUpRequestBuilder()..update(updates))._build();
@@ -105,10 +105,10 @@ class SignUpRequestBuilder
   String? get clientId => _$this._clientId;
   set clientId(String? clientId) => _$this._clientId = clientId;
 
-  _i4.MapBuilder<String, String>? _clientMetadata;
-  _i4.MapBuilder<String, String> get clientMetadata =>
-      _$this._clientMetadata ??= new _i4.MapBuilder<String, String>();
-  set clientMetadata(_i4.MapBuilder<String, String>? clientMetadata) =>
+  _i6.MapBuilder<String, String>? _clientMetadata;
+  _i6.MapBuilder<String, String> get clientMetadata =>
+      _$this._clientMetadata ??= new _i6.MapBuilder<String, String>();
+  set clientMetadata(_i6.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
   String? _password;
@@ -119,26 +119,26 @@ class SignUpRequestBuilder
   String? get secretHash => _$this._secretHash;
   set secretHash(String? secretHash) => _$this._secretHash = secretHash;
 
-  _i4.ListBuilder<_i5.AttributeType>? _userAttributes;
-  _i4.ListBuilder<_i5.AttributeType> get userAttributes =>
-      _$this._userAttributes ??= new _i4.ListBuilder<_i5.AttributeType>();
-  set userAttributes(_i4.ListBuilder<_i5.AttributeType>? userAttributes) =>
+  _i6.ListBuilder<_i4.AttributeType>? _userAttributes;
+  _i6.ListBuilder<_i4.AttributeType> get userAttributes =>
+      _$this._userAttributes ??= new _i6.ListBuilder<_i4.AttributeType>();
+  set userAttributes(_i6.ListBuilder<_i4.AttributeType>? userAttributes) =>
       _$this._userAttributes = userAttributes;
 
-  _i6.UserContextDataTypeBuilder? _userContextData;
-  _i6.UserContextDataTypeBuilder get userContextData =>
-      _$this._userContextData ??= new _i6.UserContextDataTypeBuilder();
-  set userContextData(_i6.UserContextDataTypeBuilder? userContextData) =>
+  _i5.UserContextDataTypeBuilder? _userContextData;
+  _i5.UserContextDataTypeBuilder get userContextData =>
+      _$this._userContextData ??= new _i5.UserContextDataTypeBuilder();
+  set userContextData(_i5.UserContextDataTypeBuilder? userContextData) =>
       _$this._userContextData = userContextData;
 
   String? _username;
   String? get username => _$this._username;
   set username(String? username) => _$this._username = username;
 
-  _i4.ListBuilder<_i5.AttributeType>? _validationData;
-  _i4.ListBuilder<_i5.AttributeType> get validationData =>
-      _$this._validationData ??= new _i4.ListBuilder<_i5.AttributeType>();
-  set validationData(_i4.ListBuilder<_i5.AttributeType>? validationData) =>
+  _i6.ListBuilder<_i4.AttributeType>? _validationData;
+  _i6.ListBuilder<_i4.AttributeType> get validationData =>
+      _$this._validationData ??= new _i6.ListBuilder<_i4.AttributeType>();
+  set validationData(_i6.ListBuilder<_i4.AttributeType>? validationData) =>
       _$this._validationData = validationData;
 
   SignUpRequestBuilder() {

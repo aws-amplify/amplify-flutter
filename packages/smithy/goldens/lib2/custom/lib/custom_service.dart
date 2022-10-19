@@ -14,6 +14,7 @@ export 'package:custom_v2/src/custom_service/model/http_checksum_really_not_requ
 export 'package:custom_v2/src/custom_service/model/http_checksum_really_required_input.dart';
 export 'package:custom_v2/src/custom_service/model/http_checksum_required_input.dart';
 export 'package:custom_v2/src/custom_service/model/http_checksum_required_with_member_input.dart';
+export 'package:custom_v2/src/custom_service/model/nested_collections_input.dart';
 export 'package:custom_v2/src/custom_service/model/operation_config.dart';
 export 'package:custom_v2/src/custom_service/model/retry_config.dart';
 export 'package:custom_v2/src/custom_service/model/retry_mode.dart';

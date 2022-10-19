@@ -568,16 +568,16 @@ jobs:
         working-directory: packages/secure_storage/amplify_secure_storage_dart
         run: dart analyze --fatal-infos lib
   job_008:
-    name: "analyze_and_format; Dart dev; PKGS: packages/aws_signature_v4, packages/secure_storage/amplify_secure_storage_test, packages/storage/amplify_storage_s3_dart; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos lib test`"
+    name: "analyze_and_format; Dart dev; PKGS: packages/aws_signature_v4, packages/common/amplify_db_common, packages/secure_storage/amplify_secure_storage_test, packages/storage/amplify_storage_s3_dart; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos lib test`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4-packages/secure_storage/amplify_secure_storage_test-packages/storage/amplify_storage_s3_dart;commands:format-analyze_3"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4-packages/common/amplify_db_common-packages/secure_storage/amplify_secure_storage_test-packages/storage/amplify_storage_s3_dart;commands:format-analyze_3"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4-packages/secure_storage/amplify_secure_storage_test-packages/storage/amplify_storage_s3_dart
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4-packages/common/amplify_db_common-packages/secure_storage/amplify_secure_storage_test-packages/storage/amplify_storage_s3_dart
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -598,6 +598,19 @@ jobs:
       - name: "packages/aws_signature_v4; dart analyze --fatal-infos lib test"
         if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_signature_v4
+        run: dart analyze --fatal-infos lib test
+      - id: packages_common_amplify_db_common_pub_upgrade
+        name: packages/common/amplify_db_common; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/common/amplify_db_common
+        run: dart pub upgrade
+      - name: "packages/common/amplify_db_common; dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_common_amplify_db_common_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/common/amplify_db_common
+        run: "dart format --output=none --set-exit-if-changed ."
+      - name: "packages/common/amplify_db_common; dart analyze --fatal-infos lib test"
+        if: "always() && steps.packages_common_amplify_db_common_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/common/amplify_db_common
         run: dart analyze --fatal-infos lib test
       - id: packages_secure_storage_amplify_secure_storage_test_pub_upgrade
         name: packages/secure_storage/amplify_secure_storage_test; dart pub upgrade
@@ -1060,16 +1073,16 @@ jobs:
         working-directory: packages/secure_storage/amplify_secure_storage_dart
         run: dart analyze --fatal-infos lib
   job_012:
-    name: "analyze_and_format; Dart stable; PKGS: packages/aws_signature_v4, packages/secure_storage/amplify_secure_storage_test, packages/storage/amplify_storage_s3_dart; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos lib test`"
+    name: "analyze_and_format; Dart stable; PKGS: packages/aws_signature_v4, packages/common/amplify_db_common, packages/secure_storage/amplify_secure_storage_test, packages/storage/amplify_storage_s3_dart; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos lib test`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4-packages/secure_storage/amplify_secure_storage_test-packages/storage/amplify_storage_s3_dart;commands:format-analyze_3"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4-packages/common/amplify_db_common-packages/secure_storage/amplify_secure_storage_test-packages/storage/amplify_storage_s3_dart;commands:format-analyze_3"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4-packages/secure_storage/amplify_secure_storage_test-packages/storage/amplify_storage_s3_dart
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/aws_signature_v4-packages/common/amplify_db_common-packages/secure_storage/amplify_secure_storage_test-packages/storage/amplify_storage_s3_dart
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -1090,6 +1103,19 @@ jobs:
       - name: "packages/aws_signature_v4; dart analyze --fatal-infos lib test"
         if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_signature_v4
+        run: dart analyze --fatal-infos lib test
+      - id: packages_common_amplify_db_common_pub_upgrade
+        name: packages/common/amplify_db_common; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/common/amplify_db_common
+        run: dart pub upgrade
+      - name: "packages/common/amplify_db_common; dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.packages_common_amplify_db_common_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/common/amplify_db_common
+        run: "dart format --output=none --set-exit-if-changed ."
+      - name: "packages/common/amplify_db_common; dart analyze --fatal-infos lib test"
+        if: "always() && steps.packages_common_amplify_db_common_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/common/amplify_db_common
         run: dart analyze --fatal-infos lib test
       - id: packages_secure_storage_amplify_secure_storage_test_pub_upgrade
         name: packages/secure_storage/amplify_secure_storage_test; dart pub upgrade

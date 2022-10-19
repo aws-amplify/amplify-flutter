@@ -37,50 +37,52 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  static final _router = GoRouter(routes: [
-    GoRoute(
-      path: '/',
-      builder: (BuildContext _, GoRouterState __) => const HomeScreen(),
-    ),
-    GoRoute(
-      path: '/view-user-attributes',
-      builder: (BuildContext _, GoRouterState __) =>
-          const ViewUserAttributesScreen(),
-    ),
-    GoRoute(
-      path: '/update-user-attribute',
-      builder: (BuildContext _, GoRouterState state) =>
-          UpdateUserAttributeScreen(
-        userAttributeKey: state.extra as CognitoUserAttributeKey?,
+  static final _router = GoRouter(
+    routes: [
+      GoRoute(
+        path: '/',
+        builder: (BuildContext _, GoRouterState __) => const HomeScreen(),
       ),
-    ),
-    GoRoute(
-      path: '/update-user-attributes',
-      builder: (BuildContext _, GoRouterState state) =>
-          const UpdateUserAttributesScreen(),
-    ),
-    GoRoute(
-      path: '/confirm-user-attribute/email',
-      builder: (BuildContext _, GoRouterState state) =>
-          const ConfirmUserAttributeScreen(
-        userAttributeKey: CognitoUserAttributeKey.email,
+      GoRoute(
+        path: '/view-user-attributes',
+        builder: (BuildContext _, GoRouterState __) =>
+            const ViewUserAttributesScreen(),
       ),
-    ),
-    GoRoute(
-      path: '/confirm-user-attribute/phone_number',
-      builder: (BuildContext _, GoRouterState state) =>
-          const ConfirmUserAttributeScreen(
-        userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+      GoRoute(
+        path: '/update-user-attribute',
+        builder: (BuildContext _, GoRouterState state) =>
+            UpdateUserAttributeScreen(
+          userAttributeKey: state.extra as CognitoUserAttributeKey?,
+        ),
       ),
-    ),
-  ]);
+      GoRoute(
+        path: '/update-user-attributes',
+        builder: (BuildContext _, GoRouterState state) =>
+            const UpdateUserAttributesScreen(),
+      ),
+      GoRoute(
+        path: '/confirm-user-attribute/email',
+        builder: (BuildContext _, GoRouterState state) =>
+            const ConfirmUserAttributeScreen(
+          userAttributeKey: CognitoUserAttributeKey.email,
+        ),
+      ),
+      GoRoute(
+        path: '/confirm-user-attribute/phone_number',
+        builder: (BuildContext _, GoRouterState state) =>
+            const ConfirmUserAttributeScreen(
+          userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+        ),
+      ),
+    ],
+  );
 
   @override
   void initState() {

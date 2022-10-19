@@ -21,7 +21,6 @@ export 'package:amplify_core/src/types/models/model_provider.dart';
 export 'package:amplify_core/src/types/models/model_schema.dart';
 export 'package:amplify_core/src/types/models/model_schema_definition.dart';
 export 'package:amplify_core/src/types/query/query_field.dart';
-export 'package:amplify_core/src/types/query/query_field.dart';
 export 'package:amplify_core/src/types/temporal/datetime_parse.dart';
 export 'package:amplify_core/src/types/temporal/temporal_date.dart';
 export 'package:amplify_core/src/types/temporal/temporal_datetime.dart';
@@ -50,9 +49,7 @@ export 'hub/sync_queries_started_event.dart';
 export 'models/auth_mode_strategy.dart';
 export 'models/observe_query_throttle_options.dart';
 export 'models/query_snapshot.dart';
-export 'models/query_snapshot.dart';
 export 'models/sorted_list.dart';
-export 'models/subscription_event.dart';
 export 'models/subscription_event.dart';
 
 /// Sync

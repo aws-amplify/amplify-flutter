@@ -8,25 +8,25 @@ part of rest_json1_v2.rest_json_protocol.model.json_maps_input_output;
 
 class _$JsonMapsInputOutput extends JsonMapsInputOutput {
   @override
-  final _i3.BuiltMap<String, bool>? denseBooleanMap;
+  final _i4.BuiltMap<String, bool>? denseBooleanMap;
   @override
-  final _i3.BuiltMap<String, int>? denseNumberMap;
+  final _i4.BuiltMap<String, int>? denseNumberMap;
   @override
-  final _i3.BuiltSetMultimap<String, String>? denseSetMap;
+  final _i4.BuiltSetMultimap<String, String>? denseSetMap;
   @override
-  final _i3.BuiltMap<String, String>? denseStringMap;
+  final _i4.BuiltMap<String, String>? denseStringMap;
   @override
-  final _i3.BuiltMap<String, _i4.GreetingStruct>? denseStructMap;
+  final _i4.BuiltMap<String, _i3.GreetingStruct>? denseStructMap;
   @override
-  final _i3.BuiltMap<String, bool?>? sparseBooleanMap;
+  final _i4.BuiltMap<String, bool?>? sparseBooleanMap;
   @override
-  final _i3.BuiltMap<String, int?>? sparseNumberMap;
+  final _i4.BuiltMap<String, int?>? sparseNumberMap;
   @override
-  final _i3.BuiltSetMultimap<String, String>? sparseSetMap;
+  final _i4.BuiltSetMultimap<String, String>? sparseSetMap;
   @override
-  final _i3.BuiltMap<String, String?>? sparseStringMap;
+  final _i4.BuiltMap<String, String?>? sparseStringMap;
   @override
-  final _i3.BuiltMap<String, _i4.GreetingStruct?>? sparseStructMap;
+  final _i4.BuiltMap<String, _i3.GreetingStruct?>? sparseStructMap;
 
   factory _$JsonMapsInputOutput(
           [void Function(JsonMapsInputOutputBuilder)? updates]) =>
@@ -97,68 +97,68 @@ class JsonMapsInputOutputBuilder
     implements Builder<JsonMapsInputOutput, JsonMapsInputOutputBuilder> {
   _$JsonMapsInputOutput? _$v;
 
-  _i3.MapBuilder<String, bool>? _denseBooleanMap;
-  _i3.MapBuilder<String, bool> get denseBooleanMap =>
-      _$this._denseBooleanMap ??= new _i3.MapBuilder<String, bool>();
-  set denseBooleanMap(_i3.MapBuilder<String, bool>? denseBooleanMap) =>
+  _i4.MapBuilder<String, bool>? _denseBooleanMap;
+  _i4.MapBuilder<String, bool> get denseBooleanMap =>
+      _$this._denseBooleanMap ??= new _i4.MapBuilder<String, bool>();
+  set denseBooleanMap(_i4.MapBuilder<String, bool>? denseBooleanMap) =>
       _$this._denseBooleanMap = denseBooleanMap;
 
-  _i3.MapBuilder<String, int>? _denseNumberMap;
-  _i3.MapBuilder<String, int> get denseNumberMap =>
-      _$this._denseNumberMap ??= new _i3.MapBuilder<String, int>();
-  set denseNumberMap(_i3.MapBuilder<String, int>? denseNumberMap) =>
+  _i4.MapBuilder<String, int>? _denseNumberMap;
+  _i4.MapBuilder<String, int> get denseNumberMap =>
+      _$this._denseNumberMap ??= new _i4.MapBuilder<String, int>();
+  set denseNumberMap(_i4.MapBuilder<String, int>? denseNumberMap) =>
       _$this._denseNumberMap = denseNumberMap;
 
-  _i3.SetMultimapBuilder<String, String>? _denseSetMap;
-  _i3.SetMultimapBuilder<String, String> get denseSetMap =>
-      _$this._denseSetMap ??= new _i3.SetMultimapBuilder<String, String>();
-  set denseSetMap(_i3.SetMultimapBuilder<String, String>? denseSetMap) =>
+  _i4.SetMultimapBuilder<String, String>? _denseSetMap;
+  _i4.SetMultimapBuilder<String, String> get denseSetMap =>
+      _$this._denseSetMap ??= new _i4.SetMultimapBuilder<String, String>();
+  set denseSetMap(_i4.SetMultimapBuilder<String, String>? denseSetMap) =>
       _$this._denseSetMap = denseSetMap;
 
-  _i3.MapBuilder<String, String>? _denseStringMap;
-  _i3.MapBuilder<String, String> get denseStringMap =>
-      _$this._denseStringMap ??= new _i3.MapBuilder<String, String>();
-  set denseStringMap(_i3.MapBuilder<String, String>? denseStringMap) =>
+  _i4.MapBuilder<String, String>? _denseStringMap;
+  _i4.MapBuilder<String, String> get denseStringMap =>
+      _$this._denseStringMap ??= new _i4.MapBuilder<String, String>();
+  set denseStringMap(_i4.MapBuilder<String, String>? denseStringMap) =>
       _$this._denseStringMap = denseStringMap;
 
-  _i3.MapBuilder<String, _i4.GreetingStruct>? _denseStructMap;
-  _i3.MapBuilder<String, _i4.GreetingStruct> get denseStructMap =>
+  _i4.MapBuilder<String, _i3.GreetingStruct>? _denseStructMap;
+  _i4.MapBuilder<String, _i3.GreetingStruct> get denseStructMap =>
       _$this._denseStructMap ??=
-          new _i3.MapBuilder<String, _i4.GreetingStruct>();
+          new _i4.MapBuilder<String, _i3.GreetingStruct>();
   set denseStructMap(
-          _i3.MapBuilder<String, _i4.GreetingStruct>? denseStructMap) =>
+          _i4.MapBuilder<String, _i3.GreetingStruct>? denseStructMap) =>
       _$this._denseStructMap = denseStructMap;
 
-  _i3.MapBuilder<String, bool?>? _sparseBooleanMap;
-  _i3.MapBuilder<String, bool?> get sparseBooleanMap =>
-      _$this._sparseBooleanMap ??= new _i3.MapBuilder<String, bool?>();
-  set sparseBooleanMap(_i3.MapBuilder<String, bool?>? sparseBooleanMap) =>
+  _i4.MapBuilder<String, bool?>? _sparseBooleanMap;
+  _i4.MapBuilder<String, bool?> get sparseBooleanMap =>
+      _$this._sparseBooleanMap ??= new _i4.MapBuilder<String, bool?>();
+  set sparseBooleanMap(_i4.MapBuilder<String, bool?>? sparseBooleanMap) =>
       _$this._sparseBooleanMap = sparseBooleanMap;
 
-  _i3.MapBuilder<String, int?>? _sparseNumberMap;
-  _i3.MapBuilder<String, int?> get sparseNumberMap =>
-      _$this._sparseNumberMap ??= new _i3.MapBuilder<String, int?>();
-  set sparseNumberMap(_i3.MapBuilder<String, int?>? sparseNumberMap) =>
+  _i4.MapBuilder<String, int?>? _sparseNumberMap;
+  _i4.MapBuilder<String, int?> get sparseNumberMap =>
+      _$this._sparseNumberMap ??= new _i4.MapBuilder<String, int?>();
+  set sparseNumberMap(_i4.MapBuilder<String, int?>? sparseNumberMap) =>
       _$this._sparseNumberMap = sparseNumberMap;
 
-  _i3.SetMultimapBuilder<String, String>? _sparseSetMap;
-  _i3.SetMultimapBuilder<String, String> get sparseSetMap =>
-      _$this._sparseSetMap ??= new _i3.SetMultimapBuilder<String, String>();
-  set sparseSetMap(_i3.SetMultimapBuilder<String, String>? sparseSetMap) =>
+  _i4.SetMultimapBuilder<String, String>? _sparseSetMap;
+  _i4.SetMultimapBuilder<String, String> get sparseSetMap =>
+      _$this._sparseSetMap ??= new _i4.SetMultimapBuilder<String, String>();
+  set sparseSetMap(_i4.SetMultimapBuilder<String, String>? sparseSetMap) =>
       _$this._sparseSetMap = sparseSetMap;
 
-  _i3.MapBuilder<String, String?>? _sparseStringMap;
-  _i3.MapBuilder<String, String?> get sparseStringMap =>
-      _$this._sparseStringMap ??= new _i3.MapBuilder<String, String?>();
-  set sparseStringMap(_i3.MapBuilder<String, String?>? sparseStringMap) =>
+  _i4.MapBuilder<String, String?>? _sparseStringMap;
+  _i4.MapBuilder<String, String?> get sparseStringMap =>
+      _$this._sparseStringMap ??= new _i4.MapBuilder<String, String?>();
+  set sparseStringMap(_i4.MapBuilder<String, String?>? sparseStringMap) =>
       _$this._sparseStringMap = sparseStringMap;
 
-  _i3.MapBuilder<String, _i4.GreetingStruct?>? _sparseStructMap;
-  _i3.MapBuilder<String, _i4.GreetingStruct?> get sparseStructMap =>
+  _i4.MapBuilder<String, _i3.GreetingStruct?>? _sparseStructMap;
+  _i4.MapBuilder<String, _i3.GreetingStruct?> get sparseStructMap =>
       _$this._sparseStructMap ??=
-          new _i3.MapBuilder<String, _i4.GreetingStruct?>();
+          new _i4.MapBuilder<String, _i3.GreetingStruct?>();
   set sparseStructMap(
-          _i3.MapBuilder<String, _i4.GreetingStruct?>? sparseStructMap) =>
+          _i4.MapBuilder<String, _i3.GreetingStruct?>? sparseStructMap) =>
       _$this._sparseStructMap = sparseStructMap;
 
   JsonMapsInputOutputBuilder() {

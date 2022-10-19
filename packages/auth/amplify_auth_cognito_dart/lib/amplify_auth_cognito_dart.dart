@@ -25,6 +25,7 @@ export 'src/exception/srp_exception.dart';
 
 export 'src/flows/hosted_ui/hosted_ui_platform.dart';
 
+export 'src/jwt/src/cognito.dart';
 export 'src/jwt/src/token.dart';
 
 // Models

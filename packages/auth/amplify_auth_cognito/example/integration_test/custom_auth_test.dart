@@ -24,160 +24,137 @@ import 'utils/setup_utils.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  late String username;
-  late String password;
-  CognitoSignInOptions options = const CognitoSignInOptions(
-      authFlowType: AuthenticationFlowType.customAuth);
-  group(
-    'custom auth passwordless signIn',
-    () {
-      setUp(() async {
-        await signOutUser();
-      });
 
-      setUpAll(() async {
-        await configureAuth();
-        // create new user for each test
-        username = generateUsername();
-        password = generatePassword();
+  group('signIn (custom)', () {
+    // Arbitrary challenge answer defined in Lambda
+    const confirmationValue = '123';
+    const options = CognitoSignInOptions(
+      authFlowType: AuthenticationFlowType.customAuth,
+    );
 
-        await adminCreateUser(
-          username,
-          password,
-          autoConfirm: true,
-          verifyAttributes: true,
+    final username = generateUsername();
+    final password = generatePassword();
+
+    setUpAll(() async {
+      await configureAuth();
+
+      await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        verifyAttributes: true,
+      );
+    });
+
+    tearDownAll(Amplify.reset);
+
+    setUp(() async {
+      await signOutUser();
+    });
+
+    test(
+      'signIn should return data from the auth challenge lambda '
+      '(passwordless)',
+      () async {
+        final res = await Amplify.Auth.signIn(
+          username: username,
+          options: options,
         );
-      });
+        expect(
+          res.nextStep!.signInStep,
+          'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE',
+        );
 
-      testWidgets(
-        'signIn should return data from the auth challenge lambda (passwordless)',
-        (WidgetTester tester) async {
-          final res = await Amplify.Auth.signIn(
+        final additionalInfo = res.nextStep!.additionalInfo ?? const {};
+
+        // additionalInfo key values defined in lambda code
+        expect(additionalInfo, hasLength(2));
+        expect(additionalInfo, containsPair('test-key', 'test-value'));
+        expect(additionalInfo, contains('USERNAME'));
+      },
+    );
+
+    test(
+      'a correct challenge reply should sign in the user in',
+      () async {
+        await Amplify.Auth.signIn(
+          username: username,
+          options: options,
+        );
+        final res = await Amplify.Auth.confirmSignIn(
+          confirmationValue: confirmationValue,
+        );
+        expect(res.isSignedIn, true);
+      },
+    );
+
+    test(
+      'an incorrect challenge reply should throw a NotAuthorizedException',
+      () async {
+        await Amplify.Auth.signIn(
+          username: username,
+          options: options,
+        );
+        // '123' is the arbitrary challenge answer defined in lambda code
+        expect(
+          Amplify.Auth.confirmSignIn(confirmationValue: 'wrong'),
+          throwsA(isA<NotAuthorizedException>()),
+        );
+      },
+    );
+
+    test(
+      'if a password is provided but is incorrect, throw '
+      'NotAuthorizedException',
+      () async {
+        // '123' is the arbitrary challenge answer defined in lambda code
+        expect(
+          Amplify.Auth.signIn(
             username: username,
+            password: 'wrong',
             options: options,
-          );
-          expect(
-            res.isSignedIn,
-            false,
-          );
-          // additionalInfo key values defined in lambda code
-          expect(
-            res.nextStep!.additionalInfo?['test-key'],
-            'test-value',
-          );
-          expect(
-            res.nextStep!.additionalInfo?['USERNAME'],
-            isNotNull,
-          );
-          expect(
-            res.nextStep!.additionalInfo?.length,
-            2,
-          );
-          expect(
-            res.nextStep?.signInStep,
-            'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE',
-          );
-        },
-      );
+          ),
+          throwsA(isA<NotAuthorizedException>()),
+        );
+      },
+    );
 
-      testWidgets(
-        'a correct challenge reply should sign in the user in',
-        (WidgetTester tester) async {
-          await Amplify.Auth.signIn(
-            username: username,
-            options: options,
-          );
-          // '123' is the arbitrary challenge answer defined in lambda code
-          final res = await Amplify.Auth.confirmSignIn(
-            confirmationValue: '123',
-          );
-          expect(
-            res.isSignedIn,
-            true,
-          );
-        },
-      );
+    test(
+      'a correct password and correct challenge reply should sign in '
+      'the user',
+      () async {
+        await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+          options: options,
+        );
+        final res = await Amplify.Auth.confirmSignIn(
+          confirmationValue: confirmationValue,
+        );
+        expect(res.isSignedIn, true);
+      },
+    );
 
-      testWidgets(
-        'an incorrect challenge reply should throw a NotAuthorizedException',
-        (WidgetTester tester) async {
-          await Amplify.Auth.signIn(
-            username: username,
-            options: options,
-          );
-          // '123' is the arbitrary challenge answer defined in lambda code
-          expect(
-            Amplify.Auth.confirmSignIn(confirmationValue: 'wrong'),
-            throwsA(
-              isA<NotAuthorizedException>(),
-            ),
-          );
-        },
-      );
+    test(
+      'should return data from the auth challenge lambda '
+      '(with password)',
+      () async {
+        final res = await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+          options: options,
+        );
+        expect(
+          res.nextStep?.signInStep,
+          'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE',
+        );
 
-      testWidgets(
-        'if a password is provided but is incorrect, throw NotAuthorizedException',
-        (WidgetTester tester) async {
-          // '123' is the arbitrary challenge answer defined in lambda code
-          expect(
-            Amplify.Auth.signIn(
-              username: username,
-              password: 'wrong',
-              options: options,
-            ),
-            throwsA(
-              isA<NotAuthorizedException>(),
-            ),
-          );
-        },
-      );
+        final additionalInfo = res.nextStep!.additionalInfo ?? const {};
 
-      testWidgets(
-        'a correct password and correct challenge reply should sign in the user',
-        (WidgetTester tester) async {
-          await Amplify.Auth.signIn(
-            username: username,
-            password: password,
-            options: options,
-          );
-          // '123' is the arbitrary challenge answer defined in lambda code
-          final res = await Amplify.Auth.confirmSignIn(
-            confirmationValue: '123',
-          );
-          expect(
-            res.isSignedIn,
-            true,
-          );
-        },
-      );
-
-      testWidgets(
-        'signIn should return data from the auth challenge lambda (with password)',
-        (WidgetTester tester) async {
-          final res = await Amplify.Auth.signIn(
-            username: username,
-            password: password,
-            options: options,
-          );
-          expect(
-            res.isSignedIn,
-            false,
-          );
-          // additionalInfo key values defined in lambda code
-          expect(
-            res.nextStep!.additionalInfo?['test-key'],
-            'test-value',
-          );
-          expect(
-            res.nextStep!.additionalInfo?.length,
-            1,
-          );
-          expect(
-            res.nextStep?.signInStep,
-            'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE',
-          );
-        },
-      );
-    },
-  );
+        // additionalInfo key values defined in lambda code
+        expect(additionalInfo, hasLength(1));
+        expect(additionalInfo, containsPair('test-key', 'test-value'));
+      },
+    );
+  });
 }

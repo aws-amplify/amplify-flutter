@@ -16,9 +16,9 @@ abstract class FlattenedXmlMapWithXmlNamespaceOutput
     implements
         Built<FlattenedXmlMapWithXmlNamespaceOutput,
             FlattenedXmlMapWithXmlNamespaceOutputBuilder> {
-  factory FlattenedXmlMapWithXmlNamespaceOutput(
-      {_i2.BuiltMap<String, String>? myMap}) {
-    return _$FlattenedXmlMapWithXmlNamespaceOutput._(myMap: myMap);
+  factory FlattenedXmlMapWithXmlNamespaceOutput({Map<String, String>? myMap}) {
+    return _$FlattenedXmlMapWithXmlNamespaceOutput._(
+        myMap: myMap == null ? null : _i2.BuiltMap(myMap));
   }
 
   factory FlattenedXmlMapWithXmlNamespaceOutput.build(

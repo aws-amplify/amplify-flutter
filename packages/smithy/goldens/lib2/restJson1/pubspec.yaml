@@ -15,8 +15,8 @@ dependencies:
   aws_common:
     path: ../../../../aws_common
   built_value: ">=8.4.0 <8.5.0"
-  built_collection: ^5.0.0
   fixnum: ^1.0.0
+  built_collection: ^5.0.0
   meta: ^1.7.0
   shelf_router: ^1.1.0
   shelf: ^1.1.0

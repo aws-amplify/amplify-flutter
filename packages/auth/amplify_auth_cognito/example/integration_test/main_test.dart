@@ -17,8 +17,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'delete_user_test.dart' as delete_user_tests;
-import 'federated_sign_in_test.dart' as federated_sign_in;
-import 'fetch_session_test.dart' as fetch_session_tests;
+import 'federated_sign_in_test.dart' as federated_sign_in_tests;
+import 'fetch_auth_session_test.dart' as fetch_auth_session_tests;
+import 'force_refresh_test.dart' as force_refresh_tests;
 import 'get_current_user_test.dart' as get_current_user_tests;
 import 'hub_events_test.dart' as hub_events_tests;
 import 'sign_in_sign_out_test.dart' as sign_in_sign_out_tests;
@@ -30,14 +31,16 @@ void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('amplify_auth_cognito', () {
+    // TODO(dnys1): Add tests requiring API when dartified
+    delete_user_tests.main();
+    federated_sign_in_tests.main();
+    fetch_auth_session_tests.main();
+    force_refresh_tests.main();
+    get_current_user_tests.main();
+    hub_events_tests.main();
     sign_in_sign_out_tests.main();
     sign_up_tests.main();
-    user_attributes_tests.main();
-    hub_events_tests.main();
     update_password_tests.main();
-    federated_sign_in.main();
-    fetch_session_tests.main();
-    get_current_user_tests.main();
-    delete_user_tests.main();
+    user_attributes_tests.main();
   });
 }

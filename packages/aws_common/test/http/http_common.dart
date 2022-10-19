@@ -84,13 +84,13 @@ void clientTest(
   innerTest(
     AlpnProtocol.http1_1,
     secure: false,
-    supportedProtocols: SupportedProtocols.http1_2_3,
+    supportedProtocols: SupportedProtocols.http1,
     skip: skip,
   );
   innerTest(
     AlpnProtocol.http1_1,
     secure: true,
-    supportedProtocols: SupportedProtocols.http1_2_3,
+    supportedProtocols: SupportedProtocols.http1,
     skip: zIsWeb ? 'Secure web servers cannot be tested on Web' : skip,
   );
   innerTest(

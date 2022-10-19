@@ -19,8 +19,9 @@ abstract class MediaTypeHeaderOutput
         Built<MediaTypeHeaderOutput, MediaTypeHeaderOutputBuilder>,
         _i2.EmptyPayload,
         _i2.HasPayload<MediaTypeHeaderOutputPayload> {
-  factory MediaTypeHeaderOutput({_i3.JsonObject? json}) {
-    return _$MediaTypeHeaderOutput._(json: json);
+  factory MediaTypeHeaderOutput({Object? json}) {
+    return _$MediaTypeHeaderOutput._(
+        json: json == null ? null : _i3.JsonObject(json));
   }
 
   factory MediaTypeHeaderOutput.build(

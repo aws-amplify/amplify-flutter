@@ -16,7 +16,8 @@ service CustomService {
         HttpChecksumRequiredWithMember,
         HttpChecksumNotRequiredWithMember,
         HttpChecksumReallyRequired,
-        HttpChecksumReallyNotRequired
+        HttpChecksumReallyNotRequired,
+        NestedCollections
     ]
 }
 
