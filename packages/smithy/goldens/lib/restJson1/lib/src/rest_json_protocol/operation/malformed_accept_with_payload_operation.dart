@@ -70,15 +70,17 @@ class MalformedAcceptWithPayloadOperation extends _i1.HttpOperation<_i1.Unit,
   @override
   List<_i1.SmithyError> get errorTypes => const [];
   @override
+  String get runtimeTypeName => 'MalformedAcceptWithPayload';
+  @override
   _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i8.Future<_i3.MalformedAcceptWithPayloadOutput> run(
+  _i1.SmithyOperation<_i3.MalformedAcceptWithPayloadOutput> run(
     _i1.Unit input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i8.runZoned(

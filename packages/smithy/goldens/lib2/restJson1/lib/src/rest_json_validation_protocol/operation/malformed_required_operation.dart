@@ -88,15 +88,17 @@ class MalformedRequiredOperation extends _i1.HttpOperation<
         )
       ];
   @override
+  String get runtimeTypeName => 'MalformedRequired';
+  @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i8.Future<_i1.Unit> run(
+  _i1.SmithyOperation<_i1.Unit> run(
     _i2.MalformedRequiredInput input, {
-    _i1.HttpClient? client,
+    _i6.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i8.runZoned(

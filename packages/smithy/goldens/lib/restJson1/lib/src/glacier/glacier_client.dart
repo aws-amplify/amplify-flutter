@@ -2,8 +2,7 @@
 
 library rest_json1_v1.glacier.glacier_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i3;
-
+import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:rest_json1_v1/src/glacier/model/archive_creation_output.dart'
     as _i4;
@@ -17,11 +16,11 @@ import 'package:rest_json1_v1/src/glacier/operation/upload_archive_operation.dar
     as _i6;
 import 'package:rest_json1_v1/src/glacier/operation/upload_multipart_part_operation.dart'
     as _i9;
-import 'package:smithy/smithy.dart' as _i1;
+import 'package:smithy/smithy.dart' as _i3;
 
 class GlacierClient {
   const GlacierClient({
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
     required String region,
     Uri? baseUri,
     required _i2.AWSCredentialsProvider credentialsProvider,
@@ -30,7 +29,7 @@ class GlacierClient {
         _baseUri = baseUri,
         _credentialsProvider = credentialsProvider;
 
-  final _i1.HttpClient? _client;
+  final _i1.AWSHttpClient? _client;
 
   final String _region;
 
@@ -38,9 +37,9 @@ class GlacierClient {
 
   final _i2.AWSCredentialsProvider _credentialsProvider;
 
-  _i3.Future<_i4.ArchiveCreationOutput> uploadArchive(
+  _i3.SmithyOperation<_i4.ArchiveCreationOutput> uploadArchive(
     _i5.UploadArchiveInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i6.UploadArchiveOperation(
       region: _region,
@@ -52,9 +51,9 @@ class GlacierClient {
     );
   }
 
-  _i3.Future<_i7.UploadMultipartPartOutput> uploadMultipartPart(
+  _i3.SmithyOperation<_i7.UploadMultipartPartOutput> uploadMultipartPart(
     _i8.UploadMultipartPartInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i9.UploadMultipartPartOperation(
       region: _region,

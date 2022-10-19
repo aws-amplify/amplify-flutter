@@ -92,6 +92,8 @@ class GetObjectOperation extends _i1.HttpOperation<_i2.GetObjectRequestPayload,
   @override
   List<_i1.SmithyError> get errorTypes => const [];
   @override
+  String get runtimeTypeName => 'GetObject';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri {
@@ -114,9 +116,9 @@ class GetObjectOperation extends _i1.HttpOperation<_i2.GetObjectRequestPayload,
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i3.Future<_i4.GetObjectOutput> run(
+  _i1.SmithyOperation<_i4.GetObjectOutput> run(
     _i2.GetObjectRequest input, {
-    _i1.HttpClient? client,
+    _i8.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i3.runZoned(
