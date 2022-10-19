@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: unused_field
+
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 
@@ -36,17 +38,19 @@ class S3StorageUploadDataOperation extends StorageUploadDataOperation<
   final Future<void> Function() _pause;
   final Future<void> Function() _cancel;
 
-  /// Resumes the operation that is in paused state.
-  @override
-  Future<void> resume() => _resume();
+  // TODO(HuiSF): enable controllable operation APIs when AWSHttpOperation
+  //  is returned from S3Client APIs.
+  // /// Resumes the operation that is in paused state.
+  // @override
+  // Future<void> resume() => _resume();
 
-  /// Pauses the operation that is in progress.
-  @override
-  Future<void> pause() => _pause();
+  // /// Pauses the operation that is in progress.
+  // @override
+  // Future<void> pause() => _pause();
 
-  /// Cancels the operation.
-  ///
-  /// A cancelled operation cannot be resumed.
-  @override
-  Future<void> cancel() => _cancel();
+  // /// Cancels the operation.
+  // ///
+  // /// A cancelled operation cannot be resumed.
+  // @override
+  // Future<void> cancel() => _cancel();
 }
