@@ -31,8 +31,8 @@ class ApiGatewayClient {
 
   final _i2.AWSCredentialsProvider _credentialsProvider;
 
-  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<_i5.RestApi>, int>>
-      getRestApis(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i4.BuiltList<_i5.RestApi>, int, String>> getRestApis(
     _i6.GetRestApisRequest input, {
     _i1.AWSHttpClient? client,
   }) {

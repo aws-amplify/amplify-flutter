@@ -55,7 +55,7 @@ class S3Client {
     );
   }
 
-  _i4.SmithyOperation<_i4.PaginatedResult<_i8.ListObjectsV2Output, int>>
+  _i4.SmithyOperation<_i4.PaginatedResult<_i8.ListObjectsV2Output, int, String>>
       listObjectsV2(
     _i9.ListObjectsV2Request input, {
     _i1.AWSHttpClient? client,
