@@ -2,8 +2,7 @@
 
 library rest_json1_v2.rest_json_validation_protocol.rest_json_validation_protocol_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i2;
-
+import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/malformed_enum_input.dart'
     as _i3;
 import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/malformed_length_input.dart'
@@ -48,28 +47,28 @@ import 'package:rest_json1_v2/src/rest_json_validation_protocol/operation/recurs
     as _i22;
 import 'package:rest_json1_v2/src/rest_json_validation_protocol/operation/sensitive_validation_operation.dart'
     as _i24;
-import 'package:smithy/smithy.dart' as _i1;
+import 'package:smithy/smithy.dart' as _i2;
 
 /// A REST JSON service that sends JSON requests and responses with validation applied
 class RestJsonValidationProtocolClient {
   /// A REST JSON service that sends JSON requests and responses with validation applied
   const RestJsonValidationProtocolClient({
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
     required String region,
     Uri? baseUri,
   })  : _client = client,
         _region = region,
         _baseUri = baseUri;
 
-  final _i1.HttpClient? _client;
+  final _i1.AWSHttpClient? _client;
 
   final String _region;
 
   final Uri? _baseUri;
 
-  _i2.Future<void> malformedEnum(
+  _i2.SmithyOperation<void> malformedEnum(
     _i3.MalformedEnumInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i4.MalformedEnumOperation(
       region: _region,
@@ -80,9 +79,9 @@ class RestJsonValidationProtocolClient {
     );
   }
 
-  _i2.Future<void> malformedLength(
+  _i2.SmithyOperation<void> malformedLength(
     _i5.MalformedLengthInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i6.MalformedLengthOperation(
       region: _region,
@@ -93,9 +92,9 @@ class RestJsonValidationProtocolClient {
     );
   }
 
-  _i2.Future<void> malformedLengthOverride(
+  _i2.SmithyOperation<void> malformedLengthOverride(
     _i7.MalformedLengthOverrideInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i8.MalformedLengthOverrideOperation(
       region: _region,
@@ -106,9 +105,9 @@ class RestJsonValidationProtocolClient {
     );
   }
 
-  _i2.Future<void> malformedLengthQueryString(
+  _i2.SmithyOperation<void> malformedLengthQueryString(
     _i9.MalformedLengthQueryStringInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i10.MalformedLengthQueryStringOperation(
       region: _region,
@@ -119,9 +118,9 @@ class RestJsonValidationProtocolClient {
     );
   }
 
-  _i2.Future<void> malformedPattern(
+  _i2.SmithyOperation<void> malformedPattern(
     _i11.MalformedPatternInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i12.MalformedPatternOperation(
       region: _region,
@@ -132,9 +131,9 @@ class RestJsonValidationProtocolClient {
     );
   }
 
-  _i2.Future<void> malformedPatternOverride(
+  _i2.SmithyOperation<void> malformedPatternOverride(
     _i13.MalformedPatternOverrideInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i14.MalformedPatternOverrideOperation(
       region: _region,
@@ -145,9 +144,9 @@ class RestJsonValidationProtocolClient {
     );
   }
 
-  _i2.Future<void> malformedRange(
+  _i2.SmithyOperation<void> malformedRange(
     _i15.MalformedRangeInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i16.MalformedRangeOperation(
       region: _region,
@@ -158,9 +157,9 @@ class RestJsonValidationProtocolClient {
     );
   }
 
-  _i2.Future<void> malformedRangeOverride(
+  _i2.SmithyOperation<void> malformedRangeOverride(
     _i17.MalformedRangeOverrideInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i18.MalformedRangeOverrideOperation(
       region: _region,
@@ -171,9 +170,9 @@ class RestJsonValidationProtocolClient {
     );
   }
 
-  _i2.Future<void> malformedRequired(
+  _i2.SmithyOperation<void> malformedRequired(
     _i19.MalformedRequiredInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i20.MalformedRequiredOperation(
       region: _region,
@@ -184,9 +183,9 @@ class RestJsonValidationProtocolClient {
     );
   }
 
-  _i2.Future<void> recursiveStructures(
+  _i2.SmithyOperation<void> recursiveStructures(
     _i21.RecursiveStructuresInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i22.RecursiveStructuresOperation(
       region: _region,
@@ -197,9 +196,9 @@ class RestJsonValidationProtocolClient {
     );
   }
 
-  _i2.Future<void> sensitiveValidation(
+  _i2.SmithyOperation<void> sensitiveValidation(
     _i23.SensitiveValidationInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i24.SensitiveValidationOperation(
       region: _region,
