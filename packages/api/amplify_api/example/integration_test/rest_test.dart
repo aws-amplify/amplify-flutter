@@ -120,5 +120,8 @@ void main({bool useExistingTestUser = false}) {
         validateRestResponse(res);
       });
     });
-  });
+  },
+      // Skip because CLI issue for web https://github.com/aws-amplify/amplify-category-api/issues/519
+      // which requires manual backend changes.
+      skip: zIsWeb);
 }

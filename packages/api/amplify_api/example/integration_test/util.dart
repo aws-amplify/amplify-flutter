@@ -235,10 +235,14 @@ Future<StreamSubscription<GraphQLResponse<T>>>
 
 /// Establish subscription for request, do the mutationFunction, then wait
 /// for the stream event, cancel the operation, return response from event.
+///
+/// `eventFilter` can be used to ensure completer only called for specific events
+/// as the subscription may get events from other client mutations.
 Future<GraphQLResponse<T?>> establishSubscriptionAndMutate<T>(
   GraphQLRequest<T> subscriptionRequest,
-  Future<void> Function() mutationFunction,
-) async {
+  Future<void> Function() mutationFunction, {
+  bool Function(T?)? eventFilter,
+}) async {
   Completer<GraphQLResponse<T?>> dataCompleter = Completer();
   // With stream established, exec callback with stream events.
   final subscription = await getEstablishedSubscriptionOperation<T>(
@@ -247,7 +251,10 @@ Future<GraphQLResponse<T?>> establishSubscriptionAndMutate<T>(
       if (event.hasErrors) {
         fail('subscription errors: ${event.errors}');
       }
-      dataCompleter.complete(event);
+      if (!dataCompleter.isCompleted &&
+          (eventFilter == null || eventFilter(event.data))) {
+        dataCompleter.complete(event);
+      }
     },
   );
   await mutationFunction();
