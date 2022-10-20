@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@aws-cdk/aws-appsync-alpha": "^2.46.0-alpha.0",
-    "@aws-crypto/client-node": "^1.9.1",
+    "@aws-crypto/client-node": "^3.1.1",
     "@aws-sdk/client-cognito-identity-provider": "^3.185.0",
     "aws-cdk-lib": "2.46.0",
     "base64-js": "^1.5.1",
