@@ -23,6 +23,7 @@ import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
+import 'utils/test_utils.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -64,7 +65,7 @@ void main() {
         expect(confirmSignInRes.isSignedIn, isTrue);
       }
 
-      test('can bypass MFA when device is always remembered', () async {
+      asyncTest('can bypass MFA when device is always remembered', (_) async {
         await configureAuth(
           config: amplifyEnvironments['device-tracking-always'],
           additionalPlugins: [AmplifyAPI()],
@@ -86,7 +87,7 @@ void main() {
         );
       });
 
-      test('cannot bypass MFA when device is not remembered', () async {
+      asyncTest('cannot bypass MFA when device is not remembered', (_) async {
         await configureAuth(
           config: amplifyEnvironments['device-tracking-opt-in'],
           additionalPlugins: [AmplifyAPI()],
@@ -108,7 +109,7 @@ void main() {
         );
       });
 
-      test('can bypass MFA when device is remembered', () async {
+      asyncTest('can bypass MFA when device is remembered', (_) async {
         await configureAuth(
           config: amplifyEnvironments['device-tracking-opt-in'],
           additionalPlugins: [AmplifyAPI()],

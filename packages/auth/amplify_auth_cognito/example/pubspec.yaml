@@ -34,6 +34,7 @@ dev_dependencies:
     path: ../../../amplify_lints
   amplify_test:
     path: ../../../amplify_test
+  async: ^2.9.0
   aws_signature_v4: 
     path: ../../../aws_signature_v4
   collection: any

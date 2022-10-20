@@ -21,6 +21,7 @@ import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
+import 'utils/test_utils.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -56,7 +57,7 @@ void main() {
       expect(res.isSignedIn, isTrue);
     });
 
-    test('should update a user\'s password', () async {
+    asyncTest("should update a user's password", (_) async {
       // change password
       final newPassword = generatePassword();
       await Amplify.Auth.updatePassword(
@@ -73,13 +74,13 @@ void main() {
       expect(res.isSignedIn, isTrue);
     });
 
-    test(
+    asyncTest(
       'should throw a NotAuthorizedException for an incorrect '
       'current password',
-      () async {
+      (_) async {
         final incorrectPassword = generatePassword();
         final newPassword = generatePassword();
-        expect(
+        await expectLater(
           Amplify.Auth.updatePassword(
             oldPassword: incorrectPassword,
             newPassword: newPassword,
@@ -89,12 +90,12 @@ void main() {
       },
     );
 
-    test(
+    asyncTest(
       'should throw an InvalidPasswordException for a new password that '
       "doesn't meet password requirements",
-      () async {
+      (_) async {
         const invalidPassword = '123';
-        expect(
+        await expectLater(
           Amplify.Auth.updatePassword(
             oldPassword: password,
             newPassword: invalidPassword,

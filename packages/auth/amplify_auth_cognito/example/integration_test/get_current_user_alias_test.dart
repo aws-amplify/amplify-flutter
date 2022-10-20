@@ -25,6 +25,7 @@ import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
+import 'utils/test_utils.dart';
 import 'utils/validation_utils.dart';
 
 void main() {
@@ -78,7 +79,7 @@ void main() {
           expect(confirmSignInRes.isSignedIn, isTrue);
         });
 
-        test('should return the current user', () async {
+        asyncTest('should return the current user', (_) async {
           final authUser = await Amplify.Auth.getCurrentUser();
           expect(
             authUser.username,
