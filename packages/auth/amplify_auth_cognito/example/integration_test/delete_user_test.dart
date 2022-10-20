@@ -20,6 +20,7 @@ import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
+import 'utils/test_utils.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +33,7 @@ void main() {
 
     tearDownAll(Amplify.reset);
 
-    test('should delete a confirmed user', () async {
+    asyncTest('should delete a confirmed user', (_) async {
       final username = generateUsername();
       final password = generatePassword();
 
@@ -52,7 +53,7 @@ void main() {
 
       await Amplify.Auth.deleteUser();
 
-      expect(
+      await expectLater(
         Amplify.Auth.signIn(
           username: username,
           password: password,
@@ -62,9 +63,9 @@ void main() {
       );
     });
 
-    test(
+    asyncTest(
       'fetchAuthSession should show signed out after user deletion',
-      () async {
+      (_) async {
         final username = generateUsername();
         final password = generatePassword();
 

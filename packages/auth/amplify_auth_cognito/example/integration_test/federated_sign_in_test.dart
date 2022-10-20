@@ -25,6 +25,7 @@ import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
+import 'utils/test_utils.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -87,14 +88,14 @@ void main() {
       );
     }
 
-    test('throws when signed in', () async {
+    asyncTest('throws when signed in', (_) async {
       final signInResult = await cognitoPlugin.signIn(
         username: username,
         password: password,
       );
       expect(signInResult.nextStep?.signInStep, 'DONE');
 
-      expect(
+      await expectLater(
         cognitoPlugin.federateToIdentityPool(
           token: 'dummyToken',
           provider: provider,
@@ -109,11 +110,11 @@ void main() {
       );
     });
 
-    test('federates to external provider', () async {
+    asyncTest('federates to external provider', (_) async {
       await expectLater(federateToIdentityPool(), completes);
     });
 
-    test('replaces unauthenticated identity', () async {
+    asyncTest('replaces unauthenticated identity', (_) async {
       // Get unauthenticated identity
       final unauthSession = await cognitoPlugin.fetchAuthSession(
         options: const CognitoSessionOptions(getAWSCredentials: true),
@@ -132,7 +133,7 @@ void main() {
       );
     });
 
-    test('can specify identity ID', () async {
+    asyncTest('can specify identity ID', (_) async {
       // Get unauthenticated identity (doesn't matter, just need identity ID)
       final unauthSession = await cognitoPlugin.fetchAuthSession(
         options: const CognitoSessionOptions(getAWSCredentials: true),
@@ -169,7 +170,7 @@ void main() {
       );
     });
 
-    test('can refresh federated credentials', () async {
+    asyncTest('can refresh federated credentials', (_) async {
       final authSession = await federateToIdentityPool();
       final newAuthSession = await federateToIdentityPool();
 
@@ -185,7 +186,7 @@ void main() {
       );
     });
 
-    test('can clear federation', () async {
+    asyncTest('can clear federation', (_) async {
       await federateToIdentityPool();
 
       await expectLater(
@@ -206,7 +207,7 @@ void main() {
       );
     });
 
-    test('can clear nonexistent federation', () async {
+    asyncTest('can clear nonexistent federation', (_) async {
       await expectLater(
         cognitoPlugin.clearFederationToIdentityPool(),
         completes,

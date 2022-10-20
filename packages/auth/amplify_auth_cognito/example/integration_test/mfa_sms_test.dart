@@ -22,6 +22,7 @@ import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
+import 'utils/test_utils.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -41,7 +42,7 @@ void main() {
         await signOutUser();
       });
 
-      test('can sign in with SMS MFA', () async {
+      asyncTest('can sign in with SMS MFA', (_) async {
         final username = generateUsername();
         final password = generatePassword();
 

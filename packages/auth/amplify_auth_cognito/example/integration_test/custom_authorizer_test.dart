@@ -27,6 +27,7 @@ import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
+import 'utils/test_utils.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +46,7 @@ void main() {
         );
       });
 
-      test('can invoke with HTTP client', () async {
+      asyncTest('can invoke with HTTP client', (_) async {
         final username = generateUsername();
         final password = generatePassword();
 
@@ -115,7 +116,7 @@ void main() {
               jsonDecode(configJson) as Map<String, Object?>,
             );
 
-            test('can invoke with HTTP client', () async {
+            asyncTest('can invoke with HTTP client', (_) async {
               await configureAuth(
                 config: configJson,
               );
@@ -170,9 +171,64 @@ void main() {
               );
             });
 
-            test(
+            asyncTest('can invoke with API plugin', (_) async {
+              await configureAuth(
+                config: configJson,
+              );
+              final cognitoPlugin = Amplify.Auth.getPlugin(
+                AmplifyAuthCognito.pluginKey,
+              );
+              final session = await cognitoPlugin.fetchAuthSession(
+                options: const CognitoSessionOptions(getAWSCredentials: true),
+              );
+              expect(session.credentials, isNotNull);
+
+              final restApi = config.api!.awsPlugin!.values
+                  .singleWhere((e) => e.endpointType == EndpointType.rest);
+              final apiUrl = restApi.endpoint;
+
+              final client = AWSHttpClient()
+                ..supportedProtocols = SupportedProtocols.http1;
+              addTearDown(client.close);
+
+              final payload = jsonEncode({'request': 'hello'});
+              final request = AWSHttpRequest.post(
+                Uri.parse(apiUrl).replace(
+                  queryParameters: {
+                    'key': 'value',
+                  },
+                ),
+                headers: const {
+                  AWSHeaders.accept: 'application/json;charset=utf-8',
+                },
+                body: utf8.encode(payload),
+              );
+              final signer = AWSSigV4Signer(
+                credentialsProvider: AuthPluginCredentialsProviderImpl(
+                  // ignore: invalid_use_of_protected_member
+                  cognitoPlugin.plugin.stateMachine,
+                ),
+              );
+              final scope = AWSCredentialScope(
+                region: restApi.region,
+                service: AWSService.apiGatewayManagementApi,
+              );
+              final signedRequest = await signer.sign(
+                request,
+                credentialScope: scope,
+              );
+              final resp = await client.send(signedRequest).response;
+              final body = await resp.decodeBody();
+              expect(resp.statusCode, 200, reason: body);
+              expect(
+                jsonDecode(body),
+                equals({'response': 'hello'}),
+              );
+            });
+
+            asyncTest(
               'can invoke with API plugin',
-              () async {
+              (_) async {
                 await configureAuth(
                   config: configJson,
                   additionalPlugins: [AmplifyAPI()],

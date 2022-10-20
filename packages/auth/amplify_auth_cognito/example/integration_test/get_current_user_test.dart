@@ -21,6 +21,7 @@ import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
+import 'utils/test_utils.dart';
 import 'utils/validation_utils.dart';
 
 void main() {
@@ -52,7 +53,7 @@ void main() {
         );
       });
 
-      test('should return the current user', () async {
+      asyncTest('should return the current user', (_) async {
         final authUser = await Amplify.Auth.getCurrentUser();
         expect(authUser.username, username);
         expect(isValidUserSub(authUser.userId), isTrue);
@@ -67,14 +68,16 @@ void main() {
         );
       });
 
-      test('should throw SignedOutException if the user is signed out',
-          () async {
-        await Amplify.Auth.signOut();
-        expect(
-          Amplify.Auth.getCurrentUser(),
-          throwsA(isA<SignedOutException>()),
-        );
-      });
+      asyncTest(
+        'should throw SignedOutException if the user is signed out',
+        (_) async {
+          await Amplify.Auth.signOut();
+          await expectLater(
+            Amplify.Auth.getCurrentUser(),
+            throwsA(isA<SignedOutException>()),
+          );
+        },
+      );
     });
   });
 }
