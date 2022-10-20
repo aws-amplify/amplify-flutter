@@ -89,6 +89,31 @@ class AWSFilePlatform extends AWSFile {
   @override
   String? get contentType => _contentType ?? super.contentType;
 
+  @override
+  Stream<List<int>> get stream {
+    final file = _inputFile ?? _inputBlob;
+    if (file != null) {
+      return _getReadStream(file);
+    }
+
+    final inputStream = super.stream;
+    if (inputStream != null) {
+      return inputStream;
+    }
+
+    final inputBytes = super.bytes;
+    if (inputBytes != null) {
+      return Stream.value(inputBytes);
+    }
+
+    final path = super.path;
+    if (path != null) {
+      return _getReadStream(_resolvedBlob);
+    }
+
+    throw const InvalidFileException();
+  }
+
   Future<Blob> get _resolvedBlob async {
     final resolvedBlobFromPath = _resolvedBlobFromPath;
     if (resolvedBlobFromPath != null) {
@@ -102,30 +127,9 @@ class AWSFilePlatform extends AWSFile {
     return resolvedBlob;
   }
 
-  /// {@macro amplify_core.io.aws_file.chunked_reader}
   @override
   ChunkedStreamReader<int> getChunkedStreamReader() {
-    final file = _inputFile ?? _inputBlob;
-    if (file != null) {
-      return ChunkedStreamReader(_getReadStream(file));
-    }
-
-    final inputStream = super.stream;
-    if (inputStream != null) {
-      return ChunkedStreamReader(inputStream);
-    }
-
-    final inputBytes = super.bytes;
-    if (inputBytes != null) {
-      return ChunkedStreamReader(Stream.value(inputBytes));
-    }
-
-    final path = super.path;
-    if (path != null) {
-      return ChunkedStreamReader(_getReadStream(_resolvedBlob));
-    }
-
-    throw const InvalidFileException();
+    return ChunkedStreamReader(stream);
   }
 
   @override
