@@ -15,7 +15,7 @@
 @TestOn('browser')
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_db_common/src/connect_html.dart';
+import 'package:amplify_db_common_dart/src/connect_html.dart';
 import 'package:async/async.dart';
 import 'package:aws_common/testing.dart';
 import 'package:drift/drift.dart';

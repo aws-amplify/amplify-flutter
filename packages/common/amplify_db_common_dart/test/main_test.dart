@@ -15,7 +15,7 @@
 // TODO(Jordan-Nelson): Run tests on web. This will require loading sqlite3.wasm
 @TestOn('vm')
 
-import 'package:amplify_db_common/amplify_db_common.dart';
+import 'package:amplify_db_common_dart/amplify_db_common_dart.dart';
 import 'package:test/test.dart';
 
 import 'database.dart';

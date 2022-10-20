@@ -1,4 +1,4 @@
-## amplify_db_common
+## amplify_db_common_dart
 
 Common utilities for working with databases such as sqlite.
 
@@ -12,4 +12,4 @@ The web implementation uses `package:drift/wasm.dart`. To use this utility in a 
 
 #### Use in Flutter VM
 
-This utility does not depend on Flutter, and can be used in non-flutter apps and packages. To use this package in a flutter app or package, `sqlite3_flutter_libs` will have to be included as a dependency. See [Getting started with sql](https://drift.simonbinder.eu/docs/getting-started/starting_with_sql/#adding-the-dependency) for more info.
+This utility does not depend on Flutter, and can be used in non-flutter apps and packages. To use this package in a flutter app or package, `amplify_db_common` will have to be included as a dependency. See its [pub.dev](https://pub.dev/packages/amplify_db_common) listing for more info.

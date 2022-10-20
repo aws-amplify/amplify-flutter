@@ -13,6 +13,6 @@
 // limitations under the License.
 
 /// Common utilities for working with databases such as sqlite.
-library amplify_db_common;
+library amplify_db_common_dart;
 
 export 'src/connect.dart';
