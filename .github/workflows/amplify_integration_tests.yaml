@@ -41,10 +41,7 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: ${{ secrets.AWS_REGION }}
           scope: ${{ matrix.scope }}
-          api-app-id: ${{ secrets.API_APP_ID }}
-          auth-app-id: ${{ secrets.AUTH_APP_ID }}
-          datastore-app-id: ${{ secrets.DATASTORE_APP_ID }}
-          storage-app-id: ${{ secrets.STORAGE_APP_ID }}
+          secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
       - name: Build example app with integration tests
         run: |
@@ -86,10 +83,7 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: ${{ secrets.AWS_REGION }}
           scope: ${{ matrix.scope }}
-          api-app-id: ${{ secrets.API_APP_ID }}
-          auth-app-id: ${{ secrets.AUTH_APP_ID }}
-          datastore-app-id: ${{ secrets.DATASTORE_APP_ID }}
-          storage-app-id: ${{ secrets.STORAGE_APP_ID }}
+          secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
       - name: Build example app with integration tests
         run: |
