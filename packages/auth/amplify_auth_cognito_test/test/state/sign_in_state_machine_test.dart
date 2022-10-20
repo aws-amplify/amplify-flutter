@@ -150,7 +150,11 @@ void main() {
         signInStateMachine.stream,
         emitsInOrder([
           isA<SignInInitiating>(),
-          isA<SignInSuccess>(),
+          isA<SignInSuccess>().having(
+            (state) => state.user.signInDetails,
+            'signInDetails',
+            isA<CognitoSignInDetailsApiBased>(),
+          ),
         ]),
       );
     });

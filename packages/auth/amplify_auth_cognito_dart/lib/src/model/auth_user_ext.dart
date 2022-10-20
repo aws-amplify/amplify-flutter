@@ -19,20 +19,22 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_user.dart';
 import 'package:meta/meta.dart';
 
-/// Helper for getting an [AuthUser] from [CognitoUserPoolTokens].
-extension UserPoolTokensAuthUser on CognitoUserPoolTokens {
-  /// The [AuthUser] represented by these tokens.
-  AuthUser get authUser => AuthUser(
-        userId: CognitoToken(idToken).userId,
-        username: CognitoIdToken(idToken).username,
+/// Helper for getting an [CognitoAuthUser] from [CognitoUserPoolTokens].
+extension UserPoolTokensAuthUser on CredentialStoreData {
+  /// The [CognitoAuthUser] represented by these tokens.
+  CognitoAuthUser get authUser => CognitoAuthUser(
+        userId: CognitoToken(userPoolTokens!.idToken).userId,
+        username: CognitoIdToken(userPoolTokens!.idToken).username,
+        signInDetails: signInDetails!,
       );
 }
 
-/// Helper for getting an [AuthUser] from a [CognitoUser].
+/// Helper for getting an [CognitoAuthUser] from a [CognitoUser].
 extension CognitoUserAuthUser on CognitoUser {
-  /// The [AuthUser] representing this user.
-  AuthUser get authUser => AuthUser(
+  /// The [CognitoAuthUser] representing this user.
+  CognitoAuthUser get authUser => CognitoAuthUser(
         userId: userId,
         username: username,
+        signInDetails: signInDetails,
       );
 }

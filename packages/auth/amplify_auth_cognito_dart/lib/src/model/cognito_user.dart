@@ -57,6 +57,9 @@ abstract class CognitoUser implements Built<CognitoUser, CognitoUserBuilder> {
   /// Cognito username
   String get username;
 
+  /// Cognito sign-in details
+  CognitoSignInDetails get signInDetails;
+
   /// Cognito user attributes
   BuiltMap<String, String> get attributes;
 }

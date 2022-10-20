@@ -564,9 +564,15 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       throw const UnknownException('Could not parse ID token');
     }
 
+    final signInDetails = CognitoSignInDetails.apiBased(
+      username: parameters.username,
+      authFlowType: authFlowType,
+    );
+
     user
       ..userId = accessTokenJwt.claims.subject ?? idTokenJwt.claims.subject
-      ..username ??= CognitoIdToken(idTokenJwt).username;
+      ..username ??= CognitoIdToken(idTokenJwt).username
+      ..signInDetails = signInDetails;
 
     user.userPoolTokens
       ..accessToken = accessTokenJwt
@@ -577,6 +583,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       CredentialStoreEvent.storeCredentials(
         CredentialStoreData(
           userPoolTokens: user.userPoolTokens.build(),
+          signInDetails: signInDetails,
         ),
       ),
     );

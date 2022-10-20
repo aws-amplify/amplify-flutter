@@ -192,3 +192,38 @@ Future<String> getOtpCode(String username) async {
       .map((event) => event.code)
       .first;
 }
+
+/// Returns the stream of all OTP codes broadcast by Cognito.
+///
+/// This is useful with aliases when the username is not known ahead of time.
+Stream<String> getOtpCodes() {
+  const subscriptionDocument = r'''
+    subscription OnCreateMFACode {
+      onCreateMFACode {
+        username
+        code
+      }
+    }''';
+
+  final Stream<GraphQLResponse<String>> operation = Amplify.API.subscribe(
+    GraphQLRequest<String>(
+      document: subscriptionDocument,
+    ),
+    onEstablished: () => _logger.debug('Established connection'),
+  );
+
+  // Collect code delivered via Lambda
+  return operation
+      .tap(
+    (event) => _logger.debug(
+      'Got event: ${event.data}, errors: ${event.errors}',
+    ),
+  )
+      .map((event) {
+    if (event.errors.isNotEmpty) {
+      throw Exception(event.errors);
+    }
+    final json = jsonDecode(event.data!)['onCreateMFACode'] as Map;
+    return CreateMFACodeResponse.fromJson(json.cast());
+  }).map((event) => event.code);
+}

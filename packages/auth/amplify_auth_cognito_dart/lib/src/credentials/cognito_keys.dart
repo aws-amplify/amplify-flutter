@@ -18,6 +18,8 @@ library amplify_auth_cognito.credentials.cognito_keys;
 import 'dart:collection';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
+    show AuthFlowType;
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
@@ -34,8 +36,15 @@ enum CognitoUserPoolKey {
   /// The ID token, serialized as a JWT.
   idToken,
 
-  /// The user ID.
-  userSub,
+  /// The username passed to `signIn`.
+  ///
+  /// Since Cognito can obscure this value when signing in with email/phone
+  /// alias enabled, this value is recorded at the time of sign in to allow
+  /// developers access to the precise username used.
+  username,
+
+  /// The [AuthFlowType] passed to `signIn`.
+  authFlowType,
 }
 
 /// Discrete keys stored for Cognito User Pool device tracking operations in
@@ -94,6 +103,9 @@ enum HostedUiKey {
 
   /// The [CognitoSignInWithWebUIOptions] passed to `signInWithWebUI`.
   options,
+
+  /// The [AuthProvider] passed to `signInWithWebUI`.
+  provider,
 }
 
 /// {@template amplify_auth_cognito.cognito_identity_pool_keys}
