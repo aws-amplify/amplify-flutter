@@ -30,6 +30,6 @@ dependencies:
 dev_dependencies:
   amplify_lints:
     path: ../../../amplify_lints
-  drift_dev: ^2.2.0+1
   build_runner: ^2.2.1
   build_web_compilers: ^3.2.3
+  drift_dev: ^2.2.0+1
