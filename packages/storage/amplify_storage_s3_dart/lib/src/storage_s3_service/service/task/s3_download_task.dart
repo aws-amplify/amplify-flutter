@@ -171,8 +171,7 @@ class S3DownloadTask {
     // ensure the task has actually started before pausing
     await _getObjectInitiated;
 
-    if (_state == S3TransferState.paused ||
-        _state == S3TransferState.canceled) {
+    if (_state != S3TransferState.inProgress) {
       return;
     }
 
@@ -182,13 +181,7 @@ class S3DownloadTask {
     //  to cancel the underlying http request
     await _bytesSubscription.cancel();
     _state = S3TransferState.paused;
-    _onProgress?.call(
-      S3TransferProgress(
-        totalBytes: _totalBytes,
-        transferredBytes: _downloadedBytesSize,
-        state: _state,
-      ),
-    );
+    _emitTransferProgress();
     _pauseCompleter?.complete();
   }
 
@@ -198,7 +191,9 @@ class S3DownloadTask {
     // stream listers were canceled.
     await _pausedCompleted;
 
-    if (_state == S3TransferState.inProgress) {
+    if (_state == S3TransferState.inProgress ||
+        _state == S3TransferState.success ||
+        _state == S3TransferState.failure) {
       return;
     }
 
@@ -212,13 +207,7 @@ class S3DownloadTask {
 
     _state = S3TransferState.inProgress;
 
-    _onProgress?.call(
-      S3TransferProgress(
-        totalBytes: _totalBytes,
-        transferredBytes: _downloadedBytesSize,
-        state: _state,
-      ),
-    );
+    _emitTransferProgress();
 
     final bytesRangeToDownload = S3DataBytesRange(
       start: _downloadedBytesSize,
@@ -242,7 +231,9 @@ class S3DownloadTask {
   ///
   /// A canceled [S3DownloadTask] is not resumable.
   Future<void> cancel() async {
-    if (_state == S3TransferState.canceled) {
+    if (_state == S3TransferState.canceled ||
+        _state == S3TransferState.success ||
+        _state == S3TransferState.failure) {
       return;
     }
 
@@ -251,16 +242,20 @@ class S3DownloadTask {
     // TODO(HuiSF): when it's ready, invoke `AWSHttpOperation.cancel` here
     //  to cancel the underlying http request
     await _bytesSubscription.cancel();
+    _emitTransferProgress();
+
+    _downloadCompleter.completeError(
+      S3StorageException.controllableOperationCanceled(),
+    );
+  }
+
+  void _emitTransferProgress() {
     _onProgress?.call(
       S3TransferProgress(
         totalBytes: _totalBytes,
         transferredBytes: _downloadedBytesSize,
         state: _state,
       ),
-    );
-
-    await _completeDownloadWithError(
-      S3StorageException.controllableOperationCanceled(),
     );
   }
 
@@ -281,18 +276,14 @@ class S3DownloadTask {
     _bytesSubscription = bytesStream.listen((bytes) {
       _downloadedBytesSize += bytes.length;
       _onData?.call(bytes);
-      _onProgress?.call(
-        S3TransferProgress(
-          transferredBytes: _downloadedBytesSize,
-          totalBytes: _totalBytes,
-          state: _state,
-        ),
-      );
+      _emitTransferProgress();
     })
       ..onDone(() async {
         if (_downloadedBytesSize == _totalBytes) {
+          _state = S3TransferState.success;
           try {
             await _onDone?.call();
+            _emitTransferProgress();
             _downloadCompleter.complete(
               _downloadDataOptions.getProperties
                   ? S3StorageItem.fromHeadObjectOutput(
@@ -305,8 +296,8 @@ class S3DownloadTask {
                     )
                   : S3StorageItem(key: _key),
             );
-          } on Exception catch (error) {
-            _downloadCompleter.completeError(error);
+          } on Exception catch (error, stackTrace) {
+            await _completeDownloadWithError(error, stackTrace);
           }
         } else {
           await _completeDownloadWithError(
@@ -325,7 +316,9 @@ class S3DownloadTask {
     Object error, [
     StackTrace? stackTrace,
   ]) async {
+    _state = S3TransferState.failure;
     await _onError?.call();
+    _emitTransferProgress();
     _downloadCompleter.completeError(error, stackTrace);
   }
 

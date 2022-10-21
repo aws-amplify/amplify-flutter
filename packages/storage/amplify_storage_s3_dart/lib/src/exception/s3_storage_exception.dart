@@ -112,7 +112,7 @@ class S3StorageException extends StorageException {
   factory S3StorageException.invalidBytesRange() {
     return const S3StorageException(
       'Invalid bytes range of `S3DataBytesRange`.',
-      recoverySuggestion: '`start` needs to be less than or equal to `end`.',
+      recoverySuggestion: '`start` needs to be less than `end`.',
     );
   }
 
