@@ -26,6 +26,12 @@ enum S3TransferState {
 
   /// The download task is canceled.
   canceled,
+
+  /// The download task completed successfully.
+  success,
+
+  /// The download task failed.
+  failure,
 }
 
 /// {@template storage.amplify_storage_s3.transfer_progress}

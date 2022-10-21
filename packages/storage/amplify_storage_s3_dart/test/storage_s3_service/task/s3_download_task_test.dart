@@ -18,7 +18,6 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/service/task/s3_download_task.dart';
-import 'package:fixnum/fixnum.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:smithy/smithy.dart';
 import 'package:test/test.dart';
@@ -86,6 +85,7 @@ void main() {
           contentLength: Int64(testBodyBytes.length),
           body: Stream.value(testBodyBytes),
         );
+        late S3TransferState finalState;
 
         when(
           () => s3Client.getObject(any()),
@@ -99,7 +99,7 @@ void main() {
           options: testOptions,
           logger: logger,
           onProgress: (progress) {
-            expect(progress.state, S3TransferState.inProgress);
+            finalState = progress.state;
           },
         );
 
@@ -120,6 +120,9 @@ void main() {
           )}$testKey',
         );
         expect(request.checksumMode, ChecksumMode.enabled);
+
+        await downloadTask.result;
+        expect(finalState, S3TransferState.success);
       });
 
       test(
@@ -416,6 +419,36 @@ void main() {
     });
 
     group('download completion', () {
+      test('download should complete', () async {
+        const testOptions = S3StorageDownloadDataOptions();
+        const testBodyBytes = [101, 102];
+        final testGetObjectOutput = GetObjectOutput(
+          contentLength: Int64(testBodyBytes.length),
+          body: Stream.value(testBodyBytes),
+        );
+        late S3TransferState finalState;
+
+        when(
+          () => s3Client.getObject(any()),
+        ).thenAnswer((_) async => testGetObjectOutput);
+
+        final downloadTask = S3DownloadTask(
+          s3Client: s3Client,
+          prefixResolver: testPrefixResolver,
+          bucket: testBucket,
+          key: testKey,
+          options: testOptions,
+          logger: logger,
+          onProgress: (progress) {
+            finalState = progress.state;
+          },
+        );
+
+        unawaited(downloadTask.start());
+
+        await downloadTask.result;
+        expect(finalState, S3TransferState.success);
+      });
       test(
           '`onDone` should be invoked when body stream is completed and ripples exception from onDone to the result Future',
           () async {
@@ -427,6 +460,7 @@ void main() {
         );
         final testOnDoneException = Exception('some exception');
         var onDoneHasBeenCalled = false;
+        late S3TransferState finalState;
 
         when(
           () => s3Client.getObject(any()),
@@ -443,12 +477,16 @@ void main() {
             onDoneHasBeenCalled = true;
             throw testOnDoneException;
           },
+          onProgress: (progress) {
+            finalState = progress.state;
+          },
         );
 
         unawaited(downloadTask.start());
 
         await expectLater(downloadTask.result, throwsA(testOnDoneException));
         expect(onDoneHasBeenCalled, isTrue);
+        expect(finalState, S3TransferState.failure);
       });
 
       test(
