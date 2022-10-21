@@ -259,6 +259,7 @@ void main({bool useExistingTestUser = false}) {
           final eventResponse = await establishSubscriptionAndMutate(
             subscriptionRequest,
             () => addBlog(name),
+            eventFilter: (Blog? blog) => blog?.name == name,
           );
           Blog? blogFromEvent = eventResponse.data;
 
