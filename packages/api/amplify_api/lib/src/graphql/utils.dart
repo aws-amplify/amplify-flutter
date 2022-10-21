@@ -80,6 +80,7 @@ ModelSchema getModelSchemaByModelName(
   }
   // In web, the modelName runtime type conversion will add "$" to returned string.
   // If ends with "$" on web, strip last character.
+  // TODO(ragingsquirrel3): fix underlying issue with modelName
   if (zIsWeb && modelName.endsWith(r'$')) {
     modelName = modelName.substring(0, modelName.length - 1);
   }
