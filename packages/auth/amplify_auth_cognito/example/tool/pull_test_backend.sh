@@ -15,4 +15,4 @@
 
 set -e
 
-APP_ID=$AFS_AUTH_APP_ID ../../../../build-support/pull_backend_by_app_id.sh 
+aws s3 cp s3://$AFS_AUTH_BUCKET_NAME/amplifyconfiguration.dart lib/amplifyconfiguration.dart 
