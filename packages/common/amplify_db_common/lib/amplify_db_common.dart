@@ -12,7 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Common utilities for working with databases such as sqlite.
+/// Common utilities for working with databases such as SQLite.
 library amplify_db_common;
 
-export 'src/connect.dart';
+export 'package:amplify_db_common_dart/amplify_db_common_dart.dart'
+    hide connect;
+export 'package:amplify_db_common_dart/src/connect.dart'
+    if (dart.library.io) 'src/connect_io.dart';
