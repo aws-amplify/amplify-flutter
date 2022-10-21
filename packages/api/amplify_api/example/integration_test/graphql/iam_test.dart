@@ -289,6 +289,7 @@ void main({bool useExistingTestUser = false}) {
           final eventResponse = await establishSubscriptionAndMutate(
             subscriptionRequest,
             () => addBlog(name),
+            eventFilter: (Blog? blog) => blog?.name == name,
           );
           Blog? blogFromEvent = eventResponse.data;
 
@@ -313,6 +314,7 @@ void main({bool useExistingTestUser = false}) {
                   ModelMutations.update(blogToUpdate));
               await Amplify.API.mutate(request: updateReq).response;
             },
+            eventFilter: (Blog? blog) => blog?.id == blogToUpdate.id,
           );
           Blog? blogFromEvent = eventResponse.data;
 
@@ -330,6 +332,7 @@ void main({bool useExistingTestUser = false}) {
           final eventResponse = await establishSubscriptionAndMutate(
             subscriptionRequest,
             () => deleteBlog(blogToDelete.id),
+            eventFilter: (Blog? blog) => blog?.id == blogToDelete.id,
           );
           Blog? blogFromEvent = eventResponse.data;
 
@@ -365,6 +368,7 @@ void main({bool useExistingTestUser = false}) {
           final eventResponse = await establishSubscriptionAndMutate(
             subscriptionRequest,
             () => addPostAndBlog(title, 0),
+            eventFilter: (Post? post) => post?.title == title,
           );
           Post? postFromEvent = eventResponse.data;
 
