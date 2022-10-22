@@ -1,4 +1,3 @@
-//
 // Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License").
@@ -25,7 +24,7 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -52,10 +51,10 @@ class _MyAppState extends State<MyApp> {
     if (!mounted) return;
 
     // Configure analytics plugin
-    AmplifyAnalyticsPinpoint analyticsPlugin = AmplifyAnalyticsPinpoint();
-    AmplifyAuthCognito authPlugin = AmplifyAuthCognito();
+    final authPlugin = AmplifyAuthCognito();
+    final analyticsPlugin = AmplifyAnalyticsPinpoint();
 
-    Amplify.addPlugins([authPlugin, analyticsPlugin]);
+    await Amplify.addPlugins([authPlugin, analyticsPlugin]);
 
     try {
       await Amplify.configure(amplifyconfig);
@@ -63,64 +62,67 @@ class _MyAppState extends State<MyApp> {
         _amplifyConfigured = true;
       });
     } on AnalyticsException catch (e) {
-      print(e.toString());
+      safePrint(e.toString());
     }
   }
 
   void _recordEvent() async {
-    AnalyticsEvent event = AnalyticsEvent(_uniqueId);
+    final event = AnalyticsEvent(_uniqueId);
 
     event.properties.addBoolProperty('boolKey', true);
-    event.properties.addDoubleProperty('doubleKey', 10.0);
+    event.properties.addDoubleProperty('doubleKey', 10.1);
     event.properties.addIntProperty('intKey', 10);
     event.properties.addStringProperty('stringKey', 'stringValue');
 
-    Amplify.Analytics.recordEvent(event: event);
+    await Amplify.Analytics.recordEvent(event: event);
   }
 
   void _flushEvents() async {
-    Amplify.Analytics.flushEvents();
+    await Amplify.Analytics.flushEvents();
   }
 
   void _registerGlobalProperties() async {
-    print('register global properties: $_globalProp');
+    safePrint('register global properties: $_globalProp');
 
-    AnalyticsProperties properties = AnalyticsProperties();
+    final properties = AnalyticsProperties();
     properties.addIntProperty('${_globalProp}_1numKey', 1);
     properties.addBoolProperty('${_globalProp}_boolKey', true);
-    properties.addDoubleProperty('${_globalProp}_doubleKey', 10.0);
+    properties.addDoubleProperty('${_globalProp}_doubleKey', 10);
     properties.addIntProperty('${_globalProp}_intKey', 10);
     properties.addStringProperty('${_globalProp}_stringKey', 'stringValue');
 
-    Amplify.Analytics.registerGlobalProperties(globalProperties: properties);
+    await Amplify.Analytics.registerGlobalProperties(
+      globalProperties: properties,
+    );
   }
 
   void _unregisterGlobalProperties() async {
-    print('unregister global properties: $_globalProp');
+    safePrint('unregister global properties: $_globalProp');
 
-    Amplify.Analytics.unregisterGlobalProperties(propertyNames: [_globalProp]);
+    await Amplify.Analytics.unregisterGlobalProperties(
+      propertyNames: [_globalProp],
+    );
   }
 
   void _unregisterAllGlobalProperties() async {
-    Amplify.Analytics.unregisterGlobalProperties();
+    await Amplify.Analytics.unregisterGlobalProperties();
   }
 
   void _enable() async {
-    Amplify.Analytics.enable();
+    await Amplify.Analytics.enable();
   }
 
   void _disable() async {
-    Amplify.Analytics.disable();
+    await Amplify.Analytics.disable();
   }
 
   void _identifyUser() async {
-    AnalyticsUserProfile analyticsUserProfile = AnalyticsUserProfile();
+    final analyticsUserProfile = AnalyticsUserProfile();
     analyticsUserProfile.name = '${_userId}_name';
     analyticsUserProfile.email = '${_userId}_email';
     analyticsUserProfile.plan = '${_userId}_plan';
 
-    AnalyticsUserProfileLocation analyticsUserLocation =
-        AnalyticsUserProfileLocation();
+    final analyticsUserLocation = AnalyticsUserProfileLocation();
     analyticsUserLocation.latitude = 5;
     analyticsUserLocation.longitude = 5;
     analyticsUserLocation.postalCode = '94070';
@@ -130,16 +132,18 @@ class _MyAppState extends State<MyApp> {
 
     analyticsUserProfile.location = analyticsUserLocation;
 
-    AnalyticsProperties properties = AnalyticsProperties();
+    final properties = AnalyticsProperties();
     properties.addStringProperty('${_userId}_stringKey', 'stringValue');
     properties.addIntProperty('${_userId}_intKey', 10);
-    properties.addDoubleProperty('${_userId}_doubleKey', 10.0);
+    properties.addDoubleProperty('${_userId}_doubleKey', 10);
     properties.addBoolProperty('${_userId}_boolKey', false);
 
     analyticsUserProfile.properties = properties;
 
-    Amplify.Analytics.identifyUser(
-        userId: _userId, userProfile: analyticsUserProfile);
+    await Amplify.Analytics.identifyUser(
+      userId: _userId,
+      userProfile: analyticsUserProfile,
+    );
   }
 
   @override
@@ -150,18 +154,13 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Amplify Analytics example app'),
         ),
         body: ListView(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(10),
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.all(10.0),
-              decoration: const BoxDecoration(
-                border: Border(
-                  top: BorderSide(width: 1.0, color: Color(0xFFDFDFDF)),
-                  left: BorderSide(width: 1.0, color: Color(0xFFDFDFDF)),
-                  right: BorderSide(width: 1.0, color: Color(0xFF7F7F7F)),
-                  bottom: BorderSide(width: 1.0, color: Color(0xFF7F7F7F)),
-                ),
-                color: Color(0xFFBFBFBF),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                border: Border.all(color: const Color(0xFF7F7F7F)),
+                color: const Color(0xFFBFBFBF),
               ),
               child: Column(
                 children: <Widget>[
@@ -181,13 +180,13 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10),
               decoration: const BoxDecoration(
                 border: Border(
-                  top: BorderSide(width: 1.0, color: Color(0xFFDFDFDF)),
-                  left: BorderSide(width: 1.0, color: Color(0xFFDFDFDF)),
-                  right: BorderSide(width: 1.0, color: Color(0xFF7F7F7F)),
-                  bottom: BorderSide(width: 1.0, color: Color(0xFF7F7F7F)),
+                  top: BorderSide(width: 1, color: Color(0xFFDFDFDF)),
+                  left: BorderSide(width: 1, color: Color(0xFFDFDFDF)),
+                  right: BorderSide(width: 1, color: Color(0xFF7F7F7F)),
+                  bottom: BorderSide(width: 1, color: Color(0xFF7F7F7F)),
                 ),
                 color: Color(0xFFBFBFBF),
               ),
