@@ -1,0 +1,15 @@
+apis:
+  pinpoint:
+  - com.amazonaws.pinpoint#GetEndpoint
+  - com.amazonaws.pinpoint#GetInAppMessages
+  - com.amazonaws.pinpoint#PutEvents
+  - com.amazonaws.pinpoint#UpdateEndpoint
+  - com.amazonaws.pinpoint#UpdateEndpointsBatch
+  - com.amazonaws.pinpoint#GetUserProfile
+  - com.amazonaws.pinpoint#UpdateUserProfile
+  - com.amazonaws.pinpoint#DeleteUserProfile
+  - com.amazonaws.pinpoint#GetUserProfilesBatch
+  - com.amazonaws.pinpoint#UpdateUserProfilesBatch
+  - com.amazonaws.pinpoint#PutUserEvents
+patches:
+  - tool/patch/user-models.patch
