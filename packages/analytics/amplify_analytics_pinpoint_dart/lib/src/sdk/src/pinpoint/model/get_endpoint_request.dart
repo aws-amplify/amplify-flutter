@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.5.2. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library amplify_analytics_pinpoint_dart.pinpoint.model.get_endpoint_request;
+library amplify_analytics_pinpoint_dart.pinpoint.model.get_endpoint_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -18,10 +18,14 @@ abstract class GetEndpointRequest
         Built<GetEndpointRequest, GetEndpointRequestBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<GetEndpointRequestPayload> {
-  factory GetEndpointRequest(
-      {required String applicationId, required String endpointId}) {
+  factory GetEndpointRequest({
+    required String applicationId,
+    required String endpointId,
+  }) {
     return _$GetEndpointRequest._(
-        applicationId: applicationId, endpointId: endpointId);
+      applicationId: applicationId,
+      endpointId: endpointId,
+    );
   }
 
   factory GetEndpointRequest.build(
@@ -31,8 +35,10 @@ abstract class GetEndpointRequest
   const GetEndpointRequest._();
 
   factory GetEndpointRequest.fromRequest(
-          GetEndpointRequestPayload payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    GetEndpointRequestPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       GetEndpointRequest.build((b) {
         if (labels['applicationId'] != null) {
           b.applicationId = labels['applicationId']!;
@@ -43,7 +49,7 @@ abstract class GetEndpointRequest
       });
 
   static const List<_i1.SmithySerializer> serializers = [
-    _GetEndpointRequestRestJson1Serializer()
+    GetEndpointRequestRestJson1Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -62,18 +68,30 @@ abstract class GetEndpointRequest
       case 'EndpointId':
         return endpointId;
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
   GetEndpointRequestPayload getPayload() => GetEndpointRequestPayload();
   @override
-  List<Object?> get props => [applicationId, endpointId];
+  List<Object?> get props => [
+        applicationId,
+        endpointId,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetEndpointRequest');
-    helper.add('applicationId', applicationId);
-    helper.add('endpointId', endpointId);
+    helper.add(
+      'applicationId',
+      applicationId,
+    );
+    helper.add(
+      'endpointId',
+      endpointId,
+    );
     return helper.toString();
   }
 }
@@ -101,29 +119,38 @@ abstract class GetEndpointRequestPayload
   }
 }
 
-class _GetEndpointRequestRestJson1Serializer
+class GetEndpointRequestRestJson1Serializer
     extends _i1.StructuredSmithySerializer<GetEndpointRequestPayload> {
-  const _GetEndpointRequestRestJson1Serializer() : super('GetEndpointRequest');
+  const GetEndpointRequestRestJson1Serializer() : super('GetEndpointRequest');
 
   @override
   Iterable<Type> get types => const [
         GetEndpointRequest,
         _$GetEndpointRequest,
         GetEndpointRequestPayload,
-        _$GetEndpointRequestPayload
+        _$GetEndpointRequestPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   GetEndpointRequestPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return GetEndpointRequestPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

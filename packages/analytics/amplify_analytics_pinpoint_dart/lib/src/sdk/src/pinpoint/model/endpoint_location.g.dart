@@ -12,9 +12,9 @@ class _$EndpointLocation extends EndpointLocation {
   @override
   final String? country;
   @override
-  final double? latitude;
+  final double latitude;
   @override
-  final double? longitude;
+  final double longitude;
   @override
   final String? postalCode;
   @override
@@ -27,11 +27,16 @@ class _$EndpointLocation extends EndpointLocation {
   _$EndpointLocation._(
       {this.city,
       this.country,
-      this.latitude,
-      this.longitude,
+      required this.latitude,
+      required this.longitude,
       this.postalCode,
       this.region})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        latitude, r'EndpointLocation', 'latitude');
+    BuiltValueNullFieldError.checkNotNull(
+        longitude, r'EndpointLocation', 'longitude');
+  }
 
   @override
   EndpointLocation rebuild(void Function(EndpointLocationBuilder) updates) =>
@@ -131,8 +136,10 @@ class EndpointLocationBuilder
         new _$EndpointLocation._(
             city: city,
             country: country,
-            latitude: latitude,
-            longitude: longitude,
+            latitude: BuiltValueNullFieldError.checkNotNull(
+                latitude, r'EndpointLocation', 'latitude'),
+            longitude: BuiltValueNullFieldError.checkNotNull(
+                longitude, r'EndpointLocation', 'longitude'),
             postalCode: postalCode,
             region: region);
     replace(_$result);

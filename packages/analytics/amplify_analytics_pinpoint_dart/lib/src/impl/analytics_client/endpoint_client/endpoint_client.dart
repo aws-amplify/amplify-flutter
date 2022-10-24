@@ -201,13 +201,15 @@ class EndpointClient {
   /// Send local Endpoint instance to AWS Pinpoint
   Future<void> updateEndpoint() async {
     try {
-      await _pinpointClient.updateEndpoint(
-        UpdateEndpointRequest(
-          applicationId: _appId,
-          endpointId: _fixedEndpointId,
-          endpointRequest: _endpointToRequest(getPublicEndpoint()),
-        ),
-      );
+      await _pinpointClient
+          .updateEndpoint(
+            UpdateEndpointRequest(
+              applicationId: _appId,
+              endpointId: _fixedEndpointId,
+              endpointRequest: _endpointToRequest(getPublicEndpoint()),
+            ),
+          )
+          .result;
     } on Exception catch (error) {
       _logger.error('updateEndpoint - exception encountered: $error');
       rethrow;
@@ -216,18 +218,19 @@ class EndpointClient {
 
   /// Create an EndpointRequest object from a local Endpoint instance
   EndpointRequest _endpointToRequest(PublicEndpoint publicEndpoint) {
-    return EndpointRequest(
-      address: publicEndpoint.address,
-      attributes: publicEndpoint.attributes,
-      channelType: publicEndpoint.channelType,
-      demographic: publicEndpoint.demographic,
-      effectiveDate: publicEndpoint.effectiveDate,
-      endpointStatus: publicEndpoint.endpointStatus,
-      location: publicEndpoint.location,
-      metrics: publicEndpoint.metrics,
-      optOut: publicEndpoint.optOut,
-      requestId: publicEndpoint.requestId,
-      user: publicEndpoint.user,
+    return EndpointRequest.build(
+      (b) => b
+        ..address = publicEndpoint.address
+        ..attributes.replace(publicEndpoint.attributes)
+        ..channelType = publicEndpoint.channelType
+        ..demographic = publicEndpoint.demographic?.toBuilder()
+        ..effectiveDate = publicEndpoint.effectiveDate
+        ..endpointStatus = publicEndpoint.endpointStatus
+        ..location = publicEndpoint.location?.toBuilder()
+        ..metrics.replace(publicEndpoint.metrics ?? const {})
+        ..optOut = publicEndpoint.optOut
+        ..requestId = publicEndpoint.requestId
+        ..user = publicEndpoint.user?.toBuilder(),
     );
   }
 }

@@ -11,5 +11,5 @@ apis:
   - com.amazonaws.pinpoint#GetUserProfilesBatch
   - com.amazonaws.pinpoint#UpdateUserProfilesBatch
   - com.amazonaws.pinpoint#PutUserEvents
-patches:
-  - tool/patch/user-models.patch
+# patches:
+#   - tool/patch/user-models.patch

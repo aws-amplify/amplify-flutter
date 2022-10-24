@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.5.2. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 /// # Amazon Pinpoint
 ///
@@ -13,9 +13,6 @@ export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/butto
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/campaign_event_filter.dart';
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/channel_type.dart';
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/default_button_configuration.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/delete_user_profile_request.dart'
-    hide DeleteUserProfileRequestPayload;
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/delete_user_profile_response.dart';
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/dimension_type.dart';
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/endpoint_batch_item.dart';
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/endpoint_batch_request.dart';
@@ -39,11 +36,6 @@ export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/get_e
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/get_in_app_messages_request.dart'
     hide GetInAppMessagesRequestPayload;
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/get_in_app_messages_response.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/get_user_profile_request.dart'
-    hide GetUserProfileRequestPayload;
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/get_user_profile_response.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/get_user_profiles_batch_request.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/get_user_profiles_batch_response.dart';
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/in_app_campaign_schedule.dart';
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/in_app_message.dart';
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/in_app_message_body_config.dart';
@@ -61,12 +53,9 @@ export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/metri
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/not_found_exception.dart';
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/override_button_configuration.dart';
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/payload_too_large_exception.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/primary_location.dart';
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/public_endpoint.dart';
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/put_events_request.dart';
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/put_events_response.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/put_user_events_request.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/put_user_events_response.dart';
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/quiet_time.dart';
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/session.dart';
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/set_dimension.dart';
@@ -75,24 +64,4 @@ export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/updat
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/update_endpoint_response.dart';
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/update_endpoints_batch_request.dart';
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/update_endpoints_batch_response.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/update_user_profile_request.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/update_user_profile_response.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/update_user_profiles_batch_request.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/update_user_profiles_batch_response.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/user.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/user_batch_failure.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/user_events_batch.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/user_events_item_response.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/user_events_request.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/user_events_response.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/user_name.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/user_profile.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/user_profile_response.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/user_profile_update_request.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/user_profile_update_response.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/user_profiles_get_request.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/user_profiles_response.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/user_profiles_update_request.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/user_profiles_update_response.dart';
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/user_status.dart';
 export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/pinpoint_client.dart';

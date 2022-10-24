@@ -10,11 +10,11 @@ class _$EndpointBatchItem extends EndpointBatchItem {
   @override
   final String? address;
   @override
-  final _i2.BuiltListMultimap<String, String>? attributes;
+  final _i6.BuiltListMultimap<String, String>? attributes;
   @override
-  final _i3.ChannelType? channelType;
+  final _i2.ChannelType? channelType;
   @override
-  final _i4.EndpointDemographic? demographic;
+  final _i3.EndpointDemographic? demographic;
   @override
   final String? effectiveDate;
   @override
@@ -22,15 +22,15 @@ class _$EndpointBatchItem extends EndpointBatchItem {
   @override
   final String? id;
   @override
-  final _i5.EndpointLocation? location;
+  final _i4.EndpointLocation? location;
   @override
-  final _i2.BuiltMap<String, double>? metrics;
+  final _i6.BuiltMap<String, double>? metrics;
   @override
   final String? optOut;
   @override
   final String? requestId;
   @override
-  final _i6.EndpointUser? user;
+  final _i5.EndpointUser? user;
 
   factory _$EndpointBatchItem(
           [void Function(EndpointBatchItemBuilder)? updates]) =>
@@ -112,21 +112,21 @@ class EndpointBatchItemBuilder
   String? get address => _$this._address;
   set address(String? address) => _$this._address = address;
 
-  _i2.ListMultimapBuilder<String, String>? _attributes;
-  _i2.ListMultimapBuilder<String, String> get attributes =>
-      _$this._attributes ??= new _i2.ListMultimapBuilder<String, String>();
-  set attributes(_i2.ListMultimapBuilder<String, String>? attributes) =>
+  _i6.ListMultimapBuilder<String, String>? _attributes;
+  _i6.ListMultimapBuilder<String, String> get attributes =>
+      _$this._attributes ??= new _i6.ListMultimapBuilder<String, String>();
+  set attributes(_i6.ListMultimapBuilder<String, String>? attributes) =>
       _$this._attributes = attributes;
 
-  _i3.ChannelType? _channelType;
-  _i3.ChannelType? get channelType => _$this._channelType;
-  set channelType(_i3.ChannelType? channelType) =>
+  _i2.ChannelType? _channelType;
+  _i2.ChannelType? get channelType => _$this._channelType;
+  set channelType(_i2.ChannelType? channelType) =>
       _$this._channelType = channelType;
 
-  _i4.EndpointDemographicBuilder? _demographic;
-  _i4.EndpointDemographicBuilder get demographic =>
-      _$this._demographic ??= new _i4.EndpointDemographicBuilder();
-  set demographic(_i4.EndpointDemographicBuilder? demographic) =>
+  _i3.EndpointDemographicBuilder? _demographic;
+  _i3.EndpointDemographicBuilder get demographic =>
+      _$this._demographic ??= new _i3.EndpointDemographicBuilder();
+  set demographic(_i3.EndpointDemographicBuilder? demographic) =>
       _$this._demographic = demographic;
 
   String? _effectiveDate;
@@ -143,16 +143,16 @@ class EndpointBatchItemBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  _i5.EndpointLocationBuilder? _location;
-  _i5.EndpointLocationBuilder get location =>
-      _$this._location ??= new _i5.EndpointLocationBuilder();
-  set location(_i5.EndpointLocationBuilder? location) =>
+  _i4.EndpointLocationBuilder? _location;
+  _i4.EndpointLocationBuilder get location =>
+      _$this._location ??= new _i4.EndpointLocationBuilder();
+  set location(_i4.EndpointLocationBuilder? location) =>
       _$this._location = location;
 
-  _i2.MapBuilder<String, double>? _metrics;
-  _i2.MapBuilder<String, double> get metrics =>
-      _$this._metrics ??= new _i2.MapBuilder<String, double>();
-  set metrics(_i2.MapBuilder<String, double>? metrics) =>
+  _i6.MapBuilder<String, double>? _metrics;
+  _i6.MapBuilder<String, double> get metrics =>
+      _$this._metrics ??= new _i6.MapBuilder<String, double>();
+  set metrics(_i6.MapBuilder<String, double>? metrics) =>
       _$this._metrics = metrics;
 
   String? _optOut;
@@ -163,10 +163,10 @@ class EndpointBatchItemBuilder
   String? get requestId => _$this._requestId;
   set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i6.EndpointUserBuilder? _user;
-  _i6.EndpointUserBuilder get user =>
-      _$this._user ??= new _i6.EndpointUserBuilder();
-  set user(_i6.EndpointUserBuilder? user) => _$this._user = user;
+  _i5.EndpointUserBuilder? _user;
+  _i5.EndpointUserBuilder get user =>
+      _$this._user ??= new _i5.EndpointUserBuilder();
+  set user(_i5.EndpointUserBuilder? user) => _$this._user = user;
 
   EndpointBatchItemBuilder() {
     EndpointBatchItem._init(this);

@@ -1,29 +1,52 @@
-// Generated with smithy-dart 0.5.2. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library amplify_analytics_pinpoint_dart.pinpoint.model.filter_type;
+library amplify_analytics_pinpoint_dart.pinpoint.model.filter_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:smithy/smithy.dart' as _i1;
 
 class FilterType extends _i1.SmithyEnum<FilterType> {
-  const FilterType._(int index, String name, String value)
-      : super(index, name, value);
+  const FilterType._(
+    int index,
+    String name,
+    String value,
+  ) : super(
+          index,
+          name,
+          value,
+        );
 
   const FilterType._sdkUnknown(String value) : super.sdkUnknown(value);
 
-  static const endpoint = FilterType._(0, 'ENDPOINT', 'ENDPOINT');
+  static const endpoint = FilterType._(
+    0,
+    'ENDPOINT',
+    'ENDPOINT',
+  );
 
-  static const system = FilterType._(1, 'SYSTEM', 'SYSTEM');
+  static const system = FilterType._(
+    1,
+    'SYSTEM',
+    'SYSTEM',
+  );
 
   /// All values of [FilterType].
-  static const values = <FilterType>[FilterType.endpoint, FilterType.system];
+  static const values = <FilterType>[
+    FilterType.endpoint,
+    FilterType.system,
+  ];
 
   static const List<_i1.SmithySerializer<FilterType>> serializers = [
-    _i1.SmithyEnumSerializer('FilterType',
-        values: values,
-        sdkUnknown: FilterType._sdkUnknown,
-        supportedProtocols: [
-          _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')
-        ])
+    _i1.SmithyEnumSerializer(
+      'FilterType',
+      values: values,
+      sdkUnknown: FilterType._sdkUnknown,
+      supportedProtocols: [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ],
+    )
   ];
 }
 

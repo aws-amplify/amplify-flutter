@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.5.2. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_campaign_schedule;
+library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_campaign_schedule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/campaign_event_filter.dart'
     as _i2;
@@ -18,12 +18,16 @@ abstract class InAppCampaignSchedule
     with _i1.AWSEquatable<InAppCampaignSchedule>
     implements Built<InAppCampaignSchedule, InAppCampaignScheduleBuilder> {
   /// Schedule of the campaign.
-  factory InAppCampaignSchedule(
-      {String? endDate,
-      _i2.CampaignEventFilter? eventFilter,
-      _i3.QuietTime? quietTime}) {
+  factory InAppCampaignSchedule({
+    String? endDate,
+    _i2.CampaignEventFilter? eventFilter,
+    _i3.QuietTime? quietTime,
+  }) {
     return _$InAppCampaignSchedule._(
-        endDate: endDate, eventFilter: eventFilter, quietTime: quietTime);
+      endDate: endDate,
+      eventFilter: eventFilter,
+      quietTime: quietTime,
+    );
   }
 
   /// Schedule of the campaign.
@@ -34,7 +38,7 @@ abstract class InAppCampaignSchedule
   const InAppCampaignSchedule._();
 
   static const List<_i4.SmithySerializer> serializers = [
-    _InAppCampaignScheduleRestJson1Serializer()
+    InAppCampaignScheduleRestJson1Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -49,32 +53,53 @@ abstract class InAppCampaignSchedule
   /// Time during which the in-app message should not be shown to the user.
   _i3.QuietTime? get quietTime;
   @override
-  List<Object?> get props => [endDate, eventFilter, quietTime];
+  List<Object?> get props => [
+        endDate,
+        eventFilter,
+        quietTime,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InAppCampaignSchedule');
-    helper.add('endDate', endDate);
-    helper.add('eventFilter', eventFilter);
-    helper.add('quietTime', quietTime);
+    helper.add(
+      'endDate',
+      endDate,
+    );
+    helper.add(
+      'eventFilter',
+      eventFilter,
+    );
+    helper.add(
+      'quietTime',
+      quietTime,
+    );
     return helper.toString();
   }
 }
 
-class _InAppCampaignScheduleRestJson1Serializer
+class InAppCampaignScheduleRestJson1Serializer
     extends _i4.StructuredSmithySerializer<InAppCampaignSchedule> {
-  const _InAppCampaignScheduleRestJson1Serializer()
+  const InAppCampaignScheduleRestJson1Serializer()
       : super('InAppCampaignSchedule');
 
   @override
-  Iterable<Type> get types =>
-      const [InAppCampaignSchedule, _$InAppCampaignSchedule];
+  Iterable<Type> get types => const [
+        InAppCampaignSchedule,
+        _$InAppCampaignSchedule,
+      ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   InAppCampaignSchedule deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = InAppCampaignScheduleBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -84,22 +109,26 @@ class _InAppCampaignScheduleRestJson1Serializer
       switch (key) {
         case 'EndDate':
           if (value != null) {
-            result.endDate = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.endDate = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'EventFilter':
           if (value != null) {
-            result.eventFilter.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i2.CampaignEventFilter))
-                as _i2.CampaignEventFilter));
+            result.eventFilter.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.CampaignEventFilter),
+            ) as _i2.CampaignEventFilter));
           }
           break;
         case 'QuietTime':
           if (value != null) {
-            result.quietTime.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i3.QuietTime))
-                as _i3.QuietTime));
+            result.quietTime.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.QuietTime),
+            ) as _i3.QuietTime));
           }
           break;
       }
@@ -109,27 +138,36 @@ class _InAppCampaignScheduleRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as InAppCampaignSchedule);
     final result = <Object?>[];
     if (payload.endDate != null) {
       result
         ..add('EndDate')
-        ..add(serializers.serialize(payload.endDate!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.endDate!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.eventFilter != null) {
       result
         ..add('EventFilter')
-        ..add(serializers.serialize(payload.eventFilter!,
-            specifiedType: const FullType(_i2.CampaignEventFilter)));
+        ..add(serializers.serialize(
+          payload.eventFilter!,
+          specifiedType: const FullType(_i2.CampaignEventFilter),
+        ));
     }
     if (payload.quietTime != null) {
       result
         ..add('QuietTime')
-        ..add(serializers.serialize(payload.quietTime!,
-            specifiedType: const FullType(_i3.QuietTime)));
+        ..add(serializers.serialize(
+          payload.quietTime!,
+          specifiedType: const FullType(_i3.QuietTime),
+        ));
     }
     return result;
   }

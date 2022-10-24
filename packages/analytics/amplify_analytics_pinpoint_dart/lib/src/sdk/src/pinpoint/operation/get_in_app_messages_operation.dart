@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.5.2. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library amplify_analytics_pinpoint_dart.pinpoint.operation.get_in_app_messages_operation;
+library amplify_analytics_pinpoint_dart.pinpoint.operation.get_in_app_messages_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i17;
 
@@ -40,12 +40,12 @@ class GetInAppMessagesOperation extends _i1.HttpOperation<
     _i3.InAppMessagesResponse,
     _i4.GetInAppMessagesResponse> {
   /// Retrieves the in-app messages targeted for the provided endpoint ID.
-  GetInAppMessagesOperation(
-      {required String region,
-      Uri? baseUri,
-      _i5.AWSCredentialsProvider credentialsProvider =
-          const _i5.AWSCredentialsProvider.environment()})
-      : _region = region,
+  GetInAppMessagesOperation({
+    required String region,
+    Uri? baseUri,
+    _i5.AWSCredentialsProvider credentialsProvider =
+        const _i5.AWSCredentialsProvider.environment(),
+  })  : _region = region,
         _baseUri = baseUri,
         _credentialsProvider = credentialsProvider;
 
@@ -57,25 +57,29 @@ class GetInAppMessagesOperation extends _i1.HttpOperation<
           _i3.InAppMessagesResponse,
           _i4.GetInAppMessagesResponse>> protocols = [
     _i6.RestJson1Protocol(
-        serializers: _i7.serializers,
-        builderFactories: _i7.builderFactories,
-        requestInterceptors: [
-          const _i1.WithHost(),
-          const _i1.WithNoHeader('Content-Length'),
-          const _i1.WithNoHeader('Content-Type'),
-          _i6.WithSigV4(
-              region: _region,
-              service: _i8.AWSService.pinpoint,
-              credentialsProvider: _credentialsProvider),
-          const _i1.WithUserAgent('aws-sdk-dart/0.5.2'),
-          const _i6.WithSdkInvocationId(),
-          const _i6.WithSdkRequest()
-        ],
-        responseInterceptors: [])
+      serializers: _i7.serializers,
+      builderFactories: _i7.builderFactories,
+      requestInterceptors: [
+        const _i1.WithHost(),
+        const _i1.WithNoHeader('Content-Length'),
+        const _i1.WithNoHeader('Content-Type'),
+        _i6.WithSigV4(
+          region: _region,
+          service: _i8.AWSService.pinpoint,
+          credentialsProvider: _credentialsProvider,
+        ),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
+        const _i6.WithSdkInvocationId(),
+        const _i6.WithSdkRequest(),
+      ],
+      responseInterceptors: [],
+    )
   ];
 
-  late final _i6.AWSEndpoint _awsEndpoint =
-      _i9.endpointResolver.resolve(_i9.sdkId, _region);
+  late final _i6.AWSEndpoint _awsEndpoint = _i9.endpointResolver.resolve(
+    _i9.sdkId,
+    _region,
+  );
 
   final String _region;
 
@@ -93,68 +97,89 @@ class GetInAppMessagesOperation extends _i1.HttpOperation<
   @override
   int successCode([_i4.GetInAppMessagesResponse? output]) => 200;
   @override
-  _i4.GetInAppMessagesResponse buildOutput(_i3.InAppMessagesResponse payload,
-          _i8.AWSBaseHttpResponse response) =>
-      _i4.GetInAppMessagesResponse.fromResponse(payload, response);
+  _i4.GetInAppMessagesResponse buildOutput(
+    _i3.InAppMessagesResponse payload,
+    _i8.AWSBaseHttpResponse response,
+  ) =>
+      _i4.GetInAppMessagesResponse.fromResponse(
+        payload,
+        response,
+      );
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError(
-            _i1.ShapeId(
-                namespace: 'com.amazonaws.pinpoint',
-                shape: 'BadRequestException'),
-            _i1.ErrorKind.client,
-            _i10.BadRequestException,
-            statusCode: 400,
-            builder: _i10.BadRequestException.fromResponse),
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.pinpoint',
+            shape: 'BadRequestException',
+          ),
+          _i1.ErrorKind.client,
+          _i10.BadRequestException,
+          statusCode: 400,
+          builder: _i10.BadRequestException.fromResponse,
+        ),
         _i1.SmithyError(
-            _i1.ShapeId(
-                namespace: 'com.amazonaws.pinpoint',
-                shape: 'ForbiddenException'),
-            _i1.ErrorKind.client,
-            _i11.ForbiddenException,
-            statusCode: 403,
-            builder: _i11.ForbiddenException.fromResponse),
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.pinpoint',
+            shape: 'ForbiddenException',
+          ),
+          _i1.ErrorKind.client,
+          _i11.ForbiddenException,
+          statusCode: 403,
+          builder: _i11.ForbiddenException.fromResponse,
+        ),
         _i1.SmithyError(
-            _i1.ShapeId(
-                namespace: 'com.amazonaws.pinpoint',
-                shape: 'InternalServerErrorException'),
-            _i1.ErrorKind.server,
-            _i12.InternalServerErrorException,
-            statusCode: 500,
-            builder: _i12.InternalServerErrorException.fromResponse),
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.pinpoint',
+            shape: 'InternalServerErrorException',
+          ),
+          _i1.ErrorKind.server,
+          _i12.InternalServerErrorException,
+          statusCode: 500,
+          builder: _i12.InternalServerErrorException.fromResponse,
+        ),
         _i1.SmithyError(
-            _i1.ShapeId(
-                namespace: 'com.amazonaws.pinpoint',
-                shape: 'MethodNotAllowedException'),
-            _i1.ErrorKind.client,
-            _i13.MethodNotAllowedException,
-            statusCode: 405,
-            builder: _i13.MethodNotAllowedException.fromResponse),
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.pinpoint',
+            shape: 'MethodNotAllowedException',
+          ),
+          _i1.ErrorKind.client,
+          _i13.MethodNotAllowedException,
+          statusCode: 405,
+          builder: _i13.MethodNotAllowedException.fromResponse,
+        ),
         _i1.SmithyError(
-            _i1.ShapeId(
-                namespace: 'com.amazonaws.pinpoint',
-                shape: 'NotFoundException'),
-            _i1.ErrorKind.client,
-            _i14.NotFoundException,
-            statusCode: 404,
-            builder: _i14.NotFoundException.fromResponse),
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.pinpoint',
+            shape: 'NotFoundException',
+          ),
+          _i1.ErrorKind.client,
+          _i14.NotFoundException,
+          statusCode: 404,
+          builder: _i14.NotFoundException.fromResponse,
+        ),
         _i1.SmithyError(
-            _i1.ShapeId(
-                namespace: 'com.amazonaws.pinpoint',
-                shape: 'PayloadTooLargeException'),
-            _i1.ErrorKind.client,
-            _i15.PayloadTooLargeException,
-            statusCode: 413,
-            builder: _i15.PayloadTooLargeException.fromResponse),
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.pinpoint',
+            shape: 'PayloadTooLargeException',
+          ),
+          _i1.ErrorKind.client,
+          _i15.PayloadTooLargeException,
+          statusCode: 413,
+          builder: _i15.PayloadTooLargeException.fromResponse,
+        ),
         _i1.SmithyError(
-            _i1.ShapeId(
-                namespace: 'com.amazonaws.pinpoint',
-                shape: 'TooManyRequestsException'),
-            _i1.ErrorKind.client,
-            _i16.TooManyRequestsException,
-            statusCode: 429,
-            builder: _i16.TooManyRequestsException.fromResponse)
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.pinpoint',
+            shape: 'TooManyRequestsException',
+          ),
+          _i1.ErrorKind.client,
+          _i16.TooManyRequestsException,
+          statusCode: 429,
+          builder: _i16.TooManyRequestsException.fromResponse,
+        ),
       ];
+  @override
+  String get runtimeTypeName => 'GetInAppMessages';
   @override
   _i6.AWSRetryer get retryer => _i6.AWSRetryer();
   @override
@@ -162,15 +187,21 @@ class GetInAppMessagesOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i17.Future<_i4.GetInAppMessagesResponse> run(
-      _i2.GetInAppMessagesRequest input,
-      {_i8.AWSHttpClient? client,
-      _i1.ShapeId? useProtocol}) {
+  _i1.SmithyOperation<_i4.GetInAppMessagesResponse> run(
+    _i2.GetInAppMessagesRequest input, {
+    _i8.AWSHttpClient? client,
+    _i1.ShapeId? useProtocol,
+  }) {
     return _i17.runZoned(
-        () => super.run(input, client: client, useProtocol: useProtocol),
-        zoneValues: {
-          ...?_awsEndpoint.credentialScope?.zoneValues,
-          ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)}
-        });
+      () => super.run(
+        input,
+        client: client,
+        useProtocol: useProtocol,
+      ),
+      zoneValues: {
+        ...?_awsEndpoint.credentialScope?.zoneValues,
+        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)}
+      },
+    );
   }
 }

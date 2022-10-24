@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.5.2. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library amplify_analytics_pinpoint_dart.pinpoint.model.update_endpoint_request;
+library amplify_analytics_pinpoint_dart.pinpoint.model.update_endpoint_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/endpoint_request.dart'
     as _i2;
@@ -18,14 +18,16 @@ abstract class UpdateEndpointRequest
     implements
         Built<UpdateEndpointRequest, UpdateEndpointRequestBuilder>,
         _i1.HasPayload<_i2.EndpointRequest> {
-  factory UpdateEndpointRequest(
-      {required String applicationId,
-      required String endpointId,
-      required _i2.EndpointRequest endpointRequest}) {
+  factory UpdateEndpointRequest({
+    required String applicationId,
+    required String endpointId,
+    required _i2.EndpointRequest endpointRequest,
+  }) {
     return _$UpdateEndpointRequest._(
-        applicationId: applicationId,
-        endpointId: endpointId,
-        endpointRequest: endpointRequest);
+      applicationId: applicationId,
+      endpointId: endpointId,
+      endpointRequest: endpointRequest,
+    );
   }
 
   factory UpdateEndpointRequest.build(
@@ -35,8 +37,10 @@ abstract class UpdateEndpointRequest
   const UpdateEndpointRequest._();
 
   factory UpdateEndpointRequest.fromRequest(
-          _i2.EndpointRequest payload, _i3.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    _i2.EndpointRequest payload,
+    _i3.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       UpdateEndpointRequest.build((b) {
         b.endpointRequest.replace(payload);
         if (labels['applicationId'] != null) {
@@ -48,7 +52,7 @@ abstract class UpdateEndpointRequest
       });
 
   static const List<_i1.SmithySerializer> serializers = [
-    _UpdateEndpointRequestRestJson1Serializer()
+    UpdateEndpointRequestRestJson1Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -70,49 +74,80 @@ abstract class UpdateEndpointRequest
       case 'EndpointId':
         return endpointId;
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
   _i2.EndpointRequest getPayload() => endpointRequest;
   @override
-  List<Object?> get props => [applicationId, endpointId, endpointRequest];
+  List<Object?> get props => [
+        applicationId,
+        endpointId,
+        endpointRequest,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateEndpointRequest');
-    helper.add('applicationId', applicationId);
-    helper.add('endpointId', endpointId);
-    helper.add('endpointRequest', endpointRequest);
+    helper.add(
+      'applicationId',
+      applicationId,
+    );
+    helper.add(
+      'endpointId',
+      endpointId,
+    );
+    helper.add(
+      'endpointRequest',
+      endpointRequest,
+    );
     return helper.toString();
   }
 }
 
-class _UpdateEndpointRequestRestJson1Serializer
-    extends _i1.PrimitiveSmithySerializer<Object> {
-  const _UpdateEndpointRequestRestJson1Serializer()
+class UpdateEndpointRequestRestJson1Serializer
+    extends _i1.PrimitiveSmithySerializer<_i2.EndpointRequest> {
+  const UpdateEndpointRequestRestJson1Serializer()
       : super('UpdateEndpointRequest');
 
   @override
-  Iterable<Type> get types =>
-      const [UpdateEndpointRequest, _$UpdateEndpointRequest];
+  Iterable<Type> get types => const [
+        UpdateEndpointRequest,
+        _$UpdateEndpointRequest,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
-  _i2.EndpointRequest deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return (serializers.deserialize(serialized,
-            specifiedType: const FullType(_i2.EndpointRequest))
-        as _i2.EndpointRequest);
+  _i2.EndpointRequest deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return (serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(_i2.EndpointRequest),
+    ) as _i2.EndpointRequest);
   }
 
   @override
-  Object serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is UpdateEndpointRequest
         ? object.getPayload()
         : (object as _i2.EndpointRequest);
-    return (serializers.serialize(payload,
-        specifiedType: const FullType(_i2.EndpointRequest)) as Object);
+    return (serializers.serialize(
+      payload,
+      specifiedType: const FullType(_i2.EndpointRequest),
+    ) as Object);
   }
 }

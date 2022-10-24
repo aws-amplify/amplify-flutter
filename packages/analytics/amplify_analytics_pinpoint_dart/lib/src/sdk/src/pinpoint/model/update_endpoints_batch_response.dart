@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.5.2. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library amplify_analytics_pinpoint_dart.pinpoint.model.update_endpoints_batch_response;
+library amplify_analytics_pinpoint_dart.pinpoint.model.update_endpoints_batch_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/message_body.dart'
     as _i3;
@@ -30,13 +30,15 @@ abstract class UpdateEndpointsBatchResponse
 
   /// Constructs a [UpdateEndpointsBatchResponse] from a [payload] and [response].
   factory UpdateEndpointsBatchResponse.fromResponse(
-          _i3.MessageBody payload, _i1.AWSBaseHttpResponse response) =>
+    _i3.MessageBody payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       UpdateEndpointsBatchResponse.build((b) {
         b.messageBody.replace(payload);
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _UpdateEndpointsBatchResponseRestJson1Serializer()
+    UpdateEndpointsBatchResponseRestJson1Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -51,36 +53,55 @@ abstract class UpdateEndpointsBatchResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateEndpointsBatchResponse');
-    helper.add('messageBody', messageBody);
+    helper.add(
+      'messageBody',
+      messageBody,
+    );
     return helper.toString();
   }
 }
 
-class _UpdateEndpointsBatchResponseRestJson1Serializer
-    extends _i2.PrimitiveSmithySerializer<Object> {
-  const _UpdateEndpointsBatchResponseRestJson1Serializer()
+class UpdateEndpointsBatchResponseRestJson1Serializer
+    extends _i2.PrimitiveSmithySerializer<_i3.MessageBody> {
+  const UpdateEndpointsBatchResponseRestJson1Serializer()
       : super('UpdateEndpointsBatchResponse');
 
   @override
-  Iterable<Type> get types =>
-      const [UpdateEndpointsBatchResponse, _$UpdateEndpointsBatchResponse];
+  Iterable<Type> get types => const [
+        UpdateEndpointsBatchResponse,
+        _$UpdateEndpointsBatchResponse,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
-  _i3.MessageBody deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return (serializers.deserialize(serialized,
-        specifiedType: const FullType(_i3.MessageBody)) as _i3.MessageBody);
+  _i3.MessageBody deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return (serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(_i3.MessageBody),
+    ) as _i3.MessageBody);
   }
 
   @override
-  Object serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is UpdateEndpointsBatchResponse
         ? object.getPayload()
         : (object as _i3.MessageBody);
-    return (serializers.serialize(payload,
-        specifiedType: const FullType(_i3.MessageBody)) as Object);
+    return (serializers.serialize(
+      payload,
+      specifiedType: const FullType(_i3.MessageBody),
+    ) as Object);
   }
 }

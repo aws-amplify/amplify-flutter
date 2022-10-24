@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.5.2. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library amplify_analytics_pinpoint_dart.pinpoint.model.endpoint_user;
+library amplify_analytics_pinpoint_dart.pinpoint.model.endpoint_user; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_collection/built_collection.dart' as _i2;
@@ -15,9 +15,15 @@ abstract class EndpointUser
     with _i1.AWSEquatable<EndpointUser>
     implements Built<EndpointUser, EndpointUserBuilder> {
   /// Specifies data for one or more attributes that describe the user who's associated with an endpoint.
-  factory EndpointUser(
-      {_i2.BuiltListMultimap<String, String>? userAttributes, String? userId}) {
-    return _$EndpointUser._(userAttributes: userAttributes, userId: userId);
+  factory EndpointUser({
+    Map<String, List<String>>? userAttributes,
+    String? userId,
+  }) {
+    return _$EndpointUser._(
+      userAttributes:
+          userAttributes == null ? null : _i2.BuiltListMultimap(userAttributes),
+      userId: userId,
+    );
   }
 
   /// Specifies data for one or more attributes that describe the user who's associated with an endpoint.
@@ -27,7 +33,7 @@ abstract class EndpointUser
   const EndpointUser._();
 
   static const List<_i3.SmithySerializer> serializers = [
-    _EndpointUserRestJson1Serializer()
+    EndpointUserRestJson1Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -41,29 +47,47 @@ abstract class EndpointUser
   /// The unique identifier for the user.
   String? get userId;
   @override
-  List<Object?> get props => [userAttributes, userId];
+  List<Object?> get props => [
+        userAttributes,
+        userId,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EndpointUser');
-    helper.add('userAttributes', userAttributes);
-    helper.add('userId', userId);
+    helper.add(
+      'userAttributes',
+      userAttributes,
+    );
+    helper.add(
+      'userId',
+      userId,
+    );
     return helper.toString();
   }
 }
 
-class _EndpointUserRestJson1Serializer
+class EndpointUserRestJson1Serializer
     extends _i3.StructuredSmithySerializer<EndpointUser> {
-  const _EndpointUserRestJson1Serializer() : super('EndpointUser');
+  const EndpointUserRestJson1Serializer() : super('EndpointUser');
 
   @override
-  Iterable<Type> get types => const [EndpointUser, _$EndpointUser];
+  Iterable<Type> get types => const [
+        EndpointUser,
+        _$EndpointUser,
+      ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols =>
-      const [_i3.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   EndpointUser deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = EndpointUserBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -73,17 +97,24 @@ class _EndpointUserRestJson1Serializer
       switch (key) {
         case 'UserAttributes':
           if (value != null) {
-            result.userAttributes.replace((serializers.deserialize(value,
-                specifiedType: const FullType(_i2.BuiltListMultimap, [
+            result.userAttributes.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i2.BuiltListMultimap,
+                [
                   FullType(String),
-                  FullType(String)
-                ])) as _i2.BuiltListMultimap<String, String>));
+                  FullType(String),
+                ],
+              ),
+            ) as _i2.BuiltListMultimap<String, String>));
           }
           break;
         case 'UserId':
           if (value != null) {
-            result.userId = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.userId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -93,22 +124,34 @@ class _EndpointUserRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as EndpointUser);
     final result = <Object?>[];
     if (payload.userAttributes != null) {
       result
         ..add('UserAttributes')
-        ..add(serializers.serialize(payload.userAttributes!,
-            specifiedType: const FullType(
-                _i2.BuiltListMultimap, [FullType(String), FullType(String)])));
+        ..add(serializers.serialize(
+          payload.userAttributes!,
+          specifiedType: const FullType(
+            _i2.BuiltListMultimap,
+            [
+              FullType(String),
+              FullType(String),
+            ],
+          ),
+        ));
     }
     if (payload.userId != null) {
       result
         ..add('UserId')
-        ..add(serializers.serialize(payload.userId!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.userId!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

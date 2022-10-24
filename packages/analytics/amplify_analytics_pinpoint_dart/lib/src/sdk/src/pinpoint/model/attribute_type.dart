@@ -1,28 +1,63 @@
-// Generated with smithy-dart 0.5.2. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library amplify_analytics_pinpoint_dart.pinpoint.model.attribute_type;
+library amplify_analytics_pinpoint_dart.pinpoint.model.attribute_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:smithy/smithy.dart' as _i1;
 
 class AttributeType extends _i1.SmithyEnum<AttributeType> {
-  const AttributeType._(int index, String name, String value)
-      : super(index, name, value);
+  const AttributeType._(
+    int index,
+    String name,
+    String value,
+  ) : super(
+          index,
+          name,
+          value,
+        );
 
   const AttributeType._sdkUnknown(String value) : super.sdkUnknown(value);
 
-  static const after = AttributeType._(0, 'AFTER', 'AFTER');
+  static const after = AttributeType._(
+    0,
+    'AFTER',
+    'AFTER',
+  );
 
-  static const before = AttributeType._(1, 'BEFORE', 'BEFORE');
+  static const before = AttributeType._(
+    1,
+    'BEFORE',
+    'BEFORE',
+  );
 
-  static const between = AttributeType._(2, 'BETWEEN', 'BETWEEN');
+  static const between = AttributeType._(
+    2,
+    'BETWEEN',
+    'BETWEEN',
+  );
 
-  static const contains = AttributeType._(3, 'CONTAINS', 'CONTAINS');
+  static const contains = AttributeType._(
+    3,
+    'CONTAINS',
+    'CONTAINS',
+  );
 
-  static const exclusive = AttributeType._(4, 'EXCLUSIVE', 'EXCLUSIVE');
+  static const exclusive = AttributeType._(
+    4,
+    'EXCLUSIVE',
+    'EXCLUSIVE',
+  );
 
-  static const inclusive = AttributeType._(5, 'INCLUSIVE', 'INCLUSIVE');
+  static const inclusive = AttributeType._(
+    5,
+    'INCLUSIVE',
+    'INCLUSIVE',
+  );
 
-  static const on = AttributeType._(6, 'ON', 'ON');
+  static const on = AttributeType._(
+    6,
+    'ON',
+    'ON',
+  );
 
   /// All values of [AttributeType].
   static const values = <AttributeType>[
@@ -32,16 +67,21 @@ class AttributeType extends _i1.SmithyEnum<AttributeType> {
     AttributeType.contains,
     AttributeType.exclusive,
     AttributeType.inclusive,
-    AttributeType.on
+    AttributeType.on,
   ];
 
   static const List<_i1.SmithySerializer<AttributeType>> serializers = [
-    _i1.SmithyEnumSerializer('AttributeType',
-        values: values,
-        sdkUnknown: AttributeType._sdkUnknown,
-        supportedProtocols: [
-          _i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')
-        ])
+    _i1.SmithyEnumSerializer(
+      'AttributeType',
+      values: values,
+      sdkUnknown: AttributeType._sdkUnknown,
+      supportedProtocols: [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ],
+    )
   ];
 }
 

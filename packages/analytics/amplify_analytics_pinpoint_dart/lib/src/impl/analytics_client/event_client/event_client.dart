@@ -16,7 +16,6 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoi
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_storage_adapter.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
 import 'package:uuid/uuid.dart';
@@ -101,20 +100,20 @@ class EventClient {
     // The Event batch to be sent to Pinpoint
     final batch = EventsBatch(
       endpoint: _endpointClient.getPublicEndpoint(),
-      events: BuiltMap<String, Event>(eventsMap),
+      events: eventsMap,
     );
 
-    final batchItems = BuiltMap<String, EventsBatch>(
-      {_fixedEndpointId: batch},
-    );
+    final batchItems = {_fixedEndpointId: batch};
 
     try {
-      final result = await _pinpointClient.putEvents(
-        PutEventsRequest(
-          applicationId: _appId,
-          eventsRequest: EventsRequest(batchItem: batchItems),
-        ),
-      );
+      final result = await _pinpointClient
+          .putEvents(
+            PutEventsRequest(
+              applicationId: _appId,
+              eventsRequest: EventsRequest(batchItem: batchItems),
+            ),
+          )
+          .result;
 
       // Parse the EndpointResponse portion of Result
       final endpointResponse = result.eventsResponse.results?[_fixedEndpointId];
@@ -183,7 +182,7 @@ class EventClient {
     }
     // Always delete local store of events
     // Unless a retryable exception has been received (see above)
-    finally {
+     finally {
       await _storageAdapter.deleteEvents(eventIdsToDelete.values);
     }
   }

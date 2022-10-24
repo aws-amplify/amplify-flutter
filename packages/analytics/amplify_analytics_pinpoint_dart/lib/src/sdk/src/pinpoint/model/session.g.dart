@@ -8,7 +8,7 @@ part of amplify_analytics_pinpoint_dart.pinpoint.model.session;
 
 class _$Session extends Session {
   @override
-  final int? duration;
+  final int duration;
   @override
   final String id;
   @override
@@ -20,11 +20,12 @@ class _$Session extends Session {
       (new SessionBuilder()..update(updates))._build();
 
   _$Session._(
-      {this.duration,
+      {required this.duration,
       required this.id,
       required this.startTimestamp,
       this.stopTimestamp})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(duration, r'Session', 'duration');
     BuiltValueNullFieldError.checkNotNull(id, r'Session', 'id');
     BuiltValueNullFieldError.checkNotNull(
         startTimestamp, r'Session', 'startTimestamp');
@@ -110,7 +111,8 @@ class SessionBuilder implements Builder<Session, SessionBuilder> {
   _$Session _build() {
     final _$result = _$v ??
         new _$Session._(
-            duration: duration,
+            duration: BuiltValueNullFieldError.checkNotNull(
+                duration, r'Session', 'duration'),
             id: BuiltValueNullFieldError.checkNotNull(id, r'Session', 'id'),
             startTimestamp: BuiltValueNullFieldError.checkNotNull(
                 startTimestamp, r'Session', 'startTimestamp'),
