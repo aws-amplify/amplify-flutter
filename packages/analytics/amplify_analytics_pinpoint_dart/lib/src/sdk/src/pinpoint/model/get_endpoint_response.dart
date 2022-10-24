@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.5.2. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library amplify_analytics_pinpoint_dart.pinpoint.model.get_endpoint_response;
+library amplify_analytics_pinpoint_dart.pinpoint.model.get_endpoint_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/endpoint_response.dart'
     as _i3;
@@ -29,13 +29,15 @@ abstract class GetEndpointResponse
 
   /// Constructs a [GetEndpointResponse] from a [payload] and [response].
   factory GetEndpointResponse.fromResponse(
-          _i3.EndpointResponse payload, _i1.AWSBaseHttpResponse response) =>
+    _i3.EndpointResponse payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       GetEndpointResponse.build((b) {
         b.endpointResponse.replace(payload);
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _GetEndpointResponseRestJson1Serializer()
+    GetEndpointResponseRestJson1Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -50,37 +52,54 @@ abstract class GetEndpointResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetEndpointResponse');
-    helper.add('endpointResponse', endpointResponse);
+    helper.add(
+      'endpointResponse',
+      endpointResponse,
+    );
     return helper.toString();
   }
 }
 
-class _GetEndpointResponseRestJson1Serializer
-    extends _i2.PrimitiveSmithySerializer<Object> {
-  const _GetEndpointResponseRestJson1Serializer()
-      : super('GetEndpointResponse');
+class GetEndpointResponseRestJson1Serializer
+    extends _i2.PrimitiveSmithySerializer<_i3.EndpointResponse> {
+  const GetEndpointResponseRestJson1Serializer() : super('GetEndpointResponse');
 
   @override
-  Iterable<Type> get types =>
-      const [GetEndpointResponse, _$GetEndpointResponse];
+  Iterable<Type> get types => const [
+        GetEndpointResponse,
+        _$GetEndpointResponse,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
-  _i3.EndpointResponse deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return (serializers.deserialize(serialized,
-            specifiedType: const FullType(_i3.EndpointResponse))
-        as _i3.EndpointResponse);
+  _i3.EndpointResponse deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return (serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(_i3.EndpointResponse),
+    ) as _i3.EndpointResponse);
   }
 
   @override
-  Object serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is GetEndpointResponse
         ? object.getPayload()
         : (object as _i3.EndpointResponse);
-    return (serializers.serialize(payload,
-        specifiedType: const FullType(_i3.EndpointResponse)) as Object);
+    return (serializers.serialize(
+      payload,
+      specifiedType: const FullType(_i3.EndpointResponse),
+    ) as Object);
   }
 }

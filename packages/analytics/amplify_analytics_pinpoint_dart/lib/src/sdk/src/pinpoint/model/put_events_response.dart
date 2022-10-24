@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.5.2. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library amplify_analytics_pinpoint_dart.pinpoint.model.put_events_response;
+library amplify_analytics_pinpoint_dart.pinpoint.model.put_events_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/events_response.dart'
     as _i3;
@@ -27,13 +27,15 @@ abstract class PutEventsResponse
 
   /// Constructs a [PutEventsResponse] from a [payload] and [response].
   factory PutEventsResponse.fromResponse(
-          _i3.EventsResponse payload, _i1.AWSBaseHttpResponse response) =>
+    _i3.EventsResponse payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       PutEventsResponse.build((b) {
         b.eventsResponse.replace(payload);
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _PutEventsResponseRestJson1Serializer()
+    PutEventsResponseRestJson1Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -48,35 +50,54 @@ abstract class PutEventsResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PutEventsResponse');
-    helper.add('eventsResponse', eventsResponse);
+    helper.add(
+      'eventsResponse',
+      eventsResponse,
+    );
     return helper.toString();
   }
 }
 
-class _PutEventsResponseRestJson1Serializer
-    extends _i2.PrimitiveSmithySerializer<Object> {
-  const _PutEventsResponseRestJson1Serializer() : super('PutEventsResponse');
+class PutEventsResponseRestJson1Serializer
+    extends _i2.PrimitiveSmithySerializer<_i3.EventsResponse> {
+  const PutEventsResponseRestJson1Serializer() : super('PutEventsResponse');
 
   @override
-  Iterable<Type> get types => const [PutEventsResponse, _$PutEventsResponse];
+  Iterable<Type> get types => const [
+        PutEventsResponse,
+        _$PutEventsResponse,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
-  _i3.EventsResponse deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return (serializers.deserialize(serialized,
-            specifiedType: const FullType(_i3.EventsResponse))
-        as _i3.EventsResponse);
+  _i3.EventsResponse deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return (serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(_i3.EventsResponse),
+    ) as _i3.EventsResponse);
   }
 
   @override
-  Object serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is PutEventsResponse
         ? object.getPayload()
         : (object as _i3.EventsResponse);
-    return (serializers.serialize(payload,
-        specifiedType: const FullType(_i3.EventsResponse)) as Object);
+    return (serializers.serialize(
+      payload,
+      specifiedType: const FullType(_i3.EventsResponse),
+    ) as Object);
   }
 }

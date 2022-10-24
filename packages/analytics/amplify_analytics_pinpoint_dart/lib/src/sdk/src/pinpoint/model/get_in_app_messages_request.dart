@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.5.2. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library amplify_analytics_pinpoint_dart.pinpoint.model.get_in_app_messages_request;
+library amplify_analytics_pinpoint_dart.pinpoint.model.get_in_app_messages_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -18,10 +18,14 @@ abstract class GetInAppMessagesRequest
         Built<GetInAppMessagesRequest, GetInAppMessagesRequestBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<GetInAppMessagesRequestPayload> {
-  factory GetInAppMessagesRequest(
-      {required String applicationId, required String endpointId}) {
+  factory GetInAppMessagesRequest({
+    required String applicationId,
+    required String endpointId,
+  }) {
     return _$GetInAppMessagesRequest._(
-        applicationId: applicationId, endpointId: endpointId);
+      applicationId: applicationId,
+      endpointId: endpointId,
+    );
   }
 
   factory GetInAppMessagesRequest.build(
@@ -31,9 +35,10 @@ abstract class GetInAppMessagesRequest
   const GetInAppMessagesRequest._();
 
   factory GetInAppMessagesRequest.fromRequest(
-          GetInAppMessagesRequestPayload payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    GetInAppMessagesRequestPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       GetInAppMessagesRequest.build((b) {
         if (labels['applicationId'] != null) {
           b.applicationId = labels['applicationId']!;
@@ -44,7 +49,7 @@ abstract class GetInAppMessagesRequest
       });
 
   static const List<_i1.SmithySerializer> serializers = [
-    _GetInAppMessagesRequestRestJson1Serializer()
+    GetInAppMessagesRequestRestJson1Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -63,19 +68,31 @@ abstract class GetInAppMessagesRequest
       case 'EndpointId':
         return endpointId;
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
   GetInAppMessagesRequestPayload getPayload() =>
       GetInAppMessagesRequestPayload();
   @override
-  List<Object?> get props => [applicationId, endpointId];
+  List<Object?> get props => [
+        applicationId,
+        endpointId,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetInAppMessagesRequest');
-    helper.add('applicationId', applicationId);
-    helper.add('endpointId', endpointId);
+    helper.add(
+      'applicationId',
+      applicationId,
+    );
+    helper.add(
+      'endpointId',
+      endpointId,
+    );
     return helper.toString();
   }
 }
@@ -106,9 +123,9 @@ abstract class GetInAppMessagesRequestPayload
   }
 }
 
-class _GetInAppMessagesRequestRestJson1Serializer
+class GetInAppMessagesRequestRestJson1Serializer
     extends _i1.StructuredSmithySerializer<GetInAppMessagesRequestPayload> {
-  const _GetInAppMessagesRequestRestJson1Serializer()
+  const GetInAppMessagesRequestRestJson1Serializer()
       : super('GetInAppMessagesRequest');
 
   @override
@@ -116,20 +133,29 @@ class _GetInAppMessagesRequestRestJson1Serializer
         GetInAppMessagesRequest,
         _$GetInAppMessagesRequest,
         GetInAppMessagesRequestPayload,
-        _$GetInAppMessagesRequestPayload
+        _$GetInAppMessagesRequestPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   GetInAppMessagesRequestPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return GetInAppMessagesRequestPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

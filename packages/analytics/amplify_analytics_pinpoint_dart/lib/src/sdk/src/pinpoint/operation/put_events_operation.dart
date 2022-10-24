@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.5.2. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library amplify_analytics_pinpoint_dart.pinpoint.operation.put_events_operation;
+library amplify_analytics_pinpoint_dart.pinpoint.operation.put_events_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i18;
 
@@ -39,12 +39,12 @@ import 'package:smithy_aws/smithy_aws.dart' as _i7;
 class PutEventsOperation extends _i1.HttpOperation<_i2.EventsRequest,
     _i3.PutEventsRequest, _i4.EventsResponse, _i5.PutEventsResponse> {
   /// Creates a new event to record for endpoints, or creates or updates endpoint data that existing events are associated with.
-  PutEventsOperation(
-      {required String region,
-      Uri? baseUri,
-      _i6.AWSCredentialsProvider credentialsProvider =
-          const _i6.AWSCredentialsProvider.environment()})
-      : _region = region,
+  PutEventsOperation({
+    required String region,
+    Uri? baseUri,
+    _i6.AWSCredentialsProvider credentialsProvider =
+        const _i6.AWSCredentialsProvider.environment(),
+  })  : _region = region,
         _baseUri = baseUri,
         _credentialsProvider = credentialsProvider;
 
@@ -53,24 +53,28 @@ class PutEventsOperation extends _i1.HttpOperation<_i2.EventsRequest,
       _i1.HttpProtocol<_i2.EventsRequest, _i3.PutEventsRequest,
           _i4.EventsResponse, _i5.PutEventsResponse>> protocols = [
     _i7.RestJson1Protocol(
-        serializers: _i8.serializers,
-        builderFactories: _i8.builderFactories,
-        requestInterceptors: [
-          const _i1.WithHost(),
-          const _i1.WithContentLength(),
-          _i7.WithSigV4(
-              region: _region,
-              service: _i9.AWSService.pinpoint,
-              credentialsProvider: _credentialsProvider),
-          const _i1.WithUserAgent('aws-sdk-dart/0.5.2'),
-          const _i7.WithSdkInvocationId(),
-          const _i7.WithSdkRequest()
-        ],
-        responseInterceptors: [])
+      serializers: _i8.serializers,
+      builderFactories: _i8.builderFactories,
+      requestInterceptors: [
+        const _i1.WithHost(),
+        const _i1.WithContentLength(),
+        _i7.WithSigV4(
+          region: _region,
+          service: _i9.AWSService.pinpoint,
+          credentialsProvider: _credentialsProvider,
+        ),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
+        const _i7.WithSdkInvocationId(),
+        const _i7.WithSdkRequest(),
+      ],
+      responseInterceptors: [],
+    )
   ];
 
-  late final _i7.AWSEndpoint _awsEndpoint =
-      _i10.endpointResolver.resolve(_i10.sdkId, _region);
+  late final _i7.AWSEndpoint _awsEndpoint = _i10.endpointResolver.resolve(
+    _i10.sdkId,
+    _region,
+  );
 
   final String _region;
 
@@ -88,67 +92,88 @@ class PutEventsOperation extends _i1.HttpOperation<_i2.EventsRequest,
   int successCode([_i5.PutEventsResponse? output]) => 202;
   @override
   _i5.PutEventsResponse buildOutput(
-          _i4.EventsResponse payload, _i9.AWSBaseHttpResponse response) =>
-      _i5.PutEventsResponse.fromResponse(payload, response);
+    _i4.EventsResponse payload,
+    _i9.AWSBaseHttpResponse response,
+  ) =>
+      _i5.PutEventsResponse.fromResponse(
+        payload,
+        response,
+      );
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError(
-            _i1.ShapeId(
-                namespace: 'com.amazonaws.pinpoint',
-                shape: 'BadRequestException'),
-            _i1.ErrorKind.client,
-            _i11.BadRequestException,
-            statusCode: 400,
-            builder: _i11.BadRequestException.fromResponse),
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.pinpoint',
+            shape: 'BadRequestException',
+          ),
+          _i1.ErrorKind.client,
+          _i11.BadRequestException,
+          statusCode: 400,
+          builder: _i11.BadRequestException.fromResponse,
+        ),
         _i1.SmithyError(
-            _i1.ShapeId(
-                namespace: 'com.amazonaws.pinpoint',
-                shape: 'ForbiddenException'),
-            _i1.ErrorKind.client,
-            _i12.ForbiddenException,
-            statusCode: 403,
-            builder: _i12.ForbiddenException.fromResponse),
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.pinpoint',
+            shape: 'ForbiddenException',
+          ),
+          _i1.ErrorKind.client,
+          _i12.ForbiddenException,
+          statusCode: 403,
+          builder: _i12.ForbiddenException.fromResponse,
+        ),
         _i1.SmithyError(
-            _i1.ShapeId(
-                namespace: 'com.amazonaws.pinpoint',
-                shape: 'InternalServerErrorException'),
-            _i1.ErrorKind.server,
-            _i13.InternalServerErrorException,
-            statusCode: 500,
-            builder: _i13.InternalServerErrorException.fromResponse),
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.pinpoint',
+            shape: 'InternalServerErrorException',
+          ),
+          _i1.ErrorKind.server,
+          _i13.InternalServerErrorException,
+          statusCode: 500,
+          builder: _i13.InternalServerErrorException.fromResponse,
+        ),
         _i1.SmithyError(
-            _i1.ShapeId(
-                namespace: 'com.amazonaws.pinpoint',
-                shape: 'MethodNotAllowedException'),
-            _i1.ErrorKind.client,
-            _i14.MethodNotAllowedException,
-            statusCode: 405,
-            builder: _i14.MethodNotAllowedException.fromResponse),
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.pinpoint',
+            shape: 'MethodNotAllowedException',
+          ),
+          _i1.ErrorKind.client,
+          _i14.MethodNotAllowedException,
+          statusCode: 405,
+          builder: _i14.MethodNotAllowedException.fromResponse,
+        ),
         _i1.SmithyError(
-            _i1.ShapeId(
-                namespace: 'com.amazonaws.pinpoint',
-                shape: 'NotFoundException'),
-            _i1.ErrorKind.client,
-            _i15.NotFoundException,
-            statusCode: 404,
-            builder: _i15.NotFoundException.fromResponse),
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.pinpoint',
+            shape: 'NotFoundException',
+          ),
+          _i1.ErrorKind.client,
+          _i15.NotFoundException,
+          statusCode: 404,
+          builder: _i15.NotFoundException.fromResponse,
+        ),
         _i1.SmithyError(
-            _i1.ShapeId(
-                namespace: 'com.amazonaws.pinpoint',
-                shape: 'PayloadTooLargeException'),
-            _i1.ErrorKind.client,
-            _i16.PayloadTooLargeException,
-            statusCode: 413,
-            builder: _i16.PayloadTooLargeException.fromResponse),
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.pinpoint',
+            shape: 'PayloadTooLargeException',
+          ),
+          _i1.ErrorKind.client,
+          _i16.PayloadTooLargeException,
+          statusCode: 413,
+          builder: _i16.PayloadTooLargeException.fromResponse,
+        ),
         _i1.SmithyError(
-            _i1.ShapeId(
-                namespace: 'com.amazonaws.pinpoint',
-                shape: 'TooManyRequestsException'),
-            _i1.ErrorKind.client,
-            _i17.TooManyRequestsException,
-            statusCode: 429,
-            builder: _i17.TooManyRequestsException.fromResponse)
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.pinpoint',
+            shape: 'TooManyRequestsException',
+          ),
+          _i1.ErrorKind.client,
+          _i17.TooManyRequestsException,
+          statusCode: 429,
+          builder: _i17.TooManyRequestsException.fromResponse,
+        ),
       ];
+  @override
+  String get runtimeTypeName => 'PutEvents';
   @override
   _i7.AWSRetryer get retryer => _i7.AWSRetryer();
   @override
@@ -156,13 +181,21 @@ class PutEventsOperation extends _i1.HttpOperation<_i2.EventsRequest,
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i18.Future<_i5.PutEventsResponse> run(_i3.PutEventsRequest input,
-      {_i9.AWSHttpClient? client, _i1.ShapeId? useProtocol}) {
+  _i1.SmithyOperation<_i5.PutEventsResponse> run(
+    _i3.PutEventsRequest input, {
+    _i9.AWSHttpClient? client,
+    _i1.ShapeId? useProtocol,
+  }) {
     return _i18.runZoned(
-        () => super.run(input, client: client, useProtocol: useProtocol),
-        zoneValues: {
-          ...?_awsEndpoint.credentialScope?.zoneValues,
-          ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)}
-        });
+      () => super.run(
+        input,
+        client: client,
+        useProtocol: useProtocol,
+      ),
+      zoneValues: {
+        ...?_awsEndpoint.credentialScope?.zoneValues,
+        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)}
+      },
+    );
   }
 }

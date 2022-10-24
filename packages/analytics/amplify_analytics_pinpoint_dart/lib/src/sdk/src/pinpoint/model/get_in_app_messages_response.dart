@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.5.2. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library amplify_analytics_pinpoint_dart.pinpoint.model.get_in_app_messages_response;
+library amplify_analytics_pinpoint_dart.pinpoint.model.get_in_app_messages_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/in_app_messages_response.dart'
     as _i3;
@@ -30,14 +30,15 @@ abstract class GetInAppMessagesResponse
 
   /// Constructs a [GetInAppMessagesResponse] from a [payload] and [response].
   factory GetInAppMessagesResponse.fromResponse(
-          _i3.InAppMessagesResponse payload,
-          _i1.AWSBaseHttpResponse response) =>
+    _i3.InAppMessagesResponse payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       GetInAppMessagesResponse.build((b) {
         b.inAppMessagesResponse.replace(payload);
       });
 
   static const List<_i2.SmithySerializer> serializers = [
-    _GetInAppMessagesResponseRestJson1Serializer()
+    GetInAppMessagesResponseRestJson1Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -52,38 +53,55 @@ abstract class GetInAppMessagesResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetInAppMessagesResponse');
-    helper.add('inAppMessagesResponse', inAppMessagesResponse);
+    helper.add(
+      'inAppMessagesResponse',
+      inAppMessagesResponse,
+    );
     return helper.toString();
   }
 }
 
-class _GetInAppMessagesResponseRestJson1Serializer
-    extends _i2.PrimitiveSmithySerializer<Object> {
-  const _GetInAppMessagesResponseRestJson1Serializer()
+class GetInAppMessagesResponseRestJson1Serializer
+    extends _i2.PrimitiveSmithySerializer<_i3.InAppMessagesResponse> {
+  const GetInAppMessagesResponseRestJson1Serializer()
       : super('GetInAppMessagesResponse');
 
   @override
-  Iterable<Type> get types =>
-      const [GetInAppMessagesResponse, _$GetInAppMessagesResponse];
+  Iterable<Type> get types => const [
+        GetInAppMessagesResponse,
+        _$GetInAppMessagesResponse,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i3.InAppMessagesResponse deserialize(
-      Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return (serializers.deserialize(serialized,
-            specifiedType: const FullType(_i3.InAppMessagesResponse))
-        as _i3.InAppMessagesResponse);
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return (serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(_i3.InAppMessagesResponse),
+    ) as _i3.InAppMessagesResponse);
   }
 
   @override
-  Object serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is GetInAppMessagesResponse
         ? object.getPayload()
         : (object as _i3.InAppMessagesResponse);
-    return (serializers.serialize(payload,
-        specifiedType: const FullType(_i3.InAppMessagesResponse)) as Object);
+    return (serializers.serialize(
+      payload,
+      specifiedType: const FullType(_i3.InAppMessagesResponse),
+    ) as Object);
   }
 }

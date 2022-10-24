@@ -10,7 +10,7 @@ class _$EventsBatch extends EventsBatch {
   @override
   final _i2.PublicEndpoint endpoint;
   @override
-  final _i3.BuiltMap<String, _i4.Event> events;
+  final _i4.BuiltMap<String, _i3.Event> events;
 
   factory _$EventsBatch([void Function(EventsBatchBuilder)? updates]) =>
       (new EventsBatchBuilder()..update(updates))._build();
@@ -50,10 +50,10 @@ class EventsBatchBuilder implements Builder<EventsBatch, EventsBatchBuilder> {
   set endpoint(_i2.PublicEndpointBuilder? endpoint) =>
       _$this._endpoint = endpoint;
 
-  _i3.MapBuilder<String, _i4.Event>? _events;
-  _i3.MapBuilder<String, _i4.Event> get events =>
-      _$this._events ??= new _i3.MapBuilder<String, _i4.Event>();
-  set events(_i3.MapBuilder<String, _i4.Event>? events) =>
+  _i4.MapBuilder<String, _i3.Event>? _events;
+  _i4.MapBuilder<String, _i3.Event> get events =>
+      _$this._events ??= new _i4.MapBuilder<String, _i3.Event>();
+  set events(_i4.MapBuilder<String, _i3.Event>? events) =>
       _$this._events = events;
 
   EventsBatchBuilder() {

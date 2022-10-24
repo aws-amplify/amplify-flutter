@@ -8,7 +8,7 @@ part of amplify_analytics_pinpoint_dart.pinpoint.model.endpoint_batch_request;
 
 class _$EndpointBatchRequest extends EndpointBatchRequest {
   @override
-  final _i2.BuiltList<_i3.EndpointBatchItem> item;
+  final _i3.BuiltList<_i2.EndpointBatchItem> item;
 
   factory _$EndpointBatchRequest(
           [void Function(EndpointBatchRequestBuilder)? updates]) =>
@@ -44,10 +44,10 @@ class EndpointBatchRequestBuilder
     implements Builder<EndpointBatchRequest, EndpointBatchRequestBuilder> {
   _$EndpointBatchRequest? _$v;
 
-  _i2.ListBuilder<_i3.EndpointBatchItem>? _item;
-  _i2.ListBuilder<_i3.EndpointBatchItem> get item =>
-      _$this._item ??= new _i2.ListBuilder<_i3.EndpointBatchItem>();
-  set item(_i2.ListBuilder<_i3.EndpointBatchItem>? item) => _$this._item = item;
+  _i3.ListBuilder<_i2.EndpointBatchItem>? _item;
+  _i3.ListBuilder<_i2.EndpointBatchItem> get item =>
+      _$this._item ??= new _i3.ListBuilder<_i2.EndpointBatchItem>();
+  set item(_i3.ListBuilder<_i2.EndpointBatchItem>? item) => _$this._item = item;
 
   EndpointBatchRequestBuilder() {
     EndpointBatchRequest._init(this);

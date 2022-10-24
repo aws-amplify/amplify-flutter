@@ -10,7 +10,7 @@ class _$ItemResponse extends ItemResponse {
   @override
   final _i2.EndpointItemResponse? endpointItemResponse;
   @override
-  final _i3.BuiltMap<String, _i4.EventItemResponse>? eventsItemResponse;
+  final _i4.BuiltMap<String, _i3.EventItemResponse>? eventsItemResponse;
 
   factory _$ItemResponse([void Function(ItemResponseBuilder)? updates]) =>
       (new ItemResponseBuilder()..update(updates))._build();
@@ -51,12 +51,12 @@ class ItemResponseBuilder
           _i2.EndpointItemResponseBuilder? endpointItemResponse) =>
       _$this._endpointItemResponse = endpointItemResponse;
 
-  _i3.MapBuilder<String, _i4.EventItemResponse>? _eventsItemResponse;
-  _i3.MapBuilder<String, _i4.EventItemResponse> get eventsItemResponse =>
+  _i4.MapBuilder<String, _i3.EventItemResponse>? _eventsItemResponse;
+  _i4.MapBuilder<String, _i3.EventItemResponse> get eventsItemResponse =>
       _$this._eventsItemResponse ??=
-          new _i3.MapBuilder<String, _i4.EventItemResponse>();
+          new _i4.MapBuilder<String, _i3.EventItemResponse>();
   set eventsItemResponse(
-          _i3.MapBuilder<String, _i4.EventItemResponse>? eventsItemResponse) =>
+          _i4.MapBuilder<String, _i3.EventItemResponse>? eventsItemResponse) =>
       _$this._eventsItemResponse = eventsItemResponse;
 
   ItemResponseBuilder() {

@@ -14,17 +14,17 @@ class _$Event extends Event {
   @override
   final String? appVersionCode;
   @override
-  final _i2.BuiltMap<String, String>? attributes;
+  final _i3.BuiltMap<String, String>? attributes;
   @override
   final String? clientSdkVersion;
   @override
   final String eventType;
   @override
-  final _i2.BuiltMap<String, double>? metrics;
+  final _i3.BuiltMap<String, double>? metrics;
   @override
   final String? sdkName;
   @override
-  final _i3.Session? session;
+  final _i2.Session? session;
   @override
   final String timestamp;
 
@@ -110,10 +110,10 @@ class EventBuilder implements Builder<Event, EventBuilder> {
   set appVersionCode(String? appVersionCode) =>
       _$this._appVersionCode = appVersionCode;
 
-  _i2.MapBuilder<String, String>? _attributes;
-  _i2.MapBuilder<String, String> get attributes =>
-      _$this._attributes ??= new _i2.MapBuilder<String, String>();
-  set attributes(_i2.MapBuilder<String, String>? attributes) =>
+  _i3.MapBuilder<String, String>? _attributes;
+  _i3.MapBuilder<String, String> get attributes =>
+      _$this._attributes ??= new _i3.MapBuilder<String, String>();
+  set attributes(_i3.MapBuilder<String, String>? attributes) =>
       _$this._attributes = attributes;
 
   String? _clientSdkVersion;
@@ -125,20 +125,20 @@ class EventBuilder implements Builder<Event, EventBuilder> {
   String? get eventType => _$this._eventType;
   set eventType(String? eventType) => _$this._eventType = eventType;
 
-  _i2.MapBuilder<String, double>? _metrics;
-  _i2.MapBuilder<String, double> get metrics =>
-      _$this._metrics ??= new _i2.MapBuilder<String, double>();
-  set metrics(_i2.MapBuilder<String, double>? metrics) =>
+  _i3.MapBuilder<String, double>? _metrics;
+  _i3.MapBuilder<String, double> get metrics =>
+      _$this._metrics ??= new _i3.MapBuilder<String, double>();
+  set metrics(_i3.MapBuilder<String, double>? metrics) =>
       _$this._metrics = metrics;
 
   String? _sdkName;
   String? get sdkName => _$this._sdkName;
   set sdkName(String? sdkName) => _$this._sdkName = sdkName;
 
-  _i3.SessionBuilder? _session;
-  _i3.SessionBuilder get session =>
-      _$this._session ??= new _i3.SessionBuilder();
-  set session(_i3.SessionBuilder? session) => _$this._session = session;
+  _i2.SessionBuilder? _session;
+  _i2.SessionBuilder get session =>
+      _$this._session ??= new _i2.SessionBuilder();
+  set session(_i2.SessionBuilder? session) => _$this._session = session;
 
   String? _timestamp;
   String? get timestamp => _$this._timestamp;

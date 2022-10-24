@@ -8,11 +8,11 @@ part of amplify_analytics_pinpoint_dart.pinpoint.model.in_app_message;
 
 class _$InAppMessage extends InAppMessage {
   @override
-  final _i2.BuiltList<_i3.InAppMessageContent>? content;
+  final _i4.BuiltList<_i2.InAppMessageContent>? content;
   @override
-  final _i2.BuiltMap<String, String>? customConfig;
+  final _i4.BuiltMap<String, String>? customConfig;
   @override
-  final _i4.Layout? layout;
+  final _i3.Layout? layout;
 
   factory _$InAppMessage([void Function(InAppMessageBuilder)? updates]) =>
       (new InAppMessageBuilder()..update(updates))._build();
@@ -46,21 +46,21 @@ class InAppMessageBuilder
     implements Builder<InAppMessage, InAppMessageBuilder> {
   _$InAppMessage? _$v;
 
-  _i2.ListBuilder<_i3.InAppMessageContent>? _content;
-  _i2.ListBuilder<_i3.InAppMessageContent> get content =>
-      _$this._content ??= new _i2.ListBuilder<_i3.InAppMessageContent>();
-  set content(_i2.ListBuilder<_i3.InAppMessageContent>? content) =>
+  _i4.ListBuilder<_i2.InAppMessageContent>? _content;
+  _i4.ListBuilder<_i2.InAppMessageContent> get content =>
+      _$this._content ??= new _i4.ListBuilder<_i2.InAppMessageContent>();
+  set content(_i4.ListBuilder<_i2.InAppMessageContent>? content) =>
       _$this._content = content;
 
-  _i2.MapBuilder<String, String>? _customConfig;
-  _i2.MapBuilder<String, String> get customConfig =>
-      _$this._customConfig ??= new _i2.MapBuilder<String, String>();
-  set customConfig(_i2.MapBuilder<String, String>? customConfig) =>
+  _i4.MapBuilder<String, String>? _customConfig;
+  _i4.MapBuilder<String, String> get customConfig =>
+      _$this._customConfig ??= new _i4.MapBuilder<String, String>();
+  set customConfig(_i4.MapBuilder<String, String>? customConfig) =>
       _$this._customConfig = customConfig;
 
-  _i4.Layout? _layout;
-  _i4.Layout? get layout => _$this._layout;
-  set layout(_i4.Layout? layout) => _$this._layout = layout;
+  _i3.Layout? _layout;
+  _i3.Layout? get layout => _$this._layout;
+  set layout(_i3.Layout? layout) => _$this._layout = layout;
 
   InAppMessageBuilder() {
     InAppMessage._init(this);

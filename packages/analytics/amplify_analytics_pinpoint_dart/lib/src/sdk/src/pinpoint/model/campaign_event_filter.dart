@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.5.2. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library amplify_analytics_pinpoint_dart.pinpoint.model.campaign_event_filter;
+library amplify_analytics_pinpoint_dart.pinpoint.model.campaign_event_filter; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/event_dimensions.dart'
     as _i2;
@@ -18,11 +18,14 @@ abstract class CampaignEventFilter
     with _i1.AWSEquatable<CampaignEventFilter>
     implements Built<CampaignEventFilter, CampaignEventFilterBuilder> {
   /// Specifies the settings for events that cause a campaign to be sent.
-  factory CampaignEventFilter(
-      {required _i2.EventDimensions dimensions,
-      required _i3.FilterType filterType}) {
+  factory CampaignEventFilter({
+    required _i2.EventDimensions dimensions,
+    required _i3.FilterType filterType,
+  }) {
     return _$CampaignEventFilter._(
-        dimensions: dimensions, filterType: filterType);
+      dimensions: dimensions,
+      filterType: filterType,
+    );
   }
 
   /// Specifies the settings for events that cause a campaign to be sent.
@@ -33,7 +36,7 @@ abstract class CampaignEventFilter
   const CampaignEventFilter._();
 
   static const List<_i4.SmithySerializer> serializers = [
-    _CampaignEventFilterRestJson1Serializer()
+    CampaignEventFilterRestJson1Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -45,31 +48,47 @@ abstract class CampaignEventFilter
   /// The type of event that causes the campaign to be sent. Valid values are: SYSTEM, sends the campaign when a system event occurs; and, ENDPOINT, sends the campaign when an endpoint event (Events resource) occurs.
   _i3.FilterType get filterType;
   @override
-  List<Object?> get props => [dimensions, filterType];
+  List<Object?> get props => [
+        dimensions,
+        filterType,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CampaignEventFilter');
-    helper.add('dimensions', dimensions);
-    helper.add('filterType', filterType);
+    helper.add(
+      'dimensions',
+      dimensions,
+    );
+    helper.add(
+      'filterType',
+      filterType,
+    );
     return helper.toString();
   }
 }
 
-class _CampaignEventFilterRestJson1Serializer
+class CampaignEventFilterRestJson1Serializer
     extends _i4.StructuredSmithySerializer<CampaignEventFilter> {
-  const _CampaignEventFilterRestJson1Serializer()
-      : super('CampaignEventFilter');
+  const CampaignEventFilterRestJson1Serializer() : super('CampaignEventFilter');
 
   @override
-  Iterable<Type> get types =>
-      const [CampaignEventFilter, _$CampaignEventFilter];
+  Iterable<Type> get types => const [
+        CampaignEventFilter,
+        _$CampaignEventFilter,
+      ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   CampaignEventFilter deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = CampaignEventFilterBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -78,13 +97,16 @@ class _CampaignEventFilterRestJson1Serializer
       final value = iterator.current;
       switch (key) {
         case 'Dimensions':
-          result.dimensions.replace((serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.EventDimensions))
-              as _i2.EventDimensions));
+          result.dimensions.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.EventDimensions),
+          ) as _i2.EventDimensions));
           break;
         case 'FilterType':
-          result.filterType = (serializers.deserialize(value!,
-              specifiedType: const FullType(_i3.FilterType)) as _i3.FilterType);
+          result.filterType = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(_i3.FilterType),
+          ) as _i3.FilterType);
           break;
       }
     }
@@ -93,16 +115,23 @@ class _CampaignEventFilterRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as CampaignEventFilter);
     final result = <Object?>[
       'Dimensions',
-      serializers.serialize(payload.dimensions,
-          specifiedType: const FullType(_i2.EventDimensions)),
+      serializers.serialize(
+        payload.dimensions,
+        specifiedType: const FullType(_i2.EventDimensions),
+      ),
       'FilterType',
-      serializers.serialize(payload.filterType,
-          specifiedType: const FullType(_i3.FilterType))
+      serializers.serialize(
+        payload.filterType,
+        specifiedType: const FullType(_i3.FilterType),
+      ),
     ];
     return result;
   }

@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.5.2. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library amplify_analytics_pinpoint_dart.pinpoint.model.endpoint_item_response;
+library amplify_analytics_pinpoint_dart.pinpoint.model.endpoint_item_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -14,8 +14,15 @@ abstract class EndpointItemResponse
     with _i1.AWSEquatable<EndpointItemResponse>
     implements Built<EndpointItemResponse, EndpointItemResponseBuilder> {
   /// Provides the status code and message that result from processing data for an endpoint.
-  factory EndpointItemResponse({String? message, int? statusCode}) {
-    return _$EndpointItemResponse._(message: message, statusCode: statusCode);
+  factory EndpointItemResponse({
+    String? message,
+    int? statusCode,
+  }) {
+    statusCode ??= 0;
+    return _$EndpointItemResponse._(
+      message: message,
+      statusCode: statusCode,
+    );
   }
 
   /// Provides the status code and message that result from processing data for an endpoint.
@@ -26,43 +33,62 @@ abstract class EndpointItemResponse
   const EndpointItemResponse._();
 
   static const List<_i2.SmithySerializer> serializers = [
-    _EndpointItemResponseRestJson1Serializer()
+    EndpointItemResponseRestJson1Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(EndpointItemResponseBuilder b) {}
+  static void _init(EndpointItemResponseBuilder b) {
+    b.statusCode = 0;
+  }
 
   /// The custom message that's returned in the response as a result of processing the endpoint data.
   String? get message;
 
   /// The status code that's returned in the response as a result of processing the endpoint data.
-  int? get statusCode;
+  int get statusCode;
   @override
-  List<Object?> get props => [message, statusCode];
+  List<Object?> get props => [
+        message,
+        statusCode,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EndpointItemResponse');
-    helper.add('message', message);
-    helper.add('statusCode', statusCode);
+    helper.add(
+      'message',
+      message,
+    );
+    helper.add(
+      'statusCode',
+      statusCode,
+    );
     return helper.toString();
   }
 }
 
-class _EndpointItemResponseRestJson1Serializer
+class EndpointItemResponseRestJson1Serializer
     extends _i2.StructuredSmithySerializer<EndpointItemResponse> {
-  const _EndpointItemResponseRestJson1Serializer()
+  const EndpointItemResponseRestJson1Serializer()
       : super('EndpointItemResponse');
 
   @override
-  Iterable<Type> get types =>
-      const [EndpointItemResponse, _$EndpointItemResponse];
+  Iterable<Type> get types => const [
+        EndpointItemResponse,
+        _$EndpointItemResponse,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   EndpointItemResponse deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = EndpointItemResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -72,15 +98,17 @@ class _EndpointItemResponseRestJson1Serializer
       switch (key) {
         case 'Message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'StatusCode':
-          if (value != null) {
-            result.statusCode = (serializers.deserialize(value,
-                specifiedType: const FullType(int)) as int);
-          }
+          result.statusCode = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
       }
     }
@@ -89,21 +117,26 @@ class _EndpointItemResponseRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as EndpointItemResponse);
-    final result = <Object?>[];
+    final result = <Object?>[
+      'StatusCode',
+      serializers.serialize(
+        payload.statusCode,
+        specifiedType: const FullType(int),
+      ),
+    ];
     if (payload.message != null) {
       result
         ..add('Message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
-    }
-    if (payload.statusCode != null) {
-      result
-        ..add('StatusCode')
-        ..add(serializers.serialize(payload.statusCode!,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }
