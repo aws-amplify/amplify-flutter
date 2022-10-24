@@ -49,11 +49,12 @@ Future<void> main() async {
   stdout.writeln('Signed in!');
   while (true) {
     final operation = prompt('''Choose an operation:
-1. list             2. getProperties
-3. getUrl           4. download data
-5. download file    6. copy
-7. move             8. remove
-0. exit
+ 1. list              2. getProperties
+ 3. getUrl            4. download data
+ 5. download file     6. upload data url
+ 7. upload file       8. copy
+ 9. move             10. remove
+ 0. exit
 ''');
     final operationNum = int.tryParse(operation);
 
@@ -74,12 +75,18 @@ Future<void> main() async {
         await downloadFileOperation();
         break;
       case 6:
-        await copyOperation();
+        await uploadDataUrlOperation();
         break;
       case 7:
-        await moveOperation();
+        await uploadFileOperation();
         break;
       case 8:
+        await copyOperation();
+        break;
+      case 9:
+        await moveOperation();
+        break;
+      case 10:
         await removeOperation();
         break;
       case null:
@@ -211,7 +218,7 @@ Future<void> downloadDataOperation() async {
       storageAccessLevel: storageAccessLevel,
       getProperties: true,
     ),
-    onProgress: onDownloadProgress,
+    onProgress: onTransferProgress,
   );
 
   stdout.writeln('Downloading...');
@@ -251,7 +258,7 @@ Future<void> downloadFileOperation() async {
       getProperties: true,
       storageAccessLevel: storageAccessLevel,
     ),
-    onProgress: onDownloadProgress,
+    onProgress: onTransferProgress,
   );
 
   stdout.writeln('Downloading...');
@@ -266,6 +273,88 @@ Future<void> downloadFileOperation() async {
     stdout.writeln('\nDownload completed!');
     stdout.writeln('Download file eTag: ${result.downloadedItem.eTag}');
     stdout.writeln('Download file path: ${result.localFile.path}');
+  } on Exception catch (error) {
+    stderr
+      ..writeln('Something went wrong...')
+      ..writeln(error);
+  }
+}
+
+Future<void> uploadDataUrlOperation() async {
+  final dataUrl = prompt('Enter the data url to upload: ');
+  final key = prompt('Enter the object key to upload the data url to: ');
+  final storageAccessLevel = promptStorageAccessLevel(
+    'Choose the storage access level associated with the object to upload: ',
+  );
+
+  final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
+  final uploadDataOperation = s3Plugin.uploadData(
+    data: S3DataPayload.dataUrl(dataUrl),
+    key: key,
+    options: S3StorageUploadDataOptions(
+      storageAccessLevel: storageAccessLevel,
+      getProperties: true,
+    ),
+  );
+
+  try {
+    stdout.writeln('Uploading...');
+    final result = await uploadDataOperation.result;
+    stdout
+      ..writeln('Uploaded data url: ')
+      ..writeln('key: ${result.uploadedItem.key}')
+      ..writeln('size: ${result.uploadedItem.size}')
+      ..writeln('lastModified: ${result.uploadedItem.lastModified}')
+      ..writeln('eTag: ${result.uploadedItem.eTag}');
+  } on Exception catch (error) {
+    stderr
+      ..writeln('Something went wrong...')
+      ..writeln(error);
+  }
+}
+
+Future<void> uploadFileOperation() async {
+  final filePath = prompt('Enter the path of the file to be uploaded: ');
+  final key = prompt('Enter the object key to upload the file to: ');
+  final storageAccessLevel = promptStorageAccessLevel(
+    'Choose the storage access level associated with the object to upload: ',
+  );
+  final nameTag = prompt('Enter value of the name tag for this file: ');
+  final file = AWSFile.fromPath(filePath);
+
+  final option = prompt('Upload size ${await file.size}, continue? (Y/n): ');
+
+  if (option.toLowerCase() != 'y') {
+    stdout.writeln('Upload canceled.');
+    return;
+  }
+
+  final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
+  final uploadFileOperation = s3Plugin.uploadFile(
+    localFile: file,
+    key: key,
+    onProgress: onTransferProgress,
+    options: S3StorageUploadFileOptions(
+      storageAccessLevel: storageAccessLevel,
+      getProperties: true,
+      metadata: {
+        'nameTag': nameTag,
+      },
+    ),
+  );
+
+  stdout.writeln('Uploading...');
+  // await Future<void>.delayed(const Duration(seconds: 1));
+  // await uploadFileOperation.pause();
+
+  // await Future<void>.delayed(const Duration(seconds: 4));
+  // await uploadFileOperation.resume();
+
+  try {
+    final result = await uploadFileOperation.result;
+    stdout.writeln('\nUpload completed!');
+    stdout.writeln('Upload file eTag: ${result.uploadedItem.eTag}');
+    stdout.writeln('Upload file metadata: ${result.uploadedItem.metadata}');
   } on Exception catch (error) {
     stderr
       ..writeln('Something went wrong...')
@@ -419,7 +508,7 @@ Never exitError(Object error, [StackTrace? stackTrace]) {
   exit(1);
 }
 
-void onDownloadProgress(S3TransferProgress progress) {
+void onTransferProgress(S3TransferProgress progress) {
   final numberOfSigns = (progress.getFractionCompleted() * 20).ceil();
   final sb = StringBuffer();
   sb.write('[');

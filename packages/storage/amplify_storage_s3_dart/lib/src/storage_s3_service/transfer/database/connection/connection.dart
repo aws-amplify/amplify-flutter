@@ -12,17 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_core/amplify_core.dart';
-
-/// {@template amplify_core.storage.upload_data_result}
-/// Presents the result of a [StorageUploadDataOperation].
-/// {@endtemplate}
-class StorageUploadDataResult<Item extends StorageItem> {
-  /// {@macro amplify_core.storage.upload_data_result}
-  const StorageUploadDataResult({
-    required this.uploadedItem,
-  });
-
-  /// The uploaded object of the [StorageUploadDataOperation].
-  final Item uploadedItem;
-}
+export 'connection_stub.dart'
+    if (dart.library.html) 'connection_html.dart'
+    if (dart.library.io) 'connection_io.dart';

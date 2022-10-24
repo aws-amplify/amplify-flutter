@@ -13,22 +13,23 @@
 // limitations under the License.
 
 import 'package:amplify_core/amplify_core.dart';
-// import 'base/storage_controllable_operation.dart';
-import 'base/storage_operation.dart';
 
-/// {@template amplify_core.storage.upload_data_operation}
-/// Presents a storage upload data operation.
+/// {@template storage.amplify_storage_s3.upload_data_options}
+/// The configurable parameters invoking the Storage S3 plugin `uploadData`
+/// API.
 /// {@endtemplate}
-abstract class StorageUploadDataOperation<
-        Request extends StorageUploadDataRequest,
-        Result extends StorageUploadDataResult>
-    extends StorageOperation<Request, Result>
-// TODO(HuiSF): implement controllable operation APIs when AWSHttpOperation
-//  is returned from S3Client APIs.
-/* implements StorageControllableOperation */ {
-  /// {@macro amplify_core.storage.upload_data_operation}
-  StorageUploadDataOperation({
-    required super.request,
-    required super.result,
+class S3StorageUploadDataOptions extends StorageUploadDataOptions {
+  /// {@macro storage.amplify_storage_s3.upload_data_options}
+  const S3StorageUploadDataOptions({
+    super.storageAccessLevel = StorageAccessLevel.guest,
+    this.getProperties = false,
+    this.metadata,
   });
+
+  /// The metadata attached to the object to be uploaded.
+  final Map<String, String>? metadata;
+
+  /// Whether to retrieve properties for the uploaded object using the
+  /// `getProperties` API.
+  final bool getProperties;
 }

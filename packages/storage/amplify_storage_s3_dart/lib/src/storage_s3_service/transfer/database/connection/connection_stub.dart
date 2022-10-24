@@ -13,22 +13,14 @@
 // limitations under the License.
 
 import 'package:amplify_core/amplify_core.dart';
-// import 'base/storage_controllable_operation.dart';
-import 'base/storage_operation.dart';
+import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/database.dart';
+import 'package:drift/backends.dart';
 
-/// {@template amplify_core.storage.upload_data_operation}
-/// Presents a storage upload data operation.
+/// {@template amplify_storage_s3_dart.transfer_database_connect}
+/// Function to connect the [TransferDatabase].
 /// {@endtemplate}
-abstract class StorageUploadDataOperation<
-        Request extends StorageUploadDataRequest,
-        Result extends StorageUploadDataResult>
-    extends StorageOperation<Request, Result>
-// TODO(HuiSF): implement controllable operation APIs when AWSHttpOperation
-//  is returned from S3Client APIs.
-/* implements StorageControllableOperation */ {
-  /// {@macro amplify_core.storage.upload_data_operation}
-  StorageUploadDataOperation({
-    required super.request,
-    required super.result,
-  });
+QueryExecutor connect(AppPathProvider? pathProvider) {
+  throw UnsupportedError(
+    'No suitable database implementation was found on this platform.',
+  );
 }

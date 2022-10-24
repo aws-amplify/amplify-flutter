@@ -16,18 +16,18 @@ import 'package:amplify_core/amplify_core.dart';
 // import 'base/storage_controllable_operation.dart';
 import 'base/storage_operation.dart';
 
-/// {@template amplify_core.storage.upload_data_operation}
-/// Presents a storage upload data operation.
+/// {@template amplify_core.storage.upload_file_operation}
+/// Presents a upload file operation.
 /// {@endtemplate}
-abstract class StorageUploadDataOperation<
-        Request extends StorageUploadDataRequest,
-        Result extends StorageUploadDataResult>
+abstract class StorageUploadFileOperation<
+        Request extends StorageUploadFileRequest,
+        Result extends StorageUploadFileResult>
     extends StorageOperation<Request, Result>
 // TODO(HuiSF): implement controllable operation APIs when AWSHttpOperation
 //  is returned from S3Client APIs.
 /* implements StorageControllableOperation */ {
-  /// {@macro amplify_core.storage.upload_data_operation}
-  StorageUploadDataOperation({
+  /// {@macro amplify_core.storage.upload_file_operation}
+  StorageUploadFileOperation({
     required super.request,
     required super.result,
   });

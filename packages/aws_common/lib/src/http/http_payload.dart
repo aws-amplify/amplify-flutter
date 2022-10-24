@@ -96,6 +96,30 @@ class HttpPayload extends StreamView<List<int>> {
     this.contentType,
   });
 
+  /// A data url HTTP body.
+  factory HttpPayload.dataUrl(String dataUrl) {
+    if (!dataUrl.startsWith(_dataUrlMatcher)) {
+      throw ArgumentError('Invalid data url: $dataUrl');
+    }
+
+    final dataUrlParts = dataUrl.split(',');
+    final mediaTypeEncoding = dataUrlParts.first.replaceFirst('data:', '');
+    final body = dataUrlParts.skip(1).join(',');
+
+    if (mediaTypeEncoding.endsWith(';base64')) {
+      return HttpPayload.bytes(
+        base64Decode(body),
+        contentType: mediaTypeEncoding.replaceFirst(';base64', ''),
+      );
+    }
+
+    return HttpPayload.bytes(
+      // data url encodes body, need to decode before converting it into bytes
+      utf8.encode(Uri.decodeComponent(body)),
+      contentType: mediaTypeEncoding,
+    );
+  }
+
   /// The content type of the body.
   final String? contentType;
 
@@ -117,4 +141,6 @@ class HttpPayload extends StreamView<List<int>> {
             ].join('='),
           )
           .join('&');
+
+  static final _dataUrlMatcher = RegExp(r'^data:.*,');
 }

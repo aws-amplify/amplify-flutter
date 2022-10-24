@@ -13,16 +13,15 @@
 // limitations under the License.
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/database.dart';
+import 'package:drift/backends.dart';
+import 'package:drift/web.dart';
 
-/// {@template amplify_core.storage.upload_data_result}
-/// Presents the result of a [StorageUploadDataOperation].
-/// {@endtemplate}
-class StorageUploadDataResult<Item extends StorageItem> {
-  /// {@macro amplify_core.storage.upload_data_result}
-  const StorageUploadDataResult({
-    required this.uploadedItem,
-  });
-
-  /// The uploaded object of the [StorageUploadDataOperation].
-  final Item uploadedItem;
+/// {@macro amplify_storage_s3_dart.transfer_database_connect}
+QueryExecutor connect(AppPathProvider? pathProvider) {
+  // It uses IndexDB in Web
+  // return WebDatabase(dataBaseName);
+  return WebDatabase.withStorage(
+    DriftWebStorage.indexedDb(dataBaseName),
+  );
 }

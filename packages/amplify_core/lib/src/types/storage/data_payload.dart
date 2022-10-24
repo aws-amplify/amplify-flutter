@@ -13,22 +13,8 @@
 // limitations under the License.
 
 import 'package:amplify_core/amplify_core.dart';
-// import 'base/storage_controllable_operation.dart';
-import 'base/storage_operation.dart';
 
-/// {@template amplify_core.storage.upload_data_operation}
-/// Presents a storage upload data operation.
+/// {@template}
+/// A data payload to be uploaded by a plugin of the Storage category.
 /// {@endtemplate}
-abstract class StorageUploadDataOperation<
-        Request extends StorageUploadDataRequest,
-        Result extends StorageUploadDataResult>
-    extends StorageOperation<Request, Result>
-// TODO(HuiSF): implement controllable operation APIs when AWSHttpOperation
-//  is returned from S3Client APIs.
-/* implements StorageControllableOperation */ {
-  /// {@macro amplify_core.storage.upload_data_operation}
-  StorageUploadDataOperation({
-    required super.request,
-    required super.result,
-  });
-}
+typedef StorageDataPayload = HttpPayload;

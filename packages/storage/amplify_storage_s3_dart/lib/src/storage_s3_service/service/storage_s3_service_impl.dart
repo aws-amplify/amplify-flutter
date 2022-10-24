@@ -20,7 +20,9 @@ import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/common/endpoint_resolver.dart'
     as endpoint_resolver;
-import 'package:amplify_storage_s3_dart/src/storage_s3_service/service/task/s3_download_task.dart';
+import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
+import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/transfer.dart'
+    as transfer;
 
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:meta/meta.dart';
@@ -43,26 +45,27 @@ class StorageS3Service {
     required S3StoragePrefixResolver prefixResolver,
     required AWSIamAmplifyAuthProvider credentialsProvider,
     required AWSLogger logger,
-    @visibleForTesting DependencyManager? dependencyManagerOverride,
+    required DependencyManager dependencyManager,
   })  : _defaultBucket = defaultBucket,
         _defaultRegion = defaultRegion,
-        // dependencyManagerOverride should be available only in unit tests
-        _defaultS3Client = dependencyManagerOverride == null
-            ? s3.S3Client(
-                region: defaultRegion,
-                credentialsProvider: credentialsProvider,
-                s3ClientConfig: _defaultS3ClientConfig,
-              )
-            : dependencyManagerOverride.expect(),
+        // dependencyManager.get() => S3Client is used for unit tests
+        _defaultS3Client = dependencyManager.get() ??
+            s3.S3Client(
+              region: defaultRegion,
+              credentialsProvider: credentialsProvider,
+              s3ClientConfig: _defaultS3ClientConfig,
+            ),
         _prefixResolver = prefixResolver,
         _logger = logger,
         _signerScope = AWSCredentialScope(
           region: defaultRegion,
           service: AWSService.s3,
         ),
-        _awsSigV4Signer = dependencyManagerOverride == null
-            ? AWSSigV4Signer(credentialsProvider: credentialsProvider)
-            : dependencyManagerOverride.expect();
+        // dependencyManager.get() => AWSSigV4Signer is used for unit tests
+        _awsSigV4Signer = dependencyManager.get() ??
+            AWSSigV4Signer(credentialsProvider: credentialsProvider),
+        _dependencyManager = dependencyManager,
+        _serviceStartingTime = DateTime.now();
 
   static const _defaultS3ClientConfig = S3ClientConfig();
   static final _defaultS3SignerConfiguration = S3ServiceConfiguration();
@@ -74,6 +77,11 @@ class StorageS3Service {
   final AWSLogger _logger;
   final AWSCredentialScope _signerScope;
   final AWSSigV4Signer _awsSigV4Signer;
+  final DependencyManager _dependencyManager;
+  final DateTime _serviceStartingTime;
+
+  transfer.TransferDatabase get _transferDatabase =>
+      _dependencyManager.getOrCreate(transfer.TransferDatabase.token);
 
   /// Takes in input from [AmplifyStorageS3Dart.list] API to compose a
   /// [s3.ListObjectsV2Request] and to S3 service, then returns a
@@ -239,6 +247,67 @@ class StorageS3Service {
     unawaited(downloadDataTask.start());
 
     return downloadDataTask;
+  }
+
+  /// Takes in the input from [AmplifyStorageS3Dart.uploadData] API, and creates
+  /// a [S3UploadTask], to start the upload process, then returns the
+  /// [S3UploadTask].
+  S3UploadTask uploadData({
+    required String key,
+    required S3DataPayload dataPayload,
+    required S3StorageUploadDataOptions options,
+    void Function(S3TransferProgress)? onProgress,
+    FutureOr<void> Function()? onDone,
+    FutureOr<void> Function()? onError,
+  }) {
+    final uploadDataTask = S3UploadTask.fromDataPayload(
+      dataPayload,
+      s3Client: _defaultS3Client,
+      bucket: _defaultBucket,
+      key: key,
+      options: options,
+      prefixResolver: _prefixResolver,
+      logger: _logger,
+      onProgress: onProgress,
+      transferDatabase: _transferDatabase,
+    );
+
+    unawaited(uploadDataTask.start());
+
+    return uploadDataTask;
+  }
+
+  /// Takes in the input from [AmplifyStorageS3Dart.uploadFile] API, and creates
+  /// a [S3UploadTask], to start the upload process, then returns the
+  /// [S3UploadTask].
+  S3UploadTask uploadFile({
+    required String key,
+    required AWSFile localFile,
+    required S3StorageUploadFileOptions options,
+    void Function(S3TransferProgress)? onProgress,
+    FutureOr<void> Function()? onDone,
+    FutureOr<void> Function()? onError,
+  }) {
+    final uploadDataOptions = S3StorageUploadDataOptions(
+      storageAccessLevel: options.storageAccessLevel,
+      getProperties: options.getProperties,
+      metadata: options.metadata,
+    );
+    final uploadDataTask = S3UploadTask.fromAWSFile(
+      localFile,
+      s3Client: _defaultS3Client,
+      bucket: _defaultBucket,
+      key: key,
+      options: uploadDataOptions,
+      prefixResolver: _prefixResolver,
+      logger: _logger,
+      onProgress: onProgress,
+      transferDatabase: _transferDatabase,
+    );
+
+    unawaited(uploadDataTask.start());
+
+    return uploadDataTask;
   }
 
   /// Takes in input from [AmplifyStorageS3Dart.copy] API to compose a
@@ -542,6 +611,33 @@ class StorageS3Service {
     } on smithy.UnknownSmithyHttpException catch (error) {
       // S3Client.headObject may return 403 or 404 error
       throw S3StorageException.fromUnknownSmithyHttpException(error);
+    }
+  }
+
+  /// As background operation is not yet supported, in order to avoid incomplete
+  /// multipart uploads (caused by App process being killed) from occupying
+  /// storage space, [s3.AbortMultipartUploadRequest]s are sent for each
+  /// multipart upload id stored in the [transfer.TransferDatabase] to remove
+  /// uploaded parts upon [StorageS3Service] initiation.
+  @internal
+  Future<void> abortIncompleteMultipartUploads() async {
+    final records = await _transferDatabase
+        .getMultipartUploadRecordsCreatedBefore(_serviceStartingTime);
+
+    for (final record in records) {
+      final request = s3.AbortMultipartUploadRequest.build((builder) {
+        builder
+          ..bucket = _defaultBucket
+          ..key = record.objectKey
+          ..uploadId = record.uploadId;
+      });
+
+      try {
+        await _defaultS3Client.abortMultipartUpload(request);
+        await _transferDatabase.deleteTransferRecords(record.uploadId);
+      } on Exception catch (error) {
+        _logger.error('Failed to abort multipart upload due to: $error');
+      }
     }
   }
 }
