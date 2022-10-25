@@ -19,7 +19,6 @@ import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:smithy/smithy.dart';
 import 'package:test/test.dart';
@@ -106,13 +105,15 @@ void main() {
 
       test('should invoke S3Client.listObjectsV2 with expected parameters',
           () async {
-        final testS3Objects = [1, 2, 3, 4, 5].map(
-          (e) => S3Object(
-            key: '${testPrefixToDrop}object-$e',
-            size: Int64(100 * 4),
-            eTag: 'object-$e-eTag',
-          ),
-        );
+        final testS3Objects = [1, 2, 3, 4, 5]
+            .map(
+              (e) => S3Object(
+                key: '${testPrefixToDrop}object-$e',
+                size: Int64(100 * 4),
+                eTag: 'object-$e-eTag',
+              ),
+            )
+            .toList();
         const testPath = 'album';
         const testTargetIdentityId = 'someone-else-id';
         const testOptions = S3ListOptions.forIdentity(
@@ -129,8 +130,8 @@ void main() {
         );
         final testPaginatedResult = PaginatedResult<ListObjectsV2Output, int>(
           ListObjectsV2Output(
-            contents: BuiltList(testS3Objects),
-            commonPrefixes: BuiltList([testCommonPrefix]),
+            contents: testS3Objects,
+            commonPrefixes: [testCommonPrefix],
             delimiter: testDelimiter,
             name: testBucketName,
             maxKeys: testPageSize,
@@ -243,7 +244,7 @@ void main() {
           eTag: testETag,
           contentLength: Int64(testSize),
           lastModified: testLastModified,
-          metadata: BuiltMap(testMetadata),
+          metadata: testMetadata,
         );
 
         when(
@@ -887,7 +888,7 @@ void main() {
         registerFallbackValue(
           DeleteObjectsRequest(
             bucket: 'fake bucket',
-            delete: Delete(objects: BuiltList(<ObjectIdentifier>[])),
+            delete: Delete(objects: const []),
           ),
         );
       });
@@ -900,30 +901,27 @@ void main() {
         final testPrefix =
             '${testOptions.accessLevel.defaultPrefix}$testDelimiter';
         final testDeleteObjectsOutput1 = DeleteObjectsOutput(
-          deleted: BuiltList(
-            testKeys
-                .take(1000 - testNumOfRemoveErrors)
-                .map((key) => DeletedObject(key: '$testPrefix$key')),
-          ),
-          errors: BuiltList(
-            testKeys
-                .skip(1000 - testNumOfRemoveErrors)
-                .take(testNumOfRemoveErrors)
-                .map(
-                  (key) => Error(
-                    key: '$testPrefix$key',
-                    message: 'some error',
-                  ),
+          deleted: testKeys
+              .take(1000 - testNumOfRemoveErrors)
+              .map((key) => DeletedObject(key: '$testPrefix$key'))
+              .toList(),
+          errors: testKeys
+              .skip(1000 - testNumOfRemoveErrors)
+              .take(testNumOfRemoveErrors)
+              .map(
+                (key) => Error(
+                  key: '$testPrefix$key',
+                  message: 'some error',
                 ),
-          ),
+              )
+              .toList(),
         );
         final testDeleteObjectsOutput2 = DeleteObjectsOutput(
-          deleted: BuiltList(
-            testKeys
-                .skip(1000)
-                .take(5)
-                .map((key) => DeletedObject(key: '$testPrefix$key')),
-          ),
+          deleted: testKeys
+              .skip(1000)
+              .take(5)
+              .map((key) => DeletedObject(key: '$testPrefix$key'))
+              .toList(),
         );
 
         // response to the first 1000 delete objects request

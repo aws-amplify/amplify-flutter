@@ -151,13 +151,7 @@ class S3DownloadTask {
         bytesRange: _downloadDataOptions.bytesRange,
       );
 
-      final remoteSize = getObjectOutput.contentLength?.toInt();
-      if (remoteSize == null) {
-        await _completeDownloadWithError(
-          S3Exception.unexpectedContentLengthFromService(),
-        );
-        return;
-      }
+      final remoteSize = getObjectOutput.contentLength.toInt();
 
       _totalBytes = remoteSize;
       _listenToBytesSteam(getObjectOutput.body);
