@@ -330,7 +330,7 @@ class S3DownloadTask {
     });
 
     try {
-      return await _s3Client.getObject(request);
+      return await _s3Client.getObject(request).result;
     } on smithy.UnknownSmithyHttpException catch (error) {
       // S3Client.getObject may return 403 error
       throw S3Exception.fromUnknownSmithyHttpException(error);

@@ -114,7 +114,7 @@ class StorageS3Service {
 
     try {
       return S3ListResult.fromPaginatedResult(
-        await _defaultS3Client.listObjectsV2(request),
+        await _defaultS3Client.listObjectsV2(request).result,
         prefixToDrop: resolvedPrefix,
       );
     } on smithy.UnknownSmithyHttpException catch (error) {
@@ -354,7 +354,7 @@ class StorageS3Service {
     });
 
     try {
-      await _defaultS3Client.copyObject(copyRequest);
+      await _defaultS3Client.copyObject(copyRequest).result;
     } on smithy.UnknownSmithyHttpException catch (error) {
       // S3Client.copyObject may return 403 or 404 error
       throw S3Exception.fromUnknownSmithyHttpException(error);
@@ -507,7 +507,7 @@ class StorageS3Service {
           }).toBuilder();
       });
       try {
-        final output = await _defaultS3Client.deleteObjects(request);
+        final output = await _defaultS3Client.deleteObjects(request).result;
         removedItems.addAll(
           output.deleted?.toList().map(
                     (removedObject) => S3Item.fromS3Object(
@@ -546,7 +546,7 @@ class StorageS3Service {
     try {
       // The current capability of the `remove` API doesn't require parsing
       // the [DeleteObjectOutput] returned by [S3Client.deleteObject].
-      return await s3client.deleteObject(request);
+      return await s3client.deleteObject(request).result;
     } on smithy.UnknownSmithyHttpException catch (error) {
       // S3Client.deleteObject may return 403, for deleting a non-existing
       // object, the API call returns a successful response
@@ -607,7 +607,7 @@ class StorageS3Service {
     });
 
     try {
-      return await s3client.headObject(request);
+      return await s3client.headObject(request).result;
     } on smithy.UnknownSmithyHttpException catch (error) {
       // S3Client.headObject may return 403 or 404 error
       throw S3Exception.fromUnknownSmithyHttpException(error);
@@ -633,7 +633,7 @@ class StorageS3Service {
       });
 
       try {
-        await _defaultS3Client.abortMultipartUpload(request);
+        await _defaultS3Client.abortMultipartUpload(request).result;
         await _transferDatabase.deleteTransferRecords(record.uploadId);
       } on Exception catch (error) {
         _logger.error('Failed to abort multipart upload due to: $error');
