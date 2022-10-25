@@ -9,17 +9,17 @@ import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/checksum_algorithm.
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/object_canned_acl.dart'
     as _i4;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/object_lock_legal_hold_status.dart'
-    as _i8;
+    as _i7;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/object_lock_mode.dart'
-    as _i9;
+    as _i8;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_payer.dart'
-    as _i10;
+    as _i9;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/server_side_encryption.dart'
-    as _i11;
+    as _i10;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/storage_class.dart'
-    as _i12;
+    as _i11;
 import 'package:aws_common/aws_common.dart' as _i3;
-import 'package:built_collection/built_collection.dart' as _i7;
+import 'package:built_collection/built_collection.dart' as _i12;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:fixnum/fixnum.dart' as _i6;
@@ -58,21 +58,24 @@ abstract class PutObjectRequest
     String? grantReadAcp,
     String? grantWriteAcp,
     required String key,
-    _i7.BuiltMap<String, String>? metadata,
-    _i8.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
-    _i9.ObjectLockMode? objectLockMode,
+    Map<String, String>? metadata,
+    _i7.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
+    _i8.ObjectLockMode? objectLockMode,
     DateTime? objectLockRetainUntilDate,
-    _i10.RequestPayer? requestPayer,
-    _i11.ServerSideEncryption? serverSideEncryption,
+    _i9.RequestPayer? requestPayer,
+    _i10.ServerSideEncryption? serverSideEncryption,
     String? sseCustomerAlgorithm,
     String? sseCustomerKey,
     String? sseCustomerKeyMd5,
     String? ssekmsEncryptionContext,
     String? ssekmsKeyId,
-    _i12.StorageClass? storageClass,
+    _i11.StorageClass? storageClass,
     String? tagging,
     String? websiteRedirectLocation,
   }) {
+    body ??= const _i2.Stream.empty();
+    bucketKeyEnabled ??= false;
+    contentLength ??= _i6.Int64.ZERO;
     return _$PutObjectRequest._(
       acl: acl,
       body: body,
@@ -97,7 +100,7 @@ abstract class PutObjectRequest
       grantReadAcp: grantReadAcp,
       grantWriteAcp: grantWriteAcp,
       key: key,
-      metadata: metadata,
+      metadata: metadata == null ? null : _i12.BuiltMap(metadata),
       objectLockLegalHoldStatus: objectLockLegalHoldStatus,
       objectLockMode: objectLockMode,
       objectLockRetainUntilDate: objectLockRetainUntilDate,
@@ -187,11 +190,11 @@ abstract class PutObjectRequest
           b.grantWriteAcp = request.headers['x-amz-grant-write-acp']!;
         }
         if (request.headers['x-amz-server-side-encryption'] != null) {
-          b.serverSideEncryption = _i11.ServerSideEncryption.values
+          b.serverSideEncryption = _i10.ServerSideEncryption.values
               .byValue(request.headers['x-amz-server-side-encryption']!);
         }
         if (request.headers['x-amz-storage-class'] != null) {
-          b.storageClass = _i12.StorageClass.values
+          b.storageClass = _i11.StorageClass.values
               .byValue(request.headers['x-amz-storage-class']!);
         }
         if (request.headers['x-amz-website-redirect-location'] != null) {
@@ -231,14 +234,14 @@ abstract class PutObjectRequest
               'true';
         }
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i10.RequestPayer.values
+          b.requestPayer = _i9.RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.headers['x-amz-tagging'] != null) {
           b.tagging = request.headers['x-amz-tagging']!;
         }
         if (request.headers['x-amz-object-lock-mode'] != null) {
-          b.objectLockMode = _i9.ObjectLockMode.values
+          b.objectLockMode = _i8.ObjectLockMode.values
               .byValue(request.headers['x-amz-object-lock-mode']!);
         }
         if (request.headers['x-amz-object-lock-retain-until-date'] != null) {
@@ -248,7 +251,7 @@ abstract class PutObjectRequest
           ).asDateTime;
         }
         if (request.headers['x-amz-object-lock-legal-hold'] != null) {
-          b.objectLockLegalHoldStatus = _i8.ObjectLockLegalHoldStatus.values
+          b.objectLockLegalHoldStatus = _i7.ObjectLockLegalHoldStatus.values
               .byValue(request.headers['x-amz-object-lock-legal-hold']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -277,7 +280,11 @@ abstract class PutObjectRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectRequestBuilder b) {}
+  static void _init(PutObjectRequestBuilder b) {
+    b.body = const _i2.Stream.empty();
+    b.bucketKeyEnabled = false;
+    b.contentLength = _i6.Int64.ZERO;
+  }
 
   /// The canned ACL to apply to the object. For more information, see [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL).
   ///
@@ -297,7 +304,7 @@ abstract class PutObjectRequest
   /// Specifies whether Amazon S3 should use an S3 Bucket Key for object encryption with server-side encryption using AWS KMS (SSE-KMS). Setting this header to `true` causes Amazon S3 to use an S3 Bucket Key for object encryption with SSE-KMS.
   ///
   /// Specifying this header with a PUT action doesn’t affect bucket-level settings for S3 Bucket Key.
-  bool? get bucketKeyEnabled;
+  bool get bucketKeyEnabled;
 
   /// Can be used to specify caching behavior along the request/reply chain. For more information, see [http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9).
   String? get cacheControl;
@@ -329,7 +336,7 @@ abstract class PutObjectRequest
   String? get contentLanguage;
 
   /// Size of the body in bytes. This parameter is useful when the size of the body cannot be determined automatically. For more information, see [http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.13](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.13).
-  _i6.Int64? get contentLength;
+  _i6.Int64 get contentLength;
 
   /// The base64-encoded 128-bit MD5 digest of the message (without the headers) according to RFC 1864. This header can be used as a message integrity check to verify that the data is the same data that was originally sent. Although it is optional, we recommend using the Content-MD5 mechanism as an end-to-end integrity check. For more information about REST request authentication, see [REST Authentication](https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html).
   String? get contentMd5;
@@ -367,22 +374,22 @@ abstract class PutObjectRequest
   String get key;
 
   /// A map of metadata to store with the object in S3.
-  _i7.BuiltMap<String, String>? get metadata;
+  _i12.BuiltMap<String, String>? get metadata;
 
   /// Specifies whether a legal hold will be applied to this object. For more information about S3 Object Lock, see [Object Lock](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html).
-  _i8.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus;
+  _i7.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus;
 
   /// The Object Lock mode that you want to apply to this object.
-  _i9.ObjectLockMode? get objectLockMode;
+  _i8.ObjectLockMode? get objectLockMode;
 
   /// The date and time when you want this object's Object Lock to expire. Must be formatted as a timestamp parameter.
   DateTime? get objectLockRetainUntilDate;
 
   /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i10.RequestPayer? get requestPayer;
+  _i9.RequestPayer? get requestPayer;
 
   /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
-  _i11.ServerSideEncryption? get serverSideEncryption;
+  _i10.ServerSideEncryption? get serverSideEncryption;
 
   /// Specifies the algorithm to use to when encrypting the object (for example, AES256).
   String? get sseCustomerAlgorithm;
@@ -400,7 +407,7 @@ abstract class PutObjectRequest
   String? get ssekmsKeyId;
 
   /// By default, Amazon S3 uses the STANDARD Storage Class to store newly created objects. The STANDARD storage class provides high durability and high availability. Depending on performance needs, you can specify a different Storage Class. Amazon S3 on Outposts only uses the OUTPOSTS Storage Class. For more information, see [Storage Classes](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html) in the _Amazon S3 User Guide_.
-  _i12.StorageClass? get storageClass;
+  _i11.StorageClass? get storageClass;
 
   /// The tag-set for the object. The tag-set must be encoded as URL Query parameters. (For example, "Key1=Value1")
   String? get tagging;

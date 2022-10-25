@@ -18,11 +18,11 @@ class _$ListPartsOutput extends ListPartsOutput {
   @override
   final _i4.Initiator? initiator;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? key;
   @override
-  final int? maxParts;
+  final int maxParts;
   @override
   final String? nextPartNumberMarker;
   @override
@@ -30,11 +30,11 @@ class _$ListPartsOutput extends ListPartsOutput {
   @override
   final String? partNumberMarker;
   @override
-  final _i6.BuiltList<_i7.Part>? parts;
+  final _i9.BuiltList<_i6.Part>? parts;
   @override
-  final _i8.RequestCharged? requestCharged;
+  final _i7.RequestCharged? requestCharged;
   @override
-  final _i9.StorageClass? storageClass;
+  final _i8.StorageClass? storageClass;
   @override
   final String? uploadId;
 
@@ -47,9 +47,9 @@ class _$ListPartsOutput extends ListPartsOutput {
       this.bucket,
       this.checksumAlgorithm,
       this.initiator,
-      this.isTruncated,
+      required this.isTruncated,
       this.key,
-      this.maxParts,
+      required this.maxParts,
       this.nextPartNumberMarker,
       this.owner,
       this.partNumberMarker,
@@ -57,7 +57,12 @@ class _$ListPartsOutput extends ListPartsOutput {
       this.requestCharged,
       this.storageClass,
       this.uploadId})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListPartsOutput', 'isTruncated');
+    BuiltValueNullFieldError.checkNotNull(
+        maxParts, r'ListPartsOutput', 'maxParts');
+  }
 
   @override
   ListPartsOutput rebuild(void Function(ListPartsOutputBuilder) updates) =>
@@ -179,19 +184,19 @@ class ListPartsOutputBuilder
   set partNumberMarker(String? partNumberMarker) =>
       _$this._partNumberMarker = partNumberMarker;
 
-  _i6.ListBuilder<_i7.Part>? _parts;
-  _i6.ListBuilder<_i7.Part> get parts =>
-      _$this._parts ??= new _i6.ListBuilder<_i7.Part>();
-  set parts(_i6.ListBuilder<_i7.Part>? parts) => _$this._parts = parts;
+  _i9.ListBuilder<_i6.Part>? _parts;
+  _i9.ListBuilder<_i6.Part> get parts =>
+      _$this._parts ??= new _i9.ListBuilder<_i6.Part>();
+  set parts(_i9.ListBuilder<_i6.Part>? parts) => _$this._parts = parts;
 
-  _i8.RequestCharged? _requestCharged;
-  _i8.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i8.RequestCharged? requestCharged) =>
+  _i7.RequestCharged? _requestCharged;
+  _i7.RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(_i7.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  _i9.StorageClass? _storageClass;
-  _i9.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i9.StorageClass? storageClass) =>
+  _i8.StorageClass? _storageClass;
+  _i8.StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(_i8.StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
   String? _uploadId;
@@ -249,9 +254,11 @@ class ListPartsOutputBuilder
               bucket: bucket,
               checksumAlgorithm: checksumAlgorithm,
               initiator: _initiator?.build(),
-              isTruncated: isTruncated,
+              isTruncated: BuiltValueNullFieldError.checkNotNull(
+                  isTruncated, r'ListPartsOutput', 'isTruncated'),
               key: key,
-              maxParts: maxParts,
+              maxParts: BuiltValueNullFieldError.checkNotNull(
+                  maxParts, r'ListPartsOutput', 'maxParts'),
               nextPartNumberMarker: nextPartNumberMarker,
               owner: _owner?.build(),
               partNumberMarker: partNumberMarker,
@@ -289,11 +296,11 @@ class _$ListPartsOutputPayload extends ListPartsOutputPayload {
   @override
   final _i4.Initiator? initiator;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? key;
   @override
-  final int? maxParts;
+  final int maxParts;
   @override
   final String? nextPartNumberMarker;
   @override
@@ -301,9 +308,9 @@ class _$ListPartsOutputPayload extends ListPartsOutputPayload {
   @override
   final String? partNumberMarker;
   @override
-  final _i6.BuiltList<_i7.Part>? parts;
+  final _i9.BuiltList<_i6.Part>? parts;
   @override
-  final _i9.StorageClass? storageClass;
+  final _i8.StorageClass? storageClass;
   @override
   final String? uploadId;
 
@@ -315,16 +322,21 @@ class _$ListPartsOutputPayload extends ListPartsOutputPayload {
       {this.bucket,
       this.checksumAlgorithm,
       this.initiator,
-      this.isTruncated,
+      required this.isTruncated,
       this.key,
-      this.maxParts,
+      required this.maxParts,
       this.nextPartNumberMarker,
       this.owner,
       this.partNumberMarker,
       this.parts,
       this.storageClass,
       this.uploadId})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListPartsOutputPayload', 'isTruncated');
+    BuiltValueNullFieldError.checkNotNull(
+        maxParts, r'ListPartsOutputPayload', 'maxParts');
+  }
 
   @override
   ListPartsOutputPayload rebuild(
@@ -425,14 +437,14 @@ class ListPartsOutputPayloadBuilder
   set partNumberMarker(String? partNumberMarker) =>
       _$this._partNumberMarker = partNumberMarker;
 
-  _i6.ListBuilder<_i7.Part>? _parts;
-  _i6.ListBuilder<_i7.Part> get parts =>
-      _$this._parts ??= new _i6.ListBuilder<_i7.Part>();
-  set parts(_i6.ListBuilder<_i7.Part>? parts) => _$this._parts = parts;
+  _i9.ListBuilder<_i6.Part>? _parts;
+  _i9.ListBuilder<_i6.Part> get parts =>
+      _$this._parts ??= new _i9.ListBuilder<_i6.Part>();
+  set parts(_i9.ListBuilder<_i6.Part>? parts) => _$this._parts = parts;
 
-  _i9.StorageClass? _storageClass;
-  _i9.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i9.StorageClass? storageClass) =>
+  _i8.StorageClass? _storageClass;
+  _i8.StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(_i8.StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
   String? _uploadId;
@@ -485,9 +497,11 @@ class ListPartsOutputPayloadBuilder
               bucket: bucket,
               checksumAlgorithm: checksumAlgorithm,
               initiator: _initiator?.build(),
-              isTruncated: isTruncated,
+              isTruncated: BuiltValueNullFieldError.checkNotNull(
+                  isTruncated, r'ListPartsOutputPayload', 'isTruncated'),
               key: key,
-              maxParts: maxParts,
+              maxParts: BuiltValueNullFieldError.checkNotNull(
+                  maxParts, r'ListPartsOutputPayload', 'maxParts'),
               nextPartNumberMarker: nextPartNumberMarker,
               owner: _owner?.build(),
               partNumberMarker: partNumberMarker,

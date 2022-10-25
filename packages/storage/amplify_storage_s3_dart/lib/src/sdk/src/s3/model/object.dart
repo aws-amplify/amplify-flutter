@@ -3,15 +3,15 @@
 library amplify_storage_s3_dart.s3.model.object; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/checksum_algorithm.dart'
-    as _i3;
+    as _i2;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/object_storage_class.dart'
-    as _i6;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/owner.dart' as _i4;
+    as _i5;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/owner.dart' as _i3;
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i5;
+import 'package:fixnum/fixnum.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i7;
 
 part 'object.g.dart';
@@ -22,16 +22,18 @@ abstract class S3Object
     implements Built<S3Object, S3ObjectBuilder> {
   /// An object consists of data and its descriptive metadata.
   factory S3Object({
-    _i2.BuiltList<_i3.ChecksumAlgorithm>? checksumAlgorithm,
+    List<_i2.ChecksumAlgorithm>? checksumAlgorithm,
     String? eTag,
     String? key,
     DateTime? lastModified,
-    _i4.Owner? owner,
-    _i5.Int64? size,
-    _i6.ObjectStorageClass? storageClass,
+    _i3.Owner? owner,
+    _i4.Int64? size,
+    _i5.ObjectStorageClass? storageClass,
   }) {
+    size ??= _i4.Int64.ZERO;
     return _$S3Object._(
-      checksumAlgorithm: checksumAlgorithm,
+      checksumAlgorithm:
+          checksumAlgorithm == null ? null : _i6.BuiltList(checksumAlgorithm),
       eTag: eTag,
       key: key,
       lastModified: lastModified,
@@ -51,10 +53,12 @@ abstract class S3Object
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(S3ObjectBuilder b) {}
+  static void _init(S3ObjectBuilder b) {
+    b.size = _i4.Int64.ZERO;
+  }
 
   /// The algorithm that was used to create a checksum of the object.
-  _i2.BuiltList<_i3.ChecksumAlgorithm>? get checksumAlgorithm;
+  _i6.BuiltList<_i2.ChecksumAlgorithm>? get checksumAlgorithm;
 
   /// The entity tag is a hash of the object. The ETag reflects changes only to the contents of an object, not its metadata. The ETag may or may not be an MD5 digest of the object data. Whether or not it is depends on how the object was created and how it is encrypted as described below:
   ///
@@ -72,13 +76,13 @@ abstract class S3Object
   DateTime? get lastModified;
 
   /// The owner of the object
-  _i4.Owner? get owner;
+  _i3.Owner? get owner;
 
   /// Size in bytes of the object
-  _i5.Int64? get size;
+  _i4.Int64 get size;
 
   /// The class of storage used to store the object.
-  _i6.ObjectStorageClass? get storageClass;
+  _i5.ObjectStorageClass? get storageClass;
   @override
   List<Object?> get props => [
         checksumAlgorithm,
@@ -156,8 +160,8 @@ class ObjectRestXmlSerializer extends _i7.StructuredSmithySerializer<S3Object> {
           if (value != null) {
             result.checksumAlgorithm.add((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.ChecksumAlgorithm),
-            ) as _i3.ChecksumAlgorithm));
+              specifiedType: const FullType(_i2.ChecksumAlgorithm),
+            ) as _i2.ChecksumAlgorithm));
           }
           break;
         case 'ETag':
@@ -188,24 +192,22 @@ class ObjectRestXmlSerializer extends _i7.StructuredSmithySerializer<S3Object> {
           if (value != null) {
             result.owner.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.Owner),
-            ) as _i4.Owner));
+              specifiedType: const FullType(_i3.Owner),
+            ) as _i3.Owner));
           }
           break;
         case 'Size':
-          if (value != null) {
-            result.size = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.Int64),
-            ) as _i5.Int64);
-          }
+          result.size = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(_i4.Int64),
+          ) as _i4.Int64);
           break;
         case 'StorageClass':
           if (value != null) {
             result.storageClass = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i6.ObjectStorageClass),
-            ) as _i6.ObjectStorageClass);
+              specifiedType: const FullType(_i5.ObjectStorageClass),
+            ) as _i5.ObjectStorageClass);
           }
           break;
       }
@@ -234,8 +236,8 @@ class ObjectRestXmlSerializer extends _i7.StructuredSmithySerializer<S3Object> {
         serializers,
         payload.checksumAlgorithm!,
         specifiedType: const FullType.nullable(
-          _i2.BuiltList,
-          [FullType(_i3.ChecksumAlgorithm)],
+          _i6.BuiltList,
+          [FullType(_i2.ChecksumAlgorithm)],
         ),
       ));
     }
@@ -268,23 +270,21 @@ class ObjectRestXmlSerializer extends _i7.StructuredSmithySerializer<S3Object> {
         ..add(const _i7.XmlElementName('Owner'))
         ..add(serializers.serialize(
           payload.owner!,
-          specifiedType: const FullType(_i4.Owner),
+          specifiedType: const FullType(_i3.Owner),
         ));
     }
-    if (payload.size != null) {
-      result
-        ..add(const _i7.XmlElementName('Size'))
-        ..add(serializers.serialize(
-          payload.size!,
-          specifiedType: const FullType.nullable(_i5.Int64),
-        ));
-    }
+    result
+      ..add(const _i7.XmlElementName('Size'))
+      ..add(serializers.serialize(
+        payload.size,
+        specifiedType: const FullType(_i4.Int64),
+      ));
     if (payload.storageClass != null) {
       result
         ..add(const _i7.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           payload.storageClass!,
-          specifiedType: const FullType.nullable(_i6.ObjectStorageClass),
+          specifiedType: const FullType.nullable(_i5.ObjectStorageClass),
         ));
     }
     return result;

@@ -25,6 +25,8 @@ abstract class Part
     int? partNumber,
     _i2.Int64? size,
   }) {
+    partNumber ??= 0;
+    size ??= _i2.Int64.ZERO;
     return _$Part._(
       checksumCrc32: checksumCrc32,
       checksumCrc32C: checksumCrc32C,
@@ -47,7 +49,10 @@ abstract class Part
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PartBuilder b) {}
+  static void _init(PartBuilder b) {
+    b.partNumber = 0;
+    b.size = _i2.Int64.ZERO;
+  }
 
   /// This header can be used as a data integrity check to verify that the data received is the same data that was originally sent. This header specifies the base64-encoded, 32-bit CRC32 checksum of the object. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
   String? get checksumCrc32;
@@ -68,10 +73,10 @@ abstract class Part
   DateTime? get lastModified;
 
   /// Part number identifying the part. This is a positive integer between 1 and 10,000.
-  int? get partNumber;
+  int get partNumber;
 
   /// Size in bytes of the uploaded part data.
-  _i2.Int64? get size;
+  _i2.Int64 get size;
   @override
   List<Object?> get props => [
         checksumCrc32,
@@ -199,20 +204,16 @@ class PartRestXmlSerializer extends _i3.StructuredSmithySerializer<Part> {
           }
           break;
         case 'PartNumber':
-          if (value != null) {
-            result.partNumber = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.partNumber = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'Size':
-          if (value != null) {
-            result.size = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
+          result.size = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
           break;
       }
     }
@@ -281,22 +282,18 @@ class PartRestXmlSerializer extends _i3.StructuredSmithySerializer<Part> {
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.partNumber != null) {
-      result
-        ..add(const _i3.XmlElementName('PartNumber'))
-        ..add(serializers.serialize(
-          payload.partNumber!,
-          specifiedType: const FullType.nullable(int),
-        ));
-    }
-    if (payload.size != null) {
-      result
-        ..add(const _i3.XmlElementName('Size'))
-        ..add(serializers.serialize(
-          payload.size!,
-          specifiedType: const FullType.nullable(_i2.Int64),
-        ));
-    }
+    result
+      ..add(const _i3.XmlElementName('PartNumber'))
+      ..add(serializers.serialize(
+        payload.partNumber,
+        specifiedType: const FullType(int),
+      ));
+    result
+      ..add(const _i3.XmlElementName('Size'))
+      ..add(serializers.serialize(
+        payload.size,
+        specifiedType: const FullType(_i2.Int64),
+      ));
     return result;
   }
 }

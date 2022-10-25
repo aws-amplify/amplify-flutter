@@ -30,6 +30,7 @@ abstract class UploadPartCopyOutput
     String? sseCustomerKeyMd5,
     String? ssekmsKeyId,
   }) {
+    bucketKeyEnabled ??= false;
     return _$UploadPartCopyOutput._(
       bucketKeyEnabled: bucketKeyEnabled,
       copyPartResult: copyPartResult,
@@ -99,10 +100,12 @@ abstract class UploadPartCopyOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadPartCopyOutputBuilder b) {}
+  static void _init(UploadPartCopyOutputBuilder b) {
+    b.bucketKeyEnabled = false;
+  }
 
   /// Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
-  bool? get bucketKeyEnabled;
+  bool get bucketKeyEnabled;
 
   /// Container for all response elements.
   _i3.CopyPartResult? get copyPartResult;
