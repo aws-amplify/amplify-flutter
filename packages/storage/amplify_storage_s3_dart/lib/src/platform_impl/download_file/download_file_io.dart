@@ -22,24 +22,24 @@ import 'package:path/path.dart' as path;
 
 /// The io implementation of `downloadFile` API.
 @internal
-S3StorageDownloadFileOperation downloadFile({
+S3DownloadFileOperation downloadFile({
   required StorageDownloadFileRequest request,
   required S3PluginConfig s3pluginConfig,
   required StorageS3Service storageS3Service,
   required AppPathProvider appPathProvider,
   void Function(S3TransferProgress)? onProgress,
 }) {
-  final s3Options = request.options as S3StorageDownloadFileOptions? ??
-      S3StorageDownloadFileOptions(
-        storageAccessLevel: s3pluginConfig.defaultAccessLevel,
+  final s3Options = request.options as S3DownloadFileOptions? ??
+      S3DownloadFileOptions(
+        accessLevel: s3pluginConfig.defaultAccessLevel,
       );
   final targetIdentityId = s3Options.targetIdentityId;
   final downloadDataOptions = targetIdentityId == null
-      ? S3StorageDownloadDataOptions(
-          storageAccessLevel: s3Options.storageAccessLevel,
+      ? S3DownloadDataOptions(
+          accessLevel: s3Options.accessLevel,
           getProperties: s3Options.getProperties,
         )
-      : S3StorageDownloadDataOptions.forIdentity(
+      : S3DownloadDataOptions.forIdentity(
           targetIdentityId,
           getProperties: s3Options.getProperties,
         );
@@ -82,16 +82,16 @@ S3StorageDownloadFileOperation downloadFile({
     },
   );
 
-  return S3StorageDownloadFileOperation(
+  return S3DownloadFileOperation(
     request: StorageDownloadFileRequest(
       key: request.key,
       localFile: request.localFile,
       options: s3Options,
     ),
     // This future throws exceptions that may occurred in the entire
-    // download process, all exceptions are remapped to a S3StorageException
+    // download process, all exceptions are remapped to a S3Exception
     result: downloadDataTask.result.then(
-      (downloadedItem) async => S3StorageDownloadFileResult(
+      (downloadedItem) async => S3DownloadFileResult(
         localFile: request.localFile,
         downloadedItem: downloadedItem,
       ),
@@ -106,12 +106,12 @@ Future<String> _ensureDestinationWritable(AWSFile file) async {
   final destinationPath = file.path;
 
   if (destinationPath == null) {
-    throw S3StorageException.invalidDownloadFilePath();
+    throw S3Exception.invalidDownloadFilePath();
   }
 
   // path should not be a directory
   if (await FileSystemEntity.isDirectory(destinationPath)) {
-    throw S3StorageException.invalidDownloadFilePath();
+    throw S3Exception.invalidDownloadFilePath();
   }
 
   final destination = File(destinationPath);
@@ -121,7 +121,7 @@ Future<String> _ensureDestinationWritable(AWSFile file) async {
       await destination.delete();
     }
   } on FileSystemException catch (error) {
-    throw S3StorageException.fromFileSystemException(error);
+    throw S3Exception.fromFileSystemException(error);
   }
 
   return destinationPath;

@@ -90,8 +90,8 @@ void main() {
 
       test('should invoke S3Client.putObject API with expected parameters',
           () async {
-        const testUploadDataOptions = S3StorageUploadDataOptions(
-          storageAccessLevel: StorageAccessLevel.private,
+        const testUploadDataOptions = S3UploadDataOptions(
+          accessLevel: StorageAccessLevel.private,
         );
         final testPutObjectOutput = s3.PutObjectOutput();
 
@@ -126,7 +126,7 @@ void main() {
         expect(
           request.key,
           '${await testPrefixResolver.resolvePrefix(
-            storageAccessLevel: testUploadDataOptions.storageAccessLevel,
+            accessLevel: testUploadDataOptions.accessLevel,
           )}$testKey',
         );
         expect(request.body, testDataPayload);
@@ -135,8 +135,8 @@ void main() {
       test(
           'should invoke S3Client.headObject API with correct parameters when getProperties is set to true in the options',
           () async {
-        const testUploadDataOptions = S3StorageUploadDataOptions(
-          storageAccessLevel: StorageAccessLevel.private,
+        const testUploadDataOptions = S3UploadDataOptions(
+          accessLevel: StorageAccessLevel.private,
           getProperties: true,
         );
         final testPutObjectOutput = s3.PutObjectOutput();
@@ -174,14 +174,14 @@ void main() {
         expect(
           request.key,
           '${await testPrefixResolver.resolvePrefix(
-            storageAccessLevel: testUploadDataOptions.storageAccessLevel,
+            accessLevel: testUploadDataOptions.accessLevel,
           )}$testKey',
         );
       });
 
-      test('should throw S3StorageException when prefix resolving fails', () {
-        const testUploadDataOptions = S3StorageUploadDataOptions(
-          storageAccessLevel: StorageAccessLevel.private,
+      test('should throw S3Exception when prefix resolving fails', () {
+        const testUploadDataOptions = S3UploadDataOptions(
+          accessLevel: StorageAccessLevel.private,
         );
         final prefixResolverThrowsException =
             TestCustomPrefixResolverThrowsException();
@@ -198,12 +198,12 @@ void main() {
         );
 
         unawaited(uploadDataTask.start());
-        expect(uploadDataTask.result, throwsA(isA<S3StorageException>()));
+        expect(uploadDataTask.result, throwsA(isA<S3Exception>()));
       });
 
-      test('should throw S3StorageException when S3Client.putObject fails', () {
-        const testUploadDataOptions = S3StorageUploadDataOptions(
-          storageAccessLevel: StorageAccessLevel.private,
+      test('should throw S3Exception when S3Client.putObject fails', () {
+        const testUploadDataOptions = S3UploadDataOptions(
+          accessLevel: StorageAccessLevel.private,
         );
         const testException = smithy.UnknownSmithyHttpException(
           statusCode: 403,
@@ -227,7 +227,7 @@ void main() {
 
         unawaited(uploadDataTask.start());
 
-        expect(uploadDataTask.result, throwsA(isA<S3StorageException>()));
+        expect(uploadDataTask.result, throwsA(isA<S3Exception>()));
       });
     });
 
@@ -241,8 +241,8 @@ void main() {
 
       test('should invoke S3Client.putObject with expected parameters',
           () async {
-        const testUploadDataOptions = S3StorageUploadDataOptions(
-          storageAccessLevel: StorageAccessLevel.private,
+        const testUploadDataOptions = S3UploadDataOptions(
+          accessLevel: StorageAccessLevel.private,
         );
         final testPutObjectOutput = s3.PutObjectOutput();
         when(
@@ -276,7 +276,7 @@ void main() {
         expect(
           request.key,
           '${await testPrefixResolver.resolvePrefix(
-            storageAccessLevel: testUploadDataOptions.storageAccessLevel,
+            accessLevel: testUploadDataOptions.accessLevel,
           )}$testKey',
         );
         expect(await request.body?.toList(), equals([testBytes]));
@@ -306,8 +306,8 @@ void main() {
           receivedState.add(progress.state);
         }
 
-        const testUploadDataOptions = S3StorageUploadDataOptions(
-          storageAccessLevel: StorageAccessLevel.protected,
+        const testUploadDataOptions = S3UploadDataOptions(
+          accessLevel: StorageAccessLevel.protected,
           getProperties: true,
           metadata: {'filename': 'png.png'},
         );
@@ -393,7 +393,7 @@ void main() {
         expect(
           createMultipartUploadRequest.key,
           '${await testPrefixResolver.resolvePrefix(
-            storageAccessLevel: testUploadDataOptions.storageAccessLevel,
+            accessLevel: testUploadDataOptions.accessLevel,
           )}$testKey',
         );
         expect(
@@ -430,7 +430,7 @@ void main() {
           expect(
             request.key,
             '${await testPrefixResolver.resolvePrefix(
-              storageAccessLevel: testUploadDataOptions.storageAccessLevel,
+              accessLevel: testUploadDataOptions.accessLevel,
             )}$testKey',
           );
           partNumbers.add(request.partNumber);
@@ -466,7 +466,7 @@ void main() {
         expect(
           completeMultipartUploadRequest.key,
           '${await testPrefixResolver.resolvePrefix(
-            storageAccessLevel: testUploadDataOptions.storageAccessLevel,
+            accessLevel: testUploadDataOptions.accessLevel,
           )}$testKey',
         );
 
@@ -493,7 +493,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: const S3StorageUploadDataOptions(),
+          options: const S3UploadDataOptions(),
           logger: logger,
           transferDatabase: transferDatabase,
           onProgress: (progress) {
@@ -505,7 +505,7 @@ void main() {
 
         await expectLater(
           uploadTask.result,
-          throwsA(isA<S3StorageException>()),
+          throwsA(isA<S3Exception>()),
         );
         expect(finalState, S3TransferState.failure);
       });
@@ -519,7 +519,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: const S3StorageUploadDataOptions(),
+          options: const S3UploadDataOptions(),
           logger: logger,
           transferDatabase: transferDatabase,
           onProgress: (progress) {
@@ -541,7 +541,7 @@ void main() {
         await expectLater(
           uploadTask.result,
           throwsA(
-            isA<S3StorageException>()
+            isA<S3Exception>()
               ..having(
                 (o) => o.underlyingException,
                 'underlyingException',
@@ -563,7 +563,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: const S3StorageUploadDataOptions(),
+          options: const S3UploadDataOptions(),
           logger: logger,
           transferDatabase: transferDatabase,
           onProgress: (progress) {
@@ -582,7 +582,7 @@ void main() {
 
         await expectLater(
           uploadTask.result,
-          throwsA(isA<S3StorageException>()),
+          throwsA(isA<S3Exception>()),
         );
         expect(finalState, S3TransferState.failure);
       });
@@ -597,7 +597,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: const S3StorageUploadDataOptions(),
+          options: const S3UploadDataOptions(),
           logger: logger,
           transferDatabase: transferDatabase,
           onProgress: (progress) {
@@ -634,7 +634,7 @@ void main() {
         await expectLater(
           uploadTask.result,
           throwsA(
-            isA<S3StorageException>()
+            isA<S3Exception>()
               ..having(
                 (o) => o.underlyingException,
                 'underlyingException',
@@ -655,7 +655,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: const S3StorageUploadDataOptions(),
+          options: const S3UploadDataOptions(),
           logger: logger,
           transferDatabase: transferDatabase,
           onProgress: (progress) {
@@ -693,7 +693,7 @@ void main() {
         await expectLater(
           uploadTask.result,
           throwsA(
-            isA<S3StorageException>()
+            isA<S3Exception>()
               ..having(
                 (o) => o.underlyingException,
                 'underlyingException',
@@ -729,7 +729,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: const S3StorageUploadDataOptions(),
+          options: const S3UploadDataOptions(),
           logger: logger,
           transferDatabase: transferDatabase,
           onProgress: (progress) {
@@ -763,7 +763,7 @@ void main() {
 
         await expectLater(
           uploadTask.result,
-          throwsA(isA<S3StorageException>()),
+          throwsA(isA<S3Exception>()),
         );
 
         expect(finalState, S3TransferState.failure);
@@ -779,7 +779,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: const S3StorageUploadDataOptions(),
+          options: const S3UploadDataOptions(),
           logger: logger,
           transferDatabase: transferDatabase,
           onProgress: (progress) {
@@ -814,7 +814,7 @@ void main() {
         await expectLater(
           uploadTask.result,
           throwsA(
-            isA<S3StorageException>()
+            isA<S3Exception>()
               ..having(
                 (o) => o.underlyingException,
                 'underlyingException',
@@ -878,7 +878,7 @@ void main() {
             prefixResolver: testPrefixResolver,
             bucket: testBucket,
             key: testKey,
-            options: const S3StorageUploadDataOptions(),
+            options: const S3UploadDataOptions(),
             logger: logger,
             transferDatabase: transferDatabase,
             onProgress: (progress) {
@@ -902,7 +902,7 @@ void main() {
         });
 
         test(
-            'cancel() should terminate ongoing multipart upload and throw a S3StorageException',
+            'cancel() should terminate ongoing multipart upload and throw a S3Exception',
             () async {
           final receivedState = <S3TransferState>[];
           final uploadTask = S3UploadTask.fromAWSFile(
@@ -911,7 +911,7 @@ void main() {
             prefixResolver: testPrefixResolver,
             bucket: testBucket,
             key: testKey,
-            options: const S3StorageUploadDataOptions(),
+            options: const S3UploadDataOptions(),
             logger: logger,
             transferDatabase: transferDatabase,
             onProgress: (progress) {
@@ -925,7 +925,7 @@ void main() {
 
           expect(
             uploadTask.result,
-            throwsA(isA<S3StorageException>()),
+            throwsA(isA<S3Exception>()),
           );
         });
       });

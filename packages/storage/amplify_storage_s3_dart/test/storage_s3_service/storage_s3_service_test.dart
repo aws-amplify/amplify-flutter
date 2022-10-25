@@ -30,17 +30,17 @@ import '../test_utils/test_token_provider.dart';
 
 const testDelimiter = '#';
 
-class TestPrefixResolver implements S3StoragePrefixResolver {
+class TestPrefixResolver implements S3PrefixResolver {
   @override
   Future<String> resolvePrefix({
-    required StorageAccessLevel storageAccessLevel,
+    required StorageAccessLevel accessLevel,
     String? identityId,
   }) async {
     if (identityId == 'throw exception for me') {
       throw Exception('elaborated exception');
     }
 
-    return '${storageAccessLevel.defaultPrefix}$testDelimiter';
+    return '${accessLevel.defaultPrefix}$testDelimiter';
   }
 }
 
@@ -76,14 +76,13 @@ void main() {
       test(
           'should throw a StorageS3Exception if supplied prefix resolver throws an exception',
           () async {
-        const testOptions =
-            S3StorageListOptions.forIdentity('throw exception for me');
+        const testOptions = S3ListOptions.forIdentity('throw exception for me');
 
         try {
           await storageS3Service.list(path: 'a path', options: testOptions);
           fail('Expected exception wasn\'t thrown.');
         } on Object catch (error) {
-          expect(error is S3StorageException, isTrue);
+          expect(error is S3Exception, isTrue);
         }
 
         verify(() => logger.error(any(), any(), any())).called(1);
@@ -92,7 +91,7 @@ void main() {
 
     group('list() API', () {
       var calledPageSize = 0;
-      late S3StorageListResult listResult;
+      late S3ListResult listResult;
       const testPageSize = 100;
       const testBucketName = 'a-bucket';
       const testStorageAccessLevel = StorageAccessLevel.protected;
@@ -116,7 +115,7 @@ void main() {
         );
         const testPath = 'album';
         const testTargetIdentityId = 'someone-else-id';
-        const testOptions = S3StorageListOptions.forIdentity(
+        const testOptions = S3ListOptions.forIdentity(
           testTargetIdentityId,
           pageSize: testPageSize,
         );
@@ -170,7 +169,7 @@ void main() {
         expect(
           request.prefix,
           '${await testPrefixResolver.resolvePrefix(
-            storageAccessLevel: testOptions.storageAccessLevel,
+            accessLevel: testOptions.accessLevel,
             identityId: testTargetIdentityId,
           )}$testPath',
         );
@@ -190,9 +189,9 @@ void main() {
       });
 
       test(
-          'should throw S3StorageException when UnknownSmithyHttpException is returned from service',
+          'should throw S3Exception when UnknownSmithyHttpException is returned from service',
           () async {
-        const testOptions = S3StorageListOptions();
+        const testOptions = S3ListOptions();
         const testUnknownException = UnknownSmithyHttpException(
           statusCode: 403,
           body: 'some exception',
@@ -209,13 +208,13 @@ void main() {
             path: 'a path',
             options: testOptions,
           ),
-          throwsA(isA<S3StorageException>()),
+          throwsA(isA<S3Exception>()),
         );
       });
     });
 
     group('getProperties() API', () {
-      late S3StorageGetPropertiesResult getPropertiesResult;
+      late S3GetPropertiesResult getPropertiesResult;
       const testKey = 'some-object';
       const testMetadata = {
         'filename': 'hello.jpg',
@@ -237,7 +236,7 @@ void main() {
       test('should invoke S3Client.headObject with expected parameters',
           () async {
         const testTargetIdentityId = 'someone-else-id';
-        const testOptions = S3StorageGetPropertiesOptions.forIdentity(
+        const testOptions = S3GetPropertiesOptions.forIdentity(
           testTargetIdentityId,
         );
         final testHeadObjectOutput = HeadObjectOutput(
@@ -272,13 +271,13 @@ void main() {
         expect(
           request.key,
           '${await testPrefixResolver.resolvePrefix(
-            storageAccessLevel: testOptions.storageAccessLevel,
+            accessLevel: testOptions.accessLevel,
             identityId: testTargetIdentityId,
           )}$testKey',
         );
       });
 
-      test('should return correct S3StorageGetProperties result', () async {
+      test('should return correct S3GetProperties result', () async {
         final storageItem = getPropertiesResult.storageItem;
         expect(storageItem.key, testKey);
         expect(storageItem.metadata, testMetadata);
@@ -287,9 +286,9 @@ void main() {
       });
 
       test(
-          'should throw S3StorageException when UnknownSmithyHttpException is returned from service',
+          'should throw S3Exception when UnknownSmithyHttpException is returned from service',
           () async {
-        const testOptions = S3StorageGetPropertiesOptions();
+        const testOptions = S3GetPropertiesOptions();
         const testUnknownException = UnknownSmithyHttpException(
           statusCode: 404,
           body: 'Nod found.',
@@ -306,13 +305,13 @@ void main() {
             key: 'a key',
             options: testOptions,
           ),
-          throwsA(isA<S3StorageException>()),
+          throwsA(isA<S3Exception>()),
         );
       });
     });
 
     group('getUrl() API', () {
-      late S3StorageGetUrlResult getUrlResult;
+      late S3GetUrlResult getUrlResult;
       const testExpiresIn = Duration(days: 1);
       const testKey = 'some-object';
       final testUrl = Uri(
@@ -343,7 +342,7 @@ void main() {
         runZoned(
           () async {
             const testTargetIdentityId = 'someone-else-id';
-            const testOptions = S3StorageGetUrlOptions.forIdentity(
+            const testOptions = S3GetUrlOptions.forIdentity(
               testTargetIdentityId,
               expiresIn: testExpiresIn,
             );
@@ -380,7 +379,7 @@ void main() {
               requestParam.uri.toString(),
               endsWith(
                 Uri.encodeComponent('${await testPrefixResolver.resolvePrefix(
-                  storageAccessLevel: testOptions.storageAccessLevel,
+                  accessLevel: testOptions.accessLevel,
                   identityId: testTargetIdentityId,
                 )}$testKey'),
               ),
@@ -413,8 +412,8 @@ void main() {
       test(
           'should invoke s3Client.headObject when checkObjectExistence option is set to true',
           () async {
-        const testOptions = S3StorageGetUrlOptions(
-          storageAccessLevel: StorageAccessLevel.private,
+        const testOptions = S3GetUrlOptions(
+          accessLevel: StorageAccessLevel.private,
           checkObjectExistence: true,
         );
         const testUnknownException = UnknownSmithyHttpException(
@@ -435,7 +434,7 @@ void main() {
           );
           fail('Expected exception wasn\'t thrown.');
         } on Object catch (error) {
-          expect(error is S3StorageException, isTrue);
+          expect(error is S3Exception, isTrue);
         }
 
         final capturedRequest = verify(
@@ -447,7 +446,7 @@ void main() {
         expect(
           capturedRequest.key,
           '${await testPrefixResolver.resolvePrefix(
-            storageAccessLevel: testOptions.storageAccessLevel,
+            accessLevel: testOptions.accessLevel,
           )}$testKey',
         );
       });
@@ -456,7 +455,7 @@ void main() {
           'should invoke s3Client.headObject when checkObjectExistence option is set to true and specified targetIdentityId',
           () async {
         const testTargetIdentityId = 'some-else-id';
-        const testOptions = S3StorageGetUrlOptions.forIdentity(
+        const testOptions = S3GetUrlOptions.forIdentity(
           testTargetIdentityId,
           checkObjectExistence: true,
         );
@@ -478,7 +477,7 @@ void main() {
           );
           fail('Expected exception wasn\'t thrown.');
         } on Object catch (error) {
-          expect(error is S3StorageException, isTrue);
+          expect(error is S3Exception, isTrue);
         }
 
         final capturedRequest = verify(
@@ -490,20 +489,19 @@ void main() {
         expect(
           capturedRequest.key,
           '${await testPrefixResolver.resolvePrefix(
-            storageAccessLevel: testOptions.storageAccessLevel,
+            accessLevel: testOptions.accessLevel,
           )}$testKey',
         );
       });
     });
 
     group('copy() API', () {
-      late S3StorageCopyResult copyResult;
-      const testSourceItem = S3StorageItem(key: 'source');
-      const testDestinationItem = S3StorageItem(key: 'destination');
-      const testSource =
-          S3StorageItemWithAccessLevel(storageItem: testSourceItem);
+      late S3CopyResult copyResult;
+      const testSourceItem = S3Item(key: 'source');
+      const testDestinationItem = S3Item(key: 'destination');
+      const testSource = S3ItemWithAccessLevel(storageItem: testSourceItem);
       const testDestination =
-          S3StorageItemWithAccessLevel(storageItem: testDestinationItem);
+          S3ItemWithAccessLevel(storageItem: testDestinationItem);
 
       setUpAll(() {
         registerFallbackValue(
@@ -523,7 +521,7 @@ void main() {
 
       test('should invoke S3Client.copyObject with expected parameters',
           () async {
-        const testOptions = S3StorageCopyOptions();
+        const testOptions = S3CopyOptions();
         final testCopyObjectOutput = CopyObjectOutput();
 
         when(
@@ -547,19 +545,19 @@ void main() {
         expect(
           request.copySource,
           '$testBucket/${await testPrefixResolver.resolvePrefix(
-            storageAccessLevel: testSource.storageAccessLevel,
+            accessLevel: testSource.accessLevel,
           )}${testSourceItem.key}',
         );
       });
 
-      test('should return correct S3StorageCopyResult', () {
+      test('should return correct S3CopyResult', () {
         expect(copyResult.copiedItem.key, testDestination.storageItem.key);
       });
 
       test(
-          'should throw S3StorageException when UnknownSmithyHttpException is returned from service',
+          'should throw S3Exception when UnknownSmithyHttpException is returned from service',
           () async {
-        const testOptions = S3StorageCopyOptions();
+        const testOptions = S3CopyOptions();
         const testUnknownException = UnknownSmithyHttpException(
           statusCode: 403,
           body: 'Access denied.',
@@ -577,14 +575,14 @@ void main() {
             destination: testDestination,
             options: testOptions,
           ),
-          throwsA(isA<S3StorageException>()),
+          throwsA(isA<S3Exception>()),
         );
       });
 
       test(
           'should invoke S3Client.headObject with correct parameters when getProperties option is set to true',
           () async {
-        const testOptions = S3StorageCopyOptions(getProperties: true);
+        const testOptions = S3CopyOptions(getProperties: true);
         final testCopyObjectOutput = CopyObjectOutput();
         final testHeadObjectOutput = HeadObjectOutput();
 
@@ -613,20 +611,19 @@ void main() {
         expect(
           request.key,
           '${await testPrefixResolver.resolvePrefix(
-            storageAccessLevel: testDestination.storageAccessLevel,
+            accessLevel: testDestination.accessLevel,
           )}${testDestinationItem.key}',
         );
       });
     });
 
     group('move() API', () {
-      late S3StorageMoveResult moveResult;
-      const testSourceItem = S3StorageItem(key: 'source');
-      const testDestinationItem = S3StorageItem(key: 'destination');
-      const testSource =
-          S3StorageItemWithAccessLevel(storageItem: testSourceItem);
+      late S3MoveResult moveResult;
+      const testSourceItem = S3Item(key: 'source');
+      const testDestinationItem = S3Item(key: 'destination');
+      const testSource = S3ItemWithAccessLevel(storageItem: testSourceItem);
       const testDestination =
-          S3StorageItemWithAccessLevel(storageItem: testDestinationItem);
+          S3ItemWithAccessLevel(storageItem: testDestinationItem);
 
       setUpAll(() {
         registerFallbackValue(
@@ -653,7 +650,7 @@ void main() {
       test(
           'should invoke S3Client.copyObject and S3Client.deleteObject with expected parameters',
           () async {
-        const testOptions = S3StorageMoveOptions();
+        const testOptions = S3MoveOptions();
         final testCopyObjectOutput = CopyObjectOutput();
         final testDeleteObjectOutput = DeleteObjectOutput();
 
@@ -689,7 +686,7 @@ void main() {
         expect(
           copyRequest.copySource,
           '$testBucket/${await testPrefixResolver.resolvePrefix(
-            storageAccessLevel: testSource.storageAccessLevel,
+            accessLevel: testSource.accessLevel,
           )}${testSourceItem.key}',
         );
 
@@ -697,19 +694,19 @@ void main() {
         expect(
           deleteRequest.key,
           '${await testPrefixResolver.resolvePrefix(
-            storageAccessLevel: testSource.storageAccessLevel,
+            accessLevel: testSource.accessLevel,
           )}${testSourceItem.key}',
         );
       });
 
-      test('should return correct S3StorageCopyResult', () {
+      test('should return correct S3CopyResult', () {
         expect(moveResult.movedItem.key, testDestination.storageItem.key);
       });
 
       test(
-          'should throw S3StorageException when UnknownSmithyHttpException is returned from service while copying the source',
+          'should throw S3Exception when UnknownSmithyHttpException is returned from service while copying the source',
           () async {
-        const testOptions = S3StorageMoveOptions();
+        const testOptions = S3MoveOptions();
         const testUnknownException = UnknownSmithyHttpException(
           statusCode: 403,
           body: 'Access denied.',
@@ -727,14 +724,14 @@ void main() {
             destination: testDestination,
             options: testOptions,
           ),
-          throwsA(isA<S3StorageException>()),
+          throwsA(isA<S3Exception>()),
         );
       });
 
       test(
-          'should throw S3StorageException when UnknownSmithyHttpException is returned from service while deleting the source',
+          'should throw S3Exception when UnknownSmithyHttpException is returned from service while deleting the source',
           () async {
-        const testOptions = S3StorageMoveOptions();
+        const testOptions = S3MoveOptions();
         const testUnknownException = UnknownSmithyHttpException(
           statusCode: 500,
           body: 'Internal error',
@@ -757,14 +754,14 @@ void main() {
             destination: testDestination,
             options: testOptions,
           ),
-          throwsA(isA<S3StorageException>()),
+          throwsA(isA<S3Exception>()),
         );
       });
 
       test(
           'should invoke S3Client.headObject with correct parameters when getProperties option is set to true',
           () async {
-        const testOptions = S3StorageMoveOptions(getProperties: true);
+        const testOptions = S3MoveOptions(getProperties: true);
         final testCopyObjectOutput = CopyObjectOutput();
         final testDeleteObjectOutput = DeleteObjectOutput();
         final testHeadObjectOutput = HeadObjectOutput();
@@ -798,14 +795,14 @@ void main() {
         expect(
           request.key,
           '${await testPrefixResolver.resolvePrefix(
-            storageAccessLevel: testDestination.storageAccessLevel,
+            accessLevel: testDestination.accessLevel,
           )}${testDestinationItem.key}',
         );
       });
     });
 
     group('remove() API', () {
-      late S3StorageRemoveResult removeResult;
+      late S3RemoveResult removeResult;
       const testKey = 'object-to-remove';
 
       setUpAll(() {
@@ -819,8 +816,8 @@ void main() {
 
       test('should invoke S3Client.deleteObject with expected parameters',
           () async {
-        const testOptions = S3StorageRemoveOptions(
-          storageAccessLevel: StorageAccessLevel.private,
+        const testOptions = S3RemoveOptions(
+          accessLevel: StorageAccessLevel.private,
         );
         final testDeleteObjectOutput = DeleteObjectOutput();
 
@@ -845,19 +842,19 @@ void main() {
         expect(
           request.key,
           '${await testPrefixResolver.resolvePrefix(
-            storageAccessLevel: testOptions.storageAccessLevel,
+            accessLevel: testOptions.accessLevel,
           )}$testKey',
         );
       });
 
-      test('should return correct S3StorageRemoveResult', () {
+      test('should return correct S3RemoveResult', () {
         expect(removeResult.removedItem.key, testKey);
       });
 
       test(
-          'should throw S3StorageException when UnknownSmithyHttpException is returned from service',
+          'should throw S3Exception when UnknownSmithyHttpException is returned from service',
           () async {
-        const testOptions = S3StorageRemoveOptions();
+        const testOptions = S3RemoveOptions();
         const testUnknownException = UnknownSmithyHttpException(
           statusCode: 403,
           body: 'Access denied.',
@@ -872,13 +869,13 @@ void main() {
             key: 'a key',
             options: testOptions,
           ),
-          throwsA(isA<S3StorageException>()),
+          throwsA(isA<S3Exception>()),
         );
       });
     });
 
     group('removeMany() API', () {
-      late S3StorageRemoveManyResult removeManyResult;
+      late S3RemoveManyResult removeManyResult;
       const testNumOfRemovedItems = 955;
       const testNumOfRemoveErrors = 50;
       final testKeys = List.generate(
@@ -897,11 +894,11 @@ void main() {
 
       test('should invoke S3Client.deleteObjects with expected parameters',
           () async {
-        const testOptions = S3StorageRemoveManyOptions(
-          storageAccessLevel: StorageAccessLevel.protected,
+        const testOptions = S3RemoveManyOptions(
+          accessLevel: StorageAccessLevel.protected,
         );
         final testPrefix =
-            '${testOptions.storageAccessLevel.defaultPrefix}$testDelimiter';
+            '${testOptions.accessLevel.defaultPrefix}$testDelimiter';
         final testDeleteObjectsOutput1 = DeleteObjectsOutput(
           deleted: BuiltList(
             testKeys
@@ -968,14 +965,14 @@ void main() {
         final expectedKeysForRequest1 = await Future.wait(
           testKeys.take(1000).map(
                 (key) async => '${await testPrefixResolver.resolvePrefix(
-                  storageAccessLevel: testOptions.storageAccessLevel,
+                  accessLevel: testOptions.accessLevel,
                 )}$key',
               ),
         );
         final expectedKeysForRequest2 = await Future.wait(
           testKeys.skip(1000).map(
                 (key) async => '${await testPrefixResolver.resolvePrefix(
-                  storageAccessLevel: testOptions.storageAccessLevel,
+                  accessLevel: testOptions.accessLevel,
                 )}$key',
               ),
         );
@@ -991,7 +988,7 @@ void main() {
         );
       });
 
-      test('should return correct S3StorageRemoveManyResult', () {
+      test('should return correct S3RemoveManyResult', () {
         final removedItems = removeManyResult.removedItems;
         final removeErrors = removeManyResult.removeErrors;
 
@@ -1006,9 +1003,9 @@ void main() {
       });
 
       test(
-          'should throw S3StorageException when UnknownSmithyHttpException is returned from service',
+          'should throw S3Exception when UnknownSmithyHttpException is returned from service',
           () async {
-        const testOptions = S3StorageRemoveManyOptions();
+        const testOptions = S3RemoveManyOptions();
         const testUnknownException = UnknownSmithyHttpException(
           statusCode: 403,
           body: 'Access denied.',
@@ -1023,7 +1020,7 @@ void main() {
             keys: testKeys,
             options: testOptions,
           ),
-          throwsA(isA<S3StorageException>()),
+          throwsA(isA<S3Exception>()),
         );
       });
     });

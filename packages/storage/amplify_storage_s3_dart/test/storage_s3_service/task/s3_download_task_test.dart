@@ -56,8 +56,8 @@ void main() {
       test(
           'it should ripple exception thrown from `preStart` to the result Future',
           () {
-        const testOptions = S3StorageDownloadDataOptions();
-        final testException = S3StorageException.unknownException();
+        const testOptions = S3DownloadDataOptions();
+        final testException = S3Exception.unknownException();
         Future<void> testPreStart() async {
           throw testException;
         }
@@ -79,7 +79,7 @@ void main() {
 
       test('it should invoke S3Client.getObject API with correct parameters',
           () async {
-        const testOptions = S3StorageDownloadDataOptions();
+        const testOptions = S3DownloadDataOptions();
         const testBodyBytes = [101, 102];
         final testGetObjectOutput = GetObjectOutput(
           contentLength: Int64(testBodyBytes.length),
@@ -116,7 +116,7 @@ void main() {
         expect(
           request.key,
           '${await testPrefixResolver.resolvePrefix(
-            storageAccessLevel: testOptions.storageAccessLevel,
+            accessLevel: testOptions.accessLevel,
           )}$testKey',
         );
         expect(request.checksumMode, ChecksumMode.enabled);
@@ -126,9 +126,9 @@ void main() {
       });
 
       test(
-          'it should throw S3StorageException when getObject response doesn\'t include a value contentLength header',
+          'it should throw S3Exception when getObject response doesn\'t include a value contentLength header',
           () async {
-        const testOptions = S3StorageDownloadDataOptions();
+        const testOptions = S3DownloadDataOptions();
         final testGetObjectOutput = GetObjectOutput(
           body: Stream.value([101]),
         );
@@ -154,7 +154,7 @@ void main() {
 
         await expectLater(
           downloadTask.result,
-          throwsA(isA<S3StorageException>()),
+          throwsA(isA<S3Exception>()),
         );
         expect(onErrorHasBeenCalled, isTrue);
       });
@@ -162,7 +162,7 @@ void main() {
 
     group('pause API()', () {
       test('it should pause the task', () async {
-        const testOptions = S3StorageDownloadDataOptions();
+        const testOptions = S3DownloadDataOptions();
         final testGetObjectOutput = GetObjectOutput(
           contentLength: Int64(1024),
           body: Stream<List<int>>.periodic(
@@ -197,7 +197,7 @@ void main() {
 
     group('resume API()', () {
       test('it should resume the task from paused state', () async {
-        const testOptions = S3StorageDownloadDataOptions();
+        const testOptions = S3DownloadDataOptions();
         final testGetObjectOutput1 = GetObjectOutput(
           contentLength: Int64(1024),
           body: Stream<List<int>>.periodic(
@@ -244,7 +244,7 @@ void main() {
 
       test('should throw exception when attempt to resume a canceled task',
           () async {
-        const testOptions = S3StorageDownloadDataOptions();
+        const testOptions = S3DownloadDataOptions();
         final testGetObjectOutput = GetObjectOutput(
           contentLength: Int64(1024),
           body: Stream<List<int>>.periodic(
@@ -273,14 +273,14 @@ void main() {
         await downloadTask.start();
         await downloadTask.cancel();
 
-        expect(downloadTask.result, throwsA(isA<S3StorageException>()));
-        expect(downloadTask.resume, throwsA(isA<S3StorageException>()));
+        expect(downloadTask.result, throwsA(isA<S3Exception>()));
+        expect(downloadTask.resume, throwsA(isA<S3Exception>()));
       });
     });
 
     group('cancel API()', () {
       test('it should cancel the task', () async {
-        const testOptions = S3StorageDownloadDataOptions();
+        const testOptions = S3DownloadDataOptions();
         final testGetObjectOutput = GetObjectOutput(
           contentLength: Int64(1024),
           body: Stream<List<int>>.periodic(
@@ -309,14 +309,13 @@ void main() {
         await downloadTask.start();
         await downloadTask.cancel();
         expect(receivedState.last, S3TransferState.canceled);
-        expect(downloadTask.result, throwsA(isA<S3StorageException>()));
+        expect(downloadTask.result, throwsA(isA<S3Exception>()));
       });
     });
 
     group('error handling around S3Client.getObject', () {
-      test('should forward S3StorageException when getObject returns no body',
-          () {
-        const testOptions = S3StorageDownloadDataOptions();
+      test('should forward S3Exception when getObject returns no body', () {
+        const testOptions = S3DownloadDataOptions();
         final testGetObjectOutput = GetObjectOutput(contentLength: Int64(1024));
 
         when(
@@ -334,7 +333,7 @@ void main() {
 
         unawaited(downloadTask.start());
 
-        expect(downloadTask.result, throwsA(isA<S3StorageException>()));
+        expect(downloadTask.result, throwsA(isA<S3Exception>()));
       });
 
       final _ = {
@@ -346,9 +345,9 @@ void main() {
       }
         ..forEach((exceptionType, exception) {
           test(
-              'it should complete with a S3StorageException on $exceptionType of getObject on start',
+              'it should complete with a S3Exception on $exceptionType of getObject on start',
               () async {
-            const testOptions = S3StorageDownloadDataOptions();
+            const testOptions = S3DownloadDataOptions();
 
             when(
               () => s3Client.getObject(any()),
@@ -367,15 +366,15 @@ void main() {
 
             expect(
               downloadTask.result,
-              throwsA(isA<S3StorageException>()),
+              throwsA(isA<S3Exception>()),
             );
           });
         })
         ..forEach((exceptionType, exception) {
           test(
-              'it should complete with a S3StorageException on $exceptionType of getObject on resume',
+              'it should complete with a S3Exception on $exceptionType of getObject on resume',
               () async {
-            const testOptions = S3StorageDownloadDataOptions();
+            const testOptions = S3DownloadDataOptions();
             final testGetObjectOutput1 = GetObjectOutput(
               contentLength: Int64(1024),
               body: Stream<List<int>>.periodic(
@@ -412,7 +411,7 @@ void main() {
 
             expect(
               downloadTask.result,
-              throwsA(isA<S3StorageException>()),
+              throwsA(isA<S3Exception>()),
             );
           });
         });
@@ -420,7 +419,7 @@ void main() {
 
     group('download completion', () {
       test('download should complete', () async {
-        const testOptions = S3StorageDownloadDataOptions();
+        const testOptions = S3DownloadDataOptions();
         const testBodyBytes = [101, 102];
         final testGetObjectOutput = GetObjectOutput(
           contentLength: Int64(testBodyBytes.length),
@@ -452,7 +451,7 @@ void main() {
       test(
           '`onDone` should be invoked when body stream is completed and ripples exception from onDone to the result Future',
           () async {
-        const testOptions = S3StorageDownloadDataOptions();
+        const testOptions = S3DownloadDataOptions();
         const testBodyBytes = [101, 102];
         final testGetObjectOutput = GetObjectOutput(
           contentLength: Int64(testBodyBytes.length),
@@ -493,7 +492,7 @@ void main() {
           'should invoke S3Client.headObject to retrieve properties of object when getProperties is set to true in the options',
           () async {
         const testTargetIdentity = 'some-else-id';
-        const testOptions = S3StorageDownloadDataOptions.forIdentity(
+        const testOptions = S3DownloadDataOptions.forIdentity(
           testTargetIdentity,
           getProperties: true,
         );
@@ -536,7 +535,7 @@ void main() {
             (o) => o.key,
             'key',
             '${await testPrefixResolver.resolvePrefix(
-              storageAccessLevel: testOptions.storageAccessLevel,
+              accessLevel: testOptions.accessLevel,
               identityId: testTargetIdentity,
             )}$testKey',
           ),
