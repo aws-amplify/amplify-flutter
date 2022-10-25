@@ -16,8 +16,8 @@ import '../access_level.dart';
 
 abstract class StorageOperationOptions {
   const StorageOperationOptions({
-    required this.storageAccessLevel,
+    required this.accessLevel,
   });
 
-  final StorageAccessLevel storageAccessLevel;
+  final StorageAccessLevel accessLevel;
 }

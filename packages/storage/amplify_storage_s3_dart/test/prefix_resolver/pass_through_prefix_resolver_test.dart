@@ -19,14 +19,14 @@ import 'package:test/test.dart';
 void main() {
   group('PassThroughPrefixResolver', () {
     final prefixResolver = PassThroughPrefixResolver();
-    for (final storageAccessLevel in [
+    for (final accessLevel in [
       StorageAccessLevel.guest,
       StorageAccessLevel.private,
       StorageAccessLevel.protected
     ]) {
-      test('should resolve as empty string for $storageAccessLevel', () async {
+      test('should resolve as empty string for $accessLevel', () async {
         final result = await prefixResolver.resolvePrefix(
-          storageAccessLevel: storageAccessLevel,
+          accessLevel: accessLevel,
         );
 
         expect(result, isEmpty);

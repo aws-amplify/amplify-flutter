@@ -20,6 +20,6 @@ import 'base/storage_operation_options.dart';
 class StorageDownloadFileOptions extends StorageOperationOptions {
   /// {@macro amplify_core.storage.download_file_options}
   const StorageDownloadFileOptions({
-    required super.storageAccessLevel,
+    required super.accessLevel,
   });
 }

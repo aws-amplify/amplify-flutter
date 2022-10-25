@@ -24,7 +24,7 @@ class S3DataBytesRange {
     required int end,
   }) {
     if (start >= end) {
-      throw S3StorageException.invalidBytesRange();
+      throw S3Exception.invalidBytesRange();
     }
 
     return S3DataBytesRange._(start: start, end: end);

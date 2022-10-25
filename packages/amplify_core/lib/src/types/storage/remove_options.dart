@@ -20,6 +20,6 @@ import 'base/storage_operation_options.dart';
 class StorageRemoveOptions extends StorageOperationOptions {
   /// {@macro amplify_core.storage.remove_options}
   const StorageRemoveOptions({
-    required super.storageAccessLevel,
+    required super.accessLevel,
   });
 }

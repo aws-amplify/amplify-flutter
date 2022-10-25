@@ -18,7 +18,7 @@ import 'package:fixnum/fixnum.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('S3StorageItem.fromS3Object()', () {
+  group('S3Item.fromS3Object()', () {
     const testETag = '1234';
     const testPrefixToDrop = 'prefix';
     const testKey = '$testPrefixToDrop/object-key';
@@ -33,7 +33,7 @@ void main() {
           ..lastModified = testLastModified;
       });
 
-      final storageS3Item = S3StorageItem.fromS3Object(
+      final storageS3Item = S3Item.fromS3Object(
         testS3Object,
         prefixToDrop: testPrefixToDrop,
       );
@@ -55,13 +55,13 @@ void main() {
       });
 
       try {
-        S3StorageItem.fromS3Object(
+        S3Item.fromS3Object(
           testS3Object,
           prefixToDrop: testPrefixToDrop,
         );
         fail('Expected exception wasn\'t thrown.');
-      } on S3StorageException catch (error) {
-        expect(error, S3StorageException.unknownException());
+      } on S3Exception catch (error) {
+        expect(error, S3Exception.unknownException());
       }
     });
   });

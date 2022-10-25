@@ -57,17 +57,17 @@ class S3DownloadTask {
   /// {@endtemplate}
   S3DownloadTask({
     required s3.S3Client s3Client,
-    required S3StoragePrefixResolver prefixResolver,
+    required S3PrefixResolver prefixResolver,
     required String bucket,
     required String key,
-    required S3StorageDownloadDataOptions options,
+    required S3DownloadDataOptions options,
     FutureOr<void> Function()? preStart,
     void Function(S3TransferProgress)? onProgress,
     void Function(List<int>)? onData,
     FutureOr<void> Function()? onDone,
     FutureOr<void> Function()? onError,
     required AWSLogger logger,
-  })  : _downloadCompleter = Completer<S3StorageItem>(),
+  })  : _downloadCompleter = Completer<S3Item>(),
         _s3Client = s3Client,
         _prefixResolver = prefixResolver,
         _bucket = bucket,
@@ -82,13 +82,13 @@ class S3DownloadTask {
         _downloadedBytesSize = 0;
 
   // the Completer to complete the final `result` Future.
-  final Completer<S3StorageItem> _downloadCompleter;
+  final Completer<S3Item> _downloadCompleter;
 
   final s3.S3Client _s3Client;
-  final S3StoragePrefixResolver _prefixResolver;
+  final S3PrefixResolver _prefixResolver;
   final String _bucket;
   final String _key;
-  final S3StorageDownloadDataOptions _downloadDataOptions;
+  final S3DownloadDataOptions _downloadDataOptions;
   final FutureOr<void> Function()? _preStart;
   final void Function(S3TransferProgress)? _onProgress;
   final void Function(List<int> bytes)? _onData;
@@ -119,7 +119,7 @@ class S3DownloadTask {
   Future<void>? get _pausedCompleted => _pauseCompleter?.future;
 
   /// The result of a download task.
-  Future<S3StorageItem> get result => _downloadCompleter.future;
+  Future<S3Item> get result => _downloadCompleter.future;
 
   /// Starts the `S3DownloadTask`.
   @internal
@@ -138,7 +138,7 @@ class S3DownloadTask {
     final resolvedPrefix = await StorageS3Service.getResolvedPrefix(
       prefixResolver: _prefixResolver,
       logger: _logger,
-      storageAccessLevel: _downloadDataOptions.storageAccessLevel,
+      accessLevel: _downloadDataOptions.accessLevel,
       identityId: _downloadDataOptions.targetIdentityId,
     );
 
@@ -154,7 +154,7 @@ class S3DownloadTask {
       final remoteSize = getObjectOutput.contentLength?.toInt();
       if (remoteSize == null) {
         await _completeDownloadWithError(
-          S3StorageException.unexpectedContentLengthFromService(),
+          S3Exception.unexpectedContentLengthFromService(),
         );
         return;
       }
@@ -200,7 +200,7 @@ class S3DownloadTask {
     if (_state == S3TransferState.canceled) {
       // throws exception here as _downloadCompleter has completed by the
       // cancel
-      throw S3StorageException.resumeCanceledOperation();
+      throw S3Exception.resumeCanceledOperation();
     }
 
     _resetGetObjectCompleter();
@@ -226,7 +226,7 @@ class S3DownloadTask {
     }
   }
 
-  /// Cancels the [S3DownloadTask], and throws a [S3StorageException] to
+  /// Cancels the [S3DownloadTask], and throws a [S3Exception] to
   /// terminate.
   ///
   /// A canceled [S3DownloadTask] is not resumable.
@@ -245,7 +245,7 @@ class S3DownloadTask {
     _emitTransferProgress();
 
     _downloadCompleter.completeError(
-      S3StorageException.controllableOperationCanceled(),
+      S3Exception.controllableOperationCanceled(),
     );
   }
 
@@ -269,7 +269,7 @@ class S3DownloadTask {
 
   void _listenToBytesSteam(Stream<List<int>>? bytesStream) {
     if (bytesStream == null) {
-      _completeDownloadWithError(S3StorageException.unexpectedGetObjectBody());
+      _completeDownloadWithError(S3Exception.unexpectedGetObjectBody());
       return;
     }
 
@@ -286,7 +286,7 @@ class S3DownloadTask {
             _emitTransferProgress();
             _downloadCompleter.complete(
               _downloadDataOptions.getProperties
-                  ? S3StorageItem.fromHeadObjectOutput(
+                  ? S3Item.fromHeadObjectOutput(
                       await StorageS3Service.headObject(
                         s3client: _s3Client,
                         bucket: _bucket,
@@ -294,14 +294,14 @@ class S3DownloadTask {
                       ),
                       key: _key,
                     )
-                  : S3StorageItem(key: _key),
+                  : S3Item(key: _key),
             );
           } on Exception catch (error, stackTrace) {
             await _completeDownloadWithError(error, stackTrace);
           }
         } else {
           await _completeDownloadWithError(
-            S3StorageException.incompleteDownload(),
+            S3Exception.incompleteDownload(),
           );
         }
       })
@@ -339,10 +339,10 @@ class S3DownloadTask {
       return await _s3Client.getObject(request);
     } on smithy.UnknownSmithyHttpException catch (error) {
       // S3Client.getObject may return 403 error
-      throw S3StorageException.fromUnknownSmithyHttpException(error);
+      throw S3Exception.fromUnknownSmithyHttpException(error);
     } on s3.NoSuchKey catch (error) {
       // 404 error is wrapped by s3.NoSuchKey for getObject :/
-      throw S3StorageException.objectNotFoundByKey(error);
+      throw S3Exception.objectNotFoundByKey(error);
     }
   }
 }
