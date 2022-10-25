@@ -5,19 +5,19 @@ library amplify_storage_s3_dart.s3.model.get_object_output; // ignore_for_file: 
 import 'dart:async' as _i3;
 
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/object_lock_legal_hold_status.dart'
-    as _i6;
+    as _i5;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/object_lock_mode.dart'
-    as _i7;
+    as _i6;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/replication_status.dart'
-    as _i8;
+    as _i7;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_charged.dart'
-    as _i9;
+    as _i8;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/server_side_encryption.dart'
-    as _i10;
+    as _i9;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/storage_class.dart'
-    as _i11;
+    as _i10;
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i11;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:fixnum/fixnum.dart' as _i4;
@@ -50,24 +50,31 @@ abstract class GetObjectOutput
     String? expiration,
     DateTime? expires,
     DateTime? lastModified,
-    _i5.BuiltMap<String, String>? metadata,
+    Map<String, String>? metadata,
     int? missingMeta,
-    _i6.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
-    _i7.ObjectLockMode? objectLockMode,
+    _i5.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
+    _i6.ObjectLockMode? objectLockMode,
     DateTime? objectLockRetainUntilDate,
     int? partsCount,
-    _i8.ReplicationStatus? replicationStatus,
-    _i9.RequestCharged? requestCharged,
+    _i7.ReplicationStatus? replicationStatus,
+    _i8.RequestCharged? requestCharged,
     String? restore,
-    _i10.ServerSideEncryption? serverSideEncryption,
+    _i9.ServerSideEncryption? serverSideEncryption,
     String? sseCustomerAlgorithm,
     String? sseCustomerKeyMd5,
     String? ssekmsKeyId,
-    _i11.StorageClass? storageClass,
+    _i10.StorageClass? storageClass,
     int? tagCount,
     String? versionId,
     String? websiteRedirectLocation,
   }) {
+    body ??= const _i3.Stream.empty();
+    bucketKeyEnabled ??= false;
+    contentLength ??= _i4.Int64.ZERO;
+    deleteMarker ??= false;
+    missingMeta ??= 0;
+    partsCount ??= 0;
+    tagCount ??= 0;
     return _$GetObjectOutput._(
       acceptRanges: acceptRanges,
       body: body,
@@ -88,7 +95,7 @@ abstract class GetObjectOutput
       expiration: expiration,
       expires: expires,
       lastModified: lastModified,
-      metadata: metadata,
+      metadata: metadata == null ? null : _i11.BuiltMap(metadata),
       missingMeta: missingMeta,
       objectLockLegalHoldStatus: objectLockLegalHoldStatus,
       objectLockMode: objectLockMode,
@@ -192,7 +199,7 @@ abstract class GetObjectOutput
               response.headers['x-amz-website-redirect-location']!;
         }
         if (response.headers['x-amz-server-side-encryption'] != null) {
-          b.serverSideEncryption = _i10.ServerSideEncryption.values
+          b.serverSideEncryption = _i9.ServerSideEncryption.values
               .byValue(response.headers['x-amz-server-side-encryption']!);
         }
         if (response
@@ -219,15 +226,15 @@ abstract class GetObjectOutput
               'true';
         }
         if (response.headers['x-amz-storage-class'] != null) {
-          b.storageClass = _i11.StorageClass.values
+          b.storageClass = _i10.StorageClass.values
               .byValue(response.headers['x-amz-storage-class']!);
         }
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i9.RequestCharged.values
+          b.requestCharged = _i8.RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
         if (response.headers['x-amz-replication-status'] != null) {
-          b.replicationStatus = _i8.ReplicationStatus.values
+          b.replicationStatus = _i7.ReplicationStatus.values
               .byValue(response.headers['x-amz-replication-status']!);
         }
         if (response.headers['x-amz-mp-parts-count'] != null) {
@@ -237,7 +244,7 @@ abstract class GetObjectOutput
           b.tagCount = int.parse(response.headers['x-amz-tagging-count']!);
         }
         if (response.headers['x-amz-object-lock-mode'] != null) {
-          b.objectLockMode = _i7.ObjectLockMode.values
+          b.objectLockMode = _i6.ObjectLockMode.values
               .byValue(response.headers['x-amz-object-lock-mode']!);
         }
         if (response.headers['x-amz-object-lock-retain-until-date'] != null) {
@@ -247,7 +254,7 @@ abstract class GetObjectOutput
           ).asDateTime;
         }
         if (response.headers['x-amz-object-lock-legal-hold'] != null) {
-          b.objectLockLegalHoldStatus = _i6.ObjectLockLegalHoldStatus.values
+          b.objectLockLegalHoldStatus = _i5.ObjectLockLegalHoldStatus.values
               .byValue(response.headers['x-amz-object-lock-legal-hold']!);
         }
         b.metadata.addEntries(response.headers.entries
@@ -266,7 +273,15 @@ abstract class GetObjectOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectOutputBuilder b) {}
+  static void _init(GetObjectOutputBuilder b) {
+    b.body = const _i3.Stream.empty();
+    b.bucketKeyEnabled = false;
+    b.contentLength = _i4.Int64.ZERO;
+    b.deleteMarker = false;
+    b.missingMeta = 0;
+    b.partsCount = 0;
+    b.tagCount = 0;
+  }
 
   /// Indicates that a range of bytes was specified.
   String? get acceptRanges;
@@ -275,7 +290,7 @@ abstract class GetObjectOutput
   _i3.Stream<List<int>>? get body;
 
   /// Indicates whether the object uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
-  bool? get bucketKeyEnabled;
+  bool get bucketKeyEnabled;
 
   /// Specifies caching behavior along the request/reply chain.
   String? get cacheControl;
@@ -302,7 +317,7 @@ abstract class GetObjectOutput
   String? get contentLanguage;
 
   /// Size of the body in bytes.
-  _i4.Int64? get contentLength;
+  _i4.Int64 get contentLength;
 
   /// The portion of the object returned in the response.
   String? get contentRange;
@@ -311,7 +326,7 @@ abstract class GetObjectOutput
   String? get contentType;
 
   /// Specifies whether the object retrieved was (true) or was not (false) a Delete Marker. If false, this response header does not appear in the response.
-  bool? get deleteMarker;
+  bool get deleteMarker;
 
   /// An entity tag (ETag) is an opaque identifier assigned by a web server to a specific version of a resource found at a URL.
   String? get eTag;
@@ -326,34 +341,34 @@ abstract class GetObjectOutput
   DateTime? get lastModified;
 
   /// A map of metadata to store with the object in S3.
-  _i5.BuiltMap<String, String>? get metadata;
+  _i11.BuiltMap<String, String>? get metadata;
 
   /// This is set to the number of metadata entries not returned in `x-amz-meta` headers. This can happen if you create metadata using an API like SOAP that supports more flexible metadata than the REST API. For example, using SOAP, you can create metadata whose values are not legal HTTP headers.
-  int? get missingMeta;
+  int get missingMeta;
 
   /// Indicates whether this object has an active legal hold. This field is only returned if you have permission to view an object's legal hold status.
-  _i6.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus;
+  _i5.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus;
 
   /// The Object Lock mode currently in place for this object.
-  _i7.ObjectLockMode? get objectLockMode;
+  _i6.ObjectLockMode? get objectLockMode;
 
   /// The date and time when this object's Object Lock will expire.
   DateTime? get objectLockRetainUntilDate;
 
   /// The count of parts this object has. This value is only returned if you specify `partNumber` in your request and the object was uploaded as a multipart upload.
-  int? get partsCount;
+  int get partsCount;
 
   /// Amazon S3 can return this if your request involves a bucket that is either a source or destination in a replication rule.
-  _i8.ReplicationStatus? get replicationStatus;
+  _i7.ReplicationStatus? get replicationStatus;
 
   /// If present, indicates that the requester was successfully charged for the request.
-  _i9.RequestCharged? get requestCharged;
+  _i8.RequestCharged? get requestCharged;
 
   /// Provides information about object restoration action and expiration time of the restored object copy.
   String? get restore;
 
   /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
-  _i10.ServerSideEncryption? get serverSideEncryption;
+  _i9.ServerSideEncryption? get serverSideEncryption;
 
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header confirming the encryption algorithm used.
   String? get sseCustomerAlgorithm;
@@ -365,10 +380,10 @@ abstract class GetObjectOutput
   String? get ssekmsKeyId;
 
   /// Provides storage class information of the object. Amazon S3 returns this header for all objects except for S3 Standard storage class objects.
-  _i11.StorageClass? get storageClass;
+  _i10.StorageClass? get storageClass;
 
   /// The number of tags, if any, on the object.
-  int? get tagCount;
+  int get tagCount;
 
   /// Version of the object.
   String? get versionId;

@@ -432,10 +432,8 @@ class CreateMultipartUploadOperation extends _i1.HttpOperation<
                 input.ssekmsEncryptionContext!;
           }
         }
-        if (input.bucketKeyEnabled != null) {
-          b.headers['x-amz-server-side-encryption-bucket-key-enabled'] =
-              input.bucketKeyEnabled!.toString();
-        }
+        b.headers['x-amz-server-side-encryption-bucket-key-enabled'] =
+            input.bucketKeyEnabled.toString();
         if (input.requestPayer != null) {
           b.headers['x-amz-request-payer'] = input.requestPayer!.value;
         }

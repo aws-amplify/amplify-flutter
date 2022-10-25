@@ -32,6 +32,7 @@ abstract class ListPartsRequest
     String? sseCustomerKeyMd5,
     required String uploadId,
   }) {
+    maxParts ??= 0;
     return _$ListPartsRequest._(
       bucket: bucket,
       expectedBucketOwner: expectedBucketOwner,
@@ -103,7 +104,9 @@ abstract class ListPartsRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListPartsRequestBuilder b) {}
+  static void _init(ListPartsRequestBuilder b) {
+    b.maxParts = 0;
+  }
 
   /// The name of the bucket to which the parts are being uploaded.
   ///
@@ -119,7 +122,7 @@ abstract class ListPartsRequest
   String get key;
 
   /// Sets the maximum number of parts to return.
-  int? get maxParts;
+  int get maxParts;
 
   /// Specifies the part after which listing should begin. Only parts with higher part numbers will be listed.
   String? get partNumberMarker;

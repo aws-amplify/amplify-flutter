@@ -135,10 +135,8 @@ class DeleteObjectsOperation extends _i1.HttpOperation<
         if (input.requestPayer != null) {
           b.headers['x-amz-request-payer'] = input.requestPayer!.value;
         }
-        if (input.bypassGovernanceRetention != null) {
-          b.headers['x-amz-bypass-governance-retention'] =
-              input.bypassGovernanceRetention!.toString();
-        }
+        b.headers['x-amz-bypass-governance-retention'] =
+            input.bypassGovernanceRetention.toString();
         if (input.expectedBucketOwner != null) {
           if (input.expectedBucketOwner!.isNotEmpty) {
             b.headers['x-amz-expected-bucket-owner'] =
@@ -149,6 +147,8 @@ class DeleteObjectsOperation extends _i1.HttpOperation<
           b.headers['x-amz-sdk-checksum-algorithm'] =
               input.checksumAlgorithm!.value;
         }
+        b.requestInterceptors
+            .add(_i5.WithChecksum(input.checksumAlgorithm?.value));
       });
   @override
   int successCode([_i4.DeleteObjectsOutput? output]) => 200;

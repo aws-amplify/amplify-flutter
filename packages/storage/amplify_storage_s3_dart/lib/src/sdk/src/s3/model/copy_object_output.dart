@@ -33,6 +33,7 @@ abstract class CopyObjectOutput
     String? ssekmsKeyId,
     String? versionId,
   }) {
+    bucketKeyEnabled ??= false;
     return _$CopyObjectOutput._(
       bucketKeyEnabled: bucketKeyEnabled,
       copyObjectResult: copyObjectResult,
@@ -114,10 +115,12 @@ abstract class CopyObjectOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CopyObjectOutputBuilder b) {}
+  static void _init(CopyObjectOutputBuilder b) {
+    b.bucketKeyEnabled = false;
+  }
 
   /// Indicates whether the copied object uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
-  bool? get bucketKeyEnabled;
+  bool get bucketKeyEnabled;
 
   /// Container for all response elements.
   _i3.CopyObjectResult? get copyObjectResult;

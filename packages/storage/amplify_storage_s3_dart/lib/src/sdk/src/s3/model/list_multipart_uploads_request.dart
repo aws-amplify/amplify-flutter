@@ -30,6 +30,7 @@ abstract class ListMultipartUploadsRequest
     String? prefix,
     String? uploadIdMarker,
   }) {
+    maxUploads ??= 0;
     return _$ListMultipartUploadsRequest._(
       bucket: bucket,
       delimiter: delimiter,
@@ -87,7 +88,9 @@ abstract class ListMultipartUploadsRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListMultipartUploadsRequestBuilder b) {}
+  static void _init(ListMultipartUploadsRequestBuilder b) {
+    b.maxUploads = 0;
+  }
 
   /// The name of the bucket to which the multipart upload was initiated.
   ///
@@ -115,7 +118,7 @@ abstract class ListMultipartUploadsRequest
   String? get keyMarker;
 
   /// Sets the maximum number of multipart uploads, from 1 to 1,000, to return in the response body. 1,000 is the maximum number of uploads that can be returned in a response.
-  int? get maxUploads;
+  int get maxUploads;
 
   /// Lists in-progress uploads only for those keys that begin with the specified prefix. You can use prefixes to separate a bucket into different grouping of keys. (You can think of using prefix to make groups in the same way you'd use a folder in a file system.)
   String? get prefix;

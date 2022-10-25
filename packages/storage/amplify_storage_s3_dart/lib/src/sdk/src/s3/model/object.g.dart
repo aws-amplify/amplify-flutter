@@ -8,7 +8,7 @@ part of amplify_storage_s3_dart.s3.model.object;
 
 class _$S3Object extends S3Object {
   @override
-  final _i2.BuiltList<_i3.ChecksumAlgorithm>? checksumAlgorithm;
+  final _i6.BuiltList<_i2.ChecksumAlgorithm>? checksumAlgorithm;
   @override
   final String? eTag;
   @override
@@ -16,11 +16,11 @@ class _$S3Object extends S3Object {
   @override
   final DateTime? lastModified;
   @override
-  final _i4.Owner? owner;
+  final _i3.Owner? owner;
   @override
-  final _i5.Int64? size;
+  final _i4.Int64 size;
   @override
-  final _i6.ObjectStorageClass? storageClass;
+  final _i5.ObjectStorageClass? storageClass;
 
   factory _$S3Object([void Function(S3ObjectBuilder)? updates]) =>
       (new S3ObjectBuilder()..update(updates))._build();
@@ -31,9 +31,11 @@ class _$S3Object extends S3Object {
       this.key,
       this.lastModified,
       this.owner,
-      this.size,
+      required this.size,
       this.storageClass})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(size, r'S3Object', 'size');
+  }
 
   @override
   S3Object rebuild(void Function(S3ObjectBuilder) updates) =>
@@ -73,12 +75,12 @@ class _$S3Object extends S3Object {
 class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
   _$S3Object? _$v;
 
-  _i2.ListBuilder<_i3.ChecksumAlgorithm>? _checksumAlgorithm;
-  _i2.ListBuilder<_i3.ChecksumAlgorithm> get checksumAlgorithm =>
+  _i6.ListBuilder<_i2.ChecksumAlgorithm>? _checksumAlgorithm;
+  _i6.ListBuilder<_i2.ChecksumAlgorithm> get checksumAlgorithm =>
       _$this._checksumAlgorithm ??=
-          new _i2.ListBuilder<_i3.ChecksumAlgorithm>();
+          new _i6.ListBuilder<_i2.ChecksumAlgorithm>();
   set checksumAlgorithm(
-          _i2.ListBuilder<_i3.ChecksumAlgorithm>? checksumAlgorithm) =>
+          _i6.ListBuilder<_i2.ChecksumAlgorithm>? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   String? _eTag;
@@ -94,17 +96,17 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
   set lastModified(DateTime? lastModified) =>
       _$this._lastModified = lastModified;
 
-  _i4.OwnerBuilder? _owner;
-  _i4.OwnerBuilder get owner => _$this._owner ??= new _i4.OwnerBuilder();
-  set owner(_i4.OwnerBuilder? owner) => _$this._owner = owner;
+  _i3.OwnerBuilder? _owner;
+  _i3.OwnerBuilder get owner => _$this._owner ??= new _i3.OwnerBuilder();
+  set owner(_i3.OwnerBuilder? owner) => _$this._owner = owner;
 
-  _i5.Int64? _size;
-  _i5.Int64? get size => _$this._size;
-  set size(_i5.Int64? size) => _$this._size = size;
+  _i4.Int64? _size;
+  _i4.Int64? get size => _$this._size;
+  set size(_i4.Int64? size) => _$this._size = size;
 
-  _i6.ObjectStorageClass? _storageClass;
-  _i6.ObjectStorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i6.ObjectStorageClass? storageClass) =>
+  _i5.ObjectStorageClass? _storageClass;
+  _i5.ObjectStorageClass? get storageClass => _$this._storageClass;
+  set storageClass(_i5.ObjectStorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
   S3ObjectBuilder() {
@@ -150,7 +152,8 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
               key: key,
               lastModified: lastModified,
               owner: _owner?.build(),
-              size: size,
+              size: BuiltValueNullFieldError.checkNotNull(
+                  size, r'S3Object', 'size'),
               storageClass: storageClass);
     } catch (_) {
       late String _$failedField;

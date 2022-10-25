@@ -42,6 +42,8 @@ abstract class UploadPartRequest
     String? sseCustomerKeyMd5,
     required String uploadId,
   }) {
+    body ??= const _i2.Stream.empty();
+    contentLength ??= _i5.Int64.ZERO;
     partNumber ??= 0;
     return _$UploadPartRequest._(
       body: body,
@@ -143,6 +145,8 @@ abstract class UploadPartRequest
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UploadPartRequestBuilder b) {
+    b.body = const _i2.Stream.empty();
+    b.contentLength = _i5.Int64.ZERO;
     b.partNumber = 0;
   }
 
@@ -176,7 +180,7 @@ abstract class UploadPartRequest
   String? get checksumSha256;
 
   /// Size of the body in bytes. This parameter is useful when the size of the body cannot be determined automatically.
-  _i5.Int64? get contentLength;
+  _i5.Int64 get contentLength;
 
   /// The base64-encoded 128-bit MD5 digest of the part data. This parameter is auto-populated when using the command from the CLI. This parameter is required if object lock parameters are specified.
   String? get contentMd5;

@@ -12,7 +12,7 @@ class _$GetObjectOutput extends GetObjectOutput {
   @override
   final _i3.Stream<List<int>>? body;
   @override
-  final bool? bucketKeyEnabled;
+  final bool bucketKeyEnabled;
   @override
   final String? cacheControl;
   @override
@@ -30,13 +30,13 @@ class _$GetObjectOutput extends GetObjectOutput {
   @override
   final String? contentLanguage;
   @override
-  final _i4.Int64? contentLength;
+  final _i4.Int64 contentLength;
   @override
   final String? contentRange;
   @override
   final String? contentType;
   @override
-  final bool? deleteMarker;
+  final bool deleteMarker;
   @override
   final String? eTag;
   @override
@@ -46,25 +46,25 @@ class _$GetObjectOutput extends GetObjectOutput {
   @override
   final DateTime? lastModified;
   @override
-  final _i5.BuiltMap<String, String>? metadata;
+  final _i11.BuiltMap<String, String>? metadata;
   @override
-  final int? missingMeta;
+  final int missingMeta;
   @override
-  final _i6.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
+  final _i5.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
   @override
-  final _i7.ObjectLockMode? objectLockMode;
+  final _i6.ObjectLockMode? objectLockMode;
   @override
   final DateTime? objectLockRetainUntilDate;
   @override
-  final int? partsCount;
+  final int partsCount;
   @override
-  final _i8.ReplicationStatus? replicationStatus;
+  final _i7.ReplicationStatus? replicationStatus;
   @override
-  final _i9.RequestCharged? requestCharged;
+  final _i8.RequestCharged? requestCharged;
   @override
   final String? restore;
   @override
-  final _i10.ServerSideEncryption? serverSideEncryption;
+  final _i9.ServerSideEncryption? serverSideEncryption;
   @override
   final String? sseCustomerAlgorithm;
   @override
@@ -72,9 +72,9 @@ class _$GetObjectOutput extends GetObjectOutput {
   @override
   final String? ssekmsKeyId;
   @override
-  final _i11.StorageClass? storageClass;
+  final _i10.StorageClass? storageClass;
   @override
-  final int? tagCount;
+  final int tagCount;
   @override
   final String? versionId;
   @override
@@ -86,7 +86,7 @@ class _$GetObjectOutput extends GetObjectOutput {
   _$GetObjectOutput._(
       {this.acceptRanges,
       this.body,
-      this.bucketKeyEnabled,
+      required this.bucketKeyEnabled,
       this.cacheControl,
       this.checksumCrc32,
       this.checksumCrc32C,
@@ -95,20 +95,20 @@ class _$GetObjectOutput extends GetObjectOutput {
       this.contentDisposition,
       this.contentEncoding,
       this.contentLanguage,
-      this.contentLength,
+      required this.contentLength,
       this.contentRange,
       this.contentType,
-      this.deleteMarker,
+      required this.deleteMarker,
       this.eTag,
       this.expiration,
       this.expires,
       this.lastModified,
       this.metadata,
-      this.missingMeta,
+      required this.missingMeta,
       this.objectLockLegalHoldStatus,
       this.objectLockMode,
       this.objectLockRetainUntilDate,
-      this.partsCount,
+      required this.partsCount,
       this.replicationStatus,
       this.requestCharged,
       this.restore,
@@ -117,10 +117,23 @@ class _$GetObjectOutput extends GetObjectOutput {
       this.sseCustomerKeyMd5,
       this.ssekmsKeyId,
       this.storageClass,
-      this.tagCount,
+      required this.tagCount,
       this.versionId,
       this.websiteRedirectLocation})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        bucketKeyEnabled, r'GetObjectOutput', 'bucketKeyEnabled');
+    BuiltValueNullFieldError.checkNotNull(
+        contentLength, r'GetObjectOutput', 'contentLength');
+    BuiltValueNullFieldError.checkNotNull(
+        deleteMarker, r'GetObjectOutput', 'deleteMarker');
+    BuiltValueNullFieldError.checkNotNull(
+        missingMeta, r'GetObjectOutput', 'missingMeta');
+    BuiltValueNullFieldError.checkNotNull(
+        partsCount, r'GetObjectOutput', 'partsCount');
+    BuiltValueNullFieldError.checkNotNull(
+        tagCount, r'GetObjectOutput', 'tagCount');
+  }
 
   @override
   GetObjectOutput rebuild(void Function(GetObjectOutputBuilder) updates) =>
@@ -304,26 +317,26 @@ class GetObjectOutputBuilder
   set lastModified(DateTime? lastModified) =>
       _$this._lastModified = lastModified;
 
-  _i5.MapBuilder<String, String>? _metadata;
-  _i5.MapBuilder<String, String> get metadata =>
-      _$this._metadata ??= new _i5.MapBuilder<String, String>();
-  set metadata(_i5.MapBuilder<String, String>? metadata) =>
+  _i11.MapBuilder<String, String>? _metadata;
+  _i11.MapBuilder<String, String> get metadata =>
+      _$this._metadata ??= new _i11.MapBuilder<String, String>();
+  set metadata(_i11.MapBuilder<String, String>? metadata) =>
       _$this._metadata = metadata;
 
   int? _missingMeta;
   int? get missingMeta => _$this._missingMeta;
   set missingMeta(int? missingMeta) => _$this._missingMeta = missingMeta;
 
-  _i6.ObjectLockLegalHoldStatus? _objectLockLegalHoldStatus;
-  _i6.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
+  _i5.ObjectLockLegalHoldStatus? _objectLockLegalHoldStatus;
+  _i5.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
       _$this._objectLockLegalHoldStatus;
   set objectLockLegalHoldStatus(
-          _i6.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
+          _i5.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
       _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
 
-  _i7.ObjectLockMode? _objectLockMode;
-  _i7.ObjectLockMode? get objectLockMode => _$this._objectLockMode;
-  set objectLockMode(_i7.ObjectLockMode? objectLockMode) =>
+  _i6.ObjectLockMode? _objectLockMode;
+  _i6.ObjectLockMode? get objectLockMode => _$this._objectLockMode;
+  set objectLockMode(_i6.ObjectLockMode? objectLockMode) =>
       _$this._objectLockMode = objectLockMode;
 
   DateTime? _objectLockRetainUntilDate;
@@ -335,24 +348,24 @@ class GetObjectOutputBuilder
   int? get partsCount => _$this._partsCount;
   set partsCount(int? partsCount) => _$this._partsCount = partsCount;
 
-  _i8.ReplicationStatus? _replicationStatus;
-  _i8.ReplicationStatus? get replicationStatus => _$this._replicationStatus;
-  set replicationStatus(_i8.ReplicationStatus? replicationStatus) =>
+  _i7.ReplicationStatus? _replicationStatus;
+  _i7.ReplicationStatus? get replicationStatus => _$this._replicationStatus;
+  set replicationStatus(_i7.ReplicationStatus? replicationStatus) =>
       _$this._replicationStatus = replicationStatus;
 
-  _i9.RequestCharged? _requestCharged;
-  _i9.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i9.RequestCharged? requestCharged) =>
+  _i8.RequestCharged? _requestCharged;
+  _i8.RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(_i8.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
   String? _restore;
   String? get restore => _$this._restore;
   set restore(String? restore) => _$this._restore = restore;
 
-  _i10.ServerSideEncryption? _serverSideEncryption;
-  _i10.ServerSideEncryption? get serverSideEncryption =>
+  _i9.ServerSideEncryption? _serverSideEncryption;
+  _i9.ServerSideEncryption? get serverSideEncryption =>
       _$this._serverSideEncryption;
-  set serverSideEncryption(_i10.ServerSideEncryption? serverSideEncryption) =>
+  set serverSideEncryption(_i9.ServerSideEncryption? serverSideEncryption) =>
       _$this._serverSideEncryption = serverSideEncryption;
 
   String? _sseCustomerAlgorithm;
@@ -369,9 +382,9 @@ class GetObjectOutputBuilder
   String? get ssekmsKeyId => _$this._ssekmsKeyId;
   set ssekmsKeyId(String? ssekmsKeyId) => _$this._ssekmsKeyId = ssekmsKeyId;
 
-  _i11.StorageClass? _storageClass;
-  _i11.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i11.StorageClass? storageClass) =>
+  _i10.StorageClass? _storageClass;
+  _i10.StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(_i10.StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
   int? _tagCount;
@@ -456,7 +469,8 @@ class GetObjectOutputBuilder
           new _$GetObjectOutput._(
               acceptRanges: acceptRanges,
               body: body,
-              bucketKeyEnabled: bucketKeyEnabled,
+              bucketKeyEnabled: BuiltValueNullFieldError.checkNotNull(
+                  bucketKeyEnabled, r'GetObjectOutput', 'bucketKeyEnabled'),
               cacheControl: cacheControl,
               checksumCrc32: checksumCrc32,
               checksumCrc32C: checksumCrc32C,
@@ -465,20 +479,24 @@ class GetObjectOutputBuilder
               contentDisposition: contentDisposition,
               contentEncoding: contentEncoding,
               contentLanguage: contentLanguage,
-              contentLength: contentLength,
+              contentLength: BuiltValueNullFieldError.checkNotNull(
+                  contentLength, r'GetObjectOutput', 'contentLength'),
               contentRange: contentRange,
               contentType: contentType,
-              deleteMarker: deleteMarker,
+              deleteMarker: BuiltValueNullFieldError.checkNotNull(
+                  deleteMarker, r'GetObjectOutput', 'deleteMarker'),
               eTag: eTag,
               expiration: expiration,
               expires: expires,
               lastModified: lastModified,
               metadata: _metadata?.build(),
-              missingMeta: missingMeta,
+              missingMeta: BuiltValueNullFieldError.checkNotNull(
+                  missingMeta, r'GetObjectOutput', 'missingMeta'),
               objectLockLegalHoldStatus: objectLockLegalHoldStatus,
               objectLockMode: objectLockMode,
               objectLockRetainUntilDate: objectLockRetainUntilDate,
-              partsCount: partsCount,
+              partsCount: BuiltValueNullFieldError.checkNotNull(
+                  partsCount, r'GetObjectOutput', 'partsCount'),
               replicationStatus: replicationStatus,
               requestCharged: requestCharged,
               restore: restore,
@@ -487,7 +505,8 @@ class GetObjectOutputBuilder
               sseCustomerKeyMd5: sseCustomerKeyMd5,
               ssekmsKeyId: ssekmsKeyId,
               storageClass: storageClass,
-              tagCount: tagCount,
+              tagCount: BuiltValueNullFieldError.checkNotNull(
+                  tagCount, r'GetObjectOutput', 'tagCount'),
               versionId: versionId,
               websiteRedirectLocation: websiteRedirectLocation);
     } catch (_) {
