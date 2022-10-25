@@ -26,11 +26,11 @@ export const handler: lambda.APIGatewayProxyHandler = async (
   return {
     statusCode: 200,
     body: JSON.stringify({
-      response: request
+      response: request,
     }),
     headers: {
       "Access-Control-Allow-Origin": "*",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
   };
 };
