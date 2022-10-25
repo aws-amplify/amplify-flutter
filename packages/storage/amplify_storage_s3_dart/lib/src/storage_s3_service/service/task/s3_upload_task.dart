@@ -474,7 +474,7 @@ class S3UploadTask {
                   (a, b) => a.partNumber.compareTo(b.partNumber),
                 ))
               .map((e) => e.completedPart)
-              .toBuiltList(),
+              .toList(),
         ).toBuilder();
     });
 
