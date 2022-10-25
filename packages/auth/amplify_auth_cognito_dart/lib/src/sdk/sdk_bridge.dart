@@ -171,12 +171,18 @@ class WrappedCognitoIdentityProviderClient
   /// {@macro amplify_auth_cognito_dart.sdk.wrapped_cognito_identity_provider_client}
   WrappedCognitoIdentityProviderClient({
     required String region,
+    String? endpoint,
     required AWSCredentialsProvider credentialsProvider,
     required DependencyManager dependencyManager,
   }) : _base = CognitoIdentityProviderClient(
           region: region,
           credentialsProvider: credentialsProvider,
           client: dependencyManager.getOrCreate(),
+          baseUri: endpoint == null
+              ? null
+              : (endpoint.startsWith('http')
+                  ? Uri.parse(endpoint)
+                  : Uri.parse('https://$endpoint')),
         );
 
   final CognitoIdentityProviderClient _base;

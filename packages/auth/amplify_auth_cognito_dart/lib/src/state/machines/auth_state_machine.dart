@@ -63,6 +63,7 @@ class AuthStateMachine extends AuthStateMachineBase {
           region: userPoolConfig.region,
           credentialsProvider: _credentialsProvider,
           dependencyManager: this,
+          endpoint: userPoolConfig.endpoint,
         ),
       );
     }
