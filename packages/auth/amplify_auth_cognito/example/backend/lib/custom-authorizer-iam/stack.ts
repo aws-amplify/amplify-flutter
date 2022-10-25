@@ -18,28 +18,26 @@ import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
 import * as cognito from "aws-cdk-lib/aws-cognito";
 import * as apigw from "aws-cdk-lib/aws-apigateway";
+import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as lambda_nodejs from "aws-cdk-lib/aws-lambda-nodejs";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as targets from "aws-cdk-lib/aws-route53-targets";
-import { CfnOutput } from "aws-cdk-lib";
-import { Runtime } from "aws-cdk-lib/aws-lambda";
 import { CustomAuthorizerStackProps } from "../custom-authorizer-user-pools/stack";
-import { DomainNameOptions } from "aws-cdk-lib/aws-apigateway";
+
+interface DomainProperties {
+  domainName: string;
+  hostedZone: route53.IHostedZone;
+  domainOptions: apigw.DomainNameOptions;
+}
 
 export class CustomAuthorizerIamStack extends cdk.Stack {
   constructor(scope: Construct, props: CustomAuthorizerStackProps) {
     super(scope, `AuthIntegrationTestStack-${props.environmentName}`, props);
 
     const { customDomain } = props;
-    let domainProperties:
-      | {
-          domainName: string;
-          hostedZone: route53.IHostedZone;
-          domainOptions: DomainNameOptions;
-        }
-      | undefined;
+    let domainProperties: DomainProperties | undefined;
     if (customDomain) {
       const domainName = `${props.environmentName}.${customDomain}`;
       const hostedZone = route53.HostedZone.fromLookup(this, "HostedZone", {
@@ -66,7 +64,7 @@ export class CustomAuthorizerIamStack extends cdk.Stack {
     // Create the API Gateway and proxy handler
 
     const apiHandler = new lambda_nodejs.NodejsFunction(this, "api-handler", {
-      runtime: Runtime.NODEJS_16_X,
+      runtime: lambda.Runtime.NODEJS_16_X,
     });
 
     const apiGateway = new apigw.LambdaRestApi(this, "API", {
@@ -136,15 +134,15 @@ export class CustomAuthorizerIamStack extends cdk.Stack {
       }
     );
 
-    new CfnOutput(this, "EnvironmentName", {
+    new cdk.CfnOutput(this, "EnvironmentName", {
       value: props.environmentName,
     });
 
-    new CfnOutput(this, "Region", {
+    new cdk.CfnOutput(this, "Region", {
       value: this.region,
     });
 
-    new CfnOutput(this, "IdentityPoolId", {
+    new cdk.CfnOutput(this, "IdentityPoolId", {
       value: identityPool.ref,
     });
 
@@ -152,7 +150,7 @@ export class CustomAuthorizerIamStack extends cdk.Stack {
     if (apiGateway.domainName?.domainName) {
       domainName = `https://${apiGateway.domainName?.domainName}`;
     }
-    new CfnOutput(this, "RestApiUrl", {
+    new cdk.CfnOutput(this, "RestApiUrl", {
       value: domainName,
     });
   }

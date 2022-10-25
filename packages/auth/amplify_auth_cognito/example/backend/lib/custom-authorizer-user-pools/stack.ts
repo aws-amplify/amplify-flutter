@@ -18,10 +18,8 @@ import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
 import * as cognito from "aws-cdk-lib/aws-cognito";
 import * as apigw from "aws-cdk-lib/aws-apigateway";
+import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as lambda_nodejs from "aws-cdk-lib/aws-lambda-nodejs";
-import * as route53 from "aws-cdk-lib/aws-route53";
-import { CfnOutput, RemovalPolicy } from "aws-cdk-lib";
-import { Runtime } from "aws-cdk-lib/aws-lambda";
 
 export interface CustomAuthorizerStackProps extends cdk.StackProps {
   /**
@@ -31,7 +29,7 @@ export interface CustomAuthorizerStackProps extends cdk.StackProps {
 
   /**
    * The custom domain name to use for the API Gateway.
-   * 
+   *
    * Must exist in the account already.
    */
   customDomain?: string;
@@ -48,12 +46,12 @@ export class CustomAuthorizerUserPoolsStack extends cdk.Stack {
       this,
       "auto-confirm",
       {
-        runtime: Runtime.NODEJS_16_X,
+        runtime: lambda.Runtime.NODEJS_16_X,
       }
     );
 
     const userPool = new cognito.UserPool(this, "UserPool", {
-      removalPolicy: RemovalPolicy.DESTROY,
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
       selfSignUpEnabled: true,
       accountRecovery: cognito.AccountRecovery.NONE,
       mfa: cognito.Mfa.OFF,
@@ -82,7 +80,7 @@ export class CustomAuthorizerUserPoolsStack extends cdk.Stack {
     // Create the API Gateway and proxy handler
 
     const apiHandler = new lambda_nodejs.NodejsFunction(this, "api-handler", {
-      runtime: Runtime.NODEJS_16_X,
+      runtime: lambda.Runtime.NODEJS_16_X,
     });
 
     const apiGateway = new apigw.LambdaRestApi(this, "API", {
@@ -92,26 +90,26 @@ export class CustomAuthorizerUserPoolsStack extends cdk.Stack {
       },
       defaultMethodOptions: {
         authorizer,
-      }
+      },
     });
 
-    new CfnOutput(this, "EnvironmentName", {
+    new cdk.CfnOutput(this, "EnvironmentName", {
       value: props.environmentName,
     });
 
-    new CfnOutput(this, "Region", {
+    new cdk.CfnOutput(this, "Region", {
       value: this.region,
     });
 
-    new CfnOutput(this, "UserPoolId", {
+    new cdk.CfnOutput(this, "UserPoolId", {
       value: userPool.userPoolId,
     });
 
-    new CfnOutput(this, "UserPoolClientId", {
+    new cdk.CfnOutput(this, "UserPoolClientId", {
       value: userPoolClient.userPoolClientId,
     });
 
-    new CfnOutput(this, "RestApiUrl", {
+    new cdk.CfnOutput(this, "RestApiUrl", {
       value: apiGateway.url,
     });
   }
