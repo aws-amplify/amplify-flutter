@@ -53,7 +53,7 @@ class S3Item extends StorageItem {
 
     return S3Item(
       key: keyDroppedPrefix,
-      size: object.size?.toInt(),
+      size: object.size.toInt(),
       lastModified: object.lastModified,
       eTag: object.eTag,
     );
@@ -74,7 +74,7 @@ class S3Item extends StorageItem {
       eTag: headObjectOutput.eTag,
       metadata: headObjectOutput.metadata?.toMap() ?? const {},
       versionId: headObjectOutput.versionId,
-      size: headObjectOutput.contentLength?.toInt(),
+      size: headObjectOutput.contentLength.toInt(),
     );
   }
 

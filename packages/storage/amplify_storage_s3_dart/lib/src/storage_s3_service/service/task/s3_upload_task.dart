@@ -22,7 +22,6 @@ import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_servic
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/transfer.dart'
     as transfer;
 import 'package:async/async.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
 
