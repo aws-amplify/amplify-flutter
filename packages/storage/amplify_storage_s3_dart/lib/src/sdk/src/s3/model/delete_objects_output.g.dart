@@ -8,11 +8,11 @@ part of amplify_storage_s3_dart.s3.model.delete_objects_output;
 
 class _$DeleteObjectsOutput extends DeleteObjectsOutput {
   @override
-  final _i3.BuiltList<_i4.DeletedObject>? deleted;
+  final _i6.BuiltList<_i3.DeletedObject>? deleted;
   @override
-  final _i3.BuiltList<_i5.Error>? errors;
+  final _i6.BuiltList<_i4.Error>? errors;
   @override
-  final _i6.RequestCharged? requestCharged;
+  final _i5.RequestCharged? requestCharged;
 
   factory _$DeleteObjectsOutput(
           [void Function(DeleteObjectsOutputBuilder)? updates]) =>
@@ -50,20 +50,20 @@ class DeleteObjectsOutputBuilder
     implements Builder<DeleteObjectsOutput, DeleteObjectsOutputBuilder> {
   _$DeleteObjectsOutput? _$v;
 
-  _i3.ListBuilder<_i4.DeletedObject>? _deleted;
-  _i3.ListBuilder<_i4.DeletedObject> get deleted =>
-      _$this._deleted ??= new _i3.ListBuilder<_i4.DeletedObject>();
-  set deleted(_i3.ListBuilder<_i4.DeletedObject>? deleted) =>
+  _i6.ListBuilder<_i3.DeletedObject>? _deleted;
+  _i6.ListBuilder<_i3.DeletedObject> get deleted =>
+      _$this._deleted ??= new _i6.ListBuilder<_i3.DeletedObject>();
+  set deleted(_i6.ListBuilder<_i3.DeletedObject>? deleted) =>
       _$this._deleted = deleted;
 
-  _i3.ListBuilder<_i5.Error>? _errors;
-  _i3.ListBuilder<_i5.Error> get errors =>
-      _$this._errors ??= new _i3.ListBuilder<_i5.Error>();
-  set errors(_i3.ListBuilder<_i5.Error>? errors) => _$this._errors = errors;
+  _i6.ListBuilder<_i4.Error>? _errors;
+  _i6.ListBuilder<_i4.Error> get errors =>
+      _$this._errors ??= new _i6.ListBuilder<_i4.Error>();
+  set errors(_i6.ListBuilder<_i4.Error>? errors) => _$this._errors = errors;
 
-  _i6.RequestCharged? _requestCharged;
-  _i6.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i6.RequestCharged? requestCharged) =>
+  _i5.RequestCharged? _requestCharged;
+  _i5.RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(_i5.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
   DeleteObjectsOutputBuilder() {
@@ -123,9 +123,9 @@ class DeleteObjectsOutputBuilder
 
 class _$DeleteObjectsOutputPayload extends DeleteObjectsOutputPayload {
   @override
-  final _i3.BuiltList<_i4.DeletedObject>? deleted;
+  final _i6.BuiltList<_i3.DeletedObject>? deleted;
   @override
-  final _i3.BuiltList<_i5.Error>? errors;
+  final _i6.BuiltList<_i4.Error>? errors;
 
   factory _$DeleteObjectsOutputPayload(
           [void Function(DeleteObjectsOutputPayloadBuilder)? updates]) =>
@@ -161,16 +161,16 @@ class DeleteObjectsOutputPayloadBuilder
         Builder<DeleteObjectsOutputPayload, DeleteObjectsOutputPayloadBuilder> {
   _$DeleteObjectsOutputPayload? _$v;
 
-  _i3.ListBuilder<_i4.DeletedObject>? _deleted;
-  _i3.ListBuilder<_i4.DeletedObject> get deleted =>
-      _$this._deleted ??= new _i3.ListBuilder<_i4.DeletedObject>();
-  set deleted(_i3.ListBuilder<_i4.DeletedObject>? deleted) =>
+  _i6.ListBuilder<_i3.DeletedObject>? _deleted;
+  _i6.ListBuilder<_i3.DeletedObject> get deleted =>
+      _$this._deleted ??= new _i6.ListBuilder<_i3.DeletedObject>();
+  set deleted(_i6.ListBuilder<_i3.DeletedObject>? deleted) =>
       _$this._deleted = deleted;
 
-  _i3.ListBuilder<_i5.Error>? _errors;
-  _i3.ListBuilder<_i5.Error> get errors =>
-      _$this._errors ??= new _i3.ListBuilder<_i5.Error>();
-  set errors(_i3.ListBuilder<_i5.Error>? errors) => _$this._errors = errors;
+  _i6.ListBuilder<_i4.Error>? _errors;
+  _i6.ListBuilder<_i4.Error> get errors =>
+      _$this._errors ??= new _i6.ListBuilder<_i4.Error>();
+  set errors(_i6.ListBuilder<_i4.Error>? errors) => _$this._errors = errors;
 
   DeleteObjectsOutputPayloadBuilder() {
     DeleteObjectsOutputPayload._init(this);

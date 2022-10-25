@@ -8,15 +8,16 @@ part of amplify_storage_s3_dart.s3.model.delete;
 
 class _$Delete extends Delete {
   @override
-  final _i2.BuiltList<_i3.ObjectIdentifier> objects;
+  final _i3.BuiltList<_i2.ObjectIdentifier> objects;
   @override
-  final bool? quiet;
+  final bool quiet;
 
   factory _$Delete([void Function(DeleteBuilder)? updates]) =>
       (new DeleteBuilder()..update(updates))._build();
 
-  _$Delete._({required this.objects, this.quiet}) : super._() {
+  _$Delete._({required this.objects, required this.quiet}) : super._() {
     BuiltValueNullFieldError.checkNotNull(objects, r'Delete', 'objects');
+    BuiltValueNullFieldError.checkNotNull(quiet, r'Delete', 'quiet');
   }
 
   @override
@@ -41,10 +42,10 @@ class _$Delete extends Delete {
 class DeleteBuilder implements Builder<Delete, DeleteBuilder> {
   _$Delete? _$v;
 
-  _i2.ListBuilder<_i3.ObjectIdentifier>? _objects;
-  _i2.ListBuilder<_i3.ObjectIdentifier> get objects =>
-      _$this._objects ??= new _i2.ListBuilder<_i3.ObjectIdentifier>();
-  set objects(_i2.ListBuilder<_i3.ObjectIdentifier>? objects) =>
+  _i3.ListBuilder<_i2.ObjectIdentifier>? _objects;
+  _i3.ListBuilder<_i2.ObjectIdentifier> get objects =>
+      _$this._objects ??= new _i3.ListBuilder<_i2.ObjectIdentifier>();
+  set objects(_i3.ListBuilder<_i2.ObjectIdentifier>? objects) =>
       _$this._objects = objects;
 
   bool? _quiet;
@@ -82,7 +83,11 @@ class DeleteBuilder implements Builder<Delete, DeleteBuilder> {
   _$Delete _build() {
     _$Delete _$result;
     try {
-      _$result = _$v ?? new _$Delete._(objects: objects.build(), quiet: quiet);
+      _$result = _$v ??
+          new _$Delete._(
+              objects: objects.build(),
+              quiet: BuiltValueNullFieldError.checkNotNull(
+                  quiet, r'Delete', 'quiet'));
     } catch (_) {
       late String _$failedField;
       try {

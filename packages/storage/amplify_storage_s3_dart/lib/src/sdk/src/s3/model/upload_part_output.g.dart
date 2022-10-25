@@ -8,7 +8,7 @@ part of amplify_storage_s3_dart.s3.model.upload_part_output;
 
 class _$UploadPartOutput extends UploadPartOutput {
   @override
-  final bool? bucketKeyEnabled;
+  final bool bucketKeyEnabled;
   @override
   final String? checksumCrc32;
   @override
@@ -35,7 +35,7 @@ class _$UploadPartOutput extends UploadPartOutput {
       (new UploadPartOutputBuilder()..update(updates))._build();
 
   _$UploadPartOutput._(
-      {this.bucketKeyEnabled,
+      {required this.bucketKeyEnabled,
       this.checksumCrc32,
       this.checksumCrc32C,
       this.checksumSha1,
@@ -46,7 +46,10 @@ class _$UploadPartOutput extends UploadPartOutput {
       this.sseCustomerAlgorithm,
       this.sseCustomerKeyMd5,
       this.ssekmsKeyId})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        bucketKeyEnabled, r'UploadPartOutput', 'bucketKeyEnabled');
+  }
 
   @override
   UploadPartOutput rebuild(void Function(UploadPartOutputBuilder) updates) =>
@@ -195,7 +198,8 @@ class UploadPartOutputBuilder
   _$UploadPartOutput _build() {
     final _$result = _$v ??
         new _$UploadPartOutput._(
-            bucketKeyEnabled: bucketKeyEnabled,
+            bucketKeyEnabled: BuiltValueNullFieldError.checkNotNull(
+                bucketKeyEnabled, r'UploadPartOutput', 'bucketKeyEnabled'),
             checksumCrc32: checksumCrc32,
             checksumCrc32C: checksumCrc32C,
             checksumSha1: checksumSha1,
