@@ -20,6 +20,6 @@ import 'base/storage_operation_options.dart';
 class StorageUploadDataOptions extends StorageOperationOptions {
   /// {@macro amplify_core.storage.upload_data_options}
   const StorageUploadDataOptions({
-    required super.storageAccessLevel,
+    required super.accessLevel,
   });
 }

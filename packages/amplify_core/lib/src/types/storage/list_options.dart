@@ -20,7 +20,7 @@ import 'base/storage_operation_options.dart';
 class StorageListOptions extends StorageOperationOptions {
   /// {@macro amplify_core.storage.list_options}
   const StorageListOptions({
-    required super.storageAccessLevel,
+    required super.accessLevel,
     required this.pageSize,
   });
 

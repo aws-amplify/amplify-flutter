@@ -20,6 +20,6 @@ import 'base/storage_operation_options.dart';
 class StorageGetPropertiesOptions extends StorageOperationOptions {
   /// {@macro amplify_core.storage.get_properties_options}
   const StorageGetPropertiesOptions({
-    required super.storageAccessLevel,
+    required super.accessLevel,
   });
 }
