@@ -20,6 +20,9 @@ abstract class Progress
     _i2.Int64? bytesReturned,
     _i2.Int64? bytesScanned,
   }) {
+    bytesProcessed ??= _i2.Int64.ZERO;
+    bytesReturned ??= _i2.Int64.ZERO;
+    bytesScanned ??= _i2.Int64.ZERO;
     return _$Progress._(
       bytesProcessed: bytesProcessed,
       bytesReturned: bytesReturned,
@@ -37,16 +40,20 @@ abstract class Progress
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ProgressBuilder b) {}
+  static void _init(ProgressBuilder b) {
+    b.bytesProcessed = _i2.Int64.ZERO;
+    b.bytesReturned = _i2.Int64.ZERO;
+    b.bytesScanned = _i2.Int64.ZERO;
+  }
 
   /// The current number of uncompressed object bytes processed.
-  _i2.Int64? get bytesProcessed;
+  _i2.Int64 get bytesProcessed;
 
   /// The current number of bytes of records payload data returned.
-  _i2.Int64? get bytesReturned;
+  _i2.Int64 get bytesReturned;
 
   /// The current number of object bytes scanned.
-  _i2.Int64? get bytesScanned;
+  _i2.Int64 get bytesScanned;
   @override
   List<Object?> get props => [
         bytesProcessed,
@@ -102,28 +109,22 @@ class ProgressRestXmlSerializer
       final value = iterator.current;
       switch (key as String) {
         case 'BytesProcessed':
-          if (value != null) {
-            result.bytesProcessed = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
+          result.bytesProcessed = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
           break;
         case 'BytesReturned':
-          if (value != null) {
-            result.bytesReturned = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
+          result.bytesReturned = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
           break;
         case 'BytesScanned':
-          if (value != null) {
-            result.bytesScanned = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
+          result.bytesScanned = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
           break;
       }
     }
@@ -144,30 +145,24 @@ class ProgressRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.bytesProcessed != null) {
-      result
-        ..add(const _i3.XmlElementName('BytesProcessed'))
-        ..add(serializers.serialize(
-          payload.bytesProcessed!,
-          specifiedType: const FullType.nullable(_i2.Int64),
-        ));
-    }
-    if (payload.bytesReturned != null) {
-      result
-        ..add(const _i3.XmlElementName('BytesReturned'))
-        ..add(serializers.serialize(
-          payload.bytesReturned!,
-          specifiedType: const FullType.nullable(_i2.Int64),
-        ));
-    }
-    if (payload.bytesScanned != null) {
-      result
-        ..add(const _i3.XmlElementName('BytesScanned'))
-        ..add(serializers.serialize(
-          payload.bytesScanned!,
-          specifiedType: const FullType.nullable(_i2.Int64),
-        ));
-    }
+    result
+      ..add(const _i3.XmlElementName('BytesProcessed'))
+      ..add(serializers.serialize(
+        payload.bytesProcessed,
+        specifiedType: const FullType(_i2.Int64),
+      ));
+    result
+      ..add(const _i3.XmlElementName('BytesReturned'))
+      ..add(serializers.serialize(
+        payload.bytesReturned,
+        specifiedType: const FullType(_i2.Int64),
+      ));
+    result
+      ..add(const _i3.XmlElementName('BytesScanned'))
+      ..add(serializers.serialize(
+        payload.bytesScanned,
+        specifiedType: const FullType(_i2.Int64),
+      ));
     return result;
   }
 }

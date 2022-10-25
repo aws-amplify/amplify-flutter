@@ -3,9 +3,9 @@
 library amplify_storage_s3_dart.s3.model.completed_multipart_upload; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/completed_part.dart'
-    as _i3;
+    as _i2;
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i4;
@@ -18,8 +18,9 @@ abstract class CompletedMultipartUpload
     implements
         Built<CompletedMultipartUpload, CompletedMultipartUploadBuilder> {
   /// The container for the completed multipart upload details.
-  factory CompletedMultipartUpload({_i2.BuiltList<_i3.CompletedPart>? parts}) {
-    return _$CompletedMultipartUpload._(parts: parts);
+  factory CompletedMultipartUpload({List<_i2.CompletedPart>? parts}) {
+    return _$CompletedMultipartUpload._(
+        parts: parts == null ? null : _i3.BuiltList(parts));
   }
 
   /// The container for the completed multipart upload details.
@@ -39,7 +40,7 @@ abstract class CompletedMultipartUpload
   /// Array of CompletedPart data types.
   ///
   /// If you do not supply a valid `Part` with your request, the service sends back an HTTP 400 response.
-  _i2.BuiltList<_i3.CompletedPart>? get parts;
+  _i3.BuiltList<_i2.CompletedPart>? get parts;
   @override
   List<Object?> get props => [parts];
   @override
@@ -87,8 +88,8 @@ class CompletedMultipartUploadRestXmlSerializer
           if (value != null) {
             result.parts.add((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.CompletedPart),
-            ) as _i3.CompletedPart));
+              specifiedType: const FullType(_i2.CompletedPart),
+            ) as _i2.CompletedPart));
           }
           break;
       }
@@ -116,8 +117,8 @@ class CompletedMultipartUploadRestXmlSerializer
         serializers,
         payload.parts!,
         specifiedType: const FullType.nullable(
-          _i2.BuiltList,
-          [FullType(_i3.CompletedPart)],
+          _i3.BuiltList,
+          [FullType(_i2.CompletedPart)],
         ),
       ));
     }

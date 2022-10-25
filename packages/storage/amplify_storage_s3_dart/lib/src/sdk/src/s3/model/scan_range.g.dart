@@ -8,14 +8,17 @@ part of amplify_storage_s3_dart.s3.model.scan_range;
 
 class _$ScanRange extends ScanRange {
   @override
-  final _i2.Int64? end;
+  final _i2.Int64 end;
   @override
-  final _i2.Int64? start;
+  final _i2.Int64 start;
 
   factory _$ScanRange([void Function(ScanRangeBuilder)? updates]) =>
       (new ScanRangeBuilder()..update(updates))._build();
 
-  _$ScanRange._({this.end, this.start}) : super._();
+  _$ScanRange._({required this.end, required this.start}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(end, r'ScanRange', 'end');
+    BuiltValueNullFieldError.checkNotNull(start, r'ScanRange', 'start');
+  }
 
   @override
   ScanRange rebuild(void Function(ScanRangeBuilder) updates) =>
@@ -76,7 +79,12 @@ class ScanRangeBuilder implements Builder<ScanRange, ScanRangeBuilder> {
   ScanRange build() => _build();
 
   _$ScanRange _build() {
-    final _$result = _$v ?? new _$ScanRange._(end: end, start: start);
+    final _$result = _$v ??
+        new _$ScanRange._(
+            end:
+                BuiltValueNullFieldError.checkNotNull(end, r'ScanRange', 'end'),
+            start: BuiltValueNullFieldError.checkNotNull(
+                start, r'ScanRange', 'start'));
     replace(_$result);
     return _$result;
   }

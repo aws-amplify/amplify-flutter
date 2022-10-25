@@ -23,6 +23,7 @@ abstract class DeleteObjectOutput
     _i3.RequestCharged? requestCharged,
     String? versionId,
   }) {
+    deleteMarker ??= false;
     return _$DeleteObjectOutput._(
       deleteMarker: deleteMarker,
       requestCharged: requestCharged,
@@ -59,10 +60,12 @@ abstract class DeleteObjectOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteObjectOutputBuilder b) {}
+  static void _init(DeleteObjectOutputBuilder b) {
+    b.deleteMarker = false;
+  }
 
   /// Specifies whether the versioned object that was permanently deleted was (true) or was not (false) a delete marker.
-  bool? get deleteMarker;
+  bool get deleteMarker;
 
   /// If present, indicates that the requester was successfully charged for the request.
   _i3.RequestCharged? get requestCharged;

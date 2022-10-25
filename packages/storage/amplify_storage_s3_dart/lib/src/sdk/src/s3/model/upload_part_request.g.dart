@@ -22,7 +22,7 @@ class _$UploadPartRequest extends UploadPartRequest {
   @override
   final String? checksumSha256;
   @override
-  final _i5.Int64? contentLength;
+  final _i5.Int64 contentLength;
   @override
   final String? contentMd5;
   @override
@@ -54,7 +54,7 @@ class _$UploadPartRequest extends UploadPartRequest {
       this.checksumCrc32C,
       this.checksumSha1,
       this.checksumSha256,
-      this.contentLength,
+      required this.contentLength,
       this.contentMd5,
       this.expectedBucketOwner,
       required this.key,
@@ -67,6 +67,8 @@ class _$UploadPartRequest extends UploadPartRequest {
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'UploadPartRequest', 'bucket');
+    BuiltValueNullFieldError.checkNotNull(
+        contentLength, r'UploadPartRequest', 'contentLength');
     BuiltValueNullFieldError.checkNotNull(key, r'UploadPartRequest', 'key');
     BuiltValueNullFieldError.checkNotNull(
         partNumber, r'UploadPartRequest', 'partNumber');
@@ -286,7 +288,8 @@ class UploadPartRequestBuilder
             checksumCrc32C: checksumCrc32C,
             checksumSha1: checksumSha1,
             checksumSha256: checksumSha256,
-            contentLength: contentLength,
+            contentLength: BuiltValueNullFieldError.checkNotNull(
+                contentLength, r'UploadPartRequest', 'contentLength'),
             contentMd5: contentMd5,
             expectedBucketOwner: expectedBucketOwner,
             key: BuiltValueNullFieldError.checkNotNull(

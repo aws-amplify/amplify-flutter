@@ -3,13 +3,13 @@
 library amplify_storage_s3_dart.s3.model.list_objects_v2_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/common_prefix.dart'
-    as _i3;
+    as _i2;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/encoding_type.dart'
-    as _i5;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/object.dart'
     as _i4;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/object.dart'
+    as _i3;
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i5;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i6;
@@ -20,11 +20,11 @@ abstract class ListObjectsV2Output
     with _i1.AWSEquatable<ListObjectsV2Output>
     implements Built<ListObjectsV2Output, ListObjectsV2OutputBuilder> {
   factory ListObjectsV2Output({
-    _i2.BuiltList<_i3.CommonPrefix>? commonPrefixes,
-    _i2.BuiltList<_i4.S3Object>? contents,
+    List<_i2.CommonPrefix>? commonPrefixes,
+    List<_i3.S3Object>? contents,
     String? continuationToken,
     String? delimiter,
-    _i5.EncodingType? encodingType,
+    _i4.EncodingType? encodingType,
     bool? isTruncated,
     int? keyCount,
     int? maxKeys,
@@ -33,9 +33,13 @@ abstract class ListObjectsV2Output
     String? prefix,
     String? startAfter,
   }) {
+    isTruncated ??= false;
+    keyCount ??= 0;
+    maxKeys ??= 0;
     return _$ListObjectsV2Output._(
-      commonPrefixes: commonPrefixes,
-      contents: contents,
+      commonPrefixes:
+          commonPrefixes == null ? null : _i5.BuiltList(commonPrefixes),
+      contents: contents == null ? null : _i5.BuiltList(contents),
       continuationToken: continuationToken,
       delimiter: delimiter,
       encodingType: encodingType,
@@ -67,7 +71,11 @@ abstract class ListObjectsV2Output
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectsV2OutputBuilder b) {}
+  static void _init(ListObjectsV2OutputBuilder b) {
+    b.isTruncated = false;
+    b.keyCount = 0;
+    b.maxKeys = 0;
+  }
 
   /// All of the keys (up to 1,000) rolled up into a common prefix count as a single return when calculating the number of returns.
   ///
@@ -78,10 +86,10 @@ abstract class ListObjectsV2Output
   /// `CommonPrefixes` lists keys that act like subdirectories in the directory specified by `Prefix`.
   ///
   /// For example, if the prefix is `notes/` and the delimiter is a slash (`/`) as in `notes/summer/july`, the common prefix is `notes/summer/`. All of the keys that roll up into a common prefix count as a single return when calculating the number of returns.
-  _i2.BuiltList<_i3.CommonPrefix>? get commonPrefixes;
+  _i5.BuiltList<_i2.CommonPrefix>? get commonPrefixes;
 
   /// Metadata about each object returned.
-  _i2.BuiltList<_i4.S3Object>? get contents;
+  _i5.BuiltList<_i3.S3Object>? get contents;
 
   /// If ContinuationToken was sent with the request, it is included in the response.
   String? get continuationToken;
@@ -94,16 +102,16 @@ abstract class ListObjectsV2Output
   /// If you specify the encoding-type request parameter, Amazon S3 includes this element in the response, and returns encoded key name values in the following response elements:
   ///
   /// `Delimiter, Prefix, Key,` and `StartAfter`.
-  _i5.EncodingType? get encodingType;
+  _i4.EncodingType? get encodingType;
 
   /// Set to false if all of the results were returned. Set to true if more keys are available to return. If the number of results exceeds that specified by MaxKeys, all of the results might not be returned.
-  bool? get isTruncated;
+  bool get isTruncated;
 
   /// KeyCount is the number of keys returned with this request. KeyCount will always be less than or equals to MaxKeys field. Say you ask for 50 keys, your result will include less than equals 50 keys
-  int? get keyCount;
+  int get keyCount;
 
   /// Sets the maximum number of keys returned in the response. By default the action returns up to 1,000 key names. The response might contain fewer keys but will never contain more.
-  int? get maxKeys;
+  int get maxKeys;
 
   /// The bucket name.
   ///
@@ -223,16 +231,16 @@ class ListObjectsV2OutputRestXmlSerializer
           if (value != null) {
             result.commonPrefixes.add((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.CommonPrefix),
-            ) as _i3.CommonPrefix));
+              specifiedType: const FullType(_i2.CommonPrefix),
+            ) as _i2.CommonPrefix));
           }
           break;
         case 'Contents':
           if (value != null) {
             result.contents.add((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.S3Object),
-            ) as _i4.S3Object));
+              specifiedType: const FullType(_i3.S3Object),
+            ) as _i3.S3Object));
           }
           break;
         case 'ContinuationToken':
@@ -255,33 +263,27 @@ class ListObjectsV2OutputRestXmlSerializer
           if (value != null) {
             result.encodingType = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i5.EncodingType),
-            ) as _i5.EncodingType);
+              specifiedType: const FullType(_i4.EncodingType),
+            ) as _i4.EncodingType);
           }
           break;
         case 'IsTruncated':
-          if (value != null) {
-            result.isTruncated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.isTruncated = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
         case 'KeyCount':
-          if (value != null) {
-            result.keyCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.keyCount = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'MaxKeys':
-          if (value != null) {
-            result.maxKeys = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.maxKeys = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'Name':
           if (value != null) {
@@ -341,8 +343,8 @@ class ListObjectsV2OutputRestXmlSerializer
         serializers,
         payload.commonPrefixes!,
         specifiedType: const FullType.nullable(
-          _i2.BuiltList,
-          [FullType(_i3.CommonPrefix)],
+          _i5.BuiltList,
+          [FullType(_i2.CommonPrefix)],
         ),
       ));
     }
@@ -352,8 +354,8 @@ class ListObjectsV2OutputRestXmlSerializer
         serializers,
         payload.contents!,
         specifiedType: const FullType.nullable(
-          _i2.BuiltList,
-          [FullType(_i4.S3Object)],
+          _i5.BuiltList,
+          [FullType(_i3.S3Object)],
         ),
       ));
     }
@@ -378,33 +380,27 @@ class ListObjectsV2OutputRestXmlSerializer
         ..add(const _i6.XmlElementName('EncodingType'))
         ..add(serializers.serialize(
           payload.encodingType!,
-          specifiedType: const FullType.nullable(_i5.EncodingType),
+          specifiedType: const FullType.nullable(_i4.EncodingType),
         ));
     }
-    if (payload.isTruncated != null) {
-      result
-        ..add(const _i6.XmlElementName('IsTruncated'))
-        ..add(serializers.serialize(
-          payload.isTruncated!,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
-    if (payload.keyCount != null) {
-      result
-        ..add(const _i6.XmlElementName('KeyCount'))
-        ..add(serializers.serialize(
-          payload.keyCount!,
-          specifiedType: const FullType.nullable(int),
-        ));
-    }
-    if (payload.maxKeys != null) {
-      result
-        ..add(const _i6.XmlElementName('MaxKeys'))
-        ..add(serializers.serialize(
-          payload.maxKeys!,
-          specifiedType: const FullType.nullable(int),
-        ));
-    }
+    result
+      ..add(const _i6.XmlElementName('IsTruncated'))
+      ..add(serializers.serialize(
+        payload.isTruncated,
+        specifiedType: const FullType(bool),
+      ));
+    result
+      ..add(const _i6.XmlElementName('KeyCount'))
+      ..add(serializers.serialize(
+        payload.keyCount,
+        specifiedType: const FullType(int),
+      ));
+    result
+      ..add(const _i6.XmlElementName('MaxKeys'))
+      ..add(serializers.serialize(
+        payload.maxKeys,
+        specifiedType: const FullType(int),
+      ));
     if (payload.name != null) {
       result
         ..add(const _i6.XmlElementName('Name'))

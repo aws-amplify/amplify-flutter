@@ -45,6 +45,7 @@ abstract class GetObjectRequest
     String? sseCustomerKeyMd5,
     String? versionId,
   }) {
+    partNumber ??= 0;
     return _$GetObjectRequest._(
       bucket: bucket,
       checksumMode: checksumMode,
@@ -175,7 +176,9 @@ abstract class GetObjectRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectRequestBuilder b) {}
+  static void _init(GetObjectRequestBuilder b) {
+    b.partNumber = 0;
+  }
 
   /// The bucket name containing the object.
   ///
@@ -208,7 +211,7 @@ abstract class GetObjectRequest
   String get key;
 
   /// Part number of the object being read. This is a positive integer between 1 and 10,000. Effectively performs a 'ranged' GET request for the part specified. Useful for downloading just a part of an object.
-  int? get partNumber;
+  int get partNumber;
 
   /// Downloads the specified range bytes of an object. For more information about the HTTP Range header, see [https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35).
   ///

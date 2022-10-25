@@ -186,9 +186,7 @@ class UploadPartOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
             ? r'/{Bucket}/{Key+}?x-id=UploadPart'
             : r'/{Key+}?x-id=UploadPart';
         b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
-        if (input.contentLength != null) {
-          b.headers['Content-Length'] = input.contentLength!.toString();
-        }
+        b.headers['Content-Length'] = input.contentLength.toString();
         if (input.contentMd5 != null) {
           if (input.contentMd5!.isNotEmpty) {
             b.headers['Content-MD5'] = input.contentMd5!;
@@ -253,6 +251,10 @@ class UploadPartOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
           'uploadId',
           input.uploadId,
         );
+        if (input.checksumAlgorithm != null) {
+          b.requestInterceptors
+              .add(_i5.WithChecksum(input.checksumAlgorithm!.value));
+        }
       });
   @override
   int successCode([_i4.UploadPartOutput? output]) => 200;
