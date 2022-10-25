@@ -231,6 +231,9 @@ class _AwsCommon {
   /// Creates an [aws_common.AWSHeaders] reference.
   Reference get awsHeaders => const Reference('AWSHeaders', _url);
 
+  /// Creates an [aws_common.AWSHttpClient] reference.
+  Reference get awsHttpClient => const Reference('AWSHttpClient', _url);
+
   /// Creates an [aws_common.AWSHttpMethod] reference.
   Reference get awsHttpMethod => const Reference('AWSHttpMethod', _url);
 
@@ -254,10 +257,6 @@ class _AwsCommon {
   /// Creates an [aws_common.AWSStreamedHttpRequest] reference.
   Reference get awsStreamedHttpRequest =>
       const Reference('AWSStreamedHttpRequest', _url);
-
-  /// Creates an [aws_common.AWSStreamedHttpResponse] reference.
-  Reference get awsStreamedHttpResponse =>
-      const Reference('AWSStreamedHttpResponse', _url);
 
   /// Creates a secure [aws_common.uuid] instance.
   Expression uuid() => const Reference('uuid', _url).call([], {
@@ -545,9 +544,6 @@ class _Smithy {
           ..types.add(ref),
       );
 
-  /// Creates a [smithy.HttpClient] refererence.
-  Reference get httpClient => const Reference('HttpClient', _url);
-
   /// Creates a [smithy.HttpServerBase] refererence.
   Reference get httpServerBase => const Reference('HttpServerBase', _url);
 
@@ -624,14 +620,6 @@ class _Smithy {
   Reference get missingLabelException =>
       const Reference('MissingLabelException', _url);
 
-  /// Creates a [smithy.Operation] reference.
-  Reference operation(Reference input, Reference output) => TypeReference(
-        (t) => t
-          ..symbol = 'Operation'
-          ..url = _url
-          ..types.addAll([input, output]),
-      );
-
   /// Creates a [smithy.PaginatedHttpOperation] reference for an operation with input
   /// payload type [inputPayload], input type [input], and output type [output].
   Reference paginatedHttpOperation(
@@ -659,12 +647,16 @@ class _Smithy {
       );
 
   /// Creates a [smithy.PaginatedResult] reference.
-  Reference paginatedResult(Reference itemsRef, Reference pageSizeRef) =>
+  Reference paginatedResult(
+    Reference itemsRef,
+    Reference pageSizeRef,
+    Reference tokenRef,
+  ) =>
       TypeReference(
         (t) => t
           ..url = _url
           ..symbol = 'PaginatedResult'
-          ..types.addAll([itemsRef, pageSizeRef]),
+          ..types.addAll([itemsRef, pageSizeRef, tokenRef]),
       );
 
   /// Creates a [smithy.parseHeader] reference.
@@ -714,6 +706,15 @@ class _Smithy {
   /// Creates a [smithy.SmithyHttpException] reference.
   Reference get smithyHttpException =>
       const Reference('SmithyHttpException', _url);
+
+  /// Creates a [smithy.SmithyOperation] reference for an operation with output
+  /// type [output].
+  Reference smithyOperation(Reference output) => TypeReference(
+        (t) => t
+          ..symbol = 'SmithyOperation'
+          ..url = _url
+          ..types.add(output),
+      );
 
   /// Creates a [smithy.SmithyUnion] reference for [ref], the union class.
   Reference smithyUnion(Reference ref) => TypeReference(
@@ -833,6 +834,14 @@ class _SmithyAws {
   /// Creates a [smithy_aws.AWSSignatureVersion] refererence.
   Reference get awsSignatureVersion =>
       const Reference('AWSSignatureVersion', _url);
+
+  /// Creates a [smithy_aws.CheckErrorOnSuccess] refererence.
+  Reference get checkErrorOnSuccess =>
+      const Reference('CheckErrorOnSuccess', _url);
+
+  /// Creates a [smithy_aws.CheckPartialResponse] refererence.
+  Reference get checkPartialResponse =>
+      const Reference('CheckPartialResponse', _url);
 
   /// Creates a [smithy_aws.CredentialScope] refererence.
   Reference get credentialScope => const Reference('CredentialScope', _url);

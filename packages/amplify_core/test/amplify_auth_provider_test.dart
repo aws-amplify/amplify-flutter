@@ -113,7 +113,6 @@ void main() {
           await tokenAuthProvider.authorizeRequest(_generateTestRequest());
       expect(authorizedRequest.headers[AWSHeaders.authorization], _testToken);
     });
-
     test('identityId() returns identityId', () async {
       final identityId = await TestTokenIdentityProvider().getIdentityId();
       expect(identityId, _testIdentityId);

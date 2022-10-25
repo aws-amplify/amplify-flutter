@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_json1_v2.glacier.operation.upload_multipart_part_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,7 +56,7 @@ class UploadMultipartPartOperation extends _i1.HttpOperation<
           service: _i8.AWSService.glacier,
           credentialsProvider: _credentialsProvider,
         ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
         const _i6.WithSdkInvocationId(),
         const _i6.WithSdkRequest(),
       ],
@@ -97,7 +97,7 @@ class UploadMultipartPartOperation extends _i1.HttpOperation<
   @override
   _i4.UploadMultipartPartOutput buildOutput(
     _i4.UploadMultipartPartOutputPayload payload,
-    _i8.AWSStreamedHttpResponse response,
+    _i8.AWSBaseHttpResponse response,
   ) =>
       _i4.UploadMultipartPartOutput.fromResponse(
         payload,
@@ -157,15 +157,17 @@ class UploadMultipartPartOperation extends _i1.HttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'UploadMultipartPart';
+  @override
   _i6.AWSRetryer get retryer => _i6.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i2.Future<_i4.UploadMultipartPartOutput> run(
+  _i1.SmithyOperation<_i4.UploadMultipartPartOutput> run(
     _i3.UploadMultipartPartInput input, {
-    _i1.HttpClient? client,
+    _i8.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i2.runZoned(

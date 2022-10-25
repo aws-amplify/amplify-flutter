@@ -144,8 +144,8 @@ class AWSHttpClientImpl extends AWSHttpClient {
     FutureOr<void> Function()? onCancel,
   }) {
     final abortController = AbortController();
-    final requestProgressController = StreamController<int>();
-    final responseProgressController = StreamController<int>();
+    final requestProgressController = StreamController<int>.broadcast();
+    final responseProgressController = StreamController<int>.broadcast();
     final cancelTrigger = Completer<void>();
     FutureOr<void> wrappedOnCancel() {
       abortController.abort();

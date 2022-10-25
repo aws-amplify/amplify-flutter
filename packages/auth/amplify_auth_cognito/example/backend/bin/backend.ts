@@ -40,3 +40,9 @@ new AuthIntegrationTestStack(app, {
     deviceOnlyRememberedOnUserPrompt: true,
   },
 });
+new AuthIntegrationTestStack(app, {
+  environmentName: "sign-in-with-phone",
+  signInAliases: {
+    phone: true,
+  }
+});

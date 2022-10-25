@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_json1_v2.rest_json_validation_protocol.operation.malformed_pattern_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,7 +34,7 @@ class MalformedPatternOperation extends _i1.HttpOperation<
       requestInterceptors: [
         const _i1.WithHost(),
         const _i1.WithContentLength(),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
         const _i3.WithSdkInvocationId(),
         const _i3.WithSdkRequest(),
       ],
@@ -62,7 +62,7 @@ class MalformedPatternOperation extends _i1.HttpOperation<
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override
@@ -78,15 +78,17 @@ class MalformedPatternOperation extends _i1.HttpOperation<
         )
       ];
   @override
+  String get runtimeTypeName => 'MalformedPattern';
+  @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i8.Future<_i1.Unit> run(
+  _i1.SmithyOperation<_i1.Unit> run(
     _i2.MalformedPatternInput input, {
-    _i1.HttpClient? client,
+    _i6.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i8.runZoned(

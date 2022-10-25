@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library aws_json1_1_v2.machine_learning.operation.predict_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -57,7 +57,7 @@ class PredictOperation extends _i1.HttpOperation<_i2.PredictInput,
           service: _i7.AWSService.machineLearning,
           credentialsProvider: _credentialsProvider,
         ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
         const _i5.WithSdkInvocationId(),
         const _i5.WithSdkRequest(),
       ],
@@ -86,7 +86,7 @@ class PredictOperation extends _i1.HttpOperation<_i2.PredictInput,
   @override
   _i3.PredictOutput buildOutput(
     _i3.PredictOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.PredictOutput.fromResponse(
         payload,
@@ -146,15 +146,17 @@ class PredictOperation extends _i1.HttpOperation<_i2.PredictInput,
         ),
       ];
   @override
+  String get runtimeTypeName => 'Predict';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i14.Future<_i3.PredictOutput> run(
+  _i1.SmithyOperation<_i3.PredictOutput> run(
     _i2.PredictInput input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i14.runZoned(

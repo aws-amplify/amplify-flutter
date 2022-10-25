@@ -82,7 +82,13 @@ class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
           ..type = MethodType.getter
           ..name = 'types'
           ..lambda = true
-          ..body = literalConstList([symbol]).code,
+          ..body = literalConstList([
+            symbol,
+            // Variant class types
+            ...sortedMembers.map(
+              (member) => refer(variantClassName(member)),
+            ),
+          ]).code,
       );
 
   @override

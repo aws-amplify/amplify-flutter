@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:async';
-
 import 'package:aws_common/aws_common.dart';
 import 'package:smithy/smithy.dart';
 import 'package:smithy/src/http/http_operation.dart';
@@ -22,9 +20,7 @@ class WithHost extends HttpRequestInterceptor {
   const WithHost();
 
   @override
-  Future<AWSStreamedHttpRequest> intercept(
-    AWSStreamedHttpRequest request,
-  ) async {
+  AWSBaseHttpRequest intercept(AWSBaseHttpRequest request) {
     final includeHeader = !zIsWeb || isSmithyHttpTest;
     if (includeHeader) {
       request.headers.putIfAbsent(AWSHeaders.host, () => request.uri.host);

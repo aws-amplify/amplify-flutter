@@ -14,7 +14,6 @@
 
 import 'dart:async';
 
-import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_common/src/http/aws_http_client_io.dart'
     if (dart.library.js) 'package:aws_common/src/http/aws_http_client_js.dart';
@@ -125,20 +124,26 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
   Future<void> _send(
     AWSBaseHttpRequest request,
     CancelableCompleter<AWSBaseHttpResponse> completer, {
-    required StreamCompleter<int> requestProgressCompleter,
-    required StreamCompleter<int> responseProgressCompleter,
+    required StreamSink<int> requestProgressSink,
+    required StreamSink<int> responseProgressSink,
   }) async {
     try {
       request = await transformRequest(request);
     } on Object catch (e, st) {
       completer.completeError(e, st);
-      requestProgressCompleter.setEmpty();
-      responseProgressCompleter.setEmpty();
+      unawaited(requestProgressSink.close());
+      unawaited(responseProgressSink.close());
       return;
     }
     final operation = baseClient?.send(request) ?? super.send(request);
-    requestProgressCompleter.setSourceStream(operation.requestProgress);
-    responseProgressCompleter.setSourceStream(operation.responseProgress);
+    operation.requestProgress.listen(
+      requestProgressSink.add,
+      onDone: requestProgressSink.close,
+    );
+    operation.responseProgress.listen(
+      responseProgressSink.add,
+      onDone: responseProgressSink.close,
+    );
     operation.operation.then(
       (resp) async {
         resp = await transformResponse(resp);
@@ -158,21 +163,27 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
     AWSBaseHttpRequest request, {
     FutureOr<void> Function()? onCancel,
   }) {
+    final requestProgressController =
+        StreamController<int>.broadcast(sync: true);
+    final responseProgressController =
+        StreamController<int>.broadcast(sync: true);
     final completer = CancelableCompleter<AWSBaseHttpResponse>(
-      onCancel: onCancel,
+      onCancel: () {
+        requestProgressController.close();
+        responseProgressController.close();
+        return onCancel?.call();
+      },
     );
-    final requestProgressCompleter = StreamCompleter<int>();
-    final responseProgressCompleter = StreamCompleter<int>();
     _send(
       request,
       completer,
-      requestProgressCompleter: requestProgressCompleter,
-      responseProgressCompleter: responseProgressCompleter,
+      requestProgressSink: requestProgressController,
+      responseProgressSink: responseProgressController,
     );
     return AWSHttpOperation(
       completer.operation,
-      requestProgress: responseProgressCompleter.stream,
-      responseProgress: responseProgressCompleter.stream,
+      requestProgress: requestProgressController.stream,
+      responseProgress: responseProgressController.stream,
     );
   }
 

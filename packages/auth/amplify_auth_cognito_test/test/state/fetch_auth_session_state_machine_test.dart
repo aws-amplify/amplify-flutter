@@ -18,9 +18,10 @@ import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:mockito/mockito.dart';
-import 'package:smithy/src/http/http_client.dart';
+import 'package:smithy/smithy.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:test/test.dart';
 
@@ -41,25 +42,39 @@ class MockCognitoIdentityClient implements CognitoIdentityClient {
       _getCredentialsForIdentity;
 
   @override
-  Future<GetCredentialsForIdentityResponse> getCredentialsForIdentity(
+  SmithyOperation<GetCredentialsForIdentityResponse> getCredentialsForIdentity(
     GetCredentialsForIdentityInput input, {
-    HttpClient? client,
+    AWSHttpClient? client,
   }) {
     if (_getCredentialsForIdentity == null) {
       throw UnimplementedError();
     }
-    return _getCredentialsForIdentity!();
+    return SmithyOperation(
+      CancelableOperation.fromFuture(
+        Future.value(_getCredentialsForIdentity!()),
+      ),
+      operationName: 'GetCredentialsForIdentity',
+      requestProgress: const Stream.empty(),
+      responseProgress: const Stream.empty(),
+    );
   }
 
   @override
-  Future<GetIdResponse> getId(
+  SmithyOperation<GetIdResponse> getId(
     GetIdInput input, {
-    HttpClient? client,
+    AWSHttpClient? client,
   }) {
     if (_getId == null) {
       throw UnimplementedError();
     }
-    return _getId!();
+    return SmithyOperation(
+      CancelableOperation.fromFuture(
+        Future.value(_getId!()),
+      ),
+      operationName: 'GetId',
+      requestProgress: const Stream.empty(),
+      responseProgress: const Stream.empty(),
+    );
   }
 }
 
@@ -74,11 +89,18 @@ class MockCognitoIdentityProviderClient extends Fake
       _initiateAuth;
 
   @override
-  Future<InitiateAuthResponse> initiateAuth(
+  SmithyOperation<InitiateAuthResponse> initiateAuth(
     InitiateAuthRequest input, {
-    HttpClient? client,
+    AWSHttpClient? client,
   }) =>
-      _initiateAuth(input);
+      SmithyOperation(
+        CancelableOperation.fromFuture(
+          Future.value(_initiateAuth(input)),
+        ),
+        operationName: 'InitiateAuth',
+        requestProgress: const Stream.empty(),
+        responseProgress: const Stream.empty(),
+      );
 }
 
 void main() {

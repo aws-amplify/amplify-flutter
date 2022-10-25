@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_json1_v2.api_gateway.operation.get_rest_apis_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,7 +56,7 @@ class GetRestApisOperation extends _i1.PaginatedHttpOperation<
           service: _i9.AWSService.apiGateway,
           credentialsProvider: _credentialsProvider,
         ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
         const _i7.WithSdkInvocationId(),
         const _i7.WithSdkRequest(),
         const _i1.WithHeader(
@@ -102,7 +102,7 @@ class GetRestApisOperation extends _i1.PaginatedHttpOperation<
   @override
   _i3.RestApis buildOutput(
     _i3.RestApis payload,
-    _i9.AWSStreamedHttpResponse response,
+    _i9.AWSBaseHttpResponse response,
   ) =>
       _i3.RestApis.fromResponse(
         payload,
@@ -142,15 +142,17 @@ class GetRestApisOperation extends _i1.PaginatedHttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'GetRestApis';
+  @override
   _i7.AWSRetryer get retryer => _i7.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i14.Future<_i3.RestApis> run(
+  _i1.SmithyOperation<_i3.RestApis> run(
     _i2.GetRestApisRequest input, {
-    _i1.HttpClient? client,
+    _i9.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i14.runZoned(

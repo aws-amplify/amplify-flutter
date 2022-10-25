@@ -511,7 +511,7 @@ extension OperationShapeUtil on OperationShape {
     // The client field
     yield ConfigParameter(
       (p) => p
-        ..type = DartTypes.smithy.httpClient.boxed
+        ..type = DartTypes.awsCommon.awsHttpClient.boxed
         ..name = 'client'
         ..location = ParameterLocation.all,
     );

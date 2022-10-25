@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_xml_v2.s3.operation.list_objects_v2_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -52,7 +52,7 @@ class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
           serviceConfiguration: _s3ClientConfig.signerConfiguration ??
               _i5.S3ServiceConfiguration(),
         ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
         const _i4.WithSdkInvocationId(),
         const _i4.WithSdkRequest(),
       ],
@@ -139,7 +139,7 @@ class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
   @override
   _i3.ListObjectsV2Output buildOutput(
     _i3.ListObjectsV2Output payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.ListObjectsV2Output.fromResponse(
         payload,
@@ -157,6 +157,8 @@ class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
           builder: _i9.NoSuchBucket.fromResponse,
         )
       ];
+  @override
+  String get runtimeTypeName => 'ListObjectsV2';
   @override
   _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
@@ -180,9 +182,9 @@ class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i10.Future<_i3.ListObjectsV2Output> run(
+  _i1.SmithyOperation<_i3.ListObjectsV2Output> run(
     _i2.ListObjectsV2Request input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i10.runZoned(

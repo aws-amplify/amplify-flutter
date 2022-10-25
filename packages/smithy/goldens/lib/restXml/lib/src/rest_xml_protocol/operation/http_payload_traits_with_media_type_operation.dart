@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_xml_v1.rest_xml_protocol.operation.http_payload_traits_with_media_type_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,7 +41,7 @@ class HttpPayloadTraitsWithMediaTypeOperation extends _i1.HttpOperation<
       requestInterceptors: [
         const _i1.WithHost(),
         const _i1.WithContentLength(),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
         const _i4.WithSdkInvocationId(),
         const _i4.WithSdkRequest(),
       ],
@@ -78,7 +78,7 @@ class HttpPayloadTraitsWithMediaTypeOperation extends _i1.HttpOperation<
   @override
   _i3.HttpPayloadTraitsWithMediaTypeInputOutput buildOutput(
     _i2.Uint8List? payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.HttpPayloadTraitsWithMediaTypeInputOutput.fromResponse(
         payload,
@@ -87,15 +87,17 @@ class HttpPayloadTraitsWithMediaTypeOperation extends _i1.HttpOperation<
   @override
   List<_i1.SmithyError> get errorTypes => const [];
   @override
+  String get runtimeTypeName => 'HttpPayloadTraitsWithMediaType';
+  @override
   _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i8.Future<_i3.HttpPayloadTraitsWithMediaTypeInputOutput> run(
+  _i1.SmithyOperation<_i3.HttpPayloadTraitsWithMediaTypeInputOutput> run(
     _i3.HttpPayloadTraitsWithMediaTypeInputOutput input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i8.runZoned(

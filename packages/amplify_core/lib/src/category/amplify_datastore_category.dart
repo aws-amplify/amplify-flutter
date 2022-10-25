@@ -25,7 +25,10 @@ class DataStoreCategory extends AmplifyCategory<DataStorePluginInterface> {
   Category get category => Category.dataStore;
 
   @override
-  Future<void> addPlugin(DataStorePluginInterface plugin) async {
+  Future<void> addPlugin(
+    DataStorePluginInterface plugin, {
+    required AmplifyAuthProviderRepository authProviderRepo,
+  }) async {
     // TODO: Discuss and support multiple plugins
     if (plugins.isEmpty) {
       try {

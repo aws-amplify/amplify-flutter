@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library aws_json1_1_v1.json_protocol.operation.kitchen_sink_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -49,7 +49,7 @@ class KitchenSinkOperation extends _i1.HttpOperation<_i2.KitchenSink,
           service: _i6.AWSService.iam,
           credentialsProvider: _credentialsProvider,
         ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
         const _i4.WithSdkInvocationId(),
         const _i4.WithSdkRequest(),
       ],
@@ -78,7 +78,7 @@ class KitchenSinkOperation extends _i1.HttpOperation<_i2.KitchenSink,
   @override
   _i2.KitchenSink buildOutput(
     _i2.KitchenSink payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.KitchenSink.fromResponse(
         payload,
@@ -106,15 +106,17 @@ class KitchenSinkOperation extends _i1.HttpOperation<_i2.KitchenSink,
         ),
       ];
   @override
+  String get runtimeTypeName => 'KitchenSinkOperation';
+  @override
   _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i10.Future<_i2.KitchenSink> run(
+  _i1.SmithyOperation<_i2.KitchenSink> run(
     _i2.KitchenSink input, {
-    _i1.HttpClient? client,
+    _i6.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i10.runZoned(

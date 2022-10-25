@@ -22,7 +22,7 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/amplify');
 /// {@template amplify.method_channel_amplify}
 /// An implementation of [AmplifyClass] that uses method channels.
 /// {@endtemplate}
-class MethodChannelAmplify extends AmplifyClass {
+class MethodChannelAmplify extends AmplifyClassImpl {
   /// {@macro amplify.method_channel_amplify}
   MethodChannelAmplify() : super.protected();
 
@@ -37,14 +37,26 @@ class MethodChannelAmplify extends AmplifyClass {
     }
     try {
       if (plugin is AuthPluginInterface) {
-        await Auth.addPlugin(plugin);
+        await Auth.addPlugin(
+          plugin,
+          authProviderRepo: authProviderRepo,
+        );
       } else if (plugin is AnalyticsPluginInterface) {
-        await Analytics.addPlugin(plugin);
+        await Analytics.addPlugin(
+          plugin,
+          authProviderRepo: authProviderRepo,
+        );
       } else if (plugin is StoragePluginInterface) {
-        await Storage.addPlugin(plugin);
+        await Storage.addPlugin(
+          plugin,
+          authProviderRepo: authProviderRepo,
+        );
       } else if (plugin is DataStorePluginInterface) {
         try {
-          await DataStore.addPlugin(plugin);
+          await DataStore.addPlugin(
+            plugin,
+            authProviderRepo: authProviderRepo,
+          );
         } on AmplifyAlreadyConfiguredException {
           // A new plugin is added in native libraries during `addPlugin`
           // call for DataStore, which means during an app restart, this
@@ -56,7 +68,7 @@ class MethodChannelAmplify extends AmplifyClass {
           plugin.streamController.stream,
         );
       } else if (plugin is APIPluginInterface) {
-        await API.addPlugin(plugin);
+        await API.addPlugin(plugin, authProviderRepo: authProviderRepo);
       } else {
         throw AmplifyException(
           'The type of plugin ${plugin.runtimeType} is not yet supported '

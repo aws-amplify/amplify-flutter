@@ -16,7 +16,7 @@ class _$ConfirmSignUpRequest extends ConfirmSignUpRequest {
   @override
   final String confirmationCode;
   @override
-  final bool? forceAliasCreation;
+  final bool forceAliasCreation;
   @override
   final String? secretHash;
   @override
@@ -33,7 +33,7 @@ class _$ConfirmSignUpRequest extends ConfirmSignUpRequest {
       required this.clientId,
       this.clientMetadata,
       required this.confirmationCode,
-      this.forceAliasCreation,
+      required this.forceAliasCreation,
       this.secretHash,
       this.userContextData,
       required this.username})
@@ -42,6 +42,8 @@ class _$ConfirmSignUpRequest extends ConfirmSignUpRequest {
         clientId, r'ConfirmSignUpRequest', 'clientId');
     BuiltValueNullFieldError.checkNotNull(
         confirmationCode, r'ConfirmSignUpRequest', 'confirmationCode');
+    BuiltValueNullFieldError.checkNotNull(
+        forceAliasCreation, r'ConfirmSignUpRequest', 'forceAliasCreation');
     BuiltValueNullFieldError.checkNotNull(
         username, r'ConfirmSignUpRequest', 'username');
   }
@@ -179,7 +181,10 @@ class ConfirmSignUpRequestBuilder
                   confirmationCode,
                   r'ConfirmSignUpRequest',
                   'confirmationCode'),
-              forceAliasCreation: forceAliasCreation,
+              forceAliasCreation: BuiltValueNullFieldError.checkNotNull(
+                  forceAliasCreation,
+                  r'ConfirmSignUpRequest',
+                  'forceAliasCreation'),
               secretHash: secretHash,
               userContextData: _userContextData?.build(),
               username: BuiltValueNullFieldError.checkNotNull(

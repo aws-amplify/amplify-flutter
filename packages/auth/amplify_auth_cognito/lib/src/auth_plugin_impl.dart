@@ -54,7 +54,7 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
   /// A plugin key which can be used with `Amplify.Auth.getPlugin` to retrieve
   /// a Cognito-specific Auth category interface.
   static const AuthPluginKey<
-      AuthUser,
+      CognitoAuthUser,
       CognitoUserAttributeKey,
       AuthUserAttribute<CognitoUserAttributeKey>,
       CognitoDevice,
@@ -92,7 +92,9 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
       AmplifyAuthCognito> pluginKey = _AmplifyAuthCognitoPluginKey();
 
   @override
-  Future<void> addPlugin() async {
+  Future<void> addPlugin({
+    required AmplifyAuthProviderRepository authProviderRepo,
+  }) async {
     if (zIsWeb || !(Platform.isAndroid || Platform.isIOS)) {
       return;
     }
@@ -131,7 +133,10 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
     AmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
-    await super.configure(config: config, authProviderRepo: authProviderRepo);
+    await super.configure(
+      config: config,
+      authProviderRepo: authProviderRepo,
+    );
 
     // Update the native cache for the current user on hub events.
     final nativeBridge = stateMachine.get<NativeAuthBridge>();
@@ -253,7 +258,7 @@ class _NativeAmplifyAuthCognito
 }
 
 class _AmplifyAuthCognitoPluginKey extends AuthPluginKey<
-    AuthUser,
+    CognitoAuthUser,
     CognitoUserAttributeKey,
     AuthUserAttribute<CognitoUserAttributeKey>,
     CognitoDevice,
@@ -297,7 +302,7 @@ class _AmplifyAuthCognitoPluginKey extends AuthPluginKey<
 
 /// Extensions to [AuthCategory] when using [AmplifyAuthCognito].
 extension AmplifyAuthCognitoCategoryExtensions on AuthCategory<
-    AuthUser,
+    CognitoAuthUser,
     CognitoUserAttributeKey,
     AuthUserAttribute<CognitoUserAttributeKey>,
     CognitoDevice,
