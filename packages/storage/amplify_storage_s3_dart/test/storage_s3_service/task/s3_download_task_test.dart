@@ -85,11 +85,16 @@ void main() {
           contentLength: Int64(testBodyBytes.length),
           body: Stream.value(testBodyBytes),
         );
+        final smithyOperation = MockSmithyOperation<GetObjectOutput>();
         late S3TransferState finalState;
 
         when(
-          () => s3Client.getObject(any()),
+          () => smithyOperation.result,
         ).thenAnswer((_) async => testGetObjectOutput);
+
+        when(
+          () => s3Client.getObject(any()),
+        ).thenAnswer((_) => smithyOperation);
 
         final downloadTask = S3DownloadTask(
           s3Client: s3Client,
@@ -132,11 +137,16 @@ void main() {
         final testGetObjectOutput = GetObjectOutput(
           body: Stream.value([101]),
         );
+        final smithyOperation = MockSmithyOperation<GetObjectOutput>();
         var onErrorHasBeenCalled = false;
 
         when(
-          () => s3Client.getObject(any()),
+          () => smithyOperation.result,
         ).thenAnswer((_) async => testGetObjectOutput);
+
+        when(
+          () => s3Client.getObject(any()),
+        ).thenAnswer((_) => smithyOperation);
 
         final downloadTask = S3DownloadTask(
           s3Client: s3Client,
@@ -170,11 +180,15 @@ void main() {
             (_) => [101],
           ).take(1024),
         );
+        final smithyOperation = MockSmithyOperation<GetObjectOutput>();
         final receivedState = <S3TransferState>[];
 
         when(
-          () => s3Client.getObject(any()),
+          () => smithyOperation.result,
         ).thenAnswer((_) async => testGetObjectOutput);
+        when(
+          () => s3Client.getObject(any()),
+        ).thenAnswer((_) => smithyOperation);
 
         final downloadTask = S3DownloadTask(
           s3Client: s3Client,
@@ -205,11 +219,16 @@ void main() {
             (_) => [101],
           ).take(1024),
         );
+        final smithyOperation1 = MockSmithyOperation<GetObjectOutput>();
         final receivedState = <S3TransferState>[];
 
         when(
-          () => s3Client.getObject(any()),
+          () => smithyOperation1.result,
         ).thenAnswer((_) async => testGetObjectOutput1);
+
+        when(
+          () => s3Client.getObject(any()),
+        ).thenAnswer((_) => smithyOperation1);
 
         final downloadTask = S3DownloadTask(
           s3Client: s3Client,
@@ -233,9 +252,15 @@ void main() {
             (_) => [102],
           ).take(1024),
         );
+        final smithyOperation2 = MockSmithyOperation<GetObjectOutput>();
+
+        when(
+          () => smithyOperation2.result,
+        ).thenAnswer((_) async => testGetObjectOutput2);
+
         when(
           () => s3Client.getObject(any()),
-        ).thenAnswer((_) async => testGetObjectOutput2);
+        ).thenAnswer((_) => smithyOperation2);
 
         await downloadTask.resume();
 
@@ -252,11 +277,16 @@ void main() {
             (_) => [101],
           ).take(1024),
         );
+        final smithyOperation = MockSmithyOperation<GetObjectOutput>();
         final receivedState = <S3TransferState>[];
 
         when(
-          () => s3Client.getObject(any()),
+          () => smithyOperation.result,
         ).thenAnswer((_) async => testGetObjectOutput);
+
+        when(
+          () => s3Client.getObject(any()),
+        ).thenAnswer((_) => smithyOperation);
 
         final downloadTask = S3DownloadTask(
           s3Client: s3Client,
@@ -288,11 +318,16 @@ void main() {
             (_) => [101],
           ).take(1024),
         );
+        final smithyOperation = MockSmithyOperation<GetObjectOutput>();
         final receivedState = <S3TransferState>[];
 
         when(
-          () => s3Client.getObject(any()),
+          () => smithyOperation.result,
         ).thenAnswer((_) async => testGetObjectOutput);
+
+        when(
+          () => s3Client.getObject(any()),
+        ).thenAnswer((_) => smithyOperation);
 
         final downloadTask = S3DownloadTask(
           s3Client: s3Client,
@@ -317,10 +352,15 @@ void main() {
       test('should forward S3Exception when getObject returns no body', () {
         const testOptions = S3DownloadDataOptions();
         final testGetObjectOutput = GetObjectOutput(contentLength: Int64(1024));
+        final smithyOperation = MockSmithyOperation<GetObjectOutput>();
+
+        when(
+          () => smithyOperation.result,
+        ).thenAnswer((_) async => testGetObjectOutput);
 
         when(
           () => s3Client.getObject(any()),
-        ).thenAnswer((_) async => testGetObjectOutput);
+        ).thenAnswer((_) => smithyOperation);
 
         final downloadTask = S3DownloadTask(
           s3Client: s3Client,
@@ -382,11 +422,16 @@ void main() {
                 (_) => [101],
               ).take(1024),
             );
+            final smithyOperation1 = MockSmithyOperation<GetObjectOutput>();
             final receivedState = <S3TransferState>[];
 
             when(
-              () => s3Client.getObject(any()),
+              () => smithyOperation1.result,
             ).thenAnswer((_) async => testGetObjectOutput1);
+
+            when(
+              () => s3Client.getObject(any()),
+            ).thenAnswer((_) => smithyOperation1);
 
             final downloadTask = S3DownloadTask(
               s3Client: s3Client,
@@ -425,11 +470,16 @@ void main() {
           contentLength: Int64(testBodyBytes.length),
           body: Stream.value(testBodyBytes),
         );
+        final smithOperation = MockSmithyOperation<GetObjectOutput>();
         late S3TransferState finalState;
 
         when(
-          () => s3Client.getObject(any()),
+          () => smithOperation.result,
         ).thenAnswer((_) async => testGetObjectOutput);
+
+        when(
+          () => s3Client.getObject(any()),
+        ).thenAnswer((_) => smithOperation);
 
         final downloadTask = S3DownloadTask(
           s3Client: s3Client,
@@ -457,13 +507,18 @@ void main() {
           contentLength: Int64(testBodyBytes.length),
           body: Stream.value(testBodyBytes),
         );
+        final smithyOperation = MockSmithyOperation<GetObjectOutput>();
         final testOnDoneException = Exception('some exception');
         var onDoneHasBeenCalled = false;
         late S3TransferState finalState;
 
         when(
-          () => s3Client.getObject(any()),
+          () => smithyOperation.result,
         ).thenAnswer((_) async => testGetObjectOutput);
+
+        when(
+          () => s3Client.getObject(any()),
+        ).thenAnswer((_) => smithyOperation);
 
         final downloadTask = S3DownloadTask(
           s3Client: s3Client,
@@ -501,15 +556,26 @@ void main() {
           contentLength: Int64(testBodyBytes.length),
           body: Stream.value(testBodyBytes),
         );
+        final getSmithyOperation = MockSmithyOperation<GetObjectOutput>();
         const testETag = '123';
         final testHeadObjectOutput = HeadObjectOutput(eTag: testETag);
+        final headSmithyOperation = MockSmithyOperation<HeadObjectOutput>();
+
         when(
-          () => s3Client.getObject(any()),
+          () => getSmithyOperation.result,
         ).thenAnswer((_) async => testGetObjectOutput);
 
         when(
-          () => s3Client.headObject(any()),
+          () => headSmithyOperation.result,
         ).thenAnswer((_) async => testHeadObjectOutput);
+
+        when(
+          () => s3Client.getObject(any()),
+        ).thenAnswer((_) => getSmithyOperation);
+
+        when(
+          () => s3Client.headObject(any()),
+        ).thenAnswer((_) => headSmithyOperation);
 
         final downloadTask = S3DownloadTask(
           s3Client: s3Client,

@@ -34,7 +34,7 @@ class S3ListResult extends StorageListResult<List<S3Item>> {
   /// smithy. This named constructor should be used internally only.
   @internal
   factory S3ListResult.fromPaginatedResult(
-    PaginatedResult<ListObjectsV2Output, int> paginatedResult, {
+    PaginatedResult<ListObjectsV2Output, int, String> paginatedResult, {
     required String prefixToDrop,
   }) {
     final output = paginatedResult.items;
@@ -58,7 +58,8 @@ class S3ListResult extends StorageListResult<List<S3Item>> {
       items,
       hasNext: paginatedResult.hasNext,
       next: () async {
-        final nextPageResult = await paginatedResult.next(requestedPageSize);
+        final nextPageResult =
+            await paginatedResult.next(requestedPageSize).result;
         return S3ListResult.fromPaginatedResult(
           nextPageResult,
           prefixToDrop: prefixToDrop,

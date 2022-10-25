@@ -94,10 +94,15 @@ void main() {
           accessLevel: StorageAccessLevel.private,
         );
         final testPutObjectOutput = s3.PutObjectOutput();
+        final smithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
+
+        when(
+          () => smithyOperation.result,
+        ).thenAnswer((_) async => testPutObjectOutput);
 
         when(
           () => s3Client.putObject(any()),
-        ).thenAnswer((_) async => testPutObjectOutput);
+        ).thenAnswer((_) => smithyOperation);
 
         final uploadDataTask = S3UploadTask.fromDataPayload(
           testDataPayload,
@@ -140,15 +145,25 @@ void main() {
           getProperties: true,
         );
         final testPutObjectOutput = s3.PutObjectOutput();
+        final putSmithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
         final testHeadObjectOutput = s3.HeadObjectOutput();
+        final headSmithyOperation = MockSmithyOperation<s3.HeadObjectOutput>();
 
         when(
-          () => s3Client.putObject(any()),
+          () => putSmithyOperation.result,
         ).thenAnswer((_) async => testPutObjectOutput);
 
         when(
-          () => s3Client.headObject(any()),
+          () => headSmithyOperation.result,
         ).thenAnswer((_) async => testHeadObjectOutput);
+
+        when(
+          () => s3Client.putObject(any()),
+        ).thenAnswer((_) => putSmithyOperation);
+
+        when(
+          () => s3Client.headObject(any()),
+        ).thenAnswer((_) => headSmithyOperation);
 
         final uploadDataTask = S3UploadTask.fromDataPayload(
           testDataPayload,
@@ -245,9 +260,15 @@ void main() {
           accessLevel: StorageAccessLevel.private,
         );
         final testPutObjectOutput = s3.PutObjectOutput();
+        final smithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
+
+        when(
+          () => smithyOperation.result,
+        ).thenAnswer((_) async => testPutObjectOutput);
+
         when(
           () => s3Client.putObject(any()),
-        ).thenAnswer((_) async => testPutObjectOutput);
+        ).thenAnswer((_) => smithyOperation);
 
         final uploadDataTask = S3UploadTask.fromAWSFile(
           testLocalFile,
@@ -316,9 +337,16 @@ void main() {
         final testCreateMultipartUploadOutput = s3.CreateMultipartUploadOutput(
           uploadId: testMultipartUploadId,
         );
+        final createMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.CreateMultipartUploadOutput>();
+
+        when(
+          () => createMultipartUploadSmithyOperation.result,
+        ).thenAnswer((_) async => testCreateMultipartUploadOutput);
+
         when(
           () => s3Client.createMultipartUpload(any()),
-        ).thenAnswer((_) async => testCreateMultipartUploadOutput);
+        ).thenAnswer((_) => createMultipartUploadSmithyOperation);
 
         when(
           () => transferDatabase.insertTransferRecord(any()),
@@ -327,19 +355,36 @@ void main() {
         final testUploadPartOutput1 = s3.UploadPartOutput(eTag: 'eTag-part-1');
         final testUploadPartOutput2 = s3.UploadPartOutput(eTag: 'eTag-part-2');
         final testUploadPartOutput3 = s3.UploadPartOutput(eTag: 'eTag-part-3');
+        final uploadPartSmithyOperation1 =
+            MockSmithyOperation<s3.UploadPartOutput>();
+        final uploadPartSmithyOperation2 =
+            MockSmithyOperation<s3.UploadPartOutput>();
+        final uploadPartSmithyOperation3 =
+            MockSmithyOperation<s3.UploadPartOutput>();
+
+        when(
+          () => uploadPartSmithyOperation1.result,
+        ).thenAnswer((_) async => testUploadPartOutput1);
+        when(
+          () => uploadPartSmithyOperation2.result,
+        ).thenAnswer((_) async => testUploadPartOutput2);
+        when(
+          () => uploadPartSmithyOperation3.result,
+        ).thenAnswer((_) async => testUploadPartOutput3);
+
         when(
           () => s3Client.uploadPart(any()),
-        ).thenAnswer((invocation) async {
+        ).thenAnswer((invocation) {
           final request =
               invocation.positionalArguments.first as s3.UploadPartRequest;
 
           switch (request.partNumber) {
             case 1:
-              return testUploadPartOutput1;
+              return uploadPartSmithyOperation1;
             case 2:
-              return testUploadPartOutput2;
+              return uploadPartSmithyOperation2;
             case 3:
-              return testUploadPartOutput3;
+              return uploadPartSmithyOperation3;
           }
 
           throw Exception('this is not going to happen in this test setup');
@@ -347,18 +392,31 @@ void main() {
 
         final testCompleteMultipartUploadOutput =
             s3.CompleteMultipartUploadOutput();
+        final completeMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.CompleteMultipartUploadOutput>();
+
+        when(
+          () => completeMultipartUploadSmithyOperation.result,
+        ).thenAnswer((_) async => testCompleteMultipartUploadOutput);
+
         when(
           () => s3Client.completeMultipartUpload(any()),
-        ).thenAnswer((_) async => testCompleteMultipartUploadOutput);
+        ).thenAnswer((_) => completeMultipartUploadSmithyOperation);
 
         when(
           () => transferDatabase.deleteTransferRecords(any()),
         ).thenAnswer((_) async => 1);
 
         final testHeadObjectOutput = s3.HeadObjectOutput();
+        final headSmithyOperation = MockSmithyOperation<s3.HeadObjectOutput>();
+
+        when(
+          () => headSmithyOperation.result,
+        ).thenAnswer((_) async => testHeadObjectOutput);
+
         when(
           () => s3Client.headObject(any()),
-        ).thenAnswer((_) async => testHeadObjectOutput);
+        ).thenAnswer((_) => headSmithyOperation);
 
         final uploadTask = S3UploadTask.fromAWSFile(
           testLocalFile,
@@ -574,9 +632,16 @@ void main() {
         final testCreateMultipartUploadOutput = s3.CreateMultipartUploadOutput(
           uploadId: null, // response should always contain valid uploadId
         );
+        final createMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.CreateMultipartUploadOutput>();
+
+        when(
+          () => createMultipartUploadSmithyOperation.result,
+        ).thenAnswer((_) async => testCreateMultipartUploadOutput);
+
         when(
           () => s3Client.createMultipartUpload(any()),
-        ).thenAnswer((_) async => testCreateMultipartUploadOutput);
+        ).thenAnswer((_) => createMultipartUploadSmithyOperation);
 
         unawaited(uploadTask.start());
 
@@ -608,26 +673,46 @@ void main() {
         final testCreateMultipartUploadOutput = s3.CreateMultipartUploadOutput(
           uploadId: 'some-upload-id',
         );
+        final createMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.CreateMultipartUploadOutput>();
+
+        when(
+          () => createMultipartUploadSmithyOperation.result,
+        ).thenAnswer((_) async => testCreateMultipartUploadOutput);
+
         when(
           () => s3Client.createMultipartUpload(any()),
-        ).thenAnswer((_) async => testCreateMultipartUploadOutput);
+        ).thenAnswer((_) => createMultipartUploadSmithyOperation);
 
         when(
           () => transferDatabase.insertTransferRecord(any()),
         ).thenAnswer((_) async => 1);
 
         final testUploadPartOutput = s3.UploadPartOutput(eTag: 'eTag-part-1');
+        final uploadPartSmithyOperation =
+            MockSmithyOperation<s3.UploadPartOutput>();
+
+        when(
+          () => uploadPartSmithyOperation.result,
+        ).thenAnswer((_) async => testUploadPartOutput);
+
         when(
           () => s3Client.uploadPart(any()),
-        ).thenAnswer((_) async => testUploadPartOutput);
+        ).thenAnswer((_) => uploadPartSmithyOperation);
 
         const testException = smithy.UnknownSmithyHttpException(
           statusCode: 403,
           body: 'Access denied!',
         );
+        final completeMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.CompleteMultipartUploadOutput>();
+
+        when(
+          () => completeMultipartUploadSmithyOperation.result,
+        ).thenThrow(testException);
         when(
           () => s3Client.completeMultipartUpload(any()),
-        ).thenThrow(testException);
+        ).thenAnswer((_) => completeMultipartUploadSmithyOperation);
 
         unawaited(uploadTask.start());
 
@@ -667,9 +752,15 @@ void main() {
         final testCreateMultipartUploadOutput = s3.CreateMultipartUploadOutput(
           uploadId: testMultipartUploadId,
         );
+        final createMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.CreateMultipartUploadOutput>();
+
+        when(
+          () => createMultipartUploadSmithyOperation.result,
+        ).thenAnswer((_) async => testCreateMultipartUploadOutput);
         when(
           () => s3Client.createMultipartUpload(any()),
-        ).thenAnswer((_) async => testCreateMultipartUploadOutput);
+        ).thenAnswer((_) => createMultipartUploadSmithyOperation);
 
         when(
           () => transferDatabase.insertTransferRecord(any()),
@@ -686,9 +777,14 @@ void main() {
         unawaited(uploadTask.start());
 
         final testAbortMultipartUploadOutput = s3.AbortMultipartUploadOutput();
+        final abortMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.AbortMultipartUploadOutput>();
+        when(
+          () => abortMultipartUploadSmithyOperation.result,
+        ).thenAnswer((_) async => testAbortMultipartUploadOutput);
         when(
           () => s3Client.abortMultipartUpload(any()),
-        ).thenAnswer((_) async => testAbortMultipartUploadOutput);
+        ).thenAnswer((_) => abortMultipartUploadSmithyOperation);
 
         await expectLater(
           uploadTask.result,
@@ -741,25 +837,41 @@ void main() {
         final testCreateMultipartUploadOutput = s3.CreateMultipartUploadOutput(
           uploadId: testMultipartUploadId,
         );
+        final createMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.CreateMultipartUploadOutput>();
+        when(
+          () => createMultipartUploadSmithyOperation.result,
+        ).thenAnswer((_) async => testCreateMultipartUploadOutput);
         when(
           () => s3Client.createMultipartUpload(any()),
-        ).thenAnswer((_) async => testCreateMultipartUploadOutput);
+        ).thenAnswer((_) => createMultipartUploadSmithyOperation);
 
         when(
           () => transferDatabase.insertTransferRecord(any()),
         ).thenAnswer((_) async => 1);
 
         final testUploadPartOutput = s3.UploadPartOutput(eTag: null);
+        final uploadPartSmithyOperation =
+            MockSmithyOperation<s3.UploadPartOutput>();
+
+        when(
+          () => uploadPartSmithyOperation.result,
+        ).thenAnswer((_) async => testUploadPartOutput);
         when(
           () => s3Client.uploadPart(any()),
-        ).thenAnswer((_) async => testUploadPartOutput);
+        ).thenAnswer((_) => uploadPartSmithyOperation);
 
         unawaited(uploadTask.start());
 
         final testAbortMultipartUploadOutput = s3.AbortMultipartUploadOutput();
+        final abortMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.AbortMultipartUploadOutput>();
+        when(
+          () => abortMultipartUploadSmithyOperation.result,
+        ).thenAnswer((_) async => testAbortMultipartUploadOutput);
         when(
           () => s3Client.abortMultipartUpload(any()),
-        ).thenAnswer((_) async => testAbortMultipartUploadOutput);
+        ).thenAnswer((_) => abortMultipartUploadSmithyOperation);
 
         await expectLater(
           uploadTask.result,
@@ -791,9 +903,14 @@ void main() {
         final testCreateMultipartUploadOutput = s3.CreateMultipartUploadOutput(
           uploadId: testMultipartUploadId,
         );
+        final createMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.CreateMultipartUploadOutput>();
+        when(
+          () => createMultipartUploadSmithyOperation.result,
+        ).thenAnswer((_) async => testCreateMultipartUploadOutput);
         when(
           () => s3Client.createMultipartUpload(any()),
-        ).thenAnswer((_) async => testCreateMultipartUploadOutput);
+        ).thenAnswer((_) => createMultipartUploadSmithyOperation);
 
         when(
           () => transferDatabase.insertTransferRecord(any()),
@@ -807,9 +924,14 @@ void main() {
         unawaited(uploadTask.start());
 
         final testAbortMultipartUploadOutput = s3.AbortMultipartUploadOutput();
+        final abortMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.AbortMultipartUploadOutput>();
+        when(
+          () => abortMultipartUploadSmithyOperation.result,
+        ).thenAnswer((_) async => testAbortMultipartUploadOutput);
         when(
           () => s3Client.abortMultipartUpload(any()),
-        ).thenAnswer((_) async => testAbortMultipartUploadOutput);
+        ).thenAnswer((_) => abortMultipartUploadSmithyOperation);
 
         await expectLater(
           uploadTask.result,
@@ -831,32 +953,60 @@ void main() {
               s3.CreateMultipartUploadOutput(
             uploadId: 'some-upload-id',
           );
+          final createMultipartUploadSmithyOperation =
+              MockSmithyOperation<s3.CreateMultipartUploadOutput>();
+          when(
+            () => createMultipartUploadSmithyOperation.result,
+          ).thenAnswer((_) async => testCreateMultipartUploadOutput);
           when(
             () => s3Client.createMultipartUpload(any()),
-          ).thenAnswer((_) async => testCreateMultipartUploadOutput);
+          ).thenAnswer((_) => createMultipartUploadSmithyOperation);
 
           when(
             () => transferDatabase.insertTransferRecord(any()),
           ).thenAnswer((_) async => 1);
 
-          final testUploadPartOutput = s3.UploadPartOutput(eTag: 'eTag-part-1');
+          final testUploadPartOutput1 =
+              s3.UploadPartOutput(eTag: 'eTag-part-1');
+          final testUploadPartOutput2 =
+              s3.UploadPartOutput(eTag: 'eTag-part-2');
+          final uploadPartSmithyOperation1 =
+              MockSmithyOperation<s3.UploadPartOutput>();
+          final uploadPartSmithyOperation2 =
+              MockSmithyOperation<s3.UploadPartOutput>();
+
+          when(
+            () => uploadPartSmithyOperation1.result,
+          ).thenAnswer((_) async => testUploadPartOutput1);
+          when(
+            () => uploadPartSmithyOperation2.result,
+          ).thenAnswer((_) async {
+            await Future<void>.delayed(const Duration(milliseconds: 500));
+            return testUploadPartOutput2;
+          });
+
           when(
             () => s3Client.uploadPart(any()),
-          ).thenAnswer((invocation) async {
+          ).thenAnswer((invocation) {
             final request =
                 invocation.positionalArguments.first as s3.UploadPartRequest;
 
-            if (request.partNumber == 2) {
-              await Future<void>.delayed(const Duration(milliseconds: 500));
+            if (request.partNumber == 1) {
+              return uploadPartSmithyOperation1;
             }
-            return testUploadPartOutput;
+            return uploadPartSmithyOperation2;
           });
 
           final testCompleteMultipartUploadOutput =
               s3.CompleteMultipartUploadOutput();
+          final completeMultipartUploadSmithyOperation =
+              MockSmithyOperation<s3.CompleteMultipartUploadOutput>();
+          when(
+            () => completeMultipartUploadSmithyOperation.result,
+          ).thenAnswer((_) async => testCompleteMultipartUploadOutput);
           when(
             () => s3Client.completeMultipartUpload(any()),
-          ).thenAnswer((_) async => testCompleteMultipartUploadOutput);
+          ).thenAnswer((_) => completeMultipartUploadSmithyOperation);
 
           when(
             () => transferDatabase.deleteTransferRecords(any()),
@@ -864,9 +1014,14 @@ void main() {
 
           final testAbortMultipartUploadOutput =
               s3.AbortMultipartUploadOutput();
+          final abortMultipartUploadSmithyOperation =
+              MockSmithyOperation<s3.AbortMultipartUploadOutput>();
+          when(
+            () => abortMultipartUploadSmithyOperation.result,
+          ).thenAnswer((_) async => testAbortMultipartUploadOutput);
           when(
             () => s3Client.abortMultipartUpload(any()),
-          ).thenAnswer((_) async => testAbortMultipartUploadOutput);
+          ).thenAnswer((_) => abortMultipartUploadSmithyOperation);
         });
 
         test('pause()/resume() should emit paused stat and complete the upload',

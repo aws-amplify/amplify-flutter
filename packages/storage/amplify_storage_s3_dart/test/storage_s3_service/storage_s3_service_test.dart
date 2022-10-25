@@ -89,8 +89,8 @@ void main() {
     });
 
     group('list() API', () {
-      var calledPageSize = 0;
       late S3ListResult listResult;
+      const testNextContinuationToken = 'get-next-page';
       const testPageSize = 100;
       const testBucketName = 'a-bucket';
       const testStorageAccessLevel = StorageAccessLevel.protected;
@@ -120,15 +120,8 @@ void main() {
           testTargetIdentityId,
           pageSize: testPageSize,
         );
-        final testSecondPaginatedResult =
-            PaginatedResult<ListObjectsV2Output, int>(
-          ListObjectsV2Output(),
-          hasNext: testHasNext,
-          next: ([int? pageSize]) {
-            throw UnimplementedError();
-          },
-        );
-        final testPaginatedResult = PaginatedResult<ListObjectsV2Output, int>(
+        final testPaginatedResult =
+            PaginatedResult<ListObjectsV2Output, int, String>(
           ListObjectsV2Output(
             contents: testS3Objects,
             commonPrefixes: [testCommonPrefix],
@@ -136,22 +129,20 @@ void main() {
             name: testBucketName,
             maxKeys: testPageSize,
           ),
-          hasNext: testHasNext,
-          next: ([int? pageSize]) async {
-            if (pageSize != null) {
-              calledPageSize = pageSize;
-            }
-            return testSecondPaginatedResult;
+          nextContinuationToken: testNextContinuationToken,
+          next: ([int? pageSize]) {
+            throw UnimplementedError('not needed in unit tests');
           },
         );
+        final smithyOperation = MockSmithyOperation<
+            PaginatedResult<ListObjectsV2Output, int, String>>();
+
+        when((() => smithyOperation.result))
+            .thenAnswer((_) async => testPaginatedResult);
 
         when(
-          () => s3Client.listObjectsV2(
-            any(),
-          ),
-        ).thenAnswer(
-          (_) async => testPaginatedResult,
-        );
+          () => s3Client.listObjectsV2(any()),
+        ).thenAnswer((_) => smithyOperation);
 
         listResult = await storageS3Service.list(
           path: testPath,
@@ -183,10 +174,6 @@ void main() {
           expect(item.key, 'object-${index + 1}');
         });
         expect(listResult.hasNext, testHasNext);
-
-        final result2 = await listResult.next();
-        expect(calledPageSize, testPageSize);
-        expect(result2.next(), throwsA(isA<UnimplementedError>()));
       });
 
       test(
@@ -246,14 +233,15 @@ void main() {
           lastModified: testLastModified,
           metadata: testMetadata,
         );
+        final smithyOperation = MockSmithyOperation<HeadObjectOutput>();
 
         when(
-          () => s3Client.headObject(
-            any(),
-          ),
-        ).thenAnswer(
-          (_) async => testHeadObjectOutput,
-        );
+          () => smithyOperation.result,
+        ).thenAnswer((_) async => testHeadObjectOutput);
+
+        when(
+          () => s3Client.headObject(any()),
+        ).thenAnswer((_) => smithyOperation);
 
         getPropertiesResult = await storageS3Service.getProperties(
           key: testKey,
@@ -524,10 +512,15 @@ void main() {
           () async {
         const testOptions = S3CopyOptions();
         final testCopyObjectOutput = CopyObjectOutput();
+        final smithyOperation = MockSmithyOperation<CopyObjectOutput>();
+
+        when(
+          () => smithyOperation.result,
+        ).thenAnswer((_) async => testCopyObjectOutput);
 
         when(
           () => s3Client.copyObject(any()),
-        ).thenAnswer((_) async => testCopyObjectOutput);
+        ).thenAnswer((_) => smithyOperation);
 
         copyResult = await storageS3Service.copy(
           source: testSource,
@@ -586,14 +579,24 @@ void main() {
         const testOptions = S3CopyOptions(getProperties: true);
         final testCopyObjectOutput = CopyObjectOutput();
         final testHeadObjectOutput = HeadObjectOutput();
+        final copySmithyOperation = MockSmithyOperation<CopyObjectOutput>();
+        final headSmithyOperation = MockSmithyOperation<HeadObjectOutput>();
 
         when(
-          () => s3Client.copyObject(any()),
+          () => copySmithyOperation.result,
         ).thenAnswer((_) async => testCopyObjectOutput);
 
         when(
-          () => s3Client.headObject(any()),
+          () => headSmithyOperation.result,
         ).thenAnswer((_) async => testHeadObjectOutput);
+
+        when(
+          () => s3Client.copyObject(any()),
+        ).thenAnswer((_) => copySmithyOperation);
+
+        when(
+          () => s3Client.headObject(any()),
+        ).thenAnswer((_) => headSmithyOperation);
 
         await storageS3Service.copy(
           source: testSource,
@@ -654,14 +657,23 @@ void main() {
         const testOptions = S3MoveOptions();
         final testCopyObjectOutput = CopyObjectOutput();
         final testDeleteObjectOutput = DeleteObjectOutput();
-
+        final copySmithyOperation = MockSmithyOperation<CopyObjectOutput>();
+        final deleteSmithyOperation = MockSmithyOperation<DeleteObjectOutput>();
         when(
-          () => s3Client.copyObject(any()),
+          () => copySmithyOperation.result,
         ).thenAnswer((_) async => testCopyObjectOutput);
 
         when(
-          () => s3Client.deleteObject(any()),
+          () => deleteSmithyOperation.result,
         ).thenAnswer((_) async => testDeleteObjectOutput);
+
+        when(
+          () => s3Client.copyObject(any()),
+        ).thenAnswer((_) => copySmithyOperation);
+
+        when(
+          () => s3Client.deleteObject(any()),
+        ).thenAnswer((_) => deleteSmithyOperation);
 
         moveResult = await storageS3Service.move(
           source: testSource,
@@ -738,10 +750,15 @@ void main() {
           body: 'Internal error',
         );
         final testCopyObjectOutput = CopyObjectOutput();
+        final smithyOperation = MockSmithyOperation<CopyObjectOutput>();
+
+        when(
+          () => smithyOperation.result,
+        ).thenAnswer((_) async => testCopyObjectOutput);
 
         when(
           () => s3Client.copyObject(any()),
-        ).thenAnswer((_) async => testCopyObjectOutput);
+        ).thenAnswer((_) => smithyOperation);
 
         when(
           () => s3Client.deleteObject(
@@ -766,18 +783,33 @@ void main() {
         final testCopyObjectOutput = CopyObjectOutput();
         final testDeleteObjectOutput = DeleteObjectOutput();
         final testHeadObjectOutput = HeadObjectOutput();
+        final copySmithyOperation = MockSmithyOperation<CopyObjectOutput>();
+        final deleteSmithyOperation = MockSmithyOperation<DeleteObjectOutput>();
+        final headSmithyOperation = MockSmithyOperation<HeadObjectOutput>();
 
         when(
-          () => s3Client.copyObject(any()),
+          () => copySmithyOperation.result,
         ).thenAnswer((_) async => testCopyObjectOutput);
 
         when(
-          () => s3Client.deleteObject(any()),
+          () => deleteSmithyOperation.result,
         ).thenAnswer((_) async => testDeleteObjectOutput);
 
         when(
-          () => s3Client.headObject(any()),
+          () => headSmithyOperation.result,
         ).thenAnswer((_) async => testHeadObjectOutput);
+
+        when(
+          () => s3Client.copyObject(any()),
+        ).thenAnswer((_) => copySmithyOperation);
+
+        when(
+          () => s3Client.deleteObject(any()),
+        ).thenAnswer((_) => deleteSmithyOperation);
+
+        when(
+          () => s3Client.headObject(any()),
+        ).thenAnswer((_) => headSmithyOperation);
 
         await storageS3Service.move(
           source: testSource,
@@ -821,10 +853,15 @@ void main() {
           accessLevel: StorageAccessLevel.private,
         );
         final testDeleteObjectOutput = DeleteObjectOutput();
+        final smithyOperation = MockSmithyOperation<DeleteObjectOutput>();
+
+        when(
+          () => smithyOperation.result,
+        ).thenAnswer((_) async => testDeleteObjectOutput);
 
         when(
           () => s3Client.deleteObject(any()),
-        ).thenAnswer((_) async => testDeleteObjectOutput);
+        ).thenAnswer((_) => smithyOperation);
 
         removeResult = await storageS3Service.remove(
           key: testKey,
@@ -924,19 +961,30 @@ void main() {
               .toList(),
         );
 
+        final smithyOperation1 = MockSmithyOperation<DeleteObjectsOutput>();
+        final smithyOperation2 = MockSmithyOperation<DeleteObjectsOutput>();
+
+        when(
+          () => smithyOperation1.result,
+        ).thenAnswer((_) async => testDeleteObjectsOutput1);
+
+        when(
+          () => smithyOperation2.result,
+        ).thenAnswer((_) async => testDeleteObjectsOutput2);
+
         // response to the first 1000 delete objects request
         when(
           () => s3Client.deleteObjects(
             any(that: DeleteObjectsLength(equals(1000))),
           ),
-        ).thenAnswer((_) async => testDeleteObjectsOutput1);
+        ).thenAnswer((_) => smithyOperation1);
 
         // response to the remaining delete objects request
         when(
           () => s3Client.deleteObjects(
             any(that: DeleteObjectsLength(equals(5))),
           ),
-        ).thenAnswer((_) async => testDeleteObjectsOutput2);
+        ).thenAnswer((_) => smithyOperation2);
 
         removeManyResult = await storageS3Service.removeMany(
           keys: testKeys,
