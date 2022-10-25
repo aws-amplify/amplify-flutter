@@ -8,7 +8,7 @@ part of amplify_storage_s3_dart.s3.model.copy_object_output;
 
 class _$CopyObjectOutput extends CopyObjectOutput {
   @override
-  final bool? bucketKeyEnabled;
+  final bool bucketKeyEnabled;
   @override
   final _i3.CopyObjectResult? copyObjectResult;
   @override
@@ -35,7 +35,7 @@ class _$CopyObjectOutput extends CopyObjectOutput {
       (new CopyObjectOutputBuilder()..update(updates))._build();
 
   _$CopyObjectOutput._(
-      {this.bucketKeyEnabled,
+      {required this.bucketKeyEnabled,
       this.copyObjectResult,
       this.copySourceVersionId,
       this.expiration,
@@ -46,7 +46,10 @@ class _$CopyObjectOutput extends CopyObjectOutput {
       this.ssekmsEncryptionContext,
       this.ssekmsKeyId,
       this.versionId})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        bucketKeyEnabled, r'CopyObjectOutput', 'bucketKeyEnabled');
+  }
 
   @override
   CopyObjectOutput rebuild(void Function(CopyObjectOutputBuilder) updates) =>
@@ -198,7 +201,8 @@ class CopyObjectOutputBuilder
     try {
       _$result = _$v ??
           new _$CopyObjectOutput._(
-              bucketKeyEnabled: bucketKeyEnabled,
+              bucketKeyEnabled: BuiltValueNullFieldError.checkNotNull(
+                  bucketKeyEnabled, r'CopyObjectOutput', 'bucketKeyEnabled'),
               copyObjectResult: _copyObjectResult?.build(),
               copySourceVersionId: copySourceVersionId,
               expiration: expiration,

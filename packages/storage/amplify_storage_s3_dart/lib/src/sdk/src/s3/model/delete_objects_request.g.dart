@@ -10,7 +10,7 @@ class _$DeleteObjectsRequest extends DeleteObjectsRequest {
   @override
   final String bucket;
   @override
-  final bool? bypassGovernanceRetention;
+  final bool bypassGovernanceRetention;
   @override
   final _i4.ChecksumAlgorithm? checksumAlgorithm;
   @override
@@ -28,7 +28,7 @@ class _$DeleteObjectsRequest extends DeleteObjectsRequest {
 
   _$DeleteObjectsRequest._(
       {required this.bucket,
-      this.bypassGovernanceRetention,
+      required this.bypassGovernanceRetention,
       this.checksumAlgorithm,
       required this.delete,
       this.expectedBucketOwner,
@@ -37,6 +37,8 @@ class _$DeleteObjectsRequest extends DeleteObjectsRequest {
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'DeleteObjectsRequest', 'bucket');
+    BuiltValueNullFieldError.checkNotNull(bypassGovernanceRetention,
+        r'DeleteObjectsRequest', 'bypassGovernanceRetention');
     BuiltValueNullFieldError.checkNotNull(
         delete, r'DeleteObjectsRequest', 'delete');
   }
@@ -156,7 +158,10 @@ class DeleteObjectsRequestBuilder
           new _$DeleteObjectsRequest._(
               bucket: BuiltValueNullFieldError.checkNotNull(
                   bucket, r'DeleteObjectsRequest', 'bucket'),
-              bypassGovernanceRetention: bypassGovernanceRetention,
+              bypassGovernanceRetention: BuiltValueNullFieldError.checkNotNull(
+                  bypassGovernanceRetention,
+                  r'DeleteObjectsRequest',
+                  'bypassGovernanceRetention'),
               checksumAlgorithm: checksumAlgorithm,
               delete: delete.build(),
               expectedBucketOwner: expectedBucketOwner,

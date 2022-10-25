@@ -10,17 +10,17 @@ class _$ListMultipartUploadsOutput extends ListMultipartUploadsOutput {
   @override
   final String? bucket;
   @override
-  final _i2.BuiltList<_i3.CommonPrefix>? commonPrefixes;
+  final _i5.BuiltList<_i2.CommonPrefix>? commonPrefixes;
   @override
   final String? delimiter;
   @override
-  final _i4.EncodingType? encodingType;
+  final _i3.EncodingType? encodingType;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? keyMarker;
   @override
-  final int? maxUploads;
+  final int maxUploads;
   @override
   final String? nextKeyMarker;
   @override
@@ -30,7 +30,7 @@ class _$ListMultipartUploadsOutput extends ListMultipartUploadsOutput {
   @override
   final String? uploadIdMarker;
   @override
-  final _i2.BuiltList<_i5.MultipartUpload>? uploads;
+  final _i5.BuiltList<_i4.MultipartUpload>? uploads;
 
   factory _$ListMultipartUploadsOutput(
           [void Function(ListMultipartUploadsOutputBuilder)? updates]) =>
@@ -41,15 +41,20 @@ class _$ListMultipartUploadsOutput extends ListMultipartUploadsOutput {
       this.commonPrefixes,
       this.delimiter,
       this.encodingType,
-      this.isTruncated,
+      required this.isTruncated,
       this.keyMarker,
-      this.maxUploads,
+      required this.maxUploads,
       this.nextKeyMarker,
       this.nextUploadIdMarker,
       this.prefix,
       this.uploadIdMarker,
       this.uploads})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListMultipartUploadsOutput', 'isTruncated');
+    BuiltValueNullFieldError.checkNotNull(
+        maxUploads, r'ListMultipartUploadsOutput', 'maxUploads');
+  }
 
   @override
   ListMultipartUploadsOutput rebuild(
@@ -114,19 +119,19 @@ class ListMultipartUploadsOutputBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  _i2.ListBuilder<_i3.CommonPrefix>? _commonPrefixes;
-  _i2.ListBuilder<_i3.CommonPrefix> get commonPrefixes =>
-      _$this._commonPrefixes ??= new _i2.ListBuilder<_i3.CommonPrefix>();
-  set commonPrefixes(_i2.ListBuilder<_i3.CommonPrefix>? commonPrefixes) =>
+  _i5.ListBuilder<_i2.CommonPrefix>? _commonPrefixes;
+  _i5.ListBuilder<_i2.CommonPrefix> get commonPrefixes =>
+      _$this._commonPrefixes ??= new _i5.ListBuilder<_i2.CommonPrefix>();
+  set commonPrefixes(_i5.ListBuilder<_i2.CommonPrefix>? commonPrefixes) =>
       _$this._commonPrefixes = commonPrefixes;
 
   String? _delimiter;
   String? get delimiter => _$this._delimiter;
   set delimiter(String? delimiter) => _$this._delimiter = delimiter;
 
-  _i4.EncodingType? _encodingType;
-  _i4.EncodingType? get encodingType => _$this._encodingType;
-  set encodingType(_i4.EncodingType? encodingType) =>
+  _i3.EncodingType? _encodingType;
+  _i3.EncodingType? get encodingType => _$this._encodingType;
+  set encodingType(_i3.EncodingType? encodingType) =>
       _$this._encodingType = encodingType;
 
   bool? _isTruncated;
@@ -160,10 +165,10 @@ class ListMultipartUploadsOutputBuilder
   set uploadIdMarker(String? uploadIdMarker) =>
       _$this._uploadIdMarker = uploadIdMarker;
 
-  _i2.ListBuilder<_i5.MultipartUpload>? _uploads;
-  _i2.ListBuilder<_i5.MultipartUpload> get uploads =>
-      _$this._uploads ??= new _i2.ListBuilder<_i5.MultipartUpload>();
-  set uploads(_i2.ListBuilder<_i5.MultipartUpload>? uploads) =>
+  _i5.ListBuilder<_i4.MultipartUpload>? _uploads;
+  _i5.ListBuilder<_i4.MultipartUpload> get uploads =>
+      _$this._uploads ??= new _i5.ListBuilder<_i4.MultipartUpload>();
+  set uploads(_i5.ListBuilder<_i4.MultipartUpload>? uploads) =>
       _$this._uploads = uploads;
 
   ListMultipartUploadsOutputBuilder() {
@@ -213,9 +218,11 @@ class ListMultipartUploadsOutputBuilder
               commonPrefixes: _commonPrefixes?.build(),
               delimiter: delimiter,
               encodingType: encodingType,
-              isTruncated: isTruncated,
+              isTruncated: BuiltValueNullFieldError.checkNotNull(
+                  isTruncated, r'ListMultipartUploadsOutput', 'isTruncated'),
               keyMarker: keyMarker,
-              maxUploads: maxUploads,
+              maxUploads: BuiltValueNullFieldError.checkNotNull(
+                  maxUploads, r'ListMultipartUploadsOutput', 'maxUploads'),
               nextKeyMarker: nextKeyMarker,
               nextUploadIdMarker: nextUploadIdMarker,
               prefix: prefix,

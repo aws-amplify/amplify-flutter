@@ -8,7 +8,7 @@ part of amplify_storage_s3_dart.s3.model.put_object_output;
 
 class _$PutObjectOutput extends PutObjectOutput {
   @override
-  final bool? bucketKeyEnabled;
+  final bool bucketKeyEnabled;
   @override
   final String? checksumCrc32;
   @override
@@ -40,7 +40,7 @@ class _$PutObjectOutput extends PutObjectOutput {
       (new PutObjectOutputBuilder()..update(updates))._build();
 
   _$PutObjectOutput._(
-      {this.bucketKeyEnabled,
+      {required this.bucketKeyEnabled,
       this.checksumCrc32,
       this.checksumCrc32C,
       this.checksumSha1,
@@ -54,7 +54,10 @@ class _$PutObjectOutput extends PutObjectOutput {
       this.ssekmsEncryptionContext,
       this.ssekmsKeyId,
       this.versionId})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        bucketKeyEnabled, r'PutObjectOutput', 'bucketKeyEnabled');
+  }
 
   @override
   PutObjectOutput rebuild(void Function(PutObjectOutputBuilder) updates) =>
@@ -232,7 +235,8 @@ class PutObjectOutputBuilder
   _$PutObjectOutput _build() {
     final _$result = _$v ??
         new _$PutObjectOutput._(
-            bucketKeyEnabled: bucketKeyEnabled,
+            bucketKeyEnabled: BuiltValueNullFieldError.checkNotNull(
+                bucketKeyEnabled, r'PutObjectOutput', 'bucketKeyEnabled'),
             checksumCrc32: checksumCrc32,
             checksumCrc32C: checksumCrc32C,
             checksumSha1: checksumSha1,
