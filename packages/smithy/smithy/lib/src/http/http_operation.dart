@@ -230,7 +230,10 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       () {
         // Recreate the request on each retry to perform signing again, etc.
         final httpRequest = createRequest();
-        final operation = httpRequest.send(client);
+        final operation = httpRequest.send(
+          client: client,
+          onCancel: completer.operation.cancel,
+        );
         operation.requestProgress.listen(
           (progress) {
             if (!requestProgress.isClosed) {
@@ -264,23 +267,22 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
           ),
         );
       },
+      onCancel: completer.operation.cancel,
       onRetry: (e, [delay]) {
         debugNumRetries++;
       },
     );
-    completer.completeOperation(
-      operation.then(
-        (output) {
-          requestProgress.close();
-          responseProgress.close();
-          return output;
-        },
-        onError: (e, st) {
-          requestProgress.close();
-          responseProgress.close();
-          Error.throwWithStackTrace(e, st);
-        },
-      ),
+    operation.then(
+      (output) {
+        requestProgress.close();
+        responseProgress.close();
+        completer.complete(output);
+      },
+      onError: (e, st) {
+        requestProgress.close();
+        responseProgress.close();
+        completer.completeError(e, st);
+      },
     );
     return SmithyOperation(
       completer.operation,
