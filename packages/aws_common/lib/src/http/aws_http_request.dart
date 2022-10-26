@@ -132,9 +132,10 @@ abstract class AWSBaseHttpRequest
   ///
   /// If [client] is not provided, a short-lived one is created for this
   /// request.
-  AWSHttpOperation send([
+  AWSHttpOperation send({
     AWSHttpClient? client,
-  ]) {
+    FutureOr<void> Function()? onCancel,
+  }) {
     final useClient = client ?? AWSHttpClient();
 
     // Closes the HTTP client, but only if we created it.
@@ -164,6 +165,10 @@ abstract class AWSBaseHttpRequest
       ),
       requestProgress: awsOperation.requestProgress,
       responseProgress: awsOperation.responseProgress,
+      onCancel: () {
+        closeClient();
+        return onCancel?.call();
+      },
     );
   }
 
