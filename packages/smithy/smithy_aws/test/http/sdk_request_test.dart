@@ -15,7 +15,6 @@
 import 'dart:async';
 
 import 'package:aws_common/aws_common.dart';
-import 'package:aws_common/src/config/aws_config_value.dart';
 import 'package:aws_common/testing.dart';
 import 'package:smithy/smithy.dart';
 import 'package:smithy_aws/smithy_aws.dart';

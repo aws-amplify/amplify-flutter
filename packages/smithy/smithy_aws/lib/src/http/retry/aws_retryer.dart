@@ -16,7 +16,6 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:aws_common/aws_common.dart';
-import 'package:aws_common/src/config/aws_config_value.dart';
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
 

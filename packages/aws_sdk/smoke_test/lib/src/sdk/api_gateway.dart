@@ -1,0 +1,333 @@
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+
+/// # Amazon API Gateway
+///
+/// ## Amazon API Gateway
+///
+/// Amazon API Gateway helps developers deliver robust, secure, and scalable mobile and web application back ends. API Gateway allows developers to securely connect mobile and web applications to APIs that run on AWS Lambda, Amazon EC2, or other publicly addressable web services that are hosted outside of AWS.
+library smoke_test.api_gateway;
+
+export 'package:smoke_test/src/sdk/src/api_gateway/api_gateway_client.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/access_log_settings.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/account.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/api_key.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/api_key_ids.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/api_key_source_type.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/api_keys.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/api_keys_format.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/api_stage.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/authorizer.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/authorizer_type.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/authorizers.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/bad_request_exception.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/base_path_mapping.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/base_path_mappings.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/cache_cluster_size.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/cache_cluster_status.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/canary_settings.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/client_certificate.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/client_certificates.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/conflict_exception.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/connection_type.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/content_handling_strategy.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/create_api_key_request.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/create_authorizer_request.dart'
+    hide CreateAuthorizerRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/create_base_path_mapping_request.dart'
+    hide CreateBasePathMappingRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/create_deployment_request.dart'
+    hide CreateDeploymentRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/create_documentation_part_request.dart'
+    hide CreateDocumentationPartRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/create_documentation_version_request.dart'
+    hide CreateDocumentationVersionRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/create_domain_name_request.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/create_model_request.dart'
+    hide CreateModelRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/create_request_validator_request.dart'
+    hide CreateRequestValidatorRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/create_resource_request.dart'
+    hide CreateResourceRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/create_rest_api_request.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/create_stage_request.dart'
+    hide CreateStageRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/create_usage_plan_key_request.dart'
+    hide CreateUsagePlanKeyRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/create_usage_plan_request.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/create_vpc_link_request.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/delete_api_key_request.dart'
+    hide DeleteApiKeyRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/delete_authorizer_request.dart'
+    hide DeleteAuthorizerRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/delete_base_path_mapping_request.dart'
+    hide DeleteBasePathMappingRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/delete_client_certificate_request.dart'
+    hide DeleteClientCertificateRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/delete_deployment_request.dart'
+    hide DeleteDeploymentRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/delete_documentation_part_request.dart'
+    hide DeleteDocumentationPartRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/delete_documentation_version_request.dart'
+    hide DeleteDocumentationVersionRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/delete_domain_name_request.dart'
+    hide DeleteDomainNameRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/delete_gateway_response_request.dart'
+    hide DeleteGatewayResponseRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/delete_integration_request.dart'
+    hide DeleteIntegrationRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/delete_integration_response_request.dart'
+    hide DeleteIntegrationResponseRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/delete_method_request.dart'
+    hide DeleteMethodRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/delete_method_response_request.dart'
+    hide DeleteMethodResponseRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/delete_model_request.dart'
+    hide DeleteModelRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/delete_request_validator_request.dart'
+    hide DeleteRequestValidatorRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/delete_resource_request.dart'
+    hide DeleteResourceRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/delete_rest_api_request.dart'
+    hide DeleteRestApiRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/delete_stage_request.dart'
+    hide DeleteStageRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/delete_usage_plan_key_request.dart'
+    hide DeleteUsagePlanKeyRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/delete_usage_plan_request.dart'
+    hide DeleteUsagePlanRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/delete_vpc_link_request.dart'
+    hide DeleteVpcLinkRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/deployment.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/deployment_canary_settings.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/deployments.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/documentation_part.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/documentation_part_ids.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/documentation_part_location.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/documentation_part_type.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/documentation_parts.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/documentation_version.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/documentation_versions.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/domain_name.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/domain_name_status.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/domain_names.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/endpoint_configuration.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/endpoint_type.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/export_response.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/flush_stage_authorizers_cache_request.dart'
+    hide FlushStageAuthorizersCacheRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/flush_stage_cache_request.dart'
+    hide FlushStageCacheRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/gateway_response.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/gateway_response_type.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/gateway_responses.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/generate_client_certificate_request.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_account_request.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_api_key_request.dart'
+    hide GetApiKeyRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_api_keys_request.dart'
+    hide GetApiKeysRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_authorizer_request.dart'
+    hide GetAuthorizerRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_authorizers_request.dart'
+    hide GetAuthorizersRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_base_path_mapping_request.dart'
+    hide GetBasePathMappingRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_base_path_mappings_request.dart'
+    hide GetBasePathMappingsRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_client_certificate_request.dart'
+    hide GetClientCertificateRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_client_certificates_request.dart'
+    hide GetClientCertificatesRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_deployment_request.dart'
+    hide GetDeploymentRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_deployments_request.dart'
+    hide GetDeploymentsRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_documentation_part_request.dart'
+    hide GetDocumentationPartRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_documentation_parts_request.dart'
+    hide GetDocumentationPartsRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_documentation_version_request.dart'
+    hide GetDocumentationVersionRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_documentation_versions_request.dart'
+    hide GetDocumentationVersionsRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_domain_name_request.dart'
+    hide GetDomainNameRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_domain_names_request.dart'
+    hide GetDomainNamesRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_export_request.dart'
+    hide GetExportRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_gateway_response_request.dart'
+    hide GetGatewayResponseRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_gateway_responses_request.dart'
+    hide GetGatewayResponsesRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_integration_request.dart'
+    hide GetIntegrationRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_integration_response_request.dart'
+    hide GetIntegrationResponseRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_method_request.dart'
+    hide GetMethodRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_method_response_request.dart'
+    hide GetMethodResponseRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_model_request.dart'
+    hide GetModelRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_model_template_request.dart'
+    hide GetModelTemplateRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_models_request.dart'
+    hide GetModelsRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_request_validator_request.dart'
+    hide GetRequestValidatorRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_request_validators_request.dart'
+    hide GetRequestValidatorsRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_resource_request.dart'
+    hide GetResourceRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_resources_request.dart'
+    hide GetResourcesRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_rest_api_request.dart'
+    hide GetRestApiRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_rest_apis_request.dart'
+    hide GetRestApisRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_sdk_request.dart'
+    hide GetSdkRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_sdk_type_request.dart'
+    hide GetSdkTypeRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_sdk_types_request.dart'
+    hide GetSdkTypesRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_stage_request.dart'
+    hide GetStageRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_stages_request.dart'
+    hide GetStagesRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_tags_request.dart'
+    hide GetTagsRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_usage_plan_key_request.dart'
+    hide GetUsagePlanKeyRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_usage_plan_keys_request.dart'
+    hide GetUsagePlanKeysRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_usage_plan_request.dart'
+    hide GetUsagePlanRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_usage_plans_request.dart'
+    hide GetUsagePlansRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_usage_request.dart'
+    hide GetUsageRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_vpc_link_request.dart'
+    hide GetVpcLinkRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/get_vpc_links_request.dart'
+    hide GetVpcLinksRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/import_api_keys_request.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/import_documentation_parts_request.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/import_rest_api_request.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/integration.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/integration_response.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/integration_type.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/limit_exceeded_exception.dart'
+    hide LimitExceededExceptionPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/location_status_type.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/method.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/method_response.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/method_setting.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/method_snapshot.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/model.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/models.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/mutual_tls_authentication.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/mutual_tls_authentication_input.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/not_found_exception.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/op.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/patch_operation.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/put_gateway_response_request.dart'
+    hide PutGatewayResponseRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/put_integration_request.dart'
+    hide PutIntegrationRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/put_integration_response_request.dart'
+    hide PutIntegrationResponseRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/put_method_request.dart'
+    hide PutMethodRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/put_method_response_request.dart'
+    hide PutMethodResponseRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/put_mode.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/put_rest_api_request.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/quota_period_type.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/quota_settings.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/request_validator.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/request_validators.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/resource.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/resources.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/rest_api.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/rest_apis.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/sdk_configuration_property.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/sdk_response.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/sdk_type.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/sdk_types.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/security_policy.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/service_unavailable_exception.dart'
+    hide ServiceUnavailableExceptionPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/stage.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/stage_key.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/stages.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/tag_resource_request.dart'
+    hide TagResourceRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/tags.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/template.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/test_invoke_authorizer_request.dart'
+    hide TestInvokeAuthorizerRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/test_invoke_authorizer_response.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/test_invoke_method_request.dart'
+    hide TestInvokeMethodRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/test_invoke_method_response.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/throttle_settings.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/tls_config.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/too_many_requests_exception.dart'
+    hide TooManyRequestsExceptionPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/unauthorized_cache_control_header_strategy.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/unauthorized_exception.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/untag_resource_request.dart'
+    hide UntagResourceRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/update_account_request.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/update_api_key_request.dart'
+    hide UpdateApiKeyRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/update_authorizer_request.dart'
+    hide UpdateAuthorizerRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/update_base_path_mapping_request.dart'
+    hide UpdateBasePathMappingRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/update_client_certificate_request.dart'
+    hide UpdateClientCertificateRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/update_deployment_request.dart'
+    hide UpdateDeploymentRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/update_documentation_part_request.dart'
+    hide UpdateDocumentationPartRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/update_documentation_version_request.dart'
+    hide UpdateDocumentationVersionRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/update_domain_name_request.dart'
+    hide UpdateDomainNameRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/update_gateway_response_request.dart'
+    hide UpdateGatewayResponseRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/update_integration_request.dart'
+    hide UpdateIntegrationRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/update_integration_response_request.dart'
+    hide UpdateIntegrationResponseRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/update_method_request.dart'
+    hide UpdateMethodRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/update_method_response_request.dart'
+    hide UpdateMethodResponseRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/update_model_request.dart'
+    hide UpdateModelRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/update_request_validator_request.dart'
+    hide UpdateRequestValidatorRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/update_resource_request.dart'
+    hide UpdateResourceRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/update_rest_api_request.dart'
+    hide UpdateRestApiRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/update_stage_request.dart'
+    hide UpdateStageRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/update_usage_plan_request.dart'
+    hide UpdateUsagePlanRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/update_usage_request.dart'
+    hide UpdateUsageRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/update_vpc_link_request.dart'
+    hide UpdateVpcLinkRequestPayload;
+export 'package:smoke_test/src/sdk/src/api_gateway/model/usage.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/usage_plan.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/usage_plan_key.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/usage_plan_keys.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/usage_plans.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/vpc_link.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/vpc_link_status.dart';
+export 'package:smoke_test/src/sdk/src/api_gateway/model/vpc_links.dart';
