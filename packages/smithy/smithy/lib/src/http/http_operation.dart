@@ -220,13 +220,43 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
   }) {
     final requestProgress = StreamController<int>.broadcast(sync: true);
     final responseProgress = StreamController<int>.broadcast(sync: true);
+    final completer = CancelableCompleter<Output>(
+      onCancel: () {
+        requestProgress.close();
+        responseProgress.close();
+      },
+    );
     final operation = retryer.retry<Output>(
       () {
         // Recreate the request on each retry to perform signing again, etc.
         final httpRequest = createRequest();
         final operation = httpRequest.send(client);
-        operation.requestProgress.listen(requestProgress.add);
-        operation.responseProgress.listen(responseProgress.add);
+        operation.requestProgress.listen(
+          (progress) {
+            if (!requestProgress.isClosed) {
+              requestProgress.add(progress);
+            }
+          },
+          onDone: () {
+            if (operation.operation.isCanceled ||
+                operation.operation.isCompleted) {
+              requestProgress.close();
+            }
+          },
+        );
+        operation.responseProgress.listen(
+          (progress) {
+            if (!responseProgress.isClosed) {
+              responseProgress.add(progress);
+            }
+          },
+          onDone: () {
+            if (operation.operation.isCanceled ||
+                operation.operation.isCompleted) {
+              responseProgress.close();
+            }
+          },
+        );
         return operation.operation.then(
           (response) => deserializeOutput(
             protocol: protocol,
@@ -238,14 +268,22 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
         debugNumRetries++;
       },
     );
-    return SmithyOperation(
+    completer.completeOperation(
       operation.then(
         (output) {
           requestProgress.close();
           responseProgress.close();
           return output;
         },
+        onError: (e, st) {
+          requestProgress.close();
+          responseProgress.close();
+          Error.throwWithStackTrace(e, st);
+        },
       ),
+    );
+    return SmithyOperation(
+      completer.operation,
       operationName: runtimeTypeName,
       requestProgress: requestProgress.stream,
       responseProgress: responseProgress.stream,
