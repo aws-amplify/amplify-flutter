@@ -12,15 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:aws_signature_v4/aws_signature_v4.dart';
+import 'package:aws_common/aws_common.dart';
 
-/// {@macro aws_signature_v4.environment_credentials_provider}
-class EnvironmentCredentialsProvider implements AWSCredentialsProvider {
-  /// {@macro aws_signature_v4.environment_credentials_provider}
-  const EnvironmentCredentialsProvider();
+/// The stubbed implementation of [AWSPathProvider].
+///
+/// {@macro aws_common.aws_path_provider}
+class AWSPathProviderImpl extends AWSPathProvider {
+  /// {@macro aws_common.aws_path_provider}
+  const AWSPathProviderImpl() : super.protected();
+
+  static final _logger = AWSLogger('AWSPathProvider');
 
   @override
-  AWSCredentials retrieve() {
-    return const DartEnvironmentCredentialsProvider().retrieve();
+  Future<String?> getHomeDirectory({String? forUser}) async {
+    _logger.warn('Home directory lookup not available on this platform');
+    return null;
   }
 }

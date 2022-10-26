@@ -10,7 +10,5 @@ stages:
           - analyze: --fatal-infos .
   - unit_test:
       - test:
-      - command: dart run build_runner test -- -p chrome,firefox
-      # TODO(dnys1): Investigate why this is not working but `dart test` is.
-      # - command: dart run build_runner test --release -- -p chrome,firefox
-      - command: dart test -p chrome,firefox
+      - command: dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox
+      - command: dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox

@@ -24,7 +24,6 @@ import 'package:amplify_auth_cognito_dart/src/sdk/sdk_exception.dart';
 import 'package:amplify_core/amplify_core.dart'
     show AuthenticationFlowType, DependencyManager;
 import 'package:aws_common/aws_common.dart';
-import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
 
