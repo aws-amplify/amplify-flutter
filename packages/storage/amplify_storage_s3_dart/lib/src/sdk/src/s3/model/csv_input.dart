@@ -25,7 +25,6 @@ abstract class CsvInput
     String? quoteEscapeCharacter,
     String? recordDelimiter,
   }) {
-    allowQuotedRecordDelimiter ??= false;
     return _$CsvInput._(
       allowQuotedRecordDelimiter: allowQuotedRecordDelimiter,
       comments: comments,
@@ -47,12 +46,10 @@ abstract class CsvInput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CsvInputBuilder b) {
-    b.allowQuotedRecordDelimiter = false;
-  }
+  static void _init(CsvInputBuilder b) {}
 
   /// Specifies that CSV field values may contain quoted record delimiters and such records should be allowed. Default value is FALSE. Setting this value to TRUE may lower performance.
-  bool get allowQuotedRecordDelimiter;
+  bool? get allowQuotedRecordDelimiter;
 
   /// A single character used to indicate that a row should be ignored when the character is present at the start of that row. You can specify any character to indicate a comment line.
   String? get comments;
@@ -158,10 +155,12 @@ class CsvInputRestXmlSerializer
       final value = iterator.current;
       switch (key as String) {
         case 'AllowQuotedRecordDelimiter':
-          result.allowQuotedRecordDelimiter = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.allowQuotedRecordDelimiter = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'Comments':
           if (value != null) {
@@ -230,12 +229,14 @@ class CsvInputRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    result
-      ..add(const _i3.XmlElementName('AllowQuotedRecordDelimiter'))
-      ..add(serializers.serialize(
-        payload.allowQuotedRecordDelimiter,
-        specifiedType: const FullType(bool),
-      ));
+    if (payload.allowQuotedRecordDelimiter != null) {
+      result
+        ..add(const _i3.XmlElementName('AllowQuotedRecordDelimiter'))
+        ..add(serializers.serialize(
+          payload.allowQuotedRecordDelimiter!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     if (payload.comments != null) {
       result
         ..add(const _i3.XmlElementName('Comments'))

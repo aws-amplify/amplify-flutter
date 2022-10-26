@@ -8,7 +8,7 @@ part of amplify_storage_s3_dart.s3.model.upload_part_copy_output;
 
 class _$UploadPartCopyOutput extends UploadPartCopyOutput {
   @override
-  final bool bucketKeyEnabled;
+  final bool? bucketKeyEnabled;
   @override
   final _i3.CopyPartResult? copyPartResult;
   @override
@@ -29,7 +29,7 @@ class _$UploadPartCopyOutput extends UploadPartCopyOutput {
       (new UploadPartCopyOutputBuilder()..update(updates))._build();
 
   _$UploadPartCopyOutput._(
-      {required this.bucketKeyEnabled,
+      {this.bucketKeyEnabled,
       this.copyPartResult,
       this.copySourceVersionId,
       this.requestCharged,
@@ -37,10 +37,7 @@ class _$UploadPartCopyOutput extends UploadPartCopyOutput {
       this.sseCustomerAlgorithm,
       this.sseCustomerKeyMd5,
       this.ssekmsKeyId})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        bucketKeyEnabled, r'UploadPartCopyOutput', 'bucketKeyEnabled');
-  }
+      : super._();
 
   @override
   UploadPartCopyOutput rebuild(
@@ -168,10 +165,7 @@ class UploadPartCopyOutputBuilder
     try {
       _$result = _$v ??
           new _$UploadPartCopyOutput._(
-              bucketKeyEnabled: BuiltValueNullFieldError.checkNotNull(
-                  bucketKeyEnabled,
-                  r'UploadPartCopyOutput',
-                  'bucketKeyEnabled'),
+              bucketKeyEnabled: bucketKeyEnabled,
               copyPartResult: _copyPartResult?.build(),
               copySourceVersionId: copySourceVersionId,
               requestCharged: requestCharged,

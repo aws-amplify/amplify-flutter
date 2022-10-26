@@ -73,9 +73,6 @@ abstract class PutObjectRequest
     String? tagging,
     String? websiteRedirectLocation,
   }) {
-    body ??= const _i2.Stream.empty();
-    bucketKeyEnabled ??= false;
-    contentLength ??= _i6.Int64.ZERO;
     return _$PutObjectRequest._(
       acl: acl,
       body: body,
@@ -280,11 +277,7 @@ abstract class PutObjectRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectRequestBuilder b) {
-    b.body = const _i2.Stream.empty();
-    b.bucketKeyEnabled = false;
-    b.contentLength = _i6.Int64.ZERO;
-  }
+  static void _init(PutObjectRequestBuilder b) {}
 
   /// The canned ACL to apply to the object. For more information, see [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL).
   ///
@@ -304,7 +297,7 @@ abstract class PutObjectRequest
   /// Specifies whether Amazon S3 should use an S3 Bucket Key for object encryption with server-side encryption using AWS KMS (SSE-KMS). Setting this header to `true` causes Amazon S3 to use an S3 Bucket Key for object encryption with SSE-KMS.
   ///
   /// Specifying this header with a PUT action doesn’t affect bucket-level settings for S3 Bucket Key.
-  bool get bucketKeyEnabled;
+  bool? get bucketKeyEnabled;
 
   /// Can be used to specify caching behavior along the request/reply chain. For more information, see [http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9).
   String? get cacheControl;
@@ -336,7 +329,7 @@ abstract class PutObjectRequest
   String? get contentLanguage;
 
   /// Size of the body in bytes. This parameter is useful when the size of the body cannot be determined automatically. For more information, see [http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.13](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.13).
-  _i6.Int64 get contentLength;
+  _i6.Int64? get contentLength;
 
   /// The base64-encoded 128-bit MD5 digest of the message (without the headers) according to RFC 1864. This header can be used as a message integrity check to verify that the data is the same data that was originally sent. Although it is optional, we recommend using the Content-MD5 mechanism as an end-to-end integrity check. For more information about REST request authentication, see [REST Authentication](https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html).
   String? get contentMd5;

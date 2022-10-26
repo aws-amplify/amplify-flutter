@@ -32,7 +32,6 @@ abstract class DeleteObjectsRequest
     String? mfa,
     _i5.RequestPayer? requestPayer,
   }) {
-    bypassGovernanceRetention ??= false;
     return _$DeleteObjectsRequest._(
       bucket: bucket,
       bypassGovernanceRetention: bypassGovernanceRetention,
@@ -86,9 +85,7 @@ abstract class DeleteObjectsRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteObjectsRequestBuilder b) {
-    b.bypassGovernanceRetention = false;
-  }
+  static void _init(DeleteObjectsRequestBuilder b) {}
 
   /// The bucket name containing the objects to delete.
   ///
@@ -98,7 +95,7 @@ abstract class DeleteObjectsRequest
   String get bucket;
 
   /// Specifies whether you want to delete this object even if it has a Governance-type Object Lock in place. To use this header, you must have the `s3:BypassGovernanceRetention` permission.
-  bool get bypassGovernanceRetention;
+  bool? get bypassGovernanceRetention;
 
   /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
   ///
@@ -213,10 +210,12 @@ class DeleteObjectsRequestRestXmlSerializer
           ) as _i6.ObjectIdentifier));
           break;
         case 'Quiet':
-          result.quiet = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.quiet = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
       }
     }
@@ -248,12 +247,14 @@ class DeleteObjectsRequestRestXmlSerializer
         [FullType(_i6.ObjectIdentifier)],
       ),
     ));
-    result
-      ..add(const _i1.XmlElementName('Quiet'))
-      ..add(serializers.serialize(
-        payload.quiet,
-        specifiedType: const FullType(bool),
-      ));
+    if (payload.quiet != null) {
+      result
+        ..add(const _i1.XmlElementName('Quiet'))
+        ..add(serializers.serialize(
+          payload.quiet!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     return result;
   }
 }

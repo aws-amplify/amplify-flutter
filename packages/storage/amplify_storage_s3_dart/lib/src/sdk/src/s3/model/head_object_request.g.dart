@@ -24,7 +24,7 @@ class _$HeadObjectRequest extends HeadObjectRequest {
   @override
   final String key;
   @override
-  final int partNumber;
+  final int? partNumber;
   @override
   final String? range;
   @override
@@ -51,7 +51,7 @@ class _$HeadObjectRequest extends HeadObjectRequest {
       this.ifNoneMatch,
       this.ifUnmodifiedSince,
       required this.key,
-      required this.partNumber,
+      this.partNumber,
       this.range,
       this.requestPayer,
       this.sseCustomerAlgorithm,
@@ -62,8 +62,6 @@ class _$HeadObjectRequest extends HeadObjectRequest {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'HeadObjectRequest', 'bucket');
     BuiltValueNullFieldError.checkNotNull(key, r'HeadObjectRequest', 'key');
-    BuiltValueNullFieldError.checkNotNull(
-        partNumber, r'HeadObjectRequest', 'partNumber');
   }
 
   @override
@@ -260,8 +258,7 @@ class HeadObjectRequestBuilder
             ifUnmodifiedSince: ifUnmodifiedSince,
             key: BuiltValueNullFieldError.checkNotNull(
                 key, r'HeadObjectRequest', 'key'),
-            partNumber: BuiltValueNullFieldError.checkNotNull(
-                partNumber, r'HeadObjectRequest', 'partNumber'),
+            partNumber: partNumber,
             range: range,
             requestPayer: requestPayer,
             sseCustomerAlgorithm: sseCustomerAlgorithm,

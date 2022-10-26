@@ -260,10 +260,12 @@ class HeadObjectOperation extends _i1.HttpOperation<
             input.versionId!,
           );
         }
-        b.queryParameters.add(
-          'partNumber',
-          input.partNumber.toString(),
-        );
+        if (input.partNumber != null) {
+          b.queryParameters.add(
+            'partNumber',
+            input.partNumber!.toString(),
+          );
+        }
       });
   @override
   int successCode([_i3.HeadObjectOutput? output]) => 200;

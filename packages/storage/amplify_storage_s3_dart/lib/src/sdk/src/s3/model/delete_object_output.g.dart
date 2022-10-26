@@ -8,7 +8,7 @@ part of amplify_storage_s3_dart.s3.model.delete_object_output;
 
 class _$DeleteObjectOutput extends DeleteObjectOutput {
   @override
-  final bool deleteMarker;
+  final bool? deleteMarker;
   @override
   final _i3.RequestCharged? requestCharged;
   @override
@@ -19,11 +19,8 @@ class _$DeleteObjectOutput extends DeleteObjectOutput {
       (new DeleteObjectOutputBuilder()..update(updates))._build();
 
   _$DeleteObjectOutput._(
-      {required this.deleteMarker, this.requestCharged, this.versionId})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        deleteMarker, r'DeleteObjectOutput', 'deleteMarker');
-  }
+      {this.deleteMarker, this.requestCharged, this.versionId})
+      : super._();
 
   @override
   DeleteObjectOutput rebuild(
@@ -99,8 +96,7 @@ class DeleteObjectOutputBuilder
   _$DeleteObjectOutput _build() {
     final _$result = _$v ??
         new _$DeleteObjectOutput._(
-            deleteMarker: BuiltValueNullFieldError.checkNotNull(
-                deleteMarker, r'DeleteObjectOutput', 'deleteMarker'),
+            deleteMarker: deleteMarker,
             requestCharged: requestCharged,
             versionId: versionId);
     replace(_$result);

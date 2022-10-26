@@ -30,7 +30,6 @@ abstract class S3Object
     _i4.Int64? size,
     _i5.ObjectStorageClass? storageClass,
   }) {
-    size ??= _i4.Int64.ZERO;
     return _$S3Object._(
       checksumAlgorithm:
           checksumAlgorithm == null ? null : _i6.BuiltList(checksumAlgorithm),
@@ -53,9 +52,7 @@ abstract class S3Object
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(S3ObjectBuilder b) {
-    b.size = _i4.Int64.ZERO;
-  }
+  static void _init(S3ObjectBuilder b) {}
 
   /// The algorithm that was used to create a checksum of the object.
   _i6.BuiltList<_i2.ChecksumAlgorithm>? get checksumAlgorithm;
@@ -79,7 +76,7 @@ abstract class S3Object
   _i3.Owner? get owner;
 
   /// Size in bytes of the object
-  _i4.Int64 get size;
+  _i4.Int64? get size;
 
   /// The class of storage used to store the object.
   _i5.ObjectStorageClass? get storageClass;
@@ -197,10 +194,12 @@ class ObjectRestXmlSerializer extends _i7.StructuredSmithySerializer<S3Object> {
           }
           break;
         case 'Size':
-          result.size = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i4.Int64),
-          ) as _i4.Int64);
+          if (value != null) {
+            result.size = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i4.Int64),
+            ) as _i4.Int64);
+          }
           break;
         case 'StorageClass':
           if (value != null) {
@@ -273,12 +272,14 @@ class ObjectRestXmlSerializer extends _i7.StructuredSmithySerializer<S3Object> {
           specifiedType: const FullType(_i3.Owner),
         ));
     }
-    result
-      ..add(const _i7.XmlElementName('Size'))
-      ..add(serializers.serialize(
-        payload.size,
-        specifiedType: const FullType(_i4.Int64),
-      ));
+    if (payload.size != null) {
+      result
+        ..add(const _i7.XmlElementName('Size'))
+        ..add(serializers.serialize(
+          payload.size!,
+          specifiedType: const FullType.nullable(_i4.Int64),
+        ));
+    }
     if (payload.storageClass != null) {
       result
         ..add(const _i7.XmlElementName('StorageClass'))

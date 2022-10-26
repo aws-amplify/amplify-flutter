@@ -18,11 +18,11 @@ class _$ListObjectsV2Output extends ListObjectsV2Output {
   @override
   final _i4.EncodingType? encodingType;
   @override
-  final bool isTruncated;
+  final bool? isTruncated;
   @override
-  final int keyCount;
+  final int? keyCount;
   @override
-  final int maxKeys;
+  final int? maxKeys;
   @override
   final String? name;
   @override
@@ -42,21 +42,14 @@ class _$ListObjectsV2Output extends ListObjectsV2Output {
       this.continuationToken,
       this.delimiter,
       this.encodingType,
-      required this.isTruncated,
-      required this.keyCount,
-      required this.maxKeys,
+      this.isTruncated,
+      this.keyCount,
+      this.maxKeys,
       this.name,
       this.nextContinuationToken,
       this.prefix,
       this.startAfter})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        isTruncated, r'ListObjectsV2Output', 'isTruncated');
-    BuiltValueNullFieldError.checkNotNull(
-        keyCount, r'ListObjectsV2Output', 'keyCount');
-    BuiltValueNullFieldError.checkNotNull(
-        maxKeys, r'ListObjectsV2Output', 'maxKeys');
-  }
+      : super._();
 
   @override
   ListObjectsV2Output rebuild(
@@ -219,12 +212,9 @@ class ListObjectsV2OutputBuilder
               continuationToken: continuationToken,
               delimiter: delimiter,
               encodingType: encodingType,
-              isTruncated: BuiltValueNullFieldError.checkNotNull(
-                  isTruncated, r'ListObjectsV2Output', 'isTruncated'),
-              keyCount: BuiltValueNullFieldError.checkNotNull(
-                  keyCount, r'ListObjectsV2Output', 'keyCount'),
-              maxKeys: BuiltValueNullFieldError.checkNotNull(
-                  maxKeys, r'ListObjectsV2Output', 'maxKeys'),
+              isTruncated: isTruncated,
+              keyCount: keyCount,
+              maxKeys: maxKeys,
               name: name,
               nextContinuationToken: nextContinuationToken,
               prefix: prefix,

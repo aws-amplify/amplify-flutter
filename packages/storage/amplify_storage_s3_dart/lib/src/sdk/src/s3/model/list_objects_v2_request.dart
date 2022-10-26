@@ -34,8 +34,6 @@ abstract class ListObjectsV2Request
     _i4.RequestPayer? requestPayer,
     String? startAfter,
   }) {
-    fetchOwner ??= false;
-    maxKeys ??= 0;
     return _$ListObjectsV2Request._(
       bucket: bucket,
       continuationToken: continuationToken,
@@ -102,10 +100,7 @@ abstract class ListObjectsV2Request
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectsV2RequestBuilder b) {
-    b.fetchOwner = false;
-    b.maxKeys = 0;
-  }
+  static void _init(ListObjectsV2RequestBuilder b) {}
 
   /// Bucket name to list.
   ///
@@ -127,10 +122,10 @@ abstract class ListObjectsV2Request
   String? get expectedBucketOwner;
 
   /// The owner field is not present in listV2 by default, if you want to return owner field with each key in the result then set the fetch owner field to true.
-  bool get fetchOwner;
+  bool? get fetchOwner;
 
   /// Sets the maximum number of keys returned in the response. By default the action returns up to 1,000 key names. The response might contain fewer keys but will never contain more.
-  int get maxKeys;
+  int? get maxKeys;
 
   /// Limits the response to keys that begin with the specified prefix.
   String? get prefix;
