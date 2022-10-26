@@ -166,8 +166,9 @@ class AWSRetryer implements Retryer {
   CancelableOperation<R> retry<R>(
     CancelableOperation<R> Function() f, {
     FutureOr<void> Function(Exception, [Duration?])? onRetry,
+    FutureOr<void> Function()? onCancel,
   }) {
-    final completer = CancelableCompleter<R>();
+    final completer = CancelableCompleter<R>(onCancel: onCancel);
     Future<void>(() async {
       var attempts = 0;
       int? retryToken;

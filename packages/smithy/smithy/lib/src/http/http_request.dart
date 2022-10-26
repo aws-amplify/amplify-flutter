@@ -168,20 +168,27 @@ class SmithyHttpRequest {
   }
 
   /// Transforms and sends [_baseRequest] with [client].
-  AWSHttpOperation send([AWSHttpClient? client]) {
+  AWSHttpOperation send({
+    AWSHttpClient? client,
+    FutureOr<void> Function()? onCancel,
+  }) {
     final requestProgress = StreamController<int>.broadcast(sync: true);
     final responseProgress = StreamController<int>.broadcast(sync: true);
     final completer = CancelableCompleter<AWSBaseHttpResponse>(
       onCancel: () {
         requestProgress.close();
         responseProgress.close();
+        onCancel?.call();
       },
     );
     Future<void>(() async {
       final request = await transformRequest(
         isCanceled: () => completer.isCanceled,
       );
-      final operation = request.send(client);
+      final operation = request.send(
+        client: client,
+        onCancel: completer.operation.cancel,
+      );
       operation.requestProgress.listen(
         requestProgress.add,
         onError: requestProgress.addError,
@@ -192,19 +199,22 @@ class SmithyHttpRequest {
         onError: responseProgress.addError,
         onDone: responseProgress.close,
       );
-      completer.completeOperation(
-        operation.operation.then(
-          (response) => _transformResponse(
+      operation.operation.then(
+        (response) async {
+          response = await _transformResponse(
             response,
             isCanceled: () => completer.isCanceled,
-          ),
-        ),
+          );
+          completer.complete(response);
+        },
+        onError: completer.completeError,
       );
     });
     return AWSHttpOperation(
       completer.operation,
       requestProgress: requestProgress.stream,
       responseProgress: responseProgress.stream,
+      onCancel: onCancel,
     );
   }
 }
