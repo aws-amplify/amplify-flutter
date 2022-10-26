@@ -164,6 +164,7 @@ abstract class AWSBaseHttpRequest
       ),
       requestProgress: awsOperation.requestProgress,
       responseProgress: awsOperation.responseProgress,
+      onCancel: awsOperation.cancel,
     );
   }
 

@@ -184,6 +184,7 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
       completer.operation,
       requestProgress: requestProgressController.stream,
       responseProgress: responseProgressController.stream,
+      onCancel: onCancel,
     );
   }
 
