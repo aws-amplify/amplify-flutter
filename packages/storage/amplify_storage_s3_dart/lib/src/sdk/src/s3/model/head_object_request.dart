@@ -39,7 +39,6 @@ abstract class HeadObjectRequest
     String? sseCustomerKeyMd5,
     String? versionId,
   }) {
-    partNumber ??= 0;
     return _$HeadObjectRequest._(
       bucket: bucket,
       checksumMode: checksumMode,
@@ -138,9 +137,7 @@ abstract class HeadObjectRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(HeadObjectRequestBuilder b) {
-    b.partNumber = 0;
-  }
+  static void _init(HeadObjectRequestBuilder b) {}
 
   /// The name of the bucket containing the object.
   ///
@@ -173,7 +170,7 @@ abstract class HeadObjectRequest
   String get key;
 
   /// Part number of the object being read. This is a positive integer between 1 and 10,000. Effectively performs a 'ranged' HEAD request for the part specified. Useful querying about the size of the part and the number of parts in this object.
-  int get partNumber;
+  int? get partNumber;
 
   /// Because `HeadObject` returns only the metadata for an object, this parameter has no effect.
   String? get range;

@@ -20,7 +20,6 @@ abstract class DeletedObject
     String? key,
     String? versionId,
   }) {
-    deleteMarker ??= false;
     return _$DeletedObject._(
       deleteMarker: deleteMarker,
       deleteMarkerVersionId: deleteMarkerVersionId,
@@ -40,12 +39,10 @@ abstract class DeletedObject
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeletedObjectBuilder b) {
-    b.deleteMarker = false;
-  }
+  static void _init(DeletedObjectBuilder b) {}
 
   /// Specifies whether the versioned object that was permanently deleted was (true) or was not (false) a delete marker. In a simple DELETE, this header indicates whether (true) or not (false) a delete marker was created.
-  bool get deleteMarker;
+  bool? get deleteMarker;
 
   /// The version ID of the delete marker created as a result of the DELETE operation. If you delete a specific object version, the value returned by this header is the version ID of the object version deleted.
   String? get deleteMarkerVersionId;
@@ -115,10 +112,12 @@ class DeletedObjectRestXmlSerializer
       final value = iterator.current;
       switch (key as String) {
         case 'DeleteMarker':
-          result.deleteMarker = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.deleteMarker = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'DeleteMarkerVersionId':
           if (value != null) {
@@ -163,12 +162,14 @@ class DeletedObjectRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    result
-      ..add(const _i2.XmlElementName('DeleteMarker'))
-      ..add(serializers.serialize(
-        payload.deleteMarker,
-        specifiedType: const FullType(bool),
-      ));
+    if (payload.deleteMarker != null) {
+      result
+        ..add(const _i2.XmlElementName('DeleteMarker'))
+        ..add(serializers.serialize(
+          payload.deleteMarker!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     if (payload.deleteMarkerVersionId != null) {
       result
         ..add(const _i2.XmlElementName('DeleteMarkerVersionId'))

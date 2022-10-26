@@ -33,9 +33,6 @@ abstract class ListObjectsV2Output
     String? prefix,
     String? startAfter,
   }) {
-    isTruncated ??= false;
-    keyCount ??= 0;
-    maxKeys ??= 0;
     return _$ListObjectsV2Output._(
       commonPrefixes:
           commonPrefixes == null ? null : _i5.BuiltList(commonPrefixes),
@@ -71,11 +68,7 @@ abstract class ListObjectsV2Output
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectsV2OutputBuilder b) {
-    b.isTruncated = false;
-    b.keyCount = 0;
-    b.maxKeys = 0;
-  }
+  static void _init(ListObjectsV2OutputBuilder b) {}
 
   /// All of the keys (up to 1,000) rolled up into a common prefix count as a single return when calculating the number of returns.
   ///
@@ -105,13 +98,13 @@ abstract class ListObjectsV2Output
   _i4.EncodingType? get encodingType;
 
   /// Set to false if all of the results were returned. Set to true if more keys are available to return. If the number of results exceeds that specified by MaxKeys, all of the results might not be returned.
-  bool get isTruncated;
+  bool? get isTruncated;
 
   /// KeyCount is the number of keys returned with this request. KeyCount will always be less than or equals to MaxKeys field. Say you ask for 50 keys, your result will include less than equals 50 keys
-  int get keyCount;
+  int? get keyCount;
 
   /// Sets the maximum number of keys returned in the response. By default the action returns up to 1,000 key names. The response might contain fewer keys but will never contain more.
-  int get maxKeys;
+  int? get maxKeys;
 
   /// The bucket name.
   ///
@@ -268,22 +261,28 @@ class ListObjectsV2OutputRestXmlSerializer
           }
           break;
         case 'IsTruncated':
-          result.isTruncated = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.isTruncated = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'KeyCount':
-          result.keyCount = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.keyCount = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'MaxKeys':
-          result.maxKeys = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.maxKeys = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'Name':
           if (value != null) {
@@ -383,24 +382,30 @@ class ListObjectsV2OutputRestXmlSerializer
           specifiedType: const FullType.nullable(_i4.EncodingType),
         ));
     }
-    result
-      ..add(const _i6.XmlElementName('IsTruncated'))
-      ..add(serializers.serialize(
-        payload.isTruncated,
-        specifiedType: const FullType(bool),
-      ));
-    result
-      ..add(const _i6.XmlElementName('KeyCount'))
-      ..add(serializers.serialize(
-        payload.keyCount,
-        specifiedType: const FullType(int),
-      ));
-    result
-      ..add(const _i6.XmlElementName('MaxKeys'))
-      ..add(serializers.serialize(
-        payload.maxKeys,
-        specifiedType: const FullType(int),
-      ));
+    if (payload.isTruncated != null) {
+      result
+        ..add(const _i6.XmlElementName('IsTruncated'))
+        ..add(serializers.serialize(
+          payload.isTruncated!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
+    if (payload.keyCount != null) {
+      result
+        ..add(const _i6.XmlElementName('KeyCount'))
+        ..add(serializers.serialize(
+          payload.keyCount!,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
+    if (payload.maxKeys != null) {
+      result
+        ..add(const _i6.XmlElementName('MaxKeys'))
+        ..add(serializers.serialize(
+          payload.maxKeys!,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
     if (payload.name != null) {
       result
         ..add(const _i6.XmlElementName('Name'))

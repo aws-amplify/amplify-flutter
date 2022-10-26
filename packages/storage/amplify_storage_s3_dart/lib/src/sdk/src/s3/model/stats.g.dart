@@ -8,27 +8,17 @@ part of amplify_storage_s3_dart.s3.model.stats;
 
 class _$Stats extends Stats {
   @override
-  final _i2.Int64 bytesProcessed;
+  final _i2.Int64? bytesProcessed;
   @override
-  final _i2.Int64 bytesReturned;
+  final _i2.Int64? bytesReturned;
   @override
-  final _i2.Int64 bytesScanned;
+  final _i2.Int64? bytesScanned;
 
   factory _$Stats([void Function(StatsBuilder)? updates]) =>
       (new StatsBuilder()..update(updates))._build();
 
-  _$Stats._(
-      {required this.bytesProcessed,
-      required this.bytesReturned,
-      required this.bytesScanned})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        bytesProcessed, r'Stats', 'bytesProcessed');
-    BuiltValueNullFieldError.checkNotNull(
-        bytesReturned, r'Stats', 'bytesReturned');
-    BuiltValueNullFieldError.checkNotNull(
-        bytesScanned, r'Stats', 'bytesScanned');
-  }
+  _$Stats._({this.bytesProcessed, this.bytesReturned, this.bytesScanned})
+      : super._();
 
   @override
   Stats rebuild(void Function(StatsBuilder) updates) =>
@@ -103,12 +93,9 @@ class StatsBuilder implements Builder<Stats, StatsBuilder> {
   _$Stats _build() {
     final _$result = _$v ??
         new _$Stats._(
-            bytesProcessed: BuiltValueNullFieldError.checkNotNull(
-                bytesProcessed, r'Stats', 'bytesProcessed'),
-            bytesReturned: BuiltValueNullFieldError.checkNotNull(
-                bytesReturned, r'Stats', 'bytesReturned'),
-            bytesScanned: BuiltValueNullFieldError.checkNotNull(
-                bytesScanned, r'Stats', 'bytesScanned'));
+            bytesProcessed: bytesProcessed,
+            bytesReturned: bytesReturned,
+            bytesScanned: bytesScanned);
     replace(_$result);
     return _$result;
   }

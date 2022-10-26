@@ -14,7 +14,7 @@ class _$CreateMultipartUploadOutput extends CreateMultipartUploadOutput {
   @override
   final String? bucket;
   @override
-  final bool bucketKeyEnabled;
+  final bool? bucketKeyEnabled;
   @override
   final _i3.ChecksumAlgorithm? checksumAlgorithm;
   @override
@@ -42,7 +42,7 @@ class _$CreateMultipartUploadOutput extends CreateMultipartUploadOutput {
       {this.abortDate,
       this.abortRuleId,
       this.bucket,
-      required this.bucketKeyEnabled,
+      this.bucketKeyEnabled,
       this.checksumAlgorithm,
       this.key,
       this.requestCharged,
@@ -52,10 +52,7 @@ class _$CreateMultipartUploadOutput extends CreateMultipartUploadOutput {
       this.ssekmsEncryptionContext,
       this.ssekmsKeyId,
       this.uploadId})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        bucketKeyEnabled, r'CreateMultipartUploadOutput', 'bucketKeyEnabled');
-  }
+      : super._();
 
   @override
   CreateMultipartUploadOutput rebuild(
@@ -225,10 +222,7 @@ class CreateMultipartUploadOutputBuilder
             abortDate: abortDate,
             abortRuleId: abortRuleId,
             bucket: bucket,
-            bucketKeyEnabled: BuiltValueNullFieldError.checkNotNull(
-                bucketKeyEnabled,
-                r'CreateMultipartUploadOutput',
-                'bucketKeyEnabled'),
+            bucketKeyEnabled: bucketKeyEnabled,
             checksumAlgorithm: checksumAlgorithm,
             key: key,
             requestCharged: requestCharged,

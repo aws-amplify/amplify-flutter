@@ -12,7 +12,7 @@ class _$CreateMultipartUploadRequest extends CreateMultipartUploadRequest {
   @override
   final String bucket;
   @override
-  final bool bucketKeyEnabled;
+  final bool? bucketKeyEnabled;
   @override
   final String? cacheControl;
   @override
@@ -75,7 +75,7 @@ class _$CreateMultipartUploadRequest extends CreateMultipartUploadRequest {
   _$CreateMultipartUploadRequest._(
       {this.acl,
       required this.bucket,
-      required this.bucketKeyEnabled,
+      this.bucketKeyEnabled,
       this.cacheControl,
       this.checksumAlgorithm,
       this.contentDisposition,
@@ -106,8 +106,6 @@ class _$CreateMultipartUploadRequest extends CreateMultipartUploadRequest {
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'CreateMultipartUploadRequest', 'bucket');
-    BuiltValueNullFieldError.checkNotNull(
-        bucketKeyEnabled, r'CreateMultipartUploadRequest', 'bucketKeyEnabled');
     BuiltValueNullFieldError.checkNotNull(
         key, r'CreateMultipartUploadRequest', 'key');
   }
@@ -414,10 +412,7 @@ class CreateMultipartUploadRequestBuilder
               acl: acl,
               bucket: BuiltValueNullFieldError.checkNotNull(
                   bucket, r'CreateMultipartUploadRequest', 'bucket'),
-              bucketKeyEnabled: BuiltValueNullFieldError.checkNotNull(
-                  bucketKeyEnabled,
-                  r'CreateMultipartUploadRequest',
-                  'bucketKeyEnabled'),
+              bucketKeyEnabled: bucketKeyEnabled,
               cacheControl: cacheControl,
               checksumAlgorithm: checksumAlgorithm,
               contentDisposition: contentDisposition,

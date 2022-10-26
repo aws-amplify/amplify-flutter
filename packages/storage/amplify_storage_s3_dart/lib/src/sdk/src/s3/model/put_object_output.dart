@@ -36,7 +36,6 @@ abstract class PutObjectOutput
     String? ssekmsKeyId,
     String? versionId,
   }) {
-    bucketKeyEnabled ??= false;
     return _$PutObjectOutput._(
       bucketKeyEnabled: bucketKeyEnabled,
       checksumCrc32: checksumCrc32,
@@ -129,12 +128,10 @@ abstract class PutObjectOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectOutputBuilder b) {
-    b.bucketKeyEnabled = false;
-  }
+  static void _init(PutObjectOutputBuilder b) {}
 
   /// Indicates whether the uploaded object uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
-  bool get bucketKeyEnabled;
+  bool? get bucketKeyEnabled;
 
   /// The base64-encoded, 32-bit CRC32 checksum of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
   String? get checksumCrc32;

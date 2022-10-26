@@ -186,7 +186,9 @@ class UploadPartOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
             ? r'/{Bucket}/{Key+}?x-id=UploadPart'
             : r'/{Key+}?x-id=UploadPart';
         b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
-        b.headers['Content-Length'] = input.contentLength.toString();
+        if (input.contentLength != null) {
+          b.headers['Content-Length'] = input.contentLength!.toString();
+        }
         if (input.contentMd5 != null) {
           if (input.contentMd5!.isNotEmpty) {
             b.headers['Content-MD5'] = input.contentMd5!;

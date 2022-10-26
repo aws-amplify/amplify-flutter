@@ -10,14 +10,13 @@ class _$Delete extends Delete {
   @override
   final _i3.BuiltList<_i2.ObjectIdentifier> objects;
   @override
-  final bool quiet;
+  final bool? quiet;
 
   factory _$Delete([void Function(DeleteBuilder)? updates]) =>
       (new DeleteBuilder()..update(updates))._build();
 
-  _$Delete._({required this.objects, required this.quiet}) : super._() {
+  _$Delete._({required this.objects, this.quiet}) : super._() {
     BuiltValueNullFieldError.checkNotNull(objects, r'Delete', 'objects');
-    BuiltValueNullFieldError.checkNotNull(quiet, r'Delete', 'quiet');
   }
 
   @override
@@ -83,11 +82,7 @@ class DeleteBuilder implements Builder<Delete, DeleteBuilder> {
   _$Delete _build() {
     _$Delete _$result;
     try {
-      _$result = _$v ??
-          new _$Delete._(
-              objects: objects.build(),
-              quiet: BuiltValueNullFieldError.checkNotNull(
-                  quiet, r'Delete', 'quiet'));
+      _$result = _$v ?? new _$Delete._(objects: objects.build(), quiet: quiet);
     } catch (_) {
       late String _$failedField;
       try {

@@ -68,11 +68,6 @@ abstract class HeadObjectOutput
     String? versionId,
     String? websiteRedirectLocation,
   }) {
-    bucketKeyEnabled ??= false;
-    contentLength ??= _i4.Int64.ZERO;
-    deleteMarker ??= false;
-    missingMeta ??= 0;
-    partsCount ??= 0;
     return _$HeadObjectOutput._(
       acceptRanges: acceptRanges,
       archiveStatus: archiveStatus,
@@ -266,13 +261,7 @@ abstract class HeadObjectOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(HeadObjectOutputBuilder b) {
-    b.bucketKeyEnabled = false;
-    b.contentLength = _i4.Int64.ZERO;
-    b.deleteMarker = false;
-    b.missingMeta = 0;
-    b.partsCount = 0;
-  }
+  static void _init(HeadObjectOutputBuilder b) {}
 
   /// Indicates that a range of bytes was specified.
   String? get acceptRanges;
@@ -281,7 +270,7 @@ abstract class HeadObjectOutput
   _i3.ArchiveStatus? get archiveStatus;
 
   /// Indicates whether the object uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
-  bool get bucketKeyEnabled;
+  bool? get bucketKeyEnabled;
 
   /// Specifies caching behavior along the request/reply chain.
   String? get cacheControl;
@@ -308,13 +297,13 @@ abstract class HeadObjectOutput
   String? get contentLanguage;
 
   /// Size of the body in bytes.
-  _i4.Int64 get contentLength;
+  _i4.Int64? get contentLength;
 
   /// A standard MIME type describing the format of the object data.
   String? get contentType;
 
   /// Specifies whether the object retrieved was (true) or was not (false) a Delete Marker. If false, this response header does not appear in the response.
-  bool get deleteMarker;
+  bool? get deleteMarker;
 
   /// An entity tag (ETag) is an opaque identifier assigned by a web server to a specific version of a resource found at a URL.
   String? get eTag;
@@ -332,7 +321,7 @@ abstract class HeadObjectOutput
   _i11.BuiltMap<String, String>? get metadata;
 
   /// This is set to the number of metadata entries not returned in `x-amz-meta` headers. This can happen if you create metadata using an API like SOAP that supports more flexible metadata than the REST API. For example, using SOAP, you can create metadata whose values are not legal HTTP headers.
-  int get missingMeta;
+  int? get missingMeta;
 
   /// Specifies whether a legal hold is in effect for this object. This header is only returned if the requester has the `s3:GetObjectLegalHold` permission. This header is not returned if the specified version of this object has never had a legal hold applied. For more information about S3 Object Lock, see [Object Lock](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html).
   _i5.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus;
@@ -344,7 +333,7 @@ abstract class HeadObjectOutput
   DateTime? get objectLockRetainUntilDate;
 
   /// The count of parts this object has. This value is only returned if you specify `partNumber` in your request and the object was uploaded as a multipart upload.
-  int get partsCount;
+  int? get partsCount;
 
   /// Amazon S3 can return this header if your request involves a bucket that is either a source or a destination in a replication rule.
   ///

@@ -8,27 +8,17 @@ part of amplify_storage_s3_dart.s3.model.progress;
 
 class _$Progress extends Progress {
   @override
-  final _i2.Int64 bytesProcessed;
+  final _i2.Int64? bytesProcessed;
   @override
-  final _i2.Int64 bytesReturned;
+  final _i2.Int64? bytesReturned;
   @override
-  final _i2.Int64 bytesScanned;
+  final _i2.Int64? bytesScanned;
 
   factory _$Progress([void Function(ProgressBuilder)? updates]) =>
       (new ProgressBuilder()..update(updates))._build();
 
-  _$Progress._(
-      {required this.bytesProcessed,
-      required this.bytesReturned,
-      required this.bytesScanned})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        bytesProcessed, r'Progress', 'bytesProcessed');
-    BuiltValueNullFieldError.checkNotNull(
-        bytesReturned, r'Progress', 'bytesReturned');
-    BuiltValueNullFieldError.checkNotNull(
-        bytesScanned, r'Progress', 'bytesScanned');
-  }
+  _$Progress._({this.bytesProcessed, this.bytesReturned, this.bytesScanned})
+      : super._();
 
   @override
   Progress rebuild(void Function(ProgressBuilder) updates) =>
@@ -103,12 +93,9 @@ class ProgressBuilder implements Builder<Progress, ProgressBuilder> {
   _$Progress _build() {
     final _$result = _$v ??
         new _$Progress._(
-            bytesProcessed: BuiltValueNullFieldError.checkNotNull(
-                bytesProcessed, r'Progress', 'bytesProcessed'),
-            bytesReturned: BuiltValueNullFieldError.checkNotNull(
-                bytesReturned, r'Progress', 'bytesReturned'),
-            bytesScanned: BuiltValueNullFieldError.checkNotNull(
-                bytesScanned, r'Progress', 'bytesScanned'));
+            bytesProcessed: bytesProcessed,
+            bytesReturned: bytesReturned,
+            bytesScanned: bytesScanned);
     replace(_$result);
     return _$result;
   }

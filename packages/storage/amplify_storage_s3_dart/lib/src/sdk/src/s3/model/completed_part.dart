@@ -22,7 +22,6 @@ abstract class CompletedPart
     String? eTag,
     int? partNumber,
   }) {
-    partNumber ??= 0;
     return _$CompletedPart._(
       checksumCrc32: checksumCrc32,
       checksumCrc32C: checksumCrc32C,
@@ -44,9 +43,7 @@ abstract class CompletedPart
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CompletedPartBuilder b) {
-    b.partNumber = 0;
-  }
+  static void _init(CompletedPartBuilder b) {}
 
   /// The base64-encoded, 32-bit CRC32 checksum of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
   String? get checksumCrc32;
@@ -64,7 +61,7 @@ abstract class CompletedPart
   String? get eTag;
 
   /// Part number that identifies the part. This is a positive integer between 1 and 10,000.
-  int get partNumber;
+  int? get partNumber;
   @override
   List<Object?> get props => [
         checksumCrc32,
@@ -175,10 +172,12 @@ class CompletedPartRestXmlSerializer
           }
           break;
         case 'PartNumber':
-          result.partNumber = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.partNumber = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
       }
     }
@@ -239,12 +238,14 @@ class CompletedPartRestXmlSerializer
           specifiedType: const FullType(String),
         ));
     }
-    result
-      ..add(const _i2.XmlElementName('PartNumber'))
-      ..add(serializers.serialize(
-        payload.partNumber,
-        specifiedType: const FullType(int),
-      ));
+    if (payload.partNumber != null) {
+      result
+        ..add(const _i2.XmlElementName('PartNumber'))
+        ..add(serializers.serialize(
+          payload.partNumber!,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
     return result;
   }
 }

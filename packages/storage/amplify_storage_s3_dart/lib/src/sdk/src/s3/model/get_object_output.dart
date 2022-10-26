@@ -68,13 +68,6 @@ abstract class GetObjectOutput
     String? versionId,
     String? websiteRedirectLocation,
   }) {
-    body ??= const _i3.Stream.empty();
-    bucketKeyEnabled ??= false;
-    contentLength ??= _i4.Int64.ZERO;
-    deleteMarker ??= false;
-    missingMeta ??= 0;
-    partsCount ??= 0;
-    tagCount ??= 0;
     return _$GetObjectOutput._(
       acceptRanges: acceptRanges,
       body: body,
@@ -273,15 +266,7 @@ abstract class GetObjectOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectOutputBuilder b) {
-    b.body = const _i3.Stream.empty();
-    b.bucketKeyEnabled = false;
-    b.contentLength = _i4.Int64.ZERO;
-    b.deleteMarker = false;
-    b.missingMeta = 0;
-    b.partsCount = 0;
-    b.tagCount = 0;
-  }
+  static void _init(GetObjectOutputBuilder b) {}
 
   /// Indicates that a range of bytes was specified.
   String? get acceptRanges;
@@ -290,7 +275,7 @@ abstract class GetObjectOutput
   _i3.Stream<List<int>>? get body;
 
   /// Indicates whether the object uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
-  bool get bucketKeyEnabled;
+  bool? get bucketKeyEnabled;
 
   /// Specifies caching behavior along the request/reply chain.
   String? get cacheControl;
@@ -317,7 +302,7 @@ abstract class GetObjectOutput
   String? get contentLanguage;
 
   /// Size of the body in bytes.
-  _i4.Int64 get contentLength;
+  _i4.Int64? get contentLength;
 
   /// The portion of the object returned in the response.
   String? get contentRange;
@@ -326,7 +311,7 @@ abstract class GetObjectOutput
   String? get contentType;
 
   /// Specifies whether the object retrieved was (true) or was not (false) a Delete Marker. If false, this response header does not appear in the response.
-  bool get deleteMarker;
+  bool? get deleteMarker;
 
   /// An entity tag (ETag) is an opaque identifier assigned by a web server to a specific version of a resource found at a URL.
   String? get eTag;
@@ -344,7 +329,7 @@ abstract class GetObjectOutput
   _i11.BuiltMap<String, String>? get metadata;
 
   /// This is set to the number of metadata entries not returned in `x-amz-meta` headers. This can happen if you create metadata using an API like SOAP that supports more flexible metadata than the REST API. For example, using SOAP, you can create metadata whose values are not legal HTTP headers.
-  int get missingMeta;
+  int? get missingMeta;
 
   /// Indicates whether this object has an active legal hold. This field is only returned if you have permission to view an object's legal hold status.
   _i5.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus;
@@ -356,7 +341,7 @@ abstract class GetObjectOutput
   DateTime? get objectLockRetainUntilDate;
 
   /// The count of parts this object has. This value is only returned if you specify `partNumber` in your request and the object was uploaded as a multipart upload.
-  int get partsCount;
+  int? get partsCount;
 
   /// Amazon S3 can return this if your request involves a bucket that is either a source or destination in a replication rule.
   _i7.ReplicationStatus? get replicationStatus;
@@ -383,7 +368,7 @@ abstract class GetObjectOutput
   _i10.StorageClass? get storageClass;
 
   /// The number of tags, if any, on the object.
-  int get tagCount;
+  int? get tagCount;
 
   /// Version of the object.
   String? get versionId;

@@ -191,7 +191,9 @@ class PutObjectOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
             b.headers['Content-Language'] = input.contentLanguage!;
           }
         }
-        b.headers['Content-Length'] = input.contentLength.toString();
+        if (input.contentLength != null) {
+          b.headers['Content-Length'] = input.contentLength!.toString();
+        }
         if (input.contentMd5 != null) {
           if (input.contentMd5!.isNotEmpty) {
             b.headers['Content-MD5'] = input.contentMd5!;
@@ -294,8 +296,10 @@ class PutObjectOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
                 input.ssekmsEncryptionContext!;
           }
         }
-        b.headers['x-amz-server-side-encryption-bucket-key-enabled'] =
-            input.bucketKeyEnabled.toString();
+        if (input.bucketKeyEnabled != null) {
+          b.headers['x-amz-server-side-encryption-bucket-key-enabled'] =
+              input.bucketKeyEnabled!.toString();
+        }
         if (input.requestPayer != null) {
           b.headers['x-amz-request-payer'] = input.requestPayer!.value;
         }

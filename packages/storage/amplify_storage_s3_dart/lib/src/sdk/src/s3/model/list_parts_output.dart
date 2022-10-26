@@ -43,8 +43,6 @@ abstract class ListPartsOutput
     _i8.StorageClass? storageClass,
     String? uploadId,
   }) {
-    isTruncated ??= false;
-    maxParts ??= 0;
     return _$ListPartsOutput._(
       abortDate: abortDate,
       abortRuleId: abortRuleId,
@@ -113,10 +111,7 @@ abstract class ListPartsOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListPartsOutputBuilder b) {
-    b.isTruncated = false;
-    b.maxParts = 0;
-  }
+  static void _init(ListPartsOutputBuilder b) {}
 
   /// If the bucket has a lifecycle rule configured with an action to abort incomplete multipart uploads and the prefix in the lifecycle rule matches the object name in the request, then the response includes this header indicating when the initiated multipart upload will become eligible for abort operation. For more information, see [Aborting Incomplete Multipart Uploads Using a Bucket Lifecycle Policy](https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config).
   ///
@@ -136,13 +131,13 @@ abstract class ListPartsOutput
   _i4.Initiator? get initiator;
 
   /// Indicates whether the returned list of parts is truncated. A true value indicates that the list was truncated. A list can be truncated if the number of parts exceeds the limit returned in the MaxParts element.
-  bool get isTruncated;
+  bool? get isTruncated;
 
   /// Object key for which the multipart upload was initiated.
   String? get key;
 
   /// Maximum number of parts that were allowed in the response.
-  int get maxParts;
+  int? get maxParts;
 
   /// When a list is truncated, this element specifies the last part in the list, as well as the value to use for the part-number-marker request parameter in a subsequent request.
   String? get nextPartNumberMarker;
@@ -281,10 +276,7 @@ abstract class ListPartsOutputPayload
   const ListPartsOutputPayload._();
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListPartsOutputPayloadBuilder b) {
-    b.isTruncated = false;
-    b.maxParts = 0;
-  }
+  static void _init(ListPartsOutputPayloadBuilder b) {}
 
   /// The name of the bucket to which the multipart upload was initiated. Does not return the access point ARN or access point alias if used.
   String? get bucket;
@@ -296,13 +288,13 @@ abstract class ListPartsOutputPayload
   _i4.Initiator? get initiator;
 
   /// Indicates whether the returned list of parts is truncated. A true value indicates that the list was truncated. A list can be truncated if the number of parts exceeds the limit returned in the MaxParts element.
-  bool get isTruncated;
+  bool? get isTruncated;
 
   /// Object key for which the multipart upload was initiated.
   String? get key;
 
   /// Maximum number of parts that were allowed in the response.
-  int get maxParts;
+  int? get maxParts;
 
   /// When a list is truncated, this element specifies the last part in the list, as well as the value to use for the part-number-marker request parameter in a subsequent request.
   String? get nextPartNumberMarker;
@@ -447,10 +439,12 @@ class ListPartsOutputRestXmlSerializer
           }
           break;
         case 'IsTruncated':
-          result.isTruncated = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.isTruncated = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'Key':
           if (value != null) {
@@ -461,10 +455,12 @@ class ListPartsOutputRestXmlSerializer
           }
           break;
         case 'MaxParts':
-          result.maxParts = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.maxParts = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'NextPartNumberMarker':
           if (value != null) {
@@ -559,12 +555,14 @@ class ListPartsOutputRestXmlSerializer
           specifiedType: const FullType(_i4.Initiator),
         ));
     }
-    result
-      ..add(const _i2.XmlElementName('IsTruncated'))
-      ..add(serializers.serialize(
-        payload.isTruncated,
-        specifiedType: const FullType(bool),
-      ));
+    if (payload.isTruncated != null) {
+      result
+        ..add(const _i2.XmlElementName('IsTruncated'))
+        ..add(serializers.serialize(
+          payload.isTruncated!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     if (payload.key != null) {
       result
         ..add(const _i2.XmlElementName('Key'))
@@ -573,12 +571,14 @@ class ListPartsOutputRestXmlSerializer
           specifiedType: const FullType(String),
         ));
     }
-    result
-      ..add(const _i2.XmlElementName('MaxParts'))
-      ..add(serializers.serialize(
-        payload.maxParts,
-        specifiedType: const FullType(int),
-      ));
+    if (payload.maxParts != null) {
+      result
+        ..add(const _i2.XmlElementName('MaxParts'))
+        ..add(serializers.serialize(
+          payload.maxParts!,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
     if (payload.nextPartNumberMarker != null) {
       result
         ..add(const _i2.XmlElementName('NextPartNumberMarker'))
