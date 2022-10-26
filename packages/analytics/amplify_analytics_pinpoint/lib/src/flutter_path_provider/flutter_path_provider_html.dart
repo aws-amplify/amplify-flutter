@@ -18,8 +18,6 @@ import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.
 class FlutterPathProvider extends CachedEventsPathProvider {
   @override
   Future<String> getApplicationSupportPath() async {
-    throw UnsupportedError(
-      'Do not call FlutterPathProvider on web',
-    );
+    return '';
   }
 }
