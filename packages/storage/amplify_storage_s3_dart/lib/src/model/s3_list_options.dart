@@ -22,15 +22,21 @@ class S3ListOptions extends StorageListOptions {
   const S3ListOptions({
     StorageAccessLevel accessLevel = StorageAccessLevel.guest,
     int pageSize = 1000,
+    bool excludeSubPaths = false,
+    String? nextToken,
   }) : this._(
           accessLevel: accessLevel,
           pageSize: pageSize,
+          nextToken: nextToken,
+          excludeSubPaths: excludeSubPaths,
         );
 
   const S3ListOptions._({
     super.accessLevel = StorageAccessLevel.guest,
     super.pageSize = 1000,
+    super.nextToken,
     this.targetIdentityId,
+    this.excludeSubPaths = false,
   });
 
   /// {@macro storage.amplify_storage_s3.list_options}
@@ -40,10 +46,14 @@ class S3ListOptions extends StorageListOptions {
   const S3ListOptions.forIdentity(
     String targetIdentityId, {
     int pageSize = 1000,
+    bool excludeSubPaths = false,
+    String? nextToken,
   }) : this._(
           accessLevel: StorageAccessLevel.protected,
           pageSize: pageSize,
           targetIdentityId: targetIdentityId,
+          nextToken: nextToken,
+          excludeSubPaths: excludeSubPaths,
         );
 
   /// The identity id of another user who uploaded the objects that to be
@@ -51,4 +61,8 @@ class S3ListOptions extends StorageListOptions {
   ///
   /// This can be set by calling the [S3ListOptions.forIdentity].
   final String? targetIdentityId;
+
+  /// Whether to exclude objects under the sub paths of the path to list. The
+  /// default value is `false`.
+  final bool excludeSubPaths;
 }

@@ -94,7 +94,6 @@ void main() {
       const testPageSize = 100;
       const testBucketName = 'a-bucket';
       const testStorageAccessLevel = StorageAccessLevel.protected;
-      const testHasNext = true;
       final testPrefixToDrop =
           '${testStorageAccessLevel.defaultPrefix}$testDelimiter';
       final testCommonPrefix = CommonPrefix(prefix: testPrefixToDrop);
@@ -173,7 +172,70 @@ void main() {
           expect(item.key, isNot(contains(testPrefixToDrop)));
           expect(item.key, 'object-${index + 1}');
         });
-        expect(listResult.hasNext, testHasNext);
+        expect(listResult.hasNextPage, true);
+        expect(listResult.nextToken, testNextContinuationToken);
+      });
+
+      test(
+          'should attach delimiter to the ListObjectV2Request when options excludeSubPaths is set to true',
+          () async {
+        final testS3Objects = [1, 2, 3, 4, 5]
+            .map(
+              (e) => S3Object(
+                key: '${testPrefixToDrop}object-$e',
+                size: Int64(100 * 4),
+                eTag: 'object-$e-eTag',
+              ),
+            )
+            .toList();
+        const testPath = 'album';
+        const testOptions = S3ListOptions(
+          accessLevel: testStorageAccessLevel,
+          excludeSubPaths: true,
+          pageSize: testPageSize,
+        );
+        const testSubPaths = [
+          'album#folder1',
+          'album#folder2',
+          'album#folder1#sub-folder1',
+        ];
+        final testPaginatedResult =
+            PaginatedResult<ListObjectsV2Output, int, String>(
+          ListObjectsV2Output(
+            contents: testS3Objects,
+            commonPrefixes: [
+              CommonPrefix(prefix: '$testPrefixToDrop${testSubPaths[0]}'),
+              CommonPrefix(prefix: '$testPrefixToDrop${testSubPaths[1]}'),
+              CommonPrefix(
+                prefix: '$testPrefixToDrop${testSubPaths[2]}',
+              ),
+            ],
+            delimiter: testDelimiter,
+            name: testBucketName,
+            maxKeys: testPageSize,
+          ),
+          next: ([int? pageSize]) {
+            throw UnimplementedError();
+          },
+          nextContinuationToken: testNextContinuationToken,
+        );
+        final smithyOperation = MockSmithyOperation<
+            PaginatedResult<ListObjectsV2Output, int, String>>();
+
+        when(
+          () => smithyOperation.result,
+        ).thenAnswer((_) async => testPaginatedResult);
+
+        when(
+          () => s3Client.listObjectsV2(any()),
+        ).thenAnswer((_) => smithyOperation);
+
+        final result = await storageS3Service.list(
+          path: testPath,
+          options: testOptions,
+        );
+
+        expect(result.metadata.subPaths, equals(testSubPaths));
       });
 
       test(

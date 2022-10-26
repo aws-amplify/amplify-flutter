@@ -105,13 +105,15 @@ Future<void> listOperation() async {
     'Choose the storage access level associated with the path: ',
   );
 
+  const pageSize = 5;
+
   // get plugin with plugin key to gain S3 specific interface
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
   final operation = s3Plugin.list(
     path: path,
     options: S3ListOptions(
       accessLevel: accessLevel,
-      pageSize: 5,
+      pageSize: pageSize,
     ),
   );
 
@@ -130,12 +132,12 @@ Future<void> listOperation() async {
 
   while (true) {
     stdout.writeln('Listed ${result.items.length} objects.');
-    stdout.writeln('${result.pluginMetadata}');
+    stdout.writeln('Sub directories: ${result.metadata.subPaths}');
     result.items.asMap().forEach((index, item) {
       stdout.writeln('$index. key: ${item.key} | size: ${item.size}');
     });
 
-    if (!result.hasNext) {
+    if (!result.hasNextPage) {
       break;
     }
 
@@ -147,7 +149,16 @@ Future<void> listOperation() async {
       break;
     }
 
-    result = await result.next();
+    result = await s3Plugin
+        .list(
+          path: path,
+          options: S3ListOptions(
+            accessLevel: accessLevel,
+            pageSize: pageSize,
+            nextToken: result.nextToken,
+          ),
+        )
+        .result;
   }
 }
 
