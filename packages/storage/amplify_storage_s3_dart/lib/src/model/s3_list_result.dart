@@ -14,7 +14,7 @@
 
 import 'package:amplify_core/amplify_core.dart' hide PaginatedResult;
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
-import 'package:amplify_storage_s3_dart/src/sdk/s3.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
 
@@ -25,28 +25,27 @@ class S3ListResult extends StorageListResult<List<S3Item>> {
   /// {@macro storage.amplify_storage_s3.list_result}
   S3ListResult(
     super.items, {
-    required super.hasNext,
-    required Future<S3ListResult> Function() super.next,
-    this.pluginMetadata = const <String, Object?>{},
-  }) : _next = next;
+    required super.hasNextPage,
+    required this.metadata,
+    super.nextToken,
+  });
 
   /// Creates a [S3ListResult] from a [PaginatedResult] provided by
   /// smithy. This named constructor should be used internally only.
   @internal
   factory S3ListResult.fromPaginatedResult(
-    PaginatedResult<ListObjectsV2Output, int, String> paginatedResult, {
+    PaginatedResult<s3.ListObjectsV2Output, int, String> paginatedResult, {
     required String prefixToDrop,
   }) {
     final output = paginatedResult.items;
-    final requestedPageSize = output.maxKeys;
-    final metadata = <String, Object?>{
-      'commonPrefixes': output.commonPrefixes?.toList(),
-      'delimiter': output.delimiter,
-      'bucketName': output.name,
-    };
+    final metadata = S3ListMetadata.fromS3CommonPrefixes(
+      prefixToDrop: prefixToDrop,
+      commonPrefixes: output.commonPrefixes?.toList(),
+      delimiter: output.delimiter,
+    );
     final items = output.contents
             ?.map(
-              (S3Object item) => S3Item.fromS3Object(
+              (s3.S3Object item) => S3Item.fromS3Object(
                 item,
                 prefixToDrop: prefixToDrop,
               ),
@@ -56,24 +55,52 @@ class S3ListResult extends StorageListResult<List<S3Item>> {
 
     return S3ListResult(
       items,
-      hasNext: paginatedResult.hasNext,
-      next: () async {
-        final nextPageResult =
-            await paginatedResult.next(requestedPageSize).result;
-        return S3ListResult.fromPaginatedResult(
-          nextPageResult,
-          prefixToDrop: prefixToDrop,
-        );
-      },
-      pluginMetadata: metadata,
+      hasNextPage: paginatedResult.hasNext,
+      nextToken: paginatedResult.nextContinuationToken,
+      metadata: metadata,
     );
   }
 
-  @override
-  Future<S3ListResult> next() => _next();
-
-  final Future<S3ListResult> Function() _next;
-
   /// Metadata that is specific to the plugin
-  final Map<String, Object?> pluginMetadata;
+  final S3ListMetadata metadata;
+}
+
+/// The metadata returned from the Storage S3 plugin `list` API.
+class S3ListMetadata {
+  /// Creates a S3ListMetadata from the `commonPrefix` and `delimiter`
+  /// properties of the [s3.ListObjectsV2Output].
+  factory S3ListMetadata.fromS3CommonPrefixes({
+    required String prefixToDrop,
+    List<s3.CommonPrefix>? commonPrefixes,
+    String? delimiter,
+  }) {
+    final extractedSubPath = <String>[];
+
+    if (commonPrefixes != null) {
+      for (final commonPrefix in commonPrefixes) {
+        final prefix = commonPrefix.prefix;
+        if (prefix != null) {
+          extractedSubPath.add(prefix.replaceRange(0, prefixToDrop.length, ''));
+        }
+      }
+    }
+
+    return S3ListMetadata._(
+      subPaths: extractedSubPath,
+      delimiter: delimiter,
+    );
+  }
+
+  S3ListMetadata._({
+    List<String>? subPaths,
+    this.delimiter,
+  }) : subPaths = subPaths ?? const [];
+
+  /// Sub paths under the `path` parameter calling the `list` API.
+  ///
+  /// This list can be empty.
+  final List<String> subPaths;
+
+  /// The delimiter used in S3 prefix if any.
+  final String? delimiter;
 }

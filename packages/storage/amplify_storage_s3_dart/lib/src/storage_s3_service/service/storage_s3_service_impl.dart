@@ -45,9 +45,11 @@ class StorageS3Service {
     required S3PrefixResolver prefixResolver,
     required AWSIamAmplifyAuthProvider credentialsProvider,
     required AWSLogger logger,
+    String? delimiter,
     required DependencyManager dependencyManager,
   })  : _defaultBucket = defaultBucket,
         _defaultRegion = defaultRegion,
+        _delimiter = delimiter ?? '/',
         // dependencyManager.get() => S3Client is used for unit tests
         _defaultS3Client = dependencyManager.get() ??
             s3.S3Client(
@@ -72,6 +74,7 @@ class StorageS3Service {
 
   final String _defaultBucket;
   final String _defaultRegion;
+  final String _delimiter;
   final s3.S3Client _defaultS3Client;
   final S3PrefixResolver _prefixResolver;
   final AWSLogger _logger;
@@ -109,7 +112,9 @@ class StorageS3Service {
       builder
         ..bucket = _defaultBucket
         ..prefix = listTargetPrefix
-        ..maxKeys = options.pageSize;
+        ..maxKeys = options.pageSize
+        ..continuationToken = options.nextToken
+        ..delimiter = options.excludeSubPaths ? _delimiter : null;
     });
 
     try {
