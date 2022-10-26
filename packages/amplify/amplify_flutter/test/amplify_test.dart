@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_analytics_pinpoint/method_channel_amplify.dart';
+import 'package:amplify_datastore/method_channel_datastore.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_flutter/src/amplify_impl.dart';
 import 'package:amplify_storage_s3/method_channel_storage_s3.dart';
@@ -137,7 +137,7 @@ void main() {
       () async {
     await amplify.addPlugins([
       AmplifyStorageS3MethodChannel(),
-      AmplifyAnalyticsPinpointMethodChannel(),
+      AmplifyDataStoreMethodChannel(),
     ]);
     await amplify.configure(validJsonConfiguration);
     expect(amplify.isConfigured, true);
@@ -162,7 +162,7 @@ void main() {
     await amplify.addPlugin(AmplifyStorageS3MethodChannel());
     await amplify.configure(validJsonConfiguration);
     try {
-      await amplify.addPlugin(AmplifyAnalyticsPinpointMethodChannel());
+      await amplify.addPlugin(AmplifyDataStoreMethodChannel());
     } catch (e) {
       expect(e, amplifyAlreadyConfiguredForAddPluginException);
       expect(amplify.isConfigured, true);

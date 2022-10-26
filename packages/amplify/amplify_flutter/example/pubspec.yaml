@@ -22,10 +22,6 @@ dependencies:
     sdk: flutter
 
 dependency_overrides:
-  amplify_analytics_pinpoint_android:
-    path: ../../../analytics/amplify_analytics_pinpoint_android
-  amplify_analytics_pinpoint_ios:
-    path: ../../../analytics/amplify_analytics_pinpoint_ios
   amplify_api_android:
     path: ../../../api/amplify_api_android
   amplify_api_ios:
