@@ -70,8 +70,9 @@ class StorageS3Service {
         _serviceStartingTime = DateTime.now();
 
   static final _defaultS3SignerConfiguration = S3ServiceConfiguration(
-    // disable sining payload to align with the behavior of other
-    // Amplify platform libraries.
+    // Disabled due to performance concerns (common behavior in other Amplify
+    // libraries).
+    // MD5 checksum is being used in its place.
     signPayload: false,
   );
   static final _defaultS3ClientConfig = S3ClientConfig(
