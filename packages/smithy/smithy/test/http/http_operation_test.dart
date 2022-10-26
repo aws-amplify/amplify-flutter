@@ -72,7 +72,52 @@ void main() {
       );
       expect(op.result, throwsA(isA<DeserializationError>()));
     });
+
+    test('can transform request/response', () async {
+      final operation = TestOp1();
+      final body =
+          GenericJsonProtocol<Unit, Unit, Unit, Unit>().serialize(const Unit());
+      final client = TransformingClient(
+        onRequest: expectAsync1((_) {}),
+        onResponse: expectAsync1((_) {}),
+        baseClient: MockAWSHttpClient(
+          (_) => AWSStreamedHttpResponse(statusCode: 200, body: body),
+        ),
+      );
+      final op = operation.run(const Unit(), client: client);
+      expect(op.requestProgress, emitsThrough(emitsDone));
+      expect(op.responseProgress, emitsThrough(emitsDone));
+      expect(op.result, completion(isA<Unit>()));
+    });
   });
+}
+
+class TransformingClient extends AWSBaseHttpClient {
+  TransformingClient({
+    this.onRequest,
+    this.onResponse,
+    this.baseClient,
+  });
+
+  @override
+  final AWSHttpClient? baseClient;
+  final FutureOr<void> Function(AWSBaseHttpRequest)? onRequest;
+  final FutureOr<void> Function(AWSBaseHttpResponse)? onResponse;
+
+  @override
+  Future<AWSBaseHttpRequest> transformRequest(
+      AWSBaseHttpRequest request) async {
+    await onRequest?.call(request);
+    return request;
+  }
+
+  @override
+  Future<AWSBaseHttpResponse> transformResponse(
+      AWSBaseHttpResponse response) async {
+    response = await super.transformResponse(response);
+    await onResponse?.call(response);
+    return response;
+  }
 }
 
 class TestOp1 extends HttpOperation<Unit, Unit, Unit, Unit> {
