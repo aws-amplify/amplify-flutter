@@ -143,16 +143,11 @@ void main() {
       const testPath = 'some/path';
       final testResult = S3ListResult(
         <S3Item>[],
-        hasNext: false,
-        next: () async {
-          return S3ListResult(
-            [],
-            hasNext: false,
-            next: () async {
-              throw UnimplementedError();
-            },
-          );
-        },
+        hasNextPage: false,
+        metadata: S3ListMetadata.fromS3CommonPrefixes(
+          commonPrefixes: [],
+          prefixToDrop: 'prefix',
+        ),
       );
 
       setUpAll(() {

@@ -18,6 +18,7 @@ import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_servic
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/database.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:smithy/smithy.dart';
 
 class MockStorageS3Service extends Mock implements StorageS3Service {}
 
@@ -32,3 +33,5 @@ class MockS3DownloadTask extends Mock implements S3DownloadTask {}
 class MockS3UploadTask extends Mock implements S3UploadTask {}
 
 class MockTransferDatabase extends Mock implements TransferDatabase {}
+
+class MockSmithyOperation<T> extends Mock implements SmithyOperation<T> {}

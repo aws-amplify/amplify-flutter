@@ -293,7 +293,7 @@ class S3UploadTask {
     try {
       // TODO(HuiSF): invoke onProgress here to emit upload progres when
       //  AWSHttpOperation is returned from the putObject API.
-      await _s3Client.putObject(putObjectRequest);
+      await _s3Client.putObject(putObjectRequest).result;
       _uploadCompleter.complete(
         _options.getProperties
             ? S3Item.fromHeadObjectOutput(
@@ -431,7 +431,7 @@ class S3UploadTask {
     final createdAt = DateTime.now().toIso8601String();
 
     try {
-      final output = await _s3Client.createMultipartUpload(request);
+      final output = await _s3Client.createMultipartUpload(request).result;
       final uploadId = output.uploadId;
 
       if (uploadId == null) {
@@ -478,7 +478,7 @@ class S3UploadTask {
     });
 
     try {
-      await _s3Client.completeMultipartUpload(request);
+      await _s3Client.completeMultipartUpload(request).result;
       await _transferDatabase.deleteTransferRecords(_multipartUploadId);
     } on UnknownSmithyHttpException catch (error) {
       // TODO(HuiSF): verify if s3Client sdk throws different exception type
@@ -554,7 +554,7 @@ class S3UploadTask {
       //  when _terminateMultipartUploadOnError is called.
       // TODO(HuiSF): add finer upload progress emitter when AWSHttpOperation
       //  is available from uploadPart.
-      final result = await _s3Client.uploadPart(request);
+      final result = await _s3Client.uploadPart(request).result;
       final eTag = result.eTag;
 
       if (eTag == null) {
@@ -595,7 +595,7 @@ class S3UploadTask {
         ..uploadId = _multipartUploadId;
     });
 
-    await _s3Client.abortMultipartUpload(request);
+    await _s3Client.abortMultipartUpload(request).result;
 
     if (isCancel) {
       _uploadCompleter.completeError(error);

@@ -22,8 +22,12 @@ class StorageListOptions extends StorageOperationOptions {
   const StorageListOptions({
     required super.accessLevel,
     required this.pageSize,
+    this.nextToken,
   });
 
   /// The number of object to be listed in each page.
   final int pageSize;
+
+  /// Token used to list the next page.
+  final String? nextToken;
 }

@@ -45,9 +45,11 @@ class StorageS3Service {
     required S3PrefixResolver prefixResolver,
     required AWSIamAmplifyAuthProvider credentialsProvider,
     required AWSLogger logger,
+    String? delimiter,
     required DependencyManager dependencyManager,
   })  : _defaultBucket = defaultBucket,
         _defaultRegion = defaultRegion,
+        _delimiter = delimiter ?? '/',
         // dependencyManager.get() => S3Client is used for unit tests
         _defaultS3Client = dependencyManager.get() ??
             s3.S3Client(
@@ -72,6 +74,7 @@ class StorageS3Service {
 
   final String _defaultBucket;
   final String _defaultRegion;
+  final String _delimiter;
   final s3.S3Client _defaultS3Client;
   final S3PrefixResolver _prefixResolver;
   final AWSLogger _logger;
@@ -109,12 +112,14 @@ class StorageS3Service {
       builder
         ..bucket = _defaultBucket
         ..prefix = listTargetPrefix
-        ..maxKeys = options.pageSize;
+        ..maxKeys = options.pageSize
+        ..continuationToken = options.nextToken
+        ..delimiter = options.excludeSubPaths ? _delimiter : null;
     });
 
     try {
       return S3ListResult.fromPaginatedResult(
-        await _defaultS3Client.listObjectsV2(request),
+        await _defaultS3Client.listObjectsV2(request).result,
         prefixToDrop: resolvedPrefix,
       );
     } on smithy.UnknownSmithyHttpException catch (error) {
@@ -354,7 +359,7 @@ class StorageS3Service {
     });
 
     try {
-      await _defaultS3Client.copyObject(copyRequest);
+      await _defaultS3Client.copyObject(copyRequest).result;
     } on smithy.UnknownSmithyHttpException catch (error) {
       // S3Client.copyObject may return 403 or 404 error
       throw S3Exception.fromUnknownSmithyHttpException(error);
@@ -507,7 +512,7 @@ class StorageS3Service {
           }).toBuilder();
       });
       try {
-        final output = await _defaultS3Client.deleteObjects(request);
+        final output = await _defaultS3Client.deleteObjects(request).result;
         removedItems.addAll(
           output.deleted?.toList().map(
                     (removedObject) => S3Item.fromS3Object(
@@ -546,7 +551,7 @@ class StorageS3Service {
     try {
       // The current capability of the `remove` API doesn't require parsing
       // the [DeleteObjectOutput] returned by [S3Client.deleteObject].
-      return await s3client.deleteObject(request);
+      return await s3client.deleteObject(request).result;
     } on smithy.UnknownSmithyHttpException catch (error) {
       // S3Client.deleteObject may return 403, for deleting a non-existing
       // object, the API call returns a successful response
@@ -607,7 +612,7 @@ class StorageS3Service {
     });
 
     try {
-      return await s3client.headObject(request);
+      return await s3client.headObject(request).result;
     } on smithy.UnknownSmithyHttpException catch (error) {
       // S3Client.headObject may return 403 or 404 error
       throw S3Exception.fromUnknownSmithyHttpException(error);
@@ -633,7 +638,7 @@ class StorageS3Service {
       });
 
       try {
-        await _defaultS3Client.abortMultipartUpload(request);
+        await _defaultS3Client.abortMultipartUpload(request).result;
         await _transferDatabase.deleteTransferRecords(record.uploadId);
       } on Exception catch (error) {
         _logger.error('Failed to abort multipart upload due to: $error');

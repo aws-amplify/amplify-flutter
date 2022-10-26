@@ -21,18 +21,16 @@ class StorageListResult<Items extends List<StorageItem>> {
   /// {@macro amplify_core.storage.list_result}
   const StorageListResult(
     this.items, {
-    required this.hasNext,
-    required Future<StorageListResult<Items>> Function() next,
-  }) : _next = next;
+    required this.hasNextPage,
+    this.nextToken,
+  });
 
   /// The objects listed in the current page.
   final Items items;
 
-  /// Flag that indicates if there is any more page can be listed.
-  final bool hasNext;
+  /// Whether has next page that can be listed using [nextToken].
+  final bool hasNextPage;
 
-  /// Function to list the next page.
-  Future<StorageListResult<Items>> next() => _next();
-
-  final Future<StorageListResult<Items>> Function() _next;
+  /// Token used to list the next page.
+  final String? nextToken;
 }
