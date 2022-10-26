@@ -2,11 +2,10 @@
 
 library smoke_test.s3.s3_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i4;
-
+import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
 import 'package:built_collection/built_collection.dart' as _i175;
-import 'package:smithy/smithy.dart' as _i1;
+import 'package:smithy/smithy.dart' as _i4;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 import 'package:smoke_test/src/sdk/src/s3/model/abort_multipart_upload_output.dart'
     as _i5;
@@ -496,7 +495,7 @@ import 'package:smoke_test/src/sdk/src/s3/operation/write_get_object_response_op
 
 class S3Client {
   const S3Client({
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
     required String region,
     Uri? baseUri,
     required _i2.S3ClientConfig s3ClientConfig,
@@ -507,7 +506,7 @@ class S3Client {
         _s3ClientConfig = s3ClientConfig,
         _credentialsProvider = credentialsProvider;
 
-  final _i1.HttpClient? _client;
+  final _i1.AWSHttpClient? _client;
 
   final String _region;
 
@@ -534,9 +533,9 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i4.Future<_i5.AbortMultipartUploadOutput> abortMultipartUpload(
+  _i4.SmithyOperation<_i5.AbortMultipartUploadOutput> abortMultipartUpload(
     _i6.AbortMultipartUploadRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i7.AbortMultipartUploadOperation(
       region: _region,
@@ -601,9 +600,10 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i4.Future<_i8.CompleteMultipartUploadOutput> completeMultipartUpload(
+  _i4.SmithyOperation<_i8.CompleteMultipartUploadOutput>
+      completeMultipartUpload(
     _i9.CompleteMultipartUploadRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i10.CompleteMultipartUploadOperation(
       region: _region,
@@ -709,9 +709,9 @@ class S3Client {
   ///
   ///
   /// For more information, see [Copying Objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/CopyingObjectsExamples.html).
-  _i4.Future<_i11.CopyObjectOutput> copyObject(
+  _i4.SmithyOperation<_i11.CopyObjectOutput> copyObject(
     _i12.CopyObjectRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i13.CopyObjectOperation(
       region: _region,
@@ -799,9 +799,9 @@ class S3Client {
   /// *   [PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
   ///
   /// *   [DeleteBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucket.html)
-  _i4.Future<_i14.CreateBucketOutput> createBucket(
+  _i4.SmithyOperation<_i14.CreateBucketOutput> createBucket(
     _i15.CreateBucketRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i16.CreateBucketOperation(
       region: _region,
@@ -941,9 +941,9 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i4.Future<_i17.CreateMultipartUploadOutput> createMultipartUpload(
+  _i4.SmithyOperation<_i17.CreateMultipartUploadOutput> createMultipartUpload(
     _i18.CreateMultipartUploadRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i19.CreateMultipartUploadOperation(
       region: _region,
@@ -963,9 +963,9 @@ class S3Client {
   /// *   [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
   ///
   /// *   [DeleteObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html)
-  _i4.Future<void> deleteBucket(
+  _i4.SmithyOperation<void> deleteBucket(
     _i20.DeleteBucketRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i21.DeleteBucketOperation(
       region: _region,
@@ -991,9 +991,9 @@ class S3Client {
   /// *   [ListBucketAnalyticsConfigurations](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketAnalyticsConfigurations.html)
   ///
   /// *   [PutBucketAnalyticsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketAnalyticsConfiguration.html)
-  _i4.Future<void> deleteBucketAnalyticsConfiguration(
+  _i4.SmithyOperation<void> deleteBucketAnalyticsConfiguration(
     _i22.DeleteBucketAnalyticsConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i23.DeleteBucketAnalyticsConfigurationOperation(
       region: _region,
@@ -1017,9 +1017,9 @@ class S3Client {
   /// *   [PutBucketCors](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketCors.html)
   ///
   /// *   [RESTOPTIONSobject](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTOPTIONSobject.html)
-  _i4.Future<void> deleteBucketCors(
+  _i4.SmithyOperation<void> deleteBucketCors(
     _i24.DeleteBucketCorsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i25.DeleteBucketCorsOperation(
       region: _region,
@@ -1041,9 +1041,9 @@ class S3Client {
   /// *   [PutBucketEncryption](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketEncryption.html)
   ///
   /// *   [GetBucketEncryption](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketEncryption.html)
-  _i4.Future<void> deleteBucketEncryption(
+  _i4.SmithyOperation<void> deleteBucketEncryption(
     _i26.DeleteBucketEncryptionRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i27.DeleteBucketEncryptionOperation(
       region: _region,
@@ -1071,9 +1071,9 @@ class S3Client {
   /// *   [PutBucketIntelligentTieringConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketIntelligentTieringConfiguration.html)
   ///
   /// *   [ListBucketIntelligentTieringConfigurations](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketIntelligentTieringConfigurations.html)
-  _i4.Future<void> deleteBucketIntelligentTieringConfiguration(
+  _i4.SmithyOperation<void> deleteBucketIntelligentTieringConfiguration(
     _i28.DeleteBucketIntelligentTieringConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i29.DeleteBucketIntelligentTieringConfigurationOperation(
       region: _region,
@@ -1099,9 +1099,9 @@ class S3Client {
   /// *   [PutBucketInventoryConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketInventoryConfiguration.html)
   ///
   /// *   [ListBucketInventoryConfigurations](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketInventoryConfigurations.html)
-  _i4.Future<void> deleteBucketInventoryConfiguration(
+  _i4.SmithyOperation<void> deleteBucketInventoryConfiguration(
     _i30.DeleteBucketInventoryConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i31.DeleteBucketInventoryConfigurationOperation(
       region: _region,
@@ -1127,9 +1127,9 @@ class S3Client {
   /// *   [PutBucketLifecycleConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html)
   ///
   /// *   [GetBucketLifecycleConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLifecycleConfiguration.html)
-  _i4.Future<void> deleteBucketLifecycle(
+  _i4.SmithyOperation<void> deleteBucketLifecycle(
     _i32.DeleteBucketLifecycleRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i33.DeleteBucketLifecycleOperation(
       region: _region,
@@ -1157,9 +1157,9 @@ class S3Client {
   /// *   [ListBucketMetricsConfigurations](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketMetricsConfigurations.html)
   ///
   /// *   [Monitoring Metrics with Amazon CloudWatch](https://docs.aws.amazon.com/AmazonS3/latest/dev/cloudwatch-monitoring.html)
-  _i4.Future<void> deleteBucketMetricsConfiguration(
+  _i4.SmithyOperation<void> deleteBucketMetricsConfiguration(
     _i34.DeleteBucketMetricsConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i35.DeleteBucketMetricsConfigurationOperation(
       region: _region,
@@ -1181,9 +1181,9 @@ class S3Client {
   /// *   GetBucketOwnershipControls
   ///
   /// *   PutBucketOwnershipControls
-  _i4.Future<void> deleteBucketOwnershipControls(
+  _i4.SmithyOperation<void> deleteBucketOwnershipControls(
     _i36.DeleteBucketOwnershipControlsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i37.DeleteBucketOwnershipControlsOperation(
       region: _region,
@@ -1209,9 +1209,9 @@ class S3Client {
   /// *   [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
   ///
   /// *   [DeleteObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html)
-  _i4.Future<void> deleteBucketPolicy(
+  _i4.SmithyOperation<void> deleteBucketPolicy(
     _i38.DeleteBucketPolicyRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i39.DeleteBucketPolicyOperation(
       region: _region,
@@ -1237,9 +1237,9 @@ class S3Client {
   /// *   [PutBucketReplication](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketReplication.html)
   ///
   /// *   [GetBucketReplication](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketReplication.html)
-  _i4.Future<void> deleteBucketReplication(
+  _i4.SmithyOperation<void> deleteBucketReplication(
     _i40.DeleteBucketReplicationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i41.DeleteBucketReplicationOperation(
       region: _region,
@@ -1261,9 +1261,9 @@ class S3Client {
   /// *   [GetBucketTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketTagging.html)
   ///
   /// *   [PutBucketTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketTagging.html)
-  _i4.Future<void> deleteBucketTagging(
+  _i4.SmithyOperation<void> deleteBucketTagging(
     _i42.DeleteBucketTaggingRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i43.DeleteBucketTaggingOperation(
       region: _region,
@@ -1287,9 +1287,9 @@ class S3Client {
   /// *   [GetBucketWebsite](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketWebsite.html)
   ///
   /// *   [PutBucketWebsite](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketWebsite.html)
-  _i4.Future<void> deleteBucketWebsite(
+  _i4.SmithyOperation<void> deleteBucketWebsite(
     _i44.DeleteBucketWebsiteRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i45.DeleteBucketWebsiteOperation(
       region: _region,
@@ -1315,9 +1315,9 @@ class S3Client {
   /// The following action is related to `DeleteObject`:
   ///
   /// *   [PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
-  _i4.Future<_i46.DeleteObjectOutput> deleteObject(
+  _i4.SmithyOperation<_i46.DeleteObjectOutput> deleteObject(
     _i47.DeleteObjectRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i48.DeleteObjectOperation(
       region: _region,
@@ -1341,9 +1341,9 @@ class S3Client {
   /// *   [PutObjectTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectTagging.html)
   ///
   /// *   [GetObjectTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html)
-  _i4.Future<_i49.DeleteObjectTaggingOutput> deleteObjectTagging(
+  _i4.SmithyOperation<_i49.DeleteObjectTaggingOutput> deleteObjectTagging(
     _i50.DeleteObjectTaggingRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i51.DeleteObjectTaggingOperation(
       region: _region,
@@ -1377,9 +1377,9 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [AbortMultipartUpload](https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html)
-  _i4.Future<_i52.DeleteObjectsOutput> deleteObjects(
+  _i4.SmithyOperation<_i52.DeleteObjectsOutput> deleteObjects(
     _i53.DeleteObjectsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i54.DeleteObjectsOperation(
       region: _region,
@@ -1403,9 +1403,9 @@ class S3Client {
   /// *   [PutPublicAccessBlock](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutPublicAccessBlock.html)
   ///
   /// *   [GetBucketPolicyStatus](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketPolicyStatus.html)
-  _i4.Future<void> deletePublicAccessBlock(
+  _i4.SmithyOperation<void> deletePublicAccessBlock(
     _i55.DeletePublicAccessBlockRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i56.DeletePublicAccessBlockOperation(
       region: _region,
@@ -1431,10 +1431,10 @@ class S3Client {
   /// **Related Resources**
   ///
   /// *   [PutBucketAccelerateConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketAccelerateConfiguration.html)
-  _i4.Future<_i57.GetBucketAccelerateConfigurationOutput>
+  _i4.SmithyOperation<_i57.GetBucketAccelerateConfigurationOutput>
       getBucketAccelerateConfiguration(
     _i58.GetBucketAccelerateConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i59.GetBucketAccelerateConfigurationOperation(
       region: _region,
@@ -1454,9 +1454,9 @@ class S3Client {
   /// **Related Resources**
   ///
   /// *   [ListObjects](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjects.html)
-  _i4.Future<_i60.GetBucketAclOutput> getBucketAcl(
+  _i4.SmithyOperation<_i60.GetBucketAclOutput> getBucketAcl(
     _i61.GetBucketAclRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i62.GetBucketAclOperation(
       region: _region,
@@ -1482,10 +1482,10 @@ class S3Client {
   /// *   [ListBucketAnalyticsConfigurations](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketAnalyticsConfigurations.html)
   ///
   /// *   [PutBucketAnalyticsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketAnalyticsConfiguration.html)
-  _i4.Future<_i63.GetBucketAnalyticsConfigurationOutput>
+  _i4.SmithyOperation<_i63.GetBucketAnalyticsConfigurationOutput>
       getBucketAnalyticsConfiguration(
     _i64.GetBucketAnalyticsConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i65.GetBucketAnalyticsConfigurationOperation(
       region: _region,
@@ -1509,9 +1509,9 @@ class S3Client {
   /// *   [PutBucketCors](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketCors.html)
   ///
   /// *   [DeleteBucketCors](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketCors.html)
-  _i4.Future<_i66.GetBucketCorsOutput> getBucketCors(
+  _i4.SmithyOperation<_i66.GetBucketCorsOutput> getBucketCors(
     _i67.GetBucketCorsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i68.GetBucketCorsOperation(
       region: _region,
@@ -1535,9 +1535,9 @@ class S3Client {
   /// *   [PutBucketEncryption](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketEncryption.html)
   ///
   /// *   [DeleteBucketEncryption](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketEncryption.html)
-  _i4.Future<_i69.GetBucketEncryptionOutput> getBucketEncryption(
+  _i4.SmithyOperation<_i69.GetBucketEncryptionOutput> getBucketEncryption(
     _i70.GetBucketEncryptionRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i71.GetBucketEncryptionOperation(
       region: _region,
@@ -1565,10 +1565,10 @@ class S3Client {
   /// *   [PutBucketIntelligentTieringConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketIntelligentTieringConfiguration.html)
   ///
   /// *   [ListBucketIntelligentTieringConfigurations](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketIntelligentTieringConfigurations.html)
-  _i4.Future<_i72.GetBucketIntelligentTieringConfigurationOutput>
+  _i4.SmithyOperation<_i72.GetBucketIntelligentTieringConfigurationOutput>
       getBucketIntelligentTieringConfiguration(
     _i73.GetBucketIntelligentTieringConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i74.GetBucketIntelligentTieringConfigurationOperation(
       region: _region,
@@ -1594,10 +1594,10 @@ class S3Client {
   /// *   [ListBucketInventoryConfigurations](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketInventoryConfigurations.html)
   ///
   /// *   [PutBucketInventoryConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketInventoryConfiguration.html)
-  _i4.Future<_i75.GetBucketInventoryConfigurationOutput>
+  _i4.SmithyOperation<_i75.GetBucketInventoryConfigurationOutput>
       getBucketInventoryConfiguration(
     _i76.GetBucketInventoryConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i77.GetBucketInventoryConfigurationOperation(
       region: _region,
@@ -1634,10 +1634,10 @@ class S3Client {
   /// *   [PutBucketLifecycle](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycle.html)
   ///
   /// *   [DeleteBucketLifecycle](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketLifecycle.html)
-  _i4.Future<_i78.GetBucketLifecycleConfigurationOutput>
+  _i4.SmithyOperation<_i78.GetBucketLifecycleConfigurationOutput>
       getBucketLifecycleConfiguration(
     _i79.GetBucketLifecycleConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i80.GetBucketLifecycleConfigurationOperation(
       region: _region,
@@ -1661,9 +1661,9 @@ class S3Client {
   /// *   [GetObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html)
   ///
   /// *   [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
-  _i4.Future<_i81.GetBucketLocationOutput> getBucketLocation(
+  _i4.SmithyOperation<_i81.GetBucketLocationOutput> getBucketLocation(
     _i82.GetBucketLocationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i83.GetBucketLocationOperation(
       region: _region,
@@ -1683,9 +1683,9 @@ class S3Client {
   /// *   [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
   ///
   /// *   [PutBucketLogging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLogging.html)
-  _i4.Future<_i84.GetBucketLoggingOutput> getBucketLogging(
+  _i4.SmithyOperation<_i84.GetBucketLoggingOutput> getBucketLogging(
     _i85.GetBucketLoggingRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i86.GetBucketLoggingOperation(
       region: _region,
@@ -1713,10 +1713,10 @@ class S3Client {
   /// *   [ListBucketMetricsConfigurations](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketMetricsConfigurations.html)
   ///
   /// *   [Monitoring Metrics with Amazon CloudWatch](https://docs.aws.amazon.com/AmazonS3/latest/dev/cloudwatch-monitoring.html)
-  _i4.Future<_i87.GetBucketMetricsConfigurationOutput>
+  _i4.SmithyOperation<_i87.GetBucketMetricsConfigurationOutput>
       getBucketMetricsConfiguration(
     _i88.GetBucketMetricsConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i89.GetBucketMetricsConfigurationOperation(
       region: _region,
@@ -1740,9 +1740,10 @@ class S3Client {
   /// The following action is related to `GetBucketNotification`:
   ///
   /// *   [PutBucketNotification](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketNotification.html)
-  _i4.Future<_i90.NotificationConfiguration> getBucketNotificationConfiguration(
+  _i4.SmithyOperation<_i90.NotificationConfiguration>
+      getBucketNotificationConfiguration(
     _i91.GetBucketNotificationConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i92.GetBucketNotificationConfigurationOperation(
       region: _region,
@@ -1764,9 +1765,10 @@ class S3Client {
   /// *   PutBucketOwnershipControls
   ///
   /// *   DeleteBucketOwnershipControls
-  _i4.Future<_i93.GetBucketOwnershipControlsOutput> getBucketOwnershipControls(
+  _i4.SmithyOperation<_i93.GetBucketOwnershipControlsOutput>
+      getBucketOwnershipControls(
     _i94.GetBucketOwnershipControlsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i95.GetBucketOwnershipControlsOperation(
       region: _region,
@@ -1790,9 +1792,9 @@ class S3Client {
   /// The following action is related to `GetBucketPolicy`:
   ///
   /// *   [GetObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html)
-  _i4.Future<_i96.GetBucketPolicyOutput> getBucketPolicy(
+  _i4.SmithyOperation<_i96.GetBucketPolicyOutput> getBucketPolicy(
     _i97.GetBucketPolicyRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i98.GetBucketPolicyOperation(
       region: _region,
@@ -1818,9 +1820,9 @@ class S3Client {
   /// *   [PutPublicAccessBlock](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutPublicAccessBlock.html)
   ///
   /// *   [DeletePublicAccessBlock](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeletePublicAccessBlock.html)
-  _i4.Future<_i99.GetBucketPolicyStatusOutput> getBucketPolicyStatus(
+  _i4.SmithyOperation<_i99.GetBucketPolicyStatusOutput> getBucketPolicyStatus(
     _i100.GetBucketPolicyStatusRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i101.GetBucketPolicyStatusOperation(
       region: _region,
@@ -1850,9 +1852,9 @@ class S3Client {
   /// *   [PutBucketReplication](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketReplication.html)
   ///
   /// *   [DeleteBucketReplication](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketReplication.html)
-  _i4.Future<_i102.GetBucketReplicationOutput> getBucketReplication(
+  _i4.SmithyOperation<_i102.GetBucketReplicationOutput> getBucketReplication(
     _i103.GetBucketReplicationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i104.GetBucketReplicationOperation(
       region: _region,
@@ -1870,9 +1872,10 @@ class S3Client {
   /// The following operations are related to `GetBucketRequestPayment`:
   ///
   /// *   [ListObjects](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjects.html)
-  _i4.Future<_i105.GetBucketRequestPaymentOutput> getBucketRequestPayment(
+  _i4.SmithyOperation<_i105.GetBucketRequestPaymentOutput>
+      getBucketRequestPayment(
     _i106.GetBucketRequestPaymentRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i107.GetBucketRequestPaymentOperation(
       region: _region,
@@ -1901,9 +1904,9 @@ class S3Client {
   /// *   [PutBucketTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketTagging.html)
   ///
   /// *   [DeleteBucketTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketTagging.html)
-  _i4.Future<_i108.GetBucketTaggingOutput> getBucketTagging(
+  _i4.SmithyOperation<_i108.GetBucketTaggingOutput> getBucketTagging(
     _i109.GetBucketTaggingRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i110.GetBucketTaggingOperation(
       region: _region,
@@ -1929,9 +1932,9 @@ class S3Client {
   /// *   [PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
   ///
   /// *   [DeleteObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html)
-  _i4.Future<_i111.GetBucketVersioningOutput> getBucketVersioning(
+  _i4.SmithyOperation<_i111.GetBucketVersioningOutput> getBucketVersioning(
     _i112.GetBucketVersioningRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i113.GetBucketVersioningOperation(
       region: _region,
@@ -1953,9 +1956,9 @@ class S3Client {
   /// *   [DeleteBucketWebsite](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketWebsite.html)
   ///
   /// *   [PutBucketWebsite](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketWebsite.html)
-  _i4.Future<_i114.GetBucketWebsiteOutput> getBucketWebsite(
+  _i4.SmithyOperation<_i114.GetBucketWebsiteOutput> getBucketWebsite(
     _i115.GetBucketWebsiteRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i116.GetBucketWebsiteOperation(
       region: _region,
@@ -2047,9 +2050,9 @@ class S3Client {
   /// *   [ListBuckets](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBuckets.html)
   ///
   /// *   [GetObjectAcl](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAcl.html)
-  _i4.Future<_i117.GetObjectOutput> getObject(
+  _i4.SmithyOperation<_i117.GetObjectOutput> getObject(
     _i118.GetObjectRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i119.GetObjectOperation(
       region: _region,
@@ -2081,9 +2084,9 @@ class S3Client {
   /// *   [DeleteObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html)
   ///
   /// *   [PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
-  _i4.Future<_i120.GetObjectAclOutput> getObjectAcl(
+  _i4.SmithyOperation<_i120.GetObjectAclOutput> getObjectAcl(
     _i121.GetObjectAclRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i122.GetObjectAclOperation(
       region: _region,
@@ -2159,9 +2162,9 @@ class S3Client {
   /// *   [HeadObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_HeadObject.html)
   ///
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
-  _i4.Future<_i123.GetObjectAttributesOutput> getObjectAttributes(
+  _i4.SmithyOperation<_i123.GetObjectAttributesOutput> getObjectAttributes(
     _i124.GetObjectAttributesRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i125.GetObjectAttributesOperation(
       region: _region,
@@ -2181,9 +2184,9 @@ class S3Client {
   /// The following action is related to `GetObjectLegalHold`:
   ///
   /// *   [GetObjectAttributes](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html)
-  _i4.Future<_i126.GetObjectLegalHoldOutput> getObjectLegalHold(
+  _i4.SmithyOperation<_i126.GetObjectLegalHoldOutput> getObjectLegalHold(
     _i127.GetObjectLegalHoldRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i128.GetObjectLegalHoldOperation(
       region: _region,
@@ -2201,9 +2204,10 @@ class S3Client {
   /// The following action is related to `GetObjectLockConfiguration`:
   ///
   /// *   [GetObjectAttributes](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html)
-  _i4.Future<_i129.GetObjectLockConfigurationOutput> getObjectLockConfiguration(
+  _i4.SmithyOperation<_i129.GetObjectLockConfigurationOutput>
+      getObjectLockConfiguration(
     _i130.GetObjectLockConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i131.GetObjectLockConfigurationOperation(
       region: _region,
@@ -2223,9 +2227,9 @@ class S3Client {
   /// The following action is related to `GetObjectRetention`:
   ///
   /// *   [GetObjectAttributes](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html)
-  _i4.Future<_i132.GetObjectRetentionOutput> getObjectRetention(
+  _i4.SmithyOperation<_i132.GetObjectRetentionOutput> getObjectRetention(
     _i133.GetObjectRetentionRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i134.GetObjectRetentionOperation(
       region: _region,
@@ -2253,9 +2257,9 @@ class S3Client {
   /// *   [GetObjectAttributes](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html)
   ///
   /// *   [PutObjectTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectTagging.html)
-  _i4.Future<_i135.GetObjectTaggingOutput> getObjectTagging(
+  _i4.SmithyOperation<_i135.GetObjectTaggingOutput> getObjectTagging(
     _i136.GetObjectTaggingRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i137.GetObjectTaggingOperation(
       region: _region,
@@ -2279,9 +2283,9 @@ class S3Client {
   /// The following action is related to `GetObjectTorrent`:
   ///
   /// *   [GetObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html)
-  _i4.Future<_i138.GetObjectTorrentOutput> getObjectTorrent(
+  _i4.SmithyOperation<_i138.GetObjectTorrentOutput> getObjectTorrent(
     _i139.GetObjectTorrentRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i140.GetObjectTorrentOperation(
       region: _region,
@@ -2309,9 +2313,9 @@ class S3Client {
   /// *   [GetPublicAccessBlock](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetPublicAccessBlock.html)
   ///
   /// *   [DeletePublicAccessBlock](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeletePublicAccessBlock.html)
-  _i4.Future<_i141.GetPublicAccessBlockOutput> getPublicAccessBlock(
+  _i4.SmithyOperation<_i141.GetPublicAccessBlockOutput> getPublicAccessBlock(
     _i142.GetPublicAccessBlockRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i143.GetPublicAccessBlockOperation(
       region: _region,
@@ -2331,9 +2335,9 @@ class S3Client {
   /// To use this operation, you must have permissions to perform the `s3:ListBucket` action. The bucket owner has this permission by default and can grant this permission to others. For more information about permissions, see [Permissions Related to Bucket Subresource Operations](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources) and [Managing Access Permissions to Your Amazon S3 Resources](https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-access-control.html).
   ///
   /// To use this API against an access point, you must provide the alias of the access point in place of the bucket name or specify the access point ARN. When using the access point ARN, you must direct requests to the access point hostname. The access point hostname takes the form AccessPointName-AccountId.s3-accesspoint.Region.amazonaws.com. When using the Amazon Web Services SDKs, you provide the ARN in place of the bucket name. For more information see, [Using access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html).
-  _i4.Future<void> headBucket(
+  _i4.SmithyOperation<void> headBucket(
     _i144.HeadBucketRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i145.HeadBucketOperation(
       region: _region,
@@ -2405,9 +2409,9 @@ class S3Client {
   /// *   [GetObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html)
   ///
   /// *   [GetObjectAttributes](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html)
-  _i4.Future<_i146.HeadObjectOutput> headObject(
+  _i4.SmithyOperation<_i146.HeadObjectOutput> headObject(
     _i147.HeadObjectRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i148.HeadObjectOperation(
       region: _region,
@@ -2435,10 +2439,10 @@ class S3Client {
   /// *   [DeleteBucketAnalyticsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketAnalyticsConfiguration.html)
   ///
   /// *   [PutBucketAnalyticsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketAnalyticsConfiguration.html)
-  _i4.Future<_i149.ListBucketAnalyticsConfigurationsOutput>
+  _i4.SmithyOperation<_i149.ListBucketAnalyticsConfigurationsOutput>
       listBucketAnalyticsConfigurations(
     _i150.ListBucketAnalyticsConfigurationsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i151.ListBucketAnalyticsConfigurationsOperation(
       region: _region,
@@ -2466,10 +2470,10 @@ class S3Client {
   /// *   [PutBucketIntelligentTieringConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketIntelligentTieringConfiguration.html)
   ///
   /// *   [GetBucketIntelligentTieringConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketIntelligentTieringConfiguration.html)
-  _i4.Future<_i152.ListBucketIntelligentTieringConfigurationsOutput>
+  _i4.SmithyOperation<_i152.ListBucketIntelligentTieringConfigurationsOutput>
       listBucketIntelligentTieringConfigurations(
     _i153.ListBucketIntelligentTieringConfigurationsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i154.ListBucketIntelligentTieringConfigurationsOperation(
       region: _region,
@@ -2497,10 +2501,10 @@ class S3Client {
   /// *   [DeleteBucketInventoryConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketInventoryConfiguration.html)
   ///
   /// *   [PutBucketInventoryConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketInventoryConfiguration.html)
-  _i4.Future<_i155.ListBucketInventoryConfigurationsOutput>
+  _i4.SmithyOperation<_i155.ListBucketInventoryConfigurationsOutput>
       listBucketInventoryConfigurations(
     _i156.ListBucketInventoryConfigurationsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i157.ListBucketInventoryConfigurationsOperation(
       region: _region,
@@ -2528,10 +2532,10 @@ class S3Client {
   /// *   [GetBucketMetricsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketMetricsConfiguration.html)
   ///
   /// *   [DeleteBucketMetricsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketMetricsConfiguration.html)
-  _i4.Future<_i158.ListBucketMetricsConfigurationsOutput>
+  _i4.SmithyOperation<_i158.ListBucketMetricsConfigurationsOutput>
       listBucketMetricsConfigurations(
     _i159.ListBucketMetricsConfigurationsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i160.ListBucketMetricsConfigurationsOperation(
       region: _region,
@@ -2545,14 +2549,15 @@ class S3Client {
   }
 
   /// Returns a list of all buckets owned by the authenticated sender of the request. To use this operation, you must have the `s3:ListAllMyBuckets` permission.
-  _i4.Future<_i161.ListBucketsOutput> listBuckets({_i1.HttpClient? client}) {
+  _i4.SmithyOperation<_i161.ListBucketsOutput> listBuckets(
+      {_i1.AWSHttpClient? client}) {
     return _i162.ListBucketsOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: _s3ClientConfig,
       credentialsProvider: _credentialsProvider,
     ).run(
-      const _i1.Unit(),
+      const _i4.Unit(),
       client: client ?? _client,
     );
   }
@@ -2578,9 +2583,9 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [AbortMultipartUpload](https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html)
-  _i4.Future<_i163.ListMultipartUploadsOutput> listMultipartUploads(
+  _i4.SmithyOperation<_i163.ListMultipartUploadsOutput> listMultipartUploads(
     _i164.ListMultipartUploadsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i165.ListMultipartUploadsOperation(
       region: _region,
@@ -2612,9 +2617,9 @@ class S3Client {
   /// *   [PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
   ///
   /// *   [DeleteObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html)
-  _i4.Future<_i166.ListObjectVersionsOutput> listObjectVersions(
+  _i4.SmithyOperation<_i166.ListObjectVersionsOutput> listObjectVersions(
     _i167.ListObjectVersionsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i168.ListObjectVersionsOperation(
       region: _region,
@@ -2642,9 +2647,9 @@ class S3Client {
   /// *   [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
   ///
   /// *   [ListBuckets](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBuckets.html)
-  _i4.Future<_i169.ListObjectsOutput> listObjects(
+  _i4.SmithyOperation<_i169.ListObjectsOutput> listObjects(
     _i170.ListObjectsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i171.ListObjectsOperation(
       region: _region,
@@ -2674,9 +2679,11 @@ class S3Client {
   /// *   [PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
   ///
   /// *   [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
-  _i4.Future<_i1.PaginatedResult<_i172.ListObjectsV2Output, int>> listObjectsV2(
+  _i4.SmithyOperation<
+          _i4.PaginatedResult<_i172.ListObjectsV2Output, int, String>>
+      listObjectsV2(
     _i173.ListObjectsV2Request input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i174.ListObjectsV2Operation(
       region: _region,
@@ -2710,9 +2717,10 @@ class S3Client {
   /// *   [GetObjectAttributes](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i4.Future<_i1.PaginatedResult<_i175.BuiltList<_i176.Part>, int>> listParts(
+  _i4.SmithyOperation<
+      _i4.PaginatedResult<_i175.BuiltList<_i176.Part>, int, String>> listParts(
     _i177.ListPartsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i178.ListPartsOperation(
       region: _region,
@@ -2749,9 +2757,9 @@ class S3Client {
   /// *   [GetBucketAccelerateConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketAccelerateConfiguration.html)
   ///
   /// *   [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
-  _i4.Future<void> putBucketAccelerateConfiguration(
+  _i4.SmithyOperation<void> putBucketAccelerateConfiguration(
     _i179.PutBucketAccelerateConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i180.PutBucketAccelerateConfigurationOperation(
       region: _region,
@@ -2873,9 +2881,9 @@ class S3Client {
   /// *   [DeleteBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucket.html)
   ///
   /// *   [GetObjectAcl](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAcl.html)
-  _i4.Future<void> putBucketAcl(
+  _i4.SmithyOperation<void> putBucketAcl(
     _i181.PutBucketAclRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i182.PutBucketAclOperation(
       region: _region,
@@ -2924,9 +2932,9 @@ class S3Client {
   /// *   [DeleteBucketAnalyticsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketAnalyticsConfiguration.html)
   ///
   /// *   [ListBucketAnalyticsConfigurations](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketAnalyticsConfigurations.html)
-  _i4.Future<void> putBucketAnalyticsConfiguration(
+  _i4.SmithyOperation<void> putBucketAnalyticsConfiguration(
     _i183.PutBucketAnalyticsConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i184.PutBucketAnalyticsConfigurationOperation(
       region: _region,
@@ -2965,9 +2973,9 @@ class S3Client {
   /// *   [DeleteBucketCors](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketCors.html)
   ///
   /// *   [RESTOPTIONSobject](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTOPTIONSobject.html)
-  _i4.Future<void> putBucketCors(
+  _i4.SmithyOperation<void> putBucketCors(
     _i185.PutBucketCorsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i186.PutBucketCorsOperation(
       region: _region,
@@ -2993,9 +3001,9 @@ class S3Client {
   /// *   [GetBucketEncryption](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketEncryption.html)
   ///
   /// *   [DeleteBucketEncryption](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketEncryption.html)
-  _i4.Future<void> putBucketEncryption(
+  _i4.SmithyOperation<void> putBucketEncryption(
     _i187.PutBucketEncryptionRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i188.PutBucketEncryptionOperation(
       region: _region,
@@ -3046,9 +3054,9 @@ class S3Client {
   ///     *   _Code:_ AccessDenied
   ///
   ///     *   _Cause:_ You are not the owner of the specified bucket, or you do not have the `s3:PutIntelligentTieringConfiguration` bucket permission to set the configuration on the bucket.
-  _i4.Future<void> putBucketIntelligentTieringConfiguration(
+  _i4.SmithyOperation<void> putBucketIntelligentTieringConfiguration(
     _i189.PutBucketIntelligentTieringConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i190.PutBucketIntelligentTieringConfigurationOperation(
       region: _region,
@@ -3099,9 +3107,9 @@ class S3Client {
   /// *   [DeleteBucketInventoryConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketInventoryConfiguration.html)
   ///
   /// *   [ListBucketInventoryConfigurations](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketInventoryConfigurations.html)
-  _i4.Future<void> putBucketInventoryConfiguration(
+  _i4.SmithyOperation<void> putBucketInventoryConfiguration(
     _i191.PutBucketInventoryConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i192.PutBucketInventoryConfigurationOperation(
       region: _region,
@@ -3153,9 +3161,9 @@ class S3Client {
   /// *   [GetBucketLifecycleConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLifecycleConfiguration.html)
   ///
   /// *   [DeleteBucketLifecycle](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketLifecycle.html)
-  _i4.Future<void> putBucketLifecycleConfiguration(
+  _i4.SmithyOperation<void> putBucketLifecycleConfiguration(
     _i193.PutBucketLifecycleConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i194.PutBucketLifecycleConfigurationOperation(
       region: _region,
@@ -3210,9 +3218,9 @@ class S3Client {
   /// *   [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
   ///
   /// *   [GetBucketLogging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLogging.html)
-  _i4.Future<void> putBucketLogging(
+  _i4.SmithyOperation<void> putBucketLogging(
     _i195.PutBucketLoggingRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i196.PutBucketLoggingOperation(
       region: _region,
@@ -3247,9 +3255,9 @@ class S3Client {
   ///     *   Description: You are attempting to create a new configuration but have already reached the 1,000-configuration limit.
   ///
   ///     *   HTTP Status Code: HTTP 400 Bad Request
-  _i4.Future<void> putBucketMetricsConfiguration(
+  _i4.SmithyOperation<void> putBucketMetricsConfiguration(
     _i197.PutBucketMetricsConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i198.PutBucketMetricsConfigurationOperation(
       region: _region,
@@ -3287,9 +3295,9 @@ class S3Client {
   /// The following action is related to `PutBucketNotificationConfiguration`:
   ///
   /// *   [GetBucketNotificationConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketNotificationConfiguration.html)
-  _i4.Future<void> putBucketNotificationConfiguration(
+  _i4.SmithyOperation<void> putBucketNotificationConfiguration(
     _i199.PutBucketNotificationConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i200.PutBucketNotificationConfigurationOperation(
       region: _region,
@@ -3311,9 +3319,9 @@ class S3Client {
   /// *   GetBucketOwnershipControls
   ///
   /// *   DeleteBucketOwnershipControls
-  _i4.Future<void> putBucketOwnershipControls(
+  _i4.SmithyOperation<void> putBucketOwnershipControls(
     _i201.PutBucketOwnershipControlsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i202.PutBucketOwnershipControlsOperation(
       region: _region,
@@ -3339,9 +3347,9 @@ class S3Client {
   /// *   [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
   ///
   /// *   [DeleteBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucket.html)
-  _i4.Future<void> putBucketPolicy(
+  _i4.SmithyOperation<void> putBucketPolicy(
     _i203.PutBucketPolicyRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i204.PutBucketPolicyOperation(
       region: _region,
@@ -3385,9 +3393,9 @@ class S3Client {
   /// *   [GetBucketReplication](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketReplication.html)
   ///
   /// *   [DeleteBucketReplication](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketReplication.html)
-  _i4.Future<void> putBucketReplication(
+  _i4.SmithyOperation<void> putBucketReplication(
     _i205.PutBucketReplicationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i206.PutBucketReplicationOperation(
       region: _region,
@@ -3407,9 +3415,9 @@ class S3Client {
   /// *   [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
   ///
   /// *   [GetBucketRequestPayment](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketRequestPayment.html)
-  _i4.Future<void> putBucketRequestPayment(
+  _i4.SmithyOperation<void> putBucketRequestPayment(
     _i207.PutBucketRequestPaymentRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i208.PutBucketRequestPaymentOperation(
       region: _region,
@@ -3454,9 +3462,9 @@ class S3Client {
   /// *   [GetBucketTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketTagging.html)
   ///
   /// *   [DeleteBucketTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketTagging.html)
-  _i4.Future<void> putBucketTagging(
+  _i4.SmithyOperation<void> putBucketTagging(
     _i209.PutBucketTaggingRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i210.PutBucketTaggingOperation(
       region: _region,
@@ -3490,9 +3498,9 @@ class S3Client {
   /// *   [DeleteBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucket.html)
   ///
   /// *   [GetBucketVersioning](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketVersioning.html)
-  _i4.Future<void> putBucketVersioning(
+  _i4.SmithyOperation<void> putBucketVersioning(
     _i211.PutBucketVersioningRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i212.PutBucketVersioningOperation(
       region: _region,
@@ -3556,9 +3564,9 @@ class S3Client {
   ///
   ///
   /// Amazon S3 has a limitation of 50 routing rules per website configuration. If you require more than 50 routing rules, you can use object redirect. For more information, see [Configuring an Object Redirect](https://docs.aws.amazon.com/AmazonS3/latest/dev/how-to-page-redirect.html) in the _Amazon S3 User Guide_.
-  _i4.Future<void> putBucketWebsite(
+  _i4.SmithyOperation<void> putBucketWebsite(
     _i213.PutBucketWebsiteRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i214.PutBucketWebsiteOperation(
       region: _region,
@@ -3617,9 +3625,9 @@ class S3Client {
   /// *   [CopyObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html)
   ///
   /// *   [DeleteObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html)
-  _i4.Future<_i215.PutObjectOutput> putObject(
+  _i4.SmithyOperation<_i215.PutObjectOutput> putObject(
     _i216.PutObjectRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i217.PutObjectOperation(
       region: _region,
@@ -3736,9 +3744,9 @@ class S3Client {
   /// *   [CopyObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html)
   ///
   /// *   [GetObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html)
-  _i4.Future<_i218.PutObjectAclOutput> putObjectAcl(
+  _i4.SmithyOperation<_i218.PutObjectAclOutput> putObjectAcl(
     _i219.PutObjectAclRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i220.PutObjectAclOperation(
       region: _region,
@@ -3754,9 +3762,9 @@ class S3Client {
   /// Applies a legal hold configuration to the specified object. For more information, see [Locking Objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html).
   ///
   /// This action is not supported by Amazon S3 on Outposts.
-  _i4.Future<_i221.PutObjectLegalHoldOutput> putObjectLegalHold(
+  _i4.SmithyOperation<_i221.PutObjectLegalHoldOutput> putObjectLegalHold(
     _i222.PutObjectLegalHoldRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i223.PutObjectLegalHoldOperation(
       region: _region,
@@ -3776,9 +3784,10 @@ class S3Client {
   /// *   The `DefaultRetention` period can be either `Days` or `Years` but you must select one. You cannot specify `Days` and `Years` at the same time.
   ///
   /// *   You can only enable Object Lock for new buckets. If you want to turn on Object Lock for an existing bucket, contact Amazon Web Services Support.
-  _i4.Future<_i224.PutObjectLockConfigurationOutput> putObjectLockConfiguration(
+  _i4.SmithyOperation<_i224.PutObjectLockConfigurationOutput>
+      putObjectLockConfiguration(
     _i225.PutObjectLockConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i226.PutObjectLockConfigurationOperation(
       region: _region,
@@ -3794,9 +3803,9 @@ class S3Client {
   /// Places an Object Retention configuration on an object. For more information, see [Locking Objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html). Users or accounts require the `s3:PutObjectRetention` permission in order to place an Object Retention configuration on objects. Bypassing a Governance Retention configuration requires the `s3:BypassGovernanceRetention` permission.
   ///
   /// This action is not supported by Amazon S3 on Outposts.
-  _i4.Future<_i227.PutObjectRetentionOutput> putObjectRetention(
+  _i4.SmithyOperation<_i227.PutObjectRetentionOutput> putObjectRetention(
     _i228.PutObjectRetentionRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i229.PutObjectRetentionOperation(
       region: _region,
@@ -3845,9 +3854,9 @@ class S3Client {
   /// *   [GetObjectTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html)
   ///
   /// *   [DeleteObjectTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjectTagging.html)
-  _i4.Future<_i230.PutObjectTaggingOutput> putObjectTagging(
+  _i4.SmithyOperation<_i230.PutObjectTaggingOutput> putObjectTagging(
     _i231.PutObjectTaggingRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i232.PutObjectTaggingOperation(
       region: _region,
@@ -3875,9 +3884,9 @@ class S3Client {
   /// *   [GetBucketPolicyStatus](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketPolicyStatus.html)
   ///
   /// *   [Using Amazon S3 Block Public Access](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html)
-  _i4.Future<void> putPublicAccessBlock(
+  _i4.SmithyOperation<void> putPublicAccessBlock(
     _i233.PutPublicAccessBlockRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i234.PutPublicAccessBlockOperation(
       region: _region,
@@ -4012,9 +4021,9 @@ class S3Client {
   /// *   [GetBucketNotificationConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketNotificationConfiguration.html)
   ///
   /// *   [SQL Reference for Amazon S3 Select and S3 Glacier Select](https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-glacier-select-sql-reference.html) in the _Amazon S3 User Guide_
-  _i4.Future<_i235.RestoreObjectOutput> restoreObject(
+  _i4.SmithyOperation<_i235.RestoreObjectOutput> restoreObject(
     _i236.RestoreObjectRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i237.RestoreObjectOperation(
       region: _region,
@@ -4080,9 +4089,9 @@ class S3Client {
   /// *   [GetBucketLifecycleConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLifecycleConfiguration.html)
   ///
   /// *   [PutBucketLifecycleConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html)
-  _i4.Future<_i238.SelectObjectContentOutput> selectObjectContent(
+  _i4.SmithyOperation<_i238.SelectObjectContentOutput> selectObjectContent(
     _i239.SelectObjectContentRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i240.SelectObjectContentOperation(
       region: _region,
@@ -4150,9 +4159,9 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i4.Future<_i241.UploadPartOutput> uploadPart(
+  _i4.SmithyOperation<_i241.UploadPartOutput> uploadPart(
     _i242.UploadPartRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i243.UploadPartOperation(
       region: _region,
@@ -4239,9 +4248,9 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i4.Future<_i244.UploadPartCopyOutput> uploadPartCopy(
+  _i4.SmithyOperation<_i244.UploadPartCopyOutput> uploadPartCopy(
     _i245.UploadPartCopyRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i246.UploadPartCopyOperation(
       region: _region,
@@ -4269,9 +4278,9 @@ class S3Client {
   /// Example 3: Decompression - The Lambda function S3ObjectLambdaDecompression, is equipped to decompress objects stored in S3 in one of six compressed file formats including bzip2, gzip, snappy, zlib, zstandard and ZIP.
   ///
   /// For information on how to view and use these functions, see [Using Amazon Web Services built Lambda functions](https://docs.aws.amazon.com/AmazonS3/latest/userguide/olap-examples.html) in the _Amazon S3 User Guide_.
-  _i4.Future<void> writeGetObjectResponse(
+  _i4.SmithyOperation<void> writeGetObjectResponse(
     _i247.WriteGetObjectResponseRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i248.WriteGetObjectResponseOperation(
       region: _region,

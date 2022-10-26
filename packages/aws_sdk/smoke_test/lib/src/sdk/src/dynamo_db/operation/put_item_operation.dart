@@ -114,7 +114,7 @@ class PutItemOperation extends _i1.HttpOperation<_i2.PutItemInput,
   @override
   _i3.PutItemOutput buildOutput(
     _i3.PutItemOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.PutItemOutput.fromResponse(
         payload,
@@ -197,15 +197,17 @@ class PutItemOperation extends _i1.HttpOperation<_i2.PutItemInput,
         ),
       ];
   @override
+  String get runtimeTypeName => 'PutItem';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i17.Future<_i3.PutItemOutput> run(
+  _i1.SmithyOperation<_i3.PutItemOutput> run(
     _i2.PutItemInput input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i17.runZoned(

@@ -88,7 +88,7 @@ class DeleteConformancePackOperation extends _i1.HttpOperation<
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override
@@ -113,15 +113,17 @@ class DeleteConformancePackOperation extends _i1.HttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'DeleteConformancePack';
+  @override
   _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i10.Future<_i1.Unit> run(
+  _i1.SmithyOperation<_i1.Unit> run(
     _i2.DeleteConformancePackRequest input, {
-    _i1.HttpClient? client,
+    _i6.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i10.runZoned(

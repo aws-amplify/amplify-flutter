@@ -202,7 +202,14 @@ class LifecycleRuleFilterRestXmlSerializer
   const LifecycleRuleFilterRestXmlSerializer() : super('LifecycleRuleFilter');
 
   @override
-  Iterable<Type> get types => const [LifecycleRuleFilter];
+  Iterable<Type> get types => const [
+        LifecycleRuleFilter,
+        LifecycleRuleFilterAnd,
+        LifecycleRuleFilterObjectSizeGreaterThan,
+        LifecycleRuleFilterObjectSizeLessThan,
+        LifecycleRuleFilterPrefix,
+        LifecycleRuleFilterTag,
+      ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(

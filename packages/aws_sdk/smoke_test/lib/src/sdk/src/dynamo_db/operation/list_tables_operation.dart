@@ -90,7 +90,7 @@ class ListTablesOperation extends _i1.PaginatedHttpOperation<
   @override
   _i3.ListTablesOutput buildOutput(
     _i3.ListTablesOutput payload,
-    _i8.AWSStreamedHttpResponse response,
+    _i8.AWSBaseHttpResponse response,
   ) =>
       _i3.ListTablesOutput.fromResponse(
         payload,
@@ -119,15 +119,17 @@ class ListTablesOperation extends _i1.PaginatedHttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'ListTables';
+  @override
   _i6.AWSRetryer get retryer => _i6.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i12.Future<_i3.ListTablesOutput> run(
+  _i1.SmithyOperation<_i3.ListTablesOutput> run(
     _i2.ListTablesInput input, {
-    _i1.HttpClient? client,
+    _i8.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i12.runZoned(

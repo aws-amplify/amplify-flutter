@@ -109,7 +109,7 @@ class DescribeAggregateComplianceByConformancePacksOperation
   @override
   _i3.DescribeAggregateComplianceByConformancePacksResponse buildOutput(
     _i3.DescribeAggregateComplianceByConformancePacksResponse payload,
-    _i9.AWSStreamedHttpResponse response,
+    _i9.AWSBaseHttpResponse response,
   ) =>
       _i3.DescribeAggregateComplianceByConformancePacksResponse.fromResponse(
         payload,
@@ -155,15 +155,18 @@ class DescribeAggregateComplianceByConformancePacksOperation
         ),
       ];
   @override
+  String get runtimeTypeName => 'DescribeAggregateComplianceByConformancePacks';
+  @override
   _i7.AWSRetryer get retryer => _i7.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i15.Future<_i3.DescribeAggregateComplianceByConformancePacksResponse> run(
+  _i1.SmithyOperation<_i3.DescribeAggregateComplianceByConformancePacksResponse>
+      run(
     _i2.DescribeAggregateComplianceByConformancePacksRequest input, {
-    _i1.HttpClient? client,
+    _i9.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i15.runZoned(

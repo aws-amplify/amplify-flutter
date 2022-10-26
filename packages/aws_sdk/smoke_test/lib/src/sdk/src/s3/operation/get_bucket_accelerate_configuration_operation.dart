@@ -119,7 +119,7 @@ class GetBucketAccelerateConfigurationOperation extends _i1.HttpOperation<
   @override
   _i3.GetBucketAccelerateConfigurationOutput buildOutput(
     _i3.GetBucketAccelerateConfigurationOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.GetBucketAccelerateConfigurationOutput.fromResponse(
         payload,
@@ -127,6 +127,8 @@ class GetBucketAccelerateConfigurationOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+  @override
+  String get runtimeTypeName => 'GetBucketAccelerateConfiguration';
   @override
   _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
@@ -150,9 +152,9 @@ class GetBucketAccelerateConfigurationOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i9.Future<_i3.GetBucketAccelerateConfigurationOutput> run(
+  _i1.SmithyOperation<_i3.GetBucketAccelerateConfigurationOutput> run(
     _i2.GetBucketAccelerateConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i9.runZoned(

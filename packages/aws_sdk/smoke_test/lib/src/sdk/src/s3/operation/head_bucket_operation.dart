@@ -97,7 +97,7 @@ class HeadBucketOperation extends _i1.HttpOperation<
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override
@@ -112,6 +112,8 @@ class HeadBucketOperation extends _i1.HttpOperation<
           builder: _i8.NotFound.fromResponse,
         )
       ];
+  @override
+  String get runtimeTypeName => 'HeadBucket';
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
@@ -135,9 +137,9 @@ class HeadBucketOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i9.Future<_i1.Unit> run(
+  _i1.SmithyOperation<_i1.Unit> run(
     _i2.HeadBucketRequest input, {
-    _i1.HttpClient? client,
+    _i6.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i9.runZoned(

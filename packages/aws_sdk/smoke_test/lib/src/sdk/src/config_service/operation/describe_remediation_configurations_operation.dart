@@ -87,7 +87,7 @@ class DescribeRemediationConfigurationsOperation extends _i1.HttpOperation<
   @override
   _i3.DescribeRemediationConfigurationsResponse buildOutput(
     _i3.DescribeRemediationConfigurationsResponse payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.DescribeRemediationConfigurationsResponse.fromResponse(
         payload,
@@ -96,15 +96,17 @@ class DescribeRemediationConfigurationsOperation extends _i1.HttpOperation<
   @override
   List<_i1.SmithyError> get errorTypes => const [];
   @override
+  String get runtimeTypeName => 'DescribeRemediationConfigurations';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i9.Future<_i3.DescribeRemediationConfigurationsResponse> run(
+  _i1.SmithyOperation<_i3.DescribeRemediationConfigurationsResponse> run(
     _i2.DescribeRemediationConfigurationsRequest input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i9.runZoned(

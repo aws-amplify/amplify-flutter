@@ -99,7 +99,7 @@ class DescribeConformancePacksOperation extends _i1.PaginatedHttpOperation<
   @override
   _i3.DescribeConformancePacksResponse buildOutput(
     _i3.DescribeConformancePacksResponse payload,
-    _i9.AWSStreamedHttpResponse response,
+    _i9.AWSBaseHttpResponse response,
   ) =>
       _i3.DescribeConformancePacksResponse.fromResponse(
         payload,
@@ -145,15 +145,17 @@ class DescribeConformancePacksOperation extends _i1.PaginatedHttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'DescribeConformancePacks';
+  @override
   _i7.AWSRetryer get retryer => _i7.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i15.Future<_i3.DescribeConformancePacksResponse> run(
+  _i1.SmithyOperation<_i3.DescribeConformancePacksResponse> run(
     _i2.DescribeConformancePacksRequest input, {
-    _i1.HttpClient? client,
+    _i9.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i15.runZoned(

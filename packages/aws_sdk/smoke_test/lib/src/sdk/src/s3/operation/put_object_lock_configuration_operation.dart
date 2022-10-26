@@ -128,7 +128,7 @@ class PutObjectLockConfigurationOperation extends _i1.HttpOperation<
   @override
   _i4.PutObjectLockConfigurationOutput buildOutput(
     _i4.PutObjectLockConfigurationOutputPayload payload,
-    _i8.AWSStreamedHttpResponse response,
+    _i8.AWSBaseHttpResponse response,
   ) =>
       _i4.PutObjectLockConfigurationOutput.fromResponse(
         payload,
@@ -136,6 +136,8 @@ class PutObjectLockConfigurationOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+  @override
+  String get runtimeTypeName => 'PutObjectLockConfiguration';
   @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
@@ -159,9 +161,9 @@ class PutObjectLockConfigurationOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i10.Future<_i4.PutObjectLockConfigurationOutput> run(
+  _i1.SmithyOperation<_i4.PutObjectLockConfigurationOutput> run(
     _i3.PutObjectLockConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i8.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i10.runZoned(

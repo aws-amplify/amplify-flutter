@@ -239,7 +239,7 @@ class CopyObjectOperation extends _i1.HttpOperation<
         const _i5.WithSdkInvocationId(),
         const _i5.WithSdkRequest(),
       ],
-      responseInterceptors: [],
+      responseInterceptors: [const _i5.CheckErrorOnSuccess()],
       noErrorWrapping: true,
     )
   ];
@@ -468,7 +468,7 @@ class CopyObjectOperation extends _i1.HttpOperation<
   @override
   _i4.CopyObjectOutput buildOutput(
     _i3.CopyObjectResult? payload,
-    _i8.AWSStreamedHttpResponse response,
+    _i8.AWSBaseHttpResponse response,
   ) =>
       _i4.CopyObjectOutput.fromResponse(
         payload,
@@ -486,6 +486,8 @@ class CopyObjectOperation extends _i1.HttpOperation<
           builder: _i10.ObjectNotInActiveTierError.fromResponse,
         )
       ];
+  @override
+  String get runtimeTypeName => 'CopyObject';
   @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
@@ -509,9 +511,9 @@ class CopyObjectOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i11.Future<_i4.CopyObjectOutput> run(
+  _i1.SmithyOperation<_i4.CopyObjectOutput> run(
     _i2.CopyObjectRequest input, {
-    _i1.HttpClient? client,
+    _i8.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i11.runZoned(

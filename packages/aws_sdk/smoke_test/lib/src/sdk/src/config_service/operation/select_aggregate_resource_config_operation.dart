@@ -110,7 +110,7 @@ class SelectAggregateResourceConfigOperation extends _i1.PaginatedHttpOperation<
   @override
   _i3.SelectAggregateResourceConfigResponse buildOutput(
     _i3.SelectAggregateResourceConfigResponse payload,
-    _i8.AWSStreamedHttpResponse response,
+    _i8.AWSBaseHttpResponse response,
   ) =>
       _i3.SelectAggregateResourceConfigResponse.fromResponse(
         payload,
@@ -156,15 +156,17 @@ class SelectAggregateResourceConfigOperation extends _i1.PaginatedHttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'SelectAggregateResourceConfig';
+  @override
   _i6.AWSRetryer get retryer => _i6.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i14.Future<_i3.SelectAggregateResourceConfigResponse> run(
+  _i1.SmithyOperation<_i3.SelectAggregateResourceConfigResponse> run(
     _i2.SelectAggregateResourceConfigRequest input, {
-    _i1.HttpClient? client,
+    _i8.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i14.runZoned(

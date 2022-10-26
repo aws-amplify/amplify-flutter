@@ -46,15 +46,19 @@ void main() {
       inputParameters: '{}',
       configRuleState: ConfigRuleState.active,
     );
-    await client.putConfigRule(
-      PutConfigRuleRequest(
-        configRule: configRule,
-      ),
-    );
+    await client
+        .putConfigRule(
+          PutConfigRuleRequest(
+            configRule: configRule,
+          ),
+        )
+        .result;
     {
-      final rules = await client.describeConfigRules(
-        DescribeConfigRulesRequest(),
-      );
+      final rules = await client
+          .describeConfigRules(
+            DescribeConfigRulesRequest(),
+          )
+          .result;
       expect(rules.items, hasLength(1));
 
       final rule = rules.items.single;
@@ -70,13 +74,17 @@ void main() {
     }
 
     // Delete a rule
-    await client.deleteConfigRule(
-      DeleteConfigRuleRequest(configRuleName: configRule.configRuleName!),
-    );
+    await client
+        .deleteConfigRule(
+          DeleteConfigRuleRequest(configRuleName: configRule.configRuleName!),
+        )
+        .result;
     {
-      final rules = await client.describeConfigRules(
-        DescribeConfigRulesRequest(),
-      );
+      final rules = await client
+          .describeConfigRules(
+            DescribeConfigRulesRequest(),
+          )
+          .result;
       expect(rules.items, hasLength(0));
     }
   });

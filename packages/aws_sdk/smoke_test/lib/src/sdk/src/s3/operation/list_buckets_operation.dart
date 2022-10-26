@@ -76,7 +76,7 @@ class ListBucketsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
   @override
   _i2.ListBucketsOutput buildOutput(
     _i2.ListBucketsOutput payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.ListBucketsOutput.fromResponse(
         payload,
@@ -84,6 +84,8 @@ class ListBucketsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+  @override
+  String get runtimeTypeName => 'ListBuckets';
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
@@ -107,9 +109,9 @@ class ListBucketsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i8.Future<_i2.ListBucketsOutput> run(
+  _i1.SmithyOperation<_i2.ListBucketsOutput> run(
     _i1.Unit input, {
-    _i1.HttpClient? client,
+    _i6.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i8.runZoned(

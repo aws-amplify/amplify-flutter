@@ -100,7 +100,7 @@ class DescribeConfigRuleEvaluationStatusOperation
   @override
   _i3.DescribeConfigRuleEvaluationStatusResponse buildOutput(
     _i3.DescribeConfigRuleEvaluationStatusResponse payload,
-    _i9.AWSStreamedHttpResponse response,
+    _i9.AWSBaseHttpResponse response,
   ) =>
       _i3.DescribeConfigRuleEvaluationStatusResponse.fromResponse(
         payload,
@@ -137,15 +137,17 @@ class DescribeConfigRuleEvaluationStatusOperation
         ),
       ];
   @override
+  String get runtimeTypeName => 'DescribeConfigRuleEvaluationStatus';
+  @override
   _i7.AWSRetryer get retryer => _i7.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i14.Future<_i3.DescribeConfigRuleEvaluationStatusResponse> run(
+  _i1.SmithyOperation<_i3.DescribeConfigRuleEvaluationStatusResponse> run(
     _i2.DescribeConfigRuleEvaluationStatusRequest input, {
-    _i1.HttpClient? client,
+    _i9.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i14.runZoned(

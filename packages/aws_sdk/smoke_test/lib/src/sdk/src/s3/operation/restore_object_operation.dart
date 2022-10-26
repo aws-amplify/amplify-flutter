@@ -357,7 +357,7 @@ class RestoreObjectOperation extends _i1.HttpOperation<
   @override
   _i4.RestoreObjectOutput buildOutput(
     _i4.RestoreObjectOutputPayload payload,
-    _i8.AWSStreamedHttpResponse response,
+    _i8.AWSBaseHttpResponse response,
   ) =>
       _i4.RestoreObjectOutput.fromResponse(
         payload,
@@ -375,6 +375,8 @@ class RestoreObjectOperation extends _i1.HttpOperation<
           builder: _i10.ObjectAlreadyInActiveTierError.fromResponse,
         )
       ];
+  @override
+  String get runtimeTypeName => 'RestoreObject';
   @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
@@ -398,9 +400,9 @@ class RestoreObjectOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i11.Future<_i4.RestoreObjectOutput> run(
+  _i1.SmithyOperation<_i4.RestoreObjectOutput> run(
     _i3.RestoreObjectRequest input, {
-    _i1.HttpClient? client,
+    _i8.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i11.runZoned(

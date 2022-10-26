@@ -161,7 +161,7 @@ class CompleteMultipartUploadOperation extends _i1.HttpOperation<
         const _i5.WithSdkInvocationId(),
         const _i5.WithSdkRequest(),
       ],
-      responseInterceptors: [],
+      responseInterceptors: [const _i5.CheckErrorOnSuccess()],
       noErrorWrapping: true,
     )
   ];
@@ -244,7 +244,7 @@ class CompleteMultipartUploadOperation extends _i1.HttpOperation<
   @override
   _i4.CompleteMultipartUploadOutput buildOutput(
     _i4.CompleteMultipartUploadOutputPayload payload,
-    _i8.AWSStreamedHttpResponse response,
+    _i8.AWSBaseHttpResponse response,
   ) =>
       _i4.CompleteMultipartUploadOutput.fromResponse(
         payload,
@@ -252,6 +252,8 @@ class CompleteMultipartUploadOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+  @override
+  String get runtimeTypeName => 'CompleteMultipartUpload';
   @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
@@ -275,9 +277,9 @@ class CompleteMultipartUploadOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i10.Future<_i4.CompleteMultipartUploadOutput> run(
+  _i1.SmithyOperation<_i4.CompleteMultipartUploadOutput> run(
     _i3.CompleteMultipartUploadRequest input, {
-    _i1.HttpClient? client,
+    _i8.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i10.runZoned(

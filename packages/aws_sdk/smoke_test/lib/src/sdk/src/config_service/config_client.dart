@@ -2,11 +2,10 @@
 
 library smoke_test.config_service.config_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i3;
-
+import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:built_collection/built_collection.dart' as _i50;
-import 'package:smithy/smithy.dart' as _i1;
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_compliance_by_conformance_pack.dart'
     as _i51;
 import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_evaluation_result.dart'
@@ -507,7 +506,7 @@ class ConfigClient {
   ///
   /// You can access and manage Config through the Amazon Web Services Management Console, the Amazon Web Services Command Line Interface (Amazon Web Services CLI), the Config API, or the Amazon Web Services SDKs for Config. This reference guide contains documentation for the Config API and the Amazon Web Services CLI commands that you can use to manage Config. The Config API uses the Signature Version 4 protocol for signing requests. For more information about how to sign a request with this protocol, see [Signature Version 4 Signing Process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html). For detailed information about Config features and their associated actions or commands, as well as how to work with Amazon Web Services Management Console, see [What Is Config](https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html) in the _Config Developer Guide_.
   const ConfigClient({
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
     required String region,
     Uri? baseUri,
     required _i2.AWSCredentialsProvider credentialsProvider,
@@ -516,7 +515,7 @@ class ConfigClient {
         _baseUri = baseUri,
         _credentialsProvider = credentialsProvider;
 
-  final _i1.HttpClient? _client;
+  final _i1.AWSHttpClient? _client;
 
   final String _region;
 
@@ -529,10 +528,10 @@ class ConfigClient {
   /// *   The API does not return results for deleted resources.
   ///
   /// *   The API does not return tags and relationships.
-  _i3.Future<_i4.BatchGetAggregateResourceConfigResponse>
+  _i3.SmithyOperation<_i4.BatchGetAggregateResourceConfigResponse>
       batchGetAggregateResourceConfig(
     _i5.BatchGetAggregateResourceConfigRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i6.BatchGetAggregateResourceConfigOperation(
       region: _region,
@@ -549,9 +548,10 @@ class ConfigClient {
   /// *   The API does not return results for deleted resources.
   ///
   /// *   The API does not return any tags for the requested resources. This information is filtered out of the supplementaryConfiguration section of the API response.
-  _i3.Future<_i7.BatchGetResourceConfigResponse> batchGetResourceConfig(
+  _i3.SmithyOperation<_i7.BatchGetResourceConfigResponse>
+      batchGetResourceConfig(
     _i8.BatchGetResourceConfigRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i9.BatchGetResourceConfigOperation(
       region: _region,
@@ -564,9 +564,9 @@ class ConfigClient {
   }
 
   /// Deletes the authorization granted to the specified configuration aggregator account in a specified region.
-  _i3.Future<void> deleteAggregationAuthorization(
+  _i3.SmithyOperation<void> deleteAggregationAuthorization(
     _i10.DeleteAggregationAuthorizationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i11.DeleteAggregationAuthorizationOperation(
       region: _region,
@@ -583,9 +583,9 @@ class ConfigClient {
   /// Config sets the state of a rule to `DELETING` until the deletion is complete. You cannot update a rule while it is in this state. If you make a `PutConfigRule` or `DeleteConfigRule` request for the rule, you will receive a `ResourceInUseException`.
   ///
   /// You can check the state of a rule by using the `DescribeConfigRules` request.
-  _i3.Future<void> deleteConfigRule(
+  _i3.SmithyOperation<void> deleteConfigRule(
     _i12.DeleteConfigRuleRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i13.DeleteConfigRuleOperation(
       region: _region,
@@ -598,9 +598,9 @@ class ConfigClient {
   }
 
   /// Deletes the specified configuration aggregator and the aggregated data associated with the aggregator.
-  _i3.Future<void> deleteConfigurationAggregator(
+  _i3.SmithyOperation<void> deleteConfigurationAggregator(
     _i14.DeleteConfigurationAggregatorRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i15.DeleteConfigurationAggregatorOperation(
       region: _region,
@@ -617,9 +617,9 @@ class ConfigClient {
   /// After the configuration recorder is deleted, Config will not record resource configuration changes until you create a new configuration recorder.
   ///
   /// This action does not delete the configuration information that was previously recorded. You will be able to access the previously recorded information by using the `GetResourceConfigHistory` action, but you will not be able to access this information in the Config console until you create a new configuration recorder.
-  _i3.Future<void> deleteConfigurationRecorder(
+  _i3.SmithyOperation<void> deleteConfigurationRecorder(
     _i16.DeleteConfigurationRecorderRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i17.DeleteConfigurationRecorderOperation(
       region: _region,
@@ -634,9 +634,9 @@ class ConfigClient {
   /// Deletes the specified conformance pack and all the Config rules, remediation actions, and all evaluation results within that conformance pack.
   ///
   /// Config sets the conformance pack to `DELETE\_IN\_PROGRESS` until the deletion is complete. You cannot update a conformance pack while it is in this state.
-  _i3.Future<void> deleteConformancePack(
+  _i3.SmithyOperation<void> deleteConformancePack(
     _i18.DeleteConformancePackRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i19.DeleteConformancePackOperation(
       region: _region,
@@ -651,9 +651,9 @@ class ConfigClient {
   /// Deletes the delivery channel.
   ///
   /// Before you can delete the delivery channel, you must stop the configuration recorder by using the StopConfigurationRecorder action.
-  _i3.Future<void> deleteDeliveryChannel(
+  _i3.SmithyOperation<void> deleteDeliveryChannel(
     _i20.DeleteDeliveryChannelRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i21.DeleteDeliveryChannelOperation(
       region: _region,
@@ -666,9 +666,10 @@ class ConfigClient {
   }
 
   /// Deletes the evaluation results for the specified Config rule. You can specify one Config rule per request. After you delete the evaluation results, you can call the StartConfigRulesEvaluation API to start evaluating your Amazon Web Services resources against the rule.
-  _i3.Future<_i22.DeleteEvaluationResultsResponse> deleteEvaluationResults(
+  _i3.SmithyOperation<_i22.DeleteEvaluationResultsResponse>
+      deleteEvaluationResults(
     _i23.DeleteEvaluationResultsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i24.DeleteEvaluationResultsOperation(
       region: _region,
@@ -685,9 +686,9 @@ class ConfigClient {
   /// Only a master account and a delegated administrator account can delete an organization Config rule. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added.
   ///
   /// Config sets the state of a rule to DELETE\_IN\_PROGRESS until the deletion is complete. You cannot update a rule while it is in this state.
-  _i3.Future<void> deleteOrganizationConfigRule(
+  _i3.SmithyOperation<void> deleteOrganizationConfigRule(
     _i25.DeleteOrganizationConfigRuleRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i26.DeleteOrganizationConfigRuleOperation(
       region: _region,
@@ -704,9 +705,9 @@ class ConfigClient {
   /// Only a master account or a delegated administrator account can delete an organization conformance pack. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added.
   ///
   /// Config sets the state of a conformance pack to DELETE\_IN\_PROGRESS until the deletion is complete. You cannot update a conformance pack while it is in this state.
-  _i3.Future<void> deleteOrganizationConformancePack(
+  _i3.SmithyOperation<void> deleteOrganizationConformancePack(
     _i27.DeleteOrganizationConformancePackRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i28.DeleteOrganizationConformancePackOperation(
       region: _region,
@@ -719,9 +720,9 @@ class ConfigClient {
   }
 
   /// Deletes pending authorization requests for a specified aggregator account in a specified region.
-  _i3.Future<void> deletePendingAggregationRequest(
+  _i3.SmithyOperation<void> deletePendingAggregationRequest(
     _i29.DeletePendingAggregationRequestRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i30.DeletePendingAggregationRequestOperation(
       region: _region,
@@ -734,10 +735,10 @@ class ConfigClient {
   }
 
   /// Deletes the remediation configuration.
-  _i3.Future<_i31.DeleteRemediationConfigurationResponse>
+  _i3.SmithyOperation<_i31.DeleteRemediationConfigurationResponse>
       deleteRemediationConfiguration(
     _i32.DeleteRemediationConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i33.DeleteRemediationConfigurationOperation(
       region: _region,
@@ -752,10 +753,10 @@ class ConfigClient {
   /// Deletes one or more remediation exceptions mentioned in the resource keys.
   ///
   /// Config generates a remediation exception when a problem occurs executing a remediation action to a specific resource. Remediation exceptions blocks auto-remediation until the exception is cleared.
-  _i3.Future<_i34.DeleteRemediationExceptionsResponse>
+  _i3.SmithyOperation<_i34.DeleteRemediationExceptionsResponse>
       deleteRemediationExceptions(
     _i35.DeleteRemediationExceptionsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i36.DeleteRemediationExceptionsOperation(
       region: _region,
@@ -768,9 +769,9 @@ class ConfigClient {
   }
 
   /// Records the configuration state for a custom resource that has been deleted. This API records a new ConfigurationItem with a ResourceDeleted status. You can retrieve the ConfigurationItems recorded for this resource in your Config History.
-  _i3.Future<void> deleteResourceConfig(
+  _i3.SmithyOperation<void> deleteResourceConfig(
     _i37.DeleteResourceConfigRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i38.DeleteResourceConfigOperation(
       region: _region,
@@ -783,9 +784,9 @@ class ConfigClient {
   }
 
   /// Deletes the retention configuration.
-  _i3.Future<void> deleteRetentionConfiguration(
+  _i3.SmithyOperation<void> deleteRetentionConfiguration(
     _i39.DeleteRetentionConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i40.DeleteRetentionConfigurationOperation(
       region: _region,
@@ -798,9 +799,9 @@ class ConfigClient {
   }
 
   /// Deletes the stored query for a single Amazon Web Services account and a single Amazon Web Services Region.
-  _i3.Future<_i41.DeleteStoredQueryResponse> deleteStoredQuery(
+  _i3.SmithyOperation<_i41.DeleteStoredQueryResponse> deleteStoredQuery(
     _i42.DeleteStoredQueryRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i43.DeleteStoredQueryOperation(
       region: _region,
@@ -819,9 +820,9 @@ class ConfigClient {
   /// *   Notification of the completion of the delivery, if the delivery was successfully completed.
   ///
   /// *   Notification of delivery failure, if the delivery failed.
-  _i3.Future<_i44.DeliverConfigSnapshotResponse> deliverConfigSnapshot(
+  _i3.SmithyOperation<_i44.DeliverConfigSnapshotResponse> deliverConfigSnapshot(
     _i45.DeliverConfigSnapshotRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i46.DeliverConfigSnapshotOperation(
       region: _region,
@@ -836,11 +837,11 @@ class ConfigClient {
   /// Returns a list of compliant and noncompliant rules with the number of resources for compliant and noncompliant rules. Does not display rules that do not have compliance results.
   ///
   /// The results can return an empty result page, but if you have a `nextToken`, the results are displayed on the next page.
-  _i3.Future<
-      _i1.PaginatedResult<_i47.DescribeAggregateComplianceByConfigRulesResponse,
-          int>> describeAggregateComplianceByConfigRules(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i47.DescribeAggregateComplianceByConfigRulesResponse,
+          int, String>> describeAggregateComplianceByConfigRules(
     _i48.DescribeAggregateComplianceByConfigRulesRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i49.DescribeAggregateComplianceByConfigRulesOperation(
       region: _region,
@@ -855,12 +856,13 @@ class ConfigClient {
   /// Returns a list of the conformance packs and their associated compliance status with the count of compliant and noncompliant Config rules within each conformance pack. Also returns the total rule count which includes compliant rules, noncompliant rules, and rules that cannot be evaluated due to insufficient data.
   ///
   /// The results can return an empty result page, but if you have a `nextToken`, the results are displayed on the next page.
-  _i3.Future<
-      _i1.PaginatedResult<
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<
           _i50.BuiltList<_i51.AggregateComplianceByConformancePack>,
-          int>> describeAggregateComplianceByConformancePacks(
+          int,
+          String>> describeAggregateComplianceByConformancePacks(
     _i52.DescribeAggregateComplianceByConformancePacksRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i53.DescribeAggregateComplianceByConformancePacksOperation(
       region: _region,
@@ -873,11 +875,11 @@ class ConfigClient {
   }
 
   /// Returns a list of authorizations granted to various aggregator accounts and regions.
-  _i3.Future<
-      _i1.PaginatedResult<_i50.BuiltList<_i54.AggregationAuthorization>,
-          int>> describeAggregationAuthorizations(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i50.BuiltList<_i54.AggregationAuthorization>, int,
+          String>> describeAggregationAuthorizations(
     _i55.DescribeAggregationAuthorizationsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i56.DescribeAggregationAuthorizationsOperation(
       region: _region,
@@ -900,11 +902,11 @@ class ConfigClient {
   /// *   The rule's Lambda function is failing to send evaluation results to Config. Verify that the role you assigned to your configuration recorder includes the `config:PutEvaluations` permission. If the rule is a custom rule, verify that the Lambda execution role includes the `config:PutEvaluations` permission.
   ///
   /// *   The rule's Lambda function has returned `NOT_APPLICABLE` for all evaluation results. This can occur if the resources were deleted or removed from the rule's scope.
-  _i3.Future<
-      _i1.PaginatedResult<_i50.BuiltList<_i57.ComplianceByConfigRule>,
-          void>> describeComplianceByConfigRule(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i50.BuiltList<_i57.ComplianceByConfigRule>, void,
+          String>> describeComplianceByConfigRule(
     _i58.DescribeComplianceByConfigRuleRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i59.DescribeComplianceByConfigRuleOperation(
       region: _region,
@@ -927,11 +929,11 @@ class ConfigClient {
   /// *   The rule's Lambda function is failing to send evaluation results to Config. Verify that the role that you assigned to your configuration recorder includes the `config:PutEvaluations` permission. If the rule is a custom rule, verify that the Lambda execution role includes the `config:PutEvaluations` permission.
   ///
   /// *   The rule's Lambda function has returned `NOT_APPLICABLE` for all evaluation results. This can occur if the resources were deleted or removed from the rule's scope.
-  _i3.Future<
-          _i1.PaginatedResult<_i50.BuiltList<_i60.ComplianceByResource>, int>>
-      describeComplianceByResource(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i50.BuiltList<_i60.ComplianceByResource>, int,
+          String>> describeComplianceByResource(
     _i61.DescribeComplianceByResourceRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i62.DescribeComplianceByResourceOperation(
       region: _region,
@@ -944,11 +946,11 @@ class ConfigClient {
   }
 
   /// Returns status information for each of your Config managed rules. The status includes information such as the last time Config invoked the rule, the last time Config failed to invoke the rule, and the related error for the last failure.
-  _i3.Future<
-      _i1.PaginatedResult<_i50.BuiltList<_i63.ConfigRuleEvaluationStatus>,
-          int>> describeConfigRuleEvaluationStatus(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i50.BuiltList<_i63.ConfigRuleEvaluationStatus>, int,
+          String>> describeConfigRuleEvaluationStatus(
     _i64.DescribeConfigRuleEvaluationStatusRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i65.DescribeConfigRuleEvaluationStatusOperation(
       region: _region,
@@ -961,10 +963,11 @@ class ConfigClient {
   }
 
   /// Returns details about your Config rules.
-  _i3.Future<_i1.PaginatedResult<_i50.BuiltList<_i66.ConfigRule>, void>>
+  _i3.SmithyOperation<
+          _i3.PaginatedResult<_i50.BuiltList<_i66.ConfigRule>, void, String>>
       describeConfigRules(
     _i67.DescribeConfigRulesRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i68.DescribeConfigRulesOperation(
       region: _region,
@@ -977,11 +980,11 @@ class ConfigClient {
   }
 
   /// Returns status information for sources within an aggregator. The status includes information about the last time Config verified authorization between the source account and an aggregator account. In case of a failure, the status contains the related error code or message.
-  _i3.Future<
-          _i1.PaginatedResult<_i50.BuiltList<_i69.AggregatedSourceStatus>, int>>
-      describeConfigurationAggregatorSourcesStatus(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i50.BuiltList<_i69.AggregatedSourceStatus>, int,
+          String>> describeConfigurationAggregatorSourcesStatus(
     _i70.DescribeConfigurationAggregatorSourcesStatusRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i71.DescribeConfigurationAggregatorSourcesStatusOperation(
       region: _region,
@@ -994,11 +997,11 @@ class ConfigClient {
   }
 
   /// Returns the details of one or more configuration aggregators. If the configuration aggregator is not specified, this action returns the details for all the configuration aggregators associated with the account.
-  _i3.Future<
-      _i1.PaginatedResult<_i50.BuiltList<_i72.ConfigurationAggregator>,
-          int>> describeConfigurationAggregators(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i50.BuiltList<_i72.ConfigurationAggregator>, int,
+          String>> describeConfigurationAggregators(
     _i73.DescribeConfigurationAggregatorsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i74.DescribeConfigurationAggregatorsOperation(
       region: _region,
@@ -1013,10 +1016,10 @@ class ConfigClient {
   /// Returns the current status of the specified configuration recorder. If a configuration recorder is not specified, this action returns the status of all configuration recorders associated with the account.
   ///
   /// Currently, you can specify only one configuration recorder per region in your account.
-  _i3.Future<_i75.DescribeConfigurationRecorderStatusResponse>
+  _i3.SmithyOperation<_i75.DescribeConfigurationRecorderStatusResponse>
       describeConfigurationRecorderStatus(
     _i76.DescribeConfigurationRecorderStatusRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i77.DescribeConfigurationRecorderStatusOperation(
       region: _region,
@@ -1031,10 +1034,10 @@ class ConfigClient {
   /// Returns the details for the specified configuration recorders. If the configuration recorder is not specified, this action returns the details for all configuration recorders associated with the account.
   ///
   /// Currently, you can specify only one configuration recorder per region in your account.
-  _i3.Future<_i78.DescribeConfigurationRecordersResponse>
+  _i3.SmithyOperation<_i78.DescribeConfigurationRecordersResponse>
       describeConfigurationRecorders(
     _i79.DescribeConfigurationRecordersRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i80.DescribeConfigurationRecordersOperation(
       region: _region,
@@ -1049,11 +1052,11 @@ class ConfigClient {
   /// Returns compliance details for each rule in that conformance pack.
   ///
   /// You must provide exact rule names.
-  _i3.Future<
-      _i1.PaginatedResult<_i81.DescribeConformancePackComplianceResponse,
-          int>> describeConformancePackCompliance(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i81.DescribeConformancePackComplianceResponse, int,
+          String>> describeConformancePackCompliance(
     _i82.DescribeConformancePackComplianceRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i83.DescribeConformancePackComplianceOperation(
       region: _region,
@@ -1068,11 +1071,11 @@ class ConfigClient {
   /// Provides one or more conformance packs deployment status.
   ///
   /// If there are no conformance packs then you will see an empty result.
-  _i3.Future<
-      _i1.PaginatedResult<_i50.BuiltList<_i84.ConformancePackStatusDetail>,
-          int>> describeConformancePackStatus(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i50.BuiltList<_i84.ConformancePackStatusDetail>, int,
+          String>> describeConformancePackStatus(
     _i85.DescribeConformancePackStatusRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i86.DescribeConformancePackStatusOperation(
       region: _region,
@@ -1085,11 +1088,11 @@ class ConfigClient {
   }
 
   /// Returns a list of one or more conformance packs.
-  _i3.Future<
-          _i1.PaginatedResult<_i50.BuiltList<_i87.ConformancePackDetail>, int>>
-      describeConformancePacks(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i50.BuiltList<_i87.ConformancePackDetail>, int,
+          String>> describeConformancePacks(
     _i88.DescribeConformancePacksRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i89.DescribeConformancePacksOperation(
       region: _region,
@@ -1104,10 +1107,10 @@ class ConfigClient {
   /// Returns the current status of the specified delivery channel. If a delivery channel is not specified, this action returns the current status of all delivery channels associated with the account.
   ///
   /// Currently, you can specify only one delivery channel per region in your account.
-  _i3.Future<_i90.DescribeDeliveryChannelStatusResponse>
+  _i3.SmithyOperation<_i90.DescribeDeliveryChannelStatusResponse>
       describeDeliveryChannelStatus(
     _i91.DescribeDeliveryChannelStatusRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i92.DescribeDeliveryChannelStatusOperation(
       region: _region,
@@ -1122,9 +1125,10 @@ class ConfigClient {
   /// Returns details about the specified delivery channel. If a delivery channel is not specified, this action returns the details of all delivery channels associated with the account.
   ///
   /// Currently, you can specify only one delivery channel per region in your account.
-  _i3.Future<_i93.DescribeDeliveryChannelsResponse> describeDeliveryChannels(
+  _i3.SmithyOperation<_i93.DescribeDeliveryChannelsResponse>
+      describeDeliveryChannels(
     _i94.DescribeDeliveryChannelsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i95.DescribeDeliveryChannelsOperation(
       region: _region,
@@ -1141,11 +1145,11 @@ class ConfigClient {
   /// The status is not considered successful until organization Config rule is successfully deployed in all the member accounts with an exception of excluded accounts.
   ///
   /// When you specify the limit and the next token, you receive a paginated response. Limit and next token are not applicable if you specify organization Config rule names. It is only applicable, when you request all the organization Config rules.
-  _i3.Future<
-      _i1.PaginatedResult<_i50.BuiltList<_i96.OrganizationConfigRuleStatus>,
-          int>> describeOrganizationConfigRuleStatuses(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i50.BuiltList<_i96.OrganizationConfigRuleStatus>,
+          int, String>> describeOrganizationConfigRuleStatuses(
     _i97.DescribeOrganizationConfigRuleStatusesRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i98.DescribeOrganizationConfigRuleStatusesOperation(
       region: _region,
@@ -1166,11 +1170,11 @@ class ConfigClient {
   /// _For accounts within an organzation_
   ///
   /// If you deploy an organizational rule or conformance pack in an organization administrator account, and then establish a delegated administrator and deploy an organizational rule or conformance pack in the delegated administrator account, you won't be able to see the organizational rule or conformance pack in the organization administrator account from the delegated administrator account or see the organizational rule or conformance pack in the delegated administrator account from organization administrator account. The `DescribeOrganizationConfigRules` and `DescribeOrganizationConformancePacks` APIs can only see and interact with the organization-related resource that were deployed from within the account calling those APIs.
-  _i3.Future<
-          _i1.PaginatedResult<_i50.BuiltList<_i99.OrganizationConfigRule>, int>>
-      describeOrganizationConfigRules(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i50.BuiltList<_i99.OrganizationConfigRule>, int,
+          String>> describeOrganizationConfigRules(
     _i100.DescribeOrganizationConfigRulesRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i101.DescribeOrganizationConfigRulesOperation(
       region: _region,
@@ -1187,12 +1191,13 @@ class ConfigClient {
   /// The status is not considered successful until organization conformance pack is successfully deployed in all the member accounts with an exception of excluded accounts.
   ///
   /// When you specify the limit and the next token, you receive a paginated response. Limit and next token are not applicable if you specify organization conformance pack names. They are only applicable, when you request all the organization conformance packs.
-  _i3.Future<
-      _i1.PaginatedResult<
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<
           _i50.BuiltList<_i102.OrganizationConformancePackStatus>,
-          int>> describeOrganizationConformancePackStatuses(
+          int,
+          String>> describeOrganizationConformancePackStatuses(
     _i103.DescribeOrganizationConformancePackStatusesRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i104.DescribeOrganizationConformancePackStatusesOperation(
       region: _region,
@@ -1213,11 +1218,11 @@ class ConfigClient {
   /// _For accounts within an organzation_
   ///
   /// If you deploy an organizational rule or conformance pack in an organization administrator account, and then establish a delegated administrator and deploy an organizational rule or conformance pack in the delegated administrator account, you won't be able to see the organizational rule or conformance pack in the organization administrator account from the delegated administrator account or see the organizational rule or conformance pack in the delegated administrator account from organization administrator account. The `DescribeOrganizationConfigRules` and `DescribeOrganizationConformancePacks` APIs can only see and interact with the organization-related resource that were deployed from within the account calling those APIs.
-  _i3.Future<
-      _i1.PaginatedResult<_i50.BuiltList<_i105.OrganizationConformancePack>,
-          int>> describeOrganizationConformancePacks(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i50.BuiltList<_i105.OrganizationConformancePack>,
+          int, String>> describeOrganizationConformancePacks(
     _i106.DescribeOrganizationConformancePacksRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i107.DescribeOrganizationConformancePacksOperation(
       region: _region,
@@ -1230,11 +1235,11 @@ class ConfigClient {
   }
 
   /// Returns a list of all pending aggregation requests.
-  _i3.Future<
-      _i1.PaginatedResult<_i50.BuiltList<_i108.PendingAggregationRequest>,
-          int>> describePendingAggregationRequests(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i50.BuiltList<_i108.PendingAggregationRequest>, int,
+          String>> describePendingAggregationRequests(
     _i109.DescribePendingAggregationRequestsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i110.DescribePendingAggregationRequestsOperation(
       region: _region,
@@ -1247,10 +1252,10 @@ class ConfigClient {
   }
 
   /// Returns the details of one or more remediation configurations.
-  _i3.Future<_i111.DescribeRemediationConfigurationsResponse>
+  _i3.SmithyOperation<_i111.DescribeRemediationConfigurationsResponse>
       describeRemediationConfigurations(
     _i112.DescribeRemediationConfigurationsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i113.DescribeRemediationConfigurationsOperation(
       region: _region,
@@ -1269,11 +1274,11 @@ class ConfigClient {
   /// When you specify the limit and the next token, you receive a paginated response.
   ///
   /// Limit and next token are not applicable if you request resources in batch. It is only applicable, when you request all resources.
-  _i3.Future<
-          _i1.PaginatedResult<_i114.DescribeRemediationExceptionsResponse, int>>
-      describeRemediationExceptions(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i114.DescribeRemediationExceptionsResponse, int,
+          String>> describeRemediationExceptions(
     _i115.DescribeRemediationExceptionsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i116.DescribeRemediationExceptionsOperation(
       region: _region,
@@ -1286,11 +1291,11 @@ class ConfigClient {
   }
 
   /// Provides a detailed view of a Remediation Execution for a set of resources including state, timestamps for when steps for the remediation execution occur, and any error messages for steps that have failed. When you specify the limit and the next token, you receive a paginated response.
-  _i3.Future<
-      _i1.PaginatedResult<_i50.BuiltList<_i117.RemediationExecutionStatus>,
-          int>> describeRemediationExecutionStatus(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i50.BuiltList<_i117.RemediationExecutionStatus>, int,
+          String>> describeRemediationExecutionStatus(
     _i118.DescribeRemediationExecutionStatusRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i119.DescribeRemediationExecutionStatusOperation(
       region: _region,
@@ -1305,11 +1310,11 @@ class ConfigClient {
   /// Returns the details of one or more retention configurations. If the retention configuration name is not specified, this action returns the details for all the retention configurations for that account.
   ///
   /// Currently, Config supports only one retention configuration per region in your account.
-  _i3.Future<
-      _i1.PaginatedResult<_i50.BuiltList<_i120.RetentionConfiguration>,
-          void>> describeRetentionConfigurations(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i50.BuiltList<_i120.RetentionConfiguration>, void,
+          String>> describeRetentionConfigurations(
     _i121.DescribeRetentionConfigurationsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i122.DescribeRetentionConfigurationsOperation(
       region: _region,
@@ -1324,11 +1329,11 @@ class ConfigClient {
   /// Returns the evaluation results for the specified Config rule for a specific resource in a rule. The results indicate which Amazon Web Services resources were evaluated by the rule, when each resource was last evaluated, and whether each resource complies with the rule.
   ///
   /// The results can return an empty result page. But if you have a `nextToken`, the results are displayed on the next page.
-  _i3.Future<
-      _i1.PaginatedResult<_i50.BuiltList<_i123.AggregateEvaluationResult>,
-          int>> getAggregateComplianceDetailsByConfigRule(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i50.BuiltList<_i123.AggregateEvaluationResult>, int,
+          String>> getAggregateComplianceDetailsByConfigRule(
     _i124.GetAggregateComplianceDetailsByConfigRuleRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i125.GetAggregateComplianceDetailsByConfigRuleOperation(
       region: _region,
@@ -1343,11 +1348,11 @@ class ConfigClient {
   /// Returns the number of compliant and noncompliant rules for one or more accounts and regions in an aggregator.
   ///
   /// The results can return an empty result page, but if you have a nextToken, the results are displayed on the next page.
-  _i3.Future<
-      _i1.PaginatedResult<_i126.GetAggregateConfigRuleComplianceSummaryResponse,
-          int>> getAggregateConfigRuleComplianceSummary(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i126.GetAggregateConfigRuleComplianceSummaryResponse,
+          int, String>> getAggregateConfigRuleComplianceSummary(
     _i127.GetAggregateConfigRuleComplianceSummaryRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i128.GetAggregateConfigRuleComplianceSummaryOperation(
       region: _region,
@@ -1362,12 +1367,13 @@ class ConfigClient {
   /// Returns the count of compliant and noncompliant conformance packs across all Amazon Web Services accounts and Amazon Web Services Regions in an aggregator. You can filter based on Amazon Web Services account ID or Amazon Web Services Region.
   ///
   /// The results can return an empty result page, but if you have a nextToken, the results are displayed on the next page.
-  _i3.Future<
-      _i1.PaginatedResult<
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<
           _i129.GetAggregateConformancePackComplianceSummaryResponse,
-          int>> getAggregateConformancePackComplianceSummary(
+          int,
+          String>> getAggregateConformancePackComplianceSummary(
     _i130.GetAggregateConformancePackComplianceSummaryRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i131.GetAggregateConformancePackComplianceSummaryOperation(
       region: _region,
@@ -1382,11 +1388,11 @@ class ConfigClient {
   /// Returns the resource counts across accounts and regions that are present in your Config aggregator. You can request the resource counts by providing filters and GroupByKey.
   ///
   /// For example, if the input contains accountID 12345678910 and region us-east-1 in filters, the API returns the count of resources in account ID 12345678910 and region us-east-1. If the input contains ACCOUNT_ID as a GroupByKey, the API returns resource counts for all source accounts that are present in your aggregator.
-  _i3.Future<
-      _i1.PaginatedResult<_i132.GetAggregateDiscoveredResourceCountsResponse,
-          int>> getAggregateDiscoveredResourceCounts(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i132.GetAggregateDiscoveredResourceCountsResponse,
+          int, String>> getAggregateDiscoveredResourceCounts(
     _i133.GetAggregateDiscoveredResourceCountsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i134.GetAggregateDiscoveredResourceCountsOperation(
       region: _region,
@@ -1399,10 +1405,10 @@ class ConfigClient {
   }
 
   /// Returns configuration item that is aggregated for your specific resource in a specific source account and region.
-  _i3.Future<_i135.GetAggregateResourceConfigResponse>
+  _i3.SmithyOperation<_i135.GetAggregateResourceConfigResponse>
       getAggregateResourceConfig(
     _i136.GetAggregateResourceConfigRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i137.GetAggregateResourceConfigOperation(
       region: _region,
@@ -1415,10 +1421,11 @@ class ConfigClient {
   }
 
   /// Returns the evaluation results for the specified Config rule. The results indicate which Amazon Web Services resources were evaluated by the rule, when each resource was last evaluated, and whether each resource complies with the rule.
-  _i3.Future<_i1.PaginatedResult<_i50.BuiltList<_i138.EvaluationResult>, int>>
-      getComplianceDetailsByConfigRule(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i50.BuiltList<_i138.EvaluationResult>, int,
+          String>> getComplianceDetailsByConfigRule(
     _i139.GetComplianceDetailsByConfigRuleRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i140.GetComplianceDetailsByConfigRuleOperation(
       region: _region,
@@ -1431,10 +1438,11 @@ class ConfigClient {
   }
 
   /// Returns the evaluation results for the specified Amazon Web Services resource. The results indicate which Config rules were used to evaluate the resource, when each rule was last used, and whether the resource complies with each rule.
-  _i3.Future<_i1.PaginatedResult<_i50.BuiltList<_i138.EvaluationResult>, void>>
-      getComplianceDetailsByResource(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i50.BuiltList<_i138.EvaluationResult>, void,
+          String>> getComplianceDetailsByResource(
     _i141.GetComplianceDetailsByResourceRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i142.GetComplianceDetailsByResourceOperation(
       region: _region,
@@ -1447,23 +1455,23 @@ class ConfigClient {
   }
 
   /// Returns the number of Config rules that are compliant and noncompliant, up to a maximum of 25 for each.
-  _i3.Future<_i143.GetComplianceSummaryByConfigRuleResponse>
-      getComplianceSummaryByConfigRule({_i1.HttpClient? client}) {
+  _i3.SmithyOperation<_i143.GetComplianceSummaryByConfigRuleResponse>
+      getComplianceSummaryByConfigRule({_i1.AWSHttpClient? client}) {
     return _i144.GetComplianceSummaryByConfigRuleOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: _credentialsProvider,
     ).run(
-      const _i1.Unit(),
+      const _i3.Unit(),
       client: client ?? _client,
     );
   }
 
   /// Returns the number of resources that are compliant and the number that are noncompliant. You can specify one or more resource types to get these numbers for each resource type. The maximum number returned is 100.
-  _i3.Future<_i145.GetComplianceSummaryByResourceTypeResponse>
+  _i3.SmithyOperation<_i145.GetComplianceSummaryByResourceTypeResponse>
       getComplianceSummaryByResourceType(
     _i146.GetComplianceSummaryByResourceTypeRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i147.GetComplianceSummaryByResourceTypeOperation(
       region: _region,
@@ -1476,11 +1484,11 @@ class ConfigClient {
   }
 
   /// Returns compliance details of a conformance pack for all Amazon Web Services resources that are monitered by conformance pack.
-  _i3.Future<
-      _i1.PaginatedResult<_i148.GetConformancePackComplianceDetailsResponse,
-          int>> getConformancePackComplianceDetails(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i148.GetConformancePackComplianceDetailsResponse,
+          int, String>> getConformancePackComplianceDetails(
     _i149.GetConformancePackComplianceDetailsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i150.GetConformancePackComplianceDetailsOperation(
       region: _region,
@@ -1493,12 +1501,13 @@ class ConfigClient {
   }
 
   /// Returns compliance details for the conformance pack based on the cumulative compliance results of all the rules in that conformance pack.
-  _i3.Future<
-      _i1.PaginatedResult<
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<
           _i50.BuiltList<_i151.ConformancePackComplianceSummary>,
-          int>> getConformancePackComplianceSummary(
+          int,
+          String>> getConformancePackComplianceSummary(
     _i152.GetConformancePackComplianceSummaryRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i153.GetConformancePackComplianceSummaryOperation(
       region: _region,
@@ -1511,9 +1520,9 @@ class ConfigClient {
   }
 
   /// Returns the policy definition containing the logic for your Config Custom Policy rule.
-  _i3.Future<_i154.GetCustomRulePolicyResponse> getCustomRulePolicy(
+  _i3.SmithyOperation<_i154.GetCustomRulePolicyResponse> getCustomRulePolicy(
     _i155.GetCustomRulePolicyRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i156.GetCustomRulePolicyOperation(
       region: _region,
@@ -1552,11 +1561,11 @@ class ConfigClient {
   ///
   ///
   /// It might take a few minutes for Config to record and count your resources. Wait a few minutes and then retry the GetDiscoveredResourceCounts action.
-  _i3.Future<
-          _i1.PaginatedResult<_i157.GetDiscoveredResourceCountsResponse, int>>
-      getDiscoveredResourceCounts(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i157.GetDiscoveredResourceCountsResponse, int,
+          String>> getDiscoveredResourceCounts(
     _i158.GetDiscoveredResourceCountsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i159.GetDiscoveredResourceCountsOperation(
       region: _region,
@@ -1569,11 +1578,11 @@ class ConfigClient {
   }
 
   /// Returns detailed status for each member account within an organization for a given organization Config rule.
-  _i3.Future<
-          _i1.PaginatedResult<_i50.BuiltList<_i160.MemberAccountStatus>, int>>
-      getOrganizationConfigRuleDetailedStatus(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i50.BuiltList<_i160.MemberAccountStatus>, int,
+          String>> getOrganizationConfigRuleDetailedStatus(
     _i161.GetOrganizationConfigRuleDetailedStatusRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i162.GetOrganizationConfigRuleDetailedStatusOperation(
       region: _region,
@@ -1586,12 +1595,13 @@ class ConfigClient {
   }
 
   /// Returns detailed status for each member account within an organization for a given organization conformance pack.
-  _i3.Future<
-      _i1.PaginatedResult<
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<
           _i50.BuiltList<_i163.OrganizationConformancePackDetailedStatus>,
-          int>> getOrganizationConformancePackDetailedStatus(
+          int,
+          String>> getOrganizationConformancePackDetailedStatus(
     _i164.GetOrganizationConformancePackDetailedStatusRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i165.GetOrganizationConformancePackDetailedStatusOperation(
       region: _region,
@@ -1604,10 +1614,10 @@ class ConfigClient {
   }
 
   /// Returns the policy definition containing the logic for your organization Config Custom Policy rule.
-  _i3.Future<_i166.GetOrganizationCustomRulePolicyResponse>
+  _i3.SmithyOperation<_i166.GetOrganizationCustomRulePolicyResponse>
       getOrganizationCustomRulePolicy(
     _i167.GetOrganizationCustomRulePolicyRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i168.GetOrganizationCustomRulePolicyOperation(
       region: _region,
@@ -1624,10 +1634,11 @@ class ConfigClient {
   /// The response is paginated. By default, Config returns a limit of 10 configuration items per page. You can customize this number with the `limit` parameter. The response includes a `nextToken` string. To get the next page of results, run the request again and specify the string for the `nextToken` parameter.
   ///
   /// Each call to the API is limited to span a duration of seven days. It is likely that the number of records returned is smaller than the specified `limit`. In such cases, you can make another call, using the `nextToken`.
-  _i3.Future<_i1.PaginatedResult<_i50.BuiltList<_i169.ConfigurationItem>, int>>
-      getResourceConfigHistory(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i50.BuiltList<_i169.ConfigurationItem>, int,
+          String>> getResourceConfigHistory(
     _i170.GetResourceConfigHistoryRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i171.GetResourceConfigHistoryOperation(
       region: _region,
@@ -1640,9 +1651,9 @@ class ConfigClient {
   }
 
   /// Returns the details of a specific stored query.
-  _i3.Future<_i172.GetStoredQueryResponse> getStoredQuery(
+  _i3.SmithyOperation<_i172.GetStoredQueryResponse> getStoredQuery(
     _i173.GetStoredQueryRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i174.GetStoredQueryOperation(
       region: _region,
@@ -1657,11 +1668,11 @@ class ConfigClient {
   /// Accepts a resource type and returns a list of resource identifiers that are aggregated for a specific resource type across accounts and regions. A resource identifier includes the resource type, ID, (if available) the custom resource name, source account, and source region. You can narrow the results to include only resources that have specific resource IDs, or a resource name, or source account ID, or source region.
   ///
   /// For example, if the input consists of accountID 12345678910 and the region is us-east-1 for resource type `AWS::EC2::Instance` then the API returns all the EC2 instance identifiers of accountID 12345678910 and region us-east-1.
-  _i3.Future<
-      _i1.PaginatedResult<_i50.BuiltList<_i175.AggregateResourceIdentifier>,
-          int>> listAggregateDiscoveredResources(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i50.BuiltList<_i175.AggregateResourceIdentifier>,
+          int, String>> listAggregateDiscoveredResources(
     _i176.ListAggregateDiscoveredResourcesRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i177.ListAggregateDiscoveredResourcesOperation(
       region: _region,
@@ -1676,11 +1687,11 @@ class ConfigClient {
   /// Returns a list of conformance pack compliance scores. A compliance score is the percentage of the number of compliant rule-resource combinations in a conformance pack compared to the number of total possible rule-resource combinations in the conformance pack. This metric provides you with a high-level view of the compliance state of your conformance packs, and can be used to identify, investigate, and understand the level of compliance in your conformance packs.
   ///
   /// Conformance packs with no evaluation results will have a compliance score of `INSUFFICIENT_DATA`.
-  _i3.Future<
-      _i1.PaginatedResult<_i178.ListConformancePackComplianceScoresResponse,
-          int>> listConformancePackComplianceScores(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i178.ListConformancePackComplianceScoresResponse,
+          int, String>> listConformancePackComplianceScores(
     _i179.ListConformancePackComplianceScoresRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i180.ListConformancePackComplianceScoresOperation(
       region: _region,
@@ -1697,10 +1708,11 @@ class ConfigClient {
   /// You can specify either resource IDs or a resource name, but not both, in the same request.
   ///
   /// The response is paginated. By default, Config lists 100 resource identifiers on each page. You can customize this number with the `limit` parameter. The response includes a `nextToken` string. To get the next page of results, run the request again and specify the string for the `nextToken` parameter.
-  _i3.Future<_i1.PaginatedResult<_i50.BuiltList<_i181.ResourceIdentifier>, int>>
-      listDiscoveredResources(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i50.BuiltList<_i181.ResourceIdentifier>, int,
+          String>> listDiscoveredResources(
     _i182.ListDiscoveredResourcesRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i183.ListDiscoveredResourcesOperation(
       region: _region,
@@ -1713,10 +1725,11 @@ class ConfigClient {
   }
 
   /// Lists the stored queries for a single Amazon Web Services account and a single Amazon Web Services Region. The default is 100.
-  _i3.Future<_i1.PaginatedResult<_i184.ListStoredQueriesResponse, int>>
+  _i3.SmithyOperation<
+          _i3.PaginatedResult<_i184.ListStoredQueriesResponse, int, String>>
       listStoredQueries(
     _i185.ListStoredQueriesRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i186.ListStoredQueriesOperation(
       region: _region,
@@ -1729,10 +1742,11 @@ class ConfigClient {
   }
 
   /// List the tags for Config resource.
-  _i3.Future<_i1.PaginatedResult<_i50.BuiltList<_i187.Tag>, int>>
+  _i3.SmithyOperation<
+          _i3.PaginatedResult<_i50.BuiltList<_i187.Tag>, int, String>>
       listTagsForResource(
     _i188.ListTagsForResourceRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i189.ListTagsForResourceOperation(
       region: _region,
@@ -1745,10 +1759,10 @@ class ConfigClient {
   }
 
   /// Authorizes the aggregator account and region to collect data from the source account and region.
-  _i3.Future<_i190.PutAggregationAuthorizationResponse>
+  _i3.SmithyOperation<_i190.PutAggregationAuthorizationResponse>
       putAggregationAuthorization(
     _i191.PutAggregationAuthorizationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i192.PutAggregationAuthorizationOperation(
       region: _region,
@@ -1773,9 +1787,9 @@ class ConfigClient {
   /// If you are updating a rule that you added previously, you can specify the rule by `ConfigRuleName`, `ConfigRuleId`, or `ConfigRuleArn` in the `ConfigRule` data type that you use in this request.
   ///
   /// For more information about developing and using Config rules, see [Evaluating Amazon Web Services resource Configurations with Config](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config.html) in the _Config Developer Guide_.
-  _i3.Future<void> putConfigRule(
+  _i3.SmithyOperation<void> putConfigRule(
     _i193.PutConfigRuleRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i194.PutConfigRuleOperation(
       region: _region,
@@ -1796,10 +1810,10 @@ class ConfigClient {
   /// If your source type is an organization, you must be signed in to the management account or a registered delegated administrator and all the features must be enabled in your organization. If the caller is a management account, Config calls `EnableAwsServiceAccess` API to enable integration between Config and Organizations. If the caller is a registered delegated administrator, Config calls `ListDelegatedAdministrators` API to verify whether the caller is a valid delegated administrator.
   ///
   /// To register a delegated administrator, see [Register a Delegated Administrator](https://docs.aws.amazon.com/config/latest/developerguide/set-up-aggregator-cli.html#register-a-delegated-administrator-cli) in the _Config developer guide_.
-  _i3.Future<_i195.PutConfigurationAggregatorResponse>
+  _i3.SmithyOperation<_i195.PutConfigurationAggregatorResponse>
       putConfigurationAggregator(
     _i196.PutConfigurationAggregatorRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i197.PutConfigurationAggregatorOperation(
       region: _region,
@@ -1818,9 +1832,9 @@ class ConfigClient {
   /// Currently, you can specify only one configuration recorder per region in your account.
   ///
   /// If `ConfigurationRecorder` does not have the **recordingGroup** parameter specified, the default is to record all supported resource types.
-  _i3.Future<void> putConfigurationRecorder(
+  _i3.SmithyOperation<void> putConfigurationRecorder(
     _i198.PutConfigurationRecorderRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i199.PutConfigurationRecorderOperation(
       region: _region,
@@ -1837,9 +1851,9 @@ class ConfigClient {
   /// This API creates a service-linked role `AWSServiceRoleForConfigConforms` in your account. The service-linked role is created only when the role does not exist in your account.
   ///
   /// You must specify one and only one of the`TemplateS3Uri`, `TemplateBody` or `TemplateSSMDocumentDetails` parameters.
-  _i3.Future<_i200.PutConformancePackResponse> putConformancePack(
+  _i3.SmithyOperation<_i200.PutConformancePackResponse> putConformancePack(
     _i201.PutConformancePackRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i202.PutConformancePackOperation(
       region: _region,
@@ -1858,9 +1872,9 @@ class ConfigClient {
   /// You can use this action to change the Amazon S3 bucket or an Amazon SNS topic of the existing delivery channel. To change the Amazon S3 bucket or an Amazon SNS topic, call this action and specify the changed values for the S3 bucket and the SNS topic. If you specify a different value for either the S3 bucket or the SNS topic, this action will keep the existing value for the parameter that is not changed.
   ///
   /// You can have only one delivery channel per region in your account.
-  _i3.Future<void> putDeliveryChannel(
+  _i3.SmithyOperation<void> putDeliveryChannel(
     _i203.PutDeliveryChannelRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i204.PutDeliveryChannelOperation(
       region: _region,
@@ -1873,9 +1887,9 @@ class ConfigClient {
   }
 
   /// Used by an Lambda function to deliver evaluation results to Config. This action is required in every Lambda function that is invoked by an Config rule.
-  _i3.Future<_i205.PutEvaluationsResponse> putEvaluations(
+  _i3.SmithyOperation<_i205.PutEvaluationsResponse> putEvaluations(
     _i206.PutEvaluationsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i207.PutEvaluationsOperation(
       region: _region,
@@ -1888,9 +1902,10 @@ class ConfigClient {
   }
 
   /// Add or updates the evaluations for process checks. This API checks if the rule is a process check when the name of the Config rule is provided.
-  _i3.Future<_i208.PutExternalEvaluationResponse> putExternalEvaluation(
+  _i3.SmithyOperation<_i208.PutExternalEvaluationResponse>
+      putExternalEvaluation(
     _i209.PutExternalEvaluationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i210.PutExternalEvaluationOperation(
       region: _region,
@@ -1919,9 +1934,10 @@ class ConfigClient {
   /// Prerequisite: Ensure you call `EnableAllFeatures` API to enable all features in an organization.
   ///
   /// Make sure to specify one of either `OrganizationCustomPolicyRuleMetadata` for Custom Policy rules, `OrganizationCustomRuleMetadata` for Custom Lambda rules, or `OrganizationManagedRuleMetadata` for managed rules.
-  _i3.Future<_i211.PutOrganizationConfigRuleResponse> putOrganizationConfigRule(
+  _i3.SmithyOperation<_i211.PutOrganizationConfigRuleResponse>
+      putOrganizationConfigRule(
     _i212.PutOrganizationConfigRuleRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i213.PutOrganizationConfigRuleOperation(
       region: _region,
@@ -1944,10 +1960,10 @@ class ConfigClient {
   /// You must specify either the `TemplateS3Uri` or the `TemplateBody` parameter, but not both. If you provide both Config uses the `TemplateS3Uri` parameter and ignores the `TemplateBody` parameter.
   ///
   /// Config sets the state of a conformance pack to CREATE\_IN\_PROGRESS and UPDATE\_IN\_PROGRESS until the conformance pack is created or updated. You cannot update a conformance pack while it is in this state.
-  _i3.Future<_i214.PutOrganizationConformancePackResponse>
+  _i3.SmithyOperation<_i214.PutOrganizationConformancePackResponse>
       putOrganizationConformancePack(
     _i215.PutOrganizationConformancePackRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i216.PutOrganizationConformancePackOperation(
       region: _region,
@@ -1968,10 +1984,10 @@ class ConfigClient {
   /// For manual remediation configuration, you need to provide a value for `automationAssumeRole` or use a value in the `assumeRole`field to remediate your resources. The SSM automation document can use either as long as it maps to a valid parameter.
   ///
   /// However, for automatic remediation configuration, the only valid `assumeRole` field value is `AutomationAssumeRole` and you need to provide a value for `AutomationAssumeRole` to remediate your resources.
-  _i3.Future<_i217.PutRemediationConfigurationsResponse>
+  _i3.SmithyOperation<_i217.PutRemediationConfigurationsResponse>
       putRemediationConfigurations(
     _i218.PutRemediationConfigurationsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i219.PutRemediationConfigurationsOperation(
       region: _region,
@@ -1986,9 +2002,10 @@ class ConfigClient {
   /// A remediation exception is when a specific resource is no longer considered for auto-remediation. This API adds a new exception or updates an existing exception for a specific resource with a specific Config rule.
   ///
   /// Config generates a remediation exception when a problem occurs executing a remediation action to a specific resource. Remediation exceptions blocks auto-remediation until the exception is cleared.
-  _i3.Future<_i220.PutRemediationExceptionsResponse> putRemediationExceptions(
+  _i3.SmithyOperation<_i220.PutRemediationExceptionsResponse>
+      putRemediationExceptions(
     _i221.PutRemediationExceptionsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i222.PutRemediationExceptionsOperation(
       region: _region,
@@ -2007,9 +2024,9 @@ class ConfigClient {
   /// When you call this API, Config only stores configuration state of the resource provided in the request. This API does not change or remediate the configuration of the resource.
   ///
   /// Write-only schema properites are not recorded as part of the published configuration item.
-  _i3.Future<void> putResourceConfig(
+  _i3.SmithyOperation<void> putResourceConfig(
     _i223.PutResourceConfigRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i224.PutResourceConfigOperation(
       region: _region,
@@ -2024,9 +2041,10 @@ class ConfigClient {
   /// Creates and updates the retention configuration with details about retention period (number of days) that Config stores your historical information. The API creates the `RetentionConfiguration` object and names the object as **default**. When you have a `RetentionConfiguration` object named **default**, calling the API modifies the default object.
   ///
   /// Currently, Config supports only one retention configuration per region in your account.
-  _i3.Future<_i225.PutRetentionConfigurationResponse> putRetentionConfiguration(
+  _i3.SmithyOperation<_i225.PutRetentionConfigurationResponse>
+      putRetentionConfiguration(
     _i226.PutRetentionConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i227.PutRetentionConfigurationOperation(
       region: _region,
@@ -2039,9 +2057,9 @@ class ConfigClient {
   }
 
   /// Saves a new query or updates an existing saved query. The `QueryName` must be unique for a single Amazon Web Services account and a single Amazon Web Services Region. You can create upto 300 queries in a single Amazon Web Services account and a single Amazon Web Services Region.
-  _i3.Future<_i228.PutStoredQueryResponse> putStoredQuery(
+  _i3.SmithyOperation<_i228.PutStoredQueryResponse> putStoredQuery(
     _i229.PutStoredQueryRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i230.PutStoredQueryOperation(
       region: _region,
@@ -2060,10 +2078,10 @@ class ConfigClient {
   /// If you run an aggregation query (i.e., using `GROUP BY` or using aggregate functions such as `COUNT`; e.g., `SELECT resourceId, COUNT(*) WHERE resourceType = 'AWS::IAM::Role' GROUP BY resourceId`) and do not specify the `MaxResults` or the `Limit` query parameters, the default page size is set to 500.
   ///
   /// If you run a non-aggregation query (i.e., not using `GROUP BY` or aggregate function; e.g., `SELECT * WHERE resourceType = 'AWS::IAM::Role'`) and do not specify the `MaxResults` or the `Limit` query parameters, the default page size is set to 25.
-  _i3.Future<_i1.PaginatedResult<_i50.BuiltList<String>, int>>
+  _i3.SmithyOperation<_i3.PaginatedResult<_i50.BuiltList<String>, int, String>>
       selectAggregateResourceConfig(
     _i231.SelectAggregateResourceConfigRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i232.SelectAggregateResourceConfigOperation(
       region: _region,
@@ -2078,10 +2096,10 @@ class ConfigClient {
   /// Accepts a structured query language (SQL) `SELECT` command, performs the corresponding search, and returns resource configurations matching the properties.
   ///
   /// For more information about query components, see the [**Query Components**](https://docs.aws.amazon.com/config/latest/developerguide/query-components.html) section in the _Config Developer Guide_.
-  _i3.Future<_i1.PaginatedResult<_i50.BuiltList<String>, int>>
+  _i3.SmithyOperation<_i3.PaginatedResult<_i50.BuiltList<String>, int, String>>
       selectResourceConfig(
     _i233.SelectResourceConfigRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i234.SelectResourceConfigOperation(
       region: _region,
@@ -2112,10 +2130,10 @@ class ConfigClient {
   /// 4.  Config invokes your Lambda function and evaluates your IAM resources.
   ///
   /// 5.  Your custom rule will still run periodic evaluations every 24 hours.
-  _i3.Future<_i235.StartConfigRulesEvaluationResponse>
+  _i3.SmithyOperation<_i235.StartConfigRulesEvaluationResponse>
       startConfigRulesEvaluation(
     _i236.StartConfigRulesEvaluationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i237.StartConfigRulesEvaluationOperation(
       region: _region,
@@ -2130,9 +2148,9 @@ class ConfigClient {
   /// Starts recording configurations of the Amazon Web Services resources you have selected to record in your Amazon Web Services account.
   ///
   /// You must have created at least one delivery channel to successfully start the configuration recorder.
-  _i3.Future<void> startConfigurationRecorder(
+  _i3.SmithyOperation<void> startConfigurationRecorder(
     _i238.StartConfigurationRecorderRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i239.StartConfigurationRecorderOperation(
       region: _region,
@@ -2147,9 +2165,10 @@ class ConfigClient {
   /// Runs an on-demand remediation for the specified Config rules against the last known remediation configuration. It runs an execution against the current state of your resources. Remediation execution is asynchronous.
   ///
   /// You can specify up to 100 resource keys per request. An existing StartRemediationExecution call for the specified resource keys must complete before you can call the API again.
-  _i3.Future<_i240.StartRemediationExecutionResponse> startRemediationExecution(
+  _i3.SmithyOperation<_i240.StartRemediationExecutionResponse>
+      startRemediationExecution(
     _i241.StartRemediationExecutionRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i242.StartRemediationExecutionOperation(
       region: _region,
@@ -2162,9 +2181,9 @@ class ConfigClient {
   }
 
   /// Stops recording configurations of the Amazon Web Services resources you have selected to record in your Amazon Web Services account.
-  _i3.Future<void> stopConfigurationRecorder(
+  _i3.SmithyOperation<void> stopConfigurationRecorder(
     _i243.StopConfigurationRecorderRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i244.StopConfigurationRecorderOperation(
       region: _region,
@@ -2177,9 +2196,9 @@ class ConfigClient {
   }
 
   /// Associates the specified tags to a resource with the specified resourceArn. If existing tags on a resource are not specified in the request parameters, they are not changed. When a resource is deleted, the tags associated with that resource are deleted as well.
-  _i3.Future<void> tagResource(
+  _i3.SmithyOperation<void> tagResource(
     _i245.TagResourceRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i246.TagResourceOperation(
       region: _region,
@@ -2192,9 +2211,9 @@ class ConfigClient {
   }
 
   /// Deletes specified tags from a resource.
-  _i3.Future<void> untagResource(
+  _i3.SmithyOperation<void> untagResource(
     _i247.UntagResourceRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i248.UntagResourceOperation(
       region: _region,

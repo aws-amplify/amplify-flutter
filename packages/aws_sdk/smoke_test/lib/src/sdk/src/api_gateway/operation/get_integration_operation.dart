@@ -95,7 +95,7 @@ class GetIntegrationOperation extends _i1.HttpOperation<
   @override
   _i3.Integration buildOutput(
     _i3.Integration payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.Integration.fromResponse(
         payload,
@@ -145,15 +145,17 @@ class GetIntegrationOperation extends _i1.HttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'GetIntegration';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i13.Future<_i3.Integration> run(
+  _i1.SmithyOperation<_i3.Integration> run(
     _i2.GetIntegrationRequest input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i13.runZoned(

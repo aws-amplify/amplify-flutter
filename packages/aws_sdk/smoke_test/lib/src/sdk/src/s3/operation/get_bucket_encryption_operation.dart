@@ -116,7 +116,7 @@ class GetBucketEncryptionOperation extends _i1.HttpOperation<
   @override
   _i4.GetBucketEncryptionOutput buildOutput(
     _i3.ServerSideEncryptionConfiguration? payload,
-    _i8.AWSStreamedHttpResponse response,
+    _i8.AWSBaseHttpResponse response,
   ) =>
       _i4.GetBucketEncryptionOutput.fromResponse(
         payload,
@@ -124,6 +124,8 @@ class GetBucketEncryptionOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+  @override
+  String get runtimeTypeName => 'GetBucketEncryption';
   @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
@@ -147,9 +149,9 @@ class GetBucketEncryptionOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i10.Future<_i4.GetBucketEncryptionOutput> run(
+  _i1.SmithyOperation<_i4.GetBucketEncryptionOutput> run(
     _i2.GetBucketEncryptionRequest input, {
-    _i1.HttpClient? client,
+    _i8.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i10.runZoned(

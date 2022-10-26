@@ -93,7 +93,7 @@ class PutRetentionConfigurationOperation extends _i1.HttpOperation<
   @override
   _i3.PutRetentionConfigurationResponse buildOutput(
     _i3.PutRetentionConfigurationResponse payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.PutRetentionConfigurationResponse.fromResponse(
         payload,
@@ -122,15 +122,17 @@ class PutRetentionConfigurationOperation extends _i1.HttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'PutRetentionConfiguration';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i11.Future<_i3.PutRetentionConfigurationResponse> run(
+  _i1.SmithyOperation<_i3.PutRetentionConfigurationResponse> run(
     _i2.PutRetentionConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i11.runZoned(

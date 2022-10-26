@@ -105,7 +105,7 @@ class GetBucketLoggingOperation extends _i1.HttpOperation<
   @override
   _i3.GetBucketLoggingOutput buildOutput(
     _i3.GetBucketLoggingOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.GetBucketLoggingOutput.fromResponse(
         payload,
@@ -113,6 +113,8 @@ class GetBucketLoggingOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+  @override
+  String get runtimeTypeName => 'GetBucketLogging';
   @override
   _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
@@ -136,9 +138,9 @@ class GetBucketLoggingOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i9.Future<_i3.GetBucketLoggingOutput> run(
+  _i1.SmithyOperation<_i3.GetBucketLoggingOutput> run(
     _i2.GetBucketLoggingRequest input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i9.runZoned(

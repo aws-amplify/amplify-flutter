@@ -106,7 +106,7 @@ class ListAggregateDiscoveredResourcesOperation
   @override
   _i3.ListAggregateDiscoveredResourcesResponse buildOutput(
     _i3.ListAggregateDiscoveredResourcesResponse payload,
-    _i9.AWSStreamedHttpResponse response,
+    _i9.AWSBaseHttpResponse response,
   ) =>
       _i3.ListAggregateDiscoveredResourcesResponse.fromResponse(
         payload,
@@ -152,15 +152,17 @@ class ListAggregateDiscoveredResourcesOperation
         ),
       ];
   @override
+  String get runtimeTypeName => 'ListAggregateDiscoveredResources';
+  @override
   _i7.AWSRetryer get retryer => _i7.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i15.Future<_i3.ListAggregateDiscoveredResourcesResponse> run(
+  _i1.SmithyOperation<_i3.ListAggregateDiscoveredResourcesResponse> run(
     _i2.ListAggregateDiscoveredResourcesRequest input, {
-    _i1.HttpClient? client,
+    _i9.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i15.runZoned(

@@ -91,7 +91,7 @@ class DescribeTimeToLiveOperation extends _i1.HttpOperation<
   @override
   _i3.DescribeTimeToLiveOutput buildOutput(
     _i3.DescribeTimeToLiveOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.DescribeTimeToLiveOutput.fromResponse(
         payload,
@@ -129,15 +129,17 @@ class DescribeTimeToLiveOperation extends _i1.HttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'DescribeTimeToLive';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i12.Future<_i3.DescribeTimeToLiveOutput> run(
+  _i1.SmithyOperation<_i3.DescribeTimeToLiveOutput> run(
     _i2.DescribeTimeToLiveInput input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i12.runZoned(

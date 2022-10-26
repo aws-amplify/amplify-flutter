@@ -111,7 +111,7 @@ class PutRestApiOperation extends _i1.HttpOperation<_i2.Uint8List,
   @override
   _i4.RestApi buildOutput(
     _i4.RestApi payload,
-    _i8.AWSStreamedHttpResponse response,
+    _i8.AWSBaseHttpResponse response,
   ) =>
       _i4.RestApi.fromResponse(
         payload,
@@ -181,15 +181,17 @@ class PutRestApiOperation extends _i1.HttpOperation<_i2.Uint8List,
         ),
       ];
   @override
+  String get runtimeTypeName => 'PutRestApi';
+  @override
   _i6.AWSRetryer get retryer => _i6.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i16.Future<_i4.RestApi> run(
+  _i1.SmithyOperation<_i4.RestApi> run(
     _i3.PutRestApiRequest input, {
-    _i1.HttpClient? client,
+    _i8.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i16.runZoned(

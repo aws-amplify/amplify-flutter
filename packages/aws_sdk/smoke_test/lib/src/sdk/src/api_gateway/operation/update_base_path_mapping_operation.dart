@@ -97,7 +97,7 @@ class UpdateBasePathMappingOperation extends _i1.HttpOperation<
   @override
   _i3.BasePathMapping buildOutput(
     _i3.BasePathMapping payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.BasePathMapping.fromResponse(
         payload,
@@ -167,15 +167,17 @@ class UpdateBasePathMappingOperation extends _i1.HttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'UpdateBasePathMapping';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i15.Future<_i3.BasePathMapping> run(
+  _i1.SmithyOperation<_i3.BasePathMapping> run(
     _i2.UpdateBasePathMappingRequest input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i15.runZoned(

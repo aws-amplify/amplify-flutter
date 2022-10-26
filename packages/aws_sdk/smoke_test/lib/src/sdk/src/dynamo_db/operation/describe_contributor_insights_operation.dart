@@ -89,7 +89,7 @@ class DescribeContributorInsightsOperation extends _i1.HttpOperation<
   @override
   _i3.DescribeContributorInsightsOutput buildOutput(
     _i3.DescribeContributorInsightsOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.DescribeContributorInsightsOutput.fromResponse(
         payload,
@@ -117,15 +117,17 @@ class DescribeContributorInsightsOperation extends _i1.HttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'DescribeContributorInsights';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i11.Future<_i3.DescribeContributorInsightsOutput> run(
+  _i1.SmithyOperation<_i3.DescribeContributorInsightsOutput> run(
     _i2.DescribeContributorInsightsInput input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i11.runZoned(

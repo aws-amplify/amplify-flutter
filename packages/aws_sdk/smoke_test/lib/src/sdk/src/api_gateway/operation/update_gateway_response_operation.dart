@@ -97,7 +97,7 @@ class UpdateGatewayResponseOperation extends _i1.HttpOperation<
   @override
   _i3.GatewayResponse buildOutput(
     _i3.GatewayResponse payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.GatewayResponse.fromResponse(
         payload,
@@ -167,15 +167,17 @@ class UpdateGatewayResponseOperation extends _i1.HttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'UpdateGatewayResponse';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i15.Future<_i3.GatewayResponse> run(
+  _i1.SmithyOperation<_i3.GatewayResponse> run(
     _i2.UpdateGatewayResponseRequest input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i15.runZoned(

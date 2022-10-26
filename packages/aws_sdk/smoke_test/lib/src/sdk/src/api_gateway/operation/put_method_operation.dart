@@ -91,7 +91,7 @@ class PutMethodOperation extends _i1.HttpOperation<_i2.PutMethodRequestPayload,
   @override
   _i3.Method buildOutput(
     _i3.Method payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.Method.fromResponse(
         payload,
@@ -161,15 +161,17 @@ class PutMethodOperation extends _i1.HttpOperation<_i2.PutMethodRequestPayload,
         ),
       ];
   @override
+  String get runtimeTypeName => 'PutMethod';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i15.Future<_i3.Method> run(
+  _i1.SmithyOperation<_i3.Method> run(
     _i2.PutMethodRequest input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i15.runZoned(

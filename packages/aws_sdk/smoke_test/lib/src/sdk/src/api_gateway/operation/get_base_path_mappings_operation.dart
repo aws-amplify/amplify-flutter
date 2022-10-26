@@ -112,7 +112,7 @@ class GetBasePathMappingsOperation extends _i1.PaginatedHttpOperation<
   @override
   _i3.BasePathMappings buildOutput(
     _i3.BasePathMappings payload,
-    _i9.AWSStreamedHttpResponse response,
+    _i9.AWSBaseHttpResponse response,
   ) =>
       _i3.BasePathMappings.fromResponse(
         payload,
@@ -162,15 +162,17 @@ class GetBasePathMappingsOperation extends _i1.PaginatedHttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'GetBasePathMappings';
+  @override
   _i7.AWSRetryer get retryer => _i7.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i15.Future<_i3.BasePathMappings> run(
+  _i1.SmithyOperation<_i3.BasePathMappings> run(
     _i2.GetBasePathMappingsRequest input, {
-    _i1.HttpClient? client,
+    _i9.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i15.runZoned(

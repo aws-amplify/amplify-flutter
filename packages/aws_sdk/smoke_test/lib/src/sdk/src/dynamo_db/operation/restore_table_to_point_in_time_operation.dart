@@ -163,7 +163,7 @@ class RestoreTableToPointInTimeOperation extends _i1.HttpOperation<
   @override
   _i3.RestoreTableToPointInTimeOutput buildOutput(
     _i3.RestoreTableToPointInTimeOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.RestoreTableToPointInTimeOutput.fromResponse(
         payload,
@@ -246,15 +246,17 @@ class RestoreTableToPointInTimeOperation extends _i1.HttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'RestoreTableToPointInTime';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i17.Future<_i3.RestoreTableToPointInTimeOutput> run(
+  _i1.SmithyOperation<_i3.RestoreTableToPointInTimeOutput> run(
     _i2.RestoreTableToPointInTimeInput input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i17.runZoned(

@@ -138,7 +138,12 @@ class AnalyticsFilterRestXmlSerializer
   const AnalyticsFilterRestXmlSerializer() : super('AnalyticsFilter');
 
   @override
-  Iterable<Type> get types => const [AnalyticsFilter];
+  Iterable<Type> get types => const [
+        AnalyticsFilter,
+        AnalyticsFilterAnd,
+        AnalyticsFilterPrefix,
+        AnalyticsFilterTag,
+      ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(

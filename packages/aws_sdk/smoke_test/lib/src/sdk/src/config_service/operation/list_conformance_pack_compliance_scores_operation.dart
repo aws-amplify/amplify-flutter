@@ -101,7 +101,7 @@ class ListConformancePackComplianceScoresOperation
   @override
   _i3.ListConformancePackComplianceScoresResponse buildOutput(
     _i3.ListConformancePackComplianceScoresResponse payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.ListConformancePackComplianceScoresResponse.fromResponse(
         payload,
@@ -138,15 +138,17 @@ class ListConformancePackComplianceScoresOperation
         ),
       ];
   @override
+  String get runtimeTypeName => 'ListConformancePackComplianceScores';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i12.Future<_i3.ListConformancePackComplianceScoresResponse> run(
+  _i1.SmithyOperation<_i3.ListConformancePackComplianceScoresResponse> run(
     _i2.ListConformancePackComplianceScoresRequest input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i12.runZoned(

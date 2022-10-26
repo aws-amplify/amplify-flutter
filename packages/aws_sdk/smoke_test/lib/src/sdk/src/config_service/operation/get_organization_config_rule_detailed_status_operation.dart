@@ -103,7 +103,7 @@ class GetOrganizationConfigRuleDetailedStatusOperation
   @override
   _i3.GetOrganizationConfigRuleDetailedStatusResponse buildOutput(
     _i3.GetOrganizationConfigRuleDetailedStatusResponse payload,
-    _i9.AWSStreamedHttpResponse response,
+    _i9.AWSBaseHttpResponse response,
   ) =>
       _i3.GetOrganizationConfigRuleDetailedStatusResponse.fromResponse(
         payload,
@@ -149,15 +149,17 @@ class GetOrganizationConfigRuleDetailedStatusOperation
         ),
       ];
   @override
+  String get runtimeTypeName => 'GetOrganizationConfigRuleDetailedStatus';
+  @override
   _i7.AWSRetryer get retryer => _i7.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i15.Future<_i3.GetOrganizationConfigRuleDetailedStatusResponse> run(
+  _i1.SmithyOperation<_i3.GetOrganizationConfigRuleDetailedStatusResponse> run(
     _i2.GetOrganizationConfigRuleDetailedStatusRequest input, {
-    _i1.HttpClient? client,
+    _i9.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i15.runZoned(

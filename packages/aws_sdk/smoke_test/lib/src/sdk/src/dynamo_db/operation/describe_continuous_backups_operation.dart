@@ -103,7 +103,7 @@ class DescribeContinuousBackupsOperation extends _i1.HttpOperation<
   @override
   _i3.DescribeContinuousBackupsOutput buildOutput(
     _i3.DescribeContinuousBackupsOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.DescribeContinuousBackupsOutput.fromResponse(
         payload,
@@ -141,15 +141,17 @@ class DescribeContinuousBackupsOperation extends _i1.HttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'DescribeContinuousBackups';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i12.Future<_i3.DescribeContinuousBackupsOutput> run(
+  _i1.SmithyOperation<_i3.DescribeContinuousBackupsOutput> run(
     _i2.DescribeContinuousBackupsInput input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i12.runZoned(

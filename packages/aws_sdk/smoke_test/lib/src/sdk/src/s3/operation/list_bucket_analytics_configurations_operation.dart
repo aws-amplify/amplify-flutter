@@ -129,7 +129,7 @@ class ListBucketAnalyticsConfigurationsOperation extends _i1.HttpOperation<
   @override
   _i3.ListBucketAnalyticsConfigurationsOutput buildOutput(
     _i3.ListBucketAnalyticsConfigurationsOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.ListBucketAnalyticsConfigurationsOutput.fromResponse(
         payload,
@@ -137,6 +137,8 @@ class ListBucketAnalyticsConfigurationsOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+  @override
+  String get runtimeTypeName => 'ListBucketAnalyticsConfigurations';
   @override
   _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
@@ -160,9 +162,9 @@ class ListBucketAnalyticsConfigurationsOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i9.Future<_i3.ListBucketAnalyticsConfigurationsOutput> run(
+  _i1.SmithyOperation<_i3.ListBucketAnalyticsConfigurationsOutput> run(
     _i2.ListBucketAnalyticsConfigurationsRequest input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i9.runZoned(

@@ -93,7 +93,7 @@ class GetModelOperation extends _i1.HttpOperation<_i2.GetModelRequestPayload,
   @override
   _i3.Model buildOutput(
     _i3.Model payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.Model.fromResponse(
         payload,
@@ -143,15 +143,17 @@ class GetModelOperation extends _i1.HttpOperation<_i2.GetModelRequestPayload,
         ),
       ];
   @override
+  String get runtimeTypeName => 'GetModel';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i13.Future<_i3.Model> run(
+  _i1.SmithyOperation<_i3.Model> run(
     _i2.GetModelRequest input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i13.runZoned(

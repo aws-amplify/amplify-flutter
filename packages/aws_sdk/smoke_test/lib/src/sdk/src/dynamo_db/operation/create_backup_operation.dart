@@ -133,7 +133,7 @@ class CreateBackupOperation extends _i1.HttpOperation<_i2.CreateBackupInput,
   @override
   _i3.CreateBackupOutput buildOutput(
     _i3.CreateBackupOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.CreateBackupOutput.fromResponse(
         payload,
@@ -207,15 +207,17 @@ class CreateBackupOperation extends _i1.HttpOperation<_i2.CreateBackupInput,
         ),
       ];
   @override
+  String get runtimeTypeName => 'CreateBackup';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i16.Future<_i3.CreateBackupOutput> run(
+  _i1.SmithyOperation<_i3.CreateBackupOutput> run(
     _i2.CreateBackupInput input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i16.runZoned(

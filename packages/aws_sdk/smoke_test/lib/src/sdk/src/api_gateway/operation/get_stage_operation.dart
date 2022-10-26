@@ -91,7 +91,7 @@ class GetStageOperation extends _i1.HttpOperation<_i2.GetStageRequestPayload,
   @override
   _i3.Stage buildOutput(
     _i3.Stage payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.Stage.fromResponse(
         payload,
@@ -161,15 +161,17 @@ class GetStageOperation extends _i1.HttpOperation<_i2.GetStageRequestPayload,
         ),
       ];
   @override
+  String get runtimeTypeName => 'GetStage';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i15.Future<_i3.Stage> run(
+  _i1.SmithyOperation<_i3.Stage> run(
     _i2.GetStageRequest input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i15.runZoned(

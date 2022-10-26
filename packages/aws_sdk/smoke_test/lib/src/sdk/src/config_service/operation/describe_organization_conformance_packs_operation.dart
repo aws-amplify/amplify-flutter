@@ -118,7 +118,7 @@ class DescribeOrganizationConformancePacksOperation
   @override
   _i3.DescribeOrganizationConformancePacksResponse buildOutput(
     _i3.DescribeOrganizationConformancePacksResponse payload,
-    _i9.AWSStreamedHttpResponse response,
+    _i9.AWSBaseHttpResponse response,
   ) =>
       _i3.DescribeOrganizationConformancePacksResponse.fromResponse(
         payload,
@@ -164,15 +164,17 @@ class DescribeOrganizationConformancePacksOperation
         ),
       ];
   @override
+  String get runtimeTypeName => 'DescribeOrganizationConformancePacks';
+  @override
   _i7.AWSRetryer get retryer => _i7.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i15.Future<_i3.DescribeOrganizationConformancePacksResponse> run(
+  _i1.SmithyOperation<_i3.DescribeOrganizationConformancePacksResponse> run(
     _i2.DescribeOrganizationConformancePacksRequest input, {
-    _i1.HttpClient? client,
+    _i9.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i15.runZoned(

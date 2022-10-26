@@ -96,7 +96,7 @@ class GetResourceOperation extends _i1.HttpOperation<
   @override
   _i3.Resource buildOutput(
     _i3.Resource payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.Resource.fromResponse(
         payload,
@@ -136,15 +136,17 @@ class GetResourceOperation extends _i1.HttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'GetResource';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i12.Future<_i3.Resource> run(
+  _i1.SmithyOperation<_i3.Resource> run(
     _i2.GetResourceRequest input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i12.runZoned(

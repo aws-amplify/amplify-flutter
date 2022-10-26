@@ -172,7 +172,7 @@ class ListPartsOperation extends _i1.PaginatedHttpOperation<
   @override
   _i3.ListPartsOutput buildOutput(
     _i3.ListPartsOutputPayload payload,
-    _i9.AWSStreamedHttpResponse response,
+    _i9.AWSBaseHttpResponse response,
   ) =>
       _i3.ListPartsOutput.fromResponse(
         payload,
@@ -180,6 +180,8 @@ class ListPartsOperation extends _i1.PaginatedHttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+  @override
+  String get runtimeTypeName => 'ListParts';
   @override
   _i6.AWSRetryer get retryer => _i6.AWSRetryer();
   @override
@@ -203,9 +205,9 @@ class ListPartsOperation extends _i1.PaginatedHttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i11.Future<_i3.ListPartsOutput> run(
+  _i1.SmithyOperation<_i3.ListPartsOutput> run(
     _i2.ListPartsRequest input, {
-    _i1.HttpClient? client,
+    _i9.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i11.runZoned(

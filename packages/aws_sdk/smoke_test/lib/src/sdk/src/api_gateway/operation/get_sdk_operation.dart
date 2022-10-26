@@ -100,7 +100,7 @@ class GetSdkOperation extends _i1.HttpOperation<_i2.GetSdkRequestPayload,
   @override
   _i4.SdkResponse buildOutput(
     _i3.Uint8List? payload,
-    _i8.AWSStreamedHttpResponse response,
+    _i8.AWSBaseHttpResponse response,
   ) =>
       _i4.SdkResponse.fromResponse(
         payload,
@@ -170,15 +170,17 @@ class GetSdkOperation extends _i1.HttpOperation<_i2.GetSdkRequestPayload,
         ),
       ];
   @override
+  String get runtimeTypeName => 'GetSdk';
+  @override
   _i6.AWSRetryer get retryer => _i6.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i16.Future<_i4.SdkResponse> run(
+  _i1.SmithyOperation<_i4.SdkResponse> run(
     _i2.GetSdkRequest input, {
-    _i1.HttpClient? client,
+    _i8.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i16.runZoned(
