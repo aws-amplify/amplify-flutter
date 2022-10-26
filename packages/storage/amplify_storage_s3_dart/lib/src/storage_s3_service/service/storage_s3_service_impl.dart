@@ -69,8 +69,12 @@ class StorageS3Service {
         _dependencyManager = dependencyManager,
         _serviceStartingTime = DateTime.now();
 
-  static const _defaultS3ClientConfig = S3ClientConfig();
-  static final _defaultS3SignerConfiguration = S3ServiceConfiguration();
+  static final _defaultS3SignerConfiguration = S3ServiceConfiguration(
+    signPayload: false,
+  );
+  static final _defaultS3ClientConfig = S3ClientConfig(
+    signerConfiguration: _defaultS3SignerConfiguration,
+  );
 
   final String _defaultBucket;
   final String _defaultRegion;
