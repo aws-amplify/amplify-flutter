@@ -151,7 +151,7 @@ class DescribeLimitsOperation extends _i1.HttpOperation<
   @override
   _i3.DescribeLimitsOutput buildOutput(
     _i3.DescribeLimitsOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.DescribeLimitsOutput.fromResponse(
         payload,
@@ -180,15 +180,17 @@ class DescribeLimitsOperation extends _i1.HttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'DescribeLimits';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i11.Future<_i3.DescribeLimitsOutput> run(
+  _i1.SmithyOperation<_i3.DescribeLimitsOutput> run(
     _i2.DescribeLimitsInput input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i11.runZoned(

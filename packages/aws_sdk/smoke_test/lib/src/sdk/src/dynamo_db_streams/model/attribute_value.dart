@@ -344,7 +344,19 @@ class AttributeValueAwsJson10Serializer
   const AttributeValueAwsJson10Serializer() : super('AttributeValue');
 
   @override
-  Iterable<Type> get types => const [AttributeValue];
+  Iterable<Type> get types => const [
+        AttributeValue,
+        AttributeValueB,
+        AttributeValueBool,
+        AttributeValueBs,
+        AttributeValueL,
+        AttributeValueM,
+        AttributeValueN,
+        AttributeValueNs,
+        AttributeValueNull,
+        AttributeValueS,
+        AttributeValueSs,
+      ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(

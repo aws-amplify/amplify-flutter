@@ -100,7 +100,7 @@ class GetComplianceDetailsByConfigRuleOperation
   @override
   _i3.GetComplianceDetailsByConfigRuleResponse buildOutput(
     _i3.GetComplianceDetailsByConfigRuleResponse payload,
-    _i9.AWSStreamedHttpResponse response,
+    _i9.AWSBaseHttpResponse response,
   ) =>
       _i3.GetComplianceDetailsByConfigRuleResponse.fromResponse(
         payload,
@@ -137,15 +137,17 @@ class GetComplianceDetailsByConfigRuleOperation
         ),
       ];
   @override
+  String get runtimeTypeName => 'GetComplianceDetailsByConfigRule';
+  @override
   _i7.AWSRetryer get retryer => _i7.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i14.Future<_i3.GetComplianceDetailsByConfigRuleResponse> run(
+  _i1.SmithyOperation<_i3.GetComplianceDetailsByConfigRuleResponse> run(
     _i2.GetComplianceDetailsByConfigRuleRequest input, {
-    _i1.HttpClient? client,
+    _i9.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i14.runZoned(

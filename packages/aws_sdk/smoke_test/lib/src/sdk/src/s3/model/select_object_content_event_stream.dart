@@ -203,7 +203,14 @@ class SelectObjectContentEventStreamRestXmlSerializer
       : super('SelectObjectContentEventStream');
 
   @override
-  Iterable<Type> get types => const [SelectObjectContentEventStream];
+  Iterable<Type> get types => const [
+        SelectObjectContentEventStream,
+        SelectObjectContentEventStreamCont,
+        SelectObjectContentEventStreamEnd,
+        SelectObjectContentEventStreamProgress,
+        SelectObjectContentEventStreamRecords,
+        SelectObjectContentEventStreamStats,
+      ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(

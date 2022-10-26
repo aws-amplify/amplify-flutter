@@ -150,7 +150,12 @@ class ReplicationRuleFilterRestXmlSerializer
       : super('ReplicationRuleFilter');
 
   @override
-  Iterable<Type> get types => const [ReplicationRuleFilter];
+  Iterable<Type> get types => const [
+        ReplicationRuleFilter,
+        ReplicationRuleFilterAnd,
+        ReplicationRuleFilterPrefix,
+        ReplicationRuleFilterTag,
+      ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(

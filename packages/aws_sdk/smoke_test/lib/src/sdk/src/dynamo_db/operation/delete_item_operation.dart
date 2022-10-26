@@ -107,7 +107,7 @@ class DeleteItemOperation extends _i1.HttpOperation<_i2.DeleteItemInput,
   @override
   _i3.DeleteItemOutput buildOutput(
     _i3.DeleteItemOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.DeleteItemOutput.fromResponse(
         payload,
@@ -190,15 +190,17 @@ class DeleteItemOperation extends _i1.HttpOperation<_i2.DeleteItemInput,
         ),
       ];
   @override
+  String get runtimeTypeName => 'DeleteItem';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i17.Future<_i3.DeleteItemOutput> run(
+  _i1.SmithyOperation<_i3.DeleteItemOutput> run(
     _i2.DeleteItemInput input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i17.runZoned(

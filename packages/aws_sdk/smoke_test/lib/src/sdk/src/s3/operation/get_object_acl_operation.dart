@@ -137,7 +137,7 @@ class GetObjectAclOperation extends _i1.HttpOperation<
   @override
   _i3.GetObjectAclOutput buildOutput(
     _i3.GetObjectAclOutputPayload payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.GetObjectAclOutput.fromResponse(
         payload,
@@ -155,6 +155,8 @@ class GetObjectAclOperation extends _i1.HttpOperation<
           builder: _i9.NoSuchKey.fromResponse,
         )
       ];
+  @override
+  String get runtimeTypeName => 'GetObjectAcl';
   @override
   _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
@@ -178,9 +180,9 @@ class GetObjectAclOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i10.Future<_i3.GetObjectAclOutput> run(
+  _i1.SmithyOperation<_i3.GetObjectAclOutput> run(
     _i2.GetObjectAclRequest input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i10.runZoned(

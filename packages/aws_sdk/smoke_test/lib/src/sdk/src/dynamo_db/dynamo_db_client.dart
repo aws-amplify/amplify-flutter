@@ -2,11 +2,10 @@
 
 library smoke_test.dynamo_db.dynamo_db_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i3;
-
+import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:built_collection/built_collection.dart' as _i104;
-import 'package:smithy/smithy.dart' as _i1;
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
     as _i113;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_execute_statement_input.dart'
@@ -330,7 +329,7 @@ class DynamoDbClient {
   ///
   /// DynamoDB automatically spreads the data and traffic for your tables over a sufficient number of servers to handle your throughput and storage requirements, while maintaining consistent and fast performance. All of your data is stored on solid state disks (SSDs) and automatically replicated across multiple Availability Zones in an Amazon Web Services Region, providing built-in high availability and data durability.
   const DynamoDbClient({
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
     required String region,
     Uri? baseUri,
     required _i2.AWSCredentialsProvider credentialsProvider,
@@ -339,7 +338,7 @@ class DynamoDbClient {
         _baseUri = baseUri,
         _credentialsProvider = credentialsProvider;
 
-  final _i1.HttpClient? _client;
+  final _i1.AWSHttpClient? _client;
 
   final String _region;
 
@@ -352,9 +351,9 @@ class DynamoDbClient {
   /// The entire batch must consist of either read statements or write statements, you cannot mix both in one batch.
   ///
   /// A HTTP 200 response does not mean that all statements in the BatchExecuteStatement succeeded. Error details for individual statements can be found under the [Error](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchStatementResponse.html#DDB-Type-BatchStatementResponse-Error) field of the `BatchStatementResponse` for each statement.
-  _i3.Future<_i4.BatchExecuteStatementOutput> batchExecuteStatement(
+  _i3.SmithyOperation<_i4.BatchExecuteStatementOutput> batchExecuteStatement(
     _i5.BatchExecuteStatementInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i6.BatchExecuteStatementOperation(
       region: _region,
@@ -387,9 +386,9 @@ class DynamoDbClient {
   /// When designing your application, keep in mind that DynamoDB does not return items in any particular order. To help parse the response by item, include the primary key values for the items in your request in the `ProjectionExpression` parameter.
   ///
   /// If a requested item does not exist, it is not returned in the result. Requests for nonexistent items consume the minimum read capacity units according to the type of read. For more information, see [Working with Tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#CapacityUnitCalculations) in the _Amazon DynamoDB Developer Guide_.
-  _i3.Future<_i7.BatchGetItemOutput> batchGetItem(
+  _i3.SmithyOperation<_i7.BatchGetItemOutput> batchGetItem(
     _i8.BatchGetItemInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i9.BatchGetItemOperation(
       region: _region,
@@ -434,9 +433,9 @@ class DynamoDbClient {
   /// *   Any individual item in a batch exceeds 400 KB.
   ///
   /// *   The total request size exceeds 16 MB.
-  _i3.Future<_i10.BatchWriteItemOutput> batchWriteItem(
+  _i3.SmithyOperation<_i10.BatchWriteItemOutput> batchWriteItem(
     _i11.BatchWriteItemInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i12.BatchWriteItemOperation(
       region: _region,
@@ -469,9 +468,9 @@ class DynamoDbClient {
   /// *   Streams
   ///
   /// *   Provisioned read and write capacity
-  _i3.Future<_i13.CreateBackupOutput> createBackup(
+  _i3.SmithyOperation<_i13.CreateBackupOutput> createBackup(
     _i14.CreateBackupInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i15.CreateBackupOperation(
       region: _region,
@@ -515,9 +514,9 @@ class DynamoDbClient {
   /// Write capacity settings should be set consistently across your replica tables and secondary indexes. DynamoDB strongly recommends enabling auto scaling to manage the write capacity settings for all of your global tables replicas and indexes.
   ///
   /// If you prefer to manage write capacity settings manually, you should provision equal replicated write capacity units to your replica tables. You should also provision equal replicated write capacity units to matching secondary indexes across your global table.
-  _i3.Future<_i16.CreateGlobalTableOutput> createGlobalTable(
+  _i3.SmithyOperation<_i16.CreateGlobalTableOutput> createGlobalTable(
     _i17.CreateGlobalTableInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i18.CreateGlobalTableOperation(
       region: _region,
@@ -536,9 +535,9 @@ class DynamoDbClient {
   /// You can optionally define secondary indexes on the new table, as part of the `CreateTable` operation. If you want to create multiple tables with secondary indexes on them, you must create the tables sequentially. Only one table with secondary indexes can be in the `CREATING` state at any given time.
   ///
   /// You can use the `DescribeTable` action to check the table status.
-  _i3.Future<_i19.CreateTableOutput> createTable(
+  _i3.SmithyOperation<_i19.CreateTableOutput> createTable(
     _i20.CreateTableInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i21.CreateTableOperation(
       region: _region,
@@ -553,9 +552,9 @@ class DynamoDbClient {
   /// Deletes an existing backup of a table.
   ///
   /// You can call `DeleteBackup` at a maximum rate of 10 times per second.
-  _i3.Future<_i22.DeleteBackupOutput> deleteBackup(
+  _i3.SmithyOperation<_i22.DeleteBackupOutput> deleteBackup(
     _i23.DeleteBackupInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i24.DeleteBackupOperation(
       region: _region,
@@ -574,9 +573,9 @@ class DynamoDbClient {
   /// Unless you specify conditions, the `DeleteItem` is an idempotent operation; running it multiple times on the same item or attribute does _not_ result in an error response.
   ///
   /// Conditional deletes are useful for deleting items only if specific conditions are met. If those conditions are met, DynamoDB performs the delete. Otherwise, the item is not deleted.
-  _i3.Future<_i25.DeleteItemOutput> deleteItem(
+  _i3.SmithyOperation<_i25.DeleteItemOutput> deleteItem(
     _i26.DeleteItemInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i27.DeleteItemOperation(
       region: _region,
@@ -597,9 +596,9 @@ class DynamoDbClient {
   /// If you have DynamoDB Streams enabled on the table, then the corresponding stream on that table goes into the `DISABLED` state, and the stream is automatically deleted after 24 hours.
   ///
   /// Use the `DescribeTable` action to check the status of the table.
-  _i3.Future<_i28.DeleteTableOutput> deleteTable(
+  _i3.SmithyOperation<_i28.DeleteTableOutput> deleteTable(
     _i29.DeleteTableInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i30.DeleteTableOperation(
       region: _region,
@@ -614,9 +613,9 @@ class DynamoDbClient {
   /// Describes an existing backup of a table.
   ///
   /// You can call `DescribeBackup` at a maximum rate of 10 times per second.
-  _i3.Future<_i31.DescribeBackupOutput> describeBackup(
+  _i3.SmithyOperation<_i31.DescribeBackupOutput> describeBackup(
     _i32.DescribeBackupInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i33.DescribeBackupOperation(
       region: _region,
@@ -635,9 +634,10 @@ class DynamoDbClient {
   /// `LatestRestorableDateTime` is typically 5 minutes before the current time. You can restore your table to any point in time during the last 35 days.
   ///
   /// You can call `DescribeContinuousBackups` at a maximum rate of 10 times per second.
-  _i3.Future<_i34.DescribeContinuousBackupsOutput> describeContinuousBackups(
+  _i3.SmithyOperation<_i34.DescribeContinuousBackupsOutput>
+      describeContinuousBackups(
     _i35.DescribeContinuousBackupsInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i36.DescribeContinuousBackupsOperation(
       region: _region,
@@ -650,10 +650,10 @@ class DynamoDbClient {
   }
 
   /// Returns information about contributor insights, for a given table or global secondary index.
-  _i3.Future<_i37.DescribeContributorInsightsOutput>
+  _i3.SmithyOperation<_i37.DescribeContributorInsightsOutput>
       describeContributorInsights(
     _i38.DescribeContributorInsightsInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i39.DescribeContributorInsightsOperation(
       region: _region,
@@ -666,9 +666,9 @@ class DynamoDbClient {
   }
 
   /// Returns the regional endpoint information.
-  _i3.Future<_i40.DescribeEndpointsResponse> describeEndpoints(
+  _i3.SmithyOperation<_i40.DescribeEndpointsResponse> describeEndpoints(
     _i41.DescribeEndpointsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i42.DescribeEndpointsOperation(
       region: _region,
@@ -681,9 +681,9 @@ class DynamoDbClient {
   }
 
   /// Describes an existing table export.
-  _i3.Future<_i43.DescribeExportOutput> describeExport(
+  _i3.SmithyOperation<_i43.DescribeExportOutput> describeExport(
     _i44.DescribeExportInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i45.DescribeExportOperation(
       region: _region,
@@ -698,9 +698,9 @@ class DynamoDbClient {
   /// Returns information about the specified global table.
   ///
   /// This operation only applies to [Version 2017.11.29](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables. If you are using global tables [Version 2019.11.21](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) you can use [DescribeTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DescribeTable.html) instead.
-  _i3.Future<_i46.DescribeGlobalTableOutput> describeGlobalTable(
+  _i3.SmithyOperation<_i46.DescribeGlobalTableOutput> describeGlobalTable(
     _i47.DescribeGlobalTableInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i48.DescribeGlobalTableOperation(
       region: _region,
@@ -715,10 +715,10 @@ class DynamoDbClient {
   /// Describes Region-specific settings for a global table.
   ///
   /// This operation only applies to [Version 2017.11.29](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables.
-  _i3.Future<_i49.DescribeGlobalTableSettingsOutput>
+  _i3.SmithyOperation<_i49.DescribeGlobalTableSettingsOutput>
       describeGlobalTableSettings(
     _i50.DescribeGlobalTableSettingsInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i51.DescribeGlobalTableSettingsOperation(
       region: _region,
@@ -731,9 +731,9 @@ class DynamoDbClient {
   }
 
   /// Represents the properties of the import.
-  _i3.Future<_i52.DescribeImportOutput> describeImport(
+  _i3.SmithyOperation<_i52.DescribeImportOutput> describeImport(
     _i53.DescribeImportInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i54.DescribeImportOperation(
       region: _region,
@@ -746,10 +746,10 @@ class DynamoDbClient {
   }
 
   /// Returns information about the status of Kinesis streaming.
-  _i3.Future<_i55.DescribeKinesisStreamingDestinationOutput>
+  _i3.SmithyOperation<_i55.DescribeKinesisStreamingDestinationOutput>
       describeKinesisStreamingDestination(
     _i56.DescribeKinesisStreamingDestinationInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i57.DescribeKinesisStreamingDestinationOperation(
       region: _region,
@@ -795,9 +795,9 @@ class DynamoDbClient {
   /// `DescribeLimits` should only be called periodically. You can expect throttling errors if you call it more than once in a minute.
   ///
   /// The `DescribeLimits` Request element has no content.
-  _i3.Future<_i58.DescribeLimitsOutput> describeLimits(
+  _i3.SmithyOperation<_i58.DescribeLimitsOutput> describeLimits(
     _i59.DescribeLimitsInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i60.DescribeLimitsOperation(
       region: _region,
@@ -812,9 +812,9 @@ class DynamoDbClient {
   /// Returns information about the table, including the current status of the table, when it was created, the primary key schema, and any indexes on the table.
   ///
   /// If you issue a `DescribeTable` request immediately after a `CreateTable` request, DynamoDB might return a `ResourceNotFoundException`. This is because `DescribeTable` uses an eventually consistent query, and the metadata for your table might not be available at that moment. Wait for a few seconds, and then try the `DescribeTable` request again.
-  _i3.Future<_i61.DescribeTableOutput> describeTable(
+  _i3.SmithyOperation<_i61.DescribeTableOutput> describeTable(
     _i62.DescribeTableInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i63.DescribeTableOperation(
       region: _region,
@@ -829,10 +829,10 @@ class DynamoDbClient {
   /// Describes auto scaling settings across replicas of the global table at once.
   ///
   /// This operation only applies to [Version 2019.11.21](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
-  _i3.Future<_i64.DescribeTableReplicaAutoScalingOutput>
+  _i3.SmithyOperation<_i64.DescribeTableReplicaAutoScalingOutput>
       describeTableReplicaAutoScaling(
     _i65.DescribeTableReplicaAutoScalingInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i66.DescribeTableReplicaAutoScalingOperation(
       region: _region,
@@ -845,9 +845,9 @@ class DynamoDbClient {
   }
 
   /// Gives a description of the Time to Live (TTL) status on the specified table.
-  _i3.Future<_i67.DescribeTimeToLiveOutput> describeTimeToLive(
+  _i3.SmithyOperation<_i67.DescribeTimeToLiveOutput> describeTimeToLive(
     _i68.DescribeTimeToLiveInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i69.DescribeTimeToLiveOperation(
       region: _region,
@@ -860,10 +860,10 @@ class DynamoDbClient {
   }
 
   /// Stops replication from the DynamoDB table to the Kinesis data stream. This is done without deleting either of the resources.
-  _i3.Future<_i70.KinesisStreamingDestinationOutput>
+  _i3.SmithyOperation<_i70.KinesisStreamingDestinationOutput>
       disableKinesisStreamingDestination(
     _i71.KinesisStreamingDestinationInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i72.DisableKinesisStreamingDestinationOperation(
       region: _region,
@@ -876,10 +876,10 @@ class DynamoDbClient {
   }
 
   /// Starts table data replication to the specified Kinesis data stream at a timestamp chosen during the enable workflow. If this operation doesn't return results immediately, use DescribeKinesisStreamingDestination to check if streaming to the Kinesis data stream is ACTIVE.
-  _i3.Future<_i70.KinesisStreamingDestinationOutput>
+  _i3.SmithyOperation<_i70.KinesisStreamingDestinationOutput>
       enableKinesisStreamingDestination(
     _i71.KinesisStreamingDestinationInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i73.EnableKinesisStreamingDestinationOperation(
       region: _region,
@@ -896,9 +896,9 @@ class DynamoDbClient {
   /// For PartiQL reads (`SELECT` statement), if the total number of processed items exceeds the maximum dataset size limit of 1 MB, the read stops and results are returned to the user as a `LastEvaluatedKey` value to continue the read in a subsequent operation. If the filter criteria in `WHERE` clause does not match any data, the read will return an empty result set.
   ///
   /// A single `SELECT` statement response can return up to the maximum number of items (if using the Limit parameter) or a maximum of 1 MB of data (and then apply any filtering to the results using `WHERE` clause). If `LastEvaluatedKey` is present in the response, you need to paginate the result set.
-  _i3.Future<_i74.ExecuteStatementOutput> executeStatement(
+  _i3.SmithyOperation<_i74.ExecuteStatementOutput> executeStatement(
     _i75.ExecuteStatementInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i76.ExecuteStatementOperation(
       region: _region,
@@ -913,9 +913,9 @@ class DynamoDbClient {
   /// This operation allows you to perform transactional reads or writes on data stored in DynamoDB, using PartiQL.
   ///
   /// The entire transaction must consist of either read statements or write statements, you cannot mix both in one transaction. The EXISTS function is an exception and can be used to check the condition of specific attributes of the item in a similar manner to `ConditionCheck` in the [TransactWriteItems](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transaction-apis.html#transaction-apis-txwriteitems) API.
-  _i3.Future<_i77.ExecuteTransactionOutput> executeTransaction(
+  _i3.SmithyOperation<_i77.ExecuteTransactionOutput> executeTransaction(
     _i78.ExecuteTransactionInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i79.ExecuteTransactionOperation(
       region: _region,
@@ -928,9 +928,10 @@ class DynamoDbClient {
   }
 
   /// Exports table data to an S3 bucket. The table must have point in time recovery enabled, and you can export data from any time within the point in time recovery window.
-  _i3.Future<_i80.ExportTableToPointInTimeOutput> exportTableToPointInTime(
+  _i3.SmithyOperation<_i80.ExportTableToPointInTimeOutput>
+      exportTableToPointInTime(
     _i81.ExportTableToPointInTimeInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i82.ExportTableToPointInTimeOperation(
       region: _region,
@@ -945,9 +946,9 @@ class DynamoDbClient {
   /// The `GetItem` operation returns a set of attributes for the item with the given primary key. If there is no matching item, `GetItem` does not return any data and there will be no `Item` element in the response.
   ///
   /// `GetItem` provides an eventually consistent read by default. If your application requires a strongly consistent read, set `ConsistentRead` to `true`. Although a strongly consistent read might take more time than an eventually consistent read, it always returns the last updated value.
-  _i3.Future<_i83.GetItemOutput> getItem(
+  _i3.SmithyOperation<_i83.GetItemOutput> getItem(
     _i84.GetItemInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i85.GetItemOperation(
       region: _region,
@@ -960,9 +961,9 @@ class DynamoDbClient {
   }
 
   /// Imports table data from an S3 bucket.
-  _i3.Future<_i86.ImportTableOutput> importTable(
+  _i3.SmithyOperation<_i86.ImportTableOutput> importTable(
     _i87.ImportTableInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i88.ImportTableOperation(
       region: _region,
@@ -979,9 +980,9 @@ class DynamoDbClient {
   /// In the request, start time is inclusive, but end time is exclusive. Note that these boundaries are for the time at which the original backup was requested.
   ///
   /// You can call `ListBackups` a maximum of five times per second.
-  _i3.Future<_i89.ListBackupsOutput> listBackups(
+  _i3.SmithyOperation<_i89.ListBackupsOutput> listBackups(
     _i90.ListBackupsInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i91.ListBackupsOperation(
       region: _region,
@@ -994,10 +995,11 @@ class DynamoDbClient {
   }
 
   /// Returns a list of ContributorInsightsSummary for a table and all its global secondary indexes.
-  _i3.Future<_i1.PaginatedResult<_i92.ListContributorInsightsOutput, int>>
+  _i3.SmithyOperation<
+          _i3.PaginatedResult<_i92.ListContributorInsightsOutput, int, String>>
       listContributorInsights(
     _i93.ListContributorInsightsInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i94.ListContributorInsightsOperation(
       region: _region,
@@ -1010,9 +1012,10 @@ class DynamoDbClient {
   }
 
   /// Lists completed exports within the past 90 days.
-  _i3.Future<_i1.PaginatedResult<_i95.ListExportsOutput, int>> listExports(
+  _i3.SmithyOperation<_i3.PaginatedResult<_i95.ListExportsOutput, int, String>>
+      listExports(
     _i96.ListExportsInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i97.ListExportsOperation(
       region: _region,
@@ -1027,9 +1030,9 @@ class DynamoDbClient {
   /// Lists all global tables that have a replica in the specified Region.
   ///
   /// This operation only applies to [Version 2017.11.29](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables.
-  _i3.Future<_i98.ListGlobalTablesOutput> listGlobalTables(
+  _i3.SmithyOperation<_i98.ListGlobalTablesOutput> listGlobalTables(
     _i99.ListGlobalTablesInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i100.ListGlobalTablesOperation(
       region: _region,
@@ -1042,9 +1045,10 @@ class DynamoDbClient {
   }
 
   /// Lists completed imports within the past 90 days.
-  _i3.Future<_i1.PaginatedResult<_i101.ListImportsOutput, int>> listImports(
+  _i3.SmithyOperation<_i3.PaginatedResult<_i101.ListImportsOutput, int, String>>
+      listImports(
     _i102.ListImportsInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i103.ListImportsOperation(
       region: _region,
@@ -1057,9 +1061,10 @@ class DynamoDbClient {
   }
 
   /// Returns an array of table names associated with the current account and endpoint. The output from `ListTables` is paginated, with each page returning a maximum of 100 table names.
-  _i3.Future<_i1.PaginatedResult<_i104.BuiltList<String>, int>> listTables(
+  _i3.SmithyOperation<_i3.PaginatedResult<_i104.BuiltList<String>, int, String>>
+      listTables(
     _i105.ListTablesInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i106.ListTablesOperation(
       region: _region,
@@ -1074,9 +1079,9 @@ class DynamoDbClient {
   /// List all tags on an Amazon DynamoDB resource. You can call ListTagsOfResource up to 10 times per second, per account.
   ///
   /// For an overview on tagging DynamoDB resources, see [Tagging for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html) in the _Amazon DynamoDB Developer Guide_.
-  _i3.Future<_i107.ListTagsOfResourceOutput> listTagsOfResource(
+  _i3.SmithyOperation<_i107.ListTagsOfResourceOutput> listTagsOfResource(
     _i108.ListTagsOfResourceInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i109.ListTagsOfResourceOperation(
       region: _region,
@@ -1099,9 +1104,9 @@ class DynamoDbClient {
   /// To prevent a new item from replacing an existing item, use a conditional expression that contains the `attribute\_not\_exists` function with the name of the attribute being used as the partition key for the table. Since every record must contain that attribute, the `attribute\_not\_exists` function will only succeed if no matching item exists.
   ///
   /// For more information about `PutItem`, see [Working with Items](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithItems.html) in the _Amazon DynamoDB Developer Guide_.
-  _i3.Future<_i110.PutItemOutput> putItem(
+  _i3.SmithyOperation<_i110.PutItemOutput> putItem(
     _i111.PutItemInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i112.PutItemOperation(
       region: _region,
@@ -1130,12 +1135,13 @@ class DynamoDbClient {
   /// A `Query` operation can return an empty result set and a `LastEvaluatedKey` if all the items read for the page of results are filtered out.
   ///
   /// You can query a table, a local secondary index, or a global secondary index. For a query on a table or on a local secondary index, you can set the `ConsistentRead` parameter to `true` and obtain a strongly consistent result. Global secondary indexes support eventually consistent reads only, so do not specify `ConsistentRead` when querying a global secondary index.
-  _i3.Future<
-      _i1.PaginatedResult<
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<
           _i104.BuiltList<_i104.BuiltMap<String, _i113.AttributeValue>>,
-          int>> query(
+          int,
+          _i104.BuiltMap<String, _i113.AttributeValue>>> query(
     _i114.QueryInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i115.QueryOperation(
       region: _region,
@@ -1164,9 +1170,10 @@ class DynamoDbClient {
   /// *   Stream settings
   ///
   /// *   Time to Live (TTL) settings
-  _i3.Future<_i116.RestoreTableFromBackupOutput> restoreTableFromBackup(
+  _i3.SmithyOperation<_i116.RestoreTableFromBackupOutput>
+      restoreTableFromBackup(
     _i117.RestoreTableFromBackupInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i118.RestoreTableFromBackupOperation(
       region: _region,
@@ -1210,9 +1217,10 @@ class DynamoDbClient {
   /// *   Time to Live (TTL) settings
   ///
   /// *   Point in time recovery settings
-  _i3.Future<_i119.RestoreTableToPointInTimeOutput> restoreTableToPointInTime(
+  _i3.SmithyOperation<_i119.RestoreTableToPointInTimeOutput>
+      restoreTableToPointInTime(
     _i120.RestoreTableToPointInTimeInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i121.RestoreTableToPointInTimeOperation(
       region: _region,
@@ -1233,12 +1241,13 @@ class DynamoDbClient {
   /// `Scan` operations proceed sequentially; however, for faster performance on a large table or secondary index, applications can request a parallel `Scan` operation by providing the `Segment` and `TotalSegments` parameters. For more information, see [Parallel Scan](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.ParallelScan) in the _Amazon DynamoDB Developer Guide_.
   ///
   /// `Scan` uses eventually consistent reads when accessing the data in a table; therefore, the result set might not include the changes to data in the table immediately before the operation began. If you need a consistent copy of the data, as of the time that the `Scan` begins, you can set the `ConsistentRead` parameter to `true`.
-  _i3.Future<
-      _i1.PaginatedResult<
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<
           _i104.BuiltList<_i104.BuiltMap<String, _i113.AttributeValue>>,
-          int>> scan(
+          int,
+          _i104.BuiltMap<String, _i113.AttributeValue>>> scan(
     _i122.ScanInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i123.ScanOperation(
       region: _region,
@@ -1253,9 +1262,9 @@ class DynamoDbClient {
   /// Associate a set of tags with an Amazon DynamoDB resource. You can then activate these user-defined tags so that they appear on the Billing and Cost Management console for cost allocation tracking. You can call TagResource up to five times per second, per account.
   ///
   /// For an overview on tagging DynamoDB resources, see [Tagging for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html) in the _Amazon DynamoDB Developer Guide_.
-  _i3.Future<void> tagResource(
+  _i3.SmithyOperation<void> tagResource(
     _i124.TagResourceInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i125.TagResourceOperation(
       region: _region,
@@ -1278,9 +1287,9 @@ class DynamoDbClient {
   /// *   There is a user error, such as an invalid data format.
   ///
   /// *   The aggregate size of the items in the transaction cannot exceed 4 MB.
-  _i3.Future<_i126.TransactGetItemsOutput> transactGetItems(
+  _i3.SmithyOperation<_i126.TransactGetItemsOutput> transactGetItems(
     _i127.TransactGetItemsInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i128.TransactGetItemsOperation(
       region: _region,
@@ -1318,9 +1327,9 @@ class DynamoDbClient {
   /// *   The aggregate size of the items in the transaction exceeds 4 MB.
   ///
   /// *   There is a user error, such as an invalid data format.
-  _i3.Future<_i129.TransactWriteItemsOutput> transactWriteItems(
+  _i3.SmithyOperation<_i129.TransactWriteItemsOutput> transactWriteItems(
     _i130.TransactWriteItemsInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i131.TransactWriteItemsOperation(
       region: _region,
@@ -1335,9 +1344,9 @@ class DynamoDbClient {
   /// Removes the association of tags from an Amazon DynamoDB resource. You can call `UntagResource` up to five times per second, per account.
   ///
   /// For an overview on tagging DynamoDB resources, see [Tagging for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html) in the _Amazon DynamoDB Developer Guide_.
-  _i3.Future<void> untagResource(
+  _i3.SmithyOperation<void> untagResource(
     _i132.UntagResourceInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i133.UntagResourceOperation(
       region: _region,
@@ -1354,9 +1363,10 @@ class DynamoDbClient {
   /// Once continuous backups and point in time recovery are enabled, you can restore to any point in time within `EarliestRestorableDateTime` and `LatestRestorableDateTime`.
   ///
   /// `LatestRestorableDateTime` is typically 5 minutes before the current time. You can restore your table to any point in time during the last 35 days.
-  _i3.Future<_i134.UpdateContinuousBackupsOutput> updateContinuousBackups(
+  _i3.SmithyOperation<_i134.UpdateContinuousBackupsOutput>
+      updateContinuousBackups(
     _i135.UpdateContinuousBackupsInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i136.UpdateContinuousBackupsOperation(
       region: _region,
@@ -1369,9 +1379,10 @@ class DynamoDbClient {
   }
 
   /// Updates the status for contributor insights for a specific table or index. CloudWatch Contributor Insights for DynamoDB graphs display the partition key and (if applicable) sort key of frequently accessed items and frequently throttled items in plaintext. If you require the use of Amazon Web Services Key Management Service (KMS) to encrypt this table’s partition key and sort key data with an Amazon Web Services managed key or customer managed key, you should not enable CloudWatch Contributor Insights for DynamoDB for this table.
-  _i3.Future<_i137.UpdateContributorInsightsOutput> updateContributorInsights(
+  _i3.SmithyOperation<_i137.UpdateContributorInsightsOutput>
+      updateContributorInsights(
     _i138.UpdateContributorInsightsInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i139.UpdateContributorInsightsOperation(
       region: _region,
@@ -1394,9 +1405,9 @@ class DynamoDbClient {
   /// *   The global secondary indexes must have the same hash key and sort key (if present).
   ///
   /// *   The global secondary indexes must have the same provisioned and maximum write capacity units.
-  _i3.Future<_i140.UpdateGlobalTableOutput> updateGlobalTable(
+  _i3.SmithyOperation<_i140.UpdateGlobalTableOutput> updateGlobalTable(
     _i141.UpdateGlobalTableInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i142.UpdateGlobalTableOperation(
       region: _region,
@@ -1409,9 +1420,10 @@ class DynamoDbClient {
   }
 
   /// Updates settings for a global table.
-  _i3.Future<_i143.UpdateGlobalTableSettingsOutput> updateGlobalTableSettings(
+  _i3.SmithyOperation<_i143.UpdateGlobalTableSettingsOutput>
+      updateGlobalTableSettings(
     _i144.UpdateGlobalTableSettingsInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i145.UpdateGlobalTableSettingsOperation(
       region: _region,
@@ -1426,9 +1438,9 @@ class DynamoDbClient {
   /// Edits an existing item's attributes, or adds a new item to the table if it does not already exist. You can put, delete, or add attribute values. You can also perform a conditional update on an existing item (insert a new attribute name-value pair if it doesn't exist, or replace an existing name-value pair if it has certain expected attribute values).
   ///
   /// You can also return the item's attribute values in the same `UpdateItem` operation using the `ReturnValues` parameter.
-  _i3.Future<_i146.UpdateItemOutput> updateItem(
+  _i3.SmithyOperation<_i146.UpdateItemOutput> updateItem(
     _i147.UpdateItemInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i148.UpdateItemOperation(
       region: _region,
@@ -1452,9 +1464,9 @@ class DynamoDbClient {
   ///
   ///
   /// `UpdateTable` is an asynchronous operation; while it is executing, the table status changes from `ACTIVE` to `UPDATING`. While it is `UPDATING`, you cannot issue another `UpdateTable` request. When the table returns to the `ACTIVE` state, the `UpdateTable` operation is complete.
-  _i3.Future<_i149.UpdateTableOutput> updateTable(
+  _i3.SmithyOperation<_i149.UpdateTableOutput> updateTable(
     _i150.UpdateTableInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i151.UpdateTableOperation(
       region: _region,
@@ -1469,10 +1481,10 @@ class DynamoDbClient {
   /// Updates auto scaling settings on your global tables at once.
   ///
   /// This operation only applies to [Version 2019.11.21](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
-  _i3.Future<_i152.UpdateTableReplicaAutoScalingOutput>
+  _i3.SmithyOperation<_i152.UpdateTableReplicaAutoScalingOutput>
       updateTableReplicaAutoScaling(
     _i153.UpdateTableReplicaAutoScalingInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i154.UpdateTableReplicaAutoScalingOperation(
       region: _region,
@@ -1497,9 +1509,9 @@ class DynamoDbClient {
   /// As items are deleted, they are removed from any local secondary index and global secondary index immediately in the same eventually consistent way as a standard delete operation.
   ///
   /// For more information, see [Time To Live](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/TTL.html) in the Amazon DynamoDB Developer Guide.
-  _i3.Future<_i155.UpdateTimeToLiveOutput> updateTimeToLive(
+  _i3.SmithyOperation<_i155.UpdateTimeToLiveOutput> updateTimeToLive(
     _i156.UpdateTimeToLiveInput input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i157.UpdateTimeToLiveOperation(
       region: _region,

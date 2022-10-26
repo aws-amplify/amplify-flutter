@@ -104,7 +104,7 @@ class GetAggregateConfigRuleComplianceSummaryOperation
   @override
   _i3.GetAggregateConfigRuleComplianceSummaryResponse buildOutput(
     _i3.GetAggregateConfigRuleComplianceSummaryResponse payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.GetAggregateConfigRuleComplianceSummaryResponse.fromResponse(
         payload,
@@ -150,15 +150,17 @@ class GetAggregateConfigRuleComplianceSummaryOperation
         ),
       ];
   @override
+  String get runtimeTypeName => 'GetAggregateConfigRuleComplianceSummary';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i13.Future<_i3.GetAggregateConfigRuleComplianceSummaryResponse> run(
+  _i1.SmithyOperation<_i3.GetAggregateConfigRuleComplianceSummaryResponse> run(
     _i2.GetAggregateConfigRuleComplianceSummaryRequest input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i13.runZoned(

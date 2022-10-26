@@ -2,12 +2,11 @@
 
 library smoke_test.api_gateway.api_gateway_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i3;
-
+import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:built_collection/built_collection.dart' as _i103;
 import 'package:fixnum/fixnum.dart' as _i195;
-import 'package:smithy/smithy.dart' as _i1;
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smoke_test/src/sdk/src/api_gateway/model/account.dart' as _i98;
 import 'package:smoke_test/src/sdk/src/api_gateway/model/api_key.dart' as _i4;
 import 'package:smoke_test/src/sdk/src/api_gateway/model/api_key_ids.dart'
@@ -564,7 +563,7 @@ class ApiGatewayClient {
   ///
   /// Amazon API Gateway helps developers deliver robust, secure, and scalable mobile and web application back ends. API Gateway allows developers to securely connect mobile and web applications to APIs that run on AWS Lambda, Amazon EC2, or other publicly addressable web services that are hosted outside of AWS.
   const ApiGatewayClient({
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
     required String region,
     Uri? baseUri,
     required _i2.AWSCredentialsProvider credentialsProvider,
@@ -573,7 +572,7 @@ class ApiGatewayClient {
         _baseUri = baseUri,
         _credentialsProvider = credentialsProvider;
 
-  final _i1.HttpClient? _client;
+  final _i1.AWSHttpClient? _client;
 
   final String _region;
 
@@ -582,9 +581,9 @@ class ApiGatewayClient {
   final _i2.AWSCredentialsProvider _credentialsProvider;
 
   /// Create an ApiKey resource.
-  _i3.Future<_i4.ApiKey> createApiKey(
+  _i3.SmithyOperation<_i4.ApiKey> createApiKey(
     _i5.CreateApiKeyRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i6.CreateApiKeyOperation(
       region: _region,
@@ -597,9 +596,9 @@ class ApiGatewayClient {
   }
 
   /// Adds a new Authorizer resource to an existing RestApi resource.
-  _i3.Future<_i7.Authorizer> createAuthorizer(
+  _i3.SmithyOperation<_i7.Authorizer> createAuthorizer(
     _i8.CreateAuthorizerRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i9.CreateAuthorizerOperation(
       region: _region,
@@ -612,9 +611,9 @@ class ApiGatewayClient {
   }
 
   /// Creates a new BasePathMapping resource.
-  _i3.Future<_i10.BasePathMapping> createBasePathMapping(
+  _i3.SmithyOperation<_i10.BasePathMapping> createBasePathMapping(
     _i11.CreateBasePathMappingRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i12.CreateBasePathMappingOperation(
       region: _region,
@@ -627,9 +626,9 @@ class ApiGatewayClient {
   }
 
   /// Creates a Deployment resource, which makes a specified RestApi callable over the internet.
-  _i3.Future<_i13.Deployment> createDeployment(
+  _i3.SmithyOperation<_i13.Deployment> createDeployment(
     _i14.CreateDeploymentRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i15.CreateDeploymentOperation(
       region: _region,
@@ -642,9 +641,9 @@ class ApiGatewayClient {
   }
 
   /// Creates a documentation part.
-  _i3.Future<_i16.DocumentationPart> createDocumentationPart(
+  _i3.SmithyOperation<_i16.DocumentationPart> createDocumentationPart(
     _i17.CreateDocumentationPartRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i18.CreateDocumentationPartOperation(
       region: _region,
@@ -657,9 +656,9 @@ class ApiGatewayClient {
   }
 
   /// Creates a documentation version
-  _i3.Future<_i19.DocumentationVersion> createDocumentationVersion(
+  _i3.SmithyOperation<_i19.DocumentationVersion> createDocumentationVersion(
     _i20.CreateDocumentationVersionRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i21.CreateDocumentationVersionOperation(
       region: _region,
@@ -672,9 +671,9 @@ class ApiGatewayClient {
   }
 
   /// Creates a new domain name.
-  _i3.Future<_i22.DomainName> createDomainName(
+  _i3.SmithyOperation<_i22.DomainName> createDomainName(
     _i23.CreateDomainNameRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i24.CreateDomainNameOperation(
       region: _region,
@@ -687,9 +686,9 @@ class ApiGatewayClient {
   }
 
   /// Adds a new Model resource to an existing RestApi resource.
-  _i3.Future<_i25.Model> createModel(
+  _i3.SmithyOperation<_i25.Model> createModel(
     _i26.CreateModelRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i27.CreateModelOperation(
       region: _region,
@@ -702,9 +701,9 @@ class ApiGatewayClient {
   }
 
   /// Creates a RequestValidator of a given RestApi.
-  _i3.Future<_i28.RequestValidator> createRequestValidator(
+  _i3.SmithyOperation<_i28.RequestValidator> createRequestValidator(
     _i29.CreateRequestValidatorRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i30.CreateRequestValidatorOperation(
       region: _region,
@@ -717,9 +716,9 @@ class ApiGatewayClient {
   }
 
   /// Creates a Resource resource.
-  _i3.Future<_i31.Resource> createResource(
+  _i3.SmithyOperation<_i31.Resource> createResource(
     _i32.CreateResourceRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i33.CreateResourceOperation(
       region: _region,
@@ -732,9 +731,9 @@ class ApiGatewayClient {
   }
 
   /// Creates a new RestApi resource.
-  _i3.Future<_i34.RestApi> createRestApi(
+  _i3.SmithyOperation<_i34.RestApi> createRestApi(
     _i35.CreateRestApiRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i36.CreateRestApiOperation(
       region: _region,
@@ -747,9 +746,9 @@ class ApiGatewayClient {
   }
 
   /// Creates a new Stage resource that references a pre-existing Deployment for the API.
-  _i3.Future<_i37.Stage> createStage(
+  _i3.SmithyOperation<_i37.Stage> createStage(
     _i38.CreateStageRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i39.CreateStageOperation(
       region: _region,
@@ -762,9 +761,9 @@ class ApiGatewayClient {
   }
 
   /// Creates a usage plan with the throttle and quota limits, as well as the associated API stages, specified in the payload.
-  _i3.Future<_i40.UsagePlan> createUsagePlan(
+  _i3.SmithyOperation<_i40.UsagePlan> createUsagePlan(
     _i41.CreateUsagePlanRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i42.CreateUsagePlanOperation(
       region: _region,
@@ -777,9 +776,9 @@ class ApiGatewayClient {
   }
 
   /// Creates a usage plan key for adding an existing API key to a usage plan.
-  _i3.Future<_i43.UsagePlanKey> createUsagePlanKey(
+  _i3.SmithyOperation<_i43.UsagePlanKey> createUsagePlanKey(
     _i44.CreateUsagePlanKeyRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i45.CreateUsagePlanKeyOperation(
       region: _region,
@@ -792,9 +791,9 @@ class ApiGatewayClient {
   }
 
   /// Creates a VPC link, under the caller's account in a selected region, in an asynchronous operation that typically takes 2-4 minutes to complete and become operational. The caller must have permissions to create and update VPC Endpoint services.
-  _i3.Future<_i46.VpcLink> createVpcLink(
+  _i3.SmithyOperation<_i46.VpcLink> createVpcLink(
     _i47.CreateVpcLinkRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i48.CreateVpcLinkOperation(
       region: _region,
@@ -807,9 +806,9 @@ class ApiGatewayClient {
   }
 
   /// Deletes the ApiKey resource.
-  _i3.Future<void> deleteApiKey(
+  _i3.SmithyOperation<void> deleteApiKey(
     _i49.DeleteApiKeyRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i50.DeleteApiKeyOperation(
       region: _region,
@@ -822,9 +821,9 @@ class ApiGatewayClient {
   }
 
   /// Deletes an existing Authorizer resource.
-  _i3.Future<void> deleteAuthorizer(
+  _i3.SmithyOperation<void> deleteAuthorizer(
     _i51.DeleteAuthorizerRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i52.DeleteAuthorizerOperation(
       region: _region,
@@ -837,9 +836,9 @@ class ApiGatewayClient {
   }
 
   /// Deletes the BasePathMapping resource.
-  _i3.Future<void> deleteBasePathMapping(
+  _i3.SmithyOperation<void> deleteBasePathMapping(
     _i53.DeleteBasePathMappingRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i54.DeleteBasePathMappingOperation(
       region: _region,
@@ -852,9 +851,9 @@ class ApiGatewayClient {
   }
 
   /// Deletes the ClientCertificate resource.
-  _i3.Future<void> deleteClientCertificate(
+  _i3.SmithyOperation<void> deleteClientCertificate(
     _i55.DeleteClientCertificateRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i56.DeleteClientCertificateOperation(
       region: _region,
@@ -867,9 +866,9 @@ class ApiGatewayClient {
   }
 
   /// Deletes a Deployment resource. Deleting a deployment will only succeed if there are no Stage resources associated with it.
-  _i3.Future<void> deleteDeployment(
+  _i3.SmithyOperation<void> deleteDeployment(
     _i57.DeleteDeploymentRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i58.DeleteDeploymentOperation(
       region: _region,
@@ -882,9 +881,9 @@ class ApiGatewayClient {
   }
 
   /// Deletes a documentation part
-  _i3.Future<void> deleteDocumentationPart(
+  _i3.SmithyOperation<void> deleteDocumentationPart(
     _i59.DeleteDocumentationPartRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i60.DeleteDocumentationPartOperation(
       region: _region,
@@ -897,9 +896,9 @@ class ApiGatewayClient {
   }
 
   /// Deletes a documentation version.
-  _i3.Future<void> deleteDocumentationVersion(
+  _i3.SmithyOperation<void> deleteDocumentationVersion(
     _i61.DeleteDocumentationVersionRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i62.DeleteDocumentationVersionOperation(
       region: _region,
@@ -912,9 +911,9 @@ class ApiGatewayClient {
   }
 
   /// Deletes the DomainName resource.
-  _i3.Future<void> deleteDomainName(
+  _i3.SmithyOperation<void> deleteDomainName(
     _i63.DeleteDomainNameRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i64.DeleteDomainNameOperation(
       region: _region,
@@ -927,9 +926,9 @@ class ApiGatewayClient {
   }
 
   /// Clears any customization of a GatewayResponse of a specified response type on the given RestApi and resets it with the default settings.
-  _i3.Future<void> deleteGatewayResponse(
+  _i3.SmithyOperation<void> deleteGatewayResponse(
     _i65.DeleteGatewayResponseRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i66.DeleteGatewayResponseOperation(
       region: _region,
@@ -942,9 +941,9 @@ class ApiGatewayClient {
   }
 
   /// Represents a delete integration.
-  _i3.Future<void> deleteIntegration(
+  _i3.SmithyOperation<void> deleteIntegration(
     _i67.DeleteIntegrationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i68.DeleteIntegrationOperation(
       region: _region,
@@ -957,9 +956,9 @@ class ApiGatewayClient {
   }
 
   /// Represents a delete integration response.
-  _i3.Future<void> deleteIntegrationResponse(
+  _i3.SmithyOperation<void> deleteIntegrationResponse(
     _i69.DeleteIntegrationResponseRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i70.DeleteIntegrationResponseOperation(
       region: _region,
@@ -972,9 +971,9 @@ class ApiGatewayClient {
   }
 
   /// Deletes an existing Method resource.
-  _i3.Future<void> deleteMethod(
+  _i3.SmithyOperation<void> deleteMethod(
     _i71.DeleteMethodRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i72.DeleteMethodOperation(
       region: _region,
@@ -987,9 +986,9 @@ class ApiGatewayClient {
   }
 
   /// Deletes an existing MethodResponse resource.
-  _i3.Future<void> deleteMethodResponse(
+  _i3.SmithyOperation<void> deleteMethodResponse(
     _i73.DeleteMethodResponseRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i74.DeleteMethodResponseOperation(
       region: _region,
@@ -1002,9 +1001,9 @@ class ApiGatewayClient {
   }
 
   /// Deletes a model.
-  _i3.Future<void> deleteModel(
+  _i3.SmithyOperation<void> deleteModel(
     _i75.DeleteModelRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i76.DeleteModelOperation(
       region: _region,
@@ -1017,9 +1016,9 @@ class ApiGatewayClient {
   }
 
   /// Deletes a RequestValidator of a given RestApi.
-  _i3.Future<void> deleteRequestValidator(
+  _i3.SmithyOperation<void> deleteRequestValidator(
     _i77.DeleteRequestValidatorRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i78.DeleteRequestValidatorOperation(
       region: _region,
@@ -1032,9 +1031,9 @@ class ApiGatewayClient {
   }
 
   /// Deletes a Resource resource.
-  _i3.Future<void> deleteResource(
+  _i3.SmithyOperation<void> deleteResource(
     _i79.DeleteResourceRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i80.DeleteResourceOperation(
       region: _region,
@@ -1047,9 +1046,9 @@ class ApiGatewayClient {
   }
 
   /// Deletes the specified API.
-  _i3.Future<void> deleteRestApi(
+  _i3.SmithyOperation<void> deleteRestApi(
     _i81.DeleteRestApiRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i82.DeleteRestApiOperation(
       region: _region,
@@ -1062,9 +1061,9 @@ class ApiGatewayClient {
   }
 
   /// Deletes a Stage resource.
-  _i3.Future<void> deleteStage(
+  _i3.SmithyOperation<void> deleteStage(
     _i83.DeleteStageRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i84.DeleteStageOperation(
       region: _region,
@@ -1077,9 +1076,9 @@ class ApiGatewayClient {
   }
 
   /// Deletes a usage plan of a given plan Id.
-  _i3.Future<void> deleteUsagePlan(
+  _i3.SmithyOperation<void> deleteUsagePlan(
     _i85.DeleteUsagePlanRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i86.DeleteUsagePlanOperation(
       region: _region,
@@ -1092,9 +1091,9 @@ class ApiGatewayClient {
   }
 
   /// Deletes a usage plan key and remove the underlying API key from the associated usage plan.
-  _i3.Future<void> deleteUsagePlanKey(
+  _i3.SmithyOperation<void> deleteUsagePlanKey(
     _i87.DeleteUsagePlanKeyRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i88.DeleteUsagePlanKeyOperation(
       region: _region,
@@ -1107,9 +1106,9 @@ class ApiGatewayClient {
   }
 
   /// Deletes an existing VpcLink of a specified identifier.
-  _i3.Future<void> deleteVpcLink(
+  _i3.SmithyOperation<void> deleteVpcLink(
     _i89.DeleteVpcLinkRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i90.DeleteVpcLinkOperation(
       region: _region,
@@ -1122,9 +1121,9 @@ class ApiGatewayClient {
   }
 
   /// Flushes all authorizer cache entries on a stage.
-  _i3.Future<void> flushStageAuthorizersCache(
+  _i3.SmithyOperation<void> flushStageAuthorizersCache(
     _i91.FlushStageAuthorizersCacheRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i92.FlushStageAuthorizersCacheOperation(
       region: _region,
@@ -1137,9 +1136,9 @@ class ApiGatewayClient {
   }
 
   /// Flushes a stage's cache.
-  _i3.Future<void> flushStageCache(
+  _i3.SmithyOperation<void> flushStageCache(
     _i93.FlushStageCacheRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i94.FlushStageCacheOperation(
       region: _region,
@@ -1152,9 +1151,9 @@ class ApiGatewayClient {
   }
 
   /// Generates a ClientCertificate resource.
-  _i3.Future<_i95.ClientCertificate> generateClientCertificate(
+  _i3.SmithyOperation<_i95.ClientCertificate> generateClientCertificate(
     _i96.GenerateClientCertificateRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i97.GenerateClientCertificateOperation(
       region: _region,
@@ -1167,9 +1166,9 @@ class ApiGatewayClient {
   }
 
   /// Gets information about the current Account resource.
-  _i3.Future<_i98.Account> getAccount(
+  _i3.SmithyOperation<_i98.Account> getAccount(
     _i99.GetAccountRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i100.GetAccountOperation(
       region: _region,
@@ -1182,9 +1181,9 @@ class ApiGatewayClient {
   }
 
   /// Gets information about the current ApiKey resource.
-  _i3.Future<_i4.ApiKey> getApiKey(
+  _i3.SmithyOperation<_i4.ApiKey> getApiKey(
     _i101.GetApiKeyRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i102.GetApiKeyOperation(
       region: _region,
@@ -1197,9 +1196,10 @@ class ApiGatewayClient {
   }
 
   /// Gets information about the current ApiKeys resource.
-  _i3.Future<_i1.PaginatedResult<_i103.BuiltList<_i4.ApiKey>, int>> getApiKeys(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i103.BuiltList<_i4.ApiKey>, int, String>> getApiKeys(
     _i104.GetApiKeysRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i105.GetApiKeysOperation(
       region: _region,
@@ -1212,9 +1212,9 @@ class ApiGatewayClient {
   }
 
   /// Describe an existing Authorizer resource.
-  _i3.Future<_i7.Authorizer> getAuthorizer(
+  _i3.SmithyOperation<_i7.Authorizer> getAuthorizer(
     _i106.GetAuthorizerRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i107.GetAuthorizerOperation(
       region: _region,
@@ -1227,9 +1227,9 @@ class ApiGatewayClient {
   }
 
   /// Describe an existing Authorizers resource.
-  _i3.Future<_i108.Authorizers> getAuthorizers(
+  _i3.SmithyOperation<_i108.Authorizers> getAuthorizers(
     _i109.GetAuthorizersRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i110.GetAuthorizersOperation(
       region: _region,
@@ -1242,9 +1242,9 @@ class ApiGatewayClient {
   }
 
   /// Describe a BasePathMapping resource.
-  _i3.Future<_i10.BasePathMapping> getBasePathMapping(
+  _i3.SmithyOperation<_i10.BasePathMapping> getBasePathMapping(
     _i111.GetBasePathMappingRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i112.GetBasePathMappingOperation(
       region: _region,
@@ -1257,10 +1257,11 @@ class ApiGatewayClient {
   }
 
   /// Represents a collection of BasePathMapping resources.
-  _i3.Future<_i1.PaginatedResult<_i103.BuiltList<_i10.BasePathMapping>, int>>
-      getBasePathMappings(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i103.BuiltList<_i10.BasePathMapping>, int,
+          String>> getBasePathMappings(
     _i113.GetBasePathMappingsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i114.GetBasePathMappingsOperation(
       region: _region,
@@ -1273,9 +1274,9 @@ class ApiGatewayClient {
   }
 
   /// Gets information about the current ClientCertificate resource.
-  _i3.Future<_i95.ClientCertificate> getClientCertificate(
+  _i3.SmithyOperation<_i95.ClientCertificate> getClientCertificate(
     _i115.GetClientCertificateRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i116.GetClientCertificateOperation(
       region: _region,
@@ -1288,10 +1289,11 @@ class ApiGatewayClient {
   }
 
   /// Gets a collection of ClientCertificate resources.
-  _i3.Future<_i1.PaginatedResult<_i103.BuiltList<_i95.ClientCertificate>, int>>
-      getClientCertificates(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i103.BuiltList<_i95.ClientCertificate>, int,
+          String>> getClientCertificates(
     _i117.GetClientCertificatesRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i118.GetClientCertificatesOperation(
       region: _region,
@@ -1304,9 +1306,9 @@ class ApiGatewayClient {
   }
 
   /// Gets information about a Deployment resource.
-  _i3.Future<_i13.Deployment> getDeployment(
+  _i3.SmithyOperation<_i13.Deployment> getDeployment(
     _i119.GetDeploymentRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i120.GetDeploymentOperation(
       region: _region,
@@ -1319,10 +1321,11 @@ class ApiGatewayClient {
   }
 
   /// Gets information about a Deployments collection.
-  _i3.Future<_i1.PaginatedResult<_i103.BuiltList<_i13.Deployment>, int>>
+  _i3.SmithyOperation<
+          _i3.PaginatedResult<_i103.BuiltList<_i13.Deployment>, int, String>>
       getDeployments(
     _i121.GetDeploymentsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i122.GetDeploymentsOperation(
       region: _region,
@@ -1335,9 +1338,9 @@ class ApiGatewayClient {
   }
 
   /// Gets a documentation part.
-  _i3.Future<_i16.DocumentationPart> getDocumentationPart(
+  _i3.SmithyOperation<_i16.DocumentationPart> getDocumentationPart(
     _i123.GetDocumentationPartRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i124.GetDocumentationPartOperation(
       region: _region,
@@ -1350,9 +1353,9 @@ class ApiGatewayClient {
   }
 
   /// Gets documentation parts.
-  _i3.Future<_i125.DocumentationParts> getDocumentationParts(
+  _i3.SmithyOperation<_i125.DocumentationParts> getDocumentationParts(
     _i126.GetDocumentationPartsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i127.GetDocumentationPartsOperation(
       region: _region,
@@ -1365,9 +1368,9 @@ class ApiGatewayClient {
   }
 
   /// Gets a documentation version.
-  _i3.Future<_i19.DocumentationVersion> getDocumentationVersion(
+  _i3.SmithyOperation<_i19.DocumentationVersion> getDocumentationVersion(
     _i128.GetDocumentationVersionRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i129.GetDocumentationVersionOperation(
       region: _region,
@@ -1380,9 +1383,9 @@ class ApiGatewayClient {
   }
 
   /// Gets documentation versions.
-  _i3.Future<_i130.DocumentationVersions> getDocumentationVersions(
+  _i3.SmithyOperation<_i130.DocumentationVersions> getDocumentationVersions(
     _i131.GetDocumentationVersionsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i132.GetDocumentationVersionsOperation(
       region: _region,
@@ -1395,9 +1398,9 @@ class ApiGatewayClient {
   }
 
   /// Represents a domain name that is contained in a simpler, more intuitive URL that can be called.
-  _i3.Future<_i22.DomainName> getDomainName(
+  _i3.SmithyOperation<_i22.DomainName> getDomainName(
     _i133.GetDomainNameRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i134.GetDomainNameOperation(
       region: _region,
@@ -1410,10 +1413,11 @@ class ApiGatewayClient {
   }
 
   /// Represents a collection of DomainName resources.
-  _i3.Future<_i1.PaginatedResult<_i103.BuiltList<_i22.DomainName>, int>>
+  _i3.SmithyOperation<
+          _i3.PaginatedResult<_i103.BuiltList<_i22.DomainName>, int, String>>
       getDomainNames(
     _i135.GetDomainNamesRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i136.GetDomainNamesOperation(
       region: _region,
@@ -1426,9 +1430,9 @@ class ApiGatewayClient {
   }
 
   /// Exports a deployed version of a RestApi in a specified format.
-  _i3.Future<_i137.ExportResponse> getExport(
+  _i3.SmithyOperation<_i137.ExportResponse> getExport(
     _i138.GetExportRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i139.GetExportOperation(
       region: _region,
@@ -1441,9 +1445,9 @@ class ApiGatewayClient {
   }
 
   /// Gets a GatewayResponse of a specified response type on the given RestApi.
-  _i3.Future<_i140.GatewayResponse> getGatewayResponse(
+  _i3.SmithyOperation<_i140.GatewayResponse> getGatewayResponse(
     _i141.GetGatewayResponseRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i142.GetGatewayResponseOperation(
       region: _region,
@@ -1456,9 +1460,9 @@ class ApiGatewayClient {
   }
 
   /// Gets the GatewayResponses collection on the given RestApi. If an API developer has not added any definitions for gateway responses, the result will be the API Gateway-generated default GatewayResponses collection for the supported response types.
-  _i3.Future<_i143.GatewayResponses> getGatewayResponses(
+  _i3.SmithyOperation<_i143.GatewayResponses> getGatewayResponses(
     _i144.GetGatewayResponsesRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i145.GetGatewayResponsesOperation(
       region: _region,
@@ -1471,9 +1475,9 @@ class ApiGatewayClient {
   }
 
   /// Get the integration settings.
-  _i3.Future<_i146.Integration> getIntegration(
+  _i3.SmithyOperation<_i146.Integration> getIntegration(
     _i147.GetIntegrationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i148.GetIntegrationOperation(
       region: _region,
@@ -1486,9 +1490,9 @@ class ApiGatewayClient {
   }
 
   /// Represents a get integration response.
-  _i3.Future<_i149.IntegrationResponse> getIntegrationResponse(
+  _i3.SmithyOperation<_i149.IntegrationResponse> getIntegrationResponse(
     _i150.GetIntegrationResponseRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i151.GetIntegrationResponseOperation(
       region: _region,
@@ -1501,9 +1505,9 @@ class ApiGatewayClient {
   }
 
   /// Describe an existing Method resource.
-  _i3.Future<_i152.Method> getMethod(
+  _i3.SmithyOperation<_i152.Method> getMethod(
     _i153.GetMethodRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i154.GetMethodOperation(
       region: _region,
@@ -1516,9 +1520,9 @@ class ApiGatewayClient {
   }
 
   /// Describes a MethodResponse resource.
-  _i3.Future<_i155.MethodResponse> getMethodResponse(
+  _i3.SmithyOperation<_i155.MethodResponse> getMethodResponse(
     _i156.GetMethodResponseRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i157.GetMethodResponseOperation(
       region: _region,
@@ -1531,9 +1535,9 @@ class ApiGatewayClient {
   }
 
   /// Describes an existing model defined for a RestApi resource.
-  _i3.Future<_i25.Model> getModel(
+  _i3.SmithyOperation<_i25.Model> getModel(
     _i158.GetModelRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i159.GetModelOperation(
       region: _region,
@@ -1546,9 +1550,9 @@ class ApiGatewayClient {
   }
 
   /// Generates a sample mapping template that can be used to transform a payload into the structure of a model.
-  _i3.Future<_i160.Template> getModelTemplate(
+  _i3.SmithyOperation<_i160.Template> getModelTemplate(
     _i161.GetModelTemplateRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i162.GetModelTemplateOperation(
       region: _region,
@@ -1561,9 +1565,10 @@ class ApiGatewayClient {
   }
 
   /// Describes existing Models defined for a RestApi resource.
-  _i3.Future<_i1.PaginatedResult<_i103.BuiltList<_i25.Model>, int>> getModels(
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i103.BuiltList<_i25.Model>, int, String>> getModels(
     _i163.GetModelsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i164.GetModelsOperation(
       region: _region,
@@ -1576,9 +1581,9 @@ class ApiGatewayClient {
   }
 
   /// Gets a RequestValidator of a given RestApi.
-  _i3.Future<_i28.RequestValidator> getRequestValidator(
+  _i3.SmithyOperation<_i28.RequestValidator> getRequestValidator(
     _i165.GetRequestValidatorRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i166.GetRequestValidatorOperation(
       region: _region,
@@ -1591,9 +1596,9 @@ class ApiGatewayClient {
   }
 
   /// Gets the RequestValidators collection of a given RestApi.
-  _i3.Future<_i167.RequestValidators> getRequestValidators(
+  _i3.SmithyOperation<_i167.RequestValidators> getRequestValidators(
     _i168.GetRequestValidatorsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i169.GetRequestValidatorsOperation(
       region: _region,
@@ -1606,9 +1611,9 @@ class ApiGatewayClient {
   }
 
   /// Lists information about a resource.
-  _i3.Future<_i31.Resource> getResource(
+  _i3.SmithyOperation<_i31.Resource> getResource(
     _i170.GetResourceRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i171.GetResourceOperation(
       region: _region,
@@ -1621,10 +1626,11 @@ class ApiGatewayClient {
   }
 
   /// Lists information about a collection of Resource resources.
-  _i3.Future<_i1.PaginatedResult<_i103.BuiltList<_i31.Resource>, int>>
+  _i3.SmithyOperation<
+          _i3.PaginatedResult<_i103.BuiltList<_i31.Resource>, int, String>>
       getResources(
     _i172.GetResourcesRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i173.GetResourcesOperation(
       region: _region,
@@ -1637,9 +1643,9 @@ class ApiGatewayClient {
   }
 
   /// Lists the RestApi resource in the collection.
-  _i3.Future<_i34.RestApi> getRestApi(
+  _i3.SmithyOperation<_i34.RestApi> getRestApi(
     _i174.GetRestApiRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i175.GetRestApiOperation(
       region: _region,
@@ -1652,10 +1658,11 @@ class ApiGatewayClient {
   }
 
   /// Lists the RestApis resources for your collection.
-  _i3.Future<_i1.PaginatedResult<_i103.BuiltList<_i34.RestApi>, int>>
+  _i3.SmithyOperation<
+          _i3.PaginatedResult<_i103.BuiltList<_i34.RestApi>, int, String>>
       getRestApis(
     _i176.GetRestApisRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i177.GetRestApisOperation(
       region: _region,
@@ -1668,9 +1675,9 @@ class ApiGatewayClient {
   }
 
   /// Generates a client SDK for a RestApi and Stage.
-  _i3.Future<_i178.SdkResponse> getSdk(
+  _i3.SmithyOperation<_i178.SdkResponse> getSdk(
     _i179.GetSdkRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i180.GetSdkOperation(
       region: _region,
@@ -1683,9 +1690,9 @@ class ApiGatewayClient {
   }
 
   /// Gets an SDK type.
-  _i3.Future<_i181.SdkType> getSdkType(
+  _i3.SmithyOperation<_i181.SdkType> getSdkType(
     _i182.GetSdkTypeRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i183.GetSdkTypeOperation(
       region: _region,
@@ -1698,9 +1705,9 @@ class ApiGatewayClient {
   }
 
   /// Gets SDK types
-  _i3.Future<_i184.SdkTypes> getSdkTypes(
+  _i3.SmithyOperation<_i184.SdkTypes> getSdkTypes(
     _i185.GetSdkTypesRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i186.GetSdkTypesOperation(
       region: _region,
@@ -1713,9 +1720,9 @@ class ApiGatewayClient {
   }
 
   /// Gets information about a Stage resource.
-  _i3.Future<_i37.Stage> getStage(
+  _i3.SmithyOperation<_i37.Stage> getStage(
     _i187.GetStageRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i188.GetStageOperation(
       region: _region,
@@ -1728,9 +1735,9 @@ class ApiGatewayClient {
   }
 
   /// Gets information about one or more Stage resources.
-  _i3.Future<_i189.Stages> getStages(
+  _i3.SmithyOperation<_i189.Stages> getStages(
     _i190.GetStagesRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i191.GetStagesOperation(
       region: _region,
@@ -1743,9 +1750,9 @@ class ApiGatewayClient {
   }
 
   /// Gets the Tags collection for a given resource.
-  _i3.Future<_i192.Tags> getTags(
+  _i3.SmithyOperation<_i192.Tags> getTags(
     _i193.GetTagsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i194.GetTagsOperation(
       region: _region,
@@ -1758,12 +1765,13 @@ class ApiGatewayClient {
   }
 
   /// Gets the usage data of a usage plan in a specified time interval.
-  _i3.Future<
-      _i1.PaginatedResult<
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<
           _i103.BuiltListMultimap<String, _i103.BuiltList<_i195.Int64>>,
-          int>> getUsage(
+          int,
+          String>> getUsage(
     _i196.GetUsageRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i197.GetUsageOperation(
       region: _region,
@@ -1776,9 +1784,9 @@ class ApiGatewayClient {
   }
 
   /// Gets a usage plan of a given plan identifier.
-  _i3.Future<_i40.UsagePlan> getUsagePlan(
+  _i3.SmithyOperation<_i40.UsagePlan> getUsagePlan(
     _i198.GetUsagePlanRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i199.GetUsagePlanOperation(
       region: _region,
@@ -1791,9 +1799,9 @@ class ApiGatewayClient {
   }
 
   /// Gets a usage plan key of a given key identifier.
-  _i3.Future<_i43.UsagePlanKey> getUsagePlanKey(
+  _i3.SmithyOperation<_i43.UsagePlanKey> getUsagePlanKey(
     _i200.GetUsagePlanKeyRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i201.GetUsagePlanKeyOperation(
       region: _region,
@@ -1806,10 +1814,11 @@ class ApiGatewayClient {
   }
 
   /// Gets all the usage plan keys representing the API keys added to a specified usage plan.
-  _i3.Future<_i1.PaginatedResult<_i103.BuiltList<_i43.UsagePlanKey>, int>>
+  _i3.SmithyOperation<
+          _i3.PaginatedResult<_i103.BuiltList<_i43.UsagePlanKey>, int, String>>
       getUsagePlanKeys(
     _i202.GetUsagePlanKeysRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i203.GetUsagePlanKeysOperation(
       region: _region,
@@ -1822,10 +1831,11 @@ class ApiGatewayClient {
   }
 
   /// Gets all the usage plans of the caller's account.
-  _i3.Future<_i1.PaginatedResult<_i103.BuiltList<_i40.UsagePlan>, int>>
+  _i3.SmithyOperation<
+          _i3.PaginatedResult<_i103.BuiltList<_i40.UsagePlan>, int, String>>
       getUsagePlans(
     _i204.GetUsagePlansRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i205.GetUsagePlansOperation(
       region: _region,
@@ -1838,9 +1848,9 @@ class ApiGatewayClient {
   }
 
   /// Gets a specified VPC link under the caller's account in a region.
-  _i3.Future<_i46.VpcLink> getVpcLink(
+  _i3.SmithyOperation<_i46.VpcLink> getVpcLink(
     _i206.GetVpcLinkRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i207.GetVpcLinkOperation(
       region: _region,
@@ -1853,10 +1863,11 @@ class ApiGatewayClient {
   }
 
   /// Gets the VpcLinks collection under the caller's account in a selected region.
-  _i3.Future<_i1.PaginatedResult<_i103.BuiltList<_i46.VpcLink>, int>>
+  _i3.SmithyOperation<
+          _i3.PaginatedResult<_i103.BuiltList<_i46.VpcLink>, int, String>>
       getVpcLinks(
     _i208.GetVpcLinksRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i209.GetVpcLinksOperation(
       region: _region,
@@ -1869,9 +1880,9 @@ class ApiGatewayClient {
   }
 
   /// Import API keys from an external source, such as a CSV-formatted file.
-  _i3.Future<_i210.ApiKeyIds> importApiKeys(
+  _i3.SmithyOperation<_i210.ApiKeyIds> importApiKeys(
     _i211.ImportApiKeysRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i212.ImportApiKeysOperation(
       region: _region,
@@ -1884,9 +1895,9 @@ class ApiGatewayClient {
   }
 
   /// Imports documentation parts
-  _i3.Future<_i213.DocumentationPartIds> importDocumentationParts(
+  _i3.SmithyOperation<_i213.DocumentationPartIds> importDocumentationParts(
     _i214.ImportDocumentationPartsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i215.ImportDocumentationPartsOperation(
       region: _region,
@@ -1899,9 +1910,9 @@ class ApiGatewayClient {
   }
 
   /// A feature of the API Gateway control service for creating a new API from an external API definition file.
-  _i3.Future<_i34.RestApi> importRestApi(
+  _i3.SmithyOperation<_i34.RestApi> importRestApi(
     _i216.ImportRestApiRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i217.ImportRestApiOperation(
       region: _region,
@@ -1914,9 +1925,9 @@ class ApiGatewayClient {
   }
 
   /// Creates a customization of a GatewayResponse of a specified response type and status code on the given RestApi.
-  _i3.Future<_i140.GatewayResponse> putGatewayResponse(
+  _i3.SmithyOperation<_i140.GatewayResponse> putGatewayResponse(
     _i218.PutGatewayResponseRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i219.PutGatewayResponseOperation(
       region: _region,
@@ -1929,9 +1940,9 @@ class ApiGatewayClient {
   }
 
   /// Sets up a method's integration.
-  _i3.Future<_i146.Integration> putIntegration(
+  _i3.SmithyOperation<_i146.Integration> putIntegration(
     _i220.PutIntegrationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i221.PutIntegrationOperation(
       region: _region,
@@ -1944,9 +1955,9 @@ class ApiGatewayClient {
   }
 
   /// Represents a put integration.
-  _i3.Future<_i149.IntegrationResponse> putIntegrationResponse(
+  _i3.SmithyOperation<_i149.IntegrationResponse> putIntegrationResponse(
     _i222.PutIntegrationResponseRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i223.PutIntegrationResponseOperation(
       region: _region,
@@ -1959,9 +1970,9 @@ class ApiGatewayClient {
   }
 
   /// Add a method to an existing Resource resource.
-  _i3.Future<_i152.Method> putMethod(
+  _i3.SmithyOperation<_i152.Method> putMethod(
     _i224.PutMethodRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i225.PutMethodOperation(
       region: _region,
@@ -1974,9 +1985,9 @@ class ApiGatewayClient {
   }
 
   /// Adds a MethodResponse to an existing Method resource.
-  _i3.Future<_i155.MethodResponse> putMethodResponse(
+  _i3.SmithyOperation<_i155.MethodResponse> putMethodResponse(
     _i226.PutMethodResponseRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i227.PutMethodResponseOperation(
       region: _region,
@@ -1989,9 +2000,9 @@ class ApiGatewayClient {
   }
 
   /// A feature of the API Gateway control service for updating an existing API with an input of external API definitions. The update can take the form of merging the supplied definition into the existing API or overwriting the existing API.
-  _i3.Future<_i34.RestApi> putRestApi(
+  _i3.SmithyOperation<_i34.RestApi> putRestApi(
     _i228.PutRestApiRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i229.PutRestApiOperation(
       region: _region,
@@ -2004,9 +2015,9 @@ class ApiGatewayClient {
   }
 
   /// Adds or updates a tag on a given resource.
-  _i3.Future<void> tagResource(
+  _i3.SmithyOperation<void> tagResource(
     _i230.TagResourceRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i231.TagResourceOperation(
       region: _region,
@@ -2019,9 +2030,9 @@ class ApiGatewayClient {
   }
 
   /// Simulate the execution of an Authorizer in your RestApi with headers, parameters, and an incoming request body.
-  _i3.Future<_i232.TestInvokeAuthorizerResponse> testInvokeAuthorizer(
+  _i3.SmithyOperation<_i232.TestInvokeAuthorizerResponse> testInvokeAuthorizer(
     _i233.TestInvokeAuthorizerRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i234.TestInvokeAuthorizerOperation(
       region: _region,
@@ -2034,9 +2045,9 @@ class ApiGatewayClient {
   }
 
   /// Simulate the invocation of a Method in your RestApi with headers, parameters, and an incoming request body.
-  _i3.Future<_i235.TestInvokeMethodResponse> testInvokeMethod(
+  _i3.SmithyOperation<_i235.TestInvokeMethodResponse> testInvokeMethod(
     _i236.TestInvokeMethodRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i237.TestInvokeMethodOperation(
       region: _region,
@@ -2049,9 +2060,9 @@ class ApiGatewayClient {
   }
 
   /// Removes a tag from a given resource.
-  _i3.Future<void> untagResource(
+  _i3.SmithyOperation<void> untagResource(
     _i238.UntagResourceRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i239.UntagResourceOperation(
       region: _region,
@@ -2064,9 +2075,9 @@ class ApiGatewayClient {
   }
 
   /// Changes information about the current Account resource.
-  _i3.Future<_i98.Account> updateAccount(
+  _i3.SmithyOperation<_i98.Account> updateAccount(
     _i240.UpdateAccountRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i241.UpdateAccountOperation(
       region: _region,
@@ -2079,9 +2090,9 @@ class ApiGatewayClient {
   }
 
   /// Changes information about an ApiKey resource.
-  _i3.Future<_i4.ApiKey> updateApiKey(
+  _i3.SmithyOperation<_i4.ApiKey> updateApiKey(
     _i242.UpdateApiKeyRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i243.UpdateApiKeyOperation(
       region: _region,
@@ -2094,9 +2105,9 @@ class ApiGatewayClient {
   }
 
   /// Updates an existing Authorizer resource.
-  _i3.Future<_i7.Authorizer> updateAuthorizer(
+  _i3.SmithyOperation<_i7.Authorizer> updateAuthorizer(
     _i244.UpdateAuthorizerRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i245.UpdateAuthorizerOperation(
       region: _region,
@@ -2109,9 +2120,9 @@ class ApiGatewayClient {
   }
 
   /// Changes information about the BasePathMapping resource.
-  _i3.Future<_i10.BasePathMapping> updateBasePathMapping(
+  _i3.SmithyOperation<_i10.BasePathMapping> updateBasePathMapping(
     _i246.UpdateBasePathMappingRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i247.UpdateBasePathMappingOperation(
       region: _region,
@@ -2124,9 +2135,9 @@ class ApiGatewayClient {
   }
 
   /// Changes information about an ClientCertificate resource.
-  _i3.Future<_i95.ClientCertificate> updateClientCertificate(
+  _i3.SmithyOperation<_i95.ClientCertificate> updateClientCertificate(
     _i248.UpdateClientCertificateRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i249.UpdateClientCertificateOperation(
       region: _region,
@@ -2139,9 +2150,9 @@ class ApiGatewayClient {
   }
 
   /// Changes information about a Deployment resource.
-  _i3.Future<_i13.Deployment> updateDeployment(
+  _i3.SmithyOperation<_i13.Deployment> updateDeployment(
     _i250.UpdateDeploymentRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i251.UpdateDeploymentOperation(
       region: _region,
@@ -2154,9 +2165,9 @@ class ApiGatewayClient {
   }
 
   /// Updates a documentation part.
-  _i3.Future<_i16.DocumentationPart> updateDocumentationPart(
+  _i3.SmithyOperation<_i16.DocumentationPart> updateDocumentationPart(
     _i252.UpdateDocumentationPartRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i253.UpdateDocumentationPartOperation(
       region: _region,
@@ -2169,9 +2180,9 @@ class ApiGatewayClient {
   }
 
   /// Updates a documentation version.
-  _i3.Future<_i19.DocumentationVersion> updateDocumentationVersion(
+  _i3.SmithyOperation<_i19.DocumentationVersion> updateDocumentationVersion(
     _i254.UpdateDocumentationVersionRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i255.UpdateDocumentationVersionOperation(
       region: _region,
@@ -2184,9 +2195,9 @@ class ApiGatewayClient {
   }
 
   /// Changes information about the DomainName resource.
-  _i3.Future<_i22.DomainName> updateDomainName(
+  _i3.SmithyOperation<_i22.DomainName> updateDomainName(
     _i256.UpdateDomainNameRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i257.UpdateDomainNameOperation(
       region: _region,
@@ -2199,9 +2210,9 @@ class ApiGatewayClient {
   }
 
   /// Updates a GatewayResponse of a specified response type on the given RestApi.
-  _i3.Future<_i140.GatewayResponse> updateGatewayResponse(
+  _i3.SmithyOperation<_i140.GatewayResponse> updateGatewayResponse(
     _i258.UpdateGatewayResponseRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i259.UpdateGatewayResponseOperation(
       region: _region,
@@ -2214,9 +2225,9 @@ class ApiGatewayClient {
   }
 
   /// Represents an update integration.
-  _i3.Future<_i146.Integration> updateIntegration(
+  _i3.SmithyOperation<_i146.Integration> updateIntegration(
     _i260.UpdateIntegrationRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i261.UpdateIntegrationOperation(
       region: _region,
@@ -2229,9 +2240,9 @@ class ApiGatewayClient {
   }
 
   /// Represents an update integration response.
-  _i3.Future<_i149.IntegrationResponse> updateIntegrationResponse(
+  _i3.SmithyOperation<_i149.IntegrationResponse> updateIntegrationResponse(
     _i262.UpdateIntegrationResponseRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i263.UpdateIntegrationResponseOperation(
       region: _region,
@@ -2244,9 +2255,9 @@ class ApiGatewayClient {
   }
 
   /// Updates an existing Method resource.
-  _i3.Future<_i152.Method> updateMethod(
+  _i3.SmithyOperation<_i152.Method> updateMethod(
     _i264.UpdateMethodRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i265.UpdateMethodOperation(
       region: _region,
@@ -2259,9 +2270,9 @@ class ApiGatewayClient {
   }
 
   /// Updates an existing MethodResponse resource.
-  _i3.Future<_i155.MethodResponse> updateMethodResponse(
+  _i3.SmithyOperation<_i155.MethodResponse> updateMethodResponse(
     _i266.UpdateMethodResponseRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i267.UpdateMethodResponseOperation(
       region: _region,
@@ -2274,9 +2285,9 @@ class ApiGatewayClient {
   }
 
   /// Changes information about a model.
-  _i3.Future<_i25.Model> updateModel(
+  _i3.SmithyOperation<_i25.Model> updateModel(
     _i268.UpdateModelRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i269.UpdateModelOperation(
       region: _region,
@@ -2289,9 +2300,9 @@ class ApiGatewayClient {
   }
 
   /// Updates a RequestValidator of a given RestApi.
-  _i3.Future<_i28.RequestValidator> updateRequestValidator(
+  _i3.SmithyOperation<_i28.RequestValidator> updateRequestValidator(
     _i270.UpdateRequestValidatorRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i271.UpdateRequestValidatorOperation(
       region: _region,
@@ -2304,9 +2315,9 @@ class ApiGatewayClient {
   }
 
   /// Changes information about a Resource resource.
-  _i3.Future<_i31.Resource> updateResource(
+  _i3.SmithyOperation<_i31.Resource> updateResource(
     _i272.UpdateResourceRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i273.UpdateResourceOperation(
       region: _region,
@@ -2319,9 +2330,9 @@ class ApiGatewayClient {
   }
 
   /// Changes information about the specified API.
-  _i3.Future<_i34.RestApi> updateRestApi(
+  _i3.SmithyOperation<_i34.RestApi> updateRestApi(
     _i274.UpdateRestApiRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i275.UpdateRestApiOperation(
       region: _region,
@@ -2334,9 +2345,9 @@ class ApiGatewayClient {
   }
 
   /// Changes information about a Stage resource.
-  _i3.Future<_i37.Stage> updateStage(
+  _i3.SmithyOperation<_i37.Stage> updateStage(
     _i276.UpdateStageRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i277.UpdateStageOperation(
       region: _region,
@@ -2349,9 +2360,9 @@ class ApiGatewayClient {
   }
 
   /// Grants a temporary extension to the remaining quota of a usage plan associated with a specified API key.
-  _i3.Future<_i278.Usage> updateUsage(
+  _i3.SmithyOperation<_i278.Usage> updateUsage(
     _i279.UpdateUsageRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i280.UpdateUsageOperation(
       region: _region,
@@ -2364,9 +2375,9 @@ class ApiGatewayClient {
   }
 
   /// Updates a usage plan of a given plan Id.
-  _i3.Future<_i40.UsagePlan> updateUsagePlan(
+  _i3.SmithyOperation<_i40.UsagePlan> updateUsagePlan(
     _i281.UpdateUsagePlanRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i282.UpdateUsagePlanOperation(
       region: _region,
@@ -2379,9 +2390,9 @@ class ApiGatewayClient {
   }
 
   /// Updates an existing VpcLink of a specified identifier.
-  _i3.Future<_i46.VpcLink> updateVpcLink(
+  _i3.SmithyOperation<_i46.VpcLink> updateVpcLink(
     _i283.UpdateVpcLinkRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i284.UpdateVpcLinkOperation(
       region: _region,

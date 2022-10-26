@@ -117,7 +117,7 @@ class GetObjectTorrentOperation extends _i1.HttpOperation<
   @override
   _i4.GetObjectTorrentOutput buildOutput(
     _i3.Stream<List<int>>? payload,
-    _i8.AWSStreamedHttpResponse response,
+    _i8.AWSBaseHttpResponse response,
   ) =>
       _i4.GetObjectTorrentOutput.fromResponse(
         payload,
@@ -125,6 +125,8 @@ class GetObjectTorrentOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+  @override
+  String get runtimeTypeName => 'GetObjectTorrent';
   @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
@@ -148,9 +150,9 @@ class GetObjectTorrentOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i3.Future<_i4.GetObjectTorrentOutput> run(
+  _i1.SmithyOperation<_i4.GetObjectTorrentOutput> run(
     _i2.GetObjectTorrentRequest input, {
-    _i1.HttpClient? client,
+    _i8.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i3.runZoned(

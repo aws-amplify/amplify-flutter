@@ -89,7 +89,7 @@ class DescribeTableOperation extends _i1.HttpOperation<_i2.DescribeTableInput,
   @override
   _i3.DescribeTableOutput buildOutput(
     _i3.DescribeTableOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.DescribeTableOutput.fromResponse(
         payload,
@@ -127,15 +127,17 @@ class DescribeTableOperation extends _i1.HttpOperation<_i2.DescribeTableInput,
         ),
       ];
   @override
+  String get runtimeTypeName => 'DescribeTable';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i12.Future<_i3.DescribeTableOutput> run(
+  _i1.SmithyOperation<_i3.DescribeTableOutput> run(
     _i2.DescribeTableInput input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i12.runZoned(

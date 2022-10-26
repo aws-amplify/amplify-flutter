@@ -165,7 +165,13 @@ class MetricsFilterRestXmlSerializer
   const MetricsFilterRestXmlSerializer() : super('MetricsFilter');
 
   @override
-  Iterable<Type> get types => const [MetricsFilter];
+  Iterable<Type> get types => const [
+        MetricsFilter,
+        MetricsFilterAccessPointArn,
+        MetricsFilterAnd,
+        MetricsFilterPrefix,
+        MetricsFilterTag,
+      ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(

@@ -114,7 +114,7 @@ class GetDeploymentsOperation extends _i1.PaginatedHttpOperation<
   @override
   _i3.Deployments buildOutput(
     _i3.Deployments payload,
-    _i9.AWSStreamedHttpResponse response,
+    _i9.AWSBaseHttpResponse response,
   ) =>
       _i3.Deployments.fromResponse(
         payload,
@@ -174,15 +174,17 @@ class GetDeploymentsOperation extends _i1.PaginatedHttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'GetDeployments';
+  @override
   _i7.AWSRetryer get retryer => _i7.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i16.Future<_i3.Deployments> run(
+  _i1.SmithyOperation<_i3.Deployments> run(
     _i2.GetDeploymentsRequest input, {
-    _i1.HttpClient? client,
+    _i9.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i16.runZoned(

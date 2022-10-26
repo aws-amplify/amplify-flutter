@@ -113,7 +113,7 @@ class GetBucketPolicyOperation extends _i1.HttpOperation<
   @override
   _i3.GetBucketPolicyOutput buildOutput(
     String? payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.GetBucketPolicyOutput.fromResponse(
         payload,
@@ -121,6 +121,8 @@ class GetBucketPolicyOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+  @override
+  String get runtimeTypeName => 'GetBucketPolicy';
   @override
   _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
@@ -144,9 +146,9 @@ class GetBucketPolicyOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i9.Future<_i3.GetBucketPolicyOutput> run(
+  _i1.SmithyOperation<_i3.GetBucketPolicyOutput> run(
     _i2.GetBucketPolicyRequest input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i9.runZoned(

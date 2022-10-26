@@ -124,11 +124,13 @@ class DeleteBucketMetricsConfigurationOperation extends _i1.HttpOperation<
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+  @override
+  String get runtimeTypeName => 'DeleteBucketMetricsConfiguration';
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
@@ -152,9 +154,9 @@ class DeleteBucketMetricsConfigurationOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i8.Future<_i1.Unit> run(
+  _i1.SmithyOperation<_i1.Unit> run(
     _i2.DeleteBucketMetricsConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i6.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i8.runZoned(

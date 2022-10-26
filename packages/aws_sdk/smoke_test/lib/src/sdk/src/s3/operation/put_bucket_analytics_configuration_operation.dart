@@ -170,11 +170,13 @@ class PutBucketAnalyticsConfigurationOperation extends _i1.HttpOperation<
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+  @override
+  String get runtimeTypeName => 'PutBucketAnalyticsConfiguration';
   @override
   _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
@@ -198,9 +200,9 @@ class PutBucketAnalyticsConfigurationOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i9.Future<_i1.Unit> run(
+  _i1.SmithyOperation<_i1.Unit> run(
     _i3.PutBucketAnalyticsConfigurationRequest input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i9.runZoned(

@@ -175,7 +175,7 @@ class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
   @override
   _i3.ListObjectsV2Output buildOutput(
     _i3.ListObjectsV2Output payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.ListObjectsV2Output.fromResponse(
         payload,
@@ -193,6 +193,8 @@ class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
           builder: _i9.NoSuchBucket.fromResponse,
         )
       ];
+  @override
+  String get runtimeTypeName => 'ListObjectsV2';
   @override
   _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
@@ -216,9 +218,9 @@ class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i10.Future<_i3.ListObjectsV2Output> run(
+  _i1.SmithyOperation<_i3.ListObjectsV2Output> run(
     _i2.ListObjectsV2Request input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i10.runZoned(

@@ -273,7 +273,7 @@ class CreateBucketOperation extends _i1.HttpOperation<
   @override
   _i4.CreateBucketOutput buildOutput(
     _i4.CreateBucketOutputPayload payload,
-    _i8.AWSStreamedHttpResponse response,
+    _i8.AWSBaseHttpResponse response,
   ) =>
       _i4.CreateBucketOutput.fromResponse(
         payload,
@@ -301,6 +301,8 @@ class CreateBucketOperation extends _i1.HttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'CreateBucket';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri {
@@ -323,9 +325,9 @@ class CreateBucketOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i12.Future<_i4.CreateBucketOutput> run(
+  _i1.SmithyOperation<_i4.CreateBucketOutput> run(
     _i3.CreateBucketRequest input, {
-    _i1.HttpClient? client,
+    _i8.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i12.runZoned(

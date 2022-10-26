@@ -85,7 +85,7 @@ class ImportTableOperation extends _i1.HttpOperation<_i2.ImportTableInput,
   @override
   _i3.ImportTableOutput buildOutput(
     _i3.ImportTableOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.ImportTableOutput.fromResponse(
         payload,
@@ -122,15 +122,17 @@ class ImportTableOperation extends _i1.HttpOperation<_i2.ImportTableInput,
         ),
       ];
   @override
+  String get runtimeTypeName => 'ImportTable';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i12.Future<_i3.ImportTableOutput> run(
+  _i1.SmithyOperation<_i3.ImportTableOutput> run(
     _i2.ImportTableInput input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i12.runZoned(

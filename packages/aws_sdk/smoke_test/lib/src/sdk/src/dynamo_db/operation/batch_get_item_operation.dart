@@ -129,7 +129,7 @@ class BatchGetItemOperation extends _i1.HttpOperation<_i2.BatchGetItemInput,
   @override
   _i3.BatchGetItemOutput buildOutput(
     _i3.BatchGetItemOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.BatchGetItemOutput.fromResponse(
         payload,
@@ -185,15 +185,17 @@ class BatchGetItemOperation extends _i1.HttpOperation<_i2.BatchGetItemInput,
         ),
       ];
   @override
+  String get runtimeTypeName => 'BatchGetItem';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i14.Future<_i3.BatchGetItemOutput> run(
+  _i1.SmithyOperation<_i3.BatchGetItemOutput> run(
     _i2.BatchGetItemInput input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i14.runZoned(

@@ -186,7 +186,7 @@ class PutObjectTaggingOperation extends _i1.HttpOperation<
   @override
   _i4.PutObjectTaggingOutput buildOutput(
     _i4.PutObjectTaggingOutputPayload payload,
-    _i8.AWSStreamedHttpResponse response,
+    _i8.AWSBaseHttpResponse response,
   ) =>
       _i4.PutObjectTaggingOutput.fromResponse(
         payload,
@@ -194,6 +194,8 @@ class PutObjectTaggingOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+  @override
+  String get runtimeTypeName => 'PutObjectTagging';
   @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
@@ -217,9 +219,9 @@ class PutObjectTaggingOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i10.Future<_i4.PutObjectTaggingOutput> run(
+  _i1.SmithyOperation<_i4.PutObjectTaggingOutput> run(
     _i3.PutObjectTaggingRequest input, {
-    _i1.HttpClient? client,
+    _i8.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i10.runZoned(

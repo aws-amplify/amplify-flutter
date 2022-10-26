@@ -349,7 +349,7 @@ class PutObjectAclOperation extends _i1.HttpOperation<
   @override
   _i4.PutObjectAclOutput buildOutput(
     _i4.PutObjectAclOutputPayload payload,
-    _i8.AWSStreamedHttpResponse response,
+    _i8.AWSBaseHttpResponse response,
   ) =>
       _i4.PutObjectAclOutput.fromResponse(
         payload,
@@ -367,6 +367,8 @@ class PutObjectAclOperation extends _i1.HttpOperation<
           builder: _i10.NoSuchKey.fromResponse,
         )
       ];
+  @override
+  String get runtimeTypeName => 'PutObjectAcl';
   @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
@@ -390,9 +392,9 @@ class PutObjectAclOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i11.Future<_i4.PutObjectAclOutput> run(
+  _i1.SmithyOperation<_i4.PutObjectAclOutput> run(
     _i3.PutObjectAclRequest input, {
-    _i1.HttpClient? client,
+    _i8.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i11.runZoned(

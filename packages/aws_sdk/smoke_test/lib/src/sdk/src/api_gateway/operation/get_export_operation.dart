@@ -107,7 +107,7 @@ class GetExportOperation extends _i1.HttpOperation<_i2.GetExportRequestPayload,
   @override
   _i4.ExportResponse buildOutput(
     _i3.Uint8List? payload,
-    _i8.AWSStreamedHttpResponse response,
+    _i8.AWSBaseHttpResponse response,
   ) =>
       _i4.ExportResponse.fromResponse(
         payload,
@@ -177,15 +177,17 @@ class GetExportOperation extends _i1.HttpOperation<_i2.GetExportRequestPayload,
         ),
       ];
   @override
+  String get runtimeTypeName => 'GetExport';
+  @override
   _i6.AWSRetryer get retryer => _i6.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i16.Future<_i4.ExportResponse> run(
+  _i1.SmithyOperation<_i4.ExportResponse> run(
     _i2.GetExportRequest input, {
-    _i1.HttpClient? client,
+    _i8.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i16.runZoned(

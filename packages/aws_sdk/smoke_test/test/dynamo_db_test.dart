@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:aws_common/aws_common.dart';
-import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:smoke_test/src/sdk/dynamo_db.dart';
 import 'package:smoke_test/src/sdk/dynamo_db_streams.dart'
@@ -55,9 +54,11 @@ void main() {
 
     Future<void> deleteTable(String tableName) async {
       try {
-        await client.deleteTable(
-          DeleteTableInput(tableName: tableName),
-        );
+        await client
+            .deleteTable(
+              DeleteTableInput(tableName: tableName),
+            )
+            .result;
       } on Object catch (_) {}
     }
 
@@ -68,39 +69,46 @@ void main() {
       required StreamSpecification streamSpecification,
     }) async {
       await deleteTable(tableName);
-      final table = await client.createTable(
-        CreateTableInput(
-          attributeDefinitions: [
-            AttributeDefinition(
-              attributeName: 'title',
-              attributeType: ScalarAttributeType.s,
+      final table = await client
+          .createTable(
+            CreateTableInput(
+              attributeDefinitions: [
+                AttributeDefinition(
+                  attributeName: 'title',
+                  attributeType: ScalarAttributeType.s,
+                ),
+                AttributeDefinition(
+                  attributeName: 'year',
+                  attributeType: ScalarAttributeType.n,
+                ),
+              ],
+              keySchema: [
+                KeySchemaElement(attributeName: 'year', keyType: KeyType.hash),
+                KeySchemaElement(
+                  attributeName: 'title',
+                  keyType: KeyType.range,
+                ),
+              ],
+              tableName: tableName,
+              provisionedThroughput: ProvisionedThroughput(
+                readCapacityUnits: Int64(10),
+                writeCapacityUnits: Int64(10),
+              ),
+              streamSpecification: streamSpecification,
             ),
-            AttributeDefinition(
-              attributeName: 'year',
-              attributeType: ScalarAttributeType.n,
-            ),
-          ],
-          keySchema: [
-            KeySchemaElement(attributeName: 'year', keyType: KeyType.hash),
-            KeySchemaElement(attributeName: 'title', keyType: KeyType.range),
-          ],
-          tableName: tableName,
-          provisionedThroughput: ProvisionedThroughput(
-            readCapacityUnits: Int64(10),
-            writeCapacityUnits: Int64(10),
-          ),
-          streamSpecification: streamSpecification,
-        ),
-      );
+          )
+          .result;
       expect(table.tableDescription?.tableName, tableName);
       addTearDown(() => deleteTable(tableName));
 
       await Future(() async {
         TableStatus? status;
         do {
-          final created = await client.describeTable(
-            DescribeTableInput(tableName: tableName),
-          );
+          final created = await client
+              .describeTable(
+                DescribeTableInput(tableName: tableName),
+              )
+              .result;
           status = created.table?.tableStatus;
           expect(status, isNotNull);
         } while (status != TableStatus.active);
@@ -121,24 +129,28 @@ void main() {
         'year': AttributeValue.n('2006'),
       };
       {
-        final response = await client.putItem(
-          PutItemInput(
-            item: item,
-            tableName: tableName,
-          ),
-        );
+        final response = await client
+            .putItem(
+              PutItemInput(
+                item: item,
+                tableName: tableName,
+              ),
+            )
+            .result;
         safePrint('Put item: $response');
       }
 
       // Read an item:
       // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.ReadItem.html
       {
-        final response = await client.getItem(
-          GetItemInput(
-            key: item,
-            tableName: tableName,
-          ),
-        );
+        final response = await client
+            .getItem(
+              GetItemInput(
+                key: item,
+                tableName: tableName,
+              ),
+            )
+            .result;
         safePrint('Retrieved item: $response');
         expect(response.item?.toMap(), equals(item));
       }
@@ -146,24 +158,28 @@ void main() {
       // Update an item:
       // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.UpdateItem.html
       {
-        final updateResponse = await client.updateItem(
-          UpdateItemInput(
-            tableName: tableName,
-            key: item,
-            expressionAttributeNames: {'#p': 'plot'},
-            updateExpression: 'set #p = :p',
-            expressionAttributeValues: {
-              ':p': const AttributeValue.s('James Bond plays poker'),
-            },
-          ),
-        );
+        final updateResponse = await client
+            .updateItem(
+              UpdateItemInput(
+                tableName: tableName,
+                key: item,
+                expressionAttributeNames: {'#p': 'plot'},
+                updateExpression: 'set #p = :p',
+                expressionAttributeValues: {
+                  ':p': const AttributeValue.s('James Bond plays poker'),
+                },
+              ),
+            )
+            .result;
         safePrint('Updated item: $updateResponse');
-        final response = await client.getItem(
-          GetItemInput(
-            key: item,
-            tableName: tableName,
-          ),
-        );
+        final response = await client
+            .getItem(
+              GetItemInput(
+                key: item,
+                tableName: tableName,
+              ),
+            )
+            .result;
         safePrint('Retrieved updated item: $response');
         expect(
           response.item?.toMap(),
@@ -177,9 +193,11 @@ void main() {
       // Delete an item:
       // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.DeleteItem.html
       {
-        final response = await client.deleteItem(
-          DeleteItemInput(key: item, tableName: tableName),
-        );
+        final response = await client
+            .deleteItem(
+              DeleteItemInput(key: item, tableName: tableName),
+            )
+            .result;
         safePrint('Deleted item: $response');
       }
 
@@ -205,33 +223,37 @@ void main() {
       // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.Query.html
       {
         for (final movie in movies) {
-          await client.putItem(
-            PutItemInput(item: movie, tableName: tableName),
-          );
+          await client
+              .putItem(
+                PutItemInput(item: movie, tableName: tableName),
+              )
+              .result;
         }
-        final response = await client.query(
-          QueryInput(
-            tableName: tableName,
-            keyConditionExpression: '#y = :y',
-            filterExpression: 'contains (plot, :topic)',
-            expressionAttributeNames: {'#y': 'year'},
-            expressionAttributeValues: {
-              ':y': const AttributeValue.n('2008'),
-              ':topic': const AttributeValue.s('James Bond'),
-            },
-          ),
-        );
+        final response = await client
+            .query(
+              QueryInput(
+                tableName: tableName,
+                keyConditionExpression: '#y = :y',
+                filterExpression: 'contains (plot, :topic)',
+                expressionAttributeNames: {'#y': 'year'},
+                expressionAttributeValues: const {
+                  ':y': AttributeValue.n('2008'),
+                  ':topic': AttributeValue.s('James Bond'),
+                },
+              ),
+            )
+            .result;
         final items = response.items.map((item) => item.toMap()).toList();
         safePrint('Queried items: $items');
         expect(response.hasNext, false);
         expect(items, hasLength(1));
         expect(
           items,
-          equals([
+          equals(const [
             {
-              'year': const AttributeValue.n('2008'),
-              'title': const AttributeValue.s('Quantum of Solace'),
-              'plot': const AttributeValue.s('James Bond goes to the desert'),
+              'year': AttributeValue.n('2008'),
+              'title': AttributeValue.s('Quantum of Solace'),
+              'plot': AttributeValue.s('James Bond goes to the desert'),
             }
           ]),
         );
@@ -240,19 +262,22 @@ void main() {
       // Scan a table:
       // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.Scan.html
       {
-        var response = await client.scan(
-          ScanInput(
-            tableName: tableName,
-            filterExpression: '#y >= :start_year AND contains (plot, :topic)',
-            expressionAttributeNames: {'#y': 'year'},
-            expressionAttributeValues: {
-              ':start_year': const AttributeValue.n('2008'),
-              ':topic': const AttributeValue.s('James Bond'),
-            },
-            projectionExpression: '#y, title',
-            limit: 1,
-          ),
-        );
+        var response = await client
+            .scan(
+              ScanInput(
+                tableName: tableName,
+                filterExpression:
+                    '#y >= :start_year AND contains (plot, :topic)',
+                expressionAttributeNames: {'#y': 'year'},
+                expressionAttributeValues: {
+                  ':start_year': const AttributeValue.n('2008'),
+                  ':topic': const AttributeValue.s('James Bond'),
+                },
+                projectionExpression: '#y, title',
+                limit: 1,
+              ),
+            )
+            .result;
 
         // Collect all items from the scan
         var i = 0;
@@ -260,7 +285,7 @@ void main() {
         do {
           items.addAll(response.items.map((item) => item.toMap()).toList());
           safePrint('Scanned items (${i++}): $items');
-          response = await response.next();
+          response = await response.next().result;
         } while (response.hasNext);
 
         expect(
@@ -297,9 +322,11 @@ void main() {
         // with describe table when using localstack.
         await Future<void>.delayed(const Duration(seconds: 5));
 
-        final response = await client.describeTable(
-          DescribeTableInput(tableName: tableName),
-        );
+        final response = await client
+            .describeTable(
+              DescribeTableInput(tableName: tableName),
+            )
+            .result;
         safePrint('Describe table: $response');
         final streamArn = response.table?.latestStreamArn;
         expect(streamArn, isNotNull);
@@ -318,27 +345,33 @@ void main() {
           };
 
           // Create the item
-          await client.putItem(
-            PutItemInput(item: movie, tableName: tableName),
-          );
+          await client
+              .putItem(
+                PutItemInput(item: movie, tableName: tableName),
+              )
+              .result;
 
           // Update the item
-          await client.updateItem(
-            UpdateItemInput(
-              tableName: tableName,
-              key: movie,
-              expressionAttributeNames: {'#p': 'plot'},
-              updateExpression: 'set #p = :p',
-              expressionAttributeValues: {
-                ':p': AttributeValue.s('The plot of "Movie $year"'),
-              },
-            ),
-          );
+          await client
+              .updateItem(
+                UpdateItemInput(
+                  tableName: tableName,
+                  key: movie,
+                  expressionAttributeNames: {'#p': 'plot'},
+                  updateExpression: 'set #p = :p',
+                  expressionAttributeValues: {
+                    ':p': AttributeValue.s('The plot of "Movie $year"'),
+                  },
+                ),
+              )
+              .result;
 
           // Delete the item
-          await client.deleteItem(
-            DeleteItemInput(key: movie, tableName: tableName),
-          );
+          await client
+              .deleteItem(
+                DeleteItemInput(key: movie, tableName: tableName),
+              )
+              .result;
         }
 
         // Get all the shard IDs from the stream. Note that DescribeStream
@@ -346,12 +379,14 @@ void main() {
         String? lastEvaluatedShardId;
         final allRecords = <Record>[];
         do {
-          final describeStream = await streamsClient.describeStream(
-            DescribeStreamInput(
-              streamArn: streamArn!,
-              exclusiveStartShardId: lastEvaluatedShardId,
-            ),
-          );
+          final describeStream = await streamsClient
+              .describeStream(
+                DescribeStreamInput(
+                  streamArn: streamArn!,
+                  exclusiveStartShardId: lastEvaluatedShardId,
+                ),
+              )
+              .result;
           final shards = describeStream.streamDescription?.shards;
           expect(shards, isNotNull);
 
@@ -361,13 +396,15 @@ void main() {
             safePrint('Processing shard: $shardId');
             expect(shardId, isNotNull);
 
-            final shardIteratorRes = await streamsClient.getShardIterator(
-              GetShardIteratorInput(
-                streamArn: streamArn,
-                shardId: shardId!,
-                shardIteratorType: ShardIteratorType.trimHorizon,
-              ),
-            );
+            final shardIteratorRes = await streamsClient
+                .getShardIterator(
+                  GetShardIteratorInput(
+                    streamArn: streamArn,
+                    shardId: shardId!,
+                    shardIteratorType: ShardIteratorType.trimHorizon,
+                  ),
+                )
+                .result;
             var currentShardIterator = shardIteratorRes.shardIterator;
             expect(currentShardIterator, isNotNull);
 
@@ -380,11 +417,13 @@ void main() {
               safePrint('    Shard iterator: $currentShardIterator');
 
               // Use the shard iterator to read the stream records
-              final recordsRes = await streamsClient.getRecords(
-                GetRecordsInput(
-                  shardIterator: currentShardIterator,
-                ),
-              );
+              final recordsRes = await streamsClient
+                  .getRecords(
+                    GetRecordsInput(
+                      shardIterator: currentShardIterator,
+                    ),
+                  )
+                  .result;
               final records = recordsRes.records?.toList();
               expect(records, isNotNull);
               allRecords.addAll(records!);

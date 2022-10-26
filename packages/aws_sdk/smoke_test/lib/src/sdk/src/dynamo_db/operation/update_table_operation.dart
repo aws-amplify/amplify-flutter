@@ -111,7 +111,7 @@ class UpdateTableOperation extends _i1.HttpOperation<_i2.UpdateTableInput,
   @override
   _i3.UpdateTableOutput buildOutput(
     _i3.UpdateTableOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.UpdateTableOutput.fromResponse(
         payload,
@@ -167,15 +167,17 @@ class UpdateTableOperation extends _i1.HttpOperation<_i2.UpdateTableInput,
         ),
       ];
   @override
+  String get runtimeTypeName => 'UpdateTable';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i14.Future<_i3.UpdateTableOutput> run(
+  _i1.SmithyOperation<_i3.UpdateTableOutput> run(
     _i2.UpdateTableInput input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i14.runZoned(

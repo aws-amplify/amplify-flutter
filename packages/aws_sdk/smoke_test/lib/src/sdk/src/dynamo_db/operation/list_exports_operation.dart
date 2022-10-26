@@ -89,7 +89,7 @@ class ListExportsOperation extends _i1.PaginatedHttpOperation<
   @override
   _i3.ListExportsOutput buildOutput(
     _i3.ListExportsOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.ListExportsOutput.fromResponse(
         payload,
@@ -117,15 +117,17 @@ class ListExportsOperation extends _i1.PaginatedHttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'ListExports';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i11.Future<_i3.ListExportsOutput> run(
+  _i1.SmithyOperation<_i3.ListExportsOutput> run(
     _i2.ListExportsInput input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i11.runZoned(

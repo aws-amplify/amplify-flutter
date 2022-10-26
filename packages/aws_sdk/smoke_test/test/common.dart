@@ -13,11 +13,12 @@
 // limitations under the License.
 
 import 'package:aws_common/aws_common.dart';
-import 'package:smithy/smithy.dart';
 import 'package:test/test.dart';
 
-HttpClient get localClient {
-  final client = AWSHttpClient()..onBadCertificate = (_, __, ___) => true;
+AWSHttpClient get localClient {
+  final client = AWSHttpClient()
+    ..supportedProtocols = SupportedProtocols.http1
+    ..onBadCertificate = (_, __, ___) => true;
   addTearDown(client.close);
-  return HttpClient.v1(baseClient: client);
+  return client;
 }

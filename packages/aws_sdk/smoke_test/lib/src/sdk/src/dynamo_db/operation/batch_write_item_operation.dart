@@ -158,7 +158,7 @@ class BatchWriteItemOperation extends _i1.HttpOperation<
   @override
   _i3.BatchWriteItemOutput buildOutput(
     _i3.BatchWriteItemOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.BatchWriteItemOutput.fromResponse(
         payload,
@@ -223,15 +223,17 @@ class BatchWriteItemOperation extends _i1.HttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'BatchWriteItem';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i15.Future<_i3.BatchWriteItemOutput> run(
+  _i1.SmithyOperation<_i3.BatchWriteItemOutput> run(
     _i2.BatchWriteItemInput input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i15.runZoned(
