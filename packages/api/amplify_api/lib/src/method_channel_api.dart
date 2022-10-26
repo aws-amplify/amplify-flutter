@@ -100,6 +100,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
   Future<void> addPlugin({
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
+    super.addPlugin(authProviderRepo: authProviderRepo);
     try {
       setupAuthProviders();
       await _channel.invokeMethod<void>('addPlugin', {
