@@ -131,9 +131,14 @@ class SmithyHttpRequest {
   /// Transforms [_baseRequest] using [_requestInterceptors].
   @visibleForTesting
   Future<AWSBaseHttpRequest> transformRequest({
+    AWSHttpClient? baseClient,
     bool Function()? isCanceled,
   }) async {
     var request = _baseRequest;
+    if (baseClient is AWSBaseHttpClient) {
+      // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_overriding_member
+      request = await baseClient.transformRequest(request);
+    }
     for (final interceptor in _requestInterceptors) {
       if (isCanceled?.call() ?? false) {
         break;
@@ -151,8 +156,13 @@ class SmithyHttpRequest {
   /// Transforms [response] using [_responseInterceptors].
   Future<AWSBaseHttpResponse> _transformResponse(
     AWSBaseHttpResponse response, {
+    AWSHttpClient? baseClient,
     bool Function()? isCanceled,
   }) async {
+    if (baseClient is AWSBaseHttpClient) {
+      // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_overriding_member
+      response = await baseClient.transformResponse(response);
+    }
     for (final interceptor in _responseInterceptors) {
       if (isCanceled?.call() ?? false) {
         break;
@@ -183,10 +193,15 @@ class SmithyHttpRequest {
     );
     Future<void>(() async {
       final request = await transformRequest(
+        baseClient: client,
         isCanceled: () => completer.isCanceled,
       );
       final operation = request.send(
-        client: client,
+        // We extract the transformRequest/transformResponse methods of
+        // `client` when specified. To avoid calling them twice in `send`,
+        // send the request using its baseClient.
+        // TODO(dnys1): Invert? Add interceptors option to Smithy operations?
+        client: client is AWSBaseHttpClient ? client.baseClient : client,
         onCancel: completer.operation.cancel,
       );
       operation.requestProgress.listen(
@@ -203,6 +218,7 @@ class SmithyHttpRequest {
         (response) async {
           response = await _transformResponse(
             response,
+            baseClient: client,
             isCanceled: () => completer.isCanceled,
           );
           completer.complete(response);
