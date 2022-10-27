@@ -599,12 +599,11 @@ void main() {
         await expectLater(
           uploadTask.result,
           throwsA(
-            isA<S3Exception>()
-              ..having(
-                (o) => o.underlyingException,
-                'underlyingException',
-                testException,
-              ),
+            isA<S3Exception>().having(
+              (o) => o.underlyingException,
+              'underlyingException',
+              testException,
+            ),
           ),
         );
 
@@ -719,12 +718,11 @@ void main() {
         await expectLater(
           uploadTask.result,
           throwsA(
-            isA<S3Exception>()
-              ..having(
-                (o) => o.underlyingException,
-                'underlyingException',
-                testException,
-              ),
+            isA<S3Exception>().having(
+              (o) => o.underlyingException,
+              'underlyingException',
+              testException,
+            ),
           ),
         );
         expect(finalState, S3TransferState.failure);
@@ -789,12 +787,15 @@ void main() {
         await expectLater(
           uploadTask.result,
           throwsA(
-            isA<S3Exception>()
-              ..having(
+            isA<S3Exception>().having(
+              (o) => o.underlyingException,
+              'underlyingException',
+              isA<S3Exception>().having(
                 (o) => o.underlyingException,
                 'underlyingException',
                 testException,
               ),
+            ),
           ),
         );
 
@@ -936,12 +937,15 @@ void main() {
         await expectLater(
           uploadTask.result,
           throwsA(
-            isA<S3Exception>()
-              ..having(
+            isA<S3Exception>().having(
+              (o) => o.underlyingException,
+              'underlyingException',
+              isA<S3Exception>().having(
                 (o) => o.underlyingException,
                 'underlyingException',
                 testException,
               ),
+            ),
           ),
         );
         expect(finalState, S3TransferState.failure);
