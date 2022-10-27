@@ -21,5 +21,7 @@ import 'package:drift/web.dart';
 QueryExecutor connect({
   String? driftStoragePath,
 }) {
-  return WebDatabase('amplify_analytics_cached_events');
+  return WebDatabase.withStorage(
+    DriftWebStorage.indexedDb('amplify_analytics_cached_events'),
+  );
 }
