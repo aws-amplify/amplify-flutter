@@ -36,7 +36,9 @@ class MockAmplifyAPI extends AmplifyAPIMethodChannel {
   @override
   Future<void> addPlugin({
     required AmplifyAuthProviderRepository authProviderRepo,
-  }) async {}
+  }) async {
+    await super.addPlugin(authProviderRepo: authProviderRepo);
+  }
 }
 
 void main() {
