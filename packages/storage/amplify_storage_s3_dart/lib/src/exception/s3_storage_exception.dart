@@ -95,6 +95,15 @@ class S3Exception extends StorageException {
     );
   }
 
+  /// Creates a [S3Exception] that represents an unexpected error
+  /// when service API call doesn't return a valid content-length header.
+  factory S3Exception.unexpectedContentLengthFromService() {
+    return const S3Exception(
+      'Service has not returned a valid content length for requested object.',
+      recoverySuggestion: _fileIssueMessage,
+    );
+  }
+
   /// Creates a [S3Exception] that represents an expected exception
   /// thrown when invoke cancel() on an eligible storage operation object.
   factory S3Exception.controllableOperationCanceled() {
