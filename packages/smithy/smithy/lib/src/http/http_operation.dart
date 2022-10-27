@@ -191,7 +191,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       method: AWSHttpMethod.fromString(request.method),
       scheme: uri.scheme,
       host: host,
-      port: uri.port,
+      port: uri.hasPort ? uri.port : null,
       path: path,
       body: body,
       queryParameters: queryParameters,
