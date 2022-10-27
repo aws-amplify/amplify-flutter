@@ -28,6 +28,6 @@ dev_dependencies:
   build_runner: ^2.0.0
   build_verify: ^3.0.0
   build_web_compilers: ^3.2.3
-  built_value_generator: 8.4.1
+  built_value_generator: 8.4.2
   worker_bee_builder:
     path: ../worker_bee_builder
