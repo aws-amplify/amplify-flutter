@@ -56,6 +56,8 @@ class StorageS3Service {
               region: defaultRegion,
               credentialsProvider: credentialsProvider,
               s3ClientConfig: _defaultS3ClientConfig,
+              client: AmplifyHttpClient()
+                ..supportedProtocols = SupportedProtocols.http1,
             ),
         _prefixResolver = prefixResolver,
         _logger = logger,
