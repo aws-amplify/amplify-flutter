@@ -338,10 +338,12 @@ class GetObjectOperation extends _i1.HttpOperation<_i2.GetObjectRequestPayload,
             input.versionId!,
           );
         }
-        b.queryParameters.add(
-          'partNumber',
-          input.partNumber.toString(),
-        );
+        if (input.partNumber != null) {
+          b.queryParameters.add(
+            'partNumber',
+            input.partNumber!.toString(),
+          );
+        }
       });
   @override
   int successCode([_i4.GetObjectOutput? output]) => 200;

@@ -16,11 +16,11 @@ class _$ListMultipartUploadsOutput extends ListMultipartUploadsOutput {
   @override
   final _i3.EncodingType? encodingType;
   @override
-  final bool isTruncated;
+  final bool? isTruncated;
   @override
   final String? keyMarker;
   @override
-  final int maxUploads;
+  final int? maxUploads;
   @override
   final String? nextKeyMarker;
   @override
@@ -41,20 +41,15 @@ class _$ListMultipartUploadsOutput extends ListMultipartUploadsOutput {
       this.commonPrefixes,
       this.delimiter,
       this.encodingType,
-      required this.isTruncated,
+      this.isTruncated,
       this.keyMarker,
-      required this.maxUploads,
+      this.maxUploads,
       this.nextKeyMarker,
       this.nextUploadIdMarker,
       this.prefix,
       this.uploadIdMarker,
       this.uploads})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        isTruncated, r'ListMultipartUploadsOutput', 'isTruncated');
-    BuiltValueNullFieldError.checkNotNull(
-        maxUploads, r'ListMultipartUploadsOutput', 'maxUploads');
-  }
+      : super._();
 
   @override
   ListMultipartUploadsOutput rebuild(
@@ -218,11 +213,9 @@ class ListMultipartUploadsOutputBuilder
               commonPrefixes: _commonPrefixes?.build(),
               delimiter: delimiter,
               encodingType: encodingType,
-              isTruncated: BuiltValueNullFieldError.checkNotNull(
-                  isTruncated, r'ListMultipartUploadsOutput', 'isTruncated'),
+              isTruncated: isTruncated,
               keyMarker: keyMarker,
-              maxUploads: BuiltValueNullFieldError.checkNotNull(
-                  maxUploads, r'ListMultipartUploadsOutput', 'maxUploads'),
+              maxUploads: maxUploads,
               nextKeyMarker: nextKeyMarker,
               nextUploadIdMarker: nextUploadIdMarker,
               prefix: prefix,

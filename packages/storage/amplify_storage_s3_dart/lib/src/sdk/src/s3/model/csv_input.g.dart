@@ -8,7 +8,7 @@ part of amplify_storage_s3_dart.s3.model.csv_input;
 
 class _$CsvInput extends CsvInput {
   @override
-  final bool allowQuotedRecordDelimiter;
+  final bool? allowQuotedRecordDelimiter;
   @override
   final String? comments;
   @override
@@ -26,17 +26,14 @@ class _$CsvInput extends CsvInput {
       (new CsvInputBuilder()..update(updates))._build();
 
   _$CsvInput._(
-      {required this.allowQuotedRecordDelimiter,
+      {this.allowQuotedRecordDelimiter,
       this.comments,
       this.fieldDelimiter,
       this.fileHeaderInfo,
       this.quoteCharacter,
       this.quoteEscapeCharacter,
       this.recordDelimiter})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        allowQuotedRecordDelimiter, r'CsvInput', 'allowQuotedRecordDelimiter');
-  }
+      : super._();
 
   @override
   CsvInput rebuild(void Function(CsvInputBuilder) updates) =>
@@ -148,10 +145,7 @@ class CsvInputBuilder implements Builder<CsvInput, CsvInputBuilder> {
   _$CsvInput _build() {
     final _$result = _$v ??
         new _$CsvInput._(
-            allowQuotedRecordDelimiter: BuiltValueNullFieldError.checkNotNull(
-                allowQuotedRecordDelimiter,
-                r'CsvInput',
-                'allowQuotedRecordDelimiter'),
+            allowQuotedRecordDelimiter: allowQuotedRecordDelimiter,
             comments: comments,
             fieldDelimiter: fieldDelimiter,
             fileHeaderInfo: fileHeaderInfo,

@@ -34,8 +34,6 @@ abstract class ListMultipartUploadsOutput
     String? uploadIdMarker,
     List<_i4.MultipartUpload>? uploads,
   }) {
-    isTruncated ??= false;
-    maxUploads ??= 0;
     return _$ListMultipartUploadsOutput._(
       bucket: bucket,
       commonPrefixes:
@@ -71,10 +69,7 @@ abstract class ListMultipartUploadsOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListMultipartUploadsOutputBuilder b) {
-    b.isTruncated = false;
-    b.maxUploads = 0;
-  }
+  static void _init(ListMultipartUploadsOutputBuilder b) {}
 
   /// The name of the bucket to which the multipart upload was initiated. Does not return the access point ARN or access point alias if used.
   String? get bucket;
@@ -93,13 +88,13 @@ abstract class ListMultipartUploadsOutput
   _i3.EncodingType? get encodingType;
 
   /// Indicates whether the returned list of multipart uploads is truncated. A value of true indicates that the list was truncated. The list can be truncated if the number of multipart uploads exceeds the limit allowed or specified by max uploads.
-  bool get isTruncated;
+  bool? get isTruncated;
 
   /// The key at or after which the listing began.
   String? get keyMarker;
 
   /// Maximum number of multipart uploads that could have been included in the response.
-  int get maxUploads;
+  int? get maxUploads;
 
   /// When a list is truncated, this element specifies the value that should be used for the key-marker request parameter in a subsequent request.
   String? get nextKeyMarker;
@@ -248,10 +243,12 @@ class ListMultipartUploadsOutputRestXmlSerializer
           }
           break;
         case 'IsTruncated':
-          result.isTruncated = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.isTruncated = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'KeyMarker':
           if (value != null) {
@@ -262,10 +259,12 @@ class ListMultipartUploadsOutputRestXmlSerializer
           }
           break;
         case 'MaxUploads':
-          result.maxUploads = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.maxUploads = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'NextKeyMarker':
           if (value != null) {
@@ -362,12 +361,14 @@ class ListMultipartUploadsOutputRestXmlSerializer
           specifiedType: const FullType.nullable(_i3.EncodingType),
         ));
     }
-    result
-      ..add(const _i6.XmlElementName('IsTruncated'))
-      ..add(serializers.serialize(
-        payload.isTruncated,
-        specifiedType: const FullType(bool),
-      ));
+    if (payload.isTruncated != null) {
+      result
+        ..add(const _i6.XmlElementName('IsTruncated'))
+        ..add(serializers.serialize(
+          payload.isTruncated!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     if (payload.keyMarker != null) {
       result
         ..add(const _i6.XmlElementName('KeyMarker'))
@@ -376,12 +377,14 @@ class ListMultipartUploadsOutputRestXmlSerializer
           specifiedType: const FullType(String),
         ));
     }
-    result
-      ..add(const _i6.XmlElementName('MaxUploads'))
-      ..add(serializers.serialize(
-        payload.maxUploads,
-        specifiedType: const FullType(int),
-      ));
+    if (payload.maxUploads != null) {
+      result
+        ..add(const _i6.XmlElementName('MaxUploads'))
+        ..add(serializers.serialize(
+          payload.maxUploads!,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
     if (payload.nextKeyMarker != null) {
       result
         ..add(const _i6.XmlElementName('NextKeyMarker'))

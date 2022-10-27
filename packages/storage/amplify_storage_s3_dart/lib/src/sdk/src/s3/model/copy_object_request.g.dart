@@ -12,7 +12,7 @@ class _$CopyObjectRequest extends CopyObjectRequest {
   @override
   final String bucket;
   @override
-  final bool bucketKeyEnabled;
+  final bool? bucketKeyEnabled;
   @override
   final String? cacheControl;
   @override
@@ -97,7 +97,7 @@ class _$CopyObjectRequest extends CopyObjectRequest {
   _$CopyObjectRequest._(
       {this.acl,
       required this.bucket,
-      required this.bucketKeyEnabled,
+      this.bucketKeyEnabled,
       this.cacheControl,
       this.checksumAlgorithm,
       this.contentDisposition,
@@ -139,8 +139,6 @@ class _$CopyObjectRequest extends CopyObjectRequest {
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'CopyObjectRequest', 'bucket');
-    BuiltValueNullFieldError.checkNotNull(
-        bucketKeyEnabled, r'CopyObjectRequest', 'bucketKeyEnabled');
     BuiltValueNullFieldError.checkNotNull(
         copySource, r'CopyObjectRequest', 'copySource');
     BuiltValueNullFieldError.checkNotNull(key, r'CopyObjectRequest', 'key');
@@ -525,8 +523,7 @@ class CopyObjectRequestBuilder
               acl: acl,
               bucket: BuiltValueNullFieldError.checkNotNull(
                   bucket, r'CopyObjectRequest', 'bucket'),
-              bucketKeyEnabled: BuiltValueNullFieldError.checkNotNull(
-                  bucketKeyEnabled, r'CopyObjectRequest', 'bucketKeyEnabled'),
+              bucketKeyEnabled: bucketKeyEnabled,
               cacheControl: cacheControl,
               checksumAlgorithm: checksumAlgorithm,
               contentDisposition: contentDisposition,

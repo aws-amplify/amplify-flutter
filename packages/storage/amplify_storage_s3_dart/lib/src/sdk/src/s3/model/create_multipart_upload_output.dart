@@ -36,7 +36,6 @@ abstract class CreateMultipartUploadOutput
     String? ssekmsKeyId,
     String? uploadId,
   }) {
-    bucketKeyEnabled ??= false;
     return _$CreateMultipartUploadOutput._(
       abortDate: abortDate,
       abortRuleId: abortRuleId,
@@ -124,9 +123,7 @@ abstract class CreateMultipartUploadOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateMultipartUploadOutputBuilder b) {
-    b.bucketKeyEnabled = false;
-  }
+  static void _init(CreateMultipartUploadOutputBuilder b) {}
 
   /// If the bucket has a lifecycle rule configured with an action to abort incomplete multipart uploads and the prefix in the lifecycle rule matches the object name in the request, the response includes this header. The header indicates when the initiated multipart upload becomes eligible for an abort operation. For more information, see [Aborting Incomplete Multipart Uploads Using a Bucket Lifecycle Policy](https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config).
   ///
@@ -144,7 +141,7 @@ abstract class CreateMultipartUploadOutput
   String? get bucket;
 
   /// Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
-  bool get bucketKeyEnabled;
+  bool? get bucketKeyEnabled;
 
   /// The algorithm that was used to create a checksum of the object.
   _i3.ChecksumAlgorithm? get checksumAlgorithm;

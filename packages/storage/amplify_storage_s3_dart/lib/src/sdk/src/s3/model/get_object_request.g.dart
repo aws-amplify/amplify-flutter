@@ -24,7 +24,7 @@ class _$GetObjectRequest extends GetObjectRequest {
   @override
   final String key;
   @override
-  final int partNumber;
+  final int? partNumber;
   @override
   final String? range;
   @override
@@ -63,7 +63,7 @@ class _$GetObjectRequest extends GetObjectRequest {
       this.ifNoneMatch,
       this.ifUnmodifiedSince,
       required this.key,
-      required this.partNumber,
+      this.partNumber,
       this.range,
       this.requestPayer,
       this.responseCacheControl,
@@ -80,8 +80,6 @@ class _$GetObjectRequest extends GetObjectRequest {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'GetObjectRequest', 'bucket');
     BuiltValueNullFieldError.checkNotNull(key, r'GetObjectRequest', 'key');
-    BuiltValueNullFieldError.checkNotNull(
-        partNumber, r'GetObjectRequest', 'partNumber');
   }
 
   @override
@@ -324,8 +322,7 @@ class GetObjectRequestBuilder
             ifUnmodifiedSince: ifUnmodifiedSince,
             key: BuiltValueNullFieldError.checkNotNull(
                 key, r'GetObjectRequest', 'key'),
-            partNumber: BuiltValueNullFieldError.checkNotNull(
-                partNumber, r'GetObjectRequest', 'partNumber'),
+            partNumber: partNumber,
             range: range,
             requestPayer: requestPayer,
             responseCacheControl: responseCacheControl,

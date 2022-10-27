@@ -20,9 +20,9 @@ class _$Part extends Part {
   @override
   final DateTime? lastModified;
   @override
-  final int partNumber;
+  final int? partNumber;
   @override
-  final _i2.Int64 size;
+  final _i2.Int64? size;
 
   factory _$Part([void Function(PartBuilder)? updates]) =>
       (new PartBuilder()..update(updates))._build();
@@ -34,12 +34,9 @@ class _$Part extends Part {
       this.checksumSha256,
       this.eTag,
       this.lastModified,
-      required this.partNumber,
-      required this.size})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(partNumber, r'Part', 'partNumber');
-    BuiltValueNullFieldError.checkNotNull(size, r'Part', 'size');
-  }
+      this.partNumber,
+      this.size})
+      : super._();
 
   @override
   Part rebuild(void Function(PartBuilder) updates) =>
@@ -163,9 +160,8 @@ class PartBuilder implements Builder<Part, PartBuilder> {
             checksumSha256: checksumSha256,
             eTag: eTag,
             lastModified: lastModified,
-            partNumber: BuiltValueNullFieldError.checkNotNull(
-                partNumber, r'Part', 'partNumber'),
-            size: BuiltValueNullFieldError.checkNotNull(size, r'Part', 'size'));
+            partNumber: partNumber,
+            size: size);
     replace(_$result);
     return _$result;
   }

@@ -8,7 +8,7 @@ part of amplify_storage_s3_dart.s3.model.deleted_object;
 
 class _$DeletedObject extends DeletedObject {
   @override
-  final bool deleteMarker;
+  final bool? deleteMarker;
   @override
   final String? deleteMarkerVersionId;
   @override
@@ -20,14 +20,8 @@ class _$DeletedObject extends DeletedObject {
       (new DeletedObjectBuilder()..update(updates))._build();
 
   _$DeletedObject._(
-      {required this.deleteMarker,
-      this.deleteMarkerVersionId,
-      this.key,
-      this.versionId})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        deleteMarker, r'DeletedObject', 'deleteMarker');
-  }
+      {this.deleteMarker, this.deleteMarkerVersionId, this.key, this.versionId})
+      : super._();
 
   @override
   DeletedObject rebuild(void Function(DeletedObjectBuilder) updates) =>
@@ -109,8 +103,7 @@ class DeletedObjectBuilder
   _$DeletedObject _build() {
     final _$result = _$v ??
         new _$DeletedObject._(
-            deleteMarker: BuiltValueNullFieldError.checkNotNull(
-                deleteMarker, r'DeletedObject', 'deleteMarker'),
+            deleteMarker: deleteMarker,
             deleteMarkerVersionId: deleteMarkerVersionId,
             key: key,
             versionId: versionId);

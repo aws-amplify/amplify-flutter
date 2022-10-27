@@ -66,7 +66,6 @@ abstract class CreateMultipartUploadRequest
     String? tagging,
     String? websiteRedirectLocation,
   }) {
-    bucketKeyEnabled ??= false;
     return _$CreateMultipartUploadRequest._(
       acl: acl,
       bucket: bucket,
@@ -245,9 +244,7 @@ abstract class CreateMultipartUploadRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateMultipartUploadRequestBuilder b) {
-    b.bucketKeyEnabled = false;
-  }
+  static void _init(CreateMultipartUploadRequestBuilder b) {}
 
   /// The canned ACL to apply to the object.
   ///
@@ -264,7 +261,7 @@ abstract class CreateMultipartUploadRequest
   /// Specifies whether Amazon S3 should use an S3 Bucket Key for object encryption with server-side encryption using AWS KMS (SSE-KMS). Setting this header to `true` causes Amazon S3 to use an S3 Bucket Key for object encryption with SSE-KMS.
   ///
   /// Specifying this header with an object action doesn’t affect bucket-level settings for S3 Bucket Key.
-  bool get bucketKeyEnabled;
+  bool? get bucketKeyEnabled;
 
   /// Specifies caching behavior along the request/reply chain.
   String? get cacheControl;

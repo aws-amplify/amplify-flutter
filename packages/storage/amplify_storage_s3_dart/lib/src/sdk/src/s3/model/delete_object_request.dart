@@ -29,7 +29,6 @@ abstract class DeleteObjectRequest
     _i3.RequestPayer? requestPayer,
     String? versionId,
   }) {
-    bypassGovernanceRetention ??= false;
     return _$DeleteObjectRequest._(
       bucket: bucket,
       bypassGovernanceRetention: bypassGovernanceRetention,
@@ -84,9 +83,7 @@ abstract class DeleteObjectRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteObjectRequestBuilder b) {
-    b.bypassGovernanceRetention = false;
-  }
+  static void _init(DeleteObjectRequestBuilder b) {}
 
   /// The bucket name of the bucket containing the object.
   ///
@@ -96,7 +93,7 @@ abstract class DeleteObjectRequest
   String get bucket;
 
   /// Indicates whether S3 Object Lock should bypass Governance-mode restrictions to process this operation. To use this header, you must have the `s3:BypassGovernanceRetention` permission.
-  bool get bypassGovernanceRetention;
+  bool? get bypassGovernanceRetention;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;

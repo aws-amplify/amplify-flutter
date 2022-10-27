@@ -80,7 +80,6 @@ abstract class CopyObjectRequest
     _i11.TaggingDirective? taggingDirective,
     String? websiteRedirectLocation,
   }) {
-    bucketKeyEnabled ??= false;
     return _$CopyObjectRequest._(
       acl: acl,
       bucket: bucket,
@@ -321,9 +320,7 @@ abstract class CopyObjectRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CopyObjectRequestBuilder b) {
-    b.bucketKeyEnabled = false;
-  }
+  static void _init(CopyObjectRequestBuilder b) {}
 
   /// The canned ACL to apply to the object.
   ///
@@ -340,7 +337,7 @@ abstract class CopyObjectRequest
   /// Specifies whether Amazon S3 should use an S3 Bucket Key for object encryption with server-side encryption using AWS KMS (SSE-KMS). Setting this header to `true` causes Amazon S3 to use an S3 Bucket Key for object encryption with SSE-KMS.
   ///
   /// Specifying this header with a COPY action doesn’t affect bucket-level settings for S3 Bucket Key.
-  bool get bucketKeyEnabled;
+  bool? get bucketKeyEnabled;
 
   /// Specifies caching behavior along the request/reply chain.
   String? get cacheControl;

@@ -20,9 +20,6 @@ abstract class Stats
     _i2.Int64? bytesReturned,
     _i2.Int64? bytesScanned,
   }) {
-    bytesProcessed ??= _i2.Int64.ZERO;
-    bytesReturned ??= _i2.Int64.ZERO;
-    bytesScanned ??= _i2.Int64.ZERO;
     return _$Stats._(
       bytesProcessed: bytesProcessed,
       bytesReturned: bytesReturned,
@@ -40,20 +37,16 @@ abstract class Stats
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(StatsBuilder b) {
-    b.bytesProcessed = _i2.Int64.ZERO;
-    b.bytesReturned = _i2.Int64.ZERO;
-    b.bytesScanned = _i2.Int64.ZERO;
-  }
+  static void _init(StatsBuilder b) {}
 
   /// The total number of uncompressed object bytes processed.
-  _i2.Int64 get bytesProcessed;
+  _i2.Int64? get bytesProcessed;
 
   /// The total number of bytes of records payload data returned.
-  _i2.Int64 get bytesReturned;
+  _i2.Int64? get bytesReturned;
 
   /// The total number of object bytes scanned.
-  _i2.Int64 get bytesScanned;
+  _i2.Int64? get bytesScanned;
   @override
   List<Object?> get props => [
         bytesProcessed,
@@ -108,22 +101,28 @@ class StatsRestXmlSerializer extends _i3.StructuredSmithySerializer<Stats> {
       final value = iterator.current;
       switch (key as String) {
         case 'BytesProcessed':
-          result.bytesProcessed = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i2.Int64),
-          ) as _i2.Int64);
+          if (value != null) {
+            result.bytesProcessed = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.Int64),
+            ) as _i2.Int64);
+          }
           break;
         case 'BytesReturned':
-          result.bytesReturned = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i2.Int64),
-          ) as _i2.Int64);
+          if (value != null) {
+            result.bytesReturned = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.Int64),
+            ) as _i2.Int64);
+          }
           break;
         case 'BytesScanned':
-          result.bytesScanned = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i2.Int64),
-          ) as _i2.Int64);
+          if (value != null) {
+            result.bytesScanned = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.Int64),
+            ) as _i2.Int64);
+          }
           break;
       }
     }
@@ -144,24 +143,30 @@ class StatsRestXmlSerializer extends _i3.StructuredSmithySerializer<Stats> {
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    result
-      ..add(const _i3.XmlElementName('BytesProcessed'))
-      ..add(serializers.serialize(
-        payload.bytesProcessed,
-        specifiedType: const FullType(_i2.Int64),
-      ));
-    result
-      ..add(const _i3.XmlElementName('BytesReturned'))
-      ..add(serializers.serialize(
-        payload.bytesReturned,
-        specifiedType: const FullType(_i2.Int64),
-      ));
-    result
-      ..add(const _i3.XmlElementName('BytesScanned'))
-      ..add(serializers.serialize(
-        payload.bytesScanned,
-        specifiedType: const FullType(_i2.Int64),
-      ));
+    if (payload.bytesProcessed != null) {
+      result
+        ..add(const _i3.XmlElementName('BytesProcessed'))
+        ..add(serializers.serialize(
+          payload.bytesProcessed!,
+          specifiedType: const FullType.nullable(_i2.Int64),
+        ));
+    }
+    if (payload.bytesReturned != null) {
+      result
+        ..add(const _i3.XmlElementName('BytesReturned'))
+        ..add(serializers.serialize(
+          payload.bytesReturned!,
+          specifiedType: const FullType.nullable(_i2.Int64),
+        ));
+    }
+    if (payload.bytesScanned != null) {
+      result
+        ..add(const _i3.XmlElementName('BytesScanned'))
+        ..add(serializers.serialize(
+          payload.bytesScanned!,
+          specifiedType: const FullType.nullable(_i2.Int64),
+        ));
+    }
     return result;
   }
 }

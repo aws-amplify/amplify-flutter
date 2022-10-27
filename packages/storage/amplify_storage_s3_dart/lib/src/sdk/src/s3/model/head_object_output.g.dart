@@ -12,7 +12,7 @@ class _$HeadObjectOutput extends HeadObjectOutput {
   @override
   final _i3.ArchiveStatus? archiveStatus;
   @override
-  final bool bucketKeyEnabled;
+  final bool? bucketKeyEnabled;
   @override
   final String? cacheControl;
   @override
@@ -30,11 +30,11 @@ class _$HeadObjectOutput extends HeadObjectOutput {
   @override
   final String? contentLanguage;
   @override
-  final _i4.Int64 contentLength;
+  final _i4.Int64? contentLength;
   @override
   final String? contentType;
   @override
-  final bool deleteMarker;
+  final bool? deleteMarker;
   @override
   final String? eTag;
   @override
@@ -46,7 +46,7 @@ class _$HeadObjectOutput extends HeadObjectOutput {
   @override
   final _i11.BuiltMap<String, String>? metadata;
   @override
-  final int missingMeta;
+  final int? missingMeta;
   @override
   final _i5.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
   @override
@@ -54,7 +54,7 @@ class _$HeadObjectOutput extends HeadObjectOutput {
   @override
   final DateTime? objectLockRetainUntilDate;
   @override
-  final int partsCount;
+  final int? partsCount;
   @override
   final _i7.ReplicationStatus? replicationStatus;
   @override
@@ -83,7 +83,7 @@ class _$HeadObjectOutput extends HeadObjectOutput {
   _$HeadObjectOutput._(
       {this.acceptRanges,
       this.archiveStatus,
-      required this.bucketKeyEnabled,
+      this.bucketKeyEnabled,
       this.cacheControl,
       this.checksumCrc32,
       this.checksumCrc32C,
@@ -92,19 +92,19 @@ class _$HeadObjectOutput extends HeadObjectOutput {
       this.contentDisposition,
       this.contentEncoding,
       this.contentLanguage,
-      required this.contentLength,
+      this.contentLength,
       this.contentType,
-      required this.deleteMarker,
+      this.deleteMarker,
       this.eTag,
       this.expiration,
       this.expires,
       this.lastModified,
       this.metadata,
-      required this.missingMeta,
+      this.missingMeta,
       this.objectLockLegalHoldStatus,
       this.objectLockMode,
       this.objectLockRetainUntilDate,
-      required this.partsCount,
+      this.partsCount,
       this.replicationStatus,
       this.requestCharged,
       this.restore,
@@ -115,18 +115,7 @@ class _$HeadObjectOutput extends HeadObjectOutput {
       this.storageClass,
       this.versionId,
       this.websiteRedirectLocation})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        bucketKeyEnabled, r'HeadObjectOutput', 'bucketKeyEnabled');
-    BuiltValueNullFieldError.checkNotNull(
-        contentLength, r'HeadObjectOutput', 'contentLength');
-    BuiltValueNullFieldError.checkNotNull(
-        deleteMarker, r'HeadObjectOutput', 'deleteMarker');
-    BuiltValueNullFieldError.checkNotNull(
-        missingMeta, r'HeadObjectOutput', 'missingMeta');
-    BuiltValueNullFieldError.checkNotNull(
-        partsCount, r'HeadObjectOutput', 'partsCount');
-  }
+      : super._();
 
   @override
   HeadObjectOutput rebuild(void Function(HeadObjectOutputBuilder) updates) =>
@@ -451,8 +440,7 @@ class HeadObjectOutputBuilder
           new _$HeadObjectOutput._(
               acceptRanges: acceptRanges,
               archiveStatus: archiveStatus,
-              bucketKeyEnabled: BuiltValueNullFieldError.checkNotNull(
-                  bucketKeyEnabled, r'HeadObjectOutput', 'bucketKeyEnabled'),
+              bucketKeyEnabled: bucketKeyEnabled,
               cacheControl: cacheControl,
               checksumCrc32: checksumCrc32,
               checksumCrc32C: checksumCrc32C,
@@ -461,23 +449,19 @@ class HeadObjectOutputBuilder
               contentDisposition: contentDisposition,
               contentEncoding: contentEncoding,
               contentLanguage: contentLanguage,
-              contentLength: BuiltValueNullFieldError.checkNotNull(
-                  contentLength, r'HeadObjectOutput', 'contentLength'),
+              contentLength: contentLength,
               contentType: contentType,
-              deleteMarker: BuiltValueNullFieldError.checkNotNull(
-                  deleteMarker, r'HeadObjectOutput', 'deleteMarker'),
+              deleteMarker: deleteMarker,
               eTag: eTag,
               expiration: expiration,
               expires: expires,
               lastModified: lastModified,
               metadata: _metadata?.build(),
-              missingMeta: BuiltValueNullFieldError.checkNotNull(
-                  missingMeta, r'HeadObjectOutput', 'missingMeta'),
+              missingMeta: missingMeta,
               objectLockLegalHoldStatus: objectLockLegalHoldStatus,
               objectLockMode: objectLockMode,
               objectLockRetainUntilDate: objectLockRetainUntilDate,
-              partsCount: BuiltValueNullFieldError.checkNotNull(
-                  partsCount, r'HeadObjectOutput', 'partsCount'),
+              partsCount: partsCount,
               replicationStatus: replicationStatus,
               requestCharged: requestCharged,
               restore: restore,

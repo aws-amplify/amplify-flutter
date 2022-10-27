@@ -10,7 +10,7 @@ class _$CompleteMultipartUploadOutput extends CompleteMultipartUploadOutput {
   @override
   final String? bucket;
   @override
-  final bool bucketKeyEnabled;
+  final bool? bucketKeyEnabled;
   @override
   final String? checksumCrc32;
   @override
@@ -42,7 +42,7 @@ class _$CompleteMultipartUploadOutput extends CompleteMultipartUploadOutput {
 
   _$CompleteMultipartUploadOutput._(
       {this.bucket,
-      required this.bucketKeyEnabled,
+      this.bucketKeyEnabled,
       this.checksumCrc32,
       this.checksumCrc32C,
       this.checksumSha1,
@@ -55,10 +55,7 @@ class _$CompleteMultipartUploadOutput extends CompleteMultipartUploadOutput {
       this.serverSideEncryption,
       this.ssekmsKeyId,
       this.versionId})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        bucketKeyEnabled, r'CompleteMultipartUploadOutput', 'bucketKeyEnabled');
-  }
+      : super._();
 
   @override
   CompleteMultipartUploadOutput rebuild(
@@ -235,10 +232,7 @@ class CompleteMultipartUploadOutputBuilder
     final _$result = _$v ??
         new _$CompleteMultipartUploadOutput._(
             bucket: bucket,
-            bucketKeyEnabled: BuiltValueNullFieldError.checkNotNull(
-                bucketKeyEnabled,
-                r'CompleteMultipartUploadOutput',
-                'bucketKeyEnabled'),
+            bucketKeyEnabled: bucketKeyEnabled,
             checksumCrc32: checksumCrc32,
             checksumCrc32C: checksumCrc32C,
             checksumSha1: checksumSha1,

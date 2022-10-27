@@ -402,8 +402,10 @@ class CopyObjectOperation extends _i1.HttpOperation<
                 input.ssekmsEncryptionContext!;
           }
         }
-        b.headers['x-amz-server-side-encryption-bucket-key-enabled'] =
-            input.bucketKeyEnabled.toString();
+        if (input.bucketKeyEnabled != null) {
+          b.headers['x-amz-server-side-encryption-bucket-key-enabled'] =
+              input.bucketKeyEnabled!.toString();
+        }
         if (input.copySourceSseCustomerAlgorithm != null) {
           if (input.copySourceSseCustomerAlgorithm!.isNotEmpty) {
             b.headers[

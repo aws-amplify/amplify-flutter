@@ -19,8 +19,6 @@ abstract class ScanRange
     _i2.Int64? end,
     _i2.Int64? start,
   }) {
-    end ??= _i2.Int64.ZERO;
-    start ??= _i2.Int64.ZERO;
     return _$ScanRange._(
       end: end,
       start: start,
@@ -38,16 +36,13 @@ abstract class ScanRange
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ScanRangeBuilder b) {
-    b.end = _i2.Int64.ZERO;
-    b.start = _i2.Int64.ZERO;
-  }
+  static void _init(ScanRangeBuilder b) {}
 
   /// Specifies the end of the byte range. This parameter is optional. Valid values: non-negative integers. The default value is one less than the size of the object being queried. If only the End parameter is supplied, it is interpreted to mean scan the last N bytes of the file. For example, `50` means scan the last 50 bytes.
-  _i2.Int64 get end;
+  _i2.Int64? get end;
 
   /// Specifies the start of the byte range. This parameter is optional. Valid values: non-negative integers. The default value is 0. If only `start` is supplied, it means scan from that point to the end of the file. For example, `50` means scan from byte 50 until the end of the file.
-  _i2.Int64 get start;
+  _i2.Int64? get start;
   @override
   List<Object?> get props => [
         end,
@@ -98,16 +93,20 @@ class ScanRangeRestXmlSerializer
       final value = iterator.current;
       switch (key as String) {
         case 'End':
-          result.end = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i2.Int64),
-          ) as _i2.Int64);
+          if (value != null) {
+            result.end = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.Int64),
+            ) as _i2.Int64);
+          }
           break;
         case 'Start':
-          result.start = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i2.Int64),
-          ) as _i2.Int64);
+          if (value != null) {
+            result.start = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.Int64),
+            ) as _i2.Int64);
+          }
           break;
       }
     }
@@ -128,18 +127,22 @@ class ScanRangeRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    result
-      ..add(const _i3.XmlElementName('End'))
-      ..add(serializers.serialize(
-        payload.end,
-        specifiedType: const FullType(_i2.Int64),
-      ));
-    result
-      ..add(const _i3.XmlElementName('Start'))
-      ..add(serializers.serialize(
-        payload.start,
-        specifiedType: const FullType(_i2.Int64),
-      ));
+    if (payload.end != null) {
+      result
+        ..add(const _i3.XmlElementName('End'))
+        ..add(serializers.serialize(
+          payload.end!,
+          specifiedType: const FullType.nullable(_i2.Int64),
+        ));
+    }
+    if (payload.start != null) {
+      result
+        ..add(const _i3.XmlElementName('Start'))
+        ..add(serializers.serialize(
+          payload.start!,
+          specifiedType: const FullType.nullable(_i2.Int64),
+        ));
+    }
     return result;
   }
 }
