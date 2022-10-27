@@ -27,6 +27,7 @@ class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
   Future<void> addPlugin({
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
+    await super.addPlugin(authProviderRepo: authProviderRepo);
     try {
       return await _channel.invokeMethod('addPlugin');
     } on PlatformException catch (e) {

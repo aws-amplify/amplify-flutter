@@ -27,6 +27,7 @@ abstract class AmplifyPluginInterface {
   Category get category;
 
   /// Called when the plugin is added to the category.
+  @mustCallSuper
   Future<void> addPlugin({
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {}
