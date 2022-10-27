@@ -38,7 +38,12 @@ class AnalyticsClient {
     this._eventClient,
     this._eventCreator,
     this._endpointClient,
-  );
+  ) {
+    _autoEventSubmitter = StoppableTimer(
+      duration: const Duration(seconds: 10),
+      callback: flushEvents,
+    );
+  }
 
   static AnalyticsClient? _instance;
 
@@ -113,10 +118,7 @@ class AnalyticsClient {
   static const String _sessionStartEventType = '_session.start';
   static const String _sessionStopEventType = '_session.stop';
 
-  late final StoppableTimer _autoEventSubmitter = StoppableTimer(
-    duration: const Duration(seconds: 10),
-    callback: flushEvents,
-  );
+  late final StoppableTimer _autoEventSubmitter;
 
   /// Send all cached events to AWS Pinpoint
   Future<void> flushEvents() async {
