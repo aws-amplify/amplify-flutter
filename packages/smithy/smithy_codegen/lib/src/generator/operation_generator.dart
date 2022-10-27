@@ -675,7 +675,7 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
             ..type = inputSymbol
             ..name = 'input'),
           Parameter((p) => p
-            ..type = inputToken?.symbol ?? DartTypes.core.void$
+            ..type = inputToken?.symbol.unboxed ?? DartTypes.core.void$
             ..name = 'token'),
           Parameter((p) => p
             ..type = pageSize?.symbol.boxed ?? DartTypes.core.void$

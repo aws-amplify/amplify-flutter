@@ -255,6 +255,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<void> addPlugin({
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
+    await super.addPlugin(authProviderRepo: authProviderRepo);
     // Register auth providers to provide auth functionality to other plugins
     // without requiring other plugins to call `Amplify.Auth...` directly.
     authProviderRepo

@@ -24,7 +24,6 @@ import 'package:amplify_auth_cognito_dart/src/sdk/sdk_exception.dart';
 import 'package:amplify_core/amplify_core.dart'
     show AuthenticationFlowType, DependencyManager;
 import 'package:aws_common/aws_common.dart';
-import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
 
@@ -172,12 +171,18 @@ class WrappedCognitoIdentityProviderClient
   /// {@macro amplify_auth_cognito_dart.sdk.wrapped_cognito_identity_provider_client}
   WrappedCognitoIdentityProviderClient({
     required String region,
+    String? endpoint,
     required AWSCredentialsProvider credentialsProvider,
     required DependencyManager dependencyManager,
   }) : _base = CognitoIdentityProviderClient(
           region: region,
           credentialsProvider: credentialsProvider,
           client: dependencyManager.getOrCreate(),
+          baseUri: endpoint == null
+              ? null
+              : (endpoint.startsWith('http')
+                  ? Uri.parse(endpoint)
+                  : Uri.parse('https://$endpoint')),
         );
 
   final CognitoIdentityProviderClient _base;

@@ -16,7 +16,6 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:aws_common/aws_common.dart';
-import 'package:aws_common/src/config/aws_config_value.dart';
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
 
@@ -167,8 +166,9 @@ class AWSRetryer implements Retryer {
   CancelableOperation<R> retry<R>(
     CancelableOperation<R> Function() f, {
     FutureOr<void> Function(Exception, [Duration?])? onRetry,
+    FutureOr<void> Function()? onCancel,
   }) {
-    final completer = CancelableCompleter<R>();
+    final completer = CancelableCompleter<R>(onCancel: onCancel);
     Future<void>(() async {
       var attempts = 0;
       int? retryToken;
