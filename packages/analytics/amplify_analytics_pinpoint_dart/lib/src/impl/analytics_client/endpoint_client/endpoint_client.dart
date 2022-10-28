@@ -180,7 +180,21 @@ class EndpointClient {
 
     _endpointBuilder.user = newUserBuilder;
 
-    await updateEndpoint();
+    try {
+      await updateEndpoint();
+    } on BadRequestException catch (e) {
+      if (e.message == null ||
+          !e.message!.toLowerCase().contains('exceeded maximum endpoint')) {
+        return;
+      }
+
+      throw AnalyticsException(
+        e.message ?? 'BadRequestException',
+        recoverySuggestion:
+            'Only call identifyUser() once per device.  Calling identifyUser() multiple times will associate multiple endpoints to the device.',
+        underlyingException: e,
+      );
+    }
   }
 
   /// Return Endpoint instance

@@ -12,89 +12,49 @@
 // permissions and limitations under the License.
 
 import 'dart:async';
-import 'dart:convert';
-import 'dart:math';
 
-import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
-import 'package:amplify_analytics_pinpoint_example/amplifyconfiguration.dart';
-import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
+
+import 'utils/mock_data.dart';
+import 'utils/setup_utils.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('recordEvent', () {
-    const boolProperty = MapEntry('boolProperty', true);
-    // Boolean properties are recorded as strings
-    const stringifiedBoolProperty = MapEntry('boolProperty', 'true');
-
-    const doubleProperty = MapEntry('doubleProperty', pi);
-    // There is some lossiness behavior to doubles
-    const lossyDoubleProperty = MapEntry('doubleProperty', 3.141592653589793);
-
-    const intProperty = MapEntry('intProperty', 42);
-    const stringProperty = MapEntry('stringProperty', 'Hello, world');
-
     late final Stream<Map<String, Object?>> eventsStream;
 
     setUpAll(() async {
-      await Amplify.addPlugins([
-        AmplifyAuthCognito(),
-        AmplifyAnalyticsPinpoint(),
-        AmplifyAPI(),
-      ]);
-      await Amplify.configure(amplifyconfig);
-
-      final subscriptionEstablished = Completer<void>();
-
-      eventsStream = Amplify.API
-          .subscribe(
-        GraphQLRequest<String>(
-          document: '''
-            subscription {
-              onCreateRecord {
-                id
-                payload
-              }
-            }
-            ''',
-        ),
-        onEstablished: subscriptionEstablished.complete,
-      )
-          .map((event) {
-        if (event.errors.isNotEmpty) {
-          return {'errors': event.errors};
-        }
-        final data = event.data;
-        if (data == null) {
-          return const <String, Object?>{};
-        }
-        final json = jsonDecode(data) as Map<String, Object?>;
-        return jsonDecode((json['onCreateRecord'] as Map)['payload'] as String)
-            as Map<String, Object?>;
-      }).asBroadcastStream();
-
-      expect(
-        eventsStream,
-        emitsThrough(
-          containsPair('event_type', '_session.start'),
-        ),
-      );
-
-      await subscriptionEstablished.future.timeout(
-        const Duration(seconds: 30),
-        onTimeout: () => fail('Subscription could not be established'),
-      );
+      eventsStream = await configureAnalytics();
     });
 
+    tearDownAll(Amplify.reset);
+
     test(
-      'can record custom event',
+      'custom events are automatically submitted without calls to Analytics.flushEvents()',
       () async {
-        final customEventId = uuid();
-        final customEvent = AnalyticsEvent(customEventId);
+        const customEventName = 'my custom event type name';
+        final customEvent = AnalyticsEvent(customEventName);
+
+        expect(
+          eventsStream,
+          emits(
+            containsPair('event_type', customEventName),
+          ),
+        );
+
+        await Amplify.Analytics.recordEvent(event: customEvent);
+      },
+      timeout: const Timeout(Duration(minutes: 2)),
+    );
+
+    test(
+      'recorded custom event is sent with correct custom and meta properties',
+      () async {
+        const customEventName = 'my custom event type name';
+        final customEvent = AnalyticsEvent(customEventName);
 
         customEvent.properties
           ..addBoolProperty(boolProperty.key, boolProperty.value)
@@ -102,6 +62,7 @@ void main() {
           ..addIntProperty(intProperty.key, intProperty.value)
           ..addStringProperty(stringProperty.key, stringProperty.value);
 
+        // Verify local analyticsEvent has proper fields
         expect(
           customEvent.properties.getAllProperties(),
           Map.fromEntries([
@@ -121,10 +82,11 @@ void main() {
           },
         );
 
+        // Verify event sent to Pinpoint has proper fields
         expect(
           eventsStream,
-          emitsThrough(allOf([
-            containsPair('event_type', customEventId),
+          emits(allOf([
+            containsPair('event_type', customEventName),
             containsPair(
               'attributes',
               // Boolean properties are recorded as strings
@@ -135,11 +97,127 @@ void main() {
               // There is some lossiness behavior to doubles
               Map.fromEntries([lossyDoubleProperty, intProperty]),
             ),
+            // Session is valid before timestamp
+            containsPair(
+                'endpoint',
+                allOf(
+                  containsPair('EndpointStatus', 'ACTIVE'),
+                  containsPair('OptOut', 'ALL'),
+                  containsPair('Attributes', {}),
+                  containsPair('Metrics', {}),
+                ))
           ])),
         );
 
         await Amplify.Analytics.recordEvent(event: customEvent);
         await Amplify.Analytics.flushEvents();
+      },
+      timeout: const Timeout(Duration(minutes: 2)),
+    );
+
+    test(
+      'Analytics.register and unregister of GlobalProperties adds and removes properties in future events',
+      () async {
+        const customEventName = 'my custom event type name';
+        final customEvent = AnalyticsEvent(customEventName);
+
+        // Add local event properties
+        customEvent.properties.addStringProperty(
+          secondStringProperty.key,
+          secondStringProperty.value,
+        );
+        customEvent.properties.addIntProperty(
+          secondIntProperty.key,
+          secondIntProperty.value,
+        );
+
+        // Add attribute global property types
+        final attributeGlobalProperties = AnalyticsProperties()
+          ..addBoolProperty(boolProperty.key, boolProperty.value)
+          ..addStringProperty(stringProperty.key, stringProperty.value);
+
+        await Amplify.Analytics.registerGlobalProperties(
+            globalProperties: attributeGlobalProperties);
+
+        await Amplify.Analytics.recordEvent(event: customEvent);
+        await Amplify.Analytics.flushEvents();
+
+        // Verify local and global properties are present in sent event
+        await expectLater(
+          eventsStream,
+          emits(allOf([
+            containsPair('event_type', customEventName),
+            containsPair(
+              'attributes',
+              // Boolean properties are recorded as strings
+              Map.fromEntries([
+                stringifiedBoolProperty,
+                stringProperty,
+                secondStringProperty
+              ]),
+            ),
+            containsPair(
+              'metrics',
+              // There is some lossiness behavior to doubles
+              Map.fromEntries([secondIntProperty]),
+            ),
+          ])),
+        ).timeout(const Duration(minutes: 1));
+
+        await Amplify.Analytics.unregisterGlobalProperties(
+          propertyNames: [stringifiedBoolProperty.key, stringProperty.key],
+        );
+
+        // Add metric global property types
+        final metricGlobalProperties = AnalyticsProperties()
+          ..addIntProperty(intProperty.key, intProperty.value)
+          ..addDoubleProperty(doubleProperty.key, doubleProperty.value);
+
+        await Amplify.Analytics.registerGlobalProperties(
+            globalProperties: metricGlobalProperties);
+
+        await Amplify.Analytics.recordEvent(event: customEvent);
+        await Amplify.Analytics.flushEvents();
+
+        // Verify local and global properties are present in sent event
+        await expectLater(
+          eventsStream,
+          emits(allOf([
+            containsPair('event_type', customEventName),
+            containsPair(
+              'attributes',
+              // Boolean properties are recorded as strings
+              Map.fromEntries([secondStringProperty]),
+            ),
+            containsPair(
+              'metrics',
+              // There is some lossiness behavior to doubles
+              Map.fromEntries(
+                  [lossyDoubleProperty, intProperty, secondIntProperty]),
+            ),
+          ])),
+        ).timeout(const Duration(minutes: 1));
+
+        await Amplify.Analytics.unregisterGlobalProperties();
+
+        await Amplify.Analytics.recordEvent(event: customEvent);
+        await Amplify.Analytics.flushEvents();
+
+        // Verify only local properties are present in sent event
+        await expectLater(
+          eventsStream,
+          emits(allOf([
+            containsPair('event_type', customEventName),
+            containsPair(
+              'attributes',
+              Map.fromEntries([secondStringProperty]),
+            ),
+            containsPair(
+              'metrics',
+              Map.fromEntries([secondIntProperty]),
+            ),
+          ])),
+        ).timeout(const Duration(minutes: 1));
       },
       timeout: const Timeout(Duration(minutes: 2)),
     );
