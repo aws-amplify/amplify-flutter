@@ -18,7 +18,7 @@ import 'package:test/test.dart';
 
 class MockAuthProviderToken extends AmplifyAuthProviderToken<MockAuthProvider>
     with AWSEquatable<MockAuthProviderToken> {
-  const MockAuthProviderToken(this.category);
+  const MockAuthProviderToken(this.category) : super('mockToken');
 
   final Category category;
 
