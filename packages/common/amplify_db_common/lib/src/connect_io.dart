@@ -12,21 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
 import 'package:amplify_db_common_dart/src/connect_io.dart' as base;
 import 'package:drift/drift.dart';
-import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
 /// {@macro amplify_db_common.connect}
 QueryExecutor connect({
   required String name,
-  String? path,
+  FutureOr<String>? path,
 }) {
   return LazyDatabase(() async {
-    if (path == null) {
-      final filename = '$name.db';
-      path = p.join((await getApplicationSupportDirectory()).path, filename);
-    }
-    return base.connect(name: name, path: path);
+    final resolvedPath =
+        await path ?? (await getApplicationSupportDirectory()).path;
+    return base.connect(name: name, path: resolvedPath);
   });
 }
