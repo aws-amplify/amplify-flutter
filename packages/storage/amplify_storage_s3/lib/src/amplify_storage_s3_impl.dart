@@ -14,6 +14,7 @@
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_db_common/amplify_db_common.dart' as db_common;
 import 'package:amplify_storage_s3/src/utils/app_path_provider.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 
@@ -64,7 +65,9 @@ class AmplifyStorageS3 extends AmplifyStorageS3Dart {
     await super.configure(config: config, authProviderRepo: authProviderRepo);
 
     // override the path provider dependency added by AmplifyStorageS3Dart
-    dependencyManager.addBuilder<AppPathProvider>(S3AppPathProvider.new);
+    dependencyManager
+      ..addInstance<db_common.Connect>(db_common.connect)
+      ..addBuilder<AppPathProvider>(S3AppPathProvider.new);
   }
 }
 
