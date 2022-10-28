@@ -366,7 +366,7 @@ class WebSocketConnection implements Closeable {
   Future<AWSBaseHttpResponse> _getPollRequest() {
     return AWSHttpRequest.get(
       _pingUri,
-    ).send(_pingClient).response;
+    ).send(client: _pingClient).response;
   }
 
   /// Clear variables used to track subscriptions and other helper variables

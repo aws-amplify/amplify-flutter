@@ -65,7 +65,7 @@ void main() {
         onEstablished: subscriptionEstablished.complete,
       )
           .map((event) {
-        if (event.errors.isNotEmpty) {
+        if (event.errors?.isNotEmpty ?? false) {
           return {'errors': event.errors};
         }
         final data = event.data;
