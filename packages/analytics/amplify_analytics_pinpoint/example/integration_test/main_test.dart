@@ -14,10 +14,18 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
-import 'events_test.dart' as events;
+import 'auto_session_tracking_test.dart' as auto_session_tracking_tests;
+import 'enable_disable_test.dart' as enable_disable_tests;
+import 'events_test.dart' as events_tests;
+import 'identify_user_test.dart' as identify_user_tests;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('Analytics', events.main);
+  group('amplify_analytics_pinpoint', () {
+    auto_session_tracking_tests.main();
+    enable_disable_tests.main();
+    events_tests.main();
+    identify_user_tests.main();
+  });
 }
