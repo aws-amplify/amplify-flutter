@@ -534,7 +534,7 @@ class InputResolver extends Resolver<InputResolverKey> {
       case InputResolverKeyType.empty:
         return empty(context, key.field);
       case InputResolverKeyType.usernameRequirements:
-        return passwordRequires(context, key.unmetPasswordRequirements!);
+        return usernameRequires(context);
       case InputResolverKeyType.passwordRequirements:
         return passwordRequires(context, key.unmetPasswordRequirements!);
       case InputResolverKeyType.mismatch:
