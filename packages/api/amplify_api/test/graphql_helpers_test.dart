@@ -38,7 +38,22 @@ class MockAmplifyAPI extends AmplifyAPIDart {
   void registerAuthProvider(APIAuthProvider authProvider) {}
 
   @override
-  Future<void> addPlugin() async {}
+  Future<void> addPlugin({
+    required AmplifyAuthProviderRepository authProviderRepo,
+  }) async {
+    await super.addPlugin(authProviderRepo: authProviderRepo);
+  }
+}
+
+GraphQLResponse<T> _decodeResponseData<T>(
+  GraphQLRequest<T> request,
+  String data,
+) {
+  final serverResponse = {'data': json.decode(data)};
+  return GraphQLResponseDecoder.instance.decode<T>(
+    request: request,
+    response: serverResponse,
+  );
 }
 
 GraphQLResponse<T> _decodeResponseData<T>(

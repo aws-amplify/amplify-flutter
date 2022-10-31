@@ -22,7 +22,7 @@ class WithUserAgent extends HttpRequestInterceptor {
   final String userAgent;
 
   @override
-  AWSStreamedHttpRequest intercept(AWSStreamedHttpRequest request) {
+  AWSBaseHttpRequest intercept(AWSBaseHttpRequest request) {
     request.headers.update(
       zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent,
       (value) => '$value $userAgent',

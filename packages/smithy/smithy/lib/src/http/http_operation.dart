@@ -31,7 +31,7 @@ bool get isSmithyHttpTest => Zone.current[zSmithyHttpTest] as bool? ?? false;
 ///
 /// See: https://awslabs.github.io/smithy/1.0/spec/core/http-traits.html
 abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
-    extends Operation<Input, Output> {
+    with AWSDebuggable {
   /// Regex for label placeholders.
   static final _labelRegex = RegExp(r'{(\w+)}');
 
@@ -87,7 +87,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
   Iterable<HttpProtocol<InputPayload, Input, OutputPayload, Output>>
       get protocols;
 
-  @override
+  /// The error types of the operation.
   List<SmithyError> get errorTypes;
 
   /// The success code for the operation.
@@ -136,11 +136,11 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
   }
 
   @visibleForTesting
-  Future<AWSStreamedHttpRequest> createRequest(
+  SmithyHttpRequest createRequest(
     HttpRequest request,
     HttpProtocol<InputPayload, Input, OutputPayload, Output> protocol,
     Input input,
-  ) async {
+  ) {
     final uri = baseUri;
     var path = request.path;
 
@@ -187,73 +187,111 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     };
     final body = protocol.serialize(input, specifiedType: FullType(Input));
 
-    var awsRequest = AWSStreamedHttpRequest.raw(
+    final awsRequest = AWSStreamedHttpRequest.raw(
       method: AWSHttpMethod.fromString(request.method),
       scheme: uri.scheme,
       host: host,
-      port: uri.port,
+      port: uri.hasPort ? uri.port : null,
       path: path,
       body: body,
       queryParameters: queryParameters,
       headers: headers,
     );
 
-    // Transform request using the interceptors
-    // TODO(dnys1): Move to a subclass of AWSHttpClient
-    final interceptors = List.of(protocol.requestInterceptors)
+    final requestInterceptors = List.of(protocol.requestInterceptors)
       ..addAll(request.requestInterceptors)
       ..sort((a, b) => a.order.compareTo(b.order));
-    for (final interceptor in interceptors) {
-      final interception = interceptor.intercept(awsRequest);
-      if (interception is Future<AWSStreamedHttpRequest>) {
-        awsRequest = await interception;
-      } else {
-        awsRequest = interception;
-      }
-    }
-    return awsRequest;
-  }
 
-  /// Validates the server's response against the protocol's registered
-  /// interceptors.
-  Future<AWSBaseHttpResponse> _validateResponse({
-    required AWSBaseHttpResponse response,
-    required HttpProtocol protocol,
-  }) async {
-    for (final interceptor in protocol.responseInterceptors) {
-      final interception = interceptor.intercept(response);
-      if (interception is Future<AWSBaseHttpResponse>) {
-        response = await interception;
-      } else {
-        response = interception;
-      }
-    }
-    return response;
+    final responseInterceptors = protocol.responseInterceptors;
+
+    return SmithyHttpRequest(
+      awsRequest,
+      requestInterceptors: requestInterceptors,
+      responseInterceptors: responseInterceptors,
+    );
   }
 
   @visibleForOverriding
   @visibleForTesting
-  Future<Output> send({
-    required HttpClient client,
-    required Future<AWSStreamedHttpRequest> Function() createRequest,
+  SmithyOperation<Output> send({
+    required SmithyHttpRequest Function() createRequest,
     required HttpProtocol<InputPayload, Input, OutputPayload, Output> protocol,
+    AWSHttpClient? client,
   }) {
-    return retryer.retry(
-      () async {
-        // Re-create the request on each retry to perform signing again, etc.
-        final httpRequest = await createRequest();
-        AWSBaseHttpResponse response = await client.send(httpRequest);
-        response = await _validateResponse(
-          response: response,
-          protocol: protocol,
+    final requestProgress = StreamController<int>.broadcast(sync: true);
+    final responseProgress = StreamController<int>.broadcast(sync: true);
+    final completer = CancelableCompleter<Output>(
+      onCancel: () {
+        requestProgress.close();
+        responseProgress.close();
+      },
+    );
+    final operation = retryer.retry<Output>(
+      () {
+        // Recreate the request on each retry to perform signing again, etc.
+        final httpRequest = createRequest();
+        final operation = httpRequest.send(
+          client: client,
+          onCancel: completer.operation.cancel,
         );
-        return deserializeOutput(
-          protocol: protocol,
-          response: response,
+        operation.requestProgress.listen(
+          (progress) {
+            if (!requestProgress.isClosed) {
+              requestProgress.add(progress);
+            }
+          },
+          onDone: () {
+            if (operation.operation.isCanceled ||
+                operation.operation.isCompleted) {
+              requestProgress.close();
+            }
+          },
+        );
+        operation.responseProgress.listen(
+          (progress) {
+            if (!responseProgress.isClosed) {
+              responseProgress.add(progress);
+            }
+          },
+          onDone: () {
+            if (operation.operation.isCanceled ||
+                operation.operation.isCompleted) {
+              responseProgress.close();
+            }
+          },
+        );
+        return operation.operation.then(
+          (response) => deserializeOutput(
+            protocol: protocol,
+            response: response,
+          ),
         );
       },
+      onCancel: completer.operation.cancel,
       onRetry: (e, [delay]) {
         debugNumRetries++;
+      },
+    );
+    operation.then(
+      (output) {
+        requestProgress.close();
+        responseProgress.close();
+        completer.complete(output);
+      },
+      onError: (e, st) {
+        requestProgress.close();
+        responseProgress.close();
+        completer.completeError(e, st);
+      },
+    );
+    return SmithyOperation(
+      completer.operation,
+      operationName: runtimeTypeName,
+      requestProgress: requestProgress.stream,
+      responseProgress: responseProgress.stream,
+      onCancel: () {
+        requestProgress.close();
+        responseProgress.close();
       },
     );
   }
@@ -313,12 +351,11 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     throw smithyException;
   }
 
-  @override
-  Future<Output> run(
+  SmithyOperation<Output> run(
     Input input, {
-    HttpClient? client,
+    AWSHttpClient? client,
     ShapeId? useProtocol,
-  }) async {
+  }) {
     final protocol = resolveProtocol(useProtocol: useProtocol);
     client ??= protocol.getClient(input);
     final request = buildRequest(input);
@@ -354,45 +391,52 @@ abstract class PaginatedHttpOperation<
   Input rebuildInput(Input input, Token token, PageSize? pageSize);
 
   /// Runs the operation returning a [PaginatedResult] which can be paged.
-  Future<PaginatedResult<Items, PageSize>> runPaginated(
+  SmithyOperation<PaginatedResult<Items, PageSize, Token>> runPaginated(
     Input input, {
-    HttpClient? client,
+    AWSHttpClient? client,
     ShapeId? useProtocol,
-  }) async {
-    final output = await run(
+  }) {
+    final operation = run(
       input,
       client: client,
       useProtocol: useProtocol,
     );
-    final token = getToken(output);
+    final paginatedOperation = operation.operation.then((output) {
+      final token = getToken(output);
+      final items = getItems(output);
+      late PaginatedResult<Items, PageSize, Token> result;
+      result = PaginatedResult(
+        items,
+        nextContinuationToken: token,
 
-    // If the received response does not contain a continuation token in the
-    // referenced outputToken member, then there are no more results to retrieve
-    // and the process is complete.
-    final hasNext = token != null;
-
-    final items = getItems(output);
-    late PaginatedResult<Items, PageSize> result;
-    result = PaginatedResult(
-      items,
-      hasNext: hasNext,
-
-      // If there is a continuation token in the referenced outputToken member
-      // of the response, then the client sends a subsequent request using the
-      // same input parameters as the original call, but including the last
-      // received continuation token. Clients are free to change the designated
-      // pageSize input parameter at this step as needed.
-      next: ([PageSize? pageSize]) async {
-        if (token == null) {
-          return result;
-        }
-        return runPaginated(
-          rebuildInput(input, token, pageSize),
-          client: client,
-          useProtocol: useProtocol,
-        );
-      },
+        // If there is a continuation token in the referenced outputToken member
+        // of the response, then the client sends a subsequent request using the
+        // same input parameters as the original call, but including the last
+        // received continuation token. Clients are free to change the designated
+        // pageSize input parameter at this step as needed.
+        next: ([PageSize? pageSize]) {
+          if (token == null) {
+            return SmithyOperation(
+              CancelableOperation.fromFuture(Future.value(result)),
+              operationName: runtimeTypeName,
+              requestProgress: const Stream.empty(),
+              responseProgress: const Stream.empty(),
+            );
+          }
+          return runPaginated(
+            rebuildInput(input, token, pageSize),
+            client: client,
+            useProtocol: useProtocol,
+          );
+        },
+      );
+      return result;
+    });
+    return SmithyOperation(
+      paginatedOperation,
+      operationName: runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
     );
-    return result;
   }
 }

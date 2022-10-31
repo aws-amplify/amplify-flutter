@@ -40,7 +40,7 @@ class EventStreamProtocol<InputPayload, Input, OutputPayload, Output>
   }
 
   @override
-  HttpClient getClient(Input input) => _baseProtocol.getClient(input);
+  AWSHttpClient getClient(Input input) => _baseProtocol.getClient(input);
 
   @override
   Map<String, String> get headers => _baseProtocol.headers;

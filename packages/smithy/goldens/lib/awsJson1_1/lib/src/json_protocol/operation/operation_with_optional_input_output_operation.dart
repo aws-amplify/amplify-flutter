@@ -93,15 +93,17 @@ class OperationWithOptionalInputOutputOperation extends _i1.HttpOperation<
   @override
   List<_i1.SmithyError> get errorTypes => const [];
   @override
+  String get runtimeTypeName => 'OperationWithOptionalInputOutput';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i9.Future<_i3.OperationWithOptionalInputOutputOutput> run(
+  _i1.SmithyOperation<_i3.OperationWithOptionalInputOutputOutput> run(
     _i2.OperationWithOptionalInputOutputInput input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i9.runZoned(

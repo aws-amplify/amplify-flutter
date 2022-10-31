@@ -25,6 +25,7 @@ class AWSSignedRequest extends AWSStreamedHttpRequest {
     required this.signature,
     required super.method,
     required super.host,
+    super.port,
     required super.path,
     Map<String, String>? super.queryParameters,
     super.headers,

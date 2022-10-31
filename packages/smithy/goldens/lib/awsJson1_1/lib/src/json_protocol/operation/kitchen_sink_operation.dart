@@ -106,15 +106,17 @@ class KitchenSinkOperation extends _i1.HttpOperation<_i2.KitchenSink,
         ),
       ];
   @override
+  String get runtimeTypeName => 'KitchenSinkOperation';
+  @override
   _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i10.Future<_i2.KitchenSink> run(
+  _i1.SmithyOperation<_i2.KitchenSink> run(
     _i2.KitchenSink input, {
-    _i1.HttpClient? client,
+    _i6.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i10.runZoned(

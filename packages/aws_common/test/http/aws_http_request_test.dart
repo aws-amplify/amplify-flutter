@@ -54,7 +54,7 @@ void main() {
 
       request.headers[AWSHeaders.contentLength] =
           request.contentLength.toString();
-      await request.send(client).response;
+      await request.send(client: client).response;
     });
 
     test('factories', () async {
@@ -144,7 +144,7 @@ void main() {
 
       request.headers[AWSHeaders.contentLength] =
           (await request.contentLength).toString();
-      await request.send(client).response;
+      await request.send(client: client).response;
     });
 
     test('factories', () async {

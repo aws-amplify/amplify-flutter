@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -26,42 +27,54 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('getCurrentUser', () {
-    final username = generateUsername();
-    final password = generatePassword();
+    group('no alias', () {
+      final username = generateUsername();
+      final password = generatePassword();
 
-    setUpAll(() async {
-      await configureAuth();
+      setUpAll(() async {
+        await configureAuth();
 
-      await adminCreateUser(
-        username,
-        password,
-        autoConfirm: true,
-        verifyAttributes: true,
-      );
-    });
+        await adminCreateUser(
+          username,
+          password,
+          autoConfirm: true,
+          verifyAttributes: true,
+        );
+      });
 
-    tearDownAll(Amplify.reset);
+      tearDownAll(Amplify.reset);
 
-    setUp(() async {
-      await signOutUser();
-      await Amplify.Auth.signIn(
-        username: username,
-        password: password,
-      );
-    });
+      setUp(() async {
+        await signOutUser();
+        await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+        );
+      });
 
-    test('should return the current user', () async {
-      final authUser = await Amplify.Auth.getCurrentUser();
-      expect(authUser.username, username);
-      expect(isValidUserSub(authUser.userId), isTrue);
-    });
+      test('should return the current user', () async {
+        final authUser = await Amplify.Auth.getCurrentUser();
+        expect(authUser.username, username);
+        expect(isValidUserSub(authUser.userId), isTrue);
+        expect(
+          authUser.signInDetails,
+          isA<CognitoSignInDetailsApiBased>().having(
+            (details) => details.username,
+            'username',
+            authUser.username,
+          ),
+          reason: 'Should return the same username as AuthUser.username',
+        );
+      });
 
-    test('should throw SignedOutException if the user is signed out', () async {
-      await Amplify.Auth.signOut();
-      expect(
-        Amplify.Auth.getCurrentUser(),
-        throwsA(isA<SignedOutException>()),
-      );
+      test('should throw SignedOutException if the user is signed out',
+          () async {
+        await Amplify.Auth.signOut();
+        expect(
+          Amplify.Auth.getCurrentUser(),
+          throwsA(isA<SignedOutException>()),
+        );
+      });
     });
   });
 }

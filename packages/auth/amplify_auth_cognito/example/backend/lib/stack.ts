@@ -47,6 +47,11 @@ interface AuthIntegrationTestStackProps extends cdk.StackProps {
    * The Cognito User Pool device tracking settings.
    */
   deviceTracking?: cognito.DeviceTracking;
+
+  /**
+   * Aliases allowed for sign in.
+   */
+  signInAliases?: cognito.SignInAliases;
 }
 
 export class AuthIntegrationTestStack extends cdk.Stack {
@@ -141,6 +146,7 @@ export class AuthIntegrationTestStack extends cdk.Stack {
         phone: true,
       },
       mfa: cognito.Mfa.OPTIONAL,
+      signInAliases: props.signInAliases,
       standardAttributes: {
         email: {
           mutable: true,

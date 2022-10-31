@@ -12,8 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:aws_common/src/config/aws_path_provider.dart';
 import 'package:meta/meta.dart';
 
 /// {@macro aws_common.lookup_platform_env}
 @internal
-String? lookupPlatformEnv(String key) => null;
+String? lookupPlatformEnv(String key) =>
+    // ignore: invalid_use_of_visible_for_testing_member
+    environmentOverrides?[key];

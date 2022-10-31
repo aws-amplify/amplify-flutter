@@ -157,15 +157,17 @@ class UploadMultipartPartOperation extends _i1.HttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'UploadMultipartPart';
+  @override
   _i6.AWSRetryer get retryer => _i6.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i2.Future<_i4.UploadMultipartPartOutput> run(
+  _i1.SmithyOperation<_i4.UploadMultipartPartOutput> run(
     _i3.UploadMultipartPartInput input, {
-    _i1.HttpClient? client,
+    _i8.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i2.runZoned(

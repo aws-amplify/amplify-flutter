@@ -37,7 +37,7 @@ abstract class HttpRequestInterceptor {
   /// Intercepts an HTTP request, optionally returning a new request such as
   /// in the case of signing.
   @useResult
-  FutureOr<AWSStreamedHttpRequest> intercept(AWSStreamedHttpRequest request);
+  FutureOr<AWSBaseHttpRequest> intercept(AWSBaseHttpRequest request);
 }
 
 /// {@template smithy.http_response_interceptor}

@@ -19,10 +19,16 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:meta/meta.dart';
 
-/// [AmplifyAuthProvider] implementation that signs a request using AWS credentials
-/// from `Amplify.Auth.fetchAuthSession()` or allows getting credentials directly.
+/// {@template amplify_auth_cognito_dart.cognito_iam_auth_provider}
+/// [AmplifyAuthProvider] implementation that signs a request using AWS
+/// credentials from [AmplifyAuthCognitoDart.fetchAuthSession] or allows getting
+/// credentials directly.
+/// {@endtemplate}
 @internal
 class CognitoIamAuthProvider extends AWSIamAmplifyAuthProvider {
+  /// {@macro amplify_auth_cognito_dart.cognito_iam_auth_provider}
+  const CognitoIamAuthProvider();
+
   /// AWS credentials from Auth category.
   @override
   Future<AWSCredentials> retrieve() async {
@@ -38,7 +44,7 @@ class CognitoIamAuthProvider extends AWSIamAmplifyAuthProvider {
     return credentials;
   }
 
-  /// Signs request with AWSSigV4Signer and AWS credentials from `.getCredentials()`.
+  /// Signs request with [AWSSigV4Signer] and AWS credentials from [retrieve].
   @override
   Future<AWSSignedRequest> authorizeRequest(
     AWSBaseHttpRequest request, {

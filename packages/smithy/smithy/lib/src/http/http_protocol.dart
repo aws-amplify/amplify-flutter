@@ -51,9 +51,9 @@ abstract class HttpProtocol<InputPayload, Input, OutputPayload, Output>
   /// and the response from the server.
   Future<String?> resolveErrorType(AWSBaseHttpResponse response);
 
-  @override
-  HttpClient getClient(Input input) {
-    return HttpClient.v1();
+  /// Creates a client for the given [input].
+  AWSHttpClient getClient(Input input) {
+    return AWSHttpClient()..supportedProtocols = SupportedProtocols.http1;
   }
 
   @override

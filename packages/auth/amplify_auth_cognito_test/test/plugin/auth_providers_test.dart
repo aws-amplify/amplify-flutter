@@ -35,7 +35,7 @@ AWSHttpRequest _generateTestRequest() {
 class TestAmplifyAuthUserPoolOnly extends AmplifyAuthCognitoDart {
   @override
   Future<CognitoAuthSession> fetchAuthSession({
-    required AuthSessionRequest request,
+    required AuthSessionRequest<AuthSessionOptions> request,
   }) async {
     final options = request.options as CognitoSessionOptions?;
     final getAWSCredentials = options?.getAWSCredentials;
@@ -101,7 +101,7 @@ void main() {
   group('no auth plugin added', () {
     test('CognitoIamAuthProvider throws when trying to authorize a request',
         () async {
-      final authProvider = CognitoIamAuthProvider();
+      const authProvider = CognitoIamAuthProvider();
       await expectLater(
         authProvider.authorizeRequest(
           _generateTestRequest(),

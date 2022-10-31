@@ -505,6 +505,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
     );
   }
 
+  /// The [AWSEquatable.props] getter.
   Method _props(List<MemberShape> members) => Method(
         (m) => m
           ..annotations.add(DartTypes.core.override)

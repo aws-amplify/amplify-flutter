@@ -8,17 +8,8 @@ inputs:
   # scope for melos, e.g. "amplify_api_example"
   scope:
     required: true
-  # Amplify app IDs for specific categories
-  api-app-id:
-    required: true
-  # TODO: remove before merging to main
-  next-api-app-id:
-    required: true
-  auth-app-id:
-    required: true
-  datastore-app-id:
-    required: true
-  storage-app-id:
+  # ARN of secret from AWS Secrets Manger which is a JSON object of app IDs / s3 bucket ARNs
+  secret-identifier:
     required: true
 
 runs:
@@ -40,16 +31,16 @@ runs:
     - name: Remove config file created by aft
       run: melos exec --scope=${{ inputs.scope }} rm lib/amplifyconfiguration.dart
       shell: bash
+    
+    - name: Get Amplify App IDs / bucket ARNs from Secrets Manager
+      uses: aws-actions/aws-secretsmanager-get-secrets@bafac38d78b5f679d35ef3f36f9842a63de59564 # 1.0.0
+      with:
+        secret-ids: |
+          ${{ inputs.secret-identifier }}
+        parse-json-secrets: true
 
     - name: Pull Amplify Configurations
-      # TODO: remove NEXT_API_APP_ID before merging to main
-      run: |
-        API_APP_ID=${{ inputs.api-app-id }} \
-        NEXT_API_APP_ID=${{ inputs.next-api-app-id }} \
-        AUTH_APP_ID=${{ inputs.auth-app-id }} \
-        DATASTORE_APP_ID=${{ inputs.datastore-app-id }} \
-        STORAGE_APP_ID=${{ inputs.storage-app-id }} \
-          melos exec --scope=${{ inputs.scope }} ./tool/pull_test_backend.sh
+      run: melos exec --scope=${{ inputs.scope }} ./tool/pull_test_backend.sh
       shell: bash
 
     - name: Delete AWS profile
