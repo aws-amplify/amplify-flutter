@@ -464,7 +464,6 @@ class _AuthenticatorState extends State<Authenticator> {
   late final StreamSubscription<AuthenticatorException> _exceptionSub;
   late final StreamSubscription<MessageResolverKey> _infoSub;
   late final StreamSubscription<AuthState> _successSub;
-  StreamSubscription<AuthHubEvent>? _hubSubscription;
 
   AmplifyConfig? _config;
   late List<String> _missingConfigValues;
@@ -575,7 +574,6 @@ class _AuthenticatorState extends State<Authenticator> {
     _infoSub.cancel();
     _successSub.cancel();
     _stateMachineBloc.close();
-    _hubSubscription?.cancel();
     super.dispose();
   }
 
