@@ -110,20 +110,55 @@ class StorageS3Service {
 
     final listTargetPrefix = '$resolvedPrefix${path ?? ''}';
 
-    final request = s3.ListObjectsV2Request.build((builder) {
-      builder
-        ..bucket = _defaultBucket
-        ..prefix = listTargetPrefix
-        ..maxKeys = options.pageSize
-        ..continuationToken = options.nextToken
-        ..delimiter = options.excludeSubPaths ? _delimiter : null;
-    });
+    if (!options.listAll) {
+      final request = s3.ListObjectsV2Request.build((builder) {
+        builder
+          ..bucket = _defaultBucket
+          ..prefix = listTargetPrefix
+          ..maxKeys = options.pageSize
+          ..continuationToken = options.nextToken
+          ..delimiter = options.excludeSubPaths ? _delimiter : null;
+      });
+
+      try {
+        return S3ListResult.fromPaginatedResult(
+          await _defaultS3Client.listObjectsV2(request).result,
+          prefixToDrop: resolvedPrefix,
+        );
+      } on smithy.UnknownSmithyHttpException catch (error) {
+        // S3Client.headObject may return 403 error
+        throw S3Exception.fromUnknownSmithyHttpException(error);
+      }
+    }
+
+    smithy.PaginatedResult<s3.ListObjectsV2Output, int, String> listResult;
+    S3ListResult recursiveResult;
 
     try {
-      return S3ListResult.fromPaginatedResult(
-        await _defaultS3Client.listObjectsV2(request).result,
+      final request = s3.ListObjectsV2Request.build((builder) {
+        builder
+          ..bucket = _defaultBucket
+          ..prefix = listTargetPrefix
+          ..delimiter = options.excludeSubPaths ? _delimiter : null;
+      });
+
+      listResult = await _defaultS3Client.listObjectsV2(request).result;
+      recursiveResult = S3ListResult.fromPaginatedResult(
+        listResult,
         prefixToDrop: resolvedPrefix,
       );
+
+      while (listResult.hasNext) {
+        listResult = await listResult.next().result;
+        recursiveResult = recursiveResult.merge(
+          S3ListResult.fromPaginatedResult(
+            listResult,
+            prefixToDrop: resolvedPrefix,
+          ),
+        );
+      }
+
+      return recursiveResult;
     } on smithy.UnknownSmithyHttpException catch (error) {
       // S3Client.headObject may return 403 error
       throw S3Exception.fromUnknownSmithyHttpException(error);

@@ -261,6 +261,112 @@ void main() {
           throwsA(isA<S3Exception>()),
         );
       });
+
+      test(
+          'should invoke S3Object.listObjectV2 with expected parameters and return expected results with listAll is set to true in the options',
+          () async {
+        final testS3Objects = List.generate(2001, (index) => '$index')
+            .map(
+              (e) => S3Object(
+                key: '${testPrefixToDrop}object-$e',
+                size: Int64(100 * 4),
+                eTag: 'object-$e-eTag',
+              ),
+            )
+            .toList();
+        const testPath = 'album';
+        const testOptions = S3ListOptions.listAll(
+          accessLevel: StorageAccessLevel.private,
+        );
+        const defaultPageSize = 1000;
+        const testNextToken1 = 'next-token-1';
+        const testNextToken2 = 'next-token-2';
+        final smithyOperation1 = MockSmithyOperation<
+            PaginatedResult<ListObjectsV2Output, int, String>>();
+        final smithyOperation2 = MockSmithyOperation<
+            PaginatedResult<ListObjectsV2Output, int, String>>();
+        final smithyOperation3 = MockSmithyOperation<
+            PaginatedResult<ListObjectsV2Output, int, String>>();
+        final testPaginatedResult1 =
+            PaginatedResult<ListObjectsV2Output, int, String>(
+          ListObjectsV2Output(
+            contents: testS3Objects.take(defaultPageSize).toList(),
+            commonPrefixes: [testCommonPrefix],
+            delimiter: testDelimiter,
+            name: testBucketName,
+          ),
+          nextContinuationToken: testNextToken1,
+          next: ([int? pageSize]) {
+            return smithyOperation2;
+          },
+        );
+        final testPaginatedResult2 =
+            PaginatedResult<ListObjectsV2Output, int, String>(
+          ListObjectsV2Output(
+            contents: testS3Objects
+                .skip(defaultPageSize)
+                .take(defaultPageSize)
+                .toList(),
+            commonPrefixes: [testCommonPrefix],
+            delimiter: testDelimiter,
+            name: testBucketName,
+          ),
+          nextContinuationToken: testNextToken2,
+          next: ([int? pageSize]) {
+            return smithyOperation3;
+          },
+        );
+        final testPaginatedResult3 =
+            PaginatedResult<ListObjectsV2Output, int, String>(
+          ListObjectsV2Output(
+            contents: testS3Objects.skip(2 * defaultPageSize).toList(),
+            commonPrefixes: [testCommonPrefix],
+            delimiter: testDelimiter,
+            name: testBucketName,
+          ),
+          nextContinuationToken: null,
+          next: ([int? pageSize]) {
+            return smithyOperation3;
+          },
+        );
+
+        when(
+          () => s3Client.listObjectsV2(any()),
+        ).thenAnswer((invocation) => smithyOperation1);
+        when((() => smithyOperation1.result))
+            .thenAnswer((_) async => testPaginatedResult1);
+        when((() => smithyOperation2.result))
+            .thenAnswer((_) async => testPaginatedResult2);
+        when((() => smithyOperation3.result))
+            .thenAnswer((_) async => testPaginatedResult3);
+
+        listResult = await storageS3Service.list(
+          path: testPath,
+          options: testOptions,
+        );
+
+        final capturedRequest = verify(
+          () => s3Client.listObjectsV2(captureAny<ListObjectsV2Request>()),
+        ).captured.last;
+
+        expect(
+          capturedRequest,
+          isA<ListObjectsV2Request>().having(
+              (o) => o.prefix,
+              'prefix',
+              '${await testPrefixResolver.resolvePrefix(
+                accessLevel: testOptions.accessLevel,
+              )}$testPath'),
+        );
+
+        expect(listResult.hasNextPage, false);
+        expect(listResult.nextToken, isNull);
+        expect(listResult.items.length, testS3Objects.length);
+        expect(
+          listResult.items.map((e) => e.eTag),
+          equals(testS3Objects.map((e) => e.eTag)),
+        );
+      });
     });
 
     group('getProperties() API', () {
