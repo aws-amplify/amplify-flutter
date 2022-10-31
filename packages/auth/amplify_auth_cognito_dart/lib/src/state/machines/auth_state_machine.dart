@@ -48,7 +48,7 @@ class AuthStateMachine extends AuthStateMachineBase {
     // InitializeAuthConfiguration
     final cognitoConfig = event.config.auth?.awsPlugin;
     if (cognitoConfig == null) {
-      throw const AuthException('No Cognito plugin config available');
+      throw const ConfigurationException('No Cognito plugin config available');
     }
     addInstance(cognitoConfig);
     final config = AuthConfiguration.fromConfig(cognitoConfig);
