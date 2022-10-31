@@ -14,7 +14,6 @@
  */
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:aws_common/src/operation/aws_operation.dart';
 
 /// {@template amplify_core.graphql.graphql_operation}
 /// A wrapper over a [CancelableOperation] specific to [GraphQLResponse].
