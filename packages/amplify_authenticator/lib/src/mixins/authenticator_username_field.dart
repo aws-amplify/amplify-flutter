@@ -179,12 +179,10 @@ mixin AuthenticatorUsernameField<FieldType,
   FormFieldValidator<UsernameInput> get validator {
     switch (selectedUsernameType) {
       case UsernameType.username:
-        return (input) => simpleValidator(
-              stringResolver.inputs.resolve(
-                context,
-                InputResolverKey.usernameEmpty,
-              ),
+        return (input) => usernameValidator(
               isOptional: isOptional,
+              context: context,
+              inputResolver: stringResolver.inputs,
             )(input?.username);
       case UsernameType.email:
         return (input) => validateEmail(
