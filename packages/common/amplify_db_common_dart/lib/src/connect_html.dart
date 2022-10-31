@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
 import 'dart:html';
 
 import 'package:amplify_core/amplify_core.dart';
@@ -32,7 +33,7 @@ const _loadSqlRecoveryMessage =
 /// {@macro amplify_db_common.connect}
 QueryExecutor connect({
   required String name,
-  String? path,
+  FutureOr<String>? path,
   @visibleForTesting AWSHttpClient? client,
 }) {
   return LazyDatabase(() async {

@@ -20,6 +20,7 @@ platforms:
 
 dependencies:
   amplify_core: ">=1.0.0-next.0+1 <1.0.0-next.1"
+  amplify_db_common: ^0.1.0
   amplify_storage_s3_dart: ^0.1.0
   flutter:
     sdk: flutter

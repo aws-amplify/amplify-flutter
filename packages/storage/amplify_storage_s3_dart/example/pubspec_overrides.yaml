@@ -4,6 +4,8 @@ dependency_overrides:
     path: ../../../auth/amplify_auth_cognito_dart
   amplify_core:
     path: ../../../amplify_core
+  amplify_db_common_dart:
+    path: ../../../common/amplify_db_common_dart
   amplify_lints:
     path: ../../../amplify_lints
   amplify_secure_storage_dart:

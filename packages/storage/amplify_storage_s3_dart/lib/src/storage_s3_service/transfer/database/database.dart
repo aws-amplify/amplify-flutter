@@ -13,7 +13,8 @@
 // limitations under the License.
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/connection/connection.dart';
+import 'package:amplify_db_common_dart/amplify_db_common_dart.dart'
+    as db_common;
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/tables.dart';
 import 'package:drift/drift.dart';
 import 'package:meta/meta.dart';
@@ -31,13 +32,20 @@ const dataBaseName = 'amplify_storage_transfer_records';
 @DriftDatabase(tables: [TransferRecords])
 class TransferDatabase extends _$TransferDatabase {
   /// {@macro amplify_storage_s3_dart.transfer_database}
-  TransferDatabase(AppPathProvider pathProvider)
-      : super(
-          connect(pathProvider),
+  TransferDatabase(
+    db_common.Connect connect,
+    AppPathProvider appPathProvider,
+  ) : super(
+          connect(
+            name: dataBaseName,
+            path: appPathProvider.getApplicationSupportPath(),
+          ),
         );
 
   /// Token to identify [TransferDatabase] instance.
-  static const token = Token<TransferDatabase>([Token<AppPathProvider>()]);
+  static const token = Token<TransferDatabase>(
+    [Token<db_common.Connect>(), Token<AppPathProvider>()],
+  );
 
   // Bump the version number when any alteration is made into tables.dart
   @override
