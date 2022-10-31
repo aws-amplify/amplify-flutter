@@ -17,7 +17,7 @@ import 'dart:convert';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/api_plugin_impl.dart';
-import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
+import 'package:amplify_api/src/graphql/helpers/graphql_response_decoder.dart';
 import 'package:amplify_api/src/graphql/utils.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
@@ -43,17 +43,6 @@ class MockAmplifyAPI extends AmplifyAPIDart {
   }) async {
     await super.addPlugin(authProviderRepo: authProviderRepo);
   }
-}
-
-GraphQLResponse<T> _decodeResponseData<T>(
-  GraphQLRequest<T> request,
-  String data,
-) {
-  final serverResponse = {'data': json.decode(data)};
-  return GraphQLResponseDecoder.instance.decode<T>(
-    request: request,
-    response: serverResponse,
-  );
 }
 
 GraphQLResponse<T> _decodeResponseData<T>(
