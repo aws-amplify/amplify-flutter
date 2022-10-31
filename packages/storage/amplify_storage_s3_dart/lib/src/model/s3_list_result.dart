@@ -61,6 +61,18 @@ class S3ListResult extends StorageListResult<List<S3Item>> {
     );
   }
 
+  /// Merges two instances of [S3ListResult] into one.
+  S3ListResult merge(S3ListResult other) {
+    final items = <S3Item>[...this.items, ...other.items];
+    final metadata = this.metadata.merge(other.metadata);
+    return S3ListResult(
+      items,
+      hasNextPage: other.hasNextPage,
+      nextToken: other.nextToken,
+      metadata: metadata,
+    );
+  }
+
   /// Metadata that is specific to the plugin
   final S3ListMetadata metadata;
 }
@@ -95,6 +107,12 @@ class S3ListMetadata {
     List<String>? subPaths,
     this.delimiter,
   }) : subPaths = subPaths ?? const [];
+
+  /// Merges two instances of [S3ListMetadata] into one.
+  S3ListMetadata merge(S3ListMetadata other) {
+    final subPaths = <String>[...this.subPaths, ...other.subPaths];
+    return S3ListMetadata._(subPaths: subPaths, delimiter: other.delimiter);
+  }
 
   /// Sub paths under the `path` parameter calling the `list` API.
   ///
