@@ -21,14 +21,14 @@ import 'package:intl/intl.dart' as intl;
 
 import 'country_localizations_en.dart' deferred as country_localizations_en;
 
-/// Callers can lookup localized strings with an instance of AuthenticatorCountryLocalizations returned
-/// by `AuthenticatorCountryLocalizations.of(context)`.
+/// Callers can lookup localized strings with an instance of AuthenticatorCountryLocalizations
+/// returned by `AuthenticatorCountryLocalizations.of(context)`.
 ///
 /// Applications need to include `AuthenticatorCountryLocalizations.delegate()` in their app's
-/// localizationDelegates list, and the locales they support in the app's
-/// supportedLocales list. For example:
+/// `localizationDelegates` list, and the locales they support in the app's
+/// `supportedLocales` list. For example:
 ///
-/// ```
+/// ```dart
 /// import 'generated/country_localizations.dart';
 ///
 /// return MaterialApp(
@@ -43,14 +43,14 @@ import 'country_localizations_en.dart' deferred as country_localizations_en;
 /// Please make sure to update your pubspec.yaml to include the following
 /// packages:
 ///
-/// ```
+/// ```yaml
 /// dependencies:
 ///   # Internationalization support.
 ///   flutter_localizations:
 ///     sdk: flutter
 ///   intl: any # Use the pinned version from flutter_localizations
 ///
-///   # rest of dependencies
+///   # Rest of dependencies
 /// ```
 ///
 /// ## iOS Applications

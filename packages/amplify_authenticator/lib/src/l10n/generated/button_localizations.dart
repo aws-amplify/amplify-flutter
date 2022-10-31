@@ -22,14 +22,14 @@ import 'package:intl/intl.dart' as intl;
 
 import 'button_localizations_en.dart' deferred as button_localizations_en;
 
-/// Callers can lookup localized strings with an instance of AuthenticatorButtonLocalizations returned
-/// by `AuthenticatorButtonLocalizations.of(context)`.
+/// Callers can lookup localized strings with an instance of AuthenticatorButtonLocalizations
+/// returned by `AuthenticatorButtonLocalizations.of(context)`.
 ///
 /// Applications need to include `AuthenticatorButtonLocalizations.delegate()` in their app's
-/// localizationDelegates list, and the locales they support in the app's
-/// supportedLocales list. For example:
+/// `localizationDelegates` list, and the locales they support in the app's
+/// `supportedLocales` list. For example:
 ///
-/// ```
+/// ```dart
 /// import 'generated/button_localizations.dart';
 ///
 /// return MaterialApp(
@@ -44,14 +44,14 @@ import 'button_localizations_en.dart' deferred as button_localizations_en;
 /// Please make sure to update your pubspec.yaml to include the following
 /// packages:
 ///
-/// ```
+/// ```yaml
 /// dependencies:
 ///   # Internationalization support.
 ///   flutter_localizations:
 ///     sdk: flutter
 ///   intl: any # Use the pinned version from flutter_localizations
 ///
-///   # rest of dependencies
+///   # Rest of dependencies
 /// ```
 ///
 /// ## iOS Applications
