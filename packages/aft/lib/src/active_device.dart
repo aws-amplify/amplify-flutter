@@ -42,7 +42,8 @@ class ActiveDevice
   /// The ID of the device.
   final String id;
 
-  /// The target platform from device metadata, often including processor specification.
+  /// The target platform from device metadata, often including processor
+  /// specification.
   final String targetPlatform;
 
   /// The target platform, shorn of processor specification

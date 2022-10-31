@@ -13,20 +13,34 @@
 // limitations under the License.
 
 import 'package:aft/src/utils/emphasize_text.dart';
+import 'package:built_value/built_value.dart';
 
-class TestScore {
-  TestScore({this.passed = 0, this.skipped = 0, this.failed = 0});
+part 'test_score.g.dart';
+
+abstract class TestScore implements Built<TestScore, TestScoreBuilder> {
+  factory TestScore([void Function(TestScoreBuilder) updates]) = _$TestScore;
+  TestScore._();
+
+  @BuiltValueHook(initializeBuilder: true)
+  static void _init(TestScoreBuilder b) {
+    b
+      ..passed = 0
+      ..failed = 0
+      ..skipped = 0;
+  }
 
   /// The number of passed tests
-  int passed;
+  int get passed;
 
   /// The number of failed tests
-  int failed;
+  int get failed;
 
   /// The number of skipped tests
-  int skipped;
+  int get skipped;
 
   String get prettyTotal {
-    return '${formatSuccess('+${passed.toString()}')} ${formatWarning('~${skipped.toString()}')} ${formatException('-${failed.toString()}')}';
+    return '${formatSuccess('+${passed.toString()}')} '
+        '${formatWarning('~${skipped.toString()}')} '
+        '${formatException('-${failed.toString()}')}';
   }
 }

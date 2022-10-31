@@ -18,7 +18,7 @@ import 'package:aft/src/active_device.dart';
 import 'package:aft/src/utils/execute_process.dart';
 import 'package:aft/src/utils/get_process_args.dart';
 
-Future<List<ActiveDevice>>? getActiveDevices() async {
+Future<List<ActiveDevice>> getActiveDevices() async {
   final result = await executeProcess(
     PackageFlavor.flutter,
     getMachineArgs(),
@@ -26,6 +26,6 @@ Future<List<ActiveDevice>>? getActiveDevices() async {
   );
 
   return (json.decode(result) as List)
-      .map((i) => ActiveDevice.fromJson(i as Map<String, dynamic>))
+      .map((i) => ActiveDevice.fromJson((i as Map).cast()))
       .toList();
 }

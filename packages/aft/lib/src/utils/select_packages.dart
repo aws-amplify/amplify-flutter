@@ -13,21 +13,23 @@
 // limitations under the License.
 
 import 'package:aft/src/models.dart';
-import 'package:interact/interact.dart';
+import 'package:mason_logger/mason_logger.dart';
 
-Future<List<PackageInfo>> selectPackages(
+List<PackageInfo> selectPackages(
   List<PackageInfo> testablePackages,
-) async {
+) {
   final packageSelections =
       testablePackages.map((package) => package.name).toList();
+  final logger = Logger();
 
-  final packagePrompt = MultiSelect(
-    prompt: 'Select packages (use spacebar to select)',
-    options: packageSelections,
-  ).interact();
+  final packagePrompt = logger.chooseAny(
+    'Select packages (use spacebar to select): ',
+    choices: packageSelections,
+  );
 
-  final selectedPackages =
-      packagePrompt.map((e) => testablePackages[e]).toList();
+  final selectedPackages = testablePackages
+      .where((package) => packagePrompt.contains(package.name))
+      .toList();
 
   return selectedPackages;
 }

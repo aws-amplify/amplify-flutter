@@ -12,45 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:aft/src/models.dart';
+import 'package:aft/src/test_reports/test_result.dart';
+import 'package:built_collection/built_collection.dart';
+import 'package:built_value/built_value.dart';
+
+part 'test_report.g.dart';
 
 /// Encapsulates test information for display in the terminal
-abstract class TestReport {
-  TestReport(
-    this.package,
-    this.fileName,
-  );
+abstract class TestReport implements Built<TestReport, TestReportBuilder> {
+  factory TestReport([void Function(TestReportBuilder) updates]) = _$TestReport;
+  TestReport._();
 
   /// The file under test
-  final String fileName;
+  String get fileName;
 
-  /// The package under test
-  final PackageInfo package;
-
-  /// Displays non-zero exit code messages or other exceptions that are not simply test failures
-  List<String> exceptions = [];
+  /// The name of the test.
+  String get testName;
 
   /// Displays messages related to test failures
-  List<String> failures = [];
+  BuiltList<String> get failures;
 
   /// The testId from the test run
-  int? testId;
+  int? get testId;
 
-  /// Prints all exceptions collated with new lines
-  String? get prettyExceptions {
-    String? joinedExceptions;
-    if (exceptions.isNotEmpty) {
-      joinedExceptions = exceptions.join('\n');
-    }
-    return joinedExceptions;
-  }
-
-  /// Prints all failures collated with new lines
-  String? get prettyFailures {
-    String? joinedFailures;
-    if (failures.isNotEmpty) {
-      joinedFailures = failures.join('\n');
-    }
-    return joinedFailures;
-  }
+  /// The test result
+  TestResult get result;
 }

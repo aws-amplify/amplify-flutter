@@ -17,16 +17,10 @@ import 'dart:io';
 
 import 'package:aft/aft.dart';
 import 'package:aft/src/test_reports/print_results.dart';
-import 'package:aft/src/test_reports/test_report_folio.dart';
-import 'package:aft/src/test_reports/test_report_scored.dart';
-import 'package:aft/src/utils/constants.dart';
-import 'package:aft/src/utils/emphasize_text.dart';
-import 'package:aft/src/utils/select_packages.dart';
-import 'package:path/path.dart' as p;
-import 'package:very_good_test_runner/very_good_test_runner.dart';
+import 'package:aft/src/test_reports/test_folio.dart';
 
 /// Command to run Flutter and Dart unit tests.
-class UnitTestCommand extends AmplifyCommand {
+class UnitTestCommand extends BaseTestCommand {
   @override
   String get description => 'Runs Flutter and Dart unit tests';
 
@@ -35,153 +29,15 @@ class UnitTestCommand extends AmplifyCommand {
 
   @override
   Future<void> run() async {
-    final packages = await allPackages;
+    final packageToTest = await this.packageToTest;
 
-    final testablePackages = packages
-        .where(
-          (package) => package.unitTestDirectory != null,
-        )
-        .toList();
+    final folioBuilder = TestFolioBuilder()..testType = TestType.unit;
 
-    final selectedPackages = await selectPackages(testablePackages);
+    final testReports = await executeTest(packageToTest);
+    folioBuilder.addReports(testReports);
 
-    if (selectedPackages.isEmpty) {
-      stderr.writeln(formatException('You did not select any packages.'));
-      exit(1);
-    }
-
-    final folio = TestReportFolio()..testType = TestType.unit;
-
-    for (final package in selectedPackages) {
-      final files = await Directory(p.join(package.path, 'test'))
-          .list(
-            recursive: true,
-          )
-          .where((f) => f.path.endsWith(testFileSuffix))
-          .toList();
-
-      for (final file in files) {
-        if (file.path.endsWith(testFileSuffix)) {
-          folio.testReports.add(
-            TestReportScored(package, p.basename(file.path)),
-          );
-        }
-      }
-
-      await _executeTest(package, folio);
-    }
-    printResults(
-      folio,
-      verbose: verbose,
-    );
-  }
-
-  Future<void> _executeTest(
-    PackageInfo package,
-    TestReportFolio folio,
-  ) async {
-    final completer = Completer<void>();
-    switch (package.flavor) {
-      case PackageFlavor.flutter:
-        flutterTest(
-          workingDirectory: package.path,
-          // runInShell required for Windows
-          runInShell: true,
-        ).listen(
-          _onData(
-            package,
-            folio,
-            completer,
-          ),
-        );
-        break;
-      case PackageFlavor.dart:
-        dartTest(
-          workingDirectory: package.path,
-        ).listen(
-          _onData(
-            package,
-            folio,
-            completer,
-          ),
-        );
-        break;
-    }
-    await completer.future;
-  }
-
-  void Function(TestEvent) _onData(
-    PackageInfo package,
-    TestReportFolio folio,
-    Completer<void> completer,
-  ) {
-    return (TestEvent event) {
-      switch (event.runtimeType) {
-        case TestStartEvent:
-          final testStartEvent = event as TestStartEvent;
-          final url = testStartEvent.test.url ?? testStartEvent.test.rootUrl;
-          if (url is String) {
-            stdout.writeln(
-              'testing ${package.name}: ${testStartEvent.test.name}...',
-            );
-            final fileName = p.basename(url);
-            folio.reportByFile(package, fileName)?.testId =
-                testStartEvent.test.id;
-          }
-          break;
-        case ErrorTestEvent:
-          final errorTestEvent = event as ErrorTestEvent;
-          if (errorTestEvent.isFailure) {
-            folio.reportByTestId(package, errorTestEvent.testID)?.failures.add(
-                  '${formatException('Package')}: ${package.name}\nStackTrace: ${errorTestEvent.stackTrace}\n',
-                );
-          } else {
-            folio
-                .reportByTestId(package, errorTestEvent.testID)
-                ?.exceptions
-                .add(
-                  '* An Exception occurred in ${package.name} test and was not a test failure.\n  ${errorTestEvent.error}\n',
-                );
-          }
-          break;
-
-        case TestDoneEvent:
-          final testDoneEvent = event as TestDoneEvent;
-          final report = folio.reportByTestId(package, testDoneEvent.testID);
-          if (report != null) {
-            _scoreTest(
-              testDoneEvent,
-              report as TestReportScored,
-            );
-          }
-          break;
-        case ExitTestEvent:
-          final exitTestEvent = event as ExitTestEvent;
-          if (exitTestEvent.exitCode != 0) {
-            folio.packagesWithExitExceptions.add(package);
-          }
-          completer.complete();
-          break;
-      }
-    };
-  }
-
-  void _scoreTest(TestDoneEvent event, TestReportScored testReport) {
-    if (!event.hidden) {
-      switch (event.result) {
-        case TestResult.success:
-          testReport.testScore.passed++;
-          break;
-        case TestResult.failure:
-          testReport.testScore.failed++;
-          break;
-        case TestResult.error:
-          // This case should be handled by ErrorTestEvent case in _onData
-          break;
-      }
-    }
-    if (event.skipped) {
-      testReport.testScore.skipped++;
-    }
+    final folio = folioBuilder.build();
+    printResults(folio, verbose: verbose);
+    exitCode = folio.exitCode;
   }
 }

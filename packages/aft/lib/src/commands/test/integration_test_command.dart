@@ -19,17 +19,14 @@ import 'package:aft/aft.dart';
 import 'package:aft/src/active_device.dart';
 import 'package:aft/src/flutter_platform.dart';
 import 'package:aft/src/test_reports/print_results.dart';
-import 'package:aft/src/test_reports/test_report_folio.dart';
-import 'package:aft/src/test_reports/test_report_pass_fail.dart';
-import 'package:aft/src/test_reports/test_report_scored.dart';
-import 'package:aft/src/test_reports/test_score.dart';
+import 'package:aft/src/test_reports/test_folio.dart';
+import 'package:aft/src/test_reports/test_report.dart';
 import 'package:aft/src/utils/constants.dart';
 import 'package:aft/src/utils/emphasize_text.dart';
 import 'package:aft/src/utils/execute_process.dart';
 import 'package:aft/src/utils/get_active_devices.dart';
 import 'package:aft/src/utils/get_process_args.dart';
-import 'package:aft/src/utils/select_packages.dart';
-import 'package:interact/interact.dart';
+import 'package:mason_logger/mason_logger.dart';
 import 'package:path/path.dart' as p;
 
 typedef ResultIterator = void Function(
@@ -40,7 +37,7 @@ typedef ResultIterator = void Function(
 const integrationTestPath = 'integration_test';
 
 /// Command to run integration tests.
-class IntegrationTestCommand extends AmplifyCommand {
+class IntegrationTestCommand extends BaseTestCommand {
   @override
   String get description =>
       'Runs the appropriate integration test command for the given platform';
@@ -48,39 +45,13 @@ class IntegrationTestCommand extends AmplifyCommand {
   @override
   String get name => 'integ';
 
-  final folio = TestReportFolio();
+  final folio = TestFolioBuilder();
+  late final select = Logger(level: verbose ? Level.verbose : Level.info);
 
   @override
   Future<void> run() async {
     final selectedDevice = await _selectDevice();
-    if (selectedDevice == null) {
-      stderr
-        ..writeln(
-          formatException('Valid device not selected.'),
-        )
-        ..writeln(
-          'Try running "flutter doctor" or "flutter devices" to ensure you have active devices.',
-        );
-      exit(1);
-    }
-
-    final packages = await allPackages;
-    final testablePackages = packages
-        .where(
-          (package) =>
-              package.platforms != null &&
-              package.platforms!.contains(selectedDevice.platform) &&
-              package.integTestDirectory != null,
-        )
-        .toList();
-
-    var selectedPackages = <PackageInfo>[];
-    while (selectedPackages.isEmpty) {
-      selectedPackages = await selectPackages(testablePackages);
-      if (selectedPackages.isEmpty) {
-        stderr.writeln(formatException('Select at least one set of tests.'));
-      }
-    }
+    final packageToTest = await this.packageToTest;
 
     switch (selectedDevice.platform) {
       case FlutterPlatform.android:
@@ -89,49 +60,30 @@ class IntegrationTestCommand extends AmplifyCommand {
       case FlutterPlatform.macos:
       case FlutterPlatform.windows:
         await _handleVM(
-          selectedPackages,
+          packageToTest,
           selectedDevice,
         );
         break;
       case FlutterPlatform.web:
-        await _handleWeb(
-          selectedPackages,
-        );
+        await _handleWeb(packageToTest);
         break;
       case null:
-        stderr.writeln(
-          formatException(
-            'Suitable device not active for selected package.',
-          ),
+        exitError(
+          formatException('Suitable device not active for selected package.'),
         );
-        exit(1);
     }
-    printResults(
-      folio,
-      verbose: verbose,
-    );
+
+    printResults(folio.build(), verbose: verbose);
   }
 
-  Future<ActiveDevice?> _selectDevice() async {
-    final deviceSelections = <String>[];
-    final devicePrompt = Select(
-      prompt: 'Select a device:',
-      options: deviceSelections,
-    );
+  Future<ActiveDevice> _selectDevice() async {
     final devicesOnMachine = await getActiveDevices();
-
-    if (devicesOnMachine != null) {
-      for (final device in devicesOnMachine) {
-        deviceSelections.add('${device.name} (id: ${device.id})');
-      }
-    }
-
-    final devicePromptSelection =
-        deviceSelections[devicePrompt.interact()].split(' (id: ')[0].trimLeft();
-    final selection = devicesOnMachine
-        ?.firstWhere((device) => device.name == devicePromptSelection);
-
-    if (selection?.platform == null) {
+    final selectedDevice = select.chooseOne<ActiveDevice>(
+      'Select a device: ',
+      choices: devicesOnMachine,
+      display: (device) => '${device.name} (id: ${device.id})',
+    );
+    if (selectedDevice.platform == null) {
       stderr.writeln(
         formatException(
           'The device you selected is not associated with a known platform',
@@ -139,60 +91,40 @@ class IntegrationTestCommand extends AmplifyCommand {
       );
       exit(1);
     }
-
-    return selection;
+    return selectedDevice;
   }
 
   Future<void> _handleVM(
-    List<PackageInfo> selectedPackages,
+    PackageInfo package,
     ActiveDevice device,
   ) async {
     folio.testType = TestType.integVM;
-    final passRegex = RegExp(r'([\+][0-9]+)');
-    final skipRegex = RegExp(r'([~][0-9]+)');
-    final failRegex = RegExp(r'([-][0-9]+)');
-
-    final exceptionRegex = RegExp(
-      r'(?<=══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════)'
-      '(.*)'
-      '(?=════════════════════════════════════════════════════════════════════════════════════════════════════)',
-      multiLine: false,
-      dotAll: true,
-      caseSensitive: false,
+    final integTestDirectory = package.integTestDirectory;
+    if (integTestDirectory == null) {
+      logger.stderr('No integration tests for "${package.name}"');
+      return;
+    }
+    final testArguments = [...argResults!.rest];
+    if (testArguments.isEmpty) {
+      final hasMainTest = integTestDirectory
+          .listSync()
+          .whereType<File>()
+          .any((file) => p.basename(file.path) == 'main_test.dart');
+      if (hasMainTest) {
+        testArguments.add('integration_test/main_test.dart');
+      } else {
+        testArguments.add('integration_test');
+      }
+    }
+    final reports = await executeTest(
+      package,
+      arguments: ['-d', device.id, ...testArguments],
     );
-    await _executeTests(
-      selectedPackages,
-      (result, package, fileName) {
-        final testReport = TestReportScored(package, p.basename(fileName));
-        folio.testReports.add(testReport);
-
-        final lastResult = result.substring(result.lastIndexOf('+'));
-        final passed = int.parse(passRegex.stringMatch(lastResult) ?? '0');
-        final skipped = int.parse(
-          skipRegex.stringMatch(lastResult)?.replaceFirst('~', '') ?? '0',
-        );
-        final failed = int.parse(
-          failRegex.stringMatch(lastResult)?.replaceFirst('-', '') ?? '0',
-        );
-        testReport.testScore = TestScore(
-          passed: passed,
-          skipped: skipped,
-          failed: failed,
-        );
-
-        final matches = exceptionRegex.allMatches(result);
-
-        for (final m in matches) {
-          final match = m[0]!;
-          testReport.failures.add(match);
-        }
-      },
-      device: device,
-    );
+    folio.addReports(reports);
   }
 
   Future<void> _handleWeb(
-    List<PackageInfo> selectedPackages,
+    PackageInfo package,
   ) async {
     folio.testType = TestType.integWeb;
     Process? process;
@@ -211,58 +143,55 @@ class IntegrationTestCommand extends AmplifyCommand {
       caseSensitive: false,
     );
     await _executeTests(
-      selectedPackages,
+      package,
       (result, package, fileName) {
-        final testReport = TestReportPassFail(package, p.basename(fileName));
-        folio.testReports.add(testReport);
-        testReport.allPassed = result.contains(testsPassed);
+        final testReport = TestReportBuilder()..fileName = p.basename(fileName);
         final matches = exceptionRegex.allMatches(result);
 
         for (final m in matches) {
           final match = m[0]!;
           testReport.failures.add(match);
         }
+        folio.addReports([testReport.build()]);
       },
     );
     process?.kill();
   }
 
   Future<void> _executeTests(
-    List<PackageInfo> selectedPackages,
+    PackageInfo package,
     ResultIterator resultIterator, {
     ActiveDevice? device,
   }) async {
-    for (final package in selectedPackages) {
-      final files = await Directory(p.join(package.path, integrationTestPath))
-          .list(recursive: true)
-          .toList();
+    final files = await Directory(p.join(package.path, integrationTestPath))
+        .list(recursive: true)
+        .toList();
 
-      for (final file in files) {
-        if (file.path.endsWith(testFileSuffix)) {
-          final fileName = p.basename(file.path);
+    for (final file in files) {
+      if (file.path.endsWith(testFileSuffix)) {
+        final fileName = p.basename(file.path);
 
-          try {
-            final result = await executeProcess(
-              PackageFlavor.flutter,
-              device != null
-                  ? getFlutterTestArgs(
-                      deviceId: device.id,
-                      testPath: fileName,
-                    )
-                  : getFlutterDriverArgs(testPath: fileName),
-              package: package,
-            );
-            resultIterator(
-              result,
-              package,
-              fileName,
-            );
-          } on Exception catch (error) {
-            folio
-                .reportByFile(package, fileName)
-                ?.exceptions
-                .add('\n$fileName test run failed: $error');
-          }
+        try {
+          final result = await executeProcess(
+            PackageFlavor.flutter,
+            device != null
+                ? getFlutterTestArgs(
+                    deviceId: device.id,
+                    testPath: fileName,
+                  )
+                : getFlutterDriverArgs(testPath: fileName),
+            package: package,
+          );
+          resultIterator(
+            result,
+            package,
+            fileName,
+          );
+        } on Exception catch (error) {
+          // folio
+          //     .reportByFile(package, fileName)
+          //     ?.exceptions
+          //     .add('\n$fileName test run failed: $error');
         }
       }
     }

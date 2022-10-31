@@ -14,60 +14,24 @@
 
 import 'dart:io';
 
-import 'package:aft/src/test_reports/test_report_folio.dart';
-import 'package:aft/src/test_reports/test_report_pass_fail.dart';
-import 'package:aft/src/test_reports/test_report_scored.dart';
-import 'package:aft/src/utils/emphasize_text.dart';
+import 'package:aft/src/test_reports/test_folio.dart';
+import 'package:aft/src/test_reports/test_report.dart';
 
-void printResults(TestReportFolio folio, {required bool verbose}) {
-  stdout.writeln(formatSuccess('\nTest Results:'));
-
-  for (final package in folio.availablePackages()) {
-    stdout.writeln(
-      '${package.name}: ${folio.aggregateResultByPackage(package)}',
-    );
-
-    if (verbose) {
-      for (final report in folio.reportsByPackage(package)) {
-        String? message;
-        switch (report.runtimeType) {
-          case TestReportScored:
-            message = (report as TestReportScored).testScore.prettyTotal;
-            break;
-          case TestReportPassFail:
-            message = (report as TestReportPassFail).testResultMessage;
-        }
-        stdout.writeln(
-          '  ${report.fileName}: $message',
-        );
-      }
-      if (folio.packageHasFailures(package)) {
-        stdout.writeln('\nTest Failures:\n');
-        for (final report in folio.reportsByPackage(package)) {
-          if (report.failures.isNotEmpty) {
-            stdout.writeln(
-              '${report.fileName}:\n${report.prettyFailures}',
-            );
-          }
-        }
-      }
-      if (folio.packageHasExceptions(package)) {
-        stdout.writeln('\nTest Exceptions:');
-        for (final report in folio.reportsByPackage(package)) {
-          if (report.exceptions.isNotEmpty) {
-            stdout.writeln(
-              '\n  ${report.fileName}: ${report.prettyExceptions}',
-            );
-          }
-        }
-      }
-      if (folio.packagesWithExitExceptions.contains(package)) {
-        stdout.writeln(
-          formatException(
-            '${package.name} exited with non-zero exit code.',
-          ),
-        );
-      }
-    }
+void printResult(
+  TestReport report, {
+  required bool verbose,
+}) {
+  stdout.writeln(
+    '  ${report.fileName} ${report.testName}: ${report.result.formattedString}',
+  );
+  for (final exception in report.failures) {
+    stderr.writeln(exception);
   }
+}
+
+void printResults(TestFolio folio, {required bool verbose}) {
+  stdout.writeln('\nTest Results:');
+  folio.scores.forEach((filename, scores) {
+    stdout.writeln('  $filename: ${scores.prettyTotal}');
+  });
 }
