@@ -38,13 +38,20 @@ class Retryer {
     FutureOr<void> Function(Exception, [Duration?])? onRetry,
     FutureOr<void> Function()? onCancel,
   }) {
-    final completer = CancelableCompleter<R>(onCancel: onCancel);
+    CancelableOperation<R>? currentOperation;
+    final completer = CancelableCompleter<R>(
+      onCancel: () {
+        currentOperation?.cancel();
+        onCancel?.call();
+      },
+    );
     Future<void>(() async {
       var attempt = 0;
       while (true) {
         attempt++; // first invocation is the first attempt
         try {
           final operation = fn();
+          currentOperation = operation;
           final result = await operation.valueOrCancellation();
           if (result is! R || operation.isCanceled) {
             return completer.operation.cancel();
