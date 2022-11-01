@@ -74,6 +74,7 @@ void main() {
       identityPoolKeys: CognitoIdentityPoolKeys(identityPoolConfig),
     );
 
+    await plugin.addPlugin(authProviderRepo: testAuthRepo);
     await plugin.configure(
       config: mockConfig,
       authProviderRepo: testAuthRepo,
@@ -81,7 +82,7 @@ void main() {
   });
 
   group(
-      'AmplifyAuthCognitoDart plugin registers auth providers during configuration',
+      'AmplifyAuthCognitoDart plugin registers auth providers during addPlugin',
       () {
     test('registers CognitoIamAuthProvider', () async {
       final authProvider = testAuthRepo.getAuthProvider(
@@ -132,14 +133,14 @@ void main() {
 
     group('CognitoIamAuthProvider', () {
       test('gets AWS credentials from Amplify.Auth.fetchAuthSession', () async {
-        final authProvider = CognitoIamAuthProvider();
+        const authProvider = CognitoIamAuthProvider();
         final credentials = await authProvider.retrieve();
         expect(credentials.accessKeyId, isA<String>());
         expect(credentials.secretAccessKey, isA<String>());
       });
 
       test('signs a request when calling authorizeRequest', () async {
-        final authProvider = CognitoIamAuthProvider();
+        const authProvider = CognitoIamAuthProvider();
         final authorizedRequest = await authProvider.authorizeRequest(
           _generateTestRequest(),
           options: const IamAuthProviderOptions(
@@ -163,7 +164,7 @@ void main() {
       });
 
       test('throws when no options provided', () async {
-        final authProvider = CognitoIamAuthProvider();
+        const authProvider = CognitoIamAuthProvider();
         await expectLater(
           authProvider.authorizeRequest(_generateTestRequest()),
           throwsA(isA<AuthException>()),
@@ -201,7 +202,7 @@ void main() {
 
     group('CognitoIamAuthProvider', () {
       test('throws when trying to retrieve credentials', () async {
-        final authProvider = CognitoIamAuthProvider();
+        const authProvider = CognitoIamAuthProvider();
         await expectLater(
           authProvider.retrieve(),
           throwsA(isA<InvalidAccountTypeException>()),
