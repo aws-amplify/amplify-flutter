@@ -211,6 +211,9 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   /// Widget to show above the label.
   Widget? get surlabel => null;
 
+  // Autocomplete hints
+  Iterable<String>? get autofillHints => null;
+
   @nonVirtual
   @override
   Widget build(BuildContext context) {
@@ -255,5 +258,6 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
     properties.add(StringProperty('labelText', labelText));
     properties.add(DiagnosticsProperty<double?>('marginBottom', marginBottom));
     properties.add(DoubleProperty('labelGap', labelGap));
+    properties.add(IterableProperty<String>('autofillHints', autofillHints));
   }
 }

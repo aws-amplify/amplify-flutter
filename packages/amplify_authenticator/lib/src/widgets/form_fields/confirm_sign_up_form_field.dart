@@ -123,6 +123,20 @@ abstract class _ConfirmSignUpFormFieldState<FieldValue>
         return null;
     }
   }
+
+  @override
+  Iterable<String>? get autofillHints {
+    switch (widget.field) {
+      case ConfirmSignUpField.username:
+        return const [
+          AutofillHints.username,
+        ];
+      case ConfirmSignUpField.code:
+        return const [
+          AutofillHints.oneTimeCode,
+        ];
+    }
+  }
 }
 
 class _ConfirmSignUpTextField extends ConfirmSignUpFormField<String> {

@@ -168,4 +168,19 @@ class _ResetPasswordFormFieldState extends AuthenticatorFormFieldState<
         );
     }
   }
+
+  @override
+  Iterable<String>? get autofillHints {
+    switch (widget.field) {
+      case ResetPasswordField.verificationCode:
+        return const [
+          AutofillHints.oneTimeCode,
+        ];
+      case ResetPasswordField.newPassword:
+      case ResetPasswordField.passwordConfirmation:
+        return const [
+          AutofillHints.newPassword,
+        ];
+    }
+  }
 }

@@ -51,25 +51,6 @@ mixin AuthenticatorUsernameField<FieldType,
     }
   }
 
-  Iterable<String>? get autofillHints {
-    switch (selectedUsernameType) {
-      case UsernameType.username:
-        return [
-          AutofillHints.username,
-          AutofillHints.newUsername,
-          AutofillHints.nickname,
-        ];
-      case UsernameType.email:
-        return [
-          AutofillHints.email,
-        ];
-      case UsernameType.phoneNumber:
-        return [
-          AutofillHints.telephoneNumber,
-        ];
-    }
-  }
-
   InputResolverKey get hintKey {
     switch (selectedUsernameType) {
       case UsernameType.username:
@@ -278,7 +259,6 @@ mixin AuthenticatorUsernameField<FieldType,
         hintText: hintText,
       ),
       keyboardType: keyboardType,
-      autofillHints: autofillHints,
       obscureText: false,
     );
   }

@@ -405,6 +405,67 @@ abstract class _SignUpFormFieldState<FieldValue>
         return super.errorMaxLines;
     }
   }
+
+  @override
+  Iterable<String>? get autofillHints {
+    switch (widget.field) {
+      case SignUpField.password:
+      case SignUpField.passwordConfirmation:
+        return const [
+          AutofillHints.newPassword,
+        ];
+      case SignUpField.address:
+        return const [
+          AutofillHints.postalAddress,
+        ];
+      case SignUpField.email:
+        return const [
+          AutofillHints.email,
+        ];
+      case SignUpField.name:
+        return const [
+          AutofillHints.name,
+        ];
+      case SignUpField.phoneNumber:
+        return const [
+          AutofillHints.telephoneNumber,
+        ];
+      case SignUpField.username:
+        return const [
+          AutofillHints.newUsername,
+        ];
+      case SignUpField.birthdate:
+        return const [
+          AutofillHints.birthday,
+        ];
+      case SignUpField.familyName:
+        return const [
+          AutofillHints.familyName,
+        ];
+      case SignUpField.gender:
+        return const [
+          AutofillHints.gender,
+        ];
+      case SignUpField.givenName:
+        return const [
+          AutofillHints.givenName,
+        ];
+      case SignUpField.middleName:
+        return const [
+          AutofillHints.middleName,
+        ];
+      case SignUpField.nickname:
+        return const [
+          AutofillHints.nickname,
+        ];
+      case SignUpField.preferredUsername:
+        return const [
+          AutofillHints.username,
+        ];
+      case SignUpField.custom:
+        return null;
+    }
+  }
 }
 
 class _SignUpTextField extends SignUpFormField<String> {
@@ -739,4 +800,9 @@ class _SignUpDateFieldState extends _SignUpFormFieldState<String>
       isOptional: isOptional,
     );
   }
+
+  @override
+  Iterable<String>? get autofillHints => const [
+        AutofillHints.birthday,
+      ];
 }

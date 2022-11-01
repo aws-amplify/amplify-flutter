@@ -21,6 +21,7 @@ import 'package:amplify_authenticator/src/models/username_input.dart';
 import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 @visibleForTesting
 typedef BlocEventPredicate = bool Function(AuthState state);
@@ -305,7 +306,11 @@ class AuthenticatorState extends ChangeNotifier {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+
     _setIsBusy(true);
+
+    TextInput.finishAutofillContext(shouldSave: true);
+
     var confirm = AuthConfirmSignInData(
       confirmationValue: _confirmationCode.trim(),
       attributes: authAttributes,
@@ -322,7 +327,11 @@ class AuthenticatorState extends ChangeNotifier {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+
     _setIsBusy(true);
+
+    TextInput.finishAutofillContext(shouldSave: true);
+
     var confirm = AuthConfirmSignInData(
       confirmationValue: _confirmationCode.trim(),
       attributes: authAttributes,
@@ -338,7 +347,11 @@ class AuthenticatorState extends ChangeNotifier {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+
     _setIsBusy(true);
+
+    TextInput.finishAutofillContext(shouldSave: true);
+
     var confirm = AuthConfirmSignInData(
       confirmationValue: _newPassword.trim(),
       attributes: authAttributes,
@@ -354,7 +367,11 @@ class AuthenticatorState extends ChangeNotifier {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+
     _setIsBusy(true);
+
+    TextInput.finishAutofillContext(shouldSave: true);
+
     final confirmation = AuthConfirmSignUpData(
       code: _confirmationCode.trim(),
       username: _username.trim(),
@@ -371,7 +388,11 @@ class AuthenticatorState extends ChangeNotifier {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+
     _setIsBusy(true);
+
+    TextInput.finishAutofillContext(shouldSave: true);
+
     AuthSignInData signIn = AuthUsernamePasswordSignInData(
       username: _username.trim(),
       password: _password.trim(),
@@ -403,7 +424,11 @@ class AuthenticatorState extends ChangeNotifier {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+
     _setIsBusy(true);
+
+    TextInput.finishAutofillContext(shouldSave: true);
+
     final resetPasswordData = AuthResetPasswordData(username: _username.trim());
     _authBloc.add(AuthResetPassword(resetPasswordData));
     await nextBlocEvent(
@@ -418,7 +443,11 @@ class AuthenticatorState extends ChangeNotifier {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+
     _setIsBusy(true);
+
+    TextInput.finishAutofillContext(shouldSave: true);
+
     AuthConfirmResetPasswordData confirmResetPasswordData =
         AuthConfirmResetPasswordData(
       username: _username.trim(),
@@ -438,6 +467,8 @@ class AuthenticatorState extends ChangeNotifier {
       return;
     }
     _setIsBusy(true);
+
+    TextInput.finishAutofillContext(shouldSave: true);
 
     final signUp = AuthSignUpData(
       username: _username.trim(),
@@ -462,6 +493,9 @@ class AuthenticatorState extends ChangeNotifier {
       return;
     }
     _setIsBusy(true);
+
+    TextInput.finishAutofillContext(shouldSave: true);
+
     AuthConfirmVerifyUserData authConfirmVerifyUserData =
         AuthConfirmVerifyUserData(
       userAttributeKey: userAttributeKey,
@@ -479,7 +513,11 @@ class AuthenticatorState extends ChangeNotifier {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+
     _setIsBusy(true);
+
+    TextInput.finishAutofillContext(shouldSave: true);
+
     AuthVerifyUserData authVerifyUserData = AuthVerifyUserData(
       userAttributeKey: attributeKeyToVerify,
     );

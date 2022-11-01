@@ -123,6 +123,20 @@ abstract class _SignInFormFieldState<FieldValue>
         return visibilityToggle;
     }
   }
+
+  @override
+  Iterable<String>? get autofillHints {
+    switch (widget.field) {
+      case SignInField.username:
+        return const [
+          AutofillHints.username,
+        ];
+      case SignInField.password:
+        return const [
+          AutofillHints.password,
+        ];
+    }
+  }
 }
 
 class _SignInTextField extends SignInFormField<String> {
