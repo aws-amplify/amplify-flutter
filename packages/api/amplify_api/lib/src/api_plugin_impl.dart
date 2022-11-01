@@ -17,10 +17,12 @@ library amplify_api;
 import 'dart:io';
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_api/src/graphql/app_sync_api_key_auth_provider.dart';
-import 'package:amplify_api/src/graphql/oidc_function_api_auth_provider.dart';
-import 'package:amplify_api/src/graphql/send_graphql_request.dart';
-import 'package:amplify_api/src/graphql/ws/web_socket_connection.dart';
+import 'package:amplify_api/src/graphql/providers/app_sync_api_key_auth_provider.dart';
+import 'package:amplify_api/src/graphql/providers/oidc_function_api_auth_provider.dart';
+import 'package:amplify_api/src/graphql/helpers/send_graphql_request.dart';
+import 'package:amplify_api/src/graphql/web_socket/blocs/web_socket_bloc.dart';
+import 'package:amplify_api/src/graphql/web_socket/services/web_socket_service.dart';
+import 'package:amplify_api/src/graphql/web_socket/web_socket_connection.dart';
 import 'package:amplify_api/src/native_api_plugin.dart';
 import 'package:amplify_api/src/util/amplify_api_config.dart';
 import 'package:amplify_api/src/util/amplify_authorization_rest_client.dart';
@@ -55,6 +57,7 @@ class AmplifyAPIDart extends AmplifyAPI {
   /// A map of the keys from the Amplify API config websocket connections to use
   /// for that endpoint.
   final Map<String, WebSocketConnection> _webSocketConnectionPool = {};
+  final Map<String, WebSocketBloc> _webSocketBlocPool = {};
 
   /// The registered [APIAuthProvider] instances.
   final Map<APIAuthorizationType, APIAuthProvider> _authProviders = {};
@@ -184,6 +187,23 @@ class AmplifyAPIDart extends AmplifyAPI {
     );
   }
 
+  /// Returns the websocket bloc to use for a given endpoint.
+  ///
+  /// Use [apiName] if there are multiple endpoints.
+  @visibleForTesting
+  WebSocketBloc getWebSocketBloc({String? apiName}) {
+    final endpoint = _apiConfig.getEndpoint(
+      type: EndpointType.graphQL,
+      apiName: apiName,
+    );
+
+    return _webSocketBlocPool[endpoint.name] ??= WebSocketBloc(
+      endpoint.config,
+      _authProviderRepo,
+      wsService: AmplifyWebSocketService(),
+    );
+  }
+
   Uri _getGraphQLUri(String? apiName) {
     final endpoint = _apiConfig.getEndpoint(
       type: EndpointType.graphQL,
@@ -251,8 +271,8 @@ class AmplifyAPIDart extends AmplifyAPI {
     GraphQLRequest<T> request, {
     void Function()? onEstablished,
   }) {
-    return getWebSocketConnection(apiName: request.apiName)
-        .subscribe(request, onEstablished);
+    final event = SubscribeEvent(request, onEstablished);
+    return getWebSocketBloc(apiName: request.apiName).subscribe(event);
   }
 
   // ====== REST =======

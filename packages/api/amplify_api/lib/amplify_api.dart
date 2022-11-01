@@ -19,9 +19,9 @@ import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
-export 'package:amplify_api/src/graphql/model_mutations.dart';
-export 'package:amplify_api/src/graphql/model_queries.dart';
-export 'package:amplify_api/src/graphql/model_subscriptions.dart';
+export 'package:amplify_api/src/graphql/model_helpers/model_mutations.dart';
+export 'package:amplify_api/src/graphql/model_helpers/model_queries.dart';
+export 'package:amplify_api/src/graphql/model_helpers/model_subscriptions.dart';
 export 'package:amplify_core/src/types/api/api_types.dart';
 
 /// {@template amplify_api.amplify_api}

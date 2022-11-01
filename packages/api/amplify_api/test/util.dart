@@ -15,9 +15,9 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_api/src/graphql/app_sync_api_key_auth_provider.dart';
-import 'package:amplify_api/src/graphql/ws/web_socket_connection.dart';
-import 'package:amplify_api/src/graphql/ws/web_socket_types.dart';
+import 'package:amplify_api/src/graphql/providers/app_sync_api_key_auth_provider.dart';
+import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
+import 'package:amplify_api/src/graphql/web_socket/web_socket_connection.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
