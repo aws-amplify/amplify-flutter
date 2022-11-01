@@ -15,7 +15,7 @@
 
 // ignore_for_file: public_member_api_docs
 
-import 'package:amplify_api/src/graphql/graphql_request_factory.dart';
+import 'package:amplify_api/src/graphql/factories/graphql_request_factory.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 class ModelQueriesFactory extends ModelQueriesInterface {
