@@ -12,8 +12,8 @@
 // permissions and limitations under the License.
 
 import 'package:amplify_api/src/decorators/authorize_http_request.dart';
-import 'package:amplify_api/src/graphql/app_sync_api_key_auth_provider.dart';
-import 'package:amplify_api/src/graphql/oidc_function_api_auth_provider.dart';
+import 'package:amplify_api/src/graphql/providers/app_sync_api_key_auth_provider.dart';
+import 'package:amplify_api/src/graphql/providers/oidc_function_api_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'util.dart';
