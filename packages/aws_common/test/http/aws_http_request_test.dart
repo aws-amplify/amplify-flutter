@@ -27,7 +27,7 @@ void main() {
     test('create and send request', () async {
       final uri =
           Uri.parse('ws://example.com:440/myPath?abc=123&abc=456&def=000');
-      final client = MockAWSHttpClient((request) async {
+      final client = MockAWSHttpClient((request, _) async {
         expect(request.uri, equals(uri));
         expect(request.bodyBytes, orderedEquals(<int>[0, 1, 2]));
         expect(request.headers['content-length'], equals('3'));
@@ -114,7 +114,7 @@ void main() {
     test('create and send request', () async {
       final uri =
           Uri.parse('ws://example.com:440/myPath?abc=123&abc=456&def=000');
-      final client = MockAWSHttpClient((request) async {
+      final client = MockAWSHttpClient((request, _) async {
         expect(request.uri, equals(uri));
         expect(request.bodyBytes, orderedEquals(<int>[0, 1, 2]));
         expect(request.headers['content-length'], equals('3'));
