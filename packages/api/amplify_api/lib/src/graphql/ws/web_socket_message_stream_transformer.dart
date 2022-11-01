@@ -18,8 +18,8 @@ library amplify_api.graphql.ws.web_socket_message_stream_transformer;
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
-import 'package:amplify_api/src/graphql/ws/web_socket_types.dart';
+import 'package:amplify_api/src/graphql/helpers/graphql_response_decoder.dart';
+import 'package:amplify_api/src/graphql/ws/types/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 

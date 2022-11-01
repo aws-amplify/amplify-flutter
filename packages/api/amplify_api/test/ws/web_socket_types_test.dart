@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_api/src/graphql/ws/web_socket_types.dart';
+import 'package:amplify_api/src/graphql/ws/types/web_socket_types.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class MessageTypeTestEntry {
