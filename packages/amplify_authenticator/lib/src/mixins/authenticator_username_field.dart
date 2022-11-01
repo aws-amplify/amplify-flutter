@@ -260,6 +260,7 @@ mixin AuthenticatorUsernameField<FieldType,
       ),
       keyboardType: keyboardType,
       obscureText: false,
+      autofillHints: autofillHints,
     );
   }
 }

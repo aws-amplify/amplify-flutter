@@ -84,6 +84,7 @@ mixin AuthenticatorDateField<FieldType,
       ),
       keyboardType: TextInputType.datetime,
       controller: _controller,
+      autofillHints: autofillHints,
     );
   }
 }
