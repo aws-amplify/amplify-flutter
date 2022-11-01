@@ -17,9 +17,9 @@ library amplify_api;
 import 'dart:io';
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_api/src/graphql/app_sync_api_key_auth_provider.dart';
-import 'package:amplify_api/src/graphql/oidc_function_api_auth_provider.dart';
-import 'package:amplify_api/src/graphql/send_graphql_request.dart';
+import 'package:amplify_api/src/graphql/providers/app_sync_api_key_auth_provider.dart';
+import 'package:amplify_api/src/graphql/providers/oidc_function_api_auth_provider.dart';
+import 'package:amplify_api/src/graphql/helpers/send_graphql_request.dart';
 import 'package:amplify_api/src/graphql/ws/web_socket_connection.dart';
 import 'package:amplify_api/src/native_api_plugin.dart';
 import 'package:amplify_api/src/util/amplify_api_config.dart';
