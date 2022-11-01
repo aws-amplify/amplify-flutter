@@ -174,7 +174,10 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
     if (widget.child != null) {
       return Form(
         key: formKey,
-        child: widget.child!,
+        child: AutofillGroup(
+          onDisposeAction: AutofillContextAction.commit,
+          child: widget.child!,
+        ),
       );
     }
 
