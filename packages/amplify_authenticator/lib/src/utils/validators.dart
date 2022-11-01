@@ -17,7 +17,11 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
-final usernameRegex = RegExp(r'[\p{L}\p{M}\p{S}\p{N}\p{P}]+');
+/* TODO: update `usernameRegex` expression to match Cognito requirements
+* Proposed expression `[\p{L}\p{M}\p{S}\p{N}\p{P}]+` does not work as 
+* expected due to a mismatch in Regex flavor used by dart
+*/
+final usernameRegex = RegExp(r'^\S+$');
 final emailRegex = RegExp(r'^\S+@\S+$');
 final phoneNumberRegex = RegExp(r'^\+\d+$');
 final _codeRegex = RegExp(r'^\d{6}$');
