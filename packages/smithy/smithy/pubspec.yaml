@@ -33,4 +33,5 @@ dev_dependencies:
   build_runner: ^2.0.0
   built_value_generator: 8.4.2
   json_serializable: 6.3.1
+  stack_trace: ^1.11.0
   test: ^1.16.0
