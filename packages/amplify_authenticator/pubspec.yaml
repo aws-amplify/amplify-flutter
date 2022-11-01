@@ -1,7 +1,7 @@
 name: amplify_authenticator
 description: A prebuilt Sign In and Sign Up experience for the Amplify Auth category
 version: 0.2.3
-homepage: https://ui.docs.amplify.aws/components/authenticator?platform=flutter
+homepage: https://ui.docs.amplify.aws/flutter/connected-components/authenticator
 repository: https://github.com/aws-amplify/amplify-flutter
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
