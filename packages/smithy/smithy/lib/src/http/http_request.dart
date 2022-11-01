@@ -207,24 +207,8 @@ class SmithyHttpRequest {
         // TODO(dnys1): Invert? Add interceptors option to Smithy operations?
         client: client is AWSBaseHttpClient ? client.baseClient : client,
       );
-      underlyingOperation!.requestProgress.listen(
-        (progress) {
-          if (!requestProgress.isClosed) {
-            requestProgress.add(progress);
-          }
-        },
-        onError: requestProgress.addError,
-        onDone: requestProgress.close,
-      );
-      underlyingOperation!.responseProgress.listen(
-        (progress) {
-          if (!responseProgress.isClosed) {
-            responseProgress.add(progress);
-          }
-        },
-        onError: responseProgress.addError,
-        onDone: responseProgress.close,
-      );
+      underlyingOperation!.requestProgress.forward(requestProgress);
+      underlyingOperation!.responseProgress.forward(responseProgress);
       // TODO(dnys1): Use `completeOperation` when available
       underlyingOperation!.operation.then(
         (response) async {
