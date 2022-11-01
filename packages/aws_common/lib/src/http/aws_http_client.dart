@@ -124,30 +124,42 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
   Future<void> _send(
     AWSBaseHttpRequest request,
     CancelableCompleter<AWSBaseHttpResponse> completer, {
-    required StreamSink<int> requestProgressSink,
-    required StreamSink<int> responseProgressSink,
+    required StreamController<int> requestProgressController,
+    required StreamController<int> responseProgressController,
   }) async {
     try {
       request = await transformRequest(request);
     } on Object catch (e, st) {
       completer.completeError(e, st);
-      unawaited(requestProgressSink.close());
-      unawaited(responseProgressSink.close());
+      unawaited(requestProgressController.close());
+      unawaited(responseProgressController.close());
       return;
     }
     final operation = baseClient?.send(request) ?? super.send(request);
     operation.requestProgress.listen(
-      requestProgressSink.add,
-      onDone: requestProgressSink.close,
+      (data) {
+        if (!requestProgressController.isClosed) {
+          requestProgressController.add(data);
+        }
+      },
+      onDone: requestProgressController.close,
     );
     operation.responseProgress.listen(
-      responseProgressSink.add,
-      onDone: responseProgressSink.close,
+      (data) {
+        if (!responseProgressController.isClosed) {
+          responseProgressController.add(data);
+        }
+      },
+      onDone: responseProgressController.close,
     );
     operation.operation.then(
       (resp) async {
-        resp = await transformResponse(resp);
-        completer.complete(resp);
+        try {
+          resp = await transformResponse(resp);
+          completer.complete(resp);
+        } on Object catch (e, st) {
+          completer.completeError(e, st);
+        }
       },
       onError: completer.completeError,
       onCancel: completer.operation.cancel,
@@ -177,8 +189,8 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
     _send(
       request,
       completer,
-      requestProgressSink: requestProgressController,
-      responseProgressSink: responseProgressController,
+      requestProgressController: requestProgressController,
+      responseProgressController: responseProgressController,
     );
     return AWSHttpOperation(
       completer.operation,
