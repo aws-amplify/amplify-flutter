@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /**
  * Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -15,18 +14,11 @@
  * limitations under the License.
  */
 
-import "source-map-support/register";
-import * as cdk from "aws-cdk-lib";
-import { StorageIntegrationTestStack } from "../lib/stack";
+import * as lambda from "aws-lambda";
 
-const app = new cdk.App();
-
-new StorageIntegrationTestStack(app, [
-  { environmentName: "main" },
-  {
-    environmentName: "no-prefix",
-    prefixResolver(accessLevel, identityId) {
-      return "";
-    },
-  },
-]);
+export const handler: lambda.PreSignUpTriggerHandler = async (
+  event: lambda.PreSignUpTriggerEvent
+): Promise<lambda.PreSignUpTriggerEvent> => {
+  event.response.autoConfirmUser = true;
+  return event;
+};

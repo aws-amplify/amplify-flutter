@@ -19,6 +19,8 @@ import { Construct } from "constructs";
 import * as cognito from "aws-cdk-lib/aws-cognito";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as s3 from "aws-cdk-lib/aws-s3";
+import * as lambda from "aws-cdk-lib/aws-lambda";
+import * as lambda_nodejs from "aws-cdk-lib/aws-lambda-nodejs";
 import { CfnOutput, Fn, RemovalPolicy } from "aws-cdk-lib";
 
 enum StorageAccessLevel {
@@ -33,7 +35,7 @@ enum StoragePermission {
   delete = "s3:DeleteObject",
 }
 
-interface StorageIntgrationTestEnvironmentProps {
+interface StorageIntegrationTestEnvironmentProps {
   /**
    * The name for the environment.
    */
@@ -58,12 +60,12 @@ interface StorageIntgrationTestEnvironmentProps {
   ) => string;
 }
 
-export class StorageIntgrationTestStack extends cdk.Stack {
+export class StorageIntegrationTestStack extends cdk.Stack {
   static baseName: string = "storageInteg";
 
   constructor(
     scope: Construct,
-    environments: StorageIntgrationTestEnvironmentProps[]
+    environments: StorageIntegrationTestEnvironmentProps[]
   ) {
     super(scope, "StorageIntegTestStack");
 
@@ -78,7 +80,7 @@ export class StorageIntgrationTestStack extends cdk.Stack {
       // Naming to match Amplify CLI, suffixed with a segment of the stack ID
       // https://github.com/aws-amplify/amplify-ci-support/blob/1abe7f7a1d75fa19675ad8ca17ab625a299b765e/src/integ_test_resources/flutter/amplify/cloudformation_template.yaml#L32
       bucketName: Fn.join("-", [
-        `amplify-test-${StorageIntgrationTestStack.baseName.toLowerCase()}`,
+        `amplify-test-${StorageIntegrationTestStack.baseName.toLowerCase()}`,
         // https://stackoverflow.com/questions/54897459/how-to-set-semi-random-name-for-s3-bucket-using-cloud-formation
         Fn.select(0, Fn.split("-", Fn.select(2, Fn.split("/", this.stackId)))),
       ]),
@@ -94,10 +96,10 @@ export class StorageIntgrationTestStack extends cdk.Stack {
 }
 
 class StorageIntgrationTestEnvironment extends cdk.NestedStack {
-  constructor(scope: Construct, props: StorageIntgrationTestEnvironmentProps) {
+  constructor(scope: Construct, props: StorageIntegrationTestEnvironmentProps) {
     super(scope, `StorageIntegTestStack${props.environmentName}`);
 
-    const name = `${StorageIntgrationTestStack.baseName}-${props.environmentName}`;
+    const name = `${StorageIntegrationTestStack.baseName}-${props.environmentName}`;
 
     // Create the bucket
 
@@ -130,12 +132,24 @@ class StorageIntgrationTestEnvironment extends cdk.NestedStack {
 
     // Create the Cognito User Pool
 
+    // Pre sign-up trigger to auto-confirm users.
+    const autoConfirmTrigger = new lambda_nodejs.NodejsFunction(
+      this,
+      "auto-confirm",
+      {
+        runtime: lambda.Runtime.NODEJS_16_X,
+      }
+    );
+
     const userPool = new cognito.UserPool(this, "UserPool", {
       userPoolName: name,
       removalPolicy: RemovalPolicy.DESTROY,
       selfSignUpEnabled: true,
       accountRecovery: cognito.AccountRecovery.NONE,
       mfa: cognito.Mfa.OFF,
+      lambdaTriggers: {
+        preSignUp: autoConfirmTrigger,
+      }
     });
 
     const userPoolClient = userPool.addClient("UserPoolClient", {
