@@ -25,7 +25,7 @@ import 'dummy_operation.dart';
 void main() {
   group('AWSRetryer', () {
     test('uses x-amz-retry-after header', () async {
-      final httpClient = MockAWSHttpClient((request) async {
+      final httpClient = MockAWSHttpClient((request, _) async {
         return AWSStreamedHttpResponse(
           statusCode: 500,
           headers: {

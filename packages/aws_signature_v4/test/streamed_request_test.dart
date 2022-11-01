@@ -21,7 +21,7 @@ import 'package:test/test.dart';
 
 import 'common.dart';
 
-AWSHttpClient get mockClient => MockAWSHttpClient((req) {
+AWSHttpClient get mockClient => MockAWSHttpClient((req, _) {
       return AWSHttpResponse(statusCode: 200);
     });
 
