@@ -16,11 +16,10 @@ import 'dart:io';
 
 import 'package:aft/src/test_reports/test_folio.dart';
 import 'package:aft/src/test_reports/test_report.dart';
+import 'package:aft/src/test_reports/test_result.dart';
 
-void printResult(
-  TestReport report, {
-  required bool verbose,
-}) {
+/// Prints the results of a single test [report].
+void printResult(TestReport report) {
   stdout.writeln(
     '  ${report.fileName} ${report.testName}: ${report.result.formattedString}',
   );
@@ -29,9 +28,16 @@ void printResult(
   }
 }
 
-void printResults(TestFolio folio, {required bool verbose}) {
-  stdout.writeln('\nTest Results:');
+/// Prints a summary of results for all reports in a [folio].
+void printResults(TestFolio folio) {
+  final overallScore = folio.overallScore;
+  final passedFailed =
+      overallScore.failed > 0 ? TestResult.fail : TestResult.pass;
+  stdout.writeln('\nTest Results: ${overallScore.prettyTotal}');
   folio.scores.forEach((filename, scores) {
     stdout.writeln('  $filename: ${scores.prettyTotal}');
   });
+  stdout
+    ..writeln()
+    ..writeln(passedFailed.formattedString);
 }

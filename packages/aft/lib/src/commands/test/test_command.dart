@@ -13,8 +13,10 @@
 // limitations under the License.
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/active_device.dart';
 import 'package:aft/src/commands/test/integration_test_command.dart';
 import 'package:aft/src/commands/test/unit_test_command.dart';
 import 'package:aft/src/test_reports/print_results.dart';
@@ -42,6 +44,7 @@ class TestCommand extends AmplifyCommand {
 }
 
 abstract class BaseTestCommand extends AmplifyCommand {
+  /// Returns the package to test, i.e. the package of the current directory.
   Future<PackageInfo> get packageToTest async {
     if (workingDirectory.pubspec == null) {
       exitError('Current directory has no pubspec.yaml');
@@ -52,9 +55,23 @@ abstract class BaseTestCommand extends AmplifyCommand {
     );
   }
 
-  Future<List<TestReport>> executeTest(
+  /// Gets the active devices as provided by `flutter devices`.
+  Future<List<ActiveDevice>> getActiveDevices() async {
+    final result = await executeProcess(
+      PackageFlavor.flutter,
+      const ['devices', '--machine'],
+      printStream: false,
+    );
+
+    return (json.decode(result) as List)
+        .map((i) => ActiveDevice.fromJson((i as Map).cast()))
+        .toList();
+  }
+
+  /// Executes tests for [package] and returns the list of reports.
+  Future<List<TestReport>> executeTests(
     PackageInfo package, {
-    List<String>? arguments,
+    required List<String> arguments,
   }) async {
     Stream<TestEvent> testStream;
     switch (package.flavor) {
@@ -70,11 +87,11 @@ abstract class BaseTestCommand extends AmplifyCommand {
         testStream = dartTest(
           arguments: arguments,
           workingDirectory: package.path,
-          // runInShell: true,
         );
         break;
     }
     final reportBuilders = <int, TestReportBuilder>{};
+    final suitePaths = <int, String?>{};
     final reports = <TestReport>[];
     testStream = testStream.handleError((Object error) {
       // These can be non-harmful errors such as
@@ -85,10 +102,29 @@ abstract class BaseTestCommand extends AmplifyCommand {
     final completer = Completer<void>.sync();
     testStream.listen(
       (testEvent) {
+        logger.trace('Got ${testEvent.type} event');
         switch (testEvent.type) {
+          case 'suite':
+            testEvent as SuiteTestEvent;
+            logger.trace('  ID: ${testEvent.suite.id}');
+            suitePaths[testEvent.suite.id] = testEvent.suite.path;
+            break;
+          case 'allSuites':
+            testEvent as AllSuitesTestEvent;
+            logger.trace('  # of Suites: ${testEvent.count}');
+            break;
           case 'testStart':
             testEvent as TestStartEvent;
-            final url = testEvent.test.url ?? testEvent.test.rootUrl;
+            var url = testEvent.test.url;
+            if (url == null ||
+                // Happens with integ tests for some reason.
+                url.startsWith('package:flutter_test')) {
+              url = suitePaths[testEvent.test.suiteID];
+            }
+            logger
+              ..trace('  ID: ${testEvent.test.id}')
+              ..trace('  URL: $url')
+              ..trace('  Name: ${testEvent.test.name}');
             if (url == null) {
               return;
             }
@@ -100,6 +136,11 @@ abstract class BaseTestCommand extends AmplifyCommand {
             break;
           case 'error':
             testEvent as ErrorTestEvent;
+            logger
+              ..trace('  ID: ${testEvent.testID}')
+              ..trace('  Is TestFailure: ${testEvent.isFailure}')
+              ..trace('  Error: ${testEvent.error}')
+              ..trace('  StackTrace: ${testEvent.stackTrace}');
             final reportBuilder = reportBuilders[testEvent.testID];
             if (reportBuilder == null) {
               return;
@@ -115,13 +156,21 @@ abstract class BaseTestCommand extends AmplifyCommand {
             break;
           case 'testDone':
             testEvent as TestDoneEvent;
+            logger
+              ..trace('  ID: ${testEvent.testID}')
+              ..trace('  Hidden: ${testEvent.hidden}')
+              ..trace('  Skipped: ${testEvent.skipped}')
+              ..trace('  Result: ${testEvent.result.name}');
             final reportBuilder = reportBuilders[testEvent.testID];
             if (reportBuilder == null) {
               return;
             }
+            if (testEvent.hidden) {
+              return;
+            }
             _scoreTest(testEvent, reportBuilder);
             final report = reportBuilder.build();
-            printResult(report, verbose: verbose);
+            printResult(report);
             reports.add(report);
             break;
           case 'exit':
@@ -137,16 +186,14 @@ abstract class BaseTestCommand extends AmplifyCommand {
   }
 
   void _scoreTest(TestDoneEvent event, TestReportBuilder testReport) {
-    if (!event.hidden) {
-      switch (event.result) {
-        case vgv.TestResult.success:
-          testReport.result = TestResult.pass;
-          break;
-        case vgv.TestResult.failure:
-        case vgv.TestResult.error:
-          testReport.result = TestResult.fail;
-          break;
-      }
+    switch (event.result) {
+      case vgv.TestResult.success:
+        testReport.result = TestResult.pass;
+        break;
+      case vgv.TestResult.failure:
+      case vgv.TestResult.error:
+        testReport.result = TestResult.fail;
+        break;
     }
     if (event.skipped) {
       testReport.result = TestResult.skip;

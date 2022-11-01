@@ -33,11 +33,14 @@ class UnitTestCommand extends BaseTestCommand {
 
     final folioBuilder = TestFolioBuilder()..testType = TestType.unit;
 
-    final testReports = await executeTest(packageToTest);
+    final testReports = await executeTests(
+      packageToTest,
+      arguments: argResults!.rest,
+    );
     folioBuilder.addReports(testReports);
 
     final folio = folioBuilder.build();
-    printResults(folio, verbose: verbose);
+    printResults(folio);
     exitCode = folio.exitCode;
   }
 }

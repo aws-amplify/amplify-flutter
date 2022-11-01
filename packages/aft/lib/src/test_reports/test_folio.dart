@@ -21,8 +21,7 @@ import 'package:built_value/built_value.dart';
 part 'test_folio.g.dart';
 
 enum TestType {
-  integVM,
-  integWeb,
+  integration,
   unit,
 }
 
@@ -58,6 +57,18 @@ abstract class TestFolio implements Built<TestFolio, TestFolioBuilder> {
         b[filename] = totalScore.build();
       });
     }).toMap();
+  }
+
+  /// The overall score for all tests/files.
+  TestScore get overallScore {
+    return scores.values.reduce((acc, el) {
+      return acc.rebuild(
+        (b) => b
+          ..passed = acc.passed + el.passed
+          ..skipped = acc.skipped + el.skipped
+          ..failed = acc.failed + el.failed,
+      );
+    });
   }
 
   /// The exit code to use given the aggregate results.

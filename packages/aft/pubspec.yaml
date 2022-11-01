@@ -11,7 +11,7 @@ dependencies:
   async: ^2.9.0
   aws_common: ">=0.2.3 <0.3.0"
   built_collection: ^5.1.1
-  built_value: ^8.4.1
+  built_value: ">=8.4.0 <8.5.0"
   checked_yaml: ^2.0.0
   cli_util: ^0.3.5
   collection: ^1.16.0

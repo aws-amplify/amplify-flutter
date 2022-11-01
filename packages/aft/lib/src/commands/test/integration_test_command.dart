@@ -21,11 +21,7 @@ import 'package:aft/src/flutter_platform.dart';
 import 'package:aft/src/test_reports/print_results.dart';
 import 'package:aft/src/test_reports/test_folio.dart';
 import 'package:aft/src/test_reports/test_report.dart';
-import 'package:aft/src/utils/constants.dart';
 import 'package:aft/src/utils/emphasize_text.dart';
-import 'package:aft/src/utils/execute_process.dart';
-import 'package:aft/src/utils/get_active_devices.dart';
-import 'package:aft/src/utils/get_process_args.dart';
 import 'package:mason_logger/mason_logger.dart';
 import 'package:path/path.dart' as p;
 
@@ -38,6 +34,10 @@ const integrationTestPath = 'integration_test';
 
 /// Command to run integration tests.
 class IntegrationTestCommand extends BaseTestCommand {
+  IntegrationTestCommand() {
+    argParser.addOption('device', abbr: 'd', help: 'Device ID or name');
+  }
+
   @override
   String get description =>
       'Runs the appropriate integration test command for the given platform';
@@ -45,60 +45,64 @@ class IntegrationTestCommand extends BaseTestCommand {
   @override
   String get name => 'integ';
 
-  final folio = TestFolioBuilder();
+  final folio = TestFolioBuilder()..testType = TestType.integration;
   late final select = Logger(level: verbose ? Level.verbose : Level.info);
 
   @override
   Future<void> run() async {
     final selectedDevice = await _selectDevice();
-    final packageToTest = await this.packageToTest;
-
-    switch (selectedDevice.platform) {
-      case FlutterPlatform.android:
-      case FlutterPlatform.ios:
-      case FlutterPlatform.linux:
-      case FlutterPlatform.macos:
-      case FlutterPlatform.windows:
-        await _handleVM(
-          packageToTest,
-          selectedDevice,
-        );
-        break;
-      case FlutterPlatform.web:
-        await _handleWeb(packageToTest);
-        break;
-      case null:
-        exitError(
-          formatException('Suitable device not active for selected package.'),
-        );
+    var packageToTest = await this.packageToTest;
+    final examplePackage = packageToTest.example;
+    if (packageToTest.integTestDirectory == null && examplePackage != null) {
+      packageToTest = examplePackage;
     }
-
-    printResults(folio.build(), verbose: verbose);
+    await _runTests(
+      package: packageToTest,
+      device: selectedDevice,
+    );
   }
 
   Future<ActiveDevice> _selectDevice() async {
     final devicesOnMachine = await getActiveDevices();
-    final selectedDevice = select.chooseOne<ActiveDevice>(
-      'Select a device: ',
-      choices: devicesOnMachine,
-      display: (device) => '${device.name} (id: ${device.id})',
-    );
+
+    final ActiveDevice selectedDevice;
+    if (argResults!['device'] != null) {
+      final deviceMatcher = argResults!['device'] as String;
+      selectedDevice = devicesOnMachine.singleWhere(
+        (device) {
+          return device.displayString
+              .toLowerCase()
+              .contains(deviceMatcher.toLowerCase());
+        },
+        orElse: () {
+          exitError(
+            'Unknown device: $deviceMatcher\n'
+            'Active Devices:\n$devicesOnMachine',
+          );
+        },
+      );
+    } else {
+      selectedDevice = select.chooseOne<ActiveDevice>(
+        'Select a device: ',
+        choices: devicesOnMachine,
+        display: (device) => device.displayString,
+      );
+    }
+
     if (selectedDevice.platform == null) {
-      stderr.writeln(
+      exitError(
         formatException(
           'The device you selected is not associated with a known platform',
         ),
       );
-      exit(1);
     }
     return selectedDevice;
   }
 
-  Future<void> _handleVM(
-    PackageInfo package,
-    ActiveDevice device,
-  ) async {
-    folio.testType = TestType.integVM;
+  Future<void> _runTests({
+    required PackageInfo package,
+    required ActiveDevice device,
+  }) async {
     final integTestDirectory = package.integTestDirectory;
     if (integTestDirectory == null) {
       logger.stderr('No integration tests for "${package.name}"');
@@ -116,84 +120,56 @@ class IntegrationTestCommand extends BaseTestCommand {
         testArguments.add('integration_test');
       }
     }
-    final reports = await executeTest(
-      package,
-      arguments: ['-d', device.id, ...testArguments],
+
+    final List<TestReport> reports;
+    final arguments = ['-d', device.id, ...testArguments];
+    logger.trace(
+      'Running tests on device ${device.id} (${device.platform!.displayName})',
     );
-    folio.addReports(reports);
+    if (device.platform == FlutterPlatform.web) {
+      await _handleWeb(
+        package,
+        arguments: arguments,
+      );
+    } else {
+      reports = await executeTests(
+        package,
+        arguments: arguments,
+      );
+      folio.addReports(reports);
+      printResults(folio.build());
+    }
+  }
+
+  Future<Process> _startChromedriver() async {
+    final Process process;
+    try {
+      process = await Process.start(
+        'chromedriver',
+        ['--port=4444'],
+        runInShell: true,
+        mode: ProcessStartMode.detached,
+      );
+    } on Exception catch (e) {
+      exitError('chromedriver failed to start: ${e.toString()}');
+    }
+    return process;
   }
 
   Future<void> _handleWeb(
-    PackageInfo package,
-  ) async {
-    folio.testType = TestType.integWeb;
-    Process? process;
-    try {
-      process = await Process.start('chromedriver', ['--port=4444']);
-    } on Exception catch (e) {
-      stderr.writeln('chromedriver failed to start: ${e.toString()}');
-    }
-
-    final exceptionRegex = RegExp(
-      r'(?<=══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞═════════════════)'
-      '(.*)'
-      '(?=═════════════════════════════════════════════════════════════════)',
-      multiLine: false,
-      dotAll: true,
-      caseSensitive: false,
-    );
-    await _executeTests(
-      package,
-      (result, package, fileName) {
-        final testReport = TestReportBuilder()..fileName = p.basename(fileName);
-        final matches = exceptionRegex.allMatches(result);
-
-        for (final m in matches) {
-          final match = m[0]!;
-          testReport.failures.add(match);
-        }
-        folio.addReports([testReport.build()]);
-      },
-    );
-    process?.kill();
-  }
-
-  Future<void> _executeTests(
-    PackageInfo package,
-    ResultIterator resultIterator, {
-    ActiveDevice? device,
+    PackageInfo package, {
+    required List<String> arguments,
   }) async {
-    final files = await Directory(p.join(package.path, integrationTestPath))
-        .list(recursive: true)
-        .toList();
-
-    for (final file in files) {
-      if (file.path.endsWith(testFileSuffix)) {
-        final fileName = p.basename(file.path);
-
-        try {
-          final result = await executeProcess(
-            PackageFlavor.flutter,
-            device != null
-                ? getFlutterTestArgs(
-                    deviceId: device.id,
-                    testPath: fileName,
-                  )
-                : getFlutterDriverArgs(testPath: fileName),
-            package: package,
-          );
-          resultIterator(
-            result,
-            package,
-            fileName,
-          );
-        } on Exception catch (error) {
-          // folio
-          //     .reportByFile(package, fileName)
-          //     ?.exceptions
-          //     .add('\n$fileName test run failed: $error');
-        }
-      }
+    final chromedriver = await _startChromedriver();
+    try {
+      await executeProcess(
+        PackageFlavor.flutter,
+        ['drive', '--driver=test_driver/integration_test.dart', ...arguments],
+        package: package,
+        mode: ProcessStartMode.inheritStdio,
+      );
+    } finally {
+      chromedriver.kill();
     }
   }
 }

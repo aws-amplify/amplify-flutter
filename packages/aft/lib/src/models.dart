@@ -55,6 +55,22 @@ class PackageInfo
     required this.flavor,
   });
 
+  /// Returns the [PackageInfo] found in [dir].
+  static PackageInfo? fromDirectory(Directory dir) {
+    final pubspecInfo = dir.pubspec;
+    if (pubspecInfo == null) {
+      return null;
+    }
+    final pubspec = pubspecInfo.pubspec;
+    return PackageInfo(
+      name: pubspec.name,
+      path: dir.path,
+      usesMonoRepo: dir.usesMonoRepo,
+      pubspecInfo: pubspecInfo,
+      flavor: pubspec.flavor,
+    );
+  }
+
   /// The name of the package.
   final String name;
 
@@ -88,6 +104,16 @@ class PackageInfo
       return null;
     }
     return unitTestDir;
+  }
+
+  /// The example app for this package, if any.
+  PackageInfo? get example {
+    final expectedPath = p.join(path, 'example');
+    final exampleDir = Directory(expectedPath);
+    if (!exampleDir.existsSync()) {
+      return null;
+    }
+    return PackageInfo.fromDirectory(exampleDir);
   }
 
   /// The platforms a package supports, typically for example apps.

@@ -19,7 +19,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'active_device.g.dart';
 
 /// {@template amplify_tools.active_device}
-/// Information about an active device.
+/// Information about a device listed by `flutter devices`.
 /// {@endtemplate}
 @JsonSerializable()
 class ActiveDevice
@@ -57,13 +57,14 @@ class ActiveDevice
   }
 
   @override
-  List<Object?> get props => [
-        name,
-        id,
-      ];
+  List<Object?> get props => [name, id];
 
   @override
   int compareTo(ActiveDevice other) {
     return id.compareTo(other.id);
+  }
+
+  String get displayString {
+    return '$name (id: $id)';
   }
 }

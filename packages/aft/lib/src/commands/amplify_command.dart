@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
@@ -81,23 +82,15 @@ abstract class AmplifyCommand extends Command<void> implements Closeable {
 
         final allPackages = <PackageInfo>[];
         await for (final dir in allDirs) {
-          final pubspecInfo = dir.pubspec;
-          if (pubspecInfo == null) {
+          final package = PackageInfo.fromDirectory(dir);
+          if (package == null) {
             continue;
           }
-          final pubspec = pubspecInfo.pubspec;
+          final pubspec = package.pubspecInfo.pubspec;
           if (aftConfig.ignore.contains(pubspec.name)) {
             continue;
           }
-          allPackages.add(
-            PackageInfo(
-              name: pubspec.name,
-              path: dir.path,
-              usesMonoRepo: dir.usesMonoRepo,
-              pubspecInfo: pubspecInfo,
-              flavor: pubspec.flavor,
-            ),
-          );
+          allPackages.add(package);
         }
         return UnmodifiableMapView({
           for (final package in allPackages..sort()) package.name: package,
@@ -128,6 +121,42 @@ abstract class AmplifyCommand extends Command<void> implements Closeable {
       response = stdin.readLineSync();
     }
     return response;
+  }
+
+  /// Runs the `flutter` or 'dart' command from the root of [package], using
+  /// the provided [args], and returns the decoded output.
+  ///
+  /// If [printStream] is `true`, the output of the command will be piped to
+  /// [stdout].
+  Future<String> executeProcess(
+    PackageFlavor flavor,
+    List<String> args, {
+    ProcessStartMode mode = ProcessStartMode.normal,
+    PackageInfo? package,
+    bool printStream = true,
+  }) async {
+    final process = await Process.start(
+      runInShell: true,
+      flavor.name.toLowerCase(),
+      args,
+      workingDirectory: package?.path ?? Directory.current.path,
+      mode: mode,
+    );
+    final buf = StringBuffer();
+    if (mode == ProcessStartMode.normal) {
+      process.stdout.transform(const Utf8Decoder()).listen((data) {
+        if (printStream) stdout.write(data);
+        buf.write(data);
+      });
+    }
+
+    final exitCode = await process.exitCode;
+    if (exitCode != 0) {
+      stderr.writeln(
+        '"flutter ${args.join(' ')}" failed with exit code $exitCode',
+      );
+    }
+    return buf.toString().trim();
   }
 
   @override
