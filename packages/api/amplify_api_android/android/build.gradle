@@ -4,6 +4,7 @@ version '1.0-SNAPSHOT'
 buildscript {
     ext.kotlin_version = '1.6.10'
     repositories {
+        mavenLocal()
         google()
         mavenCentral()
         maven {
@@ -20,6 +21,7 @@ buildscript {
 
 rootProject.allprojects {
     repositories {
+        mavenLocal()
         google()
         mavenCentral()
     }
@@ -34,7 +36,7 @@ apply plugin: 'org.jlleitschuh.gradle.ktlint'
 def amplifyFlutter = project.rootProject.findProject(':amplify_flutter_android')
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 33
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -73,8 +75,8 @@ android {
 dependencies {
     api amplifyFlutter
 
-    implementation "com.amplifyframework:aws-api:1.36.5-dev-preview.0"
-    implementation "com.amplifyframework:aws-api-appsync:1.36.5-dev-preview.0"
+    implementation "com.amplifyframework:aws-api:1.36.6-dev-preview.0"
+    implementation "com.amplifyframework:aws-api-appsync:1.36.6-dev-preview.0"
 
     // Do not update before migration of plugin to Dart.
     //noinspection GradleDependency
