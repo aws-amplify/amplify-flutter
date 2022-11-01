@@ -136,21 +136,11 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
       return null;
     }
     final operation = baseClient?.send(request) ?? super.send(request);
-    operation.requestProgress.listen(
-      (data) {
-        if (!requestProgressController.isClosed) {
-          requestProgressController.add(data);
-        }
-      },
-      onDone: requestProgressController.close,
+    unawaited(
+      operation.requestProgress.forward(requestProgressController),
     );
-    operation.responseProgress.listen(
-      (data) {
-        if (!responseProgressController.isClosed) {
-          responseProgressController.add(data);
-        }
-      },
-      onDone: responseProgressController.close,
+    unawaited(
+      operation.responseProgress.forward(responseProgressController),
     );
     // TODO(dnys1): Use `completeOperation` when available
     operation.operation.then(
