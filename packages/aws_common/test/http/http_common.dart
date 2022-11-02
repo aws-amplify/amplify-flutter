@@ -47,18 +47,18 @@ void clientTest(
   }) {
     group(testName, skip: skip, () {
       group('${protocol.value} (secure: $secure)', () {
-        late final String host;
-        late final AWSHttpClient client;
+        late String host;
+        late AWSHttpClient client;
         AWSHttpClient getClient() => client;
-        late final StreamChannel<Object?> httpServerChannel;
+        late StreamChannel<Object?> httpServerChannel;
         StreamChannel<Object?> getHttpServerChannel() => httpServerChannel;
-        late final StreamQueue<Object?> httpServerQueue;
+        late StreamQueue<Object?> httpServerQueue;
         StreamQueue<Object?> getHttpServerQueue() => httpServerQueue;
 
         Uri createUri(String path) =>
             (secure ? Uri.https : Uri.http)(host, path);
 
-        setUpAll(() async {
+        setUp(() async {
           httpServerChannel = await startServer()
             ..sink.add(protocol.value)
             ..sink.add(secure);
@@ -66,7 +66,7 @@ void clientTest(
           host = 'localhost:${await httpServerQueue.next}';
           client = debugClient..supportedProtocols = supportedProtocols;
         });
-        tearDownAll(() async {
+        tearDown(() async {
           httpServerChannel.sink.add(null);
           // await Future<void>.delayed(const Duration(seconds: 30));
         });
