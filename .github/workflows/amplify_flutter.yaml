@@ -1,4 +1,4 @@
-name: aws_common
+name: amplify_flutter
 on:
   push:
     branches:
@@ -6,10 +6,10 @@ on:
       - stable
       - next
     paths:
-      - 'packages/aws_common/**/*.dart'
+      - 'packages/amplify/**/*.dart'
   pull_request:
     paths:
-      - 'packages/aws_common/**/*.dart'
+      - 'packages/amplify/**/*.dart'
   schedule:
     - cron: "0 0 * * 0"
 defaults:
@@ -19,6 +19,6 @@ permissions: read-all
 
 jobs:
   test:
-    uses: ./.github/workflows/dart_package.yaml
+    uses: ./.github/workflows/flutter_package.yaml
     with:
-      working-directory: packages/aws_common
+      working-directory: packages/amplify/amplify_flutter

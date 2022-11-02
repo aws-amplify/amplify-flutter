@@ -22,4 +22,3 @@ jobs:
     uses: ./.github/workflows/dart_package.yaml
     with:
       working-directory: packages/amplify_core
-      needs-build: true
