@@ -8,7 +8,7 @@ part of amplify_auth_cognito_dart.cognito_identity_provider.model.list_devices_r
 
 class _$ListDevicesResponse extends ListDevicesResponse {
   @override
-  final _i2.BuiltList<_i3.DeviceType>? devices;
+  final _i3.BuiltList<_i2.DeviceType>? devices;
   @override
   final String? paginationToken;
 
@@ -45,10 +45,10 @@ class ListDevicesResponseBuilder
     implements Builder<ListDevicesResponse, ListDevicesResponseBuilder> {
   _$ListDevicesResponse? _$v;
 
-  _i2.ListBuilder<_i3.DeviceType>? _devices;
-  _i2.ListBuilder<_i3.DeviceType> get devices =>
-      _$this._devices ??= new _i2.ListBuilder<_i3.DeviceType>();
-  set devices(_i2.ListBuilder<_i3.DeviceType>? devices) =>
+  _i3.ListBuilder<_i2.DeviceType>? _devices;
+  _i3.ListBuilder<_i2.DeviceType> get devices =>
+      _$this._devices ??= new _i3.ListBuilder<_i2.DeviceType>();
+  set devices(_i3.ListBuilder<_i2.DeviceType>? devices) =>
       _$this._devices = devices;
 
   String? _paginationToken;

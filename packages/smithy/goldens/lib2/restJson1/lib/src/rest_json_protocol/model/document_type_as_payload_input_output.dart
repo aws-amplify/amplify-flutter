@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_json1_v2.rest_json_protocol.model.document_type_as_payload_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,8 +18,10 @@ abstract class DocumentTypeAsPayloadInputOutput
         Built<DocumentTypeAsPayloadInputOutput,
             DocumentTypeAsPayloadInputOutputBuilder>,
         _i1.HasPayload<_i2.JsonObject> {
-  factory DocumentTypeAsPayloadInputOutput({_i2.JsonObject? documentValue}) {
-    return _$DocumentTypeAsPayloadInputOutput._(documentValue: documentValue);
+  factory DocumentTypeAsPayloadInputOutput({Object? documentValue}) {
+    return _$DocumentTypeAsPayloadInputOutput._(
+        documentValue:
+            documentValue == null ? null : _i2.JsonObject(documentValue));
   }
 
   factory DocumentTypeAsPayloadInputOutput.build(

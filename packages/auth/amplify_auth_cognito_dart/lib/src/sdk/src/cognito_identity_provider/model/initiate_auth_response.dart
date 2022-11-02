@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.2.0. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.initiate_auth_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,13 +36,15 @@ abstract class InitiateAuthResponse
   factory InitiateAuthResponse({
     _i2.AuthenticationResultType? authenticationResult,
     _i3.ChallengeNameType? challengeName,
-    _i4.BuiltMap<String, String>? challengeParameters,
+    Map<String, String>? challengeParameters,
     String? session,
   }) {
     return _$InitiateAuthResponse._(
       authenticationResult: authenticationResult,
       challengeName: challengeName,
-      challengeParameters: challengeParameters,
+      challengeParameters: challengeParameters == null
+          ? null
+          : _i4.BuiltMap(challengeParameters),
       session: session,
     );
   }

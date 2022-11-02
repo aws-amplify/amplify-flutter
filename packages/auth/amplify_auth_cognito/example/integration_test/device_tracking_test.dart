@@ -38,11 +38,11 @@ void main() {
   AmplifyLogger().logLevel = LogLevel.debug;
 
   group('Device Tracking', () {
-    late String username;
-    late String password;
+    String? username;
+    String? password;
 
     Future<DeviceState> getDeviceState() async {
-      final secrets = await deviceRepo.get(username);
+      final secrets = await deviceRepo.get(username!);
       if (secrets == null) {
         return DeviceState.untracked;
       }
@@ -51,27 +51,38 @@ void main() {
           : DeviceState.tracked;
     }
 
+    Future<String?> getDeviceKey() async {
+      final secrets = await deviceRepo.get(username!);
+      return secrets?.deviceKey;
+    }
+
     Future<void> signIn({
       bool enableMfa = false,
     }) async {
       await signOutUser();
 
-      username = generateUsername();
-      password = generatePassword();
+      if (username == null && password == null) {
+        username = generateUsername();
+        password = generatePassword();
 
-      await adminCreateUser(
-        username,
-        password,
-        autoConfirm: true,
-        verifyAttributes: true,
-        enableMfa: enableMfa,
-      );
-      addTearDown(() => deleteUser(username));
+        await adminCreateUser(
+          username!,
+          password!,
+          autoConfirm: true,
+          verifyAttributes: true,
+          enableMfa: enableMfa,
+        );
+        addTearDown(() async {
+          await deleteUser(username!);
+          username = null;
+          password = null;
+        });
+      }
 
       if (enableMfa) {
-        final code = getOtpCode(username);
+        final code = getOtpCode(username!);
         final signInRes = await Amplify.Auth.signIn(
-          username: username,
+          username: username!,
           password: password,
         );
         expect(
@@ -84,7 +95,7 @@ void main() {
         expect(confirmSignInRes.isSignedIn, isTrue);
       } else {
         final res = await Amplify.Auth.signIn(
-          username: username,
+          username: username!,
           password: password,
         );
         expect(res.isSignedIn, isTrue);
@@ -118,11 +129,18 @@ void main() {
         expect(await getDeviceState(), DeviceState.untracked);
       });
 
-      test('fetchDevices lists registered devices', () async {
+      test('fetchDevices lists remembered devices', () async {
         expect(await getDeviceState(), DeviceState.tracked);
-        expect(Amplify.Auth.fetchDevices(), completion(isEmpty));
+        await expectLater(Amplify.Auth.fetchDevices(), completion(isEmpty));
         await Amplify.Auth.rememberDevice();
         expect(Amplify.Auth.fetchDevices(), completion(isNotEmpty));
+      });
+
+      test('multiple logins use the same device key', () async {
+        final deviceKey = await getDeviceKey();
+        await signOutUser();
+        await signIn();
+        expect(await getDeviceKey(), deviceKey);
       });
     });
 
@@ -149,8 +167,15 @@ void main() {
         expect(await getDeviceState(), DeviceState.untracked);
       });
 
-      test('fetchDevices lists registered devices', () async {
+      test('fetchDevices lists remembered devices', () async {
         expect(Amplify.Auth.fetchDevices(), completion(hasLength(1)));
+      });
+
+      test('multiple logins use the same device key', () async {
+        final deviceKey = await getDeviceKey();
+        await signOutUser();
+        await signIn();
+        expect(await getDeviceKey(), deviceKey);
       });
     });
   });

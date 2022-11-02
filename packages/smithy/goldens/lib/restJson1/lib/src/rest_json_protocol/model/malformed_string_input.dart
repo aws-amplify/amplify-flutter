@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_json1_v1.rest_json_protocol.model.malformed_string_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,8 +21,9 @@ abstract class MalformedStringInput
         Built<MalformedStringInput, MalformedStringInputBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<MalformedStringInputPayload> {
-  factory MalformedStringInput({_i3.JsonObject? blob}) {
-    return _$MalformedStringInput._(blob: blob);
+  factory MalformedStringInput({Object? blob}) {
+    return _$MalformedStringInput._(
+        blob: blob == null ? null : _i3.JsonObject(blob));
   }
 
   factory MalformedStringInput.build(

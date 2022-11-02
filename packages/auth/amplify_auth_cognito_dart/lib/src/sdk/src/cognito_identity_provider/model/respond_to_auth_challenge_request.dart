@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.2.0. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.respond_to_auth_challenge_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,9 +21,9 @@ import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/challenge_name_type.dart'
     as _i4;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/user_context_data_type.dart'
-    as _i6;
+    as _i5;
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
@@ -42,18 +42,20 @@ abstract class RespondToAuthChallengeRequest
   factory RespondToAuthChallengeRequest({
     _i3.AnalyticsMetadataType? analyticsMetadata,
     required _i4.ChallengeNameType challengeName,
-    _i5.BuiltMap<String, String>? challengeResponses,
+    Map<String, String>? challengeResponses,
     required String clientId,
-    _i5.BuiltMap<String, String>? clientMetadata,
+    Map<String, String>? clientMetadata,
     String? session,
-    _i6.UserContextDataType? userContextData,
+    _i5.UserContextDataType? userContextData,
   }) {
     return _$RespondToAuthChallengeRequest._(
       analyticsMetadata: analyticsMetadata,
       challengeName: challengeName,
-      challengeResponses: challengeResponses,
+      challengeResponses:
+          challengeResponses == null ? null : _i6.BuiltMap(challengeResponses),
       clientId: clientId,
-      clientMetadata: clientMetadata,
+      clientMetadata:
+          clientMetadata == null ? null : _i6.BuiltMap(clientMetadata),
       session: session,
       userContextData: userContextData,
     );
@@ -109,7 +111,7 @@ abstract class RespondToAuthChallengeRequest
   /// *   `DEVICE\_PASSWORD\_VERIFIER` requires everything that `PASSWORD_VERIFIER` requires, plus `DEVICE_KEY`.
   ///
   /// *   `MFA_SETUP` requires `USERNAME`, plus you must use the session value returned by `VerifySoftwareToken` in the `Session` parameter.
-  _i5.BuiltMap<String, String>? get challengeResponses;
+  _i6.BuiltMap<String, String>? get challengeResponses;
 
   /// The app client ID.
   String get clientId;
@@ -127,13 +129,13 @@ abstract class RespondToAuthChallengeRequest
   /// *   Validate the ClientMetadata value.
   ///
   /// *   Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
-  _i5.BuiltMap<String, String>? get clientMetadata;
+  _i6.BuiltMap<String, String>? get clientMetadata;
 
   /// The session that should be passed both ways in challenge-response calls to the service. If `InitiateAuth` or `RespondToAuthChallenge` API call determines that the caller must pass another challenge, they return a session with other challenge parameters. This session should be passed as it is to the next `RespondToAuthChallenge` API call.
   String? get session;
 
   /// Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito advanced security evaluates the risk of an authentication event based on the context that your app generates and passes to Amazon Cognito when it makes API requests.
-  _i6.UserContextDataType? get userContextData;
+  _i5.UserContextDataType? get userContextData;
   @override
   RespondToAuthChallengeRequest getPayload() => this;
   @override
@@ -230,13 +232,13 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
             result.challengeResponses.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i5.BuiltMap,
+                _i6.BuiltMap,
                 [
                   FullType(String),
                   FullType(String),
                 ],
               ),
-            ) as _i5.BuiltMap<String, String>));
+            ) as _i6.BuiltMap<String, String>));
           }
           break;
         case 'ClientId':
@@ -250,13 +252,13 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
             result.clientMetadata.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i5.BuiltMap,
+                _i6.BuiltMap,
                 [
                   FullType(String),
                   FullType(String),
                 ],
               ),
-            ) as _i5.BuiltMap<String, String>));
+            ) as _i6.BuiltMap<String, String>));
           }
           break;
         case 'Session':
@@ -271,8 +273,8 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
           if (value != null) {
             result.userContextData.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i6.UserContextDataType),
-            ) as _i6.UserContextDataType));
+              specifiedType: const FullType(_i5.UserContextDataType),
+            ) as _i5.UserContextDataType));
           }
           break;
       }
@@ -314,7 +316,7 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
         ..add(serializers.serialize(
           payload.challengeResponses!,
           specifiedType: const FullType(
-            _i5.BuiltMap,
+            _i6.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -328,7 +330,7 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
         ..add(serializers.serialize(
           payload.clientMetadata!,
           specifiedType: const FullType(
-            _i5.BuiltMap,
+            _i6.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -349,7 +351,7 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
         ..add('UserContextData')
         ..add(serializers.serialize(
           payload.userContextData!,
-          specifiedType: const FullType(_i6.UserContextDataType),
+          specifiedType: const FullType(_i5.UserContextDataType),
         ));
     }
     return result;

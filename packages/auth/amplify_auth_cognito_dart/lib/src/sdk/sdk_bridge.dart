@@ -22,15 +22,10 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_exception.dart';
 import 'package:amplify_core/amplify_core.dart'
-    show AWSHttpClient, AuthenticationFlowType, DependencyManager, Token;
-import 'package:aws_signature_v4/aws_signature_v4.dart';
+    show AuthenticationFlowType, DependencyManager;
+import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
-
-/// Dependency token for Smithy HTTP clients.
-const zSmithyHttpClientToken = Token<HttpClient>([
-  Token<AWSHttpClient>(),
-]);
 
 /// Bridging helpers for [ChallengeNameType].
 extension ChallengeNameTypeBridge on ChallengeNameType {
@@ -117,45 +112,53 @@ class WrappedCognitoIdentityClient implements CognitoIdentityClient {
   }) : _base = CognitoIdentityClient(
           region: region,
           credentialsProvider: credentialsProvider,
-          client: dependencyManager.getOrCreate(zSmithyHttpClientToken),
+          client: dependencyManager.getOrCreate(),
         );
 
   final CognitoIdentityClient _base;
 
   @override
-  Future<GetCredentialsForIdentityResponse> getCredentialsForIdentity(
+  SmithyOperation<GetCredentialsForIdentityResponse> getCredentialsForIdentity(
     GetCredentialsForIdentityInput input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.getCredentialsForIdentity(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.getCredentialsForIdentity(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 
   @override
-  Future<GetIdResponse> getId(
+  SmithyOperation<GetIdResponse> getId(
     GetIdInput input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.getId(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.getId(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 }
 
@@ -168,410 +171,504 @@ class WrappedCognitoIdentityProviderClient
   /// {@macro amplify_auth_cognito_dart.sdk.wrapped_cognito_identity_provider_client}
   WrappedCognitoIdentityProviderClient({
     required String region,
+    String? endpoint,
     required AWSCredentialsProvider credentialsProvider,
     required DependencyManager dependencyManager,
   }) : _base = CognitoIdentityProviderClient(
           region: region,
           credentialsProvider: credentialsProvider,
-          client: dependencyManager.getOrCreate(zSmithyHttpClientToken),
+          client: dependencyManager.getOrCreate(),
+          baseUri: endpoint == null
+              ? null
+              : (endpoint.startsWith('http')
+                  ? Uri.parse(endpoint)
+                  : Uri.parse('https://$endpoint')),
         );
 
   final CognitoIdentityProviderClient _base;
 
   @override
-  Future<AssociateSoftwareTokenResponse> associateSoftwareToken(
+  SmithyOperation<AssociateSoftwareTokenResponse> associateSoftwareToken(
     AssociateSoftwareTokenRequest input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.associateSoftwareToken(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.associateSoftwareToken(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 
   @override
-  Future<ChangePasswordResponse> changePassword(
+  SmithyOperation<ChangePasswordResponse> changePassword(
     ChangePasswordRequest input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.changePassword(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.changePassword(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 
   @override
-  Future<ConfirmDeviceResponse> confirmDevice(
+  SmithyOperation<ConfirmDeviceResponse> confirmDevice(
     ConfirmDeviceRequest input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.confirmDevice(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.confirmDevice(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 
   @override
-  Future<ConfirmForgotPasswordResponse> confirmForgotPassword(
+  SmithyOperation<ConfirmForgotPasswordResponse> confirmForgotPassword(
     ConfirmForgotPasswordRequest input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.confirmForgotPassword(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.confirmForgotPassword(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 
   @override
-  Future<ConfirmSignUpResponse> confirmSignUp(
+  SmithyOperation<ConfirmSignUpResponse> confirmSignUp(
     ConfirmSignUpRequest input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.confirmSignUp(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.confirmSignUp(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 
   @override
-  Future<void> deleteUser(
+  SmithyOperation<void> deleteUser(
     DeleteUserRequest input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.deleteUser(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.deleteUser(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) async {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 
   @override
-  Future<void> forgetDevice(
+  SmithyOperation<void> forgetDevice(
     ForgetDeviceRequest input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.forgetDevice(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.forgetDevice(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) async {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 
   @override
-  Future<ForgotPasswordResponse> forgotPassword(
+  SmithyOperation<ForgotPasswordResponse> forgotPassword(
     ForgotPasswordRequest input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.forgotPassword(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.forgotPassword(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 
   @override
-  Future<GetDeviceResponse> getDevice(
+  SmithyOperation<GetDeviceResponse> getDevice(
     GetDeviceRequest input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.getDevice(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.getDevice(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 
   @override
-  Future<GetUserResponse> getUser(
+  SmithyOperation<GetUserResponse> getUser(
     GetUserRequest input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.getUser(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.getUser(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 
   @override
-  Future<GetUserAttributeVerificationCodeResponse>
+  SmithyOperation<GetUserAttributeVerificationCodeResponse>
       getUserAttributeVerificationCode(
     GetUserAttributeVerificationCodeRequest input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.getUserAttributeVerificationCode(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.getUserAttributeVerificationCode(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 
   @override
-  Future<GlobalSignOutResponse> globalSignOut(
+  SmithyOperation<GlobalSignOutResponse> globalSignOut(
     GlobalSignOutRequest input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.globalSignOut(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.globalSignOut(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 
   @override
-  Future<InitiateAuthResponse> initiateAuth(
+  SmithyOperation<InitiateAuthResponse> initiateAuth(
     InitiateAuthRequest input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.initiateAuth(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.initiateAuth(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 
   @override
-  Future<ListDevicesResponse> listDevices(
+  SmithyOperation<ListDevicesResponse> listDevices(
     ListDevicesRequest input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.listDevices(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.listDevices(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 
   @override
-  Future<ResendConfirmationCodeResponse> resendConfirmationCode(
+  SmithyOperation<ResendConfirmationCodeResponse> resendConfirmationCode(
     ResendConfirmationCodeRequest input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.resendConfirmationCode(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.resendConfirmationCode(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 
   @override
-  Future<RespondToAuthChallengeResponse> respondToAuthChallenge(
+  SmithyOperation<RespondToAuthChallengeResponse> respondToAuthChallenge(
     RespondToAuthChallengeRequest input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.respondToAuthChallenge(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.respondToAuthChallenge(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 
   @override
-  Future<RevokeTokenResponse> revokeToken(
+  SmithyOperation<RevokeTokenResponse> revokeToken(
     RevokeTokenRequest input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.revokeToken(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.revokeToken(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 
   @override
-  Future<SignUpResponse> signUp(
+  SmithyOperation<SignUpResponse> signUp(
     SignUpRequest input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.signUp(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.signUp(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 
   @override
-  Future<UpdateDeviceStatusResponse> updateDeviceStatus(
+  SmithyOperation<UpdateDeviceStatusResponse> updateDeviceStatus(
     UpdateDeviceStatusRequest input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.updateDeviceStatus(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.updateDeviceStatus(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 
   @override
-  Future<UpdateUserAttributesResponse> updateUserAttributes(
+  SmithyOperation<UpdateUserAttributesResponse> updateUserAttributes(
     UpdateUserAttributesRequest input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.updateUserAttributes(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.updateUserAttributes(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 
   @override
-  Future<VerifySoftwareTokenResponse> verifySoftwareToken(
+  SmithyOperation<VerifySoftwareTokenResponse> verifySoftwareToken(
     VerifySoftwareTokenRequest input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.verifySoftwareToken(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.verifySoftwareToken(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 
   @override
-  Future<VerifyUserAttributeResponse> verifyUserAttribute(
+  SmithyOperation<VerifyUserAttributeResponse> verifyUserAttribute(
     VerifyUserAttributeRequest input, {
-    HttpClient? client,
-  }) async {
-    try {
-      return await _base.verifyUserAttribute(
-        input,
-        client: client,
-      );
-    } on Exception catch (e, st) {
-      Error.throwWithStackTrace(
-        transformSdkException(e),
-        st,
-      );
-    }
+    AWSHttpClient? client,
+  }) {
+    final operation = _base.verifyUserAttribute(
+      input,
+      client: client,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
   }
 }

@@ -8,7 +8,7 @@
 dependencies:
   async: ^2.8.0
   built_value: ">=8.4.0 <8.5.0"
-  built_value_generator: 8.4.1
+  built_value_generator: 8.4.2
   code_builder: 4.3.0
   json_annotation: ^4.6.0
   json_serializable: 6.3.1

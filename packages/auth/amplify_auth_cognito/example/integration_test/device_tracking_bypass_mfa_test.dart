@@ -64,13 +64,60 @@ void main() {
         expect(confirmSignInRes.isSignedIn, isTrue);
       }
 
-      test('can bypass MFA when enabled', () async {
+      test('can bypass MFA when device is always remembered', () async {
         await configureAuth(
           config: amplifyEnvironments['device-tracking-always'],
           additionalPlugins: [AmplifyAPI()],
         );
+        addTearDown(Amplify.reset);
 
         await signIn();
+
+        await signOutUser();
+
+        final res = await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+        );
+        expect(
+          res.isSignedIn,
+          isTrue,
+          reason: 'Subsequent sign-in attempts should not require MFA',
+        );
+      });
+
+      test('cannot bypass MFA when device is not remembered', () async {
+        await configureAuth(
+          config: amplifyEnvironments['device-tracking-opt-in'],
+          additionalPlugins: [AmplifyAPI()],
+        );
+        addTearDown(Amplify.reset);
+
+        await signIn();
+
+        await signOutUser();
+
+        final res = await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+        );
+        expect(
+          res.nextStep?.signInStep,
+          'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE',
+          reason: 'Subsequent sign-in attempts should require MFA',
+        );
+      });
+
+      test('can bypass MFA when device is remembered', () async {
+        await configureAuth(
+          config: amplifyEnvironments['device-tracking-opt-in'],
+          additionalPlugins: [AmplifyAPI()],
+        );
+        addTearDown(Amplify.reset);
+
+        await signIn();
+
+        await Amplify.Auth.rememberDevice();
 
         await signOutUser();
 

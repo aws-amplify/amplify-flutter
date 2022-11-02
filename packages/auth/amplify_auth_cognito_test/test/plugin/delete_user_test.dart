@@ -37,11 +37,18 @@ class MockCognitoIdpClient extends Fake
   final Future<void> Function() _deleteUser;
 
   @override
-  Future<void> deleteUser(
+  SmithyOperation<void> deleteUser(
     DeleteUserRequest input, {
-    HttpClient? client,
-  }) async =>
-      _deleteUser();
+    AWSHttpClient? client,
+  }) =>
+      SmithyOperation(
+        CancelableOperation.fromFuture(
+          Future.value(_deleteUser()),
+        ),
+        operationName: 'GetId',
+        requestProgress: const Stream.empty(),
+        responseProgress: const Stream.empty(),
+      );
 }
 
 void main() {
@@ -57,6 +64,8 @@ void main() {
 
   late StreamController<AuthHubEvent> hubEventsController;
   late Stream<AuthHubEvent> hubEvents;
+
+  final testAuthRepo = AmplifyAuthProviderRepository();
 
   final userDeletedEvent = isA<AuthHubEvent>().having(
     (event) => event.type,
@@ -83,7 +92,10 @@ void main() {
 
     group('deleteUser', () {
       test('throws when signed out', () async {
-        await plugin.configure(config: mockConfig);
+        await plugin.configure(
+          config: mockConfig,
+          authProviderRepo: testAuthRepo,
+        );
         await expectLater(plugin.deleteUser(), throwsSignedOutException);
 
         expect(hubEvents, neverEmits(userDeletedEvent));
@@ -96,14 +108,17 @@ void main() {
           userPoolKeys: userPoolKeys,
           identityPoolKeys: identityPoolKeys,
         );
-        await plugin.configure(config: mockConfig);
+        await plugin.configure(
+          config: mockConfig,
+          authProviderRepo: testAuthRepo,
+        );
 
         final mockIdp = MockCognitoIdpClient(() async {});
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
-        await expectLater(plugin.getUserPoolTokens(), completes);
+        await expectLater(plugin.getCredentials(), completes);
         await expectLater(plugin.deleteUser(), completes);
-        expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+        expect(plugin.getCredentials(), throwsSignedOutException);
         expect(hubEvents, emitsThrough(userDeletedEvent));
       });
 
@@ -113,16 +128,19 @@ void main() {
           userPoolKeys: userPoolKeys,
           identityPoolKeys: identityPoolKeys,
         );
-        await plugin.configure(config: mockConfig);
+        await plugin.configure(
+          config: mockConfig,
+          authProviderRepo: testAuthRepo,
+        );
 
         final mockIdp = MockCognitoIdpClient(() async {
           throw InternalErrorException();
         });
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
-        await expectLater(plugin.getUserPoolTokens(), completes);
+        await expectLater(plugin.getCredentials(), completes);
         await expectLater(plugin.deleteUser(), throwsA(isA<Exception>()));
-        expect(plugin.getUserPoolTokens(), completes);
+        expect(plugin.getCredentials(), completes);
         expect(hubEvents, neverEmits(userDeletedEvent));
         unawaited(hubEventsController.close());
       });

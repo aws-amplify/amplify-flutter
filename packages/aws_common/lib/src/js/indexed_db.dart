@@ -70,7 +70,7 @@ extension PropsIDBRequest<T> on IDBRequest<T> {
   ///
   /// If the request failed and the result is not available, an
   /// `InvalidStateError` exception is thrown.
-  external T get result;
+  T get result => js_util.getProperty(this, 'result');
 
   /// Fired when an IDBRequest succeeds.
   set onsuccess(EventHandler newValue) {

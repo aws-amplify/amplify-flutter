@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_json1_v1.rest_json_protocol.model.query_params_as_string_list_map_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,11 +21,11 @@ abstract class QueryParamsAsStringListMapInput
         _i1.EmptyPayload,
         _i1.HasPayload<QueryParamsAsStringListMapInputPayload> {
   factory QueryParamsAsStringListMapInput({
-    _i3.BuiltListMultimap<String, String>? foo,
+    Map<String, List<String>>? foo,
     String? qux,
   }) {
     return _$QueryParamsAsStringListMapInput._(
-      foo: foo,
+      foo: foo == null ? null : _i3.BuiltListMultimap(foo),
       qux: qux,
     );
   }

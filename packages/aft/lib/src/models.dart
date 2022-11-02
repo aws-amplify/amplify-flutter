@@ -254,21 +254,33 @@ class AftConfig {
 /// Typed representation of the `sdk.yaml` file.
 @yamlSerializable
 @ShapeIdConverter()
-class SdkConfig with AWSSerializable, AWSEquatable<SdkConfig> {
+class SdkConfig
+    with
+        AWSEquatable<SdkConfig>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
   const SdkConfig({
+    this.ref = 'main',
     required this.apis,
   });
 
   factory SdkConfig.fromJson(Map<Object?, Object?>? json) =>
       _$SdkConfigFromJson(json ?? const {});
 
-  final Map<String, List<ShapeId>> apis;
+  /// The `aws-models` ref to pull.
+  ///
+  /// Defaults to `main`.
+  final String ref;
+  final Map<String, List<ShapeId>?> apis;
 
   @override
   Map<String, Object?> toJson() => _$SdkConfigToJson(this);
 
   @override
   List<Object?> get props => [apis];
+
+  @override
+  String get runtimeTypeName => 'SdkConfig';
 }
 
 class _VersionConstraintConverter

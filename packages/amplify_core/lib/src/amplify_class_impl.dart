@@ -24,6 +24,11 @@ import 'package:meta/meta.dart';
 /// {@endtemplate}
 @internal
 class AmplifyClassImpl extends AmplifyClass {
+  /// Share AmplifyAuthProviders with plugins.
+  @protected
+  final AmplifyAuthProviderRepository authProviderRepo =
+      AmplifyAuthProviderRepository();
+
   /// {@macro amplify_flutter.amplify_class_impl}
   AmplifyClassImpl() : super.protected();
 
@@ -31,15 +36,30 @@ class AmplifyClassImpl extends AmplifyClass {
   Future<void> addPlugin(AmplifyPluginInterface plugin) {
     switch (plugin.category) {
       case Category.analytics:
-        return Analytics.addPlugin(plugin.cast());
+        return Analytics.addPlugin(
+          plugin.cast(),
+          authProviderRepo: authProviderRepo,
+        );
       case Category.auth:
-        return Auth.addPlugin(plugin.cast());
+        return Auth.addPlugin(
+          plugin.cast(),
+          authProviderRepo: authProviderRepo,
+        );
       case Category.storage:
-        return Storage.addPlugin(plugin.cast());
+        return Storage.addPlugin(
+          plugin.cast(),
+          authProviderRepo: authProviderRepo,
+        );
       case Category.api:
-        return API.addPlugin(plugin.cast());
+        return API.addPlugin(
+          plugin.cast(),
+          authProviderRepo: authProviderRepo,
+        );
       case Category.dataStore:
-        return DataStore.addPlugin(plugin.cast());
+        return DataStore.addPlugin(
+          plugin.cast(),
+          authProviderRepo: authProviderRepo,
+        );
       case Category.hub:
         throw UnimplementedError();
     }
@@ -57,7 +77,12 @@ class AmplifyClassImpl extends AmplifyClass {
         ...Auth.plugins,
         ...DataStore.plugins,
         ...Storage.plugins,
-      ].map((p) => p.configure(config: amplifyConfig)),
+      ].map(
+        (p) => p.configure(
+          config: amplifyConfig,
+          authProviderRepo: authProviderRepo,
+        ),
+      ),
       eagerError: true,
     );
   }

@@ -12,11 +12,11 @@ class _$ForgotPasswordRequest extends ForgotPasswordRequest {
   @override
   final String clientId;
   @override
-  final _i4.BuiltMap<String, String>? clientMetadata;
+  final _i5.BuiltMap<String, String>? clientMetadata;
   @override
   final String? secretHash;
   @override
-  final _i5.UserContextDataType? userContextData;
+  final _i4.UserContextDataType? userContextData;
   @override
   final String username;
 
@@ -86,20 +86,20 @@ class ForgotPasswordRequestBuilder
   String? get clientId => _$this._clientId;
   set clientId(String? clientId) => _$this._clientId = clientId;
 
-  _i4.MapBuilder<String, String>? _clientMetadata;
-  _i4.MapBuilder<String, String> get clientMetadata =>
-      _$this._clientMetadata ??= new _i4.MapBuilder<String, String>();
-  set clientMetadata(_i4.MapBuilder<String, String>? clientMetadata) =>
+  _i5.MapBuilder<String, String>? _clientMetadata;
+  _i5.MapBuilder<String, String> get clientMetadata =>
+      _$this._clientMetadata ??= new _i5.MapBuilder<String, String>();
+  set clientMetadata(_i5.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
   String? _secretHash;
   String? get secretHash => _$this._secretHash;
   set secretHash(String? secretHash) => _$this._secretHash = secretHash;
 
-  _i5.UserContextDataTypeBuilder? _userContextData;
-  _i5.UserContextDataTypeBuilder get userContextData =>
-      _$this._userContextData ??= new _i5.UserContextDataTypeBuilder();
-  set userContextData(_i5.UserContextDataTypeBuilder? userContextData) =>
+  _i4.UserContextDataTypeBuilder? _userContextData;
+  _i4.UserContextDataTypeBuilder get userContextData =>
+      _$this._userContextData ??= new _i4.UserContextDataTypeBuilder();
+  set userContextData(_i4.UserContextDataTypeBuilder? userContextData) =>
       _$this._userContextData = userContextData;
 
   String? _username;

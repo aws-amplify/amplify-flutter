@@ -1,0 +1,5 @@
+include: package:amplify_lints/library.yaml
+
+analyzer:
+  exclude:
+    - lib/**

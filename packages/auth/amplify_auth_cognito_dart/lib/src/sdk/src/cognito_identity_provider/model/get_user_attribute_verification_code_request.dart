@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.2.0. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.get_user_attribute_verification_code_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,12 +36,13 @@ abstract class GetUserAttributeVerificationCodeRequest
   factory GetUserAttributeVerificationCodeRequest({
     required String accessToken,
     required String attributeName,
-    _i3.BuiltMap<String, String>? clientMetadata,
+    Map<String, String>? clientMetadata,
   }) {
     return _$GetUserAttributeVerificationCodeRequest._(
       accessToken: accessToken,
       attributeName: attributeName,
-      clientMetadata: clientMetadata,
+      clientMetadata:
+          clientMetadata == null ? null : _i3.BuiltMap(clientMetadata),
     );
   }
 

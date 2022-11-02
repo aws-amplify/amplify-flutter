@@ -1,13 +1,13 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_json1_v2.rest_json_validation_protocol.model.malformed_pattern_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/pattern_union.dart'
-    as _i4;
+    as _i3;
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'malformed_pattern_input.g.dart';
@@ -19,15 +19,15 @@ abstract class MalformedPatternInput
     implements Built<MalformedPatternInput, MalformedPatternInputBuilder> {
   factory MalformedPatternInput({
     String? evilString,
-    _i3.BuiltList<String>? list,
-    _i3.BuiltMap<String, String>? map,
+    List<String>? list,
+    Map<String, String>? map,
     String? string,
-    _i4.PatternUnion? union,
+    _i3.PatternUnion? union,
   }) {
     return _$MalformedPatternInput._(
       evilString: evilString,
-      list: list,
-      map: map,
+      list: list == null ? null : _i4.BuiltList(list),
+      map: map == null ? null : _i4.BuiltMap(map),
       string: string,
       union: union,
     );
@@ -53,10 +53,10 @@ abstract class MalformedPatternInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedPatternInputBuilder b) {}
   String? get evilString;
-  _i3.BuiltList<String>? get list;
-  _i3.BuiltMap<String, String>? get map;
+  _i4.BuiltList<String>? get list;
+  _i4.BuiltMap<String, String>? get map;
   String? get string;
-  _i4.PatternUnion? get union;
+  _i3.PatternUnion? get union;
   @override
   MalformedPatternInput getPayload() => this;
   @override
@@ -137,10 +137,10 @@ class MalformedPatternInputRestJson1Serializer
             result.list.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i3.BuiltList,
+                _i4.BuiltList,
                 [FullType(String)],
               ),
-            ) as _i3.BuiltList<String>));
+            ) as _i4.BuiltList<String>));
           }
           break;
         case 'map':
@@ -148,13 +148,13 @@ class MalformedPatternInputRestJson1Serializer
             result.map.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i3.BuiltMap,
+                _i4.BuiltMap,
                 [
                   FullType(String),
                   FullType(String),
                 ],
               ),
-            ) as _i3.BuiltMap<String, String>));
+            ) as _i4.BuiltMap<String, String>));
           }
           break;
         case 'string':
@@ -169,8 +169,8 @@ class MalformedPatternInputRestJson1Serializer
           if (value != null) {
             result.union = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.PatternUnion),
-            ) as _i4.PatternUnion);
+              specifiedType: const FullType(_i3.PatternUnion),
+            ) as _i3.PatternUnion);
           }
           break;
       }
@@ -201,7 +201,7 @@ class MalformedPatternInputRestJson1Serializer
         ..add(serializers.serialize(
           payload.list!,
           specifiedType: const FullType(
-            _i3.BuiltList,
+            _i4.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -212,7 +212,7 @@ class MalformedPatternInputRestJson1Serializer
         ..add(serializers.serialize(
           payload.map!,
           specifiedType: const FullType(
-            _i3.BuiltMap,
+            _i4.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -233,7 +233,7 @@ class MalformedPatternInputRestJson1Serializer
         ..add('union')
         ..add(serializers.serialize(
           payload.union!,
-          specifiedType: const FullType(_i4.PatternUnion),
+          specifiedType: const FullType(_i3.PatternUnion),
         ));
     }
     return result;

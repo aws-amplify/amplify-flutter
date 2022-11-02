@@ -1,12 +1,12 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_json1_v2.api_gateway.model.endpoint_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v2/src/api_gateway/model/endpoint_type.dart' as _i3;
+import 'package:rest_json1_v2/src/api_gateway/model/endpoint_type.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i4;
 
 part 'endpoint_configuration.g.dart';
@@ -15,12 +15,13 @@ abstract class EndpointConfiguration
     with _i1.AWSEquatable<EndpointConfiguration>
     implements Built<EndpointConfiguration, EndpointConfigurationBuilder> {
   factory EndpointConfiguration({
-    _i2.BuiltList<_i3.EndpointType>? types,
-    _i2.BuiltList<String>? vpcEndpointIds,
+    List<_i2.EndpointType>? types,
+    List<String>? vpcEndpointIds,
   }) {
     return _$EndpointConfiguration._(
-      types: types,
-      vpcEndpointIds: vpcEndpointIds,
+      types: types == null ? null : _i3.BuiltList(types),
+      vpcEndpointIds:
+          vpcEndpointIds == null ? null : _i3.BuiltList(vpcEndpointIds),
     );
   }
 
@@ -36,8 +37,8 @@ abstract class EndpointConfiguration
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(EndpointConfigurationBuilder b) {}
-  _i2.BuiltList<_i3.EndpointType>? get types;
-  _i2.BuiltList<String>? get vpcEndpointIds;
+  _i3.BuiltList<_i2.EndpointType>? get types;
+  _i3.BuiltList<String>? get vpcEndpointIds;
   @override
   List<Object?> get props => [
         types,
@@ -93,10 +94,10 @@ class EndpointConfigurationRestJson1Serializer
             result.types.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(_i3.EndpointType)],
+                _i3.BuiltList,
+                [FullType(_i2.EndpointType)],
               ),
-            ) as _i2.BuiltList<_i3.EndpointType>));
+            ) as _i3.BuiltList<_i2.EndpointType>));
           }
           break;
         case 'vpcEndpointIds':
@@ -104,10 +105,10 @@ class EndpointConfigurationRestJson1Serializer
             result.vpcEndpointIds.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i2.BuiltList,
+                _i3.BuiltList,
                 [FullType(String)],
               ),
-            ) as _i2.BuiltList<String>));
+            ) as _i3.BuiltList<String>));
           }
           break;
       }
@@ -130,8 +131,8 @@ class EndpointConfigurationRestJson1Serializer
         ..add(serializers.serialize(
           payload.types!,
           specifiedType: const FullType(
-            _i2.BuiltList,
-            [FullType(_i3.EndpointType)],
+            _i3.BuiltList,
+            [FullType(_i2.EndpointType)],
           ),
         ));
     }
@@ -141,7 +142,7 @@ class EndpointConfigurationRestJson1Serializer
         ..add(serializers.serialize(
           payload.vpcEndpointIds!,
           specifiedType: const FullType(
-            _i2.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));

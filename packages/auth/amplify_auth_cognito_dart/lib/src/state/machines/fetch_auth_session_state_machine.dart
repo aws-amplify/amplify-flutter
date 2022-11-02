@@ -19,7 +19,6 @@ import 'package:amplify_auth_cognito_dart/src/credentials/auth_plugin_credential
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
-import 'package:amplify_auth_cognito_dart/src/model/auth_user_ext.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart'
     hide NotAuthorizedException;
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
@@ -27,7 +26,6 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
 import 'package:amplify_auth_cognito_dart/src/state/machines/generated/fetch_auth_session_state_machine_base.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:stream_transform/stream_transform.dart';
 
 /// {@template amplify_auth_cognito.fetch_auth_session_state_machine}
@@ -109,12 +107,14 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
     _FederatedIdentity? federatedIdentity,
   }) async {
     final resp = await _withZoneOverrides(
-      () => _cognitoIdentityClient.getId(
-        GetIdInput(
-          identityPoolId: config.poolId,
-          logins: BuiltMap(_logins(federatedIdentity)),
-        ),
-      ),
+      () => _cognitoIdentityClient
+          .getId(
+            GetIdInput(
+              identityPoolId: config.poolId,
+              logins: _logins(federatedIdentity),
+            ),
+          )
+          .result,
     );
     final identityId = resp.identityId;
     if (identityId == null) {
@@ -129,12 +129,14 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
     required _FederatedIdentity? federatedIdentity,
   }) async {
     final resp = await _withZoneOverrides(
-      () => _cognitoIdentityClient.getCredentialsForIdentity(
-        GetCredentialsForIdentityInput(
-          identityId: identityId,
-          logins: BuiltMap(_logins(federatedIdentity)),
-        ),
-      ),
+      () => _cognitoIdentityClient
+          .getCredentialsForIdentity(
+            GetCredentialsForIdentityInput(
+              identityId: identityId,
+              logins: _logins(federatedIdentity),
+            ),
+          )
+          .result,
     );
     final credentials = resp.credentials;
     if (credentials == null) {
@@ -364,7 +366,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
     CognitoUserPoolTokens userPoolTokens,
   ) async {
     final deviceSecrets = await getOrCreate(DeviceMetadataRepository.token)
-        .get(userPoolTokens.authUser.username);
+        .get(CognitoIdToken(userPoolTokens.idToken).username);
     final refreshRequest = cognito_idp.InitiateAuthRequest.build((b) {
       b
         ..authFlow = cognito_idp.AuthFlowType.refreshTokenAuth
@@ -380,7 +382,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
     });
     try {
       final result = await _withZoneOverrides(
-        () => _cognitoIdpClient.initiateAuth(refreshRequest),
+        () => _cognitoIdpClient.initiateAuth(refreshRequest).result,
       );
       final authResult = result.authenticationResult;
 

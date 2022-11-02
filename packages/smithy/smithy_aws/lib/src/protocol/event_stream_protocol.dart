@@ -40,7 +40,7 @@ class EventStreamProtocol<InputPayload, Input, OutputPayload, Output>
   }
 
   @override
-  HttpClient getClient(Input input) => _baseProtocol.getClient(input);
+  AWSHttpClient getClient(Input input) => _baseProtocol.getClient(input);
 
   @override
   Map<String, String> get headers => _baseProtocol.headers;
@@ -53,7 +53,7 @@ class EventStreamProtocol<InputPayload, Input, OutputPayload, Output>
       _baseProtocol.requestInterceptors;
 
   @override
-  Future<String?> resolveErrorType(AWSStreamedHttpResponse response) =>
+  Future<String?> resolveErrorType(AWSBaseHttpResponse response) =>
       _baseProtocol.resolveErrorType(response);
 
   @override

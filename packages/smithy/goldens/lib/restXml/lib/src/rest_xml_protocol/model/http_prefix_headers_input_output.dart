@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_xml_v1.rest_xml_protocol.model.http_prefix_headers_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,11 +22,11 @@ abstract class HttpPrefixHeadersInputOutput
         _i1.HasPayload<HttpPrefixHeadersInputOutputPayload> {
   factory HttpPrefixHeadersInputOutput({
     String? foo,
-    _i3.BuiltMap<String, String>? fooMap,
+    Map<String, String>? fooMap,
   }) {
     return _$HttpPrefixHeadersInputOutput._(
       foo: foo,
-      fooMap: fooMap,
+      fooMap: fooMap == null ? null : _i3.BuiltMap(fooMap),
     );
   }
 

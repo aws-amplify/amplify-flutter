@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_json1_v2.rest_json_validation_protocol.model.malformed_length_override_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,16 +21,16 @@ abstract class MalformedLengthOverrideInput
             MalformedLengthOverrideInputBuilder> {
   factory MalformedLengthOverrideInput({
     _i3.Uint8List? blob,
-    _i4.BuiltList<String>? list,
-    _i4.BuiltListMultimap<String, String>? map,
+    List<String>? list,
+    Map<String, List<String>>? map,
     String? maxString,
     String? minString,
     String? string,
   }) {
     return _$MalformedLengthOverrideInput._(
       blob: blob,
-      list: list,
-      map: map,
+      list: list == null ? null : _i4.BuiltList(list),
+      map: map == null ? null : _i4.BuiltListMultimap(map),
       maxString: maxString,
       minString: minString,
       string: string,

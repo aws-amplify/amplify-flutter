@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library aws_json1_1_v2.json_protocol.model.error_with_members; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,8 +21,8 @@ abstract class ErrorWithMembers
     String? code,
     _i3.KitchenSink? complexData,
     int? integerField,
-    _i4.BuiltList<String>? listField,
-    _i4.BuiltMap<String, String>? mapField,
+    List<String>? listField,
+    Map<String, String>? mapField,
     String? message,
     String? stringField,
   }) {
@@ -30,8 +30,8 @@ abstract class ErrorWithMembers
       code: code,
       complexData: complexData,
       integerField: integerField,
-      listField: listField,
-      mapField: mapField,
+      listField: listField == null ? null : _i4.BuiltList(listField),
+      mapField: mapField == null ? null : _i4.BuiltMap(mapField),
       message: message,
       stringField: stringField,
     );

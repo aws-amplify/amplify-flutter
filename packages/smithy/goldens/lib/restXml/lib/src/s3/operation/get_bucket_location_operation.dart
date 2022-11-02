@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_xml_v1.s3.operation.get_bucket_location_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -52,7 +52,7 @@ class GetBucketLocationOperation extends _i1.HttpOperation<
           serviceConfiguration: _s3ClientConfig.signerConfiguration ??
               _i6.S3ServiceConfiguration(),
         ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
         const _i5.WithSdkInvocationId(),
         const _i5.WithSdkRequest(),
       ],
@@ -88,7 +88,7 @@ class GetBucketLocationOperation extends _i1.HttpOperation<
   @override
   _i4.GetBucketLocationOutput buildOutput(
     _i3.BucketLocationConstraint? payload,
-    _i8.AWSStreamedHttpResponse response,
+    _i8.AWSBaseHttpResponse response,
   ) =>
       _i4.GetBucketLocationOutput.fromResponse(
         payload,
@@ -96,6 +96,8 @@ class GetBucketLocationOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+  @override
+  String get runtimeTypeName => 'GetBucketLocation';
   @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
@@ -119,9 +121,9 @@ class GetBucketLocationOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i10.Future<_i4.GetBucketLocationOutput> run(
+  _i1.SmithyOperation<_i4.GetBucketLocationOutput> run(
     _i2.GetBucketLocationRequest input, {
-    _i1.HttpClient? client,
+    _i8.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i10.runZoned(

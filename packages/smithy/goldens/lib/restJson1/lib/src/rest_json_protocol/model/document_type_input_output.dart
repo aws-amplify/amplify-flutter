@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_json1_v1.rest_json_protocol.model.document_type_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,11 +16,12 @@ abstract class DocumentTypeInputOutput
         _i2.AWSEquatable<DocumentTypeInputOutput>
     implements Built<DocumentTypeInputOutput, DocumentTypeInputOutputBuilder> {
   factory DocumentTypeInputOutput({
-    _i3.JsonObject? documentValue,
+    Object? documentValue,
     String? stringValue,
   }) {
     return _$DocumentTypeInputOutput._(
-      documentValue: documentValue,
+      documentValue:
+          documentValue == null ? null : _i3.JsonObject(documentValue),
       stringValue: stringValue,
     );
   }

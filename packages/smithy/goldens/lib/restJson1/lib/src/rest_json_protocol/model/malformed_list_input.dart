@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_json1_v1.rest_json_protocol.model.malformed_list_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -13,8 +13,9 @@ part 'malformed_list_input.g.dart';
 abstract class MalformedListInput
     with _i1.HttpInput<MalformedListInput>, _i2.AWSEquatable<MalformedListInput>
     implements Built<MalformedListInput, MalformedListInputBuilder> {
-  factory MalformedListInput({_i3.BuiltList<String>? bodyList}) {
-    return _$MalformedListInput._(bodyList: bodyList);
+  factory MalformedListInput({List<String>? bodyList}) {
+    return _$MalformedListInput._(
+        bodyList: bodyList == null ? null : _i3.BuiltList(bodyList));
   }
 
   factory MalformedListInput.build(

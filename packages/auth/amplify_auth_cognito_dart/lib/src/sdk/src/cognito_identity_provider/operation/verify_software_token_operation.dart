@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.2.0. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity_provider.operation.verify_software_token_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -95,7 +95,7 @@ class VerifySoftwareTokenOperation extends _i1.HttpOperation<
           service: _i7.AWSService.cognitoIdentityProvider,
           credentialsProvider: _credentialsProvider,
         ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.2.0'),
         const _i5.WithSdkInvocationId(),
         const _i5.WithSdkRequest(),
       ],
@@ -125,7 +125,7 @@ class VerifySoftwareTokenOperation extends _i1.HttpOperation<
   @override
   _i3.VerifySoftwareTokenResponse buildOutput(
     _i3.VerifySoftwareTokenResponse payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.VerifySoftwareTokenResponse.fromResponse(
         payload,
@@ -264,15 +264,17 @@ class VerifySoftwareTokenOperation extends _i1.HttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'VerifySoftwareToken';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i22.Future<_i3.VerifySoftwareTokenResponse> run(
+  _i1.SmithyOperation<_i3.VerifySoftwareTokenResponse> run(
     _i2.VerifySoftwareTokenRequest input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i22.runZoned(

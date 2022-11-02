@@ -409,7 +409,7 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
             ..type = outputPayload.symbol),
           Parameter((p) => p
             ..name = 'response'
-            ..type = DartTypes.awsCommon.awsStreamedHttpResponse),
+            ..type = DartTypes.awsCommon.awsBaseHttpResponse),
         ])
         ..body = output.code,
     );
@@ -425,6 +425,17 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
         ..body = literalConstList([
           for (var error in errorSymbols) error.constInstance,
         ]).code,
+    );
+
+    // The `runtimeTypeName` getter
+    yield Method(
+      (m) => m
+        ..annotations.add(DartTypes.core.override)
+        ..returns = DartTypes.core.string
+        ..type = MethodType.getter
+        ..name = 'runtimeTypeName'
+        ..lambda = true
+        ..body = literalString(shape.shapeId.shape).code,
     );
 
     final resolvedService = context.service?.resolvedService;
@@ -506,14 +517,14 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
       yield Method(
         (m) => m
           ..annotations.add(DartTypes.core.override)
-          ..returns = DartTypes.async.future(outputSymbol)
+          ..returns = DartTypes.smithy.smithyOperation(outputSymbol)
           ..name = 'run'
           ..requiredParameters.add(Parameter((p) => p
             ..type = inputSymbol
             ..name = 'input'))
           ..optionalParameters.addAll([
             Parameter((p) => p
-              ..type = DartTypes.smithy.httpClient.boxed
+              ..type = DartTypes.awsCommon.awsHttpClient.boxed
               ..name = 'client'
               ..named = true),
             Parameter((p) => p
@@ -664,7 +675,7 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
             ..type = inputSymbol
             ..name = 'input'),
           Parameter((p) => p
-            ..type = inputToken?.symbol ?? DartTypes.core.void$
+            ..type = inputToken?.symbol.unboxed ?? DartTypes.core.void$
             ..name = 'token'),
           Parameter((p) => p
             ..type = pageSize?.symbol.boxed ?? DartTypes.core.void$

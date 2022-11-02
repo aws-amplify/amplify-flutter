@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_xml_v2.rest_xml_protocol.model.null_and_empty_headers_io; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,12 +22,12 @@ abstract class NullAndEmptyHeadersIo
   factory NullAndEmptyHeadersIo({
     String? a,
     String? b,
-    _i3.BuiltList<String>? c,
+    List<String>? c,
   }) {
     return _$NullAndEmptyHeadersIo._(
       a: a,
       b: b,
-      c: c,
+      c: c == null ? null : _i3.BuiltList(c),
     );
   }
 

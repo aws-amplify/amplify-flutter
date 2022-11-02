@@ -123,13 +123,19 @@ abstract class AWSBaseHttpRequest
   /// which causes an error to be thrown if any redirect occurs.
   final int maxRedirects;
 
+  /// Reads [body] fully and returns a flattened [AWSHttpRequest].
+  ///
+  /// `this` will no longer be usable after this completes.
+  FutureOr<AWSHttpRequest> read();
+
   /// Sends the HTTP request.
   ///
   /// If [client] is not provided, a short-lived one is created for this
   /// request.
-  AWSHttpOperation send([
+  AWSHttpOperation send({
     AWSHttpClient? client,
-  ]) {
+    FutureOr<void> Function()? onCancel,
+  }) {
     final useClient = client ?? AWSHttpClient();
 
     // Closes the HTTP client, but only if we created it.
@@ -159,6 +165,10 @@ abstract class AWSBaseHttpRequest
       ),
       requestProgress: awsOperation.requestProgress,
       responseProgress: awsOperation.responseProgress,
+      onCancel: () {
+        closeClient();
+        return onCancel?.call();
+      },
     );
   }
 
@@ -315,6 +325,9 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
 
   @override
   final List<int> bodyBytes;
+
+  @override
+  AWSHttpRequest read() => this;
 
   @override
   Future<void> close() async {}
@@ -499,9 +512,7 @@ class AWSStreamedHttpRequest extends AWSBaseHttpRequest {
   @override
   Future<Uint8List> get bodyBytes => collectBytes(split());
 
-  /// Reads [body] fully and returns a flattened [AWSHttpRequest].
-  ///
-  /// `this` will no longer be usable after this completes.
+  @override
   Future<AWSHttpRequest> read() async {
     try {
       return AWSHttpRequest(

@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_json1_v1.rest_json_protocol.model.media_type_header_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,8 +21,9 @@ abstract class MediaTypeHeaderInput
         Built<MediaTypeHeaderInput, MediaTypeHeaderInputBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<MediaTypeHeaderInputPayload> {
-  factory MediaTypeHeaderInput({_i3.JsonObject? json}) {
-    return _$MediaTypeHeaderInput._(json: json);
+  factory MediaTypeHeaderInput({Object? json}) {
+    return _$MediaTypeHeaderInput._(
+        json: json == null ? null : _i3.JsonObject(json));
   }
 
   factory MediaTypeHeaderInput.build(

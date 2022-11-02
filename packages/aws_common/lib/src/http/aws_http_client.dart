@@ -14,7 +14,6 @@
 
 import 'dart:async';
 
-import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_common/src/http/aws_http_client_io.dart'
     if (dart.library.js) 'package:aws_common/src/http/aws_http_client_js.dart';
@@ -46,8 +45,8 @@ abstract class AWSHttpClient implements Closeable {
 
   /// The supported HTTP protocols, used for negotiating with remote servers.
   ///
-  /// By default, only HTTP/2 and HTTP/3 servers are supported.
-  SupportedProtocols supportedProtocols = SupportedProtocols.http2_3;
+  /// By default, all protocols are supported.
+  SupportedProtocols supportedProtocols = SupportedProtocols.http1_2_3;
 
   /// Sends [request] using the underlying HTTP protocol and returns the
   /// streaming response.
@@ -125,24 +124,42 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
   Future<void> _send(
     AWSBaseHttpRequest request,
     CancelableCompleter<AWSBaseHttpResponse> completer, {
-    required StreamCompleter<int> requestProgressCompleter,
-    required StreamCompleter<int> responseProgressCompleter,
+    required StreamController<int> requestProgressController,
+    required StreamController<int> responseProgressController,
   }) async {
     try {
       request = await transformRequest(request);
     } on Object catch (e, st) {
       completer.completeError(e, st);
-      requestProgressCompleter.setEmpty();
-      responseProgressCompleter.setEmpty();
+      unawaited(requestProgressController.close());
+      unawaited(responseProgressController.close());
       return;
     }
     final operation = baseClient?.send(request) ?? super.send(request);
-    requestProgressCompleter.setSourceStream(operation.requestProgress);
-    responseProgressCompleter.setSourceStream(operation.responseProgress);
+    operation.requestProgress.listen(
+      (data) {
+        if (!requestProgressController.isClosed) {
+          requestProgressController.add(data);
+        }
+      },
+      onDone: requestProgressController.close,
+    );
+    operation.responseProgress.listen(
+      (data) {
+        if (!responseProgressController.isClosed) {
+          responseProgressController.add(data);
+        }
+      },
+      onDone: responseProgressController.close,
+    );
     operation.operation.then(
       (resp) async {
-        resp = await transformResponse(resp);
-        completer.complete(resp);
+        try {
+          resp = await transformResponse(resp);
+          completer.complete(resp);
+        } on Object catch (e, st) {
+          completer.completeError(e, st);
+        }
       },
       onError: completer.completeError,
       onCancel: completer.operation.cancel,
@@ -158,21 +175,28 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
     AWSBaseHttpRequest request, {
     FutureOr<void> Function()? onCancel,
   }) {
+    final requestProgressController =
+        StreamController<int>.broadcast(sync: true);
+    final responseProgressController =
+        StreamController<int>.broadcast(sync: true);
     final completer = CancelableCompleter<AWSBaseHttpResponse>(
-      onCancel: onCancel,
+      onCancel: () {
+        requestProgressController.close();
+        responseProgressController.close();
+        return onCancel?.call();
+      },
     );
-    final requestProgressCompleter = StreamCompleter<int>();
-    final responseProgressCompleter = StreamCompleter<int>();
     _send(
       request,
       completer,
-      requestProgressCompleter: requestProgressCompleter,
-      responseProgressCompleter: responseProgressCompleter,
+      requestProgressController: requestProgressController,
+      responseProgressController: responseProgressController,
     );
     return AWSHttpOperation(
       completer.operation,
-      requestProgress: responseProgressCompleter.stream,
-      responseProgress: responseProgressCompleter.stream,
+      requestProgress: requestProgressController.stream,
+      responseProgress: responseProgressController.stream,
+      onCancel: onCancel,
     );
   }
 

@@ -55,7 +55,7 @@ abstract class DartTypes {
   static const convert = _Convert();
 
   /// `package:fixnum` types.
-  static const fixNum = _FixNum();
+  static const fixNum = FixNum();
 
   /// `package:meta` types.
   static const meta = _Meta();
@@ -231,6 +231,9 @@ class _AwsCommon {
   /// Creates an [aws_common.AWSHeaders] reference.
   Reference get awsHeaders => const Reference('AWSHeaders', _url);
 
+  /// Creates an [aws_common.AWSHttpClient] reference.
+  Reference get awsHttpClient => const Reference('AWSHttpClient', _url);
+
   /// Creates an [aws_common.AWSHttpMethod] reference.
   Reference get awsHttpMethod => const Reference('AWSHttpMethod', _url);
 
@@ -254,10 +257,6 @@ class _AwsCommon {
   /// Creates an [aws_common.AWSStreamedHttpRequest] reference.
   Reference get awsStreamedHttpRequest =>
       const Reference('AWSStreamedHttpRequest', _url);
-
-  /// Creates an [aws_common.AWSStreamedHttpResponse] reference.
-  Reference get awsStreamedHttpResponse =>
-      const Reference('AWSStreamedHttpResponse', _url);
 
   /// Creates a secure [aws_common.uuid] instance.
   Expression uuid() => const Reference('uuid', _url).call([], {
@@ -289,9 +288,8 @@ class BuiltValueType {
 
   static const mainUrl = 'package:built_value/built_value.dart';
   static const serializerUrl = 'package:built_value/serializer.dart';
-  static const _jsonUrl = 'package:built_value/json_object.dart';
-  static const _collectionUrl =
-      'package:built_collection/built_collection.dart';
+  static const jsonUrl = 'package:built_value/json_object.dart';
+  static const collectionUrl = 'package:built_collection/built_collection.dart';
 
   /// A [built_value.BuiltValue] reference.
   Reference get builtValue => const Reference('BuiltValue', mainUrl);
@@ -315,7 +313,7 @@ class BuiltValueType {
   Reference builtList(Reference ref) => TypeReference(
         (t) => t
           ..symbol = 'BuiltList'
-          ..url = _collectionUrl
+          ..url = collectionUrl
           ..types.add(ref),
       );
 
@@ -328,7 +326,7 @@ class BuiltValueType {
   Reference builtListMultimap(Reference key, Reference value) => TypeReference(
         (t) => t
           ..symbol = 'BuiltListMultimap'
-          ..url = _collectionUrl
+          ..url = collectionUrl
           ..types.addAll([key, value]),
       );
 
@@ -337,7 +335,7 @@ class BuiltValueType {
   Reference builtMap(Reference key, Reference value) => TypeReference(
         (t) => t
           ..symbol = 'BuiltMap'
-          ..url = _collectionUrl
+          ..url = collectionUrl
           ..types.add(key)
           ..types.add(value),
       );
@@ -346,7 +344,7 @@ class BuiltValueType {
   Reference builtSet(Reference ref) => TypeReference(
         (t) => t
           ..symbol = 'BuiltSet'
-          ..url = _collectionUrl
+          ..url = collectionUrl
           ..types.add(ref),
       );
 
@@ -359,7 +357,7 @@ class BuiltValueType {
   Reference builtSetMultimap(Reference key, Reference value) => TypeReference(
         (t) => t
           ..symbol = 'BuiltSetMultimap'
-          ..url = _collectionUrl
+          ..url = collectionUrl
           ..types.addAll([key, value]),
       );
 
@@ -367,13 +365,13 @@ class BuiltValueType {
   Reference get fullType => const Reference('FullType', serializerUrl);
 
   /// Creates a [built_value_json_object.JsonObject] reference.
-  Reference get jsonObject => const Reference('JsonObject', _jsonUrl);
+  Reference get jsonObject => const Reference('JsonObject', jsonUrl);
 
   /// The builder for [built_collection.ListBuilder].
   Reference listBuilder(Reference ref) => TypeReference(
         (t) => t
           ..symbol = 'ListBuilder'
-          ..url = _collectionUrl
+          ..url = collectionUrl
           ..types.add(ref),
       );
 
@@ -382,7 +380,7 @@ class BuiltValueType {
       TypeReference(
         (t) => t
           ..symbol = 'ListMultimapBuilder'
-          ..url = _collectionUrl
+          ..url = collectionUrl
           ..types.addAll([key, value]),
       );
 
@@ -390,7 +388,7 @@ class BuiltValueType {
   Reference mapBuilder(Reference key, Reference value) => TypeReference(
         (t) => t
           ..symbol = 'MapBuilder'
-          ..url = _collectionUrl
+          ..url = collectionUrl
           ..types.addAll([key, value]),
       );
 
@@ -411,7 +409,7 @@ class BuiltValueType {
   Reference setBuilder(Reference ref) => TypeReference(
         (t) => t
           ..symbol = 'SetBuilder'
-          ..url = _collectionUrl
+          ..url = collectionUrl
           ..types.add(ref),
       );
 
@@ -419,7 +417,7 @@ class BuiltValueType {
   Reference setMultimapBuilder(Reference key, Reference value) => TypeReference(
         (t) => t
           ..symbol = 'SetMultimapBuilder'
-          ..url = _collectionUrl
+          ..url = collectionUrl
           ..types.addAll([key, value]),
       );
 
@@ -450,13 +448,13 @@ class _Convert {
 }
 
 /// `package:fixnum` types
-class _FixNum {
-  const _FixNum();
+class FixNum {
+  const FixNum();
 
-  static const _url = 'package:fixnum/fixnum.dart';
+  static const url = 'package:fixnum/fixnum.dart';
 
   /// Creates an [Int64] reference.
-  Reference get int64 => const Reference('Int64', _url);
+  Reference get int64 => const Reference('Int64', url);
 }
 
 /// `package:meta` types.
@@ -546,9 +544,6 @@ class _Smithy {
           ..types.add(ref),
       );
 
-  /// Creates a [smithy.HttpClient] refererence.
-  Reference get httpClient => const Reference('HttpClient', _url);
-
   /// Creates a [smithy.HttpServerBase] refererence.
   Reference get httpServerBase => const Reference('HttpServerBase', _url);
 
@@ -625,14 +620,6 @@ class _Smithy {
   Reference get missingLabelException =>
       const Reference('MissingLabelException', _url);
 
-  /// Creates a [smithy.Operation] reference.
-  Reference operation(Reference input, Reference output) => TypeReference(
-        (t) => t
-          ..symbol = 'Operation'
-          ..url = _url
-          ..types.addAll([input, output]),
-      );
-
   /// Creates a [smithy.PaginatedHttpOperation] reference for an operation with input
   /// payload type [inputPayload], input type [input], and output type [output].
   Reference paginatedHttpOperation(
@@ -660,12 +647,16 @@ class _Smithy {
       );
 
   /// Creates a [smithy.PaginatedResult] reference.
-  Reference paginatedResult(Reference itemsRef, Reference pageSizeRef) =>
+  Reference paginatedResult(
+    Reference itemsRef,
+    Reference pageSizeRef,
+    Reference tokenRef,
+  ) =>
       TypeReference(
         (t) => t
           ..url = _url
           ..symbol = 'PaginatedResult'
-          ..types.addAll([itemsRef, pageSizeRef]),
+          ..types.addAll([itemsRef, pageSizeRef, tokenRef]),
       );
 
   /// Creates a [smithy.parseHeader] reference.
@@ -715,6 +706,15 @@ class _Smithy {
   /// Creates a [smithy.SmithyHttpException] reference.
   Reference get smithyHttpException =>
       const Reference('SmithyHttpException', _url);
+
+  /// Creates a [smithy.SmithyOperation] reference for an operation with output
+  /// type [output].
+  Reference smithyOperation(Reference output) => TypeReference(
+        (t) => t
+          ..symbol = 'SmithyOperation'
+          ..url = _url
+          ..types.add(output),
+      );
 
   /// Creates a [smithy.SmithyUnion] reference for [ref], the union class.
   Reference smithyUnion(Reference ref) => TypeReference(
@@ -834,6 +834,14 @@ class _SmithyAws {
   /// Creates a [smithy_aws.AWSSignatureVersion] refererence.
   Reference get awsSignatureVersion =>
       const Reference('AWSSignatureVersion', _url);
+
+  /// Creates a [smithy_aws.CheckErrorOnSuccess] refererence.
+  Reference get checkErrorOnSuccess =>
+      const Reference('CheckErrorOnSuccess', _url);
+
+  /// Creates a [smithy_aws.CheckPartialResponse] refererence.
+  Reference get checkPartialResponse =>
+      const Reference('CheckPartialResponse', _url);
 
   /// Creates a [smithy_aws.CredentialScope] refererence.
   Reference get credentialScope => const Reference('CredentialScope', _url);

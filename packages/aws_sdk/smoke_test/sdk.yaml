@@ -1,0 +1,24 @@
+# Selected AWS services for smoke testing, representative
+# of the six AWS protocols
+apis:
+  # API Gateway V1 (restJson1)
+  apigateway:
+
+  # Config (awsJson1_1)
+  config:
+
+  # EC2 (ec2Query)
+  # ec2:
+
+  # DynamoDB (awsJson1_0)
+  dynamodb:
+  streams.dynamodb:
+
+  # STS (awsQuery)
+  # sts:
+
+  # S3 (restXml)
+  s3:
+
+# TODO(dnys1): Remove when Smithy 2.0 migration is complete
+ref: bf750f19766048467c676f6841053f9da6c87bf3

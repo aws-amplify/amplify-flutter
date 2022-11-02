@@ -16,13 +16,50 @@ import 'dart:async';
 
 import 'package:aws_common/src/config/aws_config_stub.dart'
     if (dart.library.io) 'package:aws_common/src/config/aws_config_io.dart';
-import 'package:meta/meta.dart';
+
+export 'package:aws_common/src/config/aws_config_stub.dart'
+    if (dart.library.io) 'package:aws_common/src/config/aws_config_io.dart';
 
 T _identity<T extends Object>(String o) => o as T;
 
 /// A configuration value for use with AWS packages.
-@immutable
-class AWSConfigValue<T extends Object> {
+enum AWSConfigValue<T extends Object> {
+  /// The `AWS_MAX_ATTEMPTS` value specifies how many HTTP requests an SDK
+  /// should make for a single SDK operation invocation before giving up.
+  ///
+  /// Defaults to `3`.
+  maxAttempts<int>._(
+    'AWS_MAX_ATTEMPTS',
+    // TODO(dnys1): Add back when https://github.com/dart-lang/sdk/issues/49245 is resolved.
+    // String.fromEnvironment('AWS_MAX_ATTEMPTS'),
+    3,
+    parse: int.parse,
+  ),
+
+  /// The default region to use for AWS operations.
+  ///
+  /// Defaults to `us-east-1`.
+  region._(
+    'AWS_REGION',
+    'us-east-1',
+  ),
+
+  /// The location (filepath) of the AWS configuration file.
+  ///
+  /// Defaults to `~/.aws/config`.
+  configFile._(
+    'AWS_CONFIG_FILE',
+    '~/.aws/config',
+  ),
+
+  /// The location (filepath) of the AWS shared credentials file.
+  ///
+  /// Defaults to `~/.aws/credentials`.
+  sharedCredentialsFile._(
+    'AWS_SHARED_CREDENTIALS_FILE',
+    '~/.aws/credentials',
+  );
+
   const AWSConfigValue._(
     this.key,
     // TODO(dnys1): Add back when https://github.com/dart-lang/sdk/issues/49245 is resolved.
@@ -30,16 +67,6 @@ class AWSConfigValue<T extends Object> {
     this.defaultValue, {
     T Function(String)? parse,
   }) : _parse = parse ?? _identity;
-
-  /// The `AWS_MAX_ATTEMPTS` value specifies how many HTTP requests an SDK
-  /// should make for a single SDK operation invocation before giving up.
-  static const AWSConfigValue<int> maxAttempts = AWSConfigValue<int>._(
-    'AWS_MAX_ATTEMPTS',
-    // TODO(dnys1): Add back when https://github.com/dart-lang/sdk/issues/49245 is resolved.
-    // String.fromEnvironment('AWS_MAX_ATTEMPTS'),
-    3,
-    parse: int.parse,
-  );
 
   /// The environment variable key.
   final String key;

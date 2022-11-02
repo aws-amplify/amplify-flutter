@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_xml_v1.rest_xml_protocol.model.flattened_xml_map_with_xml_namespace_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,9 +16,9 @@ abstract class FlattenedXmlMapWithXmlNamespaceOutput
     implements
         Built<FlattenedXmlMapWithXmlNamespaceOutput,
             FlattenedXmlMapWithXmlNamespaceOutputBuilder> {
-  factory FlattenedXmlMapWithXmlNamespaceOutput(
-      {_i2.BuiltMap<String, String>? myMap}) {
-    return _$FlattenedXmlMapWithXmlNamespaceOutput._(myMap: myMap);
+  factory FlattenedXmlMapWithXmlNamespaceOutput({Map<String, String>? myMap}) {
+    return _$FlattenedXmlMapWithXmlNamespaceOutput._(
+        myMap: myMap == null ? null : _i2.BuiltMap(myMap));
   }
 
   factory FlattenedXmlMapWithXmlNamespaceOutput.build(

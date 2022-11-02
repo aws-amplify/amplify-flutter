@@ -16,11 +16,21 @@
 import 'package:amplify_core/amplify_core.dart';
 
 class AuthProvider
-    with AWSEquatable<AuthProvider>, AWSSerializable<String>, AWSDebuggable {
-  const AuthProvider._(this.name) : _identityPoolProvider = null;
+    with
+        AWSEquatable<AuthProvider>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
+  const AuthProvider._(this.name, [this._identityPoolProvider]);
 
   final String name;
   final String? _identityPoolProvider;
+
+  factory AuthProvider.fromJson(Map<String, Object?> json) {
+    return AuthProvider._(
+      json['name'] as String,
+      json['identityPoolProvider'] as String?,
+    );
+  }
 
   /// Auth provider that uses OpenID Connect.
   ///
@@ -115,7 +125,10 @@ class AuthProvider
   String get runtimeTypeName => 'AuthProvider';
 
   @override
-  String toJson() => name;
+  Map<String, Object?> toJson() => {
+        'name': name,
+        'identityPoolProvider': _identityPoolProvider,
+      };
 
   @override
   String toString() => 'AuthProvider.$name';

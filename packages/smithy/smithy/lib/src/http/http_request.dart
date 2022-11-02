@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
 import 'package:aws_common/aws_common.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
@@ -107,4 +109,128 @@ abstract class HttpRequestContext
 
   /// The region to use when signing the request.
   String? get awsSigningRegion;
+}
+
+/// {@template smithy.http.smithy_http_request}
+/// An [AWSBaseHttpRequest] wrapper with protocol interception support.
+/// {@endtemplate}
+class SmithyHttpRequest {
+  /// {@macro smithy.http.smithy_http_request}
+  SmithyHttpRequest(
+    this._baseRequest, {
+    List<HttpRequestInterceptor> requestInterceptors = const [],
+    List<HttpResponseInterceptor> responseInterceptors = const [],
+  })  : _requestInterceptors = requestInterceptors,
+        _responseInterceptors = responseInterceptors;
+
+  /// The pre-transformed [AWSBaseHttpRequest].
+  final AWSBaseHttpRequest _baseRequest;
+  final List<HttpRequestInterceptor> _requestInterceptors;
+  final List<HttpResponseInterceptor> _responseInterceptors;
+
+  /// Transforms [_baseRequest] using [_requestInterceptors].
+  @visibleForTesting
+  Future<AWSBaseHttpRequest> transformRequest({
+    AWSHttpClient? baseClient,
+    bool Function()? isCanceled,
+  }) async {
+    var request = _baseRequest;
+    if (baseClient is AWSBaseHttpClient) {
+      // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_overriding_member
+      request = await baseClient.transformRequest(request);
+    }
+    for (final interceptor in _requestInterceptors) {
+      if (isCanceled?.call() ?? false) {
+        break;
+      }
+      final interception = interceptor.intercept(request);
+      if (interception is Future<AWSBaseHttpRequest>) {
+        request = await interception;
+      } else {
+        request = interception;
+      }
+    }
+    return request;
+  }
+
+  /// Transforms [response] using [_responseInterceptors].
+  Future<AWSBaseHttpResponse> _transformResponse(
+    AWSBaseHttpResponse response, {
+    AWSHttpClient? baseClient,
+    bool Function()? isCanceled,
+  }) async {
+    if (baseClient is AWSBaseHttpClient) {
+      // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_overriding_member
+      response = await baseClient.transformResponse(response);
+    }
+    for (final interceptor in _responseInterceptors) {
+      if (isCanceled?.call() ?? false) {
+        break;
+      }
+      final interception = interceptor.intercept(response);
+      if (interception is Future<AWSBaseHttpResponse>) {
+        response = await interception;
+      } else {
+        response = interception;
+      }
+    }
+    return response;
+  }
+
+  /// Transforms and sends [_baseRequest] with [client].
+  AWSHttpOperation send({
+    AWSHttpClient? client,
+    FutureOr<void> Function()? onCancel,
+  }) {
+    final requestProgress = StreamController<int>.broadcast(sync: true);
+    final responseProgress = StreamController<int>.broadcast(sync: true);
+    final completer = CancelableCompleter<AWSBaseHttpResponse>(
+      onCancel: () {
+        requestProgress.close();
+        responseProgress.close();
+        onCancel?.call();
+      },
+    );
+    Future<void>(() async {
+      final request = await transformRequest(
+        baseClient: client,
+        isCanceled: () => completer.isCanceled,
+      );
+      final operation = request.send(
+        // We extract the transformRequest/transformResponse methods of
+        // `client` when specified. To avoid calling them twice in `send`,
+        // send the request using its baseClient.
+        // TODO(dnys1): Invert? Add interceptors option to Smithy operations?
+        client: client is AWSBaseHttpClient ? client.baseClient : client,
+        onCancel: completer.operation.cancel,
+      );
+      operation.requestProgress.listen(
+        requestProgress.add,
+        onError: requestProgress.addError,
+        onDone: requestProgress.close,
+      );
+      operation.responseProgress.listen(
+        responseProgress.add,
+        onError: responseProgress.addError,
+        onDone: responseProgress.close,
+      );
+      operation.operation.then(
+        (response) async {
+          response = await _transformResponse(
+            response,
+            baseClient: client,
+            isCanceled: () => completer.isCanceled,
+          );
+          completer.complete(response);
+        },
+        onError: completer.completeError,
+      );
+    });
+    return AWSHttpOperation(
+      completer.operation,
+      requestProgress: requestProgress.stream,
+      responseProgress: responseProgress.stream,
+      onCancel: onCancel,
+    );
+  }
 }

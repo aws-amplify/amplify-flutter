@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 /// A REST JSON service that sends JSON requests and responses with validation applied
 library rest_json1_v2.rest_json_validation_protocol;

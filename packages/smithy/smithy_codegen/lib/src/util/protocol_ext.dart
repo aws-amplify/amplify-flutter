@@ -233,6 +233,27 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
             checksumTrait.requestChecksumRequired != false)) {
       yield DartTypes.smithy.validateChecksum.constInstance([]);
     }
+
+    // AWS customizations
+    final serviceId = context.serviceShapeId;
+    final aws = context.service?.getTrait<ServiceTrait>();
+    if (aws != null && serviceId != null) {
+      final trait = aws.resolve(serviceId);
+      final operationName = shape.shapeId.shape;
+      switch (trait.sdkId) {
+        case 'S3':
+          if (operationName == 'GetObject') {
+            yield DartTypes.smithyAws.checkPartialResponse.constInstance([]);
+          }
+          // These S3 operations require checking for errors on 2xx responses:
+          // https://aws.amazon.com/premiumsupport/knowledge-center/s3-resolve-200-internalerror/
+          if (operationName == 'CopyObject' ||
+              operationName == 'CompleteMultipartUpload' ||
+              operationName == 'UploadPartCopy') {
+            yield DartTypes.smithyAws.checkErrorOnSuccess.constInstance([]);
+          }
+      }
+    }
   }
 
   Map<String, Expression> extraParameters(

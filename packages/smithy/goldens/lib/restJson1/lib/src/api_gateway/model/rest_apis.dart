@@ -1,12 +1,12 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_json1_v1.api_gateway.model.rest_apis; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v1/src/api_gateway/model/rest_api.dart' as _i3;
+import 'package:rest_json1_v1/src/api_gateway/model/rest_api.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i4;
 
 part 'rest_apis.g.dart';
@@ -15,11 +15,11 @@ abstract class RestApis
     with _i1.AWSEquatable<RestApis>
     implements Built<RestApis, RestApisBuilder> {
   factory RestApis({
-    _i2.BuiltList<_i3.RestApi>? items,
+    List<_i2.RestApi>? items,
     String? position,
   }) {
     return _$RestApis._(
-      items: items,
+      items: items == null ? null : _i3.BuiltList(items),
       position: position,
     );
   }
@@ -41,7 +41,7 @@ abstract class RestApis
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RestApisBuilder b) {}
-  _i2.BuiltList<_i3.RestApi>? get items;
+  _i3.BuiltList<_i2.RestApi>? get items;
   String? get position;
   @override
   List<Object?> get props => [
@@ -97,10 +97,10 @@ class RestApisRestJson1Serializer
             result.items.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(_i3.RestApi)],
+                _i3.BuiltList,
+                [FullType(_i2.RestApi)],
               ),
-            ) as _i2.BuiltList<_i3.RestApi>));
+            ) as _i3.BuiltList<_i2.RestApi>));
           }
           break;
         case 'position':
@@ -131,8 +131,8 @@ class RestApisRestJson1Serializer
         ..add(serializers.serialize(
           payload.items!,
           specifiedType: const FullType(
-            _i2.BuiltList,
-            [FullType(_i3.RestApi)],
+            _i3.BuiltList,
+            [FullType(_i2.RestApi)],
           ),
         ));
     }

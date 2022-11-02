@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_json1_v2.rest_json_protocol.model.http_prefix_headers_in_response_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,8 +20,10 @@ abstract class HttpPrefixHeadersInResponseOutput
         _i2.EmptyPayload,
         _i2.HasPayload<HttpPrefixHeadersInResponseOutputPayload> {
   factory HttpPrefixHeadersInResponseOutput(
-      {_i3.BuiltMap<String, String>? prefixHeaders}) {
-    return _$HttpPrefixHeadersInResponseOutput._(prefixHeaders: prefixHeaders);
+      {Map<String, String>? prefixHeaders}) {
+    return _$HttpPrefixHeadersInResponseOutput._(
+        prefixHeaders:
+            prefixHeaders == null ? null : _i3.BuiltMap(prefixHeaders));
   }
 
   factory HttpPrefixHeadersInResponseOutput.build(

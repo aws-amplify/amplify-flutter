@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library aws_json1_1_v2.machine_learning.model.predict_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,12 +16,12 @@ abstract class PredictInput
   factory PredictInput({
     required String mlModelId,
     required String predictEndpoint,
-    required _i3.BuiltMap<String, String> record,
+    required Map<String, String> record,
   }) {
     return _$PredictInput._(
       mlModelId: mlModelId,
       predictEndpoint: predictEndpoint,
-      record: record,
+      record: _i3.BuiltMap(record),
     );
   }
 

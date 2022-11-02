@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.2.0. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.device_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/attribute_type.dart'
-    as _i3;
+    as _i2;
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i4;
@@ -32,14 +32,15 @@ abstract class DeviceType
     implements Built<DeviceType, DeviceTypeBuilder> {
   /// The device type.
   factory DeviceType({
-    _i2.BuiltList<_i3.AttributeType>? deviceAttributes,
+    List<_i2.AttributeType>? deviceAttributes,
     DateTime? deviceCreateDate,
     String? deviceKey,
     DateTime? deviceLastAuthenticatedDate,
     DateTime? deviceLastModifiedDate,
   }) {
     return _$DeviceType._(
-      deviceAttributes: deviceAttributes,
+      deviceAttributes:
+          deviceAttributes == null ? null : _i3.BuiltList(deviceAttributes),
       deviceCreateDate: deviceCreateDate,
       deviceKey: deviceKey,
       deviceLastAuthenticatedDate: deviceLastAuthenticatedDate,
@@ -61,7 +62,7 @@ abstract class DeviceType
   static void _init(DeviceTypeBuilder b) {}
 
   /// The device attributes.
-  _i2.BuiltList<_i3.AttributeType>? get deviceAttributes;
+  _i3.BuiltList<_i2.AttributeType>? get deviceAttributes;
 
   /// The creation date of the device.
   DateTime? get deviceCreateDate;
@@ -143,10 +144,10 @@ class DeviceTypeAwsJson11Serializer
             result.deviceAttributes.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(_i3.AttributeType)],
+                _i3.BuiltList,
+                [FullType(_i2.AttributeType)],
               ),
-            ) as _i2.BuiltList<_i3.AttributeType>));
+            ) as _i3.BuiltList<_i2.AttributeType>));
           }
           break;
         case 'DeviceCreateDate':
@@ -201,8 +202,8 @@ class DeviceTypeAwsJson11Serializer
         ..add(serializers.serialize(
           payload.deviceAttributes!,
           specifiedType: const FullType(
-            _i2.BuiltList,
-            [FullType(_i3.AttributeType)],
+            _i3.BuiltList,
+            [FullType(_i2.AttributeType)],
           ),
         ));
     }

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.2.0. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity.model.get_id_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,12 +32,12 @@ abstract class GetIdInput
   factory GetIdInput({
     String? accountId,
     required String identityPoolId,
-    _i3.BuiltMap<String, String>? logins,
+    Map<String, String>? logins,
   }) {
     return _$GetIdInput._(
       accountId: accountId,
       identityPoolId: identityPoolId,
-      logins: logins,
+      logins: logins == null ? null : _i3.BuiltMap(logins),
     );
   }
 

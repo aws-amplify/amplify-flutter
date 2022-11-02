@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_json1_v1.rest_json_protocol.model.malformed_map_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -13,8 +13,9 @@ part 'malformed_map_input.g.dart';
 abstract class MalformedMapInput
     with _i1.HttpInput<MalformedMapInput>, _i2.AWSEquatable<MalformedMapInput>
     implements Built<MalformedMapInput, MalformedMapInputBuilder> {
-  factory MalformedMapInput({_i3.BuiltMap<String, String>? bodyMap}) {
-    return _$MalformedMapInput._(bodyMap: bodyMap);
+  factory MalformedMapInput({Map<String, String>? bodyMap}) {
+    return _$MalformedMapInput._(
+        bodyMap: bodyMap == null ? null : _i3.BuiltMap(bodyMap));
   }
 
   factory MalformedMapInput.build(
