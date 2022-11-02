@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_json1.glacier.model.upload_multipart_part_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.glacier.model.upload_multipart_part_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -28,8 +28,9 @@ abstract class UploadMultipartPartOutput
 
   /// Constructs a [UploadMultipartPartOutput] from a [payload] and [response].
   factory UploadMultipartPartOutput.fromResponse(
-          UploadMultipartPartOutputPayload payload,
-          _i1.AWSBaseHttpResponse response) =>
+    UploadMultipartPartOutputPayload payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       UploadMultipartPartOutput.build((b) {
         if (response.headers['x-amz-sha256-tree-hash'] != null) {
           b.checksum = response.headers['x-amz-sha256-tree-hash']!;
@@ -51,7 +52,10 @@ abstract class UploadMultipartPartOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UploadMultipartPartOutput');
-    helper.add('checksum', checksum);
+    helper.add(
+      'checksum',
+      checksum,
+    );
     return helper.toString();
   }
 }
@@ -92,20 +96,29 @@ class UploadMultipartPartOutputRestJson1Serializer
         UploadMultipartPartOutput,
         _$UploadMultipartPartOutput,
         UploadMultipartPartOutputPayload,
-        _$UploadMultipartPartOutputPayload
+        _$UploadMultipartPartOutputPayload,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   UploadMultipartPartOutputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return UploadMultipartPartOutputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

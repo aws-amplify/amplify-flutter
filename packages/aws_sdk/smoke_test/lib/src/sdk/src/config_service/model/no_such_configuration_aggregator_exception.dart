@@ -1,0 +1,143 @@
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+
+library smoke_test.config_service.model.no_such_configuration_aggregator_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
+
+import 'package:aws_common/aws_common.dart' as _i1;
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
+import 'package:smithy/smithy.dart' as _i2;
+
+part 'no_such_configuration_aggregator_exception.g.dart';
+
+/// You have specified a configuration aggregator that does not exist.
+abstract class NoSuchConfigurationAggregatorException
+    with
+        _i1.AWSEquatable<NoSuchConfigurationAggregatorException>
+    implements
+        Built<NoSuchConfigurationAggregatorException,
+            NoSuchConfigurationAggregatorExceptionBuilder>,
+        _i2.SmithyHttpException {
+  /// You have specified a configuration aggregator that does not exist.
+  factory NoSuchConfigurationAggregatorException({String? message}) {
+    return _$NoSuchConfigurationAggregatorException._(message: message);
+  }
+
+  /// You have specified a configuration aggregator that does not exist.
+  factory NoSuchConfigurationAggregatorException.build(
+      [void Function(NoSuchConfigurationAggregatorExceptionBuilder)
+          updates]) = _$NoSuchConfigurationAggregatorException;
+
+  const NoSuchConfigurationAggregatorException._();
+
+  /// Constructs a [NoSuchConfigurationAggregatorException] from a [payload] and [response].
+  factory NoSuchConfigurationAggregatorException.fromResponse(
+    NoSuchConfigurationAggregatorException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
+      payload.rebuild((b) {
+        b.statusCode = response.statusCode;
+        b.headers = response.headers;
+      });
+
+  static const List<_i2.SmithySerializer> serializers = [
+    NoSuchConfigurationAggregatorExceptionAwsJson11Serializer()
+  ];
+
+  @BuiltValueHook(initializeBuilder: true)
+  static void _init(NoSuchConfigurationAggregatorExceptionBuilder b) {}
+
+  /// Error executing the command
+  @override
+  String? get message;
+  @override
+  _i2.ShapeId get shapeId => const _i2.ShapeId(
+        namespace: 'com.amazonaws.configservice',
+        shape: 'NoSuchConfigurationAggregatorException',
+      );
+  @override
+  _i2.RetryConfig? get retryConfig => null;
+  @override
+  @BuiltValueField(compare: false)
+  int? get statusCode;
+  @override
+  @BuiltValueField(compare: false)
+  Map<String, String>? get headers;
+  @override
+  Exception? get underlyingException => null;
+  @override
+  List<Object?> get props => [message];
+  @override
+  String toString() {
+    final helper =
+        newBuiltValueToStringHelper('NoSuchConfigurationAggregatorException');
+    helper.add(
+      'message',
+      message,
+    );
+    return helper.toString();
+  }
+}
+
+class NoSuchConfigurationAggregatorExceptionAwsJson11Serializer extends _i2
+    .StructuredSmithySerializer<NoSuchConfigurationAggregatorException> {
+  const NoSuchConfigurationAggregatorExceptionAwsJson11Serializer()
+      : super('NoSuchConfigurationAggregatorException');
+
+  @override
+  Iterable<Type> get types => const [
+        NoSuchConfigurationAggregatorException,
+        _$NoSuchConfigurationAggregatorException,
+      ];
+  @override
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
+  @override
+  NoSuchConfigurationAggregatorException deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = NoSuchConfigurationAggregatorExceptionBuilder();
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final value = iterator.current;
+      switch (key) {
+        case 'message':
+          if (value != null) {
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+      }
+    }
+
+    return result.build();
+  }
+
+  @override
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final payload = (object as NoSuchConfigurationAggregatorException);
+    final result = <Object?>[];
+    if (payload.message != null) {
+      result
+        ..add('message')
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    return result;
+  }
+}

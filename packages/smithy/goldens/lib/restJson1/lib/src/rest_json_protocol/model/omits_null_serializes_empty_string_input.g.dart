@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1.rest_json_protocol.model.omits_null_serializes_empty_string_input;
+part of rest_json1_v1.rest_json_protocol.model.omits_null_serializes_empty_string_input;
 
 // **************************************************************************
 // BuiltValueGenerator

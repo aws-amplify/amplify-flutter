@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.malformed_long_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.malformed_long_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -18,16 +18,19 @@ abstract class MalformedLongInput
     implements
         Built<MalformedLongInput, MalformedLongInputBuilder>,
         _i1.HasPayload<MalformedLongInputPayload> {
-  factory MalformedLongInput(
-      {_i3.Int64? longInBody,
-      _i3.Int64? longInHeader,
-      required _i3.Int64 longInPath,
-      _i3.Int64? longInQuery}) {
+  factory MalformedLongInput({
+    _i3.Int64? longInBody,
+    _i3.Int64? longInHeader,
+    _i3.Int64? longInPath,
+    _i3.Int64? longInQuery,
+  }) {
+    longInPath ??= _i3.Int64.ZERO;
     return _$MalformedLongInput._(
-        longInBody: longInBody,
-        longInHeader: longInHeader,
-        longInPath: longInPath,
-        longInQuery: longInQuery);
+      longInBody: longInBody,
+      longInHeader: longInHeader,
+      longInPath: longInPath,
+      longInQuery: longInQuery,
+    );
   }
 
   factory MalformedLongInput.build(
@@ -37,8 +40,10 @@ abstract class MalformedLongInput
   const MalformedLongInput._();
 
   factory MalformedLongInput.fromRequest(
-          MalformedLongInputPayload payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    MalformedLongInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       MalformedLongInput.build((b) {
         b.longInBody = payload.longInBody;
         if (request.headers['longInHeader'] != null) {
@@ -58,7 +63,10 @@ abstract class MalformedLongInput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedLongInputBuilder b) {}
+  static void _init(MalformedLongInputBuilder b) {
+    b.longInPath = _i3.Int64.ZERO;
+  }
+
   _i3.Int64? get longInBody;
   _i3.Int64? get longInHeader;
   _i3.Int64 get longInPath;
@@ -69,7 +77,10 @@ abstract class MalformedLongInput
       case 'longInPath':
         return longInPath.toString();
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -77,15 +88,31 @@ abstract class MalformedLongInput
         b.longInBody = longInBody;
       });
   @override
-  List<Object?> get props =>
-      [longInBody, longInHeader, longInPath, longInQuery];
+  List<Object?> get props => [
+        longInBody,
+        longInHeader,
+        longInPath,
+        longInQuery,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedLongInput');
-    helper.add('longInBody', longInBody);
-    helper.add('longInHeader', longInHeader);
-    helper.add('longInPath', longInPath);
-    helper.add('longInQuery', longInQuery);
+    helper.add(
+      'longInBody',
+      longInBody,
+    );
+    helper.add(
+      'longInHeader',
+      longInHeader,
+    );
+    helper.add(
+      'longInPath',
+      longInPath,
+    );
+    helper.add(
+      'longInQuery',
+      longInQuery,
+    );
     return helper.toString();
   }
 }
@@ -109,7 +136,10 @@ abstract class MalformedLongInputPayload
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedLongInputPayload');
-    helper.add('longInBody', longInBody);
+    helper.add(
+      'longInBody',
+      longInBody,
+    );
     return helper.toString();
   }
 }
@@ -123,15 +153,21 @@ class MalformedLongInputRestJson1Serializer
         MalformedLongInput,
         _$MalformedLongInput,
         MalformedLongInputPayload,
-        _$MalformedLongInputPayload
+        _$MalformedLongInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   MalformedLongInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = MalformedLongInputPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -141,8 +177,10 @@ class MalformedLongInputRestJson1Serializer
       switch (key) {
         case 'longInBody':
           if (value != null) {
-            result.longInBody = (serializers.deserialize(value,
-                specifiedType: const FullType(_i3.Int64)) as _i3.Int64);
+            result.longInBody = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.Int64),
+            ) as _i3.Int64);
           }
           break;
       }
@@ -152,8 +190,11 @@ class MalformedLongInputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is MalformedLongInput
         ? object.getPayload()
         : (object as MalformedLongInputPayload);
@@ -161,8 +202,10 @@ class MalformedLongInputRestJson1Serializer
     if (payload.longInBody != null) {
       result
         ..add('longInBody')
-        ..add(serializers.serialize(payload.longInBody!,
-            specifiedType: const FullType(_i3.Int64)));
+        ..add(serializers.serialize(
+          payload.longInBody!,
+          specifiedType: const FullType(_i3.Int64),
+        ));
     }
     return result;
   }

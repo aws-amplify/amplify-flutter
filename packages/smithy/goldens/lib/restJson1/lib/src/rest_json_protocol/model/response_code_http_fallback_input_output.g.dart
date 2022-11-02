@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1.rest_json_protocol.model.response_code_http_fallback_input_output;
+part of rest_json1_v1.rest_json_protocol.model.response_code_http_fallback_input_output;
 
 // **************************************************************************
 // BuiltValueGenerator

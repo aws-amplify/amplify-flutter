@@ -12,15 +12,15 @@ class _$RespondToAuthChallengeRequest extends RespondToAuthChallengeRequest {
   @override
   final _i4.ChallengeNameType challengeName;
   @override
-  final _i5.BuiltMap<String, String>? challengeResponses;
+  final _i6.BuiltMap<String, String>? challengeResponses;
   @override
   final String clientId;
   @override
-  final _i5.BuiltMap<String, String>? clientMetadata;
+  final _i6.BuiltMap<String, String>? clientMetadata;
   @override
   final String? session;
   @override
-  final _i6.UserContextDataType? userContextData;
+  final _i5.UserContextDataType? userContextData;
 
   factory _$RespondToAuthChallengeRequest(
           [void Function(RespondToAuthChallengeRequestBuilder)? updates]) =>
@@ -97,30 +97,30 @@ class RespondToAuthChallengeRequestBuilder
   set challengeName(_i4.ChallengeNameType? challengeName) =>
       _$this._challengeName = challengeName;
 
-  _i5.MapBuilder<String, String>? _challengeResponses;
-  _i5.MapBuilder<String, String> get challengeResponses =>
-      _$this._challengeResponses ??= new _i5.MapBuilder<String, String>();
-  set challengeResponses(_i5.MapBuilder<String, String>? challengeResponses) =>
+  _i6.MapBuilder<String, String>? _challengeResponses;
+  _i6.MapBuilder<String, String> get challengeResponses =>
+      _$this._challengeResponses ??= new _i6.MapBuilder<String, String>();
+  set challengeResponses(_i6.MapBuilder<String, String>? challengeResponses) =>
       _$this._challengeResponses = challengeResponses;
 
   String? _clientId;
   String? get clientId => _$this._clientId;
   set clientId(String? clientId) => _$this._clientId = clientId;
 
-  _i5.MapBuilder<String, String>? _clientMetadata;
-  _i5.MapBuilder<String, String> get clientMetadata =>
-      _$this._clientMetadata ??= new _i5.MapBuilder<String, String>();
-  set clientMetadata(_i5.MapBuilder<String, String>? clientMetadata) =>
+  _i6.MapBuilder<String, String>? _clientMetadata;
+  _i6.MapBuilder<String, String> get clientMetadata =>
+      _$this._clientMetadata ??= new _i6.MapBuilder<String, String>();
+  set clientMetadata(_i6.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
   String? _session;
   String? get session => _$this._session;
   set session(String? session) => _$this._session = session;
 
-  _i6.UserContextDataTypeBuilder? _userContextData;
-  _i6.UserContextDataTypeBuilder get userContextData =>
-      _$this._userContextData ??= new _i6.UserContextDataTypeBuilder();
-  set userContextData(_i6.UserContextDataTypeBuilder? userContextData) =>
+  _i5.UserContextDataTypeBuilder? _userContextData;
+  _i5.UserContextDataTypeBuilder get userContextData =>
+      _$this._userContextData ??= new _i5.UserContextDataTypeBuilder();
+  set userContextData(_i5.UserContextDataTypeBuilder? userContextData) =>
       _$this._userContextData = userContextData;
 
   RespondToAuthChallengeRequestBuilder() {

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1.rest_json_protocol.model.http_payload_traits_with_media_type_input_output;
+part of rest_json1_v1.rest_json_protocol.model.http_payload_traits_with_media_type_input_output;
 
 // **************************************************************************
 // BuiltValueGenerator

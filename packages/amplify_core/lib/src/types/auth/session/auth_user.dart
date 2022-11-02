@@ -17,29 +17,34 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 'auth_user.g.dart';
 
-@zAmplifySerializable
-class AuthUser
-    with
-        AWSEquatable<AuthUser>,
-        AWSSerializable<Map<String, Object?>>,
-        AWSDebuggable {
+@zAmplifyGenericSerializable
+class AuthUser<Details extends SignInDetails>
+    with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
   const AuthUser({
     required this.userId,
     required this.username,
+    required this.signInDetails,
   });
 
-  factory AuthUser.fromJson(Map<String, Object?> json) =>
-      _$AuthUserFromJson(json);
+  factory AuthUser.fromJson(
+    Map<String, Object?> json,
+    Details Function(Map<String, Object?>) fromJsonSignInDetails,
+  ) =>
+      _$AuthUserFromJson(
+        json,
+        (json) => fromJsonSignInDetails((json as Map).cast()),
+      );
 
   final String userId;
   final String username;
-
-  @override
-  List<Object?> get props => [userId, username];
+  final Details signInDetails;
 
   @override
   String get runtimeTypeName => 'AuthUser';
 
   @override
-  Map<String, Object?> toJson() => _$AuthUserToJson(this);
+  Map<String, Object?> toJson() => _$AuthUserToJson(
+        this,
+        (Details details) => details.toJson(),
+      );
 }

@@ -20,8 +20,7 @@ part of authenticator.form_field;
 /// A prebuilt form field widget for use on the Confirm Sign Up step.
 /// {@endtemplate}
 abstract class ConfirmSignUpFormField<FieldValue>
-    extends AuthenticatorFormField<ConfirmSignUpField, FieldValue,
-        ConfirmSignUpFormField<FieldValue>> {
+    extends AuthenticatorFormField<ConfirmSignUpField, FieldValue> {
   /// {@macro amplify_authenticator.confirm_sign_up_form_field}
   ///
   /// Either [titleKey] or [title] is required.

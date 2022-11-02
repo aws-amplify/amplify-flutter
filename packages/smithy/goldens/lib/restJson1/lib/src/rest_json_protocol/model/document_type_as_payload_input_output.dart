@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.document_type_as_payload_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.document_type_as_payload_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i3;
 import 'package:built_value/built_value.dart';
@@ -18,8 +18,10 @@ abstract class DocumentTypeAsPayloadInputOutput
         Built<DocumentTypeAsPayloadInputOutput,
             DocumentTypeAsPayloadInputOutputBuilder>,
         _i1.HasPayload<_i2.JsonObject> {
-  factory DocumentTypeAsPayloadInputOutput({_i2.JsonObject? documentValue}) {
-    return _$DocumentTypeAsPayloadInputOutput._(documentValue: documentValue);
+  factory DocumentTypeAsPayloadInputOutput({Object? documentValue}) {
+    return _$DocumentTypeAsPayloadInputOutput._(
+        documentValue:
+            documentValue == null ? null : _i2.JsonObject(documentValue));
   }
 
   factory DocumentTypeAsPayloadInputOutput.build(
@@ -29,15 +31,19 @@ abstract class DocumentTypeAsPayloadInputOutput
   const DocumentTypeAsPayloadInputOutput._();
 
   factory DocumentTypeAsPayloadInputOutput.fromRequest(
-          _i2.JsonObject? payload, _i3.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    _i2.JsonObject? payload,
+    _i3.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       DocumentTypeAsPayloadInputOutput.build((b) {
         b.documentValue = payload;
       });
 
   /// Constructs a [DocumentTypeAsPayloadInputOutput] from a [payload] and [response].
   factory DocumentTypeAsPayloadInputOutput.fromResponse(
-          _i2.JsonObject? payload, _i3.AWSBaseHttpResponse response) =>
+    _i2.JsonObject? payload,
+    _i3.AWSBaseHttpResponse response,
+  ) =>
       DocumentTypeAsPayloadInputOutput.build((b) {
         b.documentValue = payload;
       });
@@ -57,38 +63,55 @@ abstract class DocumentTypeAsPayloadInputOutput
   String toString() {
     final helper =
         newBuiltValueToStringHelper('DocumentTypeAsPayloadInputOutput');
-    helper.add('documentValue', documentValue);
+    helper.add(
+      'documentValue',
+      documentValue,
+    );
     return helper.toString();
   }
 }
 
 class DocumentTypeAsPayloadInputOutputRestJson1Serializer
-    extends _i1.PrimitiveSmithySerializer<Object> {
+    extends _i1.PrimitiveSmithySerializer<_i2.JsonObject> {
   const DocumentTypeAsPayloadInputOutputRestJson1Serializer()
       : super('DocumentTypeAsPayloadInputOutput');
 
   @override
   Iterable<Type> get types => const [
         DocumentTypeAsPayloadInputOutput,
-        _$DocumentTypeAsPayloadInputOutput
+        _$DocumentTypeAsPayloadInputOutput,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
-  _i2.JsonObject deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return (serializers.deserialize(serialized,
-        specifiedType: const FullType(_i2.JsonObject)) as _i2.JsonObject);
+  _i2.JsonObject deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return (serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(_i2.JsonObject),
+    ) as _i2.JsonObject);
   }
 
   @override
-  Object serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is DocumentTypeAsPayloadInputOutput
         ? object.getPayload()
         : (object as _i2.JsonObject?);
-    return (serializers.serialize(payload!,
-        specifiedType: const FullType(_i2.JsonObject)) as Object);
+    return (serializers.serialize(
+      payload!,
+      specifiedType: const FullType(_i2.JsonObject),
+    ) as Object);
   }
 }

@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_xml.rest_xml_protocol.model.query_precedence_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.model.query_precedence_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_collection/built_collection.dart' as _i3;
@@ -19,9 +19,14 @@ abstract class QueryPrecedenceInput
         Built<QueryPrecedenceInput, QueryPrecedenceInputBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<QueryPrecedenceInputPayload> {
-  factory QueryPrecedenceInput(
-      {_i3.BuiltMap<String, String>? baz, String? foo}) {
-    return _$QueryPrecedenceInput._(baz: baz, foo: foo);
+  factory QueryPrecedenceInput({
+    Map<String, String>? baz,
+    String? foo,
+  }) {
+    return _$QueryPrecedenceInput._(
+      baz: baz == null ? null : _i3.BuiltMap(baz),
+      foo: foo,
+    );
   }
 
   factory QueryPrecedenceInput.build(
@@ -31,8 +36,10 @@ abstract class QueryPrecedenceInput
   const QueryPrecedenceInput._();
 
   factory QueryPrecedenceInput.fromRequest(
-          QueryPrecedenceInputPayload payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    QueryPrecedenceInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       QueryPrecedenceInput.build((b) {
         if (request.queryParameters['bar'] != null) {
           b.foo = request.queryParameters['bar']!;
@@ -50,12 +57,21 @@ abstract class QueryPrecedenceInput
   @override
   QueryPrecedenceInputPayload getPayload() => QueryPrecedenceInputPayload();
   @override
-  List<Object?> get props => [baz, foo];
+  List<Object?> get props => [
+        baz,
+        foo,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('QueryPrecedenceInput');
-    helper.add('baz', baz);
-    helper.add('foo', foo);
+    helper.add(
+      'baz',
+      baz,
+    );
+    helper.add(
+      'foo',
+      foo,
+    );
     return helper.toString();
   }
 }
@@ -92,21 +108,30 @@ class QueryPrecedenceInputRestXmlSerializer
         QueryPrecedenceInput,
         _$QueryPrecedenceInput,
         QueryPrecedenceInputPayload,
-        _$QueryPrecedenceInputPayload
+        _$QueryPrecedenceInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   QueryPrecedenceInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return QueryPrecedenceInputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[const _i1.XmlElementName('QueryPrecedenceInput')];
     return result;
   }

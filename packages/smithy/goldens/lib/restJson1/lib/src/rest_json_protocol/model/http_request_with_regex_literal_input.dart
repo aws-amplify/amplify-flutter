@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.http_request_with_regex_literal_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.http_request_with_regex_literal_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -30,9 +30,10 @@ abstract class HttpRequestWithRegexLiteralInput
   const HttpRequestWithRegexLiteralInput._();
 
   factory HttpRequestWithRegexLiteralInput.fromRequest(
-          HttpRequestWithRegexLiteralInputPayload payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    HttpRequestWithRegexLiteralInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       HttpRequestWithRegexLiteralInput.build((b) {
         if (labels['str'] != null) {
           b.str = labels['str']!;
@@ -52,7 +53,10 @@ abstract class HttpRequestWithRegexLiteralInput
       case 'str':
         return str;
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -64,7 +68,10 @@ abstract class HttpRequestWithRegexLiteralInput
   String toString() {
     final helper =
         newBuiltValueToStringHelper('HttpRequestWithRegexLiteralInput');
-    helper.add('str', str);
+    helper.add(
+      'str',
+      str,
+    );
     return helper.toString();
   }
 }
@@ -105,20 +112,29 @@ class HttpRequestWithRegexLiteralInputRestJson1Serializer extends _i1
         HttpRequestWithRegexLiteralInput,
         _$HttpRequestWithRegexLiteralInput,
         HttpRequestWithRegexLiteralInputPayload,
-        _$HttpRequestWithRegexLiteralInputPayload
+        _$HttpRequestWithRegexLiteralInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   HttpRequestWithRegexLiteralInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return HttpRequestWithRegexLiteralInputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

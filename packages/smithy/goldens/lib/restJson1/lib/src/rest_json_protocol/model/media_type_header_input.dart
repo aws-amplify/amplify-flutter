@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.media_type_header_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.media_type_header_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:convert' as _i4;
 
@@ -21,8 +21,9 @@ abstract class MediaTypeHeaderInput
         Built<MediaTypeHeaderInput, MediaTypeHeaderInputBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<MediaTypeHeaderInputPayload> {
-  factory MediaTypeHeaderInput({_i3.JsonObject? json}) {
-    return _$MediaTypeHeaderInput._(json: json);
+  factory MediaTypeHeaderInput({Object? json}) {
+    return _$MediaTypeHeaderInput._(
+        json: json == null ? null : _i3.JsonObject(json));
   }
 
   factory MediaTypeHeaderInput.build(
@@ -32,8 +33,10 @@ abstract class MediaTypeHeaderInput
   const MediaTypeHeaderInput._();
 
   factory MediaTypeHeaderInput.fromRequest(
-          MediaTypeHeaderInputPayload payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    MediaTypeHeaderInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       MediaTypeHeaderInput.build((b) {
         if (request.headers['X-Json'] != null) {
           b.json = _i3.JsonObject(_i4.jsonDecode(
@@ -55,7 +58,10 @@ abstract class MediaTypeHeaderInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MediaTypeHeaderInput');
-    helper.add('json', json);
+    helper.add(
+      'json',
+      json,
+    );
     return helper.toString();
   }
 }
@@ -93,20 +99,29 @@ class MediaTypeHeaderInputRestJson1Serializer
         MediaTypeHeaderInput,
         _$MediaTypeHeaderInput,
         MediaTypeHeaderInputPayload,
-        _$MediaTypeHeaderInputPayload
+        _$MediaTypeHeaderInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   MediaTypeHeaderInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return MediaTypeHeaderInputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

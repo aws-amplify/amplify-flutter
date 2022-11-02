@@ -30,7 +30,9 @@ abstract class PrimitiveDoubleShape
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PrimitiveDoubleShapeBuilder b) {
     b.shapeId = id;
-    b.traits = TraitMap.empty();
+    b.traits = TraitMap.fromTraits(const [
+      DefaultTrait(0),
+    ]);
   }
 
   static const id = ShapeId.core('PrimitiveDouble');

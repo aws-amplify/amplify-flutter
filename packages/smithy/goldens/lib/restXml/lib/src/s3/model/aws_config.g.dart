@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml.s3.model.aws_config;
+part of rest_xml_v1.s3.model.aws_config;
 
 // **************************************************************************
 // BuiltValueGenerator

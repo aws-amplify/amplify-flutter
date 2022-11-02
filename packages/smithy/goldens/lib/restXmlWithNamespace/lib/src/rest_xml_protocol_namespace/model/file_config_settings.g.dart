@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_with_namespace.rest_xml_protocol_namespace.model.file_config_settings;
+part of rest_xml_with_namespace_v1.rest_xml_protocol_namespace.model.file_config_settings;
 
 // **************************************************************************
 // BuiltValueGenerator

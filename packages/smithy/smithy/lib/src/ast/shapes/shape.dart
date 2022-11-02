@@ -77,7 +77,7 @@ class ShapeSerializer extends StructuredSerializer<Shape> {
       iterator.moveNext();
       final Object? value = iterator.current;
       if (key == 'type') {
-        final type = ShapeType.valueOf(value as String);
+        final type = ShapeType.deserialize(value as String);
         return serializers.deserialize(
           serialized,
           specifiedType: FullType(type.type),

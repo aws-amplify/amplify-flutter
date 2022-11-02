@@ -62,7 +62,7 @@ import org.json.JSONObject
  * of those categories, we bridge to the Dart plugin using a Flutter MethodChannel via `pigeon`.
  */
 class NativeAuthPlugin(
-    private val nativeAuthPlugin: () -> NativeAuthPluginBindings.NativeAuthPlugin?
+    private val nativeAuthPlugin: () -> NativeAuthPluginBindingsPigeon.NativeAuthPlugin?
 ): AuthPlugin<AWSCognitoAuthServiceBehavior>() {
 
     override fun getPluginKey(): String = "awsCognitoAuthPlugin"

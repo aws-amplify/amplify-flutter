@@ -91,9 +91,9 @@ class EndpointDefinition with AWSSerializable {
     final sortedProtocols = [...merged.protocols]..sort((a, b) {
         final aIdx = _protocolPriority.indexOf(a);
         final bIdx = _protocolPriority.indexOf(b);
-        return (aIdx > 0 && bIdx > 0)
+        return (aIdx > -1 && bIdx > -1)
             ? aIdx.compareTo(bIdx)
-            : aIdx > 0
+            : aIdx > -1
                 ? -1
                 : 1;
       });

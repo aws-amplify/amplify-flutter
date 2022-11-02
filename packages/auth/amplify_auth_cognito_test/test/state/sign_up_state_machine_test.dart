@@ -16,6 +16,8 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
     hide SignUpRequest, ConfirmSignUpRequest;
 import 'package:amplify_auth_cognito_dart/src/model/sign_up_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
+import 'package:amplify_core/amplify_core.dart'
+    show AWSHttpClient, CancelableOperation;
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:mockito/mockito.dart';
 import 'package:smithy/smithy.dart';
@@ -38,22 +40,39 @@ class MockCognitoIdentityProviderClient extends Fake
       _confirmSignUp;
 
   @override
-  Future<ConfirmSignUpResponse> confirmSignUp(
+  SmithyOperation<ConfirmSignUpResponse> confirmSignUp(
     ConfirmSignUpRequest input, {
-    HttpClient? client,
+    AWSHttpClient? client,
   }) {
     if (_confirmSignUp == null) {
       throw UnimplementedError();
     }
-    return _confirmSignUp!(input);
+    return SmithyOperation(
+      CancelableOperation.fromFuture(
+        Future.value(_confirmSignUp!(input)),
+      ),
+      operationName: 'ConfirmSignUp',
+      requestProgress: const Stream.empty(),
+      responseProgress: const Stream.empty(),
+    );
   }
 
   @override
-  Future<SignUpResponse> signUp(SignUpRequest input, {HttpClient? client}) {
+  SmithyOperation<SignUpResponse> signUp(
+    SignUpRequest input, {
+    AWSHttpClient? client,
+  }) {
     if (_signUp == null) {
       throw UnimplementedError();
     }
-    return _signUp!(input);
+    return SmithyOperation(
+      CancelableOperation.fromFuture(
+        Future.value(_signUp!(input)),
+      ),
+      operationName: 'SignUp',
+      requestProgress: const Stream.empty(),
+      responseProgress: const Stream.empty(),
+    );
   }
 }
 

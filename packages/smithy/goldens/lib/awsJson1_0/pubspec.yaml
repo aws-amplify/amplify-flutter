@@ -1,5 +1,5 @@
-name: aws_json1_0
-description: Aws Json1 0 client SDK
+name: aws_json1_0_v1
+description: Aws Json1 0 V1 client SDK
 version: 0.1.0
 publish_to: none
 
@@ -38,6 +38,6 @@ dev_dependencies:
   smithy_test:
     path: ../../../smithy_test
   build_runner: ^2.0.0
-  built_value_generator: 8.4.1
+  built_value_generator: 8.4.2
   lints: ^1.0.0
   test: ^1.16.0

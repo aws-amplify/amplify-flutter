@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:convert';
+
 import 'package:aws_common/aws_common.dart' hide HttpPayload;
 import 'package:code_builder/code_builder.dart';
 import 'package:collection/collection.dart';
@@ -76,6 +78,7 @@ extension ShapeClassName on Shape {
       case ShapeType.string:
         if (!isEnum) return null;
         break;
+      case ShapeType.enum_:
       case ShapeType.structure:
       case ShapeType.operation:
       case ShapeType.union:
@@ -109,20 +112,20 @@ extension ShapeClassName on Shape {
 extension DartName on String {
   String nameEscaped(ShapeType parentType) {
     assert(
-      parentType == ShapeType.string ||
+      parentType == ShapeType.enum_ ||
           parentType == ShapeType.union ||
           parentType == ShapeType.structure,
       'Escaping names should only be done on types with members and enums',
     );
     final reservedWords = [
       ...hardReservedWords,
-      if (parentType == ShapeType.string) ...enumReservedWords,
+      if (parentType == ShapeType.enum_) ...enumReservedWords,
       if (parentType == ShapeType.union) ...unionReservedWords,
       if (parentType == ShapeType.structure) ...structReservedWords,
     ];
 
     final escapeChar =
-        (parentType == ShapeType.string || parentType == ShapeType.union)
+        (parentType == ShapeType.enum_ || parentType == ShapeType.union)
             ? '\$'
             : '_';
     var name = this;
@@ -143,8 +146,8 @@ extension ShapeUtils on Shape {
     final isMemberShape = parent != null;
     if (!isMemberShape) {
       // If a shape is not part of an aggregate shape, its nullability is
-      // strictly equal to whether it has the box trait.
-      return isBoxed;
+      // strictly equal to whether it has a default value.
+      return hasTrait<BoxTrait>();
     }
 
     final parentType = parent.getType();
@@ -265,21 +268,46 @@ extension ShapeUtils on Shape {
   }
 
   /// The default value of this shape when not boxed.
-  Expression? get defaultValue {
+  Expression? defaultValue(CodegenContext context) {
     if (isBoxed) {
       return null;
     }
-    switch (getType()) {
+    final targetShape = this is MemberShape
+        ? context.shapeFor((this as MemberShape).target)
+        : this;
+    final defaultTrait =
+        getTrait<DefaultTrait>() ?? targetShape.getTrait<DefaultTrait>();
+    final defaultValue = defaultTrait?.value;
+    switch (targetShape.getType()) {
       case ShapeType.byte:
       case ShapeType.short:
       case ShapeType.integer:
       case ShapeType.float:
       case ShapeType.double:
-        return literalNum(0);
+        return literalNum(defaultValue as num? ?? 0);
       case ShapeType.long:
-        return DartTypes.fixNum.int64.property('ZERO');
+        return defaultValue == null || defaultValue == 0
+            ? DartTypes.fixNum.int64.property('ZERO')
+            : DartTypes.fixNum.int64.newInstance([
+                literalNum(defaultValue as int),
+              ]);
       case ShapeType.boolean:
-        return literalFalse;
+        return literalBool(defaultValue as bool? ?? false);
+      case ShapeType.blob:
+        if (defaultValue is! String) {
+          return null;
+        }
+        final encoded = utf8.encode(defaultValue);
+        final encodedExp = literalConstList(encoded);
+        if (!targetShape.isStreaming) {
+          return encodedExp;
+        }
+        if (encoded.isEmpty) {
+          return DartTypes.async.stream().constInstanceNamed('empty', []);
+        }
+        return DartTypes.async.stream().newInstanceNamed('value', [
+          encodedExp,
+        ]);
       default:
         return null;
     }
@@ -483,9 +511,9 @@ extension OperationShapeUtil on OperationShape {
     // The client field
     yield ConfigParameter(
       (p) => p
-        ..type = DartTypes.smithy.httpClient.boxed
+        ..type = DartTypes.awsCommon.awsHttpClient.boxed
         ..name = 'client'
-        ..location = ParameterLocation.run,
+        ..location = ParameterLocation.all,
     );
 
     if (serviceShape.isAwsService) {
@@ -546,7 +574,7 @@ extension OperationShapeUtil on OperationShape {
   /// based off the traits attached to this shape's service.
   Iterable<Field> protocolFields(CodegenContext context) sync* {
     for (final parameter in operationParameters(context)
-        .where((p) => p.location.inConstructor)) {
+        .where((p) => p.location == ParameterLocation.constructor)) {
       yield Field(
         (f) => f
           ..modifier = FieldModifier.final$
@@ -566,7 +594,7 @@ extension OperationShapeUtil on OperationShape {
     bool Function(ConfigParameter) toThis = _defaultToThis,
   }) sync* {
     for (final parameter in operationParameters(context)
-        .where((p) => p.location.inConstructor)) {
+        .where((p) => p.location == ParameterLocation.constructor)) {
       yield Parameter((p) {
         final pToThis = toThis(parameter);
         p
@@ -593,13 +621,18 @@ extension StructureShapeUtil on StructureShape {
                 operation.errors.map((ref) => ref.target).contains(shapeId),
           );
 
+  /// Whether this is an unwrapped S3 output.
+  bool isS3UnwrappedOutput(CodegenContext context) {
+    final operationShape = this.operationShape(context);
+    return operationShape != null &&
+        operationShape.hasTrait<S3UnwrappedXmlOutputTrait>() &&
+        isOutputShape;
+  }
+
   /// The symbol for the HTTP payload, or `this` if not supported.
   HttpPayload httpPayload(CodegenContext context) {
     MemberShape? payloadMember;
-    final operationShape = this.operationShape(context);
-    if (operationShape != null &&
-        operationShape.hasTrait<S3UnwrappedXmlOutputTrait>() &&
-        isOutputShape) {
+    if (isS3UnwrappedOutput(context)) {
       payloadMember = members.values.single;
     }
     payloadMember ??= members.values.firstWhereOrNull((shape) {
@@ -766,10 +799,14 @@ extension StructureShapeUtil on StructureShape {
       .toList();
 
   /// Whether the structure has an HTTP payload.
-  bool hasPayload(CodegenContext context) =>
-      (isInputShape || isOutputShape || isError) &&
-      (metadataMembers(context).isNotEmpty ||
-          members.values.any((shape) => shape.hasTrait<HttpPayloadTrait>()));
+  bool hasPayload(CodegenContext context) {
+    if (isS3UnwrappedOutput(context)) {
+      return true;
+    }
+    return (isInputShape || isOutputShape || isError) &&
+        (metadataMembers(context).isNotEmpty ||
+            members.values.any((shape) => shape.hasTrait<HttpPayloadTrait>()));
+  }
 
   /// Whether the structure needs a payload struct.
   bool hasBuiltPayload(CodegenContext context) =>

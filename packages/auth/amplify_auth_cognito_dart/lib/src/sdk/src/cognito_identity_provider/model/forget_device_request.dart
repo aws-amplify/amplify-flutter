@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.2.0. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.forget_device_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -30,10 +30,14 @@ abstract class ForgetDeviceRequest
         _i2.AWSEquatable<ForgetDeviceRequest>
     implements Built<ForgetDeviceRequest, ForgetDeviceRequestBuilder> {
   /// Represents the request to forget the device.
-  factory ForgetDeviceRequest(
-      {String? accessToken, required String deviceKey}) {
+  factory ForgetDeviceRequest({
+    String? accessToken,
+    required String deviceKey,
+  }) {
     return _$ForgetDeviceRequest._(
-        accessToken: accessToken, deviceKey: deviceKey);
+      accessToken: accessToken,
+      deviceKey: deviceKey,
+    );
   }
 
   /// Represents the request to forget the device.
@@ -44,8 +48,10 @@ abstract class ForgetDeviceRequest
   const ForgetDeviceRequest._();
 
   factory ForgetDeviceRequest.fromRequest(
-          ForgetDeviceRequest payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    ForgetDeviceRequest payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -63,12 +69,21 @@ abstract class ForgetDeviceRequest
   @override
   ForgetDeviceRequest getPayload() => this;
   @override
-  List<Object?> get props => [accessToken, deviceKey];
+  List<Object?> get props => [
+        accessToken,
+        deviceKey,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ForgetDeviceRequest');
-    helper.add('accessToken', '***SENSITIVE***');
-    helper.add('deviceKey', deviceKey);
+    helper.add(
+      'accessToken',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'deviceKey',
+      deviceKey,
+    );
     return helper.toString();
   }
 }
@@ -78,15 +93,23 @@ class ForgetDeviceRequestAwsJson11Serializer
   const ForgetDeviceRequestAwsJson11Serializer() : super('ForgetDeviceRequest');
 
   @override
-  Iterable<Type> get types =>
-      const [ForgetDeviceRequest, _$ForgetDeviceRequest];
+  Iterable<Type> get types => const [
+        ForgetDeviceRequest,
+        _$ForgetDeviceRequest,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   ForgetDeviceRequest deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = ForgetDeviceRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -96,13 +119,17 @@ class ForgetDeviceRequestAwsJson11Serializer
       switch (key) {
         case 'AccessToken':
           if (value != null) {
-            result.accessToken = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.accessToken = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'DeviceKey':
-          result.deviceKey = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.deviceKey = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
       }
     }
@@ -111,19 +138,26 @@ class ForgetDeviceRequestAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as ForgetDeviceRequest);
     final result = <Object?>[
       'DeviceKey',
-      serializers.serialize(payload.deviceKey,
-          specifiedType: const FullType(String))
+      serializers.serialize(
+        payload.deviceKey,
+        specifiedType: const FullType(String),
+      ),
     ];
     if (payload.accessToken != null) {
       result
         ..add('AccessToken')
-        ..add(serializers.serialize(payload.accessToken!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.accessToken!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

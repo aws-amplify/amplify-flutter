@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.http_payload_traits_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.http_payload_traits_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:typed_data' as _i2;
 
@@ -19,8 +19,14 @@ abstract class HttpPayloadTraitsInputOutput
         Built<HttpPayloadTraitsInputOutput,
             HttpPayloadTraitsInputOutputBuilder>,
         _i1.HasPayload<_i2.Uint8List> {
-  factory HttpPayloadTraitsInputOutput({_i2.Uint8List? blob, String? foo}) {
-    return _$HttpPayloadTraitsInputOutput._(blob: blob, foo: foo);
+  factory HttpPayloadTraitsInputOutput({
+    _i2.Uint8List? blob,
+    String? foo,
+  }) {
+    return _$HttpPayloadTraitsInputOutput._(
+      blob: blob,
+      foo: foo,
+    );
   }
 
   factory HttpPayloadTraitsInputOutput.build(
@@ -30,8 +36,10 @@ abstract class HttpPayloadTraitsInputOutput
   const HttpPayloadTraitsInputOutput._();
 
   factory HttpPayloadTraitsInputOutput.fromRequest(
-          _i2.Uint8List? payload, _i3.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    _i2.Uint8List? payload,
+    _i3.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       HttpPayloadTraitsInputOutput.build((b) {
         b.blob = payload;
         if (request.headers['X-Foo'] != null) {
@@ -41,7 +49,9 @@ abstract class HttpPayloadTraitsInputOutput
 
   /// Constructs a [HttpPayloadTraitsInputOutput] from a [payload] and [response].
   factory HttpPayloadTraitsInputOutput.fromResponse(
-          _i2.Uint8List? payload, _i3.AWSBaseHttpResponse response) =>
+    _i2.Uint8List? payload,
+    _i3.AWSBaseHttpResponse response,
+  ) =>
       HttpPayloadTraitsInputOutput.build((b) {
         b.blob = payload;
         if (response.headers['X-Foo'] != null) {
@@ -60,41 +70,66 @@ abstract class HttpPayloadTraitsInputOutput
   @override
   _i2.Uint8List? getPayload() => blob;
   @override
-  List<Object?> get props => [blob, foo];
+  List<Object?> get props => [
+        blob,
+        foo,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HttpPayloadTraitsInputOutput');
-    helper.add('blob', blob);
-    helper.add('foo', foo);
+    helper.add(
+      'blob',
+      blob,
+    );
+    helper.add(
+      'foo',
+      foo,
+    );
     return helper.toString();
   }
 }
 
 class HttpPayloadTraitsInputOutputRestJson1Serializer
-    extends _i1.PrimitiveSmithySerializer<Object> {
+    extends _i1.PrimitiveSmithySerializer<_i2.Uint8List> {
   const HttpPayloadTraitsInputOutputRestJson1Serializer()
       : super('HttpPayloadTraitsInputOutput');
 
   @override
-  Iterable<Type> get types =>
-      const [HttpPayloadTraitsInputOutput, _$HttpPayloadTraitsInputOutput];
+  Iterable<Type> get types => const [
+        HttpPayloadTraitsInputOutput,
+        _$HttpPayloadTraitsInputOutput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
-  _i2.Uint8List deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return (serializers.deserialize(serialized,
-        specifiedType: const FullType(_i2.Uint8List)) as _i2.Uint8List);
+  _i2.Uint8List deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return (serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(_i2.Uint8List),
+    ) as _i2.Uint8List);
   }
 
   @override
-  Object serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is HttpPayloadTraitsInputOutput
         ? object.getPayload()
         : (object as _i2.Uint8List?);
-    return (serializers.serialize(payload!,
-        specifiedType: const FullType(_i2.Uint8List)) as Object);
+    return (serializers.serialize(
+      payload!,
+      specifiedType: const FullType(_i2.Uint8List),
+    ) as Object);
   }
 }

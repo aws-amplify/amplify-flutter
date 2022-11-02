@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.malformed_content_type_with_payload_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.malformed_content_type_with_payload_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:typed_data' as _i2;
 
@@ -30,8 +30,10 @@ abstract class MalformedContentTypeWithPayloadInput
   const MalformedContentTypeWithPayloadInput._();
 
   factory MalformedContentTypeWithPayloadInput.fromRequest(
-          _i2.Uint8List? payload, _i3.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    _i2.Uint8List? payload,
+    _i3.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       MalformedContentTypeWithPayloadInput.build((b) {
         b.payload = payload;
       });
@@ -51,38 +53,55 @@ abstract class MalformedContentTypeWithPayloadInput
   String toString() {
     final helper =
         newBuiltValueToStringHelper('MalformedContentTypeWithPayloadInput');
-    helper.add('payload', payload);
+    helper.add(
+      'payload',
+      payload,
+    );
     return helper.toString();
   }
 }
 
 class MalformedContentTypeWithPayloadInputRestJson1Serializer
-    extends _i1.PrimitiveSmithySerializer<Object> {
+    extends _i1.PrimitiveSmithySerializer<_i2.Uint8List> {
   const MalformedContentTypeWithPayloadInputRestJson1Serializer()
       : super('MalformedContentTypeWithPayloadInput');
 
   @override
   Iterable<Type> get types => const [
         MalformedContentTypeWithPayloadInput,
-        _$MalformedContentTypeWithPayloadInput
+        _$MalformedContentTypeWithPayloadInput,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
-  _i2.Uint8List deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    return (serializers.deserialize(serialized,
-        specifiedType: const FullType(_i2.Uint8List)) as _i2.Uint8List);
+  _i2.Uint8List deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return (serializers.deserialize(
+      serialized,
+      specifiedType: const FullType(_i2.Uint8List),
+    ) as _i2.Uint8List);
   }
 
   @override
-  Object serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is MalformedContentTypeWithPayloadInput
         ? object.getPayload()
         : (object as _i2.Uint8List?);
-    return (serializers.serialize(payload!,
-        specifiedType: const FullType(_i2.Uint8List)) as Object);
+    return (serializers.serialize(
+      payload!,
+      specifiedType: const FullType(_i2.Uint8List),
+    ) as Object);
   }
 }

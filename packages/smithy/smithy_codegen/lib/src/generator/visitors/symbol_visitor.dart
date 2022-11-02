@@ -40,7 +40,7 @@ class SymbolVisitor extends CategoryShapeVisitor<Reference> {
 
   @override
   Reference mapShape(MapShape shape, [Shape? parent]) {
-    final keySymbol = context.symbolFor(shape.key.target, shape);
+    final keySymbol = context.symbolFor(shape.key.target, shape).unboxed;
     final valueShape = context.shapeFor(shape.value.target);
     final valueShapeType = valueShape.getType();
 
@@ -63,8 +63,9 @@ class SymbolVisitor extends CategoryShapeVisitor<Reference> {
         context.builderFactories[type.unboxed] = builder.property('new');
         return type;
       case ShapeType.set:
-        final valueSymbol = context.symbolFor(
-            (valueShape as SetShape).member.target, valueShape);
+        final valueSymbol = context
+            .symbolFor((valueShape as SetShape).member.target, valueShape)
+            .unboxed;
         final type = DartTypes.builtValue
             .builtSetMultimap(keySymbol, valueSymbol)
             .withBoxed(shape.isNullable(context, parent));
@@ -116,7 +117,7 @@ class SymbolVisitor extends CategoryShapeVisitor<Reference> {
 
   @override
   Reference setShape(SetShape shape, [Shape? parent]) {
-    final valueType = shape.member.accept(this, shape);
+    final valueType = shape.member.accept(this, shape).unboxed;
     final type = DartTypes.builtValue
         .builtSet(valueType)
         .withBoxed(shape.isNullable(context, parent));
@@ -127,9 +128,6 @@ class SymbolVisitor extends CategoryShapeVisitor<Reference> {
 
   @override
   Reference stringShape(StringShape shape, [Shape? parent]) {
-    if (shape.isEnum) {
-      return createSymbol(shape).withBoxed(shape.isNullable(context, parent));
-    }
     final mediaType = shape.getTrait<MediaTypeTrait>()?.value;
     if (mediaType != null) {
       switch (mediaType) {
@@ -166,5 +164,10 @@ class SymbolVisitor extends CategoryShapeVisitor<Reference> {
   @override
   Reference simpleShape(SimpleShape shape, [Shape? parent]) {
     return shape.typeReference.withBoxed(shape.isNullable(context, parent));
+  }
+
+  @override
+  Reference enumShape(EnumShape shape, [Shape? parent]) {
+    return createSymbol(shape).withBoxed(shape.isNullable(context, parent));
   }
 }

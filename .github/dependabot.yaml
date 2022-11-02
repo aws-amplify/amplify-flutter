@@ -8,6 +8,10 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
+    directory: "packages/aft/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
     directory: "packages/amplify/amplify_flutter/"
     schedule:
       interval: "daily"
@@ -21,6 +25,10 @@ updates:
       interval: "daily"
   - package-ecosystem: "pub"
     directory: "packages/amplify/amplify_flutter_ios/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/amplify/amplify_flutter_ios/example/"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
@@ -108,10 +116,6 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "packages/api/amplify_api_plugin_interface/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
     directory: "packages/auth/amplify_auth_cognito/"
     schedule:
       interval: "daily"
@@ -124,7 +128,19 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
+    directory: "packages/auth/amplify_auth_cognito_dart/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/auth/amplify_auth_cognito_dart/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
     directory: "packages/auth/amplify_auth_cognito_ios/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/auth/amplify_auth_cognito_test/"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
@@ -140,7 +156,95 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "packages/storage/amplify_storage_plugin_interface/"
+    directory: "packages/example_common/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/example_common/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/secure_storage/amplify_secure_storage/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/secure_storage/amplify_secure_storage/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/secure_storage/amplify_secure_storage_dart/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/secure_storage/amplify_secure_storage_dart/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/secure_storage/amplify_secure_storage_test/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/smithy/goldens/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/smithy/goldens/lib/awsJson1_0/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/smithy/goldens/lib/awsJson1_1/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/smithy/goldens/lib/restJson1/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/smithy/goldens/lib/restXml/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/smithy/goldens/lib/restXmlWithNamespace/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/smithy/goldens/lib2/awsJson1_0/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/smithy/goldens/lib2/awsJson1_1/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/smithy/goldens/lib2/custom/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/smithy/goldens/lib2/restJson1/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/smithy/goldens/lib2/restXml/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/smithy/goldens/lib2/restXmlWithNamespace/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/smithy/smithy/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/smithy/smithy_aws/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/smithy/smithy_codegen/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/smithy/smithy_test/"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
@@ -157,5 +261,33 @@ updates:
       interval: "daily"
   - package-ecosystem: "pub"
     directory: "packages/storage/amplify_storage_s3_ios/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/common/amplify_db_common/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/common/amplify_db_common/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/worker_bee/e2e/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/worker_bee/e2e_flutter_test/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/worker_bee/e2e_test/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/worker_bee/worker_bee/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/worker_bee/worker_bee_builder/"
     schedule:
       interval: "daily"

@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.malformed_map_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.malformed_map_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_collection/built_collection.dart' as _i3;
@@ -13,8 +13,9 @@ part 'malformed_map_input.g.dart';
 abstract class MalformedMapInput
     with _i1.HttpInput<MalformedMapInput>, _i2.AWSEquatable<MalformedMapInput>
     implements Built<MalformedMapInput, MalformedMapInputBuilder> {
-  factory MalformedMapInput({_i3.BuiltMap<String, String>? bodyMap}) {
-    return _$MalformedMapInput._(bodyMap: bodyMap);
+  factory MalformedMapInput({Map<String, String>? bodyMap}) {
+    return _$MalformedMapInput._(
+        bodyMap: bodyMap == null ? null : _i3.BuiltMap(bodyMap));
   }
 
   factory MalformedMapInput.build(
@@ -23,8 +24,10 @@ abstract class MalformedMapInput
   const MalformedMapInput._();
 
   factory MalformedMapInput.fromRequest(
-          MalformedMapInput payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    MalformedMapInput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -41,7 +44,10 @@ abstract class MalformedMapInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedMapInput');
-    helper.add('bodyMap', bodyMap);
+    helper.add(
+      'bodyMap',
+      bodyMap,
+    );
     return helper.toString();
   }
 }
@@ -51,14 +57,23 @@ class MalformedMapInputRestJson1Serializer
   const MalformedMapInputRestJson1Serializer() : super('MalformedMapInput');
 
   @override
-  Iterable<Type> get types => const [MalformedMapInput, _$MalformedMapInput];
+  Iterable<Type> get types => const [
+        MalformedMapInput,
+        _$MalformedMapInput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   MalformedMapInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = MalformedMapInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -68,10 +83,16 @@ class MalformedMapInputRestJson1Serializer
       switch (key) {
         case 'bodyMap':
           if (value != null) {
-            result.bodyMap.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(
-                        _i3.BuiltMap, [FullType(String), FullType(String)]))
-                as _i3.BuiltMap<String, String>));
+            result.bodyMap.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i3.BuiltMap,
+                [
+                  FullType(String),
+                  FullType(String),
+                ],
+              ),
+            ) as _i3.BuiltMap<String, String>));
           }
           break;
       }
@@ -81,16 +102,26 @@ class MalformedMapInputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as MalformedMapInput);
     final result = <Object?>[];
     if (payload.bodyMap != null) {
       result
         ..add('bodyMap')
-        ..add(serializers.serialize(payload.bodyMap!,
-            specifiedType: const FullType(
-                _i3.BuiltMap, [FullType(String), FullType(String)])));
+        ..add(serializers.serialize(
+          payload.bodyMap!,
+          specifiedType: const FullType(
+            _i3.BuiltMap,
+            [
+              FullType(String),
+              FullType(String),
+            ],
+          ),
+        ));
     }
     return result;
   }

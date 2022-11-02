@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.malformed_double_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.malformed_double_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -17,16 +17,19 @@ abstract class MalformedDoubleInput
     implements
         Built<MalformedDoubleInput, MalformedDoubleInputBuilder>,
         _i1.HasPayload<MalformedDoubleInputPayload> {
-  factory MalformedDoubleInput(
-      {double? doubleInBody,
-      double? doubleInHeader,
-      required double doubleInPath,
-      double? doubleInQuery}) {
+  factory MalformedDoubleInput({
+    double? doubleInBody,
+    double? doubleInHeader,
+    double? doubleInPath,
+    double? doubleInQuery,
+  }) {
+    doubleInPath ??= 0;
     return _$MalformedDoubleInput._(
-        doubleInBody: doubleInBody,
-        doubleInHeader: doubleInHeader,
-        doubleInPath: doubleInPath,
-        doubleInQuery: doubleInQuery);
+      doubleInBody: doubleInBody,
+      doubleInHeader: doubleInHeader,
+      doubleInPath: doubleInPath,
+      doubleInQuery: doubleInQuery,
+    );
   }
 
   factory MalformedDoubleInput.build(
@@ -36,8 +39,10 @@ abstract class MalformedDoubleInput
   const MalformedDoubleInput._();
 
   factory MalformedDoubleInput.fromRequest(
-          MalformedDoubleInputPayload payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    MalformedDoubleInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       MalformedDoubleInput.build((b) {
         b.doubleInBody = payload.doubleInBody;
         if (request.headers['doubleInHeader'] != null) {
@@ -57,7 +62,10 @@ abstract class MalformedDoubleInput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedDoubleInputBuilder b) {}
+  static void _init(MalformedDoubleInputBuilder b) {
+    b.doubleInPath = 0;
+  }
+
   double? get doubleInBody;
   double? get doubleInHeader;
   double get doubleInPath;
@@ -68,7 +76,10 @@ abstract class MalformedDoubleInput
       case 'doubleInPath':
         return doubleInPath.toString();
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -76,15 +87,31 @@ abstract class MalformedDoubleInput
         b.doubleInBody = doubleInBody;
       });
   @override
-  List<Object?> get props =>
-      [doubleInBody, doubleInHeader, doubleInPath, doubleInQuery];
+  List<Object?> get props => [
+        doubleInBody,
+        doubleInHeader,
+        doubleInPath,
+        doubleInQuery,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedDoubleInput');
-    helper.add('doubleInBody', doubleInBody);
-    helper.add('doubleInHeader', doubleInHeader);
-    helper.add('doubleInPath', doubleInPath);
-    helper.add('doubleInQuery', doubleInQuery);
+    helper.add(
+      'doubleInBody',
+      doubleInBody,
+    );
+    helper.add(
+      'doubleInHeader',
+      doubleInHeader,
+    );
+    helper.add(
+      'doubleInPath',
+      doubleInPath,
+    );
+    helper.add(
+      'doubleInQuery',
+      doubleInQuery,
+    );
     return helper.toString();
   }
 }
@@ -108,7 +135,10 @@ abstract class MalformedDoubleInputPayload
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedDoubleInputPayload');
-    helper.add('doubleInBody', doubleInBody);
+    helper.add(
+      'doubleInBody',
+      doubleInBody,
+    );
     return helper.toString();
   }
 }
@@ -123,15 +153,21 @@ class MalformedDoubleInputRestJson1Serializer
         MalformedDoubleInput,
         _$MalformedDoubleInput,
         MalformedDoubleInputPayload,
-        _$MalformedDoubleInputPayload
+        _$MalformedDoubleInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   MalformedDoubleInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = MalformedDoubleInputPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -141,8 +177,10 @@ class MalformedDoubleInputRestJson1Serializer
       switch (key) {
         case 'doubleInBody':
           if (value != null) {
-            result.doubleInBody = (serializers.deserialize(value,
-                specifiedType: const FullType(double)) as double);
+            result.doubleInBody = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(double),
+            ) as double);
           }
           break;
       }
@@ -152,8 +190,11 @@ class MalformedDoubleInputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = object is MalformedDoubleInput
         ? object.getPayload()
         : (object as MalformedDoubleInputPayload);
@@ -161,8 +202,10 @@ class MalformedDoubleInputRestJson1Serializer
     if (payload.doubleInBody != null) {
       result
         ..add('doubleInBody')
-        ..add(serializers.serialize(payload.doubleInBody!,
-            specifiedType: const FullType(double)));
+        ..add(serializers.serialize(
+          payload.doubleInBody!,
+          specifiedType: const FullType(double),
+        ));
     }
     return result;
   }

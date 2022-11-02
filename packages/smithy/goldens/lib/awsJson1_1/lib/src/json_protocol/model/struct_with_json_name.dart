@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library aws_json1_1.json_protocol.model.struct_with_json_name; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_1_v1.json_protocol.model.struct_with_json_name; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -34,7 +34,10 @@ abstract class StructWithJsonName
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('StructWithJsonName');
-    helper.add('value', value);
+    helper.add(
+      'value',
+      value,
+    );
     return helper.toString();
   }
 }
@@ -44,14 +47,23 @@ class StructWithJsonNameAwsJson11Serializer
   const StructWithJsonNameAwsJson11Serializer() : super('StructWithJsonName');
 
   @override
-  Iterable<Type> get types => const [StructWithJsonName, _$StructWithJsonName];
+  Iterable<Type> get types => const [
+        StructWithJsonName,
+        _$StructWithJsonName,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   StructWithJsonName deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = StructWithJsonNameBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -61,8 +73,10 @@ class StructWithJsonNameAwsJson11Serializer
       switch (key) {
         case 'Value':
           if (value != null) {
-            result.value = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.value = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -72,15 +86,20 @@ class StructWithJsonNameAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as StructWithJsonName);
     final result = <Object?>[];
     if (payload.value != null) {
       result
         ..add('Value')
-        ..add(serializers.serialize(payload.value!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.value!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

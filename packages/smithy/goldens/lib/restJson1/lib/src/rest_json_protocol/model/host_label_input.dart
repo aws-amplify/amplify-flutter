@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.host_label_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.host_label_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -22,8 +22,10 @@ abstract class HostLabelInput
   const HostLabelInput._();
 
   factory HostLabelInput.fromRequest(
-          HostLabelInput payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    HostLabelInput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -39,7 +41,10 @@ abstract class HostLabelInput
       case 'label':
         return label;
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -49,7 +54,10 @@ abstract class HostLabelInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HostLabelInput');
-    helper.add('label', label);
+    helper.add(
+      'label',
+      label,
+    );
     return helper.toString();
   }
 }
@@ -59,14 +67,23 @@ class HostLabelInputRestJson1Serializer
   const HostLabelInputRestJson1Serializer() : super('HostLabelInput');
 
   @override
-  Iterable<Type> get types => const [HostLabelInput, _$HostLabelInput];
+  Iterable<Type> get types => const [
+        HostLabelInput,
+        _$HostLabelInput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   HostLabelInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = HostLabelInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -75,8 +92,10 @@ class HostLabelInputRestJson1Serializer
       final value = iterator.current;
       switch (key) {
         case 'label':
-          result.label = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.label = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
       }
     }
@@ -85,13 +104,18 @@ class HostLabelInputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as HostLabelInput);
     final result = <Object?>[
       'label',
-      serializers.serialize(payload.label,
-          specifiedType: const FullType(String))
+      serializers.serialize(
+        payload.label,
+        specifiedType: const FullType(String),
+      ),
     ];
     return result;
   }

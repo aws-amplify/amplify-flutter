@@ -82,7 +82,13 @@ class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
           ..type = MethodType.getter
           ..name = 'types'
           ..lambda = true
-          ..body = literalConstList([symbol]).code,
+          ..body = literalConstList([
+            symbol,
+            // Variant class types
+            ...sortedMembers.map(
+              (member) => refer(variantClassName(member)),
+            ),
+          ]).code,
       );
 
   @override
@@ -153,10 +159,12 @@ class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
     if (protocolTraits.memberWireNames.isNotEmpty) {
       hasRenames = true;
       builder.addExpression(
-        literalConstMap({
-          for (final entry in protocolTraits.memberWireNames.entries)
-            entry.key.memberName: entry.value,
-        }).assignConst('renames'),
+        declareConst('renames').assign(
+          literalConstMap({
+            for (final entry in protocolTraits.memberWireNames.entries)
+              entry.key.memberName: entry.value,
+          }),
+        ),
       );
     }
     builder.statements.addAll([

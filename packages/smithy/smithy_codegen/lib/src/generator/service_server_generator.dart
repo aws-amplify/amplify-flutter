@@ -113,13 +113,11 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
   }
 
   Iterable<Code> _serviceMethodBody(OperationShape operation) sync* {
-    yield refer('request')
-        .property('awsRequest')
-        .assignFinal('awsRequest')
+    yield declareFinal('awsRequest')
+        .assign(refer('request').property('awsRequest'))
         .statement;
-    yield DartTypes.smithy.context
-        .newInstance([refer('awsRequest')])
-        .assignFinal('context')
+    yield declareFinal('context')
+        .assign(DartTypes.smithy.context.newInstance([refer('awsRequest')]))
         .statement;
     yield refer('context')
         .property('response')
@@ -145,7 +143,7 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
         })
         .awaited
         .asA(payloadSymbol);
-    yield payload.assignFinal('payload').statement;
+    yield declareFinal('payload').assign(payload).statement;
 
     final inputLabels = inputTraits?.httpLabels ?? BuiltSet();
     final inputSymbol = operation.inputSymbol(context);
@@ -160,13 +158,13 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
                 label.memberName: refer(label.memberName)
             })
           });
-    yield input.assignFinal('input').statement;
+    yield declareFinal('input').assign(input).statement;
 
     final output = refer('service').property(operation.methodName).call([
       refer('input'),
       refer('context'),
     ]).awaited;
-    yield output.assignFinal('output').statement;
+    yield declareFinal('output').assign(output).statement;
 
     final httpHeaders = outputTraits?.httpHeaders ?? BuiltMap();
     for (final entry in httpHeaders.entries) {
@@ -191,25 +189,25 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
 
     final outputResponseCode = outputTraits?.httpResponseCode;
     if (outputResponseCode != null) {
-      yield refer(outputResponseCode.dartName(ShapeType.structure))
-          .assignFinal('statusCode')
+      yield declareFinal('statusCode')
+          .assign(refer(outputResponseCode.dartName(ShapeType.structure)))
           .statement;
     } else {
-      yield literalNum(operation.httpTrait(context)?.code ?? 200)
-          .assignConst('statusCode')
+      yield declareConst('statusCode')
+          .assign(literalNum(operation.httpTrait(context)?.code ?? 200))
           .statement;
     }
 
-    yield refer(operation.protocolField)
-        .property('serialize')
-        .call([
-          refer('output')
-        ], {
-          'specifiedType': operation.outputSymbol(context).fullType([
-            operation.outputShape(context).httpPayload(context).symbol,
-          ]),
-        })
-        .assignFinal('body')
+    yield declareFinal('body')
+        .assign(
+          refer(operation.protocolField).property('serialize').call([
+            refer('output')
+          ], {
+            'specifiedType': operation.outputSymbol(context).fullType([
+              operation.outputShape(context).httpPayload(context).symbol,
+            ]),
+          }),
+        )
         .statement;
     yield DartTypes.shelf.response
         .newInstance([
@@ -245,21 +243,21 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
       if (addError != null) {
         yield addError.statement;
       }
-      yield refer(operation.protocolField)
-          .property('serialize')
-          .call([
-            refer('e')
-          ], {
-            'specifiedType': errorSymbol.fullType([
-              errorShape.httpPayload(context).symbol,
-            ]),
-          })
-          .assignFinal('body')
+      yield declareFinal('body')
+          .assign(
+            refer(operation.protocolField).property('serialize').call([
+              refer('e')
+            ], {
+              'specifiedType': errorSymbol.fullType([
+                errorShape.httpPayload(context).symbol,
+              ]),
+            }),
+          )
           .statement;
 
       final statusCode =
           errorTrait.statusCode ?? errorTrait.kind.defaultStatusCode;
-      yield literalNum(statusCode).assignConst('statusCode').statement;
+      yield declareConst('statusCode').assign(literalNum(statusCode)).statement;
 
       yield DartTypes.shelf.response
           .newInstance([
@@ -371,12 +369,16 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
     final buildRouter = BlockBuilder();
 
     buildRouter.addExpression(
-      refer('_$className').newInstance([refer('this')]).assignFinal('service'),
+      declareFinal('service').assign(
+        refer('_$className').newInstance([refer('this')]),
+      ),
     );
     final service = refer('service');
 
     buildRouter.addExpression(
-      DartTypes.shelfRouter.router.newInstance([]).assignFinal('router'),
+      declareFinal('router').assign(
+        DartTypes.shelfRouter.router.newInstance([]),
+      ),
     );
     final router = refer('router');
 

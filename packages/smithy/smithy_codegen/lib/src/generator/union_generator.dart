@@ -317,8 +317,10 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
     final builder = BlockBuilder();
     final helper = refer('helper');
     builder.addExpression(
-      DartTypes.builtValue.newBuiltValueToStringHelper
-          .call([literalString(className, raw: true)]).assignFinal('helper'),
+      declareFinal('helper').assign(
+        DartTypes.builtValue.newBuiltValueToStringHelper
+            .call([literalString(className, raw: true)]),
+      ),
     );
     for (final member in sortedMembers) {
       final dartName = member.dartName(ShapeType.union);

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.2.0. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.associate_software_token_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -29,10 +29,14 @@ abstract class AssociateSoftwareTokenResponse
     implements
         Built<AssociateSoftwareTokenResponse,
             AssociateSoftwareTokenResponseBuilder> {
-  factory AssociateSoftwareTokenResponse(
-      {String? secretCode, String? session}) {
+  factory AssociateSoftwareTokenResponse({
+    String? secretCode,
+    String? session,
+  }) {
     return _$AssociateSoftwareTokenResponse._(
-        secretCode: secretCode, session: session);
+      secretCode: secretCode,
+      session: session,
+    );
   }
 
   factory AssociateSoftwareTokenResponse.build(
@@ -43,8 +47,9 @@ abstract class AssociateSoftwareTokenResponse
 
   /// Constructs a [AssociateSoftwareTokenResponse] from a [payload] and [response].
   factory AssociateSoftwareTokenResponse.fromResponse(
-          AssociateSoftwareTokenResponse payload,
-          _i1.AWSBaseHttpResponse response) =>
+    AssociateSoftwareTokenResponse payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i2.SmithySerializer> serializers = [
@@ -54,19 +59,28 @@ abstract class AssociateSoftwareTokenResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AssociateSoftwareTokenResponseBuilder b) {}
 
-  /// A unique generated shared secret code that is used in the time-based one-time password (TOTP) algorithm to generate a one-time code.
+  /// A unique generated shared secret code that is used in the TOTP algorithm to generate a one-time code.
   String? get secretCode;
 
   /// The session that should be passed both ways in challenge-response calls to the service. This allows authentication of the user as part of the MFA setup process.
   String? get session;
   @override
-  List<Object?> get props => [secretCode, session];
+  List<Object?> get props => [
+        secretCode,
+        session,
+      ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('AssociateSoftwareTokenResponse');
-    helper.add('secretCode', '***SENSITIVE***');
-    helper.add('session', session);
+    helper.add(
+      'secretCode',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'session',
+      session,
+    );
     return helper.toString();
   }
 }
@@ -77,15 +91,23 @@ class AssociateSoftwareTokenResponseAwsJson11Serializer
       : super('AssociateSoftwareTokenResponse');
 
   @override
-  Iterable<Type> get types =>
-      const [AssociateSoftwareTokenResponse, _$AssociateSoftwareTokenResponse];
+  Iterable<Type> get types => const [
+        AssociateSoftwareTokenResponse,
+        _$AssociateSoftwareTokenResponse,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   AssociateSoftwareTokenResponse deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = AssociateSoftwareTokenResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -95,14 +117,18 @@ class AssociateSoftwareTokenResponseAwsJson11Serializer
       switch (key) {
         case 'SecretCode':
           if (value != null) {
-            result.secretCode = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.secretCode = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'Session':
           if (value != null) {
-            result.session = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.session = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -112,21 +138,28 @@ class AssociateSoftwareTokenResponseAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as AssociateSoftwareTokenResponse);
     final result = <Object?>[];
     if (payload.secretCode != null) {
       result
         ..add('SecretCode')
-        ..add(serializers.serialize(payload.secretCode!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.secretCode!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.session != null) {
       result
         ..add('Session')
-        ..add(serializers.serialize(payload.session!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.session!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

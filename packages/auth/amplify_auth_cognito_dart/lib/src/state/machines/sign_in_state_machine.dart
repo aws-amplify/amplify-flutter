@@ -17,7 +17,6 @@ import 'dart:convert';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
     hide UpdateUserAttributesRequest;
-import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/device/confirm_device_worker.dart';
@@ -26,7 +25,6 @@ import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_device_password_veri
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_init_result.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_init_worker.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_password_verifier_worker.dart';
-import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_user.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
@@ -566,35 +564,36 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       throw const UnknownException('Could not parse ID token');
     }
 
+    final signInDetails = CognitoSignInDetails.apiBased(
+      username: parameters.username,
+      authFlowType: authFlowType,
+    );
+
     user
       ..userId = accessTokenJwt.claims.subject ?? idTokenJwt.claims.subject
-      ..username ??= CognitoIdToken(idTokenJwt).username;
+      ..username ??= CognitoIdToken(idTokenJwt).username
+      ..signInDetails = signInDetails;
 
     user.userPoolTokens
       ..accessToken = accessTokenJwt
       ..refreshToken = refreshToken
       ..idToken = idTokenJwt;
 
-    dispatch(
+    await dispatch(
       CredentialStoreEvent.storeCredentials(
         CredentialStoreData(
           userPoolTokens: user.userPoolTokens.build(),
+          signInDetails: signInDetails,
         ),
       ),
     );
 
-    // Clear anonymous credentials, if there were any, and fetch authenticated
+    // Upgrade anonymous credentials, if there were any, or fetch authenticated
     // credentials.
     if (hasIdentityPool) {
-      dispatch(
-        CredentialStoreEvent.clearCredentials(
-          CognitoIdentityPoolKeys(identityPoolConfig!),
-        ),
-      );
-
       await dispatch(
         const FetchAuthSessionEvent.fetch(
-          CognitoSessionOptions(getAWSCredentials: true),
+          CognitoSessionOptions(getAWSCredentials: true, forceRefresh: true),
         ),
       );
 
@@ -623,7 +622,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
 
     final initRequest = await initiate(event);
     final initResponse =
-        await cognitoIdentityProvider.initiateAuth(initRequest);
+        await cognitoIdentityProvider.initiateAuth(initRequest).result;
 
     // Current flow state
     _authenticationResult = initResponse.authenticationResult;
@@ -640,7 +639,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
   /// If device tracking is set to opt-in, a second call to `rememberDevice` is
   /// needed to remember the device. If device tracking is set to always, then
   /// the device is remembered as part of this call.
-  Future<String> _createDevice(
+  Future<_CreateDeviceResult> _createDevice(
     String accessToken,
     NewDeviceMetadataType newDeviceMetadata,
   ) async {
@@ -652,10 +651,20 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
           ..newDeviceMetadata.replace(newDeviceMetadata),
       ),
     );
-    final response = await worker.stream.first;
-    await cognitoIdentityProvider.confirmDevice(response.request);
+    final workerResult = await worker.stream.first;
+    final response = await cognitoIdentityProvider
+        .confirmDevice(
+          workerResult.request,
+        )
+        .result;
+    final requiresConfirmation = response.userConfirmationNecessary;
 
-    return response.devicePassword;
+    return _CreateDeviceResult(
+      devicePassword: workerResult.devicePassword,
+      deviceStatus: requiresConfirmation
+          ? DeviceRememberedStatusType.notRemembered
+          : DeviceRememberedStatusType.remembered,
+    );
   }
 
   /// Update any user attributes which could not be sent in the
@@ -668,20 +677,22 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       return;
     }
     try {
-      await cognitoIdentityProvider.updateUserAttributes(
-        UpdateUserAttributesRequest.build(
-          (b) => b
-            ..accessToken = accessToken
-            ..clientMetadata.addAll(clientMetadata)
-            ..userAttributes.addAll([
-              for (final userAttribute in _attributesNeedingUpdate!.entries)
-                AttributeType(
-                  name: userAttribute.toString(),
-                  value: userAttribute.value,
-                )
-            ]),
-        ),
-      );
+      await cognitoIdentityProvider
+          .updateUserAttributes(
+            UpdateUserAttributesRequest.build(
+              (b) => b
+                ..accessToken = accessToken
+                ..clientMetadata.addAll(clientMetadata)
+                ..userAttributes.addAll([
+                  for (final userAttribute in _attributesNeedingUpdate!.entries)
+                    AttributeType(
+                      name: userAttribute.toString(),
+                      value: userAttribute.value,
+                    )
+                ]),
+            ),
+          )
+          .result;
     } finally {
       _attributesNeedingUpdate = null;
     }
@@ -704,13 +715,15 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       if (newDeviceMetadata != null &&
           // ConfirmDevice API requires an identity pool
           hasIdentityPool) {
+        final createDeviceResult = await _createDevice(
+          accessToken,
+          newDeviceMetadata,
+        );
         user.deviceSecrets = CognitoDeviceSecretsBuilder()
           ..deviceGroupKey = newDeviceMetadata.deviceGroupKey
           ..deviceKey = newDeviceMetadata.deviceKey
-          ..devicePassword = await _createDevice(
-            accessToken,
-            newDeviceMetadata,
-          );
+          ..devicePassword = createDeviceResult.devicePassword
+          ..deviceStatus = createDeviceResult.deviceStatus;
 
         await getOrCreate(DeviceMetadataRepository.token).put(
           user.username!,
@@ -780,8 +793,9 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         ..clientMetadata.replace(clientMetadata ?? const <String, String>{}),
     );
 
-    final challengeResp =
-        await cognitoIdentityProvider.respondToAuthChallenge(respondRequest);
+    final challengeResp = await cognitoIdentityProvider
+        .respondToAuthChallenge(respondRequest)
+        .result;
 
     // Update flow state
     _authenticationResult = challengeResp.authenticationResult;
@@ -831,4 +845,14 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
     }
     return null;
   }
+}
+
+class _CreateDeviceResult {
+  const _CreateDeviceResult({
+    required this.devicePassword,
+    required this.deviceStatus,
+  });
+
+  final String devicePassword;
+  final DeviceRememberedStatusType deviceStatus;
 }

@@ -26,7 +26,7 @@ abstract class FloatShape
   @BuiltValueHook(initializeBuilder: true)
   static void _init(FloatShapeBuilder b) {
     b.shapeId = id;
-    b.traits = TraitMap.fromTraits(const [BoxTrait()]);
+    b.traits = TraitMap.empty();
   }
 
   static const id = ShapeId.core('Float');

@@ -1,0 +1,26 @@
+name: amplify_db_common_example
+description: Demonstrates how to use the amplify_db_common plugin.
+publish_to: 'none'
+
+environment:
+  sdk: '>=2.17.0 <3.0.0'
+
+dependencies:
+  amplify_db_common:
+    path: ../
+  # Use version from amplify_db_common
+  drift: any
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  amplify_lints: ^2.0.0
+  drift_dev: ^2.2.0+1
+  build_runner: ^2.2.1
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

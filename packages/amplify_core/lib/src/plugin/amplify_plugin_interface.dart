@@ -27,10 +27,16 @@ abstract class AmplifyPluginInterface {
   Category get category;
 
   /// Called when the plugin is added to the category.
-  Future<void> addPlugin() async {}
+  @mustCallSuper
+  Future<void> addPlugin({
+    required AmplifyAuthProviderRepository authProviderRepo,
+  }) async {}
 
   /// Configures the plugin using the registered [config].
-  Future<void> configure({AmplifyConfig? config}) async {}
+  Future<void> configure({
+    AmplifyConfig? config,
+    required AmplifyAuthProviderRepository authProviderRepo,
+  }) async {}
 
   /// Resets the plugin by removing all traces of it from the device.
   @visibleForTesting

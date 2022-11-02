@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_xml.rest_xml_protocol.model.xml_empty_strings_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.model.xml_empty_strings_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -26,14 +26,17 @@ abstract class XmlEmptyStringsInputOutput
   const XmlEmptyStringsInputOutput._();
 
   factory XmlEmptyStringsInputOutput.fromRequest(
-          XmlEmptyStringsInputOutput payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    XmlEmptyStringsInputOutput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   /// Constructs a [XmlEmptyStringsInputOutput] from a [payload] and [response].
   factory XmlEmptyStringsInputOutput.fromResponse(
-          XmlEmptyStringsInputOutput payload,
-          _i2.AWSBaseHttpResponse response) =>
+    XmlEmptyStringsInputOutput payload,
+    _i2.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -50,7 +53,10 @@ abstract class XmlEmptyStringsInputOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlEmptyStringsInputOutput');
-    helper.add('emptyString', emptyString);
+    helper.add(
+      'emptyString',
+      emptyString,
+    );
     return helper.toString();
   }
 }
@@ -61,15 +67,23 @@ class XmlEmptyStringsInputOutputRestXmlSerializer
       : super('XmlEmptyStringsInputOutput');
 
   @override
-  Iterable<Type> get types =>
-      const [XmlEmptyStringsInputOutput, _$XmlEmptyStringsInputOutput];
+  Iterable<Type> get types => const [
+        XmlEmptyStringsInputOutput,
+        _$XmlEmptyStringsInputOutput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   XmlEmptyStringsInputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = XmlEmptyStringsInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -79,8 +93,10 @@ class XmlEmptyStringsInputOutputRestXmlSerializer
       switch (key as String) {
         case 'emptyString':
           if (value != null) {
-            result.emptyString = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.emptyString = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -90,8 +106,11 @@ class XmlEmptyStringsInputOutputRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as XmlEmptyStringsInputOutput);
     final result = <Object?>[
       const _i1.XmlElementName('XmlEmptyStringsInputOutput')
@@ -99,8 +118,10 @@ class XmlEmptyStringsInputOutputRestXmlSerializer
     if (payload.emptyString != null) {
       result
         ..add(const _i1.XmlElementName('emptyString'))
-        ..add(serializers.serialize(payload.emptyString!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.emptyString!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

@@ -26,6 +26,7 @@ class CognitoSessionOptions extends AuthSessionOptions
   /// {@macro amplify_auth_cognito.model.cognito_session_options}
   const CognitoSessionOptions({
     this.getAWSCredentials = false,
+    super.forceRefresh = false,
   });
 
   /// {@macro amplify_auth_cognito.model.cognito_session_options}
@@ -42,7 +43,7 @@ class CognitoSessionOptions extends AuthSessionOptions
   final bool getAWSCredentials;
 
   @override
-  List<Object?> get props => [getAWSCredentials];
+  List<Object?> get props => [getAWSCredentials, forceRefresh];
 
   @override
   String get runtimeTypeName => 'CognitoSessionOptions';

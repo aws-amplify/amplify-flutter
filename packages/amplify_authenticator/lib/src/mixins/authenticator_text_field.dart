@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 mixin AuthenticatorTextField<FieldType,
-        T extends AuthenticatorFormField<FieldType, String, T>>
+        T extends AuthenticatorFormField<FieldType, String>>
     on AuthenticatorFormFieldState<FieldType, String, T> {
   @override
   Widget buildFormField(BuildContext context) {

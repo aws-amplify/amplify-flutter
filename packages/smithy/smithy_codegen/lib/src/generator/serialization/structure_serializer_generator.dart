@@ -47,7 +47,10 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
 
   @override
   bool get isStructuredSerializer =>
-      !config.usePayload || payloadMember == null;
+      !config.usePayload ||
+      payloadMember == null ||
+      payloadMember is SimpleShape ||
+      payloadMember is EnumShape;
 
   /// Metadata about [shape] in the context of [protocol], including renames and
   /// other protocol-specific traits.
@@ -137,7 +140,7 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
         ..name = serializerClassName
         ..extend = isStructuredSerializer
             ? DartTypes.smithy.structuredSmithySerializer(serializedSymbol)
-            : DartTypes.smithy.primitiveSmithySerializer(DartTypes.core.object)
+            : DartTypes.smithy.primitiveSmithySerializer(serializedSymbol)
         ..constructors.add(constructor)
         ..methods.addAll([
           _typesGetter,
@@ -201,7 +204,7 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
 
     // Create the builder.
     builder.addExpression(
-      builderSymbol.newInstance([]).assignFinal('result'),
+      declareFinal('result').assign(builderSymbol.newInstance([])),
     );
 
     // Iterate over the serialized elements.
@@ -312,16 +315,15 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
     final payloadSymbol = this.payloadSymbol;
     if (hasPayload && config.usePayload) {
       builder.addExpression(
-        object
-            .isA(symbol)
-            .conditional(
-              object.property('getPayload').call([]),
-              object.asA(payloadSymbol),
-            )
-            .assignFinal('payload'),
+        declareFinal('payload').assign(
+          object.isA(symbol).conditional(
+                object.property('getPayload').call([]),
+                object.asA(payloadSymbol),
+              ),
+        ),
       );
     } else {
-      builder.addExpression(object.asA(symbol).assignFinal('payload'));
+      builder.addExpression(declareFinal('payload').assign(object.asA(symbol)));
     }
 
     if (!isStructuredSerializer) {
@@ -348,7 +350,9 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
       ]);
     }
     builder.addExpression(
-      literalList(result, DartTypes.core.object.boxed).assignFinal('result'),
+      declareFinal('result').assign(
+        literalList(result, DartTypes.core.object.boxed),
+      ),
     );
 
     // Add remaining objects only if they're non-null.

@@ -16,25 +16,16 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
 
-const emailAttributeKey = CognitoUserAttributeKey.email;
-const nameAttributeKey = CognitoUserAttributeKey.name;
-const phoneNumberAttributeKey = CognitoUserAttributeKey.phoneNumber;
-const givenNameAttributeKey = CognitoUserAttributeKey.givenName;
-const emailVerifiedAttributeKey = CognitoUserAttributeKey.emailVerified;
-
-String getAttributeValueFromList(
-  List<AuthUserAttribute> userAttributes,
-  CognitoUserAttributeKey cognitoAttribute,
-) {
-  return userAttributes
-      .firstWhere((attribute) => attribute.userAttributeKey == cognitoAttribute)
-      .value;
+extension on List<AuthUserAttribute> {
+  String? valueOf(UserAttributeKey key) =>
+      singleWhereOrNull((el) => el.userAttributeKey == key)?.value;
 }
 
 void main() {
@@ -50,165 +41,168 @@ void main() {
     setUpAll(() async {
       await configureAuth();
       await signOutUser();
-      await adminCreateUser(username, password,
-          autoConfirm: true,
-          verifyAttributes: true,
-          attributes: [
-            AuthUserAttribute(
-                userAttributeKey: CognitoUserAttributeKey.name, value: name),
-            AuthUserAttribute(
-                userAttributeKey: CognitoUserAttributeKey.email, value: email),
-            const AuthUserAttribute(
-              userAttributeKey: CognitoUserAttributeKey.phoneNumber,
-              value: mockPhoneNumber,
-            )
-          ]);
-      await Amplify.Auth.signIn(username: username, password: password);
-    });
-
-    group('fetchUserAttributes', () {
-      testWidgets(
-        'should fetch a users attributes',
-        (WidgetTester tester) async {
-          var userAttributes = await Amplify.Auth.fetchUserAttributes();
-
-          var emailAttributeValue = getAttributeValueFromList(
-            userAttributes,
-            emailAttributeKey,
-          );
-          var phoneNumberAttributeValue = getAttributeValueFromList(
-            userAttributes,
-            phoneNumberAttributeKey,
-          );
-          var nameAttributeValue = getAttributeValueFromList(
-            userAttributes,
-            nameAttributeKey,
-          );
-
-          expect(emailAttributeValue, email);
-          expect(phoneNumberAttributeValue, phoneNumber);
-          expect(nameAttributeValue, name);
-        },
-        // TODO: enable after adminCreateUser can properly create user attributes
-        skip: true,
+      await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        verifyAttributes: true,
+        attributes: [
+          AuthUserAttribute(
+            userAttributeKey: CognitoUserAttributeKey.name,
+            value: name,
+          ),
+          AuthUserAttribute(
+            userAttributeKey: CognitoUserAttributeKey.email,
+            value: email,
+          ),
+          const AuthUserAttribute(
+            userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+            value: mockPhoneNumber,
+          )
+        ],
+      );
+      await Amplify.Auth.signIn(
+        username: username,
+        password: password,
       );
     });
 
-    group('updateUserAttribute', () {
-      testWidgets('should update a single users attribute',
-          (WidgetTester tester) async {
-        final updatedName = generateNameAttribute();
-        var res = await Amplify.Auth.updateUserAttribute(
-          userAttributeKey: nameAttributeKey,
-          value: updatedName,
-        );
+    tearDownAll(Amplify.reset);
 
-        expect(res.nextStep.updateAttributeStep, 'DONE');
+    group('fetchUserAttributes', () {
+      test('should fetch a users attributes', () async {
+        final userAttributes = await Amplify.Auth.fetchUserAttributes();
 
-        var userAttributes = await Amplify.Auth.fetchUserAttributes();
-
-        var nameAttributeValue = getAttributeValueFromList(
-          userAttributes,
-          nameAttributeKey,
-        );
-
-        expect(nameAttributeValue, updatedName);
-      });
-
-      testWidgets(
-          'should throw an InvalidParameterException for an invalid attribute key',
-          (WidgetTester tester) async {
         expect(
-          Amplify.Auth.updateUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.parse('fake-key-name'),
-            value: 'mock-value',
-          ),
-          throwsA(isA<InvalidParameterException>()),
+          userAttributes.valueOf(CognitoUserAttributeKey.email),
+          email,
         );
-      });
-
-      testWidgets(
-          'should throw an InvalidParameterException for an invalid attribute value',
-          (WidgetTester tester) async {
-        const invalidEmailAddress = 'invalidEmailFormat.com';
         expect(
-          Amplify.Auth.updateUserAttribute(
-            userAttributeKey: emailAttributeKey,
-            value: invalidEmailAddress,
-          ),
-          throwsA(isA<InvalidParameterException>()),
+          userAttributes.valueOf(CognitoUserAttributeKey.phoneNumber),
+          phoneNumber,
+        );
+        expect(
+          userAttributes.valueOf(CognitoUserAttributeKey.name),
+          name,
         );
       });
     });
 
+    group('updateUserAttribute', () {
+      test('should update a single users attribute', () async {
+        final updatedName = generateNameAttribute();
+        final res = await Amplify.Auth.updateUserAttribute(
+          userAttributeKey: CognitoUserAttributeKey.name,
+          value: updatedName,
+        );
+        expect(res.nextStep.updateAttributeStep, 'DONE');
+
+        final userAttributes = await Amplify.Auth.fetchUserAttributes();
+        expect(
+          userAttributes.valueOf(CognitoUserAttributeKey.name),
+          updatedName,
+          reason: 'Attribute shoud be updated',
+        );
+      });
+
+      test(
+        'should throw an InvalidParameterException for an invalid '
+        'attribute key',
+        () async {
+          expect(
+            Amplify.Auth.updateUserAttribute(
+              userAttributeKey: CognitoUserAttributeKey.parse('fake-key-name'),
+              value: 'mock-value',
+            ),
+            throwsA(isA<InvalidParameterException>()),
+          );
+        },
+      );
+
+      test(
+        'should throw an InvalidParameterException for an invalid '
+        'attribute value',
+        () async {
+          const invalidEmailAddress = 'invalidEmailFormat.com';
+          expect(
+            Amplify.Auth.updateUserAttribute(
+              userAttributeKey: CognitoUserAttributeKey.email,
+              value: invalidEmailAddress,
+            ),
+            throwsA(isA<InvalidParameterException>()),
+          );
+        },
+      );
+    });
+
     group('updateUserAttributes', () {
-      testWidgets('should update multiple users attributes',
-          (WidgetTester tester) async {
+      test('should update multiple users attributes', () async {
         final updatedName = generateNameAttribute();
         final updatedGivenName = generateNameAttribute();
         await Amplify.Auth.updateUserAttributes(
           attributes: [
             AuthUserAttribute(
-              userAttributeKey: nameAttributeKey,
+              userAttributeKey: CognitoUserAttributeKey.name,
               value: updatedName,
             ),
             AuthUserAttribute(
-              userAttributeKey: givenNameAttributeKey,
+              userAttributeKey: CognitoUserAttributeKey.givenName,
               value: updatedGivenName,
             ),
           ],
         );
 
-        var userAttributes = await Amplify.Auth.fetchUserAttributes();
-        var nameAttributeValue = getAttributeValueFromList(
-          userAttributes,
-          nameAttributeKey,
+        final userAttributes = await Amplify.Auth.fetchUserAttributes();
+        expect(
+          userAttributes.valueOf(CognitoUserAttributeKey.name),
+          updatedName,
+          reason: 'Attribute shoud be updated',
         );
-
-        var givenNameAttributeValue = getAttributeValueFromList(
-          userAttributes,
-          givenNameAttributeKey,
+        expect(
+          userAttributes.valueOf(CognitoUserAttributeKey.givenName),
+          updatedGivenName,
+          reason: 'Attribute shoud be updated',
         );
-
-        expect(nameAttributeValue, updatedName);
-        expect(givenNameAttributeValue, updatedGivenName);
       });
 
-      testWidgets(
-          'should throw an InvalidParameterException and not update any attributes if one is invalid',
-          (WidgetTester tester) async {
-        // set initial state
-        await Amplify.Auth.updateUserAttribute(
-          userAttributeKey: nameAttributeKey,
-          value: name,
-        );
-
-        // attempt update
-        final updatedName = generateNameAttribute();
-        try {
-          await Amplify.Auth.updateUserAttributes(attributes: [
-            AuthUserAttribute(
-              userAttributeKey: nameAttributeKey,
-              value: updatedName,
-            ),
-            AuthUserAttribute(
-              userAttributeKey: CognitoUserAttributeKey.parse('fake-key-name'),
-              value: 'mock-value',
-            ),
-          ]);
-        } on Object catch (e) {
-          expect(e, const TypeMatcher<InvalidParameterException>());
-          var userAttributes = await Amplify.Auth.fetchUserAttributes();
-          var nameAttributeValue = getAttributeValueFromList(
-            userAttributes,
-            nameAttributeKey,
+      test(
+        'should throw an InvalidParameterException and not update any '
+        'attributes if one is invalid',
+        () async {
+          // set initial state
+          await Amplify.Auth.updateUserAttribute(
+            userAttributeKey: CognitoUserAttributeKey.name,
+            value: name,
           );
-          // assert no update was made
-          expect(nameAttributeValue, name);
-          return;
-        }
-        throw Exception('Expected InvalidParameterException');
-      });
+
+          // attempt update
+          final updatedName = generateNameAttribute();
+          await expectLater(
+            Amplify.Auth.updateUserAttributes(
+              attributes: [
+                AuthUserAttribute(
+                  userAttributeKey: CognitoUserAttributeKey.name,
+                  value: updatedName,
+                ),
+                AuthUserAttribute(
+                  userAttributeKey: CognitoUserAttributeKey.parse(
+                    'fake-key-name',
+                  ),
+                  value: 'mock-value',
+                ),
+              ],
+            ),
+            throwsA(isA<InvalidParameterException>()),
+          );
+
+          final userAttributes = await Amplify.Auth.fetchUserAttributes();
+          expect(
+            userAttributes.valueOf(CognitoUserAttributeKey.name),
+            name,
+            reason: 'Attribute shoud not be updated',
+          );
+        },
+      );
     });
   });
 }

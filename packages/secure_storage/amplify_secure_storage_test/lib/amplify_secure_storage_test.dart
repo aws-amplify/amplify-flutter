@@ -20,6 +20,7 @@ const key1 = 'key_1';
 
 // Disabling `useDataProtection` for tests since it would require a MacOS
 // app that has at least one app group
+// ignore: invalid_use_of_visible_for_testing_member
 final macOSOptions = MacOSSecureStorageOptions(useDataProtection: false);
 
 typedef SecureStorageFactory = AmplifySecureStorageInterface Function({

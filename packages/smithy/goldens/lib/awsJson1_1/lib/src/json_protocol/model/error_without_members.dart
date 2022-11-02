@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library aws_json1_1.json_protocol.model.error_without_members; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_1_v1.json_protocol.model.error_without_members; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -27,7 +27,9 @@ abstract class ErrorWithoutMembers
 
   /// Constructs a [ErrorWithoutMembers] from a [payload] and [response].
   factory ErrorWithoutMembers.fromResponse(
-          ErrorWithoutMembers payload, _i1.AWSBaseHttpResponse response) =>
+    ErrorWithoutMembers payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.statusCode = response.statusCode;
         b.headers = response.headers;
@@ -41,7 +43,9 @@ abstract class ErrorWithoutMembers
   static void _init(ErrorWithoutMembersBuilder b) {}
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'aws.protocoltests.json', shape: 'ErrorWithoutMembers');
+        namespace: 'aws.protocoltests.json',
+        shape: 'ErrorWithoutMembers',
+      );
   @override
   String? get message => null;
   @override
@@ -68,20 +72,31 @@ class ErrorWithoutMembersAwsJson11Serializer
   const ErrorWithoutMembersAwsJson11Serializer() : super('ErrorWithoutMembers');
 
   @override
-  Iterable<Type> get types =>
-      const [ErrorWithoutMembers, _$ErrorWithoutMembers];
+  Iterable<Type> get types => const [
+        ErrorWithoutMembers,
+        _$ErrorWithoutMembers,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   ErrorWithoutMembers deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return ErrorWithoutMembersBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

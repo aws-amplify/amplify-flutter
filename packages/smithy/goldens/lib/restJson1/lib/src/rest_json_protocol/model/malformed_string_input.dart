@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.malformed_string_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.malformed_string_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:convert' as _i4;
 
@@ -21,8 +21,9 @@ abstract class MalformedStringInput
         Built<MalformedStringInput, MalformedStringInputBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<MalformedStringInputPayload> {
-  factory MalformedStringInput({_i3.JsonObject? blob}) {
-    return _$MalformedStringInput._(blob: blob);
+  factory MalformedStringInput({Object? blob}) {
+    return _$MalformedStringInput._(
+        blob: blob == null ? null : _i3.JsonObject(blob));
   }
 
   factory MalformedStringInput.build(
@@ -32,8 +33,10 @@ abstract class MalformedStringInput
   const MalformedStringInput._();
 
   factory MalformedStringInput.fromRequest(
-          MalformedStringInputPayload payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    MalformedStringInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       MalformedStringInput.build((b) {
         if (request.headers['amz-media-typed-header'] != null) {
           b.blob = _i3.JsonObject(_i4.jsonDecode(_i4.utf8.decode(
@@ -55,7 +58,10 @@ abstract class MalformedStringInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedStringInput');
-    helper.add('blob', blob);
+    helper.add(
+      'blob',
+      blob,
+    );
     return helper.toString();
   }
 }
@@ -93,20 +99,29 @@ class MalformedStringInputRestJson1Serializer
         MalformedStringInput,
         _$MalformedStringInput,
         MalformedStringInputPayload,
-        _$MalformedStringInputPayload
+        _$MalformedStringInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   MalformedStringInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return MalformedStringInputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

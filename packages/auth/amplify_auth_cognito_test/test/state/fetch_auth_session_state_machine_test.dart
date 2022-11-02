@@ -18,9 +18,10 @@ import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:mockito/mockito.dart';
-import 'package:smithy/src/http/http_client.dart';
+import 'package:smithy/smithy.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:test/test.dart';
 
@@ -41,25 +42,39 @@ class MockCognitoIdentityClient implements CognitoIdentityClient {
       _getCredentialsForIdentity;
 
   @override
-  Future<GetCredentialsForIdentityResponse> getCredentialsForIdentity(
+  SmithyOperation<GetCredentialsForIdentityResponse> getCredentialsForIdentity(
     GetCredentialsForIdentityInput input, {
-    HttpClient? client,
+    AWSHttpClient? client,
   }) {
     if (_getCredentialsForIdentity == null) {
       throw UnimplementedError();
     }
-    return _getCredentialsForIdentity!();
+    return SmithyOperation(
+      CancelableOperation.fromFuture(
+        Future.value(_getCredentialsForIdentity!()),
+      ),
+      operationName: 'GetCredentialsForIdentity',
+      requestProgress: const Stream.empty(),
+      responseProgress: const Stream.empty(),
+    );
   }
 
   @override
-  Future<GetIdResponse> getId(
+  SmithyOperation<GetIdResponse> getId(
     GetIdInput input, {
-    HttpClient? client,
+    AWSHttpClient? client,
   }) {
     if (_getId == null) {
       throw UnimplementedError();
     }
-    return _getId!();
+    return SmithyOperation(
+      CancelableOperation.fromFuture(
+        Future.value(_getId!()),
+      ),
+      operationName: 'GetId',
+      requestProgress: const Stream.empty(),
+      responseProgress: const Stream.empty(),
+    );
   }
 }
 
@@ -74,11 +89,18 @@ class MockCognitoIdentityProviderClient extends Fake
       _initiateAuth;
 
   @override
-  Future<InitiateAuthResponse> initiateAuth(
+  SmithyOperation<InitiateAuthResponse> initiateAuth(
     InitiateAuthRequest input, {
-    HttpClient? client,
+    AWSHttpClient? client,
   }) =>
-      _initiateAuth(input);
+      SmithyOperation(
+        CancelableOperation.fromFuture(
+          Future.value(_initiateAuth(input)),
+        ),
+        operationName: 'InitiateAuth',
+        requestProgress: const Stream.empty(),
+        responseProgress: const Stream.empty(),
+      );
 }
 
 void main() {
@@ -254,15 +276,11 @@ void main() {
           stateMachine.dispatch(AuthEvent.configure(mockConfig));
           await stateMachine.stream.whereType<AuthConfigured>().first;
 
-          const newIdentityId = 'newIdentityId';
           const newAccessKeyId = 'newAccessKeyId';
           const newSecretAccessKey = 'newSecretAccessKey';
           stateMachine
             ..addInstance<CognitoIdentityClient>(
               MockCognitoIdentityClient(
-                getId: expectAsync0(
-                  () async => GetIdResponse(identityId: newIdentityId),
-                ),
                 getCredentialsForIdentity: expectAsync0(
                   () async => GetCredentialsForIdentityResponse(
                     credentials: Credentials(
@@ -292,7 +310,11 @@ void main() {
           );
 
           final state = sm.currentState as FetchAuthSessionSuccess;
-          expect(state.session.identityId, newIdentityId);
+          expect(
+            state.session.identityId,
+            identityId,
+            reason: 'Should retain identity ID',
+          );
           expect(
             state.session.credentials?.accessKeyId,
             newAccessKeyId,
@@ -320,7 +342,7 @@ void main() {
           stateMachine
             ..addInstance<CognitoIdentityClient>(
               MockCognitoIdentityClient(
-                getId: expectAsync0(
+                getCredentialsForIdentity: expectAsync0(
                   () async => throw _FetchAuthSessionException(),
                 ),
               ),
@@ -452,6 +474,223 @@ void main() {
             sm.getLatestResult(),
             throwsA(isA<_FetchAuthSessionException>()),
           );
+        });
+
+        test('force refresh user pool tokens', () async {
+          seedStorage(
+            secureStorage,
+            userPoolKeys: userPoolKeys,
+          );
+          // Create an unexpired access token which we want to refresh.
+          final originalToken = createJwt(
+            type: TokenType.access,
+            expiration: const Duration(minutes: 3),
+          );
+          secureStorage.write(
+            key: userPoolKeys[CognitoUserPoolKey.accessToken],
+            value: originalToken.raw,
+          );
+          stateMachine.dispatch(AuthEvent.configure(userPoolOnlyConfig));
+          await stateMachine.stream.whereType<AuthConfigured>().first;
+
+          stateMachine
+            ..addInstance<CognitoIdentityProviderClient>(
+              MockCognitoIdentityProviderClient(
+                initiateAuth: expectAsync1(
+                  (request) async => InitiateAuthResponse(
+                    authenticationResult: AuthenticationResultType(
+                      accessToken: createJwt(
+                        type: TokenType.access,
+                        expiration: const Duration(minutes: 5),
+                      ).raw,
+                    ),
+                  ),
+                ),
+              ),
+            )
+            ..dispatch(
+              const FetchAuthSessionEvent.fetch(
+                CognitoSessionOptions(
+                  getAWSCredentials: false,
+                  forceRefresh: true,
+                ),
+              ),
+            );
+
+          final sm =
+              stateMachine.getOrCreate(FetchAuthSessionStateMachine.type);
+          await expectLater(
+            sm.stream.startWith(sm.currentState),
+            emitsInOrder(<Matcher>[
+              isA<FetchAuthSessionIdle>(),
+              isA<FetchAuthSessionFetching>(),
+              isA<FetchAuthSessionRefreshing>(),
+              isA<FetchAuthSessionSuccess>(),
+            ]),
+          );
+
+          final state = sm.currentState as FetchAuthSessionSuccess;
+          expect(state.session.isSignedIn, isTrue);
+          expect(state.session.userSub, userSub);
+          expect(state.session.userPoolTokens, isNotNull);
+
+          final newToken = state.session.userPoolTokens!.accessToken;
+          expect(newToken, isNot(originalToken));
+          expect(
+            newToken.claims.expiration!.millisecondsSinceEpoch,
+            greaterThan(
+              originalToken.claims.expiration!.millisecondsSinceEpoch,
+            ),
+          );
+        });
+
+        test('force refresh AWS creds', () async {
+          seedStorage(
+            secureStorage,
+            identityPoolKeys: identityPoolKeys,
+          );
+          // Create unexpired AWS credentials which we want to refresh.
+          final originalExpiration =
+              DateTime.now().add(const Duration(minutes: 3));
+          final newExpiration = DateTime.now().add(const Duration(minutes: 5));
+          secureStorage.write(
+            key: identityPoolKeys[CognitoIdentityPoolKey.expiration],
+            value: originalExpiration.toIso8601String(),
+          );
+          stateMachine.dispatch(AuthEvent.configure(mockConfig));
+          await stateMachine.stream.whereType<AuthConfigured>().first;
+
+          const newAccessKeyId = 'newAccessKeyId';
+          const newSecretAccessKey = 'newSecretAccessKey';
+          stateMachine
+            ..addInstance<CognitoIdentityClient>(
+              MockCognitoIdentityClient(
+                getCredentialsForIdentity: expectAsync0(
+                  () async => GetCredentialsForIdentityResponse(
+                    credentials: Credentials(
+                      accessKeyId: newAccessKeyId,
+                      secretKey: newSecretAccessKey,
+                      expiration: newExpiration,
+                    ),
+                  ),
+                ),
+              ),
+            )
+            ..dispatch(
+              const FetchAuthSessionEvent.fetch(
+                CognitoSessionOptions(
+                  getAWSCredentials: true,
+                  forceRefresh: true,
+                ),
+              ),
+            );
+
+          final sm =
+              stateMachine.getOrCreate(FetchAuthSessionStateMachine.type);
+          await expectLater(
+            sm.stream.startWith(sm.currentState),
+            emitsInOrder(<Matcher>[
+              isA<FetchAuthSessionIdle>(),
+              isA<FetchAuthSessionFetching>(),
+              isA<FetchAuthSessionRefreshing>(),
+              isA<FetchAuthSessionSuccess>(),
+            ]),
+          );
+
+          final state = sm.currentState as FetchAuthSessionSuccess;
+          expect(
+            state.session.identityId,
+            identityId,
+            reason: 'Should retain identity ID',
+          );
+          expect(
+            state.session.credentials?.accessKeyId,
+            newAccessKeyId,
+          );
+          expect(
+            state.session.credentials?.secretAccessKey,
+            newSecretAccessKey,
+          );
+          expect(state.session.credentials?.expiration, newExpiration);
+        });
+
+        test('force refresh all creds', () async {
+          seedStorage(
+            secureStorage,
+            identityPoolKeys: identityPoolKeys,
+            userPoolKeys: userPoolKeys,
+          );
+          // Create an unexpired access token which we want to refresh.
+          final originalToken = createJwt(
+            type: TokenType.access,
+            expiration: const Duration(minutes: 3),
+          );
+          secureStorage.write(
+            key: userPoolKeys[CognitoUserPoolKey.accessToken],
+            value: originalToken.raw,
+          );
+          // Create unexpired AWS credentials which we don't want to refresh.
+          final originalExpiration =
+              DateTime.now().add(const Duration(minutes: 3));
+          secureStorage.write(
+            key: identityPoolKeys[CognitoIdentityPoolKey.expiration],
+            value: originalExpiration.toIso8601String(),
+          );
+          stateMachine.dispatch(AuthEvent.configure(mockConfig));
+          await stateMachine.stream.whereType<AuthConfigured>().first;
+
+          stateMachine
+            ..addInstance<CognitoIdentityProviderClient>(
+              MockCognitoIdentityProviderClient(
+                initiateAuth: expectAsync1(
+                  (request) async => InitiateAuthResponse(
+                    authenticationResult: AuthenticationResultType(
+                      accessToken: createJwt(
+                        type: TokenType.access,
+                        expiration: const Duration(minutes: 5),
+                      ).raw,
+                    ),
+                  ),
+                ),
+              ),
+            )
+            ..dispatch(
+              const FetchAuthSessionEvent.fetch(
+                CognitoSessionOptions(
+                  getAWSCredentials: false,
+                  forceRefresh: true,
+                ),
+              ),
+            );
+
+          final sm =
+              stateMachine.getOrCreate(FetchAuthSessionStateMachine.type);
+          await expectLater(
+            sm.stream.startWith(sm.currentState),
+            emitsInOrder(<Matcher>[
+              isA<FetchAuthSessionIdle>(),
+              isA<FetchAuthSessionFetching>(),
+              isA<FetchAuthSessionRefreshing>(),
+              isA<FetchAuthSessionSuccess>(),
+            ]),
+          );
+
+          final state = sm.currentState as FetchAuthSessionSuccess;
+          expect(state.session.isSignedIn, isTrue);
+          expect(state.session.userSub, userSub);
+          expect(state.session.userPoolTokens, isNotNull);
+
+          final newToken = state.session.userPoolTokens!.accessToken;
+          expect(newToken, isNot(originalToken));
+          expect(
+            newToken.claims.expiration!.millisecondsSinceEpoch,
+            greaterThan(
+              originalToken.claims.expiration!.millisecondsSinceEpoch,
+            ),
+          );
+
+          expect(state.session.credentials, isNotNull);
+          expect(state.session.credentials!.expiration, originalExpiration);
         });
       });
 

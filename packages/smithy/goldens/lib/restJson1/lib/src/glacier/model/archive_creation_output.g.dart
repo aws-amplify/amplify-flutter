@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1.glacier.model.archive_creation_output;
+part of rest_json1_v1.glacier.model.archive_creation_output;
 
 // **************************************************************************
 // BuiltValueGenerator

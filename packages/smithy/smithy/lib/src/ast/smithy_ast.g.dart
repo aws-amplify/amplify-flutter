@@ -6,6 +6,26 @@ part of 'smithy_ast.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+const SmithyVersion _$v1 = const SmithyVersion._('v1');
+const SmithyVersion _$v2 = const SmithyVersion._('v2');
+
+SmithyVersion _$SmithyVersionValueOf(String name) {
+  switch (name) {
+    case 'v1':
+      return _$v1;
+    case 'v2':
+      return _$v2;
+    default:
+      throw new ArgumentError(name);
+  }
+}
+
+final BuiltSet<SmithyVersion> _$SmithyVersionValues =
+    new BuiltSet<SmithyVersion>(const <SmithyVersion>[
+  _$v1,
+  _$v2,
+]);
+
 Serializer<SmithyAst> _$smithyAstSerializer = new _$SmithyAstSerializer();
 
 class _$SmithyAstSerializer implements StructuredSerializer<SmithyAst> {
@@ -20,7 +40,7 @@ class _$SmithyAstSerializer implements StructuredSerializer<SmithyAst> {
     final result = <Object?>[
       'smithy',
       serializers.serialize(object.version,
-          specifiedType: const FullType(String)),
+          specifiedType: const FullType(SmithyVersion)),
       'metadata',
       serializers.serialize(object.metadata,
           specifiedType: const FullType(BuiltMap,
@@ -46,7 +66,7 @@ class _$SmithyAstSerializer implements StructuredSerializer<SmithyAst> {
       switch (key) {
         case 'smithy':
           result.version = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+              specifiedType: const FullType(SmithyVersion))! as SmithyVersion;
           break;
         case 'metadata':
           result.metadata.replace(serializers.deserialize(value,
@@ -68,7 +88,7 @@ class _$SmithyAstSerializer implements StructuredSerializer<SmithyAst> {
 
 class _$SmithyAst extends SmithyAst {
   @override
-  final String version;
+  final SmithyVersion version;
   @override
   final BuiltMap<String, JsonObject> metadata;
   @override
@@ -120,9 +140,9 @@ class _$SmithyAst extends SmithyAst {
 class SmithyAstBuilder implements Builder<SmithyAst, SmithyAstBuilder> {
   _$SmithyAst? _$v;
 
-  String? _version;
-  String? get version => _$this._version;
-  set version(String? version) => _$this._version = version;
+  SmithyVersion? _version;
+  SmithyVersion? get version => _$this._version;
+  set version(SmithyVersion? version) => _$this._version = version;
 
   MapBuilder<String, JsonObject>? _metadata;
   MapBuilder<String, JsonObject> get metadata =>
@@ -134,9 +154,7 @@ class SmithyAstBuilder implements Builder<SmithyAst, SmithyAstBuilder> {
   ShapeMap? get shapes => _$this._shapes;
   set shapes(ShapeMap? shapes) => _$this._shapes = shapes;
 
-  SmithyAstBuilder() {
-    SmithyAst._init(this);
-  }
+  SmithyAstBuilder();
 
   SmithyAstBuilder get _$this {
     final $v = _$v;
@@ -164,6 +182,7 @@ class SmithyAstBuilder implements Builder<SmithyAst, SmithyAstBuilder> {
   SmithyAst build() => _build();
 
   _$SmithyAst _build() {
+    SmithyAst._init(this);
     _$SmithyAst _$result;
     try {
       _$result = _$v ??

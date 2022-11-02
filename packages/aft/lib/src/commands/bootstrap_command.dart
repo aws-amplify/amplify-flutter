@@ -70,6 +70,8 @@ const amplifyconfig = \'\'\'{
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0"
 }\'\'\';
+
+const amplifyEnvironments = <String, String>{};
 ''',
     );
   }
@@ -91,7 +93,14 @@ const amplifyconfig = \'\'\'{
     ]);
     if (build) {
       for (final package in allPackages.values) {
-        await runBuildRunner(package, logger: logger, verbose: verbose);
+        // Only run build_runner for packages which need it for development,
+        // i.e. those packages which specify worker JS files in their assets.
+        final needsBuild = package.needsBuildRunner &&
+            (package.pubspecInfo.pubspec.flutter?.containsKey('assets') ??
+                false);
+        if (needsBuild) {
+          await runBuildRunner(package, logger: logger, verbose: verbose);
+        }
       }
     }
 

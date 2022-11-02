@@ -15,6 +15,7 @@
 import 'dart:io';
 
 import 'package:aft/src/util.dart';
+import 'package:aft/src/flutter_platform.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as p;
@@ -27,7 +28,7 @@ part 'models.g.dart';
 
 /// Packages which report as an example app, but should be considered as
 /// publishable for some purposes.
-const falsePositiveExamples = ['aft'];
+const falsePositiveExamples = ['aft', 'smithy_codegen'];
 
 /// The flavor of a package, e.g. Dart/Flutter.
 enum PackageFlavor {
@@ -55,6 +56,22 @@ class PackageInfo
     required this.flavor,
   });
 
+  /// Returns the [PackageInfo] found in [dir].
+  static PackageInfo? fromDirectory(Directory dir) {
+    final pubspecInfo = dir.pubspec;
+    if (pubspecInfo == null) {
+      return null;
+    }
+    final pubspec = pubspecInfo.pubspec;
+    return PackageInfo(
+      name: pubspec.name,
+      path: dir.path,
+      usesMonoRepo: dir.usesMonoRepo,
+      pubspecInfo: pubspecInfo,
+      flavor: pubspec.flavor,
+    );
+  }
+
   /// The name of the package.
   final String name;
 
@@ -69,6 +86,52 @@ class PackageInfo
 
   /// The package flavor, e.g. Dart or Flutter.
   final PackageFlavor flavor;
+
+  /// The integration test directory within the enclosing directory, if any
+  Directory? get integTestDirectory {
+    final expectedPath = p.join(path, 'integration_test');
+    final integTestDir = Directory(expectedPath);
+    if (!integTestDir.existsSync()) {
+      return null;
+    }
+    return integTestDir;
+  }
+
+  /// The unit test directory within the enclosing directory, if any
+  Directory? get unitTestDirectory {
+    final expectedPath = p.join(path, 'test');
+    final unitTestDir = Directory(expectedPath);
+    if (!unitTestDir.existsSync()) {
+      return null;
+    }
+    return unitTestDir;
+  }
+
+  /// The example app for this package, if any.
+  PackageInfo? get example {
+    final expectedPath = p.join(path, 'example');
+    final exampleDir = Directory(expectedPath);
+    if (!exampleDir.existsSync()) {
+      return null;
+    }
+    return PackageInfo.fromDirectory(exampleDir);
+  }
+
+  /// The platforms a package supports, typically for example apps.
+  List<FlutterPlatform>? get platforms {
+    final platforms = <FlutterPlatform>[];
+    for (final value in FlutterPlatform.values) {
+      final expectedPath = p.join(path, value.name);
+      final platformDirectory = Directory(expectedPath);
+      if (platformDirectory.existsSync()) {
+        platforms.add(value);
+      }
+    }
+    if (platforms.isEmpty) {
+      return null;
+    }
+    return platforms;
+  }
 
   /// Whether the package needs `build_runner` to be run.
   ///
@@ -202,21 +265,33 @@ class AftConfig {
 /// Typed representation of the `sdk.yaml` file.
 @yamlSerializable
 @ShapeIdConverter()
-class SdkConfig with AWSSerializable, AWSEquatable<SdkConfig> {
+class SdkConfig
+    with
+        AWSEquatable<SdkConfig>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
   const SdkConfig({
+    this.ref = 'main',
     required this.apis,
   });
 
   factory SdkConfig.fromJson(Map<Object?, Object?>? json) =>
       _$SdkConfigFromJson(json ?? const {});
 
-  final Map<String, List<ShapeId>> apis;
+  /// The `aws-models` ref to pull.
+  ///
+  /// Defaults to `main`.
+  final String ref;
+  final Map<String, List<ShapeId>?> apis;
 
   @override
   Map<String, Object?> toJson() => _$SdkConfigToJson(this);
 
   @override
   List<Object?> get props => [apis];
+
+  @override
+  String get runtimeTypeName => 'SdkConfig';
 }
 
 class _VersionConstraintConverter

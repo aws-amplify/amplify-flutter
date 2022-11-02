@@ -1,3 +1,13 @@
+## 0.1.6
+
+### Features
+- feat(auth): Force refresh
+- feat(auth): Multiple plugin registration
+- feat(secure_storage): remove items on re-install for iOS & MacOS ([#2118](https://github.com/aws-amplify/amplify-flutter/pull/2118))
+
+### Fixes
+- fix(auth): Erase plugin interface input types
+
 ## 0.1.5
 
 - fix: CognitoDeviceSecrets attempts to build without secrets ([#2021](https://github.com/aws-amplify/amplify-flutter/pull/2021))

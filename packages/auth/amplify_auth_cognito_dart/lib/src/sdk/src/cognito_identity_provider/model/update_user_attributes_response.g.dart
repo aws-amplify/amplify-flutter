@@ -8,7 +8,7 @@ part of amplify_auth_cognito_dart.cognito_identity_provider.model.update_user_at
 
 class _$UpdateUserAttributesResponse extends UpdateUserAttributesResponse {
   @override
-  final _i2.BuiltList<_i3.CodeDeliveryDetailsType>? codeDeliveryDetailsList;
+  final _i3.BuiltList<_i2.CodeDeliveryDetailsType>? codeDeliveryDetailsList;
 
   factory _$UpdateUserAttributesResponse(
           [void Function(UpdateUserAttributesResponseBuilder)? updates]) =>
@@ -44,12 +44,12 @@ class UpdateUserAttributesResponseBuilder
             UpdateUserAttributesResponseBuilder> {
   _$UpdateUserAttributesResponse? _$v;
 
-  _i2.ListBuilder<_i3.CodeDeliveryDetailsType>? _codeDeliveryDetailsList;
-  _i2.ListBuilder<_i3.CodeDeliveryDetailsType> get codeDeliveryDetailsList =>
+  _i3.ListBuilder<_i2.CodeDeliveryDetailsType>? _codeDeliveryDetailsList;
+  _i3.ListBuilder<_i2.CodeDeliveryDetailsType> get codeDeliveryDetailsList =>
       _$this._codeDeliveryDetailsList ??=
-          new _i2.ListBuilder<_i3.CodeDeliveryDetailsType>();
+          new _i3.ListBuilder<_i2.CodeDeliveryDetailsType>();
   set codeDeliveryDetailsList(
-          _i2.ListBuilder<_i3.CodeDeliveryDetailsType>?
+          _i3.ListBuilder<_i2.CodeDeliveryDetailsType>?
               codeDeliveryDetailsList) =>
       _$this._codeDeliveryDetailsList = codeDeliveryDetailsList;
 

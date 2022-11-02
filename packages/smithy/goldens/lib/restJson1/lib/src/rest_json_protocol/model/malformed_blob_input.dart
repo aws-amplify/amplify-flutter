@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.malformed_blob_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.malformed_blob_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:typed_data' as _i3;
 
@@ -25,8 +25,10 @@ abstract class MalformedBlobInput
   const MalformedBlobInput._();
 
   factory MalformedBlobInput.fromRequest(
-          MalformedBlobInput payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    MalformedBlobInput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -43,7 +45,10 @@ abstract class MalformedBlobInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedBlobInput');
-    helper.add('blob', blob);
+    helper.add(
+      'blob',
+      blob,
+    );
     return helper.toString();
   }
 }
@@ -53,14 +58,23 @@ class MalformedBlobInputRestJson1Serializer
   const MalformedBlobInputRestJson1Serializer() : super('MalformedBlobInput');
 
   @override
-  Iterable<Type> get types => const [MalformedBlobInput, _$MalformedBlobInput];
+  Iterable<Type> get types => const [
+        MalformedBlobInput,
+        _$MalformedBlobInput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   MalformedBlobInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = MalformedBlobInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -70,8 +84,10 @@ class MalformedBlobInputRestJson1Serializer
       switch (key) {
         case 'blob':
           if (value != null) {
-            result.blob = (serializers.deserialize(value,
-                specifiedType: const FullType(_i3.Uint8List)) as _i3.Uint8List);
+            result.blob = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.Uint8List),
+            ) as _i3.Uint8List);
           }
           break;
       }
@@ -81,15 +97,20 @@ class MalformedBlobInputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as MalformedBlobInput);
     final result = <Object?>[];
     if (payload.blob != null) {
       result
         ..add('blob')
-        ..add(serializers.serialize(payload.blob!,
-            specifiedType: const FullType(_i3.Uint8List)));
+        ..add(serializers.serialize(
+          payload.blob!,
+          specifiedType: const FullType(_i3.Uint8List),
+        ));
     }
     return result;
   }

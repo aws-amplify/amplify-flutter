@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.http_request_with_labels_and_timestamp_format_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.http_request_with_labels_and_timestamp_format_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -19,22 +19,24 @@ abstract class HttpRequestWithLabelsAndTimestampFormatInput
             HttpRequestWithLabelsAndTimestampFormatInputBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<HttpRequestWithLabelsAndTimestampFormatInputPayload> {
-  factory HttpRequestWithLabelsAndTimestampFormatInput(
-      {required DateTime defaultFormat,
-      required DateTime memberDateTime,
-      required DateTime memberEpochSeconds,
-      required DateTime memberHttpDate,
-      required DateTime targetDateTime,
-      required DateTime targetEpochSeconds,
-      required DateTime targetHttpDate}) {
+  factory HttpRequestWithLabelsAndTimestampFormatInput({
+    required DateTime defaultFormat,
+    required DateTime memberDateTime,
+    required DateTime memberEpochSeconds,
+    required DateTime memberHttpDate,
+    required DateTime targetDateTime,
+    required DateTime targetEpochSeconds,
+    required DateTime targetHttpDate,
+  }) {
     return _$HttpRequestWithLabelsAndTimestampFormatInput._(
-        defaultFormat: defaultFormat,
-        memberDateTime: memberDateTime,
-        memberEpochSeconds: memberEpochSeconds,
-        memberHttpDate: memberHttpDate,
-        targetDateTime: targetDateTime,
-        targetEpochSeconds: targetEpochSeconds,
-        targetHttpDate: targetHttpDate);
+      defaultFormat: defaultFormat,
+      memberDateTime: memberDateTime,
+      memberEpochSeconds: memberEpochSeconds,
+      memberHttpDate: memberHttpDate,
+      targetDateTime: targetDateTime,
+      targetEpochSeconds: targetEpochSeconds,
+      targetHttpDate: targetHttpDate,
+    );
   }
 
   factory HttpRequestWithLabelsAndTimestampFormatInput.build(
@@ -44,46 +46,52 @@ abstract class HttpRequestWithLabelsAndTimestampFormatInput
   const HttpRequestWithLabelsAndTimestampFormatInput._();
 
   factory HttpRequestWithLabelsAndTimestampFormatInput.fromRequest(
-          HttpRequestWithLabelsAndTimestampFormatInputPayload payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    HttpRequestWithLabelsAndTimestampFormatInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       HttpRequestWithLabelsAndTimestampFormatInput.build((b) {
         if (labels['memberEpochSeconds'] != null) {
           b.memberEpochSeconds = _i1.Timestamp.parse(
-                  int.parse(labels['memberEpochSeconds']!),
-                  format: _i1.TimestampFormat.epochSeconds)
-              .asDateTime;
+            int.parse(labels['memberEpochSeconds']!),
+            format: _i1.TimestampFormat.epochSeconds,
+          ).asDateTime;
         }
         if (labels['memberHttpDate'] != null) {
-          b.memberHttpDate = _i1.Timestamp.parse(labels['memberHttpDate']!,
-                  format: _i1.TimestampFormat.httpDate)
-              .asDateTime;
+          b.memberHttpDate = _i1.Timestamp.parse(
+            labels['memberHttpDate']!,
+            format: _i1.TimestampFormat.httpDate,
+          ).asDateTime;
         }
         if (labels['memberDateTime'] != null) {
-          b.memberDateTime = _i1.Timestamp.parse(labels['memberDateTime']!,
-                  format: _i1.TimestampFormat.dateTime)
-              .asDateTime;
+          b.memberDateTime = _i1.Timestamp.parse(
+            labels['memberDateTime']!,
+            format: _i1.TimestampFormat.dateTime,
+          ).asDateTime;
         }
         if (labels['defaultFormat'] != null) {
-          b.defaultFormat = _i1.Timestamp.parse(labels['defaultFormat']!,
-                  format: _i1.TimestampFormat.dateTime)
-              .asDateTime;
+          b.defaultFormat = _i1.Timestamp.parse(
+            labels['defaultFormat']!,
+            format: _i1.TimestampFormat.dateTime,
+          ).asDateTime;
         }
         if (labels['targetEpochSeconds'] != null) {
           b.targetEpochSeconds = _i1.Timestamp.parse(
-                  int.parse(labels['targetEpochSeconds']!),
-                  format: _i1.TimestampFormat.epochSeconds)
-              .asDateTime;
+            int.parse(labels['targetEpochSeconds']!),
+            format: _i1.TimestampFormat.epochSeconds,
+          ).asDateTime;
         }
         if (labels['targetHttpDate'] != null) {
-          b.targetHttpDate = _i1.Timestamp.parse(labels['targetHttpDate']!,
-                  format: _i1.TimestampFormat.httpDate)
-              .asDateTime;
+          b.targetHttpDate = _i1.Timestamp.parse(
+            labels['targetHttpDate']!,
+            format: _i1.TimestampFormat.httpDate,
+          ).asDateTime;
         }
         if (labels['targetDateTime'] != null) {
-          b.targetDateTime = _i1.Timestamp.parse(labels['targetDateTime']!,
-                  format: _i1.TimestampFormat.dateTime)
-              .asDateTime;
+          b.targetDateTime = _i1.Timestamp.parse(
+            labels['targetDateTime']!,
+            format: _i1.TimestampFormat.dateTime,
+          ).asDateTime;
         }
       });
 
@@ -132,7 +140,10 @@ abstract class HttpRequestWithLabelsAndTimestampFormatInput
             .format(_i1.TimestampFormat.dateTime)
             .toString();
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
@@ -146,19 +157,40 @@ abstract class HttpRequestWithLabelsAndTimestampFormatInput
         memberHttpDate,
         targetDateTime,
         targetEpochSeconds,
-        targetHttpDate
+        targetHttpDate,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'HttpRequestWithLabelsAndTimestampFormatInput');
-    helper.add('defaultFormat', defaultFormat);
-    helper.add('memberDateTime', memberDateTime);
-    helper.add('memberEpochSeconds', memberEpochSeconds);
-    helper.add('memberHttpDate', memberHttpDate);
-    helper.add('targetDateTime', targetDateTime);
-    helper.add('targetEpochSeconds', targetEpochSeconds);
-    helper.add('targetHttpDate', targetHttpDate);
+    helper.add(
+      'defaultFormat',
+      defaultFormat,
+    );
+    helper.add(
+      'memberDateTime',
+      memberDateTime,
+    );
+    helper.add(
+      'memberEpochSeconds',
+      memberEpochSeconds,
+    );
+    helper.add(
+      'memberHttpDate',
+      memberHttpDate,
+    );
+    helper.add(
+      'targetDateTime',
+      targetDateTime,
+    );
+    helper.add(
+      'targetEpochSeconds',
+      targetEpochSeconds,
+    );
+    helper.add(
+      'targetHttpDate',
+      targetHttpDate,
+    );
     return helper.toString();
   }
 }
@@ -201,20 +233,29 @@ class HttpRequestWithLabelsAndTimestampFormatInputRestJson1Serializer
         HttpRequestWithLabelsAndTimestampFormatInput,
         _$HttpRequestWithLabelsAndTimestampFormatInput,
         HttpRequestWithLabelsAndTimestampFormatInputPayload,
-        _$HttpRequestWithLabelsAndTimestampFormatInputPayload
+        _$HttpRequestWithLabelsAndTimestampFormatInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   HttpRequestWithLabelsAndTimestampFormatInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

@@ -21,7 +21,7 @@ import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
 
 mixin AuthenticatorPhoneFieldMixin<FieldType,
-        T extends AuthenticatorFormField<FieldType, String, T>>
+        T extends AuthenticatorFormField<FieldType, String>>
     on AuthenticatorFormFieldState<FieldType, String, T>
     implements SelectableConfig<CountryResolverKey, Country> {
   late final CountryResolver _countriesResolver = stringResolver.countries;

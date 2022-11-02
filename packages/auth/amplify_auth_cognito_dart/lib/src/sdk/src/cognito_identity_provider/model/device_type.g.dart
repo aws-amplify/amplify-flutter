@@ -8,7 +8,7 @@ part of amplify_auth_cognito_dart.cognito_identity_provider.model.device_type;
 
 class _$DeviceType extends DeviceType {
   @override
-  final _i2.BuiltList<_i3.AttributeType>? deviceAttributes;
+  final _i3.BuiltList<_i2.AttributeType>? deviceAttributes;
   @override
   final DateTime? deviceCreateDate;
   @override
@@ -63,10 +63,10 @@ class _$DeviceType extends DeviceType {
 class DeviceTypeBuilder implements Builder<DeviceType, DeviceTypeBuilder> {
   _$DeviceType? _$v;
 
-  _i2.ListBuilder<_i3.AttributeType>? _deviceAttributes;
-  _i2.ListBuilder<_i3.AttributeType> get deviceAttributes =>
-      _$this._deviceAttributes ??= new _i2.ListBuilder<_i3.AttributeType>();
-  set deviceAttributes(_i2.ListBuilder<_i3.AttributeType>? deviceAttributes) =>
+  _i3.ListBuilder<_i2.AttributeType>? _deviceAttributes;
+  _i3.ListBuilder<_i2.AttributeType> get deviceAttributes =>
+      _$this._deviceAttributes ??= new _i3.ListBuilder<_i2.AttributeType>();
+  set deviceAttributes(_i3.ListBuilder<_i2.AttributeType>? deviceAttributes) =>
       _$this._deviceAttributes = deviceAttributes;
 
   DateTime? _deviceCreateDate;

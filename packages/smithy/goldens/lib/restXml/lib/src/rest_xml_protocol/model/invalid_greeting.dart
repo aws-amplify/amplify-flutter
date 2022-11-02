@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_xml.rest_xml_protocol.model.invalid_greeting; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.model.invalid_greeting; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -28,7 +28,9 @@ abstract class InvalidGreeting
 
   /// Constructs a [InvalidGreeting] from a [payload] and [response].
   factory InvalidGreeting.fromResponse(
-          InvalidGreeting payload, _i1.AWSBaseHttpResponse response) =>
+    InvalidGreeting payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
@@ -43,7 +45,9 @@ abstract class InvalidGreeting
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'aws.protocoltests.restxml', shape: 'InvalidGreeting');
+        namespace: 'aws.protocoltests.restxml',
+        shape: 'InvalidGreeting',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -59,7 +63,10 @@ abstract class InvalidGreeting
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InvalidGreeting');
-    helper.add('message', message);
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
@@ -69,14 +76,23 @@ class InvalidGreetingRestXmlSerializer
   const InvalidGreetingRestXmlSerializer() : super('InvalidGreeting');
 
   @override
-  Iterable<Type> get types => const [InvalidGreeting, _$InvalidGreeting];
+  Iterable<Type> get types => const [
+        InvalidGreeting,
+        _$InvalidGreeting,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   InvalidGreeting deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = InvalidGreetingBuilder();
     final errorIterator = serialized.iterator;
     while (errorIterator.moveNext()) {
@@ -94,8 +110,10 @@ class InvalidGreetingRestXmlSerializer
       switch (key as String) {
         case 'Message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -105,15 +123,20 @@ class InvalidGreetingRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as InvalidGreeting);
     final result = <Object?>[const _i2.XmlElementName('InvalidGreeting')];
     if (payload.message != null) {
       result
         ..add(const _i2.XmlElementName('Message'))
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }
