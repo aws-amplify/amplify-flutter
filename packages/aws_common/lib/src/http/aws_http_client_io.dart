@@ -81,6 +81,8 @@ class AWSHttpClientImpl extends AWSHttpClient {
       ..maxRedirects = request.maxRedirects;
     if (request.hasContentLength) {
       ioRequest.contentLength = request.contentLength as int;
+    } else {
+      ioRequest.contentLength = -1;
     }
     logger.verbose('Opened server connection');
 
