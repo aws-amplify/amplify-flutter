@@ -47,10 +47,6 @@ jobs:
       - name: Bootstrap
         run: aft bootstrap
 
-      - name: Get Packages
-        run: dart pub upgrade
-        working-directory: ${{ inputs.working-directory }}
-
       - name: Check Formatting
         run: dart format --set-exit-if-changed .
         working-directory: ${{ inputs.working-directory }}
@@ -108,10 +104,6 @@ jobs:
 
       - name: Bootstrap
         run: aft bootstrap
-
-      - name: Get Packages
-        run: dart pub upgrade
-        working-directory: ${{ inputs.working-directory }}
 
       - name: Check Formatting
         run: dart format --set-exit-if-changed .

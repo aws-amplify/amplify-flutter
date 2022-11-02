@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+// TODO(dnys1): Remove this
 library amplify_flutter;
 
 import 'package:amplify_core/amplify_core.dart';
