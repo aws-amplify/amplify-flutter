@@ -95,24 +95,24 @@ abstract class AmplifyClass {
       try {
         final json = jsonDecode(configuration) as Map;
         amplifyConfig = AmplifyConfig.fromJson(json.cast());
-      } on Object catch (e) {
-        throw ConfigurationException(
-          'The provided configuration is not a valid json. Check underlyingException.',
+      } on Object {
+        throw ConfigurationError(
+          'The provided configuration is not a valid json. '
+          'Check underlyingException.',
           recoverySuggestion:
-              'Inspect your amplifyconfiguration.dart and ensure that the string is proper json',
-          underlyingException: e,
+              'Inspect your amplifyconfiguration.dart and ensure that '
+              'the string is proper json',
         );
       }
       await configurePlatform(configuration);
       _configCompleter.complete(amplifyConfig);
-    } on ConfigurationException catch (e, st) {
+    } on ConfigurationError catch (e, st) {
       // Complete with the configuration error and reset the completer so
       // that 1) `configure` can be called again and 2) listeners registered
       // on `asyncConfig` are notified of the error so they can handle it as
       // appropriate. For example, the Authenticator listens for `asyncConfig`
       // to complete before updating the UI.
       _configCompleter.completeError(e, st);
-      _configCompleter = Completer();
       rethrow;
     } on Object {
       // At this point, configuration is complete in the sense that the
