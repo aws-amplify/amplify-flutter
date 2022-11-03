@@ -32,25 +32,21 @@ jobs:
         run: flutter pub global activate -spath packages/aft
 
       - name: Bootstrap
+        id: bootstrap
         run: aft bootstrap
 
-      - name: Pub Upgrade
-        id: pub_upgrade
-        run: flutter pub upgrade
-        working-directory: ${{ inputs.working-directory }}
-
       - name: Check Formatting
-        if: "always() && steps.pub_upgrade.conclusion == 'success'"
+        if: "always() && steps.bootstrap.conclusion == 'success'"
         run: flutter format --set-exit-if-changed .
         working-directory: ${{ inputs.working-directory }}
 
       - name: Analyze
-        if: "always() && steps.pub_upgrade.conclusion == 'success'"
+        if: "always() && steps.bootstrap.conclusion == 'success'"
         run: flutter analyze --fatal-infos --fatal-warnings lib test
         working-directory: ${{ inputs.working-directory }}
 
       - name: Run Tests (VM)
-        if: "always() && steps.pub_upgrade.conclusion == 'success'"
+        if: "always() && steps.bootstrap.conclusion == 'success'"
         run: aft test unit -- -j 4
         working-directory: ${{ inputs.working-directory }}
 
@@ -81,24 +77,20 @@ jobs:
         run: flutter pub global activate -spath packages/aft
 
       - name: Bootstrap
+        id: bootstrap
         run: aft bootstrap
 
-      - name: Pub Upgrade
-        id: pub_upgrade
-        run: flutter pub upgrade
-        working-directory: ${{ inputs.working-directory }}
-
       - name: Check Formatting
-        if: "always() && steps.pub_upgrade.conclusion == 'success'"
+        if: "always() && steps.bootstrap.conclusion == 'success'"
         run: flutter format --set-exit-if-changed .
         working-directory: ${{ inputs.working-directory }}
 
       - name: Analyze
-        if: "always() && steps.pub_upgrade.conclusion == 'success'"
+        if: "always() && steps.bootstrap.conclusion == 'success'"
         run: flutter analyze --fatal-infos --fatal-warnings lib test
         working-directory: ${{ inputs.working-directory }}
 
       - name: Run Tests (VM)
-        if: "always() && steps.pub_upgrade.conclusion == 'success'"
+        if: "always() && steps.bootstrap.conclusion == 'success'"
         run: aft test unit -- -j 4
         working-directory: ${{ inputs.working-directory }}
