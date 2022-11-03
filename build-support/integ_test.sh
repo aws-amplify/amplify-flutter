@@ -1,14 +1,24 @@
 #!/bin/bash
 
-if [ ! -d android ]; then
-    echo "No Android project to test" >&2
-    exit
-fi
-
 DEFAULT_DEVICE_ID="sdk"
 DEFAULT_ENABLE_CLOUD_SYNC="true"
 DEFAULT_RETRIES=0
 DEFAULT_SMALL="false"
+
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    sudo apt-get update -y
+    sudo apt-get install -y ninja-build libgtk-3-dev libsecret-1-dev libglib2.0-dev gnome-keyring
+
+    # If running in headless mode, re-run script in dbus session.
+    if [ -z $DBUS_SESSION_BUS_ADDRESS ]; then
+        exec dbus-run-session -- $0
+    fi
+
+     # Set up keyring in CI env
+    if [ -n $CI ]; then
+        echo 'password' | gnome-keyring-daemon --start --replace --daemonize --unlock
+    fi
+fi
 
 while [ $# -gt 0 ]; do
     case "$1" in
@@ -46,6 +56,8 @@ if [ ! -e $TARGET ]; then
     echo "$TARGET file not found" >&2
     exit
 fi
+
+flutter pub get
 
 testsList+=("$TARGET")
 # Run tests with retry.
