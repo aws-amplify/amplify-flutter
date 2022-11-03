@@ -578,20 +578,12 @@ class _AuthenticatorState extends State<Authenticator> {
   }
 
   Future<void> _waitForConfiguration() async {
-    try {
-      final config = await Amplify.asyncConfig;
-      setState(() {
-        _config = config;
-        _configInitialized = true;
-        _missingConfigValues = missingConfigValues(config);
-      });
-    } on Exception catch (e) {
-      _showExceptionBanner(
-        type: StatusType.error,
-        message: AuthenticatorException(e).message,
-      );
-      await _waitForConfiguration();
-    }
+    final config = await Amplify.asyncConfig;
+    setState(() {
+      _config = config;
+      _configInitialized = true;
+      _missingConfigValues = missingConfigValues(config);
+    });
   }
 
   List<String> missingConfigValues(AmplifyConfig? config) {
