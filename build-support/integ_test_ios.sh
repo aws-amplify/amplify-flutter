@@ -27,6 +27,9 @@ while [ $# -gt 0 ]; do
                     exit 1
             esac
             ;;
+        --retries)
+            retries="$2"
+            ;;
         *)
             echo "Invalid arguments"
             exit 1

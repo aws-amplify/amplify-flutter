@@ -5,21 +5,6 @@ DEFAULT_ENABLE_CLOUD_SYNC="true"
 DEFAULT_RETRIES=0
 DEFAULT_SMALL="false"
 
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    sudo apt-get update -y
-    sudo apt-get install -y ninja-build libgtk-3-dev libsecret-1-dev libglib2.0-dev gnome-keyring
-
-    # If running in headless mode, re-run script in dbus session.
-    if [ -z $DBUS_SESSION_BUS_ADDRESS ]; then
-        exec dbus-run-session -- $0
-    fi
-
-     # Set up keyring in CI env
-    if [ -n $CI ]; then
-        echo 'password' | gnome-keyring-daemon --start --replace --daemonize --unlock
-    fi
-fi
-
 while [ $# -gt 0 ]; do
     case "$1" in
         -d|--device-id)
@@ -35,6 +20,9 @@ while [ $# -gt 0 ]; do
                     exit 1
             esac
             ;;
+        --retries)
+            retries="$2"
+            ;;
         *)
             echo "Invalid arguments"
             exit 1
@@ -47,6 +35,21 @@ deviceId=${deviceId:-$DEFAULT_DEVICE_ID}
 enableCloudSync=${enableCloudSync:-$DEFAULT_ENABLE_CLOUD_SYNC}
 retries=${retries:-$DEFAULT_RETRIES}
 small=${small:-$DEFAULT_SMALL}
+
+if [[ "$OSTYPE" == "linux-gnu"* && $deviceId == "linux"* ]]; then
+    sudo apt-get update -y
+    sudo apt-get install -y ninja-build libgtk-3-dev libsecret-1-dev libglib2.0-dev gnome-keyring
+
+    if [ -n $CI ]; then
+        # Headless tests require virtual display for the linux tests to run.
+        # from https://github.com/fluttercommunity/plus_plugins/blob/main/.github/workflows/scripts/integration-test.sh
+        export DISPLAY=:99
+        sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+
+        # Set up keyring.
+        echo 'password' | gnome-keyring-daemon --start --replace --daemonize --unlock
+    fi
+fi
 
 declare -a testsList
 declare -a resultsList
