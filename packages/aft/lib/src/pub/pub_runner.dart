@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:io';
+
 import 'package:aft/aft.dart';
 import 'package:args/command_runner.dart';
 import 'package:cli_util/cli_logging.dart';
@@ -77,9 +79,12 @@ Future<void> runFlutterPub(
   Logger? logger,
 }) async {
   // Assumes using Dart SDK from Flutter
-  Cache.flutterRoot = path.normalize(
-    path.absolute(path.dirname(path.dirname(path.dirname(getSdkPath())))),
-  );
+  final flutterRoot = Platform.environment['FLUTTER_ROOT'];
+  Cache.flutterRoot = flutterRoot == null || flutterRoot.isEmpty
+      ? path.normalize(
+          path.absolute(path.dirname(path.dirname(path.dirname(getSdkPath())))),
+        )
+      : flutterRoot;
   logger?.trace('Resolved flutter root: ${Cache.flutterRoot}');
   await flutter.runInContext(
     () async {
