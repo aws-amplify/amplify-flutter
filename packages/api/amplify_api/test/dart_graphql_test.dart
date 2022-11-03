@@ -18,13 +18,10 @@ import 'dart:convert';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_api/src/graphql/providers/app_sync_api_key_auth_provider.dart';
-import 'package:amplify_api/src/graphql/web_socket/web_socket_connection.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:aws_common/testing.dart';
 import 'package:collection/collection.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'test_data/fake_amplify_configuration.dart';
@@ -146,6 +143,14 @@ final mockHttpClient = MockAWSHttpClient((request) async {
   );
 });
 
+final mockWebSocketService = MockWebSocketService();
+
+final mockWebSocketBloc = MockWebSocketBloc(
+  testApiKeyConfig,
+  getTestAuthProviderRepo(),
+  wsService: mockWebSocketService,
+);
+
 final mockWebSocketConnection = MockWebSocketConnection(
   testApiKeyConfig,
   getTestAuthProviderRepo(),
@@ -160,8 +165,8 @@ class MockAmplifyAPI extends AmplifyAPIDart {
   });
 
   @override
-  WebSocketConnection getWebSocketConnection({String? apiName}) {
-    return mockWebSocketConnection;
+  MockWebSocketBloc getWebSocketBloc({String? apiName}) {
+    return mockWebSocketBloc;
   }
 }
 
@@ -276,32 +281,42 @@ void main() {
 
   group('Subscriptions', () {
     setUp(() {
-      final fakePlatform = MockConnectivityPlatform();
-      ConnectivityPlatform.instance = fakePlatform;
-      final connectivity = Connectivity();
+      // TODO(equartey): Add reconnection logic tests
+      // final fakePlatform = MockConnectivityPlatform();
+      // ConnectivityPlatform.instance = fakePlatform;
+      // final connectivity = Connectivity();
 
-      WebSocketConnection.httpClientOverride = mockHttpClient;
-      WebSocketConnection.connectivityOverride = connectivity;
-      WebSocketConnection.webSocketFactoryOverride = getMockWebSocketChannel;
+      // WebSocketConnection.httpClientOverride = mockHttpClient;
+      // WebSocketConnection.connectivityOverride = connectivity;
+      // WebSocketConnection.webSocketFactoryOverride = getMockWebSocketChannel;
     });
 
-    tearDown(() async {
-      mockWebSocketConnection.close();
+    tearDownAll(() async {
+      await mockWebSocketBloc.close();
     });
 
     test('subscribe() should decode model data', () async {
-      final establishedCompleter = Completer<void>();
       final subscriptionRequest = ModelSubscriptions.onCreate(Post.classType);
-      final subscription = Amplify.API.subscribe(
-        subscriptionRequest,
-        onEstablished: establishedCompleter.complete,
-      );
-      await assertWebSocketConnected(
-        mockWebSocketConnection,
+
+      initMockConnection(
+        mockWebSocketBloc,
+        mockWebSocketService,
         subscriptionRequest.id,
       );
 
-      await establishedCompleter.future;
+      final mockSubscriptionEvent = {
+        'id': subscriptionRequest.id,
+        'type': 'data',
+        'payload': {'data': mockSubscriptionData},
+      };
+
+      final subscription = Amplify.API.subscribe(
+        subscriptionRequest,
+        onEstablished: expectAsync0(() {
+          mockWebSocketService.channel.sink
+              .add(json.encode(mockSubscriptionEvent));
+        }),
+      );
 
       late StreamSubscription<GraphQLResponse<Post>> streamSub;
       streamSub = subscription.listen(
@@ -310,21 +325,10 @@ void main() {
         }),
       );
 
-      final mockSubscriptionEvent = {
-        'id': subscriptionRequest.id,
-        'type': 'data',
-        'payload': {'data': mockSubscriptionData},
-      };
-
-      mockWebSocketConnection.channel!.sink
-          .add(jsonEncode(mockSubscriptionEvent));
-
       addTearDown(streamSub.cancel);
     });
 
     test('subscribe() should return a subscription stream', () async {
-      final establishedCompleter = Completer<void>();
-      final dataCompleter = Completer<String>();
       const graphQLDocument = '''subscription MySubscription {
         onCreateBlog {
           id
@@ -332,22 +336,15 @@ void main() {
           createdAt
         }
       }''';
+
       final subscriptionRequest =
           GraphQLRequest<String>(document: graphQLDocument);
-      final subscription = Amplify.API.subscribe(
-        subscriptionRequest,
-        onEstablished: establishedCompleter.complete,
-      );
 
-      await assertWebSocketConnected(
-        mockWebSocketConnection,
+      initMockConnection(
+        mockWebSocketBloc,
+        mockWebSocketService,
         subscriptionRequest.id,
       );
-
-      final streamSub = subscription.listen(
-        (event) => dataCompleter.complete(event.data),
-      );
-      await expectLater(establishedCompleter.future, completes);
 
       final mockSubscriptionEvent = {
         'id': subscriptionRequest.id,
@@ -355,11 +352,21 @@ void main() {
         'payload': {'data': mockSubscriptionData},
       };
 
-      mockWebSocketConnection.channel!.sink
-          .add(jsonEncode(mockSubscriptionEvent));
+      final subscription = Amplify.API.subscribe(
+        subscriptionRequest,
+        onEstablished: expectAsync0(
+          () {
+            mockWebSocketService.channel.sink
+                .add(json.encode(mockSubscriptionEvent));
+          },
+        ),
+      );
 
-      final subscriptionData = await dataCompleter.future;
-      expect(subscriptionData, json.encode(mockSubscriptionData));
+      final streamSub = subscription.listen(
+        expectAsync1((event) {
+          expect(event.data, json.encode(mockSubscriptionData));
+        }),
+      );
 
       addTearDown(streamSub.cancel);
     });

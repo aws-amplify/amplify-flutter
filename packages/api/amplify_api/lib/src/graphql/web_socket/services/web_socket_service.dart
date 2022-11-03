@@ -24,6 +24,7 @@ import 'package:amplify_api/src/graphql/web_socket/types/ws_subscriptions_event.
 import 'package:amplify_api/src/graphql/web_socket/web_socket_message_stream_transformer.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
+import 'package:flutter/material.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -61,7 +62,9 @@ class AmplifyWebSocketService
   /// Service that contains the business logic for subscription management
   AmplifyWebSocketService();
 
-  WebSocketSink? _sink;
+  /// Sink used for sending messages to AppSync
+  @visibleForTesting
+  WebSocketSink? sink;
 
   @override
   Stream<WebSocketEvent> init(
@@ -77,7 +80,7 @@ class AmplifyWebSocketService
     WebSocketState state,
     StreamCompleter<WebSocketEvent> sc,
   ) async {
-    assert(_sink == null,
+    assert(sink == null,
         'Connection already exists, recreate service or clear sink');
 
     try {
@@ -91,9 +94,9 @@ class AmplifyWebSocketService
         connectionUri,
         protocols: webSocketProtocols,
       );
-      _sink = channel.sink;
+      sink = channel.sink;
 
-      final subscriptionStream = _transformStream(channel.stream);
+      final subscriptionStream = transformStream(channel.stream);
 
       _send(WebSocketConnectionInitMessage());
 
@@ -132,9 +135,9 @@ class AmplifyWebSocketService
   }
 
   void _send(WebSocketMessage message) {
-    assert(_sink != null, 'Sink must exist');
+    assert(sink != null, 'Sink must exist');
     final msgJson = json.encode(message.toJson());
-    _sink!.add(msgJson);
+    sink!.add(msgJson);
   }
 
   Future<void> _sendSubscriptionRegistrationMessage<T>(
@@ -151,7 +154,10 @@ class AmplifyWebSocketService
     _send(subscriptionRegistrationMessage);
   }
 
-  Stream<WebSocketEvent> _transformStream(
+  /// Transforms an event of <String> from AppSync and converts it into a
+  ///  [WebSocketEvent] which gets consumed in [WebSocketBloc]
+  @visibleForTesting
+  Stream<WebSocketEvent> transformStream(
     Stream<dynamic> stream,
   ) {
     return stream
@@ -205,8 +211,8 @@ class AmplifyWebSocketService
 
   @override
   Future<void> close() async {
-    await _sink?.close();
-    _sink = null;
+    await sink?.close();
+    sink = null;
   }
 
   @override

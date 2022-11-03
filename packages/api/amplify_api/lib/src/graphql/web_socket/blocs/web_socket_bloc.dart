@@ -257,6 +257,7 @@ class WebSocketBloc
       add(const InitEvent());
     }
 
+    // Send Registration messages over the open connection
     if (_currentState is ConnectedState) {
       assert(
         _currentState.subscriptionBlocs.containsKey(event.request.id),

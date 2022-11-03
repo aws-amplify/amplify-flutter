@@ -56,7 +56,6 @@ class AmplifyAPIDart extends AmplifyAPI {
 
   /// A map of the keys from the Amplify API config websocket connections to use
   /// for that endpoint.
-  final Map<String, WebSocketConnection> _webSocketConnectionPool = {};
   final Map<String, WebSocketBloc> _webSocketBlocPool = {};
 
   /// The registered [APIAuthProvider] instances.
@@ -166,25 +165,6 @@ class AmplifyAPIDart extends AmplifyAPI {
         authProviderRepo: _authProviderRepo,
       ),
     )..supportedProtocols = SupportedProtocols.http1;
-  }
-
-  /// Returns the websocket connection to use for a given endpoint.
-  ///
-  /// Use [apiName] if there are multiple endpoints.
-  @visibleForTesting
-  WebSocketConnection getWebSocketConnection({String? apiName}) {
-    final endpoint = _apiConfig.getEndpoint(
-      type: EndpointType.graphQL,
-      apiName: apiName,
-    );
-    return _webSocketConnectionPool[endpoint.name] ??= WebSocketConnection(
-      endpoint.config,
-      _authProviderRepo,
-      subscriptionOptions: subscriptionOptions,
-      logger: _logger.createChild(
-        'webSocketConnection${endpoint.name}',
-      ),
-    );
   }
 
   /// Returns the websocket bloc to use for a given endpoint.
