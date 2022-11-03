@@ -30,6 +30,9 @@ class UnitTestCommand extends BaseTestCommand {
   @override
   Future<void> run() async {
     final packageToTest = await this.packageToTest;
+    if (packageToTest.unitTestDirectory == null) {
+      exitError('No unit tests for package');
+    }
 
     final folioBuilder = TestFolioBuilder()..testType = TestType.unit;
 

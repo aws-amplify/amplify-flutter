@@ -56,6 +56,9 @@ class IntegrationTestCommand extends BaseTestCommand {
     if (packageToTest.integTestDirectory == null && examplePackage != null) {
       packageToTest = examplePackage;
     }
+    if (packageToTest.integTestDirectory == null) {
+      exitError('No integration tests for package');
+    }
     await _runTests(
       package: packageToTest,
       device: selectedDevice,
