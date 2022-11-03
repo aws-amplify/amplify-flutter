@@ -12,14 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ignore_for_file: public_member_api_docs
-
 import 'package:amplify_api/src/graphql/web_socket/blocs/ws_subscriptions_bloc.dart';
 import 'package:amplify_api/src/graphql/web_socket/services/web_socket_service.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 
+/// Base [WebSocketState] containing the discrete state for a websocket
+/// connection & subscription management
 abstract class WebSocketState {
+  /// Provide the base state used in all variations.
   const WebSocketState(
     this.config,
     this.authProviderRepo,
@@ -27,23 +28,40 @@ abstract class WebSocketState {
     this.intendedState,
     this.service,
     this.subscriptionBlocs,
-    this.subscriptionRequests,
   );
 
+  /// AWS Config
   final AWSApiConfig config;
+
+  /// Amplify Auth Provider
   final AmplifyAuthProviderRepository authProviderRepo;
 
+  /// Hardware level Network State
   final NetworkState networkState;
+
+  /// Intended State, eg. we have valid subscriptions so we should be connected
   final IntendedState intendedState;
 
+  /// [WebSocketService] contains all the business logic & mutations of this state
   final WebSocketService service;
 
+  /// Web Socket Subscription Blocs represented by
   final Map<String, WsSubscriptionBloc<Object?>> subscriptionBlocs;
 
-  final Set<GraphQLRequest<Object?>> subscriptionRequests;
+  /// Move state to failed
+  FailureState failed() => FailureState(
+        config,
+        authProviderRepo,
+        networkState,
+        intendedState,
+        service,
+        subscriptionBlocs,
+      );
 }
 
+/// State for when a new connection is pending
 class ConnectingState extends WebSocketState {
+  /// Create a connecting state
   ConnectingState(
     super.config,
     super.authProviderRepo,
@@ -51,24 +69,24 @@ class ConnectingState extends WebSocketState {
     super.intendedState,
     super.service,
     super.subscriptionBlocs,
-    super.subscriptionRequests,
   );
 
-  ConnectedState connected(RestartableTimer timer) {
-    return ConnectedState(
-      config,
-      authProviderRepo,
-      networkState,
-      intendedState,
-      service,
-      subscriptionBlocs,
-      subscriptionRequests,
-      timer,
-    );
-  }
+  /// Move state to [ConnectedState]
+  ConnectedState connected(RestartableTimer timer) => ConnectedState(
+        config,
+        authProviderRepo,
+        networkState,
+        intendedState,
+        service,
+        subscriptionBlocs,
+        timer,
+      );
 }
 
+/// State when web socket connection has been established and healthy
 class ConnectedState extends WebSocketState {
+  /// Create a connected state, takes an additional [RestartableTimer] to track
+  /// keep alive messages from AppSync. Duration provided by AppSync.
   ConnectedState(
     super.config,
     super.authProviderRepo,
@@ -76,26 +94,26 @@ class ConnectedState extends WebSocketState {
     super.intendedState,
     super.service,
     super.subscriptionBlocs,
-    super.subscriptionRequests,
     this.timeoutTimer,
   );
 
+  /// timer used for missed ka messages
   final RestartableTimer timeoutTimer;
+
+  /// Move state to [DisconnectedState]
+  DisconnectedState disconnect() => DisconnectedState(
+        config,
+        authProviderRepo,
+        networkState,
+        intendedState,
+        service,
+        subscriptionBlocs,
+      );
 }
 
-class PendingDisconnectedState extends WebSocketState {
-  PendingDisconnectedState(
-    super.config,
-    super.authProviderRepo,
-    super.networkState,
-    super.intendedState,
-    super.service,
-    super.subscriptionBlocs,
-    super.subscriptionRequests,
-  );
-}
-
+/// State when web socket is not connected to AppSync
 class DisconnectedState extends WebSocketState {
+  /// Create a [DisconnectedState]
   DisconnectedState(
     super.config,
     super.authProviderRepo,
@@ -103,23 +121,22 @@ class DisconnectedState extends WebSocketState {
     super.intendedState,
     super.service,
     super.subscriptionBlocs,
-    super.subscriptionRequests,
   );
 
-  ConnectingState connecting() {
-    return ConnectingState(
-      config,
-      authProviderRepo,
-      networkState,
-      intendedState,
-      service,
-      subscriptionBlocs,
-      subscriptionRequests,
-    );
-  }
+  /// Move state to [ConnectingState]
+  ConnectingState connecting() => ConnectingState(
+        config,
+        authProviderRepo,
+        networkState,
+        intendedState,
+        service,
+        subscriptionBlocs,
+      );
 }
 
+/// State when web socket connection failed
 class FailureState extends WebSocketState {
+  /// Create a [FailureState] state
   FailureState(
     super.config,
     super.authProviderRepo,
@@ -127,6 +144,5 @@ class FailureState extends WebSocketState {
     super.intendedState,
     super.service,
     super.subscriptionBlocs,
-    super.subscriptionRequests,
   );
 }

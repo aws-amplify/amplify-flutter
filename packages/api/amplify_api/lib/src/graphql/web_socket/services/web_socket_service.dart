@@ -30,7 +30,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 /// {@template api.web_socket_service}
 /// Internal stateless [WebSocketService] abstract.
 /// {@endtemplate}
-abstract class WebSocketService {
+abstract class WebSocketService implements Closeable {
   /// Used to initialize a [WebSocketChannel] connection and return transformed
   /// messages as [WebSocketEvent]
   Stream<WebSocketEvent> init(
@@ -38,7 +38,7 @@ abstract class WebSocketService {
   );
 
   /// Subscribe a [GraphQLRequest] inside the provided [WsSubscriptionBloc] to a open [WebSocketChannel]
-  Future<void> subscribe(
+  Future<void> register(
     ConnectedState state,
     GraphQLRequest<Object?> request,
   );
@@ -110,7 +110,7 @@ class AmplifyWebSocketService
   }
 
   @override
-  Future<void> subscribe(
+  Future<void> register(
     ConnectedState state,
     GraphQLRequest<Object?> request,
   ) async {
@@ -170,7 +170,7 @@ class AmplifyWebSocketService
         final messageAck = message.payload as ConnectionAckMessagePayload;
         return ConnectionAckMessageEvent(messageAck);
       case MessageType.connectionError:
-        return const ConnectionFailureEvent();
+        return const ConnectionErrorEvent();
       case MessageType.keepAlive:
         return const KeepAliveEvent();
       case MessageType.error:

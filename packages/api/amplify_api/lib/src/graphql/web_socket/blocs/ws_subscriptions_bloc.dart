@@ -79,7 +79,7 @@ class WsSubscriptionBloc<T>
   }
 
   /// Adds error to response stream
-  void addResponseError(Object error, StackTrace st) {
+  void addResponseError(Object error, {StackTrace? st}) {
     _responseController.addError(error, st);
   }
 
@@ -125,7 +125,7 @@ class WsSubscriptionBloc<T>
 
   Stream<WsSubscriptionState<T>> _startAck(WsStartAckEvent event) async* {
     assert(
-      _currentState is SubscriptionInitState,
+      _currentState is SubscriptionPendingState,
       'State should always be init while waiting for start ack.',
     );
     logger.verbose('start ack message received for ${event.subscriptionId}');
@@ -133,7 +133,7 @@ class WsSubscriptionBloc<T>
       _currentState.onEstablished?.call();
       _currentState.establishedRequest = true;
     }
-    _emit((_currentState as SubscriptionInitState<T>).ready());
+    _emit((_currentState as SubscriptionPendingState<T>).ready());
   }
 
   Stream<WsSubscriptionState<T>> _data(SubscriptionDataEvent event) async* {
@@ -155,10 +155,12 @@ class WsSubscriptionBloc<T>
   }
 
   Stream<WsSubscriptionState<T>> _error(SubscriptionErrorEvent event) async* {
+    logger.error(prettyPrintJson(event.wsError.toJson()));
     final res = GraphQLResponseDecoder.instance.decode(
       request: _currentState.request,
       response: event.wsError.toJson(),
     );
+
     _addResponse(res);
     _emit(_currentState.error());
   }
