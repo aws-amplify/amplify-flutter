@@ -58,7 +58,7 @@ abstract class AmplifyCommand extends Command<void> implements Closeable {
         while (dir.parent != dir) {
           final files = dir.list(followLinks: false).whereType<File>();
           await for (final file in files) {
-            if (p.basename(file.path) == 'mono_repo.yaml') {
+            if (p.basename(file.path) == 'aft.yaml') {
               return dir;
             }
           }
