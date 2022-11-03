@@ -15,6 +15,7 @@
 import 'dart:io';
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/util.dart';
 import 'package:args/command_runner.dart';
 import 'package:cli_util/cli_logging.dart';
 import 'package:cli_util/cli_util.dart';
@@ -78,13 +79,12 @@ Future<void> runFlutterPub(
   PackageInfo package, {
   Logger? logger,
 }) async {
-  // Assumes using Dart SDK from Flutter
-  final flutterRoot = Platform.environment['FLUTTER_ROOT'];
-  Cache.flutterRoot = flutterRoot == null || flutterRoot.isEmpty
-      ? path.normalize(
-          path.absolute(path.dirname(path.dirname(path.dirname(getSdkPath())))),
-        )
-      : flutterRoot;
+  final flutterRoot = getEnv('FLUTTER_ROOT');
+  Cache.flutterRoot = flutterRoot ??
+      // Assumes using Dart SDK from Flutter
+      path.normalize(
+        path.absolute(path.dirname(path.dirname(path.dirname(getSdkPath())))),
+      );
   logger?.trace('Resolved flutter root: ${Cache.flutterRoot}');
   await flutter.runInContext(
     () async {

@@ -34,6 +34,7 @@ jobs:
 
       - name: Bootstrap
         id: bootstrap
+        timeout-minutes: 10
         run: aft bootstrap
 
       - name: Check Formatting
@@ -80,6 +81,7 @@ jobs:
 
       - name: Bootstrap
         id: bootstrap
+        timeout-minutes: 10
         run: aft bootstrap
 
       - name: Check Formatting
