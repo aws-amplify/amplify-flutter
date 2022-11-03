@@ -149,7 +149,7 @@ class StorageIntgrationTestEnvironment extends cdk.NestedStack {
       mfa: cognito.Mfa.OFF,
       lambdaTriggers: {
         preSignUp: autoConfirmTrigger,
-      }
+      },
     });
 
     const userPoolClient = userPool.addClient("UserPoolClient", {
@@ -211,12 +211,16 @@ class StorageIntgrationTestEnvironment extends cdk.NestedStack {
             actions: ["s3:ListBucket"],
             conditions: {
               StringLike: {
-                "s3:prefix": [
-                  `${prefixes[StorageAccessLevel.public]}`,
-                  `${prefixes[StorageAccessLevel.public]}*`,
-                  `${prefixes[StorageAccessLevel.protected]}`,
-                  `${prefixes[StorageAccessLevel.protected]}*`,
-                ],
+                "s3:prefix": Array.from(new Set(
+                  [
+                    `${prefixes[StorageAccessLevel.public]}`,
+                    `${prefixes[StorageAccessLevel.public]}*`,
+                    `${prefixes[StorageAccessLevel.protected]}`,
+                    `${prefixes[StorageAccessLevel.protected]}*`,
+                    "protected/",
+                    "protected/*",
+                  ].filter((val) => val !== "")
+                )),
               },
             },
             resources: [bucket.bucketArn],
@@ -240,12 +244,17 @@ class StorageIntgrationTestEnvironment extends cdk.NestedStack {
         },
         "sts:AssumeRoleWithWebIdentity"
       ),
+      inlinePolicies: unauthenticatedPolicies,
     });
 
     const authenticatedPolicies: Record<string, iam.PolicyDocument> = {
       ...unauthenticatedPolicies,
       "read-auth": new iam.PolicyDocument({
         statements: [
+          new iam.PolicyStatement({
+            actions: ["s3:GetObject"],
+            resources: [`${bucket.bucketArn}/protected/*`],
+          }),
           new iam.PolicyStatement({
             actions: ["s3:ListBucket"],
             conditions: {
