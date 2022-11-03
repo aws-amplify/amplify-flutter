@@ -44,10 +44,6 @@ jobs:
         run: aft test unit -- -j 4
         working-directory: ${{ inputs.working-directory }}
 
-      - name: Run Tests (dart2js)
-        run: aft test unit -- -j 4 -p chrome
-        working-directory: ${{ inputs.working-directory }}
-
   # Native Test runs code on non-Linux platforms and for all Dart->JS compilers
   native_test:
     name: Native Test
