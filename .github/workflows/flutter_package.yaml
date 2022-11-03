@@ -26,13 +26,11 @@ jobs:
           cache: true
           channel: ${{ matrix.sdk }}
 
-      - name: Link Packages
-        run: |
-          flutter pub global activate -spath packages/aft
-          aft link
+      - name: Setup aft
+        run: flutter pub global activate -spath packages/aft
 
       - name: Bootstrap
-        run: aft bootstrap
+        run: aft bootstrap -v
 
       - name: Check Formatting
         run: flutter format --set-exit-if-changed .
@@ -73,10 +71,8 @@ jobs:
           cache: true
           channel: stable
 
-      - name: Link Packages
-        run: |
-          flutter pub global activate -spath packages/aft
-          aft link
+      - name: Setup aft
+        run: flutter pub global activate -spath packages/aft
 
       - name: Bootstrap
         run: aft bootstrap

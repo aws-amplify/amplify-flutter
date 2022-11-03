@@ -39,10 +39,8 @@ jobs:
         with:
           sdk: ${{ matrix.sdk }}
 
-      - name: Link Packages
-        run: |
-          dart pub global activate -spath packages/aft
-          aft link
+      - name: Setup aft
+        run: dart pub global activate -spath packages/aft
 
       - name: Bootstrap
         run: aft bootstrap
@@ -97,13 +95,11 @@ jobs:
         with:
           sdk: stable
 
-      - name: Link Packages
-        run: |
-          dart pub global activate -spath packages/aft
-          aft link
+      - name: Setup aft
+        run: dart pub global activate -spath packages/aft
 
       - name: Bootstrap
-        run: aft bootstrap
+        run: aft bootstrap -v
 
       - name: Check Formatting
         run: dart format --set-exit-if-changed .
