@@ -57,7 +57,9 @@ if [ ! -e $TARGET ]; then
     exit
 fi
 
-flutter pub get
+if [ -n $CI ]; then
+    flutter pub get
+fi
 
 testsList+=("$TARGET")
 # Run tests with retry.

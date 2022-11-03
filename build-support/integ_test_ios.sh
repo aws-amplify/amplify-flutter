@@ -49,7 +49,9 @@ if [ ! -e $TARGET ]; then
     exit
 fi
 
-
+if [ -n $CI ]; then
+    flutter pub get
+fi
 
 # Use xcodebuild if 'RunnerTests' scheme exists, else `flutter test`
 if xcodebuild -workspace ios/Runner.xcworkspace -list -json | jq -e '.workspace.schemes | index("RunnerTests")' >/dev/null; then

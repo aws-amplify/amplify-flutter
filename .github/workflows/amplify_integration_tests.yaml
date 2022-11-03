@@ -125,3 +125,38 @@ jobs:
         run: |
           chromedriver --port=4444 &
           melos exec -c 1 --scope ${{ matrix.scope }} -- flutter drive --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d web-server
+
+  linux:
+    runs-on: ubuntu-latest
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    permissions:
+      id-token: write
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        scope: ["amplify_auth_cognito_example"]
+    steps:
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
+        with:
+          persist-credentials: false
+      
+      - name: Install dependencies
+        uses: ./.github/composite_actions/install_dependencies
+
+      - name: Fetch Amplify backend configurations
+        uses: ./.github/composite_actions/fetch_backends
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          scope: ${{ matrix.scope }}
+          secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
+
+      # Headless tests require virtual display for the linux tests to run.
+      # from https://github.com/fluttercommunity/plus_plugins/blob/main/.github/workflows/scripts/integration-test.sh
+      - name: Run integration tests
+        run: |
+          flutter config --enable-linux-desktop
+          export DISPLAY=:99
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+          melos exec -c 1 --scope ${{ matrix.scope }} -- retries=1 \$MELOS_ROOT_PATH/build-support/integ_test.sh -d linux
