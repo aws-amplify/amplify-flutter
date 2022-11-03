@@ -99,7 +99,7 @@ jobs:
 
       - name: Run integration tests
         run: |
-          melos exec -c 1 --scope ${{ matrix.scope }} -- "retries=1 \$MELOS_ROOT_PATH/build-support/integ_test_ios.sh"
+          melos exec -c 1 --scope ${{ matrix.scope }} -- "retries=1 small=true \$MELOS_ROOT_PATH/build-support/integ_test_ios.sh"
 
   web:
     runs-on: ubuntu-latest
