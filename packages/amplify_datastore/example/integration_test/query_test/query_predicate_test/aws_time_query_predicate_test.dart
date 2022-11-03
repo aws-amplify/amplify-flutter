@@ -149,5 +149,6 @@ void main() {
         expectedModels: rangeMatchModels,
       );
     });
+    // Skip bc AWSTime issue on Android https://github.com/aws-amplify/amplify-flutter/issues/2214
   }, skip: Platform.isAndroid);
 }

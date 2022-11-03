@@ -166,6 +166,7 @@ void main() {
       testModelOperations(
         models: models,
         skips: {
+          // Skip bc AWSTime issue on Android https://github.com/aws-amplify/amplify-flutter/issues/2214
           DataStoreOperation.save: Platform.isAndroid,
           DataStoreOperation.query: Platform.isAndroid,
           DataStoreOperation.delete: Platform.isAndroid,
