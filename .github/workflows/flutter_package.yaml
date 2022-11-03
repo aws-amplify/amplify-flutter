@@ -75,7 +75,7 @@ jobs:
         run: flutter pub global activate -spath packages/aft
 
       - name: Bootstrap
-        run: aft bootstrap
+        run: aft bootstrap -v
 
       - name: Check Formatting
         run: flutter format --set-exit-if-changed .

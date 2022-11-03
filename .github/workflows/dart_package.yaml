@@ -43,7 +43,7 @@ jobs:
         run: dart pub global activate -spath packages/aft
 
       - name: Bootstrap
-        run: aft bootstrap
+        run: aft bootstrap -v
 
       - name: Check Formatting
         run: dart format --set-exit-if-changed .
