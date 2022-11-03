@@ -51,7 +51,6 @@ class PackageInfo
   const PackageInfo({
     required this.name,
     required this.path,
-    required this.usesMonoRepo,
     required this.pubspecInfo,
     required this.flavor,
   });
@@ -66,7 +65,6 @@ class PackageInfo
     return PackageInfo(
       name: pubspec.name,
       path: dir.path,
-      usesMonoRepo: dir.usesMonoRepo,
       pubspecInfo: pubspecInfo,
       flavor: pubspec.flavor,
     );
@@ -77,9 +75,6 @@ class PackageInfo
 
   /// Absolute path to the package.
   final String path;
-
-  /// Whether the package uses the mono_repo tool.
-  final bool usesMonoRepo;
 
   /// The package's pubspec.
   final PubspecInfo pubspecInfo;
@@ -158,7 +153,6 @@ class PackageInfo
   List<Object?> get props => [
         name,
         path,
-        usesMonoRepo,
         pubspecInfo,
         flavor,
       ];
@@ -205,12 +199,6 @@ enum DependencyType {
 }
 
 extension DirectoryX on Directory {
-  /// Whether the package in this directory uses the `mono_repo` tool.
-  bool get usesMonoRepo {
-    final monoPkgPath = p.join(path, 'mono_pkg.yaml');
-    return File(monoPkgPath).existsSync();
-  }
-
   /// The pubspec for the package in this directory, if any.
   PubspecInfo? get pubspec {
     final pubspecPath = p.join(path, 'pubspec.yaml');
