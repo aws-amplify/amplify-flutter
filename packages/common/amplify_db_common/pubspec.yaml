@@ -11,7 +11,7 @@ environment:
 
 dependencies:
   amplify_db_common_dart: ^0.1.0
-  drift: ^2.2.0
+  drift: ^2.0.0
   flutter:
     sdk: flutter
   path: ^1.8.2
