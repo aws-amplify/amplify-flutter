@@ -22,6 +22,11 @@ String? getEnv(String envName) {
   return value == null || value.isEmpty ? null : value;
 }
 
+Never exitError(Object error) {
+  stderr.writeln(error);
+  exit(1);
+}
+
 typedef ProcessSink = void Function(String);
 
 /// Allows storing forwarding streams so we can listen to process outputs

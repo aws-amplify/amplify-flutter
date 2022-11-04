@@ -1,0 +1,24 @@
+name: aws_signature_v4
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - next
+    paths:
+      - 'packages/aws_signature_v4/**/*.dart'
+  pull_request:
+    paths:
+      - 'packages/aws_signature_v4/**/*.dart'
+  schedule:
+    - cron: "0 0 * * 0"
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  test:
+    uses: ./.github/workflows/dart_package.yaml
+    with:
+      working-directory: packages/aws_signature_v4

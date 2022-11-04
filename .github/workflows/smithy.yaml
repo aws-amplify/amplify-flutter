@@ -1,0 +1,24 @@
+name: smithy
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - next
+    paths:
+      - 'packages/smithy/smithy/**/*.dart'
+  pull_request:
+    paths:
+      - 'packages/smithy/smithy/**/*.dart'
+  schedule:
+    - cron: "0 0 * * 0"
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  test:
+    uses: ./.github/workflows/dart_package.yaml
+    with:
+      working-directory: packages/smithy/smithy

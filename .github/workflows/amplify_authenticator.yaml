@@ -1,4 +1,4 @@
-name: amplify_flutter
+name: amplify_authenticator
 on:
   push:
     branches:
@@ -6,10 +6,10 @@ on:
       - stable
       - next
     paths:
-      - 'packages/amplify/amplify_flutter/**/*.dart'
+      - 'packages/amplify_authenticator/**/*.dart'
   pull_request:
     paths:
-      - 'packages/amplify/amplify_flutter/**/*.dart'
+      - 'packages/amplify_authenticator/**/*.dart'
   schedule:
     - cron: "0 0 * * 0"
 defaults:
@@ -21,4 +21,4 @@ jobs:
   test:
     uses: ./.github/workflows/flutter_package.yaml
     with:
-      working-directory: packages/amplify/amplify_flutter
+      working-directory: packages/amplify_authenticator

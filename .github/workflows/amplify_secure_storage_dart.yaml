@@ -1,0 +1,24 @@
+name: amplify_secure_storage_dart
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - next
+    paths:
+      - 'packages/secure_storage/amplify_secure_storage_dart/**/*.dart'
+  pull_request:
+    paths:
+      - 'packages/secure_storage/amplify_secure_storage_dart/**/*.dart'
+  schedule:
+    - cron: "0 0 * * 0"
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  test:
+    uses: ./.github/workflows/dart_package.yaml
+    with:
+      working-directory: packages/secure_storage/amplify_secure_storage_dart

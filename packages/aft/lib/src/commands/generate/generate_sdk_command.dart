@@ -16,7 +16,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
-import 'package:args/args.dart';
 import 'package:checked_yaml/checked_yaml.dart';
 import 'package:collection/collection.dart';
 import 'package:git/git.dart';
@@ -28,16 +27,8 @@ import 'package:stream_transform/stream_transform.dart';
 
 /// Command for generating the AWS SDK for a given package and `sdk.yaml` file.
 class GenerateSdkCommand extends AmplifyCommand {
-  @override
-  String get description =>
-      'Generates the AWS SDK for the current working directory';
-
-  @override
-  String get name => 'generate-sdk';
-
-  @override
-  ArgParser get argParser {
-    return ArgParser()
+  GenerateSdkCommand() {
+    argParser
       ..addOption(
         'config',
         abbr: 'c',
@@ -61,6 +52,16 @@ class GenerateSdkCommand extends AmplifyCommand {
         help: 'The name of the package',
       );
   }
+
+  @override
+  String get description =>
+      'Generates the AWS SDK for the current working directory';
+
+  @override
+  String get name => 'sdk';
+
+  @override
+  bool get hidden => true;
 
   /// Downloads AWS models from GitHub into a temporary directory.
   Future<Directory> _downloadModels(String ref) async {
@@ -217,9 +218,4 @@ class GenerateSdkCommand extends AmplifyCommand {
       logger.trace('- $dep');
     }
   }
-}
-
-Never exitError(Object error) {
-  stderr.writeln(error);
-  exit(1);
 }
