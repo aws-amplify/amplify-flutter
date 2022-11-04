@@ -205,7 +205,7 @@ class AWSSigV4Signer {
       canonicalRequest: canonicalRequest,
     );
     final seedSignature = algorithm.sign(sts, signingKey);
-    final signedBody = serviceConfiguration.signBody(
+    final signedBody = serviceConfiguration.transformBody(
       algorithm: algorithm,
       contentLength: contentLength,
       signingKey: signingKey,

@@ -33,15 +33,19 @@ abstract class ServiceConfiguration {
   const factory ServiceConfiguration({
     bool? normalizePath,
     bool? omitSessionToken,
+    bool? doubleEncodePathSegments,
+    bool? signBody,
   }) = BaseServiceConfiguration;
 
   const ServiceConfiguration._({
     bool? normalizePath,
     bool? omitSessionToken,
     bool? doubleEncodePathSegments,
+    bool? signBody,
   })  : normalizePath = normalizePath ?? true,
         omitSessionToken = omitSessionToken ?? false,
-        doubleEncodePathSegments = doubleEncodePathSegments ?? true;
+        doubleEncodePathSegments = doubleEncodePathSegments ?? true,
+        signBody = signBody ?? true;
 
   /// Whether to normalize paths in the canonical request.
   ///
@@ -59,6 +63,12 @@ abstract class ServiceConfiguration {
   ///
   /// Defaults to `true`.
   final bool doubleEncodePathSegments;
+
+  /// Whether to sign the body of requests and include the hash in the request's
+  /// headers.
+  ///
+  /// Defaults to `true`.
+  final bool signBody;
 
   /// Applies service-specific keys to [headers] for signed header requests.
   @mustCallSuper
@@ -97,7 +107,7 @@ abstract class ServiceConfiguration {
   });
 
   /// Transforms the request body using the [signingKey] and [seedSignature].
-  Stream<List<int>> signBody({
+  Stream<List<int>> transformBody({
     required AWSAlgorithm algorithm,
     required int contentLength,
     required List<int> signingKey,
@@ -116,6 +126,7 @@ class BaseServiceConfiguration extends ServiceConfiguration {
     super.normalizePath,
     super.omitSessionToken,
     super.doubleEncodePathSegments,
+    super.signBody,
   }) : super._();
 
   @override
@@ -127,12 +138,11 @@ class BaseServiceConfiguration extends ServiceConfiguration {
     required String payloadHash,
     required int contentLength,
   }) {
-    final includeBodyHash = contentLength > 0;
     headers.addAll({
       if (!request.headers.containsKey(AWSHeaders.host))
         AWSHeaders.host: request.host,
       AWSHeaders.date: credentialScope.dateTime.formatFull(),
-      if (includeBodyHash) AWSHeaders.contentSHA256: payloadHash,
+      if (signBody) AWSHeaders.contentSHA256: payloadHash,
       if (credentials.sessionToken != null && !omitSessionToken)
         AWSHeaders.securityToken: credentials.sessionToken!,
     });
@@ -194,7 +204,7 @@ class BaseServiceConfiguration extends ServiceConfiguration {
   }
 
   @override
-  Stream<List<int>> signBody({
+  Stream<List<int>> transformBody({
     required AWSAlgorithm algorithm,
     required int contentLength,
     required List<int> signingKey,
@@ -202,7 +212,7 @@ class BaseServiceConfiguration extends ServiceConfiguration {
     required AWSCredentialScope credentialScope,
     required CanonicalRequest canonicalRequest,
   }) {
-    // By default, the body is not signed.
+    // By default, the body is not transformed.
     return canonicalRequest.request.body;
   }
 }
