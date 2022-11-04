@@ -20,7 +20,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scope: ["amplify_api_example", "amplify_storage_s3_example", "amplify_auth_cognito_example"]
+        scope:
+          - "amplify_api_example"
+          - "amplify_auth_cognito_example"
+          - "amplify_datastore_example"
+          - "amplify_storage_s3_example"
     steps:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
         with:
@@ -49,11 +53,11 @@ jobs:
 
       - name: Run Android integration tests
         uses: reactivecircus/android-emulator-runner@e790971012b979513b4e2fe70d4079bc0ca8a1ae # 2.24.0
-        timeout-minutes: 25
+        timeout-minutes: 45
         with:
           # API levels 30+ too slow https://github.com/ReactiveCircus/android-emulator-runner/issues/222
           api-level: 29
-          script: melos exec -c 1 --scope ${{ matrix.scope }} -- "deviceId=emulator-5554 retries=1 \$MELOS_ROOT_PATH/build-support/integ_test_android.sh"
+          script: melos exec -c 1 --scope ${{ matrix.scope }} -- "deviceId=emulator-5554 retries=1 small=true \$MELOS_ROOT_PATH/build-support/integ_test_android.sh"
 
   ios:
     runs-on: macos-latest
@@ -64,7 +68,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scope: ["amplify_api_example", "amplify_storage_s3_example", "amplify_auth_cognito_example"]
+        scope:
+          - "amplify_api_example"
+          - "amplify_auth_cognito_example"
+          - "amplify_datastore_example"
+          - "amplify_storage_s3_example"
     steps:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # 2.4.0
         with:
@@ -91,7 +99,7 @@ jobs:
 
       - name: Run integration tests
         run: |
-          melos exec -c 1 --scope ${{ matrix.scope }} -- "retries=1 \$MELOS_ROOT_PATH/build-support/integ_test_ios.sh"
+          melos exec -c 1 --scope ${{ matrix.scope }} -- "retries=1 small=true \$MELOS_ROOT_PATH/build-support/integ_test_ios.sh"
 
   web:
     runs-on: ubuntu-latest
