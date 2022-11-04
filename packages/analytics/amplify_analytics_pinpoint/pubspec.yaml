@@ -21,6 +21,7 @@ platforms:
 dependencies:
   amplify_analytics_pinpoint_dart: ^0.1.0
   amplify_core: ">=1.0.0-next.0+1 <1.0.0-next.1"
+  amplify_db_common: ^0.1.0
   amplify_secure_storage: ^0.1.0
   device_info_plus: ^6.0.0
   flutter:
@@ -28,7 +29,6 @@ dependencies:
   meta: ^1.7.0
   package_info_plus: ^2.0.0
   path_provider: ^2.0.0
-  sqlite3_flutter_libs: ^0.5.0
 
 dev_dependencies:
   amplify_lints: ^2.0.0
