@@ -27,6 +27,9 @@ while [ $# -gt 0 ]; do
                     exit 1
             esac
             ;;
+        --retries)
+            retries="$2"
+            ;;
         *)
             echo "Invalid arguments"
             exit 1
@@ -49,7 +52,9 @@ if [ ! -e $TARGET ]; then
     exit
 fi
 
-
+if [ -n $CI ]; then
+    flutter pub get
+fi
 
 # Use xcodebuild if 'RunnerTests' scheme exists, else `flutter test`
 if xcodebuild -workspace ios/Runner.xcworkspace -list -json | jq -e '.workspace.schemes | index("RunnerTests")' >/dev/null; then
