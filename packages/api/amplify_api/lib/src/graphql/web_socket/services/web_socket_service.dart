@@ -28,7 +28,7 @@ import 'package:flutter/material.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-/// {@template api.web_socket_service}
+/// {@template amplify_api.web_socket_service}
 /// Internal stateless [WebSocketService] abstract.
 /// {@endtemplate}
 abstract class WebSocketService implements Closeable {
@@ -102,7 +102,8 @@ class AmplifyWebSocketService
 
       return sc.setSourceStream(subscriptionStream);
     } on Object catch (e, st) {
-      logger.error("error in init!", e, st);
+      logger.error('Web socket error while initializing', e, st);
+      rethrow;
     }
   }
 
@@ -128,7 +129,7 @@ class AmplifyWebSocketService
   Future<void> unsubscribe(
     String subscriptionId,
   ) async {
-    logger.info('Attempting to cancel Operation $subscriptionId');
+    logger.debug('Attempting to cancel Operation $subscriptionId');
     _send(
       WebSocketStopMessage(id: subscriptionId),
     );
@@ -180,15 +181,16 @@ class AmplifyWebSocketService
       case MessageType.keepAlive:
         return const KeepAliveEvent();
       case MessageType.error:
+        final wsError = message.payload as WebSocketError;
+
         // Only handle general messages, not subscription-specific ones
         if (message.id != null) {
-          final wsError = message.payload as WebSocketError;
           return SubscriptionErrorEvent(
             message.id!,
             wsError,
           );
         }
-        final wsError = message.payload as WebSocketError;
+
         final exception = ApiException(
           'Error in GraphQL subscription.',
           underlyingException: wsError,

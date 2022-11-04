@@ -62,7 +62,7 @@ abstract class WebSocketState {
 /// State for when a new connection is pending
 class ConnectingState extends WebSocketState {
   /// Create a connecting state
-  ConnectingState(
+  const ConnectingState(
     super.config,
     super.authProviderRepo,
     super.networkState,
@@ -87,7 +87,7 @@ class ConnectingState extends WebSocketState {
 class ConnectedState extends WebSocketState {
   /// Create a connected state, takes an additional [RestartableTimer] to track
   /// keep alive messages from AppSync. Duration provided by AppSync.
-  ConnectedState(
+  const ConnectedState(
     super.config,
     super.authProviderRepo,
     super.networkState,
@@ -114,7 +114,7 @@ class ConnectedState extends WebSocketState {
 /// State when web socket is not connected to AppSync
 class DisconnectedState extends WebSocketState {
   /// Create a [DisconnectedState]
-  DisconnectedState(
+  const DisconnectedState(
     super.config,
     super.authProviderRepo,
     super.networkState,
@@ -137,7 +137,7 @@ class DisconnectedState extends WebSocketState {
 /// State when web socket connection failed
 class FailureState extends WebSocketState {
   /// Create a [FailureState] state
-  FailureState(
+  const FailureState(
     super.config,
     super.authProviderRepo,
     super.networkState,

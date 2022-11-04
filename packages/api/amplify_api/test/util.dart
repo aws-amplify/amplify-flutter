@@ -287,9 +287,9 @@ class CustomFunctionProvider extends FunctionAuthProvider {
 }
 
 class MockWebSocketBloc extends WebSocketBloc {
-  MockWebSocketBloc(
-    super.config,
-    super.authProviderRepo, {
+  MockWebSocketBloc({
+    required super.config,
+    required super.authProviderRepo,
     required super.wsService,
   });
 }

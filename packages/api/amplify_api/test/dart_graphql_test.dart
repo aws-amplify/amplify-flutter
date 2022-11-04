@@ -146,8 +146,8 @@ final mockHttpClient = MockAWSHttpClient((request) async {
 final mockWebSocketService = MockWebSocketService();
 
 final mockWebSocketBloc = MockWebSocketBloc(
-  testApiKeyConfig,
-  getTestAuthProviderRepo(),
+  config: testApiKeyConfig,
+  authProviderRepo: getTestAuthProviderRepo(),
   wsService: mockWebSocketService,
 );
 

@@ -1,3 +1,17 @@
+// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:async';
 
 import 'package:amplify_api/src/graphql/helpers/graphql_response_decoder.dart';
@@ -7,7 +21,7 @@ import 'package:amplify_api/src/graphql/web_socket/types/ws_subscriptions_event.
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 
-/// {@template api.ws_subscription_bloc}
+/// {@template amplify_api.ws_subscription_bloc}
 /// Internal state machine for subscriptions. Listens for [WsSubscriptionEvent]
 /// and maps them to appropriate state transitions.
 /// {@endtemplate}
@@ -15,21 +29,15 @@ class WsSubscriptionBloc<T>
     with AWSDebuggable, AmplifyLoggerMixin
     implements Closeable {
   /// {@macro api.ws_subscription_bloc}
+  /// takes in subscription events
+  /// transform/decode events
   WsSubscriptionBloc(
     WsSubscriptionState<T> initialState,
   ) {
     _currentState = initialState;
-    final blocStream = _wsEventStream
-        .where((msg) => msg.subscriptionId == _currentState.request.id)
-        .asyncExpand(_eventTransformer);
-    final mergedStream = StreamGroup<WsSubscriptionState<T>>()
-      ..add(blocStream)
-      ..close();
-    _subscription = mergedStream.stream.listen(_emit);
+    final blocStream = _wsEventStream.asyncExpand(_eventTransformer);
+    _subscription = blocStream.listen(_emit);
   }
-
-  // takes in subscription events
-  // transform/decode events
 
   late WsSubscriptionState<T> _currentState;
 
@@ -79,7 +87,7 @@ class WsSubscriptionBloc<T>
   }
 
   /// Adds error to response stream
-  void addResponseError(Object error, {StackTrace? st}) {
+  void addResponseError(Object error, StackTrace? st) {
     _responseController.addError(error, st);
   }
 
@@ -98,7 +106,7 @@ class WsSubscriptionBloc<T>
   Stream<WsSubscriptionState<T>> _eventTransformer(
     WsSubscriptionEvent event,
   ) async* {
-    logger.info(event.toString());
+    logger.verbose(event.toString());
     if (event is WsStartAckEvent) {
       yield* _startAck(event);
     } else if (event is SubscriptionDataEvent) {
@@ -129,11 +137,8 @@ class WsSubscriptionBloc<T>
       'State should always be init while waiting for start ack.',
     );
     logger.verbose('start ack message received for ${event.subscriptionId}');
-    if (!_currentState.establishedRequest) {
-      _currentState.onEstablished?.call();
-      _currentState.establishedRequest = true;
-    }
-    _emit((_currentState as SubscriptionPendingState<T>).ready());
+    _currentState.onEstablished?.call();
+    yield (_currentState as SubscriptionPendingState<T>).ready();
   }
 
   Stream<WsSubscriptionState<T>> _data(SubscriptionDataEvent event) async* {
@@ -150,7 +155,7 @@ class WsSubscriptionBloc<T>
       _currentState is SubscriptionListeningState,
       'State should always be listening when completed.',
     );
-    _emit((_currentState as SubscriptionListeningState<T>).complete());
+    yield (_currentState as SubscriptionListeningState<T>).complete();
     await close();
   }
 
@@ -161,7 +166,7 @@ class WsSubscriptionBloc<T>
       response: event.wsError.toJson(),
     );
 
+    yield _currentState.error();
     _addResponse(res);
-    _emit(_currentState.error());
   }
 }

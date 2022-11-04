@@ -178,8 +178,8 @@ class AmplifyAPIDart extends AmplifyAPI {
     );
 
     return _webSocketBlocPool[endpoint.name] ??= WebSocketBloc(
-      endpoint.config,
-      _authProviderRepo,
+      config: endpoint.config,
+      authProviderRepo: _authProviderRepo,
       wsService: AmplifyWebSocketService(),
     );
   }
