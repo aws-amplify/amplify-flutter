@@ -85,7 +85,7 @@ jobs:
 
       - name: Bootstrap
         id: bootstrap
-        timeout-minutes: 10
+        timeout-minutes: 15 # macOS needs extra time
         run: aft bootstrap
 
       - name: Check Formatting
