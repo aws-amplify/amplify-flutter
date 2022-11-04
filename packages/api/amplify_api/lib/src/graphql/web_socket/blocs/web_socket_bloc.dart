@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'dart:async';
-import 'dart:collection';
 
 import 'package:amplify_api/src/graphql/web_socket/blocs/ws_subscriptions_bloc.dart';
 import 'package:amplify_api/src/graphql/web_socket/services/web_socket_service.dart';
