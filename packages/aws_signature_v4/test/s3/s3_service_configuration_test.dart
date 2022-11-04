@@ -111,7 +111,7 @@ void main() {
           for (final serviceConfiguration in serviceConfigurations) {
             test(
               'chunked=${serviceConfiguration.chunked}, '
-              'signPayload=${serviceConfiguration.signPayload}',
+              'signPayload=${serviceConfiguration.signBody}',
               () async {
                 final signedRequest = await signer.sign(
                   request,
@@ -130,7 +130,7 @@ void main() {
           for (final serviceConfiguration in serviceConfigurations) {
             test(
               'chunked=${serviceConfiguration.chunked}, '
-              'signPayload=${serviceConfiguration.signPayload}',
+              'signPayload=${serviceConfiguration.signBody}',
               () {
                 final signedRequest = signer.signSync(
                   request,
