@@ -55,7 +55,7 @@ abstract class AmplifyCommand extends Command<void> implements Closeable {
   /// The root directory of the Amplify Flutter repo.
   Future<Directory> get rootDir => _rootDirMemo.runOnce(() async {
         var dir = workingDirectory;
-        while (dir.parent != dir) {
+        while (p.absolute(dir.parent.path) != p.absolute(dir.path)) {
           final files = dir.list(followLinks: false).whereType<File>();
           await for (final file in files) {
             if (p.basename(file.path) == 'aft.yaml') {

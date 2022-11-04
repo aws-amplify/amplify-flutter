@@ -1,0 +1,245 @@
+name: amplify_flutter_repository
+
+packages:
+  - packages/**
+  - example/*
+  - packages/**/example/*
+  - "*"
+
+# Generated output of flutter_localizations
+ignore:
+  - synthetic_package
+
+scripts:
+  setup_tuneup: >
+    flutter pub global activate tuneup
+  copy_dummy_config: >
+    melos exec --scope="*example*,sample_app" -- \
+      cp -n "\$MELOS_ROOT_PATH"/.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart | true
+
+  build:examples:ios: >
+    melos exec -c 1 --scope="*example*,sample_app" --ignore="*_android*" --fail-fast -- \
+      flutter build ios --simulator
+
+  build:examples:release:ios: >
+    melos exec -c 1 --scope="*example*" --ignore="*_android*" --fail-fast -- \
+      flutter build ios --no-codesign
+
+  build:examples:android: >
+    melos exec -c 1 --scope="*example*,sample_app" --ignore="*_ios*" --fail-fast -- \
+      flutter build apk --debug --verbose
+
+  build:examples:release:android: >
+    melos exec -c 1 --scope="*example*" --ignore="*_ios*" --fail-fast -- \
+      flutter build apk --verbose
+
+  test:unit:flutter:
+    run: melos exec -c 1 "flutter test"
+    description: >
+      Runs flutter unit tests in all plugins and example apps. Manually run only, not in CI
+    select-package:
+      dir-exists: test
+
+  test:unit:android:
+    run: |
+      melos run test:unit:android:plugin amplify_analytics_pinpoint_android && \
+      melos run test:unit:android:plugin amplify_api_android $PWD && \
+      melos run test:unit:android:plugin amplify_auth_cognito_android $PWD && \
+      melos run test:unit:android:plugin amplify_core $PWD && \
+      melos run test:unit:android:plugin amplify_datastore $PWD && \
+      melos run test:unit:android:plugin amplify_flutter_android $PWD && exit 0
+
+  test:unit:ios:
+    run: |
+      melos run test:unit:ios:plugin amplify_analytics_pinpoint_ios && \
+      melos run test:unit:ios:plugin amplify_api_ios $PWD && \
+      melos run test:unit:ios:plugin amplify_auth_cognito $PWD && \
+      melos run test:unit:ios:plugin amplify_datastore $PWD && \
+      melos run test:unit:ios:plugin amplify_flutter_ios $PWD && exit 0
+
+  test:unit:flutter:plugin:
+    run: .circleci/test_all_plugins.sh flutter-test $1 $PWD
+
+  test:unit:android:plugin:
+    run: ./.circleci/test_all_plugins.sh android-test $1 $PWD
+
+  test:unit:ios:plugin:
+    run: ./.circleci/test_all_plugins.sh ios-test $1 $PWD
+
+  build:example:ios:
+    run: build-support/build_ios.sh $1
+
+  build:example:android:
+    run: build-support/build_android.sh $1
+
+  # Analytics
+  lint:android:amplify_analytics_pinpoint:
+    run: |
+      melos exec -c 1 --fail-fast -- \
+        bash "$PWD/build-support/lint_android.sh"
+    description: >
+      Lints Android (Kotlin) files against global rules and fails if there are any errors.
+    select-package:
+      scope:
+        - amplify_analytics_pinpoint_android_example
+
+  # API
+  lint:android:amplify_api:
+    run: |
+      melos exec -c 1 --fail-fast -- \
+        bash "$PWD/build-support/lint_android.sh"
+    description: >
+      Lints Android (Kotlin) files against global rules and fails if there are any errors.
+    select-package:
+      scope:
+        - amplify_api_android_example
+
+  # AUTH
+  lint:android:amplify_auth_cognito:
+    run: |
+      melos exec -c 1 --fail-fast -- \
+        bash "$PWD/build-support/lint_android.sh"
+    description: >
+      Lints Android (Kotlin) files against global rules and fails if there are any errors.
+    select-package:
+      scope:
+        - amplify_auth_cognito_android
+
+  # CORE
+  lint:android:amplify_core:
+    run: |
+      melos exec -c 1 --fail-fast -- \
+        bash "$PWD/build-support/lint_android.sh"
+    description: >
+      Lints Android (Kotlin) files against global rules and fails if there are any errors.
+    select-package:
+      scope:
+        - amplify_core_example
+
+  # DATASTORE
+  lint:android:amplify_datastore:
+    run: |
+      melos exec -c 1 --fail-fast -- \
+        bash "$PWD/build-support/lint_android.sh"
+    description: >
+      Lints Android (Kotlin) files against global rules and fails if there are any errors.
+    select-package:
+      scope:
+        - amplify_datastore_example
+
+  # STORAGE
+  # NOTE the lint is run against the example in amplify_storage_s3 package
+  # as amplify_storage_s3_android_example doesn't exist now
+  lint:android:amplify_storage_s3:
+    run: |
+      melos exec -c 1 --fail-fast -- \
+        bash "$PWD/build-support/lint_android.sh"
+    description: >
+      Lints Android (Kotlin) files against global rules and fails if there are any errors.
+    select-package:
+      scope:
+        - amplify_storage_s3_example
+
+  # AMPLIFY_FLUTTER
+  lint:android:amplify_flutter:
+    run: |
+      melos exec -c 1 --fail-fast -- \
+        bash "$PWD/build-support/lint_android.sh"
+    description: >
+      Lints Android (Kotlin) files against global rules and fails if there are any errors.
+    select-package:
+      scope:
+        - amplify_flutter_android_example
+
+  test:integration:
+    run: melos run test:integration:android --no-select && melos run test:integration:ios --no-select
+    description:
+      Run all integration tests for all package example apps on Android and iOS simulators. Skips if no tests available.
+      - Requires running Android and iOS simulators.
+
+  test:integration:android:
+    run: melos exec -c 1 -- "$MELOS_ROOT_PATH/build-support/integ_test_android.sh" $@
+    description:
+      Run integration tests for a single package on an Android emulator.
+      - Run with `--no-select` to run for all applicable packages.
+      - Requires launching an Android emulator prior to execution.
+    select-package:
+      file-exists:
+        - integration_test/main_test.dart
+      scope: "*example*"
+      ignore: "*ios_example"
+
+  test:integration:ios:
+    run: melos exec -c 1 -- "$MELOS_ROOT_PATH/build-support/integ_test_ios.sh" $@
+    description: Run integration tests for a single package on an iOS simulator.
+      - Run with `--no-select` to run for all applicable packages.
+      - Requires launching an iOS simulator prior to execution.
+    select-package:
+      file-exists:
+        - integration_test/main_test.dart
+      scope: "*example*"
+
+  provision_integration_test_resources:
+    run: melos exec "./tool/provision_integration_test_resources.sh"
+    description:
+      Creates and pushes amplify environments necessary to run integration tests in example apps. Runs only on apps with provision script.
+      - Requires amplify CLI configured and connected to AWS account.
+      - Will run `amplify push` within example apps.
+    select-package:
+      file-exists:
+        - tool/provision_integration_test_resources.sh
+      scope: "*example*"
+
+  upload:coverage:ios: >
+    ./build-support/codecov.sh -F ios-unit-tests
+
+  upload:coverage:flutter: >
+    ./build-support/codecov.sh -F flutter-unit-tests
+
+  upload:coverage:android: >
+    ./build-support/codecov.sh -F android-unit-tests
+
+  format: >
+    melos exec -c 1 -- \
+      flutter format --dry-run --set-exit-if-changed .
+  analyze:
+    run: melos exec -c 1 --fail-fast -- \
+      flutter analyze --no-fatal-infos
+    description: >
+      Analyzes all packages and fails if there are any errors.
+    select-package:
+      scope:
+        - amplify_analytics_*
+        - amplify_api*
+        - amplify_auth_cognito*
+        - amplify_flutter*
+        - amplify_core*
+
+  lint:pub: >
+    melos exec -c 5 --fail-fast --no-private --ignore="*example*" -- \
+      flutter pub publish --dry-run
+
+  packages:fix: |
+    melos exec -- \
+      flutter analyze --no-fatal-infos --no-fatal-warnings &>/dev/null || true
+
+  pod:repo-update:
+    run: melos exec -c 8 --scope="*example*,sample_app"  --ignore="*_android_example" "(cd ios && pod repo update)"
+    description: runs "pod repo update" in all example apps
+
+  pod:update-amplify:
+    run: melos exec -c 8 --ignore="amplify_core_example" --file-exists="./ios/Podfile.lock" "(cd ios && pod update Amplify AWSPluginsCore AmplifyPlugins)"
+    description: Update amplify pods in projects with a Podfile.lock
+
+  pod:update:
+    run: melos run pod:repo-update && melos run pod:update-amplify
+    description: Run "pod repo update" and then updates amplify related pods. Intended for use after amplify iOS version has been updated.
+
+  postbootstrap: |
+    melos run copy_dummy_config && \
+    melos run packages:fix
+  postclean: >
+    melos exec -- \
+      rm -rf ./build ./android/.gradle ./ios/.symlinks ./ios/Pods ./ios/Podfile.lock
+dev_dependencies:
+  pedantic: ^1.9.0
