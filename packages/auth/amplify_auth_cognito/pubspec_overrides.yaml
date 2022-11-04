@@ -8,8 +8,6 @@ dependency_overrides:
     path: ../amplify_auth_cognito_ios
   amplify_core:
     path: ../../amplify_core
-  amplify_datastore_plugin_interface:
-    path: ../../datastore/amplify_datastore_plugin_interface
   amplify_flutter:
     path: ../../amplify/amplify_flutter
   amplify_flutter_android:

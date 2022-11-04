@@ -48,10 +48,6 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "packages/amplify_datastore_plugin_interface/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
     directory: "packages/amplify_lints/"
     schedule:
       interval: "daily"

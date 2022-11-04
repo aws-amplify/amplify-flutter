@@ -20,7 +20,6 @@ platforms:
 
 dependencies:
   amplify_core: ">=1.0.0-next.0+1 <1.0.0-next.1"
-  amplify_datastore_plugin_interface: 1.0.0-next.0
   amplify_flutter_android: 1.0.0-next.0
   amplify_flutter_ios: 1.0.0-next.0
   amplify_secure_storage: ">=0.1.1 <0.2.0"
