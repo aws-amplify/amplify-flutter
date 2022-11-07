@@ -62,10 +62,10 @@ jobs:
 
       - name: Run Tests (VM)
         if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true'"
-        run: aft test unit -- -j 4
+        run: aft test unit
         working-directory: ${{ inputs.working-directory }}
 
-  # Native Test runs code on non-Linux platforms and for all Dart->JS compilers
+  # Native Test runs code on non-Linux platforms
   native_test:
     name: Native Test
     needs: test
@@ -101,11 +101,6 @@ jobs:
         timeout-minutes: 15 # macOS needs extra time
         run: aft bootstrap
 
-      - name: Check Formatting
-        if: "always() && steps.bootstrap.conclusion == 'success'"
-        run: flutter format --set-exit-if-changed .
-        working-directory: ${{ inputs.working-directory }}
-
       - name: Check for Tests
         id: testCheck
         if: "always() && steps.bootstrap.conclusion == 'success'"
@@ -113,18 +108,11 @@ jobs:
         run: |
           if [ -d test ]; then
             echo "hasTests=true" >> $GITHUB_OUTPUT
-            echo "analysisDirs=lib test" >> $GITHUB_OUTPUT
           else
             echo "hasTests=false" >> $GITHUB_OUTPUT
-            echo "analysisDirs=lib" >> $GITHUB_OUTPUT
           fi
-
-      - name: Analyze
-        if: "always() && steps.bootstrap.conclusion == 'success'"
-        run: flutter analyze --fatal-infos --fatal-warnings ${{ steps.testCheck.outputs.analysisDirs }}
-        working-directory: ${{ inputs.working-directory }}
 
       - name: Run Tests (VM)
         if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true'"
-        run: aft test unit -- -j 4
+        run: aft test unit
         working-directory: ${{ inputs.working-directory }}

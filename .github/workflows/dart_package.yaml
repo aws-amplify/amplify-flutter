@@ -2,6 +2,10 @@ name: Dart Package
 on:
   workflow_call:
     inputs:
+      test-web:
+        description: Whether the package requires testing on web platforms
+        required: true
+        type: boolean
       working-directory:
         description: The working directory relative to the repo root
         required: true
@@ -75,15 +79,69 @@ jobs:
 
       - name: Run Tests (VM)
         if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true'"
-        run: aft test unit -- -j 4
+        run: aft test unit
         working-directory: ${{ inputs.working-directory }}
 
       - name: Run Tests (dart2js)
         if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true'"
-        run: aft test unit -- -j 4 -p chrome
+        run: aft test unit -- -p chrome
         working-directory: ${{ inputs.working-directory }}
 
-  # Native Test runs code on non-Linux platforms and for all Dart->JS compilers
+  # Tests code for all Dart->JS compilers
+  web_test:
+    name: Web Test
+    needs: test
+    if: ${{ inputs.test-web }}
+    timeout-minutes: 60
+    strategy:
+      # Allows other matrix items to run if one fails
+      fail-fast: false
+      matrix:
+        sdk:
+          # Minimum supported Dart version
+          - 2.17.0
+          - stable
+          - dev
+    steps:
+      - name: Cache Pub dependencies
+        uses: actions/cache@b195c997a41f41d0dab6d9aafe79e437611b78db
+        with:
+          path: |
+            ~/.pub-cache/hosted
+            ~/.pub-cache/git
+          key: os:ubuntu-latest;sdk:${{ matrix.sdk }};packages:${{ inputs.working-directory }}
+          restore-keys: |
+            os:ubuntu-latest;sdk:${{ matrix.sdk }};packages:${{ inputs.working-directory }}
+            os:ubuntu-latest;sdk:${{ matrix.sdk }}
+            os:ubuntu-latest
+
+      - name: Git Checkout
+        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@196f54580e9eee2797c57e85e289339f85e6779d
+        with:
+          sdk: ${{ matrix.sdk }}
+
+      - name: Setup aft
+        run: dart pub global activate -spath packages/aft
+
+      - name: Bootstrap
+        id: bootstrap
+        timeout-minutes: 10
+        run: aft bootstrap
+
+      - name: Run Tests (ddc)
+        if: "always() && steps.bootstrap.conclusion == 'success'"
+        run: dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox
+        working-directory: ${{ inputs.working-directory }}
+
+      - name: Run Tests (dart2js)
+        if: "always() && steps.bootstrap.conclusion == 'success'"
+        run: dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox
+        working-directory: ${{ inputs.working-directory }}
+
+  # Native Test runs code on non-Linux platforms
   native_test:
     name: Native Test
     needs: test
@@ -130,11 +188,6 @@ jobs:
         timeout-minutes: 15 # macOS needs extra time
         run: aft bootstrap
 
-      - name: Check Formatting
-        if: "always() && steps.bootstrap.conclusion == 'success'"
-        run: dart format --set-exit-if-changed .
-        working-directory: ${{ inputs.working-directory }}
-
       - name: Check for Tests
         id: testCheck
         if: "always() && steps.bootstrap.conclusion == 'success'"
@@ -142,18 +195,11 @@ jobs:
         run: |
           if [ -d test ]; then
             echo "hasTests=true" >> $GITHUB_OUTPUT
-            echo "analysisDirs=lib test" >> $GITHUB_OUTPUT
           else
             echo "hasTests=false" >> $GITHUB_OUTPUT
-            echo "analysisDirs=lib" >> $GITHUB_OUTPUT
           fi
 
-      - name: Analyze
-        if: "always() && steps.bootstrap.conclusion == 'success'"
-        run: dart analyze --fatal-infos --fatal-warnings ${{ steps.testCheck.outputs.analysisDirs }}
-        working-directory: ${{ inputs.working-directory }}
-
-      - name: Run Tests (dart2js)
+      - name: Run Tests (VM)
         if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true'"
-        run: aft test unit -- -j 4 -p firefox
+        run: aft test unit
         working-directory: ${{ inputs.working-directory }}

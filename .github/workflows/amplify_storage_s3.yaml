@@ -17,4 +17,5 @@ jobs:
   test:
     uses: ./.github/workflows/flutter_package.yaml
     with:
+      test-web: false
       working-directory: packages/storage/amplify_storage_s3

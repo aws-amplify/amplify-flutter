@@ -28,7 +28,12 @@ part 'models.g.dart';
 
 /// Packages which report as an example app, but should be considered as
 /// publishable for some purposes.
-const falsePositiveExamples = ['aft', 'smithy_codegen'];
+const falsePositiveExamples = [
+  'aft',
+  'smithy_codegen',
+  'amplify_auth_cognito_test',
+  'smoke_test',
+];
 
 /// The flavor of a package, e.g. Dart/Flutter.
 enum PackageFlavor {

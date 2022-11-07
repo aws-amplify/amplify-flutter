@@ -151,7 +151,7 @@ class IntegrationTestCommand extends BaseTestCommand {
         mode: ProcessStartMode.detached,
       );
     } on Exception catch (e) {
-      exitError('chromedriver failed to start: ${e.toString()}');
+      exitError('chromedriver failed to start: $e');
     }
     return process;
   }

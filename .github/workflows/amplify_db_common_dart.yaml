@@ -17,4 +17,5 @@ jobs:
   test:
     uses: ./.github/workflows/dart_package.yaml
     with:
+      test-web: true
       working-directory: packages/common/amplify_db_common_dart

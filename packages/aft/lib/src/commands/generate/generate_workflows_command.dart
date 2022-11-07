@@ -35,6 +35,12 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
           !falsePositiveExamples.contains(package.name)) {
         continue;
       }
+      // Some packages contain only native code/dependencies and do not need
+      // to be tested by Dart/Flutter analyze or test.
+      final libDir = Directory(p.join(package.path, 'lib'));
+      if (!libDir.existsSync()) {
+        continue;
+      }
       final workflowFilepath = p.join(
         repoRoot.path,
         '.github',
@@ -43,9 +49,16 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
       );
       final workflowFile = File(workflowFilepath);
       final repoRelativePath = p.relative(package.path, from: repoRoot.path);
+      final customWorkflow = File(p.join(package.path, 'workflow.yaml'));
+      if (customWorkflow.existsSync()) {
+        customWorkflow.copySync(workflowFilepath);
+        continue;
+      }
       // TODO(dnys1): add
       // paths:
       //   - '$repoRelativePath/**/*.dart'
+      final needsWebTest =
+          package.pubspecInfo.pubspec.devDependencies.containsKey('build_test');
       final workflowContents = '''
 name: ${package.name}
 on:
@@ -66,6 +79,7 @@ jobs:
   test:
     uses: ./.github/workflows/${package.flavor == PackageFlavor.dart ? 'dart_package' : 'flutter_package'}.yaml
     with:
+      test-web: $needsWebTest
       working-directory: $repoRelativePath
 ''';
       workflowFile.writeAsStringSync(workflowContents);

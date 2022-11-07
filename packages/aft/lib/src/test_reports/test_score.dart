@@ -39,8 +39,8 @@ abstract class TestScore implements Built<TestScore, TestScoreBuilder> {
   int get skipped;
 
   String get prettyTotal {
-    return '${formatSuccess('+${passed.toString()}')} '
-        '${formatWarning('~${skipped.toString()}')} '
-        '${formatException('-${failed.toString()}')}';
+    return '${formatSuccess('+$passed')} '
+        '${formatWarning('~$skipped')} '
+        '${formatException('-$failed')}';
   }
 }
