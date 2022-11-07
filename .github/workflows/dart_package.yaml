@@ -55,20 +55,23 @@ jobs:
         run: dart format --set-exit-if-changed .
         working-directory: ${{ inputs.working-directory }}
 
-      - name: Analyze
-        if: "always() && steps.bootstrap.conclusion == 'success'"
-        run: dart analyze --fatal-infos --fatal-warnings lib test
-        working-directory: ${{ inputs.working-directory }}
-
       - name: Check for Tests
         id: testCheck
         if: "always() && steps.bootstrap.conclusion == 'success'"
+        shell: bash # Run in bash regardless of platform
         run: |
           if [ -d test ]; then
             echo "hasTests=true" >> $GITHUB_OUTPUT
+            echo "analysisDirs=lib test" >> $GITHUB_OUTPUT
           else
             echo "hasTests=false" >> $GITHUB_OUTPUT
+            echo "analysisDirs=lib" >> $GITHUB_OUTPUT
           fi
+
+      - name: Analyze
+        if: "always() && steps.bootstrap.conclusion == 'success'"
+        run: dart analyze --fatal-infos --fatal-warnings ${{ steps.testCheck.outputs.analysisDirs }}
+        working-directory: ${{ inputs.working-directory }}
 
       - name: Run Tests (VM)
         if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true'"
@@ -127,6 +130,11 @@ jobs:
         timeout-minutes: 15 # macOS needs extra time
         run: aft bootstrap
 
+      - name: Check Formatting
+        if: "always() && steps.bootstrap.conclusion == 'success'"
+        run: dart format --set-exit-if-changed .
+        working-directory: ${{ inputs.working-directory }}
+
       - name: Check for Tests
         id: testCheck
         if: "always() && steps.bootstrap.conclusion == 'success'"
@@ -134,18 +142,15 @@ jobs:
         run: |
           if [ -d test ]; then
             echo "hasTests=true" >> $GITHUB_OUTPUT
+            echo "analysisDirs=lib test" >> $GITHUB_OUTPUT
           else
             echo "hasTests=false" >> $GITHUB_OUTPUT
+            echo "analysisDirs=lib" >> $GITHUB_OUTPUT
           fi
 
-      - name: Check Formatting
-        if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true'"
-        run: dart format --set-exit-if-changed .
-        working-directory: ${{ inputs.working-directory }}
-
       - name: Analyze
-        if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true'"
-        run: dart analyze --fatal-infos --fatal-warnings lib test
+        if: "always() && steps.bootstrap.conclusion == 'success'"
+        run: dart analyze --fatal-infos --fatal-warnings ${{ steps.testCheck.outputs.analysisDirs }}
         working-directory: ${{ inputs.working-directory }}
 
       - name: Run Tests (dart2js)
