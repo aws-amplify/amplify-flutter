@@ -104,17 +104,21 @@ Future<void> listOperation() async {
   final accessLevel = promptStorageAccessLevel(
     'Choose the storage access level associated with the path: ',
   );
+  final listAll = prompt('List with pagination? (Y/n): ').toLowerCase() == 'n';
 
   const pageSize = 5;
 
   // get plugin with plugin key to gain S3 specific interface
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
+  final options = listAll
+      ? const S3ListOptions.listAll()
+      : S3ListOptions(
+          accessLevel: accessLevel,
+          pageSize: pageSize,
+        );
   final operation = s3Plugin.list(
     path: path,
-    options: S3ListOptions(
-      accessLevel: accessLevel,
-      pageSize: pageSize,
-    ),
+    options: options,
   );
 
   // or to call Amplify.Storage.list
