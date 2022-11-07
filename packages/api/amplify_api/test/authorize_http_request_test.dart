@@ -11,6 +11,8 @@
 // express or implied. See the License for the specific language governing
 // permissions and limitations under the License.
 
+import 'dart:convert';
+
 import 'package:amplify_api/src/decorators/authorize_http_request.dart';
 import 'package:amplify_api/src/graphql/providers/app_sync_api_key_auth_provider.dart';
 import 'package:amplify_api/src/graphql/providers/oidc_function_api_auth_provider.dart';
@@ -119,6 +121,31 @@ void main() {
         authProviderRepo: authProviderRepo,
       );
       validateSignedRequest(authorizedRequest);
+    });
+
+    test('does not sign body of POST request with IAM REST API', () async {
+      const endpointConfig = AWSApiConfig(
+        authorizationType: APIAuthorizationType.iam,
+        endpoint: _restEndpoint,
+        endpointType: EndpointType.rest,
+        region: _region,
+      );
+      final inputRequest = AWSHttpRequest(
+        method: AWSHttpMethod.post,
+        body: json.encode({
+          'foo': 'bar',
+        }).codeUnits,
+        uri: Uri.parse(endpointConfig.endpoint),
+      );
+      final authorizedRequest = await authorizeHttpRequest(
+        inputRequest,
+        endpointConfig: endpointConfig,
+        authProviderRepo: authProviderRepo,
+      );
+      expect(
+        authorizedRequest.headers.containsKey(AWSHeaders.contentSHA256),
+        isFalse,
+      );
     });
 
     test('authorizes request with API key', () async {

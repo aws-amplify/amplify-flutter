@@ -38,10 +38,12 @@ class IamAuthProviderOptions extends AuthProviderOptions {
   const IamAuthProviderOptions({
     required this.region,
     required this.service,
+    this.serviceConfiguration,
   });
 
   final String region;
   final AWSService service;
+  final ServiceConfiguration? serviceConfiguration;
 }
 
 class ApiKeyAuthProviderOptions extends AuthProviderOptions {
