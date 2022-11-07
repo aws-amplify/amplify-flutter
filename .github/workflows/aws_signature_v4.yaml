@@ -18,4 +18,5 @@ jobs:
     uses: ./.github/workflows/dart_package.yaml
     with:
       working-directory: packages/aws_signature_v4
-      test-web: false
+      test-web: true
+      test-ddc-stable: true

@@ -19,3 +19,4 @@ jobs:
     with:
       working-directory: packages/secure_storage/amplify_secure_storage_dart
       test-web: false
+      test-ddc-stable: false

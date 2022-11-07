@@ -6,6 +6,10 @@ on:
         description: Whether the package requires testing on web platforms
         required: true
         type: boolean
+      test-ddc-stable:
+        description: Whether the package should be tested on DDC (stable)
+        required: true
+        type: boolean
       working-directory:
         description: The working directory relative to the repo root
         required: true
@@ -40,6 +44,9 @@ jobs:
 
       - name: Git Checkout
         uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+
+      - name: Git Submodules
+        run: git submodule update --init
 
       - name: Setup Dart
         uses: dart-lang/setup-dart@196f54580e9eee2797c57e85e289339f85e6779d
@@ -119,6 +126,9 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
 
+      - name: Git Submodules
+        run: git submodule update --init
+
       - name: Setup Dart
         uses: dart-lang/setup-dart@196f54580e9eee2797c57e85e289339f85e6779d
         with:
@@ -133,7 +143,7 @@ jobs:
         run: aft bootstrap
 
       - name: Run Tests (ddc)
-        if: "always() && steps.bootstrap.conclusion == 'success'"
+        if: "always() && steps.bootstrap.conclusion == 'success' && (matrix.sdk == 'dev' || inputs.test-ddc-stable)"
         run: dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox
         working-directory: ${{ inputs.working-directory }}
 
@@ -175,6 +185,9 @@ jobs:
 
       - name: Git Checkout
         uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+
+      - name: Git Submodules
+        run: git submodule update --init
 
       - name: Setup Dart
         uses: dart-lang/setup-dart@196f54580e9eee2797c57e85e289339f85e6779d

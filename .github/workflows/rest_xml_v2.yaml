@@ -19,3 +19,4 @@ jobs:
     with:
       working-directory: packages/smithy/goldens/lib2/restXml
       test-web: false
+      test-ddc-stable: false

@@ -19,3 +19,4 @@ jobs:
     with:
       working-directory: packages/aws_common
       test-web: true
+      test-ddc-stable: true

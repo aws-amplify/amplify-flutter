@@ -19,3 +19,4 @@ jobs:
     with:
       working-directory: packages/smithy/goldens/lib/awsJson1_0
       test-web: false
+      test-ddc-stable: false

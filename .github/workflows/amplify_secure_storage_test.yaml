@@ -19,3 +19,4 @@ jobs:
     with:
       working-directory: packages/secure_storage/amplify_secure_storage_test
       test-web: true
+      test-ddc-stable: false

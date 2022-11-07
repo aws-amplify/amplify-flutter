@@ -57,8 +57,16 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
       // TODO(dnys1): add
       // paths:
       //   - '$repoRelativePath/**/*.dart'
+      // Packages which are failing in DDC stable due to staticInterop issues
+      // TODO(dnys1): Remove when Dart 2.19 is stable
+      const failingDdcStable = [
+        'amplify_auth_cognito_test',
+        'amplify_secure_storage_test',
+      ];
       final needsWebTest =
           package.pubspecInfo.pubspec.devDependencies.containsKey('build_test');
+      final testDdcStable =
+          needsWebTest && !failingDdcStable.contains(package.name);
       final isDartPackage = package.flavor == PackageFlavor.dart;
       final workflowContents = '''
 name: ${package.name}
@@ -82,6 +90,7 @@ jobs:
     with:
       working-directory: $repoRelativePath
       ${isDartPackage ? 'test-web: $needsWebTest' : ''}
+      ${isDartPackage ? 'test-ddc-stable: $testDdcStable' : ''}
 ''';
       workflowFile.writeAsStringSync(workflowContents);
     }

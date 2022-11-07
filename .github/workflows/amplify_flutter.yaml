@@ -19,3 +19,4 @@ jobs:
     with:
       working-directory: packages/amplify/amplify_flutter
       
+      

@@ -19,3 +19,4 @@ jobs:
     with:
       working-directory: packages/analytics/amplify_analytics_pinpoint
       
+      
