@@ -110,6 +110,9 @@ jobs:
           - 2.17.0
           - stable
           - dev
+        browser:
+          - chrome
+          - firefox
     steps:
       - name: Cache Pub dependencies
         uses: actions/cache@b195c997a41f41d0dab6d9aafe79e437611b78db
@@ -144,12 +147,12 @@ jobs:
 
       - name: Run Tests (ddc)
         if: "always() && steps.bootstrap.conclusion == 'success' && (matrix.sdk == 'dev' || inputs.test-ddc-stable)"
-        run: dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox
+        run: dart run build_runner test --delete-conflicting-outputs -- -p ${{ matrix.browser }} --exclude-tags=no-ddc
         working-directory: ${{ inputs.working-directory }}
 
       - name: Run Tests (dart2js)
         if: "always() && steps.bootstrap.conclusion == 'success'"
-        run: dart run build_runner test --release --delete-conflicting-outputs -- -p chrome,firefox
+        run: dart run build_runner test --release --delete-conflicting-outputs -- -p ${{ matrix.browser }}
         working-directory: ${{ inputs.working-directory }}
 
   # Native Test runs code on non-Linux platforms
