@@ -5,11 +5,7 @@ on:
       - main
       - stable
       - next
-    paths:
-      - 'packages/common/amplify_db_common_dart/**/*.dart'
   pull_request:
-    paths:
-      - 'packages/common/amplify_db_common_dart/**/*.dart'
   schedule:
     - cron: "0 0 * * 0"
 defaults:

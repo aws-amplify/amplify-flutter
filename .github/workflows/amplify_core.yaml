@@ -5,11 +5,7 @@ on:
       - main
       - stable
       - next
-    paths:
-      - 'packages/amplify_core/**/*.dart'
   pull_request:
-    paths:
-      - 'packages/amplify_core/**/*.dart'
   schedule:
     - cron: "0 0 * * 0"
 defaults:

@@ -43,6 +43,9 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
       );
       final workflowFile = File(workflowFilepath);
       final repoRelativePath = p.relative(package.path, from: repoRoot.path);
+      // TODO(dnys1): add
+      // paths:
+      //   - '$repoRelativePath/**/*.dart'
       final workflowContents = '''
 name: ${package.name}
 on:
@@ -51,11 +54,7 @@ on:
       - main
       - stable
       - next
-    paths:
-      - '$repoRelativePath/**/*.dart'
   pull_request:
-    paths:
-      - '$repoRelativePath/**/*.dart'
   schedule:
     - cron: "0 0 * * 0"
 defaults:

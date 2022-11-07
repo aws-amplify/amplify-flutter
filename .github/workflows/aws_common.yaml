@@ -5,11 +5,7 @@ on:
       - main
       - stable
       - next
-    paths:
-      - 'packages/aws_common/**/*.dart'
   pull_request:
-    paths:
-      - 'packages/aws_common/**/*.dart'
   schedule:
     - cron: "0 0 * * 0"
 defaults:

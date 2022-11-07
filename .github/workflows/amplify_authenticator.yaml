@@ -5,11 +5,7 @@ on:
       - main
       - stable
       - next
-    paths:
-      - 'packages/amplify_authenticator/**/*.dart'
   pull_request:
-    paths:
-      - 'packages/amplify_authenticator/**/*.dart'
   schedule:
     - cron: "0 0 * * 0"
 defaults:

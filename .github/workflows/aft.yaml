@@ -5,11 +5,7 @@ on:
       - main
       - stable
       - next
-    paths:
-      - 'packages/aft/**/*.dart'
   pull_request:
-    paths:
-      - 'packages/aft/**/*.dart'
   schedule:
     - cron: "0 0 * * 0"
 defaults:

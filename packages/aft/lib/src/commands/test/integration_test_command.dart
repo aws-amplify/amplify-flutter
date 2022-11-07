@@ -21,7 +21,6 @@ import 'package:aft/src/flutter_platform.dart';
 import 'package:aft/src/test_reports/print_results.dart';
 import 'package:aft/src/test_reports/test_folio.dart';
 import 'package:aft/src/test_reports/test_report.dart';
-import 'package:aft/src/util.dart';
 import 'package:aft/src/utils/emphasize_text.dart';
 import 'package:mason_logger/mason_logger.dart';
 import 'package:path/path.dart' as p;

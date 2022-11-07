@@ -5,11 +5,7 @@ on:
       - main
       - stable
       - next
-    paths:
-      - 'packages/smithy/smithy_aws/**/*.dart'
   pull_request:
-    paths:
-      - 'packages/smithy/smithy_aws/**/*.dart'
   schedule:
     - cron: "0 0 * * 0"
 defaults:

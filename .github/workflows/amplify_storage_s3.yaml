@@ -5,11 +5,7 @@ on:
       - main
       - stable
       - next
-    paths:
-      - 'packages/storage/amplify_storage_s3/**/*.dart'
   pull_request:
-    paths:
-      - 'packages/storage/amplify_storage_s3/**/*.dart'
   schedule:
     - cron: "0 0 * * 0"
 defaults:

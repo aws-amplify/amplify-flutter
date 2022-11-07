@@ -14,8 +14,8 @@
 
 import 'dart:io';
 
-import 'package:aft/src/util.dart';
 import 'package:aft/src/flutter_platform.dart';
+import 'package:aft/src/util.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as p;
