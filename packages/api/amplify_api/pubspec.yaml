@@ -4,11 +4,19 @@ version: 1.0.0-next.0+4
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/api/amplify_api
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
-publish_to: none # until finalized
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
   flutter: ">=3.0.0"
+
+# Helps `pana` since we do not use Flutter plugins for most platforms
+platforms:
+  ios:
+  android:
+  macos:
+  windows:
+  linux:
+  web:
 
 dependencies:
   amplify_api_android: ">=1.0.0-next.0 <1.0.0-next.1"
