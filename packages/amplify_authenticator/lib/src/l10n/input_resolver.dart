@@ -52,6 +52,7 @@ enum InputResolverKeyType {
   hint,
   confirmHint,
   empty,
+  usernameRequirements,
   passwordRequirements,
   format,
   mismatch
@@ -78,6 +79,10 @@ class InputResolverKey {
   );
   static const usernameEmpty = InputResolverKey._(
     InputResolverKeyType.empty,
+    field: InputField.username,
+  );
+  static const usernameRequirementsUnmet = InputResolverKey._(
+    InputResolverKeyType.usernameRequirements,
     field: InputField.username,
   );
   static const passwordTitle = InputResolverKey._(
@@ -477,6 +482,11 @@ class InputResolver extends Resolver<InputResolverKey> {
         .warnInvalidFormat(title(context, field).toLowerCase());
   }
 
+  /// Returns the text displayed when the username requirements are not met
+  String usernameRequires(BuildContext context) {
+    return AuthenticatorLocalizations.inputsOf(context).usernameRequirements;
+  }
+
   /// Returns the text displayed when a password input does match the password requirements
   /// defined in the amplify configuration.
   String passwordRequires(
@@ -523,6 +533,8 @@ class InputResolver extends Resolver<InputResolverKey> {
         return confirmHint(context, key.field);
       case InputResolverKeyType.empty:
         return empty(context, key.field);
+      case InputResolverKeyType.usernameRequirements:
+        return usernameRequires(context);
       case InputResolverKeyType.passwordRequirements:
         return passwordRequires(context, key.unmetPasswordRequirements!);
       case InputResolverKeyType.mismatch:
