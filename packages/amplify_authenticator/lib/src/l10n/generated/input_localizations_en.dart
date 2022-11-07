@@ -16,6 +16,7 @@
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 
 import 'package:intl/intl.dart' as intl;
+
 import 'input_localizations.dart';
 
 /// The translations for English (`en`).
@@ -106,6 +107,10 @@ class AuthenticatorInputLocalizationsEn
   }
 
   @override
+  String get usernameRequirements =>
+      'Username must only contain alphanumeric characters and symbols.';
+
+  @override
   String get passwordRequirementsPreamble => 'Password must include:';
 
   @override
@@ -126,7 +131,7 @@ class AuthenticatorInputLocalizationsEn
   }
 
   @override
-  String passwordRequirementsAtLeast(int numCharacters, String characterType) {
+  String passwordRequirementsAtLeast(num numCharacters, String characterType) {
     final String pluralString = intl.Intl.pluralLogic(
       numCharacters,
       locale: localeName,
