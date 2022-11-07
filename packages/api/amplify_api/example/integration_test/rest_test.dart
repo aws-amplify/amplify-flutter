@@ -68,6 +68,9 @@ void main({bool useExistingTestUser = false}) {
           expect(res.statusCode, 200);
           expect(body, 'test header set');
         },
+        // Skip on web because CORS does not allow this custom header without
+        // manually adding to allow list in API gateway.
+        skip: zIsWeb,
       );
 
       testWidgets('should throw a RestException for POST',
@@ -120,8 +123,5 @@ void main({bool useExistingTestUser = false}) {
         validateRestResponse(res);
       });
     });
-  },
-      // Skip because CLI issue for web https://github.com/aws-amplify/amplify-category-api/issues/519
-      // which requires manual backend changes.
-      skip: zIsWeb);
+  });
 }
