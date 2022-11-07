@@ -12,24 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:io';
-
-import 'package:amplify_core/amplify_core.dart';
-
-/// {@template amplify_storage_s3_dart.app_path_provider}
-/// Provides App paths for amplify_storage_s3_dart package.
-/// {@endtemplate}
-class S3DartAppPathProvider implements AppPathProvider {
-  /// {@macro amplify_storage_s3_dart.app_path_provider}
-  const S3DartAppPathProvider();
-
-  @override
-  Future<String> getApplicationSupportPath() async {
-    return Directory.current.path;
-  }
-
-  @override
-  Future<String> getTemporaryPath() async {
-    return Directory.systemTemp.path;
-  }
-}
+export 'app_path_provider_stub.dart'
+    if (dart.library.html) 'app_path_provider_html.dart'
+    if (dart.library.io) 'app_path_provider_io.dart';

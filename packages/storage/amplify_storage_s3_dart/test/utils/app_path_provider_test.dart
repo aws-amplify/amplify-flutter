@@ -15,7 +15,7 @@
 
 import 'dart:io';
 
-import 'package:amplify_storage_s3_dart/src/utils/app_path_provider.dart';
+import 'package:amplify_storage_s3_dart/src/utils/app_path_provider/app_path_provider.dart';
 import 'package:test/test.dart';
 
 void main() {

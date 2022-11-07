@@ -22,7 +22,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/platform_impl/download_file/download_file.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
-import 'package:amplify_storage_s3_dart/src/utils/app_path_provider.dart';
+import 'package:amplify_storage_s3_dart/src/utils/app_path_provider/app_path_provider.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:path/path.dart' as path;
 import 'package:test/test.dart';

@@ -25,7 +25,7 @@ import 'package:amplify_storage_s3_dart/src/prefix_resolver/storage_access_level
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/transfer.dart'
     as transfer;
-import 'package:amplify_storage_s3_dart/src/utils/app_path_provider.dart';
+import 'package:amplify_storage_s3_dart/src/utils/app_path_provider/app_path_provider.dart';
 import 'package:meta/meta.dart';
 
 /// A symbol used for unit tests.

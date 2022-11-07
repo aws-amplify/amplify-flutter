@@ -16,7 +16,7 @@ import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
-import 'package:amplify_storage_s3/src/utils/app_path_provider.dart';
+import 'package:amplify_storage_s3/src/utils/app_path_provider/app_path_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'test_utils/test_token_provider.dart';
