@@ -94,6 +94,10 @@ class AuthenticatorInputLocalizationsEn
   }
 
   @override
+  String get usernameRequirements =>
+      'Username must only contain alphanumeric characters and symbols.';
+
+  @override
   String get passwordRequirementsPreamble => 'Password must include:';
 
   @override

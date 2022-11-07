@@ -10,14 +10,14 @@ import 'package:intl/intl.dart' as intl;
 
 import 'input_localizations_en.dart' deferred as input_localizations_en;
 
-/// Callers can lookup localized strings with an instance of AuthenticatorInputLocalizations returned
-/// by `AuthenticatorInputLocalizations.of(context)`.
+/// Callers can lookup localized strings with an instance of AuthenticatorInputLocalizations
+/// returned by `AuthenticatorInputLocalizations.of(context)`.
 ///
 /// Applications need to include `AuthenticatorInputLocalizations.delegate()` in their app's
-/// localizationDelegates list, and the locales they support in the app's
-/// supportedLocales list. For example:
+/// `localizationDelegates` list, and the locales they support in the app's
+/// `supportedLocales` list. For example:
 ///
-/// ```
+/// ```dart
 /// import 'generated/input_localizations.dart';
 ///
 /// return MaterialApp(
@@ -32,14 +32,14 @@ import 'input_localizations_en.dart' deferred as input_localizations_en;
 /// Please make sure to update your pubspec.yaml to include the following
 /// packages:
 ///
-/// ```
+/// ```yaml
 /// dependencies:
 ///   # Internationalization support.
 ///   flutter_localizations:
 ///     sdk: flutter
 ///   intl: any # Use the pinned version from flutter_localizations
 ///
-///   # rest of dependencies
+///   # Rest of dependencies
 /// ```
 ///
 /// ## iOS Applications
@@ -227,6 +227,12 @@ abstract class AuthenticatorInputLocalizations {
   /// In en, this message translates to:
   /// **'Confirm {attribute}'**
   String confirmAttribute(String attribute);
+
+  /// Warning for when username requirements are not met.
+  ///
+  /// In en, this message translates to:
+  /// **'Username must only contain alphanumeric characters and symbols.'**
+  String get usernameRequirements;
 
   /// Preamble to list of unment password requirements.
   ///
