@@ -18,5 +18,5 @@ jobs:
     uses: ./.github/workflows/dart_package.yaml
     with:
       working-directory: packages/smithy/goldens/lib/restXml
-      test-web: false
-      test-ddc-stable: false
+      test-web: true
+      test-ddc-stable: true
