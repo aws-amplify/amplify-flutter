@@ -16,6 +16,7 @@
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 
 import 'package:intl/intl.dart' as intl;
+
 import 'button_localizations.dart';
 
 /// The translations for English (`en`).
