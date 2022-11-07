@@ -40,9 +40,10 @@ dev_dependencies:
     path: ../../amplify_lints
   amplify_test:
     path: ../../amplify_test
-  aws_signature_v4: ^0.1.0 
+  aws_signature_v4:
+    path: ../../aws_signature_v4 
   build_runner: ^2.0.0
-  connectivity_plus_platform_interface: ^1.2.0
+  connectivity_plus_platform_interface: any
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0
