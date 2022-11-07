@@ -92,6 +92,7 @@ jobs:
     name: Web Test
     needs: test
     if: ${{ inputs.test-web }}
+    runs-on: ubuntu-latest
     timeout-minutes: 60
     strategy:
       # Allows other matrix items to run if one fails
