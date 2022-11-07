@@ -133,8 +133,7 @@ void main() {
     test('2 AmplifyAuthProviderToken of same type are not the same', () async {
       const token1 = AmplifyAuthProviderToken<TokenAmplifyAuthProvider>('1');
       const token2 = AmplifyAuthProviderToken<TokenAmplifyAuthProvider>('2');
-      final isSame = token1 == token2;
-      expect(isSame, isFalse);
+      expect(token1, isNot(token2));
     });
   });
 }

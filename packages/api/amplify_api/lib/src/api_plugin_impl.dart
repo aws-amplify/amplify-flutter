@@ -179,7 +179,7 @@ class AmplifyAPIDart extends AmplifyAPI {
       _authProviderRepo,
       subscriptionOptions: subscriptionOptions,
       logger: _logger.createChild(
-        'webSocketConnection${endpoint.name}',
+        'ws_${endpoint.name}',
       ),
     );
   }
@@ -189,7 +189,7 @@ class AmplifyAPIDart extends AmplifyAPI {
       type: EndpointType.graphQL,
       apiName: apiName,
     );
-    return endpoint.getUri(path: null, queryParameters: null);
+    return endpoint.getUri();
   }
 
   Uri _getRestUri(
