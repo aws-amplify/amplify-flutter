@@ -17,5 +17,5 @@ jobs:
   test:
     uses: ./.github/workflows/flutter_package.yaml
     with:
-      test-web: false
       working-directory: packages/amplify_authenticator
+      

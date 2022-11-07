@@ -17,5 +17,5 @@ jobs:
   test:
     uses: ./.github/workflows/dart_package.yaml
     with:
-      test-web: false
       working-directory: packages/smithy/smithy
+      test-web: false

@@ -59,6 +59,7 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
       //   - '$repoRelativePath/**/*.dart'
       final needsWebTest =
           package.pubspecInfo.pubspec.devDependencies.containsKey('build_test');
+      final isDartPackage = package.flavor == PackageFlavor.dart;
       final workflowContents = '''
 name: ${package.name}
 on:
@@ -77,10 +78,10 @@ permissions: read-all
 
 jobs:
   test:
-    uses: ./.github/workflows/${package.flavor == PackageFlavor.dart ? 'dart_package' : 'flutter_package'}.yaml
+    uses: ./.github/workflows/${isDartPackage ? 'dart_package' : 'flutter_package'}.yaml
     with:
-      test-web: $needsWebTest
       working-directory: $repoRelativePath
+      ${isDartPackage ? 'test-web: $needsWebTest' : ''}
 ''';
       workflowFile.writeAsStringSync(workflowContents);
     }
