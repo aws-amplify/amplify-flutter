@@ -1,0 +1,21 @@
+name: aws_json1_1_v1
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - next
+  pull_request:
+  schedule:
+    - cron: "0 0 * * 0"
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  test:
+    uses: ./.github/workflows/dart_package.yaml
+    with:
+      working-directory: packages/smithy/goldens/lib/awsJson1_1
+      test-web: false

@@ -31,8 +31,21 @@ part 'models.g.dart';
 const falsePositiveExamples = [
   'aft',
   'smithy_codegen',
-  'amplify_auth_cognito_test',
   'smoke_test',
+  'amplify_auth_cognito_test',
+  'amplify_secure_storage_test',
+
+  // Smithy Golden packages
+  'aws_json1_0_v1',
+  'aws_json1_1_v1',
+  'rest_json1_v1',
+  'rest_xml_v1',
+  'rest_xml_with_namespace_v1',
+  'aws_json1_0_v2',
+  'aws_json1_1_v2',
+  'rest_json1_v2',
+  'rest_xml_v2',
+  'rest_xml_with_namespace_v2',
 ];
 
 /// The flavor of a package, e.g. Dart/Flutter.
