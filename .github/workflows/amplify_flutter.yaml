@@ -16,7 +16,7 @@ permissions: read-all
 jobs:
   test:
     id: test-vm
-    uses: ./.github/workflows/flutter_vm.yaml.yaml
+    uses: ./.github/workflows/flutter_vm.yaml
     with:
       working-directory: packages/amplify/amplify_flutter
 

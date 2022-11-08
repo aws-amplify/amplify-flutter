@@ -16,7 +16,7 @@ permissions: read-all
 jobs:
   test:
     id: test-vm
-    uses: ./.github/workflows/dart_vm.yaml.yaml
+    uses: ./.github/workflows/dart_vm.yaml
     with:
       working-directory: packages/aft
 

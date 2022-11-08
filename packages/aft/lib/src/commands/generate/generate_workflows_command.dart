@@ -86,8 +86,7 @@ permissions: read-all
 
 jobs:
 ''');
-      final analyzeAndTestWorkflow =
-          isDartPackage ? 'dart_vm.yaml' : 'flutter_vm.yaml';
+      final analyzeAndTestWorkflow = isDartPackage ? 'dart_vm' : 'flutter_vm';
       workflowContents.writeln('''
   test:
     id: test-vm
