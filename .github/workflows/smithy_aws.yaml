@@ -15,14 +15,13 @@ permissions: read-all
 
 jobs:
   test:
-    id: test-vm
     uses: ./.github/workflows/dart_vm.yaml
     with:
       working-directory: packages/smithy/smithy_aws
 
   native_test:
     if: ${{ github.event_name == 'pull_request' }} # TODO: Change to 'push'
-    needs: test-vm
+    needs: test
     uses: ./.github/workflows/dart_native.yaml
     with:
       working-directory: packages/smithy/smithy_aws

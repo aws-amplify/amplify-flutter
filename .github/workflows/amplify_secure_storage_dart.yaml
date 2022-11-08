@@ -15,7 +15,6 @@ permissions: read-all
 
 jobs:
   test:
-    id: test-vm
     uses: ./.github/workflows/dart_vm.yaml
     with:
       working-directory: packages/secure_storage/amplify_secure_storage_dart
