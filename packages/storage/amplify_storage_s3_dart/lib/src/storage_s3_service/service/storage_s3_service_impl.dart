@@ -608,7 +608,7 @@ class StorageS3Service {
 
   /// Resolve a client object key to a "full" object key with proper prefix.
   ///
-  /// This API is used only internally.
+  /// This API is only used internally.
   @internal
   static Future<String> getResolvedPrefix({
     required S3PrefixResolver prefixResolver,
@@ -635,7 +635,7 @@ class StorageS3Service {
   /// Creates and sends a [s3.HeadObjectRequest] to S3 service, and then
   /// returns a [s3.HeadObjectOutput].
   ///
-  /// This API is used only internally.
+  /// This API is only used internally.
   @internal
   static Future<s3.HeadObjectOutput> headObject({
     required s3.S3Client s3client,

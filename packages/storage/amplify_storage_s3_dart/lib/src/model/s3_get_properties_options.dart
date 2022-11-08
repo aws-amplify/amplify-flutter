@@ -42,9 +42,8 @@ class S3GetPropertiesOptions extends StorageGetPropertiesOptions {
           targetIdentityId: targetIdentityId,
         );
 
-  /// The identity id of another user who uploaded the object that to get
-  /// properties for.
+  /// The identity ID of another user who uploaded the object.
   ///
-  /// This can be set by calling the [S3GetPropertiesOptions.forIdentity].
+  /// This can be set by using [S3GetPropertiesOptions.forIdentity].
   final String? targetIdentityId;
 }

@@ -59,9 +59,8 @@ class S3GetUrlOptions extends StorageGetUrlOptions {
   /// a presigned url.
   final bool checkObjectExistence;
 
-  /// The identity id of another user who uploaded the object that to get url
-  /// for.
+  /// The identity ID of another user who uploaded the object.
   ///
-  /// This can be set by calling the [S3GetUrlOptions.forIdentity].
+  /// This can be set by using [S3GetUrlOptions.forIdentity].
   final String? targetIdentityId;
 }
