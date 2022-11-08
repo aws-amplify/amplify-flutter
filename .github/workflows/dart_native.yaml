@@ -60,5 +60,5 @@ jobs:
 
       - name: Run Tests
         if: "always() && steps.bootstrap.conclusion == 'success'"
-        run: aft test unit -- --exclude-tags=build
+        run: dart test --exclude-tags=build
         working-directory: ${{ inputs.working-directory }}

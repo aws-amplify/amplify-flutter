@@ -78,5 +78,5 @@ jobs:
 
       - name: Run Tests
         if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true'"
-        run: aft test unit
+        run: dart test
         working-directory: ${{ inputs.working-directory }}
