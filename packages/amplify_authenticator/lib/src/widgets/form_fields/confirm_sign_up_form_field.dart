@@ -129,7 +129,7 @@ abstract class _ConfirmSignUpFormFieldState<FieldValue>
     switch (widget.field) {
       case ConfirmSignUpField.username:
         return const [
-          AutofillHints.username,
+          AutofillHints.newUsername,
         ];
       case ConfirmSignUpField.code:
         return const [

@@ -416,7 +416,7 @@ abstract class _SignUpFormFieldState<FieldValue>
         ];
       case SignUpField.address:
         return const [
-          AutofillHints.postalAddress,
+          AutofillHints.fullStreetAddress,
         ];
       case SignUpField.email:
         return const [
@@ -460,7 +460,7 @@ abstract class _SignUpFormFieldState<FieldValue>
         ];
       case SignUpField.preferredUsername:
         return const [
-          AutofillHints.username,
+          AutofillHints.newUsername,
         ];
       case SignUpField.custom:
         return null;
