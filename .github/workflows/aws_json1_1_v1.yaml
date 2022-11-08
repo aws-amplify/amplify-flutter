@@ -23,21 +23,21 @@ jobs:
   native_test:
     if: ${{ github.event_name == 'pull_request' }} # TODO: Change to 'push'
     needs: test-vm
-    uses: ./.github/workflows/dart_native.yaml.yaml
+    uses: ./.github/workflows/dart_native.yaml
     with:
       working-directory: packages/smithy/goldens/lib/awsJson1_1
 
   ddc_test:
     if: ${{ github.event_name == 'pull_request' }} # TODO: Change to 'push'
     needs: test-vm
-    uses: ./.github/workflows/dart_ddc.yaml.yaml
+    uses: ./.github/workflows/dart_ddc.yaml
     with:
       working-directory: packages/smithy/goldens/lib/awsJson1_1
       test-ddc-stable: true
 
   dart2js_test:
     needs: test-vm
-    uses: ./.github/workflows/dart_dart2js.yaml.yaml
+    uses: ./.github/workflows/dart_dart2js.yaml
     with:
       working-directory: packages/smithy/goldens/lib/awsJson1_1
 

@@ -86,11 +86,12 @@ permissions: read-all
 
 jobs:
 ''');
-      final analyzeAndTestWorkflow = isDartPackage ? 'dart_vm' : 'flutter_vm';
+      final analyzeAndTestWorkflow =
+          isDartPackage ? 'dart_vm.yaml' : 'flutter_vm.yaml';
       workflowContents.writeln('''
   test:
     id: test-vm
-    uses: ./.github/workflows/$analyzeAndTestWorkflow.yaml
+    uses: ./.github/workflows/$analyzeAndTestWorkflow
     with:
       working-directory: $repoRelativePath
 ''');
@@ -101,7 +102,7 @@ jobs:
   native_test:
     if: \${{ github.event_name == 'pull_request' }} # TODO: Change to 'push'
     needs: test-vm
-    uses: ./.github/workflows/$nativeTestWorkflow.yaml
+    uses: ./.github/workflows/$nativeTestWorkflow
     with:
       working-directory: $repoRelativePath
 ''');
@@ -112,7 +113,7 @@ jobs:
   ddc_test:
     if: \${{ github.event_name == 'pull_request' }} # TODO: Change to 'push'
     needs: test-vm
-    uses: ./.github/workflows/$ddcWorkflow.yaml
+    uses: ./.github/workflows/$ddcWorkflow
     with:
       working-directory: $repoRelativePath
       test-ddc-stable: $testDdcStable
@@ -122,7 +123,7 @@ jobs:
           workflowContents.writeln('''
   dart2js_test:
     needs: test-vm
-    uses: ./.github/workflows/$dart2JsWorkflow.yaml
+    uses: ./.github/workflows/$dart2JsWorkflow
     with:
       working-directory: $repoRelativePath
 ''');
