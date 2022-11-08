@@ -58,7 +58,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   late AWSApiConfig _config;
 
   @override
-  String get runtimeTypeName => 'WebSocketStateMachineBloc';
+  String get runtimeTypeName => 'WebSocketBloc';
 
   final StreamController<WebSocketState> _wsStateController =
       StreamController<WebSocketState>.broadcast();
@@ -126,7 +126,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   }
 
   Stream<WebSocketState> _eventTransformer(WebSocketEvent event) async* {
-    logger.info(event.toString());
+    logger.verbose(event.toString());
     // [WebSocketBloc] Events
     if (event is ConnectionAckMessageEvent) {
       yield* _connectionAck(event);
