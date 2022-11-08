@@ -5,7 +5,11 @@ on:
       - main
       - stable
       - next
+    paths:
+      - 'packages/analytics/amplify_analytics_pinpoint/**/*.dart'
   pull_request:
+    paths:
+      - 'packages/analytics/amplify_analytics_pinpoint/**/*.dart'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:

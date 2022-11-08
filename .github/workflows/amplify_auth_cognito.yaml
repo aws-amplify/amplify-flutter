@@ -5,7 +5,11 @@ on:
       - main
       - stable
       - next
+    paths:
+      - 'packages/auth/amplify_auth_cognito/**/*.dart'
   pull_request:
+    paths:
+      - 'packages/auth/amplify_auth_cognito/**/*.dart'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:

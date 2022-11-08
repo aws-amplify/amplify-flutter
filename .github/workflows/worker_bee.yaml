@@ -5,7 +5,11 @@ on:
       - main
       - stable
       - next
+    paths:
+      - 'packages/worker_bee/worker_bee/**/*.dart'
   pull_request:
+    paths:
+      - 'packages/worker_bee/worker_bee/**/*.dart'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:

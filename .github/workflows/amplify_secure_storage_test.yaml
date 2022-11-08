@@ -5,7 +5,11 @@ on:
       - main
       - stable
       - next
+    paths:
+      - 'packages/secure_storage/amplify_secure_storage_test/**/*.dart'
   pull_request:
+    paths:
+      - 'packages/secure_storage/amplify_secure_storage_test/**/*.dart'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:

@@ -5,7 +5,11 @@ on:
       - main
       - stable
       - next
+    paths:
+      - 'packages/smithy/smithy_codegen/**/*.dart'
   pull_request:
+    paths:
+      - 'packages/smithy/smithy_codegen/**/*.dart'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:

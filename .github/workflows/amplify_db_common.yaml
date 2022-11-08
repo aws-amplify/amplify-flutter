@@ -5,7 +5,11 @@ on:
       - main
       - stable
       - next
+    paths:
+      - 'packages/common/amplify_db_common/**/*.dart'
   pull_request:
+    paths:
+      - 'packages/common/amplify_db_common/**/*.dart'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:

@@ -5,7 +5,11 @@ on:
       - main
       - stable
       - next
+    paths:
+      - 'packages/aws_signature_v4/**/*.dart'
   pull_request:
+    paths:
+      - 'packages/aws_signature_v4/**/*.dart'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:

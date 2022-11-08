@@ -65,10 +65,8 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
       final testDdcStable =
           needsWebTest && !failingDdcStable.contains(package.name);
       final isDartPackage = package.flavor == PackageFlavor.dart;
-      // TODO(dnys1): Add
-      // paths:
-      //   - '$repoRelativePath/**/*.dart'
-      final workflowContents = StringBuffer('''
+      final workflowContents = StringBuffer(
+        '''
 name: ${package.name}
 on:
   push:
@@ -76,7 +74,11 @@ on:
       - main
       - stable
       - next
+    paths:
+      - '$repoRelativePath/**/*.dart'
   pull_request:
+    paths:
+      - '$repoRelativePath/**/*.dart'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
@@ -85,30 +87,36 @@ defaults:
 permissions: read-all
 
 jobs:
-''');
+''',
+      );
       final analyzeAndTestWorkflow =
           isDartPackage ? 'dart_vm.yaml' : 'flutter_vm.yaml';
-      workflowContents.writeln('''
+      workflowContents.writeln(
+        '''
   test:
     uses: ./.github/workflows/$analyzeAndTestWorkflow
     with:
       working-directory: $repoRelativePath
-''');
+''',
+      );
 
       if (isDartPackage && package.unitTestDirectory != null) {
         const nativeTestWorkflow = 'dart_native.yaml';
-        workflowContents.writeln('''
+        workflowContents.writeln(
+          '''
   native_test:
     if: \${{ github.event_name == 'pull_request' }} # TODO: Change to 'push'
     needs: test
     uses: ./.github/workflows/$nativeTestWorkflow
     with:
       working-directory: $repoRelativePath
-''');
+''',
+        );
 
         if (needsWebTest) {
           const ddcWorkflow = 'dart_ddc.yaml';
-          workflowContents.writeln('''
+          workflowContents.writeln(
+            '''
   ddc_test:
     if: \${{ github.event_name == 'pull_request' }} # TODO: Change to 'push'
     needs: test
@@ -116,16 +124,19 @@ jobs:
     with:
       working-directory: $repoRelativePath
       test-ddc-stable: $testDdcStable
-''');
+''',
+          );
 
           const dart2JsWorkflow = 'dart_dart2js.yaml';
-          workflowContents.writeln('''
+          workflowContents.writeln(
+            '''
   dart2js_test:
     needs: test
     uses: ./.github/workflows/$dart2JsWorkflow
     with:
       working-directory: $repoRelativePath
-''');
+''',
+          );
         }
       }
       workflowFile.writeAsStringSync(workflowContents.toString());
