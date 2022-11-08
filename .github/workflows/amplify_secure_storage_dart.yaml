@@ -1,0 +1,27 @@
+# Generated with aft. To update, run: `aft generate workflows`
+name: amplify_secure_storage_dart
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - next
+  pull_request:
+    paths:
+      - 'packages/secure_storage/amplify_secure_storage_dart/**/*.dart'
+      - 'packages/secure_storage/amplify_secure_storage_dart/**/*.yaml'
+      - 'packages/secure_storage/amplify_secure_storage_dart/lib/**/*'
+      - 'packages/secure_storage/amplify_secure_storage_dart/test/**/*'
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  test:
+    uses: ./.github/workflows/dart_vm.yaml
+    with:
+      working-directory: packages/secure_storage/amplify_secure_storage_dart
+

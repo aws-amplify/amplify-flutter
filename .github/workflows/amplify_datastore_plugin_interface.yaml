@@ -1,0 +1,27 @@
+# Generated with aft. To update, run: `aft generate workflows`
+name: amplify_datastore_plugin_interface
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - next
+  pull_request:
+    paths:
+      - 'packages/amplify_datastore_plugin_interface/**/*.dart'
+      - 'packages/amplify_datastore_plugin_interface/**/*.yaml'
+      - 'packages/amplify_datastore_plugin_interface/lib/**/*'
+      - 'packages/amplify_datastore_plugin_interface/test/**/*'
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  test:
+    uses: ./.github/workflows/flutter_vm.yaml
+    with:
+      working-directory: packages/amplify_datastore_plugin_interface
+
