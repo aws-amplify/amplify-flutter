@@ -48,9 +48,9 @@ class S3ItemWithAccessLevel extends StorageItemWithAccessLevel<S3Item> {
           targetIdentityId: targetIdentityId,
         );
 
-  /// The identity id of another user who uploaded the containing `storageItem`.
+  /// The identity ID of another user who uploaded the object that is
+  /// represented by the containing [storageItem].
   ///
-  /// Should be set by `S3ItemWithAccessLevel.forIdentity`
-  /// constructor.
+  /// This can be set by using [S3ItemWithAccessLevel.forIdentity].
   final String? targetIdentityId;
 }
