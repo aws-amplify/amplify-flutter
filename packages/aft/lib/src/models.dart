@@ -14,6 +14,7 @@
 
 import 'dart:io';
 
+import 'package:aft/src/util.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as p;
@@ -26,7 +27,25 @@ part 'models.g.dart';
 
 /// Packages which report as an example app, but should be considered as
 /// publishable for some purposes.
-const falsePositiveExamples = ['aft', 'smithy_codegen'];
+const falsePositiveExamples = [
+  'aft',
+  'smithy_codegen',
+  'smoke_test',
+  'amplify_auth_cognito_test',
+  'amplify_secure_storage_test',
+
+  // Smithy Golden packages
+  'aws_json1_0_v1',
+  'aws_json1_1_v1',
+  'rest_json1_v1',
+  'rest_xml_v1',
+  'rest_xml_with_namespace_v1',
+  'aws_json1_0_v2',
+  'aws_json1_1_v2',
+  'rest_json1_v2',
+  'rest_xml_v2',
+  'rest_xml_with_namespace_v2',
+];
 
 /// The flavor of a package, e.g. Dart/Flutter.
 enum PackageFlavor {
@@ -49,10 +68,24 @@ class PackageInfo
   const PackageInfo({
     required this.name,
     required this.path,
-    required this.usesMonoRepo,
     required this.pubspecInfo,
     required this.flavor,
   });
+
+  /// Returns the [PackageInfo] found in [dir].
+  static PackageInfo? fromDirectory(Directory dir) {
+    final pubspecInfo = dir.pubspec;
+    if (pubspecInfo == null) {
+      return null;
+    }
+    final pubspec = pubspecInfo.pubspec;
+    return PackageInfo(
+      name: pubspec.name,
+      path: dir.path,
+      pubspecInfo: pubspecInfo,
+      flavor: pubspec.flavor,
+    );
+  }
 
   /// The name of the package.
   final String name;
@@ -60,14 +93,21 @@ class PackageInfo
   /// Absolute path to the package.
   final String path;
 
-  /// Whether the package uses the mono_repo tool.
-  final bool usesMonoRepo;
-
   /// The package's pubspec.
   final PubspecInfo pubspecInfo;
 
   /// The package flavor, e.g. Dart or Flutter.
   final PackageFlavor flavor;
+
+  /// The unit test directory within the enclosing directory, if any
+  Directory? get unitTestDirectory {
+    final expectedPath = p.join(path, 'test');
+    final unitTestDir = Directory(expectedPath);
+    if (!unitTestDir.existsSync()) {
+      return null;
+    }
+    return unitTestDir;
+  }
 
   /// Whether the package needs `build_runner` to be run.
   ///
@@ -80,11 +120,20 @@ class PackageInfo
             falsePositiveExamples.contains(name));
   }
 
+  /// Skip package checks for Flutter packages when running in CI without
+  /// Flutter, which may happen when testing Dart-only packages or specific
+  /// Dart versions.
+  bool get skipChecks {
+    final isCI = getEnv('CI') == 'true' || getEnv('CI') == '1';
+    return isCI &&
+        getEnv('FLUTTER_ROOT') == null &&
+        flavor == PackageFlavor.flutter;
+  }
+
   @override
   List<Object?> get props => [
         name,
         path,
-        usesMonoRepo,
         pubspecInfo,
         flavor,
       ];
@@ -131,12 +180,6 @@ enum DependencyType {
 }
 
 extension DirectoryX on Directory {
-  /// Whether the package in this directory uses the `mono_repo` tool.
-  bool get usesMonoRepo {
-    final monoPkgPath = p.join(path, 'mono_pkg.yaml');
-    return File(monoPkgPath).existsSync();
-  }
-
   /// The pubspec for the package in this directory, if any.
   PubspecInfo? get pubspec {
     final pubspecPath = p.join(path, 'pubspec.yaml');

@@ -12,17 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library aft;
+import 'package:aft/aft.dart';
+import 'package:aft/src/commands/generate/generate_sdk_command.dart';
+import 'package:aft/src/commands/generate/generate_workflows_command.dart';
 
-export 'src/commands/amplify_command.dart';
-export 'src/commands/bootstrap_command.dart';
-export 'src/commands/clean_command.dart';
-export 'src/commands/deps_command.dart';
-export 'src/commands/generate/generate_command.dart';
-export 'src/commands/link_command.dart';
-export 'src/commands/list_packages_command.dart';
-export 'src/commands/pub_command.dart';
-export 'src/commands/publish_command.dart';
-export 'src/models.dart';
-export 'src/pub/pub_runner.dart';
-export 'src/util.dart';
+/// Command for generating associated items in the repo.
+class GenerateCommand extends AmplifyCommand {
+  GenerateCommand() {
+    addSubcommand(GenerateSdkCommand());
+    addSubcommand(GenerateWorkflowsCommand());
+  }
+
+  @override
+  String get name => 'generate';
+
+  @override
+  String get description => 'Generate repo items';
+}

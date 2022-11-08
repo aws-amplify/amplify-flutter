@@ -78,7 +78,7 @@ class PubSubcommand extends AmplifyCommand {
     final allPackages = await this.allPackages;
     await pubAction(
       action: action,
-      allPackages: allPackages,
+      allPackages: allPackages.values,
       verbose: verbose,
       logger: logger,
       createPubRunner: createPubRunner,
@@ -94,7 +94,7 @@ class PubSubcommand extends AmplifyCommand {
 
 Future<void> pubAction({
   required PubAction action,
-  required Map<String, PackageInfo> allPackages,
+  required Iterable<PackageInfo> allPackages,
   required bool verbose,
   required PubCommandRunner Function() createPubRunner,
   required http.Client httpClient,
@@ -106,7 +106,10 @@ Future<void> pubAction({
   final progress =
       logger?.progress('Running `pub ${action.name}` in all packages');
   final results = <String, Result<void>>{};
-  for (final package in allPackages.values) {
+  for (final package in allPackages) {
+    if (package.skipChecks) {
+      continue;
+    }
     final packageProgress = logger?.progress(package.name);
     switch (package.flavor) {
       case PackageFlavor.flutter:
