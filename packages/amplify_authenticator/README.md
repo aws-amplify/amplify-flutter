@@ -110,11 +110,11 @@ The following `AutoFillHints` have been implemented for the `Authenticator` pack
 | middleName | ✅ |	✅ |	✅ |
 | name | ✅ |	✅ |	✅ |
 | newPassword | ✅ |	✅ |	✅ |
+| newUsername | ❌ |	✅ |	❌ |
 | nickname | ✅ |	❌ |	✅ |
 | oneTimeCode | ✅ |	✅ |	✅ |
 | password | ✅ |	✅ |	✅ |
 | telephoneNumber | ✅ |	✅ |	✅ |
 | username | ✅ |	✅ |	✅ |
-| newUsername | ❌ |	✅ |	❌ |
 
 Supported Hints are automatically translated to it's platform specific equivalent. Otherwise, the hint string will be used as-is.
