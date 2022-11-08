@@ -88,6 +88,7 @@ class WsSubscriptionBloc<T>
 
   /// Adds error to response stream
   void addResponseError(Object error, StackTrace? st) {
+    _emit(_currentState.error(error, st));
     _responseController.addError(error, st);
   }
 
@@ -166,7 +167,6 @@ class WsSubscriptionBloc<T>
       response: event.wsError.toJson(),
     );
 
-    yield _currentState.error();
     _addResponse(res);
   }
 }

@@ -31,11 +31,13 @@ abstract class WsSubscriptionState<T> {
   final WebSocketBloc parentBloc;
 
   /// Move state to [SubscriptionErrorState]
-  SubscriptionErrorState<T> error() {
+  SubscriptionErrorState<T> error(Object e, StackTrace? st) {
     return SubscriptionErrorState(
       request,
       onEstablished,
       parentBloc,
+      e,
+      st,
     );
   }
 }
@@ -95,5 +97,13 @@ class SubscriptionErrorState<T> extends WsSubscriptionState<T> {
     super.request,
     super.onEstablished,
     super.parentBloc,
+    this.exception,
+    this.stackTrace,
   );
+
+  /// Error that caused the error state
+  final Object exception;
+
+  /// Stack trace for the error
+  final StackTrace? stackTrace;
 }

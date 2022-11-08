@@ -31,25 +31,31 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
   void Function()? _unsubscribe;
   late CancelableOperation _lastOperation;
 
-  Future<void> subscribe() async {
-    String graphQLDocument = '''subscription MySubscription {
+  final subscriptionReq =
+      GraphQLRequest<String>(document: '''subscription MySubscription {
     onCreateBlog {
       id
       name
       createdAt
     }
-  }''';
-    final Stream<GraphQLResponse<String>> operation = Amplify.API.subscribe(
-      GraphQLRequest<String>(document: graphQLDocument),
+  }''');
+
+  Future<void> subscribe() async {
+    final operation = Amplify.API.subscribe(
+      subscriptionReq,
       onEstablished: () => print('Subscription established'),
     );
 
     final streamSubscription = operation.listen(
       (event) {
-        final result = 'Subscription event data received: ${event.data}';
-        print(result);
+        if (event.hasErrors) {
+          print('Error(s) received from subscription: ${event.errors}');
+          return;
+        }
+        final data = 'Subscription event data received: ${event.data}';
+        print(data);
         setState(() {
-          _result = result;
+          _result = data;
         });
       },
       onError: (Object error) => print(

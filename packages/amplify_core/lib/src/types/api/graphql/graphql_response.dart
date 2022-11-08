@@ -40,6 +40,6 @@ class GraphQLResponse<T> {
     );
   }
 
-  // Returns true when errors are present and not empty.
+  /// Returns true when errors are present and not empty.
   bool get hasErrors => errors != null && errors!.isNotEmpty;
 }

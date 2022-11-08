@@ -290,7 +290,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
     // Check if subscription has already been setup
     if (currentState.subscriptionBlocs[event.request.id]!.currentState
-        is! SubscriptionListeningState) {
+        is SubscriptionListeningState) {
       return;
     }
 
@@ -353,7 +353,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   // Returns a [WsSubscriptionBloc<T>] and stores in state
   WsSubscriptionBloc<T> _saveRequest<T>(SubscribeEvent<T> event) {
-    logger.verbose('Subscription event for: ${event.request.id}');
+    logger.info('Subscription event for: ${event.request.id}');
     // Prevent duplicate errors
     if (_currentState.subscriptionBlocs.containsKey(event.request.id)) {
       return _currentState.subscriptionBlocs[event.request.id]
