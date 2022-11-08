@@ -400,6 +400,39 @@ abstract class _ConfirmSignInFormFieldState<FieldValue>
   }
 
   @override
+  Iterable<String>? get autofillHints {
+    switch (widget.field) {
+      case ConfirmSignInField.code:
+        return const [
+          AutofillHints.oneTimeCode,
+        ];
+      case ConfirmSignInField.newPassword:
+      case ConfirmSignInField.confirmNewPassword:
+        return const [
+          AutofillHints.newPassword,
+        ];
+      case ConfirmSignInField.address:
+        return const [
+          AutofillHints.fullStreetAddress,
+        ];
+      case ConfirmSignInField.email:
+        return const [
+          AutofillHints.email,
+        ];
+      case ConfirmSignInField.name:
+        return const [
+          AutofillHints.name,
+        ];
+      case ConfirmSignInField.phoneNumber:
+        return const [
+          AutofillHints.telephoneNumber,
+        ];
+      default:
+        return null;
+    }
+  }
+
+  @override
   int get errorMaxLines {
     switch (widget.field) {
       case ConfirmSignInField.newPassword:
