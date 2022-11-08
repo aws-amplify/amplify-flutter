@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,6 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
 set -e
 
-aws s3 cp s3://$AFS_STORAGE_BUCKET_NAME/amplifyconfiguration.dart lib/amplifyconfiguration.dart 
+pushd backend
+npm ci
+npm run setup
+npm run deploy
+popd
+
+BUCKET=$(jq -r '.StorageIntegTestStack.BucketName' backend/outputs.json)
+aws --profile=${AWS_PROFILE:=default} s3 cp lib/amplifyconfiguration.dart s3://$BUCKET/amplifyconfiguration.dart
