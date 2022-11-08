@@ -7,7 +7,7 @@ on:
       - next
   pull_request:
   schedule:
-    - cron: "0 0 * * 0"
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
   run:
     shell: bash
@@ -15,8 +15,29 @@ permissions: read-all
 
 jobs:
   test:
-    uses: ./.github/workflows/dart_package.yaml
+    id: test-vm
+    uses: ./.github/workflows/dart_vm.yaml.yaml
     with:
       working-directory: packages/auth/amplify_auth_cognito_test
-      test-web: true
+
+  native_test:
+    if: ${{ github.event_name == 'pull_request' }} # TODO: Change to 'push'
+    needs: test-vm
+    uses: ./.github/workflows/dart_native.yaml.yaml
+    with:
+      working-directory: packages/auth/amplify_auth_cognito_test
+
+  ddc_test:
+    if: ${{ github.event_name == 'pull_request' }} # TODO: Change to 'push'
+    needs: test-vm
+    uses: ./.github/workflows/dart_ddc.yaml.yaml
+    with:
+      working-directory: packages/auth/amplify_auth_cognito_test
       test-ddc-stable: false
+
+  dart2js_test:
+    needs: test-vm
+    uses: ./.github/workflows/dart_dart2js.yaml.yaml
+    with:
+      working-directory: packages/auth/amplify_auth_cognito_test
+

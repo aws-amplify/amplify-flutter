@@ -54,9 +54,6 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
         customWorkflow.copySync(workflowFilepath);
         continue;
       }
-      // TODO(dnys1): add
-      // paths:
-      //   - '$repoRelativePath/**/*.dart'
       // Packages which are failing in DDC stable due to staticInterop issues
       // TODO(dnys1): Remove when Dart 2.19 is stable
       const failingDdcStable = [
@@ -68,7 +65,10 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
       final testDdcStable =
           needsWebTest && !failingDdcStable.contains(package.name);
       final isDartPackage = package.flavor == PackageFlavor.dart;
-      final workflowContents = '''
+      // TODO(dnys1): Add
+      // paths:
+      //   - '$repoRelativePath/**/*.dart'
+      final workflowContents = StringBuffer('''
 name: ${package.name}
 on:
   push:
@@ -78,21 +78,58 @@ on:
       - next
   pull_request:
   schedule:
-    - cron: "0 0 * * 0"
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
   run:
     shell: bash
 permissions: read-all
 
 jobs:
+''');
+      final analyzeAndTestWorkflow =
+          isDartPackage ? 'dart_vm.yaml' : 'flutter_vm.yaml';
+      workflowContents.writeln('''
   test:
-    uses: ./.github/workflows/${isDartPackage ? 'dart_package' : 'flutter_package'}.yaml
+    id: test-vm
+    uses: ./.github/workflows/$analyzeAndTestWorkflow.yaml
     with:
       working-directory: $repoRelativePath
-      ${isDartPackage ? 'test-web: $needsWebTest' : ''}
-      ${isDartPackage ? 'test-ddc-stable: $testDdcStable' : ''}
-''';
-      workflowFile.writeAsStringSync(workflowContents);
+''');
+
+      if (isDartPackage && package.unitTestDirectory != null) {
+        const nativeTestWorkflow = 'dart_native.yaml';
+        workflowContents.writeln('''
+  native_test:
+    if: \${{ github.event_name == 'pull_request' }} # TODO: Change to 'push'
+    needs: test-vm
+    uses: ./.github/workflows/$nativeTestWorkflow.yaml
+    with:
+      working-directory: $repoRelativePath
+''');
+
+        if (needsWebTest) {
+          const ddcWorkflow = 'dart_ddc.yaml';
+          workflowContents.writeln('''
+  ddc_test:
+    if: \${{ github.event_name == 'pull_request' }} # TODO: Change to 'push'
+    needs: test-vm
+    uses: ./.github/workflows/$ddcWorkflow.yaml
+    with:
+      working-directory: $repoRelativePath
+      test-ddc-stable: $testDdcStable
+''');
+
+          const dart2JsWorkflow = 'dart_dart2js.yaml';
+          workflowContents.writeln('''
+  dart2js_test:
+    needs: test-vm
+    uses: ./.github/workflows/$dart2JsWorkflow.yaml
+    with:
+      working-directory: $repoRelativePath
+''');
+        }
+      }
+      workflowFile.writeAsStringSync(workflowContents.toString());
     }
   }
 }

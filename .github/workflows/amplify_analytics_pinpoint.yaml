@@ -7,7 +7,7 @@ on:
       - next
   pull_request:
   schedule:
-    - cron: "0 0 * * 0"
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
   run:
     shell: bash
@@ -15,8 +15,8 @@ permissions: read-all
 
 jobs:
   test:
-    uses: ./.github/workflows/flutter_package.yaml
+    id: test-vm
+    uses: ./.github/workflows/flutter_vm.yaml.yaml
     with:
       working-directory: packages/analytics/amplify_analytics_pinpoint
-      
-      
+
