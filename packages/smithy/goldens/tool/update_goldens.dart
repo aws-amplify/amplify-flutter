@@ -146,42 +146,13 @@ analyzer:
 ''');
 
   // Create mono_pkg for testing
-  final monoPkgPath = path.join(outputPath, 'mono_pkg.yaml');
   final dartTestPath = path.join(outputPath, 'dart_test.yaml');
-  final monoPkg = StringBuffer('''
-sdk:
-  - stable
-  - dev
-
-stages:
-  - analyze_and_format:
-      - group:
-          - format
-          - analyze: --fatal-infos .
-''');
-  if (Directory(path.join(outputPath, 'test')).existsSync()) {
-    monoPkg.write('''
-  - unit_test:
-      - test:
-        os:
-          - linux
-      - test: -p chrome
-  - unit_test_native:
-      - test:
-        os:
-          - macos
-          - windows
-      - test: -p firefox
-''');
-
-    File(dartTestPath).writeAsStringSync('''
+  File(dartTestPath).writeAsStringSync('''
 override_platforms:
   firefox:
     settings:
       arguments: -headless
 ''');
-  }
-  File(monoPkgPath).writeAsStringSync(monoPkg.toString());
 
   // Run `dart pub get`
   final pubGetRes = await Process.run(
