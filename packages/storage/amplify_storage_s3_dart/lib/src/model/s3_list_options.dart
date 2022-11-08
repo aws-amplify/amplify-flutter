@@ -83,10 +83,9 @@ class S3ListOptions extends StorageListOptions {
           excludeSubPaths: excludeSubPaths,
         );
 
-  /// The identity id of another user who uploaded the objects that to be
-  /// listed.
+  /// The identity ID of another user who uploaded the objects.
   ///
-  /// This can be set by calling the [S3ListOptions.forIdentity].
+  /// This can be set by using [S3ListOptions.forIdentity].
   final String? targetIdentityId;
 
   /// Whether to exclude objects under the sub paths of the path to list. The
@@ -96,7 +95,7 @@ class S3ListOptions extends StorageListOptions {
   /// Whether to list all objects under a given path without pagination. The
   /// default value is `false`.
   ///
-  /// This can be set by calling the [S3ListOptions.listAll] or
+  /// This can be set by using [S3ListOptions.listAll] or
   /// [S3ListOptions.listAllForIdentity].
   ///
   /// Use with caution if numerous objects are under the given path.

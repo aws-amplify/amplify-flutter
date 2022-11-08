@@ -18,11 +18,10 @@ import 'aws_file_platform.dart'
     if (dart.library.io) 'aws_file_platform_io.dart';
 
 /// {@template amplify_core.io.aws_file}
-/// A read only abstraction over File interface cross platforms. This
-/// abstraction supports Amplify libraries to read file content.
+/// A cross-platform abstraction over a read-only file.
 ///
-/// If you are using `XFile` of the
-/// [cross_file](https://pub.dev/packages/cross_file) package, you can initiate
+/// If you are using `XFile` from the
+/// [cross_file](https://pub.dev/packages/cross_file) package, you can create
 /// an [AWSFile] using the [AWSFile.fromStream] factory, e.g.
 ///
 /// ```dart
@@ -30,9 +29,9 @@ import 'aws_file_platform.dart'
 /// final awsFile = AWSFile.fromStream(xFile.openRead());
 /// ```
 /// ----
-/// If you are using `PlatformFile` of the
+/// If you are using `PlatformFile` from the
 /// [file_picker](https://pub.dev/packages/file_picker) package, you can
-/// initiate an [AWSFile] using the [AWSFile.fromStream] factory, e.g.
+/// create an [AWSFile] using the [AWSFile.fromStream] factory, e.g.
 ///
 /// ```dart
 /// final pickResult = await FilePicker.platform.pickFiles();
@@ -40,13 +39,12 @@ import 'aws_file_platform.dart'
 /// final awsFile = AWSFile.fromStream(pickedFile.readStream);
 /// ```
 /// ----
-/// You can also initiate an [AWSFile] by provides file path or file bytes
-/// by using [AWSFile.fromPath] and [AWSFile.fromData] respectively.
+/// You can also create an [AWSFile] by providing a file path or file bytes
+/// to [AWSFile.fromPath] or [AWSFile.fromData], respectively.
 /// ----
-/// If you are developing a _**Web only**_ App, and seeking to operate on html
-/// `File` or `Blob` you can import [AWSFilePlatform] directly from
-/// `'package:amplify_core/src/io/aws_file_platform_html.dart'` which provides
-/// `fromFile` and `fromBlob` factories to initiate an [AWSFile], e.g.
+/// If you are developing a _**Web only**_ App, and want to use the `dart:html`
+/// `File` or `Blob` types, you can import [AWSFilePlatform] directly which provides
+/// `fromFile` and `fromBlob` factories to create an [AWSFile], e.g.
 ///
 /// ```dart
 /// import 'dart:html' as html;
@@ -57,10 +55,9 @@ import 'aws_file_platform.dart'
 /// }
 /// ```
 /// ----
-/// If you are developing a _**native only**_ App, and seeking to operate on
-/// io `File`, you can import [AWSFilePlatform] directly from
-/// `'package:amplify_core/src/io/aws_file_platform_io.dart'` which provides
-/// `fromFile` factory to initiate an [AWSFile], e.g.
+/// If you are developing a _**native only**_ App, and want to use a `dart:io`
+/// `File`, you can import [AWSFilePlatform] directly which provides a
+/// `fromFile` factory to create an [AWSFile], e.g.
 ///
 /// ```dart
 /// import 'dart:html' as io;
@@ -74,7 +71,7 @@ import 'aws_file_platform.dart'
 /// {@endtemplate}
 abstract class AWSFile {
   /// {@template amplify_core.io.aws_file.from_stream}
-  /// Creates an [AWSFile] from a stream of bytes, optionally specifying file a
+  /// Creates an [AWSFile] from a stream of bytes, optionally specifying a file
   /// [name] and [contentType].
   /// {@endtemplate}
   factory AWSFile.fromStream(
@@ -85,15 +82,17 @@ abstract class AWSFile {
   }) = AWSFilePlatform.fromStream;
 
   /// {@template amplify_core.io.aws_file.from_path}
-  /// Creates an [AWSFile] from a path, optionally specifying file name.
+  /// Creates an [AWSFile] from a path, optionally specifying a file [name].
   ///
-  /// In native, the [path] is the absolute path to a file in the file system.
+  /// On VM platforms, the [path] is the absolute path to a file in the file
+  /// system.
   ///
-  /// In Web, the [path] can be an object url created by
+  /// On Web, the [path] can be an object url created by
   /// [`URL.createObjectURL()`](https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL)
-  /// . When passing object url, it's recommended to set a value for [name].
+  /// . When passing an object url, it's recommended to set a value for [name].
   ///
-  /// Throws [S3StorageException] if the file is not readable.
+  /// Throws [InvalidFileException] if cannot get a file content stream from the
+  /// [path].
   /// {@endtemplate}
   factory AWSFile.fromPath(
     String path, {

@@ -272,7 +272,7 @@ class StorageCategory<
   }
 
   /// {@template amplify_core.amplify_storage_category.download_file}
-  /// Download a object specified by [key] to [localFile] with optional
+  /// Downloads the object specified by [key] to [localFile] with optional
   /// [onProgress] and [StorageDownloadFileOptions], and returns a
   /// [StorageDownloadFileOperation].
   /// {@endtemplate}

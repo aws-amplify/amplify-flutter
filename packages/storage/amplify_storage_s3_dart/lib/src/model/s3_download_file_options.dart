@@ -47,9 +47,9 @@ class S3DownloadFileOptions extends StorageDownloadFileOptions {
           getProperties: getProperties,
         );
 
-  /// The identity ID of another user who uploaded the object.
+  /// The identity ID of the user who uploaded the object.
   ///
-  /// This can be set by calling the [S3DownloadFileOptions.forIdentity].
+  /// This can be set by using [S3DownloadFileOptions.forIdentity].
   final String? targetIdentityId;
 
   /// Whether to retrieve properties for the downloaded object using the
