@@ -17,10 +17,28 @@
 
 import "source-map-support/register";
 import * as cdk from "aws-cdk-lib";
-import { StorageIntegrationTestStack } from "../lib/stack";
+import { StorageIntegrationTestStack, StorageAccessLevel } from "../lib/stack";
 
 const app = new cdk.App();
 
 new StorageIntegrationTestStack(app, [
   { environmentName: "main" },
+  {
+    environmentName: "custom-prefix",
+    prefixResolver(accessLevel, identityId) {
+      switch (accessLevel) {
+        case StorageAccessLevel.public:
+          return `everyone`;
+        case StorageAccessLevel.protected:
+          return `shared/${identityId}`;
+        case StorageAccessLevel.private:
+          return `private/${identityId}`;
+      }
+    },
+    prefixOverrides: {
+      [StorageAccessLevel.public]: "everyone",
+      [StorageAccessLevel.protected]: "shared",
+      [StorageAccessLevel.private]: "private",
+    },
+  },
 ]);
