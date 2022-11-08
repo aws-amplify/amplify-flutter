@@ -126,7 +126,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   }
 
   Stream<WebSocketState> _eventTransformer(WebSocketEvent event) async* {
-    logger.verbose(event.toString());
+    logger.info(event.toString());
     // [WebSocketBloc] Events
     if (event is ConnectionAckMessageEvent) {
       yield* _connectionAck(event);
@@ -260,6 +260,10 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   }
 
   Stream<WebSocketState> _shutdown() async* {
+    if (_currentState is ConnectedState) {
+      (_currentState as ConnectedState).timeoutTimer.cancel();
+    }
+
     yield _currentState.shutdown();
 
     await _close();
@@ -336,10 +340,6 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   Future<void> _close() {
     if (_currentState is! FailureState) {
       _emit(_currentState.disconnect());
-    }
-
-    if (_currentState is ConnectedState) {
-      (_currentState as ConnectedState).timeoutTimer.cancel();
     }
 
     _currentState.service.close();

@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:async';
+
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +30,7 @@ class GraphQLApiView extends StatefulWidget {
 
 class _GraphQLApiViewState extends State<GraphQLApiView> {
   String _result = '';
+  StreamSubscription<GraphQLResponse<String>>? _subscription;
   void Function()? _unsubscribe;
   late CancelableOperation _lastOperation;
 
@@ -41,6 +44,10 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
   }''');
 
   Future<void> subscribe() async {
+    if (_subscription != null) {
+      return;
+    }
+
     final operation = Amplify.API.subscribe(
       subscriptionReq,
       onEstablished: () => print('Subscription established'),
@@ -62,7 +69,10 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
         'Error in GraphQL subscription: $error',
       ),
     );
-    _unsubscribe = streamSubscription.cancel;
+    setState(() {
+      _subscription = streamSubscription;
+      _unsubscribe = streamSubscription.cancel;
+    });
   }
 
   Future<void> query() async {
@@ -155,24 +165,33 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
         const Padding(padding: EdgeInsets.all(10.0)),
         Center(
           child: ElevatedButton(
-            onPressed: widget.isAmplifyConfigured ? subscribe : null,
+            onPressed: widget.isAmplifyConfigured && _subscription == null
+                ? subscribe
+                : null,
             child: const Text('Subscribe'),
           ),
         ),
         const Padding(padding: EdgeInsets.all(10.0)),
         Center(
           child: ElevatedButton(
-            onPressed: () => setState(() {
-              _unsubscribe?.call();
-              _unsubscribe = null;
-            }),
+            onPressed: _subscription != null
+                ? () => setState(() {
+                      _unsubscribe?.call();
+                      _unsubscribe = null;
+                      _subscription = null;
+                    })
+                : null,
             child: const Text('Unsubscribe'),
           ),
         ),
         const Padding(padding: EdgeInsets.all(5.0)),
-        ElevatedButton(
-          onPressed: onCancelPressed,
-          child: const Text('Cancel'),
+        Center(
+          child: ElevatedButton(
+            onPressed: !_lastOperation.isCompleted && !_lastOperation.isCanceled
+                ? onCancelPressed
+                : null,
+            child: const Text('Cancel Operation'),
+          ),
         ),
         Text('Result: \n$_result\n'),
       ],
