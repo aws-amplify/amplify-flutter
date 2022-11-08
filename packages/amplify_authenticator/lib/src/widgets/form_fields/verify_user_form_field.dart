@@ -122,6 +122,11 @@ class _VerifyUserTextFieldState extends _VerifyUserFormFieldState<String>
   }
 
   @override
+  Iterable<String>? get autofillHints => [
+        AutofillHints.oneTimeCode,
+      ];
+
+  @override
   FormFieldValidator<String> get validator {
     return simpleValidator(
       stringResolver.inputs.resolve(
