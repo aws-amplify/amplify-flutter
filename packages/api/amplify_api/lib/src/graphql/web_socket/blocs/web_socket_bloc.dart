@@ -126,7 +126,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   }
 
   Stream<WebSocketState> _eventTransformer(WebSocketEvent event) async* {
-    logger.verbose(event.toString());
+    logger.info(event.toString());
     // [WebSocketBloc] Events
     if (event is ConnectionAckMessageEvent) {
       yield* _connectionAck(event);
@@ -173,7 +173,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   // Send to sub bloc but also clean up in this bloc
   Stream<WebSocketState> _complete(SubscriptionComplete event) async* {
-    _sendEventToSubBloc(event);
+    yield* _sendEventToSubBloc(event);
 
     _currentState.subscriptionBlocs.remove(event.subscriptionId);
 
