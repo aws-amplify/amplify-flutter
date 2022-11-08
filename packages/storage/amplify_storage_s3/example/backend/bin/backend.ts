@@ -23,10 +23,4 @@ const app = new cdk.App();
 
 new StorageIntegrationTestStack(app, [
   { environmentName: "main" },
-  {
-    environmentName: "no-prefix",
-    prefixResolver(accessLevel, identityId) {
-      return "";
-    },
-  },
 ]);
