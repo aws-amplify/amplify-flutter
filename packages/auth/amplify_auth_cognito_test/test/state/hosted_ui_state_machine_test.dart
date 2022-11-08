@@ -177,7 +177,11 @@ void main() {
           sm.stream,
           emitsInOrder(<Matcher>[
             isA<HostedUiConfiguring>(),
-            isA<HostedUiSignedIn>(),
+            isA<HostedUiSignedIn>().having(
+              (state) => state.user.signInDetails,
+              'signInDetails',
+              isA<CognitoSignInDetailsHostedUi>(),
+            ),
           ]),
         );
       });
@@ -274,7 +278,64 @@ void main() {
           sm.stream,
           emitsInOrder(<Matcher>[
             isA<HostedUiSigningIn>(),
-            isA<HostedUiSignedIn>(),
+            isA<HostedUiSignedIn>().having(
+              (state) => state.user.signInDetails,
+              'signInDetails',
+              isA<CognitoSignInDetailsHostedUi>(),
+            ),
+          ]),
+        );
+        expect(
+          stateMachine.stream.whereType<CredentialStoreState>(),
+          emitsThrough(
+            isA<CredentialStoreSuccess>()
+                .having(
+                  (state) => state.data.userPoolTokens,
+                  'tokens',
+                  isNotNull,
+                )
+                .having(
+                  (state) => state.data.userPoolTokens!.signInMethod,
+                  'signInMethod',
+                  CognitoSignInMethod.hostedUi,
+                ),
+          ),
+        );
+      });
+
+      test('w/ provider', () async {
+        stateMachine.dispatch(AuthEvent.configure(mockConfig));
+
+        final sm = stateMachine.getOrCreate(HostedUiStateMachine.type);
+        await expectLater(
+          sm.stream,
+          emitsInOrder(<Matcher>[
+            isA<HostedUiConfiguring>(),
+            isA<HostedUiSignedOut>(),
+          ]),
+        );
+
+        const provider = AuthProvider.oidc('providerName', 'issuer');
+        stateMachine.dispatch(
+          const HostedUiEvent.signIn(provider: provider),
+        );
+        final params =
+            await server.authorize(Uri.parse(await _launchUrl.future));
+        stateMachine.dispatch(HostedUiEvent.exchange(params));
+
+        expect(
+          sm.stream,
+          emitsInOrder(<Matcher>[
+            isA<HostedUiSigningIn>(),
+            isA<HostedUiSignedIn>().having(
+              (state) => state.user.signInDetails,
+              'signInDetails',
+              isA<CognitoSignInDetailsHostedUi>().having(
+                (details) => details.provider,
+                'provider',
+                equals(provider),
+              ),
+            ),
           ]),
         );
         expect(

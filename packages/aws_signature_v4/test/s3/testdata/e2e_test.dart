@@ -56,7 +56,7 @@ void main() {
           body: HttpPayload.string('OK'),
         );
       });
-      final resp = await signedReq.send(client).response;
+      final resp = await signedReq.send(client: client).response;
 
       expect(resp.statusCode, equals(200));
       expect(await utf8.decodeStream(resp.body), equals('OK'));

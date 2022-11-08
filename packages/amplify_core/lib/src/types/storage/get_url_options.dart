@@ -20,6 +20,6 @@ import 'base/storage_operation_options.dart';
 class StorageGetUrlOptions extends StorageOperationOptions {
   /// {@macro amplify_core.storage.get_url_options}
   const StorageGetUrlOptions({
-    required super.storageAccessLevel,
+    required super.accessLevel,
   });
 }

@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_json1_v1.rest_json_protocol.operation.http_request_with_regex_literal_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,7 +39,7 @@ class HttpRequestWithRegexLiteralOperation extends _i1.HttpOperation<
         const _i1.WithHost(),
         const _i1.WithNoHeader('Content-Length'),
         const _i1.WithNoHeader('Content-Type'),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
         const _i3.WithSdkInvocationId(),
         const _i3.WithSdkRequest(),
       ],
@@ -67,11 +67,13 @@ class HttpRequestWithRegexLiteralOperation extends _i1.HttpOperation<
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+  @override
+  String get runtimeTypeName => 'HttpRequestWithRegexLiteral';
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
@@ -79,9 +81,9 @@ class HttpRequestWithRegexLiteralOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i7.Future<_i1.Unit> run(
+  _i1.SmithyOperation<_i1.Unit> run(
     _i2.HttpRequestWithRegexLiteralInput input, {
-    _i1.HttpClient? client,
+    _i6.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i7.runZoned(

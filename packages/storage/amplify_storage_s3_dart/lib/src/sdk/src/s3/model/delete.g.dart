@@ -8,7 +8,7 @@ part of amplify_storage_s3_dart.s3.model.delete;
 
 class _$Delete extends Delete {
   @override
-  final _i2.BuiltList<_i3.ObjectIdentifier> objects;
+  final _i3.BuiltList<_i2.ObjectIdentifier> objects;
   @override
   final bool? quiet;
 
@@ -41,10 +41,10 @@ class _$Delete extends Delete {
 class DeleteBuilder implements Builder<Delete, DeleteBuilder> {
   _$Delete? _$v;
 
-  _i2.ListBuilder<_i3.ObjectIdentifier>? _objects;
-  _i2.ListBuilder<_i3.ObjectIdentifier> get objects =>
-      _$this._objects ??= new _i2.ListBuilder<_i3.ObjectIdentifier>();
-  set objects(_i2.ListBuilder<_i3.ObjectIdentifier>? objects) =>
+  _i3.ListBuilder<_i2.ObjectIdentifier>? _objects;
+  _i3.ListBuilder<_i2.ObjectIdentifier> get objects =>
+      _$this._objects ??= new _i3.ListBuilder<_i2.ObjectIdentifier>();
+  set objects(_i3.ListBuilder<_i2.ObjectIdentifier>? objects) =>
       _$this._objects = objects;
 
   bool? _quiet;

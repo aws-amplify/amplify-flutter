@@ -34,7 +34,7 @@ void main() {
       final request = AWSHttpRequest.get(
         Uri.parse('https://amazon.com/ping'),
       );
-      expect(request.send(client).response, completes);
+      expect(request.send(client: client).response, completes);
     });
   });
 }

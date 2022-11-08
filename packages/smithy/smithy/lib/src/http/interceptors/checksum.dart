@@ -31,8 +31,8 @@ class WithChecksum extends HttpRequestInterceptor {
   const WithChecksum();
 
   @override
-  Future<AWSStreamedHttpRequest> intercept(
-    AWSStreamedHttpRequest request,
+  Future<AWSBaseHttpRequest> intercept(
+    AWSBaseHttpRequest request,
   ) async {
     if (request.headers.containsKey(_header)) {
       return request;
@@ -54,10 +54,10 @@ class ValidateChecksum extends HttpResponseInterceptor {
   const ValidateChecksum();
 
   @override
-  Future<void> intercept(AWSStreamedHttpResponse response) async {
+  Future<AWSBaseHttpResponse> intercept(AWSBaseHttpResponse response) async {
     final checksum = response.headers[_header];
     if (checksum == null) {
-      return;
+      return response;
     }
     final digest = await md5.bind(response.split()).last;
     final computed = base64Encode(digest.bytes);
@@ -68,6 +68,7 @@ class ValidateChecksum extends HttpResponseInterceptor {
         'Got: $computed',
       );
     }
+    return response;
   }
 }
 

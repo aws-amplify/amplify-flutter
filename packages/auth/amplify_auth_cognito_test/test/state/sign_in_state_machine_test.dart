@@ -35,11 +35,18 @@ class MockCognitoIdentityProviderClient extends Fake
   final Future<InitiateAuthResponse> Function() _initiateAuth;
 
   @override
-  Future<InitiateAuthResponse> initiateAuth(
+  SmithyOperation<InitiateAuthResponse> initiateAuth(
     InitiateAuthRequest input, {
-    HttpClient? client,
+    AWSHttpClient? client,
   }) =>
-      _initiateAuth();
+      SmithyOperation(
+        CancelableOperation.fromFuture(
+          Future.value(_initiateAuth()),
+        ),
+        operationName: 'InitiateAuth',
+        requestProgress: const Stream.empty(),
+        responseProgress: const Stream.empty(),
+      );
 }
 
 void main() {
@@ -150,7 +157,11 @@ void main() {
         signInStateMachine.stream,
         emitsInOrder([
           isA<SignInInitiating>(),
-          isA<SignInSuccess>(),
+          isA<SignInSuccess>().having(
+            (state) => state.user.signInDetails,
+            'signInDetails',
+            isA<CognitoSignInDetailsApiBased>(),
+          ),
         ]),
       );
     });

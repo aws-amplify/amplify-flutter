@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.2.0. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity_provider.operation.global_sign_out_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -82,7 +82,7 @@ class GlobalSignOutOperation extends _i1.HttpOperation<
           service: _i7.AWSService.cognitoIdentityProvider,
           credentialsProvider: _credentialsProvider,
         ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.2.0'),
         const _i5.WithSdkInvocationId(),
         const _i5.WithSdkRequest(),
       ],
@@ -112,7 +112,7 @@ class GlobalSignOutOperation extends _i1.HttpOperation<
   @override
   _i3.GlobalSignOutResponse buildOutput(
     _i3.GlobalSignOutResponse payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.GlobalSignOutResponse.fromResponse(
         payload,
@@ -201,15 +201,17 @@ class GlobalSignOutOperation extends _i1.HttpOperation<
         ),
       ];
   @override
+  String get runtimeTypeName => 'GlobalSignOut';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i17.Future<_i3.GlobalSignOutResponse> run(
+  _i1.SmithyOperation<_i3.GlobalSignOutResponse> run(
     _i2.GlobalSignOutRequest input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i17.runZoned(

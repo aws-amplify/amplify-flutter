@@ -24,7 +24,7 @@ import 'package:meta/meta.dart';
 /// * [StorageAccessLevel.protected] resolves `'protected/<userIdentityId>'`
 /// * [StorageAccessLevel.private] resolves `'private/<userIdentityId>'`
 /// {@endtemplate}
-class StorageAccessLevelAwarePrefixResolver implements S3StoragePrefixResolver {
+class StorageAccessLevelAwarePrefixResolver implements S3PrefixResolver {
   /// {@macro amplify_storage_s3_dart.storage_access_level_aware_prefix_resolver}
   StorageAccessLevelAwarePrefixResolver({
     required TokenIdentityAmplifyAuthProvider identityProvider,
@@ -41,16 +41,16 @@ class StorageAccessLevelAwarePrefixResolver implements S3StoragePrefixResolver {
 
   @override
   Future<String> resolvePrefix({
-    required StorageAccessLevel storageAccessLevel,
+    required StorageAccessLevel accessLevel,
     String? identityId,
   }) async {
-    if (storageAccessLevel == StorageAccessLevel.guest) {
-      return '${storageAccessLevel.defaultPrefix}$_delimiter';
+    if (accessLevel == StorageAccessLevel.guest) {
+      return '${accessLevel.defaultPrefix}$_delimiter';
     }
 
     final targetIdentityId =
         identityId ?? await _identityProvider.getIdentityId();
 
-    return '${storageAccessLevel.defaultPrefix}$_delimiter$targetIdentityId$_delimiter';
+    return '${accessLevel.defaultPrefix}$_delimiter$targetIdentityId$_delimiter';
   }
 }

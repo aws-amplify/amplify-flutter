@@ -68,6 +68,7 @@ enum APIAuthorizationType<T extends AmplifyAuthProvider> {
   function(AmplifyAuthProviderToken<TokenAmplifyAuthProvider>());
 
   const APIAuthorizationType(this.authProviderToken);
+
   final AmplifyAuthProviderToken<T> authProviderToken;
 }
 

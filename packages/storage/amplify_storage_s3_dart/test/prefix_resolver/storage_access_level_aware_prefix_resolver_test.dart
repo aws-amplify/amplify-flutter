@@ -29,7 +29,7 @@ void main() {
       );
 
       final result = await prefixResolver.resolvePrefix(
-        storageAccessLevel: StorageAccessLevel.guest,
+        accessLevel: StorageAccessLevel.guest,
       );
 
       expect(result, '${StorageAccessLevel.guest.defaultPrefix}/');
@@ -45,7 +45,7 @@ void main() {
       );
 
       final result = await prefixResolver.resolvePrefix(
-        storageAccessLevel: StorageAccessLevel.protected,
+        accessLevel: StorageAccessLevel.protected,
       );
 
       expect(
@@ -64,7 +64,7 @@ void main() {
 
       final result = await prefixResolver.resolvePrefix(
         identityId: testIdentityId,
-        storageAccessLevel: StorageAccessLevel.protected,
+        accessLevel: StorageAccessLevel.protected,
       );
 
       expect(
@@ -80,7 +80,7 @@ void main() {
       );
 
       final result = await prefixResolver.resolvePrefix(
-        storageAccessLevel: StorageAccessLevel.private,
+        accessLevel: StorageAccessLevel.private,
       );
 
       expect(
@@ -99,7 +99,7 @@ void main() {
 
       final result = await prefixResolver.resolvePrefix(
         identityId: testIdentityId,
-        storageAccessLevel: StorageAccessLevel.private,
+        accessLevel: StorageAccessLevel.private,
       );
 
       expect(

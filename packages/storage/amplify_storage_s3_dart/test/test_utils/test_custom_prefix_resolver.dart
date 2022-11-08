@@ -15,13 +15,15 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 
-class TestCustomPrefixResolver extends S3StoragePrefixResolver {
+const throwExceptionIdentityId = 'throw_me_an_exception';
+
+class TestCustomPrefixResolver extends S3PrefixResolver {
   @override
   Future<String> resolvePrefix({
-    required StorageAccessLevel storageAccessLevel,
+    required StorageAccessLevel accessLevel,
     String? identityId,
   }) async {
-    switch (storageAccessLevel) {
+    switch (accessLevel) {
       case StorageAccessLevel.guest:
         return 'normal/';
       case StorageAccessLevel.private:
@@ -29,5 +31,15 @@ class TestCustomPrefixResolver extends S3StoragePrefixResolver {
       case StorageAccessLevel.protected:
         return 'premium/';
     }
+  }
+}
+
+class TestCustomPrefixResolverThrowsException extends S3PrefixResolver {
+  @override
+  Future<String> resolvePrefix({
+    required StorageAccessLevel accessLevel,
+    String? identityId,
+  }) async {
+    throw Exception('some error');
   }
 }

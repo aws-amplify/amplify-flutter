@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library aws_json1_0_v1.json_rpc_10.operation.json_unions_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,7 +39,7 @@ class JsonUnionsOperation extends _i1.HttpOperation<_i2.JsonUnionsInput,
           'X-Amz-Target',
           'JsonRpc10.JsonUnions',
         ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
         const _i4.WithSdkInvocationId(),
         const _i4.WithSdkRequest(),
       ],
@@ -67,7 +67,7 @@ class JsonUnionsOperation extends _i1.HttpOperation<_i2.JsonUnionsInput,
   @override
   _i3.JsonUnionsOutput buildOutput(
     _i3.JsonUnionsOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.JsonUnionsOutput.fromResponse(
         payload,
@@ -76,15 +76,17 @@ class JsonUnionsOperation extends _i1.HttpOperation<_i2.JsonUnionsInput,
   @override
   List<_i1.SmithyError> get errorTypes => const [];
   @override
+  String get runtimeTypeName => 'JsonUnions';
+  @override
   _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i8.Future<_i3.JsonUnionsOutput> run(
+  _i1.SmithyOperation<_i3.JsonUnionsOutput> run(
     _i2.JsonUnionsInput input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i8.runZoned(

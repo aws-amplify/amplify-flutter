@@ -2,8 +2,6 @@
 
 library amplify_storage_s3_dart.s3.s3_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i4;
-
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/abort_multipart_upload_output.dart'
     as _i5;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/abort_multipart_upload_request.dart'
@@ -93,14 +91,15 @@ import 'package:amplify_storage_s3_dart/src/sdk/src/s3/operation/upload_part_cop
     as _i50;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/operation/upload_part_operation.dart'
     as _i47;
+import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
 import 'package:built_collection/built_collection.dart' as _i35;
-import 'package:smithy/smithy.dart' as _i1;
+import 'package:smithy/smithy.dart' as _i4;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 class S3Client {
   const S3Client({
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
     required String region,
     Uri? baseUri,
     required _i2.S3ClientConfig s3ClientConfig,
@@ -111,7 +110,7 @@ class S3Client {
         _s3ClientConfig = s3ClientConfig,
         _credentialsProvider = credentialsProvider;
 
-  final _i1.HttpClient? _client;
+  final _i1.AWSHttpClient? _client;
 
   final String _region;
 
@@ -138,9 +137,9 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i4.Future<_i5.AbortMultipartUploadOutput> abortMultipartUpload(
+  _i4.SmithyOperation<_i5.AbortMultipartUploadOutput> abortMultipartUpload(
     _i6.AbortMultipartUploadRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i7.AbortMultipartUploadOperation(
       region: _region,
@@ -205,9 +204,10 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i4.Future<_i8.CompleteMultipartUploadOutput> completeMultipartUpload(
+  _i4.SmithyOperation<_i8.CompleteMultipartUploadOutput>
+      completeMultipartUpload(
     _i9.CompleteMultipartUploadRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i10.CompleteMultipartUploadOperation(
       region: _region,
@@ -313,9 +313,9 @@ class S3Client {
   ///
   ///
   /// For more information, see [Copying Objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/CopyingObjectsExamples.html).
-  _i4.Future<_i11.CopyObjectOutput> copyObject(
+  _i4.SmithyOperation<_i11.CopyObjectOutput> copyObject(
     _i12.CopyObjectRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i13.CopyObjectOperation(
       region: _region,
@@ -455,9 +455,9 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i4.Future<_i14.CreateMultipartUploadOutput> createMultipartUpload(
+  _i4.SmithyOperation<_i14.CreateMultipartUploadOutput> createMultipartUpload(
     _i15.CreateMultipartUploadRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i16.CreateMultipartUploadOperation(
       region: _region,
@@ -483,9 +483,9 @@ class S3Client {
   /// The following action is related to `DeleteObject`:
   ///
   /// *   [PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
-  _i4.Future<_i17.DeleteObjectOutput> deleteObject(
+  _i4.SmithyOperation<_i17.DeleteObjectOutput> deleteObject(
     _i18.DeleteObjectRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i19.DeleteObjectOperation(
       region: _region,
@@ -519,9 +519,9 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [AbortMultipartUpload](https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html)
-  _i4.Future<_i20.DeleteObjectsOutput> deleteObjects(
+  _i4.SmithyOperation<_i20.DeleteObjectsOutput> deleteObjects(
     _i21.DeleteObjectsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i22.DeleteObjectsOperation(
       region: _region,
@@ -613,9 +613,9 @@ class S3Client {
   /// *   [ListBuckets](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBuckets.html)
   ///
   /// *   [GetObjectAcl](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAcl.html)
-  _i4.Future<_i23.GetObjectOutput> getObject(
+  _i4.SmithyOperation<_i23.GetObjectOutput> getObject(
     _i24.GetObjectRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i25.GetObjectOperation(
       region: _region,
@@ -687,9 +687,9 @@ class S3Client {
   /// *   [GetObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html)
   ///
   /// *   [GetObjectAttributes](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html)
-  _i4.Future<_i26.HeadObjectOutput> headObject(
+  _i4.SmithyOperation<_i26.HeadObjectOutput> headObject(
     _i27.HeadObjectRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i28.HeadObjectOperation(
       region: _region,
@@ -723,9 +723,9 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [AbortMultipartUpload](https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html)
-  _i4.Future<_i29.ListMultipartUploadsOutput> listMultipartUploads(
+  _i4.SmithyOperation<_i29.ListMultipartUploadsOutput> listMultipartUploads(
     _i30.ListMultipartUploadsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i31.ListMultipartUploadsOperation(
       region: _region,
@@ -755,9 +755,10 @@ class S3Client {
   /// *   [PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
   ///
   /// *   [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
-  _i4.Future<_i1.PaginatedResult<_i32.ListObjectsV2Output, int>> listObjectsV2(
+  _i4.SmithyOperation<
+      _i4.PaginatedResult<_i32.ListObjectsV2Output, int, String>> listObjectsV2(
     _i33.ListObjectsV2Request input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i34.ListObjectsV2Operation(
       region: _region,
@@ -791,9 +792,10 @@ class S3Client {
   /// *   [GetObjectAttributes](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i4.Future<_i1.PaginatedResult<_i35.BuiltList<_i36.Part>, int>> listParts(
+  _i4.SmithyOperation<
+      _i4.PaginatedResult<_i35.BuiltList<_i36.Part>, int, String>> listParts(
     _i37.ListPartsRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i38.ListPartsOperation(
       region: _region,
@@ -852,9 +854,9 @@ class S3Client {
   /// *   [CopyObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html)
   ///
   /// *   [DeleteObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html)
-  _i4.Future<_i39.PutObjectOutput> putObject(
+  _i4.SmithyOperation<_i39.PutObjectOutput> putObject(
     _i40.PutObjectRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i41.PutObjectOperation(
       region: _region,
@@ -920,9 +922,9 @@ class S3Client {
   /// *   [GetBucketLifecycleConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLifecycleConfiguration.html)
   ///
   /// *   [PutBucketLifecycleConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html)
-  _i4.Future<_i42.SelectObjectContentOutput> selectObjectContent(
+  _i4.SmithyOperation<_i42.SelectObjectContentOutput> selectObjectContent(
     _i43.SelectObjectContentRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i44.SelectObjectContentOperation(
       region: _region,
@@ -990,9 +992,9 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i4.Future<_i45.UploadPartOutput> uploadPart(
+  _i4.SmithyOperation<_i45.UploadPartOutput> uploadPart(
     _i46.UploadPartRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i47.UploadPartOperation(
       region: _region,
@@ -1079,9 +1081,9 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i4.Future<_i48.UploadPartCopyOutput> uploadPartCopy(
+  _i4.SmithyOperation<_i48.UploadPartCopyOutput> uploadPartCopy(
     _i49.UploadPartCopyRequest input, {
-    _i1.HttpClient? client,
+    _i1.AWSHttpClient? client,
   }) {
     return _i50.UploadPartCopyOperation(
       region: _region,

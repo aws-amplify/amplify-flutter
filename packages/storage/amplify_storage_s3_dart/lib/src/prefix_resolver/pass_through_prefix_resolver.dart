@@ -16,10 +16,10 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 
 /// A S3 prefix resolver that doesn't add extra prefix.
-class PassThroughPrefixResolver implements S3StoragePrefixResolver {
+class PassThroughPrefixResolver implements S3PrefixResolver {
   @override
   Future<String> resolvePrefix({
-    required StorageAccessLevel storageAccessLevel,
+    required StorageAccessLevel accessLevel,
     String? identityId,
   }) async {
     return '';

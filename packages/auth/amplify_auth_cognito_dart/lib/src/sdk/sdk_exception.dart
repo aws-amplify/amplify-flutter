@@ -80,7 +80,7 @@ export 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
 /// wrapper types or merge types with equivalent names from the underlying
 /// service SDKs.
 @internal
-Exception transformSdkException(Exception e) {
+Object transformSdkException(Object e) {
   if (e is! SmithyException) {
     return e;
   }

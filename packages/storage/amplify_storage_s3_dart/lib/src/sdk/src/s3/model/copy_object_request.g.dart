@@ -58,19 +58,19 @@ class _$CopyObjectRequest extends CopyObjectRequest {
   @override
   final String key;
   @override
-  final _i5.BuiltMap<String, String>? metadata;
+  final _i12.BuiltMap<String, String>? metadata;
   @override
-  final _i6.MetadataDirective? metadataDirective;
+  final _i5.MetadataDirective? metadataDirective;
   @override
-  final _i7.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
+  final _i6.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
   @override
-  final _i8.ObjectLockMode? objectLockMode;
+  final _i7.ObjectLockMode? objectLockMode;
   @override
   final DateTime? objectLockRetainUntilDate;
   @override
-  final _i9.RequestPayer? requestPayer;
+  final _i8.RequestPayer? requestPayer;
   @override
-  final _i10.ServerSideEncryption? serverSideEncryption;
+  final _i9.ServerSideEncryption? serverSideEncryption;
   @override
   final String? sseCustomerAlgorithm;
   @override
@@ -82,11 +82,11 @@ class _$CopyObjectRequest extends CopyObjectRequest {
   @override
   final String? ssekmsKeyId;
   @override
-  final _i11.StorageClass? storageClass;
+  final _i10.StorageClass? storageClass;
   @override
   final String? tagging;
   @override
-  final _i12.TaggingDirective? taggingDirective;
+  final _i11.TaggingDirective? taggingDirective;
   @override
   final String? websiteRedirectLocation;
 
@@ -366,27 +366,27 @@ class CopyObjectRequestBuilder
   String? get key => _$this._key;
   set key(String? key) => _$this._key = key;
 
-  _i5.MapBuilder<String, String>? _metadata;
-  _i5.MapBuilder<String, String> get metadata =>
-      _$this._metadata ??= new _i5.MapBuilder<String, String>();
-  set metadata(_i5.MapBuilder<String, String>? metadata) =>
+  _i12.MapBuilder<String, String>? _metadata;
+  _i12.MapBuilder<String, String> get metadata =>
+      _$this._metadata ??= new _i12.MapBuilder<String, String>();
+  set metadata(_i12.MapBuilder<String, String>? metadata) =>
       _$this._metadata = metadata;
 
-  _i6.MetadataDirective? _metadataDirective;
-  _i6.MetadataDirective? get metadataDirective => _$this._metadataDirective;
-  set metadataDirective(_i6.MetadataDirective? metadataDirective) =>
+  _i5.MetadataDirective? _metadataDirective;
+  _i5.MetadataDirective? get metadataDirective => _$this._metadataDirective;
+  set metadataDirective(_i5.MetadataDirective? metadataDirective) =>
       _$this._metadataDirective = metadataDirective;
 
-  _i7.ObjectLockLegalHoldStatus? _objectLockLegalHoldStatus;
-  _i7.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
+  _i6.ObjectLockLegalHoldStatus? _objectLockLegalHoldStatus;
+  _i6.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
       _$this._objectLockLegalHoldStatus;
   set objectLockLegalHoldStatus(
-          _i7.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
+          _i6.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
       _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
 
-  _i8.ObjectLockMode? _objectLockMode;
-  _i8.ObjectLockMode? get objectLockMode => _$this._objectLockMode;
-  set objectLockMode(_i8.ObjectLockMode? objectLockMode) =>
+  _i7.ObjectLockMode? _objectLockMode;
+  _i7.ObjectLockMode? get objectLockMode => _$this._objectLockMode;
+  set objectLockMode(_i7.ObjectLockMode? objectLockMode) =>
       _$this._objectLockMode = objectLockMode;
 
   DateTime? _objectLockRetainUntilDate;
@@ -394,15 +394,15 @@ class CopyObjectRequestBuilder
   set objectLockRetainUntilDate(DateTime? objectLockRetainUntilDate) =>
       _$this._objectLockRetainUntilDate = objectLockRetainUntilDate;
 
-  _i9.RequestPayer? _requestPayer;
-  _i9.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i9.RequestPayer? requestPayer) =>
+  _i8.RequestPayer? _requestPayer;
+  _i8.RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(_i8.RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
-  _i10.ServerSideEncryption? _serverSideEncryption;
-  _i10.ServerSideEncryption? get serverSideEncryption =>
+  _i9.ServerSideEncryption? _serverSideEncryption;
+  _i9.ServerSideEncryption? get serverSideEncryption =>
       _$this._serverSideEncryption;
-  set serverSideEncryption(_i10.ServerSideEncryption? serverSideEncryption) =>
+  set serverSideEncryption(_i9.ServerSideEncryption? serverSideEncryption) =>
       _$this._serverSideEncryption = serverSideEncryption;
 
   String? _sseCustomerAlgorithm;
@@ -429,18 +429,18 @@ class CopyObjectRequestBuilder
   String? get ssekmsKeyId => _$this._ssekmsKeyId;
   set ssekmsKeyId(String? ssekmsKeyId) => _$this._ssekmsKeyId = ssekmsKeyId;
 
-  _i11.StorageClass? _storageClass;
-  _i11.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i11.StorageClass? storageClass) =>
+  _i10.StorageClass? _storageClass;
+  _i10.StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(_i10.StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
   String? _tagging;
   String? get tagging => _$this._tagging;
   set tagging(String? tagging) => _$this._tagging = tagging;
 
-  _i12.TaggingDirective? _taggingDirective;
-  _i12.TaggingDirective? get taggingDirective => _$this._taggingDirective;
-  set taggingDirective(_i12.TaggingDirective? taggingDirective) =>
+  _i11.TaggingDirective? _taggingDirective;
+  _i11.TaggingDirective? get taggingDirective => _$this._taggingDirective;
+  set taggingDirective(_i11.TaggingDirective? taggingDirective) =>
       _$this._taggingDirective = taggingDirective;
 
   String? _websiteRedirectLocation;

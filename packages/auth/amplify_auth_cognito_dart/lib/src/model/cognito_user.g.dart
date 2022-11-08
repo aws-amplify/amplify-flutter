@@ -20,6 +20,8 @@ class _$CognitoUser extends CognitoUser {
   @override
   final String username;
   @override
+  final CognitoSignInDetails signInDetails;
+  @override
   final BuiltMap<String, String> attributes;
 
   factory _$CognitoUser([void Function(CognitoUserBuilder)? updates]) =>
@@ -32,10 +34,13 @@ class _$CognitoUser extends CognitoUser {
       this.deviceSecrets,
       required this.userId,
       required this.username,
+      required this.signInDetails,
       required this.attributes})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(userId, r'CognitoUser', 'userId');
     BuiltValueNullFieldError.checkNotNull(username, r'CognitoUser', 'username');
+    BuiltValueNullFieldError.checkNotNull(
+        signInDetails, r'CognitoUser', 'signInDetails');
     BuiltValueNullFieldError.checkNotNull(
         attributes, r'CognitoUser', 'attributes');
   }
@@ -57,6 +62,7 @@ class _$CognitoUser extends CognitoUser {
         deviceSecrets == other.deviceSecrets &&
         userId == other.userId &&
         username == other.username &&
+        signInDetails == other.signInDetails &&
         attributes == other.attributes;
   }
 
@@ -67,12 +73,14 @@ class _$CognitoUser extends CognitoUser {
             $jc(
                 $jc(
                     $jc(
-                        $jc($jc(0, identityId.hashCode),
-                            awsCredentials.hashCode),
-                        userPoolTokens.hashCode),
-                    deviceSecrets.hashCode),
-                userId.hashCode),
-            username.hashCode),
+                        $jc(
+                            $jc($jc(0, identityId.hashCode),
+                                awsCredentials.hashCode),
+                            userPoolTokens.hashCode),
+                        deviceSecrets.hashCode),
+                    userId.hashCode),
+                username.hashCode),
+            signInDetails.hashCode),
         attributes.hashCode));
   }
 
@@ -85,6 +93,7 @@ class _$CognitoUser extends CognitoUser {
           ..add('deviceSecrets', deviceSecrets)
           ..add('userId', userId)
           ..add('username', username)
+          ..add('signInDetails', signInDetails)
           ..add('attributes', attributes))
         .toString();
   }
@@ -121,6 +130,11 @@ class CognitoUserBuilder implements Builder<CognitoUser, CognitoUserBuilder> {
   String? get username => _$this._username;
   set username(String? username) => _$this._username = username;
 
+  CognitoSignInDetails? _signInDetails;
+  CognitoSignInDetails? get signInDetails => _$this._signInDetails;
+  set signInDetails(CognitoSignInDetails? signInDetails) =>
+      _$this._signInDetails = signInDetails;
+
   MapBuilder<String, String>? _attributes;
   MapBuilder<String, String> get attributes =>
       _$this._attributes ??= new MapBuilder<String, String>();
@@ -138,6 +152,7 @@ class CognitoUserBuilder implements Builder<CognitoUser, CognitoUserBuilder> {
       _deviceSecrets = $v.deviceSecrets?.toBuilder();
       _userId = $v.userId;
       _username = $v.username;
+      _signInDetails = $v.signInDetails;
       _attributes = $v.attributes.toBuilder();
       _$v = null;
     }
@@ -172,6 +187,8 @@ class CognitoUserBuilder implements Builder<CognitoUser, CognitoUserBuilder> {
                   userId, r'CognitoUser', 'userId'),
               username: BuiltValueNullFieldError.checkNotNull(
                   username, r'CognitoUser', 'username'),
+              signInDetails: BuiltValueNullFieldError.checkNotNull(
+                  signInDetails, r'CognitoUser', 'signInDetails'),
               attributes: attributes.build());
     } catch (_) {
       late String _$failedField;

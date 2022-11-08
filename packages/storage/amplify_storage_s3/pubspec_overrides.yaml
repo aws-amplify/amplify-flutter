@@ -18,6 +18,10 @@ dependency_overrides:
     path: ../../amplify_core
   amplify_datastore_plugin_interface:
     path: ../../amplify_datastore_plugin_interface
+  amplify_db_common:
+    path: ../../common/amplify_db_common
+  amplify_db_common_dart:
+    path: ../../common/amplify_db_common_dart
   amplify_flutter:
     path: ../../amplify/amplify_flutter
   amplify_flutter_android:

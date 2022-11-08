@@ -28,19 +28,24 @@ abstract class AuthProviderOptions {
 
 /// Options required by IAM to sign any given request at runtime.
 class IamAuthProviderOptions extends AuthProviderOptions {
+  const IamAuthProviderOptions({
+    required this.region,
+    required this.service,
+  });
+
   final String region;
   final AWSService service;
-
-  const IamAuthProviderOptions({required this.region, required this.service});
 }
 
 class ApiKeyAuthProviderOptions extends AuthProviderOptions {
-  final String apiKey;
-
   const ApiKeyAuthProviderOptions(this.apiKey);
+
+  final String apiKey;
 }
 
 abstract class AmplifyAuthProvider {
+  const AmplifyAuthProvider();
+
   Future<AWSBaseHttpRequest> authorizeRequest(
     AWSBaseHttpRequest request, {
     covariant AuthProviderOptions? options,
@@ -49,6 +54,8 @@ abstract class AmplifyAuthProvider {
 
 abstract class AWSIamAmplifyAuthProvider extends AmplifyAuthProvider
     implements AWSCredentialsProvider {
+  const AWSIamAmplifyAuthProvider();
+
   @override
   Future<AWSSignedRequest> authorizeRequest(
     AWSBaseHttpRequest request, {
@@ -65,6 +72,8 @@ abstract class ApiKeyAmplifyAuthProvider extends AmplifyAuthProvider {
 }
 
 abstract class TokenAmplifyAuthProvider extends AmplifyAuthProvider {
+  const TokenAmplifyAuthProvider();
+
   Future<String> getLatestAuthToken();
 
   @override
@@ -87,12 +96,15 @@ class AmplifyAuthProviderRepository {
   final Map<AmplifyAuthProviderToken, AmplifyAuthProvider> _authProviders = {};
 
   T? getAuthProvider<T extends AmplifyAuthProvider>(
-      AmplifyAuthProviderToken<T> token) {
+    AmplifyAuthProviderToken<T> token,
+  ) {
     return _authProviders[token] as T?;
   }
 
   void registerAuthProvider<T extends AmplifyAuthProvider>(
-      AmplifyAuthProviderToken<T> token, AmplifyAuthProvider authProvider) {
+    AmplifyAuthProviderToken<T> token,
+    AmplifyAuthProvider authProvider,
+  ) {
     _authProviders[token] = authProvider;
   }
 }

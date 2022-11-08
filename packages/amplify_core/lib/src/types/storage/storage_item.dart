@@ -42,9 +42,9 @@ class StorageItemWithAccessLevel<Item extends StorageItem> {
   /// {@macro amplify_core.storage.storage_item_access_level}
   const StorageItemWithAccessLevel({
     required this.storageItem,
-    required this.storageAccessLevel,
+    required this.accessLevel,
   });
 
   final Item storageItem;
-  final StorageAccessLevel storageAccessLevel;
+  final StorageAccessLevel accessLevel;
 }

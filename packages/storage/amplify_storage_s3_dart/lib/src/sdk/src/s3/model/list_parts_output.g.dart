@@ -30,11 +30,11 @@ class _$ListPartsOutput extends ListPartsOutput {
   @override
   final String? partNumberMarker;
   @override
-  final _i6.BuiltList<_i7.Part>? parts;
+  final _i9.BuiltList<_i6.Part>? parts;
   @override
-  final _i8.RequestCharged? requestCharged;
+  final _i7.RequestCharged? requestCharged;
   @override
-  final _i9.StorageClass? storageClass;
+  final _i8.StorageClass? storageClass;
   @override
   final String? uploadId;
 
@@ -179,19 +179,19 @@ class ListPartsOutputBuilder
   set partNumberMarker(String? partNumberMarker) =>
       _$this._partNumberMarker = partNumberMarker;
 
-  _i6.ListBuilder<_i7.Part>? _parts;
-  _i6.ListBuilder<_i7.Part> get parts =>
-      _$this._parts ??= new _i6.ListBuilder<_i7.Part>();
-  set parts(_i6.ListBuilder<_i7.Part>? parts) => _$this._parts = parts;
+  _i9.ListBuilder<_i6.Part>? _parts;
+  _i9.ListBuilder<_i6.Part> get parts =>
+      _$this._parts ??= new _i9.ListBuilder<_i6.Part>();
+  set parts(_i9.ListBuilder<_i6.Part>? parts) => _$this._parts = parts;
 
-  _i8.RequestCharged? _requestCharged;
-  _i8.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i8.RequestCharged? requestCharged) =>
+  _i7.RequestCharged? _requestCharged;
+  _i7.RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(_i7.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  _i9.StorageClass? _storageClass;
-  _i9.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i9.StorageClass? storageClass) =>
+  _i8.StorageClass? _storageClass;
+  _i8.StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(_i8.StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
   String? _uploadId;
@@ -301,9 +301,9 @@ class _$ListPartsOutputPayload extends ListPartsOutputPayload {
   @override
   final String? partNumberMarker;
   @override
-  final _i6.BuiltList<_i7.Part>? parts;
+  final _i9.BuiltList<_i6.Part>? parts;
   @override
-  final _i9.StorageClass? storageClass;
+  final _i8.StorageClass? storageClass;
   @override
   final String? uploadId;
 
@@ -425,14 +425,14 @@ class ListPartsOutputPayloadBuilder
   set partNumberMarker(String? partNumberMarker) =>
       _$this._partNumberMarker = partNumberMarker;
 
-  _i6.ListBuilder<_i7.Part>? _parts;
-  _i6.ListBuilder<_i7.Part> get parts =>
-      _$this._parts ??= new _i6.ListBuilder<_i7.Part>();
-  set parts(_i6.ListBuilder<_i7.Part>? parts) => _$this._parts = parts;
+  _i9.ListBuilder<_i6.Part>? _parts;
+  _i9.ListBuilder<_i6.Part> get parts =>
+      _$this._parts ??= new _i9.ListBuilder<_i6.Part>();
+  set parts(_i9.ListBuilder<_i6.Part>? parts) => _$this._parts = parts;
 
-  _i9.StorageClass? _storageClass;
-  _i9.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i9.StorageClass? storageClass) =>
+  _i8.StorageClass? _storageClass;
+  _i8.StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(_i8.StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
   String? _uploadId;

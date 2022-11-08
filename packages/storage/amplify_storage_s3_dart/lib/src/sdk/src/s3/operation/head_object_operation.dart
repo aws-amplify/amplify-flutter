@@ -272,7 +272,7 @@ class HeadObjectOperation extends _i1.HttpOperation<
   @override
   _i3.HeadObjectOutput buildOutput(
     _i3.HeadObjectOutputPayload payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.HeadObjectOutput.fromResponse(
         payload,
@@ -290,6 +290,8 @@ class HeadObjectOperation extends _i1.HttpOperation<
           builder: _i9.NotFound.fromResponse,
         )
       ];
+  @override
+  String get runtimeTypeName => 'HeadObject';
   @override
   _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
@@ -313,9 +315,9 @@ class HeadObjectOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i10.Future<_i3.HeadObjectOutput> run(
+  _i1.SmithyOperation<_i3.HeadObjectOutput> run(
     _i2.HeadObjectRequest input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i10.runZoned(

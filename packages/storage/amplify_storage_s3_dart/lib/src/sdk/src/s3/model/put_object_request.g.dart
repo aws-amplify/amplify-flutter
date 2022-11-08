@@ -54,17 +54,17 @@ class _$PutObjectRequest extends PutObjectRequest {
   @override
   final String key;
   @override
-  final _i7.BuiltMap<String, String>? metadata;
+  final _i12.BuiltMap<String, String>? metadata;
   @override
-  final _i8.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
+  final _i7.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
   @override
-  final _i9.ObjectLockMode? objectLockMode;
+  final _i8.ObjectLockMode? objectLockMode;
   @override
   final DateTime? objectLockRetainUntilDate;
   @override
-  final _i10.RequestPayer? requestPayer;
+  final _i9.RequestPayer? requestPayer;
   @override
-  final _i11.ServerSideEncryption? serverSideEncryption;
+  final _i10.ServerSideEncryption? serverSideEncryption;
   @override
   final String? sseCustomerAlgorithm;
   @override
@@ -76,7 +76,7 @@ class _$PutObjectRequest extends PutObjectRequest {
   @override
   final String? ssekmsKeyId;
   @override
-  final _i12.StorageClass? storageClass;
+  final _i11.StorageClass? storageClass;
   @override
   final String? tagging;
   @override
@@ -332,22 +332,22 @@ class PutObjectRequestBuilder
   String? get key => _$this._key;
   set key(String? key) => _$this._key = key;
 
-  _i7.MapBuilder<String, String>? _metadata;
-  _i7.MapBuilder<String, String> get metadata =>
-      _$this._metadata ??= new _i7.MapBuilder<String, String>();
-  set metadata(_i7.MapBuilder<String, String>? metadata) =>
+  _i12.MapBuilder<String, String>? _metadata;
+  _i12.MapBuilder<String, String> get metadata =>
+      _$this._metadata ??= new _i12.MapBuilder<String, String>();
+  set metadata(_i12.MapBuilder<String, String>? metadata) =>
       _$this._metadata = metadata;
 
-  _i8.ObjectLockLegalHoldStatus? _objectLockLegalHoldStatus;
-  _i8.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
+  _i7.ObjectLockLegalHoldStatus? _objectLockLegalHoldStatus;
+  _i7.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
       _$this._objectLockLegalHoldStatus;
   set objectLockLegalHoldStatus(
-          _i8.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
+          _i7.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
       _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
 
-  _i9.ObjectLockMode? _objectLockMode;
-  _i9.ObjectLockMode? get objectLockMode => _$this._objectLockMode;
-  set objectLockMode(_i9.ObjectLockMode? objectLockMode) =>
+  _i8.ObjectLockMode? _objectLockMode;
+  _i8.ObjectLockMode? get objectLockMode => _$this._objectLockMode;
+  set objectLockMode(_i8.ObjectLockMode? objectLockMode) =>
       _$this._objectLockMode = objectLockMode;
 
   DateTime? _objectLockRetainUntilDate;
@@ -355,15 +355,15 @@ class PutObjectRequestBuilder
   set objectLockRetainUntilDate(DateTime? objectLockRetainUntilDate) =>
       _$this._objectLockRetainUntilDate = objectLockRetainUntilDate;
 
-  _i10.RequestPayer? _requestPayer;
-  _i10.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i10.RequestPayer? requestPayer) =>
+  _i9.RequestPayer? _requestPayer;
+  _i9.RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(_i9.RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
-  _i11.ServerSideEncryption? _serverSideEncryption;
-  _i11.ServerSideEncryption? get serverSideEncryption =>
+  _i10.ServerSideEncryption? _serverSideEncryption;
+  _i10.ServerSideEncryption? get serverSideEncryption =>
       _$this._serverSideEncryption;
-  set serverSideEncryption(_i11.ServerSideEncryption? serverSideEncryption) =>
+  set serverSideEncryption(_i10.ServerSideEncryption? serverSideEncryption) =>
       _$this._serverSideEncryption = serverSideEncryption;
 
   String? _sseCustomerAlgorithm;
@@ -390,9 +390,9 @@ class PutObjectRequestBuilder
   String? get ssekmsKeyId => _$this._ssekmsKeyId;
   set ssekmsKeyId(String? ssekmsKeyId) => _$this._ssekmsKeyId = ssekmsKeyId;
 
-  _i12.StorageClass? _storageClass;
-  _i12.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i12.StorageClass? storageClass) =>
+  _i11.StorageClass? _storageClass;
+  _i11.StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(_i11.StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
   String? _tagging;

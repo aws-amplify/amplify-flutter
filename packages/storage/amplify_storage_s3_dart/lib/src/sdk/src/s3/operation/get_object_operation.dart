@@ -212,7 +212,7 @@ class GetObjectOperation extends _i1.HttpOperation<_i2.GetObjectRequestPayload,
         const _i5.WithSdkInvocationId(),
         const _i5.WithSdkRequest(),
       ],
-      responseInterceptors: [],
+      responseInterceptors: [const _i5.CheckPartialResponse()],
       noErrorWrapping: true,
     )
   ];
@@ -350,7 +350,7 @@ class GetObjectOperation extends _i1.HttpOperation<_i2.GetObjectRequestPayload,
   @override
   _i4.GetObjectOutput buildOutput(
     _i3.Stream<List<int>>? payload,
-    _i8.AWSStreamedHttpResponse response,
+    _i8.AWSBaseHttpResponse response,
   ) =>
       _i4.GetObjectOutput.fromResponse(
         payload,
@@ -378,6 +378,8 @@ class GetObjectOperation extends _i1.HttpOperation<_i2.GetObjectRequestPayload,
         ),
       ];
   @override
+  String get runtimeTypeName => 'GetObject';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri {
@@ -400,9 +402,9 @@ class GetObjectOperation extends _i1.HttpOperation<_i2.GetObjectRequestPayload,
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i3.Future<_i4.GetObjectOutput> run(
+  _i1.SmithyOperation<_i4.GetObjectOutput> run(
     _i2.GetObjectRequest input, {
-    _i1.HttpClient? client,
+    _i8.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i3.runZoned(

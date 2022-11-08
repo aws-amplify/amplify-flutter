@@ -253,13 +253,17 @@ class UploadPartOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
           'uploadId',
           input.uploadId,
         );
+        if (input.checksumAlgorithm != null) {
+          b.requestInterceptors
+              .add(_i5.WithChecksum(input.checksumAlgorithm!.value));
+        }
       });
   @override
   int successCode([_i4.UploadPartOutput? output]) => 200;
   @override
   _i4.UploadPartOutput buildOutput(
     _i4.UploadPartOutputPayload payload,
-    _i8.AWSStreamedHttpResponse response,
+    _i8.AWSBaseHttpResponse response,
   ) =>
       _i4.UploadPartOutput.fromResponse(
         payload,
@@ -267,6 +271,8 @@ class UploadPartOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+  @override
+  String get runtimeTypeName => 'UploadPart';
   @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
@@ -290,9 +296,9 @@ class UploadPartOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i2.Future<_i4.UploadPartOutput> run(
+  _i1.SmithyOperation<_i4.UploadPartOutput> run(
     _i3.UploadPartRequest input, {
-    _i1.HttpClient? client,
+    _i8.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i2.runZoned(

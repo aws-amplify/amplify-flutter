@@ -25,7 +25,6 @@ import * as appsync from "@aws-cdk/aws-appsync-alpha";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as kms from "aws-cdk-lib/aws-kms";
 import * as wafv2 from "aws-cdk-lib/aws-wafv2";
-import * as waf_regional from "aws-cdk-lib/aws-waf";
 import {
   CfnOutput,
   Duration,
@@ -47,6 +46,11 @@ interface AuthIntegrationTestStackProps extends cdk.StackProps {
    * The Cognito User Pool device tracking settings.
    */
   deviceTracking?: cognito.DeviceTracking;
+
+  /**
+   * Aliases allowed for sign in.
+   */
+  signInAliases?: cognito.SignInAliases;
 }
 
 export class AuthIntegrationTestStack extends cdk.Stack {
@@ -141,6 +145,7 @@ export class AuthIntegrationTestStack extends cdk.Stack {
         phone: true,
       },
       mfa: cognito.Mfa.OPTIONAL,
+      signInAliases: props.signInAliases,
       standardAttributes: {
         email: {
           mutable: true,
@@ -237,49 +242,7 @@ export class AuthIntegrationTestStack extends cdk.Stack {
       defaultAction: {
         allow: {},
       },
-      rules: [
-        // AWS IP Reputation list includes known malicious actors/bots and is regularly updated
-        // https://docs.aws.amazon.com/waf/latest/developerguide/aws-managed-rule-groups-ip-rep.html#aws-managed-rule-groups-ip-rep-amazon
-        {
-          name: "AWS-AWSManagedRulesAmazonIpReputationList",
-          priority: 0,
-          statement: {
-            managedRuleGroupStatement: {
-              vendorName: "AWS",
-              name: "AWSManagedRulesAmazonIpReputationList",
-            },
-          },
-          overrideAction: {
-            none: {},
-          },
-          visibilityConfig: {
-            sampledRequestsEnabled: true,
-            cloudWatchMetricsEnabled: true,
-            metricName: "AWS-AWSManagedRulesAmazonIpReputationList",
-          },
-        },
-
-        // Anonymous IP list blocks IP addresses from obscuring services like VPNs/proxies
-        // https://docs.aws.amazon.com/waf/latest/developerguide/aws-managed-rule-groups-ip-rep.html#aws-managed-rule-groups-ip-rep-anonymous
-        {
-          name: "AWS-AWSManagedRulesAnonymousIpList",
-          priority: 10,
-          statement: {
-            managedRuleGroupStatement: {
-              vendorName: "AWS",
-              name: "AWSManagedRulesAnonymousIpList",
-            },
-          },
-          overrideAction: {
-            none: {},
-          },
-          visibilityConfig: {
-            sampledRequestsEnabled: true,
-            cloudWatchMetricsEnabled: true,
-            metricName: "AWS-AWSManagedRulesAnonymousIpList",
-          },
-        },
-
+      rules: [      
         // Basic rate limiting to prevent overuse of endpoints
         {
           name: "RateLimit",

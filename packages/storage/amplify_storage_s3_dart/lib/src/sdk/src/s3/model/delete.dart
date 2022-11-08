@@ -3,9 +3,9 @@
 library amplify_storage_s3_dart.s3.model.delete; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/object_identifier.dart'
-    as _i3;
+    as _i2;
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i4;
@@ -18,11 +18,11 @@ abstract class Delete
     implements Built<Delete, DeleteBuilder> {
   /// Container for the objects to delete.
   factory Delete({
-    required _i2.BuiltList<_i3.ObjectIdentifier> objects,
+    required List<_i2.ObjectIdentifier> objects,
     bool? quiet,
   }) {
     return _$Delete._(
-      objects: objects,
+      objects: _i3.BuiltList(objects),
       quiet: quiet,
     );
   }
@@ -40,7 +40,7 @@ abstract class Delete
   static void _init(DeleteBuilder b) {}
 
   /// The objects to delete.
-  _i2.BuiltList<_i3.ObjectIdentifier> get objects;
+  _i3.BuiltList<_i2.ObjectIdentifier> get objects;
 
   /// Element to enable quiet mode for the request. When you add this element, you must set its value to true.
   bool? get quiet;
@@ -95,8 +95,8 @@ class DeleteRestXmlSerializer extends _i4.StructuredSmithySerializer<Delete> {
         case 'Object':
           result.objects.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ObjectIdentifier),
-          ) as _i3.ObjectIdentifier));
+            specifiedType: const FullType(_i2.ObjectIdentifier),
+          ) as _i2.ObjectIdentifier));
           break;
         case 'Quiet':
           if (value != null) {
@@ -130,8 +130,8 @@ class DeleteRestXmlSerializer extends _i4.StructuredSmithySerializer<Delete> {
       serializers,
       payload.objects,
       specifiedType: const FullType.nullable(
-        _i2.BuiltList,
-        [FullType(_i3.ObjectIdentifier)],
+        _i3.BuiltList,
+        [FullType(_i2.ObjectIdentifier)],
       ),
     ));
     if (payload.quiet != null) {

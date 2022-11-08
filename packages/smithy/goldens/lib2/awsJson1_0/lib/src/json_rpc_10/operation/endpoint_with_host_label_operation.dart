@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library aws_json1_0_v2.json_rpc_10.operation.endpoint_with_host_label_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,7 +41,7 @@ class EndpointWithHostLabelOperation extends _i1.HttpOperation<
           'X-Amz-Target',
           'JsonRpc10.EndpointWithHostLabelOperation',
         ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
         const _i3.WithSdkInvocationId(),
         const _i3.WithSdkRequest(),
       ],
@@ -70,11 +70,13 @@ class EndpointWithHostLabelOperation extends _i1.HttpOperation<
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+  @override
+  String get runtimeTypeName => 'EndpointWithHostLabelOperation';
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
@@ -82,9 +84,9 @@ class EndpointWithHostLabelOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i7.Future<_i1.Unit> run(
+  _i1.SmithyOperation<_i1.Unit> run(
     _i2.EndpointWithHostLabelOperationInput input, {
-    _i1.HttpClient? client,
+    _i6.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i7.runZoned(

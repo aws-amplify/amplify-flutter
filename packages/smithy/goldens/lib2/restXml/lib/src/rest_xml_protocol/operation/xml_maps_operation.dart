@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_xml_v2.rest_xml_protocol.operation.xml_maps_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,7 +34,7 @@ class XmlMapsOperation extends _i1.HttpOperation<_i2.XmlMapsInputOutput,
       requestInterceptors: [
         const _i1.WithHost(),
         const _i1.WithContentLength(),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
         const _i3.WithSdkInvocationId(),
         const _i3.WithSdkRequest(),
       ],
@@ -63,7 +63,7 @@ class XmlMapsOperation extends _i1.HttpOperation<_i2.XmlMapsInputOutput,
   @override
   _i2.XmlMapsInputOutput buildOutput(
     _i2.XmlMapsInputOutput payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       _i2.XmlMapsInputOutput.fromResponse(
         payload,
@@ -72,15 +72,17 @@ class XmlMapsOperation extends _i1.HttpOperation<_i2.XmlMapsInputOutput,
   @override
   List<_i1.SmithyError> get errorTypes => const [];
   @override
+  String get runtimeTypeName => 'XmlMaps';
+  @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i7.Future<_i2.XmlMapsInputOutput> run(
+  _i1.SmithyOperation<_i2.XmlMapsInputOutput> run(
     _i2.XmlMapsInputOutput input, {
-    _i1.HttpClient? client,
+    _i6.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i7.runZoned(

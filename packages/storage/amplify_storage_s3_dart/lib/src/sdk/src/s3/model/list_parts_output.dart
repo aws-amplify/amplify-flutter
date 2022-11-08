@@ -7,13 +7,13 @@ import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/checksum_algorithm.
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/initiator.dart'
     as _i4;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/owner.dart' as _i5;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/part.dart' as _i7;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/part.dart' as _i6;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_charged.dart'
-    as _i8;
+    as _i7;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/storage_class.dart'
-    as _i9;
+    as _i8;
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i9;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:meta/meta.dart' as _i10;
@@ -38,9 +38,9 @@ abstract class ListPartsOutput
     String? nextPartNumberMarker,
     _i5.Owner? owner,
     String? partNumberMarker,
-    _i6.BuiltList<_i7.Part>? parts,
-    _i8.RequestCharged? requestCharged,
-    _i9.StorageClass? storageClass,
+    List<_i6.Part>? parts,
+    _i7.RequestCharged? requestCharged,
+    _i8.StorageClass? storageClass,
     String? uploadId,
   }) {
     return _$ListPartsOutput._(
@@ -55,7 +55,7 @@ abstract class ListPartsOutput
       nextPartNumberMarker: nextPartNumberMarker,
       owner: owner,
       partNumberMarker: partNumberMarker,
-      parts: parts,
+      parts: parts == null ? null : _i9.BuiltList(parts),
       requestCharged: requestCharged,
       storageClass: storageClass,
       uploadId: uploadId,
@@ -101,7 +101,7 @@ abstract class ListPartsOutput
           b.abortRuleId = response.headers['x-amz-abort-rule-id']!;
         }
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i8.RequestCharged.values
+          b.requestCharged = _i7.RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
       });
@@ -149,13 +149,13 @@ abstract class ListPartsOutput
   String? get partNumberMarker;
 
   /// Container for elements related to a particular part. A response can contain zero or more `Part` elements.
-  _i6.BuiltList<_i7.Part>? get parts;
+  _i9.BuiltList<_i6.Part>? get parts;
 
   /// If present, indicates that the requester was successfully charged for the request.
-  _i8.RequestCharged? get requestCharged;
+  _i7.RequestCharged? get requestCharged;
 
   /// Class of storage (STANDARD or REDUCED_REDUNDANCY) used to store the uploaded object.
-  _i9.StorageClass? get storageClass;
+  _i8.StorageClass? get storageClass;
 
   /// Upload ID identifying the multipart upload whose parts are being listed.
   String? get uploadId;
@@ -306,10 +306,10 @@ abstract class ListPartsOutputPayload
   String? get partNumberMarker;
 
   /// Container for elements related to a particular part. A response can contain zero or more `Part` elements.
-  _i6.BuiltList<_i7.Part>? get parts;
+  _i9.BuiltList<_i6.Part>? get parts;
 
   /// Class of storage (STANDARD or REDUCED_REDUNDANCY) used to store the uploaded object.
-  _i9.StorageClass? get storageClass;
+  _i8.StorageClass? get storageClass;
 
   /// Upload ID identifying the multipart upload whose parts are being listed.
   String? get uploadId;
@@ -490,16 +490,16 @@ class ListPartsOutputRestXmlSerializer
           if (value != null) {
             result.parts.add((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i7.Part),
-            ) as _i7.Part));
+              specifiedType: const FullType(_i6.Part),
+            ) as _i6.Part));
           }
           break;
         case 'StorageClass':
           if (value != null) {
             result.storageClass = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i9.StorageClass),
-            ) as _i9.StorageClass);
+              specifiedType: const FullType(_i8.StorageClass),
+            ) as _i8.StorageClass);
           }
           break;
         case 'UploadId':
@@ -609,8 +609,8 @@ class ListPartsOutputRestXmlSerializer
         serializers,
         payload.parts!,
         specifiedType: const FullType.nullable(
-          _i6.BuiltList,
-          [FullType(_i7.Part)],
+          _i9.BuiltList,
+          [FullType(_i6.Part)],
         ),
       ));
     }
@@ -619,7 +619,7 @@ class ListPartsOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           payload.storageClass!,
-          specifiedType: const FullType.nullable(_i9.StorageClass),
+          specifiedType: const FullType.nullable(_i8.StorageClass),
         ));
     }
     if (payload.uploadId != null) {

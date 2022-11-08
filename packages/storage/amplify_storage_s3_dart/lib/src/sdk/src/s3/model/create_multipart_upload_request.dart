@@ -7,17 +7,17 @@ import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/checksum_algorithm.
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/object_canned_acl.dart'
     as _i3;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/object_lock_legal_hold_status.dart'
-    as _i6;
+    as _i5;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/object_lock_mode.dart'
-    as _i7;
+    as _i6;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_payer.dart'
-    as _i8;
+    as _i7;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/server_side_encryption.dart'
-    as _i9;
+    as _i8;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/storage_class.dart'
-    as _i10;
+    as _i9;
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i10;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:meta/meta.dart' as _i11;
@@ -51,18 +51,18 @@ abstract class CreateMultipartUploadRequest
     String? grantReadAcp,
     String? grantWriteAcp,
     required String key,
-    _i5.BuiltMap<String, String>? metadata,
-    _i6.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
-    _i7.ObjectLockMode? objectLockMode,
+    Map<String, String>? metadata,
+    _i5.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
+    _i6.ObjectLockMode? objectLockMode,
     DateTime? objectLockRetainUntilDate,
-    _i8.RequestPayer? requestPayer,
-    _i9.ServerSideEncryption? serverSideEncryption,
+    _i7.RequestPayer? requestPayer,
+    _i8.ServerSideEncryption? serverSideEncryption,
     String? sseCustomerAlgorithm,
     String? sseCustomerKey,
     String? sseCustomerKeyMd5,
     String? ssekmsEncryptionContext,
     String? ssekmsKeyId,
-    _i10.StorageClass? storageClass,
+    _i9.StorageClass? storageClass,
     String? tagging,
     String? websiteRedirectLocation,
   }) {
@@ -83,7 +83,7 @@ abstract class CreateMultipartUploadRequest
       grantReadAcp: grantReadAcp,
       grantWriteAcp: grantWriteAcp,
       key: key,
-      metadata: metadata,
+      metadata: metadata == null ? null : _i10.BuiltMap(metadata),
       objectLockLegalHoldStatus: objectLockLegalHoldStatus,
       objectLockMode: objectLockMode,
       objectLockRetainUntilDate: objectLockRetainUntilDate,
@@ -150,11 +150,11 @@ abstract class CreateMultipartUploadRequest
           b.grantWriteAcp = request.headers['x-amz-grant-write-acp']!;
         }
         if (request.headers['x-amz-server-side-encryption'] != null) {
-          b.serverSideEncryption = _i9.ServerSideEncryption.values
+          b.serverSideEncryption = _i8.ServerSideEncryption.values
               .byValue(request.headers['x-amz-server-side-encryption']!);
         }
         if (request.headers['x-amz-storage-class'] != null) {
-          b.storageClass = _i10.StorageClass.values
+          b.storageClass = _i9.StorageClass.values
               .byValue(request.headers['x-amz-storage-class']!);
         }
         if (request.headers['x-amz-website-redirect-location'] != null) {
@@ -194,14 +194,14 @@ abstract class CreateMultipartUploadRequest
               'true';
         }
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i8.RequestPayer.values
+          b.requestPayer = _i7.RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.headers['x-amz-tagging'] != null) {
           b.tagging = request.headers['x-amz-tagging']!;
         }
         if (request.headers['x-amz-object-lock-mode'] != null) {
-          b.objectLockMode = _i7.ObjectLockMode.values
+          b.objectLockMode = _i6.ObjectLockMode.values
               .byValue(request.headers['x-amz-object-lock-mode']!);
         }
         if (request.headers['x-amz-object-lock-retain-until-date'] != null) {
@@ -211,7 +211,7 @@ abstract class CreateMultipartUploadRequest
           ).asDateTime;
         }
         if (request.headers['x-amz-object-lock-legal-hold'] != null) {
-          b.objectLockLegalHoldStatus = _i6.ObjectLockLegalHoldStatus.values
+          b.objectLockLegalHoldStatus = _i5.ObjectLockLegalHoldStatus.values
               .byValue(request.headers['x-amz-object-lock-legal-hold']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -311,22 +311,22 @@ abstract class CreateMultipartUploadRequest
   String get key;
 
   /// A map of metadata to store with the object in S3.
-  _i5.BuiltMap<String, String>? get metadata;
+  _i10.BuiltMap<String, String>? get metadata;
 
   /// Specifies whether you want to apply a legal hold to the uploaded object.
-  _i6.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus;
+  _i5.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus;
 
   /// Specifies the Object Lock mode that you want to apply to the uploaded object.
-  _i7.ObjectLockMode? get objectLockMode;
+  _i6.ObjectLockMode? get objectLockMode;
 
   /// Specifies the date and time when you want the Object Lock to expire.
   DateTime? get objectLockRetainUntilDate;
 
   /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i8.RequestPayer? get requestPayer;
+  _i7.RequestPayer? get requestPayer;
 
   /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
-  _i9.ServerSideEncryption? get serverSideEncryption;
+  _i8.ServerSideEncryption? get serverSideEncryption;
 
   /// Specifies the algorithm to use to when encrypting the object (for example, AES256).
   String? get sseCustomerAlgorithm;
@@ -344,7 +344,7 @@ abstract class CreateMultipartUploadRequest
   String? get ssekmsKeyId;
 
   /// By default, Amazon S3 uses the STANDARD Storage Class to store newly created objects. The STANDARD storage class provides high durability and high availability. Depending on performance needs, you can specify a different Storage Class. Amazon S3 on Outposts only uses the OUTPOSTS Storage Class. For more information, see [Storage Classes](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html) in the _Amazon S3 User Guide_.
-  _i10.StorageClass? get storageClass;
+  _i9.StorageClass? get storageClass;
 
   /// The tag-set for the object. The tag-set must be encoded as URL Query parameters.
   String? get tagging;

@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library rest_xml_v1.rest_xml_protocol.model.xml_union_shape; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -312,7 +312,19 @@ class XmlUnionShapeRestXmlSerializer
   const XmlUnionShapeRestXmlSerializer() : super('XmlUnionShape');
 
   @override
-  Iterable<Type> get types => const [XmlUnionShape];
+  Iterable<Type> get types => const [
+        XmlUnionShape,
+        XmlUnionShapeBooleanValue,
+        XmlUnionShapeByteValue,
+        XmlUnionShapeDoubleValue,
+        XmlUnionShapeFloatValue,
+        XmlUnionShapeIntegerValue,
+        XmlUnionShapeLongValue,
+        XmlUnionShapeShortValue,
+        XmlUnionShapeStringValue,
+        XmlUnionShapeStructValue,
+        XmlUnionShapeUnionValue,
+      ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(

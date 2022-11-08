@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.2.0. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity_provider.operation.delete_user_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -80,7 +80,7 @@ class DeleteUserOperation extends _i1.HttpOperation<_i2.DeleteUserRequest,
           credentialsProvider: _credentialsProvider,
           isOptional: true,
         ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.2.0'),
         const _i4.WithSdkInvocationId(),
         const _i4.WithSdkRequest(),
       ],
@@ -110,7 +110,7 @@ class DeleteUserOperation extends _i1.HttpOperation<_i2.DeleteUserRequest,
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i6.AWSStreamedHttpResponse response,
+    _i6.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override
@@ -206,15 +206,17 @@ class DeleteUserOperation extends _i1.HttpOperation<_i2.DeleteUserRequest,
         ),
       ];
   @override
+  String get runtimeTypeName => 'DeleteUser';
+  @override
   _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i17.Future<_i1.Unit> run(
+  _i1.SmithyOperation<_i1.Unit> run(
     _i2.DeleteUserRequest input, {
-    _i1.HttpClient? client,
+    _i6.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i17.runZoned(

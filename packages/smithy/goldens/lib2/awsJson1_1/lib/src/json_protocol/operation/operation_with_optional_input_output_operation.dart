@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 library aws_json1_1_v2.json_protocol.operation.operation_with_optional_input_output_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -53,7 +53,7 @@ class OperationWithOptionalInputOutputOperation extends _i1.HttpOperation<
           service: _i7.AWSService.iam,
           credentialsProvider: _credentialsProvider,
         ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
         const _i5.WithSdkInvocationId(),
         const _i5.WithSdkRequest(),
       ],
@@ -84,7 +84,7 @@ class OperationWithOptionalInputOutputOperation extends _i1.HttpOperation<
   @override
   _i3.OperationWithOptionalInputOutputOutput buildOutput(
     _i3.OperationWithOptionalInputOutputOutput payload,
-    _i7.AWSStreamedHttpResponse response,
+    _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.OperationWithOptionalInputOutputOutput.fromResponse(
         payload,
@@ -93,15 +93,17 @@ class OperationWithOptionalInputOutputOperation extends _i1.HttpOperation<
   @override
   List<_i1.SmithyError> get errorTypes => const [];
   @override
+  String get runtimeTypeName => 'OperationWithOptionalInputOutput';
+  @override
   _i5.AWSRetryer get retryer => _i5.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i9.Future<_i3.OperationWithOptionalInputOutputOutput> run(
+  _i1.SmithyOperation<_i3.OperationWithOptionalInputOutputOutput> run(
     _i2.OperationWithOptionalInputOutputInput input, {
-    _i1.HttpClient? client,
+    _i7.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i9.runZoned(

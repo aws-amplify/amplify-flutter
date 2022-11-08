@@ -67,25 +67,29 @@ class AWSFilePlatform extends AWSFile {
   final File? _inputFile;
   final int? _size;
 
-  /// {@macro amplify_core.io.aws_file.chunked_reader}
   @override
-  ChunkedStreamReader<int> getChunkedStreamReader() {
+  Stream<List<int>> get stream {
     final file = _inputFile;
     if (file != null) {
-      return ChunkedStreamReader(file.openRead());
+      return file.openRead();
     }
 
-    final inputStream = super.stream;
-    if (inputStream != null) {
-      return ChunkedStreamReader(inputStream);
+    final stream = super.stream;
+    if (stream != null) {
+      return stream;
     }
 
-    final inputBytes = super.bytes;
-    if (inputBytes != null) {
-      return ChunkedStreamReader(Stream.value(inputBytes));
+    final bytes = super.bytes;
+    if (bytes != null) {
+      return Stream.value(bytes);
     }
 
     throw const InvalidFileException();
+  }
+
+  @override
+  ChunkedStreamReader<int> getChunkedStreamReader() {
+    return ChunkedStreamReader(stream);
   }
 
   @override

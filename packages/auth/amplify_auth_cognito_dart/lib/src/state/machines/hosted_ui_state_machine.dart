@@ -51,7 +51,7 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
     final userPoolTokens = result.data.userPoolTokens;
     if (userPoolTokens != null &&
         userPoolTokens.signInMethod == CognitoSignInMethod.hostedUi) {
-      emit(HostedUiState.signedIn(userPoolTokens.authUser));
+      emit(HostedUiState.signedIn(result.data.authUser));
       return;
     }
 
@@ -90,9 +90,18 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
         key: _keys[HostedUiKey.options],
         value: jsonEncode(event.options),
       );
+      final provider = event.provider;
+      if (provider != null) {
+        _secureStorage.write(
+          key: _keys[HostedUiKey.provider],
+          value: jsonEncode(provider),
+        );
+      } else {
+        _secureStorage.delete(key: _keys[HostedUiKey.provider]);
+      }
       await _platform.signIn(
         options: event.options,
-        provider: event.provider,
+        provider: provider,
       );
     } on Exception catch (e) {
       dispatch(HostedUiEvent.failed(e));
@@ -156,10 +165,34 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
 
   @override
   Future<void> onSucceeded(HostedUiSucceeded event) async {
+    final provider = await _secureStorage.read(
+      key: _keys[HostedUiKey.provider],
+    );
+    final signInDetails = CognitoSignInDetails.hostedUi(
+      provider: provider == null
+          ? null
+          : AuthProvider.fromJson(
+              jsonDecode(provider) as Map<String, Object?>,
+            ),
+    );
     dispatch(
       CredentialStoreEvent.storeCredentials(
         CredentialStoreData(
           userPoolTokens: event.tokens,
+          signInDetails: signInDetails,
+        ),
+      ),
+    );
+
+    final idToken = event.tokens.idToken;
+    final userId = idToken.userId;
+    final username = CognitoIdToken(idToken).username;
+    emit(
+      HostedUiState.signedIn(
+        CognitoAuthUser(
+          userId: userId,
+          username: username,
+          signInDetails: signInDetails,
         ),
       ),
     );

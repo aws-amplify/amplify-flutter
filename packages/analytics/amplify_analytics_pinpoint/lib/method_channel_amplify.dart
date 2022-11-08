@@ -24,7 +24,10 @@ const MethodChannel _channel =
 class AmplifyAnalyticsPinpointMethodChannel extends AmplifyAnalyticsPinpoint {
   AmplifyAnalyticsPinpointMethodChannel() : super.protected();
   @override
-  Future<void> addPlugin() async {
+  Future<void> addPlugin({
+    required AmplifyAuthProviderRepository authProviderRepo,
+  }) async {
+    await super.addPlugin(authProviderRepo: authProviderRepo);
     try {
       return await _channel.invokeMethod('addPlugin');
     } on PlatformException catch (e) {

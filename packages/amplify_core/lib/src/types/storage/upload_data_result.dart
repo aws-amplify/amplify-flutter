@@ -20,9 +20,9 @@ import 'package:amplify_core/amplify_core.dart';
 class StorageUploadDataResult<Item extends StorageItem> {
   /// {@macro amplify_core.storage.upload_data_result}
   const StorageUploadDataResult({
-    required this.storageItem,
+    required this.uploadedItem,
   });
 
   /// The uploaded object of the [StorageUploadDataOperation].
-  final Item storageItem;
+  final Item uploadedItem;
 }
