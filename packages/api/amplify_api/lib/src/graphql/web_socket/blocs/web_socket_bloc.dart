@@ -29,9 +29,7 @@ part '../types/web_socket_event.dart';
 /// Internal state machine for the web socket connections.
 /// Listens for [WebSocketEvent] and maps them to appropriate business logic.
 /// {@endtemplate}
-class WebSocketBloc
-    with AWSDebuggable, AmplifyLoggerMixin
-    implements Closeable {
+class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   /// {@macro api.web_socket_bloc}
   WebSocketBloc({
     required AWSApiConfig config,
@@ -91,22 +89,6 @@ class WebSocketBloc
   ///
   ///
 
-  /// Disconnects the web socket connection and closes streams.
-  @override
-  Future<void> close() {
-    _currentState.service.close();
-    if (_currentState is ConnectedState) {
-      (_currentState as ConnectedState).timeoutTimer.cancel();
-      _emit((_currentState as ConnectedState).disconnect());
-    }
-
-    return Future.wait<void>([
-      _subscription.cancel(),
-      _wsStateController.close(),
-      _wsEventController.close(),
-    ]);
-  }
-
   /// Adds an event to the Bloc.
   void add(WebSocketEvent event) {
     _wsEventController.add(event);
@@ -116,14 +98,24 @@ class WebSocketBloc
   ///
   /// If there is an error subscribing to the request, it is added to the stream.
   Stream<GraphQLResponse<T>> subscribe<T>(SubscribeEvent<T> event) {
+    if (_currentState is PendingDisconnect) {
+      const error = ApiException(
+        'Unable to perform subscribe. Web socket connection is pending disconnect, try again later.',
+      );
+      // ignore: close_sinks
+      final controller = StreamController<GraphQLResponse<T>>.broadcast()
+        ..sink.addError(error);
+      return controller.stream;
+    }
+
     // Create a [WsSubscriptionBloc<T>] and store in state
-    final bloc = _saveRequest<T>(event);
+    final subBloc = _saveRequest<T>(event);
 
     // Add subscribe event to [WebSocketBloc]
     add(RegistrationEvent(event.request));
 
     // Return request subscription stream
-    return bloc.responseStream;
+    return subBloc.responseStream;
   }
 
   /// Emits a new state to the bloc.
@@ -136,16 +128,14 @@ class WebSocketBloc
   Stream<WebSocketState> _eventTransformer(WebSocketEvent event) async* {
     logger.verbose(event.toString());
     // [WebSocketBloc] Events
-    if (event is InitEvent) {
-      yield* _init(event);
-    } else if (event is ConnectionAckMessageEvent) {
+    if (event is ConnectionAckMessageEvent) {
       yield* _connectionAck(event);
-    } else if (event is RegistrationEvent) {
-      yield* _registration(event);
-    } else if (event is UnsubscribeEvent) {
-      yield* _unsubscribe(event);
-    } else if (event is ReconnectEvent) {
-      yield* _reconnect();
+    } else if (event is ConnectionErrorEvent) {
+      yield* _connectionError(event);
+    } else if (event is InitEvent) {
+      yield* _init(event);
+    } else if (event is KeepAliveEvent) {
+      yield* _ka();
     } else if (event is NetworkLossEvent) {
       yield* _networkLoss();
     } else if (event is NetworkFoundEvent) {
@@ -154,20 +144,24 @@ class WebSocketBloc
       yield* _pingSuccess();
     } else if (event is PingFailedEvent) {
       yield* _pingFailure();
-    } else if (event is ConnectionErrorEvent) {
-      yield* _connectionError(event);
-    } else if (event is KeepAliveEvent) {
-      yield* _ka();
+    } else if (event is ShutdownEvent) {
+      yield* _shutdown();
+    } else if (event is ReconnectEvent) {
+      yield* _reconnect();
+    } else if (event is RegistrationEvent) {
+      yield* _registration(event);
+    } else if (event is UnsubscribeEvent) {
+      yield* _unsubscribe(event);
     }
     // [WsSubscriptionBloc] Events
-    else if (event is WsStartAckEvent) {
-      _sendEventToSubBloc(event);
+    else if (event is SubscriptionComplete) {
+      yield* _complete(event);
     } else if (event is SubscriptionDataEvent) {
-      _sendEventToSubBloc(event);
+      yield* _sendEventToSubBloc(event);
     } else if (event is SubscriptionErrorEvent) {
-      _sendEventToSubBloc(event);
-    } else if (event is SubscriptionComplete) {
-      _complete(event);
+      yield* _sendEventToSubBloc(event);
+    } else if (event is WsStartAckEvent) {
+      yield* _sendEventToSubBloc(event);
     }
   }
 
@@ -177,16 +171,15 @@ class WebSocketBloc
   ///
   ///
 
-  // Init connection and add channel events to the event stream.
-  Stream<WebSocketState> _init(InitEvent event) async* {
-    assert(
-      _currentState is DisconnectedState,
-      'Bloc should be in a disconnected state before calling init.',
-    );
+  // Send to sub bloc but also clean up in this bloc
+  Stream<WebSocketState> _complete(SubscriptionComplete event) async* {
+    _sendEventToSubBloc(event);
 
-    _currentState.service.init(currentState).listen(add);
+    _currentState.subscriptionBlocs.remove(event.subscriptionId);
 
-    yield ((_currentState as DisconnectedState).connecting());
+    if (_currentState.subscriptionBlocs.isEmpty) {
+      add(const ShutdownEvent());
+    }
   }
 
   // Receives connection ack message from ws channel.
@@ -234,8 +227,43 @@ class WebSocketBloc
     );
   }
 
-  // TODO(equartey): Implement reconnection logic
-  Stream<WebSocketState> _reconnect() async* {}
+  // handle connection errors on the web socket channel
+  Stream<WebSocketState> _connectionError(
+    ConnectionErrorEvent event,
+  ) async* {
+    yield _currentState.failed();
+
+    const exception = ApiException(
+      'Error occurred while connecting to the websocket',
+    );
+
+    await _sendExceptionToBlocs(exception);
+  }
+
+  // Init connection and add channel events to the event stream.
+  Stream<WebSocketState> _init(InitEvent event) async* {
+    assert(
+      _currentState is DisconnectedState,
+      'Bloc should be in a disconnected state before calling init.',
+    );
+
+    _currentState.service.init(currentState).listen(add);
+
+    yield ((_currentState as DisconnectedState).connecting());
+  }
+
+  // Resets the timeout when a keep alive [ka] message is received
+  Stream<WebSocketState> _ka() async* {
+    assert(_currentState is ConnectedState, 'we only time out when connected.');
+    (_currentState as ConnectedState).timeoutTimer.reset();
+    logger.verbose('Reset timer');
+  }
+
+  Stream<WebSocketState> _shutdown() async* {
+    yield _currentState.shutdown();
+
+    await _close();
+  }
 
   // Sends registration message on ws channel when connected
   // else init's connection
@@ -253,6 +281,7 @@ class WebSocketBloc
       add(const InitEvent());
       return;
     }
+
     // Send Registration messages over the open connection
     assert(
       currentState.subscriptionBlocs.containsKey(event.request.id),
@@ -276,25 +305,10 @@ class WebSocketBloc
   }
 
   Stream<WebSocketState> _unsubscribe(UnsubscribeEvent event) async* {
-    await _currentState.service.unsubscribe(event.req.id);
-  }
-
-  // Resets the timeout when a keep alive [ka] message is received
-  Stream<WebSocketState> _ka() async* {
-    assert(_currentState is ConnectedState, 'we only time out when connected.');
-    (_currentState as ConnectedState).timeoutTimer.reset();
-    logger.verbose('Reset timer');
-  }
-
-  // Send to sub bloc but also clean up in this bloc
-  Stream<WebSocketState> _complete(SubscriptionComplete event) async* {
-    _sendEventToSubBloc(event);
-
-    _currentState.subscriptionBlocs.remove(event.subscriptionId);
-
-    if (_currentState.subscriptionBlocs.isEmpty) {
-      await close();
+    if (_currentState is! ConnectedState) {
+      return;
     }
+    await _currentState.service.unsubscribe(event.req.id);
   }
 
   // TODO(equartey): Implement Reconnect logic
@@ -309,24 +323,33 @@ class WebSocketBloc
   // TODO(equartey): Implement Reconnect logic
   Stream<WebSocketState> _pingFailure() async* {}
 
-  // handle connection errors on the web socket channel
-  Stream<WebSocketState> _connectionError(
-    ConnectionErrorEvent event,
-  ) async* {
-    yield _currentState.failed();
-
-    const exception = ApiException(
-      'Error occurred while connecting to the websocket',
-    );
-
-    await _sendExceptionToBlocs(exception);
-  }
+  // TODO(equartey): Implement reconnection logic
+  Stream<WebSocketState> _reconnect() async* {}
 
   /// HELPER FUNCTIONS
   ///
   ///
   ///
   ///
+
+  /// Disconnects the web socket connection and closes streams.
+  Future<void> _close() {
+    if (_currentState is! FailureState) {
+      _emit(_currentState.disconnect());
+    }
+
+    if (_currentState is ConnectedState) {
+      (_currentState as ConnectedState).timeoutTimer.cancel();
+    }
+
+    _currentState.service.close();
+
+    return Future.wait<void>([
+      _subscription.cancel(),
+      _wsEventController.close(),
+      _wsStateController.close(),
+    ]);
+  }
 
   // Returns a [WsSubscriptionBloc<T>] and stores in state
   WsSubscriptionBloc<T> _saveRequest<T>(SubscribeEvent<T> event) {
@@ -382,11 +405,11 @@ class WebSocketBloc
       bloc.close().ignore();
     }
 
-    return close();
+    add(const ShutdownEvent());
   }
 
   // Takes a WebSocketEvent and sends it to the corresponding sub bloc
-  void _sendEventToSubBloc(WsSubscriptionEvent event) {
+  Stream<WebSocketState> _sendEventToSubBloc(WsSubscriptionEvent event) async* {
     final id = event.subscriptionId;
     assert(
       _currentState.subscriptionBlocs.containsKey(id),

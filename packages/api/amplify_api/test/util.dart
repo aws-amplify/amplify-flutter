@@ -309,4 +309,15 @@ class MockWebSocketService extends AmplifyWebSocketService {
 
     return subStream;
   }
+
+  @override
+  Future<void> unsubscribe(
+    String subscriptionId,
+  ) async {
+    await super.unsubscribe(subscriptionId);
+
+    final completeMessage =
+        jsonEncode({'id': subscriptionId, 'type': 'complete'});
+    channel.sink.add(completeMessage);
+  }
 }

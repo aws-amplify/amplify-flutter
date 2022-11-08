@@ -145,11 +145,7 @@ final mockHttpClient = MockAWSHttpClient((request) async {
 
 final mockWebSocketService = MockWebSocketService();
 
-final mockWebSocketBloc = MockWebSocketBloc(
-  config: testApiKeyConfig,
-  authProviderRepo: getTestAuthProviderRepo(),
-  wsService: mockWebSocketService,
-);
+MockWebSocketBloc? mockWebSocketBloc;
 
 final mockWebSocketConnection = MockWebSocketConnection(
   testApiKeyConfig,
@@ -166,7 +162,7 @@ class MockAmplifyAPI extends AmplifyAPIDart {
 
   @override
   MockWebSocketBloc getWebSocketBloc({String? apiName}) {
-    return mockWebSocketBloc;
+    return mockWebSocketBloc!;
   }
 }
 
@@ -281,6 +277,11 @@ void main() {
 
   group('Subscriptions', () {
     setUp(() {
+      mockWebSocketBloc = MockWebSocketBloc(
+        config: testApiKeyConfig,
+        authProviderRepo: getTestAuthProviderRepo(),
+        wsService: mockWebSocketService,
+      );
       // TODO(equartey): Add reconnection logic tests
       // final fakePlatform = MockConnectivityPlatform();
       // ConnectivityPlatform.instance = fakePlatform;
@@ -292,14 +293,14 @@ void main() {
     });
 
     tearDownAll(() async {
-      await mockWebSocketBloc.close();
+      mockWebSocketBloc = null;
     });
 
     test('subscribe() should decode model data', () async {
       final subscriptionRequest = ModelSubscriptions.onCreate(Post.classType);
 
       initMockConnection(
-        mockWebSocketBloc,
+        mockWebSocketBloc!,
         mockWebSocketService,
         subscriptionRequest.id,
       );
@@ -341,7 +342,7 @@ void main() {
           GraphQLRequest<String>(document: graphQLDocument);
 
       initMockConnection(
-        mockWebSocketBloc,
+        mockWebSocketBloc!,
         mockWebSocketService,
         subscriptionRequest.id,
       );

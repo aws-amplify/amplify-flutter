@@ -177,11 +177,14 @@ class AmplifyAPIDart extends AmplifyAPI {
       apiName: apiName,
     );
 
-    return _webSocketBlocPool[endpoint.name] ??= WebSocketBloc(
+    final bloc = _webSocketBlocPool[endpoint.name] ??= WebSocketBloc(
       config: endpoint.config,
       authProviderRepo: _authProviderRepo,
       wsService: AmplifyWebSocketService(),
     );
+    bloc.stream
+        .listen(null, onDone: () => _webSocketBlocPool.remove(endpoint.name));
+    return bloc;
   }
 
   Uri _getGraphQLUri(String? apiName) {

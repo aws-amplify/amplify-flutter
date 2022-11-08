@@ -35,6 +35,12 @@ class ConnectionAckMessageEvent extends WebSocketEvent {
   final ConnectionAckMessagePayload payload;
 }
 
+/// Shut down web socket channel
+class ShutdownEvent extends WebSocketEvent {
+  /// Create a ShutdownEvent
+  const ShutdownEvent();
+}
+
 class NetworkEvent extends WebSocketEvent {
   const NetworkEvent(this.networkState);
   final NetworkState networkState;

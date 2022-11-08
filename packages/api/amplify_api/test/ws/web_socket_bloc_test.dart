@@ -77,7 +77,6 @@ void main() {
 
   group('WebSocketBloc', () {
     tearDown(() async {
-      await bloc!.close();
       bloc = null;
       service = null; // service gets closed in  bloc
     });
@@ -124,7 +123,7 @@ void main() {
     addTearDown(streamSub.cancel);
   });
 
-  test('cancel() should send a stop message', () async {
+  test('cancel() should send a stop message & close connection', () async {
     final subscribeEvent = SubscribeEvent(
       subscriptionRequest,
       () {
@@ -133,7 +132,8 @@ void main() {
     );
 
     final dataCompleter = Completer<String>();
-    final subscription = getWebSocketBloc().subscribe(
+    final bloc = getWebSocketBloc();
+    final subscription = bloc.subscribe(
       subscribeEvent,
     );
 
@@ -143,11 +143,26 @@ void main() {
 
     await dataCompleter.future;
 
-    service!.channel.stream.listen(
-      expectAsync1((event) {
-        expect(json.decode(event as String), containsPair('type', 'stop'));
-      }),
+    expect(
+      service!.channel.stream,
+      emitsInOrder(
+        [
+          isA<String>().having(
+            (event) => json.decode(event),
+            'web socket message',
+            containsPair('type', 'stop'),
+          ),
+          isA<String>().having(
+            (event) => json.decode(event),
+            'web socket message',
+            containsPair('type', 'complete'),
+          ),
+        ],
+      ),
     );
+    // bloc should disconnect due to no active subscriptions
+    expect(bloc.stream, emitsThrough(isA<DisconnectedState>()));
+
     await streamSub.cancel();
   });
 }

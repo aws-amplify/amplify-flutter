@@ -48,8 +48,28 @@ abstract class WebSocketState {
   /// Web Socket Subscription Blocs represented by
   final Map<String, WsSubscriptionBloc<Object?>> subscriptionBlocs;
 
-  /// Move state to failed
+  /// Move state to [FailureState]
   FailureState failed() => FailureState(
+        config,
+        authProviderRepo,
+        networkState,
+        intendedState,
+        service,
+        subscriptionBlocs,
+      );
+
+  /// Move state to [PendingDisconnect]
+  PendingDisconnect shutdown() => PendingDisconnect(
+        config,
+        authProviderRepo,
+        networkState,
+        intendedState,
+        service,
+        subscriptionBlocs,
+      );
+
+  /// Move state to [DisconnectedState]
+  DisconnectedState disconnect() => DisconnectedState(
         config,
         authProviderRepo,
         networkState,
@@ -99,16 +119,19 @@ class ConnectedState extends WebSocketState {
 
   /// timer used for missed ka messages
   final RestartableTimer timeoutTimer;
+}
 
-  /// Move state to [DisconnectedState]
-  DisconnectedState disconnect() => DisconnectedState(
-        config,
-        authProviderRepo,
-        networkState,
-        intendedState,
-        service,
-        subscriptionBlocs,
-      );
+/// State when web socket is not connected to AppSync
+class PendingDisconnect extends WebSocketState {
+  /// Create a [PendingDisconnect]
+  const PendingDisconnect(
+    super.config,
+    super.authProviderRepo,
+    super.networkState,
+    super.intendedState,
+    super.service,
+    super.subscriptionBlocs,
+  );
 }
 
 /// State when web socket is not connected to AppSync
