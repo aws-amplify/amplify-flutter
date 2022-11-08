@@ -9,7 +9,8 @@ environment:
 dependencies: 
   args: ^2.3.0
   async: ^2.8.0
-  aws_common: ">=0.3.0 <0.4.0"
+  aws_common:
+    path: ../aws_common
   checked_yaml: ^2.0.0
   cli_util: ^0.3.5
   collection: ^1.16.0
@@ -30,16 +31,27 @@ dependencies:
       ref: 0a48753420cbd03eb72a92d38ef06fe3164dc335
   pub_semver: ^2.1.1
   pubspec_parse: ^1.2.0
-  smithy: ">=0.3.0 <0.4.0"
-  smithy_codegen: ">=0.3.0 <0.4.0"
+  smithy:
+    path: ../smithy/smithy
+  smithy_codegen:
+    path: ../smithy/smithy_codegen
   stream_transform: ^2.0.0
   yaml: ^3.1.0
   yaml_edit: ^2.0.3
 
-# These need to match `flutter_tools`
 dependency_overrides:
+  aws_common:
+    path: ../aws_common
+  aws_signature_v4:
+    path: ../aws_signature_v4
   built_value: ">=8.4.0 <8.5.0"
   frontend_server_client: ^3.0.0
+  smithy:
+    path: ../smithy/smithy
+  smithy_aws:
+    path: ../smithy/smithy_aws
+  smithy_codegen:
+    path: ../smithy/smithy_codegen
 
 dev_dependencies:
   amplify_lints:
