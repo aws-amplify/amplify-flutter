@@ -54,10 +54,10 @@ abstract class AmplifyCommand extends Command<void> implements Closeable {
   /// The root directory of the Amplify Flutter repo.
   Future<Directory> get rootDir => _rootDirMemo.runOnce(() async {
         var dir = workingDirectory;
-        while (dir.parent != dir) {
+        while (p.absolute(dir.parent.path) != p.absolute(dir.path)) {
           final files = dir.list(followLinks: false).whereType<File>();
           await for (final file in files) {
-            if (p.basename(file.path) == 'mono_repo.yaml') {
+            if (p.basename(file.path) == 'aft.yaml') {
               return dir;
             }
           }
@@ -81,23 +81,15 @@ abstract class AmplifyCommand extends Command<void> implements Closeable {
 
         final allPackages = <PackageInfo>[];
         await for (final dir in allDirs) {
-          final pubspecInfo = dir.pubspec;
-          if (pubspecInfo == null) {
+          final package = PackageInfo.fromDirectory(dir);
+          if (package == null) {
             continue;
           }
-          final pubspec = pubspecInfo.pubspec;
+          final pubspec = package.pubspecInfo.pubspec;
           if (aftConfig.ignore.contains(pubspec.name)) {
             continue;
           }
-          allPackages.add(
-            PackageInfo(
-              name: pubspec.name,
-              path: dir.path,
-              usesMonoRepo: dir.usesMonoRepo,
-              pubspecInfo: pubspecInfo,
-              flavor: pubspec.flavor,
-            ),
-          );
+          allPackages.add(package);
         }
         return UnmodifiableMapView({
           for (final package in allPackages..sort()) package.name: package,

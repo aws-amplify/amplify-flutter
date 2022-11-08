@@ -76,10 +76,12 @@ Future<void> runFlutterPub(
   PackageInfo package, {
   Logger? logger,
 }) async {
-  // Assumes using Dart SDK from Flutter
-  Cache.flutterRoot = path.normalize(
-    path.absolute(path.dirname(path.dirname(path.dirname(getSdkPath())))),
-  );
+  final flutterRoot = getEnv('FLUTTER_ROOT');
+  Cache.flutterRoot = flutterRoot ??
+      // Assumes using Dart SDK from Flutter
+      path.normalize(
+        path.absolute(path.dirname(path.dirname(path.dirname(getSdkPath())))),
+      );
   logger?.trace('Resolved flutter root: ${Cache.flutterRoot}');
   await flutter.runInContext(
     () async {
