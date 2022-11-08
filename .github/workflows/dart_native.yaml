@@ -1,0 +1,64 @@
+# Native Test runs code on non-Linux platforms
+name: Dart (Native)
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        description: The working directory relative to the repo root
+        required: true
+        type: string
+
+jobs:
+  native_test:
+    name: Native Test
+    timeout-minutes: 60
+    strategy:
+      # Allows other matrix items to run if one fails
+      fail-fast: false
+      matrix:
+        os:
+          # macos-latest currently points to macos-11
+          # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idruns-on
+          - macos-12
+          - windows-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Cache Pub dependencies
+        uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # 3.0.11
+        with:
+          path: |
+            ~/.pub-cache/hosted
+            ~/.pub-cache/git
+          key: os:${{ matrix.os }};sdk:stable;packages:${{ inputs.working-directory }}
+          restore-keys: |
+            os:${{ matrix.os }};sdk:stable;packages:${{ inputs.working-directory }}
+            os:${{ matrix.os }};sdk:stable
+            os:${{ matrix.os }}
+
+      # Needed on Windows
+      - name: Enable Long Git Paths
+        run: git config --system core.longpaths true
+
+      - name: Git Checkout
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
+
+      - name: Git Submodules
+        run: git submodule update --init
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@196f54580e9eee2797c57e85e289339f85e6779d # main
+        with:
+          sdk: stable
+
+      - name: Setup aft
+        run: dart pub global activate -spath packages/aft
+
+      - name: Bootstrap
+        id: bootstrap
+        timeout-minutes: 15 # macOS needs extra time
+        run: aft bootstrap
+
+      - name: Run Tests
+        if: "always() && steps.bootstrap.conclusion == 'success'"
+        run: dart test --exclude-tags=build
+        working-directory: ${{ inputs.working-directory }}
