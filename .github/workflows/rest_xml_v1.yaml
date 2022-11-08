@@ -1,0 +1,48 @@
+# Generated with aft. To update, run: `aft generate workflows`
+name: rest_xml_v1
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - next
+  pull_request:
+    paths:
+      - 'packages/smithy/goldens/lib/restXml/**/*.dart'
+      - 'packages/smithy/goldens/lib/restXml/**/*.yaml'
+      - 'packages/smithy/goldens/lib/restXml/lib/**/*'
+      - 'packages/smithy/goldens/lib/restXml/test/**/*'
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  test:
+    uses: ./.github/workflows/dart_vm.yaml
+    with:
+      working-directory: packages/smithy/goldens/lib/restXml
+
+  native_test:
+    if: ${{ github.event_name == 'push' }}
+    needs: test
+    uses: ./.github/workflows/dart_native.yaml
+    with:
+      working-directory: packages/smithy/goldens/lib/restXml
+
+  ddc_test:
+    if: ${{ github.event_name == 'push' }}
+    needs: test
+    uses: ./.github/workflows/dart_ddc.yaml
+    with:
+      working-directory: packages/smithy/goldens/lib/restXml
+      test-ddc-stable: true
+
+  dart2js_test:
+    needs: test
+    uses: ./.github/workflows/dart_dart2js.yaml
+    with:
+      working-directory: packages/smithy/goldens/lib/restXml
+

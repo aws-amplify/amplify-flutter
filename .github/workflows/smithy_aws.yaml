@@ -1,0 +1,34 @@
+# Generated with aft. To update, run: `aft generate workflows`
+name: smithy_aws
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - next
+  pull_request:
+    paths:
+      - 'packages/smithy/smithy_aws/**/*.dart'
+      - 'packages/smithy/smithy_aws/**/*.yaml'
+      - 'packages/smithy/smithy_aws/lib/**/*'
+      - 'packages/smithy/smithy_aws/test/**/*'
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  test:
+    uses: ./.github/workflows/dart_vm.yaml
+    with:
+      working-directory: packages/smithy/smithy_aws
+
+  native_test:
+    if: ${{ github.event_name == 'push' }}
+    needs: test
+    uses: ./.github/workflows/dart_native.yaml
+    with:
+      working-directory: packages/smithy/smithy_aws
+

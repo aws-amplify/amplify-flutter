@@ -1,0 +1,48 @@
+# Generated with aft. To update, run: `aft generate workflows`
+name: aws_signature_v4
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - next
+  pull_request:
+    paths:
+      - 'packages/aws_signature_v4/**/*.dart'
+      - 'packages/aws_signature_v4/**/*.yaml'
+      - 'packages/aws_signature_v4/lib/**/*'
+      - 'packages/aws_signature_v4/test/**/*'
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  test:
+    uses: ./.github/workflows/dart_vm.yaml
+    with:
+      working-directory: packages/aws_signature_v4
+
+  native_test:
+    if: ${{ github.event_name == 'push' }}
+    needs: test
+    uses: ./.github/workflows/dart_native.yaml
+    with:
+      working-directory: packages/aws_signature_v4
+
+  ddc_test:
+    if: ${{ github.event_name == 'push' }}
+    needs: test
+    uses: ./.github/workflows/dart_ddc.yaml
+    with:
+      working-directory: packages/aws_signature_v4
+      test-ddc-stable: true
+
+  dart2js_test:
+    needs: test
+    uses: ./.github/workflows/dart_dart2js.yaml
+    with:
+      working-directory: packages/aws_signature_v4
+

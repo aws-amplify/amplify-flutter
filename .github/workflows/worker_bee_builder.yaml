@@ -1,0 +1,27 @@
+# Generated with aft. To update, run: `aft generate workflows`
+name: worker_bee_builder
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - next
+  pull_request:
+    paths:
+      - 'packages/worker_bee/worker_bee_builder/**/*.dart'
+      - 'packages/worker_bee/worker_bee_builder/**/*.yaml'
+      - 'packages/worker_bee/worker_bee_builder/lib/**/*'
+      - 'packages/worker_bee/worker_bee_builder/test/**/*'
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  test:
+    uses: ./.github/workflows/dart_vm.yaml
+    with:
+      working-directory: packages/worker_bee/worker_bee_builder
+
