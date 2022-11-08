@@ -240,7 +240,7 @@ class SdkConfig
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   const SdkConfig({
-    this.ref = 'main',
+    this.ref = 'master',
     required this.apis,
   });
 
@@ -249,7 +249,7 @@ class SdkConfig
 
   /// The `aws-models` ref to pull.
   ///
-  /// Defaults to `main`.
+  /// Defaults to `master`.
   final String ref;
   final Map<String, List<ShapeId>?> apis;
 
