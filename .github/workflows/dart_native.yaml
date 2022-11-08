@@ -13,6 +13,8 @@ jobs:
     name: Native Test
     timeout-minutes: 60
     strategy:
+      # Allows other matrix items to run if one fails
+      fail-fast: false
       matrix:
         os:
           # macos-latest currently points to macos-11
@@ -58,5 +60,5 @@ jobs:
 
       - name: Run Tests
         if: "always() && steps.bootstrap.conclusion == 'success'"
-        run: aft test unit
+        run: aft test unit -- --exclude-tags=build
         working-directory: ${{ inputs.working-directory }}
