@@ -800,9 +800,4 @@ class _SignUpDateFieldState extends _SignUpFormFieldState<String>
       isOptional: isOptional,
     );
   }
-
-  @override
-  Iterable<String>? get autofillHints => const [
-        AutofillHints.birthday,
-      ];
 }
