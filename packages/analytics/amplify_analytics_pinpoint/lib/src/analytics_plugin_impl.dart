@@ -24,16 +24,23 @@ import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 /// {@endtemplate}
 class AmplifyAnalyticsPinpoint extends AmplifyAnalyticsPinpointDart {
   /// {@macro amplify_analytics_pinpoint.analytics_plugin_impl}
-  AmplifyAnalyticsPinpoint()
-      : super(
-          keyValueStore: AmplifySecureStorage(
-            config: AmplifySecureStorageConfig(
-              scope: 'analyticsPinpoint',
-            ),
-          ),
-          pathProvider: FlutterPathProvider(),
-          appLifecycleProvider: FlutterAppLifecycleProvider(),
-          deviceContextInfoProvider: const FlutterDeviceContextInfoProvider(),
+  AmplifyAnalyticsPinpoint({
+    AmplifySecureStorageInterface? keyValueStore,
+    CachedEventsPathProvider? pathProvider,
+    AppLifecycleProvider? appLifecycleProvider,
+    DeviceContextInfoProvider? deviceContextInfoProvider,
+  }) : super(
+          keyValueStore: keyValueStore ??
+              AmplifySecureStorage(
+                config: AmplifySecureStorageConfig(
+                  scope: 'analyticsPinpoint',
+                ),
+              ),
+          pathProvider: pathProvider ?? FlutterPathProvider(),
+          appLifecycleProvider:
+              appLifecycleProvider ?? FlutterAppLifecycleProvider(),
+          deviceContextInfoProvider: deviceContextInfoProvider ??
+              const FlutterDeviceContextInfoProvider(),
           dbConnectFunction: db_common.connect,
         );
 }
