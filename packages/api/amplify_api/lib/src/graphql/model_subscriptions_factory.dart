@@ -29,29 +29,47 @@ class ModelSubscriptionsFactory extends ModelSubscriptionsInterface {
   static ModelSubscriptionsFactory get instance => _instance;
 
   @override
-  GraphQLRequest<T> onCreate<T extends Model>(ModelType<T> modelType) {
-    return GraphQLRequestFactory.instance.buildRequest<T>(
-        modelType: modelType,
-        variables: <String, dynamic>{},
-        requestType: GraphQLRequestType.subscription,
-        requestOperation: GraphQLRequestOperation.onCreate);
+  GraphQLRequest<M> onCreate<
+      ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>,
+      P extends PartialModel<ModelIdentifier, M>>(
+    ModelType<ModelIdentifier, M, P> modelType,
+  ) {
+    return GraphQLRequestFactory.instance.buildRequest(
+      modelType: modelType,
+      variables: <String, dynamic>{},
+      requestType: GraphQLRequestType.subscription,
+      requestOperation: GraphQLRequestOperation.onCreate,
+    );
   }
 
   @override
-  GraphQLRequest<T> onUpdate<T extends Model>(ModelType<T> modelType) {
-    return GraphQLRequestFactory.instance.buildRequest<T>(
-        modelType: modelType,
-        variables: <String, dynamic>{},
-        requestType: GraphQLRequestType.subscription,
-        requestOperation: GraphQLRequestOperation.onUpdate);
+  GraphQLRequest<M> onUpdate<
+      ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>,
+      P extends PartialModel<ModelIdentifier, M>>(
+    ModelType<ModelIdentifier, M, P> modelType,
+  ) {
+    return GraphQLRequestFactory.instance.buildRequest(
+      modelType: modelType,
+      variables: <String, dynamic>{},
+      requestType: GraphQLRequestType.subscription,
+      requestOperation: GraphQLRequestOperation.onUpdate,
+    );
   }
 
   @override
-  GraphQLRequest<T> onDelete<T extends Model>(ModelType<T> modelType) {
-    return GraphQLRequestFactory.instance.buildRequest<T>(
-        modelType: modelType,
-        variables: <String, dynamic>{},
-        requestType: GraphQLRequestType.subscription,
-        requestOperation: GraphQLRequestOperation.onDelete);
+  GraphQLRequest<M> onDelete<
+      ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>,
+      P extends PartialModel<ModelIdentifier, M>>(
+    ModelType<ModelIdentifier, M, P> modelType,
+  ) {
+    return GraphQLRequestFactory.instance.buildRequest(
+      modelType: modelType,
+      variables: <String, dynamic>{},
+      requestType: GraphQLRequestType.subscription,
+      requestOperation: GraphQLRequestOperation.onDelete,
+    );
   }
 }

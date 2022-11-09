@@ -18,9 +18,6 @@
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'utils.dart';
-
-const _nextToken = 'nextToken';
 
 class GraphQLResponseDecoder {
   // Singleton methods/properties
@@ -31,28 +28,15 @@ class GraphQLResponseDecoder {
 
   static GraphQLResponseDecoder get instance => _instance;
 
-  GraphQLResponse<T> decode<T>(
-      {required GraphQLRequest request,
-      String? data,
-      required List<GraphQLResponseError> errors}) {
+  GraphQLResponse<T> decode<T>({
+    required GraphQLRequest<T> request,
+    String? data,
+    required List<GraphQLResponseError> errors,
+  }) {
     if (data == null) {
       return GraphQLResponse(data: null, errors: errors);
     }
-    // If no modelType fallback to default (likely String).
-    final modelType = request.modelType;
-    if (modelType == null) {
-      if (T == String || T == dynamic) {
-        return GraphQLResponse(
-            data: data as T, errors: errors); // <T> is implied
-      } else {
-        throw const ApiException(
-          'Decoding of the response type provided is currently unsupported',
-          recoverySuggestion: "Please provide a Model Type or type 'String'",
-        );
-      }
-    }
     // From here, it appears this is a response that must be parsed into a non-string object.
-
     if (request.decodePath == null) {
       throw const ApiException(
         'No decodePath found',
@@ -81,41 +65,9 @@ class GraphQLResponseDecoder {
     if (dataJson == null) {
       return GraphQLResponse(data: null, errors: errors);
     }
-
-    // Found a JSON object to represent the model, parse it using model's fromJSON.
-    T decodedData;
-    final modelSchema = getModelSchemaByModelName(modelType.modelName(), null);
-    dataJson = transformAppSyncJsonToModelJson(dataJson!, modelSchema,
-        isPaginated: modelType is PaginatedModelType);
-    if (modelType is PaginatedModelType) {
-      Map<String, dynamic>? filter =
-          request.variables['filter'] as Map<String, dynamic>?;
-      int? limit = request.variables['limit'] as int?;
-
-      String? resultNextToken = dataJson![_nextToken] as String?;
-      dynamic requestForNextResult;
-      // If result has nextToken property, prepare a request for the next page of results.
-      if (resultNextToken != null) {
-        final variablesWithNextToken = <String, dynamic>{
-          ...request.variables,
-          _nextToken: resultNextToken
-        };
-        requestForNextResult = GraphQLRequest<T>(
-            document: request.document,
-            decodePath: request.decodePath,
-            variables: variablesWithNextToken,
-            modelType: request.modelType);
-      }
-      decodedData = modelType.fromJson(
-        dataJson!,
-        limit: limit,
-        filter: filter,
-        requestForNextResult:
-            requestForNextResult as GraphQLRequest<PaginatedResult<Model>>?,
-      ) as T;
-    } else {
-      decodedData = modelType.fromJson(dataJson!) as T;
-    }
-    return GraphQLResponse<T>(data: decodedData, errors: errors);
+    return GraphQLResponse<T>(
+      data: request.decode(dataJson!),
+      errors: errors,
+    );
   }
 }

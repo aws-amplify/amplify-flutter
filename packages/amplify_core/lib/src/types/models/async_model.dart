@@ -74,7 +74,7 @@ class AsyncModelCollection<
     with AWSSerializable<List<Map<String, Object?>>> {
   AsyncModelCollection.fromResult(
       PaginatedResult<ModelIdentifier, M, P, T> result)
-      : _cache = List.of(result.items),
+      : _cache = List.of(result.items.whereType()),
         _stream = null,
         _latestResult = result;
 
@@ -104,8 +104,8 @@ class AsyncModelCollection<
           .query(request: _latestResult.requestForNextResult!)
           .response;
       _latestResult = response.data ?? const PaginatedResult.empty();
-      _cache.addAll(_latestResult.items);
-      return _latestResult.items;
+      _cache.addAll(_latestResult.items.whereType());
+      return _latestResult.items.whereType<T>().toList();
     }
     return const [];
   }

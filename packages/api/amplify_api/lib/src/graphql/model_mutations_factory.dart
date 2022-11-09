@@ -13,30 +13,45 @@ class ModelMutationsFactory extends ModelMutationsInterface {
   static ModelMutationsFactory get instance => _instance;
 
   @override
-  GraphQLRequest<T> create<T extends Model>(T model) {
+  GraphQLRequest<M> create<ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>>(M model) {
     final input =
         GraphQLRequestFactory.instance.buildInputVariableForMutations(model);
     // Does not use buildVariablesForMutationRequest because creations don't have conditions.
     final variables = {'input': input};
 
-    return GraphQLRequestFactory.instance.buildRequest(
-        model: model,
-        variables: variables,
-        modelType: model.getInstanceType(),
-        requestType: GraphQLRequestType.mutation,
-        requestOperation: GraphQLRequestOperation.create);
+    return GraphQLRequestFactory.instance
+        .buildRequest<ModelIdentifier, M, PartialModel<ModelIdentifier, M>, M>(
+      model: model,
+      variables: variables,
+      modelType: model.modelType,
+      requestType: GraphQLRequestType.mutation,
+      requestOperation: GraphQLRequestOperation.create,
+    );
   }
 
   @override
-  GraphQLRequest<T> delete<T extends Model>(T model, {QueryPredicate? where}) {
-    return deleteById(model.getInstanceType() as ModelType<T>, model.getId(),
-        where: where);
+  GraphQLRequest<M> delete<ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>>(
+    M model, {
+    QueryPredicate<ModelIdentifier, M>? where,
+  }) {
+    return deleteById(
+      model.modelType,
+      model.modelIdentifier,
+      where: where,
+    );
   }
 
   @override
-  GraphQLRequest<T> deleteById<T extends Model>(
-      ModelType<T> modelType, String id,
-      {QueryPredicate? where}) {
+  GraphQLRequest<M> deleteById<
+      ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>,
+      P extends PartialModel<ModelIdentifier, M>>(
+    ModelType<ModelIdentifier, M, P> modelType,
+    ModelIdentifier id, {
+    QueryPredicate<ModelIdentifier, M>? where,
+  }) {
     final condition = GraphQLRequestFactory.instance
         .queryPredicateToGraphQLFilter(where, modelType);
     final input = {
@@ -45,17 +60,26 @@ class ModelMutationsFactory extends ModelMutationsInterface {
     final variables = GraphQLRequestFactory.instance
         .buildVariablesForMutationRequest(input: input, condition: condition);
 
-    return GraphQLRequestFactory.instance.buildRequest(
-        variables: variables,
-        modelType: modelType,
-        requestType: GraphQLRequestType.mutation,
-        requestOperation: GraphQLRequestOperation.delete);
+    return GraphQLRequestFactory.instance
+        .buildRequest<ModelIdentifier, M, P, M>(
+      variables: variables,
+      modelType: modelType,
+      requestType: GraphQLRequestType.mutation,
+      requestOperation: GraphQLRequestOperation.delete,
+    );
   }
 
   @override
-  GraphQLRequest<T> update<T extends Model>(T model, {QueryPredicate? where}) {
-    final condition = GraphQLRequestFactory.instance
-        .queryPredicateToGraphQLFilter(where, model.getInstanceType());
+  GraphQLRequest<M> update<ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>>(
+    M model, {
+    QueryPredicate<ModelIdentifier, M>? where,
+  }) {
+    final condition =
+        GraphQLRequestFactory.instance.queryPredicateToGraphQLFilter(
+      where,
+      model.modelType,
+    );
     final input =
         GraphQLRequestFactory.instance.buildInputVariableForMutations(model);
 
@@ -65,7 +89,7 @@ class ModelMutationsFactory extends ModelMutationsInterface {
     return GraphQLRequestFactory.instance.buildRequest(
         model: model,
         variables: variables,
-        modelType: model.getInstanceType(),
+        modelType: model.modelType,
         requestType: GraphQLRequestType.mutation,
         requestOperation: GraphQLRequestOperation.update);
   }

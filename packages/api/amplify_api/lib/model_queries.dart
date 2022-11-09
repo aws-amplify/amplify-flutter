@@ -26,9 +26,14 @@ class ModelQueries {
   /// ```dart
   /// final request = ModelQueries.get(Todo.classType, 'some-todo-id-123');
   /// ```
-  static GraphQLRequest<T> get<T extends Model>(
-      ModelType<T> modelType, String id) {
-    return ModelQueriesFactory.instance.get<T>(modelType, id);
+  static GraphQLRequest<M> get<
+      ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>,
+      P extends PartialModel<ModelIdentifier, M>>(
+    ModelType<ModelIdentifier, M, P> modelType,
+    ModelIdentifier id,
+  ) {
+    return ModelQueriesFactory.instance.get(modelType, id);
   }
 
   /// Generates a request for a list of model instances.
@@ -40,12 +45,18 @@ class ModelQueries {
   /// ```dart
   /// final request = ModelQueries.list(Todo.classType, where: Todo.NAME.contains('walk the dog'));
   /// ```
-  static GraphQLRequest<PaginatedResult<T>> list<T extends Model>(
-    ModelType<T> modelType, {
+  static GraphQLRequest<PaginatedResult<ModelIdentifier, M, P, M>> list<
+      ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>,
+      P extends PartialModel<ModelIdentifier, M>>(
+    ModelType<ModelIdentifier, M, P> modelType, {
     int? limit,
-    QueryPredicate? where,
+    QueryPredicate<ModelIdentifier, M>? where,
   }) {
-    return ModelQueriesFactory.instance
-        .list<T>(modelType, limit: limit, where: where);
+    return ModelQueriesFactory.instance.list(
+      modelType,
+      limit: limit,
+      where: where,
+    );
   }
 }

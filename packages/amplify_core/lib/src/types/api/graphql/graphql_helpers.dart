@@ -17,34 +17,76 @@ import 'package:amplify_core/amplify_core.dart';
 
 abstract class ModelQueriesInterface {
   // Get
-  GraphQLRequest<T> get<T extends Model>(ModelType<T> modelType, String id);
+  GraphQLRequest<M> get<
+      ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>,
+      P extends PartialModel<ModelIdentifier, M>>(
+    ModelType<ModelIdentifier, M, P> modelType,
+    ModelIdentifier id,
+  );
 
   // List
-  GraphQLRequest<PaginatedResult<T>> list<T extends Model>(
-      ModelType<T> modelType,
-      {QueryPredicate? where,
-      int? limit});
+  GraphQLRequest<PaginatedResult<ModelIdentifier, M, P, M>> list<
+      ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>,
+      P extends PartialModel<ModelIdentifier, M>>(
+    ModelType<ModelIdentifier, M, P> modelType, {
+    QueryPredicate<ModelIdentifier, M>? where,
+    int? limit,
+  });
 }
 
 abstract class ModelMutationsInterface {
   // Create
-  GraphQLRequest<T> create<T extends Model>(T model);
+  GraphQLRequest<M> create<ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>>(
+    M model,
+  );
 
   // Update
-  GraphQLRequest<T> update<T extends Model>(T model, {QueryPredicate? where});
+  GraphQLRequest<M> update<ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>>(
+    M model, {
+    QueryPredicate<ModelIdentifier, M>? where,
+  });
 
   // Delete
-  GraphQLRequest<T> delete<T extends Model>(T model, {QueryPredicate? where});
+  GraphQLRequest<M> delete<ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>>(
+    M model, {
+    QueryPredicate<ModelIdentifier, M>? where,
+  });
 
   // DeleteById
-  GraphQLRequest<T> deleteById<T extends Model>(
-      ModelType<T> modelType, String id);
+  GraphQLRequest<M> deleteById<
+      ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>,
+      P extends PartialModel<ModelIdentifier, M>>(
+    ModelType<ModelIdentifier, M, P> modelType,
+    ModelIdentifier id, {
+    QueryPredicate<ModelIdentifier, M>? where,
+  });
 }
 
 abstract class ModelSubscriptionsInterface {
-  GraphQLRequest<T> onCreate<T extends Model>(ModelType<T> modelType);
+  GraphQLRequest<M> onCreate<
+      ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>,
+      P extends PartialModel<ModelIdentifier, M>>(
+    ModelType<ModelIdentifier, M, P> modelType,
+  );
 
-  GraphQLRequest<T> onUpdate<T extends Model>(ModelType<T> modelType);
+  GraphQLRequest<M> onUpdate<
+      ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>,
+      P extends PartialModel<ModelIdentifier, M>>(
+    ModelType<ModelIdentifier, M, P> modelType,
+  );
 
-  GraphQLRequest<T> onDelete<T extends Model>(ModelType<T> modelType);
+  GraphQLRequest<M> onDelete<
+      ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>,
+      P extends PartialModel<ModelIdentifier, M>>(
+    ModelType<ModelIdentifier, M, P> modelType,
+  );
 }

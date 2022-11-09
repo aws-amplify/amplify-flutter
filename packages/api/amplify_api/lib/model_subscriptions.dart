@@ -25,8 +25,13 @@ class ModelSubscriptions {
   /// ```dart
   /// final request = ModelSubscriptions.onCreate(Todo.classType);
   /// ```
-  static GraphQLRequest<T> onCreate<T extends Model>(ModelType<T> modelType) {
-    return ModelSubscriptionsFactory.instance.onCreate<T>(modelType);
+  static GraphQLRequest<M> onCreate<
+      ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>,
+      P extends PartialModel<ModelIdentifier, M>>(
+    ModelType<ModelIdentifier, M, P> modelType,
+  ) {
+    return ModelSubscriptionsFactory.instance.onCreate(modelType);
   }
 
   /// Generates a subscription request for the update of any instance of the `modelType`.
@@ -34,8 +39,13 @@ class ModelSubscriptions {
   /// ```dart
   /// final request = ModelSubscriptions.onUpdate(Todo.classType);
   /// ```
-  static GraphQLRequest<T> onUpdate<T extends Model>(ModelType<T> modelType) {
-    return ModelSubscriptionsFactory.instance.onUpdate<T>(modelType);
+  static GraphQLRequest<M> onUpdate<
+      ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>,
+      P extends PartialModel<ModelIdentifier, M>>(
+    ModelType<ModelIdentifier, M, P> modelType,
+  ) {
+    return ModelSubscriptionsFactory.instance.onUpdate(modelType);
   }
 
   /// Generates a subscription request for the delete of any instance of the `modelType`.
@@ -43,7 +53,12 @@ class ModelSubscriptions {
   /// ```dart
   /// final request = ModelSubscriptions.onDelete(Todo.classType);
   /// ```
-  static GraphQLRequest<T> onDelete<T extends Model>(ModelType<T> modelType) {
-    return ModelSubscriptionsFactory.instance.onDelete<T>(modelType);
+  static GraphQLRequest<M> onDelete<
+      ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>,
+      P extends PartialModel<ModelIdentifier, M>>(
+    ModelType<ModelIdentifier, M, P> modelType,
+  ) {
+    return ModelSubscriptionsFactory.instance.onDelete(modelType);
   }
 }

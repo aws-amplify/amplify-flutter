@@ -28,30 +28,41 @@ class ModelQueriesFactory extends ModelQueriesInterface {
   static ModelQueriesFactory get instance => _instance;
 
   @override
-  GraphQLRequest<T> get<T extends Model>(ModelType<T> modelType, String id) {
-    Map<String, String> variables = {idFieldName: id};
-    return GraphQLRequestFactory.instance.buildRequest<T>(
-        modelType: modelType,
-        variables: variables,
-        requestType: GraphQLRequestType.query,
-        requestOperation: GraphQLRequestOperation.get);
+  GraphQLRequest<M> get<
+      ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>,
+      P extends PartialModel<ModelIdentifier, M>>(
+    ModelType<ModelIdentifier, M, P> modelType,
+    ModelIdentifier id,
+  ) {
+    Map<String, Object> variables = {idFieldName: id};
+    return GraphQLRequestFactory.instance.buildRequest(
+      modelType: modelType,
+      variables: variables,
+      requestType: GraphQLRequestType.query,
+      requestOperation: GraphQLRequestOperation.get,
+    );
   }
 
   @override
-  GraphQLRequest<PaginatedResult<T>> list<T extends Model>(
-    ModelType<T> modelType, {
+  GraphQLRequest<PaginatedResult<ModelIdentifier, M, P, M>> list<
+      ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>,
+      P extends PartialModel<ModelIdentifier, M>>(
+    ModelType<ModelIdentifier, M, P> modelType, {
     int? limit,
-    QueryPredicate? where,
+    QueryPredicate<ModelIdentifier, M>? where,
   }) {
     final filter = GraphQLRequestFactory.instance
         .queryPredicateToGraphQLFilter(where, modelType);
     final variables = GraphQLRequestFactory.instance
         .buildVariablesForListRequest(limit: limit, filter: filter);
 
-    return GraphQLRequestFactory.instance.buildRequest<PaginatedResult<T>>(
-        modelType: PaginatedModelType(modelType),
-        variables: variables,
-        requestType: GraphQLRequestType.query,
-        requestOperation: GraphQLRequestOperation.list);
+    return GraphQLRequestFactory.instance.buildListRequest(
+      modelType: modelType,
+      variables: variables,
+      requestType: GraphQLRequestType.query,
+      requestOperation: GraphQLRequestOperation.list,
+    );
   }
 }

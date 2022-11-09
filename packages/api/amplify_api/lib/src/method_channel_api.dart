@@ -210,7 +210,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     try {
       final result = await _channel.invokeMapMethod<String, dynamic>(
         methodName,
-        request.serializeAsMap(),
+        request.toJson(),
       );
       if (result == null) {
         throw const AmplifyException(
@@ -239,7 +239,7 @@ class AmplifyAPIMethodChannel extends AmplifyAPI {
     try {
       await _channel.invokeMethod<String>(
         'subscribe',
-        request.serializeAsMap(),
+        request.toJson(),
       );
       onEstablished?.call();
     } on PlatformException catch (e) {

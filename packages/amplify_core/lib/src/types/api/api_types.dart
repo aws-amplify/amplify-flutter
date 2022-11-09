@@ -32,5 +32,4 @@ export 'rest/rest_operation.dart';
 export 'rest/rest_options.dart';
 export 'rest/rest_response.dart';
 
-export 'types/pagination/paginated_model_type.dart';
 export 'types/pagination/paginated_result.dart';

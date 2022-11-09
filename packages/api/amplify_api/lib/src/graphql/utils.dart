@@ -28,7 +28,7 @@ class _RelatedFields {
   _RelatedFields(this.singleFields, this.hasManyFields);
 }
 
-_RelatedFields _getRelatedFieldsUncached(ModelTypeDefinition modelSchema) {
+_RelatedFields _getRelatedFieldsUncached(SchemaTypeDefinition modelSchema) {
   final singleFields = modelSchema.fields.values.where((field) =>
       field.association?.associationType == ModelAssociationType.hasOne ||
       field.association?.associationType == ModelAssociationType.belongsTo ||
@@ -41,9 +41,9 @@ _RelatedFields _getRelatedFieldsUncached(ModelTypeDefinition modelSchema) {
   return _RelatedFields(singleFields, hasManyFields);
 }
 
-final _fieldsMemo = <ModelTypeDefinition, _RelatedFields>{};
+final _fieldsMemo = <SchemaTypeDefinition, _RelatedFields>{};
 // cached to avoid repeat iterations over fields in schema to get related fields
-_RelatedFields _getRelatedFields(ModelTypeDefinition modelSchema) {
+_RelatedFields _getRelatedFields(SchemaTypeDefinition modelSchema) {
   if (_fieldsMemo[modelSchema] != null) {
     return _fieldsMemo[modelSchema]!;
   }
@@ -52,13 +52,13 @@ _RelatedFields _getRelatedFields(ModelTypeDefinition modelSchema) {
   return _fieldsMemo[modelSchema]!;
 }
 
-ModelField? getBelongsToFieldFromModelSchema(ModelTypeDefinition modelSchema) {
+ModelField? getBelongsToFieldFromModelSchema(SchemaTypeDefinition modelSchema) {
   return _getRelatedFields(modelSchema).singleFields.firstWhereOrNull((entry) =>
       entry.association?.associationType == ModelAssociationType.belongsTo);
 }
 
 /// Gets the modelSchema from provider that matches the name and validates its fields.
-ModelTypeDefinition getModelSchemaByModelName(
+SchemaTypeDefinition getModelSchemaByModelName(
     String modelName, GraphQLRequestOperation? operation) {
   // ignore: invalid_use_of_protected_member
   final provider = Amplify.API.defaultPlugin.modelProvider;
@@ -69,28 +69,21 @@ ModelTypeDefinition getModelSchemaByModelName(
           'Pass in a modelProvider instance while instantiating APIPlugin',
     );
   }
-  final schema = (provider.modelSchemas + provider.customTypeSchemas)
-      .firstWhere((elem) => elem.name == modelName,
-          orElse: () => throw ApiException(
-                'No schema found for the ModelType provided: $modelName',
-                recoverySuggestion:
-                    'Pass in a valid modelProvider instance while '
-                    'instantiating APIPlugin or provide a valid ModelType',
-              ));
+  final schema = <SchemaTypeDefinition>[
+    ...provider.modelSchemas,
+    ...provider.customTypeSchemas,
+  ].firstWhere((elem) => elem.name == modelName,
+      orElse: () => throw ApiException(
+            'No schema found for the ModelType provided: $modelName',
+            recoverySuggestion: 'Pass in a valid modelProvider instance while '
+                'instantiating APIPlugin or provide a valid ModelType',
+          ));
 
   if (schema.fields.isEmpty) {
     throw const ApiException(
       'Schema found does not have a fields property',
       recoverySuggestion: 'Pass in a valid modelProvider instance while '
           'instantiating APIPlugin',
-    );
-  }
-
-  if (operation == GraphQLRequestOperation.list && schema.pluralName == null) {
-    throw const ApiException(
-      'No schema name found',
-      recoverySuggestion: 'Pass in a valid modelProvider instance while '
-          'instantiating APIPlugin or provide a valid ModelType',
     );
   }
 
@@ -101,16 +94,19 @@ ModelTypeDefinition getModelSchemaByModelName(
 /// 1) Look for a parent in the schema. If that parent exists in the JSON, transform it.
 /// 2) Look for list of children under [fieldName]["items"] and hoist up so no more ["items"].
 Map<String, dynamic> transformAppSyncJsonToModelJson(
-    Map<String, dynamic> input, ModelTypeDefinition modelSchema,
-    {bool isPaginated = false}) {
+  Map<String, dynamic> input,
+  SchemaTypeDefinition modelSchema,
+) {
   input = <String, dynamic>{...input}; // avoid mutating original
 
   // check for list at top-level and tranform each entry
-  if (isPaginated && input[items] is List) {
+  if (input[items] is List) {
     final transformedItems = (input[items] as List)
         .map((dynamic e) => e != null
             ? transformAppSyncJsonToModelJson(
-                e as Map<String, dynamic>, modelSchema)
+                e as Map<String, dynamic>,
+                modelSchema,
+              )
             : null)
         .toList();
     input.update(items, (dynamic value) => transformedItems);

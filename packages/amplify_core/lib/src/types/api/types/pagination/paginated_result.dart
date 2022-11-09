@@ -15,7 +15,26 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-class PaginatedResult<T extends Model> extends Model {
+class PaginatedResult<
+    ModelIdentifier extends Object,
+    M extends Model<ModelIdentifier, M>,
+    P extends PartialModel<ModelIdentifier, M>,
+    T extends PartialModel<ModelIdentifier, M>> {
+  const PaginatedResult({
+    required this.items,
+    this.requestForNextResult,
+    this.limit,
+    this.nextToken,
+    this.filter,
+  });
+
+  const PaginatedResult.empty()
+      : items = const [],
+        requestForNextResult = null,
+        limit = null,
+        nextToken = null,
+        filter = null;
+
   /// Model instances for this set of results.
   ///
   /// An entry might be null if there are server-side errors inserting an instance
@@ -24,37 +43,19 @@ class PaginatedResult<T extends Model> extends Model {
   /// along with an index.
   final List<T?> items;
   final int? limit;
+  final Map<String, Object?>? filter;
   final String? nextToken;
-  final Map<String, dynamic>? filter;
-  final ModelType<T> modelType;
 
   /// If there is more data than is contained in this response, returns the
   /// request for the next chunk of data, where `limit` will be the same as the
-  /// original request. Returns `null` if no more data.
-  final GraphQLRequest<PaginatedResult<T>>? requestForNextResult;
-
-  const PaginatedResult(this.items, this.limit, this.nextToken, this.filter,
-      this.modelType, this.requestForNextResult);
-
-  @override
-  String getId() {
-    return '';
-  }
+  /// original request.
+  final GraphQLRequest<PaginatedResult<ModelIdentifier, M, P, T>>?
+      requestForNextResult;
 
   /// Returns `true` if there is more data to fetch beyond the data
   /// contained in this response. If `true`, the request for the next page of
-  /// data can be obtained with `.requestForNextResult`.
+  /// data can be obtained via [requestForNextResult].
   bool get hasNextResult {
     return requestForNextResult != null;
-  }
-
-  @override
-  PaginatedModelType<T> getInstanceType() {
-    return PaginatedModelType(modelType);
-  }
-
-  @override
-  Map<String, Object?> toJson() {
-    return {'items': items, 'nextToken': nextToken};
   }
 }
