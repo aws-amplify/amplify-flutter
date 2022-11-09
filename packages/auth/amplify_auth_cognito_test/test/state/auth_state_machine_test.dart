@@ -60,33 +60,7 @@ void main() {
         emitsInOrder(<Matcher>[
           isA<AuthNotConfigured>(),
           isA<AuthConfiguring>(),
-          isA<AuthFailure>(),
-        ]),
-      );
-
-      await stateMachine.close();
-    });
-
-    test('retry configure succeeds', () async {
-      final authStateMachine = stateMachine.getOrCreate(AuthStateMachine.type);
-
-      stateMachine.dispatch(const AuthEvent.configure(badConfig));
-      await expectLater(
-        authStateMachine.stream.startWith(authStateMachine.currentState),
-        emitsInOrder(<Matcher>[
-          isA<AuthNotConfigured>(),
-          isA<AuthConfiguring>(),
-          isA<AuthFailure>(),
-        ]),
-      );
-
-      stateMachine.dispatch(AuthEvent.configure(mockConfig));
-      await expectLater(
-        authStateMachine.stream.startWith(authStateMachine.currentState),
-        emitsInOrder(<Matcher>[
-          isA<AuthFailure>(),
-          isA<AuthConfiguring>(),
-          isA<AuthConfigured>(),
+          emitsError(isA<ConfigurationError>()),
         ]),
       );
 
