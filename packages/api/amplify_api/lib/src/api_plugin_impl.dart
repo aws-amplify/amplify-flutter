@@ -22,7 +22,7 @@ import 'package:amplify_api/src/graphql/providers/app_sync_api_key_auth_provider
 import 'package:amplify_api/src/graphql/providers/oidc_function_api_auth_provider.dart';
 import 'package:amplify_api/src/graphql/web_socket/blocs/web_socket_bloc.dart';
 import 'package:amplify_api/src/graphql/web_socket/services/web_socket_service.dart';
-import 'package:amplify_api/src/graphql/web_socket/web_socket_connection.dart';
+import 'package:amplify_api/src/graphql/web_socket/state/web_socket_state.dart';
 import 'package:amplify_api/src/native_api_plugin.dart';
 import 'package:amplify_api/src/util/amplify_api_config.dart';
 import 'package:amplify_api/src/util/amplify_authorization_rest_client.dart';
@@ -182,8 +182,11 @@ class AmplifyAPIDart extends AmplifyAPI {
       authProviderRepo: _authProviderRepo,
       wsService: AmplifyWebSocketService(),
     );
-    bloc.stream
-        .listen(null, onDone: () => _webSocketBlocPool.remove(endpoint.name));
+    bloc.stream.listen((event) {
+      if (event is PendingDisconnect) {
+        _webSocketBlocPool.remove(endpoint.name);
+      }
+    });
     return bloc;
   }
 

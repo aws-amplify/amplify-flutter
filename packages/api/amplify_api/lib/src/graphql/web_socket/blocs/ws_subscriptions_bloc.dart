@@ -46,7 +46,7 @@ class WsSubscriptionBloc<T>
 
   /// State controller.
   final StreamController<WsSubscriptionState<T>> _wsStateController =
-      StreamController<WsSubscriptionState<T>>.broadcast();
+      StreamController<WsSubscriptionState<T>>.broadcast(sync: true);
 
   /// Assigns state to the wsStateController.
   StreamSink<WsSubscriptionState<T>> get _controllerSink =>

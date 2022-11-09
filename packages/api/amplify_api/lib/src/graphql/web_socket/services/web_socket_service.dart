@@ -53,7 +53,7 @@ abstract class WebSocketService implements Closeable {
   Future<void> reconnect();
 }
 
-/// {@template api.web_socket_service}
+/// {@template amplify_api.web_socket_service}
 /// Internal stateless [WebSocketService] implementation.
 /// {@endtemplate}
 class AmplifyWebSocketService

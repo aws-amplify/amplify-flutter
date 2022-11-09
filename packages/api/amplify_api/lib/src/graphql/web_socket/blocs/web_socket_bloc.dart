@@ -61,7 +61,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   String get runtimeTypeName => 'WebSocketBloc';
 
   final StreamController<WebSocketState> _wsStateController =
-      StreamController<WebSocketState>.broadcast();
+      StreamController<WebSocketState>.broadcast(sync: true);
 
   /// The stream of bloc state changes.
   ///
@@ -98,15 +98,10 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   ///
   /// If there is an error subscribing to the request, it is added to the stream.
   Stream<GraphQLResponse<T>> subscribe<T>(SubscribeEvent<T> event) {
-    if (_currentState is PendingDisconnect) {
-      const error = ApiException(
-        'Unable to perform subscribe. Web socket connection is pending disconnect, try again later.',
-      );
-      // ignore: close_sinks
-      final controller = StreamController<GraphQLResponse<T>>.broadcast()
-        ..sink.addError(error);
-      return controller.stream;
-    }
+    assert(
+      _currentState is! PendingDisconnect,
+      'This bloc is closing, subscribe() should have been called on a new bloc.',
+    );
 
     // Create a [WsSubscriptionBloc<T>] and store in state
     final subBloc = _saveRequest<T>(event);
@@ -353,7 +348,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   // Returns a [WsSubscriptionBloc<T>] and stores in state
   WsSubscriptionBloc<T> _saveRequest<T>(SubscribeEvent<T> event) {
-    logger.verbose('Subscription event for: ${event.request.id}');
+    logger.debug('Subscription event for: ${event.request.id}');
     // Prevent duplicate errors
     if (_currentState.subscriptionBlocs.containsKey(event.request.id)) {
       return _currentState.subscriptionBlocs[event.request.id]
