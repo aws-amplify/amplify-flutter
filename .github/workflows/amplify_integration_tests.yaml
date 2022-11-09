@@ -1,7 +1,7 @@
 name: Amplify Integration Tests
 on:
   push:
-    branches: [main, next, stable, feat/*]
+    branches: [main, next, stable, feat/**]
   schedule:
     # 6am pacific time daily, only runs on default branch
     - cron:  '0 13 * * *'
