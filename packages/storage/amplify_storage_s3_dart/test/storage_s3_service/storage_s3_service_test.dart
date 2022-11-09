@@ -550,7 +550,7 @@ void main() {
 
             expect(capturedParams[2] is S3ServiceConfiguration, isTrue);
             final configParam = capturedParams[2] as S3ServiceConfiguration;
-            expect(configParam.signPayload, true);
+            expect(configParam.signBody, true);
             expect(configParam.chunked, false);
 
             expect(capturedParams.last, testExpiresIn);
