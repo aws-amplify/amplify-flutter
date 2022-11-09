@@ -23,7 +23,7 @@ import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as lambda_nodejs from "aws-cdk-lib/aws-lambda-nodejs";
 import { CfnOutput, Fn, RemovalPolicy } from "aws-cdk-lib";
 
-enum StorageAccessLevel {
+export enum StorageAccessLevel {
   public,
   protected,
   private,
@@ -58,6 +58,8 @@ interface StorageIntegrationTestEnvironmentProps {
     accessLevel: StorageAccessLevel,
     identityId: string
   ) => string;
+
+  prefixOverrides?: Record<StorageAccessLevel, String>;
 }
 
 export class StorageIntegrationTestStack extends cdk.Stack {
@@ -184,6 +186,7 @@ class StorageIntgrationTestEnvironment extends cdk.NestedStack {
         ? props.prefixResolver(StorageAccessLevel.private, identityId)
         : `private/${identityId}/`,
     };
+    const prefixOverrides = props.prefixOverrides;
     const buildPolicyDocument = (accessLevel: StorageAccessLevel) => {
       let permissions = [
         StoragePermission.get,
@@ -211,16 +214,24 @@ class StorageIntgrationTestEnvironment extends cdk.NestedStack {
             actions: ["s3:ListBucket"],
             conditions: {
               StringLike: {
-                "s3:prefix": Array.from(new Set(
-                  [
-                    `${prefixes[StorageAccessLevel.public]}`,
-                    `${prefixes[StorageAccessLevel.public]}*`,
-                    `${prefixes[StorageAccessLevel.protected]}`,
-                    `${prefixes[StorageAccessLevel.protected]}*`,
-                    "protected/",
-                    "protected/*",
-                  ].filter((val) => val !== "")
-                )),
+                "s3:prefix": Array.from(
+                  new Set(
+                    [
+                      `${prefixes[StorageAccessLevel.public]}`,
+                      `${prefixes[StorageAccessLevel.public]}*`,
+                      `${prefixes[StorageAccessLevel.protected]}`,
+                      `${prefixes[StorageAccessLevel.protected]}*`,
+                      `${
+                        prefixOverrides?.[StorageAccessLevel.protected] ??
+                        "protected"
+                      }/`,
+                      `${
+                        prefixOverrides?.[StorageAccessLevel.protected] ??
+                        "protected"
+                      }/*`,
+                    ].filter((val) => val !== "")
+                  )
+                ),
               },
             },
             resources: [bucket.bucketArn],
@@ -253,7 +264,11 @@ class StorageIntgrationTestEnvironment extends cdk.NestedStack {
         statements: [
           new iam.PolicyStatement({
             actions: ["s3:GetObject"],
-            resources: [`${bucket.bucketArn}/protected/*`],
+            resources: [
+              `${bucket.bucketArn}/${
+                prefixOverrides?.[StorageAccessLevel.protected] ?? "protected"
+              }/*`,
+            ],
           }),
           new iam.PolicyStatement({
             actions: ["s3:ListBucket"],

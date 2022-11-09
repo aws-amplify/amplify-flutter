@@ -36,13 +36,17 @@ dev_dependencies:
     path: ../../../amplify_lints
   amplify_test:
     path: ../../../amplify_test
+  drift: any
   flutter_driver:
     sdk: flutter
   flutter_test:
     sdk: flutter
+  http: ^0.13.0
   integration_test:
     sdk: flutter
+  path: any
   test: any
+  stack_trace: any
 
 flutter:
   uses-material-design: true
