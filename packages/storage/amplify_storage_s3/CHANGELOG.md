@@ -1,3 +1,5 @@
+## 0.6.10 (2022-11-09)
+
 ## 0.6.9 (2022-10-12)
 
 - feat(storage) : Support custom prefix (#2071)

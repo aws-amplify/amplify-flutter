@@ -1,3 +1,8 @@
+## 0.2.4 (2022-11-09)
+
+- fix(authenticator): remove unnecessary assertion in PendingVerificationCheckState constructor ([#2324](https://github.com/aws-amplify/amplify-flutter/pull/2324))
+- fix(authenticator): Username form validation Cognito requirements ([#2296](https://github.com/aws-amplify/amplify-flutter/pull/2296))
+
 ## 0.2.3 (2022-09-19)
 
 - feat(authenticator): listen to all auth hub events (#2053)
