@@ -14,6 +14,7 @@
  */
 
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:amplify_datastore/amplify_datastore.dart';
@@ -162,7 +163,17 @@ void main() {
           .map((value) =>
               ModelWithAppsyncScalarTypes(awsTimeValue: TemporalTime(value)))
           .toList();
-      testModelOperations(models: models);
+      testModelOperations(
+        models: models,
+        skips: {
+          // Skip bc AWSTime issue on Android https://github.com/aws-amplify/amplify-flutter/issues/2214
+          // TODO(ragingsquirrel3): remove skip when issue fixed or implementation ported to Dart.
+          DataStoreOperation.save: Platform.isAndroid,
+          DataStoreOperation.query: Platform.isAndroid,
+          DataStoreOperation.delete: Platform.isAndroid,
+          DataStoreOperation.observe: Platform.isAndroid,
+        },
+      );
     });
 
     group('List<AWSTime>', () {

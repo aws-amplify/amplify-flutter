@@ -10,6 +10,7 @@ fi
 DEFAULT_DEVICE_ID="iPhone"
 DEFAULT_ENABLE_CLOUD_SYNC="true"
 DEFAULT_RETRIES=0
+DEFAULT_SMALL="false"
 
 while [ $# -gt 0 ]; do
     case "$1" in
@@ -26,6 +27,9 @@ while [ $# -gt 0 ]; do
                     exit 1
             esac
             ;;
+        --retries)
+            retries="$2"
+            ;;
         *)
             echo "Invalid arguments"
             exit 1
@@ -37,6 +41,7 @@ done
 deviceId=${deviceId:-$DEFAULT_DEVICE_ID}
 enableCloudSync=${enableCloudSync:-$DEFAULT_ENABLE_CLOUD_SYNC}
 retries=${retries:-$DEFAULT_RETRIES}
+small=${small:-$DEFAULT_SMALL}
 
 declare -a testsList
 declare -a resultsList
@@ -47,7 +52,9 @@ if [ ! -e $TARGET ]; then
     exit
 fi
 
-
+if [ -n $CI ]; then
+    flutter pub get
+fi
 
 # Use xcodebuild if 'RunnerTests' scheme exists, else `flutter test`
 if xcodebuild -workspace ios/Runner.xcworkspace -list -json | jq -e '.workspace.schemes | index("RunnerTests")' >/dev/null; then
@@ -86,6 +93,12 @@ else
 fi
 
 TEST_ENTRIES="integration_test/separate_integration_tests/*.dart"
+# For small option (summarized) just test basic cloud operation.
+if [ $small == "true" ]
+then
+  TEST_ENTRIES="integration_test/separate_integration_tests/basic_model_operation_test.dart"
+fi
+
 for ENTRY in $TEST_ENTRIES; do
     if [ ! -f "${ENTRY}" ]; then
         continue
