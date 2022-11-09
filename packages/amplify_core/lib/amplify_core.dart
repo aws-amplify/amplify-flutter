@@ -26,6 +26,7 @@ export 'src/amplify_class.dart';
 /// Categories
 export 'src/category/amplify_auth_category.dart';
 export 'src/category/amplify_categories.dart';
+export 'src/category/amplify_datastore_category.dart';
 
 // Config
 export 'src/config/amplify_config.dart';

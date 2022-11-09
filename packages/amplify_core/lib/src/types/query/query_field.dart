@@ -29,17 +29,18 @@ part 'query_utils.dart';
 ///
 /// Contains methods for filtering and sorting query results.
 /// {@endtemplate}
-class QueryField<T> {
+class QueryField<ModelIdentifier extends Object,
+    M extends Model<ModelIdentifier, M>, T extends Object?> {
   /// {@macro amplify_core.query_field}
-  const QueryField({required this.fieldName, this.fieldType});
+  const QueryField({
+    required this.fieldName,
+  });
 
   /// The name of the field to be queried on.
   final String fieldName;
 
-  /// Contains information about the model that this field represents.
-  ///
-  /// Will be null if this field is not a model.
-  final ModelFieldType? fieldType;
+  /// Gets the value of this field for [model].
+  T forModel(M model) => model.valueFor(this);
 
   /// An **equal to** operation.
   ///
@@ -54,7 +55,7 @@ class QueryField<T> {
   ///  where: Post.RATING.eq(10),
   /// );
   /// ```
-  QueryPredicateOperation eq(T value) =>
+  QueryPredicateOperation<ModelIdentifier, M> eq(T value) =>
       QueryPredicateOperation(fieldName, EqualQueryOperator<T>(value));
 
   /// A **not equal to** operation.
@@ -70,7 +71,7 @@ class QueryField<T> {
   ///  where: Post.RATING.ne(10),
   /// );
   /// ```
-  QueryPredicateOperation ne(T value) =>
+  QueryPredicateOperation<ModelIdentifier, M> ne(T value) =>
       QueryPredicateOperation(fieldName, NotEqualQueryOperator<T>(value));
 
   /// {@template amplify_core.query_field.le}
@@ -98,11 +99,17 @@ class QueryField<T> {
   /// );
   /// ```
   /// {@endtemplate}
-  QueryPredicateOperation le(Comparable<T> value) => QueryPredicateOperation(
-      fieldName, LessOrEqualQueryOperator<Comparable<T>>(value));
+  QueryPredicateOperation<ModelIdentifier, M> le(Comparable<T> value) =>
+      QueryPredicateOperation(
+        fieldName,
+        LessOrEqualQueryOperator<Comparable<T>>(value),
+      );
 
   /// {@macro amplify_core.query_field.le}
-  QueryPredicateOperation operator <=(Comparable<T> value) => le(value);
+  QueryPredicateOperation<ModelIdentifier, M> operator <=(
+    Comparable<T> value,
+  ) =>
+      le(value);
 
   /// {@template amplify_core.query_field.lt}
   /// A **less than** operation.
@@ -128,11 +135,13 @@ class QueryField<T> {
   /// );
   /// ```
   /// {@endtemplate}
-  QueryPredicateOperation lt(Comparable<T> value) => QueryPredicateOperation(
-      fieldName, LessThanQueryOperator<Comparable<T>>(value));
+  QueryPredicateOperation<ModelIdentifier, M> lt(Comparable<T> value) =>
+      QueryPredicateOperation(
+          fieldName, LessThanQueryOperator<Comparable<T>>(value));
 
   /// {@macro amplify_core.query_field.lt}
-  QueryPredicateOperation operator <(Comparable<T> value) => lt(value);
+  QueryPredicateOperation<ModelIdentifier, M> operator <(Comparable<T> value) =>
+      lt(value);
 
   /// {@template amplify_core.query_field.ge}
   /// A **greater than or equal to** operation.
@@ -159,11 +168,14 @@ class QueryField<T> {
   /// );
   /// ```
   /// {@endtemplate}
-  QueryPredicateOperation ge(Comparable<T> value) => QueryPredicateOperation(
-      fieldName, GreaterOrEqualQueryOperator<Comparable<T>>(value));
+  QueryPredicateOperation<ModelIdentifier, M> ge(Comparable<T> value) =>
+      QueryPredicateOperation(
+          fieldName, GreaterOrEqualQueryOperator<Comparable<T>>(value));
 
   /// {@macro amplify_core.query_field.ge}
-  QueryPredicateOperation operator >=(Comparable<T> value) => ge(value);
+  QueryPredicateOperation<ModelIdentifier, M> operator >=(
+          Comparable<T> value) =>
+      ge(value);
 
   /// {@template amplify_core.query_field.gt}
   /// A **greater than** operation.
@@ -189,11 +201,13 @@ class QueryField<T> {
   /// );
   /// ```
   /// {@endtemplate}
-  QueryPredicateOperation gt(Comparable<T> value) => QueryPredicateOperation(
-      fieldName, GreaterThanQueryOperator<Comparable<T>>(value));
+  QueryPredicateOperation<ModelIdentifier, M> gt(Comparable<T> value) =>
+      QueryPredicateOperation(
+          fieldName, GreaterThanQueryOperator<Comparable<T>>(value));
 
   /// {@macro amplify_core.query_field.gt}
-  QueryPredicateOperation operator >(Comparable<T> value) => gt(value);
+  QueryPredicateOperation<ModelIdentifier, M> operator >(Comparable<T> value) =>
+      gt(value);
 
   /// A **contains** operation.
   ///
@@ -220,7 +234,8 @@ class QueryField<T> {
   ///   where: Blog.CATEGORIES.contains('bar'),
   /// );
   /// ```
-  QueryPredicateOperation contains(String value) => QueryPredicateOperation(
+  QueryPredicateOperation<ModelIdentifier, M> contains(String value) =>
+      QueryPredicateOperation(
         fieldName,
         ContainsQueryOperator(value),
       );
@@ -238,7 +253,8 @@ class QueryField<T> {
   ///  where: Post.RATING.between(5, 10),
   /// );
   /// ```
-  QueryPredicateOperation between(Comparable<T> start, Comparable<T> end) =>
+  QueryPredicateOperation<ModelIdentifier, M> between(
+          Comparable<T> start, Comparable<T> end) =>
       QueryPredicateOperation(
           fieldName, BetweenQueryOperator<Comparable<T>>(start, end));
 
@@ -255,7 +271,7 @@ class QueryField<T> {
   ///  where: Post.TITLE.beginsWith("foo"),
   /// );
   /// ```
-  QueryPredicateOperation beginsWith(String value) =>
+  QueryPredicateOperation<ModelIdentifier, M> beginsWith(String value) =>
       QueryPredicateOperation(fieldName, BeginsWithQueryOperator(value));
 
   /// Sorts models by the given field in ascending order

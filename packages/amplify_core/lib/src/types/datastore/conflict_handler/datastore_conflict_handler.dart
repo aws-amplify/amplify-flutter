@@ -15,30 +15,35 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
-typedef DataStoreConflictHandler = ConflictResolutionDecision Function(
-    ConflictData);
-
 @immutable
-class ConflictData {
-  final Model local;
-  final Model remote;
+class ConflictData<
+    ModelIdentifier extends Object,
+    M extends Model<ModelIdentifier, M>,
+    P extends PartialModel<ModelIdentifier, M>> {
+  final M local;
+  final M remote;
 
   const ConflictData(this.local, this.remote);
 
-  ConflictData.fromJson(ModelType modelType, Map<String, dynamic> localJson,
-      Map<String, dynamic> remoteJson)
-      : local = modelType.fromJson(
-            (localJson['serializedData'] as Map).cast<String, dynamic>()),
-        remote = modelType.fromJson(
-            (remoteJson['serializedData'] as Map).cast<String, dynamic>());
+  ConflictData.fromJson(
+    ModelType<ModelIdentifier, M, P> modelType,
+    Map<String, Object?> localJson,
+    Map<String, Object?> remoteJson,
+  )   : local = modelType.fromJson<M>(
+          (localJson['serializedData'] as Map).cast<String, dynamic>(),
+        ),
+        remote = modelType.fromJson<M>(
+          (remoteJson['serializedData'] as Map).cast<String, dynamic>(),
+        );
 }
 
 enum ResolutionStrategy { applyRemote, retryLocal, retry }
 
 @immutable
-class ConflictResolutionDecision {
+class ConflictResolutionDecision<ModelIdentifier extends Object,
+    M extends Model<ModelIdentifier, M>> {
   final ResolutionStrategy _resolutionStrategy;
-  final Model? customModel;
+  final M? customModel;
 
   const ConflictResolutionDecision(this._resolutionStrategy, this.customModel);
 
@@ -50,7 +55,7 @@ class ConflictResolutionDecision {
       : _resolutionStrategy = ResolutionStrategy.retryLocal,
         customModel = null;
 
-  const ConflictResolutionDecision.retry(Model this.customModel)
+  const ConflictResolutionDecision.retry(M this.customModel)
       : _resolutionStrategy = ResolutionStrategy.retry;
 
   @override

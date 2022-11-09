@@ -61,18 +61,7 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
       } else if (plugin is StoragePluginInterface) {
         await Storage.addPlugin(plugin);
       } else if (plugin is DataStorePluginInterface) {
-        try {
-          await DataStore.addPlugin(plugin);
-        } on AmplifyAlreadyConfiguredException {
-          // A new plugin is added in native libraries during `addPlugin`
-          // call for DataStore, which means during an app restart, this
-          // method will throw an exception in android. We will ignore this
-          // like other plugins and move on. Other exceptions fall through.
-        }
-        Hub.addChannel(
-          HubChannel.DataStore,
-          plugin.streamController.stream,
-        );
+        await DataStore.addPlugin(plugin);
       } else if (plugin is APIPluginInterface) {
         await API.addPlugin(plugin);
       } else {

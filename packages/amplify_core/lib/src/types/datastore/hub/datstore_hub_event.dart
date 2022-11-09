@@ -16,7 +16,7 @@
 import 'package:amplify_core/amplify_core.dart';
 
 class DataStoreHubEvent extends HubEvent<DataStoreHubEventPayload> {
-  DataStoreHubEvent(
+  const DataStoreHubEvent(
     super.eventName, {
     super.payload,
   });

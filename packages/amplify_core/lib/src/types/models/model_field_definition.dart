@@ -155,10 +155,8 @@ class ModelFieldDefinition {
       String? targetName}) {
     // Extra code needed due to lack of nullability support
     String? associatedName;
-    String? associatedType;
 
     associatedName = associatedKey?.fieldName;
-    associatedType = associatedKey?.fieldType?.ofModelName ?? ofModelName;
 
     return field(
         key: key,
@@ -169,7 +167,7 @@ class ModelFieldDefinition {
             associationType: ModelAssociationType.belongsTo,
             targetNames: targetName == null ? null : [targetName],
             associatedName: associatedName,
-            associatedType: associatedType));
+            associatedType: ofModelName));
   }
 
   ModelField build() {

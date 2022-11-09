@@ -24,7 +24,6 @@ import 'package:meta/meta.dart';
 /// category parts
 part 'amplify_analytics_category.dart';
 part 'amplify_api_category.dart';
-part 'amplify_datastore_category.dart';
 part 'amplify_storage_category.dart';
 
 String _errorMsgPluginNotAdded(String pluginName) =>

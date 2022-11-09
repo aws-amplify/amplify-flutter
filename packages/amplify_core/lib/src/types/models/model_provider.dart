@@ -17,13 +17,13 @@ import 'mipr.dart' as mipr;
 import 'model.dart';
 
 abstract class ModelProviderInterface {
-  late String version;
+  String get version;
 
-  late List<mipr.ModelTypeDefinition> modelSchemas;
-  late List<mipr.ModelTypeDefinition> customTypeSchemas;
+  List<mipr.ModelTypeDefinition> get modelSchemas => const [];
+  List<mipr.NonModelTypeDefinition> get customTypeSchemas => const [];
 
-  ModelType getModelTypeByModelName(String modelName) {
-    throw UnimplementedError(
-        'Your ModelProvider.dart file is outdated. Please upgrade your Amplify CLI and re-run Codegen.');
-  }
+  ModelType<ModelIdentifier, M, P> getModelType<
+      ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>,
+      P extends PartialModel<ModelIdentifier, M>>(String modelName);
 }

@@ -17,7 +17,8 @@ import 'package:amplify_core/amplify_core.dart';
 
 const dummyFieldName = 'modelIdentifier';
 
-class QueryModelIdentifier<T extends ModelIdentifier> {
+class QueryModelIdentifier<ModelIdentifier extends Object,
+    M extends Model<ModelIdentifier, M>> {
   const QueryModelIdentifier();
 
   /// An **equal to** operation.
@@ -40,9 +41,10 @@ class QueryModelIdentifier<T extends ModelIdentifier> {
   ///   ),
   /// );
   /// ```
-  QueryByIdentifierOperation eq(T value) => QueryByIdentifierOperation(
+  QueryByIdentifierOperation eq(ModelIdentifier value) =>
+      QueryByIdentifierOperation<ModelIdentifier, M>(
         dummyFieldName,
-        EqualModelIdentifierQueryOperator<T>(value),
+        EqualModelIdentifierQueryOperator(value),
       );
 
   /// A **not equal to** operation.
@@ -65,8 +67,9 @@ class QueryModelIdentifier<T extends ModelIdentifier> {
   ///   ),
   /// );
   /// ```
-  QueryByIdentifierOperation ne(T value) => QueryByIdentifierOperation(
+  QueryByIdentifierOperation ne(ModelIdentifier value) =>
+      QueryByIdentifierOperation<ModelIdentifier, M>(
         dummyFieldName,
-        NotEqualModelIdentifierQueryOperator<T>(value),
+        NotEqualModelIdentifierQueryOperator(value),
       );
 }

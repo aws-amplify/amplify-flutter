@@ -31,7 +31,11 @@ class QuerySortBy {
 
   const QuerySortBy({required this.order, required this.field});
 
-  int compare<T extends Model>(T a, T b) {
+  int compare<ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>>(
+    M a,
+    M b,
+  ) {
     String fieldName = getFieldName(field);
     dynamic valueA = a.toJson()[fieldName];
     dynamic valueB = b.toJson()[fieldName];

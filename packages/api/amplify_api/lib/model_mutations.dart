@@ -27,8 +27,9 @@ class ModelMutations {
   /// Todo todo = Todo(name: 'my first todo', description: 'todo description');
   /// final request = ModelMutations.create(todo);
   /// ```
-  static GraphQLRequest<T> create<T extends Model>(T model) {
-    return ModelMutationsFactory.instance.create<T>(model);
+  static GraphQLRequest<M> create<ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>>(M model) {
+    return ModelMutationsFactory.instance.create(model);
   }
 
   /// Generates a request to delete a model.
@@ -39,9 +40,12 @@ class ModelMutations {
   /// ```
   ///
   /// An optional `where` parameter can be supplied as a condition for the deletion to be evaluated on the server.
-  static GraphQLRequest<T> delete<T extends Model>(T model,
-      {QueryPredicate? where}) {
-    return ModelMutationsFactory.instance.delete<T>(model, where: where);
+  static GraphQLRequest<M> delete<ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>>(
+    M model, {
+    QueryPredicate<ModelIdentifier, M>? where,
+  }) {
+    return ModelMutationsFactory.instance.delete(model, where: where);
   }
 
   /// Generates a request to delete a model by ID.
@@ -51,11 +55,19 @@ class ModelMutations {
   /// ```
   ///
   /// An optional `where` parameter can be supplied as a condition for the deletion to be evaluated on the server.
-  static GraphQLRequest<T> deleteById<T extends Model>(
-      ModelType<T> modelType, String id,
-      {QueryPredicate? where}) {
-    return ModelMutationsFactory.instance
-        .deleteById<T>(modelType, id, where: where);
+  static GraphQLRequest<M> deleteById<
+      ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>,
+      P extends PartialModel<ModelIdentifier, M>>(
+    ModelType<ModelIdentifier, M, P> modelType,
+    ModelIdentifier id, {
+    QueryPredicate<ModelIdentifier, M>? where,
+  }) {
+    return ModelMutationsFactory.instance.deleteById(
+      modelType,
+      id,
+      where: where,
+    );
   }
 
   /// Generates a request to update a model instance.
@@ -66,8 +78,11 @@ class ModelMutations {
   /// ```
   ///
   /// An optional `where` parameter can be supplied as a condition for the update to be evaluated on the server.
-  static GraphQLRequest<T> update<T extends Model>(T model,
-      {QueryPredicate? where}) {
-    return ModelMutationsFactory.instance.update<T>(model, where: where);
+  static GraphQLRequest<M> update<ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>>(
+    M model, {
+    QueryPredicate<ModelIdentifier, M>? where,
+  }) {
+    return ModelMutationsFactory.instance.update(model, where: where);
   }
 }

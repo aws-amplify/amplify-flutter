@@ -22,12 +22,13 @@ import 'package:amplify_core/amplify_core.dart';
 /// snapshot was generated and a boolean value to indicate if
 /// this model has finished syncing data over the network.
 /// {@endtemplate}
-class QuerySnapshot<T extends Model> {
+class QuerySnapshot<ModelIdentifier extends Object,
+    M extends Model<ModelIdentifier, M>> {
   // A list of models sorted according to the value provided for sortBy
-  final SortedList<T> _sortedList;
+  final SortedList<M> _sortedList;
 
   /// A list of models from the local store at the time that the snapshot was generated
-  List<T> get items => _sortedList.toList();
+  List<M> get items => _sortedList.toList();
 
   /// Indicates whether all sync queries for this model are complete
   final bool isSynced;
@@ -40,14 +41,14 @@ class QuerySnapshot<T extends Model> {
 
   /// {@macro query_snapshot}
   factory QuerySnapshot({
-    required List<T> items,
+    required List<M> items,
     required bool isSynced,
     QueryPredicate? where,
     List<QuerySortBy>? sortBy,
   }) {
     var sortedList = SortedList.fromPresortedList(
       items: items,
-      compare: _createCompareFromSortBy(sortBy),
+      compare: _createCompareFromSortBy<ModelIdentifier, M>(sortBy),
     );
     return QuerySnapshot._(
       sortedList: sortedList,
@@ -58,7 +59,7 @@ class QuerySnapshot<T extends Model> {
   }
 
   const QuerySnapshot._({
-    required SortedList<T> sortedList,
+    required SortedList<M> sortedList,
     required this.isSynced,
     this.where,
     this.sortBy,
@@ -66,7 +67,7 @@ class QuerySnapshot<T extends Model> {
 
   /// Returns a new QuerySnapshot with the [status] applied
   // ignore: avoid_positional_boolean_parameters
-  QuerySnapshot<T> withSyncStatus(bool status) {
+  QuerySnapshot<ModelIdentifier, M> withSyncStatus(bool status) {
     return QuerySnapshot._(
       sortedList: _sortedList,
       isSynced: status,
@@ -82,19 +83,17 @@ class QuerySnapshot<T extends Model> {
   ///
   /// If the [event] does not result in a change to the QuerySnapshot,
   /// the current snapshot is returned
-  QuerySnapshot<T> withSubscriptionEvent({
-    required SubscriptionEvent<T> event,
+  QuerySnapshot<ModelIdentifier, M> withSubscriptionEvent({
+    required SubscriptionEvent<ModelIdentifier, M> event,
   }) {
-    SortedList<T> sortedListCopy = SortedList.from(_sortedList);
-    SortedList<T>? updatedSortedList;
+    SortedList<M> sortedListCopy = SortedList.from(_sortedList);
+    SortedList<M>? updatedSortedList;
 
-    T newItem = event.item;
+    M newItem = event.item;
     bool newItemMatchesPredicate = where == null || where!.evaluate(newItem);
-    int currentItemIndex =
-        // TODO(HuiSF): remove the ignore when merging CPK feature commits
-        // ignore: deprecated_member_use_from_same_package
-        sortedListCopy.indexWhere((item) => item.getId() == newItem.getId());
-    T? currentItem =
+    int currentItemIndex = sortedListCopy
+        .indexWhere((item) => item.modelIdentifier == newItem.modelIdentifier);
+    M? currentItem =
         currentItemIndex == -1 ? null : sortedListCopy[currentItemIndex];
     bool currentItemMatchesPredicate =
         currentItem != null && (where == null || where!.evaluate(currentItem));
@@ -139,16 +138,17 @@ class QuerySnapshot<T extends Model> {
 //
 // if sortBy is null, than null is returned to indicate that there is
 // no specified sort order
-int Function(T a, T b)? _createCompareFromSortBy<T extends Model>(
+int Function(M a, M b)? _createCompareFromSortBy<ModelIdentifier extends Object,
+    M extends Model<ModelIdentifier, M>>(
   List<QuerySortBy>? sortBy,
 ) {
   if (sortBy == null) {
     return null;
   }
-  return (T a, T b) {
+  return (M a, M b) {
     int sortOrder = 0;
     for (var nextSortBy in sortBy) {
-      sortOrder = nextSortBy.compare<T>(a, b);
+      sortOrder = nextSortBy.compare(a, b);
       if (sortOrder != 0) return sortOrder;
     }
     return sortOrder;

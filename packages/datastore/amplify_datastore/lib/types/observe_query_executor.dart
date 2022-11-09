@@ -13,20 +13,29 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 
 import '../stream_utils/throttle.dart';
 
-typedef Query<T extends Model> = Future<List<T>> Function(
-  ModelType<T> modelType, {
+typedef Query<
+        ModelIdentifier extends Object,
+        M extends Model<ModelIdentifier, M>,
+        P extends PartialModel<ModelIdentifier, M>>
+    = Future<List<M>> Function(
+  ModelType<ModelIdentifier, M, P> modelType, {
   QueryPredicate? where,
   QueryPagination? pagination,
   List<QuerySortBy>? sortBy,
 });
 
-typedef Observe<T extends Model> = Stream<SubscriptionEvent<T>> Function(
-    ModelType<T> modelType);
+typedef Observe<
+        ModelIdentifier extends Object,
+        M extends Model<ModelIdentifier, M>,
+        P extends PartialModel<ModelIdentifier, M>>
+    = Stream<SubscriptionEvent<ModelIdentifier, M>> Function(
+  ModelType<ModelIdentifier, M, P> modelType,
+);
 
 /// A class for handling observeQuery operations
 class ObserveQueryExecutor {
@@ -48,32 +57,36 @@ class ObserveQueryExecutor {
   final Map<String, _ModelSyncStatus> _modelSyncCache = {};
 
   /// executes an observeQuery operation
-  Stream<QuerySnapshot<T>> observeQuery<T extends Model>({
-    required Query<T> query,
-    required Observe<T> observe,
-    required ModelType<T> modelType,
+  Stream<QuerySnapshot<ModelIdentifier, M>> observeQuery<
+      ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>,
+      P extends PartialModel<ModelIdentifier, M>>({
+    required Query<ModelIdentifier, M, P> query,
+    required Observe<ModelIdentifier, M, P> observe,
+    required ModelType<ModelIdentifier, M, P> modelType,
     QueryPredicate? where,
     List<QuerySortBy>? sortBy,
     ObserveQueryThrottleOptions throttleOptions =
         const ObserveQueryThrottleOptions.defaults(),
   }) {
     // cached QuerySnapshot
-    QuerySnapshot<T>? querySnapshot;
+    QuerySnapshot<ModelIdentifier, M>? querySnapshot;
 
     // cached subscription events that occur prior to the
     // initial query completing
-    List<SubscriptionEvent<T>> subscriptionEvents = [];
+    List<SubscriptionEvent<ModelIdentifier, M>> subscriptionEvents = [];
 
-    Stream<QuerySnapshot<T>> syncStatusStream = _isModelSyncedStream(modelType)
-        .skipWhile((element) => querySnapshot == null)
-        .where((event) => event != querySnapshot!.isSynced)
-        .map<QuerySnapshot<T>>((value) {
+    Stream<QuerySnapshot<ModelIdentifier, M>> syncStatusStream =
+        _isModelSyncedStream(modelType)
+            .skipWhile((element) => querySnapshot == null)
+            .where((event) => event != querySnapshot!.isSynced)
+            .map<QuerySnapshot<ModelIdentifier, M>>((value) {
       querySnapshot = querySnapshot!.withSyncStatus(value);
       return querySnapshot!;
     });
 
-    Stream<QuerySnapshot<T>> observeStream = observe(modelType)
-        .map<QuerySnapshot<T>?>((event) {
+    Stream<QuerySnapshot<ModelIdentifier, M>> observeStream = observe(modelType)
+        .map<QuerySnapshot<ModelIdentifier, M>?>((event) {
           // cache subscription events until the initial query is returned
           if (querySnapshot == null) {
             subscriptionEvents.add(event);
@@ -96,9 +109,9 @@ class ObserveQueryExecutor {
         })
         // filter out null values
         .where((event) => event != null)
-        .cast<QuerySnapshot<T>>();
+        .cast<QuerySnapshot<ModelIdentifier, M>>();
 
-    Future<QuerySnapshot<T>> queryFuture = query(
+    Future<QuerySnapshot<ModelIdentifier, M>> queryFuture = query(
       modelType,
       where: where,
       sortBy: sortBy,
@@ -138,12 +151,12 @@ class ObserveQueryExecutor {
         .map((event) => event.payload)
         .where((payload) => payload is ModelSyncedEvent)
         .cast<ModelSyncedEvent>()
-        .where((event) => event.modelName == type.modelName())
+        .where((event) => event.modelName == type.modelName)
         .map((event) => true);
   }
 
   _ModelSyncStatus _getModelSyncStatus(ModelType type) {
-    _ModelSyncStatus? status = _modelSyncCache[type.modelName()];
+    _ModelSyncStatus? status = _modelSyncCache[type.modelName];
     return status ?? _ModelSyncStatus.none;
   }
 

@@ -73,8 +73,8 @@ abstract class QueryFieldOperator<T> {
       return value.toSeconds();
     } else if (value is Enum) {
       return enumToString(value);
-    } else if (value is ModelIdentifier) {
-      return value.serializeAsList();
+    } else if (value is AWSSerializable) {
+      return value.toJson();
     }
 
     // TODO sanitize other types appropriately
@@ -105,7 +105,7 @@ class EqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   }
 }
 
-class EqualModelIdentifierQueryOperator<T extends ModelIdentifier>
+class EqualModelIdentifierQueryOperator<T extends Object>
     extends QueryFieldOperatorSingleValue<T> {
   const EqualModelIdentifierQueryOperator(T value)
       : super(value, QueryFieldOperatorType.equal);
@@ -131,7 +131,7 @@ class NotEqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
   }
 }
 
-class NotEqualModelIdentifierQueryOperator<T extends ModelIdentifier>
+class NotEqualModelIdentifierQueryOperator<T extends Object>
     extends QueryFieldOperatorSingleValue<T> {
   const NotEqualModelIdentifierQueryOperator(T value)
       : super(value, QueryFieldOperatorType.not_equal);

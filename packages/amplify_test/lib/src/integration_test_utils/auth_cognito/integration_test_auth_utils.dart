@@ -14,7 +14,6 @@
  */
 
 import 'dart:async';
-import 'dart:convert';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:graphql/client.dart';
 import 'package:stream_transform/stream_transform.dart';
@@ -189,16 +188,18 @@ Future<String> getOtpCode(String email) async {
           }
         }''';
 
-  final Stream<GraphQLResponse<String>> operation = Amplify.API.subscribe(
-    GraphQLRequest<String>(document: subscriptionDocument),
+  final Stream<GraphQLResponse<Map<String, Object?>>> operation =
+      Amplify.API.subscribe(
+    GraphQLRequest.raw(
+      document: subscriptionDocument,
+      decodePath: 'onCreateConfirmSignUpTestRun',
+    ),
   );
 
   // Collect codes delivered via Lambda
   return operation
       .map((event) {
-        final json =
-            jsonDecode(event.data!)['onCreateConfirmSignUpTestRun'] as Map;
-        return ConfirmSignUpResponse.fromJson(json.cast());
+        return ConfirmSignUpResponse.fromJson(event.data!);
       })
       .where((event) => event.username == email)
       .map((event) => event.currentCode)
