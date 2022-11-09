@@ -26,8 +26,10 @@ import 'package:meta/meta.dart';
 class AmplifyAnalyticsPinpoint extends AmplifyAnalyticsPinpointDart {
   /// {@macro amplify_analytics_pinpoint.analytics_plugin_impl}
   AmplifyAnalyticsPinpoint({
-    // TODO(fjnoyp): Rename to reflect the data that is stored.
-    @visibleForTesting SecureStorageInterface? keyValueStore,
+    @visibleForTesting AmplifySecureStorageInterface? keyValueStore,
+    @visibleForTesting CachedEventsPathProvider? pathProvider,
+    @visibleForTesting AppLifecycleProvider? appLifecycleProvider,
+    @visibleForTesting DeviceContextInfoProvider? deviceContextInfoProvider,
   }) : super(
           keyValueStore: keyValueStore ??
               AmplifySecureStorage(
@@ -35,9 +37,11 @@ class AmplifyAnalyticsPinpoint extends AmplifyAnalyticsPinpointDart {
                   scope: 'analyticsPinpoint',
                 ),
               ),
-          pathProvider: FlutterPathProvider(),
-          appLifecycleProvider: FlutterAppLifecycleProvider(),
-          deviceContextInfoProvider: const FlutterDeviceContextInfoProvider(),
+          pathProvider: pathProvider ?? FlutterPathProvider(),
+          appLifecycleProvider:
+              appLifecycleProvider ?? FlutterAppLifecycleProvider(),
+          deviceContextInfoProvider: deviceContextInfoProvider ??
+              const FlutterDeviceContextInfoProvider(),
           dbConnectFunction: db_common.connect,
         );
 }
