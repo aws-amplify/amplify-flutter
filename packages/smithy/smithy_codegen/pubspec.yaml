@@ -1,6 +1,6 @@
 name: smithy_codegen
 description: Smithy model generator from AST representation
-version: 0.1.1
+version: 0.2.0
 repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/smithy/smithy_codegen
 publish_to: none
 
@@ -9,7 +9,7 @@ environment:
 
 dependencies:
   args: ^2.3.0
-  aws_common: ">=0.2.3 <0.3.0"
+  aws_common: ">=0.2.4 <0.3.0"
   aws_signature_v4: ">=0.2.2 <0.3.0"
   build_cli_annotations: ^2.0.0
   built_collection: ^5.1.1
@@ -30,8 +30,8 @@ dependencies:
   pubspec_parse: ^1.2.0
   shelf: ^1.1.0
   shelf_router: ^1.1.0
-  smithy: ">=0.1.1 <0.2.0"
-  smithy_aws: ">=0.1.2 <0.2.0"
+  smithy: ">=0.2.0 <0.3.0"
+  smithy_aws: ">=0.2.0 <0.3.0"
   tuple: ^2.0.0
   xml: 6.1.0
   yaml_edit: ^2.0.1

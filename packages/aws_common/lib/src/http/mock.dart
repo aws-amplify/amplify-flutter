@@ -19,7 +19,8 @@ import 'package:stream_transform/stream_transform.dart';
 
 /// A mock request handler for use with [MockAWSHttpClient].
 typedef MockRequestHandler = FutureOr<AWSBaseHttpResponse> Function(
-  AWSHttpRequest,
+  AWSHttpRequest request,
+  bool Function() isCancelled,
 );
 
 /// {@template aws_common.http.aws_mock_http_client}
@@ -38,13 +39,17 @@ class MockAWSHttpClient extends AWSCustomHttpClient {
   }) {
     final requestProgress = StreamController<int>.broadcast();
     final responseProgress = StreamController<int>.broadcast();
+    var isCancelled = false;
     return AWSHttpOperation(
       CancelableOperation.fromFuture(
         Future(() async {
           final readRequest = await request.read();
           requestProgress.add(readRequest.bodyBytes.length);
           unawaited(requestProgress.close());
-          final response = await _handler(readRequest);
+          final response = await _handler(
+            readRequest,
+            () => isCancelled,
+          );
           if (response is AWSHttpResponse) {
             responseProgress.add(response.bodyBytes.length);
             unawaited(responseProgress.close());
@@ -60,6 +65,7 @@ class MockAWSHttpClient extends AWSCustomHttpClient {
           );
         }),
         onCancel: () {
+          isCancelled = true;
           requestProgress.close();
           responseProgress.close();
           return onCancel?.call();

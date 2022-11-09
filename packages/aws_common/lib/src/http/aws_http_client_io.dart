@@ -86,6 +86,8 @@ class AWSHttpClientImpl extends AWSHttpClient {
       ..persistentConnection = false;
     if (request.hasContentLength) {
       ioRequest.contentLength = request.contentLength as int;
+    } else {
+      ioRequest.contentLength = -1;
     }
     logger.verbose('Opened server connection');
 
@@ -446,7 +448,8 @@ class AWSHttpClientImpl extends AWSHttpClient {
   }) {
     final requestProgressController = StreamController<int>.broadcast();
     final responseProgressController = StreamController<int>.broadcast();
-    final cancelTrigger = Completer<void>();
+    // Inner request cancellation should happen before `onCancel` callback.
+    final cancelTrigger = Completer<void>.sync();
 
     FutureOr<void> wrappedOnCancel() {
       _logger.verbose('onCancel triggered');
