@@ -15,8 +15,8 @@ Pod::Spec.new do |s|
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'Amplify', '1.28.0'
-  s.dependency 'AmplifyPlugins/AWSS3StoragePlugin', '1.28.0'
+  s.dependency 'Amplify', '1.28.2'
+  s.dependency 'AmplifyPlugins/AWSS3StoragePlugin', '1.28.2'
   s.dependency 'amplify_core'
   s.platform = :ios, '11.0'
 
