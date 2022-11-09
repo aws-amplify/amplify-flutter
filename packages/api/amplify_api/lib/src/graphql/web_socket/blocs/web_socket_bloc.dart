@@ -126,7 +126,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   }
 
   Stream<WebSocketState> _eventTransformer(WebSocketEvent event) async* {
-    logger.info(event.toString());
+    logger.verbose(event.toString());
     // [WebSocketBloc] Events
     if (event is ConnectionAckMessageEvent) {
       yield* _connectionAck(event);
@@ -353,7 +353,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   // Returns a [WsSubscriptionBloc<T>] and stores in state
   WsSubscriptionBloc<T> _saveRequest<T>(SubscribeEvent<T> event) {
-    logger.info('Subscription event for: ${event.request.id}');
+    logger.verbose('Subscription event for: ${event.request.id}');
     // Prevent duplicate errors
     if (_currentState.subscriptionBlocs.containsKey(event.request.id)) {
       return _currentState.subscriptionBlocs[event.request.id]
@@ -370,23 +370,6 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     _currentState.subscriptionBlocs[event.request.id] = subBloc;
 
     return subBloc;
-  }
-
-  // Times out the connection (usually if a keep alive has not been received in time).
-  Future<void> _timeout(Duration timeoutDuration) async {
-    assert(
-      _currentState is ConnectedState,
-      'Timeout should only occur when connected.',
-    );
-
-    (_currentState as ConnectedState).timeoutTimer.cancel();
-
-    final exception = TimeoutException(
-      'Web Socket Connection Timeout',
-      timeoutDuration,
-    );
-
-    return _sendExceptionToBlocs(exception);
   }
 
   // Sends an exception to all sub blocs and cleans up this bloc
@@ -416,6 +399,23 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       'Bloc is missing subscription for $id',
     );
     _currentState.subscriptionBlocs[id]!.add(event);
+  }
+
+  // Times out the connection (usually if a keep alive has not been received in time).
+  Future<void> _timeout(Duration timeoutDuration) async {
+    assert(
+      _currentState is ConnectedState,
+      'Timeout should only occur when connected.',
+    );
+
+    (_currentState as ConnectedState).timeoutTimer.cancel();
+
+    final exception = TimeoutException(
+      'Web Socket Connection Timeout',
+      timeoutDuration,
+    );
+
+    return _sendExceptionToBlocs(exception);
   }
 
   // Ensure onEstablished is only called once
