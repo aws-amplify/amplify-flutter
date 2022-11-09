@@ -1,3 +1,11 @@
+## 0.2.0
+
+### Breaking Changes
+- feat(smithy)!: Remove built types from factory constructors
+
+### Features
+- feat(smithy): `@httpChecksum` trait
+
 ## 0.1.2
 
 - Minor bug fixes and improvements
