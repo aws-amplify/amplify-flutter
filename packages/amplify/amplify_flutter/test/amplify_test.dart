@@ -106,19 +106,16 @@ void main() {
   });
 
   test(
-      'configure should result in AmplifyException when invalid value is passed',
+      'configure should result in ConfigurationError when invalid value is passed',
       () async {
+    expect(
+      amplify.asyncConfig,
+      throwsA(isA<ConfigurationError>()),
+    );
     await expectLater(
       amplify.configure(invalidConfiguration),
-      throwsA(
-        isA<AmplifyException>().having(
-          (e) => e.underlyingException,
-          'underlyingException',
-          isA<FormatException>(),
-        ),
-      ),
+      throwsA(isA<ConfigurationError>()),
     );
-    expect(amplify.isConfigured, isFalse);
   });
 
   test('calling configure twice results in an exception', () async {
