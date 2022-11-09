@@ -952,6 +952,16 @@ void main() {
       });
 
       group('Control APIs', () {
+        final testUploadPartOutput1 = s3.UploadPartOutput(eTag: 'eTag-part-1');
+        final testUploadPartOutput2 = s3.UploadPartOutput(eTag: 'eTag-part-2');
+        final testUploadPartOutput3 = s3.UploadPartOutput(eTag: 'eTag-part-3');
+        final uploadPartSmithyOperation1 =
+            MockSmithyOperation<s3.UploadPartOutput>();
+        final uploadPartSmithyOperation2 =
+            MockSmithyOperation<s3.UploadPartOutput>();
+        final uploadPartSmithyOperation3 =
+            MockSmithyOperation<s3.UploadPartOutput>();
+
         setUpAll(() {
           final testCreateMultipartUploadOutput =
               s3.CreateMultipartUploadOutput(
@@ -970,24 +980,15 @@ void main() {
             () => transferDatabase.insertTransferRecord(any()),
           ).thenAnswer((_) async => 1);
 
-          final testUploadPartOutput1 =
-              s3.UploadPartOutput(eTag: 'eTag-part-1');
-          final testUploadPartOutput2 =
-              s3.UploadPartOutput(eTag: 'eTag-part-2');
-          final uploadPartSmithyOperation1 =
-              MockSmithyOperation<s3.UploadPartOutput>();
-          final uploadPartSmithyOperation2 =
-              MockSmithyOperation<s3.UploadPartOutput>();
-
           when(
-            () => uploadPartSmithyOperation1.result,
-          ).thenAnswer((_) async => testUploadPartOutput1);
+            uploadPartSmithyOperation1.cancel,
+          ).thenAnswer((_) async {});
           when(
-            () => uploadPartSmithyOperation2.result,
-          ).thenAnswer((_) async {
-            await Future<void>.delayed(const Duration(milliseconds: 500));
-            return testUploadPartOutput2;
-          });
+            uploadPartSmithyOperation2.cancel,
+          ).thenAnswer((_) async {});
+          when(
+            uploadPartSmithyOperation3.cancel,
+          ).thenAnswer((_) async {});
 
           when(
             () => s3Client.uploadPart(any()),
@@ -995,10 +996,16 @@ void main() {
             final request =
                 invocation.positionalArguments.first as s3.UploadPartRequest;
 
-            if (request.partNumber == 1) {
-              return uploadPartSmithyOperation1;
+            switch (request.partNumber) {
+              case 1:
+                return uploadPartSmithyOperation1;
+              case 2:
+                return uploadPartSmithyOperation2;
+              case 3:
+                return uploadPartSmithyOperation3;
             }
-            return uploadPartSmithyOperation2;
+
+            throw Exception('this should not happen in this test');
           });
 
           final testCompleteMultipartUploadOutput =
@@ -1045,19 +1052,43 @@ void main() {
             },
           );
 
+          when(
+            () => uploadPartSmithyOperation1.result,
+          ).thenThrow(const CancellationException());
+          when(
+            () => uploadPartSmithyOperation2.result,
+          ).thenThrow(const CancellationException());
+          when(
+            () => uploadPartSmithyOperation3.result,
+          ).thenThrow(const CancellationException());
+
           unawaited(uploadTask.start());
 
           await uploadTask.pause();
-          // expect(receivedState.last, S3TransferState.paused);
 
+          when(
+            () => uploadPartSmithyOperation1.result,
+          ).thenAnswer((_) async => testUploadPartOutput1);
+          when(
+            () => uploadPartSmithyOperation2.result,
+          ).thenAnswer((_) async => testUploadPartOutput2);
+          when(
+            () => uploadPartSmithyOperation3.result,
+          ).thenAnswer((_) async => testUploadPartOutput3);
+
+          // add a manual delay to avoid ignoring pause state on back to back calls
+          await Future<void>.delayed(const Duration(microseconds: 500));
           await uploadTask.resume();
-          // expect(receivedState.last, S3TransferState.inProgress);
 
           await uploadTask.result;
           expect(
             receivedState,
             contains(S3TransferState.paused),
           );
+
+          verify(uploadPartSmithyOperation1.cancel).called(1);
+          verify(uploadPartSmithyOperation2.cancel).called(1);
+          verify(uploadPartSmithyOperation3.cancel).called(1);
         });
 
         test(
@@ -1078,14 +1109,48 @@ void main() {
             },
           );
 
-          unawaited(uploadTask.start());
+          final completer1 = Completer<void>();
+          final completer2 = Completer<void>();
+          final completer3 = Completer<void>();
 
+          when(
+            () => uploadPartSmithyOperation1.result,
+          ).thenAnswer((_) async {
+            await completer1.future;
+            throw const CancellationException();
+          });
+          when(
+            () => uploadPartSmithyOperation2.result,
+          ).thenAnswer((_) async {
+            await completer2.future;
+            throw const CancellationException();
+          });
+          when(
+            () => uploadPartSmithyOperation3.result,
+          ).thenAnswer((_) async {
+            await completer3.future;
+            throw const CancellationException();
+          });
+
+          await uploadTask.start();
+
+          // add a manual delay to ensure upload parts are scheduled before
+          // canceling
+          await Future<void>.delayed(const Duration(milliseconds: 500));
           await uploadTask.cancel();
 
-          expect(
+          completer1.complete();
+          completer2.complete();
+          completer3.complete();
+
+          await expectLater(
             uploadTask.result,
             throwsA(isA<S3Exception>()),
           );
+
+          verify(uploadPartSmithyOperation1.cancel).called(1);
+          verify(uploadPartSmithyOperation2.cancel).called(1);
+          verify(uploadPartSmithyOperation3.cancel).called(1);
         });
       });
     });
