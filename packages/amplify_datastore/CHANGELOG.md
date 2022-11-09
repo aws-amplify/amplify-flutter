@@ -1,3 +1,7 @@
+## 0.6.10 (2022-11-09)
+
+- chore: Bump iOS dependency to 1.28.2 ([#2334](https://github.com/aws-amplify/amplify-flutter/pull/2334))
+
 ## 0.6.9 (2022-10-12)
 
 - chore(datastore): run integ tests in CI (#2182)

@@ -1,3 +1,9 @@
+## 0.6.10 (2022-11-09)
+
+- chore: Bump iOS dependency ([#2334](https://github.com/aws-amplify/amplify-flutter/pull/2334))
+- fix(authenticator): remove unnecessary assertion in PendingVerificationCheckState constructor ([#2324](https://github.com/aws-amplify/amplify-flutter/pull/2324))
+- fix(authenticator): Username form validation Cognito requirements ([#2296](https://github.com/aws-amplify/amplify-flutter/pull/2296))
+
 ## 0.6.9 (2022-10-12)
 
 - feat(storage): Support custom prefix (#2071)

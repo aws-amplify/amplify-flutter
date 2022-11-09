@@ -1,6 +1,6 @@
 name: amplify_flutter
 description: The top level Flutter package for the AWS Amplify libraries.
-version: 0.6.9
+version: 0.6.10
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -10,10 +10,10 @@ environment:
   flutter: ">=2.10.0"
 
 dependencies:
-  amplify_core: 0.6.9
-  amplify_datastore_plugin_interface: 0.6.9
-  amplify_flutter_android: 0.6.9
-  amplify_flutter_ios: 0.6.9
+  amplify_core: 0.6.10
+  amplify_datastore_plugin_interface: 0.6.10
+  amplify_flutter_android: 0.6.10
+  amplify_flutter_ios: 0.6.10
   aws_common: ^0.1.1
   collection: ^1.15.0
   flutter:
@@ -39,12 +39,12 @@ dependencies:
 #     path: ../amplify_storage_s3
 
 dev_dependencies:
-  amplify_analytics_pinpoint: 0.6.9
-  amplify_api: 0.6.9
-  amplify_auth_cognito: 0.6.9
-  amplify_datastore: 0.6.9
+  amplify_analytics_pinpoint: 0.6.10
+  amplify_api: 0.6.10
+  amplify_auth_cognito: 0.6.10
+  amplify_datastore: 0.6.10
   amplify_lints: ^1.0.0
-  amplify_storage_s3: 0.6.9
+  amplify_storage_s3: 0.6.10
   amplify_test:
     path: ../../amplify_test
   build_runner: ^2.0.0
