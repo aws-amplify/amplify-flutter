@@ -16,6 +16,7 @@ import 'package:amplify_analytics_pinpoint/src/device_context_info_provider/flut
 import 'package:amplify_analytics_pinpoint/src/flutter_app_lifecycle_provider.dart';
 import 'package:amplify_analytics_pinpoint/src/flutter_path_provider/flutter_path_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
+import 'package:amplify_db_common/amplify_db_common.dart' as db_common;
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 
 /// {@template amplify_analytics_pinpoint.analytics_plugin_impl}
@@ -33,5 +34,6 @@ class AmplifyAnalyticsPinpoint extends AmplifyAnalyticsPinpointDart {
           pathProvider: FlutterPathProvider(),
           appLifecycleProvider: FlutterAppLifecycleProvider(),
           deviceContextInfoProvider: const FlutterDeviceContextInfoProvider(),
+          dbConnectFunction: db_common.connect,
         );
 }

@@ -19,7 +19,10 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/drift/drift_tables.dart
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/common/serializers.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_db_common_dart/amplify_db_common_dart.dart'
+    as db_common;
 import 'package:built_value/serializer.dart';
+import 'package:drift/drift.dart';
 import 'package:meta/meta.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.event_storage_adapter}
@@ -35,14 +38,10 @@ class EventStorageAdapter {
   static EventStorageAdapter? _instance;
 
   /// {@macro amplify_analytics_pinpoint_dart.event_storage_adapter}
-  static EventStorageAdapter getInstance(
-    String? driftStoragePath,
-  ) {
+  static EventStorageAdapter getInstance(QueryExecutor driftQueryExecutor) {
     if (_instance != null) return _instance!;
 
-    final db = DriftDatabaseJsonStrings.getInstance(
-      driftStoragePath: driftStoragePath,
-    );
+    final db = DriftDatabaseJsonStrings.getInstance(driftQueryExecutor);
 
     // Create Serializer
     // jsonDecode JsonString -> Map

@@ -23,6 +23,7 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/stoppa
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:drift/drift.dart';
 import 'package:meta/meta.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.analytics_client}
@@ -52,7 +53,7 @@ class AnalyticsClient {
     required String appId,
     required SecureStorageInterface keyValueStore,
     required PinpointClient pinpointClient,
-    String? driftStoragePath,
+    required QueryExecutor driftQueryExecutor,
     AppLifecycleProvider? appLifecycleProvider,
     DeviceContextInfo? deviceContextInfo,
   }) async {
@@ -79,7 +80,7 @@ class AnalyticsClient {
       fixedEndpointId: fixedEndpointId,
       endpointClient: endpointClient,
       pinpointClient: pinpointClient,
-      driftStoragePath: driftStoragePath,
+      driftQueryExecutor: driftQueryExecutor,
     );
 
     // Initialize SessionManager
