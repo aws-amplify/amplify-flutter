@@ -18,6 +18,7 @@ import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/analytics_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_db_common_dart/amplify_db_common_dart.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.amplify_analytics_pinpoint_dart}
@@ -34,10 +35,12 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     CachedEventsPathProvider? pathProvider,
     AppLifecycleProvider? appLifecycleProvider,
     DeviceContextInfoProvider? deviceContextInfoProvider,
+    required Connect dbConnectFunction,
   })  : _keyValueStore = keyValueStore,
         _pathProvider = pathProvider,
         _appLifecycleProvider = appLifecycleProvider,
-        _deviceContextInfoProvider = deviceContextInfoProvider;
+        _deviceContextInfoProvider = deviceContextInfoProvider,
+        _dbConnectFunction = dbConnectFunction;
 
   AnalyticsClient? __analyticsClient;
   AnalyticsClient get _analyticsClient {
@@ -57,6 +60,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   final CachedEventsPathProvider? _pathProvider;
   final AppLifecycleProvider? _appLifecycleProvider;
   final DeviceContextInfoProvider? _deviceContextInfoProvider;
+  final Connect _dbConnectFunction;
 
   @override
   Future<void> configure({
@@ -101,12 +105,16 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
         await _deviceContextInfoProvider?.getDeviceInfoDetails();
 
     final driftStoragePath = await _pathProvider?.getApplicationSupportPath();
+    final driftQueryExecutor = _dbConnectFunction(
+      name: 'analytics_cached_events',
+      path: driftStoragePath,
+    );
 
     __analyticsClient = await AnalyticsClient.getInstance(
       appId: appId,
       keyValueStore: keyValueStore,
       pinpointClient: pinpointClient,
-      driftStoragePath: driftStoragePath,
+      driftQueryExecutor: driftQueryExecutor,
       appLifecycleProvider: _appLifecycleProvider,
       deviceContextInfo: deviceContextInfo,
     );

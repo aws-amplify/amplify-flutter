@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_analytics_pinpoint_dart/src/impl/drift/connection/connection.dart'
-    as impl;
 import 'package:drift/drift.dart';
 
 part 'drift_tables.g.dart';
@@ -33,18 +31,15 @@ class DriftJsonStrings extends Table {
 @DriftDatabase(tables: [DriftJsonStrings])
 class DriftDatabaseJsonStrings extends _$DriftDatabaseJsonStrings {
   /// {@macro amplify_analytics_pinpoint_dart.drift_database_json_strings}
-  DriftDatabaseJsonStrings({String? driftStoragePath})
-      : super(impl.connect(driftStoragePath: driftStoragePath));
+  DriftDatabaseJsonStrings(super.driftQueryExecutor);
+  static const _storageLocationName = 'analytics_cached_events';
 
   static DriftDatabaseJsonStrings? _instance;
 
   /// {@macro amplify_analytics_pinpoint_dart.drift_database_json_strings}
-  static DriftDatabaseJsonStrings getInstance({
-    String? driftStoragePath,
-  }) {
-    return _instance ??= DriftDatabaseJsonStrings(
-      driftStoragePath: driftStoragePath,
-    );
+  static DriftDatabaseJsonStrings getInstance(
+      QueryExecutor driftQueryExecutor) {
+    return _instance ??= DriftDatabaseJsonStrings(driftQueryExecutor);
   }
 
   // Reminder: Bump this number whenever you change or add a table definition.
