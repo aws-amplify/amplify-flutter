@@ -21,3 +21,5 @@
 ///
 /// [Amplify Docs](https://docs.amplify.aws/lib/datastore/getting-started/q/platform/flutter/)
 library amplify_datastore_dart;
+
+export 'src/datastore_plugin_impl.dart';

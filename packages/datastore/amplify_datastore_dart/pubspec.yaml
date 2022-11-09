@@ -10,6 +10,7 @@ environment:
 
 dependencies:
   amplify_core: '>=1.0.0-next.0 <1.0.0-next.1'
+  meta: ^1.8.0
 
 dev_dependencies:
   amplify_lints:

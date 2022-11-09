@@ -1,5 +1,7 @@
 include: package:amplify_lints/library.yaml
 
 analyzer:
+  errors:
+    public_member_api_docs: ignore
   exclude:
     - '**/*.g.dart'
