@@ -34,11 +34,10 @@ class MockAmplifyAPI extends AmplifyAPIMethodChannel {
   void registerAuthProvider(APIAuthProvider authProvider) {}
 
   @override
+  // ignore: must_call_super
   Future<void> addPlugin({
     required AmplifyAuthProviderRepository authProviderRepo,
-  }) async {
-    await super.addPlugin(authProviderRepo: authProviderRepo);
-  }
+  }) async {}
 }
 
 void main() {

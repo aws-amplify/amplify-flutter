@@ -16,7 +16,7 @@ runs:
   using: "composite"
   steps:
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@05b148adc31e091bafbaf404f745055d4d3bc9d2 # 1.6.1
+      uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838 # 1.7.0
       with:
         role-to-assume: ${{ inputs.role-to-assume }}
         aws-region: ${{ inputs.aws-region }}
@@ -24,12 +24,6 @@ runs:
 
     - name: Create AWS profile
       run: ./build-support/create_integration_test_profile.sh
-      shell: bash
-
-    # The dummy configuration produced by aft has some characters which cause the
-    # Amplify CLI to throw when running pull, so just delete the dummy file.
-    - name: Remove config file created by aft
-      run: melos exec --scope=${{ inputs.scope }} rm lib/amplifyconfiguration.dart
       shell: bash
     
     - name: Get Amplify App IDs / bucket ARNs from Secrets Manager
@@ -41,6 +35,11 @@ runs:
 
     - name: Pull Amplify Configurations
       run: melos exec --scope=${{ inputs.scope }} ./tool/pull_test_backend.sh
+      shell: bash
+
+    - name: Undo any codegen changes from amplify pull
+      run: |    
+        melos exec --scope=${{ inputs.scope }} "[ -d "lib/models" ] && git checkout lib/models/ || exit 0"
       shell: bash
 
     - name: Delete AWS profile

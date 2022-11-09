@@ -132,6 +132,7 @@ class SignerTest {
               // tests expect single encoding like S3.
               // https://github.com/awslabs/aws-c-auth/issues/162
               doubleEncodePathSegments: false,
+              signBody: context.signBody,
             );
 
   factory SignerTest.fromJson(Map<String, Object?> json) {
