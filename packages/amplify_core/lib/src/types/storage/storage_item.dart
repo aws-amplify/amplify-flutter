@@ -32,9 +32,6 @@ class StorageItem {
   final String? eTag;
 }
 
-/// List of [StorageItem].
-typedef StorageItems<Item extends StorageItem> = List<Item>;
-
 /// {@template amplify_core.storage.storage_item_access_level}
 /// Presents a storage object with its access level information.
 /// {@endtemplate}

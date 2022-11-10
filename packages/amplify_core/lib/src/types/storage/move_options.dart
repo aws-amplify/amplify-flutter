@@ -16,5 +16,6 @@
 /// Configurable options to initiate a [StorageMoveRequest].
 /// {@endtemplate}
 abstract class StorageMoveOptions {
+  /// {@macro amplify_core.storage.move_options}
   const StorageMoveOptions();
 }

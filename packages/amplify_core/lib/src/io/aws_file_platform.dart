@@ -46,7 +46,7 @@ class AWSFilePlatform extends AWSFile {
           name: name,
         ) {
     throw UnimplementedError(
-      'AWSFile is not available in the current runtime platform',
+      'AWSFile is not available in the current platform',
     );
   }
 
@@ -64,7 +64,7 @@ class AWSFilePlatform extends AWSFile {
   @override
   Future<int> get size {
     throw UnimplementedError(
-      'size getter has not been implemented in the current runtime platform.',
+      'size getter has not been implemented in the current platform.',
     );
   }
 
@@ -72,7 +72,7 @@ class AWSFilePlatform extends AWSFile {
   @override
   ChunkedStreamReader<int> getChunkedStreamReader() {
     throw UnimplementedError(
-      'getChunkedStreamReader is not available in the current runtime platform',
+      'getChunkedStreamReader is not available in the current platform',
     );
   }
 }

@@ -16,5 +16,6 @@
 /// Configurable options to initiate a [StorageCopyRequest].
 /// {@endtemplate}
 abstract class StorageCopyOptions {
+  /// {@macro amplify_core.storage.copy_options}
   const StorageCopyOptions();
 }

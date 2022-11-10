@@ -17,7 +17,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_core.storage.list_result}
 /// Presents the result of a [StorageListOperation].
 /// {@endtemplate}
-class StorageListResult<Items extends List<StorageItem>> {
+class StorageListResult<Item extends StorageItem> {
   /// {@macro amplify_core.storage.list_result}
   const StorageListResult(
     this.items, {
@@ -26,7 +26,7 @@ class StorageListResult<Items extends List<StorageItem>> {
   });
 
   /// The objects listed in the current page.
-  final Items items;
+  final List<Item> items;
 
   /// Whether has next page that can be listed using [nextToken].
   final bool hasNextPage;
