@@ -144,6 +144,9 @@ class S3UploadTask {
   late S3TransferState _state;
   late final String _resolvedKey;
 
+  // fields used to manage the single upload process
+  SmithyOperation<s3.PutObjectOutput>? _putObjectOperation;
+
   // fields used to manage the multipart upload process
   late final ChunkedStreamReader<int> _fileReader;
   late final StreamController<_CompletedSubtask> _subtasksStreamController;
@@ -189,6 +192,7 @@ class S3UploadTask {
     // size is unknown when uploading a stream of bytes and we cannot
     // determine whether to use multipart upload, so use putObject
     if (dataPayload != null) {
+      _fileSize = -1;
       unawaited(_startPutObject(dataPayload));
       return;
     }
@@ -267,7 +271,12 @@ class S3UploadTask {
         _state == S3TransferState.failure) {
       return;
     }
-    await _subtasksStreamSubscription.cancel();
+
+    if (_isMultipartUpload) {
+      await _subtasksStreamSubscription.cancel();
+    } else {
+      await _putObjectOperation?.cancel();
+    }
   }
 
   Future<void> _setResolvedKey() async {
@@ -282,6 +291,8 @@ class S3UploadTask {
 
   Future<void> _startPutObject(S3DataPayload body) async {
     _determineUploadModeCompleter.complete();
+    _state = S3TransferState.inProgress;
+
     final putObjectRequest = s3.PutObjectRequest.build((builder) {
       builder
         ..bucket = _bucket
@@ -292,9 +303,15 @@ class S3UploadTask {
     });
 
     try {
-      // TODO(HuiSF): invoke onProgress here to emit upload progres when
-      //  AWSHttpOperation is returned from the putObject API.
-      await _s3Client.putObject(putObjectRequest).result;
+      _putObjectOperation = _s3Client.putObject(putObjectRequest);
+
+      _putObjectOperation!.requestProgress.listen((bytesSent) {
+        _transferredBytes += bytesSent;
+        _emitTransferProgress();
+      });
+
+      await _putObjectOperation!.result;
+
       _uploadCompleter.complete(
         _options.getProperties
             ? S3Item.fromHeadObjectOutput(
@@ -307,11 +324,21 @@ class S3UploadTask {
               )
             : S3Item(key: _key),
       );
+
+      _state = S3TransferState.success;
+      _emitTransferProgress();
+    } on CancellationException {
+      _logger.debug('PutObject HTTP operation has been canceled.');
+      _state = S3TransferState.canceled;
+      _uploadCompleter
+          .completeError(S3Exception.controllableOperationCanceled());
+      _emitTransferProgress();
     } on UnknownSmithyHttpException catch (error, stackTrace) {
       _completeUploadWithError(
         S3Exception.fromUnknownSmithyHttpException(error),
         stackTrace,
       );
+      _emitTransferProgress();
     }
   }
 
