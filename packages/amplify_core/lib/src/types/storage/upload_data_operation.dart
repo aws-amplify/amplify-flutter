@@ -23,7 +23,7 @@ abstract class StorageUploadDataOperation<
         Request extends StorageUploadDataRequest,
         Result extends StorageUploadDataResult>
     extends StorageOperation<Request, Result>
-    implements StorageControllableOperation {
+    implements StorageCancelableOperation {
   /// {@macro amplify_core.storage.upload_data_operation}
   StorageUploadDataOperation({
     required super.request,
