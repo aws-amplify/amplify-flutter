@@ -46,6 +46,7 @@ jobs:
         id: testCheck
         if: "always() && steps.bootstrap.conclusion == 'success'"
         shell: bash # Run in bash regardless of platform
+        working-directory: ${{ inputs.working-directory }}
         run: |
           if [ -d test ]; then
             echo "hasTests=true" >> $GITHUB_OUTPUT
