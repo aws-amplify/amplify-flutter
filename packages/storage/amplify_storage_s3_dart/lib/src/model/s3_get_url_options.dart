@@ -22,7 +22,7 @@ class S3GetUrlOptions extends StorageGetUrlOptions {
   /// {@macro storage.amplify_storage_s3.get_url_options}
   const S3GetUrlOptions({
     StorageAccessLevel accessLevel = StorageAccessLevel.guest,
-    Duration expiresIn = const Duration(days: 1),
+    Duration expiresIn = const Duration(minutes: 15),
     bool checkObjectExistence = false,
   }) : this._(
           accessLevel: accessLevel,

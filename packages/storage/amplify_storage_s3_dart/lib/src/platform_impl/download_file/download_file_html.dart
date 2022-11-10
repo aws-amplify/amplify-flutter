@@ -50,23 +50,21 @@ Future<S3DownloadFileResult> _downloadFromUrl({
   required S3PluginConfig s3pluginConfig,
   required StorageS3Service storageS3Service,
 }) async {
-  const defaultExpiresIn = Duration(minutes: 5);
   final s3Options = request.options as S3DownloadFileOptions? ??
       S3DownloadFileOptions(
         accessLevel: s3pluginConfig.defaultAccessLevel,
       );
   final targetIdentityId = s3Options.targetIdentityId;
+  // download url expires in 15 mins by default, see [S3GetUrlOptions]
   final url = (await storageS3Service.getUrl(
     key: request.key,
     options: targetIdentityId == null
         ? S3GetUrlOptions(
             accessLevel: s3Options.accessLevel,
-            expiresIn: defaultExpiresIn,
             checkObjectExistence: true,
           )
         : S3GetUrlOptions.forIdentity(
             targetIdentityId,
-            expiresIn: defaultExpiresIn,
             checkObjectExistence: true,
           ),
   ))
