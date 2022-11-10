@@ -70,7 +70,7 @@ Future<Uint8List> loadSqlite3([
           recoverySuggestion: _loadSqlRecoveryMessage,
         );
       }
-      return response.bodyBytes as Uint8List;
+      return (await response.bodyBytes) as Uint8List;
     } on Object catch (e) {
       if (e is AmplifyException) rethrow;
       throw AmplifyException(
