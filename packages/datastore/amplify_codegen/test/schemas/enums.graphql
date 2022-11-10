@@ -1,0 +1,10 @@
+enum MY_ENUM {
+    # Test re-casing
+    value_a
+    ValueB
+    VALUE_C
+
+    # Test unallowed names
+    name
+    value
+}

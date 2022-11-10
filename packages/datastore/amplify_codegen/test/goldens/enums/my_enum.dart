@@ -12,21 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_codegen/src/helpers/language.dart';
+// NOTE: This file is generated and may not follow lint rules defined in your app
+// Generated files can be excluded from analysis in analysis_options.yaml
+// For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
+
+library models.my_enum;
+
 import 'package:aws_common/aws_common.dart';
-import 'package:gql/ast.dart';
 
-/// Helpers for [EnumValueDefinitionNode].
-extension EnumHelpers on EnumValueDefinitionNode {
-  /// The name of the enum value as defined in the schema.
-  String get schemaName => name.value;
+enum MyEnum with AWSSerializable<String> {
+  valueA('value_a'),
+  valueB('ValueB'),
+  valueC('VALUE_C'),
+  name$('name'),
+  value$('value');
 
-  /// The Dart name of the enum value.
-  String get dartName {
-    final recased = schemaName.camelCase;
-    if (enumReservedWords.contains(recased)) {
-      return '$recased\$';
-    }
-    return recased;
-  }
+  const MyEnum(this.value);
+
+  /// The GraphQL value, as defined in the schema.
+  final String value;
+
+  static MyEnum fromJson(String json) =>
+      values.firstWhere((v) => v.value == json);
+  @override
+  String toJson() => value;
 }

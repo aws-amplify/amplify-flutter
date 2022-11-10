@@ -89,5 +89,10 @@ const hardReservedWords = {
   'with'
 };
 
-/// Escapes [str] of all `$` characters.
-String dartEscape(String str) => str.replaceAll('\$', '\\\$');
+/// Words reserved in the context of enums.
+const enumReservedWords = [
+  'name',
+  'value',
+  'index',
+  'values',
+];
