@@ -362,21 +362,23 @@ void main() {
         expect(result.downloadedItem, testItem);
       });
 
-      test(
-          'S3DownloadDataOperation pause resume and cancel APIs should interact with S3DownloadTask',
-          () async {
-        when(testS3DownloadTask.pause).thenAnswer((_) async {});
-        when(testS3DownloadTask.resume).thenAnswer((_) async {});
-        when(testS3DownloadTask.cancel).thenAnswer((_) async {});
+      // TODO(HuiSF): re-enable controllable APIs when SmithyOperation.cancel
+      // can cancel underlying http request.
+      // test(
+      //     'S3DownloadDataOperation pause resume and cancel APIs should interact with S3DownloadTask',
+      //     () async {
+      //   when(testS3DownloadTask.pause).thenAnswer((_) async {});
+      //   when(testS3DownloadTask.resume).thenAnswer((_) async {});
+      //   when(testS3DownloadTask.cancel).thenAnswer((_) async {});
 
-        await downloadDataOperation.pause();
-        await downloadDataOperation.resume();
-        await downloadDataOperation.cancel();
+      //   await downloadDataOperation.pause();
+      //   await downloadDataOperation.resume();
+      //   await downloadDataOperation.cancel();
 
-        verify(testS3DownloadTask.pause).called(1);
-        verify(testS3DownloadTask.resume).called(1);
-        verify(testS3DownloadTask.cancel).called(1);
-      });
+      //   verify(testS3DownloadTask.pause).called(1);
+      //   verify(testS3DownloadTask.resume).called(1);
+      //   verify(testS3DownloadTask.cancel).called(1);
+      // });
     });
 
     group('uploadData() API', () {

@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:amplify_core/amplify_core.dart';
-import 'base/storage_controllable_operation.dart';
 import 'base/storage_operation.dart';
 
 /// {@template amplify_core.storage.download_data_operation}
@@ -23,7 +22,9 @@ abstract class StorageDownloadDataOperation<
         Request extends StorageDownloadDataRequest,
         Result extends StorageDownloadDataResult>
     extends StorageOperation<Request, Result>
-    implements StorageControllableOperation {
+// TODO(HuiSF): re-enable controllable APIs when SmithyOperation.cancel
+// can cancel underlying http request.
+/* implements StorageControllableOperation */ {
   /// {@macro amplify_core.storage.download_data_operation}
   StorageDownloadDataOperation({
     required super.request,
