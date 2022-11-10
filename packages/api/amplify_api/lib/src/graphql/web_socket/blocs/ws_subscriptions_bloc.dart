@@ -19,7 +19,6 @@ import 'package:amplify_api/src/graphql/web_socket/blocs/web_socket_bloc.dart';
 import 'package:amplify_api/src/graphql/web_socket/state/ws_subscriptions_state.dart';
 import 'package:amplify_api/src/graphql/web_socket/types/ws_subscriptions_event.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:async/async.dart';
 
 /// {@template amplify_api.ws_subscription_bloc}
 /// Internal state machine for subscriptions. Listens for [WsSubscriptionEvent]

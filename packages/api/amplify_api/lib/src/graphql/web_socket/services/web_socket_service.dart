@@ -80,8 +80,10 @@ class AmplifyWebSocketService
     WebSocketState state,
     StreamCompleter<WebSocketEvent> sc,
   ) async {
-    assert(sink == null,
-        'Connection already exists, recreate service or clear sink');
+    assert(
+      sink == null,
+      'Connection already exists, recreate service or clear sink',
+    );
 
     try {
       const webSocketProtocols = ['graphql-ws'];
@@ -109,7 +111,7 @@ class AmplifyWebSocketService
 
   @override
   Future<void> reconnect() {
-    // TODO: implement reconnect
+    // TODO(equartey): implement reconnect
     throw UnimplementedError();
   }
 

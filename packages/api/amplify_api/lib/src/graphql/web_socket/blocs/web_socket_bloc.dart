@@ -22,6 +22,7 @@ import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:amplify_api/src/graphql/web_socket/types/ws_subscriptions_event.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async/async.dart';
+import 'package:meta/meta.dart';
 
 part '../types/web_socket_event.dart';
 
@@ -29,6 +30,7 @@ part '../types/web_socket_event.dart';
 /// Internal state machine for the web socket connections.
 /// Listens for [WebSocketEvent] and maps them to appropriate business logic.
 /// {@endtemplate}
+@internal
 class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   /// {@macro api.web_socket_bloc}
   WebSocketBloc({
@@ -36,13 +38,11 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     required AmplifyAuthProviderRepository authProviderRepo,
     required WebSocketService wsService,
   }) {
-    _config = config;
-    _authProviderRepo = authProviderRepo;
     final subBlocs = <String, WsSubscriptionBloc<Object?>>{};
 
     _currentState = DisconnectedState(
-      _config,
-      _authProviderRepo,
+      config,
+      authProviderRepo,
       NetworkState.connected,
       IntendedState.connected,
       wsService,
@@ -51,11 +51,6 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     final blocStream = _wsEventStream.asyncExpand(_eventTransformer);
     _subscription = blocStream.listen(_emit);
   }
-
-  // Config and auth repo together determine how to authorize connection URLs
-  // and subscription registration messages.
-  late AmplifyAuthProviderRepository _authProviderRepo;
-  late AWSApiConfig _config;
 
   @override
   String get runtimeTypeName => 'WebSocketBloc';

@@ -32,7 +32,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
   String _result = '';
   StreamSubscription<GraphQLResponse<String>>? _subscription;
   void Function()? _unsubscribe;
-  late CancelableOperation _lastOperation;
+  CancelableOperation? _lastOperation;
 
   final subscriptionReq =
       GraphQLRequest<String>(document: '''subscription MySubscription {
@@ -136,7 +136,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
 
   void onCancelPressed() async {
     try {
-      _lastOperation.cancel();
+      _lastOperation?.cancel();
     } on Exception catch (e) {
       print('Cancel FAILED');
       print(e.toString());
@@ -187,7 +187,9 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
         const Padding(padding: EdgeInsets.all(5.0)),
         Center(
           child: ElevatedButton(
-            onPressed: !_lastOperation.isCompleted && !_lastOperation.isCanceled
+            onPressed: _lastOperation != null &&
+                    _lastOperation!.isCompleted &&
+                    _lastOperation!.isCanceled
                 ? onCancelPressed
                 : null,
             child: const Text('Cancel Operation'),
