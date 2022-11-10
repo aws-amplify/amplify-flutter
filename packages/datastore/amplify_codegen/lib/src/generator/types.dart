@@ -186,11 +186,13 @@ class _AwsCommon {
           ..types.addAll([if (type != null) type]),
       );
 
-  /// Creates a secure [aws_common.uuid] instance.
-  Expression uuid({core.bool secure = false}) =>
-      const Reference('uuid', _url).call([], {
+  /// Creates a [aws_common.uuid] instance.
+  Expression createUuid({core.bool secure = false}) => uuid.call([], {
         'secure': literalBool(secure),
       });
+
+  /// Creates a [aws_common.uuid] reference.
+  Reference get uuid => const Reference('uuid', _url);
 }
 
 /// `dart:core` types

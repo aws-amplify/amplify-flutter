@@ -372,7 +372,7 @@ class _PartialScalarModel extends PartialScalarModel {
 abstract class ScalarModel extends PartialScalarModel
     implements Model<String, ScalarModel> {
   factory ScalarModel({
-    required String id,
+    String? id,
     String? str,
     required String requiredStr,
     int? integer,
@@ -444,7 +444,7 @@ abstract class ScalarModel extends PartialScalarModel
 
 class _ScalarModel extends ScalarModel {
   _ScalarModel({
-    required this.id,
+    String? id,
     this.str,
     required this.requiredStr,
     this.integer,
@@ -473,7 +473,8 @@ class _ScalarModel extends ScalarModel {
     required this.requiredAwsIpAddress,
     this.createdAt,
     this.updatedAt,
-  }) : super._();
+  })  : id = id ?? uuid(),
+        super._();
 
   @override
   final String id;

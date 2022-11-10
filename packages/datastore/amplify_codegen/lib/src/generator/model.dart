@@ -369,7 +369,38 @@ return _${allocate(partialModelType)}.fromJson(json) as T;
                   ..name = 'field',
               ),
             )
-            ..body = const Code('throw UnimplementedError();'),
+            ..body = Block((b) {
+              b.statements.add(
+                const Code(
+                  '''
+Object? value;
+switch (field.fieldName) {
+  ''',
+                ),
+              );
+              for (final field in definition.fields.values) {
+                b.statements.add(
+                  Code(
+                    '''
+  case r'${field.name}':
+    value = ${field.name};
+    break;''',
+                  ),
+                );
+              }
+              b.statements.add(
+                const Code(
+                  r'''
+}
+assert(
+  value is T,
+  'Invalid field ${field.fieldName}: $value (expected $T)',
+);
+return value as T;
+''',
+                ),
+              );
+            }),
         ),
       );
     });
@@ -463,20 +494,27 @@ return _${allocate(partialModelType)}.fromJson(json) as T;
 
       final parameters = <Parameter>[];
       for (final field in definition.fields.values) {
+        final fieldType = field.type;
         c.methods.add(
           Method(
             (m) => m
-              ..returns = field.type.reference
+              ..returns = fieldType.reference
               ..type = MethodType.getter
               ..name = field.name,
           ),
         );
+
+        // Allow nullable `ID` parameters to the main constructor since these
+        // fields can be auto-generated.
+        final isIdField = fieldType is mipr.ScalarType &&
+            fieldType.value == mipr.AppSyncScalar.id;
         parameters.add(
           Parameter(
             (p) => p
               ..named = true
-              ..required = field.type.isRequired
-              ..type = field.type.reference
+              ..required = fieldType.isRequired && !isIdField
+              ..type = fieldType.reference.typeRef
+                  .rebuild((t) => t.isNullable = t.isNullable! || isIdField)
               ..name = field.name,
           ),
         );
@@ -527,22 +565,38 @@ return _${allocate(partialModelType)}.fromJson(json) as T;
         ..extend = modelType;
 
       final parameters = <Parameter>[];
+      final initializers = <Code>[];
       for (final field in definition.fields.values) {
+        final fieldType = field.type;
         c.fields.add(
           Field(
             (f) => f
               ..annotations.add(DartTypes.core.override)
               ..modifier = FieldModifier.final$
-              ..type = field.type.reference
+              ..type = fieldType.reference
               ..name = field.name,
           ),
         );
+
+        // Allow nullable `ID` parameters to the main constructor since these
+        // fields can be auto-generated.
+        final isIdField = fieldType is mipr.ScalarType &&
+            fieldType.value == mipr.AppSyncScalar.id;
+        if (isIdField) {
+          initializers.add(
+            Code.scope(
+              (allocate) => '${field.name} = ${field.name} ?? '
+                  '${allocate(DartTypes.awsCommon.uuid)}()',
+            ),
+          );
+        }
         parameters.add(
           Parameter(
             (p) => p
               ..named = true
-              ..required = field.type.isRequired
-              ..toThis = true
+              ..required = fieldType.isRequired && !isIdField
+              ..type = isIdField ? fieldType.reference.nullable : null
+              ..toThis = !isIdField
               ..name = field.name,
           ),
         );
@@ -553,7 +607,10 @@ return _${allocate(partialModelType)}.fromJson(json) as T;
         Constructor(
           (ctor) => ctor
             ..optionalParameters.addAll(parameters)
-            ..initializers.add(const Code('super._()')),
+            ..initializers.addAll([
+              ...initializers,
+              const Code('super._()'),
+            ]),
         ),
       );
     });
