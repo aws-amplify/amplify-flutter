@@ -106,7 +106,26 @@ abstract class PartialCpkModel
   @override
   T valueFor<T extends Object?>(
       QueryField<CpkModelIdentifier, CpkModel, T> field) {
-    throw UnimplementedError();
+    Object? value;
+    switch (field.fieldName) {
+      case r'firstName':
+        value = firstName;
+        break;
+      case r'lastName':
+        value = lastName;
+        break;
+      case r'createdAt':
+        value = createdAt;
+        break;
+      case r'updatedAt':
+        value = updatedAt;
+        break;
+    }
+    assert(
+      value is T,
+      'Invalid field ${field.fieldName}: $value (expected $T)',
+    );
+    return value as T;
   }
 }
 

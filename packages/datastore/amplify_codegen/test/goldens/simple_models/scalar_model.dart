@@ -146,7 +146,101 @@ abstract class PartialScalarModel extends PartialModel<String, ScalarModel>
   String get runtimeTypeName => 'ScalarModel';
   @override
   T valueFor<T extends Object?>(QueryField<String, ScalarModel, T> field) {
-    throw UnimplementedError();
+    Object? value;
+    switch (field.fieldName) {
+      case r'id':
+        value = id;
+        break;
+      case r'str':
+        value = str;
+        break;
+      case r'requiredStr':
+        value = requiredStr;
+        break;
+      case r'integer':
+        value = integer;
+        break;
+      case r'requiredInteger':
+        value = requiredInteger;
+        break;
+      case r'float':
+        value = float;
+        break;
+      case r'requiredFloat':
+        value = requiredFloat;
+        break;
+      case r'boolean':
+        value = boolean;
+        break;
+      case r'requiredBoolean':
+        value = requiredBoolean;
+        break;
+      case r'awsDate':
+        value = awsDate;
+        break;
+      case r'requiredAwsDate':
+        value = requiredAwsDate;
+        break;
+      case r'awsDateTime':
+        value = awsDateTime;
+        break;
+      case r'requiredAwsDateTime':
+        value = requiredAwsDateTime;
+        break;
+      case r'awsTime':
+        value = awsTime;
+        break;
+      case r'requiredAwsTime':
+        value = requiredAwsTime;
+        break;
+      case r'awsTimestamp':
+        value = awsTimestamp;
+        break;
+      case r'requiredAwsTimestamp':
+        value = requiredAwsTimestamp;
+        break;
+      case r'awsEmail':
+        value = awsEmail;
+        break;
+      case r'requiredAwsEmail':
+        value = requiredAwsEmail;
+        break;
+      case r'awsJson':
+        value = awsJson;
+        break;
+      case r'requiredAwsJson':
+        value = requiredAwsJson;
+        break;
+      case r'awsPhone':
+        value = awsPhone;
+        break;
+      case r'requiredAwsPhone':
+        value = requiredAwsPhone;
+        break;
+      case r'awsUrl':
+        value = awsUrl;
+        break;
+      case r'requiredAwsUrl':
+        value = requiredAwsUrl;
+        break;
+      case r'awsIpAddress':
+        value = awsIpAddress;
+        break;
+      case r'requiredAwsIpAddress':
+        value = requiredAwsIpAddress;
+        break;
+      case r'createdAt':
+        value = createdAt;
+        break;
+      case r'updatedAt':
+        value = updatedAt;
+        break;
+    }
+    assert(
+      value is T,
+      'Invalid field ${field.fieldName}: $value (expected $T)',
+    );
+    return value as T;
   }
 }
 

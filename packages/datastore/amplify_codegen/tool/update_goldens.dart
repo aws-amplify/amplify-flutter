@@ -41,6 +41,7 @@ void main() {
           .writeAsStringSync(entry.value.emit());
     }
   }
+  // TODO(dnys1): Re-enable when all APIs are implemented
   // Process.runSync('dart', ['fix', '--apply', goldensDir.path]);
   Process.runSync('dart', ['format', '--fix', goldensDir.path]);
 }
