@@ -63,7 +63,7 @@ void main() {
   var pleaseFail = false;
   final pingFailed = Completer<void>();
 
-  final mockClient = MockAWSHttpClient((request) async {
+  final mockClient = MockAWSHttpClient((request, _) async {
     if (pleaseFail) {
       if (!pingFailed.isCompleted) pingFailed.complete();
       return AWSHttpResponse(
