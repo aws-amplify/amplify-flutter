@@ -32,8 +32,6 @@ class S3Item extends StorageItem {
   });
 
   /// Creates a [S3Item] from [s3.S3Object] provided by S3 Client.
-  ///
-  /// This named constructor should be used internally only.
   @internal
   factory S3Item.fromS3Object(
     s3.S3Object object, {

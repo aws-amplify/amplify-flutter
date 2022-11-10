@@ -38,14 +38,14 @@ class S3DartAppPathProvider implements AppPathProvider {
   @override
   Future<String> getApplicationSupportPath() async {
     throw UnimplementedError(
-      'getApplicationSupportPath() has not been implemented in the current runtime platform.',
+      'getApplicationSupportPath() has not been implemented in the current platform.',
     );
   }
 
   @override
   Future<String> getTemporaryPath() async {
     throw UnimplementedError(
-      'getTemporaryPath() has not been implemented in the current runtime platform.',
+      'getTemporaryPath() has not been implemented in the current platform.',
     );
   }
 }

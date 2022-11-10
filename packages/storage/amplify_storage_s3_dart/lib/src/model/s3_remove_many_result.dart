@@ -26,9 +26,9 @@ class S3RemoveManyResult extends StorageRemoveManyResult<S3Item> {
     this.removeErrors = const [],
   });
 
-  /// A list of [Error] that represents objects that failed to remove.
+  /// A list of [s3.Error] that represents objects that failed to remove.
   ///
-  /// Please review the details of an [Error] to learn about the reason of
+  /// Please review the details of an [s3.Error] to learn about the reason of
   /// a failure.
   final List<s3.Error> removeErrors;
 }

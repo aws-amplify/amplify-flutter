@@ -25,6 +25,6 @@ S3DownloadFileOperation downloadFile({
   void Function(S3TransferProgress)? onProgress,
 }) {
   throw UnimplementedError(
-    'downloadFile() has not yet been implemented in the current runtime platform.',
+    'downloadFile() has not yet been implemented in the current platform.',
   );
 }

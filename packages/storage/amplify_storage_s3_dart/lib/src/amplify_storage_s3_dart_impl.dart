@@ -144,7 +144,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
       throw const StorageException(
         'No Cognito User Pool provider found for Storage.',
         recoverySuggestion:
-            'If you haven\'t already, please add amplify_auth_cognito plugin to your App.',
+            "If you haven't already, please add amplify_auth_cognito plugin to your App.",
       );
     }
 
@@ -160,7 +160,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
       throw const StorageException(
         'No credential provider found for Storage.',
         recoverySuggestion:
-            'If you haven\'t already, please add amplify_auth_cognito plugin to your App.',
+            "If you haven't already, please add amplify_auth_cognito plugin to your App.",
       );
     }
 
@@ -185,7 +185,6 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
         ),
       );
 
-    // Run this later
     scheduleMicrotask(() async {
       await Amplify.asyncConfig;
       if (_zIsTest) {
@@ -281,7 +280,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
         options: s3Options,
       ),
       result: downloadTask.result.then(
-        (downloadedItem) async => S3DownloadDataResult(
+        (downloadedItem) => S3DownloadDataResult(
           bytes: bytes.takeBytes(),
           downloadedItem: downloadedItem,
         ),

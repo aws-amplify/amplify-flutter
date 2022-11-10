@@ -21,7 +21,7 @@ import 'package:smithy/smithy.dart';
 /// {@template storage.amplify_storage_s3.list_result}
 /// The result returned by the Storage S3 plugin `list` API.
 /// {@endtemplate}
-class S3ListResult extends StorageListResult<List<S3Item>> {
+class S3ListResult extends StorageListResult<S3Item> {
   /// {@macro storage.amplify_storage_s3.list_result}
   S3ListResult(
     super.items, {
@@ -92,7 +92,12 @@ class S3ListMetadata {
       for (final commonPrefix in commonPrefixes) {
         final prefix = commonPrefix.prefix;
         if (prefix != null) {
-          extractedSubPath.add(prefix.replaceRange(0, prefixToDrop.length, ''));
+          extractedSubPath.add(
+            S3Item.dropPrefixFromKey(
+              prefixToDrop: prefixToDrop,
+              key: prefix,
+            ),
+          );
         }
       }
     }

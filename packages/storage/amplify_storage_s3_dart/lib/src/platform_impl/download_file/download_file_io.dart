@@ -66,6 +66,8 @@ S3DownloadFileOperation downloadFile({
     onProgress: onProgress,
     // ignore: unnecessary_lambdas
     onData: (bytes) {
+      // sink is set in the callback preStart, need to keep this closure to
+      // preventLateInitializationError: Local 'sink' has not been initialized.
       sink.add(bytes);
     },
     // Exception thrown in this callback will be forwarded to the Future,
@@ -91,7 +93,7 @@ S3DownloadFileOperation downloadFile({
     // This future throws exceptions that may occurred in the entire
     // download process, all exceptions are remapped to a S3Exception
     result: downloadDataTask.result.then(
-      (downloadedItem) async => S3DownloadFileResult(
+      (downloadedItem) => S3DownloadFileResult(
         localFile: request.localFile,
         downloadedItem: downloadedItem,
       ),

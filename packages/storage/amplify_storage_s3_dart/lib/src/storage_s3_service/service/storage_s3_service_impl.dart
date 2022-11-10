@@ -447,7 +447,7 @@ class StorageS3Service {
     } on S3Exception catch (error) {
       throw S3Exception(
         'Copy the source object failed while moving it due to: ${error.message}',
-        recoverySuggestion: error.recoverySuggestion,
+        recoverySuggestion: error.recoverySuggestion!,
         underlyingException: error.underlyingException,
       );
     }
@@ -470,7 +470,7 @@ class StorageS3Service {
     } on S3Exception catch (error) {
       throw S3Exception(
         'Delete the source object failed while moving it due to: ${error.message}',
-        recoverySuggestion: error.recoverySuggestion,
+        recoverySuggestion: error.recoverySuggestion!,
         underlyingException: error.underlyingException,
       );
     }
