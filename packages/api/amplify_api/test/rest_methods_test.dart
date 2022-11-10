@@ -24,7 +24,7 @@ import 'util.dart';
 const _expectedRestResponseBody = '"Hello from Lambda!"';
 const _pathThatShouldFail = 'notHere';
 
-final mockHttpClient = MockAWSHttpClient((request) async {
+final mockHttpClient = MockAWSHttpClient((request, handler) async {
   if (request.bodyBytes.isNotEmpty) {
     expect(request.headers['Content-Type'], 'application/json; charset=utf-8');
   }
