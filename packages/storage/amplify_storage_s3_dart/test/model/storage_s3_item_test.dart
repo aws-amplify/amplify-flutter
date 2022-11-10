@@ -59,9 +59,9 @@ void main() {
           testS3Object,
           prefixToDrop: testPrefixToDrop,
         );
-        fail('Expected exception wasn\'t thrown.');
+        fail("Expected exception wasn't thrown.");
       } on S3Exception catch (error) {
-        expect(error, S3Exception.unknownException());
+        expect(error, isA<S3Exception>());
       }
     });
   });

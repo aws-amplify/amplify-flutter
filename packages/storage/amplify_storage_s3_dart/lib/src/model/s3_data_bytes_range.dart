@@ -24,7 +24,10 @@ class S3DataBytesRange {
     required int end,
   }) {
     if (start >= end) {
-      throw S3Exception.invalidBytesRange();
+      throw InvalidBytesRangeError(
+        'Invalid bytes range of `S3DataBytesRange`.',
+        recoverySuggestion: '`start` needs to be less than `end`.',
+      );
     }
 
     return S3DataBytesRange._(start: start, end: end);

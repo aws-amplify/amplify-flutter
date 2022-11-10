@@ -18,7 +18,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('PassThroughPrefixResolver', () {
-    final prefixResolver = PassThroughPrefixResolver();
+    const prefixResolver = PassThroughPrefixResolver();
     for (final accessLevel in [
       StorageAccessLevel.guest,
       StorageAccessLevel.private,

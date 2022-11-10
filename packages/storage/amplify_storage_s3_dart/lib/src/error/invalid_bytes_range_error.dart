@@ -12,15 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Amplify Storage S3 for Dart
-library amplify_storage_s3_dart;
+/// {@template amplify_storage_s3_dart.invalid_bytes_range_error}
+class InvalidBytesRangeError extends Error {
+  /// {@macro amplify_storage_s3_dart.invalid_bytes_range_error}
+  InvalidBytesRangeError(
+    this.message, {
+    this.recoverySuggestion,
+  });
 
-export 'src/amplify_storage_s3_dart_impl.dart';
+  /// A description of the error.
+  final String message;
 
-export 'src/error/invalid_bytes_range_error.dart';
-export 'src/exception/s3_storage_exception.dart';
+  /// Details on how to fix the issue, if available.
+  final String? recoverySuggestion;
 
-export 'src/model/s3_models.dart';
-
-export 'src/prefix_resolver/pass_through_prefix_resolver.dart';
-export 'src/prefix_resolver/s3_prefix_resolver.dart';
+  @override
+  String toString() {
+    return 'InvalidBytesRangeError($message${recoverySuggestion == null ? '' : ', $recoverySuggestion'})';
+  }
+}

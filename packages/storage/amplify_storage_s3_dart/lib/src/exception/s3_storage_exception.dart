@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:smithy/smithy.dart';
 
@@ -111,14 +110,6 @@ class S3Exception extends StorageException {
       'The requested operation has been canceled.',
       recoverySuggestion:
           'This is an expected exception when you call cancel() API on the storage operation object. You need to handle this exception to take further action on operation cancellation.',
-    );
-  }
-
-  /// An exception when attempt to create an invalid [S3DataBytesRange].
-  factory S3Exception.invalidBytesRange() {
-    return const S3Exception(
-      'Invalid bytes range of `S3DataBytesRange`.',
-      recoverySuggestion: '`start` needs to be less than `end`.',
     );
   }
 
