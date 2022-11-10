@@ -99,6 +99,8 @@ void main() {
         when(
           () => smithyOperation.result,
         ).thenAnswer((_) async => testPutObjectOutput);
+        when(() => smithyOperation.requestProgress)
+            .thenAnswer((_) => Stream.value(1));
 
         when(
           () => s3Client.putObject(any()),
@@ -152,6 +154,9 @@ void main() {
         when(
           () => putSmithyOperation.result,
         ).thenAnswer((_) async => testPutObjectOutput);
+        when(
+          () => putSmithyOperation.requestProgress,
+        ).thenAnswer((_) => Stream.value(1));
 
         when(
           () => headSmithyOperation.result,
@@ -244,6 +249,52 @@ void main() {
 
         expect(uploadDataTask.result, throwsA(isA<S3Exception>()));
       });
+
+      test(
+          'cancel() should cancel underlying put object request and throw a S3Exception',
+          () async {
+        const testUploadDataOptions = S3UploadDataOptions(
+          accessLevel: StorageAccessLevel.private,
+          getProperties: true,
+        );
+        final putSmithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
+
+        final completer = Completer<void>();
+        when(
+          () => putSmithyOperation.result,
+        ).thenAnswer((_) async {
+          await completer.future;
+          throw const CancellationException();
+        });
+        when(
+          putSmithyOperation.cancel,
+        ).thenAnswer((_) async {});
+        when(() => putSmithyOperation.requestProgress)
+            .thenAnswer((_) => Stream.value(1));
+
+        when(
+          () => s3Client.putObject(any()),
+        ).thenAnswer((_) => putSmithyOperation);
+
+        final uploadDataTask = S3UploadTask.fromDataPayload(
+          testDataPayload,
+          s3Client: s3Client,
+          prefixResolver: testPrefixResolver,
+          bucket: testBucket,
+          key: testKey,
+          options: testUploadDataOptions,
+          logger: logger,
+          transferDatabase: transferDatabase,
+        );
+
+        unawaited(uploadDataTask.start());
+        await uploadDataTask.cancel();
+
+        completer.complete();
+
+        await expectLater(uploadDataTask.result, throwsA(isA<S3Exception>()));
+        verify(putSmithyOperation.cancel).called(1);
+      });
     });
 
     group('Uploading AWSFile (<=5MB) - putObject', () {
@@ -265,6 +316,8 @@ void main() {
         when(
           () => smithyOperation.result,
         ).thenAnswer((_) async => testPutObjectOutput);
+        when(() => smithyOperation.requestProgress)
+            .thenAnswer((_) => Stream.value(1));
 
         when(
           () => s3Client.putObject(any()),
@@ -301,6 +354,52 @@ void main() {
           )}$testKey',
         );
         expect(await request.body?.toList(), equals([testBytes]));
+      });
+
+      test(
+          'cancel() should cancel underlying put object request and throw a S3Exception',
+          () async {
+        const testUploadDataOptions = S3UploadDataOptions(
+          accessLevel: StorageAccessLevel.private,
+          getProperties: true,
+        );
+        final putSmithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
+
+        final completer = Completer<void>();
+        when(
+          () => putSmithyOperation.result,
+        ).thenAnswer((_) async {
+          await completer.future;
+          throw const CancellationException();
+        });
+        when(
+          putSmithyOperation.cancel,
+        ).thenAnswer((_) async {});
+        when(() => putSmithyOperation.requestProgress)
+            .thenAnswer((_) => Stream.value(1));
+
+        when(
+          () => s3Client.putObject(any()),
+        ).thenAnswer((_) => putSmithyOperation);
+
+        final uploadDataTask = S3UploadTask.fromAWSFile(
+          testLocalFile,
+          s3Client: s3Client,
+          prefixResolver: testPrefixResolver,
+          bucket: testBucket,
+          key: testKey,
+          options: testUploadDataOptions,
+          logger: logger,
+          transferDatabase: transferDatabase,
+        );
+
+        unawaited(uploadDataTask.start());
+        await uploadDataTask.cancel();
+
+        completer.complete();
+
+        await expectLater(uploadDataTask.result, throwsA(isA<S3Exception>()));
+        verify(putSmithyOperation.cancel).called(1);
       });
     });
 

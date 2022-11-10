@@ -36,6 +36,10 @@ enum S3TransferState {
 
 /// {@template storage.amplify_storage_s3.transfer_progress}
 /// The transfer progress.
+///
+/// In a [S3TransferProgress] emitted by a upload data operation , the field
+/// [totalBytes] always has value `-1`, as the file size is unknown when upload
+/// was initiated.
 /// {@endtemplate}
 class S3TransferProgress extends StorageTransferProgress {
   /// {@macro storage.amplify_storage_s3.transfer_progress}
