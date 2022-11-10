@@ -18,7 +18,6 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_db_common_dart/amplify_db_common_dart.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:meta/meta.dart';
-import 'package:uuid/uuid.dart';
 
 /// The Analytics Pinpoint session start event type.
 @visibleForTesting
@@ -41,6 +40,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     CachedEventsPathProvider? pathProvider,
     AppLifecycleProvider? appLifecycleProvider,
     DeviceContextInfoProvider? deviceContextInfoProvider,
+    LegacyNativeDataProvider? legacyNativeDataProvider,
     required Connect dbConnectFunction,
   })  : _endpointInfoStore = endpointInfoStore ??
             AmplifySecureStorageWorker(
@@ -51,6 +51,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
         _pathProvider = pathProvider,
         _appLifecycleProvider = appLifecycleProvider,
         _deviceContextInfoProvider = deviceContextInfoProvider,
+        _legacyNativeDataProvider = legacyNativeDataProvider,
         _dbConnectFunction = dbConnectFunction;
 
   void _ensureConfigured() {
@@ -69,8 +70,14 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   /// Storage key for the static Pinpoint endpoint id
   @visibleForTesting
   static const String endpointIdStorageKey = 'UniqueId';
+  static const String _endpointInformationVersionKey =
+      'EndpointInformationVersionKey';
   static const String _endpointGlobalAttrsKey = 'EndpointGlobalAttributesKey';
   static const String _endpointGlobalMetricsKey = 'EndpointGlobalMetricsKey';
+
+  /// Version of metadata stored into the `endpointInfoStore`
+  /// If stored data changes, increment this value
+  static const String _endpointInformationCurrentVersionValue = '0';
 
   late final EventCreator _eventCreator;
   late final EndpointClient _endpointClient;
@@ -88,6 +95,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   final CachedEventsPathProvider? _pathProvider;
   final AppLifecycleProvider? _appLifecycleProvider;
   final DeviceContextInfoProvider? _deviceContextInfoProvider;
+  final LegacyNativeDataProvider? _legacyNativeDataProvider;
   final Connect _dbConnectFunction;
 
   static final _logger = AmplifyLogger.category(Category.analytics);
@@ -138,15 +146,33 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     );
 
     // Retrieve Unique ID
-    final savedFixedEndpointId =
-        await _endpointInfoStore.read(key: endpointIdStorageKey);
-    final fixedEndpointId = savedFixedEndpointId ?? const Uuid().v1();
-    if (savedFixedEndpointId == null) {
+    final endpointInformationVersion =
+        await _endpointInfoStore.read(key: _endpointInformationVersionKey);
+    String? retrievedEndpointId;
+
+    await _legacyNativeDataProvider?.initialize(appId);
+    retrievedEndpointId = await _legacyNativeDataProvider?.getEndpointId();
+    print('retrieved id: ${retrievedEndpointId ?? 'null'}');
+
+    if (endpointInformationVersion == null) {
+      _endpointInfoStore.write(
+        key: _endpointInformationVersionKey,
+        value: _endpointInformationCurrentVersionValue,
+      );
+
+      await _legacyNativeDataProvider?.initialize(appId);
+      retrievedEndpointId = await _legacyNativeDataProvider?.getEndpointId();
+
+      retrievedEndpointId ??= uuid();
       await _endpointInfoStore.write(
         key: endpointIdStorageKey,
-        value: fixedEndpointId,
+        value: retrievedEndpointId,
       );
+    } else {
+      retrievedEndpointId =
+          await _endpointInfoStore.read(key: endpointIdStorageKey);
     }
+    final fixedEndpointId = retrievedEndpointId!;
 
     final endpoint = PublicEndpoint(
       effectiveDate: DateTime.now().toUtc().toIso8601String(),
