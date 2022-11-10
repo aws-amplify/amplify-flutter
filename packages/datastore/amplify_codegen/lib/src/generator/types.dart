@@ -78,7 +78,7 @@ class _AmplifyCore {
   _AmplifyCoreMipr get mipr => const _AmplifyCoreMipr();
 
   /// Creates an [amplify_core.Model] reference.
-  Reference model(
+  TypeReference model(
     Reference modelIdentifierType,
     Reference modelType,
   ) =>
@@ -93,7 +93,7 @@ class _AmplifyCore {
   Reference get modelFieldError => const Reference('ModelFieldError', _url);
 
   /// Creates an [amplify_core.ModelType] reference.
-  Reference modelType(
+  TypeReference modelType(
     Reference modelIdentifierType,
     Reference modelType,
     Reference partialModelType,
@@ -106,7 +106,7 @@ class _AmplifyCore {
       );
 
   /// Creates an [amplify_core.PartialModel] reference.
-  Reference partialModel(
+  TypeReference partialModel(
     Reference modelIdentifierType,
     Reference modelType,
   ) =>
@@ -118,7 +118,7 @@ class _AmplifyCore {
       );
 
   /// Creates an [amplify_core.QueryField] reference.
-  Reference queryField(
+  TypeReference queryField(
     Reference modelIdentifierType,
     Reference modelType,
     Reference fieldType,
@@ -131,7 +131,7 @@ class _AmplifyCore {
       );
 
   /// Creates an [amplify_core.RemoteModel] reference.
-  Reference remoteModel(
+  TypeReference remoteModel(
     Reference modelIdentifierType,
     Reference modelType,
   ) =>

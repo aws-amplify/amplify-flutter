@@ -58,7 +58,13 @@ class CpkModelType
   @override
   T fromJson<T extends PartialModel<CpkModelIdentifier, CpkModel>>(
       Map<String, Object?> json) {
-    throw UnimplementedError();
+    if (T == CpkModel || T == Model<CpkModelIdentifier, CpkModel>) {
+      return CpkModel.fromJson(json) as T;
+    }
+    if (T == RemoteCpkModel || T == RemoteModel<CpkModelIdentifier, CpkModel>) {
+      return _RemoteCpkModel.fromJson(json) as T;
+    }
+    return _PartialCpkModel.fromJson(json) as T;
   }
 
   @override

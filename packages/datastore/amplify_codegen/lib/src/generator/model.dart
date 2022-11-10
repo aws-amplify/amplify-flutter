@@ -171,6 +171,18 @@ class ModelGenerator
         ..constructors.add(Constructor((ctor) => ctor.constant = true));
 
       // The `fromJson` method.
+      final partialModelBound = DartTypes.amplifyCore.partialModel(
+        modelIdentifierType,
+        modelType,
+      );
+      final modelBound = DartTypes.amplifyCore.model(
+        modelIdentifierType,
+        modelType,
+      );
+      final remoteModelBound = DartTypes.amplifyCore.remoteModel(
+        modelIdentifierType,
+        modelType,
+      );
       c.methods.add(
         Method(
           (m) => m
@@ -181,10 +193,7 @@ class ModelGenerator
               TypeReference(
                 (t) => t
                   ..symbol = 'T'
-                  ..bound = DartTypes.amplifyCore.partialModel(
-                    modelIdentifierType,
-                    modelType,
-                  ),
+                  ..bound = partialModelBound,
               ),
             )
             ..requiredParameters.add(
@@ -195,7 +204,17 @@ class ModelGenerator
               ),
             )
             ..lambda = false
-            ..body = const Code('throw UnimplementedError();'),
+            ..body = Code.scope(
+              (allocate) => '''
+if (T == ${allocate(modelType)} || T == ${allocate(modelBound)}<${modelBound.types.map(allocate).join(', ')}>) {
+  return ${allocate(modelType)}.fromJson(json) as T;
+}
+if (T == ${allocate(remoteModelType)} || T == ${allocate(remoteModelBound)}<${remoteModelBound.types.map(allocate).join(', ')}>) {
+  return _${allocate(remoteModelType)}.fromJson(json) as T;
+}
+return _${allocate(partialModelType)}.fromJson(json) as T;
+''',
+            ),
         ),
       );
 

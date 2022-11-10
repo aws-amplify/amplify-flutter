@@ -28,7 +28,13 @@ class ScalarModelType
   @override
   T fromJson<T extends PartialModel<String, ScalarModel>>(
       Map<String, Object?> json) {
-    throw UnimplementedError();
+    if (T == ScalarModel || T == Model<String, ScalarModel>) {
+      return ScalarModel.fromJson(json) as T;
+    }
+    if (T == RemoteScalarModel || T == RemoteModel<String, ScalarModel>) {
+      return _RemoteScalarModel.fromJson(json) as T;
+    }
+    return _PartialScalarModel.fromJson(json) as T;
   }
 
   @override
