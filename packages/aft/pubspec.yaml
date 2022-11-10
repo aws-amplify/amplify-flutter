@@ -17,7 +17,7 @@ dependencies:
   flutter_tools:
     git:
       url: https://github.com/flutter/flutter.git
-      ref: 0df0e2ea1f7fe5021c3593d61903e70bdbda8107
+      ref: f186e1bd3ed0c8471ad9b52929f70292621ab796
       path: packages/flutter_tools
   git: ^2.0.0
   graphs: ^2.1.0
@@ -28,7 +28,7 @@ dependencies:
   pub:
     git:
       url: https://github.com/dart-lang/pub.git
-      ref: 0a48753420cbd03eb72a92d38ef06fe3164dc335
+      ref: 5527068c31a3b92beb8f9bfe0953ff9580b3dc86
   pub_semver: ^2.1.1
   pubspec_parse: ^1.2.0
   smithy:
@@ -45,7 +45,6 @@ dependency_overrides:
   aws_signature_v4:
     path: ../aws_signature_v4
   built_value: ">=8.4.0 <8.5.0"
-  frontend_server_client: ^3.0.0
   smithy:
     path: ../smithy/smithy
   smithy_aws:

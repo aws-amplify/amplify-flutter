@@ -14,6 +14,7 @@ dependencies:
   json_annotation: ^4.7.0
   json_serializable: 6.5.4
   uuid: ">=3.0.6 <=3.0.7"
+  xml: ">=6.1.0 <=6.2.2"
 
 # Packages to ignore in all repo operations
 ignore:
