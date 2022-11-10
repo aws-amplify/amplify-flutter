@@ -24,24 +24,10 @@ class S3UploadDataOperation extends StorageUploadDataOperation<
   S3UploadDataOperation({
     required super.request,
     required super.result,
-    required Future<void> Function() resume,
-    required Future<void> Function() pause,
     required Future<void> Function() cancel,
-  })  : _resume = resume,
-        _pause = pause,
-        _cancel = cancel;
+  }) : _cancel = cancel;
 
-  final Future<void> Function() _resume;
-  final Future<void> Function() _pause;
   final Future<void> Function() _cancel;
-
-  /// Resume takes no effect for a [S3UploadDataOperation].
-  @override
-  Future<void> resume() => _resume();
-
-  /// Pause takes no effect for a [S3UploadDataOperation] .
-  @override
-  Future<void> pause() => _pause();
 
   @override
   Future<void> cancel() => _cancel();

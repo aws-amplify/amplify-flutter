@@ -24,7 +24,7 @@ abstract class StorageDownloadDataOperation<
     extends StorageOperation<Request, Result>
 // TODO(HuiSF): re-enable controllable APIs when SmithyOperation.cancel
 // can cancel underlying http request.
-/* implements StorageControllableOperation */ {
+/* implements StorageResumableOperation, StorageCancelableOperation */ {
   /// {@macro amplify_core.storage.download_data_operation}
   StorageDownloadDataOperation({
     required super.request,

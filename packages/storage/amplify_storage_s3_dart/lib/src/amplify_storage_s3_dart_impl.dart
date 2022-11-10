@@ -332,8 +332,6 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
       result: uploadTask.result.then(
         (uploadedItem) => S3UploadDataResult(uploadedItem: uploadedItem),
       ),
-      resume: uploadTask.resume,
-      pause: uploadTask.pause,
       cancel: uploadTask.cancel,
     );
   }
