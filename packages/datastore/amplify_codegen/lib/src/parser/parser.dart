@@ -47,7 +47,11 @@ class _SchemaParser {
     const rootTypes = ['Query', 'Mutation', 'Subscription'];
     final doc = parseString(schema);
 
-    enumNodes = doc.definitions.whereType();
+    enumNodes = Map.fromEntries(
+      doc.definitions
+          .whereType<EnumTypeDefinitionNode>()
+          .map((node) => MapEntry(node.name.value, node)),
+    );
     objectNodes = Map.fromEntries(
       doc.definitions
           .where(
@@ -64,12 +68,12 @@ class _SchemaParser {
   final String schema;
   final SchemaDefinitionBuilder builder = SchemaDefinitionBuilder();
 
-  late final Iterable<EnumTypeDefinitionNode> enumNodes;
+  late final Map<String, EnumTypeDefinitionNode> enumNodes;
   late final Map<String, ObjectTypeDefinitionNode> objectNodes;
 
   SchemaDefinition parse() {
     // Compile enum types
-    for (final enumNode in enumNodes) {
+    for (final enumNode in enumNodes.values) {
       final name = enumNode.name.value;
       builder.typeDefinitions[name] = EnumTypeDefinition.build((b) {
         b
@@ -84,9 +88,7 @@ class _SchemaParser {
     for (final modelNode in objectNodes.values) {
       final modelName = modelNode.name.value;
       final modelFields = Map<String, ModelField>.fromIterable(
-        modelNode.modelFields(
-          models: objectNodes,
-        ),
+        modelNode.modelFields(models: objectNodes, enums: enumNodes),
         key: (field) => (field as ModelField).name,
       );
       if (modelNode.isNonModel) {

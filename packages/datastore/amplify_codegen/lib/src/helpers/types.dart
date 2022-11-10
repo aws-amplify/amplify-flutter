@@ -12,9 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_codegen/src/generator/types.dart';
 import 'package:amplify_codegen/src/helpers/language.dart';
+import 'package:amplify_codegen/src/helpers/model.dart';
 import 'package:amplify_core/src/types/models/mipr.dart';
 import 'package:aws_common/aws_common.dart';
+import 'package:built_value/serializer.dart';
+import 'package:code_builder/code_builder.dart';
 import 'package:gql/ast.dart';
 
 /// Helpers for [TypeNode].
@@ -38,8 +42,53 @@ extension TypeHelpers on TypeNode {
   }
 
   /// The type of model field this represents.
-  AppSyncScalar get awsType => AppSyncScalar.valueOf(typeName);
+  SchemaType schemaType({
+    required Map<String, ObjectTypeDefinitionNode> models,
+    required Map<String, EnumTypeDefinitionNode> enums,
+  }) {
+    final node = this;
+    if (node is NamedTypeNode) {
+      AppSyncScalar? scalarType;
+      try {
+        scalarType =
+            (AppSyncScalar.serializer as PrimitiveSerializer<AppSyncScalar>)
+                .deserialize(
+          Serializers(),
+          node.name.value,
+        );
+      } on Object {
+        // no-op
+      }
+      if (scalarType != null) {
+        return SchemaType.scalar(scalarType, isRequired: node.isNonNull);
+      }
+      final modelName = node.name.value;
+      final objectNode = models[modelName];
+      if (objectNode == null) {
+        assert(
+          enums.containsKey(modelName),
+          'Must be an enum if not a scalar or recognized model',
+        );
+        return SchemaType.enum_(modelName, isRequired: node.isNonNull);
+      }
+      final isNonModel = !objectNode.hasDirective('model');
+      if (isNonModel) {
+        return SchemaType.nonModel(modelName, isRequired: node.isNonNull);
+      }
+      return SchemaType.model(modelName, isRequired: node.isNonNull);
+    } else if (node is ListTypeNode) {
+      final valueType = node.type.schemaType(
+        models: models,
+        enums: enums,
+      );
+      return SchemaType.list(valueType, isRequired: node.isNonNull);
+    }
+    throw ArgumentError(node.runtimeType);
+  }
 }
+
+// Cache for type references.
+final _typeReferences = Expando<Reference>();
 
 /// Helpers for [SchemaType].
 extension SchemaTypeHelpers on SchemaType {
@@ -51,6 +100,28 @@ extension SchemaTypeHelpers on SchemaType {
 
   /// Whether this type represents a list.
   bool get isList => this is ListType;
+
+  /// The code_builder reference for `this`.
+  Reference get reference {
+    final type = this;
+    final cached = _typeReferences[this];
+    if (cached != null) {
+      return cached;
+    }
+    if (type is ListType) {
+      return _typeReferences[this] = DartTypes.core
+          .list(type.elementType.reference)
+          .withNullable(!type.isRequired);
+    }
+    if (type is ScalarType) {
+      return _typeReferences[this] =
+          DartTypes.scalar(type.value).withNullable(!type.isRequired);
+    }
+    return _typeReferences[this] = Reference(
+      type.name.pascalCase,
+      '${type.name.snakeCase}.dart',
+    ).withNullable(!type.isRequired);
+  }
 }
 
 /// Helpers for [TypeDefinitionNode].
@@ -62,5 +133,28 @@ extension TypeDefinitionHelpers on TypeDefinitionNode {
       return '${libName}_';
     }
     return libName;
+  }
+}
+
+/// Helpers for [Reference] types.
+extension ReferenceHelpers on Reference {
+  /// `this` as a [TypeReference].
+  TypeReference get typeRef =>
+      this is TypeReference ? this as TypeReference : type as TypeReference;
+
+  /// Returns a nullable version of `this`.
+  TypeReference get nullable {
+    return typeRef.rebuild((t) => t.isNullable = true);
+  }
+
+  /// Returns a non-nullable version of `this`.
+  TypeReference get nonNull {
+    return typeRef.rebuild((t) => t.isNullable = false);
+  }
+
+  /// Returns a version of `this` with nullability equal to [isNullable].
+  // ignore: avoid_positional_boolean_parameters
+  TypeReference withNullable(bool isNullable) {
+    return isNullable ? nullable : nonNull;
   }
 }

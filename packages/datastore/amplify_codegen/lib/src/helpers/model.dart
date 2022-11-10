@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:amplify_codegen/src/helpers/field.dart';
+import 'package:amplify_codegen/src/helpers/types.dart';
 import 'package:amplify_core/src/types/models/mipr.dart';
 import 'package:collection/collection.dart';
 import 'package:gql/ast.dart';
@@ -82,12 +83,13 @@ extension ModelDefinitionHelpers on ObjectTypeDefinitionNode {
   /// Returns all fields as [ModelField] objects.
   Iterable<ModelField> modelFields({
     required Map<String, ObjectTypeDefinitionNode> models,
+    required Map<String, EnumTypeDefinitionNode> enums,
   }) sync* {
     for (final field in fields) {
       yield ModelField.build((f) {
         f
           ..name = field.name.value
-          ..type = _buildTypeFor(field.type, models: models)
+          ..type = field.type.schemaType(models: models, enums: enums)
           ..isReadOnly = false
           ..authRules.addAll(field.directives.authRules);
       });
@@ -110,37 +112,5 @@ extension ModelDefinitionHelpers on ObjectTypeDefinitionNode {
           ..type = const SchemaType.scalar(AppSyncScalar.awsDateTime),
       );
     }
-  }
-
-  SchemaType _buildTypeFor(
-    TypeNode node, {
-    required Map<String, ObjectTypeDefinitionNode> models,
-  }) {
-    if (node is NamedTypeNode) {
-      final scalarType = AppSyncScalar.values.firstWhereOrNull(
-        (el) => el.name == node.name.value,
-      );
-      if (scalarType != null) {
-        return SchemaType.scalar(scalarType, isRequired: node.isNonNull);
-      }
-      final modelName = node.name.value;
-      final objectNode = models[modelName];
-      final isEnum = objectNode == null;
-      if (isEnum) {
-        return SchemaType.enum_(modelName, isRequired: node.isNonNull);
-      }
-      final isNonModel = !objectNode.hasDirective('model');
-      if (isNonModel) {
-        return SchemaType.nonModel(modelName, isRequired: node.isNonNull);
-      }
-      return SchemaType.model(modelName, isRequired: node.isNonNull);
-    } else if (node is ListTypeNode) {
-      final valueType = _buildTypeFor(
-        node.type,
-        models: models,
-      );
-      return SchemaType.list(valueType, isRequired: node.isNonNull);
-    }
-    throw ArgumentError(node.runtimeType);
   }
 }

@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:amplify_codegen/src/generator/enum.dart';
+import 'package:amplify_codegen/src/generator/model.dart';
 import 'package:amplify_core/src/types/models/mipr.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:gql/ast.dart';
@@ -72,5 +73,15 @@ class LibraryVisitor extends SimpleVisitor<Library> {
     final definition =
         schema.typeDefinitions[node.name.value] as EnumTypeDefinition;
     return EnumGenerator(node: node, definition: definition).generate();
+  }
+
+  @override
+  Library visitObjectTypeDefinitionNode(ObjectTypeDefinitionNode node) {
+    final definition =
+        schema.typeDefinitions[node.name.value] as StructureTypeDefinition;
+    if (definition is ModelTypeDefinition) {
+      return ModelGenerator(node: node, definition: definition).generate();
+    }
+    throw ArgumentError('NonModelType');
   }
 }

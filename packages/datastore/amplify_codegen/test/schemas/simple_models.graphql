@@ -1,0 +1,34 @@
+type ScalarModel @model {
+    id: ID!
+    str: String
+    requiredStr: String!
+    integer: Int
+    requiredInteger: Int!
+    float: Float
+    requiredFloat: Float!
+    boolean: Boolean
+    requiredBoolean: Boolean!
+    awsDate: AWSDate
+    requiredAwsDate: AWSDate!
+    awsDateTime: AWSDateTime
+    requiredAwsDateTime: AWSDateTime!
+    awsTime: AWSTime
+    requiredAwsTime: AWSTime!
+    awsTimestamp: AWSTimestamp
+    requiredAwsTimestamp: AWSTimestamp!
+    awsEmail: AWSEmail
+    requiredAwsEmail: AWSEmail!
+    awsJson: AWSJSON
+    requiredAwsJson: AWSJSON!
+    awsPhone: AWSPhone
+    requiredAwsPhone: AWSPhone!
+    awsUrl: AWSURL
+    requiredAwsUrl: AWSURL!
+    awsIpAddress: AWSIPAddress
+    requiredAwsIpAddress: AWSIPAddress!
+}
+
+type CPKModel @model {
+    firstName: String! @primaryKey(sortKeyFields: ["lastName"])
+    lastName: String!
+}
