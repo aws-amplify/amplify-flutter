@@ -253,8 +253,9 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     if (_currentState is ConnectedState) {
       (_currentState as ConnectedState).timeoutTimer.cancel();
     }
-
     yield _currentState.shutdown();
+    yield* const Stream
+        .empty(); // TODO(dnys1): Yield broken on web debug build.
 
     await _close();
   }
