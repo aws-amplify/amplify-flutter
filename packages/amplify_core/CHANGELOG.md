@@ -1,3 +1,8 @@
+## 1.0.0-next.0+3
+
+### Features
+- feat(core): AWS config file
+
 ## 1.0.0-next.0+2
 
 ### Features
