@@ -26,6 +26,7 @@ testSortOperations<T extends Model>({
   required List<T> models,
   required QueryField queryField,
   required int sort(T a, T b),
+  bool skip = false,
 }) {
   var classType = getModelType<T>();
   var ascendingSortedModels = models..sort(sort);
@@ -39,17 +40,25 @@ testSortOperations<T extends Model>({
     }
   });
 
-  testWidgets('ascending()', (WidgetTester tester) async {
-    var actualModels = await Amplify.DataStore.query(classType,
-        sortBy: [queryField.ascending()]);
-    expect(actualModels, orderedEquals(ascendingSortedModels));
-  });
+  testWidgets(
+    'ascending()',
+    (WidgetTester tester) async {
+      var actualModels = await Amplify.DataStore.query(classType,
+          sortBy: [queryField.ascending()]);
+      expect(actualModels, orderedEquals(ascendingSortedModels));
+    },
+    skip: skip,
+  );
 
-  testWidgets('descending()', (WidgetTester tester) async {
-    var actualModels = await Amplify.DataStore.query(classType,
-        sortBy: [queryField.descending()]);
-    expect(actualModels, orderedEquals(descendingSortedModels));
-  });
+  testWidgets(
+    'descending()',
+    (WidgetTester tester) async {
+      var actualModels = await Amplify.DataStore.query(classType,
+          sortBy: [queryField.descending()]);
+      expect(actualModels, orderedEquals(descendingSortedModels));
+    },
+    skip: skip,
+  );
 }
 
 /// sort [ModelWithAppsyncScalarTypes] by [ModelWithAppsyncScalarTypes.STRINGVALUE], accounting for nulls

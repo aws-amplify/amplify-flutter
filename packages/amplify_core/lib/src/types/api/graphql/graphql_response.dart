@@ -22,12 +22,12 @@ class GraphQLResponse<T> {
   /// This will be `null` if there are any GraphQL errors during execution.
   final T? data;
 
-  /// A list of errors from execution. If no errors, it will be `null`.
-  final List<GraphQLResponseError>? errors;
+  /// A list of errors from execution. If no errors, it will be an empty list.
+  final List<GraphQLResponseError> errors;
 
   const GraphQLResponse({
     this.data,
-    this.errors,
+    required this.errors,
   });
 
   static GraphQLResponse<String?> raw({
@@ -36,10 +36,10 @@ class GraphQLResponse<T> {
   }) {
     return GraphQLResponse(
       data: data,
-      errors: errors,
+      errors: errors ?? const [],
     );
   }
 
-  /// Returns true when errors are present and not empty.
-  bool get hasErrors => errors != null && errors!.isNotEmpty;
+  /// Whether errors are present in the response.
+  bool get hasErrors => errors.isNotEmpty;
 }

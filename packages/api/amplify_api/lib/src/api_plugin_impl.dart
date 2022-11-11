@@ -201,7 +201,7 @@ class AmplifyAPIDart extends AmplifyAPI {
       type: EndpointType.graphQL,
       apiName: apiName,
     );
-    return endpoint.getUri(path: null, queryParameters: null);
+    return endpoint.getUri();
   }
 
   Uri _getRestUri(

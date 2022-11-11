@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
     hide InternalErrorException;
@@ -160,6 +161,33 @@ void main() {
         expect(
           authorizedRequest.headers[userAgentHeader],
           contains('aws-sigv4'),
+        );
+      });
+
+      test('does not sign body when ServiceConfiguration signBody false',
+          () async {
+        const authProvider = CognitoIamAuthProvider();
+        const region = 'us-east-1';
+        final inputRequest = AWSHttpRequest(
+          method: AWSHttpMethod.post,
+          body: json.encode({
+            'foo': 'bar',
+          }).codeUnits,
+          uri: Uri.parse(
+            'https://xyz456.execute-api.$region.amazonaws.com/test',
+          ),
+        );
+        final authorizedRequest = await authProvider.authorizeRequest(
+          inputRequest,
+          options: const IamAuthProviderOptions(
+            region: region,
+            service: AWSService.apiGateway,
+            serviceConfiguration: ServiceConfiguration(signBody: false),
+          ),
+        );
+        expect(
+          authorizedRequest.headers.containsKey(AWSHeaders.contentSHA256),
+          isFalse,
         );
       });
 

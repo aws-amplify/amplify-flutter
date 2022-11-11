@@ -20,16 +20,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scope: ["amplify_api_example"] # For now only test API here to save resources.
-        # TODO(ragingsquirrel3): add back other categories before merging to next
-        # scope: ["amplify_api_example", "amplify_storage_s3_example", "amplify_auth_cognito_example"]
+        scope:
+          - "amplify_api_example"
+          - "amplify_auth_cognito_example"
+          - "amplify_datastore_example"
+          # TODO(ragingsquirrel3): figure out why this times out
+          # - "amplify_storage_s3_example"
     steps:
-      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
           persist-credentials: false
 
       # Flutter requires Java 11 to build android apps with Gradle.
-      - uses: actions/setup-java@860f60056505705214d223b91ed7a30f173f6142 # 3.3.0
+      - uses: actions/setup-java@de1bb2b0c5634f0fc4438d7aa9944e68f9bf86cc # 3.6.0
         with:
           distribution: 'corretto' # Amazon Corretto Build of OpenJDK
           java-version: '11'
@@ -45,17 +48,13 @@ jobs:
           scope: ${{ matrix.scope }}
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
-      - name: Build example app with integration tests
-        run: |
-          melos exec --scope=${{ matrix.scope }} --file-exists="integration_test/main_test.dart" --fail-fast flutter build apk --verbose
-
       - name: Run Android integration tests
-        uses: reactivecircus/android-emulator-runner@e790971012b979513b4e2fe70d4079bc0ca8a1ae # 2.24.0
-        timeout-minutes: 25
+        uses: reactivecircus/android-emulator-runner@50986b1464923454c95e261820bc626f38490ec0 # 2.27.0
+        timeout-minutes: 45
         with:
           # API levels 30+ too slow https://github.com/ReactiveCircus/android-emulator-runner/issues/222
           api-level: 29
-          script: melos exec -c 1 --scope ${{ matrix.scope }} -- "deviceId=emulator-5554 retries=1 \$MELOS_ROOT_PATH/build-support/integ_test_android.sh"
+          script: melos exec -c 1 --scope ${{ matrix.scope }} -- small=true \$MELOS_ROOT_PATH/build-support/integ_test.sh -d emulator-5554  --retries 1
 
   ios:
     runs-on: macos-latest
@@ -66,11 +65,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scope: ["amplify_api_example"] # For now only test API here to save resources.
-        # TODO(ragingsquirrel3): add back other categories before merging to next
-        # scope: ["amplify_api_example", "amplify_storage_s3_example", "amplify_auth_cognito_example"]
+        scope:
+          - "amplify_api_example"
+          - "amplify_auth_cognito_example"
+          - "amplify_datastore_example"
+          - "amplify_storage_s3_example"
     steps:
-      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # 2.4.0
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
           persist-credentials: false
       
@@ -89,13 +90,9 @@ jobs:
           scope: ${{ matrix.scope }}
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
-      - name: Build example app with integration tests
-        run: |
-          melos exec --scope=${{ matrix.scope }} flutter build ios --simulator
-
       - name: Run integration tests
         run: |
-          melos exec -c 1 --scope ${{ matrix.scope }} -- "retries=1 \$MELOS_ROOT_PATH/build-support/integ_test_ios.sh"
+          melos exec -c 1 --scope ${{ matrix.scope }} -- small=true \$MELOS_ROOT_PATH/build-support/integ_test_ios.sh  --retries 1
 
   web:
     runs-on: ubuntu-latest
@@ -106,9 +103,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scope: ["amplify_api_example"]
+        scope:
+          - "amplify_api_example"
+          - "amplify_auth_cognito_example"
     steps:
-      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
           persist-credentials: false
       
@@ -129,3 +128,67 @@ jobs:
         run: |
           chromedriver --port=4444 &
           melos exec -c 1 --scope ${{ matrix.scope }} -- flutter drive --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d web-server
+
+  macos:
+    runs-on: macos-latest
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    permissions:
+      id-token: write
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        scope: 
+          - "amplify_auth_cognito_example"
+    steps:
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
+        with:
+          persist-credentials: false
+      
+      - name: Install dependencies
+        uses: ./.github/composite_actions/install_dependencies
+
+      - name: Fetch Amplify backend configurations
+        uses: ./.github/composite_actions/fetch_backends
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          scope: ${{ matrix.scope }}
+          secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
+
+      - name: Run integration tests
+        run: |
+          flutter config --enable-macos-desktop
+          melos exec -c 1 --scope ${{ matrix.scope }} -- \$MELOS_ROOT_PATH/build-support/integ_test.sh -d macos  --retries 1
+
+  linux:
+    runs-on: ubuntu-latest
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    permissions:
+      id-token: write
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        scope: 
+          - "amplify_auth_cognito_example"
+    steps:
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
+        with:
+          persist-credentials: false
+      
+      - name: Install dependencies
+        uses: ./.github/composite_actions/install_dependencies
+
+      - name: Fetch Amplify backend configurations
+        uses: ./.github/composite_actions/fetch_backends
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          scope: ${{ matrix.scope }}
+          secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
+
+      - name: Run integration tests
+        run: |
+          flutter config --enable-linux-desktop
+          melos exec -c 1 --scope ${{ matrix.scope }} -- \$MELOS_ROOT_PATH/build-support/integ_test.sh -d linux --retries 1

@@ -58,6 +58,8 @@ class TestIamAuthProvider extends AWSIamAmplifyAuthProvider {
     return signer.sign(
       request,
       credentialScope: scope,
+      serviceConfiguration:
+          options.serviceConfiguration ?? const BaseServiceConfiguration(),
     );
   }
 }

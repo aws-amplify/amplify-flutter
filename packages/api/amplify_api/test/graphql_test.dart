@@ -199,7 +199,7 @@ void main() {
       final expected = json.encode(_expectedQuerySuccessResponseBody['data']);
 
       expect(res.data, equals(expected));
-      expect(res.errors, equals(null));
+      expect(res.errors, isEmpty);
     });
 
     test('Query returns proper response.data with dynamic type', () async {
@@ -223,7 +223,7 @@ void main() {
       final expected = json.encode(_expectedQuerySuccessResponseBody['data']);
 
       expect(res.data, equals(expected));
-      expect(res.errors, equals(null));
+      expect(res.errors, isEmpty);
     });
 
     test('Mutate returns proper response.data', () async {
@@ -246,7 +246,7 @@ void main() {
       final expected = json.encode(_expectedMutateSuccessResponseBody['data']);
 
       expect(res.data, equals(expected));
-      expect(res.errors, equals(null));
+      expect(res.errors, isEmpty);
     });
   });
   group('Model Helpers', () {
@@ -271,7 +271,7 @@ void main() {
       // response asserts
       expect(res.data, isA<Blog>());
       expect(res.data?.id, _modelQueryId);
-      expect(res.errors, equals(null));
+      expect(res.errors, isEmpty);
     });
   });
 
@@ -395,7 +395,7 @@ void main() {
       );
 
       expect(res.data, equals(null));
-      expect(res.errors?.single, equals(errorExpected));
+      expect(res.errors.single, equals(errorExpected));
     });
 
     test('request with custom auth mode and auth error', () async {
@@ -422,7 +422,7 @@ void main() {
       );
 
       expect(res.data, equals(null));
-      expect(res.errors?.single, equals(errorExpected));
+      expect(res.errors.single, equals(errorExpected));
     });
 
     test('canceled query request should never resolve', () async {

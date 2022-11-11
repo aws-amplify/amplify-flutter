@@ -127,12 +127,12 @@ class GraphQLResponseDecoder {
   }
 }
 
-List<GraphQLResponseError>? _deserializeGraphQLResponseErrors(
+List<GraphQLResponseError> _deserializeGraphQLResponseErrors(
   Map<String, dynamic>? response,
 ) {
   final errors = response?['errors'] as List?;
   if (errors == null || errors.isEmpty) {
-    return null;
+    return [];
   }
   return errors
       .cast<Map<String, dynamic>>()
