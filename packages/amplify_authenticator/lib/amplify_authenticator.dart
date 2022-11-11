@@ -762,23 +762,22 @@ class _AuthenticatorBody extends StatelessWidget {
     return _AuthStateBuilder(
       child: child,
       builder: (state, child) {
+        if (state is AuthenticatedState) return child;
         return Navigator(
           onPopPage: (_, dynamic __) => true,
           pages: [
-            if (state is AuthenticatedState) MaterialPage<void>(child: child),
-            if (state is! AuthenticatedState)
-              MaterialPage<void>(
-                child: ScaffoldMessenger(
-                  key: _AuthenticatorState.scaffoldMessengerKey,
-                  child: Scaffold(
-                    body: SizedBox.expand(
-                      child: child is AuthenticatorScreen
-                          ? SingleChildScrollView(child: child)
-                          : child,
-                    ),
+            MaterialPage<void>(
+              child: ScaffoldMessenger(
+                key: _AuthenticatorState.scaffoldMessengerKey,
+                child: Scaffold(
+                  body: SizedBox.expand(
+                    child: child is AuthenticatorScreen
+                        ? SingleChildScrollView(child: child)
+                        : child,
                   ),
                 ),
               ),
+            ),
           ],
         );
       },
