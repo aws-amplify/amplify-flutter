@@ -1,3 +1,16 @@
+## 0.3.0
+
+### Fixes
+- fix(aws_common): fix HTTP cancel error/transform error ([#2294](https://github.com/aws-amplify/amplify-flutter/pull/2294))
+- fix(common): Set contentLength to `-1` when unknown
+- fix(common): staticInterop external member ([#2280](https://github.com/aws-amplify/amplify-flutter/pull/2280))
+
+### Breaking Changes
+- chore(common)!: Add `onCancel` to `AWSBaseHttpRequest.send`
+
+### Features
+- feat(core): AWS config file
+
 ## 0.2.4
 
 ### Features

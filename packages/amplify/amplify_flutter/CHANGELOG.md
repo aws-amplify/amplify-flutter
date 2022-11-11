@@ -1,3 +1,13 @@
+## 1.0.0-next.0+5
+
+### Features
+- feat(auth): SignInDetails
+
+### Fixes
+- fix(auth): Support Cognito proxies
+- fix(authenticator): Configuration error handling
+- fix(authenticator): remove unnecessary assertion in PendingVerificationCheckState constructor ([#2325](https://github.com/aws-amplify/amplify-flutter/pull/2325))
+
 ## 1.0.0-next.0+4
 
 - Minor bug fixes and improvements
