@@ -1,3 +1,11 @@
+## 1.0.0-next.1
+
+### Features
+- feat(auth): SignInDetails
+
+### Fixes
+- fix(auth): Support Cognito proxies
+
 ## 1.0.0-next.0+6
 
 ### Fixes

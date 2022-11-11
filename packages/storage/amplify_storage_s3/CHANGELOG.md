@@ -1,3 +1,8 @@
+## 1.0.0-next.1
+
+### Features
+- Initial Dart-only release!
+
 ## 1.0.0-next.0+3
 
 - Minor bug fixes and improvements

@@ -9,19 +9,19 @@ environment:
   sdk: '>=2.17.0 <3.0.0'
 
 dependencies:
-  amplify_core: ^1.0.0-next.0
-  amplify_db_common_dart: ^0.1.0
+  amplify_core: ">=1.0.0-next.1 <1.0.0-next.2"
+  amplify_db_common_dart: ">=0.1.0 <0.2.0"
   async: ^2.8.2
-  aws_common: ^0.2.2
-  aws_signature_v4: ^0.2.0
+  aws_common: ">=0.3.0 <0.4.0"
+  aws_signature_v4: ">=0.3.0 <0.4.0"
   built_collection: ^5.0.0
   built_value: ">=8.4.0 <8.5.0"
   # Constraint determined by amplify_db_common
   drift: any
   meta: ^1.7.0
   path: any
-  smithy: ^0.1.0
-  smithy_aws: ^0.1.0
+  smithy: ">=0.3.0 <0.4.0"
+  smithy_aws: ">=0.3.0 <0.4.0"
 
 dev_dependencies:
   amplify_lints:

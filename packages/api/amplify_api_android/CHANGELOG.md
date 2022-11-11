@@ -1,3 +1,5 @@
+## 1.0.0-next.1
+
 ## 1.0.0-next.0 (2022-08-02)
 
 Initial developer preview release for all platforms.

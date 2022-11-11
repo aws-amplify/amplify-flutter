@@ -1,3 +1,8 @@
+## 0.2.0
+
+### Fixes
+- fix(secure_storage): IndexedDB interop issues ([#2328](https://github.com/aws-amplify/amplify-flutter/pull/2328))
+
 ## 0.1.2
 
 - Minor bug fixes and improvements

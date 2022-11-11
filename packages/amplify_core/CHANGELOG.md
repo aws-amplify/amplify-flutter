@@ -1,3 +1,13 @@
+## 1.0.0-next.1
+
+### Features
+- feat(api): Dart-only implementation
+- feat(api): GraphQL Custom Request Headers ([#1938](https://github.com/aws-amplify/amplify-flutter/pull/1938))
+- feat(api): authorizationMode property for GraphQLRequest ([#2143](https://github.com/aws-amplify/amplify-flutter/pull/2143))
+- feat(api): Subscription Reconnection ([#2074](https://github.com/aws-amplify/amplify-flutter/pull/2074))
+- feat(storage): Dart-only implementation
+- feat(auth): SignInDetails
+
 ## 1.0.0-next.0+2
 
 ### Features

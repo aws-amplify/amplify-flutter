@@ -1,3 +1,21 @@
+## 1.0.0-next.1
+
+## Features
+- Initial Dart-only release!
+- feat(api): .subscribe() for GraphQL ([#1915](https://github.com/aws-amplify/amplify-flutter/pull/1915))
+- feat(api): GraphQL Custom Request Headers ([#1938](https://github.com/aws-amplify/amplify-flutter/pull/1938))
+- feat(api): REST methods in dart with auth mode none ([#1783](https://github.com/aws-amplify/amplify-flutter/pull/1783))
+- feat(api): Subscription Reconnection ([#2074](https://github.com/aws-amplify/amplify-flutter/pull/2074))
+- feat(api): authorizationMode property for GraphQLRequest ([#2143](https://github.com/aws-amplify/amplify-flutter/pull/2143))
+- feat(auth,api): cognito user pools auth provider & auth mode for API HTTP requests ([#1913](https://github.com/aws-amplify/amplify-flutter/pull/1913))
+- feat(core,api): IAM auth mode for HTTP requests (REST and GQL) ([#1893](https://github.com/aws-amplify/amplify-flutter/pull/1893))
+
+### Fixes
+- fix(api): MockAmplifyAPI `addPlugin` call ([#2329](https://github.com/aws-amplify/amplify-flutter/pull/2329))
+- fix(api): correct subscription error handling ([#2179](https://github.com/aws-amplify/amplify-flutter/pull/2179))
+- fix(api): fix model helper util on web ([#2270](https://github.com/aws-amplify/amplify-flutter/pull/2270))
+- fix(core): Register auth providers in addPlugin ([#2281](https://github.com/aws-amplify/amplify-flutter/pull/2281))
+
 ## 1.0.0-next.0+4
 
 - Minor bug fixes and improvements
