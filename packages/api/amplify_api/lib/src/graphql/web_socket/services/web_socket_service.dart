@@ -138,9 +138,16 @@ class AmplifyWebSocketService
   }
 
   void _send(WebSocketMessage message) {
-    assert(sink != null, 'Sink must exist');
-    final msgJson = json.encode(message.toJson());
-    sink!.add(msgJson);
+    try {
+      assert(sink != null, 'Sink must exist');
+      final msgJson = json.encode(message.toJson());
+      sink!.add(msgJson);
+    } on Exception catch (e) {
+      logger.warn(
+        'Error while trying to add to sync.',
+        e,
+      );
+    }
   }
 
   Future<void> _sendSubscriptionRegistrationMessage<T>(
