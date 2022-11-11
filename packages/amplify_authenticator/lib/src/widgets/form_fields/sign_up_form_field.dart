@@ -34,6 +34,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     FormFieldValidator<FieldValue>? validator,
     CognitoUserAttributeKey? customAttributeKey,
     bool? required,
+    Iterable<String>? autofillHints,
   })  : _customAttributeKey = customAttributeKey,
         super._(
           key: key,
@@ -44,6 +45,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
           hintText: hintText,
           validator: validator,
           requiredOverride: required,
+          autofillHints: autofillHints,
         );
 
   /// {@template amplify_authenticator.username_form_field}
@@ -59,16 +61,19 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
   static SignUpFormField username({
     Key? key,
     FormFieldValidator<UsernameInput>? validator,
+    Iterable<String>? overrideAutofillHints,
   }) =>
       _SignUpUsernameField(
         key: key ?? keyUsernameSignUpFormField,
         validator: validator,
+        autofillHints: overrideAutofillHints,
       );
 
   /// Creates a password component.
   static SignUpFormField password({
     Key? key,
     FormFieldValidator<String>? validator,
+    Iterable<String>? overrideAutofillHints,
   }) =>
       _SignUpTextField(
         key: key ?? keyPasswordSignUpFormField,
@@ -76,12 +81,14 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         hintTextKey: InputResolverKey.passwordHint,
         field: SignUpField.password,
         validator: validator,
+        autofillHints: overrideAutofillHints,
       );
 
   /// Creates a passwordConfirmation component.
   static SignUpFormField passwordConfirmation({
     Key? key,
     FormFieldValidator<String>? validator,
+    Iterable<String>? overrideAutofillHints,
   }) =>
       _SignUpTextField(
         key: key ?? keyPasswordConfirmationSignUpFormField,
@@ -89,6 +96,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         hintTextKey: InputResolverKey.passwordConfirmationHint,
         field: SignUpField.passwordConfirmation,
         validator: validator,
+        autofillHints: overrideAutofillHints,
       );
 
   /// Creates an address component.
@@ -96,6 +104,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? overrideAutofillHints,
   }) =>
       _SignUpTextField(
         key: key ?? keyAddressSignUpFormField,
@@ -104,6 +113,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         field: SignUpField.address,
         validator: validator,
         required: required,
+        autofillHints: overrideAutofillHints,
       );
 
   /// Creates a birthdate component.
@@ -111,6 +121,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? overrideAutofillHints,
   }) =>
       _SignUpDateField(
         key: key ?? keyBirthdateSignUpFormField,
@@ -119,6 +130,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         field: SignUpField.birthdate,
         validator: validator,
         required: required,
+        autofillHints: overrideAutofillHints,
       );
 
   /// Creates an email component.
@@ -126,6 +138,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? overrideAutofillHints,
   }) =>
       _SignUpTextField(
         key: key ?? keyEmailSignUpFormField,
@@ -134,6 +147,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         field: SignUpField.email,
         validator: validator,
         required: required,
+        autofillHints: overrideAutofillHints,
       );
 
   /// Creates a familyName component.
@@ -141,6 +155,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? overrideAutofillHints,
   }) =>
       _SignUpTextField(
         key: key ?? keyFamilyNameSignUpFormField,
@@ -149,6 +164,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         field: SignUpField.familyName,
         validator: validator,
         required: required,
+        autofillHints: overrideAutofillHints,
       );
 
   /// Creates a gender component.
@@ -156,6 +172,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? overrideAutofillHints,
   }) =>
       _SignUpTextField(
         key: key ?? keyGenderSignUpFormField,
@@ -164,6 +181,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         field: SignUpField.gender,
         validator: validator,
         required: required,
+        autofillHints: overrideAutofillHints,
       );
 
   /// Creates a givenName component.
@@ -171,6 +189,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? overrideAutofillHints,
   }) =>
       _SignUpTextField(
         key: key ?? keyGivenNameSignUpFormField,
@@ -179,6 +198,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         field: SignUpField.givenName,
         validator: validator,
         required: required,
+        autofillHints: overrideAutofillHints,
       );
 
   /// Creates a middleName component.
@@ -186,6 +206,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? overrideAutofillHints,
   }) =>
       _SignUpTextField(
         key: key ?? keyMiddleNameSignUpFormField,
@@ -194,6 +215,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         field: SignUpField.middleName,
         validator: validator,
         required: required,
+        autofillHints: overrideAutofillHints,
       );
 
   /// Creates a name component.
@@ -201,6 +223,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? overrideAutofillHints,
   }) =>
       _SignUpTextField(
         key: key ?? keyNameSignUpFormField,
@@ -209,6 +232,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         field: SignUpField.name,
         validator: validator,
         required: required,
+        autofillHints: overrideAutofillHints,
       );
 
   /// Creates a nickname component.
@@ -216,6 +240,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? overrideAutofillHints,
   }) =>
       _SignUpTextField(
         key: key ?? keyNicknameSignUpFormField,
@@ -224,6 +249,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         field: SignUpField.nickname,
         validator: validator,
         required: required,
+        autofillHints: overrideAutofillHints,
       );
 
   /// Creates a phoneNumber component.
@@ -231,6 +257,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? overrideAutofillHints,
   }) =>
       _SignUpPhoneField(
         key: key ?? keyPhoneNumberSignUpFormField,
@@ -239,6 +266,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         field: SignUpField.phoneNumber,
         validator: validator,
         required: required,
+        autofillHints: overrideAutofillHints,
       );
 
   /// Creates a preferredUsername component.
@@ -246,6 +274,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? overrideAutofillHints,
   }) =>
       _SignUpTextField(
         key: key ?? keyPreferredUsernameSignUpFormField,
@@ -254,6 +283,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         field: SignUpField.preferredUsername,
         validator: validator,
         required: required,
+        autofillHints: overrideAutofillHints,
       );
 
   /// Creates a custom attribute component.
@@ -264,6 +294,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
     String? hintText,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? autofillHints,
   }) =>
       _SignUpTextField(
         key: key,
@@ -273,6 +304,7 @@ abstract class SignUpFormField<FieldValue> extends AuthenticatorFormField<
         validator: validator,
         attributeKey: attributeKey,
         required: required,
+        autofillHints: autofillHints,
       );
 
   /// Custom Cognito attribute key.
@@ -408,6 +440,10 @@ abstract class _SignUpFormFieldState<FieldValue>
 
   @override
   Iterable<String>? get autofillHints {
+    //Checks for override value
+    if (widget.autofillHints != null) return widget.autofillHints;
+
+    //Returns default value
     switch (widget.field) {
       case SignUpField.password:
       case SignUpField.passwordConfirmation:
@@ -479,6 +515,7 @@ class _SignUpTextField extends SignUpFormField<String> {
     CognitoUserAttributeKey? attributeKey,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? autofillHints,
   }) : super._(
           key: key,
           field: field,
@@ -489,6 +526,7 @@ class _SignUpTextField extends SignUpFormField<String> {
           validator: validator,
           customAttributeKey: attributeKey,
           required: required,
+          autofillHints: autofillHints,
         );
 
   @override
@@ -677,12 +715,14 @@ class _SignUpUsernameField extends SignUpFormField<UsernameInput> {
   const _SignUpUsernameField({
     Key? key,
     FormFieldValidator<UsernameInput>? validator,
+    Iterable<String>? autofillHints,
   }) : super._(
           key: key,
           field: SignUpField.username,
           titleKey: InputResolverKey.usernameTitle,
           hintTextKey: InputResolverKey.usernameHint,
           validator: validator,
+          autofillHints: autofillHints,
         );
 
   @override
@@ -703,6 +743,7 @@ class _SignUpPhoneField extends SignUpFormField<String> {
     CognitoUserAttributeKey? attributeKey,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? autofillHints,
   }) : super._(
           key: key,
           field: field,
@@ -713,6 +754,7 @@ class _SignUpPhoneField extends SignUpFormField<String> {
           validator: validator,
           customAttributeKey: attributeKey,
           required: required,
+          autofillHints: autofillHints,
         );
 
   @override
@@ -762,6 +804,7 @@ class _SignUpDateField extends SignUpFormField<String> {
     CognitoUserAttributeKey? attributeKey,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? autofillHints,
   }) : super._(
           key: key,
           field: field,
@@ -772,6 +815,7 @@ class _SignUpDateField extends SignUpFormField<String> {
           validator: validator,
           customAttributeKey: attributeKey,
           required: required,
+          autofillHints: autofillHints,
         );
 
   @override

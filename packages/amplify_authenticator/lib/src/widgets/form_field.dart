@@ -68,6 +68,7 @@ abstract class AuthenticatorFormField<FieldType, FieldValue,
     this.hintText,
     FormFieldValidator<FieldValue>? validator,
     this.requiredOverride,
+    this.autofillHints,
   })  : validatorOverride = validator,
         super(key: key);
 
@@ -96,6 +97,9 @@ abstract class AuthenticatorFormField<FieldType, FieldValue,
   /// User override of default [required] value.
   final bool? requiredOverride;
 
+  /// Autocomplete hints to override the default value
+  final Iterable<String>? autofillHints;
+
   /// Whether the field is required in the form.
   ///
   /// Defaults to `false`.
@@ -121,6 +125,7 @@ abstract class AuthenticatorFormField<FieldType, FieldValue,
     properties
         .add(DiagnosticsProperty<bool?>('requiredOverride', requiredOverride));
     properties.add(EnumProperty<UsernameType?>('usernameType', usernameType));
+    properties.add(IterableProperty<String>('autofillHints', autofillHints));
   }
 }
 
@@ -212,7 +217,7 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   Widget? get surlabel => null;
 
   // Autocomplete hints
-  Iterable<String>? get autofillHints => null;
+  Iterable<String>? get autofillHints => widget.autofillHints;
 
   @nonVirtual
   @override
