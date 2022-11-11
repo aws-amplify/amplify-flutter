@@ -15,10 +15,10 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/web_socket/blocs/web_socket_bloc.dart';
 import 'package:amplify_api/src/graphql/web_socket/state/web_socket_state.dart';
 import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../util.dart';
@@ -29,6 +29,8 @@ const mockConnectionAck =
 void main() {
   late MockWebSocketBloc? bloc;
   late MockWebSocketService? service;
+  late StreamController<ApiHubEvent> hubEventsController;
+  late Stream<ApiHubEvent> hubEvents;
 
   const graphQLDocument = '''subscription MySubscription {
     onCreateBlog {
@@ -76,93 +78,112 @@ void main() {
   }
 
   group('WebSocketBloc', () {
+    setUp(() {
+      hubEventsController = StreamController.broadcast();
+      hubEvents = hubEventsController.stream;
+      Amplify.Hub.listen(HubChannel.Api, hubEventsController.add);
+    });
+
     tearDown(() async {
       bloc = null;
       service = null; // service gets closed in  bloc
+      Amplify.Hub.close();
+      await hubEventsController.close();
     });
 
     test('should init a connection & call onEstablishCallback', () async {
       final subscribeEvent =
           SubscribeEvent(subscriptionRequest, expectAsync0(() {}));
 
+      expect(
+        hubEvents,
+        emitsInOrder(
+          [
+            connectingHubEvent,
+            connectedHubEvent,
+          ],
+        ),
+      );
+
       getWebSocketBloc().subscribe(
         subscribeEvent,
       );
-
-      // TODO(equartey): Implement Hub Events
-      // expect(
-      //   hubEvents,
-      //   emitsInOrder(
-      //     [
-      //       connectingHubEvent,
-      //       connectedHubEvent,
-      //     ],
-      //   ),
-      // );
     });
-  });
 
-  test('subscribe() should return a subscription stream', () async {
-    final subscribeEvent = SubscribeEvent(
-      subscriptionRequest,
-      () {
-        service!.channel.sink.add(mockDataString);
-      },
-    );
+    test('subscribe() should return a subscription stream', () async {
+      final subscribeEvent = SubscribeEvent(
+        subscriptionRequest,
+        () {
+          service!.channel.sink.add(mockDataString);
+        },
+      );
 
-    final subscription = getWebSocketBloc().subscribe(
-      subscribeEvent,
-    );
+      final subscription = getWebSocketBloc().subscribe(
+        subscribeEvent,
+      );
 
-    final streamSub = subscription.listen(
-      expectAsync1((event) {
-        expect(event.data, json.encode(mockSubscriptionData));
-      }),
-    );
+      final streamSub = subscription.listen(
+        expectAsync1((event) {
+          expect(event.data, json.encode(mockSubscriptionData));
+        }),
+      );
 
-    addTearDown(streamSub.cancel);
-  });
+      addTearDown(streamSub.cancel);
+    });
 
-  test('cancel() should send a stop message & close connection', () async {
-    final subscribeEvent = SubscribeEvent(
-      subscriptionRequest,
-      () {
-        service!.channel.sink.add(mockDataString);
-      },
-    );
+    test('cancel() should send a stop message & close connection', () async {
+      final subscribeEvent = SubscribeEvent(
+        subscriptionRequest,
+        () {
+          service!.channel.sink.add(mockDataString);
+        },
+      );
 
-    final dataCompleter = Completer<String>();
-    final bloc = getWebSocketBloc();
-    final subscription = bloc.subscribe(
-      subscribeEvent,
-    );
+      expect(
+        hubEvents,
+        emitsInOrder(
+          [
+            connectingHubEvent,
+            connectedHubEvent,
+            pendingDisconnectedHubEvent,
+            disconnectedHubEvent,
+          ],
+        ),
+      );
 
-    final streamSub = subscription.listen(
-      (event) => dataCompleter.complete(event.data),
-    );
+      final dataCompleter = Completer<String>();
+      final bloc = getWebSocketBloc();
+      final subscription = bloc.subscribe(
+        subscribeEvent,
+      );
 
-    await dataCompleter.future;
+      final streamSub = subscription.listen(
+        (event) => dataCompleter.complete(event.data),
+      );
 
-    expect(
-      service!.channel.stream,
-      emitsInOrder(
-        [
-          isA<String>().having(
-            (event) => json.decode(event),
-            'web socket message',
-            containsPair('type', 'stop'),
-          ),
-          isA<String>().having(
-            (event) => json.decode(event),
-            'web socket message',
-            containsPair('type', 'complete'),
-          ),
-        ],
-      ),
-    );
-    // bloc should disconnect due to no active subscriptions
-    expect(bloc.stream, emitsThrough(isA<DisconnectedState>()));
+      await dataCompleter.future;
 
-    await streamSub.cancel();
+      expect(
+        service!.channel.stream,
+        emitsInOrder(
+          [
+            isA<String>().having(
+              (event) => json.decode(event),
+              'web socket message',
+              containsPair('type', 'stop'),
+            ),
+            isA<String>().having(
+              (event) => json.decode(event),
+              'web socket message',
+              containsPair('type', 'complete'),
+            ),
+          ],
+        ),
+      );
+      // bloc should disconnect due to no active subscriptions
+      expect(bloc.stream, emitsThrough(isA<DisconnectedState>()));
+
+      await streamSub.cancel();
+    });
   });
 }

@@ -38,6 +38,9 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     required AmplifyAuthProviderRepository authProviderRepo,
     required WebSocketService wsService,
   }) {
+    // Establish HubEvents Stream
+    Amplify.Hub.addChannel(HubChannel.Api, _hubEventsController.stream);
+
     final subBlocs = <String, WsSubscriptionBloc<Object?>>{};
 
     _currentState = DisconnectedState(
@@ -50,6 +53,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     );
     final blocStream = _wsEventStream.asyncExpand(_eventTransformer);
     _subscription = blocStream.listen(_emit);
+    _wsStateController.stream.listen(_emitHubEvent);
   }
 
   @override
@@ -77,6 +81,9 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   /// The current state of the bloc.
   WebSocketState get currentState => _currentState;
+
+  final StreamController<ApiHubEvent> _hubEventsController =
+      StreamController<ApiHubEvent>.broadcast();
 
   /// WEB SOCKET BLOC FUNCTIONS
   ///
@@ -341,6 +348,25 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       _wsEventController.close(),
       _wsStateController.close(),
     ]);
+  }
+
+  void _emitHubEvent(WebSocketState state) {
+    logger.debug('Emitting hub event: $state');
+
+    if (state is ConnectingState) {
+      _hubEventsController.add(SubscriptionHubEvent.connecting());
+    } else if (state is ConnectedState) {
+      _hubEventsController.add(SubscriptionHubEvent.connected());
+    } else if (state is PendingDisconnect) {
+      _hubEventsController.add(SubscriptionHubEvent.pendingDisconnect());
+    } else if (state is DisconnectedState) {
+      // Once disconnected we throw away the bloc and need to close hub controller
+      _hubEventsController
+        ..add(SubscriptionHubEvent.disconnected())
+        ..close();
+    } else if (state is FailureState) {
+      _hubEventsController.add(SubscriptionHubEvent.failed());
+    }
   }
 
   // Returns a [WsSubscriptionBloc<T>] and stores in state
