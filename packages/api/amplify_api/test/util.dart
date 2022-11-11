@@ -16,8 +16,11 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_api/src/graphql/providers/app_sync_api_key_auth_provider.dart';
-import 'package:amplify_api/src/graphql/ws/types/web_socket_types.dart';
-import 'package:amplify_api/src/graphql/ws/web_socket_connection.dart';
+import 'package:amplify_api/src/graphql/web_socket/blocs/web_socket_bloc.dart';
+import 'package:amplify_api/src/graphql/web_socket/services/web_socket_service.dart';
+import 'package:amplify_api/src/graphql/web_socket/state/web_socket_state.dart';
+import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
+import 'package:amplify_api/src/graphql/web_socket/web_socket_connection.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
@@ -174,6 +177,20 @@ Future<void> assertWebSocketConnected(
   connection.channel!.sink.add(jsonEncode(startAck(subscriptionID)));
 }
 
+void initMockConnection(
+  MockWebSocketBloc bloc,
+  MockWebSocketService service,
+  String id,
+) {
+  bloc.stream.listen((event) {
+    if (event is ConnectingState) {
+      service.channel.sink.add(jsonEncode(mockAckMessage));
+    } else if (event is ConnectedState) {
+      service.channel.sink.add(jsonEncode(startAck(id)));
+    }
+  });
+}
+
 /// Extension of [WebSocketConnection] that stores messages internally instead
 /// of sending them.
 class MockWebSocketConnection extends WebSocketConnection {
@@ -213,9 +230,7 @@ class MockWebSocketSink extends DelegatingStreamSink<dynamic>
 }
 
 class MockWebSocketChannel extends WebSocketChannel {
-  MockWebSocketChannel() : super(streamChannel) {
-    // controller.sink.add(mockAckMessage);
-  }
+  MockWebSocketChannel() : super(streamChannel);
 
   // ignore: close_sinks
   final controller = StreamController<dynamic>.broadcast();
@@ -269,4 +284,40 @@ class CustomFunctionProvider extends FunctionAuthProvider {
 
   @override
   Future<String?> getLatestAuthToken() async => testFunctionToken;
+}
+
+class MockWebSocketBloc extends WebSocketBloc {
+  MockWebSocketBloc({
+    required super.config,
+    required super.authProviderRepo,
+    required super.wsService,
+  });
+}
+
+class MockWebSocketService extends AmplifyWebSocketService {
+  late MockWebSocketChannel channel;
+
+  @override
+  Stream<WebSocketEvent> init(
+    WebSocketState state,
+  ) {
+    channel = MockWebSocketChannel();
+
+    sink = channel.sink;
+
+    final subStream = transformStream(channel.stream);
+
+    return subStream;
+  }
+
+  @override
+  Future<void> unsubscribe(
+    String subscriptionId,
+  ) async {
+    await super.unsubscribe(subscriptionId);
+
+    final completeMessage =
+        jsonEncode({'id': subscriptionId, 'type': 'complete'});
+    channel.sink.add(completeMessage);
+  }
 }

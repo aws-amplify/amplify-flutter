@@ -24,6 +24,7 @@ dependencies:
   json_annotation: ^4.6.0
   meta: ^1.7.0
   plugin_platform_interface: ^2.0.0
+  stream_transform: ^2.0.1
   web_socket_channel: ^2.2.0
 
 

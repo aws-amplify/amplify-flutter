@@ -18,7 +18,7 @@ library amplify_api.decorators.web_socket_auth_utils;
 import 'dart:convert';
 
 import 'package:amplify_api/src/decorators/authorize_http_request.dart';
-import 'package:amplify_api/src/graphql/ws/types/web_socket_types.dart';
+import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
