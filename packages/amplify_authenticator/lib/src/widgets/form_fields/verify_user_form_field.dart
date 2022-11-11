@@ -56,7 +56,7 @@ abstract class VerifyUserFormField<FieldValue> extends AuthenticatorFormField<
   static VerifyUserFormField confirmVerifyAttribute({
     Key? key,
     FormFieldValidator<String>? validator,
-    Iterable<String>? overrideAutofillHints,
+    Iterable<String>? autofillHints,
   }) =>
       _VerifyUserTextField(
         key: keyVerifyUserConfirmationCode,
@@ -64,7 +64,7 @@ abstract class VerifyUserFormField<FieldValue> extends AuthenticatorFormField<
         hintTextKey: InputResolverKey.verificationCodeHint,
         field: VerifyAttributeField.confirmVerify,
         validator: validator,
-        autofillHints: overrideAutofillHints,
+        autofillHints: autofillHints,
       );
 
   @override

@@ -49,7 +49,7 @@ abstract class ConfirmSignUpFormField<FieldValue>
   static ConfirmSignUpFormField username({
     Key? key,
     FormFieldValidator<UsernameInput>? validator,
-    Iterable<String>? overrideAutofillHints,
+    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignUpUsernameField(
         key: key ?? keyUsernameConfirmSignUpFormField,
@@ -57,14 +57,14 @@ abstract class ConfirmSignUpFormField<FieldValue>
         hintTextKey: InputResolverKey.usernameHint,
         field: ConfirmSignUpField.username,
         validator: validator,
-        autofillHints: overrideAutofillHints,
+        autofillHints: autofillHints,
       );
 
   /// Creates a verificationCode component.
   static ConfirmSignUpFormField verificationCode({
     Key? key,
     FormFieldValidator<String>? validator,
-    Iterable<String>? overrideAutofillHints,
+    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignUpTextField(
         key: key ?? keyCodeConfirmSignUpFormField,
@@ -72,7 +72,7 @@ abstract class ConfirmSignUpFormField<FieldValue>
         hintTextKey: InputResolverKey.verificationCodeHint,
         field: ConfirmSignUpField.code,
         validator: validator,
-        autofillHints: overrideAutofillHints,
+        autofillHints: autofillHints,
       );
 
   @override

@@ -42,37 +42,37 @@ class ResetPasswordFormField extends AuthenticatorFormField<ResetPasswordField,
 
   const ResetPasswordFormField.verificationCode({
     Key? key,
-    Iterable<String>? overrideAutofillHints,
+    Iterable<String>? autofillHints,
   }) : this._(
           key: key ?? keyVerificationCodeResetPasswordFormField,
           field: ResetPasswordField.verificationCode,
           titleKey: InputResolverKey.verificationCodeTitle,
           hintTextKey: InputResolverKey.verificationCodeHint,
-          autofillHints: overrideAutofillHints,
+          autofillHints: autofillHints,
         );
 
   const ResetPasswordFormField.newPassword({
     Key? key,
     FormFieldValidator<String>? validator,
-    Iterable<String>? overrideAutofillHints,
+    Iterable<String>? autofillHints,
   }) : this._(
           key: key ?? keyPasswordResetPasswordFormField,
           field: ResetPasswordField.newPassword,
           titleKey: InputResolverKey.newPasswordTitle,
           hintTextKey: InputResolverKey.newPasswordHint,
           validator: validator,
-          autofillHints: overrideAutofillHints,
+          autofillHints: autofillHints,
         );
 
   const ResetPasswordFormField.passwordConfirmation({
     Key? key,
-    Iterable<String>? overrideAutofillHints,
+    Iterable<String>? autofillHints,
   }) : this._(
           key: key ?? keyPasswordConfirmationResetPasswordFormField,
           field: ResetPasswordField.passwordConfirmation,
           titleKey: InputResolverKey.passwordConfirmationTitle,
           hintTextKey: InputResolverKey.passwordConfirmationHint,
-          autofillHints: overrideAutofillHints,
+          autofillHints: autofillHints,
         );
 
   @override

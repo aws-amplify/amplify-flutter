@@ -54,19 +54,19 @@ abstract class SignInFormField<FieldValue> extends AuthenticatorFormField<
   static SignInFormField username({
     Key? key,
     FormFieldValidator<UsernameInput>? validator,
-    Iterable<String>? overrideAutofillHints,
+    Iterable<String>? autofillHints,
   }) =>
       _SignInUsernameField(
         key: key ?? keyUsernameSignInFormField,
         validator: validator,
-        autofillHints: overrideAutofillHints,
+        autofillHints: autofillHints,
       );
 
   /// Creates a password FormField for the sign in step.
   static SignInFormField password({
     Key? key,
     FormFieldValidator<String>? validator,
-    Iterable<String>? overrideAutofillHints,
+    Iterable<String>? autofillHints,
   }) =>
       _SignInTextField(
         key: key ?? keyPasswordSignInFormField,
@@ -74,7 +74,7 @@ abstract class SignInFormField<FieldValue> extends AuthenticatorFormField<
         hintTextKey: InputResolverKey.passwordHint,
         field: SignInField.password,
         validator: validator,
-        autofillHints: overrideAutofillHints,
+        autofillHints: autofillHints,
       );
 
   @override
