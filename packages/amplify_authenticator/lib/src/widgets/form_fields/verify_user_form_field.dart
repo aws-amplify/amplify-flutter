@@ -30,6 +30,7 @@ abstract class VerifyUserFormField<FieldValue> extends AuthenticatorFormField<
     String? title,
     String? hintText,
     FormFieldValidator<FieldValue>? validator,
+    Iterable<String>? autofillHints,
   }) : super._(
           key: key,
           field: field,
@@ -38,6 +39,7 @@ abstract class VerifyUserFormField<FieldValue> extends AuthenticatorFormField<
           title: title,
           hintText: hintText,
           validator: validator,
+          autofillHints: autofillHints,
         );
 
   static VerifyUserFormField verifyAttribute({
@@ -54,6 +56,7 @@ abstract class VerifyUserFormField<FieldValue> extends AuthenticatorFormField<
   static VerifyUserFormField confirmVerifyAttribute({
     Key? key,
     FormFieldValidator<String>? validator,
+    Iterable<String>? overrideAutofillHints,
   }) =>
       _VerifyUserTextField(
         key: keyVerifyUserConfirmationCode,
@@ -61,6 +64,7 @@ abstract class VerifyUserFormField<FieldValue> extends AuthenticatorFormField<
         hintTextKey: InputResolverKey.verificationCodeHint,
         field: VerifyAttributeField.confirmVerify,
         validator: validator,
+        autofillHints: overrideAutofillHints,
       );
 
   @override
@@ -85,6 +89,7 @@ class _VerifyUserTextField extends VerifyUserFormField<String> {
     String? title,
     String? hintText,
     FormFieldValidator<String>? validator,
+    Iterable<String>? autofillHints,
   }) : super._(
           key: key,
           field: field,
@@ -93,6 +98,7 @@ class _VerifyUserTextField extends VerifyUserFormField<String> {
           title: title,
           hintText: hintText,
           validator: validator,
+          autofillHints: autofillHints,
         );
 
   @override
@@ -122,7 +128,9 @@ class _VerifyUserTextFieldState extends _VerifyUserFormFieldState<String>
   }
 
   @override
-  Iterable<String>? get autofillHints => [
+  Iterable<String>? get autofillHints =>
+      widget.autofillHints ??
+      [
         AutofillHints.oneTimeCode,
       ];
 
