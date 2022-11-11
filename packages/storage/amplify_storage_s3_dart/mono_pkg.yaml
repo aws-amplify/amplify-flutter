@@ -1,0 +1,21 @@
+sdk:
+  - stable
+  - dev
+
+stages:
+  - analyze_and_format:
+      - group:
+          - format
+          - analyze: --fatal-infos lib test
+  - build_test:
+      - test: --tags=build
+        os:
+          - macos
+        sdk:
+          - stable
+  - unit_test:
+      - command: dart --version
+      - test:
+        os:
+          - macos
+          - windows

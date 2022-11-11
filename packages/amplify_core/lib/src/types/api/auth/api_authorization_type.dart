@@ -58,7 +58,7 @@ enum APIAuthorizationType<T extends AmplifyAuthProvider> {
   /// See also:
   /// - [Amazon Cognito User Pools](https://docs.aws.amazon.com/appsync/latest/devguide/security-authz.html#amazon-cognito-user-pools-authorization)
   @JsonValue('AMAZON_COGNITO_USER_POOLS')
-  userPools(AmplifyAuthProviderToken<TokenAmplifyAuthProvider>(
+  userPools(AmplifyAuthProviderToken<TokenIdentityAmplifyAuthProvider>(
     'AMAZON_COGNITO_USER_POOLS',
   )),
 

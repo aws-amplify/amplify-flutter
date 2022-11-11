@@ -137,16 +137,16 @@ jobs:
         working-directory: packages/aws_signature_v4
         run: "dart test -p chrome,firefox"
   job_005:
-    name: "unit_test; linux; Dart dev; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/common/amplify_db_common_dart, packages/secure_storage/amplify_secure_storage_test; `dart --version`"
+    name: "unit_test; linux; Dart dev; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/common/amplify_db_common_dart, packages/secure_storage/amplify_secure_storage_test, packages/storage/amplify_storage_s3_dart; `dart --version`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/common/amplify_db_common_dart-packages/secure_storage/amplify_secure_storage_test;commands:command_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/common/amplify_db_common_dart-packages/secure_storage/amplify_secure_storage_test-packages/storage/amplify_storage_s3_dart;commands:command_0"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/common/amplify_db_common_dart-packages/secure_storage/amplify_secure_storage_test
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/common/amplify_db_common_dart-packages/secure_storage/amplify_secure_storage_test-packages/storage/amplify_storage_s3_dart
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -190,6 +190,15 @@ jobs:
       - name: "packages/secure_storage/amplify_secure_storage_test; dart --version"
         if: "always() && steps.packages_secure_storage_amplify_secure_storage_test_pub_upgrade.conclusion == 'success'"
         working-directory: packages/secure_storage/amplify_secure_storage_test
+        run: dart --version
+      - id: packages_storage_amplify_storage_s3_dart_pub_upgrade
+        name: packages/storage/amplify_storage_s3_dart; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/storage/amplify_storage_s3_dart
+        run: dart pub upgrade
+      - name: "packages/storage/amplify_storage_s3_dart; dart --version"
+        if: "always() && steps.packages_storage_amplify_storage_s3_dart_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/storage/amplify_storage_s3_dart
         run: dart --version
   job_006:
     name: "unit_test; linux; Dart dev; PKGS: packages/amplify_core, packages/aws_common; `dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox`"
@@ -975,16 +984,16 @@ jobs:
         working-directory: packages/worker_bee/e2e_test
         run: dart test
   job_016:
-    name: "unit_test; linux; Dart stable; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/common/amplify_db_common_dart, packages/secure_storage/amplify_secure_storage_test; `dart --version`"
+    name: "unit_test; linux; Dart stable; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/common/amplify_db_common_dart, packages/secure_storage/amplify_secure_storage_test, packages/storage/amplify_storage_s3_dart; `dart --version`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/common/amplify_db_common_dart-packages/secure_storage/amplify_secure_storage_test;commands:command_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/common/amplify_db_common_dart-packages/secure_storage/amplify_secure_storage_test-packages/storage/amplify_storage_s3_dart;commands:command_0"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/common/amplify_db_common_dart-packages/secure_storage/amplify_secure_storage_test
+            os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/common/amplify_db_common_dart-packages/secure_storage/amplify_secure_storage_test-packages/storage/amplify_storage_s3_dart
             os:ubuntu-latest;pub-cache-hosted;sdk:stable
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -1028,6 +1037,15 @@ jobs:
       - name: "packages/secure_storage/amplify_secure_storage_test; dart --version"
         if: "always() && steps.packages_secure_storage_amplify_secure_storage_test_pub_upgrade.conclusion == 'success'"
         working-directory: packages/secure_storage/amplify_secure_storage_test
+        run: dart --version
+      - id: packages_storage_amplify_storage_s3_dart_pub_upgrade
+        name: packages/storage/amplify_storage_s3_dart; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/storage/amplify_storage_s3_dart
+        run: dart pub upgrade
+      - name: "packages/storage/amplify_storage_s3_dart; dart --version"
+        if: "always() && steps.packages_storage_amplify_storage_s3_dart_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/storage/amplify_storage_s3_dart
         run: dart --version
   job_017:
     name: "unit_test; linux; Dart stable; PKGS: packages/amplify_core, packages/aws_common; `dart run build_runner test --delete-conflicting-outputs -- -p chrome,firefox`"
@@ -1396,16 +1414,16 @@ jobs:
         working-directory: packages/worker_bee/e2e_test
         run: "dart run build_runner test --release --delete-conflicting-outputs --verbose -- -p chrome,firefox"
   job_024:
-    name: "unit_test; macos; Dart dev; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/common/amplify_db_common_dart, packages/worker_bee/e2e_test; `dart test`"
+    name: "unit_test; macos; Dart dev; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/common/amplify_db_common_dart, packages/storage/amplify_storage_s3_dart, packages/worker_bee/e2e_test; `dart test`"
     runs-on: macos-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:macos-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/common/amplify_db_common_dart-packages/worker_bee/e2e_test;commands:command_4"
+          key: "os:macos-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/common/amplify_db_common_dart-packages/storage/amplify_storage_s3_dart-packages/worker_bee/e2e_test;commands:command_4"
           restore-keys: |
-            os:macos-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/common/amplify_db_common_dart-packages/worker_bee/e2e_test
+            os:macos-latest;pub-cache-hosted;sdk:dev;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/common/amplify_db_common_dart-packages/storage/amplify_storage_s3_dart-packages/worker_bee/e2e_test
             os:macos-latest;pub-cache-hosted;sdk:dev
             os:macos-latest;pub-cache-hosted
             os:macos-latest
@@ -1440,6 +1458,15 @@ jobs:
       - name: packages/common/amplify_db_common_dart; dart test
         if: "always() && steps.packages_common_amplify_db_common_dart_pub_upgrade.conclusion == 'success'"
         working-directory: packages/common/amplify_db_common_dart
+        run: dart test
+      - id: packages_storage_amplify_storage_s3_dart_pub_upgrade
+        name: packages/storage/amplify_storage_s3_dart; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/storage/amplify_storage_s3_dart
+        run: dart pub upgrade
+      - name: packages/storage/amplify_storage_s3_dart; dart test
+        if: "always() && steps.packages_storage_amplify_storage_s3_dart_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/storage/amplify_storage_s3_dart
         run: dart test
       - id: packages_worker_bee_e2e_test_pub_upgrade
         name: packages/worker_bee/e2e_test; dart pub upgrade
@@ -1479,16 +1506,16 @@ jobs:
         working-directory: packages/secure_storage/amplify_secure_storage_test
         run: tool/test-desktop.sh
   job_026:
-    name: "unit_test; macos; Dart stable; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/common/amplify_db_common_dart, packages/worker_bee/e2e_test; `dart test`"
+    name: "unit_test; macos; Dart stable; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/common/amplify_db_common_dart, packages/storage/amplify_storage_s3_dart, packages/worker_bee/e2e_test; `dart test`"
     runs-on: macos-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/common/amplify_db_common_dart-packages/worker_bee/e2e_test;commands:command_4"
+          key: "os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/common/amplify_db_common_dart-packages/storage/amplify_storage_s3_dart-packages/worker_bee/e2e_test;commands:command_4"
           restore-keys: |
-            os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/common/amplify_db_common_dart-packages/worker_bee/e2e_test
+            os:macos-latest;pub-cache-hosted;sdk:stable;packages:packages/amplify_core-packages/auth/amplify_auth_cognito_test-packages/common/amplify_db_common_dart-packages/storage/amplify_storage_s3_dart-packages/worker_bee/e2e_test
             os:macos-latest;pub-cache-hosted;sdk:stable
             os:macos-latest;pub-cache-hosted
             os:macos-latest
@@ -1523,6 +1550,15 @@ jobs:
       - name: packages/common/amplify_db_common_dart; dart test
         if: "always() && steps.packages_common_amplify_db_common_dart_pub_upgrade.conclusion == 'success'"
         working-directory: packages/common/amplify_db_common_dart
+        run: dart test
+      - id: packages_storage_amplify_storage_s3_dart_pub_upgrade
+        name: packages/storage/amplify_storage_s3_dart; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/storage/amplify_storage_s3_dart
+        run: dart pub upgrade
+      - name: packages/storage/amplify_storage_s3_dart; dart test
+        if: "always() && steps.packages_storage_amplify_storage_s3_dart_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/storage/amplify_storage_s3_dart
         run: dart test
       - id: packages_worker_bee_e2e_test_pub_upgrade
         name: packages/worker_bee/e2e_test; dart pub upgrade
@@ -1562,7 +1598,7 @@ jobs:
         working-directory: packages/secure_storage/amplify_secure_storage_test
         run: tool/test-desktop.sh
   job_028:
-    name: "unit_test; windows; Dart dev; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/common/amplify_db_common_dart, packages/worker_bee/e2e_test; `dart test`"
+    name: "unit_test; windows; Dart dev; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/common/amplify_db_common_dart, packages/storage/amplify_storage_s3_dart, packages/worker_bee/e2e_test; `dart test`"
     runs-on: windows-latest
     steps:
       - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
@@ -1597,6 +1633,15 @@ jobs:
         if: "always() && steps.packages_common_amplify_db_common_dart_pub_upgrade.conclusion == 'success'"
         working-directory: packages/common/amplify_db_common_dart
         run: dart test
+      - id: packages_storage_amplify_storage_s3_dart_pub_upgrade
+        name: packages/storage/amplify_storage_s3_dart; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/storage/amplify_storage_s3_dart
+        run: dart pub upgrade
+      - name: packages/storage/amplify_storage_s3_dart; dart test
+        if: "always() && steps.packages_storage_amplify_storage_s3_dart_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/storage/amplify_storage_s3_dart
+        run: dart test
       - id: packages_worker_bee_e2e_test_pub_upgrade
         name: packages/worker_bee/e2e_test; dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
@@ -1625,7 +1670,7 @@ jobs:
         working-directory: packages/secure_storage/amplify_secure_storage_test
         run: tool/test-desktop.sh
   job_030:
-    name: "unit_test; windows; Dart stable; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/common/amplify_db_common_dart, packages/worker_bee/e2e_test; `dart test`"
+    name: "unit_test; windows; Dart stable; PKGS: packages/amplify_core, packages/auth/amplify_auth_cognito_test, packages/common/amplify_db_common_dart, packages/storage/amplify_storage_s3_dart, packages/worker_bee/e2e_test; `dart test`"
     runs-on: windows-latest
     steps:
       - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
@@ -1659,6 +1704,15 @@ jobs:
       - name: packages/common/amplify_db_common_dart; dart test
         if: "always() && steps.packages_common_amplify_db_common_dart_pub_upgrade.conclusion == 'success'"
         working-directory: packages/common/amplify_db_common_dart
+        run: dart test
+      - id: packages_storage_amplify_storage_s3_dart_pub_upgrade
+        name: packages/storage/amplify_storage_s3_dart; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: packages/storage/amplify_storage_s3_dart
+        run: dart pub upgrade
+      - name: packages/storage/amplify_storage_s3_dart; dart test
+        if: "always() && steps.packages_storage_amplify_storage_s3_dart_pub_upgrade.conclusion == 'success'"
+        working-directory: packages/storage/amplify_storage_s3_dart
         run: dart test
       - id: packages_worker_bee_e2e_test_pub_upgrade
         name: packages/worker_bee/e2e_test; dart pub upgrade

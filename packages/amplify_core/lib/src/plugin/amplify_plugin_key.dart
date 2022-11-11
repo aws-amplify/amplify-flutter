@@ -104,3 +104,57 @@ abstract class AuthPluginKey<
   /// {@macro amplify_core.plugin.auth_plugin_key}
   const AuthPluginKey();
 }
+
+// TODO(HuiSF): Define generic parameters for all API types
+abstract class StoragePluginKey<
+    PluginStorageListOperation extends StorageListOperation,
+    PluginStorageListOptions extends StorageListOptions,
+    PluginStorageGetPropertiesOperation extends StorageGetPropertiesOperation,
+    PluginStorageGetPropertiesOptions extends StorageGetPropertiesOptions,
+    PluginStorageGetUrlOperation extends StorageGetUrlOperation,
+    PluginStorageGetUrlOptions extends StorageGetUrlOptions,
+    PluginStorageUploadDataOperation extends StorageUploadDataOperation,
+    PluginStorageUploadDataOptions extends StorageUploadDataOptions,
+    PluginStorageUploadFileOperation extends StorageUploadFileOperation,
+    PluginStorageUploadFileOptions extends StorageUploadFileOptions,
+    PluginStorageDownloadDataOperation extends StorageDownloadDataOperation,
+    PluginStorageDownloadDataOptions extends StorageDownloadDataOptions,
+    PluginStorageDownloadFileOperation extends StorageDownloadFileOperation,
+    PluginStorageDownloadFileOptions extends StorageDownloadFileOptions,
+    PluginStorageCopyOperation extends StorageCopyOperation,
+    PluginStorageCopyOptions extends StorageCopyOptions,
+    PluginStorageMoveOperation extends StorageMoveOperation,
+    PluginStorageMoveOptions extends StorageMoveOptions,
+    PluginStorageRemoveOperation extends StorageRemoveOperation,
+    PluginStorageRemoveOptions extends StorageRemoveOptions,
+    PluginStorageRemoveManyOperation extends StorageRemoveManyOperation,
+    PluginStorageRemoveManyOptions extends StorageRemoveManyOptions,
+    PluginStorageItem extends StorageItem,
+    PluginTransferProgress extends StorageTransferProgress,
+    P extends StoragePluginInterface<
+        PluginStorageListOperation,
+        PluginStorageListOptions,
+        PluginStorageGetPropertiesOperation,
+        PluginStorageGetPropertiesOptions,
+        PluginStorageGetUrlOperation,
+        PluginStorageGetUrlOptions,
+        PluginStorageUploadDataOperation,
+        PluginStorageUploadDataOptions,
+        PluginStorageUploadFileOperation,
+        PluginStorageUploadFileOptions,
+        PluginStorageDownloadDataOperation,
+        PluginStorageDownloadDataOptions,
+        PluginStorageDownloadFileOperation,
+        PluginStorageDownloadFileOptions,
+        PluginStorageCopyOperation,
+        PluginStorageCopyOptions,
+        PluginStorageMoveOperation,
+        PluginStorageMoveOptions,
+        PluginStorageRemoveOperation,
+        PluginStorageRemoveOptions,
+        PluginStorageRemoveManyOperation,
+        PluginStorageRemoveManyOptions,
+        PluginStorageItem,
+        PluginTransferProgress>> extends AmplifyPluginKey<P> {
+  const StoragePluginKey();
+}
