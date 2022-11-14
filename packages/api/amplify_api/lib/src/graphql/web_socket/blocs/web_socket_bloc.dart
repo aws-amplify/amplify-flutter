@@ -57,7 +57,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   /// Indicates if the bloc has finished closing
   @visibleForTesting
-  final closed = Completer();
+  final done = Completer<void>();
 
   final StreamController<WebSocketState> _wsStateController =
       StreamController<WebSocketState>.broadcast(sync: true);
@@ -346,7 +346,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       _wsStateController.close(),
     ]);
 
-    closed.complete();
+    done.complete();
   }
 
   // Returns a [WsSubscriptionBloc<T>] and stores in state

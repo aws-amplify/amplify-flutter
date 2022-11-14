@@ -345,7 +345,7 @@ void main() {
 
       await dataCompleter.future;
       await streamSub.cancel();
-      await mockWebSocketBloc!.closed.future;
+      await mockWebSocketBloc!.done.future;
     });
 
     test('subscribe() should return a subscription stream', () async {
@@ -391,7 +391,7 @@ void main() {
       );
       await dataCompleter.future;
       await streamSub.cancel();
-      await mockWebSocketBloc!.closed.future;
+      await mockWebSocketBloc!.done.future;
     });
 
     test('subscribe() should emit hub events', () async {
@@ -450,7 +450,7 @@ void main() {
 
       await streamSub.cancel();
 
-      await mockWebSocketBloc!.closed.future;
+      await mockWebSocketBloc!.done.future;
     });
   });
 

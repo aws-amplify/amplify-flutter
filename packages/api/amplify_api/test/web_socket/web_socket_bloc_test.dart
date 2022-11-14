@@ -91,6 +91,7 @@ void main() {
     });
 
     test('subscribe() should return a subscription stream', () async {
+      final dataCompleter = Completer<String>();
       final subscribeEvent = SubscribeEvent(
         subscriptionRequest,
         () {
@@ -98,17 +99,22 @@ void main() {
         },
       );
 
-      final subscription = getWebSocketBloc().subscribe(
+      final bloc = getWebSocketBloc();
+
+      final subscription = bloc.subscribe(
         subscribeEvent,
       );
 
       final streamSub = subscription.listen(
         expectAsync1((event) {
           expect(event.data, json.encode(mockSubscriptionData));
+          dataCompleter.complete(event.data);
         }),
       );
 
-      addTearDown(streamSub.cancel);
+      await dataCompleter.future;
+      await streamSub.cancel();
+      await bloc.done.future;
     });
 
     test('cancel() should send a stop message & close connection', () async {
@@ -152,6 +158,8 @@ void main() {
       expect(bloc.stream, emitsThrough(isA<DisconnectedState>()));
 
       await streamSub.cancel();
+
+      await bloc.done.future;
     });
   });
 }

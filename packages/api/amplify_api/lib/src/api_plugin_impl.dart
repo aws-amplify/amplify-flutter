@@ -196,22 +196,14 @@ class AmplifyAPIDart extends AmplifyAPI {
       apiName: apiName,
     );
 
-    WebSocketBloc bloc;
-
-    if (_webSocketBlocPool[endpoint.name] == null) {
-      bloc = _webSocketBlocPool[endpoint.name] = getWebSocketBloc(endpoint);
-      bloc.stream.listen((event) {
+    return _webSocketBlocPool[endpoint.name] ??= getWebSocketBloc(endpoint)
+      ..stream.listen((event) {
         _emitHubEvent(event);
 
         if (event is PendingDisconnect) {
           _webSocketBlocPool.remove(endpoint.name);
         }
       });
-    } else {
-      bloc = _webSocketBlocPool[endpoint.name]!;
-    }
-
-    return bloc;
   }
 
   /// Returns the websocket bloc to use for a given endpoint.
