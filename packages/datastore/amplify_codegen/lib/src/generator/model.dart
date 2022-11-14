@@ -261,10 +261,14 @@ return _${allocate(partialModelType)}.fromJson(json) as T;
 
       // Abstract getters for each field
       for (final field in fields) {
+        final isPrimaryKey =
+            definition.modelIdentifier.fields.contains(field.name);
+        final fieldType = field.type;
+        final isNullable = !fieldType.isRequired || !isPrimaryKey;
         c.methods.add(
           Method(
             (m) => m
-              ..returns = field.type.reference
+              ..returns = field.type.reference.withNullable(isNullable)
               ..type = MethodType.getter
               ..name = field.name,
           ),
@@ -413,12 +417,16 @@ return value as T;
 
       final parameters = <Parameter>[];
       for (final field in definition.fields.values) {
+        final isPrimaryKey =
+            definition.modelIdentifier.fields.contains(field.name);
+        final fieldType = field.type;
+        final isNullable = !fieldType.isRequired || !isPrimaryKey;
         c.fields.add(
           Field(
             (f) => f
               ..annotations.add(DartTypes.core.override)
               ..modifier = FieldModifier.final$
-              ..type = field.type.reference
+              ..type = field.type.reference.withNullable(isNullable)
               ..name = field.name,
           ),
         );
@@ -426,7 +434,7 @@ return value as T;
           Parameter(
             (p) => p
               ..named = true
-              ..required = field.type.isRequired
+              ..required = !isNullable
               ..toThis = true
               ..name = field.name,
           ),

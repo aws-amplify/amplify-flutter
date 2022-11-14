@@ -47,31 +47,31 @@ abstract class PartialScalarModel extends PartialModel<String, ScalarModel>
 
   String get id;
   String? get str;
-  String get requiredStr;
+  String? get requiredStr;
   int? get integer;
-  int get requiredInteger;
+  int? get requiredInteger;
   double? get float;
-  double get requiredFloat;
+  double? get requiredFloat;
   bool? get boolean;
-  bool get requiredBoolean;
+  bool? get requiredBoolean;
   TemporalDate? get awsDate;
-  TemporalDate get requiredAwsDate;
+  TemporalDate? get requiredAwsDate;
   TemporalDateTime? get awsDateTime;
-  TemporalDateTime get requiredAwsDateTime;
+  TemporalDateTime? get requiredAwsDateTime;
   TemporalTime? get awsTime;
-  TemporalTime get requiredAwsTime;
+  TemporalTime? get requiredAwsTime;
   TemporalTimestamp? get awsTimestamp;
-  TemporalTimestamp get requiredAwsTimestamp;
+  TemporalTimestamp? get requiredAwsTimestamp;
   String? get awsEmail;
-  String get requiredAwsEmail;
+  String? get requiredAwsEmail;
   Object? get awsJson;
-  Object get requiredAwsJson;
+  Object? get requiredAwsJson;
   String? get awsPhone;
-  String get requiredAwsPhone;
+  String? get requiredAwsPhone;
   Uri? get awsUrl;
-  Uri get requiredAwsUrl;
+  Uri? get requiredAwsUrl;
   String? get awsIpAddress;
-  String get requiredAwsIpAddress;
+  String? get requiredAwsIpAddress;
   TemporalDateTime? get createdAt;
   TemporalDateTime? get updatedAt;
   @override
@@ -248,31 +248,31 @@ class _PartialScalarModel extends PartialScalarModel {
   _PartialScalarModel({
     required this.id,
     this.str,
-    required this.requiredStr,
+    this.requiredStr,
     this.integer,
-    required this.requiredInteger,
+    this.requiredInteger,
     this.float,
-    required this.requiredFloat,
+    this.requiredFloat,
     this.boolean,
-    required this.requiredBoolean,
+    this.requiredBoolean,
     this.awsDate,
-    required this.requiredAwsDate,
+    this.requiredAwsDate,
     this.awsDateTime,
-    required this.requiredAwsDateTime,
+    this.requiredAwsDateTime,
     this.awsTime,
-    required this.requiredAwsTime,
+    this.requiredAwsTime,
     this.awsTimestamp,
-    required this.requiredAwsTimestamp,
+    this.requiredAwsTimestamp,
     this.awsEmail,
-    required this.requiredAwsEmail,
+    this.requiredAwsEmail,
     this.awsJson,
-    required this.requiredAwsJson,
+    this.requiredAwsJson,
     this.awsPhone,
-    required this.requiredAwsPhone,
+    this.requiredAwsPhone,
     this.awsUrl,
-    required this.requiredAwsUrl,
+    this.requiredAwsUrl,
     this.awsIpAddress,
-    required this.requiredAwsIpAddress,
+    this.requiredAwsIpAddress,
     this.createdAt,
     this.updatedAt,
   }) : super._();
@@ -288,79 +288,79 @@ class _PartialScalarModel extends PartialScalarModel {
   final String? str;
 
   @override
-  final String requiredStr;
+  final String? requiredStr;
 
   @override
   final int? integer;
 
   @override
-  final int requiredInteger;
+  final int? requiredInteger;
 
   @override
   final double? float;
 
   @override
-  final double requiredFloat;
+  final double? requiredFloat;
 
   @override
   final bool? boolean;
 
   @override
-  final bool requiredBoolean;
+  final bool? requiredBoolean;
 
   @override
   final TemporalDate? awsDate;
 
   @override
-  final TemporalDate requiredAwsDate;
+  final TemporalDate? requiredAwsDate;
 
   @override
   final TemporalDateTime? awsDateTime;
 
   @override
-  final TemporalDateTime requiredAwsDateTime;
+  final TemporalDateTime? requiredAwsDateTime;
 
   @override
   final TemporalTime? awsTime;
 
   @override
-  final TemporalTime requiredAwsTime;
+  final TemporalTime? requiredAwsTime;
 
   @override
   final TemporalTimestamp? awsTimestamp;
 
   @override
-  final TemporalTimestamp requiredAwsTimestamp;
+  final TemporalTimestamp? requiredAwsTimestamp;
 
   @override
   final String? awsEmail;
 
   @override
-  final String requiredAwsEmail;
+  final String? requiredAwsEmail;
 
   @override
   final Object? awsJson;
 
   @override
-  final Object requiredAwsJson;
+  final Object? requiredAwsJson;
 
   @override
   final String? awsPhone;
 
   @override
-  final String requiredAwsPhone;
+  final String? requiredAwsPhone;
 
   @override
   final Uri? awsUrl;
 
   @override
-  final Uri requiredAwsUrl;
+  final Uri? requiredAwsUrl;
 
   @override
   final String? awsIpAddress;
 
   @override
-  final String requiredAwsIpAddress;
+  final String? requiredAwsIpAddress;
 
   @override
   final TemporalDateTime? createdAt;
