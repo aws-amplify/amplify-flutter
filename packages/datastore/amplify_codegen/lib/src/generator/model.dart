@@ -22,6 +22,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 import 'package:code_builder/code_builder.dart';
 import 'package:gql/ast.dart';
+import 'package:smithy_codegen/src/util/symbol_ext.dart';
 
 /// {@template amplify_codegen.model_generator}
 /// Generates libraries for model types.
@@ -412,8 +413,9 @@ return value as T;
 
     // Create the private implementation
     yield Class((c) {
+      final partialModelTypeName = '_${partialModelType.symbol}';
       c
-        ..name = '_${partialModelType.symbol}'
+        ..name = partialModelTypeName
         ..extend = partialModelType;
 
       final parameters = <Parameter>[];
@@ -464,7 +466,33 @@ return value as T;
                   ..name = 'json',
               ),
             )
-            ..body = const Code('throw UnimplementedError();'),
+            ..body = Block((b) {
+              for (final field in definition.fields.values) {
+                final isPrimaryKey =
+                    definition.modelIdentifier.fields.contains(field.name);
+                final fieldType = field.type;
+                final isNullable = !fieldType.isRequired || !isPrimaryKey;
+                final json = refer('json').index(literalString(field.name));
+                final decodedField = fieldType.fromJson(
+                  json,
+                  isNullable: isNullable,
+                  orElse: () =>
+                      DartTypes.amplifyCore.modelFieldError.newInstance([
+                    literalString(modelName),
+                    literalString(field.dartName),
+                  ]).thrown,
+                );
+                b.addExpression(
+                  declareFinal(field.dartName).assign(decodedField),
+                );
+              }
+              b.addExpression(
+                refer(partialModelTypeName).newInstance([], {
+                  for (final field in definition.fields.values)
+                    field.dartName: refer(field.dartName),
+                }).returned,
+              );
+            }),
         ),
       );
     });

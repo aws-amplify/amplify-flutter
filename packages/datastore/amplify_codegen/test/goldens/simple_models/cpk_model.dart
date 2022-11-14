@@ -138,7 +138,30 @@ class _PartialCpkModel extends PartialCpkModel {
   }) : super._();
 
   factory _PartialCpkModel.fromJson(Map<String, Object?> json) {
-    throw UnimplementedError();
+    final firstName = json['firstName'] == null
+        ? throw ModelFieldError(
+            'CpkModel',
+            'firstName',
+          )
+        : (json['firstName'] as String);
+    final lastName = json['lastName'] == null
+        ? throw ModelFieldError(
+            'CpkModel',
+            'lastName',
+          )
+        : (json['lastName'] as String);
+    final createdAt = json['createdAt'] == null
+        ? null
+        : TemporalDateTime.fromString((json['createdAt'] as String));
+    final updatedAt = json['updatedAt'] == null
+        ? null
+        : TemporalDateTime.fromString((json['updatedAt'] as String));
+    return _PartialCpkModel(
+      firstName: firstName,
+      lastName: lastName,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+    );
   }
 
   @override

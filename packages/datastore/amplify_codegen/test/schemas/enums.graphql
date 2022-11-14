@@ -8,3 +8,9 @@ enum MY_ENUM {
     name
     value
 }
+
+type EnumModel @model {
+    id: ID!
+    enum: MY_ENUM
+    requiredEnum: MY_ENUM!
+}

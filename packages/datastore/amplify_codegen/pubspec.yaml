@@ -16,6 +16,7 @@ dependencies:
   gql: ^0.14.0
   graphs: ^2.1.0
   meta: ^1.8.0
+  smithy_codegen: any
 
 dev_dependencies:
   amplify_lints: ^2.0.0

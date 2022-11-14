@@ -20,6 +20,7 @@ import 'package:aws_common/aws_common.dart';
 import 'package:built_value/serializer.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:gql/ast.dart';
+import 'package:smithy_codegen/src/util/symbol_ext.dart';
 
 /// Helpers for [TypeNode].
 extension TypeHelpers on TypeNode {
@@ -111,16 +112,88 @@ extension SchemaTypeHelpers on SchemaType {
     if (type is ListType) {
       return _typeReferences[this] = DartTypes.core
           .list(type.elementType.reference)
-          .withNullable(!type.isRequired);
+          .withRequired(type.isRequired);
     }
     if (type is ScalarType) {
       return _typeReferences[this] =
-          DartTypes.scalar(type.value).withNullable(!type.isRequired);
+          DartTypes.scalar(type.value).withRequired(type.isRequired);
     }
     return _typeReferences[this] = Reference(
       type.name.pascalCase,
       '${type.name.snakeCase}.dart',
-    ).withNullable(!type.isRequired);
+    ).withRequired(type.isRequired);
+  }
+
+  /// Returns the expression needed to decode the Dart type from [json].
+  Expression fromJson(
+    Expression json, {
+    required bool isNullable,
+    required Expression Function() orElse,
+  }) {
+    final fieldType = this;
+    final fieldRef = reference.withNullable(isNullable);
+    var builder = (Expression json) {
+      final exp = json.asA(fieldRef);
+      return json
+          .equalTo(literalNull)
+          .conditional(isNullable ? literalNull : orElse(), exp);
+    };
+    if (fieldType is ScalarType) {
+      switch (fieldType.value) {
+        case AppSyncScalar.awsDate:
+        case AppSyncScalar.awsDateTime:
+        case AppSyncScalar.awsTime:
+          builder = (json) {
+            final val = json.asA(DartTypes.core.string);
+            final exp =
+                fieldType.reference.nonNull.property('fromString').call([val]);
+            return json
+                .equalTo(literalNull)
+                .conditional(isNullable ? literalNull : orElse(), exp);
+          };
+          break;
+        case AppSyncScalar.awsTimestamp:
+          builder = (json) {
+            final val = json.asA(DartTypes.core.int);
+            final exp =
+                fieldType.reference.nonNull.property('fromSeconds').call([val]);
+            return json
+                .equalTo(literalNull)
+                .conditional(isNullable ? literalNull : orElse(), exp);
+          };
+
+          break;
+        case AppSyncScalar.awsJson:
+          if (isNullable) {
+            // Already an `Object?` coming off the JSON map.
+            builder = (json) => json;
+          }
+          break;
+        case AppSyncScalar.awsIpAddress:
+        case AppSyncScalar.awsEmail:
+        case AppSyncScalar.awsPhone:
+        case AppSyncScalar.awsUrl:
+        case AppSyncScalar.boolean:
+        case AppSyncScalar.float:
+        case AppSyncScalar.id:
+        case AppSyncScalar.int_:
+        case AppSyncScalar.string:
+          break;
+      }
+    } else if (fieldType is EnumType) {
+      builder = (json) {
+        // Use the generated `fromJson` handler for deserializing the enum.
+        final val = json.asA(DartTypes.core.string);
+        final exp = reference.nonNull.property('fromJson').call([val]);
+        return json
+            .equalTo(literalNull)
+            .conditional(isNullable ? literalNull : orElse(), exp);
+      };
+    } else {
+      // TODO(dnys1): Complete model/non-model deserialization.
+      throw ArgumentError(this);
+    }
+    return builder(json);
   }
 }
 
@@ -138,10 +211,6 @@ extension TypeDefinitionHelpers on TypeDefinitionNode {
 
 /// Helpers for [Reference] types.
 extension ReferenceHelpers on Reference {
-  /// `this` as a [TypeReference].
-  TypeReference get typeRef =>
-      this is TypeReference ? this as TypeReference : type as TypeReference;
-
   /// Returns a nullable version of `this`.
   TypeReference get nullable {
     return typeRef.rebuild((t) => t.isNullable = true);
@@ -156,5 +225,11 @@ extension ReferenceHelpers on Reference {
   // ignore: avoid_positional_boolean_parameters
   TypeReference withNullable(bool isNullable) {
     return isNullable ? nullable : nonNull;
+  }
+
+  /// Returns a version of `this` with nullability equal to ![isRequired].
+  // ignore: avoid_positional_boolean_parameters
+  TypeReference withRequired(bool isRequired) {
+    return withNullable(!isRequired);
   }
 }
