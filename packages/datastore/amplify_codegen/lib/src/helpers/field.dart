@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_codegen/src/helpers/language.dart';
 import 'package:amplify_codegen/src/helpers/node.dart';
 import 'package:amplify_core/src/types/models/mipr.dart';
 import 'package:aws_common/aws_common.dart';
@@ -25,6 +26,15 @@ String queryFieldName(String fieldName) => ('$fieldName\$').camelCase;
 extension ModelFieldHelpers on ModelField {
   /// The wire name as it shows in JSON.
   String get wireName => name;
+
+  /// The re-cased Dart name (camelCase).
+  String get dartName {
+    final name = this.name.camelCase;
+    if (hardReservedWords.contains(name)) {
+      return '${name}_';
+    }
+    return name;
+  }
 }
 
 /// Helpers for [ArgumentNode].

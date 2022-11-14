@@ -1,0 +1,5 @@
+# Tests that reserved words are properly encoded in Dart names.
+
+type MyModel @model {
+    enum: String!
+}

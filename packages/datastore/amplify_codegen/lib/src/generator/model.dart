@@ -16,6 +16,7 @@ import 'dart:collection';
 
 import 'package:amplify_codegen/src/generator/generator.dart';
 import 'package:amplify_codegen/src/generator/types.dart';
+import 'package:amplify_codegen/src/helpers/field.dart';
 import 'package:amplify_codegen/src/helpers/types.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
@@ -64,7 +65,7 @@ class ModelGenerator
       for (final field in primaryKeyFields)
         Field(
           (f) => f
-            ..name = field.name
+            ..name = field.dartName
             ..type = field.type.reference
             ..modifier = FieldModifier.final$,
         ),
@@ -89,7 +90,7 @@ class ModelGenerator
         parameters.add(
           Parameter(
             (p) => p
-              ..name = field.name
+              ..name = field.dartName
               ..toThis = true
               ..named = true
               ..required = field.type.isRequired,
@@ -270,7 +271,7 @@ return _${allocate(partialModelType)}.fromJson(json) as T;
             (m) => m
               ..returns = field.type.reference.withNullable(isNullable)
               ..type = MethodType.getter
-              ..name = field.name,
+              ..name = field.dartName,
           ),
         );
       }
@@ -315,7 +316,7 @@ return _${allocate(partialModelType)}.fromJson(json) as T;
             ..returns = DartTypes.core.list(DartTypes.core.object.nullable)
             ..type = MethodType.getter
             ..name = 'props'
-            ..body = literalList(fields.map((f) => refer(f.name))).code,
+            ..body = literalList(fields.map((f) => refer(f.dartName))).code,
         ),
       );
 
@@ -331,7 +332,7 @@ return _${allocate(partialModelType)}.fromJson(json) as T;
             ..name = 'toJson'
             ..body = literalMap({
               for (final field in fields)
-                literalString(field.name): refer(field.name),
+                literalString(field.name): refer(field.dartName),
             }).code,
         ),
       );
@@ -387,7 +388,7 @@ switch (field.fieldName) {
                   Code(
                     '''
   case r'${field.name}':
-    value = ${field.name};
+    value = ${field.dartName};
     break;''',
                   ),
                 );
@@ -427,7 +428,7 @@ return value as T;
               ..annotations.add(DartTypes.core.override)
               ..modifier = FieldModifier.final$
               ..type = field.type.reference.withNullable(isNullable)
-              ..name = field.name,
+              ..name = field.dartName,
           ),
         );
         parameters.add(
@@ -436,7 +437,7 @@ return value as T;
               ..named = true
               ..required = !isNullable
               ..toThis = true
-              ..name = field.name,
+              ..name = field.dartName,
           ),
         );
       }
@@ -508,7 +509,7 @@ return value as T;
             (m) => m
               ..returns = fieldType.reference
               ..type = MethodType.getter
-              ..name = field.name,
+              ..name = field.dartName,
           ),
         );
 
@@ -523,7 +524,7 @@ return value as T;
               ..required = fieldType.isRequired && !isIdField
               ..type = fieldType.reference.typeRef
                   .rebuild((t) => t.isNullable = t.isNullable! || isIdField)
-              ..name = field.name,
+              ..name = field.dartName,
           ),
         );
       }
@@ -582,7 +583,7 @@ return value as T;
               ..annotations.add(DartTypes.core.override)
               ..modifier = FieldModifier.final$
               ..type = fieldType.reference
-              ..name = field.name,
+              ..name = field.dartName,
           ),
         );
 
@@ -593,7 +594,7 @@ return value as T;
         if (isIdField) {
           initializers.add(
             Code.scope(
-              (allocate) => '${field.name} = ${field.name} ?? '
+              (allocate) => '${field.dartName} = ${field.dartName} ?? '
                   '${allocate(DartTypes.awsCommon.uuid)}()',
             ),
           );
@@ -605,7 +606,7 @@ return value as T;
               ..required = fieldType.isRequired && !isIdField
               ..type = isIdField ? fieldType.reference.nullable : null
               ..toThis = !isIdField
-              ..name = field.name,
+              ..name = field.dartName,
           ),
         );
       }
@@ -713,7 +714,7 @@ return value as T;
               ..annotations.add(DartTypes.core.override)
               ..modifier = FieldModifier.final$
               ..type = field.type.reference
-              ..name = field.name,
+              ..name = field.dartName,
           ),
         );
         parameters.add(
@@ -722,7 +723,7 @@ return value as T;
               ..named = true
               ..required = field.type.isRequired
               ..toThis = true
-              ..name = field.name,
+              ..name = field.dartName,
           ),
         );
       }
