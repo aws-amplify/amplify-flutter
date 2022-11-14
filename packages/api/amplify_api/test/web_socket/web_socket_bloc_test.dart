@@ -29,8 +29,6 @@ const mockConnectionAck =
 void main() {
   late MockWebSocketBloc? bloc;
   late MockWebSocketService? service;
-  late StreamController<ApiHubEvent> hubEventsController;
-  late Stream<ApiHubEvent> hubEvents;
 
   const graphQLDocument = '''subscription MySubscription {
     onCreateBlog {
@@ -78,32 +76,14 @@ void main() {
   }
 
   group('WebSocketBloc', () {
-    setUp(() {
-      hubEventsController = StreamController.broadcast();
-      hubEvents = hubEventsController.stream;
-      Amplify.Hub.listen(HubChannel.Api, hubEventsController.add);
-    });
-
     tearDown(() async {
       bloc = null;
       service = null; // service gets closed in  bloc
-      Amplify.Hub.close();
-      await hubEventsController.close();
     });
 
     test('should init a connection & call onEstablishCallback', () async {
       final subscribeEvent =
           SubscribeEvent(subscriptionRequest, expectAsync0(() {}));
-
-      expect(
-        hubEvents,
-        emitsInOrder(
-          [
-            connectingHubEvent,
-            connectedHubEvent,
-          ],
-        ),
-      );
 
       getWebSocketBloc().subscribe(
         subscribeEvent,
@@ -139,18 +119,6 @@ void main() {
         },
       );
 
-      expect(
-        hubEvents,
-        emitsInOrder(
-          [
-            connectingHubEvent,
-            connectedHubEvent,
-            pendingDisconnectedHubEvent,
-            disconnectedHubEvent,
-          ],
-        ),
-      );
-
       final dataCompleter = Completer<String>();
       final bloc = getWebSocketBloc();
       final subscription = bloc.subscribe(
@@ -169,12 +137,12 @@ void main() {
           [
             isA<String>().having(
               (event) => json.decode(event),
-              'web socket message',
+              'web socket stop message',
               containsPair('type', 'stop'),
             ),
             isA<String>().having(
               (event) => json.decode(event),
-              'web socket message',
+              'web socket complete message',
               containsPair('type', 'complete'),
             ),
           ],

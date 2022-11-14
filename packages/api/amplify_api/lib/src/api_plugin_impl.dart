@@ -14,6 +14,7 @@
 
 library amplify_api;
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:amplify_api/amplify_api.dart';
@@ -43,6 +44,7 @@ class AmplifyAPIDart extends AmplifyAPI {
   })  : _baseHttpClient = baseHttpClient,
         super.protected() {
     authProviders.forEach(registerAuthProvider);
+    Amplify.Hub.addChannel(HubChannel.Api, _hubEventController.stream);
   }
 
   late final AWSApiPluginConfig _apiConfig;
@@ -60,8 +62,16 @@ class AmplifyAPIDart extends AmplifyAPI {
   /// The registered [APIAuthProvider] instances.
   final Map<APIAuthorizationType, APIAuthProvider> _authProviders = {};
 
+  final StreamController<ApiHubEvent> _hubEventController =
+      StreamController<ApiHubEvent>.broadcast();
+
   /// Subscription options
   final GraphQLSubscriptionOptions? subscriptionOptions;
+
+  @override
+  Future<void> reset() async {
+    await _hubEventController.close();
+  }
 
   @override
   Future<void> configure({
@@ -140,6 +150,20 @@ class AmplifyAPIDart extends AmplifyAPI {
     }
   }
 
+  void _emitHubEvent(WebSocketState state) {
+    if (state is ConnectingState) {
+      _hubEventController.add(SubscriptionHubEvent.connecting());
+    } else if (state is ConnectedState) {
+      _hubEventController.add(SubscriptionHubEvent.connected());
+    } else if (state is PendingDisconnect) {
+      _hubEventController.add(SubscriptionHubEvent.pendingDisconnect());
+    } else if (state is DisconnectedState) {
+      _hubEventController.add(SubscriptionHubEvent.disconnected());
+    } else if (state is FailureState) {
+      _hubEventController.add(SubscriptionHubEvent.failed());
+    }
+  }
+
   /// Returns the HTTP client to be used for REST/GraphQL operations.
   ///
   /// Use [apiName] if there are multiple endpoints of the same type.
@@ -166,11 +190,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     )..supportedProtocols = SupportedProtocols.http1;
   }
 
-  /// Returns the websocket bloc to use for a given endpoint.
-  ///
-  /// Use [apiName] if there are multiple endpoints.
-  @visibleForTesting
-  WebSocketBloc getWebSocketBloc({String? apiName}) {
+  WebSocketBloc _webSocketBloc({String? apiName}) {
     final endpoint = _apiConfig.getEndpoint(
       type: EndpointType.graphQL,
       apiName: apiName,
@@ -179,12 +199,10 @@ class AmplifyAPIDart extends AmplifyAPI {
     WebSocketBloc bloc;
 
     if (_webSocketBlocPool[endpoint.name] == null) {
-      bloc = _webSocketBlocPool[endpoint.name] = WebSocketBloc(
-        config: endpoint.config,
-        authProviderRepo: _authProviderRepo,
-        wsService: AmplifyWebSocketService(),
-      );
+      bloc = _webSocketBlocPool[endpoint.name] = getWebSocketBloc(endpoint);
       bloc.stream.listen((event) {
+        _emitHubEvent(event);
+
         if (event is PendingDisconnect) {
           _webSocketBlocPool.remove(endpoint.name);
         }
@@ -194,6 +212,18 @@ class AmplifyAPIDart extends AmplifyAPI {
     }
 
     return bloc;
+  }
+
+  /// Returns the websocket bloc to use for a given endpoint.
+  ///
+  /// Use [apiName] if there are multiple endpoints.
+  @visibleForTesting
+  WebSocketBloc getWebSocketBloc(EndpointConfig endpoint) {
+    return WebSocketBloc(
+      config: endpoint.config,
+      authProviderRepo: _authProviderRepo,
+      wsService: AmplifyWebSocketService(),
+    );
   }
 
   Uri _getGraphQLUri(String? apiName) {
@@ -264,7 +294,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     void Function()? onEstablished,
   }) {
     final event = SubscribeEvent(request, onEstablished);
-    return getWebSocketBloc(apiName: request.apiName).subscribe(event);
+    return _webSocketBloc(apiName: request.apiName).subscribe(event);
   }
 
   // ====== REST =======
