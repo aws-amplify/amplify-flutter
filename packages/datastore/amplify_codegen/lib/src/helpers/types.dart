@@ -124,8 +124,52 @@ extension SchemaTypeHelpers on SchemaType {
     ).withRequired(type.isRequired);
   }
 
+  /// Returns the expression needed to encode [field] to JSON.
+  Expression toJsonExp(
+    Expression field, {
+    required bool isNullable,
+  }) {
+    final fieldType = this;
+    var builder = (Expression field) => field;
+    if (fieldType is ScalarType) {
+      switch (fieldType.value) {
+        case AppSyncScalar.awsDate:
+        case AppSyncScalar.awsDateTime:
+        case AppSyncScalar.awsTime:
+          builder = (field) {
+            return field.nullableProperty('format', isNullable).call([]);
+          };
+          break;
+        case AppSyncScalar.awsTimestamp:
+          builder = (field) {
+            return field.nullableProperty('toSeconds', isNullable).call([]);
+          };
+          break;
+        case AppSyncScalar.awsJson:
+        case AppSyncScalar.awsIpAddress:
+        case AppSyncScalar.awsEmail:
+        case AppSyncScalar.awsPhone:
+        case AppSyncScalar.awsUrl:
+        case AppSyncScalar.boolean:
+        case AppSyncScalar.float:
+        case AppSyncScalar.id:
+        case AppSyncScalar.int_:
+        case AppSyncScalar.string:
+          break;
+      }
+    } else if (fieldType is EnumType) {
+      builder = (field) {
+        return field.nullableProperty('value', isNullable);
+      };
+    } else {
+      // TODO(dnys1): Complete model/non-model serialization.
+      throw ArgumentError(this);
+    }
+    return builder(field);
+  }
+
   /// Returns the expression needed to decode the Dart type from [json].
-  Expression fromJson(
+  Expression fromJsonExp(
     Expression json, {
     required bool isNullable,
     required Expression Function() orElse,

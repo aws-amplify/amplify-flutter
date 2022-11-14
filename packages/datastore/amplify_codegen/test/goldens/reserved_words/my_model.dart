@@ -60,12 +60,15 @@ abstract class PartialMyModel extends PartialModel<String, MyModel>
         id,
       ];
   @override
-  Map<String, Object?> toJson() => {
-        'enum': enum_,
-        'createdAt': createdAt,
-        'updatedAt': updatedAt,
-        'id': id,
-      };
+  Map<String, Object?> toJson() {
+    return {
+      'enum': enum_,
+      'createdAt': createdAt?.format(),
+      'updatedAt': updatedAt?.format(),
+      'id': id,
+    };
+  }
+
   @override
   String get runtimeTypeName => 'MyModel';
   @override
@@ -102,7 +105,25 @@ class _PartialMyModel extends PartialMyModel {
   }) : super._();
 
   factory _PartialMyModel.fromJson(Map<String, Object?> json) {
-    throw UnimplementedError();
+    final enum_ = json['enum'] == null ? null : (json['enum'] as String?);
+    final createdAt = json['createdAt'] == null
+        ? null
+        : TemporalDateTime.fromString((json['createdAt'] as String));
+    final updatedAt = json['updatedAt'] == null
+        ? null
+        : TemporalDateTime.fromString((json['updatedAt'] as String));
+    final id = json['id'] == null
+        ? throw ModelFieldError(
+            'MyModel',
+            'id',
+          )
+        : (json['id'] as String);
+    return _PartialMyModel(
+      enum_: enum_,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      id: id,
+    );
   }
 
   @override

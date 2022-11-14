@@ -56,23 +56,14 @@ class ModelGenerator
   /// The reference for the model identifier.
   late final Reference modelIdentifierType = () {
     final primaryIndex = definition.modelIdentifier;
-    final primaryKeyFields = primaryIndex.fields
+    final fields = primaryIndex.fields
         .map(
           (name) => definition.fields[name]!,
         )
         .toList();
-    assert(primaryIndex.fields.isNotEmpty, 'Not enough fields');
-    final fields = [
-      for (final field in primaryKeyFields)
-        Field(
-          (f) => f
-            ..name = field.dartName
-            ..type = field.type.reference
-            ..modifier = FieldModifier.final$,
-        ),
-    ];
+    assert(fields.isNotEmpty, 'Not enough fields');
     if (fields.length == 1) {
-      return fields.single.type!;
+      return fields.single.type.reference;
     }
     final modelIdentifierName = '${modelName}Identifier';
     final cls = Class((c) {
@@ -84,10 +75,18 @@ class ModelGenerator
           DartTypes.awsCommon.awsSerializable(DartTypes.core.json),
           DartTypes.awsCommon.awsDebuggable,
         ])
-        ..fields.addAll(fields);
+        ..fields.addAll([
+          for (final field in fields)
+            Field(
+              (f) => f
+                ..name = field.dartName
+                ..type = field.type.reference
+                ..modifier = FieldModifier.final$,
+            )
+        ]);
 
       final parameters = <Parameter>[];
-      for (final field in primaryKeyFields) {
+      for (final field in fields) {
         parameters.add(
           Parameter(
             (p) => p
@@ -127,7 +126,10 @@ class ModelGenerator
             ..name = 'toJson'
             ..body = literalMap({
               for (final field in fields)
-                literalString(field.name): refer(field.name),
+                literalString(field.name): field.type.toJsonExp(
+                  refer(field.dartName),
+                  isNullable: !field.type.isRequired,
+                ),
             }).code,
         ),
       );
@@ -331,10 +333,21 @@ return _${allocate(partialModelType)}.fromJson(json) as T;
               DartTypes.core.object.nullable,
             )
             ..name = 'toJson'
-            ..body = literalMap({
-              for (final field in fields)
-                literalString(field.name): refer(field.dartName),
-            }).code,
+            ..body = Block((b) {
+              final map = <Expression, Expression>{};
+              for (final field in fields) {
+                final isPrimaryKey =
+                    definition.modelIdentifier.fields.contains(field.name);
+                final fieldType = field.type;
+                final isNullable = !fieldType.isRequired || !isPrimaryKey;
+                map[literalString(field.name)] = field.type.toJsonExp(
+                  refer(field.dartName),
+                  isNullable: isNullable,
+                );
+              }
+
+              b.addExpression(literalMap(map).returned);
+            }),
         ),
       );
 
@@ -473,7 +486,7 @@ return value as T;
                 final fieldType = field.type;
                 final isNullable = !fieldType.isRequired || !isPrimaryKey;
                 final json = refer('json').index(literalString(field.name));
-                final decodedField = fieldType.fromJson(
+                final decodedField = fieldType.fromJsonExp(
                   json,
                   isNullable: isNullable,
                   orElse: () =>
