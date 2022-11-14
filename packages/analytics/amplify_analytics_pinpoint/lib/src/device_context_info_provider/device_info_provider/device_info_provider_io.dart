@@ -75,7 +75,7 @@ Future<DeviceInfo> getDeviceInfo() async {
       );
     }
   } on PlatformException catch (e) {
-    _logger.warn('Failed to retrieve DeviceInfo: $e');
+    _logger.error('Failed to retrieve DeviceInfo:', e);
     return const DeviceInfo(
       make: null,
       model: null,

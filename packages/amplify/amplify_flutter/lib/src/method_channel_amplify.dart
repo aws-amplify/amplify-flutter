@@ -119,13 +119,4 @@ class MethodChannelAmplify extends AmplifyClassImpl {
       }
     }
   }
-
-  @override
-  Future<void> reset() async {
-    Auth.reset();
-    Analytics.reset();
-    Storage.reset();
-    DataStore.reset();
-    API.reset();
-  }
 }

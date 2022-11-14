@@ -26,7 +26,7 @@ import 'package:uuid/uuid.dart';
 ///
 /// Uses [PinpointClient] to update AWS Pinpoint Endpoint.
 ///
-/// For more details see [Pinpoint Endpoint](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html)online spec.
+/// For more details see [Pinpoint Endpoint](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html) online spec.
 /// {@endtemplate}
 class EndpointClient {
   /// {@macro amplify_analytics_pinpoint_dart.endpoint_client}

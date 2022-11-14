@@ -17,7 +17,7 @@ import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.
 /// {@template amplify_analytics_pinpoint.device_info}
 /// Data representation of DeviceInfo required for Pinpoint EndpointDemographic.
 ///
-/// For more details see Pinpoint [Endpoint](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html)online spec.
+/// For more details see Pinpoint [Endpoint](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html) online spec.
 /// {@endtemplate}
 class DeviceInfo {
   /// {@macro amplify_analytics_pinpoint.device_info}

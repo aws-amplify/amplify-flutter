@@ -17,7 +17,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_analytics_pinpoint_dart.device_context_info_provider}
 /// Provide information required for Pinpoint EndpointDemographic object
 ///
-/// For more details see Pinpoint [Endpoint](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html)online spec.
+/// For more details see Pinpoint [Endpoint](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html) online spec.
 /// {@endtemplate}
 abstract class DeviceContextInfoProvider {
   /// {@macro amplify_analytics_pinpoint_dart.device_context_info_provider}
@@ -27,7 +27,7 @@ abstract class DeviceContextInfoProvider {
 /// {@template amplify_analytics_pinpoint_dart.device_context_info}
 /// Data representation of all device information sent to Pinpoint EndpointDemographic
 ///
-/// For more details see Pinpoint [Endpoint](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html)online spec.
+/// For more details see Pinpoint [Endpoint](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html) online spec.
 /// {@endtemplate}
 class DeviceContextInfo {
   /// {@macro amplify_analytics_pinpoint_dart.device_context_info}

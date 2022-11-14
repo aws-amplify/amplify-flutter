@@ -23,7 +23,7 @@ import 'package:meta/meta.dart';
 /// Manage creation of new Events.
 ///
 /// Stores and applies globalProperties and default values that all new Events should have.
-/// The created Event matches the fields of the [Pinpoint Event](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-events.html)online spec.
+/// The created Event matches the fields of the [Pinpoint Event](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-events.html) online spec.
 /// {@endtemplate}
 class EventCreator {
   /// {@macro amplify_analytics_pinpoint_dart.event_creator}

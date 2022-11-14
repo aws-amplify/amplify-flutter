@@ -25,7 +25,7 @@ import 'package:meta/meta.dart';
 /// - Attributes are String/Bool
 /// - Metrics are Double/Int
 ///
-/// For more details see Pinpoint [Endpoint](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html)online spec.
+/// For more details see Pinpoint [Endpoint](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html) online spec.
 /// {@endtemplate}
 class EndpointGlobalFieldsManager {
   /// {@macro amplify_analytics_pinpoint_dart.endpoint_global_fields_manager}
@@ -90,7 +90,7 @@ class EndpointGlobalFieldsManager {
 
   /// {@template amplify_analytics_pinpoint_dart.endpoint_global_fields_manager_limits_by_pinpoint}
   /// Limits defined by Pinpoint.
-  /// For more details see Pinpoint [Endpoint](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html)online spec.
+  /// For more details see Pinpoint [Endpoint](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html) online spec.
   /// {@endtemplate}
   static const int _maxKeyLength = 50;
 

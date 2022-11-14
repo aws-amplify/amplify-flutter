@@ -27,7 +27,7 @@ import 'package:uuid/uuid.dart';
 /// - Uses [EventStorageAdapter] to cache analytics events
 /// - Uses [PinpointClient] to flush analytics events to AWS Pinpoint
 ///
-/// The events sent conform to the [Pinpoint Event](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-events.html)online spec.
+/// The events sent conform to the [Pinpoint Event](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-events.html) online spec.
 /// {@endtemplate}
 class EventClient {
   /// {@macro amplify_analytics_pinpoint_dart.event_client}
@@ -183,7 +183,7 @@ class EventClient {
     }
     // Always delete local store of events
     // Unless a retryable exception has been received (see above)
-    finally {
+     finally {
       await _storageAdapter.deleteEvents(eventIdsToDelete.values);
     }
   }

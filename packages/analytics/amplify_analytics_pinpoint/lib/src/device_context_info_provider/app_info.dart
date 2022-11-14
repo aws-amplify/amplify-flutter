@@ -15,7 +15,7 @@
 /// {@template amplify_analytics_pinpoint.app_info}
 /// Data representation of AppInfo required for Pinpoint EndpointDemographic.
 ///
-/// For more details see the Pinpoint [Endpoint](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html)online spec.
+/// For more details see the Pinpoint [Endpoint](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html) online spec.
 /// {@endtemplate}
 class AppInfo {
   /// {@macro amplify_analytics_pinpoint.app_info}

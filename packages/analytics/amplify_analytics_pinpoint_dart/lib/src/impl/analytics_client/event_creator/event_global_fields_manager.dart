@@ -25,7 +25,7 @@ import 'package:meta/meta.dart';
 ///
 /// These values are sent with every new Event.
 ///
-/// The stored attributes and metrics conform to the [Pinpoint Event](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-events.html)online spec.
+/// The stored attributes and metrics conform to the [Pinpoint Event](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-events.html) online spec.
 ///
 /// Unlike EndpointGlobalFieldsManager, we DO NOT persist these values between sessions
 ///
