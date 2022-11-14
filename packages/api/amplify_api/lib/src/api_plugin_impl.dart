@@ -216,7 +216,7 @@ class AmplifyAPIDart extends AmplifyAPI {
 
   /// Returns the websocket bloc to use for a given endpoint.
   ///
-  /// Use [apiName] if there are multiple endpoints.
+  /// Use [endpoint] if there are multiple endpoints.
   @visibleForTesting
   WebSocketBloc getWebSocketBloc(EndpointConfig endpoint) {
     return WebSocketBloc(
