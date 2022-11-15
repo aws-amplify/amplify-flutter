@@ -12,15 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_codegen/src/generator/types.dart';
 import 'package:amplify_codegen/src/helpers/language.dart';
+import 'package:amplify_codegen/src/helpers/model.dart';
 import 'package:amplify_codegen/src/helpers/node.dart';
+import 'package:amplify_codegen/src/helpers/types.dart';
 import 'package:amplify_core/src/types/models/mipr.dart';
 import 'package:aws_common/aws_common.dart';
+import 'package:code_builder/code_builder.dart';
 import 'package:collection/collection.dart';
 import 'package:gql/ast.dart';
+import 'package:smithy_codegen/src/util/symbol_ext.dart';
 
 /// Returns the query field name for [fieldName].
 String queryFieldName(String fieldName) => ('$fieldName\$').camelCase;
+
+// Cache for type references.
+final _typeReferences = Expando<Reference>();
 
 /// Helpers for [ModelField].
 extension ModelFieldHelpers on ModelField {
@@ -34,6 +42,264 @@ extension ModelFieldHelpers on ModelField {
       return '${name}_';
     }
     return name;
+  }
+
+  /// The code_builder reference for `this`.
+  Reference typeReference([ModelHierarchyType? hierarchyType]) {
+    final type = this.type;
+    final cached = _typeReferences[type];
+    if (cached != null) {
+      return cached;
+    }
+    Reference generatedTypeReference(
+      SchemaType type,
+      ModelHierarchyType hierarchyType,
+    ) {
+      final String typeName;
+      switch (hierarchyType) {
+        case ModelHierarchyType.model:
+          typeName = type.name.pascalCase;
+          break;
+        case ModelHierarchyType.partial:
+          typeName = 'Partial${type.name.pascalCase}';
+          break;
+        case ModelHierarchyType.remote:
+          typeName = 'Remote${type.name.pascalCase}';
+          break;
+      }
+      return Reference(
+        typeName,
+        '${type.name.snakeCase}.dart',
+      ).withRequired(type.isRequired);
+    }
+
+    if (type is ListType) {
+      final elementType = type.elementType;
+      if (elementType is ScalarType) {
+        return _typeReferences[type] = DartTypes.core
+            .list(elementType.reference)
+            .withRequired(type.isRequired);
+      } else {
+        return _typeReferences[type] = DartTypes.amplifyCore
+            .asyncModelCollection(
+              refer('${type.name}Identifier'),
+              generatedTypeReference(elementType, ModelHierarchyType.model),
+              generatedTypeReference(elementType, ModelHierarchyType.partial),
+              generatedTypeReference(elementType, hierarchyType!),
+            )
+            .withRequired(type.isRequired);
+      }
+    }
+    if (type is ScalarType) {
+      return _typeReferences[type] = type.reference;
+    }
+    if (type is EnumType) {
+      return _typeReferences[type] = type.reference;
+    }
+    if (type is NonModelType) {
+      return _typeReferences[type] = type.reference;
+    }
+    type as ModelType;
+    return DartTypes.amplifyCore.asyncModel(
+      refer('${type.name}Identifier'),
+      generatedTypeReference(type, ModelHierarchyType.model),
+      generatedTypeReference(type, ModelHierarchyType.partial),
+      generatedTypeReference(type, hierarchyType!),
+    );
+  }
+
+  /// Returns the expression needed to decode the Dart type from [json].
+  Expression fromJsonExp(
+    Expression json, {
+    required SchemaType fieldType,
+    required Expression Function() orElse,
+    ModelHierarchyType? hierarchyType,
+  }) {
+    final isRequired = type.isRequired;
+    final fieldRef = typeReference(hierarchyType).withRequired(isRequired);
+    var builder = (Expression json) {
+      final exp = json.asA(fieldRef);
+      return json
+          .equalTo(literalNull)
+          .conditional(isRequired ? orElse() : literalNull, exp);
+    };
+    if (fieldType is ScalarType) {
+      switch (fieldType.value) {
+        case AppSyncScalar.awsDate:
+        case AppSyncScalar.awsDateTime:
+        case AppSyncScalar.awsTime:
+          builder = (json) {
+            final val = json.asA(DartTypes.core.string);
+            final exp =
+                fieldType.reference.nonNull.property('fromString').call([val]);
+            return json
+                .equalTo(literalNull)
+                .conditional(isRequired ? orElse() : literalNull, exp);
+          };
+          break;
+        case AppSyncScalar.awsTimestamp:
+          builder = (json) {
+            final val = json.asA(DartTypes.core.int);
+            final exp =
+                fieldType.reference.nonNull.property('fromSeconds').call([val]);
+            return json
+                .equalTo(literalNull)
+                .conditional(isRequired ? orElse() : literalNull, exp);
+          };
+
+          break;
+        case AppSyncScalar.awsJson:
+          if (!isRequired) {
+            // Already an `Object?` coming off the JSON map.
+            builder = (json) => json;
+          }
+          break;
+        case AppSyncScalar.awsUrl:
+          builder = (json) {
+            final val = json.asA(DartTypes.core.string);
+            final exp =
+                fieldType.reference.nonNull.property('parse').call([val]);
+            return json
+                .equalTo(literalNull)
+                .conditional(isRequired ? orElse() : literalNull, exp);
+          };
+          break;
+        case AppSyncScalar.awsIpAddress:
+        case AppSyncScalar.awsEmail:
+        case AppSyncScalar.awsPhone:
+        case AppSyncScalar.boolean:
+        case AppSyncScalar.float:
+        case AppSyncScalar.id:
+        case AppSyncScalar.int_:
+        case AppSyncScalar.string:
+          break;
+      }
+    } else if (fieldType is EnumType) {
+      builder = (json) {
+        // Use the generated `fromJson` handler for deserializing the enum.
+        final val = json.asA(DartTypes.core.string);
+        final exp =
+            fieldType.reference.nonNull.property('fromJson').call([val]);
+        return json
+            .equalTo(literalNull)
+            .conditional(isRequired ? orElse() : literalNull, exp);
+      };
+    } else if (fieldType is NonModelType) {
+      builder = (json) {
+        // Use the generated `fromJson` handler for deserializing the non-model.
+        final val = json.asA(DartTypes.core.json);
+        final exp =
+            fieldType.reference.nonNull.property('fromJson').call([val]);
+        return json
+            .equalTo(literalNull)
+            .conditional(isRequired ? orElse() : literalNull, exp);
+      };
+    } else if (fieldType is ModelType) {
+      builder = (json) {
+        // Use the generated `fromJson` handler for deserializing the model.
+        final val = json.asA(DartTypes.core.json);
+        final exp = typeReference(hierarchyType)
+            .nonNull
+            .property('fromJson')
+            .call([val]);
+        return json
+            .equalTo(literalNull)
+            .conditional(isRequired ? orElse() : literalNull, exp);
+      };
+    } else {
+      fieldType as ListType;
+      builder = (json) {
+        final val = json.asA(
+          DartTypes.core.list(
+            DartTypes.core.object.nullable,
+          ),
+        );
+        final elementType = fieldType.elementType;
+        final exp = val
+            .property('cast')
+            .call([], {}, [DartTypes.core.json])
+            .property('map')
+            .call([
+              Method(
+                (m) => m
+                  ..lambda = true
+                  ..requiredParameters.add(Parameter((p) => p..name = 'el'))
+                  ..body = fromJsonExp(
+                    refer('el'),
+                    fieldType: elementType,
+                    orElse: orElse,
+                    hierarchyType: hierarchyType,
+                  ).code,
+              ).closure,
+            ]);
+        return json
+            .equalTo(literalNull)
+            .conditional(isRequired ? orElse() : literalNull, exp);
+      };
+    }
+    return builder(json);
+  }
+
+  /// Returns the expression needed to encode [field] to JSON.
+  Expression toJsonExp(
+    Expression field, {
+    required SchemaType fieldType,
+  }) {
+    final isNullable = !fieldType.isRequired;
+    var builder = (Expression field) => field;
+    if (fieldType is ScalarType) {
+      switch (fieldType.value) {
+        case AppSyncScalar.awsDate:
+        case AppSyncScalar.awsDateTime:
+        case AppSyncScalar.awsTime:
+          builder = (field) {
+            return field.nullableProperty('format', isNullable).call([]);
+          };
+          break;
+        case AppSyncScalar.awsTimestamp:
+          builder = (field) {
+            return field.nullableProperty('toSeconds', isNullable).call([]);
+          };
+          break;
+        case AppSyncScalar.awsUrl:
+          builder = (field) {
+            return field.nullableProperty('toString', isNullable).call([]);
+          };
+          break;
+        case AppSyncScalar.awsJson:
+        case AppSyncScalar.awsIpAddress:
+        case AppSyncScalar.awsEmail:
+        case AppSyncScalar.awsPhone:
+        case AppSyncScalar.boolean:
+        case AppSyncScalar.float:
+        case AppSyncScalar.id:
+        case AppSyncScalar.int_:
+        case AppSyncScalar.string:
+          break;
+      }
+    } else if (fieldType is EnumType) {
+      builder = (field) {
+        return field.nullableProperty('value', isNullable);
+      };
+    } else if (fieldType is NonModelType || fieldType is ModelType) {
+      builder = (field) {
+        return field.nullableProperty('toJson', isNullable).call([]);
+      };
+    } else {
+      fieldType as ListType;
+      builder = (field) {
+        final elementType = fieldType.elementType;
+        return field.nullableProperty('map', isNullable).call([
+          Method(
+            (m) => m
+              ..lambda = true
+              ..requiredParameters.add(Parameter((p) => p..name = 'el'))
+              ..body = toJsonExp(refer('el'), fieldType: elementType).code,
+          ).closure
+        ]);
+      };
+    }
+    return builder(field);
   }
 }
 

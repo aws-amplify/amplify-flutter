@@ -53,7 +53,7 @@ class NonModelGenerator extends StructureGenerator<NonModelTypeDefinition> {
           Field(
             (f) => f
               ..name = field.dartName
-              ..type = field.type.reference
+              ..type = field.typeReference()
               ..modifier = FieldModifier.final$,
           ),
         );
@@ -90,7 +90,7 @@ class NonModelGenerator extends StructureGenerator<NonModelTypeDefinition> {
                   ..name = 'json',
               ),
             )
-            ..body = fromJson(refer(className), fields),
+            ..body = fromJson(modelType: refer(className), fields: fields),
         ),
       );
 
@@ -127,8 +127,9 @@ class NonModelGenerator extends StructureGenerator<NonModelTypeDefinition> {
             ..name = 'toJson'
             ..body = literalMap({
               for (final field in fields)
-                literalString(field.name): field.type.toJsonExp(
+                literalString(field.name): field.toJsonExp(
                   refer(field.dartName),
+                  fieldType: field.type,
                 ),
             }).code,
         ),

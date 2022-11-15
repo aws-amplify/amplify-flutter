@@ -15,7 +15,7 @@
 import 'package:amplify_codegen/src/generator/generator.dart';
 import 'package:amplify_codegen/src/generator/types.dart';
 import 'package:amplify_codegen/src/helpers/field.dart';
-import 'package:amplify_codegen/src/helpers/types.dart';
+import 'package:amplify_codegen/src/helpers/model.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:gql/ast.dart';
@@ -36,13 +36,18 @@ abstract class StructureGenerator<Definition extends StructureTypeDefinition>
   /// Generates the `fromJson` factory's body for the given [modelType] and
   /// list of [fields].
   @protected
-  Code fromJson(Reference modelType, Iterable<ModelField> fields) {
+  Code fromJson({
+    required Reference modelType,
+    required Iterable<ModelField> fields,
+    ModelHierarchyType? hierarchyType,
+  }) {
     return Block((b) {
       for (final field in fields) {
-        final fieldType = field.type;
         final json = refer('json').index(literalString(field.name));
-        final decodedField = fieldType.fromJsonExp(
+        final decodedField = field.fromJsonExp(
           json,
+          fieldType: field.type,
+          hierarchyType: hierarchyType,
           orElse: () => DartTypes.amplifyCore.modelFieldError.newInstance([
             literalString(className),
             literalString(field.dartName),

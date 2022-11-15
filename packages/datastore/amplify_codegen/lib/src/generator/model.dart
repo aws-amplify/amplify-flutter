@@ -60,7 +60,7 @@ class ModelGenerator extends StructureGenerator<ModelTypeDefinition> {
         .toList();
     assert(fields.isNotEmpty, 'Not enough fields');
     if (fields.length == 1) {
-      return fields.single.type.reference;
+      return fields.single.typeReference();
     }
     final modelIdentifierName = '${modelName}Identifier';
     final cls = Class((c) {
@@ -77,7 +77,7 @@ class ModelGenerator extends StructureGenerator<ModelTypeDefinition> {
             Field(
               (f) => f
                 ..name = field.dartName
-                ..type = field.type.reference
+                ..type = field.typeReference()
                 ..modifier = FieldModifier.final$,
             )
         ]);
@@ -123,8 +123,9 @@ class ModelGenerator extends StructureGenerator<ModelTypeDefinition> {
             ..name = 'toJson'
             ..body = literalMap({
               for (final field in fields)
-                literalString(field.name): field.type.toJsonExp(
+                literalString(field.name): field.toJsonExp(
                   refer(field.dartName),
+                  fieldType: field.type,
                 ),
             }).code,
         ),
@@ -264,7 +265,7 @@ return _${allocate(partialModelType)}.fromJson(json) as T;
         c.methods.add(
           Method(
             (m) => m
-              ..returns = field.type.reference
+              ..returns = field.typeReference(ModelHierarchyType.partial)
               ..type = MethodType.getter
               ..name = field.dartName,
           ),
@@ -332,8 +333,9 @@ return _${allocate(partialModelType)}.fromJson(json) as T;
             ..body = literalMap({
               for (final field
                   in definition.allFields(ModelHierarchyType.partial).values)
-                literalString(field.name): field.type.toJsonExp(
+                literalString(field.name): field.toJsonExp(
                   refer(field.dartName),
+                  fieldType: field.type,
                 ),
             }).code,
         ),
@@ -428,7 +430,7 @@ return value as T;
             (f) => f
               ..annotations.add(DartTypes.core.override)
               ..modifier = FieldModifier.final$
-              ..type = field.type.reference
+              ..type = field.typeReference(ModelHierarchyType.partial)
               ..name = field.dartName,
           ),
         );
@@ -466,8 +468,10 @@ return value as T;
               ),
             )
             ..body = fromJson(
-              refer(privateClassName),
-              definition.schemaFields(ModelHierarchyType.partial).values,
+              modelType: refer(privateClassName),
+              fields:
+                  definition.schemaFields(ModelHierarchyType.partial).values,
+              hierarchyType: ModelHierarchyType.partial,
             ),
         ),
       );
@@ -511,7 +515,7 @@ return value as T;
         c.methods.add(
           Method(
             (m) => m
-              ..returns = fieldType.reference
+              ..returns = field.typeReference(ModelHierarchyType.model)
               ..type = MethodType.getter
               ..name = field.dartName,
           ),
@@ -526,7 +530,9 @@ return value as T;
             (p) => p
               ..named = true
               ..required = fieldType.isRequired && !isIdField
-              ..type = fieldType.reference.typeRef
+              ..type = field
+                  .typeReference(ModelHierarchyType.model)
+                  .typeRef
                   .rebuild((t) => t.isNullable = t.isNullable! || isIdField)
               ..name = field.dartName,
           ),
@@ -567,8 +573,9 @@ return value as T;
               ),
             )
             ..body = fromJson(
-              modelType,
-              definition.schemaFields(ModelHierarchyType.model).values,
+              modelType: modelType,
+              fields: definition.schemaFields(ModelHierarchyType.model).values,
+              hierarchyType: ModelHierarchyType.model,
             ),
         ),
       );
@@ -589,7 +596,7 @@ return value as T;
             (f) => f
               ..annotations.add(DartTypes.core.override)
               ..modifier = FieldModifier.final$
-              ..type = fieldType.reference
+              ..type = field.typeReference(ModelHierarchyType.model)
               ..name = field.dartName,
           ),
         );
@@ -674,7 +681,7 @@ return value as T;
             (f) => f
               ..annotations.add(DartTypes.core.override)
               ..modifier = FieldModifier.final$
-              ..type = field.type.reference
+              ..type = field.typeReference(ModelHierarchyType.remote)
               ..name = field.dartName,
           ),
         );
@@ -712,8 +719,9 @@ return value as T;
               ),
             )
             ..body = fromJson(
-              refer(privateClassName),
-              definition.allFields(ModelHierarchyType.remote).values,
+              modelType: refer(privateClassName),
+              fields: definition.allFields(ModelHierarchyType.remote).values,
+              hierarchyType: ModelHierarchyType.remote,
             ),
         ),
       );

@@ -75,6 +75,44 @@ class _AmplifyCore {
 
   static const _url = 'package:amplify_core/amplify_core.dart';
 
+  /// Creates an [amplify_core.AsyncModel] reference.
+  TypeReference asyncModel(
+    Reference modelIdentifierType,
+    Reference modelType,
+    Reference partialModelType,
+    Reference selectedModelType,
+  ) =>
+      TypeReference(
+        (t) => t
+          ..symbol = 'AsyncModel'
+          ..url = _url
+          ..types.addAll([
+            modelIdentifierType,
+            modelType,
+            partialModelType,
+            selectedModelType,
+          ]),
+      );
+
+  /// Creates an [amplify_core.AsyncModelCollection] reference.
+  TypeReference asyncModelCollection(
+    Reference modelIdentifierType,
+    Reference modelType,
+    Reference partialModelType,
+    Reference selectedModelType,
+  ) =>
+      TypeReference(
+        (t) => t
+          ..symbol = 'AsyncModelCollection'
+          ..url = _url
+          ..types.addAll([
+            modelIdentifierType,
+            modelType,
+            partialModelType,
+            selectedModelType,
+          ]),
+      );
+
   _AmplifyCoreMipr get mipr => const _AmplifyCoreMipr();
 
   /// Creates an [amplify_core.Model] reference.
