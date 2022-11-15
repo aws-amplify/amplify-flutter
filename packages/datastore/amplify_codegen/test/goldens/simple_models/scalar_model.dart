@@ -662,34 +662,63 @@ abstract class ScalarModel extends PartialScalarModel
 
   static const ScalarModelType classType = ScalarModelType();
 
+  @override
   String get id;
+  @override
   String? get str;
+  @override
   String get requiredStr;
+  @override
   int? get integer;
+  @override
   int get requiredInteger;
+  @override
   double? get float;
+  @override
   double get requiredFloat;
+  @override
   bool? get boolean;
+  @override
   bool get requiredBoolean;
+  @override
   TemporalDate? get awsDate;
+  @override
   TemporalDate get requiredAwsDate;
+  @override
   TemporalDateTime? get awsDateTime;
+  @override
   TemporalDateTime get requiredAwsDateTime;
+  @override
   TemporalTime? get awsTime;
+  @override
   TemporalTime get requiredAwsTime;
+  @override
   TemporalTimestamp? get awsTimestamp;
+  @override
   TemporalTimestamp get requiredAwsTimestamp;
+  @override
   String? get awsEmail;
+  @override
   String get requiredAwsEmail;
+  @override
   Object? get awsJson;
+  @override
   Object get requiredAwsJson;
+  @override
   String? get awsPhone;
+  @override
   String get requiredAwsPhone;
+  @override
   Uri? get awsUrl;
+  @override
   Uri get requiredAwsUrl;
+  @override
   String? get awsIpAddress;
+  @override
   String get requiredAwsIpAddress;
+  @override
   TemporalDateTime? get createdAt;
+  @override
   TemporalDateTime? get updatedAt;
 }
 

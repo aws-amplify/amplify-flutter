@@ -515,6 +515,7 @@ return value as T;
         c.methods.add(
           Method(
             (m) => m
+              ..annotations.add(DartTypes.core.override)
               ..returns = field.typeReference(ModelHierarchyType.model)
               ..type = MethodType.getter
               ..name = field.dartName,

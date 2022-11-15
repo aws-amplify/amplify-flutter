@@ -220,9 +220,13 @@ abstract class CpkModel extends PartialCpkModel
 
   static const CpkModelType classType = CpkModelType();
 
+  @override
   String get firstName;
+  @override
   String get lastName;
+  @override
   TemporalDateTime? get createdAt;
+  @override
   TemporalDateTime? get updatedAt;
 }
 

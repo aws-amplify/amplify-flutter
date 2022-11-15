@@ -206,10 +206,15 @@ abstract class MyModel extends PartialMyModel
 
   static const MyModelType classType = MyModelType();
 
+  @override
   ScalarNonModel? get embeddedNonModel;
+  @override
   ScalarNonModel get requiredEmbeddedNonModel;
+  @override
   TemporalDateTime? get createdAt;
+  @override
   TemporalDateTime? get updatedAt;
+  @override
   String get id;
 }
 

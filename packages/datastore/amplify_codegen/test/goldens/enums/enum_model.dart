@@ -200,10 +200,15 @@ abstract class EnumModel extends PartialEnumModel
 
   static const EnumModelType classType = EnumModelType();
 
+  @override
   String get id;
+  @override
   MyEnum? get enum_;
+  @override
   MyEnum get requiredEnum;
+  @override
   TemporalDateTime? get createdAt;
+  @override
   TemporalDateTime? get updatedAt;
 }
 

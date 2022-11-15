@@ -179,9 +179,13 @@ abstract class MyModel extends PartialMyModel
 
   static const MyModelType classType = MyModelType();
 
+  @override
   String get enum_;
+  @override
   TemporalDateTime? get createdAt;
+  @override
   TemporalDateTime? get updatedAt;
+  @override
   String get id;
 }
 
