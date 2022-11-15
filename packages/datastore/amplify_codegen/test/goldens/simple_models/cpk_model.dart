@@ -142,16 +142,16 @@ class _PartialCpkModel extends PartialCpkModel {
 
   factory _PartialCpkModel.fromJson(Map<String, Object?> json) {
     final firstName = json['firstName'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'CpkModel',
             'firstName',
-          )
+          ))
         : (json['firstName'] as String);
     final lastName = json['lastName'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'CpkModel',
             'lastName',
-          )
+          ))
         : (json['lastName'] as String);
     final createdAt = json['createdAt'] == null
         ? null
@@ -193,16 +193,16 @@ abstract class CpkModel extends PartialCpkModel
 
   factory CpkModel.fromJson(Map<String, Object?> json) {
     final firstName = json['firstName'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'CpkModel',
             'firstName',
-          )
+          ))
         : (json['firstName'] as String);
     final lastName = json['lastName'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'CpkModel',
             'lastName',
-          )
+          ))
         : (json['lastName'] as String);
     final createdAt = json['createdAt'] == null
         ? null
@@ -269,16 +269,16 @@ class _RemoteCpkModel extends RemoteCpkModel {
 
   factory _RemoteCpkModel.fromJson(Map<String, Object?> json) {
     final firstName = json['firstName'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'CpkModel',
             'firstName',
-          )
+          ))
         : (json['firstName'] as String);
     final lastName = json['lastName'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'CpkModel',
             'lastName',
-          )
+          ))
         : (json['lastName'] as String);
     final createdAt = json['createdAt'] == null
         ? null
@@ -287,22 +287,22 @@ class _RemoteCpkModel extends RemoteCpkModel {
         ? null
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final version = json['version'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'CpkModel',
             'version',
-          )
+          ))
         : (json['version'] as int);
     final deleted = json['deleted'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'CpkModel',
             'deleted',
-          )
+          ))
         : (json['deleted'] as bool);
     final lastChangedAt = json['lastChangedAt'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'CpkModel',
             'lastChangedAt',
-          )
+          ))
         : TemporalDateTime.fromString((json['lastChangedAt'] as String));
     return _RemoteCpkModel(
       firstName: firstName,

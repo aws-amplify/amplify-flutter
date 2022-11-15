@@ -113,10 +113,10 @@ class _PartialMyModel extends PartialMyModel {
         ? null
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final id = json['id'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'MyModel',
             'id',
-          )
+          ))
         : (json['id'] as String);
     return _PartialMyModel(
       enum_: enum_,
@@ -152,10 +152,10 @@ abstract class MyModel extends PartialMyModel
 
   factory MyModel.fromJson(Map<String, Object?> json) {
     final enum_ = json['enum'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'MyModel',
             'enum_',
-          )
+          ))
         : (json['enum'] as String);
     final createdAt = json['createdAt'] == null
         ? null
@@ -164,10 +164,10 @@ abstract class MyModel extends PartialMyModel
         ? null
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final id = json['id'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'MyModel',
             'id',
-          )
+          ))
         : (json['id'] as String);
     return MyModel(
       enum_: enum_,
@@ -229,10 +229,10 @@ class _RemoteMyModel extends RemoteMyModel {
 
   factory _RemoteMyModel.fromJson(Map<String, Object?> json) {
     final enum_ = json['enum'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'MyModel',
             'enum_',
-          )
+          ))
         : (json['enum'] as String);
     final createdAt = json['createdAt'] == null
         ? null
@@ -241,28 +241,28 @@ class _RemoteMyModel extends RemoteMyModel {
         ? null
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final id = json['id'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'MyModel',
             'id',
-          )
+          ))
         : (json['id'] as String);
     final version = json['version'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'MyModel',
             'version',
-          )
+          ))
         : (json['version'] as int);
     final deleted = json['deleted'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'MyModel',
             'deleted',
-          )
+          ))
         : (json['deleted'] as bool);
     final lastChangedAt = json['lastChangedAt'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'MyModel',
             'lastChangedAt',
-          )
+          ))
         : TemporalDateTime.fromString((json['lastChangedAt'] as String));
     return _RemoteMyModel(
       enum_: enum_,

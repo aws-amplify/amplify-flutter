@@ -114,14 +114,16 @@ extension ModelFieldHelpers on ModelField {
     required SchemaType fieldType,
     required Expression Function() orElse,
     ModelHierarchyType? hierarchyType,
+    int depth = 0,
   }) {
-    final isRequired = type.isRequired;
-    final fieldRef = typeReference(hierarchyType).withRequired(isRequired);
+    final isRequired = fieldType.isRequired;
     var builder = (Expression json) {
-      final exp = json.asA(fieldRef);
-      return json
-          .equalTo(literalNull)
-          .conditional(isRequired ? orElse() : literalNull, exp);
+      final exp = depth == 0 ? json.asA(fieldType.wireType) : json;
+      return depth == 0
+          ? json
+              .equalTo(literalNull)
+              .conditional(isRequired ? orElse() : literalNull, exp)
+          : (isRequired ? json.ifNullThen(orElse()) : json);
     };
     if (fieldType is ScalarType) {
       switch (fieldType.value) {
@@ -129,7 +131,7 @@ extension ModelFieldHelpers on ModelField {
         case AppSyncScalar.awsDateTime:
         case AppSyncScalar.awsTime:
           builder = (json) {
-            final val = json.asA(DartTypes.core.string);
+            final val = depth == 0 ? json.asA(DartTypes.core.string) : json;
             final exp =
                 fieldType.reference.nonNull.property('fromString').call([val]);
             return json
@@ -139,7 +141,7 @@ extension ModelFieldHelpers on ModelField {
           break;
         case AppSyncScalar.awsTimestamp:
           builder = (json) {
-            final val = json.asA(DartTypes.core.int);
+            final val = depth == 0 ? json.asA(DartTypes.core.int) : json;
             final exp =
                 fieldType.reference.nonNull.property('fromSeconds').call([val]);
             return json
@@ -156,7 +158,7 @@ extension ModelFieldHelpers on ModelField {
           break;
         case AppSyncScalar.awsUrl:
           builder = (json) {
-            final val = json.asA(DartTypes.core.string);
+            final val = depth == 0 ? json.asA(DartTypes.core.string) : json;
             final exp =
                 fieldType.reference.nonNull.property('parse').call([val]);
             return json
@@ -177,7 +179,7 @@ extension ModelFieldHelpers on ModelField {
     } else if (fieldType is EnumType) {
       builder = (json) {
         // Use the generated `fromJson` handler for deserializing the enum.
-        final val = json.asA(DartTypes.core.string);
+        final val = depth == 0 ? json.asA(DartTypes.core.string) : json;
         final exp =
             fieldType.reference.nonNull.property('fromJson').call([val]);
         return json
@@ -187,7 +189,7 @@ extension ModelFieldHelpers on ModelField {
     } else if (fieldType is NonModelType) {
       builder = (json) {
         // Use the generated `fromJson` handler for deserializing the non-model.
-        final val = json.asA(DartTypes.core.json);
+        final val = depth == 0 ? json.asA(DartTypes.core.json) : json;
         final exp =
             fieldType.reference.nonNull.property('fromJson').call([val]);
         return json
@@ -197,7 +199,7 @@ extension ModelFieldHelpers on ModelField {
     } else if (fieldType is ModelType) {
       builder = (json) {
         // Use the generated `fromJson` handler for deserializing the model.
-        final val = json.asA(DartTypes.core.json);
+        final val = depth == 0 ? json.asA(DartTypes.core.json) : json;
         final exp = typeReference(hierarchyType)
             .nonNull
             .property('fromJson')
@@ -215,23 +217,26 @@ extension ModelFieldHelpers on ModelField {
           ),
         );
         final elementType = fieldType.elementType;
-        final exp = val
-            .property('cast')
-            .call([], {}, [DartTypes.core.json])
-            .property('map')
-            .call([
-              Method(
-                (m) => m
-                  ..lambda = true
-                  ..requiredParameters.add(Parameter((p) => p..name = 'el'))
-                  ..body = fromJsonExp(
-                    refer('el'),
-                    fieldType: elementType,
-                    orElse: orElse,
-                    hierarchyType: hierarchyType,
-                  ).code,
-              ).closure,
-            ]);
+        final isPrimitive = elementType.isPrimitive;
+        var exp =
+            val.property('cast').call([], {}, [elementType.wireType.nullable]);
+        if (!isPrimitive || elementType.isRequired) {
+          exp = exp.property('map').call([
+            Method(
+              (m) => m
+                ..lambda = true
+                ..requiredParameters.add(Parameter((p) => p..name = 'el'))
+                ..body = fromJsonExp(
+                  refer('el'),
+                  fieldType: elementType,
+                  orElse: orElse,
+                  hierarchyType: hierarchyType,
+                  depth: depth + 1,
+                ).code,
+            ).closure,
+          ]);
+        }
+        exp = exp.property('toList').call([]);
         return json
             .equalTo(literalNull)
             .conditional(isRequired ? orElse() : literalNull, exp);
@@ -289,14 +294,21 @@ extension ModelFieldHelpers on ModelField {
       fieldType as ListType;
       builder = (field) {
         final elementType = fieldType.elementType;
-        return field.nullableProperty('map', isNullable).call([
-          Method(
-            (m) => m
-              ..lambda = true
-              ..requiredParameters.add(Parameter((p) => p..name = 'el'))
-              ..body = toJsonExp(refer('el'), fieldType: elementType).code,
-          ).closure
-        ]);
+        return elementType.isPrimitive
+            ? field
+            : field
+                .nullableProperty('map', isNullable)
+                .call([
+                  Method(
+                    (m) => m
+                      ..lambda = true
+                      ..requiredParameters.add(Parameter((p) => p..name = 'el'))
+                      ..body =
+                          toJsonExp(refer('el'), fieldType: elementType).code,
+                  ).closure
+                ])
+                .property('toList')
+                .call([]);
       };
     }
     return builder(field);

@@ -30,10 +30,10 @@ class MyNonModel
 
   factory MyNonModel.fromJson(Map<String, Object?> json) {
     final enum_ = json['enum'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'MyNonModel',
             'enum_',
-          )
+          ))
         : (json['enum'] as String);
     return MyNonModel(enum_: enum_);
   }

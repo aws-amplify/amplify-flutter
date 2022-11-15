@@ -82,6 +82,7 @@ extension TypeHelpers on TypeNode {
         models: models,
         enums: enums,
       );
+      assert(valueType is! ListType, 'Nested lists are not supported');
       return SchemaType.list(valueType, isRequired: node.isNonNull);
     }
     throw ArgumentError(node.runtimeType);
@@ -128,6 +129,62 @@ extension SchemaTypeHelpers on SchemaType {
 
   /// Whether this type represents a list.
   bool get isList => this is ListType;
+
+  /// The type transmitted on the wire when `this` is serialized.
+  Reference get wireType {
+    final type = this;
+    if (type is ScalarType) {
+      switch (type.value) {
+        case AppSyncScalar.awsDate:
+        case AppSyncScalar.awsDateTime:
+        case AppSyncScalar.awsEmail:
+        case AppSyncScalar.awsIpAddress:
+        case AppSyncScalar.awsPhone:
+        case AppSyncScalar.awsTime:
+        case AppSyncScalar.awsUrl:
+        case AppSyncScalar.id:
+        case AppSyncScalar.string:
+          return DartTypes.core.string.withRequired(isRequired);
+        case AppSyncScalar.awsJson:
+          return DartTypes.core.object.withRequired(isRequired);
+        case AppSyncScalar.awsTimestamp:
+        case AppSyncScalar.int_:
+          return DartTypes.core.int.withRequired(isRequired);
+        case AppSyncScalar.boolean:
+          return DartTypes.core.bool.withRequired(isRequired);
+        case AppSyncScalar.float:
+          return DartTypes.core.double.withRequired(isRequired);
+      }
+    }
+    if (type is EnumType) {
+      return DartTypes.core.string.withRequired(isRequired);
+    }
+    if (type is ModelType || type is NonModelType) {
+      return DartTypes.core.json.withRequired(isRequired);
+    }
+    type as ListType;
+    return DartTypes.core
+        .list(type.elementType.wireType)
+        .withRequired(isRequired);
+  }
+
+  /// Whether this type is represented by a primitive, `dart:core` type.
+  bool get isPrimitive {
+    const primitiveScalars = [
+      AppSyncScalar.awsEmail,
+      AppSyncScalar.awsIpAddress,
+      AppSyncScalar.awsJson,
+      AppSyncScalar.awsPhone,
+      AppSyncScalar.boolean,
+      AppSyncScalar.float,
+      AppSyncScalar.id,
+      AppSyncScalar.int_,
+      AppSyncScalar.string,
+    ];
+    final type = this;
+    return (type is ScalarType && primitiveScalars.contains(type.value)) ||
+        type is EnumType;
+  }
 }
 
 /// Helpers for [TypeDefinitionNode].

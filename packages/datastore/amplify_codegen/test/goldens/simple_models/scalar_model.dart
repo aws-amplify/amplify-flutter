@@ -282,10 +282,10 @@ class _PartialScalarModel extends PartialScalarModel {
 
   factory _PartialScalarModel.fromJson(Map<String, Object?> json) {
     final id = json['id'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'id',
-          )
+          ))
         : (json['id'] as String);
     final str = json['str'] == null ? null : (json['str'] as String?);
     final requiredStr =
@@ -513,113 +513,113 @@ abstract class ScalarModel extends PartialScalarModel
 
   factory ScalarModel.fromJson(Map<String, Object?> json) {
     final id = json['id'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'id',
-          )
+          ))
         : (json['id'] as String);
     final str = json['str'] == null ? null : (json['str'] as String?);
     final requiredStr = json['requiredStr'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredStr',
-          )
+          ))
         : (json['requiredStr'] as String);
     final integer = json['integer'] == null ? null : (json['integer'] as int?);
     final requiredInteger = json['requiredInteger'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredInteger',
-          )
+          ))
         : (json['requiredInteger'] as int);
     final float = json['float'] == null ? null : (json['float'] as double?);
     final requiredFloat = json['requiredFloat'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredFloat',
-          )
+          ))
         : (json['requiredFloat'] as double);
     final boolean = json['boolean'] == null ? null : (json['boolean'] as bool?);
     final requiredBoolean = json['requiredBoolean'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredBoolean',
-          )
+          ))
         : (json['requiredBoolean'] as bool);
     final awsDate = json['awsDate'] == null
         ? null
         : TemporalDate.fromString((json['awsDate'] as String));
     final requiredAwsDate = json['requiredAwsDate'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredAwsDate',
-          )
+          ))
         : TemporalDate.fromString((json['requiredAwsDate'] as String));
     final awsDateTime = json['awsDateTime'] == null
         ? null
         : TemporalDateTime.fromString((json['awsDateTime'] as String));
     final requiredAwsDateTime = json['requiredAwsDateTime'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredAwsDateTime',
-          )
+          ))
         : TemporalDateTime.fromString((json['requiredAwsDateTime'] as String));
     final awsTime = json['awsTime'] == null
         ? null
         : TemporalTime.fromString((json['awsTime'] as String));
     final requiredAwsTime = json['requiredAwsTime'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredAwsTime',
-          )
+          ))
         : TemporalTime.fromString((json['requiredAwsTime'] as String));
     final awsTimestamp = json['awsTimestamp'] == null
         ? null
         : TemporalTimestamp.fromSeconds((json['awsTimestamp'] as int));
     final requiredAwsTimestamp = json['requiredAwsTimestamp'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredAwsTimestamp',
-          )
+          ))
         : TemporalTimestamp.fromSeconds((json['requiredAwsTimestamp'] as int));
     final awsEmail =
         json['awsEmail'] == null ? null : (json['awsEmail'] as String?);
     final requiredAwsEmail = json['requiredAwsEmail'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredAwsEmail',
-          )
+          ))
         : (json['requiredAwsEmail'] as String);
     final awsJson = json['awsJson'];
     final requiredAwsJson = json['requiredAwsJson'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredAwsJson',
-          )
+          ))
         : (json['requiredAwsJson'] as Object);
     final awsPhone =
         json['awsPhone'] == null ? null : (json['awsPhone'] as String?);
     final requiredAwsPhone = json['requiredAwsPhone'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredAwsPhone',
-          )
+          ))
         : (json['requiredAwsPhone'] as String);
     final awsUrl =
         json['awsUrl'] == null ? null : Uri.parse((json['awsUrl'] as String));
     final requiredAwsUrl = json['requiredAwsUrl'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredAwsUrl',
-          )
+          ))
         : Uri.parse((json['requiredAwsUrl'] as String));
     final awsIpAddress =
         json['awsIpAddress'] == null ? null : (json['awsIpAddress'] as String?);
     final requiredAwsIpAddress = json['requiredAwsIpAddress'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredAwsIpAddress',
-          )
+          ))
         : (json['requiredAwsIpAddress'] as String);
     final createdAt = json['createdAt'] == null
         ? null
@@ -887,113 +887,113 @@ class _RemoteScalarModel extends RemoteScalarModel {
 
   factory _RemoteScalarModel.fromJson(Map<String, Object?> json) {
     final id = json['id'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'id',
-          )
+          ))
         : (json['id'] as String);
     final str = json['str'] == null ? null : (json['str'] as String?);
     final requiredStr = json['requiredStr'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredStr',
-          )
+          ))
         : (json['requiredStr'] as String);
     final integer = json['integer'] == null ? null : (json['integer'] as int?);
     final requiredInteger = json['requiredInteger'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredInteger',
-          )
+          ))
         : (json['requiredInteger'] as int);
     final float = json['float'] == null ? null : (json['float'] as double?);
     final requiredFloat = json['requiredFloat'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredFloat',
-          )
+          ))
         : (json['requiredFloat'] as double);
     final boolean = json['boolean'] == null ? null : (json['boolean'] as bool?);
     final requiredBoolean = json['requiredBoolean'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredBoolean',
-          )
+          ))
         : (json['requiredBoolean'] as bool);
     final awsDate = json['awsDate'] == null
         ? null
         : TemporalDate.fromString((json['awsDate'] as String));
     final requiredAwsDate = json['requiredAwsDate'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredAwsDate',
-          )
+          ))
         : TemporalDate.fromString((json['requiredAwsDate'] as String));
     final awsDateTime = json['awsDateTime'] == null
         ? null
         : TemporalDateTime.fromString((json['awsDateTime'] as String));
     final requiredAwsDateTime = json['requiredAwsDateTime'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredAwsDateTime',
-          )
+          ))
         : TemporalDateTime.fromString((json['requiredAwsDateTime'] as String));
     final awsTime = json['awsTime'] == null
         ? null
         : TemporalTime.fromString((json['awsTime'] as String));
     final requiredAwsTime = json['requiredAwsTime'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredAwsTime',
-          )
+          ))
         : TemporalTime.fromString((json['requiredAwsTime'] as String));
     final awsTimestamp = json['awsTimestamp'] == null
         ? null
         : TemporalTimestamp.fromSeconds((json['awsTimestamp'] as int));
     final requiredAwsTimestamp = json['requiredAwsTimestamp'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredAwsTimestamp',
-          )
+          ))
         : TemporalTimestamp.fromSeconds((json['requiredAwsTimestamp'] as int));
     final awsEmail =
         json['awsEmail'] == null ? null : (json['awsEmail'] as String?);
     final requiredAwsEmail = json['requiredAwsEmail'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredAwsEmail',
-          )
+          ))
         : (json['requiredAwsEmail'] as String);
     final awsJson = json['awsJson'];
     final requiredAwsJson = json['requiredAwsJson'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredAwsJson',
-          )
+          ))
         : (json['requiredAwsJson'] as Object);
     final awsPhone =
         json['awsPhone'] == null ? null : (json['awsPhone'] as String?);
     final requiredAwsPhone = json['requiredAwsPhone'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredAwsPhone',
-          )
+          ))
         : (json['requiredAwsPhone'] as String);
     final awsUrl =
         json['awsUrl'] == null ? null : Uri.parse((json['awsUrl'] as String));
     final requiredAwsUrl = json['requiredAwsUrl'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredAwsUrl',
-          )
+          ))
         : Uri.parse((json['requiredAwsUrl'] as String));
     final awsIpAddress =
         json['awsIpAddress'] == null ? null : (json['awsIpAddress'] as String?);
     final requiredAwsIpAddress = json['requiredAwsIpAddress'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'requiredAwsIpAddress',
-          )
+          ))
         : (json['requiredAwsIpAddress'] as String);
     final createdAt = json['createdAt'] == null
         ? null
@@ -1002,22 +1002,22 @@ class _RemoteScalarModel extends RemoteScalarModel {
         ? null
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final version = json['version'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'version',
-          )
+          ))
         : (json['version'] as int);
     final deleted = json['deleted'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'deleted',
-          )
+          ))
         : (json['deleted'] as bool);
     final lastChangedAt = json['lastChangedAt'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'ScalarModel',
             'lastChangedAt',
-          )
+          ))
         : TemporalDateTime.fromString((json['lastChangedAt'] as String));
     return _RemoteScalarModel(
       id: id,

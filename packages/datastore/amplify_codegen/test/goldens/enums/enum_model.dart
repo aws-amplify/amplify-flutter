@@ -115,10 +115,10 @@ class _PartialEnumModel extends PartialEnumModel {
 
   factory _PartialEnumModel.fromJson(Map<String, Object?> json) {
     final id = json['id'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'EnumModel',
             'id',
-          )
+          ))
         : (json['id'] as String);
     final enum_ =
         json['enum'] == null ? null : MyEnum.fromJson((json['enum'] as String));
@@ -170,18 +170,18 @@ abstract class EnumModel extends PartialEnumModel
 
   factory EnumModel.fromJson(Map<String, Object?> json) {
     final id = json['id'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'EnumModel',
             'id',
-          )
+          ))
         : (json['id'] as String);
     final enum_ =
         json['enum'] == null ? null : MyEnum.fromJson((json['enum'] as String));
     final requiredEnum = json['requiredEnum'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'EnumModel',
             'requiredEnum',
-          )
+          ))
         : MyEnum.fromJson((json['requiredEnum'] as String));
     final createdAt = json['createdAt'] == null
         ? null
@@ -257,18 +257,18 @@ class _RemoteEnumModel extends RemoteEnumModel {
 
   factory _RemoteEnumModel.fromJson(Map<String, Object?> json) {
     final id = json['id'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'EnumModel',
             'id',
-          )
+          ))
         : (json['id'] as String);
     final enum_ =
         json['enum'] == null ? null : MyEnum.fromJson((json['enum'] as String));
     final requiredEnum = json['requiredEnum'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'EnumModel',
             'requiredEnum',
-          )
+          ))
         : MyEnum.fromJson((json['requiredEnum'] as String));
     final createdAt = json['createdAt'] == null
         ? null
@@ -277,22 +277,22 @@ class _RemoteEnumModel extends RemoteEnumModel {
         ? null
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final version = json['version'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'EnumModel',
             'version',
-          )
+          ))
         : (json['version'] as int);
     final deleted = json['deleted'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'EnumModel',
             'deleted',
-          )
+          ))
         : (json['deleted'] as bool);
     final lastChangedAt = json['lastChangedAt'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'EnumModel',
             'lastChangedAt',
-          )
+          ))
         : TemporalDateTime.fromString((json['lastChangedAt'] as String));
     return _RemoteEnumModel(
       id: id,

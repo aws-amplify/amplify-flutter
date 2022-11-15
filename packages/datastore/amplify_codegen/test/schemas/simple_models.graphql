@@ -28,6 +28,62 @@ type ScalarModel @model {
     requiredAwsIpAddress: AWSIPAddress!
 }
 
+type ScalarListModel @model {
+    id: ID!
+    listOfString: [String]
+    listOfRequiredString: [String!]
+    requiredListOfString: [String]!
+    requiredListOfRequiredString: [String!]!
+    listOfInteger: [Int]
+    listOfRequiredInteger: [Int!]
+    requiredListOfInteger: [Int]!
+    requiredListOfRequiredInteger: [Int!]!
+    listOfFloat: [Float]
+    listOfRequiredFloat: [Float!]
+    requiredListOfFloat: [Float]!
+    requiredListOfRequiredFloat: [Float!]!
+    listOfBoolean: [Boolean]
+    listOfRequiredBoolean: [Boolean!]
+    requiredListOfBoolean: [Boolean]!
+    requiredListOfRequiredBoolean: [Boolean!]!
+    listOfAWSDate: [AWSDate]
+    listOfRequiredAWSDate: [AWSDate!]
+    requiredListOfAWSDate: [AWSDate]!
+    requiredListOfRequiredAWSDate: [AWSDate!]!
+    listOfAWSDateTime: [AWSDateTime]
+    listOfRequiredAWSDateTime: [AWSDateTime!]
+    requiredListOfAWSDateTime: [AWSDateTime]!
+    requiredListOfRequiredAWSDateTime: [AWSDateTime!]!
+    listOfAWSTime: [AWSTime]
+    listOfRequiredAWSTime: [AWSTime!]
+    requiredListOfAWSTime: [AWSTime]!
+    requiredListOfRequiredAWSTime: [AWSTime!]!
+    listOfAWSTimestamp: [AWSTimestamp]
+    listOfRequiredAWSTimestamp: [AWSTimestamp!]
+    requiredListOfAWSTimestamp: [AWSTimestamp]!
+    requiredListOfRequiredAWSTimestamp: [AWSTimestamp!]!
+    listOfAWSEmail: [AWSEmail]
+    listOfRequiredAWSEmail: [AWSEmail!]
+    requiredListOfAWSEmail: [AWSEmail]!
+    requiredListOfRequiredAWSEmail: [AWSEmail!]!
+    listOfAWSJSON: [AWSJSON]
+    listOfRequiredAWSJSON: [AWSJSON!]
+    requiredListOfAWSJSON: [AWSJSON]!
+    requiredListOfRequiredAWSJSON: [AWSJSON!]!
+    listOfAWSPhone: [AWSPhone]
+    listOfRequiredAWSPhone: [AWSPhone!]
+    requiredListOfAWSPhone: [AWSPhone]!
+    requiredListOfRequiredAWSPhone: [AWSPhone!]!
+    listOfAWSUrl: [AWSURL]
+    listOfRequiredAWSUrl: [AWSURL!]
+    requiredListOfAWSUrl: [AWSURL]!
+    requiredListOfRequiredAWSUrl: [AWSURL!]!
+    listOfAWSIpAddress: [AWSIPAddress]
+    listOfRequiredAWSIpAddress: [AWSIPAddress!]
+    requiredListOfAWSIpAddress: [AWSIPAddress]!
+    requiredListOfRequiredAWSIpAddress: [AWSIPAddress!]!
+}
+
 type CPKModel @model {
     firstName: String! @primaryKey(sortKeyFields: ["lastName"])
     lastName: String!

@@ -129,10 +129,10 @@ class _PartialMyModel extends PartialMyModel {
         ? null
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final id = json['id'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'MyModel',
             'id',
-          )
+          ))
         : (json['id'] as String);
     return _PartialMyModel(
       embeddedNonModel: embeddedNonModel,
@@ -177,10 +177,10 @@ abstract class MyModel extends PartialMyModel
         : ScalarNonModel.fromJson(
             (json['embeddedNonModel'] as Map<String, Object?>));
     final requiredEmbeddedNonModel = json['requiredEmbeddedNonModel'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'MyModel',
             'requiredEmbeddedNonModel',
-          )
+          ))
         : ScalarNonModel.fromJson(
             (json['requiredEmbeddedNonModel'] as Map<String, Object?>));
     final createdAt = json['createdAt'] == null
@@ -190,10 +190,10 @@ abstract class MyModel extends PartialMyModel
         ? null
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final id = json['id'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'MyModel',
             'id',
-          )
+          ))
         : (json['id'] as String);
     return MyModel(
       embeddedNonModel: embeddedNonModel,
@@ -267,10 +267,10 @@ class _RemoteMyModel extends RemoteMyModel {
         : ScalarNonModel.fromJson(
             (json['embeddedNonModel'] as Map<String, Object?>));
     final requiredEmbeddedNonModel = json['requiredEmbeddedNonModel'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'MyModel',
             'requiredEmbeddedNonModel',
-          )
+          ))
         : ScalarNonModel.fromJson(
             (json['requiredEmbeddedNonModel'] as Map<String, Object?>));
     final createdAt = json['createdAt'] == null
@@ -280,28 +280,28 @@ class _RemoteMyModel extends RemoteMyModel {
         ? null
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final id = json['id'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'MyModel',
             'id',
-          )
+          ))
         : (json['id'] as String);
     final version = json['version'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'MyModel',
             'version',
-          )
+          ))
         : (json['version'] as int);
     final deleted = json['deleted'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'MyModel',
             'deleted',
-          )
+          ))
         : (json['deleted'] as bool);
     final lastChangedAt = json['lastChangedAt'] == null
-        ? throw ModelFieldError(
+        ? (throw ModelFieldError(
             'MyModel',
             'lastChangedAt',
-          )
+          ))
         : TemporalDateTime.fromString((json['lastChangedAt'] as String));
     return _RemoteMyModel(
       embeddedNonModel: embeddedNonModel,

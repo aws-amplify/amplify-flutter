@@ -48,10 +48,19 @@ abstract class StructureGenerator<Definition extends StructureTypeDefinition>
           json,
           fieldType: field.type,
           hierarchyType: hierarchyType,
-          orElse: () => DartTypes.amplifyCore.modelFieldError.newInstance([
-            literalString(className),
-            literalString(field.dartName),
-          ]).thrown,
+          orElse: () => CodeExpression(
+            Block.of([
+              const Code('('),
+              DartTypes.amplifyCore.modelFieldError
+                  .newInstance([
+                    literalString(className),
+                    literalString(field.dartName),
+                  ])
+                  .thrown
+                  .code,
+              const Code(')'),
+            ]),
+          ),
         );
         b.addExpression(
           declareFinal(field.dartName).assign(decodedField),
