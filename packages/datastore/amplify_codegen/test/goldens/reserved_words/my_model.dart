@@ -224,7 +224,51 @@ class _RemoteMyModel extends RemoteMyModel {
   }) : super._();
 
   factory _RemoteMyModel.fromJson(Map<String, Object?> json) {
-    throw UnimplementedError();
+    final enum_ = json['enum'] == null
+        ? throw ModelFieldError(
+            'MyModel',
+            'enum_',
+          )
+        : (json['enum'] as String);
+    final createdAt = json['createdAt'] == null
+        ? null
+        : TemporalDateTime.fromString((json['createdAt'] as String));
+    final updatedAt = json['updatedAt'] == null
+        ? null
+        : TemporalDateTime.fromString((json['updatedAt'] as String));
+    final id = json['id'] == null
+        ? throw ModelFieldError(
+            'MyModel',
+            'id',
+          )
+        : (json['id'] as String);
+    final version = json['version'] == null
+        ? throw ModelFieldError(
+            'MyModel',
+            'version',
+          )
+        : (json['version'] as int);
+    final deleted = json['deleted'] == null
+        ? throw ModelFieldError(
+            'MyModel',
+            'deleted',
+          )
+        : (json['deleted'] as bool);
+    final lastChangedAt = json['lastChangedAt'] == null
+        ? throw ModelFieldError(
+            'MyModel',
+            'lastChangedAt',
+          )
+        : TemporalDateTime.fromString((json['lastChangedAt'] as String));
+    return _RemoteMyModel(
+      enum_: enum_,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      id: id,
+      version: version,
+      deleted: deleted,
+      lastChangedAt: lastChangedAt,
+    );
   }
 
   @override

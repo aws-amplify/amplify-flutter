@@ -251,7 +251,54 @@ class _RemoteEnumModel extends RemoteEnumModel {
   }) : super._();
 
   factory _RemoteEnumModel.fromJson(Map<String, Object?> json) {
-    throw UnimplementedError();
+    final id = json['id'] == null
+        ? throw ModelFieldError(
+            'EnumModel',
+            'id',
+          )
+        : (json['id'] as String);
+    final enum_ =
+        json['enum'] == null ? null : MyEnum.fromJson((json['enum'] as String));
+    final requiredEnum = json['requiredEnum'] == null
+        ? throw ModelFieldError(
+            'EnumModel',
+            'requiredEnum',
+          )
+        : MyEnum.fromJson((json['requiredEnum'] as String));
+    final createdAt = json['createdAt'] == null
+        ? null
+        : TemporalDateTime.fromString((json['createdAt'] as String));
+    final updatedAt = json['updatedAt'] == null
+        ? null
+        : TemporalDateTime.fromString((json['updatedAt'] as String));
+    final version = json['version'] == null
+        ? throw ModelFieldError(
+            'EnumModel',
+            'version',
+          )
+        : (json['version'] as int);
+    final deleted = json['deleted'] == null
+        ? throw ModelFieldError(
+            'EnumModel',
+            'deleted',
+          )
+        : (json['deleted'] as bool);
+    final lastChangedAt = json['lastChangedAt'] == null
+        ? throw ModelFieldError(
+            'EnumModel',
+            'lastChangedAt',
+          )
+        : TemporalDateTime.fromString((json['lastChangedAt'] as String));
+    return _RemoteEnumModel(
+      id: id,
+      enum_: enum_,
+      requiredEnum: requiredEnum,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      version: version,
+      deleted: deleted,
+      lastChangedAt: lastChangedAt,
+    );
   }
 
   @override

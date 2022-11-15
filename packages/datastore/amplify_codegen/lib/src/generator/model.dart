@@ -416,10 +416,10 @@ return value as T;
     });
 
     // Create the private implementation
+    final privateClassName = '_${partialModelType.symbol}';
     yield Class((c) {
-      final partialModelTypeName = '_${partialModelType.symbol}';
       c
-        ..name = partialModelTypeName
+        ..name = privateClassName
         ..extend = partialModelType;
 
       final parameters = <Parameter>[];
@@ -467,31 +467,10 @@ return value as T;
                   ..name = 'json',
               ),
             )
-            ..body = Block((b) {
-              final allFields =
-                  definition.schemaFields(ModelHierarchyType.partial);
-              for (final field in allFields.values) {
-                final fieldType = field.type;
-                final json = refer('json').index(literalString(field.name));
-                final decodedField = fieldType.fromJsonExp(
-                  json,
-                  orElse: () =>
-                      DartTypes.amplifyCore.modelFieldError.newInstance([
-                    literalString(modelName),
-                    literalString(field.dartName),
-                  ]).thrown,
-                );
-                b.addExpression(
-                  declareFinal(field.dartName).assign(decodedField),
-                );
-              }
-              b.addExpression(
-                refer(partialModelTypeName).newInstance([], {
-                  for (final field in definition.fields.values)
-                    field.dartName: refer(field.dartName),
-                }).returned,
-              );
-            }),
+            ..body = _fromJson(
+              refer(privateClassName),
+              definition.schemaFields(ModelHierarchyType.partial).values,
+            ),
         ),
       );
     });
@@ -589,31 +568,10 @@ return value as T;
                   ..name = 'json',
               ),
             )
-            ..body = Block((b) {
-              final allFields =
-                  definition.schemaFields(ModelHierarchyType.model);
-              for (final field in allFields.values) {
-                final fieldType = field.type;
-                final json = refer('json').index(literalString(field.name));
-                final decodedField = fieldType.fromJsonExp(
-                  json,
-                  orElse: () =>
-                      DartTypes.amplifyCore.modelFieldError.newInstance([
-                    literalString(modelName),
-                    literalString(field.dartName),
-                  ]).thrown,
-                );
-                b.addExpression(
-                  declareFinal(field.dartName).assign(decodedField),
-                );
-              }
-              b.addExpression(
-                modelType.newInstance([], {
-                  for (final field in definition.fields.values)
-                    field.dartName: refer(field.dartName),
-                }).returned,
-              );
-            }),
+            ..body = _fromJson(
+              modelType,
+              definition.schemaFields(ModelHierarchyType.model).values,
+            ),
         ),
       );
     });
@@ -704,9 +662,10 @@ return value as T;
     });
 
     // Create the private implementation
+    final privateClassName = '_Remote$modelName';
     yield Class((c) {
       c
-        ..name = '_Remote$modelName'
+        ..name = privateClassName
         ..extend = remoteModelType;
 
       final parameters = <Parameter>[];
@@ -754,8 +713,37 @@ return value as T;
                   ..name = 'json',
               ),
             )
-            ..body = const Code('throw UnimplementedError();'),
+            ..body = _fromJson(
+              refer(privateClassName),
+              definition.allFields(ModelHierarchyType.remote).values,
+            ),
         ),
+      );
+    });
+  }
+
+  /// Generates the `fromJson` factory's body for the given [modelType] and
+  /// list of [fields].
+  Code _fromJson(Reference modelType, Iterable<ModelField> fields) {
+    return Block((b) {
+      for (final field in fields) {
+        final fieldType = field.type;
+        final json = refer('json').index(literalString(field.name));
+        final decodedField = fieldType.fromJsonExp(
+          json,
+          orElse: () => DartTypes.amplifyCore.modelFieldError.newInstance([
+            literalString(modelName),
+            literalString(field.dartName),
+          ]).thrown,
+        );
+        b.addExpression(
+          declareFinal(field.dartName).assign(decodedField),
+        );
+      }
+      b.addExpression(
+        modelType.newInstance([], {
+          for (final field in fields) field.dartName: refer(field.dartName),
+        }).returned,
       );
     });
   }
