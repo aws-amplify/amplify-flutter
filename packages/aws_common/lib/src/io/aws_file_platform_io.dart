@@ -14,58 +14,55 @@
 
 import 'dart:io';
 
-import 'package:amplify_core/src/io/aws_file.dart';
-import 'package:amplify_core/src/io/exception/invalid_file.dart';
 import 'package:async/async.dart';
+import 'package:aws_common/aws_common.dart';
 
 /// The io implementation of [AWSFile].
 class AWSFilePlatform extends AWSFile {
   /// Creates an [AWSFile] from io [File].
   AWSFilePlatform.fromFile(File file)
-      : _inputFile = file,
+      : _stream = null,
+        _inputFile = file,
         _size = null,
         super.protected();
 
   /// {@macro amplify_core.io.aws_file.from_path}
   AWSFilePlatform.fromPath(
     String path, {
-    String? name,
-  })  : _inputFile = File(path),
+    super.name,
+  })  : _stream = null,
+        _inputFile = File(path),
         _size = null,
         super.protected(
-          name: name,
           path: path,
         );
 
   /// {@macro amplify_core.io.aws_file.from_stream}
   AWSFilePlatform.fromStream(
     Stream<List<int>> inputStream, {
-    String? name,
-    String? contentType,
+    super.name,
+    super.contentType,
     required int size,
-  })  : _size = size,
+  })  : _stream = inputStream,
+        _size = size,
         _inputFile = null,
-        super.protected(
-          name: name,
-          stream: inputStream,
-          contentType: contentType,
-        );
+        super.protected();
 
   /// {@macro amplify_core.io.aws_file.from_path}
   AWSFilePlatform.fromData(
     List<int> data, {
-    String? name,
-    String? contentType,
-  })  : _inputFile = null,
+    super.name,
+    super.contentType,
+  })  : _stream = null,
+        _inputFile = null,
         _size = data.length,
         super.protected(
           bytes: data,
-          name: name,
-          contentType: contentType,
         );
 
   final File? _inputFile;
   final int? _size;
+  final Stream<List<int>>? _stream;
 
   @override
   Stream<List<int>> get stream {
@@ -74,7 +71,7 @@ class AWSFilePlatform extends AWSFile {
       return file.openRead();
     }
 
-    final stream = super.stream;
+    final stream = _stream;
     if (stream != null) {
       return stream;
     }

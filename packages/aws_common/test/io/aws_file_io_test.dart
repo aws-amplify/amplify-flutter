@@ -17,8 +17,8 @@
 import 'dart:convert';
 import 'dart:io' as io;
 
-import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_core/src/io/aws_file_platform_io.dart';
+import 'package:aws_common/aws_common.dart';
+import 'package:aws_common/vm.dart';
 import 'package:test/test.dart';
 
 import 'utils.dart';

@@ -12,23 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:async/async.dart';
+/// VM-specific types and utilities used across AWS and Amplify packages.
+library aws_common.vm;
 
-Future<List<int>> collectBytesFromChunkedReader(
-    ChunkedStreamReader<int> chunkedStreamReader) async {
-  final readBytes = <int>[];
-  const readChunkSize = 10;
-  bool hasNext = true;
-
-  while (hasNext) {
-    final bytesChunk = await chunkedStreamReader.readChunk(readChunkSize);
-    if (bytesChunk.isNotEmpty) {
-      readBytes.addAll(bytesChunk);
-    }
-    if (bytesChunk.isEmpty || bytesChunk.length < readChunkSize) {
-      hasNext = false;
-    }
-  }
-
-  return readBytes;
-}
+export 'src/io/aws_file_platform_io.dart';
