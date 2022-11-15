@@ -125,11 +125,9 @@ extension SchemaTypeHelpers on SchemaType {
   }
 
   /// Returns the expression needed to encode [field] to JSON.
-  Expression toJsonExp(
-    Expression field, {
-    required bool isNullable,
-  }) {
+  Expression toJsonExp(Expression field) {
     final fieldType = this;
+    final isNullable = !isRequired;
     var builder = (Expression field) => field;
     if (fieldType is ScalarType) {
       switch (fieldType.value) {
@@ -171,16 +169,15 @@ extension SchemaTypeHelpers on SchemaType {
   /// Returns the expression needed to decode the Dart type from [json].
   Expression fromJsonExp(
     Expression json, {
-    required bool isNullable,
     required Expression Function() orElse,
   }) {
     final fieldType = this;
-    final fieldRef = reference.withNullable(isNullable);
+    final fieldRef = reference.withRequired(isRequired);
     var builder = (Expression json) {
       final exp = json.asA(fieldRef);
       return json
           .equalTo(literalNull)
-          .conditional(isNullable ? literalNull : orElse(), exp);
+          .conditional(isRequired ? orElse() : literalNull, exp);
     };
     if (fieldType is ScalarType) {
       switch (fieldType.value) {
@@ -193,7 +190,7 @@ extension SchemaTypeHelpers on SchemaType {
                 fieldType.reference.nonNull.property('fromString').call([val]);
             return json
                 .equalTo(literalNull)
-                .conditional(isNullable ? literalNull : orElse(), exp);
+                .conditional(isRequired ? orElse() : literalNull, exp);
           };
           break;
         case AppSyncScalar.awsTimestamp:
@@ -203,12 +200,12 @@ extension SchemaTypeHelpers on SchemaType {
                 fieldType.reference.nonNull.property('fromSeconds').call([val]);
             return json
                 .equalTo(literalNull)
-                .conditional(isNullable ? literalNull : orElse(), exp);
+                .conditional(isRequired ? orElse() : literalNull, exp);
           };
 
           break;
         case AppSyncScalar.awsJson:
-          if (isNullable) {
+          if (!isRequired) {
             // Already an `Object?` coming off the JSON map.
             builder = (json) => json;
           }
@@ -231,7 +228,7 @@ extension SchemaTypeHelpers on SchemaType {
         final exp = reference.nonNull.property('fromJson').call([val]);
         return json
             .equalTo(literalNull)
-            .conditional(isNullable ? literalNull : orElse(), exp);
+            .conditional(isRequired ? orElse() : literalNull, exp);
       };
     } else {
       // TODO(dnys1): Complete model/non-model deserialization.

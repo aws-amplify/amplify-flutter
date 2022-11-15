@@ -12,11 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:collection';
+
 import 'package:amplify_codegen/src/helpers/field.dart';
 import 'package:amplify_codegen/src/helpers/types.dart';
 import 'package:amplify_core/src/types/models/mipr.dart';
+import 'package:amplify_core/src/types/models/model.dart'
+    show RemoteModelMetadata;
 import 'package:collection/collection.dart';
 import 'package:gql/ast.dart';
+
+/// The type in the model hierarchy: Partial -> Model -> Remote
+enum ModelHierarchyType {
+  /// A partial model.
+  partial,
+
+  /// A full schema model.
+  model,
+
+  /// A remotely synced model.
+  remote,
+}
 
 /// Helpers for [StructureTypeDefinition].
 extension ModelHelpers on StructureTypeDefinition {
@@ -29,6 +45,81 @@ extension ModelHelpers on StructureTypeDefinition {
   /// Tries to find the field named [name].
   ModelField? maybeFieldNamed(String name) =>
       fields.values.singleWhereOrNull((f) => f.name == name);
+
+  /// All fields defined in the schema or synthetically injected by the CLI.
+  Map<String, ModelField> schemaFields(ModelHierarchyType type) {
+    final definition = this;
+    return fields.toMap().map((name, field) {
+      final fieldType = field.type;
+      var isNullable = !fieldType.isRequired;
+      if (type == ModelHierarchyType.partial) {
+        final isPrimaryKey = definition is ModelTypeDefinition &&
+            definition.modelIdentifier.fields.contains(field.name);
+        isNullable = isNullable || !isPrimaryKey;
+      }
+      return MapEntry(
+        name,
+        field.rebuild(
+          (f) => f.type = f.type!.rebuild(
+            isRequired: !isNullable,
+          ),
+        ),
+      );
+    });
+  }
+
+  /// All fields including [RemoteModelMetadata] fields.
+  Map<String, ModelField> allFields(ModelHierarchyType type) {
+    final isRequired = type == ModelHierarchyType.remote;
+    final remoteMetadataFields = {
+      'version': ModelField(
+        name: 'version',
+        type: SchemaType.scalar(
+          AppSyncScalar.int_,
+          isRequired: isRequired,
+        ),
+      ),
+      'deleted': ModelField(
+        name: 'deleted',
+        type: SchemaType.scalar(
+          AppSyncScalar.boolean,
+          isRequired: isRequired,
+        ),
+      ),
+      'lastChangedAt': ModelField(
+        name: 'lastChangedAt',
+        type: SchemaType.scalar(
+          AppSyncScalar.awsDateTime,
+          isRequired: isRequired,
+        ),
+      ),
+    };
+    return SplayTreeMap<String, ModelField>.from(
+      {
+        ...remoteMetadataFields,
+        ...schemaFields(type),
+      },
+      (a, b) {
+        // Sort synthetic fields last.
+        final isSyntheticA =
+            remoteMetadataFields.containsKey(a) && !fields.containsKey(a);
+        final isSyntheticB =
+            remoteMetadataFields.containsKey(b) && !fields.containsKey(b);
+        if (isSyntheticA && isSyntheticB) {
+          // Use insertion order
+          return -1;
+        }
+        if (isSyntheticA) {
+          return 1;
+        }
+        if (isSyntheticB) {
+          return -1;
+        }
+        // Use insertion order
+        return -1;
+      },
+    );
+  }
 }
 
 /// Helpers for [ObjectTypeDefinitionNode].

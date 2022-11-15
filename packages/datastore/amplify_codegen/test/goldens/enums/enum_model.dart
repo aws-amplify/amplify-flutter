@@ -64,16 +64,16 @@ abstract class PartialEnumModel extends PartialModel<String, EnumModel>
         updatedAt,
       ];
   @override
-  Map<String, Object?> toJson() {
-    return {
-      'id': id,
-      'enum': enum_?.value,
-      'requiredEnum': requiredEnum?.value,
-      'createdAt': createdAt?.format(),
-      'updatedAt': updatedAt?.format(),
-    };
-  }
-
+  Map<String, Object?> toJson() => {
+        'id': id,
+        'enum': enum_?.value,
+        'requiredEnum': requiredEnum?.value,
+        'createdAt': createdAt?.format(),
+        'updatedAt': updatedAt?.format(),
+        'version': version,
+        'deleted': deleted,
+        'lastChangedAt': lastChangedAt?.format(),
+      };
   @override
   String get runtimeTypeName => 'EnumModel';
   @override

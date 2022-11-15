@@ -95,15 +95,15 @@ abstract class PartialCpkModel
         updatedAt,
       ];
   @override
-  Map<String, Object?> toJson() {
-    return {
-      'firstName': firstName,
-      'lastName': lastName,
-      'createdAt': createdAt?.format(),
-      'updatedAt': updatedAt?.format(),
-    };
-  }
-
+  Map<String, Object?> toJson() => {
+        'firstName': firstName,
+        'lastName': lastName,
+        'createdAt': createdAt?.format(),
+        'updatedAt': updatedAt?.format(),
+        'version': version,
+        'deleted': deleted,
+        'lastChangedAt': lastChangedAt?.format(),
+      };
   @override
   String get runtimeTypeName => 'CpkModel';
   @override

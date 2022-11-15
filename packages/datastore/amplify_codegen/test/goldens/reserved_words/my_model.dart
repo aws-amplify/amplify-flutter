@@ -60,15 +60,15 @@ abstract class PartialMyModel extends PartialModel<String, MyModel>
         id,
       ];
   @override
-  Map<String, Object?> toJson() {
-    return {
-      'enum': enum_,
-      'createdAt': createdAt?.format(),
-      'updatedAt': updatedAt?.format(),
-      'id': id,
-    };
-  }
-
+  Map<String, Object?> toJson() => {
+        'enum': enum_,
+        'createdAt': createdAt?.format(),
+        'updatedAt': updatedAt?.format(),
+        'id': id,
+        'version': version,
+        'deleted': deleted,
+        'lastChangedAt': lastChangedAt?.format(),
+      };
   @override
   String get runtimeTypeName => 'MyModel';
   @override

@@ -12,11 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:collection';
-
 import 'package:amplify_codegen/src/generator/generator.dart';
 import 'package:amplify_codegen/src/generator/types.dart';
 import 'package:amplify_codegen/src/helpers/field.dart';
+import 'package:amplify_codegen/src/helpers/model.dart';
 import 'package:amplify_codegen/src/helpers/types.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
@@ -128,7 +127,6 @@ class ModelGenerator
               for (final field in fields)
                 literalString(field.name): field.type.toJsonExp(
                   refer(field.dartName),
-                  isNullable: !field.type.isRequired,
                 ),
             }).code,
         ),
@@ -261,18 +259,14 @@ return _${allocate(partialModelType)}.fromJson(json) as T;
           ),
         );
 
-      final fields = definition.fields.values.toList();
+      final fields = definition.schemaFields(ModelHierarchyType.partial);
 
       // Abstract getters for each field
-      for (final field in fields) {
-        final isPrimaryKey =
-            definition.modelIdentifier.fields.contains(field.name);
-        final fieldType = field.type;
-        final isNullable = !fieldType.isRequired || !isPrimaryKey;
+      for (final field in fields.values) {
         c.methods.add(
           Method(
             (m) => m
-              ..returns = field.type.reference.withNullable(isNullable)
+              ..returns = field.type.reference
               ..type = MethodType.getter
               ..name = field.dartName,
           ),
@@ -319,7 +313,11 @@ return _${allocate(partialModelType)}.fromJson(json) as T;
             ..returns = DartTypes.core.list(DartTypes.core.object.nullable)
             ..type = MethodType.getter
             ..name = 'props'
-            ..body = literalList(fields.map((f) => refer(f.dartName))).code,
+            ..body = literalList(
+              fields.values.map(
+                (f) => refer(f.dartName),
+              ),
+            ).code,
         ),
       );
 
@@ -333,25 +331,18 @@ return _${allocate(partialModelType)}.fromJson(json) as T;
               DartTypes.core.object.nullable,
             )
             ..name = 'toJson'
-            ..body = Block((b) {
-              final map = <Expression, Expression>{};
-              for (final field in fields) {
-                final isPrimaryKey =
-                    definition.modelIdentifier.fields.contains(field.name);
-                final fieldType = field.type;
-                final isNullable = !fieldType.isRequired || !isPrimaryKey;
-                map[literalString(field.name)] = field.type.toJsonExp(
+            ..body = literalMap({
+              for (final field
+                  in definition.allFields(ModelHierarchyType.partial).values)
+                literalString(field.name): field.type.toJsonExp(
                   refer(field.dartName),
-                  isNullable: isNullable,
-                );
-              }
-
-              b.addExpression(literalMap(map).returned);
-            }),
+                ),
+            }).code,
         ),
       );
 
       // `runtimeTypeName` to satisfy `AWSDebuggable`
+      // TODO(dnys1): Should this name be different for the three subtypes?
       c.methods.add(
         Method(
           (m) => m
@@ -432,17 +423,14 @@ return value as T;
         ..extend = partialModelType;
 
       final parameters = <Parameter>[];
-      for (final field in definition.fields.values) {
-        final isPrimaryKey =
-            definition.modelIdentifier.fields.contains(field.name);
-        final fieldType = field.type;
-        final isNullable = !fieldType.isRequired || !isPrimaryKey;
+      final allFields = definition.schemaFields(ModelHierarchyType.partial);
+      for (final field in allFields.values) {
         c.fields.add(
           Field(
             (f) => f
               ..annotations.add(DartTypes.core.override)
               ..modifier = FieldModifier.final$
-              ..type = field.type.reference.withNullable(isNullable)
+              ..type = field.type.reference
               ..name = field.dartName,
           ),
         );
@@ -450,7 +438,7 @@ return value as T;
           Parameter(
             (p) => p
               ..named = true
-              ..required = !isNullable
+              ..required = field.type.isRequired
               ..toThis = true
               ..name = field.dartName,
           ),
@@ -480,15 +468,13 @@ return value as T;
               ),
             )
             ..body = Block((b) {
-              for (final field in definition.fields.values) {
-                final isPrimaryKey =
-                    definition.modelIdentifier.fields.contains(field.name);
+              final allFields =
+                  definition.schemaFields(ModelHierarchyType.partial);
+              for (final field in allFields.values) {
                 final fieldType = field.type;
-                final isNullable = !fieldType.isRequired || !isPrimaryKey;
                 final json = refer('json').index(literalString(field.name));
                 final decodedField = fieldType.fromJsonExp(
                   json,
-                  isNullable: isNullable,
                   orElse: () =>
                       DartTypes.amplifyCore.modelFieldError.newInstance([
                     literalString(modelName),
@@ -700,55 +686,8 @@ return value as T;
         ..extend = remoteModelType;
 
       final parameters = <Parameter>[];
-      final remoteMetadataFields = {
-        'version': ModelField(
-          name: 'version',
-          type: const mipr.SchemaType.scalar(
-            mipr.AppSyncScalar.int_,
-            isRequired: true,
-          ),
-        ),
-        'deleted': ModelField(
-          name: 'deleted',
-          type: const mipr.SchemaType.scalar(
-            mipr.AppSyncScalar.boolean,
-            isRequired: true,
-          ),
-        ),
-        'lastChangedAt': ModelField(
-          name: 'lastChangedAt',
-          type: const mipr.SchemaType.scalar(
-            mipr.AppSyncScalar.awsDateTime,
-            isRequired: true,
-          ),
-        ),
-      };
-      final fields = SplayTreeMap<String, ModelField>.from(
-        {
-          ...remoteMetadataFields,
-          ...definition.fields.toMap(),
-        },
-        (a, b) {
-          // Sort synthetic fields last.
-          final isSyntheticA = remoteMetadataFields.containsKey(a) &&
-              !definition.fields.containsKey(a);
-          final isSyntheticB = remoteMetadataFields.containsKey(b) &&
-              !definition.fields.containsKey(b);
-          if (isSyntheticA && isSyntheticB) {
-            // Use insertion order
-            return -1;
-          }
-          if (isSyntheticA) {
-            return 1;
-          }
-          if (isSyntheticB) {
-            return -1;
-          }
-          // Use insertion order
-          return -1;
-        },
-      );
-      for (final field in fields.values) {
+      final allFields = definition.allFields(ModelHierarchyType.remote);
+      for (final field in allFields.values) {
         c.fields.add(
           Field(
             (f) => f

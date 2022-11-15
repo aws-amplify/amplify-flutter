@@ -453,6 +453,10 @@ abstract class SchemaType with AWSSerializable<Map<String, Object?>> {
     );
   }
 
+  SchemaType rebuild({
+    bool? isRequired,
+  });
+
   @override
   Map<String, Object?> toJson() {
     return serializers.serializeWith(serializer, this) as Map<String, Object?>;
@@ -481,6 +485,11 @@ class ScalarType extends SchemaType with AWSEquatable<ScalarType> {
 
   @override
   List<Object?> get props => [value, isRequired];
+
+  @override
+  SchemaType rebuild({bool? isRequired}) {
+    return ScalarType._(value, isRequired: isRequired ?? this.isRequired);
+  }
 }
 
 /// {@macro amplify_core.models.model_type}
@@ -496,6 +505,11 @@ class ModelType extends SchemaType with AWSEquatable<ModelType> {
 
   @override
   List<Object?> get props => [name, isRequired];
+
+  @override
+  SchemaType rebuild({bool? isRequired}) {
+    return ModelType._(name, isRequired: isRequired ?? this.isRequired);
+  }
 }
 
 /// {@macro amplify_core.models.non_model_type}
@@ -511,6 +525,11 @@ class NonModelType extends SchemaType with AWSEquatable<NonModelType> {
 
   @override
   List<Object?> get props => [name, isRequired];
+
+  @override
+  SchemaType rebuild({bool? isRequired}) {
+    return NonModelType._(name, isRequired: isRequired ?? this.isRequired);
+  }
 }
 
 /// {@macro amplify_core.models.enum_type}
@@ -530,6 +549,11 @@ class EnumType extends SchemaType with AWSEquatable<EnumType> {
 
   @override
   List<Object?> get props => [_name, isRequired];
+
+  @override
+  SchemaType rebuild({bool? isRequired}) {
+    return EnumType._(name, isRequired: isRequired ?? this.isRequired);
+  }
 }
 
 /// {@macro amplify_core.models.list_type}
@@ -551,6 +575,11 @@ class ListType extends SchemaType with AWSEquatable<ListType> {
 
   @override
   String toString() => 'SchemaType("$elementType{${isRequired ? '!' : ''}}")';
+
+  @override
+  SchemaType rebuild({bool? isRequired}) {
+    return ListType._(elementType, isRequired: isRequired ?? this.isRequired);
+  }
 }
 
 class _SchemaTypeSerializer implements StructuredSerializer<SchemaType> {
