@@ -18,7 +18,7 @@
 
 library models.my_enum;
 
-import 'package:aws_common/aws_common.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 enum MyEnum with AWSSerializable<String> {
   valueA('value_a'),

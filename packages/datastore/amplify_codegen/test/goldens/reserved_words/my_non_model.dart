@@ -19,7 +19,6 @@
 library models.my_non_model;
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:aws_common/aws_common.dart';
 
 class MyNonModel
     with

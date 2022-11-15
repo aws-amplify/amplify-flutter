@@ -203,7 +203,7 @@ class _AmplifyCoreMipr {
 class _AwsCommon {
   const _AwsCommon();
 
-  static const _url = 'package:aws_common/aws_common.dart';
+  static const _url = 'package:amplify_core/amplify_core.dart';
 
   /// Creates an [aws_common.AWSDebuggable] reference.
   Reference get awsDebuggable => const Reference('AWSDebuggable', _url);

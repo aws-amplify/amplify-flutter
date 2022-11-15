@@ -19,7 +19,6 @@
 library models.my_model;
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:aws_common/aws_common.dart';
 
 class MyModelType extends ModelType<String, MyModel, PartialMyModel> {
   const MyModelType();
