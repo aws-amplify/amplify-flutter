@@ -104,7 +104,7 @@ abstract class PartialEnumModel extends PartialModel<String, EnumModel>
 }
 
 class _PartialEnumModel extends PartialEnumModel {
-  _PartialEnumModel({
+  const _PartialEnumModel({
     required this.id,
     this.enum_,
     this.requiredEnum,
@@ -243,7 +243,7 @@ abstract class RemoteEnumModel extends EnumModel
 }
 
 class _RemoteEnumModel extends RemoteEnumModel {
-  _RemoteEnumModel({
+  const _RemoteEnumModel({
     required this.id,
     this.enum_,
     required this.requiredEnum,

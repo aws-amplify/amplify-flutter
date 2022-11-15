@@ -62,28 +62,28 @@ class ScalarNonModel
             'id',
           ))
         : (json['id'] as String);
-    final str = json['str'] == null ? null : (json['str'] as String?);
+    final str = json['str'] == null ? null : (json['str'] as String);
     final requiredStr = json['requiredStr'] == null
         ? (throw ModelFieldError(
             'ScalarNonModel',
             'requiredStr',
           ))
         : (json['requiredStr'] as String);
-    final integer = json['integer'] == null ? null : (json['integer'] as int?);
+    final integer = json['integer'] == null ? null : (json['integer'] as int);
     final requiredInteger = json['requiredInteger'] == null
         ? (throw ModelFieldError(
             'ScalarNonModel',
             'requiredInteger',
           ))
         : (json['requiredInteger'] as int);
-    final float = json['float'] == null ? null : (json['float'] as double?);
+    final float = json['float'] == null ? null : (json['float'] as double);
     final requiredFloat = json['requiredFloat'] == null
         ? (throw ModelFieldError(
             'ScalarNonModel',
             'requiredFloat',
           ))
         : (json['requiredFloat'] as double);
-    final boolean = json['boolean'] == null ? null : (json['boolean'] as bool?);
+    final boolean = json['boolean'] == null ? null : (json['boolean'] as bool);
     final requiredBoolean = json['requiredBoolean'] == null
         ? (throw ModelFieldError(
             'ScalarNonModel',
@@ -127,7 +127,7 @@ class ScalarNonModel
           ))
         : TemporalTimestamp.fromSeconds((json['requiredAwsTimestamp'] as int));
     final awsEmail =
-        json['awsEmail'] == null ? null : (json['awsEmail'] as String?);
+        json['awsEmail'] == null ? null : (json['awsEmail'] as String);
     final requiredAwsEmail = json['requiredAwsEmail'] == null
         ? (throw ModelFieldError(
             'ScalarNonModel',
@@ -142,7 +142,7 @@ class ScalarNonModel
           ))
         : (json['requiredAwsJson'] as Object);
     final awsPhone =
-        json['awsPhone'] == null ? null : (json['awsPhone'] as String?);
+        json['awsPhone'] == null ? null : (json['awsPhone'] as String);
     final requiredAwsPhone = json['requiredAwsPhone'] == null
         ? (throw ModelFieldError(
             'ScalarNonModel',
@@ -158,7 +158,7 @@ class ScalarNonModel
           ))
         : Uri.parse((json['requiredAwsUrl'] as String));
     final awsIpAddress =
-        json['awsIpAddress'] == null ? null : (json['awsIpAddress'] as String?);
+        json['awsIpAddress'] == null ? null : (json['awsIpAddress'] as String);
     final requiredAwsIpAddress = json['requiredAwsIpAddress'] == null
         ? (throw ModelFieldError(
             'ScalarNonModel',

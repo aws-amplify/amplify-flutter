@@ -125,7 +125,6 @@ class ModelGenerator extends StructureGenerator<ModelTypeDefinition> {
               for (final field in fields)
                 literalString(field.name): field.toJsonExp(
                   refer(field.dartName),
-                  fieldType: field.type,
                 ),
             }).code,
         ),
@@ -335,7 +334,6 @@ return _${allocate(partialModelType)}.fromJson(json) as T;
                   in definition.allFields(ModelHierarchyType.partial).values)
                 literalString(field.name): field.toJsonExp(
                   refer(field.dartName),
-                  fieldType: field.type,
                 ),
             }).code,
         ),
@@ -449,6 +447,7 @@ return value as T;
       c.constructors.add(
         Constructor(
           (ctor) => ctor
+            ..constant = true
             ..optionalParameters.addAll(parameters)
             ..initializers.add(const Code('super._()')),
         ),
@@ -701,6 +700,7 @@ return value as T;
       c.constructors.add(
         Constructor(
           (ctor) => ctor
+            ..constant = true
             ..optionalParameters.addAll(parameters)
             ..initializers.add(const Code('super._()')),
         ),

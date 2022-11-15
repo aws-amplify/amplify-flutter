@@ -129,7 +129,6 @@ class NonModelGenerator extends StructureGenerator<NonModelTypeDefinition> {
               for (final field in fields)
                 literalString(field.name): field.toJsonExp(
                   refer(field.dartName),
-                  fieldType: field.type,
                 ),
             }).code,
         ),

@@ -96,3 +96,10 @@ const enumReservedWords = [
   'index',
   'values',
 ];
+
+/// Names which conflict with core types.
+const reservedTypeNames = [
+  'Type',
+  'Function',
+  'Object',
+];

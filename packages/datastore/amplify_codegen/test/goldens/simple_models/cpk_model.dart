@@ -132,7 +132,7 @@ abstract class PartialCpkModel
 }
 
 class _PartialCpkModel extends PartialCpkModel {
-  _PartialCpkModel({
+  const _PartialCpkModel({
     required this.firstName,
     required this.lastName,
     this.createdAt,
@@ -256,7 +256,7 @@ abstract class RemoteCpkModel extends CpkModel
 }
 
 class _RemoteCpkModel extends RemoteCpkModel {
-  _RemoteCpkModel({
+  const _RemoteCpkModel({
     required this.firstName,
     required this.lastName,
     this.createdAt,

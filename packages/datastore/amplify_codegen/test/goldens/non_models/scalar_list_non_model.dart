@@ -426,7 +426,7 @@ abstract class PartialScalarListNonModel
 }
 
 class _PartialScalarListNonModel extends PartialScalarListNonModel {
-  _PartialScalarListNonModel({
+  const _PartialScalarListNonModel({
     required this.id,
     this.listOfString,
     this.listOfRequiredString,
@@ -2138,7 +2138,7 @@ abstract class RemoteScalarListNonModel extends ScalarListNonModel
 }
 
 class _RemoteScalarListNonModel extends RemoteScalarListNonModel {
-  _RemoteScalarListNonModel({
+  const _RemoteScalarListNonModel({
     required this.id,
     this.listOfString,
     this.listOfRequiredString,

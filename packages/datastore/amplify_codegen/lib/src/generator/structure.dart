@@ -46,9 +46,10 @@ abstract class StructureGenerator<Definition extends StructureTypeDefinition>
         final json = refer('json').index(literalString(field.name));
         final decodedField = field.fromJsonExp(
           json,
-          fieldType: field.type,
           hierarchyType: hierarchyType,
           orElse: () => CodeExpression(
+            // Wrap the `throw` expression in parentheses so that it can be
+            // used in null cascade (`??`) expressions.
             Block.of([
               const Code('('),
               DartTypes.amplifyCore.modelFieldError

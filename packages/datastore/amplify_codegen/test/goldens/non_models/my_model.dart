@@ -104,7 +104,7 @@ abstract class PartialMyModel extends PartialModel<String, MyModel>
 }
 
 class _PartialMyModel extends PartialMyModel {
-  _PartialMyModel({
+  const _PartialMyModel({
     this.embeddedNonModel,
     this.requiredEmbeddedNonModel,
     this.createdAt,
@@ -249,7 +249,7 @@ abstract class RemoteMyModel extends MyModel
 }
 
 class _RemoteMyModel extends RemoteMyModel {
-  _RemoteMyModel({
+  const _RemoteMyModel({
     this.embeddedNonModel,
     required this.requiredEmbeddedNonModel,
     this.createdAt,

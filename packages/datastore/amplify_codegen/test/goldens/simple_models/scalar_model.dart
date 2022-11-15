@@ -247,7 +247,7 @@ abstract class PartialScalarModel extends PartialModel<String, ScalarModel>
 }
 
 class _PartialScalarModel extends PartialScalarModel {
-  _PartialScalarModel({
+  const _PartialScalarModel({
     required this.id,
     this.str,
     this.requiredStr,
@@ -286,21 +286,21 @@ class _PartialScalarModel extends PartialScalarModel {
             'id',
           ))
         : (json['id'] as String);
-    final str = json['str'] == null ? null : (json['str'] as String?);
+    final str = json['str'] == null ? null : (json['str'] as String);
     final requiredStr =
-        json['requiredStr'] == null ? null : (json['requiredStr'] as String?);
-    final integer = json['integer'] == null ? null : (json['integer'] as int?);
+        json['requiredStr'] == null ? null : (json['requiredStr'] as String);
+    final integer = json['integer'] == null ? null : (json['integer'] as int);
     final requiredInteger = json['requiredInteger'] == null
         ? null
-        : (json['requiredInteger'] as int?);
-    final float = json['float'] == null ? null : (json['float'] as double?);
+        : (json['requiredInteger'] as int);
+    final float = json['float'] == null ? null : (json['float'] as double);
     final requiredFloat = json['requiredFloat'] == null
         ? null
-        : (json['requiredFloat'] as double?);
-    final boolean = json['boolean'] == null ? null : (json['boolean'] as bool?);
+        : (json['requiredFloat'] as double);
+    final boolean = json['boolean'] == null ? null : (json['boolean'] as bool);
     final requiredBoolean = json['requiredBoolean'] == null
         ? null
-        : (json['requiredBoolean'] as bool?);
+        : (json['requiredBoolean'] as bool);
     final awsDate = json['awsDate'] == null
         ? null
         : TemporalDate.fromString((json['awsDate'] as String));
@@ -326,27 +326,27 @@ class _PartialScalarModel extends PartialScalarModel {
         ? null
         : TemporalTimestamp.fromSeconds((json['requiredAwsTimestamp'] as int));
     final awsEmail =
-        json['awsEmail'] == null ? null : (json['awsEmail'] as String?);
+        json['awsEmail'] == null ? null : (json['awsEmail'] as String);
     final requiredAwsEmail = json['requiredAwsEmail'] == null
         ? null
-        : (json['requiredAwsEmail'] as String?);
+        : (json['requiredAwsEmail'] as String);
     final awsJson = json['awsJson'];
     final requiredAwsJson = json['requiredAwsJson'];
     final awsPhone =
-        json['awsPhone'] == null ? null : (json['awsPhone'] as String?);
+        json['awsPhone'] == null ? null : (json['awsPhone'] as String);
     final requiredAwsPhone = json['requiredAwsPhone'] == null
         ? null
-        : (json['requiredAwsPhone'] as String?);
+        : (json['requiredAwsPhone'] as String);
     final awsUrl =
         json['awsUrl'] == null ? null : Uri.parse((json['awsUrl'] as String));
     final requiredAwsUrl = json['requiredAwsUrl'] == null
         ? null
         : Uri.parse((json['requiredAwsUrl'] as String));
     final awsIpAddress =
-        json['awsIpAddress'] == null ? null : (json['awsIpAddress'] as String?);
+        json['awsIpAddress'] == null ? null : (json['awsIpAddress'] as String);
     final requiredAwsIpAddress = json['requiredAwsIpAddress'] == null
         ? null
-        : (json['requiredAwsIpAddress'] as String?);
+        : (json['requiredAwsIpAddress'] as String);
     final createdAt = json['createdAt'] == null
         ? null
         : TemporalDateTime.fromString((json['createdAt'] as String));
@@ -517,28 +517,28 @@ abstract class ScalarModel extends PartialScalarModel
             'id',
           ))
         : (json['id'] as String);
-    final str = json['str'] == null ? null : (json['str'] as String?);
+    final str = json['str'] == null ? null : (json['str'] as String);
     final requiredStr = json['requiredStr'] == null
         ? (throw ModelFieldError(
             'ScalarModel',
             'requiredStr',
           ))
         : (json['requiredStr'] as String);
-    final integer = json['integer'] == null ? null : (json['integer'] as int?);
+    final integer = json['integer'] == null ? null : (json['integer'] as int);
     final requiredInteger = json['requiredInteger'] == null
         ? (throw ModelFieldError(
             'ScalarModel',
             'requiredInteger',
           ))
         : (json['requiredInteger'] as int);
-    final float = json['float'] == null ? null : (json['float'] as double?);
+    final float = json['float'] == null ? null : (json['float'] as double);
     final requiredFloat = json['requiredFloat'] == null
         ? (throw ModelFieldError(
             'ScalarModel',
             'requiredFloat',
           ))
         : (json['requiredFloat'] as double);
-    final boolean = json['boolean'] == null ? null : (json['boolean'] as bool?);
+    final boolean = json['boolean'] == null ? null : (json['boolean'] as bool);
     final requiredBoolean = json['requiredBoolean'] == null
         ? (throw ModelFieldError(
             'ScalarModel',
@@ -582,7 +582,7 @@ abstract class ScalarModel extends PartialScalarModel
           ))
         : TemporalTimestamp.fromSeconds((json['requiredAwsTimestamp'] as int));
     final awsEmail =
-        json['awsEmail'] == null ? null : (json['awsEmail'] as String?);
+        json['awsEmail'] == null ? null : (json['awsEmail'] as String);
     final requiredAwsEmail = json['requiredAwsEmail'] == null
         ? (throw ModelFieldError(
             'ScalarModel',
@@ -597,7 +597,7 @@ abstract class ScalarModel extends PartialScalarModel
           ))
         : (json['requiredAwsJson'] as Object);
     final awsPhone =
-        json['awsPhone'] == null ? null : (json['awsPhone'] as String?);
+        json['awsPhone'] == null ? null : (json['awsPhone'] as String);
     final requiredAwsPhone = json['requiredAwsPhone'] == null
         ? (throw ModelFieldError(
             'ScalarModel',
@@ -613,7 +613,7 @@ abstract class ScalarModel extends PartialScalarModel
           ))
         : Uri.parse((json['requiredAwsUrl'] as String));
     final awsIpAddress =
-        json['awsIpAddress'] == null ? null : (json['awsIpAddress'] as String?);
+        json['awsIpAddress'] == null ? null : (json['awsIpAddress'] as String);
     final requiredAwsIpAddress = json['requiredAwsIpAddress'] == null
         ? (throw ModelFieldError(
             'ScalarModel',
@@ -849,7 +849,7 @@ abstract class RemoteScalarModel extends ScalarModel
 }
 
 class _RemoteScalarModel extends RemoteScalarModel {
-  _RemoteScalarModel({
+  const _RemoteScalarModel({
     required this.id,
     this.str,
     required this.requiredStr,
@@ -891,28 +891,28 @@ class _RemoteScalarModel extends RemoteScalarModel {
             'id',
           ))
         : (json['id'] as String);
-    final str = json['str'] == null ? null : (json['str'] as String?);
+    final str = json['str'] == null ? null : (json['str'] as String);
     final requiredStr = json['requiredStr'] == null
         ? (throw ModelFieldError(
             'ScalarModel',
             'requiredStr',
           ))
         : (json['requiredStr'] as String);
-    final integer = json['integer'] == null ? null : (json['integer'] as int?);
+    final integer = json['integer'] == null ? null : (json['integer'] as int);
     final requiredInteger = json['requiredInteger'] == null
         ? (throw ModelFieldError(
             'ScalarModel',
             'requiredInteger',
           ))
         : (json['requiredInteger'] as int);
-    final float = json['float'] == null ? null : (json['float'] as double?);
+    final float = json['float'] == null ? null : (json['float'] as double);
     final requiredFloat = json['requiredFloat'] == null
         ? (throw ModelFieldError(
             'ScalarModel',
             'requiredFloat',
           ))
         : (json['requiredFloat'] as double);
-    final boolean = json['boolean'] == null ? null : (json['boolean'] as bool?);
+    final boolean = json['boolean'] == null ? null : (json['boolean'] as bool);
     final requiredBoolean = json['requiredBoolean'] == null
         ? (throw ModelFieldError(
             'ScalarModel',
@@ -956,7 +956,7 @@ class _RemoteScalarModel extends RemoteScalarModel {
           ))
         : TemporalTimestamp.fromSeconds((json['requiredAwsTimestamp'] as int));
     final awsEmail =
-        json['awsEmail'] == null ? null : (json['awsEmail'] as String?);
+        json['awsEmail'] == null ? null : (json['awsEmail'] as String);
     final requiredAwsEmail = json['requiredAwsEmail'] == null
         ? (throw ModelFieldError(
             'ScalarModel',
@@ -971,7 +971,7 @@ class _RemoteScalarModel extends RemoteScalarModel {
           ))
         : (json['requiredAwsJson'] as Object);
     final awsPhone =
-        json['awsPhone'] == null ? null : (json['awsPhone'] as String?);
+        json['awsPhone'] == null ? null : (json['awsPhone'] as String);
     final requiredAwsPhone = json['requiredAwsPhone'] == null
         ? (throw ModelFieldError(
             'ScalarModel',
@@ -987,7 +987,7 @@ class _RemoteScalarModel extends RemoteScalarModel {
           ))
         : Uri.parse((json['requiredAwsUrl'] as String));
     final awsIpAddress =
-        json['awsIpAddress'] == null ? null : (json['awsIpAddress'] as String?);
+        json['awsIpAddress'] == null ? null : (json['awsIpAddress'] as String);
     final requiredAwsIpAddress = json['requiredAwsIpAddress'] == null
         ? (throw ModelFieldError(
             'ScalarModel',

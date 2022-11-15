@@ -425,7 +425,7 @@ abstract class PartialScalarListModel
 }
 
 class _PartialScalarListModel extends PartialScalarListModel {
-  _PartialScalarListModel({
+  const _PartialScalarListModel({
     required this.id,
     this.listOfString,
     this.listOfRequiredString,
@@ -2137,7 +2137,7 @@ abstract class RemoteScalarListModel extends ScalarListModel
 }
 
 class _RemoteScalarListModel extends RemoteScalarListModel {
-  _RemoteScalarListModel({
+  const _RemoteScalarListModel({
     required this.id,
     this.listOfString,
     this.listOfRequiredString,

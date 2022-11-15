@@ -15,10 +15,13 @@
 import 'dart:collection';
 
 import 'package:amplify_codegen/src/helpers/field.dart';
+import 'package:amplify_codegen/src/helpers/language.dart';
 import 'package:amplify_codegen/src/helpers/types.dart';
 import 'package:amplify_core/src/types/models/mipr.dart';
 import 'package:amplify_core/src/types/models/model.dart'
     show RemoteModelMetadata;
+import 'package:aws_common/aws_common.dart';
+import 'package:code_builder/code_builder.dart';
 import 'package:collection/collection.dart';
 import 'package:gql/ast.dart';
 
@@ -32,6 +35,29 @@ enum ModelHierarchyType {
 
   /// A remotely synced model.
   remote,
+}
+
+/// Returns a reference to the model type for [schemaName] at a specific point
+/// in the model hierarchy.
+Reference modelRef(
+  String schemaName, [
+  ModelHierarchyType hierarchyType = ModelHierarchyType.model,
+]) {
+  var modelName = schemaName.pascalCase;
+  if (reservedTypeNames.contains(modelName)) {
+    modelName = '$modelName\$';
+  }
+  switch (hierarchyType) {
+    case ModelHierarchyType.partial:
+      modelName = 'Partial$modelName';
+      break;
+    case ModelHierarchyType.model:
+      break;
+    case ModelHierarchyType.remote:
+      modelName = 'Remote$modelName';
+      break;
+  }
+  return refer(modelName, '${schemaName.snakeCase}.dart');
 }
 
 /// Helpers for [StructureTypeDefinition].

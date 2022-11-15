@@ -100,7 +100,13 @@ extension ScalarTypeHelpers on ScalarType {
 /// Helpers for [EnumType].
 extension EnumTypeHelpers on EnumType {
   /// The Dart name for `this`.
-  String get dartName => name.pascalCase;
+  String get dartName {
+    final name = this.name.pascalCase;
+    if (reservedTypeNames.contains(name)) {
+      return '$name\$';
+    }
+    return name;
+  }
 
   /// The code_builder reference for `this`.
   Reference get reference {
@@ -111,7 +117,13 @@ extension EnumTypeHelpers on EnumType {
 /// Helpers for [NonModelType].
 extension NonModelTypeHelpers on NonModelType {
   /// The Dart name for `this`.
-  String get dartName => name.pascalCase;
+  String get dartName {
+    final name = this.name.pascalCase;
+    if (reservedTypeNames.contains(name)) {
+      return '$name\$';
+    }
+    return name;
+  }
 
   /// The code_builder reference for `this`.
   Reference get reference {

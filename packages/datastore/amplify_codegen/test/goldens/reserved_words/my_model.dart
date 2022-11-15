@@ -96,7 +96,7 @@ abstract class PartialMyModel extends PartialModel<String, MyModel>
 }
 
 class _PartialMyModel extends PartialMyModel {
-  _PartialMyModel({
+  const _PartialMyModel({
     this.enum_,
     this.createdAt,
     this.updatedAt,
@@ -104,7 +104,7 @@ class _PartialMyModel extends PartialMyModel {
   }) : super._();
 
   factory _PartialMyModel.fromJson(Map<String, Object?> json) {
-    final enum_ = json['enum'] == null ? null : (json['enum'] as String?);
+    final enum_ = json['enum'] == null ? null : (json['enum'] as String);
     final createdAt = json['createdAt'] == null
         ? null
         : TemporalDateTime.fromString((json['createdAt'] as String));
@@ -216,7 +216,7 @@ abstract class RemoteMyModel extends MyModel
 }
 
 class _RemoteMyModel extends RemoteMyModel {
-  _RemoteMyModel({
+  const _RemoteMyModel({
     required this.enum_,
     this.createdAt,
     this.updatedAt,

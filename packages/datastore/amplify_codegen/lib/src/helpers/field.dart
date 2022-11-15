@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:amplify_codegen/src/generator/types.dart';
+import 'package:amplify_codegen/src/generator/visitors.dart';
 import 'package:amplify_codegen/src/helpers/language.dart';
 import 'package:amplify_codegen/src/helpers/model.dart';
 import 'package:amplify_codegen/src/helpers/node.dart';
@@ -29,6 +30,223 @@ String queryFieldName(String fieldName) => ('$fieldName\$').camelCase;
 
 // Cache for type references.
 final _typeReferences = Expando<Reference>();
+
+class _FromJsonVisitor extends SchemaTypeVisitor<Expression> {
+  _FromJsonVisitor(
+    this._field,
+    this._jsonRef, {
+    required this.orElse,
+    this.hierarchyType,
+  });
+
+  final ModelField _field;
+  final Expression Function() orElse;
+  final ModelHierarchyType? hierarchyType;
+  Expression _jsonRef;
+  var _depth = -1;
+
+  Expression _visitWithRef(SchemaType type, Expression jsonRef) {
+    final saved = _jsonRef;
+    _jsonRef = jsonRef;
+    final visited = visit(type);
+    _jsonRef = saved;
+    return visited;
+  }
+
+  @override
+  Expression visit(SchemaType type) {
+    _depth++;
+    final visited = super.visit(type);
+    _depth--;
+    return visited;
+  }
+
+  Expression _deserialize({
+    required SchemaType type,
+    Reference? asA,
+    Expression? constructor,
+  }) {
+    final val = _depth == 0 && asA != null ? _jsonRef.asA(asA) : _jsonRef;
+    final exp = constructor == null ? val : constructor.call([val]);
+    final isRequired = type.isRequired;
+    return _depth == 0 || constructor != null
+        ? _jsonRef
+            .equalTo(literalNull)
+            .conditional(isRequired ? orElse() : literalNull, exp)
+        : (isRequired ? _jsonRef.ifNullThen(orElse()) : _jsonRef);
+  }
+
+  @override
+  Expression visitEnumType(EnumType type) {
+    return _deserialize(
+      type: type,
+      asA: DartTypes.core.string,
+      constructor: type.reference.nonNull.property('fromJson'),
+    );
+  }
+
+  @override
+  Expression visitListType(ListType type) {
+    final val = _jsonRef.asA(
+      DartTypes.core.list(
+        DartTypes.core.object.nullable,
+      ),
+    );
+    final elementType = type.elementType;
+    final isPrimitive = elementType.isPrimitive;
+    var exp =
+        val.property('cast').call([], {}, [elementType.wireType.nullable]);
+    if (!isPrimitive || elementType.isRequired) {
+      exp = exp.property('map').call([
+        Method(
+          (m) => m
+            ..lambda = true
+            ..requiredParameters.add(Parameter((p) => p..name = 'el'))
+            ..body = _visitWithRef(elementType, refer('el')).code,
+        ).closure,
+      ]);
+    }
+    exp = exp.property('toList').call([]);
+    return _jsonRef
+        .equalTo(literalNull)
+        .conditional(type.isRequired ? orElse() : literalNull, exp);
+  }
+
+  @override
+  Expression visitModelType(ModelType type) {
+    return _deserialize(
+      type: type,
+      asA: DartTypes.core.json,
+      constructor:
+          _field.typeReference(hierarchyType).nonNull.property('fromJson'),
+    );
+  }
+
+  @override
+  Expression visitNonModelType(NonModelType type) {
+    return _deserialize(
+      type: type,
+      asA: DartTypes.core.json,
+      constructor: type.reference.nonNull.property('fromJson'),
+    );
+  }
+
+  @override
+  Expression visitScalar(ScalarType type) {
+    Expression? constructor;
+    switch (type.value) {
+      case AppSyncScalar.awsDate:
+      case AppSyncScalar.awsDateTime:
+      case AppSyncScalar.awsTime:
+        constructor = type.reference.nonNull.property('fromString');
+        break;
+      case AppSyncScalar.awsTimestamp:
+        constructor = type.reference.nonNull.property('fromSeconds');
+        break;
+      case AppSyncScalar.awsUrl:
+        constructor = type.reference.nonNull.property('parse');
+        break;
+      case AppSyncScalar.awsJson:
+        if (!type.isRequired) {
+          // Already an `Object?` coming off the JSON map.
+          return _jsonRef;
+        }
+        break;
+      case AppSyncScalar.awsEmail:
+      case AppSyncScalar.awsIpAddress:
+      case AppSyncScalar.awsPhone:
+      case AppSyncScalar.boolean:
+      case AppSyncScalar.float:
+      case AppSyncScalar.id:
+      case AppSyncScalar.int_:
+      case AppSyncScalar.string:
+        break;
+    }
+    return _deserialize(
+      type: type,
+      asA: type.wireType.nonNull,
+      constructor: constructor,
+    );
+  }
+}
+
+class _ToJsonVisitor extends SchemaTypeVisitor<Expression> {
+  _ToJsonVisitor(this._fieldRef);
+
+  Expression _fieldRef;
+
+  Expression _visitWithRef(SchemaType type, Expression fieldRef) {
+    final saved = _fieldRef;
+    _fieldRef = fieldRef;
+    final visited = visit(type);
+    _fieldRef = saved;
+    return visited;
+  }
+
+  @override
+  Expression visitEnumType(EnumType type) {
+    final isNullable = !type.isRequired;
+    return _fieldRef.nullableProperty('value', isNullable);
+  }
+
+  @override
+  Expression visitListType(ListType type) {
+    final isNullable = !type.isRequired;
+    final elementType = type.elementType;
+    return elementType.isPrimitive
+        ? _fieldRef
+        : _fieldRef
+            .nullableProperty('map', isNullable)
+            .call([
+              Method(
+                (m) => m
+                  ..lambda = true
+                  ..requiredParameters.add(Parameter((p) => p..name = 'el'))
+                  ..body = _visitWithRef(elementType, refer('el')).code,
+              ).closure
+            ])
+            .property('toList')
+            .call([]);
+  }
+
+  @override
+  Expression visitModelType(ModelType type) {
+    final isNullable = !type.isRequired;
+    return _fieldRef.nullableProperty('toJson', isNullable).call([]);
+  }
+
+  @override
+  Expression visitNonModelType(NonModelType type) {
+    final isNullable = !type.isRequired;
+    return _fieldRef.nullableProperty('toJson', isNullable).call([]);
+  }
+
+  @override
+  Expression visitScalar(ScalarType type) {
+    final isNullable = !type.isRequired;
+    switch (type.value) {
+      case AppSyncScalar.awsDate:
+      case AppSyncScalar.awsDateTime:
+      case AppSyncScalar.awsTime:
+        return _fieldRef.nullableProperty('format', isNullable).call([]);
+      case AppSyncScalar.awsTimestamp:
+        return _fieldRef.nullableProperty('toSeconds', isNullable).call([]);
+      case AppSyncScalar.awsUrl:
+        return _fieldRef.nullableProperty('toString', isNullable).call([]);
+      case AppSyncScalar.awsJson:
+      case AppSyncScalar.awsIpAddress:
+      case AppSyncScalar.awsEmail:
+      case AppSyncScalar.awsPhone:
+      case AppSyncScalar.boolean:
+      case AppSyncScalar.float:
+      case AppSyncScalar.id:
+      case AppSyncScalar.int_:
+      case AppSyncScalar.string:
+        break;
+    }
+    return _fieldRef;
+  }
+}
 
 /// Helpers for [ModelField].
 extension ModelFieldHelpers on ModelField {
@@ -51,44 +269,25 @@ extension ModelFieldHelpers on ModelField {
     if (cached != null) {
       return cached;
     }
-    Reference generatedTypeReference(
-      SchemaType type,
-      ModelHierarchyType hierarchyType,
-    ) {
-      final String typeName;
-      switch (hierarchyType) {
-        case ModelHierarchyType.model:
-          typeName = type.name.pascalCase;
-          break;
-        case ModelHierarchyType.partial:
-          typeName = 'Partial${type.name.pascalCase}';
-          break;
-        case ModelHierarchyType.remote:
-          typeName = 'Remote${type.name.pascalCase}';
-          break;
-      }
-      return Reference(
-        typeName,
-        '${type.name.snakeCase}.dart',
-      ).withRequired(type.isRequired);
-    }
-
     if (type is ListType) {
       final elementType = type.elementType;
-      if (elementType is ScalarType) {
-        return _typeReferences[type] = DartTypes.core
-            .list(elementType.reference)
-            .withRequired(type.isRequired);
-      } else {
+      if (elementType is ModelType) {
         return _typeReferences[type] = DartTypes.amplifyCore
             .asyncModelCollection(
               refer('${type.name}Identifier'),
-              generatedTypeReference(elementType, ModelHierarchyType.model),
-              generatedTypeReference(elementType, ModelHierarchyType.partial),
-              generatedTypeReference(elementType, hierarchyType!),
+              modelRef(elementType.name, ModelHierarchyType.model),
+              modelRef(elementType.name, ModelHierarchyType.partial),
+              modelRef(elementType.name, hierarchyType!),
             )
             .withRequired(type.isRequired);
       }
+      final ref = elementType is ScalarType
+          ? elementType.reference
+          : elementType is EnumType
+              ? elementType.reference
+              : (elementType as NonModelType).reference;
+      return _typeReferences[type] =
+          DartTypes.core.list(ref).withRequired(type.isRequired);
     }
     if (type is ScalarType) {
       return _typeReferences[type] = type.reference;
@@ -100,218 +299,33 @@ extension ModelFieldHelpers on ModelField {
       return _typeReferences[type] = type.reference;
     }
     type as ModelType;
-    return DartTypes.amplifyCore.asyncModel(
-      refer('${type.name}Identifier'),
-      generatedTypeReference(type, ModelHierarchyType.model),
-      generatedTypeReference(type, ModelHierarchyType.partial),
-      generatedTypeReference(type, hierarchyType!),
-    );
+    return DartTypes.amplifyCore
+        .asyncModel(
+          refer('${type.name}Identifier'),
+          modelRef(type.name, ModelHierarchyType.model),
+          modelRef(type.name, ModelHierarchyType.partial),
+          modelRef(type.name, hierarchyType!),
+        )
+        .withRequired(type.isRequired);
   }
 
-  /// Returns the expression needed to decode the Dart type from [json].
+  /// Returns the expression needed to decode the Dart type from [jsonRef].
   Expression fromJsonExp(
-    Expression json, {
-    required SchemaType fieldType,
+    Expression jsonRef, {
     required Expression Function() orElse,
     ModelHierarchyType? hierarchyType,
-    int depth = 0,
   }) {
-    final isRequired = fieldType.isRequired;
-    var builder = (Expression json) {
-      final exp = depth == 0 ? json.asA(fieldType.wireType) : json;
-      return depth == 0
-          ? json
-              .equalTo(literalNull)
-              .conditional(isRequired ? orElse() : literalNull, exp)
-          : (isRequired ? json.ifNullThen(orElse()) : json);
-    };
-    if (fieldType is ScalarType) {
-      switch (fieldType.value) {
-        case AppSyncScalar.awsDate:
-        case AppSyncScalar.awsDateTime:
-        case AppSyncScalar.awsTime:
-          builder = (json) {
-            final val = depth == 0 ? json.asA(DartTypes.core.string) : json;
-            final exp =
-                fieldType.reference.nonNull.property('fromString').call([val]);
-            return json
-                .equalTo(literalNull)
-                .conditional(isRequired ? orElse() : literalNull, exp);
-          };
-          break;
-        case AppSyncScalar.awsTimestamp:
-          builder = (json) {
-            final val = depth == 0 ? json.asA(DartTypes.core.int) : json;
-            final exp =
-                fieldType.reference.nonNull.property('fromSeconds').call([val]);
-            return json
-                .equalTo(literalNull)
-                .conditional(isRequired ? orElse() : literalNull, exp);
-          };
-
-          break;
-        case AppSyncScalar.awsJson:
-          if (!isRequired) {
-            // Already an `Object?` coming off the JSON map.
-            builder = (json) => json;
-          }
-          break;
-        case AppSyncScalar.awsUrl:
-          builder = (json) {
-            final val = depth == 0 ? json.asA(DartTypes.core.string) : json;
-            final exp =
-                fieldType.reference.nonNull.property('parse').call([val]);
-            return json
-                .equalTo(literalNull)
-                .conditional(isRequired ? orElse() : literalNull, exp);
-          };
-          break;
-        case AppSyncScalar.awsIpAddress:
-        case AppSyncScalar.awsEmail:
-        case AppSyncScalar.awsPhone:
-        case AppSyncScalar.boolean:
-        case AppSyncScalar.float:
-        case AppSyncScalar.id:
-        case AppSyncScalar.int_:
-        case AppSyncScalar.string:
-          break;
-      }
-    } else if (fieldType is EnumType) {
-      builder = (json) {
-        // Use the generated `fromJson` handler for deserializing the enum.
-        final val = depth == 0 ? json.asA(DartTypes.core.string) : json;
-        final exp =
-            fieldType.reference.nonNull.property('fromJson').call([val]);
-        return json
-            .equalTo(literalNull)
-            .conditional(isRequired ? orElse() : literalNull, exp);
-      };
-    } else if (fieldType is NonModelType) {
-      builder = (json) {
-        // Use the generated `fromJson` handler for deserializing the non-model.
-        final val = depth == 0 ? json.asA(DartTypes.core.json) : json;
-        final exp =
-            fieldType.reference.nonNull.property('fromJson').call([val]);
-        return json
-            .equalTo(literalNull)
-            .conditional(isRequired ? orElse() : literalNull, exp);
-      };
-    } else if (fieldType is ModelType) {
-      builder = (json) {
-        // Use the generated `fromJson` handler for deserializing the model.
-        final val = depth == 0 ? json.asA(DartTypes.core.json) : json;
-        final exp = typeReference(hierarchyType)
-            .nonNull
-            .property('fromJson')
-            .call([val]);
-        return json
-            .equalTo(literalNull)
-            .conditional(isRequired ? orElse() : literalNull, exp);
-      };
-    } else {
-      fieldType as ListType;
-      builder = (json) {
-        final val = json.asA(
-          DartTypes.core.list(
-            DartTypes.core.object.nullable,
-          ),
-        );
-        final elementType = fieldType.elementType;
-        final isPrimitive = elementType.isPrimitive;
-        var exp =
-            val.property('cast').call([], {}, [elementType.wireType.nullable]);
-        if (!isPrimitive || elementType.isRequired) {
-          exp = exp.property('map').call([
-            Method(
-              (m) => m
-                ..lambda = true
-                ..requiredParameters.add(Parameter((p) => p..name = 'el'))
-                ..body = fromJsonExp(
-                  refer('el'),
-                  fieldType: elementType,
-                  orElse: orElse,
-                  hierarchyType: hierarchyType,
-                  depth: depth + 1,
-                ).code,
-            ).closure,
-          ]);
-        }
-        exp = exp.property('toList').call([]);
-        return json
-            .equalTo(literalNull)
-            .conditional(isRequired ? orElse() : literalNull, exp);
-      };
-    }
-    return builder(json);
+    return _FromJsonVisitor(
+      this,
+      jsonRef,
+      orElse: orElse,
+      hierarchyType: hierarchyType,
+    ).visit(type);
   }
 
-  /// Returns the expression needed to encode [field] to JSON.
-  Expression toJsonExp(
-    Expression field, {
-    required SchemaType fieldType,
-  }) {
-    final isNullable = !fieldType.isRequired;
-    var builder = (Expression field) => field;
-    if (fieldType is ScalarType) {
-      switch (fieldType.value) {
-        case AppSyncScalar.awsDate:
-        case AppSyncScalar.awsDateTime:
-        case AppSyncScalar.awsTime:
-          builder = (field) {
-            return field.nullableProperty('format', isNullable).call([]);
-          };
-          break;
-        case AppSyncScalar.awsTimestamp:
-          builder = (field) {
-            return field.nullableProperty('toSeconds', isNullable).call([]);
-          };
-          break;
-        case AppSyncScalar.awsUrl:
-          builder = (field) {
-            return field.nullableProperty('toString', isNullable).call([]);
-          };
-          break;
-        case AppSyncScalar.awsJson:
-        case AppSyncScalar.awsIpAddress:
-        case AppSyncScalar.awsEmail:
-        case AppSyncScalar.awsPhone:
-        case AppSyncScalar.boolean:
-        case AppSyncScalar.float:
-        case AppSyncScalar.id:
-        case AppSyncScalar.int_:
-        case AppSyncScalar.string:
-          break;
-      }
-    } else if (fieldType is EnumType) {
-      builder = (field) {
-        return field.nullableProperty('value', isNullable);
-      };
-    } else if (fieldType is NonModelType || fieldType is ModelType) {
-      builder = (field) {
-        return field.nullableProperty('toJson', isNullable).call([]);
-      };
-    } else {
-      fieldType as ListType;
-      builder = (field) {
-        final elementType = fieldType.elementType;
-        return elementType.isPrimitive
-            ? field
-            : field
-                .nullableProperty('map', isNullable)
-                .call([
-                  Method(
-                    (m) => m
-                      ..lambda = true
-                      ..requiredParameters.add(Parameter((p) => p..name = 'el'))
-                      ..body =
-                          toJsonExp(refer('el'), fieldType: elementType).code,
-                  ).closure
-                ])
-                .property('toList')
-                .call([]);
-      };
-    }
-    return builder(field);
+  /// Returns the expression needed to encode `this` to JSON.
+  Expression toJsonExp(Expression fieldRef) {
+    return _ToJsonVisitor(fieldRef).visit(type);
   }
 }
 
