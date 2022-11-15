@@ -210,7 +210,7 @@ class S3UploadTask {
         // upload cannot be initiated for a file with size less than 5MB so use
         // putObject
         unawaited(
-          _startPutObject(S3DataPayload.streaming(localFile.stream!)),
+          _startPutObject(S3DataPayload.streaming(localFile.stream)),
         );
         return;
       }
