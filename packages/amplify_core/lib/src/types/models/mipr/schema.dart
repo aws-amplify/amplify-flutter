@@ -69,9 +69,10 @@ abstract class SchemaDefinition
                 break;
               case ModelAssociationType.hasMany:
               case ModelAssociationType.hasOne:
-              case ModelAssociationType.manyToMany:
                 map.add(model.name, associatedType);
                 break;
+              case ModelAssociationType.manyToMany:
+                throw UnimplementedError();
             }
           }
         }
