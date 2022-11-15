@@ -19,7 +19,7 @@ The top level module for Amplify Flutter.
 
 | Category       | Android | iOS | Web | Windows | MacOS | Linux |
 | -------------- | :-----: | :-: | :-: | :-----: | :---: | :---: |
-| Analytics      |   🔴    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| Analytics      |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
 | API (REST)     |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
 | API (GraphQL)  |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
 | Authentication |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
