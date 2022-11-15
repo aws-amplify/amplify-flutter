@@ -328,7 +328,8 @@ class _SchemaParser {
     connectionInfo.newIndexes.add(
       modelName,
       ModelIndex.foreignKey(
-        field: fieldNode.name.value,
+        relatedModelName: relatedModel.name,
+        relatedField: hasManyField?.wireName ?? fieldNode.wireName,
         keyFields: targetNames,
       ),
     );
@@ -453,6 +454,20 @@ class _SchemaParser {
   /// A `hasMany` connection forms a 1-N relationship between two models where
   /// the foreign key is held by the model on the opposite side of the
   /// `@hasMany` directive.
+  ///
+  /// The foreign key's fields can specified via the `fields` attribute of the
+  /// `@hasMany` directive, in which case they must exist as part of the
+  /// model's schema. If the foreign key is not explicitly given, then synthetic
+  /// fields are injected into the related model's schema to store this model's
+  /// primary key. For CPK, this may be multiple fields.
+  ///
+  /// The field names which form the foreign key are called "target names" and
+  /// are stored as part of the model association in
+  /// [ModelAssociation.targetNames].
+  ///
+  /// In addition to the target names, which represent the foreign key on the
+  /// related model, the connected fields of the related model are also stored
+  /// as part of the association in [ModelAssociation.associatedFields].
   ConnectionInfo processHasMany({
     required String modelName,
     required FieldDefinitionNode fieldNode,
@@ -466,31 +481,25 @@ class _SchemaParser {
 
     final relatedModelNode = objectNodes[relatedModel.name]!;
 
-    // Look for `fields` argument on the `@hasMany` directive.
-    final fields = fieldNode.connectionFields;
-    if (fields != null) {
-      // If present, find the related fields matching the local `fields`.
-      final indexName = fieldNode.indexName;
-      final directlyRelatedField = indexName != null
-          ? relatedModel.indexNamed(indexName).primaryField
-          : relatedModel.modelIdentifier.primaryField;
+    // If present, find the related fields matching the local `fields`.
+    final indexName = fieldNode.indexName;
+    final index = indexName == null
+        ? relatedModel.modelIdentifier
+        : relatedModel.indexNamed(indexName);
+    final directlyRelatedField = index.primaryField;
 
-      // Get the associated field by relationship equality when the relation
-      // is bi-directional.
-      final bidiField = relatedModelNode.fields.singleWhereOrNull((f) {
-        return f.isBelongsTo &&
-            f.type.typeName == modelName &&
-            f.connectionFields?[0] == directlyRelatedField;
-      });
-      if (bidiField != null) {
-        connectionInfo.association.associatedFields.add(bidiField.wireName);
-      } else {
-        connectionInfo.association.associatedFields.add(
-          relatedModelNode.fields
-              .singleWhere((f) => f.wireName == directlyRelatedField)
-              .wireName,
-        );
-      }
+    // Get the associated field by relationship equality when the relation
+    // is bi-directional, i.e. there is a corresponding `@belongsTo`.
+    final bidiField = relatedModelNode.fields.singleWhereOrNull((f) {
+      return f.isBelongsTo &&
+          f.type.typeName == modelName &&
+          (indexName == null || f.connectionFields?[0] == directlyRelatedField);
+    });
+
+    if (bidiField != null) {
+      connectionInfo.association.associatedFields.add(bidiField.wireName);
+    } else if (indexName != null) {
+      connectionInfo.association.associatedFields.addAll(index.fields);
     } else {
       // Create the foreign key on the related model using this model's
       // primary key.
@@ -523,7 +532,8 @@ class _SchemaParser {
       connectionInfo.newIndexes.add(
         relatedModel.name,
         ModelIndex.foreignKey(
-          field: fieldNode.name.value,
+          relatedModelName: modelName,
+          relatedField: fieldNode.wireName,
           keyFields: targetNames,
         ),
       );

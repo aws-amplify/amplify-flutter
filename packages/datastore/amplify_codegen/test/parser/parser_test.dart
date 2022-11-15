@@ -13,23 +13,14 @@
 // limitations under the License.
 
 import 'package:amplify_codegen/src/helpers/model.dart';
-import 'package:amplify_codegen/src/parser/parser.dart';
 import 'package:amplify_core/src/types/models/mipr.dart';
 import 'package:test/test.dart';
+
+import 'common.dart';
 
 // Follows the tests found in amplify-codegen:
 // https://github.com/aws-amplify/amplify-codegen/blob/main/packages/appsync-modelgen-plugin/src/__tests__/utils/process-connections-v2.test.ts
 void main() {
-  Map<String, ModelTypeDefinition> parseModels(String schema) {
-    return {
-      for (final definition in parseSchema(schema)
-          .typeDefinitions
-          .values
-          .whereType<ModelTypeDefinition>())
-        definition.name: definition,
-    };
-  }
-
   group('Parser', () {
     group('hasMany', () {
       late Map<String, ModelTypeDefinition> v2Models;
@@ -244,7 +235,7 @@ void main() {
           postsField.association,
           ModelAssociation.hasMany(
             associatedType: 'Post',
-            associatedFields: ['blogPostsId'],
+            associatedFields: ['blog'],
           ),
         );
       });
@@ -256,7 +247,7 @@ void main() {
           commentsField.association,
           ModelAssociation.hasMany(
             associatedType: 'Comment',
-            associatedFields: ['postCommentsId'],
+            associatedFields: ['post'],
           ),
         );
       });
@@ -424,7 +415,7 @@ void main() {
             postCommentsField.association,
             ModelAssociation.hasMany(
               associatedType: 'Comment',
-              associatedFields: ['postCommentsPostId', 'postCommentsTitle'],
+              associatedFields: ['post'],
             ),
           );
 

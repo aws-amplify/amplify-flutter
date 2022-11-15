@@ -51,16 +51,20 @@ abstract class ModelIndex
 
   /// Creates a foreign key on a model, used to hold the composite key of
   /// another model. Unlike a normal [ModelIndex], a foreign key index must
-  /// specify a [field] which points to a [ModelType].
+  /// specify a [relatedModelName] and [relatedField].
   factory ModelIndex.foreignKey({
-    required String field,
+    required String relatedModelName,
+    required String relatedField,
     required List<String> keyFields,
-  }) =>
-      _$ModelIndex._(
-        name: '${field}ForeignKey',
-        primaryField: field,
-        sortKeyFields: BuiltList(keyFields),
-      );
+  }) {
+    return _$ModelIndex._(
+      // To match `amplify-codegen`:
+      // https://github.com/aws-amplify/amplify-codegen/blob/89f00a5bd74fc30ddb07263d9ac770ccf44df12d/packages/appsync-modelgen-plugin/src/utils/process-has-many.ts#L204
+      name: 'gsi-$relatedModelName.$relatedField',
+      primaryField: keyFields.first,
+      sortKeyFields: keyFields.sublist(1).toBuiltList(),
+    );
+  }
 
   /// {@macro amplify_core.models.mipr.model_index}
   factory ModelIndex.fromJson(Map<String, Object?> json) {
