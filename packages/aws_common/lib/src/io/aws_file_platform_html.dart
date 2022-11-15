@@ -15,9 +15,8 @@
 import 'dart:async';
 import 'dart:html';
 
-import 'package:amplify_core/src/io/aws_file.dart';
-import 'package:amplify_core/src/io/exception/invalid_file.dart';
 import 'package:async/async.dart';
+import 'package:aws_common/aws_common.dart';
 
 // Dart io.File openRead chunk size
 const _readStreamChunkSize = 64 * 1024;
@@ -26,14 +25,16 @@ const _readStreamChunkSize = 64 * 1024;
 class AWSFilePlatform extends AWSFile {
   /// Creates an [AWSFile] from html [File].
   AWSFilePlatform.fromFile(File file)
-      : _inputFile = file,
+      : _stream = null,
+        _inputFile = file,
         _inputBlob = null,
         _size = file.size,
         super.protected();
 
   /// Creates an [AWSFile] from html [Blob].
   AWSFilePlatform.fromBlob(Blob blob)
-      : _inputBlob = blob,
+      : _stream = null,
+        _inputBlob = blob,
         _inputFile = null,
         _size = blob.size,
         super.protected();
@@ -41,47 +42,43 @@ class AWSFilePlatform extends AWSFile {
   /// {@macro amplify_core.io.aws_file.from_path}
   AWSFilePlatform.fromPath(
     String path, {
-    String? name,
-  })  : _inputFile = null,
+    super.name,
+  })  : _stream = null,
+        _inputFile = null,
         _inputBlob = null,
         _size = null,
         super.protected(
-          name: name,
           path: path,
         );
 
   /// {@macro amplify_core.io.aws_file.from_stream}
   AWSFilePlatform.fromStream(
     Stream<List<int>> stream, {
-    String? name,
-    String? contentType,
+    super.name,
+    super.contentType,
     required int size,
-  })  : _inputFile = null,
+  })  : _stream = stream,
+        _inputFile = null,
         _inputBlob = null,
         _size = size,
-        super.protected(
-          stream: stream,
-          name: name,
-          contentType: contentType,
-        );
+        super.protected();
 
   /// {@macro amplify_core.io.aws_file.from_path}
   AWSFilePlatform.fromData(
     List<int> data, {
-    String? name,
-    String? contentType,
-  })  : _inputBlob = Blob([data], contentType),
+    super.name,
+    super.contentType,
+  })  : _stream = null,
+        _inputBlob = Blob([data], contentType),
         _inputFile = null,
         _size = data.length,
         super.protected(
           bytes: data,
-          name: name,
-          contentType: contentType,
-          stream: Stream.value(data),
         );
 
   final File? _inputFile;
   final Blob? _inputBlob;
+  final Stream<List<int>>? _stream;
   int? _size;
   Blob? _resolvedBlobFromPath;
   String? _contentType;
@@ -96,7 +93,7 @@ class AWSFilePlatform extends AWSFile {
       return _getReadStream(file);
     }
 
-    final inputStream = super.stream;
+    final inputStream = _stream;
     if (inputStream != null) {
       return inputStream;
     }

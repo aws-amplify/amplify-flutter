@@ -12,15 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_core/src/types/exception/amplify_exception.dart';
-
-class InvalidFileException extends AmplifyException {
+/// {@template aws_common.invalid_file_exception}
+/// The file created from AWSFile is not readable.
+/// {@endtemplate}
+class InvalidFileException implements Exception {
+  /// {@macro aws_common.invalid_file_exception}
   const InvalidFileException({
-    String? message,
-    String? recoverySuggestion,
-  }) : super(
-          message ?? 'Invalid file.',
-          recoverySuggestion: recoverySuggestion ??
-              'Make sure to initialize AWSFile correctly.',
-        );
+    this.message = 'Invalid file.',
+    this.recoverySuggestion = 'Make sure to initialize AWSFile correctly.',
+  });
+
+  /// The error message.
+  final String message;
+
+  /// The recover suggestion for the [InvalidFileException].
+  final String recoverySuggestion;
 }

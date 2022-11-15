@@ -16,34 +16,30 @@
 
 import 'dart:async';
 
-import 'package:amplify_core/src/io/aws_file.dart';
 import 'package:async/async.dart';
+import 'package:aws_common/aws_common.dart';
 
 /// {@template amplify_core.io.aws_file_platform}
 /// A cross platform implementation of [AWSFile].
 /// {@endtemplate}
 class AWSFilePlatform extends AWSFile {
+  /// {@macro amplify_core.io.aws_file_platform}
   AWSFilePlatform() : super.protected();
 
   /// {@macro amplify_core.io.aws_file.from_stream}
   AWSFilePlatform.fromStream(
     Stream<List<int>> stream, {
-    String? name,
-    String? contentType,
+    super.name,
+    super.contentType,
     required int size,
-  }) : super.protected(
-          stream: stream,
-          name: name,
-          contentType: contentType,
-        );
+  }) : super.protected();
 
   /// {@macro amplify_core.io.aws_file.from_path}
   AWSFilePlatform.fromPath(
     String path, {
-    String? name,
+    super.name,
   }) : super.protected(
           path: path,
-          name: name,
         ) {
     throw UnimplementedError(
       'AWSFile is not available in the current platform',
@@ -53,18 +49,23 @@ class AWSFilePlatform extends AWSFile {
   /// {@macro amplify_core.io.aws_file.from_path}
   AWSFilePlatform.fromData(
     List<int> data, {
-    String? name,
-    String? contentType,
+    super.name,
+    super.contentType,
   }) : super.protected(
           bytes: data,
-          name: name,
-          contentType: contentType,
         );
 
   @override
   Future<int> get size {
     throw UnimplementedError(
       'size getter has not been implemented in the current platform.',
+    );
+  }
+
+  @override
+  Stream<List<int>> get stream {
+    throw UnimplementedError(
+      'stream getter has not been implemented in the current platform.',
     );
   }
 

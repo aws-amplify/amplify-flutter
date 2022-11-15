@@ -13,9 +13,11 @@
 // limitations under the License.
 
 import 'package:async/async.dart';
-import 'aws_file_platform.dart'
+import 'package:aws_common/aws_common.dart';
+import 'package:aws_common/src/io/aws_file_platform.dart'
     if (dart.library.html) 'aws_file_platform_html.dart'
     if (dart.library.io) 'aws_file_platform_io.dart';
+import 'package:meta/meta.dart';
 
 /// {@template amplify_core.io.aws_file}
 /// A cross-platform abstraction over a read-only file.
@@ -108,18 +110,28 @@ abstract class AWSFile {
     String? contentType,
   }) = AWSFilePlatform.fromData;
 
+  /// Protected constructor of [AWSFile].
+  @protected
   AWSFile.protected({
-    this.stream,
     this.path,
     this.bytes,
     this.name,
     this.contentType,
   });
 
-  final Stream<List<int>>? stream;
+  /// Stream of the file content.
+  Stream<List<int>> get stream;
+
+  /// The cached bytes content of the file.
   final List<int>? bytes;
+
+  /// The name of the file if provided or read from OS.
   final String? name;
+
+  /// The path of the file if provided.
   final String? path;
+
+  /// The content type of the file if provided.
   final String? contentType;
 
   /// {@template amplify_core.io.aws_file.chunked_reader}
@@ -127,5 +139,6 @@ abstract class AWSFile {
   /// {@endtemplate}
   ChunkedStreamReader<int> getChunkedStreamReader();
 
+  /// Size of the file.
   Future<int> get size;
 }

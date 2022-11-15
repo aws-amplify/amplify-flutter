@@ -11,13 +11,14 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 @TestOn('browser')
 
 import 'dart:convert';
 import 'dart:html' as html;
 
-import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_core/src/io/aws_file_platform_html.dart';
+import 'package:aws_common/aws_common.dart';
+import 'package:aws_common/web.dart';
 import 'package:test/test.dart';
 
 import 'utils.dart';
