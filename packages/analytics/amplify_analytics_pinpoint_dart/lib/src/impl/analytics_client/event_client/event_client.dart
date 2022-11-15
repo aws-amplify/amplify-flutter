@@ -180,10 +180,9 @@ class EventClient {
       _logger
         ..warn('putEvents - exception encountered: ', e)
         ..warn('Unrecoverable issue, deleting cache for local event batch');
-    }
-    // Always delete local store of events
-    // Unless a retryable exception has been received (see above)
-     finally {
+    } finally {
+      // Always delete local store of events
+      // Unless a retryable exception has been received (see above)
       await _storageAdapter.deleteEvents(eventIdsToDelete.values);
     }
   }
