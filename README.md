@@ -57,7 +57,7 @@ We are iterating and looking for feedback and collaboration, so please [**let us
 
 | Category       | Android | iOS | Web | Windows | MacOS | Linux |
 | -------------- | :-----: | :-: | :-: | :-----: | :---: | :---: |
-| Analytics      |   🔴    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| Analytics      |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
 | API (REST)     |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
 | API (GraphQL)  |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
 | Authentication |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |

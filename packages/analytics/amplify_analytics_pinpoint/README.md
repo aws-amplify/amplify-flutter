@@ -14,7 +14,7 @@ Please note that the Analytics category is only available on iOS in the develope
 
 | Category       | Android | iOS | Web | Windows | MacOS | Linux |
 | -------------- | :-----: | :-: | :-: | :-----: | :---: | :---: |
-| Analytics      |   🔴    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| Analytics      |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
 | API (REST)     |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
 | API (GraphQL)  |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
 | Authentication |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
