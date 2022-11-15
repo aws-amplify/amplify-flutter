@@ -19,8 +19,6 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/drift/drift_tables.dart
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/common/serializers.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_db_common_dart/amplify_db_common_dart.dart'
-    as db_common;
 import 'package:built_value/serializer.dart';
 import 'package:drift/drift.dart';
 import 'package:meta/meta.dart';

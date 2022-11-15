@@ -32,13 +32,13 @@ class DriftJsonStrings extends Table {
 class DriftDatabaseJsonStrings extends _$DriftDatabaseJsonStrings {
   /// {@macro amplify_analytics_pinpoint_dart.drift_database_json_strings}
   DriftDatabaseJsonStrings(super.driftQueryExecutor);
-  static const _storageLocationName = 'analytics_cached_events';
 
   static DriftDatabaseJsonStrings? _instance;
 
   /// {@macro amplify_analytics_pinpoint_dart.drift_database_json_strings}
   static DriftDatabaseJsonStrings getInstance(
-      QueryExecutor driftQueryExecutor) {
+    QueryExecutor driftQueryExecutor,
+  ) {
     return _instance ??= DriftDatabaseJsonStrings(driftQueryExecutor);
   }
 
