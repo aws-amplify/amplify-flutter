@@ -1,3 +1,28 @@
+## 1.0.0-next.1
+
+### Breaking Changes
+
+Three new categories have added support for Web + Desktop: API, Storage, and Analytics!
+
+See our [docs](https://docs.amplify.aws/lib/q/platform/flutter/) for guides on how to migrate to these new versions.
+
+- chore(api,core): change API types ([#2148](https://github.com/aws-amplify/amplify-flutter/pull/2148))
+- chore(storage): migrate interface and setup basic packages 
+
+### Features
+- feat(api): GraphQL Custom Request Headers ([#1938](https://github.com/aws-amplify/amplify-flutter/pull/1938))
+- feat(api): Subscription Reconnection ([#2074](https://github.com/aws-amplify/amplify-flutter/pull/2074))
+- feat(api): authorizationMode property for GraphQLRequest ([#2143](https://github.com/aws-amplify/amplify-flutter/pull/2143))
+- feat(core): add AWSFile cross platform file abstraction
+- feat(storage): add custom prefix resolver support
+- feat(storage): cancel SmithyOperation on upload file pause and cancel
+- feat(storage): expose operation control APIs for upload data operation
+- feat(storage): revise list API interface and add excludeSubPaths parameter
+
+### Fixes
+- fix(api): correct subscription error handling ([#2179](https://github.com/aws-amplify/amplify-flutter/pull/2179))
+- fix(api): fix model helper util on web ([#2270](https://github.com/aws-amplify/amplify-flutter/pull/2270))
+
 ## 1.0.0-next.0+5
 
 ### Features
