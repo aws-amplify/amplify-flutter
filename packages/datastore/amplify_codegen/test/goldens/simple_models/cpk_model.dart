@@ -192,7 +192,30 @@ abstract class CpkModel extends PartialCpkModel
   const CpkModel._() : super._();
 
   factory CpkModel.fromJson(Map<String, Object?> json) {
-    throw UnimplementedError();
+    final firstName = json['firstName'] == null
+        ? throw ModelFieldError(
+            'CpkModel',
+            'firstName',
+          )
+        : (json['firstName'] as String);
+    final lastName = json['lastName'] == null
+        ? throw ModelFieldError(
+            'CpkModel',
+            'lastName',
+          )
+        : (json['lastName'] as String);
+    final createdAt = json['createdAt'] == null
+        ? null
+        : TemporalDateTime.fromString((json['createdAt'] as String));
+    final updatedAt = json['updatedAt'] == null
+        ? null
+        : TemporalDateTime.fromString((json['updatedAt'] as String));
+    return CpkModel(
+      firstName: firstName,
+      lastName: lastName,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+    );
   }
 
   static const CpkModelType classType = CpkModelType();

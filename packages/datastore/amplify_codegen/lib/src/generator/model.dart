@@ -589,7 +589,31 @@ return value as T;
                   ..name = 'json',
               ),
             )
-            ..body = const Code('throw UnimplementedError();'),
+            ..body = Block((b) {
+              final allFields =
+                  definition.schemaFields(ModelHierarchyType.model);
+              for (final field in allFields.values) {
+                final fieldType = field.type;
+                final json = refer('json').index(literalString(field.name));
+                final decodedField = fieldType.fromJsonExp(
+                  json,
+                  orElse: () =>
+                      DartTypes.amplifyCore.modelFieldError.newInstance([
+                    literalString(modelName),
+                    literalString(field.dartName),
+                  ]).thrown,
+                );
+                b.addExpression(
+                  declareFinal(field.dartName).assign(decodedField),
+                );
+              }
+              b.addExpression(
+                modelType.newInstance([], {
+                  for (final field in definition.fields.values)
+                    field.dartName: refer(field.dartName),
+                }).returned,
+              );
+            }),
         ),
       );
     });

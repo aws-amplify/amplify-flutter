@@ -151,7 +151,30 @@ abstract class MyModel extends PartialMyModel
   const MyModel._() : super._();
 
   factory MyModel.fromJson(Map<String, Object?> json) {
-    throw UnimplementedError();
+    final enum_ = json['enum'] == null
+        ? throw ModelFieldError(
+            'MyModel',
+            'enum_',
+          )
+        : (json['enum'] as String);
+    final createdAt = json['createdAt'] == null
+        ? null
+        : TemporalDateTime.fromString((json['createdAt'] as String));
+    final updatedAt = json['updatedAt'] == null
+        ? null
+        : TemporalDateTime.fromString((json['updatedAt'] as String));
+    final id = json['id'] == null
+        ? throw ModelFieldError(
+            'MyModel',
+            'id',
+          )
+        : (json['id'] as String);
+    return MyModel(
+      enum_: enum_,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      id: id,
+    );
   }
 
   static const MyModelType classType = MyModelType();

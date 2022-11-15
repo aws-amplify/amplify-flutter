@@ -169,7 +169,33 @@ abstract class EnumModel extends PartialEnumModel
   const EnumModel._() : super._();
 
   factory EnumModel.fromJson(Map<String, Object?> json) {
-    throw UnimplementedError();
+    final id = json['id'] == null
+        ? throw ModelFieldError(
+            'EnumModel',
+            'id',
+          )
+        : (json['id'] as String);
+    final enum_ =
+        json['enum'] == null ? null : MyEnum.fromJson((json['enum'] as String));
+    final requiredEnum = json['requiredEnum'] == null
+        ? throw ModelFieldError(
+            'EnumModel',
+            'requiredEnum',
+          )
+        : MyEnum.fromJson((json['requiredEnum'] as String));
+    final createdAt = json['createdAt'] == null
+        ? null
+        : TemporalDateTime.fromString((json['createdAt'] as String));
+    final updatedAt = json['updatedAt'] == null
+        ? null
+        : TemporalDateTime.fromString((json['updatedAt'] as String));
+    return EnumModel(
+      id: id,
+      enum_: enum_,
+      requiredEnum: requiredEnum,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+    );
   }
 
   static const EnumModelType classType = EnumModelType();
