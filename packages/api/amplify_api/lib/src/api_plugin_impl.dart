@@ -196,7 +196,7 @@ class AmplifyAPIDart extends AmplifyAPI {
       apiName: apiName,
     );
 
-    return _webSocketBlocPool[endpoint.name] ??= getWebSocketBloc(endpoint)
+    return _webSocketBlocPool[endpoint.name] ??= createWebSocketBloc(endpoint)
       ..stream.listen((event) {
         _emitHubEvent(event);
 
@@ -210,7 +210,7 @@ class AmplifyAPIDart extends AmplifyAPI {
   ///
   /// Use [endpoint] if there are multiple endpoints.
   @visibleForTesting
-  WebSocketBloc getWebSocketBloc(EndpointConfig endpoint) {
+  WebSocketBloc createWebSocketBloc(EndpointConfig endpoint) {
     return WebSocketBloc(
       config: endpoint.config,
       authProviderRepo: _authProviderRepo,
