@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_codegen/src/generator/generator.dart';
+import 'package:amplify_codegen/src/generator/structure.dart';
 import 'package:amplify_codegen/src/generator/types.dart';
 import 'package:amplify_codegen/src/helpers/field.dart';
 import 'package:amplify_codegen/src/helpers/model.dart';
@@ -20,7 +20,6 @@ import 'package:amplify_codegen/src/helpers/types.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 import 'package:code_builder/code_builder.dart';
-import 'package:gql/ast.dart';
 import 'package:smithy_codegen/src/util/symbol_ext.dart';
 
 /// {@template amplify_codegen.model_generator}
@@ -29,8 +28,7 @@ import 'package:smithy_codegen/src/util/symbol_ext.dart';
 /// Generally, a library consists of two classes: the Model class and the
 /// ModelType class; however, custom types have only a Model class.
 /// {@endtemplate}
-class ModelGenerator
-    extends LibraryGenerator<ObjectTypeDefinitionNode, ModelTypeDefinition> {
+class ModelGenerator extends StructureGenerator<ModelTypeDefinition> {
   /// {@template amplify_codegen.model_generator}
   ModelGenerator({
     required super.node,
@@ -38,7 +36,7 @@ class ModelGenerator
   });
 
   /// The class name for the model.
-  late final String modelName = schemaName.pascalCase;
+  late final String modelName = className;
 
   /// The class name for the model type.
   late final String modelTypeName = '${modelName}Type';
@@ -467,7 +465,7 @@ return value as T;
                   ..name = 'json',
               ),
             )
-            ..body = _fromJson(
+            ..body = fromJson(
               refer(privateClassName),
               definition.schemaFields(ModelHierarchyType.partial).values,
             ),
@@ -568,7 +566,7 @@ return value as T;
                   ..name = 'json',
               ),
             )
-            ..body = _fromJson(
+            ..body = fromJson(
               modelType,
               definition.schemaFields(ModelHierarchyType.model).values,
             ),
@@ -713,37 +711,11 @@ return value as T;
                   ..name = 'json',
               ),
             )
-            ..body = _fromJson(
+            ..body = fromJson(
               refer(privateClassName),
               definition.allFields(ModelHierarchyType.remote).values,
             ),
         ),
-      );
-    });
-  }
-
-  /// Generates the `fromJson` factory's body for the given [modelType] and
-  /// list of [fields].
-  Code _fromJson(Reference modelType, Iterable<ModelField> fields) {
-    return Block((b) {
-      for (final field in fields) {
-        final fieldType = field.type;
-        final json = refer('json').index(literalString(field.name));
-        final decodedField = fieldType.fromJsonExp(
-          json,
-          orElse: () => DartTypes.amplifyCore.modelFieldError.newInstance([
-            literalString(modelName),
-            literalString(field.dartName),
-          ]).thrown,
-        );
-        b.addExpression(
-          declareFinal(field.dartName).assign(decodedField),
-        );
-      }
-      b.addExpression(
-        modelType.newInstance([], {
-          for (final field in fields) field.dartName: refer(field.dartName),
-        }).returned,
       );
     });
   }

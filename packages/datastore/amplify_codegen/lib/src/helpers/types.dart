@@ -163,8 +163,12 @@ extension SchemaTypeHelpers on SchemaType {
       builder = (field) {
         return field.nullableProperty('value', isNullable);
       };
+    } else if (fieldType is NonModelType) {
+      builder = (field) {
+        return field.nullableProperty('toJson', isNullable).call([]);
+      };
     } else {
-      // TODO(dnys1): Complete model/non-model serialization.
+      // TODO(dnys1): Complete model serialization.
       throw ArgumentError(this);
     }
     return builder(field);
@@ -243,8 +247,17 @@ extension SchemaTypeHelpers on SchemaType {
             .equalTo(literalNull)
             .conditional(isRequired ? orElse() : literalNull, exp);
       };
+    } else if (fieldType is NonModelType) {
+      builder = (json) {
+        // Use the generated `fromJson` handler for deserializing the non-model.
+        final val = json.asA(DartTypes.core.json);
+        final exp = reference.nonNull.property('fromJson').call([val]);
+        return json
+            .equalTo(literalNull)
+            .conditional(isRequired ? orElse() : literalNull, exp);
+      };
     } else {
-      // TODO(dnys1): Complete model/non-model deserialization.
+      // TODO(dnys1): Complete model deserialization.
       throw ArgumentError(this);
     }
     return builder(json);

@@ -14,6 +14,7 @@
 
 import 'package:amplify_codegen/src/generator/enum.dart';
 import 'package:amplify_codegen/src/generator/model.dart';
+import 'package:amplify_codegen/src/generator/non_model.dart';
 import 'package:amplify_core/src/types/models/mipr.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:gql/ast.dart';
@@ -82,6 +83,9 @@ class LibraryVisitor extends SimpleVisitor<Library> {
     if (definition is ModelTypeDefinition) {
       return ModelGenerator(node: node, definition: definition).generate();
     }
-    throw ArgumentError('NonModelType');
+    return NonModelGenerator(
+      node: node,
+      definition: definition as NonModelTypeDefinition,
+    ).generate();
   }
 }

@@ -3,3 +3,7 @@
 type MyModel @model {
     enum: String!
 }
+
+type MyNonModel {
+    enum: String!
+}
