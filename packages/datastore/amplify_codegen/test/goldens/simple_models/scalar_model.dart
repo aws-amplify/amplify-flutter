@@ -135,8 +135,8 @@ abstract class PartialScalarModel extends PartialModel<String, ScalarModel>
         'requiredAwsJson': requiredAwsJson,
         'awsPhone': awsPhone,
         'requiredAwsPhone': requiredAwsPhone,
-        'awsUrl': awsUrl,
-        'requiredAwsUrl': requiredAwsUrl,
+        'awsUrl': awsUrl?.toString(),
+        'requiredAwsUrl': requiredAwsUrl?.toString(),
         'awsIpAddress': awsIpAddress,
         'requiredAwsIpAddress': requiredAwsIpAddress,
         'createdAt': createdAt?.format(),
@@ -338,10 +338,11 @@ class _PartialScalarModel extends PartialScalarModel {
     final requiredAwsPhone = json['requiredAwsPhone'] == null
         ? null
         : (json['requiredAwsPhone'] as String?);
-    final awsUrl = json['awsUrl'] == null ? null : (json['awsUrl'] as Uri?);
+    final awsUrl =
+        json['awsUrl'] == null ? null : Uri.parse((json['awsUrl'] as String));
     final requiredAwsUrl = json['requiredAwsUrl'] == null
         ? null
-        : (json['requiredAwsUrl'] as Uri?);
+        : Uri.parse((json['requiredAwsUrl'] as String));
     final awsIpAddress =
         json['awsIpAddress'] == null ? null : (json['awsIpAddress'] as String?);
     final requiredAwsIpAddress = json['requiredAwsIpAddress'] == null
@@ -604,13 +605,14 @@ abstract class ScalarModel extends PartialScalarModel
             'requiredAwsPhone',
           )
         : (json['requiredAwsPhone'] as String);
-    final awsUrl = json['awsUrl'] == null ? null : (json['awsUrl'] as Uri?);
+    final awsUrl =
+        json['awsUrl'] == null ? null : Uri.parse((json['awsUrl'] as String));
     final requiredAwsUrl = json['requiredAwsUrl'] == null
         ? throw ModelFieldError(
             'ScalarModel',
             'requiredAwsUrl',
           )
-        : (json['requiredAwsUrl'] as Uri);
+        : Uri.parse((json['requiredAwsUrl'] as String));
     final awsIpAddress =
         json['awsIpAddress'] == null ? null : (json['awsIpAddress'] as String?);
     final requiredAwsIpAddress = json['requiredAwsIpAddress'] == null
@@ -948,13 +950,14 @@ class _RemoteScalarModel extends RemoteScalarModel {
             'requiredAwsPhone',
           )
         : (json['requiredAwsPhone'] as String);
-    final awsUrl = json['awsUrl'] == null ? null : (json['awsUrl'] as Uri?);
+    final awsUrl =
+        json['awsUrl'] == null ? null : Uri.parse((json['awsUrl'] as String));
     final requiredAwsUrl = json['requiredAwsUrl'] == null
         ? throw ModelFieldError(
             'ScalarModel',
             'requiredAwsUrl',
           )
-        : (json['requiredAwsUrl'] as Uri);
+        : Uri.parse((json['requiredAwsUrl'] as String));
     final awsIpAddress =
         json['awsIpAddress'] == null ? null : (json['awsIpAddress'] as String?);
     final requiredAwsIpAddress = json['requiredAwsIpAddress'] == null

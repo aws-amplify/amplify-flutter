@@ -143,11 +143,15 @@ extension SchemaTypeHelpers on SchemaType {
             return field.nullableProperty('toSeconds', isNullable).call([]);
           };
           break;
+        case AppSyncScalar.awsUrl:
+          builder = (field) {
+            return field.nullableProperty('toString', isNullable).call([]);
+          };
+          break;
         case AppSyncScalar.awsJson:
         case AppSyncScalar.awsIpAddress:
         case AppSyncScalar.awsEmail:
         case AppSyncScalar.awsPhone:
-        case AppSyncScalar.awsUrl:
         case AppSyncScalar.boolean:
         case AppSyncScalar.float:
         case AppSyncScalar.id:
@@ -210,10 +214,19 @@ extension SchemaTypeHelpers on SchemaType {
             builder = (json) => json;
           }
           break;
+        case AppSyncScalar.awsUrl:
+          builder = (json) {
+            final val = json.asA(DartTypes.core.string);
+            final exp =
+                fieldType.reference.nonNull.property('parse').call([val]);
+            return json
+                .equalTo(literalNull)
+                .conditional(isRequired ? orElse() : literalNull, exp);
+          };
+          break;
         case AppSyncScalar.awsIpAddress:
         case AppSyncScalar.awsEmail:
         case AppSyncScalar.awsPhone:
-        case AppSyncScalar.awsUrl:
         case AppSyncScalar.boolean:
         case AppSyncScalar.float:
         case AppSyncScalar.id:
