@@ -25,7 +25,7 @@ For production use cases please use the latest, non-tagged versions of amplify-f
 
 ## Upgrade from Stable Version
 
-All Storage S3 plugin APIs now return an operation object rather than the result object. The operation object contains a `Future` of the result. And the result object contains more information.
+All Storage S3 plugin APIs now return an operation object rather than the result object. The operation object provides more control over the in-flight request, such as cancellation, pause, and resume capabilities (varies by API). The result `Future` can be retrieved via the `.result` property.
 
 ### How to upgrade
 
