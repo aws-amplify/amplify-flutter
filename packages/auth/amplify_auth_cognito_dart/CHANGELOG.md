@@ -1,3 +1,8 @@
+## 0.2.4
+
+### Fixes
+- revert(auth): "fix(auth): Retain unauthenticated identities" ([#2376](https://github.com/aws-amplify/amplify-flutter/pull/2376))
+
 ## 0.2.3
 
 - Minor bug fixes and improvements
