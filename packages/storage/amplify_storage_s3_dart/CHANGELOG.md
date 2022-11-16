@@ -1,3 +1,8 @@
+## 0.1.1
+
+### Fixes
+- fix(storage): add missing contentType uploading AWSFile < 5MB
+
 ## 0.1.0 (2022-11-15)
 
 Initial developer preview release for all platforms.
