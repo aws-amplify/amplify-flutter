@@ -270,3 +270,34 @@ final hasNoGraphQLErrors = predicate<GraphQLResponse>(
   (GraphQLResponse response) => !response.hasErrors && response.data != null,
   'Has no GraphQL Errors',
 );
+
+/// Hub Event Matchers
+final connectedHubEvent = isA<SubscriptionHubEvent>().having(
+  (event) => event.status,
+  'status',
+  SubscriptionStatus.connected,
+);
+
+final connectingHubEvent = isA<SubscriptionHubEvent>().having(
+  (event) => event.status,
+  'status',
+  SubscriptionStatus.connecting,
+);
+
+final disconnectedHubEvent = isA<SubscriptionHubEvent>().having(
+  (event) => event.status,
+  'status',
+  SubscriptionStatus.disconnected,
+);
+
+final pendingDisconnectedHubEvent = isA<SubscriptionHubEvent>().having(
+  (event) => event.status,
+  'status',
+  SubscriptionStatus.pendingDisconnected,
+);
+
+final failedHubEvent = isA<SubscriptionHubEvent>().having(
+  (event) => event.status,
+  'status',
+  SubscriptionStatus.failed,
+);
