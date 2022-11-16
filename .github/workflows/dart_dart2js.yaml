@@ -57,6 +57,15 @@ jobs:
         timeout-minutes: 10
         run: aft bootstrap
 
+      - name: Setup Package
+        if: "always() && steps.bootstrap.conclusion == 'success'"
+        shell: bash # Run in bash regardless of platform
+        working-directory: ${{ inputs.working-directory }}
+        run: |
+          if [ -e tool/setup.sh ]; then
+            ./tool/setup.sh
+          fi
+
       - name: Run Tests
         if: "always() && steps.bootstrap.conclusion == 'success'"
         run: dart run build_runner test --release --delete-conflicting-outputs -- -p ${{ matrix.browser }}
