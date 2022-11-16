@@ -41,7 +41,6 @@ dev_dependencies:
   amplify_test:
     path: ../../amplify_test
   aws_signature_v4:
-    path: ../../aws_signature_v4 
   build_runner: ^2.0.0
   connectivity_plus_platform_interface: any
   flutter_test:
