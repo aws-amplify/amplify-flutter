@@ -12,12 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
 import 'package:aft/src/util.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:graphs/graphs.dart';
+import 'package:path/path.dart' as p;
 
 /// Command to publish all Dart/Flutter packages in the repo.
 class PublishCommand extends AmplifyCommand {
@@ -64,18 +66,16 @@ class PublishCommand extends AmplifyCommand {
       final publishedVersion =
           versionInfo?.latestPrerelease ?? versionInfo?.latestVersion;
       if (publishedVersion == null) {
-        if (force) {
-          return package;
-        } else {
-          fail('Could not determine latest version');
-        }
+        logger.info('No published info for package ${package.name}');
+        return package;
       }
 
       final currentVersion = package.pubspecInfo.pubspec.version!;
       return currentVersion > publishedVersion ? package : null;
     } on Exception catch (e) {
+      logger.error('Error retrieving info for package ${package.name}', e);
       if (force) {
-        return null;
+        return package;
       } else {
         fail(e.toString());
       }
@@ -86,6 +86,27 @@ class PublishCommand extends AmplifyCommand {
   /// `build_runner` tasks.
   Future<void> _prePublish(PackageInfo package) async {
     logger.info('Running pre-publish checks for ${package.name}...');
+    // Remove any overrides so that `pub` commands resolve against
+    // `pubspec.yaml`, allowing us to verify we've set our constraints
+    // correctly.
+    final pubspecOverrideFile = File(
+      p.join(package.path, 'pubspec_overrides.yaml'),
+    );
+    if (pubspecOverrideFile.existsSync()) {
+      pubspecOverrideFile.deleteSync();
+    }
+    final res = await Process.run(
+      package.flavor.name,
+      ['pub', 'upgrade'],
+      stdoutEncoding: utf8,
+      stderrEncoding: utf8,
+      workingDirectory: package.path,
+    );
+    if (res.exitCode != 0) {
+      stdout.write(res.stdout);
+      stderr.write(res.stderr);
+      exit(res.exitCode);
+    }
     await runBuildRunner(package, logger: logger, verbose: verbose);
   }
 
@@ -207,13 +228,14 @@ class PublishCommand extends AmplifyCommand {
       }
     }
 
-    // Run pre-publish checks before publishing any packages.
+    // Run pre-publish checks then publish package.
+    //
+    // Do not split up this step. Since packages are iterated in topological
+    // ordering, it is okay for later packages to fail. While this means that
+    // some packages will not be published, it also means that the command
+    // can be re-run to pick up where it left off.
     for (final package in packagesNeedingPublish) {
       await _prePublish(package);
-    }
-
-    // Publish each package sequentially.
-    for (final package in packagesNeedingPublish) {
       await _publish(package);
     }
 
