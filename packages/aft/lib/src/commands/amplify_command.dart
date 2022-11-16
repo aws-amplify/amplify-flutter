@@ -104,16 +104,24 @@ abstract class AmplifyCommand extends Command<void> implements Closeable {
         });
       });
 
-  final _aftConfigMemo = AsyncMemoizer<AftConfig>();
+  /// The absolute path to the `aft.yaml` document.
+  Future<String> get aftConfigPath async {
+    final rootDir = await this.rootDir;
+    return p.join(rootDir.path, 'aft.yaml');
+  }
+
+  /// The `aft.yaml` document.
+  Future<String> get aftConfigYaml async {
+    final configFile = File(await aftConfigPath);
+    assert(configFile.existsSync(), 'Could not find aft.yaml');
+    return configFile.readAsStringSync();
+  }
 
   /// The global `aft` configuration for the repo.
-  Future<AftConfig> get aftConfig => _aftConfigMemo.runOnce(() async {
-        final rootDir = await this.rootDir;
-        final configFile = File(p.join(rootDir.path, 'aft.yaml'));
-        assert(configFile.existsSync(), 'Could not find aft.yaml');
-        final configYaml = configFile.readAsStringSync();
-        return checkedYamlDecode(configYaml, AftConfig.fromJson);
-      });
+  Future<AftConfig> get aftConfig async {
+    final configYaml = await aftConfigYaml;
+    return checkedYamlDecode(configYaml, AftConfig.fromJson);
+  }
 
   /// A command runner for `pub`.
   PubCommandRunner createPubRunner() => PubCommandRunner(
