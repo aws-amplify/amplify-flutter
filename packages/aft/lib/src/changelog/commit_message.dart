@@ -303,21 +303,24 @@ class UnconventionalCommitMessage extends CommitMessage {
   VersionBumpType get bumpType => VersionBumpType.patch;
 }
 
+/// {@template aft.changelog.version_commit_message}
+/// A commit message which identifies a version bump performed by `aft`.
+///
+/// These messages take the form `chore(version): ...` and list out the
+/// relevant version bump information including a complete feature log.
+/// {@endtemplate}
 class VersionCommitMessage extends CommitMessage {
-  factory VersionCommitMessage(
-    String sha,
-    String summary, {
-    required String body,
-    required DateTime dateTime,
-  }) {
-    throw UnimplementedError();
-  }
-
-  const VersionCommitMessage._(
+  /// {@macro aft.changelog.version_commit_message}
+  const VersionCommitMessage(
     super.sha,
     super.summary, {
+    required this.body,
     required super.dateTime,
   });
+
+  /// The body of the commit message.
+  // TODO(dnys1): Parse
+  final String body;
 
   @override
   CommitType get type => CommitType.version;

@@ -102,15 +102,16 @@ class VersionCommand extends AmplifyCommand with GitRefOptions, GlobOptions {
 
     if (!preview) {
       logger.info('Version successfully bumped');
-      if (yes || prompt('Commit changes? (y/N) ').toLowerCase() == 'y') {
-        // Commit and tag changes
-        await runGit(['add', '.']);
-        await runGit(['commit', '-m', 'chore(version): Bump version']);
-        await Future.wait<void>([
-          for (final changeEntry in repo.versionChanges.entries)
-            runGit(['tag', '${changeEntry.key}_v${changeEntry.value}']),
-        ]);
-      }
+      // TODO(dnys1): Use version bump commit instead of tags
+      // if (yes || prompt('Commit changes? (y/N) ').toLowerCase() == 'y') {
+      //   // Commit and tag changes
+      //   await runGit(['add', '.']);
+      //   await runGit(['commit', '-m', 'chore(version): Bump version']);
+      //   await Future.wait<void>([
+      //     for (final changeEntry in repo.versionChanges.entries)
+      //       runGit(['tag', '${changeEntry.key}_v${changeEntry.value}']),
+      //   ]);
+      // }
     }
   }
 }
