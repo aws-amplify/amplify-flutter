@@ -22,3 +22,89 @@ For production use cases please use the latest, non-tagged versions of amplify-f
 ## Getting Started
 
 ### Visit our [Web Site](https://docs.amplify.aws/) to learn more about AWS Amplify.
+
+## Upgrade from Stable Version
+
+All Storage S3 plugin APIs now return an operation object rather than the result object. The operation object contains a `Future` of the result. And the result object contains more information.
+
+### How to upgrade
+
+**Upload example**
+
+```dart
+// before
+final result = await Amplify.Storage.uploadFile(
+    local: exampleFile,
+    key: 'ExampleKey',
+);
+print('Uploaded file key: ${result.key}')
+
+// after
+final result = await Amplify.Storage.uploadFile(
+    local: exampleFile,
+    key: 'ExampleKey',
+).result;
+print('Uploaded file key: ${result.uploadedItem.key}');
+```
+
+**Download example**
+
+```dart
+// before
+final result = await Amplify.Storage.downloadFile(
+  key: 'ExampleKey',
+  local: file,
+);
+print('Downloaded local file path: ${result.file.path}')
+
+
+// after
+final result = await Amplify.Storage.downloadFile(
+  key: 'ExampleKey',
+  local: file,
+).result;
+print('Downloaded file key: ${result.downloadedItem.key}');
+print('Downloaded local file path: ${result.localFile.path}');
+```
+
+**List example**
+
+```dart
+// before
+final result = await Amplify.Storage.list();
+print('Listed items: ${result.items}');
+
+// after
+final result = await Amplify.Storage.list().result;
+print('Listed items: ${result.items}');
+print('Are there more items can be listed? ${result.hasNextPage}');
+print('List nextToken: ${result.nextToken}');
+```
+
+**Remove example**
+
+```dart
+// before
+final result = await Amplify.Storage.remove(
+  key: key,
+);
+print('Removed file key: ${result.key}');
+
+// after
+final result = await Amplify.Storage.remove(
+  key: key,
+).result;
+print('Removed file key: ${result.removedItem.key}');
+```
+
+**Get URL example**
+
+```dart
+// before
+final result = await Amplify.Storage.getUrl(key: 'ExampleKey');
+print('Got url: ${result.url}');
+
+// after
+final result = await Amplify.Storage.getUrl(key: 'ExampleKey').result;
+print('Got url: ${result.url.toString()}');
+```
