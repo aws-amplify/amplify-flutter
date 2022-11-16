@@ -12,13 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/src/changelog/changelog.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
-import 'package:http/http.dart' as http;
 import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
@@ -116,44 +114,6 @@ class PackageInfo
   Version get version =>
       pubspecInfo.pubspec.version ??
       (throw StateError('No version for package: $name'));
-
-  /// Resolves the latest version information from `pub.dev`.
-  Future<PubVersionInfo?> resolveVersionInfo(http.Client client) async {
-    final publishTo = pubspecInfo.pubspec.publishTo;
-    if (publishTo == 'none') {
-      return null;
-    }
-
-    // Get the currently published version of the package.
-    final uri = Uri.parse(publishTo ?? 'https://pub.dev')
-        .replace(path: '/api/packages/$name');
-    final resp = await client.get(
-      uri,
-      headers: {AWSHeaders.accept: 'application/vnd.pub.v2+json'},
-    );
-
-    // Package is unpublished
-    if (resp.statusCode == 404) {
-      return null;
-    }
-    if (resp.statusCode != 200) {
-      throw http.ClientException(resp.body, uri);
-    }
-
-    final respJson = jsonDecode(resp.body) as Map<String, Object?>;
-    final versions = (respJson['versions'] as List<Object?>?) ?? <Object?>[];
-    final semvers = <Version>[];
-    for (final version in versions) {
-      final map = (version as Map).cast<String, Object?>();
-      final semver = map['version'] as String?;
-      if (semver == null) {
-        continue;
-      }
-      semvers.add(Version.parse(semver));
-    }
-
-    return PubVersionInfo(semvers..sort());
-  }
 
   @override
   List<Object?> get props => [name, path];

@@ -12,11 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
-import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
@@ -175,27 +173,14 @@ class _DepsUpdateCommand extends _DepsSubcommand {
       final versionConstraint = entry.value;
       VersionConstraint? newVersionConstraint;
 
-      // TODO(dnys1): Merge with publish logic
       // Get the currently published version of the package.
-      final uri = Uri.parse('https://pub.dev/api/packages/$package');
-      logger.trace('GET $uri');
       try {
-        final resp = await httpClient.get(
-          uri,
-          headers: {AWSHeaders.accept: 'application/vnd.pub.v2+json'},
-        );
-        if (resp.statusCode != 200) {
-          failedUpdates.add('$package: Could not reach server');
+        final versionInfo = await resolveVersionInfo(package);
+        final latestVersion = versionInfo?.latestVersion;
+        if (latestVersion == null) {
+          failedUpdates.add('No versions found for package: $package');
           continue;
         }
-        final respJson = jsonDecode(resp.body) as Map<String, Object?>;
-        final latestVersionStr =
-            (respJson['latest'] as Map?)?['version'] as String?;
-        if (latestVersionStr == null) {
-          failedUpdates.add('$package: No versions found for package');
-          continue;
-        }
-        final latestVersion = Version.parse(latestVersionStr);
 
         // Update the constraint to include `latestVersion` as its new upper
         // bound.
@@ -249,13 +234,13 @@ class _DepsUpdateCommand extends _DepsSubcommand {
         aftEditor.toString(),
         flush: true,
       );
-      logger.stdout(action.successMessage);
+      logger.info(action.successMessage);
     } else {
-      logger.stderr('No dependencies updated');
+      logger.info('No dependencies updated');
     }
 
     for (final failedUpdate in failedUpdates) {
-      logger.stderr('Could not update $failedUpdate');
+      logger.error('Could not update $failedUpdate');
       exitCode = 1;
     }
 

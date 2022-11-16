@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'dart:collection';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
@@ -25,6 +26,7 @@ import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub/pub.dart';
+import 'package:pub_semver/pub_semver.dart';
 
 /// Base class for all commands in this package providing common functionality.
 abstract class AmplifyCommand extends Command<void>
@@ -194,6 +196,38 @@ abstract class AmplifyCommand extends Command<void>
   bool promptYesNo(String message) {
     final answer = prompt(message).toLowerCase();
     return answer == 'y' || answer == 'yes';
+  }
+
+  /// Resolves the latest version information from `pub.dev`.
+  Future<PubVersionInfo?> resolveVersionInfo(String package) async {
+    // Get the currently published version of the package.
+    final uri = Uri.parse('https://pub.dev/api/packages/$package');
+    final resp = await httpClient.get(
+      uri,
+      headers: {AWSHeaders.accept: 'application/vnd.pub.v2+json'},
+    );
+
+    // Package is unpublished
+    if (resp.statusCode == 404) {
+      return null;
+    }
+    if (resp.statusCode != 200) {
+      throw http.ClientException(resp.body, uri);
+    }
+
+    final respJson = jsonDecode(resp.body) as Map<String, Object?>;
+    final versions = (respJson['versions'] as List<Object?>?) ?? <Object?>[];
+    final semvers = <Version>[];
+    for (final version in versions) {
+      final map = (version as Map).cast<String, Object?>();
+      final semver = map['version'] as String?;
+      if (semver == null) {
+        continue;
+      }
+      semvers.add(Version.parse(semver));
+    }
+
+    return PubVersionInfo(semvers..sort());
   }
 
   @override

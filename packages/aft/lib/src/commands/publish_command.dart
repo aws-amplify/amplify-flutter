@@ -53,6 +53,11 @@ class PublishCommand extends AmplifyCommand {
   /// Checks if [package] can be published based on whether the local version
   /// is newer than the one published to `pub.dev`.
   Future<PackageInfo?> _checkPublishable(PackageInfo package) async {
+    final publishTo = package.pubspecInfo.pubspec.publishTo;
+    if (publishTo == 'none') {
+      return null;
+    }
+
     Never fail(String error) {
       logger
         ..error('Could not retrieve package info for ${package.name}: ')
@@ -62,7 +67,7 @@ class PublishCommand extends AmplifyCommand {
     }
 
     try {
-      final versionInfo = await package.resolveVersionInfo(httpClient);
+      final versionInfo = await resolveVersionInfo(package.name);
       final publishedVersion =
           versionInfo?.latestPrerelease ?? versionInfo?.latestVersion;
       if (publishedVersion == null) {
