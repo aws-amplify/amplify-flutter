@@ -149,7 +149,9 @@ abstract class AmplifyCommand extends Command<void>
     final configFile = File(p.join(rootDir.path, 'aft.yaml'));
     assert(configFile.existsSync(), 'Could not find aft.yaml');
     final configYaml = configFile.readAsStringSync();
-    return checkedYamlDecode(configYaml, AftConfig.fromJson);
+    final config = checkedYamlDecode(configYaml, AftConfig.fromJson);
+    logger.verbose('$config');
+    return config;
   }();
 
   late final Repo repo = Repo(

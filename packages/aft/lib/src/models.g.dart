@@ -33,11 +33,11 @@ AftConfig _$AftConfigFromJson(Map json) => $checkedCreate(
           components: $checkedConvert(
               'components',
               (v) =>
-                  (v as Map?)?.map(
-                    (k, e) => MapEntry(k as String,
-                        (e as List<dynamic>).map((e) => e as String).toList()),
-                  ) ??
-                  const {}),
+                  (v as List<dynamic>?)
+                      ?.map((e) => AftComponent.fromJson(
+                          Map<String, Object?>.from(e as Map)))
+                      .toList() ??
+                  const []),
         );
         return val;
       },
@@ -48,6 +48,31 @@ Map<String, dynamic> _$AftConfigToJson(AftConfig instance) => <String, dynamic>{
           (k, e) => MapEntry(k, const _VersionConstraintConverter().toJson(e))),
       'ignore': instance.ignore,
       'components': instance.components,
+    };
+
+AftComponent _$AftComponentFromJson(Map json) => $checkedCreate(
+      'AftComponent',
+      json,
+      ($checkedConvert) {
+        $checkKeys(
+          json,
+          allowedKeys: const ['name', 'summary', 'packages'],
+        );
+        final val = AftComponent(
+          name: $checkedConvert('name', (v) => v as String),
+          summary: $checkedConvert('summary', (v) => v as String?),
+          packages: $checkedConvert('packages',
+              (v) => (v as List<dynamic>).map((e) => e as String).toList()),
+        );
+        return val;
+      },
+    );
+
+Map<String, dynamic> _$AftComponentToJson(AftComponent instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'summary': instance.summary,
+      'packages': instance.packages,
     };
 
 SdkConfig _$SdkConfigFromJson(Map json) => $checkedCreate(

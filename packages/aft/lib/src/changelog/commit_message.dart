@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:aft/aft.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
 
@@ -47,7 +48,8 @@ enum CommitType {
   refactor.other(),
   revert.other(),
   style.other(),
-  test.other();
+  test.other(),
+  version.other();
 
   const CommitType.fixes() : group = CommitTypeGroup.fixes;
   const CommitType.features() : group = CommitTypeGroup.features;
@@ -71,6 +73,7 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
   factory CommitMessage.parse(
     String sha,
     String summary, {
+    required String body,
     required DateTime dateTime,
   }) {
     final commitMessage = _commitRegex.firstMatch(summary);
@@ -101,10 +104,22 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
             .toList() ??
         const [];
     final description = commitMessage
-        .namedGroup('description')!
-        .replaceAll(RegExp(r'^:\s'), '')
+        .namedGroup('description')
+        ?.replaceAll(RegExp(r'^:\s'), '')
         .trim();
+    // Fall back for malformed messages.
+    if (description == null) {
+      return UnconventionalCommitMessage(sha, summary, dateTime: dateTime);
+    }
 
+    if (type == CommitType.version) {
+      return VersionCommitMessage(
+        sha,
+        summary,
+        body: body,
+        dateTime: dateTime,
+      );
+    }
     return ConventionalCommitMessage(
       sha,
       summary,
@@ -149,6 +164,9 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
   /// Whether this is a breaking change, denoted by a `!` after the scope, e.g.
   /// `fix(auth)!`.
   bool get isBreakingChange => false;
+
+  /// How to bump the package's version based off this commit.
+  VersionBumpType? get bumpType => null;
 
   /// The PR tagged in this commit, e.g. `(#2012)`.
   int? get taggedPr {
@@ -213,6 +231,33 @@ class ConventionalCommitMessage extends CommitMessage {
       type == CommitType.chore && scopes.singleOrNull == 'version';
 
   @override
+  VersionBumpType get bumpType {
+    switch (type) {
+      case CommitType.unconventional:
+      case CommitType.merge:
+      case CommitType.build:
+      case CommitType.chore:
+      case CommitType.ci:
+      case CommitType.docs:
+      case CommitType.refactor:
+      case CommitType.style:
+      case CommitType.test:
+      case CommitType.version:
+      case CommitType.fix:
+      case CommitType.bug:
+      case CommitType.perf:
+      case CommitType.revert:
+        return isBreakingChange
+            ? VersionBumpType.nonBreaking
+            : VersionBumpType.patch;
+      case CommitType.feat:
+        return isBreakingChange
+            ? VersionBumpType.breaking
+            : VersionBumpType.nonBreaking;
+    }
+  }
+
+  @override
   bool get includeInChangelog {
     if (isBreakingChange) {
       return true;
@@ -227,6 +272,7 @@ class ConventionalCommitMessage extends CommitMessage {
       case CommitType.refactor:
       case CommitType.style:
       case CommitType.test:
+      case CommitType.version:
         return false;
       case CommitType.feat:
       case CommitType.fix:
@@ -252,4 +298,27 @@ class UnconventionalCommitMessage extends CommitMessage {
 
   @override
   CommitType get type => CommitType.unconventional;
+
+  @override
+  VersionBumpType get bumpType => VersionBumpType.patch;
+}
+
+class VersionCommitMessage extends CommitMessage {
+  factory VersionCommitMessage(
+    String sha,
+    String summary, {
+    required String body,
+    required DateTime dateTime,
+  }) {
+    throw UnimplementedError();
+  }
+
+  const VersionCommitMessage._(
+    super.sha,
+    super.summary, {
+    required super.dateTime,
+  });
+
+  @override
+  CommitType get type => CommitType.version;
 }

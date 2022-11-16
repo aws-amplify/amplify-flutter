@@ -34,7 +34,7 @@ class _ChangelogParser implements NodeVisitor {
     switch (element.type) {
       case ElementType.h2:
         final versionText = element.textContent;
-        if (versionText.toLowerCase() == 'next') {
+        if (equalsIgnoreAsciiCase(versionText, nextVersionTag)) {
           _currentVersion = nextVersion;
           break;
         }

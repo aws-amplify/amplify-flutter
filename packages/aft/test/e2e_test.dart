@@ -112,12 +112,15 @@ Initial version.
         gitDir,
         repo: Repository.init(path: gitDir.path),
         aftConfig: const AftConfig(
-          components: {
-            'amplify': [
-              'amplify_auth_cognito',
-              'amplify_auth_cognito_ios',
-            ],
-          },
+          components: [
+            AftComponent(
+              name: 'amplify',
+              packages: [
+                'amplify_auth_cognito',
+                'amplify_auth_cognito_ios',
+              ],
+            ),
+          ],
         ),
       );
       await runGit(['commit', '--allow-empty', '-m', 'Initial commit']);

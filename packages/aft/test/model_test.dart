@@ -20,48 +20,88 @@ void main() {
   group('AmplifyVersion', () {
     test('0-version', () {
       final version = Version(0, 1, 0);
-      expect(
-        version.nextAmplifyVersion(isBreakingChange: false),
-        Version(0, 1, 1),
-      );
-      expect(
-        version.nextAmplifyVersion(isBreakingChange: true),
-        Version(0, 2, 0),
-      );
+
+      final patch = version.nextAmplifyVersion(VersionBumpType.patch);
+      expect(patch.version, Version(0, 1, 1));
+      expect(patch.propogateToComponent, false);
+
+      final nonBreaking =
+          version.nextAmplifyVersion(VersionBumpType.nonBreaking);
+      expect(nonBreaking.version, Version(0, 1, 1));
+      expect(nonBreaking.propogateToComponent, false);
+
+      final breaking = version.nextAmplifyVersion(VersionBumpType.breaking);
+      expect(breaking.version, Version(0, 2, 0));
+      expect(breaking.propogateToComponent, true);
     });
 
-    test('pre-release', () {
-      var version = Version(1, 0, 0, pre: 'next.0');
+    test('pre-release (untagged)', () {
+      final version = Version(1, 0, 0, pre: 'next.0');
+
+      final patch = version.nextAmplifyVersion(VersionBumpType.patch);
       expect(
-        version.nextAmplifyVersion(isBreakingChange: false),
+        patch.version,
         Version(1, 0, 0, pre: 'next.0', build: '1'),
       );
+      expect(patch.propogateToComponent, false);
+
+      final nonBreaking =
+          version.nextAmplifyVersion(VersionBumpType.nonBreaking);
       expect(
-        version.nextAmplifyVersion(isBreakingChange: true),
+        nonBreaking.version,
+        Version(1, 0, 0, pre: 'next.0', build: '1'),
+      );
+      expect(nonBreaking.propogateToComponent, false);
+
+      final breaking = version.nextAmplifyVersion(VersionBumpType.breaking);
+      expect(
+        breaking.version,
         Version(1, 0, 0, pre: 'next.1'),
       );
+      expect(breaking.propogateToComponent, true);
+    });
 
-      version = Version(1, 0, 0, pre: 'next.0', build: '1');
+    test('pre-release (tagged)', () {
+      final version = Version(1, 0, 0, pre: 'next.0', build: '1');
+
+      final patch = version.nextAmplifyVersion(VersionBumpType.patch);
       expect(
-        version.nextAmplifyVersion(isBreakingChange: false),
+        patch.version,
         Version(1, 0, 0, pre: 'next.0', build: '2'),
       );
+      expect(patch.propogateToComponent, false);
+
+      final nonBreaking =
+          version.nextAmplifyVersion(VersionBumpType.nonBreaking);
       expect(
-        version.nextAmplifyVersion(isBreakingChange: true),
+        nonBreaking.version,
+        Version(1, 0, 0, pre: 'next.0', build: '2'),
+      );
+      expect(nonBreaking.propogateToComponent, false);
+
+      final breaking = version.nextAmplifyVersion(VersionBumpType.breaking);
+      expect(
+        breaking.version,
         Version(1, 0, 0, pre: 'next.1'),
       );
+      expect(breaking.propogateToComponent, true);
     });
 
     test('release', () {
       final version = Version(1, 0, 0);
-      expect(
-        version.nextAmplifyVersion(isBreakingChange: false),
-        Version(1, 0, 1),
-      );
-      expect(
-        version.nextAmplifyVersion(isBreakingChange: true),
-        Version(1, 1, 0),
-      );
+
+      final patch = version.nextAmplifyVersion(VersionBumpType.patch);
+      expect(patch.version, Version(1, 0, 1));
+      expect(patch.propogateToComponent, false);
+
+      final nonBreaking =
+          version.nextAmplifyVersion(VersionBumpType.nonBreaking);
+      expect(nonBreaking.version, Version(1, 1, 0));
+      expect(nonBreaking.propogateToComponent, true);
+
+      final breaking = version.nextAmplifyVersion(VersionBumpType.breaking);
+      expect(breaking.version, Version(2, 0, 0));
+      expect(breaking.propogateToComponent, true);
     });
   });
 }

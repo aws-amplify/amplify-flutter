@@ -55,7 +55,7 @@ class PubVersionInfo {
 /// Information about a Dart/Flutter package in the repo.
 /// {@endtemplate}
 class PackageInfo
-    with AWSEquatable<PackageInfo>
+    with AWSEquatable<PackageInfo>, AWSDebuggable
     implements Comparable<PackageInfo> {
   /// {@macro amplify_tools.package_info}
   const PackageInfo({
@@ -156,13 +156,10 @@ class PackageInfo
   }
 
   @override
-  List<Object?> get props => [
-        name,
-        path,
-        usesMonoRepo,
-        pubspecInfo,
-        flavor,
-      ];
+  List<Object?> get props => [name, path];
+
+  @override
+  String get runtimeTypeName => 'PackageInfo';
 
   @override
   int compareTo(PackageInfo other) {
@@ -212,21 +209,31 @@ extension AmplifyVersion on Version {
       );
 
   /// The next version according to Amplify rules for incrementing.
-  Version nextAmplifyVersion({bool isBreakingChange = false}) {
+  NextVersion nextAmplifyVersion(VersionBumpType type) {
     if (preRelease.isEmpty) {
-      return isBreakingChange ? nextMinor : nextPatch;
+      switch (type) {
+        case VersionBumpType.patch:
+          return NextVersion(nextPatch);
+        case VersionBumpType.nonBreaking:
+          return major == 0
+              ? NextVersion(nextPatch)
+              : NextVersion.propogate(nextMinor);
+        case VersionBumpType.breaking:
+          return NextVersion.propogate(major == 0 ? nextMinor : nextMajor);
+      }
     }
-    if (isBreakingChange) {
-      return nextPreRelease;
+    if (type == VersionBumpType.breaking) {
+      return NextVersion.propogate(nextPreRelease);
     }
     final newBuild = (build.singleOrNull as int? ?? 0) + 1;
-    return Version(
+    final newVersion = Version(
       major,
       minor,
       patch,
       pre: preRelease.join('.'),
       build: '$newBuild',
     );
+    return NextVersion(newVersion);
   }
 
   /// The constraint to use for this version in pubspecs.
@@ -248,6 +255,14 @@ extension AmplifyVersion on Version {
     }
     return '>=$minVersion <$maxVersion';
   }
+}
+
+class NextVersion {
+  const NextVersion(this.version) : propogateToComponent = false;
+  const NextVersion.propogate(this.version) : propogateToComponent = true;
+
+  final Version version;
+  final bool propogateToComponent;
 }
 
 enum DependencyType {
@@ -307,11 +322,11 @@ const yamlSerializable = JsonSerializable(
 /// The typed representation of the `aft.yaml` file.
 @yamlSerializable
 @_VersionConstraintConverter()
-class AftConfig {
+class AftConfig with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
   const AftConfig({
     this.dependencies = const {},
     this.ignore = const [],
-    this.components = const {},
+    this.components = const [],
   });
 
   factory AftConfig.fromJson(Map<Object?, Object?>? json) =>
@@ -325,21 +340,76 @@ class AftConfig {
   /// Packages to ignore in all repo operations.
   final List<String> ignore;
 
-  /// Strongly connected components which should have minor/major version bumps
-  /// happen in unison, i.e. a version bump to one package cascades to all.
-  final Map<String, List<String>> components;
+  /// {@macro aft.models.aft_component}
+  final List<AftComponent> components;
 
   /// Retrieves the component for [packageName], if any.
   String componentForPackage(String packageName) {
-    return components.entries
+    return components
             .firstWhereOrNull(
-              (component) => component.value.contains(packageName),
+              (component) => component.packages.contains(packageName),
             )
-            ?.key ??
+            ?.name ??
         packageName;
   }
 
+  @override
+  String get runtimeTypeName => 'AftConfig';
+
+  @override
   Map<String, Object?> toJson() => _$AftConfigToJson(this);
+}
+
+/// {@template aft.models.aft_component}
+/// Strongly connected components which should have minor/major version bumps
+/// happen in unison, i.e. a version bump to one package cascades to all.
+/// {@endtemplate}
+@yamlSerializable
+class AftComponent with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
+  const AftComponent({
+    required this.name,
+    this.summary,
+    required this.packages,
+  });
+
+  factory AftComponent.fromJson(Map<String, Object?> json) =>
+      _$AftComponentFromJson(json);
+
+  /// The name of the component.
+  final String name;
+
+  /// The package name which summarizes all component changes in its changleog.
+  final String? summary;
+
+  /// The list of packages in the component.
+  final List<String> packages;
+
+  @override
+  String get runtimeTypeName => 'AftComponent';
+
+  @override
+  Map<String, Object?> toJson() => _$AftComponentToJson(this);
+}
+
+class AftRepoComponent {
+  const AftRepoComponent({
+    required this.name,
+    this.summary,
+    required this.packages,
+    required this.packageGraph,
+  });
+
+  /// The name of the component.
+  final String name;
+
+  /// The package name which summarizes all component changes in its changleog.
+  final PackageInfo? summary;
+
+  /// The list of packages in the component.
+  final List<PackageInfo> packages;
+
+  /// The graph of packages to their dependencies.
+  final Map<PackageInfo, List<PackageInfo>> packageGraph;
 }
 
 /// Typed representation of the `sdk.yaml` file.
@@ -383,4 +453,58 @@ class _VersionConstraintConverter
 
   @override
   String toJson(VersionConstraint object) => object.toString();
+}
+
+/// The type of version change to perform.
+enum VersionBumpType {
+  /// Library packages are allowed to vary in their version, meaning a small
+  /// change to one package (e.g. Update README) should be isolated to the
+  /// affected package.
+  ///
+  /// Examples:
+  /// * If the current version of a 0-based `aws_common` is `0.1.0` and its
+  ///   README is updated, it and it alone should be bumped to `0.1.1`.
+  ///   Note: a bump to `0.1.1` is technically a “minor” version bump in
+  ///   0-based SemVer, but for consistency we can choose not to use build
+  ///   numbers (+).
+  /// * If the current version of a 1-based `amplify_flutter` is `1.0.0` and its
+  ///   README is updated, it and it alone should be bumped to `1.0.1`.
+  ///
+  /// This version change is reserved for chores and bug fixes as denoted by
+  /// the following conventional commit tags: `fix`, `bug`, `perf`, `chore`,
+  /// `build`, `ci`, `docs`, `refactor`, `revert`, `style`, `test`.
+  patch,
+
+  /// A non-breaking version bump for a package represents a divergence from
+  /// the previous version in terms of behavior or functionality in the form of
+  /// a new feature.
+  ///
+  /// Examples:
+  /// * If the current version of a 0-based aws_common is `0.1.0` and it is part
+  ///   of a feature change, it is bumped to `0.1.1` alongside all other package
+  ///   bumps.
+  /// * If the current version of a 1-based amplify_flutter is `1.0.0` and it is
+  ///   part of a feature change, it is bumped to `1.1.0` alongside all other
+  ///   package bumps.
+  ///
+  /// This version change is reserved for new features denoted by the `feat`
+  /// conventional commit tag.
+  nonBreaking,
+
+  /// A breaking version bump is reserved for breaking API changes. **These are
+  /// rarely done.**
+  ///
+  /// * 0-based packages are allowed to break their APIs while 0-based and
+  ///   follow the non-breaking version scheme described above, e.g.
+  ///   `0.1.0` → `0.2.0`.
+  ///
+  /// * Stable packages (>1.0.0) bump to the next SemVer major version, e.g.
+  ///   `1.0.0` → `2.0.0`.
+  ///
+  /// Packages opt in to this behavior by suffixing an exclamation point to
+  /// their commit message title tag, e.g.
+  ///
+  /// - `feat(auth): A new feature` would be a non-breaking feature change.
+  /// - `feat(auth)!: A new feature` would be a breaking feature change.
+  breaking,
 }

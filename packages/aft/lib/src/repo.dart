@@ -49,14 +49,39 @@ class Repo {
     allPackages.values.where((pkg) => pkg.isDevelopmentPackage).toList(),
   );
 
-  /// The components of the
-  late final Map<String, List<PackageInfo>> components =
-      aftConfig.components.map((component, packages) {
-    return MapEntry(
-      component,
-      packages.map((name) => allPackages[name]!).toList(),
+  /// The components of the repository.
+  late final Map<String, AftRepoComponent> components = () {
+    final components = Map.fromEntries(
+      aftConfig.components.map((component) {
+        final summaryPackage =
+            component.summary == null ? null : allPackages[component.summary]!;
+        final packages =
+            component.packages.map((name) => allPackages[name]!).toList();
+        final packageGraph = UnmodifiableMapView({
+          for (final package in packages)
+            package: package.pubspecInfo.pubspec.dependencies.keys
+                .map(
+                  (packageName) => packages.firstWhereOrNull(
+                    (pkg) => pkg.name == packageName,
+                  ),
+                )
+                .whereType<PackageInfo>()
+                .toList(),
+        });
+        return MapEntry(
+          component.name,
+          AftRepoComponent(
+            name: component.name,
+            summary: summaryPackage,
+            packages: packages,
+            packageGraph: packageGraph,
+          ),
+        );
+      }),
     );
-  });
+    logger.verbose('Components: $components');
+    return components;
+  }();
 
   /// The libgit repository.
   late final Repository repo = Repository.open(rootDir.path);
@@ -114,6 +139,8 @@ class Repo {
   }();
 
   /// The git diff between [oldTree] and [newTree].
+  ///
+  /// **NOTE**: This is an expensive operation and its result should be cached.
   Diff diffTrees(Tree oldTree, Tree newTree) => Diff.treeToTree(
         repo: repo,
         oldTree: oldTree,
@@ -179,6 +206,7 @@ class Repo {
             final commitMessage = CommitMessage.parse(
               commit.oid.sha,
               commit.summary,
+              body: commit.body,
               dateTime: DateTime.fromMillisecondsSinceEpoch(
                 commit.time * 1000,
               ).toUtc(),
@@ -219,14 +247,15 @@ class Repo {
       changes.commitsByPackage[package]?.forEach((commit) {
         // TODO(dnys1): Define full set of commit types which should be ignored
         // when considering version changes.
-        if (commit.isVersionBump ||
-            commit.type == CommitType.merge && commit.taggedPr == null) {
+        final bumpType = commit.bumpType;
+        if (bumpType == null) {
           return;
         }
         bumpVersion(
           package,
           commit: commit,
-          propagate: commit.isBreakingChange,
+          type: bumpType,
+          includeInChangelog: commit.includeInChangelog,
         );
         // Propagate the version change to all packages affected by the same
         // commit as if they were a component.
@@ -237,72 +266,124 @@ class Repo {
     }
   }
 
-  /// Bumps the version and changelog in [package] using [commit] and returns
-  /// the new version.
+  /// Bumps the version and changelog in [package] and its component packages
+  /// using [commit] and returns the new version.
   ///
-  /// If [propagate] is `true`, the version change is propagated to all packages
-  /// which depend on [package].
+  /// If [type] is [VersionBumpType.breaking], the version change is propagated
+  /// to all packages which depend on [package].
+  ///
+  /// If [propogateToComponent] is `true`, all component packages are bumped to
+  /// the same version.
+  /// [VersionBumpType.nonBreaking] or [VersionBumpType.breaking].
   Version bumpVersion(
     PackageInfo package, {
-    bool propagate = false,
     required CommitMessage commit,
+    required VersionBumpType type,
+    required bool includeInChangelog,
+    bool? propogateToComponent,
   }) {
-    final component = aftConfig.componentForPackage(package.name);
+    logger.verbose('bumpVersion ${package.name} $commit');
+    final componentName = aftConfig.componentForPackage(package.name);
+    final component = components[componentName];
     final currentVersion = package.version;
     final currentProposedVersion = versionChanges.newVersion(package);
-    final isBreakingChange = commit.isBreakingChange;
-    final newProposedVersion = currentVersion.nextAmplifyVersion(
-      isBreakingChange: isBreakingChange,
-    );
+    final newProposedVersion = currentVersion.nextAmplifyVersion(type);
     final newVersion = maxBy(
-      [currentProposedVersion, newProposedVersion],
+      [currentProposedVersion, newProposedVersion.version],
       (version) => version,
     )!;
     versionChanges.updateVersion(package, newVersion);
+    propogateToComponent ??= newProposedVersion.propogateToComponent;
+
+    final currentChangelogUpdate = changelogUpdates[package];
+    changelogUpdates[package] = package.changelog.update(
+      commits: {
+        ...?currentChangelogUpdate?.commits,
+        if (includeInChangelog) commit,
+      },
+      version: newVersion,
+    );
+    logger
+      ..verbose('  component: $componentName')
+      ..verbose('  currentVersion: $currentVersion')
+      ..verbose('  currentProposedVersion: $currentProposedVersion')
+      ..verbose('  newProposedVersion: $newProposedVersion')
+      ..verbose('  newVersion: $newVersion');
 
     if (newVersion > currentVersion) {
       logger.debug(
-        'Bumping ${package.name} from $currentProposedVersion to $newVersion: '
+        'Bumping ${package.name} from $currentVersion to $newVersion: '
         '${commit.summary}',
       );
       package.pubspecInfo.pubspecYamlEditor.update(
         ['version'],
         newVersion.toString(),
       );
-      final currentChangelogUpdate = changelogUpdates[package];
-      changelogUpdates[package] = package.changelog.update(
-        commits: {
-          ...?currentChangelogUpdate?.commits,
-          commit,
-        },
-        version: newVersion,
-      );
-
-      if (propagate) {
-        // Propagate to all dependent packages.
+      if (type == VersionBumpType.breaking) {
+        // Back-propogate to all dependent packages for breaking changes.
+        //
+        // Since we set semantic version constraints, only a breaking change
+        // in a direct dependency necessitates a version bump.
+        logger.verbose('Performing dfs on dependent packages...');
         dfs<PackageInfo>(
           reversedPackageGraph,
           root: package,
           (dependent) {
+            if (dependent == package) return;
+            logger.verbose('dfs found dependent package ${dependent.name}');
             if (dependent.isDevelopmentPackage) {
-              bumpVersion(dependent, commit: commit);
+              bumpVersion(
+                dependent,
+                commit: commit,
+                // Do not consider it a breaking change in dependent packages
+                // even if it was a breaking change in the main package.
+                type: VersionBumpType.nonBreaking,
+                includeInChangelog: false,
+              );
             }
             bumpDependency(package, dependent);
           },
         );
-
-        // Propagate to all component packages.
-        components[component]?.forEach((componentPackage) {
-          bumpVersion(componentPackage, commit: commit);
-          dfs<PackageInfo>(
-            reversedPackageGraph,
-            root: componentPackage,
-            (dependent) {
-              bumpDependency(componentPackage, dependent);
-            },
-          );
-        });
       }
+
+      // Propagate to all component packages.
+      final componentPackages = component?.packageGraph;
+      if (propogateToComponent && componentPackages != null) {
+        dfs<PackageInfo>(
+          componentPackages,
+          (componentPackage) {
+            if (componentPackage == package) return;
+            logger.verbose(
+              'Bumping component package ${componentPackage.name}',
+            );
+            bumpVersion(
+              componentPackage,
+              commit: commit,
+              type: type,
+              includeInChangelog: false,
+              propogateToComponent: false,
+            );
+          },
+        );
+      }
+    }
+
+    // Update summary package's changelog if it exists.
+    final summaryPackage = component?.summary;
+    if (summaryPackage != null) {
+      logger.debug(
+        'Updating summary package `${summaryPackage.name}` '
+        'with commit: $commit',
+      );
+      final packageVersion = versionChanges[summaryPackage.name];
+      final currentChangelogUpdate = changelogUpdates[summaryPackage];
+      changelogUpdates[summaryPackage] = summaryPackage.changelog.update(
+        commits: {
+          ...?currentChangelogUpdate?.commits,
+          commit,
+        },
+        version: packageVersion,
+      );
     }
 
     return newVersion;
@@ -352,7 +433,11 @@ class VersionChanges extends MapBase<String, Version>
   /// The latest proposed version for [package].
   Version newVersion(PackageInfo package) {
     final component = _repo.aftConfig.componentForPackage(package.name);
-    return _versionUpdates[component] ?? package.version;
+    final componentVersion = _versionUpdates['component_$component'];
+    if (componentVersion != null) {
+      return componentVersion;
+    }
+    return _versionUpdates[package.name] ??= package.version;
   }
 
   /// Updates the proposed version for [package].
@@ -362,7 +447,8 @@ class VersionChanges extends MapBase<String, Version>
       return;
     }
     final component = _repo.aftConfig.componentForPackage(package.name);
-    _versionUpdates[component] = version;
+    _versionUpdates['component_$component'] = version;
+    _versionUpdates[package.name] = version;
   }
 
   @override
