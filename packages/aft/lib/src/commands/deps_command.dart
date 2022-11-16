@@ -12,11 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
+import 'package:aws_common/aws_common.dart';
+import 'package:collection/collection.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
+import 'package:yaml_edit/yaml_edit.dart';
 
 enum _DepsAction {
   check(
@@ -25,9 +29,13 @@ enum _DepsAction {
     'All dependencies matched!',
   ),
   update(
-    'Updates dependency constraints throughout the repo to match those '
-        'in the global dependency config',
+    'Updates dependency constraints in aft.yaml to match the latest in pub',
     'Dependencies successfully updated!',
+  ),
+  apply(
+    'Applies dependency constraints throughout the repo to match those '
+        'in the global dependency config',
+    'Dependencies successfully applied!',
   );
 
   const _DepsAction(this.description, this.successMessage);
@@ -40,7 +48,8 @@ enum _DepsAction {
 class DepsCommand extends AmplifyCommand {
   DepsCommand() {
     addSubcommand(_DepsSubcommand(_DepsAction.check));
-    addSubcommand(_DepsSubcommand(_DepsAction.update));
+    addSubcommand(_DepsSubcommand(_DepsAction.apply));
+    addSubcommand(_DepsUpdateCommand());
   }
 
   @override
@@ -81,7 +90,10 @@ class _DepsSubcommand extends AmplifyCommand {
       satisfiesGlobalConstraint = globalDep.value == localDep.version;
     } else {
       final localConstraint = localDep.version;
-      satisfiesGlobalConstraint = globalConstraint.allowsAll(localConstraint);
+      // Packages are not allowed to diverge from `aft.yaml`, even to specify
+      // more precise constraints.
+      satisfiesGlobalConstraint =
+          globalConstraint.difference(localConstraint).isEmpty;
     }
     if (!satisfiesGlobalConstraint) {
       switch (action) {
@@ -93,6 +105,7 @@ class _DepsSubcommand extends AmplifyCommand {
             'Found ${localDep.version}\n',
           );
           break;
+        case _DepsAction.apply:
         case _DepsAction.update:
           package.pubspecInfo.pubspecYamlEditor.update(
             [dependencyType.key, dependencyName],
@@ -103,8 +116,7 @@ class _DepsSubcommand extends AmplifyCommand {
     }
   }
 
-  @override
-  Future<void> run() async {
+  Future<void> _run(_DepsAction action) async {
     final globalDependencyConfig = (await aftConfig).dependencies;
     for (final package in (await allPackages).values) {
       for (final globalDep in globalDependencyConfig.entries) {
@@ -129,7 +141,7 @@ class _DepsSubcommand extends AmplifyCommand {
       }
 
       if (package.pubspecInfo.pubspecYamlEditor.edits.isNotEmpty) {
-        await File.fromUri(package.pubspecInfo.uri).writeAsString(
+        File.fromUri(package.pubspecInfo.uri).writeAsStringSync(
           package.pubspecInfo.pubspecYamlEditor.toString(),
         );
       }
@@ -141,5 +153,112 @@ class _DepsSubcommand extends AmplifyCommand {
       exit(1);
     }
     logger.stdout(action.successMessage);
+  }
+
+  @override
+  Future<void> run() async {
+    return _run(action);
+  }
+}
+
+class _DepsUpdateCommand extends _DepsSubcommand {
+  _DepsUpdateCommand() : super(_DepsAction.update);
+
+  @override
+  Future<void> run() async {
+    final globalDependencyConfig = (await aftConfig).dependencies;
+
+    final aftEditor = YamlEditor(await aftConfigYaml);
+    final failedUpdates = <String>[];
+    for (final entry in globalDependencyConfig.entries) {
+      final package = entry.key;
+      final versionConstraint = entry.value;
+      VersionConstraint? newVersionConstraint;
+
+      // TODO(dnys1): Merge with publish logic
+      // Get the currently published version of the package.
+      final uri = Uri.parse('https://pub.dev/api/packages/$package');
+      logger.trace('GET $uri');
+      try {
+        final resp = await httpClient.get(
+          uri,
+          headers: {AWSHeaders.accept: 'application/vnd.pub.v2+json'},
+        );
+        if (resp.statusCode != 200) {
+          failedUpdates.add('$package: Could not reach server');
+          continue;
+        }
+        final respJson = jsonDecode(resp.body) as Map<String, Object?>;
+        final latestVersionStr =
+            (respJson['latest'] as Map?)?['version'] as String?;
+        if (latestVersionStr == null) {
+          failedUpdates.add('$package: No versions found for package');
+          continue;
+        }
+        final latestVersion = Version.parse(latestVersionStr);
+
+        // Update the constraint to include `latestVersion` as its new upper
+        // bound.
+        if (versionConstraint is Version) {
+          // For pinned versions, update them to the latest version (do not
+          // create a range).
+          if (latestVersion != versionConstraint) {
+            newVersionConstraint = maxBy(
+              [versionConstraint, latestVersion],
+              (v) => v,
+            );
+          }
+        } else {
+          // For ranged versions, bump the upper bound to the latest version,
+          // keeping the lower bound valid.
+          versionConstraint as VersionRange;
+          final lowerBound = versionConstraint.min;
+          final includeLowerBound = versionConstraint.includeMin;
+          final upperBound = versionConstraint.max;
+          final includeUpperBound = upperBound == null || upperBound.includeMax;
+          final newUpperBound = maxBy(
+            [if (upperBound != null) upperBound, latestVersion],
+            (v) => v,
+          )!;
+          final updateVersion = newUpperBound != lowerBound &&
+              (upperBound == null || upperBound.compareTo(newUpperBound) < 0);
+          if (updateVersion) {
+            newVersionConstraint = VersionRange(
+              min: lowerBound,
+              includeMin: includeLowerBound,
+              max: newUpperBound,
+              includeMax: includeUpperBound,
+            );
+          }
+        }
+      } on Exception catch (e) {
+        failedUpdates.add('$package: $e');
+        continue;
+      }
+
+      if (newVersionConstraint != null) {
+        aftEditor.update(
+          ['dependencies', package],
+          newVersionConstraint.toString(),
+        );
+      }
+    }
+
+    if (aftEditor.edits.isNotEmpty) {
+      File(await aftConfigPath).writeAsStringSync(
+        aftEditor.toString(),
+        flush: true,
+      );
+      logger.stdout(action.successMessage);
+    } else {
+      logger.stderr('No dependencies updated');
+    }
+
+    for (final failedUpdate in failedUpdates) {
+      logger.stderr('Could not update $failedUpdate');
+      exitCode = 1;
+    }
+
+    await _run(_DepsAction.apply);
   }
 }

@@ -6,7 +6,10 @@ A CLI tool for managing the Amplify Flutter repository.
 
 - `bootstrap`/`bs`: Sets up repo for development work
 - `clean`: Cleans temporary files and build artifacts for all packages
-- `deps check`: Checks dependencies of all packages against `aft.yaml`
+- `deps`: Manages dependencies of all packages in the repo
+  - `check`: Checks dependencies against `aft.yaml`, for use in CI
+  - `update`: Updates dependency constraints in `aft.yaml` to match latest in `pub.dev`
+  - `apply`: Applies dependency constraints in `aft.yaml` to all repo packages
 - `generate-sdk`: Generates the AWS SDK for a given package
 - `link`: Links all packages together using `pubspec_overrides.yaml`
 - `list`: Lists all packages in the repo
