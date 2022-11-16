@@ -21,7 +21,7 @@ platforms:
 dependencies:
   amplify_core: ">=1.0.0-next.1 <1.0.0-next.2"
   amplify_db_common: ">=0.1.1 <0.2.0"
-  amplify_storage_s3_dart: ">=0.1.1 <0.2.0"
+  amplify_storage_s3_dart: ">=0.1.0 <0.2.0"
   aws_common: ">=0.3.1 <0.4.0"
   flutter:
     sdk: flutter
@@ -32,7 +32,7 @@ dev_dependencies:
   amplify_lints: ^2.0.0
   amplify_test:
     path: ../../amplify_test
-  aws_signature_v4: ^0.2.0
+  aws_signature_v4:
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0
