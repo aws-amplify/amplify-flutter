@@ -75,7 +75,6 @@ class PubSubcommand extends AmplifyCommand {
 
   @override
   Future<void> run() async {
-    final allPackages = await this.allPackages;
     await pubAction(
       action: action,
       allPackages: allPackages,

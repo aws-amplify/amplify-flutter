@@ -28,11 +28,11 @@ void main() {
     final command = MockCommand();
 
     test('rootDir', () {
-      expect(command.rootDir, completes);
+      expect(() => command.rootDir, returnsNormally);
     });
 
     test('allPackages', () async {
-      final allPackages = await command.allPackages;
+      final allPackages = command.allPackages;
       expect(
         allPackages,
         contains('amplify_flutter'),
@@ -40,7 +40,7 @@ void main() {
     });
 
     test('globalDependencyConfig', () async {
-      final config = await command.aftConfig;
+      final config = command.aftConfig;
       expect(config.dependencies, contains('uuid'));
     });
   });

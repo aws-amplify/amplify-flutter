@@ -117,8 +117,8 @@ class _DepsSubcommand extends AmplifyCommand {
   }
 
   Future<void> _run(_DepsAction action) async {
-    final globalDependencyConfig = (await aftConfig).dependencies;
-    for (final package in (await allPackages).values) {
+    final globalDependencyConfig = aftConfig.dependencies;
+    for (final package in allPackages.values) {
       for (final globalDep in globalDependencyConfig.entries) {
         _checkDependency(
           package,
@@ -166,9 +166,9 @@ class _DepsUpdateCommand extends _DepsSubcommand {
 
   @override
   Future<void> run() async {
-    final globalDependencyConfig = (await aftConfig).dependencies;
+    final globalDependencyConfig = aftConfig.dependencies;
 
-    final aftEditor = YamlEditor(await aftConfigYaml);
+    final aftEditor = YamlEditor(aftConfigYaml);
     final failedUpdates = <String>[];
     for (final entry in globalDependencyConfig.entries) {
       final package = entry.key;
@@ -245,7 +245,7 @@ class _DepsUpdateCommand extends _DepsSubcommand {
     }
 
     if (aftEditor.edits.isNotEmpty) {
-      File(await aftConfigPath).writeAsStringSync(
+      File(aftConfigPath).writeAsStringSync(
         aftEditor.toString(),
         flush: true,
       );

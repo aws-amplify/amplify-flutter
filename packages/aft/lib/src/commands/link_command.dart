@@ -32,7 +32,6 @@ class LinkCommand extends AmplifyCommand {
 
   @override
   Future<void> run() async {
-    final allPackages = await this.allPackages;
     await linkPackages(allPackages);
     stdout.writeln('Packages successfully linked!');
   }
