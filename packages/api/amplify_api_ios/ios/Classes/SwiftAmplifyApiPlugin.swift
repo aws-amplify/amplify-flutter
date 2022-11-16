@@ -20,75 +20,31 @@ import AmplifyPlugins
 import amplify_flutter_ios
 import AWSPluginsCore
 
-public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
-    private let bridge: ApiBridge
-    private let graphQLSubscriptionsStreamHandler: GraphQLSubscriptionsStreamHandler
-    static var methodChannel: FlutterMethodChannel!
-
-    init(
-        bridge: ApiBridge = ApiBridge(),
-        graphQLSubscriptionsStreamHandler: GraphQLSubscriptionsStreamHandler = GraphQLSubscriptionsStreamHandler()
-    ) {
-        self.bridge = bridge
-        self.graphQLSubscriptionsStreamHandler = graphQLSubscriptionsStreamHandler
-    }
-
+public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin, NativeApiBridge {
+    /// Configured via `pigeon` and supports getting auth tokens from Dart when using OIDC/Lambda
+    /// auth modes with Datastore until Datastore implemented in Dart.
+    static var nativeApiPlugin: NativeApiPlugin!
+    
     public static func register(with registrar: FlutterPluginRegistrar) {
-        methodChannel = FlutterMethodChannel(
-            name: "com.amazonaws.amplify/api",
-            binaryMessenger: registrar.messenger())
-        let eventchannel = FlutterEventChannel(
-            name: "com.amazonaws.amplify/api_observe_events",
-            binaryMessenger: registrar.messenger())
+        nativeApiPlugin = NativeApiPlugin(binaryMessenger: registrar.messenger())
         let instance = SwiftAmplifyApiPlugin()
-        eventchannel.setStreamHandler(instance.graphQLSubscriptionsStreamHandler)
-        registrar.addMethodCallDelegate(instance, channel: methodChannel)
+
+        NativeApiBridgeSetup(registrar.messenger(), instance)
     }
-
-    public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        let result = AtomicResult(result, call.method)
-
-        innerHandle(method: call.method, callArgs: call.arguments as Any, result: result)
-    }
-
-    // Create separate method to allow unit testing as we cannot mock "FlutterMethodCall"
-    public func innerHandle(method: String, callArgs: Any, result: @escaping FlutterResult) {
+   
+    public func addPluginAuthProvidersList(_ authProvidersList: [String]) async -> FlutterError? {
         do {
-            if method == "cancel"{
-                let cancelToken = try FlutterApiRequest.getCancelToken(args: callArgs)
-                onCancel(flutterResult: result, cancelToken: cancelToken)
-                return
+            let authProviders = authProvidersList.compactMap {
+                AWSAuthorizationType(rawValue: $0)
             }
-
-            let arguments = try FlutterApiRequest.getMap(args: callArgs)
-
-            if method == "addPlugin"{
-                let authProvidersList = arguments["authProviders"] as? [String] ?? []
-                let authProviders = authProvidersList.compactMap {
-                    AWSAuthorizationType(rawValue: $0)
-                }
-                addPlugin(authProviders: authProviders, result: result)
-                return
-            }
-
-            try innerHandle(method: method, arguments: arguments, result: result)
-        } catch {
-            print("Failed to parse query arguments with \(error)")
-            FlutterApiErrorHandler.handleApiError(error: APIError(error: error), flutterResult: result)
-        }
-    }
-
-    private func addPlugin(authProviders: [AWSAuthorizationType], result: FlutterResult) {
-        do {
             try Amplify.add(
                 plugin: AWSAPIPlugin(
-                    sessionFactory: FlutterURLSessionBehaviorFactory(),
                     apiAuthProviderFactory: FlutterAuthProviders(authProviders)))
-            result(true)
+            return nil
         } catch let apiError as APIError {
-            ErrorUtil.postErrorToFlutterChannel(
-                result: result,
-                errorCode: "APIException",
+            return FlutterError(
+                code: "APIException",
+                message: apiError.localizedDescription,
                 details: [
                     "message": apiError.errorDescription,
                     "recoverySuggestion": apiError.recoverySuggestion,
@@ -100,62 +56,21 @@ public class SwiftAmplifyApiPlugin: NSObject, FlutterPlugin {
             if case .amplifyAlreadyConfigured = configError {
                 errorCode = "AmplifyAlreadyConfiguredException"
             }
-            ErrorUtil.postErrorToFlutterChannel(
-                result: result,
-                errorCode: errorCode,
+            return FlutterError(
+                code: errorCode,
+                message: configError.localizedDescription,
                 details: [
                     "message": configError.errorDescription,
                     "recoverySuggestion": configError.recoverySuggestion,
                     "underlyingError": configError.underlyingError?.localizedDescription ?? ""
                 ]
             )
-        } catch {
-            ErrorUtil.postErrorToFlutterChannel(
-                result: result,
-                errorCode: "UNKNOWN",
-                details: ["message": error.localizedDescription])
-        }
-    }
-
-    private func innerHandle(
-        method: String,
-        arguments: [String: Any],
-        result: @escaping FlutterResult
-    ) throws {
-        switch method {
-        case "get": FlutterRestApi.get(flutterResult: result, arguments: arguments, bridge: bridge)
-        case "post": FlutterRestApi.post(flutterResult: result, arguments: arguments, bridge: bridge)
-        case "put": FlutterRestApi.put(flutterResult: result, arguments: arguments, bridge: bridge)
-        case "delete": FlutterRestApi.delete(flutterResult: result, arguments: arguments, bridge: bridge)
-        case "head": FlutterRestApi.head(flutterResult: result, arguments: arguments, bridge: bridge)
-        case "patch": FlutterRestApi.patch(flutterResult: result, arguments: arguments, bridge: bridge)
-        case "query":
-            FlutterGraphQLApi.query(flutterResult: result, request: arguments, bridge: bridge)
-        case "mutate":
-            FlutterGraphQLApi.mutate(flutterResult: result, request: arguments, bridge: bridge)
-        case "subscribe":
-            FlutterGraphQLApi.subscribe(
-                flutterResult: result,
-                request: arguments, bridge: bridge,
-                graphQLSubscriptionsStreamHandler: graphQLSubscriptionsStreamHandler
+        } catch let e {
+            return FlutterError(
+                code: "UNKNOWN",
+                message: e.localizedDescription,
+                details: nil
             )
-        default:
-            result(FlutterMethodNotImplemented)
-        }
-    }
-
-    public func onCancel(flutterResult: @escaping FlutterResult, cancelToken: String) {
-        if OperationsManager.containsOperation(cancelToken: cancelToken) {
-            OperationsManager.cancelOperation(cancelToken: cancelToken)
-            flutterResult("Operation Canceled")
-        } else {
-            flutterResult(FlutterError(
-                            code: "AmplifyAPI-CancelError",
-                            message: """
-                            The Operation may have already been completed or expired and cannot \
-                            be canceled anymore
-                            """,
-                            details: "Operation does not exist"))
         }
     }
 }

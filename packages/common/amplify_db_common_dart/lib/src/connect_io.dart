@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
 import 'dart:io';
 import 'dart:isolate';
 
@@ -28,13 +29,14 @@ import 'package:path/path.dart' as p;
 /// for more info.
 QueryExecutor connect({
   required String name,
-  String? path,
+  FutureOr<String>? path,
 }) {
   assert(path != null, 'path cannot be null on vm.');
 
   return DatabaseConnection.delayed(
     Future.sync(() async {
-      final dbPath = p.join(path!, 'com.amplify.$name.sqlite');
+      final resolvedPath = await path;
+      final dbPath = p.join(resolvedPath!, 'com.amplify.$name.sqlite');
 
       final receiveDriftIsolate = ReceivePort();
       await Isolate.spawn(

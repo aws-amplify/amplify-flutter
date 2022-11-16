@@ -12,9 +12,13 @@ For production use cases please use the latest, non-tagged versions of amplify-f
 
 | Category       | Android | iOS | Web | Windows | MacOS | Linux |
 | -------------- | :-----: | :-: | :-: | :-----: | :---: | :---: |
-| Analytics      |   🔴    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
-| API (REST)     |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
-| API (GraphQL)  |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| Analytics      |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
+| API (REST)     |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
+| API (GraphQL)  |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
 | Authentication |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
 | DataStore      |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
-| Storage        |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| Storage        |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
+
+## Getting Started
+
+### Visit our [Web Site](https://docs.amplify.aws/) to learn more about AWS Amplify.

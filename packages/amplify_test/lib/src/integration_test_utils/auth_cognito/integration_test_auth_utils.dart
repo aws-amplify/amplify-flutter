@@ -183,7 +183,7 @@ Future<String> getOtpCode(String username) async {
         ),
       )
       .map((event) {
-        if (event.errors.isNotEmpty) {
+        if (event.hasErrors) {
           throw Exception(event.errors);
         }
         final json = jsonDecode(event.data!)['onCreateMFACode'] as Map;
@@ -220,7 +220,7 @@ Stream<String> getOtpCodes() {
     ),
   )
       .map((event) {
-    if (event.errors.isNotEmpty) {
+    if (event.hasErrors) {
       throw Exception(event.errors);
     }
     final json = jsonDecode(event.data!)['onCreateMFACode'] as Map;

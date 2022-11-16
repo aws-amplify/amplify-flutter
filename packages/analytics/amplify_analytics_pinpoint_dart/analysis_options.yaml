@@ -1,0 +1,7 @@
+include: package:amplify_lints/library.yaml
+
+analyzer:
+  exclude:
+    - '**/*.g.dart'
+    - lib/src/sdk/src/**
+    - lib/src/version.dart

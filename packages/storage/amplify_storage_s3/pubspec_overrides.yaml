@@ -1,0 +1,50 @@
+# Generated with `aft`. Do not modify by hand or check into source control.
+dependency_overrides: 
+  amplify_api:
+    path: ../../api/amplify_api
+  amplify_api_android:
+    path: ../../api/amplify_api_android
+  amplify_api_ios:
+    path: ../../api/amplify_api_ios
+  amplify_auth_cognito:
+    path: ../../auth/amplify_auth_cognito
+  amplify_auth_cognito_android:
+    path: ../../auth/amplify_auth_cognito_android
+  amplify_auth_cognito_dart:
+    path: ../../auth/amplify_auth_cognito_dart
+  amplify_auth_cognito_ios:
+    path: ../../auth/amplify_auth_cognito_ios
+  amplify_core:
+    path: ../../amplify_core
+  amplify_datastore_plugin_interface:
+    path: ../../amplify_datastore_plugin_interface
+  amplify_db_common:
+    path: ../../common/amplify_db_common
+  amplify_db_common_dart:
+    path: ../../common/amplify_db_common_dart
+  amplify_flutter:
+    path: ../../amplify/amplify_flutter
+  amplify_flutter_android:
+    path: ../../amplify/amplify_flutter_android
+  amplify_flutter_ios:
+    path: ../../amplify/amplify_flutter_ios
+  amplify_lints:
+    path: ../../amplify_lints
+  amplify_secure_storage:
+    path: ../../secure_storage/amplify_secure_storage
+  amplify_secure_storage_dart:
+    path: ../../secure_storage/amplify_secure_storage_dart
+  amplify_storage_s3_dart:
+    path: ../amplify_storage_s3_dart
+  amplify_test:
+    path: ../../amplify_test
+  aws_common:
+    path: ../../aws_common
+  aws_signature_v4:
+    path: ../../aws_signature_v4
+  smithy:
+    path: ../../smithy/smithy
+  smithy_aws:
+    path: ../../smithy/smithy_aws
+  worker_bee:
+    path: ../../worker_bee/worker_bee

@@ -21,11 +21,10 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class RestException extends ApiException {
   /// The HTTP response from the server.
-  final RestResponse response;
+  final AWSHttpResponse response;
 
   /// {@macro rest_exception}
-  RestException(this.response)
-      : super(response.body, httpStatusCode: response.statusCode);
+  RestException(this.response) : super(response.decodeBody());
 
   @override
   String toString() {

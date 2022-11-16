@@ -23,9 +23,18 @@ import 'util.dart';
 
 void main() {
   group('drift utils', () {
-    test('connect completes ', () async {
+    test('connect completes', () async {
       expect(
         connect(name: 'TestDatabase', path: '/tmp').ensureOpen(
+          TestQueryExecutorUser(),
+        ),
+        completes,
+      );
+    });
+
+    test('connect completes with delayed path resolving', () async {
+      expect(
+        connect(name: 'TestDatabase', path: Future.value('/tmp')).ensureOpen(
           TestQueryExecutorUser(),
         ),
         completes,

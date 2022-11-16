@@ -1,0 +1,20 @@
+apis:
+  s3:
+  - com.amazonaws.s3#CopyObject
+  - com.amazonaws.s3#DeleteObject
+  - com.amazonaws.s3#DeleteObjects
+  - com.amazonaws.s3#GetObject
+  - com.amazonaws.s3#HeadObject
+  - com.amazonaws.s3#ListObjectsV2
+  - com.amazonaws.s3#PutObject
+  - com.amazonaws.s3#AbortMultipartUpload
+  - com.amazonaws.s3#CompleteMultipartUpload
+  - com.amazonaws.s3#CreateMultipartUpload
+  - com.amazonaws.s3#ListParts
+  - com.amazonaws.s3#UploadPart
+  - com.amazonaws.s3#ListMultipartUploads
+  - com.amazonaws.s3#UploadPartCopy
+  - com.amazonaws.s3#SelectObjectContent
+
+# TODO(dnys1): Remove when Smithy 2.0 migration is complete
+ref: bf750f19766048467c676f6841053f9da6c87bf3

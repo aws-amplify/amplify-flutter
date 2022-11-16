@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
 import 'package:drift/drift.dart';
 
 /// {@template amplify_db_common.connect}
@@ -24,7 +26,7 @@ import 'package:drift/drift.dart';
 /// [path] must be provided on vm platforms. It will be unused on web.
 QueryExecutor connect({
   required String name,
-  String? path,
+  FutureOr<String>? path,
 }) {
   throw UnimplementedError(
     'constructDb has not been implemented for this platform.',

@@ -101,25 +101,54 @@ void main() {
       expect(result.nextStep?.additionalInfo, isNull);
     });
 
-    test('unauthenticated identity ID should persist', () async {
+    test('identity ID should be the same between sessions', () async {
       // Get unauthenticated identity
       final unauthSession = await Amplify.Auth.fetchAuthSession(
         options: const CognitoSessionOptions(getAWSCredentials: true),
       ) as CognitoAuthSession;
 
       // Sign in
-      final signInRes = await Amplify.Auth.signIn(
-        username: username,
-        password: password,
-      );
-      expect(signInRes.nextStep?.signInStep, 'DONE');
+      {
+        final signInRes = await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+        );
+        expect(signInRes.nextStep?.signInStep, 'DONE');
+      }
 
       // Get authenticated identity
       final authSession = await Amplify.Auth.fetchAuthSession(
         options: const CognitoSessionOptions(getAWSCredentials: true),
       ) as CognitoAuthSession;
-      expect(authSession.identityId, unauthSession.identityId);
+      final authenticatedIdentity = authSession.identityId;
+      expect(
+        authenticatedIdentity,
+        isNot(unauthSession.identityId),
+        reason:
+            'Unauthenticated identities should be distinct from authenticated '
+            'identities, since unauthenticated identities are vended to all '
+            'new devices when guest access is enabled but should converge to '
+            'a singular authenticated identity across all devices',
+      );
       expect(authSession.credentials, isNot(unauthSession.credentials));
+
+      await Amplify.Auth.signOut();
+      {
+        final signInRes = await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+        );
+        expect(signInRes.nextStep?.signInStep, 'DONE');
+      }
+
+      final newSession = await Amplify.Auth.fetchAuthSession(
+        options: const CognitoSessionOptions(getAWSCredentials: true),
+      ) as CognitoAuthSession;
+      expect(
+        newSession.identityId,
+        authenticatedIdentity,
+        reason: 'Authenticated identity should be the same between sessions',
+      );
     });
   });
 
