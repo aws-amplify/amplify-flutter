@@ -55,6 +55,9 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   @override
   String get runtimeTypeName => 'WebSocketBloc';
 
+  /// Indicates if the bloc has finished closing
+  final done = Completer<void>();
+
   final StreamController<WebSocketState> _wsStateController =
       StreamController<WebSocketState>.broadcast(sync: true);
 
@@ -329,18 +332,20 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   ///
 
   /// Disconnects the web socket connection and closes streams.
-  Future<void> _close() {
+  Future<void> _close() async {
     if (_currentState is! FailureState) {
       _emit(_currentState.disconnect());
     }
 
     _currentState.service.close();
 
-    return Future.wait<void>([
+    await Future.wait<void>([
       _subscription.cancel(),
       _wsEventController.close(),
       _wsStateController.close(),
     ]);
+
+    done.complete();
   }
 
   // Returns a [WsSubscriptionBloc<T>] and stores in state

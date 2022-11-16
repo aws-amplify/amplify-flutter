@@ -15,10 +15,10 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/web_socket/blocs/web_socket_bloc.dart';
 import 'package:amplify_api/src/graphql/web_socket/state/web_socket_state.dart';
 import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../util.dart';
@@ -88,81 +88,78 @@ void main() {
       getWebSocketBloc().subscribe(
         subscribeEvent,
       );
-
-      // TODO(equartey): Implement Hub Events
-      // expect(
-      //   hubEvents,
-      //   emitsInOrder(
-      //     [
-      //       connectingHubEvent,
-      //       connectedHubEvent,
-      //     ],
-      //   ),
-      // );
     });
-  });
 
-  test('subscribe() should return a subscription stream', () async {
-    final subscribeEvent = SubscribeEvent(
-      subscriptionRequest,
-      () {
-        service!.channel.sink.add(mockDataString);
-      },
-    );
+    test('subscribe() should return a subscription stream', () async {
+      final dataCompleter = Completer<String>();
+      final subscribeEvent = SubscribeEvent(
+        subscriptionRequest,
+        () {
+          service!.channel.sink.add(mockDataString);
+        },
+      );
 
-    final subscription = getWebSocketBloc().subscribe(
-      subscribeEvent,
-    );
+      final bloc = getWebSocketBloc();
 
-    final streamSub = subscription.listen(
-      expectAsync1((event) {
-        expect(event.data, json.encode(mockSubscriptionData));
-      }),
-    );
+      final subscription = bloc.subscribe(
+        subscribeEvent,
+      );
 
-    addTearDown(streamSub.cancel);
-  });
+      final streamSub = subscription.listen(
+        expectAsync1((event) {
+          expect(event.data, json.encode(mockSubscriptionData));
+          dataCompleter.complete(event.data);
+        }),
+      );
 
-  test('cancel() should send a stop message & close connection', () async {
-    final subscribeEvent = SubscribeEvent(
-      subscriptionRequest,
-      () {
-        service!.channel.sink.add(mockDataString);
-      },
-    );
+      await dataCompleter.future;
+      await streamSub.cancel();
+      await bloc.done.future;
+    });
 
-    final dataCompleter = Completer<String>();
-    final bloc = getWebSocketBloc();
-    final subscription = bloc.subscribe(
-      subscribeEvent,
-    );
+    test('cancel() should send a stop message & close connection', () async {
+      final subscribeEvent = SubscribeEvent(
+        subscriptionRequest,
+        () {
+          service!.channel.sink.add(mockDataString);
+        },
+      );
 
-    final streamSub = subscription.listen(
-      (event) => dataCompleter.complete(event.data),
-    );
+      final dataCompleter = Completer<String>();
+      final bloc = getWebSocketBloc();
+      final subscription = bloc.subscribe(
+        subscribeEvent,
+      );
 
-    await dataCompleter.future;
+      final streamSub = subscription.listen(
+        (event) => dataCompleter.complete(event.data),
+      );
 
-    expect(
-      service!.channel.stream,
-      emitsInOrder(
-        [
-          isA<String>().having(
-            (event) => json.decode(event),
-            'web socket message',
-            containsPair('type', 'stop'),
-          ),
-          isA<String>().having(
-            (event) => json.decode(event),
-            'web socket message',
-            containsPair('type', 'complete'),
-          ),
-        ],
-      ),
-    );
-    // bloc should disconnect due to no active subscriptions
-    expect(bloc.stream, emitsThrough(isA<DisconnectedState>()));
+      await dataCompleter.future;
 
-    await streamSub.cancel();
+      expect(
+        service!.channel.stream,
+        emitsInOrder(
+          [
+            isA<String>().having(
+              (event) => json.decode(event),
+              'web socket stop message',
+              containsPair('type', 'stop'),
+            ),
+            isA<String>().having(
+              (event) => json.decode(event),
+              'web socket complete message',
+              containsPair('type', 'complete'),
+            ),
+          ],
+        ),
+      );
+      // bloc should disconnect due to no active subscriptions
+      expect(bloc.stream, emitsThrough(isA<DisconnectedState>()));
+
+      await streamSub.cancel();
+
+      await bloc.done.future;
+    });
   });
 }

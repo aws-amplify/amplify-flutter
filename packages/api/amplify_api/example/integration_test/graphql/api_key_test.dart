@@ -12,6 +12,7 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+import 'dart:async';
 import 'dart:io';
 
 import 'package:amplify_api/amplify_api.dart';
@@ -62,11 +63,17 @@ void main({bool useExistingTestUser = false}) {
       group(
         'subscriptions',
         () {
+          late StreamController<ApiHubEvent> hubEventsController;
+          late Stream<ApiHubEvent> hubEvents;
           setUpAll(() async {
             if (!useExistingTestUser) {
               await signUpTestUser();
             }
             await signInTestUser();
+
+            hubEventsController = StreamController.broadcast();
+            hubEvents = hubEventsController.stream;
+            Amplify.Hub.listen(HubChannel.Api, hubEventsController.add);
           });
 
           tearDownAll(() async {
@@ -74,11 +81,26 @@ void main({bool useExistingTestUser = false}) {
             if (!useExistingTestUser) {
               await deleteTestUser();
             }
+
+            hubEventsController.close();
+            Amplify.Hub.close();
           });
 
           testWidgets(
               'should emit event when onCreate subscription made with model helper',
               (WidgetTester tester) async {
+            expect(
+              hubEvents,
+              emitsInOrder(
+                [
+                  disconnectedHubEvent,
+                  connectingHubEvent,
+                  connectedHubEvent,
+                  pendingDisconnectedHubEvent,
+                  disconnectedHubEvent,
+                ],
+              ),
+            );
             String name =
                 'Integration Test Blog - subscription create ${uuid()}';
             final subscriptionRequest = ModelSubscriptions.onCreate(
