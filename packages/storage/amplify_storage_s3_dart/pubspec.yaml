@@ -11,7 +11,7 @@ environment:
 dependencies:
   amplify_core: ">=1.0.0-next.1 <1.0.0-next.2"
   amplify_db_common_dart: ">=0.1.1 <0.2.0"
-  async: ^2.8.2
+  async: ^2.8.0
   aws_common: ">=0.3.1 <0.4.0"
   aws_signature_v4: ">=0.3.0 <0.4.0"
   built_collection: ^5.0.0
