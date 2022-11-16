@@ -70,6 +70,14 @@ class AmplifyAPIDart extends AmplifyAPI {
 
   @override
   Future<void> reset() async {
+    for (final bloc in _webSocketBlocPool.values) {
+      bloc.add(const ShutdownEvent());
+    }
+
+    await Future.wait(
+      _webSocketBlocPool.values.map((bloc) => bloc.done.future),
+    );
+
     await _hubEventController.close();
   }
 
@@ -150,6 +158,7 @@ class AmplifyAPIDart extends AmplifyAPI {
     }
   }
 
+  // TODO(equartey): add [apiName] to event to distinguished when multiple blocs are running.
   void _emitHubEvent(WebSocketState state) {
     if (state is ConnectingState) {
       _hubEventController.add(SubscriptionHubEvent.connecting());

@@ -162,7 +162,7 @@ class MockAmplifyAPI extends AmplifyAPIDart {
   });
 
   @override
-  MockWebSocketBloc getWebSocketBloc(EndpointConfig endpoint) {
+  MockWebSocketBloc createWebSocketBloc(EndpointConfig endpoint) {
     return mockWebSocketBloc!;
   }
 }

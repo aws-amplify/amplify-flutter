@@ -56,7 +56,6 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   String get runtimeTypeName => 'WebSocketBloc';
 
   /// Indicates if the bloc has finished closing
-  @visibleForTesting
   final done = Completer<void>();
 
   final StreamController<WebSocketState> _wsStateController =
