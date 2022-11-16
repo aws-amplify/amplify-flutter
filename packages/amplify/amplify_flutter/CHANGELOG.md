@@ -1,3 +1,8 @@
+## 1.0.0-next.1+1
+
+### Fixes
+- fix(core): Configure all plugins
+
 ## 1.0.0-next.1
 
 ### Breaking Changes
