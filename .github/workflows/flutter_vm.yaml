@@ -56,6 +56,15 @@ jobs:
             echo "analysisDirs=lib" >> $GITHUB_OUTPUT
           fi
 
+      - name: Setup Package
+        if: "always() && steps.bootstrap.conclusion == 'success'"
+        shell: bash # Run in bash regardless of platform
+        working-directory: ${{ inputs.working-directory }}
+        run: |
+          if [ -e tool/setup.sh ]; then
+            ./tool/setup.sh
+          fi
+
       - name: Analyze
         if: "always() && steps.bootstrap.conclusion == 'success'"
         run: flutter analyze --fatal-infos --fatal-warnings ${{ steps.testCheck.outputs.analysisDirs }}

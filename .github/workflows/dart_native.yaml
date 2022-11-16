@@ -58,6 +58,15 @@ jobs:
         timeout-minutes: 15 # macOS needs extra time
         run: aft bootstrap
 
+      - name: Setup Package
+        if: "always() && steps.bootstrap.conclusion == 'success'"
+        shell: bash # Run in bash regardless of platform
+        working-directory: ${{ inputs.working-directory }}
+        run: |
+          if [ -e tool/setup.sh ]; then
+            ./tool/setup.sh
+          fi
+
       - name: Run Tests
         if: "always() && steps.bootstrap.conclusion == 'success'"
         run: dart test --exclude-tags=build
