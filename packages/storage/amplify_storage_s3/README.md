@@ -31,6 +31,8 @@ All Storage S3 plugin APIs now return an operation object rather than the result
 
 **Upload example**
 
+See [documentation](https://docs.amplify.aws/lib/storage/upload/q/platform/flutter/) for details API usage example.
+
 ```dart
 // before
 final result = await Amplify.Storage.uploadFile(
@@ -41,13 +43,15 @@ print('Uploaded file key: ${result.key}')
 
 // after
 final result = await Amplify.Storage.uploadFile(
-    local: exampleFile,
+    localFile: exampleFile,
     key: 'ExampleKey',
 ).result;
 print('Uploaded file key: ${result.uploadedItem.key}');
 ```
 
 **Download example**
+
+See [documentation](https://docs.amplify.aws/lib/storage/download/q/platform/flutter/) for details API usage example.
 
 ```dart
 // before
@@ -61,13 +65,15 @@ print('Downloaded local file path: ${result.file.path}')
 // after
 final result = await Amplify.Storage.downloadFile(
   key: 'ExampleKey',
-  local: file,
+  localFile: file,
 ).result;
 print('Downloaded file key: ${result.downloadedItem.key}');
 print('Downloaded local file path: ${result.localFile.path}');
 ```
 
 **List example**
+
+See [documentation](https://docs.amplify.aws/lib/storage/list/q/platform/flutter/) for details API usage example.
 
 ```dart
 // before
@@ -82,6 +88,8 @@ print('List nextToken: ${result.nextToken}');
 ```
 
 **Remove example**
+
+See [documentation](https://docs.amplify.aws/lib/storage/remove/q/platform/flutter/) for details API usage example.
 
 ```dart
 // before
@@ -98,6 +106,8 @@ print('Removed file key: ${result.removedItem.key}');
 ```
 
 **Get URL example**
+
+See [documentation](https://docs.amplify.aws/lib/storage/download/q/platform/flutter/#generate-a-download-url) for details API usage example.
 
 ```dart
 // before
