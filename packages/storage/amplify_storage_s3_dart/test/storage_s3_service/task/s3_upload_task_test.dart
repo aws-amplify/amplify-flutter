@@ -302,6 +302,7 @@ void main() {
       final testLocalFile = AWSFile.fromStream(
         Stream.value(testBytes),
         size: testBytes.length,
+        contentType: 'image/jpeg',
       );
       const testKey = 'object-upload-to';
 
@@ -353,6 +354,7 @@ void main() {
             accessLevel: testUploadDataOptions.accessLevel,
           )}$testKey',
         );
+        expect(request.contentType, testLocalFile.contentType);
         expect(await request.body?.toList(), equals([testBytes]));
       });
 
