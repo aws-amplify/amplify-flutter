@@ -41,8 +41,10 @@ import 'package:meta/meta.dart';
 /// final awsFile = AWSFile.fromStream(pickedFile.readStream);
 /// ```
 /// ----
+/// 
 /// You can also create an [AWSFile] by providing a file path or file bytes
 /// to [AWSFile.fromPath] or [AWSFile.fromData], respectively.
+/// 
 /// ----
 /// If you are developing a _**Web only**_ App, and want to use the `dart:html`
 /// `File` or `Blob` types, you can import [AWSFilePlatform] directly which provides
@@ -50,7 +52,7 @@ import 'package:meta/meta.dart';
 ///
 /// ```dart
 /// import 'dart:html' as html;
-/// import 'package:amplify_core/src/io/aws_file_platform_html.dart';
+/// import 'package:aws_common/web.dart';
 ///
 /// AWSFile convertHtmlFileOrBlob(html.Blob file) {
 ///   return AWSFilePlatform.fromBlob(file);
@@ -63,7 +65,7 @@ import 'package:meta/meta.dart';
 ///
 /// ```dart
 /// import 'dart:html' as io;
-/// import 'package:amplify_core/src/io/aws_file_platform_io.dart';
+/// import 'package:aws_common/vm.dart';
 ///
 /// AWSFile convertIOFile(io.File file) {
 ///   return AWSFilePlatform.fromFile(file);
