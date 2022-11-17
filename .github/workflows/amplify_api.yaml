@@ -12,6 +12,8 @@ on:
       - 'packages/api/amplify_api/**/*.yaml'
       - 'packages/api/amplify_api/lib/**/*'
       - 'packages/api/amplify_api/test/**/*'
+      - '.github/workflows/flutter_vm.yaml'
+      - '.github/workflows/amplify_api.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
@@ -24,4 +26,3 @@ jobs:
     uses: ./.github/workflows/flutter_vm.yaml
     with:
       working-directory: packages/api/amplify_api
-

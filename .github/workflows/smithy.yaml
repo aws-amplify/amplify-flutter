@@ -12,6 +12,9 @@ on:
       - 'packages/smithy/smithy/**/*.yaml'
       - 'packages/smithy/smithy/lib/**/*'
       - 'packages/smithy/smithy/test/**/*'
+      - '.github/workflows/dart_vm.yaml'
+      - '.github/workflows/dart_native.yaml'
+      - '.github/workflows/smithy.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
@@ -24,11 +27,9 @@ jobs:
     uses: ./.github/workflows/dart_vm.yaml
     with:
       working-directory: packages/smithy/smithy
-
   native_test:
     if: ${{ github.event_name == 'push' }}
     needs: test
     uses: ./.github/workflows/dart_native.yaml
     with:
       working-directory: packages/smithy/smithy
-

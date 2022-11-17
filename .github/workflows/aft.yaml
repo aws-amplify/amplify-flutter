@@ -12,6 +12,9 @@ on:
       - 'packages/aft/**/*.yaml'
       - 'packages/aft/lib/**/*'
       - 'packages/aft/test/**/*'
+      - '.github/workflows/dart_vm.yaml'
+      - '.github/workflows/dart_native.yaml'
+      - '.github/workflows/aft.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
@@ -24,11 +27,9 @@ jobs:
     uses: ./.github/workflows/dart_vm.yaml
     with:
       working-directory: packages/aft
-
   native_test:
     if: ${{ github.event_name == 'push' }}
     needs: test
     uses: ./.github/workflows/dart_native.yaml
     with:
       working-directory: packages/aft
-

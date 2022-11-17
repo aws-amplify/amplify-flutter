@@ -12,6 +12,8 @@ on:
       - 'packages/worker_bee/worker_bee_builder/**/*.yaml'
       - 'packages/worker_bee/worker_bee_builder/lib/**/*'
       - 'packages/worker_bee/worker_bee_builder/test/**/*'
+      - '.github/workflows/dart_vm.yaml'
+      - '.github/workflows/worker_bee_builder.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
@@ -24,4 +26,3 @@ jobs:
     uses: ./.github/workflows/dart_vm.yaml
     with:
       working-directory: packages/worker_bee/worker_bee_builder
-

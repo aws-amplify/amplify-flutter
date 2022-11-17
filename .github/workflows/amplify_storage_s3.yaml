@@ -12,6 +12,8 @@ on:
       - 'packages/storage/amplify_storage_s3/**/*.yaml'
       - 'packages/storage/amplify_storage_s3/lib/**/*'
       - 'packages/storage/amplify_storage_s3/test/**/*'
+      - '.github/workflows/flutter_vm.yaml'
+      - '.github/workflows/amplify_storage_s3.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
@@ -24,4 +26,3 @@ jobs:
     uses: ./.github/workflows/flutter_vm.yaml
     with:
       working-directory: packages/storage/amplify_storage_s3
-
