@@ -181,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
             body: HttpPayload.string(_controller.text),
           )
           .response;
-      final decodedBody = await response.decodeBody();
+      final decodedBody = response.decodeBody();
       setState(() {
         _greeting = decodedBody;
       });
