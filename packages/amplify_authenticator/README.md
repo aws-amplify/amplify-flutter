@@ -90,7 +90,7 @@ class LoggedInScreen extends StatelessWidget {
 
 ## Setting up & Troubleshooting AutoFill
 
-`Authenticator` provides build-in `AutoFill` features for the generated `Forms`. Some additional configuration could be necessary to provide the best user experience and ensure your app fully supports password autofill.
+`Authenticator` provides built-in `AutoFill` features for the generated `Forms`. Some additional configurations could be necessary to provide the best user experience and ensure your app fully supports password autofill.
 
 Please refer to the [official documentation](https://api.flutter.dev/flutter/material/TextField/autofillHints.html) for the configuration steps and how to troubleshoot this feature.
 
@@ -117,4 +117,4 @@ The following `AutoFillHints` have been implemented for the `Authenticator` pack
 | telephoneNumber | ✅ |	✅ |	✅ |
 | username | ✅ |	✅ |	✅ |
 
-Supported Hints are automatically translated to it's platform specific equivalent. Otherwise, the hint string will be used as-is.
+Supported Hints are automatically translated to their platform-specific equivalent. Otherwise, the hint string will be used as-is.

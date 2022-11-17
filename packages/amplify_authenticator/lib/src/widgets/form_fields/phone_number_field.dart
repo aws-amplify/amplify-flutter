@@ -26,12 +26,14 @@ class AuthenticatorPhoneField<FieldType> extends AuthenticatorFormField<
     this.enabled,
     this.initialValue,
     this.errorMaxLines,
+    Iterable<String>? autofillHints,
   }) : super._(
           key: key,
           field: field,
           titleKey: InputResolverKey.phoneNumberTitle,
           hintTextKey: InputResolverKey.phoneNumberHint,
           requiredOverride: requiredOverride,
+          autofillHints: autofillHints,
         );
 
   final bool? enabled;
@@ -103,6 +105,13 @@ class _AuthenticatorPhoneFieldState<FieldType>
       )(phoneNumber);
     };
   }
+
+  @override
+  Iterable<String>? get autofillHints =>
+      autofillHints ??
+      const [
+        AutofillHints.telephoneNumber,
+      ];
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

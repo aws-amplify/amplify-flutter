@@ -238,6 +238,7 @@ mixin AuthenticatorUsernameField<FieldType,
         enabled: enabled,
         errorMaxLines: errorMaxLines,
         initialValue: state.username,
+        autofillHints: autofillHints,
       );
     }
     return TextFormField(
