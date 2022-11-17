@@ -13,8 +13,9 @@
 // limitations under the License.
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 
 /// {@template storage.amplify_storage_s3.remove_result}
 /// The result returned by the Storage S3 plugin `remove` API.
 /// {@endtemplate}
-typedef S3RemoveResult = StorageRemoveResult;
+typedef S3RemoveResult = StorageRemoveResult<S3Item>;
