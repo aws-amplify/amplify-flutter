@@ -46,6 +46,7 @@ class ModelMutationsFactory extends ModelMutationsInterface {
   GraphQLRequest<T> delete<T extends Model>(T model, {QueryPredicate? where}) {
     return deleteById(
       model.getInstanceType() as ModelType<T>,
+      // ignore: deprecated_member_use
       model.getId(),
       where: where,
     );
