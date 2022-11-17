@@ -11,7 +11,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-import 'dart:convert';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -25,6 +24,7 @@ Future<void> configureAmplify() async {
     config: AmplifySecureStorageConfig(
       scope: 'storage.example.dart.cli',
       macOSOptions: MacOSSecureStorageOptions(
+        // ignore: invalid_use_of_visible_for_testing_member
         useDataProtection: false,
       ),
     ),
