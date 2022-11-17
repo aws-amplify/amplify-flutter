@@ -48,7 +48,7 @@ mixin AuthenticatorDateField<FieldType,
         : widget.hintText!;
 
     DateTime now = DateTime.now();
-    Future<void> _pickTime() async {
+    Future<void> pickTime() async {
       final date = await showDatePicker(
         context: context,
         initialDate: now,
@@ -70,13 +70,13 @@ mixin AuthenticatorDateField<FieldType,
             ),
       enabled: enabled,
       readOnly: true,
-      onTap: _pickTime,
+      onTap: pickTime,
       validator: validator,
       decoration: InputDecoration(
         suffixIcon: IconButton(
           icon: const Icon(Icons.calendar_today),
           tooltip: 'Select birthdate',
-          onPressed: _pickTime,
+          onPressed: pickTime,
         ),
         errorMaxLines: errorMaxLines,
         labelText: labelText,
