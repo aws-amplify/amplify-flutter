@@ -88,8 +88,10 @@ class OnboardingView extends StatelessWidget {
             const FlutterLogo(size: 200),
             const SizedBox(height: 32),
             Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque faucibus viverra vehicula. In iaculis augue non lacinia imperdiet. Aenean tempor mi nec condimentum posuere.',
-              style: Theme.of(context).textTheme.subtitle1,
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
+              'Pellentesque faucibus viverra vehicula. In iaculis augue non '
+              'lacinia imperdiet. Aenean tempor mi nec condimentum posuere.',
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             const Spacer(),
             SizedBox(

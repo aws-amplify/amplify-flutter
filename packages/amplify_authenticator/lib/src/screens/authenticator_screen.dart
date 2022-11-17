@@ -174,7 +174,7 @@ class _FormWrapperView extends StatelessAuthenticatorComponent {
           children: <Widget>[
             Text(
               titleResolver.resolve(context, step),
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(
               height: AuthenticatorContainerConstants.gap,
@@ -250,7 +250,7 @@ class _AuthenticatorTabViewState
   Color getTabLabelColor(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
     final labelColor = Theme.of(context).tabBarTheme.labelColor;
-    final textColor = Theme.of(context).textTheme.bodyText1?.color;
+    final textColor = Theme.of(context).textTheme.bodySmall?.color;
     final fallbackColor = isDark ? Colors.white : Colors.black;
     return labelColor ?? textColor ?? fallbackColor;
   }

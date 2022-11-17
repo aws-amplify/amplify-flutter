@@ -115,7 +115,7 @@ BannerColors getColors(Color? customBackgroundColor,
   final isError = type == StatusType.error;
 
   // fallback on default color based on type.
-  final backgroundColorByType = isError ? theme.errorColor : null;
+  final backgroundColorByType = isError ? theme.colorScheme.error : null;
   final backgroundColor = backgroundColorByType ?? customBackgroundColor;
 
   // If there is no background color provided by the theme,
