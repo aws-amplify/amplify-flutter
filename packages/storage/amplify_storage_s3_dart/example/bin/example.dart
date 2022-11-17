@@ -528,7 +528,7 @@ Never exitError(Object error, [StackTrace? stackTrace]) {
 }
 
 void onTransferProgress(S3TransferProgress progress) {
-  final numberOfSigns = (progress.getFractionCompleted() * 20).ceil();
+  final numberOfSigns = (progress.fractionCompleted * 20).ceil();
   final sb = StringBuffer();
   sb.write('[');
   sb.writeAll(
@@ -542,7 +542,7 @@ void onTransferProgress(S3TransferProgress progress) {
     ),
   );
   sb.write(
-    '] | ${(progress.getFractionCompleted() * 100).ceil()}% | ${progress.transferredBytes}/${progress.totalBytes} | ${progress.state}     ',
+    '] | ${(progress.fractionCompleted * 100).ceil()}% | ${progress.transferredBytes}/${progress.totalBytes} | ${progress.state}     ',
   );
   stdout.write('\r${sb.toString()}');
 }

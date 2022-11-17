@@ -45,8 +45,8 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   path: any
-  test: any
   stack_trace: any
+  test: any
 
 flutter:
   uses-material-design: true
