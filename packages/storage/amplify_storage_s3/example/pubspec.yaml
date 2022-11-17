@@ -8,12 +8,6 @@ environment:
   flutter: ">=3.0.0"
 
 dependencies:
-  amplify_core:
-    path: ../../../amplify_core
-  amplify_storage_s3:
-    path: ../
-  amplify_secure_storage:
-    path: ../../../secure_storage/amplify_secure_storage
   amplify_auth_cognito:
     # When depending on this package from a real application you should use:
     #   amplify_auth_cognito: ^x.y.z
@@ -23,8 +17,14 @@ dependencies:
     path: ../../../auth/amplify_auth_cognito
   amplify_authenticator:
     path: ../../../amplify_authenticator
+  amplify_core:
+    path: ../../../amplify_core
   amplify_flutter:
     path: ../../../amplify/amplify_flutter
+  amplify_secure_storage:
+    path: ../../../secure_storage/amplify_secure_storage
+  amplify_storage_s3:
+    path: ../
   flutter:
     sdk: flutter
   go_router: ^5.0.5

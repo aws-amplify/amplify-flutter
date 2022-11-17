@@ -55,7 +55,7 @@ class AmplifyStorageS3 extends AmplifyStorageS3Dart {
       S3RemoveManyOptions,
       S3Item,
       S3TransferProgress,
-      AmplifyStorageS3Dart> pluginKey = _AmplifyStorageS3PluginKey();
+      AmplifyStorageS3> pluginKey = _AmplifyStorageS3PluginKey();
 
   @override
   Future<void> configure({
@@ -96,7 +96,7 @@ class _AmplifyStorageS3PluginKey extends StoragePluginKey<
     S3RemoveManyOptions,
     S3Item,
     S3TransferProgress,
-    AmplifyStorageS3Dart> {
+    AmplifyStorageS3> {
   const _AmplifyStorageS3PluginKey();
 
   @override
