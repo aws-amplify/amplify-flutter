@@ -35,6 +35,14 @@ Future<void> configureAuth({
   addTearDown(Amplify.reset);
 }
 
+/// Whether a test for [environmentName] should be skipped.
+String? shouldSkip(String environmentName) {
+  if (amplifyEnvironments.containsKey(environmentName)) {
+    return null;
+  }
+  return 'No config found for "$environmentName"';
+}
+
 // ensure no user is currently signed in
 Future<void> signOutUser() async {
   try {

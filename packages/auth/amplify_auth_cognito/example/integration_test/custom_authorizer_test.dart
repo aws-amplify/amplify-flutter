@@ -13,8 +13,6 @@
 // limitations under the License.
 
 import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -34,74 +32,78 @@ void main() {
   AWSLogger().logLevel = LogLevel.debug;
 
   group('Custom Authorizer', () {
-    group('User Pools', () {
-      final configJson = amplifyEnvironments['custom-authorizer-user-pools']!;
-      final config = AmplifyConfig.fromJson(
-        jsonDecode(configJson) as Map<String, Object?>,
-      );
-
-      setUpAll(() async {
-        await configureAuth(
-          config: configJson,
+    group(
+      'User Pools',
+      skip: shouldSkip('custom-authorizer-user-pools'),
+      () {
+        final configJson = amplifyEnvironments['custom-authorizer-user-pools']!;
+        final config = AmplifyConfig.fromJson(
+          jsonDecode(configJson) as Map<String, Object?>,
         );
-      });
 
-      asyncTest('can invoke with HTTP client', (_) async {
-        final username = generateUsername();
-        final password = generatePassword();
+        setUpAll(() async {
+          await configureAuth(
+            config: configJson,
+          );
+        });
 
-        final signUpRes = await Amplify.Auth.signUp(
-          username: username,
-          password: password,
-        );
-        expect(signUpRes.isSignUpComplete, isTrue);
+        asyncTest('can invoke with HTTP client', (_) async {
+          final username = generateUsername();
+          final password = generatePassword();
 
-        final signInRes = await Amplify.Auth.signIn(
-          username: username,
-          password: password,
-        );
-        expect(signInRes.isSignedIn, isTrue);
+          final signUpRes = await Amplify.Auth.signUp(
+            username: username,
+            password: password,
+          );
+          expect(signUpRes.isSignUpComplete, isTrue);
 
-        final session =
-            await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
-        expect(session.userPoolTokens, isNotNull);
+          final signInRes = await Amplify.Auth.signIn(
+            username: username,
+            password: password,
+          );
+          expect(signInRes.isSignedIn, isTrue);
 
-        final apiUrl = config.api!.awsPlugin!.values
-            .singleWhere((e) => e.endpointType == EndpointType.rest)
-            .endpoint;
+          final session =
+              await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
+          expect(session.userPoolTokens, isNotNull);
 
-        final client = AWSHttpClient()
-          ..supportedProtocols = SupportedProtocols.http1;
-        addTearDown(client.close);
+          final apiUrl = config.api!.awsPlugin!.values
+              .singleWhere((e) => e.endpointType == EndpointType.rest)
+              .endpoint;
 
-        // Verifies invocation with the ID token. Invocation with an access
-        // token requires integration with a resource server/OAuth and is, thus,
-        // not tested.
-        //
-        // https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-enable-cognito-user-pool.html
+          final client = AWSHttpClient()
+            ..supportedProtocols = SupportedProtocols.http1;
+          addTearDown(client.close);
 
-        final payload = jsonEncode({'request': 'hello'});
-        final request = AWSHttpRequest.post(
-          Uri.parse(apiUrl).replace(
-            queryParameters: {
-              'key': 'value',
+          // Verifies invocation with the ID token. Invocation with an access
+          // token requires integration with a resource server/OAuth and is, thus,
+          // not tested.
+          //
+          // https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-enable-cognito-user-pool.html
+
+          final payload = jsonEncode({'request': 'hello'});
+          final request = AWSHttpRequest.post(
+            Uri.parse(apiUrl).replace(
+              queryParameters: {
+                'key': 'value',
+              },
+            ),
+            headers: {
+              AWSHeaders.accept: 'application/json;charset=utf-8',
+              AWSHeaders.authorization: session.userPoolTokens!.idToken.raw,
             },
-          ),
-          headers: {
-            AWSHeaders.accept: 'application/json;charset=utf-8',
-            AWSHeaders.authorization: session.userPoolTokens!.idToken.raw,
-          },
-          body: utf8.encode(payload),
-        );
-        final resp = await client.send(request).response;
-        final body = await resp.decodeBody();
-        expect(resp.statusCode, 200, reason: body);
-        expect(
-          jsonDecode(body),
-          equals({'response': 'hello'}),
-        );
-      });
-    });
+            body: utf8.encode(payload),
+          );
+          final resp = await client.send(request).response;
+          final body = await resp.decodeBody();
+          expect(resp.statusCode, 200, reason: body);
+          expect(
+            jsonDecode(body),
+            equals({'response': 'hello'}),
+          );
+        });
+      },
+    );
 
     group('IAM', () {
       for (final backend in [
@@ -110,6 +112,7 @@ void main() {
       ]) {
         group(
           backend,
+          skip: shouldSkip(backend),
           () {
             final configJson = amplifyEnvironments[backend]!;
             final config = AmplifyConfig.fromJson(
@@ -226,46 +229,35 @@ void main() {
               );
             });
 
-            asyncTest(
-              'can invoke with API plugin',
-              (_) async {
-                await configureAuth(
-                  config: configJson,
-                  additionalPlugins: [AmplifyAPI()],
-                );
-                final cognitoPlugin = Amplify.Auth.getPlugin(
-                  AmplifyAuthCognito.pluginKey,
-                );
-                final session = await cognitoPlugin.fetchAuthSession(
-                  options: const CognitoSessionOptions(getAWSCredentials: true),
-                );
-                expect(session.credentials, isNotNull);
+            asyncTest('can invoke with API plugin', (_) async {
+              await configureAuth(
+                config: configJson,
+                additionalPlugins: [AmplifyAPI()],
+              );
+              final cognitoPlugin = Amplify.Auth.getPlugin(
+                AmplifyAuthCognito.pluginKey,
+              );
+              final session = await cognitoPlugin.fetchAuthSession(
+                options: const CognitoSessionOptions(getAWSCredentials: true),
+              );
+              expect(session.credentials, isNotNull);
 
-                final payload = jsonEncode({'request': 'hello'});
-                final options = RestOptions(
-                  path: '/',
-                  body: utf8.encode(payload) as Uint8List,
-                  queryParameters: {
-                    'key': 'value',
-                  },
-                );
-                final restOperation = Amplify.API.post(
-                  restOptions: options,
-                );
-                final resp = await restOperation.response;
-                expect(resp.statusCode, 200, reason: resp.body);
-                expect(
-                  jsonDecode(resp.body),
-                  equals({'response': 'hello'}),
-                );
-              },
-              // TODO(dnys1): Remove when API is dartified
-              skip: zIsWeb || !(Platform.isAndroid || Platform.isIOS),
-            );
+              final restOperation = Amplify.API.post(
+                '/',
+                body: HttpPayload.json({'request': 'hello'}),
+                queryParameters: {
+                  'key': 'value',
+                },
+              );
+              final resp = await restOperation.response;
+              final body = resp.decodeBody();
+              expect(resp.statusCode, 200, reason: body);
+              expect(
+                jsonDecode(body),
+                equals({'response': 'hello'}),
+              );
+            });
           },
-          skip: amplifyEnvironments.containsKey(backend)
-              ? null
-              : 'Config not found for backend',
         );
       }
     });
