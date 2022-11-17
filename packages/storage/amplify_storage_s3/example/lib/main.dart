@@ -15,7 +15,6 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:amplify_storage_s3_example/amplifyconfiguration.dart';
 import 'package:flutter/material.dart';
@@ -54,12 +53,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static final _router = GoRouter(routes: [
-    GoRoute(
-      path: '/',
-      builder: (BuildContext _, GoRouterState __) => const HomeScreen(),
-    ),
-  ]);
+  static final _router = GoRouter(
+    routes: [
+      GoRoute(
+        path: '/',
+        builder: (BuildContext _, GoRouterState __) => const HomeScreen(),
+      ),
+    ],
+  );
 
   @override
   void initState() {
@@ -68,13 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> configureAmplify() async {
-    final secureStorage = AmplifySecureStorage(
-      config: AmplifySecureStorageConfig(
-        scope: 'auth',
-        macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
-      ),
-    );
-    final auth = AmplifyAuthCognito(credentialStorage: secureStorage);
+    final auth = AmplifyAuthCognito();
     final storage = AmplifyStorageS3();
 
     try {
@@ -112,7 +107,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  static final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3.pluginKey);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

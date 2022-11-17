@@ -88,7 +88,7 @@ void main() async {
     if (entry.key == 'custom-prefix') {
       prefixResolver = const CustomPrefixResolver();
     } else if (entry.key == 'no-prefix') {
-      prefixResolver = PassThroughPrefixResolver();
+      prefixResolver = const PassThroughPrefixResolver();
     }
 
     group('[Environment ${entry.key}]', () {
