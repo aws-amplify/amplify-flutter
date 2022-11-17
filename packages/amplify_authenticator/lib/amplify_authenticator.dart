@@ -360,7 +360,7 @@ class Authenticator extends StatefulWidget {
   // Padding around each authenticator view
   final EdgeInsets padding;
 
-  /// A method to build a custom UI for the autenticator
+  /// A method to build a custom UI for the authenticator
   ///
   /// {@macro amplify_authenticator.custom_builder}
   final AuthenticatorBuilder? authenticatorBuilder;
