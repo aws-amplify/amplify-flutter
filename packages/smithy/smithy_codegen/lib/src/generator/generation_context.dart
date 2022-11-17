@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:aws_common/aws_common.dart';
+import 'package:aws_common/aws_common.dart' hide HttpPayload;
 import 'package:code_builder/code_builder.dart';
 import 'package:smithy/ast.dart';
 import 'package:smithy_codegen/src/generator/generator.dart';
@@ -152,12 +152,12 @@ mixin StructureGenerationContext<U> on ShapeGenerator<StructureShape, U>
 
 /// Useful properties when generating operation shapes.
 mixin OperationGenerationContext<U> on ShapeGenerator<OperationShape, U> {
-  late final inputShape = shape.inputShape(context);
-  late final inputSymbol = shape.inputSymbol(context);
-  late final inputPayload = inputShape.httpPayload(context);
-  late final outputShape = shape.outputShape(context);
-  late final outputSymbol = shape.outputSymbol(context);
-  late final outputPayload = outputShape.httpPayload(context);
+  late final StructureShape inputShape = shape.inputShape(context);
+  late final Reference inputSymbol = shape.inputSymbol(context);
+  late final HttpPayload inputPayload = inputShape.httpPayload(context);
+  late final StructureShape outputShape = shape.outputShape(context);
+  late final Reference outputSymbol = shape.outputSymbol(context);
+  late final HttpPayload outputPayload = outputShape.httpPayload(context);
 
   late final List<HttpErrorTraits> errorSymbols = [
     ...?context.service?.errors,
