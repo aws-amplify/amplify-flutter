@@ -75,8 +75,8 @@ android {
 dependencies {
     api amplifyFlutter
 
-    implementation "com.amplifyframework:aws-api:1.36.6-dev-preview.0"
-    implementation "com.amplifyframework:aws-api-appsync:1.36.6-dev-preview.0"
+    implementation "com.amplifyframework:aws-api:2.0.0"
+    implementation "com.amplifyframework:aws-api-appsync:2.0.0"
 
     // Do not update before migration of plugin to Dart.
     //noinspection GradleDependency
