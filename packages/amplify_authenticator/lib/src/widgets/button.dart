@@ -342,7 +342,7 @@ class LostCodeButton extends StatelessAuthenticatorComponent {
           Expanded(
             child: Text(
               buttonResolver.lostCode(context),
-              style: Theme.of(context).textTheme.caption?.copyWith(
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
                     fontSize: fontSize,
                   ),
             ),
