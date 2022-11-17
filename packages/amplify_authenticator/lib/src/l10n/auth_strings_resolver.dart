@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
 import 'package:flutter/material.dart';
 
 import 'button_resolver.dart';
@@ -73,5 +72,5 @@ class AuthStringResolver {
       titles == other.titles;
 
   @override
-  int get hashCode => hashValues(buttons, inputs, titles);
+  int get hashCode => Object.hash(buttons, inputs, titles);
 }
