@@ -67,10 +67,8 @@ jobs:
         run: |
           if [ -d test ]; then
             echo "hasTests=true" >> $GITHUB_OUTPUT
-            echo "analysisDirs=lib test" >> $GITHUB_OUTPUT
           else
             echo "hasTests=false" >> $GITHUB_OUTPUT
-            echo "analysisDirs=lib" >> $GITHUB_OUTPUT
           fi
 
       - name: Setup Package
@@ -84,7 +82,7 @@ jobs:
 
       - name: Analyze
         if: "always() && steps.bootstrap.conclusion == 'success'"
-        run: dart analyze --fatal-infos --fatal-warnings ${{ steps.testCheck.outputs.analysisDirs }}
+        run: dart analyze --fatal-infos --fatal-warnings .
         working-directory: ${{ inputs.working-directory }}
 
       - name: Run Tests
