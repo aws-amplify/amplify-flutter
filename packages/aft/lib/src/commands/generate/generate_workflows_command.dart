@@ -55,6 +55,17 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
         customWorkflow.copySync(workflowFilepath);
         continue;
       }
+      final isDartPackage = package.flavor == PackageFlavor.dart;
+
+      const ddcWorkflow = 'dart_ddc.yaml';
+      const dart2JsWorkflow = 'dart_dart2js.yaml';
+      const nativeWorkflow = 'dart_native.yaml';
+
+      // Determine workflows used
+      final analyzeAndTestWorkflow =
+          isDartPackage ? 'dart_vm.yaml' : 'flutter_vm.yaml';
+      final needsNativeTest =
+          isDartPackage && package.unitTestDirectory != null;
       // Packages which are failing in DDC stable due to staticInterop issues
       // TODO(dnys1): Remove when Dart 2.19 is stable
       const failingDdcStable = [
@@ -65,7 +76,16 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
           package.pubspecInfo.pubspec.devDependencies.containsKey('build_test');
       final testDdcStable =
           needsWebTest && !failingDdcStable.contains(package.name);
-      final isDartPackage = package.flavor == PackageFlavor.dart;
+      final workflows = [
+        analyzeAndTestWorkflow,
+        if (needsNativeTest) nativeWorkflow,
+        if (needsWebTest) ...[ddcWorkflow, dart2JsWorkflow],
+      ];
+      final workflowPaths = [
+        ...workflows.map((workflow) => '.github/workflows/$workflow'),
+        p.relative(workflowFilepath, from: repoRoot.path),
+      ].map((path) => "      - '$path'").join('\n');
+
       final workflowContents = StringBuffer(
         '''
 # Generated with aft. To update, run: `aft generate workflows`
@@ -82,6 +102,7 @@ on:
       - '$repoRelativePath/**/*.yaml'
       - '$repoRelativePath/lib/**/*'
       - '$repoRelativePath/test/**/*'
+$workflowPaths
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
@@ -90,12 +111,6 @@ defaults:
 permissions: read-all
 
 jobs:
-''',
-      );
-      final analyzeAndTestWorkflow =
-          isDartPackage ? 'dart_vm.yaml' : 'flutter_vm.yaml';
-      workflowContents.writeln(
-        '''
   test:
     uses: ./.github/workflows/$analyzeAndTestWorkflow
     with:
@@ -103,22 +118,20 @@ jobs:
 ''',
       );
 
-      if (isDartPackage && package.unitTestDirectory != null) {
-        const nativeTestWorkflow = 'dart_native.yaml';
-        workflowContents.writeln(
+      if (needsNativeTest) {
+        workflowContents.write(
           '''
   native_test:
     if: \${{ github.event_name == 'push' }}
     needs: test
-    uses: ./.github/workflows/$nativeTestWorkflow
+    uses: ./.github/workflows/$nativeWorkflow
     with:
       working-directory: $repoRelativePath
 ''',
         );
 
         if (needsWebTest) {
-          const ddcWorkflow = 'dart_ddc.yaml';
-          workflowContents.writeln(
+          workflowContents.write(
             '''
   ddc_test:
     if: \${{ github.event_name == 'push' }}
@@ -127,12 +140,6 @@ jobs:
     with:
       working-directory: $repoRelativePath
       test-ddc-stable: $testDdcStable
-''',
-          );
-
-          const dart2JsWorkflow = 'dart_dart2js.yaml';
-          workflowContents.writeln(
-            '''
   dart2js_test:
     needs: test
     uses: ./.github/workflows/$dart2JsWorkflow
