@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
 
 library rest_xml_v2.rest_xml_protocol.operation.http_prefix_headers_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,7 +16,7 @@ import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 /// This examples adds headers to the input of a request and response by prefix.///
 /// See also:
-/// - [httpPrefixHeaders Trait](https://awslabs.github.io/smithy/1.0/spec/http.html#httpprefixheaders-trait)
+/// - [httpPrefixHeaders Trait](https://smithy.io/2.0/spec/http-bindings.html#httpprefixheaders-trait)
 
 class HttpPrefixHeadersOperation extends _i1.HttpOperation<
     _i2.HttpPrefixHeadersInputOutputPayload,
@@ -25,7 +25,7 @@ class HttpPrefixHeadersOperation extends _i1.HttpOperation<
     _i2.HttpPrefixHeadersInputOutput> {
   /// This examples adds headers to the input of a request and response by prefix.///
   /// See also:
-  /// - [httpPrefixHeaders Trait](https://awslabs.github.io/smithy/1.0/spec/http.html#httpprefixheaders-trait)
+  /// - [httpPrefixHeaders Trait](https://smithy.io/2.0/spec/http-bindings.html#httpprefixheaders-trait)
 
   HttpPrefixHeadersOperation({
     required String region,
@@ -45,7 +45,7 @@ class HttpPrefixHeadersOperation extends _i1.HttpOperation<
       builderFactories: _i4.builderFactories,
       requestInterceptors: [
         const _i1.WithHost(),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.3.0'),
         const _i3.WithSdkInvocationId(),
         const _i3.WithSdkRequest(),
       ],

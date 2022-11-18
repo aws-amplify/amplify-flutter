@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
 
 /// A REST XML service that sends XML requests and responses.
 library rest_xml_v2.rest_xml_protocol;
@@ -51,6 +51,7 @@ export 'package:rest_xml_v2/src/rest_xml_protocol/model/http_response_code_outpu
 export 'package:rest_xml_v2/src/rest_xml_protocol/model/ignore_query_params_in_response_output.dart';
 export 'package:rest_xml_v2/src/rest_xml_protocol/model/input_and_output_with_headers_io.dart'
     hide InputAndOutputWithHeadersIoPayload;
+export 'package:rest_xml_v2/src/rest_xml_protocol/model/integer_enum.dart';
 export 'package:rest_xml_v2/src/rest_xml_protocol/model/invalid_greeting.dart';
 export 'package:rest_xml_v2/src/rest_xml_protocol/model/nested_payload.dart';
 export 'package:rest_xml_v2/src/rest_xml_protocol/model/nested_xml_maps_input_output.dart';
@@ -87,6 +88,7 @@ export 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_attributes_on_payloa
 export 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_blobs_input_output.dart';
 export 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_empty_strings_input_output.dart';
 export 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_enums_input_output.dart';
+export 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_int_enums_input_output.dart';
 export 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_lists_input_output.dart';
 export 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_maps_input_output.dart';
 export 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_maps_xml_name_input_output.dart';

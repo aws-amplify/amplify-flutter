@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
 
 library rest_xml_v2.rest_xml_protocol.rest_xml_protocol_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -87,18 +87,20 @@ import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_empty_strings_input_
     as _i90;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_enums_input_output.dart'
     as _i92;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_int_enums_input_output.dart'
+    as _i94;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_lists_input_output.dart'
     as _i86;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_maps_input_output.dart'
     as _i88;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_maps_xml_name_input_output.dart'
-    as _i96;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_namespaces_input_output.dart'
     as _i98;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_timestamps_input_output.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_namespaces_input_output.dart'
     as _i100;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_unions_input_output.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_timestamps_input_output.dart'
     as _i102;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_unions_input_output.dart'
+    as _i104;
 import 'package:rest_xml_v2/src/rest_xml_protocol/operation/all_query_string_types_operation.dart'
     as _i4;
 import 'package:rest_xml_v2/src/rest_xml_protocol/operation/body_with_xml_name_operation.dart'
@@ -193,18 +195,20 @@ import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_empty_strings_op
     as _i91;
 import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_enums_operation.dart'
     as _i93;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_lists_operation.dart'
-    as _i94;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_maps_operation.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_int_enums_operation.dart'
     as _i95;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_maps_xml_name_operation.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_lists_operation.dart'
+    as _i96;
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_maps_operation.dart'
     as _i97;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_namespaces_operation.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_maps_xml_name_operation.dart'
     as _i99;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_timestamps_operation.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_namespaces_operation.dart'
     as _i101;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_unions_operation.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_timestamps_operation.dart'
     as _i103;
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_unions_operation.dart'
+    as _i105;
 import 'package:smithy/smithy.dart' as _i2;
 
 /// A REST XML service that sends XML requests and responses.
@@ -490,7 +494,7 @@ class RestXmlProtocolClient {
 
   /// This examples adds headers to the input of a request and response by prefix.///
   /// See also:
-  /// - [httpPrefixHeaders Trait](https://awslabs.github.io/smithy/1.0/spec/http.html#httpprefixheaders-trait)
+  /// - [httpPrefixHeaders Trait](https://smithy.io/2.0/spec/http-bindings.html#httpprefixheaders-trait)
 
   _i2.SmithyOperation<_i41.HttpPrefixHeadersInputOutput> httpPrefixHeaders(
     _i41.HttpPrefixHeadersInputOutput input, {
@@ -867,12 +871,26 @@ class RestXmlProtocolClient {
     );
   }
 
+  /// This example serializes enums as top level properties, in lists, sets, and maps.
+  _i2.SmithyOperation<_i94.XmlIntEnumsInputOutput> xmlIntEnums(
+    _i94.XmlIntEnumsInputOutput input, {
+    _i1.AWSHttpClient? client,
+  }) {
+    return _i95.XmlIntEnumsOperation(
+      region: _region,
+      baseUri: _baseUri,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
+  }
+
   /// This test case serializes XML lists for the following cases for both input and output: 1. Normal XML lists. 2. Normal XML sets. 3. XML lists of lists. 4. XML lists with @xmlName on its members 5. Flattened XML lists. 6. Flattened XML lists with @xmlName. 7. Flattened XML lists with @xmlNamespace. 8. Lists of structures. 9. Flattened XML list of structures
   _i2.SmithyOperation<_i86.XmlListsInputOutput> xmlLists(
     _i86.XmlListsInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i94.XmlListsOperation(
+    return _i96.XmlListsOperation(
       region: _region,
       baseUri: _baseUri,
     ).run(
@@ -886,7 +904,7 @@ class RestXmlProtocolClient {
     _i88.XmlMapsInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i95.XmlMapsOperation(
+    return _i97.XmlMapsOperation(
       region: _region,
       baseUri: _baseUri,
     ).run(
@@ -895,11 +913,11 @@ class RestXmlProtocolClient {
     );
   }
 
-  _i2.SmithyOperation<_i96.XmlMapsXmlNameInputOutput> xmlMapsXmlName(
-    _i96.XmlMapsXmlNameInputOutput input, {
+  _i2.SmithyOperation<_i98.XmlMapsXmlNameInputOutput> xmlMapsXmlName(
+    _i98.XmlMapsXmlNameInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i97.XmlMapsXmlNameOperation(
+    return _i99.XmlMapsXmlNameOperation(
       region: _region,
       baseUri: _baseUri,
     ).run(
@@ -908,11 +926,11 @@ class RestXmlProtocolClient {
     );
   }
 
-  _i2.SmithyOperation<_i98.XmlNamespacesInputOutput> xmlNamespaces(
-    _i98.XmlNamespacesInputOutput input, {
+  _i2.SmithyOperation<_i100.XmlNamespacesInputOutput> xmlNamespaces(
+    _i100.XmlNamespacesInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i99.XmlNamespacesOperation(
+    return _i101.XmlNamespacesOperation(
       region: _region,
       baseUri: _baseUri,
     ).run(
@@ -922,11 +940,11 @@ class RestXmlProtocolClient {
   }
 
   /// This tests how timestamps are serialized, including using the default format of date-time and various @timestampFormat trait values.
-  _i2.SmithyOperation<_i100.XmlTimestampsInputOutput> xmlTimestamps(
-    _i100.XmlTimestampsInputOutput input, {
+  _i2.SmithyOperation<_i102.XmlTimestampsInputOutput> xmlTimestamps(
+    _i102.XmlTimestampsInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i101.XmlTimestampsOperation(
+    return _i103.XmlTimestampsOperation(
       region: _region,
       baseUri: _baseUri,
     ).run(
@@ -935,11 +953,11 @@ class RestXmlProtocolClient {
     );
   }
 
-  _i2.SmithyOperation<_i102.XmlUnionsInputOutput> xmlUnions(
-    _i102.XmlUnionsInputOutput input, {
+  _i2.SmithyOperation<_i104.XmlUnionsInputOutput> xmlUnions(
+    _i104.XmlUnionsInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i103.XmlUnionsOperation(
+    return _i105.XmlUnionsOperation(
       region: _region,
       baseUri: _baseUri,
     ).run(

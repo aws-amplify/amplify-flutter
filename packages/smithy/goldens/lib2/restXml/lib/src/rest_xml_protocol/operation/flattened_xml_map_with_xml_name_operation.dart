@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
 
 library rest_xml_v2.rest_xml_protocol.operation.flattened_xml_map_with_xml_name_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,7 +40,7 @@ class FlattenedXmlMapWithXmlNameOperation extends _i1.HttpOperation<
       requestInterceptors: [
         const _i1.WithHost(),
         const _i1.WithContentLength(),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.3.0'),
         const _i3.WithSdkInvocationId(),
         const _i3.WithSdkRequest(),
       ],
