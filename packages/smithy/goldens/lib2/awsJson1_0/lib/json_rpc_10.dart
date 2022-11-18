@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
 
 library aws_json1_0_v2.json_rpc_10;
 
@@ -18,6 +18,7 @@ export 'package:aws_json1_0_v2/src/json_rpc_10/model/foo_error.dart';
 export 'package:aws_json1_0_v2/src/json_rpc_10/model/greeting_struct.dart';
 export 'package:aws_json1_0_v2/src/json_rpc_10/model/greeting_with_errors_input.dart';
 export 'package:aws_json1_0_v2/src/json_rpc_10/model/greeting_with_errors_output.dart';
+export 'package:aws_json1_0_v2/src/json_rpc_10/model/integer_enum.dart';
 export 'package:aws_json1_0_v2/src/json_rpc_10/model/invalid_greeting.dart';
 export 'package:aws_json1_0_v2/src/json_rpc_10/model/json_unions_input.dart';
 export 'package:aws_json1_0_v2/src/json_rpc_10/model/json_unions_output.dart';
