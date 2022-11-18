@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
 
 library rest_xml_with_namespace_v1.rest_xml_protocol_namespace.model.s3_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
