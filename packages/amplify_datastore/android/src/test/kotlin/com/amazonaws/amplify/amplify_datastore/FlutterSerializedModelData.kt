@@ -19,16 +19,20 @@ import com.amplifyframework.core.model.SerializedCustomType
 import com.amplifyframework.core.model.SerializedModel
 
 val blogSerializedModel = SerializedModel.builder()
+    .modelSchema(
+        blogSchema
+    )
     .serializedData(
         mapOf(
             "id" to "999",
             "name" to "blog name"
         )
-    ).modelSchema(
-        blogSchema
     ).build()
 
 var commentSerializedModel = SerializedModel.builder()
+    .modelSchema(
+        commentSchema
+    )
     .serializedData(
         mapOf(
             "id" to "999",
@@ -37,11 +41,12 @@ var commentSerializedModel = SerializedModel.builder()
             ),
             "content" to "content"
         )
-    ).modelSchema(
-        commentSchema
     ).build()
 
 var postSerializedModel = SerializedModel.builder()
+    .modelSchema(
+        postSchema
+    )
     .serializedData(
         mapOf(
             "id" to "999",
@@ -51,11 +56,12 @@ var postSerializedModel = SerializedModel.builder()
                 "id" to "555"
             )
         )
-    ).modelSchema(
-        postSchema
     ).build()
 
 var allTypeModelSerializedModel = SerializedModel.builder()
+    .modelSchema(
+        allTypeModelSchema
+    )
     .serializedData(
         mapOf(
             "id" to "999",
@@ -69,11 +75,10 @@ var allTypeModelSerializedModel = SerializedModel.builder()
             "timestampType" to 999,
             "enumType" to "maybe"
         )
-    ).modelSchema(
-        allTypeModelSchema
     ).build()
 
 val personSerializedModel = SerializedModel.builder()
+    .modelSchema(personSchema)
     .serializedData(
         mapOf(
             "id" to "123",
@@ -138,5 +143,4 @@ val personSerializedModel = SerializedModel.builder()
             )
         )
     )
-    .modelSchema(personSchema)
     .build()

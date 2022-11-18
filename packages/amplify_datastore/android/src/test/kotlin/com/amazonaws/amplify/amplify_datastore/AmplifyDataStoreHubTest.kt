@@ -94,15 +94,15 @@ class AmplifyDataStoreHubTest {
         var metadataMap: HashMap<String, Any>
         var modelMap: HashMap<String, Any> = element["model"] as HashMap<String, Any>
         var serializedData: HashMap<String, Any> = modelMap["serializedData"] as HashMap<String, Any>
-        var modelMetadata = ModelMetadata(modelMap["id"] as String, null, null, null)
+        var modelMetadata = ModelMetadata(modelMap["id"] as String, null, null, null, "")
         var modelData = mapOf(
             "id" to serializedData["id"] as String,
             "title" to serializedData["title"] as String,
             "created" to Temporal.DateTime(serializedData["created"] as String)
         )
         var instance = SerializedModel.builder()
-            .serializedData(modelData)
             .modelSchema(modelSchema)
+            .serializedData(modelData)
             .build()
 
         var modelWithMetadata: ModelWithMetadata<SerializedModel> = ModelWithMetadata(instance, modelMetadata)
@@ -142,15 +142,15 @@ class AmplifyDataStoreHubTest {
         var metadataMap: HashMap<String, Any> = element["syncMetadata"] as HashMap<String, Any>
         var modelMap: HashMap<String, Any> = element["model"] as HashMap<String, Any>
         var serializedData: HashMap<String, Any> = modelMap["serializedData"] as HashMap<String, Any>
-        var modelMetadata = ModelMetadata(metadataMap["id"] as String, metadataMap["_deleted"] as Boolean, metadataMap["_version"] as Int, time)
+        var modelMetadata = ModelMetadata(metadataMap["id"] as String, metadataMap["_deleted"] as Boolean, metadataMap["_version"] as Int, time, "")
         var modelData = mapOf(
             "id" to serializedData["id"] as String,
             "title" to serializedData["title"] as String,
             "created" to Temporal.DateTime(serializedData["created"] as String)
         )
         var instance = SerializedModel.builder()
-            .serializedData(modelData)
             .modelSchema(modelSchema)
+            .serializedData(modelData)
             .build()
 
         var modelWithMetadata: ModelWithMetadata<SerializedModel> = ModelWithMetadata(instance, modelMetadata)
