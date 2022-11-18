@@ -42,8 +42,22 @@ void main() {
 
     setUpAll(() async {
       await Amplify.addPlugins([
-        AmplifyAuthCognito(),
-        AmplifyAnalyticsPinpoint(),
+        AmplifyAuthCognito(
+          credentialStorage: AmplifySecureStorage(
+            config: AmplifySecureStorageConfig(
+              scope: 'analyticsAuth',
+              macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
+            ),
+          ),
+        ),
+        AmplifyAnalyticsPinpoint(
+          keyValueStore: AmplifySecureStorage(
+            config: AmplifySecureStorageConfig(
+              scope: 'analytics',
+              macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
+            ),
+          ),
+        ),
         AmplifyAPI(),
       ]);
       await Amplify.configure(amplifyconfig);
