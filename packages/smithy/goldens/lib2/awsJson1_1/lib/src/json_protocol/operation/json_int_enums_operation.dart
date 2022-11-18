@@ -1,6 +1,6 @@
 // Generated with smithy-dart 0.3.0. DO NOT MODIFY.
 
-library aws_json1_1_v2.json_protocol.operation.endpoint_with_host_label_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_1_v2.json_protocol.operation.json_int_enums_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i8;
 
@@ -9,15 +9,20 @@ import 'package:aws_json1_1_v2/src/json_protocol/common/endpoint_resolver.dart'
     as _i7;
 import 'package:aws_json1_1_v2/src/json_protocol/common/serializers.dart'
     as _i5;
-import 'package:aws_json1_1_v2/src/json_protocol/model/host_label_input.dart'
+import 'package:aws_json1_1_v2/src/json_protocol/model/json_int_enums_input_output.dart'
     as _i2;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i4;
 
-class EndpointWithHostLabelOperation extends _i1
-    .HttpOperation<_i2.HostLabelInput, _i2.HostLabelInput, _i1.Unit, _i1.Unit> {
-  EndpointWithHostLabelOperation({
+/// This example serializes intEnums as top level properties, in lists, sets, and maps.
+class JsonIntEnumsOperation extends _i1.HttpOperation<
+    _i2.JsonIntEnumsInputOutput,
+    _i2.JsonIntEnumsInputOutput,
+    _i2.JsonIntEnumsInputOutput,
+    _i2.JsonIntEnumsInputOutput> {
+  /// This example serializes intEnums as top level properties, in lists, sets, and maps.
+  JsonIntEnumsOperation({
     required String region,
     Uri? baseUri,
     _i3.AWSCredentialsProvider credentialsProvider =
@@ -28,8 +33,11 @@ class EndpointWithHostLabelOperation extends _i1
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.HostLabelInput, _i2.HostLabelInput, _i1.Unit,
-          _i1.Unit>> protocols = [
+      _i1.HttpProtocol<
+          _i2.JsonIntEnumsInputOutput,
+          _i2.JsonIntEnumsInputOutput,
+          _i2.JsonIntEnumsInputOutput,
+          _i2.JsonIntEnumsInputOutput>> protocols = [
     _i4.AwsJson1_1Protocol(
       serializers: _i5.serializers,
       builderFactories: _i5.builderFactories,
@@ -38,7 +46,7 @@ class EndpointWithHostLabelOperation extends _i1
         const _i1.WithContentLength(),
         const _i1.WithHeader(
           'X-Amz-Target',
-          'JsonProtocol.EndpointWithHostLabelOperation',
+          'JsonProtocol.JsonIntEnums',
         ),
         _i4.WithSigV4(
           region: _region,
@@ -65,24 +73,26 @@ class EndpointWithHostLabelOperation extends _i1
   final _i3.AWSCredentialsProvider _credentialsProvider;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.HostLabelInput input) =>
+  _i1.HttpRequest buildRequest(_i2.JsonIntEnumsInputOutput input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
-        b.hostPrefix = 'foo.{label}.';
       });
   @override
-  int successCode([_i1.Unit? output]) => 200;
+  int successCode([_i2.JsonIntEnumsInputOutput? output]) => 200;
   @override
-  _i1.Unit buildOutput(
-    _i1.Unit payload,
+  _i2.JsonIntEnumsInputOutput buildOutput(
+    _i2.JsonIntEnumsInputOutput payload,
     _i6.AWSBaseHttpResponse response,
   ) =>
-      payload;
+      _i2.JsonIntEnumsInputOutput.fromResponse(
+        payload,
+        response,
+      );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
   @override
-  String get runtimeTypeName => 'EndpointWithHostLabelOperation';
+  String get runtimeTypeName => 'JsonIntEnums';
   @override
   _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
@@ -90,8 +100,8 @@ class EndpointWithHostLabelOperation extends _i1
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i1.Unit> run(
-    _i2.HostLabelInput input, {
+  _i1.SmithyOperation<_i2.JsonIntEnumsInputOutput> run(
+    _i2.JsonIntEnumsInputOutput input, {
     _i6.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
