@@ -301,8 +301,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
 
         val instance = SerializedModel.builder()
-            .serializedData(serializedModelData)
             .modelSchema(schema)
+            .serializedData(serializedModelData)
             .build()
 
         plugin.delete(
@@ -357,8 +357,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
 
         val serializedModel = SerializedModel.builder()
-            .serializedData(serializedModelData)
             .modelSchema(schema)
+            .serializedData(serializedModelData)
             .build()
 
         plugin.save(
@@ -569,8 +569,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                 // ignore field if the field doesn't have valid schema in ModelProvider
                 val fieldModelSchema = modelProvider.modelSchemas()[field.targetType] ?: continue
                 result[key] = SerializedModel.builder()
-                    .serializedData(deserializeNestedModel(fieldSerializedData as Map<String, Any?>, fieldModelSchema))
                     .modelSchema(fieldModelSchema)
+                    .serializedData(deserializeNestedModel(fieldSerializedData as Map<String, Any?>, fieldModelSchema))
                     .build()
             } else if (field.isCustomType) {
                 // ignore field if the field doesn't have valid schema in ModelProvider
@@ -739,8 +739,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                                         ResolutionStrategy.RETRY_LOCAL -> onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.retryLocal())
                                         ResolutionStrategy.RETRY -> {
                                             val serializedModel = SerializedModel.builder()
-                                                .serializedData((resultMap["customModel"] as Map<*, *>).cast())
                                                 .modelSchema(modelProvider.modelSchemas().getValue(modelName))
+                                                .serializedData((resultMap["customModel"] as Map<*, *>).cast())
                                                 .build()
                                             onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.retry(serializedModel))
                                         }

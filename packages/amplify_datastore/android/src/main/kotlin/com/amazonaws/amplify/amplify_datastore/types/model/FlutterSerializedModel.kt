@@ -30,7 +30,7 @@ data class FlutterSerializedModel(val serializedModel: SerializedModel) {
     )
 
     // ignored fields
-    private val id: String = serializedModel.id
+    private val id: String = serializedModel.primaryKeyString
     private val modelName: String = parseModelName(serializedModel.modelName) // ModelSchema -> SerializedModel should always have a name
 
     fun toMap(): Map<String, Any> {
