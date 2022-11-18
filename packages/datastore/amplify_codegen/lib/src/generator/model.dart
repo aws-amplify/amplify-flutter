@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_codegen/src/generator/context.dart';
 import 'package:amplify_codegen/src/generator/structure.dart';
 import 'package:amplify_codegen/src/generator/types.dart';
 import 'package:amplify_codegen/src/helpers/field.dart';
@@ -43,9 +44,8 @@ class ModelGenerator extends StructureGenerator<ModelTypeDefinition> {
     if (!definition.hasModelIdentifier) {
       return null;
     }
-    final fields = definition.modelIdentifier.fields
-        .map((name) => definition.fields[name]!)
-        .toList();
+    final fields =
+        definition.modelIdentifier.fields.map(definition.fieldNamed).toList();
     final modelIdentifierName = _names.modelIdentifier;
     return Class((c) {
       c
@@ -256,7 +256,10 @@ return ${allocate(_references.partialModelImpl)}.fromJson(json) as T;
       }
 
       // `modelIdentifier` to satisfy `PartialModel`
-      final modelIdentifierFields = definition.modelIdentifier.fields;
+      final modelIdentifierFields = definition.modelIdentifier.fields
+          .map(definition.fieldNamed)
+          .map((field) => field.dartName)
+          .toList();
       c.methods.add(
         Method(
           (m) => m
@@ -517,11 +520,7 @@ return value as T;
               ..docs.add(
                 '/// Query field for the [$fieldName] field.',
               )
-              ..returns = DartTypes.amplifyCore.queryField(
-                _references.modelIdentifier,
-                _references.model,
-                fieldType,
-              )
+              ..returns = fieldType
               ..type = MethodType.getter
               ..name = newFormName
               ..lambda = true
@@ -539,11 +538,7 @@ return value as T;
               ..docs.add(
                 '/// Query field for the [$fieldName] field.',
               )
-              ..returns = DartTypes.amplifyCore.queryField(
-                _references.modelIdentifier,
-                _references.model,
-                fieldType,
-              )
+              ..returns = fieldType
               ..type = MethodType.getter
               ..name = oldFormName
               ..lambda = true
@@ -581,12 +576,33 @@ return value as T;
           ),
         );
         if (field.hasQueryField) {
+          Reference fieldTypeRef;
+          if (fieldType is mipr.ModelType) {
+            final model = context.modelNamed(fieldType.name);
+            fieldTypeRef = model.references.queryFields(
+              _references.modelIdentifier,
+              _references.model,
+            );
+          } else {
+            fieldTypeRef = DartTypes.amplifyCore.queryField(
+              _references.modelIdentifier,
+              _references.model,
+              field.typeReference(ModelHierarchyType.model),
+            );
+          }
           addQueryField(field.dartName, fieldTypeRef);
         }
       }
 
       // Add a query field for the model identifier
-      addQueryField('modelIdentifier', _references.modelIdentifier);
+      addQueryField(
+        'modelIdentifier',
+        DartTypes.amplifyCore.queryField(
+          _references.modelIdentifier,
+          _references.model,
+          _references.modelIdentifier,
+        ),
+      );
 
       // The public factory constructor which redirects to the private impl.
       c.constructors.add(
@@ -809,7 +825,7 @@ return value as T;
               Parameter(
                 (p) => p
                   ..toThis = true
-                  ..name = 'root',
+                  ..name = '_root',
               ),
             ),
         ),
@@ -827,7 +843,7 @@ return value as T;
                   _references.model,
                 )
                 .nullable
-            ..name = 'root',
+            ..name = '_root',
         ),
       );
 
@@ -835,6 +851,7 @@ return value as T;
         String schemaName,
         String dartName,
         Reference fieldType, {
+        Reference Function([Reference?, Reference?])? relatedQueryFields,
         String? docReference,
       }) {
         final queryFieldType = DartTypes.amplifyCore.queryField(
@@ -856,35 +873,58 @@ return value as T;
 
         final queryFieldName = '\$$dartName';
         docReference ??= '[${_names.model}.$dartName] field';
+
+        var queryFieldsInstance = nestedQueryFieldType.newInstance(
+          [queryField],
+          {'root': refer('_root')},
+        );
+        if (relatedQueryFields != null) {
+          queryFieldsInstance = relatedQueryFields().newInstance([
+            queryFieldsInstance,
+          ]);
+        }
         c.methods.add(
           Method(
             (m) => m
               ..docs.add(
                 '/// Query field for the $docReference.',
               )
-              ..returns = DartTypes.amplifyCore.queryField(
-                modelIdentifierTypeParameter,
-                modelTypeParameter,
-                fieldType,
-              )
+              ..returns = relatedQueryFields != null
+                  ? relatedQueryFields(
+                      modelIdentifierTypeParameter,
+                      modelTypeParameter,
+                    )
+                  : DartTypes.amplifyCore.queryField(
+                      modelIdentifierTypeParameter,
+                      modelTypeParameter,
+                      fieldType,
+                    )
               ..type = MethodType.getter
               ..name = queryFieldName
               ..lambda = true
-              ..body = nestedQueryFieldType.newInstance(
-                [queryField],
-                {
-                  // TODO(dnys1): Add nested model support
-                  // 'root': nested model fields
-                },
-              ).code,
+              ..body = queryFieldsInstance.code,
           ),
         );
       }
 
       for (final field in definition.fields.values) {
-        final fieldType = field.typeReference(ModelHierarchyType.model);
         if (field.hasQueryField) {
-          addQueryField(field.name, field.dartName, fieldType);
+          final fieldType = field.type;
+          Reference fieldTypeRef;
+          Reference Function([Reference?, Reference?])? relatedQueryFields;
+          if (fieldType is mipr.ModelType) {
+            final model = context.modelNamed(fieldType.name);
+            fieldTypeRef = model.references.model;
+            relatedQueryFields = model.references.queryFields;
+          } else {
+            fieldTypeRef = field.typeReference(ModelHierarchyType.model);
+          }
+          addQueryField(
+            field.name,
+            field.dartName,
+            fieldTypeRef,
+            relatedQueryFields: relatedQueryFields,
+          );
         }
       }
 

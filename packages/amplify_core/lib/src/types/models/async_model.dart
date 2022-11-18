@@ -24,6 +24,7 @@ class AsyncModel<
     P extends PartialModel<ModelIdentifier, M>,
     T extends P> with AWSSerializable<Map<String, Object?>?> {
   AsyncModel(FutureOr<T> Function(DataStorePluginInterface) this._model);
+  AsyncModel.fromModel(T this._cache);
 
   T _save(T model) {
     _cache = model;

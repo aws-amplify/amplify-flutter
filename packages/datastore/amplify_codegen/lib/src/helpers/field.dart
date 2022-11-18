@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_codegen/src/generator/context.dart';
 import 'package:amplify_codegen/src/generator/types.dart';
 import 'package:amplify_codegen/src/generator/visitors.dart';
 import 'package:amplify_codegen/src/helpers/language.dart';
@@ -34,13 +35,11 @@ final _typeReferences = Expando<Reference>();
 
 class _FromJsonVisitor extends SchemaTypeVisitor<Expression> {
   _FromJsonVisitor(
-    this._field,
     this._jsonRef, {
     required this.orElse,
     this.hierarchyType,
   });
 
-  final ModelField _field;
   final Expression Function() orElse;
   final ModelHierarchyType? hierarchyType;
   Expression _jsonRef;
@@ -65,10 +64,10 @@ class _FromJsonVisitor extends SchemaTypeVisitor<Expression> {
   Expression _deserialize({
     required SchemaType type,
     Reference? asA,
-    Expression? constructor,
+    Expression Function(Expression)? constructor,
   }) {
     final val = _depth == 0 && asA != null ? _jsonRef.asA(asA) : _jsonRef;
-    final exp = constructor == null ? val : constructor.call([val]);
+    final exp = constructor == null ? val : constructor(val);
     final isRequired = type.isRequired;
     return _depth == 0 || constructor != null
         ? _jsonRef
@@ -82,7 +81,8 @@ class _FromJsonVisitor extends SchemaTypeVisitor<Expression> {
     return _deserialize(
       type: type,
       asA: DartTypes.core.string,
-      constructor: type.reference.nonNull.property('fromJson'),
+      constructor: (val) =>
+          type.reference.nonNull.property('fromJson').call([val]),
     );
   }
 
@@ -115,11 +115,28 @@ class _FromJsonVisitor extends SchemaTypeVisitor<Expression> {
 
   @override
   Expression visitModelType(ModelType type) {
+    final relatedModel = context.modelNamed(type.name);
+    final relatedModelTypes = relatedModel.references;
     return _deserialize(
       type: type,
       asA: DartTypes.core.json,
-      constructor:
-          _field.typeReference(hierarchyType).nonNull.property('fromJson'),
+      constructor: (val) => DartTypes.amplifyCore
+          .asyncModel(
+        relatedModelTypes.modelIdentifier,
+        relatedModelTypes.model,
+        relatedModelTypes.partialModel,
+        relatedModelTypes.hierarchyType(hierarchyType!),
+      )
+          .newInstanceNamed('fromModel', [
+        relatedModelTypes.model.nonNull
+            .property('classType')
+            .property('fromJson')
+            .call([
+          val
+        ], {}, [
+          relatedModel.references.hierarchyType(hierarchyType!),
+        ]),
+      ]),
     );
   }
 
@@ -128,7 +145,8 @@ class _FromJsonVisitor extends SchemaTypeVisitor<Expression> {
     return _deserialize(
       type: type,
       asA: DartTypes.core.json,
-      constructor: type.reference.nonNull.property('fromJson'),
+      constructor: (val) =>
+          type.reference.nonNull.property('fromJson').call([val]),
     );
   }
 
@@ -166,7 +184,8 @@ class _FromJsonVisitor extends SchemaTypeVisitor<Expression> {
     return _deserialize(
       type: type,
       asA: type.wireType.nonNull,
-      constructor: constructor,
+      constructor:
+          constructor == null ? null : (val) => constructor!.call([val]),
     );
   }
 }
@@ -273,12 +292,13 @@ extension ModelFieldHelpers on ModelField {
     if (type is ListType) {
       final elementType = type.elementType;
       if (elementType is ModelType) {
+        final model = context.modelNamed(elementType.name);
         return _typeReferences[type] = DartTypes.amplifyCore
             .asyncModelCollection(
-              refer('${type.name}Identifier'),
-              modelRef(elementType.name, ModelHierarchyType.model),
-              modelRef(elementType.name, ModelHierarchyType.partial),
-              modelRef(elementType.name, hierarchyType!),
+              model.references.modelIdentifier,
+              model.references.model,
+              model.references.partialModel,
+              model.references.hierarchyType(hierarchyType!),
             )
             .withRequired(type.isRequired);
       }
@@ -300,12 +320,13 @@ extension ModelFieldHelpers on ModelField {
       return _typeReferences[type] = type.reference;
     }
     type as ModelType;
+    final model = context.modelNamed(type.name);
     return DartTypes.amplifyCore
         .asyncModel(
-          refer('${type.name}Identifier'),
-          modelRef(type.name, ModelHierarchyType.model),
-          modelRef(type.name, ModelHierarchyType.partial),
-          modelRef(type.name, hierarchyType!),
+          model.references.modelIdentifier,
+          model.references.model,
+          model.references.partialModel,
+          model.references.hierarchyType(hierarchyType!),
         )
         .withRequired(type.isRequired);
   }
@@ -317,7 +338,6 @@ extension ModelFieldHelpers on ModelField {
     ModelHierarchyType? hierarchyType,
   }) {
     return _FromJsonVisitor(
-      this,
       jsonRef,
       orElse: orElse,
       hierarchyType: hierarchyType,
@@ -333,8 +353,9 @@ extension ModelFieldHelpers on ModelField {
   bool get hasQueryField {
     final fieldType = type;
     final baseType = fieldType is ListType ? fieldType.elementType : fieldType;
-    // TODO(dnys1): Add support for nested models.
-    return baseType is ScalarType || baseType is EnumType;
+    return baseType is ScalarType ||
+        baseType is EnumType ||
+        baseType is ModelType;
   }
 }
 

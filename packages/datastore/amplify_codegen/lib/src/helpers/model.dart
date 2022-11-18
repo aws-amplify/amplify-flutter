@@ -37,29 +37,6 @@ enum ModelHierarchyType {
   remote,
 }
 
-/// Returns a reference to the model type for [schemaName] at a specific point
-/// in the model hierarchy.
-Reference modelRef(
-  String schemaName, [
-  ModelHierarchyType hierarchyType = ModelHierarchyType.model,
-]) {
-  var modelName = schemaName.pascalCase;
-  if (reservedTypeNames.contains(modelName)) {
-    modelName = '$modelName\$';
-  }
-  switch (hierarchyType) {
-    case ModelHierarchyType.partial:
-      modelName = 'Partial$modelName';
-      break;
-    case ModelHierarchyType.model:
-      break;
-    case ModelHierarchyType.remote:
-      modelName = 'Remote$modelName';
-      break;
-  }
-  return refer(modelName, '${schemaName.snakeCase}.dart');
-}
-
 /// Helpers for [StructureTypeDefinition].
 extension ModelHelpers on StructureTypeDefinition {
   /// Finds the field named [name].
@@ -207,6 +184,18 @@ class ModelNames {
   /// The class name for the remote model.
   String get remoteModelImpl => '_$remoteModel';
 
+  /// The class name for the [type] in the hierarchy.
+  String hierarchyType(ModelHierarchyType type) {
+    switch (type) {
+      case ModelHierarchyType.partial:
+        return partialModel;
+      case ModelHierarchyType.model:
+        return model;
+      case ModelHierarchyType.remote:
+        return remoteModel;
+    }
+  }
+
   /// The class name for the query fields.
   String get queryFields => '${model}QueryFields';
 }
@@ -254,6 +243,18 @@ class ModelReferences {
 
   /// The reference for the private remote model impl.
   Reference get remoteModelImpl => refer('_${_names.remoteModel}', modelUrl);
+
+  /// The class name for the [type] in the hierarchy.
+  Reference hierarchyType(ModelHierarchyType type) {
+    switch (type) {
+      case ModelHierarchyType.partial:
+        return partialModel;
+      case ModelHierarchyType.model:
+        return model;
+      case ModelHierarchyType.remote:
+        return remoteModel;
+    }
+  }
 
   /// The reference for the query fields class.
   TypeReference queryFields([

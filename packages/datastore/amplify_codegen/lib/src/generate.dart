@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_codegen/src/generator/context.dart';
 import 'package:amplify_codegen/src/generator/generated_library.dart';
 import 'package:amplify_codegen/src/generator/visitors.dart';
 import 'package:amplify_codegen/src/parser/parser.dart';
@@ -24,15 +25,19 @@ import 'package:gql/language.dart';
 Map<String, GeneratedLibrary> generateForSchema(String schema) {
   // Parse all models before starting
   final schemaDefinition = parseSchema(schema);
+  final context = CodegenContext(schemaDefinition);
 
   // Generate libraries for model types and enums
-  final libraries = parseString(schema)
-      .definitions
-      .map((definition) {
-        return definition.accept(LibraryVisitor(schemaDefinition));
-      })
-      .whereType<Library>()
-      .toList();
+  final libraries = runWithContext(
+    context,
+    () => parseString(schema)
+        .definitions
+        .map((definition) {
+          return definition.accept(LibraryVisitor(schemaDefinition));
+        })
+        .whereType<Library>()
+        .toList(),
+  );
 
   // Emit Dart code and format
   return Map.fromEntries(
