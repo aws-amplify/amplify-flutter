@@ -15,7 +15,7 @@
 
 package com.amazonaws.amplify.amplify_datastore.types.query
 
-import com.amazonaws.amplify.amplify_core.cast
+import com.amazonaws.amplify.cast
 import com.amazonaws.amplify.amplify_datastore.cpkPostSchema
 import com.amazonaws.amplify.amplify_datastore.postSchema
 import com.amazonaws.amplify.amplify_datastore.readMapFromFile
