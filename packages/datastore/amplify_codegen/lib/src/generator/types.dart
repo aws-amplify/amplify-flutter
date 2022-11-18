@@ -155,6 +155,27 @@ class _AmplifyCore {
           ..types.addAll([modelIdentifierType, modelType]),
       );
 
+  /// Creates an [amplify_core.NestedQueryField] reference.
+  TypeReference nestedQueryField(
+    Reference rootModelIdentifierType,
+    Reference rootModelType,
+    Reference modelIdentifierType,
+    Reference modelType,
+    Reference fieldType,
+  ) =>
+      TypeReference(
+        (t) => t
+          ..symbol = 'NestedQueryField'
+          ..url = _url
+          ..types.addAll([
+            rootModelIdentifierType,
+            rootModelType,
+            modelIdentifierType,
+            modelType,
+            fieldType,
+          ]),
+      );
+
   /// Creates an [amplify_core.QueryField] reference.
   TypeReference queryField(
     Reference modelIdentifierType,

@@ -41,6 +41,10 @@ extension StringRecase on String {
   String get snakeCase =>
       groupIntoWords().map((word) => word.toLowerCase()).join('_');
 
+  /// The `SCREAMING_CASE` version of `this`.
+  String get screamingCase =>
+      groupIntoWords().map((word) => word.toUpperCase()).join('_');
+
   // "acm-success"-> "acm success"
   static final _nonAlphaNumericChars = RegExp(r'[^A-Za-z0-9+]');
 

@@ -16,8 +16,14 @@ import 'package:amplify_codegen/src/generator/allocator.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
 
+/// Lint rules to ignore in generated files.
+const ignores = [
+  // TODO(dnys1): Remove when deprecated fields are removed.
+  'non_constant_identifier_names',
+];
+
 /// Header for generated output.
-const header = '''
+final header = '''
 // Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,6 +41,8 @@ const header = '''
 // NOTE: This file is generated and may not follow lint rules defined in your app
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
+
+// ignore_for_file: ${ignores.join(',')}
 ''';
 
 /// {@template amplify_codegen.generated_library}

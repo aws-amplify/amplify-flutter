@@ -16,6 +16,8 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
+// ignore_for_file: non_constant_identifier_names
+
 library models.enum_model;
 
 import 'package:amplify_core/amplify_core.dart';
@@ -39,6 +41,48 @@ class EnumModelType extends ModelType<String, EnumModel, PartialEnumModel> {
 
   @override
   String get modelName => 'EnumModel';
+}
+
+class EnumModelQueryFields<ModelIdentifier extends Object,
+    M extends Model<ModelIdentifier, M>> {
+  const EnumModelQueryFields([this.root]);
+
+  final QueryField<ModelIdentifier, M, EnumModel>? root;
+
+  /// Query field for the [EnumModel.id] field.
+  QueryField<ModelIdentifier, M, String> get $id =>
+      NestedQueryField<ModelIdentifier, M, String, EnumModel, String>(
+          const QueryField<String, EnumModel, String>(fieldName: 'id'));
+
+  /// Query field for the [EnumModel.enum_] field.
+  QueryField<ModelIdentifier, M, MyEnum?> get $enum_ =>
+      NestedQueryField<ModelIdentifier, M, String, EnumModel, MyEnum?>(
+          const QueryField<String, EnumModel, MyEnum?>(fieldName: 'enum'));
+
+  /// Query field for the [EnumModel.requiredEnum] field.
+  QueryField<ModelIdentifier, M, MyEnum> get $requiredEnum => NestedQueryField<
+          ModelIdentifier, M, String, EnumModel, MyEnum>(
+      const QueryField<String, EnumModel, MyEnum>(fieldName: 'requiredEnum'));
+
+  /// Query field for the [EnumModel.createdAt] field.
+  QueryField<ModelIdentifier, M, TemporalDateTime?> get $createdAt =>
+      NestedQueryField<ModelIdentifier, M, String, EnumModel,
+              TemporalDateTime?>(
+          const QueryField<String, EnumModel, TemporalDateTime?>(
+              fieldName: 'createdAt'));
+
+  /// Query field for the [EnumModel.updatedAt] field.
+  QueryField<ModelIdentifier, M, TemporalDateTime?> get $updatedAt =>
+      NestedQueryField<ModelIdentifier, M, String, EnumModel,
+              TemporalDateTime?>(
+          const QueryField<String, EnumModel, TemporalDateTime?>(
+              fieldName: 'updatedAt'));
+
+  /// Query field for the `modelIdentifier` field.
+  QueryField<ModelIdentifier, M, String> get $modelIdentifier =>
+      NestedQueryField<ModelIdentifier, M, String, EnumModel, String>(
+          const QueryField<String, EnumModel, String>(
+              fieldName: 'modelIdentifier'));
 }
 
 abstract class PartialEnumModel extends PartialModel<String, EnumModel>
@@ -199,16 +243,66 @@ abstract class EnumModel extends PartialEnumModel
 
   static const EnumModelType classType = EnumModelType();
 
+  static const EnumModelQueryFields<String, EnumModel> _queryFields =
+      EnumModelQueryFields();
+
   @override
   String get id;
+
+  /// Query field for the [id] field.
+  QueryField<String, EnumModel, String> get $id => _queryFields.$id;
+
+  /// Query field for the [id] field.
+  @Deprecated(r'Use $id instead')
+  QueryField<String, EnumModel, String> get ID => $id;
   @override
   MyEnum? get enum_;
+
+  /// Query field for the [enum_] field.
+  QueryField<String, EnumModel, MyEnum?> get $enum_ => _queryFields.$enum_;
+
+  /// Query field for the [enum_] field.
+  @Deprecated(r'Use $enum_ instead')
+  QueryField<String, EnumModel, MyEnum?> get ENUM => $enum_;
   @override
   MyEnum get requiredEnum;
+
+  /// Query field for the [requiredEnum] field.
+  QueryField<String, EnumModel, MyEnum> get $requiredEnum =>
+      _queryFields.$requiredEnum;
+
+  /// Query field for the [requiredEnum] field.
+  @Deprecated(r'Use $requiredEnum instead')
+  QueryField<String, EnumModel, MyEnum> get REQUIRED_ENUM => $requiredEnum;
   @override
   TemporalDateTime? get createdAt;
+
+  /// Query field for the [createdAt] field.
+  QueryField<String, EnumModel, TemporalDateTime?> get $createdAt =>
+      _queryFields.$createdAt;
+
+  /// Query field for the [createdAt] field.
+  @Deprecated(r'Use $createdAt instead')
+  QueryField<String, EnumModel, TemporalDateTime?> get CREATED_AT => $createdAt;
   @override
   TemporalDateTime? get updatedAt;
+
+  /// Query field for the [updatedAt] field.
+  QueryField<String, EnumModel, TemporalDateTime?> get $updatedAt =>
+      _queryFields.$updatedAt;
+
+  /// Query field for the [updatedAt] field.
+  @Deprecated(r'Use $updatedAt instead')
+  QueryField<String, EnumModel, TemporalDateTime?> get UPDATED_AT => $updatedAt;
+
+  /// Query field for the [modelIdentifier] field.
+  QueryField<String, EnumModel, String> get $modelIdentifier =>
+      _queryFields.$modelIdentifier;
+
+  /// Query field for the [modelIdentifier] field.
+  @Deprecated(r'Use $modelIdentifier instead')
+  QueryField<String, EnumModel, String> get MODEL_IDENTIFIER =>
+      $modelIdentifier;
 }
 
 class _EnumModel extends EnumModel {

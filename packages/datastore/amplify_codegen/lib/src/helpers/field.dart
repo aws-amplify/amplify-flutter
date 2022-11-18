@@ -19,6 +19,7 @@ import 'package:amplify_codegen/src/helpers/model.dart';
 import 'package:amplify_codegen/src/helpers/node.dart';
 import 'package:amplify_codegen/src/helpers/types.dart';
 import 'package:amplify_core/src/types/models/mipr.dart';
+import 'package:amplify_core/src/types/query/query_field.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:collection/collection.dart';
@@ -326,6 +327,14 @@ extension ModelFieldHelpers on ModelField {
   /// Returns the expression needed to encode `this` to JSON.
   Expression toJsonExp(Expression fieldRef) {
     return _ToJsonVisitor(fieldRef).visit(type);
+  }
+
+  /// Whether the field has a corresponding [QueryField].
+  bool get hasQueryField {
+    final fieldType = type;
+    final baseType = fieldType is ListType ? fieldType.elementType : fieldType;
+    // TODO(dnys1): Add support for nested models.
+    return baseType is ScalarType || baseType is EnumType;
   }
 }
 

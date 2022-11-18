@@ -16,6 +16,8 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
+// ignore_for_file: non_constant_identifier_names
+
 library models.cpk_model;
 
 import 'package:amplify_core/amplify_core.dart';
@@ -68,6 +70,46 @@ class CpkModelType
 
   @override
   String get modelName => 'CPKModel';
+}
+
+class CpkModelQueryFields<ModelIdentifier extends Object,
+    M extends Model<ModelIdentifier, M>> {
+  const CpkModelQueryFields([this.root]);
+
+  final QueryField<ModelIdentifier, M, CpkModel>? root;
+
+  /// Query field for the [CpkModel.firstName] field.
+  QueryField<ModelIdentifier, M, String> get $firstName => NestedQueryField<
+          ModelIdentifier, M, CpkModelIdentifier, CpkModel, String>(
+      const QueryField<CpkModelIdentifier, CpkModel, String>(
+          fieldName: 'firstName'));
+
+  /// Query field for the [CpkModel.lastName] field.
+  QueryField<ModelIdentifier, M, String> get $lastName => NestedQueryField<
+          ModelIdentifier, M, CpkModelIdentifier, CpkModel, String>(
+      const QueryField<CpkModelIdentifier, CpkModel, String>(
+          fieldName: 'lastName'));
+
+  /// Query field for the [CpkModel.createdAt] field.
+  QueryField<ModelIdentifier, M, TemporalDateTime?> get $createdAt =>
+      NestedQueryField<ModelIdentifier, M, CpkModelIdentifier, CpkModel,
+              TemporalDateTime?>(
+          const QueryField<CpkModelIdentifier, CpkModel, TemporalDateTime?>(
+              fieldName: 'createdAt'));
+
+  /// Query field for the [CpkModel.updatedAt] field.
+  QueryField<ModelIdentifier, M, TemporalDateTime?> get $updatedAt =>
+      NestedQueryField<ModelIdentifier, M, CpkModelIdentifier, CpkModel,
+              TemporalDateTime?>(
+          const QueryField<CpkModelIdentifier, CpkModel, TemporalDateTime?>(
+              fieldName: 'updatedAt'));
+
+  /// Query field for the `modelIdentifier` field.
+  QueryField<ModelIdentifier, M, CpkModelIdentifier> get $modelIdentifier =>
+      NestedQueryField<ModelIdentifier, M, CpkModelIdentifier, CpkModel,
+              CpkModelIdentifier>(
+          const QueryField<CpkModelIdentifier, CpkModel, CpkModelIdentifier>(
+              fieldName: 'modelIdentifier'));
 }
 
 abstract class PartialCpkModel
@@ -219,14 +261,60 @@ abstract class CpkModel extends PartialCpkModel
 
   static const CpkModelType classType = CpkModelType();
 
+  static const CpkModelQueryFields<CpkModelIdentifier, CpkModel> _queryFields =
+      CpkModelQueryFields();
+
   @override
   String get firstName;
+
+  /// Query field for the [firstName] field.
+  QueryField<CpkModelIdentifier, CpkModel, String> get $firstName =>
+      _queryFields.$firstName;
+
+  /// Query field for the [firstName] field.
+  @Deprecated(r'Use $firstName instead')
+  QueryField<CpkModelIdentifier, CpkModel, String> get FIRST_NAME => $firstName;
   @override
   String get lastName;
+
+  /// Query field for the [lastName] field.
+  QueryField<CpkModelIdentifier, CpkModel, String> get $lastName =>
+      _queryFields.$lastName;
+
+  /// Query field for the [lastName] field.
+  @Deprecated(r'Use $lastName instead')
+  QueryField<CpkModelIdentifier, CpkModel, String> get LAST_NAME => $lastName;
   @override
   TemporalDateTime? get createdAt;
+
+  /// Query field for the [createdAt] field.
+  QueryField<CpkModelIdentifier, CpkModel, TemporalDateTime?> get $createdAt =>
+      _queryFields.$createdAt;
+
+  /// Query field for the [createdAt] field.
+  @Deprecated(r'Use $createdAt instead')
+  QueryField<CpkModelIdentifier, CpkModel, TemporalDateTime?> get CREATED_AT =>
+      $createdAt;
   @override
   TemporalDateTime? get updatedAt;
+
+  /// Query field for the [updatedAt] field.
+  QueryField<CpkModelIdentifier, CpkModel, TemporalDateTime?> get $updatedAt =>
+      _queryFields.$updatedAt;
+
+  /// Query field for the [updatedAt] field.
+  @Deprecated(r'Use $updatedAt instead')
+  QueryField<CpkModelIdentifier, CpkModel, TemporalDateTime?> get UPDATED_AT =>
+      $updatedAt;
+
+  /// Query field for the [modelIdentifier] field.
+  QueryField<CpkModelIdentifier, CpkModel, CpkModelIdentifier>
+      get $modelIdentifier => _queryFields.$modelIdentifier;
+
+  /// Query field for the [modelIdentifier] field.
+  @Deprecated(r'Use $modelIdentifier instead')
+  QueryField<CpkModelIdentifier, CpkModel, CpkModelIdentifier>
+      get MODEL_IDENTIFIER => $modelIdentifier;
 }
 
 class _CpkModel extends CpkModel {

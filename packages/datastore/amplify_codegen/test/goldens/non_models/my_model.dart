@@ -16,6 +16,8 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
+// ignore_for_file: non_constant_identifier_names
+
 library models.my_model;
 
 import 'package:amplify_core/amplify_core.dart';
@@ -39,6 +41,36 @@ class MyModelType extends ModelType<String, MyModel, PartialMyModel> {
 
   @override
   String get modelName => 'MyModel';
+}
+
+class MyModelQueryFields<ModelIdentifier extends Object,
+    M extends Model<ModelIdentifier, M>> {
+  const MyModelQueryFields([this.root]);
+
+  final QueryField<ModelIdentifier, M, MyModel>? root;
+
+  /// Query field for the [MyModel.createdAt] field.
+  QueryField<ModelIdentifier, M, TemporalDateTime?> get $createdAt =>
+      NestedQueryField<ModelIdentifier, M, String, MyModel, TemporalDateTime?>(
+          const QueryField<String, MyModel, TemporalDateTime?>(
+              fieldName: 'createdAt'));
+
+  /// Query field for the [MyModel.updatedAt] field.
+  QueryField<ModelIdentifier, M, TemporalDateTime?> get $updatedAt =>
+      NestedQueryField<ModelIdentifier, M, String, MyModel, TemporalDateTime?>(
+          const QueryField<String, MyModel, TemporalDateTime?>(
+              fieldName: 'updatedAt'));
+
+  /// Query field for the [MyModel.id] field.
+  QueryField<ModelIdentifier, M, String> get $id =>
+      NestedQueryField<ModelIdentifier, M, String, MyModel, String>(
+          const QueryField<String, MyModel, String>(fieldName: 'id'));
+
+  /// Query field for the `modelIdentifier` field.
+  QueryField<ModelIdentifier, M, String> get $modelIdentifier =>
+      NestedQueryField<ModelIdentifier, M, String, MyModel, String>(
+          const QueryField<String, MyModel, String>(
+              fieldName: 'modelIdentifier'));
 }
 
 abstract class PartialMyModel extends PartialModel<String, MyModel>
@@ -205,16 +237,50 @@ abstract class MyModel extends PartialMyModel
 
   static const MyModelType classType = MyModelType();
 
+  static const MyModelQueryFields<String, MyModel> _queryFields =
+      MyModelQueryFields();
+
   @override
   ScalarNonModel? get embeddedNonModel;
   @override
   ScalarNonModel get requiredEmbeddedNonModel;
   @override
   TemporalDateTime? get createdAt;
+
+  /// Query field for the [createdAt] field.
+  QueryField<String, MyModel, TemporalDateTime?> get $createdAt =>
+      _queryFields.$createdAt;
+
+  /// Query field for the [createdAt] field.
+  @Deprecated(r'Use $createdAt instead')
+  QueryField<String, MyModel, TemporalDateTime?> get CREATED_AT => $createdAt;
   @override
   TemporalDateTime? get updatedAt;
+
+  /// Query field for the [updatedAt] field.
+  QueryField<String, MyModel, TemporalDateTime?> get $updatedAt =>
+      _queryFields.$updatedAt;
+
+  /// Query field for the [updatedAt] field.
+  @Deprecated(r'Use $updatedAt instead')
+  QueryField<String, MyModel, TemporalDateTime?> get UPDATED_AT => $updatedAt;
   @override
   String get id;
+
+  /// Query field for the [id] field.
+  QueryField<String, MyModel, String> get $id => _queryFields.$id;
+
+  /// Query field for the [id] field.
+  @Deprecated(r'Use $id instead')
+  QueryField<String, MyModel, String> get ID => $id;
+
+  /// Query field for the [modelIdentifier] field.
+  QueryField<String, MyModel, String> get $modelIdentifier =>
+      _queryFields.$modelIdentifier;
+
+  /// Query field for the [modelIdentifier] field.
+  @Deprecated(r'Use $modelIdentifier instead')
+  QueryField<String, MyModel, String> get MODEL_IDENTIFIER => $modelIdentifier;
 }
 
 class _MyModel extends MyModel {

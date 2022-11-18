@@ -16,6 +16,8 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
+// ignore_for_file: non_constant_identifier_names
+
 library models.scalar_model;
 
 import 'package:amplify_core/amplify_core.dart';
@@ -38,6 +40,187 @@ class ScalarModelType
 
   @override
   String get modelName => 'ScalarModel';
+}
+
+class ScalarModelQueryFields<ModelIdentifier extends Object,
+    M extends Model<ModelIdentifier, M>> {
+  const ScalarModelQueryFields([this.root]);
+
+  final QueryField<ModelIdentifier, M, ScalarModel>? root;
+
+  /// Query field for the [ScalarModel.id] field.
+  QueryField<ModelIdentifier, M, String> get $id =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, String>(
+          const QueryField<String, ScalarModel, String>(fieldName: 'id'));
+
+  /// Query field for the [ScalarModel.str] field.
+  QueryField<ModelIdentifier, M, String?> get $str =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, String?>(
+          const QueryField<String, ScalarModel, String?>(fieldName: 'str'));
+
+  /// Query field for the [ScalarModel.requiredStr] field.
+  QueryField<ModelIdentifier, M, String> get $requiredStr => NestedQueryField<
+          ModelIdentifier, M, String, ScalarModel, String>(
+      const QueryField<String, ScalarModel, String>(fieldName: 'requiredStr'));
+
+  /// Query field for the [ScalarModel.integer] field.
+  QueryField<ModelIdentifier, M, int?> get $integer =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, int?>(
+          const QueryField<String, ScalarModel, int?>(fieldName: 'integer'));
+
+  /// Query field for the [ScalarModel.requiredInteger] field.
+  QueryField<ModelIdentifier, M, int> get $requiredInteger => NestedQueryField<
+          ModelIdentifier, M, String, ScalarModel, int>(
+      const QueryField<String, ScalarModel, int>(fieldName: 'requiredInteger'));
+
+  /// Query field for the [ScalarModel.float] field.
+  QueryField<ModelIdentifier, M, double?> get $float =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, double?>(
+          const QueryField<String, ScalarModel, double?>(fieldName: 'float'));
+
+  /// Query field for the [ScalarModel.requiredFloat] field.
+  QueryField<ModelIdentifier, M, double> get $requiredFloat =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, double>(
+          const QueryField<String, ScalarModel, double>(
+              fieldName: 'requiredFloat'));
+
+  /// Query field for the [ScalarModel.boolean] field.
+  QueryField<ModelIdentifier, M, bool?> get $boolean =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, bool?>(
+          const QueryField<String, ScalarModel, bool?>(fieldName: 'boolean'));
+
+  /// Query field for the [ScalarModel.requiredBoolean] field.
+  QueryField<ModelIdentifier, M, bool> get $requiredBoolean =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, bool>(
+          const QueryField<String, ScalarModel, bool>(
+              fieldName: 'requiredBoolean'));
+
+  /// Query field for the [ScalarModel.awsDate] field.
+  QueryField<ModelIdentifier, M, TemporalDate?> get $awsDate =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, TemporalDate?>(
+          const QueryField<String, ScalarModel, TemporalDate?>(
+              fieldName: 'awsDate'));
+
+  /// Query field for the [ScalarModel.requiredAwsDate] field.
+  QueryField<ModelIdentifier, M, TemporalDate> get $requiredAwsDate =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, TemporalDate>(
+          const QueryField<String, ScalarModel, TemporalDate>(
+              fieldName: 'requiredAwsDate'));
+
+  /// Query field for the [ScalarModel.awsDateTime] field.
+  QueryField<ModelIdentifier, M, TemporalDateTime?> get $awsDateTime =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel,
+              TemporalDateTime?>(
+          const QueryField<String, ScalarModel, TemporalDateTime?>(
+              fieldName: 'awsDateTime'));
+
+  /// Query field for the [ScalarModel.requiredAwsDateTime] field.
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $requiredAwsDateTime =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel,
+              TemporalDateTime>(
+          const QueryField<String, ScalarModel, TemporalDateTime>(
+              fieldName: 'requiredAwsDateTime'));
+
+  /// Query field for the [ScalarModel.awsTime] field.
+  QueryField<ModelIdentifier, M, TemporalTime?> get $awsTime =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, TemporalTime?>(
+          const QueryField<String, ScalarModel, TemporalTime?>(
+              fieldName: 'awsTime'));
+
+  /// Query field for the [ScalarModel.requiredAwsTime] field.
+  QueryField<ModelIdentifier, M, TemporalTime> get $requiredAwsTime =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, TemporalTime>(
+          const QueryField<String, ScalarModel, TemporalTime>(
+              fieldName: 'requiredAwsTime'));
+
+  /// Query field for the [ScalarModel.awsTimestamp] field.
+  QueryField<ModelIdentifier, M, TemporalTimestamp?> get $awsTimestamp =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel,
+              TemporalTimestamp?>(
+          const QueryField<String, ScalarModel, TemporalTimestamp?>(
+              fieldName: 'awsTimestamp'));
+
+  /// Query field for the [ScalarModel.requiredAwsTimestamp] field.
+  QueryField<ModelIdentifier, M, TemporalTimestamp> get $requiredAwsTimestamp =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel,
+              TemporalTimestamp>(
+          const QueryField<String, ScalarModel, TemporalTimestamp>(
+              fieldName: 'requiredAwsTimestamp'));
+
+  /// Query field for the [ScalarModel.awsEmail] field.
+  QueryField<ModelIdentifier, M, String?> get $awsEmail => NestedQueryField<
+          ModelIdentifier, M, String, ScalarModel, String?>(
+      const QueryField<String, ScalarModel, String?>(fieldName: 'awsEmail'));
+
+  /// Query field for the [ScalarModel.requiredAwsEmail] field.
+  QueryField<ModelIdentifier, M, String> get $requiredAwsEmail =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, String>(
+          const QueryField<String, ScalarModel, String>(
+              fieldName: 'requiredAwsEmail'));
+
+  /// Query field for the [ScalarModel.awsJson] field.
+  QueryField<ModelIdentifier, M, Object?> get $awsJson =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, Object?>(
+          const QueryField<String, ScalarModel, Object?>(fieldName: 'awsJson'));
+
+  /// Query field for the [ScalarModel.requiredAwsJson] field.
+  QueryField<ModelIdentifier, M, Object> get $requiredAwsJson =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, Object>(
+          const QueryField<String, ScalarModel, Object>(
+              fieldName: 'requiredAwsJson'));
+
+  /// Query field for the [ScalarModel.awsPhone] field.
+  QueryField<ModelIdentifier, M, String?> get $awsPhone => NestedQueryField<
+          ModelIdentifier, M, String, ScalarModel, String?>(
+      const QueryField<String, ScalarModel, String?>(fieldName: 'awsPhone'));
+
+  /// Query field for the [ScalarModel.requiredAwsPhone] field.
+  QueryField<ModelIdentifier, M, String> get $requiredAwsPhone =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, String>(
+          const QueryField<String, ScalarModel, String>(
+              fieldName: 'requiredAwsPhone'));
+
+  /// Query field for the [ScalarModel.awsUrl] field.
+  QueryField<ModelIdentifier, M, Uri?> get $awsUrl =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, Uri?>(
+          const QueryField<String, ScalarModel, Uri?>(fieldName: 'awsUrl'));
+
+  /// Query field for the [ScalarModel.requiredAwsUrl] field.
+  QueryField<ModelIdentifier, M, Uri> get $requiredAwsUrl => NestedQueryField<
+          ModelIdentifier, M, String, ScalarModel, Uri>(
+      const QueryField<String, ScalarModel, Uri>(fieldName: 'requiredAwsUrl'));
+
+  /// Query field for the [ScalarModel.awsIpAddress] field.
+  QueryField<ModelIdentifier, M, String?> get $awsIpAddress =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, String?>(
+          const QueryField<String, ScalarModel, String?>(
+              fieldName: 'awsIpAddress'));
+
+  /// Query field for the [ScalarModel.requiredAwsIpAddress] field.
+  QueryField<ModelIdentifier, M, String> get $requiredAwsIpAddress =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, String>(
+          const QueryField<String, ScalarModel, String>(
+              fieldName: 'requiredAwsIpAddress'));
+
+  /// Query field for the [ScalarModel.createdAt] field.
+  QueryField<ModelIdentifier, M, TemporalDateTime?> get $createdAt =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel,
+              TemporalDateTime?>(
+          const QueryField<String, ScalarModel, TemporalDateTime?>(
+              fieldName: 'createdAt'));
+
+  /// Query field for the [ScalarModel.updatedAt] field.
+  QueryField<ModelIdentifier, M, TemporalDateTime?> get $updatedAt =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel,
+              TemporalDateTime?>(
+          const QueryField<String, ScalarModel, TemporalDateTime?>(
+              fieldName: 'updatedAt'));
+
+  /// Query field for the `modelIdentifier` field.
+  QueryField<ModelIdentifier, M, String> get $modelIdentifier =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, String>(
+          const QueryField<String, ScalarModel, String>(
+              fieldName: 'modelIdentifier'));
 }
 
 abstract class PartialScalarModel extends PartialModel<String, ScalarModel>
@@ -661,64 +844,315 @@ abstract class ScalarModel extends PartialScalarModel
 
   static const ScalarModelType classType = ScalarModelType();
 
+  static const ScalarModelQueryFields<String, ScalarModel> _queryFields =
+      ScalarModelQueryFields();
+
   @override
   String get id;
+
+  /// Query field for the [id] field.
+  QueryField<String, ScalarModel, String> get $id => _queryFields.$id;
+
+  /// Query field for the [id] field.
+  @Deprecated(r'Use $id instead')
+  QueryField<String, ScalarModel, String> get ID => $id;
   @override
   String? get str;
+
+  /// Query field for the [str] field.
+  QueryField<String, ScalarModel, String?> get $str => _queryFields.$str;
+
+  /// Query field for the [str] field.
+  @Deprecated(r'Use $str instead')
+  QueryField<String, ScalarModel, String?> get STR => $str;
   @override
   String get requiredStr;
+
+  /// Query field for the [requiredStr] field.
+  QueryField<String, ScalarModel, String> get $requiredStr =>
+      _queryFields.$requiredStr;
+
+  /// Query field for the [requiredStr] field.
+  @Deprecated(r'Use $requiredStr instead')
+  QueryField<String, ScalarModel, String> get REQUIRED_STR => $requiredStr;
   @override
   int? get integer;
+
+  /// Query field for the [integer] field.
+  QueryField<String, ScalarModel, int?> get $integer => _queryFields.$integer;
+
+  /// Query field for the [integer] field.
+  @Deprecated(r'Use $integer instead')
+  QueryField<String, ScalarModel, int?> get INTEGER => $integer;
   @override
   int get requiredInteger;
+
+  /// Query field for the [requiredInteger] field.
+  QueryField<String, ScalarModel, int> get $requiredInteger =>
+      _queryFields.$requiredInteger;
+
+  /// Query field for the [requiredInteger] field.
+  @Deprecated(r'Use $requiredInteger instead')
+  QueryField<String, ScalarModel, int> get REQUIRED_INTEGER => $requiredInteger;
   @override
   double? get float;
+
+  /// Query field for the [float] field.
+  QueryField<String, ScalarModel, double?> get $float => _queryFields.$float;
+
+  /// Query field for the [float] field.
+  @Deprecated(r'Use $float instead')
+  QueryField<String, ScalarModel, double?> get FLOAT => $float;
   @override
   double get requiredFloat;
+
+  /// Query field for the [requiredFloat] field.
+  QueryField<String, ScalarModel, double> get $requiredFloat =>
+      _queryFields.$requiredFloat;
+
+  /// Query field for the [requiredFloat] field.
+  @Deprecated(r'Use $requiredFloat instead')
+  QueryField<String, ScalarModel, double> get REQUIRED_FLOAT => $requiredFloat;
   @override
   bool? get boolean;
+
+  /// Query field for the [boolean] field.
+  QueryField<String, ScalarModel, bool?> get $boolean => _queryFields.$boolean;
+
+  /// Query field for the [boolean] field.
+  @Deprecated(r'Use $boolean instead')
+  QueryField<String, ScalarModel, bool?> get BOOLEAN => $boolean;
   @override
   bool get requiredBoolean;
+
+  /// Query field for the [requiredBoolean] field.
+  QueryField<String, ScalarModel, bool> get $requiredBoolean =>
+      _queryFields.$requiredBoolean;
+
+  /// Query field for the [requiredBoolean] field.
+  @Deprecated(r'Use $requiredBoolean instead')
+  QueryField<String, ScalarModel, bool> get REQUIRED_BOOLEAN =>
+      $requiredBoolean;
   @override
   TemporalDate? get awsDate;
+
+  /// Query field for the [awsDate] field.
+  QueryField<String, ScalarModel, TemporalDate?> get $awsDate =>
+      _queryFields.$awsDate;
+
+  /// Query field for the [awsDate] field.
+  @Deprecated(r'Use $awsDate instead')
+  QueryField<String, ScalarModel, TemporalDate?> get AWS_DATE => $awsDate;
   @override
   TemporalDate get requiredAwsDate;
+
+  /// Query field for the [requiredAwsDate] field.
+  QueryField<String, ScalarModel, TemporalDate> get $requiredAwsDate =>
+      _queryFields.$requiredAwsDate;
+
+  /// Query field for the [requiredAwsDate] field.
+  @Deprecated(r'Use $requiredAwsDate instead')
+  QueryField<String, ScalarModel, TemporalDate> get REQUIRED_AWS_DATE =>
+      $requiredAwsDate;
   @override
   TemporalDateTime? get awsDateTime;
+
+  /// Query field for the [awsDateTime] field.
+  QueryField<String, ScalarModel, TemporalDateTime?> get $awsDateTime =>
+      _queryFields.$awsDateTime;
+
+  /// Query field for the [awsDateTime] field.
+  @Deprecated(r'Use $awsDateTime instead')
+  QueryField<String, ScalarModel, TemporalDateTime?> get AWS_DATE_TIME =>
+      $awsDateTime;
   @override
   TemporalDateTime get requiredAwsDateTime;
+
+  /// Query field for the [requiredAwsDateTime] field.
+  QueryField<String, ScalarModel, TemporalDateTime> get $requiredAwsDateTime =>
+      _queryFields.$requiredAwsDateTime;
+
+  /// Query field for the [requiredAwsDateTime] field.
+  @Deprecated(r'Use $requiredAwsDateTime instead')
+  QueryField<String, ScalarModel, TemporalDateTime>
+      get REQUIRED_AWS_DATE_TIME => $requiredAwsDateTime;
   @override
   TemporalTime? get awsTime;
+
+  /// Query field for the [awsTime] field.
+  QueryField<String, ScalarModel, TemporalTime?> get $awsTime =>
+      _queryFields.$awsTime;
+
+  /// Query field for the [awsTime] field.
+  @Deprecated(r'Use $awsTime instead')
+  QueryField<String, ScalarModel, TemporalTime?> get AWS_TIME => $awsTime;
   @override
   TemporalTime get requiredAwsTime;
+
+  /// Query field for the [requiredAwsTime] field.
+  QueryField<String, ScalarModel, TemporalTime> get $requiredAwsTime =>
+      _queryFields.$requiredAwsTime;
+
+  /// Query field for the [requiredAwsTime] field.
+  @Deprecated(r'Use $requiredAwsTime instead')
+  QueryField<String, ScalarModel, TemporalTime> get REQUIRED_AWS_TIME =>
+      $requiredAwsTime;
   @override
   TemporalTimestamp? get awsTimestamp;
+
+  /// Query field for the [awsTimestamp] field.
+  QueryField<String, ScalarModel, TemporalTimestamp?> get $awsTimestamp =>
+      _queryFields.$awsTimestamp;
+
+  /// Query field for the [awsTimestamp] field.
+  @Deprecated(r'Use $awsTimestamp instead')
+  QueryField<String, ScalarModel, TemporalTimestamp?> get AWS_TIMESTAMP =>
+      $awsTimestamp;
   @override
   TemporalTimestamp get requiredAwsTimestamp;
+
+  /// Query field for the [requiredAwsTimestamp] field.
+  QueryField<String, ScalarModel, TemporalTimestamp>
+      get $requiredAwsTimestamp => _queryFields.$requiredAwsTimestamp;
+
+  /// Query field for the [requiredAwsTimestamp] field.
+  @Deprecated(r'Use $requiredAwsTimestamp instead')
+  QueryField<String, ScalarModel, TemporalTimestamp>
+      get REQUIRED_AWS_TIMESTAMP => $requiredAwsTimestamp;
   @override
   String? get awsEmail;
+
+  /// Query field for the [awsEmail] field.
+  QueryField<String, ScalarModel, String?> get $awsEmail =>
+      _queryFields.$awsEmail;
+
+  /// Query field for the [awsEmail] field.
+  @Deprecated(r'Use $awsEmail instead')
+  QueryField<String, ScalarModel, String?> get AWS_EMAIL => $awsEmail;
   @override
   String get requiredAwsEmail;
+
+  /// Query field for the [requiredAwsEmail] field.
+  QueryField<String, ScalarModel, String> get $requiredAwsEmail =>
+      _queryFields.$requiredAwsEmail;
+
+  /// Query field for the [requiredAwsEmail] field.
+  @Deprecated(r'Use $requiredAwsEmail instead')
+  QueryField<String, ScalarModel, String> get REQUIRED_AWS_EMAIL =>
+      $requiredAwsEmail;
   @override
   Object? get awsJson;
+
+  /// Query field for the [awsJson] field.
+  QueryField<String, ScalarModel, Object?> get $awsJson =>
+      _queryFields.$awsJson;
+
+  /// Query field for the [awsJson] field.
+  @Deprecated(r'Use $awsJson instead')
+  QueryField<String, ScalarModel, Object?> get AWS_JSON => $awsJson;
   @override
   Object get requiredAwsJson;
+
+  /// Query field for the [requiredAwsJson] field.
+  QueryField<String, ScalarModel, Object> get $requiredAwsJson =>
+      _queryFields.$requiredAwsJson;
+
+  /// Query field for the [requiredAwsJson] field.
+  @Deprecated(r'Use $requiredAwsJson instead')
+  QueryField<String, ScalarModel, Object> get REQUIRED_AWS_JSON =>
+      $requiredAwsJson;
   @override
   String? get awsPhone;
+
+  /// Query field for the [awsPhone] field.
+  QueryField<String, ScalarModel, String?> get $awsPhone =>
+      _queryFields.$awsPhone;
+
+  /// Query field for the [awsPhone] field.
+  @Deprecated(r'Use $awsPhone instead')
+  QueryField<String, ScalarModel, String?> get AWS_PHONE => $awsPhone;
   @override
   String get requiredAwsPhone;
+
+  /// Query field for the [requiredAwsPhone] field.
+  QueryField<String, ScalarModel, String> get $requiredAwsPhone =>
+      _queryFields.$requiredAwsPhone;
+
+  /// Query field for the [requiredAwsPhone] field.
+  @Deprecated(r'Use $requiredAwsPhone instead')
+  QueryField<String, ScalarModel, String> get REQUIRED_AWS_PHONE =>
+      $requiredAwsPhone;
   @override
   Uri? get awsUrl;
+
+  /// Query field for the [awsUrl] field.
+  QueryField<String, ScalarModel, Uri?> get $awsUrl => _queryFields.$awsUrl;
+
+  /// Query field for the [awsUrl] field.
+  @Deprecated(r'Use $awsUrl instead')
+  QueryField<String, ScalarModel, Uri?> get AWS_URL => $awsUrl;
   @override
   Uri get requiredAwsUrl;
+
+  /// Query field for the [requiredAwsUrl] field.
+  QueryField<String, ScalarModel, Uri> get $requiredAwsUrl =>
+      _queryFields.$requiredAwsUrl;
+
+  /// Query field for the [requiredAwsUrl] field.
+  @Deprecated(r'Use $requiredAwsUrl instead')
+  QueryField<String, ScalarModel, Uri> get REQUIRED_AWS_URL => $requiredAwsUrl;
   @override
   String? get awsIpAddress;
+
+  /// Query field for the [awsIpAddress] field.
+  QueryField<String, ScalarModel, String?> get $awsIpAddress =>
+      _queryFields.$awsIpAddress;
+
+  /// Query field for the [awsIpAddress] field.
+  @Deprecated(r'Use $awsIpAddress instead')
+  QueryField<String, ScalarModel, String?> get AWS_IP_ADDRESS => $awsIpAddress;
   @override
   String get requiredAwsIpAddress;
+
+  /// Query field for the [requiredAwsIpAddress] field.
+  QueryField<String, ScalarModel, String> get $requiredAwsIpAddress =>
+      _queryFields.$requiredAwsIpAddress;
+
+  /// Query field for the [requiredAwsIpAddress] field.
+  @Deprecated(r'Use $requiredAwsIpAddress instead')
+  QueryField<String, ScalarModel, String> get REQUIRED_AWS_IP_ADDRESS =>
+      $requiredAwsIpAddress;
   @override
   TemporalDateTime? get createdAt;
+
+  /// Query field for the [createdAt] field.
+  QueryField<String, ScalarModel, TemporalDateTime?> get $createdAt =>
+      _queryFields.$createdAt;
+
+  /// Query field for the [createdAt] field.
+  @Deprecated(r'Use $createdAt instead')
+  QueryField<String, ScalarModel, TemporalDateTime?> get CREATED_AT =>
+      $createdAt;
   @override
   TemporalDateTime? get updatedAt;
+
+  /// Query field for the [updatedAt] field.
+  QueryField<String, ScalarModel, TemporalDateTime?> get $updatedAt =>
+      _queryFields.$updatedAt;
+
+  /// Query field for the [updatedAt] field.
+  @Deprecated(r'Use $updatedAt instead')
+  QueryField<String, ScalarModel, TemporalDateTime?> get UPDATED_AT =>
+      $updatedAt;
+
+  /// Query field for the [modelIdentifier] field.
+  QueryField<String, ScalarModel, String> get $modelIdentifier =>
+      _queryFields.$modelIdentifier;
+
+  /// Query field for the [modelIdentifier] field.
+  @Deprecated(r'Use $modelIdentifier instead')
+  QueryField<String, ScalarModel, String> get MODEL_IDENTIFIER =>
+      $modelIdentifier;
 }
 
 class _ScalarModel extends ScalarModel {

@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-library query_field;
+library amplify_core.query.query_field;
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/types/temporal/datetime_parse.dart';
@@ -24,20 +24,52 @@ part 'query_predicate.dart';
 part 'query_sort.dart';
 part 'query_utils.dart';
 
+/// {@template amplify_core.nested_query_field}
+/// A field used to query models which may be nested within other models.
+/// {@endtemplate}
+class NestedQueryField<
+    RootModelIdentifier extends Object,
+    RootModel extends Model<RootModelIdentifier, RootModel>,
+    ModelIdentifier extends Object,
+    M extends Model<ModelIdentifier, M>,
+    T extends Object?> extends QueryField<RootModelIdentifier, RootModel, T> {
+  /// {@macro amplify_core.nested_query_field}
+  const NestedQueryField(
+    this.field, {
+    this.root,
+  }) : super._();
+
+  /// The field within [M].
+  final QueryField<ModelIdentifier, M, T> field;
+
+  /// The field within [RootModel], if nested.
+  final QueryField<RootModelIdentifier, RootModel, M>? root;
+
+  @override
+  String get fieldName => field.fieldName;
+
+  @override
+  T forModel(RootModel model) {
+    final model_ = root?.forModel(model) ?? model;
+    return field.forModel(model_ as M);
+  }
+}
+
 /// {@template amplify_core.query_field}
 /// A field used to query models.
 ///
 /// Contains methods for filtering and sorting query results.
 /// {@endtemplate}
-class QueryField<ModelIdentifier extends Object,
+abstract class QueryField<ModelIdentifier extends Object,
     M extends Model<ModelIdentifier, M>, T extends Object?> {
   /// {@macro amplify_core.query_field}
-  const QueryField({
-    required this.fieldName,
-  });
+  const factory QueryField({required String fieldName}) =
+      _QueryField<ModelIdentifier, M, T>;
+
+  const QueryField._();
 
   /// The name of the field to be queried on.
-  final String fieldName;
+  String get fieldName;
 
   /// Gets the value of this field for [model].
   T forModel(M model) => model.valueFor(this);
@@ -303,4 +335,14 @@ class QueryField<ModelIdentifier extends Object,
   QuerySortBy descending() {
     return QuerySortBy(field: fieldName, order: QuerySortOrder.descending);
   }
+}
+
+class _QueryField<
+    ModelIdentifier extends Object,
+    M extends Model<ModelIdentifier, M>,
+    T extends Object?> extends QueryField<ModelIdentifier, M, T> {
+  const _QueryField({required this.fieldName}) : super._();
+
+  @override
+  final String fieldName;
 }
