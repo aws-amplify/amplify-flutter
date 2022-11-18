@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
 library rest_xml_v2.rest_xml_protocol.test.xml_empty_lists_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -6,6 +6,8 @@ library rest_xml_v2.rest_xml_protocol.test.xml_empty_lists_operation_test_test; 
 import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/serializer.dart';
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/foo_enum.dart' as _i7;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/integer_enum.dart'
+    as _i9;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/structure_list_member.dart'
     as _i8;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_lists_input_output.dart'
@@ -205,6 +207,17 @@ class XmlListsInputOutputRestXmlSerializer
                 [FullType(_i8.StructureListMember)],
               ),
             ) as _i6.BuiltList<_i8.StructureListMember>));
+          }
+          break;
+        case 'intEnumList':
+          if (value != null) {
+            result.intEnumList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltList,
+                [FullType(_i9.IntegerEnum)],
+              ),
+            ) as _i6.BuiltList<_i9.IntegerEnum>));
           }
           break;
         case 'integerList':

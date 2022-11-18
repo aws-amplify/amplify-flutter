@@ -1,14 +1,16 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
 library rest_xml_v2.rest_xml_protocol.test.all_query_string_types_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i8;
+import 'package:fixnum/fixnum.dart' as _i9;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/all_query_string_types_input.dart'
     as _i5;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/foo_enum.dart' as _i7;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/integer_enum.dart'
+    as _i8;
 import 'package:rest_xml_v2/src/rest_xml_protocol/operation/all_query_string_types_operation.dart'
     as _i3;
 import 'package:smithy/smithy.dart' as _i4;
@@ -86,6 +88,11 @@ void main() {
               'Baz',
               'Bar',
             ],
+            'queryIntegerEnum': 1,
+            'queryIntegerEnumList': [
+              1,
+              2,
+            ],
           },
           vendorParamsShape: null,
           vendorParams: {},
@@ -133,6 +140,9 @@ void main() {
             'EnumList=Foo',
             'EnumList=Baz',
             'EnumList=Bar',
+            'IntegerEnum=1',
+            'IntegerEnumList=1',
+            'IntegerEnumList=2',
           ],
           forbidQueryParams: [],
           requireQueryParams: [],
@@ -429,6 +439,25 @@ class AllQueryStringTypesInputRestXmlSerializer
             ) as int);
           }
           break;
+        case 'queryIntegerEnum':
+          if (value != null) {
+            result.queryIntegerEnum = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i8.IntegerEnum),
+            ) as _i8.IntegerEnum);
+          }
+          break;
+        case 'queryIntegerEnumList':
+          if (value != null) {
+            result.queryIntegerEnumList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltList,
+                [FullType(_i8.IntegerEnum)],
+              ),
+            ) as _i6.BuiltList<_i8.IntegerEnum>));
+          }
+          break;
         case 'queryIntegerList':
           if (value != null) {
             result.queryIntegerList.replace((serializers.deserialize(
@@ -455,8 +484,8 @@ class AllQueryStringTypesInputRestXmlSerializer
           if (value != null) {
             result.queryLong = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i8.Int64),
-            ) as _i8.Int64);
+              specifiedType: const FullType(_i9.Int64),
+            ) as _i9.Int64);
           }
           break;
         case 'queryParamsMapOfStrings':
