@@ -70,6 +70,10 @@ abstract class ShapeGenerator<T extends Shape, U> implements Generator<U> {
         return DartTypes.fixNum.int64.property('parseInt').call([ref]);
 
       case ShapeType.enum_:
+      case ShapeType.intEnum:
+        if (type == ShapeType.intEnum) {
+          ref = DartTypes.core.int.property('parse').call([ref]);
+        }
         final targetSymbol = context.symbolFor(targetShape.shapeId).unboxed;
         return targetSymbol.property('values').property('byValue').call([ref]);
 
@@ -167,6 +171,9 @@ abstract class ShapeGenerator<T extends Shape, U> implements Generator<U> {
 
       case ShapeType.enum_:
         return ref.property('value');
+
+      case ShapeType.intEnum:
+        return ref.property('value').property('toString').call([]);
 
       // string values with a mediaType trait are always base64 encoded.
       case ShapeType.string:

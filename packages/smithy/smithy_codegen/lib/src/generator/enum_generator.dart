@@ -43,6 +43,10 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
       .map((def) => def.expectTrait<EnumValueTrait>())
       .toList();
 
+  Reference get valueType => shape.getType() == ShapeType.intEnum
+      ? DartTypes.core.int
+      : DartTypes.core.string;
+
   @override
   Library generate() {
     // Tracks the generated type.
@@ -63,7 +67,9 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
           ..docs.addAll([
             if (shape.hasDocs(context)) shape.formattedDocs(context),
           ])
-          ..extend = DartTypes.smithy.smithyEnum(symbol)
+          ..extend = shape is StringEnumShape
+              ? DartTypes.smithy.smithyEnum(symbol)
+              : DartTypes.smithy.smithyIntEnum(symbol)
           ..constructors.addAll([
             _privateConstructor,
             _sdkUnknownConstructor,
@@ -94,7 +100,7 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
               ..type = DartTypes.core.string),
             Parameter((p) => p
               ..name = 'value'
-              ..type = DartTypes.core.string),
+              ..type = valueType),
           ])
           ..initializers.add(refer('super').call([
             refer('index'),
@@ -115,7 +121,7 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
           ..name = '_sdkUnknown'
           ..requiredParameters.add(Parameter((p) => p
             ..name = 'value'
-            ..type = DartTypes.core.string))
+            ..type = valueType))
           ..initializers.add(refer('super').property('sdkUnknown').call([
             refer('value'),
           ]).code),
@@ -137,7 +143,7 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
             ..assignment = symbol.newInstanceNamed('_', [
               literalNum(index),
               literalString(definition.memberName),
-              literalString(enumValue.value),
+              literal(enumValue.value),
             ]).code;
         });
       });
@@ -156,23 +162,28 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
       );
 
   /// The list of serializers for this enum.
-  Field get _serializersField => Field((f) => f
-    ..static = true
-    ..modifier = FieldModifier.constant
-    ..type = DartTypes.core.list(DartTypes.smithy.smithySerializer(symbol))
-    ..name = 'serializers'
-    ..assignment = literalConstList([
-      DartTypes.smithy.smithyEnumSerializer.constInstance([
-        literalString(shape.shapeId.shape),
-      ], {
-        'values': refer('values'),
-        'sdkUnknown': symbol.property('_sdkUnknown'),
-        'supportedProtocols': literalConstList([
-          for (final protocol in context.serviceProtocols)
-            if (!protocol.isSynthetic) protocol.shapeId.constructed,
-        ])
-      })
-    ]).code);
+  Field get _serializersField {
+    final serializerType = shape is StringEnumShape
+        ? DartTypes.smithy.smithyEnumSerializer
+        : DartTypes.smithy.smithyIntEnumSerializer;
+    return Field((f) => f
+      ..static = true
+      ..modifier = FieldModifier.constant
+      ..type = DartTypes.core.list(DartTypes.smithy.smithySerializer(symbol))
+      ..name = 'serializers'
+      ..assignment = literalConstList([
+        serializerType.constInstance([
+          literalString(shape.shapeId.shape),
+        ], {
+          'values': refer('values'),
+          'sdkUnknown': symbol.property('_sdkUnknown'),
+          'supportedProtocols': literalConstList([
+            for (final protocol in context.serviceProtocols)
+              if (!protocol.isSynthetic) protocol.shapeId.constructed,
+          ])
+        })
+      ]).code);
+  }
 
   /// Adds helper functions `byName` and `byValue` via an extension.
   Extension get _helperExtension => Extension((e) => e
@@ -217,7 +228,7 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
             '/// Returns the value of [$className] whose value matches [value].'
           ])
           ..requiredParameters.add(Parameter((p) => p
-            ..type = DartTypes.core.string
+            ..type = valueType
             ..name = 'value'))
           ..lambda = true
           ..body = refer('firstWhere').call([

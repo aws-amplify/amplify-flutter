@@ -15,6 +15,7 @@ const ShapeType _$timestamp = const ShapeType._('timestamp');
 const ShapeType _$byte = const ShapeType._('byte');
 const ShapeType _$short = const ShapeType._('short');
 const ShapeType _$integer = const ShapeType._('integer');
+const ShapeType _$intEnum = const ShapeType._('intEnum');
 const ShapeType _$long = const ShapeType._('long');
 const ShapeType _$float = const ShapeType._('float');
 const ShapeType _$document = const ShapeType._('document');
@@ -51,6 +52,8 @@ ShapeType _$shapeTypeValueOf(String name) {
       return _$short;
     case 'integer':
       return _$integer;
+    case 'intEnum':
+      return _$intEnum;
     case 'long':
       return _$long;
     case 'float':
@@ -97,6 +100,7 @@ final BuiltSet<ShapeType> _$shapeTypeValues =
   _$byte,
   _$short,
   _$integer,
+  _$intEnum,
   _$long,
   _$float,
   _$document,

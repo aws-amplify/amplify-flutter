@@ -14,10 +14,10 @@
 
 import 'package:smithy/ast.dart';
 
-class EnumValueTrait extends StringTrait {
-  const EnumValueTrait(String value) : super(id, value);
+class EnumValueTrait extends Trait<Object> {
+  const EnumValueTrait(Object value) : super(id, value);
 
-  const EnumValueTrait.fromJson(Object? json) : super(id, json as String);
+  const EnumValueTrait.fromJson(Object? json) : super(id, json as Object);
 
   static const id = ShapeId(namespace: 'smithy.api', shape: 'enumValue');
 }

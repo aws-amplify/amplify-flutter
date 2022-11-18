@@ -134,7 +134,7 @@ void main() {
 
     group('Enum', () {
       test('valid name', () {
-        final shape = EnumShape((b) => b
+        final shape = StringEnumShape((b) => b
           ..shapeId = ShapeId.parse('com.example#MyEnum')
           ..members = NamedMembersMap({
             'TEST': MemberShape((b) => b
@@ -148,7 +148,7 @@ void main() {
       });
 
       test('conflict with builder of another class', () {
-        final myEnum = EnumShape((b) => b
+        final myEnum = StringEnumShape((b) => b
           ..shapeId = ShapeId.parse('com.example#MyEnum')
           ..members = NamedMembersMap({
             'TEST': MemberShape((b) => b
