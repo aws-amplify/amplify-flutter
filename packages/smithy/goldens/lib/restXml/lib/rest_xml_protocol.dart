@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
 
 /// A REST XML service that sends XML requests and responses.
 library rest_xml_v1.rest_xml_protocol;
