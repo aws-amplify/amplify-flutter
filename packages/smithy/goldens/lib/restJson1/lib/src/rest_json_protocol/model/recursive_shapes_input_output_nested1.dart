@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
 
 library rest_json1_v1.rest_json_protocol.model.recursive_shapes_input_output_nested1; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
