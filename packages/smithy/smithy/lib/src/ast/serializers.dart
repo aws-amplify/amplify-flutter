@@ -34,9 +34,9 @@ part 'serializers.g.dart';
   ByteShape,
   DocumentShape,
   DoubleShape,
-  EnumShape,
   FloatShape,
   IntegerShape,
+  IntEnumShape,
   ListShape,
   LongShape,
   MapShape,
@@ -47,6 +47,7 @@ part 'serializers.g.dart';
   SetShape,
   ShortShape,
   StringShape,
+  StringEnumShape,
   StructureShape,
   TimestampShape,
   UnionShape

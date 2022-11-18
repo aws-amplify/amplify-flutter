@@ -37,7 +37,7 @@ abstract class StringShape
     if (enumTrait == null) {
       return null;
     }
-    return EnumShape((b) {
+    return StringEnumShape((b) {
       b.shapeId = shapeId;
       b.members = NamedMembersMap({});
       b.traits = traits..remove(EnumTrait.id);

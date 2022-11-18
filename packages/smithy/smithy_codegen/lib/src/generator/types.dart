@@ -693,9 +693,21 @@ class _Smithy {
           ..types.add(ref),
       );
 
+  /// Creates a [smithy.SmithyIntEnum] reference for [ref], the enum class.
+  Reference smithyIntEnum(Reference ref) => TypeReference(
+        (t) => t
+          ..symbol = 'SmithyIntEnum'
+          ..url = _url
+          ..types.add(ref),
+      );
+
   /// Creates a [smithy.SmithyEnumSerializer] reference.
   Reference get smithyEnumSerializer =>
       const Reference('SmithyEnumSerializer', _url);
+
+  /// Creates a [smithy.SmithyIntEnumSerializer] reference.
+  Reference get smithyIntEnumSerializer =>
+      const Reference('SmithyIntEnumSerializer', _url);
 
   /// Creates a [smithy.SmithyError] reference.
   Reference get smithyError => const Reference('SmithyError', _url);

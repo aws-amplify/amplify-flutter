@@ -38,6 +38,7 @@ class ShapeType extends EnumClass {
   static const ShapeType byte = _$byte;
   static const ShapeType short = _$short;
   static const ShapeType integer = _$integer;
+  static const ShapeType intEnum = _$intEnum;
   static const ShapeType long = _$long;
   static const ShapeType float = _$float;
   static const ShapeType document = _$document;
@@ -90,6 +91,7 @@ extension ShapeTypeX on ShapeType {
       case ShapeType.bigDecimal:
       case ShapeType.bigInteger:
       case ShapeType.enum_:
+      case ShapeType.intEnum:
         return Category.simple;
       case ShapeType.list:
       case ShapeType.set:
@@ -125,7 +127,9 @@ extension ShapeTypeX on ShapeType {
       case ShapeType.double:
         return DoubleShape;
       case ShapeType.enum_:
-        return EnumShape;
+        return StringEnumShape;
+      case ShapeType.intEnum:
+        return IntEnumShape;
       case ShapeType.float:
         return FloatShape;
       case ShapeType.integer:

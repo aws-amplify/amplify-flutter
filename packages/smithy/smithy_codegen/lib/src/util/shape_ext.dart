@@ -79,6 +79,7 @@ extension ShapeClassName on Shape {
         if (!isEnum) return null;
         break;
       case ShapeType.enum_:
+      case ShapeType.intEnum:
       case ShapeType.structure:
       case ShapeType.operation:
       case ShapeType.union:
