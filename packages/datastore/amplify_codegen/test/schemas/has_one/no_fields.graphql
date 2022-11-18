@@ -1,0 +1,9 @@
+type BatteryCharger @model {
+  powerSource: PowerSource @hasOne
+}
+
+type PowerSource @model {
+  id: ID!
+  amps: Float!
+  volts: Float!
+}

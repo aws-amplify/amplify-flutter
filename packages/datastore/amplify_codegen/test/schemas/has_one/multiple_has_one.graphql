@@ -1,0 +1,11 @@
+type Project @model {
+  projectId: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  devTeam: Team @hasOne
+  productTeam: Team @hasOne
+}
+type Team @model {
+  teamId: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  project: Project @belongsTo
+}

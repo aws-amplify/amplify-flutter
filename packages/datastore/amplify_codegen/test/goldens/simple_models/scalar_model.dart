@@ -44,183 +44,244 @@ class ScalarModelType
 
 class ScalarModelQueryFields<ModelIdentifier extends Object,
     M extends Model<ModelIdentifier, M>> {
-  const ScalarModelQueryFields([this.root]);
+  const ScalarModelQueryFields([this._root]);
 
-  final QueryField<ModelIdentifier, M, ScalarModel>? root;
+  final QueryField<ModelIdentifier, M, ScalarModel>? _root;
 
   /// Query field for the [ScalarModel.id] field.
   QueryField<ModelIdentifier, M, String> get $id =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, String>(
-          const QueryField<String, ScalarModel, String>(fieldName: 'id'));
+        const QueryField<String, ScalarModel, String>(fieldName: 'id'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.str] field.
   QueryField<ModelIdentifier, M, String?> get $str =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, String?>(
-          const QueryField<String, ScalarModel, String?>(fieldName: 'str'));
+        const QueryField<String, ScalarModel, String?>(fieldName: 'str'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.requiredStr] field.
-  QueryField<ModelIdentifier, M, String> get $requiredStr => NestedQueryField<
-          ModelIdentifier, M, String, ScalarModel, String>(
-      const QueryField<String, ScalarModel, String>(fieldName: 'requiredStr'));
+  QueryField<ModelIdentifier, M, String> get $requiredStr =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, String>(
+        const QueryField<String, ScalarModel, String>(fieldName: 'requiredStr'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.integer] field.
   QueryField<ModelIdentifier, M, int?> get $integer =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, int?>(
-          const QueryField<String, ScalarModel, int?>(fieldName: 'integer'));
+        const QueryField<String, ScalarModel, int?>(fieldName: 'integer'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.requiredInteger] field.
-  QueryField<ModelIdentifier, M, int> get $requiredInteger => NestedQueryField<
-          ModelIdentifier, M, String, ScalarModel, int>(
-      const QueryField<String, ScalarModel, int>(fieldName: 'requiredInteger'));
+  QueryField<ModelIdentifier, M, int> get $requiredInteger =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, int>(
+        const QueryField<String, ScalarModel, int>(
+            fieldName: 'requiredInteger'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.float] field.
   QueryField<ModelIdentifier, M, double?> get $float =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, double?>(
-          const QueryField<String, ScalarModel, double?>(fieldName: 'float'));
+        const QueryField<String, ScalarModel, double?>(fieldName: 'float'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.requiredFloat] field.
   QueryField<ModelIdentifier, M, double> get $requiredFloat =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, double>(
-          const QueryField<String, ScalarModel, double>(
-              fieldName: 'requiredFloat'));
+        const QueryField<String, ScalarModel, double>(
+            fieldName: 'requiredFloat'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.boolean] field.
   QueryField<ModelIdentifier, M, bool?> get $boolean =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, bool?>(
-          const QueryField<String, ScalarModel, bool?>(fieldName: 'boolean'));
+        const QueryField<String, ScalarModel, bool?>(fieldName: 'boolean'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.requiredBoolean] field.
   QueryField<ModelIdentifier, M, bool> get $requiredBoolean =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, bool>(
-          const QueryField<String, ScalarModel, bool>(
-              fieldName: 'requiredBoolean'));
+        const QueryField<String, ScalarModel, bool>(
+            fieldName: 'requiredBoolean'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.awsDate] field.
   QueryField<ModelIdentifier, M, TemporalDate?> get $awsDate =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, TemporalDate?>(
-          const QueryField<String, ScalarModel, TemporalDate?>(
-              fieldName: 'awsDate'));
+        const QueryField<String, ScalarModel, TemporalDate?>(
+            fieldName: 'awsDate'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.requiredAwsDate] field.
   QueryField<ModelIdentifier, M, TemporalDate> get $requiredAwsDate =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, TemporalDate>(
-          const QueryField<String, ScalarModel, TemporalDate>(
-              fieldName: 'requiredAwsDate'));
+        const QueryField<String, ScalarModel, TemporalDate>(
+            fieldName: 'requiredAwsDate'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.awsDateTime] field.
   QueryField<ModelIdentifier, M, TemporalDateTime?> get $awsDateTime =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel,
-              TemporalDateTime?>(
-          const QueryField<String, ScalarModel, TemporalDateTime?>(
-              fieldName: 'awsDateTime'));
+          TemporalDateTime?>(
+        const QueryField<String, ScalarModel, TemporalDateTime?>(
+            fieldName: 'awsDateTime'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.requiredAwsDateTime] field.
   QueryField<ModelIdentifier, M, TemporalDateTime> get $requiredAwsDateTime =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel,
-              TemporalDateTime>(
-          const QueryField<String, ScalarModel, TemporalDateTime>(
-              fieldName: 'requiredAwsDateTime'));
+          TemporalDateTime>(
+        const QueryField<String, ScalarModel, TemporalDateTime>(
+            fieldName: 'requiredAwsDateTime'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.awsTime] field.
   QueryField<ModelIdentifier, M, TemporalTime?> get $awsTime =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, TemporalTime?>(
-          const QueryField<String, ScalarModel, TemporalTime?>(
-              fieldName: 'awsTime'));
+        const QueryField<String, ScalarModel, TemporalTime?>(
+            fieldName: 'awsTime'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.requiredAwsTime] field.
   QueryField<ModelIdentifier, M, TemporalTime> get $requiredAwsTime =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, TemporalTime>(
-          const QueryField<String, ScalarModel, TemporalTime>(
-              fieldName: 'requiredAwsTime'));
+        const QueryField<String, ScalarModel, TemporalTime>(
+            fieldName: 'requiredAwsTime'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.awsTimestamp] field.
   QueryField<ModelIdentifier, M, TemporalTimestamp?> get $awsTimestamp =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel,
-              TemporalTimestamp?>(
-          const QueryField<String, ScalarModel, TemporalTimestamp?>(
-              fieldName: 'awsTimestamp'));
+          TemporalTimestamp?>(
+        const QueryField<String, ScalarModel, TemporalTimestamp?>(
+            fieldName: 'awsTimestamp'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.requiredAwsTimestamp] field.
   QueryField<ModelIdentifier, M, TemporalTimestamp> get $requiredAwsTimestamp =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel,
-              TemporalTimestamp>(
-          const QueryField<String, ScalarModel, TemporalTimestamp>(
-              fieldName: 'requiredAwsTimestamp'));
+          TemporalTimestamp>(
+        const QueryField<String, ScalarModel, TemporalTimestamp>(
+            fieldName: 'requiredAwsTimestamp'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.awsEmail] field.
-  QueryField<ModelIdentifier, M, String?> get $awsEmail => NestedQueryField<
-          ModelIdentifier, M, String, ScalarModel, String?>(
-      const QueryField<String, ScalarModel, String?>(fieldName: 'awsEmail'));
+  QueryField<ModelIdentifier, M, String?> get $awsEmail =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, String?>(
+        const QueryField<String, ScalarModel, String?>(fieldName: 'awsEmail'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.requiredAwsEmail] field.
   QueryField<ModelIdentifier, M, String> get $requiredAwsEmail =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, String>(
-          const QueryField<String, ScalarModel, String>(
-              fieldName: 'requiredAwsEmail'));
+        const QueryField<String, ScalarModel, String>(
+            fieldName: 'requiredAwsEmail'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.awsJson] field.
   QueryField<ModelIdentifier, M, Object?> get $awsJson =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, Object?>(
-          const QueryField<String, ScalarModel, Object?>(fieldName: 'awsJson'));
+        const QueryField<String, ScalarModel, Object?>(fieldName: 'awsJson'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.requiredAwsJson] field.
   QueryField<ModelIdentifier, M, Object> get $requiredAwsJson =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, Object>(
-          const QueryField<String, ScalarModel, Object>(
-              fieldName: 'requiredAwsJson'));
+        const QueryField<String, ScalarModel, Object>(
+            fieldName: 'requiredAwsJson'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.awsPhone] field.
-  QueryField<ModelIdentifier, M, String?> get $awsPhone => NestedQueryField<
-          ModelIdentifier, M, String, ScalarModel, String?>(
-      const QueryField<String, ScalarModel, String?>(fieldName: 'awsPhone'));
+  QueryField<ModelIdentifier, M, String?> get $awsPhone =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, String?>(
+        const QueryField<String, ScalarModel, String?>(fieldName: 'awsPhone'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.requiredAwsPhone] field.
   QueryField<ModelIdentifier, M, String> get $requiredAwsPhone =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, String>(
-          const QueryField<String, ScalarModel, String>(
-              fieldName: 'requiredAwsPhone'));
+        const QueryField<String, ScalarModel, String>(
+            fieldName: 'requiredAwsPhone'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.awsUrl] field.
   QueryField<ModelIdentifier, M, Uri?> get $awsUrl =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, Uri?>(
-          const QueryField<String, ScalarModel, Uri?>(fieldName: 'awsUrl'));
+        const QueryField<String, ScalarModel, Uri?>(fieldName: 'awsUrl'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.requiredAwsUrl] field.
-  QueryField<ModelIdentifier, M, Uri> get $requiredAwsUrl => NestedQueryField<
-          ModelIdentifier, M, String, ScalarModel, Uri>(
-      const QueryField<String, ScalarModel, Uri>(fieldName: 'requiredAwsUrl'));
+  QueryField<ModelIdentifier, M, Uri> get $requiredAwsUrl =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarModel, Uri>(
+        const QueryField<String, ScalarModel, Uri>(fieldName: 'requiredAwsUrl'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.awsIpAddress] field.
   QueryField<ModelIdentifier, M, String?> get $awsIpAddress =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, String?>(
-          const QueryField<String, ScalarModel, String?>(
-              fieldName: 'awsIpAddress'));
+        const QueryField<String, ScalarModel, String?>(
+            fieldName: 'awsIpAddress'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.requiredAwsIpAddress] field.
   QueryField<ModelIdentifier, M, String> get $requiredAwsIpAddress =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, String>(
-          const QueryField<String, ScalarModel, String>(
-              fieldName: 'requiredAwsIpAddress'));
+        const QueryField<String, ScalarModel, String>(
+            fieldName: 'requiredAwsIpAddress'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.createdAt] field.
   QueryField<ModelIdentifier, M, TemporalDateTime?> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel,
-              TemporalDateTime?>(
-          const QueryField<String, ScalarModel, TemporalDateTime?>(
-              fieldName: 'createdAt'));
+          TemporalDateTime?>(
+        const QueryField<String, ScalarModel, TemporalDateTime?>(
+            fieldName: 'createdAt'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel.updatedAt] field.
   QueryField<ModelIdentifier, M, TemporalDateTime?> get $updatedAt =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel,
-              TemporalDateTime?>(
-          const QueryField<String, ScalarModel, TemporalDateTime?>(
-              fieldName: 'updatedAt'));
+          TemporalDateTime?>(
+        const QueryField<String, ScalarModel, TemporalDateTime?>(
+            fieldName: 'updatedAt'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarModel] model identifier.
   QueryField<ModelIdentifier, M, String> get $modelIdentifier =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, String>(
-          const QueryField<String, ScalarModel, String>(
-              fieldName: 'modelIdentifier'));
+        const QueryField<String, ScalarModel, String>(
+            fieldName: 'modelIdentifier'),
+        root: _root,
+      );
 }
 
 abstract class PartialScalarModel extends PartialModel<String, ScalarModel>

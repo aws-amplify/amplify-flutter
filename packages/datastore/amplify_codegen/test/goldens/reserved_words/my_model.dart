@@ -43,37 +43,46 @@ class MyModelType extends ModelType<String, MyModel, PartialMyModel> {
 
 class MyModelQueryFields<ModelIdentifier extends Object,
     M extends Model<ModelIdentifier, M>> {
-  const MyModelQueryFields([this.root]);
+  const MyModelQueryFields([this._root]);
 
-  final QueryField<ModelIdentifier, M, MyModel>? root;
+  final QueryField<ModelIdentifier, M, MyModel>? _root;
 
   /// Query field for the [MyModel.enum_] field.
   QueryField<ModelIdentifier, M, String> get $enum_ =>
       NestedQueryField<ModelIdentifier, M, String, MyModel, String>(
-          const QueryField<String, MyModel, String>(fieldName: 'enum'));
+        const QueryField<String, MyModel, String>(fieldName: 'enum'),
+        root: _root,
+      );
 
   /// Query field for the [MyModel.createdAt] field.
   QueryField<ModelIdentifier, M, TemporalDateTime?> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, String, MyModel, TemporalDateTime?>(
-          const QueryField<String, MyModel, TemporalDateTime?>(
-              fieldName: 'createdAt'));
+        const QueryField<String, MyModel, TemporalDateTime?>(
+            fieldName: 'createdAt'),
+        root: _root,
+      );
 
   /// Query field for the [MyModel.updatedAt] field.
   QueryField<ModelIdentifier, M, TemporalDateTime?> get $updatedAt =>
       NestedQueryField<ModelIdentifier, M, String, MyModel, TemporalDateTime?>(
-          const QueryField<String, MyModel, TemporalDateTime?>(
-              fieldName: 'updatedAt'));
+        const QueryField<String, MyModel, TemporalDateTime?>(
+            fieldName: 'updatedAt'),
+        root: _root,
+      );
 
   /// Query field for the [MyModel.id] field.
   QueryField<ModelIdentifier, M, String> get $id =>
       NestedQueryField<ModelIdentifier, M, String, MyModel, String>(
-          const QueryField<String, MyModel, String>(fieldName: 'id'));
+        const QueryField<String, MyModel, String>(fieldName: 'id'),
+        root: _root,
+      );
 
   /// Query field for the [MyModel] model identifier.
   QueryField<ModelIdentifier, M, String> get $modelIdentifier =>
       NestedQueryField<ModelIdentifier, M, String, MyModel, String>(
-          const QueryField<String, MyModel, String>(
-              fieldName: 'modelIdentifier'));
+        const QueryField<String, MyModel, String>(fieldName: 'modelIdentifier'),
+        root: _root,
+      );
 }
 
 abstract class PartialMyModel extends PartialModel<String, MyModel>

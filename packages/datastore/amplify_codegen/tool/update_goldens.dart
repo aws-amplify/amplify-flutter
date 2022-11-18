@@ -27,13 +27,19 @@ void main() {
   if (goldensDir.existsSync()) {
     goldensDir.deleteSync(recursive: true);
   }
-  for (final entity in schemaDir.listSync()) {
+  for (final entity in schemaDir.listSync(recursive: true).whereType<File>()) {
     final schema = File(entity.path).readAsStringSync();
     final schemaName = path.basenameWithoutExtension(entity.path);
     stdout.writeln('Generating schema for $schemaName');
     final generated = generateForSchema(schema);
-    final outputDir = Directory.fromUri(goldensDir.uri.resolve(schemaName))
-      ..createSync(recursive: true);
+    final outputPath = path.join(
+      goldensDir.path,
+      path.relative(
+        path.join(path.dirname(entity.path), schemaName),
+        from: schemaDir.path,
+      ),
+    );
+    final outputDir = Directory(outputPath)..createSync(recursive: true);
     for (final entry in generated.entries) {
       final filename = '${entry.key.split('.').last}.dart';
       stdout.writeln('  -- Generated $filename');

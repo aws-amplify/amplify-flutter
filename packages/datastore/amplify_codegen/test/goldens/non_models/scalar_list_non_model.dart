@@ -45,154 +45,196 @@ class ScalarListNonModelType
 
 class ScalarListNonModelQueryFields<ModelIdentifier extends Object,
     M extends Model<ModelIdentifier, M>> {
-  const ScalarListNonModelQueryFields([this.root]);
+  const ScalarListNonModelQueryFields([this._root]);
 
-  final QueryField<ModelIdentifier, M, ScalarListNonModel>? root;
+  final QueryField<ModelIdentifier, M, ScalarListNonModel>? _root;
 
   /// Query field for the [ScalarListNonModel.id] field.
-  QueryField<ModelIdentifier, M, String> get $id => NestedQueryField<
-          ModelIdentifier, M, String, ScalarListNonModel, String>(
-      const QueryField<String, ScalarListNonModel, String>(fieldName: 'id'));
+  QueryField<ModelIdentifier, M, String> get $id =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel, String>(
+        const QueryField<String, ScalarListNonModel, String>(fieldName: 'id'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.listOfString] field.
   QueryField<ModelIdentifier, M, List<String?>?> get $listOfString =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<String?>?>(
-          const QueryField<String, ScalarListNonModel, List<String?>?>(
-              fieldName: 'listOfString'));
+          List<String?>?>(
+        const QueryField<String, ScalarListNonModel, List<String?>?>(
+            fieldName: 'listOfString'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.listOfRequiredString] field.
   QueryField<ModelIdentifier, M, List<String>?> get $listOfRequiredString =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<String>?>(
-          const QueryField<String, ScalarListNonModel, List<String>?>(
-              fieldName: 'listOfRequiredString'));
+          List<String>?>(
+        const QueryField<String, ScalarListNonModel, List<String>?>(
+            fieldName: 'listOfRequiredString'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.requiredListOfString] field.
   QueryField<ModelIdentifier, M, List<String?>> get $requiredListOfString =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<String?>>(
-          const QueryField<String, ScalarListNonModel, List<String?>>(
-              fieldName: 'requiredListOfString'));
+          List<String?>>(
+        const QueryField<String, ScalarListNonModel, List<String?>>(
+            fieldName: 'requiredListOfString'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.requiredListOfRequiredString] field.
   QueryField<ModelIdentifier, M, List<String>>
       get $requiredListOfRequiredString => NestedQueryField<ModelIdentifier, M,
               String, ScalarListNonModel, List<String>>(
-          const QueryField<String, ScalarListNonModel, List<String>>(
-              fieldName: 'requiredListOfRequiredString'));
+            const QueryField<String, ScalarListNonModel, List<String>>(
+                fieldName: 'requiredListOfRequiredString'),
+            root: _root,
+          );
 
   /// Query field for the [ScalarListNonModel.listOfInteger] field.
   QueryField<ModelIdentifier, M, List<int?>?> get $listOfInteger =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<int?>?>(
-          const QueryField<String, ScalarListNonModel, List<int?>?>(
-              fieldName: 'listOfInteger'));
+          List<int?>?>(
+        const QueryField<String, ScalarListNonModel, List<int?>?>(
+            fieldName: 'listOfInteger'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.listOfRequiredInteger] field.
   QueryField<ModelIdentifier, M, List<int>?> get $listOfRequiredInteger =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<int>?>(
-          const QueryField<String, ScalarListNonModel, List<int>?>(
-              fieldName: 'listOfRequiredInteger'));
+          List<int>?>(
+        const QueryField<String, ScalarListNonModel, List<int>?>(
+            fieldName: 'listOfRequiredInteger'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.requiredListOfInteger] field.
   QueryField<ModelIdentifier, M, List<int?>> get $requiredListOfInteger =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<int?>>(
-          const QueryField<String, ScalarListNonModel, List<int?>>(
-              fieldName: 'requiredListOfInteger'));
+          List<int?>>(
+        const QueryField<String, ScalarListNonModel, List<int?>>(
+            fieldName: 'requiredListOfInteger'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.requiredListOfRequiredInteger] field.
   QueryField<ModelIdentifier, M, List<int>>
       get $requiredListOfRequiredInteger => NestedQueryField<ModelIdentifier, M,
               String, ScalarListNonModel, List<int>>(
-          const QueryField<String, ScalarListNonModel, List<int>>(
-              fieldName: 'requiredListOfRequiredInteger'));
+            const QueryField<String, ScalarListNonModel, List<int>>(
+                fieldName: 'requiredListOfRequiredInteger'),
+            root: _root,
+          );
 
   /// Query field for the [ScalarListNonModel.listOfFloat] field.
   QueryField<ModelIdentifier, M, List<double?>?> get $listOfFloat =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<double?>?>(
-          const QueryField<String, ScalarListNonModel, List<double?>?>(
-              fieldName: 'listOfFloat'));
+          List<double?>?>(
+        const QueryField<String, ScalarListNonModel, List<double?>?>(
+            fieldName: 'listOfFloat'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.listOfRequiredFloat] field.
   QueryField<ModelIdentifier, M, List<double>?> get $listOfRequiredFloat =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<double>?>(
-          const QueryField<String, ScalarListNonModel, List<double>?>(
-              fieldName: 'listOfRequiredFloat'));
+          List<double>?>(
+        const QueryField<String, ScalarListNonModel, List<double>?>(
+            fieldName: 'listOfRequiredFloat'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.requiredListOfFloat] field.
   QueryField<ModelIdentifier, M, List<double?>> get $requiredListOfFloat =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<double?>>(
-          const QueryField<String, ScalarListNonModel, List<double?>>(
-              fieldName: 'requiredListOfFloat'));
+          List<double?>>(
+        const QueryField<String, ScalarListNonModel, List<double?>>(
+            fieldName: 'requiredListOfFloat'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.requiredListOfRequiredFloat] field.
   QueryField<ModelIdentifier, M, List<double>>
       get $requiredListOfRequiredFloat => NestedQueryField<ModelIdentifier, M,
               String, ScalarListNonModel, List<double>>(
-          const QueryField<String, ScalarListNonModel, List<double>>(
-              fieldName: 'requiredListOfRequiredFloat'));
+            const QueryField<String, ScalarListNonModel, List<double>>(
+                fieldName: 'requiredListOfRequiredFloat'),
+            root: _root,
+          );
 
   /// Query field for the [ScalarListNonModel.listOfBoolean] field.
   QueryField<ModelIdentifier, M, List<bool?>?> get $listOfBoolean =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<bool?>?>(
-          const QueryField<String, ScalarListNonModel, List<bool?>?>(
-              fieldName: 'listOfBoolean'));
+          List<bool?>?>(
+        const QueryField<String, ScalarListNonModel, List<bool?>?>(
+            fieldName: 'listOfBoolean'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.listOfRequiredBoolean] field.
   QueryField<ModelIdentifier, M, List<bool>?> get $listOfRequiredBoolean =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<bool>?>(
-          const QueryField<String, ScalarListNonModel, List<bool>?>(
-              fieldName: 'listOfRequiredBoolean'));
+          List<bool>?>(
+        const QueryField<String, ScalarListNonModel, List<bool>?>(
+            fieldName: 'listOfRequiredBoolean'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.requiredListOfBoolean] field.
   QueryField<ModelIdentifier, M, List<bool?>> get $requiredListOfBoolean =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<bool?>>(
-          const QueryField<String, ScalarListNonModel, List<bool?>>(
-              fieldName: 'requiredListOfBoolean'));
+          List<bool?>>(
+        const QueryField<String, ScalarListNonModel, List<bool?>>(
+            fieldName: 'requiredListOfBoolean'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.requiredListOfRequiredBoolean] field.
   QueryField<ModelIdentifier, M, List<bool>>
       get $requiredListOfRequiredBoolean => NestedQueryField<ModelIdentifier, M,
               String, ScalarListNonModel, List<bool>>(
-          const QueryField<String, ScalarListNonModel, List<bool>>(
-              fieldName: 'requiredListOfRequiredBoolean'));
+            const QueryField<String, ScalarListNonModel, List<bool>>(
+                fieldName: 'requiredListOfRequiredBoolean'),
+            root: _root,
+          );
 
   /// Query field for the [ScalarListNonModel.listOfAwsDate] field.
   QueryField<ModelIdentifier, M, List<TemporalDate?>?> get $listOfAwsDate =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<TemporalDate?>?>(
-          const QueryField<String, ScalarListNonModel, List<TemporalDate?>?>(
-              fieldName: 'listOfAWSDate'));
+          List<TemporalDate?>?>(
+        const QueryField<String, ScalarListNonModel, List<TemporalDate?>?>(
+            fieldName: 'listOfAWSDate'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.listOfRequiredAwsDate] field.
   QueryField<ModelIdentifier, M, List<TemporalDate>?>
       get $listOfRequiredAwsDate => NestedQueryField<ModelIdentifier, M, String,
               ScalarListNonModel, List<TemporalDate>?>(
-          const QueryField<String, ScalarListNonModel, List<TemporalDate>?>(
-              fieldName: 'listOfRequiredAWSDate'));
+            const QueryField<String, ScalarListNonModel, List<TemporalDate>?>(
+                fieldName: 'listOfRequiredAWSDate'),
+            root: _root,
+          );
 
   /// Query field for the [ScalarListNonModel.requiredListOfAwsDate] field.
   QueryField<ModelIdentifier, M, List<TemporalDate?>>
       get $requiredListOfAwsDate => NestedQueryField<ModelIdentifier, M, String,
               ScalarListNonModel, List<TemporalDate?>>(
-          const QueryField<String, ScalarListNonModel, List<TemporalDate?>>(
-              fieldName: 'requiredListOfAWSDate'));
+            const QueryField<String, ScalarListNonModel, List<TemporalDate?>>(
+                fieldName: 'requiredListOfAWSDate'),
+            root: _root,
+          );
 
   /// Query field for the [ScalarListNonModel.requiredListOfRequiredAwsDate] field.
   QueryField<ModelIdentifier, M, List<TemporalDate>>
       get $requiredListOfRequiredAwsDate => NestedQueryField<ModelIdentifier, M,
               String, ScalarListNonModel, List<TemporalDate>>(
-          const QueryField<String, ScalarListNonModel, List<TemporalDate>>(
-              fieldName: 'requiredListOfRequiredAWSDate'));
+            const QueryField<String, ScalarListNonModel, List<TemporalDate>>(
+                fieldName: 'requiredListOfRequiredAWSDate'),
+            root: _root,
+          );
 
   /// Query field for the [ScalarListNonModel.listOfAwsDateTime] field.
   QueryField<ModelIdentifier, M,
@@ -202,22 +244,30 @@ class ScalarListNonModelQueryFields<ModelIdentifier extends Object,
           String,
           ScalarListNonModel,
           List<TemporalDateTime?>?>(
-      const QueryField<String, ScalarListNonModel, List<TemporalDateTime?>?>(
-          fieldName: 'listOfAWSDateTime'));
+        const QueryField<String, ScalarListNonModel, List<TemporalDateTime?>?>(
+            fieldName: 'listOfAWSDateTime'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.listOfRequiredAwsDateTime] field.
   QueryField<ModelIdentifier, M, List<TemporalDateTime>?>
       get $listOfRequiredAwsDateTime => NestedQueryField<ModelIdentifier, M,
               String, ScalarListNonModel, List<TemporalDateTime>?>(
-          const QueryField<String, ScalarListNonModel, List<TemporalDateTime>?>(
-              fieldName: 'listOfRequiredAWSDateTime'));
+            const QueryField<String, ScalarListNonModel,
+                    List<TemporalDateTime>?>(
+                fieldName: 'listOfRequiredAWSDateTime'),
+            root: _root,
+          );
 
   /// Query field for the [ScalarListNonModel.requiredListOfAwsDateTime] field.
   QueryField<ModelIdentifier, M, List<TemporalDateTime?>>
       get $requiredListOfAwsDateTime => NestedQueryField<ModelIdentifier, M,
               String, ScalarListNonModel, List<TemporalDateTime?>>(
-          const QueryField<String, ScalarListNonModel, List<TemporalDateTime?>>(
-              fieldName: 'requiredListOfAWSDateTime'));
+            const QueryField<String, ScalarListNonModel,
+                    List<TemporalDateTime?>>(
+                fieldName: 'requiredListOfAWSDateTime'),
+            root: _root,
+          );
 
   /// Query field for the [ScalarListNonModel.requiredListOfRequiredAwsDateTime] field.
   QueryField<ModelIdentifier, M, List<TemporalDateTime>>
@@ -227,36 +277,47 @@ class ScalarListNonModelQueryFields<ModelIdentifier extends Object,
               String,
               ScalarListNonModel,
               List<TemporalDateTime>>(
-          const QueryField<String, ScalarListNonModel, List<TemporalDateTime>>(
-              fieldName: 'requiredListOfRequiredAWSDateTime'));
+            const QueryField<String, ScalarListNonModel,
+                    List<TemporalDateTime>>(
+                fieldName: 'requiredListOfRequiredAWSDateTime'),
+            root: _root,
+          );
 
   /// Query field for the [ScalarListNonModel.listOfAwsTime] field.
   QueryField<ModelIdentifier, M, List<TemporalTime?>?> get $listOfAwsTime =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<TemporalTime?>?>(
-          const QueryField<String, ScalarListNonModel, List<TemporalTime?>?>(
-              fieldName: 'listOfAWSTime'));
+          List<TemporalTime?>?>(
+        const QueryField<String, ScalarListNonModel, List<TemporalTime?>?>(
+            fieldName: 'listOfAWSTime'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.listOfRequiredAwsTime] field.
   QueryField<ModelIdentifier, M, List<TemporalTime>?>
       get $listOfRequiredAwsTime => NestedQueryField<ModelIdentifier, M, String,
               ScalarListNonModel, List<TemporalTime>?>(
-          const QueryField<String, ScalarListNonModel, List<TemporalTime>?>(
-              fieldName: 'listOfRequiredAWSTime'));
+            const QueryField<String, ScalarListNonModel, List<TemporalTime>?>(
+                fieldName: 'listOfRequiredAWSTime'),
+            root: _root,
+          );
 
   /// Query field for the [ScalarListNonModel.requiredListOfAwsTime] field.
   QueryField<ModelIdentifier, M, List<TemporalTime?>>
       get $requiredListOfAwsTime => NestedQueryField<ModelIdentifier, M, String,
               ScalarListNonModel, List<TemporalTime?>>(
-          const QueryField<String, ScalarListNonModel, List<TemporalTime?>>(
-              fieldName: 'requiredListOfAWSTime'));
+            const QueryField<String, ScalarListNonModel, List<TemporalTime?>>(
+                fieldName: 'requiredListOfAWSTime'),
+            root: _root,
+          );
 
   /// Query field for the [ScalarListNonModel.requiredListOfRequiredAwsTime] field.
   QueryField<ModelIdentifier, M, List<TemporalTime>>
       get $requiredListOfRequiredAwsTime => NestedQueryField<ModelIdentifier, M,
               String, ScalarListNonModel, List<TemporalTime>>(
-          const QueryField<String, ScalarListNonModel, List<TemporalTime>>(
-              fieldName: 'requiredListOfRequiredAWSTime'));
+            const QueryField<String, ScalarListNonModel, List<TemporalTime>>(
+                fieldName: 'requiredListOfRequiredAWSTime'),
+            root: _root,
+          );
 
   /// Query field for the [ScalarListNonModel.listOfAwsTimestamp] field.
   QueryField<ModelIdentifier, M,
@@ -266,30 +327,30 @@ class ScalarListNonModelQueryFields<ModelIdentifier extends Object,
           String,
           ScalarListNonModel,
           List<TemporalTimestamp?>?>(
-      const QueryField<String, ScalarListNonModel, List<TemporalTimestamp?>?>(
-          fieldName: 'listOfAWSTimestamp'));
+        const QueryField<String, ScalarListNonModel, List<TemporalTimestamp?>?>(
+            fieldName: 'listOfAWSTimestamp'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.listOfRequiredAwsTimestamp] field.
   QueryField<ModelIdentifier, M, List<TemporalTimestamp>?>
-      get $listOfRequiredAwsTimestamp => NestedQueryField<
-          ModelIdentifier,
-          M,
-          String,
-          ScalarListNonModel,
-          List<TemporalTimestamp>?>(const QueryField<String,
-              ScalarListNonModel, List<TemporalTimestamp>?>(
-          fieldName: 'listOfRequiredAWSTimestamp'));
+      get $listOfRequiredAwsTimestamp => NestedQueryField<ModelIdentifier, M,
+              String, ScalarListNonModel, List<TemporalTimestamp>?>(
+            const QueryField<String, ScalarListNonModel,
+                    List<TemporalTimestamp>?>(
+                fieldName: 'listOfRequiredAWSTimestamp'),
+            root: _root,
+          );
 
   /// Query field for the [ScalarListNonModel.requiredListOfAwsTimestamp] field.
   QueryField<ModelIdentifier, M, List<TemporalTimestamp?>>
-      get $requiredListOfAwsTimestamp => NestedQueryField<
-          ModelIdentifier,
-          M,
-          String,
-          ScalarListNonModel,
-          List<TemporalTimestamp?>>(const QueryField<String,
-              ScalarListNonModel, List<TemporalTimestamp?>>(
-          fieldName: 'requiredListOfAWSTimestamp'));
+      get $requiredListOfAwsTimestamp => NestedQueryField<ModelIdentifier, M,
+              String, ScalarListNonModel, List<TemporalTimestamp?>>(
+            const QueryField<String, ScalarListNonModel,
+                    List<TemporalTimestamp?>>(
+                fieldName: 'requiredListOfAWSTimestamp'),
+            root: _root,
+          );
 
   /// Query field for the [ScalarListNonModel.requiredListOfRequiredAwsTimestamp] field.
   QueryField<ModelIdentifier, M, List<TemporalTimestamp>>
@@ -299,168 +360,217 @@ class ScalarListNonModelQueryFields<ModelIdentifier extends Object,
               String,
               ScalarListNonModel,
               List<TemporalTimestamp>>(
-          const QueryField<String, ScalarListNonModel, List<TemporalTimestamp>>(
-              fieldName: 'requiredListOfRequiredAWSTimestamp'));
+            const QueryField<String, ScalarListNonModel,
+                    List<TemporalTimestamp>>(
+                fieldName: 'requiredListOfRequiredAWSTimestamp'),
+            root: _root,
+          );
 
   /// Query field for the [ScalarListNonModel.listOfAwsEmail] field.
   QueryField<ModelIdentifier, M, List<String?>?> get $listOfAwsEmail =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<String?>?>(
-          const QueryField<String, ScalarListNonModel, List<String?>?>(
-              fieldName: 'listOfAWSEmail'));
+          List<String?>?>(
+        const QueryField<String, ScalarListNonModel, List<String?>?>(
+            fieldName: 'listOfAWSEmail'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.listOfRequiredAwsEmail] field.
   QueryField<ModelIdentifier, M, List<String>?> get $listOfRequiredAwsEmail =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<String>?>(
-          const QueryField<String, ScalarListNonModel, List<String>?>(
-              fieldName: 'listOfRequiredAWSEmail'));
+          List<String>?>(
+        const QueryField<String, ScalarListNonModel, List<String>?>(
+            fieldName: 'listOfRequiredAWSEmail'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.requiredListOfAwsEmail] field.
   QueryField<ModelIdentifier, M, List<String?>> get $requiredListOfAwsEmail =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<String?>>(
-          const QueryField<String, ScalarListNonModel, List<String?>>(
-              fieldName: 'requiredListOfAWSEmail'));
+          List<String?>>(
+        const QueryField<String, ScalarListNonModel, List<String?>>(
+            fieldName: 'requiredListOfAWSEmail'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.requiredListOfRequiredAwsEmail] field.
   QueryField<ModelIdentifier, M, List<String>>
       get $requiredListOfRequiredAwsEmail => NestedQueryField<ModelIdentifier,
               M, String, ScalarListNonModel, List<String>>(
-          const QueryField<String, ScalarListNonModel, List<String>>(
-              fieldName: 'requiredListOfRequiredAWSEmail'));
+            const QueryField<String, ScalarListNonModel, List<String>>(
+                fieldName: 'requiredListOfRequiredAWSEmail'),
+            root: _root,
+          );
 
   /// Query field for the [ScalarListNonModel.listOfAwsjson] field.
   QueryField<ModelIdentifier, M, List<Object?>?> get $listOfAwsjson =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<Object?>?>(
-          const QueryField<String, ScalarListNonModel, List<Object?>?>(
-              fieldName: 'listOfAWSJSON'));
+          List<Object?>?>(
+        const QueryField<String, ScalarListNonModel, List<Object?>?>(
+            fieldName: 'listOfAWSJSON'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.listOfRequiredAwsjson] field.
   QueryField<ModelIdentifier, M, List<Object>?> get $listOfRequiredAwsjson =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<Object>?>(
-          const QueryField<String, ScalarListNonModel, List<Object>?>(
-              fieldName: 'listOfRequiredAWSJSON'));
+          List<Object>?>(
+        const QueryField<String, ScalarListNonModel, List<Object>?>(
+            fieldName: 'listOfRequiredAWSJSON'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.requiredListOfAwsjson] field.
   QueryField<ModelIdentifier, M, List<Object?>> get $requiredListOfAwsjson =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<Object?>>(
-          const QueryField<String, ScalarListNonModel, List<Object?>>(
-              fieldName: 'requiredListOfAWSJSON'));
+          List<Object?>>(
+        const QueryField<String, ScalarListNonModel, List<Object?>>(
+            fieldName: 'requiredListOfAWSJSON'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.requiredListOfRequiredAwsjson] field.
   QueryField<ModelIdentifier, M, List<Object>>
       get $requiredListOfRequiredAwsjson => NestedQueryField<ModelIdentifier, M,
               String, ScalarListNonModel, List<Object>>(
-          const QueryField<String, ScalarListNonModel, List<Object>>(
-              fieldName: 'requiredListOfRequiredAWSJSON'));
+            const QueryField<String, ScalarListNonModel, List<Object>>(
+                fieldName: 'requiredListOfRequiredAWSJSON'),
+            root: _root,
+          );
 
   /// Query field for the [ScalarListNonModel.listOfAwsPhone] field.
   QueryField<ModelIdentifier, M, List<String?>?> get $listOfAwsPhone =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<String?>?>(
-          const QueryField<String, ScalarListNonModel, List<String?>?>(
-              fieldName: 'listOfAWSPhone'));
+          List<String?>?>(
+        const QueryField<String, ScalarListNonModel, List<String?>?>(
+            fieldName: 'listOfAWSPhone'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.listOfRequiredAwsPhone] field.
   QueryField<ModelIdentifier, M, List<String>?> get $listOfRequiredAwsPhone =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<String>?>(
-          const QueryField<String, ScalarListNonModel, List<String>?>(
-              fieldName: 'listOfRequiredAWSPhone'));
+          List<String>?>(
+        const QueryField<String, ScalarListNonModel, List<String>?>(
+            fieldName: 'listOfRequiredAWSPhone'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.requiredListOfAwsPhone] field.
   QueryField<ModelIdentifier, M, List<String?>> get $requiredListOfAwsPhone =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<String?>>(
-          const QueryField<String, ScalarListNonModel, List<String?>>(
-              fieldName: 'requiredListOfAWSPhone'));
+          List<String?>>(
+        const QueryField<String, ScalarListNonModel, List<String?>>(
+            fieldName: 'requiredListOfAWSPhone'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.requiredListOfRequiredAwsPhone] field.
   QueryField<ModelIdentifier, M, List<String>>
       get $requiredListOfRequiredAwsPhone => NestedQueryField<ModelIdentifier,
               M, String, ScalarListNonModel, List<String>>(
-          const QueryField<String, ScalarListNonModel, List<String>>(
-              fieldName: 'requiredListOfRequiredAWSPhone'));
+            const QueryField<String, ScalarListNonModel, List<String>>(
+                fieldName: 'requiredListOfRequiredAWSPhone'),
+            root: _root,
+          );
 
   /// Query field for the [ScalarListNonModel.listOfAwsUrl] field.
-  QueryField<ModelIdentifier, M, List<Uri?>?>
-      get $listOfAwsUrl => NestedQueryField<ModelIdentifier, M, String,
-              ScalarListNonModel, List<Uri?>?>(
-          const QueryField<String, ScalarListNonModel, List<Uri?>?>(
-              fieldName: 'listOfAWSUrl'));
+  QueryField<ModelIdentifier, M, List<Uri?>?> get $listOfAwsUrl =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
+          List<Uri?>?>(
+        const QueryField<String, ScalarListNonModel, List<Uri?>?>(
+            fieldName: 'listOfAWSUrl'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.listOfRequiredAwsUrl] field.
   QueryField<ModelIdentifier, M, List<Uri>?> get $listOfRequiredAwsUrl =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<Uri>?>(
-          const QueryField<String, ScalarListNonModel, List<Uri>?>(
-              fieldName: 'listOfRequiredAWSUrl'));
+          List<Uri>?>(
+        const QueryField<String, ScalarListNonModel, List<Uri>?>(
+            fieldName: 'listOfRequiredAWSUrl'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.requiredListOfAwsUrl] field.
   QueryField<ModelIdentifier, M, List<Uri?>> get $requiredListOfAwsUrl =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<Uri?>>(
-          const QueryField<String, ScalarListNonModel, List<Uri?>>(
-              fieldName: 'requiredListOfAWSUrl'));
+          List<Uri?>>(
+        const QueryField<String, ScalarListNonModel, List<Uri?>>(
+            fieldName: 'requiredListOfAWSUrl'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.requiredListOfRequiredAwsUrl] field.
   QueryField<ModelIdentifier, M, List<Uri>> get $requiredListOfRequiredAwsUrl =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<Uri>>(
-          const QueryField<String, ScalarListNonModel, List<Uri>>(
-              fieldName: 'requiredListOfRequiredAWSUrl'));
+          List<Uri>>(
+        const QueryField<String, ScalarListNonModel, List<Uri>>(
+            fieldName: 'requiredListOfRequiredAWSUrl'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.listOfAwsIpAddress] field.
   QueryField<ModelIdentifier, M, List<String?>?> get $listOfAwsIpAddress =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              List<String?>?>(
-          const QueryField<String, ScalarListNonModel, List<String?>?>(
-              fieldName: 'listOfAWSIpAddress'));
+          List<String?>?>(
+        const QueryField<String, ScalarListNonModel, List<String?>?>(
+            fieldName: 'listOfAWSIpAddress'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.listOfRequiredAwsIpAddress] field.
   QueryField<ModelIdentifier, M, List<String>?>
       get $listOfRequiredAwsIpAddress => NestedQueryField<ModelIdentifier, M,
               String, ScalarListNonModel, List<String>?>(
-          const QueryField<String, ScalarListNonModel, List<String>?>(
-              fieldName: 'listOfRequiredAWSIpAddress'));
+            const QueryField<String, ScalarListNonModel, List<String>?>(
+                fieldName: 'listOfRequiredAWSIpAddress'),
+            root: _root,
+          );
 
   /// Query field for the [ScalarListNonModel.requiredListOfAwsIpAddress] field.
   QueryField<ModelIdentifier, M, List<String?>>
       get $requiredListOfAwsIpAddress => NestedQueryField<ModelIdentifier, M,
               String, ScalarListNonModel, List<String?>>(
-          const QueryField<String, ScalarListNonModel, List<String?>>(
-              fieldName: 'requiredListOfAWSIpAddress'));
+            const QueryField<String, ScalarListNonModel, List<String?>>(
+                fieldName: 'requiredListOfAWSIpAddress'),
+            root: _root,
+          );
 
   /// Query field for the [ScalarListNonModel.requiredListOfRequiredAwsIpAddress] field.
   QueryField<ModelIdentifier, M, List<String>>
       get $requiredListOfRequiredAwsIpAddress => NestedQueryField<
               ModelIdentifier, M, String, ScalarListNonModel, List<String>>(
-          const QueryField<String, ScalarListNonModel, List<String>>(
-              fieldName: 'requiredListOfRequiredAWSIpAddress'));
+            const QueryField<String, ScalarListNonModel, List<String>>(
+                fieldName: 'requiredListOfRequiredAWSIpAddress'),
+            root: _root,
+          );
 
   /// Query field for the [ScalarListNonModel.createdAt] field.
   QueryField<ModelIdentifier, M, TemporalDateTime?> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              TemporalDateTime?>(
-          const QueryField<String, ScalarListNonModel, TemporalDateTime?>(
-              fieldName: 'createdAt'));
+          TemporalDateTime?>(
+        const QueryField<String, ScalarListNonModel, TemporalDateTime?>(
+            fieldName: 'createdAt'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel.updatedAt] field.
   QueryField<ModelIdentifier, M, TemporalDateTime?> get $updatedAt =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-              TemporalDateTime?>(
-          const QueryField<String, ScalarListNonModel, TemporalDateTime?>(
-              fieldName: 'updatedAt'));
+          TemporalDateTime?>(
+        const QueryField<String, ScalarListNonModel, TemporalDateTime?>(
+            fieldName: 'updatedAt'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListNonModel] model identifier.
   QueryField<ModelIdentifier, M, String> get $modelIdentifier =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel, String>(
-          const QueryField<String, ScalarListNonModel, String>(
-              fieldName: 'modelIdentifier'));
+        const QueryField<String, ScalarListNonModel, String>(
+            fieldName: 'modelIdentifier'),
+        root: _root,
+      );
 }
 
 abstract class PartialScalarListNonModel

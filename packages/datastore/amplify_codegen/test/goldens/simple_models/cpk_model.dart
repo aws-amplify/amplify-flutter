@@ -74,42 +74,52 @@ class CpkModelType
 
 class CpkModelQueryFields<ModelIdentifier extends Object,
     M extends Model<ModelIdentifier, M>> {
-  const CpkModelQueryFields([this.root]);
+  const CpkModelQueryFields([this._root]);
 
-  final QueryField<ModelIdentifier, M, CpkModel>? root;
+  final QueryField<ModelIdentifier, M, CpkModel>? _root;
 
   /// Query field for the [CpkModel.firstName] field.
   QueryField<ModelIdentifier, M, String> get $firstName => NestedQueryField<
           ModelIdentifier, M, CpkModelIdentifier, CpkModel, String>(
-      const QueryField<CpkModelIdentifier, CpkModel, String>(
-          fieldName: 'firstName'));
+        const QueryField<CpkModelIdentifier, CpkModel, String>(
+            fieldName: 'firstName'),
+        root: _root,
+      );
 
   /// Query field for the [CpkModel.lastName] field.
   QueryField<ModelIdentifier, M, String> get $lastName => NestedQueryField<
           ModelIdentifier, M, CpkModelIdentifier, CpkModel, String>(
-      const QueryField<CpkModelIdentifier, CpkModel, String>(
-          fieldName: 'lastName'));
+        const QueryField<CpkModelIdentifier, CpkModel, String>(
+            fieldName: 'lastName'),
+        root: _root,
+      );
 
   /// Query field for the [CpkModel.createdAt] field.
   QueryField<ModelIdentifier, M, TemporalDateTime?> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, CpkModelIdentifier, CpkModel,
-              TemporalDateTime?>(
-          const QueryField<CpkModelIdentifier, CpkModel, TemporalDateTime?>(
-              fieldName: 'createdAt'));
+          TemporalDateTime?>(
+        const QueryField<CpkModelIdentifier, CpkModel, TemporalDateTime?>(
+            fieldName: 'createdAt'),
+        root: _root,
+      );
 
   /// Query field for the [CpkModel.updatedAt] field.
   QueryField<ModelIdentifier, M, TemporalDateTime?> get $updatedAt =>
       NestedQueryField<ModelIdentifier, M, CpkModelIdentifier, CpkModel,
-              TemporalDateTime?>(
-          const QueryField<CpkModelIdentifier, CpkModel, TemporalDateTime?>(
-              fieldName: 'updatedAt'));
+          TemporalDateTime?>(
+        const QueryField<CpkModelIdentifier, CpkModel, TemporalDateTime?>(
+            fieldName: 'updatedAt'),
+        root: _root,
+      );
 
   /// Query field for the [CpkModel] model identifier.
   QueryField<ModelIdentifier, M, CpkModelIdentifier> get $modelIdentifier =>
       NestedQueryField<ModelIdentifier, M, CpkModelIdentifier, CpkModel,
-              CpkModelIdentifier>(
-          const QueryField<CpkModelIdentifier, CpkModel, CpkModelIdentifier>(
-              fieldName: 'modelIdentifier'));
+          CpkModelIdentifier>(
+        const QueryField<CpkModelIdentifier, CpkModel, CpkModelIdentifier>(
+            fieldName: 'modelIdentifier'),
+        root: _root,
+      );
 }
 
 abstract class PartialCpkModel

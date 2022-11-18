@@ -1,0 +1,11 @@
+type BatteryCharger @model {
+  chargerID: ID!
+  powerSourceID: ID
+  powerSource: PowerSource @hasOne(fields: ["powerSourceID"])
+}
+
+type PowerSource @model {
+  sourceID: ID! @primaryKey
+  amps: Float!
+  volts: Float!
+}
