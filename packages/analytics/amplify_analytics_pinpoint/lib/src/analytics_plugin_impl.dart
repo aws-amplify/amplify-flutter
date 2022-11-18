@@ -18,19 +18,23 @@ import 'package:amplify_analytics_pinpoint/src/flutter_path_provider/flutter_pat
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_db_common/amplify_db_common.dart' as db_common;
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
+import 'package:meta/meta.dart';
 
 /// {@template amplify_analytics_pinpoint.analytics_plugin_impl}
 /// The AWS Pinpoint implementation of the Amplify Analytics category.
 /// {@endtemplate}
 class AmplifyAnalyticsPinpoint extends AmplifyAnalyticsPinpointDart {
   /// {@macro amplify_analytics_pinpoint.analytics_plugin_impl}
-  AmplifyAnalyticsPinpoint()
-      : super(
-          keyValueStore: AmplifySecureStorage(
-            config: AmplifySecureStorageConfig(
-              scope: 'analyticsPinpoint',
-            ),
-          ),
+  AmplifyAnalyticsPinpoint({
+    // TODO(fjnoyp): Rename to reflect the data that is stored.
+    @visibleForTesting SecureStorageInterface? keyValueStore,
+  }) : super(
+          keyValueStore: keyValueStore ??
+              AmplifySecureStorage(
+                config: AmplifySecureStorageConfig(
+                  scope: 'analyticsPinpoint',
+                ),
+              ),
           pathProvider: FlutterPathProvider(),
           appLifecycleProvider: FlutterAppLifecycleProvider(),
           deviceContextInfoProvider: const FlutterDeviceContextInfoProvider(),
