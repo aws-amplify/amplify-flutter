@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
 library rest_json1_v2.rest_json_protocol.test.json_timestamps_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -95,6 +95,47 @@ void main() {
     },
   );
   _i1.test(
+    'RestJsonJsonTimestampsWithDateTimeOnTargetFormat (request)',
+    () async {
+      await _i2.httpRequestTest(
+        operation: _i3.JsonTimestampsOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonJsonTimestampsWithDateTimeOnTargetFormat',
+          documentation:
+              'Ensures that the timestampFormat of date-time on the target shape works like normal timestamps',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '{\n    "dateTimeOnTarget": "2014-04-29T18:30:38Z"\n}',
+          bodyMediaType: 'application/json',
+          params: {'dateTimeOnTarget': 1398796238},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'Content-Type': 'application/json'},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'POST',
+          uri: '/JsonTimestamps',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          JsonTimestampsInputOutputRestJson1Serializer()
+        ],
+      );
+    },
+  );
+  _i1.test(
     'RestJsonJsonTimestampsWithEpochSecondsFormat (request)',
     () async {
       await _i2.httpRequestTest(
@@ -136,6 +177,47 @@ void main() {
     },
   );
   _i1.test(
+    'RestJsonJsonTimestampsWithEpochSecondsOnTargetFormat (request)',
+    () async {
+      await _i2.httpRequestTest(
+        operation: _i3.JsonTimestampsOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonJsonTimestampsWithEpochSecondsOnTargetFormat',
+          documentation:
+              'Ensures that the timestampFormat of epoch-seconds on the target shape works',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '{\n    "epochSecondsOnTarget": 1398796238\n}',
+          bodyMediaType: 'application/json',
+          params: {'epochSecondsOnTarget': 1398796238},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'Content-Type': 'application/json'},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'POST',
+          uri: '/JsonTimestamps',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          JsonTimestampsInputOutputRestJson1Serializer()
+        ],
+      );
+    },
+  );
+  _i1.test(
     'RestJsonJsonTimestampsWithHttpDateFormat (request)',
     () async {
       await _i2.httpRequestTest(
@@ -154,6 +236,47 @@ void main() {
           body: '{\n    "httpDate": "Tue, 29 Apr 2014 18:30:38 GMT"\n}',
           bodyMediaType: 'application/json',
           params: {'httpDate': 1398796238},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'Content-Type': 'application/json'},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'POST',
+          uri: '/JsonTimestamps',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          JsonTimestampsInputOutputRestJson1Serializer()
+        ],
+      );
+    },
+  );
+  _i1.test(
+    'RestJsonJsonTimestampsWithHttpDateOnTargetFormat (request)',
+    () async {
+      await _i2.httpRequestTest(
+        operation: _i3.JsonTimestampsOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonJsonTimestampsWithHttpDateOnTargetFormat',
+          documentation:
+              'Ensures that the timestampFormat of http-date on the target shape works',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '{\n    "httpDateOnTarget": "Tue, 29 Apr 2014 18:30:38 GMT"\n}',
+          bodyMediaType: 'application/json',
+          params: {'httpDateOnTarget': 1398796238},
           vendorParamsShape: null,
           vendorParams: {},
           headers: {'Content-Type': 'application/json'},
@@ -245,6 +368,41 @@ void main() {
     },
   );
   _i1.test(
+    'RestJsonJsonTimestampsWithDateTimeOnTargetFormat (response)',
+    () async {
+      await _i2.httpResponseTest(
+        operation: _i3.JsonTimestampsOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpResponseTestCase(
+          id: 'RestJsonJsonTimestampsWithDateTimeOnTargetFormat',
+          documentation:
+              'Ensures that the timestampFormat of date-time on the target shape works like normal timestamps',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '{\n    "dateTimeOnTarget": "2014-04-29T18:30:38Z"\n}',
+          bodyMediaType: 'application/json',
+          params: {'dateTimeOnTarget': 1398796238},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'Content-Type': 'application/json'},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          code: 200,
+        ),
+        outputSerializers: const [
+          JsonTimestampsInputOutputRestJson1Serializer()
+        ],
+      );
+    },
+  );
+  _i1.test(
     'RestJsonJsonTimestampsWithEpochSecondsFormat (response)',
     () async {
       await _i2.httpResponseTest(
@@ -280,6 +438,41 @@ void main() {
     },
   );
   _i1.test(
+    'RestJsonJsonTimestampsWithEpochSecondsOnTargetFormat (response)',
+    () async {
+      await _i2.httpResponseTest(
+        operation: _i3.JsonTimestampsOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpResponseTestCase(
+          id: 'RestJsonJsonTimestampsWithEpochSecondsOnTargetFormat',
+          documentation:
+              'Ensures that the timestampFormat of epoch-seconds on the target shape works',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '{\n    "epochSecondsOnTarget": 1398796238\n}',
+          bodyMediaType: 'application/json',
+          params: {'epochSecondsOnTarget': 1398796238},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'Content-Type': 'application/json'},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          code: 200,
+        ),
+        outputSerializers: const [
+          JsonTimestampsInputOutputRestJson1Serializer()
+        ],
+      );
+    },
+  );
+  _i1.test(
     'RestJsonJsonTimestampsWithHttpDateFormat (response)',
     () async {
       await _i2.httpResponseTest(
@@ -298,6 +491,41 @@ void main() {
           body: '{\n    "httpDate": "Tue, 29 Apr 2014 18:30:38 GMT"\n}',
           bodyMediaType: 'application/json',
           params: {'httpDate': 1398796238},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'Content-Type': 'application/json'},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          code: 200,
+        ),
+        outputSerializers: const [
+          JsonTimestampsInputOutputRestJson1Serializer()
+        ],
+      );
+    },
+  );
+  _i1.test(
+    'RestJsonJsonTimestampsWithHttpDateOnTargetFormat (response)',
+    () async {
+      await _i2.httpResponseTest(
+        operation: _i3.JsonTimestampsOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpResponseTestCase(
+          id: 'RestJsonJsonTimestampsWithHttpDateOnTargetFormat',
+          documentation:
+              'Ensures that the timestampFormat of http-date on the target shape works',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '{\n    "httpDateOnTarget": "Tue, 29 Apr 2014 18:30:38 GMT"\n}',
+          bodyMediaType: 'application/json',
+          params: {'httpDateOnTarget': 1398796238},
           vendorParamsShape: null,
           vendorParams: {},
           headers: {'Content-Type': 'application/json'},
@@ -350,6 +578,15 @@ class JsonTimestampsInputOutputRestJson1Serializer
             );
           }
           break;
+        case 'dateTimeOnTarget':
+          if (value != null) {
+            result.dateTimeOnTarget =
+                _i4.TimestampSerializer.epochSeconds.deserialize(
+              serializers,
+              value,
+            );
+          }
+          break;
         case 'epochSeconds':
           if (value != null) {
             result.epochSeconds =
@@ -359,9 +596,27 @@ class JsonTimestampsInputOutputRestJson1Serializer
             );
           }
           break;
+        case 'epochSecondsOnTarget':
+          if (value != null) {
+            result.epochSecondsOnTarget =
+                _i4.TimestampSerializer.epochSeconds.deserialize(
+              serializers,
+              value,
+            );
+          }
+          break;
         case 'httpDate':
           if (value != null) {
             result.httpDate = _i4.TimestampSerializer.epochSeconds.deserialize(
+              serializers,
+              value,
+            );
+          }
+          break;
+        case 'httpDateOnTarget':
+          if (value != null) {
+            result.httpDateOnTarget =
+                _i4.TimestampSerializer.epochSeconds.deserialize(
               serializers,
               value,
             );

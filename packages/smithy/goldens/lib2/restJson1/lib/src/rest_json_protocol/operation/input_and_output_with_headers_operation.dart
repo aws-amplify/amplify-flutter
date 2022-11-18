@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
 
 library rest_json1_v2.rest_json_protocol.operation.input_and_output_with_headers_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,7 +41,7 @@ class InputAndOutputWithHeadersOperation extends _i1.HttpOperation<
         const _i1.WithHost(),
         const _i1.WithNoHeader('Content-Length'),
         const _i1.WithNoHeader('Content-Type'),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.3.0'),
         const _i3.WithSdkInvocationId(),
         const _i3.WithSdkRequest(),
       ],
@@ -142,6 +142,18 @@ class InputAndOutputWithHeadersOperation extends _i1.HttpOperation<
           if (input.headerEnumList!.isNotEmpty) {
             b.headers['X-EnumList'] = input.headerEnumList!
                 .map((el) => el.value)
+                .map((el) => _i1.sanitizeHeader(el))
+                .join(', ');
+          }
+        }
+        if (input.headerIntegerEnum != null) {
+          b.headers['X-IntegerEnum'] =
+              input.headerIntegerEnum!.value.toString();
+        }
+        if (input.headerIntegerEnumList != null) {
+          if (input.headerIntegerEnumList!.isNotEmpty) {
+            b.headers['X-IntegerEnumList'] = input.headerIntegerEnumList!
+                .map((el) => el.value.toString())
                 .map((el) => _i1.sanitizeHeader(el))
                 .join(', ');
           }

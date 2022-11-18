@@ -8,7 +8,7 @@ part of rest_json1_v2.rest_json_protocol.model.input_and_output_with_headers_io;
 
 class _$InputAndOutputWithHeadersIo extends InputAndOutputWithHeadersIo {
   @override
-  final _i5.BuiltList<bool>? headerBooleanList;
+  final _i6.BuiltList<bool>? headerBooleanList;
   @override
   final int? headerByte;
   @override
@@ -16,7 +16,7 @@ class _$InputAndOutputWithHeadersIo extends InputAndOutputWithHeadersIo {
   @override
   final _i3.FooEnum? headerEnum;
   @override
-  final _i5.BuiltList<_i3.FooEnum>? headerEnumList;
+  final _i6.BuiltList<_i3.FooEnum>? headerEnumList;
   @override
   final bool? headerFalseBool;
   @override
@@ -24,19 +24,23 @@ class _$InputAndOutputWithHeadersIo extends InputAndOutputWithHeadersIo {
   @override
   final int? headerInteger;
   @override
-  final _i5.BuiltList<int>? headerIntegerList;
+  final _i4.IntegerEnum? headerIntegerEnum;
   @override
-  final _i4.Int64? headerLong;
+  final _i6.BuiltList<_i4.IntegerEnum>? headerIntegerEnumList;
+  @override
+  final _i6.BuiltList<int>? headerIntegerList;
+  @override
+  final _i5.Int64? headerLong;
   @override
   final int? headerShort;
   @override
   final String? headerString;
   @override
-  final _i5.BuiltList<String>? headerStringList;
+  final _i6.BuiltList<String>? headerStringList;
   @override
-  final _i5.BuiltSet<String>? headerStringSet;
+  final _i6.BuiltSet<String>? headerStringSet;
   @override
-  final _i5.BuiltList<DateTime>? headerTimestampList;
+  final _i6.BuiltList<DateTime>? headerTimestampList;
   @override
   final bool? headerTrueBool;
 
@@ -53,6 +57,8 @@ class _$InputAndOutputWithHeadersIo extends InputAndOutputWithHeadersIo {
       this.headerFalseBool,
       this.headerFloat,
       this.headerInteger,
+      this.headerIntegerEnum,
+      this.headerIntegerEnumList,
       this.headerIntegerList,
       this.headerLong,
       this.headerShort,
@@ -84,6 +90,8 @@ class _$InputAndOutputWithHeadersIo extends InputAndOutputWithHeadersIo {
         headerFalseBool == other.headerFalseBool &&
         headerFloat == other.headerFloat &&
         headerInteger == other.headerInteger &&
+        headerIntegerEnum == other.headerIntegerEnum &&
+        headerIntegerEnumList == other.headerIntegerEnumList &&
         headerIntegerList == other.headerIntegerList &&
         headerLong == other.headerLong &&
         headerShort == other.headerShort &&
@@ -112,18 +120,25 @@ class _$InputAndOutputWithHeadersIo extends InputAndOutputWithHeadersIo {
                                                         $jc(
                                                             $jc(
                                                                 $jc(
-                                                                    0,
-                                                                    headerBooleanList
+                                                                    $jc(
+                                                                        $jc(
+                                                                            0,
+                                                                            headerBooleanList
+                                                                                .hashCode),
+                                                                        headerByte
+                                                                            .hashCode),
+                                                                    headerDouble
                                                                         .hashCode),
-                                                                headerByte
+                                                                headerEnum
                                                                     .hashCode),
-                                                            headerDouble
+                                                            headerEnumList
                                                                 .hashCode),
-                                                        headerEnum.hashCode),
-                                                    headerEnumList.hashCode),
-                                                headerFalseBool.hashCode),
-                                            headerFloat.hashCode),
-                                        headerInteger.hashCode),
+                                                        headerFalseBool
+                                                            .hashCode),
+                                                    headerFloat.hashCode),
+                                                headerInteger.hashCode),
+                                            headerIntegerEnum.hashCode),
+                                        headerIntegerEnumList.hashCode),
                                     headerIntegerList.hashCode),
                                 headerLong.hashCode),
                             headerShort.hashCode),
@@ -141,10 +156,10 @@ class InputAndOutputWithHeadersIoBuilder
             InputAndOutputWithHeadersIoBuilder> {
   _$InputAndOutputWithHeadersIo? _$v;
 
-  _i5.ListBuilder<bool>? _headerBooleanList;
-  _i5.ListBuilder<bool> get headerBooleanList =>
-      _$this._headerBooleanList ??= new _i5.ListBuilder<bool>();
-  set headerBooleanList(_i5.ListBuilder<bool>? headerBooleanList) =>
+  _i6.ListBuilder<bool>? _headerBooleanList;
+  _i6.ListBuilder<bool> get headerBooleanList =>
+      _$this._headerBooleanList ??= new _i6.ListBuilder<bool>();
+  set headerBooleanList(_i6.ListBuilder<bool>? headerBooleanList) =>
       _$this._headerBooleanList = headerBooleanList;
 
   int? _headerByte;
@@ -159,10 +174,10 @@ class InputAndOutputWithHeadersIoBuilder
   _i3.FooEnum? get headerEnum => _$this._headerEnum;
   set headerEnum(_i3.FooEnum? headerEnum) => _$this._headerEnum = headerEnum;
 
-  _i5.ListBuilder<_i3.FooEnum>? _headerEnumList;
-  _i5.ListBuilder<_i3.FooEnum> get headerEnumList =>
-      _$this._headerEnumList ??= new _i5.ListBuilder<_i3.FooEnum>();
-  set headerEnumList(_i5.ListBuilder<_i3.FooEnum>? headerEnumList) =>
+  _i6.ListBuilder<_i3.FooEnum>? _headerEnumList;
+  _i6.ListBuilder<_i3.FooEnum> get headerEnumList =>
+      _$this._headerEnumList ??= new _i6.ListBuilder<_i3.FooEnum>();
+  set headerEnumList(_i6.ListBuilder<_i3.FooEnum>? headerEnumList) =>
       _$this._headerEnumList = headerEnumList;
 
   bool? _headerFalseBool;
@@ -179,15 +194,27 @@ class InputAndOutputWithHeadersIoBuilder
   set headerInteger(int? headerInteger) =>
       _$this._headerInteger = headerInteger;
 
-  _i5.ListBuilder<int>? _headerIntegerList;
-  _i5.ListBuilder<int> get headerIntegerList =>
-      _$this._headerIntegerList ??= new _i5.ListBuilder<int>();
-  set headerIntegerList(_i5.ListBuilder<int>? headerIntegerList) =>
+  _i4.IntegerEnum? _headerIntegerEnum;
+  _i4.IntegerEnum? get headerIntegerEnum => _$this._headerIntegerEnum;
+  set headerIntegerEnum(_i4.IntegerEnum? headerIntegerEnum) =>
+      _$this._headerIntegerEnum = headerIntegerEnum;
+
+  _i6.ListBuilder<_i4.IntegerEnum>? _headerIntegerEnumList;
+  _i6.ListBuilder<_i4.IntegerEnum> get headerIntegerEnumList =>
+      _$this._headerIntegerEnumList ??= new _i6.ListBuilder<_i4.IntegerEnum>();
+  set headerIntegerEnumList(
+          _i6.ListBuilder<_i4.IntegerEnum>? headerIntegerEnumList) =>
+      _$this._headerIntegerEnumList = headerIntegerEnumList;
+
+  _i6.ListBuilder<int>? _headerIntegerList;
+  _i6.ListBuilder<int> get headerIntegerList =>
+      _$this._headerIntegerList ??= new _i6.ListBuilder<int>();
+  set headerIntegerList(_i6.ListBuilder<int>? headerIntegerList) =>
       _$this._headerIntegerList = headerIntegerList;
 
-  _i4.Int64? _headerLong;
-  _i4.Int64? get headerLong => _$this._headerLong;
-  set headerLong(_i4.Int64? headerLong) => _$this._headerLong = headerLong;
+  _i5.Int64? _headerLong;
+  _i5.Int64? get headerLong => _$this._headerLong;
+  set headerLong(_i5.Int64? headerLong) => _$this._headerLong = headerLong;
 
   int? _headerShort;
   int? get headerShort => _$this._headerShort;
@@ -197,22 +224,22 @@ class InputAndOutputWithHeadersIoBuilder
   String? get headerString => _$this._headerString;
   set headerString(String? headerString) => _$this._headerString = headerString;
 
-  _i5.ListBuilder<String>? _headerStringList;
-  _i5.ListBuilder<String> get headerStringList =>
-      _$this._headerStringList ??= new _i5.ListBuilder<String>();
-  set headerStringList(_i5.ListBuilder<String>? headerStringList) =>
+  _i6.ListBuilder<String>? _headerStringList;
+  _i6.ListBuilder<String> get headerStringList =>
+      _$this._headerStringList ??= new _i6.ListBuilder<String>();
+  set headerStringList(_i6.ListBuilder<String>? headerStringList) =>
       _$this._headerStringList = headerStringList;
 
-  _i5.SetBuilder<String>? _headerStringSet;
-  _i5.SetBuilder<String> get headerStringSet =>
-      _$this._headerStringSet ??= new _i5.SetBuilder<String>();
-  set headerStringSet(_i5.SetBuilder<String>? headerStringSet) =>
+  _i6.SetBuilder<String>? _headerStringSet;
+  _i6.SetBuilder<String> get headerStringSet =>
+      _$this._headerStringSet ??= new _i6.SetBuilder<String>();
+  set headerStringSet(_i6.SetBuilder<String>? headerStringSet) =>
       _$this._headerStringSet = headerStringSet;
 
-  _i5.ListBuilder<DateTime>? _headerTimestampList;
-  _i5.ListBuilder<DateTime> get headerTimestampList =>
-      _$this._headerTimestampList ??= new _i5.ListBuilder<DateTime>();
-  set headerTimestampList(_i5.ListBuilder<DateTime>? headerTimestampList) =>
+  _i6.ListBuilder<DateTime>? _headerTimestampList;
+  _i6.ListBuilder<DateTime> get headerTimestampList =>
+      _$this._headerTimestampList ??= new _i6.ListBuilder<DateTime>();
+  set headerTimestampList(_i6.ListBuilder<DateTime>? headerTimestampList) =>
       _$this._headerTimestampList = headerTimestampList;
 
   bool? _headerTrueBool;
@@ -235,6 +262,8 @@ class InputAndOutputWithHeadersIoBuilder
       _headerFalseBool = $v.headerFalseBool;
       _headerFloat = $v.headerFloat;
       _headerInteger = $v.headerInteger;
+      _headerIntegerEnum = $v.headerIntegerEnum;
+      _headerIntegerEnumList = $v.headerIntegerEnumList?.toBuilder();
       _headerIntegerList = $v.headerIntegerList?.toBuilder();
       _headerLong = $v.headerLong;
       _headerShort = $v.headerShort;
@@ -275,6 +304,8 @@ class InputAndOutputWithHeadersIoBuilder
               headerFalseBool: headerFalseBool,
               headerFloat: headerFloat,
               headerInteger: headerInteger,
+              headerIntegerEnum: headerIntegerEnum,
+              headerIntegerEnumList: _headerIntegerEnumList?.build(),
               headerIntegerList: _headerIntegerList?.build(),
               headerLong: headerLong,
               headerShort: headerShort,
@@ -292,6 +323,8 @@ class InputAndOutputWithHeadersIoBuilder
         _$failedField = 'headerEnumList';
         _headerEnumList?.build();
 
+        _$failedField = 'headerIntegerEnumList';
+        _headerIntegerEnumList?.build();
         _$failedField = 'headerIntegerList';
         _headerIntegerList?.build();
 
