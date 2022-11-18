@@ -1,15 +1,17 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
 
 library rest_json1_v2.rest_json_protocol.model.json_lists_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:rest_json1_v2/src/rest_json_protocol/model/foo_enum.dart'
     as _i3;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/structure_list_member.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/integer_enum.dart'
     as _i4;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/structure_list_member.dart'
+    as _i5;
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'json_lists_input_output.g.dart';
@@ -22,29 +24,31 @@ abstract class JsonListsInputOutput
   factory JsonListsInputOutput({
     List<bool>? booleanList,
     List<_i3.FooEnum>? enumList,
+    List<_i4.IntegerEnum>? intEnumList,
     List<int>? integerList,
     List<List<String>>? nestedStringList,
     List<String?>? sparseStringList,
     List<String>? stringList,
     Set<String>? stringSet,
-    List<_i4.StructureListMember>? structureList,
+    List<_i5.StructureListMember>? structureList,
     List<DateTime>? timestampList,
   }) {
     return _$JsonListsInputOutput._(
-      booleanList: booleanList == null ? null : _i5.BuiltList(booleanList),
-      enumList: enumList == null ? null : _i5.BuiltList(enumList),
-      integerList: integerList == null ? null : _i5.BuiltList(integerList),
+      booleanList: booleanList == null ? null : _i6.BuiltList(booleanList),
+      enumList: enumList == null ? null : _i6.BuiltList(enumList),
+      intEnumList: intEnumList == null ? null : _i6.BuiltList(intEnumList),
+      integerList: integerList == null ? null : _i6.BuiltList(integerList),
       nestedStringList: nestedStringList == null
           ? null
-          : _i5.BuiltList(nestedStringList.map((el) => _i5.BuiltList(el))),
+          : _i6.BuiltList(nestedStringList.map((el) => _i6.BuiltList(el))),
       sparseStringList:
-          sparseStringList == null ? null : _i5.BuiltList(sparseStringList),
-      stringList: stringList == null ? null : _i5.BuiltList(stringList),
-      stringSet: stringSet == null ? null : _i5.BuiltSet(stringSet),
+          sparseStringList == null ? null : _i6.BuiltList(sparseStringList),
+      stringList: stringList == null ? null : _i6.BuiltList(stringList),
+      stringSet: stringSet == null ? null : _i6.BuiltSet(stringSet),
       structureList:
-          structureList == null ? null : _i5.BuiltList(structureList),
+          structureList == null ? null : _i6.BuiltList(structureList),
       timestampList:
-          timestampList == null ? null : _i5.BuiltList(timestampList),
+          timestampList == null ? null : _i6.BuiltList(timestampList),
     );
   }
 
@@ -74,23 +78,25 @@ abstract class JsonListsInputOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(JsonListsInputOutputBuilder b) {}
-  _i5.BuiltList<bool>? get booleanList;
-  _i5.BuiltList<_i3.FooEnum>? get enumList;
-  _i5.BuiltList<int>? get integerList;
+  _i6.BuiltList<bool>? get booleanList;
+  _i6.BuiltList<_i3.FooEnum>? get enumList;
+  _i6.BuiltList<_i4.IntegerEnum>? get intEnumList;
+  _i6.BuiltList<int>? get integerList;
 
   /// A list of lists of strings.
-  _i5.BuiltList<_i5.BuiltList<String>>? get nestedStringList;
-  _i5.BuiltList<String?>? get sparseStringList;
-  _i5.BuiltList<String>? get stringList;
-  _i5.BuiltSet<String>? get stringSet;
-  _i5.BuiltList<_i4.StructureListMember>? get structureList;
-  _i5.BuiltList<DateTime>? get timestampList;
+  _i6.BuiltList<_i6.BuiltList<String>>? get nestedStringList;
+  _i6.BuiltList<String?>? get sparseStringList;
+  _i6.BuiltList<String>? get stringList;
+  _i6.BuiltSet<String>? get stringSet;
+  _i6.BuiltList<_i5.StructureListMember>? get structureList;
+  _i6.BuiltList<DateTime>? get timestampList;
   @override
   JsonListsInputOutput getPayload() => this;
   @override
   List<Object?> get props => [
         booleanList,
         enumList,
+        intEnumList,
         integerList,
         nestedStringList,
         sparseStringList,
@@ -109,6 +115,10 @@ abstract class JsonListsInputOutput
     helper.add(
       'enumList',
       enumList,
+    );
+    helper.add(
+      'intEnumList',
+      intEnumList,
     );
     helper.add(
       'integerList',
@@ -177,10 +187,10 @@ class JsonListsInputOutputRestJson1Serializer
             result.booleanList.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i5.BuiltList,
+                _i6.BuiltList,
                 [FullType(bool)],
               ),
-            ) as _i5.BuiltList<bool>));
+            ) as _i6.BuiltList<bool>));
           }
           break;
         case 'enumList':
@@ -188,10 +198,21 @@ class JsonListsInputOutputRestJson1Serializer
             result.enumList.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i5.BuiltList,
+                _i6.BuiltList,
                 [FullType(_i3.FooEnum)],
               ),
-            ) as _i5.BuiltList<_i3.FooEnum>));
+            ) as _i6.BuiltList<_i3.FooEnum>));
+          }
+          break;
+        case 'intEnumList':
+          if (value != null) {
+            result.intEnumList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltList,
+                [FullType(_i4.IntegerEnum)],
+              ),
+            ) as _i6.BuiltList<_i4.IntegerEnum>));
           }
           break;
         case 'integerList':
@@ -199,10 +220,10 @@ class JsonListsInputOutputRestJson1Serializer
             result.integerList.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i5.BuiltList,
+                _i6.BuiltList,
                 [FullType(int)],
               ),
-            ) as _i5.BuiltList<int>));
+            ) as _i6.BuiltList<int>));
           }
           break;
         case 'nestedStringList':
@@ -210,15 +231,15 @@ class JsonListsInputOutputRestJson1Serializer
             result.nestedStringList.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i5.BuiltList,
+                _i6.BuiltList,
                 [
                   FullType(
-                    _i5.BuiltList,
+                    _i6.BuiltList,
                     [FullType(String)],
                   )
                 ],
               ),
-            ) as _i5.BuiltList<_i5.BuiltList<String>>));
+            ) as _i6.BuiltList<_i6.BuiltList<String>>));
           }
           break;
         case 'sparseStringList':
@@ -226,10 +247,10 @@ class JsonListsInputOutputRestJson1Serializer
             result.sparseStringList.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i5.BuiltList,
+                _i6.BuiltList,
                 [FullType.nullable(String)],
               ),
-            ) as _i5.BuiltList<String?>));
+            ) as _i6.BuiltList<String?>));
           }
           break;
         case 'stringList':
@@ -237,10 +258,10 @@ class JsonListsInputOutputRestJson1Serializer
             result.stringList.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i5.BuiltList,
+                _i6.BuiltList,
                 [FullType(String)],
               ),
-            ) as _i5.BuiltList<String>));
+            ) as _i6.BuiltList<String>));
           }
           break;
         case 'stringSet':
@@ -248,10 +269,10 @@ class JsonListsInputOutputRestJson1Serializer
             result.stringSet.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i5.BuiltSet,
+                _i6.BuiltSet,
                 [FullType(String)],
               ),
-            ) as _i5.BuiltSet<String>));
+            ) as _i6.BuiltSet<String>));
           }
           break;
         case 'myStructureList':
@@ -259,10 +280,10 @@ class JsonListsInputOutputRestJson1Serializer
             result.structureList.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i4.StructureListMember)],
+                _i6.BuiltList,
+                [FullType(_i5.StructureListMember)],
               ),
-            ) as _i5.BuiltList<_i4.StructureListMember>));
+            ) as _i6.BuiltList<_i5.StructureListMember>));
           }
           break;
         case 'timestampList':
@@ -270,10 +291,10 @@ class JsonListsInputOutputRestJson1Serializer
             result.timestampList.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i5.BuiltList,
+                _i6.BuiltList,
                 [FullType(DateTime)],
               ),
-            ) as _i5.BuiltList<DateTime>));
+            ) as _i6.BuiltList<DateTime>));
           }
           break;
       }
@@ -296,7 +317,7 @@ class JsonListsInputOutputRestJson1Serializer
         ..add(serializers.serialize(
           payload.booleanList!,
           specifiedType: const FullType(
-            _i5.BuiltList,
+            _i6.BuiltList,
             [FullType(bool)],
           ),
         ));
@@ -307,8 +328,19 @@ class JsonListsInputOutputRestJson1Serializer
         ..add(serializers.serialize(
           payload.enumList!,
           specifiedType: const FullType(
-            _i5.BuiltList,
+            _i6.BuiltList,
             [FullType(_i3.FooEnum)],
+          ),
+        ));
+    }
+    if (payload.intEnumList != null) {
+      result
+        ..add('intEnumList')
+        ..add(serializers.serialize(
+          payload.intEnumList!,
+          specifiedType: const FullType(
+            _i6.BuiltList,
+            [FullType(_i4.IntegerEnum)],
           ),
         ));
     }
@@ -318,7 +350,7 @@ class JsonListsInputOutputRestJson1Serializer
         ..add(serializers.serialize(
           payload.integerList!,
           specifiedType: const FullType(
-            _i5.BuiltList,
+            _i6.BuiltList,
             [FullType(int)],
           ),
         ));
@@ -329,10 +361,10 @@ class JsonListsInputOutputRestJson1Serializer
         ..add(serializers.serialize(
           payload.nestedStringList!,
           specifiedType: const FullType(
-            _i5.BuiltList,
+            _i6.BuiltList,
             [
               FullType(
-                _i5.BuiltList,
+                _i6.BuiltList,
                 [FullType(String)],
               )
             ],
@@ -345,7 +377,7 @@ class JsonListsInputOutputRestJson1Serializer
         ..add(serializers.serialize(
           payload.sparseStringList!,
           specifiedType: const FullType(
-            _i5.BuiltList,
+            _i6.BuiltList,
             [FullType.nullable(String)],
           ),
         ));
@@ -356,7 +388,7 @@ class JsonListsInputOutputRestJson1Serializer
         ..add(serializers.serialize(
           payload.stringList!,
           specifiedType: const FullType(
-            _i5.BuiltList,
+            _i6.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -367,7 +399,7 @@ class JsonListsInputOutputRestJson1Serializer
         ..add(serializers.serialize(
           payload.stringSet!,
           specifiedType: const FullType(
-            _i5.BuiltSet,
+            _i6.BuiltSet,
             [FullType(String)],
           ),
         ));
@@ -378,8 +410,8 @@ class JsonListsInputOutputRestJson1Serializer
         ..add(serializers.serialize(
           payload.structureList!,
           specifiedType: const FullType(
-            _i5.BuiltList,
-            [FullType(_i4.StructureListMember)],
+            _i6.BuiltList,
+            [FullType(_i5.StructureListMember)],
           ),
         ));
     }
@@ -389,7 +421,7 @@ class JsonListsInputOutputRestJson1Serializer
         ..add(serializers.serialize(
           payload.timestampList!,
           specifiedType: const FullType(
-            _i5.BuiltList,
+            _i6.BuiltList,
             [FullType(DateTime)],
           ),
         ));

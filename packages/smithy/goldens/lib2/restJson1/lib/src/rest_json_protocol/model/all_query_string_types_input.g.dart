@@ -10,41 +10,45 @@ class _$AllQueryStringTypesInput extends AllQueryStringTypesInput {
   @override
   final bool? queryBoolean;
   @override
-  final _i5.BuiltList<bool>? queryBooleanList;
+  final _i6.BuiltList<bool>? queryBooleanList;
   @override
   final int? queryByte;
   @override
   final double? queryDouble;
   @override
-  final _i5.BuiltList<double>? queryDoubleList;
+  final _i6.BuiltList<double>? queryDoubleList;
   @override
   final _i3.FooEnum? queryEnum;
   @override
-  final _i5.BuiltList<_i3.FooEnum>? queryEnumList;
+  final _i6.BuiltList<_i3.FooEnum>? queryEnumList;
   @override
   final double? queryFloat;
   @override
   final int? queryInteger;
   @override
-  final _i5.BuiltList<int>? queryIntegerList;
+  final _i4.IntegerEnum? queryIntegerEnum;
   @override
-  final _i5.BuiltSet<int>? queryIntegerSet;
+  final _i6.BuiltList<_i4.IntegerEnum>? queryIntegerEnumList;
   @override
-  final _i4.Int64? queryLong;
+  final _i6.BuiltList<int>? queryIntegerList;
   @override
-  final _i5.BuiltListMultimap<String, String>? queryParamsMapOfStringList;
+  final _i6.BuiltSet<int>? queryIntegerSet;
+  @override
+  final _i5.Int64? queryLong;
+  @override
+  final _i6.BuiltListMultimap<String, String>? queryParamsMapOfStringList;
   @override
   final int? queryShort;
   @override
   final String? queryString;
   @override
-  final _i5.BuiltList<String>? queryStringList;
+  final _i6.BuiltList<String>? queryStringList;
   @override
-  final _i5.BuiltSet<String>? queryStringSet;
+  final _i6.BuiltSet<String>? queryStringSet;
   @override
   final DateTime? queryTimestamp;
   @override
-  final _i5.BuiltList<DateTime>? queryTimestampList;
+  final _i6.BuiltList<DateTime>? queryTimestampList;
 
   factory _$AllQueryStringTypesInput(
           [void Function(AllQueryStringTypesInputBuilder)? updates]) =>
@@ -60,6 +64,8 @@ class _$AllQueryStringTypesInput extends AllQueryStringTypesInput {
       this.queryEnumList,
       this.queryFloat,
       this.queryInteger,
+      this.queryIntegerEnum,
+      this.queryIntegerEnumList,
       this.queryIntegerList,
       this.queryIntegerSet,
       this.queryLong,
@@ -94,6 +100,8 @@ class _$AllQueryStringTypesInput extends AllQueryStringTypesInput {
         queryEnumList == other.queryEnumList &&
         queryFloat == other.queryFloat &&
         queryInteger == other.queryInteger &&
+        queryIntegerEnum == other.queryIntegerEnum &&
+        queryIntegerEnumList == other.queryIntegerEnumList &&
         queryIntegerList == other.queryIntegerList &&
         queryIntegerSet == other.queryIntegerSet &&
         queryLong == other.queryLong &&
@@ -126,22 +134,16 @@ class _$AllQueryStringTypesInput extends AllQueryStringTypesInput {
                                                                 $jc(
                                                                     $jc(
                                                                         $jc(
-                                                                            $jc(
-                                                                                0,
-                                                                                queryBoolean
-                                                                                    .hashCode),
-                                                                            queryBooleanList
-                                                                                .hashCode),
-                                                                        queryByte
-                                                                            .hashCode),
-                                                                    queryDouble
-                                                                        .hashCode),
-                                                                queryDoubleList
-                                                                    .hashCode),
-                                                            queryEnum.hashCode),
-                                                        queryEnumList.hashCode),
-                                                    queryFloat.hashCode),
-                                                queryInteger.hashCode),
+                                                                            $jc($jc($jc(0, queryBoolean.hashCode), queryBooleanList.hashCode),
+                                                                                queryByte.hashCode),
+                                                                            queryDouble.hashCode),
+                                                                        queryDoubleList.hashCode),
+                                                                    queryEnum.hashCode),
+                                                                queryEnumList.hashCode),
+                                                            queryFloat.hashCode),
+                                                        queryInteger.hashCode),
+                                                    queryIntegerEnum.hashCode),
+                                                queryIntegerEnumList.hashCode),
                                             queryIntegerList.hashCode),
                                         queryIntegerSet.hashCode),
                                     queryLong.hashCode),
@@ -164,10 +166,10 @@ class AllQueryStringTypesInputBuilder
   bool? get queryBoolean => _$this._queryBoolean;
   set queryBoolean(bool? queryBoolean) => _$this._queryBoolean = queryBoolean;
 
-  _i5.ListBuilder<bool>? _queryBooleanList;
-  _i5.ListBuilder<bool> get queryBooleanList =>
-      _$this._queryBooleanList ??= new _i5.ListBuilder<bool>();
-  set queryBooleanList(_i5.ListBuilder<bool>? queryBooleanList) =>
+  _i6.ListBuilder<bool>? _queryBooleanList;
+  _i6.ListBuilder<bool> get queryBooleanList =>
+      _$this._queryBooleanList ??= new _i6.ListBuilder<bool>();
+  set queryBooleanList(_i6.ListBuilder<bool>? queryBooleanList) =>
       _$this._queryBooleanList = queryBooleanList;
 
   int? _queryByte;
@@ -178,20 +180,20 @@ class AllQueryStringTypesInputBuilder
   double? get queryDouble => _$this._queryDouble;
   set queryDouble(double? queryDouble) => _$this._queryDouble = queryDouble;
 
-  _i5.ListBuilder<double>? _queryDoubleList;
-  _i5.ListBuilder<double> get queryDoubleList =>
-      _$this._queryDoubleList ??= new _i5.ListBuilder<double>();
-  set queryDoubleList(_i5.ListBuilder<double>? queryDoubleList) =>
+  _i6.ListBuilder<double>? _queryDoubleList;
+  _i6.ListBuilder<double> get queryDoubleList =>
+      _$this._queryDoubleList ??= new _i6.ListBuilder<double>();
+  set queryDoubleList(_i6.ListBuilder<double>? queryDoubleList) =>
       _$this._queryDoubleList = queryDoubleList;
 
   _i3.FooEnum? _queryEnum;
   _i3.FooEnum? get queryEnum => _$this._queryEnum;
   set queryEnum(_i3.FooEnum? queryEnum) => _$this._queryEnum = queryEnum;
 
-  _i5.ListBuilder<_i3.FooEnum>? _queryEnumList;
-  _i5.ListBuilder<_i3.FooEnum> get queryEnumList =>
-      _$this._queryEnumList ??= new _i5.ListBuilder<_i3.FooEnum>();
-  set queryEnumList(_i5.ListBuilder<_i3.FooEnum>? queryEnumList) =>
+  _i6.ListBuilder<_i3.FooEnum>? _queryEnumList;
+  _i6.ListBuilder<_i3.FooEnum> get queryEnumList =>
+      _$this._queryEnumList ??= new _i6.ListBuilder<_i3.FooEnum>();
+  set queryEnumList(_i6.ListBuilder<_i3.FooEnum>? queryEnumList) =>
       _$this._queryEnumList = queryEnumList;
 
   double? _queryFloat;
@@ -202,28 +204,40 @@ class AllQueryStringTypesInputBuilder
   int? get queryInteger => _$this._queryInteger;
   set queryInteger(int? queryInteger) => _$this._queryInteger = queryInteger;
 
-  _i5.ListBuilder<int>? _queryIntegerList;
-  _i5.ListBuilder<int> get queryIntegerList =>
-      _$this._queryIntegerList ??= new _i5.ListBuilder<int>();
-  set queryIntegerList(_i5.ListBuilder<int>? queryIntegerList) =>
+  _i4.IntegerEnum? _queryIntegerEnum;
+  _i4.IntegerEnum? get queryIntegerEnum => _$this._queryIntegerEnum;
+  set queryIntegerEnum(_i4.IntegerEnum? queryIntegerEnum) =>
+      _$this._queryIntegerEnum = queryIntegerEnum;
+
+  _i6.ListBuilder<_i4.IntegerEnum>? _queryIntegerEnumList;
+  _i6.ListBuilder<_i4.IntegerEnum> get queryIntegerEnumList =>
+      _$this._queryIntegerEnumList ??= new _i6.ListBuilder<_i4.IntegerEnum>();
+  set queryIntegerEnumList(
+          _i6.ListBuilder<_i4.IntegerEnum>? queryIntegerEnumList) =>
+      _$this._queryIntegerEnumList = queryIntegerEnumList;
+
+  _i6.ListBuilder<int>? _queryIntegerList;
+  _i6.ListBuilder<int> get queryIntegerList =>
+      _$this._queryIntegerList ??= new _i6.ListBuilder<int>();
+  set queryIntegerList(_i6.ListBuilder<int>? queryIntegerList) =>
       _$this._queryIntegerList = queryIntegerList;
 
-  _i5.SetBuilder<int>? _queryIntegerSet;
-  _i5.SetBuilder<int> get queryIntegerSet =>
-      _$this._queryIntegerSet ??= new _i5.SetBuilder<int>();
-  set queryIntegerSet(_i5.SetBuilder<int>? queryIntegerSet) =>
+  _i6.SetBuilder<int>? _queryIntegerSet;
+  _i6.SetBuilder<int> get queryIntegerSet =>
+      _$this._queryIntegerSet ??= new _i6.SetBuilder<int>();
+  set queryIntegerSet(_i6.SetBuilder<int>? queryIntegerSet) =>
       _$this._queryIntegerSet = queryIntegerSet;
 
-  _i4.Int64? _queryLong;
-  _i4.Int64? get queryLong => _$this._queryLong;
-  set queryLong(_i4.Int64? queryLong) => _$this._queryLong = queryLong;
+  _i5.Int64? _queryLong;
+  _i5.Int64? get queryLong => _$this._queryLong;
+  set queryLong(_i5.Int64? queryLong) => _$this._queryLong = queryLong;
 
-  _i5.ListMultimapBuilder<String, String>? _queryParamsMapOfStringList;
-  _i5.ListMultimapBuilder<String, String> get queryParamsMapOfStringList =>
+  _i6.ListMultimapBuilder<String, String>? _queryParamsMapOfStringList;
+  _i6.ListMultimapBuilder<String, String> get queryParamsMapOfStringList =>
       _$this._queryParamsMapOfStringList ??=
-          new _i5.ListMultimapBuilder<String, String>();
+          new _i6.ListMultimapBuilder<String, String>();
   set queryParamsMapOfStringList(
-          _i5.ListMultimapBuilder<String, String>?
+          _i6.ListMultimapBuilder<String, String>?
               queryParamsMapOfStringList) =>
       _$this._queryParamsMapOfStringList = queryParamsMapOfStringList;
 
@@ -235,16 +249,16 @@ class AllQueryStringTypesInputBuilder
   String? get queryString => _$this._queryString;
   set queryString(String? queryString) => _$this._queryString = queryString;
 
-  _i5.ListBuilder<String>? _queryStringList;
-  _i5.ListBuilder<String> get queryStringList =>
-      _$this._queryStringList ??= new _i5.ListBuilder<String>();
-  set queryStringList(_i5.ListBuilder<String>? queryStringList) =>
+  _i6.ListBuilder<String>? _queryStringList;
+  _i6.ListBuilder<String> get queryStringList =>
+      _$this._queryStringList ??= new _i6.ListBuilder<String>();
+  set queryStringList(_i6.ListBuilder<String>? queryStringList) =>
       _$this._queryStringList = queryStringList;
 
-  _i5.SetBuilder<String>? _queryStringSet;
-  _i5.SetBuilder<String> get queryStringSet =>
-      _$this._queryStringSet ??= new _i5.SetBuilder<String>();
-  set queryStringSet(_i5.SetBuilder<String>? queryStringSet) =>
+  _i6.SetBuilder<String>? _queryStringSet;
+  _i6.SetBuilder<String> get queryStringSet =>
+      _$this._queryStringSet ??= new _i6.SetBuilder<String>();
+  set queryStringSet(_i6.SetBuilder<String>? queryStringSet) =>
       _$this._queryStringSet = queryStringSet;
 
   DateTime? _queryTimestamp;
@@ -252,10 +266,10 @@ class AllQueryStringTypesInputBuilder
   set queryTimestamp(DateTime? queryTimestamp) =>
       _$this._queryTimestamp = queryTimestamp;
 
-  _i5.ListBuilder<DateTime>? _queryTimestampList;
-  _i5.ListBuilder<DateTime> get queryTimestampList =>
-      _$this._queryTimestampList ??= new _i5.ListBuilder<DateTime>();
-  set queryTimestampList(_i5.ListBuilder<DateTime>? queryTimestampList) =>
+  _i6.ListBuilder<DateTime>? _queryTimestampList;
+  _i6.ListBuilder<DateTime> get queryTimestampList =>
+      _$this._queryTimestampList ??= new _i6.ListBuilder<DateTime>();
+  set queryTimestampList(_i6.ListBuilder<DateTime>? queryTimestampList) =>
       _$this._queryTimestampList = queryTimestampList;
 
   AllQueryStringTypesInputBuilder() {
@@ -274,6 +288,8 @@ class AllQueryStringTypesInputBuilder
       _queryEnumList = $v.queryEnumList?.toBuilder();
       _queryFloat = $v.queryFloat;
       _queryInteger = $v.queryInteger;
+      _queryIntegerEnum = $v.queryIntegerEnum;
+      _queryIntegerEnumList = $v.queryIntegerEnumList?.toBuilder();
       _queryIntegerList = $v.queryIntegerList?.toBuilder();
       _queryIntegerSet = $v.queryIntegerSet?.toBuilder();
       _queryLong = $v.queryLong;
@@ -317,6 +333,8 @@ class AllQueryStringTypesInputBuilder
               queryEnumList: _queryEnumList?.build(),
               queryFloat: queryFloat,
               queryInteger: queryInteger,
+              queryIntegerEnum: queryIntegerEnum,
+              queryIntegerEnumList: _queryIntegerEnumList?.build(),
               queryIntegerList: _queryIntegerList?.build(),
               queryIntegerSet: _queryIntegerSet?.build(),
               queryLong: queryLong,
@@ -339,6 +357,8 @@ class AllQueryStringTypesInputBuilder
         _$failedField = 'queryEnumList';
         _queryEnumList?.build();
 
+        _$failedField = 'queryIntegerEnumList';
+        _queryIntegerEnumList?.build();
         _$failedField = 'queryIntegerList';
         _queryIntegerList?.build();
         _$failedField = 'queryIntegerSet';
