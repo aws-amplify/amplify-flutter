@@ -105,6 +105,7 @@ jobs:
       fail-fast: false
       matrix:
         scope:
+          - "amplify_analytics_pinpoint_example"
           - "amplify_api_example"
           - "amplify_auth_cognito_example"
           - "amplify_storage_s3_example"
@@ -140,7 +141,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scope: 
+        scope:
+          - "amplify_analytics_pinpoint_example"
           - "amplify_auth_cognito_example"
           - "amplify_storage_s3_example"
     steps:
@@ -173,7 +175,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scope: 
+        scope:
+          - "amplify_analytics_pinpoint_example"
           - "amplify_auth_cognito_example"
           - "amplify_storage_s3_example"
     steps:
