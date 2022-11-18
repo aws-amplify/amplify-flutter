@@ -57,6 +57,30 @@ abstract class SchemaTypeVisitor<T> {
   T visitListType(ListType type);
 }
 
+/// A visitor for [SchemaTypeDefinition].
+abstract class SchemaVisitor<T> {
+  /// Visits a [SchemaTypeDefinition].
+  T visit(SchemaTypeDefinition definition) {
+    if (definition is EnumTypeDefinition) {
+      return visitEnum(definition);
+    } else if (definition is NonModelTypeDefinition) {
+      return visitNonModel(definition);
+    } else if (definition is ModelTypeDefinition) {
+      return visitModel(definition);
+    }
+    throw ArgumentError('Invalid SchemaDefinition: ${definition.runtimeType}');
+  }
+
+  /// Visits a [ModelTypeDefinition].
+  T visitModel(ModelTypeDefinition definition);
+
+  /// Visits a [NonModelTypeDefinition].
+  T visitNonModel(NonModelTypeDefinition definition);
+
+  /// Visits a [EnumTypeDefinition].
+  T visitEnum(EnumTypeDefinition definition);
+}
+
 /// {@template amplify_codegen.library_visitor}
 /// A visitor for top-level GraphQL definitions which produces a [Library] for
 /// each one. Specifically, this targets object `type` definitions and `enum`

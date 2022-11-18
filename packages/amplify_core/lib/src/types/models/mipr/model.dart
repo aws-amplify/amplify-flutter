@@ -28,6 +28,7 @@ part 'model.g.dart';
 /// See also:
 /// - [ModelTypeDefinition]
 /// - [NonModelTypeDefinition]
+/// - [EnumTypeDefinition]
 /// {@endtemplate}
 @BuiltValue(instantiable: false)
 abstract class SchemaTypeDefinition {

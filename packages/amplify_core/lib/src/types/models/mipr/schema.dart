@@ -52,6 +52,34 @@ abstract class SchemaDefinition
 
   /// The adjacency list representation of the model graph, indexed by
   /// model name with the values representing the dependent model types.
+  ///
+  /// ## Example
+  ///
+  /// For the Blog, Post, Comment schema:
+  /// ```graphql
+  /// type Blog @model {
+  ///   posts: [Post] @hasMany
+  /// }
+  ///
+  /// type Post @model {
+  ///   blog: Blog @belongsTo
+  ///   comments: [Comment] @hasMany
+  /// }
+  ///
+  /// type Comment @model {
+  ///   post: Post @belongsTo
+  /// }
+  /// ```
+  ///
+  /// The model graph would look like:
+  ///
+  /// ```
+  /// {
+  ///   "Blog": ["Post", "Comment"],
+  ///   "Post": ["Comment"],
+  ///   "Comment": [],
+  /// }
+  /// ```
   BuiltSetMultimap<String, String> get modelGraph =>
       BuiltSetMultimap.build((map) {
         final modelDefinitions =
