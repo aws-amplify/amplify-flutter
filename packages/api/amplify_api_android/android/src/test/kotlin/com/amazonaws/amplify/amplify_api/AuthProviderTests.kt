@@ -48,7 +48,7 @@ import org.mockito.kotlin.verify
  * Mock model object for building dummy GraphQL requests.
  */
 class MockModel : Model {
-    override fun getId(): String = "12345"
+    fun getId(): String = "12345"
 }
 
 /**
