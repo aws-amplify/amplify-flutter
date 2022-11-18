@@ -14,8 +14,16 @@
 
 import 'package:code_builder/code_builder.dart';
 
+/// {@template amplify_codegen.amplify_allocator}
 /// Allocator for Amplify models.
+/// {@endtemplate}
 class AmplifyAllocator implements Allocator {
+  /// {@macro amplify_codegen.amplify_allocator}
+  AmplifyAllocator(String libraryName)
+      : _thisFile = '${libraryName.split('.')[1]}.dart';
+
+  final String _thisFile;
+
   final _imports = <String>{};
 
   static const _doNotImport = [
@@ -25,7 +33,9 @@ class AmplifyAllocator implements Allocator {
   @override
   String allocate(Reference reference) {
     final url = reference.url;
-    if (url != null && !_doNotImport.contains(url)) {
+    if (url != null &&
+        !url.endsWith(_thisFile) &&
+        !_doNotImport.contains(url)) {
       _imports.add(url);
     }
     return reference.symbol!;

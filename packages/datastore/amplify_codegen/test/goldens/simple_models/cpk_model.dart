@@ -104,7 +104,7 @@ class CpkModelQueryFields<ModelIdentifier extends Object,
           const QueryField<CpkModelIdentifier, CpkModel, TemporalDateTime?>(
               fieldName: 'updatedAt'));
 
-  /// Query field for the `modelIdentifier` field.
+  /// Query field for the [CpkModel] model identifier.
   QueryField<ModelIdentifier, M, CpkModelIdentifier> get $modelIdentifier =>
       NestedQueryField<ModelIdentifier, M, CpkModelIdentifier, CpkModel,
               CpkModelIdentifier>(

@@ -58,8 +58,8 @@ class GeneratedLibrary {
 
   /// Constructs a single-use [DartEmitter] using [AmplifyAllocator] for
   /// reference allocation.
-  static DartEmitter buildEmitter() => DartEmitter(
-        allocator: AmplifyAllocator(),
+  DartEmitter buildEmitter() => DartEmitter(
+        allocator: AmplifyAllocator(library.name!),
         orderDirectives: true,
         useNullSafetySyntax: true,
       );

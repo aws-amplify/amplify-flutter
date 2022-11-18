@@ -66,7 +66,7 @@ class MyModelQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, String, MyModel, String>(
           const QueryField<String, MyModel, String>(fieldName: 'id'));
 
-  /// Query field for the `modelIdentifier` field.
+  /// Query field for the [MyModel] model identifier.
   QueryField<ModelIdentifier, M, String> get $modelIdentifier =>
       NestedQueryField<ModelIdentifier, M, String, MyModel, String>(
           const QueryField<String, MyModel, String>(

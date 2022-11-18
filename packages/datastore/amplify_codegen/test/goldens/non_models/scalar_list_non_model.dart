@@ -456,7 +456,7 @@ class ScalarListNonModelQueryFields<ModelIdentifier extends Object,
           const QueryField<String, ScalarListNonModel, TemporalDateTime?>(
               fieldName: 'updatedAt'));
 
-  /// Query field for the `modelIdentifier` field.
+  /// Query field for the [ScalarListNonModel] model identifier.
   QueryField<ModelIdentifier, M, String> get $modelIdentifier =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel, String>(
           const QueryField<String, ScalarListNonModel, String>(

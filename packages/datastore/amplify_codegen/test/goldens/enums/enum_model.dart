@@ -45,44 +45,56 @@ class EnumModelType extends ModelType<String, EnumModel, PartialEnumModel> {
 
 class EnumModelQueryFields<ModelIdentifier extends Object,
     M extends Model<ModelIdentifier, M>> {
-  const EnumModelQueryFields([this.root]);
+  const EnumModelQueryFields([this._root]);
 
-  final QueryField<ModelIdentifier, M, EnumModel>? root;
+  final QueryField<ModelIdentifier, M, EnumModel>? _root;
 
   /// Query field for the [EnumModel.id] field.
   QueryField<ModelIdentifier, M, String> get $id =>
       NestedQueryField<ModelIdentifier, M, String, EnumModel, String>(
-          const QueryField<String, EnumModel, String>(fieldName: 'id'));
+        const QueryField<String, EnumModel, String>(fieldName: 'id'),
+        root: _root,
+      );
 
   /// Query field for the [EnumModel.enum_] field.
   QueryField<ModelIdentifier, M, MyEnum?> get $enum_ =>
       NestedQueryField<ModelIdentifier, M, String, EnumModel, MyEnum?>(
-          const QueryField<String, EnumModel, MyEnum?>(fieldName: 'enum'));
+        const QueryField<String, EnumModel, MyEnum?>(fieldName: 'enum'),
+        root: _root,
+      );
 
   /// Query field for the [EnumModel.requiredEnum] field.
-  QueryField<ModelIdentifier, M, MyEnum> get $requiredEnum => NestedQueryField<
-          ModelIdentifier, M, String, EnumModel, MyEnum>(
-      const QueryField<String, EnumModel, MyEnum>(fieldName: 'requiredEnum'));
+  QueryField<ModelIdentifier, M, MyEnum> get $requiredEnum =>
+      NestedQueryField<ModelIdentifier, M, String, EnumModel, MyEnum>(
+        const QueryField<String, EnumModel, MyEnum>(fieldName: 'requiredEnum'),
+        root: _root,
+      );
 
   /// Query field for the [EnumModel.createdAt] field.
   QueryField<ModelIdentifier, M, TemporalDateTime?> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, String, EnumModel,
-              TemporalDateTime?>(
-          const QueryField<String, EnumModel, TemporalDateTime?>(
-              fieldName: 'createdAt'));
+          TemporalDateTime?>(
+        const QueryField<String, EnumModel, TemporalDateTime?>(
+            fieldName: 'createdAt'),
+        root: _root,
+      );
 
   /// Query field for the [EnumModel.updatedAt] field.
   QueryField<ModelIdentifier, M, TemporalDateTime?> get $updatedAt =>
       NestedQueryField<ModelIdentifier, M, String, EnumModel,
-              TemporalDateTime?>(
-          const QueryField<String, EnumModel, TemporalDateTime?>(
-              fieldName: 'updatedAt'));
+          TemporalDateTime?>(
+        const QueryField<String, EnumModel, TemporalDateTime?>(
+            fieldName: 'updatedAt'),
+        root: _root,
+      );
 
-  /// Query field for the `modelIdentifier` field.
+  /// Query field for the [EnumModel] model identifier.
   QueryField<ModelIdentifier, M, String> get $modelIdentifier =>
       NestedQueryField<ModelIdentifier, M, String, EnumModel, String>(
-          const QueryField<String, EnumModel, String>(
-              fieldName: 'modelIdentifier'));
+        const QueryField<String, EnumModel, String>(
+            fieldName: 'modelIdentifier'),
+        root: _root,
+      );
 }
 
 abstract class PartialEnumModel extends PartialModel<String, EnumModel>

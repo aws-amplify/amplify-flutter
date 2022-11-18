@@ -35,35 +35,19 @@ class ModelGenerator extends StructureGenerator<ModelTypeDefinition> {
     required super.definition,
   });
 
-  /// The class name for the model.
-  late final String modelName = className;
-
-  /// The class name for the model type.
-  late final String modelTypeName = '${modelName}Type';
-
-  /// The reference for the model.
-  late final Reference modelType = refer(modelName);
-
-  /// The reference for the partial model.
-  late final Reference partialModelType = refer('Partial$modelName');
-
-  /// The reference for the remote model.
-  late final Reference remoteModelType = refer('Remote$modelName');
+  late final ModelNames _names = definition.names;
+  late final ModelReferences _references = definition.references;
 
   /// The reference for the model identifier.
-  late final Reference modelIdentifierType = () {
-    final primaryIndex = definition.modelIdentifier;
-    final fields = primaryIndex.fields
-        .map(
-          (name) => definition.fields[name]!,
-        )
-        .toList();
-    assert(fields.isNotEmpty, 'Not enough fields');
-    if (fields.length == 1) {
-      return fields.single.typeReference();
+  late final Class? modelIdentifierType = () {
+    if (!definition.hasModelIdentifier) {
+      return null;
     }
-    final modelIdentifierName = '${modelName}Identifier';
-    final cls = Class((c) {
+    final fields = definition.modelIdentifier.fields
+        .map((name) => definition.fields[name]!)
+        .toList();
+    final modelIdentifierName = _names.modelIdentifier;
+    return Class((c) {
       c
         ..name = modelIdentifierName
         ..annotations.add(DartTypes.meta.immutable)
@@ -142,13 +126,12 @@ class ModelGenerator extends StructureGenerator<ModelTypeDefinition> {
         ),
       );
     });
-    builder.body.add(cls);
-    return refer(modelIdentifierName);
   }();
 
   @override
   Library generate() {
     builder.body.addAll([
+      if (modelIdentifierType != null) modelIdentifierType!,
       modelTypeImpl,
       _queryFieldsImpl,
       ...partialModelImpl,
@@ -163,26 +146,26 @@ class ModelGenerator extends StructureGenerator<ModelTypeDefinition> {
   Class get modelTypeImpl {
     return Class((c) {
       c
-        ..name = modelTypeName
+        ..name = _names.modelType
         ..extend = DartTypes.amplifyCore.modelType(
-          modelIdentifierType,
-          modelType,
-          partialModelType,
+          _references.modelIdentifier,
+          _references.model,
+          _references.partialModel,
         )
         ..constructors.add(Constructor((ctor) => ctor.constant = true));
 
       // The `fromJson` method.
       final partialModelBound = DartTypes.amplifyCore.partialModel(
-        modelIdentifierType,
-        modelType,
+        _references.modelIdentifier,
+        _references.model,
       );
       final modelBound = DartTypes.amplifyCore.model(
-        modelIdentifierType,
-        modelType,
+        _references.modelIdentifier,
+        _references.model,
       );
       final remoteModelBound = DartTypes.amplifyCore.remoteModel(
-        modelIdentifierType,
-        modelType,
+        _references.modelIdentifier,
+        _references.model,
       );
       c.methods.add(
         Method(
@@ -207,13 +190,13 @@ class ModelGenerator extends StructureGenerator<ModelTypeDefinition> {
             ..lambda = false
             ..body = Code.scope(
               (allocate) => '''
-if (T == ${allocate(modelType)} || T == ${allocate(modelBound)}<${modelBound.types.map(allocate).join(', ')}>) {
-  return ${allocate(modelType)}.fromJson(json) as T;
+if (T == ${allocate(_references.model)} || T == ${allocate(modelBound)}<${modelBound.types.map(allocate).join(', ')}>) {
+  return ${allocate(_references.model)}.fromJson(json) as T;
 }
-if (T == ${allocate(remoteModelType)} || T == ${allocate(remoteModelBound)}<${remoteModelBound.types.map(allocate).join(', ')}>) {
-  return _${allocate(remoteModelType)}.fromJson(json) as T;
+if (T == ${allocate(_references.remoteModel)} || T == ${allocate(remoteModelBound)}<${remoteModelBound.types.map(allocate).join(', ')}>) {
+  return ${allocate(_references.remoteModelImpl)}.fromJson(json) as T;
 }
-return _${allocate(partialModelType)}.fromJson(json) as T;
+return ${allocate(_references.partialModelImpl)}.fromJson(json) as T;
 ''',
             ),
         ),
@@ -242,13 +225,13 @@ return _${allocate(partialModelType)}.fromJson(json) as T;
     yield Class((c) {
       c
         ..abstract = true
-        ..name = partialModelType.symbol
+        ..name = _names.partialModel
         ..extend = DartTypes.amplifyCore.partialModel(
-          modelIdentifierType,
-          modelType,
+          _references.modelIdentifier,
+          _references.model,
         )
         ..mixins.add(
-          DartTypes.awsCommon.awsEquatable(partialModelType),
+          DartTypes.awsCommon.awsEquatable(_references.partialModel),
         )
         ..constructors.add(
           Constructor(
@@ -278,12 +261,12 @@ return _${allocate(partialModelType)}.fromJson(json) as T;
         Method(
           (m) => m
             ..annotations.add(DartTypes.core.override)
-            ..returns = modelIdentifierType
+            ..returns = _references.modelIdentifier
             ..type = MethodType.getter
             ..name = 'modelIdentifier'
             ..body = (modelIdentifierFields.length == 1
                     ? refer(modelIdentifierFields.single)
-                    : modelIdentifierType.newInstance([], {
+                    : _references.modelIdentifier.newInstance([], {
                         for (final field in modelIdentifierFields)
                           field: refer(field),
                       }))
@@ -296,11 +279,11 @@ return _${allocate(partialModelType)}.fromJson(json) as T;
         Method(
           (m) => m
             ..annotations.add(DartTypes.core.override)
-            ..returns = refer(modelTypeName)
+            ..returns = _references.modelType
             ..type = MethodType.getter
             ..name = 'modelType'
             ..lambda = true
-            ..body = modelType.property('classType').code,
+            ..body = _references.model.property('classType').code,
         ),
       );
 
@@ -349,7 +332,7 @@ return _${allocate(partialModelType)}.fromJson(json) as T;
             ..returns = DartTypes.core.string
             ..type = MethodType.getter
             ..name = 'runtimeTypeName'
-            ..body = literalString(modelName).code,
+            ..body = literalString(_names.model).code,
         ),
       );
 
@@ -371,8 +354,8 @@ return _${allocate(partialModelType)}.fromJson(json) as T;
               Parameter(
                 (p) => p
                   ..type = DartTypes.amplifyCore.queryField(
-                    modelIdentifierType,
-                    modelType,
+                    _references.modelIdentifier,
+                    _references.model,
                     refer('T'),
                   )
                   ..name = 'field',
@@ -415,11 +398,10 @@ return value as T;
     });
 
     // Create the private implementation
-    final privateClassName = '_${partialModelType.symbol}';
     yield Class((c) {
       c
-        ..name = privateClassName
-        ..extend = partialModelType;
+        ..name = _names.partialModelImpl
+        ..extend = _references.partialModel;
 
       final parameters = <Parameter>[];
       final allFields = definition.schemaFields(ModelHierarchyType.partial);
@@ -468,7 +450,7 @@ return value as T;
               ),
             )
             ..body = fromJson(
-              modelType: refer(privateClassName),
+              modelType: _references.partialModelImpl,
               fields:
                   definition.schemaFields(ModelHierarchyType.partial).values,
               hierarchyType: ModelHierarchyType.partial,
@@ -488,12 +470,12 @@ return value as T;
     yield Class((c) {
       c
         ..abstract = true
-        ..name = modelName
-        ..extend = partialModelType
+        ..name = _names.model
+        ..extend = _references.partialModel
         ..implements.add(
           DartTypes.amplifyCore.model(
-            modelIdentifierType,
-            modelType,
+            _references.modelIdentifier,
+            _references.model,
           ),
         );
 
@@ -503,24 +485,24 @@ return value as T;
           (f) => f
             ..static = true
             ..modifier = FieldModifier.constant
-            ..type = refer(modelTypeName)
+            ..type = _references.modelType
             ..name = 'classType'
-            ..assignment = refer(modelTypeName).constInstance([]).code,
+            ..assignment = _references.modelType.constInstance([]).code,
         ),
       );
 
       // Add `_queryFields` for use below.
-      final queryFieldsType = refer('${modelName}QueryFields');
       c.fields.add(
         Field(
           (f) => f
             ..static = true
             ..modifier = FieldModifier.constant
-            ..type = queryFieldsType.typeRef.rebuild(
-              (t) => t.types.addAll([modelIdentifierType, modelType]),
+            ..type = _references.queryFields(
+              _references.modelIdentifier,
+              _references.model,
             )
             ..name = '_queryFields'
-            ..assignment = queryFieldsType.constInstance([]).code,
+            ..assignment = _references.queryFields().constInstance([]).code,
         ),
       );
 
@@ -536,8 +518,8 @@ return value as T;
                 '/// Query field for the [$fieldName] field.',
               )
               ..returns = DartTypes.amplifyCore.queryField(
-                modelIdentifierType,
-                modelType,
+                _references.modelIdentifier,
+                _references.model,
                 fieldType,
               )
               ..type = MethodType.getter
@@ -558,8 +540,8 @@ return value as T;
                 '/// Query field for the [$fieldName] field.',
               )
               ..returns = DartTypes.amplifyCore.queryField(
-                modelIdentifierType,
-                modelType,
+                _references.modelIdentifier,
+                _references.model,
                 fieldType,
               )
               ..type = MethodType.getter
@@ -604,7 +586,7 @@ return value as T;
       }
 
       // Add a query field for the model identifier
-      addQueryField('modelIdentifier', modelIdentifierType);
+      addQueryField('modelIdentifier', _references.modelIdentifier);
 
       // The public factory constructor which redirects to the private impl.
       c.constructors.add(
@@ -612,7 +594,7 @@ return value as T;
           (ctor) => ctor
             ..factory = true
             ..optionalParameters.addAll(parameters)
-            ..redirect = refer('_$modelName'),
+            ..redirect = _references.modelImpl,
         ),
       );
 
@@ -640,7 +622,7 @@ return value as T;
               ),
             )
             ..body = fromJson(
-              modelType: modelType,
+              modelType: _references.model,
               fields: definition.schemaFields(ModelHierarchyType.model).values,
               hierarchyType: ModelHierarchyType.model,
             ),
@@ -651,8 +633,8 @@ return value as T;
     // Create the private implementation
     yield Class((c) {
       c
-        ..name = '_$modelName'
-        ..extend = modelType;
+        ..name = _names.modelImpl
+        ..extend = _references.model;
 
       final parameters = <Parameter>[];
       final initializers = <Code>[];
@@ -715,12 +697,12 @@ return value as T;
     yield Class((c) {
       c
         ..abstract = true
-        ..name = 'Remote$modelName'
-        ..extend = modelType
+        ..name = _names.remoteModel
+        ..extend = _references.model
         ..implements.add(
           DartTypes.amplifyCore.remoteModel(
-            modelIdentifierType,
-            modelType,
+            _references.modelIdentifier,
+            _references.model,
           ),
         )
         ..constructors.add(
@@ -734,11 +716,10 @@ return value as T;
     });
 
     // Create the private implementation
-    final privateClassName = '_Remote$modelName';
     yield Class((c) {
       c
-        ..name = privateClassName
-        ..extend = remoteModelType;
+        ..name = _names.remoteModelImpl
+        ..extend = _references.remoteModel;
 
       final parameters = <Parameter>[];
       final allFields = definition.allFields(ModelHierarchyType.remote);
@@ -787,7 +768,7 @@ return value as T;
               ),
             )
             ..body = fromJson(
-              modelType: refer(privateClassName),
+              modelType: _references.remoteModelImpl,
               fields: definition.allFields(ModelHierarchyType.remote).values,
               hierarchyType: ModelHierarchyType.remote,
             ),
@@ -802,7 +783,7 @@ return value as T;
       final modelIdentifierTypeParameter = refer('ModelIdentifier');
       final modelTypeParameter = refer('M');
       c
-        ..name = '${modelName}QueryFields'
+        ..name = _names.queryFields
         ..types.addAll([
           TypeReference(
             (t) => t
@@ -843,7 +824,7 @@ return value as T;
                 .queryField(
                   modelIdentifierTypeParameter,
                   modelTypeParameter,
-                  modelType,
+                  _references.model,
                 )
                 .nullable
             ..name = 'root',
@@ -857,8 +838,8 @@ return value as T;
         String? docReference,
       }) {
         final queryFieldType = DartTypes.amplifyCore.queryField(
-          modelIdentifierType,
-          modelType,
+          _references.modelIdentifier,
+          _references.model,
           fieldType,
         );
         final queryField = queryFieldType.constInstance(
@@ -868,18 +849,18 @@ return value as T;
         final nestedQueryFieldType = DartTypes.amplifyCore.nestedQueryField(
           modelIdentifierTypeParameter,
           modelTypeParameter,
-          modelIdentifierType,
-          modelType,
+          _references.modelIdentifier,
+          _references.model,
           fieldType,
         );
 
         final queryFieldName = '\$$dartName';
-        docReference ??= '[$modelName.$dartName]';
+        docReference ??= '[${_names.model}.$dartName] field';
         c.methods.add(
           Method(
             (m) => m
               ..docs.add(
-                '/// Query field for the $docReference field.',
+                '/// Query field for the $docReference.',
               )
               ..returns = DartTypes.amplifyCore.queryField(
                 modelIdentifierTypeParameter,
@@ -901,7 +882,7 @@ return value as T;
       }
 
       for (final field in definition.fields.values) {
-        final fieldType = field.typeReference();
+        final fieldType = field.typeReference(ModelHierarchyType.model);
         if (field.hasQueryField) {
           addQueryField(field.name, field.dartName, fieldType);
         }
@@ -911,8 +892,8 @@ return value as T;
       addQueryField(
         'modelIdentifier',
         'modelIdentifier',
-        modelIdentifierType,
-        docReference: '`modelIdentifier`',
+        _references.modelIdentifier,
+        docReference: '[${_names.model}] model identifier',
       );
     });
   }
