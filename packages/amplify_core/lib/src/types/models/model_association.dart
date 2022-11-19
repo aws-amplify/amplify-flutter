@@ -55,6 +55,9 @@ class ModelAssociation with AWSEquatable<ModelAssociation>, AWSSerializable {
   }) {
     return ModelAssociation(
       associationType: associationType ?? this.associationType,
+      // TODO(Jordan-Nelson): Remove `targetName` when API category has been
+      // updated to support CPK changes. This was added manually.
+      // ignore: deprecated_member_use_from_same_package
       targetName: targetName ?? this.targetName,
       targetNames: targetNames ?? this.targetNames,
       associatedName: associatedName ?? this.associatedName,

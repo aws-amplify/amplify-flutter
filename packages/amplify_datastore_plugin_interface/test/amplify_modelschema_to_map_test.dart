@@ -14,9 +14,8 @@
  */
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:flutter_test/flutter_test.dart';
-
 import 'package:amplify_test/test_models/ModelProvider.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('Blog codegen model generates modelschema with proper fields', () async {
@@ -126,6 +125,7 @@ void main() {
           'association': {
             'associationType': 'BelongsTo',
             'targetName': 'postID',
+            'targetNames': ['postID'],
             'associatedType': 'Post'
           },
         },
@@ -212,6 +212,7 @@ void main() {
           'association': {
             'associationType': 'BelongsTo',
             'targetName': 'blogID',
+            'targetNames': ['blogID'],
             'associatedType': 'Blog'
           }
         },
