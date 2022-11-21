@@ -18,19 +18,16 @@ import 'package:amplify_analytics_pinpoint/src/flutter_path_provider/flutter_pat
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_db_common/amplify_db_common.dart' as db_common;
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
+import 'package:meta/meta.dart';
 
 /// {@template amplify_analytics_pinpoint.analytics_plugin_impl}
 /// The AWS Pinpoint implementation of the Amplify Analytics category.
-///
-/// To change the default behavior of global property storage,
-/// provide a [keyValueStore] value. If no value is provided,
-/// [AmplifySecureStorage] will be used with a `scope` of "analyticsPinpoint".
-///
 /// {@endtemplate}
 class AmplifyAnalyticsPinpoint extends AmplifyAnalyticsPinpointDart {
   /// {@macro amplify_analytics_pinpoint.analytics_plugin_impl}
   AmplifyAnalyticsPinpoint({
-    SecureStorageInterface? keyValueStore,
+    // TODO(fjnoyp): Rename to reflect the data that is stored.
+    @visibleForTesting SecureStorageInterface? keyValueStore,
   }) : super(
           keyValueStore: keyValueStore ??
               AmplifySecureStorage(
