@@ -45,8 +45,19 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _configureAmplify() async {
+    final secureStorage = AmplifySecureStorage(
+      config: AmplifySecureStorageConfig(
+        scope: 'api',
+        // FIXME: In your app, make sure to remove this line and set up
+        /// Keychain Sharing in Xcode as described in the docs:
+        /// https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/#enable-keychain
+        // ignore: invalid_use_of_visible_for_testing_member
+        macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
+      ),
+    );
+    final authPlugin = AmplifyAuthCognito(credentialStorage: secureStorage);
     await Amplify.addPlugins([
-      AmplifyAuthCognito(),
+      authPlugin,
       AmplifyAPI(),
     ]);
 
