@@ -14,8 +14,7 @@ on:
 jobs:
   test:
     name: Test
-    # TODO(dnys1): Update to latest when Firefox is available
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     timeout-minutes: 60
     strategy:
       # Allows other matrix items to run if one fails

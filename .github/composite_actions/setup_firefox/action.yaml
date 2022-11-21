@@ -4,10 +4,10 @@ description: Install Firefox and Geckodriver
 runs:
   using: "composite"
   steps:
-    - uses: browser-actions/setup-firefox@c990ef23a9bedbbe657b163aaf0f3b7c608ea9f0 # latest
+    - uses: browser-actions/setup-firefox@c990ef23a9bedbbe657b163aaf0f3b7c608ea9f0 # master
     - shell: bash
       run: firefox --version
-    - uses: browser-actions/setup-geckodriver@1605d95d4e5e7f5e3706e1e6f9c839d3834159db # latest
+    - uses: browser-actions/setup-geckodriver@1605d95d4e5e7f5e3706e1e6f9c839d3834159db # master
     - shell: bash
       run: geckodriver --version
     - name: Virtual X Display 
