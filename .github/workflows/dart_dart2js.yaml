@@ -52,6 +52,10 @@ jobs:
       - name: Setup aft
         run: dart pub global activate -spath packages/aft
 
+      - name: Setup Firefox
+        if: ${{ matrix.browser == 'firefox' }}
+        uses: ./.github/composite_actions/setup_firefox
+
       - name: Bootstrap
         id: bootstrap
         timeout-minutes: 10
