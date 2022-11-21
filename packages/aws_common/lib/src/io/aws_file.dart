@@ -41,10 +41,10 @@ import 'package:meta/meta.dart';
 /// final awsFile = AWSFile.fromStream(pickedFile.readStream);
 /// ```
 /// ----
-/// 
+///
 /// You can also create an [AWSFile] by providing a file path or file bytes
 /// to [AWSFile.fromPath] or [AWSFile.fromData], respectively.
-/// 
+///
 /// ----
 /// If you are developing a _**Web only**_ App, and want to use the `dart:html`
 /// `File` or `Blob` types, you can import [AWSFilePlatform] directly which provides
