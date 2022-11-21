@@ -102,6 +102,9 @@ abstract class _SmithyEnumSerializer<T extends _SmithyEnumBase<T, Value>,
   /// The unknown value constructor.
   final Constructor<Value, T> sdkUnknown;
 
+  /// Parses serialized values as [Value].
+  Value parse(Object serialized);
+
   @override
   final List<ShapeId> supportedProtocols;
 
@@ -111,10 +114,10 @@ abstract class _SmithyEnumSerializer<T extends _SmithyEnumBase<T, Value>,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    serialized as Value;
+    final parsed = parse(serialized);
     return values.firstWhere(
-      (el) => el.value == serialized,
-      orElse: () => sdkUnknown(serialized),
+      (el) => el.value == parsed,
+      orElse: () => sdkUnknown(parsed),
     );
   }
 
@@ -138,6 +141,9 @@ class SmithyEnumSerializer<T extends SmithyEnum<T>>
     required super.sdkUnknown,
     required super.supportedProtocols,
   });
+
+  @override
+  String parse(Object serialized) => serialized.toString();
 }
 
 class SmithyIntEnumSerializer<T extends SmithyIntEnum<T>>
@@ -148,4 +154,18 @@ class SmithyIntEnumSerializer<T extends SmithyIntEnum<T>>
     required super.sdkUnknown,
     required super.supportedProtocols,
   });
+
+  @override
+  int parse(Object serialized) {
+    if (serialized is num) {
+      return serialized.toInt();
+    }
+    if (serialized is String) {
+      return num.parse(serialized).toInt();
+    }
+    throw ArgumentError(
+      'Invalid serialized value: $serialized (${serialized.runtimeType}). '
+      'Expected int or String.',
+    );
+  }
 }
