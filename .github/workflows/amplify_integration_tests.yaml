@@ -139,6 +139,7 @@ jobs:
       fail-fast: false
       matrix:
         scope: 
+          - "amplify_api_example"
           - "amplify_auth_cognito_example"
           - "amplify_storage_s3_example"
     steps:
@@ -172,6 +173,7 @@ jobs:
       fail-fast: false
       matrix:
         scope: 
+          - "amplify_api_example"
           - "amplify_auth_cognito_example"
           - "amplify_storage_s3_example"
     steps:

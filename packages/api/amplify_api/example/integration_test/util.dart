@@ -85,7 +85,14 @@ class TestUser {
 Future<void> configureAmplify() async {
   if (!Amplify.isConfigured) {
     await Amplify.addPlugins([
-      AmplifyAuthCognito(),
+      AmplifyAuthCognito(
+        credentialStorage: AmplifySecureStorage(
+          config: AmplifySecureStorageConfig(
+            scope: 'api',
+            macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
+          ),
+        ),
+      ),
       AmplifyAPI(modelProvider: ModelProvider.instance)
     ]);
     await Amplify.configure(amplifyconfig);
