@@ -34,12 +34,13 @@ runs:
         parse-json-secrets: true
 
     - name: Pull Amplify Configurations
-      run: melos exec --scope=${{ inputs.scope }} ./tool/pull_test_backend.sh
+      run: |
+        dart pub global run melos exec --scope=${{ inputs.scope }} bash tool/pull_test_backend.sh
       shell: bash
 
     - name: Undo any codegen changes from amplify pull
       run: |    
-        melos exec --scope=${{ inputs.scope }} "[ -d "lib/models" ] && git checkout lib/models/ || exit 0"
+        dart pub global run melos exec --scope=${{ inputs.scope }} "[ -d "lib/models" ] && git checkout lib/models/ || exit 0"
       shell: bash
 
     - name: Delete AWS profile

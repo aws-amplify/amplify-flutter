@@ -1,28 +1,24 @@
 name: "Install Non-Platform Dependencies"
-description: "Installs non-platform dependencies: Amplify CLI, Flutter and runs melos bootstrap"
+description: "Installs non-platform dependencies: Flutter, melos, aft
 
 runs:
   using: "composite"
   steps:
-    - name: Install Amplify CLI
-      # retry once
-      run: |
-        yarn global add @aws-amplify/cli --network-timeout 100000 || yarn global add @aws-amplify/cli --network-timeout 100000
-      shell: bash
-
     - uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d # 2.8.0
       with:
+        cache: true
         channel: 'stable'
-    
+
     - name: Install Melos
       run: |
-        flutter pub global activate melos 2.8.0
+        dart pub global activate melos 2.8.0
       shell: bash
 
     #  Install aft from path, links packages and runs build runner where needed.
     - name: Partial aft bootstrap
       run: |
-        flutter pub global activate -spath packages/aft
-        aft link
-        melos exec -c 1 --scope="amplify_secure_storage_dart,amplify_auth_cognito_dart" -- dart run build_runner build --delete-conflicting-outputs
+        dart pub global activate -spath packages/aft
+        dart pub global run aft link
+        dart pub global run melos exec -c 1 --scope="amplify_secure_storage_dart,amplify_auth_cognito_dart" -- dart run build_runner build --delete-conflicting-outputs
       shell: bash
+
