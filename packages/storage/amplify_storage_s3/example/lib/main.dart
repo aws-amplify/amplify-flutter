@@ -15,6 +15,7 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:amplify_storage_s3_example/amplifyconfiguration.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +70,17 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> configureAmplify() async {
-    final auth = AmplifyAuthCognito();
+    final secureStorage = AmplifySecureStorage(
+      config: AmplifySecureStorageConfig(
+        scope: 'storage',
+        // FIXME: In your app, make sure to remove this line and set up
+        /// Keychain Sharing in Xcode as described in the docs:
+        /// https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/#enable-keychain
+        // ignore: invalid_use_of_visible_for_testing_member
+        macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
+      ),
+    );
+    final auth = AmplifyAuthCognito(credentialStorage: secureStorage);
     final storage = AmplifyStorageS3();
 
     try {
