@@ -35,8 +35,8 @@ enum FetchAuthSessionEventType {
 }
 
 /// Discrete events of the fetch auth session state machine.
-abstract class FetchAuthSessionEvent extends StateMachineEvent<
-    FetchAuthSessionEventType, FetchAuthSessionStateType> {
+abstract class FetchAuthSessionEvent
+    extends AuthEvent<FetchAuthSessionEventType, FetchAuthSessionStateType> {
   const FetchAuthSessionEvent._();
 
   /// {@macro amplify_auth_cognito.fetch_auth_session_fetch}

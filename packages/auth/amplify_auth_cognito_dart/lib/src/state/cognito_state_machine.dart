@@ -49,7 +49,7 @@ final defaultDependencies = <Token, DependencyBuilder>{
 /// {@template amplify_auth_cognito.cognito_auth_state_machine}
 /// The state machine for managing auth state and relevant work.
 /// {@endtemplate}
-class CognitoAuthStateMachine extends StateMachineManager {
+class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
   /// {@macro amplify_auth_cognito.cognito_auth_state_machine}
   CognitoAuthStateMachine({
     DependencyManager? dependencyManager,
@@ -59,7 +59,7 @@ class CognitoAuthStateMachine extends StateMachineManager {
         );
 
   @override
-  FutureOr<void> dispatch(StateMachineEvent<dynamic, dynamic> event) async {
+  FutureOr<void> dispatch(AuthEvent event) async {
     try {
       if (event is ConfigurationEvent) {
         return getOrCreate(ConfigurationStateMachine.type).add(event);

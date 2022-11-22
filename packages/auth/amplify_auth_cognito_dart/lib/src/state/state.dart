@@ -20,6 +20,7 @@ library amplify_auth_cognito.state;
 import 'package:meta/meta.dart';
 
 export '../exception/auth_precondition_exception.dart';
+export 'event/auth_event.dart';
 export 'event/configuration_event.dart';
 export 'event/credential_store_event.dart';
 export 'event/fetch_auth_session_event.dart';
@@ -32,6 +33,7 @@ export 'machines/fetch_auth_session_state_machine.dart';
 export 'machines/hosted_ui_state_machine.dart';
 export 'machines/sign_in_state_machine.dart';
 export 'machines/sign_up_state_machine.dart';
+export 'state/auth_state.dart';
 export 'state/configuration_state.dart';
 export 'state/credential_store_state.dart';
 export 'state/fetch_auth_session_state.dart';

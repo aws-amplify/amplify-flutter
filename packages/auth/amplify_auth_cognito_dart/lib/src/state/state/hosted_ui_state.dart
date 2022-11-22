@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// Discrete state types of the hosted UI state machine.
@@ -39,7 +40,7 @@ enum HostedUiStateType {
 }
 
 /// Discrete states of the hosted UI state machine.
-abstract class HostedUiState extends StateMachineState<HostedUiStateType> {
+abstract class HostedUiState extends AuthState<HostedUiStateType> {
   const HostedUiState._();
 
   /// {@macro amplify_auth_cognito.hosted_ui_not_configured}

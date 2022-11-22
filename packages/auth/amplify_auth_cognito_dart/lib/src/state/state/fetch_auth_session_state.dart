@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// Discrete state types of the fetch auth session state machine.
@@ -35,7 +36,7 @@ enum FetchAuthSessionStateType {
 
 /// Discrete states of the fetch auth session state machine.
 abstract class FetchAuthSessionState
-    extends StateMachineState<FetchAuthSessionStateType> {
+    extends AuthState<FetchAuthSessionStateType> {
   const FetchAuthSessionState._();
 
   /// {@macro amplify_auth_cognito.fetch_auth_session_idle}

@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_up_parameters.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// Discrete event types of the sign up flow.
@@ -32,8 +32,7 @@ enum SignUpEventType {
 }
 
 /// Discrete events of the sign up flow.
-abstract class SignUpEvent
-    extends StateMachineEvent<SignUpEventType, SignUpStateType> {
+abstract class SignUpEvent extends AuthEvent<SignUpEventType, SignUpStateType> {
   const SignUpEvent._();
 
   /// {@macro amplify_auth_cognito.sign_up_inititate}

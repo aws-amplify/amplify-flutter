@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// Discrete state types of the credential store state machine.
@@ -41,7 +42,7 @@ enum CredentialStoreStateType {
 
 /// Discrete states of the credential store state machine.
 abstract class CredentialStoreState
-    extends StateMachineState<CredentialStoreStateType> {
+    extends AuthState<CredentialStoreStateType> {
   const CredentialStoreState._();
 
   /// {@macro amplify_auth_cognito.credential_store_not_configured}
