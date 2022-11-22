@@ -46,7 +46,9 @@ class CognitoAuthStateMachine extends StateMachineDispatcher<AuthEvent> {
   }) : super(
           stateMachineBuilders,
           dependencyManager ?? DependencyManager(defaultDependencies),
-        );
+        ) {
+    addInstance<CognitoAuthStateMachine>(this);
+  }
 
   @override
   FutureOr<void> dispatch(AuthEvent event) {
@@ -80,5 +82,20 @@ class CognitoAuthStateMachine extends StateMachineDispatcher<AuthEvent> {
       throw credentialsState.exception;
     }
     return (credentialsState as CredentialStoreSuccess).data;
+  }
+
+  /// Loads the user's current session.
+  Future<CognitoAuthSession> loadSession() async {
+    final machine = getOrCreate(FetchAuthSessionStateMachine.type);
+    final sessionState =
+        await machine.stream.startWith(machine.currentState).firstWhere(
+              (state) =>
+                  state is FetchAuthSessionSuccess ||
+                  state is FetchAuthSessionFailure,
+            );
+    if (sessionState is FetchAuthSessionFailure) {
+      throw sessionState.exception;
+    }
+    return (sessionState as FetchAuthSessionSuccess).session;
   }
 }
