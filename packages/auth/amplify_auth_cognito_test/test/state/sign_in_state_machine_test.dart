@@ -52,13 +52,13 @@ void main() {
         ),
       );
       stateMachine.dispatch(
-        const AuthEvent.configure(config),
+        const ConfigurationEvent.configure(config),
       );
       await expectLater(
-        stateMachine.stream.whereType<AuthState>().firstWhere(
-              (event) => event is AuthConfigured || event is AuthFailure,
+        stateMachine.stream.whereType<ConfigurationState>().firstWhere(
+              (event) => event is Configured || event is ConfigureFailure,
             ),
-        completion(isA<AuthConfigured>()),
+        completion(isA<Configured>()),
       );
 
       final mockClient = MockCognitoIdentityProviderClient(
@@ -88,12 +88,12 @@ void main() {
     });
 
     test('smoke test', () async {
-      stateMachine.dispatch(AuthEvent.configure(userPoolOnlyConfig));
+      stateMachine.dispatch(ConfigurationEvent.configure(userPoolOnlyConfig));
       await expectLater(
-        stateMachine.stream.whereType<AuthState>().firstWhere(
-              (event) => event is AuthConfigured || event is AuthFailure,
+        stateMachine.stream.whereType<ConfigurationState>().firstWhere(
+              (event) => event is Configured || event is ConfigureFailure,
             ),
-        completion(isA<AuthConfigured>()),
+        completion(isA<Configured>()),
       );
 
       final mockClient = MockCognitoIdentityProviderClient(
@@ -134,12 +134,12 @@ void main() {
 
     group('custom auth', () {
       test('customAuthWithSrp requires password', () async {
-        stateMachine.dispatch(AuthEvent.configure(userPoolOnlyConfig));
+        stateMachine.dispatch(ConfigurationEvent.configure(userPoolOnlyConfig));
         await expectLater(
-          stateMachine.stream.whereType<AuthState>().firstWhere(
-                (event) => event is AuthConfigured || event is AuthFailure,
+          stateMachine.stream.whereType<ConfigurationState>().firstWhere(
+                (event) => event is Configured || event is ConfigureFailure,
               ),
-          completion(isA<AuthConfigured>()),
+          completion(isA<Configured>()),
         );
 
         stateMachine.dispatch(
@@ -165,12 +165,12 @@ void main() {
       });
 
       test('customAuthWithoutSrp forbids password', () async {
-        stateMachine.dispatch(AuthEvent.configure(userPoolOnlyConfig));
+        stateMachine.dispatch(ConfigurationEvent.configure(userPoolOnlyConfig));
         await expectLater(
-          stateMachine.stream.whereType<AuthState>().firstWhere(
-                (event) => event is AuthConfigured || event is AuthFailure,
+          stateMachine.stream.whereType<ConfigurationState>().firstWhere(
+                (event) => event is Configured || event is ConfigureFailure,
               ),
-          completion(isA<AuthConfigured>()),
+          completion(isA<Configured>()),
         );
 
         stateMachine.dispatch(
@@ -198,12 +198,12 @@ void main() {
       });
 
       test('customAuth uses old behavior', () async {
-        stateMachine.dispatch(AuthEvent.configure(userPoolOnlyConfig));
+        stateMachine.dispatch(ConfigurationEvent.configure(userPoolOnlyConfig));
         await expectLater(
-          stateMachine.stream.whereType<AuthState>().firstWhere(
-                (event) => event is AuthConfigured || event is AuthFailure,
+          stateMachine.stream.whereType<ConfigurationState>().firstWhere(
+                (event) => event is Configured || event is ConfigureFailure,
               ),
-          completion(isA<AuthConfigured>()),
+          completion(isA<Configured>()),
         );
 
         final mockClient = MockCognitoIdentityProviderClient(

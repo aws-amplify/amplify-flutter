@@ -9,23 +9,23 @@ import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
-import 'package:amplify_auth_cognito_dart/src/state/machines/generated/auth_state_machine_base.dart';
+import 'package:amplify_auth_cognito_dart/src/state/machines/generated/configuration_state_machine_base.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_auth_cognito.auth_state_machine}
+/// {@template amplify_auth_cognito.configuration_state_machine}
 /// Manages configuration of the Auth category.
 /// {@endtemplate}
-class AuthStateMachine extends AuthStateMachineBase {
-  /// {@macro amplify_auth_cognito.auth_state_machine}
-  AuthStateMachine(super.manager);
+class ConfigurationStateMachine extends ConfigurationStateMachineBase {
+  /// {@macro amplify_auth_cognito.configuration_state_machine}
+  ConfigurationStateMachine(super.manager);
 
-  /// The [AuthStateMachine] type.
-  static const type =
-      StateMachineToken<AuthEvent, AuthState, AuthStateMachine>();
+  /// The [ConfigurationStateMachine] type.
+  static const type = StateMachineToken<ConfigurationEvent, ConfigurationState,
+      ConfigurationStateMachine>();
 
   @override
-  String get runtimeTypeName => 'AuthStateMachine';
+  String get runtimeTypeName => 'ConfigurationStateMachine';
 
   /// The credentials provider for SDK calls.
   AuthPluginCredentialsProvider get _credentialsProvider => getOrCreate(
@@ -33,8 +33,7 @@ class AuthStateMachine extends AuthStateMachineBase {
       );
 
   @override
-  Future<void> onConfigure(AuthConfigure event) async {
-    // InitializeAuthConfiguration
+  Future<void> onConfigure(Configure event) async {
     final cognitoConfig = event.config.auth?.awsPlugin;
     if (cognitoConfig == null) {
       throw ConfigurationError('No Cognito plugin config available');
@@ -115,15 +114,17 @@ class AuthStateMachine extends AuthStateMachineBase {
   ) async {
     try {
       await Future.wait<void>(futures, eagerError: true);
-      dispatch(AuthEvent.configureSucceeded(config));
+      dispatch(ConfigurationEvent.configureSucceeded(config));
     } on Exception catch (e) {
-      dispatch(AuthEvent.configureFailed(AuthException.fromException(e)));
+      dispatch(
+        ConfigurationEvent.configureFailed(AuthException.fromException(e)),
+      );
     }
   }
 
   @override
-  Future<void> onConfigureSucceeded(AuthConfigureSucceeded event) async {}
+  Future<void> onConfigureSucceeded(ConfigureSucceeded event) async {}
 
   @override
-  Future<void> onConfigureFailed(AuthConfigureFailed event) async {}
+  Future<void> onConfigureFailed(ConfigureFailed event) async {}
 }
