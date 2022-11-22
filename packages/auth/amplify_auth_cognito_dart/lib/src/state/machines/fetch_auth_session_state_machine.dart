@@ -24,7 +24,6 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart'
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     as cognito_idp;
 import 'package:amplify_auth_cognito_dart/src/state/machines/generated/fetch_auth_session_state_machine_base.dart';
-import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:stream_transform/stream_transform.dart';
 
@@ -179,10 +178,9 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
     FetchAuthSessionFetch event,
   ) async {
     final options = event.options ?? const CognitoSessionOptions();
-    final result = await getOrCreate(CredentialStoreStateMachine.type)
-        .getCredentialsResult();
+    final result = await dispatcher.loadCredentials();
 
-    final userPoolTokens = result.data.userPoolTokens;
+    final userPoolTokens = result.userPoolTokens;
     final accessTokenExpiration = userPoolTokens?.accessToken.claims.expiration;
     final idTokenExpiration = userPoolTokens?.idToken.claims.expiration;
     // Only force refresh user pool tokens when we have tokens to refresh and
@@ -195,7 +193,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
         _isExpired(idTokenExpiration);
 
     final hasIdentityPool = _identityPoolConfig != null;
-    final awsCredentials = result.data.awsCredentials;
+    final awsCredentials = result.awsCredentials;
     final awsCredentialsExpiration = awsCredentials?.expiration;
     // Only force a refresh of AWS credentials if `getAwsCredentials` is also
     // true in order to allow the case of just refreshing the user pool tokens.
@@ -234,7 +232,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
           userPoolTokens: userPoolTokens,
           credentials: awsCredentials,
           userSub: userPoolTokens?.idToken.userId,
-          identityId: result.data.identityId,
+          identityId: result.identityId,
         ),
       ),
     );
@@ -242,9 +240,8 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
 
   @override
   Future<void> onFederate(FetchAuthSessionFederate event) async {
-    final result = await getOrCreate(CredentialStoreStateMachine.type)
-        .getCredentialsResult();
-    final userPoolTokens = result.data.userPoolTokens;
+    final result = await dispatcher.loadCredentials();
+    final userPoolTokens = result.userPoolTokens;
     if (userPoolTokens != null) {
       throw const InvalidStateException(
         'Cannot federate to identity pool with active user session.',
@@ -255,7 +252,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
 
     final awsCredentialsResult = await _retrieveAwsCredentials(
       existingIdentityId: event.request.options?.developerProvidedIdentityId ??
-          result.data.identityId,
+          result.identityId,
       federatedIdentity: _FederatedIdentity(
         event.request.provider,
         event.request.token,
@@ -276,12 +273,11 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
 
   @override
   Future<void> onRefresh(FetchAuthSessionRefresh event) async {
-    final result = await getOrCreate(CredentialStoreStateMachine.type)
-        .getCredentialsResult();
+    final result = await dispatcher.loadCredentials();
 
-    var userPoolTokens = result.data.userPoolTokens;
-    var identityId = result.data.identityId;
-    var awsCredentials = result.data.awsCredentials;
+    var userPoolTokens = result.userPoolTokens;
+    var identityId = result.identityId;
+    var awsCredentials = result.awsCredentials;
     if (event.refreshUserPoolTokens) {
       if (userPoolTokens == null) {
         dispatch(
@@ -347,8 +343,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
           ),
         ),
       );
-      await getOrCreate(CredentialStoreStateMachine.type)
-          .getCredentialsResult();
+      await dispatcher.loadCredentials();
 
       return _AwsCredentialsResult(awsCredentials, identityId);
     } on NotAuthorizedException {
@@ -412,8 +407,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
           ),
         ),
       );
-      await getOrCreate(CredentialStoreStateMachine.type)
-          .getCredentialsResult();
+      await dispatcher.loadCredentials();
 
       return newTokens;
     } on NotAuthorizedException {

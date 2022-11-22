@@ -18,7 +18,6 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
     hide InternalErrorException;
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
-import 'package:amplify_auth_cognito_dart/src/state/machines/credential_store_state_machine.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:test/test.dart';
@@ -109,15 +108,13 @@ void main() {
         );
         expect(hubEvents, emitsSignOutEvent);
 
-        final result = await stateMachine
-            .getOrCreate(CredentialStoreStateMachine.type)
-            .getCredentialsResult();
+        final result = await stateMachine.loadCredentials();
         expect(
           result,
-          isA<CredentialStoreSuccess>()
-              .having((result) => result.data.userPoolTokens, 'tokens', isNull)
+          isA<CredentialStoreData>()
+              .having((result) => result.userPoolTokens, 'tokens', isNull)
               .having(
-                (result) => result.data.awsCredentials,
+                (result) => result.awsCredentials,
                 'awsCreds',
                 isNotNull,
               ),

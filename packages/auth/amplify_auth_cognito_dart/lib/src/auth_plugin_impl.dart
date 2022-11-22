@@ -389,9 +389,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         CognitoIdentityPoolKeys(identityPoolConfig),
       ),
     );
-    await _stateMachine
-        .expect(CredentialStoreStateMachine.type)
-        .getCredentialsResult();
+    await _stateMachine.loadCredentials();
   }
 
   @override
@@ -1173,14 +1171,12 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   /// Throws [SignedOutException] if tokens are not present.
   @visibleForTesting
   Future<CredentialStoreData> getCredentials() async {
-    final credentialState = await stateMachine
-        .getOrCreate<CredentialStoreStateMachine>()
-        .getCredentialsResult();
-    final userPoolTokens = credentialState.data.userPoolTokens;
+    final credentialState = await _stateMachine.loadCredentials();
+    final userPoolTokens = credentialState.userPoolTokens;
     if (userPoolTokens == null) {
       throw const SignedOutException('No user is currently signed in');
     }
-    return credentialState.data;
+    return credentialState;
   }
 
   @override
