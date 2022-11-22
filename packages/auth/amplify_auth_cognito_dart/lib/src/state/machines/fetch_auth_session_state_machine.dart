@@ -15,7 +15,6 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
     as cognito_idp;
 import 'package:amplify_auth_cognito_dart/src/state/machines/generated/fetch_auth_session_state_machine_base.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:stream_transform/stream_transform.dart';
 
 /// {@template amplify_auth_cognito.fetch_auth_session_state_machine}
 /// Fetches the user's auth session from the credential store and, optionally,
@@ -46,21 +45,6 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
 
   /// The registered identity pool config
   CognitoIdentityCredentialsProvider? get _identityPoolConfig => get();
-
-  /// Gets the latest fetchAuthSession result.
-  Future<FetchAuthSessionSuccess?> getLatestResult() async {
-    // Wait for any pending events to be processed and their initial states to
-    // fire.
-    await Future<void>.delayed(Duration.zero);
-    final fetchState = await stream.startWith(currentState).firstWhere((state) {
-      return state is FetchAuthSessionSuccess ||
-          state is FetchAuthSessionFailure;
-    });
-    if (fetchState is FetchAuthSessionFailure) {
-      throw fetchState.exception;
-    }
-    return fetchState as FetchAuthSessionSuccess;
-  }
 
   /// Runs [fn] inside a zone which indicates the call originated from this
   /// state machine.
