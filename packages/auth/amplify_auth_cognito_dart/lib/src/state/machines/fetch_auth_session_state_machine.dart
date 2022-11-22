@@ -12,14 +12,14 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart'
     hide NotAuthorizedException;
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     as cognito_idp;
-import 'package:amplify_auth_cognito_dart/src/state/machines/generated/fetch_auth_session_state_machine_base.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_auth_cognito.fetch_auth_session_state_machine}
 /// Fetches the user's auth session from the credential store and, optionally,
 /// a Cognito Identity Pool.
 /// {@endtemplate}
-class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
+class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
+    FetchAuthSessionState, CognitoAuthStateMachine> {
   /// {@macro amplify_auth_cognito.fetch_auth_session_state_machine}
   FetchAuthSessionStateMachine(super.manager);
 
@@ -29,6 +29,9 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
       FetchAuthSessionState,
       CognitoAuthStateMachine,
       FetchAuthSessionStateMachine>();
+
+  @override
+  FetchAuthSessionState get initialState => const FetchAuthSessionState.idle();
 
   @override
   String get runtimeTypeName => 'FetchAuthSessionStateMachine';
@@ -44,6 +47,43 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
 
   /// The registered identity pool config
   CognitoIdentityCredentialsProvider? get _identityPoolConfig => get();
+
+  @override
+  Future<void> resolve(FetchAuthSessionEvent event) async {
+    switch (event.type) {
+      case FetchAuthSessionEventType.fetch:
+        event as FetchAuthSessionFetch;
+        emit(const FetchAuthSessionState.fetching());
+        await onFetchAuthSession(event);
+        break;
+      case FetchAuthSessionEventType.federate:
+        event as FetchAuthSessionFederate;
+        emit(const FetchAuthSessionState.fetching());
+        await onFederate(event);
+        break;
+      case FetchAuthSessionEventType.refresh:
+        event as FetchAuthSessionRefresh;
+        emit(const FetchAuthSessionState.refreshing());
+        await onRefresh(event);
+        break;
+      case FetchAuthSessionEventType.succeeded:
+        event as FetchAuthSessionSucceeded;
+        emit(FetchAuthSessionState.success(event.session));
+        break;
+      case FetchAuthSessionEventType.failed:
+        event as FetchAuthSessionFailed;
+        emit(FetchAuthSessionState.failure(event.exception));
+        break;
+    }
+  }
+
+  @override
+  FetchAuthSessionState? resolveError(Object error, [StackTrace? st]) {
+    if (error is Exception) {
+      return FetchAuthSessionFailure(error);
+    }
+    return null;
+  }
 
   /// Runs [fn] inside a zone which indicates the call originated from this
   /// state machine.
@@ -146,7 +186,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
     return expiration.difference(currentTime) <= threshold;
   }
 
-  @override
+  /// State machine callback for the [FetchAuthSessionFetch] event.
   Future<void> onFetchAuthSession(
     FetchAuthSessionFetch event,
   ) async {
@@ -230,7 +270,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
     );
   }
 
-  @override
+  /// State machine callback for the [FetchAuthSessionFederate] event.
   Future<void> onFederate(FetchAuthSessionFederate event) async {
     final result = await dispatcher.loadCredentials();
     final userPoolTokens = result.userPoolTokens;
@@ -280,7 +320,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
     );
   }
 
-  @override
+  /// State machine callback for the [FetchAuthSessionRefresh] event.
   Future<void> onRefresh(FetchAuthSessionRefresh event) async {
     final result = await dispatcher.loadCredentials();
 
