@@ -14,7 +14,7 @@ import 'package:meta/meta.dart';
 /// Default state machine builders for [CognitoAuthStateMachine].
 @visibleForTesting
 final stateMachineBuilders = <StateMachineToken, StateMachineBuilder>{
-  AuthStateMachine.type: AuthStateMachine.new,
+  ConfigurationStateMachine.type: ConfigurationStateMachine.new,
   CredentialStoreStateMachine.type: CredentialStoreStateMachine.new,
   FetchAuthSessionStateMachine.type: FetchAuthSessionStateMachine.new,
   HostedUiStateMachine.type: HostedUiStateMachine.new,
@@ -50,8 +50,8 @@ class CognitoAuthStateMachine extends StateMachineManager {
   @override
   FutureOr<void> dispatch(StateMachineEvent<dynamic, dynamic> event) async {
     try {
-      if (event is AuthEvent) {
-        return getOrCreate(AuthStateMachine.type).add(event);
+      if (event is ConfigurationEvent) {
+        return getOrCreate(ConfigurationStateMachine.type).add(event);
       } else if (event is CredentialStoreEvent) {
         return getOrCreate(CredentialStoreStateMachine.type).add(event);
       } else if (event is FetchAuthSessionEvent) {

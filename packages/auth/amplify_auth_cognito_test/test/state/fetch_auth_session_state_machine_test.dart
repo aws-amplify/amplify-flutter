@@ -47,8 +47,8 @@ void main() {
     const newSecretAccessKey = 'newSecretAccessKey';
 
     Future<void> configureAmplify(AmplifyConfig config) async {
-      stateMachine.dispatch(AuthEvent.configure(config));
-      await stateMachine.stream.whereType<AuthConfigured>().first;
+      await stateMachine.dispatch(ConfigurationEvent.configure(config));
+      await stateMachine.stream.whereType<Configured>().first;
     }
 
     Future<CognitoAuthSession> fetchAuthSession({

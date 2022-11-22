@@ -48,13 +48,13 @@ export 'src/model/signup/cognito_sign_up_step.dart';
 export 'src/sdk/sdk_exception.dart' hide transformSdkException;
 export 'src/state/cognito_state_machine.dart';
 // State Machine
-export 'src/state/event/auth_event.dart';
+export 'src/state/event/configuration_event.dart';
 export 'src/state/event/credential_store_event.dart';
 export 'src/state/event/fetch_auth_session_event.dart';
 export 'src/state/event/hosted_ui_event.dart';
 export 'src/state/event/sign_in_event.dart';
 export 'src/state/event/sign_up_event.dart';
-export 'src/state/state/auth_state.dart';
+export 'src/state/state/configuration_state.dart';
 export 'src/state/state/credential_store_state.dart';
 export 'src/state/state/fetch_auth_session_state.dart';
 export 'src/state/state/hosted_ui_state.dart';
