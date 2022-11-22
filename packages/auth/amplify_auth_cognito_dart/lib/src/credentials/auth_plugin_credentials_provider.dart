@@ -59,14 +59,10 @@ class AuthPluginCredentialsProviderImpl extends AuthPluginCredentialsProvider {
   /// {@macro amplify_auth_cognito.credentials.auth_plugin_credentials_provider_impl}
   const AuthPluginCredentialsProviderImpl(super.dependencyManager);
 
-  Dispatcher get _dispatcher => dependencyManager.expect();
+  CognitoAuthStateMachine get _dispatcher => dependencyManager.expect();
 
   @override
   Future<AWSCredentials> retrieve() async {
-    final fetchAuthSessionMachine = dependencyManager.getOrCreate(
-      FetchAuthSessionStateMachine.type,
-    );
-
     // Whether this call originated from inside the fetch state machine.
     final inFetch = (Zone.current[zInFetch] as bool?) ?? false;
 
@@ -88,8 +84,8 @@ class AuthPluginCredentialsProviderImpl extends AuthPluginCredentialsProvider {
         CognitoSessionOptions(getAWSCredentials: false),
       ),
     );
-    final fetchState = await fetchAuthSessionMachine.getLatestResult();
-    final fetchedCredentials = fetchState?.session.credentials;
+    final session = await _dispatcher.loadSession();
+    final fetchedCredentials = session.credentials;
     if (fetchedCredentials == null) {
       throw const InvalidStateException('Could not retrieve AWS credentials');
     }
