@@ -20,16 +20,20 @@ import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
-import 'package:amplify_auth_cognito_dart/src/state/machines/generated/configuration_state_machine_base.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_auth_cognito.configuration_state_machine}
 /// Manages configuration of the Auth category.
 /// {@endtemplate}
-class ConfigurationStateMachine extends ConfigurationStateMachineBase {
+class ConfigurationStateMachine extends StateMachine<ConfigurationEvent,
+    ConfigurationState, CognitoAuthStateMachine> {
   /// {@macro amplify_auth_cognito.configuration_state_machine}
   ConfigurationStateMachine(super.manager);
+
+  @override
+  ConfigurationState get initialState =>
+      const ConfigurationState.notConfigured();
 
   /// The [ConfigurationStateMachine] type.
   static const type = StateMachineToken<ConfigurationEvent, ConfigurationState,
@@ -44,6 +48,35 @@ class ConfigurationStateMachine extends ConfigurationStateMachineBase {
       );
 
   @override
+  Future<void> resolve(ConfigurationEvent event) async {
+    switch (event.type) {
+      case ConfigurationEventType.configure:
+        final castEvent = event as Configure;
+        emit(const ConfigurationState.configuring());
+        await onConfigure(castEvent);
+        return;
+      case ConfigurationEventType.configureSucceeded:
+        final castEvent = event as ConfigureSucceeded;
+        emit(ConfigurationState.configured(event.config));
+        await onConfigureSucceeded(castEvent);
+        return;
+      case ConfigurationEventType.configureFailed:
+        final castEvent = event as ConfigureFailed;
+        emit(ConfigurationState.failure(castEvent.exception));
+        await onConfigureFailed(castEvent);
+        return;
+    }
+  }
+
+  @override
+  ConfigurationState? resolveError(Object error, [StackTrace? st]) {
+    if (error is Exception) {
+      return ConfigureFailure(error);
+    }
+    return null;
+  }
+
+  /// State machine callback for the [Configure] event.
   Future<void> onConfigure(Configure event) async {
     final cognitoConfig = event.config.auth?.awsPlugin;
     if (cognitoConfig == null) {
@@ -133,9 +166,9 @@ class ConfigurationStateMachine extends ConfigurationStateMachineBase {
     }
   }
 
-  @override
+  /// State machine callback for the [ConfigureSucceeded] event.
   Future<void> onConfigureSucceeded(ConfigureSucceeded event) async {}
 
-  @override
+  /// State machine callback for the [ConfigureFailed] event.
   Future<void> onConfigureFailed(ConfigureFailed event) async {}
 }
