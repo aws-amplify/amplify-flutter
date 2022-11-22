@@ -79,12 +79,6 @@ abstract class CognitoUserPoolTokens
   /// The Cognito ID token.
   JsonWebToken get idToken;
 
-  /// The expiration of time of [accessToken].
-  DateTime? get expirationTime => accessToken.claims.expiration;
-
-  /// The issued at time of [accessToken].
-  DateTime? get issuedTime => accessToken.claims.issuedAt;
-
   /// The Cognito user's ID.
   String get userId => idToken.userId;
 

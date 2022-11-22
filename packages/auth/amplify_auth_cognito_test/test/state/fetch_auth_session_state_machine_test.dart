@@ -373,58 +373,90 @@ void main() {
           );
         });
 
-        test('User Pool tokens (success)', () async {
-          seedStorage(
-            secureStorage,
-            userPoolKeys: userPoolKeys,
-          );
-          secureStorage.write(
-            key: userPoolKeys[CognitoUserPoolKey.accessToken],
-            value: createJwt(
-              type: TokenType.access,
-              expiration: Duration.zero,
-            ).raw,
-          );
-          stateMachine.dispatch(AuthEvent.configure(mockConfig));
-          await stateMachine.stream.whereType<AuthConfigured>().first;
+        group('User Pool tokens (success)', () {
+          Future<void> runTest({bool willRefresh = true}) async {
+            stateMachine.dispatch(AuthEvent.configure(mockConfig));
+            await stateMachine.stream.whereType<AuthConfigured>().first;
 
-          stateMachine
-            ..addInstance<CognitoIdentityProviderClient>(
-              MockCognitoIdentityProviderClient(
-                initiateAuth: expectAsync1(
-                  (request) async => InitiateAuthResponse(
-                    authenticationResult: AuthenticationResultType(
-                      accessToken: accessToken.raw,
+            stateMachine
+              ..addInstance<CognitoIdentityProviderClient>(
+                MockCognitoIdentityProviderClient(
+                  initiateAuth: expectAsync1(
+                    count: willRefresh ? 1 : 0,
+                    (request) async => InitiateAuthResponse(
+                      authenticationResult: AuthenticationResultType(
+                        accessToken: accessToken.raw,
+                        refreshToken: refreshToken,
+                        idToken: idToken.raw,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            )
-            ..dispatch(
-              const FetchAuthSessionEvent.fetch(
-                CognitoSessionOptions(getAWSCredentials: false),
-              ),
+              )
+              ..dispatch(
+                const FetchAuthSessionEvent.fetch(
+                  CognitoSessionOptions(getAWSCredentials: false),
+                ),
+              );
+
+            final sm =
+                stateMachine.getOrCreate(FetchAuthSessionStateMachine.type);
+            await expectLater(
+              sm.stream.startWith(sm.currentState),
+              emitsInOrder(<Matcher>[
+                isA<FetchAuthSessionIdle>(),
+                isA<FetchAuthSessionFetching>(),
+                if (willRefresh) isA<FetchAuthSessionRefreshing>(),
+                isA<FetchAuthSessionSuccess>(),
+              ]),
             );
 
-          final sm =
-              stateMachine.getOrCreate(FetchAuthSessionStateMachine.type);
-          await expectLater(
-            sm.stream.startWith(sm.currentState),
-            emitsInOrder(<Matcher>[
-              isA<FetchAuthSessionIdle>(),
-              isA<FetchAuthSessionFetching>(),
-              isA<FetchAuthSessionRefreshing>(),
-              isA<FetchAuthSessionSuccess>(),
-            ]),
-          );
+            final state = sm.currentState as FetchAuthSessionSuccess;
+            expect(state.session.isSignedIn, isTrue);
+            expect(state.session.userSub, userSub);
+            expect(state.session.userPoolTokens, isNotNull);
+            expect(state.session.userPoolTokens?.accessToken, accessToken);
+            expect(state.session.userPoolTokens?.refreshToken, refreshToken);
+            expect(state.session.userPoolTokens?.idToken, idToken);
+          }
 
-          final state = sm.currentState as FetchAuthSessionSuccess;
-          expect(state.session.isSignedIn, isTrue);
-          expect(state.session.userSub, userSub);
-          expect(state.session.userPoolTokens, isNotNull);
-          expect(state.session.userPoolTokens?.accessToken, accessToken);
-          expect(state.session.userPoolTokens?.refreshToken, refreshToken);
-          expect(state.session.userPoolTokens?.idToken, idToken);
+          test('access token expires', () async {
+            seedStorage(
+              secureStorage,
+              userPoolKeys: userPoolKeys,
+            );
+            secureStorage.write(
+              key: userPoolKeys[CognitoUserPoolKey.accessToken],
+              value: createJwt(
+                type: TokenType.access,
+                expiration: Duration.zero,
+              ).raw,
+            );
+            await runTest();
+          });
+
+          test('id token expires', () async {
+            seedStorage(
+              secureStorage,
+              userPoolKeys: userPoolKeys,
+            );
+            secureStorage.write(
+              key: userPoolKeys[CognitoUserPoolKey.idToken],
+              value: createJwt(
+                type: TokenType.id,
+                expiration: Duration.zero,
+              ).raw,
+            );
+            await runTest();
+          });
+
+          test('neither token expires', () async {
+            seedStorage(
+              secureStorage,
+              userPoolKeys: userPoolKeys,
+            );
+            await runTest(willRefresh: false);
+          });
         });
 
         test('User Pool tokens (failure)', () async {
