@@ -3,6 +3,7 @@
 
 import 'package:amplify_auth_cognito_dart/src/model/cognito_user.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_auth_cognito_dart.sign_in_state_type}
@@ -31,7 +32,7 @@ enum SignInStateType {
 /// {@template amplify_auth_cognito_dart.sign_in_state}
 /// Discrete states of an auth flow state machine.
 /// {@endtemplate}
-abstract class SignInState extends StateMachineState<SignInStateType> {
+abstract class SignInState extends AuthState<SignInStateType> {
   /// {@macro amplify_auth_cognito_dart.sign_in_state}
   const SignInState();
 

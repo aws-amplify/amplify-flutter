@@ -33,7 +33,7 @@ enum ConfigurationEventType {
 /// Discrete events of the Auth state machine.
 /// {@endtemplate}
 abstract class ConfigurationEvent
-    extends StateMachineEvent<ConfigurationEventType, ConfigurationStateType> {
+    extends AuthEvent<ConfigurationEventType, ConfigurationStateType> {
   const ConfigurationEvent._();
 
   /// {@macro amplify_auth_cognito.configuration_event.configure}
