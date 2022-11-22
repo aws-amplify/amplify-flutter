@@ -28,6 +28,9 @@ abstract class StateMachineState<StateType>
   StateType get type;
 }
 
+/// Mixin for the success/idle states of a state machine.
+mixin SuccessState<StateType> on StateMachineState<StateType> {}
+
 /// Mixin for the error/failure states of a state machine.
 mixin ErrorState<StateType> on StateMachineState<StateType> {
   /// The exception which triggered this state.

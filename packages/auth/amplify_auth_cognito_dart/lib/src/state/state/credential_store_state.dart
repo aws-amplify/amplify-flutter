@@ -154,7 +154,7 @@ class CredentialStoreClearingCredentials extends CredentialStoreState {
 /// {@template amplify_auth_cognito.credential_store_success}
 /// A successful result to a requested save/load of credentials.
 /// {@endtemplate}
-class CredentialStoreSuccess extends CredentialStoreState {
+class CredentialStoreSuccess extends CredentialStoreState with SuccessState {
   /// {@macro amplify_auth_cognito.credential_store_success}
   const CredentialStoreSuccess(this.data) : super._();
 

@@ -107,7 +107,7 @@ class FetchAuthSessionRefreshing extends FetchAuthSessionState {
 /// {@template amplify_auth_cognito.fetch_auth_session_success}
 /// The state machine successfully fetched the current auth session.
 /// {@endtemplate}
-class FetchAuthSessionSuccess extends FetchAuthSessionState {
+class FetchAuthSessionSuccess extends FetchAuthSessionState with SuccessState {
   /// {@macro amplify_auth_cognito.fetch_auth_session_success}
   const FetchAuthSessionSuccess(this.session) : super._();
 
