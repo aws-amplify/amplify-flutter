@@ -150,7 +150,9 @@ class ModelFieldDefinition {
       bool isRequired = true,
       required String ofModelName,
       QueryField? associatedKey,
-      String? targetName}) {
+      @Deprecated('Please use the latest version of Amplify CLI to regenerate models')
+          String? targetName,
+      List<String>? targetNames}) {
     // Extra code needed due to lack of nullability support
     String? associatedName;
     String? associatedType;
@@ -165,7 +167,11 @@ class ModelFieldDefinition {
             ModelFieldType(ModelFieldTypeEnum.model, ofModelName: ofModelName),
         association: ModelAssociation(
             associationType: ModelAssociationEnum.BelongsTo,
+            // TODO(Jordan-Nelson): Remove `targetName` when API category has been
+            // updated to support CPK changes. This was added manually.
+            // ignore:, deprecated_member_use_from_same_package
             targetName: targetName,
+            targetNames: targetNames,
             associatedName: associatedName,
             associatedType: associatedType));
   }

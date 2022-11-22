@@ -30,7 +30,6 @@ import com.amplifyframework.core.model.query.Page
 import com.amplifyframework.core.model.query.QueryOptions
 import com.amplifyframework.core.model.query.Where
 import com.amplifyframework.core.model.query.predicate.QueryField.field
-import com.amplifyframework.core.model.query.predicate.QueryPredicate
 import com.amplifyframework.core.model.query.predicate.QueryPredicateOperation.not
 import com.amplifyframework.core.model.query.predicate.QueryPredicates
 import com.amplifyframework.core.model.temporal.Temporal
@@ -48,6 +47,7 @@ import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.ArgumentMatchers.eq
 import org.mockito.Mockito.RETURNS_SELF
+import org.mockito.Mockito.`when`
 import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.mockStatic
@@ -55,7 +55,6 @@ import org.mockito.Mockito.never
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoInteractions
-import org.mockito.Mockito.`when`
 import org.mockito.invocation.InvocationOnMock
 import org.robolectric.RobolectricTestRunner
 import java.lang.reflect.Field
@@ -64,9 +63,9 @@ import java.util.concurrent.TimeUnit
 
 @RunWith(RobolectricTestRunner::class)
 class AmplifyDataStorePluginTest {
-    lateinit var flutterPlugin: AmplifyDataStorePlugin
-    lateinit var modelSchema: ModelSchema
-    lateinit var amplifySuccessResults: MutableList<SerializedModel>
+    private lateinit var flutterPlugin: AmplifyDataStorePlugin
+    private lateinit var modelSchema: ModelSchema
+    private lateinit var amplifySuccessResults: MutableList<SerializedModel>
 
     private var mockDataStore = mock(DataStoreCategory::class.java)
     private var mockAmplifyDataStorePlugin = mock(AWSDataStorePlugin::class.java)
@@ -114,7 +113,7 @@ class AmplifyDataStorePluginTest {
         modelProvider.addCustomTypeSchema("Contact", contactSchema)
 
         modelSchema = flutterPlugin.modelProvider.modelSchemas()["Post"]!!
-        amplifySuccessResults = mutableListOf<SerializedModel>(
+        amplifySuccessResults = mutableListOf(
             SerializedModel.builder()
                 .modelSchema(modelSchema)
                 .serializedData(
@@ -306,10 +305,10 @@ class AmplifyDataStorePluginTest {
     fun test_query_with_predicates_success_zero_result() {
         val queryOptions =
             Where.matches(
-                field("id").eq("123").or(
-                    field("rating").ge(4).and(
+                field("Post","id").eq("123").or(
+                    field("Post","rating").ge(4).and(
                         not(
-                            field("created").eq("2020-02-20T20:20:20-08:00")
+                            field("Post","created").eq("2020-02-20T20:20:20-08:00")
                         )
                     )
                 )
@@ -344,12 +343,12 @@ class AmplifyDataStorePluginTest {
     @Test
     fun test_query_api_error() {
         val testRequest: HashMap<String, Any> = (
-            readMapFromFile(
-                "query_api",
-                "request/only_model_name.json",
-                HashMap::class.java
-            ) as HashMap<String, Any>
-            )
+                readMapFromFile(
+                    "query_api",
+                    "request/only_model_name.json",
+                    HashMap::class.java
+                ) as HashMap<String, Any>
+                )
 
         doAnswer { invocation: InvocationOnMock ->
             assertEquals("Post", invocation.arguments[0])
@@ -398,12 +397,12 @@ class AmplifyDataStorePluginTest {
     @Test
     fun test_delete_success_result_no_predicates() {
         val testRequest: HashMap<String, Any> = (
-            readMapFromFile(
-                "delete_api",
-                "request/instance_no_predicate.json",
-                HashMap::class.java
-            ) as HashMap<String, Any>
-            )
+                readMapFromFile(
+                    "delete_api",
+                    "request/instance_no_predicate.json",
+                    HashMap::class.java
+                ) as HashMap<String, Any>
+                )
 
         val serializedModelData: HashMap<String, Any> =
             testRequest["serializedModel"] as HashMap<String, Any>
@@ -425,10 +424,10 @@ class AmplifyDataStorePluginTest {
             (invocation.arguments[2] as Consumer<DataStoreItemChange<SerializedModel>>).accept(
                 dataStoreItemChange
             )
-            null as Void?
+            null
         }.`when`(mockAmplifyDataStorePlugin).delete(
-            any<SerializedModel>(),
-            any<QueryPredicate>(),
+            any(),
+            any(),
             any<Consumer<DataStoreItemChange<SerializedModel>>>(),
             any<Consumer<DataStoreException>>()
         )
@@ -442,12 +441,12 @@ class AmplifyDataStorePluginTest {
     fun test_delete_api_error() {
 
         val testRequest: HashMap<String, Any> = (
-            readMapFromFile(
-                "delete_api",
-                "request/instance_no_predicate.json",
-                HashMap::class.java
-            ) as HashMap<String, Any>
-            )
+                readMapFromFile(
+                    "delete_api",
+                    "request/instance_no_predicate.json",
+                    HashMap::class.java
+                ) as HashMap<String, Any>
+                )
 
         val serializedModelData: HashMap<String, Any> =
             testRequest["serializedModel"] as HashMap<String, Any>
@@ -462,10 +461,10 @@ class AmplifyDataStorePluginTest {
             (invocation.arguments[3] as Consumer<DataStoreException>).accept(
                 dataStoreException
             )
-            null as Void?
+            null
         }.`when`(mockAmplifyDataStorePlugin).delete(
-            any<SerializedModel>(),
-            any<QueryPredicate>(),
+            any(),
+            any(),
             any<Consumer<DataStoreItemChange<SerializedModel>>>(),
             any<Consumer<DataStoreException>>()
         )
@@ -503,12 +502,12 @@ class AmplifyDataStorePluginTest {
     @Test
     fun test_save_success_result_no_predicates() {
         val testRequest: HashMap<String, Any> = (
-            readMapFromFile(
-                "save_api",
-                "request/instance_without_predicate.json",
-                HashMap::class.java
-            ) as HashMap<String, Any>
-            )
+                readMapFromFile(
+                    "save_api",
+                    "request/instance_without_predicate.json",
+                    HashMap::class.java
+                ) as HashMap<String, Any>
+                )
 
         val serializedModelData: HashMap<String, Any> =
             testRequest["serializedModel"] as HashMap<String, Any>
@@ -531,10 +530,10 @@ class AmplifyDataStorePluginTest {
             (invocation.arguments[2] as Consumer<DataStoreItemChange<SerializedModel>>).accept(
                 dataStoreItemChange
             )
-            null as Void?
+            null
         }.`when`(mockAmplifyDataStorePlugin).save(
-            any<SerializedModel>(),
-            any<QueryPredicate>(),
+            any(),
+            any(),
             any<Consumer<DataStoreItemChange<SerializedModel>>>(),
             any<Consumer<DataStoreException>>()
         )
@@ -548,12 +547,12 @@ class AmplifyDataStorePluginTest {
     fun test_save_api_error() {
 
         val testRequest: HashMap<String, Any> = (
-            readMapFromFile(
-                "save_api",
-                "request/instance_without_predicate.json",
-                HashMap::class.java
-            ) as HashMap<String, Any>
-            )
+                readMapFromFile(
+                    "save_api",
+                    "request/instance_without_predicate.json",
+                    HashMap::class.java
+                ) as HashMap<String, Any>
+                )
 
         val serializedModelData: HashMap<String, Any> =
             testRequest["serializedModel"] as HashMap<String, Any>
@@ -569,10 +568,10 @@ class AmplifyDataStorePluginTest {
             (invocation.arguments[3] as Consumer<DataStoreException>).accept(
                 dataStoreException
             )
-            null as Void?
+            null
         }.`when`(mockAmplifyDataStorePlugin).save(
-            any<SerializedModel>(),
-            any<QueryPredicate>(),
+            any(),
+            any(),
             any<Consumer<DataStoreItemChange<SerializedModel>>>(),
             any<Consumer<DataStoreException>>()
         )
@@ -623,7 +622,7 @@ class AmplifyDataStorePluginTest {
             any<Consumer<Cancelable>>(),
             any<Consumer<DataStoreItemChange<out Model>>>(),
             any<Consumer<DataStoreException>>(),
-            any<Action>()
+            any()
         )
 
         flutterPlugin.onSetUpObserve(mockResult)
@@ -647,7 +646,7 @@ class AmplifyDataStorePluginTest {
             any<Consumer<Cancelable>>(),
             any<Consumer<DataStoreItemChange<out Model>>>(),
             any<Consumer<DataStoreException>>(),
-            any<Action>()
+            any()
         )
 
         flutterPlugin.onSetUpObserve(mockResult)
@@ -662,12 +661,12 @@ class AmplifyDataStorePluginTest {
             hubEventHandler = mockHubHandler
         )
         val eventData: HashMap<String, Any> = (
-            readMapFromFile(
-                "observe_api",
-                "post_type_success_event.json",
-                HashMap::class.java
-            ) as HashMap<String, Any>
-            )
+                readMapFromFile(
+                    "observe_api",
+                    "post_type_success_event.json",
+                    HashMap::class.java
+                ) as HashMap<String, Any>
+                )
         val modelData = mapOf(
             "id" to "43036c6b-8044-4309-bddc-262b6c686026",
             "title" to "Title 2",
@@ -695,7 +694,7 @@ class AmplifyDataStorePluginTest {
             any<Consumer<Cancelable>>(),
             any<Consumer<DataStoreItemChange<out Model>>>(),
             any<Consumer<DataStoreException>>(),
-            any<Action>()
+            any()
         )
 
         flutterPlugin.onSetUpObserve(mockResult)
@@ -719,7 +718,7 @@ class AmplifyDataStorePluginTest {
             any<Consumer<Cancelable>>(),
             any<Consumer<DataStoreItemChange<out Model>>>(),
             any<Consumer<DataStoreException>>(),
-            any<Action>()
+            any()
         )
 
         flutterPlugin.onSetUpObserve(mockResult)
@@ -741,9 +740,9 @@ class AmplifyDataStorePluginTest {
     fun test_clear_success_result() {
         doAnswer { invocation: InvocationOnMock ->
             (invocation.arguments[0] as Action).call()
-            null as Void?
+            null
         }.`when`(mockAmplifyDataStorePlugin)
-            .clear(any<Action>(), any<Consumer<DataStoreException>>())
+            .clear(any(), any<Consumer<DataStoreException>>())
 
         flutterPlugin.onClear(mockResult)
 
@@ -756,9 +755,9 @@ class AmplifyDataStorePluginTest {
             (invocation.arguments[1] as Consumer<DataStoreException>).accept(
                 dataStoreException
             )
-            null as Void?
+            null
         }.`when`(mockAmplifyDataStorePlugin)
-            .clear(any<Action>(), any<Consumer<DataStoreException>>())
+            .clear(any(), any<Consumer<DataStoreException>>())
 
         flutterPlugin.onClear(mockResult)
 
@@ -791,12 +790,15 @@ class AmplifyDataStorePluginTest {
             "id" to "af9cfa64-1ea9-46d6-b9e2-8203179d5392",
             "title" to "A brilliant Post",
             "rating" to 5,
-            "blog" to SerializedModel.builder().modelSchema(blogModelSchema).serializedData(
-                mapOf<String, Any>(
-                    "name" to "Amazing Blog",
-                    "id" to "8cb7d5a5-435d-4632-a890-90ed0c6107f5"
-                ) as HashMap<String, Any>
-            ).build()
+            "blog" to SerializedModel.builder()
+                .modelSchema(blogModelSchema)
+                .serializedData(
+                    mapOf<String, Any>(
+                        "name" to "Amazing Blog",
+                        "id" to "8cb7d5a5-435d-4632-a890-90ed0c6107f5"
+                    ) as HashMap<String, Any>
+                )
+                .build()
         )
 
         assertEquals(
@@ -876,9 +878,9 @@ class AmplifyDataStorePluginTest {
     fun test_onStart_success() {
         doAnswer { invocation: InvocationOnMock ->
             (invocation.arguments[0] as Action).call()
-            null as Void?
+            null
         }.`when`(mockAmplifyDataStorePlugin)
-            .start(any<Action>(), any<Consumer<DataStoreException>>())
+            .start(any(), any<Consumer<DataStoreException>>())
 
         flutterPlugin.onStart(mockResult)
 
@@ -891,9 +893,9 @@ class AmplifyDataStorePluginTest {
             (invocation.arguments[1] as Consumer<DataStoreException>).accept(
                 dataStoreException
             )
-            null as Void?
+            null
         }.`when`(mockAmplifyDataStorePlugin)
-            .start(any<Action>(), any<Consumer<DataStoreException>>())
+            .start(any(), any<Consumer<DataStoreException>>())
 
         flutterPlugin.onStart(mockResult)
 
@@ -911,9 +913,9 @@ class AmplifyDataStorePluginTest {
     fun test_onStop_success() {
         doAnswer { invocation: InvocationOnMock ->
             (invocation.arguments[0] as Action).call()
-            null as Void?
+            null
         }.`when`(mockAmplifyDataStorePlugin)
-            .stop(any<Action>(), any<Consumer<DataStoreException>>())
+            .stop(any(), any<Consumer<DataStoreException>>())
 
         flutterPlugin.onStop(mockResult)
 
@@ -926,9 +928,9 @@ class AmplifyDataStorePluginTest {
             (invocation.arguments[1] as Consumer<DataStoreException>).accept(
                 dataStoreException
             )
-            null as Void?
+            null
         }.`when`(mockAmplifyDataStorePlugin)
-            .stop(any<Action>(), any<Consumer<DataStoreException>>())
+            .stop(any(), any<Consumer<DataStoreException>>())
 
         flutterPlugin.onStop(mockResult)
 

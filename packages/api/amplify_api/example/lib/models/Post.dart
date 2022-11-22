@@ -260,6 +260,9 @@ class Post extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: Post.BLOG,
         isRequired: false,
+        // TODO(Jordan-Nelson): Remove `targetName` when API category has been
+        // updated to support CPK changes. This was added manually.
+        // ignore: deprecated_member_use
         targetName: "blogID",
         ofModelName: (Blog).toString()));
 
