@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
@@ -37,6 +39,34 @@ abstract class StateMachineEvent<EventType, StateType>
     covariant StateMachineState<StateType> currentState,
   ) =>
       null;
+}
+
+class EventCompleter<Event extends StateMachineEvent>
+    implements Completer<void> {
+  EventCompleter(this.event);
+
+  final Event event;
+  final Completer<void> _completer = Completer();
+
+  @override
+  void complete([FutureOr<void>? value]) {
+    if (!isCompleted) {
+      _completer.complete(value);
+    }
+  }
+
+  @override
+  void completeError(Object error, [StackTrace? stackTrace]) {
+    if (!isCompleted) {
+      _completer.completeError(error, stackTrace);
+    }
+  }
+
+  @override
+  Future<void> get future => _completer.future;
+
+  @override
+  bool get isCompleted => _completer.isCompleted;
 }
 
 /// Mixin functionality for error/failure events of a state machine.

@@ -59,25 +59,20 @@ class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
         );
 
   @override
-  FutureOr<void> dispatch(AuthEvent event) async {
-    try {
-      if (event is ConfigurationEvent) {
-        return getOrCreate(ConfigurationStateMachine.type).add(event);
-      } else if (event is CredentialStoreEvent) {
-        return getOrCreate(CredentialStoreStateMachine.type).add(event);
-      } else if (event is FetchAuthSessionEvent) {
-        return getOrCreate(FetchAuthSessionStateMachine.type).add(event);
-      } else if (event is HostedUiEvent) {
-        return getOrCreate(HostedUiStateMachine.type).add(event);
-      } else if (event is SignUpEvent) {
-        return getOrCreate(SignUpStateMachine.type).add(event);
-      } else if (event is SignInEvent) {
-        return getOrCreate(SignInStateMachine.type).add(event);
-      }
-      throw StateError('Unhandled event: $event');
-    } finally {
-      // Allow propogation of event
-      await Future<void>.delayed(Duration.zero);
+  FutureOr<void> dispatch(AuthEvent event) {
+    if (event is ConfigurationEvent) {
+      return getOrCreate(ConfigurationStateMachine.type).add(event);
+    } else if (event is CredentialStoreEvent) {
+      return getOrCreate(CredentialStoreStateMachine.type).add(event);
+    } else if (event is FetchAuthSessionEvent) {
+      return getOrCreate(FetchAuthSessionStateMachine.type).add(event);
+    } else if (event is HostedUiEvent) {
+      return getOrCreate(HostedUiStateMachine.type).add(event);
+    } else if (event is SignUpEvent) {
+      return getOrCreate(SignUpStateMachine.type).add(event);
+    } else if (event is SignInEvent) {
+      return getOrCreate(SignInStateMachine.type).add(event);
     }
+    throw StateError('Unhandled event: $event');
   }
 }
