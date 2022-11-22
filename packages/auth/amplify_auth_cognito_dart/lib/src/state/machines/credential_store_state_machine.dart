@@ -14,7 +14,6 @@ import 'package:amplify_auth_cognito_dart/src/state/machines/generated/credentia
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:meta/meta.dart';
-import 'package:stream_transform/stream_transform.dart';
 
 /// {@template amplify_auth_cognito.auth_store_state_machine}
 /// Manages the loading and storing of auth configuration data.
@@ -34,24 +33,6 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
   String get runtimeTypeName => 'CredentialStoreStateMachine';
 
   SecureStorageInterface get _secureStorage => getOrCreate();
-
-  /// Gets the current credentials result.
-  Future<CredentialStoreSuccess> getCredentialsResult() async {
-    // Wait for any pending events to be processed and their initial states to
-    // fire. Helps protect against the case where we call `credentialStoreMachine.clear()`
-    // in the same loop as `credentialStoreMachine.get()`, we want the second
-    // call to fail.
-    await Future<void>.delayed(Duration.zero);
-    final credentialsState = await stream.startWith(currentState).firstWhere(
-          (state) =>
-              state is CredentialStoreFailure ||
-              state is CredentialStoreSuccess,
-        );
-    if (credentialsState is CredentialStoreFailure) {
-      throw credentialsState.exception;
-    }
-    return credentialsState as CredentialStoreSuccess;
-  }
 
   /// Fetches the current credential store version.
   @visibleForTesting
