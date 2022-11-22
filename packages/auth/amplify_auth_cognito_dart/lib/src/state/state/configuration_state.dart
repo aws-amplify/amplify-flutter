@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_auth_cognito.configuration_state.configuration_state_type}
@@ -34,8 +35,7 @@ enum ConfigurationStateType {
 /// {@template amplify_auth_cognito.configuration_state}
 /// Discrete states of the Auth state machine.
 /// {@endtemplate}
-abstract class ConfigurationState
-    extends StateMachineState<ConfigurationStateType> {
+abstract class ConfigurationState extends AuthState<ConfigurationStateType> {
   /// {@macro amplify_auth_cognito.configuration_state}
   const ConfigurationState();
 
