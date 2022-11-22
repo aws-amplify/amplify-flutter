@@ -10,6 +10,7 @@ import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
+import 'package:stream_transform/stream_transform.dart';
 
 /// Default state machine builders for [CognitoAuthStateMachine].
 @visibleForTesting
@@ -63,5 +64,21 @@ class CognitoAuthStateMachine extends StateMachineDispatcher<AuthEvent> {
       return getOrCreate(SignInStateMachine.type).add(event);
     }
     throw StateError('Unhandled event: $event');
+  }
+
+  /// Loads credentials from the credential store (which may be
+  /// outdated or expired).
+  Future<CredentialStoreData> loadCredentials() async {
+    final machine = getOrCreate(CredentialStoreStateMachine.type);
+    final credentialsState =
+        await machine.stream.startWith(machine.currentState).firstWhere(
+              (state) =>
+                  state is CredentialStoreSuccess ||
+                  state is CredentialStoreFailure,
+            );
+    if (credentialsState is CredentialStoreFailure) {
+      throw credentialsState.exception;
+    }
+    return (credentialsState as CredentialStoreSuccess).data;
   }
 }

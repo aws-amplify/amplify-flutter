@@ -396,9 +396,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         CognitoIdentityPoolKeys(identityPoolConfig),
       ),
     );
-    await _stateMachine
-        .expect(CredentialStoreStateMachine.type)
-        .getCredentialsResult();
+    await _stateMachine.loadCredentials();
   }
 
   @override
@@ -935,7 +933,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<CognitoAuthUser> getCurrentUser({
     AuthUserOptions? options,
   }) async {
-    final credentials = await getCredentialStoreData();
+    final credentials = await stateMachine.loadCredentials();
     final tokens = credentials.userPoolTokens;
     final signInDetails = credentials.signInDetails;
     if (tokens == null || signInDetails == null) {
@@ -1202,16 +1200,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     _hubEventController
       ..add(AuthHubEvent.signedOut())
       ..add(AuthHubEvent.userDeleted());
-  }
-
-  /// Gets the current credential data in secure storage (which may be
-  /// outdated or expired).
-  @visibleForTesting
-  Future<CredentialStoreData> getCredentialStoreData() async {
-    final credentialState = await stateMachine
-        .getOrCreate<CredentialStoreStateMachine>()
-        .getCredentialsResult();
-    return credentialState.data;
   }
 
   /// Gets the current user pool tokens.
