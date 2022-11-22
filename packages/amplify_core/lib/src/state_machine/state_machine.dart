@@ -149,8 +149,9 @@ abstract class StateMachine<Event extends StateMachineEvent,
   // Resolve every event which meets the precondition given the current state,
   // blocking on the current event until it has finished processing.
   Future<void> _listenForEvents() async {
-    await for (final event in _eventStream) {
+    await for (final completer in _eventStream) {
       try {
+        final event = completer.event;
         _currentEvent = event;
         if (!_checkPrecondition(event)) {
           continue;
@@ -160,6 +161,8 @@ abstract class StateMachine<Event extends StateMachineEvent,
         await Future.delayed(Duration.zero, () => resolve(event));
       } on Object catch (error, st) {
         _emitError(error, st);
+      } finally {
+        completer.complete();
       }
     }
   }
@@ -223,7 +226,8 @@ abstract class StateMachine<Event extends StateMachineEvent,
       StreamController.broadcast(sync: true);
 
   /// Event controller.
-  final StreamController<Event> _eventController = StreamController();
+  final StreamController<EventCompleter<Event>> _eventController =
+      StreamController();
 
   /// Transition controller.
   @override
@@ -234,7 +238,8 @@ abstract class StateMachine<Event extends StateMachineEvent,
   final Map<StateMachineToken, StreamSubscription> _subscriptions = {};
 
   /// The stream of events added to this state machine.
-  late final Stream<Event> _eventStream = _eventController.stream;
+  late final Stream<EventCompleter<Event>> _eventStream =
+      _eventController.stream;
 
   /// The initial state of the state machine.
   State get initialState;
@@ -313,7 +318,11 @@ abstract class StateMachine<Event extends StateMachineEvent,
   }
 
   /// Add an event to the state machine.
-  void add(Event event) => _eventController.add(event);
+  Future<void> add(Event event) {
+    final completer = EventCompleter(event);
+    _eventController.add(completer);
+    return completer.future;
+  }
 
   /// Dispatches an event to the state machine.
   @override
