@@ -88,7 +88,7 @@ class Configuring extends ConfigurationState {
 /// {@template amplify_auth_cognito.configuration_state.configured}
 /// Successfully configured the Auth category.
 /// {@endtemplate}
-class Configured extends ConfigurationState {
+class Configured extends ConfigurationState with SuccessState {
   /// {@macro amplify_auth_cognito.configuration_state.configured}
   const Configured(this.config);
 

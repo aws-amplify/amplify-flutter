@@ -130,7 +130,7 @@ class HostedUiSignedOut extends HostedUiState {
 /// {@template amplify_auth_cognito.hosted_ui_signed_in}
 /// The user is signed in via the hosted UI flow.
 /// {@endtemplate}
-class HostedUiSignedIn extends HostedUiState {
+class HostedUiSignedIn extends HostedUiState with SuccessState {
   /// {@macro amplify_auth_cognito.hosted_ui_signed_in}
   const HostedUiSignedIn(this.user) : super._();
 
