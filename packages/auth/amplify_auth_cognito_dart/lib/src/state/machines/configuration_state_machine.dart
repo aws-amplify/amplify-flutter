@@ -22,7 +22,7 @@ class ConfigurationStateMachine extends ConfigurationStateMachineBase {
 
   /// The [ConfigurationStateMachine] type.
   static const type = StateMachineToken<ConfigurationEvent, ConfigurationState,
-      ConfigurationStateMachine>();
+      CognitoAuthStateMachine, ConfigurationStateMachine>();
 
   @override
   String get runtimeTypeName => 'ConfigurationStateMachine';
