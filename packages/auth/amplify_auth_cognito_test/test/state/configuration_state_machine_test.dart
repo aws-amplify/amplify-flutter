@@ -28,7 +28,7 @@ void main() {
   late CognitoAuthStateMachine stateMachine;
   late SecureStorageInterface secureStorage;
 
-  group('AuthStateMachine', () {
+  group('ConfigurationStateMachine', () {
     setUp(() {
       stateMachine = CognitoAuthStateMachine();
       secureStorage = MockSecureStorage();
@@ -36,15 +36,17 @@ void main() {
     });
 
     test('configure succeeds', () async {
-      final authStateMachine = stateMachine.getOrCreate(AuthStateMachine.type);
+      final configurationStateMachine =
+          stateMachine.getOrCreate(ConfigurationStateMachine.type);
 
-      stateMachine.dispatch(AuthEvent.configure(mockConfig));
+      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
       await expectLater(
-        authStateMachine.stream.startWith(authStateMachine.currentState),
+        configurationStateMachine.stream
+            .startWith(configurationStateMachine.currentState),
         emitsInOrder(<Matcher>[
-          isA<AuthNotConfigured>(),
-          isA<AuthConfiguring>(),
-          isA<AuthConfigured>(),
+          isA<NotConfigured>(),
+          isA<Configuring>(),
+          isA<Configured>(),
         ]),
       );
 
@@ -52,14 +54,16 @@ void main() {
     });
 
     test('configure fails', () async {
-      final authStateMachine = stateMachine.getOrCreate(AuthStateMachine.type);
+      final configurationStateMachine =
+          stateMachine.getOrCreate(ConfigurationStateMachine.type);
 
-      stateMachine.dispatch(const AuthEvent.configure(badConfig));
+      stateMachine.dispatch(const ConfigurationEvent.configure(badConfig));
       await expectLater(
-        authStateMachine.stream.startWith(authStateMachine.currentState),
+        configurationStateMachine.stream
+            .startWith(configurationStateMachine.currentState),
         emitsInOrder(<Matcher>[
-          isA<AuthNotConfigured>(),
-          isA<AuthConfiguring>(),
+          isA<NotConfigured>(),
+          isA<Configuring>(),
           emitsError(isA<ConfigurationError>()),
         ]),
       );
@@ -68,21 +72,23 @@ void main() {
     });
 
     test('multiple configures are ignored', () async {
-      final authStateMachine = stateMachine.getOrCreate(AuthStateMachine.type);
+      final configurationStateMachine =
+          stateMachine.getOrCreate(ConfigurationStateMachine.type);
 
-      stateMachine.dispatch(AuthEvent.configure(mockConfig));
+      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
       await expectLater(
-        authStateMachine.stream.startWith(authStateMachine.currentState),
+        configurationStateMachine.stream
+            .startWith(configurationStateMachine.currentState),
         emitsInOrder(<Matcher>[
-          isA<AuthNotConfigured>(),
-          isA<AuthConfiguring>(),
-          isA<AuthConfigured>(),
+          isA<NotConfigured>(),
+          isA<Configuring>(),
+          isA<Configured>(),
         ]),
       );
 
-      stateMachine.dispatch(AuthEvent.configure(mockConfig));
+      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
       expect(
-        authStateMachine.stream,
+        configurationStateMachine.stream,
         emitsDone,
       );
 

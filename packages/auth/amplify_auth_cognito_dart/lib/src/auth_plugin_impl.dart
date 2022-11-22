@@ -278,8 +278,11 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       throw ConfigurationError('No Cognito plugin config detected');
     }
 
-    if (_stateMachine.getOrCreate(AuthStateMachine.type).currentState.type !=
-        AuthStateType.notConfigured) {
+    if (_stateMachine
+            .getOrCreate(ConfigurationStateMachine.type)
+            .currentState
+            .type !=
+        ConfigurationStateType.notConfigured) {
       throw const AmplifyAlreadyConfiguredException(
         'Amplify has already been configured and re-configuration is not supported.',
         recoverySuggestion:
@@ -288,18 +291,18 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     }
 
     await _init();
-    _stateMachine.dispatch(AuthEvent.configure(config));
+    _stateMachine.dispatch(ConfigurationEvent.configure(config));
 
     await for (final state
-        in _stateMachine.expect(AuthStateMachine.type).stream) {
+        in _stateMachine.expect(ConfigurationStateMachine.type).stream) {
       switch (state.type) {
-        case AuthStateType.notConfigured:
-        case AuthStateType.configuring:
+        case ConfigurationStateType.notConfigured:
+        case ConfigurationStateType.configuring:
           continue;
-        case AuthStateType.configured:
+        case ConfigurationStateType.configured:
           return;
-        case AuthStateType.failure:
-          throw (state as AuthFailure).exception;
+        case ConfigurationStateType.failure:
+          throw (state as ConfigureFailure).exception;
       }
     }
   }

@@ -98,8 +98,8 @@ void main() {
           secureStorage,
           userPoolKeys: userPoolKeys,
         );
-        stateMachine.dispatch(AuthEvent.configure(mockConfig));
-        await stateMachine.stream.whereType<AuthConfigured>().first;
+        stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+        await stateMachine.stream.whereType<Configured>().first;
 
         stateMachine
           ..addInstance<CognitoIdentityClient>(
@@ -197,8 +197,8 @@ void main() {
             key: identityPoolKeys[CognitoIdentityPoolKey.expiration],
             value: DateTime.now().toIso8601String(),
           );
-          stateMachine.dispatch(AuthEvent.configure(mockConfig));
-          await stateMachine.stream.whereType<AuthConfigured>().first;
+          stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+          await stateMachine.stream.whereType<Configured>().first;
 
           const newAccessKeyId = 'newAccessKeyId';
           const newSecretAccessKey = 'newSecretAccessKey';
@@ -260,8 +260,8 @@ void main() {
             key: identityPoolKeys[CognitoIdentityPoolKey.expiration],
             value: DateTime.now().toIso8601String(),
           );
-          stateMachine.dispatch(AuthEvent.configure(mockConfig));
-          await stateMachine.stream.whereType<AuthConfigured>().first;
+          stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+          await stateMachine.stream.whereType<Configured>().first;
 
           stateMachine
             ..addInstance<CognitoIdentityClient>(
@@ -299,8 +299,8 @@ void main() {
 
         group('User Pool tokens (success)', () {
           Future<void> runTest({bool willRefresh = true}) async {
-            stateMachine.dispatch(AuthEvent.configure(mockConfig));
-            await stateMachine.stream.whereType<AuthConfigured>().first;
+            stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+            await stateMachine.stream.whereType<Configured>().first;
 
             stateMachine
               ..addInstance<CognitoIdentityProviderClient>(
@@ -395,8 +395,8 @@ void main() {
               expiration: Duration.zero,
             ).raw,
           );
-          stateMachine.dispatch(AuthEvent.configure(mockConfig));
-          await stateMachine.stream.whereType<AuthConfigured>().first;
+          stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+          await stateMachine.stream.whereType<Configured>().first;
 
           stateMachine
             ..addInstance<CognitoIdentityProviderClient>(
@@ -446,8 +446,9 @@ void main() {
             key: userPoolKeys[CognitoUserPoolKey.accessToken],
             value: originalToken.raw,
           );
-          stateMachine.dispatch(AuthEvent.configure(userPoolOnlyConfig));
-          await stateMachine.stream.whereType<AuthConfigured>().first;
+          stateMachine
+              .dispatch(ConfigurationEvent.configure(userPoolOnlyConfig));
+          await stateMachine.stream.whereType<Configured>().first;
 
           stateMachine
             ..addInstance<CognitoIdentityProviderClient>(
@@ -513,8 +514,8 @@ void main() {
             key: identityPoolKeys[CognitoIdentityPoolKey.expiration],
             value: originalExpiration.toIso8601String(),
           );
-          stateMachine.dispatch(AuthEvent.configure(mockConfig));
-          await stateMachine.stream.whereType<AuthConfigured>().first;
+          stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+          await stateMachine.stream.whereType<Configured>().first;
 
           const newAccessKeyId = 'newAccessKeyId';
           const newSecretAccessKey = 'newSecretAccessKey';
@@ -592,8 +593,8 @@ void main() {
             key: identityPoolKeys[CognitoIdentityPoolKey.expiration],
             value: originalExpiration.toIso8601String(),
           );
-          stateMachine.dispatch(AuthEvent.configure(mockConfig));
-          await stateMachine.stream.whereType<AuthConfigured>().first;
+          stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+          await stateMachine.stream.whereType<Configured>().first;
 
           stateMachine
             ..addInstance<CognitoIdentityProviderClient>(
@@ -655,8 +656,8 @@ void main() {
           secureStorage,
           userPoolKeys: userPoolKeys,
         );
-        stateMachine.dispatch(AuthEvent.configure(mockConfig));
-        await stateMachine.stream.whereType<AuthConfigured>().first;
+        stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+        await stateMachine.stream.whereType<Configured>().first;
 
         stateMachine
           ..addInstance<CognitoIdentityClient>(

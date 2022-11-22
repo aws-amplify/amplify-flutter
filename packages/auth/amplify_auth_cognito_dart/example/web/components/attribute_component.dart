@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
-    hide AuthState;
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:cognito_example/common.dart';
 import 'package:example_common/example_common.dart';
+
 import 'app_component.dart';
 
 class UserAttributeComponent extends StatefulComponent {

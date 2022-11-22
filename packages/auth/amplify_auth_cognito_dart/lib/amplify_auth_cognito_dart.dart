@@ -18,16 +18,11 @@ library amplify_auth_cognito_dart;
 export 'package:amplify_core/src/types/auth/auth_types.dart';
 
 export 'src/auth_plugin_impl.dart';
-
 export 'src/credentials/legacy_credential_provider.dart';
-
 export 'src/exception/srp_exception.dart';
-
 export 'src/flows/hosted_ui/hosted_ui_platform.dart';
-
 export 'src/jwt/src/cognito.dart';
 export 'src/jwt/src/token.dart';
-
 // Models
 export 'src/model/attribute/cognito_resend_user_attribute_confirmation_code_options.dart';
 export 'src/model/attribute/cognito_update_user_attribute_options.dart';
@@ -60,20 +55,16 @@ export 'src/model/signup/cognito_resend_sign_up_code_result.dart';
 export 'src/model/signup/cognito_sign_up_options.dart';
 export 'src/model/signup/cognito_sign_up_result.dart';
 export 'src/model/signup/cognito_sign_up_step.dart';
-
 export 'src/sdk/sdk_exception.dart' hide transformSdkException;
-
 export 'src/state/cognito_state_machine.dart';
-
 // State Machine
-export 'src/state/event/auth_event.dart';
+export 'src/state/event/configuration_event.dart';
 export 'src/state/event/credential_store_event.dart';
 export 'src/state/event/fetch_auth_session_event.dart';
 export 'src/state/event/hosted_ui_event.dart';
 export 'src/state/event/sign_in_event.dart';
 export 'src/state/event/sign_up_event.dart';
-
-export 'src/state/state/auth_state.dart';
+export 'src/state/state/configuration_state.dart';
 export 'src/state/state/credential_store_state.dart';
 export 'src/state/state/fetch_auth_session_state.dart';
 export 'src/state/state/hosted_ui_state.dart';
