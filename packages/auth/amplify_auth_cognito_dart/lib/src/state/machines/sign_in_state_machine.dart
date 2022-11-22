@@ -31,13 +31,14 @@ import 'package:meta/meta.dart';
 /// the same pattern of calling `cognitoIdp.InitiateAuth` plus some number of
 /// challenge responses.
 /// {@endtemplate}
-class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
+class SignInStateMachine
+    extends StateMachine<SignInEvent, SignInState, CognitoAuthStateMachine> {
   /// {@macro amplify_auth_cognito.sign_in_state_machine}
   SignInStateMachine(super.manager);
 
   /// The [SignInStateMachine] type.
-  static const type =
-      StateMachineToken<SignInEvent, SignInState, SignInStateMachine>();
+  static const type = StateMachineToken<SignInEvent, SignInState,
+      CognitoAuthStateMachine, SignInStateMachine>();
 
   @override
   String get runtimeTypeName => 'SignInStateMachine';
