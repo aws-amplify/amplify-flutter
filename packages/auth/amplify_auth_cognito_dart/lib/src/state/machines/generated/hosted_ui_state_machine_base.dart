@@ -20,8 +20,8 @@ import 'package:meta/meta.dart';
 /// Generated definition for the hosted UI state machine.
 /// {@endtemplate}
 @internal
-abstract class HostedUiStateMachineBase
-    extends StateMachine<HostedUiEvent, HostedUiState> {
+abstract class HostedUiStateMachineBase extends StateMachine<HostedUiEvent,
+    HostedUiState, CognitoAuthStateMachine> {
   /// {@macro amplify_auth_cognito.state.machines.hosted_ui_state_machine_base}
   HostedUiStateMachineBase(super.manager);
 

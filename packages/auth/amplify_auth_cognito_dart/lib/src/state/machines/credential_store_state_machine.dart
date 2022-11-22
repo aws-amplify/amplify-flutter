@@ -35,8 +35,11 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
   CredentialStoreStateMachine(super.manager);
 
   /// The [CredentialStoreStateMachine] type.
-  static const type = StateMachineToken<CredentialStoreEvent,
-      CredentialStoreState, CredentialStoreStateMachine>();
+  static const type = StateMachineToken<
+      CredentialStoreEvent,
+      CredentialStoreState,
+      CognitoAuthStateMachine,
+      CredentialStoreStateMachine>();
 
   @override
   String get runtimeTypeName => 'CredentialStoreStateMachine';

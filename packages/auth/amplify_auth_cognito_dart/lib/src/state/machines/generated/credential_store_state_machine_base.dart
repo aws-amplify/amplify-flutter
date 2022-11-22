@@ -22,8 +22,8 @@ import 'package:meta/meta.dart';
 /// Generated definition for the credential store state machine.
 /// {@endtemplate}
 @internal
-abstract class CredentialStoreStateMachineBase
-    extends StateMachine<CredentialStoreEvent, CredentialStoreState> {
+abstract class CredentialStoreStateMachineBase extends StateMachine<
+    CredentialStoreEvent, CredentialStoreState, CognitoAuthStateMachine> {
   /// {@macro amplify_auth_cognito.state.machines.credential_store_state_machine_base}
   CredentialStoreStateMachineBase(super.manager);
 

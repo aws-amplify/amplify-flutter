@@ -37,8 +37,11 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
   FetchAuthSessionStateMachine(super.manager);
 
   /// The [FetchAuthSessionStateMachine] type.
-  static const type = StateMachineToken<FetchAuthSessionEvent,
-      FetchAuthSessionState, FetchAuthSessionStateMachine>();
+  static const type = StateMachineToken<
+      FetchAuthSessionEvent,
+      FetchAuthSessionState,
+      CognitoAuthStateMachine,
+      FetchAuthSessionStateMachine>();
 
   @override
   String get runtimeTypeName => 'FetchAuthSessionStateMachine';

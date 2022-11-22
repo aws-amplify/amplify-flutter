@@ -22,8 +22,8 @@ import 'package:meta/meta.dart';
 /// Generated definition for the configuration state machine.
 /// {@endtemplate}
 @internal
-abstract class ConfigurationStateMachineBase
-    extends StateMachine<ConfigurationEvent, ConfigurationState> {
+abstract class ConfigurationStateMachineBase extends StateMachine<
+    ConfigurationEvent, ConfigurationState, CognitoAuthStateMachine> {
   /// {@template amplify_auth_cognito.state.machines.configuration_state_machine_base}
   ConfigurationStateMachineBase(super.manager);
 

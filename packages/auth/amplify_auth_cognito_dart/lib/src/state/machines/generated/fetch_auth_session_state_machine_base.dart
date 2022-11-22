@@ -20,8 +20,8 @@ import 'package:meta/meta.dart';
 /// Generated definition for the fetch auth session state machine.
 /// {@endtemplate}
 @internal
-abstract class FetchAuthSessionStateMachineBase
-    extends StateMachine<FetchAuthSessionEvent, FetchAuthSessionState> {
+abstract class FetchAuthSessionStateMachineBase extends StateMachine<
+    FetchAuthSessionEvent, FetchAuthSessionState, CognitoAuthStateMachine> {
   /// {@macro amplify_auth_cognito.state.machines.fetch_auth_session_state_machine_base}
   FetchAuthSessionStateMachineBase(super.manager);
 

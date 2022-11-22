@@ -16,7 +16,7 @@ import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
 
-final _builders = <StateMachineToken, StateMachineBuilder>{
+final _builders = <StateMachineToken, Function>{
   MyStateMachine.type: MyStateMachine.new,
   WorkerMachine.type: WorkerMachine.new,
 };
@@ -67,10 +67,12 @@ class MyState extends StateMachineState<MyType> {
   String get runtimeTypeName => 'MyState';
 }
 
-class MyStateMachine extends StateMachine<MyEvent, MyState> {
-  MyStateMachine(StateMachineManager manager) : super(manager);
+class MyStateMachine
+    extends StateMachine<MyEvent, MyState, StateMachineDispatcher> {
+  MyStateMachine(StateMachineDispatcher manager) : super(manager);
 
-  static const type = StateMachineToken<MyEvent, MyState, MyStateMachine>();
+  static const type = StateMachineToken<MyEvent, MyState,
+      StateMachineDispatcher, MyStateMachine>();
 
   @override
   MyState get initialState => const MyState(MyType.initial);
@@ -164,11 +166,12 @@ class WorkerState extends StateMachineState<WorkType> {
   String get runtimeTypeName => 'WorkerState';
 }
 
-class WorkerMachine extends StateMachine<WorkerEvent, WorkerState> {
-  WorkerMachine(StateMachineManager manager) : super(manager);
+class WorkerMachine
+    extends StateMachine<WorkerEvent, WorkerState, StateMachineDispatcher> {
+  WorkerMachine(StateMachineDispatcher manager) : super(manager);
 
-  static const type =
-      StateMachineToken<WorkerEvent, WorkerState, WorkerMachine>();
+  static const type = StateMachineToken<WorkerEvent, WorkerState,
+      StateMachineDispatcher, WorkerMachine>();
 
   @override
   WorkerState get initialState => const WorkerState(WorkType.initial);
@@ -197,7 +200,7 @@ class WorkerMachine extends StateMachine<WorkerEvent, WorkerState> {
   String get runtimeTypeName => 'WorkerMachine';
 }
 
-class MyStateMachineManager extends StateMachineManager {
+class MyStateMachineManager extends StateMachineDispatcher {
   MyStateMachineManager(
     DependencyManager dependencyManager,
   ) : super(_builders, dependencyManager);

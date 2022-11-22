@@ -23,7 +23,7 @@ import 'package:meta/meta.dart';
 /// {@endtemplate}
 @internal
 abstract class SignUpStateMachineBase
-    extends StateMachine<SignUpEvent, SignUpState> {
+    extends StateMachine<SignUpEvent, SignUpState, CognitoAuthStateMachine> {
   /// {@macro amplify_auth_cognito.state.machines.sign_up_state_machine_base}
   SignUpStateMachineBase(super.manager);
 

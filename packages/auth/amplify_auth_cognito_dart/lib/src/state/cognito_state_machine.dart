@@ -24,7 +24,7 @@ import 'package:meta/meta.dart';
 
 /// Default state machine builders for [CognitoAuthStateMachine].
 @visibleForTesting
-final stateMachineBuilders = <StateMachineToken, StateMachineBuilder>{
+final stateMachineBuilders = <StateMachineToken, Function>{
   ConfigurationStateMachine.type: ConfigurationStateMachine.new,
   CredentialStoreStateMachine.type: CredentialStoreStateMachine.new,
   FetchAuthSessionStateMachine.type: FetchAuthSessionStateMachine.new,
@@ -49,7 +49,7 @@ final defaultDependencies = <Token, DependencyBuilder>{
 /// {@template amplify_auth_cognito.cognito_auth_state_machine}
 /// The state machine for managing auth state and relevant work.
 /// {@endtemplate}
-class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
+class CognitoAuthStateMachine extends StateMachineDispatcher<AuthEvent> {
   /// {@macro amplify_auth_cognito.cognito_auth_state_machine}
   CognitoAuthStateMachine({
     DependencyManager? dependencyManager,

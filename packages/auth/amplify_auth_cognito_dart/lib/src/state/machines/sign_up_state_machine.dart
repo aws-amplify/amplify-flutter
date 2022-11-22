@@ -28,8 +28,8 @@ class SignUpStateMachine extends SignUpStateMachineBase {
   SignUpStateMachine(super.manager);
 
   /// The [SignUpStateMachine] type.
-  static const type =
-      StateMachineToken<SignUpEvent, SignUpState, SignUpStateMachine>();
+  static const type = StateMachineToken<SignUpEvent, SignUpState,
+      CognitoAuthStateMachine, SignUpStateMachine>();
 
   @override
   String get runtimeTypeName => 'SignUpStateMachine';

@@ -31,8 +31,8 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
   HostedUiStateMachine(super.manager);
 
   /// The [HostedUiStateMachine] type.
-  static const type =
-      StateMachineToken<HostedUiEvent, HostedUiState, HostedUiStateMachine>();
+  static const type = StateMachineToken<HostedUiEvent, HostedUiState,
+      CognitoAuthStateMachine, HostedUiStateMachine>();
 
   @override
   String get runtimeTypeName => 'HostedUiStateMachine';
