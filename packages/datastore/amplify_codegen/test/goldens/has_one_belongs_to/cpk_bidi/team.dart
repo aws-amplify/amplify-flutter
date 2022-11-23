@@ -403,6 +403,28 @@ abstract class Team extends PartialTeam implements Model<TeamIdentifier, Team> {
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<TeamIdentifier, Team, TeamIdentifier> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  Team copyWith({
+    String? teamId,
+    String? name,
+    Project? project,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? teamProjectProjectId,
+    String? teamProjectName,
+  }) {
+    return _Team._(
+      teamId: teamId ?? this.teamId,
+      name: name ?? this.name,
+      project: project == null ? this.project : AsyncModel.fromModel(project),
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+      teamProjectProjectId: teamProjectProjectId ?? this.teamProjectProjectId,
+      teamProjectName: teamProjectName ?? this.teamProjectName,
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<TeamIdentifier, Team, T> field) {
     Object? value;

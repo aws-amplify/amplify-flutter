@@ -279,6 +279,24 @@ abstract class EnumModel extends PartialEnumModel
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, EnumModel, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  EnumModel copyWith({
+    String? id,
+    MyEnum? enum_,
+    MyEnum? requiredEnum,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _EnumModel._(
+      id: id ?? this.id,
+      enum_: enum_ ?? this.enum_,
+      requiredEnum: requiredEnum ?? this.requiredEnum,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, EnumModel, T> field) {
     Object? value;

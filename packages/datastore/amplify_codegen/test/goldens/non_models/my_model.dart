@@ -257,6 +257,25 @@ abstract class MyModel extends PartialMyModel
   /// Query field for the [modelIdentifier] field.
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, MyModel, String> get MODEL_IDENTIFIER => $modelIdentifier;
+  MyModel copyWith({
+    ScalarNonModel? embeddedNonModel,
+    ScalarNonModel? requiredEmbeddedNonModel,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? id,
+  }) {
+    return _MyModel._(
+      embeddedNonModel: embeddedNonModel ?? this.embeddedNonModel,
+      requiredEmbeddedNonModel:
+          requiredEmbeddedNonModel ?? this.requiredEmbeddedNonModel,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+      id: id ?? this.id,
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, MyModel, T> field) {
     Object? value;

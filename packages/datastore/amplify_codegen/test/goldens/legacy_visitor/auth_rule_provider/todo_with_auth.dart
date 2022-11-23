@@ -247,6 +247,22 @@ abstract class TodoWithAuth extends PartialTodoWithAuth
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, TodoWithAuth, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  TodoWithAuth copyWith({
+    String? id,
+    String? name,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _TodoWithAuth._(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, TodoWithAuth, T> field) {
     Object? value;

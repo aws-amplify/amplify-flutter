@@ -2872,6 +2872,157 @@ abstract class ScalarListModel extends PartialScalarListModel
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, ScalarListModel, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  ScalarListModel copyWith({
+    String? id,
+    List<String?>? listOfString,
+    List<String>? listOfRequiredString,
+    List<String?>? requiredListOfString,
+    List<String>? requiredListOfRequiredString,
+    List<int?>? listOfInteger,
+    List<int>? listOfRequiredInteger,
+    List<int?>? requiredListOfInteger,
+    List<int>? requiredListOfRequiredInteger,
+    List<double?>? listOfFloat,
+    List<double>? listOfRequiredFloat,
+    List<double?>? requiredListOfFloat,
+    List<double>? requiredListOfRequiredFloat,
+    List<bool?>? listOfBoolean,
+    List<bool>? listOfRequiredBoolean,
+    List<bool?>? requiredListOfBoolean,
+    List<bool>? requiredListOfRequiredBoolean,
+    List<TemporalDate?>? listOfAwsDate,
+    List<TemporalDate>? listOfRequiredAwsDate,
+    List<TemporalDate?>? requiredListOfAwsDate,
+    List<TemporalDate>? requiredListOfRequiredAwsDate,
+    List<TemporalDateTime?>? listOfAwsDateTime,
+    List<TemporalDateTime>? listOfRequiredAwsDateTime,
+    List<TemporalDateTime?>? requiredListOfAwsDateTime,
+    List<TemporalDateTime>? requiredListOfRequiredAwsDateTime,
+    List<TemporalTime?>? listOfAwsTime,
+    List<TemporalTime>? listOfRequiredAwsTime,
+    List<TemporalTime?>? requiredListOfAwsTime,
+    List<TemporalTime>? requiredListOfRequiredAwsTime,
+    List<TemporalTimestamp?>? listOfAwsTimestamp,
+    List<TemporalTimestamp>? listOfRequiredAwsTimestamp,
+    List<TemporalTimestamp?>? requiredListOfAwsTimestamp,
+    List<TemporalTimestamp>? requiredListOfRequiredAwsTimestamp,
+    List<String?>? listOfAwsEmail,
+    List<String>? listOfRequiredAwsEmail,
+    List<String?>? requiredListOfAwsEmail,
+    List<String>? requiredListOfRequiredAwsEmail,
+    List<Object?>? listOfAwsjson,
+    List<Object>? listOfRequiredAwsjson,
+    List<Object?>? requiredListOfAwsjson,
+    List<Object>? requiredListOfRequiredAwsjson,
+    List<String?>? listOfAwsPhone,
+    List<String>? listOfRequiredAwsPhone,
+    List<String?>? requiredListOfAwsPhone,
+    List<String>? requiredListOfRequiredAwsPhone,
+    List<Uri?>? listOfAwsUrl,
+    List<Uri>? listOfRequiredAwsUrl,
+    List<Uri?>? requiredListOfAwsUrl,
+    List<Uri>? requiredListOfRequiredAwsUrl,
+    List<String?>? listOfAwsIpAddress,
+    List<String>? listOfRequiredAwsIpAddress,
+    List<String?>? requiredListOfAwsIpAddress,
+    List<String>? requiredListOfRequiredAwsIpAddress,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _ScalarListModel._(
+      id: id ?? this.id,
+      listOfString: listOfString ?? this.listOfString,
+      listOfRequiredString: listOfRequiredString ?? this.listOfRequiredString,
+      requiredListOfString: requiredListOfString ?? this.requiredListOfString,
+      requiredListOfRequiredString:
+          requiredListOfRequiredString ?? this.requiredListOfRequiredString,
+      listOfInteger: listOfInteger ?? this.listOfInteger,
+      listOfRequiredInteger:
+          listOfRequiredInteger ?? this.listOfRequiredInteger,
+      requiredListOfInteger:
+          requiredListOfInteger ?? this.requiredListOfInteger,
+      requiredListOfRequiredInteger:
+          requiredListOfRequiredInteger ?? this.requiredListOfRequiredInteger,
+      listOfFloat: listOfFloat ?? this.listOfFloat,
+      listOfRequiredFloat: listOfRequiredFloat ?? this.listOfRequiredFloat,
+      requiredListOfFloat: requiredListOfFloat ?? this.requiredListOfFloat,
+      requiredListOfRequiredFloat:
+          requiredListOfRequiredFloat ?? this.requiredListOfRequiredFloat,
+      listOfBoolean: listOfBoolean ?? this.listOfBoolean,
+      listOfRequiredBoolean:
+          listOfRequiredBoolean ?? this.listOfRequiredBoolean,
+      requiredListOfBoolean:
+          requiredListOfBoolean ?? this.requiredListOfBoolean,
+      requiredListOfRequiredBoolean:
+          requiredListOfRequiredBoolean ?? this.requiredListOfRequiredBoolean,
+      listOfAwsDate: listOfAwsDate ?? this.listOfAwsDate,
+      listOfRequiredAwsDate:
+          listOfRequiredAwsDate ?? this.listOfRequiredAwsDate,
+      requiredListOfAwsDate:
+          requiredListOfAwsDate ?? this.requiredListOfAwsDate,
+      requiredListOfRequiredAwsDate:
+          requiredListOfRequiredAwsDate ?? this.requiredListOfRequiredAwsDate,
+      listOfAwsDateTime: listOfAwsDateTime ?? this.listOfAwsDateTime,
+      listOfRequiredAwsDateTime:
+          listOfRequiredAwsDateTime ?? this.listOfRequiredAwsDateTime,
+      requiredListOfAwsDateTime:
+          requiredListOfAwsDateTime ?? this.requiredListOfAwsDateTime,
+      requiredListOfRequiredAwsDateTime: requiredListOfRequiredAwsDateTime ??
+          this.requiredListOfRequiredAwsDateTime,
+      listOfAwsTime: listOfAwsTime ?? this.listOfAwsTime,
+      listOfRequiredAwsTime:
+          listOfRequiredAwsTime ?? this.listOfRequiredAwsTime,
+      requiredListOfAwsTime:
+          requiredListOfAwsTime ?? this.requiredListOfAwsTime,
+      requiredListOfRequiredAwsTime:
+          requiredListOfRequiredAwsTime ?? this.requiredListOfRequiredAwsTime,
+      listOfAwsTimestamp: listOfAwsTimestamp ?? this.listOfAwsTimestamp,
+      listOfRequiredAwsTimestamp:
+          listOfRequiredAwsTimestamp ?? this.listOfRequiredAwsTimestamp,
+      requiredListOfAwsTimestamp:
+          requiredListOfAwsTimestamp ?? this.requiredListOfAwsTimestamp,
+      requiredListOfRequiredAwsTimestamp: requiredListOfRequiredAwsTimestamp ??
+          this.requiredListOfRequiredAwsTimestamp,
+      listOfAwsEmail: listOfAwsEmail ?? this.listOfAwsEmail,
+      listOfRequiredAwsEmail:
+          listOfRequiredAwsEmail ?? this.listOfRequiredAwsEmail,
+      requiredListOfAwsEmail:
+          requiredListOfAwsEmail ?? this.requiredListOfAwsEmail,
+      requiredListOfRequiredAwsEmail:
+          requiredListOfRequiredAwsEmail ?? this.requiredListOfRequiredAwsEmail,
+      listOfAwsjson: listOfAwsjson ?? this.listOfAwsjson,
+      listOfRequiredAwsjson:
+          listOfRequiredAwsjson ?? this.listOfRequiredAwsjson,
+      requiredListOfAwsjson:
+          requiredListOfAwsjson ?? this.requiredListOfAwsjson,
+      requiredListOfRequiredAwsjson:
+          requiredListOfRequiredAwsjson ?? this.requiredListOfRequiredAwsjson,
+      listOfAwsPhone: listOfAwsPhone ?? this.listOfAwsPhone,
+      listOfRequiredAwsPhone:
+          listOfRequiredAwsPhone ?? this.listOfRequiredAwsPhone,
+      requiredListOfAwsPhone:
+          requiredListOfAwsPhone ?? this.requiredListOfAwsPhone,
+      requiredListOfRequiredAwsPhone:
+          requiredListOfRequiredAwsPhone ?? this.requiredListOfRequiredAwsPhone,
+      listOfAwsUrl: listOfAwsUrl ?? this.listOfAwsUrl,
+      listOfRequiredAwsUrl: listOfRequiredAwsUrl ?? this.listOfRequiredAwsUrl,
+      requiredListOfAwsUrl: requiredListOfAwsUrl ?? this.requiredListOfAwsUrl,
+      requiredListOfRequiredAwsUrl:
+          requiredListOfRequiredAwsUrl ?? this.requiredListOfRequiredAwsUrl,
+      listOfAwsIpAddress: listOfAwsIpAddress ?? this.listOfAwsIpAddress,
+      listOfRequiredAwsIpAddress:
+          listOfRequiredAwsIpAddress ?? this.listOfRequiredAwsIpAddress,
+      requiredListOfAwsIpAddress:
+          requiredListOfAwsIpAddress ?? this.requiredListOfAwsIpAddress,
+      requiredListOfRequiredAwsIpAddress: requiredListOfRequiredAwsIpAddress ??
+          this.requiredListOfRequiredAwsIpAddress,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, ScalarListModel, T> field) {
     Object? value;

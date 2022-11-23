@@ -270,6 +270,24 @@ abstract class PrivateType extends PartialPrivateType
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, PrivateType, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  PrivateType copyWith({
+    String? id,
+    String? name,
+    String? bar,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _PrivateType._(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      bar: bar ?? this.bar,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, PrivateType, T> field) {
     Object? value;

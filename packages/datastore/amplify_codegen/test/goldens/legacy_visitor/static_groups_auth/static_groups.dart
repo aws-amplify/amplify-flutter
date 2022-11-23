@@ -270,6 +270,24 @@ abstract class StaticGroups extends PartialStaticGroups
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, StaticGroups, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  StaticGroups copyWith({
+    String? id,
+    String? name,
+    String? bar,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _StaticGroups._(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      bar: bar ?? this.bar,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, StaticGroups, T> field) {
     Object? value;

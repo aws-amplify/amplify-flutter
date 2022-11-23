@@ -1122,6 +1122,84 @@ abstract class ScalarModel extends PartialScalarModel
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, ScalarModel, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  ScalarModel copyWith({
+    String? id,
+    String? str,
+    String? requiredStr,
+    int? integer,
+    int? requiredInteger,
+    double? float,
+    double? requiredFloat,
+    bool? boolean,
+    bool? requiredBoolean,
+    DateTime? awsDate,
+    DateTime? requiredAwsDate,
+    DateTime? awsDateTime,
+    DateTime? requiredAwsDateTime,
+    DateTime? awsTime,
+    DateTime? requiredAwsTime,
+    DateTime? awsTimestamp,
+    DateTime? requiredAwsTimestamp,
+    String? awsEmail,
+    String? requiredAwsEmail,
+    Object? awsJson,
+    Object? requiredAwsJson,
+    String? awsPhone,
+    String? requiredAwsPhone,
+    Uri? awsUrl,
+    Uri? requiredAwsUrl,
+    String? awsIpAddress,
+    String? requiredAwsIpAddress,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _ScalarModel._(
+      id: id ?? this.id,
+      str: str ?? this.str,
+      requiredStr: requiredStr ?? this.requiredStr,
+      integer: integer ?? this.integer,
+      requiredInteger: requiredInteger ?? this.requiredInteger,
+      float: float ?? this.float,
+      requiredFloat: requiredFloat ?? this.requiredFloat,
+      boolean: boolean ?? this.boolean,
+      requiredBoolean: requiredBoolean ?? this.requiredBoolean,
+      awsDate: awsDate == null ? this.awsDate : TemporalDate(awsDate),
+      requiredAwsDate: requiredAwsDate == null
+          ? this.requiredAwsDate
+          : TemporalDate(requiredAwsDate),
+      awsDateTime: awsDateTime == null
+          ? this.awsDateTime
+          : TemporalDateTime(awsDateTime),
+      requiredAwsDateTime: requiredAwsDateTime == null
+          ? this.requiredAwsDateTime
+          : TemporalDateTime(requiredAwsDateTime),
+      awsTime: awsTime == null ? this.awsTime : TemporalTime(awsTime),
+      requiredAwsTime: requiredAwsTime == null
+          ? this.requiredAwsTime
+          : TemporalTime(requiredAwsTime),
+      awsTimestamp: awsTimestamp == null
+          ? this.awsTimestamp
+          : TemporalTimestamp(awsTimestamp),
+      requiredAwsTimestamp: requiredAwsTimestamp == null
+          ? this.requiredAwsTimestamp
+          : TemporalTimestamp(requiredAwsTimestamp),
+      awsEmail: awsEmail ?? this.awsEmail,
+      requiredAwsEmail: requiredAwsEmail ?? this.requiredAwsEmail,
+      awsJson: awsJson ?? this.awsJson,
+      requiredAwsJson: requiredAwsJson ?? this.requiredAwsJson,
+      awsPhone: awsPhone ?? this.awsPhone,
+      requiredAwsPhone: requiredAwsPhone ?? this.requiredAwsPhone,
+      awsUrl: awsUrl ?? this.awsUrl,
+      requiredAwsUrl: requiredAwsUrl ?? this.requiredAwsUrl,
+      awsIpAddress: awsIpAddress ?? this.awsIpAddress,
+      requiredAwsIpAddress: requiredAwsIpAddress ?? this.requiredAwsIpAddress,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, ScalarModel, T> field) {
     Object? value;

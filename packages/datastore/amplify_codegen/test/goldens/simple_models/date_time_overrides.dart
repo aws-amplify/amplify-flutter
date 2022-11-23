@@ -233,6 +233,19 @@ abstract class DateTimeOverrides extends PartialDateTimeOverrides
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, DateTimeOverrides, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  DateTimeOverrides copyWith({
+    String? id,
+    String? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _DateTimeOverrides._(
+      id: id ?? this.id,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(
     QueryField<String, DateTimeOverrides, T> field,

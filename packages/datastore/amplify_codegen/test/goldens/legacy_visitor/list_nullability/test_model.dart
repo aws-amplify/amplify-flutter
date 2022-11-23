@@ -472,6 +472,33 @@ abstract class TestModel extends PartialTestModel
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, TestModel, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  TestModel copyWith({
+    String? id,
+    double? floatVal,
+    double? floatNullableVal,
+    List<double>? floatList,
+    List<double>? floatNullableList,
+    List<double?>? nullableFloatList,
+    List<double?>? nullableFloatNullableList,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _TestModel._(
+      id: id ?? this.id,
+      floatVal: floatVal ?? this.floatVal,
+      floatNullableVal: floatNullableVal ?? this.floatNullableVal,
+      floatList: floatList ?? this.floatList,
+      floatNullableList: floatNullableList ?? this.floatNullableList,
+      nullableFloatList: nullableFloatList ?? this.nullableFloatList,
+      nullableFloatNullableList:
+          nullableFloatNullableList ?? this.nullableFloatNullableList,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, TestModel, T> field) {
     Object? value;

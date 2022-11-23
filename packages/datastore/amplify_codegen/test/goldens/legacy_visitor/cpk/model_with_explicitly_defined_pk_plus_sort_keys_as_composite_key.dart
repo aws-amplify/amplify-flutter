@@ -437,6 +437,24 @@ abstract class ModelWithExplicitlyDefinedPkPlusSortKeysAsCompositeKey
           ModelWithExplicitlyDefinedPkPlusSortKeysAsCompositeKey,
           ModelWithExplicitlyDefinedPkPlusSortKeysAsCompositeKeyIdentifier>
       get MODEL_IDENTIFIER => $modelIdentifier;
+  ModelWithExplicitlyDefinedPkPlusSortKeysAsCompositeKey copyWith({
+    String? modelId,
+    String? title,
+    int? rating,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _ModelWithExplicitlyDefinedPkPlusSortKeysAsCompositeKey._(
+      modelId: modelId ?? this.modelId,
+      title: title ?? this.title,
+      rating: rating ?? this.rating,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(
     QueryField<ModelWithExplicitlyDefinedPkPlusSortKeysAsCompositeKeyIdentifier,

@@ -522,6 +522,38 @@ abstract class Project extends PartialProject
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<ProjectIdentifier, Project, ProjectIdentifier>
       get MODEL_IDENTIFIER => $modelIdentifier;
+  Project copyWith({
+    String? projectId,
+    String? name,
+    Team? devTeam,
+    Team? productTeam,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? projectDevTeamTeamId,
+    String? projectDevTeamName,
+    String? projectProductTeamTeamId,
+    String? projectProductTeamName,
+  }) {
+    return _Project._(
+      projectId: projectId ?? this.projectId,
+      name: name ?? this.name,
+      devTeam: devTeam == null ? this.devTeam : AsyncModel.fromModel(devTeam),
+      productTeam: productTeam == null
+          ? this.productTeam
+          : AsyncModel.fromModel(productTeam),
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+      projectDevTeamTeamId: projectDevTeamTeamId ?? this.projectDevTeamTeamId,
+      projectDevTeamName: projectDevTeamName ?? this.projectDevTeamName,
+      projectProductTeamTeamId:
+          projectProductTeamTeamId ?? this.projectProductTeamTeamId,
+      projectProductTeamName:
+          projectProductTeamName ?? this.projectProductTeamName,
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(
     QueryField<ProjectIdentifier, Project, T> field,

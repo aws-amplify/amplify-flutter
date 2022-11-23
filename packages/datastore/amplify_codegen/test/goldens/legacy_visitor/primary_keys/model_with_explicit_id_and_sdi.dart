@@ -262,6 +262,22 @@ abstract class ModelWithExplicitIdAndSdi
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, ModelWithExplicitIdAndSdi, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  ModelWithExplicitIdAndSdi copyWith({
+    String? id,
+    String? parentId,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _ModelWithExplicitIdAndSdi._(
+      id: id ?? this.id,
+      parentId: parentId ?? this.parentId,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(
     QueryField<String, ModelWithExplicitIdAndSdi, T> field,

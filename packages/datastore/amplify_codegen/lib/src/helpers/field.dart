@@ -360,12 +360,10 @@ extension ModelFieldHelpers on ModelField {
     );
   }
 
-  /// The Model type factory initializer for `this`.
-  Code? factoryInitializer({required bool isPrimaryKey}) {
+  /// A builder for converting to this field's type from a primitive value.
+  Expression Function(Expression)? get fromPrimitive {
     final type = this.type;
-    var isRequired = type.isRequired;
     Expression Function(Expression)? builder;
-    Expression? defaultValue;
     if (type is ScalarType) {
       switch (type.value) {
         case AppSyncScalar.awsDate:
@@ -373,13 +371,8 @@ extension ModelFieldHelpers on ModelField {
               (ref) => DartTypes.amplifyCore.temporalDate.newInstance([ref]);
           break;
         case AppSyncScalar.awsDateTime:
-          if (isReadOnly) {
-            defaultValue =
-                DartTypes.amplifyCore.temporalDateTime.property('now').call([]);
-          } else {
-            builder = (ref) =>
-                DartTypes.amplifyCore.temporalDateTime.newInstance([ref]);
-          }
+          builder = (ref) =>
+              DartTypes.amplifyCore.temporalDateTime.newInstance([ref]);
           break;
         case AppSyncScalar.awsTime:
           builder =
@@ -390,13 +383,6 @@ extension ModelFieldHelpers on ModelField {
               DartTypes.amplifyCore.temporalTimestamp.newInstance([ref]);
           break;
         case AppSyncScalar.id:
-          // Allow nullable `ID` parameters to the main constructor since these
-          // fields can be auto-generated.
-          if (isPrimaryKey) {
-            isRequired = false;
-            defaultValue = DartTypes.awsCommon.uuid.call([]);
-          }
-          break;
         case AppSyncScalar.awsIpAddress:
         case AppSyncScalar.awsEmail:
         case AppSyncScalar.awsJson:
@@ -416,6 +402,47 @@ extension ModelFieldHelpers on ModelField {
       builder = (ref) => DartTypes.amplifyCore
           .asyncModelCollection()
           .newInstanceNamed('fromList', [ref]);
+    }
+    return builder;
+  }
+
+  /// The Model type factory initializer for `this`.
+  Code? factoryInitializer({required bool isPrimaryKey}) {
+    final type = this.type;
+    var isRequired = type.isRequired;
+    var builder = fromPrimitive;
+    Expression? defaultValue;
+    if (type is ScalarType) {
+      switch (type.value) {
+        case AppSyncScalar.awsDateTime:
+          if (isReadOnly) {
+            defaultValue =
+                DartTypes.amplifyCore.temporalDateTime.property('now').call([]);
+            builder = null;
+          }
+          break;
+        case AppSyncScalar.id:
+          // Allow nullable `ID` parameters to the main constructor since these
+          // fields can be auto-generated.
+          if (isPrimaryKey) {
+            isRequired = false;
+            defaultValue = DartTypes.awsCommon.uuid.call([]);
+          }
+          break;
+        case AppSyncScalar.awsDate:
+        case AppSyncScalar.awsTime:
+        case AppSyncScalar.awsTimestamp:
+        case AppSyncScalar.awsIpAddress:
+        case AppSyncScalar.awsEmail:
+        case AppSyncScalar.awsJson:
+        case AppSyncScalar.awsPhone:
+        case AppSyncScalar.awsUrl:
+        case AppSyncScalar.boolean:
+        case AppSyncScalar.float:
+        case AppSyncScalar.int_:
+        case AppSyncScalar.string:
+          break;
+      }
     }
 
     if (builder == null && defaultValue == null) {

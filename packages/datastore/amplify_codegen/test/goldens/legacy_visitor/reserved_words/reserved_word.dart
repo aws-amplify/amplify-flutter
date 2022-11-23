@@ -247,6 +247,22 @@ abstract class ReservedWord extends PartialReservedWord
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, ReservedWord, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  ReservedWord copyWith({
+    String? id,
+    String? class_,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _ReservedWord._(
+      id: id ?? this.id,
+      class_: class_ ?? this.class_,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, ReservedWord, T> field) {
     Object? value;

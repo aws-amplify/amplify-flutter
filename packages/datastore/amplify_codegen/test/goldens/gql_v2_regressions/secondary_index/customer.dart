@@ -313,6 +313,27 @@ abstract class Customer extends PartialCustomer
   /// Query field for the [modelIdentifier] field.
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, Customer, String> get MODEL_IDENTIFIER => $modelIdentifier;
+  Customer copyWith({
+    String? id,
+    String? name,
+    String? phoneNumber,
+    String? accountRepresentativeId,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _Customer._(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      accountRepresentativeId:
+          accountRepresentativeId ?? this.accountRepresentativeId,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, Customer, T> field) {
     Object? value;

@@ -281,6 +281,24 @@ abstract class PowerSource extends PartialPowerSource
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, PowerSource, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  PowerSource copyWith({
+    String? sourceId,
+    double? amps,
+    double? volts,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _PowerSource._(
+      sourceId: sourceId ?? this.sourceId,
+      amps: amps ?? this.amps,
+      volts: volts ?? this.volts,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, PowerSource, T> field) {
     Object? value;

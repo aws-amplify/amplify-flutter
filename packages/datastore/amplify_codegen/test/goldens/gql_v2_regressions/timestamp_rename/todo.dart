@@ -234,6 +234,22 @@ abstract class Todo extends PartialTodo implements Model<String, Todo> {
   /// Query field for the [modelIdentifier] field.
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, Todo, String> get MODEL_IDENTIFIER => $modelIdentifier;
+  Todo copyWith({
+    String? content,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? id,
+  }) {
+    return _Todo._(
+      content: content ?? this.content,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+      id: id ?? this.id,
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, Todo, T> field) {
     Object? value;

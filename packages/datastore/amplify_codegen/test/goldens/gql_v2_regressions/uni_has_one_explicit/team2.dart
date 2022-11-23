@@ -238,6 +238,22 @@ abstract class Team2 extends PartialTeam2 implements Model<String, Team2> {
   /// Query field for the [modelIdentifier] field.
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, Team2, String> get MODEL_IDENTIFIER => $modelIdentifier;
+  Team2 copyWith({
+    String? id,
+    String? name,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _Team2._(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, Team2, T> field) {
     Object? value;

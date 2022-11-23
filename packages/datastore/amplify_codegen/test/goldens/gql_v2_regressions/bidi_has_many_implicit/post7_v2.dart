@@ -377,6 +377,30 @@ abstract class Post7V2 extends PartialPost7V2
   /// Query field for the [modelIdentifier] field.
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, Post7V2, String> get MODEL_IDENTIFIER => $modelIdentifier;
+  Post7V2 copyWith({
+    String? id,
+    String? title,
+    Blog7V2? blog,
+    List<Comment7V2>? comments,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? blog7V2PostsId,
+  }) {
+    return _Post7V2._(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      blog: blog == null ? this.blog : AsyncModel.fromModel(blog),
+      comments: comments == null
+          ? this.comments
+          : AsyncModelCollection.fromList(comments),
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+      blog7V2PostsId: blog7V2PostsId ?? this.blog7V2PostsId,
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, Post7V2, T> field) {
     Object? value;

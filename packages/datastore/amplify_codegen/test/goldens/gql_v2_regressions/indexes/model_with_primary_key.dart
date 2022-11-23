@@ -363,6 +363,28 @@ abstract class ModelWithPrimaryKey extends PartialModelWithPrimaryKey
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, ModelWithPrimaryKey, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  ModelWithPrimaryKey copyWith({
+    String? productId,
+    String? name,
+    String? content,
+    String? albumId,
+    String? categoryId,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _ModelWithPrimaryKey._(
+      productId: productId ?? this.productId,
+      name: name ?? this.name,
+      content: content ?? this.content,
+      albumId: albumId ?? this.albumId,
+      categoryId: categoryId ?? this.categoryId,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(
     QueryField<String, ModelWithPrimaryKey, T> field,

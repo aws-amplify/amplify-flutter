@@ -238,6 +238,22 @@ abstract class Class extends PartialClass implements Model<String, Class> {
   /// Query field for the [modelIdentifier] field.
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, Class, String> get MODEL_IDENTIFIER => $modelIdentifier;
+  Class copyWith({
+    String? id,
+    String? name,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _Class._(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, Class, T> field) {
     Object? value;
