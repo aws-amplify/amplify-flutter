@@ -252,6 +252,22 @@ abstract class ModelWithExplicitId extends PartialModelWithExplicitId
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, ModelWithExplicitId, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  ModelWithExplicitId copyWith({
+    String? id,
+    String? title,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _ModelWithExplicitId._(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(
     QueryField<String, ModelWithExplicitId, T> field,

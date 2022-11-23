@@ -289,6 +289,24 @@ abstract class Blog extends PartialBlog implements Model<String, Blog> {
   /// Query field for the [modelIdentifier] field.
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, Blog, String> get MODEL_IDENTIFIER => $modelIdentifier;
+  Blog copyWith({
+    String? id,
+    String? name,
+    List<Post>? posts,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _Blog._(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      posts: posts == null ? this.posts : AsyncModelCollection.fromList(posts),
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, Blog, T> field) {
     Object? value;

@@ -270,6 +270,24 @@ abstract class DynamicGroups extends PartialDynamicGroups
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, DynamicGroups, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  DynamicGroups copyWith({
+    String? id,
+    String? name,
+    String? bar,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _DynamicGroups._(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      bar: bar ?? this.bar,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, DynamicGroups, T> field) {
     Object? value;

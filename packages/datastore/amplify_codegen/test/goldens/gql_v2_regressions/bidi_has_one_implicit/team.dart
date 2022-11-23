@@ -312,6 +312,26 @@ abstract class Team extends PartialTeam implements Model<String, Team> {
   /// Query field for the [modelIdentifier] field.
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, Team, String> get MODEL_IDENTIFIER => $modelIdentifier;
+  Team copyWith({
+    String? id,
+    String? name,
+    Project? project,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? teamProjectId,
+  }) {
+    return _Team._(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      project: project == null ? this.project : AsyncModel.fromModel(project),
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+      teamProjectId: teamProjectId ?? this.teamProjectId,
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, Team, T> field) {
     Object? value;

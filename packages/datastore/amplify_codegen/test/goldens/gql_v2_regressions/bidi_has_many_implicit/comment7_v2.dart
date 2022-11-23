@@ -321,6 +321,26 @@ abstract class Comment7V2 extends PartialComment7V2
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, Comment7V2, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  Comment7V2 copyWith({
+    String? id,
+    String? content,
+    Post7V2? post,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? post7V2CommentsId,
+  }) {
+    return _Comment7V2._(
+      id: id ?? this.id,
+      content: content ?? this.content,
+      post: post == null ? this.post : AsyncModel.fromModel(post),
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+      post7V2CommentsId: post7V2CommentsId ?? this.post7V2CommentsId,
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, Comment7V2, T> field) {
     Object? value;

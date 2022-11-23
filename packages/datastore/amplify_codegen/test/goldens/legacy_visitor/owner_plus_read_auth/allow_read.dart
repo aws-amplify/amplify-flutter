@@ -267,6 +267,24 @@ abstract class AllowRead extends PartialAllowRead
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, AllowRead, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  AllowRead copyWith({
+    String? id,
+    String? name,
+    String? bar,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _AllowRead._(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      bar: bar ?? this.bar,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, AllowRead, T> field) {
     Object? value;

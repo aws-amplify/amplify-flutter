@@ -594,6 +594,41 @@ abstract class TemporalTimeModel extends PartialTemporalTimeModel
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, TemporalTimeModel, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  TemporalTimeModel copyWith({
+    String? id,
+    DateTime? date,
+    DateTime? time,
+    DateTime? dateTime,
+    DateTime? timestamp,
+    int? intNum,
+    List<TemporalDate?>? dateList,
+    List<TemporalTime?>? timeList,
+    List<TemporalDateTime?>? dateTimeList,
+    List<TemporalTimestamp?>? timestampList,
+    List<int?>? intList,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _TemporalTimeModel._(
+      id: id ?? this.id,
+      date: date == null ? this.date : TemporalDate(date),
+      time: time == null ? this.time : TemporalTime(time),
+      dateTime: dateTime == null ? this.dateTime : TemporalDateTime(dateTime),
+      timestamp:
+          timestamp == null ? this.timestamp : TemporalTimestamp(timestamp),
+      intNum: intNum ?? this.intNum,
+      dateList: dateList ?? this.dateList,
+      timeList: timeList ?? this.timeList,
+      dateTimeList: dateTimeList ?? this.dateTimeList,
+      timestampList: timestampList ?? this.timestampList,
+      intList: intList ?? this.intList,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(
     QueryField<String, TemporalTimeModel, T> field,

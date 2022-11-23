@@ -380,6 +380,28 @@ abstract class Comment extends PartialComment
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<CommentIdentifier, Comment, CommentIdentifier>
       get MODEL_IDENTIFIER => $modelIdentifier;
+  Comment copyWith({
+    String? commentId,
+    String? content,
+    Post? post,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? postCommentsPostId,
+    String? postCommentsTitle,
+  }) {
+    return _Comment._(
+      commentId: commentId ?? this.commentId,
+      content: content ?? this.content,
+      post: post == null ? this.post : AsyncModel.fromModel(post),
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+      postCommentsPostId: postCommentsPostId ?? this.postCommentsPostId,
+      postCommentsTitle: postCommentsTitle ?? this.postCommentsTitle,
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(
     QueryField<CommentIdentifier, Comment, T> field,

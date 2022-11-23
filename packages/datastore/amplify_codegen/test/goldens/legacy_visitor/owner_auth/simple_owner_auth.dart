@@ -272,6 +272,24 @@ abstract class SimpleOwnerAuth extends PartialSimpleOwnerAuth
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, SimpleOwnerAuth, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  SimpleOwnerAuth copyWith({
+    String? id,
+    String? name,
+    String? bar,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _SimpleOwnerAuth._(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      bar: bar ?? this.bar,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, SimpleOwnerAuth, T> field) {
     Object? value;

@@ -252,6 +252,22 @@ abstract class ModelWithImplicitId extends PartialModelWithImplicitId
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, ModelWithImplicitId, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  ModelWithImplicitId copyWith({
+    String? title,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? id,
+  }) {
+    return _ModelWithImplicitId._(
+      title: title ?? this.title,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+      id: id ?? this.id,
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(
     QueryField<String, ModelWithImplicitId, T> field,

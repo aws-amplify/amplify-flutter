@@ -270,6 +270,24 @@ abstract class SimpleModel extends PartialSimpleModel
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, SimpleModel, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  SimpleModel copyWith({
+    String? id,
+    String? name,
+    String? bar,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _SimpleModel._(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      bar: bar ?? this.bar,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, SimpleModel, T> field) {
     Object? value;

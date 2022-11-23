@@ -263,6 +263,22 @@ abstract class ModelWithExplicitlyDefinedPk
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, ModelWithExplicitlyDefinedPk, String>
       get MODEL_IDENTIFIER => $modelIdentifier;
+  ModelWithExplicitlyDefinedPk copyWith({
+    String? modelId,
+    String? title,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _ModelWithExplicitlyDefinedPk._(
+      modelId: modelId ?? this.modelId,
+      title: title ?? this.title,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(
     QueryField<String, ModelWithExplicitlyDefinedPk, T> field,

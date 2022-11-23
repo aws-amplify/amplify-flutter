@@ -289,6 +289,26 @@ abstract class Person extends PartialPerson implements Model<String, Person> {
   /// Query field for the [modelIdentifier] field.
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, Person, String> get MODEL_IDENTIFIER => $modelIdentifier;
+  Person copyWith({
+    String? name,
+    Phone? phone,
+    List<Address?>? mailingAddresses,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? id,
+  }) {
+    return _Person._(
+      name: name ?? this.name,
+      phone: phone ?? this.phone,
+      mailingAddresses: mailingAddresses ?? this.mailingAddresses,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+      id: id ?? this.id,
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, Person, T> field) {
     Object? value;

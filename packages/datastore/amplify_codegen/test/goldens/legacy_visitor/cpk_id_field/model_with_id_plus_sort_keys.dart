@@ -369,6 +369,24 @@ abstract class ModelWithIdPlusSortKeys extends PartialModelWithIdPlusSortKeys
   QueryField<ModelWithIdPlusSortKeysIdentifier, ModelWithIdPlusSortKeys,
           ModelWithIdPlusSortKeysIdentifier>
       get MODEL_IDENTIFIER => $modelIdentifier;
+  ModelWithIdPlusSortKeys copyWith({
+    String? id,
+    String? title,
+    int? rating,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _ModelWithIdPlusSortKeys._(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      rating: rating ?? this.rating,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(
     QueryField<ModelWithIdPlusSortKeysIdentifier, ModelWithIdPlusSortKeys, T>

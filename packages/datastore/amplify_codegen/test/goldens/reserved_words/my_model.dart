@@ -241,6 +241,22 @@ abstract class MyModel extends PartialMyModel
   /// Query field for the [modelIdentifier] field.
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, MyModel, String> get MODEL_IDENTIFIER => $modelIdentifier;
+  MyModel copyWith({
+    String? enum_,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? id,
+  }) {
+    return _MyModel._(
+      enum_: enum_ ?? this.enum_,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+      id: id ?? this.id,
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, MyModel, T> field) {
     Object? value;

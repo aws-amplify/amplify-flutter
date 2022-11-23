@@ -353,6 +353,30 @@ abstract class Post extends PartialPost implements Model<String, Post> {
   /// Query field for the [modelIdentifier] field.
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, Post, String> get MODEL_IDENTIFIER => $modelIdentifier;
+  Post copyWith({
+    String? id,
+    String? title,
+    Blog? blog,
+    List<Comment>? comments,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? blogPostsId,
+  }) {
+    return _Post._(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      blog: blog == null ? this.blog : AsyncModel.fromModel(blog),
+      comments: comments == null
+          ? this.comments
+          : AsyncModelCollection.fromList(comments),
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+      blogPostsId: blogPostsId ?? this.blogPostsId,
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, Post, T> field) {
     Object? value;

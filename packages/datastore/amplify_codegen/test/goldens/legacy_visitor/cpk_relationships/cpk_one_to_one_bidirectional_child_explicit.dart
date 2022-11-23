@@ -525,6 +525,30 @@ abstract class CpkOneToOneBidirectionalChildExplicit
           CpkOneToOneBidirectionalChildExplicit,
           CpkOneToOneBidirectionalChildExplicitIdentifier>
       get MODEL_IDENTIFIER => $modelIdentifier;
+  CpkOneToOneBidirectionalChildExplicit copyWith({
+    String? id,
+    String? name,
+    String? belongsToParentId,
+    String? belongsToParentName,
+    CpkOneToOneBidirectionalParent? belongsToParent,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _CpkOneToOneBidirectionalChildExplicit._(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      belongsToParentId: belongsToParentId ?? this.belongsToParentId,
+      belongsToParentName: belongsToParentName ?? this.belongsToParentName,
+      belongsToParent: belongsToParent == null
+          ? this.belongsToParent
+          : AsyncModel.fromModel(belongsToParent),
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(
     QueryField<CpkOneToOneBidirectionalChildExplicitIdentifier,

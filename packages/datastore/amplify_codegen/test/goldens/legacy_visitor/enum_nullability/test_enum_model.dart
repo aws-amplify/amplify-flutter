@@ -490,6 +490,33 @@ abstract class TestEnumModel extends PartialTestEnumModel
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, TestEnumModel, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  TestEnumModel copyWith({
+    String? id,
+    TestEnum? enumVal,
+    TestEnum? nullableEnumVal,
+    List<TestEnum>? enumList,
+    List<TestEnum>? enumNullableList,
+    List<TestEnum?>? nullableEnumList,
+    List<TestEnum?>? nullableEnumNullableList,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _TestEnumModel._(
+      id: id ?? this.id,
+      enumVal: enumVal ?? this.enumVal,
+      nullableEnumVal: nullableEnumVal ?? this.nullableEnumVal,
+      enumList: enumList ?? this.enumList,
+      enumNullableList: enumNullableList ?? this.enumNullableList,
+      nullableEnumList: nullableEnumList ?? this.nullableEnumList,
+      nullableEnumNullableList:
+          nullableEnumNullableList ?? this.nullableEnumNullableList,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, TestEnumModel, T> field) {
     Object? value;

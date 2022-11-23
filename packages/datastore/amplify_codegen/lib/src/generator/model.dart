@@ -560,6 +560,43 @@ return ${allocate(_references.partialModelImpl)}.fromJson(json) as T;
         ),
       );
 
+      // `copyWith` implementation
+      c.methods.add(
+        Method((m) {
+          m
+            ..returns = _references.model
+            ..name = 'copyWith';
+          for (final field in definition.fields.values) {
+            m.optionalParameters.add(
+              Parameter(
+                (p) => p
+                  ..type = field.factoryType(ModelHierarchyType.model).nullable
+                  ..named = true
+                  ..name = field.dartName,
+              ),
+            );
+          }
+          m.body = Block((b) {
+            final fieldExpressions = <String, Expression>{};
+            for (final field in definition.fields.values) {
+              final builder = field.fromPrimitive;
+              final override = refer(field.dartName);
+              final property = refer('this').property(field.dartName);
+              fieldExpressions[field.dartName] = builder != null
+                  ? override
+                      .equalTo(literalNull)
+                      .conditional(property, builder(override))
+                  : override.ifNullThen(property);
+            }
+            b.addExpression(
+              _references.modelImpl
+                  .newInstanceNamed('_', [], fieldExpressions)
+                  .returned,
+            );
+          });
+        }),
+      );
+
       // `valueFor` to satisfy `Model`
       c.methods.add(
         Method(

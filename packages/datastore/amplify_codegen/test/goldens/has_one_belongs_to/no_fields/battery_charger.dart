@@ -320,6 +320,27 @@ abstract class BatteryCharger extends PartialBatteryCharger
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, BatteryCharger, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  BatteryCharger copyWith({
+    PowerSource? powerSource,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? id,
+    String? batteryChargerPowerSourceId,
+  }) {
+    return _BatteryCharger._(
+      powerSource: powerSource == null
+          ? this.powerSource
+          : AsyncModel.fromModel(powerSource),
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+      id: id ?? this.id,
+      batteryChargerPowerSourceId:
+          batteryChargerPowerSourceId ?? this.batteryChargerPowerSourceId,
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(QueryField<String, BatteryCharger, T> field) {
     Object? value;

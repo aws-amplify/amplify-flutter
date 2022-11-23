@@ -293,6 +293,22 @@ abstract class CpkModel extends PartialCpkModel
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<CpkModelIdentifier, CpkModel, CpkModelIdentifier>
       get MODEL_IDENTIFIER => $modelIdentifier;
+  CpkModel copyWith({
+    String? firstName,
+    String? lastName,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return _CpkModel._(
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      createdAt:
+          createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
+      updatedAt:
+          updatedAt == null ? this.updatedAt : TemporalDateTime(updatedAt),
+    );
+  }
+
   @override
   T valueFor<T extends Object?>(
     QueryField<CpkModelIdentifier, CpkModel, T> field,
