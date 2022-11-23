@@ -16,11 +16,12 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names,inference_failure_on_collection_literal
 
 library models.team2;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 
 class Team2Type extends ModelType<String, Team2, PartialTeam2> {
   const Team2Type();
@@ -207,6 +208,49 @@ abstract class Team2 extends PartialTeam2 implements Model<String, Team2> {
 
   static const Team2QueryFields<String, Team2> _queryFields =
       Team2QueryFields();
+
+  static final mipr.ModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.ModelTypeDefinition.serializer,
+    const {
+      'name': 'Team2',
+      'pluralName': 'Team2s',
+      'fields': {
+        'id': {
+          'name': 'id',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'name': {
+          'name': 'name',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+      },
+      'authRules': [],
+      'indexes': [
+        {
+          'type': 'primary',
+          'primaryField': 'id',
+          'sortKeyFields': [],
+        }
+      ],
+    },
+  )!;
 
   @override
   String get id;

@@ -16,11 +16,12 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names,inference_failure_on_collection_literal
 
 library models.temporal_time_model;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 
 class TemporalTimeModelType
     extends ModelType<String, TemporalTimeModel, PartialTemporalTimeModel> {
@@ -465,6 +466,113 @@ abstract class TemporalTimeModel extends PartialTemporalTimeModel
 
   static const TemporalTimeModelQueryFields<String, TemporalTimeModel>
       _queryFields = TemporalTimeModelQueryFields();
+
+  static final mipr.ModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.ModelTypeDefinition.serializer,
+    const {
+      'name': 'TemporalTimeModel',
+      'pluralName': 'TemporalTimeModels',
+      'fields': {
+        'id': {
+          'name': 'id',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'date': {
+          'name': 'date',
+          'type': {'scalar': 'AWSDate'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'time': {
+          'name': 'time',
+          'type': {'scalar': 'AWSTime'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'dateTime': {
+          'name': 'dateTime',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'timestamp': {
+          'name': 'timestamp',
+          'type': {'scalar': 'AWSTimestamp'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'intNum': {
+          'name': 'intNum',
+          'type': {'scalar': 'Int'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'dateList': {
+          'name': 'dateList',
+          'type': {
+            'list': {'scalar': 'AWSDate'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'timeList': {
+          'name': 'timeList',
+          'type': {
+            'list': {'scalar': 'AWSTime'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'dateTimeList': {
+          'name': 'dateTimeList',
+          'type': {
+            'list': {'scalar': 'AWSDateTime'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'timestampList': {
+          'name': 'timestampList',
+          'type': {
+            'list': {'scalar': 'AWSTimestamp'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'intList': {
+          'name': 'intList',
+          'type': {
+            'list': {'scalar': 'Int'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+      },
+      'authRules': [],
+      'indexes': [
+        {
+          'type': 'primary',
+          'primaryField': 'id',
+          'sortKeyFields': [],
+        }
+      ],
+    },
+  )!;
 
   @override
   String get id;

@@ -16,11 +16,12 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names,inference_failure_on_collection_literal
 
 library models.model_with_primary_key;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 
 class ModelWithPrimaryKeyType
     extends ModelType<String, ModelWithPrimaryKey, PartialModelWithPrimaryKey> {
@@ -298,6 +299,81 @@ abstract class ModelWithPrimaryKey extends PartialModelWithPrimaryKey
 
   static const ModelWithPrimaryKeyQueryFields<String, ModelWithPrimaryKey>
       _queryFields = ModelWithPrimaryKeyQueryFields();
+
+  static final mipr.ModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.ModelTypeDefinition.serializer,
+    const {
+      'name': 'ModelWithPrimaryKey',
+      'pluralName': 'ModelWithPrimaryKeys',
+      'fields': {
+        'productID': {
+          'name': 'productID',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'name': {
+          'name': 'name',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'content': {
+          'name': 'content',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'albumID': {
+          'name': 'albumID',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'categoryID': {
+          'name': 'categoryID',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+      },
+      'authRules': [],
+      'indexes': [
+        {
+          'type': 'secondary',
+          'primaryField': 'albumID',
+          'sortKeyFields': [],
+          'name': 'byAlbum',
+          'queryField': 'modelWithPrimaryKeysByAlbumID',
+        },
+        {
+          'type': 'secondary',
+          'primaryField': 'categoryID',
+          'sortKeyFields': [],
+          'name': 'byCategory',
+          'queryField': 'modelWithPrimaryKeysByCategoryID',
+        },
+        {
+          'type': 'primary',
+          'primaryField': 'productID',
+          'sortKeyFields': [],
+        },
+      ],
+    },
+  )!;
 
   @override
   String get productId;

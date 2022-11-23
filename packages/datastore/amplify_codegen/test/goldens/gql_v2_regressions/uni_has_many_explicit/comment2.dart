@@ -16,11 +16,12 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names,inference_failure_on_collection_literal
 
 library models.comment2;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 
 class Comment2Type extends ModelType<String, Comment2, PartialComment2> {
   const Comment2Type();
@@ -237,6 +238,62 @@ abstract class Comment2 extends PartialComment2
 
   static const Comment2QueryFields<String, Comment2> _queryFields =
       Comment2QueryFields();
+
+  static final mipr.ModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.ModelTypeDefinition.serializer,
+    const {
+      'name': 'Comment2',
+      'pluralName': 'Comment2s',
+      'fields': {
+        'id': {
+          'name': 'id',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'postID': {
+          'name': 'postID',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'content': {
+          'name': 'content',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+      },
+      'authRules': [],
+      'indexes': [
+        {
+          'type': 'secondary',
+          'primaryField': 'postID',
+          'sortKeyFields': [],
+          'name': 'byPost',
+          'queryField': 'comment2sByPostID',
+        },
+        {
+          'type': 'primary',
+          'primaryField': 'id',
+          'sortKeyFields': [],
+        },
+      ],
+    },
+  )!;
 
   @override
   String get id;

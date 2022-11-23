@@ -16,11 +16,12 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names,inference_failure_on_collection_literal
 
 library models.post2;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 
 import 'comment2.dart';
 
@@ -257,6 +258,62 @@ abstract class Post2 extends PartialPost2 implements Model<String, Post2> {
 
   static const Post2QueryFields<String, Post2> _queryFields =
       Post2QueryFields();
+
+  static final mipr.ModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.ModelTypeDefinition.serializer,
+    const {
+      'name': 'Post2',
+      'pluralName': 'Post2s',
+      'fields': {
+        'id': {
+          'name': 'id',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'title': {
+          'name': 'title',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'comments': {
+          'name': 'comments',
+          'type': {
+            'list': {'model': 'Comment2'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+          'association': {
+            'associationType': 'HasMany',
+            'associatedType': 'Comment2',
+            'associatedFields': ['postID'],
+          },
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+      },
+      'authRules': [],
+      'indexes': [
+        {
+          'type': 'primary',
+          'primaryField': 'id',
+          'sortKeyFields': [],
+        }
+      ],
+    },
+  )!;
 
   @override
   String get id;

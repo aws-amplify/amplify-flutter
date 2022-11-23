@@ -16,11 +16,12 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names,inference_failure_on_collection_literal
 
 library models.date_time_overrides;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 
 class DateTimeOverridesType
     extends ModelType<String, DateTimeOverrides, PartialDateTimeOverrides> {
@@ -193,6 +194,43 @@ abstract class DateTimeOverrides extends PartialDateTimeOverrides
 
   static const DateTimeOverridesQueryFields<String, DateTimeOverrides>
       _queryFields = DateTimeOverridesQueryFields();
+
+  static final mipr.ModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.ModelTypeDefinition.serializer,
+    const {
+      'name': 'DateTimeOverrides',
+      'pluralName': 'DateTimeOverrides',
+      'fields': {
+        'id': {
+          'name': 'id',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+      },
+      'authRules': [],
+      'indexes': [
+        {
+          'type': 'primary',
+          'primaryField': 'id',
+          'sortKeyFields': [],
+        }
+      ],
+    },
+  )!;
 
   @override
   String get id;

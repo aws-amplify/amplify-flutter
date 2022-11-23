@@ -127,6 +127,19 @@ abstract class Model<ModelIdentifier extends Object,
   T valueFor<T extends Object?>(QueryField<ModelIdentifier, M, T> field);
 }
 
+mixin LegacyModelFields<ModelIdentifier extends Object,
+    M extends Model<ModelIdentifier, M>> on Model<ModelIdentifier, M> {
+  @Deprecated('Use modelType instead')
+  ModelType<ModelIdentifier, M, PartialModel<ModelIdentifier, M>>
+      getInstanceType() => modelType;
+
+  @Deprecated('Use modelIdentifier instead')
+  String getId();
+
+  @Deprecated('Use == instead')
+  bool equals(Object other) => this == other;
+}
+
 /// {@template amplify_core.models.remote_model}
 /// An extension to [Model] which adds [RemoteModelMetadata].
 ///

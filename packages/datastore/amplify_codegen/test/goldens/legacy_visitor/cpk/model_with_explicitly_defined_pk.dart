@@ -16,11 +16,12 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names,inference_failure_on_collection_literal
 
 library models.model_with_explicitly_defined_pk;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 
 class ModelWithExplicitlyDefinedPkType extends ModelType<String,
     ModelWithExplicitlyDefinedPk, PartialModelWithExplicitlyDefinedPk> {
@@ -228,6 +229,49 @@ abstract class ModelWithExplicitlyDefinedPk
   static const ModelWithExplicitlyDefinedPkQueryFields<String,
           ModelWithExplicitlyDefinedPk> _queryFields =
       ModelWithExplicitlyDefinedPkQueryFields();
+
+  static final mipr.ModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.ModelTypeDefinition.serializer,
+    const {
+      'name': 'ModelWithExplicitlyDefinedPK',
+      'pluralName': 'ModelWithExplicitlyDefinedPKs',
+      'fields': {
+        'modelID': {
+          'name': 'modelID',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'title': {
+          'name': 'title',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+      },
+      'authRules': [],
+      'indexes': [
+        {
+          'type': 'primary',
+          'primaryField': 'modelID',
+          'sortKeyFields': [],
+        }
+      ],
+    },
+  )!;
 
   @override
   String get modelId;

@@ -16,11 +16,12 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names,inference_failure_on_collection_literal
 
 library models.post;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 
 class PostType extends ModelType<String, Post, PartialPost> {
   const PostType();
@@ -230,6 +231,84 @@ abstract class Post extends PartialPost implements Model<String, Post> {
   static const PostType classType = PostType();
 
   static const PostQueryFields<String, Post> _queryFields = PostQueryFields();
+
+  static final mipr.ModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.ModelTypeDefinition.serializer,
+    const {
+      'name': 'Post',
+      'pluralName': 'Posts',
+      'fields': {
+        'id': {
+          'name': 'id',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'title': {
+          'name': 'title',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'owner': {
+          'name': 'owner',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+      },
+      'authRules': [
+        {
+          'authStrategy': 'GROUPS',
+          'provider': 'USERPOOLS',
+          'operations': [
+            'CREATE',
+            'UPDATE',
+            'DELETE',
+            'READ',
+          ],
+          'groupClaim': 'cognito:groups',
+          'groups': ['admin'],
+          'groupsField': 'groups',
+        },
+        {
+          'authStrategy': 'OWNER',
+          'provider': 'USERPOOLS',
+          'operations': [
+            'CREATE',
+            'UPDATE',
+          ],
+          'ownerField': 'owner',
+          'identityClaim': 'sub::username',
+        },
+        {
+          'authStrategy': 'PUBLIC',
+          'provider': 'APIKEY',
+          'operations': ['READ'],
+        },
+      ],
+      'indexes': [
+        {
+          'type': 'primary',
+          'primaryField': 'id',
+          'sortKeyFields': [],
+        }
+      ],
+    },
+  )!;
 
   @override
   String get id;

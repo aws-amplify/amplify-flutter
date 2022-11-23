@@ -16,11 +16,12 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names,inference_failure_on_collection_literal
 
 library models.post;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 
 import 'blog.dart';
 import 'comment.dart';
@@ -302,6 +303,85 @@ abstract class Post extends PartialPost implements Model<String, Post> {
   static const PostType classType = PostType();
 
   static const PostQueryFields<String, Post> _queryFields = PostQueryFields();
+
+  static final mipr.ModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.ModelTypeDefinition.serializer,
+    const {
+      'name': 'Post',
+      'pluralName': 'Posts',
+      'fields': {
+        'id': {
+          'name': 'id',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'title': {
+          'name': 'title',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'blog': {
+          'name': 'blog',
+          'type': {'model': 'Blog'},
+          'isReadOnly': false,
+          'authRules': [],
+          'association': {
+            'associationType': 'BelongsTo',
+            'associatedType': 'Blog',
+            'targetNames': ['blogPostsId'],
+          },
+        },
+        'comments': {
+          'name': 'comments',
+          'type': {
+            'list': {'model': 'Comment'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+          'association': {
+            'associationType': 'HasMany',
+            'associatedType': 'Comment',
+            'associatedFields': ['post'],
+          },
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'blogPostsId': {
+          'name': 'blogPostsId',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+      },
+      'authRules': [],
+      'indexes': [
+        {
+          'type': 'primary',
+          'primaryField': 'id',
+          'sortKeyFields': [],
+        },
+        {
+          'type': 'foreign',
+          'primaryField': 'blog',
+          'sortKeyFields': ['blogPostsId'],
+          'name': 'blog',
+        },
+      ],
+    },
+  )!;
 
   @override
   String get id;

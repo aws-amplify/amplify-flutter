@@ -16,11 +16,12 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names,inference_failure_on_collection_literal
 
 library models.project;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 import 'package:meta/meta.dart';
 
 import 'team.dart';
@@ -460,6 +461,103 @@ abstract class Project extends PartialProject
 
   static const ProjectQueryFields<ProjectIdentifier, Project> _queryFields =
       ProjectQueryFields();
+
+  static final mipr.ModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.ModelTypeDefinition.serializer,
+    const {
+      'name': 'Project',
+      'pluralName': 'Projects',
+      'fields': {
+        'projectId': {
+          'name': 'projectId',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'name': {
+          'name': 'name',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'devTeam': {
+          'name': 'devTeam',
+          'type': {'model': 'Team'},
+          'isReadOnly': false,
+          'authRules': [],
+          'association': {
+            'associationType': 'HasOne',
+            'associatedType': 'Team',
+            'associatedFields': ['project'],
+            'targetNames': [
+              'projectDevTeamTeamId',
+              'projectDevTeamName',
+            ],
+          },
+        },
+        'productTeam': {
+          'name': 'productTeam',
+          'type': {'model': 'Team'},
+          'isReadOnly': false,
+          'authRules': [],
+          'association': {
+            'associationType': 'HasOne',
+            'associatedType': 'Team',
+            'associatedFields': ['project'],
+            'targetNames': [
+              'projectProductTeamTeamId',
+              'projectProductTeamName',
+            ],
+          },
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'projectDevTeamTeamId': {
+          'name': 'projectDevTeamTeamId',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'projectDevTeamName': {
+          'name': 'projectDevTeamName',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'projectProductTeamTeamId': {
+          'name': 'projectProductTeamTeamId',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'projectProductTeamName': {
+          'name': 'projectProductTeamName',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+      },
+      'authRules': [],
+      'indexes': [
+        {
+          'type': 'primary',
+          'primaryField': 'projectId',
+          'sortKeyFields': ['name'],
+        }
+      ],
+    },
+  )!;
 
   @override
   String get projectId;

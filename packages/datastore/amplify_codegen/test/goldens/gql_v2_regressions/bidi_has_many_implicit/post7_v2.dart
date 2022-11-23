@@ -16,11 +16,12 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names,inference_failure_on_collection_literal
 
 library models.post7_v2;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 
 import 'blog7_v2.dart';
 import 'comment7_v2.dart';
@@ -316,6 +317,85 @@ abstract class Post7V2 extends PartialPost7V2
 
   static const Post7V2QueryFields<String, Post7V2> _queryFields =
       Post7V2QueryFields();
+
+  static final mipr.ModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.ModelTypeDefinition.serializer,
+    const {
+      'name': 'Post7V2',
+      'pluralName': 'Post7V2s',
+      'fields': {
+        'id': {
+          'name': 'id',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'title': {
+          'name': 'title',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'blog': {
+          'name': 'blog',
+          'type': {'model': 'Blog7V2'},
+          'isReadOnly': false,
+          'authRules': [],
+          'association': {
+            'associationType': 'BelongsTo',
+            'associatedType': 'Blog7V2',
+            'targetNames': ['blog7V2PostsId'],
+          },
+        },
+        'comments': {
+          'name': 'comments',
+          'type': {
+            'list': {'model': 'Comment7V2'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+          'association': {
+            'associationType': 'HasMany',
+            'associatedType': 'Comment7V2',
+            'associatedFields': ['post'],
+          },
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'blog7V2PostsId': {
+          'name': 'blog7V2PostsId',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+      },
+      'authRules': [],
+      'indexes': [
+        {
+          'type': 'primary',
+          'primaryField': 'id',
+          'sortKeyFields': [],
+        },
+        {
+          'type': 'foreign',
+          'primaryField': 'blog',
+          'sortKeyFields': ['blog7V2PostsId'],
+          'name': 'blog',
+        },
+      ],
+    },
+  )!;
 
   @override
   String get id;

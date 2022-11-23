@@ -16,11 +16,12 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names,inference_failure_on_collection_literal
 
 library models.power_source;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 
 class PowerSourceType
     extends ModelType<String, PowerSource, PartialPowerSource> {
@@ -239,6 +240,55 @@ abstract class PowerSource extends PartialPowerSource
 
   static const PowerSourceQueryFields<String, PowerSource> _queryFields =
       PowerSourceQueryFields();
+
+  static final mipr.ModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.ModelTypeDefinition.serializer,
+    const {
+      'name': 'PowerSource',
+      'pluralName': 'PowerSources',
+      'fields': {
+        'sourceID': {
+          'name': 'sourceID',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'amps': {
+          'name': 'amps',
+          'type': {'scalar': 'Float'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'volts': {
+          'name': 'volts',
+          'type': {'scalar': 'Float'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+      },
+      'authRules': [],
+      'indexes': [
+        {
+          'type': 'primary',
+          'primaryField': 'sourceID',
+          'sortKeyFields': [],
+        }
+      ],
+    },
+  )!;
 
   @override
   String get sourceId;
