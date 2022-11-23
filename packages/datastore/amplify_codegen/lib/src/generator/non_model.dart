@@ -12,11 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_codegen/src/generator/generated_library.dart';
 import 'package:amplify_codegen/src/generator/structure.dart';
 import 'package:amplify_codegen/src/generator/types.dart';
 import 'package:amplify_codegen/src/helpers/field.dart';
 import 'package:amplify_codegen/src/helpers/types.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 import 'package:code_builder/code_builder.dart';
 
 /// {@template amplify_codegen.non_model_generator}
@@ -30,9 +32,9 @@ class NonModelGenerator extends StructureGenerator<NonModelTypeDefinition> {
   });
 
   @override
-  Library generate() {
+  GeneratedLibrary generate() {
     builder.body.add(nonModelImpl);
-    return builder.build();
+    return GeneratedLibrary(builder.build(), definition);
   }
 
   /// The implementation of the non-model type.
@@ -91,6 +93,31 @@ class NonModelGenerator extends StructureGenerator<NonModelTypeDefinition> {
               ),
             )
             ..body = fromJson(modelType: refer(className), fields: fields),
+        ),
+      );
+
+      // The static `schema` getter
+      c.fields.add(
+        Field(
+          (f) => f
+            ..modifier = FieldModifier.final$
+            ..static = true
+            ..type = DartTypes.amplifyCore.mipr.nonModelTypeDefinition
+            ..name = 'schema'
+            ..assignment = DartTypes.amplifyCore.mipr.serializers
+                .property('deserializeWith')
+                .call([
+                  DartTypes.amplifyCore.mipr.nonModelTypeDefinition
+                      .property('serializer'),
+                  literalConstMap(
+                    mipr.serializers.serializeWith(
+                      mipr.NonModelTypeDefinition.serializer,
+                      definition,
+                    ) as Map,
+                  ),
+                ])
+                .nullChecked
+                .code,
         ),
       );
 

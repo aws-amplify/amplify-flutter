@@ -41,13 +41,9 @@ void main() {
     );
     final outputDir = Directory(outputPath)..createSync(recursive: true);
     for (final entry in generated.entries) {
-      // Undo library rename
-      final libraryName = entry.key.split('.').last;
-      final filename = libraryName.endsWith('_')
-          ? libraryName.substring(0, libraryName.length - 1)
-          : libraryName;
-      stdout.writeln('  -- Generated $filename.dart');
-      File.fromUri(outputDir.uri.resolve('$filename.dart'))
+      final filename = entry.key;
+      stdout.writeln('  -- Generated $filename');
+      File.fromUri(outputDir.uri.resolve(filename))
           .writeAsStringSync(entry.value.emit());
     }
   }

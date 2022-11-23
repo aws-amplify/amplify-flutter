@@ -21,6 +21,7 @@
 library models.phone;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 
 class Phone
     with
@@ -64,6 +65,34 @@ class Phone
   final String areaCode;
 
   final String number;
+
+  static final mipr.NonModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.NonModelTypeDefinition.serializer,
+    const {
+      'name': 'Phone',
+      'fields': {
+        'countryCode': {
+          'name': 'countryCode',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'areaCode': {
+          'name': 'areaCode',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'number': {
+          'name': 'number',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+      },
+    },
+  )!;
 
   @override
   List<Object?> get props => [

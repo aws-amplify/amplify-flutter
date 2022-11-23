@@ -26,4 +26,10 @@ abstract class ModelProviderInterface {
       ModelIdentifier extends Object,
       M extends Model<ModelIdentifier, M>,
       P extends PartialModel<ModelIdentifier, M>>(String modelName);
+
+  @Deprecated('Use getModelType instead')
+  ModelType<ModelIdentifier, M, P> getModelTypeByModelName<
+      ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>,
+      P extends PartialModel<ModelIdentifier, M>>(String modelName);
 }

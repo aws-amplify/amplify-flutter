@@ -18,50 +18,45 @@
 
 // ignore_for_file: non_constant_identifier_names,inference_failure_on_collection_literal
 
-library models.my_non_model;
+library models.model_provider;
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 
-class MyNonModel
-    with
-        AWSEquatable<MyNonModel>,
-        AWSSerializable<Map<String, Object?>>,
-        AWSDebuggable {
-  const MyNonModel({required this.enum_});
+import 'todo.dart';
 
-  factory MyNonModel.fromJson(Map<String, Object?> json) {
-    final enum_ = json['enum'] == null
-        ? (throw ModelFieldError(
-            'MyNonModel',
-            'enum_',
-          ))
-        : (json['enum'] as String);
-    return MyNonModel(enum_: enum_);
+export 'todo.dart';
+
+class ModelProvider extends ModelProviderInterface {
+  ModelProvider._();
+
+  static final instance = ModelProvider._();
+
+  @override
+  String get version => '89d8e2a097df5b688b91fa12dde8bdac';
+  @override
+  List<mipr.ModelTypeDefinition> get modelSchemas => [Todo.schema];
+  @override
+  List<mipr.NonModelTypeDefinition> get customTypeSchemas => [];
+  @override
+  ModelType<ModelIdentifier, M, P> getModelType<
+      ModelIdentifier extends Object,
+      M extends Model<ModelIdentifier, M>,
+      P extends PartialModel<ModelIdentifier, M>>(String modelName) {
+    switch (modelName) {
+      case 'Todo':
+        return (Todo.classType as ModelType<ModelIdentifier, M, P>);
+      default:
+        throw ArgumentError(
+          'Failed to find model in model provider for model name: $modelName',
+        );
+    }
   }
 
-  final String enum_;
-
-  static final mipr.NonModelTypeDefinition schema =
-      mipr.serializers.deserializeWith(
-    mipr.NonModelTypeDefinition.serializer,
-    const {
-      'name': 'MyNonModel',
-      'fields': {
-        'enum': {
-          'name': 'enum',
-          'type': {'scalar': 'String'},
-          'isReadOnly': false,
-          'authRules': [],
-        }
-      },
-    },
-  )!;
-
   @override
-  List<Object?> get props => [enum_];
-  @override
-  String get runtimeTypeName => 'MyNonModel';
-  @override
-  Map<String, Object?> toJson() => {'enum': enum_};
+  ModelType<ModelIdentifier, M, P> getModelTypeByModelName<
+          ModelIdentifier extends Object,
+          M extends Model<ModelIdentifier, M>,
+          P extends PartialModel<ModelIdentifier, M>>(String modelName) =>
+      getModelType(modelName);
 }

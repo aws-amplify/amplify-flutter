@@ -178,6 +178,9 @@ extension SchemaTypeHelpers on SchemaType {
 
 /// Helpers for [SchemaTypeDefinition].
 extension SchemaTypeDefinitionHelpers on SchemaTypeDefinition {
+  /// This name of the generated file.
+  String get filename => '${name.snakeCase}.dart';
+
   /// This type's name as a library name.
   String get libraryName {
     final libName = name.snakeCase;

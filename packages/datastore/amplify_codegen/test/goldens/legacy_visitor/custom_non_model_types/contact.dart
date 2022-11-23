@@ -21,6 +21,7 @@
 library models.contact;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 
 import 'address.dart';
 import 'phone.dart';
@@ -67,6 +68,36 @@ class Contact
   final Phone phone;
 
   final List<Address?>? mailingAddresses;
+
+  static final mipr.NonModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.NonModelTypeDefinition.serializer,
+    const {
+      'name': 'Contact',
+      'fields': {
+        'contactName': {
+          'name': 'contactName',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'phone': {
+          'name': 'phone',
+          'type': {'nonModel': 'Phone'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'mailingAddresses': {
+          'name': 'mailingAddresses',
+          'type': {
+            'list': {'nonModel': 'Address'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+      },
+    },
+  )!;
 
   @override
   List<Object?> get props => [

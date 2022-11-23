@@ -21,6 +21,7 @@
 library models.address;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 
 class Address
     with
@@ -79,6 +80,46 @@ class Address
   final String state;
 
   final String postalCode;
+
+  static final mipr.NonModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.NonModelTypeDefinition.serializer,
+    const {
+      'name': 'Address',
+      'fields': {
+        'line1': {
+          'name': 'line1',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'line2': {
+          'name': 'line2',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'city': {
+          'name': 'city',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'state': {
+          'name': 'state',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'postalCode': {
+          'name': 'postalCode',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+      },
+    },
+  )!;
 
   @override
   List<Object?> get props => [

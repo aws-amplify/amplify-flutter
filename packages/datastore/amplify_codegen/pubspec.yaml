@@ -12,6 +12,8 @@ dependencies:
   built_value: ">=8.4.0 <8.5.0"
   code_builder: ^4.3.0
   collection: ^1.16.0
+  convert: ^3.1.1
+  crypto: ^3.0.2
   dart_style: ^2.2.4
   gql: ^0.14.0
   graphs: ^2.1.0
