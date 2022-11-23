@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_codegen/src/generator/generated_library.dart';
 import 'package:amplify_codegen/src/generator/generator.dart';
 import 'package:amplify_codegen/src/generator/types.dart';
 import 'package:amplify_codegen/src/helpers/enum.dart';
@@ -34,7 +35,7 @@ class EnumGenerator
   String get enumName => schemaName.pascalCase;
 
   @override
-  Library generate() {
+  GeneratedLibrary generate() {
     builder.body.add(
       Enum((e) {
         e.mixins.add(
@@ -129,6 +130,6 @@ class EnumGenerator
         ]);
       }),
     );
-    return builder.build();
+    return GeneratedLibrary(builder.build(), definition);
   }
 }

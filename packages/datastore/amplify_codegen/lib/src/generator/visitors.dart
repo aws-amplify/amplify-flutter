@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:amplify_codegen/src/generator/enum.dart';
+import 'package:amplify_codegen/src/generator/generated_library.dart';
 import 'package:amplify_codegen/src/generator/model.dart';
 import 'package:amplify_codegen/src/generator/non_model.dart';
 import 'package:amplify_core/src/types/models/mipr.dart';
@@ -86,7 +87,7 @@ abstract class SchemaVisitor<T> {
 /// each one. Specifically, this targets object `type` definitions and `enum`
 /// definitions.
 /// {@endtemplate}
-class LibraryVisitor extends SimpleVisitor<Library> {
+class LibraryVisitor extends SimpleVisitor<GeneratedLibrary> {
   /// {@macro amplify_codegen.library_visitor}
   LibraryVisitor(this.schema);
 
@@ -94,14 +95,15 @@ class LibraryVisitor extends SimpleVisitor<Library> {
   final SchemaDefinition schema;
 
   @override
-  Library visitEnumTypeDefinitionNode(EnumTypeDefinitionNode node) {
+  GeneratedLibrary visitEnumTypeDefinitionNode(EnumTypeDefinitionNode node) {
     final definition =
         schema.typeDefinitions[node.name.value] as EnumTypeDefinition;
     return EnumGenerator(node: node, definition: definition).generate();
   }
 
   @override
-  Library visitObjectTypeDefinitionNode(ObjectTypeDefinitionNode node) {
+  GeneratedLibrary visitObjectTypeDefinitionNode(
+      ObjectTypeDefinitionNode node) {
     final definition =
         schema.typeDefinitions[node.name.value] as StructureTypeDefinition;
     if (definition is ModelTypeDefinition) {

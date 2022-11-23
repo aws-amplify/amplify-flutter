@@ -200,6 +200,23 @@ class ModelNames {
   String get queryFields => '${model}QueryFields';
 }
 
+/// {@template amplify_codege.non_model_references}
+/// Reference helpers for [ModelTypeDefinition]s.
+/// {@endtemplate}
+class NonModelReferences {
+  /// {@macro amplify_codege.non_model_references}
+  NonModelReferences(this._definition) : _names = ModelNames(_definition.name);
+
+  final NonModelTypeDefinition _definition;
+  final ModelNames _names;
+
+  /// The relative URL of the generated class.
+  String get url => _definition.filename;
+
+  /// The reference for the class type.
+  Reference get classType => refer(_names.className, url);
+}
+
 /// {@template amplify_codege.model_references}
 /// Reference helpers for [ModelTypeDefinition]s.
 /// {@endtemplate}
@@ -211,7 +228,7 @@ class ModelReferences {
   final ModelNames _names;
 
   /// The relative URL of the generated model.
-  String get modelUrl => '${_definition.libraryName}.dart';
+  String get modelUrl => _definition.filename;
 
   /// The reference for the model type.
   Reference get modelType => refer(_names.modelType, modelUrl);

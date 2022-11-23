@@ -20,8 +20,7 @@ import 'package:code_builder/code_builder.dart';
 /// {@endtemplate}
 class AmplifyAllocator implements Allocator {
   /// {@macro amplify_codegen.amplify_allocator}
-  AmplifyAllocator(String libraryName)
-      : _thisFile = '${libraryName.split('.')[1]}.dart';
+  AmplifyAllocator(String filename) : _thisFile = filename;
 
   final String _thisFile;
 

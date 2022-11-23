@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:amplify_codegen/src/generator/context.dart';
+import 'package:amplify_codegen/src/generator/generated_library.dart';
 import 'package:amplify_codegen/src/generator/structure.dart';
 import 'package:amplify_codegen/src/generator/types.dart';
 import 'package:amplify_codegen/src/helpers/field.dart';
@@ -20,7 +21,6 @@ import 'package:amplify_codegen/src/helpers/model.dart';
 import 'package:amplify_codegen/src/helpers/types.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
-import 'package:built_value/serializer.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:collection/collection.dart';
 import 'package:smithy_codegen/src/util/symbol_ext.dart';
@@ -131,7 +131,7 @@ class ModelGenerator extends StructureGenerator<ModelTypeDefinition> {
   }();
 
   @override
-  Library generate() {
+  GeneratedLibrary generate() {
     builder.body.addAll([
       if (modelIdentifierType != null) modelIdentifierType!,
       modelTypeImpl,
@@ -140,8 +140,7 @@ class ModelGenerator extends StructureGenerator<ModelTypeDefinition> {
       ...modelImpl,
       ...remoteModelImpl,
     ]);
-
-    return builder.build();
+    return GeneratedLibrary(builder.build(), definition);
   }
 
   /// The implementation of the model's `ModelType`.

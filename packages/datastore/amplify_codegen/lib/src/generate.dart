@@ -14,9 +14,9 @@
 
 import 'package:amplify_codegen/src/generator/context.dart';
 import 'package:amplify_codegen/src/generator/generated_library.dart';
+import 'package:amplify_codegen/src/generator/model_provider.dart';
 import 'package:amplify_codegen/src/generator/visitors.dart';
 import 'package:amplify_codegen/src/parser/parser.dart';
-import 'package:code_builder/code_builder.dart';
 import 'package:gql/language.dart';
 
 /// Generates a Dart file for each model type and enum in [schema].
@@ -30,19 +30,18 @@ Map<String, GeneratedLibrary> generateForSchema(String schema) {
   // Generate libraries for model types and enums
   final libraries = runWithContext(
     context,
-    () => parseString(schema)
-        .definitions
-        .map((definition) {
-          return definition.accept(LibraryVisitor(schemaDefinition));
-        })
-        .whereType<Library>()
-        .toList(),
+    () => <GeneratedLibrary>[
+      ...parseString(schema).definitions.map((definition) {
+        return definition.accept(LibraryVisitor(schemaDefinition));
+      }).whereType(),
+      ModelProviderGenerator(schemaDefinition).generate(),
+    ],
   );
 
   // Emit Dart code and format
   return Map.fromEntries(
     libraries.map((library) {
-      return MapEntry(library.name!, GeneratedLibrary(library));
+      return MapEntry(library.filename, library);
     }),
   );
 }

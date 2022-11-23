@@ -130,6 +130,10 @@ class _AmplifyCore {
   /// Creates an [amplify_core.ModelFieldError] reference.
   Reference get modelFieldError => const Reference('ModelFieldError', _url);
 
+  /// Creates an [amplify_core.ModelProviderInterface] reference.
+  Reference get modelProviderInterface =>
+      const Reference('ModelProviderInterface', _url);
+
   /// Creates an [amplify_core.ModelType] reference.
   TypeReference modelType(
     Reference modelIdentifierType,
@@ -224,6 +228,10 @@ class Mipr {
   /// Creates an [mipr.ModelTypeDefinition] reference.
   Reference get modelTypeDefinition =>
       const Reference('ModelTypeDefinition', url);
+
+  /// Creates an [mipr.NonModelTypeDefinition] reference.
+  Reference get nonModelTypeDefinition =>
+      const Reference('NonModelTypeDefinition', url);
 
   /// Creates an [mipr.serializers] reference.
   Reference get serializers => const Reference('serializers', url);
