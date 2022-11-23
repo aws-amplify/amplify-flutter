@@ -26,7 +26,7 @@ abstract class LibraryGenerator<Node extends TypeDefinitionNode,
   LibraryGenerator({
     required this.node,
     required this.definition,
-  }) : builder = LibraryBuilder()..name = 'models.${node.libraryName}';
+  }) : builder = LibraryBuilder()..name = 'models.${definition.libraryName}';
 
   /// The pre-configured builder for [generate]'s output.
   final LibraryBuilder builder;
