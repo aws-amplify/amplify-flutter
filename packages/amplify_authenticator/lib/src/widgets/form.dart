@@ -174,33 +174,27 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
     if (widget.child != null) {
       return Form(
         key: formKey,
-        child: AutofillGroup(
-          onDisposeAction: AutofillContextAction.commit,
-          child: widget.child!,
-        ),
+        child: widget.child!,
       );
     }
 
     final runtimeActions = this.runtimeActions(context);
     return Form(
       key: formKey,
-      child: AutofillGroup(
-        onDisposeAction: AutofillContextAction.commit,
-        child: Column(
-          children: [
-            ...allFields,
-            Column(
-              children: [
-                if (widget.actions.isNotEmpty) const SizedBox(height: 4),
-                ...widget.actions,
-                if (runtimeActions.isNotEmpty) ...[
-                  const Divider(),
-                  ...runtimeActions,
-                ]
-              ].spacedBy(const SizedBox(height: 12)),
-            ),
-          ],
-        ),
+      child: Column(
+        children: [
+          ...allFields,
+          Column(
+            children: [
+              if (widget.actions.isNotEmpty) const SizedBox(height: 4),
+              ...widget.actions,
+              if (runtimeActions.isNotEmpty) ...[
+                const Divider(),
+                ...runtimeActions,
+              ]
+            ].spacedBy(const SizedBox(height: 12)),
+          ),
+        ],
       ),
     );
   }
