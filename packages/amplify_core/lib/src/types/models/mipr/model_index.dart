@@ -20,6 +20,34 @@ import 'package:built_value/serializer.dart';
 
 part 'model_index.g.dart';
 
+/// {@template amplify_core.models.mipr.model_index_type}
+/// The type of [ModelIndex].
+/// {@endtemplate}
+class ModelIndexType extends EnumClass {
+  const ModelIndexType._(super.name);
+
+  /// A primary key index, created using the `@primaryKey` directive or
+  /// implicitly by codegen.
+  static const ModelIndexType primary = _$primary;
+
+  /// A secondary key index, created using the `@index` directive..
+  static const ModelIndexType secondary = _$secondary;
+
+  /// A foreign key index, created by a relational directive or implictly by
+  /// codegen.
+  static const ModelIndexType foreign = _$foreign;
+
+  /// Values of [ModelIndexType].
+  static BuiltSet<ModelIndexType> get values => _$ModelIndexTypeValues;
+
+  /// The [ModelIndexType] value of [name].
+  static ModelIndexType valueOf(String name) => _$ModelIndexTypeValueOf(name);
+
+  /// The [ModelIndexType] serializer.
+  static Serializer<ModelIndexType> get serializer =>
+      _$modelIndexTypeSerializer;
+}
+
 /// {@template amplify_core.models.mipr.model_index}
 /// Describes an index that is created by a `@primaryKey` or `@index` directive,
 /// and is listed in `Model.indexes.
@@ -27,42 +55,44 @@ part 'model_index.g.dart';
 abstract class ModelIndex
     with AWSSerializable<Map<String, Object?>>
     implements Built<ModelIndex, ModelIndexBuilder> {
-  /// Creates an `@index` model index.
-  factory ModelIndex({
-    required String name,
-    required String field,
-    List<String> sortKeyFields = const [],
-  }) =>
-      _$ModelIndex._(
-        name: name,
-        primaryField: field,
-        sortKeyFields: BuiltList(sortKeyFields),
-      );
-
   /// Creates an `@primaryKey` model index.
   factory ModelIndex.primaryKey({
     required String field,
     List<String> sortKeyFields = const [],
   }) =>
       _$ModelIndex._(
+        type: ModelIndexType.primary,
+        primaryField: field,
+        sortKeyFields: BuiltList(sortKeyFields),
+      );
+
+  /// Creates an `@index` model index.
+  factory ModelIndex.secondaryKey({
+    required String field,
+    required String queryField,
+    required String name,
+    List<String> sortKeyFields = const [],
+  }) =>
+      _$ModelIndex._(
+        type: ModelIndexType.secondary,
+        name: name,
+        queryField: queryField,
         primaryField: field,
         sortKeyFields: BuiltList(sortKeyFields),
       );
 
   /// Creates a foreign key on a model, used to hold the composite key of
-  /// another model. Unlike a normal [ModelIndex], a foreign key index must
-  /// specify a [relatedModelName] and [relatedField].
+  /// another model.
   factory ModelIndex.foreignKey({
-    required String relatedModelName,
-    required String relatedField,
+    String? name,
+    required String fieldName,
     required List<String> keyFields,
   }) {
     return _$ModelIndex._(
-      // To match `amplify-codegen`:
-      // https://github.com/aws-amplify/amplify-codegen/blob/89f00a5bd74fc30ddb07263d9ac770ccf44df12d/packages/appsync-modelgen-plugin/src/utils/process-has-many.ts#L204
-      name: 'gsi-$relatedModelName.$relatedField',
-      primaryField: keyFields.first,
-      sortKeyFields: keyFields.sublist(1).toBuiltList(),
+      type: ModelIndexType.foreign,
+      name: name ?? fieldName,
+      primaryField: fieldName,
+      sortKeyFields: keyFields.toBuiltList(),
     );
   }
 
@@ -76,6 +106,9 @@ abstract class ModelIndex
       _$ModelIndex;
   const ModelIndex._();
 
+  /// The type of index.
+  ModelIndexType get type;
+
   /// The index's name that is defined by the `name` parameter of `@index`
   /// directive in a model schema.
   ///
@@ -83,21 +116,29 @@ abstract class ModelIndex
   /// directive.
   String? get name;
 
+  /// The name of the query field which can be used with this index.
+  ///
+  /// This will only be set for secondary indexes created with the `@index`
+  /// directive.
+  String? get queryField;
+
   /// The primary field for the index.
   ///
   /// This is the field to which the `@index` or `@primaryKey` directive is
-  /// attached.
+  /// attached. For foreign keys, this is the field with the relational
+  /// directive.
   String get primaryField;
 
   /// The list of field names which, combined with [primaryField], form a
   /// composite key or index.
   ///
   /// This is the list of fields specified by the `sortKeyFields` argument
-  /// to the `@index` or `@primaryKey` directive.
+  /// to the `@index` or `@primaryKey` directive. For foreign keys, this is
+  /// the list of target fields.
   BuiltList<String> get sortKeyFields;
 
   /// Whether this index represents the primary key/index.
-  bool get isPrimaryIndex => name == null;
+  bool get isPrimaryIndex => type == ModelIndexType.primary;
 
   /// All the fields of the index.
   List<String> get fields => [primaryField, ...sortKeyFields];

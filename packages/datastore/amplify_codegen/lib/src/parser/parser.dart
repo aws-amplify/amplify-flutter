@@ -39,6 +39,8 @@ String makeConnectionAttributeName(
   String fieldName, [
   String connectedFieldName = 'id',
 ]) {
+  // TODO(dnys1): Handle differences caused by
+  /// `respectPrimaryKeyAttributesOnConnectionField` CLI setting.
   return '${modelName}_${fieldName}_$connectedFieldName'.camelCase;
 }
 
@@ -318,7 +320,9 @@ class _SchemaParser {
           modelName,
           ModelField(
             name: syntheticFieldName,
-            type: fieldType.rebuild(isRequired: field.type.isRequired),
+            type: fieldType.rebuild(
+              isRequired: field.type.isRequired,
+            ),
             // Must be writeable.
             isReadOnly: false,
           ),
@@ -332,8 +336,7 @@ class _SchemaParser {
     connectionInfo.newIndexes.add(
       modelName,
       ModelIndex.foreignKey(
-        relatedModelName: relatedModel.name,
-        relatedField: hasManyField?.wireName ?? fieldNode.wireName,
+        fieldName: field.name,
         keyFields: targetNames,
       ),
     );
@@ -445,7 +448,9 @@ class _SchemaParser {
           modelName,
           ModelField(
             name: syntheticFieldName,
-            type: fieldType.rebuild(isRequired: field.type.isRequired),
+            type: fieldType.rebuild(
+              isRequired: field.type.isRequired,
+            ),
             // Must be writeable.
             isReadOnly: false,
           ),
@@ -526,7 +531,7 @@ class _SchemaParser {
           ModelField(
             name: syntheticFieldName,
             type: foreignField.type.rebuild(
-              isRequired: field.type.isRequired,
+              isRequired: false,
             ),
             // Must be writeable.
             isReadOnly: false,
@@ -540,8 +545,10 @@ class _SchemaParser {
       connectionInfo.newIndexes.add(
         relatedModel.name,
         ModelIndex.foreignKey(
-          relatedModelName: modelName,
-          relatedField: fieldNode.wireName,
+          // To match `amplify-codegen`:
+          // https://github.com/aws-amplify/amplify-codegen/blob/89f00a5bd74fc30ddb07263d9ac770ccf44df12d/packages/appsync-modelgen-plugin/src/utils/process-has-many.ts#L204
+          name: 'gsi-$modelName.${field.name}',
+          fieldName: '$modelName.${field.name}',
           keyFields: targetNames,
         ),
       );
