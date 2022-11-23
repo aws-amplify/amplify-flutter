@@ -92,19 +92,19 @@ class TeamQueryFields<ModelIdentifier extends Object,
       );
 
   /// Query field for the [Team.createdAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $createdAt =>
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, TeamIdentifier, Team,
-          TemporalDateTime?>(
-        const QueryField<TeamIdentifier, Team, TemporalDateTime?>(
+          TemporalDateTime>(
+        const QueryField<TeamIdentifier, Team, TemporalDateTime>(
             fieldName: 'createdAt'),
         root: _root,
       );
 
   /// Query field for the [Team.updatedAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $updatedAt =>
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $updatedAt =>
       NestedQueryField<ModelIdentifier, M, TeamIdentifier, Team,
-          TemporalDateTime?>(
-        const QueryField<TeamIdentifier, Team, TemporalDateTime?>(
+          TemporalDateTime>(
+        const QueryField<TeamIdentifier, Team, TemporalDateTime>(
             fieldName: 'updatedAt'),
         root: _root,
       );
@@ -248,10 +248,16 @@ abstract class Team extends PartialTeam implements Model<TeamIdentifier, Team> {
           ))
         : (json['name'] as String);
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'Team',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'Team',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     return _Team._(
       teamId: teamId,
@@ -285,9 +291,9 @@ abstract class Team extends PartialTeam implements Model<TeamIdentifier, Team> {
   @Deprecated(r'Use $name instead')
   QueryField<TeamIdentifier, Team, String> get NAME => $name;
   @override
-  TemporalDateTime? get createdAt;
+  TemporalDateTime get createdAt;
   @override
-  TemporalDateTime? get updatedAt;
+  TemporalDateTime get updatedAt;
 
   /// Query field for the [modelIdentifier] field.
   QueryField<TeamIdentifier, Team, TeamIdentifier> get $modelIdentifier =>
@@ -311,8 +317,8 @@ class _Team extends Team {
   const _Team._({
     required this.teamId,
     required this.name,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
   }) : super._();
 
   @override
@@ -322,10 +328,10 @@ class _Team extends Team {
   final String name;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 }
 
 abstract class RemoteTeam extends Team
@@ -337,8 +343,8 @@ class _RemoteTeam extends RemoteTeam {
   const _RemoteTeam({
     required this.teamId,
     required this.name,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
     required this.version,
     required this.deleted,
     required this.lastChangedAt,
@@ -358,10 +364,16 @@ class _RemoteTeam extends RemoteTeam {
           ))
         : (json['name'] as String);
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'Team',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'Team',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final version = json['version'] == null
         ? (throw ModelFieldError(
@@ -399,10 +411,10 @@ class _RemoteTeam extends RemoteTeam {
   final String name;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 
   @override
   final int version;

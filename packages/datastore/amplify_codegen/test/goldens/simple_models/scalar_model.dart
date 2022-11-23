@@ -258,19 +258,19 @@ class ScalarModelQueryFields<ModelIdentifier extends Object,
       );
 
   /// Query field for the [ScalarModel.createdAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $createdAt =>
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel,
-          TemporalDateTime?>(
-        const QueryField<String, ScalarModel, TemporalDateTime?>(
+          TemporalDateTime>(
+        const QueryField<String, ScalarModel, TemporalDateTime>(
             fieldName: 'createdAt'),
         root: _root,
       );
 
   /// Query field for the [ScalarModel.updatedAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $updatedAt =>
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $updatedAt =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel,
-          TemporalDateTime?>(
-        const QueryField<String, ScalarModel, TemporalDateTime?>(
+          TemporalDateTime>(
+        const QueryField<String, ScalarModel, TemporalDateTime>(
             fieldName: 'updatedAt'),
         root: _root,
       );
@@ -863,10 +863,16 @@ abstract class ScalarModel extends PartialScalarModel
           ))
         : (json['requiredAwsIpAddress'] as String);
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'ScalarModel',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'ScalarModel',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     return _ScalarModel._(
       id: id,
@@ -1182,9 +1188,9 @@ abstract class ScalarModel extends PartialScalarModel
   QueryField<String, ScalarModel, String> get REQUIRED_AWS_IP_ADDRESS =>
       $requiredAwsIpAddress;
   @override
-  TemporalDateTime? get createdAt;
+  TemporalDateTime get createdAt;
   @override
-  TemporalDateTime? get updatedAt;
+  TemporalDateTime get updatedAt;
 
   /// Query field for the [modelIdentifier] field.
   QueryField<String, ScalarModel, String> get $modelIdentifier =>
@@ -1268,8 +1274,8 @@ class _ScalarModel extends ScalarModel {
     required this.requiredAwsUrl,
     this.awsIpAddress,
     required this.requiredAwsIpAddress,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
   }) : super._();
 
   @override
@@ -1354,10 +1360,10 @@ class _ScalarModel extends ScalarModel {
   final String requiredAwsIpAddress;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 }
 
 abstract class RemoteScalarModel extends ScalarModel
@@ -1394,8 +1400,8 @@ class _RemoteScalarModel extends RemoteScalarModel {
     required this.requiredAwsUrl,
     this.awsIpAddress,
     required this.requiredAwsIpAddress,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
     required this.version,
     required this.deleted,
     required this.lastChangedAt,
@@ -1512,10 +1518,16 @@ class _RemoteScalarModel extends RemoteScalarModel {
           ))
         : (json['requiredAwsIpAddress'] as String);
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'ScalarModel',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'ScalarModel',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final version = json['version'] == null
         ? (throw ModelFieldError(
@@ -1653,10 +1665,10 @@ class _RemoteScalarModel extends RemoteScalarModel {
   final String requiredAwsIpAddress;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 
   @override
   final int version;

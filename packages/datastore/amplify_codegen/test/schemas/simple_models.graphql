@@ -88,3 +88,10 @@ type CPKModel @model {
     firstName: String! @primaryKey(sortKeyFields: ["lastName"])
     lastName: String!
 }
+
+# Tests that overriding createdAt/updatedAt fields works as expected
+type DateTimeOverrides @model {
+    id: ID!
+    createdAt: String!
+    updatedAt: AWSDateTime!
+}

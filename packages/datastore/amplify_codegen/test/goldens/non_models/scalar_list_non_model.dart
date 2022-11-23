@@ -547,19 +547,19 @@ class ScalarListNonModelQueryFields<ModelIdentifier extends Object,
           );
 
   /// Query field for the [ScalarListNonModel.createdAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $createdAt =>
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-          TemporalDateTime?>(
-        const QueryField<String, ScalarListNonModel, TemporalDateTime?>(
+          TemporalDateTime>(
+        const QueryField<String, ScalarListNonModel, TemporalDateTime>(
             fieldName: 'createdAt'),
         root: _root,
       );
 
   /// Query field for the [ScalarListNonModel.updatedAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $updatedAt =>
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $updatedAt =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListNonModel,
-          TemporalDateTime?>(
-        const QueryField<String, ScalarListNonModel, TemporalDateTime?>(
+          TemporalDateTime>(
+        const QueryField<String, ScalarListNonModel, TemporalDateTime>(
             fieldName: 'updatedAt'),
         root: _root,
       );
@@ -2258,10 +2258,16 @@ abstract class ScalarListNonModel extends PartialScalarListNonModel
                     )))
                 .toList();
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'ScalarListNonModel',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'ScalarListNonModel',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     return _ScalarListNonModel._(
       id: id,
@@ -2931,9 +2937,9 @@ abstract class ScalarListNonModel extends PartialScalarListNonModel
       get REQUIRED_LIST_OF_REQUIRED_AWS_IP_ADDRESS =>
           $requiredListOfRequiredAwsIpAddress;
   @override
-  TemporalDateTime? get createdAt;
+  TemporalDateTime get createdAt;
   @override
-  TemporalDateTime? get updatedAt;
+  TemporalDateTime get updatedAt;
 
   /// Query field for the [modelIdentifier] field.
   QueryField<String, ScalarListNonModel, String> get $modelIdentifier =>
@@ -3059,8 +3065,8 @@ class _ScalarListNonModel extends ScalarListNonModel {
     this.listOfRequiredAwsIpAddress,
     required this.requiredListOfAwsIpAddress,
     required this.requiredListOfRequiredAwsIpAddress,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
   }) : super._();
 
   @override
@@ -3223,10 +3229,10 @@ class _ScalarListNonModel extends ScalarListNonModel {
   final List<String> requiredListOfRequiredAwsIpAddress;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 }
 
 abstract class RemoteScalarListNonModel extends ScalarListNonModel
@@ -3289,8 +3295,8 @@ class _RemoteScalarListNonModel extends RemoteScalarListNonModel {
     this.listOfRequiredAwsIpAddress,
     required this.requiredListOfAwsIpAddress,
     required this.requiredListOfRequiredAwsIpAddress,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
     required this.version,
     required this.deleted,
     required this.lastChangedAt,
@@ -3811,10 +3817,16 @@ class _RemoteScalarListNonModel extends RemoteScalarListNonModel {
                     )))
                 .toList();
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'ScalarListNonModel',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'ScalarListNonModel',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final version = json['version'] == null
         ? (throw ModelFieldError(
@@ -4056,10 +4068,10 @@ class _RemoteScalarListNonModel extends RemoteScalarListNonModel {
   final List<String> requiredListOfRequiredAwsIpAddress;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 
   @override
   final int version;

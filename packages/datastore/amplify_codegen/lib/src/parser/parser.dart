@@ -136,7 +136,7 @@ class _SchemaParser {
       final newIndexes = ListMultimapBuilder<String, ModelIndex>();
       builder.typeDefinitions[modelName] = model.rebuild((m) {
         m.fields.updateAllValues(
-          (_, field) => field.rebuild((field) {
+          (_, field) => field.rebuild((fieldBuilder) {
             final fieldNode =
                 nodeFields.singleWhereOrNull((f) => f.wireName == field.name);
             final relationshipDirective = fieldNode?.relationshipDirective;
@@ -161,6 +161,7 @@ class _SchemaParser {
               case ModelAssociationType.belongsTo:
                 connectionInfo = processBelongsTo(
                   modelName: model.name,
+                  field: field,
                   fieldNode: fieldNode,
                   relatedModel: relatedModel,
                   relatedModelNode: relatedModelNode,
@@ -169,6 +170,7 @@ class _SchemaParser {
               case ModelAssociationType.hasOne:
                 connectionInfo = processHasOne(
                   modelName: model.name,
+                  field: field,
                   fieldNode: fieldNode,
                   relatedModel: relatedModel,
                   relatedModelNode: relatedModelNode,
@@ -177,6 +179,7 @@ class _SchemaParser {
               case ModelAssociationType.hasMany:
                 connectionInfo = processHasMany(
                   modelName: model.name,
+                  field: field,
                   fieldNode: fieldNode,
                   relatedModel: relatedModel,
                   relatedModelNode: relatedModelNode,
@@ -186,7 +189,7 @@ class _SchemaParser {
                 connectionInfo = processManyToMany();
                 break;
             }
-            field.association.replace(connectionInfo.association);
+            fieldBuilder.association.replace(connectionInfo.association);
 
             builder.typeDefinitions.addAll(
               Map.fromEntries(
@@ -264,6 +267,7 @@ class _SchemaParser {
   /// contains just this field, in this case `postBlogId`.
   ConnectionInfo processBelongsTo({
     required String modelName,
+    required ModelField field,
     required FieldDefinitionNode fieldNode,
     required ModelTypeDefinition relatedModel,
     required ObjectTypeDefinitionNode relatedModelNode,
@@ -314,7 +318,7 @@ class _SchemaParser {
           modelName,
           ModelField(
             name: syntheticFieldName,
-            type: fieldType,
+            type: fieldType.rebuild(isRequired: field.type.isRequired),
             // Must be writeable.
             isReadOnly: false,
           ),
@@ -398,6 +402,7 @@ class _SchemaParser {
   /// contains just this field, in this case "blogPostId".
   ConnectionInfo processHasOne({
     required String modelName,
+    required ModelField field,
     required FieldDefinitionNode fieldNode,
     required ModelTypeDefinition relatedModel,
     required ObjectTypeDefinitionNode relatedModelNode,
@@ -440,7 +445,7 @@ class _SchemaParser {
           modelName,
           ModelField(
             name: syntheticFieldName,
-            type: fieldType,
+            type: fieldType.rebuild(isRequired: field.type.isRequired),
             // Must be writeable.
             isReadOnly: false,
           ),
@@ -470,6 +475,7 @@ class _SchemaParser {
   /// as part of the association in [ModelAssociation.associatedFields].
   ConnectionInfo processHasMany({
     required String modelName,
+    required ModelField field,
     required FieldDefinitionNode fieldNode,
     required ModelTypeDefinition relatedModel,
     required ObjectTypeDefinitionNode relatedModelNode,
@@ -508,18 +514,20 @@ class _SchemaParser {
       final foreignKeyFields =
           thisModel.modelIdentifier.fields.map((f) => thisModel.fields[f]!);
       final targetNames = <String>[];
-      for (final field in foreignKeyFields) {
+      for (final foreignField in foreignKeyFields) {
         final syntheticFieldName = makeConnectionAttributeName(
           modelName,
           fieldNode.name.value,
-          field.name,
+          foreignField.name,
         );
         targetNames.add(syntheticFieldName);
         connectionInfo.newFields.add(
           relatedModel.name,
           ModelField(
             name: syntheticFieldName,
-            type: field.type,
+            type: foreignField.type.rebuild(
+              isRequired: field.type.isRequired,
+            ),
             // Must be writeable.
             isReadOnly: false,
           ),

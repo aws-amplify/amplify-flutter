@@ -95,19 +95,19 @@ class CpkModelQueryFields<ModelIdentifier extends Object,
       );
 
   /// Query field for the [CpkModel.createdAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $createdAt =>
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, CpkModelIdentifier, CpkModel,
-          TemporalDateTime?>(
-        const QueryField<CpkModelIdentifier, CpkModel, TemporalDateTime?>(
+          TemporalDateTime>(
+        const QueryField<CpkModelIdentifier, CpkModel, TemporalDateTime>(
             fieldName: 'createdAt'),
         root: _root,
       );
 
   /// Query field for the [CpkModel.updatedAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $updatedAt =>
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $updatedAt =>
       NestedQueryField<ModelIdentifier, M, CpkModelIdentifier, CpkModel,
-          TemporalDateTime?>(
-        const QueryField<CpkModelIdentifier, CpkModel, TemporalDateTime?>(
+          TemporalDateTime>(
+        const QueryField<CpkModelIdentifier, CpkModel, TemporalDateTime>(
             fieldName: 'updatedAt'),
         root: _root,
       );
@@ -254,10 +254,16 @@ abstract class CpkModel extends PartialCpkModel
           ))
         : (json['lastName'] as String);
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'CpkModel',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'CpkModel',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     return _CpkModel._(
       firstName: firstName,
@@ -293,9 +299,9 @@ abstract class CpkModel extends PartialCpkModel
   @Deprecated(r'Use $lastName instead')
   QueryField<CpkModelIdentifier, CpkModel, String> get LAST_NAME => $lastName;
   @override
-  TemporalDateTime? get createdAt;
+  TemporalDateTime get createdAt;
   @override
-  TemporalDateTime? get updatedAt;
+  TemporalDateTime get updatedAt;
 
   /// Query field for the [modelIdentifier] field.
   QueryField<CpkModelIdentifier, CpkModel, CpkModelIdentifier>
@@ -318,8 +324,8 @@ class _CpkModel extends CpkModel {
   const _CpkModel._({
     required this.firstName,
     required this.lastName,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
   }) : super._();
 
   @override
@@ -329,10 +335,10 @@ class _CpkModel extends CpkModel {
   final String lastName;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 }
 
 abstract class RemoteCpkModel extends CpkModel
@@ -344,8 +350,8 @@ class _RemoteCpkModel extends RemoteCpkModel {
   const _RemoteCpkModel({
     required this.firstName,
     required this.lastName,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
     required this.version,
     required this.deleted,
     required this.lastChangedAt,
@@ -365,10 +371,16 @@ class _RemoteCpkModel extends RemoteCpkModel {
           ))
         : (json['lastName'] as String);
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'CpkModel',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'CpkModel',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final version = json['version'] == null
         ? (throw ModelFieldError(
@@ -406,10 +418,10 @@ class _RemoteCpkModel extends RemoteCpkModel {
   final String lastName;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 
   @override
   final int version;

@@ -70,19 +70,19 @@ class PowerSourceQueryFields<ModelIdentifier extends Object,
       );
 
   /// Query field for the [PowerSource.createdAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $createdAt =>
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, String, PowerSource,
-          TemporalDateTime?>(
-        const QueryField<String, PowerSource, TemporalDateTime?>(
+          TemporalDateTime>(
+        const QueryField<String, PowerSource, TemporalDateTime>(
             fieldName: 'createdAt'),
         root: _root,
       );
 
   /// Query field for the [PowerSource.updatedAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $updatedAt =>
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $updatedAt =>
       NestedQueryField<ModelIdentifier, M, String, PowerSource,
-          TemporalDateTime?>(
-        const QueryField<String, PowerSource, TemporalDateTime?>(
+          TemporalDateTime>(
+        const QueryField<String, PowerSource, TemporalDateTime>(
             fieldName: 'updatedAt'),
         root: _root,
       );
@@ -237,10 +237,16 @@ abstract class PowerSource extends PartialPowerSource
           ))
         : (json['volts'] as double);
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'PowerSource',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'PowerSource',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     return _PowerSource._(
       id: id,
@@ -284,9 +290,9 @@ abstract class PowerSource extends PartialPowerSource
   @Deprecated(r'Use $volts instead')
   QueryField<String, PowerSource, double> get VOLTS => $volts;
   @override
-  TemporalDateTime? get createdAt;
+  TemporalDateTime get createdAt;
   @override
-  TemporalDateTime? get updatedAt;
+  TemporalDateTime get updatedAt;
 
   /// Query field for the [modelIdentifier] field.
   QueryField<String, PowerSource, String> get $modelIdentifier =>
@@ -312,8 +318,8 @@ class _PowerSource extends PowerSource {
     required this.id,
     required this.amps,
     required this.volts,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
   }) : super._();
 
   @override
@@ -326,10 +332,10 @@ class _PowerSource extends PowerSource {
   final double volts;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 }
 
 abstract class RemotePowerSource extends PowerSource
@@ -342,8 +348,8 @@ class _RemotePowerSource extends RemotePowerSource {
     required this.id,
     required this.amps,
     required this.volts,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
     required this.version,
     required this.deleted,
     required this.lastChangedAt,
@@ -369,10 +375,16 @@ class _RemotePowerSource extends RemotePowerSource {
           ))
         : (json['volts'] as double);
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'PowerSource',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'PowerSource',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final version = json['version'] == null
         ? (throw ModelFieldError(
@@ -414,10 +426,10 @@ class _RemotePowerSource extends RemotePowerSource {
   final double volts;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 
   @override
   final int version;

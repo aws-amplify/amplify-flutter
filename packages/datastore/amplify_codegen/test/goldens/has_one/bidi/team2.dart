@@ -70,17 +70,17 @@ class Team2QueryFields<ModelIdentifier extends Object,
       ));
 
   /// Query field for the [Team2.createdAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $createdAt =>
-      NestedQueryField<ModelIdentifier, M, String, Team2, TemporalDateTime?>(
-        const QueryField<String, Team2, TemporalDateTime?>(
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
+      NestedQueryField<ModelIdentifier, M, String, Team2, TemporalDateTime>(
+        const QueryField<String, Team2, TemporalDateTime>(
             fieldName: 'createdAt'),
         root: _root,
       );
 
   /// Query field for the [Team2.updatedAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $updatedAt =>
-      NestedQueryField<ModelIdentifier, M, String, Team2, TemporalDateTime?>(
-        const QueryField<String, Team2, TemporalDateTime?>(
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $updatedAt =>
+      NestedQueryField<ModelIdentifier, M, String, Team2, TemporalDateTime>(
+        const QueryField<String, Team2, TemporalDateTime>(
             fieldName: 'updatedAt'),
         root: _root,
       );
@@ -262,10 +262,16 @@ abstract class Team2 extends PartialTeam2 implements Model<String, Team2> {
             Project2.classType
                 .fromJson<Project2>((json['project'] as Map<String, Object?>)));
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'Team2',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'Team2',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final team2ProjectId = json['team2ProjectId'] == null
         ? (throw ModelFieldError(
@@ -316,9 +322,9 @@ abstract class Team2 extends PartialTeam2 implements Model<String, Team2> {
   @Deprecated(r'Use $project instead')
   Project2QueryFields<String, Team2> get PROJECT => $project;
   @override
-  TemporalDateTime? get createdAt;
+  TemporalDateTime get createdAt;
   @override
-  TemporalDateTime? get updatedAt;
+  TemporalDateTime get updatedAt;
   @override
   String get team2ProjectId;
 
@@ -355,8 +361,8 @@ class _Team2 extends Team2 {
     required this.id,
     required this.name,
     required this.project,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
     required this.team2ProjectId,
   }) : super._();
 
@@ -370,10 +376,10 @@ class _Team2 extends Team2 {
   final AsyncModel<String, Project2, PartialProject2, Project2> project;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 
   @override
   final String team2ProjectId;
@@ -388,8 +394,8 @@ class _RemoteTeam2 extends RemoteTeam2 {
     required this.id,
     required this.name,
     required this.project,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
     required this.team2ProjectId,
     required this.version,
     required this.deleted,
@@ -419,10 +425,16 @@ class _RemoteTeam2 extends RemoteTeam2 {
             Project2.classType.fromJson<RemoteProject2>(
                 (json['project'] as Map<String, Object?>)));
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'Team2',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'Team2',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final team2ProjectId = json['team2ProjectId'] == null
         ? (throw ModelFieldError(
@@ -471,10 +483,10 @@ class _RemoteTeam2 extends RemoteTeam2 {
   final AsyncModel<String, Project2, PartialProject2, RemoteProject2> project;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 
   @override
   final String team2ProjectId;

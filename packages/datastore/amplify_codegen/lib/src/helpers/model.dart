@@ -326,7 +326,9 @@ extension ModelDefinitionHelpers on ObjectTypeDefinitionNode {
     required Map<String, ObjectTypeDefinitionNode> models,
     required Map<String, EnumTypeDefinitionNode> enums,
   }) sync* {
+    final syntheticFields = ['createdAt', 'updatedAt'];
     for (final field in fields) {
+      syntheticFields.remove(field.name.value);
       yield ModelField.build((f) {
         f
           ..name = field.name.value
@@ -338,20 +340,30 @@ extension ModelDefinitionHelpers on ObjectTypeDefinitionNode {
 
     if (isModel) {
       // createdAt
-      yield ModelField.build(
-        (f) => f
-          ..name = 'createdAt'
-          ..isReadOnly = true
-          ..type = const SchemaType.scalar(AppSyncScalar.awsDateTime),
-      );
+      if (syntheticFields.contains('createdAt')) {
+        yield ModelField.build(
+          (f) => f
+            ..name = 'createdAt'
+            ..isReadOnly = true
+            ..type = const SchemaType.scalar(
+              AppSyncScalar.awsDateTime,
+              isRequired: true,
+            ),
+        );
+      }
 
       // updatedAt
-      yield ModelField.build(
-        (f) => f
-          ..name = 'updatedAt'
-          ..isReadOnly = true
-          ..type = const SchemaType.scalar(AppSyncScalar.awsDateTime),
-      );
+      if (syntheticFields.contains('updatedAt')) {
+        yield ModelField.build(
+          (f) => f
+            ..name = 'updatedAt'
+            ..isReadOnly = true
+            ..type = const SchemaType.scalar(
+              AppSyncScalar.awsDateTime,
+              isRequired: true,
+            ),
+        );
+      }
     }
   }
 }

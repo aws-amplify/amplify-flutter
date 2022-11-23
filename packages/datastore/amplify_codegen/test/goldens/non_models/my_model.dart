@@ -50,17 +50,17 @@ class MyModelQueryFields<ModelIdentifier extends Object,
   final QueryField<ModelIdentifier, M, MyModel>? _root;
 
   /// Query field for the [MyModel.createdAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $createdAt =>
-      NestedQueryField<ModelIdentifier, M, String, MyModel, TemporalDateTime?>(
-        const QueryField<String, MyModel, TemporalDateTime?>(
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
+      NestedQueryField<ModelIdentifier, M, String, MyModel, TemporalDateTime>(
+        const QueryField<String, MyModel, TemporalDateTime>(
             fieldName: 'createdAt'),
         root: _root,
       );
 
   /// Query field for the [MyModel.updatedAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $updatedAt =>
-      NestedQueryField<ModelIdentifier, M, String, MyModel, TemporalDateTime?>(
-        const QueryField<String, MyModel, TemporalDateTime?>(
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $updatedAt =>
+      NestedQueryField<ModelIdentifier, M, String, MyModel, TemporalDateTime>(
+        const QueryField<String, MyModel, TemporalDateTime>(
             fieldName: 'updatedAt'),
         root: _root,
       );
@@ -220,10 +220,16 @@ abstract class MyModel extends PartialMyModel
         : ScalarNonModel.fromJson(
             (json['requiredEmbeddedNonModel'] as Map<String, Object?>));
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'MyModel',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'MyModel',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final id = json['id'] == null
         ? (throw ModelFieldError(
@@ -250,9 +256,9 @@ abstract class MyModel extends PartialMyModel
   @override
   ScalarNonModel get requiredEmbeddedNonModel;
   @override
-  TemporalDateTime? get createdAt;
+  TemporalDateTime get createdAt;
   @override
-  TemporalDateTime? get updatedAt;
+  TemporalDateTime get updatedAt;
   @override
   String get id;
 
@@ -285,8 +291,8 @@ class _MyModel extends MyModel {
   const _MyModel._({
     this.embeddedNonModel,
     required this.requiredEmbeddedNonModel,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
     required this.id,
   }) : super._();
 
@@ -297,10 +303,10 @@ class _MyModel extends MyModel {
   final ScalarNonModel requiredEmbeddedNonModel;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 
   @override
   final String id;
@@ -315,8 +321,8 @@ class _RemoteMyModel extends RemoteMyModel {
   const _RemoteMyModel({
     this.embeddedNonModel,
     required this.requiredEmbeddedNonModel,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
     required this.id,
     required this.version,
     required this.deleted,
@@ -336,10 +342,16 @@ class _RemoteMyModel extends RemoteMyModel {
         : ScalarNonModel.fromJson(
             (json['requiredEmbeddedNonModel'] as Map<String, Object?>));
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'MyModel',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'MyModel',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final id = json['id'] == null
         ? (throw ModelFieldError(
@@ -384,10 +396,10 @@ class _RemoteMyModel extends RemoteMyModel {
   final ScalarNonModel requiredEmbeddedNonModel;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 
   @override
   final String id;

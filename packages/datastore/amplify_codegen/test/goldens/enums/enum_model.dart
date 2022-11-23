@@ -71,19 +71,17 @@ class EnumModelQueryFields<ModelIdentifier extends Object,
       );
 
   /// Query field for the [EnumModel.createdAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $createdAt =>
-      NestedQueryField<ModelIdentifier, M, String, EnumModel,
-          TemporalDateTime?>(
-        const QueryField<String, EnumModel, TemporalDateTime?>(
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
+      NestedQueryField<ModelIdentifier, M, String, EnumModel, TemporalDateTime>(
+        const QueryField<String, EnumModel, TemporalDateTime>(
             fieldName: 'createdAt'),
         root: _root,
       );
 
   /// Query field for the [EnumModel.updatedAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $updatedAt =>
-      NestedQueryField<ModelIdentifier, M, String, EnumModel,
-          TemporalDateTime?>(
-        const QueryField<String, EnumModel, TemporalDateTime?>(
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $updatedAt =>
+      NestedQueryField<ModelIdentifier, M, String, EnumModel, TemporalDateTime>(
+        const QueryField<String, EnumModel, TemporalDateTime>(
             fieldName: 'updatedAt'),
         root: _root,
       );
@@ -237,10 +235,16 @@ abstract class EnumModel extends PartialEnumModel
           ))
         : MyEnum.fromJson((json['requiredEnum'] as String));
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'EnumModel',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'EnumModel',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     return _EnumModel._(
       id: id,
@@ -285,9 +289,9 @@ abstract class EnumModel extends PartialEnumModel
   @Deprecated(r'Use $requiredEnum instead')
   QueryField<String, EnumModel, MyEnum> get REQUIRED_ENUM => $requiredEnum;
   @override
-  TemporalDateTime? get createdAt;
+  TemporalDateTime get createdAt;
   @override
-  TemporalDateTime? get updatedAt;
+  TemporalDateTime get updatedAt;
 
   /// Query field for the [modelIdentifier] field.
   QueryField<String, EnumModel, String> get $modelIdentifier =>
@@ -313,8 +317,8 @@ class _EnumModel extends EnumModel {
     required this.id,
     this.enum_,
     required this.requiredEnum,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
   }) : super._();
 
   @override
@@ -327,10 +331,10 @@ class _EnumModel extends EnumModel {
   final MyEnum requiredEnum;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 }
 
 abstract class RemoteEnumModel extends EnumModel
@@ -343,8 +347,8 @@ class _RemoteEnumModel extends RemoteEnumModel {
     required this.id,
     this.enum_,
     required this.requiredEnum,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
     required this.version,
     required this.deleted,
     required this.lastChangedAt,
@@ -366,10 +370,16 @@ class _RemoteEnumModel extends RemoteEnumModel {
           ))
         : MyEnum.fromJson((json['requiredEnum'] as String));
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'EnumModel',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'EnumModel',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final version = json['version'] == null
         ? (throw ModelFieldError(
@@ -411,10 +421,10 @@ class _RemoteEnumModel extends RemoteEnumModel {
   final MyEnum requiredEnum;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 
   @override
   final int version;

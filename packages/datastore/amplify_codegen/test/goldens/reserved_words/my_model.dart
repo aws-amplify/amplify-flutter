@@ -55,17 +55,17 @@ class MyModelQueryFields<ModelIdentifier extends Object,
       );
 
   /// Query field for the [MyModel.createdAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $createdAt =>
-      NestedQueryField<ModelIdentifier, M, String, MyModel, TemporalDateTime?>(
-        const QueryField<String, MyModel, TemporalDateTime?>(
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
+      NestedQueryField<ModelIdentifier, M, String, MyModel, TemporalDateTime>(
+        const QueryField<String, MyModel, TemporalDateTime>(
             fieldName: 'createdAt'),
         root: _root,
       );
 
   /// Query field for the [MyModel.updatedAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $updatedAt =>
-      NestedQueryField<ModelIdentifier, M, String, MyModel, TemporalDateTime?>(
-        const QueryField<String, MyModel, TemporalDateTime?>(
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $updatedAt =>
+      NestedQueryField<ModelIdentifier, M, String, MyModel, TemporalDateTime>(
+        const QueryField<String, MyModel, TemporalDateTime>(
             fieldName: 'updatedAt'),
         root: _root,
       );
@@ -201,10 +201,16 @@ abstract class MyModel extends PartialMyModel
           ))
         : (json['enum'] as String);
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'MyModel',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'MyModel',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final id = json['id'] == null
         ? (throw ModelFieldError(
@@ -235,9 +241,9 @@ abstract class MyModel extends PartialMyModel
   @Deprecated(r'Use $enum_ instead')
   QueryField<String, MyModel, String> get ENUM => $enum_;
   @override
-  TemporalDateTime? get createdAt;
+  TemporalDateTime get createdAt;
   @override
-  TemporalDateTime? get updatedAt;
+  TemporalDateTime get updatedAt;
   @override
   String get id;
 
@@ -268,8 +274,8 @@ class _MyModel extends MyModel {
 
   const _MyModel._({
     required this.enum_,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
     required this.id,
   }) : super._();
 
@@ -277,10 +283,10 @@ class _MyModel extends MyModel {
   final String enum_;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 
   @override
   final String id;
@@ -294,8 +300,8 @@ abstract class RemoteMyModel extends MyModel
 class _RemoteMyModel extends RemoteMyModel {
   const _RemoteMyModel({
     required this.enum_,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
     required this.id,
     required this.version,
     required this.deleted,
@@ -310,10 +316,16 @@ class _RemoteMyModel extends RemoteMyModel {
           ))
         : (json['enum'] as String);
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'MyModel',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'MyModel',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final id = json['id'] == null
         ? (throw ModelFieldError(
@@ -354,10 +366,10 @@ class _RemoteMyModel extends RemoteMyModel {
   final String enum_;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 
   @override
   final String id;

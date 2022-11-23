@@ -114,51 +114,51 @@ class ProjectQueryFields<ModelIdentifier extends Object,
       ));
 
   /// Query field for the [Project.createdAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $createdAt =>
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, ProjectIdentifier, Project,
-          TemporalDateTime?>(
-        const QueryField<ProjectIdentifier, Project, TemporalDateTime?>(
+          TemporalDateTime>(
+        const QueryField<ProjectIdentifier, Project, TemporalDateTime>(
             fieldName: 'createdAt'),
         root: _root,
       );
 
   /// Query field for the [Project.updatedAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $updatedAt =>
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $updatedAt =>
       NestedQueryField<ModelIdentifier, M, ProjectIdentifier, Project,
-          TemporalDateTime?>(
-        const QueryField<ProjectIdentifier, Project, TemporalDateTime?>(
+          TemporalDateTime>(
+        const QueryField<ProjectIdentifier, Project, TemporalDateTime>(
             fieldName: 'updatedAt'),
         root: _root,
       );
 
   /// Query field for the [Project.projectDevTeamTeamId] field.
-  QueryField<ModelIdentifier, M, String> get $projectDevTeamTeamId =>
-      NestedQueryField<ModelIdentifier, M, ProjectIdentifier, Project, String>(
-        const QueryField<ProjectIdentifier, Project, String>(
+  QueryField<ModelIdentifier, M, String?> get $projectDevTeamTeamId =>
+      NestedQueryField<ModelIdentifier, M, ProjectIdentifier, Project, String?>(
+        const QueryField<ProjectIdentifier, Project, String?>(
             fieldName: 'projectDevTeamTeamId'),
         root: _root,
       );
 
   /// Query field for the [Project.projectDevTeamName] field.
-  QueryField<ModelIdentifier, M, String> get $projectDevTeamName =>
-      NestedQueryField<ModelIdentifier, M, ProjectIdentifier, Project, String>(
-        const QueryField<ProjectIdentifier, Project, String>(
+  QueryField<ModelIdentifier, M, String?> get $projectDevTeamName =>
+      NestedQueryField<ModelIdentifier, M, ProjectIdentifier, Project, String?>(
+        const QueryField<ProjectIdentifier, Project, String?>(
             fieldName: 'projectDevTeamName'),
         root: _root,
       );
 
   /// Query field for the [Project.projectProductTeamTeamId] field.
-  QueryField<ModelIdentifier, M, String> get $projectProductTeamTeamId =>
-      NestedQueryField<ModelIdentifier, M, ProjectIdentifier, Project, String>(
-        const QueryField<ProjectIdentifier, Project, String>(
+  QueryField<ModelIdentifier, M, String?> get $projectProductTeamTeamId =>
+      NestedQueryField<ModelIdentifier, M, ProjectIdentifier, Project, String?>(
+        const QueryField<ProjectIdentifier, Project, String?>(
             fieldName: 'projectProductTeamTeamId'),
         root: _root,
       );
 
   /// Query field for the [Project.projectProductTeamName] field.
-  QueryField<ModelIdentifier, M, String> get $projectProductTeamName =>
-      NestedQueryField<ModelIdentifier, M, ProjectIdentifier, Project, String>(
-        const QueryField<ProjectIdentifier, Project, String>(
+  QueryField<ModelIdentifier, M, String?> get $projectProductTeamName =>
+      NestedQueryField<ModelIdentifier, M, ProjectIdentifier, Project, String?>(
+        const QueryField<ProjectIdentifier, Project, String?>(
             fieldName: 'projectProductTeamName'),
         root: _root,
       );
@@ -376,10 +376,10 @@ abstract class Project extends PartialProject
     required String name,
     Team? devTeam,
     Team? productTeam,
-    required String projectDevTeamTeamId,
-    required String projectDevTeamName,
-    required String projectProductTeamTeamId,
-    required String projectProductTeamName,
+    String? projectDevTeamTeamId,
+    String? projectDevTeamName,
+    String? projectProductTeamTeamId,
+    String? projectProductTeamName,
   }) = _Project;
 
   const Project._() : super._();
@@ -408,34 +408,28 @@ abstract class Project extends PartialProject
             .classType
             .fromJson<Team>((json['productTeam'] as Map<String, Object?>)));
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'Project',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'Project',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final projectDevTeamTeamId = json['projectDevTeamTeamId'] == null
-        ? (throw ModelFieldError(
-            'Project',
-            'projectDevTeamTeamId',
-          ))
+        ? null
         : (json['projectDevTeamTeamId'] as String);
     final projectDevTeamName = json['projectDevTeamName'] == null
-        ? (throw ModelFieldError(
-            'Project',
-            'projectDevTeamName',
-          ))
+        ? null
         : (json['projectDevTeamName'] as String);
     final projectProductTeamTeamId = json['projectProductTeamTeamId'] == null
-        ? (throw ModelFieldError(
-            'Project',
-            'projectProductTeamTeamId',
-          ))
+        ? null
         : (json['projectProductTeamTeamId'] as String);
     final projectProductTeamName = json['projectProductTeamName'] == null
-        ? (throw ModelFieldError(
-            'Project',
-            'projectProductTeamName',
-          ))
+        ? null
         : (json['projectProductTeamName'] as String);
     return _Project._(
       projectId: projectId,
@@ -497,52 +491,52 @@ abstract class Project extends PartialProject
   @Deprecated(r'Use $productTeam instead')
   TeamQueryFields<ProjectIdentifier, Project> get PRODUCT_TEAM => $productTeam;
   @override
-  TemporalDateTime? get createdAt;
+  TemporalDateTime get createdAt;
   @override
-  TemporalDateTime? get updatedAt;
+  TemporalDateTime get updatedAt;
   @override
-  String get projectDevTeamTeamId;
+  String? get projectDevTeamTeamId;
 
   /// Query field for the [projectDevTeamTeamId] field.
-  QueryField<ProjectIdentifier, Project, String> get $projectDevTeamTeamId =>
+  QueryField<ProjectIdentifier, Project, String?> get $projectDevTeamTeamId =>
       _queryFields.$projectDevTeamTeamId;
 
   /// Query field for the [projectDevTeamTeamId] field.
   @Deprecated(r'Use $projectDevTeamTeamId instead')
-  QueryField<ProjectIdentifier, Project, String> get PROJECT_DEV_TEAM_TEAM_ID =>
-      $projectDevTeamTeamId;
+  QueryField<ProjectIdentifier, Project, String?>
+      get PROJECT_DEV_TEAM_TEAM_ID => $projectDevTeamTeamId;
   @override
-  String get projectDevTeamName;
+  String? get projectDevTeamName;
 
   /// Query field for the [projectDevTeamName] field.
-  QueryField<ProjectIdentifier, Project, String> get $projectDevTeamName =>
+  QueryField<ProjectIdentifier, Project, String?> get $projectDevTeamName =>
       _queryFields.$projectDevTeamName;
 
   /// Query field for the [projectDevTeamName] field.
   @Deprecated(r'Use $projectDevTeamName instead')
-  QueryField<ProjectIdentifier, Project, String> get PROJECT_DEV_TEAM_NAME =>
+  QueryField<ProjectIdentifier, Project, String?> get PROJECT_DEV_TEAM_NAME =>
       $projectDevTeamName;
   @override
-  String get projectProductTeamTeamId;
+  String? get projectProductTeamTeamId;
 
   /// Query field for the [projectProductTeamTeamId] field.
-  QueryField<ProjectIdentifier, Project, String>
+  QueryField<ProjectIdentifier, Project, String?>
       get $projectProductTeamTeamId => _queryFields.$projectProductTeamTeamId;
 
   /// Query field for the [projectProductTeamTeamId] field.
   @Deprecated(r'Use $projectProductTeamTeamId instead')
-  QueryField<ProjectIdentifier, Project, String>
+  QueryField<ProjectIdentifier, Project, String?>
       get PROJECT_PRODUCT_TEAM_TEAM_ID => $projectProductTeamTeamId;
   @override
-  String get projectProductTeamName;
+  String? get projectProductTeamName;
 
   /// Query field for the [projectProductTeamName] field.
-  QueryField<ProjectIdentifier, Project, String> get $projectProductTeamName =>
+  QueryField<ProjectIdentifier, Project, String?> get $projectProductTeamName =>
       _queryFields.$projectProductTeamName;
 
   /// Query field for the [projectProductTeamName] field.
   @Deprecated(r'Use $projectProductTeamName instead')
-  QueryField<ProjectIdentifier, Project, String>
+  QueryField<ProjectIdentifier, Project, String?>
       get PROJECT_PRODUCT_TEAM_NAME => $projectProductTeamName;
 
   /// Query field for the [modelIdentifier] field.
@@ -561,10 +555,10 @@ class _Project extends Project {
     required this.name,
     Team? devTeam,
     Team? productTeam,
-    required this.projectDevTeamTeamId,
-    required this.projectDevTeamName,
-    required this.projectProductTeamTeamId,
-    required this.projectProductTeamName,
+    this.projectDevTeamTeamId,
+    this.projectDevTeamName,
+    this.projectProductTeamTeamId,
+    this.projectProductTeamName,
   })  : projectId = projectId ?? uuid(),
         devTeam = devTeam == null ? null : AsyncModel.fromModel(devTeam),
         productTeam =
@@ -578,12 +572,12 @@ class _Project extends Project {
     required this.name,
     this.devTeam,
     this.productTeam,
-    this.createdAt,
-    this.updatedAt,
-    required this.projectDevTeamTeamId,
-    required this.projectDevTeamName,
-    required this.projectProductTeamTeamId,
-    required this.projectProductTeamName,
+    required this.createdAt,
+    required this.updatedAt,
+    this.projectDevTeamTeamId,
+    this.projectDevTeamName,
+    this.projectProductTeamTeamId,
+    this.projectProductTeamName,
   }) : super._();
 
   @override
@@ -599,22 +593,22 @@ class _Project extends Project {
   final AsyncModel<TeamIdentifier, Team, PartialTeam, Team>? productTeam;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 
   @override
-  final String projectDevTeamTeamId;
+  final String? projectDevTeamTeamId;
 
   @override
-  final String projectDevTeamName;
+  final String? projectDevTeamName;
 
   @override
-  final String projectProductTeamTeamId;
+  final String? projectProductTeamTeamId;
 
   @override
-  final String projectProductTeamName;
+  final String? projectProductTeamName;
 }
 
 abstract class RemoteProject extends Project
@@ -628,12 +622,12 @@ class _RemoteProject extends RemoteProject {
     required this.name,
     this.devTeam,
     this.productTeam,
-    this.createdAt,
-    this.updatedAt,
-    required this.projectDevTeamTeamId,
-    required this.projectDevTeamName,
-    required this.projectProductTeamTeamId,
-    required this.projectProductTeamName,
+    required this.createdAt,
+    required this.updatedAt,
+    this.projectDevTeamTeamId,
+    this.projectDevTeamName,
+    this.projectProductTeamTeamId,
+    this.projectProductTeamName,
     required this.version,
     required this.deleted,
     required this.lastChangedAt,
@@ -663,34 +657,28 @@ class _RemoteProject extends RemoteProject {
             Team.classType.fromJson<RemoteTeam>(
                 (json['productTeam'] as Map<String, Object?>)));
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'Project',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'Project',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final projectDevTeamTeamId = json['projectDevTeamTeamId'] == null
-        ? (throw ModelFieldError(
-            'Project',
-            'projectDevTeamTeamId',
-          ))
+        ? null
         : (json['projectDevTeamTeamId'] as String);
     final projectDevTeamName = json['projectDevTeamName'] == null
-        ? (throw ModelFieldError(
-            'Project',
-            'projectDevTeamName',
-          ))
+        ? null
         : (json['projectDevTeamName'] as String);
     final projectProductTeamTeamId = json['projectProductTeamTeamId'] == null
-        ? (throw ModelFieldError(
-            'Project',
-            'projectProductTeamTeamId',
-          ))
+        ? null
         : (json['projectProductTeamTeamId'] as String);
     final projectProductTeamName = json['projectProductTeamName'] == null
-        ? (throw ModelFieldError(
-            'Project',
-            'projectProductTeamName',
-          ))
+        ? null
         : (json['projectProductTeamName'] as String);
     final version = json['version'] == null
         ? (throw ModelFieldError(
@@ -740,22 +728,22 @@ class _RemoteProject extends RemoteProject {
   final AsyncModel<TeamIdentifier, Team, PartialTeam, RemoteTeam>? productTeam;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 
   @override
-  final String projectDevTeamTeamId;
+  final String? projectDevTeamTeamId;
 
   @override
-  final String projectDevTeamName;
+  final String? projectDevTeamName;
 
   @override
-  final String projectProductTeamTeamId;
+  final String? projectProductTeamTeamId;
 
   @override
-  final String projectProductTeamName;
+  final String? projectProductTeamName;
 
   @override
   final int version;

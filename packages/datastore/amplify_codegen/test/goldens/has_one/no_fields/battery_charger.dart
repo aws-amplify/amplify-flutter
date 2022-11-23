@@ -60,19 +60,19 @@ class BatteryChargerQueryFields<ModelIdentifier extends Object,
       ));
 
   /// Query field for the [BatteryCharger.createdAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $createdAt =>
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, String, BatteryCharger,
-          TemporalDateTime?>(
-        const QueryField<String, BatteryCharger, TemporalDateTime?>(
+          TemporalDateTime>(
+        const QueryField<String, BatteryCharger, TemporalDateTime>(
             fieldName: 'createdAt'),
         root: _root,
       );
 
   /// Query field for the [BatteryCharger.updatedAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $updatedAt =>
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $updatedAt =>
       NestedQueryField<ModelIdentifier, M, String, BatteryCharger,
-          TemporalDateTime?>(
-        const QueryField<String, BatteryCharger, TemporalDateTime?>(
+          TemporalDateTime>(
+        const QueryField<String, BatteryCharger, TemporalDateTime>(
             fieldName: 'updatedAt'),
         root: _root,
       );
@@ -85,9 +85,9 @@ class BatteryChargerQueryFields<ModelIdentifier extends Object,
       );
 
   /// Query field for the [BatteryCharger.batteryChargerPowerSourceId] field.
-  QueryField<ModelIdentifier, M, String> get $batteryChargerPowerSourceId =>
-      NestedQueryField<ModelIdentifier, M, String, BatteryCharger, String>(
-        const QueryField<String, BatteryCharger, String>(
+  QueryField<ModelIdentifier, M, String?> get $batteryChargerPowerSourceId =>
+      NestedQueryField<ModelIdentifier, M, String, BatteryCharger, String?>(
+        const QueryField<String, BatteryCharger, String?>(
             fieldName: 'batteryChargerPowerSourceId'),
         root: _root,
       );
@@ -228,7 +228,7 @@ abstract class BatteryCharger extends PartialBatteryCharger
   factory BatteryCharger({
     PowerSource? powerSource,
     String? id,
-    required String batteryChargerPowerSourceId,
+    String? batteryChargerPowerSourceId,
   }) = _BatteryCharger;
 
   const BatteryCharger._() : super._();
@@ -241,10 +241,16 @@ abstract class BatteryCharger extends PartialBatteryCharger
             PowerSource.classType.fromJson<PowerSource>(
                 (json['powerSource'] as Map<String, Object?>)));
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'BatteryCharger',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'BatteryCharger',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final id = json['id'] == null
         ? (throw ModelFieldError(
@@ -254,10 +260,7 @@ abstract class BatteryCharger extends PartialBatteryCharger
         : (json['id'] as String);
     final batteryChargerPowerSourceId =
         json['batteryChargerPowerSourceId'] == null
-            ? (throw ModelFieldError(
-                'BatteryCharger',
-                'batteryChargerPowerSourceId',
-              ))
+            ? null
             : (json['batteryChargerPowerSourceId'] as String);
     return _BatteryCharger._(
       powerSource: powerSource,
@@ -286,9 +289,9 @@ abstract class BatteryCharger extends PartialBatteryCharger
   PowerSourceQueryFields<String, BatteryCharger> get POWER_SOURCE =>
       $powerSource;
   @override
-  TemporalDateTime? get createdAt;
+  TemporalDateTime get createdAt;
   @override
-  TemporalDateTime? get updatedAt;
+  TemporalDateTime get updatedAt;
   @override
   String get id;
 
@@ -299,15 +302,16 @@ abstract class BatteryCharger extends PartialBatteryCharger
   @Deprecated(r'Use $id instead')
   QueryField<String, BatteryCharger, String> get ID => $id;
   @override
-  String get batteryChargerPowerSourceId;
+  String? get batteryChargerPowerSourceId;
 
   /// Query field for the [batteryChargerPowerSourceId] field.
-  QueryField<String, BatteryCharger, String> get $batteryChargerPowerSourceId =>
-      _queryFields.$batteryChargerPowerSourceId;
+  QueryField<String, BatteryCharger, String?>
+      get $batteryChargerPowerSourceId =>
+          _queryFields.$batteryChargerPowerSourceId;
 
   /// Query field for the [batteryChargerPowerSourceId] field.
   @Deprecated(r'Use $batteryChargerPowerSourceId instead')
-  QueryField<String, BatteryCharger, String>
+  QueryField<String, BatteryCharger, String?>
       get BATTERY_CHARGER_POWER_SOURCE_ID => $batteryChargerPowerSourceId;
 
   /// Query field for the [modelIdentifier] field.
@@ -324,7 +328,7 @@ class _BatteryCharger extends BatteryCharger {
   _BatteryCharger({
     PowerSource? powerSource,
     String? id,
-    required this.batteryChargerPowerSourceId,
+    this.batteryChargerPowerSourceId,
   })  : powerSource =
             powerSource == null ? null : AsyncModel.fromModel(powerSource),
         createdAt = TemporalDateTime.now(),
@@ -334,10 +338,10 @@ class _BatteryCharger extends BatteryCharger {
 
   const _BatteryCharger._({
     this.powerSource,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
     required this.id,
-    required this.batteryChargerPowerSourceId,
+    this.batteryChargerPowerSourceId,
   }) : super._();
 
   @override
@@ -345,16 +349,16 @@ class _BatteryCharger extends BatteryCharger {
       powerSource;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 
   @override
   final String id;
 
   @override
-  final String batteryChargerPowerSourceId;
+  final String? batteryChargerPowerSourceId;
 }
 
 abstract class RemoteBatteryCharger extends BatteryCharger
@@ -365,10 +369,10 @@ abstract class RemoteBatteryCharger extends BatteryCharger
 class _RemoteBatteryCharger extends RemoteBatteryCharger {
   const _RemoteBatteryCharger({
     this.powerSource,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
     required this.id,
-    required this.batteryChargerPowerSourceId,
+    this.batteryChargerPowerSourceId,
     required this.version,
     required this.deleted,
     required this.lastChangedAt,
@@ -382,10 +386,16 @@ class _RemoteBatteryCharger extends RemoteBatteryCharger {
             PowerSource.classType.fromJson<RemotePowerSource>(
                 (json['powerSource'] as Map<String, Object?>)));
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'BatteryCharger',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'BatteryCharger',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final id = json['id'] == null
         ? (throw ModelFieldError(
@@ -395,10 +405,7 @@ class _RemoteBatteryCharger extends RemoteBatteryCharger {
         : (json['id'] as String);
     final batteryChargerPowerSourceId =
         json['batteryChargerPowerSourceId'] == null
-            ? (throw ModelFieldError(
-                'BatteryCharger',
-                'batteryChargerPowerSourceId',
-              ))
+            ? null
             : (json['batteryChargerPowerSourceId'] as String);
     final version = json['version'] == null
         ? (throw ModelFieldError(
@@ -435,16 +442,16 @@ class _RemoteBatteryCharger extends RemoteBatteryCharger {
       powerSource;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 
   @override
   final String id;
 
   @override
-  final String batteryChargerPowerSourceId;
+  final String? batteryChargerPowerSourceId;
 
   @override
   final int version;

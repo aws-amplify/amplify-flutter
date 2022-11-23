@@ -76,19 +76,19 @@ class BatteryChargerQueryFields<ModelIdentifier extends Object,
       ));
 
   /// Query field for the [BatteryCharger.createdAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $createdAt =>
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, String, BatteryCharger,
-          TemporalDateTime?>(
-        const QueryField<String, BatteryCharger, TemporalDateTime?>(
+          TemporalDateTime>(
+        const QueryField<String, BatteryCharger, TemporalDateTime>(
             fieldName: 'createdAt'),
         root: _root,
       );
 
   /// Query field for the [BatteryCharger.updatedAt] field.
-  QueryField<ModelIdentifier, M, TemporalDateTime?> get $updatedAt =>
+  QueryField<ModelIdentifier, M, TemporalDateTime> get $updatedAt =>
       NestedQueryField<ModelIdentifier, M, String, BatteryCharger,
-          TemporalDateTime?>(
-        const QueryField<String, BatteryCharger, TemporalDateTime?>(
+          TemporalDateTime>(
+        const QueryField<String, BatteryCharger, TemporalDateTime>(
             fieldName: 'updatedAt'),
         root: _root,
       );
@@ -271,10 +271,16 @@ abstract class BatteryCharger extends PartialBatteryCharger
             PowerSource.classType.fromJson<PowerSource>(
                 (json['powerSource'] as Map<String, Object?>)));
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'BatteryCharger',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'BatteryCharger',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final id = json['id'] == null
         ? (throw ModelFieldError(
@@ -331,9 +337,9 @@ abstract class BatteryCharger extends PartialBatteryCharger
   PowerSourceQueryFields<String, BatteryCharger> get POWER_SOURCE =>
       $powerSource;
   @override
-  TemporalDateTime? get createdAt;
+  TemporalDateTime get createdAt;
   @override
-  TemporalDateTime? get updatedAt;
+  TemporalDateTime get updatedAt;
   @override
   String get id;
 
@@ -371,8 +377,8 @@ class _BatteryCharger extends BatteryCharger {
     required this.chargerId,
     this.powerSourceId,
     this.powerSource,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
     required this.id,
   }) : super._();
 
@@ -387,10 +393,10 @@ class _BatteryCharger extends BatteryCharger {
       powerSource;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 
   @override
   final String id;
@@ -406,8 +412,8 @@ class _RemoteBatteryCharger extends RemoteBatteryCharger {
     required this.chargerId,
     this.powerSourceId,
     this.powerSource,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
     required this.id,
     required this.version,
     required this.deleted,
@@ -431,10 +437,16 @@ class _RemoteBatteryCharger extends RemoteBatteryCharger {
             PowerSource.classType.fromJson<RemotePowerSource>(
                 (json['powerSource'] as Map<String, Object?>)));
     final createdAt = json['createdAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'BatteryCharger',
+            'createdAt',
+          ))
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
-        ? null
+        ? (throw ModelFieldError(
+            'BatteryCharger',
+            'updatedAt',
+          ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final id = json['id'] == null
         ? (throw ModelFieldError(
@@ -484,10 +496,10 @@ class _RemoteBatteryCharger extends RemoteBatteryCharger {
       powerSource;
 
   @override
-  final TemporalDateTime? createdAt;
+  final TemporalDateTime createdAt;
 
   @override
-  final TemporalDateTime? updatedAt;
+  final TemporalDateTime updatedAt;
 
   @override
   final String id;
