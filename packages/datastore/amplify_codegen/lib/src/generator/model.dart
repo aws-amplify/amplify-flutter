@@ -94,7 +94,7 @@ class ModelGenerator extends StructureGenerator<ModelTypeDefinition> {
             ..returns = DartTypes.core.list(DartTypes.core.object.nullable)
             ..type = MethodType.getter
             ..name = 'props'
-            ..body = literalList(fields.map((f) => refer(f.name))).code,
+            ..body = literalList(fields.map((f) => refer(f.dartName))).code,
         ),
       );
 
