@@ -44,7 +44,7 @@ class ModelWithExplicitlyDefinedPkPlusSortKeysAsCompositeKeyIdentifier
 
   @override
   List<Object?> get props => [
-        modelID,
+        modelId,
         title,
         rating,
       ];
