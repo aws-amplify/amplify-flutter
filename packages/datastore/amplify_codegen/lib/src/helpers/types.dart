@@ -152,8 +152,7 @@ extension SchemaTypeHelpers on SchemaType {
       AppSyncScalar.string,
     ];
     final type = this;
-    return (type is ScalarType && primitiveScalars.contains(type.value)) ||
-        type is EnumType;
+    return type is ScalarType && primitiveScalars.contains(type.value);
   }
 
   /// The Dart name for `this`.

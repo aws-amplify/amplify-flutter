@@ -174,10 +174,11 @@ abstract class PartialTestEnumModel extends PartialModel<String, TestEnumModel>
         'id': id,
         'enumVal': enumVal?.value,
         'nullableEnumVal': nullableEnumVal?.value,
-        'enumList': enumList,
-        'enumNullableList': enumNullableList,
-        'nullableEnumList': nullableEnumList,
-        'nullableEnumNullableList': nullableEnumNullableList,
+        'enumList': enumList?.map((el) => el.value).toList(),
+        'enumNullableList': enumNullableList?.map((el) => el.value).toList(),
+        'nullableEnumList': nullableEnumList?.map((el) => el?.value).toList(),
+        'nullableEnumNullableList':
+            nullableEnumNullableList?.map((el) => el?.value).toList(),
         'createdAt': createdAt?.format(),
         'updatedAt': updatedAt?.format(),
         'version': version,
@@ -242,11 +243,15 @@ class _PartialTestEnumModel extends PartialTestEnumModel {
             .toList();
     final nullableEnumList = json['nullableEnumList'] == null
         ? null
-        : (json['nullableEnumList'] as List<Object?>).cast<String?>().toList();
+        : (json['nullableEnumList'] as List<Object?>)
+            .cast<String?>()
+            .map((el) => el == null ? null : TestEnum.fromJson(el))
+            .toList();
     final nullableEnumNullableList = json['nullableEnumNullableList'] == null
         ? null
         : (json['nullableEnumNullableList'] as List<Object?>)
             .cast<String?>()
+            .map((el) => el == null ? null : TestEnum.fromJson(el))
             .toList();
     final createdAt = json['createdAt'] == null
         ? null
@@ -359,11 +364,15 @@ abstract class TestEnumModel extends PartialTestEnumModel
             'TestEnumModel',
             'nullableEnumList',
           ))
-        : (json['nullableEnumList'] as List<Object?>).cast<String?>().toList();
+        : (json['nullableEnumList'] as List<Object?>)
+            .cast<String?>()
+            .map((el) => el == null ? null : TestEnum.fromJson(el))
+            .toList();
     final nullableEnumNullableList = json['nullableEnumNullableList'] == null
         ? null
         : (json['nullableEnumNullableList'] as List<Object?>)
             .cast<String?>()
+            .map((el) => el == null ? null : TestEnum.fromJson(el))
             .toList();
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
@@ -646,11 +655,15 @@ class _RemoteTestEnumModel extends RemoteTestEnumModel {
             'TestEnumModel',
             'nullableEnumList',
           ))
-        : (json['nullableEnumList'] as List<Object?>).cast<String?>().toList();
+        : (json['nullableEnumList'] as List<Object?>)
+            .cast<String?>()
+            .map((el) => el == null ? null : TestEnum.fromJson(el))
+            .toList();
     final nullableEnumNullableList = json['nullableEnumNullableList'] == null
         ? null
         : (json['nullableEnumNullableList'] as List<Object?>)
             .cast<String?>()
+            .map((el) => el == null ? null : TestEnum.fromJson(el))
             .toList();
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
