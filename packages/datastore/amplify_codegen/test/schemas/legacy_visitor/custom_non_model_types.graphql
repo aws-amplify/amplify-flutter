@@ -1,0 +1,25 @@
+type Person @model {
+  name: String!
+  phone: Phone!
+  mailingAddresses: [Address]
+}
+
+type Contact {
+  contactName: String!
+  phone: Phone!
+  mailingAddresses: [Address]
+}
+
+type Phone {
+  countryCode: String!
+  areaCode: String!
+  number: String!
+}
+
+type Address {
+  line1: String!
+  line2: String
+  city: String!
+  state: String!
+  postalCode: String!
+}

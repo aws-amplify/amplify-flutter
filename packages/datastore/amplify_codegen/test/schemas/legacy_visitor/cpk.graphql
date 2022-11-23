@@ -1,0 +1,10 @@
+type ModelWithExplicitlyDefinedPK @model {
+  modelID: ID! @primaryKey
+  title: String!
+}
+
+type ModelWithExplicitlyDefinedPKPlusSortKeysAsCompositeKey @model {
+  modelID: ID! @primaryKey(sortKeyFields: ["title", "rating"])
+  title: String!
+  rating: Int!
+}

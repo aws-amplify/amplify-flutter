@@ -1,0 +1,13 @@
+type TemporalTimeModel @model {
+  id: ID!
+  date: AWSDate
+  time: AWSTime
+  dateTime: AWSDateTime
+  timestamp: AWSTimestamp
+  intNum: Int
+  dateList: [AWSDate]
+  timeList: [AWSTime]
+  dateTimeList: [AWSDateTime]
+  timestampList: [AWSTimestamp]
+  intList: [Int]
+}

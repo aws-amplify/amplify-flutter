@@ -1,0 +1,13 @@
+type Post
+  @model
+  @auth(
+    rules: [
+      { allow: groups, groups: ["admin"] }
+      { allow: owner, operations: ["create", "update"] }
+      { allow: public, operation: ["read"] }
+    ]
+  ) {
+  id: ID!
+  title: String!
+  owner: String!
+}

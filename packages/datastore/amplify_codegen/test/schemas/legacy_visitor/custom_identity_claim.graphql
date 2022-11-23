@@ -1,0 +1,7 @@
+type customClaim
+  @model
+  @auth(rules: [{ allow: owner, identityClaim: "user_id" }]) {
+  id: ID!
+  name: String
+  bar: String
+}

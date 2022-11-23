@@ -1,0 +1,12 @@
+# Explicit field
+type Project2 @model {
+  id: ID!
+  name: String
+  teamID: ID
+  team: Team2 @hasOne(fields: ["teamID"])
+}
+
+type Team2 @model {
+  id: ID!
+  name: String!
+}

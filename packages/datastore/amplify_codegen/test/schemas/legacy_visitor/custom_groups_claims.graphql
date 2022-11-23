@@ -1,0 +1,9 @@
+type customClaim
+  @model
+  @auth(
+    rules: [{ allow: groups, groups: ["Moderator"], groupClaim: "user_groups" }]
+  ) {
+  id: ID!
+  name: String
+  bar: String
+}

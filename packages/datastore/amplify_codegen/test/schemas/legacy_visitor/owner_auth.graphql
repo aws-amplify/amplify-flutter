@@ -1,0 +1,5 @@
+type simpleOwnerAuth @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  name: String
+  bar: String
+}

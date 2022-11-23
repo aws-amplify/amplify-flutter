@@ -1,0 +1,9 @@
+type ReservedWord @model {
+  id: ID!
+  class: String!
+}
+
+type class @model {
+  id: ID!
+  name: String!
+}

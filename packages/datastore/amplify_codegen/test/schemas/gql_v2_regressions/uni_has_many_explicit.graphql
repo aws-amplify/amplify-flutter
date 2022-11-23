@@ -1,0 +1,12 @@
+# Explicit
+type Post2 @model {
+  id: ID!
+  title: String!
+  comments: [Comment2] @hasMany(indexName: "byPost", fields: ["id"])
+}
+
+type Comment2 @model {
+  id: ID!
+  postID: ID! @index(name: "byPost", sortKeyFields: ["content"])
+  content: String!
+}

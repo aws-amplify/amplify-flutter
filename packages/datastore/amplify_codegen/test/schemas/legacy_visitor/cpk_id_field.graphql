@@ -1,0 +1,5 @@
+type ModelWithIDPlusSortKeys @model {
+  id: ID! @primaryKey(sortKeyFields: ["title", "rating"])
+  title: String!
+  rating: Int!
+}

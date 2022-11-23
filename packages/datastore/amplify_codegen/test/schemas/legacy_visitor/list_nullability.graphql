@@ -1,0 +1,9 @@
+type TestModel @model {
+  id: ID!
+  floatVal: Float!
+  floatNullableVal: Float
+  floatList: [Float!]!
+  floatNullableList: [Float!]
+  nullableFloatList: [Float]!
+  nullableFloatNullableList: [Float]
+}

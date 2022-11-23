@@ -1,0 +1,26 @@
+type Project @model {
+  projectId: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  team: Team @hasOne
+}
+
+type Team @model {
+  teamId: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  project: Project @belongsTo
+}
+
+type CpkOneToOneBidirectionalParent @model {
+  id: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  explicitChild: CpkOneToOneBidirectionalChildExplicit @hasOne
+}
+
+type CpkOneToOneBidirectionalChildExplicit @model {
+  id: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  belongsToParentID: ID
+  belongsToParentName: String
+  belongsToParent: CpkOneToOneBidirectionalParent
+    @belongsTo(fields: ["belongsToParentID", "belongsToParentName"])
+}
