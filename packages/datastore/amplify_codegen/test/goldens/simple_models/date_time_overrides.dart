@@ -28,7 +28,8 @@ class DateTimeOverridesType
 
   @override
   T fromJson<T extends PartialModel<String, DateTimeOverrides>>(
-      Map<String, Object?> json) {
+    Map<String, Object?> json,
+  ) {
     if (T == DateTimeOverrides || T == Model<String, DateTimeOverrides>) {
       return DateTimeOverrides.fromJson(json) as T;
     }
@@ -60,7 +61,8 @@ class DateTimeOverridesQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, String> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, String, DateTimeOverrides, String>(
         const QueryField<String, DateTimeOverrides, String>(
-            fieldName: 'createdAt'),
+          fieldName: 'createdAt',
+        ),
         root: _root,
       );
 
@@ -69,7 +71,8 @@ class DateTimeOverridesQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, String, DateTimeOverrides,
           TemporalDateTime>(
         const QueryField<String, DateTimeOverrides, TemporalDateTime>(
-            fieldName: 'updatedAt'),
+          fieldName: 'updatedAt',
+        ),
         root: _root,
       );
 
@@ -77,7 +80,8 @@ class DateTimeOverridesQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, String> get $modelIdentifier =>
       NestedQueryField<ModelIdentifier, M, String, DateTimeOverrides, String>(
         const QueryField<String, DateTimeOverrides, String>(
-            fieldName: 'modelIdentifier'),
+          fieldName: 'modelIdentifier',
+        ),
         root: _root,
       );
 }
@@ -113,7 +117,8 @@ abstract class PartialDateTimeOverrides
   String get runtimeTypeName => 'DateTimeOverrides';
   @override
   T valueFor<T extends Object?>(
-      QueryField<String, DateTimeOverrides, T> field) {
+    QueryField<String, DateTimeOverrides, T> field,
+  ) {
     Object? value;
     switch (field.fieldName) {
       case r'id':

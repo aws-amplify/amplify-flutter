@@ -28,7 +28,8 @@ class PowerSourceType
 
   @override
   T fromJson<T extends PartialModel<String, PowerSource>>(
-      Map<String, Object?> json) {
+    Map<String, Object?> json,
+  ) {
     if (T == PowerSource || T == Model<String, PowerSource>) {
       return PowerSource.fromJson(json) as T;
     }
@@ -74,7 +75,8 @@ class PowerSourceQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, String, PowerSource,
           TemporalDateTime>(
         const QueryField<String, PowerSource, TemporalDateTime>(
-            fieldName: 'createdAt'),
+          fieldName: 'createdAt',
+        ),
         root: _root,
       );
 
@@ -83,7 +85,8 @@ class PowerSourceQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, String, PowerSource,
           TemporalDateTime>(
         const QueryField<String, PowerSource, TemporalDateTime>(
-            fieldName: 'updatedAt'),
+          fieldName: 'updatedAt',
+        ),
         root: _root,
       );
 
@@ -91,7 +94,8 @@ class PowerSourceQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, String> get $modelIdentifier =>
       NestedQueryField<ModelIdentifier, M, String, PowerSource, String>(
         const QueryField<String, PowerSource, String>(
-            fieldName: 'modelIdentifier'),
+          fieldName: 'modelIdentifier',
+        ),
         root: _root,
       );
 }

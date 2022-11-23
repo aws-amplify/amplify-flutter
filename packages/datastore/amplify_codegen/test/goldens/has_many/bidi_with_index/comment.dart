@@ -60,7 +60,8 @@ class CommentType
 
   @override
   T fromJson<T extends PartialModel<CommentIdentifier, Comment>>(
-      Map<String, Object?> json) {
+    Map<String, Object?> json,
+  ) {
     if (T == Comment || T == Model<CommentIdentifier, Comment>) {
       return Comment.fromJson(json) as T;
     }
@@ -84,7 +85,8 @@ class CommentQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, String> get $commentId =>
       NestedQueryField<ModelIdentifier, M, CommentIdentifier, Comment, String>(
         const QueryField<CommentIdentifier, Comment, String>(
-            fieldName: 'commentId'),
+          fieldName: 'commentId',
+        ),
         root: _root,
       );
 
@@ -92,23 +94,25 @@ class CommentQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, String> get $content =>
       NestedQueryField<ModelIdentifier, M, CommentIdentifier, Comment, String>(
         const QueryField<CommentIdentifier, Comment, String>(
-            fieldName: 'content'),
+          fieldName: 'content',
+        ),
         root: _root,
       );
 
   /// Query field for the [Comment.post] field.
-  PostQueryFields<ModelIdentifier, M> get $post =>
-      PostQueryFields(NestedQueryField<ModelIdentifier, M, CommentIdentifier,
-          Comment, Post>(
-        const QueryField<CommentIdentifier, Comment, Post>(fieldName: 'post'),
-        root: _root,
-      ));
+  PostQueryFields<ModelIdentifier, M> get $post => PostQueryFields(
+        NestedQueryField<ModelIdentifier, M, CommentIdentifier, Comment, Post>(
+          const QueryField<CommentIdentifier, Comment, Post>(fieldName: 'post'),
+          root: _root,
+        ),
+      );
 
   /// Query field for the [Comment.postId] field.
   QueryField<ModelIdentifier, M, String> get $postId =>
       NestedQueryField<ModelIdentifier, M, CommentIdentifier, Comment, String>(
         const QueryField<CommentIdentifier, Comment, String>(
-            fieldName: 'postId'),
+          fieldName: 'postId',
+        ),
         root: _root,
       );
 
@@ -116,7 +120,8 @@ class CommentQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, String> get $postTitle =>
       NestedQueryField<ModelIdentifier, M, CommentIdentifier, Comment, String>(
         const QueryField<CommentIdentifier, Comment, String>(
-            fieldName: 'postTitle'),
+          fieldName: 'postTitle',
+        ),
         root: _root,
       );
 
@@ -125,7 +130,8 @@ class CommentQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, CommentIdentifier, Comment,
           TemporalDateTime>(
         const QueryField<CommentIdentifier, Comment, TemporalDateTime>(
-            fieldName: 'createdAt'),
+          fieldName: 'createdAt',
+        ),
         root: _root,
       );
 
@@ -134,7 +140,8 @@ class CommentQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, CommentIdentifier, Comment,
           TemporalDateTime>(
         const QueryField<CommentIdentifier, Comment, TemporalDateTime>(
-            fieldName: 'updatedAt'),
+          fieldName: 'updatedAt',
+        ),
         root: _root,
       );
 
@@ -143,7 +150,8 @@ class CommentQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, CommentIdentifier, Comment,
           CommentIdentifier>(
         const QueryField<CommentIdentifier, Comment, CommentIdentifier>(
-            fieldName: 'modelIdentifier'),
+          fieldName: 'modelIdentifier',
+        ),
         root: _root,
       );
 }
@@ -193,7 +201,8 @@ abstract class PartialComment extends PartialModel<CommentIdentifier, Comment>
   String get runtimeTypeName => 'Comment';
   @override
   T valueFor<T extends Object?>(
-      QueryField<CommentIdentifier, Comment, T> field) {
+    QueryField<CommentIdentifier, Comment, T> field,
+  ) {
     Object? value;
     switch (field.fieldName) {
       case r'commentId':

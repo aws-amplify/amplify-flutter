@@ -28,7 +28,8 @@ class ScalarModelType
 
   @override
   T fromJson<T extends PartialModel<String, ScalarModel>>(
-      Map<String, Object?> json) {
+    Map<String, Object?> json,
+  ) {
     if (T == ScalarModel || T == Model<String, ScalarModel>) {
       return ScalarModel.fromJson(json) as T;
     }
@@ -80,7 +81,8 @@ class ScalarModelQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, int> get $requiredInteger =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, int>(
         const QueryField<String, ScalarModel, int>(
-            fieldName: 'requiredInteger'),
+          fieldName: 'requiredInteger',
+        ),
         root: _root,
       );
 
@@ -95,7 +97,8 @@ class ScalarModelQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, double> get $requiredFloat =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, double>(
         const QueryField<String, ScalarModel, double>(
-            fieldName: 'requiredFloat'),
+          fieldName: 'requiredFloat',
+        ),
         root: _root,
       );
 
@@ -110,7 +113,8 @@ class ScalarModelQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, bool> get $requiredBoolean =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, bool>(
         const QueryField<String, ScalarModel, bool>(
-            fieldName: 'requiredBoolean'),
+          fieldName: 'requiredBoolean',
+        ),
         root: _root,
       );
 
@@ -118,7 +122,8 @@ class ScalarModelQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, TemporalDate?> get $awsDate =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, TemporalDate?>(
         const QueryField<String, ScalarModel, TemporalDate?>(
-            fieldName: 'awsDate'),
+          fieldName: 'awsDate',
+        ),
         root: _root,
       );
 
@@ -126,7 +131,8 @@ class ScalarModelQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, TemporalDate> get $requiredAwsDate =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, TemporalDate>(
         const QueryField<String, ScalarModel, TemporalDate>(
-            fieldName: 'requiredAwsDate'),
+          fieldName: 'requiredAwsDate',
+        ),
         root: _root,
       );
 
@@ -135,7 +141,8 @@ class ScalarModelQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, String, ScalarModel,
           TemporalDateTime?>(
         const QueryField<String, ScalarModel, TemporalDateTime?>(
-            fieldName: 'awsDateTime'),
+          fieldName: 'awsDateTime',
+        ),
         root: _root,
       );
 
@@ -144,7 +151,8 @@ class ScalarModelQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, String, ScalarModel,
           TemporalDateTime>(
         const QueryField<String, ScalarModel, TemporalDateTime>(
-            fieldName: 'requiredAwsDateTime'),
+          fieldName: 'requiredAwsDateTime',
+        ),
         root: _root,
       );
 
@@ -152,7 +160,8 @@ class ScalarModelQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, TemporalTime?> get $awsTime =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, TemporalTime?>(
         const QueryField<String, ScalarModel, TemporalTime?>(
-            fieldName: 'awsTime'),
+          fieldName: 'awsTime',
+        ),
         root: _root,
       );
 
@@ -160,7 +169,8 @@ class ScalarModelQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, TemporalTime> get $requiredAwsTime =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, TemporalTime>(
         const QueryField<String, ScalarModel, TemporalTime>(
-            fieldName: 'requiredAwsTime'),
+          fieldName: 'requiredAwsTime',
+        ),
         root: _root,
       );
 
@@ -169,7 +179,8 @@ class ScalarModelQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, String, ScalarModel,
           TemporalTimestamp?>(
         const QueryField<String, ScalarModel, TemporalTimestamp?>(
-            fieldName: 'awsTimestamp'),
+          fieldName: 'awsTimestamp',
+        ),
         root: _root,
       );
 
@@ -178,7 +189,8 @@ class ScalarModelQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, String, ScalarModel,
           TemporalTimestamp>(
         const QueryField<String, ScalarModel, TemporalTimestamp>(
-            fieldName: 'requiredAwsTimestamp'),
+          fieldName: 'requiredAwsTimestamp',
+        ),
         root: _root,
       );
 
@@ -193,7 +205,8 @@ class ScalarModelQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, String> get $requiredAwsEmail =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, String>(
         const QueryField<String, ScalarModel, String>(
-            fieldName: 'requiredAwsEmail'),
+          fieldName: 'requiredAwsEmail',
+        ),
         root: _root,
       );
 
@@ -208,7 +221,8 @@ class ScalarModelQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, Object> get $requiredAwsJson =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, Object>(
         const QueryField<String, ScalarModel, Object>(
-            fieldName: 'requiredAwsJson'),
+          fieldName: 'requiredAwsJson',
+        ),
         root: _root,
       );
 
@@ -223,7 +237,8 @@ class ScalarModelQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, String> get $requiredAwsPhone =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, String>(
         const QueryField<String, ScalarModel, String>(
-            fieldName: 'requiredAwsPhone'),
+          fieldName: 'requiredAwsPhone',
+        ),
         root: _root,
       );
 
@@ -245,7 +260,8 @@ class ScalarModelQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, String?> get $awsIpAddress =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, String?>(
         const QueryField<String, ScalarModel, String?>(
-            fieldName: 'awsIpAddress'),
+          fieldName: 'awsIpAddress',
+        ),
         root: _root,
       );
 
@@ -253,7 +269,8 @@ class ScalarModelQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, String> get $requiredAwsIpAddress =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, String>(
         const QueryField<String, ScalarModel, String>(
-            fieldName: 'requiredAwsIpAddress'),
+          fieldName: 'requiredAwsIpAddress',
+        ),
         root: _root,
       );
 
@@ -262,7 +279,8 @@ class ScalarModelQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, String, ScalarModel,
           TemporalDateTime>(
         const QueryField<String, ScalarModel, TemporalDateTime>(
-            fieldName: 'createdAt'),
+          fieldName: 'createdAt',
+        ),
         root: _root,
       );
 
@@ -271,7 +289,8 @@ class ScalarModelQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, String, ScalarModel,
           TemporalDateTime>(
         const QueryField<String, ScalarModel, TemporalDateTime>(
-            fieldName: 'updatedAt'),
+          fieldName: 'updatedAt',
+        ),
         root: _root,
       );
 
@@ -279,7 +298,8 @@ class ScalarModelQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, String> get $modelIdentifier =>
       NestedQueryField<ModelIdentifier, M, String, ScalarModel, String>(
         const QueryField<String, ScalarModel, String>(
-            fieldName: 'modelIdentifier'),
+          fieldName: 'modelIdentifier',
+        ),
         root: _root,
       );
 }

@@ -64,16 +64,18 @@ class Team2QueryFields<ModelIdentifier extends Object,
 
   /// Query field for the [Team2.project] field.
   Project2QueryFields<ModelIdentifier, M> get $project => Project2QueryFields(
-          NestedQueryField<ModelIdentifier, M, String, Team2, Project2>(
-        const QueryField<String, Team2, Project2>(fieldName: 'project'),
-        root: _root,
-      ));
+        NestedQueryField<ModelIdentifier, M, String, Team2, Project2>(
+          const QueryField<String, Team2, Project2>(fieldName: 'project'),
+          root: _root,
+        ),
+      );
 
   /// Query field for the [Team2.createdAt] field.
   QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, String, Team2, TemporalDateTime>(
         const QueryField<String, Team2, TemporalDateTime>(
-            fieldName: 'createdAt'),
+          fieldName: 'createdAt',
+        ),
         root: _root,
       );
 
@@ -81,7 +83,8 @@ class Team2QueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, TemporalDateTime> get $updatedAt =>
       NestedQueryField<ModelIdentifier, M, String, Team2, TemporalDateTime>(
         const QueryField<String, Team2, TemporalDateTime>(
-            fieldName: 'updatedAt'),
+          fieldName: 'updatedAt',
+        ),
         root: _root,
       );
 
@@ -198,7 +201,8 @@ class _PartialTeam2 extends PartialTeam2 {
     final project = json['project'] == null
         ? null
         : Project2.classType.fromJson<PartialProject2>(
-            (json['project'] as Map<String, Object?>));
+            (json['project'] as Map<String, Object?>),
+          );
     return _PartialTeam2(
       id: id,
       name: name,
@@ -444,7 +448,8 @@ class _RemoteTeam2 extends RemoteTeam2 {
             'project',
           ))
         : Project2.classType.fromJson<RemoteProject2>(
-            (json['project'] as Map<String, Object?>));
+            (json['project'] as Map<String, Object?>),
+          );
     return _RemoteTeam2(
       id: id,
       name: name,

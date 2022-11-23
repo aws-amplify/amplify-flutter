@@ -63,17 +63,19 @@ class BlogQueryFields<ModelIdentifier extends Object,
       );
 
   /// Query field for the [Blog.posts] field.
-  PostQueryFields<ModelIdentifier, M> get $posts =>
-      PostQueryFields(NestedQueryField<ModelIdentifier, M, String, Blog, Post>(
-        const QueryField<String, Blog, Post>(fieldName: 'posts'),
-        root: _root,
-      ));
+  PostQueryFields<ModelIdentifier, M> get $posts => PostQueryFields(
+        NestedQueryField<ModelIdentifier, M, String, Blog, Post>(
+          const QueryField<String, Blog, Post>(fieldName: 'posts'),
+          root: _root,
+        ),
+      );
 
   /// Query field for the [Blog.createdAt] field.
   QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, String, Blog, TemporalDateTime>(
         const QueryField<String, Blog, TemporalDateTime>(
-            fieldName: 'createdAt'),
+          fieldName: 'createdAt',
+        ),
         root: _root,
       );
 
@@ -81,7 +83,8 @@ class BlogQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, TemporalDateTime> get $updatedAt =>
       NestedQueryField<ModelIdentifier, M, String, Blog, TemporalDateTime>(
         const QueryField<String, Blog, TemporalDateTime>(
-            fieldName: 'updatedAt'),
+          fieldName: 'updatedAt',
+        ),
         root: _root,
       );
 
@@ -183,11 +186,14 @@ class _PartialBlog extends PartialBlog {
         : AsyncModelCollection<String, Post, PartialPost, PartialPost>.fromList(
             (json['posts'] as List<Object?>)
                 .cast<Map<String, Object?>?>()
-                .map((el) => el == null
-                    ? null
-                    : Post.classType.fromJson<PartialPost>(el))
+                .map(
+                  (el) => el == null
+                      ? null
+                      : Post.classType.fromJson<PartialPost>(el),
+                )
                 .whereType<PartialPost>()
-                .toList());
+                .toList(),
+          );
     return _PartialBlog(
       id: id,
       name: name,
@@ -249,12 +255,14 @@ abstract class Blog extends PartialBlog implements Model<String, Blog> {
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final posts = json['posts'] == null
         ? null
-        : AsyncModelCollection<String, Post, PartialPost, Post>.fromList((json[
-                'posts'] as List<Object?>)
-            .cast<Map<String, Object?>?>()
-            .map((el) => el == null ? null : Post.classType.fromJson<Post>(el))
-            .whereType<Post>()
-            .toList());
+        : AsyncModelCollection<String, Post, PartialPost, Post>.fromList(
+            (json['posts'] as List<Object?>)
+                .cast<Map<String, Object?>?>()
+                .map((el) =>
+                    el == null ? null : Post.classType.fromJson<Post>(el))
+                .whereType<Post>()
+                .toList(),
+          );
     return _Blog._(
       id: id,
       name: name,
@@ -408,10 +416,14 @@ class _RemoteBlog extends RemoteBlog {
         : AsyncModelCollection<String, Post, PartialPost, RemotePost>.fromList(
             (json['posts'] as List<Object?>)
                 .cast<Map<String, Object?>?>()
-                .map((el) =>
-                    el == null ? null : Post.classType.fromJson<RemotePost>(el))
+                .map(
+                  (el) => el == null
+                      ? null
+                      : Post.classType.fromJson<RemotePost>(el),
+                )
                 .whereType<RemotePost>()
-                .toList());
+                .toList(),
+          );
     return _RemoteBlog(
       id: id,
       name: name,

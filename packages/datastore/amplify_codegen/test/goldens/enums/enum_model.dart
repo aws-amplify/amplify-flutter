@@ -29,7 +29,8 @@ class EnumModelType extends ModelType<String, EnumModel, PartialEnumModel> {
 
   @override
   T fromJson<T extends PartialModel<String, EnumModel>>(
-      Map<String, Object?> json) {
+    Map<String, Object?> json,
+  ) {
     if (T == EnumModel || T == Model<String, EnumModel>) {
       return EnumModel.fromJson(json) as T;
     }
@@ -74,7 +75,8 @@ class EnumModelQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, String, EnumModel, TemporalDateTime>(
         const QueryField<String, EnumModel, TemporalDateTime>(
-            fieldName: 'createdAt'),
+          fieldName: 'createdAt',
+        ),
         root: _root,
       );
 
@@ -82,7 +84,8 @@ class EnumModelQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, TemporalDateTime> get $updatedAt =>
       NestedQueryField<ModelIdentifier, M, String, EnumModel, TemporalDateTime>(
         const QueryField<String, EnumModel, TemporalDateTime>(
-            fieldName: 'updatedAt'),
+          fieldName: 'updatedAt',
+        ),
         root: _root,
       );
 
@@ -90,7 +93,8 @@ class EnumModelQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, String> get $modelIdentifier =>
       NestedQueryField<ModelIdentifier, M, String, EnumModel, String>(
         const QueryField<String, EnumModel, String>(
-            fieldName: 'modelIdentifier'),
+          fieldName: 'modelIdentifier',
+        ),
         root: _root,
       );
 }

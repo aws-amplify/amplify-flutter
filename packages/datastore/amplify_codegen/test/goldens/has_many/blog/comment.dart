@@ -29,7 +29,8 @@ class CommentType extends ModelType<String, Comment, PartialComment> {
 
   @override
   T fromJson<T extends PartialModel<String, Comment>>(
-      Map<String, Object?> json) {
+    Map<String, Object?> json,
+  ) {
     if (T == Comment || T == Model<String, Comment>) {
       return Comment.fromJson(json) as T;
     }
@@ -58,10 +59,11 @@ class CommentQueryFields<ModelIdentifier extends Object,
 
   /// Query field for the [Comment.post] field.
   PostQueryFields<ModelIdentifier, M> get $post => PostQueryFields(
-          NestedQueryField<ModelIdentifier, M, String, Comment, Post>(
-        const QueryField<String, Comment, Post>(fieldName: 'post'),
-        root: _root,
-      ));
+        NestedQueryField<ModelIdentifier, M, String, Comment, Post>(
+          const QueryField<String, Comment, Post>(fieldName: 'post'),
+          root: _root,
+        ),
+      );
 
   /// Query field for the [Comment.content] field.
   QueryField<ModelIdentifier, M, String> get $content =>
@@ -74,7 +76,8 @@ class CommentQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, String, Comment, TemporalDateTime>(
         const QueryField<String, Comment, TemporalDateTime>(
-            fieldName: 'createdAt'),
+          fieldName: 'createdAt',
+        ),
         root: _root,
       );
 
@@ -82,7 +85,8 @@ class CommentQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, TemporalDateTime> get $updatedAt =>
       NestedQueryField<ModelIdentifier, M, String, Comment, TemporalDateTime>(
         const QueryField<String, Comment, TemporalDateTime>(
-            fieldName: 'updatedAt'),
+          fieldName: 'updatedAt',
+        ),
         root: _root,
       );
 

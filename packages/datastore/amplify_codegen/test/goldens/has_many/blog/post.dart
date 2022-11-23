@@ -64,24 +64,27 @@ class PostQueryFields<ModelIdentifier extends Object,
       );
 
   /// Query field for the [Post.blog] field.
-  BlogQueryFields<ModelIdentifier, M> get $blog =>
-      BlogQueryFields(NestedQueryField<ModelIdentifier, M, String, Post, Blog>(
-        const QueryField<String, Post, Blog>(fieldName: 'blog'),
-        root: _root,
-      ));
+  BlogQueryFields<ModelIdentifier, M> get $blog => BlogQueryFields(
+        NestedQueryField<ModelIdentifier, M, String, Post, Blog>(
+          const QueryField<String, Post, Blog>(fieldName: 'blog'),
+          root: _root,
+        ),
+      );
 
   /// Query field for the [Post.comments] field.
   CommentQueryFields<ModelIdentifier, M> get $comments => CommentQueryFields(
-          NestedQueryField<ModelIdentifier, M, String, Post, Comment>(
-        const QueryField<String, Post, Comment>(fieldName: 'comments'),
-        root: _root,
-      ));
+        NestedQueryField<ModelIdentifier, M, String, Post, Comment>(
+          const QueryField<String, Post, Comment>(fieldName: 'comments'),
+          root: _root,
+        ),
+      );
 
   /// Query field for the [Post.createdAt] field.
   QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, String, Post, TemporalDateTime>(
         const QueryField<String, Post, TemporalDateTime>(
-            fieldName: 'createdAt'),
+          fieldName: 'createdAt',
+        ),
         root: _root,
       );
 
@@ -89,7 +92,8 @@ class PostQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, TemporalDateTime> get $updatedAt =>
       NestedQueryField<ModelIdentifier, M, String, Post, TemporalDateTime>(
         const QueryField<String, Post, TemporalDateTime>(
-            fieldName: 'updatedAt'),
+          fieldName: 'updatedAt',
+        ),
         root: _root,
       );
 
@@ -217,14 +221,17 @@ class _PartialPost extends PartialPost {
     final comments = json['comments'] == null
         ? null
         : AsyncModelCollection<String, Comment, PartialComment,
-                PartialComment>.fromList(
+            PartialComment>.fromList(
             (json['comments'] as List<Object?>)
                 .cast<Map<String, Object?>?>()
-                .map((el) => el == null
-                    ? null
-                    : Comment.classType.fromJson<PartialComment>(el))
+                .map(
+                  (el) => el == null
+                      ? null
+                      : Comment.classType.fromJson<PartialComment>(el),
+                )
                 .whereType<PartialComment>()
-                .toList());
+                .toList(),
+          );
     return _PartialPost(
       id: id,
       title: title,
@@ -302,13 +309,17 @@ abstract class Post extends PartialPost implements Model<String, Post> {
     final comments = json['comments'] == null
         ? null
         : AsyncModelCollection<String, Comment, PartialComment,
-                Comment>.fromList(
+            Comment>.fromList(
             (json['comments'] as List<Object?>)
                 .cast<Map<String, Object?>?>()
-                .map((el) =>
-                    el == null ? null : Comment.classType.fromJson<Comment>(el))
+                .map(
+                  (el) => el == null
+                      ? null
+                      : Comment.classType.fromJson<Comment>(el),
+                )
                 .whereType<Comment>()
-                .toList());
+                .toList(),
+          );
     return _Post._(
       id: id,
       title: title,
@@ -493,14 +504,17 @@ class _RemotePost extends RemotePost {
     final comments = json['comments'] == null
         ? null
         : AsyncModelCollection<String, Comment, PartialComment,
-                RemoteComment>.fromList(
+            RemoteComment>.fromList(
             (json['comments'] as List<Object?>)
                 .cast<Map<String, Object?>?>()
-                .map((el) => el == null
-                    ? null
-                    : Comment.classType.fromJson<RemoteComment>(el))
+                .map(
+                  (el) => el == null
+                      ? null
+                      : Comment.classType.fromJson<RemoteComment>(el),
+                )
                 .whereType<RemoteComment>()
-                .toList());
+                .toList(),
+          );
     return _RemotePost(
       id: id,
       title: title,

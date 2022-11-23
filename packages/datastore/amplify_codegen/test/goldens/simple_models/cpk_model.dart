@@ -58,7 +58,8 @@ class CpkModelType
 
   @override
   T fromJson<T extends PartialModel<CpkModelIdentifier, CpkModel>>(
-      Map<String, Object?> json) {
+    Map<String, Object?> json,
+  ) {
     if (T == CpkModel || T == Model<CpkModelIdentifier, CpkModel>) {
       return CpkModel.fromJson(json) as T;
     }
@@ -82,7 +83,8 @@ class CpkModelQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, String> get $firstName => NestedQueryField<
           ModelIdentifier, M, CpkModelIdentifier, CpkModel, String>(
         const QueryField<CpkModelIdentifier, CpkModel, String>(
-            fieldName: 'firstName'),
+          fieldName: 'firstName',
+        ),
         root: _root,
       );
 
@@ -90,7 +92,8 @@ class CpkModelQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, String> get $lastName => NestedQueryField<
           ModelIdentifier, M, CpkModelIdentifier, CpkModel, String>(
         const QueryField<CpkModelIdentifier, CpkModel, String>(
-            fieldName: 'lastName'),
+          fieldName: 'lastName',
+        ),
         root: _root,
       );
 
@@ -99,7 +102,8 @@ class CpkModelQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, CpkModelIdentifier, CpkModel,
           TemporalDateTime>(
         const QueryField<CpkModelIdentifier, CpkModel, TemporalDateTime>(
-            fieldName: 'createdAt'),
+          fieldName: 'createdAt',
+        ),
         root: _root,
       );
 
@@ -108,7 +112,8 @@ class CpkModelQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, CpkModelIdentifier, CpkModel,
           TemporalDateTime>(
         const QueryField<CpkModelIdentifier, CpkModel, TemporalDateTime>(
-            fieldName: 'updatedAt'),
+          fieldName: 'updatedAt',
+        ),
         root: _root,
       );
 
@@ -117,7 +122,8 @@ class CpkModelQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, CpkModelIdentifier, CpkModel,
           CpkModelIdentifier>(
         const QueryField<CpkModelIdentifier, CpkModel, CpkModelIdentifier>(
-            fieldName: 'modelIdentifier'),
+          fieldName: 'modelIdentifier',
+        ),
         root: _root,
       );
 }
@@ -159,7 +165,8 @@ abstract class PartialCpkModel
   String get runtimeTypeName => 'CpkModel';
   @override
   T valueFor<T extends Object?>(
-      QueryField<CpkModelIdentifier, CpkModel, T> field) {
+    QueryField<CpkModelIdentifier, CpkModel, T> field,
+  ) {
     Object? value;
     switch (field.fieldName) {
       case r'firstName':
