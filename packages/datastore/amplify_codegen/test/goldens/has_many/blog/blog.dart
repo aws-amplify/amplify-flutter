@@ -130,32 +130,6 @@ abstract class PartialBlog extends PartialModel<String, Blog>
       };
   @override
   String get runtimeTypeName => 'Blog';
-  @override
-  T valueFor<T extends Object?>(QueryField<String, Blog, T> field) {
-    Object? value;
-    switch (field.fieldName) {
-      case r'id':
-        value = id;
-        break;
-      case r'name':
-        value = name;
-        break;
-      case r'posts':
-        value = posts;
-        break;
-      case r'createdAt':
-        value = createdAt;
-        break;
-      case r'updatedAt':
-        value = updatedAt;
-        break;
-    }
-    assert(
-      value is T,
-      'Invalid field ${field.fieldName}: $value (expected $T)',
-    );
-    return value as T;
-  }
 }
 
 class _PartialBlog extends PartialBlog {
@@ -315,6 +289,32 @@ abstract class Blog extends PartialBlog implements Model<String, Blog> {
   /// Query field for the [modelIdentifier] field.
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, Blog, String> get MODEL_IDENTIFIER => $modelIdentifier;
+  @override
+  T valueFor<T extends Object?>(QueryField<String, Blog, T> field) {
+    Object? value;
+    switch (field.fieldName) {
+      case r'id':
+        value = id;
+        break;
+      case r'name':
+        value = name;
+        break;
+      case r'posts':
+        value = posts;
+        break;
+      case r'createdAt':
+        value = createdAt;
+        break;
+      case r'updatedAt':
+        value = updatedAt;
+        break;
+    }
+    assert(
+      value is T,
+      'Invalid field ${field.fieldName}: $value (expected $T)',
+    );
+    return value as T;
+  }
 }
 
 class _Blog extends Blog {

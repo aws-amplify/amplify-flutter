@@ -157,35 +157,6 @@ abstract class PartialBatteryCharger
       };
   @override
   String get runtimeTypeName => 'BatteryCharger';
-  @override
-  T valueFor<T extends Object?>(QueryField<String, BatteryCharger, T> field) {
-    Object? value;
-    switch (field.fieldName) {
-      case r'chargerID':
-        value = chargerId;
-        break;
-      case r'powerSourceID':
-        value = powerSourceId;
-        break;
-      case r'powerSource':
-        value = powerSource;
-        break;
-      case r'createdAt':
-        value = createdAt;
-        break;
-      case r'updatedAt':
-        value = updatedAt;
-        break;
-      case r'id':
-        value = id;
-        break;
-    }
-    assert(
-      value is T,
-      'Invalid field ${field.fieldName}: $value (expected $T)',
-    );
-    return value as T;
-  }
 }
 
 class _PartialBatteryCharger extends PartialBatteryCharger {
@@ -371,6 +342,35 @@ abstract class BatteryCharger extends PartialBatteryCharger
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, BatteryCharger, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  @override
+  T valueFor<T extends Object?>(QueryField<String, BatteryCharger, T> field) {
+    Object? value;
+    switch (field.fieldName) {
+      case r'chargerID':
+        value = chargerId;
+        break;
+      case r'powerSourceID':
+        value = powerSourceId;
+        break;
+      case r'powerSource':
+        value = powerSource;
+        break;
+      case r'createdAt':
+        value = createdAt;
+        break;
+      case r'updatedAt':
+        value = updatedAt;
+        break;
+      case r'id':
+        value = id;
+        break;
+    }
+    assert(
+      value is T,
+      'Invalid field ${field.fieldName}: $value (expected $T)',
+    );
+    return value as T;
+  }
 }
 
 class _BatteryCharger extends BatteryCharger {

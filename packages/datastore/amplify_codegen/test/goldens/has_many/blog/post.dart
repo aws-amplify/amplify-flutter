@@ -153,38 +153,6 @@ abstract class PartialPost extends PartialModel<String, Post>
       };
   @override
   String get runtimeTypeName => 'Post';
-  @override
-  T valueFor<T extends Object?>(QueryField<String, Post, T> field) {
-    Object? value;
-    switch (field.fieldName) {
-      case r'id':
-        value = id;
-        break;
-      case r'title':
-        value = title;
-        break;
-      case r'blog':
-        value = blog;
-        break;
-      case r'comments':
-        value = comments;
-        break;
-      case r'createdAt':
-        value = createdAt;
-        break;
-      case r'updatedAt':
-        value = updatedAt;
-        break;
-      case r'blogPostsId':
-        value = blogPostsId;
-        break;
-    }
-    assert(
-      value is T,
-      'Invalid field ${field.fieldName}: $value (expected $T)',
-    );
-    return value as T;
-  }
 }
 
 class _PartialPost extends PartialPost {
@@ -399,6 +367,38 @@ abstract class Post extends PartialPost implements Model<String, Post> {
   /// Query field for the [modelIdentifier] field.
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, Post, String> get MODEL_IDENTIFIER => $modelIdentifier;
+  @override
+  T valueFor<T extends Object?>(QueryField<String, Post, T> field) {
+    Object? value;
+    switch (field.fieldName) {
+      case r'id':
+        value = id;
+        break;
+      case r'title':
+        value = title;
+        break;
+      case r'blog':
+        value = blog;
+        break;
+      case r'comments':
+        value = comments;
+        break;
+      case r'createdAt':
+        value = createdAt;
+        break;
+      case r'updatedAt':
+        value = updatedAt;
+        break;
+      case r'blogPostsId':
+        value = blogPostsId;
+        break;
+    }
+    assert(
+      value is T,
+      'Invalid field ${field.fieldName}: $value (expected $T)',
+    );
+    return value as T;
+  }
 }
 
 class _Post extends Post {

@@ -197,40 +197,6 @@ abstract class PartialProject extends PartialModel<ProjectIdentifier, Project>
       };
   @override
   String get runtimeTypeName => 'Project';
-  @override
-  T valueFor<T extends Object?>(
-    QueryField<ProjectIdentifier, Project, T> field,
-  ) {
-    Object? value;
-    switch (field.fieldName) {
-      case r'projectId':
-        value = projectId;
-        break;
-      case r'name':
-        value = name;
-        break;
-      case r'team':
-        value = team;
-        break;
-      case r'createdAt':
-        value = createdAt;
-        break;
-      case r'updatedAt':
-        value = updatedAt;
-        break;
-      case r'projectTeamTeamId':
-        value = projectTeamTeamId;
-        break;
-      case r'projectTeamName':
-        value = projectTeamName;
-        break;
-    }
-    assert(
-      value is T,
-      'Invalid field ${field.fieldName}: $value (expected $T)',
-    );
-    return value as T;
-  }
 }
 
 class _PartialProject extends PartialProject {
@@ -437,6 +403,40 @@ abstract class Project extends PartialProject
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<ProjectIdentifier, Project, ProjectIdentifier>
       get MODEL_IDENTIFIER => $modelIdentifier;
+  @override
+  T valueFor<T extends Object?>(
+    QueryField<ProjectIdentifier, Project, T> field,
+  ) {
+    Object? value;
+    switch (field.fieldName) {
+      case r'projectId':
+        value = projectId;
+        break;
+      case r'name':
+        value = name;
+        break;
+      case r'team':
+        value = team;
+        break;
+      case r'createdAt':
+        value = createdAt;
+        break;
+      case r'updatedAt':
+        value = updatedAt;
+        break;
+      case r'projectTeamTeamId':
+        value = projectTeamTeamId;
+        break;
+      case r'projectTeamName':
+        value = projectTeamName;
+        break;
+    }
+    assert(
+      value is T,
+      'Invalid field ${field.fieldName}: $value (expected $T)',
+    );
+    return value as T;
+  }
 }
 
 class _Project extends Project {

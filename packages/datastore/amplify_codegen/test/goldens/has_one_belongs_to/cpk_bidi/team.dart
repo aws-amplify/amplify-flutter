@@ -195,38 +195,6 @@ abstract class PartialTeam extends PartialModel<TeamIdentifier, Team>
       };
   @override
   String get runtimeTypeName => 'Team';
-  @override
-  T valueFor<T extends Object?>(QueryField<TeamIdentifier, Team, T> field) {
-    Object? value;
-    switch (field.fieldName) {
-      case r'teamId':
-        value = teamId;
-        break;
-      case r'name':
-        value = name;
-        break;
-      case r'project':
-        value = project;
-        break;
-      case r'createdAt':
-        value = createdAt;
-        break;
-      case r'updatedAt':
-        value = updatedAt;
-        break;
-      case r'teamProjectProjectId':
-        value = teamProjectProjectId;
-        break;
-      case r'teamProjectName':
-        value = teamProjectName;
-        break;
-    }
-    assert(
-      value is T,
-      'Invalid field ${field.fieldName}: $value (expected $T)',
-    );
-    return value as T;
-  }
 }
 
 class _PartialTeam extends PartialTeam {
@@ -435,6 +403,38 @@ abstract class Team extends PartialTeam implements Model<TeamIdentifier, Team> {
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<TeamIdentifier, Team, TeamIdentifier> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  @override
+  T valueFor<T extends Object?>(QueryField<TeamIdentifier, Team, T> field) {
+    Object? value;
+    switch (field.fieldName) {
+      case r'teamId':
+        value = teamId;
+        break;
+      case r'name':
+        value = name;
+        break;
+      case r'project':
+        value = project;
+        break;
+      case r'createdAt':
+        value = createdAt;
+        break;
+      case r'updatedAt':
+        value = updatedAt;
+        break;
+      case r'teamProjectProjectId':
+        value = teamProjectProjectId;
+        break;
+      case r'teamProjectName':
+        value = teamProjectName;
+        break;
+    }
+    assert(
+      value is T,
+      'Invalid field ${field.fieldName}: $value (expected $T)',
+    );
+    return value as T;
+  }
 }
 
 class _Team extends Team {

@@ -163,31 +163,6 @@ abstract class PartialCpkModel
       };
   @override
   String get runtimeTypeName => 'CpkModel';
-  @override
-  T valueFor<T extends Object?>(
-    QueryField<CpkModelIdentifier, CpkModel, T> field,
-  ) {
-    Object? value;
-    switch (field.fieldName) {
-      case r'firstName':
-        value = firstName;
-        break;
-      case r'lastName':
-        value = lastName;
-        break;
-      case r'createdAt':
-        value = createdAt;
-        break;
-      case r'updatedAt':
-        value = updatedAt;
-        break;
-    }
-    assert(
-      value is T,
-      'Invalid field ${field.fieldName}: $value (expected $T)',
-    );
-    return value as T;
-  }
 }
 
 class _PartialCpkModel extends PartialCpkModel {
@@ -318,6 +293,31 @@ abstract class CpkModel extends PartialCpkModel
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<CpkModelIdentifier, CpkModel, CpkModelIdentifier>
       get MODEL_IDENTIFIER => $modelIdentifier;
+  @override
+  T valueFor<T extends Object?>(
+    QueryField<CpkModelIdentifier, CpkModel, T> field,
+  ) {
+    Object? value;
+    switch (field.fieldName) {
+      case r'firstName':
+        value = firstName;
+        break;
+      case r'lastName':
+        value = lastName;
+        break;
+      case r'createdAt':
+        value = createdAt;
+        break;
+      case r'updatedAt':
+        value = updatedAt;
+        break;
+    }
+    assert(
+      value is T,
+      'Invalid field ${field.fieldName}: $value (expected $T)',
+    );
+    return value as T;
+  }
 }
 
 class _CpkModel extends CpkModel {

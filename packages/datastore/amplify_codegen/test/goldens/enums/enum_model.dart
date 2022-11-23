@@ -133,32 +133,6 @@ abstract class PartialEnumModel extends PartialModel<String, EnumModel>
       };
   @override
   String get runtimeTypeName => 'EnumModel';
-  @override
-  T valueFor<T extends Object?>(QueryField<String, EnumModel, T> field) {
-    Object? value;
-    switch (field.fieldName) {
-      case r'id':
-        value = id;
-        break;
-      case r'enum':
-        value = enum_;
-        break;
-      case r'requiredEnum':
-        value = requiredEnum;
-        break;
-      case r'createdAt':
-        value = createdAt;
-        break;
-      case r'updatedAt':
-        value = updatedAt;
-        break;
-    }
-    assert(
-      value is T,
-      'Invalid field ${field.fieldName}: $value (expected $T)',
-    );
-    return value as T;
-  }
 }
 
 class _PartialEnumModel extends PartialEnumModel {
@@ -305,6 +279,32 @@ abstract class EnumModel extends PartialEnumModel
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, EnumModel, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  @override
+  T valueFor<T extends Object?>(QueryField<String, EnumModel, T> field) {
+    Object? value;
+    switch (field.fieldName) {
+      case r'id':
+        value = id;
+        break;
+      case r'enum':
+        value = enum_;
+        break;
+      case r'requiredEnum':
+        value = requiredEnum;
+        break;
+      case r'createdAt':
+        value = createdAt;
+        break;
+      case r'updatedAt':
+        value = updatedAt;
+        break;
+    }
+    assert(
+      value is T,
+      'Invalid field ${field.fieldName}: $value (expected $T)',
+    );
+    return value as T;
+  }
 }
 
 class _EnumModel extends EnumModel {

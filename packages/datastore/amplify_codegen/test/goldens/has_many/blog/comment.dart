@@ -142,35 +142,6 @@ abstract class PartialComment extends PartialModel<String, Comment>
       };
   @override
   String get runtimeTypeName => 'Comment';
-  @override
-  T valueFor<T extends Object?>(QueryField<String, Comment, T> field) {
-    Object? value;
-    switch (field.fieldName) {
-      case r'id':
-        value = id;
-        break;
-      case r'post':
-        value = post;
-        break;
-      case r'content':
-        value = content;
-        break;
-      case r'createdAt':
-        value = createdAt;
-        break;
-      case r'updatedAt':
-        value = updatedAt;
-        break;
-      case r'postCommentsId':
-        value = postCommentsId;
-        break;
-    }
-    assert(
-      value is T,
-      'Invalid field ${field.fieldName}: $value (expected $T)',
-    );
-    return value as T;
-  }
 }
 
 class _PartialComment extends PartialComment {
@@ -345,6 +316,35 @@ abstract class Comment extends PartialComment
   /// Query field for the [modelIdentifier] field.
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, Comment, String> get MODEL_IDENTIFIER => $modelIdentifier;
+  @override
+  T valueFor<T extends Object?>(QueryField<String, Comment, T> field) {
+    Object? value;
+    switch (field.fieldName) {
+      case r'id':
+        value = id;
+        break;
+      case r'post':
+        value = post;
+        break;
+      case r'content':
+        value = content;
+        break;
+      case r'createdAt':
+        value = createdAt;
+        break;
+      case r'updatedAt':
+        value = updatedAt;
+        break;
+      case r'postCommentsId':
+        value = postCommentsId;
+        break;
+    }
+    assert(
+      value is T,
+      'Invalid field ${field.fieldName}: $value (expected $T)',
+    );
+    return value as T;
+  }
 }
 
 class _Comment extends Comment {
