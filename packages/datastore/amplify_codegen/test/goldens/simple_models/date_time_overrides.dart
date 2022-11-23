@@ -115,28 +115,6 @@ abstract class PartialDateTimeOverrides
       };
   @override
   String get runtimeTypeName => 'DateTimeOverrides';
-  @override
-  T valueFor<T extends Object?>(
-    QueryField<String, DateTimeOverrides, T> field,
-  ) {
-    Object? value;
-    switch (field.fieldName) {
-      case r'id':
-        value = id;
-        break;
-      case r'createdAt':
-        value = createdAt;
-        break;
-      case r'updatedAt':
-        value = updatedAt;
-        break;
-    }
-    assert(
-      value is T,
-      'Invalid field ${field.fieldName}: $value (expected $T)',
-    );
-    return value as T;
-  }
 }
 
 class _PartialDateTimeOverrides extends PartialDateTimeOverrides {
@@ -255,6 +233,28 @@ abstract class DateTimeOverrides extends PartialDateTimeOverrides
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, DateTimeOverrides, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  @override
+  T valueFor<T extends Object?>(
+    QueryField<String, DateTimeOverrides, T> field,
+  ) {
+    Object? value;
+    switch (field.fieldName) {
+      case r'id':
+        value = id;
+        break;
+      case r'createdAt':
+        value = createdAt;
+        break;
+      case r'updatedAt':
+        value = updatedAt;
+        break;
+    }
+    assert(
+      value is T,
+      'Invalid field ${field.fieldName}: $value (expected $T)',
+    );
+    return value as T;
+  }
 }
 
 class _DateTimeOverrides extends DateTimeOverrides {

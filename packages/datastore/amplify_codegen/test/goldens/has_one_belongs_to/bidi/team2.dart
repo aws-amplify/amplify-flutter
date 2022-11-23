@@ -140,35 +140,6 @@ abstract class PartialTeam2 extends PartialModel<String, Team2>
       };
   @override
   String get runtimeTypeName => 'Team2';
-  @override
-  T valueFor<T extends Object?>(QueryField<String, Team2, T> field) {
-    Object? value;
-    switch (field.fieldName) {
-      case r'id':
-        value = id;
-        break;
-      case r'name':
-        value = name;
-        break;
-      case r'project':
-        value = project;
-        break;
-      case r'createdAt':
-        value = createdAt;
-        break;
-      case r'updatedAt':
-        value = updatedAt;
-        break;
-      case r'team2ProjectId':
-        value = team2ProjectId;
-        break;
-    }
-    assert(
-      value is T,
-      'Invalid field ${field.fieldName}: $value (expected $T)',
-    );
-    return value as T;
-  }
 }
 
 class _PartialTeam2 extends PartialTeam2 {
@@ -335,6 +306,35 @@ abstract class Team2 extends PartialTeam2 implements Model<String, Team2> {
   /// Query field for the [modelIdentifier] field.
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, Team2, String> get MODEL_IDENTIFIER => $modelIdentifier;
+  @override
+  T valueFor<T extends Object?>(QueryField<String, Team2, T> field) {
+    Object? value;
+    switch (field.fieldName) {
+      case r'id':
+        value = id;
+        break;
+      case r'name':
+        value = name;
+        break;
+      case r'project':
+        value = project;
+        break;
+      case r'createdAt':
+        value = createdAt;
+        break;
+      case r'updatedAt':
+        value = updatedAt;
+        break;
+      case r'team2ProjectId':
+        value = team2ProjectId;
+        break;
+    }
+    assert(
+      value is T,
+      'Invalid field ${field.fieldName}: $value (expected $T)',
+    );
+    return value as T;
+  }
 }
 
 class _Team2 extends Team2 {

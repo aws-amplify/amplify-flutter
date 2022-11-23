@@ -119,29 +119,6 @@ abstract class PartialMyModel extends PartialModel<String, MyModel>
       };
   @override
   String get runtimeTypeName => 'MyModel';
-  @override
-  T valueFor<T extends Object?>(QueryField<String, MyModel, T> field) {
-    Object? value;
-    switch (field.fieldName) {
-      case r'enum':
-        value = enum_;
-        break;
-      case r'createdAt':
-        value = createdAt;
-        break;
-      case r'updatedAt':
-        value = updatedAt;
-        break;
-      case r'id':
-        value = id;
-        break;
-    }
-    assert(
-      value is T,
-      'Invalid field ${field.fieldName}: $value (expected $T)',
-    );
-    return value as T;
-  }
 }
 
 class _PartialMyModel extends PartialMyModel {
@@ -264,6 +241,29 @@ abstract class MyModel extends PartialMyModel
   /// Query field for the [modelIdentifier] field.
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, MyModel, String> get MODEL_IDENTIFIER => $modelIdentifier;
+  @override
+  T valueFor<T extends Object?>(QueryField<String, MyModel, T> field) {
+    Object? value;
+    switch (field.fieldName) {
+      case r'enum':
+        value = enum_;
+        break;
+      case r'createdAt':
+        value = createdAt;
+        break;
+      case r'updatedAt':
+        value = updatedAt;
+        break;
+      case r'id':
+        value = id;
+        break;
+    }
+    assert(
+      value is T,
+      'Invalid field ${field.fieldName}: $value (expected $T)',
+    );
+    return value as T;
+  }
 }
 
 class _MyModel extends MyModel {

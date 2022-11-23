@@ -781,184 +781,6 @@ abstract class PartialScalarListNonModel
       };
   @override
   String get runtimeTypeName => 'ScalarListNonModel';
-  @override
-  T valueFor<T extends Object?>(
-    QueryField<String, ScalarListNonModel, T> field,
-  ) {
-    Object? value;
-    switch (field.fieldName) {
-      case r'id':
-        value = id;
-        break;
-      case r'listOfString':
-        value = listOfString;
-        break;
-      case r'listOfRequiredString':
-        value = listOfRequiredString;
-        break;
-      case r'requiredListOfString':
-        value = requiredListOfString;
-        break;
-      case r'requiredListOfRequiredString':
-        value = requiredListOfRequiredString;
-        break;
-      case r'listOfInteger':
-        value = listOfInteger;
-        break;
-      case r'listOfRequiredInteger':
-        value = listOfRequiredInteger;
-        break;
-      case r'requiredListOfInteger':
-        value = requiredListOfInteger;
-        break;
-      case r'requiredListOfRequiredInteger':
-        value = requiredListOfRequiredInteger;
-        break;
-      case r'listOfFloat':
-        value = listOfFloat;
-        break;
-      case r'listOfRequiredFloat':
-        value = listOfRequiredFloat;
-        break;
-      case r'requiredListOfFloat':
-        value = requiredListOfFloat;
-        break;
-      case r'requiredListOfRequiredFloat':
-        value = requiredListOfRequiredFloat;
-        break;
-      case r'listOfBoolean':
-        value = listOfBoolean;
-        break;
-      case r'listOfRequiredBoolean':
-        value = listOfRequiredBoolean;
-        break;
-      case r'requiredListOfBoolean':
-        value = requiredListOfBoolean;
-        break;
-      case r'requiredListOfRequiredBoolean':
-        value = requiredListOfRequiredBoolean;
-        break;
-      case r'listOfAWSDate':
-        value = listOfAwsDate;
-        break;
-      case r'listOfRequiredAWSDate':
-        value = listOfRequiredAwsDate;
-        break;
-      case r'requiredListOfAWSDate':
-        value = requiredListOfAwsDate;
-        break;
-      case r'requiredListOfRequiredAWSDate':
-        value = requiredListOfRequiredAwsDate;
-        break;
-      case r'listOfAWSDateTime':
-        value = listOfAwsDateTime;
-        break;
-      case r'listOfRequiredAWSDateTime':
-        value = listOfRequiredAwsDateTime;
-        break;
-      case r'requiredListOfAWSDateTime':
-        value = requiredListOfAwsDateTime;
-        break;
-      case r'requiredListOfRequiredAWSDateTime':
-        value = requiredListOfRequiredAwsDateTime;
-        break;
-      case r'listOfAWSTime':
-        value = listOfAwsTime;
-        break;
-      case r'listOfRequiredAWSTime':
-        value = listOfRequiredAwsTime;
-        break;
-      case r'requiredListOfAWSTime':
-        value = requiredListOfAwsTime;
-        break;
-      case r'requiredListOfRequiredAWSTime':
-        value = requiredListOfRequiredAwsTime;
-        break;
-      case r'listOfAWSTimestamp':
-        value = listOfAwsTimestamp;
-        break;
-      case r'listOfRequiredAWSTimestamp':
-        value = listOfRequiredAwsTimestamp;
-        break;
-      case r'requiredListOfAWSTimestamp':
-        value = requiredListOfAwsTimestamp;
-        break;
-      case r'requiredListOfRequiredAWSTimestamp':
-        value = requiredListOfRequiredAwsTimestamp;
-        break;
-      case r'listOfAWSEmail':
-        value = listOfAwsEmail;
-        break;
-      case r'listOfRequiredAWSEmail':
-        value = listOfRequiredAwsEmail;
-        break;
-      case r'requiredListOfAWSEmail':
-        value = requiredListOfAwsEmail;
-        break;
-      case r'requiredListOfRequiredAWSEmail':
-        value = requiredListOfRequiredAwsEmail;
-        break;
-      case r'listOfAWSJSON':
-        value = listOfAwsjson;
-        break;
-      case r'listOfRequiredAWSJSON':
-        value = listOfRequiredAwsjson;
-        break;
-      case r'requiredListOfAWSJSON':
-        value = requiredListOfAwsjson;
-        break;
-      case r'requiredListOfRequiredAWSJSON':
-        value = requiredListOfRequiredAwsjson;
-        break;
-      case r'listOfAWSPhone':
-        value = listOfAwsPhone;
-        break;
-      case r'listOfRequiredAWSPhone':
-        value = listOfRequiredAwsPhone;
-        break;
-      case r'requiredListOfAWSPhone':
-        value = requiredListOfAwsPhone;
-        break;
-      case r'requiredListOfRequiredAWSPhone':
-        value = requiredListOfRequiredAwsPhone;
-        break;
-      case r'listOfAWSUrl':
-        value = listOfAwsUrl;
-        break;
-      case r'listOfRequiredAWSUrl':
-        value = listOfRequiredAwsUrl;
-        break;
-      case r'requiredListOfAWSUrl':
-        value = requiredListOfAwsUrl;
-        break;
-      case r'requiredListOfRequiredAWSUrl':
-        value = requiredListOfRequiredAwsUrl;
-        break;
-      case r'listOfAWSIpAddress':
-        value = listOfAwsIpAddress;
-        break;
-      case r'listOfRequiredAWSIpAddress':
-        value = listOfRequiredAwsIpAddress;
-        break;
-      case r'requiredListOfAWSIpAddress':
-        value = requiredListOfAwsIpAddress;
-        break;
-      case r'requiredListOfRequiredAWSIpAddress':
-        value = requiredListOfRequiredAwsIpAddress;
-        break;
-      case r'createdAt':
-        value = createdAt;
-        break;
-      case r'updatedAt':
-        value = updatedAt;
-        break;
-    }
-    assert(
-      value is T,
-      'Invalid field ${field.fieldName}: $value (expected $T)',
-    );
-    return value as T;
-  }
 }
 
 class _PartialScalarListNonModel extends PartialScalarListNonModel {
@@ -3057,6 +2879,184 @@ abstract class ScalarListNonModel extends PartialScalarListNonModel
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, ScalarListNonModel, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  @override
+  T valueFor<T extends Object?>(
+    QueryField<String, ScalarListNonModel, T> field,
+  ) {
+    Object? value;
+    switch (field.fieldName) {
+      case r'id':
+        value = id;
+        break;
+      case r'listOfString':
+        value = listOfString;
+        break;
+      case r'listOfRequiredString':
+        value = listOfRequiredString;
+        break;
+      case r'requiredListOfString':
+        value = requiredListOfString;
+        break;
+      case r'requiredListOfRequiredString':
+        value = requiredListOfRequiredString;
+        break;
+      case r'listOfInteger':
+        value = listOfInteger;
+        break;
+      case r'listOfRequiredInteger':
+        value = listOfRequiredInteger;
+        break;
+      case r'requiredListOfInteger':
+        value = requiredListOfInteger;
+        break;
+      case r'requiredListOfRequiredInteger':
+        value = requiredListOfRequiredInteger;
+        break;
+      case r'listOfFloat':
+        value = listOfFloat;
+        break;
+      case r'listOfRequiredFloat':
+        value = listOfRequiredFloat;
+        break;
+      case r'requiredListOfFloat':
+        value = requiredListOfFloat;
+        break;
+      case r'requiredListOfRequiredFloat':
+        value = requiredListOfRequiredFloat;
+        break;
+      case r'listOfBoolean':
+        value = listOfBoolean;
+        break;
+      case r'listOfRequiredBoolean':
+        value = listOfRequiredBoolean;
+        break;
+      case r'requiredListOfBoolean':
+        value = requiredListOfBoolean;
+        break;
+      case r'requiredListOfRequiredBoolean':
+        value = requiredListOfRequiredBoolean;
+        break;
+      case r'listOfAWSDate':
+        value = listOfAwsDate;
+        break;
+      case r'listOfRequiredAWSDate':
+        value = listOfRequiredAwsDate;
+        break;
+      case r'requiredListOfAWSDate':
+        value = requiredListOfAwsDate;
+        break;
+      case r'requiredListOfRequiredAWSDate':
+        value = requiredListOfRequiredAwsDate;
+        break;
+      case r'listOfAWSDateTime':
+        value = listOfAwsDateTime;
+        break;
+      case r'listOfRequiredAWSDateTime':
+        value = listOfRequiredAwsDateTime;
+        break;
+      case r'requiredListOfAWSDateTime':
+        value = requiredListOfAwsDateTime;
+        break;
+      case r'requiredListOfRequiredAWSDateTime':
+        value = requiredListOfRequiredAwsDateTime;
+        break;
+      case r'listOfAWSTime':
+        value = listOfAwsTime;
+        break;
+      case r'listOfRequiredAWSTime':
+        value = listOfRequiredAwsTime;
+        break;
+      case r'requiredListOfAWSTime':
+        value = requiredListOfAwsTime;
+        break;
+      case r'requiredListOfRequiredAWSTime':
+        value = requiredListOfRequiredAwsTime;
+        break;
+      case r'listOfAWSTimestamp':
+        value = listOfAwsTimestamp;
+        break;
+      case r'listOfRequiredAWSTimestamp':
+        value = listOfRequiredAwsTimestamp;
+        break;
+      case r'requiredListOfAWSTimestamp':
+        value = requiredListOfAwsTimestamp;
+        break;
+      case r'requiredListOfRequiredAWSTimestamp':
+        value = requiredListOfRequiredAwsTimestamp;
+        break;
+      case r'listOfAWSEmail':
+        value = listOfAwsEmail;
+        break;
+      case r'listOfRequiredAWSEmail':
+        value = listOfRequiredAwsEmail;
+        break;
+      case r'requiredListOfAWSEmail':
+        value = requiredListOfAwsEmail;
+        break;
+      case r'requiredListOfRequiredAWSEmail':
+        value = requiredListOfRequiredAwsEmail;
+        break;
+      case r'listOfAWSJSON':
+        value = listOfAwsjson;
+        break;
+      case r'listOfRequiredAWSJSON':
+        value = listOfRequiredAwsjson;
+        break;
+      case r'requiredListOfAWSJSON':
+        value = requiredListOfAwsjson;
+        break;
+      case r'requiredListOfRequiredAWSJSON':
+        value = requiredListOfRequiredAwsjson;
+        break;
+      case r'listOfAWSPhone':
+        value = listOfAwsPhone;
+        break;
+      case r'listOfRequiredAWSPhone':
+        value = listOfRequiredAwsPhone;
+        break;
+      case r'requiredListOfAWSPhone':
+        value = requiredListOfAwsPhone;
+        break;
+      case r'requiredListOfRequiredAWSPhone':
+        value = requiredListOfRequiredAwsPhone;
+        break;
+      case r'listOfAWSUrl':
+        value = listOfAwsUrl;
+        break;
+      case r'listOfRequiredAWSUrl':
+        value = listOfRequiredAwsUrl;
+        break;
+      case r'requiredListOfAWSUrl':
+        value = requiredListOfAwsUrl;
+        break;
+      case r'requiredListOfRequiredAWSUrl':
+        value = requiredListOfRequiredAwsUrl;
+        break;
+      case r'listOfAWSIpAddress':
+        value = listOfAwsIpAddress;
+        break;
+      case r'listOfRequiredAWSIpAddress':
+        value = listOfRequiredAwsIpAddress;
+        break;
+      case r'requiredListOfAWSIpAddress':
+        value = requiredListOfAwsIpAddress;
+        break;
+      case r'requiredListOfRequiredAWSIpAddress':
+        value = requiredListOfRequiredAwsIpAddress;
+        break;
+      case r'createdAt':
+        value = createdAt;
+        break;
+      case r'updatedAt':
+        value = updatedAt;
+        break;
+    }
+    assert(
+      value is T,
+      'Invalid field ${field.fieldName}: $value (expected $T)',
+    );
+    return value as T;
+  }
 }
 
 class _ScalarListNonModel extends ScalarListNonModel {

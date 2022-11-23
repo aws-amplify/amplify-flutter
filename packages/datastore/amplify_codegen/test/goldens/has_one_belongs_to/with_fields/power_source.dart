@@ -134,32 +134,6 @@ abstract class PartialPowerSource extends PartialModel<String, PowerSource>
       };
   @override
   String get runtimeTypeName => 'PowerSource';
-  @override
-  T valueFor<T extends Object?>(QueryField<String, PowerSource, T> field) {
-    Object? value;
-    switch (field.fieldName) {
-      case r'sourceID':
-        value = sourceId;
-        break;
-      case r'amps':
-        value = amps;
-        break;
-      case r'volts':
-        value = volts;
-        break;
-      case r'createdAt':
-        value = createdAt;
-        break;
-      case r'updatedAt':
-        value = updatedAt;
-        break;
-    }
-    assert(
-      value is T,
-      'Invalid field ${field.fieldName}: $value (expected $T)',
-    );
-    return value as T;
-  }
 }
 
 class _PartialPowerSource extends PartialPowerSource {
@@ -307,6 +281,32 @@ abstract class PowerSource extends PartialPowerSource
   @Deprecated(r'Use $modelIdentifier instead')
   QueryField<String, PowerSource, String> get MODEL_IDENTIFIER =>
       $modelIdentifier;
+  @override
+  T valueFor<T extends Object?>(QueryField<String, PowerSource, T> field) {
+    Object? value;
+    switch (field.fieldName) {
+      case r'sourceID':
+        value = sourceId;
+        break;
+      case r'amps':
+        value = amps;
+        break;
+      case r'volts':
+        value = volts;
+        break;
+      case r'createdAt':
+        value = createdAt;
+        break;
+      case r'updatedAt':
+        value = updatedAt;
+        break;
+    }
+    assert(
+      value is T,
+      'Invalid field ${field.fieldName}: $value (expected $T)',
+    );
+    return value as T;
+  }
 }
 
 class _PowerSource extends PowerSource {
