@@ -107,7 +107,7 @@ class WsSubscriptionBloc<T>
     WsSubscriptionEvent event,
   ) async* {
     logger.verbose(event.toString());
-    if (event is WsStartAckEvent) {
+    if (event is SubscriptionStartAckEvent) {
       yield* _startAck(event);
     } else if (event is SubscriptionDataEvent) {
       yield* _data(event);
@@ -115,6 +115,8 @@ class WsSubscriptionBloc<T>
       yield* _complete(event);
     } else if (event is SubscriptionErrorEvent) {
       yield* _error(event);
+    } else if (event is SubscriptionPendingEvent) {
+      yield* _pending(event);
     }
   }
 
@@ -131,7 +133,9 @@ class WsSubscriptionBloc<T>
   @override
   String get runtimeTypeName => 'WsSubscriptionBloc';
 
-  Stream<WsSubscriptionState<T>> _startAck(WsStartAckEvent event) async* {
+  Stream<WsSubscriptionState<T>> _startAck(
+    SubscriptionStartAckEvent event,
+  ) async* {
     assert(
       _currentState is SubscriptionPendingState,
       'State should always be init while waiting for start ack.',
@@ -167,5 +171,11 @@ class WsSubscriptionBloc<T>
     );
 
     _addResponse(res);
+  }
+
+  Stream<WsSubscriptionState<T>> _pending(
+    SubscriptionPendingEvent event,
+  ) async* {
+    yield _currentState.pending();
   }
 }

@@ -20,11 +20,9 @@ import 'package:amplify_api/src/graphql/web_socket/blocs/web_socket_bloc.dart';
 import 'package:amplify_api/src/graphql/web_socket/services/web_socket_service.dart';
 import 'package:amplify_api/src/graphql/web_socket/state/web_socket_state.dart';
 import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
-import 'package:amplify_api/src/graphql/web_socket/web_socket_connection.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
-import 'package:collection/collection.dart';
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -166,59 +164,20 @@ WebSocketMessage startAck(String subscriptionID) => WebSocketMessage(
       id: subscriptionID,
     );
 
-Future<void> assertWebSocketConnected(
-  MockWebSocketConnection connection,
-  String subscriptionID,
-) async {
-  await expectLater(connection.connectionPending, completes);
-
-  connection.channel!.sink.add(jsonEncode(mockAckMessage));
-
-  await expectLater(connection.ready, completes);
-
-  connection.channel!.sink.add(jsonEncode(startAck(subscriptionID)));
-}
-
 void initMockConnection(
   MockWebSocketBloc bloc,
   MockWebSocketService service,
   String id,
 ) {
   bloc.stream.listen((event) {
-    if (event is ConnectingState) {
+    final state = event;
+    if (state is ConnectingState &&
+        state.networkState == NetworkState.connected) {
       service.channel.sink.add(jsonEncode(mockAckMessage));
-    } else if (event is ConnectedState) {
+    } else if (state is ConnectedState) {
       service.channel.sink.add(jsonEncode(startAck(id)));
     }
   });
-}
-
-/// Extension of [WebSocketConnection] that stores messages internally instead
-/// of sending them.
-class MockWebSocketConnection extends WebSocketConnection {
-  MockWebSocketConnection(
-    super.config,
-    super.authProviderRepo, {
-    required super.logger,
-    super.subscriptionOptions,
-  });
-
-  /// Instead of actually connecting, just set the URI here so it can be inspected
-  /// for testing.
-  Uri? connectedUri;
-
-  /// Instead of sending messages, they are pushed to end of list so they can be
-  /// inspected for testing.
-  final List<WebSocketMessage> sentMessages = [];
-
-  WebSocketMessage? get lastSentMessage => sentMessages.lastOrNull;
-
-  /// Pushes message in sentMessages and adds to stream (to support mocking result).
-  @override
-  void send(WebSocketMessage message) {
-    sentMessages.add(message);
-    super.send(message);
-  }
 }
 
 // Mock WebSocket
@@ -293,23 +252,30 @@ class MockWebSocketBloc extends WebSocketBloc {
     required super.config,
     required super.authProviderRepo,
     required super.wsService,
+    required super.subscriptionOptions,
   });
 }
 
 class MockWebSocketService extends AmplifyWebSocketService {
+  MockWebSocketService({this.badInit = false});
+
   late MockWebSocketChannel channel;
 
+  /// fails init process
+  bool badInit;
+
   @override
-  Stream<WebSocketEvent> init(
-    WebSocketState state,
-  ) {
+  Stream<WebSocketEvent> init(WebSocketState state) {
+    if (badInit) {
+      return Stream.error(
+        WebSocketChannelException('Mock Web Socket Exception'),
+      );
+    }
     channel = MockWebSocketChannel();
 
     sink = channel.sink;
 
-    final subStream = transformStream(channel.stream);
-
-    return subStream;
+    return transformStream(channel.stream);
   }
 
   @override

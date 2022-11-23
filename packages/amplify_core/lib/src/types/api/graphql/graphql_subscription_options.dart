@@ -17,12 +17,23 @@ import 'package:retry/retry.dart';
 
 /// Configuration options for GraphQL Subscriptions and their WebSockets.
 class GraphQLSubscriptionOptions {
-  /// Configure the ping interval for AppSync polling for subscription connections.
-  final Duration? pingInterval;
+  const GraphQLSubscriptionOptions(
+      {Duration? pollInterval, RetryOptions? retryOptions})
+      : _pollInterval = pollInterval,
+        _retryOptions = retryOptions;
+
+  final Duration? _pollInterval;
+
+  final RetryOptions? _retryOptions;
+
+  final _defaultPollInterval = const Duration(seconds: 30);
+
+  final _defaultRetryOptions = const RetryOptions();
+
+  /// Configure the poll interval for AppSync polling for subscription connections.
+  Duration get pollInterval => _pollInterval ?? _defaultPollInterval;
 
   /// Configure the exponential retry strategy options
   /// see: https://pub.dev/documentation/retry/latest/retry/RetryOptions-class.html
-  final RetryOptions? retryOptions;
-
-  const GraphQLSubscriptionOptions({this.pingInterval, this.retryOptions});
+  RetryOptions get retryOptions => _retryOptions ?? _defaultRetryOptions;
 }

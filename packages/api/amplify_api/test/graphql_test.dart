@@ -18,11 +18,14 @@ import 'dart:convert';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_api/src/graphql/providers/app_sync_api_key_auth_provider.dart';
+import 'package:amplify_api/src/graphql/web_socket/blocs/web_socket_bloc.dart';
 import 'package:amplify_api/src/util/amplify_api_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:aws_common/testing.dart';
 import 'package:collection/collection.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'test_data/fake_amplify_configuration.dart';
@@ -98,12 +101,21 @@ const _expectedAuthErrorResponseBody = {
   ]
 };
 
+var _failClient = false;
+var _failCount = 0;
+const _maxFailAttempts = 5;
+
 final mockHttpClient = MockAWSHttpClient((request) async {
   if (request.uri.path == '/ping') {
-    return AWSHttpResponse(
-      statusCode: 200,
-      body: utf8.encode('healthy'),
-    );
+    if (_failClient) {
+      _failCount++;
+    }
+    return _failClient && _failCount <= _maxFailAttempts
+        ? throw TimeoutException('Mock timeout exception')
+        : AWSHttpResponse(
+            statusCode: 200,
+            body: utf8.encode('healthy'),
+          );
   }
   if (request.headers[xApiKey] != 'abc123' &&
       request.headers[AWSHeaders.authorization] == testFunctionToken) {
@@ -148,12 +160,6 @@ MockWebSocketService? mockWebSocketService;
 
 MockWebSocketBloc? mockWebSocketBloc;
 
-final mockWebSocketConnection = MockWebSocketConnection(
-  testApiKeyConfig,
-  getTestAuthProviderRepo(),
-  logger: AmplifyLogger(),
-);
-
 class MockAmplifyAPI extends AmplifyAPIDart {
   MockAmplifyAPI({
     super.authProviders,
@@ -168,6 +174,8 @@ class MockAmplifyAPI extends AmplifyAPIDart {
 }
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   late StreamController<ApiHubEvent> hubEventsController;
   late Stream<ApiHubEvent> hubEvents;
 
@@ -293,42 +301,63 @@ void main() {
   });
 
   group('Subscriptions', () {
+    var fakePlatform = MockConnectivityPlatform();
+    const graphQLDocument = '''subscription MySubscription {
+        onCreateBlog {
+          id
+          name
+          createdAt
+        }
+      }''';
+
+    final subscriptionRequest =
+        GraphQLRequest<String>(document: graphQLDocument);
+
+    final mockSubscriptionEvent = {
+      'id': subscriptionRequest.id,
+      'type': 'data',
+      'payload': {'data': mockSubscriptionData},
+    };
+
     setUp(() {
+      _failCount = 0;
       mockWebSocketService = MockWebSocketService();
+      const subscriptionOptions =
+          GraphQLSubscriptionOptions(pollInterval: Duration(seconds: 1));
 
       mockWebSocketBloc = MockWebSocketBloc(
         config: testApiKeyConfig,
         authProviderRepo: getTestAuthProviderRepo(),
         wsService: mockWebSocketService!,
+        subscriptionOptions: subscriptionOptions,
       );
-      // TODO(equartey): Add reconnection logic tests
-      // final fakePlatform = MockConnectivityPlatform();
-      // ConnectivityPlatform.instance = fakePlatform;
-      // final connectivity = Connectivity();
+      fakePlatform = MockConnectivityPlatform();
+      ConnectivityPlatform.instance = fakePlatform;
+      final connectivity = Connectivity();
 
-      // WebSocketConnection.httpClientOverride = mockHttpClient;
-      // WebSocketConnection.connectivityOverride = connectivity;
-      // WebSocketConnection.webSocketFactoryOverride = getMockWebSocketChannel;
+      WebSocketBloc.pollClientOverride = mockHttpClient;
+      WebSocketBloc.connectivityOverride = connectivity;
     });
 
     test('subscribe() should decode model data', () async {
       final dataCompleter = Completer<Post>();
-      final subscriptionRequest = ModelSubscriptions.onCreate(Post.classType);
+      final modelSubscriptionRequest =
+          ModelSubscriptions.onCreate(Post.classType);
 
       initMockConnection(
         mockWebSocketBloc!,
         mockWebSocketService!,
-        subscriptionRequest.id,
+        modelSubscriptionRequest.id,
       );
 
       final mockSubscriptionEvent = {
-        'id': subscriptionRequest.id,
+        'id': modelSubscriptionRequest.id,
         'type': 'data',
         'payload': {'data': mockSubscriptionData},
       };
 
       final subscription = Amplify.API.subscribe(
-        subscriptionRequest,
+        modelSubscriptionRequest,
         onEstablished: expectAsync0(() {
           mockWebSocketService!.channel.sink
               .add(json.encode(mockSubscriptionEvent));
@@ -350,28 +379,12 @@ void main() {
 
     test('subscribe() should return a subscription stream', () async {
       final dataCompleter = Completer<String>();
-      const graphQLDocument = '''subscription MySubscription {
-        onCreateBlog {
-          id
-          name
-          createdAt
-        }
-      }''';
-
-      final subscriptionRequest =
-          GraphQLRequest<String>(document: graphQLDocument);
 
       initMockConnection(
         mockWebSocketBloc!,
         mockWebSocketService!,
         subscriptionRequest.id,
       );
-
-      final mockSubscriptionEvent = {
-        'id': subscriptionRequest.id,
-        'type': 'data',
-        'payload': {'data': mockSubscriptionData},
-      };
 
       final subscription = Amplify.API.subscribe(
         subscriptionRequest,
@@ -396,16 +409,6 @@ void main() {
 
     test('subscribe() should emit hub events', () async {
       final dataCompleter = Completer<String>();
-      const graphQLDocument = '''subscription MySubscription {
-        onCreateBlog {
-          id
-          name
-          createdAt
-        }
-      }''';
-
-      final subscriptionRequest =
-          GraphQLRequest<String>(document: graphQLDocument);
 
       expect(
         hubEvents,
@@ -426,12 +429,6 @@ void main() {
         subscriptionRequest.id,
       );
 
-      final mockSubscriptionEvent = {
-        'id': subscriptionRequest.id,
-        'type': 'data',
-        'payload': {'data': mockSubscriptionData},
-      };
-
       final subscription = Amplify.API.subscribe(
         subscriptionRequest,
         onEstablished: expectAsync0(
@@ -451,6 +448,47 @@ void main() {
       await streamSub.cancel();
 
       await mockWebSocketBloc!.done.future;
+    });
+
+    test(
+        'should reconnect after 15 seconds when appsync ping fails multiple times',
+        () async {
+      final blocReady = Completer<void>();
+
+      expect(
+        hubEvents,
+        emitsInOrder(
+          [
+            disconnectedHubEvent,
+            connectingHubEvent,
+            connectedHubEvent,
+            connectingHubEvent,
+            connectingHubEvent,
+            connectedHubEvent,
+          ],
+        ),
+      );
+
+      initMockConnection(
+        mockWebSocketBloc!,
+        mockWebSocketService!,
+        subscriptionRequest.id,
+      );
+
+      Amplify.API.subscribe(
+        subscriptionRequest,
+        onEstablished: blocReady.complete,
+      );
+
+      await blocReady.future;
+
+      fakePlatform.controller.sink.add(ConnectivityResult.wifi);
+
+      _failClient = true;
+
+      await Future<void>.delayed(const Duration(seconds: 15));
+
+      _failClient = false;
     });
   });
 

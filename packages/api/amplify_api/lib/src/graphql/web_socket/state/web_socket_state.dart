@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
 import 'package:amplify_api/src/graphql/web_socket/blocs/ws_subscriptions_bloc.dart';
 import 'package:amplify_api/src/graphql/web_socket/services/web_socket_service.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -28,6 +30,7 @@ abstract class WebSocketState {
     this.intendedState,
     this.service,
     this.subscriptionBlocs,
+    this.options,
   );
 
   /// AWS Config
@@ -48,14 +51,64 @@ abstract class WebSocketState {
   /// Web Socket Subscription Blocs represented by
   final Map<String, WsSubscriptionBloc<Object?>> subscriptionBlocs;
 
-  /// Move state to [FailureState]
-  FailureState failed() => FailureState(
+  /// GraphQL Subscriptions Options used to customize the subscription experience
+  final GraphQLSubscriptionOptions options;
+
+  /// Poll URI
+  Uri get pollUri => Uri.parse(config.endpoint).replace(path: 'ping');
+
+  /// Move state to [ConnectingState]
+  ConnectingState connecting({
+    NetworkState? networkState,
+    IntendedState? intendedState,
+  }) =>
+      ConnectingState(
+        config,
+        authProviderRepo,
+        networkState ?? this.networkState,
+        intendedState ?? this.intendedState,
+        service,
+        subscriptionBlocs,
+        options,
+      );
+
+  /// Move state to [ReconnectingState]
+  ReconnectingState reconnecting({
+    NetworkState? networkState,
+    IntendedState? intendedState,
+  }) {
+    return ReconnectingState(
+      config,
+      authProviderRepo,
+      networkState ?? this.networkState,
+      intendedState ?? this.intendedState,
+      service,
+      subscriptionBlocs,
+      options,
+    );
+  }
+
+  /// Move state to [DisconnectedState]
+  DisconnectedState disconnect() => DisconnectedState(
         config,
         authProviderRepo,
         networkState,
         intendedState,
         service,
         subscriptionBlocs,
+        options,
+      );
+
+  /// Move state to [FailureState]
+  FailureState failed(Object e) => FailureState(
+        config,
+        authProviderRepo,
+        networkState,
+        intendedState,
+        service,
+        subscriptionBlocs,
+        options,
+        e,
       );
 
   /// Move state to [PendingDisconnect]
@@ -66,16 +119,7 @@ abstract class WebSocketState {
         intendedState,
         service,
         subscriptionBlocs,
-      );
-
-  /// Move state to [DisconnectedState]
-  DisconnectedState disconnect() => DisconnectedState(
-        config,
-        authProviderRepo,
-        networkState,
-        intendedState,
-        service,
-        subscriptionBlocs,
+        options,
       );
 }
 
@@ -89,17 +133,49 @@ class ConnectingState extends WebSocketState {
     super.intendedState,
     super.service,
     super.subscriptionBlocs,
+    super.options,
   );
 
   /// Move state to [ConnectedState]
-  ConnectedState connected(RestartableTimer timer) => ConnectedState(
+  ConnectedState connected(RestartableTimer timer, Timer pollTimer) =>
+      ConnectedState(
         config,
         authProviderRepo,
         networkState,
         intendedState,
         service,
         subscriptionBlocs,
+        options,
         timer,
+        pollTimer,
+      );
+}
+
+/// State for when connection is being reestablished
+class ReconnectingState extends WebSocketState {
+  /// Create a reconnecting state
+  ReconnectingState(
+    super.config,
+    super.authProviderRepo,
+    super.networkState,
+    super.intendedState,
+    super.service,
+    super.subscriptionBlocs,
+    super.options,
+  );
+
+  /// Move state to [ConnectedState]
+  ConnectedState connected(RestartableTimer timer, Timer pollTimer) =>
+      ConnectedState(
+        config,
+        authProviderRepo,
+        networkState,
+        intendedState,
+        service,
+        subscriptionBlocs,
+        options,
+        timer,
+        pollTimer,
       );
 }
 
@@ -114,11 +190,73 @@ class ConnectedState extends WebSocketState {
     super.intendedState,
     super.service,
     super.subscriptionBlocs,
+    super.options,
     this.timeoutTimer,
+    this.pollTimer,
   );
 
   /// timer used for missed ka messages
   final RestartableTimer timeoutTimer;
+
+  /// timer used for periodic polling
+  final Timer pollTimer;
+
+  /// Move state to [ConnectingState]
+  @override
+  ConnectingState connecting({
+    NetworkState? networkState,
+    IntendedState? intendedState,
+  }) {
+    _cancelTimers();
+
+    return super.connecting(
+      networkState: networkState ?? this.networkState,
+      intendedState: intendedState ?? this.intendedState,
+    );
+  }
+
+  /// Move state to [ReconnectingState]
+  @override
+  ReconnectingState reconnecting({
+    NetworkState? networkState,
+    IntendedState? intendedState,
+  }) {
+    _cancelTimers();
+
+    return super.reconnecting(
+      networkState: networkState ?? this.networkState,
+      intendedState: intendedState ?? this.intendedState,
+    );
+  }
+
+  /// Move state to [DisconnectedState]
+  @override
+  DisconnectedState disconnect() {
+    _cancelTimers();
+
+    return super.disconnect();
+  }
+
+  /// Move state to [FailureState]
+  @override
+  FailureState failed(Object e) {
+    _cancelTimers();
+
+    return super.failed(e);
+  }
+
+  /// Move state to [PendingDisconnect]
+  @override
+  PendingDisconnect shutdown() {
+    _cancelTimers();
+
+    return super.shutdown();
+  }
+
+  void _cancelTimers() {
+    timeoutTimer.cancel();
+    pollTimer.cancel();
+  }
 }
 
 /// State when web socket is not connected to AppSync
@@ -131,6 +269,7 @@ class PendingDisconnect extends WebSocketState {
     super.intendedState,
     super.service,
     super.subscriptionBlocs,
+    super.options,
   );
 }
 
@@ -144,17 +283,8 @@ class DisconnectedState extends WebSocketState {
     super.intendedState,
     super.service,
     super.subscriptionBlocs,
+    super.options,
   );
-
-  /// Move state to [ConnectingState]
-  ConnectingState connecting() => ConnectingState(
-        config,
-        authProviderRepo,
-        networkState,
-        intendedState,
-        service,
-        subscriptionBlocs,
-      );
 }
 
 /// State when web socket connection failed
@@ -167,5 +297,10 @@ class FailureState extends WebSocketState {
     super.intendedState,
     super.service,
     super.subscriptionBlocs,
+    super.options,
+    this.error,
   );
+
+  /// Underlying exception that caused failure.
+  final Object error;
 }

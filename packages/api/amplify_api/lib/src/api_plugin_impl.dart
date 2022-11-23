@@ -160,7 +160,7 @@ class AmplifyAPIDart extends AmplifyAPI {
 
   // TODO(equartey): add [apiName] to event to distinguished when multiple blocs are running.
   void _emitHubEvent(WebSocketState state) {
-    if (state is ConnectingState) {
+    if (state is ConnectingState || state is ReconnectingState) {
       _hubEventController.add(SubscriptionHubEvent.connecting());
     } else if (state is ConnectedState) {
       _hubEventController.add(SubscriptionHubEvent.connected());
@@ -224,6 +224,7 @@ class AmplifyAPIDart extends AmplifyAPI {
       config: endpoint.config,
       authProviderRepo: _authProviderRepo,
       wsService: AmplifyWebSocketService(),
+      subscriptionOptions: const GraphQLSubscriptionOptions(),
     );
   }
 
