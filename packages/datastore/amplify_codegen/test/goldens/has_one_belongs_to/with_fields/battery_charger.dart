@@ -30,7 +30,8 @@ class BatteryChargerType
 
   @override
   T fromJson<T extends PartialModel<String, BatteryCharger>>(
-      Map<String, Object?> json) {
+    Map<String, Object?> json,
+  ) {
     if (T == BatteryCharger || T == Model<String, BatteryCharger>) {
       return BatteryCharger.fromJson(json) as T;
     }
@@ -54,7 +55,8 @@ class BatteryChargerQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, String> get $chargerId =>
       NestedQueryField<ModelIdentifier, M, String, BatteryCharger, String>(
         const QueryField<String, BatteryCharger, String>(
-            fieldName: 'chargerID'),
+          fieldName: 'chargerID',
+        ),
         root: _root,
       );
 
@@ -62,25 +64,30 @@ class BatteryChargerQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, String?> get $powerSourceId =>
       NestedQueryField<ModelIdentifier, M, String, BatteryCharger, String?>(
         const QueryField<String, BatteryCharger, String?>(
-            fieldName: 'powerSourceID'),
+          fieldName: 'powerSourceID',
+        ),
         root: _root,
       );
 
   /// Query field for the [BatteryCharger.powerSource] field.
   PowerSourceQueryFields<ModelIdentifier, M> get $powerSource =>
-      PowerSourceQueryFields(NestedQueryField<ModelIdentifier, M, String,
-          BatteryCharger, PowerSource>(
-        const QueryField<String, BatteryCharger, PowerSource>(
-            fieldName: 'powerSource'),
-        root: _root,
-      ));
+      PowerSourceQueryFields(
+        NestedQueryField<ModelIdentifier, M, String, BatteryCharger,
+            PowerSource>(
+          const QueryField<String, BatteryCharger, PowerSource>(
+            fieldName: 'powerSource',
+          ),
+          root: _root,
+        ),
+      );
 
   /// Query field for the [BatteryCharger.createdAt] field.
   QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, String, BatteryCharger,
           TemporalDateTime>(
         const QueryField<String, BatteryCharger, TemporalDateTime>(
-            fieldName: 'createdAt'),
+          fieldName: 'createdAt',
+        ),
         root: _root,
       );
 
@@ -89,7 +96,8 @@ class BatteryChargerQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, String, BatteryCharger,
           TemporalDateTime>(
         const QueryField<String, BatteryCharger, TemporalDateTime>(
-            fieldName: 'updatedAt'),
+          fieldName: 'updatedAt',
+        ),
         root: _root,
       );
 
@@ -104,7 +112,8 @@ class BatteryChargerQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, String> get $modelIdentifier =>
       NestedQueryField<ModelIdentifier, M, String, BatteryCharger, String>(
         const QueryField<String, BatteryCharger, String>(
-            fieldName: 'modelIdentifier'),
+          fieldName: 'modelIdentifier',
+        ),
         root: _root,
       );
 }
@@ -198,9 +207,11 @@ class _PartialBatteryCharger extends PartialBatteryCharger {
     final powerSource = json['powerSource'] == null
         ? null
         : AsyncModel<String, PowerSource, PartialPowerSource,
-                PartialPowerSource>.fromModel(
+            PartialPowerSource>.fromModel(
             PowerSource.classType.fromJson<PartialPowerSource>(
-                (json['powerSource'] as Map<String, Object?>)));
+              (json['powerSource'] as Map<String, Object?>),
+            ),
+          );
     final createdAt = json['createdAt'] == null
         ? null
         : TemporalDateTime.fromString((json['createdAt'] as String));
@@ -267,9 +278,11 @@ abstract class BatteryCharger extends PartialBatteryCharger
     final powerSource = json['powerSource'] == null
         ? null
         : AsyncModel<String, PowerSource, PartialPowerSource,
-                PowerSource>.fromModel(
+            PowerSource>.fromModel(
             PowerSource.classType.fromJson<PowerSource>(
-                (json['powerSource'] as Map<String, Object?>)));
+              (json['powerSource'] as Map<String, Object?>),
+            ),
+          );
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'BatteryCharger',
@@ -433,9 +446,11 @@ class _RemoteBatteryCharger extends RemoteBatteryCharger {
     final powerSource = json['powerSource'] == null
         ? null
         : AsyncModel<String, PowerSource, PartialPowerSource,
-                RemotePowerSource>.fromModel(
+            RemotePowerSource>.fromModel(
             PowerSource.classType.fromJson<RemotePowerSource>(
-                (json['powerSource'] as Map<String, Object?>)));
+              (json['powerSource'] as Map<String, Object?>),
+            ),
+          );
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'BatteryCharger',

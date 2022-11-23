@@ -59,7 +59,8 @@ class TeamType extends ModelType<TeamIdentifier, Team, PartialTeam> {
 
   @override
   T fromJson<T extends PartialModel<TeamIdentifier, Team>>(
-      Map<String, Object?> json) {
+    Map<String, Object?> json,
+  ) {
     if (T == Team || T == Model<TeamIdentifier, Team>) {
       return Team.fromJson(json) as T;
     }
@@ -95,17 +96,19 @@ class TeamQueryFields<ModelIdentifier extends Object,
 
   /// Query field for the [Team.project] field.
   ProjectQueryFields<ModelIdentifier, M> get $project => ProjectQueryFields(
-          NestedQueryField<ModelIdentifier, M, TeamIdentifier, Team, Project>(
-        const QueryField<TeamIdentifier, Team, Project>(fieldName: 'project'),
-        root: _root,
-      ));
+        NestedQueryField<ModelIdentifier, M, TeamIdentifier, Team, Project>(
+          const QueryField<TeamIdentifier, Team, Project>(fieldName: 'project'),
+          root: _root,
+        ),
+      );
 
   /// Query field for the [Team.createdAt] field.
   QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, TeamIdentifier, Team,
           TemporalDateTime>(
         const QueryField<TeamIdentifier, Team, TemporalDateTime>(
-            fieldName: 'createdAt'),
+          fieldName: 'createdAt',
+        ),
         root: _root,
       );
 
@@ -114,7 +117,8 @@ class TeamQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, TeamIdentifier, Team,
           TemporalDateTime>(
         const QueryField<TeamIdentifier, Team, TemporalDateTime>(
-            fieldName: 'updatedAt'),
+          fieldName: 'updatedAt',
+        ),
         root: _root,
       );
 
@@ -122,7 +126,8 @@ class TeamQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, String?> get $teamProjectProjectId =>
       NestedQueryField<ModelIdentifier, M, TeamIdentifier, Team, String?>(
         const QueryField<TeamIdentifier, Team, String?>(
-            fieldName: 'teamProjectProjectId'),
+          fieldName: 'teamProjectProjectId',
+        ),
         root: _root,
       );
 
@@ -130,7 +135,8 @@ class TeamQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, String?> get $teamProjectName =>
       NestedQueryField<ModelIdentifier, M, TeamIdentifier, Team, String?>(
         const QueryField<TeamIdentifier, Team, String?>(
-            fieldName: 'teamProjectName'),
+          fieldName: 'teamProjectName',
+        ),
         root: _root,
       );
 
@@ -139,7 +145,8 @@ class TeamQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, TeamIdentifier, Team,
           TeamIdentifier>(
         const QueryField<TeamIdentifier, Team, TeamIdentifier>(
-            fieldName: 'modelIdentifier'),
+          fieldName: 'modelIdentifier',
+        ),
         root: _root,
       );
 }
@@ -249,9 +256,11 @@ class _PartialTeam extends PartialTeam {
     final project = json['project'] == null
         ? null
         : AsyncModel<ProjectIdentifier, Project, PartialProject,
-                PartialProject>.fromModel(
+            PartialProject>.fromModel(
             Project.classType.fromJson<PartialProject>(
-                (json['project'] as Map<String, Object?>)));
+              (json['project'] as Map<String, Object?>),
+            ),
+          );
     final createdAt = json['createdAt'] == null
         ? null
         : TemporalDateTime.fromString((json['createdAt'] as String));
@@ -325,9 +334,10 @@ abstract class Team extends PartialTeam implements Model<TeamIdentifier, Team> {
     final project = json['project'] == null
         ? null
         : AsyncModel<ProjectIdentifier, Project, PartialProject,
-                Project>.fromModel(
+            Project>.fromModel(
             Project.classType
-                .fromJson<Project>((json['project'] as Map<String, Object?>)));
+                .fromJson<Project>((json['project'] as Map<String, Object?>)),
+          );
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'Team',
@@ -508,9 +518,11 @@ class _RemoteTeam extends RemoteTeam {
     final project = json['project'] == null
         ? null
         : AsyncModel<ProjectIdentifier, Project, PartialProject,
-                RemoteProject>.fromModel(
+            RemoteProject>.fromModel(
             Project.classType.fromJson<RemoteProject>(
-                (json['project'] as Map<String, Object?>)));
+              (json['project'] as Map<String, Object?>),
+            ),
+          );
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'Team',

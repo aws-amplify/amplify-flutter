@@ -59,7 +59,8 @@ class PostType extends ModelType<PostIdentifier, Post, PartialPost> {
 
   @override
   T fromJson<T extends PartialModel<PostIdentifier, Post>>(
-      Map<String, Object?> json) {
+    Map<String, Object?> json,
+  ) {
     if (T == Post || T == Model<PostIdentifier, Post>) {
       return Post.fromJson(json) as T;
     }
@@ -95,17 +96,20 @@ class PostQueryFields<ModelIdentifier extends Object,
 
   /// Query field for the [Post.comments] field.
   CommentQueryFields<ModelIdentifier, M> get $comments => CommentQueryFields(
-          NestedQueryField<ModelIdentifier, M, PostIdentifier, Post, Comment>(
-        const QueryField<PostIdentifier, Post, Comment>(fieldName: 'comments'),
-        root: _root,
-      ));
+        NestedQueryField<ModelIdentifier, M, PostIdentifier, Post, Comment>(
+          const QueryField<PostIdentifier, Post, Comment>(
+              fieldName: 'comments'),
+          root: _root,
+        ),
+      );
 
   /// Query field for the [Post.createdAt] field.
   QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, PostIdentifier, Post,
           TemporalDateTime>(
         const QueryField<PostIdentifier, Post, TemporalDateTime>(
-            fieldName: 'createdAt'),
+          fieldName: 'createdAt',
+        ),
         root: _root,
       );
 
@@ -114,7 +118,8 @@ class PostQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, PostIdentifier, Post,
           TemporalDateTime>(
         const QueryField<PostIdentifier, Post, TemporalDateTime>(
-            fieldName: 'updatedAt'),
+          fieldName: 'updatedAt',
+        ),
         root: _root,
       );
 
@@ -123,7 +128,8 @@ class PostQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, PostIdentifier, Post,
           PostIdentifier>(
         const QueryField<PostIdentifier, Post, PostIdentifier>(
-            fieldName: 'modelIdentifier'),
+          fieldName: 'modelIdentifier',
+        ),
         root: _root,
       );
 }
@@ -219,14 +225,17 @@ class _PartialPost extends PartialPost {
     final comments = json['comments'] == null
         ? null
         : AsyncModelCollection<CommentIdentifier, Comment, PartialComment,
-                PartialComment>.fromList(
+            PartialComment>.fromList(
             (json['comments'] as List<Object?>)
                 .cast<Map<String, Object?>?>()
-                .map((el) => el == null
-                    ? null
-                    : Comment.classType.fromJson<PartialComment>(el))
+                .map(
+                  (el) => el == null
+                      ? null
+                      : Comment.classType.fromJson<PartialComment>(el),
+                )
                 .whereType<PartialComment>()
-                .toList());
+                .toList(),
+          );
     final createdAt = json['createdAt'] == null
         ? null
         : TemporalDateTime.fromString((json['createdAt'] as String));
@@ -284,13 +293,17 @@ abstract class Post extends PartialPost implements Model<PostIdentifier, Post> {
     final comments = json['comments'] == null
         ? null
         : AsyncModelCollection<CommentIdentifier, Comment, PartialComment,
-                Comment>.fromList(
+            Comment>.fromList(
             (json['comments'] as List<Object?>)
                 .cast<Map<String, Object?>?>()
-                .map((el) =>
-                    el == null ? null : Comment.classType.fromJson<Comment>(el))
+                .map(
+                  (el) => el == null
+                      ? null
+                      : Comment.classType.fromJson<Comment>(el),
+                )
                 .whereType<Comment>()
-                .toList());
+                .toList(),
+          );
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'Post',
@@ -431,14 +444,17 @@ class _RemotePost extends RemotePost {
     final comments = json['comments'] == null
         ? null
         : AsyncModelCollection<CommentIdentifier, Comment, PartialComment,
-                RemoteComment>.fromList(
+            RemoteComment>.fromList(
             (json['comments'] as List<Object?>)
                 .cast<Map<String, Object?>?>()
-                .map((el) => el == null
-                    ? null
-                    : Comment.classType.fromJson<RemoteComment>(el))
+                .map(
+                  (el) => el == null
+                      ? null
+                      : Comment.classType.fromJson<RemoteComment>(el),
+                )
                 .whereType<RemoteComment>()
-                .toList());
+                .toList(),
+          );
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'Post',

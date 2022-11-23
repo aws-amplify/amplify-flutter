@@ -27,7 +27,8 @@ class MyModelType extends ModelType<String, MyModel, PartialMyModel> {
 
   @override
   T fromJson<T extends PartialModel<String, MyModel>>(
-      Map<String, Object?> json) {
+    Map<String, Object?> json,
+  ) {
     if (T == MyModel || T == Model<String, MyModel>) {
       return MyModel.fromJson(json) as T;
     }
@@ -58,7 +59,8 @@ class MyModelQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, String, MyModel, TemporalDateTime>(
         const QueryField<String, MyModel, TemporalDateTime>(
-            fieldName: 'createdAt'),
+          fieldName: 'createdAt',
+        ),
         root: _root,
       );
 
@@ -66,7 +68,8 @@ class MyModelQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, TemporalDateTime> get $updatedAt =>
       NestedQueryField<ModelIdentifier, M, String, MyModel, TemporalDateTime>(
         const QueryField<String, MyModel, TemporalDateTime>(
-            fieldName: 'updatedAt'),
+          fieldName: 'updatedAt',
+        ),
         root: _root,
       );
 

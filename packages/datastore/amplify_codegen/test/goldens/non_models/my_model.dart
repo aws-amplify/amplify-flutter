@@ -29,7 +29,8 @@ class MyModelType extends ModelType<String, MyModel, PartialMyModel> {
 
   @override
   T fromJson<T extends PartialModel<String, MyModel>>(
-      Map<String, Object?> json) {
+    Map<String, Object?> json,
+  ) {
     if (T == MyModel || T == Model<String, MyModel>) {
       return MyModel.fromJson(json) as T;
     }
@@ -53,7 +54,8 @@ class MyModelQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
       NestedQueryField<ModelIdentifier, M, String, MyModel, TemporalDateTime>(
         const QueryField<String, MyModel, TemporalDateTime>(
-            fieldName: 'createdAt'),
+          fieldName: 'createdAt',
+        ),
         root: _root,
       );
 
@@ -61,7 +63,8 @@ class MyModelQueryFields<ModelIdentifier extends Object,
   QueryField<ModelIdentifier, M, TemporalDateTime> get $updatedAt =>
       NestedQueryField<ModelIdentifier, M, String, MyModel, TemporalDateTime>(
         const QueryField<String, MyModel, TemporalDateTime>(
-            fieldName: 'updatedAt'),
+          fieldName: 'updatedAt',
+        ),
         root: _root,
       );
 
@@ -155,11 +158,13 @@ class _PartialMyModel extends PartialMyModel {
     final embeddedNonModel = json['embeddedNonModel'] == null
         ? null
         : ScalarNonModel.fromJson(
-            (json['embeddedNonModel'] as Map<String, Object?>));
+            (json['embeddedNonModel'] as Map<String, Object?>),
+          );
     final requiredEmbeddedNonModel = json['requiredEmbeddedNonModel'] == null
         ? null
         : ScalarNonModel.fromJson(
-            (json['requiredEmbeddedNonModel'] as Map<String, Object?>));
+            (json['requiredEmbeddedNonModel'] as Map<String, Object?>),
+          );
     final createdAt = json['createdAt'] == null
         ? null
         : TemporalDateTime.fromString((json['createdAt'] as String));
@@ -211,14 +216,16 @@ abstract class MyModel extends PartialMyModel
     final embeddedNonModel = json['embeddedNonModel'] == null
         ? null
         : ScalarNonModel.fromJson(
-            (json['embeddedNonModel'] as Map<String, Object?>));
+            (json['embeddedNonModel'] as Map<String, Object?>),
+          );
     final requiredEmbeddedNonModel = json['requiredEmbeddedNonModel'] == null
         ? (throw ModelFieldError(
             'MyModel',
             'requiredEmbeddedNonModel',
           ))
         : ScalarNonModel.fromJson(
-            (json['requiredEmbeddedNonModel'] as Map<String, Object?>));
+            (json['requiredEmbeddedNonModel'] as Map<String, Object?>),
+          );
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'MyModel',
@@ -333,14 +340,16 @@ class _RemoteMyModel extends RemoteMyModel {
     final embeddedNonModel = json['embeddedNonModel'] == null
         ? null
         : ScalarNonModel.fromJson(
-            (json['embeddedNonModel'] as Map<String, Object?>));
+            (json['embeddedNonModel'] as Map<String, Object?>),
+          );
     final requiredEmbeddedNonModel = json['requiredEmbeddedNonModel'] == null
         ? (throw ModelFieldError(
             'MyModel',
             'requiredEmbeddedNonModel',
           ))
         : ScalarNonModel.fromJson(
-            (json['requiredEmbeddedNonModel'] as Map<String, Object?>));
+            (json['requiredEmbeddedNonModel'] as Map<String, Object?>),
+          );
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'MyModel',

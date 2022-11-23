@@ -57,7 +57,8 @@ class TeamType extends ModelType<TeamIdentifier, Team, PartialTeam> {
 
   @override
   T fromJson<T extends PartialModel<TeamIdentifier, Team>>(
-      Map<String, Object?> json) {
+    Map<String, Object?> json,
+  ) {
     if (T == Team || T == Model<TeamIdentifier, Team>) {
       return Team.fromJson(json) as T;
     }
@@ -96,7 +97,8 @@ class TeamQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, TeamIdentifier, Team,
           TemporalDateTime>(
         const QueryField<TeamIdentifier, Team, TemporalDateTime>(
-            fieldName: 'createdAt'),
+          fieldName: 'createdAt',
+        ),
         root: _root,
       );
 
@@ -105,7 +107,8 @@ class TeamQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, TeamIdentifier, Team,
           TemporalDateTime>(
         const QueryField<TeamIdentifier, Team, TemporalDateTime>(
-            fieldName: 'updatedAt'),
+          fieldName: 'updatedAt',
+        ),
         root: _root,
       );
 
@@ -114,7 +117,8 @@ class TeamQueryFields<ModelIdentifier extends Object,
       NestedQueryField<ModelIdentifier, M, TeamIdentifier, Team,
           TeamIdentifier>(
         const QueryField<TeamIdentifier, Team, TeamIdentifier>(
-            fieldName: 'modelIdentifier'),
+          fieldName: 'modelIdentifier',
+        ),
         root: _root,
       );
 }
