@@ -1,0 +1,14 @@
+type TestEnumModel @model {
+  id: ID!
+  enumVal: TestEnum!
+  nullableEnumVal: TestEnum
+  enumList: [TestEnum!]!
+  enumNullableList: [TestEnum!]
+  nullableEnumList: [TestEnum]!
+  nullableEnumNullableList: [TestEnum]
+}
+
+enum TestEnum {
+  VALUE_ONE
+  VALUE_TWO
+}

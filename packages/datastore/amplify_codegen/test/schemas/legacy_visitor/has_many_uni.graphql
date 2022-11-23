@@ -1,0 +1,10 @@
+type Post @model {
+  id: ID! @primaryKey(sortKeyFields: ["title"])
+  title: String!
+  comments: [Comment] @hasMany
+}
+
+type Comment @model {
+  id: ID! @primaryKey(sortKeyFields: ["content"])
+  content: String!
+}

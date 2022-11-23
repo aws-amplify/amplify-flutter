@@ -1,0 +1,13 @@
+# Explicit - Bi-directional Has Many
+type Post @model {
+  id: ID!
+  title: String!
+  comments: [Comment] @hasMany(indexName: "byPost", fields: ["id"])
+}
+
+type Comment @model {
+  id: ID!
+  postID: ID! @index(name: "byPost", sortKeyFields: ["content"])
+  content: String!
+  post: Post @belongsTo(fields: ["postID"])
+}

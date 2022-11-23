@@ -1,0 +1,5 @@
+type privateType @model @auth(rules: [{ allow: private }]) {
+  id: ID!
+  name: String
+  bar: String
+}

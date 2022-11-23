@@ -1,0 +1,7 @@
+type ModelWithPrimaryKey @model {
+  productID: ID! @primaryKey
+  name: String!
+  content: String
+  albumID: ID! @index(name: "byAlbum", sortKeyFields: ["name"])
+  categoryID: ID! @index(name: "byCategory", sortKeyFields: ["name", "content"])
+}

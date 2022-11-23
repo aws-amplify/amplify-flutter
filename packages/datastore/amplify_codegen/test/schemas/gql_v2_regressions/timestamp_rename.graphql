@@ -1,0 +1,4 @@
+type Todo
+  @model(timestamps: { createdAt: "createdOn", updatedAt: "updatedOn" }) {
+  content: String
+}

@@ -1,0 +1,17 @@
+# 7 - Blog Post Comment
+type Blog7V2 @model {
+  id: ID!
+  name: String!
+  posts: [Post7V2] @hasMany
+}
+type Post7V2 @model {
+  id: ID!
+  title: String!
+  blog: Blog7V2 @belongsTo
+  comments: [Comment7V2] @hasMany
+}
+type Comment7V2 @model {
+  id: ID!
+  content: String
+  post: Post7V2 @belongsTo
+}

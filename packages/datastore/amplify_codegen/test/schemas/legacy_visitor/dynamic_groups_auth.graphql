@@ -1,0 +1,7 @@
+type dynamicGroups
+  @model
+  @auth(rules: [{ allow: groups, groupsField: "groups" }]) {
+  id: ID!
+  name: String
+  bar: String
+}

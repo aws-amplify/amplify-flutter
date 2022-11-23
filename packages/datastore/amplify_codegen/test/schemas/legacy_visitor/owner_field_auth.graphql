@@ -1,0 +1,5 @@
+type Post @model @auth(rules: [{ allow: owner, ownerField: "author" }]) {
+  id: ID!
+  title: String!
+  author: String!
+}

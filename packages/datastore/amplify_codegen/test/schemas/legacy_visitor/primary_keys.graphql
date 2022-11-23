@@ -1,0 +1,13 @@
+type ModelWithImplicitID @model {
+  title: String!
+}
+
+type ModelWithExplicitID @model {
+  id: ID!
+  title: String!
+}
+
+type ModelWithExplicitIDAndSDI @model {
+  id: ID!
+  parentID: ID @index(name: "byParent")
+}

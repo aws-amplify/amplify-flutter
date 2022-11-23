@@ -1,0 +1,5 @@
+type SimpleModel @model {
+  id: ID!
+  name: String
+  bar: String
+}

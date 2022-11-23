@@ -1,0 +1,12 @@
+# Implicit
+type Project @model {
+  id: ID!
+  name: String
+  team: Team @hasOne
+}
+
+type Team @model {
+  id: ID!
+  name: String!
+  project: Project @belongsTo
+}

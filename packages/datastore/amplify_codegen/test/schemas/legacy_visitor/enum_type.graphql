@@ -1,0 +1,10 @@
+type SimpleModel @model {
+  id: ID!
+  status: Status
+}
+
+enum Status {
+  yes
+  no
+  maybe
+}

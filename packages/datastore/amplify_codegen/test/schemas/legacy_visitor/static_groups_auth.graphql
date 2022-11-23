@@ -1,0 +1,5 @@
+type staticGroups @model @auth(rules: [{ allow: groups, groups: ["Admin"] }]) {
+  id: ID!
+  name: String
+  bar: String
+}

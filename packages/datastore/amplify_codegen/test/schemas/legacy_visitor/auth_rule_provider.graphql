@@ -1,0 +1,12 @@
+type TodoWithAuth
+  @model
+  @auth(
+    rules: [
+      { allow: groups, groups: ["admin"] }
+      { allow: owner, operations: ["create", "update"] }
+      { allow: public, operations: ["read"], provider: "apiKey" }
+    ]
+  ) {
+  id: ID!
+  name: String!
+}

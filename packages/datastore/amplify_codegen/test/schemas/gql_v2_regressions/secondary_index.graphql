@@ -1,0 +1,7 @@
+type Customer @model {
+  id: ID!
+  name: String!
+  phoneNumber: String
+  accountRepresentativeID: ID!
+    @index(name: "byRepresentative", queryField: "customerByRepresentative")
+}
