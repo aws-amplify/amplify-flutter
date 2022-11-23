@@ -778,6 +778,9 @@ extension AuthRules on List<DirectiveNode> {
           case 'groupsField':
             rule.groupsField = node.stringValue;
             break;
+          // Needed to support legacy cases:
+          // https://github.com/aws-amplify/amplify-codegen/blob/0cdc52777c3e69f2968e72e7534d40645c72e7e5/packages/appsync-modelgen-plugin/src/__tests__/visitors/appsync-dart-visitor.test.ts#L199
+          case 'operation':
           case 'operations':
             rule.operations
                 .addAll(node.stringListValue.map(ModelOperation.valueOf));
