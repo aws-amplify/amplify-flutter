@@ -22,8 +22,6 @@ library models.class_;
 
 import 'package:amplify_core/amplify_core.dart';
 
-import 'class.dart';
-
 class ClassType extends ModelType<String, Class, PartialClass> {
   const ClassType();
 

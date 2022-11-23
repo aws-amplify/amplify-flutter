@@ -176,11 +176,11 @@ extension SchemaTypeHelpers on SchemaType {
   }
 }
 
-/// Helpers for [TypeDefinitionNode].
-extension TypeDefinitionHelpers on TypeDefinitionNode {
+/// Helpers for [SchemaTypeDefinition].
+extension SchemaTypeDefinitionHelpers on SchemaTypeDefinition {
   /// This type's name as a library name.
   String get libraryName {
-    final libName = name.value.snakeCase;
+    final libName = name.snakeCase;
     if (hardReservedWords.contains(libName)) {
       return '${libName}_';
     }

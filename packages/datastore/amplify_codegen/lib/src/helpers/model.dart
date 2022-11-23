@@ -211,7 +211,7 @@ class ModelReferences {
   final ModelNames _names;
 
   /// The relative URL of the generated model.
-  String get modelUrl => '${_names.schemaName.snakeCase}.dart';
+  String get modelUrl => '${_definition.libraryName}.dart';
 
   /// The reference for the model type.
   Reference get modelType => refer(_names.modelType, modelUrl);
