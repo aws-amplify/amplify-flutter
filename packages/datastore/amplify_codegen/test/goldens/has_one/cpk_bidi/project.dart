@@ -304,10 +304,8 @@ abstract class Project extends PartialProject
   factory Project({
     String? projectId,
     required String name,
-    AsyncModel<TeamIdentifier, Team, PartialTeam, Team>? team,
-    TemporalDateTime? createdAt,
-    TemporalDateTime? updatedAt,
-    String? projectTeamTeamId,
+    Team? team,
+    required String projectTeamTeamId,
     required String projectTeamName,
   }) = _Project;
 
@@ -349,7 +347,7 @@ abstract class Project extends PartialProject
             'projectTeamName',
           ))
         : (json['projectTeamName'] as String);
-    return Project(
+    return _Project._(
       projectId: projectId,
       name: name,
       team: team,
@@ -396,26 +394,8 @@ abstract class Project extends PartialProject
   TeamQueryFields<ProjectIdentifier, Project> get TEAM => $team;
   @override
   TemporalDateTime? get createdAt;
-
-  /// Query field for the [createdAt] field.
-  QueryField<ProjectIdentifier, Project, TemporalDateTime?> get $createdAt =>
-      _queryFields.$createdAt;
-
-  /// Query field for the [createdAt] field.
-  @Deprecated(r'Use $createdAt instead')
-  QueryField<ProjectIdentifier, Project, TemporalDateTime?> get CREATED_AT =>
-      $createdAt;
   @override
   TemporalDateTime? get updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  QueryField<ProjectIdentifier, Project, TemporalDateTime?> get $updatedAt =>
-      _queryFields.$updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  @Deprecated(r'Use $updatedAt instead')
-  QueryField<ProjectIdentifier, Project, TemporalDateTime?> get UPDATED_AT =>
-      $updatedAt;
   @override
   String get projectTeamTeamId;
 
@@ -453,14 +433,24 @@ class _Project extends Project {
   _Project({
     String? projectId,
     required this.name,
+    Team? team,
+    required this.projectTeamTeamId,
+    required this.projectTeamName,
+  })  : projectId = projectId ?? uuid(),
+        team = team == null ? null : AsyncModel.fromModel(team),
+        createdAt = TemporalDateTime.now(),
+        updatedAt = TemporalDateTime.now(),
+        super._();
+
+  const _Project._({
+    required this.projectId,
+    required this.name,
     this.team,
     this.createdAt,
     this.updatedAt,
-    String? projectTeamTeamId,
+    required this.projectTeamTeamId,
     required this.projectTeamName,
-  })  : projectId = projectId ?? uuid(),
-        projectTeamTeamId = projectTeamTeamId ?? uuid(),
-        super._();
+  }) : super._();
 
   @override
   final String projectId;

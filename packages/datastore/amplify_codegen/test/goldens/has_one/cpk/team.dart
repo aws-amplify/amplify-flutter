@@ -230,8 +230,6 @@ abstract class Team extends PartialTeam implements Model<TeamIdentifier, Team> {
   factory Team({
     String? teamId,
     required String name,
-    TemporalDateTime? createdAt,
-    TemporalDateTime? updatedAt,
   }) = _Team;
 
   const Team._() : super._();
@@ -255,7 +253,7 @@ abstract class Team extends PartialTeam implements Model<TeamIdentifier, Team> {
     final updatedAt = json['updatedAt'] == null
         ? null
         : TemporalDateTime.fromString((json['updatedAt'] as String));
-    return Team(
+    return _Team._(
       teamId: teamId,
       name: name,
       createdAt: createdAt,
@@ -288,26 +286,8 @@ abstract class Team extends PartialTeam implements Model<TeamIdentifier, Team> {
   QueryField<TeamIdentifier, Team, String> get NAME => $name;
   @override
   TemporalDateTime? get createdAt;
-
-  /// Query field for the [createdAt] field.
-  QueryField<TeamIdentifier, Team, TemporalDateTime?> get $createdAt =>
-      _queryFields.$createdAt;
-
-  /// Query field for the [createdAt] field.
-  @Deprecated(r'Use $createdAt instead')
-  QueryField<TeamIdentifier, Team, TemporalDateTime?> get CREATED_AT =>
-      $createdAt;
   @override
   TemporalDateTime? get updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  QueryField<TeamIdentifier, Team, TemporalDateTime?> get $updatedAt =>
-      _queryFields.$updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  @Deprecated(r'Use $updatedAt instead')
-  QueryField<TeamIdentifier, Team, TemporalDateTime?> get UPDATED_AT =>
-      $updatedAt;
 
   /// Query field for the [modelIdentifier] field.
   QueryField<TeamIdentifier, Team, TeamIdentifier> get $modelIdentifier =>
@@ -323,10 +303,17 @@ class _Team extends Team {
   _Team({
     String? teamId,
     required this.name,
+  })  : teamId = teamId ?? uuid(),
+        createdAt = TemporalDateTime.now(),
+        updatedAt = TemporalDateTime.now(),
+        super._();
+
+  const _Team._({
+    required this.teamId,
+    required this.name,
     this.createdAt,
     this.updatedAt,
-  })  : teamId = teamId ?? uuid(),
-        super._();
+  }) : super._();
 
   @override
   final String teamId;

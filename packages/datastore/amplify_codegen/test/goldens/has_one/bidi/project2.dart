@@ -236,10 +236,8 @@ abstract class Project2 extends PartialProject2
   factory Project2({
     String? id,
     String? name,
-    AsyncModel<String, Team2, PartialTeam2, Team2>? team,
-    TemporalDateTime? createdAt,
-    TemporalDateTime? updatedAt,
-    String? project2TeamId,
+    Team2? team,
+    required String project2TeamId,
   }) = _Project2;
 
   const Project2._() : super._();
@@ -269,7 +267,7 @@ abstract class Project2 extends PartialProject2
             'project2TeamId',
           ))
         : (json['project2TeamId'] as String);
-    return Project2(
+    return _Project2._(
       id: id,
       name: name,
       team: team,
@@ -313,24 +311,8 @@ abstract class Project2 extends PartialProject2
   Team2QueryFields<String, Project2> get TEAM => $team;
   @override
   TemporalDateTime? get createdAt;
-
-  /// Query field for the [createdAt] field.
-  QueryField<String, Project2, TemporalDateTime?> get $createdAt =>
-      _queryFields.$createdAt;
-
-  /// Query field for the [createdAt] field.
-  @Deprecated(r'Use $createdAt instead')
-  QueryField<String, Project2, TemporalDateTime?> get CREATED_AT => $createdAt;
   @override
   TemporalDateTime? get updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  QueryField<String, Project2, TemporalDateTime?> get $updatedAt =>
-      _queryFields.$updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  @Deprecated(r'Use $updatedAt instead')
-  QueryField<String, Project2, TemporalDateTime?> get UPDATED_AT => $updatedAt;
   @override
   String get project2TeamId;
 
@@ -355,13 +337,22 @@ class _Project2 extends Project2 {
   _Project2({
     String? id,
     this.name,
+    Team2? team,
+    required this.project2TeamId,
+  })  : id = id ?? uuid(),
+        team = team == null ? null : AsyncModel.fromModel(team),
+        createdAt = TemporalDateTime.now(),
+        updatedAt = TemporalDateTime.now(),
+        super._();
+
+  const _Project2._({
+    required this.id,
+    this.name,
     this.team,
     this.createdAt,
     this.updatedAt,
-    String? project2TeamId,
-  })  : id = id ?? uuid(),
-        project2TeamId = project2TeamId ?? uuid(),
-        super._();
+    required this.project2TeamId,
+  }) : super._();
 
   @override
   final String id;

@@ -213,8 +213,6 @@ abstract class PowerSource extends PartialPowerSource
     String? sourceId,
     required double amps,
     required double volts,
-    TemporalDateTime? createdAt,
-    TemporalDateTime? updatedAt,
   }) = _PowerSource;
 
   const PowerSource._() : super._();
@@ -244,7 +242,7 @@ abstract class PowerSource extends PartialPowerSource
     final updatedAt = json['updatedAt'] == null
         ? null
         : TemporalDateTime.fromString((json['updatedAt'] as String));
-    return PowerSource(
+    return _PowerSource._(
       sourceId: sourceId,
       amps: amps,
       volts: volts,
@@ -288,26 +286,8 @@ abstract class PowerSource extends PartialPowerSource
   QueryField<String, PowerSource, double> get VOLTS => $volts;
   @override
   TemporalDateTime? get createdAt;
-
-  /// Query field for the [createdAt] field.
-  QueryField<String, PowerSource, TemporalDateTime?> get $createdAt =>
-      _queryFields.$createdAt;
-
-  /// Query field for the [createdAt] field.
-  @Deprecated(r'Use $createdAt instead')
-  QueryField<String, PowerSource, TemporalDateTime?> get CREATED_AT =>
-      $createdAt;
   @override
   TemporalDateTime? get updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  QueryField<String, PowerSource, TemporalDateTime?> get $updatedAt =>
-      _queryFields.$updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  @Deprecated(r'Use $updatedAt instead')
-  QueryField<String, PowerSource, TemporalDateTime?> get UPDATED_AT =>
-      $updatedAt;
 
   /// Query field for the [modelIdentifier] field.
   QueryField<String, PowerSource, String> get $modelIdentifier =>
@@ -324,10 +304,18 @@ class _PowerSource extends PowerSource {
     String? sourceId,
     required this.amps,
     required this.volts,
+  })  : sourceId = sourceId ?? uuid(),
+        createdAt = TemporalDateTime.now(),
+        updatedAt = TemporalDateTime.now(),
+        super._();
+
+  const _PowerSource._({
+    required this.sourceId,
+    required this.amps,
+    required this.volts,
     this.createdAt,
     this.updatedAt,
-  })  : sourceId = sourceId ?? uuid(),
-        super._();
+  }) : super._();
 
   @override
   final String sourceId;

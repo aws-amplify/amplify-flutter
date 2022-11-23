@@ -89,48 +89,6 @@ extension TypeHelpers on TypeNode {
   }
 }
 
-/// Helpers for [ScalarType].
-extension ScalarTypeHelpers on ScalarType {
-  /// The code_builder reference for `this`.
-  Reference get reference {
-    return DartTypes.scalar(value).withRequired(isRequired);
-  }
-}
-
-/// Helpers for [EnumType].
-extension EnumTypeHelpers on EnumType {
-  /// The Dart name for `this`.
-  String get dartName {
-    final name = this.name.pascalCase;
-    if (reservedTypeNames.contains(name)) {
-      return '$name\$';
-    }
-    return name;
-  }
-
-  /// The code_builder reference for `this`.
-  Reference get reference {
-    return refer(dartName, '${name.snakeCase}.dart').withRequired(isRequired);
-  }
-}
-
-/// Helpers for [NonModelType].
-extension NonModelTypeHelpers on NonModelType {
-  /// The Dart name for `this`.
-  String get dartName {
-    final name = this.name.pascalCase;
-    if (reservedTypeNames.contains(name)) {
-      return '$name\$';
-    }
-    return name;
-  }
-
-  /// The code_builder reference for `this`.
-  Reference get reference {
-    return refer(dartName, '${name.snakeCase}.dart').withRequired(isRequired);
-  }
-}
-
 /// Helpers for [SchemaType].
 extension SchemaTypeHelpers on SchemaType {
   /// Whether this type represents an enum.
@@ -196,6 +154,26 @@ extension SchemaTypeHelpers on SchemaType {
     final type = this;
     return (type is ScalarType && primitiveScalars.contains(type.value)) ||
         type is EnumType;
+  }
+
+  /// The Dart name for `this`.
+  String get dartName {
+    final name = this.name.pascalCase;
+    if (reservedTypeNames.contains(name)) {
+      return '$name\$';
+    }
+    return name;
+  }
+
+  /// The code_builder reference for `this`.
+  Reference get reference {
+    final type = this;
+    if (type is ScalarType) {
+      return DartTypes.scalar(type.value).withRequired(isRequired);
+    } else if (type is NonModelType || type is ModelType || type is EnumType) {
+      return refer(dartName, '${name.snakeCase}.dart').withRequired(isRequired);
+    }
+    throw ArgumentError('Invalid type: $type');
   }
 }
 

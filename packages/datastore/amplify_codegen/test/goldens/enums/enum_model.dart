@@ -217,8 +217,6 @@ abstract class EnumModel extends PartialEnumModel
     String? id,
     MyEnum? enum_,
     required MyEnum requiredEnum,
-    TemporalDateTime? createdAt,
-    TemporalDateTime? updatedAt,
   }) = _EnumModel;
 
   const EnumModel._() : super._();
@@ -244,7 +242,7 @@ abstract class EnumModel extends PartialEnumModel
     final updatedAt = json['updatedAt'] == null
         ? null
         : TemporalDateTime.fromString((json['updatedAt'] as String));
-    return EnumModel(
+    return _EnumModel._(
       id: id,
       enum_: enum_,
       requiredEnum: requiredEnum,
@@ -288,24 +286,8 @@ abstract class EnumModel extends PartialEnumModel
   QueryField<String, EnumModel, MyEnum> get REQUIRED_ENUM => $requiredEnum;
   @override
   TemporalDateTime? get createdAt;
-
-  /// Query field for the [createdAt] field.
-  QueryField<String, EnumModel, TemporalDateTime?> get $createdAt =>
-      _queryFields.$createdAt;
-
-  /// Query field for the [createdAt] field.
-  @Deprecated(r'Use $createdAt instead')
-  QueryField<String, EnumModel, TemporalDateTime?> get CREATED_AT => $createdAt;
   @override
   TemporalDateTime? get updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  QueryField<String, EnumModel, TemporalDateTime?> get $updatedAt =>
-      _queryFields.$updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  @Deprecated(r'Use $updatedAt instead')
-  QueryField<String, EnumModel, TemporalDateTime?> get UPDATED_AT => $updatedAt;
 
   /// Query field for the [modelIdentifier] field.
   QueryField<String, EnumModel, String> get $modelIdentifier =>
@@ -322,10 +304,18 @@ class _EnumModel extends EnumModel {
     String? id,
     this.enum_,
     required this.requiredEnum,
+  })  : id = id ?? uuid(),
+        createdAt = TemporalDateTime.now(),
+        updatedAt = TemporalDateTime.now(),
+        super._();
+
+  const _EnumModel._({
+    required this.id,
+    this.enum_,
+    required this.requiredEnum,
     this.createdAt,
     this.updatedAt,
-  })  : id = id ?? uuid(),
-        super._();
+  }) : super._();
 
   @override
   final String id;

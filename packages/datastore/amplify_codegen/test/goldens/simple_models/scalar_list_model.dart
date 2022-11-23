@@ -1723,8 +1723,6 @@ abstract class ScalarListModel extends PartialScalarListModel
     List<String>? listOfRequiredAwsIpAddress,
     required List<String?> requiredListOfAwsIpAddress,
     required List<String> requiredListOfRequiredAwsIpAddress,
-    TemporalDateTime? createdAt,
-    TemporalDateTime? updatedAt,
   }) = _ScalarListModel;
 
   const ScalarListModel._() : super._();
@@ -2249,7 +2247,7 @@ abstract class ScalarListModel extends PartialScalarListModel
     final updatedAt = json['updatedAt'] == null
         ? null
         : TemporalDateTime.fromString((json['updatedAt'] as String));
-    return ScalarListModel(
+    return _ScalarListModel._(
       id: id,
       listOfString: listOfString,
       listOfRequiredString: listOfRequiredString,
@@ -2918,26 +2916,8 @@ abstract class ScalarListModel extends PartialScalarListModel
           $requiredListOfRequiredAwsIpAddress;
   @override
   TemporalDateTime? get createdAt;
-
-  /// Query field for the [createdAt] field.
-  QueryField<String, ScalarListModel, TemporalDateTime?> get $createdAt =>
-      _queryFields.$createdAt;
-
-  /// Query field for the [createdAt] field.
-  @Deprecated(r'Use $createdAt instead')
-  QueryField<String, ScalarListModel, TemporalDateTime?> get CREATED_AT =>
-      $createdAt;
   @override
   TemporalDateTime? get updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  QueryField<String, ScalarListModel, TemporalDateTime?> get $updatedAt =>
-      _queryFields.$updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  @Deprecated(r'Use $updatedAt instead')
-  QueryField<String, ScalarListModel, TemporalDateTime?> get UPDATED_AT =>
-      $updatedAt;
 
   /// Query field for the [modelIdentifier] field.
   QueryField<String, ScalarListModel, String> get $modelIdentifier =>
@@ -3004,10 +2984,68 @@ class _ScalarListModel extends ScalarListModel {
     this.listOfRequiredAwsIpAddress,
     required this.requiredListOfAwsIpAddress,
     required this.requiredListOfRequiredAwsIpAddress,
+  })  : id = id ?? uuid(),
+        createdAt = TemporalDateTime.now(),
+        updatedAt = TemporalDateTime.now(),
+        super._();
+
+  const _ScalarListModel._({
+    required this.id,
+    this.listOfString,
+    this.listOfRequiredString,
+    required this.requiredListOfString,
+    required this.requiredListOfRequiredString,
+    this.listOfInteger,
+    this.listOfRequiredInteger,
+    required this.requiredListOfInteger,
+    required this.requiredListOfRequiredInteger,
+    this.listOfFloat,
+    this.listOfRequiredFloat,
+    required this.requiredListOfFloat,
+    required this.requiredListOfRequiredFloat,
+    this.listOfBoolean,
+    this.listOfRequiredBoolean,
+    required this.requiredListOfBoolean,
+    required this.requiredListOfRequiredBoolean,
+    this.listOfAwsDate,
+    this.listOfRequiredAwsDate,
+    required this.requiredListOfAwsDate,
+    required this.requiredListOfRequiredAwsDate,
+    this.listOfAwsDateTime,
+    this.listOfRequiredAwsDateTime,
+    required this.requiredListOfAwsDateTime,
+    required this.requiredListOfRequiredAwsDateTime,
+    this.listOfAwsTime,
+    this.listOfRequiredAwsTime,
+    required this.requiredListOfAwsTime,
+    required this.requiredListOfRequiredAwsTime,
+    this.listOfAwsTimestamp,
+    this.listOfRequiredAwsTimestamp,
+    required this.requiredListOfAwsTimestamp,
+    required this.requiredListOfRequiredAwsTimestamp,
+    this.listOfAwsEmail,
+    this.listOfRequiredAwsEmail,
+    required this.requiredListOfAwsEmail,
+    required this.requiredListOfRequiredAwsEmail,
+    this.listOfAwsjson,
+    this.listOfRequiredAwsjson,
+    required this.requiredListOfAwsjson,
+    required this.requiredListOfRequiredAwsjson,
+    this.listOfAwsPhone,
+    this.listOfRequiredAwsPhone,
+    required this.requiredListOfAwsPhone,
+    required this.requiredListOfRequiredAwsPhone,
+    this.listOfAwsUrl,
+    this.listOfRequiredAwsUrl,
+    required this.requiredListOfAwsUrl,
+    required this.requiredListOfRequiredAwsUrl,
+    this.listOfAwsIpAddress,
+    this.listOfRequiredAwsIpAddress,
+    required this.requiredListOfAwsIpAddress,
+    required this.requiredListOfRequiredAwsIpAddress,
     this.createdAt,
     this.updatedAt,
-  })  : id = id ?? uuid(),
-        super._();
+  }) : super._();
 
   @override
   final String id;

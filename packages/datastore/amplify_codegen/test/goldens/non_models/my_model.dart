@@ -202,8 +202,6 @@ abstract class MyModel extends PartialMyModel
   factory MyModel({
     ScalarNonModel? embeddedNonModel,
     required ScalarNonModel requiredEmbeddedNonModel,
-    TemporalDateTime? createdAt,
-    TemporalDateTime? updatedAt,
     String? id,
   }) = _MyModel;
 
@@ -233,7 +231,7 @@ abstract class MyModel extends PartialMyModel
             'id',
           ))
         : (json['id'] as String);
-    return MyModel(
+    return _MyModel._(
       embeddedNonModel: embeddedNonModel,
       requiredEmbeddedNonModel: requiredEmbeddedNonModel,
       createdAt: createdAt,
@@ -253,24 +251,8 @@ abstract class MyModel extends PartialMyModel
   ScalarNonModel get requiredEmbeddedNonModel;
   @override
   TemporalDateTime? get createdAt;
-
-  /// Query field for the [createdAt] field.
-  QueryField<String, MyModel, TemporalDateTime?> get $createdAt =>
-      _queryFields.$createdAt;
-
-  /// Query field for the [createdAt] field.
-  @Deprecated(r'Use $createdAt instead')
-  QueryField<String, MyModel, TemporalDateTime?> get CREATED_AT => $createdAt;
   @override
   TemporalDateTime? get updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  QueryField<String, MyModel, TemporalDateTime?> get $updatedAt =>
-      _queryFields.$updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  @Deprecated(r'Use $updatedAt instead')
-  QueryField<String, MyModel, TemporalDateTime?> get UPDATED_AT => $updatedAt;
   @override
   String get id;
 
@@ -294,11 +276,19 @@ class _MyModel extends MyModel {
   _MyModel({
     this.embeddedNonModel,
     required this.requiredEmbeddedNonModel,
+    String? id,
+  })  : createdAt = TemporalDateTime.now(),
+        updatedAt = TemporalDateTime.now(),
+        id = id ?? uuid(),
+        super._();
+
+  const _MyModel._({
+    this.embeddedNonModel,
+    required this.requiredEmbeddedNonModel,
     this.createdAt,
     this.updatedAt,
-    String? id,
-  })  : id = id ?? uuid(),
-        super._();
+    required this.id,
+  }) : super._();
 
   @override
   final ScalarNonModel? embeddedNonModel;

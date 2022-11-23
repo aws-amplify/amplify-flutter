@@ -188,8 +188,6 @@ abstract class MyModel extends PartialMyModel
     implements Model<String, MyModel> {
   factory MyModel({
     required String enum_,
-    TemporalDateTime? createdAt,
-    TemporalDateTime? updatedAt,
     String? id,
   }) = _MyModel;
 
@@ -214,7 +212,7 @@ abstract class MyModel extends PartialMyModel
             'id',
           ))
         : (json['id'] as String);
-    return MyModel(
+    return _MyModel._(
       enum_: enum_,
       createdAt: createdAt,
       updatedAt: updatedAt,
@@ -238,24 +236,8 @@ abstract class MyModel extends PartialMyModel
   QueryField<String, MyModel, String> get ENUM => $enum_;
   @override
   TemporalDateTime? get createdAt;
-
-  /// Query field for the [createdAt] field.
-  QueryField<String, MyModel, TemporalDateTime?> get $createdAt =>
-      _queryFields.$createdAt;
-
-  /// Query field for the [createdAt] field.
-  @Deprecated(r'Use $createdAt instead')
-  QueryField<String, MyModel, TemporalDateTime?> get CREATED_AT => $createdAt;
   @override
   TemporalDateTime? get updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  QueryField<String, MyModel, TemporalDateTime?> get $updatedAt =>
-      _queryFields.$updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  @Deprecated(r'Use $updatedAt instead')
-  QueryField<String, MyModel, TemporalDateTime?> get UPDATED_AT => $updatedAt;
   @override
   String get id;
 
@@ -278,11 +260,18 @@ abstract class MyModel extends PartialMyModel
 class _MyModel extends MyModel {
   _MyModel({
     required this.enum_,
+    String? id,
+  })  : createdAt = TemporalDateTime.now(),
+        updatedAt = TemporalDateTime.now(),
+        id = id ?? uuid(),
+        super._();
+
+  const _MyModel._({
+    required this.enum_,
     this.createdAt,
     this.updatedAt,
-    String? id,
-  })  : id = id ?? uuid(),
-        super._();
+    required this.id,
+  }) : super._();
 
   @override
   final String enum_;

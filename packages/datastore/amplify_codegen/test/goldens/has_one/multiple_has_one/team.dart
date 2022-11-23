@@ -302,10 +302,8 @@ abstract class Team extends PartialTeam implements Model<TeamIdentifier, Team> {
   factory Team({
     String? teamId,
     required String name,
-    AsyncModel<ProjectIdentifier, Project, PartialProject, Project>? project,
-    TemporalDateTime? createdAt,
-    TemporalDateTime? updatedAt,
-    String? teamProjectProjectId,
+    Project? project,
+    required String teamProjectProjectId,
     required String teamProjectName,
   }) = _Team;
 
@@ -348,7 +346,7 @@ abstract class Team extends PartialTeam implements Model<TeamIdentifier, Team> {
             'teamProjectName',
           ))
         : (json['teamProjectName'] as String);
-    return Team(
+    return _Team._(
       teamId: teamId,
       name: name,
       project: project,
@@ -394,26 +392,8 @@ abstract class Team extends PartialTeam implements Model<TeamIdentifier, Team> {
   ProjectQueryFields<TeamIdentifier, Team> get PROJECT => $project;
   @override
   TemporalDateTime? get createdAt;
-
-  /// Query field for the [createdAt] field.
-  QueryField<TeamIdentifier, Team, TemporalDateTime?> get $createdAt =>
-      _queryFields.$createdAt;
-
-  /// Query field for the [createdAt] field.
-  @Deprecated(r'Use $createdAt instead')
-  QueryField<TeamIdentifier, Team, TemporalDateTime?> get CREATED_AT =>
-      $createdAt;
   @override
   TemporalDateTime? get updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  QueryField<TeamIdentifier, Team, TemporalDateTime?> get $updatedAt =>
-      _queryFields.$updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  @Deprecated(r'Use $updatedAt instead')
-  QueryField<TeamIdentifier, Team, TemporalDateTime?> get UPDATED_AT =>
-      $updatedAt;
   @override
   String get teamProjectProjectId;
 
@@ -451,14 +431,24 @@ class _Team extends Team {
   _Team({
     String? teamId,
     required this.name,
+    Project? project,
+    required this.teamProjectProjectId,
+    required this.teamProjectName,
+  })  : teamId = teamId ?? uuid(),
+        project = project == null ? null : AsyncModel.fromModel(project),
+        createdAt = TemporalDateTime.now(),
+        updatedAt = TemporalDateTime.now(),
+        super._();
+
+  const _Team._({
+    required this.teamId,
+    required this.name,
     this.project,
     this.createdAt,
     this.updatedAt,
-    String? teamProjectProjectId,
+    required this.teamProjectProjectId,
     required this.teamProjectName,
-  })  : teamId = teamId ?? uuid(),
-        teamProjectProjectId = teamProjectProjectId ?? uuid(),
-        super._();
+  }) : super._();
 
   @override
   final String teamId;

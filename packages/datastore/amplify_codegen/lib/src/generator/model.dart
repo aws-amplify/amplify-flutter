@@ -561,17 +561,28 @@ return value as T;
           ),
         );
 
+        // Read-only fields are not passable to the main constructor.
+        if (field.isReadOnly) {
+          continue;
+        }
+
         // Allow nullable `ID` parameters to the main constructor since these
         // fields can be auto-generated.
         final isIdField = fieldType is mipr.ScalarType &&
             fieldType.value == mipr.AppSyncScalar.id;
+        final isPrimaryKey =
+            definition.modelIdentifier.fields.contains(field.name);
+        final factoryTypeRef =
+            field.factoryType(ModelHierarchyType.model).typeRef.rebuild(
+                  (t) =>
+                      t.isNullable = t.isNullable! || isIdField && isPrimaryKey,
+                );
         parameters.add(
           Parameter(
             (p) => p
               ..named = true
-              ..required = fieldType.isRequired && !isIdField
-              ..type = fieldTypeRef.typeRef
-                  .rebuild((t) => t.isNullable = t.isNullable! || isIdField)
+              ..required = fieldType.isRequired && !(isIdField && isPrimaryKey)
+              ..type = factoryTypeRef
               ..name = field.dartName,
           ),
         );
@@ -638,7 +649,7 @@ return value as T;
               ),
             )
             ..body = fromJson(
-              modelType: _references.model,
+              modelType: _references.modelImpl.property('_'),
               fields: definition.schemaFields(ModelHierarchyType.model).values,
               hierarchyType: ModelHierarchyType.model,
             ),
@@ -652,7 +663,8 @@ return value as T;
         ..name = _names.modelImpl
         ..extend = _references.model;
 
-      final parameters = <Parameter>[];
+      final privateParameters = <Parameter>[];
+      final factoryParameters = <Parameter>[];
       final initializers = <Code>[];
       for (final field in definition.fields.values) {
         final fieldType = field.type;
@@ -665,40 +677,67 @@ return value as T;
               ..name = field.dartName,
           ),
         );
-
-        // Allow nullable `ID` parameters to the main constructor since these
-        // fields can be auto-generated.
-        final isIdField = fieldType is mipr.ScalarType &&
-            fieldType.value == mipr.AppSyncScalar.id;
-        if (isIdField) {
-          initializers.add(
-            Code.scope(
-              (allocate) => '${field.dartName} = ${field.dartName} ?? '
-                  '${allocate(DartTypes.awsCommon.uuid)}()',
-            ),
-          );
-        }
-        parameters.add(
+        privateParameters.add(
           Parameter(
             (p) => p
               ..named = true
-              ..required = fieldType.isRequired && !isIdField
-              ..type = isIdField ? fieldType.reference.nullable : null
-              ..toThis = !isIdField
+              ..required = fieldType.isRequired
+              ..toThis = true
               ..name = field.dartName,
           ),
         );
+
+        final isIdField = fieldType is mipr.ScalarType &&
+            fieldType.value == mipr.AppSyncScalar.id;
+        final isPrimaryKey =
+            definition.modelIdentifier.fields.contains(field.name);
+        final factoryTypeRef =
+            field.factoryType(ModelHierarchyType.model).typeRef.rebuild(
+                  (t) =>
+                      t.isNullable = t.isNullable! || isIdField && isPrimaryKey,
+                );
+        final factoryInitializer = field.factoryInitializer(
+          isPrimaryKey: isPrimaryKey,
+        );
+        final hasFactoryInitializer = factoryInitializer != null;
+        if (hasFactoryInitializer) {
+          initializers.add(factoryInitializer);
+        }
+        if (!field.isReadOnly) {
+          factoryParameters.add(
+            Parameter(
+              (p) => p
+                ..named = true
+                ..required =
+                    fieldType.isRequired && !(isIdField && isPrimaryKey)
+                ..type = hasFactoryInitializer ? factoryTypeRef : null
+                ..toThis = !hasFactoryInitializer
+                ..name = field.dartName,
+            ),
+          );
+        }
       }
 
       // The unnamed constructor.
       c.constructors.add(
         Constructor(
           (ctor) => ctor
-            ..optionalParameters.addAll(parameters)
+            ..optionalParameters.addAll(factoryParameters)
             ..initializers.addAll([
               ...initializers,
               const Code('super._()'),
             ]),
+        ),
+      );
+
+      // The private constructor
+      c.constructors.add(
+        Constructor(
+          (ctor) => ctor
+            ..constant = true
+            ..name = '_'
+            ..optionalParameters.addAll(privateParameters)
+            ..initializers.add(const Code('super._()')),
         ),
       );
     });

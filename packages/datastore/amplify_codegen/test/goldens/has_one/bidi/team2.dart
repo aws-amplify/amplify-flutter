@@ -234,10 +234,8 @@ abstract class Team2 extends PartialTeam2 implements Model<String, Team2> {
   factory Team2({
     String? id,
     required String name,
-    required AsyncModel<String, Project2, PartialProject2, Project2> project,
-    TemporalDateTime? createdAt,
-    TemporalDateTime? updatedAt,
-    String? team2ProjectId,
+    required Project2 project,
+    required String team2ProjectId,
   }) = _Team2;
 
   const Team2._() : super._();
@@ -275,7 +273,7 @@ abstract class Team2 extends PartialTeam2 implements Model<String, Team2> {
             'team2ProjectId',
           ))
         : (json['team2ProjectId'] as String);
-    return Team2(
+    return _Team2._(
       id: id,
       name: name,
       project: project,
@@ -319,24 +317,8 @@ abstract class Team2 extends PartialTeam2 implements Model<String, Team2> {
   Project2QueryFields<String, Team2> get PROJECT => $project;
   @override
   TemporalDateTime? get createdAt;
-
-  /// Query field for the [createdAt] field.
-  QueryField<String, Team2, TemporalDateTime?> get $createdAt =>
-      _queryFields.$createdAt;
-
-  /// Query field for the [createdAt] field.
-  @Deprecated(r'Use $createdAt instead')
-  QueryField<String, Team2, TemporalDateTime?> get CREATED_AT => $createdAt;
   @override
   TemporalDateTime? get updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  QueryField<String, Team2, TemporalDateTime?> get $updatedAt =>
-      _queryFields.$updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  @Deprecated(r'Use $updatedAt instead')
-  QueryField<String, Team2, TemporalDateTime?> get UPDATED_AT => $updatedAt;
   @override
   String get team2ProjectId;
 
@@ -361,13 +343,22 @@ class _Team2 extends Team2 {
   _Team2({
     String? id,
     required this.name,
+    required Project2 project,
+    required this.team2ProjectId,
+  })  : id = id ?? uuid(),
+        project = AsyncModel.fromModel(project),
+        createdAt = TemporalDateTime.now(),
+        updatedAt = TemporalDateTime.now(),
+        super._();
+
+  const _Team2._({
+    required this.id,
+    required this.name,
     required this.project,
     this.createdAt,
     this.updatedAt,
-    String? team2ProjectId,
-  })  : id = id ?? uuid(),
-        team2ProjectId = team2ProjectId ?? uuid(),
-        super._();
+    required this.team2ProjectId,
+  }) : super._();
 
   @override
   final String id;

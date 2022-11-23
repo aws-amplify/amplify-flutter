@@ -37,7 +37,7 @@ abstract class StructureGenerator<Definition extends StructureTypeDefinition>
   /// list of [fields].
   @protected
   Code fromJson({
-    required Reference modelType,
+    required Expression modelType,
     required Iterable<ModelField> fields,
     ModelHierarchyType? hierarchyType,
   }) {
@@ -68,7 +68,7 @@ abstract class StructureGenerator<Definition extends StructureTypeDefinition>
         );
       }
       b.addExpression(
-        modelType.newInstance([], {
+        modelType.call([], {
           for (final field in fields) field.dartName: refer(field.dartName),
         }).returned,
       );

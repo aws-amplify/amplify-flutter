@@ -236,8 +236,6 @@ abstract class CpkModel extends PartialCpkModel
   factory CpkModel({
     required String firstName,
     required String lastName,
-    TemporalDateTime? createdAt,
-    TemporalDateTime? updatedAt,
   }) = _CpkModel;
 
   const CpkModel._() : super._();
@@ -261,7 +259,7 @@ abstract class CpkModel extends PartialCpkModel
     final updatedAt = json['updatedAt'] == null
         ? null
         : TemporalDateTime.fromString((json['updatedAt'] as String));
-    return CpkModel(
+    return _CpkModel._(
       firstName: firstName,
       lastName: lastName,
       createdAt: createdAt,
@@ -296,26 +294,8 @@ abstract class CpkModel extends PartialCpkModel
   QueryField<CpkModelIdentifier, CpkModel, String> get LAST_NAME => $lastName;
   @override
   TemporalDateTime? get createdAt;
-
-  /// Query field for the [createdAt] field.
-  QueryField<CpkModelIdentifier, CpkModel, TemporalDateTime?> get $createdAt =>
-      _queryFields.$createdAt;
-
-  /// Query field for the [createdAt] field.
-  @Deprecated(r'Use $createdAt instead')
-  QueryField<CpkModelIdentifier, CpkModel, TemporalDateTime?> get CREATED_AT =>
-      $createdAt;
   @override
   TemporalDateTime? get updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  QueryField<CpkModelIdentifier, CpkModel, TemporalDateTime?> get $updatedAt =>
-      _queryFields.$updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  @Deprecated(r'Use $updatedAt instead')
-  QueryField<CpkModelIdentifier, CpkModel, TemporalDateTime?> get UPDATED_AT =>
-      $updatedAt;
 
   /// Query field for the [modelIdentifier] field.
   QueryField<CpkModelIdentifier, CpkModel, CpkModelIdentifier>
@@ -329,6 +309,13 @@ abstract class CpkModel extends PartialCpkModel
 
 class _CpkModel extends CpkModel {
   _CpkModel({
+    required this.firstName,
+    required this.lastName,
+  })  : createdAt = TemporalDateTime.now(),
+        updatedAt = TemporalDateTime.now(),
+        super._();
+
+  const _CpkModel._({
     required this.firstName,
     required this.lastName,
     this.createdAt,

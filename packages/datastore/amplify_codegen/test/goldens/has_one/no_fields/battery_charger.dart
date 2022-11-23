@@ -226,12 +226,9 @@ class _PartialBatteryCharger extends PartialBatteryCharger {
 abstract class BatteryCharger extends PartialBatteryCharger
     implements Model<String, BatteryCharger> {
   factory BatteryCharger({
-    AsyncModel<String, PowerSource, PartialPowerSource, PowerSource>?
-        powerSource,
-    TemporalDateTime? createdAt,
-    TemporalDateTime? updatedAt,
+    PowerSource? powerSource,
     String? id,
-    String? batteryChargerPowerSourceId,
+    required String batteryChargerPowerSourceId,
   }) = _BatteryCharger;
 
   const BatteryCharger._() : super._();
@@ -262,7 +259,7 @@ abstract class BatteryCharger extends PartialBatteryCharger
                 'batteryChargerPowerSourceId',
               ))
             : (json['batteryChargerPowerSourceId'] as String);
-    return BatteryCharger(
+    return _BatteryCharger._(
       powerSource: powerSource,
       createdAt: createdAt,
       updatedAt: updatedAt,
@@ -290,26 +287,8 @@ abstract class BatteryCharger extends PartialBatteryCharger
       $powerSource;
   @override
   TemporalDateTime? get createdAt;
-
-  /// Query field for the [createdAt] field.
-  QueryField<String, BatteryCharger, TemporalDateTime?> get $createdAt =>
-      _queryFields.$createdAt;
-
-  /// Query field for the [createdAt] field.
-  @Deprecated(r'Use $createdAt instead')
-  QueryField<String, BatteryCharger, TemporalDateTime?> get CREATED_AT =>
-      $createdAt;
   @override
   TemporalDateTime? get updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  QueryField<String, BatteryCharger, TemporalDateTime?> get $updatedAt =>
-      _queryFields.$updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  @Deprecated(r'Use $updatedAt instead')
-  QueryField<String, BatteryCharger, TemporalDateTime?> get UPDATED_AT =>
-      $updatedAt;
   @override
   String get id;
 
@@ -343,14 +322,23 @@ abstract class BatteryCharger extends PartialBatteryCharger
 
 class _BatteryCharger extends BatteryCharger {
   _BatteryCharger({
+    PowerSource? powerSource,
+    String? id,
+    required this.batteryChargerPowerSourceId,
+  })  : powerSource =
+            powerSource == null ? null : AsyncModel.fromModel(powerSource),
+        createdAt = TemporalDateTime.now(),
+        updatedAt = TemporalDateTime.now(),
+        id = id ?? uuid(),
+        super._();
+
+  const _BatteryCharger._({
     this.powerSource,
     this.createdAt,
     this.updatedAt,
-    String? id,
-    String? batteryChargerPowerSourceId,
-  })  : id = id ?? uuid(),
-        batteryChargerPowerSourceId = batteryChargerPowerSourceId ?? uuid(),
-        super._();
+    required this.id,
+    required this.batteryChargerPowerSourceId,
+  }) : super._();
 
   @override
   final AsyncModel<String, PowerSource, PartialPowerSource, PowerSource>?

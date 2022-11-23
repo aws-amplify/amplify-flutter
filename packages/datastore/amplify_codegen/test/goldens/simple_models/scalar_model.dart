@@ -730,14 +730,14 @@ abstract class ScalarModel extends PartialScalarModel
     required double requiredFloat,
     bool? boolean,
     required bool requiredBoolean,
-    TemporalDate? awsDate,
-    required TemporalDate requiredAwsDate,
-    TemporalDateTime? awsDateTime,
-    required TemporalDateTime requiredAwsDateTime,
-    TemporalTime? awsTime,
-    required TemporalTime requiredAwsTime,
-    TemporalTimestamp? awsTimestamp,
-    required TemporalTimestamp requiredAwsTimestamp,
+    DateTime? awsDate,
+    required DateTime requiredAwsDate,
+    DateTime? awsDateTime,
+    required DateTime requiredAwsDateTime,
+    DateTime? awsTime,
+    required DateTime requiredAwsTime,
+    DateTime? awsTimestamp,
+    required DateTime requiredAwsTimestamp,
     String? awsEmail,
     required String requiredAwsEmail,
     Object? awsJson,
@@ -748,8 +748,6 @@ abstract class ScalarModel extends PartialScalarModel
     required Uri requiredAwsUrl,
     String? awsIpAddress,
     required String requiredAwsIpAddress,
-    TemporalDateTime? createdAt,
-    TemporalDateTime? updatedAt,
   }) = _ScalarModel;
 
   const ScalarModel._() : super._();
@@ -870,7 +868,7 @@ abstract class ScalarModel extends PartialScalarModel
     final updatedAt = json['updatedAt'] == null
         ? null
         : TemporalDateTime.fromString((json['updatedAt'] as String));
-    return ScalarModel(
+    return _ScalarModel._(
       id: id,
       str: str,
       requiredStr: requiredStr,
@@ -1185,26 +1183,8 @@ abstract class ScalarModel extends PartialScalarModel
       $requiredAwsIpAddress;
   @override
   TemporalDateTime? get createdAt;
-
-  /// Query field for the [createdAt] field.
-  QueryField<String, ScalarModel, TemporalDateTime?> get $createdAt =>
-      _queryFields.$createdAt;
-
-  /// Query field for the [createdAt] field.
-  @Deprecated(r'Use $createdAt instead')
-  QueryField<String, ScalarModel, TemporalDateTime?> get CREATED_AT =>
-      $createdAt;
   @override
   TemporalDateTime? get updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  QueryField<String, ScalarModel, TemporalDateTime?> get $updatedAt =>
-      _queryFields.$updatedAt;
-
-  /// Query field for the [updatedAt] field.
-  @Deprecated(r'Use $updatedAt instead')
-  QueryField<String, ScalarModel, TemporalDateTime?> get UPDATED_AT =>
-      $updatedAt;
 
   /// Query field for the [modelIdentifier] field.
   QueryField<String, ScalarModel, String> get $modelIdentifier =>
@@ -1219,6 +1199,49 @@ abstract class ScalarModel extends PartialScalarModel
 class _ScalarModel extends ScalarModel {
   _ScalarModel({
     String? id,
+    this.str,
+    required this.requiredStr,
+    this.integer,
+    required this.requiredInteger,
+    this.float,
+    required this.requiredFloat,
+    this.boolean,
+    required this.requiredBoolean,
+    DateTime? awsDate,
+    required DateTime requiredAwsDate,
+    DateTime? awsDateTime,
+    required DateTime requiredAwsDateTime,
+    DateTime? awsTime,
+    required DateTime requiredAwsTime,
+    DateTime? awsTimestamp,
+    required DateTime requiredAwsTimestamp,
+    this.awsEmail,
+    required this.requiredAwsEmail,
+    this.awsJson,
+    required this.requiredAwsJson,
+    this.awsPhone,
+    required this.requiredAwsPhone,
+    this.awsUrl,
+    required this.requiredAwsUrl,
+    this.awsIpAddress,
+    required this.requiredAwsIpAddress,
+  })  : id = id ?? uuid(),
+        awsDate = awsDate == null ? null : TemporalDate(awsDate),
+        requiredAwsDate = TemporalDate(requiredAwsDate),
+        awsDateTime =
+            awsDateTime == null ? null : TemporalDateTime(awsDateTime),
+        requiredAwsDateTime = TemporalDateTime(requiredAwsDateTime),
+        awsTime = awsTime == null ? null : TemporalTime(awsTime),
+        requiredAwsTime = TemporalTime(requiredAwsTime),
+        awsTimestamp =
+            awsTimestamp == null ? null : TemporalTimestamp(awsTimestamp),
+        requiredAwsTimestamp = TemporalTimestamp(requiredAwsTimestamp),
+        createdAt = TemporalDateTime.now(),
+        updatedAt = TemporalDateTime.now(),
+        super._();
+
+  const _ScalarModel._({
+    required this.id,
     this.str,
     required this.requiredStr,
     this.integer,
@@ -1247,8 +1270,7 @@ class _ScalarModel extends ScalarModel {
     required this.requiredAwsIpAddress,
     this.createdAt,
     this.updatedAt,
-  })  : id = id ?? uuid(),
-        super._();
+  }) : super._();
 
   @override
   final String id;

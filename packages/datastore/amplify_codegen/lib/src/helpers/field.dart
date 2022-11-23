@@ -31,7 +31,10 @@ import 'package:smithy_codegen/src/util/symbol_ext.dart';
 String queryFieldName(String fieldName) => ('$fieldName\$').camelCase;
 
 // Cache for type references.
-final _typeReferences = Expando<Reference>();
+final Map<SchemaType, Reference> _typeReferences = {};
+
+// Cache for factory type references.
+final Map<SchemaType, Reference> _factoryTypeReferences = {};
 
 class _FromJsonVisitor extends SchemaTypeVisitor<Expression> {
   _FromJsonVisitor(
@@ -282,6 +285,194 @@ extension ModelFieldHelpers on ModelField {
     return name;
   }
 
+  /// Returns the [ModelHierarchyType] for the associated model, if any, for
+  /// this model's current hiearchy type.
+  ///
+  /// For example, for the Blog/Post/Comment model:
+  ///
+  /// ```
+  /// PartialBlog                 PartialPost                 PartialComment
+  /// -----------                 -----------                 --------------
+  /// posts: [PartialPost]        blog: PartialBlog           post: PartialPost
+  ///                             comments: [PartialComment]
+  ///
+  /// Blog                        Post                        Comment
+  /// ----                        ----                        -------
+  /// posts: [Post]               blog: Blog                  post: Post
+  ///                             comments: [Comment]
+  ///
+  /// RemoteBlog                  RemotePost                  RemoteComment
+  /// ----------                  ----------                  -------------
+  /// posts: [Post]               blog: RemoteBlog            post: RemotePost
+  ///                             comments: [Comment]
+  /// ```
+  ModelHierarchyType? associationHiearchyType(
+    ModelHierarchyType hierarchyType,
+  ) {
+    final association = this.association;
+    if (association == null) {
+      return null;
+    }
+    switch (hierarchyType) {
+      case ModelHierarchyType.partial:
+        return ModelHierarchyType.partial;
+      case ModelHierarchyType.model:
+        return ModelHierarchyType.model;
+      case ModelHierarchyType.remote:
+        switch (association.associationType) {
+          // Since the foreign keys for these types are local to the model,
+          // they must be synced after their parent models. Thus, if they have
+          // been remotely synced, we can guarantee their parents have been
+          // already.
+          case ModelAssociationType.belongsTo:
+          case ModelAssociationType.manyToMany:
+            return ModelHierarchyType.remote;
+          case ModelAssociationType.hasMany:
+          case ModelAssociationType.hasOne:
+            return ModelHierarchyType.model;
+        }
+    }
+    throw ArgumentError(
+      'Invalid association/hiearchy type: $association/$hierarchyType',
+    );
+  }
+
+  /// The Model type factory initializer for `this`.
+  Code? factoryInitializer({required bool isPrimaryKey}) {
+    final type = this.type;
+    var isRequired = type.isRequired;
+    Expression Function(Expression)? builder;
+    Expression? defaultValue;
+    if (type is ScalarType) {
+      switch (type.value) {
+        case AppSyncScalar.awsDate:
+          builder =
+              (ref) => DartTypes.amplifyCore.temporalDate.newInstance([ref]);
+          break;
+        case AppSyncScalar.awsDateTime:
+          if (isReadOnly) {
+            defaultValue =
+                DartTypes.amplifyCore.temporalDateTime.property('now').call([]);
+          } else {
+            builder = (ref) =>
+                DartTypes.amplifyCore.temporalDateTime.newInstance([ref]);
+          }
+          break;
+        case AppSyncScalar.awsTime:
+          builder =
+              (ref) => DartTypes.amplifyCore.temporalTime.newInstance([ref]);
+          break;
+        case AppSyncScalar.awsTimestamp:
+          builder = (ref) =>
+              DartTypes.amplifyCore.temporalTimestamp.newInstance([ref]);
+          break;
+        case AppSyncScalar.id:
+          // Allow nullable `ID` parameters to the main constructor since these
+          // fields can be auto-generated.
+          if (isPrimaryKey) {
+            isRequired = false;
+            defaultValue = DartTypes.awsCommon.uuid.call([]);
+          }
+          break;
+        case AppSyncScalar.awsIpAddress:
+        case AppSyncScalar.awsEmail:
+        case AppSyncScalar.awsJson:
+        case AppSyncScalar.awsPhone:
+        case AppSyncScalar.awsUrl:
+        case AppSyncScalar.boolean:
+        case AppSyncScalar.float:
+        case AppSyncScalar.int_:
+        case AppSyncScalar.string:
+          break;
+      }
+    } else if (type is ModelType) {
+      builder = (ref) => DartTypes.amplifyCore
+          .asyncModel()
+          .newInstanceNamed('fromModel', [ref]);
+    }
+
+    if (builder == null && defaultValue == null) {
+      return null;
+    }
+    final field = refer(dartName);
+    if (defaultValue != null) {
+      final Expression assignment;
+      if (isReadOnly) {
+        assignment = defaultValue;
+      } else if (isRequired) {
+        assignment = field;
+      } else {
+        assignment = field.ifNullThen(defaultValue);
+      }
+      return field.assign(assignment).code;
+    }
+    final assignment = isRequired
+        ? builder!(field)
+        : field.equalTo(literalNull).conditional(literalNull, builder!(field));
+    return field.assign(assignment).code;
+  }
+
+  /// The code_builder reference for `this` for use in the model factory.
+  ///
+  /// These types aim to ease the use of nested types when constructing model
+  /// instances. AWS time types are also replaced with [DateTime].
+  Reference factoryType([ModelHierarchyType? hierarchyType]) {
+    final type = this.type;
+    final cached = _factoryTypeReferences[type];
+    if (cached != null) {
+      return cached;
+    }
+    if (type is ListType) {
+      final elementType = type.elementType;
+      final Reference elementRef;
+      if (elementType is ModelType) {
+        final model = context.modelNamed(elementType.name);
+        elementRef = model.references.hierarchyType(
+          associationHiearchyType(hierarchyType!)!,
+        );
+      } else {
+        elementRef = elementType.reference;
+      }
+      return _typeReferences[type] =
+          DartTypes.core.list(elementRef).withRequired(type.isRequired);
+    }
+    if (type is ScalarType) {
+      var factoryType = type.reference;
+      switch (type.value) {
+        case AppSyncScalar.awsDate:
+        case AppSyncScalar.awsDateTime:
+        case AppSyncScalar.awsTime:
+        case AppSyncScalar.awsTimestamp:
+          factoryType = DartTypes.core.dateTime;
+          break;
+        case AppSyncScalar.awsEmail:
+        case AppSyncScalar.awsIpAddress:
+        case AppSyncScalar.awsJson:
+        case AppSyncScalar.awsPhone:
+        case AppSyncScalar.awsUrl:
+        case AppSyncScalar.boolean:
+        case AppSyncScalar.float:
+        case AppSyncScalar.id:
+        case AppSyncScalar.int_:
+        case AppSyncScalar.string:
+          break;
+      }
+      return _factoryTypeReferences[type] =
+          factoryType.withRequired(type.isRequired);
+    }
+    if (type is EnumType) {
+      return _factoryTypeReferences[type] = type.reference;
+    }
+    if (type is NonModelType) {
+      return _factoryTypeReferences[type] = type.reference;
+    }
+    type as ModelType;
+    final model = context.modelNamed(type.name);
+    return model.references
+        .hierarchyType(associationHiearchyType(hierarchyType!)!)
+        .withRequired(type.isRequired);
+  }
+
   /// The code_builder reference for `this`.
   Reference typeReference([ModelHierarchyType? hierarchyType]) {
     final type = this.type;
@@ -302,11 +493,7 @@ extension ModelFieldHelpers on ModelField {
             )
             .withRequired(type.isRequired);
       }
-      final ref = elementType is ScalarType
-          ? elementType.reference
-          : elementType is EnumType
-              ? elementType.reference
-              : (elementType as NonModelType).reference;
+      final ref = elementType.reference;
       return _typeReferences[type] =
           DartTypes.core.list(ref).withRequired(type.isRequired);
     }
