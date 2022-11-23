@@ -1,0 +1,13 @@
+type Post @model {
+  postId: ID! @primaryKey(sortKeyFields: ["title"])
+  title: String!
+  comments: [Comment] @hasMany(indexName: "byPost", fields: ["postId", "title"])
+}
+
+type Comment @model {
+  commentId: ID! @primaryKey(sortKeyFields: ["content"])
+  content: String!
+  post: Post @belongsTo(fields: ["postId", "postTitle"])
+  postId: ID! @index(name: "byPost", sortKeyFields: ["postTitle"])
+  postTitle: String!
+}

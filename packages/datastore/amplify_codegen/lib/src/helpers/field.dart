@@ -30,12 +30,6 @@ import 'package:smithy_codegen/src/util/symbol_ext.dart';
 /// Returns the query field name for [fieldName].
 String queryFieldName(String fieldName) => ('$fieldName\$').camelCase;
 
-// Cache for type references.
-final Map<SchemaType, Reference> _typeReferences = {};
-
-// Cache for factory type references.
-final Map<SchemaType, Reference> _factoryTypeReferences = {};
-
 class _FromJsonVisitor extends SchemaTypeVisitor<Expression> {
   _FromJsonVisitor(
     this._jsonRef, {
@@ -110,7 +104,31 @@ class _FromJsonVisitor extends SchemaTypeVisitor<Expression> {
         ).closure,
       ]);
     }
-    exp = exp.property('toList').call([]);
+    if (elementType is ModelType) {
+      final relatedModel = context.modelNamed(elementType.name);
+      final relatedModelTypes = relatedModel.references;
+      final thisHierarchyType = relatedModelTypes.hierarchyType(hierarchyType!);
+      exp = DartTypes.amplifyCore
+          .asyncModelCollection(
+            relatedModelTypes.modelIdentifier,
+            relatedModelTypes.model,
+            relatedModelTypes.partialModel,
+            thisHierarchyType,
+          )
+          .property('fromList')
+          .call([
+        if (elementType.isRequired)
+          exp.property('toList').call([])
+        else
+          exp
+              .property('whereType')
+              .call([], {}, [thisHierarchyType])
+              .property('toList')
+              .call([]),
+      ]);
+    } else {
+      exp = exp.property('toList').call([]);
+    }
     return _jsonRef
         .equalTo(literalNull)
         .conditional(type.isRequired ? orElse() : literalNull, exp);
@@ -120,6 +138,17 @@ class _FromJsonVisitor extends SchemaTypeVisitor<Expression> {
   Expression visitModelType(ModelType type) {
     final relatedModel = context.modelNamed(type.name);
     final relatedModelTypes = relatedModel.references;
+    Expression modelFromJson(Expression val) => relatedModelTypes.model.nonNull
+            .property('classType')
+            .property('fromJson')
+            .call([
+          val
+        ], {}, [
+          relatedModel.references.hierarchyType(hierarchyType!),
+        ]);
+    if (_depth > 0) {
+      return _deserialize(type: type, constructor: modelFromJson);
+    }
     return _deserialize(
       type: type,
       asA: DartTypes.core.json,
@@ -130,16 +159,7 @@ class _FromJsonVisitor extends SchemaTypeVisitor<Expression> {
         relatedModelTypes.partialModel,
         relatedModelTypes.hierarchyType(hierarchyType!),
       )
-          .newInstanceNamed('fromModel', [
-        relatedModelTypes.model.nonNull
-            .property('classType')
-            .property('fromJson')
-            .call([
-          val
-        ], {}, [
-          relatedModel.references.hierarchyType(hierarchyType!),
-        ]),
-      ]),
+          .newInstanceNamed('fromModel', [modelFromJson(val)]),
     );
   }
 
@@ -216,6 +236,9 @@ class _ToJsonVisitor extends SchemaTypeVisitor<Expression> {
   Expression visitListType(ListType type) {
     final isNullable = !type.isRequired;
     final elementType = type.elementType;
+    if (elementType is ModelType) {
+      return _fieldRef.nullableProperty('toJson', isNullable).call([]);
+    }
     return elementType.isPrimitive
         ? _fieldRef
         : _fieldRef
@@ -389,6 +412,10 @@ extension ModelFieldHelpers on ModelField {
       builder = (ref) => DartTypes.amplifyCore
           .asyncModel()
           .newInstanceNamed('fromModel', [ref]);
+    } else if (type is ListType && type.elementType is ModelType) {
+      builder = (ref) => DartTypes.amplifyCore
+          .asyncModelCollection()
+          .newInstanceNamed('fromList', [ref]);
     }
 
     if (builder == null && defaultValue == null) {
@@ -418,10 +445,6 @@ extension ModelFieldHelpers on ModelField {
   /// instances. AWS time types are also replaced with [DateTime].
   Reference factoryType([ModelHierarchyType? hierarchyType]) {
     final type = this.type;
-    final cached = _factoryTypeReferences[type];
-    if (cached != null) {
-      return cached;
-    }
     if (type is ListType) {
       final elementType = type.elementType;
       final Reference elementRef;
@@ -433,8 +456,7 @@ extension ModelFieldHelpers on ModelField {
       } else {
         elementRef = elementType.reference;
       }
-      return _typeReferences[type] =
-          DartTypes.core.list(elementRef).withRequired(type.isRequired);
+      return DartTypes.core.list(elementRef).withRequired(type.isRequired);
     }
     if (type is ScalarType) {
       var factoryType = type.reference;
@@ -457,14 +479,13 @@ extension ModelFieldHelpers on ModelField {
         case AppSyncScalar.string:
           break;
       }
-      return _factoryTypeReferences[type] =
-          factoryType.withRequired(type.isRequired);
+      return factoryType.withRequired(type.isRequired);
     }
     if (type is EnumType) {
-      return _factoryTypeReferences[type] = type.reference;
+      return type.reference;
     }
     if (type is NonModelType) {
-      return _factoryTypeReferences[type] = type.reference;
+      return type.reference;
     }
     type as ModelType;
     final model = context.modelNamed(type.name);
@@ -476,15 +497,11 @@ extension ModelFieldHelpers on ModelField {
   /// The code_builder reference for `this`.
   Reference typeReference([ModelHierarchyType? hierarchyType]) {
     final type = this.type;
-    final cached = _typeReferences[type];
-    if (cached != null) {
-      return cached;
-    }
     if (type is ListType) {
       final elementType = type.elementType;
       if (elementType is ModelType) {
         final model = context.modelNamed(elementType.name);
-        return _typeReferences[type] = DartTypes.amplifyCore
+        return DartTypes.amplifyCore
             .asyncModelCollection(
               model.references.modelIdentifier,
               model.references.model,
@@ -494,17 +511,16 @@ extension ModelFieldHelpers on ModelField {
             .withRequired(type.isRequired);
       }
       final ref = elementType.reference;
-      return _typeReferences[type] =
-          DartTypes.core.list(ref).withRequired(type.isRequired);
+      return DartTypes.core.list(ref).withRequired(type.isRequired);
     }
     if (type is ScalarType) {
-      return _typeReferences[type] = type.reference;
+      return type.reference;
     }
     if (type is EnumType) {
-      return _typeReferences[type] = type.reference;
+      return type.reference;
     }
     if (type is NonModelType) {
-      return _typeReferences[type] = type.reference;
+      return type.reference;
     }
     type as ModelType;
     final model = context.modelNamed(type.name);

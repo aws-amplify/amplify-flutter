@@ -95,21 +95,21 @@ class _AmplifyCore {
       );
 
   /// Creates an [amplify_core.AsyncModelCollection] reference.
-  TypeReference asyncModelCollection(
-    Reference modelIdentifierType,
-    Reference modelType,
-    Reference partialModelType,
-    Reference selectedModelType,
-  ) =>
+  TypeReference asyncModelCollection([
+    Reference? modelIdentifierType,
+    Reference? modelType,
+    Reference? partialModelType,
+    Reference? selectedModelType,
+  ]) =>
       TypeReference(
         (t) => t
           ..symbol = 'AsyncModelCollection'
           ..url = _url
           ..types.addAll([
-            modelIdentifierType,
-            modelType,
-            partialModelType,
-            selectedModelType,
+            if (modelIdentifierType != null) modelIdentifierType,
+            if (modelType != null) modelType,
+            if (partialModelType != null) partialModelType,
+            if (selectedModelType != null) selectedModelType,
           ]),
       );
 
