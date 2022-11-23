@@ -63,15 +63,11 @@ class BlogQueryFields<ModelIdentifier extends Object,
       );
 
   /// Query field for the [Blog.posts] field.
-  QueryField<ModelIdentifier, M,
-          AsyncModelCollection<String, Post, PartialPost, Post>?>
-      get $posts => NestedQueryField<ModelIdentifier, M, String, Blog,
-              AsyncModelCollection<String, Post, PartialPost, Post>?>(
-            const QueryField<String, Blog,
-                    AsyncModelCollection<String, Post, PartialPost, Post>?>(
-                fieldName: 'posts'),
-            root: _root,
-          );
+  PostQueryFields<ModelIdentifier, M> get $posts =>
+      PostQueryFields(NestedQueryField<ModelIdentifier, M, String, Blog, Post>(
+        const QueryField<String, Blog, Post>(fieldName: 'posts'),
+        root: _root,
+      ));
 
   /// Query field for the [Blog.createdAt] field.
   QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
@@ -294,15 +290,11 @@ abstract class Blog extends PartialBlog implements Model<String, Blog> {
   AsyncModelCollection<String, Post, PartialPost, Post>? get posts;
 
   /// Query field for the [posts] field.
-  QueryField<String, Blog,
-          AsyncModelCollection<String, Post, PartialPost, Post>?>
-      get $posts => _queryFields.$posts;
+  PostQueryFields<String, Blog> get $posts => _queryFields.$posts;
 
   /// Query field for the [posts] field.
   @Deprecated(r'Use $posts instead')
-  QueryField<String, Blog,
-          AsyncModelCollection<String, Post, PartialPost, Post>?>
-      get POSTS => $posts;
+  PostQueryFields<String, Blog> get POSTS => $posts;
   @override
   TemporalDateTime get createdAt;
   @override

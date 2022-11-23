@@ -57,476 +57,434 @@ class ScalarListModelQueryFields<ModelIdentifier extends Object,
       );
 
   /// Query field for the [ScalarListModel.listOfString] field.
-  QueryField<ModelIdentifier, M, List<String?>?> get $listOfString =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<String?>?>(
-        const QueryField<String, ScalarListModel, List<String?>?>(
+  QueryField<ModelIdentifier, M, String?> get $listOfString =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, String?>(
+        const QueryField<String, ScalarListModel, String?>(
             fieldName: 'listOfString'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.listOfRequiredString] field.
-  QueryField<ModelIdentifier, M, List<String>?> get $listOfRequiredString =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<String>?>(
-        const QueryField<String, ScalarListModel, List<String>?>(
+  QueryField<ModelIdentifier, M, String> get $listOfRequiredString =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, String>(
+        const QueryField<String, ScalarListModel, String>(
             fieldName: 'listOfRequiredString'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.requiredListOfString] field.
-  QueryField<ModelIdentifier, M, List<String?>> get $requiredListOfString =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<String?>>(
-        const QueryField<String, ScalarListModel, List<String?>>(
+  QueryField<ModelIdentifier, M, String?> get $requiredListOfString =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, String?>(
+        const QueryField<String, ScalarListModel, String?>(
             fieldName: 'requiredListOfString'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.requiredListOfRequiredString] field.
-  QueryField<ModelIdentifier, M, List<String>>
-      get $requiredListOfRequiredString => NestedQueryField<ModelIdentifier, M,
-              String, ScalarListModel, List<String>>(
-            const QueryField<String, ScalarListModel, List<String>>(
-                fieldName: 'requiredListOfRequiredString'),
-            root: _root,
-          );
+  QueryField<ModelIdentifier, M, String> get $requiredListOfRequiredString =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, String>(
+        const QueryField<String, ScalarListModel, String>(
+            fieldName: 'requiredListOfRequiredString'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListModel.listOfInteger] field.
-  QueryField<ModelIdentifier, M, List<int?>?> get $listOfInteger =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<int?>?>(
-        const QueryField<String, ScalarListModel, List<int?>?>(
+  QueryField<ModelIdentifier, M, int?> get $listOfInteger =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, int?>(
+        const QueryField<String, ScalarListModel, int?>(
             fieldName: 'listOfInteger'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.listOfRequiredInteger] field.
-  QueryField<ModelIdentifier, M, List<int>?> get $listOfRequiredInteger =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, List<int>?>(
-        const QueryField<String, ScalarListModel, List<int>?>(
+  QueryField<ModelIdentifier, M, int> get $listOfRequiredInteger =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, int>(
+        const QueryField<String, ScalarListModel, int>(
             fieldName: 'listOfRequiredInteger'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.requiredListOfInteger] field.
-  QueryField<ModelIdentifier, M, List<int?>> get $requiredListOfInteger =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, List<int?>>(
-        const QueryField<String, ScalarListModel, List<int?>>(
+  QueryField<ModelIdentifier, M, int?> get $requiredListOfInteger =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, int?>(
+        const QueryField<String, ScalarListModel, int?>(
             fieldName: 'requiredListOfInteger'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.requiredListOfRequiredInteger] field.
-  QueryField<ModelIdentifier, M, List<int>>
-      get $requiredListOfRequiredInteger => NestedQueryField<ModelIdentifier, M,
-              String, ScalarListModel, List<int>>(
-            const QueryField<String, ScalarListModel, List<int>>(
-                fieldName: 'requiredListOfRequiredInteger'),
-            root: _root,
-          );
+  QueryField<ModelIdentifier, M, int> get $requiredListOfRequiredInteger =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, int>(
+        const QueryField<String, ScalarListModel, int>(
+            fieldName: 'requiredListOfRequiredInteger'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListModel.listOfFloat] field.
-  QueryField<ModelIdentifier, M, List<double?>?> get $listOfFloat =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<double?>?>(
-        const QueryField<String, ScalarListModel, List<double?>?>(
+  QueryField<ModelIdentifier, M, double?> get $listOfFloat =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, double?>(
+        const QueryField<String, ScalarListModel, double?>(
             fieldName: 'listOfFloat'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.listOfRequiredFloat] field.
-  QueryField<ModelIdentifier, M, List<double>?> get $listOfRequiredFloat =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<double>?>(
-        const QueryField<String, ScalarListModel, List<double>?>(
+  QueryField<ModelIdentifier, M, double> get $listOfRequiredFloat =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, double>(
+        const QueryField<String, ScalarListModel, double>(
             fieldName: 'listOfRequiredFloat'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.requiredListOfFloat] field.
-  QueryField<ModelIdentifier, M, List<double?>> get $requiredListOfFloat =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<double?>>(
-        const QueryField<String, ScalarListModel, List<double?>>(
+  QueryField<ModelIdentifier, M, double?> get $requiredListOfFloat =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, double?>(
+        const QueryField<String, ScalarListModel, double?>(
             fieldName: 'requiredListOfFloat'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.requiredListOfRequiredFloat] field.
-  QueryField<ModelIdentifier, M, List<double>>
-      get $requiredListOfRequiredFloat => NestedQueryField<ModelIdentifier, M,
-              String, ScalarListModel, List<double>>(
-            const QueryField<String, ScalarListModel, List<double>>(
-                fieldName: 'requiredListOfRequiredFloat'),
-            root: _root,
-          );
+  QueryField<ModelIdentifier, M, double> get $requiredListOfRequiredFloat =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, double>(
+        const QueryField<String, ScalarListModel, double>(
+            fieldName: 'requiredListOfRequiredFloat'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListModel.listOfBoolean] field.
-  QueryField<ModelIdentifier, M, List<bool?>?> get $listOfBoolean =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<bool?>?>(
-        const QueryField<String, ScalarListModel, List<bool?>?>(
+  QueryField<ModelIdentifier, M, bool?> get $listOfBoolean =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, bool?>(
+        const QueryField<String, ScalarListModel, bool?>(
             fieldName: 'listOfBoolean'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.listOfRequiredBoolean] field.
-  QueryField<ModelIdentifier, M, List<bool>?> get $listOfRequiredBoolean =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<bool>?>(
-        const QueryField<String, ScalarListModel, List<bool>?>(
+  QueryField<ModelIdentifier, M, bool> get $listOfRequiredBoolean =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, bool>(
+        const QueryField<String, ScalarListModel, bool>(
             fieldName: 'listOfRequiredBoolean'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.requiredListOfBoolean] field.
-  QueryField<ModelIdentifier, M, List<bool?>> get $requiredListOfBoolean =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<bool?>>(
-        const QueryField<String, ScalarListModel, List<bool?>>(
+  QueryField<ModelIdentifier, M, bool?> get $requiredListOfBoolean =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, bool?>(
+        const QueryField<String, ScalarListModel, bool?>(
             fieldName: 'requiredListOfBoolean'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.requiredListOfRequiredBoolean] field.
-  QueryField<ModelIdentifier, M, List<bool>>
-      get $requiredListOfRequiredBoolean => NestedQueryField<ModelIdentifier, M,
-              String, ScalarListModel, List<bool>>(
-            const QueryField<String, ScalarListModel, List<bool>>(
-                fieldName: 'requiredListOfRequiredBoolean'),
-            root: _root,
-          );
+  QueryField<ModelIdentifier, M, bool> get $requiredListOfRequiredBoolean =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, bool>(
+        const QueryField<String, ScalarListModel, bool>(
+            fieldName: 'requiredListOfRequiredBoolean'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListModel.listOfAwsDate] field.
-  QueryField<ModelIdentifier, M, List<TemporalDate?>?> get $listOfAwsDate =>
+  QueryField<ModelIdentifier, M, TemporalDate?> get $listOfAwsDate =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<TemporalDate?>?>(
-        const QueryField<String, ScalarListModel, List<TemporalDate?>?>(
+          TemporalDate?>(
+        const QueryField<String, ScalarListModel, TemporalDate?>(
             fieldName: 'listOfAWSDate'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.listOfRequiredAwsDate] field.
-  QueryField<ModelIdentifier, M, List<TemporalDate>?>
-      get $listOfRequiredAwsDate => NestedQueryField<ModelIdentifier, M, String,
-              ScalarListModel, List<TemporalDate>?>(
-            const QueryField<String, ScalarListModel, List<TemporalDate>?>(
-                fieldName: 'listOfRequiredAWSDate'),
-            root: _root,
-          );
+  QueryField<ModelIdentifier, M, TemporalDate> get $listOfRequiredAwsDate =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
+          TemporalDate>(
+        const QueryField<String, ScalarListModel, TemporalDate>(
+            fieldName: 'listOfRequiredAWSDate'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListModel.requiredListOfAwsDate] field.
-  QueryField<ModelIdentifier, M, List<TemporalDate?>>
-      get $requiredListOfAwsDate => NestedQueryField<ModelIdentifier, M, String,
-              ScalarListModel, List<TemporalDate?>>(
-            const QueryField<String, ScalarListModel, List<TemporalDate?>>(
-                fieldName: 'requiredListOfAWSDate'),
-            root: _root,
-          );
+  QueryField<ModelIdentifier, M, TemporalDate?> get $requiredListOfAwsDate =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
+          TemporalDate?>(
+        const QueryField<String, ScalarListModel, TemporalDate?>(
+            fieldName: 'requiredListOfAWSDate'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListModel.requiredListOfRequiredAwsDate] field.
-  QueryField<ModelIdentifier, M, List<TemporalDate>>
+  QueryField<ModelIdentifier, M, TemporalDate>
       get $requiredListOfRequiredAwsDate => NestedQueryField<ModelIdentifier, M,
-              String, ScalarListModel, List<TemporalDate>>(
-            const QueryField<String, ScalarListModel, List<TemporalDate>>(
+              String, ScalarListModel, TemporalDate>(
+            const QueryField<String, ScalarListModel, TemporalDate>(
                 fieldName: 'requiredListOfRequiredAWSDate'),
             root: _root,
           );
 
   /// Query field for the [ScalarListModel.listOfAwsDateTime] field.
-  QueryField<ModelIdentifier, M, List<TemporalDateTime?>?>
-      get $listOfAwsDateTime => NestedQueryField<ModelIdentifier, M, String,
-              ScalarListModel, List<TemporalDateTime?>?>(
-            const QueryField<String, ScalarListModel, List<TemporalDateTime?>?>(
-                fieldName: 'listOfAWSDateTime'),
-            root: _root,
-          );
+  QueryField<ModelIdentifier, M, TemporalDateTime?> get $listOfAwsDateTime =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
+          TemporalDateTime?>(
+        const QueryField<String, ScalarListModel, TemporalDateTime?>(
+            fieldName: 'listOfAWSDateTime'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListModel.listOfRequiredAwsDateTime] field.
-  QueryField<ModelIdentifier, M, List<TemporalDateTime>?>
+  QueryField<ModelIdentifier, M, TemporalDateTime>
       get $listOfRequiredAwsDateTime => NestedQueryField<ModelIdentifier, M,
-              String, ScalarListModel, List<TemporalDateTime>?>(
-            const QueryField<String, ScalarListModel, List<TemporalDateTime>?>(
+              String, ScalarListModel, TemporalDateTime>(
+            const QueryField<String, ScalarListModel, TemporalDateTime>(
                 fieldName: 'listOfRequiredAWSDateTime'),
             root: _root,
           );
 
   /// Query field for the [ScalarListModel.requiredListOfAwsDateTime] field.
-  QueryField<ModelIdentifier, M, List<TemporalDateTime?>>
+  QueryField<ModelIdentifier, M, TemporalDateTime?>
       get $requiredListOfAwsDateTime => NestedQueryField<ModelIdentifier, M,
-              String, ScalarListModel, List<TemporalDateTime?>>(
-            const QueryField<String, ScalarListModel, List<TemporalDateTime?>>(
+              String, ScalarListModel, TemporalDateTime?>(
+            const QueryField<String, ScalarListModel, TemporalDateTime?>(
                 fieldName: 'requiredListOfAWSDateTime'),
             root: _root,
           );
 
   /// Query field for the [ScalarListModel.requiredListOfRequiredAwsDateTime] field.
-  QueryField<ModelIdentifier, M, List<TemporalDateTime>>
+  QueryField<ModelIdentifier, M, TemporalDateTime>
       get $requiredListOfRequiredAwsDateTime => NestedQueryField<
-              ModelIdentifier,
-              M,
-              String,
-              ScalarListModel,
-              List<TemporalDateTime>>(
-            const QueryField<String, ScalarListModel, List<TemporalDateTime>>(
+              ModelIdentifier, M, String, ScalarListModel, TemporalDateTime>(
+            const QueryField<String, ScalarListModel, TemporalDateTime>(
                 fieldName: 'requiredListOfRequiredAWSDateTime'),
             root: _root,
           );
 
   /// Query field for the [ScalarListModel.listOfAwsTime] field.
-  QueryField<ModelIdentifier, M, List<TemporalTime?>?> get $listOfAwsTime =>
+  QueryField<ModelIdentifier, M, TemporalTime?> get $listOfAwsTime =>
       NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<TemporalTime?>?>(
-        const QueryField<String, ScalarListModel, List<TemporalTime?>?>(
+          TemporalTime?>(
+        const QueryField<String, ScalarListModel, TemporalTime?>(
             fieldName: 'listOfAWSTime'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.listOfRequiredAwsTime] field.
-  QueryField<ModelIdentifier, M, List<TemporalTime>?>
-      get $listOfRequiredAwsTime => NestedQueryField<ModelIdentifier, M, String,
-              ScalarListModel, List<TemporalTime>?>(
-            const QueryField<String, ScalarListModel, List<TemporalTime>?>(
-                fieldName: 'listOfRequiredAWSTime'),
-            root: _root,
-          );
+  QueryField<ModelIdentifier, M, TemporalTime> get $listOfRequiredAwsTime =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
+          TemporalTime>(
+        const QueryField<String, ScalarListModel, TemporalTime>(
+            fieldName: 'listOfRequiredAWSTime'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListModel.requiredListOfAwsTime] field.
-  QueryField<ModelIdentifier, M, List<TemporalTime?>>
-      get $requiredListOfAwsTime => NestedQueryField<ModelIdentifier, M, String,
-              ScalarListModel, List<TemporalTime?>>(
-            const QueryField<String, ScalarListModel, List<TemporalTime?>>(
-                fieldName: 'requiredListOfAWSTime'),
-            root: _root,
-          );
+  QueryField<ModelIdentifier, M, TemporalTime?> get $requiredListOfAwsTime =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
+          TemporalTime?>(
+        const QueryField<String, ScalarListModel, TemporalTime?>(
+            fieldName: 'requiredListOfAWSTime'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListModel.requiredListOfRequiredAwsTime] field.
-  QueryField<ModelIdentifier, M, List<TemporalTime>>
+  QueryField<ModelIdentifier, M, TemporalTime>
       get $requiredListOfRequiredAwsTime => NestedQueryField<ModelIdentifier, M,
-              String, ScalarListModel, List<TemporalTime>>(
-            const QueryField<String, ScalarListModel, List<TemporalTime>>(
+              String, ScalarListModel, TemporalTime>(
+            const QueryField<String, ScalarListModel, TemporalTime>(
                 fieldName: 'requiredListOfRequiredAWSTime'),
             root: _root,
           );
 
   /// Query field for the [ScalarListModel.listOfAwsTimestamp] field.
-  QueryField<ModelIdentifier, M,
-      List<TemporalTimestamp?>?> get $listOfAwsTimestamp => NestedQueryField<
-          ModelIdentifier,
-          M,
-          String,
-          ScalarListModel,
-          List<TemporalTimestamp?>?>(
-        const QueryField<String, ScalarListModel, List<TemporalTimestamp?>?>(
+  QueryField<ModelIdentifier, M, TemporalTimestamp?> get $listOfAwsTimestamp =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
+          TemporalTimestamp?>(
+        const QueryField<String, ScalarListModel, TemporalTimestamp?>(
             fieldName: 'listOfAWSTimestamp'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.listOfRequiredAwsTimestamp] field.
-  QueryField<ModelIdentifier, M, List<TemporalTimestamp>?>
+  QueryField<ModelIdentifier, M, TemporalTimestamp>
       get $listOfRequiredAwsTimestamp => NestedQueryField<ModelIdentifier, M,
-              String, ScalarListModel, List<TemporalTimestamp>?>(
-            const QueryField<String, ScalarListModel, List<TemporalTimestamp>?>(
+              String, ScalarListModel, TemporalTimestamp>(
+            const QueryField<String, ScalarListModel, TemporalTimestamp>(
                 fieldName: 'listOfRequiredAWSTimestamp'),
             root: _root,
           );
 
   /// Query field for the [ScalarListModel.requiredListOfAwsTimestamp] field.
-  QueryField<ModelIdentifier, M, List<TemporalTimestamp?>>
+  QueryField<ModelIdentifier, M, TemporalTimestamp?>
       get $requiredListOfAwsTimestamp => NestedQueryField<ModelIdentifier, M,
-              String, ScalarListModel, List<TemporalTimestamp?>>(
-            const QueryField<String, ScalarListModel, List<TemporalTimestamp?>>(
+              String, ScalarListModel, TemporalTimestamp?>(
+            const QueryField<String, ScalarListModel, TemporalTimestamp?>(
                 fieldName: 'requiredListOfAWSTimestamp'),
             root: _root,
           );
 
   /// Query field for the [ScalarListModel.requiredListOfRequiredAwsTimestamp] field.
-  QueryField<ModelIdentifier, M, List<TemporalTimestamp>>
+  QueryField<ModelIdentifier, M, TemporalTimestamp>
       get $requiredListOfRequiredAwsTimestamp => NestedQueryField<
-              ModelIdentifier,
-              M,
-              String,
-              ScalarListModel,
-              List<TemporalTimestamp>>(
-            const QueryField<String, ScalarListModel, List<TemporalTimestamp>>(
+              ModelIdentifier, M, String, ScalarListModel, TemporalTimestamp>(
+            const QueryField<String, ScalarListModel, TemporalTimestamp>(
                 fieldName: 'requiredListOfRequiredAWSTimestamp'),
             root: _root,
           );
 
   /// Query field for the [ScalarListModel.listOfAwsEmail] field.
-  QueryField<ModelIdentifier, M, List<String?>?> get $listOfAwsEmail =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<String?>?>(
-        const QueryField<String, ScalarListModel, List<String?>?>(
+  QueryField<ModelIdentifier, M, String?> get $listOfAwsEmail =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, String?>(
+        const QueryField<String, ScalarListModel, String?>(
             fieldName: 'listOfAWSEmail'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.listOfRequiredAwsEmail] field.
-  QueryField<ModelIdentifier, M, List<String>?> get $listOfRequiredAwsEmail =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<String>?>(
-        const QueryField<String, ScalarListModel, List<String>?>(
+  QueryField<ModelIdentifier, M, String> get $listOfRequiredAwsEmail =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, String>(
+        const QueryField<String, ScalarListModel, String>(
             fieldName: 'listOfRequiredAWSEmail'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.requiredListOfAwsEmail] field.
-  QueryField<ModelIdentifier, M, List<String?>> get $requiredListOfAwsEmail =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<String?>>(
-        const QueryField<String, ScalarListModel, List<String?>>(
+  QueryField<ModelIdentifier, M, String?> get $requiredListOfAwsEmail =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, String?>(
+        const QueryField<String, ScalarListModel, String?>(
             fieldName: 'requiredListOfAWSEmail'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.requiredListOfRequiredAwsEmail] field.
-  QueryField<ModelIdentifier, M, List<String>>
-      get $requiredListOfRequiredAwsEmail => NestedQueryField<ModelIdentifier,
-              M, String, ScalarListModel, List<String>>(
-            const QueryField<String, ScalarListModel, List<String>>(
-                fieldName: 'requiredListOfRequiredAWSEmail'),
-            root: _root,
-          );
+  QueryField<ModelIdentifier, M, String> get $requiredListOfRequiredAwsEmail =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, String>(
+        const QueryField<String, ScalarListModel, String>(
+            fieldName: 'requiredListOfRequiredAWSEmail'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListModel.listOfAwsjson] field.
-  QueryField<ModelIdentifier, M, List<Object?>?> get $listOfAwsjson =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<Object?>?>(
-        const QueryField<String, ScalarListModel, List<Object?>?>(
+  QueryField<ModelIdentifier, M, Object?> get $listOfAwsjson =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, Object?>(
+        const QueryField<String, ScalarListModel, Object?>(
             fieldName: 'listOfAWSJSON'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.listOfRequiredAwsjson] field.
-  QueryField<ModelIdentifier, M, List<Object>?> get $listOfRequiredAwsjson =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<Object>?>(
-        const QueryField<String, ScalarListModel, List<Object>?>(
+  QueryField<ModelIdentifier, M, Object> get $listOfRequiredAwsjson =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, Object>(
+        const QueryField<String, ScalarListModel, Object>(
             fieldName: 'listOfRequiredAWSJSON'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.requiredListOfAwsjson] field.
-  QueryField<ModelIdentifier, M, List<Object?>> get $requiredListOfAwsjson =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<Object?>>(
-        const QueryField<String, ScalarListModel, List<Object?>>(
+  QueryField<ModelIdentifier, M, Object?> get $requiredListOfAwsjson =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, Object?>(
+        const QueryField<String, ScalarListModel, Object?>(
             fieldName: 'requiredListOfAWSJSON'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.requiredListOfRequiredAwsjson] field.
-  QueryField<ModelIdentifier, M, List<Object>>
-      get $requiredListOfRequiredAwsjson => NestedQueryField<ModelIdentifier, M,
-              String, ScalarListModel, List<Object>>(
-            const QueryField<String, ScalarListModel, List<Object>>(
-                fieldName: 'requiredListOfRequiredAWSJSON'),
-            root: _root,
-          );
+  QueryField<ModelIdentifier, M, Object> get $requiredListOfRequiredAwsjson =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, Object>(
+        const QueryField<String, ScalarListModel, Object>(
+            fieldName: 'requiredListOfRequiredAWSJSON'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListModel.listOfAwsPhone] field.
-  QueryField<ModelIdentifier, M, List<String?>?> get $listOfAwsPhone =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<String?>?>(
-        const QueryField<String, ScalarListModel, List<String?>?>(
+  QueryField<ModelIdentifier, M, String?> get $listOfAwsPhone =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, String?>(
+        const QueryField<String, ScalarListModel, String?>(
             fieldName: 'listOfAWSPhone'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.listOfRequiredAwsPhone] field.
-  QueryField<ModelIdentifier, M, List<String>?> get $listOfRequiredAwsPhone =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<String>?>(
-        const QueryField<String, ScalarListModel, List<String>?>(
+  QueryField<ModelIdentifier, M, String> get $listOfRequiredAwsPhone =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, String>(
+        const QueryField<String, ScalarListModel, String>(
             fieldName: 'listOfRequiredAWSPhone'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.requiredListOfAwsPhone] field.
-  QueryField<ModelIdentifier, M, List<String?>> get $requiredListOfAwsPhone =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<String?>>(
-        const QueryField<String, ScalarListModel, List<String?>>(
+  QueryField<ModelIdentifier, M, String?> get $requiredListOfAwsPhone =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, String?>(
+        const QueryField<String, ScalarListModel, String?>(
             fieldName: 'requiredListOfAWSPhone'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.requiredListOfRequiredAwsPhone] field.
-  QueryField<ModelIdentifier, M, List<String>>
-      get $requiredListOfRequiredAwsPhone => NestedQueryField<ModelIdentifier,
-              M, String, ScalarListModel, List<String>>(
-            const QueryField<String, ScalarListModel, List<String>>(
-                fieldName: 'requiredListOfRequiredAWSPhone'),
-            root: _root,
-          );
+  QueryField<ModelIdentifier, M, String> get $requiredListOfRequiredAwsPhone =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, String>(
+        const QueryField<String, ScalarListModel, String>(
+            fieldName: 'requiredListOfRequiredAWSPhone'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListModel.listOfAwsUrl] field.
-  QueryField<ModelIdentifier, M, List<Uri?>?> get $listOfAwsUrl =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<Uri?>?>(
-        const QueryField<String, ScalarListModel, List<Uri?>?>(
+  QueryField<ModelIdentifier, M, Uri?> get $listOfAwsUrl =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, Uri?>(
+        const QueryField<String, ScalarListModel, Uri?>(
             fieldName: 'listOfAWSUrl'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.listOfRequiredAwsUrl] field.
-  QueryField<ModelIdentifier, M, List<Uri>?> get $listOfRequiredAwsUrl =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, List<Uri>?>(
-        const QueryField<String, ScalarListModel, List<Uri>?>(
+  QueryField<ModelIdentifier, M, Uri> get $listOfRequiredAwsUrl =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, Uri>(
+        const QueryField<String, ScalarListModel, Uri>(
             fieldName: 'listOfRequiredAWSUrl'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.requiredListOfAwsUrl] field.
-  QueryField<ModelIdentifier, M, List<Uri?>> get $requiredListOfAwsUrl =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, List<Uri?>>(
-        const QueryField<String, ScalarListModel, List<Uri?>>(
+  QueryField<ModelIdentifier, M, Uri?> get $requiredListOfAwsUrl =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, Uri?>(
+        const QueryField<String, ScalarListModel, Uri?>(
             fieldName: 'requiredListOfAWSUrl'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.requiredListOfRequiredAwsUrl] field.
-  QueryField<ModelIdentifier, M, List<Uri>> get $requiredListOfRequiredAwsUrl =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, List<Uri>>(
-        const QueryField<String, ScalarListModel, List<Uri>>(
+  QueryField<ModelIdentifier, M, Uri> get $requiredListOfRequiredAwsUrl =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, Uri>(
+        const QueryField<String, ScalarListModel, Uri>(
             fieldName: 'requiredListOfRequiredAWSUrl'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.listOfAwsIpAddress] field.
-  QueryField<ModelIdentifier, M, List<String?>?> get $listOfAwsIpAddress =>
-      NestedQueryField<ModelIdentifier, M, String, ScalarListModel,
-          List<String?>?>(
-        const QueryField<String, ScalarListModel, List<String?>?>(
+  QueryField<ModelIdentifier, M, String?> get $listOfAwsIpAddress =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, String?>(
+        const QueryField<String, ScalarListModel, String?>(
             fieldName: 'listOfAWSIpAddress'),
         root: _root,
       );
 
   /// Query field for the [ScalarListModel.listOfRequiredAwsIpAddress] field.
-  QueryField<ModelIdentifier, M, List<String>?>
-      get $listOfRequiredAwsIpAddress => NestedQueryField<ModelIdentifier, M,
-              String, ScalarListModel, List<String>?>(
-            const QueryField<String, ScalarListModel, List<String>?>(
-                fieldName: 'listOfRequiredAWSIpAddress'),
-            root: _root,
-          );
+  QueryField<ModelIdentifier, M, String> get $listOfRequiredAwsIpAddress =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, String>(
+        const QueryField<String, ScalarListModel, String>(
+            fieldName: 'listOfRequiredAWSIpAddress'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListModel.requiredListOfAwsIpAddress] field.
-  QueryField<ModelIdentifier, M, List<String?>>
-      get $requiredListOfAwsIpAddress => NestedQueryField<ModelIdentifier, M,
-              String, ScalarListModel, List<String?>>(
-            const QueryField<String, ScalarListModel, List<String?>>(
-                fieldName: 'requiredListOfAWSIpAddress'),
-            root: _root,
-          );
+  QueryField<ModelIdentifier, M, String?> get $requiredListOfAwsIpAddress =>
+      NestedQueryField<ModelIdentifier, M, String, ScalarListModel, String?>(
+        const QueryField<String, ScalarListModel, String?>(
+            fieldName: 'requiredListOfAWSIpAddress'),
+        root: _root,
+      );
 
   /// Query field for the [ScalarListModel.requiredListOfRequiredAwsIpAddress] field.
-  QueryField<ModelIdentifier, M, List<String>>
-      get $requiredListOfRequiredAwsIpAddress => NestedQueryField<
-              ModelIdentifier, M, String, ScalarListModel, List<String>>(
-            const QueryField<String, ScalarListModel, List<String>>(
+  QueryField<ModelIdentifier, M, String>
+      get $requiredListOfRequiredAwsIpAddress =>
+          NestedQueryField<ModelIdentifier, M, String, ScalarListModel, String>(
+            const QueryField<String, ScalarListModel, String>(
                 fieldName: 'requiredListOfRequiredAWSIpAddress'),
             root: _root,
           );
@@ -2330,594 +2288,591 @@ abstract class ScalarListModel extends PartialScalarListModel
   List<String?>? get listOfString;
 
   /// Query field for the [listOfString] field.
-  QueryField<String, ScalarListModel, List<String?>?> get $listOfString =>
+  QueryField<String, ScalarListModel, String?> get $listOfString =>
       _queryFields.$listOfString;
 
   /// Query field for the [listOfString] field.
   @Deprecated(r'Use $listOfString instead')
-  QueryField<String, ScalarListModel, List<String?>?> get LIST_OF_STRING =>
+  QueryField<String, ScalarListModel, String?> get LIST_OF_STRING =>
       $listOfString;
   @override
   List<String>? get listOfRequiredString;
 
   /// Query field for the [listOfRequiredString] field.
-  QueryField<String, ScalarListModel, List<String>?>
-      get $listOfRequiredString => _queryFields.$listOfRequiredString;
+  QueryField<String, ScalarListModel, String> get $listOfRequiredString =>
+      _queryFields.$listOfRequiredString;
 
   /// Query field for the [listOfRequiredString] field.
   @Deprecated(r'Use $listOfRequiredString instead')
-  QueryField<String, ScalarListModel, List<String>?>
-      get LIST_OF_REQUIRED_STRING => $listOfRequiredString;
+  QueryField<String, ScalarListModel, String> get LIST_OF_REQUIRED_STRING =>
+      $listOfRequiredString;
   @override
   List<String?> get requiredListOfString;
 
   /// Query field for the [requiredListOfString] field.
-  QueryField<String, ScalarListModel, List<String?>>
-      get $requiredListOfString => _queryFields.$requiredListOfString;
+  QueryField<String, ScalarListModel, String?> get $requiredListOfString =>
+      _queryFields.$requiredListOfString;
 
   /// Query field for the [requiredListOfString] field.
   @Deprecated(r'Use $requiredListOfString instead')
-  QueryField<String, ScalarListModel, List<String?>>
-      get REQUIRED_LIST_OF_STRING => $requiredListOfString;
+  QueryField<String, ScalarListModel, String?> get REQUIRED_LIST_OF_STRING =>
+      $requiredListOfString;
   @override
   List<String> get requiredListOfRequiredString;
 
   /// Query field for the [requiredListOfRequiredString] field.
-  QueryField<String, ScalarListModel, List<String>>
+  QueryField<String, ScalarListModel, String>
       get $requiredListOfRequiredString =>
           _queryFields.$requiredListOfRequiredString;
 
   /// Query field for the [requiredListOfRequiredString] field.
   @Deprecated(r'Use $requiredListOfRequiredString instead')
-  QueryField<String, ScalarListModel, List<String>>
+  QueryField<String, ScalarListModel, String>
       get REQUIRED_LIST_OF_REQUIRED_STRING => $requiredListOfRequiredString;
   @override
   List<int?>? get listOfInteger;
 
   /// Query field for the [listOfInteger] field.
-  QueryField<String, ScalarListModel, List<int?>?> get $listOfInteger =>
+  QueryField<String, ScalarListModel, int?> get $listOfInteger =>
       _queryFields.$listOfInteger;
 
   /// Query field for the [listOfInteger] field.
   @Deprecated(r'Use $listOfInteger instead')
-  QueryField<String, ScalarListModel, List<int?>?> get LIST_OF_INTEGER =>
+  QueryField<String, ScalarListModel, int?> get LIST_OF_INTEGER =>
       $listOfInteger;
   @override
   List<int>? get listOfRequiredInteger;
 
   /// Query field for the [listOfRequiredInteger] field.
-  QueryField<String, ScalarListModel, List<int>?> get $listOfRequiredInteger =>
+  QueryField<String, ScalarListModel, int> get $listOfRequiredInteger =>
       _queryFields.$listOfRequiredInteger;
 
   /// Query field for the [listOfRequiredInteger] field.
   @Deprecated(r'Use $listOfRequiredInteger instead')
-  QueryField<String, ScalarListModel, List<int>?>
-      get LIST_OF_REQUIRED_INTEGER => $listOfRequiredInteger;
+  QueryField<String, ScalarListModel, int> get LIST_OF_REQUIRED_INTEGER =>
+      $listOfRequiredInteger;
   @override
   List<int?> get requiredListOfInteger;
 
   /// Query field for the [requiredListOfInteger] field.
-  QueryField<String, ScalarListModel, List<int?>> get $requiredListOfInteger =>
+  QueryField<String, ScalarListModel, int?> get $requiredListOfInteger =>
       _queryFields.$requiredListOfInteger;
 
   /// Query field for the [requiredListOfInteger] field.
   @Deprecated(r'Use $requiredListOfInteger instead')
-  QueryField<String, ScalarListModel, List<int?>>
-      get REQUIRED_LIST_OF_INTEGER => $requiredListOfInteger;
+  QueryField<String, ScalarListModel, int?> get REQUIRED_LIST_OF_INTEGER =>
+      $requiredListOfInteger;
   @override
   List<int> get requiredListOfRequiredInteger;
 
   /// Query field for the [requiredListOfRequiredInteger] field.
-  QueryField<String, ScalarListModel, List<int>>
-      get $requiredListOfRequiredInteger =>
-          _queryFields.$requiredListOfRequiredInteger;
+  QueryField<String, ScalarListModel, int> get $requiredListOfRequiredInteger =>
+      _queryFields.$requiredListOfRequiredInteger;
 
   /// Query field for the [requiredListOfRequiredInteger] field.
   @Deprecated(r'Use $requiredListOfRequiredInteger instead')
-  QueryField<String, ScalarListModel, List<int>>
+  QueryField<String, ScalarListModel, int>
       get REQUIRED_LIST_OF_REQUIRED_INTEGER => $requiredListOfRequiredInteger;
   @override
   List<double?>? get listOfFloat;
 
   /// Query field for the [listOfFloat] field.
-  QueryField<String, ScalarListModel, List<double?>?> get $listOfFloat =>
+  QueryField<String, ScalarListModel, double?> get $listOfFloat =>
       _queryFields.$listOfFloat;
 
   /// Query field for the [listOfFloat] field.
   @Deprecated(r'Use $listOfFloat instead')
-  QueryField<String, ScalarListModel, List<double?>?> get LIST_OF_FLOAT =>
+  QueryField<String, ScalarListModel, double?> get LIST_OF_FLOAT =>
       $listOfFloat;
   @override
   List<double>? get listOfRequiredFloat;
 
   /// Query field for the [listOfRequiredFloat] field.
-  QueryField<String, ScalarListModel, List<double>?> get $listOfRequiredFloat =>
+  QueryField<String, ScalarListModel, double> get $listOfRequiredFloat =>
       _queryFields.$listOfRequiredFloat;
 
   /// Query field for the [listOfRequiredFloat] field.
   @Deprecated(r'Use $listOfRequiredFloat instead')
-  QueryField<String, ScalarListModel, List<double>?>
-      get LIST_OF_REQUIRED_FLOAT => $listOfRequiredFloat;
+  QueryField<String, ScalarListModel, double> get LIST_OF_REQUIRED_FLOAT =>
+      $listOfRequiredFloat;
   @override
   List<double?> get requiredListOfFloat;
 
   /// Query field for the [requiredListOfFloat] field.
-  QueryField<String, ScalarListModel, List<double?>> get $requiredListOfFloat =>
+  QueryField<String, ScalarListModel, double?> get $requiredListOfFloat =>
       _queryFields.$requiredListOfFloat;
 
   /// Query field for the [requiredListOfFloat] field.
   @Deprecated(r'Use $requiredListOfFloat instead')
-  QueryField<String, ScalarListModel, List<double?>>
-      get REQUIRED_LIST_OF_FLOAT => $requiredListOfFloat;
+  QueryField<String, ScalarListModel, double?> get REQUIRED_LIST_OF_FLOAT =>
+      $requiredListOfFloat;
   @override
   List<double> get requiredListOfRequiredFloat;
 
   /// Query field for the [requiredListOfRequiredFloat] field.
-  QueryField<String, ScalarListModel, List<double>>
+  QueryField<String, ScalarListModel, double>
       get $requiredListOfRequiredFloat =>
           _queryFields.$requiredListOfRequiredFloat;
 
   /// Query field for the [requiredListOfRequiredFloat] field.
   @Deprecated(r'Use $requiredListOfRequiredFloat instead')
-  QueryField<String, ScalarListModel, List<double>>
+  QueryField<String, ScalarListModel, double>
       get REQUIRED_LIST_OF_REQUIRED_FLOAT => $requiredListOfRequiredFloat;
   @override
   List<bool?>? get listOfBoolean;
 
   /// Query field for the [listOfBoolean] field.
-  QueryField<String, ScalarListModel, List<bool?>?> get $listOfBoolean =>
+  QueryField<String, ScalarListModel, bool?> get $listOfBoolean =>
       _queryFields.$listOfBoolean;
 
   /// Query field for the [listOfBoolean] field.
   @Deprecated(r'Use $listOfBoolean instead')
-  QueryField<String, ScalarListModel, List<bool?>?> get LIST_OF_BOOLEAN =>
+  QueryField<String, ScalarListModel, bool?> get LIST_OF_BOOLEAN =>
       $listOfBoolean;
   @override
   List<bool>? get listOfRequiredBoolean;
 
   /// Query field for the [listOfRequiredBoolean] field.
-  QueryField<String, ScalarListModel, List<bool>?> get $listOfRequiredBoolean =>
+  QueryField<String, ScalarListModel, bool> get $listOfRequiredBoolean =>
       _queryFields.$listOfRequiredBoolean;
 
   /// Query field for the [listOfRequiredBoolean] field.
   @Deprecated(r'Use $listOfRequiredBoolean instead')
-  QueryField<String, ScalarListModel, List<bool>?>
-      get LIST_OF_REQUIRED_BOOLEAN => $listOfRequiredBoolean;
+  QueryField<String, ScalarListModel, bool> get LIST_OF_REQUIRED_BOOLEAN =>
+      $listOfRequiredBoolean;
   @override
   List<bool?> get requiredListOfBoolean;
 
   /// Query field for the [requiredListOfBoolean] field.
-  QueryField<String, ScalarListModel, List<bool?>> get $requiredListOfBoolean =>
+  QueryField<String, ScalarListModel, bool?> get $requiredListOfBoolean =>
       _queryFields.$requiredListOfBoolean;
 
   /// Query field for the [requiredListOfBoolean] field.
   @Deprecated(r'Use $requiredListOfBoolean instead')
-  QueryField<String, ScalarListModel, List<bool?>>
-      get REQUIRED_LIST_OF_BOOLEAN => $requiredListOfBoolean;
+  QueryField<String, ScalarListModel, bool?> get REQUIRED_LIST_OF_BOOLEAN =>
+      $requiredListOfBoolean;
   @override
   List<bool> get requiredListOfRequiredBoolean;
 
   /// Query field for the [requiredListOfRequiredBoolean] field.
-  QueryField<String, ScalarListModel, List<bool>>
+  QueryField<String, ScalarListModel, bool>
       get $requiredListOfRequiredBoolean =>
           _queryFields.$requiredListOfRequiredBoolean;
 
   /// Query field for the [requiredListOfRequiredBoolean] field.
   @Deprecated(r'Use $requiredListOfRequiredBoolean instead')
-  QueryField<String, ScalarListModel, List<bool>>
+  QueryField<String, ScalarListModel, bool>
       get REQUIRED_LIST_OF_REQUIRED_BOOLEAN => $requiredListOfRequiredBoolean;
   @override
   List<TemporalDate?>? get listOfAwsDate;
 
   /// Query field for the [listOfAwsDate] field.
-  QueryField<String, ScalarListModel, List<TemporalDate?>?>
-      get $listOfAwsDate => _queryFields.$listOfAwsDate;
+  QueryField<String, ScalarListModel, TemporalDate?> get $listOfAwsDate =>
+      _queryFields.$listOfAwsDate;
 
   /// Query field for the [listOfAwsDate] field.
   @Deprecated(r'Use $listOfAwsDate instead')
-  QueryField<String, ScalarListModel, List<TemporalDate?>?>
-      get LIST_OF_AWS_DATE => $listOfAwsDate;
+  QueryField<String, ScalarListModel, TemporalDate?> get LIST_OF_AWS_DATE =>
+      $listOfAwsDate;
   @override
   List<TemporalDate>? get listOfRequiredAwsDate;
 
   /// Query field for the [listOfRequiredAwsDate] field.
-  QueryField<String, ScalarListModel, List<TemporalDate>?>
+  QueryField<String, ScalarListModel, TemporalDate>
       get $listOfRequiredAwsDate => _queryFields.$listOfRequiredAwsDate;
 
   /// Query field for the [listOfRequiredAwsDate] field.
   @Deprecated(r'Use $listOfRequiredAwsDate instead')
-  QueryField<String, ScalarListModel, List<TemporalDate>?>
+  QueryField<String, ScalarListModel, TemporalDate>
       get LIST_OF_REQUIRED_AWS_DATE => $listOfRequiredAwsDate;
   @override
   List<TemporalDate?> get requiredListOfAwsDate;
 
   /// Query field for the [requiredListOfAwsDate] field.
-  QueryField<String, ScalarListModel, List<TemporalDate?>>
+  QueryField<String, ScalarListModel, TemporalDate?>
       get $requiredListOfAwsDate => _queryFields.$requiredListOfAwsDate;
 
   /// Query field for the [requiredListOfAwsDate] field.
   @Deprecated(r'Use $requiredListOfAwsDate instead')
-  QueryField<String, ScalarListModel, List<TemporalDate?>>
+  QueryField<String, ScalarListModel, TemporalDate?>
       get REQUIRED_LIST_OF_AWS_DATE => $requiredListOfAwsDate;
   @override
   List<TemporalDate> get requiredListOfRequiredAwsDate;
 
   /// Query field for the [requiredListOfRequiredAwsDate] field.
-  QueryField<String, ScalarListModel, List<TemporalDate>>
+  QueryField<String, ScalarListModel, TemporalDate>
       get $requiredListOfRequiredAwsDate =>
           _queryFields.$requiredListOfRequiredAwsDate;
 
   /// Query field for the [requiredListOfRequiredAwsDate] field.
   @Deprecated(r'Use $requiredListOfRequiredAwsDate instead')
-  QueryField<String, ScalarListModel, List<TemporalDate>>
+  QueryField<String, ScalarListModel, TemporalDate>
       get REQUIRED_LIST_OF_REQUIRED_AWS_DATE => $requiredListOfRequiredAwsDate;
   @override
   List<TemporalDateTime?>? get listOfAwsDateTime;
 
   /// Query field for the [listOfAwsDateTime] field.
-  QueryField<String, ScalarListModel, List<TemporalDateTime?>?>
+  QueryField<String, ScalarListModel, TemporalDateTime?>
       get $listOfAwsDateTime => _queryFields.$listOfAwsDateTime;
 
   /// Query field for the [listOfAwsDateTime] field.
   @Deprecated(r'Use $listOfAwsDateTime instead')
-  QueryField<String, ScalarListModel, List<TemporalDateTime?>?>
+  QueryField<String, ScalarListModel, TemporalDateTime?>
       get LIST_OF_AWS_DATE_TIME => $listOfAwsDateTime;
   @override
   List<TemporalDateTime>? get listOfRequiredAwsDateTime;
 
   /// Query field for the [listOfRequiredAwsDateTime] field.
-  QueryField<String, ScalarListModel, List<TemporalDateTime>?>
+  QueryField<String, ScalarListModel, TemporalDateTime>
       get $listOfRequiredAwsDateTime => _queryFields.$listOfRequiredAwsDateTime;
 
   /// Query field for the [listOfRequiredAwsDateTime] field.
   @Deprecated(r'Use $listOfRequiredAwsDateTime instead')
-  QueryField<String, ScalarListModel, List<TemporalDateTime>?>
+  QueryField<String, ScalarListModel, TemporalDateTime>
       get LIST_OF_REQUIRED_AWS_DATE_TIME => $listOfRequiredAwsDateTime;
   @override
   List<TemporalDateTime?> get requiredListOfAwsDateTime;
 
   /// Query field for the [requiredListOfAwsDateTime] field.
-  QueryField<String, ScalarListModel, List<TemporalDateTime?>>
+  QueryField<String, ScalarListModel, TemporalDateTime?>
       get $requiredListOfAwsDateTime => _queryFields.$requiredListOfAwsDateTime;
 
   /// Query field for the [requiredListOfAwsDateTime] field.
   @Deprecated(r'Use $requiredListOfAwsDateTime instead')
-  QueryField<String, ScalarListModel, List<TemporalDateTime?>>
+  QueryField<String, ScalarListModel, TemporalDateTime?>
       get REQUIRED_LIST_OF_AWS_DATE_TIME => $requiredListOfAwsDateTime;
   @override
   List<TemporalDateTime> get requiredListOfRequiredAwsDateTime;
 
   /// Query field for the [requiredListOfRequiredAwsDateTime] field.
-  QueryField<String, ScalarListModel, List<TemporalDateTime>>
+  QueryField<String, ScalarListModel, TemporalDateTime>
       get $requiredListOfRequiredAwsDateTime =>
           _queryFields.$requiredListOfRequiredAwsDateTime;
 
   /// Query field for the [requiredListOfRequiredAwsDateTime] field.
   @Deprecated(r'Use $requiredListOfRequiredAwsDateTime instead')
-  QueryField<String, ScalarListModel, List<TemporalDateTime>>
+  QueryField<String, ScalarListModel, TemporalDateTime>
       get REQUIRED_LIST_OF_REQUIRED_AWS_DATE_TIME =>
           $requiredListOfRequiredAwsDateTime;
   @override
   List<TemporalTime?>? get listOfAwsTime;
 
   /// Query field for the [listOfAwsTime] field.
-  QueryField<String, ScalarListModel, List<TemporalTime?>?>
-      get $listOfAwsTime => _queryFields.$listOfAwsTime;
+  QueryField<String, ScalarListModel, TemporalTime?> get $listOfAwsTime =>
+      _queryFields.$listOfAwsTime;
 
   /// Query field for the [listOfAwsTime] field.
   @Deprecated(r'Use $listOfAwsTime instead')
-  QueryField<String, ScalarListModel, List<TemporalTime?>?>
-      get LIST_OF_AWS_TIME => $listOfAwsTime;
+  QueryField<String, ScalarListModel, TemporalTime?> get LIST_OF_AWS_TIME =>
+      $listOfAwsTime;
   @override
   List<TemporalTime>? get listOfRequiredAwsTime;
 
   /// Query field for the [listOfRequiredAwsTime] field.
-  QueryField<String, ScalarListModel, List<TemporalTime>?>
+  QueryField<String, ScalarListModel, TemporalTime>
       get $listOfRequiredAwsTime => _queryFields.$listOfRequiredAwsTime;
 
   /// Query field for the [listOfRequiredAwsTime] field.
   @Deprecated(r'Use $listOfRequiredAwsTime instead')
-  QueryField<String, ScalarListModel, List<TemporalTime>?>
+  QueryField<String, ScalarListModel, TemporalTime>
       get LIST_OF_REQUIRED_AWS_TIME => $listOfRequiredAwsTime;
   @override
   List<TemporalTime?> get requiredListOfAwsTime;
 
   /// Query field for the [requiredListOfAwsTime] field.
-  QueryField<String, ScalarListModel, List<TemporalTime?>>
+  QueryField<String, ScalarListModel, TemporalTime?>
       get $requiredListOfAwsTime => _queryFields.$requiredListOfAwsTime;
 
   /// Query field for the [requiredListOfAwsTime] field.
   @Deprecated(r'Use $requiredListOfAwsTime instead')
-  QueryField<String, ScalarListModel, List<TemporalTime?>>
+  QueryField<String, ScalarListModel, TemporalTime?>
       get REQUIRED_LIST_OF_AWS_TIME => $requiredListOfAwsTime;
   @override
   List<TemporalTime> get requiredListOfRequiredAwsTime;
 
   /// Query field for the [requiredListOfRequiredAwsTime] field.
-  QueryField<String, ScalarListModel, List<TemporalTime>>
+  QueryField<String, ScalarListModel, TemporalTime>
       get $requiredListOfRequiredAwsTime =>
           _queryFields.$requiredListOfRequiredAwsTime;
 
   /// Query field for the [requiredListOfRequiredAwsTime] field.
   @Deprecated(r'Use $requiredListOfRequiredAwsTime instead')
-  QueryField<String, ScalarListModel, List<TemporalTime>>
+  QueryField<String, ScalarListModel, TemporalTime>
       get REQUIRED_LIST_OF_REQUIRED_AWS_TIME => $requiredListOfRequiredAwsTime;
   @override
   List<TemporalTimestamp?>? get listOfAwsTimestamp;
 
   /// Query field for the [listOfAwsTimestamp] field.
-  QueryField<String, ScalarListModel, List<TemporalTimestamp?>?>
+  QueryField<String, ScalarListModel, TemporalTimestamp?>
       get $listOfAwsTimestamp => _queryFields.$listOfAwsTimestamp;
 
   /// Query field for the [listOfAwsTimestamp] field.
   @Deprecated(r'Use $listOfAwsTimestamp instead')
-  QueryField<String, ScalarListModel, List<TemporalTimestamp?>?>
+  QueryField<String, ScalarListModel, TemporalTimestamp?>
       get LIST_OF_AWS_TIMESTAMP => $listOfAwsTimestamp;
   @override
   List<TemporalTimestamp>? get listOfRequiredAwsTimestamp;
 
   /// Query field for the [listOfRequiredAwsTimestamp] field.
-  QueryField<String, ScalarListModel, List<TemporalTimestamp>?>
+  QueryField<String, ScalarListModel, TemporalTimestamp>
       get $listOfRequiredAwsTimestamp =>
           _queryFields.$listOfRequiredAwsTimestamp;
 
   /// Query field for the [listOfRequiredAwsTimestamp] field.
   @Deprecated(r'Use $listOfRequiredAwsTimestamp instead')
-  QueryField<String, ScalarListModel, List<TemporalTimestamp>?>
+  QueryField<String, ScalarListModel, TemporalTimestamp>
       get LIST_OF_REQUIRED_AWS_TIMESTAMP => $listOfRequiredAwsTimestamp;
   @override
   List<TemporalTimestamp?> get requiredListOfAwsTimestamp;
 
   /// Query field for the [requiredListOfAwsTimestamp] field.
-  QueryField<String, ScalarListModel, List<TemporalTimestamp?>>
+  QueryField<String, ScalarListModel, TemporalTimestamp?>
       get $requiredListOfAwsTimestamp =>
           _queryFields.$requiredListOfAwsTimestamp;
 
   /// Query field for the [requiredListOfAwsTimestamp] field.
   @Deprecated(r'Use $requiredListOfAwsTimestamp instead')
-  QueryField<String, ScalarListModel, List<TemporalTimestamp?>>
+  QueryField<String, ScalarListModel, TemporalTimestamp?>
       get REQUIRED_LIST_OF_AWS_TIMESTAMP => $requiredListOfAwsTimestamp;
   @override
   List<TemporalTimestamp> get requiredListOfRequiredAwsTimestamp;
 
   /// Query field for the [requiredListOfRequiredAwsTimestamp] field.
-  QueryField<String, ScalarListModel, List<TemporalTimestamp>>
+  QueryField<String, ScalarListModel, TemporalTimestamp>
       get $requiredListOfRequiredAwsTimestamp =>
           _queryFields.$requiredListOfRequiredAwsTimestamp;
 
   /// Query field for the [requiredListOfRequiredAwsTimestamp] field.
   @Deprecated(r'Use $requiredListOfRequiredAwsTimestamp instead')
-  QueryField<String, ScalarListModel, List<TemporalTimestamp>>
+  QueryField<String, ScalarListModel, TemporalTimestamp>
       get REQUIRED_LIST_OF_REQUIRED_AWS_TIMESTAMP =>
           $requiredListOfRequiredAwsTimestamp;
   @override
   List<String?>? get listOfAwsEmail;
 
   /// Query field for the [listOfAwsEmail] field.
-  QueryField<String, ScalarListModel, List<String?>?> get $listOfAwsEmail =>
+  QueryField<String, ScalarListModel, String?> get $listOfAwsEmail =>
       _queryFields.$listOfAwsEmail;
 
   /// Query field for the [listOfAwsEmail] field.
   @Deprecated(r'Use $listOfAwsEmail instead')
-  QueryField<String, ScalarListModel, List<String?>?> get LIST_OF_AWS_EMAIL =>
+  QueryField<String, ScalarListModel, String?> get LIST_OF_AWS_EMAIL =>
       $listOfAwsEmail;
   @override
   List<String>? get listOfRequiredAwsEmail;
 
   /// Query field for the [listOfRequiredAwsEmail] field.
-  QueryField<String, ScalarListModel, List<String>?>
-      get $listOfRequiredAwsEmail => _queryFields.$listOfRequiredAwsEmail;
+  QueryField<String, ScalarListModel, String> get $listOfRequiredAwsEmail =>
+      _queryFields.$listOfRequiredAwsEmail;
 
   /// Query field for the [listOfRequiredAwsEmail] field.
   @Deprecated(r'Use $listOfRequiredAwsEmail instead')
-  QueryField<String, ScalarListModel, List<String>?>
-      get LIST_OF_REQUIRED_AWS_EMAIL => $listOfRequiredAwsEmail;
+  QueryField<String, ScalarListModel, String> get LIST_OF_REQUIRED_AWS_EMAIL =>
+      $listOfRequiredAwsEmail;
   @override
   List<String?> get requiredListOfAwsEmail;
 
   /// Query field for the [requiredListOfAwsEmail] field.
-  QueryField<String, ScalarListModel, List<String?>>
-      get $requiredListOfAwsEmail => _queryFields.$requiredListOfAwsEmail;
+  QueryField<String, ScalarListModel, String?> get $requiredListOfAwsEmail =>
+      _queryFields.$requiredListOfAwsEmail;
 
   /// Query field for the [requiredListOfAwsEmail] field.
   @Deprecated(r'Use $requiredListOfAwsEmail instead')
-  QueryField<String, ScalarListModel, List<String?>>
-      get REQUIRED_LIST_OF_AWS_EMAIL => $requiredListOfAwsEmail;
+  QueryField<String, ScalarListModel, String?> get REQUIRED_LIST_OF_AWS_EMAIL =>
+      $requiredListOfAwsEmail;
   @override
   List<String> get requiredListOfRequiredAwsEmail;
 
   /// Query field for the [requiredListOfRequiredAwsEmail] field.
-  QueryField<String, ScalarListModel, List<String>>
+  QueryField<String, ScalarListModel, String>
       get $requiredListOfRequiredAwsEmail =>
           _queryFields.$requiredListOfRequiredAwsEmail;
 
   /// Query field for the [requiredListOfRequiredAwsEmail] field.
   @Deprecated(r'Use $requiredListOfRequiredAwsEmail instead')
-  QueryField<String, ScalarListModel, List<String>>
+  QueryField<String, ScalarListModel, String>
       get REQUIRED_LIST_OF_REQUIRED_AWS_EMAIL =>
           $requiredListOfRequiredAwsEmail;
   @override
   List<Object?>? get listOfAwsjson;
 
   /// Query field for the [listOfAwsjson] field.
-  QueryField<String, ScalarListModel, List<Object?>?> get $listOfAwsjson =>
+  QueryField<String, ScalarListModel, Object?> get $listOfAwsjson =>
       _queryFields.$listOfAwsjson;
 
   /// Query field for the [listOfAwsjson] field.
   @Deprecated(r'Use $listOfAwsjson instead')
-  QueryField<String, ScalarListModel, List<Object?>?> get LIST_OF_AWSJSON =>
+  QueryField<String, ScalarListModel, Object?> get LIST_OF_AWSJSON =>
       $listOfAwsjson;
   @override
   List<Object>? get listOfRequiredAwsjson;
 
   /// Query field for the [listOfRequiredAwsjson] field.
-  QueryField<String, ScalarListModel, List<Object>?>
-      get $listOfRequiredAwsjson => _queryFields.$listOfRequiredAwsjson;
+  QueryField<String, ScalarListModel, Object> get $listOfRequiredAwsjson =>
+      _queryFields.$listOfRequiredAwsjson;
 
   /// Query field for the [listOfRequiredAwsjson] field.
   @Deprecated(r'Use $listOfRequiredAwsjson instead')
-  QueryField<String, ScalarListModel, List<Object>?>
-      get LIST_OF_REQUIRED_AWSJSON => $listOfRequiredAwsjson;
+  QueryField<String, ScalarListModel, Object> get LIST_OF_REQUIRED_AWSJSON =>
+      $listOfRequiredAwsjson;
   @override
   List<Object?> get requiredListOfAwsjson;
 
   /// Query field for the [requiredListOfAwsjson] field.
-  QueryField<String, ScalarListModel, List<Object?>>
-      get $requiredListOfAwsjson => _queryFields.$requiredListOfAwsjson;
+  QueryField<String, ScalarListModel, Object?> get $requiredListOfAwsjson =>
+      _queryFields.$requiredListOfAwsjson;
 
   /// Query field for the [requiredListOfAwsjson] field.
   @Deprecated(r'Use $requiredListOfAwsjson instead')
-  QueryField<String, ScalarListModel, List<Object?>>
-      get REQUIRED_LIST_OF_AWSJSON => $requiredListOfAwsjson;
+  QueryField<String, ScalarListModel, Object?> get REQUIRED_LIST_OF_AWSJSON =>
+      $requiredListOfAwsjson;
   @override
   List<Object> get requiredListOfRequiredAwsjson;
 
   /// Query field for the [requiredListOfRequiredAwsjson] field.
-  QueryField<String, ScalarListModel, List<Object>>
+  QueryField<String, ScalarListModel, Object>
       get $requiredListOfRequiredAwsjson =>
           _queryFields.$requiredListOfRequiredAwsjson;
 
   /// Query field for the [requiredListOfRequiredAwsjson] field.
   @Deprecated(r'Use $requiredListOfRequiredAwsjson instead')
-  QueryField<String, ScalarListModel, List<Object>>
+  QueryField<String, ScalarListModel, Object>
       get REQUIRED_LIST_OF_REQUIRED_AWSJSON => $requiredListOfRequiredAwsjson;
   @override
   List<String?>? get listOfAwsPhone;
 
   /// Query field for the [listOfAwsPhone] field.
-  QueryField<String, ScalarListModel, List<String?>?> get $listOfAwsPhone =>
+  QueryField<String, ScalarListModel, String?> get $listOfAwsPhone =>
       _queryFields.$listOfAwsPhone;
 
   /// Query field for the [listOfAwsPhone] field.
   @Deprecated(r'Use $listOfAwsPhone instead')
-  QueryField<String, ScalarListModel, List<String?>?> get LIST_OF_AWS_PHONE =>
+  QueryField<String, ScalarListModel, String?> get LIST_OF_AWS_PHONE =>
       $listOfAwsPhone;
   @override
   List<String>? get listOfRequiredAwsPhone;
 
   /// Query field for the [listOfRequiredAwsPhone] field.
-  QueryField<String, ScalarListModel, List<String>?>
-      get $listOfRequiredAwsPhone => _queryFields.$listOfRequiredAwsPhone;
+  QueryField<String, ScalarListModel, String> get $listOfRequiredAwsPhone =>
+      _queryFields.$listOfRequiredAwsPhone;
 
   /// Query field for the [listOfRequiredAwsPhone] field.
   @Deprecated(r'Use $listOfRequiredAwsPhone instead')
-  QueryField<String, ScalarListModel, List<String>?>
-      get LIST_OF_REQUIRED_AWS_PHONE => $listOfRequiredAwsPhone;
+  QueryField<String, ScalarListModel, String> get LIST_OF_REQUIRED_AWS_PHONE =>
+      $listOfRequiredAwsPhone;
   @override
   List<String?> get requiredListOfAwsPhone;
 
   /// Query field for the [requiredListOfAwsPhone] field.
-  QueryField<String, ScalarListModel, List<String?>>
-      get $requiredListOfAwsPhone => _queryFields.$requiredListOfAwsPhone;
+  QueryField<String, ScalarListModel, String?> get $requiredListOfAwsPhone =>
+      _queryFields.$requiredListOfAwsPhone;
 
   /// Query field for the [requiredListOfAwsPhone] field.
   @Deprecated(r'Use $requiredListOfAwsPhone instead')
-  QueryField<String, ScalarListModel, List<String?>>
-      get REQUIRED_LIST_OF_AWS_PHONE => $requiredListOfAwsPhone;
+  QueryField<String, ScalarListModel, String?> get REQUIRED_LIST_OF_AWS_PHONE =>
+      $requiredListOfAwsPhone;
   @override
   List<String> get requiredListOfRequiredAwsPhone;
 
   /// Query field for the [requiredListOfRequiredAwsPhone] field.
-  QueryField<String, ScalarListModel, List<String>>
+  QueryField<String, ScalarListModel, String>
       get $requiredListOfRequiredAwsPhone =>
           _queryFields.$requiredListOfRequiredAwsPhone;
 
   /// Query field for the [requiredListOfRequiredAwsPhone] field.
   @Deprecated(r'Use $requiredListOfRequiredAwsPhone instead')
-  QueryField<String, ScalarListModel, List<String>>
+  QueryField<String, ScalarListModel, String>
       get REQUIRED_LIST_OF_REQUIRED_AWS_PHONE =>
           $requiredListOfRequiredAwsPhone;
   @override
   List<Uri?>? get listOfAwsUrl;
 
   /// Query field for the [listOfAwsUrl] field.
-  QueryField<String, ScalarListModel, List<Uri?>?> get $listOfAwsUrl =>
+  QueryField<String, ScalarListModel, Uri?> get $listOfAwsUrl =>
       _queryFields.$listOfAwsUrl;
 
   /// Query field for the [listOfAwsUrl] field.
   @Deprecated(r'Use $listOfAwsUrl instead')
-  QueryField<String, ScalarListModel, List<Uri?>?> get LIST_OF_AWS_URL =>
+  QueryField<String, ScalarListModel, Uri?> get LIST_OF_AWS_URL =>
       $listOfAwsUrl;
   @override
   List<Uri>? get listOfRequiredAwsUrl;
 
   /// Query field for the [listOfRequiredAwsUrl] field.
-  QueryField<String, ScalarListModel, List<Uri>?> get $listOfRequiredAwsUrl =>
+  QueryField<String, ScalarListModel, Uri> get $listOfRequiredAwsUrl =>
       _queryFields.$listOfRequiredAwsUrl;
 
   /// Query field for the [listOfRequiredAwsUrl] field.
   @Deprecated(r'Use $listOfRequiredAwsUrl instead')
-  QueryField<String, ScalarListModel, List<Uri>?>
-      get LIST_OF_REQUIRED_AWS_URL => $listOfRequiredAwsUrl;
+  QueryField<String, ScalarListModel, Uri> get LIST_OF_REQUIRED_AWS_URL =>
+      $listOfRequiredAwsUrl;
   @override
   List<Uri?> get requiredListOfAwsUrl;
 
   /// Query field for the [requiredListOfAwsUrl] field.
-  QueryField<String, ScalarListModel, List<Uri?>> get $requiredListOfAwsUrl =>
+  QueryField<String, ScalarListModel, Uri?> get $requiredListOfAwsUrl =>
       _queryFields.$requiredListOfAwsUrl;
 
   /// Query field for the [requiredListOfAwsUrl] field.
   @Deprecated(r'Use $requiredListOfAwsUrl instead')
-  QueryField<String, ScalarListModel, List<Uri?>>
-      get REQUIRED_LIST_OF_AWS_URL => $requiredListOfAwsUrl;
+  QueryField<String, ScalarListModel, Uri?> get REQUIRED_LIST_OF_AWS_URL =>
+      $requiredListOfAwsUrl;
   @override
   List<Uri> get requiredListOfRequiredAwsUrl;
 
   /// Query field for the [requiredListOfRequiredAwsUrl] field.
-  QueryField<String, ScalarListModel, List<Uri>>
-      get $requiredListOfRequiredAwsUrl =>
-          _queryFields.$requiredListOfRequiredAwsUrl;
+  QueryField<String, ScalarListModel, Uri> get $requiredListOfRequiredAwsUrl =>
+      _queryFields.$requiredListOfRequiredAwsUrl;
 
   /// Query field for the [requiredListOfRequiredAwsUrl] field.
   @Deprecated(r'Use $requiredListOfRequiredAwsUrl instead')
-  QueryField<String, ScalarListModel, List<Uri>>
+  QueryField<String, ScalarListModel, Uri>
       get REQUIRED_LIST_OF_REQUIRED_AWS_URL => $requiredListOfRequiredAwsUrl;
   @override
   List<String?>? get listOfAwsIpAddress;
 
   /// Query field for the [listOfAwsIpAddress] field.
-  QueryField<String, ScalarListModel, List<String?>?> get $listOfAwsIpAddress =>
+  QueryField<String, ScalarListModel, String?> get $listOfAwsIpAddress =>
       _queryFields.$listOfAwsIpAddress;
 
   /// Query field for the [listOfAwsIpAddress] field.
   @Deprecated(r'Use $listOfAwsIpAddress instead')
-  QueryField<String, ScalarListModel, List<String?>?>
-      get LIST_OF_AWS_IP_ADDRESS => $listOfAwsIpAddress;
+  QueryField<String, ScalarListModel, String?> get LIST_OF_AWS_IP_ADDRESS =>
+      $listOfAwsIpAddress;
   @override
   List<String>? get listOfRequiredAwsIpAddress;
 
   /// Query field for the [listOfRequiredAwsIpAddress] field.
-  QueryField<String, ScalarListModel, List<String>?>
-      get $listOfRequiredAwsIpAddress =>
-          _queryFields.$listOfRequiredAwsIpAddress;
+  QueryField<String, ScalarListModel, String> get $listOfRequiredAwsIpAddress =>
+      _queryFields.$listOfRequiredAwsIpAddress;
 
   /// Query field for the [listOfRequiredAwsIpAddress] field.
   @Deprecated(r'Use $listOfRequiredAwsIpAddress instead')
-  QueryField<String, ScalarListModel, List<String>?>
+  QueryField<String, ScalarListModel, String>
       get LIST_OF_REQUIRED_AWS_IP_ADDRESS => $listOfRequiredAwsIpAddress;
   @override
   List<String?> get requiredListOfAwsIpAddress;
 
   /// Query field for the [requiredListOfAwsIpAddress] field.
-  QueryField<String, ScalarListModel, List<String?>>
+  QueryField<String, ScalarListModel, String?>
       get $requiredListOfAwsIpAddress =>
           _queryFields.$requiredListOfAwsIpAddress;
 
   /// Query field for the [requiredListOfAwsIpAddress] field.
   @Deprecated(r'Use $requiredListOfAwsIpAddress instead')
-  QueryField<String, ScalarListModel, List<String?>>
+  QueryField<String, ScalarListModel, String?>
       get REQUIRED_LIST_OF_AWS_IP_ADDRESS => $requiredListOfAwsIpAddress;
   @override
   List<String> get requiredListOfRequiredAwsIpAddress;
 
   /// Query field for the [requiredListOfRequiredAwsIpAddress] field.
-  QueryField<String, ScalarListModel, List<String>>
+  QueryField<String, ScalarListModel, String>
       get $requiredListOfRequiredAwsIpAddress =>
           _queryFields.$requiredListOfRequiredAwsIpAddress;
 
   /// Query field for the [requiredListOfRequiredAwsIpAddress] field.
   @Deprecated(r'Use $requiredListOfRequiredAwsIpAddress instead')
-  QueryField<String, ScalarListModel, List<String>>
+  QueryField<String, ScalarListModel, String>
       get REQUIRED_LIST_OF_REQUIRED_AWS_IP_ADDRESS =>
           $requiredListOfRequiredAwsIpAddress;
   @override

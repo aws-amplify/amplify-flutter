@@ -588,8 +588,10 @@ return value as T;
         );
         if (field.hasQueryField) {
           Reference fieldTypeRef;
-          if (fieldType is mipr.ModelType) {
-            final model = context.modelNamed(fieldType.name);
+          final queryFieldType =
+              fieldType is mipr.ListType ? fieldType.elementType : fieldType;
+          if (queryFieldType is mipr.ModelType) {
+            final model = context.modelNamed(queryFieldType.name);
             fieldTypeRef = model.references.queryFields(
               _references.modelIdentifier,
               _references.model,
@@ -598,7 +600,7 @@ return value as T;
             fieldTypeRef = DartTypes.amplifyCore.queryField(
               _references.modelIdentifier,
               _references.model,
-              field.typeReference(ModelHierarchyType.model),
+              queryFieldType.reference,
             );
           }
           addQueryField(field.dartName, fieldTypeRef);
@@ -949,14 +951,16 @@ return value as T;
       for (final field in definition.fields.values) {
         if (field.hasQueryField) {
           final fieldType = field.type;
+          final queryFieldType =
+              fieldType is mipr.ListType ? fieldType.elementType : fieldType;
           Reference fieldTypeRef;
           Reference Function([Reference?, Reference?])? relatedQueryFields;
-          if (fieldType is mipr.ModelType) {
-            final model = context.modelNamed(fieldType.name);
+          if (queryFieldType is mipr.ModelType) {
+            final model = context.modelNamed(queryFieldType.name);
             fieldTypeRef = model.references.model;
             relatedQueryFields = model.references.queryFields;
           } else {
-            fieldTypeRef = field.typeReference(ModelHierarchyType.model);
+            fieldTypeRef = queryFieldType.reference;
           }
           addQueryField(
             field.name,

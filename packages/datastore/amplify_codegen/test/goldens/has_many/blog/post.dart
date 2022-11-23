@@ -71,17 +71,11 @@ class PostQueryFields<ModelIdentifier extends Object,
       ));
 
   /// Query field for the [Post.comments] field.
-  QueryField<ModelIdentifier, M,
-          AsyncModelCollection<String, Comment, PartialComment, Comment>?>
-      get $comments => NestedQueryField<ModelIdentifier, M, String, Post,
-              AsyncModelCollection<String, Comment, PartialComment, Comment>?>(
-            const QueryField<
-                String,
-                Post,
-                AsyncModelCollection<String, Comment, PartialComment,
-                    Comment>?>(fieldName: 'comments'),
-            root: _root,
-          );
+  CommentQueryFields<ModelIdentifier, M> get $comments => CommentQueryFields(
+          NestedQueryField<ModelIdentifier, M, String, Post, Comment>(
+        const QueryField<String, Post, Comment>(fieldName: 'comments'),
+        root: _root,
+      ));
 
   /// Query field for the [Post.createdAt] field.
   QueryField<ModelIdentifier, M, TemporalDateTime> get $createdAt =>
@@ -364,15 +358,11 @@ abstract class Post extends PartialPost implements Model<String, Post> {
   AsyncModelCollection<String, Comment, PartialComment, Comment>? get comments;
 
   /// Query field for the [comments] field.
-  QueryField<String, Post,
-          AsyncModelCollection<String, Comment, PartialComment, Comment>?>
-      get $comments => _queryFields.$comments;
+  CommentQueryFields<String, Post> get $comments => _queryFields.$comments;
 
   /// Query field for the [comments] field.
   @Deprecated(r'Use $comments instead')
-  QueryField<String, Post,
-          AsyncModelCollection<String, Comment, PartialComment, Comment>?>
-      get COMMENTS => $comments;
+  CommentQueryFields<String, Post> get COMMENTS => $comments;
   @override
   TemporalDateTime get createdAt;
   @override
