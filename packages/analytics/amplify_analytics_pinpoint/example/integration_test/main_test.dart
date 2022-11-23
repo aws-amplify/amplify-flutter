@@ -23,7 +23,7 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('amplify_analytics_pinpoint', () {
-    auto_session_tracking_tests.main();
+    //auto_session_tracking_tests.main();
     enable_disable_tests.main();
     events_tests.main();
     identify_user_tests.main();
