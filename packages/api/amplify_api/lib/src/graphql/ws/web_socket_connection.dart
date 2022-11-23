@@ -445,7 +445,6 @@ class WebSocketConnection implements Closeable {
   Future<void> _sendSubscriptionRegistrationMessage<T>(
     GraphQLRequest<T> request,
   ) async {
-    await init(); // no-op if already connected
     final subscriptionRegistrationMessage =
         await generateSubscriptionRegistrationMessage(
       _config,
@@ -453,6 +452,15 @@ class WebSocketConnection implements Closeable {
       authRepo: _authProviderRepo,
       request: request,
     );
+
+    // No-op if already connected.
+    // Run after generating the connection message to account for connection
+    // closed while generating message.
+    await init();
+    if (_channel == null) {
+      return _sendSubscriptionRegistrationMessage(request);
+    }
+
     send(subscriptionRegistrationMessage);
     _subscriptionRequests.add(request);
   }
