@@ -457,6 +457,9 @@ class WebSocketConnection implements Closeable {
     // Run after generating the connection message to account for connection
     // closed while generating message.
     await init();
+    if (_channel == null) {
+      return _sendSubscriptionRegistrationMessage(request);
+    }
 
     send(subscriptionRegistrationMessage);
     _subscriptionRequests.add(request);
