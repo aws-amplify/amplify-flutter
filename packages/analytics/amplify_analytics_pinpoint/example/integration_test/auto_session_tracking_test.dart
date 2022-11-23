@@ -76,7 +76,7 @@ void main() {
 
         expect(
           eventsStream,
-          emitsThrough(
+          emits(
             containsPair('event_type', '_session.start'),
           ),
         );

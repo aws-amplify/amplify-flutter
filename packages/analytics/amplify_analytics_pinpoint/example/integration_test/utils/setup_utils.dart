@@ -28,9 +28,22 @@ Future<Stream<Map<String, Object?>>> configureAnalytics(
   final Stream<Map<String, Object?>> eventsStream;
 
   await Amplify.addPlugins([
-    AmplifyAuthCognito(),
+    AmplifyAuthCognito(
+      credentialStorage: AmplifySecureStorage(
+        config: AmplifySecureStorageConfig(
+          scope: 'analyticsAuth',
+          macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
+        ),
+      ),
+    ),
     AmplifyAnalyticsPinpoint(
       appLifecycleProvider: appLifecycleProvider,
+      keyValueStore: AmplifySecureStorage(
+        config: AmplifySecureStorageConfig(
+          scope: 'analytics',
+          macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
+        ),
+      ),
     ),
     AmplifyAPI(),
   ]);
@@ -42,18 +55,18 @@ Future<Stream<Map<String, Object?>>> configureAnalytics(
       .subscribe(
     GraphQLRequest<String>(
       document: '''
-              subscription {
-                onCreateRecord {
-                  id
-                  payload
-                }
+            subscription {
+              onCreateRecord {
+                id
+                payload
               }
-              ''',
+            }
+            ''',
     ),
     onEstablished: subscriptionEstablished.complete,
   )
       .map((event) {
-    if (event.errors.isNotEmpty) {
+    if (event.hasErrors) {
       return {'errors': event.errors};
     }
     final data = event.data;
@@ -61,15 +74,13 @@ Future<Stream<Map<String, Object?>>> configureAnalytics(
       return const <String, Object?>{};
     }
     final json = jsonDecode(data) as Map<String, Object?>;
-    final mapData =
-        jsonDecode((json['onCreateRecord'] as Map)['payload'] as String)
-            as Map<String, Object?>;
-    return mapData;
+    return jsonDecode((json['onCreateRecord'] as Map)['payload'] as String)
+        as Map<String, Object?>;
   }).asBroadcastStream();
 
   expect(
     eventsStream,
-    emitsThrough(
+    emits(
       containsPair('event_type', '_session.start'),
     ),
   );
@@ -78,8 +89,6 @@ Future<Stream<Map<String, Object?>>> configureAnalytics(
     const Duration(seconds: 30),
     onTimeout: () => fail('Subscription could not be established'),
   );
-
-  addTearDown(Amplify.reset);
 
   return eventsStream;
 }
