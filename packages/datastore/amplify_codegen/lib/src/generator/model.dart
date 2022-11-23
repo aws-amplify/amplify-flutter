@@ -20,6 +20,7 @@ import 'package:amplify_codegen/src/helpers/model.dart';
 import 'package:amplify_codegen/src/helpers/types.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
+import 'package:built_value/serializer.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:smithy_codegen/src/util/symbol_ext.dart';
 
@@ -692,6 +693,31 @@ return value as T;
               fields: definition.schemaFields(ModelHierarchyType.model).values,
               hierarchyType: ModelHierarchyType.model,
             ),
+        ),
+      );
+
+      // The static `schema` getter
+      c.fields.add(
+        Field(
+          (f) => f
+            ..modifier = FieldModifier.final$
+            ..static = true
+            ..type = DartTypes.amplifyCore.mipr.modelTypeDefinition
+            ..name = 'schema'
+            ..assignment = DartTypes.amplifyCore.mipr.serializers
+                .property('deserializeWith')
+                .call([
+                  DartTypes.amplifyCore.mipr.modelTypeDefinition
+                      .property('serializer'),
+                  literalConstMap(
+                    mipr.serializers.serializeWith(
+                      mipr.ModelTypeDefinition.serializer,
+                      definition,
+                    ) as Map,
+                  ),
+                ])
+                .nullChecked
+                .code,
         ),
       );
     });

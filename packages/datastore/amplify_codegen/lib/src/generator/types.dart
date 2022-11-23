@@ -113,7 +113,7 @@ class _AmplifyCore {
           ]),
       );
 
-  _AmplifyCoreMipr get mipr => const _AmplifyCoreMipr();
+  Mipr get mipr => const Mipr._();
 
   /// Creates an [amplify_core.Model] reference.
   TypeReference model(
@@ -214,10 +214,19 @@ class _AmplifyCore {
   Reference get temporalDate => const Reference('TemporalDate', _url);
 }
 
-class _AmplifyCoreMipr {
-  const _AmplifyCoreMipr();
+/// Model Intermediate Platform Representation (MIPR) types.
+class Mipr {
+  const Mipr._();
 
-  static const _url = 'package:amplify_core/src/types/models/mipr.dart';
+  /// URL for MIPR types.
+  static const url = 'package:amplify_core/src/types/models/mipr.dart';
+
+  /// Creates an [mipr.ModelTypeDefinition] reference.
+  Reference get modelTypeDefinition =>
+      const Reference('ModelTypeDefinition', url);
+
+  /// Creates an [mipr.serializers] reference.
+  Reference get serializers => const Reference('serializers', url);
 }
 
 /// `package:aws_common` types.

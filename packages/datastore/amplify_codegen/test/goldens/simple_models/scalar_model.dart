@@ -16,11 +16,12 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names,inference_failure_on_collection_literal
 
 library models.scalar_model;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 
 class ScalarModelType
     extends ModelType<String, ScalarModel, PartialScalarModel> {
@@ -833,6 +834,199 @@ abstract class ScalarModel extends PartialScalarModel
 
   static const ScalarModelQueryFields<String, ScalarModel> _queryFields =
       ScalarModelQueryFields();
+
+  static final mipr.ModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.ModelTypeDefinition.serializer,
+    const {
+      'name': 'ScalarModel',
+      'pluralName': 'ScalarModels',
+      'fields': {
+        'id': {
+          'name': 'id',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'str': {
+          'name': 'str',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredStr': {
+          'name': 'requiredStr',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'integer': {
+          'name': 'integer',
+          'type': {'scalar': 'Int'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredInteger': {
+          'name': 'requiredInteger',
+          'type': {'scalar': 'Int'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'float': {
+          'name': 'float',
+          'type': {'scalar': 'Float'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredFloat': {
+          'name': 'requiredFloat',
+          'type': {'scalar': 'Float'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'boolean': {
+          'name': 'boolean',
+          'type': {'scalar': 'Boolean'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredBoolean': {
+          'name': 'requiredBoolean',
+          'type': {'scalar': 'Boolean'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'awsDate': {
+          'name': 'awsDate',
+          'type': {'scalar': 'AWSDate'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredAwsDate': {
+          'name': 'requiredAwsDate',
+          'type': {'scalar': 'AWSDate'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'awsDateTime': {
+          'name': 'awsDateTime',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredAwsDateTime': {
+          'name': 'requiredAwsDateTime',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'awsTime': {
+          'name': 'awsTime',
+          'type': {'scalar': 'AWSTime'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredAwsTime': {
+          'name': 'requiredAwsTime',
+          'type': {'scalar': 'AWSTime'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'awsTimestamp': {
+          'name': 'awsTimestamp',
+          'type': {'scalar': 'AWSTimestamp'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredAwsTimestamp': {
+          'name': 'requiredAwsTimestamp',
+          'type': {'scalar': 'AWSTimestamp'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'awsEmail': {
+          'name': 'awsEmail',
+          'type': {'scalar': 'AWSEmail'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredAwsEmail': {
+          'name': 'requiredAwsEmail',
+          'type': {'scalar': 'AWSEmail'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'awsJson': {
+          'name': 'awsJson',
+          'type': {'scalar': 'AWSJSON'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredAwsJson': {
+          'name': 'requiredAwsJson',
+          'type': {'scalar': 'AWSJSON'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'awsPhone': {
+          'name': 'awsPhone',
+          'type': {'scalar': 'AWSPhone'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredAwsPhone': {
+          'name': 'requiredAwsPhone',
+          'type': {'scalar': 'AWSPhone'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'awsUrl': {
+          'name': 'awsUrl',
+          'type': {'scalar': 'AWSURL'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredAwsUrl': {
+          'name': 'requiredAwsUrl',
+          'type': {'scalar': 'AWSURL'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'awsIpAddress': {
+          'name': 'awsIpAddress',
+          'type': {'scalar': 'AWSIPAddress'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredAwsIpAddress': {
+          'name': 'requiredAwsIpAddress',
+          'type': {'scalar': 'AWSIPAddress'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+      },
+      'authRules': [],
+      'indexes': [
+        {
+          'type': 'primary',
+          'primaryField': 'id',
+          'sortKeyFields': [],
+        }
+      ],
+    },
+  )!;
 
   @override
   String get id;

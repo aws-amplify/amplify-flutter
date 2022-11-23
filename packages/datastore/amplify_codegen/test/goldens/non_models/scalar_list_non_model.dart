@@ -16,11 +16,12 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names,inference_failure_on_collection_literal
 
 library models.scalar_list_non_model;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 
 class ScalarListNonModelType
     extends ModelType<String, ScalarListNonModel, PartialScalarListNonModel> {
@@ -2262,6 +2263,459 @@ abstract class ScalarListNonModel extends PartialScalarListNonModel
 
   static const ScalarListNonModelQueryFields<String, ScalarListNonModel>
       _queryFields = ScalarListNonModelQueryFields();
+
+  static final mipr.ModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.ModelTypeDefinition.serializer,
+    const {
+      'name': 'ScalarListNonModel',
+      'pluralName': 'ScalarListNonModels',
+      'fields': {
+        'id': {
+          'name': 'id',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfString': {
+          'name': 'listOfString',
+          'type': {
+            'list': {'scalar': 'String'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfRequiredString': {
+          'name': 'listOfRequiredString',
+          'type': {
+            'list': {'scalar': 'String'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfString': {
+          'name': 'requiredListOfString',
+          'type': {
+            'list': {'scalar': 'String'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfRequiredString': {
+          'name': 'requiredListOfRequiredString',
+          'type': {
+            'list': {'scalar': 'String'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfInteger': {
+          'name': 'listOfInteger',
+          'type': {
+            'list': {'scalar': 'Int'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfRequiredInteger': {
+          'name': 'listOfRequiredInteger',
+          'type': {
+            'list': {'scalar': 'Int'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfInteger': {
+          'name': 'requiredListOfInteger',
+          'type': {
+            'list': {'scalar': 'Int'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfRequiredInteger': {
+          'name': 'requiredListOfRequiredInteger',
+          'type': {
+            'list': {'scalar': 'Int'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfFloat': {
+          'name': 'listOfFloat',
+          'type': {
+            'list': {'scalar': 'Float'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfRequiredFloat': {
+          'name': 'listOfRequiredFloat',
+          'type': {
+            'list': {'scalar': 'Float'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfFloat': {
+          'name': 'requiredListOfFloat',
+          'type': {
+            'list': {'scalar': 'Float'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfRequiredFloat': {
+          'name': 'requiredListOfRequiredFloat',
+          'type': {
+            'list': {'scalar': 'Float'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfBoolean': {
+          'name': 'listOfBoolean',
+          'type': {
+            'list': {'scalar': 'Boolean'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfRequiredBoolean': {
+          'name': 'listOfRequiredBoolean',
+          'type': {
+            'list': {'scalar': 'Boolean'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfBoolean': {
+          'name': 'requiredListOfBoolean',
+          'type': {
+            'list': {'scalar': 'Boolean'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfRequiredBoolean': {
+          'name': 'requiredListOfRequiredBoolean',
+          'type': {
+            'list': {'scalar': 'Boolean'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfAWSDate': {
+          'name': 'listOfAWSDate',
+          'type': {
+            'list': {'scalar': 'AWSDate'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfRequiredAWSDate': {
+          'name': 'listOfRequiredAWSDate',
+          'type': {
+            'list': {'scalar': 'AWSDate'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfAWSDate': {
+          'name': 'requiredListOfAWSDate',
+          'type': {
+            'list': {'scalar': 'AWSDate'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfRequiredAWSDate': {
+          'name': 'requiredListOfRequiredAWSDate',
+          'type': {
+            'list': {'scalar': 'AWSDate'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfAWSDateTime': {
+          'name': 'listOfAWSDateTime',
+          'type': {
+            'list': {'scalar': 'AWSDateTime'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfRequiredAWSDateTime': {
+          'name': 'listOfRequiredAWSDateTime',
+          'type': {
+            'list': {'scalar': 'AWSDateTime'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfAWSDateTime': {
+          'name': 'requiredListOfAWSDateTime',
+          'type': {
+            'list': {'scalar': 'AWSDateTime'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfRequiredAWSDateTime': {
+          'name': 'requiredListOfRequiredAWSDateTime',
+          'type': {
+            'list': {'scalar': 'AWSDateTime'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfAWSTime': {
+          'name': 'listOfAWSTime',
+          'type': {
+            'list': {'scalar': 'AWSTime'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfRequiredAWSTime': {
+          'name': 'listOfRequiredAWSTime',
+          'type': {
+            'list': {'scalar': 'AWSTime'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfAWSTime': {
+          'name': 'requiredListOfAWSTime',
+          'type': {
+            'list': {'scalar': 'AWSTime'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfRequiredAWSTime': {
+          'name': 'requiredListOfRequiredAWSTime',
+          'type': {
+            'list': {'scalar': 'AWSTime'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfAWSTimestamp': {
+          'name': 'listOfAWSTimestamp',
+          'type': {
+            'list': {'scalar': 'AWSTimestamp'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfRequiredAWSTimestamp': {
+          'name': 'listOfRequiredAWSTimestamp',
+          'type': {
+            'list': {'scalar': 'AWSTimestamp'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfAWSTimestamp': {
+          'name': 'requiredListOfAWSTimestamp',
+          'type': {
+            'list': {'scalar': 'AWSTimestamp'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfRequiredAWSTimestamp': {
+          'name': 'requiredListOfRequiredAWSTimestamp',
+          'type': {
+            'list': {'scalar': 'AWSTimestamp'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfAWSEmail': {
+          'name': 'listOfAWSEmail',
+          'type': {
+            'list': {'scalar': 'AWSEmail'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfRequiredAWSEmail': {
+          'name': 'listOfRequiredAWSEmail',
+          'type': {
+            'list': {'scalar': 'AWSEmail'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfAWSEmail': {
+          'name': 'requiredListOfAWSEmail',
+          'type': {
+            'list': {'scalar': 'AWSEmail'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfRequiredAWSEmail': {
+          'name': 'requiredListOfRequiredAWSEmail',
+          'type': {
+            'list': {'scalar': 'AWSEmail'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfAWSJSON': {
+          'name': 'listOfAWSJSON',
+          'type': {
+            'list': {'scalar': 'AWSJSON'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfRequiredAWSJSON': {
+          'name': 'listOfRequiredAWSJSON',
+          'type': {
+            'list': {'scalar': 'AWSJSON'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfAWSJSON': {
+          'name': 'requiredListOfAWSJSON',
+          'type': {
+            'list': {'scalar': 'AWSJSON'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfRequiredAWSJSON': {
+          'name': 'requiredListOfRequiredAWSJSON',
+          'type': {
+            'list': {'scalar': 'AWSJSON'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfAWSPhone': {
+          'name': 'listOfAWSPhone',
+          'type': {
+            'list': {'scalar': 'AWSPhone'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfRequiredAWSPhone': {
+          'name': 'listOfRequiredAWSPhone',
+          'type': {
+            'list': {'scalar': 'AWSPhone'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfAWSPhone': {
+          'name': 'requiredListOfAWSPhone',
+          'type': {
+            'list': {'scalar': 'AWSPhone'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfRequiredAWSPhone': {
+          'name': 'requiredListOfRequiredAWSPhone',
+          'type': {
+            'list': {'scalar': 'AWSPhone'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfAWSUrl': {
+          'name': 'listOfAWSUrl',
+          'type': {
+            'list': {'scalar': 'AWSURL'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfRequiredAWSUrl': {
+          'name': 'listOfRequiredAWSUrl',
+          'type': {
+            'list': {'scalar': 'AWSURL'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfAWSUrl': {
+          'name': 'requiredListOfAWSUrl',
+          'type': {
+            'list': {'scalar': 'AWSURL'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfRequiredAWSUrl': {
+          'name': 'requiredListOfRequiredAWSUrl',
+          'type': {
+            'list': {'scalar': 'AWSURL'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfAWSIpAddress': {
+          'name': 'listOfAWSIpAddress',
+          'type': {
+            'list': {'scalar': 'AWSIPAddress'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'listOfRequiredAWSIpAddress': {
+          'name': 'listOfRequiredAWSIpAddress',
+          'type': {
+            'list': {'scalar': 'AWSIPAddress'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfAWSIpAddress': {
+          'name': 'requiredListOfAWSIpAddress',
+          'type': {
+            'list': {'scalar': 'AWSIPAddress'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'requiredListOfRequiredAWSIpAddress': {
+          'name': 'requiredListOfRequiredAWSIpAddress',
+          'type': {
+            'list': {'scalar': 'AWSIPAddress'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+      },
+      'authRules': [],
+      'indexes': [
+        {
+          'type': 'primary',
+          'primaryField': 'id',
+          'sortKeyFields': [],
+        }
+      ],
+    },
+  )!;
 
   @override
   String get id;

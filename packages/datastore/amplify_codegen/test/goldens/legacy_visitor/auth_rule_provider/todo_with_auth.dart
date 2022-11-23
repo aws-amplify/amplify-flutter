@@ -16,11 +16,12 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names,inference_failure_on_collection_literal
 
 library models.todo_with_auth;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 
 class TodoWithAuthType
     extends ModelType<String, TodoWithAuth, PartialTodoWithAuth> {
@@ -215,6 +216,78 @@ abstract class TodoWithAuth extends PartialTodoWithAuth
 
   static const TodoWithAuthQueryFields<String, TodoWithAuth> _queryFields =
       TodoWithAuthQueryFields();
+
+  static final mipr.ModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.ModelTypeDefinition.serializer,
+    const {
+      'name': 'TodoWithAuth',
+      'pluralName': 'TodoWithAuths',
+      'fields': {
+        'id': {
+          'name': 'id',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'name': {
+          'name': 'name',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+      },
+      'authRules': [
+        {
+          'authStrategy': 'GROUPS',
+          'provider': 'USERPOOLS',
+          'operations': [
+            'CREATE',
+            'UPDATE',
+            'DELETE',
+            'READ',
+          ],
+          'groupClaim': 'cognito:groups',
+          'groups': ['admin'],
+          'groupsField': 'groups',
+        },
+        {
+          'authStrategy': 'OWNER',
+          'provider': 'USERPOOLS',
+          'operations': [
+            'CREATE',
+            'UPDATE',
+          ],
+          'ownerField': 'owner',
+          'identityClaim': 'sub::username',
+        },
+        {
+          'authStrategy': 'PUBLIC',
+          'provider': 'APIKEY',
+          'operations': ['READ'],
+        },
+      ],
+      'indexes': [
+        {
+          'type': 'primary',
+          'primaryField': 'id',
+          'sortKeyFields': [],
+        }
+      ],
+    },
+  )!;
 
   @override
   String get id;

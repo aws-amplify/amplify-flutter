@@ -16,11 +16,12 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names,inference_failure_on_collection_literal
 
 library models.battery_charger;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 
 import 'power_source.dart';
 
@@ -286,6 +287,67 @@ abstract class BatteryCharger extends PartialBatteryCharger
 
   static const BatteryChargerQueryFields<String, BatteryCharger> _queryFields =
       BatteryChargerQueryFields();
+
+  static final mipr.ModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.ModelTypeDefinition.serializer,
+    const {
+      'name': 'BatteryCharger',
+      'pluralName': 'BatteryChargers',
+      'fields': {
+        'chargerID': {
+          'name': 'chargerID',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'powerSourceID': {
+          'name': 'powerSourceID',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'powerSource': {
+          'name': 'powerSource',
+          'type': {'model': 'PowerSource'},
+          'isReadOnly': false,
+          'authRules': [],
+          'association': {
+            'associationType': 'HasOne',
+            'associatedType': 'PowerSource',
+            'associatedFields': ['sourceID'],
+            'targetNames': ['powerSourceID'],
+          },
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'id': {
+          'name': 'id',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+      },
+      'authRules': [],
+      'indexes': [
+        {
+          'type': 'primary',
+          'primaryField': 'id',
+          'sortKeyFields': [],
+        }
+      ],
+    },
+  )!;
 
   @override
   String get chargerId;

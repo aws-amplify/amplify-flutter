@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_codegen/src/generator/types.dart';
 import 'package:code_builder/code_builder.dart';
 
 /// {@template amplify_codegen.amplify_allocator}
@@ -29,6 +30,9 @@ class AmplifyAllocator implements Allocator {
   static const _doNotImport = [
     'dart:core',
   ];
+  static const _prefixes = {
+    Mipr.url: 'mipr',
+  };
 
   @override
   String allocate(Reference reference) {
@@ -38,9 +42,16 @@ class AmplifyAllocator implements Allocator {
         !_doNotImport.contains(url)) {
       _imports.add(url);
     }
-    return reference.symbol!;
+    final symbol = reference.symbol!;
+    final prefix = _prefixes[url];
+    if (prefix != null) {
+      return '$prefix.$symbol';
+    }
+    return symbol;
   }
 
   @override
-  Iterable<Directive> get imports => _imports.map(Directive.import);
+  Iterable<Directive> get imports => _imports.map(
+        (import) => Directive.import(import, as: _prefixes[import]),
+      );
 }

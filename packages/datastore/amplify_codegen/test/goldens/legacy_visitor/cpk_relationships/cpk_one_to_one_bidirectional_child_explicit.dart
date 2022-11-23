@@ -16,11 +16,12 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names,inference_failure_on_collection_literal
 
 library models.cpk_one_to_one_bidirectional_child_explicit;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 import 'package:meta/meta.dart';
 
 import 'cpk_one_to_one_bidirectional_parent.dart';
@@ -430,6 +431,84 @@ abstract class CpkOneToOneBidirectionalChildExplicit
           CpkOneToOneBidirectionalChildExplicitIdentifier,
           CpkOneToOneBidirectionalChildExplicit> _queryFields =
       CpkOneToOneBidirectionalChildExplicitQueryFields();
+
+  static final mipr.ModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.ModelTypeDefinition.serializer,
+    const {
+      'name': 'CpkOneToOneBidirectionalChildExplicit',
+      'pluralName': 'CpkOneToOneBidirectionalChildExplicits',
+      'fields': {
+        'id': {
+          'name': 'id',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'name': {
+          'name': 'name',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'belongsToParentID': {
+          'name': 'belongsToParentID',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'belongsToParentName': {
+          'name': 'belongsToParentName',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'belongsToParent': {
+          'name': 'belongsToParent',
+          'type': {'model': 'CpkOneToOneBidirectionalParent'},
+          'isReadOnly': false,
+          'authRules': [],
+          'association': {
+            'associationType': 'BelongsTo',
+            'associatedType': 'CpkOneToOneBidirectionalParent',
+            'targetNames': [
+              'belongsToParentID',
+              'belongsToParentName',
+            ],
+          },
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+      },
+      'authRules': [],
+      'indexes': [
+        {
+          'type': 'primary',
+          'primaryField': 'id',
+          'sortKeyFields': ['name'],
+        },
+        {
+          'type': 'foreign',
+          'primaryField': 'belongsToParent',
+          'sortKeyFields': [
+            'belongsToParentID',
+            'belongsToParentName',
+          ],
+          'name': 'belongsToParent',
+        },
+      ],
+    },
+  )!;
 
   @override
   String get id;

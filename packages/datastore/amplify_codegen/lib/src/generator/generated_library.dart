@@ -20,6 +20,10 @@ import 'package:dart_style/dart_style.dart';
 const ignores = [
   // TODO(dnys1): Remove when deprecated fields are removed.
   'non_constant_identifier_names',
+
+  // TODO(dnys1): Add recursive visitor with types or serialize schema
+  // differently
+  'inference_failure_on_collection_literal',
 ];
 
 /// Header for generated output.

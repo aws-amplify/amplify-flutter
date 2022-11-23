@@ -16,11 +16,12 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names,inference_failure_on_collection_literal
 
 library models.team2;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 
 import 'project2.dart';
 
@@ -262,6 +263,72 @@ abstract class Team2 extends PartialTeam2 implements Model<String, Team2> {
 
   static const Team2QueryFields<String, Team2> _queryFields =
       Team2QueryFields();
+
+  static final mipr.ModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.ModelTypeDefinition.serializer,
+    const {
+      'name': 'Team2',
+      'pluralName': 'Team2s',
+      'fields': {
+        'id': {
+          'name': 'id',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'name': {
+          'name': 'name',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'projectID': {
+          'name': 'projectID',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'project': {
+          'name': 'project',
+          'type': {'model': 'Project2'},
+          'isReadOnly': false,
+          'authRules': [],
+          'association': {
+            'associationType': 'BelongsTo',
+            'associatedType': 'Project2',
+            'targetNames': ['projectID'],
+          },
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+      },
+      'authRules': [],
+      'indexes': [
+        {
+          'type': 'primary',
+          'primaryField': 'id',
+          'sortKeyFields': [],
+        },
+        {
+          'type': 'foreign',
+          'primaryField': 'project',
+          'sortKeyFields': ['projectID'],
+          'name': 'project',
+        },
+      ],
+    },
+  )!;
 
   @override
   String get id;

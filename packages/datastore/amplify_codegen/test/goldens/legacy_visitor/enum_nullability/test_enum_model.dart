@@ -16,11 +16,12 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names,inference_failure_on_collection_literal
 
 library models.test_enum_model;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 
 import 'test_enum.dart';
 
@@ -403,6 +404,87 @@ abstract class TestEnumModel extends PartialTestEnumModel
 
   static const TestEnumModelQueryFields<String, TestEnumModel> _queryFields =
       TestEnumModelQueryFields();
+
+  static final mipr.ModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.ModelTypeDefinition.serializer,
+    const {
+      'name': 'TestEnumModel',
+      'pluralName': 'TestEnumModels',
+      'fields': {
+        'id': {
+          'name': 'id',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'enumVal': {
+          'name': 'enumVal',
+          'type': {'enum': 'TestEnum'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'nullableEnumVal': {
+          'name': 'nullableEnumVal',
+          'type': {'enum': 'TestEnum'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'enumList': {
+          'name': 'enumList',
+          'type': {
+            'list': {'enum': 'TestEnum'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'enumNullableList': {
+          'name': 'enumNullableList',
+          'type': {
+            'list': {'enum': 'TestEnum'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'nullableEnumList': {
+          'name': 'nullableEnumList',
+          'type': {
+            'list': {'enum': 'TestEnum'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'nullableEnumNullableList': {
+          'name': 'nullableEnumNullableList',
+          'type': {
+            'list': {'enum': 'TestEnum'}
+          },
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+      },
+      'authRules': [],
+      'indexes': [
+        {
+          'type': 'primary',
+          'primaryField': 'id',
+          'sortKeyFields': [],
+        }
+      ],
+    },
+  )!;
 
   @override
   String get id;

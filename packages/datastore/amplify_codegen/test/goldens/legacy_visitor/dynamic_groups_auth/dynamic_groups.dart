@@ -16,11 +16,12 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names,inference_failure_on_collection_literal
 
 library models.dynamic_groups;
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 
 class DynamicGroupsType
     extends ModelType<String, DynamicGroups, PartialDynamicGroups> {
@@ -229,6 +230,69 @@ abstract class DynamicGroups extends PartialDynamicGroups
 
   static const DynamicGroupsQueryFields<String, DynamicGroups> _queryFields =
       DynamicGroupsQueryFields();
+
+  static final mipr.ModelTypeDefinition schema =
+      mipr.serializers.deserializeWith(
+    mipr.ModelTypeDefinition.serializer,
+    const {
+      'name': 'dynamicGroups',
+      'pluralName': 'dynamicGroups',
+      'fields': {
+        'id': {
+          'name': 'id',
+          'type': {'scalar': 'ID'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'name': {
+          'name': 'name',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'bar': {
+          'name': 'bar',
+          'type': {'scalar': 'String'},
+          'isReadOnly': false,
+          'authRules': [],
+        },
+        'createdAt': {
+          'name': 'createdAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+        'updatedAt': {
+          'name': 'updatedAt',
+          'type': {'scalar': 'AWSDateTime'},
+          'isReadOnly': true,
+          'authRules': [],
+        },
+      },
+      'authRules': [
+        {
+          'authStrategy': 'GROUPS',
+          'provider': 'USERPOOLS',
+          'operations': [
+            'CREATE',
+            'UPDATE',
+            'DELETE',
+            'READ',
+          ],
+          'groupClaim': 'cognito:groups',
+          'groups': [],
+          'groupsField': 'groups',
+        }
+      ],
+      'indexes': [
+        {
+          'type': 'primary',
+          'primaryField': 'id',
+          'sortKeyFields': [],
+        }
+      ],
+    },
+  )!;
 
   @override
   String get id;
