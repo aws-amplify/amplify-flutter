@@ -76,6 +76,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
         headers: headers,
         body: body,
         apiName: apiName,
+        queryParameters: queryParameters,
       );
 
   /// Sends an HTTP GET request to the REST API endpoint.
@@ -100,6 +101,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
         path,
         headers: headers,
         apiName: apiName,
+        queryParameters: queryParameters,
       );
 
   /// Sends an HTTP HEAD request to the REST API endpoint.
@@ -121,6 +123,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
         path,
         headers: headers,
         apiName: apiName,
+        queryParameters: queryParameters,
       );
 
   /// Sends an HTTP PATCH request to the REST API endpoint.
@@ -149,6 +152,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
         headers: headers,
         body: body,
         apiName: apiName,
+        queryParameters: queryParameters,
       );
 
   /// Sends an HTTP POST request to the REST API endpoint.
@@ -177,6 +181,7 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
         headers: headers,
         body: body,
         apiName: apiName,
+        queryParameters: queryParameters,
       );
 
   /// Sends an HTTP PUT request to the REST API endpoint.
@@ -205,5 +210,6 @@ class APICategory extends AmplifyCategory<APIPluginInterface> {
         headers: headers,
         body: body,
         apiName: apiName,
+        queryParameters: queryParameters,
       );
 }
