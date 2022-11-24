@@ -33,10 +33,14 @@ String queryFieldName(String fieldName) => ('$fieldName\$').camelCase;
 class _FromJsonVisitor extends SchemaTypeVisitor<Expression> {
   _FromJsonVisitor(
     this._jsonRef, {
+    required this.modelName,
+    required this.field,
     required this.orElse,
     this.hierarchyType,
   });
 
+  final String modelName;
+  final ModelField field;
   final Expression Function() orElse;
   final ModelHierarchyType? hierarchyType;
   Expression _jsonRef;
@@ -62,14 +66,16 @@ class _FromJsonVisitor extends SchemaTypeVisitor<Expression> {
     required SchemaType type,
     Reference? asA,
     Expression Function(Expression)? constructor,
+    Expression Function()? defaultValue,
   }) {
     final val = _depth == 0 && asA != null ? _jsonRef.asA(asA) : _jsonRef;
     final exp = constructor == null ? val : constructor(val);
     final isRequired = type.isRequired;
     return _depth == 0 || constructor != null
-        ? _jsonRef
-            .equalTo(literalNull)
-            .conditional(isRequired ? orElse() : literalNull, exp)
+        ? _jsonRef.equalTo(literalNull).conditional(
+              defaultValue?.call() ?? (isRequired ? orElse() : literalNull),
+              exp,
+            )
         : (isRequired ? _jsonRef.ifNullThen(orElse()) : _jsonRef);
   }
 
@@ -146,20 +152,62 @@ class _FromJsonVisitor extends SchemaTypeVisitor<Expression> {
         ], {}, [
           relatedModel.references.hierarchyType(hierarchyType!),
         ]);
-    if (_depth > 0) {
-      return _deserialize(type: type, constructor: modelFromJson);
+    if (_depth > 0 ||
+        // belongsTo do not use AsyncModel
+        field.association!.associationType == ModelAssociationType.belongsTo) {
+      return _deserialize(
+        type: type,
+        asA: _depth > 0 ? null : DartTypes.core.json,
+        constructor: modelFromJson,
+      );
+    }
+    final asyncModelType = DartTypes.amplifyCore.asyncModel(
+      relatedModelTypes.modelIdentifier,
+      relatedModelTypes.model,
+      relatedModelTypes.partialModel,
+      relatedModelTypes.hierarchyType(hierarchyType!),
+    );
+    final targetNames = field.association!.targetNames;
+    Expression Function()? defaultValue;
+    // For `hasOne` types, construct an AsyncModel from the target fields if
+    // just those are present.
+    if (targetNames != null) {
+      final thisModel = context.modelNamed(modelName);
+      final targetFields = targetNames
+          .map((name) => thisModel.fieldNamed(name).dartName)
+          .toList();
+      var exp = refer(targetFields.first).equalTo(literalNull);
+      for (var i = 1; i < targetFields.length; i++) {
+        exp = exp.or(
+          refer(targetFields[i]).equalTo(literalNull),
+        );
+      }
+      final relatedModelFields = relatedModel.modelIdentifier.fields
+          .map((name) => relatedModel.fieldNamed(name).dartName)
+          .toList();
+      final modelIdentifier = targetFields.length == 1
+          ? refer(targetFields.single)
+          : relatedModel.references.modelIdentifier.newInstance(
+              [],
+              {
+                for (var i = 0; i < relatedModelFields.length; i++)
+                  relatedModelFields[i]: refer(targetFields[i]),
+              },
+            );
+      defaultValue = () => exp.conditional(
+            field.type.isRequired ? orElse() : literalNull,
+            asyncModelType.newInstanceNamed('fromModelIdentifier', [
+              relatedModel.references.model.property('classType'),
+              modelIdentifier,
+            ]),
+          );
     }
     return _deserialize(
       type: type,
       asA: DartTypes.core.json,
-      constructor: (val) => DartTypes.amplifyCore
-          .asyncModel(
-        relatedModelTypes.modelIdentifier,
-        relatedModelTypes.model,
-        relatedModelTypes.partialModel,
-        relatedModelTypes.hierarchyType(hierarchyType!),
-      )
-          .newInstanceNamed('fromModel', [modelFromJson(val)]),
+      defaultValue: defaultValue,
+      constructor: (val) =>
+          asyncModelType.newInstanceNamed('fromModel', [modelFromJson(val)]),
     );
   }
 
@@ -409,9 +457,17 @@ extension ModelFieldHelpers on ModelField {
           break;
       }
     } else if (type is ModelType) {
-      builder = (ref) => DartTypes.amplifyCore
-          .asyncModel()
-          .newInstanceNamed('fromModel', [ref]);
+      switch (association!.associationType) {
+        case ModelAssociationType.belongsTo:
+          break;
+        case ModelAssociationType.hasMany:
+        case ModelAssociationType.hasOne:
+        case ModelAssociationType.manyToMany:
+          builder = (ref) => DartTypes.amplifyCore
+              .asyncModel()
+              .newInstanceNamed('fromModel', [ref]);
+          break;
+      }
     } else if (type is ListType && type.elementType is ModelType) {
       builder = (ref) => DartTypes.amplifyCore
           .asyncModelCollection()
@@ -506,7 +562,9 @@ extension ModelFieldHelpers on ModelField {
               model.references.modelIdentifier,
               model.references.model,
               model.references.partialModel,
-              model.references.hierarchyType(hierarchyType!),
+              model.references.hierarchyType(
+                associationHiearchyType(hierarchyType!)!,
+              ),
             )
             .withRequired(type.isRequired);
       }
@@ -524,12 +582,26 @@ extension ModelFieldHelpers on ModelField {
     }
     type as ModelType;
     final model = context.modelNamed(type.name);
+    switch (association!.associationType) {
+      case ModelAssociationType.belongsTo:
+        return model.references
+            .hierarchyType(
+              associationHiearchyType(hierarchyType!)!,
+            )
+            .withRequired(type.isRequired);
+      case ModelAssociationType.hasMany:
+      case ModelAssociationType.hasOne:
+      case ModelAssociationType.manyToMany:
+        break;
+    }
     return DartTypes.amplifyCore
         .asyncModel(
           model.references.modelIdentifier,
           model.references.model,
           model.references.partialModel,
-          model.references.hierarchyType(hierarchyType!),
+          model.references.hierarchyType(
+            associationHiearchyType(hierarchyType!)!,
+          ),
         )
         .withRequired(type.isRequired);
   }
@@ -537,11 +609,14 @@ extension ModelFieldHelpers on ModelField {
   /// Returns the expression needed to decode the Dart type from [jsonRef].
   Expression fromJsonExp(
     Expression jsonRef, {
+    required String modelName,
     required Expression Function() orElse,
     ModelHierarchyType? hierarchyType,
   }) {
     return _FromJsonVisitor(
       jsonRef,
+      modelName: modelName,
+      field: this,
       orElse: orElse,
       hierarchyType: hierarchyType,
     ).visit(type);

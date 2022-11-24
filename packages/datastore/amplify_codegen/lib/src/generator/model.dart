@@ -21,6 +21,7 @@ import 'package:amplify_codegen/src/helpers/types.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/types/models/mipr.dart' as mipr;
 import 'package:code_builder/code_builder.dart';
+import 'package:collection/collection.dart';
 import 'package:smithy_codegen/src/util/symbol_ext.dart';
 
 /// {@template amplify_codegen.model_generator}
@@ -454,8 +455,10 @@ return value as T;
             )
             ..body = fromJson(
               modelType: _references.partialModelImpl,
-              fields:
-                  definition.schemaFields(ModelHierarchyType.partial).values,
+              fields: definition
+                  .schemaFields(ModelHierarchyType.partial)
+                  .values
+                  .toList(),
               hierarchyType: ModelHierarchyType.partial,
             ),
         ),
@@ -652,7 +655,10 @@ return value as T;
             )
             ..body = fromJson(
               modelType: _references.modelImpl.property('_'),
-              fields: definition.schemaFields(ModelHierarchyType.model).values,
+              fields: definition
+                  .schemaFields(ModelHierarchyType.model)
+                  .values
+                  .toList(),
               hierarchyType: ModelHierarchyType.model,
             ),
         ),
@@ -698,9 +704,35 @@ return value as T;
                   (t) =>
                       t.isNullable = t.isNullable! || isIdField && isPrimaryKey,
                 );
-        final factoryInitializer = field.factoryInitializer(
+        var factoryInitializer = field.factoryInitializer(
           isPrimaryKey: isPrimaryKey,
         );
+        // If it's a target of a belongsTo field, initialize the field using the
+        // belongsTo model passed to the constructor. This allows us to not
+        // require both the belongsTo model and its identifier be passed to the
+        // constructor.
+        final belongsToField = definition.fields.values.singleWhereOrNull((f) {
+          final association = f.association;
+          return association != null &&
+              association.associationType == ModelAssociationType.belongsTo &&
+              association.targetNames!.contains(field.name);
+        });
+        if (belongsToField != null && field.isReadOnly) {
+          final targetNameIndex =
+              belongsToField.association!.targetNames!.indexOf(field.name);
+          final relatedProperty = context
+              .modelNamed(belongsToField.association!.associatedType)
+              .modelIdentifier
+              .fields[targetNameIndex];
+          factoryInitializer = refer(field.dartName)
+              .assign(
+                refer(belongsToField.dartName).nullableProperty(
+                  relatedProperty,
+                  !belongsToField.type.isRequired,
+                ),
+              )
+              .code;
+        }
         final hasFactoryInitializer = factoryInitializer != null;
         if (hasFactoryInitializer) {
           initializers.add(factoryInitializer);
@@ -826,7 +858,10 @@ return value as T;
             )
             ..body = fromJson(
               modelType: _references.remoteModelImpl,
-              fields: definition.allFields(ModelHierarchyType.remote).values,
+              fields: definition
+                  .allFields(ModelHierarchyType.remote)
+                  .values
+                  .toList(),
               hierarchyType: ModelHierarchyType.remote,
             ),
         ),

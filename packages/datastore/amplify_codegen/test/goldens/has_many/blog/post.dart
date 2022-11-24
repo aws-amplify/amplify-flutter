@@ -114,7 +114,7 @@ abstract class PartialPost extends PartialModel<String, Post>
 
   String get id;
   String? get title;
-  AsyncModel<String, Blog, PartialBlog, PartialBlog>? get blog;
+  PartialBlog? get blog;
   AsyncModelCollection<String, Comment, PartialComment, PartialComment>?
       get comments;
   TemporalDateTime? get createdAt;
@@ -202,11 +202,18 @@ class _PartialPost extends PartialPost {
           ))
         : (json['id'] as String);
     final title = json['title'] == null ? null : (json['title'] as String);
+    final createdAt = json['createdAt'] == null
+        ? null
+        : TemporalDateTime.fromString((json['createdAt'] as String));
+    final updatedAt = json['updatedAt'] == null
+        ? null
+        : TemporalDateTime.fromString((json['updatedAt'] as String));
+    final blogPostsId =
+        json['blogPostsId'] == null ? null : (json['blogPostsId'] as String);
     final blog = json['blog'] == null
         ? null
-        : AsyncModel<String, Blog, PartialBlog, PartialBlog>.fromModel(Blog
-            .classType
-            .fromJson<PartialBlog>((json['blog'] as Map<String, Object?>)));
+        : Blog.classType
+            .fromJson<PartialBlog>((json['blog'] as Map<String, Object?>));
     final comments = json['comments'] == null
         ? null
         : AsyncModelCollection<String, Comment, PartialComment,
@@ -218,14 +225,6 @@ class _PartialPost extends PartialPost {
                     : Comment.classType.fromJson<PartialComment>(el))
                 .whereType<PartialComment>()
                 .toList());
-    final createdAt = json['createdAt'] == null
-        ? null
-        : TemporalDateTime.fromString((json['createdAt'] as String));
-    final updatedAt = json['updatedAt'] == null
-        ? null
-        : TemporalDateTime.fromString((json['updatedAt'] as String));
-    final blogPostsId =
-        json['blogPostsId'] == null ? null : (json['blogPostsId'] as String);
     return _PartialPost(
       id: id,
       title: title,
@@ -244,7 +243,7 @@ class _PartialPost extends PartialPost {
   final String? title;
 
   @override
-  final AsyncModel<String, Blog, PartialBlog, PartialBlog>? blog;
+  final PartialBlog? blog;
 
   @override
   final AsyncModelCollection<String, Comment, PartialComment, PartialComment>?
@@ -266,7 +265,6 @@ abstract class Post extends PartialPost implements Model<String, Post> {
     required String title,
     Blog? blog,
     List<Comment>? comments,
-    String? blogPostsId,
   }) = _Post;
 
   const Post._() : super._();
@@ -284,20 +282,6 @@ abstract class Post extends PartialPost implements Model<String, Post> {
             'title',
           ))
         : (json['title'] as String);
-    final blog = json['blog'] == null
-        ? null
-        : AsyncModel<String, Blog, PartialBlog, Blog>.fromModel(Blog.classType
-            .fromJson<Blog>((json['blog'] as Map<String, Object?>)));
-    final comments = json['comments'] == null
-        ? null
-        : AsyncModelCollection<String, Comment, PartialComment,
-                Comment>.fromList(
-            (json['comments'] as List<Object?>)
-                .cast<Map<String, Object?>?>()
-                .map((el) =>
-                    el == null ? null : Comment.classType.fromJson<Comment>(el))
-                .whereType<Comment>()
-                .toList());
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'Post',
@@ -312,6 +296,19 @@ abstract class Post extends PartialPost implements Model<String, Post> {
         : TemporalDateTime.fromString((json['updatedAt'] as String));
     final blogPostsId =
         json['blogPostsId'] == null ? null : (json['blogPostsId'] as String);
+    final blog = json['blog'] == null
+        ? null
+        : Blog.classType.fromJson<Blog>((json['blog'] as Map<String, Object?>));
+    final comments = json['comments'] == null
+        ? null
+        : AsyncModelCollection<String, Comment, PartialComment,
+                Comment>.fromList(
+            (json['comments'] as List<Object?>)
+                .cast<Map<String, Object?>?>()
+                .map((el) =>
+                    el == null ? null : Comment.classType.fromJson<Comment>(el))
+                .whereType<Comment>()
+                .toList());
     return _Post._(
       id: id,
       title: title,
@@ -346,7 +343,7 @@ abstract class Post extends PartialPost implements Model<String, Post> {
   @Deprecated(r'Use $title instead')
   QueryField<String, Post, String> get TITLE => $title;
   @override
-  AsyncModel<String, Blog, PartialBlog, Blog>? get blog;
+  Blog? get blog;
 
   /// Query field for the [blog] field.
   BlogQueryFields<String, Post> get $blog => _queryFields.$blog;
@@ -370,14 +367,6 @@ abstract class Post extends PartialPost implements Model<String, Post> {
   @override
   String? get blogPostsId;
 
-  /// Query field for the [blogPostsId] field.
-  QueryField<String, Post, String?> get $blogPostsId =>
-      _queryFields.$blogPostsId;
-
-  /// Query field for the [blogPostsId] field.
-  @Deprecated(r'Use $blogPostsId instead')
-  QueryField<String, Post, String?> get BLOG_POSTS_ID => $blogPostsId;
-
   /// Query field for the [modelIdentifier] field.
   QueryField<String, Post, String> get $modelIdentifier =>
       _queryFields.$modelIdentifier;
@@ -391,15 +380,14 @@ class _Post extends Post {
   _Post({
     String? id,
     required this.title,
-    Blog? blog,
+    this.blog,
     List<Comment>? comments,
-    this.blogPostsId,
   })  : id = id ?? uuid(),
-        blog = blog == null ? null : AsyncModel.fromModel(blog),
         comments =
             comments == null ? null : AsyncModelCollection.fromList(comments),
         createdAt = TemporalDateTime.now(),
         updatedAt = TemporalDateTime.now(),
+        blogPostsId = blog?.id,
         super._();
 
   const _Post._({
@@ -419,7 +407,7 @@ class _Post extends Post {
   final String title;
 
   @override
-  final AsyncModel<String, Blog, PartialBlog, Blog>? blog;
+  final Blog? blog;
 
   @override
   final AsyncModelCollection<String, Comment, PartialComment, Comment>?
@@ -466,22 +454,6 @@ class _RemotePost extends RemotePost {
             'title',
           ))
         : (json['title'] as String);
-    final blog = json['blog'] == null
-        ? null
-        : AsyncModel<String, Blog, PartialBlog, RemoteBlog>.fromModel(Blog
-            .classType
-            .fromJson<RemoteBlog>((json['blog'] as Map<String, Object?>)));
-    final comments = json['comments'] == null
-        ? null
-        : AsyncModelCollection<String, Comment, PartialComment,
-                RemoteComment>.fromList(
-            (json['comments'] as List<Object?>)
-                .cast<Map<String, Object?>?>()
-                .map((el) => el == null
-                    ? null
-                    : Comment.classType.fromJson<RemoteComment>(el))
-                .whereType<RemoteComment>()
-                .toList());
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'Post',
@@ -514,6 +486,21 @@ class _RemotePost extends RemotePost {
             'lastChangedAt',
           ))
         : TemporalDateTime.fromString((json['lastChangedAt'] as String));
+    final blog = json['blog'] == null
+        ? null
+        : Blog.classType
+            .fromJson<RemoteBlog>((json['blog'] as Map<String, Object?>));
+    final comments = json['comments'] == null
+        ? null
+        : AsyncModelCollection<String, Comment, PartialComment,
+                RemoteComment>.fromList(
+            (json['comments'] as List<Object?>)
+                .cast<Map<String, Object?>?>()
+                .map((el) => el == null
+                    ? null
+                    : Comment.classType.fromJson<RemoteComment>(el))
+                .whereType<RemoteComment>()
+                .toList());
     return _RemotePost(
       id: id,
       title: title,
@@ -535,10 +522,10 @@ class _RemotePost extends RemotePost {
   final String title;
 
   @override
-  final AsyncModel<String, Blog, PartialBlog, RemoteBlog>? blog;
+  final RemoteBlog? blog;
 
   @override
-  final AsyncModelCollection<String, Comment, PartialComment, RemoteComment>?
+  final AsyncModelCollection<String, Comment, PartialComment, Comment>?
       comments;
 
   @override

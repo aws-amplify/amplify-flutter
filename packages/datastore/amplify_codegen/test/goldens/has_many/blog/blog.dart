@@ -172,6 +172,12 @@ class _PartialBlog extends PartialBlog {
           ))
         : (json['id'] as String);
     final name = json['name'] == null ? null : (json['name'] as String);
+    final createdAt = json['createdAt'] == null
+        ? null
+        : TemporalDateTime.fromString((json['createdAt'] as String));
+    final updatedAt = json['updatedAt'] == null
+        ? null
+        : TemporalDateTime.fromString((json['updatedAt'] as String));
     final posts = json['posts'] == null
         ? null
         : AsyncModelCollection<String, Post, PartialPost, PartialPost>.fromList(
@@ -182,12 +188,6 @@ class _PartialBlog extends PartialBlog {
                     : Post.classType.fromJson<PartialPost>(el))
                 .whereType<PartialPost>()
                 .toList());
-    final createdAt = json['createdAt'] == null
-        ? null
-        : TemporalDateTime.fromString((json['createdAt'] as String));
-    final updatedAt = json['updatedAt'] == null
-        ? null
-        : TemporalDateTime.fromString((json['updatedAt'] as String));
     return _PartialBlog(
       id: id,
       name: name,
@@ -235,14 +235,6 @@ abstract class Blog extends PartialBlog implements Model<String, Blog> {
             'name',
           ))
         : (json['name'] as String);
-    final posts = json['posts'] == null
-        ? null
-        : AsyncModelCollection<String, Post, PartialPost, Post>.fromList((json[
-                'posts'] as List<Object?>)
-            .cast<Map<String, Object?>?>()
-            .map((el) => el == null ? null : Post.classType.fromJson<Post>(el))
-            .whereType<Post>()
-            .toList());
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'Blog',
@@ -255,6 +247,14 @@ abstract class Blog extends PartialBlog implements Model<String, Blog> {
             'updatedAt',
           ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
+    final posts = json['posts'] == null
+        ? null
+        : AsyncModelCollection<String, Post, PartialPost, Post>.fromList((json[
+                'posts'] as List<Object?>)
+            .cast<Map<String, Object?>?>()
+            .map((el) => el == null ? null : Post.classType.fromJson<Post>(el))
+            .whereType<Post>()
+            .toList());
     return _Blog._(
       id: id,
       name: name,
@@ -373,15 +373,6 @@ class _RemoteBlog extends RemoteBlog {
             'name',
           ))
         : (json['name'] as String);
-    final posts = json['posts'] == null
-        ? null
-        : AsyncModelCollection<String, Post, PartialPost, RemotePost>.fromList(
-            (json['posts'] as List<Object?>)
-                .cast<Map<String, Object?>?>()
-                .map((el) =>
-                    el == null ? null : Post.classType.fromJson<RemotePost>(el))
-                .whereType<RemotePost>()
-                .toList());
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'Blog',
@@ -412,6 +403,15 @@ class _RemoteBlog extends RemoteBlog {
             'lastChangedAt',
           ))
         : TemporalDateTime.fromString((json['lastChangedAt'] as String));
+    final posts = json['posts'] == null
+        ? null
+        : AsyncModelCollection<String, Post, PartialPost, RemotePost>.fromList(
+            (json['posts'] as List<Object?>)
+                .cast<Map<String, Object?>?>()
+                .map((el) =>
+                    el == null ? null : Post.classType.fromJson<RemotePost>(el))
+                .whereType<RemotePost>()
+                .toList());
     return _RemoteBlog(
       id: id,
       name: name,
@@ -431,7 +431,7 @@ class _RemoteBlog extends RemoteBlog {
   final String name;
 
   @override
-  final AsyncModelCollection<String, Post, PartialPost, RemotePost>? posts;
+  final AsyncModelCollection<String, Post, PartialPost, Post>? posts;
 
   @override
   final TemporalDateTime createdAt;

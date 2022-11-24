@@ -90,7 +90,10 @@ class NonModelGenerator extends StructureGenerator<NonModelTypeDefinition> {
                   ..name = 'json',
               ),
             )
-            ..body = fromJson(modelType: refer(className), fields: fields),
+            ..body = fromJson(
+              modelType: refer(className),
+              fields: definition.fields.values.toList(),
+            ),
         ),
       );
 

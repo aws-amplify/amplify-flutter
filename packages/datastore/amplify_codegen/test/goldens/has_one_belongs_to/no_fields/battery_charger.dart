@@ -175,12 +175,6 @@ class _PartialBatteryCharger extends PartialBatteryCharger {
   }) : super._();
 
   factory _PartialBatteryCharger.fromJson(Map<String, Object?> json) {
-    final powerSource = json['powerSource'] == null
-        ? null
-        : AsyncModel<String, PowerSource, PartialPowerSource,
-                PartialPowerSource>.fromModel(
-            PowerSource.classType.fromJson<PartialPowerSource>(
-                (json['powerSource'] as Map<String, Object?>)));
     final createdAt = json['createdAt'] == null
         ? null
         : TemporalDateTime.fromString((json['createdAt'] as String));
@@ -197,6 +191,18 @@ class _PartialBatteryCharger extends PartialBatteryCharger {
         json['batteryChargerPowerSourceId'] == null
             ? null
             : (json['batteryChargerPowerSourceId'] as String);
+    final powerSource = json['powerSource'] == null
+        ? batteryChargerPowerSourceId == null
+            ? null
+            : AsyncModel<String, PowerSource, PartialPowerSource,
+                PartialPowerSource>.fromModelIdentifier(
+                PowerSource.classType,
+                batteryChargerPowerSourceId,
+              )
+        : AsyncModel<String, PowerSource, PartialPowerSource,
+                PartialPowerSource>.fromModel(
+            PowerSource.classType.fromJson<PartialPowerSource>(
+                (json['powerSource'] as Map<String, Object?>)));
     return _PartialBatteryCharger(
       powerSource: powerSource,
       createdAt: createdAt,
@@ -234,12 +240,6 @@ abstract class BatteryCharger extends PartialBatteryCharger
   const BatteryCharger._() : super._();
 
   factory BatteryCharger.fromJson(Map<String, Object?> json) {
-    final powerSource = json['powerSource'] == null
-        ? null
-        : AsyncModel<String, PowerSource, PartialPowerSource,
-                PowerSource>.fromModel(
-            PowerSource.classType.fromJson<PowerSource>(
-                (json['powerSource'] as Map<String, Object?>)));
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'BatteryCharger',
@@ -262,6 +262,18 @@ abstract class BatteryCharger extends PartialBatteryCharger
         json['batteryChargerPowerSourceId'] == null
             ? null
             : (json['batteryChargerPowerSourceId'] as String);
+    final powerSource = json['powerSource'] == null
+        ? batteryChargerPowerSourceId == null
+            ? null
+            : AsyncModel<String, PowerSource, PartialPowerSource,
+                PowerSource>.fromModelIdentifier(
+                PowerSource.classType,
+                batteryChargerPowerSourceId,
+              )
+        : AsyncModel<String, PowerSource, PartialPowerSource,
+                PowerSource>.fromModel(
+            PowerSource.classType.fromJson<PowerSource>(
+                (json['powerSource'] as Map<String, Object?>)));
     return _BatteryCharger._(
       powerSource: powerSource,
       createdAt: createdAt,
@@ -379,12 +391,6 @@ class _RemoteBatteryCharger extends RemoteBatteryCharger {
   }) : super._();
 
   factory _RemoteBatteryCharger.fromJson(Map<String, Object?> json) {
-    final powerSource = json['powerSource'] == null
-        ? null
-        : AsyncModel<String, PowerSource, PartialPowerSource,
-                RemotePowerSource>.fromModel(
-            PowerSource.classType.fromJson<RemotePowerSource>(
-                (json['powerSource'] as Map<String, Object?>)));
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'BatteryCharger',
@@ -425,6 +431,18 @@ class _RemoteBatteryCharger extends RemoteBatteryCharger {
             'lastChangedAt',
           ))
         : TemporalDateTime.fromString((json['lastChangedAt'] as String));
+    final powerSource = json['powerSource'] == null
+        ? batteryChargerPowerSourceId == null
+            ? null
+            : AsyncModel<String, PowerSource, PartialPowerSource,
+                RemotePowerSource>.fromModelIdentifier(
+                PowerSource.classType,
+                batteryChargerPowerSourceId,
+              )
+        : AsyncModel<String, PowerSource, PartialPowerSource,
+                RemotePowerSource>.fromModel(
+            PowerSource.classType.fromJson<RemotePowerSource>(
+                (json['powerSource'] as Map<String, Object?>)));
     return _RemoteBatteryCharger(
       powerSource: powerSource,
       createdAt: createdAt,
@@ -438,7 +456,7 @@ class _RemoteBatteryCharger extends RemoteBatteryCharger {
   }
 
   @override
-  final AsyncModel<String, PowerSource, PartialPowerSource, RemotePowerSource>?
+  final AsyncModel<String, PowerSource, PartialPowerSource, PowerSource>?
       powerSource;
 
   @override

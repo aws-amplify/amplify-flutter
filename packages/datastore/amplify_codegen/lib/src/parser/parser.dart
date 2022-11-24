@@ -323,8 +323,10 @@ class _SchemaParser {
             type: fieldType.rebuild(
               isRequired: field.type.isRequired,
             ),
-            // Must be writeable.
-            isReadOnly: false,
+            // Should not be writeable via the primary constructor since the
+            // related model must exist before creating this model and so that
+            // `@belongsTo` can operate without `AsyncModel` types.
+            isReadOnly: true,
           ),
         );
       }

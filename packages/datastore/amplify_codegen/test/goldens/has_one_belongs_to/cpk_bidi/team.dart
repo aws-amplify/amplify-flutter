@@ -150,8 +150,7 @@ abstract class PartialTeam extends PartialModel<TeamIdentifier, Team>
 
   String get teamId;
   String get name;
-  AsyncModel<ProjectIdentifier, Project, PartialProject, PartialProject>?
-      get project;
+  PartialProject? get project;
   TemporalDateTime? get createdAt;
   TemporalDateTime? get updatedAt;
   String? get teamProjectProjectId;
@@ -246,12 +245,6 @@ class _PartialTeam extends PartialTeam {
             'name',
           ))
         : (json['name'] as String);
-    final project = json['project'] == null
-        ? null
-        : AsyncModel<ProjectIdentifier, Project, PartialProject,
-                PartialProject>.fromModel(
-            Project.classType.fromJson<PartialProject>(
-                (json['project'] as Map<String, Object?>)));
     final createdAt = json['createdAt'] == null
         ? null
         : TemporalDateTime.fromString((json['createdAt'] as String));
@@ -264,6 +257,10 @@ class _PartialTeam extends PartialTeam {
     final teamProjectName = json['teamProjectName'] == null
         ? null
         : (json['teamProjectName'] as String);
+    final project = json['project'] == null
+        ? null
+        : Project.classType.fromJson<PartialProject>(
+            (json['project'] as Map<String, Object?>));
     return _PartialTeam(
       teamId: teamId,
       name: name,
@@ -282,8 +279,7 @@ class _PartialTeam extends PartialTeam {
   final String name;
 
   @override
-  final AsyncModel<ProjectIdentifier, Project, PartialProject, PartialProject>?
-      project;
+  final PartialProject? project;
 
   @override
   final TemporalDateTime? createdAt;
@@ -303,8 +299,6 @@ abstract class Team extends PartialTeam implements Model<TeamIdentifier, Team> {
     String? teamId,
     required String name,
     Project? project,
-    String? teamProjectProjectId,
-    String? teamProjectName,
   }) = _Team;
 
   const Team._() : super._();
@@ -322,12 +316,6 @@ abstract class Team extends PartialTeam implements Model<TeamIdentifier, Team> {
             'name',
           ))
         : (json['name'] as String);
-    final project = json['project'] == null
-        ? null
-        : AsyncModel<ProjectIdentifier, Project, PartialProject,
-                Project>.fromModel(
-            Project.classType
-                .fromJson<Project>((json['project'] as Map<String, Object?>)));
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'Team',
@@ -346,6 +334,10 @@ abstract class Team extends PartialTeam implements Model<TeamIdentifier, Team> {
     final teamProjectName = json['teamProjectName'] == null
         ? null
         : (json['teamProjectName'] as String);
+    final project = json['project'] == null
+        ? null
+        : Project.classType
+            .fromJson<Project>((json['project'] as Map<String, Object?>));
     return _Team._(
       teamId: teamId,
       name: name,
@@ -381,7 +373,7 @@ abstract class Team extends PartialTeam implements Model<TeamIdentifier, Team> {
   @Deprecated(r'Use $name instead')
   QueryField<TeamIdentifier, Team, String> get NAME => $name;
   @override
-  AsyncModel<ProjectIdentifier, Project, PartialProject, Project>? get project;
+  Project? get project;
 
   /// Query field for the [project] field.
   ProjectQueryFields<TeamIdentifier, Team> get $project =>
@@ -396,26 +388,8 @@ abstract class Team extends PartialTeam implements Model<TeamIdentifier, Team> {
   TemporalDateTime get updatedAt;
   @override
   String? get teamProjectProjectId;
-
-  /// Query field for the [teamProjectProjectId] field.
-  QueryField<TeamIdentifier, Team, String?> get $teamProjectProjectId =>
-      _queryFields.$teamProjectProjectId;
-
-  /// Query field for the [teamProjectProjectId] field.
-  @Deprecated(r'Use $teamProjectProjectId instead')
-  QueryField<TeamIdentifier, Team, String?> get TEAM_PROJECT_PROJECT_ID =>
-      $teamProjectProjectId;
   @override
   String? get teamProjectName;
-
-  /// Query field for the [teamProjectName] field.
-  QueryField<TeamIdentifier, Team, String?> get $teamProjectName =>
-      _queryFields.$teamProjectName;
-
-  /// Query field for the [teamProjectName] field.
-  @Deprecated(r'Use $teamProjectName instead')
-  QueryField<TeamIdentifier, Team, String?> get TEAM_PROJECT_NAME =>
-      $teamProjectName;
 
   /// Query field for the [modelIdentifier] field.
   QueryField<TeamIdentifier, Team, TeamIdentifier> get $modelIdentifier =>
@@ -431,13 +405,12 @@ class _Team extends Team {
   _Team({
     String? teamId,
     required this.name,
-    Project? project,
-    this.teamProjectProjectId,
-    this.teamProjectName,
+    this.project,
   })  : teamId = teamId ?? uuid(),
-        project = project == null ? null : AsyncModel.fromModel(project),
         createdAt = TemporalDateTime.now(),
         updatedAt = TemporalDateTime.now(),
+        teamProjectProjectId = project?.projectId,
+        teamProjectName = project?.name,
         super._();
 
   const _Team._({
@@ -457,8 +430,7 @@ class _Team extends Team {
   final String name;
 
   @override
-  final AsyncModel<ProjectIdentifier, Project, PartialProject, Project>?
-      project;
+  final Project? project;
 
   @override
   final TemporalDateTime createdAt;
@@ -505,12 +477,6 @@ class _RemoteTeam extends RemoteTeam {
             'name',
           ))
         : (json['name'] as String);
-    final project = json['project'] == null
-        ? null
-        : AsyncModel<ProjectIdentifier, Project, PartialProject,
-                RemoteProject>.fromModel(
-            Project.classType.fromJson<RemoteProject>(
-                (json['project'] as Map<String, Object?>)));
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'Team',
@@ -547,6 +513,10 @@ class _RemoteTeam extends RemoteTeam {
             'lastChangedAt',
           ))
         : TemporalDateTime.fromString((json['lastChangedAt'] as String));
+    final project = json['project'] == null
+        ? null
+        : Project.classType
+            .fromJson<RemoteProject>((json['project'] as Map<String, Object?>));
     return _RemoteTeam(
       teamId: teamId,
       name: name,
@@ -568,8 +538,7 @@ class _RemoteTeam extends RemoteTeam {
   final String name;
 
   @override
-  final AsyncModel<ProjectIdentifier, Project, PartialProject, RemoteProject>?
-      project;
+  final RemoteProject? project;
 
   @override
   final TemporalDateTime createdAt;
