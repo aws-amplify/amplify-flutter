@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -16,11 +16,10 @@
 import Foundation
 import Amplify
 
-public class QueryPaginationBuilder {
-   
+public enum QueryPaginationBuilder {
     static func fromSerializedMap(_ serializedMap: [String: Any]?) -> QueryPaginationInput? {
         if let data = serializedMap {
-            var page: UInt = 0, limit: UInt = QueryPaginationInput.defaultLimit;
+            var page: UInt = 0, limit: UInt = QueryPaginationInput.defaultLimit
             if let pageInput = (data["page"] as? Int) {
                 page = UInt(pageInput)
             }

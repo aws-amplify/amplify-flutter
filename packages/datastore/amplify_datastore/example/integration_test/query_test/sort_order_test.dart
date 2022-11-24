@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:io';
 import 'dart:math';
 
 import 'package:amplify_datastore_example/models/ModelProvider.dart';
@@ -104,7 +105,7 @@ void main() {
         DateTime(0000, 01, 01, 00, 00, 00),
         DateTime(1970, 01, 01, 00, 00, 00),
         DateTime(2020, 01, 01, 00, 00, 00),
-        DateTime(2020, 01, 01, 23, 59, 59),
+        DateTime(2020, 01, 02, 23, 59, 59),
         DateTime(2999, 12, 31, 23, 59, 59, 999, 999),
       ];
       var models = values
@@ -160,6 +161,9 @@ void main() {
         models: models,
         queryField: ModelWithAppsyncScalarTypes.AWSTIMEVALUE,
         sort: sortAWSTimeTypeModel,
+        // Skip bc AWSTime issue on Android https://github.com/aws-amplify/amplify-flutter/issues/2214
+        // TODO(ragingsquirrel3): remove skip when issue fixed or implementation ported to Dart.
+        skip: Platform.isAndroid,
       );
     });
 

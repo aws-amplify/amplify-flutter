@@ -45,4 +45,17 @@ void main() {
       );
     });
   });
+
+  group('CanonicalPath', () {
+    test('normalizes empty path', () {
+      final uri = Uri.parse('https://example.com');
+      final path = uri.path;
+      final canonicalPath = CanonicalPath.canonicalize(
+        path,
+        serviceConfiguration: const BaseServiceConfiguration(),
+      );
+      expect(path, '');
+      expect(canonicalPath, '/');
+    });
+  });
 }

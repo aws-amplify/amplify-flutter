@@ -20,6 +20,7 @@ import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
+import 'utils/test_utils.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -36,47 +37,51 @@ void main() {
     return idToken!.claims.customClaims;
   }
 
-  test('Force refresh', () async {
-    await configureAuth();
+  group('Force refresh', () {
+    setUpAll(configureAuth);
 
-    final username = generateUsername();
-    final password = generatePassword();
+    tearDownAll(Amplify.reset);
 
-    await adminCreateUser(
-      username,
-      password,
-      autoConfirm: true,
-      verifyAttributes: true,
-    );
-    addTearDown(Amplify.Auth.deleteUser);
+    asyncTest('', (_) async {
+      final username = generateUsername();
+      final password = generatePassword();
 
-    final res = await Amplify.Auth.signIn(
-      username: username,
-      password: password,
-    );
-    expect(res.nextStep?.signInStep, 'DONE');
+      await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        verifyAttributes: true,
+      );
+      addTearDown(Amplify.Auth.deleteUser);
 
-    expect(
-      await getCustomAttributes(),
-      isNot(contains('address')),
-      reason: 'No custom attrs exist yet',
-    );
+      final res = await Amplify.Auth.signIn(
+        username: username,
+        password: password,
+      );
+      expect(res.nextStep?.signInStep, 'DONE');
 
-    await Amplify.Auth.updateUserAttribute(
-      userAttributeKey: CognitoUserAttributeKey.address,
-      value: '1 Main St',
-    );
+      expect(
+        await getCustomAttributes(),
+        isNot(contains('address')),
+        reason: 'No custom attrs exist yet',
+      );
 
-    expect(
-      await getCustomAttributes(),
-      isNot(contains('address')),
-      reason: 'Token is not yet updated',
-    );
+      await Amplify.Auth.updateUserAttribute(
+        userAttributeKey: CognitoUserAttributeKey.address,
+        value: '1 Main St',
+      );
 
-    expect(
-      await getCustomAttributes(forceRefresh: true),
-      contains('address'),
-      reason: 'Token is updated via force refresh',
-    );
+      expect(
+        await getCustomAttributes(),
+        isNot(contains('address')),
+        reason: 'Token is not yet updated',
+      );
+
+      expect(
+        await getCustomAttributes(forceRefresh: true),
+        contains('address'),
+        reason: 'Token is updated via force refresh',
+      );
+    });
   });
 }

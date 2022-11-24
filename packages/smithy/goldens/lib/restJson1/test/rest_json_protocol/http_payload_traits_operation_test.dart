@@ -1,14 +1,14 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
-library rest_json1.rest_json_protocol.test.http_payload_traits_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.test.http_payload_traits_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:typed_data' as _i6;
 
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1/src/rest_json_protocol/model/http_payload_traits_input_output.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/http_payload_traits_input_output.dart'
     as _i5;
-import 'package:rest_json1/src/rest_json_protocol/operation/http_payload_traits_operation.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/operation/http_payload_traits_operation.dart'
     as _i3;
 import 'package:smithy/smithy.dart' as _i4;
 import 'package:smithy_test/smithy_test.dart' as _i2;
@@ -19,127 +19,157 @@ void main() {
     'RestJsonHttpPayloadTraitsWithBlob (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.HttpPayloadTraitsOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'RestJsonHttpPayloadTraitsWithBlob',
-              documentation: 'Serializes a blob in the HTTP payload',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: 'blobby blob blob',
-              bodyMediaType: 'application/octet-stream',
-              params: {'foo': 'Foo', 'blob': 'blobby blob blob'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {
-                'Content-Type': 'application/octet-stream',
-                'X-Foo': 'Foo'
-              },
-              forbidHeaders: [],
-              requireHeaders: ['Content-Length'],
-              tags: [],
-              appliesTo: null,
-              method: 'POST',
-              uri: '/HttpPayloadTraits',
-              host: null,
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [
-            HttpPayloadTraitsInputOutputRestJson1Serializer()
-          ]);
+        operation: _i3.HttpPayloadTraitsOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonHttpPayloadTraitsWithBlob',
+          documentation: 'Serializes a blob in the HTTP payload',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: 'blobby blob blob',
+          bodyMediaType: 'application/octet-stream',
+          params: {
+            'foo': 'Foo',
+            'blob': 'blobby blob blob',
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {
+            'Content-Type': 'application/octet-stream',
+            'X-Foo': 'Foo',
+          },
+          forbidHeaders: [],
+          requireHeaders: ['Content-Length'],
+          tags: [],
+          appliesTo: null,
+          method: 'POST',
+          uri: '/HttpPayloadTraits',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          HttpPayloadTraitsInputOutputRestJson1Serializer()
+        ],
+      );
     },
   );
   _i1.test(
     'RestJsonHttpPayloadTraitsWithNoBlobBody (request)',
     () async {
       await _i2.httpRequestTest(
-          operation: _i3.HttpPayloadTraitsOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpRequestTestCase(
-              id: 'RestJsonHttpPayloadTraitsWithNoBlobBody',
-              documentation: 'Serializes an empty blob in the HTTP payload',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: '',
-              bodyMediaType: 'application/octet-stream',
-              params: {'foo': 'Foo'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'X-Foo': 'Foo'},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              method: 'POST',
-              uri: '/HttpPayloadTraits',
-              host: null,
-              resolvedHost: null,
-              queryParams: [],
-              forbidQueryParams: [],
-              requireQueryParams: []),
-          inputSerializers: const [
-            HttpPayloadTraitsInputOutputRestJson1Serializer()
-          ]);
+        operation: _i3.HttpPayloadTraitsOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonHttpPayloadTraitsWithNoBlobBody',
+          documentation: 'Serializes an empty blob in the HTTP payload',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: 'application/octet-stream',
+          params: {'foo': 'Foo'},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'X-Foo': 'Foo'},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'POST',
+          uri: '/HttpPayloadTraits',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          HttpPayloadTraitsInputOutputRestJson1Serializer()
+        ],
+      );
     },
   );
   _i1.test(
     'RestJsonHttpPayloadTraitsWithBlob (response)',
     () async {
       await _i2.httpResponseTest(
-          operation: _i3.HttpPayloadTraitsOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpResponseTestCase(
-              id: 'RestJsonHttpPayloadTraitsWithBlob',
-              documentation: 'Serializes a blob in the HTTP payload',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: 'blobby blob blob',
-              bodyMediaType: 'application/octet-stream',
-              params: {'foo': 'Foo', 'blob': 'blobby blob blob'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'X-Foo': 'Foo'},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              code: 200),
-          outputSerializers: const [
-            HttpPayloadTraitsInputOutputRestJson1Serializer()
-          ]);
+        operation: _i3.HttpPayloadTraitsOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpResponseTestCase(
+          id: 'RestJsonHttpPayloadTraitsWithBlob',
+          documentation: 'Serializes a blob in the HTTP payload',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: 'blobby blob blob',
+          bodyMediaType: 'application/octet-stream',
+          params: {
+            'foo': 'Foo',
+            'blob': 'blobby blob blob',
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'X-Foo': 'Foo'},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          code: 200,
+        ),
+        outputSerializers: const [
+          HttpPayloadTraitsInputOutputRestJson1Serializer()
+        ],
+      );
     },
   );
   _i1.test(
     'RestJsonHttpPayloadTraitsWithNoBlobBody (response)',
     () async {
       await _i2.httpResponseTest(
-          operation: _i3.HttpPayloadTraitsOperation(
-              region: 'us-east-1', baseUri: Uri.parse('https://example.com')),
-          testCase: const _i2.HttpResponseTestCase(
-              id: 'RestJsonHttpPayloadTraitsWithNoBlobBody',
-              documentation: 'Serializes an empty blob in the HTTP payload',
-              protocol:
-                  _i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1'),
-              authScheme: null,
-              body: '',
-              bodyMediaType: 'application/octet-stream',
-              params: {'foo': 'Foo'},
-              vendorParamsShape: null,
-              vendorParams: {},
-              headers: {'X-Foo': 'Foo'},
-              forbidHeaders: [],
-              requireHeaders: [],
-              tags: [],
-              appliesTo: null,
-              code: 200),
-          outputSerializers: const [
-            HttpPayloadTraitsInputOutputRestJson1Serializer()
-          ]);
+        operation: _i3.HttpPayloadTraitsOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpResponseTestCase(
+          id: 'RestJsonHttpPayloadTraitsWithNoBlobBody',
+          documentation: 'Serializes an empty blob in the HTTP payload',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: 'application/octet-stream',
+          params: {'foo': 'Foo'},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'X-Foo': 'Foo'},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          code: 200,
+        ),
+        outputSerializers: const [
+          HttpPayloadTraitsInputOutputRestJson1Serializer()
+        ],
+      );
     },
   );
 }
@@ -152,12 +182,18 @@ class HttpPayloadTraitsInputOutputRestJson1Serializer
   @override
   Iterable<Type> get types => const [_i5.HttpPayloadTraitsInputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols =>
-      const [_i4.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   _i5.HttpPayloadTraitsInputOutput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = _i5.HttpPayloadTraitsInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -167,14 +203,18 @@ class HttpPayloadTraitsInputOutputRestJson1Serializer
       switch (key) {
         case 'blob':
           if (value != null) {
-            result.blob = (serializers.deserialize(value,
-                specifiedType: const FullType(_i6.Uint8List)) as _i6.Uint8List);
+            result.blob = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i6.Uint8List),
+            ) as _i6.Uint8List);
           }
           break;
         case 'foo':
           if (value != null) {
-            result.foo = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.foo = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -185,8 +225,11 @@ class HttpPayloadTraitsInputOutputRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     throw StateError('Not supported for tests');
   }
 }

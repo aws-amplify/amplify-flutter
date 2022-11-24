@@ -55,7 +55,7 @@ class SocialSignInButtons extends StatelessAuthenticatorComponent {
                 .style
                 ?.textStyle
                 ?.resolve({}) ??
-            Theme.of(context).textTheme.button;
+            Theme.of(context).textTheme.labelLarge;
         final tp = TextPainter(
           text: TextSpan(
             text: text,
@@ -145,35 +145,36 @@ class _SocialSignInButtonState
 
   Widget get icon {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
-    switch (widget.provider) {
-      case AuthProvider.google:
-        return SocialIcons.googleLogo;
-      case AuthProvider.facebook:
-        return const Icon(
-          SocialIcons.facebook,
-          color: SocialIcons.facebookPrimaryColor,
-        );
-      case AuthProvider.amazon:
-        return const Icon(
-          SocialIcons.amazon,
-          color: SocialIcons.amazonPrimaryColor,
-        );
-      case AuthProvider.apple:
-        // This icon renders slightly off-center without this padding.
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              SocialIcons.apple,
-              color: isDark ? Colors.white : Colors.black,
-            ),
-            const SizedBox(height: 4),
-          ],
-        );
-      default:
-        safePrint('Unsupported provider: ${widget.provider}');
-        return const SizedBox.shrink();
+    if (widget.provider == AuthProvider.google) {
+      return SocialIcons.googleLogo;
     }
+    if (widget.provider == AuthProvider.facebook) {
+      return const Icon(
+        SocialIcons.facebook,
+        color: SocialIcons.facebookPrimaryColor,
+      );
+    }
+    if (widget.provider == AuthProvider.amazon) {
+      return const Icon(
+        SocialIcons.amazon,
+        color: SocialIcons.amazonPrimaryColor,
+      );
+    }
+    if (widget.provider == AuthProvider.apple) {
+      // This icon renders slightly off-center without this padding.
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            SocialIcons.apple,
+            color: isDark ? Colors.white : Colors.black,
+          ),
+          const SizedBox(height: 4),
+        ],
+      );
+    }
+    safePrint('Unsupported provider: ${widget.provider}');
+    return const SizedBox.shrink();
   }
 
   double calculatePadding(BoxConstraints constraints) {
@@ -190,11 +191,6 @@ class _SocialSignInButtonState
     final foregroundColor = theme.outlinedButtonTheme.style?.foregroundColor;
     if (foregroundColor != null) {
       return foregroundColor;
-    }
-
-    final bodyTextColor = theme.textTheme.bodyText1?.color;
-    if (bodyTextColor != null) {
-      MaterialStateProperty.all(theme.textTheme.bodyText1?.color);
     }
 
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
@@ -246,14 +242,9 @@ class _SocialSignInButtonState
 
 extension on AuthProvider {
   EdgeInsets get padding {
-    switch (this) {
-      case AuthProvider.google:
-        return const EdgeInsets.all(8);
-      case AuthProvider.facebook:
-      case AuthProvider.amazon:
-      case AuthProvider.apple:
-      default:
-        return EdgeInsets.zero;
+    if (this == AuthProvider.google) {
+      return const EdgeInsets.all(8);
     }
+    return EdgeInsets.zero;
   }
 }

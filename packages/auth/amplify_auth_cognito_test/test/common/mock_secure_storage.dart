@@ -53,10 +53,6 @@ void seedStorage(
       ..write(
         key: userPoolKeys[CognitoUserPoolKey.idToken],
         value: idToken.raw,
-      )
-      ..write(
-        key: userPoolKeys[CognitoUserPoolKey.userSub],
-        value: userSub,
       );
   }
   if (deviceKeys != null) {

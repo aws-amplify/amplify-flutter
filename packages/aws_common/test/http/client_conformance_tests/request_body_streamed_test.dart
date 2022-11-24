@@ -37,6 +37,18 @@ void main() {
       skip: zIsWeb
           ? 'Web does not support streamed requests for HTTP/1.1'
           : null, (client, httpServerQueue, httpServerChannel, createUri) {
+    Stream<String> count({int? until}) async* {
+      var i = 0;
+      while (true) {
+        if (until != null && i > until) {
+          break;
+        }
+        yield '${i++}\n';
+        // Let the event loop run.
+        await Future<void>.delayed(Duration.zero);
+      }
+    }
+
     test('client.send() with StreamedRequest', () async {
       // The client continuously streams data to the server until
       // instructed to stop (by setting `clientWriting` to `false`).
@@ -45,15 +57,6 @@ void main() {
       //
       // This ensures that the client supports streamed data sends.
       final lastReceived = StreamSplitter(httpServerQueue().rest.cast<int>());
-
-      Stream<String> count() async* {
-        var i = 0;
-        while (true) {
-          yield '${i++}\n';
-          // Let the event loop run.
-          await Future<void>.delayed(Duration.zero);
-        }
-      }
 
       final body = StreamController<List<int>>();
       final request = AWSStreamedHttpRequest.post(
@@ -71,6 +74,18 @@ void main() {
         emits(greaterThanOrEqualTo(1000)),
       );
       unawaited(body.close());
+    });
+
+    test('can leave content-type unspecified', () async {
+      final request = AWSStreamedHttpRequest(
+        method: AWSHttpMethod.get,
+        uri: createUri(''),
+        body: count(until: 1000).transform(const Utf8Encoder()),
+        headers: {
+          'content-type': 'text/plain',
+        },
+      );
+      expect(client().send(request).response, completes);
     });
   });
 }

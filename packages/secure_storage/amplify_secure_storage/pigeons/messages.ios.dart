@@ -22,8 +22,8 @@ import 'package:pigeon/pigeon.dart';
     objcOptions: ObjcOptions(
       header: 'Messages.h',
     ),
-    objcHeaderOut: '../amplify_secure_storage/ios/Classes/Messages.h',
-    objcSourceOut: '../amplify_secure_storage/ios/Classes/Messages.m',
+    objcHeaderOut: '../amplify_secure_storage/ios/Classes/pigeons/Messages.h',
+    objcSourceOut: '../amplify_secure_storage/ios/Classes/pigeons/Messages.m',
     copyrightHeader: 'pigeons/copyright.txt',
   ),
 )

@@ -24,6 +24,7 @@ abstract class GraphQLRequest<T>
     this.variables = const <String, dynamic>{},
     this.headers,
     this.decodePath,
+    this.authorizationMode,
   });
 
   /// Creates a "raw" GraphQL request which returns the data received from
@@ -37,6 +38,7 @@ abstract class GraphQLRequest<T>
     Map<String, Object?> variables = const {},
     Map<String, String>? headers,
     String? decodePath,
+    APIAuthorizationType? authorizationMode,
   }) =>
       _RawGraphQLRequest(
         apiName: apiName,
@@ -44,6 +46,7 @@ abstract class GraphQLRequest<T>
         variables: variables,
         headers: headers,
         decodePath: decodePath,
+        authorizationMode: authorizationMode,
       );
 
   /// Creates a GraphQL request for a [modelType].
@@ -60,6 +63,7 @@ abstract class GraphQLRequest<T>
     Map<String, Object?> variables = const {},
     Map<String, String>? headers,
     String? decodePath,
+    APIAuthorizationType? authorizationMode,
   }) =>
       _ModelGraphQLRequest(
         apiName: apiName,
@@ -68,6 +72,7 @@ abstract class GraphQLRequest<T>
         headers: headers,
         decodePath: decodePath,
         modelType: modelType,
+        authorizationMode: authorizationMode,
       );
 
   /// Creates a GraphQL request for listing a [modelType].
@@ -85,6 +90,7 @@ abstract class GraphQLRequest<T>
     Map<String, Object?> variables = const {},
     Map<String, String>? headers,
     String? decodePath,
+    APIAuthorizationType? authorizationMode,
   }) =>
       _ListGraphQLRequest(
         apiName: apiName,
@@ -93,18 +99,27 @@ abstract class GraphQLRequest<T>
         headers: headers,
         decodePath: decodePath,
         modelType: modelType,
+        authorizationMode: authorizationMode,
       );
 
   /// A unique identifier for the request.
   final String id = uuid();
 
-  /// Only required if your backend has multiple GraphQL endpoints in the amplifyconfiguration.dart file. This parameter is then needed to specify which one to use for this request.
-  final String? apiName;
-
   /// The body of the request, starting with the operation type and operation name.
   ///
   /// See https://graphql.org/learn/queries/#operation-name for examples and more information.
   final String document;
+
+  /// Only required if your backend has multiple GraphQL endpoints in the amplifyconfiguration.dart file. This parameter is then needed to specify which one to use for this request.
+  final String? apiName;
+
+  /// A map of Strings to dynamically use for custom headers in the http request.
+  final Map<String, String>? headers;
+
+  /// Authorization type to use for this request.
+  ///
+  /// If not supplied, the request will use the default endpoint mode.
+  final APIAuthorizationType? authorizationMode;
 
   /// A map of values to dynamically use for variable names in the `document`.
   ///
@@ -115,8 +130,6 @@ abstract class GraphQLRequest<T>
   ///
   /// See https://docs.amplify.aws/lib/graphqlapi/advanced-workflows/q/platform/flutter/.
   final String? decodePath;
-
-  final Map<String, String>? headers;
 
   /// Only required for custom decoding logic. The response will be decoded to this type.
   /// For a request of a single instance (like get, update, create or delete):
@@ -155,6 +168,7 @@ class _RawGraphQLRequest extends GraphQLRequest<Map<String, Object?>> {
     super.variables,
     super.headers,
     super.decodePath,
+    super.authorizationMode,
   });
 
   @override
@@ -177,6 +191,7 @@ class _ModelGraphQLRequest<
     super.headers,
     super.decodePath,
     required this.modelType,
+    super.authorizationMode,
   });
 
   final ModelType<ModelIdentifier, M, dynamic> modelType;
@@ -200,6 +215,7 @@ class _ListGraphQLRequest<
     super.headers,
     super.decodePath,
     required this.modelType,
+    super.authorizationMode,
   });
 
   /// The GraphQL parameter for locating the next pagination token.

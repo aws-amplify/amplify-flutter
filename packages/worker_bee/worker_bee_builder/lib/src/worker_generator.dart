@@ -52,7 +52,7 @@ class WorkerBeeGenerator extends GeneratorForAnnotation<WorkerBee> {
 
     // Get generic arguments
     final supertype = element.supertype;
-    if (supertype == null || (supertype.element2.name != 'WorkerBeeBase')) {
+    if (supertype == null || (supertype.element.name != 'WorkerBeeBase')) {
       throw ArgumentError(
           '@WorkerBee classes must extends WorkerBeeBase<M, R>.');
     }
@@ -63,7 +63,7 @@ class WorkerBeeGenerator extends GeneratorForAnnotation<WorkerBee> {
 
     // Look up message type to generate JS/VM implementations.
     final requestType = typeArgs[0];
-    final requestTypeEl = requestType.element2;
+    final requestTypeEl = requestType.element;
     if (requestTypeEl == null || requestTypeEl is! ClassElement) {
       final requestTypeName =
           requestType.getDisplayString(withNullability: true);
@@ -71,7 +71,7 @@ class WorkerBeeGenerator extends GeneratorForAnnotation<WorkerBee> {
     }
 
     final responseType = typeArgs[1];
-    final responseTypeEl = responseType.element2;
+    final responseTypeEl = responseType.element;
 
     final declaresJsEntrypoint = element.fields.any(
       (el) => el.name == 'jsEntrypoint' && !el.isAbstract,

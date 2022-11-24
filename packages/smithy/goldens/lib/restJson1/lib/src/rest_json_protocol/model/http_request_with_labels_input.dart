@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.http_request_with_labels_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.http_request_with_labels_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -19,24 +19,32 @@ abstract class HttpRequestWithLabelsInput
         Built<HttpRequestWithLabelsInput, HttpRequestWithLabelsInputBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<HttpRequestWithLabelsInputPayload> {
-  factory HttpRequestWithLabelsInput(
-      {required bool boolean,
-      required double double_,
-      required double float,
-      required int integer,
-      required _i3.Int64 long,
-      required int short,
-      required String string,
-      required DateTime timestamp}) {
+  factory HttpRequestWithLabelsInput({
+    bool? boolean,
+    double? double_,
+    double? float,
+    int? integer,
+    _i3.Int64? long,
+    int? short,
+    required String string,
+    required DateTime timestamp,
+  }) {
+    boolean ??= false;
+    double_ ??= 0;
+    float ??= 0;
+    integer ??= 0;
+    long ??= _i3.Int64.ZERO;
+    short ??= 0;
     return _$HttpRequestWithLabelsInput._(
-        boolean: boolean,
-        double_: double_,
-        float: float,
-        integer: integer,
-        long: long,
-        short: short,
-        string: string,
-        timestamp: timestamp);
+      boolean: boolean,
+      double_: double_,
+      float: float,
+      integer: integer,
+      long: long,
+      short: short,
+      string: string,
+      timestamp: timestamp,
+    );
   }
 
   factory HttpRequestWithLabelsInput.build(
@@ -46,9 +54,10 @@ abstract class HttpRequestWithLabelsInput
   const HttpRequestWithLabelsInput._();
 
   factory HttpRequestWithLabelsInput.fromRequest(
-          HttpRequestWithLabelsInputPayload payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    HttpRequestWithLabelsInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       HttpRequestWithLabelsInput.build((b) {
         if (labels['string'] != null) {
           b.string = labels['string']!;
@@ -72,9 +81,10 @@ abstract class HttpRequestWithLabelsInput
           b.boolean = labels['boolean']! == 'true';
         }
         if (labels['timestamp'] != null) {
-          b.timestamp = _i1.Timestamp.parse(labels['timestamp']!,
-                  format: _i1.TimestampFormat.dateTime)
-              .asDateTime;
+          b.timestamp = _i1.Timestamp.parse(
+            labels['timestamp']!,
+            format: _i1.TimestampFormat.dateTime,
+          ).asDateTime;
         }
       });
 
@@ -83,7 +93,14 @@ abstract class HttpRequestWithLabelsInput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpRequestWithLabelsInputBuilder b) {}
+  static void _init(HttpRequestWithLabelsInputBuilder b) {
+    b.boolean = false;
+    b.double_ = 0;
+    b.float = 0;
+    b.integer = 0;
+    b.long = _i3.Int64.ZERO;
+    b.short = 0;
+  }
 
   /// Serialized in the path as true or false.
   bool get boolean;
@@ -118,26 +135,61 @@ abstract class HttpRequestWithLabelsInput
             .format(_i1.TimestampFormat.dateTime)
             .toString();
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
   HttpRequestWithLabelsInputPayload getPayload() =>
       HttpRequestWithLabelsInputPayload();
   @override
-  List<Object?> get props =>
-      [boolean, double_, float, integer, long, short, string, timestamp];
+  List<Object?> get props => [
+        boolean,
+        double_,
+        float,
+        integer,
+        long,
+        short,
+        string,
+        timestamp,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HttpRequestWithLabelsInput');
-    helper.add('boolean', boolean);
-    helper.add('double_', double_);
-    helper.add('float', float);
-    helper.add('integer', integer);
-    helper.add('long', long);
-    helper.add('short', short);
-    helper.add('string', string);
-    helper.add('timestamp', timestamp);
+    helper.add(
+      'boolean',
+      boolean,
+    );
+    helper.add(
+      'double_',
+      double_,
+    );
+    helper.add(
+      'float',
+      float,
+    );
+    helper.add(
+      'integer',
+      integer,
+    );
+    helper.add(
+      'long',
+      long,
+    );
+    helper.add(
+      'short',
+      short,
+    );
+    helper.add(
+      'string',
+      string,
+    );
+    helper.add(
+      'timestamp',
+      timestamp,
+    );
     return helper.toString();
   }
 }
@@ -178,20 +230,29 @@ class HttpRequestWithLabelsInputRestJson1Serializer
         HttpRequestWithLabelsInput,
         _$HttpRequestWithLabelsInput,
         HttpRequestWithLabelsInputPayload,
-        _$HttpRequestWithLabelsInputPayload
+        _$HttpRequestWithLabelsInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   HttpRequestWithLabelsInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return HttpRequestWithLabelsInputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

@@ -13,12 +13,14 @@
 // limitations under the License.
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/credential_store_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/secure_storage_extension.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/state/machines/generated/credential_store_state_machine_base.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
@@ -82,6 +84,7 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
   Future<CredentialStoreData> _loadCredentialStore() async {
     final authConfig = expect<AuthConfiguration>();
 
+    CognitoSignInDetails? signInDetails;
     CognitoUserPoolTokens? userPoolTokens;
     final userPoolConfig = authConfig.userPoolConfig;
     if (userPoolConfig != null) {
@@ -95,12 +98,25 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
       final idToken = await _secureStorage.read(
         key: keys[CognitoUserPoolKey.idToken],
       );
+      final username = await _secureStorage.read(
+        key: keys[CognitoUserPoolKey.username],
+      );
+      final authFlowType = await _secureStorage.read(
+        key: keys[CognitoUserPoolKey.authFlowType],
+      );
       if (accessToken != null && refreshToken != null && idToken != null) {
+        final parsedIdToken = JsonWebToken.parse(idToken);
         userPoolTokens = CognitoUserPoolTokens(
           signInMethod: CognitoSignInMethod.default$,
           accessToken: JsonWebToken.parse(accessToken),
           refreshToken: refreshToken,
-          idToken: JsonWebToken.parse(idToken),
+          idToken: parsedIdToken,
+        );
+        signInDetails = CognitoSignInDetails.apiBased(
+          username: username ?? CognitoIdToken(parsedIdToken).username,
+          authFlowType: authFlowType == null
+              ? null
+              : AuthFlowType.values.byValue(authFlowType),
         );
       }
     }
@@ -117,6 +133,9 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
       final idToken = await _secureStorage.read(
         key: keys[HostedUiKey.idToken],
       );
+      final provider = await _secureStorage.read(
+        key: keys[HostedUiKey.provider],
+      );
       if (accessToken != null && refreshToken != null && idToken != null) {
         userPoolTokens = CognitoUserPoolTokens(
           signInMethod: CognitoSignInMethod.hostedUi,
@@ -124,6 +143,13 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
           refreshToken: refreshToken,
           idToken: JsonWebToken.parse(idToken),
         );
+        AuthProvider? authProvider;
+        if (provider != null) {
+          authProvider = AuthProvider.fromJson(
+            jsonDecode(provider) as Map<String, Object?>,
+          );
+        }
+        signInDetails = CognitoSignInDetails.hostedUi(provider: authProvider);
       }
     }
 
@@ -165,6 +191,7 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
       userPoolTokens: userPoolTokens,
       identityId: identityId,
       awsCredentials: awsCredentials,
+      signInDetails: signInDetails,
     );
   }
 
@@ -173,6 +200,7 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
     final userPoolTokens = data.userPoolTokens;
     final identityId = data.identityId;
     final awsCredentials = data.awsCredentials;
+    final signInDetails = data.signInDetails;
     final authConfig = expect<AuthConfiguration>();
 
     final items = <String, String>{};
@@ -183,10 +211,16 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
       final keys = CognitoUserPoolKeys(userPoolConfig);
       if (userPoolTokens != null &&
           userPoolTokens.signInMethod == CognitoSignInMethod.default$) {
+        signInDetails as CognitoSignInDetailsApiBased?;
+        final username = signInDetails?.username;
+        final authFlowType = signInDetails?.authFlowType;
         items.addAll({
           keys[CognitoUserPoolKey.accessToken]: userPoolTokens.accessToken.raw,
           keys[CognitoUserPoolKey.refreshToken]: userPoolTokens.refreshToken,
           keys[CognitoUserPoolKey.idToken]: userPoolTokens.idToken.raw,
+          if (username != null) keys[CognitoUserPoolKey.username]: username,
+          if (authFlowType != null)
+            keys[CognitoUserPoolKey.authFlowType]: authFlowType.value,
         });
       }
     }
@@ -196,10 +230,14 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
       final keys = HostedUiKeys(hostedUiConfig);
       if (userPoolTokens != null &&
           (userPoolTokens.signInMethod == CognitoSignInMethod.hostedUi)) {
+        signInDetails as CognitoSignInDetailsHostedUi?;
+        final provider = signInDetails?.provider;
         items.addAll({
           keys[HostedUiKey.accessToken]: userPoolTokens.accessToken.raw,
           keys[HostedUiKey.refreshToken]: userPoolTokens.refreshToken,
           keys[HostedUiKey.idToken]: userPoolTokens.idToken.raw,
+          if (provider != null)
+            keys[HostedUiKey.provider]: jsonEncode(provider),
         });
       }
     }

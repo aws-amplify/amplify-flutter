@@ -6,26 +6,6 @@ part of 'cognito_user_pool_tokens.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-const CognitoSignInMethod _$default$ = const CognitoSignInMethod._('default\$');
-const CognitoSignInMethod _$hostedUi = const CognitoSignInMethod._('hostedUi');
-
-CognitoSignInMethod _$CognitoSignInMethodValueOf(String name) {
-  switch (name) {
-    case 'default\$':
-      return _$default$;
-    case 'hostedUi':
-      return _$hostedUi;
-    default:
-      throw new ArgumentError(name);
-  }
-}
-
-final BuiltSet<CognitoSignInMethod> _$CognitoSignInMethodValues =
-    new BuiltSet<CognitoSignInMethod>(const <CognitoSignInMethod>[
-  _$default$,
-  _$hostedUi,
-]);
-
 class _$CognitoUserPoolTokens extends CognitoUserPoolTokens {
   @override
   final CognitoSignInMethod signInMethod;
@@ -172,21 +152,12 @@ CognitoUserPoolTokens _$CognitoUserPoolTokensFromJson(
     );
 
 Map<String, dynamic> _$CognitoUserPoolTokensToJson(
-    CognitoUserPoolTokens instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('signInMethod',
-      const _CognitoSignInMethodSerializer().toJson(instance.signInMethod));
-  writeNotNull('accessToken',
-      const JsonWebTokenSerializer().toJson(instance.accessToken));
-  val['refreshToken'] = instance.refreshToken;
-  writeNotNull(
-      'idToken', const JsonWebTokenSerializer().toJson(instance.idToken));
-  return val;
-}
+        CognitoUserPoolTokens instance) =>
+    <String, dynamic>{
+      'signInMethod':
+          const _CognitoSignInMethodSerializer().toJson(instance.signInMethod),
+      'accessToken':
+          const JsonWebTokenSerializer().toJson(instance.accessToken),
+      'refreshToken': instance.refreshToken,
+      'idToken': const JsonWebTokenSerializer().toJson(instance.idToken),
+    };

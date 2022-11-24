@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1.json_protocol.model.operation_with_optional_input_output_output;
+part of aws_json1_1_v1.json_protocol.model.operation_with_optional_input_output_output;
 
 // **************************************************************************
 // BuiltValueGenerator

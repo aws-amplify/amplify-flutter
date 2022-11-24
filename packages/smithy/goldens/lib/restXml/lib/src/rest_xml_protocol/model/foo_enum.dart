@@ -1,24 +1,51 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_xml.rest_xml_protocol.model.foo_enum; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.model.foo_enum; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:smithy/smithy.dart' as _i1;
 
 class FooEnum extends _i1.SmithyEnum<FooEnum> {
-  const FooEnum._(int index, String name, String value)
-      : super(index, name, value);
+  const FooEnum._(
+    int index,
+    String name,
+    String value,
+  ) : super(
+          index,
+          name,
+          value,
+        );
 
   const FooEnum._sdkUnknown(String value) : super.sdkUnknown(value);
 
-  static const bar = FooEnum._(0, 'BAR', 'Bar');
+  static const bar = FooEnum._(
+    0,
+    'BAR',
+    'Bar',
+  );
 
-  static const baz = FooEnum._(1, 'BAZ', 'Baz');
+  static const baz = FooEnum._(
+    1,
+    'BAZ',
+    'Baz',
+  );
 
-  static const foo = FooEnum._(2, 'FOO', 'Foo');
+  static const foo = FooEnum._(
+    2,
+    'FOO',
+    'Foo',
+  );
 
-  static const one = FooEnum._(3, 'ONE', '1');
+  static const one = FooEnum._(
+    3,
+    'ONE',
+    '1',
+  );
 
-  static const zero = FooEnum._(4, 'ZERO', '0');
+  static const zero = FooEnum._(
+    4,
+    'ZERO',
+    '0',
+  );
 
   /// All values of [FooEnum].
   static const values = <FooEnum>[
@@ -26,16 +53,21 @@ class FooEnum extends _i1.SmithyEnum<FooEnum> {
     FooEnum.baz,
     FooEnum.foo,
     FooEnum.one,
-    FooEnum.zero
+    FooEnum.zero,
   ];
 
   static const List<_i1.SmithySerializer<FooEnum>> serializers = [
-    _i1.SmithyEnumSerializer('FooEnum',
-        values: values,
-        sdkUnknown: FooEnum._sdkUnknown,
-        supportedProtocols: [
-          _i1.ShapeId(namespace: 'aws.protocols', shape: 'restXml')
-        ])
+    _i1.SmithyEnumSerializer(
+      'FooEnum',
+      values: values,
+      sdkUnknown: FooEnum._sdkUnknown,
+      supportedProtocols: [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ],
+    )
   ];
 }
 

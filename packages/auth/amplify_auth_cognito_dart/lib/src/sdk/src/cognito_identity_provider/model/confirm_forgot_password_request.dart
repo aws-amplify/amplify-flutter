@@ -12,16 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.2.0. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.confirm_forgot_password_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart'
     as _i3;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/user_context_data_type.dart'
-    as _i5;
+    as _i4;
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i5;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
@@ -37,24 +37,27 @@ abstract class ConfirmForgotPasswordRequest
         Built<ConfirmForgotPasswordRequest,
             ConfirmForgotPasswordRequestBuilder> {
   /// The request representing the confirmation for a password reset.
-  factory ConfirmForgotPasswordRequest(
-      {_i3.AnalyticsMetadataType? analyticsMetadata,
-      required String clientId,
-      _i4.BuiltMap<String, String>? clientMetadata,
-      required String confirmationCode,
-      required String password,
-      String? secretHash,
-      _i5.UserContextDataType? userContextData,
-      required String username}) {
+  factory ConfirmForgotPasswordRequest({
+    _i3.AnalyticsMetadataType? analyticsMetadata,
+    required String clientId,
+    Map<String, String>? clientMetadata,
+    required String confirmationCode,
+    required String password,
+    String? secretHash,
+    _i4.UserContextDataType? userContextData,
+    required String username,
+  }) {
     return _$ConfirmForgotPasswordRequest._(
-        analyticsMetadata: analyticsMetadata,
-        clientId: clientId,
-        clientMetadata: clientMetadata,
-        confirmationCode: confirmationCode,
-        password: password,
-        secretHash: secretHash,
-        userContextData: userContextData,
-        username: username);
+      analyticsMetadata: analyticsMetadata,
+      clientId: clientId,
+      clientMetadata:
+          clientMetadata == null ? null : _i5.BuiltMap(clientMetadata),
+      confirmationCode: confirmationCode,
+      password: password,
+      secretHash: secretHash,
+      userContextData: userContextData,
+      username: username,
+    );
   }
 
   /// The request representing the confirmation for a password reset.
@@ -65,8 +68,10 @@ abstract class ConfirmForgotPasswordRequest
   const ConfirmForgotPasswordRequest._();
 
   factory ConfirmForgotPasswordRequest.fromRequest(
-          ConfirmForgotPasswordRequest payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    ConfirmForgotPasswordRequest payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -95,19 +100,19 @@ abstract class ConfirmForgotPasswordRequest
   /// *   Validate the ClientMetadata value.
   ///
   /// *   Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
-  _i4.BuiltMap<String, String>? get clientMetadata;
+  _i5.BuiltMap<String, String>? get clientMetadata;
 
-  /// The confirmation code sent by a user's request to retrieve a forgotten password. For more information, see [ForgotPassword](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html).
+  /// The confirmation code from your user's request to reset their password. For more information, see [ForgotPassword](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html).
   String get confirmationCode;
 
-  /// The password sent by a user's request to retrieve a forgotten password.
+  /// The new password that your user wants to set.
   String get password;
 
   /// A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and username plus the client ID in the message.
   String? get secretHash;
 
   /// Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito advanced security evaluates the risk of an authentication event based on the context that your app generates and passes to Amazon Cognito when it makes API requests.
-  _i5.UserContextDataType? get userContextData;
+  _i4.UserContextDataType? get userContextData;
 
   /// The user name of the user for whom you want to enter a code to retrieve a forgotten password.
   String get username;
@@ -122,19 +127,43 @@ abstract class ConfirmForgotPasswordRequest
         password,
         secretHash,
         userContextData,
-        username
+        username,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfirmForgotPasswordRequest');
-    helper.add('analyticsMetadata', analyticsMetadata);
-    helper.add('clientId', '***SENSITIVE***');
-    helper.add('clientMetadata', clientMetadata);
-    helper.add('confirmationCode', confirmationCode);
-    helper.add('password', '***SENSITIVE***');
-    helper.add('secretHash', '***SENSITIVE***');
-    helper.add('userContextData', userContextData);
-    helper.add('username', '***SENSITIVE***');
+    helper.add(
+      'analyticsMetadata',
+      analyticsMetadata,
+    );
+    helper.add(
+      'clientId',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'clientMetadata',
+      clientMetadata,
+    );
+    helper.add(
+      'confirmationCode',
+      confirmationCode,
+    );
+    helper.add(
+      'password',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'secretHash',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'userContextData',
+      userContextData,
+    );
+    helper.add(
+      'username',
+      '***SENSITIVE***',
+    );
     return helper.toString();
   }
 }
@@ -145,15 +174,23 @@ class ConfirmForgotPasswordRequestAwsJson11Serializer
       : super('ConfirmForgotPasswordRequest');
 
   @override
-  Iterable<Type> get types =>
-      const [ConfirmForgotPasswordRequest, _$ConfirmForgotPasswordRequest];
+  Iterable<Type> get types => const [
+        ConfirmForgotPasswordRequest,
+        _$ConfirmForgotPasswordRequest,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   ConfirmForgotPasswordRequest deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = ConfirmForgotPasswordRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -163,47 +200,65 @@ class ConfirmForgotPasswordRequestAwsJson11Serializer
       switch (key) {
         case 'AnalyticsMetadata':
           if (value != null) {
-            result.analyticsMetadata.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i3.AnalyticsMetadataType))
-                as _i3.AnalyticsMetadataType));
+            result.analyticsMetadata.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.AnalyticsMetadataType),
+            ) as _i3.AnalyticsMetadataType));
           }
           break;
         case 'ClientId':
-          result.clientId = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.clientId = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'ClientMetadata':
           if (value != null) {
-            result.clientMetadata.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(
-                        _i4.BuiltMap, [FullType(String), FullType(String)]))
-                as _i4.BuiltMap<String, String>));
+            result.clientMetadata.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i5.BuiltMap,
+                [
+                  FullType(String),
+                  FullType(String),
+                ],
+              ),
+            ) as _i5.BuiltMap<String, String>));
           }
           break;
         case 'ConfirmationCode':
-          result.confirmationCode = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.confirmationCode = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'Password':
-          result.password = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.password = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'SecretHash':
           if (value != null) {
-            result.secretHash = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.secretHash = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'UserContextData':
           if (value != null) {
-            result.userContextData.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(_i5.UserContextDataType))
-                as _i5.UserContextDataType));
+            result.userContextData.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i4.UserContextDataType),
+            ) as _i4.UserContextDataType));
           }
           break;
         case 'Username':
-          result.username = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.username = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
       }
     }
@@ -212,47 +267,71 @@ class ConfirmForgotPasswordRequestAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as ConfirmForgotPasswordRequest);
     final result = <Object?>[
       'ClientId',
-      serializers.serialize(payload.clientId,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        payload.clientId,
+        specifiedType: const FullType(String),
+      ),
       'ConfirmationCode',
-      serializers.serialize(payload.confirmationCode,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        payload.confirmationCode,
+        specifiedType: const FullType(String),
+      ),
       'Password',
-      serializers.serialize(payload.password,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        payload.password,
+        specifiedType: const FullType(String),
+      ),
       'Username',
-      serializers.serialize(payload.username,
-          specifiedType: const FullType(String))
+      serializers.serialize(
+        payload.username,
+        specifiedType: const FullType(String),
+      ),
     ];
     if (payload.analyticsMetadata != null) {
       result
         ..add('AnalyticsMetadata')
-        ..add(serializers.serialize(payload.analyticsMetadata!,
-            specifiedType: const FullType(_i3.AnalyticsMetadataType)));
+        ..add(serializers.serialize(
+          payload.analyticsMetadata!,
+          specifiedType: const FullType(_i3.AnalyticsMetadataType),
+        ));
     }
     if (payload.clientMetadata != null) {
       result
         ..add('ClientMetadata')
-        ..add(serializers.serialize(payload.clientMetadata!,
-            specifiedType: const FullType(
-                _i4.BuiltMap, [FullType(String), FullType(String)])));
+        ..add(serializers.serialize(
+          payload.clientMetadata!,
+          specifiedType: const FullType(
+            _i5.BuiltMap,
+            [
+              FullType(String),
+              FullType(String),
+            ],
+          ),
+        ));
     }
     if (payload.secretHash != null) {
       result
         ..add('SecretHash')
-        ..add(serializers.serialize(payload.secretHash!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.secretHash!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.userContextData != null) {
       result
         ..add('UserContextData')
-        ..add(serializers.serialize(payload.userContextData!,
-            specifiedType: const FullType(_i5.UserContextDataType)));
+        ..add(serializers.serialize(
+          payload.userContextData!,
+          specifiedType: const FullType(_i4.UserContextDataType),
+        ));
     }
     return result;
   }

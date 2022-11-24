@@ -1,6 +1,7 @@
 input AMPLIFY {
   globalAuthRule: AuthRule = { allow: public }
 }
+
 type Blog @model {
   id: ID!
   name: String!
@@ -215,4 +216,132 @@ type MultiRelatedRegistration @model {
   meeting: MultiRelatedMeeting! @belongsTo(fields: ["meetingId"])
   attendeeId: ID @index(name: "byAttendee", sortKeyFields: ["meetingId"])
   attendee: MultiRelatedAttendee! @belongsTo(fields: ["attendeeId"])
+}
+
+type CpkInventory @model {
+  productId: ID! @primaryKey(sortKeyFields: ["productName", "warehouseId"])
+  productName: String!
+  warehouseId: String!
+  description: String
+}
+
+type CpkHasOneUnidirectionalParent @model {
+  id: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  implicitChild: CpkHasOneUnidirectionalChild @hasOne
+  explicitChildID: ID
+  explicitChildName: String
+  explicitChild: CpkHasOneUnidirectionalChild
+    @hasOne(fields: ["explicitChildID", "explicitChildName"])
+}
+
+type CpkHasOneUnidirectionalChild @model {
+  id: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+}
+
+type CpkOneToOneBidirectionalParentCD @model {
+  customId: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  implicitChild: CpkOneToOneBidirectionalChildImplicitCD @hasOne
+  explicitChild: CpkOneToOneBidirectionalChildExplicitCD @hasOne
+}
+
+type CpkOneToOneBidirectionalChildImplicitCD @model {
+  id: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  belongsToParent: CpkOneToOneBidirectionalParentCD @belongsTo
+}
+
+type CpkOneToOneBidirectionalChildExplicitCD @model {
+  id: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  belongsToParentID: ID
+  belongsToParentName: String
+  belongsToParent: CpkOneToOneBidirectionalParentCD
+    @belongsTo(fields: ["belongsToParentID", "belongsToParentName"])
+}
+
+type CpkOneToOneBidirectionalParentID @model {
+  id: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  implicitChild: CpkOneToOneBidirectionalChildImplicitID @hasOne
+  explicitChild: CpkOneToOneBidirectionalChildExplicitID @hasOne
+}
+
+type CpkOneToOneBidirectionalChildImplicitID @model {
+  id: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  belongsToParent: CpkOneToOneBidirectionalParentID @belongsTo
+}
+
+type CpkOneToOneBidirectionalChildExplicitID @model {
+  id: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  belongsToParentID: ID
+  belongsToParentName: String
+  belongsToParent: CpkOneToOneBidirectionalParentID
+    @belongsTo(fields: ["belongsToParentID", "belongsToParentName"])
+}
+
+type CpkHasManyUnidirectionalParent @model {
+  id: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  implicitChildren: [CpkHasManyUnidirectionalChildImplicit] @hasMany
+  explicitChildren: [CpkHasManyUnidirectionalChildExplicit]
+    @hasMany(indexName: "byHasManyParentCpk", fields: ["id", "name"])
+}
+
+type CpkHasManyUnidirectionalChildImplicit @model {
+  id: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+}
+
+type CpkHasManyUnidirectionalChildExplicit @model {
+  id: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  hasManyParentID: ID!
+    @index(name: "byHasManyParentCpk", sortKeyFields: ["hasManyParentName"])
+  hasManyParentName: String!
+}
+
+type CpkHasManyParentBidirectionalImplicit @model {
+  id: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  bidirectionalImplicitChildren: [CpkHasManyChildBidirectionalImplicit] @hasMany
+}
+
+type CpkHasManyChildBidirectionalImplicit @model {
+  id: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  hasManyParent: CpkHasManyParentBidirectionalImplicit @belongsTo
+}
+
+type CpkHasManyParentBidirectionalExplicit @model {
+  id: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  bidirectionalExplicitChildren: [CpkHasManyChildBidirectionalExplicit]
+    @hasMany(indexName: "byHasManyParent", fields: ["id", "name"])
+}
+
+type CpkHasManyChildBidirectionalExplicit @model {
+  id: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  hasManyParentID: ID!
+    @index(name: "byHasManyParent", sortKeyFields: ["hasManyParentName"])
+  hasManyParentName: String!
+  hasManyParent: CpkHasManyParentBidirectionalExplicit
+    @belongsTo(fields: ["hasManyParentID", "hasManyParentName"])
+}
+
+type CpkManyToManyPost @model {
+  id: ID!
+  title: String!
+  tags: [CpkManyToManyTag] @manyToMany(relationName: "CpkPostTags")
+}
+
+type CpkManyToManyTag @model {
+  id: ID! @primaryKey(sortKeyFields: ["label"])
+  label: String!
+  posts: [CpkManyToManyPost] @manyToMany(relationName: "CpkPostTags")
 }

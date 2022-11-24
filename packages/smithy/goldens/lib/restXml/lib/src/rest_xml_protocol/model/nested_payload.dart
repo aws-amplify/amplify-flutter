@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_xml.rest_xml_protocol.model.nested_payload; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.model.nested_payload; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -12,8 +12,14 @@ part 'nested_payload.g.dart';
 abstract class NestedPayload
     with _i1.AWSEquatable<NestedPayload>
     implements Built<NestedPayload, NestedPayloadBuilder> {
-  factory NestedPayload({String? greeting, String? name}) {
-    return _$NestedPayload._(greeting: greeting, name: name);
+  factory NestedPayload({
+    String? greeting,
+    String? name,
+  }) {
+    return _$NestedPayload._(
+      greeting: greeting,
+      name: name,
+    );
   }
 
   factory NestedPayload.build([void Function(NestedPayloadBuilder) updates]) =
@@ -30,12 +36,21 @@ abstract class NestedPayload
   String? get greeting;
   String? get name;
   @override
-  List<Object?> get props => [greeting, name];
+  List<Object?> get props => [
+        greeting,
+        name,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NestedPayload');
-    helper.add('greeting', greeting);
-    helper.add('name', name);
+    helper.add(
+      'greeting',
+      greeting,
+    );
+    helper.add(
+      'name',
+      name,
+    );
     return helper.toString();
   }
 }
@@ -45,14 +60,23 @@ class NestedPayloadRestXmlSerializer
   const NestedPayloadRestXmlSerializer() : super('NestedPayload');
 
   @override
-  Iterable<Type> get types => const [NestedPayload, _$NestedPayload];
+  Iterable<Type> get types => const [
+        NestedPayload,
+        _$NestedPayload,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   NestedPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = NestedPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -62,14 +86,18 @@ class NestedPayloadRestXmlSerializer
       switch (key as String) {
         case 'greeting':
           if (value != null) {
-            result.greeting = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.greeting = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'name':
           if (value != null) {
-            result.name = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.name = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -79,21 +107,28 @@ class NestedPayloadRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as NestedPayload);
     final result = <Object?>[const _i2.XmlElementName('NestedPayload')];
     if (payload.greeting != null) {
       result
         ..add(const _i2.XmlElementName('greeting'))
-        ..add(serializers.serialize(payload.greeting!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.greeting!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.name != null) {
       result
         ..add(const _i2.XmlElementName('name'))
-        ..add(serializers.serialize(payload.name!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.name!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

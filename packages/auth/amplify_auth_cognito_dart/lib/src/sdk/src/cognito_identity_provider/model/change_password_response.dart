@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.2.0. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.change_password_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,7 +43,9 @@ abstract class ChangePasswordResponse
 
   /// Constructs a [ChangePasswordResponse] from a [payload] and [response].
   factory ChangePasswordResponse.fromResponse(
-          ChangePasswordResponse payload, _i1.AWSBaseHttpResponse response) =>
+    ChangePasswordResponse payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload;
 
   static const List<_i2.SmithySerializer> serializers = [
@@ -67,20 +69,31 @@ class ChangePasswordResponseAwsJson11Serializer
       : super('ChangePasswordResponse');
 
   @override
-  Iterable<Type> get types =>
-      const [ChangePasswordResponse, _$ChangePasswordResponse];
+  Iterable<Type> get types => const [
+        ChangePasswordResponse,
+        _$ChangePasswordResponse,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   ChangePasswordResponse deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return ChangePasswordResponseBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

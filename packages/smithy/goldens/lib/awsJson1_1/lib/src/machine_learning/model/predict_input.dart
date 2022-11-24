@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library aws_json1_1.machine_learning.model.predict_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library aws_json1_1_v1.machine_learning.model.predict_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_collection/built_collection.dart' as _i3;
@@ -13,12 +13,16 @@ part 'predict_input.g.dart';
 abstract class PredictInput
     with _i1.HttpInput<PredictInput>, _i2.AWSEquatable<PredictInput>
     implements Built<PredictInput, PredictInputBuilder> {
-  factory PredictInput(
-      {required String mlModelId,
-      required String predictEndpoint,
-      required _i3.BuiltMap<String, String> record}) {
+  factory PredictInput({
+    required String mlModelId,
+    required String predictEndpoint,
+    required Map<String, String> record,
+  }) {
     return _$PredictInput._(
-        mlModelId: mlModelId, predictEndpoint: predictEndpoint, record: record);
+      mlModelId: mlModelId,
+      predictEndpoint: predictEndpoint,
+      record: _i3.BuiltMap(record),
+    );
   }
 
   factory PredictInput.build([void Function(PredictInputBuilder) updates]) =
@@ -27,8 +31,10 @@ abstract class PredictInput
   const PredictInput._();
 
   factory PredictInput.fromRequest(
-          PredictInput payload, _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    PredictInput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -43,13 +49,26 @@ abstract class PredictInput
   @override
   PredictInput getPayload() => this;
   @override
-  List<Object?> get props => [mlModelId, predictEndpoint, record];
+  List<Object?> get props => [
+        mlModelId,
+        predictEndpoint,
+        record,
+      ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PredictInput');
-    helper.add('mlModelId', mlModelId);
-    helper.add('predictEndpoint', predictEndpoint);
-    helper.add('record', record);
+    helper.add(
+      'mlModelId',
+      mlModelId,
+    );
+    helper.add(
+      'predictEndpoint',
+      predictEndpoint,
+    );
+    helper.add(
+      'record',
+      record,
+    );
     return helper.toString();
   }
 }
@@ -59,14 +78,23 @@ class PredictInputAwsJson11Serializer
   const PredictInputAwsJson11Serializer() : super('PredictInput');
 
   @override
-  Iterable<Type> get types => const [PredictInput, _$PredictInput];
+  Iterable<Type> get types => const [
+        PredictInput,
+        _$PredictInput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   PredictInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = PredictInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -75,18 +103,28 @@ class PredictInputAwsJson11Serializer
       final value = iterator.current;
       switch (key) {
         case 'MLModelId':
-          result.mlModelId = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.mlModelId = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'PredictEndpoint':
-          result.predictEndpoint = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.predictEndpoint = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'Record':
-          result.record.replace((serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      _i3.BuiltMap, [FullType(String), FullType(String)]))
-              as _i3.BuiltMap<String, String>));
+          result.record.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
           break;
       }
     }
@@ -95,20 +133,34 @@ class PredictInputAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as PredictInput);
     final result = <Object?>[
       'MLModelId',
-      serializers.serialize(payload.mlModelId,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        payload.mlModelId,
+        specifiedType: const FullType(String),
+      ),
       'PredictEndpoint',
-      serializers.serialize(payload.predictEndpoint,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        payload.predictEndpoint,
+        specifiedType: const FullType(String),
+      ),
       'Record',
-      serializers.serialize(payload.record,
-          specifiedType: const FullType(
-              _i3.BuiltMap, [FullType(String), FullType(String)]))
+      serializers.serialize(
+        payload.record,
+        specifiedType: const FullType(
+          _i3.BuiltMap,
+          [
+            FullType(String),
+            FullType(String),
+          ],
+        ),
+      ),
     ];
     return result;
   }

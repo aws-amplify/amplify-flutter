@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml.rest_xml_protocol.model.empty_input_and_empty_output_input;
+part of rest_xml_v1.rest_xml_protocol.model.empty_input_and_empty_output_input;
 
 // **************************************************************************
 // BuiltValueGenerator

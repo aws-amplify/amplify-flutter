@@ -43,18 +43,32 @@ class MockCognitoIdpClient extends Fake
   final Future<RevokeTokenResponse> Function() _revokeToken;
 
   @override
-  Future<GlobalSignOutResponse> globalSignOut(
+  SmithyOperation<GlobalSignOutResponse> globalSignOut(
     GlobalSignOutRequest input, {
-    HttpClient? client,
+    AWSHttpClient? client,
   }) =>
-      _globalSignOut();
+      SmithyOperation(
+        CancelableOperation.fromFuture(
+          Future.value(_globalSignOut()),
+        ),
+        operationName: 'GlobalSignOut',
+        requestProgress: const Stream.empty(),
+        responseProgress: const Stream.empty(),
+      );
 
   @override
-  Future<RevokeTokenResponse> revokeToken(
+  SmithyOperation<RevokeTokenResponse> revokeToken(
     RevokeTokenRequest input, {
-    HttpClient? client,
+    AWSHttpClient? client,
   }) =>
-      _revokeToken();
+      SmithyOperation(
+        CancelableOperation.fromFuture(
+          Future.value(_revokeToken()),
+        ),
+        operationName: 'RevokeToken',
+        requestProgress: const Stream.empty(),
+        responseProgress: const Stream.empty(),
+      );
 }
 
 void main() {
@@ -68,6 +82,8 @@ void main() {
 
   late StreamController<AuthHubEvent> hubEventsController;
   late Stream<AuthHubEvent> hubEvents;
+
+  final testAuthRepo = AmplifyAuthProviderRepository();
 
   final emitsSignOutEvent = emitsThrough(
     isA<AuthHubEvent>().having(
@@ -112,14 +128,20 @@ void main() {
 
     group('signOut', () {
       test('completes when already signed out', () async {
-        await plugin.configure(config: mockConfig);
+        await plugin.configure(
+          config: mockConfig,
+          authProviderRepo: testAuthRepo,
+        );
         expect(plugin.signOut(), completes);
         expect(hubEvents, emitsSignOutEvent);
       });
 
       test('does not clear AWS creds when already signed out', () async {
         seedStorage(secureStorage, identityPoolKeys: identityPoolKeys);
-        await plugin.configure(config: mockConfig);
+        await plugin.configure(
+          config: mockConfig,
+          authProviderRepo: testAuthRepo,
+        );
         await expectLater(plugin.signOut(), completes);
         expect(hubEvents, emitsSignOutEvent);
 
@@ -144,7 +166,10 @@ void main() {
           userPoolKeys: userPoolKeys,
           identityPoolKeys: identityPoolKeys,
         );
-        await plugin.configure(config: mockConfig);
+        await plugin.configure(
+          config: mockConfig,
+          authProviderRepo: testAuthRepo,
+        );
 
         final mockIdp = MockCognitoIdpClient(
           globalSignOut: () async => GlobalSignOutResponse(),
@@ -152,9 +177,9 @@ void main() {
         );
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
-        await expectLater(plugin.getUserPoolTokens(), completes);
+        await expectLater(plugin.getCredentials(), completes);
         await expectLater(plugin.signOut(), completes);
-        expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+        expect(plugin.getCredentials(), throwsSignedOutException);
         expect(hubEvents, emitsSignOutEvent);
       });
 
@@ -165,7 +190,10 @@ void main() {
           userPoolKeys: userPoolKeys,
           identityPoolKeys: identityPoolKeys,
         );
-        await plugin.configure(config: mockConfig);
+        await plugin.configure(
+          config: mockConfig,
+          authProviderRepo: testAuthRepo,
+        );
 
         final mockIdp = MockCognitoIdpClient(
           globalSignOut:
@@ -174,7 +202,7 @@ void main() {
         );
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
-        await expectLater(plugin.getUserPoolTokens(), completes);
+        await expectLater(plugin.getCredentials(), completes);
         await expectLater(
           plugin.signOut(
             request: const SignOutRequest(
@@ -183,7 +211,7 @@ void main() {
           ),
           throwsA(isA<Exception>()),
         );
-        expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+        expect(plugin.getCredentials(), throwsSignedOutException);
         expect(hubEvents, emitsSignOutEvent);
       });
 
@@ -194,7 +222,10 @@ void main() {
           userPoolKeys: userPoolKeys,
           identityPoolKeys: identityPoolKeys,
         );
-        await plugin.configure(config: mockConfig);
+        await plugin.configure(
+          config: mockConfig,
+          authProviderRepo: testAuthRepo,
+        );
 
         final mockIdp = MockCognitoIdpClient(
           globalSignOut: () async => GlobalSignOutResponse(),
@@ -202,7 +233,7 @@ void main() {
         );
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
-        await expectLater(plugin.getUserPoolTokens(), completes);
+        await expectLater(plugin.getCredentials(), completes);
         await expectLater(
           plugin.signOut(
             request: const SignOutRequest(
@@ -211,13 +242,16 @@ void main() {
           ),
           throwsA(isA<Exception>()),
         );
-        expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+        expect(plugin.getCredentials(), throwsSignedOutException);
         expect(hubEvents, emitsSignOutEvent);
       });
 
       test('can sign out in user pool-only mode', () async {
         seedStorage(secureStorage, userPoolKeys: userPoolKeys);
-        await plugin.configure(config: userPoolOnlyConfig);
+        await plugin.configure(
+          config: userPoolOnlyConfig,
+          authProviderRepo: testAuthRepo,
+        );
         expect(plugin.signOut(), completes);
       });
 
@@ -229,7 +263,10 @@ void main() {
             identityPoolKeys: identityPoolKeys,
             hostedUiKeys: hostedUiKeys,
           );
-          await plugin.configure(config: mockConfig);
+          await plugin.configure(
+            config: mockConfig,
+            authProviderRepo: testAuthRepo,
+          );
 
           final mockIdp = MockCognitoIdpClient(
             globalSignOut: () async => GlobalSignOutResponse(),
@@ -237,9 +274,9 @@ void main() {
           );
           stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
-          await expectLater(plugin.getUserPoolTokens(), completes);
+          await expectLater(plugin.getCredentials(), completes);
           await expectLater(plugin.signOut(), completes);
-          expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+          expect(plugin.getCredentials(), throwsSignedOutException);
           expect(hubEvents, emitsSignOutEvent);
         });
 
@@ -250,7 +287,10 @@ void main() {
             identityPoolKeys: identityPoolKeys,
             hostedUiKeys: hostedUiKeys,
           );
-          await plugin.configure(config: mockConfig);
+          await plugin.configure(
+            config: mockConfig,
+            authProviderRepo: testAuthRepo,
+          );
 
           final mockIdp = MockCognitoIdpClient(
             globalSignOut:
@@ -259,7 +299,7 @@ void main() {
           );
           stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
-          await expectLater(plugin.getUserPoolTokens(), completes);
+          await expectLater(plugin.getCredentials(), completes);
           await expectLater(
             plugin.signOut(
               request: const SignOutRequest(
@@ -268,7 +308,7 @@ void main() {
             ),
             throwsA(isA<Exception>()),
           );
-          expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+          expect(plugin.getCredentials(), throwsSignedOutException);
           expect(hubEvents, emitsSignOutEvent);
         });
 
@@ -279,7 +319,10 @@ void main() {
             identityPoolKeys: identityPoolKeys,
             hostedUiKeys: hostedUiKeys,
           );
-          await plugin.configure(config: mockConfig);
+          await plugin.configure(
+            config: mockConfig,
+            authProviderRepo: testAuthRepo,
+          );
 
           final mockIdp = MockCognitoIdpClient(
             globalSignOut: () async => GlobalSignOutResponse(),
@@ -287,7 +330,7 @@ void main() {
           );
           stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
-          await expectLater(plugin.getUserPoolTokens(), completes);
+          await expectLater(plugin.getCredentials(), completes);
           await expectLater(
             plugin.signOut(
               request: const SignOutRequest(
@@ -296,7 +339,7 @@ void main() {
             ),
             throwsA(isA<Exception>()),
           );
-          expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+          expect(plugin.getCredentials(), throwsSignedOutException);
           expect(hubEvents, emitsSignOutEvent);
         });
 
@@ -321,14 +364,17 @@ void main() {
             ),
             HostedUiPlatform.token,
           );
-          await plugin.configure(config: mockConfig);
+          await plugin.configure(
+            config: mockConfig,
+            authProviderRepo: testAuthRepo,
+          );
 
-          await expectLater(plugin.getUserPoolTokens(), completes);
+          await expectLater(plugin.getCredentials(), completes);
           await expectLater(
             plugin.signOut(),
             throwsA(isA<_HostedUiException>()),
           );
-          expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+          expect(plugin.getCredentials(), throwsSignedOutException);
           expect(hubEvents, emitsSignOutEvent);
         });
       });

@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
-import 'package:amplify_auth_cognito_dart/src/model/auth_user_ext.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
@@ -61,7 +60,6 @@ abstract class HostedUiStateMachineBase
         break;
       case HostedUiEventType.succeeded:
         event as HostedUiSucceeded;
-        emit(HostedUiState.signedIn(event.tokens.authUser));
         await onSucceeded(event);
         break;
       case HostedUiEventType.failed:

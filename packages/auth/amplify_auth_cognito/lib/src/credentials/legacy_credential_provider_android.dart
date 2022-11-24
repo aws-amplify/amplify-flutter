@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:amplify_auth_cognito/src/credentials/legacy_credential_store_data_extension.dart';
-import 'package:amplify_auth_cognito/src/native_auth_plugin.dart';
+import 'package:amplify_auth_cognito/src/native_auth_plugin.g.dart';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/src/config/auth/cognito/credentials_provider.dart';
 import 'package:amplify_core/src/config/auth/cognito/oauth.dart';

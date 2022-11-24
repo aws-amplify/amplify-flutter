@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.2.0. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity.common.serializers; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -62,9 +62,14 @@ const List<_i1.SmithySerializer> serializers = [
   ..._i12.TooManyRequestsException.serializers,
   ..._i13.GetIdInput.serializers,
   ..._i14.GetIdResponse.serializers,
-  ..._i15.LimitExceededException.serializers
+  ..._i15.LimitExceededException.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
-  const FullType(_i16.BuiltMap, [FullType(String), FullType(String)]):
-      _i16.MapBuilder<String, String>.new
+  const FullType(
+    _i16.BuiltMap,
+    [
+      FullType(String),
+      FullType(String),
+    ],
+  ): _i16.MapBuilder<String, String>.new
 };

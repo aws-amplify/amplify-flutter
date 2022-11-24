@@ -22,7 +22,7 @@ const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/amplify');
 /// {@template amplify.method_channel_amplify}
 /// An implementation of [AmplifyClass] that uses method channels.
 /// {@endtemplate}
-class MethodChannelAmplify extends AmplifyClass {
+class MethodChannelAmplify extends AmplifyClassImpl {
   /// {@macro amplify.method_channel_amplify}
   MethodChannelAmplify() : super.protected();
 
@@ -37,15 +37,27 @@ class MethodChannelAmplify extends AmplifyClass {
     }
     try {
       if (plugin is AuthPluginInterface) {
-        await Auth.addPlugin(plugin);
+        await Auth.addPlugin(
+          plugin,
+          authProviderRepo: authProviderRepo,
+        );
       } else if (plugin is AnalyticsPluginInterface) {
-        await Analytics.addPlugin(plugin);
+        await Analytics.addPlugin(
+          plugin,
+          authProviderRepo: authProviderRepo,
+        );
       } else if (plugin is StoragePluginInterface) {
-        await Storage.addPlugin(plugin);
+        await Storage.addPlugin(
+          plugin,
+          authProviderRepo: authProviderRepo,
+        );
       } else if (plugin is DataStorePluginInterface) {
-        await DataStore.addPlugin(plugin);
+        await DataStore.addPlugin(
+          plugin,
+          authProviderRepo: authProviderRepo,
+        );
       } else if (plugin is APIPluginInterface) {
-        await API.addPlugin(plugin);
+        await API.addPlugin(plugin, authProviderRepo: authProviderRepo);
       } else {
         throw AmplifyException(
           'The type of plugin ${plugin.runtimeType} is not yet supported '
@@ -79,15 +91,8 @@ class MethodChannelAmplify extends AmplifyClass {
           'configuration': config,
         },
       );
-      await Future.wait(
-        Analytics.plugins.map((plugin) => plugin.onConfigure()),
-      );
     } on PlatformException catch (e) {
-      if (e.code == 'AnalyticsException') {
-        throw AnalyticsException.fromMap(
-          Map<String, String>.from(e.details as Map),
-        );
-      } else if (e.code == 'AmplifyException') {
+      if (e.code == 'AmplifyException') {
         throw AmplifyException.fromMap(
           Map<String, String>.from(e.details as Map),
         );
@@ -102,14 +107,5 @@ class MethodChannelAmplify extends AmplifyClass {
             underlyingException: e.toString());
       }
     }
-  }
-
-  @override
-  Future<void> reset() async {
-    Auth.reset();
-    Analytics.reset();
-    Storage.reset();
-    DataStore.reset();
-    API.reset();
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -15,9 +15,28 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-class GraphQLOperation<T> {
-  final Function cancel;
-  final Future<GraphQLResponse<T>> response;
+/// {@template amplify_core.graphql.graphql_operation}
+/// A wrapper over a [CancelableOperation] specific to [GraphQLResponse].
+/// {@endtemplate}
+class GraphQLOperation<T> extends AWSOperation<GraphQLResponse<T>> {
+  /// Creates an [GraphQLOperation] from a [CancelableOperation].
+  GraphQLOperation(
+    super.operation, {
+    super.onCancel,
+  });
 
-  const GraphQLOperation({required this.response, required this.cancel});
+  /// The [GraphQLResponse] returned from this [operation].
+  ///
+  /// If [operation] is canceled before completing, this throws a
+  /// [CancellationException].
+  Future<GraphQLResponse<T>> get response async {
+    final result = await operation.valueOrCancellation();
+    if (result is! GraphQLResponse<T> || operation.isCanceled) {
+      throw CancellationException(id);
+    }
+    return result;
+  }
+
+  @override
+  String get runtimeTypeName => 'GraphQLOperation';
 }

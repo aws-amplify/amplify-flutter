@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'Amplify', '1.23.0'
+  s.dependency 'Amplify', '1.28.3'
   s.dependency 'amplify_flutter_ios'
   
   # These are needed to support async/await and ASWebAuthenticationSession

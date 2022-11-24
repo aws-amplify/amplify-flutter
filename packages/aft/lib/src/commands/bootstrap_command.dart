@@ -70,6 +70,8 @@ const amplifyconfig = \'\'\'{
   "UserAgent": "aws-amplify-cli/2.0",
   "Version": "1.0"
 }\'\'\';
+
+const amplifyEnvironments = <String, String>{};
 ''',
     );
   }
@@ -80,7 +82,13 @@ const amplifyconfig = \'\'\'{
     await linkPackages(allPackages);
     await pubAction(
       action: upgrade ? PubAction.upgrade : PubAction.get,
-      allPackages: allPackages,
+      allPackages: allPackages.values.where(
+        // Skip bootstrap for `aft` since it has already had `dart pub upgrade`
+        // run with the native command, and running it again with the embedded
+        // command could cause issues later on, esp. when the native `pub`
+        // command is significantly newer/older than the embedded one.
+        (pkg) => pkg.name != 'aft',
+      ),
       verbose: verbose,
       logger: logger,
       createPubRunner: createPubRunner,
@@ -91,7 +99,14 @@ const amplifyconfig = \'\'\'{
     ]);
     if (build) {
       for (final package in allPackages.values) {
-        await runBuildRunner(package, logger: logger, verbose: verbose);
+        // Only run build_runner for packages which need it for development,
+        // i.e. those packages which specify worker JS files in their assets.
+        final needsBuild = package.needsBuildRunner &&
+            (package.pubspecInfo.pubspec.flutter?.containsKey('assets') ??
+                false);
+        if (needsBuild) {
+          await runBuildRunner(package, logger: logger, verbose: verbose);
+        }
       }
     }
 

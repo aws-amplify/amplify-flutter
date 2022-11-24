@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.2.0. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity.model.get_credentials_for_identity_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,16 @@ abstract class GetCredentialsForIdentityInput
         Built<GetCredentialsForIdentityInput,
             GetCredentialsForIdentityInputBuilder> {
   /// Input to the `GetCredentialsForIdentity` action.
-  factory GetCredentialsForIdentityInput(
-      {String? customRoleArn,
-      required String identityId,
-      _i3.BuiltMap<String, String>? logins}) {
+  factory GetCredentialsForIdentityInput({
+    String? customRoleArn,
+    required String identityId,
+    Map<String, String>? logins,
+  }) {
     return _$GetCredentialsForIdentityInput._(
-        customRoleArn: customRoleArn, identityId: identityId, logins: logins);
+      customRoleArn: customRoleArn,
+      identityId: identityId,
+      logins: logins == null ? null : _i3.BuiltMap(logins),
+    );
   }
 
   /// Input to the `GetCredentialsForIdentity` action.
@@ -49,9 +53,10 @@ abstract class GetCredentialsForIdentityInput
   const GetCredentialsForIdentityInput._();
 
   factory GetCredentialsForIdentityInput.fromRequest(
-          GetCredentialsForIdentityInput payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    GetCredentialsForIdentityInput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       payload;
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -76,14 +81,27 @@ abstract class GetCredentialsForIdentityInput
   @override
   GetCredentialsForIdentityInput getPayload() => this;
   @override
-  List<Object?> get props => [customRoleArn, identityId, logins];
+  List<Object?> get props => [
+        customRoleArn,
+        identityId,
+        logins,
+      ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('GetCredentialsForIdentityInput');
-    helper.add('customRoleArn', customRoleArn);
-    helper.add('identityId', identityId);
-    helper.add('logins', logins);
+    helper.add(
+      'customRoleArn',
+      customRoleArn,
+    );
+    helper.add(
+      'identityId',
+      identityId,
+    );
+    helper.add(
+      'logins',
+      logins,
+    );
     return helper.toString();
   }
 }
@@ -94,15 +112,23 @@ class GetCredentialsForIdentityInputAwsJson11Serializer
       : super('GetCredentialsForIdentityInput');
 
   @override
-  Iterable<Type> get types =>
-      const [GetCredentialsForIdentityInput, _$GetCredentialsForIdentityInput];
+  Iterable<Type> get types => const [
+        GetCredentialsForIdentityInput,
+        _$GetCredentialsForIdentityInput,
+      ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   GetCredentialsForIdentityInput deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = GetCredentialsForIdentityInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -112,20 +138,30 @@ class GetCredentialsForIdentityInputAwsJson11Serializer
       switch (key) {
         case 'CustomRoleArn':
           if (value != null) {
-            result.customRoleArn = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.customRoleArn = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'IdentityId':
-          result.identityId = (serializers.deserialize(value!,
-              specifiedType: const FullType(String)) as String);
+          result.identityId = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'Logins':
           if (value != null) {
-            result.logins.replace((serializers.deserialize(value,
-                    specifiedType: const FullType(
-                        _i3.BuiltMap, [FullType(String), FullType(String)]))
-                as _i3.BuiltMap<String, String>));
+            result.logins.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i3.BuiltMap,
+                [
+                  FullType(String),
+                  FullType(String),
+                ],
+              ),
+            ) as _i3.BuiltMap<String, String>));
           }
           break;
       }
@@ -135,26 +171,40 @@ class GetCredentialsForIdentityInputAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as GetCredentialsForIdentityInput);
     final result = <Object?>[
       'IdentityId',
-      serializers.serialize(payload.identityId,
-          specifiedType: const FullType(String))
+      serializers.serialize(
+        payload.identityId,
+        specifiedType: const FullType(String),
+      ),
     ];
     if (payload.customRoleArn != null) {
       result
         ..add('CustomRoleArn')
-        ..add(serializers.serialize(payload.customRoleArn!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.customRoleArn!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.logins != null) {
       result
         ..add('Logins')
-        ..add(serializers.serialize(payload.logins!,
-            specifiedType: const FullType(
-                _i3.BuiltMap, [FullType(String), FullType(String)])));
+        ..add(serializers.serialize(
+          payload.logins!,
+          specifiedType: const FullType(
+            _i3.BuiltMap,
+            [
+              FullType(String),
+              FullType(String),
+            ],
+          ),
+        ));
     }
     return result;
   }

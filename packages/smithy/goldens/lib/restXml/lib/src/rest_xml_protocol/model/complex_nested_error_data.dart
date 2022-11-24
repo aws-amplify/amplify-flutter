@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_xml.rest_xml_protocol.model.complex_nested_error_data; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_xml_v1.rest_xml_protocol.model.complex_nested_error_data; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -34,7 +34,10 @@ abstract class ComplexNestedErrorData
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ComplexNestedErrorData');
-    helper.add('foo', foo);
+    helper.add(
+      'foo',
+      foo,
+    );
     return helper.toString();
   }
 }
@@ -45,15 +48,23 @@ class ComplexNestedErrorDataRestXmlSerializer
       : super('ComplexNestedErrorData');
 
   @override
-  Iterable<Type> get types =>
-      const [ComplexNestedErrorData, _$ComplexNestedErrorData];
+  Iterable<Type> get types => const [
+        ComplexNestedErrorData,
+        _$ComplexNestedErrorData,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restXml')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restXml',
+        )
+      ];
   @override
   ComplexNestedErrorData deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = ComplexNestedErrorDataBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -63,8 +74,10 @@ class ComplexNestedErrorDataRestXmlSerializer
       switch (key as String) {
         case 'Foo':
           if (value != null) {
-            result.foo = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.foo = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -74,8 +87,11 @@ class ComplexNestedErrorDataRestXmlSerializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as ComplexNestedErrorData);
     final result = <Object?>[
       const _i2.XmlElementName('ComplexNestedErrorData')
@@ -83,8 +99,10 @@ class ComplexNestedErrorDataRestXmlSerializer
     if (payload.foo != null) {
       result
         ..add(const _i2.XmlElementName('Foo'))
-        ..add(serializers.serialize(payload.foo!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.foo!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_json1.glacier.model.invalid_parameter_value_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.glacier.model.invalid_parameter_value_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
@@ -16,10 +16,16 @@ abstract class InvalidParameterValueException
         Built<InvalidParameterValueException,
             InvalidParameterValueExceptionBuilder>,
         _i2.SmithyHttpException {
-  factory InvalidParameterValueException(
-      {String? code, String? message, String? type}) {
+  factory InvalidParameterValueException({
+    String? code,
+    String? message,
+    String? type,
+  }) {
     return _$InvalidParameterValueException._(
-        code: code, message: message, type: type);
+      code: code,
+      message: message,
+      type: type,
+    );
   }
 
   factory InvalidParameterValueException.build(
@@ -30,8 +36,9 @@ abstract class InvalidParameterValueException
 
   /// Constructs a [InvalidParameterValueException] from a [payload] and [response].
   factory InvalidParameterValueException.fromResponse(
-          InvalidParameterValueException payload,
-          _i1.AWSBaseHttpResponse response) =>
+    InvalidParameterValueException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
@@ -48,8 +55,9 @@ abstract class InvalidParameterValueException
   String? get type;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.glacier',
-      shape: 'InvalidParameterValueException');
+        namespace: 'com.amazonaws.glacier',
+        shape: 'InvalidParameterValueException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -61,14 +69,27 @@ abstract class InvalidParameterValueException
   @override
   Exception? get underlyingException => null;
   @override
-  List<Object?> get props => [code, message, type];
+  List<Object?> get props => [
+        code,
+        message,
+        type,
+      ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('InvalidParameterValueException');
-    helper.add('code', code);
-    helper.add('message', message);
-    helper.add('type', type);
+    helper.add(
+      'code',
+      code,
+    );
+    helper.add(
+      'message',
+      message,
+    );
+    helper.add(
+      'type',
+      type,
+    );
     return helper.toString();
   }
 }
@@ -79,15 +100,23 @@ class InvalidParameterValueExceptionRestJson1Serializer
       : super('InvalidParameterValueException');
 
   @override
-  Iterable<Type> get types =>
-      const [InvalidParameterValueException, _$InvalidParameterValueException];
+  Iterable<Type> get types => const [
+        InvalidParameterValueException,
+        _$InvalidParameterValueException,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   InvalidParameterValueException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = InvalidParameterValueExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -97,20 +126,26 @@ class InvalidParameterValueExceptionRestJson1Serializer
       switch (key) {
         case 'code':
           if (value != null) {
-            result.code = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.code = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'type':
           if (value != null) {
-            result.type = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.type = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -120,27 +155,36 @@ class InvalidParameterValueExceptionRestJson1Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as InvalidParameterValueException);
     final result = <Object?>[];
     if (payload.code != null) {
       result
         ..add('code')
-        ..add(serializers.serialize(payload.code!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.code!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     if (payload.type != null) {
       result
         ..add('type')
-        ..add(serializers.serialize(payload.type!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.type!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

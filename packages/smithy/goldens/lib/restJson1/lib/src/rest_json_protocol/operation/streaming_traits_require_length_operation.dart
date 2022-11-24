@@ -1,15 +1,15 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.operation.streaming_traits_require_length_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.operation.streaming_traits_require_length_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i2;
 
 import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:rest_json1/src/rest_json_protocol/common/endpoint_resolver.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/common/endpoint_resolver.dart'
     as _i6;
-import 'package:rest_json1/src/rest_json_protocol/common/serializers.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/common/serializers.dart'
     as _i5;
-import 'package:rest_json1/src/rest_json_protocol/model/streaming_traits_require_length_input.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/streaming_traits_require_length_input.dart'
     as _i3;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i4;
@@ -21,8 +21,10 @@ class StreamingTraitsRequireLengthOperation extends _i1.HttpOperation<
     _i1.Unit,
     _i1.Unit> {
   /// This examples serializes a streaming blob shape with a required content length in the request body. In this example, no JSON document is synthesized because the payload is not a structure or a union type.
-  StreamingTraitsRequireLengthOperation({required String region, Uri? baseUri})
-      : _region = region,
+  StreamingTraitsRequireLengthOperation({
+    required String region,
+    Uri? baseUri,
+  })  : _region = region,
         _baseUri = baseUri;
 
   @override
@@ -33,20 +35,23 @@ class StreamingTraitsRequireLengthOperation extends _i1.HttpOperation<
           _i1.Unit,
           _i1.Unit>> protocols = [
     _i4.RestJson1Protocol(
-        serializers: _i5.serializers,
-        builderFactories: _i5.builderFactories,
-        requestInterceptors: [
-          const _i1.WithHost(),
-          const _i1.WithContentLength(),
-          const _i1.WithUserAgent('aws-sdk-dart/0.1.0'),
-          const _i4.WithSdkInvocationId(),
-          const _i4.WithSdkRequest()
-        ],
-        responseInterceptors: [])
+      serializers: _i5.serializers,
+      builderFactories: _i5.builderFactories,
+      requestInterceptors: [
+        const _i1.WithHost(),
+        const _i1.WithContentLength(),
+        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
+        const _i4.WithSdkInvocationId(),
+        const _i4.WithSdkRequest(),
+      ],
+      responseInterceptors: [],
+    )
   ];
 
-  late final _i4.AWSEndpoint _awsEndpoint =
-      _i6.endpointResolver.resolve(_i6.sdkId, _region);
+  late final _i4.AWSEndpoint _awsEndpoint = _i6.endpointResolver.resolve(
+    _i6.sdkId,
+    _region,
+  );
 
   final String _region;
 
@@ -67,10 +72,14 @@ class StreamingTraitsRequireLengthOperation extends _i1.HttpOperation<
   int successCode([_i1.Unit? output]) => 200;
   @override
   _i1.Unit buildOutput(
-          _i1.Unit payload, _i7.AWSStreamedHttpResponse response) =>
+    _i1.Unit payload,
+    _i7.AWSBaseHttpResponse response,
+  ) =>
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+  @override
+  String get runtimeTypeName => 'StreamingTraitsRequireLength';
   @override
   _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
@@ -78,13 +87,21 @@ class StreamingTraitsRequireLengthOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i2.Future<_i1.Unit> run(_i3.StreamingTraitsRequireLengthInput input,
-      {_i1.HttpClient? client, _i1.ShapeId? useProtocol}) {
+  _i1.SmithyOperation<_i1.Unit> run(
+    _i3.StreamingTraitsRequireLengthInput input, {
+    _i7.AWSHttpClient? client,
+    _i1.ShapeId? useProtocol,
+  }) {
     return _i2.runZoned(
-        () => super.run(input, client: client, useProtocol: useProtocol),
-        zoneValues: {
-          ...?_awsEndpoint.credentialScope?.zoneValues,
-          ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
-        });
+      () => super.run(
+        input,
+        client: client,
+        useProtocol: useProtocol,
+      ),
+      zoneValues: {
+        ...?_awsEndpoint.credentialScope?.zoneValues,
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+      },
+    );
   }
 }

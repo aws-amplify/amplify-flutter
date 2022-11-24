@@ -12,9 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -80,12 +79,6 @@ abstract class CognitoUserPoolTokens
   /// The Cognito ID token.
   JsonWebToken get idToken;
 
-  /// The expiration of time of [accessToken].
-  DateTime? get expirationTime => accessToken.claims.expiration;
-
-  /// The issued at time of [accessToken].
-  DateTime? get issuedTime => accessToken.claims.issuedAt;
-
   /// The Cognito user's ID.
   String get userId => idToken.userId;
 
@@ -113,29 +106,6 @@ abstract class CognitoUserPoolTokens
   @override
   // ignore: unnecessary_overrides
   String toString() => super.toString();
-}
-
-/// The method by which the user logged in and retrieved the accompanying
-/// [CognitoUserPoolTokens].
-class CognitoSignInMethod extends EnumClass with AWSSerializable<String> {
-  const CognitoSignInMethod._(super.name);
-
-  /// Default (non-Hosted UI) method.
-  static const CognitoSignInMethod default$ = _$default$;
-
-  /// Hosted UI
-  static const CognitoSignInMethod hostedUi = _$hostedUi;
-
-  /// All values of [CognitoSignInMethod].
-  static BuiltSet<CognitoSignInMethod> get values =>
-      _$CognitoSignInMethodValues;
-
-  /// Gets the [CognitoSignInMethod] value corresponding to [name].
-  static CognitoSignInMethod valueOf(String name) =>
-      _$CognitoSignInMethodValueOf(name);
-
-  @override
-  String toJson() => name;
 }
 
 class _CognitoSignInMethodSerializer

@@ -18,7 +18,6 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_dart/src/util/credentials_providers.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:meta/meta.dart';
 
 /// Zone tag for whether we're calling from inside the fetch auth session

@@ -1,0 +1,16 @@
+{
+  "queryPredicateOperation": {
+    "field": "hasManyParent",
+    "fieldOperator": {
+        "operatorName": "equal",
+        "value": [
+            {
+                "id": "parent-id"
+            },
+            {
+                "name": "parent-name"
+            }
+        ]
+    }
+  }
+}

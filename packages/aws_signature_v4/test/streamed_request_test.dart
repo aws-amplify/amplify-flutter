@@ -21,7 +21,7 @@ import 'package:test/test.dart';
 
 import 'common.dart';
 
-AWSHttpClient get mockClient => MockAWSHttpClient((req) {
+AWSHttpClient get mockClient => MockAWSHttpClient((req, _) {
       return AWSHttpResponse(statusCode: 200);
     });
 
@@ -53,7 +53,7 @@ void main() {
             service: 'service',
           ),
         );
-        await signedRequest.send(mockClient).response;
+        await signedRequest.send(client: mockClient).response;
 
         // Body is split twice, once to hash the payload, then again to read the
         // body which cannot be read from the original body stream.
@@ -73,7 +73,7 @@ void main() {
             service: 'service',
           ),
         );
-        await signedRequest.send(mockClient).response;
+        await signedRequest.send(client: mockClient).response;
 
         // Body is split thrice, once to hash the payload, once to get the
         // content length, then again to read the body which cannot be read from
@@ -100,7 +100,7 @@ void main() {
           ),
           serviceConfiguration: serviceConfiguration,
         );
-        await signedRequest.send(mockClient).response;
+        await signedRequest.send(client: mockClient).response;
 
         // Body is not split, and the original body stream is used.
         expect(request.debugNumSplits, equals(0));
@@ -120,7 +120,7 @@ void main() {
           ),
           serviceConfiguration: serviceConfiguration,
         );
-        await signedRequest.send(mockClient).response;
+        await signedRequest.send(client: mockClient).response;
 
         // Body is split twice, once to get the content length, then again to
         // read the body which cannot be read from the original body stream.

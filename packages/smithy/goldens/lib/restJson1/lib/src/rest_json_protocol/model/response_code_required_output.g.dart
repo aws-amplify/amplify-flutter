@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1.rest_json_protocol.model.response_code_required_output;
+part of rest_json1_v1.rest_json_protocol.model.response_code_required_output;
 
 // **************************************************************************
 // BuiltValueGenerator

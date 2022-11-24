@@ -17,7 +17,7 @@ import 'dart:async';
 import 'package:built_value/serializer.dart' hide Serializer;
 import 'package:smithy/smithy.dart';
 
-/// Metadata related to an [Operation] regarding its serialization format,
+/// Metadata related to an operation regarding its serialization format,
 /// authentication schemes, etc.
 abstract class Protocol<Input, Output, WireType>
     implements FullSerializer<WireType> {
@@ -25,9 +25,6 @@ abstract class Protocol<Input, Output, WireType>
 
   /// The shape ID of the protocol trait this class implements.
   ShapeId get protocolId;
-
-  /// Creates a client for the given and [input].
-  Client getClient(Input input);
 }
 
 abstract class FullSerializer<WireType>

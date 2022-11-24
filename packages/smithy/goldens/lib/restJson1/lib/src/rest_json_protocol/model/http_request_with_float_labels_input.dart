@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.http_request_with_float_labels_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.http_request_with_float_labels_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
@@ -19,9 +19,16 @@ abstract class HttpRequestWithFloatLabelsInput
             HttpRequestWithFloatLabelsInputBuilder>,
         _i1.EmptyPayload,
         _i1.HasPayload<HttpRequestWithFloatLabelsInputPayload> {
-  factory HttpRequestWithFloatLabelsInput(
-      {required double double_, required double float}) {
-    return _$HttpRequestWithFloatLabelsInput._(double_: double_, float: float);
+  factory HttpRequestWithFloatLabelsInput({
+    double? double_,
+    double? float,
+  }) {
+    double_ ??= 0;
+    float ??= 0;
+    return _$HttpRequestWithFloatLabelsInput._(
+      double_: double_,
+      float: float,
+    );
   }
 
   factory HttpRequestWithFloatLabelsInput.build(
@@ -31,9 +38,10 @@ abstract class HttpRequestWithFloatLabelsInput
   const HttpRequestWithFloatLabelsInput._();
 
   factory HttpRequestWithFloatLabelsInput.fromRequest(
-          HttpRequestWithFloatLabelsInputPayload payload,
-          _i2.AWSBaseHttpRequest request,
-          {Map<String, String> labels = const {}}) =>
+    HttpRequestWithFloatLabelsInputPayload payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
       HttpRequestWithFloatLabelsInput.build((b) {
         if (labels['float'] != null) {
           b.float = double.parse(labels['float']!);
@@ -48,7 +56,11 @@ abstract class HttpRequestWithFloatLabelsInput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpRequestWithFloatLabelsInputBuilder b) {}
+  static void _init(HttpRequestWithFloatLabelsInputBuilder b) {
+    b.double_ = 0;
+    b.float = 0;
+  }
+
   double get double_;
   double get float;
   @override
@@ -59,20 +71,32 @@ abstract class HttpRequestWithFloatLabelsInput
       case 'double':
         return double_.toString();
     }
-    throw _i1.MissingLabelException(this, key);
+    throw _i1.MissingLabelException(
+      this,
+      key,
+    );
   }
 
   @override
   HttpRequestWithFloatLabelsInputPayload getPayload() =>
       HttpRequestWithFloatLabelsInputPayload();
   @override
-  List<Object?> get props => [double_, float];
+  List<Object?> get props => [
+        double_,
+        float,
+      ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('HttpRequestWithFloatLabelsInput');
-    helper.add('double_', double_);
-    helper.add('float', float);
+    helper.add(
+      'double_',
+      double_,
+    );
+    helper.add(
+      'float',
+      float,
+    );
     return helper.toString();
   }
 }
@@ -113,20 +137,29 @@ class HttpRequestWithFloatLabelsInputRestJson1Serializer extends _i1
         HttpRequestWithFloatLabelsInput,
         _$HttpRequestWithFloatLabelsInput,
         HttpRequestWithFloatLabelsInputPayload,
-        _$HttpRequestWithFloatLabelsInputPayload
+        _$HttpRequestWithFloatLabelsInputPayload,
       ];
   @override
-  Iterable<_i1.ShapeId> get supportedProtocols =>
-      const [_i1.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   HttpRequestWithFloatLabelsInputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return HttpRequestWithFloatLabelsInputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

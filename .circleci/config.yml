@@ -231,7 +231,6 @@ workflows:
             parameters:
               plugin:
                 [
-                  "amplify_analytics_pinpoint",
                   "amplify_api",
                   "amplify_authenticator",
                   "amplify_datastore",
@@ -243,7 +242,6 @@ workflows:
             parameters:
               plugin:
                 [
-                  "amplify_analytics_pinpoint_android",
                   "amplify_api_android",
                   "amplify_auth_cognito",
                   "amplify_flutter",
@@ -253,7 +251,6 @@ workflows:
             parameters:
               plugin:
                 [
-                  "amplify_analytics_pinpoint_ios",
                   "amplify_api_ios",
                   "amplify_auth_cognito",
                   "amplify_flutter",

@@ -15,10 +15,12 @@
 import 'dart:async';
 
 import 'package:aws_common/aws_common.dart';
+import 'package:stream_transform/stream_transform.dart';
 
 /// A mock request handler for use with [MockAWSHttpClient].
 typedef MockRequestHandler = FutureOr<AWSBaseHttpResponse> Function(
-  AWSHttpRequest,
+  AWSHttpRequest request,
+  bool Function() isCancelled,
 );
 
 /// {@template aws_common.http.aws_mock_http_client}
@@ -35,18 +37,43 @@ class MockAWSHttpClient extends AWSCustomHttpClient {
     AWSBaseHttpRequest request, {
     FutureOr<void> Function()? onCancel,
   }) {
+    final requestProgress = StreamController<int>.broadcast();
+    final responseProgress = StreamController<int>.broadcast();
+    var isCancelled = false;
     return AWSHttpOperation(
       CancelableOperation.fromFuture(
-        () async {
-          return request is AWSHttpRequest
-              ? await _handler(request)
-              : await _handler(
-                  await (request as AWSStreamedHttpRequest).read(),
-                );
-        }(),
+        Future(() async {
+          final readRequest = await request.read();
+          requestProgress.add(readRequest.bodyBytes.length);
+          unawaited(requestProgress.close());
+          final response = await _handler(
+            readRequest,
+            () => isCancelled,
+          );
+          if (response is AWSHttpResponse) {
+            responseProgress.add(response.bodyBytes.length);
+            unawaited(responseProgress.close());
+            return response;
+          }
+          return AWSStreamedHttpResponse(
+            statusCode: response.statusCode,
+            headers: response.headers,
+            body: response.body.tap(
+              (event) => responseProgress.add(event.length),
+              onDone: responseProgress.close,
+            ),
+          );
+        }),
+        onCancel: () {
+          isCancelled = true;
+          requestProgress.close();
+          responseProgress.close();
+          return onCancel?.call();
+        },
       ),
-      requestProgress: const Stream.empty(),
-      responseProgress: const Stream.empty(),
+      requestProgress: requestProgress.stream,
+      responseProgress: responseProgress.stream,
+      onCancel: onCancel,
     );
   }
 }

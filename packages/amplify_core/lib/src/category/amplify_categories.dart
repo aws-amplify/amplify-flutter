@@ -101,9 +101,14 @@ abstract class AmplifyCategory<P extends AmplifyPluginInterface> {
   }
 
   /// Adds a plugin to the category.
-  Future<void> addPlugin(P plugin) async {
+  Future<void> addPlugin(
+    P plugin, {
+    required AmplifyAuthProviderRepository authProviderRepo,
+  }) async {
     try {
-      await plugin.addPlugin();
+      await plugin.addPlugin(
+        authProviderRepo: authProviderRepo,
+      );
       _plugins.add(plugin);
     } on AmplifyAlreadyConfiguredException {
       _plugins.add(plugin);

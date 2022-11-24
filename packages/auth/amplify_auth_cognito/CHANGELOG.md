@@ -1,3 +1,24 @@
+## 1.0.0-next.1
+
+- Minor bug fixes and improvements
+
+## 1.0.0-next.0+7
+
+### Fixes
+- fix(auth): Support Cognito proxies
+
+### Features
+- feat(auth): SignInDetails
+
+## 1.0.0-next.0+6
+
+### Fixes
+- fix(auth): Retain unauthenticated identities
+- fix(auth, secure_storage): update generated java pigeon code ([#2184](https://github.com/aws-amplify/amplify-flutter/pull/2184))
+
+### Features
+- feat(auth): Federated sign-in
+
 ## 1.0.0-next.0+5
 
 ### Features

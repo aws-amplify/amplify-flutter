@@ -29,7 +29,7 @@ class GraphQLApiView extends StatefulWidget {
 class _GraphQLApiViewState extends State<GraphQLApiView> {
   String _result = '';
   void Function()? _unsubscribe;
-  late GraphQLOperation _lastOperation;
+  late CancelableOperation _lastOperation;
 
   Future<void> subscribe() async {
     String graphQLDocument = '''subscription MySubscription {
@@ -44,13 +44,19 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
       onEstablished: () => print('Subscription established'),
     );
 
-    try {
-      await for (var event in operation) {
-        print('Subscription event data received: ${event.data}');
-      }
-    } on Exception catch (e) {
-      print('Error in subscription stream: $e');
-    }
+    final streamSubscription = operation.listen(
+      (event) {
+        final result = 'Subscription event data received: ${event.data}';
+        print(result);
+        setState(() {
+          _result = result;
+        });
+      },
+      onError: (Object error) => print(
+        'Error in GraphQL subscription: $error',
+      ),
+    );
+    _unsubscribe = streamSubscription.cancel;
   }
 
   Future<void> query() async {
@@ -66,7 +72,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
 
     var operation = Amplify.API
         .query<String>(request: GraphQLRequest(document: graphQLDocument));
-    _lastOperation = operation;
+    _lastOperation = operation.operation;
 
     var response = await operation.response;
     var data = response.data;
@@ -94,9 +100,10 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
       request: GraphQLRequest<String>(
         document: graphQLDocument,
         variables: <String, dynamic>{'name': 'Test App Blog'},
+        authorizationMode: APIAuthorizationType.userPools,
       ),
     );
-    _lastOperation = operation;
+    _lastOperation = operation.operation;
 
     var response = await operation.response;
     var data = response.data;

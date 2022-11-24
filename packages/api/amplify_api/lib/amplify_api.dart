@@ -15,17 +15,14 @@
 
 library amplify_api_plugin;
 
-import 'dart:io';
-
-import 'package:amplify_api/src/method_channel_api.dart';
+import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
+export 'package:amplify_api/src/graphql/model_helpers/model_mutations.dart';
+export 'package:amplify_api/src/graphql/model_helpers/model_queries.dart';
+export 'package:amplify_api/src/graphql/model_helpers/model_subscriptions.dart';
 export 'package:amplify_core/src/types/api/api_types.dart';
-
-export './model_mutations.dart';
-export './model_queries.dart';
-export './model_subscriptions.dart';
 
 /// {@template amplify_api.amplify_api}
 /// The AWS implementation of the Amplify API category.
@@ -34,16 +31,16 @@ abstract class AmplifyAPI extends APIPluginInterface {
   /// {@macro amplify_api.amplify_api}
   factory AmplifyAPI({
     List<APIAuthProvider> authProviders = const [],
+    AWSHttpClient? baseHttpClient,
     ModelProviderInterface? modelProvider,
-  }) {
-    if (zIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-      throw UnsupportedError('This platform is not supported yet');
-    }
-    return AmplifyAPIMethodChannel(
-      authProviders: authProviders,
-      modelProvider: modelProvider,
-    );
-  }
+    GraphQLSubscriptionOptions? subscriptionOptions,
+  }) =>
+      AmplifyAPIDart(
+        authProviders: authProviders,
+        baseHttpClient: baseHttpClient,
+        modelProvider: modelProvider,
+        subscriptionOptions: subscriptionOptions,
+      );
 
   /// Protected constructor for subclasses.
   @protected

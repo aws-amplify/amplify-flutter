@@ -1,6 +1,6 @@
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
 
-library rest_json1.rest_json_protocol.model.http_prefix_headers_in_response_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library rest_json1_v1.rest_json_protocol.model.http_prefix_headers_in_response_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_collection/built_collection.dart' as _i3;
@@ -20,8 +20,10 @@ abstract class HttpPrefixHeadersInResponseOutput
         _i2.EmptyPayload,
         _i2.HasPayload<HttpPrefixHeadersInResponseOutputPayload> {
   factory HttpPrefixHeadersInResponseOutput(
-      {_i3.BuiltMap<String, String>? prefixHeaders}) {
-    return _$HttpPrefixHeadersInResponseOutput._(prefixHeaders: prefixHeaders);
+      {Map<String, String>? prefixHeaders}) {
+    return _$HttpPrefixHeadersInResponseOutput._(
+        prefixHeaders:
+            prefixHeaders == null ? null : _i3.BuiltMap(prefixHeaders));
   }
 
   factory HttpPrefixHeadersInResponseOutput.build(
@@ -32,8 +34,9 @@ abstract class HttpPrefixHeadersInResponseOutput
 
   /// Constructs a [HttpPrefixHeadersInResponseOutput] from a [payload] and [response].
   factory HttpPrefixHeadersInResponseOutput.fromResponse(
-          HttpPrefixHeadersInResponseOutputPayload payload,
-          _i1.AWSBaseHttpResponse response) =>
+    HttpPrefixHeadersInResponseOutputPayload payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       HttpPrefixHeadersInResponseOutput.build((b) {
         b.prefixHeaders.addEntries(response.headers.entries);
       });
@@ -54,7 +57,10 @@ abstract class HttpPrefixHeadersInResponseOutput
   String toString() {
     final helper =
         newBuiltValueToStringHelper('HttpPrefixHeadersInResponseOutput');
-    helper.add('prefixHeaders', prefixHeaders);
+    helper.add(
+      'prefixHeaders',
+      prefixHeaders,
+    );
     return helper.toString();
   }
 }
@@ -95,20 +101,29 @@ class HttpPrefixHeadersInResponseOutputRestJson1Serializer extends _i2
         HttpPrefixHeadersInResponseOutput,
         _$HttpPrefixHeadersInResponseOutput,
         HttpPrefixHeadersInResponseOutputPayload,
-        _$HttpPrefixHeadersInResponseOutputPayload
+        _$HttpPrefixHeadersInResponseOutputPayload,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'restJson1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'restJson1',
+        )
+      ];
   @override
   HttpPrefixHeadersInResponseOutputPayload deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return HttpPrefixHeadersInResponseOutputPayloadBuilder().build();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-          {FullType specifiedType = FullType.unspecified}) =>
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) =>
       const <Object?>[];
 }

@@ -18,12 +18,17 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class _UserAttributeController {
-  late TextEditingController keyController;
-  late TextEditingController valueController;
-  _UserAttributeController({String? keyValue}) {
-    keyController = TextEditingController(text: keyValue);
-    valueController = TextEditingController();
+  factory _UserAttributeController({String? keyValue}) {
+    return _UserAttributeController._(
+      TextEditingController(text: keyValue),
+      TextEditingController(),
+    );
   }
+
+  const _UserAttributeController._(this.keyController, this.valueController);
+
+  final TextEditingController keyController;
+  final TextEditingController valueController;
 }
 
 class UpdateUserAttributesScreen extends StatefulWidget {
@@ -138,54 +143,59 @@ class _UpdateUserAttributesScreenState
             children: [
               ..._userAttributeControllers.map((element) {
                 return Card(
-                    child: Stack(children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 16,
-                      bottom: 24,
-                      right: 16,
-                    ),
-                    child: Column(children: [
-                      TextFormField(
-                        controller: element.keyController,
-                        decoration: const InputDecoration(
-                          labelText: 'Attribute Name',
-                        ),
-                        validator: (value) {
-                          if (value == null) {
-                            return 'An Attribute name is required.';
-                          }
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        controller: element.valueController,
-                        decoration: const InputDecoration(
-                          labelText: 'Attribute Value',
-                        ),
-                        validator: (value) {
-                          if (value == null) {
-                            return 'An Attribute value is required.';
-                          }
-                          return null;
-                        },
-                      ),
-                    ]),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                  child: Stack(
                     children: [
-                      IconButton(
-                        padding: EdgeInsets.zero,
-                        icon: const Icon(
-                          Icons.close,
-                          size: 18,
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 16,
+                          bottom: 24,
+                          right: 16,
                         ),
-                        onPressed: () => _removeAttribute(element),
-                      )
+                        child: Column(
+                          children: [
+                            TextFormField(
+                              controller: element.keyController,
+                              decoration: const InputDecoration(
+                                labelText: 'Attribute Name',
+                              ),
+                              validator: (value) {
+                                if (value == null) {
+                                  return 'An Attribute name is required.';
+                                }
+                                return null;
+                              },
+                            ),
+                            TextFormField(
+                              controller: element.valueController,
+                              decoration: const InputDecoration(
+                                labelText: 'Attribute Value',
+                              ),
+                              validator: (value) {
+                                if (value == null) {
+                                  return 'An Attribute value is required.';
+                                }
+                                return null;
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            padding: EdgeInsets.zero,
+                            icon: const Icon(
+                              Icons.close,
+                              size: 18,
+                            ),
+                            onPressed: () => _removeAttribute(element),
+                          )
+                        ],
+                      ),
                     ],
                   ),
-                ]));
+                );
               }),
               const SizedBox(height: 12),
               ElevatedButton(

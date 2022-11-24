@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml.rest_xml_protocol.model.scoped_config;
+part of rest_xml_v1.rest_xml_protocol.model.scoped_config;
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -10,13 +10,13 @@ class _$ScopedConfig extends ScopedConfig {
   @override
   final _i2.ClientConfig? client;
   @override
-  final _i3.BuiltMap<String, _i4.FileConfigSettings>? configFile;
+  final _i6.BuiltMap<String, _i3.FileConfigSettings>? configFile;
   @override
-  final _i3.BuiltMap<String, _i4.FileConfigSettings>? credentialsFile;
+  final _i6.BuiltMap<String, _i3.FileConfigSettings>? credentialsFile;
   @override
-  final _i5.EnvironmentConfig? environment;
+  final _i4.EnvironmentConfig? environment;
   @override
-  final _i6.OperationConfig? operation;
+  final _i5.OperationConfig? operation;
 
   factory _$ScopedConfig([void Function(ScopedConfigBuilder)? updates]) =>
       (new ScopedConfigBuilder()..update(updates))._build();
@@ -67,31 +67,31 @@ class ScopedConfigBuilder
       _$this._client ??= new _i2.ClientConfigBuilder();
   set client(_i2.ClientConfigBuilder? client) => _$this._client = client;
 
-  _i3.MapBuilder<String, _i4.FileConfigSettings>? _configFile;
-  _i3.MapBuilder<String, _i4.FileConfigSettings> get configFile =>
+  _i6.MapBuilder<String, _i3.FileConfigSettings>? _configFile;
+  _i6.MapBuilder<String, _i3.FileConfigSettings> get configFile =>
       _$this._configFile ??=
-          new _i3.MapBuilder<String, _i4.FileConfigSettings>();
-  set configFile(_i3.MapBuilder<String, _i4.FileConfigSettings>? configFile) =>
+          new _i6.MapBuilder<String, _i3.FileConfigSettings>();
+  set configFile(_i6.MapBuilder<String, _i3.FileConfigSettings>? configFile) =>
       _$this._configFile = configFile;
 
-  _i3.MapBuilder<String, _i4.FileConfigSettings>? _credentialsFile;
-  _i3.MapBuilder<String, _i4.FileConfigSettings> get credentialsFile =>
+  _i6.MapBuilder<String, _i3.FileConfigSettings>? _credentialsFile;
+  _i6.MapBuilder<String, _i3.FileConfigSettings> get credentialsFile =>
       _$this._credentialsFile ??=
-          new _i3.MapBuilder<String, _i4.FileConfigSettings>();
+          new _i6.MapBuilder<String, _i3.FileConfigSettings>();
   set credentialsFile(
-          _i3.MapBuilder<String, _i4.FileConfigSettings>? credentialsFile) =>
+          _i6.MapBuilder<String, _i3.FileConfigSettings>? credentialsFile) =>
       _$this._credentialsFile = credentialsFile;
 
-  _i5.EnvironmentConfigBuilder? _environment;
-  _i5.EnvironmentConfigBuilder get environment =>
-      _$this._environment ??= new _i5.EnvironmentConfigBuilder();
-  set environment(_i5.EnvironmentConfigBuilder? environment) =>
+  _i4.EnvironmentConfigBuilder? _environment;
+  _i4.EnvironmentConfigBuilder get environment =>
+      _$this._environment ??= new _i4.EnvironmentConfigBuilder();
+  set environment(_i4.EnvironmentConfigBuilder? environment) =>
       _$this._environment = environment;
 
-  _i6.OperationConfigBuilder? _operation;
-  _i6.OperationConfigBuilder get operation =>
-      _$this._operation ??= new _i6.OperationConfigBuilder();
-  set operation(_i6.OperationConfigBuilder? operation) =>
+  _i5.OperationConfigBuilder? _operation;
+  _i5.OperationConfigBuilder get operation =>
+      _$this._operation ??= new _i5.OperationConfigBuilder();
+  set operation(_i5.OperationConfigBuilder? operation) =>
       _$this._operation = operation;
 
   ScopedConfigBuilder() {

@@ -15,14 +15,13 @@
 import 'dart:async';
 
 import 'package:aws_common/aws_common.dart';
-import 'package:aws_common/src/operation/aws_operation.dart';
 
 /// {@template aws_common.http.aws_http_operation}
 /// A wrapper over a [CancelableOperation] with progress monitoring support for
 /// in-flight HTTP requests sent with an [AWSHttpClient].
 /// {@endtemplate}
 class AWSHttpOperation<ResponseType extends AWSBaseHttpResponse>
-    extends AWSOperation<ResponseType> {
+    extends AWSOperation<ResponseType> with AWSProgressOperation<ResponseType> {
   /// Creates an [AWSHttpOperation] from a [CancelableOperation].
   AWSHttpOperation(
     super.operation, {
@@ -43,16 +42,10 @@ class AWSHttpOperation<ResponseType extends AWSBaseHttpResponse>
     return result;
   }
 
-  /// The operation's progress sending the request, in bytes.
-  ///
-  /// If [cancel] is called before the request has been fully sent, the stream
-  /// will be closed and its `onDone` callback will fire.
+  @override
   final Stream<int> requestProgress;
 
-  /// The operation's progress receiving a response, in bytes.
-  ///
-  /// If [cancel] is called before the response has been fully received, the
-  /// stream will be closed and its `onDone` callback will fire.
+  @override
   final Stream<int> responseProgress;
 
   @override

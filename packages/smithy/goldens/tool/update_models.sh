@@ -20,16 +20,12 @@ if [[ ! -e smithy ]]; then
     exit 1
 fi
 
-# if [[ -z "$CI" ]]; then
-#     git submodule update --init
-# fi
-
 PROTOCOLS="awsJson1_0 awsJson1_1 restJson1 restXml restXmlWithNamespace"
 MODELS=models2
 
 for PROTOCOL in $PROTOCOLS; do
     DIR=$MODELS/$PROTOCOL
-    rm -rf $DIR
+    rm -r $DIR
     mkdir -p $DIR
     cp -R smithy/smithy-aws-protocol-tests/model/$PROTOCOL/* $DIR
 done
@@ -39,17 +35,8 @@ mkdir -p $MODELS/shared
 cp smithy/smithy-aws-protocol-tests/model/aws-config.smithy $MODELS/shared/
 cp smithy/smithy-aws-protocol-tests/model/shared-types.smithy $MODELS/shared/
 
-# Generate AST if running in CI
-for PROTOCOL in $PROTOCOLS; do
-    docker run --rm -it -v $PWD:/home smithy ast -d \
-        /smithy/lib/traits \
-        /home/$MODELS/shared \
-        /home/$MODELS/$PROTOCOL | tail -n +2 > $MODELS/${PROTOCOL}.json
-   
-done
-
 for FILE in $MODELS/**; do
-    if [[ -f $FILE ]]
+    if [[ -f $FILE ]]; then
         sed -i '' -e 's/coral/example/g' $FILE
     fi
 done

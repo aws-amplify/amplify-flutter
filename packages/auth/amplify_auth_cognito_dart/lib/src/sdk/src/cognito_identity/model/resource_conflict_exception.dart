@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.2.0. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity.model.resource_conflict_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,8 +43,9 @@ abstract class ResourceConflictException
 
   /// Constructs a [ResourceConflictException] from a [payload] and [response].
   factory ResourceConflictException.fromResponse(
-          ResourceConflictException payload,
-          _i1.AWSBaseHttpResponse response) =>
+    ResourceConflictException payload,
+    _i1.AWSBaseHttpResponse response,
+  ) =>
       payload.rebuild((b) {
         b.headers = response.headers;
       });
@@ -61,8 +62,9 @@ abstract class ResourceConflictException
   String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
-      namespace: 'com.amazonaws.cognitoidentity',
-      shape: 'ResourceConflictException');
+        namespace: 'com.amazonaws.cognitoidentity',
+        shape: 'ResourceConflictException',
+      );
   @override
   _i2.RetryConfig? get retryConfig => null;
   @override
@@ -78,7 +80,10 @@ abstract class ResourceConflictException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ResourceConflictException');
-    helper.add('message', message);
+    helper.add(
+      'message',
+      message,
+    );
     return helper.toString();
   }
 }
@@ -89,15 +94,23 @@ class ResourceConflictExceptionAwsJson11Serializer
       : super('ResourceConflictException');
 
   @override
-  Iterable<Type> get types =>
-      const [ResourceConflictException, _$ResourceConflictException];
+  Iterable<Type> get types => const [
+        ResourceConflictException,
+        _$ResourceConflictException,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   ResourceConflictException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = ResourceConflictExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -107,8 +120,10 @@ class ResourceConflictExceptionAwsJson11Serializer
       switch (key) {
         case 'message':
           if (value != null) {
-            result.message = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -118,15 +133,20 @@ class ResourceConflictExceptionAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as ResourceConflictException);
     final result = <Object?>[];
     if (payload.message != null) {
       result
         ..add('message')
-        ..add(serializers.serialize(payload.message!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

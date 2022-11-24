@@ -32,12 +32,24 @@ class AWSHttpClientImpl extends AWSHttpClient {
 
   Future<void> _send({
     required AWSBaseHttpRequest request,
+    required AWSLogger logger,
     required StreamController<int> requestProgressController,
     required StreamController<int> responseProgressController,
     required AbortController abortController,
     required CancelableCompleter<AWSBaseHttpResponse> completer,
     required Future<void> cancelTrigger,
   }) async {
+    void Function()? onCancel;
+    unawaited(
+      cancelTrigger.then((_) {
+        logger.verbose('Canceling request');
+        onCancel?.call();
+      }),
+    );
+    onCancel = () {
+      abortController.abort();
+    };
+
     // Choose a redirect mode which best matches the intention of the request
     // parameters since we cannot precisely match `dart:io`'s implementation.
     //
@@ -57,10 +69,17 @@ class AWSHttpClientImpl extends AWSHttpClient {
       // HTTP/2 or HTTP/3 servers:
       // - https://developer.chrome.com/articles/fetch-streaming-requests/#doesnt-work-on-http1x
       // - https://developer.chrome.com/articles/fetch-streaming-requests/#incompatibility-outside-of-your-control
+      var requestBytesRead = 0;
       final stream = request.body.tap(
-        (chunk) => requestProgressController.add(chunk.length),
-        onDone: requestProgressController.close,
-      );
+        (chunk) {
+          requestBytesRead += chunk.length;
+          requestProgressController.add(requestBytesRead);
+        },
+        onDone: () {
+          logger.verbose('Request sent');
+          requestProgressController.close();
+        },
+      ).takeUntil(cancelTrigger);
       Object body;
       if (request.scheme == 'http' ||
           supportedProtocols.supports(AlpnProtocol.http1_1)) {
@@ -83,53 +102,35 @@ class AWSHttpClientImpl extends AWSHttpClient {
 
       final streamView = resp.body;
       final bodyController = StreamController<List<int>>(sync: true);
-      streamView.progress.listen(
-        (event) {
-          if (!responseProgressController.isClosed) {
-            responseProgressController.add(event);
-          }
-        },
-        onError: (Object error, StackTrace stackTrace) {
-          if (!responseProgressController.isClosed) {
-            responseProgressController.addError(error, stackTrace);
-          }
-        },
-        onDone: responseProgressController.close,
-        cancelOnError: true,
+      onCancel = () {
+        if (!bodyController.isClosed) {
+          bodyController
+            ..addError(const CancellationException())
+            ..close();
+        }
+      };
+      unawaited(
+        streamView.progress.forward(
+          responseProgressController,
+          cancelOnError: true,
+        ),
       );
       unawaited(
-        cancelTrigger.then((_) {
-          if (!bodyController.isClosed) {
-            bodyController
-              ..addError(const CancellationException())
-              ..close();
-          }
-        }),
-      );
-      streamView.listen(
-        (chunk) {
-          if (!bodyController.isClosed) {
-            bodyController.add(chunk);
-          }
-        },
-        onError: (Object e, StackTrace st) {
-          if (!bodyController.isClosed) {
-            bodyController.addError(e, st);
-          }
-        },
-        onDone: bodyController.close,
-        cancelOnError: true,
+        streamView.forward(bodyController, cancelOnError: true),
       );
       final streamedResponse = AWSStreamedHttpResponse(
         statusCode: resp.status,
         headers: resp.headers,
-        body: bodyController.stream,
+        body: bodyController.stream.tap(
+          null,
+          onDone: () {
+            logger.verbose('Response received');
+            onCancel = null;
+            responseProgressController.close();
+          },
+        ),
       );
-      if (streamedResponse.headers.containsKey(AWSHeaders.contentLength)) {
-        completer.complete(streamedResponse.read());
-      } else {
-        completer.complete(streamedResponse);
-      }
+      completer.complete(streamedResponse);
     } on Object catch (e, st) {
       completer.completeError(
         AWSHttpException(request, e),
@@ -144,9 +145,11 @@ class AWSHttpClientImpl extends AWSHttpClient {
     FutureOr<void> Function()? onCancel,
   }) {
     final abortController = AbortController();
-    final requestProgressController = StreamController<int>();
-    final responseProgressController = StreamController<int>();
-    final cancelTrigger = Completer<void>();
+    final requestProgressController = StreamController<int>.broadcast();
+    final responseProgressController = StreamController<int>.broadcast();
+    // Inner request cancellation should happen before `onCancel` callback.
+    final cancelTrigger = Completer<void>.sync();
+
     FutureOr<void> wrappedOnCancel() {
       abortController.abort();
       requestProgressController.close();
@@ -158,8 +161,15 @@ class AWSHttpClientImpl extends AWSHttpClient {
     final completer = CancelableCompleter<AWSBaseHttpResponse>(
       onCancel: wrappedOnCancel,
     );
+    final operation = AWSHttpOperation(
+      completer.operation,
+      requestProgress: requestProgressController.stream,
+      responseProgress: responseProgressController.stream,
+      onCancel: wrappedOnCancel,
+    );
     _send(
       request: request,
+      logger: operation.logger,
       requestProgressController: requestProgressController,
       responseProgressController: responseProgressController,
       abortController: abortController,
@@ -169,12 +179,6 @@ class AWSHttpClientImpl extends AWSHttpClient {
       (Object e, st) => completer.completeError(
         AWSHttpException(request, e),
       ),
-    );
-    final operation = AWSHttpOperation(
-      completer.operation,
-      requestProgress: requestProgressController.stream,
-      responseProgress: responseProgressController.stream,
-      onCancel: wrappedOnCancel,
     );
     _openConnections.add(WeakReference(operation));
     return operation;

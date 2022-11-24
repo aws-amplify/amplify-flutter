@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1.machine_learning.model.prediction;
+part of aws_json1_1_v1.machine_learning.model.prediction;
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -8,11 +8,11 @@ part of aws_json1_1.machine_learning.model.prediction;
 
 class _$Prediction extends Prediction {
   @override
-  final _i2.BuiltMap<_i3.DetailsAttributes, String>? details;
+  final _i3.BuiltMap<_i2.DetailsAttributes, String>? details;
   @override
   final String? predictedLabel;
   @override
-  final _i2.BuiltMap<String, double>? predictedScores;
+  final _i3.BuiltMap<String, double>? predictedScores;
   @override
   final double? predictedValue;
 
@@ -55,10 +55,10 @@ class _$Prediction extends Prediction {
 class PredictionBuilder implements Builder<Prediction, PredictionBuilder> {
   _$Prediction? _$v;
 
-  _i2.MapBuilder<_i3.DetailsAttributes, String>? _details;
-  _i2.MapBuilder<_i3.DetailsAttributes, String> get details =>
-      _$this._details ??= new _i2.MapBuilder<_i3.DetailsAttributes, String>();
-  set details(_i2.MapBuilder<_i3.DetailsAttributes, String>? details) =>
+  _i3.MapBuilder<_i2.DetailsAttributes, String>? _details;
+  _i3.MapBuilder<_i2.DetailsAttributes, String> get details =>
+      _$this._details ??= new _i3.MapBuilder<_i2.DetailsAttributes, String>();
+  set details(_i3.MapBuilder<_i2.DetailsAttributes, String>? details) =>
       _$this._details = details;
 
   String? _predictedLabel;
@@ -66,10 +66,10 @@ class PredictionBuilder implements Builder<Prediction, PredictionBuilder> {
   set predictedLabel(String? predictedLabel) =>
       _$this._predictedLabel = predictedLabel;
 
-  _i2.MapBuilder<String, double>? _predictedScores;
-  _i2.MapBuilder<String, double> get predictedScores =>
-      _$this._predictedScores ??= new _i2.MapBuilder<String, double>();
-  set predictedScores(_i2.MapBuilder<String, double>? predictedScores) =>
+  _i3.MapBuilder<String, double>? _predictedScores;
+  _i3.MapBuilder<String, double> get predictedScores =>
+      _$this._predictedScores ??= new _i3.MapBuilder<String, double>();
+  set predictedScores(_i3.MapBuilder<String, double>? predictedScores) =>
       _$this._predictedScores = predictedScores;
 
   double? _predictedValue;

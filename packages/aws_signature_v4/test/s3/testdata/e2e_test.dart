@@ -49,14 +49,14 @@ void main() {
         ),
       );
 
-      final client = MockAWSHttpClient((req) async {
+      final client = MockAWSHttpClient((req, _) async {
         await Future<void>.delayed(const Duration(milliseconds: 500));
         return AWSStreamedHttpResponse(
           statusCode: 200,
           body: HttpPayload.string('OK'),
         );
       });
-      final resp = await signedReq.send(client).response;
+      final resp = await signedReq.send(client: client).response;
 
       expect(resp.statusCode, equals(200));
       expect(await utf8.decodeStream(resp.body), equals('OK'));

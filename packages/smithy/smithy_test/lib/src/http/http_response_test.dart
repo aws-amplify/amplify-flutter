@@ -48,19 +48,25 @@ Future<void> httpResponseTest<InputPayload, Input, OutputPayload, Output>({
         specifiedType: FullType(Output),
       ) as Output;
 
-      final client = MockAWSHttpClient((request) async {
+      final client = MockAWSHttpClient((request, _) async {
         return AWSHttpResponse(
           statusCode: testCase.code,
           headers: testCase.headers,
           body: (testCase.body ?? '').codeUnits,
         );
       });
-      // ignore: invalid_use_of_visible_for_overriding_member
-      final output = await operation.send(
-        client: HttpClient.v1(baseClient: client),
-        createRequest: () async => _dummyHttpRequest,
-        protocol: protocol,
-      );
+      final output = await operation
+          // ignore: invalid_use_of_visible_for_overriding_member
+          .send(
+            client: client,
+            createRequest: () => SmithyHttpRequest(
+              _dummyHttpRequest,
+              requestInterceptors: protocol.requestInterceptors,
+              responseInterceptors: protocol.responseInterceptors,
+            ),
+            protocol: protocol,
+          )
+          .result;
 
       if (output is AWSEquatable && expectedOutput is AWSEquatable) {
         expect(
@@ -119,7 +125,7 @@ Future<void> httpErrorResponseTest<InputPayload, Input, OutputPayload, Output,
         specifiedType: FullType(ExpectedError),
       ) as ExpectedError;
 
-      final client = MockAWSHttpClient((request) async {
+      final client = MockAWSHttpClient((request, _) async {
         return AWSHttpResponse(
           statusCode: testCase.code,
           headers: testCase.headers,
@@ -127,12 +133,18 @@ Future<void> httpErrorResponseTest<InputPayload, Input, OutputPayload, Output,
         );
       });
       try {
-        // ignore: invalid_use_of_visible_for_overriding_member
-        await operation.send(
-          client: HttpClient.v1(baseClient: client),
-          createRequest: () async => _dummyHttpRequest,
-          protocol: protocol,
-        );
+        await operation
+            // ignore: invalid_use_of_visible_for_overriding_member
+            .send(
+              client: client,
+              createRequest: () => SmithyHttpRequest(
+                _dummyHttpRequest,
+                requestInterceptors: protocol.requestInterceptors,
+                responseInterceptors: protocol.responseInterceptors,
+              ),
+              protocol: protocol,
+            )
+            .result;
         fail('Operation should throw');
       } on Exception catch (error) {
         expect(error, isA<ExpectedError>());

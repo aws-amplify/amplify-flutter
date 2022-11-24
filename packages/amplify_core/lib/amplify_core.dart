@@ -19,7 +19,8 @@ import 'src/amplify_class.dart';
 
 /// Common types
 export 'package:aws_common/aws_common.dart';
-export 'package:aws_signature_v4/aws_signature_v4.dart' show AWSCredentials;
+export 'package:aws_signature_v4/aws_signature_v4.dart'
+    show AWSCredentials, ServiceConfiguration;
 
 export 'src/amplify_class.dart';
 
@@ -73,8 +74,14 @@ export 'src/types/analytics/analytics_types.dart';
 /// API
 export 'src/types/api/api_types.dart';
 
+/// App path provider
+export 'src/types/app_path_provider/app_path_provider.dart';
+
 /// Auth
 export 'src/types/auth/auth_types.dart';
+
+/// Auth providers
+export 'src/types/common/amplify_auth_provider.dart';
 
 /// Datastore
 export 'src/types/datastore/datastore_types.dart' hide DateTimeParse;
@@ -84,6 +91,7 @@ export 'src/types/exception/amplify_already_configured_exception.dart';
 export 'src/types/exception/amplify_exception.dart';
 export 'src/types/exception/amplify_exception_messages.dart';
 export 'src/types/exception/codegen_exception.dart';
+export 'src/types/exception/configuration_error.dart';
 export 'src/types/exception/url_launcher_exception.dart';
 
 /// Model-based types used in datastore and API

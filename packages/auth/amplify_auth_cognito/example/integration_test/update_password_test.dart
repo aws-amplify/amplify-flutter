@@ -21,22 +21,25 @@ import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
+import 'utils/test_utils.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  late String username;
-  late String password;
-
   group('updatePassword', () {
+    late String username;
+    late String password;
+
     setUpAll(() async {
       await configureAuth();
     });
 
+    tearDownAll(Amplify.reset);
+
     setUp(() async {
-      // create new user for each test
       username = generateUsername();
       password = generatePassword();
+
       await adminCreateUser(
         username,
         password,
@@ -45,15 +48,16 @@ void main() {
       );
 
       await signOutUser();
-      // sign in with current password
-      await Amplify.Auth.signIn(
+
+      // Sign in with current password
+      final res = await Amplify.Auth.signIn(
         username: username,
         password: password,
       );
+      expect(res.isSignedIn, isTrue);
     });
 
-    testWidgets('should update a user\'s password',
-        (WidgetTester tester) async {
+    asyncTest("should update a user's password", (_) async {
       // change password
       final newPassword = generatePassword();
       await Amplify.Auth.updatePassword(
@@ -67,36 +71,38 @@ void main() {
         username: username,
         password: newPassword,
       );
-      expect(res.isSignedIn, true);
+      expect(res.isSignedIn, isTrue);
     });
 
-    testWidgets(
-        'should throw a NotAuthorizedException for an incorrect current password',
-        (WidgetTester tester) async {
-      // attempt to change password using an incorrect password
-      final incorrectPassword = generatePassword();
-      final newPassword = generatePassword();
-      expect(
-        Amplify.Auth.updatePassword(
-          oldPassword: incorrectPassword,
-          newPassword: newPassword,
-        ),
-        throwsA(isA<NotAuthorizedException>()),
-      );
-    });
+    asyncTest(
+      'should throw a NotAuthorizedException for an incorrect '
+      'current password',
+      (_) async {
+        final incorrectPassword = generatePassword();
+        final newPassword = generatePassword();
+        await expectLater(
+          Amplify.Auth.updatePassword(
+            oldPassword: incorrectPassword,
+            newPassword: newPassword,
+          ),
+          throwsA(isA<NotAuthorizedException>()),
+        );
+      },
+    );
 
-    testWidgets(
-        'should throw an InvalidPasswordException for a new password that doesn\'t meet password requirements',
-        (WidgetTester tester) async {
-      // attempt to change password to an invalid password
-      const invalidPassword = '123';
-      expect(
-        Amplify.Auth.updatePassword(
-          oldPassword: password,
-          newPassword: invalidPassword,
-        ),
-        throwsA(isA<InvalidPasswordException>()),
-      );
-    });
+    asyncTest(
+      'should throw an InvalidPasswordException for a new password that '
+      "doesn't meet password requirements",
+      (_) async {
+        const invalidPassword = '123';
+        await expectLater(
+          Amplify.Auth.updatePassword(
+            oldPassword: password,
+            newPassword: invalidPassword,
+          ),
+          throwsA(isA<InvalidPasswordException>()),
+        );
+      },
+    );
   });
 }

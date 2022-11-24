@@ -158,7 +158,7 @@ scripts:
       - Requires running Android and iOS simulators.
 
   test:integration:android:
-    run: melos exec -c 1 -- "$MELOS_ROOT_PATH/build-support/integ_test_android.sh" $@
+    run: melos exec -c 1 -- "$MELOS_ROOT_PATH/build-support/integ_test.sh -d sdk" $@
     description:
       Run integration tests for a single package on an Android emulator.
       - Run with `--no-select` to run for all applicable packages.

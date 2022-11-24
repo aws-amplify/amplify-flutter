@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -17,20 +17,19 @@ import Foundation
 import Amplify
 import AmplifyPlugins
 
-public class FlutterDataStoreRequestUtils {
-    
+public enum FlutterDataStoreRequestUtils {
     static func getJSONValue(_ jsonDict: [String: Any]) throws -> [String: JSONValue] {
         guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonDict) else {
             throw DataStoreError.decodingError("Unable to deserialize json data", "Check the model structure.")
         }
-        guard let jsonValue = try? JSONDecoder().decode(Dictionary<String, JSONValue>.self,
-                                                        from: jsonData) else {
+        guard let jsonValue = try? JSONDecoder().decode([String: JSONValue].self,
+                                                        from: jsonData)
+        else {
             throw DataStoreError.decodingError("Unable to decode json value", "Check the model structure.")
-
         }
         return jsonValue
     }
-    
+
     static func getModelName(methodChannelArguments: [String: Any]) throws -> String {
         guard let modelName = methodChannelArguments["modelName"] as? String else {
             throw DataStoreError.decodingError(
@@ -39,8 +38,8 @@ public class FlutterDataStoreRequestUtils {
         }
         return modelName
     }
-    
-    static func getModelSchema(modelSchemaRegistry: FlutterSchemaRegistry, modelName: String) throws ->  ModelSchema {
+
+    static func getModelSchema(modelSchemaRegistry: FlutterSchemaRegistry, modelName: String) throws -> ModelSchema {
         guard let modelSchema = modelSchemaRegistry.modelSchemas[modelName] else {
             throw DataStoreError.decodingError(
                 "Schema for \(modelName) is not registered",
@@ -50,9 +49,9 @@ public class FlutterDataStoreRequestUtils {
     }
 
     static func getCustomTypeSchema(customTypeSchemaRegistry: FlutterSchemaRegistry, modelName: String) throws -> ModelSchema {
-        return try(getModelSchema(modelSchemaRegistry: customTypeSchemaRegistry, modelName: modelName))
+        return try (getModelSchema(modelSchemaRegistry: customTypeSchemaRegistry, modelName: modelName))
     }
-    
+
     static func getSerializedModelData(methodChannelArguments: [String: Any]) throws -> [String: Any] {
         guard let serializedModelData = methodChannelArguments["serializedModel"] as? [String: Any] else {
             throw DataStoreError.decodingError(
@@ -61,7 +60,7 @@ public class FlutterDataStoreRequestUtils {
         }
         return serializedModelData
     }
-    
+
     static func getModelID(serializedModelData: [String: Any]) throws -> String {
         guard let modelID = serializedModelData["id"] as? String else {
             throw DataStoreError.decodingError(

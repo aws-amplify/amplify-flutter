@@ -11,14 +11,110 @@ For production use cases please use the latest, non-tagged versions of amplify-f
 ## Category / Platform Support (Developer Preview)
 
 | Category       | Android | iOS | Web | Windows | MacOS | Linux |
-| -------------- | ------- | --- | --- | ------- | ----- | ----- |
-| Analytics      | [ ]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
-| API (REST)     | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
-| API (GraphQL)  | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
-| Authentication | [X]     | [X] | [X] | [X]     | [X]   | [X]   |
-| DataStore      | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
-| Storage        | [X]     | [X] | [ ] | [ ]     | [ ]   | [ ]   |
+| -------------- | :-----: | :-: | :-: | :-----: | :---: | :---: |
+| Analytics      |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
+| API (REST)     |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
+| API (GraphQL)  |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
+| Authentication |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
+| DataStore      |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| Storage        |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
 
 ## Getting Started
 
 ### Visit our [Web Site](https://docs.amplify.aws/) to learn more about AWS Amplify.
+
+## Upgrade from Stable Version
+
+All Storage S3 plugin APIs now return an operation object rather than the result object. The operation object provides more control over the in-flight request, such as cancellation, pause, and resume capabilities (varies by API). The result `Future` can be retrieved via the `.result` property.
+
+### How to upgrade
+
+**Upload example**
+
+See [documentation](https://docs.amplify.aws/lib/storage/upload/q/platform/flutter/) for details API usage example.
+
+```dart
+// before
+final result = await Amplify.Storage.uploadFile(
+    local: exampleFile,
+    key: 'ExampleKey',
+);
+print('Uploaded file key: ${result.key}')
+
+// after
+final result = await Amplify.Storage.uploadFile(
+    localFile: exampleFile,
+    key: 'ExampleKey',
+).result;
+print('Uploaded file key: ${result.uploadedItem.key}');
+```
+
+**Download example**
+
+See [documentation](https://docs.amplify.aws/lib/storage/download/q/platform/flutter/) for details API usage example.
+
+```dart
+// before
+final result = await Amplify.Storage.downloadFile(
+  key: 'ExampleKey',
+  local: file,
+);
+print('Downloaded local file path: ${result.file.path}')
+
+
+// after
+final result = await Amplify.Storage.downloadFile(
+  key: 'ExampleKey',
+  localFile: file,
+).result;
+print('Downloaded file key: ${result.downloadedItem.key}');
+print('Downloaded local file path: ${result.localFile.path}');
+```
+
+**List example**
+
+See [documentation](https://docs.amplify.aws/lib/storage/list/q/platform/flutter/) for details API usage example.
+
+```dart
+// before
+final result = await Amplify.Storage.list();
+print('Listed items: ${result.items}');
+
+// after
+final result = await Amplify.Storage.list().result;
+print('Listed items: ${result.items}');
+print('Are there more items can be listed? ${result.hasNextPage}');
+print('List nextToken: ${result.nextToken}');
+```
+
+**Remove example**
+
+See [documentation](https://docs.amplify.aws/lib/storage/remove/q/platform/flutter/) for details API usage example.
+
+```dart
+// before
+final result = await Amplify.Storage.remove(
+  key: key,
+);
+print('Removed file key: ${result.key}');
+
+// after
+final result = await Amplify.Storage.remove(
+  key: key,
+).result;
+print('Removed file key: ${result.removedItem.key}');
+```
+
+**Get URL example**
+
+See [documentation](https://docs.amplify.aws/lib/storage/download/q/platform/flutter/#generate-a-download-url) for details API usage example.
+
+```dart
+// before
+final result = await Amplify.Storage.getUrl(key: 'ExampleKey');
+print('Got url: ${result.url}');
+
+// after
+final result = await Amplify.Storage.getUrl(key: 'ExampleKey').result;
+print('Got url: ${result.url.toString()}');
+```

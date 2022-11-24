@@ -34,15 +34,21 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
     );
     await Future.wait(
       [
+        ...API.plugins,
         ...Auth.plugins,
-      ].map((p) => p.configure(config: amplifyConfig)),
+        ...Analytics.plugins,
+        ...Storage.plugins,
+        ...DataStore.plugins,
+      ].map(
+        (p) => p.configure(
+          config: amplifyConfig,
+          authProviderRepo: authProviderRepo,
+        ),
+      ),
       eagerError: true,
     );
     await _methodChannelAmplify.configurePlatform(config);
   }
-
-  @override
-  Future<void> reset() async {}
 
   @override
   Future<void> addPlugin(AmplifyPluginInterface plugin) async {
@@ -55,15 +61,27 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
     }
     try {
       if (plugin is AuthPluginInterface) {
-        await Auth.addPlugin(plugin);
+        await Auth.addPlugin(
+          plugin,
+          authProviderRepo: authProviderRepo,
+        );
       } else if (plugin is AnalyticsPluginInterface) {
-        await Analytics.addPlugin(plugin);
+        await Analytics.addPlugin(
+          plugin,
+          authProviderRepo: authProviderRepo,
+        );
       } else if (plugin is StoragePluginInterface) {
-        await Storage.addPlugin(plugin);
+        await Storage.addPlugin(
+          plugin,
+          authProviderRepo: authProviderRepo,
+        );
       } else if (plugin is DataStorePluginInterface) {
-        await DataStore.addPlugin(plugin);
+        await DataStore.addPlugin(
+          plugin,
+          authProviderRepo: authProviderRepo,
+        );
       } else if (plugin is APIPluginInterface) {
-        await API.addPlugin(plugin);
+        await API.addPlugin(plugin, authProviderRepo: authProviderRepo);
       } else {
         throw AmplifyException(
           'The type of plugin ${plugin.runtimeType} is not yet supported '

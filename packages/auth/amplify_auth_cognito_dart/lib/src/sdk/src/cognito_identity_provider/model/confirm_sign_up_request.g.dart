@@ -12,15 +12,15 @@ class _$ConfirmSignUpRequest extends ConfirmSignUpRequest {
   @override
   final String clientId;
   @override
-  final _i4.BuiltMap<String, String>? clientMetadata;
+  final _i5.BuiltMap<String, String>? clientMetadata;
   @override
   final String confirmationCode;
   @override
-  final bool? forceAliasCreation;
+  final bool forceAliasCreation;
   @override
   final String? secretHash;
   @override
-  final _i5.UserContextDataType? userContextData;
+  final _i4.UserContextDataType? userContextData;
   @override
   final String username;
 
@@ -33,7 +33,7 @@ class _$ConfirmSignUpRequest extends ConfirmSignUpRequest {
       required this.clientId,
       this.clientMetadata,
       required this.confirmationCode,
-      this.forceAliasCreation,
+      required this.forceAliasCreation,
       this.secretHash,
       this.userContextData,
       required this.username})
@@ -42,6 +42,8 @@ class _$ConfirmSignUpRequest extends ConfirmSignUpRequest {
         clientId, r'ConfirmSignUpRequest', 'clientId');
     BuiltValueNullFieldError.checkNotNull(
         confirmationCode, r'ConfirmSignUpRequest', 'confirmationCode');
+    BuiltValueNullFieldError.checkNotNull(
+        forceAliasCreation, r'ConfirmSignUpRequest', 'forceAliasCreation');
     BuiltValueNullFieldError.checkNotNull(
         username, r'ConfirmSignUpRequest', 'username');
   }
@@ -102,10 +104,10 @@ class ConfirmSignUpRequestBuilder
   String? get clientId => _$this._clientId;
   set clientId(String? clientId) => _$this._clientId = clientId;
 
-  _i4.MapBuilder<String, String>? _clientMetadata;
-  _i4.MapBuilder<String, String> get clientMetadata =>
-      _$this._clientMetadata ??= new _i4.MapBuilder<String, String>();
-  set clientMetadata(_i4.MapBuilder<String, String>? clientMetadata) =>
+  _i5.MapBuilder<String, String>? _clientMetadata;
+  _i5.MapBuilder<String, String> get clientMetadata =>
+      _$this._clientMetadata ??= new _i5.MapBuilder<String, String>();
+  set clientMetadata(_i5.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
   String? _confirmationCode;
@@ -122,10 +124,10 @@ class ConfirmSignUpRequestBuilder
   String? get secretHash => _$this._secretHash;
   set secretHash(String? secretHash) => _$this._secretHash = secretHash;
 
-  _i5.UserContextDataTypeBuilder? _userContextData;
-  _i5.UserContextDataTypeBuilder get userContextData =>
-      _$this._userContextData ??= new _i5.UserContextDataTypeBuilder();
-  set userContextData(_i5.UserContextDataTypeBuilder? userContextData) =>
+  _i4.UserContextDataTypeBuilder? _userContextData;
+  _i4.UserContextDataTypeBuilder get userContextData =>
+      _$this._userContextData ??= new _i4.UserContextDataTypeBuilder();
+  set userContextData(_i4.UserContextDataTypeBuilder? userContextData) =>
       _$this._userContextData = userContextData;
 
   String? _username;
@@ -179,7 +181,10 @@ class ConfirmSignUpRequestBuilder
                   confirmationCode,
                   r'ConfirmSignUpRequest',
                   'confirmationCode'),
-              forceAliasCreation: forceAliasCreation,
+              forceAliasCreation: BuiltValueNullFieldError.checkNotNull(
+                  forceAliasCreation,
+                  r'ConfirmSignUpRequest',
+                  'forceAliasCreation'),
               secretHash: secretHash,
               userContextData: _userContextData?.build(),
               username: BuiltValueNullFieldError.checkNotNull(

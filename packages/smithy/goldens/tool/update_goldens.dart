@@ -20,38 +20,48 @@ import 'package:file/local.dart';
 import 'package:glob/glob.dart';
 import 'package:path/path.dart' as path;
 import 'package:pubspec_parse/pubspec_parse.dart';
-import 'package:smithy/smithy.dart';
+import 'package:smithy/ast.dart';
 import 'package:smithy_codegen/smithy_codegen.dart';
 
-const modelsDir = 'models';
-final modelsPath = path.join(Directory.current.path, modelsDir);
+final modelsPath = {
+  SmithyVersion.v1: path.join(Directory.current.path, 'models'),
+  SmithyVersion.v2: path.join(Directory.current.path, 'models2'),
+};
 const skipProtocols = [
   'shared',
 ];
 
 Future<void> main(List<String> args) async {
   final glob = Glob(args.length == 1 ? args[0] : '*');
-  final entites = glob.listFileSystemSync(
-    const LocalFileSystem(),
-    root: modelsPath,
-  );
   final futures = <Future>[];
-  for (var modelEnt in entites) {
-    if (modelEnt is! Directory) {
-      continue;
+  for (final version in SmithyVersion.values) {
+    final entites = glob.listFileSystemSync(
+      const LocalFileSystem(),
+      root: modelsPath[version],
+    );
+    for (var modelEnt in entites) {
+      if (modelEnt is! Directory) {
+        continue;
+      }
+      futures.add(_generateFor(version, modelEnt));
     }
-    futures.add(_generateFor(modelEnt));
   }
   await Future.wait<void>(futures);
 }
 
-Future<void> _generateFor(FileSystemEntity modelEnt) async {
-  final modelPath = path.relative(modelEnt.path);
+Future<void> _generateFor(
+  SmithyVersion version,
+  FileSystemEntity modelEnt,
+) async {
+  final modelPath = path.relative(modelEnt.path, from: modelsPath[version]);
   final protocolName = path.basename(modelPath);
   if (skipProtocols.contains(protocolName)) {
     return;
   }
-  final outputPath = path.join('lib', protocolName);
+  final outputPath = path.join(
+    version == SmithyVersion.v1 ? 'lib' : 'lib2',
+    protocolName,
+  );
   final dir = Directory(outputPath);
   if (dir.existsSync()) {
     dir.deleteSync(recursive: true);
@@ -70,13 +80,13 @@ Future<void> _generateFor(FileSystemEntity modelEnt) async {
         'run',
         '--rm',
         '-v',
-        '$modelsPath:/home/$modelsDir',
-        'smithy',
+        '${modelsPath[version]}:/home/models',
+        version == SmithyVersion.v1 ? 'smithy:1' : 'smithy:2',
         'ast',
         '-d',
         '/smithy/lib/traits',
-        '/home/$modelsDir/shared',
-        '/home/$modelPath',
+        '/home/models/shared',
+        '/home/models/$modelPath',
       ],
       stdoutEncoding: utf8,
       stderrEncoding: utf8,
@@ -90,7 +100,7 @@ Future<void> _generateFor(FileSystemEntity modelEnt) async {
     astJson = result.stdout as String;
   }
 
-  final packageName = protocolName.snakeCase;
+  final packageName = '${protocolName.snakeCase}_${version.name}';
   final ast = parseAstJson(astJson);
 
   final libraries = generateForAst(
@@ -136,39 +146,13 @@ analyzer:
 ''');
 
   // Create mono_pkg for testing
-  final monoPkgPath = path.join(outputPath, 'mono_pkg.yaml');
   final dartTestPath = path.join(outputPath, 'dart_test.yaml');
-  final monoPkg = StringBuffer('''
-sdk:
-  - stable
-  - dev
-
-stages:
-  - analyze_and_format:
-      - group:
-          - format
-          - analyze: --fatal-infos .
-''');
-  if (Directory(path.join(outputPath, 'test')).existsSync()) {
-    monoPkg.write('''
-  - unit_test:
-      - test:
-        os:
-          - linux
-          - macos
-          - windows
-      - test: -p chrome
-      - test: -p firefox
-''');
-
-    File(dartTestPath).writeAsStringSync('''
+  File(dartTestPath).writeAsStringSync('''
 override_platforms:
   firefox:
     settings:
       arguments: -headless
 ''');
-  }
-  File(monoPkgPath).writeAsStringSync(monoPkg.toString());
 
   // Run `dart pub get`
   final pubGetRes = await Process.run(

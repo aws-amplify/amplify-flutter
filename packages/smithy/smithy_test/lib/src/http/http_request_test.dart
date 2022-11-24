@@ -47,11 +47,13 @@ Future<void> httpRequestTest<InputPayload, Input, OutputPayload, Output>({
         testCase.params,
         specifiedType: FullType(Input),
       ) as Input;
-      final request = await operation.createRequest(
-        operation.buildRequest(input),
-        protocol,
-        input,
-      );
+      final request = await operation
+          .createRequest(
+            operation.buildRequest(input),
+            protocol,
+            input,
+          )
+          .transformRequest();
 
       // The request-target of the HTTP request, not including the query string
       // (for example, "/foo/bar").

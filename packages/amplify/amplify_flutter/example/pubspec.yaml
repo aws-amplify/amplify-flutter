@@ -22,10 +22,6 @@ dependencies:
     sdk: flutter
 
 dependency_overrides:
-  amplify_analytics_pinpoint_android:
-    path: ../../../analytics/amplify_analytics_pinpoint_android
-  amplify_analytics_pinpoint_ios:
-    path: ../../../analytics/amplify_analytics_pinpoint_ios
   amplify_api_android:
     path: ../../../api/amplify_api_android
   amplify_api_ios:
@@ -46,10 +42,6 @@ dependency_overrides:
     path: ../../../secure_storage/amplify_secure_storage
   amplify_secure_storage_dart:
     path: ../../../secure_storage/amplify_secure_storage_dart
-  amplify_storage_s3_android:
-    path: ../../../storage/amplify_storage_s3_android
-  amplify_storage_s3_ios:
-    path: ../../../storage/amplify_storage_s3_ios
   aws_common:
     path: ../../../aws_common
   aws_signature_v4:

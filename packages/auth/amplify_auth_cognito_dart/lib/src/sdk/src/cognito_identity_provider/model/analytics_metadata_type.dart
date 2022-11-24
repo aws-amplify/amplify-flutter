@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Generated with smithy-dart 0.1.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.2.0. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.analytics_metadata_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -59,7 +59,10 @@ abstract class AnalyticsMetadataType
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AnalyticsMetadataType');
-    helper.add('analyticsEndpointId', analyticsEndpointId);
+    helper.add(
+      'analyticsEndpointId',
+      analyticsEndpointId,
+    );
     return helper.toString();
   }
 }
@@ -70,15 +73,23 @@ class AnalyticsMetadataTypeAwsJson11Serializer
       : super('AnalyticsMetadataType');
 
   @override
-  Iterable<Type> get types =>
-      const [AnalyticsMetadataType, _$AnalyticsMetadataType];
+  Iterable<Type> get types => const [
+        AnalyticsMetadataType,
+        _$AnalyticsMetadataType,
+      ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols =>
-      const [_i2.ShapeId(namespace: 'aws.protocols', shape: 'awsJson1_1')];
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsJson1_1',
+        )
+      ];
   @override
   AnalyticsMetadataType deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = AnalyticsMetadataTypeBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -88,8 +99,10 @@ class AnalyticsMetadataTypeAwsJson11Serializer
       switch (key) {
         case 'AnalyticsEndpointId':
           if (value != null) {
-            result.analyticsEndpointId = (serializers.deserialize(value,
-                specifiedType: const FullType(String)) as String);
+            result.analyticsEndpointId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -99,15 +112,20 @@ class AnalyticsMetadataTypeAwsJson11Serializer
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Object? object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final payload = (object as AnalyticsMetadataType);
     final result = <Object?>[];
     if (payload.analyticsEndpointId != null) {
       result
         ..add('AnalyticsEndpointId')
-        ..add(serializers.serialize(payload.analyticsEndpointId!,
-            specifiedType: const FullType(String)));
+        ..add(serializers.serialize(
+          payload.analyticsEndpointId!,
+          specifiedType: const FullType(String),
+        ));
     }
     return result;
   }

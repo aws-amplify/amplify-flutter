@@ -12,53 +12,52 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:smithy/smithy.dart';
+import 'package:aws_common/aws_common.dart';
 
-/// An operation which belongs to a service.
-///
-/// See:
-/// - [HttpOperation]
-abstract class Operation<Input, Output> {
-  const Operation();
+/// {@template smithy.smithy_operation}
+/// An operation run against a service with progress monitoring support.
+/// {@endtemplate}
+class SmithyOperation<Output> extends AWSOperation<Output>
+    with AWSProgressOperation<Output> {
+  /// {@macro smithy.smithy_operation}
+  SmithyOperation(
+    super.operation, {
+    required String operationName,
+    required this.requestProgress,
+    required this.responseProgress,
+    super.onCancel,
+  }) : runtimeTypeName = operationName;
 
-  /// Runs the operation for [input].
+  @override
+  AWSLogger get logger => AWSLogger().createChild(runtimeTypeName);
+
+  /// The result of [operation].
   ///
-  /// Specifying [client] or [useProtocol] overrides the default for the
-  /// operation.
-  Future<Output> run(
-    Input input, {
-    covariant Client? client,
-    ShapeId? useProtocol,
-  });
+  /// If [operation] is canceled before completing, this throws a
+  /// [CancellationException].
+  Future<Output> get result async {
+    final result = await operation.valueOrCancellation();
+    if (result is! Output || operation.isCanceled) {
+      throw CancellationException(id);
+    }
+    return result;
+  }
 
-  /// The error types of the operation.
-  List<SmithyError> get errorTypes;
+  @override
+  final Stream<int> requestProgress;
+
+  @override
+  final Stream<int> responseProgress;
+
+  @override
+  final String runtimeTypeName;
 }
 
 /// A constructor of [Output] from [T].
 ///
 /// See:
-/// - [StreamingResponseContructor]
-/// - [RawResponseConstructor]
 /// - [JsonConstructor]
 typedef Constructor<T extends Object?, Output> = Output Function(T);
 
-/// A constructor of [Output] from a stream of [T] events.
-typedef StreamingResponseContructor<T extends Object?, Output> = Output
-    Function(Stream<T>);
-
-/// A constructor of [Output] from [T].
-typedef RawResponseConstructor<T extends Object?, Output> = Output Function(T);
-
-/// A constructor of [Output] a JSON map, typically [Output.fromJson].
-typedef JsonConstructor<Output> = Output Function(Map<String, Object?>);
-
-/// Applies pagination to an operation.
-///
-/// See: https://awslabs.github.io/smithy/1.0/spec/core/behavior-traits.html#paginated-trait
-mixin PaginatedOperation<Input, Output> on Operation<Input, Output> {
-  String? inputToken(Input input);
-  String? outputToken(Output output);
-  Object /* List|Map */ items(Output output);
-  int? pageSize(Input input);
-}
+/// A constructor of [Output] from a JSON map.
+typedef JsonConstructor<Output> = Constructor<Map<String, Object?>, Output>;

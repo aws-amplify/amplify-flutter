@@ -8,13 +8,17 @@ part of amplify_auth_cognito_dart.cognito_identity_provider.model.confirm_device
 
 class _$ConfirmDeviceResponse extends ConfirmDeviceResponse {
   @override
-  final bool? userConfirmationNecessary;
+  final bool userConfirmationNecessary;
 
   factory _$ConfirmDeviceResponse(
           [void Function(ConfirmDeviceResponseBuilder)? updates]) =>
       (new ConfirmDeviceResponseBuilder()..update(updates))._build();
 
-  _$ConfirmDeviceResponse._({this.userConfirmationNecessary}) : super._();
+  _$ConfirmDeviceResponse._({required this.userConfirmationNecessary})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(userConfirmationNecessary,
+        r'ConfirmDeviceResponse', 'userConfirmationNecessary');
+  }
 
   @override
   ConfirmDeviceResponse rebuild(
@@ -77,7 +81,10 @@ class ConfirmDeviceResponseBuilder
   _$ConfirmDeviceResponse _build() {
     final _$result = _$v ??
         new _$ConfirmDeviceResponse._(
-            userConfirmationNecessary: userConfirmationNecessary);
+            userConfirmationNecessary: BuiltValueNullFieldError.checkNotNull(
+                userConfirmationNecessary,
+                r'ConfirmDeviceResponse',
+                'userConfirmationNecessary'));
     replace(_$result);
     return _$result;
   }

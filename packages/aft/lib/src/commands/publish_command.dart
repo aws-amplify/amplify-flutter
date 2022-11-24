@@ -16,7 +16,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
-import 'package:aft/src/util.dart';
 import 'package:cli_util/cli_logging.dart';
 import 'package:graphs/graphs.dart';
 import 'package:pub_semver/pub_semver.dart';

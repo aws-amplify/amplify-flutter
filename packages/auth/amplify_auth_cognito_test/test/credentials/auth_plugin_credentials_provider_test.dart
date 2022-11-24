@@ -28,27 +28,43 @@ import '../common/mock_secure_storage.dart';
 
 class MockCognitoIdentity extends Fake implements CognitoIdentityClient {
   @override
-  Future<GetCredentialsForIdentityResponse> getCredentialsForIdentity(
+  SmithyOperation<GetCredentialsForIdentityResponse> getCredentialsForIdentity(
     GetCredentialsForIdentityInput input, {
-    HttpClient? client,
-  }) async {
-    return GetCredentialsForIdentityResponse(
-      credentials: Credentials(
-        accessKeyId: accessKeyId,
-        secretKey: secretAccessKey,
-        sessionToken: sessionToken,
-        expiration: expiration,
+    AWSHttpClient? client,
+  }) {
+    return SmithyOperation(
+      CancelableOperation.fromFuture(
+        Future.value(
+          GetCredentialsForIdentityResponse(
+            credentials: Credentials(
+              accessKeyId: accessKeyId,
+              secretKey: secretAccessKey,
+              sessionToken: sessionToken,
+              expiration: expiration,
+            ),
+            identityId: identityId,
+          ),
+        ),
       ),
-      identityId: identityId,
+      operationName: 'GetCredentialsForIdentity',
+      requestProgress: const Stream.empty(),
+      responseProgress: const Stream.empty(),
     );
   }
 
   @override
-  Future<GetIdResponse> getId(
+  SmithyOperation<GetIdResponse> getId(
     GetIdInput input, {
-    HttpClient? client,
-  }) async {
-    return GetIdResponse(identityId: identityId);
+    AWSHttpClient? client,
+  }) {
+    return SmithyOperation(
+      CancelableOperation.fromFuture(
+        Future.value(GetIdResponse(identityId: identityId)),
+      ),
+      operationName: 'GetId',
+      requestProgress: const Stream.empty(),
+      responseProgress: const Stream.empty(),
+    );
   }
 }
 

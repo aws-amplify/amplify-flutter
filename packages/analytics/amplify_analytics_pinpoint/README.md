@@ -10,6 +10,17 @@ For production use cases please use the latest, non-tagged versions of amplify-f
 
 Please note that the Analytics category is only available on iOS in the developer preview release.
 
+## Category / Platform Support (Developer Preview)
+
+| Category       | Android | iOS | Web | Windows | MacOS | Linux |
+| -------------- | :-----: | :-: | :-: | :-----: | :---: | :---: |
+| Analytics      |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
+| API (REST)     |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
+| API (GraphQL)  |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
+| Authentication |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
+| DataStore      |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| Storage        |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
+
 ## Getting Started
 
 ### Visit our [Web Site](https://docs.amplify.aws/) to learn more about AWS Amplify.

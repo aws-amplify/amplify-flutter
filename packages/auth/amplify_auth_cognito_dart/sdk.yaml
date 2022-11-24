@@ -1,5 +1,5 @@
 apis:
-  cognito-identity-provider:
+  cognito-idp:
   - com.amazonaws.cognitoidentityprovider#AssociateSoftwareToken
   - com.amazonaws.cognitoidentityprovider#ChangePassword
   - com.amazonaws.cognitoidentityprovider#ConfirmDevice

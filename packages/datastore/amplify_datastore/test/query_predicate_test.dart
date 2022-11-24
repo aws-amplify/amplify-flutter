@@ -18,8 +18,7 @@ import 'dart:io';
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'test_models/ModelProvider.dart';
+import 'package:amplify_test/test_models/ModelProvider.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -122,6 +121,69 @@ void main() {
 
       expect(testPredicate.serializeAsMap(),
           await getJsonFromFile('temporal_predicate.json'));
+    });
+
+    test('when query by model identifier with eq()', () async {
+      final testPredicate = Inventory.MODEL_IDENTIFIER.eq(
+        InventoryModelIdentifier(
+          productID: 'product-id',
+          name: 'product-name',
+          warehouseID: 'warehouse-id',
+          region: 'some region',
+        ),
+      );
+
+      final serialized = testPredicate.serializeAsMap();
+      expect(serialized, await getJsonFromFile('model_identifier_equals.json'));
+    });
+
+    test('when query by model identifier with ne()', () async {
+      final testPredicate = Inventory.MODEL_IDENTIFIER.ne(
+        InventoryModelIdentifier(
+          productID: 'product-id',
+          name: 'product-name',
+          warehouseID: 'warehouse-id',
+          region: 'some region',
+        ),
+      );
+
+      final serialized = testPredicate.serializeAsMap();
+      expect(serialized,
+          await getJsonFromFile('model_identifier_not_equals.json'));
+    });
+
+    test('when query by model identifier with not(eq())', () async {
+      final testPredicate = not(
+        Inventory.MODEL_IDENTIFIER.eq(
+          InventoryModelIdentifier(
+            productID: 'product-id',
+            name: 'product-name',
+            warehouseID: 'warehouse-id',
+            region: 'some region',
+          ),
+        ),
+      );
+
+      final serialized = testPredicate.serializeAsMap();
+      expect(serialized,
+          await getJsonFromFile('model_identifier_group_not_equals.json'));
+    });
+
+    test('when query by model identifier with not(ne())', () async {
+      final testPredicate = not(
+        Inventory.MODEL_IDENTIFIER.ne(
+          InventoryModelIdentifier(
+            productID: 'product-id',
+            name: 'product-name',
+            warehouseID: 'warehouse-id',
+            region: 'some region',
+          ),
+        ),
+      );
+
+      final serialized = testPredicate.serializeAsMap();
+      expect(serialized,
+          await getJsonFromFile('model_identifier_group_equals.json'));
     });
   });
 
@@ -275,4 +337,6 @@ void main() {
       });
     });
   });
+
+  group("query by model identifier predicate", () {});
 }

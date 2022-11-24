@@ -50,7 +50,7 @@ abstract class AmplifyClass {
   /// The Amplify event hub.
   final AmplifyHub Hub = AmplifyHub();
 
-  final _configCompleter = Completer<AmplifyConfig>();
+  var _configCompleter = Completer<AmplifyConfig>();
 
   /// Adds one plugin at a time. Note: this method can only
   /// be called before Amplify has been configured. Customers are expected
@@ -90,21 +90,43 @@ abstract class AmplifyClass {
       );
     }
 
-    final AmplifyConfig amplifyConfig;
+    late AmplifyConfig amplifyConfig;
     try {
-      final json = jsonDecode(configuration) as Map;
-      amplifyConfig = AmplifyConfig.fromJson(json.cast());
-    } on FormatException catch (e) {
-      throw AmplifyException(
-        'The provided configuration is not a valid json. Check underlyingException.',
-        recoverySuggestion:
-            'Inspect your amplifyconfiguration.dart and ensure that the string is proper json',
-        underlyingException: e,
-      );
+      try {
+        final json = jsonDecode(configuration) as Map;
+        amplifyConfig = AmplifyConfig.fromJson(json.cast());
+      } on Object {
+        throw ConfigurationError(
+          'The provided configuration is not a valid json. '
+          'Check underlyingException.',
+          recoverySuggestion:
+              'Inspect your amplifyconfiguration.dart and ensure that '
+              'the string is proper json',
+        );
+      }
+      await configurePlatform(configuration);
+      _configCompleter.complete(amplifyConfig);
+    } on ConfigurationError catch (e, st) {
+      // Complete with the configuration error and reset the completer so
+      // that 1) `configure` can be called again and 2) listeners registered
+      // on `asyncConfig` are notified of the error so they can handle it as
+      // appropriate. For example, the Authenticator listens for `asyncConfig`
+      // to complete before updating the UI.
+      _configCompleter.completeError(e, st);
+      rethrow;
+    } on Object {
+      // At this point, configuration is complete in the sense that the
+      // configuration file has been validated and plugins have had their
+      // `configure` methods run with no `ConfigurationException`s.
+      //
+      // Any other errors which occur during plugin configuration should be
+      // handled by the developer, but since they are unrelated to
+      // configuration, listeners to `Amplify.asyncConfig` should be allowed to
+      // proceed with the validated configuration.
+      _configCompleter.complete(amplifyConfig);
+      _configCompleter = Completer();
+      rethrow;
     }
-
-    await configurePlatform(configuration);
-    _configCompleter.complete(amplifyConfig);
   }
 
   /// Configures the platform-specific implementation of Amplify using the
@@ -123,12 +145,15 @@ abstract class AmplifyClass {
   static AmplifyClass? instance;
 
   /// The library version.
-  String get version => '1.0.0-next.0';
+  String get version => '1.0.0-next.1';
 
   /// Resets the Amplify implementation, removing all traces of Amplify from
   /// the device.
   @visibleForTesting
-  Future<void> reset();
+  @mustCallSuper
+  Future<void> reset() async {
+    _configCompleter = Completer();
+  }
 }
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_getters_setters

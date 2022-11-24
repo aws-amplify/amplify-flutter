@@ -21,12 +21,16 @@ import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
+import 'utils/test_utils.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  group('signIn', () {
+
+  group('signIn (SRP)', () {
     late String username;
     late String password;
+
+    tearDownAll(Amplify.reset);
 
     setUp(() async {
       await configureAuth();
@@ -45,57 +49,124 @@ void main() {
       await signOutUser();
     });
 
-    testWidgets('should signIn a user', (WidgetTester tester) async {
-      final res =
-          await Amplify.Auth.signIn(username: username, password: password);
+    asyncTest('should signIn a user', (_) async {
+      final res = await Amplify.Auth.signIn(
+        username: username,
+        password: password,
+      );
       expect(res.isSignedIn, true);
     });
 
-    testWidgets(
-        'should throw a NotAuthorizedException with an incorrect password',
-        (WidgetTester tester) async {
-      final incorrectPassword = generatePassword();
-      expect(
-        Amplify.Auth.signIn(
-          username: username,
-          password: incorrectPassword,
-        ),
-        throwsA(isA<NotAuthorizedException>()),
-      );
-    });
+    asyncTest(
+      'should throw a NotAuthorizedException with an incorrect password',
+      (_) async {
+        final incorrectPassword = generatePassword();
+        await expectLater(
+          Amplify.Auth.signIn(
+            username: username,
+            password: incorrectPassword,
+          ),
+          throwsA(isA<NotAuthorizedException>()),
+        );
+      },
+    );
 
-    testWidgets(
-        'should throw an NotAuthorizedException if a password is not provided and Custom Auth is not configured without SRP',
-        (WidgetTester tester) async {
-      expect(
-        Amplify.Auth.signIn(username: username),
-        throwsA(isA<NotAuthorizedException>()),
-      );
-    });
+    asyncTest(
+      'should throw an InvalidParameterException if a password is not provided '
+      'and Custom Auth is not configured',
+      (_) async {
+        await expectLater(
+          Amplify.Auth.signIn(username: username),
+          throwsA(isA<InvalidParameterException>()),
+        );
+      },
+    );
 
-    testWidgets('should throw a UserNotFoundException with a non-existent user',
-        (WidgetTester tester) async {
-      final incorrectUsername = generateUsername();
-      expect(
-        Amplify.Auth.signIn(username: incorrectUsername, password: password),
-        throwsA(isA<UserNotFoundException>()),
-      );
-    });
+    asyncTest(
+      'should throw a UserNotFoundException with a non-existent user',
+      (_) async {
+        final incorrectUsername = generateUsername();
+        await expectLater(
+          Amplify.Auth.signIn(
+            username: incorrectUsername,
+            password: password,
+          ),
+          throwsA(isA<UserNotFoundException>()),
+        );
+      },
+    );
 
-    testWidgets('additionalInfo should be null', (WidgetTester tester) async {
-      final result =
-          await Amplify.Auth.signIn(username: username, password: password);
+    asyncTest('additionalInfo should be null for SRP sign-in', (_) async {
+      final result = await Amplify.Auth.signIn(
+        username: username,
+        password: password,
+      );
       expect(result.nextStep?.additionalInfo, isNull);
+    });
+
+    asyncTest('identity ID should be the same between sessions', (_) async {
+      // Get unauthenticated identity
+      final unauthSession = await Amplify.Auth.fetchAuthSession(
+        options: const CognitoSessionOptions(getAWSCredentials: true),
+      ) as CognitoAuthSession;
+
+      // Sign in
+      {
+        final signInRes = await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+        );
+        expect(signInRes.nextStep?.signInStep, 'DONE');
+      }
+
+      // Get authenticated identity
+      final authSession = await Amplify.Auth.fetchAuthSession(
+        options: const CognitoSessionOptions(getAWSCredentials: true),
+      ) as CognitoAuthSession;
+      final authenticatedIdentity = authSession.identityId;
+      expect(
+        authenticatedIdentity,
+        isNot(unauthSession.identityId),
+        reason:
+            'Unauthenticated identities should be distinct from authenticated '
+            'identities, since unauthenticated identities are vended to all '
+            'new devices when guest access is enabled but should converge to '
+            'a singular authenticated identity across all devices',
+      );
+      expect(authSession.credentials, isNot(unauthSession.credentials));
+
+      await Amplify.Auth.signOut();
+      {
+        final signInRes = await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+        );
+        expect(signInRes.nextStep?.signInStep, 'DONE');
+      }
+
+      final newSession = await Amplify.Auth.fetchAuthSession(
+        options: const CognitoSessionOptions(getAWSCredentials: true),
+      ) as CognitoAuthSession;
+      expect(
+        newSession.identityId,
+        authenticatedIdentity,
+        reason: 'Authenticated identity should be the same between sessions',
+      );
     });
   });
 
   group('signOut', () {
-    setUp(() async {
+    setUpAll(() async {
       await configureAuth();
+    });
+
+    setUp(() async {
       await signOutUser();
     });
 
-    testWidgets('should sign a user out', (WidgetTester tester) async {
+    tearDownAll(Amplify.reset);
+
+    asyncTest('should sign a user out', (_) async {
       final username = generateUsername();
       final password = generatePassword();
 
@@ -106,25 +177,22 @@ void main() {
         verifyAttributes: true,
       );
 
-      // Ensure signed in before testing signOut.
       await Amplify.Auth.signIn(username: username, password: password);
       final authSession = await Amplify.Auth.fetchAuthSession();
       expect(authSession.isSignedIn, isTrue);
 
-      // assert user is signed out after calling signOut
       await Amplify.Auth.signOut();
       final finalAuthSession = await Amplify.Auth.fetchAuthSession();
       expect(finalAuthSession.isSignedIn, isFalse);
     });
 
-    testWidgets('should not throw even if there is no user to sign out',
-        (WidgetTester tester) async {
-      // ensure that no user is currently logged in
-      final authSession = await Amplify.Auth.fetchAuthSession();
-      expect(authSession.isSignedIn, isFalse);
-
-      // call signOut without an expectation for an exception
-      await Amplify.Auth.signOut();
-    });
+    asyncTest(
+      'should not throw even if there is no user to sign out',
+      (_) async {
+        final authSession = await Amplify.Auth.fetchAuthSession();
+        expect(authSession.isSignedIn, isFalse);
+        await expectLater(Amplify.Auth.signOut(), completes);
+      },
+    );
   });
 }
