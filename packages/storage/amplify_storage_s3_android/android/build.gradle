@@ -27,7 +27,6 @@ rootProject.allprojects {
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply from: './coverage.gradle'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
 def amplifyCore = findProject(':amplify_core')
@@ -51,11 +50,6 @@ android {
         checkTestSources true
         xmlReport false
         htmlReport false
-    }
-    buildTypes {
-        debug {
-            testCoverageEnabled = true
-        }
     }
 }
 

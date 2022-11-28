@@ -27,7 +27,6 @@ rootProject.allprojects {
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply from: './coverage.gradle'
 
 android {
     compileSdkVersion 31
@@ -59,11 +58,6 @@ android {
         unitTests {
             includeAndroidResources = true
             returnDefaultValues = true
-        }
-    }
-    buildTypes {
-        debug {
-            testCoverageEnabled = true
         }
     }
 }
