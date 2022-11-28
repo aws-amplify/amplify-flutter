@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.method_not_allowed_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
