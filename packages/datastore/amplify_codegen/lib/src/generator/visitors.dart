@@ -103,7 +103,8 @@ class LibraryVisitor extends SimpleVisitor<GeneratedLibrary> {
 
   @override
   GeneratedLibrary visitObjectTypeDefinitionNode(
-      ObjectTypeDefinitionNode node) {
+    ObjectTypeDefinitionNode node,
+  ) {
     final definition =
         schema.typeDefinitions[node.name.value] as StructureTypeDefinition;
     if (definition is ModelTypeDefinition) {

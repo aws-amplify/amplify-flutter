@@ -362,7 +362,7 @@ abstract class Post extends PartialPost implements Model<String, Post> {
         'blogPostsId': {
           'name': 'blogPostsId',
           'type': {'scalar': 'ID'},
-          'isReadOnly': false,
+          'isReadOnly': true,
           'authRules': [],
         },
       },
@@ -445,7 +445,7 @@ abstract class Post extends PartialPost implements Model<String, Post> {
     return _Post._(
       id: id ?? this.id,
       title: title ?? this.title,
-      blog: blog == null ? this.blog : AsyncModel.fromModel(blog),
+      blog: blog ?? this.blog,
       comments: comments == null
           ? this.comments
           : AsyncModelCollection.fromList(comments),

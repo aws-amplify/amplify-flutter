@@ -118,7 +118,7 @@ abstract class PartialComment7V2 extends PartialModel<String, Comment7V2>
 
   String get id;
   String? get content;
-  AsyncModel<String, Post7V2, PartialPost7V2, PartialPost7V2>? get post;
+  PartialPost7V2? get post;
   TemporalDateTime? get createdAt;
   TemporalDateTime? get updatedAt;
   String? get post7V2CommentsId;
@@ -170,13 +170,6 @@ class _PartialComment7V2 extends PartialComment7V2 {
         : (json['id'] as String);
     final content =
         json['content'] == null ? null : (json['content'] as String);
-    final post = json['post'] == null
-        ? null
-        : AsyncModel<String, Post7V2, PartialPost7V2, PartialPost7V2>.fromModel(
-            Post7V2.classType.fromJson<PartialPost7V2>(
-              (json['post'] as Map<String, Object?>),
-            ),
-          );
     final createdAt = json['createdAt'] == null
         ? null
         : TemporalDateTime.fromString((json['createdAt'] as String));
@@ -186,6 +179,10 @@ class _PartialComment7V2 extends PartialComment7V2 {
     final post7V2CommentsId = json['post7V2CommentsId'] == null
         ? null
         : (json['post7V2CommentsId'] as String);
+    final post = json['post'] == null
+        ? null
+        : Post7V2.classType
+            .fromJson<PartialPost7V2>((json['post'] as Map<String, Object?>));
     return _PartialComment7V2(
       id: id,
       content: content,
@@ -203,7 +200,7 @@ class _PartialComment7V2 extends PartialComment7V2 {
   final String? content;
 
   @override
-  final AsyncModel<String, Post7V2, PartialPost7V2, PartialPost7V2>? post;
+  final PartialPost7V2? post;
 
   @override
   final TemporalDateTime? createdAt;
@@ -221,7 +218,6 @@ abstract class Comment7V2 extends PartialComment7V2
     String? id,
     String? content,
     Post7V2? post,
-    String? post7V2CommentsId,
   }) = _Comment7V2;
 
   const Comment7V2._() : super._();
@@ -235,12 +231,6 @@ abstract class Comment7V2 extends PartialComment7V2
         : (json['id'] as String);
     final content =
         json['content'] == null ? null : (json['content'] as String);
-    final post = json['post'] == null
-        ? null
-        : AsyncModel<String, Post7V2, PartialPost7V2, Post7V2>.fromModel(
-            Post7V2.classType
-                .fromJson<Post7V2>((json['post'] as Map<String, Object?>)),
-          );
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'Comment7V2',
@@ -256,6 +246,10 @@ abstract class Comment7V2 extends PartialComment7V2
     final post7V2CommentsId = json['post7V2CommentsId'] == null
         ? null
         : (json['post7V2CommentsId'] as String);
+    final post = json['post'] == null
+        ? null
+        : Post7V2.classType
+            .fromJson<Post7V2>((json['post'] as Map<String, Object?>));
     return _Comment7V2._(
       id: id,
       content: content,
@@ -316,7 +310,7 @@ abstract class Comment7V2 extends PartialComment7V2
         'post7V2CommentsId': {
           'name': 'post7V2CommentsId',
           'type': {'scalar': 'ID'},
-          'isReadOnly': false,
+          'isReadOnly': true,
           'authRules': [],
         },
       },
@@ -356,7 +350,7 @@ abstract class Comment7V2 extends PartialComment7V2
   @Deprecated(r'Use $content instead')
   QueryField<String, Comment7V2, String?> get CONTENT => $content;
   @override
-  AsyncModel<String, Post7V2, PartialPost7V2, Post7V2>? get post;
+  Post7V2? get post;
 
   /// Query field for the [post] field.
   Post7V2QueryFields<String, Comment7V2> get $post => _queryFields.$post;
@@ -370,15 +364,6 @@ abstract class Comment7V2 extends PartialComment7V2
   TemporalDateTime get updatedAt;
   @override
   String? get post7V2CommentsId;
-
-  /// Query field for the [post7V2CommentsId] field.
-  QueryField<String, Comment7V2, String?> get $post7V2CommentsId =>
-      _queryFields.$post7V2CommentsId;
-
-  /// Query field for the [post7V2CommentsId] field.
-  @Deprecated(r'Use $post7V2CommentsId instead')
-  QueryField<String, Comment7V2, String?> get POST7_V2_COMMENTS_ID =>
-      $post7V2CommentsId;
 
   /// Query field for the [modelIdentifier] field.
   QueryField<String, Comment7V2, String> get $modelIdentifier =>
@@ -399,7 +384,7 @@ abstract class Comment7V2 extends PartialComment7V2
     return _Comment7V2._(
       id: id ?? this.id,
       content: content ?? this.content,
-      post: post == null ? this.post : AsyncModel.fromModel(post),
+      post: post ?? this.post,
       createdAt:
           createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
       updatedAt:
@@ -443,12 +428,11 @@ class _Comment7V2 extends Comment7V2 {
   _Comment7V2({
     String? id,
     this.content,
-    Post7V2? post,
-    this.post7V2CommentsId,
+    this.post,
   })  : id = id ?? uuid(),
-        post = post == null ? null : AsyncModel.fromModel(post),
         createdAt = TemporalDateTime.now(),
         updatedAt = TemporalDateTime.now(),
+        post7V2CommentsId = post?.id,
         super._();
 
   const _Comment7V2._({
@@ -467,7 +451,7 @@ class _Comment7V2 extends Comment7V2 {
   final String? content;
 
   @override
-  final AsyncModel<String, Post7V2, PartialPost7V2, Post7V2>? post;
+  final Post7V2? post;
 
   @override
   final TemporalDateTime createdAt;
@@ -506,13 +490,6 @@ class _RemoteComment7V2 extends RemoteComment7V2 {
         : (json['id'] as String);
     final content =
         json['content'] == null ? null : (json['content'] as String);
-    final post = json['post'] == null
-        ? null
-        : AsyncModel<String, Post7V2, PartialPost7V2, RemotePost7V2>.fromModel(
-            Post7V2.classType.fromJson<RemotePost7V2>(
-              (json['post'] as Map<String, Object?>),
-            ),
-          );
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'Comment7V2',
@@ -546,6 +523,10 @@ class _RemoteComment7V2 extends RemoteComment7V2 {
             'lastChangedAt',
           ))
         : TemporalDateTime.fromString((json['lastChangedAt'] as String));
+    final post = json['post'] == null
+        ? null
+        : Post7V2.classType
+            .fromJson<RemotePost7V2>((json['post'] as Map<String, Object?>));
     return _RemoteComment7V2(
       id: id,
       content: content,
@@ -566,7 +547,7 @@ class _RemoteComment7V2 extends RemoteComment7V2 {
   final String? content;
 
   @override
-  final AsyncModel<String, Post7V2, PartialPost7V2, RemotePost7V2>? post;
+  final RemotePost7V2? post;
 
   @override
   final TemporalDateTime createdAt;

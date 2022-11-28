@@ -113,7 +113,7 @@ abstract class PartialComment extends PartialModel<String, Comment>
   String get id;
   String? get postId;
   String? get content;
-  AsyncModel<String, Post, PartialPost, PartialPost>? get post;
+  PartialPost? get post;
   TemporalDateTime? get createdAt;
   TemporalDateTime? get updatedAt;
   @override
@@ -165,18 +165,16 @@ class _PartialComment extends PartialComment {
     final postId = json['postID'] == null ? null : (json['postID'] as String);
     final content =
         json['content'] == null ? null : (json['content'] as String);
-    final post = json['post'] == null
-        ? null
-        : AsyncModel<String, Post, PartialPost, PartialPost>.fromModel(
-            Post.classType
-                .fromJson<PartialPost>((json['post'] as Map<String, Object?>)),
-          );
     final createdAt = json['createdAt'] == null
         ? null
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
         ? null
         : TemporalDateTime.fromString((json['updatedAt'] as String));
+    final post = json['post'] == null
+        ? null
+        : Post.classType
+            .fromJson<PartialPost>((json['post'] as Map<String, Object?>));
     return _PartialComment(
       id: id,
       postId: postId,
@@ -197,7 +195,7 @@ class _PartialComment extends PartialComment {
   final String? content;
 
   @override
-  final AsyncModel<String, Post, PartialPost, PartialPost>? post;
+  final PartialPost? post;
 
   @override
   final TemporalDateTime? createdAt;
@@ -236,12 +234,6 @@ abstract class Comment extends PartialComment
             'content',
           ))
         : (json['content'] as String);
-    final post = json['post'] == null
-        ? null
-        : AsyncModel<String, Post, PartialPost, Post>.fromModel(
-            Post.classType
-                .fromJson<Post>((json['post'] as Map<String, Object?>)),
-          );
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'Comment',
@@ -254,6 +246,9 @@ abstract class Comment extends PartialComment
             'updatedAt',
           ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
+    final post = json['post'] == null
+        ? null
+        : Post.classType.fromJson<Post>((json['post'] as Map<String, Object?>));
     return _Comment._(
       id: id,
       postId: postId,
@@ -370,7 +365,7 @@ abstract class Comment extends PartialComment
   @Deprecated(r'Use $content instead')
   QueryField<String, Comment, String> get CONTENT => $content;
   @override
-  AsyncModel<String, Post, PartialPost, Post>? get post;
+  Post? get post;
 
   /// Query field for the [post] field.
   PostQueryFields<String, Comment> get $post => _queryFields.$post;
@@ -402,7 +397,7 @@ abstract class Comment extends PartialComment
       id: id ?? this.id,
       postId: postId ?? this.postId,
       content: content ?? this.content,
-      post: post == null ? this.post : AsyncModel.fromModel(post),
+      post: post ?? this.post,
       createdAt:
           createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
       updatedAt:
@@ -446,9 +441,8 @@ class _Comment extends Comment {
     String? id,
     required this.postId,
     required this.content,
-    Post? post,
+    this.post,
   })  : id = id ?? uuid(),
-        post = post == null ? null : AsyncModel.fromModel(post),
         createdAt = TemporalDateTime.now(),
         updatedAt = TemporalDateTime.now(),
         super._();
@@ -472,7 +466,7 @@ class _Comment extends Comment {
   final String content;
 
   @override
-  final AsyncModel<String, Post, PartialPost, Post>? post;
+  final Post? post;
 
   @override
   final TemporalDateTime createdAt;
@@ -518,12 +512,6 @@ class _RemoteComment extends RemoteComment {
             'content',
           ))
         : (json['content'] as String);
-    final post = json['post'] == null
-        ? null
-        : AsyncModel<String, Post, PartialPost, RemotePost>.fromModel(
-            Post.classType
-                .fromJson<RemotePost>((json['post'] as Map<String, Object?>)),
-          );
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'Comment',
@@ -554,6 +542,10 @@ class _RemoteComment extends RemoteComment {
             'lastChangedAt',
           ))
         : TemporalDateTime.fromString((json['lastChangedAt'] as String));
+    final post = json['post'] == null
+        ? null
+        : Post.classType
+            .fromJson<RemotePost>((json['post'] as Map<String, Object?>));
     return _RemoteComment(
       id: id,
       postId: postId,
@@ -577,7 +569,7 @@ class _RemoteComment extends RemoteComment {
   final String content;
 
   @override
-  final AsyncModel<String, Post, PartialPost, RemotePost>? post;
+  final RemotePost? post;
 
   @override
   final TemporalDateTime createdAt;

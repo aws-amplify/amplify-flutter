@@ -111,7 +111,7 @@ abstract class PartialTeam2 extends PartialModel<String, Team2>
   String get id;
   String? get name;
   String? get projectId;
-  AsyncModel<String, Project2, PartialProject2, PartialProject2>? get project;
+  PartialProject2? get project;
   TemporalDateTime? get createdAt;
   TemporalDateTime? get updatedAt;
   @override
@@ -163,20 +163,17 @@ class _PartialTeam2 extends PartialTeam2 {
     final name = json['name'] == null ? null : (json['name'] as String);
     final projectId =
         json['projectID'] == null ? null : (json['projectID'] as String);
-    final project = json['project'] == null
-        ? null
-        : AsyncModel<String, Project2, PartialProject2,
-            PartialProject2>.fromModel(
-            Project2.classType.fromJson<PartialProject2>(
-              (json['project'] as Map<String, Object?>),
-            ),
-          );
     final createdAt = json['createdAt'] == null
         ? null
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
         ? null
         : TemporalDateTime.fromString((json['updatedAt'] as String));
+    final project = json['project'] == null
+        ? null
+        : Project2.classType.fromJson<PartialProject2>(
+            (json['project'] as Map<String, Object?>),
+          );
     return _PartialTeam2(
       id: id,
       name: name,
@@ -197,7 +194,7 @@ class _PartialTeam2 extends PartialTeam2 {
   final String? projectId;
 
   @override
-  final AsyncModel<String, Project2, PartialProject2, PartialProject2>? project;
+  final PartialProject2? project;
 
   @override
   final TemporalDateTime? createdAt;
@@ -231,12 +228,6 @@ abstract class Team2 extends PartialTeam2 implements Model<String, Team2> {
         : (json['name'] as String);
     final projectId =
         json['projectID'] == null ? null : (json['projectID'] as String);
-    final project = json['project'] == null
-        ? null
-        : AsyncModel<String, Project2, PartialProject2, Project2>.fromModel(
-            Project2.classType
-                .fromJson<Project2>((json['project'] as Map<String, Object?>)),
-          );
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'Team2',
@@ -249,6 +240,10 @@ abstract class Team2 extends PartialTeam2 implements Model<String, Team2> {
             'updatedAt',
           ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
+    final project = json['project'] == null
+        ? null
+        : Project2.classType
+            .fromJson<Project2>((json['project'] as Map<String, Object?>));
     return _Team2._(
       id: id,
       name: name,
@@ -358,7 +353,7 @@ abstract class Team2 extends PartialTeam2 implements Model<String, Team2> {
   @Deprecated(r'Use $projectId instead')
   QueryField<String, Team2, String?> get PROJECT_ID => $projectId;
   @override
-  AsyncModel<String, Project2, PartialProject2, Project2>? get project;
+  Project2? get project;
 
   /// Query field for the [project] field.
   Project2QueryFields<String, Team2> get $project => _queryFields.$project;
@@ -390,7 +385,7 @@ abstract class Team2 extends PartialTeam2 implements Model<String, Team2> {
       id: id ?? this.id,
       name: name ?? this.name,
       projectId: projectId ?? this.projectId,
-      project: project == null ? this.project : AsyncModel.fromModel(project),
+      project: project ?? this.project,
       createdAt:
           createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
       updatedAt:
@@ -434,9 +429,8 @@ class _Team2 extends Team2 {
     String? id,
     required this.name,
     this.projectId,
-    Project2? project,
+    this.project,
   })  : id = id ?? uuid(),
-        project = project == null ? null : AsyncModel.fromModel(project),
         createdAt = TemporalDateTime.now(),
         updatedAt = TemporalDateTime.now(),
         super._();
@@ -460,7 +454,7 @@ class _Team2 extends Team2 {
   final String? projectId;
 
   @override
-  final AsyncModel<String, Project2, PartialProject2, Project2>? project;
+  final Project2? project;
 
   @override
   final TemporalDateTime createdAt;
@@ -501,14 +495,6 @@ class _RemoteTeam2 extends RemoteTeam2 {
         : (json['name'] as String);
     final projectId =
         json['projectID'] == null ? null : (json['projectID'] as String);
-    final project = json['project'] == null
-        ? null
-        : AsyncModel<String, Project2, PartialProject2,
-            RemoteProject2>.fromModel(
-            Project2.classType.fromJson<RemoteProject2>(
-              (json['project'] as Map<String, Object?>),
-            ),
-          );
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'Team2',
@@ -539,6 +525,11 @@ class _RemoteTeam2 extends RemoteTeam2 {
             'lastChangedAt',
           ))
         : TemporalDateTime.fromString((json['lastChangedAt'] as String));
+    final project = json['project'] == null
+        ? null
+        : Project2.classType.fromJson<RemoteProject2>(
+            (json['project'] as Map<String, Object?>),
+          );
     return _RemoteTeam2(
       id: id,
       name: name,
@@ -562,7 +553,7 @@ class _RemoteTeam2 extends RemoteTeam2 {
   final String? projectId;
 
   @override
-  final AsyncModel<String, Project2, PartialProject2, RemoteProject2>? project;
+  final RemoteProject2? project;
 
   @override
   final TemporalDateTime createdAt;

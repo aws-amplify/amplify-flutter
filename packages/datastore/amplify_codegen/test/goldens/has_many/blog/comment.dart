@@ -307,7 +307,7 @@ abstract class Comment extends PartialComment
         'postCommentsId': {
           'name': 'postCommentsId',
           'type': {'scalar': 'ID'},
-          'isReadOnly': false,
+          'isReadOnly': true,
           'authRules': [],
         },
       },
@@ -379,7 +379,7 @@ abstract class Comment extends PartialComment
   }) {
     return _Comment._(
       id: id ?? this.id,
-      post: post == null ? this.post : AsyncModel.fromModel(post),
+      post: post ?? this.post,
       content: content ?? this.content,
       createdAt:
           createdAt == null ? this.createdAt : TemporalDateTime(createdAt),

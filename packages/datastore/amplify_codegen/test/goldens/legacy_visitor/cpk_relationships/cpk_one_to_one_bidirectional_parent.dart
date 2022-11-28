@@ -293,18 +293,6 @@ class _PartialCpkOneToOneBidirectionalParent
             'name',
           ))
         : (json['name'] as String);
-    final explicitChild = json['explicitChild'] == null
-        ? null
-        : AsyncModel<
-            CpkOneToOneBidirectionalChildExplicitIdentifier,
-            CpkOneToOneBidirectionalChildExplicit,
-            PartialCpkOneToOneBidirectionalChildExplicit,
-            PartialCpkOneToOneBidirectionalChildExplicit>.fromModel(
-            CpkOneToOneBidirectionalChildExplicit.classType
-                .fromJson<PartialCpkOneToOneBidirectionalChildExplicit>(
-              (json['explicitChild'] as Map<String, Object?>),
-            ),
-          );
     final createdAt = json['createdAt'] == null
         ? null
         : TemporalDateTime.fromString((json['createdAt'] as String));
@@ -320,6 +308,31 @@ class _PartialCpkOneToOneBidirectionalParent
             ? null
             : (json['cpkOneToOneBidirectionalParentExplicitChildName']
                 as String);
+    final explicitChild = json['explicitChild'] == null
+        ? cpkOneToOneBidirectionalParentExplicitChildId == null ||
+                cpkOneToOneBidirectionalParentExplicitChildName == null
+            ? null
+            : AsyncModel<
+                CpkOneToOneBidirectionalChildExplicitIdentifier,
+                CpkOneToOneBidirectionalChildExplicit,
+                PartialCpkOneToOneBidirectionalChildExplicit,
+                PartialCpkOneToOneBidirectionalChildExplicit>.fromModelIdentifier(
+                CpkOneToOneBidirectionalChildExplicit.classType,
+                CpkOneToOneBidirectionalChildExplicitIdentifier(
+                  id: cpkOneToOneBidirectionalParentExplicitChildId,
+                  name: cpkOneToOneBidirectionalParentExplicitChildName,
+                ),
+              )
+        : AsyncModel<
+            CpkOneToOneBidirectionalChildExplicitIdentifier,
+            CpkOneToOneBidirectionalChildExplicit,
+            PartialCpkOneToOneBidirectionalChildExplicit,
+            PartialCpkOneToOneBidirectionalChildExplicit>.fromModel(
+            CpkOneToOneBidirectionalChildExplicit.classType
+                .fromJson<PartialCpkOneToOneBidirectionalChildExplicit>(
+              (json['explicitChild'] as Map<String, Object?>),
+            ),
+          );
     return _PartialCpkOneToOneBidirectionalParent(
       id: id,
       name: name,
@@ -387,18 +400,6 @@ abstract class CpkOneToOneBidirectionalParent
             'name',
           ))
         : (json['name'] as String);
-    final explicitChild = json['explicitChild'] == null
-        ? null
-        : AsyncModel<
-            CpkOneToOneBidirectionalChildExplicitIdentifier,
-            CpkOneToOneBidirectionalChildExplicit,
-            PartialCpkOneToOneBidirectionalChildExplicit,
-            CpkOneToOneBidirectionalChildExplicit>.fromModel(
-            CpkOneToOneBidirectionalChildExplicit.classType
-                .fromJson<CpkOneToOneBidirectionalChildExplicit>(
-              (json['explicitChild'] as Map<String, Object?>),
-            ),
-          );
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'CpkOneToOneBidirectionalParent',
@@ -420,6 +421,31 @@ abstract class CpkOneToOneBidirectionalParent
             ? null
             : (json['cpkOneToOneBidirectionalParentExplicitChildName']
                 as String);
+    final explicitChild = json['explicitChild'] == null
+        ? cpkOneToOneBidirectionalParentExplicitChildId == null ||
+                cpkOneToOneBidirectionalParentExplicitChildName == null
+            ? null
+            : AsyncModel<
+                CpkOneToOneBidirectionalChildExplicitIdentifier,
+                CpkOneToOneBidirectionalChildExplicit,
+                PartialCpkOneToOneBidirectionalChildExplicit,
+                CpkOneToOneBidirectionalChildExplicit>.fromModelIdentifier(
+                CpkOneToOneBidirectionalChildExplicit.classType,
+                CpkOneToOneBidirectionalChildExplicitIdentifier(
+                  id: cpkOneToOneBidirectionalParentExplicitChildId,
+                  name: cpkOneToOneBidirectionalParentExplicitChildName,
+                ),
+              )
+        : AsyncModel<
+            CpkOneToOneBidirectionalChildExplicitIdentifier,
+            CpkOneToOneBidirectionalChildExplicit,
+            PartialCpkOneToOneBidirectionalChildExplicit,
+            CpkOneToOneBidirectionalChildExplicit>.fromModel(
+            CpkOneToOneBidirectionalChildExplicit.classType
+                .fromJson<CpkOneToOneBidirectionalChildExplicit>(
+              (json['explicitChild'] as Map<String, Object?>),
+            ),
+          );
     return _CpkOneToOneBidirectionalParent._(
       id: id,
       name: name,
@@ -754,18 +780,6 @@ class _RemoteCpkOneToOneBidirectionalParent
             'name',
           ))
         : (json['name'] as String);
-    final explicitChild = json['explicitChild'] == null
-        ? null
-        : AsyncModel<
-            CpkOneToOneBidirectionalChildExplicitIdentifier,
-            CpkOneToOneBidirectionalChildExplicit,
-            PartialCpkOneToOneBidirectionalChildExplicit,
-            RemoteCpkOneToOneBidirectionalChildExplicit>.fromModel(
-            CpkOneToOneBidirectionalChildExplicit.classType
-                .fromJson<RemoteCpkOneToOneBidirectionalChildExplicit>(
-              (json['explicitChild'] as Map<String, Object?>),
-            ),
-          );
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'CpkOneToOneBidirectionalParent',
@@ -805,6 +819,31 @@ class _RemoteCpkOneToOneBidirectionalParent
             'lastChangedAt',
           ))
         : TemporalDateTime.fromString((json['lastChangedAt'] as String));
+    final explicitChild = json['explicitChild'] == null
+        ? cpkOneToOneBidirectionalParentExplicitChildId == null ||
+                cpkOneToOneBidirectionalParentExplicitChildName == null
+            ? null
+            : AsyncModel<
+                CpkOneToOneBidirectionalChildExplicitIdentifier,
+                CpkOneToOneBidirectionalChildExplicit,
+                PartialCpkOneToOneBidirectionalChildExplicit,
+                RemoteCpkOneToOneBidirectionalChildExplicit>.fromModelIdentifier(
+                CpkOneToOneBidirectionalChildExplicit.classType,
+                CpkOneToOneBidirectionalChildExplicitIdentifier(
+                  id: cpkOneToOneBidirectionalParentExplicitChildId,
+                  name: cpkOneToOneBidirectionalParentExplicitChildName,
+                ),
+              )
+        : AsyncModel<
+            CpkOneToOneBidirectionalChildExplicitIdentifier,
+            CpkOneToOneBidirectionalChildExplicit,
+            PartialCpkOneToOneBidirectionalChildExplicit,
+            RemoteCpkOneToOneBidirectionalChildExplicit>.fromModel(
+            CpkOneToOneBidirectionalChildExplicit.classType
+                .fromJson<RemoteCpkOneToOneBidirectionalChildExplicit>(
+              (json['explicitChild'] as Map<String, Object?>),
+            ),
+          );
     return _RemoteCpkOneToOneBidirectionalParent(
       id: id,
       name: name,
@@ -832,7 +871,7 @@ class _RemoteCpkOneToOneBidirectionalParent
       CpkOneToOneBidirectionalChildExplicitIdentifier,
       CpkOneToOneBidirectionalChildExplicit,
       PartialCpkOneToOneBidirectionalChildExplicit,
-      RemoteCpkOneToOneBidirectionalChildExplicit>? explicitChild;
+      CpkOneToOneBidirectionalChildExplicit>? explicitChild;
 
   @override
   final TemporalDateTime createdAt;

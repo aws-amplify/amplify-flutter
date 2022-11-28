@@ -222,11 +222,7 @@ abstract class PartialCpkOneToOneBidirectionalChildExplicit
   String get name;
   String? get belongsToParentId;
   String? get belongsToParentName;
-  AsyncModel<
-      CpkOneToOneBidirectionalParentIdentifier,
-      CpkOneToOneBidirectionalParent,
-      PartialCpkOneToOneBidirectionalParent,
-      PartialCpkOneToOneBidirectionalParent>? get belongsToParent;
+  PartialCpkOneToOneBidirectionalParent? get belongsToParent;
   TemporalDateTime? get createdAt;
   TemporalDateTime? get updatedAt;
   @override
@@ -298,24 +294,18 @@ class _PartialCpkOneToOneBidirectionalChildExplicit
     final belongsToParentName = json['belongsToParentName'] == null
         ? null
         : (json['belongsToParentName'] as String);
-    final belongsToParent = json['belongsToParent'] == null
-        ? null
-        : AsyncModel<
-            CpkOneToOneBidirectionalParentIdentifier,
-            CpkOneToOneBidirectionalParent,
-            PartialCpkOneToOneBidirectionalParent,
-            PartialCpkOneToOneBidirectionalParent>.fromModel(
-            CpkOneToOneBidirectionalParent.classType
-                .fromJson<PartialCpkOneToOneBidirectionalParent>(
-              (json['belongsToParent'] as Map<String, Object?>),
-            ),
-          );
     final createdAt = json['createdAt'] == null
         ? null
         : TemporalDateTime.fromString((json['createdAt'] as String));
     final updatedAt = json['updatedAt'] == null
         ? null
         : TemporalDateTime.fromString((json['updatedAt'] as String));
+    final belongsToParent = json['belongsToParent'] == null
+        ? null
+        : CpkOneToOneBidirectionalParent.classType
+            .fromJson<PartialCpkOneToOneBidirectionalParent>(
+            (json['belongsToParent'] as Map<String, Object?>),
+          );
     return _PartialCpkOneToOneBidirectionalChildExplicit(
       id: id,
       name: name,
@@ -340,11 +330,7 @@ class _PartialCpkOneToOneBidirectionalChildExplicit
   final String? belongsToParentName;
 
   @override
-  final AsyncModel<
-      CpkOneToOneBidirectionalParentIdentifier,
-      CpkOneToOneBidirectionalParent,
-      PartialCpkOneToOneBidirectionalParent,
-      PartialCpkOneToOneBidirectionalParent>? belongsToParent;
+  final PartialCpkOneToOneBidirectionalParent? belongsToParent;
 
   @override
   final TemporalDateTime? createdAt;
@@ -389,18 +375,6 @@ abstract class CpkOneToOneBidirectionalChildExplicit
     final belongsToParentName = json['belongsToParentName'] == null
         ? null
         : (json['belongsToParentName'] as String);
-    final belongsToParent = json['belongsToParent'] == null
-        ? null
-        : AsyncModel<
-            CpkOneToOneBidirectionalParentIdentifier,
-            CpkOneToOneBidirectionalParent,
-            PartialCpkOneToOneBidirectionalParent,
-            CpkOneToOneBidirectionalParent>.fromModel(
-            CpkOneToOneBidirectionalParent.classType
-                .fromJson<CpkOneToOneBidirectionalParent>(
-              (json['belongsToParent'] as Map<String, Object?>),
-            ),
-          );
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'CpkOneToOneBidirectionalChildExplicit',
@@ -413,6 +387,12 @@ abstract class CpkOneToOneBidirectionalChildExplicit
             'updatedAt',
           ))
         : TemporalDateTime.fromString((json['updatedAt'] as String));
+    final belongsToParent = json['belongsToParent'] == null
+        ? null
+        : CpkOneToOneBidirectionalParent.classType
+            .fromJson<CpkOneToOneBidirectionalParent>(
+            (json['belongsToParent'] as Map<String, Object?>),
+          );
     return _CpkOneToOneBidirectionalChildExplicit._(
       id: id,
       name: name,
@@ -567,11 +547,7 @@ abstract class CpkOneToOneBidirectionalChildExplicit
       CpkOneToOneBidirectionalChildExplicit,
       String?> get BELONGS_TO_PARENT_NAME => $belongsToParentName;
   @override
-  AsyncModel<
-      CpkOneToOneBidirectionalParentIdentifier,
-      CpkOneToOneBidirectionalParent,
-      PartialCpkOneToOneBidirectionalParent,
-      CpkOneToOneBidirectionalParent>? get belongsToParent;
+  CpkOneToOneBidirectionalParent? get belongsToParent;
 
   /// Query field for the [belongsToParent] field.
   CpkOneToOneBidirectionalParentQueryFields<
@@ -618,9 +594,7 @@ abstract class CpkOneToOneBidirectionalChildExplicit
       name: name ?? this.name,
       belongsToParentId: belongsToParentId ?? this.belongsToParentId,
       belongsToParentName: belongsToParentName ?? this.belongsToParentName,
-      belongsToParent: belongsToParent == null
-          ? this.belongsToParent
-          : AsyncModel.fromModel(belongsToParent),
+      belongsToParent: belongsToParent ?? this.belongsToParent,
       createdAt:
           createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
       updatedAt:
@@ -673,11 +647,8 @@ class _CpkOneToOneBidirectionalChildExplicit
     required this.name,
     this.belongsToParentId,
     this.belongsToParentName,
-    CpkOneToOneBidirectionalParent? belongsToParent,
+    this.belongsToParent,
   })  : id = id ?? uuid(),
-        belongsToParent = belongsToParent == null
-            ? null
-            : AsyncModel.fromModel(belongsToParent),
         createdAt = TemporalDateTime.now(),
         updatedAt = TemporalDateTime.now(),
         super._();
@@ -705,11 +676,7 @@ class _CpkOneToOneBidirectionalChildExplicit
   final String? belongsToParentName;
 
   @override
-  final AsyncModel<
-      CpkOneToOneBidirectionalParentIdentifier,
-      CpkOneToOneBidirectionalParent,
-      PartialCpkOneToOneBidirectionalParent,
-      CpkOneToOneBidirectionalParent>? belongsToParent;
+  final CpkOneToOneBidirectionalParent? belongsToParent;
 
   @override
   final TemporalDateTime createdAt;
@@ -762,18 +729,6 @@ class _RemoteCpkOneToOneBidirectionalChildExplicit
     final belongsToParentName = json['belongsToParentName'] == null
         ? null
         : (json['belongsToParentName'] as String);
-    final belongsToParent = json['belongsToParent'] == null
-        ? null
-        : AsyncModel<
-            CpkOneToOneBidirectionalParentIdentifier,
-            CpkOneToOneBidirectionalParent,
-            PartialCpkOneToOneBidirectionalParent,
-            RemoteCpkOneToOneBidirectionalParent>.fromModel(
-            CpkOneToOneBidirectionalParent.classType
-                .fromJson<RemoteCpkOneToOneBidirectionalParent>(
-              (json['belongsToParent'] as Map<String, Object?>),
-            ),
-          );
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'CpkOneToOneBidirectionalChildExplicit',
@@ -804,6 +759,12 @@ class _RemoteCpkOneToOneBidirectionalChildExplicit
             'lastChangedAt',
           ))
         : TemporalDateTime.fromString((json['lastChangedAt'] as String));
+    final belongsToParent = json['belongsToParent'] == null
+        ? null
+        : CpkOneToOneBidirectionalParent.classType
+            .fromJson<RemoteCpkOneToOneBidirectionalParent>(
+            (json['belongsToParent'] as Map<String, Object?>),
+          );
     return _RemoteCpkOneToOneBidirectionalChildExplicit(
       id: id,
       name: name,
@@ -831,11 +792,7 @@ class _RemoteCpkOneToOneBidirectionalChildExplicit
   final String? belongsToParentName;
 
   @override
-  final AsyncModel<
-      CpkOneToOneBidirectionalParentIdentifier,
-      CpkOneToOneBidirectionalParent,
-      PartialCpkOneToOneBidirectionalParent,
-      RemoteCpkOneToOneBidirectionalParent>? belongsToParent;
+  final RemoteCpkOneToOneBidirectionalParent? belongsToParent;
 
   @override
   final TemporalDateTime createdAt;

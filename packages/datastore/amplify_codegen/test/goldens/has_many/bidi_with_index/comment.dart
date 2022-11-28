@@ -499,7 +499,7 @@ abstract class Comment extends PartialComment
     return _Comment._(
       commentId: commentId ?? this.commentId,
       content: content ?? this.content,
-      post: post == null ? this.post : AsyncModel.fromModel(post),
+      post: post ?? this.post,
       postId: postId ?? this.postId,
       postTitle: postTitle ?? this.postTitle,
       createdAt:

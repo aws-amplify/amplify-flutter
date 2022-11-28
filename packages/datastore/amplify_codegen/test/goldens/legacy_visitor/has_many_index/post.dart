@@ -178,6 +178,12 @@ class _PartialPost extends PartialPost {
     final status = json['status'] == null
         ? null
         : PostStatus.fromJson((json['status'] as String));
+    final createdAt = json['createdAt'] == null
+        ? null
+        : TemporalDateTime.fromString((json['createdAt'] as String));
+    final updatedAt = json['updatedAt'] == null
+        ? null
+        : TemporalDateTime.fromString((json['updatedAt'] as String));
     final comments = json['comments'] == null
         ? null
         : AsyncModelCollection<String, Comment, PartialComment,
@@ -192,12 +198,6 @@ class _PartialPost extends PartialPost {
                 .whereType<PartialComment>()
                 .toList(),
           );
-    final createdAt = json['createdAt'] == null
-        ? null
-        : TemporalDateTime.fromString((json['createdAt'] as String));
-    final updatedAt = json['updatedAt'] == null
-        ? null
-        : TemporalDateTime.fromString((json['updatedAt'] as String));
     return _PartialPost(
       id: id,
       title: title,
@@ -268,6 +268,18 @@ abstract class Post extends PartialPost implements Model<String, Post> {
             'status',
           ))
         : PostStatus.fromJson((json['status'] as String));
+    final createdAt = json['createdAt'] == null
+        ? (throw ModelFieldError(
+            'Post',
+            'createdAt',
+          ))
+        : TemporalDateTime.fromString((json['createdAt'] as String));
+    final updatedAt = json['updatedAt'] == null
+        ? (throw ModelFieldError(
+            'Post',
+            'updatedAt',
+          ))
+        : TemporalDateTime.fromString((json['updatedAt'] as String));
     final comments = json['comments'] == null
         ? null
         : AsyncModelCollection<String, Comment, PartialComment,
@@ -282,18 +294,6 @@ abstract class Post extends PartialPost implements Model<String, Post> {
                 .whereType<Comment>()
                 .toList(),
           );
-    final createdAt = json['createdAt'] == null
-        ? (throw ModelFieldError(
-            'Post',
-            'createdAt',
-          ))
-        : TemporalDateTime.fromString((json['createdAt'] as String));
-    final updatedAt = json['updatedAt'] == null
-        ? (throw ModelFieldError(
-            'Post',
-            'updatedAt',
-          ))
-        : TemporalDateTime.fromString((json['updatedAt'] as String));
     return _Post._(
       id: id,
       title: title,
@@ -582,20 +582,6 @@ class _RemotePost extends RemotePost {
             'status',
           ))
         : PostStatus.fromJson((json['status'] as String));
-    final comments = json['comments'] == null
-        ? null
-        : AsyncModelCollection<String, Comment, PartialComment,
-            RemoteComment>.fromList(
-            (json['comments'] as List<Object?>)
-                .cast<Map<String, Object?>?>()
-                .map(
-                  (el) => el == null
-                      ? null
-                      : Comment.classType.fromJson<RemoteComment>(el),
-                )
-                .whereType<RemoteComment>()
-                .toList(),
-          );
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'Post',
@@ -626,6 +612,20 @@ class _RemotePost extends RemotePost {
             'lastChangedAt',
           ))
         : TemporalDateTime.fromString((json['lastChangedAt'] as String));
+    final comments = json['comments'] == null
+        ? null
+        : AsyncModelCollection<String, Comment, PartialComment,
+            RemoteComment>.fromList(
+            (json['comments'] as List<Object?>)
+                .cast<Map<String, Object?>?>()
+                .map(
+                  (el) => el == null
+                      ? null
+                      : Comment.classType.fromJson<RemoteComment>(el),
+                )
+                .whereType<RemoteComment>()
+                .toList(),
+          );
     return _RemotePost(
       id: id,
       title: title,
@@ -653,7 +653,7 @@ class _RemotePost extends RemotePost {
   final PostStatus status;
 
   @override
-  final AsyncModelCollection<String, Comment, PartialComment, RemoteComment>?
+  final AsyncModelCollection<String, Comment, PartialComment, Comment>?
       comments;
 
   @override

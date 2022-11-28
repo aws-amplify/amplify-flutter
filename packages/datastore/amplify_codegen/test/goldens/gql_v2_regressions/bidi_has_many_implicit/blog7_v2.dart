@@ -153,6 +153,12 @@ class _PartialBlog7V2 extends PartialBlog7V2 {
           ))
         : (json['id'] as String);
     final name = json['name'] == null ? null : (json['name'] as String);
+    final createdAt = json['createdAt'] == null
+        ? null
+        : TemporalDateTime.fromString((json['createdAt'] as String));
+    final updatedAt = json['updatedAt'] == null
+        ? null
+        : TemporalDateTime.fromString((json['updatedAt'] as String));
     final posts = json['posts'] == null
         ? null
         : AsyncModelCollection<String, Post7V2, PartialPost7V2,
@@ -167,12 +173,6 @@ class _PartialBlog7V2 extends PartialBlog7V2 {
                 .whereType<PartialPost7V2>()
                 .toList(),
           );
-    final createdAt = json['createdAt'] == null
-        ? null
-        : TemporalDateTime.fromString((json['createdAt'] as String));
-    final updatedAt = json['updatedAt'] == null
-        ? null
-        : TemporalDateTime.fromString((json['updatedAt'] as String));
     return _PartialBlog7V2(
       id: id,
       name: name,
@@ -222,6 +222,18 @@ abstract class Blog7V2 extends PartialBlog7V2
             'name',
           ))
         : (json['name'] as String);
+    final createdAt = json['createdAt'] == null
+        ? (throw ModelFieldError(
+            'Blog7V2',
+            'createdAt',
+          ))
+        : TemporalDateTime.fromString((json['createdAt'] as String));
+    final updatedAt = json['updatedAt'] == null
+        ? (throw ModelFieldError(
+            'Blog7V2',
+            'updatedAt',
+          ))
+        : TemporalDateTime.fromString((json['updatedAt'] as String));
     final posts = json['posts'] == null
         ? null
         : AsyncModelCollection<String, Post7V2, PartialPost7V2,
@@ -236,18 +248,6 @@ abstract class Blog7V2 extends PartialBlog7V2
                 .whereType<Post7V2>()
                 .toList(),
           );
-    final createdAt = json['createdAt'] == null
-        ? (throw ModelFieldError(
-            'Blog7V2',
-            'createdAt',
-          ))
-        : TemporalDateTime.fromString((json['createdAt'] as String));
-    final updatedAt = json['updatedAt'] == null
-        ? (throw ModelFieldError(
-            'Blog7V2',
-            'updatedAt',
-          ))
-        : TemporalDateTime.fromString((json['updatedAt'] as String));
     return _Blog7V2._(
       id: id,
       name: name,
@@ -468,20 +468,6 @@ class _RemoteBlog7V2 extends RemoteBlog7V2 {
             'name',
           ))
         : (json['name'] as String);
-    final posts = json['posts'] == null
-        ? null
-        : AsyncModelCollection<String, Post7V2, PartialPost7V2,
-            RemotePost7V2>.fromList(
-            (json['posts'] as List<Object?>)
-                .cast<Map<String, Object?>?>()
-                .map(
-                  (el) => el == null
-                      ? null
-                      : Post7V2.classType.fromJson<RemotePost7V2>(el),
-                )
-                .whereType<RemotePost7V2>()
-                .toList(),
-          );
     final createdAt = json['createdAt'] == null
         ? (throw ModelFieldError(
             'Blog7V2',
@@ -512,6 +498,20 @@ class _RemoteBlog7V2 extends RemoteBlog7V2 {
             'lastChangedAt',
           ))
         : TemporalDateTime.fromString((json['lastChangedAt'] as String));
+    final posts = json['posts'] == null
+        ? null
+        : AsyncModelCollection<String, Post7V2, PartialPost7V2,
+            RemotePost7V2>.fromList(
+            (json['posts'] as List<Object?>)
+                .cast<Map<String, Object?>?>()
+                .map(
+                  (el) => el == null
+                      ? null
+                      : Post7V2.classType.fromJson<RemotePost7V2>(el),
+                )
+                .whereType<RemotePost7V2>()
+                .toList(),
+          );
     return _RemoteBlog7V2(
       id: id,
       name: name,
@@ -531,8 +531,7 @@ class _RemoteBlog7V2 extends RemoteBlog7V2 {
   final String name;
 
   @override
-  final AsyncModelCollection<String, Post7V2, PartialPost7V2, RemotePost7V2>?
-      posts;
+  final AsyncModelCollection<String, Post7V2, PartialPost7V2, Post7V2>? posts;
 
   @override
   final TemporalDateTime createdAt;

@@ -379,13 +379,13 @@ abstract class Team extends PartialTeam implements Model<TeamIdentifier, Team> {
         'teamProjectProjectId': {
           'name': 'teamProjectProjectId',
           'type': {'scalar': 'ID'},
-          'isReadOnly': false,
+          'isReadOnly': true,
           'authRules': [],
         },
         'teamProjectName': {
           'name': 'teamProjectName',
           'type': {'scalar': 'String'},
-          'isReadOnly': false,
+          'isReadOnly': true,
           'authRules': [],
         },
       },
@@ -466,7 +466,7 @@ abstract class Team extends PartialTeam implements Model<TeamIdentifier, Team> {
     return _Team._(
       teamId: teamId ?? this.teamId,
       name: name ?? this.name,
-      project: project == null ? this.project : AsyncModel.fromModel(project),
+      project: project ?? this.project,
       createdAt:
           createdAt == null ? this.createdAt : TemporalDateTime(createdAt),
       updatedAt:
