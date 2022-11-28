@@ -13,7 +13,6 @@
  * permissions and limitations under the License.
  */
 import 'package:amplify_api/src/graphql/utils.dart';
-
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
@@ -150,6 +149,9 @@ class GraphQLRequestFactory {
     required GraphQLRequestType requestType,
     required GraphQLRequestOperation requestOperation,
     required Map<String, dynamic> variables,
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+    Map<String, String>? headers,
     int depth = 0,
   }) {
     // retrieve schema from ModelType and validate required properties
@@ -179,6 +181,9 @@ class GraphQLRequestFactory {
       variables: variables,
       modelType: modelType,
       decodePath: decodePath,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
     );
   }
 

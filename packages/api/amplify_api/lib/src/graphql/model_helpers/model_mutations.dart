@@ -27,8 +27,18 @@ class ModelMutations {
   /// Todo todo = Todo(name: 'my first todo', description: 'todo description');
   /// final request = ModelMutations.create(todo);
   /// ```
-  static GraphQLRequest<T> create<T extends Model>(T model) {
-    return ModelMutationsFactory.instance.create<T>(model);
+  static GraphQLRequest<T> create<T extends Model>(
+    T model, {
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+    Map<String, String>? headers,
+  }) {
+    return ModelMutationsFactory.instance.create<T>(
+      model,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
+    );
   }
 
   /// Generates a request to delete a model.
@@ -42,8 +52,17 @@ class ModelMutations {
   static GraphQLRequest<T> delete<T extends Model>(
     T model, {
     QueryPredicate? where,
+    String? apiName,
+    Map<String, String>? headers,
+    APIAuthorizationType? authorizationMode,
   }) {
-    return ModelMutationsFactory.instance.delete<T>(model, where: where);
+    return ModelMutationsFactory.instance.delete<T>(
+      model,
+      where: where,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
+    );
   }
 
   /// Generates a request to delete a model by ID.
@@ -57,9 +76,18 @@ class ModelMutations {
     ModelType<T> modelType,
     String id, {
     QueryPredicate? where,
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+    Map<String, String>? headers,
   }) {
-    return ModelMutationsFactory.instance
-        .deleteById<T>(modelType, id, where: where);
+    return ModelMutationsFactory.instance.deleteById<T>(
+      modelType,
+      id,
+      where: where,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
+    );
   }
 
   /// Generates a request to update a model instance.
@@ -73,7 +101,16 @@ class ModelMutations {
   static GraphQLRequest<T> update<T extends Model>(
     T model, {
     QueryPredicate? where,
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+    Map<String, String>? headers,
   }) {
-    return ModelMutationsFactory.instance.update<T>(model, where: where);
+    return ModelMutationsFactory.instance.update<T>(
+      model,
+      where: where,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
+    );
   }
 }

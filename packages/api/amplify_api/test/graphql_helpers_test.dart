@@ -25,6 +25,8 @@ import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 final _deepEquals = const DeepCollectionEquality().equals;
+const _exampleApiName = 'myApi456';
+const _exampleHeaders = {'testKey': 'testVal'};
 
 // Local variable types used as a type check.
 // ignore_for_file: omit_local_variable_types
@@ -70,7 +72,7 @@ void main() {
 
     group('ModelQueries', () {
       test('ModelQueries.get() should build a valid request', () {
-        final String id = UUID.getUUID();
+        final id = uuid();
         const expected =
             'query getBlog(\$id: ID!) { getBlog(id: \$id) { $blogSelectionSet } }';
 
@@ -83,10 +85,26 @@ void main() {
         expect(req.decodePath, 'getBlog');
       });
 
+      test('ModelQueries.get() should support additional request parameters',
+          () {
+        final id = uuid();
+        final req = ModelQueries.get(
+          Blog.classType,
+          id,
+          apiName: _exampleApiName,
+          headers: _exampleHeaders,
+          authorizationMode: APIAuthorizationType.function,
+        );
+
+        expect(req.apiName, _exampleApiName);
+        expect(req.headers, _exampleHeaders);
+        expect(req.authorizationMode, APIAuthorizationType.function);
+      });
+
       test(
           'ModelQueries.get() returns a GraphQLRequest<Blog> when provided a modelType',
           () async {
-        final String id = UUID.getUUID();
+        final id = uuid();
         final GraphQLRequest<Blog> req =
             ModelQueries.get<Blog>(Blog.classType, id);
         final String data = '''{
@@ -131,7 +149,7 @@ void main() {
       test(
           'ModelQueries.get() returns a GraphQLRequest<String> when not provided a modelType',
           () async {
-        final String id = UUID.getUUID();
+        final id = uuid();
         const doc = '''query MyQuery {
       getBlog {
         id
@@ -342,11 +360,25 @@ void main() {
         expect(resultRequest?.variables['filter'], firstRequestFilter);
         expect(resultRequest?.variables['filter'], expectedFilter);
       });
+
+      test('ModelQueries.list() should support additional request parameters',
+          () {
+        final req = ModelQueries.list(
+          Blog.classType,
+          apiName: _exampleApiName,
+          headers: _exampleHeaders,
+          authorizationMode: APIAuthorizationType.function,
+        );
+
+        expect(req.apiName, _exampleApiName);
+        expect(req.headers, _exampleHeaders);
+        expect(req.authorizationMode, APIAuthorizationType.function);
+      });
     });
 
     group('ModelMutations', () {
       test('ModelMutations.create() should build a valid request', () {
-        final id = UUID.getUUID();
+        final id = uuid();
         const name = 'Test Blog';
         const time = '2021-08-03T16:39:18.000000651Z';
         final createdAt = TemporalDateTime.fromString(time);
@@ -375,13 +407,13 @@ void main() {
       test(
           'ModelMutations.create() should build a valid request for a model with a parent',
           () {
-        final blogId = UUID.getUUID();
+        final blogId = uuid();
         const name = 'Test Blog';
         const time = '2021-08-03T16:39:18.000000651Z';
         final createdAt = TemporalDateTime.fromString(time);
         final Blog blog = Blog(id: blogId, name: name, createdAt: createdAt);
 
-        final postId = UUID.getUUID();
+        final postId = uuid();
         const title = 'Lorem Ipsum';
         const rating = 1;
         final Post post =
@@ -410,7 +442,7 @@ void main() {
       test(
           'ModelMutations.create() should not include parent ID in variables if not in model',
           () {
-        final postId = UUID.getUUID();
+        final postId = uuid();
         const title = 'Lorem Ipsum';
         const rating = 1;
         final Post post = Post(id: postId, title: title, rating: rating);
@@ -422,8 +454,25 @@ void main() {
         );
       });
 
+      test('ModelQueries.create() should support additional request parameters',
+          () {
+        const name = 'Test Blog';
+
+        final blog = Blog(name: name);
+        final req = ModelMutations.create(
+          blog,
+          apiName: _exampleApiName,
+          headers: _exampleHeaders,
+          authorizationMode: APIAuthorizationType.function,
+        );
+
+        expect(req.apiName, _exampleApiName);
+        expect(req.headers, _exampleHeaders);
+        expect(req.authorizationMode, APIAuthorizationType.function);
+      });
+
       test('ModelMutations.delete() should build a valid request', () {
-        final id = UUID.getUUID();
+        final id = uuid();
         const name = 'Test Blog';
         const time = '2021-08-03T16:39:18.000000651Z';
         final createdAt = TemporalDateTime.fromString(time);
@@ -445,8 +494,25 @@ void main() {
         expect(req.decodePath, 'deleteBlog');
       });
 
+      test('ModelQueries.delete() should support additional request parameters',
+          () {
+        const name = 'Test Blog';
+
+        final blog = Blog(name: name);
+        final req = ModelMutations.delete(
+          blog,
+          apiName: _exampleApiName,
+          headers: _exampleHeaders,
+          authorizationMode: APIAuthorizationType.function,
+        );
+
+        expect(req.apiName, _exampleApiName);
+        expect(req.headers, _exampleHeaders);
+        expect(req.authorizationMode, APIAuthorizationType.function);
+      });
+
       test('ModelMutations.deleteById() should build a valid request', () {
-        final id = UUID.getUUID();
+        final id = uuid();
 
         final expectedVars = {
           'input': {'id': id},
@@ -464,8 +530,25 @@ void main() {
         expect(req.decodePath, 'deleteBlog');
       });
 
+      test(
+          'ModelQueries.deleteById() should support additional request parameters',
+          () {
+        final id = uuid();
+        final req = ModelMutations.deleteById(
+          Blog.classType,
+          id,
+          apiName: _exampleApiName,
+          headers: _exampleHeaders,
+          authorizationMode: APIAuthorizationType.function,
+        );
+
+        expect(req.apiName, _exampleApiName);
+        expect(req.headers, _exampleHeaders);
+        expect(req.authorizationMode, APIAuthorizationType.function);
+      });
+
       test('ModelMutations.update() should build a valid request', () {
-        final id = UUID.getUUID();
+        final id = uuid();
         const name = 'Test Blog';
         const time = '2021-08-03T16:39:18.000000651Z';
         final createdAt = TemporalDateTime.fromString(time);
@@ -496,13 +579,13 @@ void main() {
       test(
           'ModelMutations.update() should build a valid request for a model with a parent',
           () {
-        final blogId = UUID.getUUID();
+        final blogId = uuid();
         const name = 'Test Blog';
         const time = '2021-08-03T16:39:18.000000651Z';
         final createdAt = TemporalDateTime.fromString(time);
         final Blog blog = Blog(id: blogId, name: name, createdAt: createdAt);
 
-        final postId = UUID.getUUID();
+        final postId = uuid();
         const title = 'Lorem Ipsum';
         const rating = 1;
         final Post post =
@@ -532,7 +615,7 @@ void main() {
       test(
           'ModelMutations.update() should build a valid request with query predicate condition',
           () {
-        final id = UUID.getUUID();
+        final id = uuid();
         const name = 'Test Blog';
         const time = '2021-08-03T16:39:18.000000651Z';
         final createdAt = TemporalDateTime.fromString(time);
@@ -559,10 +642,26 @@ void main() {
         expect(_deepEquals(req.variables, expectedVars), isTrue);
       });
 
+      test('ModelQueries.update() should support additional request parameters',
+          () {
+        const name = 'Test Blog';
+        final blog = Blog(name: name);
+        final req = ModelMutations.update(
+          blog,
+          apiName: _exampleApiName,
+          headers: _exampleHeaders,
+          authorizationMode: APIAuthorizationType.function,
+        );
+
+        expect(req.apiName, _exampleApiName);
+        expect(req.headers, _exampleHeaders);
+        expect(req.authorizationMode, APIAuthorizationType.function);
+      });
+
       test(
           'ModelMutations.delete() should build a valid request with query predicate condition',
           () {
-        final id = UUID.getUUID();
+        final id = uuid();
         const name = 'Test Blog';
         const time = '2021-08-03T16:39:18.000000651Z';
         final createdAt = TemporalDateTime.fromString(time);
@@ -600,6 +699,21 @@ void main() {
         expect(req.decodePath, 'onCreateBlog');
       });
 
+      test(
+          'ModelSubscriptions.onCreate() should support additional request parameters',
+          () {
+        final req = ModelSubscriptions.onCreate(
+          Blog.classType,
+          apiName: _exampleApiName,
+          headers: _exampleHeaders,
+          authorizationMode: APIAuthorizationType.function,
+        );
+
+        expect(req.apiName, _exampleApiName);
+        expect(req.headers, _exampleHeaders);
+        expect(req.authorizationMode, APIAuthorizationType.function);
+      });
+
       test('ModelSubscriptions.onUpdate() should build a valid request', () {
         const expected =
             'subscription onUpdateBlog { onUpdateBlog { $blogSelectionSet } }';
@@ -611,6 +725,21 @@ void main() {
         expect(req.decodePath, 'onUpdateBlog');
       });
 
+      test(
+          'ModelSubscriptions.onUpdate() should support additional request parameters',
+          () {
+        final req = ModelSubscriptions.onUpdate(
+          Blog.classType,
+          apiName: _exampleApiName,
+          headers: _exampleHeaders,
+          authorizationMode: APIAuthorizationType.function,
+        );
+
+        expect(req.apiName, _exampleApiName);
+        expect(req.headers, _exampleHeaders);
+        expect(req.authorizationMode, APIAuthorizationType.function);
+      });
+
       test('ModelSubscriptions.onDelete() should build a valid request', () {
         const expected =
             'subscription onDeleteBlog { onDeleteBlog { $blogSelectionSet } }';
@@ -620,6 +749,21 @@ void main() {
         expect(req.document, expected);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'onDeleteBlog');
+      });
+
+      test(
+          'ModelSubscriptions.onDelete() should support additional request parameters',
+          () {
+        final req = ModelSubscriptions.onDelete(
+          Blog.classType,
+          apiName: _exampleApiName,
+          headers: _exampleHeaders,
+          authorizationMode: APIAuthorizationType.function,
+        );
+
+        expect(req.apiName, _exampleApiName);
+        expect(req.headers, _exampleHeaders);
+        expect(req.authorizationMode, APIAuthorizationType.function);
       });
     });
 
