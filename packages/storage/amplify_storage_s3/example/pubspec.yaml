@@ -36,7 +36,7 @@ dev_dependencies:
     path: ../../amplify_storage_s3_dart
   amplify_test:
     path: ../../../amplify_test
-  drift: ^2.0.0
+  drift: ">=2.3.0 <2.4.0"
   flutter_driver:
     sdk: flutter
   flutter_test:
