@@ -26,13 +26,13 @@ abstract class Emitter<S extends StateMachineState> {
 class StateMachineToken<
     Event extends StateMachineEvent,
     State extends StateMachineState,
-    Manager extends StateMachineDispatcher,
-    M extends StateMachine<Event, State, Manager>> extends Token<M> {
+    M extends StateMachine<Event, State, Manager>,
+    Manager extends StateMachineManager> extends Token<M> {
   /// {@macro amplify_core.state_machine_type}
   const StateMachineToken();
 
   @override
-  List<Token> get dependencies => const [Token<StateMachineDispatcher>()];
+  List<Token> get dependencies => const [Token<StateMachineManager>()];
 }
 
 /// {@template amplify_core.state_machinedispatcher}
@@ -40,15 +40,15 @@ class StateMachineToken<
 /// different layers.
 /// {@endtemplate}
 @optionalTypeArgs
-abstract class StateMachineDispatcher<E extends StateMachineEvent>
+abstract class StateMachineManager<E extends StateMachineEvent>
     implements DependencyManager, Dispatcher<E>, Closeable {
   /// {@macro amplify_core.state_machinedispatcher}
-  StateMachineDispatcher(
+  StateMachineManager(
     Map<StateMachineToken, Function> stateMachineBuilders,
     this._dependencyManager,
   ) {
     addInstance<Dispatcher>(this);
-    addInstance<StateMachineDispatcher>(this);
+    addInstance<StateMachineManager>(this);
     addInstance<DependencyManager>(this);
     stateMachineBuilders.forEach((token, builder) {
       addBuilder(builder, token);
@@ -118,17 +118,15 @@ abstract class StateMachineDispatcher<E extends StateMachineEvent>
 /// {@template amplify_core.state_machine}
 /// Base class for state machines.
 /// {@endtemplate}
-abstract class StateMachine<
-        Event extends StateMachineEvent,
-        State extends StateMachineState,
-        Dispatch extends StateMachineDispatcher>
+abstract class StateMachine<Event extends StateMachineEvent,
+        State extends StateMachineState, Manager extends StateMachineManager>
     with AWSDebuggable, AmplifyLoggerMixin
     implements
         Emitter<State>,
         DependencyManager,
         Dispatcher<StateMachineEvent> {
   /// {@macro amplify_core.state_machine}
-  StateMachine(this.dispatcher) {
+  StateMachine(this.manager) {
     addBuilder<AmplifyLogger>(AmplifyLogger.new);
     _init();
   }
@@ -138,7 +136,7 @@ abstract class StateMachine<
   void _init() {
     // Use `runtimeType` instead of generics. For some reason, having a method
     // on StateMachineManager to do this generically did not work.
-    dispatcher._stateMachines[runtimeType] = this;
+    manager._stateMachines[runtimeType] = this;
 
     // Registers `this` as the emitter for states of type [S].
     addInstance<Emitter<State>>(this);
@@ -175,14 +173,14 @@ abstract class StateMachine<
   @override
   void emit(State state) {
     _stateController.add(state);
-    dispatcher._stateController.add(state);
+    manager._stateController.add(state);
     final transition = Transition(
       _currentState,
       _currentEvent,
       state,
     );
     _transitionController.add(transition);
-    dispatcher._transitionController.add(transition);
+    manager._transitionController.add(transition);
     _currentState = state;
   }
 
@@ -219,7 +217,7 @@ abstract class StateMachine<
     return true;
   }
 
-  final Dispatch dispatcher;
+  final Manager manager;
 
   /// State controller.
   final StreamController<State> _stateController =
@@ -273,32 +271,32 @@ abstract class StateMachine<
     DependencyBuilder<T> builder, [
     Token<T>? token,
   ]) =>
-      dispatcher.addBuilder<T>(builder, token);
+      manager.addBuilder<T>(builder, token);
 
   @override
   void addInstance<T extends Object>(
     T instance, [
     Token<T>? token,
   ]) =>
-      dispatcher.addInstance<T>(instance, token);
+      manager.addInstance<T>(instance, token);
 
   @override
-  T? get<T extends Object>([Token<T>? token]) => dispatcher.get<T>(token);
+  T? get<T extends Object>([Token<T>? token]) => manager.get<T>(token);
 
   @override
   T getOrCreate<T extends Object>([Token<T>? token]) =>
-      dispatcher.getOrCreate<T>(token);
+      manager.getOrCreate<T>(token);
 
   @override
-  T expect<T extends Object>([Token<T>? token]) => dispatcher.expect<T>(token);
+  T expect<T extends Object>([Token<T>? token]) => manager.expect<T>(token);
 
   @override
-  T create<T extends Object>([Token<T>? token]) => dispatcher.create<T>(token);
+  T create<T extends Object>([Token<T>? token]) => manager.create<T>(token);
 
   /// Subscribes to the state machine of the given type.
   void subscribeTo<E extends StateMachineEvent, S extends StateMachineState,
-      M extends StateMachine<E, S, Dispatch>>(
-    StateMachineToken<E, S, Dispatch, M> type,
+      M extends StateMachine<E, S, Manager>>(
+    StateMachineToken<E, S, M, Manager> type,
     void Function(S state) onData,
   ) {
     if (_subscriptions.containsKey(type)) {
@@ -307,7 +305,7 @@ abstract class StateMachine<
         cancelOnError: true,
       );
     } else {
-      _subscriptions[type] = dispatcher.expect(type).stream.listen(
+      _subscriptions[type] = manager.expect(type).stream.listen(
             onData,
             cancelOnError: true,
           );
@@ -323,8 +321,7 @@ abstract class StateMachine<
 
   /// Dispatches an event to the state machine.
   @override
-  FutureOr<void> dispatch(StateMachineEvent event) =>
-      dispatcher.dispatch(event);
+  FutureOr<void> dispatch(StateMachineEvent event) => manager.dispatch(event);
 
   /// Closes the state machine and all stream controllers.
   @override

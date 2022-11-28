@@ -37,7 +37,7 @@ class SignInStateMachine
 
   /// The [SignInStateMachine] type.
   static const type = StateMachineToken<SignInEvent, SignInState,
-      CognitoAuthStateMachine, SignInStateMachine>();
+      SignInStateMachine, CognitoAuthStateMachine>();
 
   @override
   String get runtimeTypeName => 'SignInStateMachine';
@@ -616,7 +616,7 @@ class SignInStateMachine
       await dispatch(const FetchAuthSessionEvent.fetch());
 
       // Wait for above to propagate and complete successfully.
-      await dispatcher.loadSession();
+      await manager.loadSession();
     }
 
     return accessToken;

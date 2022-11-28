@@ -28,8 +28,8 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
   static const type = StateMachineToken<
       FetchAuthSessionEvent,
       FetchAuthSessionState,
-      CognitoAuthStateMachine,
-      FetchAuthSessionStateMachine>();
+      FetchAuthSessionStateMachine,
+      CognitoAuthStateMachine>();
 
   @override
   FetchAuthSessionState get initialState => const FetchAuthSessionState.idle();
@@ -192,7 +192,7 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
     FetchAuthSessionFetch event,
   ) async {
     final options = event.options ?? const CognitoSessionOptions();
-    final result = await dispatcher.loadCredentials();
+    final result = await manager.loadCredentials();
 
     final userPoolTokens = result.userPoolTokens;
     final accessTokenExpiration = userPoolTokens?.accessToken.claims.expiration;
@@ -273,7 +273,7 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
 
   /// State machine callback for the [FetchAuthSessionFederate] event.
   Future<void> onFederate(FetchAuthSessionFederate event) async {
-    final result = await dispatcher.loadCredentials();
+    final result = await manager.loadCredentials();
     final userPoolTokens = result.userPoolTokens;
     if (userPoolTokens != null) {
       throw const InvalidStateException(
@@ -323,7 +323,7 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
 
   /// State machine callback for the [FetchAuthSessionRefresh] event.
   Future<void> onRefresh(FetchAuthSessionRefresh event) async {
-    final result = await dispatcher.loadCredentials();
+    final result = await manager.loadCredentials();
 
     AuthResult<CognitoUserPoolTokens> userPoolTokensResult;
     AuthResult<String> userSubResult;
@@ -439,7 +439,7 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
           ),
         ),
       );
-      await dispatcher.loadCredentials();
+      await manager.loadCredentials();
 
       return _AwsCredentialsResult(awsCredentials, identityId);
     } on AuthNotAuthorizedException {
@@ -503,7 +503,7 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
           ),
         ),
       );
-      await dispatcher.loadCredentials();
+      await manager.loadCredentials();
 
       return newTokens;
     } on AuthNotAuthorizedException {
