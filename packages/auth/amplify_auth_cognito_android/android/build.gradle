@@ -29,7 +29,6 @@ rootProject.allprojects {
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply from: './coverage.gradle'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
 // Logic for finding sibling plugins, from `flutter_tools/gradle/flutter.gradle`
@@ -64,11 +63,6 @@ android {
         unitTests {
             includeAndroidResources = true
             returnDefaultValues = true
-        }
-    }
-    buildTypes {
-        debug {
-            testCoverageEnabled = true
         }
     }
 }
