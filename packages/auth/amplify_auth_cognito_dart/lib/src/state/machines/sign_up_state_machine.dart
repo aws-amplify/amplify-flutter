@@ -29,7 +29,7 @@ class SignUpStateMachine
 
   /// The [SignUpStateMachine] type.
   static const type = StateMachineToken<SignUpEvent, SignUpState,
-      CognitoAuthStateMachine, SignUpStateMachine>();
+      SignUpStateMachine, CognitoAuthStateMachine>();
 
   @override
   SignUpState get initialState => const SignUpState.notStarted();

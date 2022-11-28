@@ -68,11 +68,11 @@ class MyState extends StateMachineState<MyType> {
 }
 
 class MyStateMachine
-    extends StateMachine<MyEvent, MyState, StateMachineDispatcher> {
-  MyStateMachine(StateMachineDispatcher manager) : super(manager);
+    extends StateMachine<MyEvent, MyState, StateMachineManager> {
+  MyStateMachine(StateMachineManager manager) : super(manager);
 
-  static const type = StateMachineToken<MyEvent, MyState,
-      StateMachineDispatcher, MyStateMachine>();
+  static const type = StateMachineToken<MyEvent, MyState, MyStateMachine,
+      StateMachineManager>();
 
   @override
   MyState get initialState => const MyState(MyType.initial);
@@ -167,11 +167,11 @@ class WorkerState extends StateMachineState<WorkType> {
 }
 
 class WorkerMachine
-    extends StateMachine<WorkerEvent, WorkerState, StateMachineDispatcher> {
-  WorkerMachine(StateMachineDispatcher manager) : super(manager);
+    extends StateMachine<WorkerEvent, WorkerState, StateMachineManager> {
+  WorkerMachine(StateMachineManager manager) : super(manager);
 
-  static const type = StateMachineToken<WorkerEvent, WorkerState,
-      StateMachineDispatcher, WorkerMachine>();
+  static const type = StateMachineToken<WorkerEvent, WorkerState, WorkerMachine,
+      StateMachineManager>();
 
   @override
   WorkerState get initialState => const WorkerState(WorkType.initial);
@@ -200,7 +200,7 @@ class WorkerMachine
   String get runtimeTypeName => 'WorkerMachine';
 }
 
-class MyStateMachineManager extends StateMachineDispatcher {
+class MyStateMachineManager extends StateMachineManager {
   MyStateMachineManager(
     DependencyManager dependencyManager,
   ) : super(_builders, dependencyManager);

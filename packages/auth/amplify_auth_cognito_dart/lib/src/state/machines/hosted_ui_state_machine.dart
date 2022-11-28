@@ -31,7 +31,7 @@ class HostedUiStateMachine extends StateMachine<HostedUiEvent, HostedUiState,
 
   /// The [HostedUiStateMachine] type.
   static const type = StateMachineToken<HostedUiEvent, HostedUiState,
-      CognitoAuthStateMachine, HostedUiStateMachine>();
+      HostedUiStateMachine, CognitoAuthStateMachine>();
 
   @override
   HostedUiState get initialState => const HostedUiState.notConfigured();
@@ -98,7 +98,7 @@ class HostedUiStateMachine extends StateMachine<HostedUiEvent, HostedUiState,
 
   /// State machine callback for the [HostedUiConfigure] event.
   Future<void> onConfigure(HostedUiConfigure event) async {
-    final result = await dispatcher.loadCredentials();
+    final result = await manager.loadCredentials();
     final userPoolTokens = result.userPoolTokens;
     if (userPoolTokens != null &&
         userPoolTokens.signInMethod == CognitoSignInMethod.hostedUi) {

@@ -37,8 +37,8 @@ class CredentialStoreStateMachine extends StateMachine<CredentialStoreEvent,
   static const type = StateMachineToken<
       CredentialStoreEvent,
       CredentialStoreState,
-      CognitoAuthStateMachine,
-      CredentialStoreStateMachine>();
+      CredentialStoreStateMachine,
+      CognitoAuthStateMachine>();
 
   @override
   CredentialStoreState get initialState =>
