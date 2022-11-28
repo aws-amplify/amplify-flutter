@@ -28,13 +28,22 @@ class ModelQueriesFactory extends ModelQueriesInterface {
   static ModelQueriesFactory get instance => _instance;
 
   @override
-  GraphQLRequest<T> get<T extends Model>(ModelType<T> modelType, String id) {
+  GraphQLRequest<T> get<T extends Model>(
+    ModelType<T> modelType,
+    String id, {
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+    Map<String, String>? headers,
+  }) {
     final variables = {idFieldName: id};
     return GraphQLRequestFactory.instance.buildRequest<T>(
       modelType: modelType,
       variables: variables,
       requestType: GraphQLRequestType.query,
       requestOperation: GraphQLRequestOperation.get,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
     );
   }
 
@@ -43,6 +52,9 @@ class ModelQueriesFactory extends ModelQueriesInterface {
     ModelType<T> modelType, {
     int? limit,
     QueryPredicate? where,
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+    Map<String, String>? headers,
   }) {
     final filter = GraphQLRequestFactory.instance
         .queryPredicateToGraphQLFilter(where, modelType);
@@ -54,6 +66,9 @@ class ModelQueriesFactory extends ModelQueriesInterface {
       variables: variables,
       requestType: GraphQLRequestType.query,
       requestOperation: GraphQLRequestOperation.list,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
     );
   }
 }

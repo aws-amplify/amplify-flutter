@@ -25,8 +25,18 @@ class ModelSubscriptions {
   /// ```dart
   /// final request = ModelSubscriptions.onCreate(Todo.classType);
   /// ```
-  static GraphQLRequest<T> onCreate<T extends Model>(ModelType<T> modelType) {
-    return ModelSubscriptionsFactory.instance.onCreate<T>(modelType);
+  static GraphQLRequest<T> onCreate<T extends Model>(
+    ModelType<T> modelType, {
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+    Map<String, String>? headers,
+  }) {
+    return ModelSubscriptionsFactory.instance.onCreate<T>(
+      modelType,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
+    );
   }
 
   /// Generates a subscription request for the update of any instance of the `modelType`.
@@ -34,8 +44,18 @@ class ModelSubscriptions {
   /// ```dart
   /// final request = ModelSubscriptions.onUpdate(Todo.classType);
   /// ```
-  static GraphQLRequest<T> onUpdate<T extends Model>(ModelType<T> modelType) {
-    return ModelSubscriptionsFactory.instance.onUpdate<T>(modelType);
+  static GraphQLRequest<T> onUpdate<T extends Model>(
+    ModelType<T> modelType, {
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+    Map<String, String>? headers,
+  }) {
+    return ModelSubscriptionsFactory.instance.onUpdate<T>(
+      modelType,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
+    );
   }
 
   /// Generates a subscription request for the delete of any instance of the `modelType`.
@@ -43,7 +63,17 @@ class ModelSubscriptions {
   /// ```dart
   /// final request = ModelSubscriptions.onDelete(Todo.classType);
   /// ```
-  static GraphQLRequest<T> onDelete<T extends Model>(ModelType<T> modelType) {
-    return ModelSubscriptionsFactory.instance.onDelete<T>(modelType);
+  static GraphQLRequest<T> onDelete<T extends Model>(
+    ModelType<T> modelType, {
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+    Map<String, String>? headers,
+  }) {
+    return ModelSubscriptionsFactory.instance.onDelete<T>(
+      modelType,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
+    );
   }
 }
