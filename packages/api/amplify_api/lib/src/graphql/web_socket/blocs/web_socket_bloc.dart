@@ -147,7 +147,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   }
 
   Stream<WebSocketState> _eventTransformer(WebSocketEvent event) async* {
-    logger.verbose(event.toString());
+    logger.info(event.toString());
     // [WebSocketBloc] Events
     if (event is ConnectionAckMessageEvent) {
       yield* _connectionAck(event);
@@ -301,7 +301,8 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   /// Triggers reconnect work flow if not already connected.
   Stream<WebSocketState> _networkFound() async* {
     final state = _currentState;
-    if (state is ConnectingState) {
+    if (state is ConnectingState &&
+        state.networkState == NetworkState.disconnected) {
       yield state.reconnecting();
       add(const ReconnectEvent());
     }
