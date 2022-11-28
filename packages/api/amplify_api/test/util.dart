@@ -22,6 +22,7 @@ import 'package:amplify_api/src/graphql/web_socket/state/web_socket_state.dart';
 import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
+import 'package:aws_common/testing.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -253,6 +254,8 @@ class MockWebSocketBloc extends WebSocketBloc {
     required super.authProviderRepo,
     required super.wsService,
     required super.subscriptionOptions,
+    required super.pollClientOverride,
+    required super.connectivityOverride,
   });
 }
 
@@ -289,3 +292,27 @@ class MockWebSocketService extends AmplifyWebSocketService {
     channel.sink.add(completeMessage);
   }
 }
+
+bool mockPollClientInduceFailure = false;
+bool mockPollClientUnhealthy = false;
+int mockPollFailCount = 0;
+const maxFailAttempts = 6;
+
+final mockPollClient = MockAWSHttpClient((request) async {
+  if (mockPollClientUnhealthy) {
+    return AWSHttpResponse(
+      statusCode: 400,
+      body: utf8.encode('unhealthy'),
+    );
+  }
+  if (mockPollClientInduceFailure) {
+    mockPollFailCount++;
+  }
+
+  return mockPollClientInduceFailure && mockPollFailCount <= maxFailAttempts
+      ? throw TimeoutException('Mock timeout exception')
+      : AWSHttpResponse(
+          statusCode: 200,
+          body: utf8.encode('healthy'),
+        );
+});

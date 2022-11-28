@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:amplify_api/src/graphql/web_socket/blocs/ws_subscriptions_bloc.dart';
 import 'package:amplify_api/src/graphql/web_socket/services/web_socket_service.dart';
@@ -40,7 +39,11 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     required AmplifyAuthProviderRepository authProviderRepo,
     required WebSocketService wsService,
     required GraphQLSubscriptionOptions subscriptionOptions,
+    AWSHttpClient? pollClientOverride,
+    Connectivity? connectivityOverride,
   }) {
+    _pollClientOverride = pollClientOverride;
+    _connectivityOverride = connectivityOverride;
     final subBlocs = <String, WsSubscriptionBloc<Object?>>{};
 
     _currentState = DisconnectedState(
@@ -97,41 +100,11 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   ///
 
   /// The underlying Http client used for poll requests
-  AWSHttpClient get _pollClient => pollClientOverride ?? AWSHttpClient();
+  AWSHttpClient get _pollClient => _pollClientOverride ?? AWSHttpClient();
 
   /// Overrides
-  static AWSHttpClient? _pollClientOverride;
-  static Connectivity? _connectivityOverride;
-
-  /// The underlying connectivity object getter, for use in testing.
-  @visibleForTesting
-  static AWSHttpClient? get pollClientOverride => _pollClientOverride;
-
-  /// The underlying connectivity object setter, for use in testing.
-  @visibleForTesting
-  static set pollClientOverride(
-    AWSHttpClient? pollClientOverride,
-  ) {
-    _isTesting();
-    _pollClientOverride = pollClientOverride;
-  }
-
-  /// The underlying connectivity object getter, for use in testing.
-  @visibleForTesting
-  static Connectivity? get connectivityOverride => _connectivityOverride;
-
-  /// The underlying connectivity object setter, for use in testing.
-  @visibleForTesting
-  static set connectivityOverride(
-    Connectivity? connectivityOverride,
-  ) {
-    _isTesting();
-    _connectivityOverride = connectivityOverride;
-  }
-
-  static void _isTesting() {
-    if (!zAssertsEnabled) throw StateError('Can only be called in tests');
-  }
+  late final AWSHttpClient? _pollClientOverride;
+  late final Connectivity? _connectivityOverride;
 
   /// The current state of the bloc.
   WebSocketState get currentState => _currentState;
@@ -306,7 +279,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       },
     );
 
-    yield (_currentState.connecting(networkState: NetworkState.connected));
+    yield _currentState.connecting(networkState: NetworkState.connected);
   }
 
   // Resets the timeout when a keep alive [ka] message is received
@@ -316,7 +289,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     logger.verbose('Reset timer');
   }
 
-  /// Switches state to [ConnectingState]
+  /// Handles network loss events by triggering reconnection flow.
   Stream<WebSocketState> _networkLoss() async* {
     final state = _currentState;
     if (state is ConnectedState) {
@@ -365,30 +338,18 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       // Begin reconnection with retry/back off on ping endpoint
       final res = await state.options.retryOptions.retry(
         // Make a GET request
-        () => _getPollRequest().timeout(_defaultRetryTimeout),
+        () => _sendPollRequest().timeout(_defaultRetryTimeout),
       );
 
-      final body = await utf8.decodeStream(res.body);
-
-      if (body != 'healthy') {
-        throw ApiException(
-          'AppSync status check returned "$body", shutting down',
-          recoverySuggestion:
-              'Unable to reach the configured AppSync URL. Check internet connection or the configured AppSync URL',
-        );
-      }
+      await checkPollResponse(res);
 
       // **Ping succeeded**
 
       // Prep new connection
       await state.service.close();
-      await Future.wait(
-        state.subscriptionBlocs.values.map((
-          bloc,
-        ) async {
-          bloc.add(SubscriptionPendingEvent(bloc.currentState.request.id));
-        }),
-      );
+      for (final bloc in state.subscriptionBlocs.values) {
+        bloc.add(SubscriptionPendingEvent(bloc.currentState.request.id));
+      }
 
       // Init new connection
       add(const InitEvent());
@@ -467,6 +428,18 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   ///
   ///
 
+  ///
+  Future<void> checkPollResponse(AWSBaseHttpResponse res) async {
+    final body = await res.decodeBody();
+    if (body != 'healthy') {
+      throw ApiException(
+        'Subscription connection broken. AppSync status check returned "$body"',
+        recoverySuggestion:
+            'Unable to reach the configured AppSync URL. Check internet connection or the configured AppSync URL',
+      );
+    }
+  }
+
   /// Disconnects the web socket connection and closes streams.
   Future<void> _close() async {
     if (_currentState is! FailureState) {
@@ -507,33 +480,10 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     }).listen(null);
   }
 
-  /// GET request on the configured AppSync url via the `/poll` endpoint
-  Future<AWSBaseHttpResponse> _getPollRequest() {
-    final req = AWSHttpRequest.get(
-      _currentState.pollUri,
-    );
-
-    if (req.scheme != 'https') {
-      throw const ApiException(
-        'Non-HTTPS requests not supported.',
-        recoverySuggestion: 'Check the configured endpoint url utilizes https.',
-      );
-    }
-
-    return req.send(client: _pollClient).response;
-  }
-
   Future<void> _poll() async {
     try {
-      final res = await _getPollRequest();
-      final body = await utf8.decodeStream(res.body);
-      if (body != 'healthy') {
-        throw ApiException(
-          'Subscription connection broken. AppSync status check returned "$body", attempting reconnection',
-          recoverySuggestion:
-              'Unable to reach the configured AppSync URL. Check internet connection or the configured AppSync URL',
-        );
-      }
+      final res = await _sendPollRequest();
+      await checkPollResponse(res);
       add(const PollSuccessEvent());
     } on Exception catch (e) {
       add(PollFailedEvent(e));
@@ -561,6 +511,25 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     return subBloc;
   }
 
+  /// Takes a WebSocketEvent and sends it to the corresponding sub bloc
+  Stream<WebSocketState> _sendEventToSubBloc(WsSubscriptionEvent event) async* {
+    final id = event.subscriptionId;
+    assert(
+      _currentState.subscriptionBlocs.containsKey(id),
+      'Bloc is missing subscription for $id',
+    );
+    _currentState.subscriptionBlocs[id]!.add(event);
+  }
+
+  /// GET request on the configured AppSync url via the `/poll` endpoint
+  Future<AWSBaseHttpResponse> _sendPollRequest() {
+    final req = AWSHttpRequest.get(
+      _currentState.pollUri,
+    );
+
+    return req.send(client: _pollClient).response;
+  }
+
   /// Sends an exception to all sub blocs and cleans up this bloc
   Future<void> _shutdownWithException(Exception e) async {
     _emit(_currentState.failed(e));
@@ -579,16 +548,6 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     }
 
     add(const ShutdownEvent());
-  }
-
-  /// Takes a WebSocketEvent and sends it to the corresponding sub bloc
-  Stream<WebSocketState> _sendEventToSubBloc(WsSubscriptionEvent event) async* {
-    final id = event.subscriptionId;
-    assert(
-      _currentState.subscriptionBlocs.containsKey(id),
-      'Bloc is missing subscription for $id',
-    );
-    _currentState.subscriptionBlocs[id]!.add(event);
   }
 
   /// Times out the connection (usually if a keep alive has not been received in time).

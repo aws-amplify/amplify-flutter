@@ -18,7 +18,7 @@ import 'dart:convert';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_api/src/graphql/providers/app_sync_api_key_auth_provider.dart';
-import 'package:amplify_api/src/graphql/web_socket/blocs/web_socket_bloc.dart';
+import 'package:amplify_api/src/graphql/web_socket/state/web_socket_state.dart';
 import 'package:amplify_api/src/util/amplify_api_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
@@ -101,22 +101,7 @@ const _expectedAuthErrorResponseBody = {
   ]
 };
 
-var _failClient = false;
-var _failCount = 0;
-const _maxFailAttempts = 5;
-
 final mockHttpClient = MockAWSHttpClient((request) async {
-  if (request.uri.path == '/ping') {
-    if (_failClient) {
-      _failCount++;
-    }
-    return _failClient && _failCount <= _maxFailAttempts
-        ? throw TimeoutException('Mock timeout exception')
-        : AWSHttpResponse(
-            statusCode: 200,
-            body: utf8.encode('healthy'),
-          );
-  }
   if (request.headers[xApiKey] != 'abc123' &&
       request.headers[AWSHeaders.authorization] == testFunctionToken) {
     // Not authorized w API key but has lambda auth token, mock that auth mode
@@ -320,23 +305,23 @@ void main() {
     };
 
     setUp(() {
-      _failCount = 0;
+      mockPollFailCount = 0;
       mockWebSocketService = MockWebSocketService();
       const subscriptionOptions =
           GraphQLSubscriptionOptions(pollInterval: Duration(seconds: 1));
+
+      fakePlatform = MockConnectivityPlatform();
+      ConnectivityPlatform.instance = fakePlatform;
+      final connectivity = Connectivity();
 
       mockWebSocketBloc = MockWebSocketBloc(
         config: testApiKeyConfig,
         authProviderRepo: getTestAuthProviderRepo(),
         wsService: mockWebSocketService!,
         subscriptionOptions: subscriptionOptions,
+        pollClientOverride: mockPollClient,
+        connectivityOverride: connectivity,
       );
-      fakePlatform = MockConnectivityPlatform();
-      ConnectivityPlatform.instance = fakePlatform;
-      final connectivity = Connectivity();
-
-      WebSocketBloc.pollClientOverride = mockHttpClient;
-      WebSocketBloc.connectivityOverride = connectivity;
     });
 
     test('subscribe() should decode model data', () async {
@@ -451,7 +436,7 @@ void main() {
     });
 
     test(
-        'should reconnect after 15 seconds when appsync ping fails multiple times',
+        'should reconnect after 13 seconds when appsync ping fails multiple times',
         () async {
       final blocReady = Completer<void>();
 
@@ -475,20 +460,32 @@ void main() {
         subscriptionRequest.id,
       );
 
-      Amplify.API.subscribe(
+      Amplify.API
+          .subscribe(
         subscriptionRequest,
         onEstablished: blocReady.complete,
-      );
+      )
+          .listen((event) {
+        expect(event.data, json.encode(mockSubscriptionData));
+      });
 
       await blocReady.future;
 
       fakePlatform.controller.sink.add(ConnectivityResult.wifi);
 
-      _failClient = true;
+      mockPollClientInduceFailure = true;
 
-      await Future<void>.delayed(const Duration(seconds: 15));
+      await Future<void>.delayed(const Duration(seconds: 10));
 
-      _failClient = false;
+      mockPollClientInduceFailure = false;
+
+      await expectLater(
+        mockWebSocketBloc!.stream,
+        emitsThrough(isA<ConnectedState>()),
+      );
+
+      mockWebSocketService!.channel.sink
+          .add(json.encode(mockSubscriptionEvent));
     });
   });
 

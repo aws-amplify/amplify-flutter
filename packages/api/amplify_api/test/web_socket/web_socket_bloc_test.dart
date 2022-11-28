@@ -19,12 +19,10 @@ import 'package:amplify_api/src/graphql/web_socket/blocs/web_socket_bloc.dart';
 import 'package:amplify_api/src/graphql/web_socket/state/web_socket_state.dart';
 import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:aws_common/testing.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../util.dart';
 
@@ -65,26 +63,15 @@ void main() {
     },
   });
 
-  var failClient = false;
-  var failCount = 0;
-  const maxFailAttempts = 6;
   const subscriptionOptions =
       GraphQLSubscriptionOptions(pollInterval: Duration(seconds: 1));
 
-  final mockClient = MockAWSHttpClient((request) async {
-    if (failClient) {
-      failCount++;
-    }
-
-    return failClient && failCount <= maxFailAttempts
-        ? throw TimeoutException('Mock timeout exception')
-        : AWSHttpResponse(
-            statusCode: 200,
-            body: utf8.encode('healthy'),
-          );
-  });
-
   MockWebSocketBloc getWebSocketBloc() {
+    fakePlatform = MockConnectivityPlatform();
+    ConnectivityPlatform.instance = fakePlatform;
+    connectivity = Connectivity();
+    fakePlatform.controller.sink.add(ConnectivityResult.wifi);
+
     service = MockWebSocketService();
 
     bloc = MockWebSocketBloc(
@@ -92,6 +79,8 @@ void main() {
       authProviderRepo: getTestAuthProviderRepo(),
       wsService: service!,
       subscriptionOptions: subscriptionOptions,
+      pollClientOverride: mockPollClient,
+      connectivityOverride: connectivity,
     );
 
     bloc!.stream.listen((event) async {
@@ -109,14 +98,7 @@ void main() {
 
   group('WebSocketBloc', () {
     setUp(() {
-      failCount = 0;
-      fakePlatform = MockConnectivityPlatform();
-      ConnectivityPlatform.instance = fakePlatform;
-      connectivity = Connectivity();
-      fakePlatform.controller.sink.add(ConnectivityResult.wifi);
-
-      WebSocketBloc.pollClientOverride = mockClient;
-      WebSocketBloc.connectivityOverride = connectivity;
+      mockPollFailCount = 0;
     });
     tearDown(() async {
       bloc = null;
@@ -160,7 +142,7 @@ void main() {
     });
 
     test('should reconnect when data turns on/off', () async {
-      final dataCompleter = Completer<String>();
+      var dataCompleter = Completer<String>();
       final subscribeEvent = SubscribeEvent(
         subscriptionRequest,
         () {
@@ -184,25 +166,30 @@ void main() {
         ),
       );
 
-      bloc
-          .subscribe(
-        subscribeEvent,
-      )
-          .listen(
-        expectAsync1((event) {
-          expect(event.data, json.encode(mockSubscriptionData));
-          dataCompleter.complete(event.data);
-        }),
-      );
+      bloc.subscribe(subscribeEvent).listen(
+            expectAsync1(
+              (event) {
+                expect(event.data, json.encode(mockSubscriptionData));
+                dataCompleter.complete(event.data);
+              },
+              count: 2,
+            ),
+          );
 
       await dataCompleter.future;
+      dataCompleter = Completer<String>();
 
       fakePlatform.controller.sink.add(ConnectivityResult.none);
 
       fakePlatform.controller.sink.add(ConnectivityResult.mobile);
+
+      await expectLater(bloc.stream, emitsThrough(isA<ConnectedState>()));
+
+      service!.channel.sink.add(mockDataString);
+      await dataCompleter.future;
     });
 
-    test('should reconnect after repeated wifi toggling', () async {
+    test('should throttle reconnect after repeated wifi toggling', () async {
       final blocReady = Completer<void>();
       final subscribeEvent = SubscribeEvent(
         subscriptionRequest,
@@ -223,6 +210,8 @@ void main() {
             isA<ConnectedState>(),
           ],
         ),
+        reason:
+            'Bloc should debounce multiple reconnection triggers while reconnecting.',
       );
 
       bloc.subscribe(
@@ -243,9 +232,46 @@ void main() {
       fakePlatform.controller.sink.add(ConnectivityResult.wifi);
     });
 
-    test(
-        'should reconnect after 15 seconds when appsync ping fails multiple times',
-        () {
+    test('should reconnect multiple times after reconnecting', () async {
+      final blocReady = Completer<void>();
+      final subscribeEvent = SubscribeEvent(
+        subscriptionRequest,
+        blocReady.complete,
+      );
+
+      final bloc = getWebSocketBloc()
+        ..subscribe(
+          subscribeEvent,
+        );
+
+      await blocReady.future;
+
+      fakePlatform.controller.sink.add(ConnectivityResult.none);
+
+      await expectLater(bloc.stream, emitsThrough(isA<ReconnectingState>()));
+
+      fakePlatform.controller.sink.add(ConnectivityResult.wifi);
+
+      await expectLater(bloc.stream, emitsThrough(isA<ConnectedState>()));
+
+      fakePlatform.controller.sink.add(ConnectivityResult.none);
+
+      await expectLater(bloc.stream, emitsThrough(isA<ReconnectingState>()));
+
+      fakePlatform.controller.sink.add(ConnectivityResult.wifi);
+
+      await expectLater(bloc.stream, emitsThrough(isA<ConnectedState>()));
+
+      fakePlatform.controller.sink.add(ConnectivityResult.none);
+
+      await expectLater(bloc.stream, emitsThrough(isA<ReconnectingState>()));
+
+      fakePlatform.controller.sink.add(ConnectivityResult.wifi);
+
+      await expectLater(bloc.stream, emitsThrough(isA<ConnectedState>()));
+    });
+
+    test('should reconnect after 13 seconds during retry/back off', () {
       FakeAsync()
         ..run((async) async {
           final subscribeEvent = SubscribeEvent(
@@ -271,13 +297,11 @@ void main() {
             ),
           );
 
-          fakePlatform.controller.sink.add(ConnectivityResult.wifi);
+          mockPollClientInduceFailure = true;
 
-          failClient = true;
+          async.elapse(const Duration(seconds: 13));
 
-          async.elapse(const Duration(seconds: 15));
-
-          failClient = false;
+          mockPollClientInduceFailure = false;
         })
         ..flushMicrotasks();
     });
@@ -297,6 +321,8 @@ void main() {
         authProviderRepo: getTestAuthProviderRepo(),
         wsService: badService,
         subscriptionOptions: subscriptionOptions,
+        pollClientOverride: mockPollClient,
+        connectivityOverride: connectivity,
       );
 
       expect(
@@ -313,6 +339,43 @@ void main() {
       bloc.subscribe(
         subscribeEvent,
       );
+    });
+
+    test('should throw an exception when poll responds unhealthy', () async {
+      final blocReady = Completer<void>();
+      final subscribeEvent = SubscribeEvent(
+        subscriptionRequest,
+        blocReady.complete,
+      );
+      final bloc = getWebSocketBloc();
+
+      expect(
+        bloc.stream,
+        emitsInOrder(
+          [
+            isA<DisconnectedState>(),
+            isA<ConnectingState>(),
+            isA<ConnectedState>(),
+            isA<ReconnectingState>(),
+            isA<FailureState>(),
+            isA<PendingDisconnect>(),
+            isA<DisconnectedState>(),
+          ],
+        ),
+      );
+
+      bloc.subscribe(subscribeEvent).listen(
+        (x) {},
+        onError: expectAsync1((event) {
+          expect(
+            event,
+            isA<ApiException>(),
+          );
+        }),
+      );
+
+      await blocReady.future;
+      mockPollClientUnhealthy = true;
     });
 
     test('cancel() should send a stop message & close connection', () async {

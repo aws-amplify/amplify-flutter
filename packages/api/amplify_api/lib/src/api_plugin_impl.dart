@@ -94,6 +94,15 @@ class AmplifyAPIDart extends AmplifyAPI {
             'https://docs.amplify.aws/lib/graphqlapi/getting-started/q/platform/flutter/#configure-api',
       );
     }
+    for (final entry in apiConfig.endpoints.entries) {
+      if (!entry.value.endpoint.startsWith('https')) {
+        throw ApiException(
+          'Non-HTTPS endpoint found for ${entry.key} which is not supported.',
+          recoverySuggestion:
+              'Check the configured endpoint for ${entry.key} utilizes https.',
+        );
+      }
+    }
     _apiConfig = apiConfig;
     _authProviderRepo = authProviderRepo;
     _registerApiPluginAuthProviders();
@@ -224,7 +233,8 @@ class AmplifyAPIDart extends AmplifyAPI {
       config: endpoint.config,
       authProviderRepo: _authProviderRepo,
       wsService: AmplifyWebSocketService(),
-      subscriptionOptions: const GraphQLSubscriptionOptions(),
+      subscriptionOptions:
+          subscriptionOptions ?? const GraphQLSubscriptionOptions(),
     );
   }
 
