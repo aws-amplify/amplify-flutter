@@ -77,9 +77,15 @@ class GenerateSdkCommand extends AmplifyCommand {
       processWorkingDir: cloneDir.path,
     );
     logger.trace('Successfully cloned models');
+    return cloneDir;
+  }
+
+  /// for all folders inside the baseDir,
+  /// if smithy/model.json exists, copy to <servicename>.json inside a temporary directory.
+  Future<Directory> _getModels(Directory baseDir) async {
     final modelsDir = await Directory.systemTemp.createTemp('models');
-    logger.trace('Organizing models in ${modelsDir.path}');
-    final services = cloneDir.list(followLinks: false).whereType<Directory>();
+    logger.stdout('Organizing models in ${modelsDir.path}');
+    final services = baseDir.list(followLinks: false).whereType<Directory>();
     await for (final serviceDir in services) {
       final serviceName = p.basename(serviceDir.path);
       final artifacts = await serviceDir.list().whereType<Directory>().toList();
@@ -113,12 +119,13 @@ class GenerateSdkCommand extends AmplifyCommand {
     final modelsPath = args['models'] as String?;
     final Directory modelsDir;
     if (modelsPath != null) {
-      modelsDir = Directory(modelsPath);
+      modelsDir = await _getModels(Directory(modelsPath));
       if (!await modelsDir.exists()) {
         exitError('Model directory ($modelsDir) does not exist');
       }
     } else {
-      modelsDir = await _downloadModels(config.ref);
+      final cloneDir = await _downloadModels(config.ref);
+      modelsDir = await _getModels(cloneDir);
     }
 
     final outputPath = args['output'] as String;
