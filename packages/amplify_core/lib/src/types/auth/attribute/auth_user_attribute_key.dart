@@ -16,15 +16,18 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
-/// {@template amplify_core.user_attribute_key}
+@Deprecated('Use AuthUserAttributeKey instead')
+typedef UserAttributeKey = AuthUserAttributeKey;
+
+/// {@template amplify_core.auth_user_attribute_key}
 /// A user attribute identifier.
 /// {@endtemplate}
 @immutable
-abstract class UserAttributeKey
+abstract class AuthUserAttributeKey
     with AWSSerializable<String>
-    implements Comparable<UserAttributeKey> {
-  /// {@macro amplify_core.user_attribute_key}
-  const UserAttributeKey();
+    implements Comparable<AuthUserAttributeKey> {
+  /// {@macro amplify_core.auth_user_attribute_key}
+  const AuthUserAttributeKey();
 
   /// The JSON key for this attribute.
   String get key;
@@ -33,14 +36,15 @@ abstract class UserAttributeKey
   String toJson() => key;
 
   @override
-  int compareTo(UserAttributeKey other) => key.compareTo(other.key);
+  int compareTo(AuthUserAttributeKey other) => key.compareTo(other.key);
 
   @override
   String toString() => key;
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || other is UserAttributeKey && key == other.key;
+      identical(this, other) ||
+      other is AuthUserAttributeKey && key == other.key;
 
   @override
   int get hashCode => key.hashCode;

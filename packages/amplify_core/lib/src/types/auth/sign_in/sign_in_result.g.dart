@@ -6,7 +6,7 @@ part of 'sign_in_result.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Map<String, dynamic> _$SignInResultToJson<Key extends UserAttributeKey>(
+Map<String, dynamic> _$SignInResultToJson<Key extends AuthUserAttributeKey>(
   SignInResult<Key> instance,
   Object? Function(Key value) toJsonKey,
 ) {

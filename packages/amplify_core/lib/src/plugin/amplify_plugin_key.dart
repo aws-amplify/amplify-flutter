@@ -30,7 +30,7 @@ abstract class AmplifyPluginKey<P extends AmplifyPluginInterface>
 /// {@endtemplate}
 abstract class AuthPluginKey<
     PluginAuthUser extends AuthUser,
-    PluginUserAttributeKey extends UserAttributeKey,
+    PluginUserAttributeKey extends AuthUserAttributeKey,
     PluginAuthUserAttribute extends AuthUserAttribute<PluginUserAttributeKey>,
     PluginAuthDevice extends AuthDevice,
     PluginSignUpOptions extends SignUpOptions,

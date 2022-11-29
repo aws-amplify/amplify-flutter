@@ -25,7 +25,7 @@ import 'utils/setup_utils.dart';
 import 'utils/test_utils.dart';
 
 extension on List<AuthUserAttribute> {
-  String? valueOf(UserAttributeKey key) =>
+  String? valueOf(AuthUserAttributeKey key) =>
       singleWhereOrNull((el) => el.userAttributeKey == key)?.value;
 }
 

@@ -21,7 +21,7 @@ part 'auth_user_attribute.g.dart';
 /// The key and value for a user attribute.
 /// {@endtemplate}
 @zAmplifyGenericSerializable
-class AuthUserAttribute<Key extends UserAttributeKey>
+class AuthUserAttribute<Key extends AuthUserAttributeKey>
     with
         // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49484
         AWSEquatable<AuthUserAttribute<Key>>,

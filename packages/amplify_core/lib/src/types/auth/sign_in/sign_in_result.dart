@@ -25,7 +25,7 @@ part 'sign_in_result.g.dart';
   // TODO(dnys1): Fix generic serialization
   createFactory: false,
 )
-class SignInResult<Key extends UserAttributeKey>
+class SignInResult<Key extends AuthUserAttributeKey>
     with
         // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49484
         AWSEquatable<SignInResult<Key>>,

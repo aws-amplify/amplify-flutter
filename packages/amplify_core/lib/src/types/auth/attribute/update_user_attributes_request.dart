@@ -21,7 +21,7 @@ part 'update_user_attributes_request.g.dart';
 /// Encapsulates parameters for a update user attributes operation.
 /// {@endtemplate}
 @zAmplifyGenericSerializable
-class UpdateUserAttributesRequest<Key extends UserAttributeKey,
+class UpdateUserAttributesRequest<Key extends AuthUserAttributeKey,
         Options extends UpdateUserAttributesOptions>
     with
         // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49484

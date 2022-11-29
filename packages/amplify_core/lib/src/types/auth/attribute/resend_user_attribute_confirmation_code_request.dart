@@ -22,7 +22,8 @@ part 'resend_user_attribute_confirmation_code_request.g.dart';
 /// confirmation code.
 /// {@endtemplate}
 @zAmplifyGenericSerializable
-class ResendUserAttributeConfirmationCodeRequest<Key extends UserAttributeKey,
+class ResendUserAttributeConfirmationCodeRequest<
+        Key extends AuthUserAttributeKey,
         Options extends ResendUserAttributeConfirmationCodeOptions>
     with
         // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49484

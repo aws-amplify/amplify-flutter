@@ -8,7 +8,7 @@ part of 'resend_user_attribute_confirmation_code_request.dart';
 
 ResendUserAttributeConfirmationCodeRequest<Key, Options>
     _$ResendUserAttributeConfirmationCodeRequestFromJson<
-            Key extends UserAttributeKey,
+            Key extends AuthUserAttributeKey,
             Options extends ResendUserAttributeConfirmationCodeOptions>(
   Map<String, dynamic> json,
   Key Function(Object? json) fromJsonKey,
@@ -20,7 +20,7 @@ ResendUserAttributeConfirmationCodeRequest<Key, Options>
         );
 
 Map<String, dynamic> _$ResendUserAttributeConfirmationCodeRequestToJson<
-    Key extends UserAttributeKey,
+    Key extends AuthUserAttributeKey,
     Options extends ResendUserAttributeConfirmationCodeOptions>(
   ResendUserAttributeConfirmationCodeRequest<Key, Options> instance,
   Object? Function(Key value) toJsonKey,
