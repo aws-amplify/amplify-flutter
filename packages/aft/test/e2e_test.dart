@@ -18,6 +18,7 @@ import 'dart:io';
 
 import 'package:aft/aft.dart';
 import 'package:aft/src/repo.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:git/git.dart' as git;
 import 'package:libgit2dart/libgit2dart.dart';
 import 'package:path/path.dart' as p;
@@ -37,6 +38,8 @@ class MockRepo extends Repo {
 }
 
 void main() {
+  final logger = AWSLogger()..logLevel = LogLevel.verbose;
+
   group('Repo', () {
     late Repo repo;
 
@@ -64,7 +67,7 @@ environment:
       if (dependencies != null && dependencies.isNotEmpty) {
         pubspec.writeln('dependencies:');
         for (final dependency in dependencies.entries) {
-          pubspec.writeln('  ${dependency.key}: ${dependency.value}');
+          pubspec.writeln('  ${dependency.key}: "${dependency.value}"');
         }
       }
       final changelog = '''
@@ -111,6 +114,7 @@ Initial version.
       repo = MockRepo(
         gitDir,
         repo: Repository.init(path: gitDir.path),
+        logger: logger,
         aftConfig: const AftConfig(
           components: [
             AftComponent(
@@ -155,7 +159,12 @@ Initial version.
     group('E2E', () {
       final nextVersion = Version(1, 0, 0, pre: 'next.0');
       final coreVersion = Version(0, 1, 0);
-      final nextConstraint = nextVersion;
+      final nextConstraint = VersionRange(
+        min: nextVersion,
+        max: Version(1, 0, 0, pre: 'next.1'),
+        includeMin: true,
+        includeMax: false,
+      );
       final coreConstraint = VersionConstraint.compatibleWith(coreVersion);
 
       setUp(() async {
@@ -295,8 +304,8 @@ Initial version.
           'aws_common': '0.1.1',
           'amplify_core': '1.0.0-next.0+1',
           'amplify_auth_cognito_dart': '0.1.1',
-          'amplify_auth_cognito': '1.0.0-next.1',
-          'amplify_auth_cognito_ios': '1.0.0-next.1',
+          'amplify_auth_cognito': '1.0.0-next.0+1',
+          'amplify_auth_cognito_ios': '1.0.0-next.0+1',
         };
         final updatedChangelogs = {
           'aws_common': '''
@@ -319,16 +328,13 @@ Initial version.
 - feat(auth): New feature
 ''',
           'amplify_auth_cognito': '''
-## 1.0.0-next.1
-
-### Breaking Changes
-- fix(amplify_auth_cognito_ios)!: Change iOS dependency
+## 1.0.0-next.0+1
 
 ### Features
 - feat(auth): New feature
 ''',
           'amplify_auth_cognito_ios': '''
-## 1.0.0-next.1
+## 1.0.0-next.0+1
 
 ### Breaking Changes
 - fix(amplify_auth_cognito_ios)!: Change iOS dependency
@@ -350,7 +356,7 @@ environment:
   sdk: '>=2.17.0 <3.0.0'
 
 dependencies:
-  aws_common: ^0.1.0
+  aws_common: "^0.1.0"
 ''',
           'amplify_auth_cognito_dart': '''
 name: amplify_auth_cognito_dart
@@ -361,24 +367,24 @@ environment:
 
 dependencies:
   amplify_core: ">=1.0.0-next.0+1 <1.0.0-next.1"
-  aws_common: ^0.1.0
+  aws_common: "^0.1.0"
 ''',
           'amplify_auth_cognito': '''
 name: amplify_auth_cognito
-version: 1.0.0-next.1
+version: 1.0.0-next.0+1
 
 environment:
   sdk: '>=2.17.0 <3.0.0'
 
 dependencies:
-  amplify_auth_cognito_ios: ">=1.0.0-next.1 <1.0.0-next.2"
+  amplify_auth_cognito_ios: ">=1.0.0-next.0+1 <1.0.0-next.1"
   amplify_auth_cognito_dart: ">=0.1.1 <0.2.0"
   amplify_core: ">=1.0.0-next.0+1 <1.0.0-next.1"
-  aws_common: ^0.1.0
+  aws_common: "^0.1.0"
 ''',
           'amplify_auth_cognito_ios': '''
 name: amplify_auth_cognito_ios
-version: 1.0.0-next.1
+version: 1.0.0-next.0+1
 
 environment:
   sdk: '>=2.17.0 <3.0.0'
