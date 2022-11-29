@@ -67,4 +67,5 @@ addlicense -l apache -c "Amazon.com, Inc. or its affiliates. All Rights Reserved
     -ignore '**/*.release.dart' \
     -ignore '**/goldens/**' \
     -ignore '**/node_modules/**' \
+    -ignore '**/sdk/**' \
     $@ $PWD
