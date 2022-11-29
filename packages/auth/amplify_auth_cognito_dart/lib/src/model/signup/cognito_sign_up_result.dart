@@ -23,5 +23,11 @@ class CognitoSignUpResult extends SignUpResult {
   const CognitoSignUpResult({
     required super.nextStep,
     required super.isSignUpComplete,
+    this.userId,
   });
+
+  /// The user ID of the signed-up user.
+  ///
+  /// Will not be present for `Amplify.Auth.confirmSignUp` calls.
+  final String? userId;
 }

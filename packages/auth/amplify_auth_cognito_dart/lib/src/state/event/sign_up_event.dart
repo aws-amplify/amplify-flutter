@@ -52,7 +52,9 @@ abstract class SignUpEvent
   }) = SignUpConfirm;
 
   /// {@macro amplify_auth_cognito.sign_up_succeeded}
-  const factory SignUpEvent.succeeded() = SignUpSucceeded;
+  const factory SignUpEvent.succeeded({
+    String? userId,
+  }) = SignUpSucceeded;
 
   /// {@macro amplify_auth_cognito.sign_up_failed}
   const factory SignUpEvent.failed(Exception exception) = SignUpFailed;
@@ -139,13 +141,18 @@ class SignUpConfirm extends SignUpEvent {
 /// {@endtemplate}
 class SignUpSucceeded extends SignUpEvent {
   /// {@macro amplify_auth_cognito.sign_up_succeeded}
-  const SignUpSucceeded() : super._();
+  const SignUpSucceeded({
+    this.userId,
+  }) : super._();
+
+  /// The ID of the user.
+  final String? userId;
 
   @override
   SignUpEventType get type => SignUpEventType.succeeded;
 
   @override
-  List<Object?> get props => [type];
+  List<Object?> get props => [type, userId];
 }
 
 /// {@template amplify_auth_cognito.sign_up_failed}

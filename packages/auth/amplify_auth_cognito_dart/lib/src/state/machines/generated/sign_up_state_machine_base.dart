@@ -45,7 +45,7 @@ abstract class SignUpStateMachineBase
         break;
       case SignUpEventType.succeeded:
         event as SignUpSucceeded;
-        emit(const SignUpState.success());
+        emit(SignUpState.success(userId: event.userId));
         await onSucceeded(event);
         break;
       case SignUpEventType.failed:
