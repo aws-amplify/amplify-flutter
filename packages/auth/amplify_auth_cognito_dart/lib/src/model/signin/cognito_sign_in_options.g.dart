@@ -36,4 +36,6 @@ const _$AuthenticationFlowTypeEnumMap = {
   AuthenticationFlowType.userSrpAuth: 'USER_SRP_AUTH',
   AuthenticationFlowType.userPasswordAuth: 'USER_PASSWORD_AUTH',
   AuthenticationFlowType.customAuth: 'CUSTOM_AUTH',
+  AuthenticationFlowType.customAuthWithSrp: 'CUSTOM_AUTH_WITH_SRP',
+  AuthenticationFlowType.customAuthWithoutSrp: 'CUSTOM_AUTH_WITHOUT_SRP',
 };

@@ -138,7 +138,7 @@ class InternalErrorException extends core.AmplifyException
 class InvalidParameterException extends core.AmplifyException
     with core.AWSDebuggable {
   /// {@macro amplify_auth_cognito_dart.sdk.invalid_parameter_exception}
-  const InvalidParameterException(super.message);
+  const InvalidParameterException(super.message, {super.recoverySuggestion});
 
   @override
   String get runtimeTypeName => 'InvalidParameterException';

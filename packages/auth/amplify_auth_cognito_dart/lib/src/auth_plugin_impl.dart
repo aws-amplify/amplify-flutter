@@ -577,7 +577,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     final stream = _stateMachine.create(SignInStateMachine.type).stream;
     _stateMachine.dispatch(
       SignInEvent.initiate(
-        authFlowType: options.authFlowType?.sdkValue,
+        authFlowType: options.authFlowType,
         parameters: SignInParameters(
           (p) => p
             ..username = request.username
