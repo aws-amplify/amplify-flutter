@@ -296,7 +296,7 @@ class MockWebSocketService extends AmplifyWebSocketService {
 bool mockPollClientInduceFailure = false;
 bool mockPollClientUnhealthy = false;
 int mockPollFailCount = 0;
-const maxFailAttempts = 6;
+const maxFailAttempts = 5;
 
 final mockPollClient = MockAWSHttpClient((request) async {
   if (mockPollClientUnhealthy) {

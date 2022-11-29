@@ -44,6 +44,9 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   }) {
     _pollClientOverride = pollClientOverride;
     _connectivityOverride = connectivityOverride;
+
+    _pollClientOverride ?? AWSHttpClient();
+
     final subBlocs = <String, WsSubscriptionBloc<Object?>>{};
 
     _currentState = DisconnectedState(
@@ -64,7 +67,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   String get runtimeTypeName => 'WebSocketBloc';
 
   /// Default timeout for retry/back off
-  final Duration _defaultRetryTimeout = const Duration(seconds: 5);
+  final Duration _retryTimeout = const Duration(seconds: 5);
 
   /// Indicates if the bloc has finished closing
   final done = Completer<void>();
@@ -100,7 +103,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   ///
 
   /// The underlying Http client used for poll requests
-  AWSHttpClient get _pollClient => _pollClientOverride ?? AWSHttpClient();
+  late final AWSHttpClient _pollClient;
 
   /// Overrides
   late final AWSHttpClient? _pollClientOverride;
@@ -339,7 +342,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       // Begin reconnection with retry/back off on ping endpoint
       final res = await state.options.retryOptions.retry(
         // Make a GET request
-        () => _sendPollRequest().timeout(_defaultRetryTimeout),
+        _sendPollRequest,
       );
 
       await checkPollResponse(res);
@@ -528,7 +531,14 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       _currentState.pollUri,
     );
 
-    return req.send(client: _pollClient).response;
+    final op = req.send(client: _pollClient);
+    return op.response.timeout(
+      _retryTimeout,
+      onTimeout: () {
+        op.cancel();
+        throw const ApiException('Timeout while polling AppSync.');
+      },
+    );
   }
 
   /// Sends an exception to all sub blocs and cleans up this bloc

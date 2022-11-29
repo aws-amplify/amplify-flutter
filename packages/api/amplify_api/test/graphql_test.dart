@@ -306,6 +306,8 @@ void main() {
 
     setUp(() {
       mockPollFailCount = 0;
+      mockPollClientUnhealthy = false;
+      mockPollClientInduceFailure = false;
       mockWebSocketService = MockWebSocketService();
       const subscriptionOptions =
           GraphQLSubscriptionOptions(pollInterval: Duration(seconds: 1));
