@@ -21,7 +21,7 @@ class LocalizedTitleResolver extends TitleResolver {
   const LocalizedTitleResolver();
 
   @override
-  String signIn(BuildContext context) {
-    return AppLocalizations.of(context).signIn;
+  String confirmSignInCustomAuth(BuildContext context) {
+    return AppLocalizations.of(context).confirmSignInCustomAuth;
   }
 }

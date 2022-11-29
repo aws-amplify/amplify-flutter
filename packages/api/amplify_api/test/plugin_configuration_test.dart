@@ -39,7 +39,7 @@ const _expectedQuerySuccessResponseBody = {
 };
 
 /// Asserts user agent and API key present.
-final _mockGqlClient = MockAWSHttpClient((request) async {
+final _mockGqlClient = MockAWSHttpClient((request, _) async {
   const userAgentHeader =
       zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent;
   expect(request.headers[userAgentHeader], contains('amplify-flutter'));
@@ -53,7 +53,7 @@ final _mockGqlClient = MockAWSHttpClient((request) async {
 });
 
 /// Asserts user agent and signed.
-final _mockRestClient = MockAWSHttpClient((request) async {
+final _mockRestClient = MockAWSHttpClient((request, _) async {
   const userAgentHeader =
       zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent;
   expect(request.headers[userAgentHeader], contains('amplify-flutter'));

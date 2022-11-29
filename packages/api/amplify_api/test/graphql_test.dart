@@ -98,7 +98,7 @@ const _expectedAuthErrorResponseBody = {
   ]
 };
 
-final mockHttpClient = MockAWSHttpClient((request) async {
+final mockHttpClient = MockAWSHttpClient((request, _) async {
   if (request.uri.path == '/ping') {
     return AWSHttpResponse(
       statusCode: 200,

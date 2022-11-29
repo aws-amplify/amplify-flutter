@@ -26,6 +26,13 @@ cd "./$plugin"
 case $test_suite in
     flutter-test)
         echo "=== Running Flutter unit tests for $plugin ==="
+
+        # These tests are also running in GH actions. Until we remove the Circle CI check in repo settings,
+        # just skip here.
+        if [[ "$plugin" = "amplify_datastore" ]]; then
+          echo "Skipping redundant flutter tests for datastore."
+          exit 0
+        fi
         
         # Navigate into the app-facing plugin for federated plugin structures
         if [ -d "${plugin}" ]; then

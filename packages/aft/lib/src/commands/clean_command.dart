@@ -15,7 +15,6 @@
 import 'dart:io';
 
 import 'package:aft/aft.dart';
-import 'package:aft/src/util.dart';
 import 'package:path/path.dart' as p;
 
 /// Command to clean all temporary files in the repo.

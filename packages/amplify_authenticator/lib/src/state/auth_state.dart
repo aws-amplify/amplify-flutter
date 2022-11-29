@@ -96,9 +96,5 @@ class ConfirmSignInCustom extends UnauthenticatedState {
 class PendingVerificationCheckState extends UnauthenticatedState {
   const PendingVerificationCheckState({
     required super.step,
-  }) : assert(
-          step == AuthenticatorStep.signIn ||
-              step == AuthenticatorStep.confirmSignUp,
-          'Invalid AuthenticatorStep type: $step',
-        );
+  });
 }

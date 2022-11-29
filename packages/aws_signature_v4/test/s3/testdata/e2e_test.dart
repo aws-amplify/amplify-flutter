@@ -49,7 +49,7 @@ void main() {
         ),
       );
 
-      final client = MockAWSHttpClient((req) async {
+      final client = MockAWSHttpClient((req, _) async {
         await Future<void>.delayed(const Duration(milliseconds: 500));
         return AWSStreamedHttpResponse(
           statusCode: 200,

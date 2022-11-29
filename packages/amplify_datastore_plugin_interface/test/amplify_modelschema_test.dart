@@ -22,15 +22,18 @@ We need to verify that each conversion step (->) is done correctly and each stat
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'testData/ModelProvider.dart';
+import 'package:amplify_test/test_models/ModelProvider.dart';
 
 void main() {
   test('Blog codegen model generates modelschema with proper fields', () async {
     /*
     type Blog @model {
-      id: ID!
+      id: ID! @primaryKey
       name: String!
-      posts: [Post] @connection(keyName: "byBlog", fields: ["id"])
+      createdAt: AWSDateTime
+      file: S3Object
+      files: [S3Object]
+      posts: [Post] @hasMany(indexName: "byBlog", fields: ["id"])
     }
     */
 
@@ -73,13 +76,13 @@ void main() {
   test('Comment codegen model generates modelschema with proper fields',
       () async {
     /*
-    type Comment @model @key(name: "byPost", fields: ["postID", "content"]) {
+    type Comment @model {
       id: ID!
-      postID: ID!
-      post: Post @connection(fields: ["postID"])
+      postID: ID! @index(name: "byPost", sortKeyFields: ["content"])
+      post: Post @belongsTo(fields: ["postID"])
       content: String!
     }
-     */
+    */
 
     ModelSchema commentSchema = Comment.schema;
 
@@ -117,14 +120,17 @@ void main() {
 
   test('Post codegen model generates modelschema with proper fields', () async {
     /*
-    type Post @model @key(name: "byBlog", fields: ["blogID"]) {
+    type Post @model {
       id: ID!
       title: String!
-      blogID: ID!
-      blog: Blog @connection(fields: ["blogID"])
-      comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
+      rating: Int!
+      created: AWSDateTime
+      likeCount: Int
+      blogID: ID! @index(name: "byBlog")
+      blog: Blog @belongsTo(fields: ["blogID"])
+      comments: [Comment] @hasMany(indexName: "byPost", fields: ["id"])
     }
-     */
+    */
 
     ModelSchema postSchema = Post.schema;
 
@@ -163,28 +169,33 @@ void main() {
   test('PostAuthComplex codegen model generates modelschema with proper fields',
       () async {
     /*
-    type PostAuthComplex
+    type PostWithAuthRules
       @model
       @auth(
         rules: [
-          { allow: owner, ownerField: "owner", operations: [create, update, delete, read] },
-        ])
-    {
+          {
+            allow: owner
+            ownerField: "owner"
+            operations: [create, update, delete, read]
+          }
+        ]
+      ) {
       id: ID!
       title: String!
       owner: String
     }
-     */
+    */
 
-    ModelSchema postSchema = PostAuthComplex.schema;
+    ModelSchema postSchema = PostWithAuthRules.schema;
 
-    expect(postSchema.name, "PostAuthComplex");
-    expect(postSchema.pluralName, "PostAuthComplexes");
+    expect(postSchema.name, "PostWithAuthRules");
+    expect(postSchema.pluralName, "PostWithAuthRules");
     expect(postSchema.authRules, [
       AuthRule(
           authStrategy: AuthStrategy.OWNER,
           ownerField: "owner",
           identityClaim: "cognito:username",
+          provider: AuthRuleProvider.USERPOOLS,
           operations: [
             ModelOperation.CREATE,
             ModelOperation.UPDATE,

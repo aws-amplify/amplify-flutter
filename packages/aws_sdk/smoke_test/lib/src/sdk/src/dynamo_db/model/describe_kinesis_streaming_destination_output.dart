@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
 
 library smoke_test.dynamo_db.model.describe_kinesis_streaming_destination_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 

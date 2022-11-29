@@ -96,6 +96,11 @@ abstract class TokenAmplifyAuthProvider extends AmplifyAuthProvider {
   }
 }
 
+abstract class TokenIdentityAmplifyAuthProvider
+    extends TokenAmplifyAuthProvider {
+  Future<String> getIdentityId();
+}
+
 class AmplifyAuthProviderRepository {
   final Map<AmplifyAuthProviderToken, AmplifyAuthProvider> _authProviders = {};
 

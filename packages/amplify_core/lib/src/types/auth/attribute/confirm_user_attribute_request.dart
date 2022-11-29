@@ -21,7 +21,7 @@ part 'confirm_user_attribute_request.g.dart';
 /// Encapsulates parameters for a request to confirm a user attribute update.
 /// {@endtemplate}
 @zAmplifyGenericSerializable
-class ConfirmUserAttributeRequest<Key extends UserAttributeKey,
+class ConfirmUserAttributeRequest<Key extends AuthUserAttributeKey,
         Options extends ConfirmUserAttributeOptions>
     with
         // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49484

@@ -65,7 +65,7 @@ Future<void> testCloudSyncedModelOperation<R extends Model, A extends Model>({
             var model = event.element.model;
 
             if (model is R) {
-              return model.getId() == rootModel.getId() &&
+              return model.modelIdentifier == rootModel.modelIdentifier &&
                   event.element.version == expectedRootModelVersion;
             }
 
@@ -82,7 +82,7 @@ Future<void> testCloudSyncedModelOperation<R extends Model, A extends Model>({
           var model = event.element.model;
 
           if (model is A) {
-            return model.getId() == associatedModel.getId() &&
+            return model.modelIdentifier == associatedModel.modelIdentifier &&
                 event.element.version == expectedRootModelVersion;
           }
 
@@ -124,7 +124,7 @@ Future<List<SubscriptionEvent<T>>> createObservedEventsGetter<T extends Model>(
         .where((event) => event.eventType == eventType)
         .distinct((prev, next) =>
             prev.eventType == next.eventType &&
-            prev.item.getId() == next.item.getId())
+            prev.item.modelIdentifier == next.item.modelIdentifier)
         .take(take)
         .toList();
 
@@ -165,15 +165,26 @@ void expectObservedEventsToMatchModels<T extends Model>({
 /// delete operation if [supportCascadeDelete] is set as `false`.
 ///
 /// This function runs tests with cloud sync enabled when [enableCloudSync] is
-/// set as `true`.
+/// set as `true`.]
+///
+/// Set [verifyBelongsToPopulating] to true and pass
+/// [associatedModelQueryPredicates] contain query predicates that can
+/// retrieve each of the [associatedModels] to test if belongs to nested
+/// models are correctly populated.
 void testRootAndAssociatedModelsRelationship<R extends Model, A extends Model>({
   required ModelProviderInterface modelProvider,
   required ModelType<R> rootModelType,
   required List<R> rootModels,
+  required QueryModelIdentifier rootModelQueryIdentifier,
   required ModelType<A> associatedModelType,
   required List<A> associatedModels,
+  required QueryModelIdentifier associatedModelQueryIdentifier,
+  List<QueryPredicate>? associatedModelQueryPredicates,
+  List<QueryPredicate>? associatedModelQueryNePredicates,
   bool enableCloudSync = false,
   bool supportCascadeDelete = false,
+  bool verifyBelongsToPopulating = false,
+  bool testNeOperationOnBelongsTo = false,
 }) {
   late Future<List<SubscriptionEvent<R>>> observedRootModelsEvents;
   late Future<List<SubscriptionEvent<A>>> observedAssociatedModelsEvents;
@@ -216,8 +227,14 @@ void testRootAndAssociatedModelsRelationship<R extends Model, A extends Model>({
       }
     }
 
-    var savedRootModels = await Amplify.DataStore.query(rootModelType);
-    expect(savedRootModels, containsAll(rootModels));
+    for (var rootModel in rootModels) {
+      final expectedModels = await Amplify.DataStore.query(
+        rootModelType,
+        where: rootModelQueryIdentifier.eq(rootModel.modelIdentifier),
+      );
+      expect(expectedModels.length, 1);
+      expect(expectedModels.first, rootModel);
+    }
   });
 
   testWidgets('save associated models', (WidgetTester tester) async {
@@ -234,10 +251,45 @@ void testRootAndAssociatedModelsRelationship<R extends Model, A extends Model>({
       }
     }
 
-    var savedAssociatedModels =
-        await Amplify.DataStore.query(associatedModelType);
-    expect(savedAssociatedModels, containsAll(associatedModels));
+    for (var associatedModel in associatedModels) {
+      final expectedModels = await Amplify.DataStore.query(
+        associatedModelType,
+        where:
+            associatedModelQueryIdentifier.eq(associatedModel.modelIdentifier),
+      );
+      expect(expectedModels.length, 1);
+      expect(expectedModels.first, associatedModel);
+    }
   });
+
+  if (verifyBelongsToPopulating && associatedModelQueryPredicates != null) {
+    testWidgets(
+        'query associated models can get nested belongs to model populated',
+        (WidgetTester tester) async {
+      associatedModels.asMap().forEach((index, associatedModel) async {
+        final expectedModels = await Amplify.DataStore.query(
+          associatedModelType,
+          where: associatedModelQueryPredicates[index],
+        );
+        expectSync(expectedModels.length, 1);
+        expectSync(expectedModels.first, associatedModel);
+      });
+    });
+  }
+
+  if (testNeOperationOnBelongsTo && associatedModelQueryNePredicates != null) {
+    testWidgets(
+        'query associated model with ne operator on model identifier should exclude the model from results',
+        (WidgetTester tester) async {
+      associatedModels.asMap().forEach((index, associatedModel) async {
+        final expectedModels = await Amplify.DataStore.query(
+          associatedModelType,
+          where: associatedModelQueryNePredicates[index],
+        );
+        expectSync(expectedModels, isNot(contains(associatedModel)));
+      });
+    });
+  }
 
   testWidgets('observed root models creation events',
       (WidgetTester tester) async {

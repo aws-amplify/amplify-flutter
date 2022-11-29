@@ -14,7 +14,6 @@
  */
 
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:flutter/material.dart';
 import 'package:sample_app/Views/ImageLineItem.dart';
 import 'package:sample_app/Views/ImageUploader.dart';
@@ -37,17 +36,12 @@ class _MainPageState extends State<MainPage> {
   void _loadImages() async {
     try {
       print('In list');
-      S3ListOptions options =
-          S3ListOptions(accessLevel: StorageAccessLevel.guest);
-      ListResult result = await Amplify.Storage.list(options: options);
-
-      var newList = itemKeys.toList();
-      for (StorageItem item in result.items) {
-        newList.add(item.key);
-      }
+      // TODO(HuiSF): update example with correct code
+      final listOperation = Amplify.Storage.list();
+      final listResult = await listOperation.result;
 
       setState(() {
-        itemKeys = newList;
+        itemKeys = listResult.items.map((e) => e.key).toList();
       });
     } catch (e) {
       print('List Err: ' + e.toString());

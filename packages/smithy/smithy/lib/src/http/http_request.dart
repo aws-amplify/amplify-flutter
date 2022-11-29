@@ -184,8 +184,12 @@ class SmithyHttpRequest {
   }) {
     final requestProgress = StreamController<int>.broadcast(sync: true);
     final responseProgress = StreamController<int>.broadcast(sync: true);
+
+    // TODO(dnys1): Use `completeOperation` when available
+    AWSHttpOperation? underlyingOperation;
     final completer = CancelableCompleter<AWSBaseHttpResponse>(
       onCancel: () {
+        underlyingOperation?.cancel();
         requestProgress.close();
         responseProgress.close();
         onCancel?.call();
@@ -196,32 +200,28 @@ class SmithyHttpRequest {
         baseClient: client,
         isCanceled: () => completer.isCanceled,
       );
-      final operation = request.send(
+      underlyingOperation = request.send(
         // We extract the transformRequest/transformResponse methods of
         // `client` when specified. To avoid calling them twice in `send`,
         // send the request using its baseClient.
         // TODO(dnys1): Invert? Add interceptors option to Smithy operations?
         client: client is AWSBaseHttpClient ? client.baseClient : client,
-        onCancel: completer.operation.cancel,
       );
-      operation.requestProgress.listen(
-        requestProgress.add,
-        onError: requestProgress.addError,
-        onDone: requestProgress.close,
-      );
-      operation.responseProgress.listen(
-        responseProgress.add,
-        onError: responseProgress.addError,
-        onDone: responseProgress.close,
-      );
-      operation.operation.then(
+      underlyingOperation!.requestProgress.forward(requestProgress);
+      underlyingOperation!.responseProgress.forward(responseProgress);
+      // TODO(dnys1): Use `completeOperation` when available
+      underlyingOperation!.operation.then(
         (response) async {
-          response = await _transformResponse(
-            response,
-            baseClient: client,
-            isCanceled: () => completer.isCanceled,
-          );
-          completer.complete(response);
+          try {
+            response = await _transformResponse(
+              response,
+              baseClient: client,
+              isCanceled: () => completer.isCanceled,
+            );
+            completer.complete(response);
+          } on Object catch (e, st) {
+            completer.completeError(e, st);
+          }
         },
         onError: completer.completeError,
       );

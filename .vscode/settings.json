@@ -1,4 +1,8 @@
 {
-  "dart.runPubGetOnPubspecChanges": false,
-  "files.insertFinalNewline": true
+  "dart.runPubGetOnPubspecChanges": "always",
+  "files.insertFinalNewline": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": true,
+  }
 }

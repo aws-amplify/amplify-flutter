@@ -30,7 +30,7 @@ Future<void> main(List<String> args) async {
       help: 'Directory to run commands from. Defaults to current directory.',
       hide: true,
     )
-    ..addCommand(GenerateSdkCommand())
+    ..addCommand(GenerateCommand())
     ..addCommand(ListPackagesCommand())
     ..addCommand(DepsCommand())
     ..addCommand(LinkCommand())

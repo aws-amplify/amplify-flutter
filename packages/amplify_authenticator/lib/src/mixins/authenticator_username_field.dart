@@ -214,14 +214,14 @@ mixin AuthenticatorUsernameField<FieldType,
     final inputResolver = stringResolver.inputs;
     final hintText = inputResolver.resolve(context, hintKey);
 
-    void _onChanged(String username) {
-      return onChanged(UsernameInput(
+    void onChanged(String username) {
+      return this.onChanged(UsernameInput(
         type: selectedUsernameType,
         username: username,
       ));
     }
 
-    String? _validator(String? username) {
+    String? validator(String? username) {
       final validator = widget.validatorOverride ?? this.validator;
       return validator(UsernameInput(
         type: selectedUsernameType,
@@ -233,8 +233,8 @@ mixin AuthenticatorUsernameField<FieldType,
       return AuthenticatorPhoneField<FieldType>(
         field: widget.field,
         requiredOverride: true,
-        onChanged: _onChanged,
-        validator: _validator,
+        onChanged: onChanged,
+        validator: validator,
         enabled: enabled,
         errorMaxLines: errorMaxLines,
         initialValue: state.username,
@@ -248,8 +248,8 @@ mixin AuthenticatorUsernameField<FieldType,
             ),
       initialValue: initialValue?.username,
       enabled: enabled,
-      validator: _validator,
-      onChanged: _onChanged,
+      validator: validator,
+      onChanged: onChanged,
       autocorrect: false,
       decoration: InputDecoration(
         prefixIcon: prefix,

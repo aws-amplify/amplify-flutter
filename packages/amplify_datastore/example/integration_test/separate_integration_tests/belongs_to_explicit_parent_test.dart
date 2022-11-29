@@ -50,8 +50,10 @@ void main() {
       modelProvider: ModelProvider.instance,
       rootModelType: BelongsToParent.classType,
       rootModels: rootModels,
+      rootModelQueryIdentifier: BelongsToParent.MODEL_IDENTIFIER,
       associatedModelType: BelongsToChildExplicit.classType,
       associatedModels: associatedModels,
+      associatedModelQueryIdentifier: BelongsToChildExplicit.MODEL_IDENTIFIER,
       supportCascadeDelete: true,
       enableCloudSync: enableCloudSync,
     );

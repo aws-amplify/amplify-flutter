@@ -28,7 +28,7 @@ void main() {
     test('calling connect multiple times should only result in one http call',
         () async {
       var requestCount = 0;
-      final client = MockAWSHttpClient((request) {
+      final client = MockAWSHttpClient((request, _) {
         requestCount++;
         return AWSHttpResponse(statusCode: 200, body: Uint8List.fromList([]));
       });
@@ -49,7 +49,7 @@ void main() {
 
     test('loadSqlite3 should throw AmplifyException for a 4xx/5xx status code',
         () async {
-      final client = MockAWSHttpClient((request) {
+      final client = MockAWSHttpClient((request, _) {
         return AWSHttpResponse(statusCode: 404, body: Uint8List.fromList([]));
       });
       final memo = AsyncMemoizer<Uint8List>();

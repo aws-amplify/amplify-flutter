@@ -80,7 +80,7 @@ class UnsuccessfulResponseTransformClient extends SuccessfulTransformClient {
 }
 
 void main() {
-  final mockBaseClient = MockAWSHttpClient((request) async {
+  final mockBaseClient = MockAWSHttpClient((request, _) async {
     expect(request.headers[_requestHeaderKey], _requestHeaderValue);
     return AWSHttpResponse(statusCode: 200);
   });

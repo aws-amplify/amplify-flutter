@@ -7,7 +7,7 @@ part of 'auth_next_sign_in_step.dart';
 // **************************************************************************
 
 AuthNextSignInStep<Key>
-    _$AuthNextSignInStepFromJson<Key extends UserAttributeKey>(
+    _$AuthNextSignInStepFromJson<Key extends AuthUserAttributeKey>(
   Map<String, dynamic> json,
   Key Function(Object? json) fromJsonKey,
 ) =>
@@ -27,7 +27,8 @@ AuthNextSignInStep<Key>
               const [],
         );
 
-Map<String, dynamic> _$AuthNextSignInStepToJson<Key extends UserAttributeKey>(
+Map<String, dynamic>
+    _$AuthNextSignInStepToJson<Key extends AuthUserAttributeKey>(
   AuthNextSignInStep<Key> instance,
   Object? Function(Key value) toJsonKey,
 ) {

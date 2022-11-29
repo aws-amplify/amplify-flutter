@@ -1,3 +1,12 @@
+## 1.0.0-next.1
+
+- Minor bug fixes and improvements
+
+## 1.0.0-next.0+3
+
+### Fixes
+- fix(auth, secure_storage): update generated java pigeon code ([#2184](https://github.com/aws-amplify/amplify-flutter/pull/2184))
+
 ## 1.0.0-next.0+2
 
 ### Fixes

@@ -77,7 +77,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
               Text(
                 '+${state.country.value}',
                 style: Theme.of(context).inputDecorationTheme.hintStyle ??
-                    Theme.of(context).textTheme.subtitle1,
+                    Theme.of(context).textTheme.titleMedium,
                 textAlign: TextAlign.center,
               ),
               const Flexible(
@@ -115,7 +115,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
                           CountryResolverKey.selectDialCode,
                         ),
                         style: DialogTheme.of(context).titleTextStyle ??
-                            Theme.of(context).textTheme.headline6!,
+                            Theme.of(context).textTheme.titleLarge!,
                       ),
                     ),
                     Padding(

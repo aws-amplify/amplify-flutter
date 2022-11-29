@@ -1,9 +1,0 @@
-sdk:
-  - stable
-  - beta
-
-stages:
-  - analyze_and_format:
-      - group:
-          - format
-          - analyze: --fatal-infos lib pigeons

@@ -1,6 +1,5 @@
 [
   {
-    "id": "4281dfba-96c8-4a38-9a8e-35c7e893ea47",
     "modelName": "Post",
     "serializedData": {
       "id": "4281dfba-96c8-4a38-9a8e-35c7e893ea47",
@@ -10,7 +9,6 @@
     }
   },
   {
-    "id": "43036c6b-8044-4309-bddc-262b6c686026",
     "modelName": "Post",
     "serializedData": {
       "id": "43036c6b-8044-4309-bddc-262b6c686026",

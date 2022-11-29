@@ -1,0 +1,60 @@
+name: AWS SDK Smoke Tests
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - next
+    paths:
+      - 'packages/aws_sdk/**/*.dart'
+      - 'packages/smithy/**/*.dart'
+  pull_request:
+    paths:
+      - 'packages/aws_sdk/**/*.dart'
+      - 'packages/smithy/**/*.dart'
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  smoke_test:
+    name: Smoke Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791 # v2.5.0
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@196f54580e9eee2797c57e85e289339f85e6779d # main
+        with:
+          sdk: stable
+
+      - name: Link Packages
+        run: |
+          dart pub global activate -spath packages/aft
+          aft link
+
+      - name: Get Packages
+        run: dart pub upgrade
+        working-directory: packages/aws_sdk/smoke_test
+
+      - name: Install Localstack
+        run: |
+          # Workaround for dependency issue:
+          # https://github.com/localstack/localstack/pull/6831
+          pip install pyOpenSSL --upgrade
+          pip install cryptography --upgrade
+
+          pip install localstack
+          docker pull localstack/localstack
+          localstack start --detached
+          echo "Waiting for localstack startup..."
+          localstack wait -t 30
+          echo "Startup complete"
+
+      - name: Run Tests
+        run: dart test
+        working-directory: packages/aws_sdk/smoke_test

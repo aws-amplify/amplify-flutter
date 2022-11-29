@@ -55,7 +55,7 @@ class SocialSignInButtons extends StatelessAuthenticatorComponent {
                 .style
                 ?.textStyle
                 ?.resolve({}) ??
-            Theme.of(context).textTheme.button;
+            Theme.of(context).textTheme.labelLarge;
         final tp = TextPainter(
           text: TextSpan(
             text: text,
@@ -191,11 +191,6 @@ class _SocialSignInButtonState
     final foregroundColor = theme.outlinedButtonTheme.style?.foregroundColor;
     if (foregroundColor != null) {
       return foregroundColor;
-    }
-
-    final bodyTextColor = theme.textTheme.bodyText1?.color;
-    if (bodyTextColor != null) {
-      MaterialStateProperty.all(theme.textTheme.bodyText1?.color);
     }
 
     final bool isDark = Theme.of(context).brightness == Brightness.dark;

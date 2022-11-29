@@ -8,8 +8,7 @@ environment:
 dependencies:
   amplify_db_common:
     path: ../
-  # Use version from amplify_db_common
-  drift: any
+  drift: ">=2.3.0 <2.4.0"
   flutter:
     sdk: flutter
 

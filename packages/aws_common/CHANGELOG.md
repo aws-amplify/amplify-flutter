@@ -1,3 +1,33 @@
+## 0.3.2
+
+- Minor bug fixes and improvements
+
+## 0.3.1
+
+- Minor bug fixes and improvements
+
+## 0.3.0
+
+### Fixes
+- fix(aws_common): fix HTTP cancel error/transform error ([#2294](https://github.com/aws-amplify/amplify-flutter/pull/2294))
+- fix(common): Set contentLength to `-1` when unknown
+- fix(common): staticInterop external member ([#2280](https://github.com/aws-amplify/amplify-flutter/pull/2280))
+
+### Breaking Changes
+- chore(common)!: Add `onCancel` to `AWSBaseHttpRequest.send`
+
+### Features
+- feat(core): AWS config file
+
+## 0.2.4
+
+### Features
+- feat(http): Downgrade to HTTP/1.1 when possible ([#2243](https://github.com/aws-amplify/amplify-flutter/pull/2243))
+- feat(smithy): IDL 2.0
+
+### Fixes
+- fix(http): `transformRequest` results in loop
+
 ## 0.2.3
 
 ### Fixes

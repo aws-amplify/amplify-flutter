@@ -1,0 +1,35 @@
+# Generated with aft. To update, run: `aft generate workflows`
+name: amplify_storage_s3_dart
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - next
+  pull_request:
+    paths:
+      - 'packages/storage/amplify_storage_s3_dart/**/*.dart'
+      - 'packages/storage/amplify_storage_s3_dart/**/*.yaml'
+      - 'packages/storage/amplify_storage_s3_dart/lib/**/*'
+      - 'packages/storage/amplify_storage_s3_dart/test/**/*'
+      - '.github/workflows/dart_vm.yaml'
+      - '.github/workflows/dart_native.yaml'
+      - '.github/workflows/amplify_storage_s3_dart.yaml'
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  test:
+    uses: ./.github/workflows/dart_vm.yaml
+    with:
+      working-directory: packages/storage/amplify_storage_s3_dart
+  native_test:
+    if: ${{ github.event_name == 'push' }}
+    needs: test
+    uses: ./.github/workflows/dart_native.yaml
+    with:
+      working-directory: packages/storage/amplify_storage_s3_dart

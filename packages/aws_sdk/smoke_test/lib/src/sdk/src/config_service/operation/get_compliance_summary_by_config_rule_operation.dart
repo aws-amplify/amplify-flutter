@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
 
 library smoke_test.config_service.operation.get_compliance_summary_by_config_rule_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -52,7 +52,7 @@ class GetComplianceSummaryByConfigRuleOperation extends _i1.HttpOperation<
           service: _i6.AWSService.configService,
           credentialsProvider: _credentialsProvider,
         ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.3.0'),
         const _i4.WithSdkInvocationId(),
         const _i4.WithSdkRequest(),
       ],

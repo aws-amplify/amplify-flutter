@@ -7,7 +7,7 @@ part of 'confirm_user_attribute_request.dart';
 // **************************************************************************
 
 ConfirmUserAttributeRequest<Key, Options> _$ConfirmUserAttributeRequestFromJson<
-        Key extends UserAttributeKey,
+        Key extends AuthUserAttributeKey,
         Options extends ConfirmUserAttributeOptions>(
   Map<String, dynamic> json,
   Key Function(Object? json) fromJsonKey,
@@ -20,7 +20,8 @@ ConfirmUserAttributeRequest<Key, Options> _$ConfirmUserAttributeRequestFromJson<
     );
 
 Map<String, dynamic> _$ConfirmUserAttributeRequestToJson<
-    Key extends UserAttributeKey, Options extends ConfirmUserAttributeOptions>(
+    Key extends AuthUserAttributeKey,
+    Options extends ConfirmUserAttributeOptions>(
   ConfirmUserAttributeRequest<Key, Options> instance,
   Object? Function(Key value) toJsonKey,
   Object? Function(Options value) toJsonOptions,

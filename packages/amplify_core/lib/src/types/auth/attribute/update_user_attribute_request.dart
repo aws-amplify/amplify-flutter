@@ -27,7 +27,7 @@ part 'update_user_attribute_request.g.dart';
   explicitToJson: true,
   constructor: '_',
 )
-class UpdateUserAttributeRequest<Key extends UserAttributeKey,
+class UpdateUserAttributeRequest<Key extends AuthUserAttributeKey,
         Options extends UpdateUserAttributeOptions>
     with
         // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49484

@@ -27,7 +27,12 @@ class ModelMutationsFactory extends ModelMutationsInterface {
   static ModelMutationsFactory get instance => _instance;
 
   @override
-  GraphQLRequest<T> create<T extends Model>(T model) {
+  GraphQLRequest<T> create<T extends Model>(
+    T model, {
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+    Map<String, String>? headers,
+  }) {
     final input =
         GraphQLRequestFactory.instance.buildInputVariableForMutations(model);
     // Does not use buildVariablesForMutationRequest because creations don't have conditions.
@@ -39,15 +44,28 @@ class ModelMutationsFactory extends ModelMutationsInterface {
       modelType: model.getInstanceType(),
       requestType: GraphQLRequestType.mutation,
       requestOperation: GraphQLRequestOperation.create,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
     );
   }
 
   @override
-  GraphQLRequest<T> delete<T extends Model>(T model, {QueryPredicate? where}) {
+  GraphQLRequest<T> delete<T extends Model>(
+    T model, {
+    QueryPredicate? where,
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+    Map<String, String>? headers,
+  }) {
     return deleteById(
       model.getInstanceType() as ModelType<T>,
+      // ignore: deprecated_member_use
       model.getId(),
       where: where,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
     );
   }
 
@@ -56,6 +74,9 @@ class ModelMutationsFactory extends ModelMutationsInterface {
     ModelType<T> modelType,
     String id, {
     QueryPredicate? where,
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+    Map<String, String>? headers,
   }) {
     final condition = GraphQLRequestFactory.instance
         .queryPredicateToGraphQLFilter(where, modelType);
@@ -70,11 +91,20 @@ class ModelMutationsFactory extends ModelMutationsInterface {
       modelType: modelType,
       requestType: GraphQLRequestType.mutation,
       requestOperation: GraphQLRequestOperation.delete,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
     );
   }
 
   @override
-  GraphQLRequest<T> update<T extends Model>(T model, {QueryPredicate? where}) {
+  GraphQLRequest<T> update<T extends Model>(
+    T model, {
+    QueryPredicate? where,
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+    Map<String, String>? headers,
+  }) {
     final condition = GraphQLRequestFactory.instance
         .queryPredicateToGraphQLFilter(where, model.getInstanceType());
     final input =
@@ -89,6 +119,9 @@ class ModelMutationsFactory extends ModelMutationsInterface {
       modelType: model.getInstanceType(),
       requestType: GraphQLRequestType.mutation,
       requestOperation: GraphQLRequestOperation.update,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
     );
   }
 }

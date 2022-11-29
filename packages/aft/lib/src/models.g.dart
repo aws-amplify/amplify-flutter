@@ -50,7 +50,7 @@ SdkConfig _$SdkConfigFromJson(Map json) => $checkedCreate(
           allowedKeys: const ['ref', 'apis'],
         );
         final val = SdkConfig(
-          ref: $checkedConvert('ref', (v) => v as String? ?? 'main'),
+          ref: $checkedConvert('ref', (v) => v as String? ?? 'master'),
           apis: $checkedConvert(
               'apis',
               (v) => (v as Map).map(

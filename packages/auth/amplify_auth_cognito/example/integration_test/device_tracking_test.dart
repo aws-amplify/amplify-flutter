@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
@@ -23,6 +24,7 @@ import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
+import 'utils/test_utils.dart';
 
 enum DeviceState { untracked, tracked, remembered }
 
@@ -85,14 +87,15 @@ void main() {
           username: username!,
           password: password,
         );
-        expect(
-          signInRes.nextStep?.signInStep,
-          'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE',
-        );
-        final confirmSignInRes = await Amplify.Auth.confirmSignIn(
-          confirmationValue: await code,
-        );
-        expect(confirmSignInRes.isSignedIn, isTrue);
+        if (signInRes.nextStep?.signInStep ==
+            'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE') {
+          final confirmSignInRes = await Amplify.Auth.confirmSignIn(
+            confirmationValue: await code,
+          );
+          expect(confirmSignInRes.isSignedIn, isTrue);
+        } else {
+          expect(signInRes.isSignedIn, isTrue);
+        }
       } else {
         final res = await Amplify.Auth.signIn(
           username: username!,
@@ -111,17 +114,17 @@ void main() {
 
       setUp(signIn);
 
-      test('device is not automatically remembered', () async {
+      asyncTest('device is not automatically remembered', (_) async {
         expect(await getDeviceState(), DeviceState.tracked);
       });
 
-      test('rememberDevice starts tracking', () async {
+      asyncTest('rememberDevice starts tracking', (_) async {
         expect(await getDeviceState(), DeviceState.tracked);
         await Amplify.Auth.rememberDevice();
         expect(await getDeviceState(), DeviceState.remembered);
       });
 
-      test('forgetDevice stops tracking', () async {
+      asyncTest('forgetDevice stops tracking', (_) async {
         expect(await getDeviceState(), DeviceState.tracked);
         await Amplify.Auth.rememberDevice();
         expect(await getDeviceState(), DeviceState.remembered);
@@ -129,18 +132,58 @@ void main() {
         expect(await getDeviceState(), DeviceState.untracked);
       });
 
-      test('fetchDevices lists remembered devices', () async {
+      asyncTest('fetchDevices lists remembered devices', (_) async {
         expect(await getDeviceState(), DeviceState.tracked);
-        await expectLater(Amplify.Auth.fetchDevices(), completion(isEmpty));
+        expect(await Amplify.Auth.fetchDevices(), isEmpty);
         await Amplify.Auth.rememberDevice();
-        expect(Amplify.Auth.fetchDevices(), completion(isNotEmpty));
+        expect(await Amplify.Auth.fetchDevices(), isNotEmpty);
       });
 
-      test('multiple logins use the same device key', () async {
+      asyncTest('multiple logins use the same device key', (_) async {
         final deviceKey = await getDeviceKey();
         await signOutUser();
         await signIn();
         expect(await getDeviceKey(), deviceKey);
+      });
+    });
+
+    group('Opt-In (Device Tracking)', () {
+      setUpAll(() async {
+        await configureAuth(
+          additionalPlugins: [AmplifyAPI()],
+          config: amplifyEnvironments['device-tracking-opt-in'],
+        );
+      });
+
+      setUp(() => signIn(enableMfa: true));
+
+      asyncTest('cannot bypass MFA when device is not remembered', (_) async {
+        await signOutUser();
+
+        final res = await Amplify.Auth.signIn(
+          username: username!,
+          password: password,
+        );
+        expect(
+          res.nextStep?.signInStep,
+          'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE',
+          reason: 'Subsequent sign-in attempts should require MFA',
+        );
+      });
+
+      asyncTest('can bypass MFA when device is remembered', (_) async {
+        await Amplify.Auth.rememberDevice();
+        await signOutUser();
+
+        final res = await Amplify.Auth.signIn(
+          username: username!,
+          password: password,
+        );
+        expect(
+          res.isSignedIn,
+          isTrue,
+          reason: 'Subsequent sign-in attempts should not require MFA',
+        );
       });
     });
 
@@ -153,29 +196,54 @@ void main() {
 
       setUp(signIn);
 
-      test('device is automatically remembered', () async {
+      asyncTest('device is automatically remembered', (_) async {
         expect(await getDeviceState(), DeviceState.remembered);
       });
 
-      test('rememberDevice is a no-op when already tracking', () async {
-        expect(Amplify.Auth.rememberDevice(), completes);
+      asyncTest('rememberDevice is a no-op when already tracking', (_) async {
+        await expectLater(Amplify.Auth.rememberDevice(), completes);
       });
 
-      test('forgetDevice stops tracking', () async {
+      asyncTest('forgetDevice stops tracking', (_) async {
         expect(await getDeviceState(), DeviceState.remembered);
         await Amplify.Auth.forgetDevice();
         expect(await getDeviceState(), DeviceState.untracked);
       });
 
-      test('fetchDevices lists remembered devices', () async {
-        expect(Amplify.Auth.fetchDevices(), completion(hasLength(1)));
+      asyncTest('fetchDevices lists remembered devices', (_) async {
+        expect(await Amplify.Auth.fetchDevices(), hasLength(1));
       });
 
-      test('multiple logins use the same device key', () async {
+      asyncTest('multiple logins use the same device key', (_) async {
         final deviceKey = await getDeviceKey();
         await signOutUser();
         await signIn();
         expect(await getDeviceKey(), deviceKey);
+      });
+    });
+
+    group('Always (Device Tracking)', () {
+      setUpAll(() async {
+        await configureAuth(
+          additionalPlugins: [AmplifyAPI()],
+          config: amplifyEnvironments['device-tracking-always'],
+        );
+      });
+
+      setUp(() => signIn(enableMfa: true));
+
+      asyncTest('can bypass MFA when device is always remembered', (_) async {
+        await signOutUser();
+
+        final res = await Amplify.Auth.signIn(
+          username: username!,
+          password: password,
+        );
+        expect(
+          res.isSignedIn,
+          isTrue,
+          reason: 'Subsequent sign-in attempts should not require MFA',
+        );
       });
     });
   });

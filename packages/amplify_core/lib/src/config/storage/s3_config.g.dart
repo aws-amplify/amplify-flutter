@@ -25,6 +25,6 @@ Map<String, dynamic> _$S3PluginConfigToJson(S3PluginConfig instance) =>
 
 const _$StorageAccessLevelEnumMap = {
   StorageAccessLevel.guest: 'guest',
-  StorageAccessLevel.private: 'private',
   StorageAccessLevel.protected: 'protected',
+  StorageAccessLevel.private: 'private',
 };

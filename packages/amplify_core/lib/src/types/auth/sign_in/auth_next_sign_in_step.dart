@@ -18,7 +18,7 @@ import 'package:amplify_core/amplify_core.dart';
 part 'auth_next_sign_in_step.g.dart';
 
 @zAmplifyGenericSerializable
-class AuthNextSignInStep<Key extends UserAttributeKey> extends AuthNextStep
+class AuthNextSignInStep<Key extends AuthUserAttributeKey> extends AuthNextStep
     with
         // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49484
         AWSEquatable<AuthNextSignInStep<Key>>,

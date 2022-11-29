@@ -1,7 +1,7 @@
 name: Amplify Integration Tests
 on:
   push:
-    branches: [main, next, stable, feat/*]
+    branches: [main, next, stable, feat/**]
   schedule:
     # 6am pacific time daily, only runs on default branch
     - cron:  '0 13 * * *'
@@ -21,11 +21,11 @@ jobs:
       fail-fast: false
       matrix:
         scope:
+          - "amplify_analytics_pinpoint_example"
           - "amplify_api_example"
           - "amplify_auth_cognito_example"
           - "amplify_datastore_example"
-          # TODO(ragingsquirrel3): figure out why this times out
-          # - "amplify_storage_s3_example"
+          - "amplify_storage_s3_example"
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
@@ -66,6 +66,7 @@ jobs:
       fail-fast: false
       matrix:
         scope:
+          - "amplify_analytics_pinpoint_example"
           - "amplify_api_example"
           - "amplify_auth_cognito_example"
           - "amplify_datastore_example"
@@ -104,8 +105,10 @@ jobs:
       fail-fast: false
       matrix:
         scope:
+          - "amplify_analytics_pinpoint_example"
           - "amplify_api_example"
           - "amplify_auth_cognito_example"
+          - "amplify_storage_s3_example"
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
@@ -139,7 +142,10 @@ jobs:
       fail-fast: false
       matrix:
         scope: 
+          - "amplify_analytics_pinpoint_example"
+          - "amplify_api_example"
           - "amplify_auth_cognito_example"
+          - "amplify_storage_s3_example"
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
@@ -170,8 +176,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scope: 
+        scope:
+          - "amplify_analytics_pinpoint_example"
+          - "amplify_api_example"
           - "amplify_auth_cognito_example"
+          - "amplify_storage_s3_example"
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:

@@ -33,8 +33,9 @@ void main({bool useExistingTestUser = false}) {
 
     group('queries', () {
       testWidgets('should query authorized model', (WidgetTester tester) async {
-        final req = authorizeRequestForApiKey(
-          ModelQueries.list<Blog>(Blog.classType),
+        final req = ModelQueries.list<Blog>(
+          Blog.classType,
+          authorizationMode: APIAuthorizationType.apiKey,
         );
         final res = await Amplify.API.query(request: req).response;
         final data = res.data;
@@ -45,8 +46,9 @@ void main({bool useExistingTestUser = false}) {
       testWidgets('should get error for unauthorized model', (
         WidgetTester tester,
       ) async {
-        final req = authorizeRequestForApiKey(
-          ModelQueries.list<Post>(Post.classType),
+        final req = ModelQueries.list<Post>(
+          Post.classType,
+          authorizationMode: APIAuthorizationType.apiKey,
         );
         final res = await Amplify.API.query(request: req).response;
         expect(res.hasErrors, true);
@@ -95,8 +97,9 @@ void main({bool useExistingTestUser = false}) {
             ),
           );
           String name = 'Integration Test Blog - subscription create ${uuid()}';
-          final subscriptionRequest = authorizeRequestForApiKey(
-            ModelSubscriptions.onCreate(Blog.classType),
+          final subscriptionRequest = ModelSubscriptions.onCreate(
+            Blog.classType,
+            authorizationMode: APIAuthorizationType.apiKey,
           );
 
           final eventResponse = await establishSubscriptionAndMutate(

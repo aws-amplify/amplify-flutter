@@ -1,3 +1,30 @@
+## 1.0.0-next.1
+
+### Breaking Changes
+
+Initial preview release of the Dart rewrite!
+
+See our [docs](https://docs.amplify.aws/lib/q/platform/flutter/) for guides on how to migrate to this new version.
+
+- chore(api,core): change API types ([#2148](https://github.com/aws-amplify/amplify-flutter/pull/2148))
+
+### Fixes
+- fix(api): correct subscription error handling ([#2179](https://github.com/aws-amplify/amplify-flutter/pull/2179))
+- fix(api): fix model helper util on web ([#2270](https://github.com/aws-amplify/amplify-flutter/pull/2270))
+
+### Features
+- feat(api): GraphQL Custom Request Headers ([#1938](https://github.com/aws-amplify/amplify-flutter/pull/1938))
+- feat(api): Subscription Reconnection ([#2074](https://github.com/aws-amplify/amplify-flutter/pull/2074))
+- feat(api): authorizationMode property for GraphQLRequest ([#2143](https://github.com/aws-amplify/amplify-flutter/pull/2143))
+
+## 1.0.0-next.0+5
+
+- Minor bug fixes and improvements
+
+## 1.0.0-next.0+4
+
+- Minor bug fixes and improvements
+
 ## 1.0.0-next.0+3
 
 - Minor bug fixes and improvements

@@ -310,8 +310,10 @@ void main({bool useExistingTestUser = false}) {
             subscriptionRequest,
             () async {
               blogToUpdate = blogToUpdate.copyWith(name: updatedName);
-              final updateReq = authorizeRequestForUserPools(
-                  ModelMutations.update(blogToUpdate));
+              final updateReq = ModelMutations.update(
+                blogToUpdate,
+                authorizationMode: APIAuthorizationType.userPools,
+              );
               await Amplify.API.mutate(request: updateReq).response;
             },
             eventFilter: (Blog? blog) => blog?.id == blogToUpdate.id,
