@@ -14,6 +14,9 @@ CognitoSignInOptions _$CognitoSignInOptionsFromJson(
       clientMetadata: (json['clientMetadata'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, e as String),
       ),
+      validationData: (json['validationData'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ),
     );
 
 Map<String, dynamic> _$CognitoSignInOptionsToJson(
@@ -29,6 +32,7 @@ Map<String, dynamic> _$CognitoSignInOptionsToJson(
   writeNotNull(
       'authFlowType', _$AuthenticationFlowTypeEnumMap[instance.authFlowType]);
   writeNotNull('clientMetadata', instance.clientMetadata);
+  writeNotNull('validationData', instance.validationData);
   return val;
 }
 

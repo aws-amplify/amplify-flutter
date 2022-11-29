@@ -86,15 +86,12 @@ class CognitoSignUpOptions extends SignUpOptions
   Map<String, String> get userAttributes => super.userAttributes;
 
   /// An optional map of arbitrary key-value pairs which will be passed to your
-  /// PreAuthentication Lambda trigger as-is, used for implementing additional
-  /// validations around authentication.
-  ///
-  /// Currently supported on `Android` only.
+  /// Lambda triggers as-is, used for implementing additional validations around
+  /// authentication.
   final Map<String, String>? validationData;
 
   /// Additional custom attributes to be sent to the service such as information
   /// about the client.
-  ///
   final Map<String, String>? clientMetadata;
 
   /// Creates a copy of `this` with the given parameters overridden.

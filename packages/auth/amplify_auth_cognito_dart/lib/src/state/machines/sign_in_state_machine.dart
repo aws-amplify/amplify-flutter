@@ -425,7 +425,10 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
           CognitoConstants.challengeParamSrpA:
               _initResult!.publicA.toRadixString(16),
         })
-        ..clientMetadata.addAll(event.clientMetadata);
+        ..clientMetadata.addAll(event.clientMetadata)
+        // `validationData` is passed to clientMetadata for sign-in APIs
+        // https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html#cognito-user-pools-lambda-trigger-syntax-pre-signup-request
+        ..clientMetadata.addAll(event.validationData);
 
       if (config.appClientSecret != null) {
         b.authParameters[CognitoConstants.challengeParamSecretHash] =
@@ -457,7 +460,10 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
           CognitoConstants.challengeParamUsername: parameters.username,
           CognitoConstants.challengeParamPassword: password,
         })
-        ..clientMetadata.addAll(event.clientMetadata);
+        ..clientMetadata.addAll(event.clientMetadata)
+        // `validationData` is passed to clientMetadata for sign-in APIs
+        // https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html#cognito-user-pools-lambda-trigger-syntax-pre-signup-request
+        ..clientMetadata.addAll(event.validationData);
 
       if (config.appClientSecret != null) {
         b.authParameters[CognitoConstants.challengeParamSecretHash] =
@@ -498,7 +504,10 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
           CognitoConstants.challengeParamUsername: parameters.username,
         })
         ..clientId = config.appClientId
-        ..clientMetadata.addAll(event.clientMetadata);
+        ..clientMetadata.addAll(event.clientMetadata)
+        // `validationData` is passed to clientMetadata for sign-in APIs
+        // https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html#cognito-user-pools-lambda-trigger-syntax-pre-signup-request
+        ..clientMetadata.addAll(event.validationData);
 
       if (config.appClientSecret != null) {
         b.authParameters[CognitoConstants.challengeParamSecretHash] =

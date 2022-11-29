@@ -52,6 +52,7 @@ abstract class SignInEvent
     AuthFlowType? authFlowType,
     required SignInParameters parameters,
     Map<String, String>? clientMetadata,
+    Map<String, String>? validationData,
   }) = SignInInitiate;
 
   /// {@macro amplify_auth_cognito.sign_in_respond_to_challenge}
@@ -86,7 +87,9 @@ class SignInInitiate extends SignInEvent {
     this.authFlowType,
     required this.parameters,
     Map<String, String>? clientMetadata,
+    Map<String, String>? validationData,
   })  : clientMetadata = clientMetadata ?? const {},
+        validationData = validationData ?? const {},
         super._();
 
   /// Runtime override of the Authentication flow.
@@ -98,11 +101,20 @@ class SignInInitiate extends SignInEvent {
   /// The optional client metadata.
   final Map<String, String> clientMetadata;
 
+  /// The optional validation data.
+  final Map<String, String> validationData;
+
   @override
   SignInEventType get type => SignInEventType.initiate;
 
   @override
-  List<Object?> get props => [type, authFlowType, clientMetadata, parameters];
+  List<Object?> get props => [
+        type,
+        authFlowType,
+        clientMetadata,
+        validationData,
+        parameters,
+      ];
 
   @override
   PreconditionException? checkPrecondition(SignInState currentState) {

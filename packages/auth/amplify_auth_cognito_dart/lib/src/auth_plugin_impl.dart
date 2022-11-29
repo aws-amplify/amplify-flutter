@@ -584,6 +584,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
             ..password = request.password,
         ),
         clientMetadata: options.clientMetadata,
+        validationData: options.validationData,
       ),
     );
 

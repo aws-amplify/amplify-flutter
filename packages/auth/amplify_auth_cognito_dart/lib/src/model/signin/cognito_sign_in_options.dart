@@ -24,7 +24,11 @@ part 'cognito_sign_in_options.g.dart';
 class CognitoSignInOptions extends SignInOptions
     with AWSEquatable<CognitoSignInOptions>, AWSDebuggable {
   /// {@macro amplify_auth_cognito.model.cognito_sign_in_options}
-  const CognitoSignInOptions({this.authFlowType, this.clientMetadata});
+  const CognitoSignInOptions({
+    this.authFlowType,
+    this.clientMetadata,
+    this.validationData,
+  });
 
   /// {@macro amplify_auth_cognito.model.cognito_sign_in_options}
   factory CognitoSignInOptions.fromJson(Map<String, Object?> json) =>
@@ -37,8 +41,13 @@ class CognitoSignInOptions extends SignInOptions
   /// custom workflows that this action triggers.
   final Map<String, String>? clientMetadata;
 
+  /// An optional map of arbitrary key-value pairs which will be passed to your
+  /// Lambda triggers as-is, used for implementing additional validations around
+  /// authentication.
+  final Map<String, String>? validationData;
+
   @override
-  List<Object?> get props => [authFlowType, clientMetadata];
+  List<Object?> get props => [authFlowType, clientMetadata, validationData];
 
   @override
   String get runtimeTypeName => 'CognitoSignInOptions';
