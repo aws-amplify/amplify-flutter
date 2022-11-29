@@ -44,6 +44,10 @@ abstract class AmplifyCommand extends Command<void>
     AWSLogger()
       ..unregisterAllPlugins()
       ..registerPlugin(this);
+
+    if (globalResults?['verbose'] as bool? ?? false) {
+      AWSLogger().logLevel = LogLevel.verbose;
+    }
   }
 
   late final AWSLogger logger = () {
@@ -51,8 +55,7 @@ abstract class AmplifyCommand extends Command<void>
     for (Command<dynamic>? cmd = this; cmd != null; cmd = cmd.parent) {
       allCommands.add(cmd.name);
     }
-    return AWSLogger().createChild(allCommands.reversed.join('.'))
-      ..logLevel = verbose ? LogLevel.verbose : LogLevel.info;
+    return AWSLogger().createChild(allCommands.reversed.join('.'));
   }();
 
   @override
@@ -76,7 +79,7 @@ abstract class AmplifyCommand extends Command<void>
   }
 
   /// Whether verbose logging is enabled.
-  bool get verbose => globalResults?['verbose'] as bool? ?? false;
+  bool get verbose => AWSLogger().logLevel == LogLevel.verbose;
 
   /// The current working directory.
   late final Directory workingDirectory = () {

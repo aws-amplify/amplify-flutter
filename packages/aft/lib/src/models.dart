@@ -217,12 +217,18 @@ extension AmplifyVersion on Version {
   }
 }
 
-class NextVersion {
+class NextVersion with AWSEquatable<NextVersion>, AWSDebuggable {
   const NextVersion(this.version) : propogateToComponent = false;
   const NextVersion.propogate(this.version) : propogateToComponent = true;
 
   final Version version;
   final bool propogateToComponent;
+
+  @override
+  List<Object?> get props => [version, propogateToComponent];
+
+  @override
+  String get runtimeTypeName => 'NextVersion';
 }
 
 enum DependencyType {
@@ -351,7 +357,7 @@ class AftComponent with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
   Map<String, Object?> toJson() => _$AftComponentToJson(this);
 }
 
-class AftRepoComponent {
+class AftRepoComponent with AWSEquatable<AftRepoComponent>, AWSDebuggable {
   const AftRepoComponent({
     required this.name,
     this.summary,
@@ -370,6 +376,12 @@ class AftRepoComponent {
 
   /// The graph of packages to their dependencies.
   final Map<PackageInfo, List<PackageInfo>> packageGraph;
+
+  @override
+  List<Object?> get props => [name];
+
+  @override
+  String get runtimeTypeName => 'AftRepoComponent';
 }
 
 /// Typed representation of the `sdk.yaml` file.
