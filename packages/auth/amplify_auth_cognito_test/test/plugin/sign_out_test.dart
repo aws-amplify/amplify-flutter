@@ -132,7 +132,7 @@ void main() {
           config: mockConfig,
           authProviderRepo: testAuthRepo,
         );
-        expect(plugin.signOut(), completes);
+        expect(plugin.signOut(), completion(isA<CognitoCompleteSignOut>()));
         expect(hubEvents, emitsSignOutEvent);
       });
 
@@ -142,7 +142,10 @@ void main() {
           config: mockConfig,
           authProviderRepo: testAuthRepo,
         );
-        await expectLater(plugin.signOut(), completes);
+        await expectLater(
+          plugin.signOut(),
+          completion(isA<CognitoCompleteSignOut>()),
+        );
         expect(hubEvents, emitsSignOutEvent);
 
         final result = await stateMachine
@@ -178,7 +181,10 @@ void main() {
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
         await expectLater(plugin.getCredentials(), completes);
-        await expectLater(plugin.signOut(), completes);
+        await expectLater(
+          plugin.signOut(),
+          completion(isA<CognitoCompleteSignOut>()),
+        );
         expect(plugin.getCredentials(), throwsSignedOutException);
         expect(hubEvents, emitsSignOutEvent);
       });
@@ -209,7 +215,13 @@ void main() {
               options: SignOutOptions(globalSignOut: true),
             ),
           ),
-          throwsA(isA<Exception>()),
+          completion(
+            isA<CognitoPartialSignOut>().having(
+              (res) => res.globalSignOutException,
+              'globalSignOutException',
+              isA<GlobalSignOutException>(),
+            ),
+          ),
         );
         expect(plugin.getCredentials(), throwsSignedOutException);
         expect(hubEvents, emitsSignOutEvent);
@@ -240,7 +252,13 @@ void main() {
               options: SignOutOptions(globalSignOut: true),
             ),
           ),
-          throwsA(isA<Exception>()),
+          completion(
+            isA<CognitoPartialSignOut>().having(
+              (res) => res.revokeTokenException,
+              'revokeTokenException',
+              isA<RevokeTokenException>(),
+            ),
+          ),
         );
         expect(plugin.getCredentials(), throwsSignedOutException);
         expect(hubEvents, emitsSignOutEvent);
@@ -252,7 +270,7 @@ void main() {
           config: userPoolOnlyConfig,
           authProviderRepo: testAuthRepo,
         );
-        expect(plugin.signOut(), completes);
+        expect(plugin.signOut(), completion(isA<CognitoCompleteSignOut>()));
       });
 
       group('hosted UI', () {
@@ -275,7 +293,10 @@ void main() {
           stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
           await expectLater(plugin.getCredentials(), completes);
-          await expectLater(plugin.signOut(), completes);
+          await expectLater(
+            plugin.signOut(),
+            completion(isA<CognitoCompleteSignOut>()),
+          );
           expect(plugin.getCredentials(), throwsSignedOutException);
           expect(hubEvents, emitsSignOutEvent);
         });
@@ -306,7 +327,13 @@ void main() {
                 options: SignOutOptions(globalSignOut: true),
               ),
             ),
-            throwsA(isA<Exception>()),
+            completion(
+              isA<CognitoPartialSignOut>().having(
+                (res) => res.globalSignOutException,
+                'globalSignOutException',
+                isA<GlobalSignOutException>(),
+              ),
+            ),
           );
           expect(plugin.getCredentials(), throwsSignedOutException);
           expect(hubEvents, emitsSignOutEvent);
@@ -337,7 +364,13 @@ void main() {
                 options: SignOutOptions(globalSignOut: true),
               ),
             ),
-            throwsA(isA<Exception>()),
+            completion(
+              isA<CognitoPartialSignOut>().having(
+                (res) => res.revokeTokenException,
+                'revokeTokenException',
+                isA<RevokeTokenException>(),
+              ),
+            ),
           );
           expect(plugin.getCredentials(), throwsSignedOutException);
           expect(hubEvents, emitsSignOutEvent);
@@ -372,10 +405,66 @@ void main() {
           await expectLater(plugin.getCredentials(), completes);
           await expectLater(
             plugin.signOut(),
-            throwsA(isA<_HostedUiException>()),
+            completion(
+              isA<CognitoPartialSignOut>().having(
+                (res) => res.hostedUiException,
+                'hostedUiException',
+                isA<HostedUiException>().having(
+                  (e) => e.underlyingException,
+                  'underlyingException',
+                  isA<_HostedUiException>(),
+                ),
+              ),
+            ),
           );
           expect(plugin.getCredentials(), throwsSignedOutException);
           expect(hubEvents, emitsSignOutEvent);
+        });
+
+        test('fails hard for user cancellation', () async {
+          seedStorage(
+            secureStorage,
+            identityPoolKeys: identityPoolKeys,
+            hostedUiKeys: hostedUiKeys,
+          );
+          stateMachine.addBuilder(
+            createHostedUiFactory(
+              signIn: (
+                HostedUiPlatform platform,
+                CognitoSignInWithWebUIOptions options,
+                AuthProvider? provider,
+              ) async {},
+              signOut: (
+                HostedUiPlatform platform,
+                CognitoSignOutWithWebUIOptions options,
+              ) async =>
+                  throw const UserCancelledException(''),
+            ),
+            HostedUiPlatform.token,
+          );
+          await plugin.configure(
+            config: mockConfig,
+            authProviderRepo: testAuthRepo,
+          );
+
+          await expectLater(plugin.getCredentials(), completes);
+          await expectLater(
+            plugin.signOut(),
+            completion(
+              isA<CognitoFailedSignOut>().having(
+                (res) => res.exception,
+                'exception',
+                isA<UserCancelledException>(),
+              ),
+            ),
+          );
+          expect(
+            plugin.getCredentials(),
+            completes,
+            reason: 'Credentials were not cleared',
+          );
+          unawaited(hubEventsController.close());
+          expect(hubEvents, neverEmits(emitsSignOutEvent));
         });
       });
     });
