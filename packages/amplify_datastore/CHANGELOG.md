@@ -1,3 +1,16 @@
+## 1.0.0-next.1+1
+
+### Fixes
+- fix(datastore): adapt amplify-ios CPK fix breaking change
+- fix(datastore): cpk errors on a custom type ([#2134](https://github.com/aws-amplify/amplify-flutter/pull/2134))
+- fix(datastore): enable java8 desugaring for amplify-android datastore plugin
+- fix(datastore): missing query field model name cause ambigous column … ([#1941](https://github.com/aws-amplify/amplify-flutter/pull/1941))
+- fix(datastore): update dependency importing paths
+
+### Features
+- feat(datastore): add targetNames support for codegen
+- feat(datastore): custom primary key Flutter native implementation
+
 ## 1.0.0-next.1
 
 - Minor bug fixes and improvements

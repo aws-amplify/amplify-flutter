@@ -1,3 +1,8 @@
+## 0.3.3
+
+### Fixes
+- fix(aws_common): AWSFile doc example
+
 ## 0.3.2
 
 - Minor bug fixes and improvements

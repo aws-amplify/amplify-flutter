@@ -1,3 +1,8 @@
+## 0.2.5
+
+### Fixes
+- fix(auth): Refresh tokens when either access or ID token expires ([#2401](https://github.com/aws-amplify/amplify-flutter/pull/2401))
+
 ## 0.2.4
 
 ### Fixes
