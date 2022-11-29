@@ -147,15 +147,6 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
           : CognitoSignOutWithWebUIOptions.fromJson(
               jsonDecode(optionsJson) as Map<String, Object?>,
             );
-      // Clear credentials before dispatching to platform since the platform
-      // may redirect and only for the intention of clearing cookies. That is,
-      // credentials should be cleared regardless of how the platform handles
-      // the sign out.
-      dispatch(
-        CredentialStoreEvent.clearCredentials(_keys),
-      );
-      await expect(CredentialStoreStateMachine.type).getCredentialsResult();
-
       await _platform.signOut(options: options);
       emit(const HostedUiState.signedOut());
     } on Exception catch (e) {
