@@ -29,7 +29,7 @@ import 'package:meta/meta.dart';
 /// {@endtemplate}
 class AuthCategory<
     PluginAuthUser extends AuthUser,
-    PluginUserAttributeKey extends UserAttributeKey,
+    PluginUserAttributeKey extends AuthUserAttributeKey,
     PluginAuthUserAttribute extends AuthUserAttribute<PluginUserAttributeKey>,
     PluginAuthDevice extends AuthDevice,
     PluginSignUpOptions extends SignUpOptions,
@@ -160,7 +160,7 @@ class AuthCategory<
       GetPluginResendUserAttributeConfirmationCodeResult,
       P> getPlugin<
           GetPluginAuthUser extends AuthUser,
-          GetPluginUserAttributeKey extends UserAttributeKey,
+          GetPluginUserAttributeKey extends AuthUserAttributeKey,
           GetPluginAuthUserAttribute extends AuthUserAttribute<
               GetPluginUserAttributeKey>,
           GetPluginAuthDevice extends AuthDevice,

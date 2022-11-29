@@ -111,7 +111,7 @@ Future<void> forgetDevice() async {
 }
 
 Future<UpdateUserAttributeResult> updateUserAttribute({
-  required UserAttributeKey key,
+  required AuthUserAttributeKey key,
   required String value,
   CognitoUpdateUserAttributeOptions? options,
 }) async {
@@ -122,7 +122,8 @@ Future<UpdateUserAttributeResult> updateUserAttribute({
   );
 }
 
-Future<Map<UserAttributeKey, UpdateUserAttributeResult>> updateUserAttributes({
+Future<Map<AuthUserAttributeKey, UpdateUserAttributeResult>>
+    updateUserAttributes({
   required List<AuthUserAttribute> attributes,
   CognitoUpdateUserAttributesOptions? options,
 }) async {
@@ -133,7 +134,7 @@ Future<Map<UserAttributeKey, UpdateUserAttributeResult>> updateUserAttributes({
 }
 
 Future<ConfirmUserAttributeResult> confirmUserAttribute({
-  required UserAttributeKey key,
+  required AuthUserAttributeKey key,
   required String confirmationCode,
 }) async {
   return Amplify.Auth.confirmUserAttribute(
@@ -144,7 +145,7 @@ Future<ConfirmUserAttributeResult> confirmUserAttribute({
 
 Future<ResendUserAttributeConfirmationCodeResult>
     resendUserAttributeConfirmationCode({
-  required UserAttributeKey key,
+  required AuthUserAttributeKey key,
   CognitoResendUserAttributeConfirmationCodeOptions? options,
 }) async {
   return Amplify.Auth.resendUserAttributeConfirmationCode(
