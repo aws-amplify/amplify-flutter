@@ -84,7 +84,7 @@ class GenerateSdkCommand extends AmplifyCommand {
   /// if smithy/model.json exists, copy to <servicename>.json inside a temporary directory.
   Future<Directory> _getModels(Directory baseDir) async {
     final modelsDir = await Directory.systemTemp.createTemp('models');
-    logger.stdout('Organizing models in ${modelsDir.path}');
+    logger.trace('Organizing models in ${modelsDir.path}');
     final services = baseDir.list(followLinks: false).whereType<Directory>();
     await for (final serviceDir in services) {
       final serviceName = p.basename(serviceDir.path);
