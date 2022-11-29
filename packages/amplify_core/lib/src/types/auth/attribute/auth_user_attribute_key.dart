@@ -16,6 +16,7 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
+// TODO(dnys1): Remove at GA
 @Deprecated('Use AuthUserAttributeKey instead')
 typedef UserAttributeKey = AuthUserAttributeKey;
 
