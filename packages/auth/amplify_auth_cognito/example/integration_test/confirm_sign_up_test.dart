@@ -48,12 +48,13 @@ void main() {
             CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
           },
         ),
-      );
+      ) as CognitoSignUpResult;
       expect(signUpResult.isSignUpComplete, false);
       expect(
         signUpResult.nextStep.codeDeliveryDetails?.deliveryMedium,
         'SMS',
       );
+      expect(signUpResult.userId, isNotNull);
     }
 
     asyncTest('can confirm sign up', (_) async {

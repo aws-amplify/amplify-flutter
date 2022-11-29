@@ -463,6 +463,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         case SignUpStateType.needsConfirmation:
           state as SignUpNeedsConfirmation;
           return CognitoSignUpResult(
+            userId: state.userId,
             isSignUpComplete: false,
             nextStep: AuthNextSignUpStep(
               signUpStep: CognitoSignUpStep.confirmSignUp.value,
@@ -471,7 +472,9 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
             ),
           );
         case SignUpStateType.success:
+          state as SignUpSuccess;
           return CognitoSignUpResult(
+            userId: state.userId,
             isSignUpComplete: true,
             nextStep: AuthNextSignUpStep(
               signUpStep: CognitoSignUpStep.done.value,
@@ -509,6 +512,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         case SignUpStateType.needsConfirmation:
           state as SignUpNeedsConfirmation;
           return CognitoSignUpResult(
+            userId: state.userId,
             isSignUpComplete: false,
             nextStep: AuthNextSignUpStep(
               signUpStep: CognitoSignUpStep.confirmSignUp.value,
@@ -517,7 +521,9 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
             ),
           );
         case SignUpStateType.success:
+          state as SignUpSuccess;
           return CognitoSignUpResult(
+            userId: state.userId,
             isSignUpComplete: true,
             nextStep: AuthNextSignUpStep(
               signUpStep: CognitoSignUpStep.done.value,

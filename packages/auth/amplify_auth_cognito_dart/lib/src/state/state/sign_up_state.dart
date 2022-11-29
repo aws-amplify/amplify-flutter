@@ -47,15 +47,18 @@ abstract class SignUpState extends StateMachineState<SignUpStateType> {
   const factory SignUpState.initiating() = SignUpInitiating;
 
   /// {@macro amplify_auth_cognito.sign_up_needs_confirmation}
-  const factory SignUpState.needsConfirmation([
+  const factory SignUpState.needsConfirmation({
+    required String userId,
     CodeDeliveryDetailsType? codeDeliveryDetails,
-  ]) = SignUpNeedsConfirmation;
+  }) = SignUpNeedsConfirmation;
 
   /// {@macro amplify_auth_cognito.sign_up_confirming}
   const factory SignUpState.confirming() = SignUpConfirming;
 
   /// {@macro amplify_auth_cognito.sign_up_success}
-  const factory SignUpState.success() = SignUpSuccess;
+  const factory SignUpState.success({
+    String? userId,
+  }) = SignUpSuccess;
 
   /// {@macro amplify_auth_cognito.sign_up_failure}
   const factory SignUpState.failure(Exception exception) = SignUpFailure;
@@ -97,7 +100,13 @@ class SignUpInitiating extends SignUpState {
 /// {@endtemplate}
 class SignUpNeedsConfirmation extends SignUpState {
   /// {@macro amplify_auth_cognito.sign_up_needs_confirmation}
-  const SignUpNeedsConfirmation([this.codeDeliveryDetails]) : super._();
+  const SignUpNeedsConfirmation({
+    required this.userId,
+    this.codeDeliveryDetails,
+  }) : super._();
+
+  /// The user ID of the unconfirmed user.
+  final String userId;
 
   /// Where and how the confirmation code was sent, if applicable.
   final CodeDeliveryDetailsType? codeDeliveryDetails;
@@ -106,7 +115,7 @@ class SignUpNeedsConfirmation extends SignUpState {
   SignUpStateType get type => SignUpStateType.needsConfirmation;
 
   @override
-  List<Object?> get props => [type, codeDeliveryDetails];
+  List<Object?> get props => [type, codeDeliveryDetails, userId];
 }
 
 /// {@template amplify_auth_cognito.sign_up_confirming}
@@ -128,13 +137,18 @@ class SignUpConfirming extends SignUpState {
 /// {@endtemplate}
 class SignUpSuccess extends SignUpState {
   /// {@macro amplify_auth_cognito.sign_up_success}
-  const SignUpSuccess() : super._();
+  const SignUpSuccess({
+    this.userId,
+  }) : super._();
+
+  /// The ID of the user.
+  final String? userId;
 
   @override
   SignUpStateType get type => SignUpStateType.success;
 
   @override
-  List<Object?> get props => [type];
+  List<Object?> get props => [type, userId];
 }
 
 /// {@template amplify_auth_cognito.sign_up_failure}

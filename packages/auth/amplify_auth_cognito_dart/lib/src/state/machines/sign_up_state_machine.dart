@@ -77,9 +77,14 @@ class SignUpStateMachine extends SignUpStateMachineBase {
     ).result;
 
     if (resp.userConfirmed) {
-      dispatch(const SignUpEvent.succeeded());
+      dispatch(SignUpEvent.succeeded(userId: resp.userSub));
     } else {
-      emit(SignUpState.needsConfirmation(resp.codeDeliveryDetails));
+      emit(
+        SignUpState.needsConfirmation(
+          userId: resp.userSub,
+          codeDeliveryDetails: resp.codeDeliveryDetails,
+        ),
+      );
     }
   }
 

@@ -46,12 +46,13 @@ void main() {
             CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
           },
         ),
-      );
+      ) as CognitoSignUpResult;
       expect(
         res.isSignUpComplete,
         isFalse,
         reason: 'Sign up is not complete until user is confirmed',
       );
+      expect(res.userId, isNotNull);
     });
 
     asyncTest(
