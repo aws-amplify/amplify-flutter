@@ -14,7 +14,8 @@
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
-import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
+    hide InvalidParameterException;
 import 'package:amplify_auth_cognito_dart/src/state/machines/sign_in_state_machine.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
@@ -104,7 +105,7 @@ void main() {
         ..addInstance<CognitoIdentityProviderClient>(mockClient)
         ..dispatch(
           SignInEvent.initiate(
-            authFlowType: AuthFlowType.customAuth,
+            authFlowType: AuthenticationFlowType.customAuthWithSrp,
             parameters: SignInParameters(
               (p) => p
                 ..username = 'username'
@@ -143,7 +144,7 @@ void main() {
         ..addInstance<CognitoIdentityProviderClient>(mockClient)
         ..dispatch(
           SignInEvent.initiate(
-            authFlowType: AuthFlowType.customAuth,
+            authFlowType: AuthenticationFlowType.customAuthWithSrp,
             parameters: SignInParameters(
               (p) => p
                 ..username = 'username'
@@ -164,6 +165,114 @@ void main() {
           ),
         ]),
       );
+    });
+
+    group('custom auth', () {
+      test('customAuthWithSrp requires password', () async {
+        stateMachine.dispatch(AuthEvent.configure(userPoolOnlyConfig));
+        await expectLater(
+          stateMachine.stream.whereType<AuthState>().firstWhere(
+                (event) => event is AuthConfigured || event is AuthFailure,
+              ),
+          completion(isA<AuthConfigured>()),
+        );
+
+        stateMachine.dispatch(
+          SignInEvent.initiate(
+            authFlowType: AuthenticationFlowType.customAuthWithSrp,
+            parameters: SignInParameters(
+              (p) => p..username = 'username',
+            ),
+          ),
+        );
+        final signInStateMachine = stateMachine.expect(SignInStateMachine.type);
+        expect(
+          signInStateMachine.stream,
+          emitsInOrder([
+            isA<SignInInitiating>(),
+            isA<SignInFailure>().having(
+              (s) => s.exception,
+              'exception',
+              isA<InvalidParameterException>(),
+            ),
+          ]),
+        );
+      });
+
+      test('customAuthWithoutSrp forbids password', () async {
+        stateMachine.dispatch(AuthEvent.configure(userPoolOnlyConfig));
+        await expectLater(
+          stateMachine.stream.whereType<AuthState>().firstWhere(
+                (event) => event is AuthConfigured || event is AuthFailure,
+              ),
+          completion(isA<AuthConfigured>()),
+        );
+
+        stateMachine.dispatch(
+          SignInEvent.initiate(
+            authFlowType: AuthenticationFlowType.customAuthWithoutSrp,
+            parameters: SignInParameters(
+              (p) => p
+                ..username = 'username'
+                ..password = 'password',
+            ),
+          ),
+        );
+        final signInStateMachine = stateMachine.expect(SignInStateMachine.type);
+        expect(
+          signInStateMachine.stream,
+          emitsInOrder([
+            isA<SignInInitiating>(),
+            isA<SignInFailure>().having(
+              (s) => s.exception,
+              'exception',
+              isA<InvalidParameterException>(),
+            ),
+          ]),
+        );
+      });
+
+      test('customAuth uses old behavior', () async {
+        stateMachine.dispatch(AuthEvent.configure(userPoolOnlyConfig));
+        await expectLater(
+          stateMachine.stream.whereType<AuthState>().firstWhere(
+                (event) => event is AuthConfigured || event is AuthFailure,
+              ),
+          completion(isA<AuthConfigured>()),
+        );
+
+        final mockClient = MockCognitoIdentityProviderClient(
+          initiateAuth: () async => InitiateAuthResponse(
+            authenticationResult: AuthenticationResultType(
+              accessToken: accessToken.raw,
+              refreshToken: refreshToken,
+              idToken: idToken.raw,
+            ),
+          ),
+        );
+        stateMachine
+          ..addInstance<CognitoIdentityProviderClient>(mockClient)
+          ..dispatch(
+            SignInEvent.initiate(
+              // ignore: deprecated_member_use
+              authFlowType: AuthenticationFlowType.customAuth,
+              parameters: SignInParameters(
+                (p) => p
+                  ..username = 'username'
+                  ..password = 'password',
+              ),
+            ),
+          );
+
+        final signInStateMachine = stateMachine.expect(SignInStateMachine.type);
+        expect(
+          signInStateMachine.stream,
+          emitsInOrder([
+            isA<SignInInitiating>(),
+            isA<SignInSuccess>(),
+          ]),
+        );
+      });
     });
   });
 }
