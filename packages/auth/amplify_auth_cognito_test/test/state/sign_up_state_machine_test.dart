@@ -119,7 +119,11 @@ void main() {
         stateMachine.stream.whereType<SignUpState>(),
         emitsInOrder(<Matcher>[
           isA<SignUpInitiating>(),
-          isA<SignUpSuccess>(),
+          isA<SignUpSuccess>().having(
+            (state) => state.userId,
+            'userId',
+            userSub,
+          ),
         ]),
       );
     });
@@ -143,7 +147,11 @@ void main() {
         stateMachine.stream.whereType<SignUpState>(),
         emitsInOrder(<Matcher>[
           isA<SignUpInitiating>(),
-          isA<SignUpNeedsConfirmation>(),
+          isA<SignUpNeedsConfirmation>().having(
+            (state) => state.userId,
+            'userId',
+            userSub,
+          ),
         ]),
       );
 
@@ -199,7 +207,11 @@ void main() {
         stateMachine.stream.whereType<SignUpState>(),
         emitsInOrder(<Matcher>[
           isA<SignUpInitiating>(),
-          isA<SignUpSuccess>(),
+          isA<SignUpSuccess>().having(
+            (state) => state.userId,
+            'userId',
+            userSub,
+          ),
         ]),
       );
     });

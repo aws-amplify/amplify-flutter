@@ -91,7 +91,10 @@ extension AuthenticationFlowTypeBridge on AuthenticationFlowType {
     switch (this) {
       case AuthenticationFlowType.userSrpAuth:
         return AuthFlowType.userSrpAuth;
+      // ignore: deprecated_member_use
       case AuthenticationFlowType.customAuth:
+      case AuthenticationFlowType.customAuthWithSrp:
+      case AuthenticationFlowType.customAuthWithoutSrp:
         return AuthFlowType.customAuth;
       case AuthenticationFlowType.userPasswordAuth:
         return AuthFlowType.userPasswordAuth;

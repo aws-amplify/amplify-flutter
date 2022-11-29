@@ -109,6 +109,7 @@ const expected = {
               authenticationFlowType: AuthenticationFlowType.userSrpAuth,
             ),
             'DefaultCustomAuth': CognitoAuthConfig(
+              // ignore: deprecated_member_use_from_same_package
               authenticationFlowType: AuthenticationFlowType.customAuth,
             ),
           }),

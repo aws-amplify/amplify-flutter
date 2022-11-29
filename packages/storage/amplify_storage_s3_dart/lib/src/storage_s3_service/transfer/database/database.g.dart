@@ -2,10 +2,6 @@
 
 part of 'database.dart';
 
-// **************************************************************************
-// DriftDatabaseGenerator
-// **************************************************************************
-
 // ignore_for_file: type=lint
 class TransferRecord extends DataClass implements Insertable<TransferRecord> {
   /// The record id.
@@ -177,24 +173,29 @@ class $TransferRecordsTable extends TransferRecords
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $TransferRecordsTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
+      hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _uploadIdMeta = const VerificationMeta('uploadId');
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _uploadIdMeta =
+      const VerificationMeta('uploadId');
   @override
   late final GeneratedColumn<String> uploadId = GeneratedColumn<String>(
       'upload_id', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _objectKeyMeta = const VerificationMeta('objectKey');
+  static const VerificationMeta _objectKeyMeta =
+      const VerificationMeta('objectKey');
   @override
   late final GeneratedColumn<String> objectKey = GeneratedColumn<String>(
       'object_key', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
   @override
   late final GeneratedColumn<String> createdAt = GeneratedColumn<String>(
       'created_at', aliasedName, false,
@@ -240,13 +241,13 @@ class $TransferRecordsTable extends TransferRecords
   TransferRecord map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return TransferRecord(
-      id: attachedDatabase.options.types
+      id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      uploadId: attachedDatabase.options.types
+      uploadId: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}upload_id'])!,
-      objectKey: attachedDatabase.options.types
+      objectKey: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}object_key'])!,
-      createdAt: attachedDatabase.options.types
+      createdAt: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}created_at'])!,
     );
   }
@@ -262,7 +263,7 @@ abstract class _$TransferDatabase extends GeneratedDatabase {
   late final $TransferRecordsTable transferRecords =
       $TransferRecordsTable(this);
   @override
-  Iterable<TableInfo<Table, dynamic>> get allTables =>
+  Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [transferRecords];

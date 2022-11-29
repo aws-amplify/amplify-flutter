@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
 
 library smoke_test.s3.operation.get_bucket_ownership_controls_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -69,7 +69,7 @@ class GetBucketOwnershipControlsOperation extends _i1.HttpOperation<
           serviceConfiguration: _s3ClientConfig.signerConfiguration ??
               _i6.S3ServiceConfiguration(),
         ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.3.0'),
         const _i5.WithSdkInvocationId(),
         const _i5.WithSdkRequest(),
       ],

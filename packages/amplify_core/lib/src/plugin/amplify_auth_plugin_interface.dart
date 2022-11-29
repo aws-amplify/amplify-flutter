@@ -23,7 +23,7 @@ import 'package:meta/meta.dart';
 /// {@macro amplify_core.amplify_auth_category}
 abstract class AuthPluginInterface<
         PluginAuthUser extends AuthUser,
-        PluginUserAttributeKey extends UserAttributeKey,
+        PluginUserAttributeKey extends AuthUserAttributeKey,
         PluginAuthUserAttribute extends AuthUserAttribute<PluginUserAttributeKey>,
         PluginAuthDevice extends AuthDevice,
         PluginSignUpOptions extends SignUpOptions,
