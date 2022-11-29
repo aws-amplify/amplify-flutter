@@ -80,9 +80,10 @@ class GenerateSdkCommand extends AmplifyCommand {
     return cloneDir;
   }
 
-  /// for all folders inside the baseDir,
-  /// if smithy/model.json exists, copy to <servicename>.json inside a temporary directory.
-  Future<Directory> _getModels(Directory baseDir) async {
+  /// Organizes model files from [baseDir] into a new temporary directory.
+  /// 
+  /// Returns the new directory.
+  Future<Directory> _organizeModels(Directory baseDir) async {
     final modelsDir = await Directory.systemTemp.createTemp('models');
     logger.trace('Organizing models in ${modelsDir.path}');
     final services = baseDir.list(followLinks: false).whereType<Directory>();
