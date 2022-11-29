@@ -120,13 +120,13 @@ class GenerateSdkCommand extends AmplifyCommand {
     final modelsPath = args['models'] as String?;
     final Directory modelsDir;
     if (modelsPath != null) {
-      modelsDir = await _getModels(Directory(modelsPath));
+      modelsDir = await _organizeModels(Directory(modelsPath));
       if (!await modelsDir.exists()) {
         exitError('Model directory ($modelsDir) does not exist');
       }
     } else {
       final cloneDir = await _downloadModels(config.ref);
-      modelsDir = await _getModels(cloneDir);
+      modelsDir = await _organizeModels(cloneDir);
     }
 
     final outputPath = args['output'] as String;
