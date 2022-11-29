@@ -86,22 +86,22 @@ class CognitoUserAttributeKey extends AuthUserAttributeKey
         key.toLowerCase(),
       ];
 
-  /// The user's preferred postal address.
+  /// {@macro amplify_core.user_attribute.address}
   ///
   /// Read-only: `false`
   static const address = CognitoUserAttributeKey._('address');
 
-  /// The user's birthday, represented as an ISO 8601 YYYY-MM-DD format.
+  /// {@macro amplify_core.user_attribute.birthdate}
   ///
   /// Read-only: `false`
   static const birthdate = CognitoUserAttributeKey._('birthdate');
 
-  /// The user's preferred e-mail address.
+  /// {@macro amplify_core.user_attribute.email}
   ///
   /// Read-only: `false`
   static const email = CognitoUserAttributeKey._('email');
 
-  /// Whether the user's preferred e-mail address has been verified in Cognito.
+  /// {@macro amplify_core.user_attribute.email_verified}
   ///
   /// Read-only: `true`
   static const emailVerified = CognitoUserAttributeKey._(
@@ -109,17 +109,17 @@ class CognitoUserAttributeKey extends AuthUserAttributeKey
     readOnly: true,
   );
 
-  /// Surname(s) or last name(s) of the user.
+  /// {@macro amplify_core.user_attribute.family_name}
   ///
   /// Read-only: `false`
   static const familyName = CognitoUserAttributeKey._('family_name');
 
-  /// The user's gender.
+  /// {@macro amplify_core.user_attribute.gender}
   ///
   /// Read-only: `false`
   static const gender = CognitoUserAttributeKey._('gender');
 
-  /// Given name(s) or first name(s) of the user.
+  /// {@macro amplify_core.user_attribute.given_name}
   ///
   /// Read-only: `false`
   static const givenName = CognitoUserAttributeKey._('given_name');
@@ -130,19 +130,17 @@ class CognitoUserAttributeKey extends AuthUserAttributeKey
   static const identities =
       CognitoUserAttributeKey._('identities', readOnly: true);
 
-  /// The user's locale, represented as a BCP47 language tag, e.g. `en-US`.
+  /// {@macro amplify_core.user_attribute.locale}
   ///
   /// Read-only: `false`
   static const locale = CognitoUserAttributeKey._('locale');
 
-  /// Middle name(s) of the user.
+  /// {@macro amplify_core.user_attribute.middle_name}
   ///
   /// Read-only: `false`
   static const middleName = CognitoUserAttributeKey._('middle_name');
 
-  /// The user's full name in displayable form including all name parts,
-  /// possibly including titles and suffixes, ordered according to the user's
-  /// locale and preferences.
+  /// {@macro amplify_core.user_attribute.name}
   ///
   /// Read-only: `false`
   static const name = CognitoUserAttributeKey._('name');
@@ -153,13 +151,12 @@ class CognitoUserAttributeKey extends AuthUserAttributeKey
   /// Read-only: `false`
   static const nickname = CognitoUserAttributeKey._('nickname');
 
-  /// The user's preferred telephone number.
+  /// {@macro amplify_core.user_attribute.phone_number}
   ///
   /// Read-only: `false`
   static const phoneNumber = CognitoUserAttributeKey._('phone_number');
 
-  /// Whether the user's preferred telephone number has been verified in
-  /// Cognito.
+  /// {@macro amplify_core.user_attribute.phone_number_verified}
   ///
   /// Read-only: `true`
   static const phoneNumberVerified = CognitoUserAttributeKey._(
@@ -167,39 +164,38 @@ class CognitoUserAttributeKey extends AuthUserAttributeKey
     readOnly: true,
   );
 
-  /// URL of the user's profile picture.
+  /// {@macro amplify_core.user_attribute.picture}
   ///
   /// Read-only: `false`
   static const picture = CognitoUserAttributeKey._('picture');
 
-  /// The username by which the user wishes to be referred to.
+  /// {@macro amplify_core.user_attribute.preferred_username}
   ///
   /// Read-only: `false`
   static const preferredUsername =
       CognitoUserAttributeKey._('preferred_username');
 
-  /// URL of the user's profile page.
+  /// {@macro amplify_core.user_attribute.profile}
   ///
   /// Read-only: `false`
   static const profile = CognitoUserAttributeKey._('profile');
 
-  /// The user ID.
+  /// {@macro amplify_core.user_attribute.sub}
   ///
   /// Read-only: `true`
   static const sub = CognitoUserAttributeKey._('sub', readOnly: true);
 
-  /// The time the user's information was last updated.
+  /// {@macro amplify_core.user_attribute.updated_at}
   ///
   /// Read-only: `false`
   static const updatedAt = CognitoUserAttributeKey._('updated_at');
 
-  /// URL of the user's Web page or blog.
+  /// {@macro amplify_core.user_attribute.website}
   ///
   /// Read-only: `false`
   static const website = CognitoUserAttributeKey._('website');
 
-  /// A string from the [zoneinfo](https://www.iana.org/time-zones) time zone
-  /// database representing the user's time zone, e.g. `America/Los_Angeles`.
+  /// {@macro amplify_core.user_attribute.zoneinfo}
   ///
   /// Read-only: `false`
   static const zoneinfo = CognitoUserAttributeKey._('zoneinfo');
