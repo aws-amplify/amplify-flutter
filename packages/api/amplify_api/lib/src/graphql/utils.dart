@@ -14,7 +14,6 @@
  */
 
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:collection/collection.dart';
 
 const _serializedData = 'serializedData';
 
@@ -56,8 +55,10 @@ _RelatedFields _getRelatedFields(ModelSchema modelSchema) {
 }
 
 // ignore: public_member_api_docs
-ModelField? getBelongsToFieldFromModelSchema(ModelSchema modelSchema) {
-  return _getRelatedFields(modelSchema).singleFields.firstWhereOrNull(
+Iterable<ModelField> getBelongsToFieldsFromModelSchema(
+  ModelSchema modelSchema,
+) {
+  return _getRelatedFields(modelSchema).singleFields.where(
         (entry) =>
             entry.association?.associationType ==
             ModelAssociationEnum.BelongsTo,
