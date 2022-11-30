@@ -81,7 +81,7 @@ class GenerateSdkCommand extends AmplifyCommand {
   }
 
   /// Organizes model files from [baseDir] into a new temporary directory.
-  /// 
+  ///
   /// Returns the new directory.
   Future<Directory> _organizeModels(Directory baseDir) async {
     final modelsDir = await Directory.systemTemp.createTemp('models');
