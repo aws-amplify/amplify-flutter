@@ -14,32 +14,23 @@
  */
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
-import 'package:amplify_api/src/graphql/utils.dart';
-import 'package:amplify_api/src/method_channel_api.dart';
+import 'package:amplify_api/src/api_plugin_impl.dart';
+import 'package:amplify_api/src/graphql/helpers/graphql_response_decoder.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:amplify_test/test_models/many_to_many/MtmModelProvider.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 final _deepEquals = const DeepCollectionEquality().equals;
 
-class MockAmplifyAPI extends AmplifyAPIMethodChannel {
+class MockAmplifyAPI extends AmplifyAPIDart {
   MockAmplifyAPI({
-    ModelProviderInterface? modelProvider,
-  }) : super(modelProvider: modelProvider);
-
-  @override
-  void registerAuthProvider(APIAuthProvider authProvider) {}
-
-  @override
-  Future<void> addPlugin() async {}
+    super.modelProvider,
+  });
 }
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  Amplify = MethodChannelAmplify();
 
   group('with ModelProvider manyToMany', () {
     setUpAll(() async {
@@ -62,12 +53,12 @@ void main() {
     test(
         'ModelMutations.get() on firstMtmRelationModel should get both relationships',
         () {
-      String id = UUID.getUUID();
-      const expectedDoc = 'query getFirstMtmRelation(\$id: ID!) { '
-          'getFirstMtmRelation(id: \$id) { '
+      final id = UUID.getUUID();
+      const expectedDoc = r'query getFirstMtmRelation($id: ID!) { '
+          r'getFirstMtmRelation(id: $id) { '
           '$mtmRelationSelectionSet } }';
 
-      GraphQLRequest<FirstMtmRelation> req =
+      final req =
           ModelQueries.get<FirstMtmRelation>(FirstMtmRelation.classType, id);
 
       expect(req.document, expectedDoc);
@@ -80,9 +71,9 @@ void main() {
         'ModelMutations.create() on mtmRelationModel should have both relationships',
         () {
       const expectedDoc = 'mutation createFirstMtmRelation('
-          '\$input: CreateFirstMtmRelationInput!, '
-          '\$condition:  ModelFirstMtmRelationConditionInput) { '
-          'createFirstMtmRelation(input: \$input, condition: \$condition) '
+          r'$input: CreateFirstMtmRelationInput!, '
+          r'$condition:  ModelFirstMtmRelationConditionInput) { '
+          r'createFirstMtmRelation(input: $input, condition: $condition) '
           '{ $mtmRelationSelectionSet } }';
       final expectedVars = {
         'input': {
@@ -92,19 +83,19 @@ void main() {
         }
       };
 
-      ManyToManyPrimary primary = ManyToManyPrimary(
+      final primary = ManyToManyPrimary(
         id: 'mtmPrimaryId',
         name: 'first',
       );
-      ManyToManySecondary secondary =
+      final secondary =
           ManyToManySecondary(id: 'mtmSecondaryId', name: 'second');
 
-      FirstMtmRelation relation = FirstMtmRelation(
-          id: 'firstMtmRelationId',
-          manyToManyPrimary: primary,
-          manyToManySecondary: secondary);
-      GraphQLRequest<FirstMtmRelation> req =
-          ModelMutations.create<FirstMtmRelation>(relation);
+      final relation = FirstMtmRelation(
+        id: 'firstMtmRelationId',
+        manyToManyPrimary: primary,
+        manyToManySecondary: secondary,
+      );
+      final req = ModelMutations.create<FirstMtmRelation>(relation);
 
       expect(req.document, expectedDoc);
       expect(_deepEquals(req.variables, expectedVars), isTrue);
@@ -116,9 +107,9 @@ void main() {
         'ModelMutations.update() on mtmRelationModel should have both relationships',
         () {
       const expectedDoc = 'mutation updateFirstMtmRelation('
-          '\$input: UpdateFirstMtmRelationInput!, '
-          '\$condition:  ModelFirstMtmRelationConditionInput) { '
-          'updateFirstMtmRelation(input: \$input, condition: \$condition) '
+          r'$input: UpdateFirstMtmRelationInput!, '
+          r'$condition:  ModelFirstMtmRelationConditionInput) { '
+          r'updateFirstMtmRelation(input: $input, condition: $condition) '
           '{ $mtmRelationSelectionSet } }';
       final expectedVars = {
         'input': {
@@ -129,19 +120,19 @@ void main() {
         'condition': null
       };
 
-      ManyToManyPrimary primary = ManyToManyPrimary(
+      final primary = ManyToManyPrimary(
         id: 'mtmPrimaryId',
         name: 'first',
       );
-      ManyToManySecondary secondary =
+      final secondary =
           ManyToManySecondary(id: 'mtmSecondaryId', name: 'second');
 
-      FirstMtmRelation relation = FirstMtmRelation(
-          id: 'firstMtmRelationId',
-          manyToManyPrimary: primary,
-          manyToManySecondary: secondary);
-      GraphQLRequest<FirstMtmRelation> req =
-          ModelMutations.update<FirstMtmRelation>(relation);
+      final relation = FirstMtmRelation(
+        id: 'firstMtmRelationId',
+        manyToManyPrimary: primary,
+        manyToManySecondary: secondary,
+      );
+      final req = ModelMutations.update<FirstMtmRelation>(relation);
 
       expect(req.document, expectedDoc);
       expect(_deepEquals(req.variables, expectedVars), isTrue);
@@ -151,12 +142,13 @@ void main() {
 
     test('Multiple belongsTo children of FirstMtmRelation properly decoded',
         () {
-      GraphQLRequest<PaginatedResult<FirstMtmRelation>> req =
-          ModelQueries.list<FirstMtmRelation>(FirstMtmRelation.classType,
-              limit: 2);
+      final req = ModelQueries.list<FirstMtmRelation>(
+        FirstMtmRelation.classType,
+        limit: 2,
+      );
 
-      List<GraphQLResponseError> errors = [];
-      String data = '''{
+      final errors = <GraphQLResponseError>[];
+      const data = '''{
           "listFirstMtmRelations": {
             "items": [
               {
@@ -174,21 +166,25 @@ void main() {
           }
         }''';
 
-      GraphQLResponse<PaginatedResult<FirstMtmRelation>> response =
-          GraphQLResponseDecoder.instance
-              .decode<PaginatedResult<FirstMtmRelation>>(
-                  request: req, data: data, errors: errors);
+      final response = GraphQLResponseDecoder.instance
+          .decode<PaginatedResult<FirstMtmRelation>>(
+        request: req,
+        response: {
+          'data': data,
+          'errors': null,
+        },
+      );
 
       expect(response.data, isA<PaginatedResult<FirstMtmRelation>>());
       expect(response.data?.items, isA<List<FirstMtmRelation?>>());
       expect(response.data?.items.length, 1);
 
-      ManyToManyPrimary mtmPrimary =
+      final mtmPrimary =
           (response.data!.items[0] as FirstMtmRelation).manyToManyPrimary;
       expect(mtmPrimary.id, 'id-mtm-primary');
       expect(mtmPrimary.name, 'mtm primary');
 
-      ManyToManySecondary mtmSecondary =
+      final mtmSecondary =
           (response.data!.items[0] as FirstMtmRelation).manyToManySecondary;
       expect(mtmSecondary.id, 'id-mtm-secondary');
       expect(mtmSecondary.name, 'mtm secondary');
