@@ -22,7 +22,7 @@ class ConfirmUserAttributeScreen extends StatefulWidget {
     super.key,
   });
 
-  final UserAttributeKey userAttributeKey;
+  final AuthUserAttributeKey userAttributeKey;
 
   @override
   State<ConfirmUserAttributeScreen> createState() =>

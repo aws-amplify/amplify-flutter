@@ -13,34 +13,7 @@
  * permissions and limitations under the License.
  */
 
+/// Amplify Analytics Pinpoint
 library amplify_analytics_pinpoint;
 
-import 'dart:io';
-
-import 'package:amplify_core/amplify_core.dart';
-import 'package:meta/meta.dart';
-
-import 'method_channel_amplify.dart';
-
-export 'package:amplify_core/src/types/analytics/analytics_types.dart';
-
-/// {@template amplify_analytics_pinpoint.amplify_analytics_pinpoint}
-/// The AWS Pinpoint implementation of the Amplify Analytics category.
-/// {@endtemplate}
-abstract class AmplifyAnalyticsPinpoint extends AnalyticsPluginInterface {
-  /// {@macro amplify_analytics_pinpoint.amplify_analytics_pinpoint}
-  factory AmplifyAnalyticsPinpoint() {
-    if (zIsWeb ||
-        Platform.isWindows ||
-        Platform.isMacOS ||
-        Platform.isLinux ||
-        Platform.isAndroid) {
-      throw UnsupportedError('This platform is not supported yet');
-    }
-    return AmplifyAnalyticsPinpointMethodChannel();
-  }
-
-  /// Protected constructor for subclasses.
-  @protected
-  AmplifyAnalyticsPinpoint.protected();
-}
+export 'src/analytics_plugin_impl.dart';

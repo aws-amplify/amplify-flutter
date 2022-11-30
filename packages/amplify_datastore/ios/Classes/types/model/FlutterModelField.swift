@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ import Foundation
 import Amplify
 
 public struct FlutterModelField {
-    
     public let name: String
     public let type: FlutterModelFieldType
     public let isRequired: Bool
@@ -26,9 +25,8 @@ public struct FlutterModelField {
     public let isReadOnly: Bool
     public let association: FlutterModelAssociation?
     public let authRules: [FlutterAuthRule]?
-    
-    init(serializedData: [String: Any]) throws {
 
+    init(serializedData: [String: Any]) throws {
         guard let name = serializedData["name"] as? String
         else {
             throw ModelSchemaError.parse(
@@ -63,7 +61,7 @@ public struct FlutterModelField {
                 desiredType: "Bool")
         }
         self.isArray = isArray
-        
+
         guard let isReadOnly = serializedData["isReadOnly"] as? Bool
         else {
             throw ModelSchemaError.parse(
@@ -73,19 +71,17 @@ public struct FlutterModelField {
         }
         self.isReadOnly = isReadOnly
 
-        if let inputAssociationMap = serializedData["association"] as? [String : Any]{
+        if let inputAssociationMap = serializedData["association"] as? [String: Any] {
             self.association = try FlutterModelAssociation(serializedData: inputAssociationMap)
-        }
-        else{
+        } else{
             self.association = nil
         }
 
-        if let inputAuthRulesMap = serializedData["authRules"] as? [[String:String]]{
+        if let inputAuthRulesMap = serializedData["authRules"] as? [[String: String]] {
             self.authRules = try inputAuthRulesMap.map{
                 try FlutterAuthRule(serializedData: $0)
             }
-        }
-        else{
+        } else{
             self.authRules = nil
         }
     }
@@ -125,19 +121,17 @@ public struct FlutterModelField {
         preconditionFailure("Could not create a ModelFieldType from \(String(describing: type)) MetaType")
     }
 
-    private func convertFlutterAuthRules(flutterAuthRules : [FlutterAuthRule]?) -> [AuthRule]?{
-
+    private func convertFlutterAuthRules(flutterAuthRules: [FlutterAuthRule]?) -> [AuthRule]?{
         if let flutterAuthRules = flutterAuthRules{
-            var result: [AuthRule] = [AuthRule]();
+            var result = [AuthRule]()
 
             for flutterAuthRule in flutterAuthRules {
-                result.append( flutterAuthRule.convertToNativeAuthRule() );
+                result.append( flutterAuthRule.convertToNativeAuthRule() )
             }
 
-            return result;
-        }
-        else{
-            return nil;
+            return result
+        } else{
+            return nil
         }
     }
 
@@ -154,7 +148,6 @@ public struct FlutterModelField {
                 } ?? [AuthRule]()
         )
     }
-
 }
 
 typealias FlutterModelFields = [String: FlutterModelField]

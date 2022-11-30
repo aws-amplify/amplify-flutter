@@ -20,7 +20,6 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -163,7 +162,6 @@ void main() {
       AmplifyDataStore(modelProvider: modelProvider),
       AmplifyAnalyticsPinpoint(),
       AmplifyAPI(),
-      AmplifyStorageS3(),
     ]);
   }
 

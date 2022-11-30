@@ -1,18 +1,4 @@
-// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-// Generated with smithy-dart 0.2.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity_provider.operation.delete_user_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -80,7 +66,7 @@ class DeleteUserOperation extends _i1.HttpOperation<_i2.DeleteUserRequest,
           credentialsProvider: _credentialsProvider,
           isOptional: true,
         ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.2.0'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.3.0'),
         const _i4.WithSdkInvocationId(),
         const _i4.WithSdkRequest(),
       ],

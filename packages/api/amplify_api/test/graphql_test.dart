@@ -101,7 +101,7 @@ const _expectedAuthErrorResponseBody = {
   ]
 };
 
-final mockHttpClient = MockAWSHttpClient((request) async {
+final mockHttpClient = MockAWSHttpClient((request, _) async {
   if (request.headers[xApiKey] != 'abc123' &&
       request.headers[AWSHeaders.authorization] == testFunctionToken) {
     // Not authorized w API key but has lambda auth token, mock that auth mode

@@ -1,0 +1,18 @@
+name: Setup Firefox
+description: Install Firefox and Geckodriver
+
+runs:
+  using: "composite"
+  steps:
+    - uses: browser-actions/setup-firefox@c990ef23a9bedbbe657b163aaf0f3b7c608ea9f0 # latest
+    - shell: bash
+      run: firefox --version
+    - uses: browser-actions/setup-geckodriver@1605d95d4e5e7f5e3706e1e6f9c839d3834159db # latest
+    - shell: bash
+      run: geckodriver --version
+    - name: Virtual X Display 
+      shell: bash
+      if: ${{ runner.os == 'Linux' }}
+      run: |
+        echo "DISPLAY=:99" >> $GITHUB_ENV
+        sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &

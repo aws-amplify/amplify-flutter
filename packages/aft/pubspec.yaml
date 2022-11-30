@@ -8,44 +8,55 @@ environment:
 
 dependencies: 
   args: ^2.3.0
-  async: ^2.9.0
-  aws_common: ">=0.2.3 <0.3.0"
+  async: ^2.8.0
+  aws_common:
+    path: ../aws_common
   checked_yaml: ^2.0.0
   cli_util: ^0.3.5
   collection: ^1.16.0
   flutter_tools:
     git:
       url: https://github.com/flutter/flutter.git
-      ref: 0df0e2ea1f7fe5021c3593d61903e70bdbda8107
+      ref: f186e1bd3ed0c8471ad9b52929f70292621ab796
       path: packages/flutter_tools
   git: ^2.0.0
   graphs: ^2.1.0
   http: ^0.13.0
-  json_annotation: ^4.6.0
+  json_annotation: ^4.7.0
   meta: ^1.7.0
   path: any
   pub:
     git:
       url: https://github.com/dart-lang/pub.git
-      ref: 0a48753420cbd03eb72a92d38ef06fe3164dc335
+      ref: 5527068c31a3b92beb8f9bfe0953ff9580b3dc86
   pub_semver: ^2.1.1
   pubspec_parse: ^1.2.0
-  smithy: ">=0.1.1 <0.2.0"
-  smithy_codegen: ">=0.1.1 <0.2.0"
+  smithy:
+    path: ../smithy/smithy
+  smithy_codegen:
+    path: ../smithy/smithy_codegen
   stream_transform: ^2.0.0
   yaml: ^3.1.0
   yaml_edit: ^2.0.3
 
-# These need to match `flutter_tools`
 dependency_overrides:
+  aws_common:
+    path: ../aws_common
+  aws_signature_v4:
+    path: ../aws_signature_v4
   built_value: ">=8.4.0 <8.5.0"
-  frontend_server_client: ^3.0.0
+  smithy:
+    path: ../smithy/smithy
+  smithy_aws:
+    path: ../smithy/smithy_aws
+  smithy_codegen:
+    path: ../smithy/smithy_codegen
 
 dev_dependencies:
   amplify_lints:
     path: ../amplify_lints
   build_runner: ^2.0.0
-  json_serializable: 6.3.1
+  json_serializable: 6.5.4
   test: ^1.16.0
 
 executables:

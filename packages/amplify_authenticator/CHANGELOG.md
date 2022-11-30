@@ -1,3 +1,18 @@
+## 1.0.0-next.1
+
+### Fixes
+- fix(authenticator): remove navigator from tree for AuthenticatedState ([#2354](https://github.com/aws-amplify/amplify-flutter/pull/2354))
+
+## 1.0.0-next.0+5
+
+### Fixes
+- fix(authenticator): Configuration error handling
+- fix(authenticator): remove unnecessary assertion in PendingVerificationCheckState constructor ([#2325](https://github.com/aws-amplify/amplify-flutter/pull/2325))
+
+## 1.0.0-next.0+4
+
+- Minor bug fixes and improvements
+
 ## 1.0.0-next.0+3
 
 ### Features

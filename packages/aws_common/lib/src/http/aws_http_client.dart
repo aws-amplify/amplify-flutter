@@ -121,7 +121,7 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
   ) async =>
       response;
 
-  Future<void> _send(
+  Future<AWSHttpOperation<AWSBaseHttpResponse>?> _send(
     AWSBaseHttpRequest request,
     CancelableCompleter<AWSBaseHttpResponse> completer, {
     required StreamController<int> requestProgressController,
@@ -133,25 +133,16 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
       completer.completeError(e, st);
       unawaited(requestProgressController.close());
       unawaited(responseProgressController.close());
-      return;
+      return null;
     }
     final operation = baseClient?.send(request) ?? super.send(request);
-    operation.requestProgress.listen(
-      (data) {
-        if (!requestProgressController.isClosed) {
-          requestProgressController.add(data);
-        }
-      },
-      onDone: requestProgressController.close,
+    unawaited(
+      operation.requestProgress.forward(requestProgressController),
     );
-    operation.responseProgress.listen(
-      (data) {
-        if (!responseProgressController.isClosed) {
-          responseProgressController.add(data);
-        }
-      },
-      onDone: responseProgressController.close,
+    unawaited(
+      operation.responseProgress.forward(responseProgressController),
     );
+    // TODO(dnys1): Use `completeOperation` when available
     operation.operation.then(
       (resp) async {
         try {
@@ -162,8 +153,8 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
         }
       },
       onError: completer.completeError,
-      onCancel: completer.operation.cancel,
     );
+    return operation;
   }
 
   /// Do not override this method on [AWSBaseHttpClient].
@@ -179,8 +170,12 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
         StreamController<int>.broadcast(sync: true);
     final responseProgressController =
         StreamController<int>.broadcast(sync: true);
+
+    // TODO(dnys1): Use `completeOperation` when available
+    AWSHttpOperation? underlyingOperation;
     final completer = CancelableCompleter<AWSBaseHttpResponse>(
       onCancel: () {
+        underlyingOperation?.cancel();
         requestProgressController.close();
         responseProgressController.close();
         return onCancel?.call();
@@ -191,7 +186,7 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
       completer,
       requestProgressController: requestProgressController,
       responseProgressController: responseProgressController,
-    );
+    ).then((op) => underlyingOperation = op);
     return AWSHttpOperation(
       completer.operation,
       requestProgress: requestProgressController.stream,

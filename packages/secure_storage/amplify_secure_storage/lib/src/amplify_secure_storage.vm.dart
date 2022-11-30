@@ -41,7 +41,7 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
   @visibleForTesting
   static const scopeStoragePrefix = 'amplify_secure_storage_scopes';
 
-  final _initMemo = AsyncMemoizer();
+  final _initMemo = AsyncMemoizer<void>();
 
   Future<void> _init() async {
     await _initMemo.runOnce(

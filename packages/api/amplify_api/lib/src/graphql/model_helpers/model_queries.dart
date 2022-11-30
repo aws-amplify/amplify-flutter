@@ -28,9 +28,18 @@ class ModelQueries {
   /// ```
   static GraphQLRequest<T> get<T extends Model>(
     ModelType<T> modelType,
-    String id,
-  ) {
-    return ModelQueriesFactory.instance.get<T>(modelType, id);
+    String id, {
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+    Map<String, String>? headers,
+  }) {
+    return ModelQueriesFactory.instance.get<T>(
+      modelType,
+      id,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
+    );
   }
 
   /// Generates a request for a list of model instances.
@@ -46,8 +55,17 @@ class ModelQueries {
     ModelType<T> modelType, {
     int? limit,
     QueryPredicate? where,
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+    Map<String, String>? headers,
   }) {
-    return ModelQueriesFactory.instance
-        .list<T>(modelType, limit: limit, where: where);
+    return ModelQueriesFactory.instance.list<T>(
+      modelType,
+      limit: limit,
+      where: where,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
+    );
   }
 }

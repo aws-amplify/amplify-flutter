@@ -29,7 +29,7 @@ void main() {
     test('w/ max attempts', () async {
       var attempt = 1;
       final headers = <Map<String, String>>[];
-      final httpClient = MockAWSHttpClient((request) async {
+      final httpClient = MockAWSHttpClient((request, _) async {
         headers.add(request.headers);
         if (attempt > 1) {
           return AWSHttpResponse(statusCode: 200, body: '{}'.codeUnits);
@@ -62,7 +62,7 @@ void main() {
   test('WithSdkInvocationId', () async {
     var attempt = 1;
     final headers = <Map<String, String>>[];
-    final httpClient = MockAWSHttpClient((request) async {
+    final httpClient = MockAWSHttpClient((request, _) async {
       headers.add(request.headers);
       if (attempt > 1) {
         return AWSHttpResponse(statusCode: 200, body: '{}'.codeUnits);

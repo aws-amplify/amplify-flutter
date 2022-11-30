@@ -42,11 +42,12 @@ class AmplifySecureStorageWeb extends AmplifySecureStorageInterface {
       final openRequest = indexedDB!.open('test', 1);
       await openRequest.future;
       return _IndexedDBStorage(config: config);
-    } on Object {
+    } on Object catch (e) {
       logger.warn(
         'Could not open IndexedDB database. '
         'It may not be supported by the current browser. '
         'Falling back to in-memory storage.',
+        e,
       );
       return const AmplifySecureStorageInMemory();
     }

@@ -43,6 +43,11 @@
 		B4FD354C255D0A9D00A4E699 /* 1_result.json in Resources */ = {isa = PBXBuildFile; fileRef = B4FD354B255D0A9D00A4E699 /* 1_result.json */; };
 		D30253A827A1A89E0067A915 /* query_predicate_constant_all.json in Resources */ = {isa = PBXBuildFile; fileRef = D30253A727A1A89E0067A915 /* query_predicate_constant_all.json */; };
 		D3255F0326E81E3300063A15 /* custom_type_schema_maps.json in Resources */ = {isa = PBXBuildFile; fileRef = D3255F0226E81E3300063A15 /* custom_type_schema_maps.json */; };
+		D3B1E07D283EB5DD0004F964 /* model_identifier_group_equals.json in Resources */ = {isa = PBXBuildFile; fileRef = D3B1E07C283EB5DD0004F964 /* model_identifier_group_equals.json */; };
+		D3B1E07F283EB5F20004F964 /* model_identifier_group_not_equals.json in Resources */ = {isa = PBXBuildFile; fileRef = D3B1E07E283EB5F20004F964 /* model_identifier_group_not_equals.json */; };
+		D3B1E081283EB6040004F964 /* model_identifier_not_equals.json in Resources */ = {isa = PBXBuildFile; fileRef = D3B1E080283EB6040004F964 /* model_identifier_not_equals.json */; };
+		D3B1E082283EB8080004F964 /* model_identifier_equals.json in Resources */ = {isa = PBXBuildFile; fileRef = D3B1E07B283EB5BC0004F964 /* model_identifier_equals.json */; };
+		D3B1E08428625F0D0004F964 /* relation_model_identifier_equals.json in Resources */ = {isa = PBXBuildFile; fileRef = D3B1E08328625F0D0004F964 /* relation_model_identifier_equals.json */; };
 		FB228242255D4C95004BFCC0 /* instance_without_predicate.json in Resources */ = {isa = PBXBuildFile; fileRef = FB228241255D4C95004BFCC0 /* instance_without_predicate.json */; };
 /* End PBXBuildFile section */
 
@@ -112,6 +117,11 @@
 		B8F88CC4CFC43169A3129743 /* Pods-unit_tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.release.xcconfig"; path = "Target Support Files/Pods-unit_tests/Pods-unit_tests.release.xcconfig"; sourceTree = "<group>"; };
 		D30253A727A1A89E0067A915 /* query_predicate_constant_all.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = query_predicate_constant_all.json; sourceTree = "<group>"; };
 		D3255F0226E81E3300063A15 /* custom_type_schema_maps.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = custom_type_schema_maps.json; sourceTree = "<group>"; };
+		D3B1E07B283EB5BC0004F964 /* model_identifier_equals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; lineEnding = 0; path = model_identifier_equals.json; sourceTree = "<group>"; };
+		D3B1E07C283EB5DD0004F964 /* model_identifier_group_equals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = model_identifier_group_equals.json; sourceTree = "<group>"; };
+		D3B1E07E283EB5F20004F964 /* model_identifier_group_not_equals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = model_identifier_group_not_equals.json; sourceTree = "<group>"; };
+		D3B1E080283EB6040004F964 /* model_identifier_not_equals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = model_identifier_not_equals.json; sourceTree = "<group>"; };
+		D3B1E08328625F0D0004F964 /* relation_model_identifier_equals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = relation_model_identifier_equals.json; sourceTree = "<group>"; };
 		D5D88DACD96D3CAC9BEBB076 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		ED11E4916E10B172A89EC7E9 /* Pods-unit_tests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.profile.xcconfig"; path = "Target Support Files/Pods-unit_tests/Pods-unit_tests.profile.xcconfig"; sourceTree = "<group>"; };
 		FB228241255D4C95004BFCC0 /* instance_without_predicate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = instance_without_predicate.json; sourceTree = "<group>"; };
@@ -230,6 +240,11 @@
 				B4A5C4582548F00900B9E501 /* negate_complex_predicate.json */,
 				B4A5C4562548F00900B9E501 /* rating_greater_or_equal.json */,
 				D30253A727A1A89E0067A915 /* query_predicate_constant_all.json */,
+				D3B1E07B283EB5BC0004F964 /* model_identifier_equals.json */,
+				D3B1E07C283EB5DD0004F964 /* model_identifier_group_equals.json */,
+				D3B1E07E283EB5F20004F964 /* model_identifier_group_not_equals.json */,
+				D3B1E080283EB6040004F964 /* model_identifier_not_equals.json */,
+				D3B1E08328625F0D0004F964 /* relation_model_identifier_equals.json */,
 			);
 			path = predicates;
 			sourceTree = "<group>";
@@ -400,8 +415,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3B1E081283EB6040004F964 /* model_identifier_not_equals.json in Resources */,
 				B4A5C4672549009900B9E501 /* bool_and_double_operands.json in Resources */,
 				D3255F0326E81E3300063A15 /* custom_type_schema_maps.json in Resources */,
+				D3B1E082283EB8080004F964 /* model_identifier_equals.json in Resources */,
 				B4A5C4512548EF9A00B9E501 /* id_not_equals.json in Resources */,
 				84A0308225771E15007106B9 /* serialized_model_maps.json in Resources */,
 				847189D82565FAF200D6798A /* model_schema_maps.json in Resources */,
@@ -413,11 +430,14 @@
 				B4A5C45D2548F00900B9E501 /* group_mixed_and_or.json in Resources */,
 				B4A5C45B2548F00900B9E501 /* mixed_with_not.json in Resources */,
 				9C44723B2559F95300557CB1 /* instance_no_predicate.json in Resources */,
+				D3B1E08428625F0D0004F964 /* relation_model_identifier_equals.json in Resources */,
 				B409DE21254A218A006AECDB /* model_name_with_all_query_parameters.json in Resources */,
 				B409DE1F254A218A006AECDB /* 2_results.json in Resources */,
+				D3B1E07D283EB5DD0004F964 /* model_identifier_group_equals.json in Resources */,
 				B4A5C45E2548F00900B9E501 /* negate_complex_predicate.json in Resources */,
 				D30253A827A1A89E0067A915 /* query_predicate_constant_all.json in Resources */,
 				B4A5C45A2548F00900B9E501 /* group_with_only_and.json in Resources */,
+				D3B1E07F283EB5F20004F964 /* model_identifier_group_not_equals.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

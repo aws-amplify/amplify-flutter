@@ -48,7 +48,7 @@ Future<void> httpResponseTest<InputPayload, Input, OutputPayload, Output>({
         specifiedType: FullType(Output),
       ) as Output;
 
-      final client = MockAWSHttpClient((request) async {
+      final client = MockAWSHttpClient((request, _) async {
         return AWSHttpResponse(
           statusCode: testCase.code,
           headers: testCase.headers,
@@ -125,7 +125,7 @@ Future<void> httpErrorResponseTest<InputPayload, Input, OutputPayload, Output,
         specifiedType: FullType(ExpectedError),
       ) as ExpectedError;
 
-      final client = MockAWSHttpClient((request) async {
+      final client = MockAWSHttpClient((request, _) async {
         return AWSHttpResponse(
           statusCode: testCase.code,
           headers: testCase.headers,

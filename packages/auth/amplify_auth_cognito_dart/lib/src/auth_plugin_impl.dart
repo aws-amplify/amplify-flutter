@@ -275,7 +275,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     if (config == null) {
-      throw const AuthException('No Cognito plugin config detected');
+      throw ConfigurationError('No Cognito plugin config detected');
     }
 
     if (_stateMachine.getOrCreate(AuthStateMachine.type).currentState.type !=

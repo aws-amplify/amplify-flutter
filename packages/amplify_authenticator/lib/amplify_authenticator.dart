@@ -464,7 +464,6 @@ class _AuthenticatorState extends State<Authenticator> {
   late final StreamSubscription<AuthenticatorException> _exceptionSub;
   late final StreamSubscription<MessageResolverKey> _infoSub;
   late final StreamSubscription<AuthState> _successSub;
-  StreamSubscription<AuthHubEvent>? _hubSubscription;
 
   AmplifyConfig? _config;
   late List<String> _missingConfigValues;
@@ -575,12 +574,11 @@ class _AuthenticatorState extends State<Authenticator> {
     _infoSub.cancel();
     _successSub.cancel();
     _stateMachineBloc.close();
-    _hubSubscription?.cancel();
     super.dispose();
   }
 
   Future<void> _waitForConfiguration() async {
-    var config = await Amplify.asyncConfig;
+    final config = await Amplify.asyncConfig;
     setState(() {
       _config = config;
       _configInitialized = true;
@@ -761,21 +759,20 @@ class _AuthenticatorBody extends StatelessWidget {
     return _AuthStateBuilder(
       child: child,
       builder: (state, child) {
+        if (state is AuthenticatedState) return child;
         return Navigator(
           onPopPage: (_, dynamic __) => true,
           pages: [
-            if (state is AuthenticatedState) MaterialPage<void>(child: child),
-            if (state is! AuthenticatedState)
-              MaterialPage<void>(
-                child: ScaffoldMessenger(
-                  key: _AuthenticatorState.scaffoldMessengerKey,
-                  child: Scaffold(
-                    body: SizedBox.expand(
-                      child: child,
-                    ),
+            MaterialPage<void>(
+              child: ScaffoldMessenger(
+                key: _AuthenticatorState.scaffoldMessengerKey,
+                child: Scaffold(
+                  body: SizedBox.expand(
+                    child: child,
                   ),
                 ),
               ),
+            ),
           ],
         );
       },

@@ -93,7 +93,19 @@ class _MyAppState extends State<MyApp> {
       if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
         await Amplify.addPlugin(AmplifyAPI());
       }
-      await Amplify.addPlugin(AmplifyAuthCognito());
+      final secureStorage = AmplifySecureStorage(
+        config: AmplifySecureStorageConfig(
+          scope: 'auth',
+          // FIXME: In your app, make sure to remove this line and set up
+          /// Keychain Sharing in Xcode as described in the docs:
+          /// https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/#enable-keychain
+          // ignore: invalid_use_of_visible_for_testing_member
+          macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
+        ),
+      );
+      await Amplify.addPlugin(
+        AmplifyAuthCognito(credentialStorage: secureStorage),
+      );
       // Uncomment this block, and comment out the one above to change how
       // credentials are persisted.
       // await Amplify.addPlugin(
@@ -181,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
             body: HttpPayload.string(_controller.text),
           )
           .response;
-      final decodedBody = await response.decodeBody();
+      final decodedBody = response.decodeBody();
       setState(() {
         _greeting = decodedBody;
       });

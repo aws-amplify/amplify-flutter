@@ -182,6 +182,9 @@ class Comment extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: Comment.POST,
         isRequired: false,
+        // TODO(Jordan-Nelson): Remove `targetName` when API category has been
+        // updated to support CPK changes. This was added manually.
+        // ignore: deprecated_member_use
         targetName: "postID",
         ofModelName: (Post).toString()));
 

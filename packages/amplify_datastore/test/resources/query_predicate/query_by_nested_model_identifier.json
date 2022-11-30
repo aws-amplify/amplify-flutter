@@ -1,0 +1,12 @@
+{
+  "queryPredicateOperation": {
+    "field": "blog",
+    "fieldOperator": {
+      "operatorName": "equal",
+      "value": [
+        { "id": "123" },
+        { "name": "the parent" }
+      ]
+    }
+  }
+}

@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
 
 library smoke_test.config_service.operation.select_resource_config_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -69,7 +69,7 @@ class SelectResourceConfigOperation extends _i1.PaginatedHttpOperation<
           service: _i8.AWSService.configService,
           credentialsProvider: _credentialsProvider,
         ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
+        const _i1.WithUserAgent('aws-sdk-dart/0.3.0'),
         const _i6.WithSdkInvocationId(),
         const _i6.WithSdkRequest(),
       ],

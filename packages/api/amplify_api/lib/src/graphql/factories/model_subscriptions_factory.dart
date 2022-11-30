@@ -29,32 +29,56 @@ class ModelSubscriptionsFactory extends ModelSubscriptionsInterface {
   static ModelSubscriptionsFactory get instance => _instance;
 
   @override
-  GraphQLRequest<T> onCreate<T extends Model>(ModelType<T> modelType) {
+  GraphQLRequest<T> onCreate<T extends Model>(
+    ModelType<T> modelType, {
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+    Map<String, String>? headers,
+  }) {
     return GraphQLRequestFactory.instance.buildRequest<T>(
       modelType: modelType,
       variables: <String, dynamic>{},
       requestType: GraphQLRequestType.subscription,
       requestOperation: GraphQLRequestOperation.onCreate,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
     );
   }
 
   @override
-  GraphQLRequest<T> onUpdate<T extends Model>(ModelType<T> modelType) {
+  GraphQLRequest<T> onUpdate<T extends Model>(
+    ModelType<T> modelType, {
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+    Map<String, String>? headers,
+  }) {
     return GraphQLRequestFactory.instance.buildRequest<T>(
       modelType: modelType,
       variables: <String, dynamic>{},
       requestType: GraphQLRequestType.subscription,
       requestOperation: GraphQLRequestOperation.onUpdate,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
     );
   }
 
   @override
-  GraphQLRequest<T> onDelete<T extends Model>(ModelType<T> modelType) {
+  GraphQLRequest<T> onDelete<T extends Model>(
+    ModelType<T> modelType, {
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+    Map<String, String>? headers,
+  }) {
     return GraphQLRequestFactory.instance.buildRequest<T>(
       modelType: modelType,
       variables: <String, dynamic>{},
       requestType: GraphQLRequestType.subscription,
       requestOperation: GraphQLRequestOperation.onDelete,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
     );
   }
 }

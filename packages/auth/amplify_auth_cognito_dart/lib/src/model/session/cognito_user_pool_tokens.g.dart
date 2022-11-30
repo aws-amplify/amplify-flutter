@@ -152,21 +152,12 @@ CognitoUserPoolTokens _$CognitoUserPoolTokensFromJson(
     );
 
 Map<String, dynamic> _$CognitoUserPoolTokensToJson(
-    CognitoUserPoolTokens instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('signInMethod',
-      const _CognitoSignInMethodSerializer().toJson(instance.signInMethod));
-  writeNotNull('accessToken',
-      const JsonWebTokenSerializer().toJson(instance.accessToken));
-  val['refreshToken'] = instance.refreshToken;
-  writeNotNull(
-      'idToken', const JsonWebTokenSerializer().toJson(instance.idToken));
-  return val;
-}
+        CognitoUserPoolTokens instance) =>
+    <String, dynamic>{
+      'signInMethod':
+          const _CognitoSignInMethodSerializer().toJson(instance.signInMethod),
+      'accessToken':
+          const JsonWebTokenSerializer().toJson(instance.accessToken),
+      'refreshToken': instance.refreshToken,
+      'idToken': const JsonWebTokenSerializer().toJson(instance.idToken),
+    };

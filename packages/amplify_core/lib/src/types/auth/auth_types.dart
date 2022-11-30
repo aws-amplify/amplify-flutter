@@ -26,6 +26,7 @@ export '../exception/auth/user_cancelled_exception.dart';
 /// Attributes
 export 'attribute/auth_next_update_attribute_step.dart';
 export 'attribute/auth_user_attribute.dart';
+export 'attribute/auth_user_attribute_key.dart';
 export 'attribute/cognito_user_attribute_key.dart';
 export 'attribute/confirm_user_attribute_options.dart';
 export 'attribute/confirm_user_attribute_request.dart';
@@ -40,14 +41,13 @@ export 'attribute/update_user_attribute_request.dart';
 export 'attribute/update_user_attribute_result.dart';
 export 'attribute/update_user_attributes_options.dart';
 export 'attribute/update_user_attributes_request.dart';
-export 'attribute/user_attribute_key.dart';
 
 /// Common
 export 'auth_code_delivery_details.dart';
 export 'auth_device.dart';
 export 'auth_next_step.dart';
 
-// Hub
+/// Hub
 export 'hub/auth_hub_event.dart';
 
 /// Password
