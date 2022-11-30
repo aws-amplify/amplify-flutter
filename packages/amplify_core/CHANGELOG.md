@@ -1,3 +1,9 @@
+## 1.0.0-next.1+1
+
+### Fixes
+- fix(api): Missing query parameters in REST operations ([#2413](https://github.com/aws-amplify/amplify-flutter/pull/2413))
+- fix(api): allow setting extra GQL request params from model helpers ([#2423](https://github.com/aws-amplify/amplify-flutter/pull/2423))
+
 ## 1.0.0-next.1
 
 ### Breaking Changes

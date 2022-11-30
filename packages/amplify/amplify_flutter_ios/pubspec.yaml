@@ -1,6 +1,6 @@
 name: amplify_flutter_ios
 description: The method channel implementation for amplify_flutter on iOS
-version: 1.0.0-next.1
+version: 1.0.0-next.1+1
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/amplify/amplify_flutter_ios
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -10,7 +10,7 @@ environment:
   flutter: ">=3.0.0"
 
 dependencies:
-  amplify_core: ">=1.0.0-next.1 <1.0.0-next.2"
+  amplify_core: ">=1.0.0-next.1+1 <1.0.0-next.2"
   flutter:
     sdk: flutter
 
