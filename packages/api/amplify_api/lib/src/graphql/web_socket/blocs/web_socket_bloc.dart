@@ -45,7 +45,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     _pollClientOverride = pollClientOverride;
     _connectivityOverride = connectivityOverride;
 
-    _pollClientOverride ?? AWSHttpClient();
+    _pollClient = _pollClientOverride ?? AWSHttpClient();
 
     final subBlocs = <String, WsSubscriptionBloc<Object?>>{};
 

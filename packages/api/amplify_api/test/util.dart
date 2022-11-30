@@ -298,7 +298,7 @@ bool mockPollClientUnhealthy = false;
 int mockPollFailCount = 0;
 const maxFailAttempts = 5;
 
-final mockPollClient = MockAWSHttpClient((request) async {
+final mockPollClient = MockAWSHttpClient((request, _) async {
   if (mockPollClientUnhealthy) {
     return AWSHttpResponse(
       statusCode: 400,
