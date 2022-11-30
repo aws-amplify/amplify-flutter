@@ -26,6 +26,7 @@ class SignUpResult
   const SignUpResult({
     required this.isSignUpComplete,
     required this.nextStep,
+    this.userId,
   });
 
   factory SignUpResult.fromJson(Map<String, Object?> json) =>
@@ -34,8 +35,11 @@ class SignUpResult
   final bool isSignUpComplete;
   final AuthNextSignUpStep nextStep;
 
+  /// The user ID of the signed-up user.
+  final String? userId;
+
   @override
-  List<Object?> get props => [isSignUpComplete, nextStep];
+  List<Object?> get props => [isSignUpComplete, nextStep, userId];
 
   @override
   String get runtimeTypeName => 'SignUpResult';
