@@ -1,0 +1,16 @@
+name: amplify_logging_cloudwatchlogs_dart
+description: Dart implementation of the Amplify Logging plugin using CloudWatchLogs.
+version: 0.1.0
+homepage: https://docs.amplify.aws/lib/q/platform/flutter/
+repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/logging/amplify_logging_cloudwatchlogs_dart
+issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
+
+environment:
+  sdk: '>=2.18.4 <3.0.0'
+
+# dependencies:
+#   path: ^1.8.0
+
+dev_dependencies:
+  lints: ^2.0.0
+  test: ^1.16.0

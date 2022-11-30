@@ -1,0 +1,3 @@
+apis:
+  logs:
+  - com.amazonaws.cloudwatchlogs#PutLogEvents
