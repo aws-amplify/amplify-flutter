@@ -156,7 +156,10 @@ Future<void> adminCreateUser(
 
 /// Returns the OTP code for [username]. Must be called before the network call
 /// generating the OTP code.
-Future<String> getOtpCode(String username) async {
+Future<String> getOtpCode(
+  String username, {
+  void Function()? onEstablished,
+}) async {
   const subscriptionDocument = r'''
     subscription OnCreateMFACode($username: String!) {
       onCreateMFACode(username: $username) {
@@ -172,7 +175,10 @@ Future<String> getOtpCode(String username) async {
         'username': username,
       },
     ),
-    onEstablished: () => _logger.debug('Established connection'),
+    onEstablished: () {
+      onEstablished?.call();
+      _logger.debug('Established connection');
+    },
   );
 
   // Collect code delivered via Lambda
@@ -196,7 +202,7 @@ Future<String> getOtpCode(String username) async {
 /// Returns the stream of all OTP codes broadcast by Cognito.
 ///
 /// This is useful with aliases when the username is not known ahead of time.
-Stream<String> getOtpCodes() {
+Stream<String> getOtpCodes({void Function()? onEstablished}) {
   const subscriptionDocument = r'''
     subscription OnCreateMFACode {
       onCreateMFACode {
@@ -209,7 +215,10 @@ Stream<String> getOtpCodes() {
     GraphQLRequest<String>(
       document: subscriptionDocument,
     ),
-    onEstablished: () => _logger.debug('Established connection'),
+    onEstablished: () {
+      onEstablished?.call();
+      _logger.debug('Established connection');
+    },
   );
 
   // Collect code delivered via Lambda

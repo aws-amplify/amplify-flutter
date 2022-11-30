@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:amplify_api/amplify_api.dart';
@@ -84,7 +85,12 @@ void main() {
       }
 
       if (enableMfa) {
-        final code = getOtpCode(username!);
+        final establishedCompleter = Completer<void>();
+        final code = getOtpCode(
+          username!,
+          onEstablished: establishedCompleter.complete,
+        );
+        await establishedCompleter.future;
         final signInRes = await Amplify.Auth.signIn(
           username: username!,
           password: password,

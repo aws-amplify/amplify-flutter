@@ -71,7 +71,14 @@ testsList+=("$TARGET")
 n=0
 until [ "$n" -gt $retries ]
 do
-    if flutter test \
+    if [[ $deviceId = "web-server" ]] && flutter drive \
+        --driver=test_driver/integration_test.dart \
+        --target=$TARGET \
+        -d web-server
+    then
+        resultsList+=(0)
+        break
+    elif flutter test \
         --no-pub \
         -d $deviceId \
         $TARGET;
@@ -112,11 +119,19 @@ for ENTRY in $TEST_ENTRIES; do
     n=0
     until [ "$n" -gt $retries ]
     do
-        if flutter test \
-              --no-pub \
-              --dart-define ENABLE_CLOUD_SYNC=$enableCloudSync \
-              -d $deviceId \
-              $ENTRY;
+        if [[ $deviceId = "web-server" ]] && flutter drive \
+            --driver=test_driver/integration_test.dart \
+            --dart-define ENABLE_CLOUD_SYNC=$enableCloudSync \
+            --target=$ENTRY \
+            -d web-server
+        then
+            resultsList+=(0)
+            break
+        elif flutter test \
+            --no-pub \
+            --dart-define ENABLE_CLOUD_SYNC=$enableCloudSync \
+            -d $deviceId \
+            $ENTRY;
         then
             resultsList+=(0)
             break

@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:amplify_api/amplify_api.dart';
@@ -66,7 +67,12 @@ void main() {
         final password = generatePassword();
 
         // Sign up, but do not confirm, user
-        final code = getOtpCode(username);
+        final establishedCompleter = Completer<void>();
+        final code = getOtpCode(
+          username,
+          onEstablished: establishedCompleter.complete,
+        );
+        await establishedCompleter.future;
         await signUpWithoutConfirming(username, password);
 
         // Confirm sign up and complete sign in
@@ -82,7 +88,12 @@ void main() {
         final password = generatePassword();
 
         // Sign up, but do not confirm, user
-        final code = getOtpCode(username);
+        final establishedCompleter = Completer<void>();
+        final code = getOtpCode(
+          username,
+          onEstablished: establishedCompleter.complete,
+        );
+        await establishedCompleter.future;
         await signUpWithoutConfirming(username, password);
 
         // Sign in
@@ -111,12 +122,22 @@ void main() {
         final password = generatePassword();
 
         // Sign up, but do not confirm, user
-        var code = getOtpCode(username);
+        final establishedCompleter = Completer<void>();
+        var code = getOtpCode(
+          username,
+          onEstablished: establishedCompleter.complete,
+        );
+        await establishedCompleter.future;
         await signUpWithoutConfirming(username, password);
 
         // Throw away code and get next one
         await code;
-        code = getOtpCode(username);
+        final secondEstablishedCompleter = Completer<void>();
+        code = getOtpCode(
+          username,
+          onEstablished: secondEstablishedCompleter.complete,
+        );
+        await secondEstablishedCompleter.future;
 
         final resendResult = await Amplify.Auth.resendSignUpCode(
           username: username,
