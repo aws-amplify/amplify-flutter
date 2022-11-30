@@ -1,5 +1,5 @@
 name: "Install Non-Platform Dependencies"
-description: "Installs non-platform dependencies: Flutter, melos, aft
+description: "Installs non-platform dependencies: Flutter, melos, aft"
 
 runs:
   using: "composite"
