@@ -13,7 +13,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 set -e
 
-../../../../../tool/provision_integration_test_resources.sh storage
+if [[ -z "$1" ]]; then
+    echo "Usage: provision_integration_test_resources.sh <CATEGORY>" >&2
+    echo "<CATEGORY> = analytics, auth, storage" >&2
+    exit 1
+fi
+
+pushd infra
+pnpm install
+pnpm run setup
+CATEGORY=$1 pnpm run deploy
+popd
