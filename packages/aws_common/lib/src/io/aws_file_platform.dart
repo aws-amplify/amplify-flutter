@@ -38,6 +38,7 @@ class AWSFilePlatform extends AWSFile {
   AWSFilePlatform.fromPath(
     String path, {
     super.name,
+    super.contentType,
   }) : super.protected(
           path: path,
         ) {
@@ -66,6 +67,13 @@ class AWSFilePlatform extends AWSFile {
   Stream<List<int>> get stream {
     throw UnimplementedError(
       'stream getter has not been implemented in the current platform.',
+    );
+  }
+
+  @override
+  Future<String?> get contentType {
+    throw UnimplementedError(
+      'contentType getter has not been implemented in the current platform.',
     );
   }
 

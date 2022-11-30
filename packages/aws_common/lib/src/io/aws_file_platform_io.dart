@@ -16,6 +16,7 @@ import 'dart:io';
 
 import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
+import 'package:mime/mime.dart' as mime;
 
 /// The io implementation of [AWSFile].
 class AWSFilePlatform extends AWSFile {
@@ -30,6 +31,7 @@ class AWSFilePlatform extends AWSFile {
   AWSFilePlatform.fromPath(
     String path, {
     super.name,
+    super.contentType,
   })  : _stream = null,
         _inputFile = File(path),
         _size = null,
@@ -63,6 +65,8 @@ class AWSFilePlatform extends AWSFile {
   final File? _inputFile;
   final int? _size;
   final Stream<List<int>>? _stream;
+  String? _resolvedContentType;
+  bool _hasResolvedContentType = false;
 
   @override
   Stream<List<int>> get stream {
@@ -103,5 +107,35 @@ class AWSFilePlatform extends AWSFile {
 
     // the constructors ensures it won't reach to this point, but just in case
     throw const InvalidFileException();
+  }
+
+  @override
+  Future<String?> get contentType async {
+    if (_hasResolvedContentType) {
+      return _resolvedContentType;
+    }
+
+    final externalContentType = await super.contentType;
+    if (externalContentType != null) {
+      _resolvedContentType = externalContentType;
+    } else {
+      final file = _inputFile;
+      if (file != null) {
+        final headerBytes =
+            (await file.openRead(0, mime.defaultMagicNumbersMaxLength).toList())
+                .expand((e) => e)
+                .toList();
+        // Mime type will be null if the header bytes doesn't match the
+        // predefined magic numbers in the mime package.
+        // https://github.com/dart-lang/mime/blob/master/lib/src/magic_number.dart
+        // Then it falls back to determine mime type by looking up the file
+        // extension name. If none works, the it falls to null.
+        _resolvedContentType =
+            mime.lookupMimeType(file.path, headerBytes: headerBytes);
+      }
+    }
+
+    _hasResolvedContentType = true;
+    return _resolvedContentType;
   }
 }

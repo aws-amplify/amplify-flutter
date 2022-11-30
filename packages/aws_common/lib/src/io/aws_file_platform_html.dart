@@ -43,6 +43,7 @@ class AWSFilePlatform extends AWSFile {
   AWSFilePlatform.fromPath(
     String path, {
     super.name,
+    super.contentType,
   })  : _stream = null,
         _inputFile = null,
         _inputBlob = null,
@@ -81,10 +82,37 @@ class AWSFilePlatform extends AWSFile {
   final Stream<List<int>>? _stream;
   int? _size;
   Blob? _resolvedBlobFromPath;
-  String? _contentType;
+  String? _resolvedContentType;
+  bool _hasResolvedContentType = false;
 
   @override
-  String? get contentType => _contentType ?? super.contentType;
+  Future<String?> get contentType async {
+    if (_hasResolvedContentType) {
+      return _resolvedContentType;
+    }
+
+    final externalContentType = await super.contentType;
+    if (externalContentType != null) {
+      _resolvedContentType = externalContentType;
+    } else {
+      final file = _inputFile ?? _inputBlob;
+      final path = super.path;
+      if (file != null) {
+        _resolvedContentType = file.type;
+      } else if (path != null) {
+        _resolvedContentType = (await _resolvedBlob).type;
+      }
+
+      // html Blob may return empty string as mime type when the type cannot
+      // be determined, in this case we set the contentType as null
+      if (_resolvedContentType?.isEmpty ?? false) {
+        _resolvedContentType = null;
+      }
+    }
+
+    _hasResolvedContentType = true;
+    return _resolvedContentType;
+  }
 
   @override
   Stream<List<int>> get stream {
@@ -188,7 +216,6 @@ class AWSFilePlatform extends AWSFile {
     }
 
     _size = retrievedBlob.size;
-    _contentType = retrievedBlob.type;
 
     return retrievedBlob;
   }

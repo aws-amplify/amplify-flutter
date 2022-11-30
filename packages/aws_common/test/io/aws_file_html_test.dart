@@ -27,7 +27,12 @@ void main() {
   group('AWSFile html implementation', () {
     const testStringContent = 'I ❤️ Amplify, œ 小新';
     final testBytes = utf8.encode(testStringContent);
-    final testFile = html.File([testBytes], 'test_file.txt');
+    final testFile = html.File(
+        [testBytes],
+        'test_file.txt',
+        {
+          'type': 'text/plain',
+        });
     final testBlob = html.Blob([testBytes], 'text/plain');
     final testFilePath = html.Url.createObjectUrl(testFile);
 
@@ -35,6 +40,7 @@ void main() {
       test('should return ChunkedStreamReader over html File', () async {
         final awsFile = AWSFilePlatform.fromFile(testFile);
 
+        expect(await awsFile.contentType, 'text/plain');
         expect(
           await collectBytesFromChunkedReader(awsFile.getChunkedStreamReader()),
           equals(testBytes),
@@ -44,6 +50,7 @@ void main() {
       test('should return ChunkedStreamReader over html Blob', () async {
         final awsFile = AWSFilePlatform.fromBlob(testBlob);
 
+        expect(await awsFile.contentType, 'text/plain');
         expect(
           await collectBytesFromChunkedReader(awsFile.getChunkedStreamReader()),
           equals(testBytes),
@@ -53,6 +60,7 @@ void main() {
       test('should return ChunkedStreamReader over a file path', () async {
         final awsFile = AWSFile.fromPath(testFilePath);
 
+        expect(await awsFile.contentType, 'text/plain');
         expect(
           await collectBytesFromChunkedReader(awsFile.getChunkedStreamReader()),
           equals(testBytes),
@@ -60,8 +68,9 @@ void main() {
       });
 
       test('should return ChunkedStreamReader over bytes data', () async {
-        final awsFile = AWSFile.fromData(testBytes);
+        final awsFile = AWSFile.fromData(testBytes, contentType: 'text/plain');
 
+        expect(await awsFile.contentType, 'text/plain');
         expect(
           await collectBytesFromChunkedReader(awsFile.getChunkedStreamReader()),
           equals(testBytes),
@@ -72,8 +81,10 @@ void main() {
         final awsFile = AWSFile.fromStream(
           Stream.value(testBytes),
           size: testBytes.length,
+          contentType: 'text/plain',
         );
 
+        expect(await awsFile.contentType, 'text/plain');
         expect(
           await collectBytesFromChunkedReader(awsFile.getChunkedStreamReader()),
           equals(testBytes),

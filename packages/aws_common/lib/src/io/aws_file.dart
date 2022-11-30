@@ -89,11 +89,15 @@ abstract class AWSFile {
   /// Creates an [AWSFile] from a path, optionally specifying a file [name].
   ///
   /// On VM platforms, the [path] is the absolute path to a file in the file
-  /// system.
+  /// system. When [contentType] is not specified, it leverages
+  /// [mime](https://pub.dev/packages/mime) to determine the value of
+  /// [contentType].
   ///
   /// On Web, the [path] can be an object url created by
   /// [`URL.createObjectURL()`](https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL)
   /// . When passing an object url, it's recommended to set a value for [name].
+  /// When [contentType] is not specified, it gets the value of [contentType]
+  /// from [`Blob.type`](https://developer.mozilla.org/en-US/docs/Web/API/Blob/type).
   ///
   /// Throws [InvalidFileException] if cannot get a file content stream from the
   /// [path].
@@ -101,6 +105,7 @@ abstract class AWSFile {
   factory AWSFile.fromPath(
     String path, {
     String? name,
+    String? contentType,
   }) = AWSFilePlatform.fromPath;
 
   /// {@template amplify_core.io.aws_file.from_data}
@@ -118,8 +123,10 @@ abstract class AWSFile {
     this.path,
     this.bytes,
     this.name,
-    this.contentType,
-  });
+    String? contentType,
+  }) : _contentType = contentType;
+
+  String? _contentType;
 
   /// Stream of the file content.
   Stream<List<int>> get stream;
@@ -134,7 +141,7 @@ abstract class AWSFile {
   final String? path;
 
   /// The content type of the file if provided.
-  final String? contentType;
+  Future<String?> get contentType async => _contentType;
 
   /// {@template amplify_core.io.aws_file.chunked_reader}
   /// Returns a [ChunkedStreamReader] over the stream of bytes of the file.

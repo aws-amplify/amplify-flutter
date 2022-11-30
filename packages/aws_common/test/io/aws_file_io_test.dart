@@ -19,6 +19,7 @@ import 'dart:io' as io;
 
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_common/vm.dart';
+import 'package:mime/mime.dart';
 import 'package:test/test.dart';
 
 import 'utils.dart';
@@ -30,15 +31,19 @@ void main() {
       currentPath = currentPath.replaceAll('/test', '');
     }
     final testFilePath = '$currentPath/test/io/assets/test_file.txt';
+    final testFileWithWrongExtensionPath =
+        '$currentPath/test/io/assets/test_img.txt';
     const testFileContent = 'I ❤️ Amplify, œ 小新';
     final testBytes = utf8.encode(testFileContent);
 
     final testFile = io.File(testFilePath);
+    final testFileWithWrongExtension = io.File(testFileWithWrongExtensionPath);
 
     group('getChunkedStreamReader() API', () {
       test('should return ChunkedStreamReader over io File', () async {
         final awsFile = AWSFilePlatform.fromFile(testFile);
 
+        expect(await awsFile.contentType, lookupMimeType(testFile.path));
         expect(
           await collectBytesFromChunkedReader(awsFile.getChunkedStreamReader()),
           equals(testBytes),
@@ -48,6 +53,7 @@ void main() {
       test('should return ChunkedStreamReader over a file path', () async {
         final awsFile = AWSFile.fromPath(testFilePath);
 
+        expect(await awsFile.contentType, lookupMimeType(testFilePath));
         expect(
           await collectBytesFromChunkedReader(awsFile.getChunkedStreamReader()),
           equals(testBytes),
@@ -55,8 +61,12 @@ void main() {
       });
 
       test('should return ChunkedStreamReader over bytes data', () async {
-        final awsFile = AWSFile.fromData(testBytes);
+        final awsFile = AWSFile.fromData(
+          testBytes,
+          contentType: lookupMimeType(testFilePath),
+        );
 
+        expect(await awsFile.contentType, lookupMimeType(testFilePath));
         expect(
           await collectBytesFromChunkedReader(awsFile.getChunkedStreamReader()),
           equals(testBytes),
@@ -66,13 +76,23 @@ void main() {
       test('should return ChunkedStreamReader over bytes stream', () async {
         final awsFile = AWSFile.fromStream(
           Stream.value(testBytes),
+          contentType: lookupMimeType(testFilePath),
           size: testBytes.length,
         );
 
+        expect(await awsFile.contentType, lookupMimeType(testFilePath));
         expect(
           await collectBytesFromChunkedReader(awsFile.getChunkedStreamReader()),
           equals(testBytes),
         );
+      });
+
+      test(
+          'should detect correct contentType with incorrect file extension name',
+          () async {
+        final awsFile = AWSFilePlatform.fromFile(testFileWithWrongExtension);
+
+        expect(await awsFile.contentType, 'image/jpeg');
       });
     });
   });
