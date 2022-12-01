@@ -66,8 +66,8 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   @override
   String get runtimeTypeName => 'WebSocketBloc';
 
-  /// Default timeout for retry/back off
-  final Duration _retryTimeout = const Duration(seconds: 5);
+  /// Default timeout response for polling
+  final Duration _pollResponseTimeout = const Duration(seconds: 5);
 
   /// Indicates if the bloc has finished closing
   final done = Completer<void>();
@@ -265,7 +265,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
     yield _currentState.failed(exception);
 
-    await _shutdownWithException(exception);
+    _shutdownWithException(exception);
   }
 
   // Init connection and add channel events to the event stream.
@@ -359,7 +359,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       add(const InitEvent());
     } on Exception catch (e) {
       // Ping failed, close down
-      await _shutdownWithException(
+      _shutdownWithException(
         ApiException(
           'Unable to recover network connection, web socket will close.',
           recoverySuggestion: 'Check internet connection.',
@@ -367,6 +367,9 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
         ),
       );
     }
+
+    // TODO(dnys1): Yield broken on web debug build.
+    yield* const Stream.empty();
   }
 
   /// Sends registration message on ws channel when connected
@@ -449,7 +452,6 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     if (_currentState is! FailureState) {
       _emit(_currentState.disconnect());
     }
-
     _currentState.service.close();
 
     await Future.wait<void>([
@@ -533,7 +535,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
     final op = req.send(client: _pollClient);
     return op.response.timeout(
-      _retryTimeout,
+      _pollResponseTimeout,
       onTimeout: () {
         op.cancel();
         throw const ApiException('Timeout while polling AppSync.');
@@ -542,7 +544,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   }
 
   /// Sends an exception to all sub blocs and cleans up this bloc
-  Future<void> _shutdownWithException(Exception e) async {
+  void _shutdownWithException(Exception e) {
     _emit(_currentState.failed(e));
     logger.error('Shutting down with exception: $e');
 

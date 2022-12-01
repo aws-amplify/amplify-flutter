@@ -293,26 +293,39 @@ class MockWebSocketService extends AmplifyWebSocketService {
   }
 }
 
-bool mockPollClientInduceFailure = false;
-bool mockPollClientUnhealthy = false;
-int mockPollFailCount = 0;
-const maxFailAttempts = 5;
+class MockPollClient {
+  MockPollClient({
+    this.induceTimeout = false,
+    this.sendUnhealthyResponse = false,
+    this.maxFailAttempts = 5,
+  });
 
-final mockPollClient = MockAWSHttpClient((request, _) async {
-  if (mockPollClientUnhealthy) {
-    return AWSHttpResponse(
-      statusCode: 400,
-      body: utf8.encode('unhealthy'),
-    );
-  }
-  if (mockPollClientInduceFailure) {
-    mockPollFailCount++;
-  }
+  bool induceTimeout;
+  bool sendUnhealthyResponse;
+  int maxFailAttempts;
 
-  return mockPollClientInduceFailure && mockPollFailCount <= maxFailAttempts
-      ? throw TimeoutException('Mock timeout exception')
-      : AWSHttpResponse(
-          statusCode: 200,
-          body: utf8.encode('healthy'),
+  MockAWSHttpClient get client {
+    var mockPollFailCount = 0;
+
+    return MockAWSHttpClient((request, _) async {
+      if (sendUnhealthyResponse) {
+        return AWSHttpResponse(
+          statusCode: 400,
+          body: utf8.encode('unhealthy'),
         );
-});
+      }
+      if (induceTimeout) {
+        mockPollFailCount++;
+      }
+
+      if (induceTimeout && mockPollFailCount <= maxFailAttempts) {
+        await Future.delayed(const Duration(seconds: 10));
+      }
+
+      return AWSHttpResponse(
+        statusCode: 200,
+        body: utf8.encode('healthy'),
+      );
+    });
+  }
+}

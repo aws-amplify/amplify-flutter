@@ -179,12 +179,12 @@ void main() {
     Amplify.Hub.listen(HubChannel.Api, hubEventsController.add);
   });
 
-  tearDown(() {
-    hubEventsController.close();
+  tearDown(() async {
+    await hubEventsController.close();
     Amplify.Hub.close();
     mockWebSocketBloc = null;
     mockWebSocketService = null;
-    Amplify.reset();
+    await Amplify.reset();
   });
 
   group('Vanilla GraphQL', () {
@@ -284,10 +284,7 @@ void main() {
       expect(res.errors, isEmpty);
     });
   });
-
-  group('Subscriptions', () {
-    var fakePlatform = MockConnectivityPlatform();
-    const graphQLDocument = '''subscription MySubscription {
+  const graphQLDocument = '''subscription MySubscription {
         onCreateBlog {
           id
           name
@@ -295,8 +292,10 @@ void main() {
         }
       }''';
 
-    final subscriptionRequest =
-        GraphQLRequest<String>(document: graphQLDocument);
+  final subscriptionRequest = GraphQLRequest<String>(document: graphQLDocument);
+  group('Subscriptions', () {
+    var fakePlatform = MockConnectivityPlatform();
+    var mockClient = MockPollClient();
 
     final mockSubscriptionEvent = {
       'id': subscriptionRequest.id,
@@ -305,23 +304,23 @@ void main() {
     };
 
     setUp(() {
-      mockPollFailCount = 0;
-      mockPollClientUnhealthy = false;
-      mockPollClientInduceFailure = false;
       mockWebSocketService = MockWebSocketService();
-      const subscriptionOptions =
-          GraphQLSubscriptionOptions(pollInterval: Duration(seconds: 1));
+      const subscriptionOptions = GraphQLSubscriptionOptions(
+        pollInterval: Duration(seconds: 1),
+        // retryOptions: RetryOptions(maxAttempts: 3),
+      );
 
       fakePlatform = MockConnectivityPlatform();
       ConnectivityPlatform.instance = fakePlatform;
       final connectivity = Connectivity();
+      mockClient = MockPollClient();
 
       mockWebSocketBloc = MockWebSocketBloc(
         config: testApiKeyConfig,
         authProviderRepo: getTestAuthProviderRepo(),
         wsService: mockWebSocketService!,
         subscriptionOptions: subscriptionOptions,
-        pollClientOverride: mockPollClient,
+        pollClientOverride: mockClient.client,
         connectivityOverride: connectivity,
       );
     });
@@ -475,11 +474,11 @@ void main() {
 
       fakePlatform.controller.sink.add(ConnectivityResult.wifi);
 
-      mockPollClientInduceFailure = true;
+      mockClient.induceTimeout = true;
 
-      await Future<void>.delayed(const Duration(seconds: 10));
+      await Future<void>.delayed(const Duration(seconds: 13));
 
-      mockPollClientInduceFailure = false;
+      mockClient.induceTimeout = false;
 
       await expectLater(
         mockWebSocketBloc!.stream,
@@ -561,6 +560,87 @@ void main() {
           .then((p0) => fail('Request should have been cancelled.'));
       await operation.operation.valueOrCancellation();
       expect(operation.operation.isCanceled, isTrue);
+    });
+
+    test('should have correct state flow during a failure', () async {
+      var fakePlatform = MockConnectivityPlatform();
+      mockWebSocketService = MockWebSocketService();
+      const subscriptionOptions = GraphQLSubscriptionOptions(
+        pollInterval: Duration(seconds: 1),
+        retryOptions: RetryOptions(maxAttempts: 3),
+      );
+
+      fakePlatform = MockConnectivityPlatform();
+      ConnectivityPlatform.instance = fakePlatform;
+      final connectivity = Connectivity();
+
+      final mockClient = MockPollClient(maxFailAttempts: 10);
+
+      mockWebSocketBloc = MockWebSocketBloc(
+        config: testApiKeyConfig,
+        authProviderRepo: getTestAuthProviderRepo(),
+        wsService: mockWebSocketService!,
+        subscriptionOptions: subscriptionOptions,
+        pollClientOverride: mockClient.client,
+        connectivityOverride: connectivity,
+      );
+
+      final blocReady = Completer<void>();
+
+      expect(
+        hubEvents,
+        emitsInOrder(
+          [
+            disconnectedHubEvent,
+            connectingHubEvent,
+            connectedHubEvent,
+            connectingHubEvent,
+            failedHubEvent,
+            pendingDisconnectedHubEvent,
+            disconnectedHubEvent,
+          ],
+        ),
+      );
+
+      initMockConnection(
+        mockWebSocketBloc!,
+        mockWebSocketService!,
+        subscriptionRequest.id,
+      );
+
+      Amplify.API
+          .subscribe(
+        subscriptionRequest,
+        onEstablished: blocReady.complete,
+      )
+          .listen(
+        (event) {
+          expect(event.data, json.encode(mockSubscriptionData));
+        },
+        onError: (Object e) => print('We are testing errors: $e'),
+      );
+
+      await blocReady.future;
+
+      mockClient.induceTimeout = true;
+
+      await expectLater(
+        mockWebSocketBloc!.stream,
+        emitsThrough(isA<ReconnectingState>()),
+      );
+
+      expect(
+        mockWebSocketBloc!.stream,
+        emitsInOrder(
+          [
+            isA<ReconnectingState>(),
+            isA<FailureState>(),
+            isA<PendingDisconnect>(),
+            isA<DisconnectedState>(),
+            emitsDone,
+          ],
+        ),
+      );
     });
   });
 }

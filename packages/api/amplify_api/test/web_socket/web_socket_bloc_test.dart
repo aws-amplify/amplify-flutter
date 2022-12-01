@@ -36,6 +36,7 @@ void main() {
 
   late Connectivity connectivity;
   late MockConnectivityPlatform fakePlatform;
+  late MockPollClient mockPollClient;
 
   const graphQLDocument = '''subscription MySubscription {
     onCreateBlog {
@@ -71,6 +72,8 @@ void main() {
     connectivity = Connectivity();
     fakePlatform.controller.sink.add(ConnectivityResult.wifi);
 
+    mockPollClient = MockPollClient();
+
     service = MockWebSocketService();
 
     bloc = MockWebSocketBloc(
@@ -78,7 +81,7 @@ void main() {
       authProviderRepo: getTestAuthProviderRepo(),
       wsService: service!,
       subscriptionOptions: subscriptionOptions,
-      pollClientOverride: mockPollClient,
+      pollClientOverride: mockPollClient.client,
       connectivityOverride: connectivity,
     );
 
@@ -97,11 +100,6 @@ void main() {
 
   group('WebSocketBloc', () {
     group('non self closing tests', () {
-      setUp(() {
-        mockPollFailCount = 0;
-        mockPollClientUnhealthy = false;
-        mockPollClientInduceFailure = false;
-      });
       tearDown(() async {
         bloc!.add(const ShutdownEvent());
         await bloc!.done.future;
@@ -297,20 +295,15 @@ void main() {
           ),
         );
 
-        mockPollClientInduceFailure = true;
+        mockPollClient.induceTimeout = true;
 
         await Future<void>.delayed(const Duration(seconds: 13));
 
-        mockPollClientInduceFailure = false;
+        mockPollClient.induceTimeout = false;
       });
     });
 
     group('should close when', () {
-      setUp(() {
-        mockPollFailCount = 0;
-        mockPollClientUnhealthy = false;
-        mockPollClientInduceFailure = false;
-      });
       tearDown(() async {
         bloc = null;
         service = null; // service gets closed in  bloc
@@ -330,7 +323,7 @@ void main() {
           authProviderRepo: getTestAuthProviderRepo(),
           wsService: badService,
           subscriptionOptions: subscriptionOptions,
-          pollClientOverride: mockPollClient,
+          pollClientOverride: mockPollClient.client,
           connectivityOverride: Connectivity(),
         );
 
@@ -386,7 +379,7 @@ void main() {
         );
 
         await blocReady.future;
-        mockPollClientUnhealthy = true;
+        mockPollClient.sendUnhealthyResponse = true;
         await testDone.future;
       });
 
