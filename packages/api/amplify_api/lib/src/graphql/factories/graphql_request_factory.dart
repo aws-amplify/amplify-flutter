@@ -301,7 +301,7 @@ class GraphQLRequestFactory {
     // If the model has a parent in the schema, get the ID of parent and field name.
     final allBelongsTo = getBelongsToFieldsFromModelSchema(schema);
     for (final belongsTo in allBelongsTo) {
-      final String belongsToModelName = belongsTo.name;
+      final belongsToModelName = belongsTo.name;
       final belongsToKey = belongsTo.association?.targetName;
       final belongsToValue =
           (modelJson[belongsToModelName] as Map?)?[idFieldName] as String?;
