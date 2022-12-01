@@ -67,7 +67,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   String get runtimeTypeName => 'WebSocketBloc';
 
   /// Default timeout response for polling
-  final Duration _pollResponseTimeout = const Duration(seconds: 1);
+  final Duration _pollResponseTimeout = const Duration(seconds: 5);
 
   /// Indicates if the bloc has finished closing
   final done = Completer<void>();
