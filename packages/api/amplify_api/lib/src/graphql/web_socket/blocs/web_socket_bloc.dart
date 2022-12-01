@@ -539,8 +539,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     return op.response.timeout(
       _pollResponseTimeout,
       onTimeout: () {
-        // TODO(ragingsquirrel3): fix client trying to close after op is canceled.
-        // op.cancel();
+        op.cancel();
         throw const ApiException('Timeout while polling AppSync.');
       },
     );
