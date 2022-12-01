@@ -151,7 +151,7 @@ void main() {
         });
       },
       // TODO(equartey): ensure state machine GQL sub impl doesn't have this issue.
-      skip: Platform.isWindows,
+      skip: !zIsWeb && Platform.isWindows,
     );
   });
 }
