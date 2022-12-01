@@ -69,6 +69,7 @@ class AnalyticsClient {
     );
 
     final fixedEndpointId = endpointClient.fixedEndpointId;
+    await endpointClient.updateEndpoint();
 
     // Initialize EventClient
     final eventClient = EventClient.getInstance(
@@ -92,7 +93,6 @@ class AnalyticsClient {
           ..flushEvents();
       },
       onSessionStart: (sb) async {
-        await endpointClient.updateEndpoint();
         await eventClient.recordEvent(
           eventCreator.createPinpointEvent(_sessionStartEventType, sb),
         );
