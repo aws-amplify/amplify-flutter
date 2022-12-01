@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:io';
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
@@ -147,45 +149,50 @@ void main() {
       });
     });
 
-    group('Opt-In (Device Tracking)', () {
-      setUpAll(() async {
-        await configureAuth(
-          additionalPlugins: [AmplifyAPI()],
-          config: amplifyEnvironments['device-tracking-opt-in'],
-        );
-      });
+    group(
+      'Opt-In (Device Tracking)',
+      () {
+        setUpAll(() async {
+          await configureAuth(
+            additionalPlugins: [AmplifyAPI()],
+            config: amplifyEnvironments['device-tracking-opt-in'],
+          );
+        });
 
-      setUp(() => signIn(enableMfa: true));
+        setUp(() => signIn(enableMfa: true));
 
-      asyncTest('cannot bypass MFA when device is not remembered', (_) async {
-        await signOutUser();
+        asyncTest('cannot bypass MFA when device is not remembered', (_) async {
+          await signOutUser();
 
-        final res = await Amplify.Auth.signIn(
-          username: username!,
-          password: password,
-        );
-        expect(
-          res.nextStep?.signInStep,
-          'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE',
-          reason: 'Subsequent sign-in attempts should require MFA',
-        );
-      });
+          final res = await Amplify.Auth.signIn(
+            username: username!,
+            password: password,
+          );
+          expect(
+            res.nextStep?.signInStep,
+            'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE',
+            reason: 'Subsequent sign-in attempts should require MFA',
+          );
+        });
 
-      asyncTest('can bypass MFA when device is remembered', (_) async {
-        await Amplify.Auth.rememberDevice();
-        await signOutUser();
+        asyncTest('can bypass MFA when device is remembered', (_) async {
+          await Amplify.Auth.rememberDevice();
+          await signOutUser();
 
-        final res = await Amplify.Auth.signIn(
-          username: username!,
-          password: password,
-        );
-        expect(
-          res.isSignedIn,
-          isTrue,
-          reason: 'Subsequent sign-in attempts should not require MFA',
-        );
-      });
-    });
+          final res = await Amplify.Auth.signIn(
+            username: username!,
+            password: password,
+          );
+          expect(
+            res.isSignedIn,
+            isTrue,
+            reason: 'Subsequent sign-in attempts should not require MFA',
+          );
+        });
+      },
+      // TODO(equartey): ensure state machine GQL sub impl doesn't have this issue.
+      skip: !zIsWeb && Platform.isWindows,
+    );
 
     group('Always', () {
       setUpAll(() async {

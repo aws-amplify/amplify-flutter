@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:io';
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
@@ -25,46 +27,51 @@ import 'utils/test_utils.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('MFA (SMS)', () {
-    setUpAll(() async {
-      await configureAuth(
-        additionalPlugins: [AmplifyAPI()],
-      );
-    });
+  group(
+    'MFA (SMS)',
+    () {
+      setUpAll(() async {
+        await configureAuth(
+          additionalPlugins: [AmplifyAPI()],
+        );
+      });
 
-    tearDownAll(Amplify.reset);
+      tearDownAll(Amplify.reset);
 
-    setUp(() async {
-      await signOutUser();
-    });
+      setUp(() async {
+        await signOutUser();
+      });
 
-    asyncTest('can sign in with SMS MFA', (_) async {
-      final username = generateUsername();
-      final password = generatePassword();
+      asyncTest('can sign in with SMS MFA', (_) async {
+        final username = generateUsername();
+        final password = generatePassword();
 
-      final code = getOtpCode(username);
+        final code = getOtpCode(username);
 
-      await adminCreateUser(
-        username,
-        password,
-        autoConfirm: true,
-        verifyAttributes: true,
-        enableMfa: true,
-      );
+        await adminCreateUser(
+          username,
+          password,
+          autoConfirm: true,
+          verifyAttributes: true,
+          enableMfa: true,
+        );
 
-      final signInRes = await Amplify.Auth.signIn(
-        username: username,
-        password: password,
-      );
-      expect(
-        signInRes.nextStep?.signInStep,
-        'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE',
-      );
+        final signInRes = await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+        );
+        expect(
+          signInRes.nextStep?.signInStep,
+          'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE',
+        );
 
-      final confirmRes = await Amplify.Auth.confirmSignIn(
-        confirmationValue: await code,
-      );
-      expect(confirmRes.nextStep?.signInStep, 'DONE');
-    });
-  });
+        final confirmRes = await Amplify.Auth.confirmSignIn(
+          confirmationValue: await code,
+        );
+        expect(confirmRes.nextStep?.signInStep, 'DONE');
+      });
+    },
+    // TODO(equartey): ensure state machine GQL sub impl doesn't have this issue.
+    skip: !zIsWeb && Platform.isWindows,
+  );
 }

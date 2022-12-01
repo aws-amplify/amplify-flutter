@@ -12,6 +12,8 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+import 'dart:io';
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -278,6 +280,8 @@ void main({bool useExistingTestUser = false}) {
           expect(blogFromEvent?.name, equals(name));
         });
       },
+      // TODO(equartey): ensure state machine GQL sub impl doesn't have this issue.
+      skip: !zIsWeb && Platform.isWindows,
     );
   });
 }

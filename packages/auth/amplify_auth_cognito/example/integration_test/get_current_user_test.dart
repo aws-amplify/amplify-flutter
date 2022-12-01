@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:io';
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
@@ -82,69 +84,74 @@ void main() {
       );
     });
 
-    group('with alias', () {
-      const username = mockPhoneNumber;
-      final password = generatePassword();
+    group(
+      'with alias',
+      () {
+        const username = mockPhoneNumber;
+        final password = generatePassword();
 
-      setUpAll(() async {
-        await configureAuth(
-          additionalPlugins: [AmplifyAPI()],
-          config: amplifyEnvironments['sign-in-with-phone'],
-        );
-      });
+        setUpAll(() async {
+          await configureAuth(
+            additionalPlugins: [AmplifyAPI()],
+            config: amplifyEnvironments['sign-in-with-phone'],
+          );
+        });
 
-      tearDownAll(Amplify.reset);
+        tearDownAll(Amplify.reset);
 
-      setUp(() async {
-        await adminCreateUser(
-          username,
-          password,
-          autoConfirm: true,
-          verifyAttributes: true,
-          enableMfa: true,
-          attributes: const [
-            AuthUserAttribute(
-              userAttributeKey: CognitoUserAttributeKey.phoneNumber,
-              value: mockPhoneNumber,
+        setUp(() async {
+          await adminCreateUser(
+            username,
+            password,
+            autoConfirm: true,
+            verifyAttributes: true,
+            enableMfa: true,
+            attributes: const [
+              AuthUserAttribute(
+                userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+                value: mockPhoneNumber,
+              ),
+            ],
+          );
+          addTearDown(() => deleteUser(username));
+
+          final code = getOtpCodes().first;
+          final signInRes = await Amplify.Auth.signIn(
+            username: username,
+            password: password,
+          );
+          expect(
+            signInRes.nextStep?.signInStep,
+            'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE',
+          );
+          final confirmSignInRes = await Amplify.Auth.confirmSignIn(
+            confirmationValue: await code,
+          );
+          expect(confirmSignInRes.isSignedIn, isTrue);
+        });
+
+        asyncTest('should return the current user', (_) async {
+          final authUser = await Amplify.Auth.getCurrentUser();
+          expect(
+            authUser.username,
+            isNot(username),
+            reason: 'Cognito should assign an alias username',
+          );
+          expect(isValidUserSub(authUser.userId), isTrue);
+          expect(
+            authUser.signInDetails,
+            isA<CognitoSignInDetailsApiBased>().having(
+              (details) => details.username,
+              'username',
+              mockPhoneNumber,
             ),
-          ],
-        );
-        addTearDown(() => deleteUser(username));
-
-        final code = getOtpCodes().first;
-        final signInRes = await Amplify.Auth.signIn(
-          username: username,
-          password: password,
-        );
-        expect(
-          signInRes.nextStep?.signInStep,
-          'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE',
-        );
-        final confirmSignInRes = await Amplify.Auth.confirmSignIn(
-          confirmationValue: await code,
-        );
-        expect(confirmSignInRes.isSignedIn, isTrue);
-      });
-
-      asyncTest('should return the current user', (_) async {
-        final authUser = await Amplify.Auth.getCurrentUser();
-        expect(
-          authUser.username,
-          isNot(username),
-          reason: 'Cognito should assign an alias username',
-        );
-        expect(isValidUserSub(authUser.userId), isTrue);
-        expect(
-          authUser.signInDetails,
-          isA<CognitoSignInDetailsApiBased>().having(
-            (details) => details.username,
-            'username',
-            mockPhoneNumber,
-          ),
-          reason: 'Should return the phone number alias since it '
-              'was used to sign in',
-        );
-      });
-    });
+            reason: 'Should return the phone number alias since it '
+                'was used to sign in',
+          );
+        });
+      },
+      // TODO(equartey): ensure state machine GQL sub impl doesn't have this issue.
+      skip: !zIsWeb && Platform.isWindows,
+    );
   });
 }
