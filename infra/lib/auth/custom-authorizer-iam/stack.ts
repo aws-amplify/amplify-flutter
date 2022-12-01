@@ -35,19 +35,37 @@ interface DomainProperties {
   domainOptions: apigw.DomainNameOptions;
 }
 
+/**
+ * Creates a sanitized domain name.
+ * @param prefix The desired prefix.
+ * @param domain The base domain name.
+ * @returns The full, sanitized domain name.
+ */
+const sanitizedDomainName = (prefix: string, domain: string): string => {
+  // Domain names must be <= 64 characters.
+  prefix = prefix
+    .replace(/[^\w\d]/, ".")
+    .substring(0, 63 - domain.length)
+    .toLowerCase();
+  return `${prefix}.${domain}`;
+};
+
 export class CustomAuthorizerIamStackEnvironment extends IntegrationTestStackEnvironment<
   AuthBaseEnvironmentProps & AuthCustomAuthorizerEnvironmentProps
 > {
   constructor(
     scope: Construct,
+    baseName: string,
     props: AuthBaseEnvironmentProps & AuthCustomAuthorizerEnvironmentProps
   ) {
-    super(scope, props);
+    super(scope, baseName, props);
 
     const { customDomain } = props;
     let domainProperties: DomainProperties | undefined;
     if (customDomain) {
-      const domainName = `${props.environmentName}.${customDomain}`;
+      // Domain names must be <= 64 characters.
+      const domainName = sanitizedDomainName(this.name, customDomain);
+      console.log(`${domainName.length}: ${domainName}`);
       const hostedZone = route53.HostedZone.fromLookup(this, "HostedZone", {
         domainName: customDomain,
       });
@@ -100,7 +118,7 @@ export class CustomAuthorizerIamStackEnvironment extends IntegrationTestStackEnv
     // Create the Cognito Identity Pool with permissions to invoke the API.
 
     const identityPool = new cognito.CfnIdentityPool(this, "IdentityPool", {
-      identityPoolName: props.environmentName,
+      identityPoolName: this.name,
       allowUnauthenticatedIdentities: true,
     });
 

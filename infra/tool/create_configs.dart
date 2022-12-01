@@ -41,7 +41,8 @@ late final Directory repoRoot = () {
 void main() {
   final outputs = jsonDecode(File('outputs.json').readAsStringSync())
       as Map<String, dynamic>;
-  final categories = outputs['AmplifyInfraStack'] as Map<String, dynamic>;
+  final categories =
+      outputs['AmplifyFlutterIntegStack'] as Map<String, dynamic>;
   for (final entry in categories.entries) {
     final category = Category.values.firstWhere(
       (c) => c.name.toLowerCase() == entry.key,

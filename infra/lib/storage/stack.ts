@@ -23,7 +23,8 @@ import * as lambda_nodejs from "aws-cdk-lib/aws-lambda-nodejs";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
 import {
-  AmplifyCategory, IntegrationTestStack,
+  AmplifyCategory,
+  IntegrationTestStack,
   IntegrationTestStackEnvironment,
   IntegrationTestStackEnvironmentProps
 } from "../common";
@@ -40,7 +41,8 @@ enum StoragePermission {
   delete = "s3:DeleteObject",
 }
 
-interface StorageIntegrationTestEnvironmentProps extends IntegrationTestStackEnvironmentProps {
+interface StorageIntegrationTestEnvironmentProps
+  extends IntegrationTestStackEnvironmentProps {
   /**
    * The default access level for the environment.
    */
@@ -69,25 +71,28 @@ export class StorageIntegrationTestStack extends IntegrationTestStack<
   constructor(
     scope: Construct,
     environments: StorageIntegrationTestEnvironmentProps[],
-    props?: cdk.NestedStackProps,
+    props?: cdk.NestedStackProps
   ) {
-    super(scope, "StorageIntegTestStack", environments, props);
+    super(scope, AmplifyCategory.Storage, environments, props);
   }
-
-  category: AmplifyCategory = AmplifyCategory.Storage;
 
   protected buildEnvironments(
     environments: StorageIntegrationTestEnvironmentProps[]
   ): StorageIntgrationTestEnvironment[] {
     return environments.map(
-      (environment) => new StorageIntgrationTestEnvironment(this, environment)
+      (environment) =>
+        new StorageIntgrationTestEnvironment(this, this.baseName, environment)
     );
   }
 }
 
 class StorageIntgrationTestEnvironment extends IntegrationTestStackEnvironment<StorageIntegrationTestEnvironmentProps> {
-  constructor(scope: Construct, props: StorageIntegrationTestEnvironmentProps) {
-    super(scope, props);
+  constructor(
+    scope: Construct,
+    baseName: string,
+    props: StorageIntegrationTestEnvironmentProps
+  ) {
+    super(scope, baseName, props);
 
     // Create the bucket
 
@@ -130,7 +135,7 @@ class StorageIntgrationTestEnvironment extends IntegrationTestStackEnvironment<S
     );
 
     const userPool = new cognito.UserPool(this, "UserPool", {
-      userPoolName: this.environmentName,
+      userPoolName: this.name,
       removalPolicy: RemovalPolicy.DESTROY,
       selfSignUpEnabled: true,
       accountRecovery: cognito.AccountRecovery.NONE,
@@ -150,7 +155,7 @@ class StorageIntgrationTestEnvironment extends IntegrationTestStackEnvironment<S
     // Create the Cognito Identity Pool
 
     const identityPool = new cognito.CfnIdentityPool(this, "IdentityPool", {
-      identityPoolName: this.environmentName,
+      identityPoolName: this.name,
       allowUnauthenticatedIdentities: true,
       cognitoIdentityProviders: [
         {

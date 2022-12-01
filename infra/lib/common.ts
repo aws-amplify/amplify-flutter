@@ -37,11 +37,16 @@ export abstract class IntegrationTestStack<
 > extends cdk.NestedStack {
   constructor(
     scope: Construct,
-    id: string,
+    category: AmplifyCategory,
     environments: EnvironmentProps[],
     props?: cdk.NestedStackProps
   ) {
-    super(scope, id, props);
+    super(scope, `${category}IntegrationTestStack`, {
+      ...props,
+      description: `Amplify Flutter integration test stack for ${category}`,
+    });
+
+    this.category = category;
 
     for (const environment of this.buildEnvironments(environments)) {
       this.saveAmplifyConfig(environment.environmentName, environment.config);
@@ -55,7 +60,7 @@ export abstract class IntegrationTestStack<
   /**
    * The category this stack tests.
    */
-  abstract category: AmplifyCategory;
+  readonly category: AmplifyCategory;
 
   /**
    * The base name of a stack, used to prefix resource names.
@@ -67,7 +72,7 @@ export abstract class IntegrationTestStack<
   /**
    * All Amplify configs generated for this stack.
    */
-  public configs: {
+  public readonly configs: {
     [environmentName: string]: any;
   } = {};
 
@@ -117,16 +122,22 @@ export abstract class IntegrationTestStack<
 export abstract class IntegrationTestStackEnvironment<
   Props extends IntegrationTestStackEnvironmentProps
 > extends cdk.NestedStack {
-  constructor(scope: Construct, props: Props) {
+  constructor(scope: Construct, baseName: string, props: Props) {
     super(scope, props.environmentName, props);
 
+    this.name = `${baseName.toLowerCase()}-${props.environmentName}`;
     this.environmentName = props.environmentName;
   }
 
   /**
+   * The name to use for resources.
+   */
+  protected readonly name: string;
+
+  /**
    * The name of the environment.
    */
-  public environmentName: string;
+  public readonly environmentName: string;
 
   /**
    * The Amplify configuration description for this environment.

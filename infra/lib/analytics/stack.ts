@@ -12,7 +12,7 @@
 // permissions and limitations under the License.
 
 import * as appsync from "@aws-cdk/aws-appsync-alpha";
-import * as cdk from 'aws-cdk-lib';
+import * as cdk from "aws-cdk-lib";
 import { Duration, Expiration, RemovalPolicy, Stack } from "aws-cdk-lib";
 import * as cognito from "aws-cdk-lib/aws-cognito";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
@@ -38,36 +38,41 @@ export class AnalyticsIntegrationTestStack extends IntegrationTestStack<
   constructor(
     scope: Construct,
     environments: IntegrationTestStackEnvironmentProps[],
-    props?: cdk.NestedStackProps,
+    props?: cdk.NestedStackProps
   ) {
-    super(scope, "AnalyticsIntegrationTestStack", environments, props);
+    super(scope, AmplifyCategory.Analytics, environments, props);
   }
-
-  category: AmplifyCategory = AmplifyCategory.Analytics;
 
   protected buildEnvironments(
     props: IntegrationTestStackEnvironmentProps[]
   ): AnalyticsIntegrationTestStackEnvironment[] {
     return props.map(
       (environment) =>
-        new AnalyticsIntegrationTestStackEnvironment(this, environment)
+        new AnalyticsIntegrationTestStackEnvironment(
+          this,
+          this.baseName,
+          environment
+        )
     );
   }
 }
 
 class AnalyticsIntegrationTestStackEnvironment extends IntegrationTestStackEnvironment<IntegrationTestStackEnvironmentProps> {
-  constructor(scope: Construct, props: IntegrationTestStackEnvironmentProps) {
-    super(scope, props);
+  constructor(
+    scope: Construct,
+    baseName: string,
+    props: IntegrationTestStackEnvironmentProps
+  ) {
+    super(scope, baseName, props);
 
     const pinpointApp = new pinpoint.CfnApp(this, "PinpointApp", {
-      name: this.environmentName,
+      name: this.name,
     });
 
     // Create the Cognito Identity Pool with permission to put events
     // to the `pinpointApp`.
 
     const identityPool = new cognito.CfnIdentityPool(this, "IdentityPool", {
-      identityPoolName: this.environmentName,
       allowUnauthenticatedIdentities: true,
     });
 
@@ -122,7 +127,6 @@ class AnalyticsIntegrationTestStackEnvironment extends IntegrationTestStackEnvir
     // events to it.
 
     const kinesisStream = new kinesis.Stream(this, "KinesisStream", {
-      streamName: this.environmentName,
       shardCount: 1,
     });
 
@@ -175,7 +179,7 @@ class AnalyticsIntegrationTestStackEnvironment extends IntegrationTestStackEnvir
 
     const authorizationType = appsync.AuthorizationType.API_KEY;
     const graphQLApi = new appsync.GraphqlApi(this, "GraphQLApi", {
-      name: this.environmentName,
+      name: this.name,
       schema: appsync.Schema.fromAsset(
         path.resolve(__dirname, "schema.graphql")
       ),

@@ -91,10 +91,8 @@ export class AuthIntegrationTestStack extends IntegrationTestStack<
     environments: AuthIntegrationTestStackEnvironmentProps[],
     props?: cdk.NestedStackProps
   ) {
-    super(scope, "AuthIntegrationTestStack", environments, props);
+    super(scope, AmplifyCategory.Auth, environments, props);
   }
-
-  category: AmplifyCategory = AmplifyCategory.Auth;
 
   protected buildEnvironments(
     props: AuthIntegrationTestStackEnvironmentProps[]
@@ -102,14 +100,15 @@ export class AuthIntegrationTestStack extends IntegrationTestStack<
     return props.map((environment) => {
       switch (environment.type) {
         case "FULL":
-          return new AuthIntegrationTestStackEnvironment(this, environment);
+          return new AuthIntegrationTestStackEnvironment(this, this.baseName, environment);
         case "CUSTOM_AUTHORIZER_USER_POOLS":
           return new CustomAuthorizerUserPoolsStackEnvironment(
             this,
+            this.baseName,
             environment
           );
         case "CUSTOM_AUTHORIZER_IAM":
-          return new CustomAuthorizerIamStackEnvironment(this, environment);
+          return new CustomAuthorizerIamStackEnvironment(this, this.baseName, environment);
       }
     });
   }
@@ -118,18 +117,18 @@ export class AuthIntegrationTestStack extends IntegrationTestStack<
 class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironment<AuthIntegrationTestStackEnvironmentProps> {
   constructor(
     scope: Construct,
+    baseName: string,
     props: AuthBaseEnvironmentProps & AuthFullEnvironmentProps
   ) {
-    super(scope, props);
+    super(scope, baseName, props);
 
     const { waf } = props;
-    const name = this.environmentName;
 
     // Create the GraphQL API for admin actions
 
     const authorizationType = appsync.AuthorizationType.API_KEY;
     const graphQLApi = new appsync.GraphqlApi(this, "GraphQLApi", {
-      name,
+      name: this.name,
       schema: appsync.Schema.fromAsset(
         path.resolve(__dirname, "schema.graphql")
       ),
@@ -176,9 +175,9 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
     // Create Custom SMS handler + KMS key
 
     const customSenderKmsKey = new kms.Key(this, "CustomSenderKey", {
-      description: `Key for encrypting/decrypting SMS messages sent from ${name} user pool`,
+      description: `Key for encrypting/decrypting SMS messages sent from ${this.name} user pool`,
       removalPolicy: RemovalPolicy.DESTROY,
-      alias: name,
+      alias: this.name,
     });
 
     const customSmsSender = new lambda_nodejs.NodejsFunction(
@@ -199,7 +198,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
     // Create the Cognito User Pool
 
     const userPool = new cognito.UserPool(this, "UserPool", {
-      userPoolName: name,
+      userPoolName: this.name,
       removalPolicy: RemovalPolicy.DESTROY,
       selfSignUpEnabled: true,
       accountRecovery: cognito.AccountRecovery.NONE,
@@ -243,7 +242,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
     // the user pool.
 
     const identityPool = new cognito.CfnIdentityPool(this, "IdentityPool", {
-      identityPoolName: name,
+      identityPoolName: this.name,
       allowUnauthenticatedIdentities: true,
       cognitoIdentityProviders: [
         {

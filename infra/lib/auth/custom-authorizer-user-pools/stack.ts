@@ -31,9 +31,10 @@ export class CustomAuthorizerUserPoolsStackEnvironment extends IntegrationTestSt
 > {
   constructor(
     scope: Construct,
+    baseName: string,
     props: AuthBaseEnvironmentProps & AuthCustomAuthorizerEnvironmentProps
   ) {
-    super(scope, props);
+    super(scope, baseName, props);
 
     // Create the Cognito User Pool
 
@@ -47,6 +48,7 @@ export class CustomAuthorizerUserPoolsStackEnvironment extends IntegrationTestSt
     );
 
     const userPool = new cognito.UserPool(this, "UserPool", {
+      userPoolName: this.name,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       selfSignUpEnabled: true,
       accountRecovery: cognito.AccountRecovery.NONE,

@@ -25,7 +25,7 @@ const env: cdk.Environment = {
   region: process.env.CDK_DEFAULT_REGION,
 };
 
-new AmplifyFlutterIntegStack(app, "AmplifyInfraStack", {
+new AmplifyFlutterIntegStack(app, "AmplifyFlutterIntegStack", {
   env,
   description: "Amplify Flutter integration test stack",
 });
