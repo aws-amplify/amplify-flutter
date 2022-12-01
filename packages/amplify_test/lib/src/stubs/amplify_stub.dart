@@ -16,6 +16,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_flutter/amplify_flutter.dart';
+
 export 'package:amplify_flutter/src/amplify_impl.dart';
 
 /// A stub of [Amplify] that holds the config in memory and
@@ -41,14 +42,16 @@ class AmplifyStub extends AmplifyClass {
   Future<void> addPlugin(AmplifyPluginInterface plugin) async {
     try {
       if (plugin is AuthPluginInterface) {
-        await Auth.addPlugin(plugin);
-        Hub.addChannel(HubChannel.Auth, plugin.streamController);
+        await Auth.addPlugin(
+          plugin,
+          authProviderRepo: AmplifyAuthProviderRepository(),
+        );
       } else {
         throw AmplifyException(
           'The type of plugin ${plugin.runtimeType} is not yet supported.',
         );
       }
-    } on Exception catch (e) {
+    } on Exception {
       throw AmplifyException(
         'Amplify plugin ${plugin.runtimeType} was not added successfully.',
       );
@@ -63,7 +66,7 @@ class AmplifyStub extends AmplifyClass {
   Future<void> configure(String configuration) async {
     try {
       jsonDecode(configuration);
-    } on FormatException catch (e) {
+    } on FormatException {
       throw const AmplifyException(
         'The provided configuration is not a valid json.',
       );
@@ -79,8 +82,10 @@ class AmplifyStub extends AmplifyClass {
 
   AmplifyConfig _parseConfigJson(String configuration) {
     try {
-      return AmplifyConfig.fromJson(jsonDecode(configuration));
-    } on Exception catch (e) {
+      return AmplifyConfig.fromJson(
+        jsonDecode(configuration) as Map<String, Object?>,
+      );
+    } on Exception {
       return const AmplifyConfig();
     }
   }

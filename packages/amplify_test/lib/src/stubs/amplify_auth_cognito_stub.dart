@@ -12,37 +12,43 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:async';
 import 'dart:core';
 import 'dart:math';
+
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito_stream_controller.dart';
 import 'package:amplify_core/amplify_core.dart';
-export 'package:amplify_auth_cognito/src/types.dart';
+
+final usernameExistsException = UsernameExistsException(
+  message: 'A user with this username already exists.',
+);
+
+final userNotFoundException = UserNotFoundException(
+  message: 'The user does not exist.',
+);
+
+final codeMismatchException = CodeMismatchException(
+  message: 'Incorrect code. Please try again.',
+);
 
 /// A stub of [AmplifyAuthCognito] that creates users in memory.
 class AmplifyAuthCognitoStub extends AuthPluginInterface
     implements AmplifyPluginInterface {
   AmplifyAuthCognitoStub() : super();
 
-  static AuthStreamController streamWrapper = _AuthStreamControllerStub();
-
   static set instance(AuthPluginInterface instance) {}
 
   @override
-  StreamController<AuthHubEvent> get streamController {
-    return streamWrapper.authStreamController;
-  }
-
-  @override
-  Future<void> addPlugin() async {}
+  // ignore: must_call_super
+  Future<void> addPlugin({
+    required AmplifyAuthProviderRepository authProviderRepo,
+  }) async {}
 
   @override
   Future<SignUpResult> signUp({required SignUpRequest request}) async {
     await Future<void>.delayed(const Duration(milliseconds: 50));
     _MockUser? user = _users[request.username];
     if (user != null) {
-      throw const UsernameExistsException('_MockUser already exists.');
+      throw usernameExistsException;
     } else {
       _MockUser newUser = _MockUser(
         sub: Random().nextInt(10000).toString(),
@@ -69,9 +75,9 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
   }) async {
     await Future<void>.delayed(const Duration(milliseconds: 50));
     if (request.confirmationCode != '123456') {
-      throw const CodeMismatchException('Incorrect code. Please try again.');
+      throw codeMismatchException;
     }
-    return CognitoSignUpResult(
+    return const CognitoSignUpResult(
       isSignUpComplete: true,
       nextStep: AuthNextSignUpStep(signUpStep: 'DONE'),
     );
@@ -84,7 +90,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     await Future<void>.delayed(const Duration(milliseconds: 50));
     _MockUser? user = _users[request.username];
     if (user == null) {
-      throw const UserNotFoundException('_MockUser does not exist.');
+      throw userNotFoundException;
     }
     return CognitoResendSignUpCodeResult(_codeDeliveryDetails(user));
   }
@@ -94,7 +100,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     await Future<void>.delayed(const Duration(milliseconds: 50));
     _MockUser? user = _users[request.username];
     if (user == null) {
-      throw const UserNotFoundException('_MockUser does not exist.');
+      throw userNotFoundException;
     }
     if (user.password != request.password) {
       throw const NotAuthorizedException('Incorrect username or password.');
@@ -102,7 +108,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     _currentUser = user;
     return CognitoSignInResult(
       isSignedIn: _isSignedIn(),
-      nextStep: AuthNextSignInStep(signInStep: 'DONE'),
+      nextStep: const AuthNextSignInStep(signInStep: 'DONE'),
     );
   }
 
@@ -111,7 +117,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     await Future<void>.delayed(const Duration(milliseconds: 50));
     return CognitoSignInResult(
       isSignedIn: _isSignedIn(),
-      nextStep: AuthNextSignInStep(signInStep: 'DONE'),
+      nextStep: const AuthNextSignInStep(signInStep: 'DONE'),
     );
   }
 
@@ -138,7 +144,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     }
     _MockUser? user = _users[request.username];
     if (user == null) {
-      throw const UserNotFoundException('_MockUser does not exist.');
+      throw userNotFoundException;
     }
     return CognitoResetPasswordResult(
       isPasswordReset: true,
@@ -159,10 +165,10 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     }
     _MockUser? user = _users[request.username];
     if (user == null) {
-      throw const UserNotFoundException('_MockUser does not exist.');
+      throw userNotFoundException;
     }
     if (request.confirmationCode != '123456') {
-      throw const CodeMismatchException('Incorrect code. Please try again.');
+      throw codeMismatchException;
     }
     _MockUser updatedUser = user.copyWith(password: request.newPassword);
     _users[request.username] = updatedUser;
@@ -183,6 +189,9 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
       return AuthUser(
         userId: _currentUser!.sub,
         username: _currentUser!.username,
+        signInDetails: CognitoSignInDetailsApiBased(
+          username: _currentUser!.username,
+        ),
       );
     }
   }
@@ -248,7 +257,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
   }
 
   @override
-  Future<Map<UserAttributeKey, UpdateUserAttributeResult>>
+  Future<Map<AuthUserAttributeKey, UpdateUserAttributeResult>>
       updateUserAttributes({
     required UpdateUserAttributesRequest request,
   }) async {
@@ -303,19 +312,6 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     );
   }
 }
-
-class _AuthStreamControllerStub extends AuthStreamController {
-  @override
-  StreamController<AuthHubEvent> get authStreamController {
-    return _authStreamController;
-  }
-}
-
-StreamController<AuthHubEvent> _authStreamController =
-    StreamController<AuthHubEvent>.broadcast(
-  onListen: () {},
-  onCancel: () {},
-);
 
 class _MockUser {
   final String sub;
