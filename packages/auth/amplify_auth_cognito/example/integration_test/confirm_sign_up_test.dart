@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:async';
 import 'dart:io';
 
 import 'package:amplify_api/amplify_api.dart';
@@ -67,18 +66,13 @@ void main() {
         final password = generatePassword();
 
         // Sign up, but do not confirm, user
-        final establishedCompleter = Completer<void>();
-        final code = getOtpCode(
-          username,
-          onEstablished: establishedCompleter.complete,
-        );
-        await establishedCompleter.future;
+        final otpResult = await getOtpCode(username);
         await signUpWithoutConfirming(username, password);
 
         // Confirm sign up and complete sign in
         final confirmResult = await Amplify.Auth.confirmSignUp(
           username: username,
-          confirmationCode: await code,
+          confirmationCode: await otpResult.code,
         );
         expect(confirmResult.isSignUpComplete, true);
       });
@@ -88,12 +82,8 @@ void main() {
         final password = generatePassword();
 
         // Sign up, but do not confirm, user
-        final establishedCompleter = Completer<void>();
-        final code = getOtpCode(
-          username,
-          onEstablished: establishedCompleter.complete,
-        );
-        await establishedCompleter.future;
+        final otpResult = await getOtpCode(username);
+
         await signUpWithoutConfirming(username, password);
 
         // Sign in
@@ -106,7 +96,7 @@ void main() {
         // Confirm sign up and complete sign in
         final confirmResult = await Amplify.Auth.confirmSignUp(
           username: username,
-          confirmationCode: await code,
+          confirmationCode: await otpResult.code,
         );
         expect(confirmResult.isSignUpComplete, true);
 
@@ -122,22 +112,12 @@ void main() {
         final password = generatePassword();
 
         // Sign up, but do not confirm, user
-        final establishedCompleter = Completer<void>();
-        var code = getOtpCode(
-          username,
-          onEstablished: establishedCompleter.complete,
-        );
-        await establishedCompleter.future;
+        var otpResult = await getOtpCode(username);
         await signUpWithoutConfirming(username, password);
 
         // Throw away code and get next one
-        await code;
-        final secondEstablishedCompleter = Completer<void>();
-        code = getOtpCode(
-          username,
-          onEstablished: secondEstablishedCompleter.complete,
-        );
-        await secondEstablishedCompleter.future;
+        await otpResult.code;
+        otpResult = await getOtpCode(username);
 
         final resendResult = await Amplify.Auth.resendSignUpCode(
           username: username,
@@ -146,7 +126,7 @@ void main() {
 
         final confirmResult = await Amplify.Auth.confirmSignUp(
           username: username,
-          confirmationCode: await code,
+          confirmationCode: await otpResult.code,
         );
         expect(confirmResult.isSignUpComplete, true);
       });

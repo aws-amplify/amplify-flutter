@@ -15,6 +15,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:graphql/client.dart';
 import 'package:stream_transform/stream_transform.dart';
@@ -154,12 +155,14 @@ Future<void> adminCreateUser(
   }
 }
 
+class OtpResult {
+  OtpResult({required this.code});
+  Future<String> code;
+}
+
 /// Returns the OTP code for [username]. Must be called before the network call
 /// generating the OTP code.
-Future<String> getOtpCode(
-  String username, {
-  void Function()? onEstablished,
-}) async {
+Future<OtpResult> getOtpCode(String username) async {
   const subscriptionDocument = r'''
     subscription OnCreateMFACode($username: String!) {
       onCreateMFACode(username: $username) {
@@ -168,6 +171,7 @@ Future<String> getOtpCode(
       }
     }''';
 
+  final establishedCompleter = Completer<void>();
   final Stream<GraphQLResponse<String>> operation = Amplify.API.subscribe(
     GraphQLRequest<String>(
       document: subscriptionDocument,
@@ -176,13 +180,13 @@ Future<String> getOtpCode(
       },
     ),
     onEstablished: () {
-      onEstablished?.call();
+      establishedCompleter.complete();
       _logger.debug('Established connection');
     },
   );
 
   // Collect code delivered via Lambda
-  return operation
+  final code = operation
       .tap(
         (event) => _logger.debug(
           'Got event: ${event.data}, errors: ${event.errors}',
@@ -197,6 +201,9 @@ Future<String> getOtpCode(
       })
       .map((event) => event.code)
       .first;
+
+  await establishedCompleter.future;
+  return OtpResult(code: code);
 }
 
 /// Returns the stream of all OTP codes broadcast by Cognito.

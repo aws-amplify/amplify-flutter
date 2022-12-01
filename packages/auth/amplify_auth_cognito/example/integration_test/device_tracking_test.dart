@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:async';
 import 'dart:io';
 
 import 'package:amplify_api/amplify_api.dart';
@@ -85,12 +84,7 @@ void main() {
       }
 
       if (enableMfa) {
-        final establishedCompleter = Completer<void>();
-        final code = getOtpCode(
-          username!,
-          onEstablished: establishedCompleter.complete,
-        );
-        await establishedCompleter.future;
+        final otpResult = await getOtpCode(username!);
         final signInRes = await Amplify.Auth.signIn(
           username: username!,
           password: password,
@@ -98,7 +92,7 @@ void main() {
         if (signInRes.nextStep?.signInStep ==
             'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE') {
           final confirmSignInRes = await Amplify.Auth.confirmSignIn(
-            confirmationValue: await code,
+            confirmationValue: await otpResult.code,
           );
           expect(confirmSignInRes.isSignedIn, isTrue);
         } else {
