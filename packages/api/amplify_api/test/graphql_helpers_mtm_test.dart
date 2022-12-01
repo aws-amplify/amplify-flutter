@@ -70,7 +70,7 @@ void main() {
     test(
         'ModelMutations.create() on mtmRelationModel should have both relationships',
         () {
-      const expectedDoc = 'mutation createFirstMtmRelation('
+      const expectedDoc = 'mutation createFirstMtmRelation( '
           r'$input: CreateFirstMtmRelationInput!, '
           r'$condition:  ModelFirstMtmRelationConditionInput) { '
           r'createFirstMtmRelation(input: $input, condition: $condition) '
@@ -106,7 +106,7 @@ void main() {
     test(
         'ModelMutations.update() on mtmRelationModel should have both relationships',
         () {
-      const expectedDoc = 'mutation updateFirstMtmRelation('
+      const expectedDoc = 'mutation updateFirstMtmRelation( '
           r'$input: UpdateFirstMtmRelationInput!, '
           r'$condition:  ModelFirstMtmRelationConditionInput) { '
           r'updateFirstMtmRelation(input: $input, condition: $condition) '
@@ -147,24 +147,23 @@ void main() {
         limit: 2,
       );
 
-      final errors = <GraphQLResponseError>[];
-      const data = '''{
-          "listFirstMtmRelations": {
-            "items": [
-              {
-                "id": "id-first-mtm-relation",
-                "manyToManyPrimary": {
-                  "id": "id-mtm-primary",
-                  "name": "mtm primary"
-                },
-                "manyToManySecondary": {
-                  "id": "id-mtm-secondary",
-                  "name": "mtm secondary"
-                }                
+      const data = {
+        'listFirstMtmRelations': {
+          'items': [
+            {
+              'id': 'id-first-mtm-relation',
+              'manyToManyPrimary': {
+                'id': 'id-mtm-primary',
+                'name': 'mtm primary'
+              },
+              'manyToManySecondary': {
+                'id': 'id-mtm-secondary',
+                'name': 'mtm secondary'
               }
-            ]
-          }
-        }''';
+            }
+          ]
+        }
+      };
 
       final response = GraphQLResponseDecoder.instance
           .decode<PaginatedResult<FirstMtmRelation>>(
