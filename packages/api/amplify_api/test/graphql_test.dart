@@ -617,7 +617,8 @@ void main() {
         (event) {
           expect(event.data, json.encode(mockSubscriptionData));
         },
-        onError: (Object e) => print('We are testing errors: $e'),
+        // ignore: avoid_print
+        onError: (Object e) => print('$e'),
       );
 
       await blocReady.future;

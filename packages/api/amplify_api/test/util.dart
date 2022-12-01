@@ -319,7 +319,7 @@ class MockPollClient {
       }
 
       if (induceTimeout && mockPollFailCount <= maxFailAttempts) {
-        await Future.delayed(const Duration(seconds: 10));
+        await Future<void>.delayed(const Duration(seconds: 10));
       }
 
       return AWSHttpResponse(
