@@ -272,7 +272,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   Stream<WebSocketState> _init(InitEvent event) async* {
     assert(
       _currentState is! ConnectedState,
-      'Bloc should not be connected state when calling init.',
+      'Bloc should not be in connected state when calling init.',
     );
 
     _currentState.service.init(_currentState).listen(
