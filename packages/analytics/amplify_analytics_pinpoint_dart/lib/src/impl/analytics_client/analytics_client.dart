@@ -46,6 +46,8 @@ class AnalyticsClient {
     );
   }
 
+  static bool _isEnabled = true;
+
   /// {@macro amplify_analytics_pinpoint_dart.analytics_client}
   static Future<AnalyticsClient> getInstance({
     required String appId,
@@ -86,6 +88,7 @@ class AnalyticsClient {
       fixedEndpointId: fixedEndpointId,
       appLifecycleProvider: appLifecycleProvider,
       onSessionEnd: (sb) {
+        if (!_isEnabled) return;
         eventClient
           ..recordEvent(
             eventCreator.createPinpointEvent(_sessionStopEventType, sb),
@@ -138,12 +141,14 @@ class AnalyticsClient {
 
   /// Resume auto event submission and session tracking
   void enable() {
+    _isEnabled = true;
     _autoEventSubmitter.start();
     _sessionManager.startSessionTracking();
   }
 
   /// Stops auto event submission and session tracking
   void disable() {
+    _isEnabled = false;
     _autoEventSubmitter.stop();
     _sessionManager.stopSessionTracking();
   }
