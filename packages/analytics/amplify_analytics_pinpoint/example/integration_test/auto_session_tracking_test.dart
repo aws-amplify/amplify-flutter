@@ -41,13 +41,13 @@ void main() {
       () async {
         mockLifecycleObserver.triggerOnBackgroundListener();
 
-        Map<String, String>? originalSession;
+        Map<String, dynamic>? originalSession;
 
         // Verify new session has newer values than old session
         final streamSubscription = eventsStream.listen((event) {
           expect(event['session'], isNotEmpty);
 
-          final session = event['session'] as Map<String, String>?;
+          final session = event['session'] as Map<String, dynamic>;
           if (originalSession == null) {
             originalSession = session;
           } else {
@@ -56,10 +56,10 @@ void main() {
             expect(originalSession!['id'], isNot(newSession!['id']));
 
             final stopTimestamp =
-                DateTime.parse(originalSession!['stopTimestamp']!);
+                DateTime.parse(originalSession!['stopTimestamp'] as String);
 
             final startTimestamp =
-                DateTime.parse(newSession['startTimestamp']!);
+                DateTime.parse(newSession['startTimestamp'] as String);
 
             expect(startTimestamp.isAfter(stopTimestamp), isTrue);
           }
