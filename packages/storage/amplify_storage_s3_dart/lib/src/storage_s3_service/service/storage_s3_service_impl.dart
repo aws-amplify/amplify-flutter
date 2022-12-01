@@ -23,7 +23,6 @@ import 'package:amplify_storage_s3_dart/src/sdk/src/s3/common/endpoint_resolver.
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/transfer.dart'
     as transfer;
-
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart' as smithy;

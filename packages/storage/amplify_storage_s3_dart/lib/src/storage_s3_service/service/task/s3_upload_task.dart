@@ -25,6 +25,10 @@ import 'package:async/async.dart';
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
 
+/// The fallback contentType.
+// https://www.iana.org/assignments/media-types/application/octet-stream
+const fallbackContentType = 'application/octet-stream';
+
 /// {@template amplify_storage_s3_dart.upload_task}
 /// A task created to fulfill an upload operation.
 ///
@@ -302,7 +306,7 @@ class S3UploadTask {
       builder
         ..bucket = _bucket
         ..body = body
-        ..contentType = body.contentType
+        ..contentType = body.contentType ?? fallbackContentType
         ..key = _resolvedKey
         ..metadata.addAll(_options.metadata ?? const {});
     });
@@ -451,7 +455,7 @@ class S3UploadTask {
     final request = s3.CreateMultipartUploadRequest.build((builder) {
       builder
         ..bucket = _bucket
-        ..contentType = localFile.contentType
+        ..contentType = localFile.contentType ?? fallbackContentType
         ..key = _resolvedKey
         ..metadata.addAll(_options.metadata ?? const {});
     });

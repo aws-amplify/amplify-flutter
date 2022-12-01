@@ -86,6 +86,7 @@ void main() {
 
     group('Uploading S3DataPayload', () {
       final testDataPayload = S3DataPayload.string('Upload me please!');
+      final testDataPayloadBytes = S3DataPayload.bytes([101, 102]);
       const testKey = 'object-upload-to';
 
       test('should invoke S3Client.putObject API with expected parameters',
@@ -138,6 +139,58 @@ void main() {
         );
         expect(request.body, testDataPayload);
       });
+
+      test(
+        'should use fallback contentType header when contentType of the data'
+        ' payload is not determinable',
+        () async {
+          const testUploadDataOptions = S3UploadDataOptions(
+            accessLevel: StorageAccessLevel.private,
+          );
+          final testPutObjectOutput = s3.PutObjectOutput();
+          final smithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
+
+          when(
+            () => smithyOperation.result,
+          ).thenAnswer((_) async => testPutObjectOutput);
+          when(() => smithyOperation.requestProgress)
+              .thenAnswer((_) => Stream.value(1));
+
+          when(
+            () => s3Client.putObject(any()),
+          ).thenAnswer((_) => smithyOperation);
+
+          final uploadDataTask = S3UploadTask.fromDataPayload(
+            testDataPayloadBytes,
+            s3Client: s3Client,
+            prefixResolver: testPrefixResolver,
+            bucket: testBucket,
+            key: testKey,
+            options: testUploadDataOptions,
+            logger: logger,
+            transferDatabase: transferDatabase,
+          );
+
+          unawaited(uploadDataTask.start());
+
+          final result = await uploadDataTask.result;
+
+          expect(result.key, testKey);
+
+          final capturedRequest = verify(
+            () => s3Client.putObject(captureAny<s3.PutObjectRequest>()),
+          ).captured.last;
+
+          expect(
+            capturedRequest,
+            isA<s3.PutObjectRequest>().having(
+              (o) => o.contentType,
+              'contentType',
+              fallbackContentType,
+            ),
+          );
+        },
+      );
 
       test(
           'should invoke S3Client.headObject API with correct parameters when getProperties is set to true in the options',
@@ -550,6 +603,10 @@ void main() {
                 as s3.CreateMultipartUploadRequest;
         expect(createMultipartUploadRequest.bucket, testBucket);
         expect(
+          createMultipartUploadRequest.contentType,
+          testLocalFile.contentType,
+        );
+        expect(
           createMultipartUploadRequest.key,
           '${await testPrefixResolver.resolvePrefix(
             accessLevel: testUploadDataOptions.accessLevel,
@@ -637,6 +694,93 @@ void main() {
         expect(
           capturedTransferDBDeleteParam,
           testMultipartUploadId,
+        );
+      });
+
+      test(
+          'should use fallback contentType header when contentType of the data'
+          ' payload is not determinable', () async {
+        final testLocalFileWithoutContentType = AWSFile.fromData(testBytes);
+        const testUploadDataOptions = S3UploadDataOptions(
+          accessLevel: StorageAccessLevel.protected,
+        );
+        const testMultipartUploadId = 'awesome-upload';
+
+        final testCreateMultipartUploadOutput = s3.CreateMultipartUploadOutput(
+          uploadId: testMultipartUploadId,
+        );
+        final createMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.CreateMultipartUploadOutput>();
+
+        when(
+          () => createMultipartUploadSmithyOperation.result,
+        ).thenAnswer((_) async => testCreateMultipartUploadOutput);
+
+        when(
+          () => s3Client.createMultipartUpload(any()),
+        ).thenAnswer((_) => createMultipartUploadSmithyOperation);
+
+        when(
+          () => transferDatabase.insertTransferRecord(any()),
+        ).thenAnswer((_) async => 1);
+
+        final testUploadPartOutput = s3.UploadPartOutput(eTag: 'eTag-part-1');
+        final uploadPartSmithyOperation =
+            MockSmithyOperation<s3.UploadPartOutput>();
+
+        when(
+          () => uploadPartSmithyOperation.result,
+        ).thenAnswer((_) async => testUploadPartOutput);
+
+        when(
+          () => s3Client.uploadPart(any()),
+        ).thenAnswer((invocation) => uploadPartSmithyOperation);
+
+        final testCompleteMultipartUploadOutput =
+            s3.CompleteMultipartUploadOutput();
+        final completeMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.CompleteMultipartUploadOutput>();
+
+        when(
+          () => completeMultipartUploadSmithyOperation.result,
+        ).thenAnswer((_) async => testCompleteMultipartUploadOutput);
+
+        when(
+          () => s3Client.completeMultipartUpload(any()),
+        ).thenAnswer((_) => completeMultipartUploadSmithyOperation);
+
+        when(
+          () => transferDatabase.deleteTransferRecords(any()),
+        ).thenAnswer((_) async => 1);
+
+        final uploadTask = S3UploadTask.fromAWSFile(
+          testLocalFileWithoutContentType,
+          s3Client: s3Client,
+          prefixResolver: testPrefixResolver,
+          bucket: testBucket,
+          key: testKey,
+          options: testUploadDataOptions,
+          logger: logger,
+          transferDatabase: transferDatabase,
+        );
+
+        unawaited(uploadTask.start());
+
+        await uploadTask.result;
+
+        // verify generated CreateMultipartUploadRequest
+        final capturedCreateMultipartUploadRequest = verify(
+          () => s3Client.createMultipartUpload(
+            captureAny<s3.CreateMultipartUploadRequest>(),
+          ),
+        ).captured.last;
+        expect(
+          capturedCreateMultipartUploadRequest,
+          isA<s3.CreateMultipartUploadRequest>().having(
+            (o) => o.contentType,
+            'contentType',
+            fallbackContentType,
+          ),
         );
       });
 
