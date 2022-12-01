@@ -151,6 +151,10 @@ class AWSHttpClientImpl extends AWSHttpClient {
     final cancelTrigger = Completer<void>.sync();
 
     FutureOr<void> wrappedOnCancel() {
+      // Protect against multiple synchronous calls to `cancel`.
+      if (cancelTrigger.isCompleted) {
+        return null;
+      }
       abortController.abort();
       requestProgressController.close();
       responseProgressController.close();
