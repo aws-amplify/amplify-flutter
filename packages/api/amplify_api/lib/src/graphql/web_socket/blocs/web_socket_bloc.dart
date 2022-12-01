@@ -67,7 +67,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   String get runtimeTypeName => 'WebSocketBloc';
 
   /// Default timeout response for polling
-  final Duration _pollResponseTimeout = const Duration(seconds: 5);
+  final Duration _pollResponseTimeout = const Duration(seconds: 1);
 
   /// Indicates if the bloc has finished closing
   final done = Completer<void>();
@@ -287,9 +287,11 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   // Resets the timeout when a keep alive [ka] message is received
   Stream<WebSocketState> _ka() async* {
-    assert(_currentState is ConnectedState, 'we only time out when connected.');
-    (_currentState as ConnectedState).timeoutTimer.reset();
-    logger.verbose('Reset timer');
+    final state = _currentState;
+    if (state is ConnectedState) {
+      state.timeoutTimer.reset();
+      logger.verbose('Reset timer');
+    }
   }
 
   /// Handles network loss events by triggering reconnection flow.
@@ -537,7 +539,8 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     return op.response.timeout(
       _pollResponseTimeout,
       onTimeout: () {
-        op.cancel();
+        // TODO(ragingsquirrel3): fix client trying to close after op is canceled.
+        // op.cancel();
         throw const ApiException('Timeout while polling AppSync.');
       },
     );
