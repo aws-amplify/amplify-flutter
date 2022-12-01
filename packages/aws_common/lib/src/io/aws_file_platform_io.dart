@@ -20,8 +20,10 @@ import 'package:aws_common/aws_common.dart';
 /// The io implementation of [AWSFile].
 class AWSFilePlatform extends AWSFile {
   /// Creates an [AWSFile] from io [File].
-  AWSFilePlatform.fromFile(File file)
-      : _stream = null,
+  AWSFilePlatform.fromFile(
+    File file, {
+    super.contentType,
+  })  : _stream = null,
         _inputFile = file,
         _size = null,
         super.protected();
@@ -30,6 +32,7 @@ class AWSFilePlatform extends AWSFile {
   AWSFilePlatform.fromPath(
     String path, {
     super.name,
+    super.contentType,
   })  : _stream = null,
         _inputFile = File(path),
         _size = null,

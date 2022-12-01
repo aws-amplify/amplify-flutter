@@ -24,16 +24,20 @@ const _readStreamChunkSize = 64 * 1024;
 /// The html implementation of [AWSFile].
 class AWSFilePlatform extends AWSFile {
   /// Creates an [AWSFile] from html [File].
-  AWSFilePlatform.fromFile(File file)
-      : _stream = null,
+  AWSFilePlatform.fromFile(
+    File file, {
+    super.contentType,
+  })  : _stream = null,
         _inputFile = file,
         _inputBlob = null,
         _size = file.size,
         super.protected();
 
   /// Creates an [AWSFile] from html [Blob].
-  AWSFilePlatform.fromBlob(Blob blob)
-      : _stream = null,
+  AWSFilePlatform.fromBlob(
+    Blob blob, {
+    super.contentType,
+  })  : _stream = null,
         _inputBlob = blob,
         _inputFile = null,
         _size = blob.size,
@@ -43,6 +47,7 @@ class AWSFilePlatform extends AWSFile {
   AWSFilePlatform.fromPath(
     String path, {
     super.name,
+    super.contentType,
   })  : _stream = null,
         _inputFile = null,
         _inputBlob = null,

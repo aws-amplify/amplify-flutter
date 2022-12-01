@@ -38,6 +38,7 @@ class AWSFilePlatform extends AWSFile {
   AWSFilePlatform.fromPath(
     String path, {
     super.name,
+    super.contentType,
   }) : super.protected(
           path: path,
         ) {

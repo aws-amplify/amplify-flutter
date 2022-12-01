@@ -101,6 +101,7 @@ abstract class AWSFile {
   factory AWSFile.fromPath(
     String path, {
     String? name,
+    String? contentType,
   }) = AWSFilePlatform.fromPath;
 
   /// {@template amplify_core.io.aws_file.from_data}

@@ -31,14 +31,19 @@ void main() {
     }
     final testFilePath = '$currentPath/test/io/assets/test_file.txt';
     const testFileContent = 'I ❤️ Amplify, œ 小新';
+    const testContentType = 'text/plain';
     final testBytes = utf8.encode(testFileContent);
 
     final testFile = io.File(testFilePath);
 
     group('getChunkedStreamReader() API', () {
       test('should return ChunkedStreamReader over io File', () async {
-        final awsFile = AWSFilePlatform.fromFile(testFile);
+        final awsFile = AWSFilePlatform.fromFile(
+          testFile,
+          contentType: testContentType,
+        );
 
+        expect(awsFile.contentType, testContentType);
         expect(
           await collectBytesFromChunkedReader(awsFile.getChunkedStreamReader()),
           equals(testBytes),
@@ -46,8 +51,12 @@ void main() {
       });
 
       test('should return ChunkedStreamReader over a file path', () async {
-        final awsFile = AWSFile.fromPath(testFilePath);
+        final awsFile = AWSFile.fromPath(
+          testFilePath,
+          contentType: testContentType,
+        );
 
+        expect(awsFile.contentType, testContentType);
         expect(
           await collectBytesFromChunkedReader(awsFile.getChunkedStreamReader()),
           equals(testBytes),
@@ -55,8 +64,12 @@ void main() {
       });
 
       test('should return ChunkedStreamReader over bytes data', () async {
-        final awsFile = AWSFile.fromData(testBytes);
+        final awsFile = AWSFile.fromData(
+          testBytes,
+          contentType: testContentType,
+        );
 
+        expect(awsFile.contentType, testContentType);
         expect(
           await collectBytesFromChunkedReader(awsFile.getChunkedStreamReader()),
           equals(testBytes),
@@ -67,8 +80,10 @@ void main() {
         final awsFile = AWSFile.fromStream(
           Stream.value(testBytes),
           size: testBytes.length,
+          contentType: testContentType,
         );
 
+        expect(awsFile.contentType, testContentType);
         expect(
           await collectBytesFromChunkedReader(awsFile.getChunkedStreamReader()),
           equals(testBytes),
