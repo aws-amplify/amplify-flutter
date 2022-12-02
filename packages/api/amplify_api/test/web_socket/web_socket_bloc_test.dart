@@ -380,7 +380,6 @@ void main() {
 
         await blocReady.future;
         mockPollClient.sendUnhealthyResponse = true;
-        await testDone.future;
       });
 
       test('cancel() sends a stop message', () async {

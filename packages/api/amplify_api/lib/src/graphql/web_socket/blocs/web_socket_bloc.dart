@@ -41,12 +41,8 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     required GraphQLSubscriptionOptions subscriptionOptions,
     AWSHttpClient? pollClientOverride,
     Connectivity? connectivityOverride,
-  }) {
-    _pollClientOverride = pollClientOverride;
-    _connectivityOverride = connectivityOverride;
-
-    _pollClient = _pollClientOverride ?? AWSHttpClient();
-
+  })  : _pollClient = pollClientOverride ?? AWSHttpClient(),
+        _connectivity = connectivityOverride ?? Connectivity() {
     final subBlocs = <String, WsSubscriptionBloc<Object?>>{};
 
     _currentState = DisconnectedState(
@@ -103,11 +99,10 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   ///
 
   /// The underlying Http client used for poll requests
-  late final AWSHttpClient _pollClient;
+  final AWSHttpClient _pollClient;
 
-  /// Overrides
-  late final AWSHttpClient? _pollClientOverride;
-  late final Connectivity? _connectivityOverride;
+  /// The connectivity plugin used to detect hardware level network changes
+  final Connectivity _connectivity;
 
   /// The current state of the bloc.
   WebSocketState get currentState => _currentState;
@@ -271,14 +266,16 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   // Init connection and add channel events to the event stream.
   Stream<WebSocketState> _init(InitEvent event) async* {
     assert(
-      _currentState is! ConnectedState,
-      'Bloc should not be in connected state when calling init.',
+      _currentState is DisconnectedState ||
+          _currentState is ConnectingState ||
+          _currentState is ReconnectingState,
+      'Bloc should not be in ${_currentState.runtimeType} when calling init.',
     );
 
     _currentState.service.init(_currentState).listen(
       add,
-      onError: (Object error, st) {
-        _emit(_currentState.failed(error));
+      onError: (Object error, StackTrace st) {
+        _emit(_currentState.failed(error, st: st));
       },
     );
 
@@ -292,6 +289,8 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       state.timeoutTimer.reset();
       logger.verbose('Reset timer');
     }
+    // TODO(dnys1): Yield broken on web debug build.
+    yield* const Stream.empty();
   }
 
   /// Handles network loss events by triggering reconnection flow.
@@ -301,6 +300,8 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       yield state.reconnecting(networkState: NetworkState.disconnected);
       add(const ReconnectEvent());
     }
+    // TODO(dnys1): Yield broken on web debug build.
+    yield* const Stream.empty();
   }
 
   /// Triggers reconnect work flow if not already connected.
@@ -311,15 +312,14 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       yield state.reconnecting();
       add(const ReconnectEvent());
     }
+    // TODO(dnys1): Yield broken on web debug build.
+    yield* const Stream.empty();
   }
 
   /// Handle successful polls
   Stream<WebSocketState> _pollSuccess() async* {
-    final state = _currentState;
-    if (state is ConnectingState) {
-      yield state.reconnecting();
-      add(const ReconnectEvent());
-    }
+    // TODO(dnys1): Yield broken on web debug build.
+    yield* const Stream.empty();
   }
 
   /// Handle unsuccessful polls
@@ -329,6 +329,8 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       yield state.reconnecting(networkState: NetworkState.disconnected);
       add(const ReconnectEvent());
     }
+    // TODO(dnys1): Yield broken on web debug build.
+    yield* const Stream.empty();
   }
 
   /// First establishes there is a connection to AppSync
@@ -412,13 +414,15 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     } on Object catch (e, st) {
       subscriptionBloc.addResponseError(e, st);
     }
+    // TODO(dnys1): Yield broken on web debug build.
+    yield* const Stream.empty();
   }
 
   /// Shut down the bloc & clean up
   Stream<WebSocketState> _shutdown() async* {
     yield _currentState.shutdown();
-    yield* const Stream
-        .empty(); // TODO(dnys1): Yield broken on web debug build.
+    // TODO(dnys1): Yield broken on web debug build.
+    yield* const Stream.empty();
 
     await _close();
   }
@@ -429,6 +433,8 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       return;
     }
     await _currentState.service.unsubscribe(event.req.id);
+    // TODO(dnys1): Yield broken on web debug build.
+    yield* const Stream.empty();
   }
 
   /// HELPER FUNCTIONS
@@ -458,7 +464,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
     await Future.wait<void>([
       _networkSubscription.cancel(),
-      _pollClient.close() as Future<void>,
+      Future.value(_pollClient.close()),
       _stateSubscription.cancel(),
       _wsEventController.close(),
       _wsStateController.close(),
@@ -469,10 +475,8 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   /// Connectivity stream monitors network availability on a hardware level
   StreamSubscription<ConnectivityResult> _getConnectivityStream() {
-    return (_connectivityOverride ?? Connectivity())
-        .onConnectivityChanged
-        .asyncExpand<ConnectivityResult>(
-            (ConnectivityResult connectivityResult) async* {
+    return _connectivity.onConnectivityChanged
+        .listen((ConnectivityResult connectivityResult) {
       switch (connectivityResult) {
         case ConnectivityResult.ethernet:
         case ConnectivityResult.mobile:
@@ -485,7 +489,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
         default:
           break;
       }
-    }).listen(null);
+    });
   }
 
   Future<void> _poll() async {
@@ -527,6 +531,8 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       'Bloc is missing subscription for $id',
     );
     _currentState.subscriptionBlocs[id]!.add(event);
+    // TODO(dnys1): Yield broken on web debug build.
+    yield* const Stream.empty();
   }
 
   /// GET request on the configured AppSync url via the `/poll` endpoint

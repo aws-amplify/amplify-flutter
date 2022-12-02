@@ -99,7 +99,7 @@ class AmplifyAPIDart extends AmplifyAPI {
         throw ApiException(
           'Non-HTTPS endpoint found for ${entry.key} which is not supported.',
           recoverySuggestion:
-              'Check the configured endpoint for ${entry.key} utilizes https.',
+              'Ensure the configured endpoint for ${entry.key} utilizes https.',
         );
       }
     }

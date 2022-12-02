@@ -314,11 +314,8 @@ class MockPollClient {
           body: utf8.encode('unhealthy'),
         );
       }
-      if (induceTimeout) {
-        mockPollFailCount++;
-      }
 
-      if (induceTimeout && mockPollFailCount <= maxFailAttempts) {
+      if (induceTimeout && mockPollFailCount++ <= maxFailAttempts) {
         await Future<void>.delayed(const Duration(seconds: 10));
       }
 

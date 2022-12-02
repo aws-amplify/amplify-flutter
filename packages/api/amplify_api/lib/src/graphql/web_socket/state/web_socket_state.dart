@@ -100,7 +100,7 @@ abstract class WebSocketState {
       );
 
   /// Move state to [FailureState]
-  FailureState failed(Object e) => FailureState(
+  FailureState failed(Object e, {StackTrace? st}) => FailureState(
         config,
         authProviderRepo,
         networkState,
@@ -109,6 +109,7 @@ abstract class WebSocketState {
         subscriptionBlocs,
         options,
         e,
+        st,
       );
 
   /// Move state to [PendingDisconnect]
@@ -239,10 +240,13 @@ class ConnectedState extends WebSocketState {
 
   /// Move state to [FailureState]
   @override
-  FailureState failed(Object e) {
+  FailureState failed(
+    Object e, {
+    StackTrace? st,
+  }) {
     _cancelTimers();
 
-    return super.failed(e);
+    return super.failed(e, st: st);
   }
 
   /// Move state to [PendingDisconnect]
@@ -299,8 +303,12 @@ class FailureState extends WebSocketState {
     super.subscriptionBlocs,
     super.options,
     this.error,
+    this.stackTrace,
   );
 
   /// Underlying exception that caused failure.
   final Object error;
+
+  /// Underlying stack trace
+  final StackTrace? stackTrace;
 }

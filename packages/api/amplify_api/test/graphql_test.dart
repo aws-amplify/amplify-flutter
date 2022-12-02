@@ -307,7 +307,6 @@ void main() {
       mockWebSocketService = MockWebSocketService();
       const subscriptionOptions = GraphQLSubscriptionOptions(
         pollInterval: Duration(seconds: 1),
-        // retryOptions: RetryOptions(maxAttempts: 3),
       );
 
       fakePlatform = MockConnectivityPlatform();
@@ -426,7 +425,7 @@ void main() {
       );
 
       final streamSub = subscription.listen(
-        (event) => dataCompleter.complete(event.data),
+        expectAsync1((event) => dataCompleter.complete(event.data)),
       );
 
       await dataCompleter.future;
@@ -437,7 +436,7 @@ void main() {
     });
 
     test(
-        'should reconnect after 13 seconds when appsync ping fails multiple times',
+        'should reconnect after 12 seconds when appsync ping fails multiple times',
         () async {
       final blocReady = Completer<void>();
 
@@ -466,9 +465,11 @@ void main() {
         subscriptionRequest,
         onEstablished: blocReady.complete,
       )
-          .listen((event) {
-        expect(event.data, json.encode(mockSubscriptionData));
-      });
+          .listen(
+        expectAsync1((event) {
+          expect(event.data, json.encode(mockSubscriptionData));
+        }),
+      );
 
       await blocReady.future;
 
@@ -476,7 +477,9 @@ void main() {
 
       mockClient.induceTimeout = true;
 
-      await Future<void>.delayed(const Duration(seconds: 13));
+      // Five retry attempts take by default 12400ms seconds,
+      // Wait 12 seconds to ensure retry/back off can recover on the 5th try
+      await Future<void>.delayed(const Duration(seconds: 12));
 
       mockClient.induceTimeout = false;
 
@@ -610,16 +613,13 @@ void main() {
 
       Amplify.API
           .subscribe(
-        subscriptionRequest,
-        onEstablished: blocReady.complete,
-      )
+            subscriptionRequest,
+            onEstablished: blocReady.complete,
+          )
           .listen(
-        (event) {
-          expect(event.data, json.encode(mockSubscriptionData));
-        },
-        // ignore: avoid_print
-        onError: (Object e) => print('$e'),
-      );
+            null,
+            onError: (Object e) => safePrint('$e'),
+          );
 
       await blocReady.future;
 
