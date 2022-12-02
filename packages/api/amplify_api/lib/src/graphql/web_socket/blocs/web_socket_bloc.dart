@@ -258,9 +258,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       'Error occurred while connecting to the websocket',
     );
 
-    yield _currentState.failed(exception);
-
-    _shutdownWithException(exception);
+    _shutdownWithException(exception, StackTrace.current);
   }
 
   // Init connection and add channel events to the event stream.
@@ -275,7 +273,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     _currentState.service.init(_currentState).listen(
       add,
       onError: (Object error, StackTrace st) {
-        _emit(_currentState.failed(error, st: st));
+        _emit(_currentState.failed(error, st));
       },
     );
 
@@ -361,7 +359,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
       // Init new connection
       add(const InitEvent());
-    } on Exception catch (e) {
+    } on Exception catch (e, st) {
       // Ping failed, close down
       _shutdownWithException(
         ApiException(
@@ -369,6 +367,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
           recoverySuggestion: 'Check internet connection.',
           underlyingException: e,
         ),
+        st,
       );
     }
 
@@ -552,8 +551,8 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   }
 
   /// Sends an exception to all sub blocs and cleans up this bloc
-  void _shutdownWithException(Exception e) {
-    _emit(_currentState.failed(e));
+  void _shutdownWithException(Exception e, StackTrace st) {
+    _emit(_currentState.failed(e, st));
     logger.error('Shutting down with exception: $e');
 
     // create copy of blocs to avoid mutation errors while closing
@@ -583,7 +582,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       timeoutDuration,
     );
 
-    return _shutdownWithException(exception);
+    return _shutdownWithException(exception, StackTrace.current);
   }
 
   /// Ensure onEstablished is only called once
