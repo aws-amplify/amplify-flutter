@@ -12,9 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO(equartey): Write docs
-// ignore_for_file: public_member_api_docs
-
 part of '../blocs/web_socket_bloc.dart';
 
 /// Base WebSocketEvent
@@ -44,28 +41,47 @@ class ShutdownEvent extends WebSocketEvent {
   const ShutdownEvent();
 }
 
+/// Base class for network related events
 class NetworkEvent extends WebSocketEvent {
+  /// Create a network event with relevant [NetworkState]
   const NetworkEvent(this.networkState);
+
+  /// The underlying network state of the connection, ie Disconnected or Connected.
   final NetworkState networkState;
 }
 
-class NetworkLossEvent extends NetworkEvent {
-  const NetworkLossEvent() : super(NetworkState.disconnected);
-}
-
+/// Discrete class for when the network is connected.
+/// Triggers when connectivity plugin detects network connection at the hardware level.
 class NetworkFoundEvent extends NetworkEvent {
+  /// Create a network found event with status 'Connected'
   const NetworkFoundEvent() : super(NetworkState.connected);
 }
 
-class PingSuccessEvent extends WebSocketEvent {
-  const PingSuccessEvent();
+/// Discrete class for when the network is disconnected
+/// Triggers when connectivity plugin detects no network connection at the hardware level.
+class NetworkLossEvent extends NetworkEvent {
+  /// Create a network found event with status 'Disconnected'
+  const NetworkLossEvent() : super(NetworkState.disconnected);
 }
 
-class PingFailedEvent extends WebSocketEvent {
-  const PingFailedEvent();
+/// Triggers when a successful ping to AppSync is made
+class PollSuccessEvent extends WebSocketEvent {
+  /// Create a successful Poll event
+  const PollSuccessEvent();
 }
 
+/// Triggers when a ping to AppSync failed
+class PollFailedEvent extends WebSocketEvent {
+  /// Create as failed poll event
+  const PollFailedEvent(this.exception);
+
+  /// Underlying exception
+  final Exception exception;
+}
+
+/// Trigger reconnection of web socket channel and underlying subscriptions
 class ReconnectEvent extends WebSocketEvent {
+  /// Create a reconnection event
   const ReconnectEvent();
 }
 

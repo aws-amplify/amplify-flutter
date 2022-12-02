@@ -25,9 +25,15 @@ abstract class WsSubscriptionEvent extends WebSocketEvent {
 }
 
 /// Web Socket Subscription start ack message event
-class WsStartAckEvent extends WsSubscriptionEvent {
+class SubscriptionStartAckEvent extends WsSubscriptionEvent {
   /// Creates a start ack event
-  const WsStartAckEvent(super.subscriptionId);
+  const SubscriptionStartAckEvent(super.subscriptionId);
+}
+
+/// Web Socket Subscription pending event
+class SubscriptionPendingEvent extends WsSubscriptionEvent {
+  /// Creates a pending event
+  const SubscriptionPendingEvent(super.subscriptionId);
 }
 
 /// Web Socket Subscription data message event

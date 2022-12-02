@@ -22,6 +22,7 @@ import 'package:amplify_api/src/graphql/web_socket/state/web_socket_state.dart';
 import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
+import 'package:aws_common/testing.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -170,9 +171,11 @@ void initMockConnection(
   String id,
 ) {
   bloc.stream.listen((event) {
-    if (event is ConnectingState) {
+    final state = event;
+    if (state is ConnectingState &&
+        state.networkState == NetworkState.connected) {
       service.channel.sink.add(jsonEncode(mockAckMessage));
-    } else if (event is ConnectedState) {
+    } else if (state is ConnectedState) {
       service.channel.sink.add(jsonEncode(startAck(id)));
     }
   });
@@ -249,23 +252,32 @@ class MockWebSocketBloc extends WebSocketBloc {
     required super.config,
     required super.authProviderRepo,
     required super.wsService,
+    required super.subscriptionOptions,
+    required super.pollClientOverride,
+    required super.connectivityOverride,
   });
 }
 
 class MockWebSocketService extends AmplifyWebSocketService {
+  MockWebSocketService({this.badInit = false});
+
   late MockWebSocketChannel channel;
 
+  /// fails init process
+  bool badInit;
+
   @override
-  Stream<WebSocketEvent> init(
-    WebSocketState state,
-  ) {
+  Stream<WebSocketEvent> init(WebSocketState state) {
+    if (badInit) {
+      return Stream.error(
+        WebSocketChannelException('Mock Web Socket Exception'),
+      );
+    }
     channel = MockWebSocketChannel();
 
     sink = channel.sink;
 
-    final subStream = transformStream(channel.stream);
-
-    return subStream;
+    return transformStream(channel.stream);
   }
 
   @override
@@ -277,5 +289,39 @@ class MockWebSocketService extends AmplifyWebSocketService {
     final completeMessage =
         jsonEncode({'id': subscriptionId, 'type': 'complete'});
     channel.sink.add(completeMessage);
+  }
+}
+
+class MockPollClient {
+  MockPollClient({
+    this.induceTimeout = false,
+    this.sendUnhealthyResponse = false,
+    this.maxFailAttempts = 5,
+  });
+
+  bool induceTimeout;
+  bool sendUnhealthyResponse;
+  int maxFailAttempts;
+
+  MockAWSHttpClient get client {
+    var mockPollFailCount = 0;
+
+    return MockAWSHttpClient((request, _) async {
+      if (sendUnhealthyResponse) {
+        return AWSHttpResponse(
+          statusCode: 400,
+          body: utf8.encode('unhealthy'),
+        );
+      }
+
+      if (induceTimeout && mockPollFailCount++ <= maxFailAttempts) {
+        await Future<void>.delayed(const Duration(seconds: 10));
+      }
+
+      return AWSHttpResponse(
+        statusCode: 200,
+        body: utf8.encode('healthy'),
+      );
+    });
   }
 }

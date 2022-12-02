@@ -206,7 +206,7 @@ class AmplifyWebSocketService
         );
         return WsErrorEvent(exception);
       case MessageType.startAck:
-        return WsStartAckEvent(message.id!);
+        return SubscriptionStartAckEvent(message.id!);
       case MessageType.data:
         final payload = message.payload as SubscriptionDataPayload;
         return SubscriptionDataEvent(message.id!, payload);
