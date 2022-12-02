@@ -49,7 +49,7 @@ void main({bool useExistingTestUser = false}) {
       testWidgets('should fetch', (WidgetTester tester) async {
         const listBlogs = 'listBlogs';
         const items = 'items';
-        String graphQLDocument = '''query MyQuery {
+        const graphQLDocument = '''query MyQuery {
         $listBlogs {
           $items {
             id
@@ -62,7 +62,8 @@ void main({bool useExistingTestUser = false}) {
           request: GraphQLRequest(document: graphQLDocument),
         );
         final response = await operation.response;
-        Map data = jsonDecode(response.data!) as Map;
+        final data = jsonDecode(response.data!) as Map;
+        // ignore: avoid_dynamic_calls
         expect(data[listBlogs][items], hasLength(greaterThanOrEqualTo(0)));
       });
 
@@ -71,7 +72,7 @@ void main({bool useExistingTestUser = false}) {
         const listBlogs = 'listBlogs';
         const items = 'items';
         // tab before id and name
-        String graphQLDocument = '''query MyQuery {
+        const graphQLDocument = '''query MyQuery {
         $listBlogs {
           $items {
           \tid
@@ -83,31 +84,32 @@ void main({bool useExistingTestUser = false}) {
         final operation = Amplify.API
             .query<String>(request: GraphQLRequest(document: graphQLDocument));
         final res = await operation.response;
-        Map data = jsonDecode(res.data!) as Map;
+        final data = jsonDecode(res.data!) as Map;
         expect(res, hasNoGraphQLErrors);
+        // ignore: avoid_dynamic_calls
         expect(data[listBlogs][items], hasLength(greaterThanOrEqualTo(0)));
       });
 
       // Queries
       testWidgets('should GET a blog with Model helper',
           (WidgetTester tester) async {
-        String name = 'Integration Test Blog to fetch';
-        Blog blog = await addBlog(name);
+        const name = 'Integration Test Blog to fetch';
+        final blog = await addBlog(name);
         final req = ModelQueries.get(Blog.classType, blog.id);
         final res = await Amplify.API.query(request: req).response;
-        Blog? data = res.data;
+        final data = res.data;
         expect(res, hasNoGraphQLErrors);
         expect(data, equals(blog));
       });
 
       testWidgets('should LIST blogs with Model helper',
           (WidgetTester tester) async {
-        String blog1Name = 'Integration Test Blog 1';
-        String blog2Name = 'Integration Test Blog 2';
-        String blog3Name = 'Integration Test Blog 3';
-        Blog blog1 = await addBlog(blog1Name);
-        Blog blog2 = await addBlog(blog2Name);
-        Blog blog3 = await addBlog(blog3Name);
+        const blog1Name = 'Integration Test Blog 1';
+        const blog2Name = 'Integration Test Blog 2';
+        const blog3Name = 'Integration Test Blog 3';
+        final blog1 = await addBlog(blog1Name);
+        final blog2 = await addBlog(blog2Name);
+        final blog3 = await addBlog(blog3Name);
         final req = ModelQueries.list<Blog>(Blog.classType);
         final operation = Amplify.API.query(request: req);
         final res = await operation.response;
@@ -139,11 +141,13 @@ void main({bool useExistingTestUser = false}) {
 
       testWidgets('should LIST blogs with Model helper with query predicate',
           (WidgetTester tester) async {
-        String blogName = 'Integration Test Blog ${uuid()}';
-        Blog blog = await addBlog(blogName);
+        final blogName = 'Integration Test Blog ${uuid()}';
+        final blog = await addBlog(blogName);
 
-        final req = ModelQueries.list<Blog>(Blog.classType,
-            where: Blog.NAME.eq(blogName) & Blog.ID.eq(blog.id));
+        final req = ModelQueries.list<Blog>(
+          Blog.classType,
+          where: Blog.NAME.eq(blogName) & Blog.ID.eq(blog.id),
+        );
         final res = await Amplify.API.query(request: req).response;
         final data = res.data;
         final blogs = [blog];
@@ -194,7 +198,7 @@ void main({bool useExistingTestUser = false}) {
         await addBlog(name);
 
         const listBlogs = 'listBlogs';
-        String graphQLDocument = '''query GetBlogsCustomDecoder {
+        const graphQLDocument = '''query GetBlogsCustomDecoder {
           $listBlogs {
             items {
               id
@@ -283,7 +287,7 @@ void main({bool useExistingTestUser = false}) {
         testWidgets(
             'should emit event when onCreate subscription made with model helper',
             (WidgetTester tester) async {
-          String name = 'Integration Test Blog - subscription create ${uuid()}';
+          final name = 'Integration Test Blog - subscription create ${uuid()}';
           final subscriptionRequest =
               ModelSubscriptions.onCreate(Blog.classType);
 
@@ -292,7 +296,7 @@ void main({bool useExistingTestUser = false}) {
             () => addBlog(name),
             eventFilter: (Blog? blog) => blog?.name == name,
           );
-          Blog? blogFromEvent = eventResponse.data;
+          final blogFromEvent = eventResponse.data;
 
           expect(blogFromEvent?.name, equals(name));
         });
@@ -303,7 +307,7 @@ void main({bool useExistingTestUser = false}) {
           const originalName = 'Integration Test Blog - subscription update';
           final updatedName =
               'Integration Test Blog - subscription update, name now ${uuid()}';
-          Blog blogToUpdate = await addBlog(originalName);
+          var blogToUpdate = await addBlog(originalName);
 
           final subscriptionRequest =
               ModelSubscriptions.onUpdate(Blog.classType);
@@ -319,7 +323,7 @@ void main({bool useExistingTestUser = false}) {
             },
             eventFilter: (Blog? blog) => blog?.id == blogToUpdate.id,
           );
-          Blog? blogFromEvent = eventResponse.data;
+          final blogFromEvent = eventResponse.data;
 
           expect(blogFromEvent?.name, equals(updatedName));
         });
@@ -328,7 +332,7 @@ void main({bool useExistingTestUser = false}) {
             'should emit event when onDelete subscription made with model helper',
             (WidgetTester tester) async {
           const name = 'Integration Test Blog - subscription delete';
-          Blog blogToDelete = await addBlog(name);
+          final blogToDelete = await addBlog(name);
 
           final subscriptionRequest =
               ModelSubscriptions.onDelete(Blog.classType);
@@ -337,14 +341,14 @@ void main({bool useExistingTestUser = false}) {
             () => deleteBlog(blogToDelete.id),
             eventFilter: (Blog? blog) => blog?.id == blogToDelete.id,
           );
-          Blog? blogFromEvent = eventResponse.data;
+          final blogFromEvent = eventResponse.data;
 
           expect(blogFromEvent?.name, equals(name));
         });
 
         testWidgets('should cancel subscription', (WidgetTester tester) async {
           const name = 'Integration Test Blog - subscription to cancel';
-          Blog blogToDelete = await addBlog(name);
+          final blogToDelete = await addBlog(name);
 
           final subReq = ModelSubscriptions.onDelete(Blog.classType);
           final subscription = await getEstablishedSubscriptionOperation<Blog>(
@@ -363,8 +367,7 @@ void main({bool useExistingTestUser = false}) {
         testWidgets(
             'should emit event when onCreate subscription made with model helper for post (model with parent).',
             (WidgetTester tester) async {
-          String title =
-              'Integration Test post - subscription create ${uuid()}';
+          final title = 'Integration Test post - subscription create ${uuid()}';
           final subscriptionRequest =
               ModelSubscriptions.onCreate(Post.classType);
 
@@ -373,7 +376,7 @@ void main({bool useExistingTestUser = false}) {
             () => addPostAndBlog(title, 0),
             eventFilter: (Post? post) => post?.title == title,
           );
-          Post? postFromEvent = eventResponse.data;
+          final postFromEvent = eventResponse.data;
 
           expect(postFromEvent?.title, equals(title));
         });
@@ -400,19 +403,22 @@ void main({bool useExistingTestUser = false}) {
           }''';
           final invalidSubscriptionRequest =
               GraphQLRequest<String>(document: document);
-          final streamWithError =
-              Amplify.API.subscribe(invalidSubscriptionRequest,
-                  onEstablished: () => fail(
-                        'onEstablished should not be called during failed subscription',
-                      ));
+          final streamWithError = Amplify.API.subscribe(
+            invalidSubscriptionRequest,
+            onEstablished: () => fail(
+              'onEstablished should not be called during failed subscription',
+            ),
+          );
 
           expect(
             streamWithError,
-            emits(predicate<GraphQLResponse<String>>(
-              (GraphQLResponse<String> response) =>
-                  response.hasErrors && response.data == null,
-              'Has GraphQL Errors',
-            )),
+            emits(
+              predicate<GraphQLResponse<String>>(
+                (GraphQLResponse<String> response) =>
+                    response.hasErrors && response.data == null,
+                'Has GraphQL Errors',
+              ),
+            ),
           );
           // Cancel subscription that had an error.
           await streamWithError.listen(null).cancel();

@@ -82,7 +82,7 @@ void main({bool useExistingTestUser = false}) {
               await deleteTestUser();
             }
 
-            hubEventsController.close();
+            await hubEventsController.close();
             Amplify.Hub.close();
           });
 
@@ -101,7 +101,7 @@ void main({bool useExistingTestUser = false}) {
                 ],
               ),
             );
-            String name =
+            final name =
                 'Integration Test Blog - subscription create ${uuid()}';
             final subscriptionRequest = ModelSubscriptions.onCreate(
               Blog.classType,
@@ -113,7 +113,7 @@ void main({bool useExistingTestUser = false}) {
               () => addBlog(name),
               eventFilter: (Blog? blog) => blog?.name == name,
             );
-            Blog? blogFromEvent = eventResponse.data;
+            final blogFromEvent = eventResponse.data;
 
             expect(blogFromEvent?.name, equals(name));
           });
