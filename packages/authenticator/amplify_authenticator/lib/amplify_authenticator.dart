@@ -47,7 +47,6 @@ import 'package:flutter/material.dart';
 
 export 'package:amplify_auth_cognito/amplify_auth_cognito.dart'
     show AuthProvider;
-
 export 'package:amplify_flutter/amplify_flutter.dart'
     show PasswordProtectionSettings, PasswordPolicyCharacters;
 
@@ -229,7 +228,7 @@ export 'src/widgets/form_field.dart'
 ///
 /// The Authenticator also supports localization by integrating with Flutter's
 /// built-in localization system. See the Flutter [docs](https://docs.flutter.dev/development/accessibility-and-localization/internationalization)
-/// for an overview of how to get started, and check out a full [example](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_authenticator/example)
+/// for an overview of how to get started, and check out a full [example](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/authenticator/amplify_authenticator/example)
 /// on our Github repo.
 ///
 /// You can also use the localization mechanism to simply override the default
