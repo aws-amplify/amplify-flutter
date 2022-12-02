@@ -33,13 +33,11 @@ class DriftDatabaseJsonStrings extends _$DriftDatabaseJsonStrings {
   /// {@macro amplify_analytics_pinpoint_dart.drift_database_json_strings}
   DriftDatabaseJsonStrings(super.driftQueryExecutor);
 
-  static DriftDatabaseJsonStrings? _instance;
-
   /// {@macro amplify_analytics_pinpoint_dart.drift_database_json_strings}
   static DriftDatabaseJsonStrings getInstance(
     QueryExecutor driftQueryExecutor,
   ) {
-    return _instance ??= DriftDatabaseJsonStrings(driftQueryExecutor);
+    return DriftDatabaseJsonStrings(driftQueryExecutor);
   }
 
   // Reminder: Bump this number whenever you change or add a table definition.

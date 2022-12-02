@@ -36,11 +36,9 @@ class EventGlobalFieldsManager {
   @visibleForTesting
   EventGlobalFieldsManager();
 
-  static EventGlobalFieldsManager? _instance;
-
   /// {@macro amplify_analytics_pinpoint_dart.event_global_fields_manager}
   static EventGlobalFieldsManager getInstance() {
-    return _instance ??= EventGlobalFieldsManager();
+    return EventGlobalFieldsManager();
   }
 
   final Map<String, String> _globalAttributes = {};
