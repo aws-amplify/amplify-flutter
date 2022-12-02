@@ -66,13 +66,13 @@ void main() {
         final password = generatePassword();
 
         // Sign up, but do not confirm, user
-        final code = getOtpCode(username);
+        final otpResult = await getOtpCode(username);
         await signUpWithoutConfirming(username, password);
 
         // Confirm sign up and complete sign in
         final confirmResult = await Amplify.Auth.confirmSignUp(
           username: username,
-          confirmationCode: await code,
+          confirmationCode: await otpResult.code,
         );
         expect(confirmResult.isSignUpComplete, true);
       });
@@ -82,7 +82,8 @@ void main() {
         final password = generatePassword();
 
         // Sign up, but do not confirm, user
-        final code = getOtpCode(username);
+        final otpResult = await getOtpCode(username);
+
         await signUpWithoutConfirming(username, password);
 
         // Sign in
@@ -95,7 +96,7 @@ void main() {
         // Confirm sign up and complete sign in
         final confirmResult = await Amplify.Auth.confirmSignUp(
           username: username,
-          confirmationCode: await code,
+          confirmationCode: await otpResult.code,
         );
         expect(confirmResult.isSignUpComplete, true);
 
@@ -111,12 +112,12 @@ void main() {
         final password = generatePassword();
 
         // Sign up, but do not confirm, user
-        var code = getOtpCode(username);
+        var otpResult = await getOtpCode(username);
         await signUpWithoutConfirming(username, password);
 
         // Throw away code and get next one
-        await code;
-        code = getOtpCode(username);
+        await otpResult.code;
+        otpResult = await getOtpCode(username);
 
         final resendResult = await Amplify.Auth.resendSignUpCode(
           username: username,
@@ -125,7 +126,7 @@ void main() {
 
         final confirmResult = await Amplify.Auth.confirmSignUp(
           username: username,
-          confirmationCode: await code,
+          confirmationCode: await otpResult.code,
         );
         expect(confirmResult.isSignUpComplete, true);
       });

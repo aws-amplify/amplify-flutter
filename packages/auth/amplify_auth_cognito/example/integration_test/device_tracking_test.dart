@@ -84,7 +84,7 @@ void main() {
       }
 
       if (enableMfa) {
-        final code = getOtpCode(username!);
+        final otpResult = await getOtpCode(username!);
         final signInRes = await Amplify.Auth.signIn(
           username: username!,
           password: password,
@@ -92,7 +92,7 @@ void main() {
         if (signInRes.nextStep?.signInStep ==
             'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE') {
           final confirmSignInRes = await Amplify.Auth.confirmSignIn(
-            confirmationValue: await code,
+            confirmationValue: await otpResult.code,
           );
           expect(confirmSignInRes.isSignedIn, isTrue);
         } else {

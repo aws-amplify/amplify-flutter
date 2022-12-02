@@ -77,7 +77,7 @@ void main() {
           final phoneNumber = generateUSPhoneNumber();
           final password = generatePassword();
 
-          final code = getOtpCode(email);
+          final otpResult = await getOtpCode(email);
 
           await signInPage.navigateToSignUp();
 
@@ -103,7 +103,7 @@ void main() {
           confirmSignUpPage.expectConfirmationCodeIsPresent();
 
           // And I type a valid confirmation code
-          await confirmSignUpPage.enterCode(await code);
+          await confirmSignUpPage.enterCode(await otpResult.code);
 
           // And I click the "Confirm" button
           await confirmSignUpPage.submitConfirmSignUp();
@@ -126,7 +126,7 @@ void main() {
           final phoneNumber = generateUSPhoneNumber();
           final password = generatePassword();
 
-          final code = getOtpCode(email);
+          final otpResult = await getOtpCode(email);
 
           await signInPage.navigateToSignUp();
 
@@ -152,7 +152,7 @@ void main() {
           confirmSignUpPage.expectConfirmationCodeIsPresent();
 
           // And I type a valid confirmation code
-          await confirmSignUpPage.enterCode(await code);
+          await confirmSignUpPage.enterCode(await otpResult.code);
 
           // And I click the "Confirm" button
           await confirmSignUpPage.submitConfirmSignUp();

@@ -46,7 +46,7 @@ void main() {
         final username = generateUsername();
         final password = generatePassword();
 
-        final code = getOtpCode(username);
+        final otpResult = await getOtpCode(username);
 
         await adminCreateUser(
           username,
@@ -66,7 +66,7 @@ void main() {
         );
 
         final confirmRes = await Amplify.Auth.confirmSignIn(
-          confirmationValue: await code,
+          confirmationValue: await otpResult.code,
         );
         expect(confirmRes.nextStep?.signInStep, 'DONE');
       });
