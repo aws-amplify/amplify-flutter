@@ -49,7 +49,7 @@ class _AuthenticatorAppState extends State<AuthenticatorApp> {
       await Amplify.addPlugin(AmplifyAuthCognitoStub());
       await Amplify.configure(widget.config);
     } on Exception catch (e) {
-      print(e);
+      safePrint(e);
     }
   }
 
