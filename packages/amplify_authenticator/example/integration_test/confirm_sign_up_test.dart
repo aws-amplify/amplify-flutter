@@ -115,7 +115,7 @@ void main() {
 
         final username = generateEmail();
         final password = generatePassword();
-        final code = getOtpCode(username);
+        final otpResult = await getOtpCode(username);
 
         await signInPage.navigateToSignUp();
 
@@ -135,7 +135,7 @@ void main() {
         confirmSignUpPage.expectConfirmationCodeIsPresent();
 
         // And I type a valid confirmation code
-        await confirmSignUpPage.enterCode(await code);
+        await confirmSignUpPage.enterCode(await otpResult.code);
 
         // And I click the "Confirm" button
         await confirmSignUpPage.submitConfirmSignUp();

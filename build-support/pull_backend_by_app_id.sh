@@ -2,6 +2,12 @@
 set -e
 IFS='|'
 
+# Install amplify CLI if not installed
+if ! command -v amplify &> /dev/null
+then
+    npm install -g @aws-amplify/cli
+fi
+
 FLUTTERCONFIG="{\
 \"ResDir\":\"./lib/\",\
 \"SourceDir\":\"lib\",\

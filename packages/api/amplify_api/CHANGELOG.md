@@ -1,3 +1,10 @@
+## 1.0.0-next.1+1
+
+### Fixes
+- fix(api): allow setting extra GQL request params from model helpers ([#2423](https://github.com/aws-amplify/amplify-flutter/pull/2423))
+- fix(api): fix subscription race condition from previous connection close ([#2405](https://github.com/aws-amplify/amplify-flutter/pull/2405))
+- fix(api): Missing query parameters in REST operations ([#2413](https://github.com/aws-amplify/amplify-flutter/pull/2413))
+
 ## 1.0.0-next.1
 
 ### Breaking Changes

@@ -15,12 +15,16 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-class SignOutResult with AWSEquatable<SignOutResult>, AWSDebuggable {
+/// {@template amplify_core.auth.sign_out_result}
+/// The result of a call to `Amplify.Auth.signOut`.
+/// {@endtemplate}
+class SignOutResult with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
+  /// {@macro amplify_core.auth.sign_out_result}
   const SignOutResult();
 
   @override
-  List<Object?> get props => const [];
+  String get runtimeTypeName => 'SignOutResult';
 
   @override
-  String get runtimeTypeName => 'SignOutResult';
+  Map<String, Object?> toJson() => const {};
 }

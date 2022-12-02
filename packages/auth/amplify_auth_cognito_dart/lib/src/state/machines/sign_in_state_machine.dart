@@ -184,7 +184,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       return password;
     }
 
-    authFlowType = event.authFlowType ?? defaultAuthFlowType;
+    authFlowType = event.authFlowType?.sdkValue ?? defaultAuthFlowType;
     switch (authFlowType) {
       case AuthFlowType.userSrpAuth:
         expectPassword();
@@ -478,9 +478,37 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
   /// Initiates a custom auth flow.
   @protected
   Future<InitiateAuthRequest> initiateCustomAuth(SignInInitiate event) async {
-    // If a password is provided, start the SRP flow by including
-    // `CHALLENGE_NAME` in the auth parameters.
-    if (parameters.password != null) {
+    // If a password is provided or the user chose the SRP route, start the SRP
+    // flow by including `CHALLENGE_NAME` in the auth parameters.
+    final password = parameters.password;
+    switch (event.authFlowType) {
+      case AuthenticationFlowType.customAuthWithSrp:
+        if (password == null) {
+          throw const InvalidParameterException(
+            'No password was given but customAuthWithSrp was chosen for '
+            'authentication flow',
+            recoverySuggestion:
+                'Include a password in your call to Amplify.Auth.signIn',
+          );
+        }
+        break;
+      case AuthenticationFlowType.customAuthWithoutSrp:
+        if (password != null) {
+          throw const InvalidParameterException(
+            'A password was given but customAuthWithoutSrp was chosen for '
+            'authentication flow',
+            recoverySuggestion:
+                'Do not include a password in your call to Amplify.Auth.signIn',
+          );
+        }
+        break;
+      // ignore: deprecated_member_use
+      case AuthenticationFlowType.customAuth:
+      default:
+        break;
+    }
+    if (event.authFlowType == AuthenticationFlowType.customAuthWithSrp ||
+        password != null) {
       final initRequest = await initiateSrpAuth(event);
       return initRequest.rebuild(
         (b) => b
