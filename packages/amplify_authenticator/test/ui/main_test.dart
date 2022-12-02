@@ -63,12 +63,8 @@ enum TestTheme {
   defaultMaterial,
   highContrast,
   customSwatch,
-  custom,
-}
+  custom;
 
-/// Adds [lightTheme] and [darkTheme] getters, which cannot be properties since
-/// that are not constants.
-extension TestThemeX on TestTheme {
   ThemeData get lightTheme {
     switch (this) {
       case TestTheme.defaultMaterial:
@@ -130,10 +126,6 @@ void main() {
     // flutter's default test font does not accurately reflect font size,
     // which leads to pixel over flows.
     await loadAppFonts();
-
-    // default to mobile layout
-    binding.window.devicePixelRatioTestValue = ScreenGeometry.mobile.pixelRatio;
-    binding.window.physicalSizeTestValue = ScreenGeometry.mobile.size;
   });
 
   group('UI Tests', () {
