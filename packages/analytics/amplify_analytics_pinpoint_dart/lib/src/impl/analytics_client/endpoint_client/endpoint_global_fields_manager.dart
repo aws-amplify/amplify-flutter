@@ -36,14 +36,10 @@ class EndpointGlobalFieldsManager {
     this._globalMetrics,
   );
 
-  static EndpointGlobalFieldsManager? _instance;
-
   /// {@macro amplify_analytics_pinpoint_dart.endpoint_global_fields_manager}
   static Future<EndpointGlobalFieldsManager> getInstance(
     SecureStorageInterface sharedPrefs,
   ) async {
-    if (_instance != null) return _instance!;
-
     /// Retrieve stored GlobalAttributes
     final cachedAttributes =
         await sharedPrefs.read(key: _endpointGlobalAttrsKey);
@@ -60,12 +56,11 @@ class EndpointGlobalFieldsManager {
         : (jsonDecode(cachedMetrics) as Map<String, Object?>)
             .cast<String, double>();
 
-    _instance = EndpointGlobalFieldsManager(
+    return EndpointGlobalFieldsManager(
       sharedPrefs,
       globalAttributes,
       globalMetrics,
     );
-    return _instance!;
   }
 
   final SecureStorageInterface _keyValueStore;

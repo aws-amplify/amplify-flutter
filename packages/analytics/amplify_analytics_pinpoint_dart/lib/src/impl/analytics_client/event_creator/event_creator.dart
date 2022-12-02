@@ -34,13 +34,11 @@ class EventCreator {
   })  : _globalFieldsManager = globalFieldsManager,
         _deviceContextInfo = deviceContextInfo;
 
-  static EventCreator? _instance;
-
   /// {@macro amplify_analytics_pinpoint_dart.event_creator}
   static EventCreator getInstance({
     DeviceContextInfo? deviceContextInfo,
   }) {
-    return _instance ??= EventCreator(
+    return EventCreator(
       globalFieldsManager: EventGlobalFieldsManager.getInstance(),
       deviceContextInfo: deviceContextInfo,
     );

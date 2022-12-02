@@ -44,8 +44,6 @@ class EventClient {
         _endpointClient = endpointClient,
         _storageAdapter = storageAdapter;
 
-  static EventClient? _instance;
-
   /// {@macro amplify_analytics_pinpoint_dart.event_client}
   static EventClient getInstance({
     required String appId,
@@ -54,7 +52,7 @@ class EventClient {
     required EndpointClient endpointClient,
     required QueryExecutor driftQueryExecutor,
   }) {
-    return _instance ??= EventClient(
+    return EventClient(
       appId: appId,
       fixedEndpointId: fixedEndpointId,
       pinpointClient: pinpointClient,

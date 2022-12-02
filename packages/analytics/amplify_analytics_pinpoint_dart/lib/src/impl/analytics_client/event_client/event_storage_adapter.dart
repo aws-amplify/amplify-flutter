@@ -33,12 +33,8 @@ class EventStorageAdapter {
   @visibleForTesting
   EventStorageAdapter(this._db, this._serializers);
 
-  static EventStorageAdapter? _instance;
-
   /// {@macro amplify_analytics_pinpoint_dart.event_storage_adapter}
   static EventStorageAdapter getInstance(QueryExecutor driftQueryExecutor) {
-    if (_instance != null) return _instance!;
-
     final db = DriftDatabaseJsonStrings.getInstance(driftQueryExecutor);
 
     // Create Serializer
@@ -50,7 +46,7 @@ class EventStorageAdapter {
     }
     final builtSerializers = serializerBuilder.build();
 
-    return _instance = EventStorageAdapter(db, builtSerializers);
+    return EventStorageAdapter(db, builtSerializers);
   }
 
   /// Underlying drift database used to store Events
