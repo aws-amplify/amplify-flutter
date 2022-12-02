@@ -345,7 +345,6 @@ void main() {
 
       test('an exception when poll responds unhealthy', () async {
         final blocReady = Completer<void>();
-        final testDone = Completer<void>();
         final subscribeEvent = SubscribeEvent(
           subscriptionRequest,
           blocReady.complete,
@@ -370,7 +369,6 @@ void main() {
         bloc.subscribe(subscribeEvent).listen(
           null,
           onError: expectAsync1((event) {
-            testDone.complete();
             expect(
               event,
               isA<ApiException>(),
