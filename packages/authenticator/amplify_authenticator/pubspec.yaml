@@ -27,9 +27,9 @@ dependencies:
 
 dev_dependencies:
   amplify_lints:
-    path: ../amplify_lints
+    path: ../../amplify_lints
   amplify_test:
-    path: ../amplify_test
+    path: ../../amplify_test
   flutter_test:
     sdk: flutter
   golden_toolkit: ^0.13.0

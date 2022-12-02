@@ -20,7 +20,7 @@ dependencies:
   amplify_auth_cognito:
     path: ../../../auth/amplify_auth_cognito
   amplify_authenticator:
-    path: ../../../amplify_authenticator
+    path: ../../../authenticator/amplify_authenticator
   amplify_flutter:
     path: ../../../amplify/amplify_flutter
   async: ^2.8.0
