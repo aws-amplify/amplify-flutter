@@ -66,26 +66,30 @@ class AuthenticatorGoldenComparator extends LocalFileComparator {
   }
 }
 
-/// Runs a set of tests for a given set of Enum values.
-void enumGroup<E extends Enum>(List<E> values, void Function(E) cb) {
+/// Runs a 1-dimensional test matrix, using the Enum values as the only
+/// dimension.
+void testMatrix1<E extends Enum>(List<E> values, void Function(E) cb) {
   for (final value in values) {
     group(value.name, () => cb(value));
   }
 }
 
-/// Runs a 2-dimensional test matrix, using the two Enum lists as the matrix
+/// Runs a 2-dimensional test matrix, using the two Enum values as the matrix
 /// dimensions.
 void testMatrix2<D1 extends Enum, D2 extends Enum>(
   List<D1> values1,
   List<D2> values2,
   void Function(D1, D2) cb,
 ) {
-  enumGroup<D1>(values1, (a) {
-    enumGroup<D2>(values2, (b) => cb(a, b));
+  testMatrix1<D1>(values1, (a) {
+    testMatrix1<D2>(
+      values2,
+      (b) => cb(a, b),
+    );
   });
 }
 
-/// Runs a 3-dimensional test matrix, using the three Enum lists as the matrix
+/// Runs a 3-dimensional test matrix, using the three Enum values as the matrix
 /// dimensions.
 void testMatrix3<D1 extends Enum, D2 extends Enum, D3 extends Enum>(
   List<D1> values1,
@@ -93,9 +97,53 @@ void testMatrix3<D1 extends Enum, D2 extends Enum, D3 extends Enum>(
   List<D3> values3,
   void Function(D1, D2, D3) cb,
 ) {
-  enumGroup<D1>(values1, (a) {
-    enumGroup<D2>(values2, (b) {
-      enumGroup<D3>(values3, (c) => cb(a, b, c));
-    });
+  testMatrix1<D1>(values1, (a) {
+    testMatrix2<D2, D3>(
+      values2,
+      values3,
+      (b, c) => cb(a, b, c),
+    );
+  });
+}
+
+/// Runs a 4-dimensional test matrix, using the three Enum values as the matrix
+/// dimensions.
+void testMatrix4<D1 extends Enum, D2 extends Enum, D3 extends Enum,
+    D4 extends Enum>(
+  List<D1> values1,
+  List<D2> values2,
+  List<D3> values3,
+  List<D4> values4,
+  void Function(D1, D2, D3, D4) cb,
+) {
+  testMatrix1<D1>(values1, (a) {
+    testMatrix3<D2, D3, D4>(
+      values2,
+      values3,
+      values4,
+      (b, c, d) => cb(a, b, c, d),
+    );
+  });
+}
+
+/// Runs a 5-dimensional test matrix, using the three Enum values as the matrix
+/// dimensions.
+void testMatrix5<D1 extends Enum, D2 extends Enum, D3 extends Enum,
+    D4 extends Enum, D5 extends Enum>(
+  List<D1> values1,
+  List<D2> values2,
+  List<D3> values3,
+  List<D4> values4,
+  List<D5> values5,
+  void Function(D1, D2, D3, D4, D5) cb,
+) {
+  testMatrix1<D1>(values1, (a) {
+    testMatrix4<D2, D3, D4, D5>(
+      values2,
+      values3,
+      values4,
+      values5,
+      (b, c, d, e) => cb(a, b, c, d, e),
+    );
   });
 }
