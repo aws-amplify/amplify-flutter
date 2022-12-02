@@ -30,6 +30,15 @@ abstract class WsSubscriptionState<T> {
   /// Parent Web Socket Bloc
   final WebSocketBloc parentBloc;
 
+  /// Move state to [SubscriptionCompletedState]
+  SubscriptionCompletedState<T> complete() {
+    return SubscriptionCompletedState(
+      request,
+      onEstablished,
+      parentBloc,
+    );
+  }
+
   /// Move state to [SubscriptionErrorState]
   SubscriptionErrorState<T> error(Object e, StackTrace? st) {
     return SubscriptionErrorState(
@@ -38,6 +47,15 @@ abstract class WsSubscriptionState<T> {
       parentBloc,
       e,
       st,
+    );
+  }
+
+  /// Move state to [SubscriptionPendingState]
+  SubscriptionPendingState<T> pending() {
+    return SubscriptionPendingState(
+      request,
+      onEstablished,
+      parentBloc,
     );
   }
 }
@@ -69,15 +87,6 @@ class SubscriptionListeningState<T> extends WsSubscriptionState<T> {
     super.onEstablished,
     super.parentBloc,
   );
-
-  /// Move state to [SubscriptionCompletedState]
-  SubscriptionCompletedState<T> complete() {
-    return SubscriptionCompletedState(
-      request,
-      onEstablished,
-      parentBloc,
-    );
-  }
 }
 
 /// State for when a subscription

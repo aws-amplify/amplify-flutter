@@ -50,7 +50,6 @@ class AmplifyAPIDart extends AmplifyAPI {
   late final AWSApiPluginConfig _apiConfig;
   final AWSHttpClient? _baseHttpClient;
   late final AmplifyAuthProviderRepository _authProviderRepo;
-  final _logger = AmplifyLogger.category(Category.api);
 
   /// A map of the keys from the Amplify API config with auth modes to HTTP clients
   /// to use for requests to that endpoint/auth mode. e.g. { "myEndpoint.AWS_IAM": AWSHttpClient}
@@ -94,6 +93,15 @@ class AmplifyAPIDart extends AmplifyAPI {
         recoverySuggestion: 'Add API from the Amplify CLI. See '
             'https://docs.amplify.aws/lib/graphqlapi/getting-started/q/platform/flutter/#configure-api',
       );
+    }
+    for (final entry in apiConfig.endpoints.entries) {
+      if (!entry.value.endpoint.startsWith('https')) {
+        throw ApiException(
+          'Non-HTTPS endpoint found for ${entry.key} which is not supported.',
+          recoverySuggestion:
+              'Ensure the configured endpoint for ${entry.key} utilizes https.',
+        );
+      }
     }
     _apiConfig = apiConfig;
     _authProviderRepo = authProviderRepo;
@@ -161,7 +169,7 @@ class AmplifyAPIDart extends AmplifyAPI {
 
   // TODO(equartey): add [apiName] to event to distinguished when multiple blocs are running.
   void _emitHubEvent(WebSocketState state) {
-    if (state is ConnectingState) {
+    if (state is ConnectingState || state is ReconnectingState) {
       _hubEventController.add(SubscriptionHubEvent.connecting());
     } else if (state is ConnectedState) {
       _hubEventController.add(SubscriptionHubEvent.connected());
@@ -225,6 +233,8 @@ class AmplifyAPIDart extends AmplifyAPI {
       config: endpoint.config,
       authProviderRepo: _authProviderRepo,
       wsService: AmplifyWebSocketService(),
+      subscriptionOptions:
+          subscriptionOptions ?? const GraphQLSubscriptionOptions(),
     );
   }
 
