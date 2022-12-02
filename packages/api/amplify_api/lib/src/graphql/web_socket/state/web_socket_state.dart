@@ -14,7 +14,7 @@
 
 import 'dart:async';
 
-import 'package:amplify_api/src/graphql/web_socket/blocs/ws_subscriptions_bloc.dart';
+import 'package:amplify_api/src/graphql/web_socket/blocs/subscriptions_bloc.dart';
 import 'package:amplify_api/src/graphql/web_socket/services/web_socket_service.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
@@ -49,7 +49,7 @@ abstract class WebSocketState {
   final WebSocketService service;
 
   /// Web Socket Subscription Blocs represented by
-  final Map<String, WsSubscriptionBloc<Object?>> subscriptionBlocs;
+  final Map<String, SubscriptionBloc<Object?>> subscriptionBlocs;
 
   /// GraphQL Subscriptions Options used to customize the subscription experience
   final GraphQLSubscriptionOptions options;

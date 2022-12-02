@@ -16,12 +16,12 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_api/src/decorators/web_socket_auth_utils.dart';
+import 'package:amplify_api/src/graphql/web_socket/blocs/subscriptions_bloc.dart';
 import 'package:amplify_api/src/graphql/web_socket/blocs/web_socket_bloc.dart';
-import 'package:amplify_api/src/graphql/web_socket/blocs/ws_subscriptions_bloc.dart';
 import 'package:amplify_api/src/graphql/web_socket/state/web_socket_state.dart';
+import 'package:amplify_api/src/graphql/web_socket/types/subscriptions_event.dart';
 import 'package:amplify_api/src/graphql/web_socket/types/web_socket_message_stream_transformer.dart';
 import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
-import 'package:amplify_api/src/graphql/web_socket/types/ws_subscriptions_event.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
@@ -38,19 +38,16 @@ abstract class WebSocketService implements Closeable {
     WebSocketState state,
   );
 
-  /// Subscribe a [GraphQLRequest] inside the provided [WsSubscriptionBloc] to a open [WebSocketChannel]
+  /// Subscribe a [GraphQLRequest] inside the provided [SubscriptionBloc] to a open [WebSocketChannel]
   Future<void> register(
     ConnectedState state,
     GraphQLRequest<Object?> request,
   );
 
-  /// Unsubscribe a [GraphQLRequest] inside the provided [WsSubscriptionBloc]
+  /// Unsubscribe a [GraphQLRequest] inside the provided [SubscriptionBloc]
   Future<void> unsubscribe(
     String subscriptionId,
   );
-
-  /// Reconnect a [WebSocketChannel]
-  Future<void> reconnect();
 }
 
 /// {@template amplify_api.web_socket_service}
@@ -110,12 +107,6 @@ class AmplifyWebSocketService
   }
 
   @override
-  Future<void> reconnect() {
-    // TODO(equartey): implement reconnect
-    throw UnimplementedError();
-  }
-
-  @override
   Future<void> register(
     ConnectedState state,
     GraphQLRequest<Object?> request,
@@ -138,16 +129,9 @@ class AmplifyWebSocketService
   }
 
   void _send(WebSocketMessage message) {
-    try {
-      assert(sink != null, 'Sink must exist');
-      final msgJson = json.encode(message.toJson());
-      sink!.add(msgJson);
-    } on Exception catch (e) {
-      logger.warn(
-        'Error while trying to add to sync.',
-        e,
-      );
-    }
+    assert(sink != null, 'Sink must exist');
+    final msgJson = json.encode(message.toJson());
+    sink!.add(msgJson);
   }
 
   Future<void> _sendSubscriptionRegistrationMessage<T>(
@@ -221,8 +205,8 @@ class AmplifyWebSocketService
   }
 
   @override
-  Future<void> close() async {
-    await sink?.close();
+  void close() {
+    sink?.close();
     sink = null;
   }
 

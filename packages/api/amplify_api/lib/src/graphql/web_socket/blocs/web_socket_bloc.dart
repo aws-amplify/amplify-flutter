@@ -14,13 +14,13 @@
 
 import 'dart:async';
 
-import 'package:amplify_api/src/graphql/web_socket/blocs/ws_subscriptions_bloc.dart';
+import 'package:amplify_api/src/graphql/web_socket/blocs/subscriptions_bloc.dart';
 import 'package:amplify_api/src/graphql/web_socket/services/web_socket_service.dart';
 import 'package:amplify_api/src/graphql/web_socket/state/web_socket_state.dart';
 import 'package:amplify_api/src/graphql/web_socket/state/ws_subscriptions_state.dart';
+import 'package:amplify_api/src/graphql/web_socket/types/subscriptions_event.dart';
 import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
-import 'package:amplify_api/src/graphql/web_socket/types/ws_subscriptions_event.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_flutter/amplify_flutter.dart' hide SubscriptionEvent;
 import 'package:async/async.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:meta/meta.dart';
@@ -43,7 +43,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     Connectivity? connectivityOverride,
   })  : _pollClient = pollClientOverride ?? AWSHttpClient(),
         _connectivity = connectivityOverride ?? Connectivity() {
-    final subBlocs = <String, WsSubscriptionBloc<Object?>>{};
+    final subBlocs = <String, SubscriptionBloc<Object?>>{};
 
     _currentState = DisconnectedState(
       config,
@@ -502,19 +502,19 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   }
 
   /// Returns a [WsSubscriptionBloc<T>] and stores in state
-  WsSubscriptionBloc<T> _saveRequest<T>(SubscribeEvent<T> event) {
+  SubscriptionBloc<T> _saveRequest<T>(SubscribeEvent<T> event) {
     logger.debug('Subscription event for: ${event.request.id}');
     // Prevent duplicate errors
     if (_currentState.subscriptionBlocs.containsKey(event.request.id)) {
       return _currentState.subscriptionBlocs[event.request.id]
-          as WsSubscriptionBloc<T>;
+          as SubscriptionBloc<T>;
     }
 
     final callback = _wrapOnEstablished(event.onEstablished);
 
     // Init a subscription state machine with <T> and save it in state
     final subState = SubscriptionPendingState<T>(event.request, callback, this);
-    final subBloc = WsSubscriptionBloc(
+    final subBloc = SubscriptionBloc(
       subState,
     );
     _currentState.subscriptionBlocs[event.request.id] = subBloc;
@@ -523,7 +523,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   }
 
   /// Takes a WebSocketEvent and sends it to the corresponding sub bloc
-  Stream<WebSocketState> _sendEventToSubBloc(WsSubscriptionEvent event) async* {
+  Stream<WebSocketState> _sendEventToSubBloc(SubscriptionEvent event) async* {
     final id = event.subscriptionId;
     assert(
       _currentState.subscriptionBlocs.containsKey(id),

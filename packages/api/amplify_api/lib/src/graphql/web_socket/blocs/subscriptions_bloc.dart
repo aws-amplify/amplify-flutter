@@ -17,20 +17,18 @@ import 'dart:async';
 import 'package:amplify_api/src/graphql/helpers/graphql_response_decoder.dart';
 import 'package:amplify_api/src/graphql/web_socket/blocs/web_socket_bloc.dart';
 import 'package:amplify_api/src/graphql/web_socket/state/ws_subscriptions_state.dart';
-import 'package:amplify_api/src/graphql/web_socket/types/ws_subscriptions_event.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_api/src/graphql/web_socket/types/subscriptions_event.dart';
+import 'package:amplify_core/amplify_core.dart' hide SubscriptionEvent;
 
-/// {@template amplify_api.ws_subscription_bloc}
-/// Internal state machine for subscriptions. Listens for [WsSubscriptionEvent]
+/// {@template amplify_api.subscription_bloc}
+/// Internal state machine for subscriptions. Listens for [SubscriptionEvent]
 /// and maps them to appropriate state transitions.
 /// {@endtemplate}
-class WsSubscriptionBloc<T>
+class SubscriptionBloc<T>
     with AWSDebuggable, AmplifyLoggerMixin
     implements Closeable {
-  /// {@macro api.ws_subscription_bloc}
-  /// takes in subscription events
-  /// transform/decode events
-  WsSubscriptionBloc(
+  /// {@macro amplify_api.subscription_bloc}
+  SubscriptionBloc(
     WsSubscriptionState<T> initialState,
   ) {
     _currentState = initialState;
@@ -40,7 +38,7 @@ class WsSubscriptionBloc<T>
 
   late WsSubscriptionState<T> _currentState;
 
-  /// get the current state of the [WsSubscriptionBloc]
+  /// get the current state of the [SubscriptionBloc]
   WsSubscriptionState<T> get currentState => _currentState;
 
   /// State controller.
@@ -58,11 +56,11 @@ class WsSubscriptionBloc<T>
   }
 
   /// Event controller.
-  final StreamController<WsSubscriptionEvent> _wsEventController =
-      StreamController<WsSubscriptionEvent>.broadcast();
+  final StreamController<SubscriptionEvent> _wsEventController =
+      StreamController<SubscriptionEvent>.broadcast();
 
   /// Outputs events into the event transformer.
-  late final Stream<WsSubscriptionEvent> _wsEventStream =
+  late final Stream<SubscriptionEvent> _wsEventStream =
       _wsEventController.stream;
   late final StreamSubscription<WsSubscriptionState<T>> _subscription;
 
@@ -77,7 +75,7 @@ class WsSubscriptionBloc<T>
       _responseController.stream;
 
   /// Adds an event to the Bloc.
-  void add(WsSubscriptionEvent event) {
+  void add(SubscriptionEvent event) {
     _wsEventController.add(event);
   }
 
@@ -104,7 +102,7 @@ class WsSubscriptionBloc<T>
   }
 
   Stream<WsSubscriptionState<T>> _eventTransformer(
-    WsSubscriptionEvent event,
+    SubscriptionEvent event,
   ) async* {
     logger.verbose(event.toString());
     if (event is SubscriptionStartAckEvent) {
