@@ -13,6 +13,8 @@
  * permissions and limitations under the License.
  */
 
+import 'dart:async';
+
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -28,35 +30,49 @@ class GraphQLApiView extends StatefulWidget {
 
 class _GraphQLApiViewState extends State<GraphQLApiView> {
   String _result = '';
+  StreamSubscription<GraphQLResponse<String>>? _subscription;
   void Function()? _unsubscribe;
-  late CancelableOperation _lastOperation;
+  CancelableOperation? _lastOperation;
 
-  Future<void> subscribe() async {
-    String graphQLDocument = '''subscription MySubscription {
+  final subscriptionReq =
+      GraphQLRequest<String>(document: '''subscription MySubscription {
     onCreateBlog {
       id
       name
       createdAt
     }
-  }''';
-    final Stream<GraphQLResponse<String>> operation = Amplify.API.subscribe(
-      GraphQLRequest<String>(document: graphQLDocument),
+  }''');
+
+  Future<void> subscribe() async {
+    if (_subscription != null) {
+      return;
+    }
+
+    final operation = Amplify.API.subscribe(
+      subscriptionReq,
       onEstablished: () => print('Subscription established'),
     );
 
     final streamSubscription = operation.listen(
       (event) {
-        final result = 'Subscription event data received: ${event.data}';
-        print(result);
+        if (event.hasErrors) {
+          print('Error(s) received from subscription: ${event.errors}');
+          return;
+        }
+        final data = 'Subscription event data received: ${event.data}';
+        print(data);
         setState(() {
-          _result = result;
+          _result = data;
         });
       },
       onError: (Object error) => print(
         'Error in GraphQL subscription: $error',
       ),
     );
-    _unsubscribe = streamSubscription.cancel;
+    setState(() {
+      _subscription = streamSubscription;
+      _unsubscribe = streamSubscription.cancel;
+    });
   }
 
   Future<void> query() async {
@@ -120,7 +136,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
 
   void onCancelPressed() async {
     try {
-      _lastOperation.cancel();
+      _lastOperation?.cancel();
     } on Exception catch (e) {
       print('Cancel FAILED');
       print(e.toString());
@@ -149,24 +165,35 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
         const Padding(padding: EdgeInsets.all(10.0)),
         Center(
           child: ElevatedButton(
-            onPressed: widget.isAmplifyConfigured ? subscribe : null,
+            onPressed: widget.isAmplifyConfigured && _subscription == null
+                ? subscribe
+                : null,
             child: const Text('Subscribe'),
           ),
         ),
         const Padding(padding: EdgeInsets.all(10.0)),
         Center(
           child: ElevatedButton(
-            onPressed: () => setState(() {
-              _unsubscribe?.call();
-              _unsubscribe = null;
-            }),
+            onPressed: _subscription != null
+                ? () => setState(() {
+                      _unsubscribe?.call();
+                      _unsubscribe = null;
+                      _subscription = null;
+                    })
+                : null,
             child: const Text('Unsubscribe'),
           ),
         ),
         const Padding(padding: EdgeInsets.all(5.0)),
-        ElevatedButton(
-          onPressed: onCancelPressed,
-          child: const Text('Cancel'),
+        Center(
+          child: ElevatedButton(
+            onPressed: _lastOperation != null &&
+                    _lastOperation!.isCompleted &&
+                    _lastOperation!.isCanceled
+                ? onCancelPressed
+                : null,
+            child: const Text('Cancel Operation'),
+          ),
         ),
         Text('Result: \n$_result\n'),
       ],

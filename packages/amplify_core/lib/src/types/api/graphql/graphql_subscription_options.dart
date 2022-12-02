@@ -15,14 +15,19 @@
 
 import 'package:retry/retry.dart';
 
-/// Configuration options for GraphQL Subscriptions and their WebSockets.
+/// {@template amplify_core.graphql.graphql_subscription_options}
+/// Configuration options for GraphQL subscriptions and their WebSockets.
+/// {@endtemplate}
 class GraphQLSubscriptionOptions {
-  /// Configure the ping interval for AppSync polling for subscription connections.
-  final Duration? pingInterval;
+  /// {@macro amplify_core.graphql.graphql_subscription_options}
+  const GraphQLSubscriptionOptions({
+    this.pollInterval = const Duration(seconds: 30),
+    this.retryOptions = const RetryOptions(),
+  });
 
-  /// Configure the exponential retry strategy options
-  /// see: https://pub.dev/documentation/retry/latest/retry/RetryOptions-class.html
-  final RetryOptions? retryOptions;
+  /// The interval for polling AppSync to monitor connection health.
+  final Duration pollInterval;
 
-  const GraphQLSubscriptionOptions({this.pingInterval, this.retryOptions});
+  /// The strategy for retrying when there is a connection failure.
+  final RetryOptions retryOptions;
 }

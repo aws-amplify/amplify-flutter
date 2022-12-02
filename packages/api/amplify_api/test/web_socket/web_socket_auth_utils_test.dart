@@ -14,7 +14,7 @@
 
 import 'package:amplify_api/src/decorators/web_socket_auth_utils.dart';
 import 'package:amplify_api/src/graphql/providers/app_sync_api_key_auth_provider.dart';
-import 'package:amplify_api/src/graphql/ws/types/web_socket_types.dart';
+import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 
