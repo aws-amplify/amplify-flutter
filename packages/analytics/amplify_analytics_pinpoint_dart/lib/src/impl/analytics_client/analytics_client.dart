@@ -46,8 +46,6 @@ class AnalyticsClient {
     );
   }
 
-  static AnalyticsClient? _instance;
-
   /// {@macro amplify_analytics_pinpoint_dart.analytics_client}
   static Future<AnalyticsClient> getInstance({
     required String appId,
@@ -57,8 +55,6 @@ class AnalyticsClient {
     AppLifecycleProvider? appLifecycleProvider,
     DeviceContextInfo? deviceContextInfo,
   }) async {
-    if (_instance != null) return _instance!;
-
     // Initialize EventCreator
     final eventCreator = EventCreator.getInstance(
       deviceContextInfo: deviceContextInfo,
@@ -103,7 +99,7 @@ class AnalyticsClient {
       },
     );
 
-    return _instance = AnalyticsClient(
+    return AnalyticsClient(
       sessionManager,
       eventClient,
       eventCreator,

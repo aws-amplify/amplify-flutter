@@ -63,8 +63,6 @@ class SessionManager {
     _appLifecycleProvider?.startObserving();
   }
 
-  static SessionManager? _instance;
-
   /// {@macro amplify_analytics_pinpoint_dart.session_manager_constructor}
   static SessionManager getInstance({
     required String fixedEndpointId,
@@ -72,7 +70,7 @@ class SessionManager {
     required OnSessionUpdated onSessionStart,
     required OnSessionUpdated onSessionEnd,
   }) {
-    return _instance ??= SessionManager(
+    return SessionManager(
       fixedEndpointId: fixedEndpointId,
       appLifecycleProvider: appLifecycleProvider,
       onSessionStart: onSessionStart,

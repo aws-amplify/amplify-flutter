@@ -39,8 +39,6 @@ class EndpointClient {
     this._endpointBuilder,
   );
 
-  static EndpointClient? _instance;
-
   /// {@macro amplify_analytics_pinpoint_dart.endpoint_client}
   static Future<EndpointClient> getInstance(
     String appId,
@@ -48,8 +46,6 @@ class EndpointClient {
     PinpointClient pinpointClient,
     DeviceContextInfo? deviceContextInfo,
   ) async {
-    if (_instance != null) return _instance!;
-
     // Retrieve Unique ID
     final savedFixedEndpointId =
         await keyValueStore.read(key: _endpointIdStorageKey);
@@ -78,14 +74,13 @@ class EndpointClient {
       ..location =
           (EndpointLocationBuilder()..country = deviceContextInfo?.countryCode);
 
-    _instance = EndpointClient(
+    return EndpointClient(
       appId,
       fixedEndpointId,
       pinpointClient,
       globalFieldsManager,
       endpointBuilder,
     );
-    return _instance!;
   }
 
   final String _appId;
