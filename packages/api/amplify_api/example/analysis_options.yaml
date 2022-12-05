@@ -1,4 +1,8 @@
-include: package:amplify_lints/app_core.yaml
+include: package:amplify_lints/app.yaml
+
+analyzer:
+  exclude:
+    - lib/models/*
 
 linter:
   rules:

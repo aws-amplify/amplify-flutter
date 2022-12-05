@@ -150,10 +150,10 @@ Future<Post> addPostAndBlog(
   String title,
   int rating,
 ) async {
-  String name = 'Integration Test Blog with a post - create';
-  Blog createdBlog = await addBlog(name);
+  const name = 'Integration Test Blog with a post - create';
+  final createdBlog = await addBlog(name);
 
-  Post post = Post(title: title, rating: rating, blog: createdBlog);
+  final post = Post(title: title, rating: rating, blog: createdBlog);
   final createPostReq = ModelMutations.create(
     post,
     authorizationMode: APIAuthorizationType.userPools,
@@ -161,7 +161,7 @@ Future<Post> addPostAndBlog(
   final createPostRes =
       await Amplify.API.mutate(request: createPostReq).response;
   expect(createPostRes, hasNoGraphQLErrors);
-  Post? data = createPostRes.data;
+  final data = createPostRes.data;
   if (data == null) {
     throw Exception(
       'Null response while creating post. Response errors: ${createPostRes.errors}',
@@ -207,12 +207,10 @@ Future<StreamSubscription<GraphQLResponse<T>>>
   GraphQLRequest<T> subscriptionRequest,
   void Function(GraphQLResponse<T>) onData,
 ) async {
-  Completer<void> establishedCompleter = Completer();
+  final establishedCompleter = Completer<void>();
   final stream = Amplify.API.subscribe<T>(
     subscriptionRequest,
-    onEstablished: () {
-      establishedCompleter.complete();
-    },
+    onEstablished: establishedCompleter.complete,
   );
   final subscription = stream.listen(
     onData,
@@ -234,7 +232,7 @@ Future<GraphQLResponse<T?>> establishSubscriptionAndMutate<T>(
   Future<void> Function() mutationFunction, {
   bool Function(T?)? eventFilter,
 }) async {
-  Completer<GraphQLResponse<T?>> dataCompleter = Completer();
+  final dataCompleter = Completer<GraphQLResponse<T?>>();
   // With stream established, exec callback with stream events.
   final subscription = await getEstablishedSubscriptionOperation<T>(
     subscriptionRequest,
@@ -257,8 +255,9 @@ Future<GraphQLResponse<T?>> establishSubscriptionAndMutate<T>(
   return response;
 }
 
-final hasNoGraphQLErrors = predicate<GraphQLResponse>(
-  (GraphQLResponse response) => !response.hasErrors && response.data != null,
+final hasNoGraphQLErrors = predicate<GraphQLResponse<dynamic>>(
+  (GraphQLResponse<dynamic> response) =>
+      !response.hasErrors && response.data != null,
   'Has no GraphQL Errors',
 );
 

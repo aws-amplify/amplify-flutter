@@ -28,7 +28,7 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -65,7 +65,8 @@ class _MyAppState extends State<MyApp> {
       await Amplify.configure(amplifyconfig);
     } on AmplifyAlreadyConfiguredException {
       print(
-          'Amplify was already configured. Looks like app restarted on android.');
+        'Amplify was already configured. Looks like app restarted on android.',
+      );
     }
     setState(() {
       _isAmplifyConfigured = true;
@@ -101,21 +102,23 @@ class _MyAppState extends State<MyApp> {
         home: Scaffold(
           appBar: AppBar(
             title: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10),
               child: Row(
                 children: [
                   ElevatedButton(
-                      onPressed: _onRestApiViewButtonClick,
-                      child: const Text('Rest API')),
+                    onPressed: _onRestApiViewButtonClick,
+                    child: const Text('Rest API'),
+                  ),
                   ElevatedButton(
-                      onPressed: _onGraphQlApiViewButtonClick,
-                      child: const Text('GraphQL API'))
+                    onPressed: _onGraphQlApiViewButtonClick,
+                    child: const Text('GraphQL API'),
+                  )
                 ],
               ),
             ),
           ),
           body: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10),
             child: _showRestApiView == true
                 ? const RestApiView()
                 : GraphQLApiView(isAmplifyConfigured: _isAmplifyConfigured),
