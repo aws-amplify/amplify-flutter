@@ -17,7 +17,6 @@ import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
-import 'package:meta/meta.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.endpoint_global_fields_manager}
 /// Manages the storage, retrieval, and update of Attributes and Metrics of a PinpointEndpoint
@@ -29,39 +28,11 @@ import 'package:meta/meta.dart';
 /// {@endtemplate}
 class EndpointGlobalFieldsManager {
   /// {@macro amplify_analytics_pinpoint_dart.endpoint_global_fields_manager}
-  @visibleForTesting
   EndpointGlobalFieldsManager(
     this._keyValueStore,
     this._globalAttributes,
     this._globalMetrics,
   );
-
-  /// {@macro amplify_analytics_pinpoint_dart.endpoint_global_fields_manager}
-  static Future<EndpointGlobalFieldsManager> getInstance(
-    SecureStorageInterface sharedPrefs,
-  ) async {
-    /// Retrieve stored GlobalAttributes
-    final cachedAttributes =
-        await sharedPrefs.read(key: _endpointGlobalAttrsKey);
-    final globalAttributes = cachedAttributes == null
-        ? <String, String>{}
-        : (jsonDecode(cachedAttributes) as Map<String, Object?>)
-            .cast<String, String>();
-
-    /// Retrieve stored GlobalMetrics
-    final cachedMetrics =
-        await sharedPrefs.read(key: _endpointGlobalMetricsKey);
-    final globalMetrics = cachedMetrics == null
-        ? <String, double>{}
-        : (jsonDecode(cachedMetrics) as Map<String, Object?>)
-            .cast<String, double>();
-
-    return EndpointGlobalFieldsManager(
-      sharedPrefs,
-      globalAttributes,
-      globalMetrics,
-    );
-  }
 
   final SecureStorageInterface _keyValueStore;
   final Map<String, String> _globalAttributes;

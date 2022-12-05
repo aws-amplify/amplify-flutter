@@ -17,7 +17,6 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/version.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:meta/meta.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.event_creator}
 /// Manage creation of new Events.
@@ -27,22 +26,11 @@ import 'package:meta/meta.dart';
 /// {@endtemplate}
 class EventCreator {
   /// {@macro amplify_analytics_pinpoint_dart.event_creator}
-  @visibleForTesting
   EventCreator({
     required EventGlobalFieldsManager globalFieldsManager,
     DeviceContextInfo? deviceContextInfo,
   })  : _globalFieldsManager = globalFieldsManager,
         _deviceContextInfo = deviceContextInfo;
-
-  /// {@macro amplify_analytics_pinpoint_dart.event_creator}
-  static EventCreator getInstance({
-    DeviceContextInfo? deviceContextInfo,
-  }) {
-    return EventCreator(
-      globalFieldsManager: EventGlobalFieldsManager.getInstance(),
-      deviceContextInfo: deviceContextInfo,
-    );
-  }
 
   static const int _maxEventTypeLength = 50;
 

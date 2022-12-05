@@ -17,7 +17,6 @@ import 'package:amplify_analytics_pinpoint/src/flutter_app_lifecycle_provider.da
 import 'package:amplify_analytics_pinpoint/src/flutter_path_provider/flutter_path_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_db_common/amplify_db_common.dart' as db_common;
-import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:meta/meta.dart';
 
 /// {@template amplify_analytics_pinpoint.analytics_plugin_impl}
@@ -26,17 +25,11 @@ import 'package:meta/meta.dart';
 class AmplifyAnalyticsPinpoint extends AmplifyAnalyticsPinpointDart {
   /// {@macro amplify_analytics_pinpoint.analytics_plugin_impl}
   AmplifyAnalyticsPinpoint({
-    @visibleForTesting AmplifySecureStorageInterface? keyValueStore,
+    @visibleForTesting super.keyValueStore,
     @visibleForTesting CachedEventsPathProvider? pathProvider,
     @visibleForTesting AppLifecycleProvider? appLifecycleProvider,
     @visibleForTesting DeviceContextInfoProvider? deviceContextInfoProvider,
   }) : super(
-          keyValueStore: keyValueStore ??
-              AmplifySecureStorage(
-                config: AmplifySecureStorageConfig(
-                  scope: 'analyticsPinpoint',
-                ),
-              ),
           pathProvider: pathProvider ?? FlutterPathProvider(),
           appLifecycleProvider:
               appLifecycleProvider ?? FlutterAppLifecycleProvider(),
