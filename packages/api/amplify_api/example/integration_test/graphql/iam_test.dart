@@ -14,7 +14,6 @@
  */
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/models/ModelProvider.dart';
@@ -430,8 +429,6 @@ void main({bool useExistingTestUser = false}) {
           await firstStream.listen(null).cancel();
         });
       },
-      // TODO(equartey): ensure state machine GQL sub impl doesn't have this issue.
-      skip: !zIsWeb && Platform.isWindows,
     );
   });
 }
