@@ -26,44 +26,53 @@ void main() {
   group('auto session tracking', () {
     final mockLifecycleObserver = MockLifecycleProvider();
 
-    late final Stream<Map<String, Object?>> eventsStream;
+    late Stream<Map<String, Object?>> eventsStream;
 
-    setUpAll(() async {
+    setUp(() async {
       eventsStream = await configureAnalytics(
         appLifecycleProvider: mockLifecycleObserver,
       );
     });
 
-    tearDownAll(Amplify.reset);
-
-    test(
+    testWidgets(
       'manual trigger of onBackground/onForeground triggers session start/end events ',
-      () async {
+      (_) async {
         mockLifecycleObserver.triggerOnBackgroundListener();
 
         Map<String, dynamic>? originalSession;
 
         // Verify new session has newer values than old session
-        final streamSubscription = eventsStream.listen((event) {
-          expect(event['session'], isNotEmpty);
+        final streamSubscription = eventsStream.listen(
+          expectAsync1(
+            count: 2,
+            (event) {
+              expect(event['session'], isNotEmpty);
 
-          final session = event['session'] as Map<String, dynamic>;
-          if (originalSession == null) {
-            originalSession = session;
-          } else {
-            final newSession = session;
+              final session = event['session'] as Map<String, dynamic>;
+              if (originalSession == null) {
+                originalSession = session;
+                return;
+              }
+              final newSession = session;
 
-            expect(originalSession!['id'], isNot(newSession!['id']));
+              expect(
+                originalSession!['session_id'],
+                isNot(newSession['session_id']),
+              );
 
-            final stopTimestamp =
-                DateTime.parse(originalSession!['stopTimestamp'] as String);
+              final stopTimestamp = DateTime.fromMillisecondsSinceEpoch(
+                originalSession!['stop_timestamp'] as int,
+              );
 
-            final startTimestamp =
-                DateTime.parse(newSession['startTimestamp'] as String);
+              final startTimestamp = DateTime.fromMillisecondsSinceEpoch(
+                newSession['start_timestamp'] as int,
+              );
 
-            expect(startTimestamp.isAfter(stopTimestamp), isTrue);
-          }
-        });
+              expect(startTimestamp.isAfter(stopTimestamp), isTrue);
+            },
+          ),
+        );
+        addTearDown(streamSubscription.cancel);
 
         await expectLater(
           eventsStream,
@@ -74,16 +83,14 @@ void main() {
 
         mockLifecycleObserver.triggerOnForegroundListener();
 
-        expect(
+        await Amplify.Analytics.flushEvents();
+
+        await expectLater(
           eventsStream,
           emits(
             containsPair('event_type', '_session.start'),
           ),
         );
-
-        await Amplify.Analytics.flushEvents();
-
-        await streamSubscription.cancel();
       },
       timeout: const Timeout(Duration(minutes: 2)),
     );

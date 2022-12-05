@@ -24,16 +24,12 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('recordEvent', () {
-    late final Stream<Map<String, Object?>> eventsStream;
+    late Stream<Map<String, Object?>> eventsStream;
 
     setUpAll(() async {
       eventsStream = await configureAnalytics();
     });
 
-    tearDownAll(Amplify.reset);
-
-    // TODO(fjnoyp): Running this locally too many times will cause max endpoint error of 15 from Pinpoint
-    // We need to delete/reset Analytics backend somehow
     test(
       'properties of identityUser() added to all future events',
       () async {
@@ -64,72 +60,69 @@ void main() {
           ..addIntProperty(intProperty.key, intProperty.value)
           ..addStringProperty(stringProperty.key, stringProperty.value);
 
-        try {
-          await Amplify.Analytics.identifyUser(
-              userId: userId,
-              userProfile: AnalyticsUserProfile(
-                name: name,
-                email: email,
-                plan: plan,
-                location: location,
-                analyticsProperties: properties,
-              ));
+        await Amplify.Analytics.identifyUser(
+          userId: userId,
+          userProfile: AnalyticsUserProfile(
+            name: name,
+            email: email,
+            plan: plan,
+            location: location,
+            analyticsProperties: properties,
+          ),
+        );
 
-          const customEventName = 'my custom event type name';
-          final customEvent = AnalyticsEvent(customEventName);
+        const customEventName = 'my custom event type name';
+        final customEvent = AnalyticsEvent(customEventName);
 
-          expect(
-            eventsStream,
-            emits(allOf([
-              containsPair('event_type', customEventName),
-              // Session is valid before timestamp
-              containsPair(
-                  'endpoint',
-                  allOf(
-                    containsPair('EndpointStatus', 'ACTIVE'),
-                    containsPair('OptOut', 'ALL'),
-                    containsPair(
-                      'Location',
-                      allOf(
-                        containsPair('Latitude', latitude),
-                        containsPair('Longitude', longitude),
-                        containsPair('PostalCode', postalCode),
-                        containsPair('City', city),
-                        containsPair('Region', region),
-                        containsPair('Country', country),
-                      ),
-                    ),
-                    containsPair(
-                      'User',
-                      containsPair(
-                        'UserId',
-                        userId,
-                      ),
-                    ),
-                    containsPair('Attributes', {
-                      boolProperty.key: [stringifiedBoolProperty.value],
-                      stringProperty.key: [stringProperty.value],
-                      'name': [name],
-                      'plan': [plan],
-                      'email': [email],
-                    }),
-                    containsPair(
-                      'Metrics',
-                      // There is some lossiness behavior to doubles
-                      Map.fromEntries([
-                        lossyDoubleProperty,
-                        intProperty,
-                      ]),
-                    ),
-                  ))
-            ])),
-          );
+        await Amplify.Analytics.recordEvent(event: customEvent);
+        await Amplify.Analytics.flushEvents();
 
-          await Amplify.Analytics.recordEvent(event: customEvent);
-          await Amplify.Analytics.flushEvents();
-        } on AnalyticsException catch (e) {
-          expect(e.message, 'Exceeded maximum endpoint per user count:15');
-        }
+        await expectLater(
+          eventsStream,
+          emits(allOf([
+            containsPair('event_type', customEventName),
+            // Session is valid before timestamp
+            containsPair(
+                'endpoint',
+                allOf(
+                  containsPair('EndpointStatus', 'ACTIVE'),
+                  containsPair('OptOut', 'ALL'),
+                  containsPair(
+                    'Location',
+                    allOf(
+                      containsPair('Latitude', latitude),
+                      containsPair('Longitude', longitude),
+                      containsPair('PostalCode', postalCode),
+                      containsPair('City', city),
+                      containsPair('Region', region),
+                      containsPair('Country', country),
+                    ),
+                  ),
+                  containsPair(
+                    'User',
+                    containsPair(
+                      'UserId',
+                      userId,
+                    ),
+                  ),
+                  containsPair('Attributes', {
+                    boolProperty.key: [stringifiedBoolProperty.value],
+                    stringProperty.key: [stringProperty.value],
+                    'name': [name],
+                    'plan': [plan],
+                    'email': [email],
+                  }),
+                  containsPair(
+                    'Metrics',
+                    // There is some lossiness behavior to doubles
+                    Map.fromEntries([
+                      lossyDoubleProperty,
+                      intProperty,
+                    ]),
+                  ),
+                ))
+          ])),
+        );
       },
       timeout: const Timeout(Duration(minutes: 2)),
     );

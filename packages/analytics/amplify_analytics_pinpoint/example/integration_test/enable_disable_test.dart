@@ -26,15 +26,13 @@ void main() {
   group('enable/disable', () {
     final mockLifecycleObserver = MockLifecycleProvider();
 
-    late final Stream<Map<String, Object?>> eventsStream;
+    late Stream<Map<String, Object?>> eventsStream;
 
-    setUpAll(() async {
+    setUp(() async {
       eventsStream = await configureAnalytics(
         appLifecycleProvider: mockLifecycleObserver,
       );
     });
-
-    tearDownAll(Amplify.reset);
 
     test(
       'disable prevents events from being auto flushed and sessions from being auto tracked',
@@ -45,6 +43,7 @@ void main() {
         final streamSubscription = eventsStream.listen((event) {
           fail('Analytics disabled but events were still sent!');
         });
+        addTearDown(streamSubscription.cancel);
 
         const customEventName = 'my custom event type name';
         final customEvent = AnalyticsEvent(customEventName);
@@ -54,7 +53,9 @@ void main() {
         mockLifecycleObserver.triggerOnBackgroundListener();
         mockLifecycleObserver.triggerOnForegroundListener();
 
-        streamSubscription.cancel();
+        // Give time for events to propogate if they were sent to remote server
+        // to ensure the failure above does not execute.
+        await Future<void>.delayed(const Duration(minutes: 1));
       },
       timeout: const Timeout(Duration(minutes: 2)),
     );
