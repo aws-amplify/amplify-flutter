@@ -26,7 +26,7 @@ dependencies:
   async: ^2.8.0
   aws_common: ">=0.3.3 <0.4.0"
   collection: ^1.15.0
-  connectivity_plus: ^2.3.6
+  connectivity_plus: ^3.0.2
   flutter:
     sdk: flutter
   json_annotation: ^4.6.0
