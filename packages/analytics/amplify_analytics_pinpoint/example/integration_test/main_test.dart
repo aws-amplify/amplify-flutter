@@ -11,6 +11,7 @@
 // express or implied. See the License for the specific language governing
 // permissions and limitations under the License.
 
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -21,6 +22,7 @@ import 'identify_user_test.dart' as identify_user_tests;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  AWSLogger().logLevel = LogLevel.verbose;
 
   group('amplify_analytics_pinpoint', () {
     auto_session_tracking_tests.main();

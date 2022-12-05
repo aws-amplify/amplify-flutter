@@ -23,6 +23,8 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'mock_key_value_store.dart';
+
 Future<Stream<Map<String, Object?>>> configureAnalytics(
     {AppLifecycleProvider? appLifecycleProvider}) async {
   final Stream<Map<String, Object?>> eventsStream;
@@ -38,18 +40,25 @@ Future<Stream<Map<String, Object?>>> configureAnalytics(
     ),
     AmplifyAnalyticsPinpoint(
       appLifecycleProvider: appLifecycleProvider,
-      keyValueStore: AmplifySecureStorage(
-        config: AmplifySecureStorageConfig(
-          scope: 'analytics',
-          macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
-        ),
-      ),
+      keyValueStore: mockKeyValueStore,
     ),
     AmplifyAPI(),
   ]);
   await Amplify.configure(amplifyconfig);
+  await Amplify.Analytics.enable();
 
-  final subscriptionEstablished = Completer<void>();
+  addTearDown(() async {
+    // Flush pending events.
+    await Amplify.Analytics.flushEvents();
+    try {
+      await Amplify.Auth.signOut();
+    } on Exception {
+      // ok
+    }
+    await Amplify.reset();
+  });
+
+  final subscriptionEstablished = Completer<void>.sync();
 
   eventsStream = Amplify.API
       .subscribe(
@@ -76,18 +85,26 @@ Future<Stream<Map<String, Object?>>> configureAnalytics(
     final json = jsonDecode(data) as Map<String, Object?>;
     return jsonDecode((json['onCreateRecord'] as Map)['payload'] as String)
         as Map<String, Object?>;
+  }).where((payload) {
+    // Filter for endpoint IDs which match this test suite since there may be
+    // multiple tests running concurrently in CI.
+    final endpoint = payload['endpoint'] as Map<String, dynamic>;
+    final endpointId = endpoint['Id'] as String;
+    return endpointId == mockEndpointId;
   }).asBroadcastStream();
-
-  expect(
-    eventsStream,
-    emits(
-      containsPair('event_type', '_session.start'),
-    ),
-  );
 
   await subscriptionEstablished.future.timeout(
     const Duration(seconds: 30),
     onTimeout: () => fail('Subscription could not be established'),
+  );
+
+  await Amplify.Analytics.flushEvents();
+
+  await expectLater(
+    eventsStream,
+    emitsThrough(
+      containsPair('event_type', '_session.start'),
+    ),
   );
 
   return eventsStream;
