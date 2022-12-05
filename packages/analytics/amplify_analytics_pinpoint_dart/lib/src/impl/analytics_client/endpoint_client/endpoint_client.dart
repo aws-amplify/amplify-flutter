@@ -12,14 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_global_fields_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:meta/meta.dart';
-import 'package:uuid/uuid.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.endpoint_client}
 /// Manages fields of a Pinpoint Endpoint local object.
@@ -30,7 +26,6 @@ import 'package:uuid/uuid.dart';
 /// {@endtemplate}
 class EndpointClient {
   /// {@macro amplify_analytics_pinpoint_dart.endpoint_client}
-  @visibleForTesting
   EndpointClient(
     this._appId,
     this._fixedEndpointId,
@@ -38,50 +33,6 @@ class EndpointClient {
     this._globalFieldsManager,
     this._endpointBuilder,
   );
-
-  /// {@macro amplify_analytics_pinpoint_dart.endpoint_client}
-  static Future<EndpointClient> getInstance(
-    String appId,
-    SecureStorageInterface keyValueStore,
-    PinpointClient pinpointClient,
-    DeviceContextInfo? deviceContextInfo,
-  ) async {
-    // Retrieve Unique ID
-    final savedFixedEndpointId =
-        await keyValueStore.read(key: _endpointIdStorageKey);
-    final fixedEndpointId = savedFixedEndpointId ?? const Uuid().v1();
-    if (savedFixedEndpointId == null) {
-      await keyValueStore.write(
-        key: _endpointIdStorageKey,
-        value: fixedEndpointId,
-      );
-    }
-
-    final globalFieldsManager =
-        await EndpointGlobalFieldsManager.getInstance(keyValueStore);
-
-    final endpointBuilder = PublicEndpointBuilder()
-      ..effectiveDate = DateTime.now().toUtc().toIso8601String()
-      ..demographic = (EndpointDemographicBuilder()
-        ..appVersion = deviceContextInfo?.appVersion
-        ..locale = deviceContextInfo?.locale
-        ..make = deviceContextInfo?.make
-        ..model = deviceContextInfo?.model
-        ..modelVersion = deviceContextInfo?.modelVersion
-        ..platform = deviceContextInfo?.platform?.name
-        ..platformVersion = deviceContextInfo?.platformVersion
-        ..timezone = deviceContextInfo?.timezone)
-      ..location =
-          (EndpointLocationBuilder()..country = deviceContextInfo?.countryCode);
-
-    return EndpointClient(
-      appId,
-      fixedEndpointId,
-      pinpointClient,
-      globalFieldsManager,
-      endpointBuilder,
-    );
-  }
 
   final String _appId;
   final PinpointClient _pinpointClient;
@@ -97,8 +48,6 @@ class EndpointClient {
 
   static final AmplifyLogger _logger =
       AmplifyLogger.category(Category.analytics).createChild('EndpointClient');
-
-  static const String _endpointIdStorageKey = 'UniqueId';
 
   /// Add an attribute that will be sent with all future events
   Future<void> addAttribute(String name, String value) async =>
@@ -180,9 +129,12 @@ class EndpointClient {
     } on BadRequestException catch (e) {
       if (e.message == null ||
           !e.message!.toLowerCase().contains('exceeded maximum endpoint')) {
-        return;
+        rethrow;
       }
 
+      // TODO(fjnoyp): How would this happen if the endpoint ID is fixed for a device?
+      /// Shouldn't users be able to call identifyUser every time the user signs
+      /// in, for example?
       throw AnalyticsException(
         e.message ?? 'BadRequestException',
         recoverySuggestion:

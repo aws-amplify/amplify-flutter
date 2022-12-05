@@ -46,7 +46,6 @@ class SessionManager {
   /// The parameters: [onSessionStart] and [onSessionEnd] are callbacks to
   /// allow parent classes to react to session events.
   /// {@endtemplate}
-  @visibleForTesting
   SessionManager({
     required String fixedEndpointId,
     AppLifecycleProvider? appLifecycleProvider,
@@ -56,26 +55,8 @@ class SessionManager {
         _appLifecycleProvider = appLifecycleProvider,
         _onSessionStart = onSessionStart,
         _onSessionEnd = onSessionEnd {
-    _executeStart();
-
     _appLifecycleProvider?.setOnForegroundListener(startSession);
     _appLifecycleProvider?.setOnBackgroundListener(stopSession);
-    _appLifecycleProvider?.startObserving();
-  }
-
-  /// {@macro amplify_analytics_pinpoint_dart.session_manager_constructor}
-  static SessionManager getInstance({
-    required String fixedEndpointId,
-    AppLifecycleProvider? appLifecycleProvider,
-    required OnSessionUpdated onSessionStart,
-    required OnSessionUpdated onSessionEnd,
-  }) {
-    return SessionManager(
-      fixedEndpointId: fixedEndpointId,
-      appLifecycleProvider: appLifecycleProvider,
-      onSessionStart: onSessionStart,
-      onSessionEnd: onSessionEnd,
-    );
   }
 
   final String _fixedEndpointId;
@@ -93,7 +74,9 @@ class SessionManager {
 
   /// Start a new session
   void startSession() {
-    _executeStop();
+    if (session != null) {
+      stopSession();
+    }
     _executeStart();
   }
 

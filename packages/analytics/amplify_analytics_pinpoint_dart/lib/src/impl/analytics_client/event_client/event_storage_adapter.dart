@@ -21,21 +21,16 @@ import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/common/seri
 import 'package:amplify_core/amplify_core.dart';
 import 'package:built_value/serializer.dart';
 import 'package:drift/drift.dart';
-import 'package:meta/meta.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.event_storage_adapter}
 /// Present interface for saving/retrieving PinpointEvents.
 ///
 /// Interacts with underlying device storage using the Drift package.
 /// {@endtemplate}
-class EventStorageAdapter {
+class EventStorageAdapter implements Closeable {
   /// {@macro amplify_analytics_pinpoint_dart.event_storage_adapter}
-  @visibleForTesting
-  EventStorageAdapter(this._db, this._serializers);
-
-  /// {@macro amplify_analytics_pinpoint_dart.event_storage_adapter}
-  static EventStorageAdapter getInstance(QueryExecutor driftQueryExecutor) {
-    final db = DriftDatabaseJsonStrings.getInstance(driftQueryExecutor);
+  factory EventStorageAdapter(QueryExecutor driftQueryExecutor) {
+    final db = DriftDatabaseJsonStrings(driftQueryExecutor);
 
     // Create Serializer
     // jsonDecode JsonString -> Map
@@ -46,8 +41,10 @@ class EventStorageAdapter {
     }
     final builtSerializers = serializerBuilder.build();
 
-    return EventStorageAdapter(db, builtSerializers);
+    return EventStorageAdapter._(db, builtSerializers);
   }
+
+  EventStorageAdapter._(this._db, this._serializers);
 
   /// Underlying drift database used to store Events
   final DriftDatabaseJsonStrings _db;
@@ -93,6 +90,11 @@ class EventStorageAdapter {
   /// Delete Events by their DriftId in device storage
   Future<void> deleteEvents(Iterable<int> idsToDelete) async {
     await _db.deleteJsonStrings(idsToDelete);
+  }
+
+  @override
+  Future<void> close() async {
+    await _db.close();
   }
 }
 

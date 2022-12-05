@@ -13,20 +13,28 @@
 // limitations under the License.
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/analytics_client.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_global_fields_manager.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_client.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_storage_adapter.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_creator/event_creator.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_creator/event_global_fields_manager.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/session_manager.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/stoppable_timer.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_db_common_dart/amplify_db_common_dart.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:uuid/uuid.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.amplify_analytics_pinpoint_dart}
 /// The AWS Pinpoint Dart implementation of the Amplify Analytics category.
 ///
 /// - Validates and parses inputs
 /// - Receives and provides external Flutter Provider implementations
-/// - Delegates work to the [AnalyticsClient]
 /// {@endtemplate}
 class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   /// {@macro amplify_analytics_pinpoint_dart.amplify_analytics_pinpoint_dart}
@@ -36,31 +44,56 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     AppLifecycleProvider? appLifecycleProvider,
     DeviceContextInfoProvider? deviceContextInfoProvider,
     required Connect dbConnectFunction,
-  })  : _keyValueStore = keyValueStore,
+  })  : _keyValueStore = keyValueStore ??
+            AmplifySecureStorageWorker(
+              config: AmplifySecureStorageConfig(
+                scope: 'analyticsPinpoint',
+              ),
+            ),
         _pathProvider = pathProvider,
         _appLifecycleProvider = appLifecycleProvider,
         _deviceContextInfoProvider = deviceContextInfoProvider,
         _dbConnectFunction = dbConnectFunction;
 
-  AnalyticsClient? __analyticsClient;
-  AnalyticsClient get _analyticsClient {
-    if (__analyticsClient == null) {
+  var _isConfigured = false;
+  void _ensureConfigured() {
+    if (!_isConfigured) {
       throw const AnalyticsException(
         'Analytics not configured',
         recoverySuggestion:
             'Please make sure to call: await Amplify.configure(amplifyconfig)',
       );
     }
-    return __analyticsClient!;
   }
 
-  final SecureStorageInterface? _keyValueStore;
+  late bool _analyticsEnabled;
+
+  static const String _endpointIdStorageKey = 'UniqueId';
+  static const String _endpointGlobalAttrsKey = 'EndpointGlobalAttributesKey';
+  static const String _endpointGlobalMetricsKey = 'EndpointGlobalMetricsKey';
+  static const String _analyticsEnabledKey = 'Enabled';
+  static const String _sessionStartEventType = '_session.start';
+  static const String _sessionStopEventType = '_session.stop';
+
+  late final EventCreator _eventCreator;
+  late final EndpointClient _endpointClient;
+  late final EventClient _eventClient;
+  late final SessionManager _sessionManager;
+  late final EndpointGlobalFieldsManager _endpointGlobalFieldsManager;
+  late final EventGlobalFieldsManager _eventGlobalFieldsManager =
+      EventGlobalFieldsManager();
+  late final EventStorageAdapter _eventStorageAdapter;
+  late final StoppableTimer _autoEventSubmitter;
+
+  final SecureStorageInterface _keyValueStore;
 
   /// External Flutter Provider implementations
   final CachedEventsPathProvider? _pathProvider;
   final AppLifecycleProvider? _appLifecycleProvider;
   final DeviceContextInfoProvider? _deviceContextInfoProvider;
   final Connect _dbConnectFunction;
+
+  static final _logger = AmplifyLogger.category(Category.analytics);
 
   @override
   Future<void> configure({
@@ -93,14 +126,6 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
       credentialsProvider: authProvider,
     );
 
-    // Prepare AnalyticsClient
-    final keyValueStore = _keyValueStore ??
-        AmplifySecureStorageWorker(
-          config: AmplifySecureStorageConfig(
-            scope: 'analyticsPinpoint',
-          ),
-        );
-
     final deviceContextInfo =
         await _deviceContextInfoProvider?.getDeviceInfoDetails();
 
@@ -110,50 +135,201 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
       path: driftStoragePath,
     );
 
-    __analyticsClient = await AnalyticsClient.getInstance(
-      appId: appId,
-      keyValueStore: keyValueStore,
-      pinpointClient: pinpointClient,
-      driftQueryExecutor: driftQueryExecutor,
-      appLifecycleProvider: _appLifecycleProvider,
+    _eventCreator = EventCreator(
+      globalFieldsManager: _eventGlobalFieldsManager,
       deviceContextInfo: deviceContextInfo,
     );
+
+    // Retrieve Unique ID
+    final savedFixedEndpointId =
+        await _keyValueStore.read(key: _endpointIdStorageKey);
+    final fixedEndpointId = savedFixedEndpointId ?? const Uuid().v1();
+    if (savedFixedEndpointId == null) {
+      await _keyValueStore.write(
+        key: _endpointIdStorageKey,
+        value: fixedEndpointId,
+      );
+    }
+
+    final endpoint = PublicEndpoint(
+      effectiveDate: DateTime.now().toUtc().toIso8601String(),
+      demographic: EndpointDemographic(
+        appVersion: deviceContextInfo?.appVersion,
+        locale: deviceContextInfo?.locale,
+        make: deviceContextInfo?.make,
+        model: deviceContextInfo?.model,
+        modelVersion: deviceContextInfo?.modelVersion,
+        platform: deviceContextInfo?.platform?.name,
+        platformVersion: deviceContextInfo?.platformVersion,
+        timezone: deviceContextInfo?.timezone,
+      ),
+      location: EndpointLocation(
+        country: deviceContextInfo?.countryCode,
+      ),
+    );
+
+    /// Retrieve stored GlobalAttributes
+    final cachedAttributes =
+        await _keyValueStore.read(key: _endpointGlobalAttrsKey);
+    final globalAttributes = cachedAttributes == null
+        ? <String, String>{}
+        : (jsonDecode(cachedAttributes) as Map<String, Object?>)
+            .cast<String, String>();
+
+    /// Retrieve stored GlobalMetrics
+    final cachedMetrics =
+        await _keyValueStore.read(key: _endpointGlobalMetricsKey);
+    final globalMetrics = cachedMetrics == null
+        ? <String, double>{}
+        : (jsonDecode(cachedMetrics) as Map<String, Object?>)
+            .cast<String, double>();
+
+    _endpointGlobalFieldsManager = EndpointGlobalFieldsManager(
+      _keyValueStore,
+      globalAttributes,
+      globalMetrics,
+    );
+
+    _endpointClient = EndpointClient(
+      appId,
+      fixedEndpointId,
+      pinpointClient,
+      _endpointGlobalFieldsManager,
+      endpoint.toBuilder(),
+    );
+    unawaited(
+      Amplify.asyncConfig.then((_) {
+        if (_analyticsEnabled) _endpointClient.updateEndpoint();
+      }),
+    );
+
+    _eventStorageAdapter = EventStorageAdapter(driftQueryExecutor);
+
+    _eventClient = EventClient(
+      appId: appId,
+      fixedEndpointId: fixedEndpointId,
+      pinpointClient: pinpointClient,
+      endpointClient: _endpointClient,
+      storageAdapter: _eventStorageAdapter,
+    );
+
+    _sessionManager = SessionManager(
+      fixedEndpointId: fixedEndpointId,
+      appLifecycleProvider: _appLifecycleProvider,
+      onSessionStart: (sb) async {
+        _logger.debug('Session started');
+        if (!_analyticsEnabled) return;
+        await _eventClient.recordEvent(
+          _eventCreator.createPinpointEvent(_sessionStartEventType, sb),
+        );
+        await _eventClient.flushEvents();
+      },
+      onSessionEnd: (sb) async {
+        _logger.debug('Session ended');
+        if (!_analyticsEnabled) return;
+        await _eventClient.recordEvent(
+          _eventCreator.createPinpointEvent(_sessionStopEventType, sb),
+        );
+        await _eventClient.flushEvents();
+      },
+    );
+
+    _autoEventSubmitter = StoppableTimer(
+      duration: const Duration(seconds: 10),
+      // TODO(fjnoyp): How are errors handled here?
+      callback: flushEvents,
+    );
+
+    _analyticsEnabled = await Future.sync(() async {
+      final enabled = await _keyValueStore.read(key: _analyticsEnabledKey);
+      return enabled == null || enabled == 'true';
+    });
+    _isConfigured = true;
+    _logger.debug('Analytics enabled: $_analyticsEnabled');
+    if (_analyticsEnabled) {
+      _sessionManager
+        ..startSession()
+        ..startSessionTracking();
+    }
   }
 
   @override
   Future<void> enable() async {
-    _analyticsClient.enable();
+    _ensureConfigured();
+    _logger.debug('Enabling analytics');
+    if (_analyticsEnabled) {
+      return;
+    }
+    _analyticsEnabled = true;
+    _autoEventSubmitter.start();
+    _sessionManager
+      ..startSession()
+      ..startSessionTracking();
+    await _keyValueStore.write(
+      key: _analyticsEnabledKey,
+      value: 'true',
+    );
   }
 
   @override
   Future<void> disable() async {
-    _analyticsClient.disable();
+    _ensureConfigured();
+    _logger.debug('Disabling analytics');
+    if (!_analyticsEnabled) {
+      return;
+    }
+    _analyticsEnabled = false;
+    _autoEventSubmitter.stop();
+    _sessionManager
+      ..stopSession()
+      ..stopSessionTracking();
+    await _keyValueStore.write(
+      key: _analyticsEnabledKey,
+      value: 'false',
+    );
   }
 
   @override
   Future<void> flushEvents() async {
-    await _analyticsClient.flushEvents();
+    _ensureConfigured();
+    // TODO(fjnoyp): What is the behavior supposed to be when analytics is disabled?
+    if (!_analyticsEnabled) return;
+    await _eventClient.flushEvents();
   }
 
   @override
   Future<void> recordEvent({
     required AnalyticsEvent event,
   }) async {
-    await _analyticsClient.recordEvent(event);
+    _ensureConfigured();
+    // TODO(fjnoyp): What is the behavior supposed to be when analytics is disabled?
+    if (!_analyticsEnabled) return;
+    final pinpointEvent = _eventCreator.createPinpointEvent(
+      event.name,
+      _sessionManager.session,
+      event,
+    );
+    await _eventClient.recordEvent(pinpointEvent);
   }
 
   @override
   Future<void> registerGlobalProperties({
     required AnalyticsProperties globalProperties,
   }) async {
-    _analyticsClient.registerGlobalProperties(globalProperties);
+    _ensureConfigured();
+    // TODO(fjnoyp): What is the behavior supposed to be when analytics is disabled?
+    if (!_analyticsEnabled) return;
+    _eventCreator.registerGlobalProperties(globalProperties);
   }
 
   @override
   Future<void> unregisterGlobalProperties({
     List<String> propertyNames = const <String>[],
   }) async {
-    _analyticsClient.unregisterGlobalProperties(propertyNames);
+    _ensureConfigured();
+    // TODO(fjnoyp): What is the behavior supposed to be when analytics is disabled?
+    if (!_analyticsEnabled) return;
+    _eventCreator.unregisterGlobalProperties(propertyNames);
   }
 
   @override
@@ -161,6 +337,20 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     required String userId,
     required AnalyticsUserProfile userProfile,
   }) async {
-    await _analyticsClient.identifyUser(userId, userProfile);
+    _ensureConfigured();
+    // TODO(fjnoyp): What is the behavior supposed to be when analytics is disabled?
+    if (!_analyticsEnabled) return;
+    await _endpointClient.setUser(userId, userProfile);
+  }
+
+  @override
+  Future<void> reset() async {
+    if (!_isConfigured) {
+      return;
+    }
+    _isConfigured = false;
+    _autoEventSubmitter.stop();
+    await _eventClient.close();
+    await _eventStorageAdapter.close();
   }
 }
