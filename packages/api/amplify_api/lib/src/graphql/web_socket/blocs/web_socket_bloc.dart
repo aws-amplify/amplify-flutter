@@ -474,21 +474,23 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   /// Connectivity stream monitors network availability on a hardware level
   StreamSubscription<ConnectivityResult> _getConnectivityStream() {
-    return _connectivity.onConnectivityChanged
-        .listen((ConnectivityResult connectivityResult) {
-      switch (connectivityResult) {
-        case ConnectivityResult.ethernet:
-        case ConnectivityResult.mobile:
-        case ConnectivityResult.wifi:
-          add(const NetworkFoundEvent());
-          break;
-        case ConnectivityResult.none:
-          add(const NetworkLossEvent());
-          break;
-        default:
-          break;
-      }
-    });
+    return _connectivity.onConnectivityChanged.listen(
+      (ConnectivityResult connectivityResult) {
+        switch (connectivityResult) {
+          case ConnectivityResult.ethernet:
+          case ConnectivityResult.mobile:
+          case ConnectivityResult.wifi:
+            add(const NetworkFoundEvent());
+            break;
+          case ConnectivityResult.none:
+            add(const NetworkLossEvent());
+            break;
+          default:
+            break;
+        }
+      },
+      cancelOnError: true,
+    );
   }
 
   Future<void> _poll() async {
