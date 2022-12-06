@@ -44,10 +44,10 @@ class _ConfirmSignInWidgetState extends State<ConfirmSignInWidget> {
         confirmationValue: confirmationCodeController.text.trim(),
       );
       widget.showResult(
-        'Confirm Sign In Status = ${res.nextStep?.signInStep}',
+        'Confirm Sign In Status = ${res.nextStep.signInStep}',
       );
       widget.changeDisplay(
-        res.nextStep?.signInStep == 'DONE'
+        res.nextStep.signInStep == 'DONE'
             ? 'SIGNED_IN'
             : 'SHOW_CONFIRM_SIGN_IN',
       );

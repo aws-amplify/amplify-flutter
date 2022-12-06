@@ -22,6 +22,6 @@ class CognitoSignInResult extends SignInResult<CognitoUserAttributeKey> {
   /// {@macro amplify_auth_cognito.model.cognito_sign_in_result}
   const CognitoSignInResult({
     required super.isSignedIn,
-    super.nextStep,
+    required super.nextStep,
   });
 }

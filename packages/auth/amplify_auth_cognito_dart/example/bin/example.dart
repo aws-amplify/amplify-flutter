@@ -132,10 +132,9 @@ Future<SignInResult> _processSignInResult(
   required String username,
   required String password,
 }) async {
-  final nextStep = result.nextStep?.signInStep;
+  final nextStep = result.nextStep.signInStep;
   final missingAttributes =
-      result.nextStep?.missingAttributes.cast<CognitoUserAttributeKey>() ??
-          const [];
+      result.nextStep.missingAttributes.cast<CognitoUserAttributeKey>();
   switch (nextStep) {
     case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
     case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
