@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:amplify_api/src/graphql/web_socket/blocs/subscriptions_bloc.dart';
 import 'package:amplify_api/src/graphql/web_socket/services/web_socket_service.dart';
@@ -459,12 +460,11 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     if (_currentState is! FailureState) {
       _emit(_currentState.disconnect());
     }
-
-    await _networkSubscription.cancel();
-
     _currentState.service.close();
 
     await Future.wait<void>([
+      // TODO(elijah): <link to connectivity plus ticket>
+      if (zIsWeb || !Platform.isWindows) _networkSubscription.cancel(),
       Future.value(_pollClient.close()),
       _stateSubscription.cancel(),
       _wsEventController.close(),
@@ -491,7 +491,8 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
             break;
         }
       },
-      cancelOnError: true,
+      onError: (Object e, StackTrace st) =>
+          logger.error('Error in connectivity stream $e, $st'),
     );
   }
 
