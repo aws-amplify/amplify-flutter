@@ -459,10 +459,12 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     if (_currentState is! FailureState) {
       _emit(_currentState.disconnect());
     }
+
+    await _networkSubscription.cancel();
+
     _currentState.service.close();
 
     await Future.wait<void>([
-      _networkSubscription.cancel(),
       Future.value(_pollClient.close()),
       _stateSubscription.cancel(),
       _wsEventController.close(),
