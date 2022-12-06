@@ -27,6 +27,8 @@ import 'package:http/http.dart' as http;
 import 'package:integration_test/integration_test.dart';
 import 'package:path/path.dart' as path;
 
+import 'content_type_infer/content_type_infer.dart';
+
 class CustomPrefixResolver implements S3PrefixResolver {
   const CustomPrefixResolver();
 
@@ -169,11 +171,15 @@ void main() async {
 
         testWidgets('upload data with access level - guest',
             (WidgetTester tester) async {
+          const testContentType = 'text/plain';
           final s3Plugin =
               Amplify.Storage.getPlugin(AmplifyStorageS3.pluginKey);
           final result = await s3Plugin
               .uploadData(
-                data: S3DataPayload.bytes(testBytes),
+                data: S3DataPayload.bytes(
+                  testBytes,
+                  contentType: testContentType,
+                ),
                 key: testObjectKey1,
                 options: const S3UploadDataOptions(
                   accessLevel: StorageAccessLevel.guest,
@@ -184,6 +190,19 @@ void main() async {
                 ),
               )
               .result;
+
+          expect(
+            result,
+            isA<S3UploadDataResult>().having(
+              (o) => o.uploadedItem,
+              'uploadedItem',
+              isA<S3Item>().having(
+                (o) => o.contentType,
+                'contentType',
+                testContentType,
+              ),
+            ),
+          );
 
           expect(
             result,
@@ -220,6 +239,19 @@ void main() async {
             isA<S3UploadDataResult>().having(
               (o) => o.uploadedItem,
               'uploadedItem',
+              isA<S3Item>().having(
+                (o) => o.contentType,
+                'contentType',
+                'image/jpeg',
+              ),
+            ),
+          );
+
+          expect(
+            result,
+            isA<S3UploadDataResult>().having(
+              (o) => o.uploadedItem,
+              'uploadedItem',
               isA<S3Item>().having((o) => o.eTag, 'eTag', isNotEmpty),
             ),
           );
@@ -244,6 +276,19 @@ void main() async {
                 ),
               )
               .result;
+
+          expect(
+            result,
+            isA<S3UploadFileResult>().having(
+              (o) => o.uploadedItem,
+              'uploadedItem',
+              isA<S3Item>().having(
+                (o) => o.contentType,
+                'contentType',
+                'application/octet-stream',
+              ),
+            ),
+          );
 
           expect(
             result,
@@ -407,6 +452,11 @@ void main() async {
 
           expect(result.removedItem.key, testObject3CopyMoveKey);
         });
+
+        testContentTypeInferTest(
+          smallFileBytes: testBytes,
+          largeFileBytes: testLargeFileBytes,
+        );
       });
 
       group(
