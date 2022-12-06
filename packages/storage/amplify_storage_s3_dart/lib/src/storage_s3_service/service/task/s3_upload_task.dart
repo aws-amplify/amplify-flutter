@@ -217,7 +217,7 @@ class S3UploadTask {
           _startPutObject(
             S3DataPayload.streaming(
               localFile.stream,
-              contentType: localFile.contentType,
+              contentType: await localFile.contentType,
             ),
           ),
         );
@@ -452,10 +452,11 @@ class S3UploadTask {
   }
 
   Future<void> _createMultiPartUpload(AWSFile localFile) async {
+    final contentType = await localFile.contentType;
     final request = s3.CreateMultipartUploadRequest.build((builder) {
       builder
         ..bucket = _bucket
-        ..contentType = localFile.contentType ?? fallbackContentType
+        ..contentType = contentType ?? fallbackContentType
         ..key = _resolvedKey
         ..metadata.addAll(_options.metadata ?? const {});
     });

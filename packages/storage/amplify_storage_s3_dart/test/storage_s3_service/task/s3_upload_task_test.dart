@@ -155,7 +155,6 @@ void main() {
           ).thenAnswer((_) async => testPutObjectOutput);
           when(() => smithyOperation.requestProgress)
               .thenAnswer((_) => Stream.value(1));
-
           when(
             () => s3Client.putObject(any()),
           ).thenAnswer((_) => smithyOperation);
@@ -173,9 +172,7 @@ void main() {
 
           unawaited(uploadDataTask.start());
 
-          final result = await uploadDataTask.result;
-
-          expect(result.key, testKey);
+          await uploadDataTask.result;
 
           final capturedRequest = verify(
             () => s3Client.putObject(captureAny<s3.PutObjectRequest>()),
@@ -407,7 +404,7 @@ void main() {
             accessLevel: testUploadDataOptions.accessLevel,
           )}$testKey',
         );
-        expect(request.contentType, testLocalFile.contentType);
+        expect(request.contentType, await testLocalFile.contentType);
         expect(await request.body?.toList(), equals([testBytes]));
       });
 
@@ -604,7 +601,7 @@ void main() {
         expect(createMultipartUploadRequest.bucket, testBucket);
         expect(
           createMultipartUploadRequest.contentType,
-          testLocalFile.contentType,
+          await testLocalFile.contentType,
         );
         expect(
           createMultipartUploadRequest.key,
