@@ -19,19 +19,21 @@ import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
+import 'utils/test_event.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('recordEvent', () {
-    late Stream<Map<String, Object?>> eventsStream;
+    late Stream<TestEvent> eventsStream;
 
     setUp(() async {
       eventsStream = await configureAnalytics();
     });
 
     testWidgets(
-      'custom events are automatically submitted without calls to Analytics.flushEvents()',
+      'custom events are automatically submitted without calls to '
+      'Analytics.flushEvents()',
       (_) async {
         const customEventName = 'my custom event type name';
         final customEvent = AnalyticsEvent(customEventName);
@@ -41,7 +43,11 @@ void main() {
         await expectLater(
           eventsStream,
           emits(
-            containsPair('event_type', customEventName),
+            isA<TestEvent>().having(
+              (e) => e.eventType,
+              'eventType',
+              customEventName,
+            ),
           ),
         );
       },
@@ -86,37 +92,49 @@ void main() {
         // Verify event sent to Pinpoint has proper fields
         await expectLater(
           eventsStream,
-          emits(allOf([
-            containsPair('event_type', customEventName),
-            containsPair(
-              'attributes',
-              // Boolean properties are recorded as strings
-              Map.fromEntries([stringifiedBoolProperty, stringProperty]),
-            ),
-            containsPair(
-              'metrics',
-              // There is some lossiness behavior to doubles
-              Map.fromEntries([lossyDoubleProperty, intProperty]),
-            ),
-            // Session is valid before timestamp
-            containsPair(
-                'endpoint',
-                allOf(
-                  containsPair('EndpointStatus', 'ACTIVE'),
-                  containsPair('OptOut', 'ALL'),
-                  // TODO(fjnoyp): Are you sure about this?
-                  // containsPair('Attributes', {}),
-                  // containsPair('Metrics', {}),
-                ))
-          ])),
+          emits(
+            isA<TestEvent>()
+                .having((e) => e.eventType, 'eventType', customEventName)
+                .having(
+                  (e) => e.attributes,
+                  'attributes',
+                  equals(Map.fromEntries(
+                    [stringifiedBoolProperty, stringProperty],
+                  )),
+                )
+                .having(
+                  (e) => e.metrics,
+                  'metrics',
+                  equals(Map.fromEntries(
+                    [lossyDoubleProperty, intProperty],
+                  )),
+                )
+                .having(
+                  (e) => e.endpoint.endpointStatus,
+                  'EndpointStatus',
+                  'ACTIVE',
+                )
+                .having((e) => e.endpoint.optOut, 'OptOut', 'ALL')
+                .having(
+                  (e) => e.endpoint.attributes?.toMap() ?? const {},
+                  'Attributes',
+                  isEmpty,
+                )
+                .having(
+                  (e) => e.endpoint.metrics?.toMap() ?? const {},
+                  'Metrics',
+                  isEmpty,
+                ),
+          ),
         );
       },
       timeout: const Timeout(Duration(minutes: 3)),
     );
 
-    test(
-      'Analytics.register and unregister of GlobalProperties adds and removes properties in future events',
-      () async {
+    testWidgets(
+      'Analytics.register and unregister of GlobalProperties adds and removes '
+      'properties in future events',
+      (_) async {
         const customEventName = 'my custom event type name';
         final customEvent = AnalyticsEvent(customEventName);
 
@@ -144,23 +162,26 @@ void main() {
         // Verify local and global properties are present in sent event
         await expectLater(
           eventsStream,
-          emits(allOf([
-            containsPair('event_type', customEventName),
-            containsPair(
-              'attributes',
-              // Boolean properties are recorded as strings
-              Map.fromEntries([
-                stringifiedBoolProperty,
-                stringProperty,
-                secondStringProperty
-              ]),
-            ),
-            containsPair(
-              'metrics',
-              // There is some lossiness behavior to doubles
-              Map.fromEntries([secondIntProperty]),
-            ),
-          ])),
+          emits(
+            isA<TestEvent>()
+                .having((e) => e.eventType, 'eventType', customEventName)
+                .having(
+                  (e) => e.attributes,
+                  'attributes',
+                  equals(
+                    Map.fromEntries([
+                      stringifiedBoolProperty,
+                      stringProperty,
+                      secondStringProperty
+                    ]),
+                  ),
+                )
+                .having(
+                  (e) => e.metrics,
+                  'metrics',
+                  equals(Map.fromEntries([secondIntProperty])),
+                ),
+          ),
         );
 
         await Amplify.Analytics.unregisterGlobalProperties(
@@ -181,20 +202,24 @@ void main() {
         // Verify local and global properties are present in sent event
         await expectLater(
           eventsStream,
-          emits(allOf([
-            containsPair('event_type', customEventName),
-            containsPair(
-              'attributes',
-              // Boolean properties are recorded as strings
-              Map.fromEntries([secondStringProperty]),
-            ),
-            containsPair(
-              'metrics',
-              // There is some lossiness behavior to doubles
-              Map.fromEntries(
-                  [lossyDoubleProperty, intProperty, secondIntProperty]),
-            ),
-          ])),
+          emits(
+            isA<TestEvent>()
+                .having((e) => e.eventType, 'eventType', customEventName)
+                .having(
+                  (e) => e.attributes,
+                  'attributes',
+                  equals(
+                    Map.fromEntries([secondStringProperty]),
+                  ),
+                )
+                .having(
+                  (e) => e.metrics,
+                  'metrics',
+                  equals(Map.fromEntries(
+                    [lossyDoubleProperty, intProperty, secondIntProperty],
+                  )),
+                ),
+          ),
         );
 
         await Amplify.Analytics.unregisterGlobalProperties();
@@ -205,17 +230,20 @@ void main() {
         // Verify only local properties are present in sent event
         await expectLater(
           eventsStream,
-          emits(allOf([
-            containsPair('event_type', customEventName),
-            containsPair(
-              'attributes',
-              Map.fromEntries([secondStringProperty]),
-            ),
-            containsPair(
-              'metrics',
-              Map.fromEntries([secondIntProperty]),
-            ),
-          ])),
+          emits(
+            isA<TestEvent>()
+                .having((e) => e.eventType, 'eventType', customEventName)
+                .having(
+                  (e) => e.attributes,
+                  'attributes',
+                  equals(Map.fromEntries([secondStringProperty])),
+                )
+                .having(
+                  (e) => e.metrics,
+                  'metrics',
+                  equals(Map.fromEntries([secondIntProperty])),
+                ),
+          ),
         );
       },
       timeout: const Timeout(Duration(minutes: 3)),

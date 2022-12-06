@@ -28,7 +28,16 @@ import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_db_common_dart/amplify_db_common_dart.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:meta/meta.dart';
 import 'package:uuid/uuid.dart';
+
+/// The Analytics Pinpoint session start event type.
+@visibleForTesting
+const zSessionStartEventType = '_session.start';
+
+/// The Analytics Pinpoint session stop event type.
+@visibleForTesting
+const zSessionStopEventType = '_session.stop';
 
 /// {@template amplify_analytics_pinpoint_dart.amplify_analytics_pinpoint_dart}
 /// The AWS Pinpoint Dart implementation of the Amplify Analytics category.
@@ -72,8 +81,6 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   static const String _endpointGlobalAttrsKey = 'EndpointGlobalAttributesKey';
   static const String _endpointGlobalMetricsKey = 'EndpointGlobalMetricsKey';
   static const String _analyticsEnabledKey = 'Enabled';
-  static const String _sessionStartEventType = '_session.start';
-  static const String _sessionStopEventType = '_session.stop';
 
   late final EventCreator _eventCreator;
   late final EndpointClient _endpointClient;
@@ -220,7 +227,10 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
         _logger.debug('Session started');
         if (!_analyticsEnabled) return;
         await _eventClient.recordEvent(
-          _eventCreator.createPinpointEvent(_sessionStartEventType, sb),
+          _eventCreator.createPinpointEvent(
+            zSessionStartEventType,
+            sb,
+          ),
         );
         await _eventClient.flushEvents();
       },
@@ -228,7 +238,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
         _logger.debug('Session ended');
         if (!_analyticsEnabled) return;
         await _eventClient.recordEvent(
-          _eventCreator.createPinpointEvent(_sessionStopEventType, sb),
+          _eventCreator.createPinpointEvent(zSessionStopEventType, sb),
         );
         await _eventClient.flushEvents();
       },

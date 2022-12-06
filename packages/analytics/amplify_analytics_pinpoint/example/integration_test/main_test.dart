@@ -22,7 +22,7 @@ import 'identify_user_test.dart' as identify_user_tests;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  AWSLogger().logLevel = LogLevel.verbose;
+  AWSLogger().logLevel = LogLevel.debug;
 
   group('amplify_analytics_pinpoint', () {
     auto_session_tracking_tests.main();
