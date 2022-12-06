@@ -16,6 +16,7 @@ import 'dart:io';
 
 import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
+import 'package:mime/mime.dart';
 
 /// The io implementation of [AWSFile].
 class AWSFilePlatform extends AWSFile {
@@ -63,6 +64,7 @@ class AWSFilePlatform extends AWSFile {
           bytes: data,
         );
 
+  final _contentTypeMemo = AsyncMemoizer<String?>();
   final File? _inputFile;
   final int? _size;
   final Stream<List<int>>? _stream;
@@ -107,4 +109,19 @@ class AWSFilePlatform extends AWSFile {
     // the constructors ensures it won't reach to this point, but just in case
     throw const InvalidFileException();
   }
+
+  @override
+  Future<String?> get contentType => _contentTypeMemo.runOnce(() async {
+        final externalContentType = await super.contentType;
+        if (externalContentType != null) {
+          return externalContentType;
+        }
+
+        final file = _inputFile;
+        if (file != null) {
+          return lookupMimeType(file.path);
+        }
+
+        return null;
+      });
 }

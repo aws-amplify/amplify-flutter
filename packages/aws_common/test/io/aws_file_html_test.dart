@@ -28,18 +28,20 @@ void main() {
     const testStringContent = 'I ❤️ Amplify, œ 小新';
     const testContentType = 'text/plain';
     final testBytes = utf8.encode(testStringContent);
-    final testFile = html.File([testBytes], 'test_file.txt');
     final testBlob = html.Blob([testBytes], testContentType);
+    final testFile = html.File(
+        [testBlob],
+        'test_file.txt',
+        {
+          'type': testBlob.type,
+        });
     final testFilePath = html.Url.createObjectUrl(testFile);
 
     group('getChunkedStreamReader() API', () {
       test('should return ChunkedStreamReader over html File', () async {
-        final awsFile = AWSFilePlatform.fromFile(
-          testFile,
-          contentType: testContentType,
-        );
+        final awsFile = AWSFilePlatform.fromFile(testFile);
 
-        expect(awsFile.contentType, testContentType);
+        expect(await awsFile.contentType, testContentType);
         expect(
           await collectBytesFromChunkedReader(awsFile.getChunkedStreamReader()),
           equals(testBytes),
@@ -47,12 +49,9 @@ void main() {
       });
 
       test('should return ChunkedStreamReader over html Blob', () async {
-        final awsFile = AWSFilePlatform.fromBlob(
-          testBlob,
-          contentType: testContentType,
-        );
+        final awsFile = AWSFilePlatform.fromBlob(testBlob);
 
-        expect(awsFile.contentType, testContentType);
+        expect(await awsFile.contentType, testContentType);
         expect(
           await collectBytesFromChunkedReader(awsFile.getChunkedStreamReader()),
           equals(testBytes),
@@ -60,12 +59,9 @@ void main() {
       });
 
       test('should return ChunkedStreamReader over a file path', () async {
-        final awsFile = AWSFile.fromPath(
-          testFilePath,
-          contentType: testContentType,
-        );
+        final awsFile = AWSFile.fromPath(testFilePath);
 
-        expect(awsFile.contentType, testContentType);
+        expect(await awsFile.contentType, testContentType);
         expect(
           await collectBytesFromChunkedReader(awsFile.getChunkedStreamReader()),
           equals(testBytes),
@@ -78,7 +74,7 @@ void main() {
           contentType: testContentType,
         );
 
-        expect(awsFile.contentType, testContentType);
+        expect(await awsFile.contentType, testContentType);
         expect(
           await collectBytesFromChunkedReader(awsFile.getChunkedStreamReader()),
           equals(testBytes),
@@ -92,11 +88,21 @@ void main() {
           contentType: testContentType,
         );
 
-        expect(awsFile.contentType, testContentType);
+        expect(await awsFile.contentType, testContentType);
         expect(
           await collectBytesFromChunkedReader(awsFile.getChunkedStreamReader()),
           equals(testBytes),
         );
+      });
+
+      test('should primarily use contentType specified externally', () async {
+        const testExternalContentType = 'image/jpeg';
+        final awsFile = AWSFilePlatform.fromFile(
+          testFile,
+          contentType: testExternalContentType,
+        );
+
+        expect(await awsFile.contentType, testExternalContentType);
       });
     });
   });

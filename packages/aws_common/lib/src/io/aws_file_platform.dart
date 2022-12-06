@@ -70,6 +70,13 @@ class AWSFilePlatform extends AWSFile {
     );
   }
 
+  @override
+  Future<String?> get contentType {
+    throw UnimplementedError(
+      'contentType getter has not been implemented in the current platform.',
+    );
+  }
+
   /// {@macro amplify_core.io.aws_file.chunked_reader}
   @override
   ChunkedStreamReader<int> getChunkedStreamReader() {
