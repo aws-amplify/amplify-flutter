@@ -92,14 +92,12 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
       let customDomainEnv: AuthIntegrationTestStackEnvironmentProps[] = [];
       const customDomain = this.node.tryGetContext("domainName");
       if (customDomain) {
-        customDomainEnv = [
-          {
-            waf,
-            type: "CUSTOM_AUTHORIZER_IAM",
-            environmentName: "custom-authorizer-custom-domain",
-            customDomain,
-          },
-        ];
+        customDomainEnv.push({
+          waf,
+          type: "CUSTOM_AUTHORIZER_IAM",
+          environmentName: "custom-authorizer-custom-domain",
+          customDomain,
+        });
       }
       const auth = new AuthIntegrationTestStack(this, [
         { waf, type: "FULL", environmentName: "main" },

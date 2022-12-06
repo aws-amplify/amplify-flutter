@@ -40,7 +40,12 @@ export class AnalyticsIntegrationTestStack extends IntegrationTestStack<
     environments: IntegrationTestStackEnvironmentProps[],
     props?: cdk.NestedStackProps
   ) {
-    super(scope, AmplifyCategory.Analytics, environments, props);
+    super({
+      scope,
+      category: AmplifyCategory.Analytics,
+      environments,
+      props,
+    });
   }
 
   protected buildEnvironments(

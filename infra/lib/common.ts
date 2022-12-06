@@ -35,12 +35,17 @@ export abstract class IntegrationTestStack<
   EnvironmentProps extends IntegrationTestStackEnvironmentProps,
   Environment extends IntegrationTestStackEnvironment<EnvironmentProps>
 > extends cdk.NestedStack {
-  constructor(
-    scope: Construct,
-    category: AmplifyCategory,
-    environments: EnvironmentProps[],
-    props?: cdk.NestedStackProps
-  ) {
+  constructor({
+    scope,
+    category,
+    environments,
+    props,
+  }: {
+    scope: Construct;
+    category: AmplifyCategory;
+    environments: EnvironmentProps[];
+    props?: cdk.NestedStackProps;
+  }) {
     super(scope, `${category}IntegrationTestStack`, {
       ...props,
       description: `Amplify Flutter integration test stack for ${category}`,
@@ -156,143 +161,127 @@ export const createAmplifyConfig = (
   config: AmplifyConfig
 ): any => {
   const { analyticsConfig, apiConfig, authConfig, storageConfig } = config;
-  let analytics = {};
+  const analytics: any = {};
   if (analyticsConfig) {
-    analytics = {
-      analytics: {
-        plugins: {
-          awsPinpointAnalyticsPlugin: {
-            pinpointAnalytics: {
-              appId: analyticsConfig.appId,
-              region,
-            },
-            pinpointTargeting: {
-              region,
-            },
+    analytics.analytics = {
+      plugins: {
+        awsPinpointAnalyticsPlugin: {
+          pinpointAnalytics: {
+            appId: analyticsConfig.appId,
+            region,
+          },
+          pinpointTargeting: {
+            region,
           },
         },
       },
     };
   }
-  let api = {};
+  const api: any = {};
   if (apiConfig) {
-    api = {
-      api: {
-        plugins: {
-          awsAPIPlugin: {
-            ...Object.entries(apiConfig.apis).reduce(
-              (obj, [apiName, config]) => ({
-                ...obj,
-                [apiName]: {
-                  region,
-                  ...config,
-                },
-              }),
-              {}
-            ),
-          },
+    api.api = {
+      plugins: {
+        awsAPIPlugin: {
+          ...Object.entries(apiConfig.apis).reduce(
+            (obj, [apiName, config]) => ({
+              ...obj,
+              [apiName]: {
+                region,
+                ...config,
+              },
+            }),
+            {}
+          ),
         },
       },
     };
   }
-  let auth = {};
+  const auth: any = {};
   if (authConfig) {
     const { identityPoolConfig, userPoolConfig } = authConfig;
-    let identityPool = {};
+    const identityPool: any = {};
     if (identityPoolConfig) {
-      identityPool = {
-        CredentialsProvider: {
-          CognitoIdentity: {
-            Default: {
-              PoolId: identityPoolConfig.identityPoolId,
-              Region: region,
-            },
+      identityPool.CredentialsProvider = {
+        CognitoIdentity: {
+          Default: {
+            PoolId: identityPoolConfig.identityPoolId,
+            Region: region,
           },
         },
       };
     }
-    let userPool = {};
+    const userPool: any = {};
     if (userPoolConfig) {
-      userPool = {
-        CognitoUserPool: {
-          Default: {
-            PoolId: userPoolConfig.userPoolId,
-            AppClientId: userPoolConfig.userPoolClientId,
-            Region: region,
-          },
+      userPool.CognitoUserPool = {
+        Default: {
+          PoolId: userPoolConfig.userPoolId,
+          AppClientId: userPoolConfig.userPoolClientId,
+          Region: region,
         },
       };
     }
-    let pinpointConfig = {};
+    const pinpointConfig: any = {};
     if (analyticsConfig) {
-      pinpointConfig = {
-        PinpointAnalytics: {
-          Default: {
-            AppId: analyticsConfig.appId,
-            Region: region,
-          },
+      pinpointConfig.PinpointAnalytics = {
+        Default: {
+          AppId: analyticsConfig.appId,
+          Region: region,
         },
-        PinpointTargeting: {
-          Default: {
-            Region: region,
-          },
+      };
+      pinpointConfig.PinpointTargeting = {
+        Default: {
+          Region: region,
         },
       };
     }
-    let storage = {};
+    const storage: any = {};
     if (storageConfig) {
-      storage = {
-        S3TransferUtility: {
-          Default: {
-            Bucket: storageConfig.bucket,
-            Region: region,
-          },
+      storage.S3TransferUtility = {
+        Default: {
+          Bucket: storageConfig.bucket,
+          Region: region,
         },
       };
     }
-    auth = {
-      auth: {
-        plugins: {
-          awsCognitoAuthPlugin: {
-            UserAgent: "aws-amplify-cli/0.1.0",
-            Version: "0.1.0",
-            ...identityPool,
-            ...userPool,
-            ...pinpointConfig,
-            ...storage,
-            Auth: {
-              Default: {
-                authenticationFlowType: "USER_SRP_AUTH",
-                usernameAttributes: [],
-                signupAttributes: [],
-                passwordProtectionSettings: {
-                  passwordPolicyMinLength: 8,
-                  passwordPolicyCharacters: [
-                    "REQUIRES_LOWERCASE",
-                    "REQUIRES_UPPERCASE",
-                    "REQUIRES_NUMBERS",
-                    "REQUIRES_SYMBOLS",
-                  ],
-                },
-                mfaConfiguration: "OPTIONAL",
-                mfaTypes: ["SMS"],
-                verificationMechanisms: ["EMAIL", "PHONE_NUMBER"],
+    auth.auth = {
+      plugins: {
+        awsCognitoAuthPlugin: {
+          UserAgent: "aws-amplify-cli/0.1.0",
+          Version: "0.1.0",
+          ...identityPool,
+          ...userPool,
+          ...pinpointConfig,
+          ...storage,
+          Auth: {
+            Default: {
+              authenticationFlowType: "USER_SRP_AUTH",
+              usernameAttributes: [],
+              signupAttributes: [],
+              passwordProtectionSettings: {
+                passwordPolicyMinLength: 8,
+                passwordPolicyCharacters: [
+                  "REQUIRES_LOWERCASE",
+                  "REQUIRES_UPPERCASE",
+                  "REQUIRES_NUMBERS",
+                  "REQUIRES_SYMBOLS",
+                ],
               },
+              mfaConfiguration: "OPTIONAL",
+              mfaTypes: ["SMS"],
+              verificationMechanisms: ["EMAIL", "PHONE_NUMBER"],
             },
           },
         },
       },
     };
   }
-  let storage = {};
+  const storage: any = {};
   if (storageConfig) {
-    storage = {
-      storage: {
-        plugins: {
-          awsS3StoragePlugin: {
-            region,
-            ...storageConfig,
-          },
+    storage.storage = {
+      plugins: {
+        awsS3StoragePlugin: {
+          region,
+          ...storageConfig,
         },
       },
     };

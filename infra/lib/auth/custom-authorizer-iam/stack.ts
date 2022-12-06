@@ -65,7 +65,6 @@ export class CustomAuthorizerIamStackEnvironment extends IntegrationTestStackEnv
     if (customDomain) {
       // Domain names must be <= 64 characters.
       const domainName = sanitizedDomainName(this.name, customDomain);
-      console.log(`${domainName.length}: ${domainName}`);
       const hostedZone = route53.HostedZone.fromLookup(this, "HostedZone", {
         domainName: customDomain,
       });

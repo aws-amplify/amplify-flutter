@@ -2,7 +2,7 @@
 
 This CDK project spins up a backend for integration testing the Amplify Flutter packages.
 
-> Ensure you have `pnpm` installed by running `npm install -g pnpm`.
+> Ensure you have `pnpm` installed by running `npm install -g pnpm` or following the instructions [here](https://pnpm.io/installation).
 
 To deploy all categories, run `pnpm run deploy-all`. To deploy a single category, run `CATEGORY=<CATEGORY> pnpm run deploy` where `<CATEGORY>` is one of `analytics`, `auth`, or `storage`.
 

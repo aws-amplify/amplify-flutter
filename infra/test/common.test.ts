@@ -15,12 +15,11 @@
  */
 
 import {
-    AmplifyCategory,
-    AmplifyConfig,
-    AnalyticsConfig,
-    ApiConfig,
-    AuthConfig,
-    createAmplifyConfig
+  AmplifyConfig,
+  AnalyticsConfig,
+  ApiConfig,
+  AuthConfig,
+  createAmplifyConfig
 } from "../lib/common";
 
 const region = "us-west-2";
@@ -51,8 +50,6 @@ describe("createAmplifyConfig", () => {
     };
 
     const amplifyConfig: AmplifyConfig = {
-      category: AmplifyCategory.API,
-      environmentName,
       analyticsConfig,
       apiConfig: {
         apis: {

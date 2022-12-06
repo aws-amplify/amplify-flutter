@@ -73,7 +73,12 @@ export class StorageIntegrationTestStack extends IntegrationTestStack<
     environments: StorageIntegrationTestEnvironmentProps[],
     props?: cdk.NestedStackProps
   ) {
-    super(scope, AmplifyCategory.Storage, environments, props);
+    super({
+      scope,
+      category: AmplifyCategory.Storage,
+      environments,
+      props,
+    });
   }
 
   protected buildEnvironments(

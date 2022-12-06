@@ -91,7 +91,12 @@ export class AuthIntegrationTestStack extends IntegrationTestStack<
     environments: AuthIntegrationTestStackEnvironmentProps[],
     props?: cdk.NestedStackProps
   ) {
-    super(scope, AmplifyCategory.Auth, environments, props);
+    super({
+      scope,
+      category: AmplifyCategory.Auth,
+      environments,
+      props,
+    });
   }
 
   protected buildEnvironments(
@@ -100,7 +105,11 @@ export class AuthIntegrationTestStack extends IntegrationTestStack<
     return props.map((environment) => {
       switch (environment.type) {
         case "FULL":
-          return new AuthIntegrationTestStackEnvironment(this, this.baseName, environment);
+          return new AuthIntegrationTestStackEnvironment(
+            this,
+            this.baseName,
+            environment
+          );
         case "CUSTOM_AUTHORIZER_USER_POOLS":
           return new CustomAuthorizerUserPoolsStackEnvironment(
             this,
@@ -108,7 +117,11 @@ export class AuthIntegrationTestStack extends IntegrationTestStack<
             environment
           );
         case "CUSTOM_AUTHORIZER_IAM":
-          return new CustomAuthorizerIamStackEnvironment(this, this.baseName, environment);
+          return new CustomAuthorizerIamStackEnvironment(
+            this,
+            this.baseName,
+            environment
+          );
       }
     });
   }
