@@ -61,14 +61,14 @@ void main() {
           password: password,
         );
         expect(
-          signInRes.nextStep?.signInStep,
+          signInRes.nextStep.signInStep,
           'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE',
         );
 
         final confirmRes = await Amplify.Auth.confirmSignIn(
           confirmationValue: await otpResult.code,
         );
-        expect(confirmRes.nextStep?.signInStep, 'DONE');
+        expect(confirmRes.nextStep.signInStep, 'DONE');
       });
     },
     // TODO(equartey): ensure state machine GQL sub impl doesn't have this issue.

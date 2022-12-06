@@ -91,7 +91,7 @@ void main() {
           username: username,
           password: password,
         );
-        expect(signInResult.nextStep?.signInStep, 'CONFIRM_SIGN_UP');
+        expect(signInResult.nextStep.signInStep, 'CONFIRM_SIGN_UP');
 
         // Confirm sign up and complete sign in
         final confirmResult = await Amplify.Auth.confirmSignUp(
@@ -104,7 +104,7 @@ void main() {
           username: username,
           password: password,
         );
-        expect(signInComplete.nextStep?.signInStep, 'DONE');
+        expect(signInComplete.nextStep.signInStep, 'DONE');
       });
 
       asyncTest('can resend sign up code', (_) async {
