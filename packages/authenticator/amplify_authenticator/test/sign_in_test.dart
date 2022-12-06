@@ -16,8 +16,6 @@ import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'util/configs/email_config.dart';
-
 void main() {
   LiveTestWidgetsFlutterBinding();
 
@@ -32,7 +30,6 @@ void main() {
 
       await tester.pumpWidget(
         MockAuthenticatorApp(
-          config: emailConfig,
           authPlugin: AmplifyAuthCognitoStub(users: [testUser]),
         ),
       );

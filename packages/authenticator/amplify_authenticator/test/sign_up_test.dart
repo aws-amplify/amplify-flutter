@@ -16,17 +16,13 @@ import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'util/configs/email_config.dart';
-
 void main() {
   LiveTestWidgetsFlutterBinding();
 
   testWidgets(
     'Create a new user with an email & password, and confirm the account',
     (tester) async {
-      await tester.pumpWidget(
-        const MockAuthenticatorApp(config: emailConfig),
-      );
+      await tester.pumpWidget(const MockAuthenticatorApp());
       await tester.pumpAndSettle();
 
       final signUpPage = SignUpPage(tester: tester);

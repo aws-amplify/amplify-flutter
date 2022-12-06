@@ -15,6 +15,7 @@
 // ignore_for_file: diagnostic_describe_all_properties
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator_test/src/configs/email_config.dart';
 import 'package:amplify_authenticator_test/src/finders/authenticated_app_finder.dart';
 import 'package:amplify_authenticator_test/src/finders/authenticator_finder.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -26,7 +27,7 @@ import 'package:flutter_test/flutter_test.dart';
 class MockAuthenticatorApp extends StatefulWidget {
   const MockAuthenticatorApp({
     super.key,
-    required this.config,
+    this.config = emailConfig,
     this.lightTheme,
     this.darkTheme,
     this.initialStep = AuthenticatorStep.signIn,
