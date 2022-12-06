@@ -13,16 +13,16 @@
 // limitations under the License.
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 
-import 'authenticator_app.dart';
-import 'configs/email_config.dart';
-import 'configs/email_or_phone_config.dart';
-import 'configs/phone_config.dart';
-import 'configs/social_providers_config.dart';
-import 'configs/username_with_attributes.dart';
+import '../util/configs/email_config.dart';
+import '../util/configs/email_or_phone_config.dart';
+import '../util/configs/phone_config.dart';
+import '../util/configs/social_providers_config.dart';
+import '../util/configs/username_with_attributes.dart';
 import 'utils.dart';
 
 enum TestConfig {
@@ -160,7 +160,7 @@ void main() {
 
           testWidgets('matches snapshot', (WidgetTester tester) async {
             await tester.pumpWidget(
-              AuthenticatorApp(
+              MockAuthenticatorApp(
                 initialStep: step,
                 config: testConfig.config,
               ),
@@ -204,7 +204,7 @@ void main() {
 
           testWidgets('matches snapshot', (WidgetTester tester) async {
             await tester.pumpWidget(
-              AuthenticatorApp(
+              MockAuthenticatorApp(
                 initialStep: step,
                 lightTheme: theme.lightTheme,
                 darkTheme: theme.darkTheme,

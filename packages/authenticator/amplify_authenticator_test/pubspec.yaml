@@ -9,6 +9,13 @@ environment:
 
 dependencies:
   amplify_authenticator:
+  amplify_flutter:
+  amplify_test:
+    path: ../../amplify_test
+  flutter:
+    sdk: flutter
+  flutter_test:
+    sdk: flutter
 
 dev_dependencies:
   amplify_lints:

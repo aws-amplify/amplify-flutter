@@ -1,21 +1,20 @@
-/*
- * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 import 'package:amplify_authenticator/src/keys.dart';
+import 'package:amplify_authenticator_test/src/pages/authenticator_page.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'authenticator_page.dart';
 
 /// Sign Up Page Object
 class SignUpPage extends AuthenticatorPage {
@@ -97,7 +96,7 @@ class SignUpPage extends AuthenticatorPage {
     // username field is present
     expect(usernameField, findsOneWidget);
     // login type is "username"
-    final Finder usernameFieldHint = find.descendant(
+    final usernameFieldHint = find.descendant(
       of: find.byKey(keyUsernameSignUpFormField),
       matching: find.text(usernameLabel),
     );
@@ -121,7 +120,7 @@ class SignUpPage extends AuthenticatorPage {
 
   /// Then I don't see "Username as an input field"
   void expectPlainUsernameNotPresent() {
-    final Finder usernameFieldHint = find.descendant(
+    final usernameFieldHint = find.descendant(
       of: find.byKey(keyUsernameSignUpFormField),
       matching: find.text('Username'),
     );

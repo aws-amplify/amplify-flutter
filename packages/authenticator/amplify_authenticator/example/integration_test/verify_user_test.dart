@@ -18,6 +18,7 @@
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/state/auth_state.dart';
+import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter/material.dart';
@@ -25,11 +26,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'config.dart';
-import 'pages/confirm_verify_user_page.dart';
-import 'pages/sign_in_page.dart';
-import 'pages/test_utils.dart';
-import 'pages/verify_user_page.dart';
 import 'utils/mock_data.dart';
+import 'utils/test_utils.dart';
 
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();

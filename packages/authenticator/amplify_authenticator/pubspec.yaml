@@ -26,6 +26,8 @@ dependencies:
   stream_transform: ^2.0.0
 
 dev_dependencies:
+  amplify_authenticator_test:
+    path: ../amplify_authenticator_test
   amplify_lints:
     path: ../../amplify_lints
   amplify_test:

@@ -22,7 +22,7 @@ import 'envs/auth_with_email_lambda_signup_trigger.dart'
 import 'envs/auth_with_email_or_phone.dart' as auth_with_email_or_phone;
 import 'envs/auth_with_phone.dart' as auth_with_phone;
 import 'envs/auth_with_username.dart' as auth_with_username;
-import 'pages/test_utils.dart';
+import 'utils/test_utils.dart';
 
 /// All envs modeled on:
 /// https://github.com/aws-amplify/amplify-ui/blob/main/examples/angular/src/pages/ui/components/authenticator/

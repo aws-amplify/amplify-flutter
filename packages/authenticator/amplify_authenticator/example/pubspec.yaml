@@ -40,6 +40,8 @@ dependencies:
 dev_dependencies:
   amplify_api:
     path: ../../../api/amplify_api
+  amplify_authenticator_test:
+    path: ../../amplify_authenticator_test
   amplify_lints:
     path: ../../../amplify_lints
   amplify_test:

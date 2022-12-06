@@ -1,27 +1,26 @@
-/*
- * Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
 import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
+import 'package:amplify_authenticator_test/src/finders/authenticated_app_finder.dart';
+import 'package:amplify_authenticator_test/src/test_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'test_utils.dart';
 
 abstract class AuthenticatorPage {
   AuthenticatorPage({required this.tester});
@@ -43,7 +42,7 @@ abstract class AuthenticatorPage {
     // username field is present
     expect(usernameField, findsOneWidget);
     // login type is "username"
-    final Finder usernameFieldHint = find.descendant(
+    final usernameFieldHint = find.descendant(
       of: usernameField,
       matching: find.text(label),
     );
@@ -87,12 +86,8 @@ abstract class AuthenticatorPage {
 
   // Then I am signed in
   Future<void> expectAuthenticated() async {
-    final inheritedBloc =
-        tester.widget<InheritedAuthBloc>(find.byKey(keyInheritedAuthBloc));
-    if (inheritedBloc.authBloc.currentState is! AuthenticatedState) {
-      await nextBlocEvent(tester);
-    }
-    expect(inheritedBloc.authBloc.currentState, isA<AuthenticatedState>());
+    await tester.pumpAndSettle();
+    expect(authenticatedApp, findsOneWidget);
   }
 
   Future<void> expectState(AuthState state) async {
@@ -114,7 +109,7 @@ abstract class AuthenticatorPage {
   /// Then I see Username/client id combination not found banner.
   void expectCombinationNotFound() {
     expect(bannerFinder, findsOneWidget);
-    final Finder expectCombinationNotFound = find.descendant(
+    final expectCombinationNotFound = find.descendant(
       of: find.byKey(keyAuthenticatorBanner),
       matching: find.textContaining('not found'),
     );
@@ -137,7 +132,7 @@ abstract class AuthenticatorPage {
     expect(countrySearchField, findsOneWidget);
     await tester.enterText(countrySearchField, countryName);
     await tester.pumpAndSettle();
-    final Finder dialCode = find.descendant(
+    final dialCode = find.descendant(
       of: find.byKey(keyCountryDialog),
       matching: find.textContaining('($countryCode)'),
     );

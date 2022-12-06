@@ -15,38 +15,39 @@
 // ignore_for_file: diagnostic_describe_all_properties
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator_test/src/finders/authenticated_app_finder.dart';
+import 'package:amplify_authenticator_test/src/finders/authenticator_finder.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-const authenticatorKey = Key('authenticator_app');
-final authenticatorFinder = find.byKey(authenticatorKey);
-
 /// Authenticator Test App, using Amplify and Auth stubs.
-class AuthenticatorApp extends StatefulWidget {
-  const AuthenticatorApp({
-    Key? key,
+class MockAuthenticatorApp extends StatefulWidget {
+  const MockAuthenticatorApp({
+    super.key,
     required this.config,
     this.lightTheme,
     this.darkTheme,
     this.initialStep = AuthenticatorStep.signIn,
-  }) : super(key: key);
+    this.authPlugin,
+  });
 
   final String config;
   final ThemeData? lightTheme;
   final ThemeData? darkTheme;
   final AuthenticatorStep initialStep;
+  final AuthPluginInterface? authPlugin;
 
   @override
-  State<AuthenticatorApp> createState() => _AuthenticatorAppState();
+  State<MockAuthenticatorApp> createState() => _MockAuthenticatorAppState();
 }
 
-class _AuthenticatorAppState extends State<AuthenticatorApp> {
+class _MockAuthenticatorAppState extends State<MockAuthenticatorApp> {
   Future<void> _configureAmplify() async {
     try {
       Amplify = AmplifyStub();
-      await Amplify.addPlugin(AmplifyAuthCognitoStub());
+      await Amplify.addPlugin(widget.authPlugin ?? AmplifyAuthCognitoStub());
       await Amplify.configure(widget.config);
     } on Exception catch (e) {
       safePrint(e);
@@ -70,7 +71,12 @@ class _AuthenticatorAppState extends State<AuthenticatorApp> {
         darkTheme: widget.darkTheme,
         themeMode: ThemeMode.system,
         builder: Authenticator.builder(),
-        home: const SizedBox.shrink(),
+        home: const Scaffold(
+          key: authenticatedAppKey,
+          body: Center(
+            child: SignOutButton(),
+          ),
+        ),
       ),
     );
   }

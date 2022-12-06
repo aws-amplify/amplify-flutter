@@ -12,16 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// A library containing test utilities for the Authenticator.
-library amplify_authenticator_test;
+import 'package:amplify_authenticator/src/keys.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-export 'src/finders/authenticator_finder.dart';
-export 'src/mock_authenticator_app.dart';
-export 'src/pages/authenticator_page.dart';
-export 'src/pages/confirm_sign_in_page.dart';
-export 'src/pages/confirm_sign_up_page.dart';
-export 'src/pages/confirm_verify_user_page.dart';
-export 'src/pages/forgot_password_page.dart';
-export 'src/pages/sign_in_page.dart';
-export 'src/pages/sign_up_page.dart';
-export 'src/pages/verify_user_page.dart';
+/// Find specific widgets in the widget tree based on their keys
+final usernameConfirmSignUpFormFieldFinder =
+    find.byKey(keyUsernameConfirmSignUpFormField);
+final codeConfirmSignUpFormFieldFinder =
+    find.byKey(keyCodeConfirmSignUpFormField);
+final backToSignInButtonFinder = find.byKey(keyBackToSignInButton);
