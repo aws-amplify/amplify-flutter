@@ -19,6 +19,7 @@ import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_lifecycle_provider.dart';
 import 'utils/setup_utils.dart';
+import 'utils/test_event.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +27,7 @@ void main() {
   group('enable/disable', () {
     final mockLifecycleObserver = MockLifecycleProvider();
 
-    late Stream<Map<String, Object?>> eventsStream;
+    late Stream<TestEvent> eventsStream;
 
     setUp(() async {
       eventsStream = await configureAnalytics(
@@ -34,9 +35,10 @@ void main() {
       );
     });
 
-    test(
-      'disable prevents events from being auto flushed and sessions from being auto tracked',
-      () async {
+    testWidgets(
+      'disable prevents events from being auto flushed and sessions from '
+      'being auto tracked',
+      (_) async {
         await Amplify.Analytics.disable();
 
         // Wait for all previous events to pass through
@@ -57,7 +59,7 @@ void main() {
         // to ensure the failure above does not execute.
         await Future<void>.delayed(const Duration(minutes: 1));
       },
-      timeout: const Timeout(Duration(minutes: 2)),
+      timeout: const Timeout(Duration(minutes: 3)),
     );
   });
 }

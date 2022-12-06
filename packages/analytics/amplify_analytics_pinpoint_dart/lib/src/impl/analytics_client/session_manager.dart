@@ -110,6 +110,7 @@ class SessionManager {
 
   /// Stop and delete current session
   void _executeStop() {
+    // TODO(fjnoyp): Why are we warning here?
     if (_sessionCreator == null) {
       _logger.warn(
         'Warning - stop session called without sessionBuilder initialized',

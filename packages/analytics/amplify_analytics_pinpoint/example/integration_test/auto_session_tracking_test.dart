@@ -13,12 +13,14 @@
 
 import 'dart:async';
 
+import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_lifecycle_provider.dart';
 import 'utils/setup_utils.dart';
+import 'utils/test_event.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +28,7 @@ void main() {
   group('auto session tracking', () {
     final mockLifecycleObserver = MockLifecycleProvider();
 
-    late Stream<Map<String, Object?>> eventsStream;
+    late Stream<TestEvent> eventsStream;
 
     setUp(() async {
       eventsStream = await configureAnalytics(
@@ -35,40 +37,35 @@ void main() {
     });
 
     testWidgets(
-      'manual trigger of onBackground/onForeground triggers session start/end events ',
+      'manual trigger of onBackground/onForeground triggers session '
+      'start/end events ',
       (_) async {
         mockLifecycleObserver.triggerOnBackgroundListener();
 
-        Map<String, dynamic>? originalSession;
+        TestSession? sessionStop;
 
         // Verify new session has newer values than old session
         final streamSubscription = eventsStream.listen(
           expectAsync1(
             count: 2,
             (event) {
-              expect(event['session'], isNotEmpty);
-
-              final session = event['session'] as Map<String, dynamic>;
-              if (originalSession == null) {
-                originalSession = session;
+              if (sessionStop == null) {
+                expect(event.eventType, zSessionStopEventType);
+                sessionStop = event.session;
                 return;
               }
-              final newSession = session;
-
+              expect(event.eventType, zSessionStartEventType);
+              final sessionStart = event.session;
               expect(
-                originalSession!['session_id'],
-                isNot(newSession['session_id']),
+                sessionStop!.sessionId,
+                isNot(sessionStart.sessionId),
               );
-
-              final stopTimestamp = DateTime.fromMillisecondsSinceEpoch(
-                originalSession!['stop_timestamp'] as int,
+              expect(
+                sessionStart.startTimestamp
+                    .isAfter(sessionStop!.stopTimestamp!),
+                isTrue,
+                reason: 'onForeground was called after onBackground',
               );
-
-              final startTimestamp = DateTime.fromMillisecondsSinceEpoch(
-                newSession['start_timestamp'] as int,
-              );
-
-              expect(startTimestamp.isAfter(stopTimestamp), isTrue);
             },
           ),
         );
@@ -77,7 +74,11 @@ void main() {
         await expectLater(
           eventsStream,
           emits(
-            containsPair('event_type', '_session.stop'),
+            isA<TestEvent>().having(
+              (e) => e.eventType,
+              'eventType',
+              zSessionStopEventType,
+            ),
           ),
         );
 
@@ -88,11 +89,15 @@ void main() {
         await expectLater(
           eventsStream,
           emits(
-            containsPair('event_type', '_session.start'),
+            isA<TestEvent>().having(
+              (e) => e.eventType,
+              'eventType',
+              zSessionStartEventType,
+            ),
           ),
         );
       },
-      timeout: const Timeout(Duration(minutes: 2)),
+      timeout: const Timeout(Duration(minutes: 3)),
     );
   });
 }

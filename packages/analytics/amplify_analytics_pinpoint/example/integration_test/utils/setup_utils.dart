@@ -17,6 +17,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
+import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_example/amplifyconfiguration.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -24,11 +25,11 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'mock_key_value_store.dart';
+import 'test_event.dart';
 
-Future<Stream<Map<String, Object?>>> configureAnalytics(
-    {AppLifecycleProvider? appLifecycleProvider}) async {
-  final Stream<Map<String, Object?>> eventsStream;
-
+Future<Stream<TestEvent>> configureAnalytics({
+  AppLifecycleProvider? appLifecycleProvider,
+}) async {
   await Amplify.addPlugins([
     AmplifyAuthCognito(
       credentialStorage: AmplifySecureStorage(
@@ -60,7 +61,7 @@ Future<Stream<Map<String, Object?>>> configureAnalytics(
 
   final subscriptionEstablished = Completer<void>.sync();
 
-  eventsStream = Amplify.API
+  final eventsStream = Amplify.API
       .subscribe(
     GraphQLRequest<String>(
       document: '''
@@ -76,25 +77,25 @@ Future<Stream<Map<String, Object?>>> configureAnalytics(
   )
       .map((event) {
     if (event.hasErrors) {
-      return {'errors': event.errors};
+      throw Exception(event.errors);
     }
     final data = event.data;
     if (data == null) {
-      return const <String, Object?>{};
+      throw Exception('No data');
     }
     final json = jsonDecode(data) as Map<String, Object?>;
-    return jsonDecode((json['onCreateRecord'] as Map)['payload'] as String)
-        as Map<String, Object?>;
+    final payload =
+        jsonDecode((json['onCreateRecord'] as Map)['payload'] as String)
+            as Map<String, Object?>;
+    return TestEvent.fromJson(payload);
   }).where((payload) {
     // Filter for endpoint IDs which match this test suite since there may be
     // multiple tests running concurrently in CI.
-    final endpoint = payload['endpoint'] as Map<String, dynamic>;
-    final endpointId = endpoint['Id'] as String;
-    return endpointId == mockEndpointId;
+    return payload.endpoint.id == mockEndpointId;
   }).asBroadcastStream();
 
   await subscriptionEstablished.future.timeout(
-    const Duration(seconds: 30),
+    const Duration(seconds: 10), // Auto-flush duration
     onTimeout: () => fail('Subscription could not be established'),
   );
 
@@ -103,7 +104,11 @@ Future<Stream<Map<String, Object?>>> configureAnalytics(
   await expectLater(
     eventsStream,
     emitsThrough(
-      containsPair('event_type', '_session.start'),
+      isA<TestEvent>().having(
+        (e) => e.eventType,
+        'eventType',
+        zSessionStartEventType,
+      ),
     ),
   );
 

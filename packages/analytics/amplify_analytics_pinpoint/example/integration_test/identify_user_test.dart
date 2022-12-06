@@ -13,26 +13,29 @@
 
 import 'dart:async';
 
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart'
+    show EndpointLocation;
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
+import 'utils/test_event.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('recordEvent', () {
-    late Stream<Map<String, Object?>> eventsStream;
+    late Stream<TestEvent> eventsStream;
 
     setUpAll(() async {
       eventsStream = await configureAnalytics();
     });
 
-    test(
+    testWidgets(
       'properties of identityUser() added to all future events',
-      () async {
+      (_) async {
         final userId = DateTime.now().toIso8601String();
         const name = 'name';
         const email = 'email';
@@ -79,52 +82,53 @@ void main() {
 
         await expectLater(
           eventsStream,
-          emits(allOf([
-            containsPair('event_type', customEventName),
-            // Session is valid before timestamp
-            containsPair(
-                'endpoint',
-                allOf(
-                  containsPair('EndpointStatus', 'ACTIVE'),
-                  containsPair('OptOut', 'ALL'),
-                  containsPair(
-                    'Location',
-                    allOf(
-                      containsPair('Latitude', latitude),
-                      containsPair('Longitude', longitude),
-                      containsPair('PostalCode', postalCode),
-                      containsPair('City', city),
-                      containsPair('Region', region),
-                      containsPair('Country', country),
-                    ),
+          emits(
+            isA<TestEvent>()
+                .having((e) => e.eventType, 'eventType', customEventName)
+                .having(
+                  (e) => e.endpoint.endpointStatus,
+                  'EndpointStatus',
+                  'ACTIVE',
+                )
+                .having((e) => e.endpoint.optOut, 'OptOut', 'ALL')
+                .having(
+                  (e) => e.endpoint.location,
+                  'Location',
+                  EndpointLocation(
+                    latitude: latitude,
+                    longitude: longitude,
+                    postalCode: postalCode,
+                    city: city,
+                    region: region,
+                    country: country,
                   ),
-                  containsPair(
-                    'User',
-                    containsPair(
-                      'UserId',
-                      userId,
-                    ),
-                  ),
-                  containsPair('Attributes', {
+                )
+                .having((e) => e.endpoint.user?.userId, 'UserId', userId)
+                .having(
+                  (e) => e.endpoint.attributes?.toMap() ?? const {},
+                  'Attributes',
+                  equals({
                     boolProperty.key: [stringifiedBoolProperty.value],
                     stringProperty.key: [stringProperty.value],
                     'name': [name],
                     'plan': [plan],
                     'email': [email],
                   }),
-                  containsPair(
-                    'Metrics',
-                    // There is some lossiness behavior to doubles
+                )
+                .having(
+                  (e) => e.endpoint.metrics?.toMap() ?? const {},
+                  'Metrics',
+                  equals(
                     Map.fromEntries([
                       lossyDoubleProperty,
                       intProperty,
                     ]),
                   ),
-                ))
-          ])),
+                ),
+          ),
         );
       },
-      timeout: const Timeout(Duration(minutes: 2)),
+      timeout: const Timeout(Duration(minutes: 3)),
     );
   });
 }
