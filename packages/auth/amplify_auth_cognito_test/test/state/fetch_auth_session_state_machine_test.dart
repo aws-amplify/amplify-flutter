@@ -305,9 +305,9 @@ void main() {
             stateMachine
               ..addInstance<CognitoIdentityProviderClient>(
                 MockCognitoIdentityProviderClient(
-                  initiateAuth: expectAsync1(
+                  initiateAuth: expectAsync0(
                     count: willRefresh ? 1 : 0,
-                    (request) async => InitiateAuthResponse(
+                    () async => InitiateAuthResponse(
                       authenticationResult: AuthenticationResultType(
                         accessToken: accessToken.raw,
                         refreshToken: refreshToken,
@@ -401,8 +401,8 @@ void main() {
           stateMachine
             ..addInstance<CognitoIdentityProviderClient>(
               MockCognitoIdentityProviderClient(
-                initiateAuth: expectAsync1(
-                  (request) async => throw _FetchAuthSessionException(),
+                initiateAuth: expectAsync0(
+                  () async => throw _FetchAuthSessionException(),
                 ),
               ),
             )
@@ -452,8 +452,8 @@ void main() {
           stateMachine
             ..addInstance<CognitoIdentityProviderClient>(
               MockCognitoIdentityProviderClient(
-                initiateAuth: expectAsync1(
-                  (request) async => InitiateAuthResponse(
+                initiateAuth: expectAsync0(
+                  () async => InitiateAuthResponse(
                     authenticationResult: AuthenticationResultType(
                       accessToken: createJwt(
                         type: TokenType.access,
@@ -598,8 +598,8 @@ void main() {
           stateMachine
             ..addInstance<CognitoIdentityProviderClient>(
               MockCognitoIdentityProviderClient(
-                initiateAuth: expectAsync1(
-                  (request) async => InitiateAuthResponse(
+                initiateAuth: expectAsync0(
+                  () async => InitiateAuthResponse(
                     authenticationResult: AuthenticationResultType(
                       accessToken: createJwt(
                         type: TokenType.access,
