@@ -63,11 +63,11 @@ void main() {
           options: options,
         );
         expect(
-          res.nextStep!.signInStep,
+          res.nextStep.signInStep,
           'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE',
         );
 
-        final additionalInfo = res.nextStep!.additionalInfo ?? const {};
+        final additionalInfo = res.nextStep.additionalInfo ?? const {};
 
         // additionalInfo key values defined in lambda code
         expect(additionalInfo, hasLength(2));
@@ -147,11 +147,11 @@ void main() {
           options: options,
         );
         expect(
-          res.nextStep?.signInStep,
+          res.nextStep.signInStep,
           'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE',
         );
 
-        final additionalInfo = res.nextStep!.additionalInfo ?? const {};
+        final additionalInfo = res.nextStep.additionalInfo ?? const {};
 
         // additionalInfo key values defined in lambda code
         expect(additionalInfo, hasLength(1));

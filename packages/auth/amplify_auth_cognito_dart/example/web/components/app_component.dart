@@ -129,7 +129,7 @@ class AppComponent extends StatefulComponent {
 
   void _processSignInResult(SignInResult res) {
     if (!res.isSignedIn) {
-      switch (res.nextStep!.signInStep) {
+      switch (res.nextStep.signInStep) {
         case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
           setState(() {
             appState = appState.copyWith(

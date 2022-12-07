@@ -119,7 +119,7 @@ void main() {
             password: password,
           );
           expect(
-            signInRes.nextStep?.signInStep,
+            signInRes.nextStep.signInStep,
             'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE',
           );
           final confirmSignInRes = await Amplify.Auth.confirmSignIn(

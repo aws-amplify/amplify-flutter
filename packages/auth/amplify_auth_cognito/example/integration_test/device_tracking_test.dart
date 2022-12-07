@@ -87,7 +87,7 @@ void main() {
           username: username!,
           password: password,
         );
-        if (signInRes.nextStep?.signInStep ==
+        if (signInRes.nextStep.signInStep ==
             'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE') {
           final confirmSignInRes = await Amplify.Auth.confirmSignIn(
             confirmationValue: await otpResult.code,
@@ -167,7 +167,7 @@ void main() {
             password: password,
           );
           expect(
-            res.nextStep?.signInStep,
+            res.nextStep.signInStep,
             'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE',
             reason: 'Subsequent sign-in attempts should require MFA',
           );
