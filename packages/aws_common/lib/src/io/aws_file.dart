@@ -101,6 +101,7 @@ abstract class AWSFile {
   factory AWSFile.fromPath(
     String path, {
     String? name,
+    String? contentType,
   }) = AWSFilePlatform.fromPath;
 
   /// {@template amplify_core.io.aws_file.from_data}
@@ -118,8 +119,8 @@ abstract class AWSFile {
     this.path,
     this.bytes,
     this.name,
-    this.contentType,
-  });
+    String? contentType,
+  }) : _contentType = contentType;
 
   /// Stream of the file content.
   Stream<List<int>> get stream;
@@ -133,8 +134,7 @@ abstract class AWSFile {
   /// The path of the file if provided.
   final String? path;
 
-  /// The content type of the file if provided.
-  final String? contentType;
+  final String? _contentType;
 
   /// {@template amplify_core.io.aws_file.chunked_reader}
   /// Returns a [ChunkedStreamReader] over the stream of bytes of the file.
@@ -143,4 +143,7 @@ abstract class AWSFile {
 
   /// Size of the file.
   Future<int> get size;
+
+  /// The content type of the file if provided.
+  Future<String?> get contentType async => _contentType;
 }

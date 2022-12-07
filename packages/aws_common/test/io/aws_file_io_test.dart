@@ -31,6 +31,7 @@ void main() {
     }
     final testFilePath = '$currentPath/test/io/assets/test_file.txt';
     const testFileContent = 'I ❤️ Amplify, œ 小新';
+    const testContentType = 'text/plain';
     final testBytes = utf8.encode(testFileContent);
 
     final testFile = io.File(testFilePath);
@@ -39,6 +40,7 @@ void main() {
       test('should return ChunkedStreamReader over io File', () async {
         final awsFile = AWSFilePlatform.fromFile(testFile);
 
+        expect(await awsFile.contentType, testContentType);
         expect(
           await collectBytesFromChunkedReader(awsFile.getChunkedStreamReader()),
           equals(testBytes),
@@ -48,6 +50,7 @@ void main() {
       test('should return ChunkedStreamReader over a file path', () async {
         final awsFile = AWSFile.fromPath(testFilePath);
 
+        expect(await awsFile.contentType, testContentType);
         expect(
           await collectBytesFromChunkedReader(awsFile.getChunkedStreamReader()),
           equals(testBytes),
@@ -55,8 +58,12 @@ void main() {
       });
 
       test('should return ChunkedStreamReader over bytes data', () async {
-        final awsFile = AWSFile.fromData(testBytes);
+        final awsFile = AWSFile.fromData(
+          testBytes,
+          contentType: testContentType,
+        );
 
+        expect(await awsFile.contentType, testContentType);
         expect(
           await collectBytesFromChunkedReader(awsFile.getChunkedStreamReader()),
           equals(testBytes),
@@ -67,12 +74,24 @@ void main() {
         final awsFile = AWSFile.fromStream(
           Stream.value(testBytes),
           size: testBytes.length,
+          contentType: testContentType,
         );
 
+        expect(await awsFile.contentType, testContentType);
         expect(
           await collectBytesFromChunkedReader(awsFile.getChunkedStreamReader()),
           equals(testBytes),
         );
+      });
+
+      test('should primarily use contentType specified externally', () async {
+        const testExternalContentType = 'image/jpeg';
+        final awsFile = AWSFilePlatform.fromFile(
+          testFile,
+          contentType: testExternalContentType,
+        );
+
+        expect(await awsFile.contentType, testExternalContentType);
       });
     });
   });

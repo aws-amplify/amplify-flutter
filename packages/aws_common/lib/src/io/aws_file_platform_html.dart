@@ -24,16 +24,20 @@ const _readStreamChunkSize = 64 * 1024;
 /// The html implementation of [AWSFile].
 class AWSFilePlatform extends AWSFile {
   /// Creates an [AWSFile] from html [File].
-  AWSFilePlatform.fromFile(File file)
-      : _stream = null,
+  AWSFilePlatform.fromFile(
+    File file, {
+    super.contentType,
+  })  : _stream = null,
         _inputFile = file,
         _inputBlob = null,
         _size = file.size,
         super.protected();
 
   /// Creates an [AWSFile] from html [Blob].
-  AWSFilePlatform.fromBlob(Blob blob)
-      : _stream = null,
+  AWSFilePlatform.fromBlob(
+    Blob blob, {
+    super.contentType,
+  })  : _stream = null,
         _inputBlob = blob,
         _inputFile = null,
         _size = blob.size,
@@ -43,6 +47,7 @@ class AWSFilePlatform extends AWSFile {
   AWSFilePlatform.fromPath(
     String path, {
     super.name,
+    super.contentType,
   })  : _stream = null,
         _inputFile = null,
         _inputBlob = null,
@@ -76,15 +81,12 @@ class AWSFilePlatform extends AWSFile {
           bytes: data,
         );
 
+  final _contentTypeMemo = AsyncMemoizer<String?>();
   final File? _inputFile;
   final Blob? _inputBlob;
   final Stream<List<int>>? _stream;
   int? _size;
   Blob? _resolvedBlobFromPath;
-  String? _contentType;
-
-  @override
-  String? get contentType => _contentType ?? super.contentType;
 
   @override
   Stream<List<int>> get stream {
@@ -111,19 +113,6 @@ class AWSFilePlatform extends AWSFile {
     throw const InvalidFileException();
   }
 
-  Future<Blob> get _resolvedBlob async {
-    final resolvedBlobFromPath = _resolvedBlobFromPath;
-    if (resolvedBlobFromPath != null) {
-      return resolvedBlobFromPath;
-    }
-
-    final resolvedBlob = await _resolveBlobFromPath();
-    _size = resolvedBlob.size;
-    _resolvedBlobFromPath = resolvedBlob;
-
-    return resolvedBlob;
-  }
-
   @override
   ChunkedStreamReader<int> getChunkedStreamReader() {
     return ChunkedStreamReader(stream);
@@ -140,21 +129,38 @@ class AWSFilePlatform extends AWSFile {
     return resolvedBlob.size;
   }
 
-  static Stream<List<int>> _getReadStream(FutureOr<Blob> sourceBlob) async* {
-    final blob = await sourceBlob;
-    final fileReader = FileReader();
-    var currentPosition = 0;
+  @override
+  Future<String?> get contentType => _contentTypeMemo.runOnce(() async {
+        final externalContentType = await super.contentType;
+        if (externalContentType != null) {
+          return externalContentType;
+        }
 
-    while (currentPosition < blob.size) {
-      final readRange = currentPosition + _readStreamChunkSize > blob.size
-          ? blob.size
-          : currentPosition + _readStreamChunkSize;
-      final blobToRead = blob.slice(currentPosition, readRange);
-      fileReader.readAsArrayBuffer(blobToRead);
-      await fileReader.onLoad.first;
-      yield fileReader.result as List<int>;
-      currentPosition += _readStreamChunkSize;
+        String blobType;
+
+        final file = _inputFile ?? _inputBlob;
+        if (file != null) {
+          blobType = file.type;
+        } else {
+          blobType = (await _resolvedBlob).type;
+        }
+
+        // on Web blob.type may return an empty string
+        // https://developer.mozilla.org/en-US/docs/Web/API/Blob/type#value
+        return blobType.isEmpty ? null : blobType;
+      });
+
+  Future<Blob> get _resolvedBlob async {
+    final resolvedBlobFromPath = _resolvedBlobFromPath;
+    if (resolvedBlobFromPath != null) {
+      return resolvedBlobFromPath;
     }
+
+    final resolvedBlob = await _resolveBlobFromPath();
+    _size = resolvedBlob.size;
+    _resolvedBlobFromPath = resolvedBlob;
+
+    return resolvedBlob;
   }
 
   Future<Blob> _resolveBlobFromPath() async {
@@ -188,8 +194,24 @@ class AWSFilePlatform extends AWSFile {
     }
 
     _size = retrievedBlob.size;
-    _contentType = retrievedBlob.type;
 
     return retrievedBlob;
+  }
+
+  static Stream<List<int>> _getReadStream(FutureOr<Blob> sourceBlob) async* {
+    final blob = await sourceBlob;
+    final fileReader = FileReader();
+    var currentPosition = 0;
+
+    while (currentPosition < blob.size) {
+      final readRange = currentPosition + _readStreamChunkSize > blob.size
+          ? blob.size
+          : currentPosition + _readStreamChunkSize;
+      final blobToRead = blob.slice(currentPosition, readRange);
+      fileReader.readAsArrayBuffer(blobToRead);
+      await fileReader.onLoad.first;
+      yield fileReader.result as List<int>;
+      currentPosition += _readStreamChunkSize;
+    }
   }
 }

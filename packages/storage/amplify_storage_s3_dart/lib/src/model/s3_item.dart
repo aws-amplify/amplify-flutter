@@ -29,6 +29,7 @@ class S3Item extends StorageItem {
     super.eTag,
     this.metadata = const <String, String>{},
     this.versionId,
+    this.contentType,
   });
 
   /// Creates a [S3Item] from [s3.S3Object] provided by S3 Client.
@@ -73,6 +74,7 @@ class S3Item extends StorageItem {
       metadata: headObjectOutput.metadata?.toMap() ?? const {},
       versionId: headObjectOutput.versionId,
       size: headObjectOutput.contentLength?.toInt(),
+      contentType: headObjectOutput.contentType,
     );
   }
 
@@ -92,4 +94,7 @@ class S3Item extends StorageItem {
 
   /// Object `versionId`, may be available when S3 bucket versioning is enabled.
   final String? versionId;
+
+  /// Content type of the [S3Item].
+  final String? contentType;
 }
