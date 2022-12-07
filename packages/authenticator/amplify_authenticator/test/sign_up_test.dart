@@ -17,8 +17,10 @@ import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  LiveTestWidgetsFlutterBinding();
+  final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
+  /// Tests an end to end "happy path" flow for sign up with email, with the
+  /// auth library stubbed.
   testWidgets(
     'Create a new user with an email & password, and confirm the account',
     (tester) async {
@@ -44,7 +46,7 @@ void main() {
       await signUpPage.enterPasswordConfirmation(password);
 
       // And I click the "Create Account" button
-      await signUpPage.submitSignUp();
+      await binding.runAsync(signUpPage.submitSignUp);
 
       // And I see "Confirmation Code"
       confirmSignUpPage.expectConfirmationCodeIsPresent();
@@ -55,10 +57,10 @@ void main() {
       );
 
       // And I click the "Confirm" button
-      await confirmSignUpPage.submitConfirmSignUp();
+      await binding.runAsync(confirmSignUpPage.submitConfirmSignUp);
 
       // Then I see "Sign out"
-      await confirmSignUpPage.expectAuthenticated();
+      await binding.runAsync(confirmSignUpPage.expectAuthenticated);
     },
   );
 }

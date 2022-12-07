@@ -17,8 +17,10 @@ import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  LiveTestWidgetsFlutterBinding();
+  final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
+  /// Tests an end to end "happy path" flow for sign in with email, with the
+  /// auth library stubbed.
   testWidgets(
     'Signs in an existing user with an email & password',
     (tester) async {
@@ -35,7 +37,6 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      // final signUpPage = SignUpPage(tester: tester);
       final confirmSignUpPage = ConfirmSignUpPage(tester: tester);
       final signInPage = SignInPage(tester: tester);
 
@@ -46,10 +47,10 @@ void main() {
       await signInPage.enterPassword(testUser.password);
 
       // And I click the "Sign In" button
-      await signInPage.submitSignIn();
+      await binding.runAsync(signInPage.submitSignIn);
 
       // Then I see "Sign out"
-      await confirmSignUpPage.expectAuthenticated();
+      await binding.runAsync(confirmSignUpPage.expectAuthenticated);
     },
   );
 }
