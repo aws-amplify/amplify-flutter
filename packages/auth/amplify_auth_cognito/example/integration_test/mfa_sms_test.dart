@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:io';
-
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
@@ -71,7 +69,5 @@ void main() {
         expect(confirmRes.nextStep.signInStep, 'DONE');
       });
     },
-    // TODO(equartey): ensure state machine GQL sub impl doesn't have this issue.
-    skip: !zIsWeb && Platform.isWindows,
   );
 }

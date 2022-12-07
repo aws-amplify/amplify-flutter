@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:amplify_api/src/graphql/web_socket/blocs/subscriptions_bloc.dart';
 import 'package:amplify_api/src/graphql/web_socket/services/web_socket_service.dart';
@@ -462,7 +463,8 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     _currentState.service.close();
 
     await Future.wait<void>([
-      _networkSubscription.cancel(),
+      // TODO(equartey): https://github.com/fluttercommunity/plus_plugins/issues/1382
+      if (zIsWeb || !Platform.isWindows) _networkSubscription.cancel(),
       Future.value(_pollClient.close()),
       _stateSubscription.cancel(),
       _wsEventController.close(),
@@ -474,21 +476,24 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   /// Connectivity stream monitors network availability on a hardware level
   StreamSubscription<ConnectivityResult> _getConnectivityStream() {
-    return _connectivity.onConnectivityChanged
-        .listen((ConnectivityResult connectivityResult) {
-      switch (connectivityResult) {
-        case ConnectivityResult.ethernet:
-        case ConnectivityResult.mobile:
-        case ConnectivityResult.wifi:
-          add(const NetworkFoundEvent());
-          break;
-        case ConnectivityResult.none:
-          add(const NetworkLossEvent());
-          break;
-        default:
-          break;
-      }
-    });
+    return _connectivity.onConnectivityChanged.listen(
+      (ConnectivityResult connectivityResult) {
+        switch (connectivityResult) {
+          case ConnectivityResult.ethernet:
+          case ConnectivityResult.mobile:
+          case ConnectivityResult.wifi:
+            add(const NetworkFoundEvent());
+            break;
+          case ConnectivityResult.none:
+            add(const NetworkLossEvent());
+            break;
+          default:
+            break;
+        }
+      },
+      onError: (Object e, StackTrace st) =>
+          logger.error('Error in connectivity stream $e, $st'),
+    );
   }
 
   Future<void> _poll() async {

@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:io';
-
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
@@ -190,8 +188,6 @@ void main() {
           );
         });
       },
-      // TODO(equartey): ensure state machine GQL sub impl doesn't have this issue.
-      skip: !zIsWeb && Platform.isWindows,
     );
 
     group('Always', () {
