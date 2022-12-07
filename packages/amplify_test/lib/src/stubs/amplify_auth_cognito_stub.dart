@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'dart:core';
-import 'dart:math';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -349,7 +348,7 @@ class MockCognitoUser {
     String? phoneNumber,
   }) {
     return MockCognitoUser._(
-      sub: Random().nextInt(10000).toString(),
+      sub: uuid(),
       username: username,
       password: password,
       email: email,
