@@ -36,7 +36,7 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
     // Allow overriding which categories to deploy
     const categoryParam = this.node.tryGetContext("category");
     const categories: AmplifyCategory[] = categoryParam
-      ? [categoryParam as AmplifyCategory]
+      ? categoryParam.split(",")
       : Object.values(AmplifyCategory);
 
     console.log(`Deploying stacks for categories: ${categories}`);
