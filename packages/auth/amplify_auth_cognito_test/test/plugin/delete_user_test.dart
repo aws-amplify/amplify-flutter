@@ -23,11 +23,10 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:test/test.dart';
 
+import '../common/matchers.dart';
 import '../common/mock_clients.dart';
 import '../common/mock_config.dart';
 import '../common/mock_secure_storage.dart';
-
-final throwsSignedOutException = throwsA(isA<SignedOutException>());
 
 void main() {
   final authConfig = AuthConfiguration.fromConfig(mockConfig.auth!.awsPlugin!);
@@ -64,8 +63,9 @@ void main() {
       Amplify.Hub.listen(HubChannel.Auth, hubEventsController.add);
     });
 
-    tearDown(() {
+    tearDown(() async {
       Amplify.Hub.close();
+      await Amplify.reset();
     });
 
     group('deleteUser', () {
