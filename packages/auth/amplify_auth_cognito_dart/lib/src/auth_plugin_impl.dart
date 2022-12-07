@@ -1099,21 +1099,30 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         }
       }
       // Revokes the access token
-      try {
-        await _cognitoIdp
-            .revokeToken(
-              cognito.RevokeTokenRequest(
-                clientId: _userPoolConfig.appClientId,
-                clientSecret: _userPoolConfig.appClientSecret,
-                token: tokens.refreshToken,
-              ),
-            )
-            .result;
-      } on Exception catch (e) {
+      if (globalSignOutException != null) {
         revokeTokenException = RevokeTokenException(
           refreshToken: tokens.refreshToken,
-          underlyingException: e,
+          underlyingException: Exception(
+            'RevokeToken not attempted because GlobalSignOut failed.',
+          ),
         );
+      } else {
+        try {
+          await _cognitoIdp
+              .revokeToken(
+                cognito.RevokeTokenRequest(
+                  clientId: _userPoolConfig.appClientId,
+                  clientSecret: _userPoolConfig.appClientSecret,
+                  token: tokens.refreshToken,
+                ),
+              )
+              .result;
+        } on Exception catch (e) {
+          revokeTokenException = RevokeTokenException(
+            refreshToken: tokens.refreshToken,
+            underlyingException: e,
+          );
+        }
       }
     }
 
