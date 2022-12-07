@@ -37,7 +37,6 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      final confirmSignUpPage = ConfirmSignUpPage(tester: tester);
       final signInPage = SignInPage(tester: tester);
 
       // When I type my "email"
@@ -50,7 +49,7 @@ void main() {
       await binding.runAsync(signInPage.submitSignIn);
 
       // Then I see "Sign out"
-      await binding.runAsync(confirmSignUpPage.expectAuthenticated);
+      await binding.runAsync(signInPage.expectAuthenticated);
     },
   );
 }
