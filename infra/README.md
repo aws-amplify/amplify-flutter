@@ -4,7 +4,7 @@ This CDK project spins up a backend for integration testing the Amplify Flutter 
 
 > Ensure you have `pnpm` installed by running `npm install -g pnpm` or following the instructions [here](https://pnpm.io/installation).
 
-To deploy all categories, run `pnpm run deploy-all`. To deploy a single category, run `CATEGORY=<CATEGORY> pnpm run deploy` where `<CATEGORY>` is one of `analytics`, `auth`, or `storage`.
+To deploy the stack, run `pnpm run deploy`.
 
 > **Note**: Run `pnpm run setup` if this is the first deploying a CDK project to your account in order to provision the resources needed for CDK to work. See [Bootstrapping](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html#getting_started_bootstrap) for more information.
 

@@ -15,14 +15,14 @@
 
 set -e
 
-if [[ -z "$1" ]]; then
-    echo "Usage: provision_integration_test_resources.sh <CATEGORY>" >&2
-    echo "<CATEGORY> = analytics, auth, storage" >&2
-    exit 1
-fi
-
+# Deploy Analytics, Auth, and Storage categories
 pushd infra
 pnpm install
 pnpm run setup
-CATEGORY=$1 pnpm run deploy
+pnpm run deploy
+popd
+
+# Deploy API category
+pushd packages/api/amplify_api/example
+./tool/provision_integration_test_resources.sh
 popd

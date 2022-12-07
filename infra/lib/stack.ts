@@ -23,7 +23,7 @@ import {
   AuthIntegrationTestStack,
   AuthIntegrationTestStackEnvironmentProps
 } from "./auth/stack";
-import { AmplifyCategory, IntegrationTestStack } from "./common";
+import { IntegrationTestStack } from "./common";
 import {
   StorageAccessLevel,
   StorageIntegrationTestStack
@@ -32,14 +32,6 @@ import {
 export class AmplifyFlutterIntegStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
-
-    // Allow overriding which categories to deploy
-    const categoryParam = this.node.tryGetContext("category");
-    const categories: AmplifyCategory[] = categoryParam
-      ? categoryParam.split(",")
-      : Object.values(AmplifyCategory);
-
-    console.log(`Deploying stacks for categories: ${categories}`);
 
     // Create shared infrastructure
 
@@ -80,99 +72,92 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
     });
 
     // The Analytics stack
-    if (categories.includes(AmplifyCategory.Analytics)) {
-      const analytics = new AnalyticsIntegrationTestStack(this, [
-        { environmentName: "main" },
-      ]);
-      this.outputAmplifyConfig(analytics);
-    }
+    const analytics = new AnalyticsIntegrationTestStack(this, [
+      { environmentName: "main" },
+    ]);
 
     // The Auth stack
-    if (categories.includes(AmplifyCategory.Auth)) {
-      let customDomainEnv: AuthIntegrationTestStackEnvironmentProps[] = [];
-      const customDomain = this.node.tryGetContext("domainName");
-      if (customDomain) {
-        customDomainEnv.push({
-          waf,
-          type: "CUSTOM_AUTHORIZER_IAM",
-          environmentName: "custom-authorizer-custom-domain",
-          customDomain,
-        });
-      }
-      const auth = new AuthIntegrationTestStack(this, [
-        { waf, type: "FULL", environmentName: "main" },
-        {
-          waf,
-          type: "FULL",
-          environmentName: "device-tracking-always",
-          deviceTracking: {
-            // Trust remembered devices (allow MFA bypass)
-            challengeRequiredOnNewDevice: true,
-            // Always track
-            deviceOnlyRememberedOnUserPrompt: false,
-          },
-        },
-        {
-          waf,
-          type: "FULL",
-          environmentName: "device-tracking-opt-in",
-          deviceTracking: {
-            // Trust remembered devices (allow MFA bypass)
-            challengeRequiredOnNewDevice: true,
-            // Opt-in to tracking
-            deviceOnlyRememberedOnUserPrompt: true,
-          },
-        },
-        {
-          waf,
-          type: "FULL",
-          environmentName: "sign-in-with-phone",
-          signInAliases: {
-            phone: true,
-          },
-        },
-        {
-          waf,
-          type: "CUSTOM_AUTHORIZER_USER_POOLS",
-          environmentName: "custom-authorizer-user-pools",
-        },
-        {
-          waf,
-          type: "CUSTOM_AUTHORIZER_IAM",
-          environmentName: "custom-authorizer-iam",
-        },
-        ...customDomainEnv,
-      ]);
-
-      this.outputAmplifyConfig(auth);
+    let customDomainEnv: AuthIntegrationTestStackEnvironmentProps[] = [];
+    const customDomain = this.node.tryGetContext("domainName");
+    if (customDomain) {
+      customDomainEnv.push({
+        waf,
+        type: "CUSTOM_AUTHORIZER_IAM",
+        environmentName: "custom-authorizer-custom-domain",
+        customDomain,
+      });
     }
+    const auth = new AuthIntegrationTestStack(this, [
+      { waf, type: "FULL", environmentName: "main" },
+      {
+        waf,
+        type: "FULL",
+        environmentName: "device-tracking-always",
+        deviceTracking: {
+          // Trust remembered devices (allow MFA bypass)
+          challengeRequiredOnNewDevice: true,
+          // Always track
+          deviceOnlyRememberedOnUserPrompt: false,
+        },
+      },
+      {
+        waf,
+        type: "FULL",
+        environmentName: "device-tracking-opt-in",
+        deviceTracking: {
+          // Trust remembered devices (allow MFA bypass)
+          challengeRequiredOnNewDevice: true,
+          // Opt-in to tracking
+          deviceOnlyRememberedOnUserPrompt: true,
+        },
+      },
+      {
+        waf,
+        type: "FULL",
+        environmentName: "sign-in-with-phone",
+        signInAliases: {
+          phone: true,
+        },
+      },
+      {
+        waf,
+        type: "CUSTOM_AUTHORIZER_USER_POOLS",
+        environmentName: "custom-authorizer-user-pools",
+      },
+      {
+        waf,
+        type: "CUSTOM_AUTHORIZER_IAM",
+        environmentName: "custom-authorizer-iam",
+      },
+      ...customDomainEnv,
+    ]);
 
     // The Storage stack
-    if (categories.includes(AmplifyCategory.Storage)) {
-      const storage = new StorageIntegrationTestStack(this, [
-        { environmentName: "main" },
-        {
-          environmentName: "custom-prefix",
-          prefixResolver(accessLevel, identityId) {
-            switch (accessLevel) {
-              case StorageAccessLevel.public:
-                return `everyone`;
-              case StorageAccessLevel.protected:
-                return `shared/${identityId}`;
-              case StorageAccessLevel.private:
-                return `private/${identityId}`;
-            }
-          },
-          prefixOverrides: {
-            [StorageAccessLevel.public]: "everyone",
-            [StorageAccessLevel.protected]: "shared",
-            [StorageAccessLevel.private]: "private",
-          },
+    const storage = new StorageIntegrationTestStack(this, [
+      { environmentName: "main" },
+      {
+        environmentName: "custom-prefix",
+        prefixResolver(accessLevel, identityId) {
+          switch (accessLevel) {
+            case StorageAccessLevel.public:
+              return `everyone`;
+            case StorageAccessLevel.protected:
+              return `shared/${identityId}`;
+            case StorageAccessLevel.private:
+              return `private/${identityId}`;
+          }
         },
-      ]);
+        prefixOverrides: {
+          [StorageAccessLevel.public]: "everyone",
+          [StorageAccessLevel.protected]: "shared",
+          [StorageAccessLevel.private]: "private",
+        },
+      },
+    ]);
 
-      this.outputAmplifyConfig(storage);
-    }
+    this.outputAmplifyConfig(analytics);
+    this.outputAmplifyConfig(auth);
+    this.outputAmplifyConfig(storage);
   }
 
   /**

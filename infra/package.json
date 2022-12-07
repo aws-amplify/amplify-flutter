@@ -8,8 +8,7 @@
     "test": "jest",
     "cdk": "cdk",
     "setup": "cdk bootstrap --profile=${AWS_PROFILE:=default}",
-    "deploy": "cdk deploy --profile=${AWS_PROFILE:=default} --context category=${CATEGORY} && tool/create_configs.dart",
-    "deploy-all": "cdk deploy --profile=${AWS_PROFILE:=default} && tool/create_configs.dart",
+    "deploy": "cdk deploy --profile=${AWS_PROFILE:=default} && tool/create_configs.dart",
     "destroy": "cdk destroy --profile=${AWS_PROFILE:=default}"
   },
   "devDependencies": {
