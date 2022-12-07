@@ -140,29 +140,21 @@ void main() {
   });
 }
 
-const passwordReqConfig = AmplifyConfig(
-  auth: AuthConfig(
-    plugins: {
-      CognitoPluginConfig.pluginKey: CognitoPluginConfig(
-        auth: AWSConfigMap({
-          'Default': CognitoAuthConfig(
-            authenticationFlowType: AuthenticationFlowType.userSrpAuth,
-            usernameAttributes: [CognitoUserAttributeKey.email],
-            signupAttributes: [CognitoUserAttributeKey.email],
-            passwordProtectionSettings: PasswordProtectionSettings(
-              passwordPolicyCharacters: [
-                PasswordPolicyCharacters.requiresSymbols,
-                PasswordPolicyCharacters.requiresUppercase,
-              ],
-              passwordPolicyMinLength: 16,
-            ),
-            verificationMechanisms: [CognitoUserAttributeKey.email],
-            socialProviders: [],
-            mfaConfiguration: MfaConfiguration.off,
-            mfaTypes: [MfaType.sms],
-          ),
-        }),
-      ),
-    },
+final passwordReqConfig = AmplifyConfig(
+  auth: AuthConfig.cognito(
+    authenticationFlowType: AuthenticationFlowType.userSrpAuth,
+    usernameAttributes: const [CognitoUserAttributeKey.email],
+    signupAttributes: const [CognitoUserAttributeKey.email],
+    passwordProtectionSettings: const PasswordProtectionSettings(
+      passwordPolicyCharacters: [
+        PasswordPolicyCharacters.requiresSymbols,
+        PasswordPolicyCharacters.requiresUppercase,
+      ],
+      passwordPolicyMinLength: 16,
+    ),
+    verificationMechanisms: const [CognitoUserAttributeKey.email],
+    socialProviders: const [],
+    mfaConfiguration: MfaConfiguration.off,
+    mfaTypes: const [MfaType.sms],
   ),
 );
