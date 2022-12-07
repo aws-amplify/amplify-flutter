@@ -101,7 +101,7 @@ void main() {
         username: username,
         password: password,
       );
-      expect(result.nextStep?.additionalInfo, isNull);
+      expect(result.nextStep.additionalInfo, isNull);
     });
 
     asyncTest('identity ID should be the same between sessions', (_) async {
@@ -116,7 +116,7 @@ void main() {
           username: username,
           password: password,
         );
-        expect(signInRes.nextStep?.signInStep, 'DONE');
+        expect(signInRes.nextStep.signInStep, 'DONE');
       }
 
       // Get authenticated identity
@@ -141,7 +141,7 @@ void main() {
           username: username,
           password: password,
         );
-        expect(signInRes.nextStep?.signInStep, 'DONE');
+        expect(signInRes.nextStep.signInStep, 'DONE');
       }
 
       final newSession = await Amplify.Auth.fetchAuthSession(

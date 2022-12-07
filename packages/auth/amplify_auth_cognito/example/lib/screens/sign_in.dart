@@ -52,7 +52,7 @@ class _SignInWidgetState extends State<SignInWidget> {
         password: passwordController.text.trim(),
       );
       widget.showResult(
-        'Sign In Status = ${res.nextStep?.signInStep ?? 'null'}',
+        'Sign In Status = ${res.nextStep.signInStep}',
       );
       widget.changeDisplay(
         res.isSignedIn ? 'SIGNED_IN' : 'SHOW_CONFIRM_SIGN_IN',
