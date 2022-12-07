@@ -30,6 +30,8 @@ import '../common/mock_secure_storage.dart';
 
 final throwsSignedOutException = throwsA(isA<SignedOutException>());
 
+// Follows signOut test cases:
+// https://github.com/aws-amplify/amplify-android/tree/main/aws-auth-cognito/src/test/resources/feature-test/testsuites/signOut
 void main() {
   final userPoolKeys = CognitoUserPoolKeys(userPoolConfig);
   final identityPoolKeys = CognitoIdentityPoolKeys(identityPoolConfig);
@@ -175,11 +177,26 @@ void main() {
             ),
           ),
           completion(
-            isA<CognitoPartialSignOut>().having(
-              (res) => res.globalSignOutException,
-              'globalSignOutException',
-              isA<GlobalSignOutException>(),
-            ),
+            isA<CognitoPartialSignOut>()
+                .having(
+                  (res) => res.signedOutLocally,
+                  'signedOutLocally',
+                  isTrue,
+                )
+                .having(
+                  (res) => res.globalSignOutException,
+                  'globalSignOutException',
+                  isA<GlobalSignOutException>(),
+                )
+                .having(
+                  (res) => res.revokeTokenException,
+                  'revokeTokenException',
+                  isA<RevokeTokenException>().having(
+                    (e) => e.underlyingException.toString(),
+                    'underlyingException',
+                    contains('not attempted'),
+                  ),
+                ),
           ),
         );
         expect(plugin.getCredentials(), throwsSignedOutException);
@@ -212,11 +229,26 @@ void main() {
             ),
           ),
           completion(
-            isA<CognitoPartialSignOut>().having(
-              (res) => res.revokeTokenException,
-              'revokeTokenException',
-              isA<RevokeTokenException>(),
-            ),
+            isA<CognitoPartialSignOut>()
+                .having(
+                  (res) => res.signedOutLocally,
+                  'signedOutLocally',
+                  isTrue,
+                )
+                .having(
+                  (res) => res.globalSignOutException,
+                  'globalSignOutException',
+                  isNull,
+                )
+                .having(
+                  (res) => res.revokeTokenException,
+                  'revokeTokenException',
+                  isA<RevokeTokenException>().having(
+                    (e) => e.refreshToken,
+                    'refreshToken',
+                    refreshToken,
+                  ),
+                ),
           ),
         );
         expect(plugin.getCredentials(), throwsSignedOutException);
