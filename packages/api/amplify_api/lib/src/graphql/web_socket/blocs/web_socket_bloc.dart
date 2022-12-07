@@ -21,9 +21,8 @@ import 'package:amplify_api/src/graphql/web_socket/state/web_socket_state.dart';
 import 'package:amplify_api/src/graphql/web_socket/state/ws_subscriptions_state.dart';
 import 'package:amplify_api/src/graphql/web_socket/types/subscriptions_event.dart';
 import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
-import 'package:amplify_flutter/amplify_flutter.dart' hide SubscriptionEvent;
+import 'package:amplify_core/amplify_core.dart' hide SubscriptionEvent;
 import 'package:async/async.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:meta/meta.dart';
 
 part '../types/web_socket_event.dart';
@@ -41,9 +40,8 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     required WebSocketService wsService,
     required GraphQLSubscriptionOptions subscriptionOptions,
     AWSHttpClient? pollClientOverride,
-    Connectivity? connectivityOverride,
-  })  : _pollClient = pollClientOverride ?? AWSHttpClient(),
-        _connectivity = connectivityOverride ?? Connectivity() {
+    this.networkStreamGenerator,
+  }) : _pollClient = pollClientOverride ?? AWSHttpClient() {
     final subBlocs = <String, SubscriptionBloc<Object?>>{};
 
     _currentState = DisconnectedState(
@@ -86,7 +84,11 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   /// Captures events added to the bloc and forwards them to the [_eventTransformer].
   late final Stream<WebSocketEvent> _wsEventStream = _wsEventController.stream;
   late final StreamSubscription<WebSocketState> _stateSubscription;
-  late final StreamSubscription<ConnectivityResult> _networkSubscription;
+  late final StreamSubscription<bool>? _networkSubscription;
+
+  /// A function which creates a stream of booleans representing network connectivity
+  /// at the hardware level.
+  Stream<bool> Function()? networkStreamGenerator;
 
   /// The underlying event stream, used only in testing.
   @visibleForTesting
@@ -101,9 +103,6 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   /// The underlying Http client used for poll requests
   final AWSHttpClient _pollClient;
-
-  /// The connectivity plugin used to detect hardware level network changes
-  final Connectivity _connectivity;
 
   /// The current state of the bloc.
   WebSocketState get currentState => _currentState;
@@ -462,9 +461,9 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     }
     _currentState.service.close();
 
+    // TODO(equartey): https://github.com/fluttercommunity/plus_plugins/issues/1382
+    if (zIsWeb || !Platform.isWindows) await _networkSubscription?.cancel();
     await Future.wait<void>([
-      // TODO(equartey): https://github.com/fluttercommunity/plus_plugins/issues/1382
-      if (zIsWeb || !Platform.isWindows) _networkSubscription.cancel(),
       Future.value(_pollClient.close()),
       _stateSubscription.cancel(),
       _wsEventController.close(),
@@ -475,25 +474,21 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   }
 
   /// Connectivity stream monitors network availability on a hardware level
-  StreamSubscription<ConnectivityResult> _getConnectivityStream() {
-    return _connectivity.onConnectivityChanged.listen(
-      (ConnectivityResult connectivityResult) {
-        switch (connectivityResult) {
-          case ConnectivityResult.ethernet:
-          case ConnectivityResult.mobile:
-          case ConnectivityResult.wifi:
+  StreamSubscription<bool>? _getConnectivityStream() {
+    if (networkStreamGenerator != null) {
+      return networkStreamGenerator!().listen(
+        (hasNetwork) {
+          if (hasNetwork) {
             add(const NetworkFoundEvent());
-            break;
-          case ConnectivityResult.none:
+          } else {
             add(const NetworkLossEvent());
-            break;
-          default:
-            break;
-        }
-      },
-      onError: (Object e, StackTrace st) =>
-          logger.error('Error in connectivity stream $e, $st'),
-    );
+          }
+        },
+        onError: (Object e, StackTrace st) =>
+            logger.error('Error in connectivity stream $e, $st'),
+      );
+    }
+    return null;
   }
 
   Future<void> _poll() async {

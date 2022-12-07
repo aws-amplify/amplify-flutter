@@ -254,7 +254,7 @@ class MockWebSocketBloc extends WebSocketBloc {
     required super.wsService,
     required super.subscriptionOptions,
     required super.pollClientOverride,
-    required super.connectivityOverride,
+    super.networkStreamGenerator,
   });
 }
 
