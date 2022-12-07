@@ -9,6 +9,8 @@ Thank you for your interest in contributing to our project! <3 Whether it's a bu
   - [Setting up for local development](#setting-up-for-local-development)
       - [Amplify Flutter Repo Tool (aft)](#amplify-flutter-repo-tool-aft)
       - [Packages inside Amplify Flutter](#packages-inside-amplify-flutter)
+    - [Platform Setup](#platform-setup)
+      - [Linux](#linux)
   - [Steps towards contributions](#steps-towards-contributions)
 - [Pull Requests](#pull-requests)
 - [Release](#release)
@@ -230,19 +232,21 @@ $ flutter drive --driver=test_driver/integration_test.dart --target=integration_
 
 ## Provision Resources For Integration Tests
 
-Any app with integration tests will have a script `tool/provision_integration_test_resources.sh` which will call `amplify init` and `amplify push` with preconfigured amplify environments for that app.
-Executing it will create real AWS resources. It requires [the Amplify CLI](https://docs.amplify.aws/cli). It does not need to run every time you run the tests. Run it once to set up or update your environments.
-If you already have an amplify environment configured for an app, this command will create a "test"
-environment and check it out.
+> Note: The provisioning script uses [AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html) and the [Amplify CLI](https://docs.amplify.aws/cli/usage/headless). You will need to have the following CLI tools installed before continuing:
+> - [AWS CLI](https://aws.amazon.com/cli/)
+> - [Amplify CLI](https://docs.amplify.aws/cli/)
+> - [pnpm](https://pnpm.io/installation)
+> - [jq](https://stedolan.github.io/jq/)
 
-Create all the amplify environments in the example apps which have provisioning scripts (takes several minutes). Note that you may need to give yourself permission to execute the scripts.:
+Any app with integration tests will have an `integration_test` folder in the example app for that package. These tests run against real AWS resources which must be deployed before running.
+
+To create all the backend environments, run:
 
 ```bash
-$ melos run provision_integration_test_resources
+$ tool/provision_integration_test_resources.sh
 ```
 
-Note: you will need to have [`jq`](https://github.com/stedolan/jq) installed, which you can install by running `brew install jq`.
-The provisioning script uses the [Amplify CLI headless mode](https://docs.amplify.aws/cli/usage/headless).
+This script can be re-run anytime the environments need to be updated. Further information can be found in the [infra](infra/README.md) package.
 
 ## Code of Conduct
 
