@@ -17,12 +17,9 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
 import 'package:amplify_auth_cognito_dart/src/crypto/crypto.dart';
 import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
-import 'package:amplify_core/amplify_core.dart'
-    show AWSHttpClient, CancelableOperation;
-import 'package:mockito/mockito.dart';
-import 'package:smithy/smithy.dart';
 import 'package:test/test.dart';
 
+import '../common/mock_clients.dart';
 import '../common/mock_config.dart';
 
 String randomString(int len) => String.fromCharCodes(getRandomBytes(10));
@@ -95,54 +92,6 @@ class MockAmplifyAuthCognito extends AmplifyAuthCognitoDart {
   }
 }
 
-class MockCognitoIdpClient extends Fake
-    implements CognitoIdentityProviderClient {
-  MockCognitoIdpClient({
-    Future<GetUserResponse> Function()? getUser,
-    Future<UpdateUserAttributesResponse> Function()? updateUserAttributes,
-  })  : _getUser = getUser,
-        _updateUserAttributes = updateUserAttributes;
-
-  final Future<GetUserResponse> Function()? _getUser;
-  final Future<UpdateUserAttributesResponse> Function()? _updateUserAttributes;
-
-  @override
-  SmithyOperation<GetUserResponse> getUser(
-    GetUserRequest input, {
-    AWSHttpClient? client,
-  }) {
-    if (_getUser == null) {
-      throw UnimplementedError();
-    }
-    return SmithyOperation(
-      CancelableOperation.fromFuture(
-        Future.value(_getUser!()),
-      ),
-      operationName: 'GetUser',
-      requestProgress: const Stream.empty(),
-      responseProgress: const Stream.empty(),
-    );
-  }
-
-  @override
-  SmithyOperation<UpdateUserAttributesResponse> updateUserAttributes(
-    UpdateUserAttributesRequest input, {
-    AWSHttpClient? client,
-  }) {
-    if (_updateUserAttributes == null) {
-      throw UnimplementedError();
-    }
-    return SmithyOperation(
-      CancelableOperation.fromFuture(
-        Future.value(_updateUserAttributes!()),
-      ),
-      operationName: 'UpdateUserAttributes',
-      requestProgress: const Stream.empty(),
-      responseProgress: const Stream.empty(),
-    );
-  }
-}
-
 void main() {
   late CognitoAuthStateMachine stateMachine;
   late AmplifyAuthCognitoDart plugin;
@@ -154,7 +103,7 @@ void main() {
 
   test('fetchUserAttributes', () async {
     stateMachine.addInstance<CognitoIdentityProviderClient>(
-      MockCognitoIdpClient(
+      MockCognitoIdentityProviderClient(
         getUser: () async => GetUserResponse(
           userAttributes: [
             for (final entry in claims.entries)

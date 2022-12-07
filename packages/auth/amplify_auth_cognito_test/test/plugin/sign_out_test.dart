@@ -21,55 +21,14 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
 import 'package:amplify_auth_cognito_dart/src/state/machines/credential_store_state_machine.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
-import 'package:mockito/mockito.dart';
-import 'package:smithy/smithy.dart';
 import 'package:test/test.dart';
 
+import '../common/mock_clients.dart';
 import '../common/mock_config.dart';
 import '../common/mock_hosted_ui.dart';
 import '../common/mock_secure_storage.dart';
 
 final throwsSignedOutException = throwsA(isA<SignedOutException>());
-
-class MockCognitoIdpClient extends Fake
-    implements CognitoIdentityProviderClient {
-  MockCognitoIdpClient({
-    required Future<GlobalSignOutResponse> Function() globalSignOut,
-    required Future<RevokeTokenResponse> Function() revokeToken,
-  })  : _globalSignOut = globalSignOut,
-        _revokeToken = revokeToken;
-
-  final Future<GlobalSignOutResponse> Function() _globalSignOut;
-  final Future<RevokeTokenResponse> Function() _revokeToken;
-
-  @override
-  SmithyOperation<GlobalSignOutResponse> globalSignOut(
-    GlobalSignOutRequest input, {
-    AWSHttpClient? client,
-  }) =>
-      SmithyOperation(
-        CancelableOperation.fromFuture(
-          Future.value(_globalSignOut()),
-        ),
-        operationName: 'GlobalSignOut',
-        requestProgress: const Stream.empty(),
-        responseProgress: const Stream.empty(),
-      );
-
-  @override
-  SmithyOperation<RevokeTokenResponse> revokeToken(
-    RevokeTokenRequest input, {
-    AWSHttpClient? client,
-  }) =>
-      SmithyOperation(
-        CancelableOperation.fromFuture(
-          Future.value(_revokeToken()),
-        ),
-        operationName: 'RevokeToken',
-        requestProgress: const Stream.empty(),
-        responseProgress: const Stream.empty(),
-      );
-}
 
 void main() {
   final userPoolKeys = CognitoUserPoolKeys(userPoolConfig);
@@ -174,7 +133,7 @@ void main() {
           authProviderRepo: testAuthRepo,
         );
 
-        final mockIdp = MockCognitoIdpClient(
+        final mockIdp = MockCognitoIdentityProviderClient(
           globalSignOut: () async => GlobalSignOutResponse(),
           revokeToken: () async => RevokeTokenResponse(),
         );
@@ -201,7 +160,7 @@ void main() {
           authProviderRepo: testAuthRepo,
         );
 
-        final mockIdp = MockCognitoIdpClient(
+        final mockIdp = MockCognitoIdentityProviderClient(
           globalSignOut:
               expectAsync0(() async => throw InternalErrorException()),
           revokeToken: () async => RevokeTokenResponse(),
@@ -239,7 +198,7 @@ void main() {
           authProviderRepo: testAuthRepo,
         );
 
-        final mockIdp = MockCognitoIdpClient(
+        final mockIdp = MockCognitoIdentityProviderClient(
           globalSignOut: () async => GlobalSignOutResponse(),
           revokeToken: expectAsync0(() async => throw InternalErrorException()),
         );
@@ -286,7 +245,7 @@ void main() {
             authProviderRepo: testAuthRepo,
           );
 
-          final mockIdp = MockCognitoIdpClient(
+          final mockIdp = MockCognitoIdentityProviderClient(
             globalSignOut: () async => GlobalSignOutResponse(),
             revokeToken: () async => RevokeTokenResponse(),
           );
@@ -313,7 +272,7 @@ void main() {
             authProviderRepo: testAuthRepo,
           );
 
-          final mockIdp = MockCognitoIdpClient(
+          final mockIdp = MockCognitoIdentityProviderClient(
             globalSignOut:
                 expectAsync0(() async => throw InternalErrorException()),
             revokeToken: () async => RevokeTokenResponse(),
@@ -351,7 +310,7 @@ void main() {
             authProviderRepo: testAuthRepo,
           );
 
-          final mockIdp = MockCognitoIdpClient(
+          final mockIdp = MockCognitoIdentityProviderClient(
             globalSignOut: () async => GlobalSignOutResponse(),
             revokeToken: () async => throw InternalErrorException(),
           );
