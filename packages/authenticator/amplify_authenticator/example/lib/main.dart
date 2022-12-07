@@ -32,8 +32,19 @@ class _MyAppState extends State<MyApp> {
   /// responsibility of the developer. This allows you the opportunity to
   /// customize plugin options and add/remove them as needed.
   void _configureAmplify() async {
+    final secureStorage = AmplifySecureStorage(
+      config: AmplifySecureStorageConfig(
+        scope: 'awsCognitoAuthPlugin',
+        // FIXME: In your app, make sure to remove this line and set up
+        /// Keychain Sharing in Xcode as described in the docs:
+        /// https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/#enable-keychain
+        // ignore: invalid_use_of_visible_for_testing_member
+        macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
+      ),
+    );
+    final authPlugin = AmplifyAuthCognito(credentialStorage: secureStorage);
     try {
-      await Amplify.addPlugin(AmplifyAuthCognito());
+      await Amplify.addPlugin(authPlugin);
       await Amplify.configure(amplifyconfig);
       print('Successfully configured');
     } on Exception catch (e) {

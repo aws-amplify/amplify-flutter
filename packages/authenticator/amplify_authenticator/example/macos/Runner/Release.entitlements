@@ -6,9 +6,7 @@
 	<true/>
 	<key>com.apple.security.network.client</key>
 	<true/>
-	<key>keychain-access-groups</key>
-	<array>
-		<string>$(AppIdentifierPrefix)com.example.amplifyAuthenticatorExample</string>
-	</array>
+	<key>com.apple.security.network.server</key>
+	<true/>
 </dict>
 </plist>
