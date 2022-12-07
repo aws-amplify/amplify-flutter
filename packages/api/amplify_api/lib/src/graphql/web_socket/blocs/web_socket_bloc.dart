@@ -463,7 +463,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     _currentState.service.close();
 
     await Future.wait<void>([
-      // TODO(elijah): <link to connectivity plus ticket>
+      // TODO(equartey): https://github.com/fluttercommunity/plus_plugins/issues/1382
       if (zIsWeb || !Platform.isWindows) _networkSubscription.cancel(),
       Future.value(_pollClient.close()),
       _stateSubscription.cancel(),
