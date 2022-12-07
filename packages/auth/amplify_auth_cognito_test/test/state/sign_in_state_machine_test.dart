@@ -19,36 +19,12 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
 import 'package:amplify_auth_cognito_dart/src/state/machines/sign_in_state_machine.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
-import 'package:mockito/mockito.dart';
-import 'package:smithy/smithy.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:test/test.dart';
 
+import '../common/mock_clients.dart';
 import '../common/mock_config.dart';
 import '../common/mock_secure_storage.dart';
-
-class MockCognitoIdentityProviderClient extends Fake
-    implements CognitoIdentityProviderClient {
-  MockCognitoIdentityProviderClient({
-    required Future<InitiateAuthResponse> Function() initiateAuth,
-  }) : _initiateAuth = initiateAuth;
-
-  final Future<InitiateAuthResponse> Function() _initiateAuth;
-
-  @override
-  SmithyOperation<InitiateAuthResponse> initiateAuth(
-    InitiateAuthRequest input, {
-    AWSHttpClient? client,
-  }) =>
-      SmithyOperation(
-        CancelableOperation.fromFuture(
-          Future.value(_initiateAuth()),
-        ),
-        operationName: 'InitiateAuth',
-        requestProgress: const Stream.empty(),
-        responseProgress: const Stream.empty(),
-      );
-}
 
 void main() {
   AWSLogger().logLevel = LogLevel.verbose;
