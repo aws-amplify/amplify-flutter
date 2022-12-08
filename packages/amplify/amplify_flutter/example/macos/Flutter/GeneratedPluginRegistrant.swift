@@ -6,7 +6,7 @@ import FlutterMacOS
 import Foundation
 
 import amplify_secure_storage
-import connectivity_plus_macos
+import connectivity_plus
 import device_info_plus_macos
 import package_info_plus_macos
 import path_provider_macos
