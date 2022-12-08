@@ -500,9 +500,13 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     try {
       final res = await _sendPollRequest();
       await checkPollResponse(res);
-      add(const PollSuccessEvent());
+      if (!_wsEventController.isClosed) {
+        add(const PollSuccessEvent());
+      }
     } on Exception catch (e) {
-      add(PollFailedEvent(e));
+      if (!_wsEventController.isClosed) {
+        add(PollFailedEvent(e));
+      }
     }
   }
 
