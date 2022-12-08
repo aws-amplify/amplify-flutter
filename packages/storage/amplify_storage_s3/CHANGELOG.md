@@ -1,3 +1,9 @@
+## 1.0.0-next.2
+
+### Fixes
+- fix(storage): adapt updated AWSFile.contentType getter
+- fix(storage): use correct fallback contentType for upload
+
 ## 1.0.0-next.1+2
 
 - Minor bug fixes and improvements

@@ -1,3 +1,11 @@
+## 1.0.0-next.2
+
+### Breaking Changes
+- feat(api)!: Web Socket State Machine  ([#2458](https://github.com/aws-amplify/amplify-flutter/pull/2458))
+
+### Fixes
+- fix(api): support multiple belongsTo ([#2087](https://github.com/aws-amplify/amplify-flutter/pull/2087))
+
 ## 1.0.0-next.1+1
 
 ### Fixes
