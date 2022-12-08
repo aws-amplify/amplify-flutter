@@ -149,7 +149,7 @@ class SignInRespondToChallenge extends SignInEvent {
 
   @override
   PreconditionException? checkPrecondition(SignInState currentState) {
-    if (currentState.type != SignInStateType.challenge) {
+    if (currentState.type != SignInStateType.challenge && !(currentState is SignInFailure && currentState.exception is CodeMismatchException)) {
       return const AuthPreconditionException('There is no active challenge');
     }
     return null;
