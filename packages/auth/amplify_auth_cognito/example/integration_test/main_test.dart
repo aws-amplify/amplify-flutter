@@ -16,6 +16,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
+import 'confirm_sign_in_test.dart' as confirm_sign_in_tests;
 import 'confirm_sign_up_test.dart' as confirm_sign_up_tests;
 import 'custom_auth_test.dart' as custom_auth_tests;
 // import 'custom_authorizer_test.dart' as custom_authorizer_tests;
@@ -37,6 +38,7 @@ void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('amplify_auth_cognito', () {
+    confirm_sign_in_tests.main();
     confirm_sign_up_tests.main();
     custom_auth_tests.main();
     // TODO(dnys1): Re-enable when custom authorizer backends are deployed
