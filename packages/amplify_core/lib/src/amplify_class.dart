@@ -145,7 +145,7 @@ abstract class AmplifyClass {
   static AmplifyClass? instance;
 
   /// The library version.
-  String get version => '1.0.0-next.1';
+  String get version => '1.0.0-next.2';
 
   /// Resets the Amplify implementation, removing all traces of Amplify from
   /// the device.
