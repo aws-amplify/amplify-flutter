@@ -867,6 +867,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         emit(SignInState.success(event.user));
         return;
       case SignInEventType.failed:
+        // TODO(dnys1): Transition to challenge state for CodeMismatchException
         event as SignInFailed;
         emit(SignInState.failure(event.exception));
         return;
