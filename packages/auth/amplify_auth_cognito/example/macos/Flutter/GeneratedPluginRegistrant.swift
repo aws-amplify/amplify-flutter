@@ -6,7 +6,7 @@ import FlutterMacOS
 import Foundation
 
 import amplify_secure_storage
-import connectivity_plus_macos
+import connectivity_plus
 import path_provider_macos
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
