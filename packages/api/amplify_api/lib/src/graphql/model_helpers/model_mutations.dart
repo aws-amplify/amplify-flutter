@@ -24,7 +24,7 @@ class ModelMutations {
   /// Generates a request to create a model.
   ///
   /// ```dart
-  /// Todo todo = Todo(name: 'my first todo', description: 'todo description');
+  /// final todo = Todo(name: 'my first todo', description: 'todo description');
   /// final request = ModelMutations.create(todo);
   /// ```
   static GraphQLRequest<T> create<T extends Model>(
