@@ -208,13 +208,28 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
     graphQLApi.grantMutation(customSmsSender);
     customSenderKmsKey.grantDecrypt(customSmsSender);
 
+    const customEmailSender = new lambda_nodejs.NodejsFunction(
+      this,
+      "custom-email-sender",
+      {
+        runtime: lambda.Runtime.NODEJS_16_X,
+        environment: {
+          GRAPHQL_API_ENDPOINT: graphQLApi.graphqlUrl,
+          GRAPHQL_API_KEY: graphQLApi.apiKey!,
+          KMS_KEY_ARN: customSenderKmsKey.keyArn,
+        },
+      }
+    );
+    graphQLApi.grantMutation(customEmailSender);
+    customSenderKmsKey.grantDecrypt(customEmailSender);
+
     // Create the Cognito User Pool
 
     const userPool = new cognito.UserPool(this, "UserPool", {
       userPoolName: this.name,
       removalPolicy: RemovalPolicy.DESTROY,
       selfSignUpEnabled: true,
-      accountRecovery: cognito.AccountRecovery.NONE,
+      accountRecovery: cognito.AccountRecovery.EMAIL_AND_PHONE_WITHOUT_MFA,
       autoVerify: {
         email: true,
         phone: true,
@@ -236,6 +251,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
         defineAuthChallenge,
         verifyAuthChallengeResponse,
         customSmsSender,
+        customEmailSender,
       },
       customSenderKmsKey,
       deviceTracking: props.deviceTracking,

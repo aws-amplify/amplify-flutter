@@ -14,15 +14,21 @@
  * limitations under the License.
  */
 
-import { CustomSMSSenderTriggerEvent, CustomSMSSenderTriggerHandler } from "aws-lambda";
+import {
+  CustomEmailSenderTriggerEvent,
+  CustomEmailSenderTriggerHandler
+} from "aws-lambda";
 import { decryptAndBroadcastCode } from "./custom-sender";
 
-export const handler: CustomSMSSenderTriggerHandler = async (
-  event: CustomSMSSenderTriggerEvent
-): Promise<CustomSMSSenderTriggerEvent> => {
+export const handler: CustomEmailSenderTriggerHandler = async (
+  event: CustomEmailSenderTriggerEvent
+): Promise<CustomEmailSenderTriggerEvent> => {
   console.log(`Got event: ${JSON.stringify(event, null, 2)}`);
 
-  if (event.triggerSource === "CustomSMSSender_AdminCreateUser") {
+  if (
+    event.triggerSource === "CustomEmailSender_AdminCreateUser" ||
+    event.triggerSource == "CustomEmailSender_AccountTakeOverNotification"
+  ) {
     console.warn(`Not handling trigger source: ${event.triggerSource}`);
     return event;
   }
