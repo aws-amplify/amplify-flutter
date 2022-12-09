@@ -17,7 +17,7 @@ import 'dart:convert';
 
 import 'package:amplify_api/src/graphql/web_socket/blocs/web_socket_bloc.dart';
 import 'package:amplify_api/src/graphql/web_socket/state/web_socket_state.dart';
-import 'package:amplify_api/src/graphql/web_socket/types/connectivity_status.dart';
+import 'package:amplify_api/src/graphql/web_socket/types/connectivity_platform.dart';
 import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -29,7 +29,7 @@ const mockConnectionAck =
 
 late StreamController<ConnectivityStatus> mockNetworkStreamController;
 
-class MockConnectivity extends ConnectivityInterface {
+class MockConnectivity extends ConnectivityPlatform {
   const MockConnectivity();
 
   @override
@@ -84,7 +84,7 @@ void main() {
       wsService: service!,
       subscriptionOptions: subscriptionOptions,
       pollClientOverride: mockPollClient.client,
-      connectivityStreamCreator: const MockConnectivity(),
+      connectivity: const MockConnectivity(),
     );
 
     bloc!.stream.listen((event) async {
@@ -328,7 +328,7 @@ void main() {
           wsService: badService,
           subscriptionOptions: subscriptionOptions,
           pollClientOverride: mockPollClient.client,
-          connectivityStreamCreator: const MockConnectivity(),
+          connectivity: const MockConnectivity(),
         );
 
         expect(

@@ -32,7 +32,7 @@ class AmplifyAPI extends AmplifyAPIDart with AWSDebuggable {
     super.subscriptionOptions,
   }) : super(
           authProviders: authProviders,
-          connectivityStreamCreator: const _ConnectivityPlusStreamCreator(),
+          connectivity: const _ConnectivityPlusStreamCreator(),
         ) {
     authProviders.forEach(registerAuthProvider);
   }
@@ -110,7 +110,7 @@ class _NativeAmplifyApi
 }
 
 /// Creates a stream of [ConnectivityStatus] from the [ConnectivityPlus plugin](https://pub.dev/packages/connectivity_plus).
-class _ConnectivityPlusStreamCreator extends ConnectivityInterface {
+class _ConnectivityPlusStreamCreator extends ConnectivityPlatform {
   const _ConnectivityPlusStreamCreator();
 
   @override

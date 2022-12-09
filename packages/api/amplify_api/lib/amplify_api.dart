@@ -15,5 +15,5 @@
 library amplify_api;
 
 export 'package:amplify_api/src/api_plugin_impl.dart'
-    hide AmplifyAPIDart, ConnectivityInterface, ConnectivityStatus;
+    hide AmplifyAPIDart, ConnectivityPlatform, ConnectivityStatus;
 export 'package:amplify_api/src/api_plugin_impl_flutter.dart';

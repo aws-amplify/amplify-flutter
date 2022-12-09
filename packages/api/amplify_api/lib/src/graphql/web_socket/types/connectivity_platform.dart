@@ -21,13 +21,15 @@ enum ConnectivityStatus {
   disconnected,
 }
 
-/// {@template amplify_api_dart.connectivity_interface}
+/// {@template amplify_api_dart.connectivity_platform}
 /// Used to create a stream representing network connectivity at the hardware level.
+///
+/// The generated stream is empty.
 /// {@endtemplate}
-abstract class ConnectivityInterface {
-  /// {@macro amplify_api_dart.connectivity_interface}
-  const ConnectivityInterface();
+class ConnectivityPlatform {
+  /// {@macro amplify_api_dart.connectivity_platform}
+  const ConnectivityPlatform();
 
   /// Generates a new stream of [ConnectivityStatus].
-  Stream<ConnectivityStatus> get onConnectivityChanged;
+  Stream<ConnectivityStatus> get onConnectivityChanged => const Stream.empty();
 }

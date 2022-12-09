@@ -311,6 +311,7 @@ void main() {
         wsService: mockWebSocketService!,
         subscriptionOptions: subscriptionOptions,
         pollClientOverride: mockClient.client,
+        connectivity: const ConnectivityPlatform(),
       );
     });
 
@@ -567,6 +568,7 @@ void main() {
         wsService: mockWebSocketService!,
         subscriptionOptions: subscriptionOptions,
         pollClientOverride: mockClient.client,
+        connectivity: const ConnectivityPlatform(),
       );
 
       final blocReady = Completer<void>();
