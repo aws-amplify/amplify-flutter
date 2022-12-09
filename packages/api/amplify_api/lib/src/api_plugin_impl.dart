@@ -23,6 +23,7 @@ import 'package:amplify_api/src/graphql/providers/oidc_function_api_auth_provide
 import 'package:amplify_api/src/graphql/web_socket/blocs/web_socket_bloc.dart';
 import 'package:amplify_api/src/graphql/web_socket/services/web_socket_service.dart';
 import 'package:amplify_api/src/graphql/web_socket/state/web_socket_state.dart';
+import 'package:amplify_api/src/graphql/web_socket/types/connectivity_status.dart';
 import 'package:amplify_api/src/util/amplify_api_config.dart';
 import 'package:amplify_api/src/util/amplify_authorization_rest_client.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -31,6 +32,7 @@ import 'package:meta/meta.dart';
 export 'package:amplify_api/src/graphql/model_helpers/model_mutations.dart';
 export 'package:amplify_api/src/graphql/model_helpers/model_queries.dart';
 export 'package:amplify_api/src/graphql/model_helpers/model_subscriptions.dart';
+export 'package:amplify_api/src/graphql/web_socket/types/connectivity_status.dart';
 export 'package:amplify_core/src/types/api/api_types.dart';
 
 /// {@template amplify_api_dart.amplify_api_dart}
@@ -43,7 +45,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
     AWSHttpClient? baseHttpClient,
     this.modelProvider,
     this.subscriptionOptions,
-    this.networkStreamGenerator,
+    this.connectivityStreamCreator,
   }) : _baseHttpClient = baseHttpClient {
     authProviders.forEach(registerAuthProvider);
     Amplify.Hub.addChannel(HubChannel.Api, _hubEventController.stream);
@@ -53,9 +55,8 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
   final AWSHttpClient? _baseHttpClient;
   late final AmplifyAuthProviderRepository _authProviderRepo;
 
-  /// A function which creates a stream of booleans representing network connectivity
-  /// at the hardware level.
-  Stream<bool> Function()? networkStreamGenerator;
+  /// Creates a stream representing network connectivity at the hardware level.
+  ConnectivityInterface? connectivityStreamCreator;
 
   /// A map of the keys from the Amplify API config with auth modes to HTTP clients
   /// to use for requests to that endpoint/auth mode. e.g. { "myEndpoint.AWS_IAM": AWSHttpClient}
@@ -209,7 +210,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
       wsService: AmplifyWebSocketService(),
       subscriptionOptions:
           subscriptionOptions ?? const GraphQLSubscriptionOptions(),
-      networkStreamGenerator: networkStreamGenerator,
+      connectivityStreamCreator: connectivityStreamCreator,
     );
   }
 

@@ -17,6 +17,7 @@ import 'dart:convert';
 
 import 'package:amplify_api/src/graphql/web_socket/blocs/web_socket_bloc.dart';
 import 'package:amplify_api/src/graphql/web_socket/state/web_socket_state.dart';
+import 'package:amplify_api/src/graphql/web_socket/types/connectivity_status.dart';
 import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -26,6 +27,16 @@ import '../util.dart';
 const mockConnectionAck =
     ConnectionAckMessageEvent(ConnectionAckMessagePayload(300000));
 
+late StreamController<ConnectivityStatus> mockNetworkStreamController;
+
+class MockConnectivity extends ConnectivityInterface {
+  const MockConnectivity();
+
+  @override
+  Stream<ConnectivityStatus> get onConnectivityChanged =>
+      mockNetworkStreamController.stream;
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -33,9 +44,6 @@ void main() {
   late MockWebSocketService? service;
 
   late MockPollClient mockPollClient;
-  late StreamController<bool> mockNetworkStreamController;
-  Stream<bool> mockNetworkStreamGenerator() =>
-      mockNetworkStreamController.stream;
 
   const graphQLDocument = '''subscription MySubscription {
     onCreateBlog {
@@ -66,7 +74,7 @@ void main() {
       GraphQLSubscriptionOptions(pollInterval: Duration(seconds: 1));
 
   MockWebSocketBloc getWebSocketBloc() {
-    mockNetworkStreamController = StreamController<bool>();
+    mockNetworkStreamController = StreamController<ConnectivityStatus>();
     mockPollClient = MockPollClient();
     service = MockWebSocketService();
 
@@ -76,7 +84,7 @@ void main() {
       wsService: service!,
       subscriptionOptions: subscriptionOptions,
       pollClientOverride: mockPollClient.client,
-      networkStreamGenerator: mockNetworkStreamGenerator,
+      connectivityStreamCreator: const MockConnectivity(),
     );
 
     bloc!.stream.listen((event) async {
@@ -175,8 +183,8 @@ void main() {
         dataCompleter = Completer<String>();
 
         mockNetworkStreamController
-          ..add(false)
-          ..add(true);
+          ..add(ConnectivityStatus.disconnected)
+          ..add(ConnectivityStatus.connected);
 
         await expectLater(bloc.stream, emitsThrough(isA<ConnectedState>()));
 
@@ -216,16 +224,16 @@ void main() {
         await blocReady.future;
 
         mockNetworkStreamController
-          ..add(false)
-          ..add(true)
-          ..add(false)
-          ..add(true)
-          ..add(false)
-          ..add(true)
-          ..add(false)
-          ..add(true)
-          ..add(false)
-          ..add(true);
+          ..add(ConnectivityStatus.disconnected)
+          ..add(ConnectivityStatus.connected)
+          ..add(ConnectivityStatus.disconnected)
+          ..add(ConnectivityStatus.connected)
+          ..add(ConnectivityStatus.disconnected)
+          ..add(ConnectivityStatus.connected)
+          ..add(ConnectivityStatus.disconnected)
+          ..add(ConnectivityStatus.connected)
+          ..add(ConnectivityStatus.disconnected)
+          ..add(ConnectivityStatus.connected);
       });
 
       test('should reconnect multiple times after reconnecting', () async {
@@ -242,27 +250,27 @@ void main() {
 
         await blocReady.future;
 
-        mockNetworkStreamController.add(false);
+        mockNetworkStreamController.add(ConnectivityStatus.disconnected);
 
         await expectLater(bloc.stream, emitsThrough(isA<ReconnectingState>()));
 
-        mockNetworkStreamController.add(true);
+        mockNetworkStreamController.add(ConnectivityStatus.connected);
 
         await expectLater(bloc.stream, emitsThrough(isA<ConnectedState>()));
 
-        mockNetworkStreamController.add(false);
+        mockNetworkStreamController.add(ConnectivityStatus.disconnected);
 
         await expectLater(bloc.stream, emitsThrough(isA<ReconnectingState>()));
 
-        mockNetworkStreamController.add(true);
+        mockNetworkStreamController.add(ConnectivityStatus.connected);
 
         await expectLater(bloc.stream, emitsThrough(isA<ConnectedState>()));
 
-        mockNetworkStreamController.add(false);
+        mockNetworkStreamController.add(ConnectivityStatus.disconnected);
 
         await expectLater(bloc.stream, emitsThrough(isA<ReconnectingState>()));
 
-        mockNetworkStreamController.add(true);
+        mockNetworkStreamController.add(ConnectivityStatus.connected);
 
         await expectLater(bloc.stream, emitsThrough(isA<ConnectedState>()));
       });
@@ -313,14 +321,14 @@ void main() {
         );
 
         final badService = MockWebSocketService(badInit: true);
-        mockNetworkStreamController = StreamController<bool>();
+        mockNetworkStreamController = StreamController<ConnectivityStatus>();
         final bloc = MockWebSocketBloc(
           config: testApiKeyConfig,
           authProviderRepo: getTestAuthProviderRepo(),
           wsService: badService,
           subscriptionOptions: subscriptionOptions,
           pollClientOverride: mockPollClient.client,
-          networkStreamGenerator: mockNetworkStreamGenerator,
+          connectivityStreamCreator: const MockConnectivity(),
         );
 
         expect(

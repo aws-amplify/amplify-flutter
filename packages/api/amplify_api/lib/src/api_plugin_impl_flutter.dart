@@ -32,16 +32,7 @@ class AmplifyAPI extends AmplifyAPIDart with AWSDebuggable {
     super.subscriptionOptions,
   }) : super(
           authProviders: authProviders,
-          networkStreamGenerator: () => Connectivity()
-              .onConnectivityChanged
-              .map((ConnectivityResult connectivityResult) {
-            switch (connectivityResult) {
-              case ConnectivityResult.none:
-                return false;
-              default:
-                return true;
-            }
-          }),
+          connectivityStreamCreator: const _ConnectivityPlusStreamCreator(),
         ) {
     authProviders.forEach(registerAuthProvider);
   }
@@ -116,4 +107,21 @@ class _NativeAmplifyApi
 
   @override
   String get runtimeTypeName => '_NativeAmplifyApi';
+}
+
+/// Creates a stream of [ConnectivityStatus] from the [ConnectivityPlus plugin](https://pub.dev/packages/connectivity_plus).
+class _ConnectivityPlusStreamCreator extends ConnectivityInterface {
+  const _ConnectivityPlusStreamCreator();
+
+  @override
+  Stream<ConnectivityStatus> get onConnectivityChanged => Connectivity()
+          .onConnectivityChanged
+          .map((ConnectivityResult connectivityResult) {
+        switch (connectivityResult) {
+          case ConnectivityResult.none:
+            return ConnectivityStatus.disconnected;
+          default:
+            return ConnectivityStatus.connected;
+        }
+      });
 }

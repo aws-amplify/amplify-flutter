@@ -19,6 +19,7 @@ import 'package:amplify_api/src/graphql/web_socket/blocs/subscriptions_bloc.dart
 import 'package:amplify_api/src/graphql/web_socket/services/web_socket_service.dart';
 import 'package:amplify_api/src/graphql/web_socket/state/web_socket_state.dart';
 import 'package:amplify_api/src/graphql/web_socket/state/ws_subscriptions_state.dart';
+import 'package:amplify_api/src/graphql/web_socket/types/connectivity_status.dart';
 import 'package:amplify_api/src/graphql/web_socket/types/subscriptions_event.dart';
 import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart' hide SubscriptionEvent;
@@ -40,7 +41,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     required WebSocketService wsService,
     required GraphQLSubscriptionOptions subscriptionOptions,
     AWSHttpClient? pollClientOverride,
-    this.networkStreamGenerator,
+    this.connectivityStreamCreator,
   }) : _pollClient = pollClientOverride ?? AWSHttpClient() {
     final subBlocs = <String, SubscriptionBloc<Object?>>{};
 
@@ -84,11 +85,10 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   /// Captures events added to the bloc and forwards them to the [_eventTransformer].
   late final Stream<WebSocketEvent> _wsEventStream = _wsEventController.stream;
   late final StreamSubscription<WebSocketState> _stateSubscription;
-  late final StreamSubscription<bool>? _networkSubscription;
+  late final StreamSubscription<ConnectivityStatus>? _networkSubscription;
 
-  /// A function which creates a stream of booleans representing network connectivity
-  /// at the hardware level.
-  Stream<bool> Function()? networkStreamGenerator;
+  /// Creates a stream representing network connectivity at the hardware level.
+  ConnectivityInterface? connectivityStreamCreator;
 
   /// The underlying event stream, used only in testing.
   @visibleForTesting
@@ -461,9 +461,10 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     }
     _currentState.service.close();
 
-    // TODO(equartey): https://github.com/fluttercommunity/plus_plugins/issues/1382
-    if (zIsWeb || !Platform.isWindows) await _networkSubscription?.cancel();
     await Future.wait<void>([
+      // TODO(equartey): https://github.com/fluttercommunity/plus_plugins/issues/1382
+      if (zIsWeb || !Platform.isWindows)
+        Future.value(_networkSubscription?.cancel()),
       Future.value(_pollClient.close()),
       _stateSubscription.cancel(),
       _wsEventController.close(),
@@ -473,14 +474,14 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     done.complete();
   }
 
-  /// Connectivity stream monitors network availability on a hardware level
-  StreamSubscription<bool>? _getConnectivityStream() {
-    if (networkStreamGenerator != null) {
-      return networkStreamGenerator!().listen(
-        (hasNetwork) {
-          if (hasNetwork) {
+  /// Connectivity stream monitors network availability on a hardware level.
+  StreamSubscription<ConnectivityStatus>? _getConnectivityStream() {
+    if (connectivityStreamCreator != null) {
+      return connectivityStreamCreator!.onConnectivityChanged.listen(
+        (status) {
+          if (status == ConnectivityStatus.connected) {
             add(const NetworkFoundEvent());
-          } else {
+          } else if (status == ConnectivityStatus.disconnected) {
             add(const NetworkLossEvent());
           }
         },
