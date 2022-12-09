@@ -8,14 +8,14 @@ on:
       - next
   pull_request:
     paths:
-      - 'packages/amplify_authenticator/**/*.dart'
-      - 'packages/amplify_authenticator/**/*.yaml'
-      - 'packages/amplify_authenticator/lib/**/*'
-      - 'packages/amplify_authenticator/test/**/*'
+      - 'packages/authenticator/amplify_authenticator/**/*.dart'
+      - 'packages/authenticator/amplify_authenticator/**/*.yaml'
+      - 'packages/authenticator/amplify_authenticator/lib/**/*'
+      - 'packages/authenticator/amplify_authenticator/test/**/*'
       - '.github/workflows/flutter_vm.yaml'
       - '.github/workflows/amplify_authenticator.yaml'
   schedule:
-    - cron: "0 0 * * 0" # Every Sunday at 00:00
+    - cron: '0 0 * * 0' # Every Sunday at 00:00
 defaults:
   run:
     shell: bash
@@ -25,4 +25,4 @@ jobs:
   test:
     uses: ./.github/workflows/flutter_vm.yaml
     with:
-      working-directory: packages/amplify_authenticator
+      working-directory: packages/authenticator/amplify_authenticator
