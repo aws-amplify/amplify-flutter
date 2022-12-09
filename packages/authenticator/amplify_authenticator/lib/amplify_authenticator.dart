@@ -795,23 +795,25 @@ class AuthenticatedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _AuthStateBuilder(
-      child: child,
-      builder: (state, child) {
-        if (state is AuthenticatedState) {
-          return child;
-        }
-        return ScaffoldMessenger(
-          key: _AuthenticatorState.scaffoldMessengerKey,
-          child: Scaffold(
-            body: SizedBox.expand(
-              child: child is AuthenticatorScreen
-                  ? SingleChildScrollView(child: child)
-                  : child,
+    return FocusTraversalGroup(
+      child: _AuthStateBuilder(
+        child: child,
+        builder: (state, child) {
+          if (state is AuthenticatedState) {
+            return child;
+          }
+          return ScaffoldMessenger(
+            key: _AuthenticatorState.scaffoldMessengerKey,
+            child: Scaffold(
+              body: SizedBox.expand(
+                child: child is AuthenticatorScreen
+                    ? SingleChildScrollView(child: child)
+                    : child,
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
