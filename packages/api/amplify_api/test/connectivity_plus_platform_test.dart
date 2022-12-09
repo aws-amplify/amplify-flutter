@@ -43,7 +43,7 @@ class MockConnectivityPlatform extends Mock
 }
 
 void main() {
-  group('ConnectivityPlusStreamCreator', () {
+  group('ConnectivityPlusPlatform', () {
     // More runtime mocking Connectivity Plus
     final fakePlatform = MockConnectivityPlatform();
     ConnectivityPlatform.instance = fakePlatform;
