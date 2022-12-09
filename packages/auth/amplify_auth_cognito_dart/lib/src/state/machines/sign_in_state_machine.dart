@@ -266,7 +266,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
   Future<RespondToAuthChallengeRequest> createDeviceSrpAuthRequest() async {
     final initResult = _initResult;
     if (initResult == null) {
-      throw const SrpSignInCalculationException('Must call init first');
+      throw StateError('Must call init first');
     }
     return RespondToAuthChallengeRequest.build((b) {
       b
