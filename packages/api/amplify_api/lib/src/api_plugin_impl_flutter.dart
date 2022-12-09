@@ -15,9 +15,9 @@
 import 'dart:io';
 
 import 'package:amplify_api/src/api_plugin_impl.dart';
+import 'package:amplify_api/src/connectivity_plus_stream_creator.dart';
 import 'package:amplify_api/src/native_api_plugin.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/services.dart';
 
 /// {@template amplify_api.amplify_api}
@@ -32,7 +32,7 @@ class AmplifyAPI extends AmplifyAPIDart with AWSDebuggable {
     super.subscriptionOptions,
   }) : super(
           authProviders: authProviders,
-          connectivity: const _ConnectivityPlusStreamCreator(),
+          connectivity: const ConnectivityPlusStreamCreator(),
         ) {
     authProviders.forEach(registerAuthProvider);
   }
@@ -107,21 +107,4 @@ class _NativeAmplifyApi
 
   @override
   String get runtimeTypeName => '_NativeAmplifyApi';
-}
-
-/// Creates a stream of [ConnectivityStatus] from the [ConnectivityPlus plugin](https://pub.dev/packages/connectivity_plus).
-class _ConnectivityPlusStreamCreator extends ConnectivityPlatform {
-  const _ConnectivityPlusStreamCreator();
-
-  @override
-  Stream<ConnectivityStatus> get onConnectivityChanged => Connectivity()
-          .onConnectivityChanged
-          .map((ConnectivityResult connectivityResult) {
-        switch (connectivityResult) {
-          case ConnectivityResult.none:
-            return ConnectivityStatus.disconnected;
-          default:
-            return ConnectivityStatus.connected;
-        }
-      });
 }
