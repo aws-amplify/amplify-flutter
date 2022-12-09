@@ -23,7 +23,7 @@ environment:
 dependencies:
   amplify_db_common_dart:
     path: ../
-  drift: ^2.2.0
+  drift: ">=2.3.0 <2.4.0"
   example_common:
     path: ../../../example_common
 

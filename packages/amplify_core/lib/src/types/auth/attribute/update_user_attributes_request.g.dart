@@ -7,7 +7,7 @@ part of 'update_user_attributes_request.dart';
 // **************************************************************************
 
 UpdateUserAttributesRequest<Key, Options> _$UpdateUserAttributesRequestFromJson<
-        Key extends UserAttributeKey,
+        Key extends AuthUserAttributeKey,
         Options extends UpdateUserAttributesOptions>(
   Map<String, dynamic> json,
   Key Function(Object? json) fromJsonKey,
@@ -22,7 +22,8 @@ UpdateUserAttributesRequest<Key, Options> _$UpdateUserAttributesRequestFromJson<
     );
 
 Map<String, dynamic> _$UpdateUserAttributesRequestToJson<
-    Key extends UserAttributeKey, Options extends UpdateUserAttributesOptions>(
+    Key extends AuthUserAttributeKey,
+    Options extends UpdateUserAttributesOptions>(
   UpdateUserAttributesRequest<Key, Options> instance,
   Object? Function(Key value) toJsonKey,
   Object? Function(Options value) toJsonOptions,

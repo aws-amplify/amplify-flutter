@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
 import 'package:aws_common/aws_common.dart';
 import 'package:test/test.dart';
 
@@ -77,6 +79,14 @@ void main() {
           expect(response.body, emits(equals([1, 2, 3, 4, 5])));
         },
       );
+
+      test('can call cancel multiple times synchronously', () async {
+        final client_ = client();
+        final request = AWSHttpRequest.get(createUri('/body'));
+        final operation = client_.send(request);
+        unawaited(operation.operation.cancel());
+        await expectLater(client_.close(), completes);
+      });
     },
   );
 }

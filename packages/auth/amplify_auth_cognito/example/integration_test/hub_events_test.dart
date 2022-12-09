@@ -20,6 +20,7 @@ import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
+import 'utils/test_utils.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -49,37 +50,44 @@ void main() {
     Matcher hasEventName(String name) =>
         isA<AuthHubEvent>().having((e) => e.eventName, 'eventName', name);
 
-    test('should broadcast events for sign in and sign out', () async {
-      expect(
-        authEventStream,
-        emitsInOrder([
-          hasEventName('SIGNED_IN'),
-          hasEventName('SIGNED_OUT'),
-          hasEventName('SIGNED_IN'),
-          hasEventName('SIGNED_OUT'),
-        ]),
-      );
+    asyncTest(
+      'should broadcast events for sign in and sign out',
+      (expectations) async {
+        expectations.add(
+          expectLater(
+            authEventStream,
+            emitsInOrder([
+              hasEventName('SIGNED_IN'),
+              hasEventName('SIGNED_OUT'),
+              hasEventName('SIGNED_IN'),
+              hasEventName('SIGNED_OUT'),
+            ]),
+          ),
+        );
 
-      await Amplify.Auth.signIn(
-        username: username,
-        password: password,
-      );
-      await Amplify.Auth.signOut();
-      await Amplify.Auth.signIn(
-        username: username,
-        password: password,
-      );
-      await Amplify.Auth.signOut();
-    });
+        await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+        );
+        await Amplify.Auth.signOut();
+        await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+        );
+        await Amplify.Auth.signOut();
+      },
+    );
 
-    test('should broadcast events for deleteUser', () async {
-      expect(
-        authEventStream,
-        emitsInOrder([
-          hasEventName('SIGNED_IN'),
-          hasEventName('SIGNED_OUT'),
-          hasEventName('USER_DELETED'),
-        ]),
+    asyncTest('should broadcast events for deleteUser', (expectations) async {
+      expectations.add(
+        expectLater(
+          authEventStream,
+          emitsInOrder([
+            hasEventName('SIGNED_IN'),
+            hasEventName('SIGNED_OUT'),
+            hasEventName('USER_DELETED'),
+          ]),
+        ),
       );
 
       await Amplify.Auth.signIn(

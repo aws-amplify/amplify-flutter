@@ -1,6 +1,6 @@
 name: amplify_api
 description: The Amplify Flutter API category plugin, supporting GraphQL and REST operations.
-version: 1.0.0-next.0+5
+version: 1.0.0-next.2
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/api/amplify_api
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -9,27 +9,46 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
   flutter: ">=3.0.0"
 
+# Helps `pana` since we do not use Flutter plugins for most platforms
+platforms:
+  ios:
+  android:
+  macos:
+  windows:
+  linux:
+  web:
+
 dependencies:
-  amplify_api_android: ">=1.0.0-next.0 <1.0.0-next.1"
-  amplify_api_ios: ">=1.0.0-next.0+2 <1.0.0-next.1"
-  amplify_core: ">=1.0.0-next.0+3 <1.0.0-next.1"
-  amplify_flutter: ">=1.0.0-next.0+5 <1.0.0-next.1"
-  aws_common: ">=0.3.0 <0.4.0"
+  amplify_api_android: ">=1.0.0-next.2 <1.0.0-next.3"
+  amplify_api_ios: ">=1.0.0-next.2 <1.0.0-next.3"
+  amplify_core: ">=1.0.0-next.2 <1.0.0-next.3"
+  amplify_flutter: ">=1.0.0-next.2 <1.0.0-next.3"
+  async: ^2.8.0
+  aws_common: ">=0.3.3 <0.4.0"
   collection: ^1.15.0
+  connectivity_plus: ^3.0.2
   flutter:
     sdk: flutter
+  json_annotation: ^4.6.0
   meta: ^1.7.0
   plugin_platform_interface: ^2.0.0
+  stream_transform: ^2.0.1
+  web_socket_channel: ^2.2.0
+
 
 dev_dependencies:
-  amplify_lints: ^2.0.0
+  amplify_lints: 
+    path: ../../amplify_lints
   amplify_test:
     path: ../../amplify_test
-  async: ^2.8.0
+  aws_signature_v4:
   build_runner: ^2.0.0
+  connectivity_plus_platform_interface: any
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0
+  pigeon: ^3.1.6
+  stream_channel: ^2.1.0
 
 # The following section is specific to Flutter.
 flutter:

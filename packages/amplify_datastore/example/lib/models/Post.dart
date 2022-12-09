@@ -17,10 +17,10 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: public_member_api_docs, file_names, unnecessary_new, prefer_if_null_operators, prefer_const_constructors, slash_for_doc_comments, annotate_overrides, non_constant_identifier_names, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, unnecessary_const, dead_code
+// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
 import 'ModelProvider.dart';
-import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
@@ -41,19 +41,23 @@ class Post extends Model {
   @override
   getInstanceType() => classType;
 
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+
+  PostModelIdentifier get modelIdentifier {
+    return PostModelIdentifier(id: id);
   }
 
   String get title {
     try {
       return _title!;
     } catch (e) {
-      throw DataStoreException(
-          DataStoreExceptionMessages
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: DataStoreExceptionMessages
+          recoverySuggestion: AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
@@ -63,10 +67,10 @@ class Post extends Model {
     try {
       return _rating!;
     } catch (e) {
-      throw DataStoreException(
-          DataStoreExceptionMessages
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: DataStoreExceptionMessages
+          recoverySuggestion: AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
@@ -177,15 +181,14 @@ class Post extends Model {
   }
 
   Post copyWith(
-      {String? id,
-      String? title,
+      {String? title,
       int? rating,
       TemporalDateTime? created,
       Blog? blog,
       List<Comment>? comments,
       List<PostTags>? tags}) {
     return Post._internal(
-        id: id ?? this.id,
+        id: id,
         title: title ?? this.title,
         rating: rating ?? this.rating,
         created: created ?? this.created,
@@ -238,7 +241,9 @@ class Post extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryField ID = QueryField(fieldName: "post.id");
+  static final QueryModelIdentifier<PostModelIdentifier> MODEL_IDENTIFIER =
+      QueryModelIdentifier<PostModelIdentifier>();
+  static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField TITLE = QueryField(fieldName: "title");
   static final QueryField RATING = QueryField(fieldName: "rating");
   static final QueryField CREATED = QueryField(fieldName: "created");
@@ -258,6 +263,10 @@ class Post extends Model {
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Post";
     modelSchemaDefinition.pluralName = "Posts";
+
+    modelSchemaDefinition.indexes = [
+      ModelIndex(fields: const ["blogID"], name: "byBlog")
+    ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
@@ -279,7 +288,7 @@ class Post extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: Post.BLOG,
         isRequired: false,
-        targetName: "blogID",
+        targetNames: ["blogID"],
         ofModelName: (Blog).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
@@ -315,4 +324,41 @@ class _PostModelType extends ModelType<Post> {
   Post fromJson(Map<String, dynamic> jsonData) {
     return Post.fromJson(jsonData);
   }
+}
+
+/// This is an auto generated class representing the model identifier
+/// of [Post] in your schema.
+@immutable
+class PostModelIdentifier implements ModelIdentifier<Post> {
+  final String id;
+
+  /// Create an instance of PostModelIdentifier using [id] the primary key.
+  const PostModelIdentifier({required this.id});
+
+  @override
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+
+  @override
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
+  @override
+  String serializeAsString() => serializeAsMap().values.join('#');
+
+  @override
+  String toString() => 'PostModelIdentifier(id: $id)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+
+    return other is PostModelIdentifier && id == other.id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }

@@ -60,6 +60,7 @@ class CognitoIamAuthProvider extends AWSIamAmplifyAuthProvider {
       request,
       region: options.region,
       service: options.service,
+      serviceConfiguration: options.serviceConfiguration,
       credentials: await retrieve(),
     );
   }
@@ -70,6 +71,7 @@ class CognitoIamAuthProvider extends AWSIamAmplifyAuthProvider {
     required String region,
     required AWSService service,
     required AWSCredentials credentials,
+    ServiceConfiguration? serviceConfiguration,
   }) {
     // Create signer helper params.
     final signer = AWSSigV4Signer(
@@ -84,6 +86,8 @@ class CognitoIamAuthProvider extends AWSIamAmplifyAuthProvider {
     return signer.sign(
       request,
       credentialScope: scope,
+      serviceConfiguration:
+          serviceConfiguration ?? const BaseServiceConfiguration(),
     );
   }
 }

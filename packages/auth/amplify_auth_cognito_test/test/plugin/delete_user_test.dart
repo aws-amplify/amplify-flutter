@@ -21,35 +21,12 @@ import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
-import 'package:mockito/mockito.dart';
-import 'package:smithy/smithy.dart';
 import 'package:test/test.dart';
 
+import '../common/matchers.dart';
+import '../common/mock_clients.dart';
 import '../common/mock_config.dart';
 import '../common/mock_secure_storage.dart';
-
-final throwsSignedOutException = throwsA(isA<SignedOutException>());
-
-class MockCognitoIdpClient extends Fake
-    implements CognitoIdentityProviderClient {
-  MockCognitoIdpClient(this._deleteUser);
-
-  final Future<void> Function() _deleteUser;
-
-  @override
-  SmithyOperation<void> deleteUser(
-    DeleteUserRequest input, {
-    AWSHttpClient? client,
-  }) =>
-      SmithyOperation(
-        CancelableOperation.fromFuture(
-          Future.value(_deleteUser()),
-        ),
-        operationName: 'GetId',
-        requestProgress: const Stream.empty(),
-        responseProgress: const Stream.empty(),
-      );
-}
 
 void main() {
   final authConfig = AuthConfiguration.fromConfig(mockConfig.auth!.awsPlugin!);
@@ -86,8 +63,9 @@ void main() {
       Amplify.Hub.listen(HubChannel.Auth, hubEventsController.add);
     });
 
-    tearDown(() {
+    tearDown(() async {
       Amplify.Hub.close();
+      await Amplify.reset();
     });
 
     group('deleteUser', () {
@@ -113,7 +91,9 @@ void main() {
           authProviderRepo: testAuthRepo,
         );
 
-        final mockIdp = MockCognitoIdpClient(() async {});
+        final mockIdp = MockCognitoIdentityProviderClient(
+          deleteUser: () async {},
+        );
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
         await expectLater(plugin.getCredentials(), completes);
@@ -133,9 +113,11 @@ void main() {
           authProviderRepo: testAuthRepo,
         );
 
-        final mockIdp = MockCognitoIdpClient(() async {
-          throw InternalErrorException();
-        });
+        final mockIdp = MockCognitoIdentityProviderClient(
+          deleteUser: () async {
+            throw InternalErrorException();
+          },
+        );
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
         await expectLater(plugin.getCredentials(), completes);

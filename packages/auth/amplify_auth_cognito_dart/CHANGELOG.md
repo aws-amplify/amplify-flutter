@@ -1,3 +1,30 @@
+## 0.3.0
+
+### Fixes
+- fix(auth): Can't resubmit verification code ([#2468](https://github.com/aws-amplify/amplify-flutter/pull/2468))
+- fix(auth): globalSignOut failure case
+
+### Breaking Changes
+- chore(auth)!: Make sign in result's `nextStep` non-null ([#2462](https://github.com/aws-amplify/amplify-flutter/pull/2462))
+- feat(auth)!: Support partial sign out cases ([#2436](https://github.com/aws-amplify/amplify-flutter/pull/2436))
+
+### Features
+- feat(auth): Add user ID to `CognitoSignUpResult` ([#2437](https://github.com/aws-amplify/amplify-flutter/pull/2437))
+
+## 0.2.5
+
+### Fixes
+- fix(auth): Refresh tokens when either access or ID token expires ([#2401](https://github.com/aws-amplify/amplify-flutter/pull/2401))
+
+## 0.2.4
+
+### Fixes
+- revert(auth): "fix(auth): Retain unauthenticated identities" ([#2376](https://github.com/aws-amplify/amplify-flutter/pull/2376))
+
+## 0.2.3
+
+- Minor bug fixes and improvements
+
 ## 0.2.2
 
 ### Fixes

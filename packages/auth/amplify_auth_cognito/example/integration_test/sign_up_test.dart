@@ -20,6 +20,7 @@ import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
+import 'utils/test_utils.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +33,7 @@ void main() {
 
     tearDownAll(Amplify.reset);
 
-    test('should signUp a user with valid parameters', () async {
+    asyncTest('should signUp a user with valid parameters', (_) async {
       final username = generateUsername();
       final password = generatePassword();
 
@@ -45,30 +46,31 @@ void main() {
             CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
           },
         ),
-      );
+      ) as CognitoSignUpResult;
       expect(
         res.isSignUpComplete,
         isFalse,
         reason: 'Sign up is not complete until user is confirmed',
       );
+      expect(res.userId, isNotNull);
     });
 
-    test(
+    asyncTest(
       'should throw an InvalidParameterException without required attributes',
-      () async {
+      (_) async {
         final username = generateUsername();
         final password = generatePassword();
-        expect(
+        await expectLater(
           Amplify.Auth.signUp(username: username, password: password),
           throwsA(isA<InvalidParameterException>()),
         );
       },
     );
 
-    test(
+    asyncTest(
       'should throw an InvalidPasswordException for a password that does not '
       'meet requirements',
-      () async {
+      (_) async {
         final username = generateUsername();
         const invalidPassword = '123';
         final options = CognitoSignUpOptions(
@@ -77,7 +79,7 @@ void main() {
             CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
           },
         );
-        expect(
+        await expectLater(
           Amplify.Auth.signUp(
             username: username,
             password: invalidPassword,
@@ -88,10 +90,10 @@ void main() {
       },
     );
 
-    test(
+    asyncTest(
       'should throw a UsernameExistsException for a username that '
       'already exists',
-      () async {
+      (_) async {
         // create username for both sign up attempts
         final username = generateUsername();
 
@@ -117,7 +119,7 @@ void main() {
             CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
           },
         );
-        expect(
+        await expectLater(
           Amplify.Auth.signUp(
             username: username,
             password: userTwoPassword,

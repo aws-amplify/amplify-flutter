@@ -1,0 +1,26 @@
+{
+  "queryPredicateGroup": {
+    "type": "not",
+    "predicates": [
+      {
+        "queryByIdentifierOperation": {
+          "operatorName": "equal",
+          "value": [
+            {
+              "productID": "product-id"
+            },
+            {
+              "name": "product-name"
+            },
+            {
+              "warehouseID": "warehouse-id"
+            },
+            {
+              "region": "some region"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

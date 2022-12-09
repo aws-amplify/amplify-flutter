@@ -1,3 +1,19 @@
+## 1.0.0-next.2
+
+- Minor bug fixes and improvements
+
+## 1.0.0-next.1+1
+
+- Minor bug fixes and improvements
+
+## 1.0.0-next.1
+
+### Breaking Changes
+
+Initial preview release of the Dart rewrite!
+
+See our [docs](https://docs.amplify.aws/lib/q/platform/flutter/) for guides on how to migrate to this new version.
+
 ## 1.0.0-next.0+4
 
 - Minor bug fixes and improvements

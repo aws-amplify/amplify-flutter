@@ -95,7 +95,7 @@ void main() {
         SignInPage signInPage = SignInPage(tester: tester);
         ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
 
-        final code = getOtpCode(email);
+        final otpResult = await getOtpCode(email);
 
         // Use the standard Amplify API to create the user in the Unconfirmed state
         await Amplify.Auth.signUp(
@@ -121,7 +121,7 @@ void main() {
         confirmSignUpPage.expectConfirmationCodeIsPresent();
 
         /// And I type a valid confirmation code
-        await confirmSignUpPage.enterCode(await code);
+        await confirmSignUpPage.enterCode(await otpResult.code);
 
         // And I click the "Confirm" button
         await confirmSignUpPage.submitConfirmSignUp();

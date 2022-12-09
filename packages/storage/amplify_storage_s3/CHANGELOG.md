@@ -1,3 +1,30 @@
+## 1.0.0-next.2
+
+### Fixes
+- fix(storage): adapt updated AWSFile.contentType getter
+- fix(storage): use correct fallback contentType for upload
+
+## 1.0.0-next.1+2
+
+- Minor bug fixes and improvements
+
+## 1.0.0-next.1+1
+
+- Minor bug fixes and improvements
+
+## 1.0.0-next.1
+
+### Breaking Changes
+
+Initial preview release of the Dart rewrite!
+
+See our [docs](https://docs.amplify.aws/lib/q/platform/flutter/) for guides on how to migrate to this new version.
+
+- chore(storage): migrate interface and setup basic packages 
+
+### Features
+- feat(storage): add custom prefix resolver support
+
 ## 1.0.0-next.0+4
 
 - Minor bug fixes and improvements

@@ -15,6 +15,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:graphql/client.dart';
 import 'package:stream_transform/stream_transform.dart';
@@ -154,9 +155,14 @@ Future<void> adminCreateUser(
   }
 }
 
+class OtpResult {
+  OtpResult({required this.code});
+  Future<String> code;
+}
+
 /// Returns the OTP code for [username]. Must be called before the network call
 /// generating the OTP code.
-Future<String> getOtpCode(String username) async {
+Future<OtpResult> getOtpCode(String username) async {
   const subscriptionDocument = r'''
     subscription OnCreateMFACode($username: String!) {
       onCreateMFACode(username: $username) {
@@ -165,6 +171,7 @@ Future<String> getOtpCode(String username) async {
       }
     }''';
 
+  final establishedCompleter = Completer<void>();
   final Stream<GraphQLResponse<String>> operation = Amplify.API.subscribe(
     GraphQLRequest<String>(
       document: subscriptionDocument,
@@ -172,18 +179,21 @@ Future<String> getOtpCode(String username) async {
         'username': username,
       },
     ),
-    onEstablished: () => _logger.debug('Established connection'),
+    onEstablished: () {
+      establishedCompleter.complete();
+      _logger.debug('Established connection');
+    },
   );
 
   // Collect code delivered via Lambda
-  return operation
+  final code = operation
       .tap(
         (event) => _logger.debug(
           'Got event: ${event.data}, errors: ${event.errors}',
         ),
       )
       .map((event) {
-        if (event.errors.isNotEmpty) {
+        if (event.hasErrors) {
           throw Exception(event.errors);
         }
         final json = jsonDecode(event.data!)['onCreateMFACode'] as Map;
@@ -191,12 +201,15 @@ Future<String> getOtpCode(String username) async {
       })
       .map((event) => event.code)
       .first;
+
+  await establishedCompleter.future;
+  return OtpResult(code: code);
 }
 
 /// Returns the stream of all OTP codes broadcast by Cognito.
 ///
 /// This is useful with aliases when the username is not known ahead of time.
-Stream<String> getOtpCodes() {
+Stream<String> getOtpCodes({void Function()? onEstablished}) {
   const subscriptionDocument = r'''
     subscription OnCreateMFACode {
       onCreateMFACode {
@@ -209,7 +222,10 @@ Stream<String> getOtpCodes() {
     GraphQLRequest<String>(
       document: subscriptionDocument,
     ),
-    onEstablished: () => _logger.debug('Established connection'),
+    onEstablished: () {
+      onEstablished?.call();
+      _logger.debug('Established connection');
+    },
   );
 
   // Collect code delivered via Lambda
@@ -220,7 +236,7 @@ Stream<String> getOtpCodes() {
     ),
   )
       .map((event) {
-    if (event.errors.isNotEmpty) {
+    if (event.hasErrors) {
       throw Exception(event.errors);
     }
     final json = jsonDecode(event.data!)['onCreateMFACode'] as Map;

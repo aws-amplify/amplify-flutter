@@ -19,7 +19,8 @@ import 'src/amplify_class.dart';
 
 /// Common types
 export 'package:aws_common/aws_common.dart';
-export 'package:aws_signature_v4/aws_signature_v4.dart' show AWSCredentials;
+export 'package:aws_signature_v4/aws_signature_v4.dart'
+    show AWSCredentials, ServiceConfiguration;
 
 export 'src/amplify_class.dart';
 
@@ -71,6 +72,9 @@ export 'src/types/analytics/analytics_types.dart';
 
 /// API
 export 'src/types/api/api_types.dart';
+
+/// App path provider
+export 'src/types/app_path_provider/app_path_provider.dart';
 
 /// Auth
 export 'src/types/auth/auth_types.dart';

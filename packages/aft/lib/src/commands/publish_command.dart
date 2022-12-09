@@ -16,7 +16,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
-import 'package:aft/src/util.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:graphs/graphs.dart';
 import 'package:path/path.dart' as p;

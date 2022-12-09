@@ -38,13 +38,15 @@ small=${small:-$DEFAULT_SMALL}
 
 if [[ "$OSTYPE" == "linux-gnu"* && $deviceId == "linux"* ]]; then
     sudo apt-get update -y
-    sudo apt-get install -y ninja-build libgtk-3-dev libsecret-1-dev libglib2.0-dev gnome-keyring
+    sudo apt-get install -y ninja-build libgtk-3-dev libsecret-1-dev libglib2.0-dev gnome-keyring network-manager
 
     if [ -n $CI ]; then
         # Headless tests require virtual display for the linux tests to run.
         # from https://github.com/fluttercommunity/plus_plugins/blob/main/.github/workflows/scripts/integration-test.sh
         export DISPLAY=:99
         sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+        # Needed for WebSocket connections in API GraphQL subscriptions.
+        sudo systemctl start NetworkManager.service
 
         # Set up keyring.
         echo 'password' | gnome-keyring-daemon --start --replace --daemonize --unlock
@@ -69,7 +71,14 @@ testsList+=("$TARGET")
 n=0
 until [ "$n" -gt $retries ]
 do
-    if flutter test \
+    if [[ $deviceId = "web-server" ]] && flutter drive \
+        --driver=test_driver/integration_test.dart \
+        --target=$TARGET \
+        -d web-server
+    then
+        resultsList+=(0)
+        break
+    elif flutter test \
         --no-pub \
         -d $deviceId \
         $TARGET;
@@ -110,11 +119,19 @@ for ENTRY in $TEST_ENTRIES; do
     n=0
     until [ "$n" -gt $retries ]
     do
-        if flutter test \
-              --no-pub \
-              --dart-define ENABLE_CLOUD_SYNC=$enableCloudSync \
-              -d $deviceId \
-              $ENTRY;
+        if [[ $deviceId = "web-server" ]] && flutter drive \
+            --driver=test_driver/integration_test.dart \
+            --dart-define ENABLE_CLOUD_SYNC=$enableCloudSync \
+            --target=$ENTRY \
+            -d web-server
+        then
+            resultsList+=(0)
+            break
+        elif flutter test \
+            --no-pub \
+            --dart-define ENABLE_CLOUD_SYNC=$enableCloudSync \
+            -d $deviceId \
+            $ENTRY;
         then
             resultsList+=(0)
             break

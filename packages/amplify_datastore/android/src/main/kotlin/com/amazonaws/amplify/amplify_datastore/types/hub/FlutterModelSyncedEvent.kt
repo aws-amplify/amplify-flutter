@@ -18,10 +18,10 @@ package com.amazonaws.amplify.amplify_datastore.types.hub
 class FlutterModelSyncedEvent(
     override val eventName: String,
     val model: String,
-    val isFullSync: Boolean,
-    val isDeltaSync: Boolean,
-    val added: Int,
-    val updated: Int,
+    private val isFullSync: Boolean,
+    private val isDeltaSync: Boolean,
+    private val added: Int,
+    private val updated: Int,
     val deleted: Int
 ) : FlutterHubEvent {
     override fun toValueMap(): Map<String, Any> {

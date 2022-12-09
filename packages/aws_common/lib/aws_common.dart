@@ -34,6 +34,7 @@ export 'src/credentials/credentials_provider.dart';
 // Exception
 export 'src/exception/aws_http_exception.dart';
 export 'src/exception/cancellation_exception.dart';
+export 'src/exception/invalid_file_exception.dart';
 
 // HTTP
 export 'src/http/alpn_protocol.dart';
@@ -45,6 +46,9 @@ export 'src/http/aws_http_request.dart';
 export 'src/http/aws_http_response.dart';
 export 'src/http/http_payload.dart';
 export 'src/http/x509_certificate.dart';
+
+// IO
+export 'src/io/aws_file.dart';
 
 // Logging
 export 'src/logging/aws_logger.dart';

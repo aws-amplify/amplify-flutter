@@ -15,11 +15,18 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
+import 'package:meta/meta.dart';
 
 /// An identifier to use as a key in an [AmplifyAuthProviderRepository] so that
 /// a retrieved auth provider can be typed more accurately.
-class AmplifyAuthProviderToken<T extends AmplifyAuthProvider> extends Token<T> {
-  const AmplifyAuthProviderToken();
+///
+/// Does not extend [Token] because [Token] is equal to another [Token] of same
+/// type which has unintended consequences.
+@immutable
+class AmplifyAuthProviderToken<T extends AmplifyAuthProvider> {
+  final String name;
+
+  const AmplifyAuthProviderToken(this.name);
 }
 
 abstract class AuthProviderOptions {
@@ -31,10 +38,18 @@ class IamAuthProviderOptions extends AuthProviderOptions {
   const IamAuthProviderOptions({
     required this.region,
     required this.service,
+    this.serviceConfiguration,
   });
 
   final String region;
   final AWSService service;
+  final ServiceConfiguration? serviceConfiguration;
+}
+
+class ApiKeyAuthProviderOptions extends AuthProviderOptions {
+  final String apiKey;
+
+  const ApiKeyAuthProviderOptions(this.apiKey);
 }
 
 abstract class AmplifyAuthProvider {
@@ -57,6 +72,14 @@ abstract class AWSIamAmplifyAuthProvider extends AmplifyAuthProvider
   });
 }
 
+abstract class ApiKeyAmplifyAuthProvider extends AmplifyAuthProvider {
+  @override
+  Future<AWSBaseHttpRequest> authorizeRequest(
+    AWSBaseHttpRequest request, {
+    covariant ApiKeyAuthProviderOptions? options,
+  });
+}
+
 abstract class TokenAmplifyAuthProvider extends AmplifyAuthProvider {
   const TokenAmplifyAuthProvider();
 
@@ -71,6 +94,11 @@ abstract class TokenAmplifyAuthProvider extends AmplifyAuthProvider {
     request.headers.putIfAbsent(AWSHeaders.authorization, () => token);
     return request;
   }
+}
+
+abstract class TokenIdentityAmplifyAuthProvider
+    extends TokenAmplifyAuthProvider {
+  Future<String> getIdentityId();
 }
 
 class AmplifyAuthProviderRepository {

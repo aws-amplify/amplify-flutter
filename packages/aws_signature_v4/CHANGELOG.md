@@ -1,3 +1,8 @@
+## 0.3.1
+
+### Fixes
+- fix(sigv4): Path normalization with empty path
+
 ## 0.3.0
 
 ### Fixes

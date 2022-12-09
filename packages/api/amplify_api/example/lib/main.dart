@@ -17,6 +17,7 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/graphql_api_view.dart';
 import 'package:amplify_api_example/rest_api_view.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,7 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -44,17 +45,41 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _configureAmplify() async {
-    Amplify.addPlugins([AmplifyAuthCognito(), AmplifyAPI()]);
+    final secureStorage = AmplifySecureStorage(
+      config: AmplifySecureStorageConfig(
+        scope: 'api',
+        // FIXME: In your app, make sure to remove this line and set up
+        /// Keychain Sharing in Xcode as described in the docs:
+        /// https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/#enable-keychain
+        // ignore: invalid_use_of_visible_for_testing_member
+        macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
+      ),
+    );
+    final authPlugin = AmplifyAuthCognito(credentialStorage: secureStorage);
+    await Amplify.addPlugins([
+      authPlugin,
+      AmplifyAPI(),
+    ]);
 
     try {
       await Amplify.configure(amplifyconfig);
     } on AmplifyAlreadyConfiguredException {
       print(
-          'Amplify was already configured. Looks like app restarted on android.');
+        'Amplify was already configured. Looks like app restarted on android.',
+      );
     }
     setState(() {
       _isAmplifyConfigured = true;
     });
+
+    Amplify.Hub.listen(
+      HubChannel.Api,
+      (ApiHubEvent event) {
+        if (event is SubscriptionHubEvent) {
+          safePrint(event);
+        }
+      },
+    );
   }
 
   void _onRestApiViewButtonClick() {
@@ -71,28 +96,33 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              children: [
-                ElevatedButton(
+    return Authenticator(
+      child: MaterialApp(
+        builder: Authenticator.builder(),
+        home: Scaffold(
+          appBar: AppBar(
+            title: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  ElevatedButton(
                     onPressed: _onRestApiViewButtonClick,
-                    child: const Text('Rest API')),
-                ElevatedButton(
+                    child: const Text('Rest API'),
+                  ),
+                  ElevatedButton(
                     onPressed: _onGraphQlApiViewButtonClick,
-                    child: const Text('GraphQL API'))
-              ],
+                    child: const Text('GraphQL API'),
+                  )
+                ],
+              ),
             ),
           ),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: _showRestApiView == true
-              ? const RestApiView()
-              : GraphQLApiView(isAmplifyConfigured: _isAmplifyConfigured),
+          body: Padding(
+            padding: const EdgeInsets.all(10),
+            child: _showRestApiView == true
+                ? const RestApiView()
+                : GraphQLApiView(isAmplifyConfigured: _isAmplifyConfigured),
+          ),
         ),
       ),
     );

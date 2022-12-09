@@ -17,6 +17,7 @@ import 'dart:convert';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
     hide UpdateUserAttributesRequest;
+import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/device/confirm_device_worker.dart';
@@ -183,7 +184,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       return password;
     }
 
-    authFlowType = event.authFlowType ?? defaultAuthFlowType;
+    authFlowType = event.authFlowType?.sdkValue ?? defaultAuthFlowType;
     switch (authFlowType) {
       case AuthFlowType.userSrpAuth:
         expectPassword();
@@ -477,9 +478,37 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
   /// Initiates a custom auth flow.
   @protected
   Future<InitiateAuthRequest> initiateCustomAuth(SignInInitiate event) async {
-    // If a password is provided, start the SRP flow by including
-    // `CHALLENGE_NAME` in the auth parameters.
-    if (parameters.password != null) {
+    // If a password is provided or the user chose the SRP route, start the SRP
+    // flow by including `CHALLENGE_NAME` in the auth parameters.
+    final password = parameters.password;
+    switch (event.authFlowType) {
+      case AuthenticationFlowType.customAuthWithSrp:
+        if (password == null) {
+          throw const InvalidParameterException(
+            'No password was given but customAuthWithSrp was chosen for '
+            'authentication flow',
+            recoverySuggestion:
+                'Include a password in your call to Amplify.Auth.signIn',
+          );
+        }
+        break;
+      case AuthenticationFlowType.customAuthWithoutSrp:
+        if (password != null) {
+          throw const InvalidParameterException(
+            'A password was given but customAuthWithoutSrp was chosen for '
+            'authentication flow',
+            recoverySuggestion:
+                'Do not include a password in your call to Amplify.Auth.signIn',
+          );
+        }
+        break;
+      // ignore: deprecated_member_use
+      case AuthenticationFlowType.customAuth:
+      default:
+        break;
+    }
+    if (event.authFlowType == AuthenticationFlowType.customAuthWithSrp ||
+        password != null) {
       final initRequest = await initiateSrpAuth(event);
       return initRequest.rebuild(
         (b) => b
@@ -588,12 +617,18 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       ),
     );
 
-    // Upgrade anonymous credentials, if there were any, or fetch authenticated
+    // Clear anonymous credentials, if there were any, and fetch authenticated
     // credentials.
     if (hasIdentityPool) {
       await dispatch(
+        CredentialStoreEvent.clearCredentials(
+          CognitoIdentityPoolKeys(identityPoolConfig!),
+        ),
+      );
+
+      await dispatch(
         const FetchAuthSessionEvent.fetch(
-          CognitoSessionOptions(getAWSCredentials: true, forceRefresh: true),
+          CognitoSessionOptions(getAWSCredentials: true),
         ),
       );
 
@@ -832,6 +867,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         emit(SignInState.success(event.user));
         return;
       case SignInEventType.failed:
+        // TODO(dnys1): Transition to challenge state for CodeMismatchException
         event as SignInFailed;
         emit(SignInState.failure(event.exception));
         return;

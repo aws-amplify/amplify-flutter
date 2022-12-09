@@ -76,11 +76,13 @@ Future<void> runFlutterPub(
   PackageInfo package, {
   AWSLogger? logger,
 }) async {
-  logger ??= AWSLogger('runFlutterPub');
-  // Assumes using Dart SDK from Flutter
-  Cache.flutterRoot = path.normalize(
-    path.absolute(path.dirname(path.dirname(path.dirname(getSdkPath())))),
-  );
+  logger ??= AWSLogger().createChild('runFlutterPub');
+  final flutterRoot = getEnv('FLUTTER_ROOT');
+  Cache.flutterRoot = flutterRoot ??
+      // Assumes using Dart SDK from Flutter
+      path.normalize(
+        path.absolute(path.dirname(path.dirname(path.dirname(getSdkPath())))),
+      );
   logger.verbose('Resolved flutter root: ${Cache.flutterRoot}');
   await flutter.runInContext(
     () async {

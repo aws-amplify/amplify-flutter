@@ -25,7 +25,7 @@ part 'sign_in_result.g.dart';
   // TODO(dnys1): Fix generic serialization
   createFactory: false,
 )
-class SignInResult<Key extends UserAttributeKey>
+class SignInResult<Key extends AuthUserAttributeKey>
     with
         // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49484
         AWSEquatable<SignInResult<Key>>,
@@ -33,7 +33,7 @@ class SignInResult<Key extends UserAttributeKey>
         AWSDebuggable {
   const SignInResult({
     required this.isSignedIn,
-    this.nextStep,
+    required this.nextStep,
   });
 
   factory SignInResult.fromJson(
@@ -42,16 +42,14 @@ class SignInResult<Key extends UserAttributeKey>
   ) =>
       SignInResult<Key>(
         isSignedIn: json['isSignedIn'] as bool,
-        nextStep: json['nextStep'] == null
-            ? null
-            : AuthNextSignInStep<Key>.fromJson(
-                json['nextStep'] as Map<String, Object?>,
-                fromJsonKey,
-              ),
+        nextStep: AuthNextSignInStep<Key>.fromJson(
+          json['nextStep'] as Map<String, Object?>,
+          fromJsonKey,
+        ),
       );
 
   final bool isSignedIn;
-  final AuthNextSignInStep<Key>? nextStep;
+  final AuthNextSignInStep<Key> nextStep;
 
   @override
   List<Object?> get props => [isSignedIn, nextStep];

@@ -24,7 +24,7 @@ import 'package:meta/meta.dart';
 ///
 /// Use [CognitoUserAttributeKey.custom] to create a custom Cognito attribute.
 @immutable
-class CognitoUserAttributeKey extends UserAttributeKey
+class CognitoUserAttributeKey extends AuthUserAttributeKey
     with AWSEquatable<CognitoUserAttributeKey>, AWSDebuggable {
   const CognitoUserAttributeKey._(this._key, {this.readOnly = false})
       : isCustom = false;

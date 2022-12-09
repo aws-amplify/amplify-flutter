@@ -1,7 +1,7 @@
 name: Amplify Integration Tests
 on:
   push:
-    branches: [main, next, stable, feat/*]
+    branches: [main, next, stable, feat/**]
   schedule:
     # 6am pacific time daily, only runs on default branch
     - cron:  '0 13 * * *'
@@ -21,11 +21,11 @@ jobs:
       fail-fast: false
       matrix:
         scope:
+          - "amplify_analytics_pinpoint_example"
           - "amplify_api_example"
           - "amplify_auth_cognito_example"
           - "amplify_datastore_example"
-          # TODO(ragingsquirrel3): figure out why this times out
-          # - "amplify_storage_s3_example"
+          - "amplify_storage_s3_example"
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
@@ -66,6 +66,7 @@ jobs:
       fail-fast: false
       matrix:
         scope:
+          - "amplify_analytics_pinpoint_example"
           - "amplify_api_example"
           - "amplify_auth_cognito_example"
           - "amplify_datastore_example"
@@ -104,7 +105,10 @@ jobs:
       fail-fast: false
       matrix:
         scope:
+          - "amplify_analytics_pinpoint_example"
+          - "amplify_api_example"
           - "amplify_auth_cognito_example"
+          - "amplify_storage_s3_example"
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
@@ -126,7 +130,7 @@ jobs:
       - name: Run integration tests
         run: |
           chromedriver --port=4444 &
-          melos exec -c 1 --scope ${{ matrix.scope }} -- flutter drive --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart -d web-server
+          melos exec -c 1 --scope ${{ matrix.scope }} -- \$MELOS_ROOT_PATH/build-support/integ_test.sh -d web-server --retries 1
 
   macos:
     runs-on: macos-latest
@@ -138,7 +142,10 @@ jobs:
       fail-fast: false
       matrix:
         scope: 
+          - "amplify_analytics_pinpoint_example"
+          - "amplify_api_example"
           - "amplify_auth_cognito_example"
+          - "amplify_storage_s3_example"
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
@@ -169,8 +176,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scope: 
+        scope:
+          - "amplify_analytics_pinpoint_example"
+          - "amplify_api_example"
           - "amplify_auth_cognito_example"
+          - "amplify_storage_s3_example"
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
@@ -191,3 +201,41 @@ jobs:
         run: |
           flutter config --enable-linux-desktop
           melos exec -c 1 --scope ${{ matrix.scope }} -- \$MELOS_ROOT_PATH/build-support/integ_test.sh -d linux --retries 1
+
+  windows:
+    runs-on: windows-latest
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    permissions:
+      id-token: write
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        scope:
+          - "amplify_analytics_pinpoint_example"
+          - "amplify_api_example"
+          - "amplify_auth_cognito_example"
+          - "amplify_storage_s3_example"
+    steps:
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
+        with:
+          persist-credentials: false
+
+      - name: Change path restrictions
+        run: git config --global core.longpaths true
+      
+      - name: Install dependencies
+        uses: ./.github/composite_actions/install_dependencies
+
+      - name: Fetch Amplify backend configurations
+        uses: ./.github/composite_actions/fetch_backends
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          scope: ${{ matrix.scope }}
+          secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
+
+      - name: Run integration tests
+        run: |
+          flutter config --enable-windows-desktop
+          melos exec -c 1 --scope ${{ matrix.scope }} -- flutter test integration_test/main_test.dart -d windows

@@ -96,7 +96,7 @@ abstract class AmplifyCommand extends Command<void>
   /// The root directory of the Amplify Flutter repo.
   late final Directory rootDir = () {
     var dir = workingDirectory;
-    while (dir.parent != dir) {
+    while (p.absolute(dir.parent.path) != p.absolute(dir.path)) {
       final files = dir.listSync(followLinks: false).whereType<File>();
       for (final file in files) {
         if (p.basename(file.path) == 'aft.yaml') {
@@ -130,7 +130,6 @@ abstract class AmplifyCommand extends Command<void>
         PackageInfo(
           name: pubspec.name,
           path: dir.path,
-          usesMonoRepo: dir.usesMonoRepo,
           pubspecInfo: pubspecInfo,
           flavor: pubspec.flavor,
         ),

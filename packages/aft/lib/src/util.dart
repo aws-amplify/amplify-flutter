@@ -19,6 +19,16 @@ import 'package:async/async.dart';
 import 'package:graphs/graphs.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
 
+String? getEnv(String envName) {
+  final value = Platform.environment[envName];
+  return value == null || value.isEmpty ? null : value;
+}
+
+Never exitError(Object error) {
+  stderr.writeln(error);
+  exit(1);
+}
+
 typedef ProcessSink = void Function(String);
 
 /// Allows storing forwarding streams so we can listen to process outputs

@@ -206,14 +206,14 @@ class StateMachineBloc
         attributes: data.attributes,
       );
 
-      switch (result.nextStep!.signInStep) {
+      switch (result.nextStep.signInStep) {
         case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
           yield UnauthenticatedState.confirmSignInMfa;
           break;
         case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
           yield ConfirmSignInCustom(
             publicParameters:
-                result.nextStep?.additionalInfo ?? <String, String>{},
+                result.nextStep.additionalInfo ?? <String, String>{},
           );
           break;
         case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
@@ -292,15 +292,15 @@ class StateMachineBloc
     SignInResult result, {
     required bool isSocialSignIn,
   }) async {
-    switch (result.nextStep!.signInStep) {
+    switch (result.nextStep.signInStep) {
       case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
-        _notifyCodeSent(result.nextStep?.codeDeliveryDetails?.destination);
+        _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
         _emit(UnauthenticatedState.confirmSignInMfa);
         break;
       case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
         _emit(ConfirmSignInCustom(
           publicParameters:
-              result.nextStep?.additionalInfo ?? <String, String>{},
+              result.nextStep.additionalInfo ?? <String, String>{},
         ));
         break;
       case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
@@ -310,7 +310,7 @@ class StateMachineBloc
         _emit(UnauthenticatedState.confirmResetPassword);
         break;
       case 'CONFIRM_SIGN_UP':
-        _notifyCodeSent(result.nextStep?.codeDeliveryDetails?.destination);
+        _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
         _emit(UnauthenticatedState.confirmSignUp);
         break;
       case 'DONE':

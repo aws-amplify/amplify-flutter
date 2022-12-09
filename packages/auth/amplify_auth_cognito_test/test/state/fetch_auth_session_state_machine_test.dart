@@ -18,90 +18,14 @@ import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
-import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
-import 'package:mockito/mockito.dart';
-import 'package:smithy/smithy.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:test/test.dart';
 
 import '../common/jwt.dart';
+import '../common/mock_clients.dart';
 import '../common/mock_config.dart';
 import '../common/mock_secure_storage.dart';
-
-class MockCognitoIdentityClient implements CognitoIdentityClient {
-  MockCognitoIdentityClient({
-    Future<GetCredentialsForIdentityResponse> Function()?
-        getCredentialsForIdentity,
-    Future<GetIdResponse> Function()? getId,
-  })  : _getCredentialsForIdentity = getCredentialsForIdentity,
-        _getId = getId;
-
-  final Future<GetIdResponse> Function()? _getId;
-  final Future<GetCredentialsForIdentityResponse> Function()?
-      _getCredentialsForIdentity;
-
-  @override
-  SmithyOperation<GetCredentialsForIdentityResponse> getCredentialsForIdentity(
-    GetCredentialsForIdentityInput input, {
-    AWSHttpClient? client,
-  }) {
-    if (_getCredentialsForIdentity == null) {
-      throw UnimplementedError();
-    }
-    return SmithyOperation(
-      CancelableOperation.fromFuture(
-        Future.value(_getCredentialsForIdentity!()),
-      ),
-      operationName: 'GetCredentialsForIdentity',
-      requestProgress: const Stream.empty(),
-      responseProgress: const Stream.empty(),
-    );
-  }
-
-  @override
-  SmithyOperation<GetIdResponse> getId(
-    GetIdInput input, {
-    AWSHttpClient? client,
-  }) {
-    if (_getId == null) {
-      throw UnimplementedError();
-    }
-    return SmithyOperation(
-      CancelableOperation.fromFuture(
-        Future.value(_getId!()),
-      ),
-      operationName: 'GetId',
-      requestProgress: const Stream.empty(),
-      responseProgress: const Stream.empty(),
-    );
-  }
-}
-
-class MockCognitoIdentityProviderClient extends Fake
-    implements CognitoIdentityProviderClient {
-  MockCognitoIdentityProviderClient({
-    required Future<InitiateAuthResponse> Function(InitiateAuthRequest)
-        initiateAuth,
-  }) : _initiateAuth = initiateAuth;
-
-  final Future<InitiateAuthResponse> Function(InitiateAuthRequest)
-      _initiateAuth;
-
-  @override
-  SmithyOperation<InitiateAuthResponse> initiateAuth(
-    InitiateAuthRequest input, {
-    AWSHttpClient? client,
-  }) =>
-      SmithyOperation(
-        CancelableOperation.fromFuture(
-          Future.value(_initiateAuth(input)),
-        ),
-        operationName: 'InitiateAuth',
-        requestProgress: const Stream.empty(),
-        responseProgress: const Stream.empty(),
-      );
-}
 
 void main() {
   group('FetchAuthSessionStateMachine', () {
@@ -373,58 +297,90 @@ void main() {
           );
         });
 
-        test('User Pool tokens (success)', () async {
-          seedStorage(
-            secureStorage,
-            userPoolKeys: userPoolKeys,
-          );
-          secureStorage.write(
-            key: userPoolKeys[CognitoUserPoolKey.accessToken],
-            value: createJwt(
-              type: TokenType.access,
-              expiration: Duration.zero,
-            ).raw,
-          );
-          stateMachine.dispatch(AuthEvent.configure(mockConfig));
-          await stateMachine.stream.whereType<AuthConfigured>().first;
+        group('User Pool tokens (success)', () {
+          Future<void> runTest({bool willRefresh = true}) async {
+            stateMachine.dispatch(AuthEvent.configure(mockConfig));
+            await stateMachine.stream.whereType<AuthConfigured>().first;
 
-          stateMachine
-            ..addInstance<CognitoIdentityProviderClient>(
-              MockCognitoIdentityProviderClient(
-                initiateAuth: expectAsync1(
-                  (request) async => InitiateAuthResponse(
-                    authenticationResult: AuthenticationResultType(
-                      accessToken: accessToken.raw,
+            stateMachine
+              ..addInstance<CognitoIdentityProviderClient>(
+                MockCognitoIdentityProviderClient(
+                  initiateAuth: expectAsync0(
+                    count: willRefresh ? 1 : 0,
+                    () async => InitiateAuthResponse(
+                      authenticationResult: AuthenticationResultType(
+                        accessToken: accessToken.raw,
+                        refreshToken: refreshToken,
+                        idToken: idToken.raw,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            )
-            ..dispatch(
-              const FetchAuthSessionEvent.fetch(
-                CognitoSessionOptions(getAWSCredentials: false),
-              ),
+              )
+              ..dispatch(
+                const FetchAuthSessionEvent.fetch(
+                  CognitoSessionOptions(getAWSCredentials: false),
+                ),
+              );
+
+            final sm =
+                stateMachine.getOrCreate(FetchAuthSessionStateMachine.type);
+            await expectLater(
+              sm.stream.startWith(sm.currentState),
+              emitsInOrder(<Matcher>[
+                isA<FetchAuthSessionIdle>(),
+                isA<FetchAuthSessionFetching>(),
+                if (willRefresh) isA<FetchAuthSessionRefreshing>(),
+                isA<FetchAuthSessionSuccess>(),
+              ]),
             );
 
-          final sm =
-              stateMachine.getOrCreate(FetchAuthSessionStateMachine.type);
-          await expectLater(
-            sm.stream.startWith(sm.currentState),
-            emitsInOrder(<Matcher>[
-              isA<FetchAuthSessionIdle>(),
-              isA<FetchAuthSessionFetching>(),
-              isA<FetchAuthSessionRefreshing>(),
-              isA<FetchAuthSessionSuccess>(),
-            ]),
-          );
+            final state = sm.currentState as FetchAuthSessionSuccess;
+            expect(state.session.isSignedIn, isTrue);
+            expect(state.session.userSub, userSub);
+            expect(state.session.userPoolTokens, isNotNull);
+            expect(state.session.userPoolTokens?.accessToken, accessToken);
+            expect(state.session.userPoolTokens?.refreshToken, refreshToken);
+            expect(state.session.userPoolTokens?.idToken, idToken);
+          }
 
-          final state = sm.currentState as FetchAuthSessionSuccess;
-          expect(state.session.isSignedIn, isTrue);
-          expect(state.session.userSub, userSub);
-          expect(state.session.userPoolTokens, isNotNull);
-          expect(state.session.userPoolTokens?.accessToken, accessToken);
-          expect(state.session.userPoolTokens?.refreshToken, refreshToken);
-          expect(state.session.userPoolTokens?.idToken, idToken);
+          test('access token expires', () async {
+            seedStorage(
+              secureStorage,
+              userPoolKeys: userPoolKeys,
+            );
+            secureStorage.write(
+              key: userPoolKeys[CognitoUserPoolKey.accessToken],
+              value: createJwt(
+                type: TokenType.access,
+                expiration: Duration.zero,
+              ).raw,
+            );
+            await runTest();
+          });
+
+          test('id token expires', () async {
+            seedStorage(
+              secureStorage,
+              userPoolKeys: userPoolKeys,
+            );
+            secureStorage.write(
+              key: userPoolKeys[CognitoUserPoolKey.idToken],
+              value: createJwt(
+                type: TokenType.id,
+                expiration: Duration.zero,
+              ).raw,
+            );
+            await runTest();
+          });
+
+          test('neither token expires', () async {
+            seedStorage(
+              secureStorage,
+              userPoolKeys: userPoolKeys,
+            );
+            await runTest(willRefresh: false);
+          });
         });
 
         test('User Pool tokens (failure)', () async {
@@ -445,8 +401,8 @@ void main() {
           stateMachine
             ..addInstance<CognitoIdentityProviderClient>(
               MockCognitoIdentityProviderClient(
-                initiateAuth: expectAsync1(
-                  (request) async => throw _FetchAuthSessionException(),
+                initiateAuth: expectAsync0(
+                  () async => throw _FetchAuthSessionException(),
                 ),
               ),
             )
@@ -496,8 +452,8 @@ void main() {
           stateMachine
             ..addInstance<CognitoIdentityProviderClient>(
               MockCognitoIdentityProviderClient(
-                initiateAuth: expectAsync1(
-                  (request) async => InitiateAuthResponse(
+                initiateAuth: expectAsync0(
+                  () async => InitiateAuthResponse(
                     authenticationResult: AuthenticationResultType(
                       accessToken: createJwt(
                         type: TokenType.access,
@@ -642,8 +598,8 @@ void main() {
           stateMachine
             ..addInstance<CognitoIdentityProviderClient>(
               MockCognitoIdentityProviderClient(
-                initiateAuth: expectAsync1(
-                  (request) async => InitiateAuthResponse(
+                initiateAuth: expectAsync0(
+                  () async => InitiateAuthResponse(
                     authenticationResult: AuthenticationResultType(
                       accessToken: createJwt(
                         type: TokenType.access,

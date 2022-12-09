@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:io';
-
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
@@ -22,6 +20,7 @@ import 'package:integration_test/integration_test.dart';
 
 import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
+import 'utils/test_utils.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -41,11 +40,11 @@ void main() {
         await signOutUser();
       });
 
-      test('can sign in with SMS MFA', () async {
+      asyncTest('can sign in with SMS MFA', (_) async {
         final username = generateUsername();
         final password = generatePassword();
 
-        final code = getOtpCode(username);
+        final otpResult = await getOtpCode(username);
 
         await adminCreateUser(
           username,
@@ -60,17 +59,15 @@ void main() {
           password: password,
         );
         expect(
-          signInRes.nextStep?.signInStep,
+          signInRes.nextStep.signInStep,
           'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE',
         );
 
         final confirmRes = await Amplify.Auth.confirmSignIn(
-          confirmationValue: await code,
+          confirmationValue: await otpResult.code,
         );
-        expect(confirmRes.nextStep?.signInStep, 'DONE');
+        expect(confirmRes.nextStep.signInStep, 'DONE');
       });
     },
-    // TODO(dnys1): Remove when API is dartified
-    skip: zIsWeb || !(Platform.isAndroid || Platform.isIOS),
   );
 }

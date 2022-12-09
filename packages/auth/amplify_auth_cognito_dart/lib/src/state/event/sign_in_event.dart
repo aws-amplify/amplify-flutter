@@ -15,7 +15,6 @@
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_user.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
-import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
@@ -49,7 +48,7 @@ abstract class SignInEvent
 
   /// {@macro amplify_auth_cognito.sign_in_initiate}
   const factory SignInEvent.initiate({
-    AuthFlowType? authFlowType,
+    AuthenticationFlowType? authFlowType,
     required SignInParameters parameters,
     Map<String, String>? clientMetadata,
   }) = SignInInitiate;
@@ -90,7 +89,7 @@ class SignInInitiate extends SignInEvent {
         super._();
 
   /// Runtime override of the Authentication flow.
-  final AuthFlowType? authFlowType;
+  final AuthenticationFlowType? authFlowType;
 
   /// The flow-specific parameters.
   final SignInParameters parameters;
@@ -150,6 +149,10 @@ class SignInRespondToChallenge extends SignInEvent {
 
   @override
   PreconditionException? checkPrecondition(SignInState currentState) {
+    if (currentState is SignInFailure &&
+        currentState.exception is CodeMismatchException) {
+      return null;
+    }
     if (currentState.type != SignInStateType.challenge) {
       return const AuthPreconditionException('There is no active challenge');
     }

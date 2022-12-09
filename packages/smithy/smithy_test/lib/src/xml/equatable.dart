@@ -43,12 +43,17 @@ class _EquatableVisitor with XmlVisitor {
 
   /// Visit an [XmlName].
   @override
-  void visitName(XmlName name) => props.add(name);
+  void visitName(XmlName name) => props.addAll([
+        name.prefix,
+        name.local,
+        name.qualified,
+      ]);
 
   /// Visit an [XmlAttribute] node.
   @override
   void visitAttribute(XmlAttribute node) {
-    props.add(Tuple2(node.name, node.value));
+    visit(node.name);
+    props.add(node.value);
   }
 
   /// Visit an [XmlDeclaration] node.

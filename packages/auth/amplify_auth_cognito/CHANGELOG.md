@@ -1,3 +1,22 @@
+## 1.0.0-next.2
+
+### Fixes
+- fix(auth): Can't resubmit verification code ([#2468](https://github.com/aws-amplify/amplify-flutter/pull/2468))
+
+### Breaking Changes
+- chore(auth)!: Make sign in result's `nextStep` non-null ([#2462](https://github.com/aws-amplify/amplify-flutter/pull/2462))
+
+### Features
+- feat(auth): Add user ID to `CognitoSignUpResult` ([#2437](https://github.com/aws-amplify/amplify-flutter/pull/2437))
+
+## 1.0.0-next.1+1
+
+- Minor bug fixes and improvements
+
+## 1.0.0-next.1
+
+- Minor bug fixes and improvements
+
 ## 1.0.0-next.0+7
 
 ### Fixes

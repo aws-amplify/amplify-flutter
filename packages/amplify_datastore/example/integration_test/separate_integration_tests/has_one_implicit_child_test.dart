@@ -51,8 +51,10 @@ void main() {
       modelProvider: ModelProvider.instance,
       rootModelType: HasOneParent.classType,
       rootModels: rootModels,
+      rootModelQueryIdentifier: HasOneParent.MODEL_IDENTIFIER,
       associatedModelType: HasOneChild.classType,
       associatedModels: associatedModels,
+      associatedModelQueryIdentifier: HasOneChild.MODEL_IDENTIFIER,
       enableCloudSync: enableCloudSync,
     );
   });

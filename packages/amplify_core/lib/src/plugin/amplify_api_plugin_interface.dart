@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -50,31 +50,64 @@ abstract class APIPluginInterface extends AmplifyPluginInterface {
   void registerAuthProvider(APIAuthProvider authProvider);
 
   // ====== RestAPI ======
-  void cancelRequest(String cancelToken) {
-    throw UnimplementedError('cancelRequest has not been implemented.');
+  RestOperation delete(
+    String path, {
+    HttpPayload? body,
+    Map<String, String>? headers,
+    Map<String, String>? queryParameters,
+    String? apiName,
+  }) {
+    throw UnimplementedError('delete() has not been implemented');
   }
 
-  RestOperation get({required RestOptions restOptions}) {
-    throw UnimplementedError('get has not been implemented.');
+  /// Uses Amplify configuration to authorize request to [path] and returns
+  /// [CancelableOperation] which resolves to standard HTTP
+  /// [Response](https://pub.dev/documentation/http/latest/http/Response-class.html).
+  RestOperation get(
+    String path, {
+    Map<String, String>? headers,
+    Map<String, String>? queryParameters,
+    String? apiName,
+  }) {
+    throw UnimplementedError('get() has not been implemented');
   }
 
-  RestOperation put({required RestOptions restOptions}) {
-    throw UnimplementedError('put has not been implemented.');
+  RestOperation head(
+    String path, {
+    Map<String, String>? headers,
+    Map<String, String>? queryParameters,
+    String? apiName,
+  }) {
+    throw UnimplementedError('head() has not been implemented');
   }
 
-  RestOperation post({required RestOptions restOptions}) {
-    throw UnimplementedError('post has not been implemented.');
+  RestOperation patch(
+    String path, {
+    HttpPayload? body,
+    Map<String, String>? headers,
+    Map<String, String>? queryParameters,
+    String? apiName,
+  }) {
+    throw UnimplementedError('patch() has not been implemented');
   }
 
-  RestOperation delete({required RestOptions restOptions}) {
-    throw UnimplementedError('delete has not been implemented.');
+  RestOperation post(
+    String path, {
+    HttpPayload? body,
+    Map<String, String>? headers,
+    Map<String, String>? queryParameters,
+    String? apiName,
+  }) {
+    throw UnimplementedError('post() has not been implemented');
   }
 
-  RestOperation head({required RestOptions restOptions}) {
-    throw UnimplementedError('head has not been implemented.');
-  }
-
-  RestOperation patch({required RestOptions restOptions}) {
-    throw UnimplementedError('patch has not been implemented.');
+  RestOperation put(
+    String path, {
+    HttpPayload? body,
+    Map<String, String>? headers,
+    Map<String, String>? queryParameters,
+    String? apiName,
+  }) {
+    throw UnimplementedError('put() has not been implemented');
   }
 }

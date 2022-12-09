@@ -10,10 +10,12 @@ dependencies:
   built_value: ">=8.4.0 <8.5.0"
   built_value_generator: 8.4.2
   code_builder: 4.3.0
+  drift: ">=2.3.0 <2.4.0"
   json_annotation: ^4.7.0
   json_serializable: 6.5.4
-  xml: ">=6.1.0 <=6.2.2"
+  mime: ^1.0.0
   uuid: ">=3.0.6 <=3.0.7"
+  xml: ">=6.1.0 <=6.2.2"
 
 # Packages to ignore in all repo operations.
 ignore:

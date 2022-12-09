@@ -9,6 +9,8 @@ Thank you for your interest in contributing to our project! <3 Whether it's a bu
   - [Setting up for local development](#setting-up-for-local-development)
       - [Amplify Flutter Repo Tool (aft)](#amplify-flutter-repo-tool-aft)
       - [Packages inside Amplify Flutter](#packages-inside-amplify-flutter)
+    - [Platform Setup](#platform-setup)
+      - [Linux](#linux)
   - [Steps towards contributions](#steps-towards-contributions)
 - [Pull Requests](#pull-requests)
 - [Release](#release)
@@ -64,11 +66,11 @@ See [invertase/melos](https://github.com/invertase/melos) for more instructions 
 ```
 $ git clone git@github.com:[username]/amplify-flutter.git
 $ cd amplify-flutter
-$ flutter pub global activate melos
+$ dart pub global activate melos
 $ melos bootstrap
 ```
 
-> Note: If you don't include `melos` on your path, you may execute `flutter pub global run melos bootstrap` instead of the last command above.
+> Note: If you don't include `melos` on your path, you may execute `dart pub global run melos bootstrap` instead of the last command above.
 
 > Note: Make sure to always [sync your fork](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork) with main branch of amplify-flutter
 
@@ -136,7 +138,7 @@ _[Skip step 1 to 3 if you have already done this]_
 
 1. Fork aws-amplify/amplify-flutter
 2. Clone your fork locally: `git clone git@github.com:YOUR_GITHUB_USERNAME/amplify-flutter.git`
-3. Install `melos` by running `flutter pub global activate melos`, and run `melos bootstrap` (or `flutter pub global run melos bootstrap`) in the repository root
+3. Install `melos` by running `dart pub global activate melos`, and run `melos bootstrap` (or `dart pub global run melos bootstrap`) in the repository root
 4. Within your fork, create a new branch based on the issue (e.g. Issue #123) you're addressing - `git checkout -b "group-token/short-token-[branch-name]"` or `git checkout -b "short-token/[branch-name]"`
    - Use grouping tokens at the beginning of the branch names. \_For e.g, if you are working on changes specific to `amplify-ui-components`, then you could start the branch name as `ui-components/...`
    - short token
@@ -230,19 +232,21 @@ $ flutter drive --driver=test_driver/integration_test.dart --target=integration_
 
 ## Provision Resources For Integration Tests
 
-Any app with integration tests will have a script `tool/provision_integration_test_resources.sh` which will call `amplify init` and `amplify push` with preconfigured amplify environments for that app.
-Executing it will create real AWS resources. It requires [the Amplify CLI](https://docs.amplify.aws/cli). It does not need to run every time you run the tests. Run it once to set up or update your environments.
-If you already have an amplify environment configured for an app, this command will create a "test"
-environment and check it out.
+> Note: The provisioning script uses [AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html) and the [Amplify CLI](https://docs.amplify.aws/cli/usage/headless). You will need to have the following CLI tools installed before continuing:
+> - [AWS CLI](https://aws.amazon.com/cli/)
+> - [Amplify CLI](https://docs.amplify.aws/cli/)
+> - [pnpm](https://pnpm.io/installation)
+> - [jq](https://stedolan.github.io/jq/)
 
-Create all the amplify environments in the example apps which have provisioning scripts (takes several minutes). Note that you may need to give yourself permission to execute the scripts.:
+Any app with integration tests will have an `integration_test` folder in the example app for that package. These tests run against real AWS resources which must be deployed before running.
+
+To create all the backend environments, run:
 
 ```bash
-$ melos run provision_integration_test_resources
+$ tool/provision_integration_test_resources.sh
 ```
 
-Note: you will need to have [`jq`](https://github.com/stedolan/jq) installed, which you can install by running `brew install jq`.
-The provisioning script uses the [Amplify CLI headless mode](https://docs.amplify.aws/cli/usage/headless).
+This script can be re-run anytime the environments need to be updated. Further information can be found in the [infra](infra/README.md) package.
 
 ## Code of Conduct
 

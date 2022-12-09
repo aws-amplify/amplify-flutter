@@ -78,7 +78,12 @@ class AWSHttpClientImpl extends AWSHttpClient {
     if (completer.isCanceled) return;
     final ioRequest = (await _inner!.openUrl(request.method.value, request.uri))
       ..followRedirects = request.followRedirects
-      ..maxRedirects = request.maxRedirects;
+      ..maxRedirects = request.maxRedirects
+      // TODO(dnys1-HuiSF): follow up on the cause issue
+      //  https://github.com/flutter/flutter/issues/41573
+      //  disable this option for now to ensure stability of Storage integration
+      //  test suite.
+      ..persistentConnection = false;
     if (request.hasContentLength) {
       ioRequest.contentLength = request.contentLength as int;
     } else {
