@@ -14,18 +14,22 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_core.launch_url_exception}
-/// Thrown when the requested operation did not complete because a URL could
-/// not be launched, typically because of an error spawning an external process.
+/// {@template amplify_core.exceptions.configuration_error}
+/// An error occurring during configuration of an Amplify plugin, typically
+/// the result of missing values needed for that plugin to function properly.
+///
+/// This is a non-recoverable error only thrown during the call to
+/// `Amplify.configure`. If that call succeeds, developers do not need to worry
+/// about future configuration errors.
 /// {@endtemplate}
-class UrlLauncherException extends AmplifyException {
-  /// {@macro amplify_core.launch_url_exception}
-  const UrlLauncherException(
+class ConfigurationError extends AmplifyError {
+  /// {@macro amplify_core.exceptions.configuration_error}
+  ConfigurationError(
     super.message, {
     super.recoverySuggestion,
     super.underlyingException,
   });
 
   @override
-  String get runtimeTypeName => 'UrlLauncherException';
+  String get runtimeTypeName => 'ConfigurationError';
 }

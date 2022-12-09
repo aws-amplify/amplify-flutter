@@ -361,7 +361,7 @@ class StateMachineBloc
       }
     } on UserNotConfirmedException catch (e) {
       _exceptionController.add(AuthenticatorException(
-        e.message ?? 'An unknown error occurred',
+        e.message,
         showBanner: false,
       ));
       yield UnauthenticatedState.confirmSignUp;

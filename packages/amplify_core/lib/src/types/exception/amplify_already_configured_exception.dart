@@ -27,21 +27,24 @@ class AmplifyAlreadyConfiguredException extends AmplifyException {
     super.underlyingException,
   });
 
-  /// Constructor for down casting an AmplifyException to this exception
-  AmplifyAlreadyConfiguredException._private(AmplifyException exception)
-      : super(
-          exception.message,
-          recoverySuggestion: exception.recoverySuggestion,
-          underlyingException: exception.underlyingException,
-        );
-
   /// Instantiates and return a new `AmplifyException` from the
   /// serialized exception data
   static AmplifyAlreadyConfiguredException fromMap(
     Map<String, String> serializedException,
   ) {
-    return AmplifyAlreadyConfiguredException._private(
-      AmplifyException.fromMap(serializedException),
+    if (serializedException['message'] == null) {
+      throw const FormatException(
+        'Cannot create AmplifyException from map.  Message field is missing',
+      );
+    }
+
+    return AmplifyAlreadyConfiguredException(
+      serializedException['message']!,
+      recoverySuggestion: serializedException['recoverySuggestion'],
+      underlyingException: serializedException['underlyingException'],
     );
   }
+
+  @override
+  String get runtimeTypeName => 'AmplifyAlreadyConfiguredException';
 }

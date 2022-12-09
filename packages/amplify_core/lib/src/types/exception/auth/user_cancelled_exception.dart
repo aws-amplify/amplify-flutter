@@ -22,4 +22,7 @@ import 'package:amplify_core/amplify_core.dart';
 class UserCancelledException extends AuthException {
   /// {@macro amplify_core.auth.user_cancelled_exception}
   const UserCancelledException(super.message);
+
+  @override
+  String get runtimeTypeName => 'UserCancelledException';
 }

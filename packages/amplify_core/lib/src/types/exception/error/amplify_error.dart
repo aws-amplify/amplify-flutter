@@ -12,19 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// {@template amplify_core.exceptions.configuration_error}
-/// An error occurring during configuration of an Amplify plugin, typically
-/// the result of missing values needed for that plugin to function properly.
-///
-/// This is a non-recoverable error only thrown during the call to
-/// `Amplify.configure`. If that call succeeds, developers do not need to worry
-/// about future configuration errors.
+import 'package:amplify_core/amplify_core.dart';
+
+/// {@template amplify_core.exceptions.amplify_error}
+/// An non-recoverable error occurring within an Amplify category or plugin.
 /// {@endtemplate}
-class ConfigurationError extends Error {
-  /// {@macro amplify_core.exceptions.configuration_error}
-  ConfigurationError(
+abstract class AmplifyError extends Error
+    with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
+  /// {@macro amplify_core.exceptions.amplify_error}
+  AmplifyError(
     this.message, {
     this.recoverySuggestion,
+    this.underlyingException,
   });
 
   /// A description of the error.
@@ -33,8 +32,15 @@ class ConfigurationError extends Error {
   /// Details on how to fix the issue, if available.
   final String? recoverySuggestion;
 
+  /// The exception which caused this, if any.
+  final Object? underlyingException;
+
   @override
-  String toString() {
-    return 'ConfigurationError($message${recoverySuggestion == null ? '' : ', $recoverySuggestion'})';
-  }
+  Map<String, Object?> toJson() => {
+        'message': message,
+        if (recoverySuggestion != null)
+          'recoverySuggestion': recoverySuggestion,
+        if (underlyingException != null)
+          'underlyingException': underlyingException.toString(),
+      };
 }

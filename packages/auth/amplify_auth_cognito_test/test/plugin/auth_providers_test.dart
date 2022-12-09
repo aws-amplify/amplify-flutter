@@ -112,7 +112,7 @@ void main() {
             service: AWSService.appSync,
           ),
         ),
-        throwsA(isA<AmplifyException>()),
+        throwsA(isA<PluginError>()),
       );
     });
 
@@ -121,7 +121,7 @@ void main() {
       final authProvider = CognitoUserPoolsAuthProvider();
       await expectLater(
         authProvider.authorizeRequest(_generateTestRequest()),
-        throwsA(isA<AmplifyException>()),
+        throwsA(isA<PluginError>()),
       );
     });
   });

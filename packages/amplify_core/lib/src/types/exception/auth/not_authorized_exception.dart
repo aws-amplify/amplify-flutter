@@ -14,18 +14,18 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_core.launch_url_exception}
-/// Thrown when the requested operation did not complete because a URL could
-/// not be launched, typically because of an error spawning an external process.
+/// {@template amplify_core.auth.not_authorized_exception}
+/// Exception thrown when the current session is not authorized to perform an
+/// operation.
 /// {@endtemplate}
-class UrlLauncherException extends AmplifyException {
-  /// {@macro amplify_core.launch_url_exception}
-  const UrlLauncherException(
+class NotAuthorizedException extends AuthException {
+  /// {@macro amplify_core.auth.not_authorized_exception}
+  const NotAuthorizedException(
     super.message, {
     super.recoverySuggestion,
     super.underlyingException,
   });
 
   @override
-  String get runtimeTypeName => 'UrlLauncherException';
+  String get runtimeTypeName => 'NotAuthorizedException';
 }

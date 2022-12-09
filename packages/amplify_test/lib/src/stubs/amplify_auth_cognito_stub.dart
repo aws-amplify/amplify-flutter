@@ -17,16 +17,16 @@ import 'dart:core';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 
-final usernameExistsException = UsernameExistsException(
-  message: 'A user with this username already exists.',
+const usernameExistsException = UsernameExistsException(
+  'A user with this username already exists.',
 );
 
-final userNotFoundException = UserNotFoundException(
-  message: 'The user does not exist.',
+const userNotFoundException = UserNotFoundException(
+  'The user does not exist.',
 );
 
-final codeMismatchException = CodeMismatchException(
-  message: 'Incorrect code. Please try again.',
+const codeMismatchException = CodeMismatchException(
+  'Incorrect code. Please try again.',
 );
 
 /// A stub of [AmplifyAuthCognito] that creates users in memory.

@@ -123,7 +123,7 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
               AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion,
         );
       }
-      throw AmplifyException(
+      throw ConfigurationError(
         e.message ?? 'An unknown error occurred',
         underlyingException: e,
       );

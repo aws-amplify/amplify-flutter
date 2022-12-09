@@ -33,8 +33,7 @@ String _errorMsgPluginNotAdded(String pluginName) =>
 String _recoverySuggestionPluginNotAdded(String pluginName) =>
     'Add $pluginName plugin to Amplify and call configure before calling $pluginName related APIs';
 
-AmplifyException _pluginNotAddedException(String pluginName) =>
-    AmplifyException(
+PluginError _pluginNotAddedException(String pluginName) => PluginError(
       _errorMsgPluginNotAdded(pluginName),
       recoverySuggestion: _recoverySuggestionPluginNotAdded(pluginName),
     );
@@ -113,10 +112,6 @@ abstract class AmplifyCategory<P extends AmplifyPluginInterface> {
       _plugins.add(plugin);
     } on AmplifyAlreadyConfiguredException {
       _plugins.add(plugin);
-    } on AmplifyException {
-      rethrow;
-    } on Exception catch (e) {
-      throw AmplifyException(e.toString());
     }
   }
 

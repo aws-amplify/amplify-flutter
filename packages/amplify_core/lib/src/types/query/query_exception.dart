@@ -14,18 +14,18 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_core.launch_url_exception}
-/// Thrown when the requested operation did not complete because a URL could
-/// not be launched, typically because of an error spawning an external process.
+/// {@template amplify_core.query.model_query_exception}
+/// Exception thrown during a model query operation in the API or DataStore
+/// categories.
 /// {@endtemplate}
-class UrlLauncherException extends AmplifyException {
-  /// {@macro amplify_core.launch_url_exception}
-  const UrlLauncherException(
+class ModelQueryException extends AmplifyException {
+  /// {@macro amplify_core.query.model_query_exception}
+  const ModelQueryException(
     super.message, {
     super.recoverySuggestion,
     super.underlyingException,
   });
 
   @override
-  String get runtimeTypeName => 'UrlLauncherException';
+  String get runtimeTypeName => 'QueryException';
 }

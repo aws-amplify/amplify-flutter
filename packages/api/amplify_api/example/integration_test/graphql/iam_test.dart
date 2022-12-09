@@ -232,7 +232,7 @@ void main({bool useExistingTestUser = false}) {
             await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
         final accessToken = authSession.userPoolTokens?.accessToken.raw;
         if (accessToken == null) {
-          throw const AmplifyException(
+          throw const NotAuthorizedException(
             'Could not get access token from cognito.',
             recoverySuggestion: 'Ensure test user signed in.',
           );

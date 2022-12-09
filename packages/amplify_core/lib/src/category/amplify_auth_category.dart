@@ -275,7 +275,7 @@ class AuthCategory<
       AuthCategory(
         plugins.singleWhere(
           (p) => p is P,
-          orElse: () => throw AmplifyException(
+          orElse: () => throw PluginError(
             'No plugin registered for $pluginKey',
           ),
         ) as P,
