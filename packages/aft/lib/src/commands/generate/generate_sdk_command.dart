@@ -77,9 +77,16 @@ class GenerateSdkCommand extends AmplifyCommand {
       processWorkingDir: cloneDir.path,
     );
     logger.trace('Successfully cloned models');
+    return cloneDir;
+  }
+
+  /// Organizes model files from [baseDir] into a new temporary directory.
+  ///
+  /// Returns the new directory.
+  Future<Directory> _organizeModels(Directory baseDir) async {
     final modelsDir = await Directory.systemTemp.createTemp('models');
     logger.trace('Organizing models in ${modelsDir.path}');
-    final services = cloneDir.list(followLinks: false).whereType<Directory>();
+    final services = baseDir.list(followLinks: false).whereType<Directory>();
     await for (final serviceDir in services) {
       final serviceName = p.basename(serviceDir.path);
       final artifacts = await serviceDir.list().whereType<Directory>().toList();
@@ -113,12 +120,13 @@ class GenerateSdkCommand extends AmplifyCommand {
     final modelsPath = args['models'] as String?;
     final Directory modelsDir;
     if (modelsPath != null) {
-      modelsDir = Directory(modelsPath);
+      modelsDir = await _organizeModels(Directory(modelsPath));
       if (!await modelsDir.exists()) {
         exitError('Model directory ($modelsDir) does not exist');
       }
     } else {
-      modelsDir = await _downloadModels(config.ref);
+      final cloneDir = await _downloadModels(config.ref);
+      modelsDir = await _organizeModels(cloneDir);
     }
 
     final outputPath = args['output'] as String;
