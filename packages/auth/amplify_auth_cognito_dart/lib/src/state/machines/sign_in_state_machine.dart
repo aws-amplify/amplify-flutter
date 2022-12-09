@@ -15,8 +15,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
-    hide UpdateUserAttributesRequest;
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
@@ -33,8 +32,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
     hide InvalidParameterException;
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
-import 'package:amplify_core/amplify_core.dart'
-    hide UpdateUserAttributesRequest;
+import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:meta/meta.dart';

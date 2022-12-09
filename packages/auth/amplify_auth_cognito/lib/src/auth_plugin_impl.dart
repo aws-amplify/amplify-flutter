@@ -168,7 +168,9 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
 
   @override
   Future<CognitoSignUpResult> signUp({
-    required SignUpRequest request,
+    required String username,
+    required String password,
+    CognitoSignUpOptions? options,
   }) async {
     Map<String, String>? validationData;
     if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
@@ -176,20 +178,18 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
           await stateMachine.expect<NativeAuthBridge>().getValidationData();
       validationData = nativeValidationData.cast();
     }
-    var options =
-        request.options as CognitoSignUpOptions? ?? CognitoSignUpOptions();
+    options ??= CognitoSignUpOptions();
     options = options.copyWith(
       validationData: {
         ...?validationData,
         ...?options.validationData,
       },
     );
-    request = SignUpRequest(
-      username: request.username,
-      password: request.password,
+    return super.signUp(
+      username: username,
+      password: password,
       options: options,
     );
-    return super.signUp(request: request);
   }
 
   @override
@@ -209,9 +209,7 @@ class _NativeAmplifyAuthCognito
   ) async {
     try {
       final authSession = await _basePlugin.fetchAuthSession(
-        request: AuthSessionRequest(
-          options: CognitoSessionOptions(getAWSCredentials: getAwsCredentials),
-        ),
+        options: CognitoSessionOptions(getAWSCredentials: getAwsCredentials),
       );
       final nativeAuthSession = NativeAuthSession(
         isSignedIn: authSession.isSignedIn,

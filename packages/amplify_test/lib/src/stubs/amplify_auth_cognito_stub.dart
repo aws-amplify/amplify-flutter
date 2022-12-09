@@ -66,19 +66,23 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
   }) async {}
 
   @override
-  Future<SignUpResult> signUp({required SignUpRequest request}) async {
+  Future<SignUpResult> signUp({
+    required String username,
+    required String password,
+    SignUpOptions? options,
+  }) async {
     await Future<void>.delayed(delay);
-    MockCognitoUser? user = _users[request.username];
+    MockCognitoUser? user = _users[username];
     if (user != null) {
       throw usernameExistsException;
     } else {
       MockCognitoUser newUser = MockCognitoUser(
-        username: request.username,
-        password: request.password,
-        email: request.options?.userAttributes['email'],
-        phoneNumber: request.options?.userAttributes['phone_number'],
+        username: username,
+        password: password,
+        email: options?.userAttributes['email'],
+        phoneNumber: options?.userAttributes['phone_number'],
       );
-      _users[request.username] = newUser;
+      _users[username] = newUser;
       _currentUser = newUser;
       return CognitoSignUpResult(
         isSignUpComplete: false,
@@ -92,10 +96,12 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
 
   @override
   Future<SignUpResult> confirmSignUp({
-    required ConfirmSignUpRequest request,
+    required String username,
+    required String confirmationCode,
+    ConfirmSignUpOptions? options,
   }) async {
     await Future<void>.delayed(delay);
-    if (request.confirmationCode != verificationCode) {
+    if (confirmationCode != verificationCode) {
       throw codeMismatchException;
     }
     return const CognitoSignUpResult(
@@ -106,10 +112,11 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
 
   @override
   Future<ResendSignUpCodeResult> resendSignUpCode({
-    required ResendSignUpCodeRequest request,
+    required String username,
+    ResendSignUpCodeOptions? options,
   }) async {
     await Future<void>.delayed(delay);
-    MockCognitoUser? user = _users[request.username];
+    MockCognitoUser? user = _users[username];
     if (user == null) {
       throw userNotFoundException;
     }
@@ -117,13 +124,17 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
   }
 
   @override
-  Future<SignInResult> signIn({required SignInRequest request}) async {
+  Future<SignInResult> signIn({
+    required String username,
+    String? password,
+    SignInOptions? options,
+  }) async {
     await Future<void>.delayed(delay);
-    MockCognitoUser? user = _users[request.username];
+    MockCognitoUser? user = _users[username];
     if (user == null) {
       throw userNotFoundException;
     }
-    if (user.password != request.password) {
+    if (user.password != password) {
       throw const AuthNotAuthorizedException('Incorrect username or password.');
     }
     _currentUser = user;
@@ -134,7 +145,10 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
   }
 
   @override
-  Future<SignInResult> confirmSignIn({ConfirmSignInRequest? request}) async {
+  Future<SignInResult> confirmSignIn({
+    required String confirmationValue,
+    ConfirmSignInOptions? options,
+  }) async {
     await Future<void>.delayed(delay);
     return CognitoSignInResult(
       isSignedIn: _isSignedIn(),
@@ -143,27 +157,29 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
   }
 
   @override
-  Future<SignOutResult> signOut({SignOutRequest? request}) async {
+  Future<SignOutResult> signOut({
+    SignOutOptions? options,
+  }) async {
     _currentUser = null;
     return const SignOutResult();
   }
 
   @override
   Future<UpdatePasswordResult> updatePassword({
-    UpdatePasswordRequest? request,
+    required String oldPassword,
+    required String newPassword,
+    UpdatePasswordOptions? options,
   }) async {
     return const UpdatePasswordResult();
   }
 
   @override
   Future<ResetPasswordResult> resetPassword({
-    ResetPasswordRequest? request,
+    required String username,
+    ResetPasswordOptions? options,
   }) async {
     await Future<void>.delayed(delay);
-    if (request == null) {
-      throw const InvalidStateException('Missing request');
-    }
-    MockCognitoUser? user = _users[request.username];
+    MockCognitoUser? user = _users[username];
     if (user == null) {
       throw userNotFoundException;
     }
@@ -178,32 +194,36 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
 
   @override
   Future<UpdatePasswordResult> confirmResetPassword({
-    ConfirmResetPasswordRequest? request,
+    required String username,
+    required String newPassword,
+    required String confirmationCode,
+    ConfirmResetPasswordOptions? options,
   }) async {
     await Future<void>.delayed(delay);
-    if (request == null) {
-      throw const InvalidStateException('Missing request');
-    }
-    MockCognitoUser? user = _users[request.username];
+    MockCognitoUser? user = _users[username];
     if (user == null) {
       throw userNotFoundException;
     }
-    if (request.confirmationCode != verificationCode) {
+    if (confirmationCode != verificationCode) {
       throw codeMismatchException;
     }
-    MockCognitoUser updatedUser = user.copyWith(password: request.newPassword);
-    _users[request.username] = updatedUser;
+    MockCognitoUser updatedUser = user.copyWith(password: newPassword);
+    _users[username] = updatedUser;
     _currentUser = updatedUser;
     return const UpdatePasswordResult();
   }
 
   @override
-  Future<AuthSession> fetchAuthSession({AuthSessionRequest? request}) async {
+  Future<AuthSession> fetchAuthSession({
+    AuthSessionOptions? options,
+  }) async {
     return CognitoAuthSession(isSignedIn: _isSignedIn());
   }
 
   @override
-  Future<AuthUser> getCurrentUser({AuthUserRequest? request}) async {
+  Future<AuthUser> getCurrentUser({
+    AuthUserOptions? options,
+  }) async {
     if (_currentUser == null) {
       throw const SignedOutException('There is no user signed in.');
     } else {
@@ -219,7 +239,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
 
   @override
   Future<List<AuthUserAttribute>> fetchUserAttributes({
-    FetchUserAttributesRequest? request,
+    FetchUserAttributesOptions? options,
   }) async {
     if (_currentUser == null) {
       throw const SignedOutException('There is no user signed in.');
@@ -254,7 +274,8 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
 
   @override
   Future<SignInResult> signInWithWebUI({
-    SignInWithWebUIRequest? request,
+    AuthProvider? provider,
+    SignInWithWebUIOptions? options,
   }) async {
     throw const InvalidStateException(
       'social sign in is not implemented.',
@@ -263,7 +284,9 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
 
   @override
   Future<UpdateUserAttributeResult> updateUserAttribute({
-    UpdateUserAttributeRequest? request,
+    required AuthUserAttributeKey userAttributeKey,
+    required String value,
+    UpdateUserAttributeOptions? options,
   }) async {
     if (_currentUser == null) {
       throw const SignedOutException('There is no user signed in.');
@@ -280,14 +303,17 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
   @override
   Future<Map<AuthUserAttributeKey, UpdateUserAttributeResult>>
       updateUserAttributes({
-    required UpdateUserAttributesRequest request,
+    required List<AuthUserAttribute> attributes,
+    UpdateUserAttributesOptions? options,
   }) async {
     return {};
   }
 
   @override
   Future<ConfirmUserAttributeResult> confirmUserAttribute({
-    ConfirmUserAttributeRequest? request,
+    required AuthUserAttributeKey userAttributeKey,
+    required String confirmationCode,
+    ConfirmUserAttributeOptions? options,
   }) async {
     return const ConfirmUserAttributeResult();
   }
@@ -295,7 +321,8 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
   @override
   Future<ResendUserAttributeConfirmationCodeResult>
       resendUserAttributeConfirmationCode({
-    ResendUserAttributeConfirmationCodeRequest? request,
+    required AuthUserAttributeKey userAttributeKey,
+    ResendUserAttributeConfirmationCodeOptions? options,
   }) async {
     if (_currentUser == null) {
       throw const SignedOutException('There is no user signed in.');

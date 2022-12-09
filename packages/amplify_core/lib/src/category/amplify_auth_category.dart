@@ -288,14 +288,12 @@ class AuthCategory<
     required String username,
     required String password,
     PluginSignUpOptions? options,
-  }) {
-    final request = SignUpRequest(
-      username: username,
-      password: password,
-      options: options,
-    );
-    return plugin.signUp(request: request);
-  }
+  }) =>
+      plugin.signUp(
+        username: username,
+        password: password,
+        options: options,
+      );
 
   /// {@template amplify_core.amplify_auth_category.confirm_sign_up}
   /// Confirm the current sign up for [username] with the [confirmationCode]
@@ -305,14 +303,12 @@ class AuthCategory<
     required String username,
     required String confirmationCode,
     PluginConfirmSignUpOptions? options,
-  }) {
-    final request = ConfirmSignUpRequest(
-      username: username,
-      confirmationCode: confirmationCode,
-      options: options,
-    );
-    return plugin.confirmSignUp(request: request);
-  }
+  }) =>
+      plugin.confirmSignUp(
+        username: username,
+        confirmationCode: confirmationCode,
+        options: options,
+      );
 
   /// {@template amplify_core.amplify_auth_category.resend_sign_up_code}
   /// Resends the code that is used to confirm the user's account after sign up
@@ -325,13 +321,11 @@ class AuthCategory<
   Future<PluginResendSignUpCodeResult> resendSignUpCode({
     required String username,
     PluginResendSignUpCodeOptions? options,
-  }) {
-    final request = ResendSignUpCodeRequest(
-      username: username,
-      options: options,
-    );
-    return plugin.resendSignUpCode(request: request);
-  }
+  }) =>
+      plugin.resendSignUpCode(
+        username: username,
+        options: options,
+      );
 
   /// {@template amplify_core.amplify_auth_category.sign_in}
   /// Initiate sign in for user with [username] and optional [password].
@@ -343,14 +337,12 @@ class AuthCategory<
     required String username,
     String? password,
     PluginSignInOptions? options,
-  }) {
-    final request = SignInRequest(
-      username: username,
-      password: password,
-      options: options,
-    );
-    return plugin.signIn(request: request);
-  }
+  }) =>
+      plugin.signIn(
+        username: username,
+        password: password,
+        options: options,
+      );
 
   /// {@template amplify_core.amplify_auth_category.confirm_sign_in}
   /// Confirm the current sign in with the [confirmationValue] provided by the
@@ -359,13 +351,11 @@ class AuthCategory<
   Future<PluginConfirmSignInResult> confirmSignIn({
     required String confirmationValue,
     PluginConfirmSignInOptions? options,
-  }) {
-    final request = ConfirmSignInRequest(
-      confirmationValue: confirmationValue,
-      options: options,
-    );
-    return plugin.confirmSignIn(request: request);
-  }
+  }) =>
+      plugin.confirmSignIn(
+        confirmationValue: confirmationValue,
+        options: options,
+      );
 
   /// {@template amplify_core.amplify_auth_category.sign_out}
   /// Sign the user out of the current device.
@@ -375,10 +365,8 @@ class AuthCategory<
   /// {@endtemplate}
   Future<PluginSignOutResult> signOut({
     PluginSignOutOptions? options,
-  }) {
-    final request = SignOutRequest(options: options);
-    return plugin.signOut(request: request);
-  }
+  }) =>
+      plugin.signOut(options: options);
 
   /// {@template amplify_core.amplify_auth_category.update_password}
   /// Update the password of the current user.
@@ -391,14 +379,12 @@ class AuthCategory<
     required String oldPassword,
     required String newPassword,
     PluginUpdatePasswordOptions? options,
-  }) {
-    final request = UpdatePasswordRequest(
-      oldPassword: oldPassword,
-      newPassword: newPassword,
-      options: options,
-    );
-    return plugin.updatePassword(request: request);
-  }
+  }) =>
+      plugin.updatePassword(
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+        options: options,
+      );
 
   /// {@template amplify_core.amplify_auth_category.reset_password}
   /// Initiates a password reset for the user with the given username.
@@ -411,13 +397,11 @@ class AuthCategory<
   Future<PluginResetPasswordResult> resetPassword({
     required String username,
     PluginResetPasswordOptions? options,
-  }) {
-    final request = ResetPasswordRequest(
-      username: username,
-      options: options,
-    );
-    return plugin.resetPassword(request: request);
-  }
+  }) =>
+      plugin.resetPassword(
+        username: username,
+        options: options,
+      );
 
   /// {@template amplify_core.amplify_auth_category.confirm_reset_password}
   /// Completes the password reset process given a username, new password,
@@ -433,35 +417,29 @@ class AuthCategory<
     required String newPassword,
     required String confirmationCode,
     PluginConfirmResetPasswordOptions? options,
-  }) {
-    final request = ConfirmResetPasswordRequest(
-      username: username,
-      newPassword: newPassword,
-      confirmationCode: confirmationCode,
-      options: options,
-    );
-    return plugin.confirmResetPassword(request: request);
-  }
+  }) =>
+      plugin.confirmResetPassword(
+        username: username,
+        newPassword: newPassword,
+        confirmationCode: confirmationCode,
+        options: options,
+      );
 
   /// {@template amplify_core.amplify_auth_category.get_current_user}
   /// Retrieve the current active user.
   /// {@endtemplate}
   Future<PluginAuthUser> getCurrentUser({
     PluginAuthUserOptions? options,
-  }) {
-    final request = AuthUserRequest(options: options);
-    return plugin.getCurrentUser(request: request);
-  }
+  }) =>
+      plugin.getCurrentUser(options: options);
 
   /// {@template amplify_core.amplify_auth_category.fetch_user_attributes}
   /// Fetch all user attributes associated with the current user.
   /// {@endtemplate}
   Future<List<PluginAuthUserAttribute>> fetchUserAttributes({
     PluginFetchUserAttributeOptions? options,
-  }) {
-    final request = FetchUserAttributesRequest(options: options);
-    return plugin.fetchUserAttributes(request: request);
-  }
+  }) =>
+      plugin.fetchUserAttributes(options: options);
 
   /// {@template amplify_core.amplify_auth_category.fetch_auth_session}
   /// Fetch the current auth session.
@@ -472,10 +450,8 @@ class AuthCategory<
   /// {@endtemplate}
   Future<PluginAuthSession> fetchAuthSession({
     PluginAuthSessionOptions? options,
-  }) {
-    final request = AuthSessionRequest(options: options);
-    return plugin.fetchAuthSession(request: request);
-  }
+  }) =>
+      plugin.fetchAuthSession(options: options);
 
   /// {@template amplify_core.amplify_auth_category.sign_in_with_web_ui}
   /// Initiate sign in for a web-based flow, e.g. a social provider.
@@ -483,13 +459,11 @@ class AuthCategory<
   Future<PluginSignInWithWebUIResult> signInWithWebUI({
     AuthProvider? provider,
     PluginSignInWithWebUIOptions? options,
-  }) {
-    final request = SignInWithWebUIRequest(
-      provider: provider,
-      options: options,
-    );
-    return plugin.signInWithWebUI(request: request);
-  }
+  }) =>
+      plugin.signInWithWebUI(
+        provider: provider,
+        options: options,
+      );
 
   /// {@template amplify_core.amplify_auth_category.update_user_attribute}
   /// Updates a single user attribute and returns a [UpdateUserAttributeResult].
@@ -500,14 +474,12 @@ class AuthCategory<
     required PluginUserAttributeKey userAttributeKey,
     required String value,
     PluginUpdateUserAttributeOptions? options,
-  }) {
-    final request = UpdateUserAttributeRequest(
-      userAttributeKey: userAttributeKey,
-      value: value,
-      options: options,
-    );
-    return plugin.updateUserAttribute(request: request);
-  }
+  }) =>
+      plugin.updateUserAttribute(
+        userAttributeKey: userAttributeKey,
+        value: value,
+        options: options,
+      );
 
   /// {@template amplify_core.amplify_auth_category.update_user_attributes}
   /// Updates multiple user attributes and returns a map of
@@ -519,13 +491,11 @@ class AuthCategory<
       updateUserAttributes({
     required List<PluginAuthUserAttribute> attributes,
     PluginUpdateUserAttributesOptions? options,
-  }) {
-    final request = UpdateUserAttributesRequest(
-      attributes: attributes,
-      options: options,
-    );
-    return plugin.updateUserAttributes(request: request);
-  }
+  }) =>
+          plugin.updateUserAttributes(
+            attributes: attributes,
+            options: options,
+          );
 
   /// {@template amplify_core.amplify_auth_category.confirm_user_attribute}
   /// Confirms a user attribute update and returns a
@@ -535,14 +505,12 @@ class AuthCategory<
     required PluginUserAttributeKey userAttributeKey,
     required String confirmationCode,
     PluginConfirmUserAttributeOptions? options,
-  }) {
-    final request = ConfirmUserAttributeRequest(
-      userAttributeKey: userAttributeKey,
-      confirmationCode: confirmationCode,
-      options: options,
-    );
-    return plugin.confirmUserAttribute(request: request);
-  }
+  }) =>
+      plugin.confirmUserAttribute(
+        userAttributeKey: userAttributeKey,
+        confirmationCode: confirmationCode,
+        options: options,
+      );
 
   /// {@template amplify_core.amplify_auth_category.resend_user_attribute_confirmation_code}
   /// Resends a confirmation code for the given attribute and returns a
@@ -554,13 +522,11 @@ class AuthCategory<
       resendUserAttributeConfirmationCode({
     required PluginUserAttributeKey userAttributeKey,
     PluginResendUserAttributeConfirmationCodeOptions? options,
-  }) {
-    final request = ResendUserAttributeConfirmationCodeRequest(
-      userAttributeKey: userAttributeKey,
-      options: options,
-    );
-    return plugin.resendUserAttributeConfirmationCode(request: request);
-  }
+  }) =>
+          plugin.resendUserAttributeConfirmationCode(
+            userAttributeKey: userAttributeKey,
+            options: options,
+          );
 
   /// {@template amplify_core.amplify_auth_category.remember_device}
   /// Remembers the current device.
