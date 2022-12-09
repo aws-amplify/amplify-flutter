@@ -16,13 +16,13 @@ import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:meta/meta.dart';
 
-/// {@template amplify_api.connectivity_plus_stream_creator}
+/// {@template amplify_api.connectivity_plus_platform}
 /// Creates a stream of [ConnectivityStatus] from the [ConnectivityPlus plugin](https://pub.dev/packages/connectivity_plus).
 /// {@endtemplate}
 @internal
-class ConnectivityPlusStreamCreator extends ConnectivityPlatform {
-  /// {@macro amplify_api.connectivity_plus_stream_creator}
-  const ConnectivityPlusStreamCreator();
+class ConnectivityPlusPlatform extends ConnectivityPlatform {
+  /// {@macro amplify_api.connectivity_plus_platform}
+  const ConnectivityPlusPlatform();
 
   @override
   Stream<ConnectivityStatus> get onConnectivityChanged => Connectivity()

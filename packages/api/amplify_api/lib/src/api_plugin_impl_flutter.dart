@@ -15,7 +15,7 @@
 import 'dart:io';
 
 import 'package:amplify_api/src/api_plugin_impl.dart';
-import 'package:amplify_api/src/connectivity_plus_stream_creator.dart';
+import 'package:amplify_api/src/connectivity_plus_platform.dart';
 import 'package:amplify_api/src/native_api_plugin.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
@@ -32,7 +32,7 @@ class AmplifyAPI extends AmplifyAPIDart with AWSDebuggable {
     super.subscriptionOptions,
   }) : super(
           authProviders: authProviders,
-          connectivity: const ConnectivityPlusStreamCreator(),
+          connectivity: const ConnectivityPlusPlatform(),
         ) {
     authProviders.forEach(registerAuthProvider);
   }

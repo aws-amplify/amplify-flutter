@@ -15,7 +15,7 @@
 import 'dart:async';
 
 import 'package:amplify_api/src/api_plugin_impl.dart' hide ConnectivityPlatform;
-import 'package:amplify_api/src/connectivity_plus_stream_creator.dart';
+import 'package:amplify_api/src/connectivity_plus_platform.dart';
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -51,7 +51,7 @@ void main() {
     late Stream<ConnectivityStatus> stream;
 
     setUp(() {
-      const streamCreator = ConnectivityPlusStreamCreator();
+      const streamCreator = ConnectivityPlusPlatform();
       stream = streamCreator.onConnectivityChanged;
     });
 
