@@ -513,11 +513,11 @@ void main() {
               ),
             ).thenAnswer((_) async => testUrl);
 
+            final comparingTime = DateTime.now();
             getUrlResult = await storageS3Service.getUrl(
               key: testKey,
               options: testOptions,
             );
-
             final capturedParams = verify(
               () => awsSigV4Signer.presign(
                 captureAny<AWSHttpRequest>(),
@@ -547,6 +547,12 @@ void main() {
                 capturedParams[1] as AWSCredentialScope;
             expect(credentialScopeParam.region, testRegion);
             expect(credentialScopeParam.service, AWSService.s3.service);
+            // assert the signer scope is always freshly initiated upon calling
+            // `getUrl`
+            expect(
+              AWSDateTime(comparingTime).formatFull(),
+              lessThanOrEqualTo(credentialScopeParam.dateTime.formatFull()),
+            );
 
             expect(capturedParams[2] is S3ServiceConfiguration, isTrue);
             final configParam = capturedParams[2] as S3ServiceConfiguration;

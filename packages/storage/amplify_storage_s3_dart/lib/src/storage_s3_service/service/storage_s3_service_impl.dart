@@ -60,10 +60,6 @@ class StorageS3Service {
             ),
         _prefixResolver = prefixResolver,
         _logger = logger,
-        _signerScope = AWSCredentialScope(
-          region: defaultRegion,
-          service: AWSService.s3,
-        ),
         // dependencyManager.get() => AWSSigV4Signer is used for unit tests
         _awsSigV4Signer = dependencyManager.get() ??
             AWSSigV4Signer(credentialsProvider: credentialsProvider),
@@ -79,10 +75,14 @@ class StorageS3Service {
   final s3.S3Client _defaultS3Client;
   final S3PrefixResolver _prefixResolver;
   final AWSLogger _logger;
-  final AWSCredentialScope _signerScope;
   final AWSSigV4Signer _awsSigV4Signer;
   final DependencyManager _dependencyManager;
   final DateTime _serviceStartingTime;
+
+  AWSCredentialScope get _signerScope => AWSCredentialScope(
+        region: _defaultRegion,
+        service: AWSService.s3,
+      );
 
   transfer.TransferDatabase get _transferDatabase =>
       _dependencyManager.getOrCreate(transfer.TransferDatabase.token);
