@@ -32,6 +32,7 @@ class MockAuthenticatorApp extends StatefulWidget {
     this.darkTheme,
     this.initialStep = AuthenticatorStep.signIn,
     this.authPlugin,
+    this.child,
   });
 
   final String config;
@@ -39,6 +40,7 @@ class MockAuthenticatorApp extends StatefulWidget {
   final ThemeData? darkTheme;
   final AuthenticatorStep initialStep;
   final AuthPluginInterface? authPlugin;
+  final Widget? child;
 
   @override
   State<MockAuthenticatorApp> createState() => _MockAuthenticatorAppState();
@@ -66,19 +68,20 @@ class _MockAuthenticatorAppState extends State<MockAuthenticatorApp> {
     return Authenticator(
       initialStep: widget.initialStep,
       key: authenticatorKey,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: widget.lightTheme,
-        darkTheme: widget.darkTheme,
-        themeMode: ThemeMode.system,
-        builder: Authenticator.builder(),
-        home: const Scaffold(
-          key: authenticatedAppKey,
-          body: Center(
-            child: SignOutButton(),
+      child: widget.child ??
+          MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: widget.lightTheme,
+            darkTheme: widget.darkTheme,
+            themeMode: ThemeMode.system,
+            builder: Authenticator.builder(),
+            home: const Scaffold(
+              key: authenticatedAppKey,
+              body: Center(
+                child: SignOutButton(),
+              ),
+            ),
           ),
-        ),
-      ),
     );
   }
 }
