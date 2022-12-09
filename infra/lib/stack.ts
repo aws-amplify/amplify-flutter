@@ -71,6 +71,23 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
       },
     });
 
+    const wafAssociations: wafv2.CfnWebACLAssociation[] = [];
+
+    // Creates a WAF association on `this` so that they can be chained later
+    // and do not block the concurrent creation of environments.
+    const associateWithWaf = (resourceArn: string) => {
+      wafAssociations.push(
+        new wafv2.CfnWebACLAssociation(
+          this,
+          `WAFAssociation${wafAssociations.length}`,
+          {
+            resourceArn,
+            webAclArn: waf.attrArn,
+          }
+        )
+      );
+    };
+
     // The Analytics stack
     const analytics = new AnalyticsIntegrationTestStack(this, [
       { environmentName: "main" },
@@ -81,16 +98,16 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
     const customDomain = this.node.tryGetContext("domainName");
     if (customDomain) {
       customDomainEnv.push({
-        waf,
+        associateWithWaf,
         type: "CUSTOM_AUTHORIZER_IAM",
         environmentName: "custom-authorizer-custom-domain",
         customDomain,
       });
     }
     const auth = new AuthIntegrationTestStack(this, [
-      { waf, type: "FULL", environmentName: "main" },
+      { associateWithWaf, type: "FULL", environmentName: "main" },
       {
-        waf,
+        associateWithWaf,
         type: "FULL",
         environmentName: "device-tracking-always",
         deviceTracking: {
@@ -101,7 +118,7 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         },
       },
       {
-        waf,
+        associateWithWaf,
         type: "FULL",
         environmentName: "device-tracking-opt-in",
         deviceTracking: {
@@ -112,7 +129,7 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         },
       },
       {
-        waf,
+        associateWithWaf,
         type: "FULL",
         environmentName: "sign-in-with-phone",
         signInAliases: {
@@ -120,12 +137,12 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         },
       },
       {
-        waf,
+        associateWithWaf,
         type: "CUSTOM_AUTHORIZER_USER_POOLS",
         environmentName: "custom-authorizer-user-pools",
       },
       {
-        waf,
+        associateWithWaf,
         type: "CUSTOM_AUTHORIZER_IAM",
         environmentName: "custom-authorizer-iam",
       },
@@ -158,6 +175,13 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
     this.outputAmplifyConfig(analytics);
     this.outputAmplifyConfig(auth);
     this.outputAmplifyConfig(storage);
+
+    // Chain the creation of WAF associations since the API call `AssociateWebACL`
+    // has a fixed rate limit which can easily be exceeded when deploying concurrent
+    // stacks and their WAF associations.
+    wafAssociations.forEach((assoc, index) => {
+      if (index > 0) assoc.addDependsOn(wafAssociations[index - 1]);
+    });
   }
 
   /**

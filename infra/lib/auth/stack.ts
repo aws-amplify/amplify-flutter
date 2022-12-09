@@ -23,7 +23,6 @@ import * as iam from "aws-cdk-lib/aws-iam";
 import * as kms from "aws-cdk-lib/aws-kms";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as lambda_nodejs from "aws-cdk-lib/aws-lambda-nodejs";
-import * as wafv2 from "aws-cdk-lib/aws-wafv2";
 import { Construct } from "constructs";
 import * as path from "path";
 import {
@@ -47,9 +46,9 @@ export type AuthIntegrationTestStackEnvironmentProps =
 export interface AuthBaseEnvironmentProps
   extends IntegrationTestStackEnvironmentProps {
   /**
-   * The shared WAF.
+   * Associates `resourceArn` with the shared WAF.
    */
-  waf: wafv2.CfnWebACL;
+  associateWithWaf: (resourceArn: string) => void;
 
   /**
    * The type of environment to build.
@@ -135,7 +134,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
   ) {
     super(scope, baseName, props);
 
-    const { waf } = props;
+    const { associateWithWaf } = props;
 
     // Create the GraphQL API for admin actions
 
@@ -325,15 +324,8 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       }
     );
 
-    new wafv2.CfnWebACLAssociation(this, "WAFAppSyncAssociation", {
-      resourceArn: graphQLApi.arn,
-      webAclArn: waf.attrArn,
-    });
-
-    new wafv2.CfnWebACLAssociation(this, "WAFCognitoAssociation", {
-      resourceArn: userPool.userPoolArn,
-      webAclArn: waf.attrArn,
-    });
+    associateWithWaf(graphQLApi.arn);
+    associateWithWaf(userPool.userPoolArn);
 
     // Create the DynamoDB table to store MFA codes for AppSync subscriptions
 
