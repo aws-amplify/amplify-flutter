@@ -234,12 +234,12 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
     final username = parameters.username;
     final password = parameters.password;
     if (password == null || password.isEmpty) {
-      throw const SrpSignInInputValidationException('No password given');
+      throw const AuthValidationException('No password given');
     }
 
     final initResult = _initResult;
     if (initResult == null) {
-      throw const SrpSignInCalculationException('Must call init first');
+      throw const AuthValidationException('Must call init first');
     }
 
     final worker = await passwordVerifierWorker;
@@ -299,7 +299,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
     final username = parameters.username;
     final password = parameters.password;
     if (password == null || password.isEmpty) {
-      throw const SrpSignInInputValidationException('No password given');
+      throw const AuthValidationException('No password given');
     }
 
     final worker = await devicePasswordVerifierWorker;
@@ -484,7 +484,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
     switch (event.authFlowType) {
       case AuthenticationFlowType.customAuthWithSrp:
         if (password == null) {
-          throw const InvalidParameterException(
+          throw const AuthValidationException(
             'No password was given but customAuthWithSrp was chosen for '
             'authentication flow',
             recoverySuggestion:
@@ -494,7 +494,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         break;
       case AuthenticationFlowType.customAuthWithoutSrp:
         if (password != null) {
-          throw const InvalidParameterException(
+          throw const AuthValidationException(
             'A password was given but customAuthWithoutSrp was chosen for '
             'authentication flow',
             recoverySuggestion:

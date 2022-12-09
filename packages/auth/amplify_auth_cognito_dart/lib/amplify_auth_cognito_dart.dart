@@ -21,6 +21,8 @@ export 'src/auth_plugin_impl.dart';
 
 export 'src/credentials/legacy_credential_provider.dart';
 
+export 'src/exception/device_not_tracked_exception.dart';
+export 'src/exception/invalid_account_type_exception.dart';
 export 'src/exception/srp_exception.dart';
 
 export 'src/flows/hosted_ui/hosted_ui_platform.dart';

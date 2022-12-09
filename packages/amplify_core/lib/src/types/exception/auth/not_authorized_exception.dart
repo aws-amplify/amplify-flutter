@@ -18,9 +18,9 @@ import 'package:amplify_core/amplify_core.dart';
 /// Exception thrown when the current session is not authorized to perform an
 /// operation.
 /// {@endtemplate}
-class NotAuthorizedException extends AuthException {
+class AuthNotAuthorizedException extends AuthException {
   /// {@macro amplify_core.auth.not_authorized_exception}
-  const NotAuthorizedException(
+  const AuthNotAuthorizedException(
     super.message, {
     super.recoverySuggestion,
     super.underlyingException,

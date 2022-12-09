@@ -20,6 +20,9 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 abstract class SrpSignInException extends AuthException {
   /// {@macro amplify_auth_cognito.srp_sign_in_exception}
   const SrpSignInException(super.message);
+
+  @override
+  String get runtimeTypeName => 'SrpSignInException';
 }
 
 /// {@template amplify_auth_cognito.srp_sign_in_configuration_exception}

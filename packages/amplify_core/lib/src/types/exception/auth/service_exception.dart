@@ -19,9 +19,9 @@ import 'package:amplify_core/amplify_core.dart';
 ///
 /// Check the [underlyingException] for more details.
 /// {@endtemplate}
-class ServiceException extends AuthException {
+class AuthServiceException extends AuthException {
   /// {@macro amplify_core.auth.service_exception}
-  const ServiceException(
+  const AuthServiceException(
     super.message, {
     super.recoverySuggestion,
     super.underlyingException,

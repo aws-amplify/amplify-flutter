@@ -15,8 +15,6 @@
 
 /// Exceptions
 export '../exception/auth/auth_exception.dart';
-export '../exception/auth/device_not_tracked_exception.dart';
-export '../exception/auth/invalid_account_type_exception.dart';
 export '../exception/auth/invalid_state_exception.dart';
 export '../exception/auth/not_authorized_exception.dart';
 export '../exception/auth/service_exception.dart';

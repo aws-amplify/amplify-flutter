@@ -240,7 +240,7 @@ class StateMachineBloc
         default:
           break;
       }
-    } on NotAuthorizedException {
+    } on AuthNotAuthorizedException {
       /// The .failAuthentication flag available in the DefineAuthChallenge Lambda trigger
       /// returns a generic NotAuthorizedException.
       ///

@@ -124,7 +124,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
       throw userNotFoundException;
     }
     if (user.password != request.password) {
-      throw const NotAuthorizedException('Incorrect username or password.');
+      throw const AuthNotAuthorizedException('Incorrect username or password.');
     }
     _currentUser = user;
     return CognitoSignInResult(

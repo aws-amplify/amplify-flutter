@@ -140,6 +140,9 @@ class HostedUiException extends AuthException {
           'Failed to perform Hosted UI sign out',
           recoverySuggestion: 'See underlyingException for more details',
         );
+
+  @override
+  String get runtimeTypeName => 'HostedUiException';
 }
 
 /// {@template amplify_auth_cognito_dart.model.signout.global_sign_out_exception}
@@ -159,6 +162,9 @@ class GlobalSignOutException extends AuthException {
   ///
   /// Can be used to retry the operation.
   final String accessToken;
+
+  @override
+  String get runtimeTypeName => 'GlobalSignOutException';
 }
 
 /// {@template amplify_auth_cognito_dart.model.signout.revoke_token_exception}
@@ -178,4 +184,7 @@ class RevokeTokenException extends AuthException {
   ///
   /// Can be used to retry the operation.
   final String refreshToken;
+
+  @override
+  String get runtimeTypeName => 'RevokeTokenException';
 }

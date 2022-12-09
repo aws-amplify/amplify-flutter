@@ -66,7 +66,7 @@ void main() {
             username: username,
             password: incorrectPassword,
           ),
-          throwsA(isA<NotAuthorizedException>()),
+          throwsA(isA<AuthNotAuthorizedException>()),
         );
       },
     );

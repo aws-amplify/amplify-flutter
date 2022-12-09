@@ -29,7 +29,7 @@ void main() {
     });
 
     test('matches exception', () {
-      final wrapped = UserNotConfirmedException(message: message);
+      const wrapped = UserNotConfirmedException(message);
       expect(LambdaException.isLambdaException(wrapped.toString()), isTrue);
 
       final exception = LambdaException(wrapped.toString());
