@@ -16,11 +16,12 @@ import 'package:aft/aft.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
 
+final RegExp _mergeCommitRegex = RegExp(r'^Merge .+$');
 final RegExp _commitRegex = RegExp(
   r'(?<type>build|chore|ci|docs|feat|fix|bug|perf|refactor|revert|style|test)?'
   r'(?<scope>\([a-zA-Z0-9_,\s\*]+\)?((?=:\s?)|(?=!:\s?)))?'
   r'(?<breaking>!)?'
-  r'(?<description>:\s?.*)?|^(?<merge>Merge .+)',
+  r'(?<description>:\s?.*)?',
 );
 
 enum CommitTypeGroup {
@@ -76,6 +77,15 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
     required String body,
     required DateTime dateTime,
   }) {
+    final mergeCommit = _mergeCommitRegex.firstMatch(summary);
+    if (mergeCommit != null) {
+      return MergeCommitMessage(
+        sha,
+        mergeCommit.group(0)!,
+        dateTime: dateTime,
+      );
+    }
+
     final commitMessage = _commitRegex.firstMatch(summary);
     if (commitMessage == null) {
       throw ArgumentError.value(
@@ -83,11 +93,6 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
         'summary',
         'Not a valid commit message',
       );
-    }
-
-    final mergeCommit = commitMessage.namedGroup('merge');
-    if (mergeCommit != null) {
-      return MergeCommitMessage(sha, mergeCommit, dateTime: dateTime);
     }
 
     final typeStr = commitMessage.namedGroup('type');
@@ -99,7 +104,8 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
     final isBreakingChange = commitMessage.namedGroup('breaking') != null;
     final scopes = commitMessage
             .namedGroup('scope')
-            ?.split(',')
+            ?.replaceAll(RegExp(r'[\(\)]'), '')
+            .split(',')
             .map((scope) => scope.trim())
             .toList() ??
         const [];
@@ -112,7 +118,7 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
       return UnconventionalCommitMessage(sha, summary, dateTime: dateTime);
     }
 
-    if (type == CommitType.version) {
+    if (type == CommitType.chore && scopes.singleOrNull == 'version') {
       return VersionCommitMessage(
         sha,
         summary,

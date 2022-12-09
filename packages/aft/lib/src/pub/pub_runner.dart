@@ -87,6 +87,13 @@ Future<void> runFlutterPub(
       final runner = FlutterCommandRunner()
         ..addCommand(
           PackagesGetCommand(action.name, action == PubAction.upgrade),
+        )
+        ..addCommand(
+          PackagesForwardCommand(
+            'publish',
+            'Publish the current package to pub.dartlang.org.',
+            requiresPubspec: true,
+          ),
         );
       await runner.run([action.name, package.path]);
     },

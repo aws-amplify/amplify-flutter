@@ -22,7 +22,7 @@ dependencies:
   shelf_router: ^1.1.0
   shelf: ^1.1.0
   fixnum: ^1.0.0
-  xml: 6.1.0
+  xml: ">=6.1.0 <=6.2.2"
 
 dependency_overrides:
   smithy:

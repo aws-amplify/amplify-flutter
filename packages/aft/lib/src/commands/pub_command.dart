@@ -29,6 +29,10 @@ enum PubAction {
   upgrade(
     'Upgrades packages and the pubspec.lock file to their latest versions',
     'Successfully upgraded packages',
+  ),
+  publish(
+    'Publishes package to pub.dev',
+    'Successfully published package',
   );
 
   const PubAction(this.description, this.successMessage);
@@ -75,6 +79,7 @@ class PubSubcommand extends AmplifyCommand {
 
   @override
   Future<void> run() async {
+    await super.run();
     await pubAction(
       action: action,
       allPackages: allPackages,

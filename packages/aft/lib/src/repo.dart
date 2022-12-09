@@ -34,7 +34,7 @@ class Repo {
     required this.allPackages,
     required this.aftConfig,
     AWSLogger? logger,
-  }) : logger = logger ?? AWSLogger('Repo');
+  }) : logger = logger ?? AWSLogger().createChild('Repo');
 
   /// The root directory of the repository.
   final Directory rootDir;
@@ -45,8 +45,9 @@ class Repo {
 
   final AftConfig aftConfig;
 
-  late final List<PackageInfo> developmentPackages = UnmodifiableListView(
-    allPackages.values.where((pkg) => pkg.isDevelopmentPackage).toList(),
+  /// All packages which can be published to `pub.dev`.
+  late final List<PackageInfo> publishablePackages = UnmodifiableListView(
+    allPackages.values.where((pkg) => pkg.isPublishable).toList(),
   );
 
   /// The components of the repository.
@@ -237,7 +238,7 @@ class Repo {
   void bumpAllVersions({
     required GitChanges Function(PackageInfo) changesForPackage,
   }) {
-    final sortedPackages = List.of(developmentPackages);
+    final sortedPackages = List.of(publishablePackages);
     sortPackagesTopologically(
       sortedPackages,
       (PackageInfo pkg) => pkg.pubspecInfo.pubspec,
@@ -269,12 +270,12 @@ class Repo {
   /// Bumps the version and changelog in [package] and its component packages
   /// using [commit] and returns the new version.
   ///
-  /// If [type] is [VersionBumpType.breaking], the version change is propagated
-  /// to all packages which depend on [package].
+  /// If [type] is [VersionBumpType.nonBreaking] or [VersionBumpType.breaking],
+  /// the version change is propagated to all packages which depend on
+  /// [package] at the type which is next least severe.
   ///
   /// If [propogateToComponent] is `true`, all component packages are bumped to
   /// the same version.
-  /// [VersionBumpType.nonBreaking] or [VersionBumpType.breaking].
   Version bumpVersion(
     PackageInfo package, {
     required CommitMessage commit,
@@ -319,31 +320,30 @@ class Repo {
         ['version'],
         newVersion.toString(),
       );
-      if (type == VersionBumpType.breaking) {
+      if (commit.isBreakingChange && type != VersionBumpType.patch) {
         // Back-propogate to all dependent packages for breaking changes.
         //
         // Since we set semantic version constraints, only a breaking change
         // in a direct dependency necessitates a version bump.
-        logger.verbose('Performing dfs on dependent packages...');
-        dfs<PackageInfo>(
-          reversedPackageGraph,
-          root: package,
-          (dependent) {
-            if (dependent == package) return;
-            logger.verbose('dfs found dependent package ${dependent.name}');
-            if (dependent.isDevelopmentPackage) {
-              bumpVersion(
-                dependent,
-                commit: commit,
-                // Do not consider it a breaking change in dependent packages
-                // even if it was a breaking change in the main package.
-                type: VersionBumpType.nonBreaking,
-                includeInChangelog: false,
-              );
-            }
-            bumpDependency(package, dependent);
-          },
+        logger.verbose(
+          'Breaking change. Performing dfs on dependent packages...',
         );
+        for (final dependent in allPackages.values.where(
+          (pkg) => pkg.pubspecInfo.pubspec.dependencies.keys.contains(
+            package.name,
+          ),
+        )) {
+          logger.verbose('found dependent package ${dependent.name}');
+          if (dependent.isPublishable) {
+            bumpVersion(
+              dependent,
+              commit: commit,
+              type: VersionBumpType.patch,
+              includeInChangelog: false,
+            );
+          }
+          bumpDependency(package, dependent);
+        }
       }
 
       // Propagate to all component packages.
@@ -370,12 +370,12 @@ class Repo {
 
     // Update summary package's changelog if it exists.
     final summaryPackage = component?.summary;
-    if (summaryPackage != null) {
+    if (summaryPackage != null && includeInChangelog) {
       logger.debug(
         'Updating summary package `${summaryPackage.name}` '
         'with commit: $commit',
       );
-      final packageVersion = versionChanges[summaryPackage.name];
+      final packageVersion = versionChanges.newVersion(summaryPackage);
       final currentChangelogUpdate = changelogUpdates[summaryPackage];
       changelogUpdates[summaryPackage] = summaryPackage.changelog.update(
         commits: {
@@ -421,8 +421,7 @@ class _DiffMarker with AWSEquatable<_DiffMarker> {
   List<Object?> get props => [baseTree, headTree];
 }
 
-class VersionChanges extends MapBase<String, Version>
-    with UnmodifiableMapMixin<String, Version> {
+class VersionChanges {
   VersionChanges(this._repo);
 
   final Repo _repo;
@@ -450,10 +449,4 @@ class VersionChanges extends MapBase<String, Version>
     _versionUpdates['component_$component'] = version;
     _versionUpdates[package.name] = version;
   }
-
-  @override
-  Version? operator [](Object? key) => _versionUpdates[key];
-
-  @override
-  Iterable<String> get keys => _versionUpdates.keys;
 }

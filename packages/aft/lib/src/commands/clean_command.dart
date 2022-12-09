@@ -55,6 +55,7 @@ class CleanCommand extends AmplifyCommand {
 
   @override
   Future<void> run() async {
+    await super.run();
     await Future.wait([
       for (final package in allPackages.values) _cleanBuildFolder(package),
     ]);

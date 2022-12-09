@@ -155,6 +155,7 @@ class _DepsSubcommand extends AmplifyCommand {
 
   @override
   Future<void> run() async {
+    await super.run();
     return _run(action);
   }
 }
@@ -164,6 +165,7 @@ class _DepsUpdateCommand extends _DepsSubcommand {
 
   @override
   Future<void> run() async {
+    await super.run();
     final globalDependencyConfig = aftConfig.dependencies;
 
     final aftEditor = YamlEditor(aftConfigYaml);

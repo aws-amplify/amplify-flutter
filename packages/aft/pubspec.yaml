@@ -18,7 +18,7 @@ dependencies:
   flutter_tools:
     git:
       url: https://github.com/flutter/flutter.git
-      ref: 0df0e2ea1f7fe5021c3593d61903e70bdbda8107
+      ref: 117a83a4a7178c328d296748bd93ff388724cb67
       path: packages/flutter_tools
   git: ^2.0.0
   glob: ^2.1.0
@@ -35,7 +35,7 @@ dependencies:
   pub:
     git:
       url: https://github.com/dart-lang/pub.git
-      ref: 0a48753420cbd03eb72a92d38ef06fe3164dc335
+      ref: 6cbbec2abbf6a54074ae1005c06a26dfb14a86c8
   pub_semver: ^2.1.1
   pubspec_parse: ^1.2.0
   smithy: ">=0.3.0 <0.4.0"
@@ -53,7 +53,7 @@ dev_dependencies:
   amplify_lints:
     path: ../amplify_lints
   build_runner: ^2.2.1
-  built_value_generator: 8.4.1
+  built_value_generator: 8.4.2
   json_serializable: 6.5.4
   test: ^1.16.0
 

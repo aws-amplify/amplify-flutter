@@ -44,10 +44,6 @@ abstract class AmplifyCommand extends Command<void>
     AWSLogger()
       ..unregisterAllPlugins()
       ..registerPlugin(this);
-
-    if (globalResults?['verbose'] as bool? ?? false) {
-      AWSLogger().logLevel = LogLevel.verbose;
-    }
   }
 
   late final AWSLogger logger = () {
@@ -79,7 +75,9 @@ abstract class AmplifyCommand extends Command<void>
   }
 
   /// Whether verbose logging is enabled.
-  bool get verbose => AWSLogger().logLevel == LogLevel.verbose;
+  bool get verbose =>
+      globalResults?['verbose'] as bool? ??
+      AWSLogger().logLevel == LogLevel.verbose;
 
   /// The current working directory.
   late final Directory workingDirectory = () {
@@ -101,7 +99,7 @@ abstract class AmplifyCommand extends Command<void>
     while (dir.parent != dir) {
       final files = dir.listSync(followLinks: false).whereType<File>();
       for (final file in files) {
-        if (p.basename(file.path) == 'mono_repo.yaml') {
+        if (p.basename(file.path) == 'aft.yaml') {
           return dir;
         }
       }
@@ -231,6 +229,14 @@ abstract class AmplifyCommand extends Command<void>
     }
 
     return PubVersionInfo(semvers..sort());
+  }
+
+  @override
+  @mustCallSuper
+  Future<void> run() async {
+    if (globalResults?['verbose'] as bool? ?? false) {
+      AWSLogger().logLevel = LogLevel.verbose;
+    }
   }
 
   @override

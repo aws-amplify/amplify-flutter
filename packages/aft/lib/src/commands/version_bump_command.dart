@@ -21,8 +21,9 @@ import 'package:aft/src/repo.dart';
 import 'package:path/path.dart' as p;
 
 /// Command for bumping package versions across the repo.
-class VersionCommand extends AmplifyCommand with GitRefOptions, GlobOptions {
-  VersionCommand() {
+class VersionBumpCommand extends AmplifyCommand
+    with GitRefOptions, GlobOptions {
+  VersionBumpCommand() {
     argParser
       ..addFlag(
         'preview',
@@ -61,15 +62,17 @@ class VersionCommand extends AmplifyCommand with GitRefOptions, GlobOptions {
     return repo.changes(baseRef, headRef);
   }
 
-  Future<void> _updateVersions() async {
+  Future<List<PackageInfo>> _updateVersions() async {
     repo.bumpAllVersions(
       changesForPackage: _changesForPackage,
     );
     final changelogUpdates = repo.changelogUpdates;
 
-    for (final package in repo.developmentPackages) {
+    final bumpedPackages = <PackageInfo>[];
+    for (final package in repo.publishablePackages) {
       final edits = package.pubspecInfo.pubspecYamlEditor.edits;
       if (edits.isNotEmpty) {
+        bumpedPackages.add(package);
         if (preview) {
           logger.info('pubspec.yaml');
           for (final edit in edits) {
@@ -94,13 +97,30 @@ class VersionCommand extends AmplifyCommand with GitRefOptions, GlobOptions {
         }
       }
     }
+
+    return bumpedPackages;
   }
 
   @override
   Future<void> run() async {
-    await _updateVersions();
+    await super.run();
+    final bumpedPackages = await _updateVersions();
 
     if (!preview) {
+      for (final package in bumpedPackages) {
+        // Run build_runner for packages which generate their version number.
+        final needsBuildRunner = package.pubspecInfo.pubspec.devDependencies
+            .containsKey('build_version');
+        if (!needsBuildRunner) {
+          continue;
+        }
+        await runBuildRunner(
+          package,
+          logger: logger,
+          verbose: verbose,
+        );
+      }
+
       logger.info('Version successfully bumped');
       // TODO(dnys1): Use version bump commit instead of tags
       // if (yes || prompt('Commit changes? (y/N) ').toLowerCase() == 'y') {

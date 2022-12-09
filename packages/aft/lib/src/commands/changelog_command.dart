@@ -51,7 +51,7 @@ abstract class _ChangelogBaseCommand extends AmplifyCommand
   late final bool yes = argResults!['yes'] as bool;
 
   Future<void> _updateChangelogs({required bool preview}) async {
-    for (final package in repo.developmentPackages) {
+    for (final package in repo.publishablePackages) {
       final baseRef = this.baseRef ?? repo.latestTag(package.name);
       if (baseRef == null) {
         exitError(
@@ -85,6 +85,7 @@ class _ChangelogPreviewCommand extends _ChangelogBaseCommand {
 
   @override
   Future<void> run() async {
+    await super.run();
     return _updateChangelogs(preview: true);
   }
 }
@@ -98,6 +99,7 @@ class _ChangelogUpdateCommand extends _ChangelogBaseCommand {
 
   @override
   Future<void> run() async {
+    await super.run();
     await _updateChangelogs(preview: false);
 
     logger.info('Changelogs successfully updated');

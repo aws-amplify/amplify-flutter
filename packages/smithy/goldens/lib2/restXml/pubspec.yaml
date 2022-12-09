@@ -18,7 +18,7 @@ dependencies:
   fixnum: ^1.0.0
   built_collection: ^5.0.0
   meta: ^1.7.0
-  xml: 6.1.0
+  xml: ">=6.1.0 <=6.2.2"
   shelf_router: ^1.1.0
   shelf: ^1.1.0
   aws_signature_v4:

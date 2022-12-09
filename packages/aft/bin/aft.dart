@@ -38,7 +38,7 @@ Future<void> main(List<String> args) async {
     ..addCommand(PubCommand())
     ..addCommand(BootstrapCommand())
     ..addCommand(ChangelogCommand())
-    ..addCommand(VersionCommand());
+    ..addCommand(VersionBumpCommand());
   try {
     await runner.run(args);
   } on UsageException catch (e) {

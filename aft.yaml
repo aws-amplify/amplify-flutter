@@ -12,6 +12,7 @@ dependencies:
   code_builder: 4.3.0
   json_annotation: ^4.7.0
   json_serializable: 6.5.4
+  xml: ">=6.1.0 <=6.2.2"
   uuid: ">=3.0.6 <=3.0.7"
 
 # Packages to ignore in all repo operations.
@@ -31,8 +32,6 @@ components:
     - amplify_datastore
     - amplify_datastore_plugin_interface
     - amplify_analytics_pinpoint
-    - amplify_analytics_pinpoint_android
-    - amplify_analytics_pinpoint_ios
     - amplify_api
     - amplify_api_android
     - amplify_api_ios
@@ -40,12 +39,12 @@ components:
     - amplify_auth_cognito_android
     - amplify_auth_cognito_ios
     - amplify_storage_s3
-    - amplify_storage_s3_android
-    - amplify_storage_s3_ios
   - name: amplify_dart
     summary: amplify_core
     packages:
     - amplify_auth_cognito_dart
+    - amplify_analytics_pinpoint_dart
+    - amplify_storage_s3_dart
   - name: amplify_ui
     packages:
     - amplify_authenticator

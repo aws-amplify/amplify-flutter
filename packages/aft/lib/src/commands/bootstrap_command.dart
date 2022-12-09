@@ -77,6 +77,7 @@ const amplifyEnvironments = <String, String>{};
 
   @override
   Future<void> run() async {
+    await super.run();
     await linkPackages(allPackages);
     await pubAction(
       action: upgrade ? PubAction.upgrade : PubAction.get,

@@ -89,6 +89,9 @@ class PackageInfo
         !isExample;
   }
 
+  /// Whether the package is publishable.
+  bool get isPublishable => pubspecInfo.pubspec.publishTo == null;
+
   /// Whether the package is used in development.
   bool get isDevelopmentPackage => !isExample && !isTestPackage;
 

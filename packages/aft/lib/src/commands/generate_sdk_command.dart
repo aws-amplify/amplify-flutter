@@ -100,6 +100,7 @@ class GenerateSdkCommand extends AmplifyCommand {
 
   @override
   Future<void> run() async {
+    await super.run();
     final args = argResults!;
     final configFilepath = args['config'] as String;
     final configFile = File(configFilepath);

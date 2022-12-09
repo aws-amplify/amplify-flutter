@@ -91,17 +91,19 @@ class PublishCommand extends AmplifyCommand {
   /// `build_runner` tasks.
   Future<void> _prePublish(PackageInfo package) async {
     logger.info('Running pre-publish checks for ${package.name}...');
-    // Remove any overrides so that `pub` commands resolve against
-    // `pubspec.yaml`, allowing us to verify we've set our constraints
-    // correctly.
-    final pubspecOverrideFile = File(
-      p.join(package.path, 'pubspec_overrides.yaml'),
-    );
-    if (pubspecOverrideFile.existsSync()) {
-      pubspecOverrideFile.deleteSync();
+    if (!dryRun) {
+      // Remove any overrides so that `pub` commands resolve against
+      // `pubspec.yaml`, allowing us to verify we've set our constraints
+      // correctly.
+      final pubspecOverrideFile = File(
+        p.join(package.path, 'pubspec_overrides.yaml'),
+      );
+      if (pubspecOverrideFile.existsSync()) {
+        pubspecOverrideFile.deleteSync();
+      }
     }
     final res = await Process.run(
-      package.flavor.name,
+      package.flavor.entrypoint,
       ['pub', 'upgrade'],
       stdoutEncoding: utf8,
       stderrEncoding: utf8,
@@ -142,6 +144,7 @@ class PublishCommand extends AmplifyCommand {
         if (dryRun) '--dry-run',
       ],
       workingDirectory: package.path,
+      runInShell: true,
     );
     final output = StringBuffer();
     publishCmd
@@ -157,9 +160,7 @@ class PublishCommand extends AmplifyCommand {
     final exitCode = await publishCmd.exitCode;
     if (exitCode != 0) {
       // Find any error lines which are not dependency constraint-related.
-      final failures = output
-          .toString()
-          .split('\n')
+      final failures = LineSplitter.split(output.toString())
           .skipWhile((line) => !_validationStartRegex.hasMatch(line))
           .where(_validationErrorRegex.hasMatch)
           .where((line) => !_validationConstraintRegex.hasMatch(line))
@@ -179,8 +180,9 @@ class PublishCommand extends AmplifyCommand {
 
   @override
   Future<void> run() async {
+    await super.run();
     // Gather packages which can be published.
-    final publishablePackages = repo.developmentPackages
+    final publishablePackages = repo.publishablePackages
         .where((pkg) => pkg.pubspecInfo.pubspec.publishTo != 'none');
 
     // Gather packages which need to be published.
