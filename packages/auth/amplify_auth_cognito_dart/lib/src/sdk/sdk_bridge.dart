@@ -116,6 +116,9 @@ class WrappedCognitoIdentityClient implements CognitoIdentityClient {
           region: region,
           credentialsProvider: credentialsProvider,
           client: dependencyManager.getOrCreate(),
+          requestInterceptors: const [
+            WithHeader(AWSHeaders.cacheControl, 'no-store'),
+          ],
         );
 
   final CognitoIdentityClient _base;
@@ -186,6 +189,9 @@ class WrappedCognitoIdentityProviderClient
               : (endpoint.startsWith('http')
                   ? Uri.parse(endpoint)
                   : Uri.parse('https://$endpoint')),
+          requestInterceptors: const [
+            WithHeader(AWSHeaders.cacheControl, 'no-store'),
+          ],
         );
 
   final CognitoIdentityProviderClient _base;
