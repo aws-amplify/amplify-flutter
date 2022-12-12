@@ -19,11 +19,11 @@ import 'package:amplify_api/src/graphql/web_socket/blocs/subscriptions_bloc.dart
 import 'package:amplify_api/src/graphql/web_socket/services/web_socket_service.dart';
 import 'package:amplify_api/src/graphql/web_socket/state/web_socket_state.dart';
 import 'package:amplify_api/src/graphql/web_socket/state/ws_subscriptions_state.dart';
+import 'package:amplify_api/src/graphql/web_socket/types/connectivity_platform.dart';
 import 'package:amplify_api/src/graphql/web_socket/types/subscriptions_event.dart';
 import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
-import 'package:amplify_flutter/amplify_flutter.dart' hide SubscriptionEvent;
+import 'package:amplify_core/amplify_core.dart' hide SubscriptionEvent;
 import 'package:async/async.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:meta/meta.dart';
 
 part '../types/web_socket_event.dart';
@@ -40,10 +40,10 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     required AmplifyAuthProviderRepository authProviderRepo,
     required WebSocketService wsService,
     required GraphQLSubscriptionOptions subscriptionOptions,
+    required ConnectivityPlatform connectivity,
     AWSHttpClient? pollClientOverride,
-    Connectivity? connectivityOverride,
-  })  : _pollClient = pollClientOverride ?? AWSHttpClient(),
-        _connectivity = connectivityOverride ?? Connectivity() {
+  })  : _connectivity = connectivity,
+        _pollClient = pollClientOverride ?? AWSHttpClient() {
     final subBlocs = <String, SubscriptionBloc<Object?>>{};
 
     _currentState = DisconnectedState(
@@ -86,7 +86,10 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   /// Captures events added to the bloc and forwards them to the [_eventTransformer].
   late final Stream<WebSocketEvent> _wsEventStream = _wsEventController.stream;
   late final StreamSubscription<WebSocketState> _stateSubscription;
-  late final StreamSubscription<ConnectivityResult> _networkSubscription;
+  late final StreamSubscription<ConnectivityStatus> _networkSubscription;
+
+  /// Creates a stream representing network connectivity at the hardware level.
+  final ConnectivityPlatform _connectivity;
 
   /// The underlying event stream, used only in testing.
   @visibleForTesting
@@ -101,9 +104,6 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   /// The underlying Http client used for poll requests
   final AWSHttpClient _pollClient;
-
-  /// The connectivity plugin used to detect hardware level network changes
-  final Connectivity _connectivity;
 
   /// The current state of the bloc.
   WebSocketState get currentState => _currentState;
@@ -474,21 +474,14 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     done.complete();
   }
 
-  /// Connectivity stream monitors network availability on a hardware level
-  StreamSubscription<ConnectivityResult> _getConnectivityStream() {
+  /// Connectivity stream monitors network availability on a hardware level.
+  StreamSubscription<ConnectivityStatus> _getConnectivityStream() {
     return _connectivity.onConnectivityChanged.listen(
-      (ConnectivityResult connectivityResult) {
-        switch (connectivityResult) {
-          case ConnectivityResult.ethernet:
-          case ConnectivityResult.mobile:
-          case ConnectivityResult.wifi:
-            add(const NetworkFoundEvent());
-            break;
-          case ConnectivityResult.none:
-            add(const NetworkLossEvent());
-            break;
-          default:
-            break;
+      (status) {
+        if (status == ConnectivityStatus.connected) {
+          add(const NetworkFoundEvent());
+        } else if (status == ConnectivityStatus.disconnected) {
+          add(const NetworkLossEvent());
         }
       },
       onError: (Object e, StackTrace st) =>

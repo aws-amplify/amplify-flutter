@@ -12,8 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library amplify_api;
+/// Possible network connectivity statuses.
+enum ConnectivityStatus {
+  /// Network connection detected.
+  connected,
 
-export 'package:amplify_api/src/api_plugin_impl.dart'
-    hide AmplifyAPIDart, ConnectivityPlatform, ConnectivityStatus;
-export 'package:amplify_api/src/api_plugin_impl_flutter.dart';
+  /// Loss of network connection detected.
+  disconnected,
+}
+
+/// {@template amplify_api_dart.connectivity_platform}
+/// Used to create a stream representing network connectivity at the hardware level.
+///
+/// The generated stream is empty.
+/// {@endtemplate}
+class ConnectivityPlatform {
+  /// {@macro amplify_api_dart.connectivity_platform}
+  const ConnectivityPlatform();
+
+  /// Generates a new stream of [ConnectivityStatus].
+  Stream<ConnectivityStatus> get onConnectivityChanged => const Stream.empty();
+}

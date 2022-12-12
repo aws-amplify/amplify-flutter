@@ -19,15 +19,13 @@ import 'package:amplify_api/src/graphql/providers/app_sync_api_key_auth_provider
 import 'package:amplify_api/src/graphql/web_socket/blocs/web_socket_bloc.dart';
 import 'package:amplify_api/src/graphql/web_socket/services/web_socket_service.dart';
 import 'package:amplify_api/src/graphql/web_socket/state/web_socket_state.dart';
+import 'package:amplify_api/src/graphql/web_socket/types/connectivity_platform.dart';
 import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 import 'package:aws_common/testing.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
-import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:stream_channel/stream_channel.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -206,28 +204,6 @@ class MockWebSocketChannel extends WebSocketChannel {
   WebSocketSink get sink => MockWebSocketSink(controller.sink);
 }
 
-// Mock Connectivity Plus
-
-const ConnectivityResult kCheckConnectivityResult = ConnectivityResult.wifi;
-
-class MockConnectivityPlatform extends Mock
-    with MockPlatformInterfaceMixin
-    implements ConnectivityPlatform {
-  // ignore: close_sinks
-  final StreamController<ConnectivityResult> controller =
-      StreamController<ConnectivityResult>.broadcast();
-
-  @override
-  Future<ConnectivityResult> checkConnectivity() async {
-    return kCheckConnectivityResult;
-  }
-
-  @override
-  Stream<ConnectivityResult> get onConnectivityChanged {
-    return controller.stream;
-  }
-}
-
 // From https://docs.amplify.aws/lib/graphqlapi/authz/q/platform/flutter/#oidc
 
 const testOidcToken = '[OPEN-ID-CONNECT-TOKEN]';
@@ -254,7 +230,7 @@ class MockWebSocketBloc extends WebSocketBloc {
     required super.wsService,
     required super.subscriptionOptions,
     required super.pollClientOverride,
-    required super.connectivityOverride,
+    required super.connectivity,
   });
 }
 
@@ -324,4 +300,14 @@ class MockPollClient {
       );
     });
   }
+}
+
+late StreamController<ConnectivityStatus> mockNetworkStreamController;
+
+class MockConnectivity extends ConnectivityPlatform {
+  const MockConnectivity();
+
+  @override
+  Stream<ConnectivityStatus> get onConnectivityChanged =>
+      mockNetworkStreamController.stream;
 }

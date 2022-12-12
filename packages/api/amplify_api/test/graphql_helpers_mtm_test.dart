@@ -13,10 +13,9 @@
  * permissions and limitations under the License.
  */
 
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_api/src/graphql/helpers/graphql_response_decoder.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_test/test_models/many_to_many/MtmModelProvider.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';

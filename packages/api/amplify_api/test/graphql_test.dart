@@ -15,7 +15,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/api_plugin_impl.dart';
 import 'package:amplify_api/src/graphql/providers/app_sync_api_key_auth_provider.dart';
 import 'package:amplify_api/src/graphql/web_socket/state/web_socket_state.dart';
@@ -24,8 +23,6 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:aws_common/testing.dart';
 import 'package:collection/collection.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'test_data/fake_amplify_configuration.dart';
@@ -294,8 +291,7 @@ void main() {
 
   final subscriptionRequest = GraphQLRequest<String>(document: graphQLDocument);
   group('Subscriptions', () {
-    var fakePlatform = MockConnectivityPlatform();
-    var mockClient = MockPollClient();
+    final mockClient = MockPollClient();
 
     final mockSubscriptionEvent = {
       'id': subscriptionRequest.id,
@@ -309,18 +305,13 @@ void main() {
         pollInterval: Duration(seconds: 1),
       );
 
-      fakePlatform = MockConnectivityPlatform();
-      ConnectivityPlatform.instance = fakePlatform;
-      final connectivity = Connectivity();
-      mockClient = MockPollClient();
-
       mockWebSocketBloc = MockWebSocketBloc(
         config: testApiKeyConfig,
         authProviderRepo: getTestAuthProviderRepo(),
         wsService: mockWebSocketService!,
         subscriptionOptions: subscriptionOptions,
         pollClientOverride: mockClient.client,
-        connectivityOverride: connectivity,
+        connectivity: const ConnectivityPlatform(),
       );
     });
 
@@ -473,8 +464,6 @@ void main() {
 
       await blocReady.future;
 
-      fakePlatform.controller.sink.add(ConnectivityResult.wifi);
-
       mockClient.induceTimeout = true;
 
       // Five retry attempts take by default 12400ms seconds,
@@ -566,17 +555,11 @@ void main() {
     });
 
     test('should have correct state flow during a failure', () async {
-      var fakePlatform = MockConnectivityPlatform();
       mockWebSocketService = MockWebSocketService();
       const subscriptionOptions = GraphQLSubscriptionOptions(
         pollInterval: Duration(seconds: 1),
         retryOptions: RetryOptions(maxAttempts: 3),
       );
-
-      fakePlatform = MockConnectivityPlatform();
-      ConnectivityPlatform.instance = fakePlatform;
-      final connectivity = Connectivity();
-
       final mockClient = MockPollClient(maxFailAttempts: 10);
 
       mockWebSocketBloc = MockWebSocketBloc(
@@ -585,7 +568,7 @@ void main() {
         wsService: mockWebSocketService!,
         subscriptionOptions: subscriptionOptions,
         pollClientOverride: mockClient.client,
-        connectivityOverride: connectivity,
+        connectivity: const ConnectivityPlatform(),
       );
 
       final blocReady = Completer<void>();
