@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.invalid_sms_role_trust_relationship_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
