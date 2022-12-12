@@ -569,6 +569,24 @@ extension OperationShapeUtil on OperationShape {
               .constInstanceNamed('environment', []).code,
       );
     }
+
+    // The requestInterceptors field.
+    yield ConfigParameter(
+      (p) => p
+        ..type = DartTypes.core.list(DartTypes.smithy.httpRequestInterceptor)
+        ..name = 'requestInterceptors'
+        ..location = ParameterLocation.constructor
+        ..defaultTo = const Code('const []'),
+    );
+
+    // The responseInterceptors field.
+    yield ConfigParameter(
+      (p) => p
+        ..type = DartTypes.core.list(DartTypes.smithy.httpResponseInterceptor)
+        ..name = 'responseInterceptors'
+        ..location = ParameterLocation.constructor
+        ..defaultTo = const Code('const []'),
+    );
   }
 
   /// Fields which should be generated for the operation and its service client
