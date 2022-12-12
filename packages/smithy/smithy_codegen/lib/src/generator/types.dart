@@ -556,6 +556,14 @@ class _Smithy {
   /// Creates a [smithy.ResponseContext] refererence.
   Reference get responseContext => const Reference('ResponseContext', _url);
 
+  /// Creates a [smithy.HttpRequestInterceptor] refererence.
+  Reference get httpRequestInterceptor =>
+      const Reference('HttpRequestInterceptor', _url);
+
+  /// Creates a [smithy.HttpResponseInterceptor] refererence.
+  Reference get httpResponseInterceptor =>
+      const Reference('HttpResponseInterceptor', _url);
+
   /// Creates a [smithy.HttpServer] refererence.
   Reference httpServer(Reference baseService) => TypeReference((t) => t
     ..symbol = 'HttpServer'

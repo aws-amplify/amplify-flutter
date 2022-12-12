@@ -94,7 +94,8 @@ class ServiceClientGenerator extends LibraryGenerator<ServiceShape> {
         return Parameter(
           (p) => p
             ..type = param.type
-            ..required = param.required
+            ..required = param.required && param.defaultTo == null
+            ..defaultTo = param.defaultTo
             ..name = param.name
             ..named = true,
         );
