@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 /// # Sample Json 1.1 Protocol Service
 library aws_json1_1_v2.json_protocol;

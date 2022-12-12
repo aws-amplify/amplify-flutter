@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library custom_v2.custom_service.custom_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,15 +34,23 @@ class CustomClient {
     _i1.AWSHttpClient? client,
     required String region,
     Uri? baseUri,
+    List<_i2.HttpRequestInterceptor> requestInterceptors = const [],
+    List<_i2.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _client = client,
         _region = region,
-        _baseUri = baseUri;
+        _baseUri = baseUri,
+        _requestInterceptors = requestInterceptors,
+        _responseInterceptors = responseInterceptors;
 
   final _i1.AWSHttpClient? _client;
 
   final String _region;
 
   final Uri? _baseUri;
+
+  final List<_i2.HttpRequestInterceptor> _requestInterceptors;
+
+  final List<_i2.HttpResponseInterceptor> _responseInterceptors;
 
   _i2.SmithyOperation<void> httpChecksumNotRequiredWithMember(
     _i3.HttpChecksumNotRequiredWithMemberInput input, {
@@ -51,6 +59,8 @@ class CustomClient {
     return _i4.HttpChecksumNotRequiredWithMemberOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -65,6 +75,8 @@ class CustomClient {
     return _i6.HttpChecksumReallyNotRequiredOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -79,6 +91,8 @@ class CustomClient {
     return _i8.HttpChecksumReallyRequiredOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -92,6 +106,8 @@ class CustomClient {
     return _i10.HttpChecksumRequiredOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -105,6 +121,8 @@ class CustomClient {
     return _i12.HttpChecksumRequiredWithMemberOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -118,6 +136,8 @@ class CustomClient {
     return _i14.NestedCollectionsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,

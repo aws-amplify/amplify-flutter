@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library rest_xml_v2.rest_xml_protocol.rest_xml_protocol_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -218,15 +218,23 @@ class RestXmlProtocolClient {
     _i1.AWSHttpClient? client,
     required String region,
     Uri? baseUri,
+    List<_i2.HttpRequestInterceptor> requestInterceptors = const [],
+    List<_i2.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _client = client,
         _region = region,
-        _baseUri = baseUri;
+        _baseUri = baseUri,
+        _requestInterceptors = requestInterceptors,
+        _responseInterceptors = responseInterceptors;
 
   final _i1.AWSHttpClient? _client;
 
   final String _region;
 
   final Uri? _baseUri;
+
+  final List<_i2.HttpRequestInterceptor> _requestInterceptors;
+
+  final List<_i2.HttpResponseInterceptor> _responseInterceptors;
 
   /// This example uses all query string types.
   _i2.SmithyOperation<void> allQueryStringTypes(
@@ -236,6 +244,8 @@ class RestXmlProtocolClient {
     return _i4.AllQueryStringTypesOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -250,6 +260,8 @@ class RestXmlProtocolClient {
     return _i6.BodyWithXmlNameOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -264,6 +276,8 @@ class RestXmlProtocolClient {
     return _i8.ConstantAndVariableQueryStringOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -278,6 +292,8 @@ class RestXmlProtocolClient {
     return _i10.ConstantQueryStringOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -293,6 +309,8 @@ class RestXmlProtocolClient {
     return _i13.EmptyInputAndEmptyOutputOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -303,6 +321,8 @@ class RestXmlProtocolClient {
     return _i14.EndpointOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,
@@ -316,6 +336,8 @@ class RestXmlProtocolClient {
     return _i16.EndpointWithHostLabelHeaderOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -329,6 +351,8 @@ class RestXmlProtocolClient {
     return _i18.EndpointWithHostLabelOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -343,6 +367,8 @@ class RestXmlProtocolClient {
     return _i20.FlattenedXmlMapOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -358,6 +384,8 @@ class RestXmlProtocolClient {
     return _i22.FlattenedXmlMapWithXmlNameOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -370,6 +398,8 @@ class RestXmlProtocolClient {
     return _i24.FlattenedXmlMapWithXmlNamespaceOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,
@@ -382,6 +412,8 @@ class RestXmlProtocolClient {
     return _i26.GreetingWithErrorsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,
@@ -396,6 +428,8 @@ class RestXmlProtocolClient {
     return _i28.HttpPayloadTraitsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -411,6 +445,8 @@ class RestXmlProtocolClient {
     return _i30.HttpPayloadTraitsWithMediaTypeOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -426,6 +462,8 @@ class RestXmlProtocolClient {
     return _i32.HttpPayloadWithMemberXmlNameOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -441,6 +479,8 @@ class RestXmlProtocolClient {
     return _i34.HttpPayloadWithStructureOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -456,6 +496,8 @@ class RestXmlProtocolClient {
     return _i36.HttpPayloadWithXmlNameOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -471,6 +513,8 @@ class RestXmlProtocolClient {
     return _i38.HttpPayloadWithXmlNamespaceOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -486,6 +530,8 @@ class RestXmlProtocolClient {
     return _i40.HttpPayloadWithXmlNamespaceAndPrefixOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -503,6 +549,8 @@ class RestXmlProtocolClient {
     return _i42.HttpPrefixHeadersOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -516,6 +564,8 @@ class RestXmlProtocolClient {
     return _i44.HttpRequestWithFloatLabelsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -529,6 +579,8 @@ class RestXmlProtocolClient {
     return _i46.HttpRequestWithGreedyLabelInPathOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -543,6 +595,8 @@ class RestXmlProtocolClient {
     return _i48.HttpRequestWithLabelsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -557,6 +611,8 @@ class RestXmlProtocolClient {
     return _i50.HttpRequestWithLabelsAndTimestampFormatOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -568,6 +624,8 @@ class RestXmlProtocolClient {
     return _i52.HttpResponseCodeOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,
@@ -580,6 +638,8 @@ class RestXmlProtocolClient {
     return _i54.IgnoreQueryParamsInResponseOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,
@@ -595,6 +655,8 @@ class RestXmlProtocolClient {
     return _i56.InputAndOutputWithHeadersOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -608,6 +670,8 @@ class RestXmlProtocolClient {
     return _i58.NestedXmlMapsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -619,6 +683,8 @@ class RestXmlProtocolClient {
     return _i59.NoInputAndNoOutputOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,
@@ -631,6 +697,8 @@ class RestXmlProtocolClient {
     return _i61.NoInputAndOutputOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,
@@ -645,6 +713,8 @@ class RestXmlProtocolClient {
     return _i63.NullAndEmptyHeadersClientOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -659,6 +729,8 @@ class RestXmlProtocolClient {
     return _i64.NullAndEmptyHeadersServerOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -673,6 +745,8 @@ class RestXmlProtocolClient {
     return _i66.OmitsNullSerializesEmptyStringOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -687,6 +761,8 @@ class RestXmlProtocolClient {
     return _i68.QueryIdempotencyTokenAutoFillOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -700,6 +776,8 @@ class RestXmlProtocolClient {
     return _i70.QueryParamsAsStringListMapOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -713,6 +791,8 @@ class RestXmlProtocolClient {
     return _i72.QueryPrecedenceOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -727,6 +807,8 @@ class RestXmlProtocolClient {
     return _i74.RecursiveShapesOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -741,6 +823,8 @@ class RestXmlProtocolClient {
     return _i76.SimpleScalarPropertiesOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -755,6 +839,8 @@ class RestXmlProtocolClient {
     return _i78.TimestampFormatHeadersOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -769,6 +855,8 @@ class RestXmlProtocolClient {
     return _i80.XmlAttributesOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -784,6 +872,8 @@ class RestXmlProtocolClient {
     return _i82.XmlAttributesOnPayloadOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -798,6 +888,8 @@ class RestXmlProtocolClient {
     return _i84.XmlBlobsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -812,6 +904,8 @@ class RestXmlProtocolClient {
     return _i85.XmlEmptyBlobsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -825,6 +919,8 @@ class RestXmlProtocolClient {
     return _i87.XmlEmptyListsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -838,6 +934,8 @@ class RestXmlProtocolClient {
     return _i89.XmlEmptyMapsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -851,6 +949,8 @@ class RestXmlProtocolClient {
     return _i91.XmlEmptyStringsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -865,6 +965,8 @@ class RestXmlProtocolClient {
     return _i93.XmlEnumsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -879,6 +981,8 @@ class RestXmlProtocolClient {
     return _i95.XmlIntEnumsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -893,6 +997,8 @@ class RestXmlProtocolClient {
     return _i96.XmlListsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -907,6 +1013,8 @@ class RestXmlProtocolClient {
     return _i97.XmlMapsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -920,6 +1028,8 @@ class RestXmlProtocolClient {
     return _i99.XmlMapsXmlNameOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -933,6 +1043,8 @@ class RestXmlProtocolClient {
     return _i101.XmlNamespacesOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -947,6 +1059,8 @@ class RestXmlProtocolClient {
     return _i103.XmlTimestampsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -960,6 +1074,8 @@ class RestXmlProtocolClient {
     return _i105.XmlUnionsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,

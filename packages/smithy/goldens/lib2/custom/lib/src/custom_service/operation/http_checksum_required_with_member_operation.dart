@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library custom_v2.custom_service.operation.http_checksum_required_with_member_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,8 +22,12 @@ class HttpChecksumRequiredWithMemberOperation extends _i1.HttpOperation<
   HttpChecksumRequiredWithMemberOperation({
     required String region,
     Uri? baseUri,
+    List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
+    List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
-        _baseUri = baseUri;
+        _baseUri = baseUri,
+        _requestInterceptors = requestInterceptors,
+        _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
@@ -32,14 +36,16 @@ class HttpChecksumRequiredWithMemberOperation extends _i1.HttpOperation<
     _i4.RestJson1Protocol(
       serializers: _i5.serializers,
       builderFactories: _i5.builderFactories,
-      requestInterceptors: [
-        const _i1.WithHost(),
-        const _i1.WithContentLength(),
-        const _i1.WithUserAgent('aws-sdk-dart/0.3.0'),
-        const _i4.WithSdkInvocationId(),
-        const _i4.WithSdkRequest(),
-      ],
-      responseInterceptors: [],
+      requestInterceptors: <_i1.HttpRequestInterceptor>[
+            const _i1.WithHost(),
+            const _i1.WithContentLength(),
+            const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
+            const _i4.WithSdkInvocationId(),
+            const _i4.WithSdkRequest(),
+          ] +
+          _requestInterceptors,
+      responseInterceptors:
+          <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
     )
   ];
 
@@ -51,6 +57,10 @@ class HttpChecksumRequiredWithMemberOperation extends _i1.HttpOperation<
   final String _region;
 
   final Uri? _baseUri;
+
+  final List<_i1.HttpRequestInterceptor> _requestInterceptors;
+
+  final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
   _i1.HttpRequest buildRequest(_i3.HttpChecksumRequiredWithMemberInput input) =>
