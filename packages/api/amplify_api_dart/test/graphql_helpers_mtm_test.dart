@@ -1,12 +1,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_api/src/api_plugin_impl.dart';
-import 'package:amplify_api/src/graphql/helpers/graphql_response_decoder.dart';
+import 'package:amplify_api_dart/amplify_api_dart.dart';
+import 'package:amplify_api_dart/src/graphql/helpers/graphql_response_decoder.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_test/test_models/many_to_many/MtmModelProvider.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
+
+import 'test_models/many_to_many/MtmModelProvider.dart';
 
 final _deepEquals = const DeepCollectionEquality().equals;
 
@@ -17,8 +18,6 @@ class MockAmplifyAPI extends AmplifyAPIDart {
 }
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
-
   group('with ModelProvider manyToMany', () {
     setUpAll(() async {
       await Amplify.reset();

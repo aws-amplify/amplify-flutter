@@ -3,13 +3,14 @@
 
 import 'dart:convert';
 
-import 'package:amplify_api/src/api_plugin_impl.dart';
-import 'package:amplify_api/src/graphql/helpers/graphql_response_decoder.dart';
-import 'package:amplify_api/src/graphql/utils.dart';
+import 'package:amplify_api_dart/amplify_api_dart.dart';
+import 'package:amplify_api_dart/src/graphql/helpers/graphql_response_decoder.dart';
+import 'package:amplify_api_dart/src/graphql/utils.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
+
+import 'test_models/ModelProvider.dart';
 
 final _deepEquals = const DeepCollectionEquality().equals;
 const _exampleApiName = 'myApi456';
@@ -45,8 +46,6 @@ GraphQLResponse<T> _decodeResponseData<T>(
 }
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
-
   group('with ModelProvider', () {
     setUpAll(() async {
       await Amplify.reset();

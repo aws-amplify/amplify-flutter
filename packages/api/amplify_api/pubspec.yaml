@@ -30,26 +30,20 @@ dependencies:
   connectivity_plus: ^3.0.2
   flutter:
     sdk: flutter
-  json_annotation: ^4.6.0
   meta: ^1.7.0
   plugin_platform_interface: ^2.0.0
-  stream_transform: ^2.0.1
-  web_socket_channel: ^2.2.0
-
 
 dev_dependencies:
   amplify_lints: 
     path: ../../amplify_lints
   amplify_test:
     path: ../../amplify_test
-  aws_signature_v4:
   build_runner: ^2.0.0
   connectivity_plus_platform_interface: any
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0
   pigeon: ^3.1.6
-  stream_channel: ^2.1.0
 
 # The following section is specific to Flutter.
 flutter:

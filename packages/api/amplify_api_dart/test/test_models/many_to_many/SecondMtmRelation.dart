@@ -6,7 +6,7 @@
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:flutter/foundation.dart';
+import 'package:meta/meta.dart';
 
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
@@ -23,7 +23,7 @@ class SecondMtmRelation extends Model {
   final TemporalDateTime? _updatedAt;
 
   @override
-  getInstanceType() => classType;
+  _SecondMtmRelationModelType getInstanceType() => classType;
 
   @override
   String getId() {
@@ -64,6 +64,16 @@ class SecondMtmRelation extends Model {
     return _updatedAt;
   }
 
+  factory SecondMtmRelation(
+      {String? id,
+      required ManyToManyPrimary manyToManyPrimary,
+      required ManyToManySecondary manyToManySecondary}) {
+    return SecondMtmRelation._internal(
+        id: id == null ? UUID.getUUID() : id,
+        manyToManyPrimary: manyToManyPrimary,
+        manyToManySecondary: manyToManySecondary);
+  }
+
   const SecondMtmRelation._internal(
       {required this.id,
       required manyToManyPrimary,
@@ -74,16 +84,6 @@ class SecondMtmRelation extends Model {
         _manyToManySecondary = manyToManySecondary,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
-
-  factory SecondMtmRelation(
-      {String? id,
-      required ManyToManyPrimary manyToManyPrimary,
-      required ManyToManySecondary manyToManySecondary}) {
-    return SecondMtmRelation._internal(
-        id: id == null ? UUID.getUUID() : id,
-        manyToManyPrimary: manyToManyPrimary,
-        manyToManySecondary: manyToManySecondary);
-  }
 
   bool equals(Object other) {
     return this == other;
@@ -105,22 +105,22 @@ class SecondMtmRelation extends Model {
   String toString() {
     var buffer = new StringBuffer();
 
-    buffer.write("SecondMtmRelation {");
-    buffer.write("id=" + "$id" + ", ");
-    buffer.write("manyToManyPrimary=" +
-        (_manyToManyPrimary != null ? _manyToManyPrimary!.toString() : "null") +
-        ", ");
-    buffer.write("manyToManySecondary=" +
+    buffer.write('SecondMtmRelation {');
+    buffer.write('id=' + '$id' + ', ');
+    buffer.write('manyToManyPrimary=' +
+        (_manyToManyPrimary != null ? _manyToManyPrimary!.toString() : 'null') +
+        ', ');
+    buffer.write('manyToManySecondary=' +
         (_manyToManySecondary != null
             ? _manyToManySecondary!.toString()
-            : "null") +
-        ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
+            : 'null') +
+        ', ');
+    buffer.write('createdAt=' +
+        (_createdAt != null ? _createdAt!.format() : 'null') +
+        ', ');
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
-    buffer.write("}");
+        'updatedAt=' + (_updatedAt != null ? _updatedAt!.format() : 'null'));
+    buffer.write('}');
 
     return buffer.toString();
   }
@@ -162,32 +162,32 @@ class SecondMtmRelation extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryField ID = QueryField(fieldName: "id");
+  static final QueryField ID = QueryField(fieldName: 'id');
   static final QueryField MANYTOMANYPRIMARY = QueryField(
-      fieldName: "manyToManyPrimary",
+      fieldName: 'manyToManyPrimary',
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (ManyToManyPrimary).toString()));
   static final QueryField MANYTOMANYSECONDARY = QueryField(
-      fieldName: "manyToManySecondary",
+      fieldName: 'manyToManySecondary',
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (ManyToManySecondary).toString()));
-  static var schema =
+  static ModelSchema schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "SecondMtmRelation";
-    modelSchemaDefinition.pluralName = "SecondMtmRelations";
+    modelSchemaDefinition.name = 'SecondMtmRelation';
+    modelSchemaDefinition.pluralName = 'SecondMtmRelations';
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: SecondMtmRelation.MANYTOMANYPRIMARY,
         isRequired: true,
-        targetName: "manyToManyPrimaryID",
+        targetName: 'manyToManyPrimaryID',
         ofModelName: (ManyToManyPrimary).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: SecondMtmRelation.MANYTOMANYSECONDARY,
         isRequired: true,
-        targetName: "manyToManySecondaryID",
+        targetName: 'manyToManySecondaryID',
         ofModelName: (ManyToManySecondary).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(

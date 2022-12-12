@@ -3,11 +3,11 @@
 
 import 'dart:convert';
 
-import 'package:amplify_api/src/decorators/authorize_http_request.dart';
-import 'package:amplify_api/src/graphql/providers/app_sync_api_key_auth_provider.dart';
-import 'package:amplify_api/src/graphql/providers/oidc_function_api_auth_provider.dart';
+import 'package:amplify_api_dart/src/decorators/authorize_http_request.dart';
+import 'package:amplify_api_dart/src/graphql/providers/app_sync_api_key_auth_provider.dart';
+import 'package:amplify_api_dart/src/graphql/providers/oidc_function_api_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 
 import 'util.dart';
 
@@ -24,8 +24,6 @@ AWSHttpRequest _generateTestRequest(String url) {
 }
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
-
   final authProviderRepo = AmplifyAuthProviderRepository();
 
   setUpAll(() {

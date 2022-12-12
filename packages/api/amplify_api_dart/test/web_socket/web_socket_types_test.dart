@@ -1,10 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_api/src/graphql/helpers/graphql_response_decoder.dart';
-import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:amplify_api_dart/src/graphql/helpers/graphql_response_decoder.dart';
+import 'package:amplify_api_dart/src/graphql/web_socket/types/web_socket_types.dart';
+import 'package:test/test.dart';
 
 class MessageTypeTestEntry {
   MessageTypeTestEntry(this.json, this.expectedMessageType);
@@ -14,8 +13,6 @@ class MessageTypeTestEntry {
 }
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
-
   final expectedResults = [
     MessageTypeTestEntry(
       {
@@ -102,7 +99,7 @@ void main() {
 
       /// GraphQLResponseDecoder should handle a payload with errors.
       final response = GraphQLResponseDecoder.instance.decode<String>(
-        request: GraphQLRequest(
+        request: GraphQLRequest<String>(
           document: '',
         ),
         response: message.payload!.toJson(),

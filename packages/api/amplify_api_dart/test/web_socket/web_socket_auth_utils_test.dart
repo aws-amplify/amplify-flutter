@@ -1,17 +1,15 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_api/src/decorators/web_socket_auth_utils.dart';
-import 'package:amplify_api/src/graphql/providers/app_sync_api_key_auth_provider.dart';
-import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
+import 'package:amplify_api_dart/src/decorators/web_socket_auth_utils.dart';
+import 'package:amplify_api_dart/src/graphql/providers/app_sync_api_key_auth_provider.dart';
+import 'package:amplify_api_dart/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 
 import '../util.dart';
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
-
   final authProviderRepo = AmplifyAuthProviderRepository()
     ..registerAuthProvider(
       APIAuthorizationType.apiKey.authProviderToken,

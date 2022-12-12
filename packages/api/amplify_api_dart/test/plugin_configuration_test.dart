@@ -2,12 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 import 'dart:convert';
 
-import 'package:amplify_api/src/api_plugin_impl.dart';
-import 'package:amplify_api/src/graphql/providers/app_sync_api_key_auth_provider.dart';
-import 'package:amplify_api/src/graphql/providers/oidc_function_api_auth_provider.dart';
+import 'package:amplify_api_dart/src/api_plugin_impl.dart';
+import 'package:amplify_api_dart/src/graphql/providers/app_sync_api_key_auth_provider.dart';
+import 'package:amplify_api_dart/src/graphql/providers/oidc_function_api_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_common/testing.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 
 import 'test_data/fake_amplify_configuration.dart';
 import 'test_data/fake_amplify_configuration_iam_with_api_key.dart';
@@ -31,7 +31,7 @@ const _expectedQuerySuccessResponseBody = {
 final _mockGqlClient = MockAWSHttpClient((request, _) async {
   const userAgentHeader =
       zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent;
-  expect(request.headers[userAgentHeader], contains('amplify-flutter'));
+  expect(request.headers[userAgentHeader], contains('amplify-dart'));
   expect(request.headers[xApiKey], isA<String>());
   return AWSHttpResponse(
     statusCode: 200,
@@ -45,7 +45,7 @@ final _mockGqlClient = MockAWSHttpClient((request, _) async {
 final _mockRestClient = MockAWSHttpClient((request, _) async {
   const userAgentHeader =
       zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent;
-  expect(request.headers[userAgentHeader], contains('amplify-flutter'));
+  expect(request.headers[userAgentHeader], contains('amplify-dart'));
   validateSignedRequest(request);
   return AWSHttpResponse(
     statusCode: 200,
@@ -54,8 +54,6 @@ final _mockRestClient = MockAWSHttpClient((request, _) async {
 });
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
-
   final authProviderRepo = AmplifyAuthProviderRepository()
     ..registerAuthProvider(
       APIAuthorizationType.iam.authProviderToken,

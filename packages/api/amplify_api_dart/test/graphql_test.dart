@@ -4,17 +4,17 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_api/src/api_plugin_impl.dart';
-import 'package:amplify_api/src/graphql/providers/app_sync_api_key_auth_provider.dart';
-import 'package:amplify_api/src/graphql/web_socket/state/web_socket_state.dart';
-import 'package:amplify_api/src/util/amplify_api_config.dart';
+import 'package:amplify_api_dart/amplify_api_dart.dart';
+import 'package:amplify_api_dart/src/graphql/providers/app_sync_api_key_auth_provider.dart';
+import 'package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart';
+import 'package:amplify_api_dart/src/util/amplify_api_config.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:aws_common/testing.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 
 import 'test_data/fake_amplify_configuration.dart';
+import 'test_models/ModelProvider.dart';
 import 'util.dart';
 
 final _deepEquals = const DeepCollectionEquality().equals;
@@ -145,8 +145,6 @@ class MockAmplifyAPI extends AmplifyAPIDart {
 }
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
-
   late StreamController<ApiHubEvent> hubEventsController;
   late Stream<ApiHubEvent> hubEvents;
 

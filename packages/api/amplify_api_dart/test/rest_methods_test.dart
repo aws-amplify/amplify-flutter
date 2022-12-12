@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 import 'dart:convert';
 
-import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api_dart/amplify_api_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_common/testing.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 
 import 'test_data/fake_amplify_configuration.dart';
 import 'util.dart';
@@ -31,7 +31,7 @@ final mockHttpClient = MockAWSHttpClient((request, _) async {
 
 void main() {
   setUpAll(() async {
-    final apiPlugin = AmplifyAPI(baseHttpClient: mockHttpClient);
+    final apiPlugin = AmplifyAPIDart(baseHttpClient: mockHttpClient);
     // Register IAM auth provider like amplify_auth_cognito would do.
     final authProviderRepo = AmplifyAuthProviderRepository()
       ..registerAuthProvider(

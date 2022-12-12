@@ -1,21 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_api/src/graphql/factories/graphql_request_factory.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_flutter/src/amplify_impl.dart';
-import 'package:amplify_test/test_models/ModelProvider.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:amplify_api_dart/src/graphql/factories/graphql_request_factory.dart';
+import 'package:amplify_core/amplify_core.dart';
+import 'package:test/test.dart';
 
 import 'graphql_helpers_test.dart';
+import 'test_models/ModelProvider.dart';
 
 enum Size { small, medium, large }
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
-  Amplify = MethodChannelAmplify();
-
   group('queryPredicateToGraphQLFilter()', () {
     setUpAll(() async {
       await Amplify.addPlugin(
@@ -235,7 +230,7 @@ void main() {
       // expect this predicate to translate as follows.
       final queryPredicate = Post.TITLE.eq(Size.medium);
       final expectedFilter = {
-        'title': {'eq': describeEnum(Size.medium)}
+        'title': {'eq': Size.medium.name}
       };
 
       testQueryPredicateTranslation(
