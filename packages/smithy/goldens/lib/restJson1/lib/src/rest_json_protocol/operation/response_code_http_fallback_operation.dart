@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library rest_json1_v1.rest_json_protocol.operation.response_code_http_fallback_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,8 +22,12 @@ class ResponseCodeHttpFallbackOperation extends _i1.HttpOperation<
   ResponseCodeHttpFallbackOperation({
     required String region,
     Uri? baseUri,
+    List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
+    List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
-        _baseUri = baseUri;
+        _baseUri = baseUri,
+        _requestInterceptors = requestInterceptors,
+        _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
@@ -35,15 +39,17 @@ class ResponseCodeHttpFallbackOperation extends _i1.HttpOperation<
     _i3.RestJson1Protocol(
       serializers: _i4.serializers,
       builderFactories: _i4.builderFactories,
-      requestInterceptors: [
-        const _i1.WithHost(),
-        const _i1.WithNoHeader('Content-Length'),
-        const _i1.WithNoHeader('Content-Type'),
-        const _i1.WithUserAgent('aws-sdk-dart/0.3.0'),
-        const _i3.WithSdkInvocationId(),
-        const _i3.WithSdkRequest(),
-      ],
-      responseInterceptors: [],
+      requestInterceptors: <_i1.HttpRequestInterceptor>[
+            const _i1.WithHost(),
+            const _i1.WithNoHeader('Content-Length'),
+            const _i1.WithNoHeader('Content-Type'),
+            const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
+          ] +
+          _requestInterceptors,
+      responseInterceptors:
+          <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
     )
   ];
 
@@ -55,6 +61,10 @@ class ResponseCodeHttpFallbackOperation extends _i1.HttpOperation<
   final String _region;
 
   final Uri? _baseUri;
+
+  final List<_i1.HttpRequestInterceptor> _requestInterceptors;
+
+  final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
   _i1.HttpRequest buildRequest(_i2.ResponseCodeHttpFallbackInputOutput input) =>
