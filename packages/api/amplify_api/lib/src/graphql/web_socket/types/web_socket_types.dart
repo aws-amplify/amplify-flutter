@@ -129,14 +129,14 @@ class SubscriptionRegistrationPayload extends WebSocketMessagePayload {
 class SubscriptionDataPayload extends WebSocketMessagePayload {
   const SubscriptionDataPayload(this.data, this.errors);
   final Map<String, dynamic>? data;
-  final Map<String, dynamic>? errors;
+  final List<Map<String, dynamic>>? errors;
 
   static SubscriptionDataPayload fromJson(Map<String, dynamic> json) {
     final data = json['data'] as Map?;
-    final errors = json['errors'] as Map?;
+    final errors = json['errors'] as List?;
     return SubscriptionDataPayload(
       data?.cast<String, dynamic>(),
-      errors?.cast<String, dynamic>(),
+      errors?.map((e) => (e as Map).cast<String, dynamic>()).toList(),
     );
   }
 

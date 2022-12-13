@@ -85,5 +85,26 @@ void main() {
         expect(message.messageType, entry.expectedMessageType);
       });
     }
+
+    test('should decode data errors as a list', () {
+      final errors = [
+        {
+          'message':
+              'Cannot return null for non-nullable type: "AWSDateTime" within parent "Blog" (/onCreateBlog/updatedAt)',
+          'path': ['onCreateBlog', 'updatedAt']
+        }
+      ];
+      final entry = {
+        'id': 'xyz-456',
+        'type': 'data',
+        'payload': {'data': null, 'errors': errors}
+      };
+      final message = WebSocketMessage.fromJson(entry);
+      expect(message.messageType, MessageType.data);
+      expect(
+        message.payload!.toJson()['errors'],
+        errors,
+      );
+    });
   });
 }
