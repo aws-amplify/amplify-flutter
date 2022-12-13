@@ -43,9 +43,19 @@ abstract class StateMachineEvent<EventType, StateType>
 
 class EventCompleter<Event extends StateMachineEvent>
     implements Completer<void> {
-  EventCompleter(this.event);
+  EventCompleter(
+    this.event, {
+    required this.propagate,
+  });
 
   final Event event;
+
+  /// If `true`, awaits the full propagation of the event before completing.
+  ///
+  /// If `false`, the event completes when picked up by its respective queue
+  /// and future updates must be listened for via the state machine's stream.
+  final bool propagate;
+
   final Completer<void> _completer = Completer();
 
   @override

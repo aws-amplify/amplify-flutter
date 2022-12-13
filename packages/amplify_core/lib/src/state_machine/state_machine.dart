@@ -15,15 +15,11 @@
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:async/async.dart';
 import 'package:meta/meta.dart';
 
 /// Interface for dispatching an event to a state machine.
 @optionalTypeArgs
-abstract class Dispatcher<E extends StateMachineEvent> {
-  /// Dispatches an event.
-  FutureOr<void> dispatch(E event);
-}
+typedef Dispatcher<E extends StateMachineEvent> = FutureOr<void> Function(E);
 
 /// Interface for emitting a state from a state machine.
 abstract class Emitter<S extends StateMachineState> {
@@ -52,13 +48,13 @@ class StateMachineToken<
 /// {@endtemplate}
 @optionalTypeArgs
 abstract class StateMachineManager<E extends StateMachineEvent>
-    implements DependencyManager, Dispatcher<E>, Closeable {
+    implements DependencyManager, Closeable {
   /// {@macro amplify_core.state_machinedispatcher}
   StateMachineManager(
     Map<StateMachineToken, Function> stateMachineBuilders,
     this._dependencyManager,
   ) {
-    addInstance<Dispatcher>(this);
+    addInstance<Dispatcher<E>>(internalDispatch);
     addInstance<StateMachineManager>(this);
     addInstance<DependencyManager>(this);
     stateMachineBuilders.forEach((token, builder) {
@@ -113,8 +109,14 @@ abstract class StateMachineManager<E extends StateMachineEvent>
       _dependencyManager.expect<T>(token);
 
   /// Dispatches an event to the appropriate state machine.
-  @override
-  FutureOr<void> dispatch(E event);
+  FutureOr<void> dispatch(E event) => internalDispatch(event);
+
+  /// Dispatches an event to the appropriate state machine.
+  ///
+  /// For internal use only. Public APIs should use `dispatch` instead.
+  @protected
+  @visibleForTesting
+  FutureOr<void> internalDispatch(E event);
 
   /// Closes the state machine manager and all state machines.
   @override
@@ -132,10 +134,7 @@ abstract class StateMachineManager<E extends StateMachineEvent>
 abstract class StateMachine<Event extends StateMachineEvent,
         State extends StateMachineState, Manager extends StateMachineManager>
     with AWSDebuggable, AmplifyLoggerMixin
-    implements
-        Emitter<State>,
-        DependencyManager,
-        Dispatcher<StateMachineEvent> {
+    implements Emitter<State>, DependencyManager {
   /// {@macro amplify_core.state_machine}
   StateMachine(this.manager) {
     addBuilder<AmplifyLogger>(AmplifyLogger.new);
@@ -231,8 +230,7 @@ abstract class StateMachine<Event extends StateMachineEvent,
   final Manager manager;
 
   /// State controller.
-  final StreamController<State> _stateController =
-      StreamController.broadcast(sync: true);
+  final StreamController<State> _stateController = StreamController.broadcast();
 
   /// Event controller.
   final StreamController<EventCompleter<Event>> _eventController =
@@ -241,9 +239,6 @@ abstract class StateMachine<Event extends StateMachineEvent,
   /// Transition controller.
   final StreamController<Transition<Event, State>> _transitionController =
       StreamController.broadcast(sync: true);
-
-  /// Subscriptions of this state machine to others.
-  final Map<StateMachineToken, StreamSubscription> _subscriptions = {};
 
   /// The stream of events added to this state machine.
   late final Stream<EventCompleter<Event>> _eventStream =
@@ -304,40 +299,23 @@ abstract class StateMachine<Event extends StateMachineEvent,
   @override
   T create<T extends Object>([Token<T>? token]) => manager.create<T>(token);
 
-  /// Subscribes to the state machine of the given type.
-  void subscribeTo<E extends StateMachineEvent, S extends StateMachineState,
-      M extends StateMachine<E, S, Manager>>(
-    StateMachineToken<E, S, M, Manager> type,
-    void Function(S state) onData,
-  ) {
-    if (_subscriptions.containsKey(type)) {
-      SubscriptionStream(_subscriptions[type]! as StreamSubscription<S>).listen(
-        onData,
-        cancelOnError: true,
-      );
-    } else {
-      _subscriptions[type] = manager.expect(type).stream.listen(
-            onData,
-            cancelOnError: true,
-          );
-    }
-  }
-
   /// Add an event to the state machine.
   Future<void> add(Event event) {
-    final completer = EventCompleter(event);
+    final completer = EventCompleter(
+      event,
+      propagate: true,
+    );
     _eventController.add(completer);
     return completer.future;
   }
 
   /// Dispatches an event to the state machine.
-  @override
-  FutureOr<void> dispatch(StateMachineEvent event) => manager.dispatch(event);
+  FutureOr<void> dispatch(StateMachineEvent event) =>
+      manager.internalDispatch(event);
 
   /// Closes the state machine and all stream controllers.
   @override
   Future<void> close() async {
-    await Future.wait(_subscriptions.values.map((sub) => sub.cancel()));
     await _transitionController.close();
     await _eventController.close();
     await _stateController.close();
