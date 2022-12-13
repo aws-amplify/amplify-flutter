@@ -79,12 +79,11 @@ class AuthPluginCredentialsProviderImpl extends AuthPluginCredentialsProvider {
     // or refresh existing ones if needed, but do not initiate an
     // unauthenticated session since that should be handled via an explicit call
     // to `fetchAuthSession`.
-    await _dispatcher.dispatch(
+    final session = await _dispatcher.loadSession(
       const FetchAuthSessionEvent.fetch(
         CognitoSessionOptions(getAWSCredentials: false),
       ),
     );
-    final session = await _dispatcher.loadSession();
     final fetchedCredentials = session.credentials;
     if (fetchedCredentials == null) {
       throw const InvalidStateException('Could not retrieve AWS credentials');

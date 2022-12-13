@@ -47,7 +47,7 @@ void main() {
 
     // Load an empty credential store.
     test('loadCredentialStore (empty)', () async {
-      stateMachine.dispatch(
+      stateMachine.internalDispatch(
         const CredentialStoreEvent.migrateLegacyCredentialStore(),
       );
 
@@ -73,7 +73,7 @@ void main() {
         identityPoolKeys: identityPoolKeys,
         version: CredentialStoreVersion.v1,
       );
-      stateMachine.dispatch(
+      stateMachine.internalDispatch(
         const CredentialStoreEvent.migrateLegacyCredentialStore(),
       );
 
@@ -105,7 +105,7 @@ void main() {
 
     group('storeCredentials', () {
       test('all', () async {
-        stateMachine.dispatch(
+        stateMachine.internalDispatch(
           const CredentialStoreEvent.migrateLegacyCredentialStore(),
         );
 
@@ -136,7 +136,7 @@ void main() {
             ),
           ),
         );
-        stateMachine.dispatch(storeCredentialsEvent);
+        stateMachine.internalDispatch(storeCredentialsEvent);
 
         await expectLater(
           sm.stream.startWith(sm.currentState),
@@ -169,7 +169,7 @@ void main() {
           identityPoolKeys: identityPoolKeys,
           version: CredentialStoreVersion.v1,
         );
-        stateMachine.dispatch(
+        stateMachine.internalDispatch(
           const CredentialStoreEvent.migrateLegacyCredentialStore(),
         );
 
@@ -184,7 +184,7 @@ void main() {
           ]),
         );
 
-        stateMachine.dispatch(
+        stateMachine.internalDispatch(
           const CredentialStoreEvent.storeCredentials(
             CredentialStoreData(
               identityId: identityId,
@@ -222,7 +222,7 @@ void main() {
           identityPoolKeys: identityPoolKeys,
           version: CredentialStoreVersion.v1,
         );
-        stateMachine.dispatch(
+        stateMachine.internalDispatch(
           const CredentialStoreEvent.migrateLegacyCredentialStore(),
         );
 
@@ -243,7 +243,7 @@ void main() {
           newAccessKeyId,
           newSecretAccessKey,
         );
-        stateMachine.dispatch(
+        stateMachine.internalDispatch(
           const CredentialStoreEvent.storeCredentials(
             CredentialStoreData(
               awsCredentials: newCredentials,
@@ -278,7 +278,7 @@ void main() {
           identityPoolKeys: identityPoolKeys,
           version: CredentialStoreVersion.v1,
         );
-        stateMachine.dispatch(
+        stateMachine.internalDispatch(
           const CredentialStoreEvent.migrateLegacyCredentialStore(),
         );
 
@@ -293,7 +293,7 @@ void main() {
           ]),
         );
 
-        stateMachine.dispatch(
+        stateMachine.internalDispatch(
           const CredentialStoreEvent.clearCredentials(),
         );
 
@@ -321,7 +321,7 @@ void main() {
           identityPoolKeys: identityPoolKeys,
           version: CredentialStoreVersion.v1,
         );
-        stateMachine.dispatch(
+        stateMachine.internalDispatch(
           const CredentialStoreEvent.migrateLegacyCredentialStore(),
         );
 
@@ -336,7 +336,7 @@ void main() {
           ]),
         );
 
-        stateMachine.dispatch(
+        stateMachine.internalDispatch(
           CredentialStoreEvent.clearCredentials(
             identityPoolKeys,
           ),
@@ -367,7 +367,7 @@ void main() {
         // verify credential store is not migrated.
         expect(await sm.getVersion(), CredentialStoreVersion.none);
 
-        stateMachine.dispatch(
+        stateMachine.internalDispatch(
           const CredentialStoreEvent.migrateLegacyCredentialStore(),
         );
 
@@ -404,7 +404,7 @@ void main() {
         // verify credential store is not migrated.
         expect(await sm.getVersion(), CredentialStoreVersion.none);
 
-        stateMachine.dispatch(
+        stateMachine.internalDispatch(
           const CredentialStoreEvent.migrateLegacyCredentialStore(),
         );
 
@@ -453,7 +453,7 @@ void main() {
         // verify credential store is not migrated.
         expect(await sm.getVersion(), CredentialStoreVersion.none);
 
-        stateMachine.dispatch(
+        stateMachine.internalDispatch(
           const CredentialStoreEvent.migrateLegacyCredentialStore(),
         );
 
@@ -501,7 +501,7 @@ void main() {
         // seed version to v1.
         seedStorage(secureStorage, version: CredentialStoreVersion.v1);
 
-        stateMachine.dispatch(
+        stateMachine.internalDispatch(
           const CredentialStoreEvent.migrateLegacyCredentialStore(),
         );
 

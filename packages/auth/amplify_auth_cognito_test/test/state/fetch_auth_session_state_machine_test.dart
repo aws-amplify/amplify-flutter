@@ -43,8 +43,10 @@ void main() {
     group('fetch', () {
       test('(isSignedIn=false)', () async {
         stateMachine
-          ..dispatch(const CredentialStoreEvent.migrateLegacyCredentialStore())
-          ..dispatch(const FetchAuthSessionEvent.fetch());
+          ..internalDispatch(
+            const CredentialStoreEvent.migrateLegacyCredentialStore(),
+          )
+          ..internalDispatch(const FetchAuthSessionEvent.fetch());
 
         final sm = stateMachine.getOrCreate(FetchAuthSessionStateMachine.type);
         await expectLater(
@@ -67,8 +69,10 @@ void main() {
           userPoolKeys: userPoolKeys,
         );
         stateMachine
-          ..dispatch(const CredentialStoreEvent.migrateLegacyCredentialStore())
-          ..dispatch(
+          ..internalDispatch(
+            const CredentialStoreEvent.migrateLegacyCredentialStore(),
+          )
+          ..internalDispatch(
             const FetchAuthSessionEvent.fetch(
               CognitoSessionOptions(getAWSCredentials: false),
             ),
@@ -98,7 +102,7 @@ void main() {
           secureStorage,
           userPoolKeys: userPoolKeys,
         );
-        stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+        stateMachine.internalDispatch(ConfigurationEvent.configure(mockConfig));
         await stateMachine.stream.whereType<Configured>().first;
 
         stateMachine
@@ -114,7 +118,7 @@ void main() {
               ),
             ),
           )
-          ..dispatch(
+          ..internalDispatch(
             const FetchAuthSessionEvent.fetch(
               CognitoSessionOptions(getAWSCredentials: true),
             ),
@@ -193,7 +197,8 @@ void main() {
             key: identityPoolKeys[CognitoIdentityPoolKey.expiration],
             value: DateTime.now().toIso8601String(),
           );
-          stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+          stateMachine
+              .internalDispatch(ConfigurationEvent.configure(mockConfig));
           await stateMachine.stream.whereType<Configured>().first;
 
           const newAccessKeyId = 'newAccessKeyId';
@@ -211,7 +216,7 @@ void main() {
                 ),
               ),
             )
-            ..dispatch(
+            ..internalDispatch(
               const FetchAuthSessionEvent.fetch(
                 CognitoSessionOptions(getAWSCredentials: true),
               ),
@@ -256,7 +261,8 @@ void main() {
             key: identityPoolKeys[CognitoIdentityPoolKey.expiration],
             value: DateTime.now().toIso8601String(),
           );
-          stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+          stateMachine
+              .internalDispatch(ConfigurationEvent.configure(mockConfig));
           await stateMachine.stream.whereType<Configured>().first;
 
           stateMachine
@@ -267,7 +273,7 @@ void main() {
                 ),
               ),
             )
-            ..dispatch(
+            ..internalDispatch(
               const FetchAuthSessionEvent.fetch(
                 CognitoSessionOptions(getAWSCredentials: true),
               ),
@@ -295,7 +301,9 @@ void main() {
 
         group('User Pool tokens (success)', () {
           Future<void> runTest({bool willRefresh = true}) async {
-            stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+            stateMachine.internalDispatch(
+              ConfigurationEvent.configure(mockConfig),
+            );
             await stateMachine.stream.whereType<Configured>().first;
 
             stateMachine
@@ -313,7 +321,7 @@ void main() {
                   ),
                 ),
               )
-              ..dispatch(
+              ..internalDispatch(
                 const FetchAuthSessionEvent.fetch(
                   CognitoSessionOptions(getAWSCredentials: false),
                 ),
@@ -391,7 +399,8 @@ void main() {
               expiration: Duration.zero,
             ).raw,
           );
-          stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+          stateMachine
+              .internalDispatch(ConfigurationEvent.configure(mockConfig));
           await stateMachine.stream.whereType<Configured>().first;
 
           stateMachine
@@ -402,7 +411,7 @@ void main() {
                 ),
               ),
             )
-            ..dispatch(
+            ..internalDispatch(
               const FetchAuthSessionEvent.fetch(
                 CognitoSessionOptions(getAWSCredentials: false),
               ),
@@ -442,8 +451,9 @@ void main() {
             key: userPoolKeys[CognitoUserPoolKey.accessToken],
             value: originalToken.raw,
           );
-          stateMachine
-              .dispatch(ConfigurationEvent.configure(userPoolOnlyConfig));
+          stateMachine.internalDispatch(
+            ConfigurationEvent.configure(userPoolOnlyConfig),
+          );
           await stateMachine.stream.whereType<Configured>().first;
 
           stateMachine
@@ -461,7 +471,7 @@ void main() {
                 ),
               ),
             )
-            ..dispatch(
+            ..internalDispatch(
               const FetchAuthSessionEvent.fetch(
                 CognitoSessionOptions(
                   getAWSCredentials: false,
@@ -510,7 +520,9 @@ void main() {
             key: identityPoolKeys[CognitoIdentityPoolKey.expiration],
             value: originalExpiration.toIso8601String(),
           );
-          stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+          stateMachine.internalDispatch(
+            ConfigurationEvent.configure(mockConfig),
+          );
           await stateMachine.stream.whereType<Configured>().first;
 
           const newAccessKeyId = 'newAccessKeyId';
@@ -529,7 +541,7 @@ void main() {
                 ),
               ),
             )
-            ..dispatch(
+            ..internalDispatch(
               const FetchAuthSessionEvent.fetch(
                 CognitoSessionOptions(
                   getAWSCredentials: true,
@@ -589,7 +601,9 @@ void main() {
             key: identityPoolKeys[CognitoIdentityPoolKey.expiration],
             value: originalExpiration.toIso8601String(),
           );
-          stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+          stateMachine.internalDispatch(
+            ConfigurationEvent.configure(mockConfig),
+          );
           await stateMachine.stream.whereType<Configured>().first;
 
           stateMachine
@@ -607,7 +621,7 @@ void main() {
                 ),
               ),
             )
-            ..dispatch(
+            ..internalDispatch(
               const FetchAuthSessionEvent.fetch(
                 CognitoSessionOptions(
                   getAWSCredentials: false,
@@ -652,7 +666,9 @@ void main() {
           secureStorage,
           userPoolKeys: userPoolKeys,
         );
-        stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+        stateMachine.internalDispatch(
+          ConfigurationEvent.configure(mockConfig),
+        );
         await stateMachine.stream.whereType<Configured>().first;
 
         stateMachine
@@ -663,7 +679,7 @@ void main() {
                   throw _FetchAuthSessionException(),
             ),
           )
-          ..dispatch(
+          ..internalDispatch(
             const FetchAuthSessionEvent.fetch(
               CognitoSessionOptions(getAWSCredentials: true),
             ),

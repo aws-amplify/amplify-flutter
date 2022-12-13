@@ -62,7 +62,7 @@ void main() {
           },
         ),
       );
-      stateMachine.dispatch(
+      stateMachine.internalDispatch(
         const ConfigurationEvent.configure(config),
       );
       await expectLater(
@@ -79,7 +79,7 @@ void main() {
       );
       stateMachine
         ..addInstance<CognitoIdentityProviderClient>(mockClient)
-        ..dispatch(
+        ..internalDispatch(
           SignInEvent.initiate(
             authFlowType: AuthenticationFlowType.customAuthWithSrp,
             parameters: SignInParameters(
@@ -99,7 +99,9 @@ void main() {
     });
 
     test('smoke test', () async {
-      stateMachine.dispatch(ConfigurationEvent.configure(userPoolOnlyConfig));
+      stateMachine.internalDispatch(
+        ConfigurationEvent.configure(userPoolOnlyConfig),
+      );
       await expectLater(
         stateMachine.stream.whereType<ConfigurationState>().firstWhere(
               (event) => event is Configured || event is ConfigureFailure,
@@ -118,7 +120,7 @@ void main() {
       );
       stateMachine
         ..addInstance<CognitoIdentityProviderClient>(mockClient)
-        ..dispatch(
+        ..internalDispatch(
           SignInEvent.initiate(
             authFlowType: AuthenticationFlowType.customAuthWithSrp,
             parameters: SignInParameters(
@@ -145,7 +147,9 @@ void main() {
 
     group('custom auth', () {
       test('customAuthWithSrp requires password', () async {
-        stateMachine.dispatch(ConfigurationEvent.configure(userPoolOnlyConfig));
+        stateMachine.internalDispatch(
+          ConfigurationEvent.configure(userPoolOnlyConfig),
+        );
         await expectLater(
           stateMachine.stream.whereType<ConfigurationState>().firstWhere(
                 (event) => event is Configured || event is ConfigureFailure,
@@ -153,7 +157,7 @@ void main() {
           completion(isA<Configured>()),
         );
 
-        stateMachine.dispatch(
+        stateMachine.internalDispatch(
           SignInEvent.initiate(
             authFlowType: AuthenticationFlowType.customAuthWithSrp,
             parameters: SignInParameters(
@@ -176,7 +180,9 @@ void main() {
       });
 
       test('customAuthWithoutSrp forbids password', () async {
-        stateMachine.dispatch(ConfigurationEvent.configure(userPoolOnlyConfig));
+        stateMachine.internalDispatch(
+          ConfigurationEvent.configure(userPoolOnlyConfig),
+        );
         await expectLater(
           stateMachine.stream.whereType<ConfigurationState>().firstWhere(
                 (event) => event is Configured || event is ConfigureFailure,
@@ -184,7 +190,7 @@ void main() {
           completion(isA<Configured>()),
         );
 
-        stateMachine.dispatch(
+        stateMachine.internalDispatch(
           SignInEvent.initiate(
             authFlowType: AuthenticationFlowType.customAuthWithoutSrp,
             parameters: SignInParameters(
@@ -209,7 +215,9 @@ void main() {
       });
 
       test('customAuth uses old behavior', () async {
-        stateMachine.dispatch(ConfigurationEvent.configure(userPoolOnlyConfig));
+        stateMachine.internalDispatch(
+          ConfigurationEvent.configure(userPoolOnlyConfig),
+        );
         await expectLater(
           stateMachine.stream.whereType<ConfigurationState>().firstWhere(
                 (event) => event is Configured || event is ConfigureFailure,
@@ -228,7 +236,7 @@ void main() {
         );
         stateMachine
           ..addInstance<CognitoIdentityProviderClient>(mockClient)
-          ..dispatch(
+          ..internalDispatch(
             SignInEvent.initiate(
               // ignore: deprecated_member_use
               authFlowType: AuthenticationFlowType.customAuth,

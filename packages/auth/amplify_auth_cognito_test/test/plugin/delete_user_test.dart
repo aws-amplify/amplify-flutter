@@ -74,9 +74,10 @@ void main() {
           config: mockConfig,
           authProviderRepo: testAuthRepo,
         );
-        await expectLater(plugin.deleteUser(), throwsSignedOutException);
 
         expect(hubEvents, neverEmits(userDeletedEvent));
+        await expectLater(plugin.deleteUser(), throwsSignedOutException);
+
         unawaited(hubEventsController.close());
       });
 

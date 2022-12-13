@@ -21,6 +21,7 @@ import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_config.d
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_stub.dart'
     if (dart.library.html) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_html.dart'
     if (dart.library.io) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_io.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:http/http.dart' as http;
@@ -63,7 +64,7 @@ abstract class HostedUiPlatform implements Closeable {
 
   /// The state machine dispatcher.
   @protected
-  Dispatcher get dispatcher => dependencyManager.expect();
+  Dispatcher<AuthEvent> get dispatcher => dependencyManager.expect();
 
   /// The dependency manager, used to retrieve injected dependencies.
   @protected
@@ -269,7 +270,7 @@ abstract class HostedUiPlatform implements Closeable {
         codeVerifier: codeVerifier,
         httpClient: httpClient,
       );
-      return dispatcher.dispatch(HostedUiEvent.exchange(parameters));
+      return dispatcher(HostedUiEvent.exchange(parameters));
     }
 
     // Clear all state from the previous session.

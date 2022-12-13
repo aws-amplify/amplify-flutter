@@ -39,7 +39,7 @@ void main() {
       final configurationStateMachine =
           stateMachine.getOrCreate(ConfigurationStateMachine.type);
 
-      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+      stateMachine.internalDispatch(ConfigurationEvent.configure(mockConfig));
       await expectLater(
         configurationStateMachine.stream
             .startWith(configurationStateMachine.currentState),
@@ -57,7 +57,8 @@ void main() {
       final configurationStateMachine =
           stateMachine.getOrCreate(ConfigurationStateMachine.type);
 
-      stateMachine.dispatch(const ConfigurationEvent.configure(badConfig));
+      stateMachine
+          .internalDispatch(const ConfigurationEvent.configure(badConfig));
       await expectLater(
         configurationStateMachine.stream
             .startWith(configurationStateMachine.currentState),
@@ -75,7 +76,7 @@ void main() {
       final configurationStateMachine =
           stateMachine.getOrCreate(ConfigurationStateMachine.type);
 
-      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+      stateMachine.internalDispatch(ConfigurationEvent.configure(mockConfig));
       await expectLater(
         configurationStateMachine.stream
             .startWith(configurationStateMachine.currentState),
@@ -86,7 +87,7 @@ void main() {
         ]),
       );
 
-      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+      stateMachine.internalDispatch(ConfigurationEvent.configure(mockConfig));
       expect(
         configurationStateMachine.stream,
         emitsDone,
