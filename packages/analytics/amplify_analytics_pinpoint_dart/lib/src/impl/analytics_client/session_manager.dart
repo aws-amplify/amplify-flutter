@@ -69,9 +69,6 @@ class SessionManager {
   /// Get the current session
   Session? get session => _sessionCreator?.session;
 
-  static final AmplifyLogger _logger =
-      AmplifyLogger.category(Category.analytics).createChild('SessionManager');
-
   /// Start a new session
   void startSession() {
     if (session != null) {
@@ -110,11 +107,7 @@ class SessionManager {
 
   /// Stop and delete current session
   void _executeStop() {
-    // TODO(fjnoyp): Why are we warning here?
     if (_sessionCreator == null) {
-      _logger.warn(
-        'Warning - stop session called without sessionBuilder initialized',
-      );
       return;
     }
 

@@ -64,7 +64,6 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
         _deviceContextInfoProvider = deviceContextInfoProvider,
         _dbConnectFunction = dbConnectFunction;
 
-  var _isConfigured = false;
   void _ensureConfigured() {
     if (!_isConfigured) {
       throw const AnalyticsException(
@@ -75,12 +74,15 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     }
   }
 
-  late bool _analyticsEnabled;
+  bool _isConfigured = false;
+  bool _analyticsEnabled = false;
 
-  static const String _endpointIdStorageKey = 'UniqueId';
+  @visibleForTesting
+
+  /// Storage key for the static Pinpoint endpoint id
+  static const String endpointIdStorageKey = 'UniqueId';
   static const String _endpointGlobalAttrsKey = 'EndpointGlobalAttributesKey';
   static const String _endpointGlobalMetricsKey = 'EndpointGlobalMetricsKey';
-  static const String _analyticsEnabledKey = 'Enabled';
 
   late final EventCreator _eventCreator;
   late final EndpointClient _endpointClient;
@@ -149,11 +151,11 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
 
     // Retrieve Unique ID
     final savedFixedEndpointId =
-        await _keyValueStore.read(key: _endpointIdStorageKey);
+        await _keyValueStore.read(key: endpointIdStorageKey);
     final fixedEndpointId = savedFixedEndpointId ?? const Uuid().v1();
     if (savedFixedEndpointId == null) {
       await _keyValueStore.write(
-        key: _endpointIdStorageKey,
+        key: endpointIdStorageKey,
         value: fixedEndpointId,
       );
     }
@@ -206,7 +208,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     );
     unawaited(
       Amplify.asyncConfig.then((_) {
-        if (_analyticsEnabled) _endpointClient.updateEndpoint();
+        _endpointClient.updateEndpoint();
       }),
     );
 
@@ -246,21 +248,13 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
 
     _autoEventSubmitter = StoppableTimer(
       duration: const Duration(seconds: 10),
-      // TODO(fjnoyp): How are errors handled here?
       callback: flushEvents,
+      onError: (e) => _logger.warn('Exception in events auto flush', e),
     );
 
-    _analyticsEnabled = await Future.sync(() async {
-      final enabled = await _keyValueStore.read(key: _analyticsEnabledKey);
-      return enabled == null || enabled == 'true';
-    });
     _isConfigured = true;
-    _logger.debug('Analytics enabled: $_analyticsEnabled');
-    if (_analyticsEnabled) {
-      _sessionManager
-        ..startSession()
-        ..startSessionTracking();
-    }
+    await enable();
+    _sessionManager.startSession();
   }
 
   @override
@@ -272,13 +266,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     }
     _analyticsEnabled = true;
     _autoEventSubmitter.start();
-    _sessionManager
-      ..startSession()
-      ..startSessionTracking();
-    await _keyValueStore.write(
-      key: _analyticsEnabledKey,
-      value: 'true',
-    );
+    _sessionManager.startSessionTracking();
   }
 
   @override
@@ -290,20 +278,12 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     }
     _analyticsEnabled = false;
     _autoEventSubmitter.stop();
-    _sessionManager
-      ..stopSession()
-      ..stopSessionTracking();
-    await _keyValueStore.write(
-      key: _analyticsEnabledKey,
-      value: 'false',
-    );
+    _sessionManager.stopSessionTracking();
   }
 
   @override
   Future<void> flushEvents() async {
     _ensureConfigured();
-    // TODO(fjnoyp): What is the behavior supposed to be when analytics is disabled?
-    if (!_analyticsEnabled) return;
     await _eventClient.flushEvents();
   }
 
@@ -312,8 +292,6 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     required AnalyticsEvent event,
   }) async {
     _ensureConfigured();
-    // TODO(fjnoyp): What is the behavior supposed to be when analytics is disabled?
-    if (!_analyticsEnabled) return;
     final pinpointEvent = _eventCreator.createPinpointEvent(
       event.name,
       _sessionManager.session,
@@ -327,8 +305,6 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     required AnalyticsProperties globalProperties,
   }) async {
     _ensureConfigured();
-    // TODO(fjnoyp): What is the behavior supposed to be when analytics is disabled?
-    if (!_analyticsEnabled) return;
     _eventCreator.registerGlobalProperties(globalProperties);
   }
 
@@ -337,8 +313,6 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     List<String> propertyNames = const <String>[],
   }) async {
     _ensureConfigured();
-    // TODO(fjnoyp): What is the behavior supposed to be when analytics is disabled?
-    if (!_analyticsEnabled) return;
     _eventCreator.unregisterGlobalProperties(propertyNames);
   }
 
@@ -348,8 +322,6 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     required AnalyticsUserProfile userProfile,
   }) async {
     _ensureConfigured();
-    // TODO(fjnoyp): What is the behavior supposed to be when analytics is disabled?
-    if (!_analyticsEnabled) return;
     await _endpointClient.setUser(userId, userProfile);
   }
 

@@ -25,9 +25,16 @@ class StoppableTimer {
   StoppableTimer({
     required Duration duration,
     required void Function() callback,
+    required void Function(Exception) onError,
   })  : _duration = duration,
         _callback = callback,
-        _timer = Timer.periodic(duration, (Timer t) => callback());
+        _timer = Timer.periodic(duration, (Timer t) {
+          try {
+            callback();
+          } on Exception catch (e) {
+            onError.call(e);
+          }
+        });
   Timer _timer;
   final Duration _duration;
   final void Function() _callback;
