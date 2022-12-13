@@ -48,10 +48,30 @@ class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
           dependencyManager ?? DependencyManager(defaultDependencies),
         ) {
     addInstance<CognitoAuthStateMachine>(this);
+    _listenForEvents();
+  }
+
+  final _eventController = StreamController<EventCompleter<AuthEvent>>();
+
+  Future<void> _listenForEvents() async {
+    await for (final completer in _eventController.stream) {
+      final completion = internalDispatch(completer.event);
+      if (!completer.propagate) {
+        // Complete public API dispatch as soon as the event is picked up.
+        //
+        // Side effects should be listened for via the state machine.
+        completer.complete();
+      }
+      try {
+        await completion;
+      } finally {
+        if (completer.propagate) completer.complete();
+      }
+    }
   }
 
   @override
-  FutureOr<void> dispatch(AuthEvent event) {
+  FutureOr<void> internalDispatch(AuthEvent event) async {
     if (event is ConfigurationEvent) {
       return getOrCreate(ConfigurationStateMachine.type).add(event);
     } else if (event is CredentialStoreEvent) {
@@ -68,9 +88,27 @@ class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
     throw StateError('Unhandled event: $event');
   }
 
+  @override
+  Future<void> dispatch(
+    AuthEvent event, {
+    bool propagate = false,
+  }) {
+    final completer = EventCompleter(
+      event,
+      propagate: propagate,
+    );
+    _eventController.add(completer);
+    return completer.future;
+  }
+
   /// Loads credentials from the credential store (which may be
   /// outdated or expired).
-  Future<CredentialStoreData> loadCredentials() async {
+  Future<CredentialStoreData> loadCredentials([
+    CredentialStoreEvent? event,
+  ]) async {
+    if (event != null) {
+      await internalDispatch(event);
+    }
     final machine = getOrCreate(CredentialStoreStateMachine.type);
     final credentialsState =
         await machine.stream.startWith(machine.currentState).firstWhere(
@@ -84,8 +122,20 @@ class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
     return (credentialsState as CredentialStoreSuccess).data;
   }
 
+  /// Clears [keys] from the credential store, or all keys if unspecified.
+  Future<void> clearCredentials([Iterable<String> keys = const []]) async {
+    await loadCredentials(
+      CredentialStoreEvent.clearCredentials(keys),
+    );
+  }
+
   /// Loads the user's current session.
-  Future<CognitoAuthSession> loadSession() async {
+  Future<CognitoAuthSession> loadSession([
+    FetchAuthSessionEvent? event,
+  ]) async {
+    if (event != null) {
+      await internalDispatch(event);
+    }
     final machine = getOrCreate(FetchAuthSessionStateMachine.type);
     final sessionState =
         await machine.stream.startWith(machine.currentState).firstWhere(
@@ -97,5 +147,29 @@ class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
       throw sessionState.exception;
     }
     return (sessionState as FetchAuthSessionSuccess).session;
+  }
+
+  /// Configures the Hosted UI state machine.
+  Future<void> configureHostedUi() async {
+    await internalDispatch(
+      const HostedUiEvent.configure(),
+    );
+    final machine = getOrCreate(HostedUiStateMachine.type);
+    final configuredState =
+        await machine.stream.startWith(machine.currentState).firstWhere(
+              (state) =>
+                  state is HostedUiSignedIn ||
+                  state is HostedUiSignedOut ||
+                  state is HostedUiFailure,
+            );
+    if (configuredState is HostedUiFailure) {
+      throw configuredState.exception;
+    }
+  }
+
+  @override
+  Future<void> close() {
+    _eventController.close();
+    return super.close();
   }
 }

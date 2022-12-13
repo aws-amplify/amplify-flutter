@@ -62,6 +62,7 @@ void main() {
           ),
           HostedUiPlatform.token,
         );
+      stateMachine.transitions.listen(safePrint);
 
       plugin = AmplifyAuthCognitoDart(credentialStorage: secureStorage)
         ..stateMachine = stateMachine;
@@ -98,9 +99,9 @@ void main() {
         );
         expect(hubEvents, emitsSignOutEvent);
 
-        final result = await stateMachine.loadCredentials();
+        final credentials = await stateMachine.loadCredentials();
         expect(
-          result,
+          credentials,
           isA<CredentialStoreData>()
               .having((result) => result.userPoolTokens, 'tokens', isNull)
               .having(

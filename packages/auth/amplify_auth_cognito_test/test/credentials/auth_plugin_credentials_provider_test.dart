@@ -22,7 +22,7 @@ void main() {
     setUp(() async {
       stateMachine = CognitoAuthStateMachine()
         ..addBuilder<SecureStorageInterface>(MockSecureStorage.new)
-        ..dispatch(ConfigurationEvent.configure(mockConfig));
+        ..internalDispatch(ConfigurationEvent.configure(mockConfig));
       provider = AuthPluginCredentialsProviderImpl(stateMachine);
 
       await stateMachine.stream.firstWhere((state) => state is Configured);
