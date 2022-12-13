@@ -57,11 +57,11 @@ class MyState extends StateMachineState<MyType> {
 }
 
 class MyStateMachine
-    extends StateMachine<MyEvent, MyState, StateMachineManager> {
-  MyStateMachine(StateMachineManager manager) : super(manager);
+    extends StateMachine<MyEvent, MyState, MyStateMachineManager> {
+  MyStateMachine(MyStateMachineManager manager) : super(manager);
 
   static const type = StateMachineToken<MyEvent, MyState, MyStateMachine,
-      StateMachineManager>();
+      MyStateMachineManager>();
 
   @override
   MyState get initialState => const MyState(MyType.initial);
@@ -90,22 +90,7 @@ class MyStateMachine
         await doWork(fail: true);
         break;
       case MyType.delegateWork:
-        final Completer<void> completer = Completer.sync();
-        dispatch(const WorkerEvent(WorkType.doWork));
-        subscribeTo(WorkerMachine.type, (WorkerState state) {
-          switch (state.type) {
-            case WorkType.initial:
-            case WorkType.doWork:
-              break;
-            case WorkType.success:
-              completer.complete();
-              break;
-            case WorkType.error:
-              completer.completeError('error');
-              break;
-          }
-        });
-        await completer.future;
+        await manager.delegateWork();
         dispatch(const MyEvent(MyType.success));
     }
   }
@@ -194,8 +179,24 @@ class MyStateMachineManager extends StateMachineManager {
     DependencyManager dependencyManager,
   ) : super(_builders, dependencyManager);
 
+  Future<void> delegateWork() async {
+    internalDispatch(const WorkerEvent(WorkType.doWork));
+    final machine = getOrCreate(WorkerMachine.type);
+    await for (final state in machine.stream) {
+      switch (state.type) {
+        case WorkType.initial:
+        case WorkType.doWork:
+          break;
+        case WorkType.success:
+          return;
+        case WorkType.error:
+          throw Exception('error');
+      }
+    }
+  }
+
   @override
-  Future<void> dispatch(StateMachineEvent event) async {
+  Future<void> internalDispatch(StateMachineEvent event) async {
     if (event is MyEvent) {
       return getOrCreate(MyStateMachine.type).add(event);
     }
@@ -204,4 +205,7 @@ class MyStateMachineManager extends StateMachineManager {
     }
     throw ArgumentError('Invalid event: $event');
   }
+
+  @override
+  FutureOr<void> dispatch(StateMachineEvent event) => internalDispatch(event);
 }
