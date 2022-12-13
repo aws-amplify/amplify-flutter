@@ -185,7 +185,7 @@ void main() {
         );
 
         await Amplify.Analytics.unregisterGlobalProperties(
-          propertyNames: [stringifiedBoolProperty.key, stringProperty.key],
+          propertyNames: [boolProperty.key, stringProperty.key],
         );
 
         // Add metric global property types

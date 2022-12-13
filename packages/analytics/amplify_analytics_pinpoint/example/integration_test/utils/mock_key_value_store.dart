@@ -14,6 +14,7 @@
 
 import 'dart:async';
 
+import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 
 /// Static key/value storage for use in integration tests.
@@ -22,8 +23,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 /// between relaunches (e.g. between test groups).
 final SecureStorageInterface mockKeyValueStore = _MockKeyValueStore()
   ..write(
-    // TODO(fjnoyp): Expose this key in a way that makes sense
-    key: 'UniqueId',
+    key: AmplifyAnalyticsPinpointDart.endpointIdStorageKey,
     value: mockEndpointId,
   );
 final String mockEndpointId = uuid();

@@ -124,24 +124,7 @@ class EndpointClient {
 
     _endpointBuilder.user = newUserBuilder;
 
-    try {
-      await updateEndpoint();
-    } on BadRequestException catch (e) {
-      if (e.message == null ||
-          !e.message!.toLowerCase().contains('exceeded maximum endpoint')) {
-        rethrow;
-      }
-
-      // TODO(fjnoyp): How would this happen if the endpoint ID is fixed for a device?
-      /// Shouldn't users be able to call identifyUser every time the user signs
-      /// in, for example?
-      throw AnalyticsException(
-        e.message ?? 'BadRequestException',
-        recoverySuggestion:
-            'Only call identifyUser() once per device.  Calling identifyUser() multiple times will associate multiple endpoints to the device.',
-        underlyingException: e,
-      );
-    }
+    await updateEndpoint();
   }
 
   /// Return Endpoint instance
@@ -161,20 +144,15 @@ class EndpointClient {
 
   /// Send local Endpoint instance to AWS Pinpoint
   Future<void> updateEndpoint() async {
-    try {
-      await _pinpointClient
-          .updateEndpoint(
-            UpdateEndpointRequest(
-              applicationId: _appId,
-              endpointId: _fixedEndpointId,
-              endpointRequest: _endpointToRequest(getPublicEndpoint()),
-            ),
-          )
-          .result;
-    } on Exception catch (error) {
-      _logger.error('updateEndpoint - exception encountered: $error');
-      rethrow;
-    }
+    await _pinpointClient
+        .updateEndpoint(
+          UpdateEndpointRequest(
+            applicationId: _appId,
+            endpointId: _fixedEndpointId,
+            endpointRequest: _endpointToRequest(getPublicEndpoint()),
+          ),
+        )
+        .result;
   }
 
   /// Create an EndpointRequest object from a local Endpoint instance

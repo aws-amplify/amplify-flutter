@@ -46,7 +46,6 @@ Future<Stream<TestEvent>> configureAnalytics({
     AmplifyAPI(),
   ]);
   await Amplify.configure(amplifyconfig);
-  await Amplify.Analytics.enable();
 
   addTearDown(() async {
     // Flush pending events.

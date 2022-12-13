@@ -16,7 +16,7 @@
 import 'dart:math';
 
 const boolProperty = MapEntry('boolProperty', true);
-// Boolean properties are recorded as strings
+// Boolean property values are received as strings from Pinpoint and GraphQL subscription
 const stringifiedBoolProperty = MapEntry('boolProperty', 'true');
 
 const doubleProperty = MapEntry('doubleProperty', pi);

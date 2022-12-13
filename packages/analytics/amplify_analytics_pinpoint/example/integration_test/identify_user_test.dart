@@ -26,7 +26,7 @@ import 'utils/test_event.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('recordEvent', () {
+  group('identifyUser', () {
     late Stream<TestEvent> eventsStream;
 
     setUpAll(() async {

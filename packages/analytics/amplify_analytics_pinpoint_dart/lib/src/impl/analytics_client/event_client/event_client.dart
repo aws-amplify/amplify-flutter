@@ -92,7 +92,6 @@ class EventClient implements Closeable {
   Future<void> _flushEvents() async {
     final storedEvents = await _storageAdapter.retrieveEvents();
 
-    // TODO(fjnoyp): Is there a reason this was not here before?
     if (storedEvents.isEmpty) {
       return;
     }

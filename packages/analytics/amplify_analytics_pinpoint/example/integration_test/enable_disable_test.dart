@@ -55,7 +55,7 @@ void main() {
         mockLifecycleObserver.triggerOnBackgroundListener();
         mockLifecycleObserver.triggerOnForegroundListener();
 
-        // Give time for events to propogate if they were sent to remote server
+        // Give time for events to propagate if they were sent to remote server
         // to ensure the failure above does not execute.
         await Future<void>.delayed(const Duration(minutes: 1));
       },
