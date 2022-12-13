@@ -283,7 +283,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     }
 
     await _init();
-    _stateMachine.dispatch(ConfigurationEvent.configure(config));
+    await _stateMachine.dispatch(ConfigurationEvent.configure(config));
 
     await for (final state
         in _stateMachine.expect(ConfigurationStateMachine.type).stream) {
@@ -329,26 +329,11 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<CognitoAuthSession> fetchAuthSession({
     CognitoSessionOptions? options,
   }) async {
-    _stateMachine.dispatch(FetchAuthSessionEvent.fetch(options));
-
-    await for (final state
-        in _stateMachine.expect(FetchAuthSessionStateMachine.type).stream) {
-      switch (state.type) {
-        case FetchAuthSessionStateType.idle:
-        case FetchAuthSessionStateType.fetching:
-        case FetchAuthSessionStateType.refreshing:
-          continue;
-        case FetchAuthSessionStateType.success:
-          state as FetchAuthSessionSuccess;
-          return state.session;
-        case FetchAuthSessionStateType.failure:
-          state as FetchAuthSessionFailure;
-          throw state.exception;
-      }
-    }
-
-    // This should never happen.
-    throw const UnknownException('fetchAuthSession could not be completed');
+    await _stateMachine.dispatch(
+      FetchAuthSessionEvent.fetch(options),
+      propagate: true,
+    );
+    return _stateMachine.loadSession();
   }
 
   /// {@template amplify_auth_cognito_dart.impl.federate_to_identity_pool}
@@ -373,8 +358,11 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       provider: provider,
       options: options,
     );
-    _stateMachine.dispatch(FetchAuthSessionEvent.federate(request));
-    final session = await fetchAuthSession();
+    await _stateMachine.dispatch(
+      FetchAuthSessionEvent.federate(request),
+      propagate: true,
+    );
+    final session = await _stateMachine.loadSession();
     return FederateToIdentityPoolResult(
       identityId: session.identityIdResult.value,
       credentials: session.credentialsResult.value,
@@ -391,10 +379,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     if (identityPoolConfig == null) {
       throw const InvalidAccountTypeException.noIdentityPool();
     }
-    await _stateMachine.dispatch(
-      CredentialStoreEvent.clearCredentials(
-        CognitoIdentityPoolKeys(identityPoolConfig),
-      ),
+    await _stateMachine.clearCredentials(
+      CognitoIdentityPoolKeys(identityPoolConfig),
     );
     await _stateMachine.loadCredentials();
   }
@@ -408,13 +394,13 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
     // Create a new state machine which will close the previous one and cancel
     // any pending sign-ins.
-    final stateMachine = _stateMachine.create(HostedUiStateMachine.type)
-      ..dispatch(
-        HostedUiEvent.signIn(
-          options: options,
-          provider: provider,
-        ),
-      );
+    final stateMachine = _stateMachine.create(HostedUiStateMachine.type);
+    await _stateMachine.dispatch(
+      HostedUiEvent.signIn(
+        options: options,
+        provider: provider,
+      ),
+    );
 
     await for (final state in stateMachine.stream) {
       switch (state.type) {
@@ -449,7 +435,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     required String password,
     CognitoSignUpOptions? options,
   }) async {
-    _stateMachine.dispatch(
+    await _stateMachine.dispatch(
       SignUpEvent.initiate(
         parameters: SignUpParameters(
           (p) => p
@@ -504,7 +490,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     required String confirmationCode,
     CognitoConfirmSignUpOptions? options,
   }) async {
-    _stateMachine.dispatch(
+    await _stateMachine.dispatch(
       SignUpEvent.confirm(
         username: username,
         confirmationCode: confirmationCode,
@@ -592,7 +578,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     // Create a new state machine for every call since it caches values
     // internally on each run.
     final stream = _stateMachine.create(SignInStateMachine.type).stream;
-    _stateMachine.dispatch(
+    await _stateMachine.dispatch(
       SignInEvent.initiate(
         authFlowType: options.authFlowType,
         parameters: SignInParameters(
@@ -660,7 +646,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     CognitoConfirmSignInOptions? options,
   }) async {
     options ??= const CognitoConfirmSignInOptions();
-    _stateMachine.dispatch(
+    await _stateMachine.dispatch(
       SignInEvent.respondToChallenge(
         answer: confirmationValue,
         clientMetadata: options.clientMetadata,
@@ -1070,7 +1056,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     // Sign out via Hosted UI, if configured.
     Future<CognitoSignOutResult?> signOutHostedUi() async {
       if (tokens.signInMethod == CognitoSignInMethod.hostedUi) {
-        _stateMachine.dispatch(const HostedUiEvent.signOut());
+        await _stateMachine.dispatch(const HostedUiEvent.signOut());
         final hostedUiResult = await _stateMachine.stream
             .where(
               (state) => state is HostedUiSignedOut || state is HostedUiFailure,
@@ -1152,12 +1138,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     }
 
     // Credentials are cleared for all partial sign out cases.
-    await _stateMachine.dispatch(
-      const CredentialStoreEvent.clearCredentials(),
-    );
-    await _stateMachine
-        .expect(CredentialStoreStateMachine.type)
-        .getCredentialsResult();
+    await _stateMachine.clearCredentials();
     _hubEventController.add(AuthHubEvent.signedOut());
 
     if (globalSignOutException != null || revokeTokenException != null) {
@@ -1193,9 +1174,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
           ),
         )
         .result;
-    await _stateMachine.dispatch(
-      const CredentialStoreEvent.clearCredentials(),
-    );
+    await _stateMachine.clearCredentials();
     await _deviceRepo.remove(tokens.username);
     _hubEventController
       ..add(AuthHubEvent.signedOut())

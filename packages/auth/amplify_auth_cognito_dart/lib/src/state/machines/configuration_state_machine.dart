@@ -9,7 +9,6 @@ import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
-import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_auth_cognito.configuration_state_machine}
@@ -93,22 +92,7 @@ class ConfigurationStateMachine extends StateMachine<ConfigurationEvent,
     final hostedUiConfig = config.hostedUiConfig;
     if (hostedUiConfig != null) {
       addInstance(hostedUiConfig);
-
-      dispatch(const HostedUiEvent.configure());
-      final hostedUiConfigured = Completer<void>.sync();
-      subscribeTo(
-        HostedUiStateMachine.type,
-        (HostedUiState state) {
-          if ((state is HostedUiSignedIn || state is HostedUiSignedOut) &&
-              !hostedUiConfigured.isCompleted) {
-            hostedUiConfigured.complete();
-          }
-          if (state is HostedUiFailure && !hostedUiConfigured.isCompleted) {
-            hostedUiConfigured.completeError(state.exception);
-          }
-        },
-      );
-      waiters.add(hostedUiConfigured.future);
+      waiters.add(manager.configureHostedUi());
     }
 
     final identityPoolConfig = config.identityPoolConfig;
@@ -123,20 +107,11 @@ class ConfigurationStateMachine extends StateMachine<ConfigurationEvent,
       );
     }
 
-    dispatch(const CredentialStoreEvent.migrateLegacyCredentialStore());
-
-    final credentialStoreConfigured = Completer<void>.sync();
-    subscribeTo(CredentialStoreStateMachine.type, (state) {
-      if (state is CredentialStoreSuccess &&
-          !credentialStoreConfigured.isCompleted) {
-        credentialStoreConfigured.complete();
-      }
-      if (state is CredentialStoreFailure &&
-          !credentialStoreConfigured.isCompleted) {
-        credentialStoreConfigured.completeError(state.exception);
-      }
-    });
-    waiters.add(credentialStoreConfigured.future);
+    waiters.add(
+      manager.loadCredentials(
+        const CredentialStoreEvent.migrateLegacyCredentialStore(),
+      ),
+    );
 
     unawaited(_waitForConfiguration(cognitoConfig, waiters));
   }
