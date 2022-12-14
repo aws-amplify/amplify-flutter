@@ -74,8 +74,8 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     }
   }
 
-  bool _isConfigured = false;
-  bool _analyticsEnabled = false;
+  var _isConfigured = false;
+  var _analyticsEnabled = false;
 
   @visibleForTesting
 
