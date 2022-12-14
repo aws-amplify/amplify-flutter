@@ -1057,11 +1057,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     Future<CognitoSignOutResult?> signOutHostedUi() async {
       if (tokens.signInMethod == CognitoSignInMethod.hostedUi) {
         await _stateMachine.dispatch(const HostedUiEvent.signOut());
-        final hostedUiResult = await _stateMachine.stream
-            .where(
-              (state) => state is HostedUiSignedOut || state is HostedUiFailure,
-            )
-            .first;
+        final hostedUiResult = await _stateMachine.signOutHostedUi();
         if (hostedUiResult is HostedUiFailure) {
           final exception = hostedUiResult.exception;
           if (exception is UserCancelledException) {

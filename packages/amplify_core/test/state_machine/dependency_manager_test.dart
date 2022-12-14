@@ -30,10 +30,6 @@ class NeedsDependencyManagerAndDispatcher {
   final Dispatcher dispatcher;
 }
 
-class MyDispatcher {
-  void call(StateMachineEvent event) {}
-}
-
 void main() {
   late DependencyManager dependencyManager;
 
@@ -85,7 +81,7 @@ void main() {
         Token<DependencyManager>(),
         Token<Dispatcher>(),
       ]);
-      dependencyManager.addBuilder<Dispatcher>(() => MyDispatcher().call);
+      dependencyManager.addBuilder<Dispatcher>(() => (_) {});
       dependencyManager.addBuilder<NeedsDependencyManagerAndDispatcher>(
         NeedsDependencyManagerAndDispatcher.new,
         token,
