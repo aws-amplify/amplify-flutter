@@ -12,8 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator_test/src/pages/authenticator_page.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// Sign Up Page Object
@@ -33,6 +35,11 @@ class SignUpPage extends AuthenticatorPage {
 
   Finder get selectEmailButton => find.byKey(keyEmailUsernameToggleButton);
   Finder get selectPhoneButton => find.byKey(keyPhoneUsernameToggleButton);
+
+  Finder get signInTab => find.descendant(
+        of: find.byType(TabBar),
+        matching: find.byKey(const ValueKey(AuthenticatorStep.signIn)),
+      );
 
   /// When I type a new "username"
   Future<void> enterUsername(String username) async {

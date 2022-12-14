@@ -244,7 +244,8 @@ class _AuthenticatorTabViewState
   }
 
   void _updateForm() {
-    setState(() {});
+    // Update the Authenticator's internal state on tab changes.
+    state.changeStep(selectedTab, reset: false);
   }
 
   Color getTabLabelColor(BuildContext context) {

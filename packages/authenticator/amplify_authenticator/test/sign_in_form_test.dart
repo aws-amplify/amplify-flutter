@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -19,6 +20,27 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('Sign In View', () {
+    group('navigation', () {
+      testWidgets('via TabBar', (tester) async {
+        await tester.pumpWidget(const MockAuthenticatorApp());
+        await tester.pumpAndSettle();
+
+        final signInPage = SignInPage(tester: tester);
+        signInPage.expectStep(AuthenticatorStep.signIn);
+
+        // Go to Sign Up
+        await tester.tap(signInPage.signUpTab);
+        await tester.pumpAndSettle();
+        signInPage.expectStep(AuthenticatorStep.signUp);
+
+        // Go to Sign In
+        final signUpPage = SignUpPage(tester: tester);
+        await tester.tap(signUpPage.signInTab);
+        await tester.pumpAndSettle();
+        signInPage.expectStep(AuthenticatorStep.signIn);
+      });
+    });
+
     group('form validation', () {
       testWidgets(
         'displays message when submitted without any data',
