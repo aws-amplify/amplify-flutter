@@ -56,6 +56,7 @@ mixin AuthenticatorTextField<FieldType,
           maxLengthEnforcement: MaxLengthEnforcement.enforced,
           keyboardType: keyboardType,
           obscureText: obscureText,
+          onFieldSubmitted: onFieldSubmitted,
         );
       },
     );

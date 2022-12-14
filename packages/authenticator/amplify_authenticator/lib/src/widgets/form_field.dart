@@ -212,6 +212,42 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
   /// Widget to show above the label.
   Widget? get surlabel => null;
 
+  /// A function that will be called when the Form Field is submitted, for
+  /// example when the enter key is pressed down on web/desktop.
+  void onFieldSubmitted(String _) {
+    switch (state.currentStep) {
+      case AuthenticatorStep.signUp:
+        state.signUp();
+        break;
+      case AuthenticatorStep.signIn:
+        state.signIn();
+        break;
+      case AuthenticatorStep.confirmSignUp:
+        state.confirmSignUp();
+        break;
+      case AuthenticatorStep.confirmSignInCustomAuth:
+        state.confirmSignInCustomAuth();
+        break;
+      case AuthenticatorStep.confirmSignInMfa:
+        state.confirmSignInMFA();
+        break;
+      case AuthenticatorStep.confirmSignInNewPassword:
+        state.confirmSignInNewPassword();
+        break;
+      case AuthenticatorStep.resetPassword:
+        state.resetPassword();
+        break;
+      case AuthenticatorStep.confirmResetPassword:
+        state.confirmResetPassword();
+        break;
+      case AuthenticatorStep.verifyUser:
+        state.verifyUser();
+        break;
+      default:
+        break;
+    }
+  }
+
   @nonVirtual
   @override
   Widget build(BuildContext context) {
