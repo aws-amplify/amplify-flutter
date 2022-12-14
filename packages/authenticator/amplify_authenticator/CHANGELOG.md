@@ -1,3 +1,8 @@
+## 1.0.0-next.1+3
+
+### Fixes
+- fix(authenticator): keyboard navigation ([#2473](https://github.com/aws-amplify/amplify-flutter/pull/2473))
+
 ## 1.0.0-next.1+2
 
 - Minor bug fixes and improvements
