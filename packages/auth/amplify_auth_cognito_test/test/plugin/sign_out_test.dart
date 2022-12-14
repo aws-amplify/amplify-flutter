@@ -172,9 +172,7 @@ void main() {
         await expectLater(plugin.getCredentials(), completes);
         await expectLater(
           plugin.signOut(
-            request: const SignOutRequest(
-              options: SignOutOptions(globalSignOut: true),
-            ),
+            options: const SignOutOptions(globalSignOut: true),
           ),
           completion(
             isA<CognitoPartialSignOut>()
@@ -224,9 +222,7 @@ void main() {
         await expectLater(plugin.getCredentials(), completes);
         await expectLater(
           plugin.signOut(
-            request: const SignOutRequest(
-              options: SignOutOptions(globalSignOut: true),
-            ),
+            options: const SignOutOptions(globalSignOut: true),
           ),
           completion(
             isA<CognitoPartialSignOut>()
@@ -314,9 +310,7 @@ void main() {
           await expectLater(plugin.getCredentials(), completes);
           await expectLater(
             plugin.signOut(
-              request: const SignOutRequest(
-                options: SignOutOptions(globalSignOut: true),
-              ),
+              options: const SignOutOptions(globalSignOut: true),
             ),
             completion(
               isA<CognitoPartialSignOut>().having(
@@ -351,9 +345,7 @@ void main() {
           await expectLater(plugin.getCredentials(), completes);
           await expectLater(
             plugin.signOut(
-              request: const SignOutRequest(
-                options: SignOutOptions(globalSignOut: true),
-              ),
+              options: const SignOutOptions(globalSignOut: true),
             ),
             completion(
               isA<CognitoPartialSignOut>().having(

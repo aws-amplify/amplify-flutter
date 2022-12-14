@@ -60,14 +60,12 @@ void main() {
 
         await expectLater(
           plugin.signUp(
-            request: SignUpRequest(
-              username: username,
-              password: 'password',
-              options: CognitoSignUpOptions(
-                userAttributes: {
-                  CognitoUserAttributeKey.email: 'user@domain.com',
-                },
-              ),
+            username: username,
+            password: 'password',
+            options: CognitoSignUpOptions(
+              userAttributes: {
+                CognitoUserAttributeKey.email: 'user@domain.com',
+              },
             ),
           ),
           completion(
@@ -110,14 +108,12 @@ void main() {
 
         await expectLater(
           plugin.signUp(
-            request: SignUpRequest(
-              username: username,
-              password: 'password',
-              options: CognitoSignUpOptions(
-                userAttributes: {
-                  CognitoUserAttributeKey.email: 'user@domain.com',
-                },
-              ),
+            username: username,
+            password: 'password',
+            options: CognitoSignUpOptions(
+              userAttributes: {
+                CognitoUserAttributeKey.email: 'user@domain.com',
+              },
             ),
           ),
           completion(

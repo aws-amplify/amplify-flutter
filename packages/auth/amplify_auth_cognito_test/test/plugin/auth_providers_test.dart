@@ -36,9 +36,8 @@ AWSHttpRequest _generateTestRequest() {
 class TestAmplifyAuthUserPoolOnly extends AmplifyAuthCognitoDart {
   @override
   Future<CognitoAuthSession> fetchAuthSession({
-    required AuthSessionRequest<AuthSessionOptions> request,
+    CognitoSessionOptions? options,
   }) async {
-    final options = request.options as CognitoSessionOptions?;
     final getAWSCredentials = options?.getAWSCredentials;
     if (getAWSCredentials != null && getAWSCredentials) {
       throw const InvalidAccountTypeException.noIdentityPool(
