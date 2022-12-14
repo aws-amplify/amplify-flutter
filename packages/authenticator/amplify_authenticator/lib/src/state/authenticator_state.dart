@@ -503,12 +503,20 @@ class AuthenticatorState extends ChangeNotifier {
     ]);
   }
 
-  /// Change to a new step in the authentication flow
-  void changeStep(AuthenticatorStep step) {
+  /// Change to a new step in the authentication flow.
+  ///
+  /// If [reset] is `true`, clears temporary form data including username,
+  /// password, and user attributes.
+  void changeStep(
+    AuthenticatorStep step, {
+    bool reset = true,
+  }) {
     _authBloc.add(AuthChangeScreen(step));
 
     /// Clean [ViewModel] when user manually navigates widgets
-    _resetAttributes();
+    if (reset) {
+      _resetAttributes();
+    }
   }
 
   /// Reset the authentication flow if initiated

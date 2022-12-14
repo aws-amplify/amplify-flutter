@@ -28,7 +28,7 @@ class SignInPage extends AuthenticatorPage {
   Finder get signInButton => find.byKey(keySignInButton);
   Finder get forgotPasswordButton => find.byKey(keyForgotPasswordButton);
   Finder get confirmSignInField => find.byKey(keyCodeConfirmSignInFormField);
-  Finder get signUpTabBar => find.descendant(
+  Finder get signUpTab => find.descendant(
         of: find.byType(TabBar),
         matching: find.byKey(const ValueKey(AuthenticatorStep.signUp)),
       );
@@ -66,7 +66,7 @@ class SignInPage extends AuthenticatorPage {
 
   /// When I navigate to the "Sign Up" step.
   Future<void> navigateToSignUp() async {
-    await tester.tap(signUpTabBar);
+    await tester.tap(signUpTab);
     await tester.pumpAndSettle();
   }
 
