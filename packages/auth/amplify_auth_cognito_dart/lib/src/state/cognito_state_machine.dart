@@ -48,57 +48,26 @@ class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
           dependencyManager ?? DependencyManager(defaultDependencies),
         ) {
     addInstance<CognitoAuthStateMachine>(this);
-    _listenForEvents();
   }
 
-  final _eventController = StreamController<EventCompleter<AuthEvent>>();
-
-  Future<void> _listenForEvents() async {
-    await for (final completer in _eventController.stream) {
-      final completion = internalDispatch(completer.event);
-      if (!completer.propagate) {
-        // Complete public API dispatch as soon as the event is picked up.
-        //
-        // Side effects should be listened for via the state machine.
-        completer.complete();
-      }
-      try {
-        await completion;
-      } finally {
-        if (completer.propagate) completer.complete();
-      }
-    }
-  }
+  Dispatcher<AuthEvent> get _internalDispatch => expect();
 
   @override
-  FutureOr<void> internalDispatch(AuthEvent event) async {
+  StateMachineToken mapEventToMachine(AuthEvent event) {
     if (event is ConfigurationEvent) {
-      return getOrCreate(ConfigurationStateMachine.type).add(event);
+      return ConfigurationStateMachine.type;
     } else if (event is CredentialStoreEvent) {
-      return getOrCreate(CredentialStoreStateMachine.type).add(event);
+      return CredentialStoreStateMachine.type;
     } else if (event is FetchAuthSessionEvent) {
-      return getOrCreate(FetchAuthSessionStateMachine.type).add(event);
+      return FetchAuthSessionStateMachine.type;
     } else if (event is HostedUiEvent) {
-      return getOrCreate(HostedUiStateMachine.type).add(event);
+      return HostedUiStateMachine.type;
     } else if (event is SignUpEvent) {
-      return getOrCreate(SignUpStateMachine.type).add(event);
+      return SignUpStateMachine.type;
     } else if (event is SignInEvent) {
-      return getOrCreate(SignInStateMachine.type).add(event);
+      return SignInStateMachine.type;
     }
     throw StateError('Unhandled event: $event');
-  }
-
-  @override
-  Future<void> dispatch(
-    AuthEvent event, {
-    bool propagate = false,
-  }) {
-    final completer = EventCompleter(
-      event,
-      propagate: propagate,
-    );
-    _eventController.add(completer);
-    return completer.future;
   }
 
   /// Loads credentials from the credential store (which may be
@@ -107,7 +76,7 @@ class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
     CredentialStoreEvent? event,
   ]) async {
     if (event != null) {
-      await internalDispatch(event);
+      await _internalDispatch(event);
     }
     final machine = getOrCreate(CredentialStoreStateMachine.type);
     final credentialsState =
@@ -134,7 +103,7 @@ class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
     FetchAuthSessionEvent? event,
   ]) async {
     if (event != null) {
-      await internalDispatch(event);
+      await _internalDispatch(event);
     }
     final machine = getOrCreate(FetchAuthSessionStateMachine.type);
     final sessionState =
@@ -151,7 +120,7 @@ class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
 
   /// Configures the Hosted UI state machine.
   Future<void> configureHostedUi() async {
-    await internalDispatch(
+    await _internalDispatch(
       const HostedUiEvent.configure(),
     );
     final machine = getOrCreate(HostedUiStateMachine.type);
@@ -167,9 +136,12 @@ class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
     }
   }
 
-  @override
-  Future<void> close() {
-    _eventController.close();
-    return super.close();
+  /// Signs out using the Hosted UI state machine.
+  Future<HostedUiState> signOutHostedUi() async {
+    await _internalDispatch(const HostedUiEvent.signOut());
+    final machine = getOrCreate(HostedUiStateMachine.type);
+    return machine.stream.startWith(machine.currentState).firstWhere(
+          (state) => state is HostedUiSignedOut || state is HostedUiFailure,
+        );
   }
 }

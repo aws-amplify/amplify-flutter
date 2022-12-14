@@ -179,8 +179,10 @@ class MyStateMachineManager extends StateMachineManager {
     DependencyManager dependencyManager,
   ) : super(_builders, dependencyManager);
 
+  Dispatcher get _internalDispatch => expect();
+
   Future<void> delegateWork() async {
-    internalDispatch(const WorkerEvent(WorkType.doWork));
+    _internalDispatch(const WorkerEvent(WorkType.doWork));
     final machine = getOrCreate(WorkerMachine.type);
     await for (final state in machine.stream) {
       switch (state.type) {
@@ -196,16 +198,13 @@ class MyStateMachineManager extends StateMachineManager {
   }
 
   @override
-  Future<void> internalDispatch(StateMachineEvent event) async {
+  StateMachineToken mapEventToMachine(StateMachineEvent event) {
     if (event is MyEvent) {
-      return getOrCreate(MyStateMachine.type).add(event);
+      return MyStateMachine.type;
     }
     if (event is WorkerEvent) {
-      return getOrCreate(WorkerMachine.type).add(event);
+      return WorkerMachine.type;
     }
     throw ArgumentError('Invalid event: $event');
   }
-
-  @override
-  FutureOr<void> dispatch(StateMachineEvent event) => internalDispatch(event);
 }

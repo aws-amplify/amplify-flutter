@@ -48,7 +48,7 @@ class AuthPluginCredentialsProviderImpl extends AuthPluginCredentialsProvider {
   /// {@macro amplify_auth_cognito.credentials.auth_plugin_credentials_provider_impl}
   const AuthPluginCredentialsProviderImpl(super.dependencyManager);
 
-  CognitoAuthStateMachine get _dispatcher => dependencyManager.expect();
+  CognitoAuthStateMachine get _manager => dependencyManager.expect();
 
   @override
   Future<AWSCredentials> retrieve() async {
@@ -68,7 +68,7 @@ class AuthPluginCredentialsProviderImpl extends AuthPluginCredentialsProvider {
     // or refresh existing ones if needed, but do not initiate an
     // unauthenticated session since that should be handled via an explicit call
     // to `fetchAuthSession`.
-    final session = await _dispatcher.loadSession(
+    final session = await _manager.loadSession(
       const FetchAuthSessionEvent.fetch(),
     );
     return session.credentialsResult.value;

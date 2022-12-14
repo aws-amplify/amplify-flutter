@@ -43,17 +43,19 @@ abstract class StateMachineManager<E extends StateMachineEvent>
     Map<StateMachineToken, Function> stateMachineBuilders,
     this._dependencyManager,
   ) {
-    addInstance<Dispatcher<E>>(internalDispatch);
+    addInstance<Dispatcher<E>>(_internalDispatch);
     addInstance<StateMachineManager>(this);
     addInstance<DependencyManager>(this);
     stateMachineBuilders.forEach((token, builder) {
       addBuilder(builder, token);
     });
+    _listenForEvents();
   }
 
   final DependencyManager _dependencyManager;
   final Map<Type, StateMachine> _stateMachines = {};
 
+  final _eventController = StreamController<EventCompleter<E>>();
   final StreamController<StateMachineState> _stateController =
       StreamController.broadcast(sync: true);
   final StreamController<Transition> _transitionController =
@@ -64,6 +66,23 @@ abstract class StateMachineManager<E extends StateMachineEvent>
 
   /// The unified state machine transitions.
   Stream<Transition> get transitions => _transitionController.stream;
+
+  Future<void> _listenForEvents() async {
+    await for (final completer in _eventController.stream) {
+      final completion = _internalDispatch(completer.event);
+      if (!completer.propagate) {
+        // Complete public API dispatch as soon as the event is picked up.
+        //
+        // Side effects should be listened for via the state machine.
+        completer.complete();
+      }
+      try {
+        await completion;
+      } finally {
+        if (completer.propagate) completer.complete();
+      }
+    }
+  }
 
   @override
   void addBuilder<T extends Object>(
@@ -98,20 +117,33 @@ abstract class StateMachineManager<E extends StateMachineEvent>
       _dependencyManager.expect<T>(token);
 
   /// Dispatches an event to the appropriate state machine.
-  FutureOr<void> dispatch(E event) => internalDispatch(event);
+  FutureOr<void> dispatch(E event, {bool propagate = false}) {
+    final completer = EventCompleter(
+      event,
+      propagate: propagate,
+    );
+    _eventController.add(completer);
+    return completer.future;
+  }
 
   /// Dispatches an event to the appropriate state machine.
   ///
   /// For internal use only. Public APIs should use `dispatch` instead.
-  @protected
-  @visibleForTesting
-  FutureOr<void> internalDispatch(E event);
+  FutureOr<void> _internalDispatch(E event) {
+    final token = mapEventToMachine(event);
+    return getOrCreate(token)._add(event);
+  }
+
+  /// Maps [event] to its state machine.
+  StateMachineToken mapEventToMachine(E event);
 
   /// Closes the state machine manager and all state machines.
   @override
   Future<void> close() async {
+    await _eventController.close();
     await Future.wait<void>(
-        _stateMachines.values.map((stateMachine) => stateMachine.close()));
+      _stateMachines.values.map((stateMachine) => stateMachine.close()),
+    );
     await _transitionController.close();
     await _stateController.close();
   }
@@ -288,8 +320,8 @@ abstract class StateMachine<Event extends StateMachineEvent,
   @override
   T create<T extends Object>([Token<T>? token]) => manager.create<T>(token);
 
-  /// Add an event to the state machine.
-  Future<void> add(Event event) {
+  /// Adds an event to the state machine.
+  Future<void> _add(Event event) {
     final completer = EventCompleter(
       event,
       propagate: true,
@@ -300,13 +332,13 @@ abstract class StateMachine<Event extends StateMachineEvent,
 
   /// Dispatches an event to the state machine.
   FutureOr<void> dispatch(StateMachineEvent event) =>
-      manager.internalDispatch(event);
+      manager._internalDispatch(event);
 
   /// Closes the state machine and all stream controllers.
   @override
   Future<void> close() async {
-    await _transitionController.close();
     await _eventController.close();
+    await _transitionController.close();
     await _stateController.close();
   }
 }

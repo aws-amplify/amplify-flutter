@@ -30,13 +30,19 @@ abstract class StateMachineEvent<EventType, StateType>
       null;
 }
 
+/// {@template amplify_core.event_completer}
+/// A [Completer] for [Event]s in a state machine, used to signal processing
+/// of a particular event which otherwise would be fired and forgotten.
+/// {@endtemplate}
 class EventCompleter<Event extends StateMachineEvent>
     implements Completer<void> {
+  /// {@macro amplify_core.event_completer}
   EventCompleter(
     this.event, {
     required this.propagate,
   });
 
+  /// The event to dispatch.
   final Event event;
 
   /// If `true`, awaits the full propagation of the event before completing.

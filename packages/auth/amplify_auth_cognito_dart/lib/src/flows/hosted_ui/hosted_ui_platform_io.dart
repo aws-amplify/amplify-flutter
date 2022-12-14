@@ -246,7 +246,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
           );
           continue;
         }
-        await dispatcher(
+        dispatcher(
           HostedUiEvent.exchange(
             OAuthParameters.fromJson(queryParams),
           ),

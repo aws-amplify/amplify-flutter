@@ -1,10 +1,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:async';
+
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
-import 'package:amplify_auth_cognito_dart/src/model/session/cognito_user_pool_tokens.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 const testUserPoolId = 'us-east-1_userPoolId';
@@ -96,3 +99,8 @@ final awsCredentials = AWSCredentials(
   sessionToken,
   expiration,
 );
+
+extension MockDispatch on CognitoAuthStateMachine {
+  FutureOr<void> internalDispatch(AuthEvent event) =>
+      expect<Dispatcher<AuthEvent>>()(event);
+}
