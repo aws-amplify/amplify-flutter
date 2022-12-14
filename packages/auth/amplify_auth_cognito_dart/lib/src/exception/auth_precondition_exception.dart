@@ -30,4 +30,7 @@ class AuthPreconditionException extends AuthException
 
   @override
   final bool shouldEmit;
+
+  @override
+  String get runtimeTypeName => 'AuthPreconditionException';
 }

@@ -64,10 +64,23 @@ CodegenContext buildContext(
   );
 }
 
+class GeneratedOutput {
+  const GeneratedOutput({
+    required this.context,
+    required this.libraries,
+  });
+
+  /// The contexts used to generate [libraries].
+  final CodegenContext context;
+
+  /// The generated Dart libraries.
+  final List<GeneratedLibrary> libraries;
+}
+
 /// Generates a Dart file for each of the relevant shape types in [ast].
 ///
 /// Returns a map from the library to its formatted definition file.
-List<GeneratedLibrary> generateForAst(
+Map<ShapeId, GeneratedOutput> generateForAst(
   SmithyAst ast, {
   required String packageName,
   String? serviceName,
@@ -88,7 +101,7 @@ List<GeneratedLibrary> generateForAst(
     serviceShapes = [serviceShapes.first];
   }
 
-  final Set<GeneratedLibrary> libraries = {};
+  final outputs = <ShapeId, GeneratedOutput>{};
 
   for (final serviceShape in serviceShapes) {
     final context = buildContext(
@@ -107,12 +120,16 @@ List<GeneratedLibrary> generateForAst(
     // Build service shapes last, since they aggregate generated types.
     final operations = context.shapes.values.whereType<OperationShape>();
     final visitor = LibraryVisitor(context);
-    libraries.addAll([
+    final Iterable<GeneratedLibrary> libraries = [
       ...operations,
       ...additionalShapes.map(context.shapeFor),
       serviceShape
-    ].expand((shape) => shape.accept(visitor) ?? const []));
+    ].expand((shape) => shape.accept(visitor) ?? const []);
+    outputs[serviceShape.shapeId] = GeneratedOutput(
+      context: context,
+      libraries: libraries.toSet().toList(),
+    );
   }
 
-  return libraries.toList();
+  return outputs;
 }

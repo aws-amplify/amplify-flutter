@@ -23,19 +23,6 @@ class AnalyticsException extends AmplifyException {
     super.underlyingException,
   });
 
-  /// Constructor for down casting an AmplifyException to this exception
-  AnalyticsException._private(AmplifyException exception)
-      : super(
-          exception.message,
-          recoverySuggestion: exception.recoverySuggestion,
-          underlyingException: exception.underlyingException,
-        );
-
-  /// Instantiates and return a new `AnalyticsException` from the
-  /// serialized exception data
-  static AnalyticsException fromMap(Map<String, String> serializedException) {
-    return AnalyticsException._private(
-      AmplifyException.fromMap(serializedException),
-    );
-  }
+  @override
+  String get runtimeTypeName => 'AnalyticsException';
 }

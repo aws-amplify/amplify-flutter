@@ -55,7 +55,7 @@ void main() {
       final memo = AsyncMemoizer<Uint8List>();
       expect(
         () => loadSqlite3(client, memo),
-        throwsA(isA<AmplifyException>()),
+        throwsA(isA<Exception>()),
       );
     });
   });

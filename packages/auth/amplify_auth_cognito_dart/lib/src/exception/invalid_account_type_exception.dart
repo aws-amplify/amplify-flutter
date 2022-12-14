@@ -35,4 +35,7 @@ class InvalidAccountTypeException extends AuthException {
           'No identity pool registered for this account',
           recoverySuggestion: recoverySuggestion,
         );
+
+  @override
+  String get runtimeTypeName => 'InvalidAccountTypeException';
 }

@@ -348,7 +348,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
           .getCredentialsResult();
 
       return _AwsCredentialsResult(awsCredentials, identityId);
-    } on NotAuthorizedException {
+    } on AuthNotAuthorizedException {
       // If expired credentials were cached and trying to refresh them throws
       // a NotAuthorizedException, clear any AWS credentials which were being
       // refreshed, since they may have been from an authenticated user whose
@@ -413,7 +413,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
           .getCredentialsResult();
 
       return newTokens;
-    } on NotAuthorizedException {
+    } on AuthNotAuthorizedException {
       late Iterable<String> keys;
       switch (userPoolTokens.signInMethod) {
         case CognitoSignInMethod.default$:

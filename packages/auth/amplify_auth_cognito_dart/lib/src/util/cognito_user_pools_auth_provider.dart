@@ -28,7 +28,7 @@ class CognitoUserPoolsAuthProvider extends TokenIdentityAmplifyAuthProvider {
         await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
     final token = authSession.userPoolTokens?.accessToken.raw;
     if (token == null) {
-      throw const AuthException(
+      throw const AuthNotAuthorizedException(
         'Unable to fetch access token while authorizing with Cognito User Pools.',
       );
     }
@@ -42,7 +42,7 @@ class CognitoUserPoolsAuthProvider extends TokenIdentityAmplifyAuthProvider {
     final identityId = authSession.identityId;
 
     if (identityId == null) {
-      throw const AuthException(
+      throw const AuthNotAuthorizedException(
         'Unable to get identityId while authorizing with Cognito User Pools.',
       );
     }

@@ -41,13 +41,10 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
         GetUserRequest,
         GlobalSignOutRequest,
         ListDevicesRequest,
-        PasswordResetRequiredException,
         ResendConfirmationCodeRequest,
         RevokeTokenRequest,
-        UnauthorizedException,
         UpdateDeviceStatusRequest,
         UpdateUserAttributesRequest,
-        UserNotConfirmedException,
         VerifyUserAttributeRequest;
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
@@ -236,8 +233,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
           hubEvent = AuthHubEvent.signedIn(state.user.authUser);
         }
         if (state is FetchAuthSessionFailure &&
-            (state.exception is cognito.UnauthorizedException ||
-                state.exception is NotAuthorizedException)) {
+            (state.exception is UnauthorizedException ||
+                state.exception is AuthNotAuthorizedException)) {
           hubEvent = AuthHubEvent.sessionExpired();
         }
 
@@ -566,7 +563,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     final codeDeliveryDetails =
         result.codeDeliveryDetails?.asAuthCodeDeliveryDetails;
     if (codeDeliveryDetails == null) {
-      throw CodeDeliveryFailureException(message: 'Could not deliver code');
+      throw const CodeDeliveryFailureException('Could not deliver code');
     }
     return CognitoResendSignUpCodeResult(codeDeliveryDetails);
   }
@@ -621,14 +618,14 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
           );
         case SignInStateType.failure:
           final exception = (state as SignInFailure).exception;
-          if (exception is cognito.PasswordResetRequiredException) {
+          if (exception is PasswordResetRequiredException) {
             return CognitoSignInResult(
               isSignedIn: false,
               nextStep: AuthNextSignInStep(
                 signInStep: CognitoSignInStep.resetPassword.value,
               ),
             );
-          } else if (exception is cognito.UserNotConfirmedException) {
+          } else if (exception is UserNotConfirmedException) {
             return CognitoSignInResult(
               isSignedIn: false,
               nextStep: AuthNextSignInStep(
@@ -871,7 +868,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     final codeDeliveryDetails =
         result.codeDeliveryDetails?.asAuthCodeDeliveryDetails;
     if (codeDeliveryDetails == null) {
-      throw CodeDeliveryFailureException(message: 'Could not deliver code');
+      throw const CodeDeliveryFailureException('Could not deliver code');
     }
 
     return CognitoResetPasswordResult(

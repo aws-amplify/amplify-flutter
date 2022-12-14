@@ -25,4 +25,6 @@ apis:
   cognito-identity:
   - com.amazonaws.cognitoidentity#GetCredentialsForIdentity
   - com.amazonaws.cognitoidentity#GetId
-  
+
+plugins:
+  - tool/generate_sdk_exceptions.dart

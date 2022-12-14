@@ -150,7 +150,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         'querySort': sortBy?.map((element) => element.serializeAsMap()).toList()
       }));
       if (serializedResults == null)
-        throw AmplifyException(
+        throw DataStoreException(
             AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       return serializedResults
           .map((serializedResult) => modelType.fromJson(

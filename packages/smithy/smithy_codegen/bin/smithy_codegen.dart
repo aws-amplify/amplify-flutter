@@ -68,13 +68,13 @@ void main(List<String> args) async {
 
   final outputPath = config.output;
   final packageName = (config.packageName ?? service.shapeId.shape).snakeCase;
-  final libraries = generateForAst(
+  final outputs = generateForAst(
     ast,
     packageName: packageName,
     generateServer: config.server,
   );
   final Set<String> dependencies = {};
-  for (final library in libraries) {
+  for (final library in outputs.values.expand((out) => out.libraries)) {
     final smithyLibrary = library.smithyLibrary;
     final outPath = path.join(
       outputPath,

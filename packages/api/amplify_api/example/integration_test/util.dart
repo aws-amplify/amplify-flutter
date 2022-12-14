@@ -51,7 +51,7 @@ class TestUser {
       ),
     );
     if (!result.isSignUpComplete) {
-      throw const AmplifyException('Unable to sign up test user.');
+      throw Exception('Unable to sign up test user.');
     }
   }
 
@@ -70,7 +70,7 @@ class TestUser {
       password: _password,
     );
     if (!result.isSignedIn) {
-      throw const AmplifyException('Unable to sign in test user.');
+      throw Exception('Unable to sign in test user.');
     }
   }
 
@@ -109,7 +109,7 @@ Future<void> signUpTestUser() async {
 /// No-op if already signed in.
 Future<void> signInTestUser() async {
   if (testUser == null) {
-    throw const AmplifyException(
+    throw const InvalidStateException(
       'No test user to sign in.',
       recoverySuggestion: 'Ensure test user signed up.',
     );
@@ -124,7 +124,7 @@ Future<void> signOutTestUser() async {
 
 Future<void> deleteTestUser() async {
   if (testUser == null) {
-    throw const AmplifyException(
+    throw const InvalidStateException(
       'No test user to delete.',
       recoverySuggestion: 'Ensure test user signed up.',
     );

@@ -28,4 +28,7 @@ class DeviceNotTrackedException extends AuthException {
           'This device does not have an id, either it was never tracked or '
           'previously forgotten.',
         );
+
+  @override
+  String get runtimeTypeName => 'DeviceNotTrackedException';
 }

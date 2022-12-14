@@ -12,20 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:amplify_core/amplify_core.dart';
+@internal
+library amplify_auth_cognito_dart.exception.srp_error;
 
-/// {@template amplify_core.launch_url_exception}
-/// Thrown when the requested operation did not complete because a URL could
-/// not be launched, typically because of an error spawning an external process.
+import 'package:amplify_core/amplify_core.dart';
+import 'package:meta/meta.dart';
+
+/// {@template amplify_auth_cognito.srp_error}
+/// Error thrown due to an SRP calculation error.
 /// {@endtemplate}
-class UrlLauncherException extends AmplifyException {
-  /// {@macro amplify_core.launch_url_exception}
-  const UrlLauncherException(
-    super.message, {
-    super.recoverySuggestion,
-    super.underlyingException,
-  });
+class SrpError extends AmplifyError {
+  /// {@macro amplify_auth_cognito.srp_error}
+  SrpError(super.message);
 
   @override
-  String get runtimeTypeName => 'UrlLauncherException';
+  String get runtimeTypeName => 'SrpError';
 }

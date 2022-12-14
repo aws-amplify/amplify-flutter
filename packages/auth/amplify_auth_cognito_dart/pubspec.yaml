@@ -43,6 +43,8 @@ dev_dependencies:
   built_value_generator: 8.4.2
   json_serializable: 6.5.4
   mockito: ^5.0.0
+  smithy_codegen:
+    path: ../../smithy/smithy_codegen
   test: ^1.16.0
   worker_bee_builder:
     path: ../../worker_bee/worker_bee_builder

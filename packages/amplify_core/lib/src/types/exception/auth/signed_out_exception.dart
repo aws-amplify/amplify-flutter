@@ -26,4 +26,7 @@ class SignedOutException extends AuthException {
     super.recoverySuggestion,
     super.underlyingException,
   });
+
+  @override
+  String get runtimeTypeName => 'SignedOutException';
 }

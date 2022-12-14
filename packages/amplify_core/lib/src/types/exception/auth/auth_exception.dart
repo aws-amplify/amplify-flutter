@@ -18,7 +18,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_core.auth.auth_exception}
 /// The base class for Auth category exceptions.
 /// {@endtemplate}
-class AuthException extends AmplifyException {
+abstract class AuthException extends AmplifyException with AWSDebuggable {
   /// {@macro amplify_core.auth.auth_exception}
   const AuthException(
     super.message, {
@@ -26,26 +26,7 @@ class AuthException extends AmplifyException {
     super.underlyingException,
   });
 
-  /// {@template amplify_core.auth.exception_downcasting}
-  /// Internal named constructor for downcasting an [AuthException] to this
-  /// exception.
-  /// {@endtemplate}
-  AuthException._private(AmplifyException exception)
-      : super(
-          exception.message,
-          recoverySuggestion: exception.recoverySuggestion,
-          underlyingException: exception.underlyingException,
-        );
-
-  /// {@template amplify_core.auth.exception_from_map}
-  /// Returns a new instance of this exception constructed from the serialized
-  /// exception data.
-  /// {@endtemplate}
-  static AuthException fromMap(Map<String, String> serializedException) {
-    return AuthException._private(
-      AmplifyException.fromMap(serializedException),
-    );
-  }
+  static const _unknownMessage = 'An unknown error occurred';
 
   /// Creates an [AuthException] from [e].
   static AuthException fromException(Exception e) {
@@ -53,13 +34,18 @@ class AuthException extends AmplifyException {
       return e;
     }
     if (e is AmplifyException) {
-      return AuthException(
+      return UnknownException(
         e.message,
         recoverySuggestion: e.recoverySuggestion,
         underlyingException: e.underlyingException,
       );
     }
-    // TODO(dnys1): Unknown exception?
-    return AuthException(e.toString());
+    String message;
+    try {
+      message = (e as dynamic).message as String;
+    } on Object {
+      message = _unknownMessage;
+    }
+    return UnknownException(message, underlyingException: e);
   }
 }

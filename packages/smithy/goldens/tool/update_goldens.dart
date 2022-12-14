@@ -103,7 +103,7 @@ Future<void> _generateFor(
   final packageName = '${protocolName.snakeCase}_${version.name}';
   final ast = parseAstJson(astJson);
 
-  final libraries = generateForAst(
+  final outputs = generateForAst(
     ast,
     packageName: packageName,
     additionalShapes: const [
@@ -113,7 +113,7 @@ Future<void> _generateFor(
   );
 
   final Set<String> dependencies = {};
-  for (var library in libraries) {
+  for (var library in outputs.values.expand((out) => out.libraries)) {
     final smithyLibrary = library.smithyLibrary;
     final outPath = path.join(outputPath, smithyLibrary.projectRelativePath);
     final output = library.emit();

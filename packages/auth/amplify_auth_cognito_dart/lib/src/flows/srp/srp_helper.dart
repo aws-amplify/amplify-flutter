@@ -15,9 +15,9 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/crypto/crypto.dart';
 import 'package:amplify_auth_cognito_dart/src/crypto/hkdf.dart';
+import 'package:amplify_auth_cognito_dart/src/exception/srp_error.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_init_result.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
@@ -168,7 +168,7 @@ class SrpHelper {
 
     // The user will abort if he receives B == 0 (mod N) or u == 0.
     if (u == BigInt.zero) {
-      throw const SrpSignInCalculationException(
+      throw SrpError(
         'Hash of A and B cannot be zero',
       );
     }
@@ -249,7 +249,7 @@ class SrpHelper {
 
     // The user will abort if he receives B == 0 (mod N) or u == 0.
     if (publicB % N == BigInt.zero) {
-      throw const SrpSignInCalculationException(
+      throw SrpError(
         'Hash of A and B cannot be zero',
       );
     }

@@ -14,18 +14,19 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_core.launch_url_exception}
-/// Thrown when the requested operation did not complete because a URL could
-/// not be launched, typically because of an error spawning an external process.
+/// {@template amplify_core.auth.service_exception}
+/// Exception thrown when some error occurs in the underlying service.
+///
+/// Check the [underlyingException] for more details.
 /// {@endtemplate}
-class UrlLauncherException extends AmplifyException {
-  /// {@macro amplify_core.launch_url_exception}
-  const UrlLauncherException(
+class AuthServiceException extends AuthException {
+  /// {@macro amplify_core.auth.service_exception}
+  const AuthServiceException(
     super.message, {
     super.recoverySuggestion,
     super.underlyingException,
   });
 
   @override
-  String get runtimeTypeName => 'UrlLauncherException';
+  String get runtimeTypeName => 'ServiceException';
 }

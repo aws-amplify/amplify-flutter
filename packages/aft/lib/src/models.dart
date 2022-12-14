@@ -242,6 +242,7 @@ class SdkConfig
   const SdkConfig({
     this.ref = 'master',
     required this.apis,
+    this.plugins = const [],
   });
 
   factory SdkConfig.fromJson(Map<Object?, Object?>? json) =>
@@ -252,12 +253,13 @@ class SdkConfig
   /// Defaults to `master`.
   final String ref;
   final Map<String, List<ShapeId>?> apis;
+  final List<String> plugins;
 
   @override
   Map<String, Object?> toJson() => _$SdkConfigToJson(this);
 
   @override
-  List<Object?> get props => [apis];
+  List<Object?> get props => [ref, apis, plugins];
 
   @override
   String get runtimeTypeName => 'SdkConfig';

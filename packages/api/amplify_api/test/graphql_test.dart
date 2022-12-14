@@ -110,7 +110,7 @@ final mockHttpClient = MockAWSHttpClient((request, _) async {
   }
   if (request.headers[xApiKey] != 'abc123') {
     // Not expected in test.
-    throw const AmplifyException('Unexpected auth error in test HTTP client');
+    throw Exception('Unexpected auth error in test HTTP client');
   }
   final body = await utf8.decodeStream(request.body);
   if (body.contains('getBlog')) {

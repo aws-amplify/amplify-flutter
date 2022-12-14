@@ -70,7 +70,7 @@ class MethodChannelAmplify extends AmplifyClassImpl {
       } else if (plugin is APIPluginInterface) {
         await API.addPlugin(plugin, authProviderRepo: authProviderRepo);
       } else {
-        throw AmplifyException(
+        throw PluginError(
           'The type of plugin ${plugin.runtimeType} is not yet supported '
           'in Amplify.',
           recoverySuggestion:
@@ -79,7 +79,7 @@ class MethodChannelAmplify extends AmplifyClassImpl {
       }
     } on Exception catch (e) {
       safePrint('Amplify plugin was not added');
-      throw AmplifyException(
+      throw PluginError(
         'Amplify plugin ${plugin.runtimeType} was not added successfully.',
         recoverySuggestion: AmplifyExceptionMessages.missingRecoverySuggestion,
         underlyingException: e.toString(),
@@ -112,10 +112,12 @@ class MethodChannelAmplify extends AmplifyClassImpl {
       } else {
         // This shouldn't happen. All exceptions coming from platform for
         // amplify_flutter should have a known code. Throw an unknown error.
-        throw AmplifyException(AmplifyExceptionMessages.missingExceptionMessage,
-            recoverySuggestion:
-                AmplifyExceptionMessages.missingRecoverySuggestion,
-            underlyingException: e.toString());
+        throw PluginError(
+          AmplifyExceptionMessages.missingExceptionMessage,
+          recoverySuggestion:
+              AmplifyExceptionMessages.missingRecoverySuggestion,
+          underlyingException: e.toString(),
+        );
       }
     }
   }

@@ -240,7 +240,7 @@ class StateMachineBloc
         default:
           break;
       }
-    } on NotAuthorizedException {
+    } on AuthNotAuthorizedException {
       /// The .failAuthentication flag available in the DefineAuthChallenge Lambda trigger
       /// returns a generic NotAuthorizedException.
       ///
@@ -361,7 +361,7 @@ class StateMachineBloc
       }
     } on UserNotConfirmedException catch (e) {
       _exceptionController.add(AuthenticatorException(
-        e.message ?? 'An unknown error occurred',
+        e.message,
         showBanner: false,
       ));
       yield UnauthenticatedState.confirmSignUp;

@@ -17,6 +17,7 @@ library amplify_auth_cognito.util.credentials_providers;
 
 import 'dart:async';
 
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:meta/meta.dart';
 
@@ -29,7 +30,7 @@ class AnonymousCredentialsProvider implements AWSCredentialsProvider {
 
   @override
   FutureOr<AWSCredentials> retrieve() {
-    throw Exception();
+    throw const AuthNotAuthorizedException('No credentials available');
   }
 }
 
