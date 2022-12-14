@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api/src/graphql/helpers/graphql_response_decoder.dart';
 import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -85,12 +87,15 @@ void main() {
         expect(message.messageType, entry.expectedMessageType);
       });
     }
+  });
 
-    test('should decode data errors as a list', () {
+  group('Error handling', () {
+    test('WebsocketMessage should decode data errors as a list', () {
+      const errorMessage =
+          'Cannot return null for non-nullable type: "AWSDateTime" within parent "Blog" (/onCreateBlog/updatedAt)';
       final errors = [
         {
-          'message':
-              'Cannot return null for non-nullable type: "AWSDateTime" within parent "Blog" (/onCreateBlog/updatedAt)',
+          'message': errorMessage,
           'path': ['onCreateBlog', 'updatedAt']
         }
       ];
@@ -104,6 +109,18 @@ void main() {
       expect(
         message.payload!.toJson()['errors'],
         errors,
+      );
+
+      /// GraphQLResponseDecoder should handle a payload with errors.
+      final response = GraphQLResponseDecoder.instance.decode<String>(
+        request: GraphQLRequest(
+          document: '',
+        ),
+        response: message.payload!.toJson(),
+      );
+      expect(
+        response.errors.first.message,
+        errorMessage,
       );
     });
   });
