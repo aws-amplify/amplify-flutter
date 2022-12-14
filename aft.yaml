@@ -24,7 +24,7 @@ ignore:
 # Strongly connected components which should have major version bumps happen 
 # in unison, i.e. a version bump to one package cascades to all.
 components:
-  - name: amplify_flutter
+  - name: Amplify Flutter
     summary: amplify_flutter
     packages:
     - amplify_flutter
@@ -41,22 +41,22 @@ components:
     - amplify_auth_cognito_android
     - amplify_auth_cognito_ios
     - amplify_storage_s3
-  - name: amplify_dart
+  - name: Amplify Dart
     summary: amplify_core
     packages:
     - amplify_auth_cognito_dart
     - amplify_analytics_pinpoint_dart
     - amplify_storage_s3_dart
-  - name: amplify_ui
+  - name: Amplify UI
     packages:
     - amplify_authenticator
-  - name: smithy
+  - name: Smithy
     summary: smithy
     packages:
     - smithy
     - smithy_aws
     - smithy_codegen
-  - name: worker_bee
+  - name: Worker Bee
     summary: worker_bee
     packages:
     - worker_bee

@@ -52,10 +52,10 @@ abstract class _ChangelogBaseCommand extends AmplifyCommand
 
   Future<void> _updateChangelogs({required bool preview}) async {
     for (final package in repo.publishablePackages) {
-      final baseRef = this.baseRef ?? repo.latestTag(package.name);
+      final baseRef = this.baseRef ?? repo.latestBumpRef(package.name);
       if (baseRef == null) {
         exitError(
-          'No tag exists for package (${package.name}). '
+          'No previous version bumps for package (${package.name}). '
           'Supply a base ref manually using --base-ref',
         );
       }

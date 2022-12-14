@@ -12,13 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:collection';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
 import 'package:aft/src/changelog/changelog.dart';
 import 'package:aft/src/changelog/commit_message.dart';
-import 'package:aft/src/util.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
@@ -87,30 +85,39 @@ class Repo {
   /// The libgit repository.
   late final Repository repo = Repository.open(rootDir.path);
 
-  /// The latest tag in the [repo], i.e. the last checkpoint for versioning.
-  String? latestTag([String? packageName]) => maxBy(
-        repo.tags.where((tag) {
-          if (!semverRegex.hasMatch(tag)) {
-            return false;
-          }
-          if (packageName == null) {
-            return true;
-          }
-          final packageRegex = RegExp('${packageName}_v${semverRegex.pattern}');
-          if (packageRegex.hasMatch(tag)) {
-            return true;
-          }
-          final componentForPackage =
-              aftConfig.componentForPackage(packageName);
-          final componentRegex =
-              RegExp('${componentForPackage}_v${semverRegex.pattern}');
-          return componentRegex.hasMatch(tag);
-        }),
-        (t) {
-          final version = semverRegex.firstMatch(t)!.group(0)!;
-          return Version.parse(version);
-        },
+  /// Returns the latest version bump commit for [packageOrComponent], or `null`
+  /// if no such commit exists.
+  ///
+  /// This is the marker of the last time [packageOrComponent] was released and
+  /// is used as the base git reference for calculating changes relevant to this
+  /// version bump.
+  String? latestBumpRef(String packageOrComponent) {
+    final component = components[packageOrComponent]?.name ??
+        components.values
+            .firstWhereOrNull(
+              (component) => component.packages
+                  .map((pkg) => pkg.name)
+                  .contains(packageOrComponent),
+            )
+            ?.name ??
+        packageOrComponent;
+    var commit = Commit.lookup(repo: repo, oid: repo.head.target);
+    while (commit.parents.isNotEmpty) {
+      final commitMessage = CommitMessage.parse(
+        commit.oid.sha,
+        commit.summary,
+        body: commit.body,
+        commitTimeSecs: commit.time,
       );
+      if (commitMessage is VersionCommitMessage &&
+          (commitMessage.updatedComponents.contains(component) ||
+              commitMessage.updatedComponents.isEmpty)) {
+        return commitMessage.sha;
+      }
+      commit = commit.parent(0);
+    }
+    return null;
+  }
 
   /// The directed graph of packages to the packages it depends on.
   late final Map<PackageInfo, List<PackageInfo>> packageGraph =
@@ -208,9 +215,7 @@ class Repo {
               commit.oid.sha,
               commit.summary,
               body: commit.body,
-              dateTime: DateTime.fromMillisecondsSinceEpoch(
-                commit.time * 1000,
-              ).toUtc(),
+              commitTimeSecs: commit.time,
             );
             logger.verbose(
               'Package ${package.name} changed by $changedPath '
@@ -245,25 +250,31 @@ class Repo {
     );
     for (final package in sortedPackages) {
       final changes = changesForPackage(package);
-      changes.commitsByPackage[package]?.forEach((commit) {
-        // TODO(dnys1): Define full set of commit types which should be ignored
-        // when considering version changes.
-        final bumpType = commit.bumpType;
-        if (bumpType == null) {
-          return;
+      final commits = (changes.commitsByPackage[package]?.toList() ?? const [])
+        ..sort((a, b) => a.dateTime.compareTo(b.dateTime));
+      for (final commit in commits) {
+        if (commit.type == CommitType.version) {
+          continue;
         }
-        bumpVersion(
-          package,
-          commit: commit,
-          type: bumpType,
-          includeInChangelog: commit.includeInChangelog,
-        );
+        final bumpType = commit.bumpType;
+        if (bumpType != null) {
+          bumpVersion(
+            package,
+            commit: commit,
+            type: bumpType,
+            includeInChangelog: commit.includeInChangelog,
+          );
+        }
         // Propagate the version change to all packages affected by the same
         // commit as if they were a component.
-        changes.packagesByCommit[commit]?.forEach((commitPackage) {
-          bumpDependency(package, commitPackage);
-        });
-      });
+        //
+        // Even if _this_ commit didn't trigger a version bump, it may be a
+        // merge commit, in which case, it's important to propagate the changes
+        // of previous commits.
+        for (final commitPackage in changes.packagesByCommit[commit]!) {
+          updateConstraint(package, commitPackage);
+        }
+      }
     }
   }
 
@@ -342,7 +353,7 @@ class Repo {
               includeInChangelog: false,
             );
           }
-          bumpDependency(package, dependent);
+          updateConstraint(package, dependent);
         }
       }
 
@@ -389,13 +400,20 @@ class Repo {
     return newVersion;
   }
 
-  /// Bumps the dependency for [package] in [dependent].
-  void bumpDependency(PackageInfo package, PackageInfo dependent) {
+  /// Updates the constraint for [package] in [dependent].
+  void updateConstraint(PackageInfo package, PackageInfo dependent) {
     final newVersion = versionChanges.newVersion(package);
     if (dependent.pubspecInfo.pubspec.dependencies.containsKey(package.name)) {
+      final newConstraint = newVersion.amplifyConstraint(
+        minVersion: newVersion,
+      );
+      logger.verbose(
+        'Bumping dependency for ${dependent.name} in ${package.name} '
+        'to $newConstraint',
+      );
       dependent.pubspecInfo.pubspecYamlEditor.update(
         ['dependencies', package.name],
-        newVersion.amplifyConstraint(minVersion: newVersion),
+        newConstraint,
       );
     }
   }

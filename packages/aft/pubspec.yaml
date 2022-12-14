@@ -53,6 +53,7 @@ dependency_overrides:
   aws_signature_v4:
     path: ../aws_signature_v4
   built_value: ">=8.4.0 <8.5.0"
+  frontend_server_client: ^3.2.0
   smithy:
     path: ../smithy/smithy
   smithy_aws:

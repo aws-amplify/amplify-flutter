@@ -42,11 +42,16 @@ void main() {
 
   group('Repo', () {
     late Repo repo;
+    late String baseRef;
+    final packageBumps = <String, String>{};
 
-    Future<void> runGit(List<String> args) => git.runGit(
-          args,
-          processWorkingDir: repo.rootDir.path,
-        );
+    Future<String> runGit(List<String> args) async {
+      final result = await git.runGit(
+        args,
+        processWorkingDir: repo.rootDir.path,
+      );
+      return (result.stdout as String).trim();
+    }
 
     PackageInfo createPackage(
       String packageName, {
@@ -86,7 +91,6 @@ Initial version.
       final package = PackageInfo(
         name: packageName,
         path: packagePath,
-        usesMonoRepo: false,
         pubspecInfo: PubspecInfo.fromUri(pubspecUri),
         flavor: PackageFlavor.dart,
       );
@@ -95,10 +99,11 @@ Initial version.
       return package;
     }
 
-    Future<void> makeChange(
+    Future<String> makeChange(
       String commitTitle,
-      List<String> packages,
-    ) async {
+      List<String> packages, {
+      Map<String, String>? trailers,
+    }) async {
       for (final package in packages) {
         final newDir = Directory(p.join(repo.rootDir.path, 'packages', package))
             .createTempSync();
@@ -106,7 +111,15 @@ Initial version.
       }
 
       await runGit(['add', '.']);
-      await runGit(['commit', '-m', commitTitle]);
+      await runGit([
+        'commit',
+        '-m',
+        commitTitle,
+        if (trailers != null)
+          ...trailers.entries
+              .expand((e) => ['--trailer', '${e.key}:${e.value}']),
+      ]);
+      return runGit(['rev-parse', 'HEAD']);
     }
 
     setUp(() async {
@@ -118,7 +131,7 @@ Initial version.
         aftConfig: const AftConfig(
           components: [
             AftComponent(
-              name: 'amplify',
+              name: 'Amplify Flutter',
               packages: [
                 'amplify_auth_cognito',
                 'amplify_auth_cognito_ios',
@@ -127,33 +140,10 @@ Initial version.
           ],
         ),
       );
-      await runGit(['commit', '--allow-empty', '-m', 'Initial commit']);
-    });
-
-    test('latestTag', () async {
-      // Create tags for packages + components
-      await runGit(['tag', 'amplify_v1.0.0-next.0+2']);
-      await runGit(['tag', 'amplify_v1.0.0-next.0+1']);
-      await runGit(['tag', 'amplify_auth_cognito_v0.6.6']);
-      await runGit(['tag', 'amplify_auth_cognito_dart_v0.1.0']);
-      await runGit(['tag', 'amplify_auth_cognito_dart_v0.1.1']);
-      await runGit(['tag', 'amplify_auth_cognito_dart_v0.2.0']);
-
-      expect(
-        repo.latestTag('amplify_auth_cognito'),
-        'amplify_v1.0.0-next.0+2',
-        reason: 'Package should follow components',
+      await runGit(
+        ['commit', '--allow-empty', '-m', 'Initial commit'],
       );
-      expect(
-        repo.latestTag('amplify'),
-        'amplify_v1.0.0-next.0+2',
-        reason: 'latestTag should allow component lookups directly',
-      );
-      expect(
-        repo.latestTag('amplify_auth_cognito_dart'),
-        'amplify_auth_cognito_dart_v0.2.0',
-      );
-      expect(repo.latestTag('smithy'), isNull);
+      await runGit(['rev-parse', 'HEAD']);
     });
 
     group('E2E', () {
@@ -198,10 +188,7 @@ Initial version.
 
         await runGit(['add', '.']);
         await runGit(['commit', '-m', 'Add packages']);
-        await runGit(['tag', 'amplify_v$nextVersion']);
-        await runGit(['tag', 'aws_common_v$coreVersion']);
-        await runGit(['tag', 'amplify_core_v$coreVersion']);
-        await runGit(['tag', 'amplify_auth_cognito_dart_v$coreVersion']);
+        baseRef = await runGit(['rev-parse', 'HEAD']);
 
         // Make changes that affect:
         // - Only a leaf package
@@ -228,20 +215,97 @@ Initial version.
             'amplify_auth_cognito_dart',
           ],
         );
+        final coreBump = await makeChange(
+          'chore(version): Release core',
+          [
+            'amplify_core',
+            'amplify_auth_cognito_dart',
+          ],
+          trailers: {
+            'Updated-Components': 'amplify_core, amplify_auth_cognito_dart',
+          },
+        );
+        packageBumps['amplify_core'] = coreBump;
+        packageBumps['amplify_auth_cognito_dart'] = coreBump;
+        final flutterBump = await makeChange(
+          'chore(version): Release flutter',
+          [
+            'amplify_auth_cognito',
+            'amplify_auth_cognito_ios',
+          ],
+          trailers: {
+            'Updated-Components': 'Amplify Flutter',
+          },
+        );
+        packageBumps['amplify_auth_cognito'] = flutterBump;
+        packageBumps['amplify_auth_cognito_ios'] = flutterBump;
       });
 
-      GitChanges changesForPackage(PackageInfo package) {
-        final latestTag = repo.latestTag(package.name)!;
-        return repo.changes(latestTag, 'HEAD');
+      GitChanges changesForPackage(
+        String package, {
+        required String baseRef,
+      }) {
+        return repo.changes(baseRef, 'HEAD');
       }
+
+      group('changesForPackage', () {
+        group('w/ no version bump', () {
+          final packages = {
+            'aws_common': 1,
+            'amplify_core': 3,
+            'amplify_auth_cognito_dart': 2,
+            'amplify_auth_cognito': 2,
+            'amplify_auth_cognito_ios': 3,
+          };
+          for (final entry in packages.entries) {
+            test(entry.key, () {
+              final numCommits = entry.value;
+              final package = repo.allPackages[entry.key]!;
+              expect(
+                changesForPackage(
+                  package.name,
+                  baseRef: baseRef,
+                ).commitsByPackage[package],
+                hasLength(numCommits),
+              );
+            });
+          }
+        });
+
+        group('w/ version bump', () {
+          final packages = {
+            'aws_common': 1, // since it was never released
+            'amplify_core': 0,
+            'amplify_auth_cognito_dart': 0,
+            'amplify_auth_cognito': 0,
+            'amplify_auth_cognito_ios': 0,
+          };
+          for (final entry in packages.entries) {
+            test(entry.key, () {
+              final package = repo.allPackages[entry.key]!;
+              final lastBump = repo.latestBumpRef(package.name);
+              expect(lastBump, packageBumps[package.name]);
+
+              final numCommits = entry.value;
+              expect(
+                changesForPackage(
+                  package.name,
+                  baseRef: lastBump ?? baseRef,
+                ).commitsByPackage[package],
+                hasLength(numCommits),
+              );
+            });
+          }
+        });
+      });
 
       group('calculates changes', () {
         final numCommits = {
           'aws_common': 1,
-          'amplify_core': 2,
-          'amplify_auth_cognito_dart': 1,
-          'amplify_auth_cognito': 1,
-          'amplify_auth_cognito_ios': 2,
+          'amplify_core': 3,
+          'amplify_auth_cognito_dart': 2,
+          'amplify_auth_cognito': 2,
+          'amplify_auth_cognito_ios': 3,
         };
         final changelogs = {
           'aws_common': '''
@@ -282,7 +346,7 @@ Initial version.
 
           test(packageName, () {
             final package = repo.allPackages[packageName]!;
-            final changes = changesForPackage(package);
+            final changes = changesForPackage(package.name, baseRef: baseRef);
             final commits = changes.commitsByPackage[package]!;
             expect(commits, hasLength(check.value));
 
@@ -304,8 +368,8 @@ Initial version.
           'aws_common': '0.1.1',
           'amplify_core': '1.0.0-next.0+1',
           'amplify_auth_cognito_dart': '0.1.1',
-          'amplify_auth_cognito': '1.0.0-next.0+1',
-          'amplify_auth_cognito_ios': '1.0.0-next.0+1',
+          'amplify_auth_cognito': '1.0.0-next.1',
+          'amplify_auth_cognito_ios': '1.0.0-next.1',
         };
         final updatedChangelogs = {
           'aws_common': '''
@@ -328,13 +392,13 @@ Initial version.
 - feat(auth): New feature
 ''',
           'amplify_auth_cognito': '''
-## 1.0.0-next.0+1
+## 1.0.0-next.1
 
 ### Features
 - feat(auth): New feature
 ''',
           'amplify_auth_cognito_ios': '''
-## 1.0.0-next.0+1
+## 1.0.0-next.1
 
 ### Breaking Changes
 - fix(amplify_auth_cognito_ios)!: Change iOS dependency
@@ -371,20 +435,20 @@ dependencies:
 ''',
           'amplify_auth_cognito': '''
 name: amplify_auth_cognito
-version: 1.0.0-next.0+1
+version: 1.0.0-next.1
 
 environment:
   sdk: '>=2.17.0 <3.0.0'
 
 dependencies:
-  amplify_auth_cognito_ios: ">=1.0.0-next.0+1 <1.0.0-next.1"
+  amplify_auth_cognito_ios: ">=1.0.0-next.1 <1.0.0-next.2"
   amplify_auth_cognito_dart: ">=0.1.1 <0.2.0"
   amplify_core: ">=1.0.0-next.0+1 <1.0.0-next.1"
   aws_common: "^0.1.0"
 ''',
           'amplify_auth_cognito_ios': '''
 name: amplify_auth_cognito_ios
-version: 1.0.0-next.0+1
+version: 1.0.0-next.1
 
 environment:
   sdk: '>=2.17.0 <3.0.0'
@@ -393,7 +457,10 @@ environment:
 
         setUp(() async {
           repo.bumpAllVersions(
-            changesForPackage: changesForPackage,
+            changesForPackage: (pkg) => changesForPackage(
+              pkg.name,
+              baseRef: baseRef,
+            ),
           );
         });
 

@@ -52,10 +52,10 @@ class VersionBumpCommand extends AmplifyCommand
   late final bool preview = argResults!['preview'] as bool;
 
   GitChanges _changesForPackage(PackageInfo package) {
-    final baseRef = this.baseRef ?? repo.latestTag(package.name);
+    final baseRef = this.baseRef ?? repo.latestBumpRef(package.name);
     if (baseRef == null) {
       exitError(
-        'No tag exists for package (${package.name}). '
+        'No previous version bumps for package (${package.name}). '
         'Supply a base ref manually using --base-ref',
       );
     }

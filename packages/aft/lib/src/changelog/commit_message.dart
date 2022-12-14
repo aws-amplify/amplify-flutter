@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:convert';
+
 import 'package:aft/aft.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
@@ -23,6 +25,7 @@ final RegExp _commitRegex = RegExp(
   r'(?<breaking>!)?'
   r'(?<description>:\s?.*)?',
 );
+final RegExp _trailerRegex = RegExp(r'^[^:\s]+:[^:]+$');
 
 enum CommitTypeGroup {
   breaking('Breaking Changes'),
@@ -64,9 +67,9 @@ enum CommitType {
 /// {@endtemplate}
 abstract class CommitMessage with AWSEquatable<CommitMessage> {
   /// {@macro aft.changelog.commit_message}
-  const CommitMessage(
-    this.sha,
-    this.summary, {
+  const CommitMessage({
+    required this.sha,
+    required this.summary,
     required this.dateTime,
   });
 
@@ -75,13 +78,18 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
     String sha,
     String summary, {
     required String body,
-    required DateTime dateTime,
+    int? commitTimeSecs,
   }) {
+    final dateTime = commitTimeSecs == null
+        ? DateTime.now().toUtc()
+        : DateTime.fromMillisecondsSinceEpoch(
+            commitTimeSecs * 1000,
+          ).toUtc();
     final mergeCommit = _mergeCommitRegex.firstMatch(summary);
     if (mergeCommit != null) {
       return MergeCommitMessage(
-        sha,
-        mergeCommit.group(0)!,
+        sha: sha,
+        summary: mergeCommit.group(0)!,
         dateTime: dateTime,
       );
     }
@@ -97,7 +105,11 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
 
     final typeStr = commitMessage.namedGroup('type');
     if (typeStr == null) {
-      return UnconventionalCommitMessage(sha, summary, dateTime: dateTime);
+      return UnconventionalCommitMessage(
+        sha: sha,
+        summary: summary,
+        dateTime: dateTime,
+      );
     }
 
     final type = CommitType.values.byName(typeStr);
@@ -115,20 +127,24 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
         .trim();
     // Fall back for malformed messages.
     if (description == null) {
-      return UnconventionalCommitMessage(sha, summary, dateTime: dateTime);
+      return UnconventionalCommitMessage(
+        sha: sha,
+        summary: summary,
+        dateTime: dateTime,
+      );
     }
 
     if (type == CommitType.chore && scopes.singleOrNull == 'version') {
-      return VersionCommitMessage(
-        sha,
-        summary,
+      return VersionCommitMessage.parse(
+        sha: sha,
+        summary: summary,
         body: body,
         dateTime: dateTime,
       );
     }
     return ConventionalCommitMessage(
-      sha,
-      summary,
+      sha: sha,
+      summary: summary,
       description: description,
       type: type,
       isBreakingChange: isBreakingChange,
@@ -184,7 +200,7 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
   }
 
   @override
-  List<Object?> get props => [sha];
+  List<Object?> get props => [summary, dateTime];
 
   @override
   String toString() => summary;
@@ -195,9 +211,9 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
 /// {@endtemplate}
 class MergeCommitMessage extends CommitMessage {
   /// {@macro aft.changelog.merge_commit_message}
-  const MergeCommitMessage(
-    super.sha,
-    super.summary, {
+  const MergeCommitMessage({
+    required super.sha,
+    required super.summary,
     required super.dateTime,
   });
 
@@ -210,9 +226,9 @@ class MergeCommitMessage extends CommitMessage {
 /// {@endtemplate}
 class ConventionalCommitMessage extends CommitMessage {
   /// {@macro aft.changelog.conventional_commit_message}
-  const ConventionalCommitMessage(
-    super.sha,
-    super.summary, {
+  const ConventionalCommitMessage({
+    required super.sha,
+    required super.summary,
     required this.description,
     required this.type,
     required this.isBreakingChange,
@@ -239,6 +255,7 @@ class ConventionalCommitMessage extends CommitMessage {
   @override
   VersionBumpType get bumpType {
     switch (type) {
+      case CommitType.version:
       case CommitType.unconventional:
       case CommitType.merge:
       case CommitType.build:
@@ -248,13 +265,12 @@ class ConventionalCommitMessage extends CommitMessage {
       case CommitType.refactor:
       case CommitType.style:
       case CommitType.test:
-      case CommitType.version:
       case CommitType.fix:
       case CommitType.bug:
       case CommitType.perf:
       case CommitType.revert:
         return isBreakingChange
-            ? VersionBumpType.nonBreaking
+            ? VersionBumpType.breaking
             : VersionBumpType.patch;
       case CommitType.feat:
         return isBreakingChange
@@ -296,9 +312,9 @@ class ConventionalCommitMessage extends CommitMessage {
 /// {@endtemplate}
 class UnconventionalCommitMessage extends CommitMessage {
   /// {@macro aft.changelog.unconventional_commit_message}
-  const UnconventionalCommitMessage(
-    super.sha,
-    super.summary, {
+  const UnconventionalCommitMessage({
+    required super.sha,
+    required super.summary,
     required super.dateTime,
   });
 
@@ -317,16 +333,41 @@ class UnconventionalCommitMessage extends CommitMessage {
 /// {@endtemplate}
 class VersionCommitMessage extends CommitMessage {
   /// {@macro aft.changelog.version_commit_message}
-  const VersionCommitMessage(
-    super.sha,
-    super.summary, {
-    required this.body,
+  factory VersionCommitMessage.parse({
+    required String sha,
+    required String summary,
+    required String body,
+    required DateTime dateTime,
+  }) {
+    final trailers = Map.fromEntries(
+      LineSplitter.split(body).where(_trailerRegex.hasMatch).map(
+            (line) => MapEntry(
+              line.split(':')[0],
+              line.split(':')[1].trim(),
+            ),
+          ),
+    );
+    final updatedComponentsStr = trailers['Updated-Components'];
+    final updatedComponents = updatedComponentsStr == null
+        ? const <String>[]
+        : updatedComponentsStr.split(',').map((el) => el.trim()).toList();
+    return VersionCommitMessage._(
+      sha: sha,
+      summary: summary,
+      updatedComponents: updatedComponents,
+      dateTime: dateTime,
+    );
+  }
+
+  const VersionCommitMessage._({
+    required super.sha,
+    required super.summary,
+    required this.updatedComponents,
     required super.dateTime,
   });
 
-  /// The body of the commit message.
-  // TODO(dnys1): Parse
-  final String body;
+  /// The list of updated components or packages.
+  final List<String> updatedComponents;
 
   @override
   CommitType get type => CommitType.version;
