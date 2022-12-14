@@ -1,3 +1,8 @@
+## 1.0.0-next.2+1
+
+### Fixes
+- fix(api): Race condition at bloc close
+
 ## 1.0.0-next.2
 
 ### Breaking Changes
