@@ -111,6 +111,9 @@ include: package:lints/recommended.yaml
 analyzer:
   errors:
     deprecated_member_use_from_same_package: ignore
+    avoid_unused_constructor_parameters: ignore
+    non_constant_identifier_names: ignore
+    prefer_interpolation_to_compose_strings: ignore
 ''');
 
   // Run `dart pub get`
