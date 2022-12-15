@@ -186,6 +186,8 @@ class MockWebSocketSink extends DelegatingStreamSink<dynamic>
 
   @override
   Future<void> close([int? closeCode, String? closeReason]) async {
+    // The real sink takes some time to close which can cause race conditions.
+    // Mocking that delay here is needed to reproduce/test those conditions.
     await Future<void>.delayed(const Duration(milliseconds: 10));
     return super.close();
   }

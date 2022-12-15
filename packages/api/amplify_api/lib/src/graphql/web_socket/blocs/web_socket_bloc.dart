@@ -116,13 +116,6 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   /// Adds an event to the Bloc.
   void add(WebSocketEvent event) {
-    if (_wsEventController.isClosed &&
-        (_currentState is DisconnectedState ||
-            _currentState is PendingDisconnect)) {
-      // In some cases, the service will keep getting messages during/after
-      // disconnect. Ignore those messages.
-      return;
-    }
     _wsEventController.add(event);
   }
 
@@ -150,6 +143,16 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     logger.debug('Emitting next state: $state');
     _wsStateController.add(state);
     _currentState = state;
+  }
+
+  /// Only add an event if the bloc is open.
+  void _safeAdd(WebSocketEvent event) {
+    if (_wsEventController.isClosed ||
+        _currentState is DisconnectedState ||
+        _currentState is PendingDisconnect) {
+      return;
+    }
+    add(event);
   }
 
   Stream<WebSocketState> _eventTransformer(WebSocketEvent event) async* {
@@ -279,7 +282,9 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     );
 
     _currentState.service.init(_currentState).listen(
-      add,
+      // In some cases, the service will keep getting messages during/after
+      // disconnect. Ignore those messages.
+      _safeAdd,
       onError: (Object error, StackTrace st) {
         _emit(_currentState.failed(error, st));
       },
@@ -500,13 +505,9 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     try {
       final res = await _sendPollRequest();
       await checkPollResponse(res);
-      if (!_wsEventController.isClosed) {
-        add(const PollSuccessEvent());
-      }
+      _safeAdd(const PollSuccessEvent());
     } on Exception catch (e) {
-      if (!_wsEventController.isClosed) {
-        add(PollFailedEvent(e));
-      }
+      _safeAdd(PollFailedEvent(e));
     }
   }
 
