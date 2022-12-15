@@ -468,7 +468,8 @@ environment:
           final packageName = check.key;
           test(packageName, () {
             final package = repo.allPackages[packageName]!;
-            final newVersion = repo.versionChanges.newVersion(package.name);
+            final newVersion =
+                repo.versionChanges.proposedVersion(package.name);
             expect(newVersion.toString(), finalVersions[packageName]);
 
             final changelog = repo.changelogUpdates[package]!.newText;

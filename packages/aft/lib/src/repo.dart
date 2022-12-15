@@ -300,8 +300,9 @@ class Repo {
     final component = components[componentName];
     final currentVersion = package.version;
     final proposedPackageVersion =
-        versionChanges.newVersion(package.name) ?? currentVersion;
-    final proposedComponentVersion = versionChanges.newVersion(componentName);
+        versionChanges.proposedVersion(package.name) ?? currentVersion;
+    final proposedComponentVersion =
+        versionChanges.proposedVersion(componentName);
     final newProposedVersion = currentVersion.nextAmplifyVersion(type);
     final newVersion = maxBy(
       [
@@ -316,7 +317,7 @@ class Repo {
           currentVersion,
           newVersion,
         );
-    versionChanges.updateVersion(
+    versionChanges.updateProposedVersion(
       package,
       newVersion,
       propagateToComponent: propagateToComponent,
@@ -338,7 +339,7 @@ class Repo {
       ..verbose('  newProposedVersion: $newProposedVersion')
       ..verbose('  newVersion: $newVersion');
 
-    if (newVersion > currentVersion) {
+    if (newVersion > proposedPackageVersion) {
       logger.debug(
         'Bumping ${package.name} from $currentVersion to $newVersion: '
         '${commit.summary}',
@@ -402,8 +403,9 @@ class Repo {
         'Updating summary package `${summaryPackage.name}` '
         'with commit: $commit',
       );
-      final packageVersion = versionChanges.newVersion(summaryPackage.name) ??
-          versionChanges.newVersion(componentName);
+      final packageVersion =
+          versionChanges.proposedVersion(summaryPackage.name) ??
+              versionChanges.proposedVersion(componentName);
       final currentChangelogUpdate = changelogUpdates[summaryPackage];
       changelogUpdates[summaryPackage] = summaryPackage.changelog.update(
         commits: {
@@ -419,7 +421,7 @@ class Repo {
 
   /// Updates the constraint for [package] in [dependent].
   void updateConstraint(PackageInfo package, PackageInfo dependent) {
-    final newVersion = versionChanges.newVersion(package.name)!;
+    final newVersion = versionChanges.proposedVersion(package.name)!;
     if (dependent.pubspecInfo.pubspec.dependencies.containsKey(package.name)) {
       final newConstraint = newVersion.amplifyConstraint(
         minVersion: newVersion,
@@ -465,25 +467,22 @@ class VersionChanges {
   final Map<String, Version> _versionUpdates = {};
 
   /// The latest proposed version for [packageOrComponent].
-  Version? newVersion(String packageOrComponent) {
-    final component = _repo.aftConfig.componentForPackage(packageOrComponent);
-    final componentVersion = _versionUpdates['component_$component'];
-    if (componentVersion != null) {
+  Version? proposedVersion(String packageOrComponent) {
+    final isComponent = _repo.components.containsKey(packageOrComponent);
+    final componentVersion = _versionUpdates['component_$packageOrComponent'];
+    if (isComponent) {
       return componentVersion;
-    }
-    if (_repo.components.containsKey(packageOrComponent)) {
-      return null;
     }
     return _versionUpdates[packageOrComponent];
   }
 
   /// Updates the proposed version for [package].
-  void updateVersion(
+  void updateProposedVersion(
     PackageInfo package,
     Version version, {
     required bool propagateToComponent,
   }) {
-    final currentVersion = newVersion(package.name);
+    final currentVersion = proposedVersion(package.name);
     if (currentVersion != null && version <= currentVersion) {
       return;
     }

@@ -1,6 +1,6 @@
 # Versioning Algorithm
 
-The `aft version` command uses Git history + [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) formatting to determine a suitable next version for a package along with the required changes for depending packages.
+The `aft version-bump` command uses Git history + [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) formatting to determine a suitable next version for a package along with the required changes for depending packages.
 
 1. Let `packages` be the set of all packages in the repo which are publishable to `pub.dev`.
 2. For every package `P` in `packages`:
