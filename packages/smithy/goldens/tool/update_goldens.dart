@@ -143,6 +143,7 @@ analyzer:
   errors:
     avoid_unused_constructor_parameters: ignore
     non_constant_identifier_names: ignore
+    prefer_interpolation_to_compose_strings: ignore
 ''');
 
   // Create mono_pkg for testing
