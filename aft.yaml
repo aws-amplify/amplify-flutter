@@ -21,8 +21,11 @@ dependencies:
 ignore:
   - synthetic_package
 
-# Strongly connected components which should have major version bumps happen 
+# Strongly connected components which should have version bumps happen 
 # in unison, i.e. a version bump to one package cascades to all.
+#
+# By default, this happens only for minor version bumps. However, this
+# can be modified on a per-component basis using the `propagate` flag. 
 components:
   - name: Amplify Flutter
     summary: amplify_flutter
