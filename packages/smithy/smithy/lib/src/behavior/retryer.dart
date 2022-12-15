@@ -58,7 +58,7 @@ class Retryer {
           }
           return completer.complete(result);
         } on Exception catch (e) {
-          if (attempt >= _options.maxAttempts) {
+          if (!isRetryable(e) || attempt >= _options.maxAttempts) {
             rethrow;
           }
           if (onRetry != null) {
