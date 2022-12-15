@@ -66,4 +66,5 @@ class ModelSubscriptions {
   }
 }
 
+// TODO(ragingsquirrel3): remove when https://github.com/dart-lang/sdk/issues/50748 addressed
 // ignore_for_file: flutter_style_todos

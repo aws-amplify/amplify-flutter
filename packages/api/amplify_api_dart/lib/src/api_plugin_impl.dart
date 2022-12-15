@@ -87,7 +87,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
   }) async {
     final apiConfig = config?.api?.awsPlugin;
     if (apiConfig == null) {
-      throw const ApiException(
+      throw ConfigurationError(
         'No AWS API config found',
         recoverySuggestion: 'Add API from the Amplify CLI. See '
             'https://docs.amplify.aws/lib/graphqlapi/getting-started/q/platform/flutter/#configure-api',
@@ -95,7 +95,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
     }
     for (final entry in apiConfig.endpoints.entries) {
       if (!entry.value.endpoint.startsWith('https')) {
-        throw ApiException(
+        throw ConfigurationError(
           'Non-HTTPS endpoint found for ${entry.key} which is not supported.',
           recoverySuggestion:
               'Ensure the configured endpoint for ${entry.key} utilizes https.',

@@ -34,6 +34,7 @@ class MockConnectivityPlatform extends Mock
 
 void main() {
   group('ConnectivityPlusPlatform', () {
+    // TODO(ragingsquirrel3): change mocking to injection
     // More runtime mocking Connectivity Plus
     final fakePlatform = MockConnectivityPlatform();
     ConnectivityPlatform.instance = fakePlatform;
