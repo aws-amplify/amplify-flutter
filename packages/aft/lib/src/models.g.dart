@@ -56,13 +56,18 @@ AftComponent _$AftComponentFromJson(Map json) => $checkedCreate(
       ($checkedConvert) {
         $checkKeys(
           json,
-          allowedKeys: const ['name', 'summary', 'packages'],
+          allowedKeys: const ['name', 'summary', 'packages', 'propagate'],
         );
         final val = AftComponent(
           name: $checkedConvert('name', (v) => v as String),
           summary: $checkedConvert('summary', (v) => v as String?),
           packages: $checkedConvert('packages',
               (v) => (v as List<dynamic>).map((e) => e as String).toList()),
+          propagate: $checkedConvert(
+              'propagate',
+              (v) =>
+                  $enumDecodeNullable(_$VersionPropagationEnumMap, v) ??
+                  VersionPropagation.minor),
         );
         return val;
       },
@@ -73,7 +78,15 @@ Map<String, dynamic> _$AftComponentToJson(AftComponent instance) =>
       'name': instance.name,
       'summary': instance.summary,
       'packages': instance.packages,
+      'propagate': _$VersionPropagationEnumMap[instance.propagate]!,
     };
+
+const _$VersionPropagationEnumMap = {
+  VersionPropagation.major: 'major',
+  VersionPropagation.minor: 'minor',
+  VersionPropagation.all: 'all',
+  VersionPropagation.none: 'none',
+};
 
 SdkConfig _$SdkConfigFromJson(Map json) => $checkedCreate(
       'SdkConfig',

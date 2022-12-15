@@ -74,6 +74,7 @@ class Repo {
             summary: summaryPackage,
             packages: packages,
             packageGraph: packageGraph,
+            propagate: component.propagate,
           ),
         );
       }),
@@ -301,11 +302,19 @@ class Repo {
     final currentProposedVersion = versionChanges.newVersion(package);
     final newProposedVersion = currentVersion.nextAmplifyVersion(type);
     final newVersion = maxBy(
-      [currentProposedVersion, newProposedVersion.version],
+      [currentProposedVersion, newProposedVersion],
       (version) => version,
     )!;
-    versionChanges.updateVersion(package, newVersion);
-    propogateToComponent ??= newProposedVersion.propogateToComponent;
+    propogateToComponent ??= component != null &&
+        component.propagate.propagateToComponent(
+          currentVersion,
+          newVersion,
+        );
+    versionChanges.updateVersion(
+      package,
+      newVersion,
+      propagateToComponent: propogateToComponent,
+    );
 
     final currentChangelogUpdate = changelogUpdates[package];
     changelogUpdates[package] = package.changelog.update(
@@ -458,13 +467,19 @@ class VersionChanges {
   }
 
   /// Updates the proposed version for [package].
-  void updateVersion(PackageInfo package, Version version) {
+  void updateVersion(
+    PackageInfo package,
+    Version version, {
+    required bool propagateToComponent,
+  }) {
     final currentVersion = newVersion(package);
     if (version <= currentVersion) {
       return;
     }
-    final component = _repo.aftConfig.componentForPackage(package.name);
-    _versionUpdates['component_$component'] = version;
+    if (propagateToComponent) {
+      final component = _repo.aftConfig.componentForPackage(package.name);
+      _versionUpdates['component_$component'] = version;
+    }
     _versionUpdates[package.name] = version;
   }
 }

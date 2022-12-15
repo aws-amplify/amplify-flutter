@@ -12,9 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/changelog/changelog.dart';
+import 'package:aft/src/changelog/printer.dart';
 import 'package:aft/src/options/git_ref_options.dart';
 import 'package:aft/src/options/glob_options.dart';
 import 'package:aft/src/repo.dart';
@@ -120,18 +123,35 @@ class VersionBumpCommand extends AmplifyCommand
           verbose: verbose,
         );
       }
-
-      logger.info('Version successfully bumped');
-      // TODO(dnys1): Use version bump commit instead of tags
-      // if (yes || prompt('Commit changes? (y/N) ').toLowerCase() == 'y') {
-      //   // Commit and tag changes
-      //   await runGit(['add', '.']);
-      //   await runGit(['commit', '-m', 'chore(version): Bump version']);
-      //   await Future.wait<void>([
-      //     for (final changeEntry in repo.versionChanges.entries)
-      //       runGit(['tag', '${changeEntry.key}_v${changeEntry.value}']),
-      //   ]);
-      // }
     }
+
+    logger.info('Version successfully bumped');
+    // Stage changes
+    final mergedChangelog = Changelog.empty().makeVersionEntry(
+      commits: {
+        for (final package in bumpedPackages)
+          ...?repo.changelogUpdates[package]?.commits,
+      },
+    );
+    final updatedComponents = List.of(bumpedPackages.map((pkg) => pkg.name));
+    for (final component in repo.components.values) {
+      final componentPackages =
+          component.packages.map((pkg) => pkg.name).toList();
+      if (componentPackages.every(updatedComponents.contains)) {
+        updatedComponents
+          ..removeWhere(componentPackages.contains)
+          ..add(component.name);
+      }
+    }
+    final changelog =
+        LineSplitter.split(render(mergedChangelog)).skip(2).join('\n');
+    final commitMsg = '''
+chore(version): Bump version
+
+$changelog
+
+Updated-Components: ${updatedComponents.join(', ')}
+''';
+    stdout.writeln(commitMsg);
   }
 }

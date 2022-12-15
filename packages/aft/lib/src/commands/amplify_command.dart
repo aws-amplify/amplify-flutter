@@ -164,10 +164,15 @@ abstract class AmplifyCommand extends Command<void>
   );
 
   /// Runs `git` with the given [args] from the repo's root directory.
-  Future<void> runGit(List<String> args) => git.runGit(
+  Future<void> runGit(
+    List<String> args, {
+    bool echoOutput = false,
+  }) =>
+      git.runGit(
         args,
         processWorkingDir: rootDir.path,
         throwOnError: true,
+        echoOutput: echoOutput,
       );
 
   /// The `aft.yaml` document.

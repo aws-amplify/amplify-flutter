@@ -226,31 +226,28 @@ extension AmplifyVersion on Version {
       );
 
   /// The next version according to Amplify rules for incrementing.
-  NextVersion nextAmplifyVersion(VersionBumpType type) {
+  Version nextAmplifyVersion(VersionBumpType type) {
     if (preRelease.isEmpty) {
       switch (type) {
         case VersionBumpType.patch:
-          return NextVersion(nextPatch);
+          return nextPatch;
         case VersionBumpType.nonBreaking:
-          return major == 0
-              ? NextVersion(nextPatch)
-              : NextVersion.propogate(nextMinor);
+          return major == 0 ? nextPatch : nextMinor;
         case VersionBumpType.breaking:
-          return NextVersion.propogate(major == 0 ? nextMinor : nextMajor);
+          return major == 0 ? nextMinor : nextMajor;
       }
     }
     if (type == VersionBumpType.breaking) {
-      return NextVersion.propogate(nextPreRelease);
+      return nextPreRelease;
     }
     final newBuild = (build.singleOrNull as int? ?? 0) + 1;
-    final newVersion = Version(
+    return Version(
       major,
       minor,
       patch,
       pre: preRelease.join('.'),
       build: '$newBuild',
     );
-    return NextVersion(newVersion);
   }
 
   /// The constraint to use for this version in pubspecs.
@@ -272,20 +269,6 @@ extension AmplifyVersion on Version {
     }
     return '>=$minVersion <$maxVersion';
   }
-}
-
-class NextVersion with AWSEquatable<NextVersion>, AWSDebuggable {
-  const NextVersion(this.version) : propogateToComponent = false;
-  const NextVersion.propogate(this.version) : propogateToComponent = true;
-
-  final Version version;
-  final bool propogateToComponent;
-
-  @override
-  List<Object?> get props => [version, propogateToComponent];
-
-  @override
-  String get runtimeTypeName => 'NextVersion';
 }
 
 enum DependencyType {
@@ -377,6 +360,51 @@ class AftConfig with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
   Map<String, Object?> toJson() => _$AftConfigToJson(this);
 }
 
+/// Specifies how to propagate version changes within a component.
+enum VersionPropagation {
+  /// Propagates only major version changes.
+  major,
+
+  /// Propagates only minor version changes.
+  minor,
+
+  /// Propagates all version changes.
+  all,
+
+  /// Propagates no version changes.
+  none;
+
+  /// Whether to propagate a version change from [oldVersion] to [newVersion]
+  /// within its component.
+  bool propagateToComponent(Version oldVersion, Version newVersion) {
+    if (oldVersion == newVersion) {
+      return false;
+    }
+    final majorVersionChanged = () {
+      if (newVersion.isPreRelease) {
+        if (oldVersion.isPreRelease) {
+          return newVersion == oldVersion.nextPreRelease;
+        }
+        return true;
+      }
+      return newVersion.major > oldVersion.major;
+    }();
+    switch (this) {
+      case VersionPropagation.major:
+        return majorVersionChanged;
+      case VersionPropagation.minor:
+        if (majorVersionChanged) {
+          return true;
+        }
+        return newVersion.minor > oldVersion.minor;
+      case VersionPropagation.all:
+        return true;
+      case VersionPropagation.none:
+        return false;
+    }
+  }
+}
+
 /// {@template aft.models.aft_component}
 /// Strongly connected components which should have minor/major version bumps
 /// happen in unison, i.e. a version bump to one package cascades to all.
@@ -387,6 +415,7 @@ class AftComponent with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
     required this.name,
     this.summary,
     required this.packages,
+    this.propagate = VersionPropagation.minor,
   });
 
   factory AftComponent.fromJson(Map<String, Object?> json) =>
@@ -401,6 +430,9 @@ class AftComponent with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
   /// The list of packages in the component.
   final List<String> packages;
 
+  /// How to align package versions in this component when one changes.
+  final VersionPropagation propagate;
+
   @override
   String get runtimeTypeName => 'AftComponent';
 
@@ -414,6 +446,7 @@ class AftRepoComponent with AWSEquatable<AftRepoComponent>, AWSDebuggable {
     this.summary,
     required this.packages,
     required this.packageGraph,
+    required this.propagate,
   });
 
   /// The name of the component.
@@ -427,6 +460,9 @@ class AftRepoComponent with AWSEquatable<AftRepoComponent>, AWSDebuggable {
 
   /// The graph of packages to their dependencies.
   final Map<PackageInfo, List<PackageInfo>> packageGraph;
+
+  /// How to align package versions in this component when one changes.
+  final VersionPropagation propagate;
 
   @override
   List<Object?> get props => [name];

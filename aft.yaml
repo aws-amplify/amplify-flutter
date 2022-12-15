@@ -43,6 +43,7 @@ components:
     - amplify_storage_s3
   - name: Amplify Dart
     summary: amplify_core
+    propagate: none
     packages:
     - amplify_auth_cognito_dart
     - amplify_analytics_pinpoint_dart
@@ -55,7 +56,6 @@ components:
     packages:
     - smithy
     - smithy_aws
-    - smithy_codegen
   - name: Worker Bee
     summary: worker_bee
     packages:

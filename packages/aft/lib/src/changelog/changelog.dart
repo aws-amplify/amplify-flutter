@@ -23,8 +23,8 @@ import 'package:collection/collection.dart';
 import 'package:markdown/markdown.dart';
 import 'package:pub_semver/pub_semver.dart';
 
-part 'parser.dart';
 part 'changelog.g.dart';
+part 'parser.dart';
 
 /// Marker version for the `NEXT` (unreleased) version.
 final Version nextVersion = Version(0, 0, 0, pre: nextVersionTag);
@@ -39,6 +39,9 @@ abstract class Changelog implements Built<Changelog, ChangelogBuilder> {
   /// {@macro aft.changelog.changelog}
   factory Changelog([void Function(ChangelogBuilder) updates]) = _$Changelog;
   Changelog._();
+
+  /// Creates an empty changelog.
+  factory Changelog.empty() => Changelog((b) => b..originalText = '');
 
   /// Parses [changelogMd] for a list of the versions.
   ///

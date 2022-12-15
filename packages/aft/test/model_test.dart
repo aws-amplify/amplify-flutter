@@ -18,21 +18,23 @@ import 'package:test/test.dart';
 
 void main() {
   group('AmplifyVersion', () {
+    const proagation = VersionPropagation.minor;
+
     test('0-version', () {
       final version = Version(0, 1, 0);
 
       final patch = version.nextAmplifyVersion(VersionBumpType.patch);
-      expect(patch.version, Version(0, 1, 1));
-      expect(patch.propogateToComponent, false);
+      expect(patch, Version(0, 1, 1));
+      expect(proagation.propagateToComponent(version, patch), false);
 
       final nonBreaking =
           version.nextAmplifyVersion(VersionBumpType.nonBreaking);
-      expect(nonBreaking.version, Version(0, 1, 1));
-      expect(nonBreaking.propogateToComponent, false);
+      expect(nonBreaking, Version(0, 1, 1));
+      expect(proagation.propagateToComponent(version, nonBreaking), false);
 
       final breaking = version.nextAmplifyVersion(VersionBumpType.breaking);
-      expect(breaking.version, Version(0, 2, 0));
-      expect(breaking.propogateToComponent, true);
+      expect(breaking, Version(0, 2, 0));
+      expect(proagation.propagateToComponent(version, breaking), true);
     });
 
     test('pre-release (untagged)', () {
@@ -40,25 +42,25 @@ void main() {
 
       final patch = version.nextAmplifyVersion(VersionBumpType.patch);
       expect(
-        patch.version,
+        patch,
         Version(1, 0, 0, pre: 'next.0', build: '1'),
       );
-      expect(patch.propogateToComponent, false);
+      expect(proagation.propagateToComponent(version, patch), false);
 
       final nonBreaking =
           version.nextAmplifyVersion(VersionBumpType.nonBreaking);
       expect(
-        nonBreaking.version,
+        nonBreaking,
         Version(1, 0, 0, pre: 'next.0', build: '1'),
       );
-      expect(nonBreaking.propogateToComponent, false);
+      expect(proagation.propagateToComponent(version, nonBreaking), false);
 
       final breaking = version.nextAmplifyVersion(VersionBumpType.breaking);
       expect(
-        breaking.version,
+        breaking,
         Version(1, 0, 0, pre: 'next.1'),
       );
-      expect(breaking.propogateToComponent, true);
+      expect(proagation.propagateToComponent(version, breaking), true);
     });
 
     test('pre-release (tagged)', () {
@@ -66,42 +68,42 @@ void main() {
 
       final patch = version.nextAmplifyVersion(VersionBumpType.patch);
       expect(
-        patch.version,
+        patch,
         Version(1, 0, 0, pre: 'next.0', build: '2'),
       );
-      expect(patch.propogateToComponent, false);
+      expect(proagation.propagateToComponent(version, patch), false);
 
       final nonBreaking =
           version.nextAmplifyVersion(VersionBumpType.nonBreaking);
       expect(
-        nonBreaking.version,
+        nonBreaking,
         Version(1, 0, 0, pre: 'next.0', build: '2'),
       );
-      expect(nonBreaking.propogateToComponent, false);
+      expect(proagation.propagateToComponent(version, nonBreaking), false);
 
       final breaking = version.nextAmplifyVersion(VersionBumpType.breaking);
       expect(
-        breaking.version,
+        breaking,
         Version(1, 0, 0, pre: 'next.1'),
       );
-      expect(breaking.propogateToComponent, true);
+      expect(proagation.propagateToComponent(version, breaking), true);
     });
 
     test('release', () {
       final version = Version(1, 0, 0);
 
       final patch = version.nextAmplifyVersion(VersionBumpType.patch);
-      expect(patch.version, Version(1, 0, 1));
-      expect(patch.propogateToComponent, false);
+      expect(patch, Version(1, 0, 1));
+      expect(proagation.propagateToComponent(version, patch), false);
 
       final nonBreaking =
           version.nextAmplifyVersion(VersionBumpType.nonBreaking);
-      expect(nonBreaking.version, Version(1, 1, 0));
-      expect(nonBreaking.propogateToComponent, true);
+      expect(nonBreaking, Version(1, 1, 0));
+      expect(proagation.propagateToComponent(version, nonBreaking), true);
 
       final breaking = version.nextAmplifyVersion(VersionBumpType.breaking);
-      expect(breaking.version, Version(2, 0, 0));
-      expect(breaking.propogateToComponent, true);
+      expect(breaking, Version(2, 0, 0));
+      expect(proagation.propagateToComponent(version, breaking), true);
     });
   });
 }
