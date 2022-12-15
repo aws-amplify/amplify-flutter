@@ -129,6 +129,7 @@ class ServiceClientGenerator extends LibraryGenerator<ServiceShape> {
       final paginatedTraits = operation.paginatedTraits(context);
       final isPaginated = paginatedTraits != null;
       String public(String s) => s.startsWith('_') ? s.substring(1) : s;
+      String private(String s) => s.startsWith('_') ? s : '_$s';
       yield Method(
         (m) => m
           ..docs.addAll([
@@ -167,7 +168,7 @@ class ServiceClientGenerator extends LibraryGenerator<ServiceShape> {
               .symbolFor(operation.shapeId)
               .newInstance([], {
                 for (final field in operation.protocolFields(context))
-                  public(field.name): refer(field.name),
+                  public(field.name): refer(private(field.name)),
               })
               .property(isPaginated ? 'runPaginated' : 'run')
               .call([
