@@ -1,3 +1,8 @@
+## 1.0.0-next.2+1
+
+### Fixes
+- fix(storage): Create a new credential scope for each presigned url
+
 ## 1.0.0-next.2
 
 ### Fixes

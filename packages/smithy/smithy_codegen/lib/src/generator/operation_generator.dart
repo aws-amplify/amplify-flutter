@@ -86,13 +86,11 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
             if (shape.hasDocs(context)) shape.formattedDocs(context),
           ])
           ..optionalParameters.addAll(shape.constructorParameters(context))
-          ..initializers.addAll(shape
-              .constructorParameters(context)
-              .where((p) => p.toThis == false)
-              .map(
-                (field) =>
-                    refer('_${field.name}').assign(refer(field.name)).code,
-              )),
+          ..initializers.addAll(
+              shape.constructorParameters(context).where((p) => !p.toThis).map(
+                    (field) =>
+                        refer('_${field.name}').assign(refer(field.name)).code,
+                  )),
       );
 
   /// The statements of the HTTP request builder.
@@ -587,10 +585,14 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
               protocol.instantiableProtocolSymbol.newInstance([], {
                 'serializers': protocol.serializers(context),
                 'builderFactories': context.builderFactoriesRef,
-                'requestInterceptors':
-                    literalList(protocol.requestInterceptors(shape, context)),
-                'responseInterceptors':
-                    literalList(protocol.responseInterceptors(shape, context)),
+                'requestInterceptors': literalList(
+                  protocol.requestInterceptors(shape, context),
+                  DartTypes.smithy.httpRequestInterceptor,
+                ).operatorAdd(refer('_requestInterceptors')),
+                'responseInterceptors': literalList(
+                  protocol.responseInterceptors(shape, context),
+                  DartTypes.smithy.httpResponseInterceptor,
+                ).operatorAdd(refer('_responseInterceptors')),
                 ...protocol.extraParameters(shape, context),
               }),
           ]).code,

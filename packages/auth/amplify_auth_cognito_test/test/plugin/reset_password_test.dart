@@ -65,17 +65,15 @@ void main() {
 
         final mockIdp = MockCognitoIdentityProviderClient(
           forgotPassword: () async =>
-              throw const NotAuthorizedException('Cognito error message'),
+              throw const AuthNotAuthorizedException('Cognito error message'),
         );
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
         await expectLater(
-          plugin.resetPassword(
-            request: const ResetPasswordRequest(username: username),
-          ),
+          plugin.resetPassword(username: username),
           // TODO(dnys1): Align error handling
           throwsA(
-            isA<NotAuthorizedException>().having(
+            isA<AuthNotAuthorizedException>().having(
               (e) => e.message,
               'message',
               'Cognito error message',
@@ -107,9 +105,7 @@ void main() {
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
         await expectLater(
-          plugin.resetPassword(
-            request: const ResetPasswordRequest(username: username),
-          ),
+          plugin.resetPassword(username: username),
           completion(
             isA<CognitoResetPasswordResult>().having(
               (res) => res.nextStep.codeDeliveryDetails,
@@ -142,9 +138,7 @@ void main() {
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
         await expectLater(
-          plugin.resetPassword(
-            request: const ResetPasswordRequest(username: username),
-          ),
+          plugin.resetPassword(username: username),
           completion(
             isA<CognitoResetPasswordResult>().having(
               (res) => res.nextStep.codeDeliveryDetails,

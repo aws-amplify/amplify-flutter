@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library rest_xml_v2.s3.model.no_such_bucket; // ignore_for_file: no_leading_underscores_for_library_prefixes
 

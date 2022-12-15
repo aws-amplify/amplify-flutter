@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
 library aws_json1_0_v2.json_rpc_10.test.json_unions_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -252,6 +252,49 @@ void main() {
           bodyMediaType: 'application/json',
           params: {
             'contents': {'enumValue': 'Foo'}
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {
+            'Content-Type': 'application/x-amz-json-1.0',
+            'X-Amz-Target': 'JsonRpc10.JsonUnions',
+          },
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'POST',
+          uri: '/',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [JsonUnionsInputAwsJson10Serializer()],
+      );
+    },
+  );
+  _i1.test(
+    'AwsJson10SerializeIntEnumUnionValue (request)',
+    () async {
+      await _i2.httpRequestTest(
+        operation: _i3.JsonUnionsOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'AwsJson10SerializeIntEnumUnionValue',
+          documentation: 'Serializes an intEnum union value',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'awsJson1_0',
+          ),
+          authScheme: null,
+          body: '{\n    "contents": {\n        "intEnumValue": 1\n    }\n}',
+          bodyMediaType: 'application/json',
+          params: {
+            'contents': {'intEnumValue': 1}
           },
           vendorParamsShape: null,
           vendorParams: {},
@@ -610,6 +653,40 @@ void main() {
           bodyMediaType: 'application/json',
           params: {
             'contents': {'enumValue': 'Foo'}
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {'Content-Type': 'application/x-amz-json-1.0'},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          code: 200,
+        ),
+        outputSerializers: const [JsonUnionsOutputAwsJson10Serializer()],
+      );
+    },
+  );
+  _i1.test(
+    'AwsJson10DeserializeIntEnumUnionValue (response)',
+    () async {
+      await _i2.httpResponseTest(
+        operation: _i3.JsonUnionsOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpResponseTestCase(
+          id: 'AwsJson10DeserializeIntEnumUnionValue',
+          documentation: 'Deserializes an intEnum union value',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'awsJson1_0',
+          ),
+          authScheme: null,
+          body: '{\n    "contents": {\n        "intEnumValue": 1\n    }\n}',
+          bodyMediaType: 'application/json',
+          params: {
+            'contents': {'intEnumValue': 1}
           },
           vendorParamsShape: null,
           vendorParams: {},

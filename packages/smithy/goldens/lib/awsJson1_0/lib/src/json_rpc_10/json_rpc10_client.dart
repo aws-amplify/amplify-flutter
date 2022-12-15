@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library aws_json1_0_v1.json_rpc_10.json_rpc10_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -48,15 +48,23 @@ class JsonRpc10Client {
     _i1.AWSHttpClient? client,
     required String region,
     Uri? baseUri,
+    List<_i2.HttpRequestInterceptor> requestInterceptors = const [],
+    List<_i2.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _client = client,
         _region = region,
-        _baseUri = baseUri;
+        _baseUri = baseUri,
+        _requestInterceptors = requestInterceptors,
+        _responseInterceptors = responseInterceptors;
 
   final _i1.AWSHttpClient? _client;
 
   final String _region;
 
   final Uri? _baseUri;
+
+  final List<_i2.HttpRequestInterceptor> _requestInterceptors;
+
+  final List<_i2.HttpResponseInterceptor> _responseInterceptors;
 
   /// The example tests how requests and responses are serialized when there's no request or response payload because the operation has an empty input and empty output structure that reuses the same shape. While this should be rare, code generators must support this.
   _i2.SmithyOperation<_i3.EmptyInputAndEmptyOutputOutput>
@@ -67,6 +75,8 @@ class JsonRpc10Client {
     return _i5.EmptyInputAndEmptyOutputOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -77,6 +87,8 @@ class JsonRpc10Client {
     return _i6.EndpointOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,
@@ -90,6 +102,8 @@ class JsonRpc10Client {
     return _i8.EndpointWithHostLabelOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -104,6 +118,8 @@ class JsonRpc10Client {
     return _i11.GreetingWithErrorsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -114,6 +130,8 @@ class JsonRpc10Client {
     return _i12.HostWithPathOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,
@@ -128,6 +146,8 @@ class JsonRpc10Client {
     return _i15.JsonUnionsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -139,6 +159,8 @@ class JsonRpc10Client {
     return _i16.NoInputAndNoOutputOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,
@@ -151,6 +173,8 @@ class JsonRpc10Client {
     return _i18.NoInputAndOutputOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,
@@ -164,6 +188,8 @@ class JsonRpc10Client {
     return _i21.SimpleScalarPropertiesOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,

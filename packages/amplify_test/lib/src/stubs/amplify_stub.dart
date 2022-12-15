@@ -47,12 +47,12 @@ class AmplifyStub extends AmplifyClass {
           authProviderRepo: AmplifyAuthProviderRepository(),
         );
       } else {
-        throw AmplifyException(
+        throw StateError(
           'The type of plugin ${plugin.runtimeType} is not yet supported.',
         );
       }
     } on Exception {
-      throw AmplifyException(
+      throw StateError(
         'Amplify plugin ${plugin.runtimeType} was not added successfully.',
       );
     }
@@ -67,7 +67,7 @@ class AmplifyStub extends AmplifyClass {
     try {
       jsonDecode(configuration);
     } on FormatException {
-      throw const AmplifyException(
+      throw Exception(
         'The provided configuration is not a valid json.',
       );
     }

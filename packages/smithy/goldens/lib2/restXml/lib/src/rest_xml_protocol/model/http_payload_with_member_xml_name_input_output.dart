@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library rest_xml_v2.rest_xml_protocol.model.http_payload_with_member_xml_name_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 

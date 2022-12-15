@@ -15,8 +15,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
-    hide UpdateUserAttributesRequest;
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
@@ -33,8 +32,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
     hide InvalidParameterException;
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
-import 'package:amplify_core/amplify_core.dart'
-    hide UpdateUserAttributesRequest;
+import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:meta/meta.dart';
@@ -234,12 +232,12 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
     final username = parameters.username;
     final password = parameters.password;
     if (password == null || password.isEmpty) {
-      throw const SrpSignInInputValidationException('No password given');
+      throw const AuthValidationException('No password given');
     }
 
     final initResult = _initResult;
     if (initResult == null) {
-      throw const SrpSignInCalculationException('Must call init first');
+      throw const AuthValidationException('Must call init first');
     }
 
     final worker = await passwordVerifierWorker;
@@ -266,7 +264,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
   Future<RespondToAuthChallengeRequest> createDeviceSrpAuthRequest() async {
     final initResult = _initResult;
     if (initResult == null) {
-      throw const SrpSignInCalculationException('Must call init first');
+      throw StateError('Must call init first');
     }
     return RespondToAuthChallengeRequest.build((b) {
       b
@@ -299,7 +297,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
     final username = parameters.username;
     final password = parameters.password;
     if (password == null || password.isEmpty) {
-      throw const SrpSignInInputValidationException('No password given');
+      throw const AuthValidationException('No password given');
     }
 
     final worker = await devicePasswordVerifierWorker;
@@ -484,7 +482,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
     switch (event.authFlowType) {
       case AuthenticationFlowType.customAuthWithSrp:
         if (password == null) {
-          throw const InvalidParameterException(
+          throw const AuthValidationException(
             'No password was given but customAuthWithSrp was chosen for '
             'authentication flow',
             recoverySuggestion:
@@ -494,7 +492,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         break;
       case AuthenticationFlowType.customAuthWithoutSrp:
         if (password != null) {
-          throw const InvalidParameterException(
+          throw const AuthValidationException(
             'A password was given but customAuthWithoutSrp was chosen for '
             'authentication flow',
             recoverySuggestion:

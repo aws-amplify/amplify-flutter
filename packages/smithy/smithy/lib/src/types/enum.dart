@@ -55,26 +55,41 @@ import 'package:smithy/smithy.dart';
 ///   }
 /// }
 /// ```
-abstract class SmithyEnum<T extends SmithyEnum<T>> with AWSSerializable {
-  const SmithyEnum(this.index, this.name, this.value);
-  const SmithyEnum.sdkUnknown(this.value)
+
+abstract class _SmithyEnumBase<T extends _SmithyEnumBase<T, Value>,
+    Value extends Object> with AWSSerializable<Value> {
+  const _SmithyEnumBase(this.index, this.name, this.value);
+  const _SmithyEnumBase.sdkUnknown(this.value)
       : index = -1,
         name = 'sdkUnknown';
 
   final int index;
   final String name;
-  final String value;
+  final Value value;
 
   @override
-  String toJson() => value;
+  Value toJson() => value;
 
   @override
-  String toString() => value;
+  String toString() => '$value';
 }
 
-class SmithyEnumSerializer<T extends SmithyEnum<T>> extends SmithySerializer<T>
+abstract class SmithyEnum<T extends SmithyEnum<T>>
+    extends _SmithyEnumBase<T, String> {
+  const SmithyEnum(super.index, super.name, super.value);
+  const SmithyEnum.sdkUnknown(super.value) : super.sdkUnknown();
+}
+
+abstract class SmithyIntEnum<T extends SmithyIntEnum<T>>
+    extends _SmithyEnumBase<T, int> {
+  const SmithyIntEnum(super.index, super.name, super.value);
+  const SmithyIntEnum.sdkUnknown(super.value) : super.sdkUnknown();
+}
+
+abstract class _SmithyEnumSerializer<T extends _SmithyEnumBase<T, Value>,
+        Value extends Object> extends SmithySerializer<T>
     implements PrimitiveSerializer<T> {
-  const SmithyEnumSerializer(
+  const _SmithyEnumSerializer(
     String wireName, {
     required this.values,
     required this.sdkUnknown,
@@ -85,7 +100,10 @@ class SmithyEnumSerializer<T extends SmithyEnum<T>> extends SmithySerializer<T>
   final List<T> values;
 
   /// The unknown value constructor.
-  final Constructor<String, T> sdkUnknown;
+  final Constructor<Value, T> sdkUnknown;
+
+  /// Parses serialized values as [Value].
+  Value parse(Object serialized);
 
   @override
   final List<ShapeId> supportedProtocols;
@@ -95,11 +113,13 @@ class SmithyEnumSerializer<T extends SmithyEnum<T>> extends SmithySerializer<T>
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
-  }) =>
-      values.firstWhere(
-        (el) => el.value == serialized,
-        orElse: () => sdkUnknown(serialized as String),
-      );
+  }) {
+    final parsed = parse(serialized);
+    return values.firstWhere(
+      (el) => el.value == parsed,
+      orElse: () => sdkUnknown(parsed),
+    );
+  }
 
   @override
   Object serialize(
@@ -111,4 +131,41 @@ class SmithyEnumSerializer<T extends SmithyEnum<T>> extends SmithySerializer<T>
 
   @override
   Iterable<Type> get types => [T];
+}
+
+class SmithyEnumSerializer<T extends SmithyEnum<T>>
+    extends _SmithyEnumSerializer<T, String> {
+  const SmithyEnumSerializer(
+    super.wireName, {
+    required super.values,
+    required super.sdkUnknown,
+    required super.supportedProtocols,
+  });
+
+  @override
+  String parse(Object serialized) => serialized.toString();
+}
+
+class SmithyIntEnumSerializer<T extends SmithyIntEnum<T>>
+    extends _SmithyEnumSerializer<T, int> {
+  const SmithyIntEnumSerializer(
+    super.wireName, {
+    required super.values,
+    required super.sdkUnknown,
+    required super.supportedProtocols,
+  });
+
+  @override
+  int parse(Object serialized) {
+    if (serialized is num) {
+      return serialized.toInt();
+    }
+    if (serialized is String) {
+      return num.parse(serialized).toInt();
+    }
+    throw ArgumentError(
+      'Invalid serialized value: $serialized (${serialized.runtimeType}). '
+      'Expected int or String.',
+    );
+  }
 }

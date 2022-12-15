@@ -12,36 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:aws_common/aws_common.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:smithy/ast.dart';
 
-part 'http_error_trait.g.dart';
+class HttpErrorTrait extends Trait<int> {
+  const HttpErrorTrait(int code) : super(id, code);
 
-@ShapeIdConverter()
-@JsonSerializable()
-class HttpErrorTrait with AWSSerializable implements Trait<HttpErrorTrait> {
-  const HttpErrorTrait(this.code);
-
-  factory HttpErrorTrait.fromJson(Object? json) =>
-      _$HttpErrorTraitFromJson(<String, Object?>{'code': json});
+  const HttpErrorTrait.fromJson(Object? json) : this(json as int);
 
   static const id = ShapeId.core('httpError');
 
-  final int code;
+  int get code => value;
 
   @override
   bool get isSynthetic => false;
 
   @override
-  List<Object?> get props => [code];
-
-  @override
-  ShapeId get shapeId => id;
-
-  @override
-  Map<String, Object?> toJson() => _$HttpErrorTraitToJson(this);
-
-  @override
-  HttpErrorTrait get value => this;
+  int toJson() => value;
 }

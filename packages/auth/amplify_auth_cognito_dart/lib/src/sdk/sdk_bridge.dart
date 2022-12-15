@@ -16,8 +16,7 @@
 @internal
 library amplify_auth_cognito.sdk.sdk_bridge;
 
-import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
-    hide ConfirmSignUpRequest, SignUpRequest, UpdateUserAttributesRequest;
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_exception.dart';
@@ -116,6 +115,9 @@ class WrappedCognitoIdentityClient implements CognitoIdentityClient {
           region: region,
           credentialsProvider: credentialsProvider,
           client: dependencyManager.getOrCreate(),
+          requestInterceptors: const [
+            WithHeader(AWSHeaders.cacheControl, 'no-store'),
+          ],
         );
 
   final CognitoIdentityClient _base;
@@ -186,6 +188,9 @@ class WrappedCognitoIdentityProviderClient
               : (endpoint.startsWith('http')
                   ? Uri.parse(endpoint)
                   : Uri.parse('https://$endpoint')),
+          requestInterceptors: const [
+            WithHeader(AWSHeaders.cacheControl, 'no-store'),
+          ],
         );
 
   final CognitoIdentityProviderClient _base;

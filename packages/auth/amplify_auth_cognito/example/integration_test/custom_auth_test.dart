@@ -100,7 +100,7 @@ void main() {
         // '123' is the arbitrary challenge answer defined in lambda code
         await expectLater(
           Amplify.Auth.confirmSignIn(confirmationValue: 'wrong'),
-          throwsA(isA<NotAuthorizedException>()),
+          throwsA(isA<AuthNotAuthorizedException>()),
         );
       },
     );
@@ -116,7 +116,7 @@ void main() {
             password: 'wrong',
             options: options,
           ),
-          throwsA(isA<NotAuthorizedException>()),
+          throwsA(isA<AuthNotAuthorizedException>()),
         );
       },
     );

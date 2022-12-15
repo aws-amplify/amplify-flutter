@@ -15,8 +15,8 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/crypto/crypto.dart';
+import 'package:amplify_auth_cognito_dart/src/exception/srp_error.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_helper.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_init_result.dart';
@@ -122,7 +122,7 @@ void main() {
             secretBlock: secretBlock,
             formattedTimestamp: formattedTimestamp,
           ),
-          throwsA(isA<SrpSignInCalculationException>()),
+          throwsA(isA<SrpError>()),
         );
       });
 
@@ -144,7 +144,7 @@ void main() {
             secretBlock: secretBlock,
             formattedTimestamp: formattedTimestamp,
           ),
-          throwsA(isA<SrpSignInCalculationException>()),
+          throwsA(isA<SrpError>()),
         );
       });
     });

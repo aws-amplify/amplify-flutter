@@ -94,7 +94,7 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
       } else if (plugin is APIPluginInterface) {
         await API.addPlugin(plugin, authProviderRepo: authProviderRepo);
       } else {
-        throw AmplifyException(
+        throw PluginError(
           'The type of plugin ${plugin.runtimeType} is not yet supported '
           'in Amplify.',
           recoverySuggestion:
@@ -105,7 +105,7 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
       return;
     } on Exception catch (e) {
       safePrint('Amplify plugin was not added');
-      throw AmplifyException(
+      throw PluginError(
         'Amplify plugin ${plugin.runtimeType} was not added successfully.',
         recoverySuggestion: AmplifyExceptionMessages.missingRecoverySuggestion,
         underlyingException: e,

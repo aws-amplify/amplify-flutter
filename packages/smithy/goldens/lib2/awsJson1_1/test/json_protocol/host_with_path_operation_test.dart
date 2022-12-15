@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
 library aws_json1_1_v2.json_protocol.test.host_with_path_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -37,7 +37,10 @@ void main() {
           params: {},
           vendorParamsShape: null,
           vendorParams: {},
-          headers: {},
+          headers: {
+            'Content-Type': 'application/x-amz-json-1.1',
+            'X-Amz-Target': 'JsonProtocol.HostWithPathOperation',
+          },
           forbidHeaders: [],
           requireHeaders: [],
           tags: [],

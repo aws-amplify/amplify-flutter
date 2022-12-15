@@ -1,0 +1,48 @@
+name: amplify_authenticator
+description: A prebuilt Sign In and Sign Up experience for the Amplify Auth category
+version: 1.0.0-next.1+3
+homepage: https://ui.docs.amplify.aws/flutter/connected-components/authenticator
+repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/authenticator/amplify_authenticator
+issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+  flutter: ">=3.0.0"
+
+dependencies:
+  amplify_auth_cognito: ">=1.0.0-next.2+1 <1.0.0-next.3"
+  amplify_core: ">=1.0.0-next.2 <1.0.0-next.3"
+  amplify_flutter: ">=1.0.0-next.2 <1.0.0-next.3"
+  async: ^2.8.0
+  aws_common: ">=0.3.3 <0.4.0"
+  collection: ^1.15.0
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.17.0
+  meta: ^1.7.0
+  smithy: ">=0.3.0 <0.4.0"
+  stream_transform: ^2.0.0
+
+dev_dependencies:
+  amplify_authenticator_test:
+    path: ../amplify_authenticator_test
+  amplify_lints:
+    path: ../../amplify_lints
+  amplify_test:
+    path: ../../amplify_test
+  flutter_test:
+    sdk: flutter
+  golden_toolkit: ^0.13.0
+  mocktail: ^0.2.0
+  path: any
+
+flutter:
+  assets:
+    - assets/social-buttons/google.png
+
+  fonts:
+    - family: SocialIcons
+      fonts:
+        - asset: assets/social-buttons/SocialIcons.ttf

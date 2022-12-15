@@ -28,6 +28,9 @@ abstract class AWSHeaders {
   /// The `Authorization` header.
   static const authorization = 'Authorization';
 
+  /// The `Cache-Control` header.
+  static const cacheControl = 'Cache-Control';
+
   /// The `Content-Encoding` header.
   static const contentEncoding = 'Content-Encoding';
 

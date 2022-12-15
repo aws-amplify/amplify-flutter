@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library rest_xml_v1.s3.s3_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,13 +22,18 @@ class S3Client {
     _i1.AWSHttpClient? client,
     required String region,
     Uri? baseUri,
-    required _i2.S3ClientConfig s3ClientConfig,
-    required _i3.AWSCredentialsProvider credentialsProvider,
+    _i2.S3ClientConfig s3ClientConfig = const _i2.S3ClientConfig(),
+    _i3.AWSCredentialsProvider credentialsProvider =
+        const _i3.AWSCredentialsProvider.environment(),
+    List<_i4.HttpRequestInterceptor> requestInterceptors = const [],
+    List<_i4.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _client = client,
         _region = region,
         _baseUri = baseUri,
         _s3ClientConfig = s3ClientConfig,
-        _credentialsProvider = credentialsProvider;
+        _credentialsProvider = credentialsProvider,
+        _requestInterceptors = requestInterceptors,
+        _responseInterceptors = responseInterceptors;
 
   final _i1.AWSHttpClient? _client;
 
@@ -40,6 +45,10 @@ class S3Client {
 
   final _i3.AWSCredentialsProvider _credentialsProvider;
 
+  final List<_i4.HttpRequestInterceptor> _requestInterceptors;
+
+  final List<_i4.HttpResponseInterceptor> _responseInterceptors;
+
   _i4.SmithyOperation<_i5.GetBucketLocationOutput> getBucketLocation(
     _i6.GetBucketLocationRequest input, {
     _i1.AWSHttpClient? client,
@@ -49,6 +58,8 @@ class S3Client {
       baseUri: _baseUri,
       s3ClientConfig: _s3ClientConfig,
       credentialsProvider: _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -65,6 +76,8 @@ class S3Client {
       baseUri: _baseUri,
       s3ClientConfig: _s3ClientConfig,
       credentialsProvider: _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,

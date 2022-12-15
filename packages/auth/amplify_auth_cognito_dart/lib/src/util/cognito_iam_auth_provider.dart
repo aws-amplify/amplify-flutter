@@ -37,7 +37,7 @@ class CognitoIamAuthProvider extends AWSIamAmplifyAuthProvider {
     ) as CognitoAuthSession;
     final credentials = authSession.credentials;
     if (credentials == null) {
-      throw const InvalidCredentialsException(
+      throw const AuthNotAuthorizedException(
         'Unable to authorize request with IAM. No AWS credentials.',
       );
     }
@@ -51,7 +51,7 @@ class CognitoIamAuthProvider extends AWSIamAmplifyAuthProvider {
     IamAuthProviderOptions? options,
   }) async {
     if (options == null) {
-      throw const AuthException(
+      throw const AuthNotAuthorizedException(
         'Unable to authorize request with IAM. No region or service provided.',
       );
     }

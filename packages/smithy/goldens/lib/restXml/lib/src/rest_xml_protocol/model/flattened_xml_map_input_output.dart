@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library rest_xml_v1.rest_xml_protocol.model.flattened_xml_map_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 

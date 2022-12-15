@@ -32,15 +32,15 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "packages/amplify_authenticator/"
+    directory: "packages/authenticator/amplify_authenticator/"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "packages/amplify_authenticator/example/"
+    directory: "packages/authenticator/amplify_authenticator/example/"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "packages/amplify_authenticator/example/.dart_tool/flutter_gen/"
+    directory: "packages/authenticator/amplify_authenticator/example/.dart_tool/flutter_gen/"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"

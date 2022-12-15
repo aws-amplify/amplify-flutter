@@ -43,7 +43,7 @@ class QuerySortBy {
     } else if (valueA is Comparable && valueB is Comparable) {
       return orderMultiplier * valueA.compareTo(valueB);
     }
-    throw const AmplifyException(
+    throw const ModelQueryException(
       'A non-comparable field was used as a QuerySortBy',
     );
   }

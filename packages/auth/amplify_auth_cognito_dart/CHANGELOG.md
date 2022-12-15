@@ -1,3 +1,8 @@
+## 0.3.1
+
+### Fixes
+- fix(auth): Add `no-store` cache control header
+
 ## 0.3.0
 
 ### Fixes

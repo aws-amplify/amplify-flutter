@@ -24,17 +24,6 @@ class AmplifyCodeGenModelException extends AmplifyException {
     super.underlyingException,
   });
 
-  /// Constructor for down casting an AmplifyException to this exception
-  AmplifyCodeGenModelException._private(AmplifyException exception)
-      : super(exception.message,
-            recoverySuggestion: exception.recoverySuggestion,
-            underlyingException: exception.underlyingException);
-
-  /// Instantiates and return a new `AmplifyCodeGenModelException` from the
-  /// serialized exception data
-  static AmplifyCodeGenModelException fromMap(
-      Map<String, String> serializedException) {
-    return AmplifyCodeGenModelException._private(
-        AmplifyException.fromMap(serializedException));
-  }
+  @override
+  String get runtimeTypeName => 'AmplifyCodeGenModelException';
 }

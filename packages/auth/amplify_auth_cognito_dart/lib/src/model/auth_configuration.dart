@@ -39,7 +39,7 @@ class AuthConfiguration with AWSEquatable<AuthConfiguration> {
     if (userPoolConfig == null &&
         identityPoolConfig == null &&
         hostedUiConfig == null) {
-      throw const AuthException(
+      throw ConfigurationError(
         'Invalid config: No user pool or identity pool found',
       );
     }

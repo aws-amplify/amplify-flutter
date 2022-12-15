@@ -85,7 +85,7 @@ void main() {
             oldPassword: incorrectPassword,
             newPassword: newPassword,
           ),
-          throwsA(isA<NotAuthorizedException>()),
+          throwsA(isA<AuthNotAuthorizedException>()),
         );
       },
     );

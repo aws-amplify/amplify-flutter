@@ -556,6 +556,14 @@ class _Smithy {
   /// Creates a [smithy.ResponseContext] refererence.
   Reference get responseContext => const Reference('ResponseContext', _url);
 
+  /// Creates a [smithy.HttpRequestInterceptor] refererence.
+  Reference get httpRequestInterceptor =>
+      const Reference('HttpRequestInterceptor', _url);
+
+  /// Creates a [smithy.HttpResponseInterceptor] refererence.
+  Reference get httpResponseInterceptor =>
+      const Reference('HttpResponseInterceptor', _url);
+
   /// Creates a [smithy.HttpServer] refererence.
   Reference httpServer(Reference baseService) => TypeReference((t) => t
     ..symbol = 'HttpServer'
@@ -693,9 +701,21 @@ class _Smithy {
           ..types.add(ref),
       );
 
+  /// Creates a [smithy.SmithyIntEnum] reference for [ref], the enum class.
+  Reference smithyIntEnum(Reference ref) => TypeReference(
+        (t) => t
+          ..symbol = 'SmithyIntEnum'
+          ..url = _url
+          ..types.add(ref),
+      );
+
   /// Creates a [smithy.SmithyEnumSerializer] reference.
   Reference get smithyEnumSerializer =>
       const Reference('SmithyEnumSerializer', _url);
+
+  /// Creates a [smithy.SmithyIntEnumSerializer] reference.
+  Reference get smithyIntEnumSerializer =>
+      const Reference('SmithyIntEnumSerializer', _url);
 
   /// Creates a [smithy.SmithyError] reference.
   Reference get smithyError => const Reference('SmithyError', _url);

@@ -79,6 +79,7 @@ extension ShapeClassName on Shape {
         if (!isEnum) return null;
         break;
       case ShapeType.enum_:
+      case ShapeType.intEnum:
       case ShapeType.structure:
       case ShapeType.operation:
       case ShapeType.union:
@@ -568,6 +569,24 @@ extension OperationShapeUtil on OperationShape {
               .constInstanceNamed('environment', []).code,
       );
     }
+
+    // The requestInterceptors field.
+    yield ConfigParameter(
+      (p) => p
+        ..type = DartTypes.core.list(DartTypes.smithy.httpRequestInterceptor)
+        ..name = 'requestInterceptors'
+        ..location = ParameterLocation.constructor
+        ..defaultTo = const Code('const []'),
+    );
+
+    // The responseInterceptors field.
+    yield ConfigParameter(
+      (p) => p
+        ..type = DartTypes.core.list(DartTypes.smithy.httpResponseInterceptor)
+        ..name = 'responseInterceptors'
+        ..location = ParameterLocation.constructor
+        ..defaultTo = const Code('const []'),
+    );
   }
 
   /// Fields which should be generated for the operation and its service client

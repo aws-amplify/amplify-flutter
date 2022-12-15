@@ -1,3 +1,9 @@
+## 1.0.0-next.2+1
+
+### Fixes
+- fix(api): Race condition at bloc close
+- fix(auth): Add `no-store` cache control header
+
 ## 1.0.0-next.2
 
 ### Breaking Changes

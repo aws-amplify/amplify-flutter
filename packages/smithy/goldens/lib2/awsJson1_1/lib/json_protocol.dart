@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 /// # Sample Json 1.1 Protocol Service
 library aws_json1_1_v2.json_protocol;
@@ -19,8 +19,10 @@ export 'package:aws_json1_1_v2/src/json_protocol/model/foo_error.dart';
 export 'package:aws_json1_1_v2/src/json_protocol/model/greeting_struct.dart';
 export 'package:aws_json1_1_v2/src/json_protocol/model/greeting_with_errors_output.dart';
 export 'package:aws_json1_1_v2/src/json_protocol/model/host_label_input.dart';
+export 'package:aws_json1_1_v2/src/json_protocol/model/integer_enum.dart';
 export 'package:aws_json1_1_v2/src/json_protocol/model/invalid_greeting.dart';
 export 'package:aws_json1_1_v2/src/json_protocol/model/json_enums_input_output.dart';
+export 'package:aws_json1_1_v2/src/json_protocol/model/json_int_enums_input_output.dart';
 export 'package:aws_json1_1_v2/src/json_protocol/model/kitchen_sink.dart';
 export 'package:aws_json1_1_v2/src/json_protocol/model/my_union.dart';
 export 'package:aws_json1_1_v2/src/json_protocol/model/null_operation_input_output.dart';

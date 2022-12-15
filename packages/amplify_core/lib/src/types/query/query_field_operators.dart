@@ -220,7 +220,7 @@ class ContainsQueryOperator extends QueryFieldOperatorSingleValue<String> {
     } else if (other is List<String>) {
       return other.contains(value);
     } else {
-      throw const AmplifyException(
+      throw const ModelQueryException(
         'Invalid type. The .contains() query predicate only supports type String and List<String>.',
         recoverySuggestion: 'Ensure that the field is of the appropriate type.',
       );

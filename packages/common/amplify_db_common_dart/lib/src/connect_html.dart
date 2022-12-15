@@ -65,18 +65,19 @@ Future<Uint8List> loadSqlite3([
       final response = await operation.response;
       final code = response.statusCode;
       if (code >= 300) {
-        throw AmplifyException(
-          'Request to load sqlite3.wasm returned status code: $code.',
-          recoverySuggestion: _loadSqlRecoveryMessage,
+        throw AWSHttpException(
+          request,
+          'Request to load sqlite3.wasm returned status code: $code.\n\n'
+          '$_loadSqlRecoveryMessage',
         );
       }
       return (await response.bodyBytes) as Uint8List;
     } on Object catch (e) {
       if (e is AmplifyException) rethrow;
-      throw AmplifyException(
-        'An unknown exception occurred loading sqlite3.wasm.',
-        recoverySuggestion: _loadSqlRecoveryMessage,
-        underlyingException: e,
+      throw AWSHttpException(
+        request,
+        'An unknown exception occurred loading sqlite3.wasm.\n\n'
+        '$_loadSqlRecoveryMessage\n\n$e',
       );
     }
   });

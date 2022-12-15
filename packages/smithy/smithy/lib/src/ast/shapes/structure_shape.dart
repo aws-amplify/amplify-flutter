@@ -28,6 +28,7 @@ abstract class StructureShape
   static void _init(StructureShapeBuilder b) {
     b.shapeId = ShapeId.empty;
     b.traits = TraitMap.empty();
+    b.members = NamedMembersMap({});
   }
 
   @override

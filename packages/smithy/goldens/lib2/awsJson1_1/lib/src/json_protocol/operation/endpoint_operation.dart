@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library aws_json1_1_v2.json_protocol.operation.endpoint_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,9 +20,13 @@ class EndpointOperation
     Uri? baseUri,
     _i2.AWSCredentialsProvider credentialsProvider =
         const _i2.AWSCredentialsProvider.environment(),
+    List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
+    List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
         _baseUri = baseUri,
-        _credentialsProvider = credentialsProvider;
+        _credentialsProvider = credentialsProvider,
+        _requestInterceptors = requestInterceptors,
+        _responseInterceptors = responseInterceptors;
 
   @override
   late final List<_i1.HttpProtocol<_i1.Unit, _i1.Unit, _i1.Unit, _i1.Unit>>
@@ -30,22 +34,24 @@ class EndpointOperation
     _i3.AwsJson1_1Protocol(
       serializers: _i4.serializers,
       builderFactories: _i4.builderFactories,
-      requestInterceptors: [
-        const _i1.WithHost(),
-        const _i1.WithHeader(
-          'X-Amz-Target',
-          'JsonProtocol.EndpointOperation',
-        ),
-        _i3.WithSigV4(
-          region: _region,
-          service: _i5.AWSService.iam,
-          credentialsProvider: _credentialsProvider,
-        ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.1.1'),
-        const _i3.WithSdkInvocationId(),
-        const _i3.WithSdkRequest(),
-      ],
-      responseInterceptors: [],
+      requestInterceptors: <_i1.HttpRequestInterceptor>[
+            const _i1.WithHost(),
+            const _i1.WithHeader(
+              'X-Amz-Target',
+              'JsonProtocol.EndpointOperation',
+            ),
+            _i3.WithSigV4(
+              region: _region,
+              service: _i5.AWSService.iam,
+              credentialsProvider: _credentialsProvider,
+            ),
+            const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
+          ] +
+          _requestInterceptors,
+      responseInterceptors:
+          <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
     )
   ];
 
@@ -59,6 +65,10 @@ class EndpointOperation
   final Uri? _baseUri;
 
   final _i2.AWSCredentialsProvider _credentialsProvider;
+
+  final List<_i1.HttpRequestInterceptor> _requestInterceptors;
+
+  final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
   _i1.HttpRequest buildRequest(_i1.Unit input) => _i1.HttpRequest((b) {

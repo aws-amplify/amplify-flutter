@@ -301,7 +301,7 @@ void main() {
         final expected = SmithyAst((b) => b
           ..version = SmithyVersion.v2
           ..shapes = ShapeMap({
-            stringId: EnumShape(
+            stringId: StringEnumShape(
               (e) => e
                 ..shapeId = stringId
                 ..members = NamedMembersMap({

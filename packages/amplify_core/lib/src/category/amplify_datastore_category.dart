@@ -53,7 +53,7 @@ class DataStoreCategory extends AmplifyCategory<DataStorePluginInterface> {
         rethrow;
       }
     } else {
-      throw const AmplifyException(
+      throw PluginError(
         'DataStore plugin has already been added, multiple plugins for '
         'DataStore category are currently not supported.',
       );

@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library rest_json1_v1.rest_json_protocol.rest_json_protocol_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -362,15 +362,23 @@ class RestJsonProtocolClient {
     _i1.AWSHttpClient? client,
     required String region,
     Uri? baseUri,
+    List<_i2.HttpRequestInterceptor> requestInterceptors = const [],
+    List<_i2.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _client = client,
         _region = region,
-        _baseUri = baseUri;
+        _baseUri = baseUri,
+        _requestInterceptors = requestInterceptors,
+        _responseInterceptors = responseInterceptors;
 
   final _i1.AWSHttpClient? _client;
 
   final String _region;
 
   final Uri? _baseUri;
+
+  final List<_i2.HttpRequestInterceptor> _requestInterceptors;
+
+  final List<_i2.HttpResponseInterceptor> _responseInterceptors;
 
   /// This example uses all query string types.
   _i2.SmithyOperation<void> allQueryStringTypes(
@@ -380,6 +388,8 @@ class RestJsonProtocolClient {
     return _i4.AllQueryStringTypesOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -394,6 +404,8 @@ class RestJsonProtocolClient {
     return _i6.ConstantAndVariableQueryStringOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -408,6 +420,8 @@ class RestJsonProtocolClient {
     return _i8.ConstantQueryStringOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -422,6 +436,8 @@ class RestJsonProtocolClient {
     return _i10.DocumentTypeOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -437,6 +453,8 @@ class RestJsonProtocolClient {
     return _i12.DocumentTypeAsPayloadOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -452,6 +470,8 @@ class RestJsonProtocolClient {
     return _i15.EmptyInputAndEmptyOutputOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -462,6 +482,8 @@ class RestJsonProtocolClient {
     return _i16.EndpointOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,
@@ -475,6 +497,8 @@ class RestJsonProtocolClient {
     return _i18.EndpointWithHostLabelOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -487,6 +511,8 @@ class RestJsonProtocolClient {
     return _i20.GreetingWithErrorsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,
@@ -497,6 +523,8 @@ class RestJsonProtocolClient {
     return _i21.HostWithPathOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,
@@ -512,6 +540,8 @@ class RestJsonProtocolClient {
     return _i23.HttpChecksumRequiredOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -525,6 +555,8 @@ class RestJsonProtocolClient {
     return _i25.HttpEnumPayloadOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -539,6 +571,8 @@ class RestJsonProtocolClient {
     return _i27.HttpPayloadTraitsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -554,6 +588,8 @@ class RestJsonProtocolClient {
     return _i29.HttpPayloadTraitsWithMediaTypeOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -569,6 +605,8 @@ class RestJsonProtocolClient {
     return _i31.HttpPayloadWithStructureOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -586,6 +624,8 @@ class RestJsonProtocolClient {
     return _i34.HttpPrefixHeadersOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -601,6 +641,8 @@ class RestJsonProtocolClient {
     return _i37.HttpPrefixHeadersInResponseOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -614,6 +656,8 @@ class RestJsonProtocolClient {
     return _i39.HttpRequestWithFloatLabelsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -627,6 +671,8 @@ class RestJsonProtocolClient {
     return _i41.HttpRequestWithGreedyLabelInPathOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -641,6 +687,8 @@ class RestJsonProtocolClient {
     return _i43.HttpRequestWithLabelsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -655,6 +703,8 @@ class RestJsonProtocolClient {
     return _i45.HttpRequestWithLabelsAndTimestampFormatOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -668,6 +718,8 @@ class RestJsonProtocolClient {
     return _i47.HttpRequestWithRegexLiteralOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -679,6 +731,8 @@ class RestJsonProtocolClient {
     return _i49.HttpResponseCodeOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,
@@ -692,6 +746,8 @@ class RestJsonProtocolClient {
     return _i51.HttpStringPayloadOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -704,6 +760,8 @@ class RestJsonProtocolClient {
     return _i53.IgnoreQueryParamsInResponseOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,
@@ -719,6 +777,8 @@ class RestJsonProtocolClient {
     return _i55.InputAndOutputWithHeadersOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -733,6 +793,8 @@ class RestJsonProtocolClient {
     return _i57.JsonBlobsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -747,6 +809,8 @@ class RestJsonProtocolClient {
     return _i59.JsonEnumsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -761,6 +825,8 @@ class RestJsonProtocolClient {
     return _i61.JsonListsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -775,6 +841,8 @@ class RestJsonProtocolClient {
     return _i63.JsonMapsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -789,6 +857,8 @@ class RestJsonProtocolClient {
     return _i65.JsonTimestampsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -803,6 +873,8 @@ class RestJsonProtocolClient {
     return _i67.JsonUnionsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -814,6 +886,8 @@ class RestJsonProtocolClient {
     return _i69.MalformedAcceptWithBodyOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,
@@ -827,6 +901,8 @@ class RestJsonProtocolClient {
     return _i71.MalformedAcceptWithGenericStringOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -838,6 +914,8 @@ class RestJsonProtocolClient {
     return _i73.MalformedAcceptWithPayloadOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,
@@ -851,6 +929,8 @@ class RestJsonProtocolClient {
     return _i75.MalformedBlobOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -864,6 +944,8 @@ class RestJsonProtocolClient {
     return _i77.MalformedBooleanOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -877,6 +959,8 @@ class RestJsonProtocolClient {
     return _i79.MalformedByteOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -890,6 +974,8 @@ class RestJsonProtocolClient {
     return _i80.MalformedContentTypeWithBodyOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -903,6 +989,8 @@ class RestJsonProtocolClient {
     return _i82.MalformedContentTypeWithGenericStringOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -916,6 +1004,8 @@ class RestJsonProtocolClient {
     return _i84.MalformedContentTypeWithPayloadOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -927,6 +1017,8 @@ class RestJsonProtocolClient {
     return _i85.MalformedContentTypeWithoutBodyOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,
@@ -940,6 +1032,8 @@ class RestJsonProtocolClient {
     return _i87.MalformedDoubleOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -953,6 +1047,8 @@ class RestJsonProtocolClient {
     return _i89.MalformedFloatOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -966,6 +1062,8 @@ class RestJsonProtocolClient {
     return _i91.MalformedIntegerOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -979,6 +1077,8 @@ class RestJsonProtocolClient {
     return _i93.MalformedListOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -992,6 +1092,8 @@ class RestJsonProtocolClient {
     return _i95.MalformedLongOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1005,6 +1107,8 @@ class RestJsonProtocolClient {
     return _i97.MalformedMapOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1018,6 +1122,8 @@ class RestJsonProtocolClient {
     return _i99.MalformedRequestBodyOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1031,6 +1137,8 @@ class RestJsonProtocolClient {
     return _i101.MalformedShortOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1044,6 +1152,8 @@ class RestJsonProtocolClient {
     return _i103.MalformedStringOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1057,6 +1167,8 @@ class RestJsonProtocolClient {
     return _i105.MalformedTimestampBodyDateTimeOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1070,6 +1182,8 @@ class RestJsonProtocolClient {
     return _i107.MalformedTimestampBodyDefaultOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1083,6 +1197,8 @@ class RestJsonProtocolClient {
     return _i109.MalformedTimestampBodyHttpDateOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1096,6 +1212,8 @@ class RestJsonProtocolClient {
     return _i111.MalformedTimestampHeaderDateTimeOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1109,6 +1227,8 @@ class RestJsonProtocolClient {
     return _i113.MalformedTimestampHeaderDefaultOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1122,6 +1242,8 @@ class RestJsonProtocolClient {
     return _i115.MalformedTimestampHeaderEpochOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1135,6 +1257,8 @@ class RestJsonProtocolClient {
     return _i117.MalformedTimestampPathDefaultOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1148,6 +1272,8 @@ class RestJsonProtocolClient {
     return _i119.MalformedTimestampPathEpochOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1161,6 +1287,8 @@ class RestJsonProtocolClient {
     return _i121.MalformedTimestampPathHttpDateOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1174,6 +1302,8 @@ class RestJsonProtocolClient {
     return _i123.MalformedTimestampQueryDefaultOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1187,6 +1317,8 @@ class RestJsonProtocolClient {
     return _i125.MalformedTimestampQueryEpochOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1200,6 +1332,8 @@ class RestJsonProtocolClient {
     return _i127.MalformedTimestampQueryHttpDateOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1213,6 +1347,8 @@ class RestJsonProtocolClient {
     return _i129.MalformedUnionOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1227,6 +1363,8 @@ class RestJsonProtocolClient {
     return _i132.MediaTypeHeaderOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1238,6 +1376,8 @@ class RestJsonProtocolClient {
     return _i133.NoInputAndNoOutputOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,
@@ -1250,6 +1390,8 @@ class RestJsonProtocolClient {
     return _i135.NoInputAndOutputOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,
@@ -1264,6 +1406,8 @@ class RestJsonProtocolClient {
     return _i137.NullAndEmptyHeadersClientOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1278,6 +1422,8 @@ class RestJsonProtocolClient {
     return _i138.NullAndEmptyHeadersServerOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1292,6 +1438,8 @@ class RestJsonProtocolClient {
     return _i140.OmitsNullSerializesEmptyStringOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1306,6 +1454,8 @@ class RestJsonProtocolClient {
     return _i143.PostPlayerActionOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1320,6 +1470,8 @@ class RestJsonProtocolClient {
     return _i146.PostUnionWithJsonNameOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1334,6 +1486,8 @@ class RestJsonProtocolClient {
     return _i148.QueryIdempotencyTokenAutoFillOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1347,6 +1501,8 @@ class RestJsonProtocolClient {
     return _i150.QueryParamsAsStringListMapOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1360,6 +1516,8 @@ class RestJsonProtocolClient {
     return _i152.QueryPrecedenceOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1374,6 +1532,8 @@ class RestJsonProtocolClient {
     return _i154.RecursiveShapesOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1388,6 +1548,8 @@ class RestJsonProtocolClient {
     return _i156.ResponseCodeHttpFallbackOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1399,6 +1561,8 @@ class RestJsonProtocolClient {
     return _i158.ResponseCodeRequiredOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,
@@ -1413,6 +1577,8 @@ class RestJsonProtocolClient {
     return _i160.SimpleScalarPropertiesOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1427,6 +1593,8 @@ class RestJsonProtocolClient {
     return _i162.StreamingTraitsOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1441,6 +1609,8 @@ class RestJsonProtocolClient {
     return _i164.StreamingTraitsRequireLengthOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1456,6 +1626,8 @@ class RestJsonProtocolClient {
     return _i166.StreamingTraitsWithMediaTypeOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1470,6 +1642,8 @@ class RestJsonProtocolClient {
     return _i168.TestBodyStructureOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1484,6 +1658,8 @@ class RestJsonProtocolClient {
     return _i170.TestNoPayloadOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1498,6 +1674,8 @@ class RestJsonProtocolClient {
     return _i172.TestPayloadBlobOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1513,6 +1691,8 @@ class RestJsonProtocolClient {
     return _i174.TestPayloadStructureOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1527,6 +1707,8 @@ class RestJsonProtocolClient {
     return _i176.TimestampFormatHeadersOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1538,6 +1720,8 @@ class RestJsonProtocolClient {
     return _i177.UnitInputAndOutputOperation(
       region: _region,
       baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i2.Unit(),
       client: client ?? _client,

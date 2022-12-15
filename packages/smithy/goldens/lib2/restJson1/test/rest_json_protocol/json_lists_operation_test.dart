@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
 library rest_json1_v2.rest_json_protocol.test.json_lists_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -7,10 +7,12 @@ import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/serializer.dart';
 import 'package:rest_json1_v2/src/rest_json_protocol/model/foo_enum.dart'
     as _i7;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/integer_enum.dart'
+    as _i8;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/json_lists_input_output.dart'
     as _i5;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/structure_list_member.dart'
-    as _i8;
+    as _i9;
 import 'package:rest_json1_v2/src/rest_json_protocol/operation/json_lists_operation.dart'
     as _i3;
 import 'package:smithy/smithy.dart' as _i4;
@@ -35,7 +37,7 @@ void main() {
           ),
           authScheme: null,
           body:
-              '{\n    "stringList": [\n        "foo",\n        "bar"\n    ],\n    "stringSet": [\n        "foo",\n        "bar"\n    ],\n    "integerList": [\n        1,\n        2\n    ],\n    "booleanList": [\n        true,\n        false\n    ],\n    "timestampList": [\n        1398796238,\n        1398796238\n    ],\n    "enumList": [\n        "Foo",\n        "0"\n    ],\n    "nestedStringList": [\n        [\n            "foo",\n            "bar"\n        ],\n        [\n            "baz",\n            "qux"\n        ]\n    ],\n    "myStructureList": [\n        {\n            "value": "1",\n            "other": "2"\n        },\n        {\n            "value": "3",\n            "other": "4"\n        }\n    ]\n}',
+              '{\n    "stringList": [\n        "foo",\n        "bar"\n    ],\n    "stringSet": [\n        "foo",\n        "bar"\n    ],\n    "integerList": [\n        1,\n        2\n    ],\n    "booleanList": [\n        true,\n        false\n    ],\n    "timestampList": [\n        1398796238,\n        1398796238\n    ],\n    "enumList": [\n        "Foo",\n        "0"\n    ],\n    "intEnumList": [\n        1,\n        2\n    ],\n    "nestedStringList": [\n        [\n            "foo",\n            "bar"\n        ],\n        [\n            "baz",\n            "qux"\n        ]\n    ],\n    "myStructureList": [\n        {\n            "value": "1",\n            "other": "2"\n        },\n        {\n            "value": "3",\n            "other": "4"\n        }\n    ]\n}',
           bodyMediaType: 'application/json',
           params: {
             'stringList': [
@@ -61,6 +63,10 @@ void main() {
             'enumList': [
               'Foo',
               '0',
+            ],
+            'intEnumList': [
+              1,
+              2,
             ],
             'nestedStringList': [
               [
@@ -210,7 +216,7 @@ void main() {
           ),
           authScheme: null,
           body:
-              '{\n    "stringList": [\n        "foo",\n        "bar"\n    ],\n    "stringSet": [\n        "foo",\n        "bar"\n    ],\n    "integerList": [\n        1,\n        2\n    ],\n    "booleanList": [\n        true,\n        false\n    ],\n    "timestampList": [\n        1398796238,\n        1398796238\n    ],\n    "enumList": [\n        "Foo",\n        "0"\n    ],\n    "nestedStringList": [\n        [\n            "foo",\n            "bar"\n        ],\n        [\n            "baz",\n            "qux"\n        ]\n    ],\n    "myStructureList": [\n        {\n            "value": "1",\n            "other": "2"\n        },\n        {\n            "value": "3",\n            "other": "4"\n        }\n    ]\n}',
+              '{\n    "stringList": [\n        "foo",\n        "bar"\n    ],\n    "stringSet": [\n        "foo",\n        "bar"\n    ],\n    "integerList": [\n        1,\n        2\n    ],\n    "booleanList": [\n        true,\n        false\n    ],\n    "timestampList": [\n        1398796238,\n        1398796238\n    ],\n    "enumList": [\n        "Foo",\n        "0"\n    ],\n    "intEnumList": [\n        1,\n        2\n    ],\n    "nestedStringList": [\n        [\n            "foo",\n            "bar"\n        ],\n        [\n            "baz",\n            "qux"\n        ]\n    ],\n    "myStructureList": [\n        {\n            "value": "1",\n            "other": "2"\n        },\n        {\n            "value": "3",\n            "other": "4"\n        }\n    ]\n}',
           bodyMediaType: 'application/json',
           params: {
             'stringList': [
@@ -236,6 +242,10 @@ void main() {
             'enumList': [
               'Foo',
               '0',
+            ],
+            'intEnumList': [
+              1,
+              2,
             ],
             'nestedStringList': [
               [
@@ -401,6 +411,17 @@ class JsonListsInputOutputRestJson1Serializer
             ) as _i6.BuiltList<_i7.FooEnum>));
           }
           break;
+        case 'intEnumList':
+          if (value != null) {
+            result.intEnumList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltList,
+                [FullType(_i8.IntegerEnum)],
+              ),
+            ) as _i6.BuiltList<_i8.IntegerEnum>));
+          }
+          break;
         case 'integerList':
           if (value != null) {
             result.integerList.replace((serializers.deserialize(
@@ -467,9 +488,9 @@ class JsonListsInputOutputRestJson1Serializer
               value,
               specifiedType: const FullType(
                 _i6.BuiltList,
-                [FullType(_i8.StructureListMember)],
+                [FullType(_i9.StructureListMember)],
               ),
-            ) as _i6.BuiltList<_i8.StructureListMember>));
+            ) as _i6.BuiltList<_i9.StructureListMember>));
           }
           break;
         case 'timestampList':
@@ -500,11 +521,11 @@ class JsonListsInputOutputRestJson1Serializer
 }
 
 class StructureListMemberRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<_i8.StructureListMember> {
+    extends _i4.StructuredSmithySerializer<_i9.StructureListMember> {
   const StructureListMemberRestJson1Serializer() : super('StructureListMember');
 
   @override
-  Iterable<Type> get types => const [_i8.StructureListMember];
+  Iterable<Type> get types => const [_i9.StructureListMember];
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -513,12 +534,12 @@ class StructureListMemberRestJson1Serializer
         )
       ];
   @override
-  _i8.StructureListMember deserialize(
+  _i9.StructureListMember deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i8.StructureListMemberBuilder();
+    final result = _i9.StructureListMemberBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;

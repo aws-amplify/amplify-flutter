@@ -21,21 +21,12 @@ import 'package:meta/meta.dart';
 /// All other Amplify APIs throw subclasses of AmplifyException.
 /// {@endtemplate}
 @immutable
-class AmplifyException
-    with AWSEquatable<AmplifyException>
+abstract class AmplifyException
+    with
+        AWSDebuggable,
+        AWSEquatable<AmplifyException>,
+        AWSSerializable<Map<String, Object?>>
     implements Exception {
-  /// A descriptive message of the problem.
-  final String message;
-
-  /// How to recover from this exception.
-  final String? recoverySuggestion;
-
-  /// Underlying cause of this exception helpful for debugging.
-  final Object? underlyingException;
-
-  @override
-  List<Object?> get props => [message, recoverySuggestion, underlyingException];
-
   /// {@macro amplify_core.amplify_exception}
   const AmplifyException(
     this.message, {
@@ -52,15 +43,46 @@ class AmplifyException
       );
     }
 
-    return AmplifyException(
+    return _AmplifyException(
       serializedException['message']!,
       recoverySuggestion: serializedException['recoverySuggestion'],
       underlyingException: serializedException['underlyingException'],
     );
   }
 
+  /// A descriptive message of the problem.
+  final String message;
+
+  /// How to recover from this exception.
+  final String? recoverySuggestion;
+
+  /// Underlying cause of this exception helpful for debugging.
+  final Object? underlyingException;
+
   @override
-  String toString() =>
-      '$runtimeType(message: $message, recoverySuggestion: $recoverySuggestion,'
-      ' underlyingException: $underlyingException)';
+  List<Object?> get props => [
+        message,
+        recoverySuggestion,
+        underlyingException,
+      ];
+
+  @override
+  String get runtimeTypeName => 'AmplifyException';
+
+  @override
+  Map<String, Object?> toJson() => {
+        'message': message,
+        if (recoverySuggestion != null)
+          'recoverySuggestion': recoverySuggestion,
+        if (underlyingException != null)
+          'underlyingException': underlyingException.toString(),
+      };
+}
+
+class _AmplifyException extends AmplifyException {
+  const _AmplifyException(
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
 }

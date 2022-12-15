@@ -25,4 +25,7 @@ class UrlLauncherException extends AmplifyException {
     super.recoverySuggestion,
     super.underlyingException,
   });
+
+  @override
+  String get runtimeTypeName => 'UrlLauncherException';
 }

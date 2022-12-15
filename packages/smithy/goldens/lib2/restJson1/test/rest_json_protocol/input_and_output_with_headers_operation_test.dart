@@ -1,15 +1,17 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 // ignore_for_file: unused_element
 library rest_json1_v2.rest_json_protocol.test.input_and_output_with_headers_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i8;
+import 'package:fixnum/fixnum.dart' as _i9;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/foo_enum.dart'
     as _i7;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/input_and_output_with_headers_io.dart'
     as _i5;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/integer_enum.dart'
+    as _i8;
 import 'package:rest_json1_v2/src/rest_json_protocol/operation/input_and_output_with_headers_operation.dart'
     as _i3;
 import 'package:smithy/smithy.dart' as _i4;
@@ -311,6 +313,56 @@ void main() {
           headers: {
             'X-Enum': 'Foo',
             'X-EnumList': 'Foo, Bar, Baz',
+          },
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'POST',
+          uri: '/InputAndOutputWithHeaders',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          InputAndOutputWithHeadersIoRestJson1Serializer()
+        ],
+      );
+    },
+  );
+  _i1.test(
+    'RestJsonInputAndOutputWithIntEnumHeaders (request)',
+    () async {
+      await _i2.httpRequestTest(
+        operation: _i3.InputAndOutputWithHeadersOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonInputAndOutputWithIntEnumHeaders',
+          documentation: 'Tests requests with intEnum header bindings',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: null,
+          params: {
+            'headerIntegerEnum': 1,
+            'headerIntegerEnumList': [
+              1,
+              2,
+              3,
+            ],
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {
+            'X-IntegerEnum': '1',
+            'X-IntegerEnumList': '1, 2, 3',
           },
           forbidHeaders: [],
           requireHeaders: [],
@@ -746,6 +798,50 @@ void main() {
     },
   );
   _i1.test(
+    'RestJsonInputAndOutputWithIntEnumHeaders (response)',
+    () async {
+      await _i2.httpResponseTest(
+        operation: _i3.InputAndOutputWithHeadersOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpResponseTestCase(
+          id: 'RestJsonInputAndOutputWithIntEnumHeaders',
+          documentation: 'Tests responses with intEnum header bindings',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: null,
+          bodyMediaType: null,
+          params: {
+            'headerIntegerEnum': 1,
+            'headerIntegerEnumList': [
+              1,
+              2,
+              3,
+            ],
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {
+            'X-IntegerEnum': '1',
+            'X-IntegerEnumList': '1, 2, 3',
+          },
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          code: 200,
+        ),
+        outputSerializers: const [
+          InputAndOutputWithHeadersIoRestJson1Serializer()
+        ],
+      );
+    },
+  );
+  _i1.test(
     'RestJsonSupportsNaNFloatHeaderOutputs (response)',
     () async {
       await _i2.httpResponseTest(
@@ -964,6 +1060,25 @@ class InputAndOutputWithHeadersIoRestJson1Serializer
             ) as int);
           }
           break;
+        case 'headerIntegerEnum':
+          if (value != null) {
+            result.headerIntegerEnum = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i8.IntegerEnum),
+            ) as _i8.IntegerEnum);
+          }
+          break;
+        case 'headerIntegerEnumList':
+          if (value != null) {
+            result.headerIntegerEnumList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltList,
+                [FullType(_i8.IntegerEnum)],
+              ),
+            ) as _i6.BuiltList<_i8.IntegerEnum>));
+          }
+          break;
         case 'headerIntegerList':
           if (value != null) {
             result.headerIntegerList.replace((serializers.deserialize(
@@ -979,8 +1094,8 @@ class InputAndOutputWithHeadersIoRestJson1Serializer
           if (value != null) {
             result.headerLong = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i8.Int64),
-            ) as _i8.Int64);
+              specifiedType: const FullType(_i9.Int64),
+            ) as _i9.Int64);
           }
           break;
         case 'headerShort':

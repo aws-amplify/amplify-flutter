@@ -1,9 +1,9 @@
-// Generated with smithy-dart 0.1.1. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library rest_xml_v2.rest_xml_protocol.rest_xml_protocol_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i4;
-import 'dart:typed_data' as _i54;
+import 'dart:typed_data' as _i55;
 
 import 'package:built_value/serializer.dart';
 import 'package:rest_xml_v2/src/rest_xml_protocol/common/serializers.dart'
@@ -13,7 +13,7 @@ import 'package:rest_xml_v2/src/rest_xml_protocol/model/all_query_string_types_i
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/body_with_xml_name_input_output.dart'
     as _i6;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/complex_error.dart'
-    as _i59;
+    as _i60;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/constant_and_variable_query_string_input.dart'
     as _i7;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/constant_query_string_input.dart'
@@ -65,9 +65,9 @@ import 'package:rest_xml_v2/src/rest_xml_protocol/model/ignore_query_params_in_r
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/input_and_output_with_headers_io.dart'
     as _i31;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/invalid_greeting.dart'
-    as _i60;
+    as _i61;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/nested_payload.dart'
-    as _i56;
+    as _i57;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/nested_xml_maps_input_output.dart'
     as _i32;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/no_input_and_output_output.dart'
@@ -77,11 +77,11 @@ import 'package:rest_xml_v2/src/rest_xml_protocol/model/null_and_empty_headers_i
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/omits_null_serializes_empty_string_input.dart'
     as _i35;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/payload_with_xml_name.dart'
-    as _i55;
+    as _i56;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/payload_with_xml_namespace.dart'
-    as _i57;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/payload_with_xml_namespace_and_prefix.dart'
     as _i58;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/payload_with_xml_namespace_and_prefix.dart'
+    as _i59;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/query_idempotency_token_auto_fill_input.dart'
     as _i36;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/query_params_as_string_list_map_input.dart'
@@ -104,19 +104,21 @@ import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_empty_strings_input_
     as _i47;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_enums_input_output.dart'
     as _i48;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_int_enums_input_output.dart'
+    as _i49;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_lists_input_output.dart'
     as _i45;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_maps_input_output.dart'
     as _i46;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_maps_xml_name_input_output.dart'
-    as _i49;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_namespaces_input_output.dart'
     as _i50;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_timestamps_input_output.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_namespaces_input_output.dart'
     as _i51;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_unions_input_output.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_timestamps_input_output.dart'
     as _i52;
-import 'package:shelf/shelf.dart' as _i53;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_unions_input_output.dart'
+    as _i53;
+import 'package:shelf/shelf.dart' as _i54;
 import 'package:shelf_router/shelf_router.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
@@ -368,6 +370,11 @@ abstract class RestXmlProtocolServerBase extends _i1.HttpServerBase {
     );
     router.add(
       'PUT',
+      r'/XmlIntEnums',
+      service.xmlIntEnums,
+    );
+    router.add(
+      'PUT',
       r'/XmlLists',
       service.xmlLists,
     );
@@ -594,6 +601,10 @@ abstract class RestXmlProtocolServerBase extends _i1.HttpServerBase {
     _i48.XmlEnumsInputOutput input,
     _i1.Context context,
   );
+  _i4.Future<_i49.XmlIntEnumsInputOutput> xmlIntEnums(
+    _i49.XmlIntEnumsInputOutput input,
+    _i1.Context context,
+  );
   _i4.Future<_i45.XmlListsInputOutput> xmlLists(
     _i45.XmlListsInputOutput input,
     _i1.Context context,
@@ -602,23 +613,23 @@ abstract class RestXmlProtocolServerBase extends _i1.HttpServerBase {
     _i46.XmlMapsInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i49.XmlMapsXmlNameInputOutput> xmlMapsXmlName(
-    _i49.XmlMapsXmlNameInputOutput input,
+  _i4.Future<_i50.XmlMapsXmlNameInputOutput> xmlMapsXmlName(
+    _i50.XmlMapsXmlNameInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i50.XmlNamespacesInputOutput> xmlNamespaces(
-    _i50.XmlNamespacesInputOutput input,
+  _i4.Future<_i51.XmlNamespacesInputOutput> xmlNamespaces(
+    _i51.XmlNamespacesInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i51.XmlTimestampsInputOutput> xmlTimestamps(
-    _i51.XmlTimestampsInputOutput input,
+  _i4.Future<_i52.XmlTimestampsInputOutput> xmlTimestamps(
+    _i52.XmlTimestampsInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i52.XmlUnionsInputOutput> xmlUnions(
-    _i52.XmlUnionsInputOutput input,
+  _i4.Future<_i53.XmlUnionsInputOutput> xmlUnions(
+    _i53.XmlUnionsInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i53.Response> call(_i53.Request request) => _router(request);
+  _i4.Future<_i54.Response> call(_i54.Request request) => _router(request);
 }
 
 class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
@@ -745,8 +756,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     noErrorWrapping: false,
   );
 
-  late final _i1.HttpProtocol<_i54.Uint8List, _i17.HttpPayloadTraitsInputOutput,
-          _i54.Uint8List, _i17.HttpPayloadTraitsInputOutput>
+  late final _i1.HttpProtocol<_i55.Uint8List, _i17.HttpPayloadTraitsInputOutput,
+          _i55.Uint8List, _i17.HttpPayloadTraitsInputOutput>
       _httpPayloadTraitsProtocol = _i2.RestXmlProtocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
@@ -754,9 +765,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
   );
 
   late final _i1.HttpProtocol<
-          _i54.Uint8List,
+          _i55.Uint8List,
           _i18.HttpPayloadTraitsWithMediaTypeInputOutput,
-          _i54.Uint8List,
+          _i55.Uint8List,
           _i18.HttpPayloadTraitsWithMediaTypeInputOutput>
       _httpPayloadTraitsWithMediaTypeProtocol = _i2.RestXmlProtocol(
     serializers: _i3.serializers,
@@ -766,9 +777,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
   );
 
   late final _i1.HttpProtocol<
-          _i55.PayloadWithXmlName,
+          _i56.PayloadWithXmlName,
           _i19.HttpPayloadWithMemberXmlNameInputOutput,
-          _i55.PayloadWithXmlName,
+          _i56.PayloadWithXmlName,
           _i19.HttpPayloadWithMemberXmlNameInputOutput>
       _httpPayloadWithMemberXmlNameProtocol = _i2.RestXmlProtocol(
     serializers: _i3.serializers,
@@ -777,9 +788,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
   );
 
   late final _i1.HttpProtocol<
-          _i56.NestedPayload,
+          _i57.NestedPayload,
           _i20.HttpPayloadWithStructureInputOutput,
-          _i56.NestedPayload,
+          _i57.NestedPayload,
           _i20.HttpPayloadWithStructureInputOutput>
       _httpPayloadWithStructureProtocol = _i2.RestXmlProtocol(
     serializers: _i3.serializers,
@@ -788,9 +799,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
   );
 
   late final _i1.HttpProtocol<
-          _i55.PayloadWithXmlName,
+          _i56.PayloadWithXmlName,
           _i21.HttpPayloadWithXmlNameInputOutput,
-          _i55.PayloadWithXmlName,
+          _i56.PayloadWithXmlName,
           _i21.HttpPayloadWithXmlNameInputOutput>
       _httpPayloadWithXmlNameProtocol = _i2.RestXmlProtocol(
     serializers: _i3.serializers,
@@ -799,9 +810,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
   );
 
   late final _i1.HttpProtocol<
-          _i57.PayloadWithXmlNamespace,
+          _i58.PayloadWithXmlNamespace,
           _i22.HttpPayloadWithXmlNamespaceInputOutput,
-          _i57.PayloadWithXmlNamespace,
+          _i58.PayloadWithXmlNamespace,
           _i22.HttpPayloadWithXmlNamespaceInputOutput>
       _httpPayloadWithXmlNamespaceProtocol = _i2.RestXmlProtocol(
     serializers: _i3.serializers,
@@ -810,9 +821,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
   );
 
   late final _i1.HttpProtocol<
-          _i58.PayloadWithXmlNamespaceAndPrefix,
+          _i59.PayloadWithXmlNamespaceAndPrefix,
           _i23.HttpPayloadWithXmlNamespaceAndPrefixInputOutput,
-          _i58.PayloadWithXmlNamespaceAndPrefix,
+          _i59.PayloadWithXmlNamespaceAndPrefix,
           _i23.HttpPayloadWithXmlNamespaceAndPrefixInputOutput>
       _httpPayloadWithXmlNamespaceAndPrefixProtocol = _i2.RestXmlProtocol(
     serializers: _i3.serializers,
@@ -1107,6 +1118,16 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
   );
 
   late final _i1.HttpProtocol<
+      _i49.XmlIntEnumsInputOutput,
+      _i49.XmlIntEnumsInputOutput,
+      _i49.XmlIntEnumsInputOutput,
+      _i49.XmlIntEnumsInputOutput> _xmlIntEnumsProtocol = _i2.RestXmlProtocol(
+    serializers: _i3.serializers,
+    builderFactories: _i3.builderFactories,
+    noErrorWrapping: false,
+  );
+
+  late final _i1.HttpProtocol<
       _i45.XmlListsInputOutput,
       _i45.XmlListsInputOutput,
       _i45.XmlListsInputOutput,
@@ -1127,10 +1148,10 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
   );
 
   late final _i1.HttpProtocol<
-          _i49.XmlMapsXmlNameInputOutput,
-          _i49.XmlMapsXmlNameInputOutput,
-          _i49.XmlMapsXmlNameInputOutput,
-          _i49.XmlMapsXmlNameInputOutput> _xmlMapsXmlNameProtocol =
+          _i50.XmlMapsXmlNameInputOutput,
+          _i50.XmlMapsXmlNameInputOutput,
+          _i50.XmlMapsXmlNameInputOutput,
+          _i50.XmlMapsXmlNameInputOutput> _xmlMapsXmlNameProtocol =
       _i2.RestXmlProtocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
@@ -1138,10 +1159,10 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
   );
 
   late final _i1.HttpProtocol<
-          _i50.XmlNamespacesInputOutput,
-          _i50.XmlNamespacesInputOutput,
-          _i50.XmlNamespacesInputOutput,
-          _i50.XmlNamespacesInputOutput> _xmlNamespacesProtocol =
+          _i51.XmlNamespacesInputOutput,
+          _i51.XmlNamespacesInputOutput,
+          _i51.XmlNamespacesInputOutput,
+          _i51.XmlNamespacesInputOutput> _xmlNamespacesProtocol =
       _i2.RestXmlProtocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
@@ -1149,10 +1170,10 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
   );
 
   late final _i1.HttpProtocol<
-          _i51.XmlTimestampsInputOutput,
-          _i51.XmlTimestampsInputOutput,
-          _i51.XmlTimestampsInputOutput,
-          _i51.XmlTimestampsInputOutput> _xmlTimestampsProtocol =
+          _i52.XmlTimestampsInputOutput,
+          _i52.XmlTimestampsInputOutput,
+          _i52.XmlTimestampsInputOutput,
+          _i52.XmlTimestampsInputOutput> _xmlTimestampsProtocol =
       _i2.RestXmlProtocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
@@ -1160,16 +1181,16 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
   );
 
   late final _i1.HttpProtocol<
-      _i52.XmlUnionsInputOutput,
-      _i52.XmlUnionsInputOutput,
-      _i52.XmlUnionsInputOutput,
-      _i52.XmlUnionsInputOutput> _xmlUnionsProtocol = _i2.RestXmlProtocol(
+      _i53.XmlUnionsInputOutput,
+      _i53.XmlUnionsInputOutput,
+      _i53.XmlUnionsInputOutput,
+      _i53.XmlUnionsInputOutput> _xmlUnionsProtocol = _i2.RestXmlProtocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
     noErrorWrapping: false,
   );
 
-  _i4.Future<_i53.Response> allQueryStringTypes(_i53.Request request) async {
+  _i4.Future<_i54.Response> allQueryStringTypes(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -1196,7 +1217,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i1.Unit)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1209,7 +1230,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> bodyWithXmlName(_i53.Request request) async {
+  _i4.Future<_i54.Response> bodyWithXmlName(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -1236,7 +1257,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i6.BodyWithXmlNameInputOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1249,8 +1270,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> constantAndVariableQueryString(
-      _i53.Request request) async {
+  _i4.Future<_i54.Response> constantAndVariableQueryString(
+      _i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -1279,7 +1300,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i1.Unit)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1292,8 +1313,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> constantQueryString(
-    _i53.Request request,
+  _i4.Future<_i54.Response> constantQueryString(
+    _i54.Request request,
     String hello,
   ) async {
     final awsRequest = request.awsRequest;
@@ -1322,7 +1343,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i1.Unit)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1335,8 +1356,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> emptyInputAndEmptyOutput(
-      _i53.Request request) async {
+  _i4.Future<_i54.Response> emptyInputAndEmptyOutput(
+      _i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -1363,7 +1384,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i9.EmptyInputAndEmptyOutputOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1376,7 +1397,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> endpointOperation(_i53.Request request) async {
+  _i4.Future<_i54.Response> endpointOperation(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -1399,7 +1420,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i1.Unit)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1412,8 +1433,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> endpointWithHostLabelHeaderOperation(
-      _i53.Request request) async {
+  _i4.Future<_i54.Response> endpointWithHostLabelHeaderOperation(
+      _i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -1441,7 +1462,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i1.Unit)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1454,8 +1475,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> endpointWithHostLabelOperation(
-      _i53.Request request) async {
+  _i4.Future<_i54.Response> endpointWithHostLabelOperation(
+      _i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -1483,7 +1504,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i1.Unit)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1496,7 +1517,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> flattenedXmlMap(_i53.Request request) async {
+  _i4.Future<_i54.Response> flattenedXmlMap(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -1523,7 +1544,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i13.FlattenedXmlMapInputOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1536,8 +1557,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> flattenedXmlMapWithXmlName(
-      _i53.Request request) async {
+  _i4.Future<_i54.Response> flattenedXmlMapWithXmlName(
+      _i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -1565,7 +1586,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i14.FlattenedXmlMapWithXmlNameInputOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1578,8 +1599,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> flattenedXmlMapWithXmlNamespace(
-      _i53.Request request) async {
+  _i4.Future<_i54.Response> flattenedXmlMapWithXmlNamespace(
+      _i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -1603,7 +1624,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i15.FlattenedXmlMapWithXmlNamespaceOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1616,7 +1637,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> greetingWithErrors(_i53.Request request) async {
+  _i4.Future<_i54.Response> greetingWithErrors(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -1639,37 +1660,37 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i16.GreetingWithErrorsOutputPayload)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
-    } on _i59.ComplexError catch (e) {
+    } on _i60.ComplexError catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ComplexError';
       final body = _greetingWithErrorsProtocol.serialize(
         e,
         specifiedType: const FullType(
-          _i59.ComplexError,
-          [FullType(_i59.ComplexErrorPayload)],
+          _i60.ComplexError,
+          [FullType(_i60.ComplexErrorPayload)],
         ),
       );
       const statusCode = 403;
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
-    } on _i60.InvalidGreeting catch (e) {
+    } on _i61.InvalidGreeting catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'InvalidGreeting';
       final body = _greetingWithErrorsProtocol.serialize(
         e,
         specifiedType: const FullType(
-          _i60.InvalidGreeting,
-          [FullType(_i60.InvalidGreeting)],
+          _i61.InvalidGreeting,
+          [FullType(_i61.InvalidGreeting)],
         ),
       );
       const statusCode = 400;
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1682,7 +1703,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> httpPayloadTraits(_i53.Request request) async {
+  _i4.Future<_i54.Response> httpPayloadTraits(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -1690,8 +1711,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     try {
       final payload = (await _httpPayloadTraitsProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType.nullable(_i54.Uint8List),
-      ) as _i54.Uint8List?);
+        specifiedType: const FullType.nullable(_i55.Uint8List),
+      ) as _i55.Uint8List?);
       final input = _i17.HttpPayloadTraitsInputOutput.fromRequest(
         payload,
         awsRequest,
@@ -1709,10 +1730,10 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         output,
         specifiedType: const FullType(
           _i17.HttpPayloadTraitsInputOutput,
-          [FullType.nullable(_i54.Uint8List)],
+          [FullType.nullable(_i55.Uint8List)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1725,8 +1746,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> httpPayloadTraitsWithMediaType(
-      _i53.Request request) async {
+  _i4.Future<_i54.Response> httpPayloadTraitsWithMediaType(
+      _i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -1735,8 +1756,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
       final payload =
           (await _httpPayloadTraitsWithMediaTypeProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType.nullable(_i54.Uint8List),
-      ) as _i54.Uint8List?);
+        specifiedType: const FullType.nullable(_i55.Uint8List),
+      ) as _i55.Uint8List?);
       final input = _i18.HttpPayloadTraitsWithMediaTypeInputOutput.fromRequest(
         payload,
         awsRequest,
@@ -1754,10 +1775,10 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         output,
         specifiedType: const FullType(
           _i18.HttpPayloadTraitsWithMediaTypeInputOutput,
-          [FullType.nullable(_i54.Uint8List)],
+          [FullType.nullable(_i55.Uint8List)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1770,8 +1791,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> httpPayloadWithMemberXmlName(
-      _i53.Request request) async {
+  _i4.Future<_i54.Response> httpPayloadWithMemberXmlName(
+      _i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -1779,8 +1800,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     try {
       final payload = (await _httpPayloadWithMemberXmlNameProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType.nullable(_i55.PayloadWithXmlName),
-      ) as _i55.PayloadWithXmlName?);
+        specifiedType: const FullType.nullable(_i56.PayloadWithXmlName),
+      ) as _i56.PayloadWithXmlName?);
       final input = _i19.HttpPayloadWithMemberXmlNameInputOutput.fromRequest(
         payload,
         awsRequest,
@@ -1795,10 +1816,10 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         output,
         specifiedType: const FullType(
           _i19.HttpPayloadWithMemberXmlNameInputOutput,
-          [FullType.nullable(_i55.PayloadWithXmlName)],
+          [FullType.nullable(_i56.PayloadWithXmlName)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1811,8 +1832,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> httpPayloadWithStructure(
-      _i53.Request request) async {
+  _i4.Future<_i54.Response> httpPayloadWithStructure(
+      _i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -1820,8 +1841,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     try {
       final payload = (await _httpPayloadWithStructureProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType.nullable(_i56.NestedPayload),
-      ) as _i56.NestedPayload?);
+        specifiedType: const FullType.nullable(_i57.NestedPayload),
+      ) as _i57.NestedPayload?);
       final input = _i20.HttpPayloadWithStructureInputOutput.fromRequest(
         payload,
         awsRequest,
@@ -1836,10 +1857,10 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         output,
         specifiedType: const FullType(
           _i20.HttpPayloadWithStructureInputOutput,
-          [FullType.nullable(_i56.NestedPayload)],
+          [FullType.nullable(_i57.NestedPayload)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1852,7 +1873,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> httpPayloadWithXmlName(_i53.Request request) async {
+  _i4.Future<_i54.Response> httpPayloadWithXmlName(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -1860,8 +1881,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     try {
       final payload = (await _httpPayloadWithXmlNameProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType.nullable(_i55.PayloadWithXmlName),
-      ) as _i55.PayloadWithXmlName?);
+        specifiedType: const FullType.nullable(_i56.PayloadWithXmlName),
+      ) as _i56.PayloadWithXmlName?);
       final input = _i21.HttpPayloadWithXmlNameInputOutput.fromRequest(
         payload,
         awsRequest,
@@ -1876,10 +1897,10 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         output,
         specifiedType: const FullType(
           _i21.HttpPayloadWithXmlNameInputOutput,
-          [FullType.nullable(_i55.PayloadWithXmlName)],
+          [FullType.nullable(_i56.PayloadWithXmlName)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1892,8 +1913,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> httpPayloadWithXmlNamespace(
-      _i53.Request request) async {
+  _i4.Future<_i54.Response> httpPayloadWithXmlNamespace(
+      _i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -1901,8 +1922,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     try {
       final payload = (await _httpPayloadWithXmlNamespaceProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType.nullable(_i57.PayloadWithXmlNamespace),
-      ) as _i57.PayloadWithXmlNamespace?);
+        specifiedType: const FullType.nullable(_i58.PayloadWithXmlNamespace),
+      ) as _i58.PayloadWithXmlNamespace?);
       final input = _i22.HttpPayloadWithXmlNamespaceInputOutput.fromRequest(
         payload,
         awsRequest,
@@ -1917,10 +1938,10 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         output,
         specifiedType: const FullType(
           _i22.HttpPayloadWithXmlNamespaceInputOutput,
-          [FullType.nullable(_i57.PayloadWithXmlNamespace)],
+          [FullType.nullable(_i58.PayloadWithXmlNamespace)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1933,8 +1954,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> httpPayloadWithXmlNamespaceAndPrefix(
-      _i53.Request request) async {
+  _i4.Future<_i54.Response> httpPayloadWithXmlNamespaceAndPrefix(
+      _i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -1944,8 +1965,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           (await _httpPayloadWithXmlNamespaceAndPrefixProtocol.deserialize(
         awsRequest.split(),
         specifiedType:
-            const FullType.nullable(_i58.PayloadWithXmlNamespaceAndPrefix),
-      ) as _i58.PayloadWithXmlNamespaceAndPrefix?);
+            const FullType.nullable(_i59.PayloadWithXmlNamespaceAndPrefix),
+      ) as _i59.PayloadWithXmlNamespaceAndPrefix?);
       final input =
           _i23.HttpPayloadWithXmlNamespaceAndPrefixInputOutput.fromRequest(
         payload,
@@ -1961,10 +1982,10 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
         output,
         specifiedType: const FullType(
           _i23.HttpPayloadWithXmlNamespaceAndPrefixInputOutput,
-          [FullType.nullable(_i58.PayloadWithXmlNamespaceAndPrefix)],
+          [FullType.nullable(_i59.PayloadWithXmlNamespaceAndPrefix)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1977,7 +1998,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> httpPrefixHeaders(_i53.Request request) async {
+  _i4.Future<_i54.Response> httpPrefixHeaders(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2007,7 +2028,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i24.HttpPrefixHeadersInputOutputPayload)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2020,8 +2041,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> httpRequestWithFloatLabels(
-    _i53.Request request,
+  _i4.Future<_i54.Response> httpRequestWithFloatLabels(
+    _i54.Request request,
     String float,
     String double,
   ) async {
@@ -2055,7 +2076,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i1.Unit)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2068,8 +2089,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> httpRequestWithGreedyLabelInPath(
-    _i53.Request request,
+  _i4.Future<_i54.Response> httpRequestWithGreedyLabelInPath(
+    _i54.Request request,
     String foo,
     String baz,
   ) async {
@@ -2104,7 +2125,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i1.Unit)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2117,8 +2138,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> httpRequestWithLabels(
-    _i53.Request request,
+  _i4.Future<_i54.Response> httpRequestWithLabels(
+    _i54.Request request,
     String string,
     String short,
     String integer,
@@ -2163,7 +2184,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i1.Unit)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2176,8 +2197,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> httpRequestWithLabelsAndTimestampFormat(
-    _i53.Request request,
+  _i4.Future<_i54.Response> httpRequestWithLabelsAndTimestampFormat(
+    _i54.Request request,
     String memberEpochSeconds,
     String memberHttpDate,
     String memberDateTime,
@@ -2223,7 +2244,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i1.Unit)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2236,7 +2257,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> httpResponseCode(_i53.Request request) async {
+  _i4.Future<_i54.Response> httpResponseCode(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2259,7 +2280,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i29.HttpResponseCodeOutputPayload)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2272,8 +2293,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> ignoreQueryParamsInResponse(
-      _i53.Request request) async {
+  _i4.Future<_i54.Response> ignoreQueryParamsInResponse(
+      _i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2296,7 +2317,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i30.IgnoreQueryParamsInResponseOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2309,8 +2330,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> inputAndOutputWithHeaders(
-      _i53.Request request) async {
+  _i4.Future<_i54.Response> inputAndOutputWithHeaders(
+      _i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2410,7 +2431,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i31.InputAndOutputWithHeadersIoPayload)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2423,7 +2444,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> nestedXmlMaps(_i53.Request request) async {
+  _i4.Future<_i54.Response> nestedXmlMaps(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2450,7 +2471,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i32.NestedXmlMapsInputOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2463,7 +2484,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> noInputAndNoOutput(_i53.Request request) async {
+  _i4.Future<_i54.Response> noInputAndNoOutput(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2486,7 +2507,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i1.Unit)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2499,7 +2520,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> noInputAndOutput(_i53.Request request) async {
+  _i4.Future<_i54.Response> noInputAndOutput(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2522,7 +2543,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i33.NoInputAndOutputOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2535,8 +2556,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> nullAndEmptyHeadersClient(
-      _i53.Request request) async {
+  _i4.Future<_i54.Response> nullAndEmptyHeadersClient(
+      _i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2573,7 +2594,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i34.NullAndEmptyHeadersIoPayload)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2586,8 +2607,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> nullAndEmptyHeadersServer(
-      _i53.Request request) async {
+  _i4.Future<_i54.Response> nullAndEmptyHeadersServer(
+      _i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2624,7 +2645,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i34.NullAndEmptyHeadersIoPayload)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2637,8 +2658,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> omitsNullSerializesEmptyString(
-      _i53.Request request) async {
+  _i4.Future<_i54.Response> omitsNullSerializesEmptyString(
+      _i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2667,7 +2688,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i1.Unit)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2680,8 +2701,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> queryIdempotencyTokenAutoFill(
-      _i53.Request request) async {
+  _i4.Future<_i54.Response> queryIdempotencyTokenAutoFill(
+      _i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2709,7 +2730,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i1.Unit)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2722,8 +2743,8 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> queryParamsAsStringListMap(
-      _i53.Request request) async {
+  _i4.Future<_i54.Response> queryParamsAsStringListMap(
+      _i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2751,7 +2772,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i1.Unit)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2764,7 +2785,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> queryPrecedence(_i53.Request request) async {
+  _i4.Future<_i54.Response> queryPrecedence(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2791,7 +2812,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i1.Unit)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2804,7 +2825,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> recursiveShapes(_i53.Request request) async {
+  _i4.Future<_i54.Response> recursiveShapes(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2831,7 +2852,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i39.RecursiveShapesInputOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2844,7 +2865,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> simpleScalarProperties(_i53.Request request) async {
+  _i4.Future<_i54.Response> simpleScalarProperties(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2875,7 +2896,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i40.SimpleScalarPropertiesInputOutputPayload)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2888,7 +2909,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> timestampFormatHeaders(_i53.Request request) async {
+  _i4.Future<_i54.Response> timestampFormatHeaders(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2957,7 +2978,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i41.TimestampFormatHeadersIoPayload)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2970,7 +2991,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> xmlAttributes(_i53.Request request) async {
+  _i4.Future<_i54.Response> xmlAttributes(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2997,7 +3018,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i42.XmlAttributesInputOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3010,7 +3031,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> xmlAttributesOnPayload(_i53.Request request) async {
+  _i4.Future<_i54.Response> xmlAttributesOnPayload(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -3037,7 +3058,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType.nullable(_i42.XmlAttributesInputOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3050,7 +3071,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> xmlBlobs(_i53.Request request) async {
+  _i4.Future<_i54.Response> xmlBlobs(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _xmlBlobsProtocol.contentType;
@@ -3076,7 +3097,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i44.XmlBlobsInputOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3089,7 +3110,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> xmlEmptyBlobs(_i53.Request request) async {
+  _i4.Future<_i54.Response> xmlEmptyBlobs(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -3116,7 +3137,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i44.XmlBlobsInputOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3129,7 +3150,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> xmlEmptyLists(_i53.Request request) async {
+  _i4.Future<_i54.Response> xmlEmptyLists(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -3156,7 +3177,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i45.XmlListsInputOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3169,7 +3190,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> xmlEmptyMaps(_i53.Request request) async {
+  _i4.Future<_i54.Response> xmlEmptyMaps(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -3196,7 +3217,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i46.XmlMapsInputOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3209,7 +3230,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> xmlEmptyStrings(_i53.Request request) async {
+  _i4.Future<_i54.Response> xmlEmptyStrings(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -3236,7 +3257,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i47.XmlEmptyStringsInputOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3249,7 +3270,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> xmlEnums(_i53.Request request) async {
+  _i4.Future<_i54.Response> xmlEnums(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _xmlEnumsProtocol.contentType;
@@ -3275,7 +3296,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i48.XmlEnumsInputOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3288,7 +3309,46 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> xmlLists(_i53.Request request) async {
+  _i4.Future<_i54.Response> xmlIntEnums(_i54.Request request) async {
+    final awsRequest = request.awsRequest;
+    final context = _i1.Context(awsRequest);
+    context.response.headers['Content-Type'] = _xmlIntEnumsProtocol.contentType;
+    try {
+      final payload = (await _xmlIntEnumsProtocol.deserialize(
+        awsRequest.split(),
+        specifiedType: const FullType(_i49.XmlIntEnumsInputOutput),
+      ) as _i49.XmlIntEnumsInputOutput);
+      final input = _i49.XmlIntEnumsInputOutput.fromRequest(
+        payload,
+        awsRequest,
+        labels: {},
+      );
+      final output = await service.xmlIntEnums(
+        input,
+        context,
+      );
+      const statusCode = 200;
+      final body = _xmlIntEnumsProtocol.serialize(
+        output,
+        specifiedType: const FullType(
+          _i49.XmlIntEnumsInputOutput,
+          [FullType(_i49.XmlIntEnumsInputOutput)],
+        ),
+      );
+      return _i54.Response(
+        statusCode,
+        body: body,
+        headers: context.response.build().headers.toMap(),
+      );
+    } on Object catch (e, st) {
+      return service.handleUncaughtError(
+        e,
+        st,
+      );
+    }
+  }
+
+  _i4.Future<_i54.Response> xmlLists(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _xmlListsProtocol.contentType;
@@ -3314,7 +3374,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i45.XmlListsInputOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3327,7 +3387,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> xmlMaps(_i53.Request request) async {
+  _i4.Future<_i54.Response> xmlMaps(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _xmlMapsProtocol.contentType;
@@ -3353,7 +3413,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
           [FullType(_i46.XmlMapsInputOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3366,7 +3426,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> xmlMapsXmlName(_i53.Request request) async {
+  _i4.Future<_i54.Response> xmlMapsXmlName(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -3374,9 +3434,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     try {
       final payload = (await _xmlMapsXmlNameProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i49.XmlMapsXmlNameInputOutput),
-      ) as _i49.XmlMapsXmlNameInputOutput);
-      final input = _i49.XmlMapsXmlNameInputOutput.fromRequest(
+        specifiedType: const FullType(_i50.XmlMapsXmlNameInputOutput),
+      ) as _i50.XmlMapsXmlNameInputOutput);
+      final input = _i50.XmlMapsXmlNameInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -3389,11 +3449,11 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
       final body = _xmlMapsXmlNameProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i49.XmlMapsXmlNameInputOutput,
-          [FullType(_i49.XmlMapsXmlNameInputOutput)],
+          _i50.XmlMapsXmlNameInputOutput,
+          [FullType(_i50.XmlMapsXmlNameInputOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3406,7 +3466,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> xmlNamespaces(_i53.Request request) async {
+  _i4.Future<_i54.Response> xmlNamespaces(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -3414,9 +3474,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     try {
       final payload = (await _xmlNamespacesProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i50.XmlNamespacesInputOutput),
-      ) as _i50.XmlNamespacesInputOutput);
-      final input = _i50.XmlNamespacesInputOutput.fromRequest(
+        specifiedType: const FullType(_i51.XmlNamespacesInputOutput),
+      ) as _i51.XmlNamespacesInputOutput);
+      final input = _i51.XmlNamespacesInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -3429,11 +3489,11 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
       final body = _xmlNamespacesProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i50.XmlNamespacesInputOutput,
-          [FullType(_i50.XmlNamespacesInputOutput)],
+          _i51.XmlNamespacesInputOutput,
+          [FullType(_i51.XmlNamespacesInputOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3446,7 +3506,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> xmlTimestamps(_i53.Request request) async {
+  _i4.Future<_i54.Response> xmlTimestamps(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -3454,9 +3514,9 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     try {
       final payload = (await _xmlTimestampsProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i51.XmlTimestampsInputOutput),
-      ) as _i51.XmlTimestampsInputOutput);
-      final input = _i51.XmlTimestampsInputOutput.fromRequest(
+        specifiedType: const FullType(_i52.XmlTimestampsInputOutput),
+      ) as _i52.XmlTimestampsInputOutput);
+      final input = _i52.XmlTimestampsInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -3469,11 +3529,11 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
       final body = _xmlTimestampsProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i51.XmlTimestampsInputOutput,
-          [FullType(_i51.XmlTimestampsInputOutput)],
+          _i52.XmlTimestampsInputOutput,
+          [FullType(_i52.XmlTimestampsInputOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3486,16 +3546,16 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
     }
   }
 
-  _i4.Future<_i53.Response> xmlUnions(_i53.Request request) async {
+  _i4.Future<_i54.Response> xmlUnions(_i54.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _xmlUnionsProtocol.contentType;
     try {
       final payload = (await _xmlUnionsProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i52.XmlUnionsInputOutput),
-      ) as _i52.XmlUnionsInputOutput);
-      final input = _i52.XmlUnionsInputOutput.fromRequest(
+        specifiedType: const FullType(_i53.XmlUnionsInputOutput),
+      ) as _i53.XmlUnionsInputOutput);
+      final input = _i53.XmlUnionsInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -3508,11 +3568,11 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
       final body = _xmlUnionsProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i52.XmlUnionsInputOutput,
-          [FullType(_i52.XmlUnionsInputOutput)],
+          _i53.XmlUnionsInputOutput,
+          [FullType(_i53.XmlUnionsInputOutput)],
         ),
       );
-      return _i53.Response(
+      return _i54.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),

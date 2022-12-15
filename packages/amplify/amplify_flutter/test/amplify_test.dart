@@ -20,6 +20,16 @@ import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+final throwsConfigurationError = throwsA(isA<ConfigurationError>());
+final throwsPluginError = throwsA(isA<PluginError>());
+final throwsPluginNotAddedError = throwsA(
+  isA<PluginError>().having(
+    (e) => e.message,
+    'message',
+    contains('plugin has not been added to Amplify'),
+  ),
+);
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   Amplify = MethodChannelAmplify();
@@ -43,11 +53,6 @@ void main() {
           'Amplify has already been configured and adding plugins after configure is not supported.',
           recoverySuggestion:
               'Check if Amplify is already configured using Amplify.isConfigured.');
-
-  const pluginNotAddedException = AmplifyException(
-      'Auth plugin has not been added to Amplify',
-      recoverySuggestion:
-          'Add Auth plugin to Amplify and call configure before calling Auth related APIs');
 
   // Class under test
   late AmplifyClass amplify;
@@ -94,7 +99,7 @@ void main() {
     });
     await expectLater(
       amplify.configure(validJsonConfiguration),
-      throwsException,
+      throwsPluginError,
     );
     expect(amplify.isConfigured, false);
   });
@@ -104,11 +109,11 @@ void main() {
       () async {
     expect(
       amplify.asyncConfig,
-      throwsA(isA<ConfigurationError>()),
+      throwsConfigurationError,
     );
     await expectLater(
       amplify.configure(invalidConfiguration),
-      throwsA(isA<ConfigurationError>()),
+      throwsConfigurationError,
     );
   });
 
@@ -149,7 +154,7 @@ void main() {
       amplify
           .addPlugin(AmplifyDataStore(modelProvider: ModelProvider.instance)),
       throwsA(
-        isA<AmplifyException>().having(
+        isA<PluginError>().having(
           (e) => e.toString(),
           'toString',
           contains('DataStore plugin has already been added'),
@@ -175,13 +180,7 @@ void main() {
 
   test('Calling a plugin through Amplify before adding one', () async {
     await amplify.configure(validJsonConfiguration);
-    try {
-      await Amplify.Auth.signOut();
-    } catch (e) {
-      expect(e, pluginNotAddedException);
-      return;
-    }
-    fail('an exception should have been thrown');
+    expect(() => Amplify.Auth.signOut(), throwsPluginNotAddedError);
   });
 
   test(
