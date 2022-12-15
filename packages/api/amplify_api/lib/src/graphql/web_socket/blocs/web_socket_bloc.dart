@@ -116,6 +116,13 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   /// Adds an event to the Bloc.
   void add(WebSocketEvent event) {
+    if (_wsEventController.isClosed &&
+        (_currentState is DisconnectedState ||
+            _currentState is PendingDisconnect)) {
+      // In some cases, the service will keep getting messages during/after
+      // disconnect. Ignore those messages.
+      return;
+    }
     _wsEventController.add(event);
   }
 

@@ -185,7 +185,10 @@ class MockWebSocketSink extends DelegatingStreamSink<dynamic>
   MockWebSocketSink(super.sink);
 
   @override
-  Future<void> close([int? closeCode, String? closeReason]) => super.close();
+  Future<void> close([int? closeCode, String? closeReason]) async {
+    await Future<void>.delayed(const Duration(milliseconds: 10));
+    return super.close();
+  }
 }
 
 class MockWebSocketChannel extends WebSocketChannel {

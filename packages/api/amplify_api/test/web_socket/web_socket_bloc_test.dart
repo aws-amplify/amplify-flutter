@@ -327,6 +327,30 @@ void main() {
       mockPollClient.induceTimeout = false;
     });
 
+    test(
+        'subscribe() ignores a WebSocket message that comes while the bloc is disconnected',
+        () async {
+      final establishCompleter = Completer<void>();
+      final subscribeEvent = SubscribeEvent(
+        subscriptionRequest,
+        establishCompleter.complete,
+      );
+
+      final bloc = getWebSocketBloc();
+      bloc
+          .subscribe(
+            subscribeEvent,
+          )
+          .listen(null);
+      await establishCompleter.future;
+
+      bloc.add(const ShutdownEvent());
+      await bloc.done.future;
+
+      service!.channel.sink.add(mockDataString);
+      await expectLater(service!.channel.sink.done, completes);
+    });
+
     group('should close when', () {
       tearDown(() async {
         bloc = null;
