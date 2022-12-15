@@ -286,26 +286,32 @@ class Repo {
   /// the version change is propagated to all packages which depend on
   /// [package] at the type which is next least severe.
   ///
-  /// If [propogateToComponent] is `true`, all component packages are bumped to
+  /// If [propagateToComponent] is `true`, all component packages are bumped to
   /// the same version.
   Version bumpVersion(
     PackageInfo package, {
     required CommitMessage commit,
     required VersionBumpType type,
     required bool includeInChangelog,
-    bool? propogateToComponent,
+    bool? propagateToComponent,
   }) {
     logger.verbose('bumpVersion ${package.name} $commit');
     final componentName = aftConfig.componentForPackage(package.name);
     final component = components[componentName];
     final currentVersion = package.version;
-    final currentProposedVersion = versionChanges.newVersion(package);
+    final proposedPackageVersion =
+        versionChanges.newVersion(package.name) ?? currentVersion;
+    final proposedComponentVersion = versionChanges.newVersion(componentName);
     final newProposedVersion = currentVersion.nextAmplifyVersion(type);
     final newVersion = maxBy(
-      [currentProposedVersion, newProposedVersion],
+      [
+        proposedPackageVersion,
+        if (proposedComponentVersion != null) proposedComponentVersion,
+        newProposedVersion,
+      ],
       (version) => version,
     )!;
-    propogateToComponent ??= component != null &&
+    propagateToComponent ??= component != null &&
         component.propagate.propagateToComponent(
           currentVersion,
           newVersion,
@@ -313,7 +319,7 @@ class Repo {
     versionChanges.updateVersion(
       package,
       newVersion,
-      propagateToComponent: propogateToComponent,
+      propagateToComponent: propagateToComponent,
     );
 
     final currentChangelogUpdate = changelogUpdates[package];
@@ -327,7 +333,8 @@ class Repo {
     logger
       ..verbose('  component: $componentName')
       ..verbose('  currentVersion: $currentVersion')
-      ..verbose('  currentProposedVersion: $currentProposedVersion')
+      ..verbose('  proposedPackageVersion: $proposedPackageVersion')
+      ..verbose('  proposedComponentVersion: $proposedComponentVersion')
       ..verbose('  newProposedVersion: $newProposedVersion')
       ..verbose('  newVersion: $newVersion');
 
@@ -341,7 +348,7 @@ class Repo {
         newVersion.toString(),
       );
       if (commit.isBreakingChange && type != VersionBumpType.patch) {
-        // Back-propogate to all dependent packages for breaking changes.
+        // Back-propagate to all dependent packages for breaking changes.
         //
         // Since we set semantic version constraints, only a breaking change
         // in a direct dependency necessitates a version bump.
@@ -368,7 +375,7 @@ class Repo {
 
       // Propagate to all component packages.
       final componentPackages = component?.packageGraph;
-      if (propogateToComponent && componentPackages != null) {
+      if (propagateToComponent && componentPackages != null) {
         dfs<PackageInfo>(
           componentPackages,
           (componentPackage) {
@@ -381,7 +388,7 @@ class Repo {
               commit: commit,
               type: type,
               includeInChangelog: false,
-              propogateToComponent: false,
+              propagateToComponent: false,
             );
           },
         );
@@ -395,7 +402,8 @@ class Repo {
         'Updating summary package `${summaryPackage.name}` '
         'with commit: $commit',
       );
-      final packageVersion = versionChanges.newVersion(summaryPackage);
+      final packageVersion = versionChanges.newVersion(summaryPackage.name) ??
+          versionChanges.newVersion(componentName);
       final currentChangelogUpdate = changelogUpdates[summaryPackage];
       changelogUpdates[summaryPackage] = summaryPackage.changelog.update(
         commits: {
@@ -411,13 +419,13 @@ class Repo {
 
   /// Updates the constraint for [package] in [dependent].
   void updateConstraint(PackageInfo package, PackageInfo dependent) {
-    final newVersion = versionChanges.newVersion(package);
+    final newVersion = versionChanges.newVersion(package.name)!;
     if (dependent.pubspecInfo.pubspec.dependencies.containsKey(package.name)) {
       final newConstraint = newVersion.amplifyConstraint(
         minVersion: newVersion,
       );
       logger.verbose(
-        'Bumping dependency for ${dependent.name} in ${package.name} '
+        'Bumping dependency on ${dependent.name} in ${package.name} '
         'to $newConstraint',
       );
       dependent.pubspecInfo.pubspecYamlEditor.update(
@@ -456,14 +464,17 @@ class VersionChanges {
   /// Version updates, by component.
   final Map<String, Version> _versionUpdates = {};
 
-  /// The latest proposed version for [package].
-  Version newVersion(PackageInfo package) {
-    final component = _repo.aftConfig.componentForPackage(package.name);
+  /// The latest proposed version for [packageOrComponent].
+  Version? newVersion(String packageOrComponent) {
+    final component = _repo.aftConfig.componentForPackage(packageOrComponent);
     final componentVersion = _versionUpdates['component_$component'];
     if (componentVersion != null) {
       return componentVersion;
     }
-    return _versionUpdates[package.name] ??= package.version;
+    if (_repo.components.containsKey(packageOrComponent)) {
+      return null;
+    }
+    return _versionUpdates[packageOrComponent];
   }
 
   /// Updates the proposed version for [package].
@@ -472,8 +483,8 @@ class VersionChanges {
     Version version, {
     required bool propagateToComponent,
   }) {
-    final currentVersion = newVersion(package);
-    if (version <= currentVersion) {
+    final currentVersion = newVersion(package.name);
+    if (currentVersion != null && version <= currentVersion) {
       return;
     }
     if (propagateToComponent) {

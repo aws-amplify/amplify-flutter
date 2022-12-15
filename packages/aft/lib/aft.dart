@@ -16,7 +16,6 @@ library aft;
 
 export 'src/commands/amplify_command.dart';
 export 'src/commands/bootstrap_command.dart';
-export 'src/commands/changelog_command.dart';
 export 'src/commands/clean_command.dart';
 export 'src/commands/deps_command.dart';
 export 'src/commands/generate/generate_command.dart';

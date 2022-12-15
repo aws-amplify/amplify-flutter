@@ -37,7 +37,6 @@ Future<void> main(List<String> args) async {
     ..addCommand(CleanCommand())
     ..addCommand(PubCommand())
     ..addCommand(BootstrapCommand())
-    ..addCommand(ChangelogCommand())
     ..addCommand(VersionBumpCommand());
   try {
     await runner.run(args);
