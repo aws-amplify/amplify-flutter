@@ -146,6 +146,27 @@ Future<Blog> addBlog(String name) async {
   return blog;
 }
 
+/// Run a mutation on [Blog] with a partial selection set.
+///
+/// This is used to trigger an error on subscriptions listening for the
+/// full selection set.
+Future<GraphQLResponse<String>> runPartialMutation(String name) async {
+  const graphQLDocument = r'''mutation MyMutation($name: String!) {
+      createBlog(input: {name: $name}) {
+        id
+        name
+      }
+    }''';
+
+  final request = GraphQLRequest<String>(
+    document: graphQLDocument,
+    variables: <String, dynamic>{'name': name},
+    authorizationMode: APIAuthorizationType.userPools,
+  );
+
+  return Amplify.API.mutate(request: request).response;
+}
+
 Future<Post> addPostAndBlog(
   String title,
   int rating,
@@ -231,13 +252,14 @@ Future<GraphQLResponse<T?>> establishSubscriptionAndMutate<T>(
   GraphQLRequest<T> subscriptionRequest,
   Future<void> Function() mutationFunction, {
   bool Function(T?)? eventFilter,
+  bool canFail = false,
 }) async {
   final dataCompleter = Completer<GraphQLResponse<T?>>();
   // With stream established, exec callback with stream events.
   final subscription = await getEstablishedSubscriptionOperation<T>(
     subscriptionRequest,
     (event) {
-      if (event.hasErrors) {
+      if (!canFail && event.hasErrors) {
         fail('subscription errors: ${event.errors}');
       }
       if (!dataCompleter.isCompleted &&
