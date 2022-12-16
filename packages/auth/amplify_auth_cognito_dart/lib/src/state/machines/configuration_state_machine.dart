@@ -92,7 +92,7 @@ class ConfigurationStateMachine extends StateMachine<ConfigurationEvent,
     final hostedUiConfig = config.hostedUiConfig;
     if (hostedUiConfig != null) {
       addInstance(hostedUiConfig);
-      waiters.add(manager.configureHostedUi());
+      waiters.add(manager.configureHostedUI());
     }
 
     final identityPoolConfig = config.identityPoolConfig;

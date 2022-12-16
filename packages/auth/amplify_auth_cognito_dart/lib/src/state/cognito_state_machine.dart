@@ -119,7 +119,7 @@ class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
   }
 
   /// Configures the Hosted UI state machine.
-  Future<void> configureHostedUi() async {
+  Future<void> configureHostedUI() async {
     await _dispatch(
       const HostedUiEvent.configure(),
     );
@@ -137,7 +137,7 @@ class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
   }
 
   /// Signs out using the Hosted UI state machine.
-  Future<HostedUiState> signOutHostedUi() async {
+  Future<HostedUiState> signOutHostedUI() async {
     await _dispatch(const HostedUiEvent.signOut());
     final machine = getOrCreate(HostedUiStateMachine.type);
     return machine.stream.startWith(machine.currentState).firstWhere(
