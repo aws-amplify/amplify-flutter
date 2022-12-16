@@ -147,7 +147,7 @@ Future<Blog> addBlog(String name) async {
 }
 
 // Run a mutation with an incorrect document
-Future<GraphQLResponse<Blog>> addBlogBadMutation(String name) async {
+Future<GraphQLResponse<String>> addBlogBadMutation(String name) async {
   const graphQLDocument = r'''mutation MyMutation($name: String!) {
       createBlog(input: {name: $name}) {
         id
@@ -155,7 +155,7 @@ Future<GraphQLResponse<Blog>> addBlogBadMutation(String name) async {
       }
     }''';
 
-  final request = GraphQLRequest<Blog>(
+  final request = GraphQLRequest<String>(
     document: graphQLDocument,
     variables: <String, dynamic>{'name': name},
     authorizationMode: APIAuthorizationType.userPools,
