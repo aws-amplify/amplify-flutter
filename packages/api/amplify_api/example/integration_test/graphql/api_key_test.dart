@@ -131,7 +131,7 @@ void main({bool useExistingTestUser = false}) {
 
             final eventResponse = await establishSubscriptionAndMutate(
               subscriptionRequest,
-              () => addBlogBadMutation(name),
+              () => runPartialMutation(name),
               canFail: true,
             );
             final dataErrors = eventResponse.errors;
