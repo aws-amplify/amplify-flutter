@@ -45,7 +45,6 @@ void main() {
         final streamSubscription = eventsStream.listen((event) {
           fail('Analytics disabled but events were still sent!');
         });
-        addTearDown(streamSubscription.cancel);
 
         const customEventName = 'enable disable event name';
         final customEvent = AnalyticsEvent(customEventName);
@@ -56,8 +55,24 @@ void main() {
         mockLifecycleObserver.triggerOnForegroundListener();
 
         // Give time for events to propagate if they were sent to remote server
-        // to ensure the failure above does not execute.
+        // to ensure the failure is not triggered
         await Future<void>.delayed(const Duration(minutes: 1));
+
+        streamSubscription.cancel();
+
+        // Ensure data sent, if sent manually
+        await Amplify.Analytics.flushEvents();
+
+        await expectLater(
+          eventsStream,
+          emits(
+            isA<TestEvent>().having(
+              (e) => e.eventType,
+              'eventType',
+              customEventName,
+            ),
+          ),
+        );
       },
       timeout: const Timeout(Duration(minutes: 3)),
     );
