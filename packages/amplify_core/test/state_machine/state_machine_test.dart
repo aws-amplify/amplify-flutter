@@ -19,7 +19,7 @@ void main() {
           stateMachine.getOrCreate(MyStateMachine.type).currentState;
       expect(currentState.type, equals(MyType.initial));
 
-      stateMachine.dispatch(const MyEvent(MyType.initial));
+      stateMachine.accept(const MyEvent(MyType.initial));
       expect(
         stateMachine.stream,
         neverEmits(anything),
@@ -29,7 +29,7 @@ void main() {
     });
 
     test('dispatches correctly', () {
-      stateMachine.dispatch(const MyEvent(MyType.doWork));
+      stateMachine.accept(const MyEvent(MyType.doWork));
       expect(
         stateMachine.stream,
         emitsThrough(const MyState(MyType.success)),
@@ -37,7 +37,7 @@ void main() {
     });
 
     test('handles errors', () {
-      stateMachine.dispatch(const MyEvent(MyType.tryWork));
+      stateMachine.accept(const MyEvent(MyType.tryWork));
       expect(
         stateMachine.stream,
         emitsThrough(const MyState(MyType.error)),
@@ -46,7 +46,7 @@ void main() {
 
     group('subscribeTo', () {
       test('can listen to other machines', () {
-        stateMachine.dispatch(const MyEvent(MyType.delegateWork));
+        stateMachine.accept(const MyEvent(MyType.delegateWork));
         expect(
           stateMachine.stream,
           emitsInOrder([
@@ -59,7 +59,7 @@ void main() {
       });
 
       test('can listen multiple times to other machines', () async {
-        stateMachine.dispatch(const MyEvent(MyType.delegateWork));
+        stateMachine.accept(const MyEvent(MyType.delegateWork));
         await expectLater(
           stateMachine.stream,
           emitsInOrder([
@@ -70,7 +70,7 @@ void main() {
           ]),
         );
 
-        stateMachine.dispatch(const MyEvent(MyType.delegateWork));
+        stateMachine.accept(const MyEvent(MyType.delegateWork));
         await expectLater(
           stateMachine.stream,
           emitsInOrder([

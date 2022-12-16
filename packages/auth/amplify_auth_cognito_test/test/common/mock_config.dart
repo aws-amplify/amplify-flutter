@@ -101,6 +101,6 @@ final awsCredentials = AWSCredentials(
 );
 
 extension MockDispatch on CognitoAuthStateMachine {
-  FutureOr<void> internalDispatch(AuthEvent event) =>
+  FutureOr<void> dispatch(AuthEvent event) =>
       expect<Dispatcher<AuthEvent>>()(event);
 }

@@ -179,10 +179,10 @@ class MyStateMachineManager extends StateMachineManager {
     DependencyManager dependencyManager,
   ) : super(_builders, dependencyManager);
 
-  Dispatcher get _internalDispatch => expect();
+  Dispatcher get _dispatch => expect();
 
   Future<void> delegateWork() async {
-    _internalDispatch(const WorkerEvent(WorkType.doWork));
+    _dispatch(const WorkerEvent(WorkType.doWork));
     final machine = getOrCreate(WorkerMachine.type);
     await for (final state in machine.stream) {
       switch (state.type) {

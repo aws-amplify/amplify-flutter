@@ -55,7 +55,7 @@ void main() {
       bool forceRefresh = false,
       required bool willRefresh,
     }) async {
-      stateMachine.internalDispatch(
+      stateMachine.dispatch(
         FetchAuthSessionEvent.fetch(
           CognitoSessionOptions(forceRefresh: forceRefresh),
         ),

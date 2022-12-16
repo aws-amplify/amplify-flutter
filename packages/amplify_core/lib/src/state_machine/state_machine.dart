@@ -43,7 +43,7 @@ abstract class StateMachineManager<E extends StateMachineEvent>
     Map<StateMachineToken, Function> stateMachineBuilders,
     this._dependencyManager,
   ) {
-    addInstance<Dispatcher<E>>(_internalDispatch);
+    addInstance<Dispatcher<E>>(_dispatch);
     addInstance<StateMachineManager>(this);
     addInstance<DependencyManager>(this);
     stateMachineBuilders.forEach((token, builder) {
@@ -69,7 +69,7 @@ abstract class StateMachineManager<E extends StateMachineEvent>
 
   Future<void> _listenForEvents() async {
     await for (final completer in _eventController.stream) {
-      final completion = _internalDispatch(completer.event);
+      final completion = _dispatch(completer.event);
       if (!completer.propagate) {
         // Complete public API dispatch as soon as the event is picked up.
         //
@@ -117,7 +117,7 @@ abstract class StateMachineManager<E extends StateMachineEvent>
       _dependencyManager.expect<T>(token);
 
   /// Dispatches an event to the appropriate state machine.
-  FutureOr<void> dispatch(E event, {bool propagate = false}) {
+  FutureOr<void> accept(E event, {bool propagate = false}) {
     final completer = EventCompleter(
       event,
       propagate: propagate,
@@ -129,9 +129,9 @@ abstract class StateMachineManager<E extends StateMachineEvent>
   /// Dispatches an event to the appropriate state machine.
   ///
   /// For internal use only. Public APIs should use `dispatch` instead.
-  FutureOr<void> _internalDispatch(E event) {
+  FutureOr<void> _dispatch(E event) {
     final token = mapEventToMachine(event);
-    return getOrCreate(token)._add(event);
+    return getOrCreate(token).accept(event);
   }
 
   /// Maps [event] to its state machine.
@@ -321,7 +321,7 @@ abstract class StateMachine<Event extends StateMachineEvent,
   T create<T extends Object>([Token<T>? token]) => manager.create<T>(token);
 
   /// Adds an event to the state machine.
-  Future<void> _add(Event event) {
+  Future<void> accept(Event event) {
     final completer = EventCompleter(
       event,
       propagate: true,
@@ -331,8 +331,7 @@ abstract class StateMachine<Event extends StateMachineEvent,
   }
 
   /// Dispatches an event to the state machine.
-  FutureOr<void> dispatch(StateMachineEvent event) =>
-      manager._internalDispatch(event);
+  FutureOr<void> dispatch(StateMachineEvent event) => manager._dispatch(event);
 
   /// Closes the state machine and all stream controllers.
   @override

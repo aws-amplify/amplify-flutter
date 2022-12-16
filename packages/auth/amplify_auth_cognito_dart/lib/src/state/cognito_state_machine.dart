@@ -50,7 +50,7 @@ class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
     addInstance<CognitoAuthStateMachine>(this);
   }
 
-  Dispatcher<AuthEvent> get _internalDispatch => expect();
+  Dispatcher<AuthEvent> get _dispatch => expect();
 
   @override
   StateMachineToken mapEventToMachine(AuthEvent event) {
@@ -76,7 +76,7 @@ class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
     CredentialStoreEvent? event,
   ]) async {
     if (event != null) {
-      await _internalDispatch(event);
+      await _dispatch(event);
     }
     final machine = getOrCreate(CredentialStoreStateMachine.type);
     final credentialsState =
@@ -103,7 +103,7 @@ class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
     FetchAuthSessionEvent? event,
   ]) async {
     if (event != null) {
-      await _internalDispatch(event);
+      await _dispatch(event);
     }
     final machine = getOrCreate(FetchAuthSessionStateMachine.type);
     final sessionState =
@@ -120,7 +120,7 @@ class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
 
   /// Configures the Hosted UI state machine.
   Future<void> configureHostedUi() async {
-    await _internalDispatch(
+    await _dispatch(
       const HostedUiEvent.configure(),
     );
     final machine = getOrCreate(HostedUiStateMachine.type);
@@ -138,7 +138,7 @@ class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
 
   /// Signs out using the Hosted UI state machine.
   Future<HostedUiState> signOutHostedUi() async {
-    await _internalDispatch(const HostedUiEvent.signOut());
+    await _dispatch(const HostedUiEvent.signOut());
     final machine = getOrCreate(HostedUiStateMachine.type);
     return machine.stream.startWith(machine.currentState).firstWhere(
           (state) => state is HostedUiSignedOut || state is HostedUiFailure,

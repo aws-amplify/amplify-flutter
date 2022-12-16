@@ -51,7 +51,7 @@ void main() {
           },
         ),
       );
-      stateMachine.internalDispatch(
+      stateMachine.dispatch(
         const ConfigurationEvent.configure(config),
       );
       await expectLater(
@@ -68,7 +68,7 @@ void main() {
       );
       stateMachine
         ..addInstance<CognitoIdentityProviderClient>(mockClient)
-        ..internalDispatch(
+        ..dispatch(
           SignInEvent.initiate(
             authFlowType: AuthenticationFlowType.customAuthWithSrp,
             parameters: SignInParameters(
@@ -88,7 +88,7 @@ void main() {
     });
 
     test('smoke test', () async {
-      stateMachine.internalDispatch(
+      stateMachine.dispatch(
         ConfigurationEvent.configure(userPoolOnlyConfig),
       );
       await expectLater(
@@ -109,7 +109,7 @@ void main() {
       );
       stateMachine
         ..addInstance<CognitoIdentityProviderClient>(mockClient)
-        ..internalDispatch(
+        ..dispatch(
           SignInEvent.initiate(
             authFlowType: AuthenticationFlowType.customAuthWithSrp,
             parameters: SignInParameters(
@@ -136,7 +136,7 @@ void main() {
 
     group('custom auth', () {
       test('customAuthWithSrp requires password', () async {
-        stateMachine.internalDispatch(
+        stateMachine.dispatch(
           ConfigurationEvent.configure(userPoolOnlyConfig),
         );
         await expectLater(
@@ -146,7 +146,7 @@ void main() {
           completion(isA<Configured>()),
         );
 
-        stateMachine.internalDispatch(
+        stateMachine.dispatch(
           SignInEvent.initiate(
             authFlowType: AuthenticationFlowType.customAuthWithSrp,
             parameters: SignInParameters(
@@ -169,7 +169,7 @@ void main() {
       });
 
       test('customAuthWithoutSrp forbids password', () async {
-        stateMachine.internalDispatch(
+        stateMachine.dispatch(
           ConfigurationEvent.configure(userPoolOnlyConfig),
         );
         await expectLater(
@@ -179,7 +179,7 @@ void main() {
           completion(isA<Configured>()),
         );
 
-        stateMachine.internalDispatch(
+        stateMachine.dispatch(
           SignInEvent.initiate(
             authFlowType: AuthenticationFlowType.customAuthWithoutSrp,
             parameters: SignInParameters(
@@ -204,7 +204,7 @@ void main() {
       });
 
       test('customAuth uses old behavior', () async {
-        stateMachine.internalDispatch(
+        stateMachine.dispatch(
           ConfigurationEvent.configure(userPoolOnlyConfig),
         );
         await expectLater(
@@ -225,7 +225,7 @@ void main() {
         );
         stateMachine
           ..addInstance<CognitoIdentityProviderClient>(mockClient)
-          ..internalDispatch(
+          ..dispatch(
             SignInEvent.initiate(
               // ignore: deprecated_member_use
               authFlowType: AuthenticationFlowType.customAuth,
