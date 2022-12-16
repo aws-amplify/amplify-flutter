@@ -1,0 +1,18 @@
+@startuml
+
+abstract class CognitoStateMachineManager {
+  + states: async* AuthState
+  - machines: [StateMachine<AuthEvent, AuthState>]
+  - queue: Queue<AuthEvent>
+  --
+  + accept(E event): void => queue.add(event);
+  - dispatch(E event): void => machines[E].accept(event);
+  --
+  + loadCredentials(CredentialStoreEvent? event): async CredentialStoreData;
+  + clearCredentials(Iterable<String>? keys): async void;
+  + loadSession(FetchAuthSessionEvent? event): async CognitoAuthSession;
+  + configureHostedUI(): async void;
+  + signOutHostedUI(): async void;
+}
+
+@enduml
