@@ -146,8 +146,11 @@ Future<Blog> addBlog(String name) async {
   return blog;
 }
 
-// Run a mutation with an incorrect document
-Future<GraphQLResponse<String>> addBlogBadMutation(String name) async {
+/// Run a mutation on [Blog] with a partial selection set.
+///
+/// This is used to trigger an error on subscriptions listening for the
+/// full selection set.
+Future<GraphQLResponse<String>> runPartialMutation(String name) async {
   const graphQLDocument = r'''mutation MyMutation($name: String!) {
       createBlog(input: {name: $name}) {
         id

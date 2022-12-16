@@ -122,7 +122,8 @@ void main({bool useExistingTestUser = false}) {
             final name =
                 'Integration Test Blog - subscription create ${uuid()}';
             const error =
-                'Cannot return null for non-nullable type: \'AWSDateTime\' within parent \'Blog\' (/onCreateBlog/createdAt)';
+                "Cannot return null for non-nullable type: 'AWSDateTime' within "
+                "parent 'Blog' (/onCreateBlog/createdAt)";
             final subscriptionRequest = ModelSubscriptions.onCreate(
               Blog.classType,
               authorizationMode: APIAuthorizationType.apiKey,
