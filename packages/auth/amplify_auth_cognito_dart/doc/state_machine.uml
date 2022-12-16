@@ -1,0 +1,12 @@
+@startuml
+
+abstract class StateMachine<E extends StateMachineEvent, S extends StateMachineState> {
+  + states: async* S
+  - manager: StateMachineManager<E, S>
+  - queue: Queue<E>
+  + accept(E event): void => queue.add(event);
+  - dispatch(E event): void => manager.dispatch(event);
+  - emit(S state): void => states.add(state);
+}
+
+@enduml

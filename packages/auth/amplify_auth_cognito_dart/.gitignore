@@ -9,8 +9,6 @@ build/
 # https://dart.dev/guides/libraries/private-files#pubspeclock.
 pubspec.lock
 
-doc/
-
 # JS outputs
 *.js
 *.js.map

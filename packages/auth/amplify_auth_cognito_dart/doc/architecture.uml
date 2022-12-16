@@ -1,0 +1,41 @@
+@startuml
+
+allowmixing
+
+abstract class StateMachineManager<E extends StateMachineEvent, S extends StateMachineState> {
+  + states: async* S
+  - machines: [StateMachine<E, S>]
+  - queue: Queue<E>
+  --
+  + accept(E event): void => queue.add(event);
+  - dispatch(E event): void => machines[E].accept(event);
+  --
+  + {method} << public API methods >>
+}
+
+abstract class StateMachine<E extends StateMachineEvent, S extends StateMachineState> {
+  + states: async* S
+  - manager: StateMachineManager<E, S>
+  - queue: Queue<E>
+  + accept(E event): void => queue.add(event);
+  - dispatch(E event): void => manager.dispatch(event);
+  - emit(S state): void => states.add(state);
+}
+
+abstract class StateMachineEvent {
+  + type: String
+}
+abstract class StateMachineState {
+  + type: String
+}
+
+StateMachineManager *- StateMachineEvent
+StateMachineManager *- StateMachineState
+StateMachine *- StateMachineEvent
+StateMachine *- StateMachineState
+StateMachineManager o- StateMachine
+
+actor Developer
+Developer -> StateMachineManager
+
+@enduml
