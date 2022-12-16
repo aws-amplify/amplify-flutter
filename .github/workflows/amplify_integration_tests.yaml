@@ -50,7 +50,8 @@ jobs:
 
       - name: Run Android integration tests
         uses: reactivecircus/android-emulator-runner@50986b1464923454c95e261820bc626f38490ec0 # 2.27.0
-        timeout-minutes: 45
+        # Make the timeout a little longer and add retry due to delay from starting emulator.
+        timeout-minutes: 60
         with:
           # API levels 30+ too slow https://github.com/ReactiveCircus/android-emulator-runner/issues/222
           api-level: 29
@@ -92,8 +93,9 @@ jobs:
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
       - name: Run integration tests
+        timeout-minutes: 30
         run: |
-          melos exec -c 1 --scope ${{ matrix.scope }} -- small=true \$MELOS_ROOT_PATH/build-support/integ_test_ios.sh  --retries 1
+          melos exec -c 1 --scope ${{ matrix.scope }} -- small=true \$MELOS_ROOT_PATH/build-support/integ_test_ios.sh
 
   web:
     runs-on: ubuntu-latest
@@ -128,9 +130,10 @@ jobs:
       - uses: nanasess/setup-chromedriver@7cbd35794f8ab317f778c3172fb86c1e9b2853f7 # 1.1.0
 
       - name: Run integration tests
+        timeout-minutes: 30
         run: |
           chromedriver --port=4444 &
-          melos exec -c 1 --scope ${{ matrix.scope }} -- \$MELOS_ROOT_PATH/build-support/integ_test.sh -d web-server --retries 1
+          melos exec -c 1 --scope ${{ matrix.scope }} -- \$MELOS_ROOT_PATH/build-support/integ_test.sh -d web-server
 
   macos:
     runs-on: macos-latest
@@ -163,9 +166,10 @@ jobs:
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
       - name: Run integration tests
+        timeout-minutes: 30
         run: |
           flutter config --enable-macos-desktop
-          melos exec -c 1 --scope ${{ matrix.scope }} -- \$MELOS_ROOT_PATH/build-support/integ_test.sh -d macos  --retries 1
+          melos exec -c 1 --scope ${{ matrix.scope }} -- \$MELOS_ROOT_PATH/build-support/integ_test.sh -d macos
 
   linux:
     runs-on: ubuntu-latest
@@ -198,9 +202,10 @@ jobs:
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
       - name: Run integration tests
+        timeout-minutes: 30
         run: |
           flutter config --enable-linux-desktop
-          melos exec -c 1 --scope ${{ matrix.scope }} -- \$MELOS_ROOT_PATH/build-support/integ_test.sh -d linux --retries 1
+          melos exec -c 1 --scope ${{ matrix.scope }} -- \$MELOS_ROOT_PATH/build-support/integ_test.sh -d linux
 
   windows:
     runs-on: windows-latest
@@ -236,6 +241,7 @@ jobs:
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
       - name: Run integration tests
+        timeout-minutes: 30
         run: |
           flutter config --enable-windows-desktop
           melos exec -c 1 --scope ${{ matrix.scope }} -- flutter test integration_test/main_test.dart -d windows
