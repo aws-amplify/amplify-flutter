@@ -116,6 +116,27 @@ void main({bool useExistingTestUser = false}) {
 
             expect(blogFromEvent?.name, equals(name));
           });
+
+          testWidgets('should parse errors within a web socket data message',
+              (WidgetTester tester) async {
+            final name =
+                'Integration Test Blog - subscription create ${uuid()}';
+            const error =
+                'Cannot return null for non-nullable type: \'AWSDateTime\' within parent \'Blog\' (/onCreateBlog/createdAt)';
+            final subscriptionRequest = ModelSubscriptions.onCreate(
+              Blog.classType,
+              authorizationMode: APIAuthorizationType.apiKey,
+            );
+
+            final eventResponse = await establishSubscriptionAndMutate(
+              subscriptionRequest,
+              () => addBlogBadMutation(name),
+              canFail: true,
+            );
+            final dataErrors = eventResponse.errors;
+
+            expect(dataErrors.first.message, equals(error));
+          });
         },
       );
     },
