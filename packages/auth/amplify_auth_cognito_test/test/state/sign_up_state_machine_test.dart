@@ -44,12 +44,12 @@ void main() {
           userConfirmed: true,
         ),
       );
-      stateMachine.internalDispatch(ConfigurationEvent.configure(mockConfig));
+      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
       await stateMachine.stream.whereType<Configured>().first;
 
       stateMachine
         ..addInstance<CognitoIdentityProviderClient>(client)
-        ..internalDispatch(signUpEvent);
+        ..dispatch(signUpEvent);
 
       expect(
         stateMachine.stream.whereType<SignUpState>(),
@@ -72,12 +72,12 @@ void main() {
         ),
         confirmSignUp: () async => ConfirmSignUpResponse(),
       );
-      stateMachine.internalDispatch(ConfigurationEvent.configure(mockConfig));
+      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
       await stateMachine.stream.whereType<Configured>().first;
 
       stateMachine
         ..addInstance<CognitoIdentityProviderClient>(client)
-        ..internalDispatch(signUpEvent);
+        ..dispatch(signUpEvent);
 
       await expectLater(
         stateMachine.stream.whereType<SignUpState>(),
@@ -91,7 +91,7 @@ void main() {
         ]),
       );
 
-      stateMachine.internalDispatch(
+      stateMachine.dispatch(
         const SignUpEvent.confirm(
           username: username,
           confirmationCode: '12345',
@@ -110,12 +110,12 @@ void main() {
       var client = MockCognitoIdentityProviderClient(
         signUp: () async => throw _SignUpException(),
       );
-      stateMachine.internalDispatch(ConfigurationEvent.configure(mockConfig));
+      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
       await stateMachine.stream.whereType<Configured>().first;
 
       stateMachine
         ..addInstance<CognitoIdentityProviderClient>(client)
-        ..internalDispatch(signUpEvent);
+        ..dispatch(signUpEvent);
 
       await expectLater(
         stateMachine.stream.whereType<SignUpState>(),
@@ -137,7 +137,7 @@ void main() {
       );
       stateMachine
         ..addInstance<CognitoIdentityProviderClient>(client)
-        ..internalDispatch(signUpEvent);
+        ..dispatch(signUpEvent);
 
       expect(
         stateMachine.stream.whereType<SignUpState>(),

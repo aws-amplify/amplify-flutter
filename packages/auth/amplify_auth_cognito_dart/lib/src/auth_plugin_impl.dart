@@ -283,7 +283,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     }
 
     await _init();
-    await _stateMachine.dispatch(ConfigurationEvent.configure(config));
+    await _stateMachine.accept(ConfigurationEvent.configure(config));
 
     await for (final state
         in _stateMachine.expect(ConfigurationStateMachine.type).stream) {
@@ -320,7 +320,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<CognitoAuthSession> fetchAuthSession({
     CognitoSessionOptions? options,
   }) async {
-    await _stateMachine.dispatch(
+    await _stateMachine.accept(
       FetchAuthSessionEvent.fetch(options),
       propagate: true,
     );
@@ -342,7 +342,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<FederateToIdentityPoolResult> federateToIdentityPool({
     required FederateToIdentityPoolRequest request,
   }) async {
-    await _stateMachine.dispatch(
+    await _stateMachine.accept(
       FetchAuthSessionEvent.federate(request),
       propagate: true,
     );
@@ -379,7 +379,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     // Create a new state machine which will close the previous one and cancel
     // any pending sign-ins.
     final stateMachine = _stateMachine.create(HostedUiStateMachine.type);
-    await _stateMachine.dispatch(
+    await _stateMachine.accept(
       HostedUiEvent.signIn(
         options: options,
         provider: provider,
@@ -419,7 +419,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     required String password,
     CognitoSignUpOptions? options,
   }) async {
-    await _stateMachine.dispatch(
+    await _stateMachine.accept(
       SignUpEvent.initiate(
         parameters: SignUpParameters(
           (p) => p
@@ -474,7 +474,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     required String confirmationCode,
     CognitoConfirmSignUpOptions? options,
   }) async {
-    await _stateMachine.dispatch(
+    await _stateMachine.accept(
       SignUpEvent.confirm(
         username: username,
         confirmationCode: confirmationCode,
@@ -562,7 +562,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     // Create a new state machine for every call since it caches values
     // internally on each run.
     final stream = _stateMachine.create(SignInStateMachine.type).stream;
-    await _stateMachine.dispatch(
+    await _stateMachine.accept(
       SignInEvent.initiate(
         authFlowType: options.authFlowType,
         parameters: SignInParameters(
@@ -630,7 +630,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     CognitoConfirmSignInOptions? options,
   }) async {
     options ??= const CognitoConfirmSignInOptions();
-    await _stateMachine.dispatch(
+    await _stateMachine.accept(
       SignInEvent.respondToChallenge(
         answer: confirmationValue,
         clientMetadata: options.clientMetadata,
