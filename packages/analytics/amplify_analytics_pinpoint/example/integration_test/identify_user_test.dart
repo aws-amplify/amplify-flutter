@@ -74,7 +74,7 @@ void main() {
           ),
         );
 
-        const customEventName = 'my custom event type name';
+        const customEventName = 'identify user event name';
         final customEvent = AnalyticsEvent(customEventName);
 
         await Amplify.Analytics.recordEvent(event: customEvent);

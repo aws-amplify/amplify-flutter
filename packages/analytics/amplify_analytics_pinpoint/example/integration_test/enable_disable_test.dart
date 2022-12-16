@@ -47,7 +47,7 @@ void main() {
         });
         addTearDown(streamSubscription.cancel);
 
-        const customEventName = 'my custom event type name';
+        const customEventName = 'enable disable event name';
         final customEvent = AnalyticsEvent(customEventName);
 
         await Amplify.Analytics.recordEvent(event: customEvent);
