@@ -35,7 +35,7 @@ void main() {
       'custom events are automatically submitted without calls to '
       'Analytics.flushEvents()',
       (_) async {
-        const customEventName = 'my custom event type name';
+        const customEventName = 'custom events auto submitted event';
         final customEvent = AnalyticsEvent(customEventName);
 
         await Amplify.Analytics.recordEvent(event: customEvent);
@@ -57,7 +57,7 @@ void main() {
     testWidgets(
       'recorded custom event is sent with correct custom and meta properties',
       (_) async {
-        const customEventName = 'my custom event type name';
+        const customEventName = 'events sent with properties name';
         final customEvent = AnalyticsEvent(customEventName);
 
         customEvent.properties
@@ -135,20 +135,9 @@ void main() {
       'Analytics.register and unregister of GlobalProperties adds and removes '
       'properties in future events',
       (_) async {
-        const customEventName = 'my custom event type name';
-        final customEvent = AnalyticsEvent(customEventName);
-
-        // Add local event properties
-        customEvent.properties.addStringProperty(
-          secondStringProperty.key,
-          secondStringProperty.value,
-        );
-        customEvent.properties.addIntProperty(
-          secondIntProperty.key,
-          secondIntProperty.value,
-        );
-
         // Add attribute global property types
+        final firstEvent = createEvent('global props first event name');
+
         final attributeGlobalProperties = AnalyticsProperties()
           ..addBoolProperty(boolProperty.key, boolProperty.value)
           ..addStringProperty(stringProperty.key, stringProperty.value);
@@ -156,7 +145,7 @@ void main() {
         await Amplify.Analytics.registerGlobalProperties(
             globalProperties: attributeGlobalProperties);
 
-        await Amplify.Analytics.recordEvent(event: customEvent);
+        await Amplify.Analytics.recordEvent(event: firstEvent);
         await Amplify.Analytics.flushEvents();
 
         // Verify local and global properties are present in sent event
@@ -164,7 +153,7 @@ void main() {
           eventsStream,
           emits(
             isA<TestEvent>()
-                .having((e) => e.eventType, 'eventType', customEventName)
+                .having((e) => e.eventType, 'eventType', firstEvent.name)
                 .having(
                   (e) => e.attributes,
                   'attributes',
@@ -182,6 +171,8 @@ void main() {
                   equals(Map.fromEntries([secondIntProperty])),
                 ),
           ),
+          reason:
+              'Step 1 - Verify local and global properties are present in send event',
         );
 
         await Amplify.Analytics.unregisterGlobalProperties(
@@ -189,6 +180,8 @@ void main() {
         );
 
         // Add metric global property types
+        final secondEvent = createEvent('global props second event name');
+
         final metricGlobalProperties = AnalyticsProperties()
           ..addIntProperty(intProperty.key, intProperty.value)
           ..addDoubleProperty(doubleProperty.key, doubleProperty.value);
@@ -196,7 +189,7 @@ void main() {
         await Amplify.Analytics.registerGlobalProperties(
             globalProperties: metricGlobalProperties);
 
-        await Amplify.Analytics.recordEvent(event: customEvent);
+        await Amplify.Analytics.recordEvent(event: secondEvent);
         await Amplify.Analytics.flushEvents();
 
         // Verify local and global properties are present in sent event
@@ -204,7 +197,7 @@ void main() {
           eventsStream,
           emits(
             isA<TestEvent>()
-                .having((e) => e.eventType, 'eventType', customEventName)
+                .having((e) => e.eventType, 'eventType', secondEvent.name)
                 .having(
                   (e) => e.attributes,
                   'attributes',
@@ -220,19 +213,23 @@ void main() {
                   )),
                 ),
           ),
+          reason:
+              'Step 2 - Verify local and global properties are present in send event',
         );
 
         await Amplify.Analytics.unregisterGlobalProperties();
 
-        await Amplify.Analytics.recordEvent(event: customEvent);
+        // Verify only local properties are present in sent event
+        final thirdEvent = createEvent('global props third event name');
+
+        await Amplify.Analytics.recordEvent(event: thirdEvent);
         await Amplify.Analytics.flushEvents();
 
-        // Verify only local properties are present in sent event
         await expectLater(
           eventsStream,
           emits(
             isA<TestEvent>()
-                .having((e) => e.eventType, 'eventType', customEventName)
+                .having((e) => e.eventType, 'eventType', thirdEvent.name)
                 .having(
                   (e) => e.attributes,
                   'attributes',
@@ -244,9 +241,26 @@ void main() {
                   equals(Map.fromEntries([secondIntProperty])),
                 ),
           ),
+          reason:
+              'Step 3 - Verify only local properties are present in sent event',
         );
       },
       timeout: const Timeout(Duration(minutes: 3)),
     );
   });
+}
+
+AnalyticsEvent createEvent(String name) {
+  final customEvent = AnalyticsEvent(name);
+
+  // Add local event properties
+  customEvent.properties.addStringProperty(
+    secondStringProperty.key,
+    secondStringProperty.value,
+  );
+  customEvent.properties.addIntProperty(
+    secondIntProperty.key,
+    secondIntProperty.value,
+  );
+  return customEvent;
 }
