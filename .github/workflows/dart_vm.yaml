@@ -47,7 +47,10 @@ jobs:
           sdk: ${{ matrix.sdk }}
 
       - name: Setup aft
-        run: dart pub global activate -spath packages/aft
+        run: |
+          # Patch libgit2dart (see https://github.com/dart-lang/pub/issues/3563)
+          ( cd packages/aft/external/libgit2dart; git apply ../libgit2dart.patch )
+          dart pub global activate -spath packages/aft
 
       - name: Bootstrap
         id: bootstrap

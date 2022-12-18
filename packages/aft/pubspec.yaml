@@ -27,9 +27,7 @@ dependencies:
   http: ^0.13.0
   json_annotation: ^4.7.0
   libgit2dart:
-    git:
-      url: https://github.com/SkinnyMind/libgit2dart
-      ref: d55742d6d7725fa190df0caf3c1cbe60b7b481aa
+    path: external/libgit2dart
   markdown: ^5.0.0
   meta: ^1.7.0
   path: any

@@ -42,6 +42,7 @@ commands:
       - run:
           name: Install and set up aft
           command: |
+            git submodule update --init
             flutter pub global activate -spath packages/aft
             aft bootstrap
   activate_pana:
