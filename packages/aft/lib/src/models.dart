@@ -227,10 +227,11 @@ extension AmplifyVersion on Version {
 
   /// The next version according to Amplify rules for incrementing.
   Version nextAmplifyVersion(VersionBumpType type) {
+    final newBuild = (build.singleOrNull as int? ?? 0) + 1;
     if (preRelease.isEmpty) {
       switch (type) {
         case VersionBumpType.patch:
-          return nextPatch;
+          return major == 0 ? replace(build: [newBuild]) : nextPatch;
         case VersionBumpType.nonBreaking:
           return major == 0 ? nextPatch : nextMinor;
         case VersionBumpType.breaking:
@@ -240,14 +241,7 @@ extension AmplifyVersion on Version {
     if (type == VersionBumpType.breaking) {
       return nextPreRelease;
     }
-    final newBuild = (build.singleOrNull as int? ?? 0) + 1;
-    return Version(
-      major,
-      minor,
-      patch,
-      pre: preRelease.join('.'),
-      build: '$newBuild',
-    );
+    return replace(build: [newBuild]);
   }
 
   /// The constraint to use for this version in pubspecs.
@@ -268,6 +262,35 @@ extension AmplifyVersion on Version {
       maxVersion = nextPreRelease;
     }
     return '>=$minVersion <$maxVersion';
+  }
+
+  /// Creates a copy of this version with the given fields replaced.
+  Version replace({
+    int? major,
+    int? minor,
+    int? patch,
+    List<Object>? preRelease,
+    List<Object>? build,
+  }) {
+    String? pre;
+    if (preRelease != null) {
+      pre = preRelease.join('.');
+    } else if (this.preRelease.isNotEmpty) {
+      pre = this.preRelease.join('.');
+    }
+    String? buildString;
+    if (build != null) {
+      buildString = build.join('.');
+    } else if (this.build.isNotEmpty) {
+      buildString = this.build.join('.');
+    }
+    return Version(
+      major ?? this.major,
+      minor ?? this.minor,
+      patch ?? this.patch,
+      pre: pre,
+      build: buildString,
+    );
   }
 }
 

@@ -24,8 +24,12 @@ void main() {
       final version = Version(0, 1, 0);
 
       final patch = version.nextAmplifyVersion(VersionBumpType.patch);
-      expect(patch, Version(0, 1, 1));
+      expect(patch, Version(0, 1, 0, build: '1'));
       expect(proagation.propagateToComponent(version, patch), false);
+
+      final nextPatch = patch.nextAmplifyVersion(VersionBumpType.patch);
+      expect(nextPatch, Version(0, 1, 0, build: '2'));
+      expect(proagation.propagateToComponent(version, nextPatch), false);
 
       final nonBreaking =
           version.nextAmplifyVersion(VersionBumpType.nonBreaking);
