@@ -40,7 +40,6 @@ jobs:
           ( cd external/libgit2dart; git apply ../libgit2dart.patch )
           dart pub upgrade
           sudo apt-get install libgit2-dev
-          dart run libgit2dart:setup
 
       - name: Run Tests
         working-directory: packages/aft
