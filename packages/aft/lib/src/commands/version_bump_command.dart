@@ -107,6 +107,10 @@ class VersionBumpCommand extends AmplifyCommand
   @override
   Future<void> run() async {
     await super.run();
+
+    // Link packages so that we can run build_runner
+    await linkPackages(repo.allPackages);
+
     final bumpedPackages = await _updateVersions();
 
     if (!preview) {
