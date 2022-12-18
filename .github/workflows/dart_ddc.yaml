@@ -58,6 +58,7 @@ jobs:
           # Patch libgit2dart (see https://github.com/dart-lang/pub/issues/3563)
           ( cd packages/aft/external/libgit2dart; git apply ../libgit2dart.patch )
           dart pub global activate -spath packages/aft
+          ( cd packages/aft/external/libgit2dart; git reset --hard HEAD )
 
       - name: Setup Firefox
         if: ${{ matrix.browser == 'firefox' }}
