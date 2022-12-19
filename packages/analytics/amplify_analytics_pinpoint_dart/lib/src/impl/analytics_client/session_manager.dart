@@ -14,7 +14,6 @@
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
-import 'package:amplify_core/amplify_core.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 

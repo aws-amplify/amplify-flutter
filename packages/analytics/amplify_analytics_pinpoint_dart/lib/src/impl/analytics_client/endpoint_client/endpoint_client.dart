@@ -46,9 +46,6 @@ class EndpointClient {
   final PublicEndpointBuilder _endpointBuilder;
   final EndpointGlobalFieldsManager _globalFieldsManager;
 
-  static final AmplifyLogger _logger =
-      AmplifyLogger.category(Category.analytics).createChild('EndpointClient');
-
   /// Add an attribute that will be sent with all future events
   Future<void> addAttribute(String name, String value) async =>
       _globalFieldsManager.addAttribute(name, value);
