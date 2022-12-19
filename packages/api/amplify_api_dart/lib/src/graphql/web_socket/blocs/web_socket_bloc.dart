@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
-import 'dart:io';
 
+import 'package:amplify_api_dart/src/graphql/web_socket/blocs/is_windows/is_windows.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/blocs/subscriptions_bloc.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/services/web_socket_service.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart';
@@ -469,7 +469,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
     await Future.wait<void>([
       // TODO(equartey): https://github.com/fluttercommunity/plus_plugins/issues/1382
-      if (zIsWeb || !Platform.isWindows) _networkSubscription.cancel(),
+      if (!isWindows()) _networkSubscription.cancel(),
       Future.value(_pollClient.close()),
       _stateSubscription.cancel(),
       _wsEventController.close(),
