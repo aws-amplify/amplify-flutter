@@ -1,19 +1,7 @@
-// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 export 'traits/annotation_trait.dart';
-
 // AWS
 export 'traits/aws/arn_reference_trait.dart';
 export 'traits/aws/arn_trait.dart';
@@ -33,7 +21,6 @@ export 'traits/aws/protocols/aws_protocol_trait.dart';
 export 'traits/aws/protocols/rest_json_1_trait.dart';
 export 'traits/aws/protocols/rest_xml_trait.dart';
 export 'traits/aws/service_trait.dart';
-
 export 'traits/core/auth_definition_trait.dart';
 export 'traits/core/auth_trait.dart';
 export 'traits/core/box_trait.dart';
@@ -106,7 +93,6 @@ export 'traits/http/http_response_code_trait.dart';
 export 'traits/http/http_trait.dart';
 export 'traits/string_list_trait.dart';
 export 'traits/string_trait.dart';
-
 // Protocol Tests
 export 'traits/test/http_malformed_request_definition.dart';
 export 'traits/test/http_malformed_request_test_case.dart';
@@ -119,9 +105,7 @@ export 'traits/test/http_request_tests_trait.dart';
 export 'traits/test/http_response_test_case.dart';
 export 'traits/test/http_response_tests_trait.dart';
 export 'traits/test/parameterized_http_malformed_test_case.dart';
-
 export 'traits/trait.dart';
-
 // Waiters
 export 'traits/waiters/acceptor_definition.dart';
 export 'traits/waiters/matcher.dart';
