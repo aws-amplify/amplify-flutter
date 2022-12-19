@@ -14,9 +14,7 @@
 
 import 'dart:io';
 
-import 'package:aws_common/aws_common.dart';
-
 /// Is the environment Windows vm (not Web on Windows).
 bool isWindows() {
-  return !zIsWeb && Platform.isWindows;
+  return Platform.isWindows;
 }
