@@ -303,14 +303,28 @@ class GraphQLRequestFactory {
       }
     }
 
-    // Remove any relational fields or readonly.
+    final ownerFieldNames = (schema.authRules ?? [])
+        .where((authRule) => authRule.ownerField != null)
+        .map((authRule) => authRule.ownerField!)
+        .toSet();
+
+    // In some cases, remove values from the input JSON.
     final fieldsToRemove = schema.fields!.entries
         .where(
-          (entry) => entry.value.association != null || entry.value.isReadOnly,
+          (entry) =>
+              // relational fields
+              entry.value.association != null ||
+              // read-only
+              entry.value.isReadOnly ||
+              // owner fields with null value
+              (ownerFieldNames.contains(entry.value.name) &&
+                  modelJson[entry.value.name] == null),
         )
         .map((entry) => entry.key)
         .toSet();
-    modelJson.removeWhere((key, dynamic value) => fieldsToRemove.contains(key));
+    modelJson.removeWhere(
+      (key, dynamic value) => fieldsToRemove.contains(key),
+    );
 
     return modelJson;
   }

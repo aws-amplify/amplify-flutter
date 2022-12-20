@@ -2,4 +2,5 @@ include: package:amplify_lints/library.yaml
 
 analyzer:
   exclude:
+    - test/test_models/**
     - '**/*.mocks.dart'
