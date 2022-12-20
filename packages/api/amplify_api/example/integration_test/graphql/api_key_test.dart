@@ -107,10 +107,10 @@ void main({bool useExistingTestUser = false}) {
               authorizationMode: APIAuthorizationType.apiKey,
             );
 
-            final eventResponse = await establishSubscriptionAndMutate(
+            final eventResponse = await establishSubscriptionAndMutate<Blog>(
               subscriptionRequest,
               () => addBlog(name),
-              eventFilter: (Blog? blog) => blog?.name == name,
+              eventFilter: (response) => response.data?.name == name,
             );
             final blogFromEvent = eventResponse.data;
 
@@ -129,9 +129,10 @@ void main({bool useExistingTestUser = false}) {
               authorizationMode: APIAuthorizationType.apiKey,
             );
 
-            final eventResponse = await establishSubscriptionAndMutate(
+            final eventResponse = await establishSubscriptionAndMutate<Blog>(
               subscriptionRequest,
               () => runPartialMutation(name),
+              eventFilter: (response) => response.errors.isNotEmpty,
               canFail: true,
             );
             final dataErrors = eventResponse.errors;
