@@ -109,7 +109,7 @@ void main({bool useExistingTestUser = false}) {
         final res = await operation.response;
         final data = res.data;
         expect(res, hasNoGraphQLErrors);
-        expect(data?.items.length, greaterThan(0));
+        expect(data?.items, isNotEmpty);
       });
 
       testWidgets(
