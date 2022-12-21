@@ -18,5 +18,8 @@ enum HubChannel<HubEventPayload, E extends HubEvent<HubEventPayload>> {
   DataStore<DataStoreHubEventPayload, DataStoreHubEvent>(),
 
   /// Events of the API category
-  Api<ApiHubEventPayload, ApiHubEvent>();
+  Api<ApiHubEventPayload, ApiHubEvent>(),
+
+  /// Events of the Analytics category
+  Analytics<AnalyticsHubEventPayload, AnalyticsHubEvent>();
 }

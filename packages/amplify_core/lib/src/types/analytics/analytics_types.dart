@@ -6,3 +6,4 @@ export 'analytics/analytics_properties.dart';
 export 'analytics/analytics_user_profile.dart';
 export 'analytics/analytics_user_profile_location.dart';
 export 'exceptions/analytics_exception.dart';
+export 'hub/analytics_hub_event.dart';

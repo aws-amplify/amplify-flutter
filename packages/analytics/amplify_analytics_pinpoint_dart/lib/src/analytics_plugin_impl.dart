@@ -34,7 +34,8 @@ const zSessionStopEventType = '_session.stop';
 /// - Validates and parses inputs
 /// - Receives and provides external Flutter Provider implementations
 /// {@endtemplate}
-class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
+class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface
+    implements Closeable {
   /// {@macro amplify_analytics_pinpoint_dart.amplify_analytics_pinpoint_dart}
   AmplifyAnalyticsPinpointDart({
     SecureStorageInterface? endpointInfoStore,
@@ -63,10 +64,12 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
             'Please make sure to call: await Amplify.configure(amplifyconfig)',
       );
     }
+    if (_cachedConfigException != null) throw _cachedConfigException!;
   }
 
   var _isConfigured = false;
   var _analyticsEnabled = false;
+  AnalyticsException? _cachedConfigException;
 
   /// Storage key for the static Pinpoint endpoint id
   @visibleForTesting
@@ -93,13 +96,25 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   final LegacyNativeDataProvider? _legacyNativeDataProvider;
   final Connect _dbConnectFunction;
 
+  final StreamController<AnalyticsHubEvent> _hubEventController =
+      StreamController.broadcast();
+
   static final _logger = AmplifyLogger.category(Category.analytics);
+
+  @override
+  Future<void> close() async {
+    await _hubEventController.close();
+  }
 
   @override
   Future<void> configure({
     AmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
+    _cachedConfigException = null;
+
+    Amplify.Hub.addChannel(HubChannel.Analytics, _hubEventController.stream);
+
     // Parse config values from amplifyconfiguration.json
     if (config == null ||
         config.analytics == null ||
@@ -142,6 +157,10 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
 
     final fixedEndpointId = await retrieveEndpointId(
       pinpointAppId: appId,
+    );
+
+    _hubEventController.add(
+      AnalyticsHubEvent.endpointConfigured(fixedEndpointId),
     );
 
     final endpoint = PublicEndpoint(
