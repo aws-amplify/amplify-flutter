@@ -275,7 +275,11 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       // disconnect. Ignore those messages.
       _safeAdd,
       onError: (Object error, StackTrace st) {
-        _emit(_currentState.failed(error, st));
+        final exception = ApiException(
+          'Exception from WebSocketService.',
+          underlyingException: error.toString(),
+        );
+        _shutdownWithException(exception, st);
       },
     );
 
