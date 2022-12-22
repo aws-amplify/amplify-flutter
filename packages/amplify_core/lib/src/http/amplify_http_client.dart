@@ -15,7 +15,6 @@
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_core/src/platform/platform.dart';
 
 /// {@template amplify_common.amplify_http_client}
 /// Base client for Amplify HTTP operations.
