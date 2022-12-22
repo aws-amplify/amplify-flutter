@@ -16,6 +16,6 @@
 library amplify_auth_cognito;
 
 export 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
-    hide AmplifyAuthCognitoDart;
+    hide AmplifyAuthCognitoDart, HostedUiStateMachine, HostedUiPlatformImpl;
 
 export 'src/auth_plugin_impl.dart';
