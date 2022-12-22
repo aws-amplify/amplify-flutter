@@ -271,7 +271,9 @@ void main() {
         expect(uploadDataTask.result, throwsA(isA<S3Exception>()));
       });
 
-      test('should throw S3Exception when S3Client.putObject fails', () {
+      test(
+          'should throw StorageAccessDeniedException when S3Client.putObject'
+          ' returned UnknownSmithyHttpException with status code 403', () {
         const testUploadDataOptions = S3UploadDataOptions(
           accessLevel: StorageAccessLevel.private,
         );
@@ -297,7 +299,10 @@ void main() {
 
         unawaited(uploadDataTask.start());
 
-        expect(uploadDataTask.result, throwsA(isA<S3Exception>()));
+        expect(
+          uploadDataTask.result,
+          throwsA(isA<StorageAccessDeniedException>()),
+        );
       });
 
       test(
@@ -810,7 +815,9 @@ void main() {
         expect(finalState, S3TransferState.failure);
       });
 
-      test('should complete with error when CreateMultipartUploadRequest fails',
+      test(
+          'should complete with StorageAccessDeniedException when CreateMultipartUploadRequest'
+          ' returned UnknownSmithyHttpException with status code 403',
           () async {
         late S3TransferState finalState;
         final uploadTask = S3UploadTask.fromAWSFile(
@@ -841,7 +848,7 @@ void main() {
         await expectLater(
           uploadTask.result,
           throwsA(
-            isA<S3Exception>().having(
+            isA<StorageAccessDeniedException>().having(
               (o) => o.underlyingException,
               'underlyingException',
               testException,
@@ -894,7 +901,8 @@ void main() {
       });
 
       test(
-          'should complete with error when CompleteMultipartUploadRequest fails (should not happen just in case)',
+          'should complete with StorageAccessDeniedException when'
+          ' CompleteMultipartUploadRequest fails (should not happen just in case)',
           () async {
         late S3TransferState finalState;
         final uploadTask = S3UploadTask.fromAWSFile(
@@ -960,7 +968,7 @@ void main() {
         await expectLater(
           uploadTask.result,
           throwsA(
-            isA<S3Exception>().having(
+            isA<StorageAccessDeniedException>().having(
               (o) => o.underlyingException,
               'underlyingException',
               testException,
@@ -971,8 +979,8 @@ void main() {
       });
 
       test(
-          'should terminate multipart upload when a UploadPartRequest fails and should complete with error',
-          () async {
+          'should terminate multipart upload when a UploadPartRequest fails due to 403'
+          ' and should complete with StorageAccessDeniedException', () async {
         late S3TransferState finalState;
         final uploadTask = S3UploadTask.fromAWSFile(
           testLocalFile,
@@ -1032,7 +1040,7 @@ void main() {
             isA<S3Exception>().having(
               (o) => o.underlyingException,
               'underlyingException',
-              isA<S3Exception>().having(
+              isA<StorageAccessDeniedException>().having(
                 (o) => o.underlyingException,
                 'underlyingException',
                 testException,

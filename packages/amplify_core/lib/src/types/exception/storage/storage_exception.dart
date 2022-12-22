@@ -16,16 +16,13 @@
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_core.storage.exception}
-/// Exception thrown from the Storage Category
+/// The base class for Storage category exceptions.
 /// {@endtemplate}
-class StorageException extends AmplifyException {
-  /// Named constructor
+abstract class StorageException extends AmplifyException with AWSDebuggable {
+  /// {@macro amplify_core.storage.exception}
   const StorageException(
     super.message, {
     super.recoverySuggestion,
     super.underlyingException,
   });
-
-  @override
-  String get runtimeTypeName => 'StorageException';
 }

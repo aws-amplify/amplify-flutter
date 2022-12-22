@@ -108,12 +108,12 @@ Future<String> _ensureDestinationWritable(AWSFile file) async {
   final destinationPath = file.path;
 
   if (destinationPath == null) {
-    throw S3Exception.invalidDownloadFilePath();
+    throw S3Exception.downloadDestinationFilePathIsNull;
   }
 
   // path should not be a directory
   if (await FileSystemEntity.isDirectory(destinationPath)) {
-    throw S3Exception.invalidDownloadFilePath();
+    throw S3Exception.downloadDestinationFilePathIsDirectory;
   }
 
   final destination = File(destinationPath);

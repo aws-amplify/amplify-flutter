@@ -42,7 +42,7 @@ class S3Item extends StorageItem {
 
     // In S3 plugin, key is required property presenting an object
     if (key == null) {
-      throw S3Exception.unknownException('Missing key in object: $object');
+      throw S3Exception.getS3ObjectMissingKeyException(object);
     }
 
     final keyDroppedPrefix = dropPrefixFromKey(

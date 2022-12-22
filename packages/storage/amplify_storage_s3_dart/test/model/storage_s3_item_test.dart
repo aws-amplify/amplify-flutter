@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart';
 import 'package:fixnum/fixnum.dart';
@@ -48,7 +49,7 @@ void main() {
     });
 
     test(
-        'should throw StorageS3Exception.unknownException() when S3Object.key is null (should never happen)',
+        'should throw StorageUnknownException when S3Object.key is null (should never happen)',
         () {
       final testS3Object = S3Object.build((builder) {
         builder.eTag = testETag;
@@ -60,8 +61,8 @@ void main() {
           prefixToDrop: testPrefixToDrop,
         );
         fail("Expected exception wasn't thrown.");
-      } on S3Exception catch (error) {
-        expect(error, isA<S3Exception>());
+      } on StorageException catch (error) {
+        expect(error, isA<StorageUnknownException>());
       }
     });
   });
