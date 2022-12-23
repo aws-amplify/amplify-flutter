@@ -50,7 +50,7 @@ export 'src/hub/hub_event.dart';
 export 'src/logger/amplify_logger.dart';
 
 /// Platform
-export 'src/platform/platform_html.dart';
+export 'src/platform/platform.dart';
 
 /// Plugin
 export 'src/plugin/amplify_analytics_plugin_interface.dart';
