@@ -246,15 +246,16 @@ Future<StreamSubscription<GraphQLResponse<T>>>
 /// Establish subscription for request, do the mutationFunction, then wait
 /// for the stream event, cancel the operation, return response from event.
 ///
-/// `eventFilter` can be used to ensure completer only called for specific events
-/// as the subscription may get events from other client mutations.
-Future<GraphQLResponse<T?>> establishSubscriptionAndMutate<T>(
+/// `eventFilter` is used to ensure completer only called for specific events
+/// as the subscription may get events from other client mutations (and is likely
+/// in CI).
+Future<GraphQLResponse<T>> establishSubscriptionAndMutate<T>(
   GraphQLRequest<T> subscriptionRequest,
   Future<void> Function() mutationFunction, {
-  bool Function(T?)? eventFilter,
+  required bool Function(GraphQLResponse<T>) eventFilter,
   bool canFail = false,
 }) async {
-  final dataCompleter = Completer<GraphQLResponse<T?>>();
+  final dataCompleter = Completer<GraphQLResponse<T>>();
   // With stream established, exec callback with stream events.
   final subscription = await getEstablishedSubscriptionOperation<T>(
     subscriptionRequest,
@@ -262,8 +263,7 @@ Future<GraphQLResponse<T?>> establishSubscriptionAndMutate<T>(
       if (!canFail && event.hasErrors) {
         fail('subscription errors: ${event.errors}');
       }
-      if (!dataCompleter.isCompleted &&
-          (eventFilter == null || eventFilter(event.data))) {
+      if (!dataCompleter.isCompleted && (eventFilter(event))) {
         dataCompleter.complete(event);
       }
     },
