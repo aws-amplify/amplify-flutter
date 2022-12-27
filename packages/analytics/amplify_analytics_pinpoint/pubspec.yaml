@@ -24,11 +24,11 @@ dependencies:
   amplify_db_common: ">=0.1.2 <0.2.0"
   amplify_secure_storage: ">=0.1.4 <0.2.0"
   aws_common: ">=0.3.3 <0.4.0"
-  device_info_plus: ^6.0.0
+  device_info_plus: ^8.0.0
   flutter:
     sdk: flutter
   meta: ^1.7.0
-  package_info_plus: ^2.0.0
+  package_info_plus: ^3.0.2
   path_provider: ^2.0.0
 
 dev_dependencies:
