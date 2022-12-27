@@ -15,9 +15,7 @@
 import 'package:amplify_auth_cognito/src/credentials/legacy_credential_store_data_extension.dart';
 import 'package:amplify_auth_cognito/src/native_auth_plugin.g.dart';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
-import 'package:amplify_core/src/config/auth/cognito/credentials_provider.dart';
-import 'package:amplify_core/src/config/auth/cognito/oauth.dart';
-import 'package:amplify_core/src/config/auth/cognito/user_pool.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_auth_cognito.legacy_android_credential_provider}
 /// The implementation of [LegacyCredentialProvider] for migrating

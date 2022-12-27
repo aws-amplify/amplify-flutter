@@ -18,7 +18,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
-import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_io.dart';
+import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_io.dart'
+    as io;
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:http/http.dart' as http;
@@ -29,16 +30,16 @@ import '../../common/mock_dispatcher.dart';
 import '../../common/mock_hosted_ui.dart';
 import '../../common/mock_secure_storage.dart';
 
-class MockHostedUiPlatform extends HostedUiPlatformImpl {
+class MockHostedUiPlatform extends io.HostedUiPlatformImpl {
   MockHostedUiPlatform(super.dependencyManager);
 
-  LocalServer? _localServer;
+  io.LocalServer? _localServer;
 
   @override
   Future<void> launchUrl(String url) async {}
 
   @override
-  Future<LocalServer> localConnect(Iterable<Uri> uris) async {
+  Future<io.LocalServer> localConnect(Iterable<Uri> uris) async {
     return _localServer = await super.localConnect(uris);
   }
 
@@ -74,7 +75,7 @@ void main() {
         final platform = createHostedUiFactory(
           signIn: expectAsync3((platform, options, provider) async {
             final boundServer =
-                await (platform as HostedUiPlatformImpl).localConnect(uris);
+                await (platform as io.HostedUiPlatformImpl).localConnect(uris);
             addTearDown(() => boundServer.server.close(force: true));
             expect(boundServer.uri, equals(uris[1]));
           }),
@@ -96,8 +97,8 @@ void main() {
           signIn: expectAsync3(
             count: 2,
             (platform, options, provider) async {
-              final boundServer =
-                  await (platform as HostedUiPlatformImpl).localConnect(uris);
+              final boundServer = await (platform as io.HostedUiPlatformImpl)
+                  .localConnect(uris);
               addTearDown(() => boundServer.server.close(force: true));
             },
           ),
@@ -122,7 +123,7 @@ void main() {
         final platform = createHostedUiFactory(
           signIn: expectAsync3((platform, options, provider) async {
             expect(
-              (platform as HostedUiPlatformImpl).localConnect(uris),
+              (platform as io.HostedUiPlatformImpl).localConnect(uris),
               throwsA(isA<UrlLauncherException>()),
             );
           }),
