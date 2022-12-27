@@ -22,8 +22,10 @@ class ModelMutationsFactory extends ModelMutationsInterface {
     APIAuthorizationType? authorizationMode,
     Map<String, String>? headers,
   }) {
-    final input =
-        GraphQLRequestFactory.instance.buildInputVariableForMutations(model);
+    final input = GraphQLRequestFactory.instance.buildInputVariableForMutations(
+      model,
+      operation: GraphQLRequestOperation.create,
+    );
     // Does not use buildVariablesForMutationRequest because creations don't have conditions.
     final variables = {'input': input};
 
@@ -96,8 +98,10 @@ class ModelMutationsFactory extends ModelMutationsInterface {
   }) {
     final condition = GraphQLRequestFactory.instance
         .queryPredicateToGraphQLFilter(where, model.getInstanceType());
-    final input =
-        GraphQLRequestFactory.instance.buildInputVariableForMutations(model);
+    final input = GraphQLRequestFactory.instance.buildInputVariableForMutations(
+      model,
+      operation: GraphQLRequestOperation.update,
+    );
 
     final variables = GraphQLRequestFactory.instance
         .buildVariablesForMutationRequest(input: input, condition: condition);
