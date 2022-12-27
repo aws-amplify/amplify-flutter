@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/aws_pinpoint_user_profile.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_global_fields_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -106,6 +107,14 @@ class EndpointClient {
       await _globalFieldsManager
           .addAttributes(userProfile.properties!.attributes);
       await _globalFieldsManager.addMetrics(userProfile.properties!.metrics);
+    }
+
+    if (userProfile is AWSPinpointUserProfile) {
+      final attributes = <String, List<String>>{};
+      userProfile.userAttributes.getAllProperties().forEach((key, value) {
+        attributes[key] = [value.toString()];
+      });
+      newUserBuilder.userAttributes = ListMultimapBuilder(attributes);
     }
 
     _endpointBuilder.user = newUserBuilder;

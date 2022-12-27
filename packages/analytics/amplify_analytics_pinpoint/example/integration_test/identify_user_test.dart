@@ -3,6 +3,7 @@
 
 import 'dart:async';
 
+import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart'
     show EndpointLocation;
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -56,12 +57,13 @@ void main() {
 
         await Amplify.Analytics.identifyUser(
           userId: userId,
-          userProfile: AnalyticsUserProfile(
+          userProfile: AWSPinpointUserProfile(
             name: name,
             email: email,
             plan: plan,
             location: location,
             analyticsProperties: properties,
+            userAttributes: properties,
           ),
         );
 
@@ -95,6 +97,16 @@ void main() {
                   ),
                 )
                 .having((e) => e.endpoint.user?.userId, 'UserId', userId)
+                .having(
+                  (e) => e.endpoint.user?.userAttributes?.toMap() ?? const {},
+                  'Attributes',
+                  equals({
+                    boolProperty.key: [stringifiedBoolProperty.value],
+                    stringProperty.key: [stringProperty.value],
+                    intProperty.key: [intProperty.value.toString()],
+                    doubleProperty.key: [doubleProperty.value.toString()],
+                  }),
+                )
                 .having(
                   (e) => e.endpoint.attributes?.toMap() ?? const {},
                   'Attributes',
