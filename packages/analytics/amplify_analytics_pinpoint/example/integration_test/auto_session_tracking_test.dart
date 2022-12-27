@@ -26,21 +26,22 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('auto session tracking', () {
-    final mockLifecycleObserver = MockLifecycleProvider();
+    final mockLifecycleProvider = MockLifecycleProvider();
 
     late Stream<TestEvent> eventsStream;
 
     setUp(() async {
-      eventsStream = await configureAnalytics(
-        appLifecycleProvider: mockLifecycleObserver,
+      await configureAnalytics(
+        appLifecycleProvider: mockLifecycleProvider,
       );
+      eventsStream = await subscribeToEvents();
     });
 
     testWidgets(
       'manual trigger of onBackground/onForeground triggers session '
       'start/end events ',
       (_) async {
-        mockLifecycleObserver.triggerOnBackgroundListener();
+        mockLifecycleProvider.triggerOnBackgroundListener();
 
         TestSession? sessionStop;
 
@@ -48,29 +49,32 @@ void main() {
         final streamSubscription = eventsStream.listen(
           expectAsync1(
             count: 2,
-            (event) {
+            (event) async {
               if (sessionStop == null) {
                 expect(event.eventType, zSessionStopEventType);
                 sessionStop = event.session;
-                return;
+                mockLifecycleProvider.triggerOnForegroundListener();
+                await Amplify.Analytics.flushEvents();
+              } else {
+                expect(event.eventType, zSessionStartEventType);
+                final sessionStart = event.session;
+                expect(
+                  sessionStop!.sessionId,
+                  isNot(sessionStart.sessionId),
+                );
+                expect(
+                  sessionStart.startTimestamp
+                      .isAfter(sessionStop!.stopTimestamp!),
+                  isTrue,
+                  reason: 'onForeground was called after onBackground',
+                );
               }
-              expect(event.eventType, zSessionStartEventType);
-              final sessionStart = event.session;
-              expect(
-                sessionStop!.sessionId,
-                isNot(sessionStart.sessionId),
-              );
-              expect(
-                sessionStart.startTimestamp
-                    .isAfter(sessionStop!.stopTimestamp!),
-                isTrue,
-                reason: 'onForeground was called after onBackground',
-              );
             },
           ),
         );
         addTearDown(streamSubscription.cancel);
 
+        /*
         await expectLater(
           eventsStream,
           emits(
@@ -82,7 +86,7 @@ void main() {
           ),
         );
 
-        mockLifecycleObserver.triggerOnForegroundListener();
+        mockLifecycleProvider.triggerOnForegroundListener();
 
         await Amplify.Analytics.flushEvents();
 
@@ -96,6 +100,8 @@ void main() {
             ),
           ),
         );
+
+         */
       },
       timeout: const Timeout(Duration(minutes: 3)),
     );

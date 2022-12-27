@@ -30,7 +30,8 @@ void main() {
     late Stream<TestEvent> eventsStream;
 
     setUpAll(() async {
-      eventsStream = await configureAnalytics();
+      await configureAnalytics();
+      eventsStream = await subscribeToEvents();
     });
 
     testWidgets(

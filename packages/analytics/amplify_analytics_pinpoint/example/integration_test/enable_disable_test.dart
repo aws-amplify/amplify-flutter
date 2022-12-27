@@ -25,14 +25,15 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('enable/disable', () {
-    final mockLifecycleObserver = MockLifecycleProvider();
+    final mockLifecycleProvider = MockLifecycleProvider();
 
     late Stream<TestEvent> eventsStream;
 
     setUp(() async {
-      eventsStream = await configureAnalytics(
-        appLifecycleProvider: mockLifecycleObserver,
+      await configureAnalytics(
+        appLifecycleProvider: mockLifecycleProvider,
       );
+      eventsStream = await subscribeToEvents();
     });
 
     testWidgets(
@@ -51,8 +52,9 @@ void main() {
 
         await Amplify.Analytics.recordEvent(event: customEvent);
 
-        mockLifecycleObserver.triggerOnBackgroundListener();
-        mockLifecycleObserver.triggerOnForegroundListener();
+        // Ensure app background/foreground does not auto send event
+        mockLifecycleProvider.triggerOnBackgroundListener();
+        mockLifecycleProvider.triggerOnForegroundListener();
 
         // Give time for events to propagate if they were sent to remote server
         // to ensure the failure is not triggered

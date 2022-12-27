@@ -29,12 +29,12 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 class EndpointGlobalFieldsManager {
   /// {@macro amplify_analytics_pinpoint_dart.endpoint_global_fields_manager}
   EndpointGlobalFieldsManager(
-    this._keyValueStore,
+    this._endpointInfoStore,
     this._globalAttributes,
     this._globalMetrics,
   );
 
-  final SecureStorageInterface _keyValueStore;
+  final SecureStorageInterface _endpointInfoStore;
   final Map<String, String> _globalAttributes;
   final Map<String, double> _globalMetrics;
 
@@ -118,7 +118,7 @@ class EndpointGlobalFieldsManager {
   }
 
   Future<void> _saveAttributes() async {
-    await _keyValueStore.write(
+    await _endpointInfoStore.write(
       key: _endpointGlobalAttrsKey,
       value: jsonEncode(_globalAttributes),
     );
@@ -154,7 +154,7 @@ class EndpointGlobalFieldsManager {
   }
 
   Future<void> _saveMetrics() async {
-    await _keyValueStore.write(
+    await _endpointInfoStore.write(
       key: _endpointGlobalMetricsKey,
       value: jsonEncode(_globalMetrics),
     );

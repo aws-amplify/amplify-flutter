@@ -21,14 +21,14 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 ///
 /// Should be static to mimic the behavior of iOS/Android which persist keys
 /// between relaunches (e.g. between test groups).
-final SecureStorageInterface mockKeyValueStore = _MockKeyValueStore()
+final SecureStorageInterface mockEndpointInfoStore = _MockEndpointInfoStore()
   ..write(
     key: AmplifyAnalyticsPinpointDart.endpointIdStorageKey,
     value: mockEndpointId,
   );
 final String mockEndpointId = uuid();
 
-class _MockKeyValueStore extends SecureStorageInterface {
+class _MockEndpointInfoStore extends SecureStorageInterface {
   final _storage = <String, String>{};
 
   @override

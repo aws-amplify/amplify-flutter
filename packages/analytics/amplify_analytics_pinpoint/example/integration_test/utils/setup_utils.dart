@@ -27,7 +27,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'mock_key_value_store.dart';
 import 'test_event.dart';
 
-Future<Stream<TestEvent>> configureAnalytics({
+Future<void> configureAnalytics({
   AppLifecycleProvider? appLifecycleProvider,
 }) async {
   await Amplify.addPlugins([
@@ -41,7 +41,7 @@ Future<Stream<TestEvent>> configureAnalytics({
     ),
     AmplifyAnalyticsPinpoint(
       appLifecycleProvider: appLifecycleProvider,
-      keyValueStore: mockKeyValueStore,
+      endpointInfoStore: mockEndpointInfoStore,
     ),
     AmplifyAPI(),
   ]);
@@ -57,7 +57,9 @@ Future<Stream<TestEvent>> configureAnalytics({
     }
     await Amplify.reset();
   });
+}
 
+Future<Stream<TestEvent>> subscribeToEvents() async {
   final subscriptionEstablished = Completer<void>.sync();
 
   final eventsStream = Amplify.API

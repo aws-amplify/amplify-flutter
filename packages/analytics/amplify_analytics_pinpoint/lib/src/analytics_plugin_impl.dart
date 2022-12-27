@@ -25,7 +25,7 @@ import 'package:meta/meta.dart';
 class AmplifyAnalyticsPinpoint extends AmplifyAnalyticsPinpointDart {
   /// {@macro amplify_analytics_pinpoint.analytics_plugin_impl}
   AmplifyAnalyticsPinpoint({
-    @visibleForTesting super.keyValueStore,
+    @visibleForTesting super.endpointInfoStore,
     @visibleForTesting CachedEventsPathProvider? pathProvider,
     @visibleForTesting AppLifecycleProvider? appLifecycleProvider,
     @visibleForTesting DeviceContextInfoProvider? deviceContextInfoProvider,

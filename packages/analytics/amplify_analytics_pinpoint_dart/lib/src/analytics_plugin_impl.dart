@@ -48,12 +48,12 @@ const zSessionStopEventType = '_session.stop';
 class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   /// {@macro amplify_analytics_pinpoint_dart.amplify_analytics_pinpoint_dart}
   AmplifyAnalyticsPinpointDart({
-    SecureStorageInterface? keyValueStore,
+    SecureStorageInterface? endpointInfoStore,
     CachedEventsPathProvider? pathProvider,
     AppLifecycleProvider? appLifecycleProvider,
     DeviceContextInfoProvider? deviceContextInfoProvider,
     required Connect dbConnectFunction,
-  })  : _keyValueStore = keyValueStore ??
+  })  : _endpointInfoStore = endpointInfoStore ??
             AmplifySecureStorageWorker(
               config: AmplifySecureStorageConfig(
                 scope: 'analyticsPinpoint',
@@ -77,9 +77,8 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   var _isConfigured = false;
   var _analyticsEnabled = false;
 
-  @visibleForTesting
-
   /// Storage key for the static Pinpoint endpoint id
+  @visibleForTesting
   static const String endpointIdStorageKey = 'UniqueId';
   static const String _endpointGlobalAttrsKey = 'EndpointGlobalAttributesKey';
   static const String _endpointGlobalMetricsKey = 'EndpointGlobalMetricsKey';
@@ -94,7 +93,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   late final EventStorageAdapter _eventStorageAdapter;
   late final StoppableTimer _autoEventSubmitter;
 
-  final SecureStorageInterface _keyValueStore;
+  final SecureStorageInterface _endpointInfoStore;
 
   /// External Flutter Provider implementations
   final CachedEventsPathProvider? _pathProvider;
@@ -151,10 +150,10 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
 
     // Retrieve Unique ID
     final savedFixedEndpointId =
-        await _keyValueStore.read(key: endpointIdStorageKey);
+        await _endpointInfoStore.read(key: endpointIdStorageKey);
     final fixedEndpointId = savedFixedEndpointId ?? const Uuid().v1();
     if (savedFixedEndpointId == null) {
-      await _keyValueStore.write(
+      await _endpointInfoStore.write(
         key: endpointIdStorageKey,
         value: fixedEndpointId,
       );
@@ -179,7 +178,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
 
     /// Retrieve stored GlobalAttributes
     final cachedAttributes =
-        await _keyValueStore.read(key: _endpointGlobalAttrsKey);
+        await _endpointInfoStore.read(key: _endpointGlobalAttrsKey);
     final globalAttributes = cachedAttributes == null
         ? <String, String>{}
         : (jsonDecode(cachedAttributes) as Map<String, Object?>)
@@ -187,14 +186,14 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
 
     /// Retrieve stored GlobalMetrics
     final cachedMetrics =
-        await _keyValueStore.read(key: _endpointGlobalMetricsKey);
+        await _endpointInfoStore.read(key: _endpointGlobalMetricsKey);
     final globalMetrics = cachedMetrics == null
         ? <String, double>{}
         : (jsonDecode(cachedMetrics) as Map<String, Object?>)
             .cast<String, double>();
 
     _endpointGlobalFieldsManager = EndpointGlobalFieldsManager(
-      _keyValueStore,
+      _endpointInfoStore,
       globalAttributes,
       globalMetrics,
     );
