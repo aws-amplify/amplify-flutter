@@ -78,6 +78,19 @@ abstract class MacOSSecureStorageOptions
     );
   }
 
+  /// A constructor for creating an [MacOSSecureStorageOptions] with all null
+  /// values.
+  ///
+  /// This will result in the default values being used.
+  @internal
+  factory MacOSSecureStorageOptions.empty() {
+    return _$MacOSSecureStorageOptions._(
+      useDataProtection: false,
+      accessible: null,
+      accessGroup: null,
+    );
+  }
+
   const MacOSSecureStorageOptions._();
 
   /// {@macro amplify_secure_storage_dart.macos_secure_storage_options.useDataProtection}
@@ -87,7 +100,7 @@ abstract class MacOSSecureStorageOptions
   String? get accessGroup;
 
   /// {@macro amplify_secure_storage_dart.macos_secure_storage_options.accessible}
-  KeychainAttributeAccessible get accessible;
+  KeychainAttributeAccessible? get accessible;
 
   /// The [MacOSSecureStorageOptions] serializer.
   static Serializer<MacOSSecureStorageOptions> get serializer =>

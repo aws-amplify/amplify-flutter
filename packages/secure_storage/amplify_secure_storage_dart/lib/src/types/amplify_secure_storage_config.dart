@@ -56,8 +56,8 @@ abstract class AmplifySecureStorageConfig
       webOptions: WebSecureStorageOptions(),
       windowsOptions: WindowsSecureStorageOptions(),
       linuxOptions: LinuxSecureStorageOptions(),
-      macOSOptions: MacOSSecureStorageOptions(),
-      iOSOptions: IOSSecureStorageOptions(),
+      macOSOptions: MacOSSecureStorageOptions.empty(),
+      iOSOptions: IOSSecureStorageOptions.empty(),
     );
   }
 
