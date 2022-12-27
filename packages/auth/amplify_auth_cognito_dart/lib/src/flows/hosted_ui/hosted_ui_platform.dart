@@ -58,6 +58,9 @@ abstract class HostedUiPlatform implements Closeable {
   /// The secure storage plugin.
   SecureStorageInterface get _secureStorage => dependencyManager.getOrCreate();
 
+  /// The base URL used in the HTML implementation
+  String get baseUrl => '';
+
   /// The HTTP client to use for internal HTTP requests.
   @protected
   http.Client get httpClient => dependencyManager.getOrCreate();
