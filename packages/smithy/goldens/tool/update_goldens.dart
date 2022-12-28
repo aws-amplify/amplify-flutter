@@ -28,10 +28,7 @@ Future<void> main(List<String> args) async {
       const LocalFileSystem(),
       root: modelsPath[version],
     );
-    for (var modelEnt in entites) {
-      if (modelEnt is! Directory) {
-        continue;
-      }
+    for (final modelEnt in entites.whereType<Directory>()) {
       futures.add(_generateFor(version, modelEnt));
     }
   }
@@ -58,24 +55,13 @@ Future<void> _generateFor(
 
   stdout.writeln('Generating AST for $modelPath');
 
-  final String astJson;
   final preCompiled = File('${modelEnt.path}.json');
-  if (preCompiled.existsSync()) {
-    astJson = preCompiled.readAsStringSync();
-  } else {
+  if (!preCompiled.existsSync()) {
     final result = await Process.run(
-      'docker',
+      Platform.script.resolve('../gradlew').toFilePath(),
       [
         'run',
-        '--rm',
-        '-v',
-        '${modelsPath[version]}:/home/models',
-        version == SmithyVersion.v1 ? 'smithy:1' : 'smithy:2',
-        'ast',
-        '-d',
-        '/smithy/lib/traits',
-        '/home/models/shared',
-        '/home/models/$modelPath',
+        '--args="${version.name} $protocolName"',
       ],
       stdoutEncoding: utf8,
       stderrEncoding: utf8,
@@ -86,9 +72,9 @@ Future<void> _generateFor(
       stderr.writeln(result.stderr);
       exit(result.exitCode);
     }
-    astJson = result.stdout as String;
   }
 
+  final astJson = preCompiled.readAsStringSync();
   final packageName = '${protocolName.snakeCase}_${version.name}';
   final ast = parseAstJson(astJson);
 
