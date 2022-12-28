@@ -23,3 +23,4 @@ export 'src/types/linux_secure_storage_options.dart';
 export 'src/types/macos_secure_storage_options.dart';
 export 'src/types/web_secure_storage_options.dart';
 export 'src/types/windows_secure_storage_options.dart';
+export 'src/utils/file_key_value_store.dart';
