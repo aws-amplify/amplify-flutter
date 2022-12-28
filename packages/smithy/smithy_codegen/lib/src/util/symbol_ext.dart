@@ -91,4 +91,180 @@ extension ReferenceHelpers on Reference {
       ),
     ]);
   }
+
+  /// Whether [symbol] requires transformation in the factory constructor.
+  bool get requiresConstructorTransformation {
+    return url == BuiltValueType.collectionUrl || url == BuiltValueType.jsonUrl;
+  }
+
+  /// The public constructor type corresponding to `this`.
+  Reference get transformedSymbol {
+    if (!requiresConstructorTransformation) {
+      return this;
+    }
+    final ref = typeRef;
+    switch (symbol) {
+      case 'BuiltList':
+        final childSymbol = ref.types.single;
+        return DartTypes.core.list(childSymbol.transformedSymbol);
+      case 'BuiltSet':
+        final childSymbol = ref.types.single;
+        return DartTypes.core.set(childSymbol.transformedSymbol);
+      case 'BuiltMap':
+        final keySymbol = ref.types[0];
+        final valueSymbol = ref.types[1];
+        return DartTypes.core.map(
+          keySymbol.transformedSymbol,
+          valueSymbol.transformedSymbol,
+        );
+      case 'BuiltListMultimap':
+        final keySymbol = ref.types[0];
+        final valueSymbol = ref.types[1];
+        return DartTypes.core.map(
+          keySymbol.transformedSymbol,
+          DartTypes.core.list(valueSymbol.transformedSymbol),
+        );
+      case 'BuiltSetMultimap':
+        final keySymbol = ref.types[0];
+        final valueSymbol = ref.types[1];
+        return DartTypes.core.map(
+          keySymbol.transformedSymbol,
+          DartTypes.core.set(valueSymbol.transformedSymbol),
+        );
+      case 'JsonObject':
+        return DartTypes.core.object;
+      default:
+        throw ArgumentError.value(
+          symbol,
+          'symbol',
+          'Expected built_value type',
+        );
+    }
+  }
+
+  /// Recursively converts `dart:core` types like lists, maps, and sets into the
+  /// built value types expected by constructors.
+  Expression transformToInternal({required String name, bool? isNullable}) {
+    Expression ref = refer(name);
+    if (!requiresConstructorTransformation) {
+      return ref;
+    }
+    isNullable ??= typeRef.isNullable!;
+    final types = typeRef.types;
+    switch (symbol) {
+      case 'BuiltList':
+      case 'BuiltSet':
+        final childSymbol = types.single;
+        if (childSymbol.requiresConstructorTransformation) {
+          final childExpression = childSymbol.transformToInternal(name: 'el');
+          ref = ref.property('map').call([
+            Method(
+              (m) => m
+                ..requiredParameters.add(Parameter((p) => p.name = 'el'))
+                ..body = childExpression.code,
+            ).closure,
+          ]);
+        }
+        break;
+      case 'BuiltMap':
+        final valueSymbol = types[1];
+        if (valueSymbol.requiresConstructorTransformation) {
+          final valueExpression = valueSymbol.transformToInternal(
+            name: 'value',
+          );
+          ref = ref.property('map').call([
+            Method(
+              (m) => m
+                ..requiredParameters.addAll([
+                  Parameter((p) => p.name = 'key'),
+                  Parameter((p) => p.name = 'value'),
+                ])
+                ..body = DartTypes.core.mapEntry
+                    .newInstance([refer('key'), valueExpression]).code,
+            ).closure,
+          ]);
+        }
+        break;
+      case 'BuiltListMultimap':
+      case 'BuiltSetMultimap':
+        final valueSymbol = types[1];
+        if (valueSymbol.requiresConstructorTransformation) {
+          final childExpression = valueSymbol.transformToInternal(
+            name: 'value',
+          );
+          final valueExpression = refer('value').property('map').call([
+            Method(
+              (m) => m
+                ..requiredParameters.add(Parameter((p) => p.name = 'el'))
+                ..body = childExpression.code,
+            ).closure,
+          ]);
+          ref = ref.property('map').call([
+            Method(
+              (m) => m
+                ..requiredParameters.addAll([
+                  Parameter((p) => p.name = 'key'),
+                  Parameter((p) => p.name = 'value'),
+                ])
+                ..body = DartTypes.core.mapEntry
+                    .newInstance([refer('key'), valueExpression]).code,
+            ).closure,
+          ]);
+        }
+        break;
+    }
+    ref = refer(symbol!, url).newInstance([ref]);
+    return isNullable
+        ? refer(name).equalTo(literalNull).conditional(literalNull, ref)
+        : ref;
+  }
+
+  /// Transforms `built_collection` symbols to their `dart:core` counterpart,
+  /// e.g. BuiltList -> List, BuiltSet -> Set, etc for use in factory
+  /// constructors so that users do not need to concern themselves with built
+  /// types when constructing instances.
+  Reference transformFromInternal() {
+    if (!requiresConstructorTransformation) {
+      return this;
+    }
+    final Reference transformed;
+    switch (symbol!) {
+      case 'JsonObject':
+        transformed = DartTypes.core.object;
+        break;
+      case 'BuiltList':
+        transformed = DartTypes.core.list(
+          typeRef.types.single.transformFromInternal(),
+        );
+        break;
+      case 'BuiltSet':
+        transformed = DartTypes.core.set(
+          typeRef.types.single.transformFromInternal(),
+        );
+        break;
+      case 'BuiltMap':
+        transformed = DartTypes.core.map(
+          typeRef.types[0].transformFromInternal(),
+          typeRef.types[1].transformFromInternal(),
+        );
+        break;
+      case 'BuiltListMultimap':
+        transformed = DartTypes.core.map(
+          typeRef.types[0].transformFromInternal(),
+          DartTypes.core.list(typeRef.types[1].transformFromInternal()),
+        );
+        break;
+      case 'BuiltSetMultimap':
+        transformed = DartTypes.core.map(
+          typeRef.types[0].transformFromInternal(),
+          DartTypes.core.set(typeRef.types[1].transformFromInternal()),
+        );
+        break;
+      default:
+        throw ArgumentError('Bad type: $symbol');
+    }
+    return transformed.typeRef.rebuild(
+      (t) => t.isNullable = typeRef.isNullable!,
+    );
+  }
 }
