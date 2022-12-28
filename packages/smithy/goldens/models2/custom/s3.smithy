@@ -53,15 +53,6 @@ service AmazonS3 {
     ],
 }
 
-@httpChecksum(
-    requestValidationModeMember: "ChecksumMode",
-    responseAlgorithms: [
-        "CRC32",
-        "CRC32C",
-        "SHA256",
-        "SHA1"
-    ]
-)
 @http(method: "GET", uri: "/{Bucket}/{Key+}?x-id=GetObject", code: 200)
 operation GetObject {
     input: GetObjectRequest,

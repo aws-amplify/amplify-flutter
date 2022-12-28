@@ -6,6 +6,24 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
+/// The discrete values of [PatternUnion].
+enum PatternUnionType<T extends PatternUnion> {
+  /// The type for [PatternUnionFirst].
+  first<PatternUnionFirst>(r'first'),
+
+  /// The type for [PatternUnionSecond].
+  second<PatternUnionSecond>(r'second'),
+
+  /// The type for an unknown value.
+  sdkUnknown<PatternUnionSdkUnknown>('sdkUnknown');
+
+  /// The discrete values of [PatternUnion].
+  const PatternUnionType(this.value);
+
+  /// The Smithy value.
+  final String value;
+}
+
 abstract class PatternUnion extends _i1.SmithyUnion<PatternUnion> {
   const PatternUnion._();
 
@@ -24,6 +42,7 @@ abstract class PatternUnion extends _i1.SmithyUnion<PatternUnion> {
 
   String? get first => null;
   String? get second => null;
+  PatternUnionType get type;
   @override
   Object get value => (first ?? second)!;
   @override
@@ -74,6 +93,8 @@ class PatternUnionFirst extends PatternUnion {
   final String first;
 
   @override
+  PatternUnionType get type => PatternUnionType.first;
+  @override
   String get name => 'first';
 }
 
@@ -83,6 +104,8 @@ class PatternUnionSecond extends PatternUnion {
   @override
   final String second;
 
+  @override
+  PatternUnionType get type => PatternUnionType.second;
   @override
   String get name => 'second';
 }
@@ -98,6 +121,9 @@ class PatternUnionSdkUnknown extends PatternUnion {
 
   @override
   final Object value;
+
+  @override
+  PatternUnionType get type => PatternUnionType.sdkUnknown;
 }
 
 class PatternUnionRestJson1Serializer
@@ -130,12 +156,12 @@ class PatternUnionRestJson1Serializer
     final value = iterator.current as Object;
     switch (key) {
       case 'first':
-        return PatternUnion.first((serializers.deserialize(
+        return PatternUnionFirst((serializers.deserialize(
           value,
           specifiedType: const FullType(String),
         ) as String));
       case 'second':
-        return PatternUnion.second((serializers.deserialize(
+        return PatternUnionSecond((serializers.deserialize(
           value,
           specifiedType: const FullType(String),
         ) as String));

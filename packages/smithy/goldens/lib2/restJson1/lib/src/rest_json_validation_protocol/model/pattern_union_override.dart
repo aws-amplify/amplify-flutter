@@ -6,6 +6,24 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
+/// The discrete values of [PatternUnionOverride].
+enum PatternUnionOverrideType<T extends PatternUnionOverride> {
+  /// The type for [PatternUnionOverrideFirst].
+  first<PatternUnionOverrideFirst>(r'first'),
+
+  /// The type for [PatternUnionOverrideSecond].
+  second<PatternUnionOverrideSecond>(r'second'),
+
+  /// The type for an unknown value.
+  sdkUnknown<PatternUnionOverrideSdkUnknown>('sdkUnknown');
+
+  /// The discrete values of [PatternUnionOverride].
+  const PatternUnionOverrideType(this.value);
+
+  /// The Smithy value.
+  final String value;
+}
+
 abstract class PatternUnionOverride
     extends _i1.SmithyUnion<PatternUnionOverride> {
   const PatternUnionOverride._();
@@ -27,6 +45,7 @@ abstract class PatternUnionOverride
 
   String? get first => null;
   String? get second => null;
+  PatternUnionOverrideType get type;
   @override
   Object get value => (first ?? second)!;
   @override
@@ -77,6 +96,8 @@ class PatternUnionOverrideFirst extends PatternUnionOverride {
   final String first;
 
   @override
+  PatternUnionOverrideType get type => PatternUnionOverrideType.first;
+  @override
   String get name => 'first';
 }
 
@@ -86,6 +107,8 @@ class PatternUnionOverrideSecond extends PatternUnionOverride {
   @override
   final String second;
 
+  @override
+  PatternUnionOverrideType get type => PatternUnionOverrideType.second;
   @override
   String get name => 'second';
 }
@@ -101,6 +124,9 @@ class PatternUnionOverrideSdkUnknown extends PatternUnionOverride {
 
   @override
   final Object value;
+
+  @override
+  PatternUnionOverrideType get type => PatternUnionOverrideType.sdkUnknown;
 }
 
 class PatternUnionOverrideRestJson1Serializer
@@ -134,12 +160,12 @@ class PatternUnionOverrideRestJson1Serializer
     final value = iterator.current as Object;
     switch (key) {
       case 'first':
-        return PatternUnionOverride.first((serializers.deserialize(
+        return PatternUnionOverrideFirst((serializers.deserialize(
           value,
           specifiedType: const FullType(String),
         ) as String));
       case 'second':
-        return PatternUnionOverride.second((serializers.deserialize(
+        return PatternUnionOverrideSecond((serializers.deserialize(
           value,
           specifiedType: const FullType(String),
         ) as String));

@@ -9,6 +9,48 @@ import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_nested_union_struct.
     as _i3;
 import 'package:smithy/smithy.dart' as _i1;
 
+/// The discrete values of [XmlUnionShape].
+enum XmlUnionShapeType<T extends XmlUnionShape> {
+  /// The type for [XmlUnionShapeBooleanValue].
+  booleanValue<XmlUnionShapeBooleanValue>(r'booleanValue'),
+
+  /// The type for [XmlUnionShapeByteValue].
+  byteValue<XmlUnionShapeByteValue>(r'byteValue'),
+
+  /// The type for [XmlUnionShapeDoubleValue].
+  doubleValue<XmlUnionShapeDoubleValue>(r'doubleValue'),
+
+  /// The type for [XmlUnionShapeFloatValue].
+  floatValue<XmlUnionShapeFloatValue>(r'floatValue'),
+
+  /// The type for [XmlUnionShapeIntegerValue].
+  integerValue<XmlUnionShapeIntegerValue>(r'integerValue'),
+
+  /// The type for [XmlUnionShapeLongValue].
+  longValue<XmlUnionShapeLongValue>(r'longValue'),
+
+  /// The type for [XmlUnionShapeShortValue].
+  shortValue<XmlUnionShapeShortValue>(r'shortValue'),
+
+  /// The type for [XmlUnionShapeStringValue].
+  stringValue<XmlUnionShapeStringValue>(r'stringValue'),
+
+  /// The type for [XmlUnionShapeStructValue].
+  structValue<XmlUnionShapeStructValue>(r'structValue'),
+
+  /// The type for [XmlUnionShapeUnionValue].
+  unionValue<XmlUnionShapeUnionValue>(r'unionValue'),
+
+  /// The type for an unknown value.
+  sdkUnknown<XmlUnionShapeSdkUnknown>('sdkUnknown');
+
+  /// The discrete values of [XmlUnionShape].
+  const XmlUnionShapeType(this.value);
+
+  /// The Smithy value.
+  final String value;
+}
+
 abstract class XmlUnionShape extends _i1.SmithyUnion<XmlUnionShape> {
   const XmlUnionShape._();
 
@@ -60,6 +102,7 @@ abstract class XmlUnionShape extends _i1.SmithyUnion<XmlUnionShape> {
   String? get stringValue => null;
   _i3.XmlNestedUnionStruct? get structValue => null;
   XmlUnionShape? get unionValue => null;
+  XmlUnionShapeType get type;
   @override
   Object get value => (booleanValue ??
       byteValue ??
@@ -201,6 +244,8 @@ class XmlUnionShapeBooleanValue extends XmlUnionShape {
   final bool booleanValue;
 
   @override
+  XmlUnionShapeType get type => XmlUnionShapeType.booleanValue;
+  @override
   String get name => 'booleanValue';
 }
 
@@ -210,6 +255,8 @@ class XmlUnionShapeByteValue extends XmlUnionShape {
   @override
   final int byteValue;
 
+  @override
+  XmlUnionShapeType get type => XmlUnionShapeType.byteValue;
   @override
   String get name => 'byteValue';
 }
@@ -221,6 +268,8 @@ class XmlUnionShapeDoubleValue extends XmlUnionShape {
   final double doubleValue;
 
   @override
+  XmlUnionShapeType get type => XmlUnionShapeType.doubleValue;
+  @override
   String get name => 'doubleValue';
 }
 
@@ -230,6 +279,8 @@ class XmlUnionShapeFloatValue extends XmlUnionShape {
   @override
   final double floatValue;
 
+  @override
+  XmlUnionShapeType get type => XmlUnionShapeType.floatValue;
   @override
   String get name => 'floatValue';
 }
@@ -241,6 +292,8 @@ class XmlUnionShapeIntegerValue extends XmlUnionShape {
   final int integerValue;
 
   @override
+  XmlUnionShapeType get type => XmlUnionShapeType.integerValue;
+  @override
   String get name => 'integerValue';
 }
 
@@ -250,6 +303,8 @@ class XmlUnionShapeLongValue extends XmlUnionShape {
   @override
   final _i2.Int64 longValue;
 
+  @override
+  XmlUnionShapeType get type => XmlUnionShapeType.longValue;
   @override
   String get name => 'longValue';
 }
@@ -261,6 +316,8 @@ class XmlUnionShapeShortValue extends XmlUnionShape {
   final int shortValue;
 
   @override
+  XmlUnionShapeType get type => XmlUnionShapeType.shortValue;
+  @override
   String get name => 'shortValue';
 }
 
@@ -270,6 +327,8 @@ class XmlUnionShapeStringValue extends XmlUnionShape {
   @override
   final String stringValue;
 
+  @override
+  XmlUnionShapeType get type => XmlUnionShapeType.stringValue;
   @override
   String get name => 'stringValue';
 }
@@ -281,6 +340,8 @@ class XmlUnionShapeStructValue extends XmlUnionShape {
   final _i3.XmlNestedUnionStruct structValue;
 
   @override
+  XmlUnionShapeType get type => XmlUnionShapeType.structValue;
+  @override
   String get name => 'structValue';
 }
 
@@ -290,6 +351,8 @@ class XmlUnionShapeUnionValue extends XmlUnionShape {
   @override
   final XmlUnionShape unionValue;
 
+  @override
+  XmlUnionShapeType get type => XmlUnionShapeType.unionValue;
   @override
   String get name => 'unionValue';
 }
@@ -305,6 +368,9 @@ class XmlUnionShapeSdkUnknown extends XmlUnionShape {
 
   @override
   final Object value;
+
+  @override
+  XmlUnionShapeType get type => XmlUnionShapeType.sdkUnknown;
 }
 
 class XmlUnionShapeRestXmlSerializer
@@ -345,52 +411,52 @@ class XmlUnionShapeRestXmlSerializer
     final value = iterator.current as Object;
     switch (key) {
       case 'booleanValue':
-        return XmlUnionShape.booleanValue((serializers.deserialize(
+        return XmlUnionShapeBooleanValue((serializers.deserialize(
           value,
           specifiedType: const FullType(bool),
         ) as bool));
       case 'byteValue':
-        return XmlUnionShape.byteValue((serializers.deserialize(
+        return XmlUnionShapeByteValue((serializers.deserialize(
           value,
           specifiedType: const FullType(int),
         ) as int));
       case 'doubleValue':
-        return XmlUnionShape.doubleValue((serializers.deserialize(
+        return XmlUnionShapeDoubleValue((serializers.deserialize(
           value,
           specifiedType: const FullType(double),
         ) as double));
       case 'floatValue':
-        return XmlUnionShape.floatValue((serializers.deserialize(
+        return XmlUnionShapeFloatValue((serializers.deserialize(
           value,
           specifiedType: const FullType(double),
         ) as double));
       case 'integerValue':
-        return XmlUnionShape.integerValue((serializers.deserialize(
+        return XmlUnionShapeIntegerValue((serializers.deserialize(
           value,
           specifiedType: const FullType(int),
         ) as int));
       case 'longValue':
-        return XmlUnionShape.longValue((serializers.deserialize(
+        return XmlUnionShapeLongValue((serializers.deserialize(
           value,
           specifiedType: const FullType(_i2.Int64),
         ) as _i2.Int64));
       case 'shortValue':
-        return XmlUnionShape.shortValue((serializers.deserialize(
+        return XmlUnionShapeShortValue((serializers.deserialize(
           value,
           specifiedType: const FullType(int),
         ) as int));
       case 'stringValue':
-        return XmlUnionShape.stringValue((serializers.deserialize(
+        return XmlUnionShapeStringValue((serializers.deserialize(
           value,
           specifiedType: const FullType(String),
         ) as String));
       case 'structValue':
-        return XmlUnionShape.structValue((serializers.deserialize(
+        return XmlUnionShapeStructValue((serializers.deserialize(
           value,
           specifiedType: const FullType(_i3.XmlNestedUnionStruct),
         ) as _i3.XmlNestedUnionStruct));
       case 'unionValue':
-        return XmlUnionShape.unionValue((serializers.deserialize(
+        return XmlUnionShapeUnionValue((serializers.deserialize(
           value,
           specifiedType: const FullType(XmlUnionShape),
         ) as XmlUnionShape));

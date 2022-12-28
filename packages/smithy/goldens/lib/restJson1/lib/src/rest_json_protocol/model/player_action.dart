@@ -6,10 +6,25 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
+/// The discrete values of [PlayerAction].
+enum PlayerActionType<T extends PlayerAction> {
+  /// The type for [PlayerActionQuit].
+  quit<PlayerActionQuit>(r'quit'),
+
+  /// The type for an unknown value.
+  sdkUnknown<PlayerActionSdkUnknown>('sdkUnknown');
+
+  /// The discrete values of [PlayerAction].
+  const PlayerActionType(this.value);
+
+  /// The Smithy value.
+  final String value;
+}
+
 abstract class PlayerAction extends _i1.SmithyUnion<PlayerAction> {
   const PlayerAction._();
 
-  const factory PlayerAction.quit(_i1.Unit quit) = PlayerActionQuit;
+  const factory PlayerAction.quit() = PlayerActionQuit;
 
   const factory PlayerAction.sdkUnknown(
     String name,
@@ -22,6 +37,7 @@ abstract class PlayerAction extends _i1.SmithyUnion<PlayerAction> {
 
   /// Quit the game.
   _i1.Unit? get quit => null;
+  PlayerActionType get type;
   @override
   Object get value => (quit)!;
   @override
@@ -56,11 +72,15 @@ abstract class PlayerAction extends _i1.SmithyUnion<PlayerAction> {
 }
 
 class PlayerActionQuit extends PlayerAction {
-  const PlayerActionQuit(this.quit) : super._();
+  const PlayerActionQuit()
+      : quit = const _i1.Unit(),
+        super._();
 
   @override
   final _i1.Unit quit;
 
+  @override
+  PlayerActionType get type => PlayerActionType.quit;
   @override
   String get name => 'quit';
 }
@@ -76,6 +96,9 @@ class PlayerActionSdkUnknown extends PlayerAction {
 
   @override
   final Object value;
+
+  @override
+  PlayerActionType get type => PlayerActionType.sdkUnknown;
 }
 
 class PlayerActionRestJson1Serializer
@@ -107,10 +130,7 @@ class PlayerActionRestJson1Serializer
     final value = iterator.current as Object;
     switch (key) {
       case 'quit':
-        return PlayerAction.quit((serializers.deserialize(
-          value,
-          specifiedType: const FullType(_i1.Unit),
-        ) as _i1.Unit));
+        return const PlayerActionQuit();
     }
     return PlayerAction.sdkUnknown(
       key,

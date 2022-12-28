@@ -6,6 +6,24 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
+/// The discrete values of [SimpleUnion].
+enum SimpleUnionType<T extends SimpleUnion> {
+  /// The type for [SimpleUnionInt].
+  int$<SimpleUnionInt>(r'int'),
+
+  /// The type for [SimpleUnionString].
+  string<SimpleUnionString>(r'string'),
+
+  /// The type for an unknown value.
+  sdkUnknown<SimpleUnionSdkUnknown>('sdkUnknown');
+
+  /// The discrete values of [SimpleUnion].
+  const SimpleUnionType(this.value);
+
+  /// The Smithy value.
+  final String value;
+}
+
 abstract class SimpleUnion extends _i1.SmithyUnion<SimpleUnion> {
   const SimpleUnion._();
 
@@ -24,6 +42,7 @@ abstract class SimpleUnion extends _i1.SmithyUnion<SimpleUnion> {
 
   int? get int$ => null;
   String? get string => null;
+  SimpleUnionType get type;
   @override
   Object get value => (int$ ?? string)!;
   @override
@@ -74,6 +93,8 @@ class SimpleUnionInt extends SimpleUnion {
   final int int$;
 
   @override
+  SimpleUnionType get type => SimpleUnionType.int$;
+  @override
   String get name => 'int';
 }
 
@@ -83,6 +104,8 @@ class SimpleUnionString extends SimpleUnion {
   @override
   final String string;
 
+  @override
+  SimpleUnionType get type => SimpleUnionType.string;
   @override
   String get name => 'string';
 }
@@ -98,6 +121,9 @@ class SimpleUnionSdkUnknown extends SimpleUnion {
 
   @override
   final Object value;
+
+  @override
+  SimpleUnionType get type => SimpleUnionType.sdkUnknown;
 }
 
 class SimpleUnionRestJson1Serializer
@@ -130,12 +156,12 @@ class SimpleUnionRestJson1Serializer
     final value = iterator.current as Object;
     switch (key) {
       case 'int':
-        return SimpleUnion.int$((serializers.deserialize(
+        return SimpleUnionInt((serializers.deserialize(
           value,
           specifiedType: const FullType(int),
         ) as int));
       case 'string':
-        return SimpleUnion.string((serializers.deserialize(
+        return SimpleUnionString((serializers.deserialize(
           value,
           specifiedType: const FullType(String),
         ) as String));
