@@ -29,8 +29,6 @@ import 'package:test/test.dart';
 
 import '../test_utils/mocks.dart';
 
-// ignore: invalid_annotation_target
-
 void main() {
   group('downloadFile() io implementation', () {
     late StorageS3Service storageS3Service;
@@ -245,7 +243,9 @@ void main() {
     });
 
     group('preStart callback should throw exceptions', () {
-      test('when destination path is null', () {
+      test(
+          'when destination path is null is throws StorageLocalFileNotFoundException',
+          () {
         downloadFile(
           request: StorageDownloadFileRequest(
             key: testKey,
@@ -271,10 +271,12 @@ void main() {
           ),
         ).captured.last;
         final preStart = capturedPreStart as FutureOr<void> Function();
-        expect(preStart(), throwsA(isA<S3Exception>()));
+        expect(preStart(), throwsA(isA<StorageLocalFileNotFoundException>()));
       });
 
-      test('when destination path is a directory instead of a file', () {
+      test(
+          'when destination path is a directory instead of a file it throws StorageLocalFileNotFoundException',
+          () {
         downloadFile(
           request: StorageDownloadFileRequest(
             key: testKey,
@@ -300,7 +302,7 @@ void main() {
           ),
         ).captured.last;
         final preStart = capturedPreStart as FutureOr<void> Function();
-        expect(preStart(), throwsA(isA<S3Exception>()));
+        expect(preStart(), throwsA(isA<StorageLocalFileNotFoundException>()));
       });
     });
 

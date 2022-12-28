@@ -385,7 +385,7 @@ void main() {
       }
         ..forEach((exceptionType, exception) {
           test(
-              'it should complete with a S3Exception on $exceptionType of getObject on start',
+              'it should complete with an exception on $exceptionType of getObject on start',
               () async {
             const testOptions = S3DownloadDataOptions();
 
@@ -404,15 +404,22 @@ void main() {
 
             unawaited(downloadTask.start());
 
-            expect(
-              downloadTask.result,
-              throwsA(isA<S3Exception>()),
-            );
+            if (exception is UnknownSmithyHttpException) {
+              expect(
+                downloadTask.result,
+                throwsA(isA<StorageAccessDeniedException>()),
+              );
+            } else {
+              expect(
+                downloadTask.result,
+                throwsA(isA<StorageKeyNotFoundException>()),
+              );
+            }
           });
         })
         ..forEach((exceptionType, exception) {
           test(
-              'it should complete with a S3Exception on $exceptionType of getObject on resume',
+              'it should complete with an exception on $exceptionType of getObject on resume',
               () async {
             const testOptions = S3DownloadDataOptions();
             final testGetObjectOutput1 = GetObjectOutput(
@@ -454,10 +461,17 @@ void main() {
 
             unawaited(downloadTask.resume());
 
-            expect(
-              downloadTask.result,
-              throwsA(isA<S3Exception>()),
-            );
+            if (exception is UnknownSmithyHttpException) {
+              expect(
+                downloadTask.result,
+                throwsA(isA<StorageAccessDeniedException>()),
+              );
+            } else {
+              expect(
+                downloadTask.result,
+                throwsA(isA<StorageKeyNotFoundException>()),
+              );
+            }
           });
         });
     });

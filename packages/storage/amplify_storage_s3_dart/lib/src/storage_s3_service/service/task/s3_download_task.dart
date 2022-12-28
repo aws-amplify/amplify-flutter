@@ -342,7 +342,7 @@ class S3DownloadTask {
       throw S3Exception.fromUnknownSmithyHttpException(error);
     } on s3.NoSuchKey catch (error) {
       // 404 error is wrapped by s3.NoSuchKey for getObject :/
-      throw S3Exception.objectNotFoundByKey(error);
+      throw S3Exception.getKeyNotFoundException(error);
     }
   }
 }
