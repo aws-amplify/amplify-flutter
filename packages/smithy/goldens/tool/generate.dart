@@ -4,6 +4,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:args/args.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:file/local.dart';
 import 'package:glob/glob.dart';
@@ -19,9 +20,27 @@ final modelsPath = {
 const skipProtocols = [
   'shared',
 ];
+const awsProtocols = [
+  'awsJson1_0',
+  'awsJson1_1',
+  'restJson1',
+  'restXml',
+  'restXmlWithNamespace'
+];
 
 Future<void> main(List<String> args) async {
-  final glob = Glob(args.length == 1 ? args[0] : '*');
+  final argParser = ArgParser()
+    ..addFlag(
+      'update',
+      help: 'Whether to update test models from git',
+      defaultsTo: false,
+    );
+  final parsedArgs = argParser.parse(args);
+  final update = parsedArgs['update'] as bool;
+  if (update) {
+    await updateModels();
+  }
+  final glob = Glob(parsedArgs.rest.length == 1 ? parsedArgs.rest.single : '*');
   final futures = <Future>[];
   for (final version in SmithyVersion.values) {
     final entites = glob.listFileSystemSync(
@@ -29,16 +48,109 @@ Future<void> main(List<String> args) async {
       root: modelsPath[version],
     );
     for (final modelEnt in entites.whereType<Directory>()) {
-      futures.add(_generateFor(version, modelEnt));
+      futures.add(_generateFor(version, modelEnt, update: update));
     }
   }
   await Future.wait<void>(futures);
 }
 
+String _replaceDirectory(String path, {bool create = false}) {
+  final dir = Directory(path);
+  if (dir.existsSync()) {
+    dir.deleteSync(recursive: true);
+  }
+  if (create) {
+    dir.createSync(recursive: true);
+  }
+  return path;
+}
+
+Future<void> _copy(String from, String to) async {
+  final process = await Process.start(
+    'cp',
+    ['-R', from, to],
+    mode: ProcessStartMode.inheritStdio,
+    workingDirectory: Directory.current.path,
+  );
+  if (await process.exitCode != 0) {
+    stderr.writeln('Could not copy $from to $to');
+    exit(1);
+  }
+}
+
+/// Updates v2 models from git.
+///
+/// v1 models are no longer committed to git and are fixed at the last commit
+/// in which they were updated.
+Future<void> updateModels() async {
+  final smithyVersion = File.fromUri(
+    Platform.script.resolve('../smithy-version'),
+  ).readAsStringSync().trim();
+  const url = 'https://github.com/awslabs/smithy';
+  final tmpDir = Directory.systemTemp.createTempSync('smithy');
+  final process = await Process.start(
+    'git',
+    [
+      'clone',
+      '--depth=1',
+      '--branch',
+      smithyVersion,
+      url,
+      tmpDir.path,
+    ],
+    mode: ProcessStartMode.inheritStdio,
+    workingDirectory: Directory.current.path,
+  );
+  if (await process.exitCode != 0) {
+    stderr.writeln('Could not clone $url');
+    exit(1);
+  }
+  for (final protocol in awsProtocols) {
+    final src = path.join(
+      tmpDir.path,
+      'smithy-aws-protocol-tests',
+      'model',
+      protocol,
+    );
+    final dest = _replaceDirectory(
+      path.join(modelsPath[SmithyVersion.v2]!, protocol),
+    );
+    await _copy(src, dest);
+  }
+
+  // Copy shared types
+  final sharedPath = _replaceDirectory(
+    path.join(modelsPath[SmithyVersion.v2]!, 'shared'),
+    create: true,
+  );
+  const sharedModels = [
+    'aws-config.smithy',
+    'shared-types.smithy',
+  ];
+  for (final sharedModel in sharedModels) {
+    final sourcePath = path.join(
+      tmpDir.path,
+      'smithy-aws-protocol-tests',
+      'model',
+      sharedModel,
+    );
+    await _copy(sourcePath, sharedPath);
+  }
+
+  // Replace `coral` references
+  for (final file in Directory(modelsPath[SmithyVersion.v2]!)
+      .listSync(recursive: true)
+      .whereType<File>()) {
+    final content = file.readAsStringSync();
+    file.writeAsStringSync(content.replaceAll('coral', 'example'));
+  }
+}
+
 Future<void> _generateFor(
   SmithyVersion version,
-  FileSystemEntity modelEnt,
-) async {
+  FileSystemEntity modelEnt, {
+  required bool update,
+}) async {
   final modelPath = path.relative(modelEnt.path, from: modelsPath[version]);
   final protocolName = path.basename(modelPath);
   if (skipProtocols.contains(protocolName)) {
@@ -56,12 +168,12 @@ Future<void> _generateFor(
   stdout.writeln('Generating AST for $modelPath');
 
   final preCompiled = File('${modelEnt.path}.json');
-  if (!preCompiled.existsSync()) {
+  if (!preCompiled.existsSync() || (update && version == SmithyVersion.v2)) {
     final result = await Process.run(
       Platform.script.resolve('../gradlew').toFilePath(),
       [
         'run',
-        '--args="${version.name} $protocolName"',
+        '--args=${modelsPath[version]} $protocolName',
       ],
       stdoutEncoding: utf8,
       stderrEncoding: utf8,
