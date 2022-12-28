@@ -93,19 +93,28 @@ class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
     '''));
 
     for (final member in sortedMembers) {
+      final memberSymbol = memberSymbols[member]!.unboxed;
       final memberWireName =
           protocolTraits.memberWireNames[member] ?? member.memberName;
+      final variantClass = refer(variantClassName(member));
+      final Expression Function(Expression) constructor;
+      if (memberSymbol.requiresConstructorTransformation) {
+        constructor = (deserialized) =>
+            variantClass.newInstanceNamed('_', [deserialized]);
+      } else if (member.target == Shape.unit) {
+        constructor = (_) => variantClass.constInstance([]);
+      } else {
+        constructor =
+            (deserialized) => variantClass.newInstance([deserialized]);
+      }
       builder.statements.addAll([
         Code("case '$memberWireName':"),
-        symbol
-            .newInstanceNamed(variantName(member), [
-              deserializerFor(
-                member,
-                memberSymbol: memberSymbols[member]!.unboxed,
-              ),
-            ])
-            .returned
-            .statement,
+        constructor(
+          deserializerFor(
+            member,
+            memberSymbol: memberSymbol,
+          ),
+        ).returned.statement,
       ]);
     }
 
