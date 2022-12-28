@@ -14,7 +14,6 @@
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
-import 'package:amplify_core/amplify_core.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
@@ -46,7 +45,6 @@ class SessionManager {
   /// The parameters: [onSessionStart] and [onSessionEnd] are callbacks to
   /// allow parent classes to react to session events.
   /// {@endtemplate}
-  @visibleForTesting
   SessionManager({
     required String fixedEndpointId,
     AppLifecycleProvider? appLifecycleProvider,
@@ -56,28 +54,8 @@ class SessionManager {
         _appLifecycleProvider = appLifecycleProvider,
         _onSessionStart = onSessionStart,
         _onSessionEnd = onSessionEnd {
-    _executeStart();
-
     _appLifecycleProvider?.setOnForegroundListener(startSession);
     _appLifecycleProvider?.setOnBackgroundListener(stopSession);
-    _appLifecycleProvider?.startObserving();
-  }
-
-  static SessionManager? _instance;
-
-  /// {@macro amplify_analytics_pinpoint_dart.session_manager_constructor}
-  static SessionManager getInstance({
-    required String fixedEndpointId,
-    AppLifecycleProvider? appLifecycleProvider,
-    required OnSessionUpdated onSessionStart,
-    required OnSessionUpdated onSessionEnd,
-  }) {
-    return _instance ??= SessionManager(
-      fixedEndpointId: fixedEndpointId,
-      appLifecycleProvider: appLifecycleProvider,
-      onSessionStart: onSessionStart,
-      onSessionEnd: onSessionEnd,
-    );
   }
 
   final String _fixedEndpointId;
@@ -90,12 +68,11 @@ class SessionManager {
   /// Get the current session
   Session? get session => _sessionCreator?.session;
 
-  static final AmplifyLogger _logger =
-      AmplifyLogger.category(Category.analytics).createChild('SessionManager');
-
   /// Start a new session
   void startSession() {
-    _executeStop();
+    if (session != null) {
+      stopSession();
+    }
     _executeStart();
   }
 
@@ -130,9 +107,6 @@ class SessionManager {
   /// Stop and delete current session
   void _executeStop() {
     if (_sessionCreator == null) {
-      _logger.warn(
-        'Warning - stop session called without sessionBuilder initialized',
-      );
       return;
     }
 

@@ -15,7 +15,6 @@
 import 'dart:collection';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:meta/meta.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.event_global_fields_manager}
 /// Manages the storage, retrieval, and update of Attributes and Metrics for Events
@@ -33,15 +32,7 @@ import 'package:meta/meta.dart';
 /// {@endtemplate}
 class EventGlobalFieldsManager {
   /// {@macro amplify_analytics_pinpoint_dart.event_global_fields_manager}
-  @visibleForTesting
   EventGlobalFieldsManager();
-
-  static EventGlobalFieldsManager? _instance;
-
-  /// {@macro amplify_analytics_pinpoint_dart.event_global_fields_manager}
-  static EventGlobalFieldsManager getInstance() {
-    return _instance ??= EventGlobalFieldsManager();
-  }
 
   final Map<String, String> _globalAttributes = {};
   final Map<String, double> _globalMetrics = {};
