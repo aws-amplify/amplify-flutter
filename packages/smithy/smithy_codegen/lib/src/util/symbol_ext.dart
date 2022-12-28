@@ -190,7 +190,7 @@ extension ReferenceHelpers on Reference {
         final valueSymbol = types[1];
         if (valueSymbol.requiresConstructorTransformation) {
           final childExpression = valueSymbol.transformToInternal(
-            name: 'value',
+            name: 'el',
           );
           final valueExpression = refer('value').property('map').call([
             Method(
