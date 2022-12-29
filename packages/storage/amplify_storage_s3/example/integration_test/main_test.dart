@@ -9,6 +9,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
+import 'package:amplify_storage_s3_example/amplifyconfiguration.dart';
 import 'package:drift/drift.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
@@ -491,7 +492,10 @@ void main() async {
               ),
             );
 
-            await expectLater(operation.result, throwsA(isA<S3Exception>()));
+            await expectLater(
+              operation.result,
+              throwsA(isA<StorageKeyNotFoundException>()),
+            );
           });
 
           testWidgets('get url of object with access level guest',
@@ -532,7 +536,10 @@ void main() async {
               ),
             );
 
-            await expectLater(operation.result, throwsA(isA<S3Exception>()));
+            await expectLater(
+              operation.result,
+              throwsA(isA<StorageKeyNotFoundException>()),
+            );
           });
 
           testWidgets(
@@ -562,7 +569,10 @@ void main() async {
               ),
             );
 
-            await expectLater(operation.result, throwsA(isA<S3Exception>()));
+            await expectLater(
+              operation.result,
+              throwsA(isA<StorageKeyNotFoundException>()),
+            );
           });
 
           testWidgets(
