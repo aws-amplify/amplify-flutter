@@ -1,16 +1,5 @@
-// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 @TestOn('vm')
 
@@ -28,8 +17,6 @@ import 'package:path/path.dart' as path;
 import 'package:test/test.dart';
 
 import '../test_utils/mocks.dart';
-
-// ignore: invalid_annotation_target
 
 void main() {
   group('downloadFile() io implementation', () {
@@ -245,7 +232,9 @@ void main() {
     });
 
     group('preStart callback should throw exceptions', () {
-      test('when destination path is null', () {
+      test(
+          'when destination path is null is throws StorageLocalFileNotFoundException',
+          () {
         downloadFile(
           request: StorageDownloadFileRequest(
             key: testKey,
@@ -271,10 +260,12 @@ void main() {
           ),
         ).captured.last;
         final preStart = capturedPreStart as FutureOr<void> Function();
-        expect(preStart(), throwsA(isA<S3Exception>()));
+        expect(preStart(), throwsA(isA<StorageLocalFileNotFoundException>()));
       });
 
-      test('when destination path is a directory instead of a file', () {
+      test(
+          'when destination path is a directory instead of a file it throws StorageLocalFileNotFoundException',
+          () {
         downloadFile(
           request: StorageDownloadFileRequest(
             key: testKey,
@@ -300,7 +291,7 @@ void main() {
           ),
         ).captured.last;
         final preStart = capturedPreStart as FutureOr<void> Function();
-        expect(preStart(), throwsA(isA<S3Exception>()));
+        expect(preStart(), throwsA(isA<StorageLocalFileNotFoundException>()));
       });
     });
 

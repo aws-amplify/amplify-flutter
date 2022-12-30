@@ -1,16 +1,5 @@
-// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
 import 'dart:typed_data';
@@ -271,7 +260,9 @@ void main() {
         expect(uploadDataTask.result, throwsA(isA<S3Exception>()));
       });
 
-      test('should throw S3Exception when S3Client.putObject fails', () {
+      test(
+          'should throw StorageAccessDeniedException when S3Client.putObject'
+          ' returned UnknownSmithyHttpException with status code 403', () {
         const testUploadDataOptions = S3UploadDataOptions(
           accessLevel: StorageAccessLevel.private,
         );
@@ -297,7 +288,10 @@ void main() {
 
         unawaited(uploadDataTask.start());
 
-        expect(uploadDataTask.result, throwsA(isA<S3Exception>()));
+        expect(
+          uploadDataTask.result,
+          throwsA(isA<StorageAccessDeniedException>()),
+        );
       });
 
       test(
@@ -810,7 +804,9 @@ void main() {
         expect(finalState, S3TransferState.failure);
       });
 
-      test('should complete with error when CreateMultipartUploadRequest fails',
+      test(
+          'should complete with StorageAccessDeniedException when CreateMultipartUploadRequest'
+          ' returned UnknownSmithyHttpException with status code 403',
           () async {
         late S3TransferState finalState;
         final uploadTask = S3UploadTask.fromAWSFile(
@@ -841,7 +837,7 @@ void main() {
         await expectLater(
           uploadTask.result,
           throwsA(
-            isA<S3Exception>().having(
+            isA<StorageAccessDeniedException>().having(
               (o) => o.underlyingException,
               'underlyingException',
               testException,
@@ -894,7 +890,8 @@ void main() {
       });
 
       test(
-          'should complete with error when CompleteMultipartUploadRequest fails (should not happen just in case)',
+          'should complete with StorageAccessDeniedException when'
+          ' CompleteMultipartUploadRequest fails (should not happen just in case)',
           () async {
         late S3TransferState finalState;
         final uploadTask = S3UploadTask.fromAWSFile(
@@ -960,7 +957,7 @@ void main() {
         await expectLater(
           uploadTask.result,
           throwsA(
-            isA<S3Exception>().having(
+            isA<StorageAccessDeniedException>().having(
               (o) => o.underlyingException,
               'underlyingException',
               testException,
@@ -971,8 +968,8 @@ void main() {
       });
 
       test(
-          'should terminate multipart upload when a UploadPartRequest fails and should complete with error',
-          () async {
+          'should terminate multipart upload when a UploadPartRequest fails due to 403'
+          ' and should complete with StorageAccessDeniedException', () async {
         late S3TransferState finalState;
         final uploadTask = S3UploadTask.fromAWSFile(
           testLocalFile,
@@ -1032,7 +1029,7 @@ void main() {
             isA<S3Exception>().having(
               (o) => o.underlyingException,
               'underlyingException',
-              isA<S3Exception>().having(
+              isA<StorageAccessDeniedException>().having(
                 (o) => o.underlyingException,
                 'underlyingException',
                 testException,
