@@ -1,16 +1,5 @@
-// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
 
@@ -73,16 +62,14 @@ void main() {
 
     group('_getResolvedPrefix()', () {
       test(
-          'should throw a StorageS3Exception if supplied prefix resolver throws an exception',
+          'should throw a S3Exception if supplied prefix resolver throws an exception',
           () async {
         const testOptions = S3ListOptions.forIdentity('throw exception for me');
 
-        try {
-          await storageS3Service.list(path: 'a path', options: testOptions);
-          fail('Expected exception wasn\'t thrown.');
-        } on Object catch (error) {
-          expect(error is S3Exception, isTrue);
-        }
+        await expectLater(
+          storageS3Service.list(path: 'a path', options: testOptions),
+          throwsA(isA<S3Exception>()),
+        );
 
         verify(() => logger.error(any(), any(), any())).called(1);
       });
@@ -239,8 +226,8 @@ void main() {
       });
 
       test(
-          'should throw S3Exception when UnknownSmithyHttpException is returned from service',
-          () async {
+          'should throw StorageAccessDeniedException when UnknownSmithyHttpException'
+          ' with status code 403 returned from service', () async {
         const testOptions = S3ListOptions();
         const testUnknownException = UnknownSmithyHttpException(
           statusCode: 403,
@@ -258,7 +245,7 @@ void main() {
             path: 'a path',
             options: testOptions,
           ),
-          throwsA(isA<S3Exception>()),
+          throwsA(isA<StorageAccessDeniedException>()),
         );
       });
 
@@ -443,8 +430,8 @@ void main() {
       });
 
       test(
-          'should throw S3Exception when UnknownSmithyHttpException is returned from service',
-          () async {
+          'should throw StorageKeyNotFoundException when UnknownSmithyHttpException'
+          ' with status code 404 returned from service', () async {
         const testOptions = S3GetPropertiesOptions();
         const testUnknownException = UnknownSmithyHttpException(
           statusCode: 404,
@@ -462,7 +449,7 @@ void main() {
             key: 'a key',
             options: testOptions,
           ),
-          throwsA(isA<S3Exception>()),
+          throwsA(isA<StorageKeyNotFoundException>()),
         );
       });
     });
@@ -590,15 +577,13 @@ void main() {
           ),
         ).thenThrow(testUnknownException);
 
-        try {
-          await storageS3Service.getUrl(
+        await expectLater(
+          storageS3Service.getUrl(
             key: testKey,
             options: testOptions,
-          );
-          fail('Expected exception wasn\'t thrown.');
-        } on Object catch (error) {
-          expect(error is S3Exception, isTrue);
-        }
+          ),
+          throwsA(isA<StorageKeyNotFoundException>()),
+        );
 
         final capturedRequest = verify(
           () => s3Client.headObject(
@@ -615,8 +600,8 @@ void main() {
       });
 
       test(
-          'should invoke s3Client.headObject when checkObjectExistence option is set to true and specified targetIdentityId',
-          () async {
+          'should invoke s3Client.headObject when checkObjectExistence option is'
+          ' set to true and specified targetIdentityId', () async {
         const testTargetIdentityId = 'some-else-id';
         const testOptions = S3GetUrlOptions.forIdentity(
           testTargetIdentityId,
@@ -633,15 +618,13 @@ void main() {
           ),
         ).thenThrow(testUnknownException);
 
-        try {
-          await storageS3Service.getUrl(
+        await expectLater(
+          storageS3Service.getUrl(
             key: testKey,
             options: testOptions,
-          );
-          fail('Expected exception wasn\'t thrown.');
-        } on Object catch (error) {
-          expect(error is S3Exception, isTrue);
-        }
+          ),
+          throwsA(isA<StorageKeyNotFoundException>()),
+        );
 
         final capturedRequest = verify(
           () => s3Client.headObject(
@@ -723,8 +706,8 @@ void main() {
       });
 
       test(
-          'should throw S3Exception when UnknownSmithyHttpException is returned from service',
-          () async {
+          'should throw StorageAccessDeniedException when UnknownSmithyHttpException'
+          ' with status code 403 returned from service', () async {
         const testOptions = S3CopyOptions();
         const testUnknownException = UnknownSmithyHttpException(
           statusCode: 403,
@@ -743,7 +726,7 @@ void main() {
             destination: testDestination,
             options: testOptions,
           ),
-          throwsA(isA<S3Exception>()),
+          throwsA(isA<StorageAccessDeniedException>()),
         );
       });
 
@@ -891,7 +874,8 @@ void main() {
       });
 
       test(
-          'should throw S3Exception when UnknownSmithyHttpException is returned from service while copying the source',
+          'should throw StorageAccessDeniedException when UnknownSmithyHttpException'
+          ' with status code 403 returned from service while copying the source',
           () async {
         const testOptions = S3MoveOptions();
         const testUnknownException = UnknownSmithyHttpException(
@@ -911,12 +895,13 @@ void main() {
             destination: testDestination,
             options: testOptions,
           ),
-          throwsA(isA<S3Exception>()),
+          throwsA(isA<StorageAccessDeniedException>()),
         );
       });
 
       test(
-          'should throw S3Exception when UnknownSmithyHttpException is returned from service while deleting the source',
+          'should throw StorageHttpStatusException when UnknownSmithyHttpException'
+          ' with status code 500 returned from service while deleting the source',
           () async {
         const testOptions = S3MoveOptions();
         const testUnknownException = UnknownSmithyHttpException(
@@ -946,13 +931,13 @@ void main() {
             destination: testDestination,
             options: testOptions,
           ),
-          throwsA(isA<S3Exception>()),
+          throwsA(isA<StorageHttpStatusException>()),
         );
       });
 
       test(
-          'should invoke S3Client.headObject with correct parameters when getProperties option is set to true',
-          () async {
+          'should invoke S3Client.headObject with correct parameters when'
+          ' getProperties option is set to true', () async {
         const testOptions = S3MoveOptions(getProperties: true);
         final testCopyObjectOutput = CopyObjectOutput();
         final testDeleteObjectOutput = DeleteObjectOutput();
@@ -1064,8 +1049,8 @@ void main() {
       });
 
       test(
-          'should throw S3Exception when UnknownSmithyHttpException is returned from service',
-          () async {
+          'should throw StorageAccessDeniedException when UnknownSmithyHttpException'
+          ' with status code 403 returned from service', () async {
         const testOptions = S3RemoveOptions();
         const testUnknownException = UnknownSmithyHttpException(
           statusCode: 403,
@@ -1081,7 +1066,7 @@ void main() {
             key: 'a key',
             options: testOptions,
           ),
-          throwsA(isA<S3Exception>()),
+          throwsA(isA<StorageAccessDeniedException>()),
         );
       });
     });
@@ -1223,8 +1208,8 @@ void main() {
       });
 
       test(
-          'should throw S3Exception when UnknownSmithyHttpException is returned from service',
-          () async {
+          'should throw StorageAccessDeniedException when UnknownSmithyHttpException'
+          ' with status code 403 returned from service', () async {
         const testOptions = S3RemoveManyOptions();
         const testUnknownException = UnknownSmithyHttpException(
           statusCode: 403,
@@ -1240,7 +1225,7 @@ void main() {
             keys: testKeys,
             options: testOptions,
           ),
-          throwsA(isA<S3Exception>()),
+          throwsA(isA<StorageAccessDeniedException>()),
         );
       });
     });
