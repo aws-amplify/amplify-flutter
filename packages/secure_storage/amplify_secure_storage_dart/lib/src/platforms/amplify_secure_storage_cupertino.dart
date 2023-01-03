@@ -40,9 +40,9 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
       ? config.iOSOptions.accessGroup
       : config.macOSOptions.accessGroup;
 
-  CFStringRef get _accessible => Platform.isIOS
-      ? config.iOSOptions.accessible.toCFStringRef()
-      : config.macOSOptions.accessible.toCFStringRef();
+  KeychainAttributeAccessible? get _accessible => Platform.isIOS
+      ? config.iOSOptions.accessible
+      : config.macOSOptions.accessible;
 
   bool get _useDataProtection =>
       Platform.isMacOS && config.macOSOptions.useDataProtection;
@@ -223,7 +223,8 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     return {
       security.kSecClass: security.kSecClassGenericPassword,
       security.kSecAttrService: service,
-      security.kSecAttrAccessible: _accessible,
+      if (_accessible != null)
+        security.kSecAttrAccessible: _accessible!.toCFStringRef(),
       if (key != null)
         security.kSecAttrAccount: _createCFString(value: key, arena: arena),
       if (_accessGroup != null)
