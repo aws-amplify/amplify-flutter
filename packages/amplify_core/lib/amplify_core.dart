@@ -37,9 +37,6 @@ export 'src/hub/hub_event.dart';
 /// Logger
 export 'src/logger/amplify_logger.dart';
 
-/// Platform
-export 'src/platform/platform.dart';
-
 /// Plugin
 export 'src/plugin/amplify_analytics_plugin_interface.dart';
 export 'src/plugin/amplify_api_plugin_interface.dart';
