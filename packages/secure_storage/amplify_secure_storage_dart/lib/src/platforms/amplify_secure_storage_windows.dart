@@ -6,6 +6,7 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/exception/secure_storage_exception.dart';
 import 'package:amplify_secure_storage_dart/src/exception/unknown_exception.dart';
 import 'package:amplify_secure_storage_dart/src/ffi/win32/data_protection.dart';
+import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';
 import 'package:file/memory.dart';
 
 /// The windows implementation of [SecureStorageInterface].
