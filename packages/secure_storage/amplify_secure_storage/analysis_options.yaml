@@ -4,8 +4,6 @@ analyzer:
   exclude:
     - "**/*.g.dart"
     - "pigeons/**"
-  errors:
-    implementation_imports: error    
 
 linter:
   rules:
