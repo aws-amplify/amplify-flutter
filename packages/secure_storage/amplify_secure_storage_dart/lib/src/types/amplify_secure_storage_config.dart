@@ -45,8 +45,8 @@ abstract class AmplifySecureStorageConfig
       webOptions: WebSecureStorageOptions(),
       windowsOptions: WindowsSecureStorageOptions(),
       linuxOptions: LinuxSecureStorageOptions(),
-      macOSOptions: MacOSSecureStorageOptions(),
-      iOSOptions: IOSSecureStorageOptions(),
+      macOSOptions: MacOSSecureStorageOptions.empty(),
+      iOSOptions: IOSSecureStorageOptions.empty(),
     );
   }
 
@@ -91,6 +91,7 @@ abstract class AmplifySecureStorageConfig
 
   AmplifySecureStorageConfig copyWith({
     String? scope,
+    String? namespace,
     WebSecureStorageOptions? webOptions,
     WindowsSecureStorageOptions? windowsOptions,
     LinuxSecureStorageOptions? linuxOptions,
@@ -99,6 +100,7 @@ abstract class AmplifySecureStorageConfig
   }) {
     return _$AmplifySecureStorageConfig._(
       scope: scope ?? this.scope,
+      namespace: namespace ?? this.namespace,
       webOptions: webOptions ?? this.webOptions,
       windowsOptions: windowsOptions ?? this.windowsOptions,
       linuxOptions: linuxOptions ?? this.linuxOptions,

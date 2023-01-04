@@ -345,7 +345,7 @@ void main() {
         bloc = null;
         service = null; // service gets closed in  bloc
       });
-      test('should trigger FailureState on Exception during init', () async {
+      test('triggering FailureState on Exception during init', () async {
         final subscribeEvent = SubscribeEvent(
           subscriptionRequest,
           () {
@@ -371,12 +371,46 @@ void main() {
               isA<DisconnectedState>(),
               isA<ConnectingState>(),
               isA<FailureState>(),
+              isA<PendingDisconnect>(),
+              isA<DisconnectedState>(),
             ],
           ),
         );
 
         bloc.subscribe(
           subscribeEvent,
+        );
+      });
+
+      test('Exception from service and should return error to user', () async {
+        final subscribeEvent = SubscribeEvent(
+          subscriptionRequest,
+          () {
+            service!.channel.sink.addError(Exception('unknown exception'));
+          },
+        );
+        final bloc = getWebSocketBloc();
+
+        expect(
+          bloc.stream,
+          emitsInOrder(
+            [
+              isA<DisconnectedState>(),
+              isA<ConnectingState>(),
+              isA<ConnectedState>(),
+              isA<FailureState>(),
+              isA<PendingDisconnect>(),
+              isA<DisconnectedState>(),
+            ],
+          ),
+        );
+
+        final subscription = bloc.subscribe(
+          subscribeEvent,
+        );
+        expect(
+          subscription,
+          emitsError(isA<ApiException>()),
         );
       });
 
