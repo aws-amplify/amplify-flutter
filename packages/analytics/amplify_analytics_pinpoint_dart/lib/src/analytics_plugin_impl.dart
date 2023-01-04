@@ -323,7 +323,6 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   }
 
   @visibleForTesting
-
   /// Retrieve the stored pinpoint endpoint id
   static Future<String> retrieveEndpointId({
     required String pinpointAppId,
@@ -333,27 +332,42 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     // Retrieve Unique ID
     final endpointInformationVersion =
         await store.read(key: EndpointStoreKey.version.name);
-    String? retrievedEndpointId;
 
-    // First time app load
+    // Attempt migration if version is null.
     if (endpointInformationVersion == null) {
-      store.write(
+      await legacyDataProvider?.initialize(pinpointAppId);
+      final legacyEndpointId = await legacyDataProvider?.getEndpointId();
+      // Migrate legacy data if it is non-null
+      if (legacyEndpointId != null) {
+        await store.write(
+          key: endpointIdStorageKey,
+          value: legacyEndpointId,
+        );
+      }
+      // Update the version to prevent future legacy data migrations.
+      await store.write(
         key: EndpointStoreKey.version.name,
         value: EndpointStoreVersion.v1.name,
       );
+    }
 
-      // Attempt to retrieve legacy data, else generate random uuid
-      await legacyDataProvider?.initialize(pinpointAppId);
-      retrievedEndpointId = await legacyDataProvider?.getEndpointId();
+    // Read the existing ID.
+    final currentEndpointId = await store.read(
+      key: endpointIdStorageKey,
+    );
 
-      retrievedEndpointId ??= uuid();
+    final String fixedEndpointId;
+
+    // Generate a new ID if one does not exist.
+    if (currentEndpointId == null) {
+      fixedEndpointId = uuid();
       await store.write(
         key: endpointIdStorageKey,
-        value: retrievedEndpointId,
+        value: fixedEndpointId,
       );
     } else {
-      retrievedEndpointId = await store.read(key: endpointIdStorageKey);
+      fixedEndpointId = currentEndpointId;
     }
-    return retrievedEndpointId!;
-  }
+
+    return fixedEndpointId;
 }
