@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_global_fields_manager.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_store_keys.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_storage_adapter.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_creator/event_creator.dart';
@@ -70,14 +71,8 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   /// Storage key for the static Pinpoint endpoint id
   @visibleForTesting
   static const String endpointIdStorageKey = 'UniqueId';
-  static const String _endpointInformationVersionKey =
-      'EndpointInformationVersionKey';
   static const String _endpointGlobalAttrsKey = 'EndpointGlobalAttributesKey';
   static const String _endpointGlobalMetricsKey = 'EndpointGlobalMetricsKey';
-
-  /// Version of metadata stored into the `endpointInfoStore`
-  /// If stored data changes, increment this value
-  static const String _endpointInformationCurrentVersionValue = '0';
 
   late final EventCreator _eventCreator;
   late final EndpointClient _endpointClient;
@@ -145,34 +140,11 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
       deviceContextInfo: deviceContextInfo,
     );
 
-    // Retrieve Unique ID
-    final endpointInformationVersion =
-        await _endpointInfoStore.read(key: _endpointInformationVersionKey);
-    String? retrievedEndpointId;
-
-    await _legacyNativeDataProvider?.initialize(appId);
-    retrievedEndpointId = await _legacyNativeDataProvider?.getEndpointId();
-    print('retrieved id: ${retrievedEndpointId ?? 'null'}');
-
-    if (endpointInformationVersion == null) {
-      _endpointInfoStore.write(
-        key: _endpointInformationVersionKey,
-        value: _endpointInformationCurrentVersionValue,
-      );
-
-      await _legacyNativeDataProvider?.initialize(appId);
-      retrievedEndpointId = await _legacyNativeDataProvider?.getEndpointId();
-
-      retrievedEndpointId ??= uuid();
-      await _endpointInfoStore.write(
-        key: endpointIdStorageKey,
-        value: retrievedEndpointId,
-      );
-    } else {
-      retrievedEndpointId =
-          await _endpointInfoStore.read(key: endpointIdStorageKey);
-    }
-    final fixedEndpointId = retrievedEndpointId!;
+    final fixedEndpointId = await retrieveEndpointId(
+      pinpointAppId: appId,
+      store: _endpointInfoStore,
+      legacyDataProvider: _legacyNativeDataProvider,
+    );
 
     final endpoint = PublicEndpoint(
       effectiveDate: DateTime.now().toUtc().toIso8601String(),
@@ -348,5 +320,40 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     _autoEventSubmitter.stop();
     await _eventClient.close();
     await _eventStorageAdapter.close();
+  }
+
+  @visibleForTesting
+
+  /// Retrieve the stored pinpoint endpoint id
+  static Future<String> retrieveEndpointId({
+    required String pinpointAppId,
+    required SecureStorageInterface store,
+    LegacyNativeDataProvider? legacyDataProvider,
+  }) async {
+    // Retrieve Unique ID
+    final endpointInformationVersion =
+        await store.read(key: EndpointStoreKey.version.name);
+    String? retrievedEndpointId;
+
+    // First time app load
+    if (endpointInformationVersion == null) {
+      store.write(
+        key: EndpointStoreKey.version.name,
+        value: EndpointStoreVersion.v1.name,
+      );
+
+      // Attempt to retrieve legacy data, else generate random uuid
+      await legacyDataProvider?.initialize(pinpointAppId);
+      retrievedEndpointId = await legacyDataProvider?.getEndpointId();
+
+      retrievedEndpointId ??= uuid();
+      await store.write(
+        key: endpointIdStorageKey,
+        value: retrievedEndpointId,
+      );
+    } else {
+      retrievedEndpointId = await store.read(key: endpointIdStorageKey);
+    }
+    return retrievedEndpointId!;
   }
 }

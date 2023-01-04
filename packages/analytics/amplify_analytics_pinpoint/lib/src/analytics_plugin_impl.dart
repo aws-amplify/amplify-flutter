@@ -17,10 +17,7 @@ class AmplifyAnalyticsPinpoint extends AmplifyAnalyticsPinpointDart {
   /// {@macro amplify_analytics_pinpoint.analytics_plugin_impl}
   AmplifyAnalyticsPinpoint({
     @visibleForTesting SecureStorageInterface? endpointInfoStore,
-    @visibleForTesting CachedEventsPathProvider? pathProvider,
     @visibleForTesting AppLifecycleProvider? appLifecycleProvider,
-    @visibleForTesting DeviceContextInfoProvider? deviceContextInfoProvider,
-    @visibleForTesting LegacyNativeDataProvider? legacyNativeDataProvider,
   }) : super(
           endpointInfoStore: endpointInfoStore ??
               AmplifySecureStorage(
@@ -28,13 +25,11 @@ class AmplifyAnalyticsPinpoint extends AmplifyAnalyticsPinpointDart {
                   scope: 'analyticsPinpoint',
                 ),
               ),
-          pathProvider: pathProvider ?? FlutterPathProvider(),
+          pathProvider: FlutterPathProvider(),
           appLifecycleProvider:
               appLifecycleProvider ?? FlutterAppLifecycleProvider(),
-          deviceContextInfoProvider: deviceContextInfoProvider ??
-              const FlutterDeviceContextInfoProvider(),
-          legacyNativeDataProvider:
-              legacyNativeDataProvider ?? FlutterLegacyNativeDataProvider(),
+          deviceContextInfoProvider: const FlutterDeviceContextInfoProvider(),
+          legacyNativeDataProvider: FlutterLegacyNativeDataProvider(),
           dbConnectFunction: db_common.connect,
         );
 }

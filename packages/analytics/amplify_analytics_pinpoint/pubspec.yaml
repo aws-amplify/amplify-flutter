@@ -37,7 +37,6 @@ dev_dependencies:
     sdk: flutter
   pigeon: ^4.2.5
 
-# The following section is specific to Flutter.
 flutter:
   plugin:
     platforms:
