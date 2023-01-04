@@ -6,6 +6,9 @@ include: package:amplify_lints/library.yaml
 analyzer:
   exclude:
     - lib/**/*.g.dart
+  errors:
+    implementation_imports: error    
+
 
 linter:
   rules:
