@@ -452,7 +452,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
             userId: state.userId,
             isSignUpComplete: false,
             nextStep: AuthNextSignUpStep(
-              signUpStep: CognitoSignUpStep.confirmSignUp.value,
+              signUpStep: AuthSignUpStep.confirmSignUp,
               codeDeliveryDetails:
                   state.codeDeliveryDetails?.asAuthCodeDeliveryDetails,
             ),
@@ -462,8 +462,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
           return CognitoSignUpResult(
             userId: state.userId,
             isSignUpComplete: true,
-            nextStep: AuthNextSignUpStep(
-              signUpStep: CognitoSignUpStep.done.value,
+            nextStep: const AuthNextSignUpStep(
+              signUpStep: AuthSignUpStep.done,
             ),
           );
         case SignUpStateType.failure:
@@ -502,7 +502,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
             userId: state.userId,
             isSignUpComplete: false,
             nextStep: AuthNextSignUpStep(
-              signUpStep: CognitoSignUpStep.confirmSignUp.value,
+              signUpStep: AuthSignUpStep.confirmSignUp,
               codeDeliveryDetails:
                   state.codeDeliveryDetails?.asAuthCodeDeliveryDetails,
             ),
@@ -512,8 +512,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
           return CognitoSignUpResult(
             userId: state.userId,
             isSignUpComplete: true,
-            nextStep: AuthNextSignUpStep(
-              signUpStep: CognitoSignUpStep.done.value,
+            nextStep: const AuthNextSignUpStep(
+              signUpStep: AuthSignUpStep.done,
             ),
           );
         case SignUpStateType.failure:

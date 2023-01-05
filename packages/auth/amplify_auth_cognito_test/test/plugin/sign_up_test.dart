@@ -67,7 +67,7 @@ void main() {
                 .having(
                   (res) => res.nextStep,
                   'nextStep',
-                  const AuthNextSignUpStep(signUpStep: 'DONE'),
+                  const AuthNextSignUpStep(signUpStep: AuthSignUpStep.done),
                 ),
           ),
         );
@@ -116,7 +116,7 @@ void main() {
                   (res) => res.nextStep,
                   'nextStep',
                   AuthNextSignUpStep(
-                    signUpStep: 'CONFIRM_SIGN_UP_STEP',
+                    signUpStep: AuthSignUpStep.confirmSignUp,
                     codeDeliveryDetails: AuthCodeDeliveryDetails(
                       attributeName: attributeName,
                       deliveryMedium: deliveryMedium.name,

@@ -76,7 +76,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
       return CognitoSignUpResult(
         isSignUpComplete: false,
         nextStep: AuthNextSignUpStep(
-          signUpStep: 'CONFIRM_SIGN_UP_STEP',
+          signUpStep: AuthSignUpStep.confirmSignUp,
           codeDeliveryDetails: _codeDeliveryDetails(newUser),
         ),
       );
@@ -95,7 +95,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     }
     return const CognitoSignUpResult(
       isSignUpComplete: true,
-      nextStep: AuthNextSignUpStep(signUpStep: 'DONE'),
+      nextStep: AuthNextSignUpStep(signUpStep: AuthSignUpStep.done),
     );
   }
 

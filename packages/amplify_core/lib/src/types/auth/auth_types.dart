@@ -64,6 +64,7 @@ export 'sign_out/sign_out_result.dart';
 
 /// Sign Up
 export 'sign_up/auth_next_sign_up_step.dart';
+export 'sign_up/auth_sign_up_step.dart';
 export 'sign_up/confirm_sign_up_options.dart';
 export 'sign_up/resend_sign_up_code_options.dart';
 export 'sign_up/resend_sign_up_code_result.dart';

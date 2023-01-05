@@ -17,7 +17,7 @@ class AuthNextSignUpStep extends AuthNextStep
   factory AuthNextSignUpStep.fromJson(Map<String, Object?> json) =>
       _$AuthNextSignUpStepFromJson(json);
 
-  final String signUpStep;
+  final AuthSignUpStep signUpStep;
 
   @override
   List<Object?> get props => [

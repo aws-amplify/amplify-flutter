@@ -400,11 +400,11 @@ class StateMachineBloc
       );
 
       switch (result.nextStep.signUpStep) {
-        case 'CONFIRM_SIGN_UP_STEP':
+        case AuthSignUpStep.confirmSignUp:
           _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
           yield UnauthenticatedState.confirmSignUp;
           break;
-        case 'DONE':
+        case AuthSignUpStep.done:
           var authSignInData = AuthUsernamePasswordSignInData(
             username: data.username,
             password: data.password,

@@ -17,7 +17,7 @@ AuthNextSignUpStep _$AuthNextSignUpStepFromJson(Map<String, dynamic> json) =>
           ? null
           : AuthCodeDeliveryDetails.fromJson(
               json['codeDeliveryDetails'] as Map<String, dynamic>),
-      signUpStep: json['signUpStep'] as String,
+      signUpStep: $enumDecode(_$AuthSignUpStepEnumMap, json['signUpStep']),
     );
 
 Map<String, dynamic> _$AuthNextSignUpStepToJson(AuthNextSignUpStep instance) {
@@ -31,6 +31,11 @@ Map<String, dynamic> _$AuthNextSignUpStepToJson(AuthNextSignUpStep instance) {
 
   writeNotNull('additionalInfo', instance.additionalInfo);
   writeNotNull('codeDeliveryDetails', instance.codeDeliveryDetails?.toJson());
-  val['signUpStep'] = instance.signUpStep;
+  val['signUpStep'] = _$AuthSignUpStepEnumMap[instance.signUpStep]!;
   return val;
 }
+
+const _$AuthSignUpStepEnumMap = {
+  AuthSignUpStep.confirmSignUp: 'confirmSignUp',
+  AuthSignUpStep.done: 'done',
+};
