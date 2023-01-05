@@ -69,7 +69,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         CognitoResetPasswordOptions,
         CognitoResetPasswordResult,
         CognitoConfirmResetPasswordOptions,
-        UpdatePasswordResult,
+        CognitoResetPasswordResult,
         AuthUserOptions,
         FetchUserAttributesOptions,
         CognitoSessionOptions,
@@ -116,7 +116,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       CognitoResetPasswordOptions,
       CognitoResetPasswordResult,
       CognitoConfirmResetPasswordOptions,
-      UpdatePasswordResult,
+      CognitoResetPasswordResult,
       AuthUserOptions,
       FetchUserAttributesOptions,
       CognitoSessionOptions,
@@ -864,7 +864,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     return CognitoResetPasswordResult(
       isPasswordReset: false,
       nextStep: ResetPasswordStep(
-        updateStep: 'CONFIRM_RESET_PASSWORD_WITH_CODE',
+        updateStep: AuthResetPasswordStep.confirmResetPasswordWithCode,
         codeDeliveryDetails:
             result.codeDeliveryDetails?.asAuthCodeDeliveryDetails,
       ),
@@ -872,7 +872,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   }
 
   @override
-  Future<UpdatePasswordResult> confirmResetPassword({
+  Future<CognitoResetPasswordResult> confirmResetPassword({
     required String username,
     required String newPassword,
     required String confirmationCode,
@@ -900,7 +900,10 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       }),
     ).result;
 
-    return const UpdatePasswordResult();
+    return const CognitoResetPasswordResult(
+      isPasswordReset: true,
+      nextStep: ResetPasswordStep(updateStep: AuthResetPasswordStep.done),
+    );
   }
 
   @override
@@ -1200,7 +1203,7 @@ class _AmplifyAuthCognitoDartPluginKey extends AuthPluginKey<
     CognitoResetPasswordOptions,
     CognitoResetPasswordResult,
     CognitoConfirmResetPasswordOptions,
-    UpdatePasswordResult,
+    CognitoResetPasswordResult,
     AuthUserOptions,
     FetchUserAttributesOptions,
     CognitoSessionOptions,
@@ -1244,7 +1247,7 @@ extension AmplifyAuthCognitoDartCategoryExtensions on AuthCategory<
     CognitoResetPasswordOptions,
     CognitoResetPasswordResult,
     CognitoConfirmResetPasswordOptions,
-    UpdatePasswordResult,
+    CognitoResetPasswordResult,
     AuthUserOptions,
     FetchUserAttributesOptions,
     CognitoSessionOptions,

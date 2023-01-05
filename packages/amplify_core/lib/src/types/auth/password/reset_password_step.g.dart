@@ -17,7 +17,8 @@ ResetPasswordStep _$ResetPasswordStepFromJson(Map<String, dynamic> json) =>
           ? null
           : AuthCodeDeliveryDetails.fromJson(
               json['codeDeliveryDetails'] as Map<String, dynamic>),
-      updateStep: json['updateStep'] as String,
+      updateStep:
+          $enumDecode(_$AuthResetPasswordStepEnumMap, json['updateStep']),
     );
 
 Map<String, dynamic> _$ResetPasswordStepToJson(ResetPasswordStep instance) {
@@ -31,6 +32,12 @@ Map<String, dynamic> _$ResetPasswordStepToJson(ResetPasswordStep instance) {
 
   writeNotNull('additionalInfo', instance.additionalInfo);
   writeNotNull('codeDeliveryDetails', instance.codeDeliveryDetails?.toJson());
-  val['updateStep'] = instance.updateStep;
+  val['updateStep'] = _$AuthResetPasswordStepEnumMap[instance.updateStep]!;
   return val;
 }
+
+const _$AuthResetPasswordStepEnumMap = {
+  AuthResetPasswordStep.confirmResetPasswordWithCode:
+      'confirmResetPasswordWithCode',
+  AuthResetPasswordStep.done: 'done',
+};

@@ -35,6 +35,7 @@ export 'auth_next_step.dart';
 export 'hub/auth_hub_event.dart';
 
 /// Password
+export 'password/auth_reset_password_step.dart';
 export 'password/confirm_reset_password_options.dart';
 export 'password/reset_password_options.dart';
 export 'password/reset_password_result.dart';

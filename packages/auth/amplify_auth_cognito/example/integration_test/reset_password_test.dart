@@ -69,7 +69,7 @@ void main() {
       expect(resetPasswordRes.isPasswordReset, isFalse);
       expect(
         resetPasswordRes.nextStep.updateStep,
-        'CONFIRM_RESET_PASSWORD_WITH_CODE',
+        AuthResetPasswordStep.confirmResetPasswordWithCode,
       );
       expect(
         resetPasswordRes.nextStep.codeDeliveryDetails?.deliveryMedium,

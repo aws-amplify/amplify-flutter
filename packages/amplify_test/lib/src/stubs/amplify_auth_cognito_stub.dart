@@ -175,14 +175,14 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     return CognitoResetPasswordResult(
       isPasswordReset: true,
       nextStep: ResetPasswordStep(
-        updateStep: 'DONE',
+        updateStep: AuthResetPasswordStep.done,
         codeDeliveryDetails: _codeDeliveryDetails(user),
       ),
     );
   }
 
   @override
-  Future<UpdatePasswordResult> confirmResetPassword({
+  Future<CognitoResetPasswordResult> confirmResetPassword({
     required String username,
     required String newPassword,
     required String confirmationCode,
@@ -199,7 +199,12 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     MockCognitoUser updatedUser = user.copyWith(password: newPassword);
     _users[username] = updatedUser;
     _currentUser = updatedUser;
-    return const UpdatePasswordResult();
+    return const CognitoResetPasswordResult(
+      isPasswordReset: true,
+      nextStep: ResetPasswordStep(
+        updateStep: AuthResetPasswordStep.done,
+      ),
+    );
   }
 
   @override

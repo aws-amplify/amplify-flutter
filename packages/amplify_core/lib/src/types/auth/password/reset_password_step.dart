@@ -25,7 +25,7 @@ class ResetPasswordStep extends AuthNextStep
   factory ResetPasswordStep.fromJson(Map<String, Object?> json) =>
       _$ResetPasswordStepFromJson(json);
 
-  final String updateStep;
+  final AuthResetPasswordStep updateStep;
 
   @override
   List<Object?> get props => [additionalInfo, codeDeliveryDetails, updateStep];
