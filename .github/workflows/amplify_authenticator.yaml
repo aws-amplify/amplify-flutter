@@ -15,7 +15,7 @@ on:
       - '.github/workflows/flutter_vm.yaml'
       - '.github/workflows/amplify_authenticator.yaml'
   schedule:
-    - cron: '0 0 * * 0' # Every Sunday at 00:00
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
   run:
     shell: bash

@@ -12,6 +12,7 @@ on:
       - 'packages/secure_storage/amplify_secure_storage_test/**/*.yaml'
       - 'packages/secure_storage/amplify_secure_storage_test/lib/**/*'
       - 'packages/secure_storage/amplify_secure_storage_test/test/**/*'
+      - '.github/composite_actions/setup_firefox/action.yaml'
       - '.github/workflows/dart_vm.yaml'
       - '.github/workflows/dart_native.yaml'
       - '.github/workflows/dart_ddc.yaml'
