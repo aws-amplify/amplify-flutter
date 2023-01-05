@@ -24,7 +24,6 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
   HostedUiPlatformImpl(super.dependencyManager) : super.protected();
 
   /// The base URL
-  @override
   String get baseUrl => url.join(window.location.origin, '/');
 
   Never _noSuitableRedirect({required bool signIn}) {

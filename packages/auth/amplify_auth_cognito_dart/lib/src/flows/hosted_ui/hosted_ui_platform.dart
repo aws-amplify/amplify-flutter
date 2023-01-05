@@ -14,8 +14,7 @@
 
 import 'dart:async';
 
-import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
-    hide HostedUiPlatformImpl;
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/crypto/oauth.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_config.dart';
@@ -57,9 +56,6 @@ abstract class HostedUiPlatform implements Closeable {
 
   /// The secure storage plugin.
   SecureStorageInterface get _secureStorage => dependencyManager.getOrCreate();
-
-  /// The base URL used in the HTML implementation
-  String get baseUrl => '';
 
   /// The HTTP client to use for internal HTTP requests.
   @protected

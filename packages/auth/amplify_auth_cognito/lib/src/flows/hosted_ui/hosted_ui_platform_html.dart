@@ -14,7 +14,8 @@
 
 import 'dart:html';
 
-import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
+// ignore: implementation_imports
+import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_html.dart'
     as dart;
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:path/path.dart' show url;

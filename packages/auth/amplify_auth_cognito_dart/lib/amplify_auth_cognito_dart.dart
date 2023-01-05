@@ -22,7 +22,6 @@ export 'src/credentials/legacy_credential_provider.dart';
 export 'src/exception/device_not_tracked_exception.dart';
 export 'src/exception/invalid_account_type_exception.dart';
 export 'src/flows/hosted_ui/hosted_ui_platform.dart';
-export 'src/flows/hosted_ui/hosted_ui_platform_stub.dart';
 export 'src/jwt/src/cognito.dart';
 export 'src/jwt/src/token.dart';
 // Models
@@ -66,7 +65,6 @@ export 'src/state/event/fetch_auth_session_event.dart';
 export 'src/state/event/hosted_ui_event.dart';
 export 'src/state/event/sign_in_event.dart';
 export 'src/state/event/sign_up_event.dart';
-export 'src/state/machines/hosted_ui_state_machine.dart';
 export 'src/state/state/auth_state.dart';
 export 'src/state/state/credential_store_state.dart';
 export 'src/state/state/fetch_auth_session_state.dart';
