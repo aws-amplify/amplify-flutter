@@ -12,6 +12,7 @@ on:
       - 'packages/aws_signature_v4/**/*.yaml'
       - 'packages/aws_signature_v4/lib/**/*'
       - 'packages/aws_signature_v4/test/**/*'
+      - '.github/composite_actions/setup_firefox/action.yaml'
       - '.github/workflows/dart_vm.yaml'
       - '.github/workflows/dart_native.yaml'
       - '.github/workflows/dart_ddc.yaml'

@@ -12,6 +12,7 @@ on:
       - 'packages/common/amplify_db_common_dart/**/*.yaml'
       - 'packages/common/amplify_db_common_dart/lib/**/*'
       - 'packages/common/amplify_db_common_dart/test/**/*'
+      - '.github/composite_actions/setup_firefox/action.yaml'
       - '.github/workflows/dart_vm.yaml'
       - '.github/workflows/dart_native.yaml'
       - '.github/workflows/dart_ddc.yaml'

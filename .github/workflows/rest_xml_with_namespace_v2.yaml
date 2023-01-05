@@ -12,6 +12,7 @@ on:
       - 'packages/smithy/goldens/lib2/restXmlWithNamespace/**/*.yaml'
       - 'packages/smithy/goldens/lib2/restXmlWithNamespace/lib/**/*'
       - 'packages/smithy/goldens/lib2/restXmlWithNamespace/test/**/*'
+      - '.github/composite_actions/setup_firefox/action.yaml'
       - '.github/workflows/dart_vm.yaml'
       - '.github/workflows/dart_native.yaml'
       - '.github/workflows/dart_ddc.yaml'
