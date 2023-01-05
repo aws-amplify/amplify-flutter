@@ -115,22 +115,22 @@ jobs:
         working-directory: packages/aws_signature_v4
         run: dart analyze --fatal-infos lib test
   job_004:
-    name: "analyze_and_format; Dart dev; PKGS: packages/aws_common, packages/aws_signature_v4/example; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos .`"
+    name: "analyze_and_format; Dart beta; PKGS: packages/aws_common, packages/aws_signature_v4/example; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos .`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_common-packages/aws_signature_v4/example;commands:format-analyze_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:beta;packages:packages/aws_common-packages/aws_signature_v4/example;commands:format-analyze_0"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_common-packages/aws_signature_v4/example
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev
+            os:ubuntu-latest;pub-cache-hosted;sdk:beta;packages:packages/aws_common-packages/aws_signature_v4/example
+            os:ubuntu-latest;pub-cache-hosted;sdk:beta
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
       - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
         with:
-          sdk: dev
+          sdk: beta
       - id: checkout
         uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
       - id: packages_aws_common_pub_upgrade
@@ -160,22 +160,22 @@ jobs:
         working-directory: packages/aws_signature_v4/example
         run: dart analyze --fatal-infos .
   job_005:
-    name: "analyze_and_format; Dart dev; PKG: packages/aws_signature_v4; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos lib test`"
+    name: "analyze_and_format; Dart beta; PKG: packages/aws_signature_v4; `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos lib test`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4;commands:format-analyze_1"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:beta;packages:packages/aws_signature_v4;commands:format-analyze_1"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:packages/aws_signature_v4
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev
+            os:ubuntu-latest;pub-cache-hosted;sdk:beta;packages:packages/aws_signature_v4
+            os:ubuntu-latest;pub-cache-hosted;sdk:beta
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
       - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
         with:
-          sdk: dev
+          sdk: beta
       - id: checkout
         uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
       - id: packages_aws_signature_v4_pub_upgrade
