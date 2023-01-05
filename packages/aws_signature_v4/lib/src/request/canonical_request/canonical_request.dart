@@ -241,6 +241,7 @@ extension on String {
 
   String ensureEndsWith(String s) {
     if (!endsWith(s)) {
+      // ignore: unnecessary_brace_in_string_interps
       return '${this}$s';
     }
     return this;
