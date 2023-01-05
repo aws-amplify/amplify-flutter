@@ -47,7 +47,7 @@ void main() {
         username: username,
         password: password,
       );
-      expect(res.nextStep.signInStep, 'DONE');
+      expect(res.nextStep.signInStep, AuthSignInStep.done);
 
       expect(
         await getCustomAttributes(),

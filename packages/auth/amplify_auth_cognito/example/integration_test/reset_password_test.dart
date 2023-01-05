@@ -26,7 +26,7 @@ void main() {
         password: password,
       );
       if (signInRes.nextStep.signInStep ==
-          'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE') {
+          AuthSignInStep.confirmSignInWithSmsMfaCode) {
         final confirmSignInRes = await Amplify.Auth.confirmSignIn(
           confirmationValue: await otpResult.code,
         );

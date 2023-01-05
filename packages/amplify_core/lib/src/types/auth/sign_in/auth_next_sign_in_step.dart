@@ -27,7 +27,7 @@ class AuthNextSignInStep<Key extends AuthUserAttributeKey> extends AuthNextStep
         (key) => fromJsonKey(key as String),
       );
 
-  final String signInStep;
+  final AuthSignInStep signInStep;
 
   /// Attributes which are required in your backend but have not yet been
   /// provided as part of the sign-in/sign-up flow for this user.

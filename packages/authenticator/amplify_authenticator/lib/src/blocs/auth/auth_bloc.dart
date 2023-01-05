@@ -195,25 +195,25 @@ class StateMachineBloc
       );
 
       switch (result.nextStep.signInStep) {
-        case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
+        case AuthSignInStep.confirmSignInWithSmsMfaCode:
           yield UnauthenticatedState.confirmSignInMfa;
           break;
-        case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
+        case AuthSignInStep.confirmSignInWithCustomChallenge:
           yield ConfirmSignInCustom(
             publicParameters:
                 result.nextStep.additionalInfo ?? <String, String>{},
           );
           break;
-        case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
+        case AuthSignInStep.confirmSignInWithNewPassword:
           yield UnauthenticatedState.confirmSignInNewPassword;
           break;
-        case 'RESET_PASSWORD':
+        case AuthSignInStep.resetPassword:
           yield UnauthenticatedState.resetPassword;
           break;
-        case 'CONFIRM_SIGN_UP':
+        case AuthSignInStep.confirmSignUp:
           yield UnauthenticatedState.confirmSignUp;
           break;
-        case 'DONE':
+        case AuthSignInStep.done:
           if (rememberDevice) {
             try {
               await _authService.rememberDevice();
@@ -281,27 +281,27 @@ class StateMachineBloc
     required bool isSocialSignIn,
   }) async {
     switch (result.nextStep.signInStep) {
-      case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
+      case AuthSignInStep.confirmSignInWithSmsMfaCode:
         _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
         _emit(UnauthenticatedState.confirmSignInMfa);
         break;
-      case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
+      case AuthSignInStep.confirmSignInWithCustomChallenge:
         _emit(ConfirmSignInCustom(
           publicParameters:
               result.nextStep.additionalInfo ?? <String, String>{},
         ));
         break;
-      case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
+      case AuthSignInStep.confirmSignInWithNewPassword:
         _emit(UnauthenticatedState.confirmSignInNewPassword);
         break;
-      case 'RESET_PASSWORD':
+      case AuthSignInStep.resetPassword:
         _emit(UnauthenticatedState.confirmResetPassword);
         break;
-      case 'CONFIRM_SIGN_UP':
+      case AuthSignInStep.confirmSignUp:
         _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
         _emit(UnauthenticatedState.confirmSignUp);
         break;
-      case 'DONE':
+      case AuthSignInStep.done:
         if (isSocialSignIn) {
           _emit(const AuthenticatedState());
         } else {

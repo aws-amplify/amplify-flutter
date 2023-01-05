@@ -18,14 +18,14 @@ import 'package:smithy/smithy.dart';
 /// Bridging helpers for [ChallengeNameType].
 extension ChallengeNameTypeBridge on ChallengeNameType {
   /// The sign in step corresponding to this challenge.
-  CognitoSignInStep get signInStep {
+  AuthSignInStep get signInStep {
     switch (this) {
       case ChallengeNameType.customChallenge:
-        return CognitoSignInStep.confirmSignInWithCustomChallenge;
+        return AuthSignInStep.confirmSignInWithCustomChallenge;
       case ChallengeNameType.newPasswordRequired:
-        return CognitoSignInStep.confirmSignInWithNewPassword;
+        return AuthSignInStep.confirmSignInWithNewPassword;
       case ChallengeNameType.smsMfa:
-        return CognitoSignInStep.confirmSignInWithSmsMfaCode;
+        return AuthSignInStep.confirmSignInWithSmsMfaCode;
       case ChallengeNameType.adminNoSrpAuth:
       case ChallengeNameType.selectMfaType:
       case ChallengeNameType.passwordVerifier:

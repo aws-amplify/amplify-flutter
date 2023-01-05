@@ -408,7 +408,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
           return const CognitoSignInResult(
             isSignedIn: true,
             nextStep: AuthNextSignInStep(
-              signInStep: 'DONE',
+              signInStep: AuthSignInStep.done,
             ),
           );
         case HostedUiStateType.failure:
@@ -592,7 +592,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
           return CognitoSignInResult(
             isSignedIn: false,
             nextStep: AuthNextSignInStep(
-              signInStep: state.challengeName.signInStep.value,
+              signInStep: state.challengeName.signInStep,
               codeDeliveryDetails: _getChallengeDeliveryDetails(
                 state.challengeParameters,
               ),
@@ -601,26 +601,26 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
             ),
           );
         case SignInStateType.success:
-          return CognitoSignInResult(
+          return const CognitoSignInResult(
             isSignedIn: true,
             nextStep: AuthNextSignInStep(
-              signInStep: CognitoSignInStep.done.value,
+              signInStep: AuthSignInStep.done,
             ),
           );
         case SignInStateType.failure:
           final exception = (state as SignInFailure).exception;
           if (exception is PasswordResetRequiredException) {
-            return CognitoSignInResult(
+            return const CognitoSignInResult(
               isSignedIn: false,
               nextStep: AuthNextSignInStep(
-                signInStep: CognitoSignInStep.resetPassword.value,
+                signInStep: AuthSignInStep.resetPassword,
               ),
             );
           } else if (exception is UserNotConfirmedException) {
-            return CognitoSignInResult(
+            return const CognitoSignInResult(
               isSignedIn: false,
               nextStep: AuthNextSignInStep(
-                signInStep: CognitoSignInStep.confirmSignUp.value,
+                signInStep: AuthSignInStep.confirmSignUp,
               ),
             );
           }
@@ -657,7 +657,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
           return CognitoSignInResult(
             isSignedIn: false,
             nextStep: AuthNextSignInStep(
-              signInStep: state.challengeName.signInStep.value,
+              signInStep: state.challengeName.signInStep,
               codeDeliveryDetails: _getChallengeDeliveryDetails(
                 state.challengeParameters,
               ),
@@ -666,10 +666,10 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
             ),
           );
         case SignInStateType.success:
-          return CognitoSignInResult(
+          return const CognitoSignInResult(
             isSignedIn: true,
             nextStep: AuthNextSignInStep(
-              signInStep: CognitoSignInStep.done.value,
+              signInStep: AuthSignInStep.done,
             ),
           );
         case SignInStateType.failure:

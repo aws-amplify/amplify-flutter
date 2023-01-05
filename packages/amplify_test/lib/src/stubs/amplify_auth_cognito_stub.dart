@@ -129,7 +129,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     _currentUser = user;
     return CognitoSignInResult(
       isSignedIn: _isSignedIn(),
-      nextStep: const AuthNextSignInStep(signInStep: 'DONE'),
+      nextStep: const AuthNextSignInStep(signInStep: AuthSignInStep.done),
     );
   }
 
@@ -141,7 +141,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     await Future<void>.delayed(delay);
     return CognitoSignInResult(
       isSignedIn: _isSignedIn(),
-      nextStep: const AuthNextSignInStep(signInStep: 'DONE'),
+      nextStep: const AuthNextSignInStep(signInStep: AuthSignInStep.done),
     );
   }
 

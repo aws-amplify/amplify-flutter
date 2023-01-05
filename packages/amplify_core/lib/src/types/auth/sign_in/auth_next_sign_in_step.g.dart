@@ -22,7 +22,7 @@ AuthNextSignInStep<Key>
               ? null
               : AuthCodeDeliveryDetails.fromJson(
                   json['codeDeliveryDetails'] as Map<String, dynamic>),
-          signInStep: json['signInStep'] as String,
+          signInStep: $enumDecode(_$AuthSignInStepEnumMap, json['signInStep']),
           missingAttributes: (json['missingAttributes'] as List<dynamic>?)
                   ?.map(fromJsonKey)
                   .toList() ??
@@ -44,7 +44,17 @@ Map<String, dynamic>
 
   writeNotNull('additionalInfo', instance.additionalInfo);
   writeNotNull('codeDeliveryDetails', instance.codeDeliveryDetails?.toJson());
-  val['signInStep'] = instance.signInStep;
+  val['signInStep'] = _$AuthSignInStepEnumMap[instance.signInStep]!;
   val['missingAttributes'] = instance.missingAttributes.map(toJsonKey).toList();
   return val;
 }
+
+const _$AuthSignInStepEnumMap = {
+  AuthSignInStep.confirmSignInWithSmsMfaCode: 'confirmSignInWithSmsMfaCode',
+  AuthSignInStep.confirmSignInWithNewPassword: 'confirmSignInWithNewPassword',
+  AuthSignInStep.confirmSignInWithCustomChallenge:
+      'confirmSignInWithCustomChallenge',
+  AuthSignInStep.resetPassword: 'resetPassword',
+  AuthSignInStep.confirmSignUp: 'confirmSignUp',
+  AuthSignInStep.done: 'done',
+};

@@ -59,7 +59,7 @@ void main() {
         username: username,
         password: password,
       );
-      expect(signInResult.nextStep.signInStep, 'DONE');
+      expect(signInResult.nextStep.signInStep, AuthSignInStep.done);
 
       final userPoolTokens =
           (await cognitoPlugin.fetchAuthSession()).userPoolTokens!;
@@ -82,7 +82,7 @@ void main() {
         username: username,
         password: password,
       );
-      expect(signInResult.nextStep.signInStep, 'DONE');
+      expect(signInResult.nextStep.signInStep, AuthSignInStep.done);
 
       await expectLater(
         cognitoPlugin.federateToIdentityPool(
@@ -133,7 +133,7 @@ void main() {
         username: username,
         password: password,
       );
-      expect(signInResult.nextStep.signInStep, 'DONE');
+      expect(signInResult.nextStep.signInStep, AuthSignInStep.done);
 
       final userPoolTokens =
           (await cognitoPlugin.fetchAuthSession()).userPoolTokens!;

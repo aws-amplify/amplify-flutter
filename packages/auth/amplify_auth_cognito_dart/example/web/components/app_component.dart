@@ -119,20 +119,22 @@ class AppComponent extends StatefulComponent {
   void _processSignInResult(SignInResult res) {
     if (!res.isSignedIn) {
       switch (res.nextStep.signInStep) {
-        case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
+        case AuthSignInStep.confirmSignInWithSmsMfaCode:
           setState(() {
             appState = appState.copyWith(
               authState: AuthState.confirmSignin,
             );
           });
           return;
-        case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
+        case AuthSignInStep.confirmSignInWithNewPassword:
           setState(() {
             appState = appState.copyWith(
               authState: AuthState.confirmNewPassword,
             );
           });
           return;
+        default:
+          break;
       }
     }
     setState(

@@ -125,11 +125,11 @@ Future<SignInResult> _processSignInResult(
   final missingAttributes =
       result.nextStep.missingAttributes.cast<CognitoUserAttributeKey>();
   switch (nextStep) {
-    case 'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE':
-    case 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE':
+    case AuthSignInStep.confirmSignInWithSmsMfaCode:
+    case AuthSignInStep.confirmSignInWithCustomChallenge:
       final confirmationCode = prompt('Enter your confirmation code: ');
       return confirmSignIn(confirmationCode);
-    case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD':
+    case AuthSignInStep.confirmSignInWithNewPassword:
       final userAttributes = <CognitoUserAttributeKey, String>{};
       for (final missingAttribute in missingAttributes) {
         final attributeValue = prompt(
@@ -142,7 +142,7 @@ Future<SignInResult> _processSignInResult(
         newPassword,
         userAttributes: userAttributes,
       );
-    case 'RESET_PASSWORD':
+    case AuthSignInStep.resetPassword:
       final result = await resetPassword(username: username);
       stdout
         ..writeln('You must reset your password.')

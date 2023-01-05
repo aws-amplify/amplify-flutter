@@ -52,6 +52,7 @@ export 'session/sign_in_details.dart';
 /// Sign In
 export 'sign_in/auth_next_sign_in_step.dart';
 export 'sign_in/auth_provider.dart';
+export 'sign_in/auth_sign_in_step.dart';
 export 'sign_in/confirm_sign_in_options.dart';
 export 'sign_in/sign_in_options.dart';
 export 'sign_in/sign_in_result.dart';

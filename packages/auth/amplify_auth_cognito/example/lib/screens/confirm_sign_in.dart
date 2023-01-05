@@ -35,7 +35,7 @@ class _ConfirmSignInWidgetState extends State<ConfirmSignInWidget> {
         'Confirm Sign In Status = ${res.nextStep.signInStep}',
       );
       widget.changeDisplay(
-        res.nextStep.signInStep == 'DONE'
+        res.nextStep.signInStep == AuthSignInStep.done
             ? 'SIGNED_IN'
             : 'SHOW_CONFIRM_SIGN_IN',
       );
