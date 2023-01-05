@@ -14,7 +14,6 @@ class CognitoSignOutWithWebUIOptions extends SignOutOptions
     with AWSEquatable<CognitoSignOutWithWebUIOptions>, AWSDebuggable {
   /// {@macro amplify_auth_cognito.model.cognito_sign_out_with_web_ui_options}
   const CognitoSignOutWithWebUIOptions({
-    this.isPreferPrivateSession = false,
     this.browserPackageName,
     super.globalSignOut = false,
   });
@@ -23,9 +22,6 @@ class CognitoSignOutWithWebUIOptions extends SignOutOptions
   factory CognitoSignOutWithWebUIOptions.fromJson(Map<String, Object?> json) =>
       _$CognitoSignOutWithWebUIOptionsFromJson(json);
 
-  /// {@macro amplify_auth_cognito.model.cognito_sign_in_with_web_ui_options.private_session}
-  final bool isPreferPrivateSession;
-
   /// {@macro amplify_auth_cognito.model.cognito_sign_in_with_web_ui_options.browser_package_name}
   final String? browserPackageName;
 
@@ -33,7 +29,7 @@ class CognitoSignOutWithWebUIOptions extends SignOutOptions
   Map<String, Object?> serializeAsMap() => toJson();
 
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [browserPackageName, globalSignOut];
 
   @override
   String get runtimeTypeName => 'CognitoSignOutWithWebUIOptions';
