@@ -20,7 +20,7 @@ if ! command -v addlicense &>/dev/null ; then
         exit 1
     fi
 
-    VERSION=1.0.0
+    VERSION=1.1.0
     FILENAME=addlicense_${VERSION}_${OS}_x86_64.tar.gz
     CHECKSUMS=checksums.txt
     curl -L -o ${FILENAME} https://github.com/google/addlicense/releases/download/v${VERSION}/${FILENAME}
@@ -32,7 +32,10 @@ if ! command -v addlicense &>/dev/null ; then
     mv addlicense /usr/local/bin
 fi
 
-addlicense -l apache -c "Amazon.com, Inc. or its affiliates. All Rights Reserved." \
+addlicense -l apache \
+    -c "Amazon.com, Inc. or its affiliates. All Rights Reserved." \
+    -s=only \
+    -y="" \
     -ignore '**/*.yaml' \
     -ignore '**/*.yml' \
     -ignore '**/amplifyconfiguration.dart' \
