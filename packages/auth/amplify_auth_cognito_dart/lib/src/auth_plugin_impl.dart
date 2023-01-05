@@ -299,8 +299,17 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     if (destination == null) {
       return null;
     }
-    final deliveryMedium =
+    final deliveryMediumStr =
         challengeParameters[CognitoConstants.challengeParamDeliveryMedium];
+    var deliveryMedium = DeliveryMedium.unknown;
+    switch (deliveryMediumStr) {
+      case 'SMS':
+        deliveryMedium = DeliveryMedium.sms;
+        break;
+      case 'EMAIL':
+        deliveryMedium = DeliveryMedium.email;
+        break;
+    }
     return AuthCodeDeliveryDetails(
       destination: destination,
       deliveryMedium: deliveryMedium,

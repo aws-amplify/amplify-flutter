@@ -45,9 +45,24 @@ extension CodeDeliveryDetailsBridge on CodeDeliveryDetailsType {
   AuthCodeDeliveryDetails get asAuthCodeDeliveryDetails {
     return AuthCodeDeliveryDetails(
       destination: destination,
-      deliveryMedium: deliveryMedium?.value,
-      attributeName: attributeName,
+      deliveryMedium:
+          deliveryMedium?.asDeliveryMedium ?? DeliveryMedium.unknown,
+      attributeKey: attributeName,
     );
+  }
+}
+
+/// Bridging helpers for [DeliveryMediumType].
+extension DeliveryMediumTypeBridge on DeliveryMediumType {
+  /// The [DeliveryMedium] representation of `this`.
+  DeliveryMedium get asDeliveryMedium {
+    switch (this) {
+      case DeliveryMediumType.sms:
+        return DeliveryMedium.sms;
+      case DeliveryMediumType.email:
+        return DeliveryMedium.email;
+    }
+    throw StateError('Unknown delivery medium: $this');
   }
 }
 

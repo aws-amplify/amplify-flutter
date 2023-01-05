@@ -5,6 +5,13 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 'auth_code_delivery_details.g.dart';
 
+enum DeliveryMedium {
+  email,
+  phone,
+  sms,
+  unknown,
+}
+
 @zAmplifySerializable
 class AuthCodeDeliveryDetails
     with
@@ -12,20 +19,24 @@ class AuthCodeDeliveryDetails
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   const AuthCodeDeliveryDetails({
-    this.attributeName,
-    this.deliveryMedium,
+    required this.deliveryMedium,
     this.destination,
+    this.attributeKey,
   });
 
   factory AuthCodeDeliveryDetails.fromJson(Map<String, Object?> json) =>
       _$AuthCodeDeliveryDetailsFromJson(json);
 
-  final String? attributeName;
-  final String? deliveryMedium;
+  final DeliveryMedium deliveryMedium;
   final String? destination;
 
+  final String? attributeKey;
+
+  @Deprecated('Use attributeKey instead')
+  String? get attributeName => attributeKey;
+
   @override
-  List<Object?> get props => [attributeName, deliveryMedium, destination];
+  List<Object?> get props => [attributeKey, deliveryMedium, destination];
 
   @override
   String get runtimeTypeName => 'AuthCodeDeliveryDetails';

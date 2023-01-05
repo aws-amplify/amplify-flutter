@@ -4,6 +4,7 @@
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     hide SignUpRequest;
+import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:test/test.dart';
@@ -82,15 +83,16 @@ void main() {
         const destination = 'user@domain.com';
         const deliveryMedium = DeliveryMediumType.email;
         const attributeName = 'attributeName';
+        final codeDeliveryDetails = CodeDeliveryDetailsType(
+          destination: destination,
+          deliveryMedium: deliveryMedium,
+          attributeName: attributeName,
+        );
         final mockIdp = MockCognitoIdentityProviderClient(
           signUp: () async => SignUpResponse(
             userConfirmed: false,
             userSub: userSub,
-            codeDeliveryDetails: CodeDeliveryDetailsType(
-              destination: destination,
-              deliveryMedium: deliveryMedium,
-              attributeName: attributeName,
-            ),
+            codeDeliveryDetails: codeDeliveryDetails,
           ),
         );
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
@@ -117,11 +119,8 @@ void main() {
                   'nextStep',
                   AuthNextSignUpStep(
                     signUpStep: AuthSignUpStep.confirmSignUp,
-                    codeDeliveryDetails: AuthCodeDeliveryDetails(
-                      attributeName: attributeName,
-                      deliveryMedium: deliveryMedium.name,
-                      destination: destination,
-                    ),
+                    codeDeliveryDetails:
+                        codeDeliveryDetails.asAuthCodeDeliveryDetails,
                   ),
                 ),
           ),

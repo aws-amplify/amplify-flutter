@@ -43,6 +43,9 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
 
   AuthCodeDeliveryDetails _codeDeliveryDetails(MockCognitoUser user) =>
       AuthCodeDeliveryDetails(
+        deliveryMedium: user.phoneNumber != null
+            ? DeliveryMedium.phone
+            : DeliveryMedium.email,
         destination: user.email ?? user.phoneNumber ?? 'S****@g***.com',
       );
 

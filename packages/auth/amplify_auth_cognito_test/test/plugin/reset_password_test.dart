@@ -100,9 +100,9 @@ void main() {
               (res) => res.nextStep.codeDeliveryDetails,
               'codeDeliveryDetails',
               const AuthCodeDeliveryDetails(
+                deliveryMedium: DeliveryMedium.email,
                 destination: 'dummy destination',
-                deliveryMedium: 'EMAIL',
-                attributeName: 'dummy attribute',
+                attributeKey: 'dummy attribute',
               ),
             ),
           ),
@@ -133,9 +133,9 @@ void main() {
               (res) => res.nextStep.codeDeliveryDetails,
               'codeDeliveryDetails',
               const AuthCodeDeliveryDetails(
+                deliveryMedium: DeliveryMedium.email,
                 destination: 'dummy destination',
-                deliveryMedium: 'EMAIL',
-                attributeName: 'dummy attribute',
+                attributeKey: 'dummy attribute',
               ),
             ),
           ),

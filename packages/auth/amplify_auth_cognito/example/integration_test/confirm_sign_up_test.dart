@@ -43,7 +43,7 @@ void main() {
         expect(signUpResult.isSignUpComplete, false);
         expect(
           signUpResult.nextStep.codeDeliveryDetails?.deliveryMedium,
-          'SMS',
+          DeliveryMedium.sms,
         );
         expect(signUpResult.userId, isNotNull);
       }
@@ -109,7 +109,10 @@ void main() {
         final resendResult = await Amplify.Auth.resendSignUpCode(
           username: username,
         );
-        expect(resendResult.codeDeliveryDetails.deliveryMedium, 'SMS');
+        expect(
+          resendResult.codeDeliveryDetails.deliveryMedium,
+          DeliveryMedium.sms,
+        );
 
         final confirmResult = await Amplify.Auth.confirmSignUp(
           username: username,
