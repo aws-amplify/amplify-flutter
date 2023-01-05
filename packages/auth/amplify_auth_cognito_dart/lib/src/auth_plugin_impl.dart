@@ -751,13 +751,13 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       // thrown an exception.
       final isUpdated = codeDeliveryDetails == null;
       final nextStep = isUpdated
-          ? CognitoUpdateUserAttributeStep.done
-          : CognitoUpdateUserAttributeStep.confirmAttribute;
+          ? AuthUpdateAttributeStep.done
+          : AuthUpdateAttributeStep.confirmAttributeWithCode;
       result[attribute.userAttributeKey as CognitoUserAttributeKey] =
           UpdateUserAttributeResult(
         isUpdated: isUpdated,
         nextStep: AuthNextUpdateAttributeStep(
-          updateAttributeStep: nextStep.value,
+          updateAttributeStep: nextStep,
           codeDeliveryDetails: codeDeliveryDetails?.asAuthCodeDeliveryDetails,
         ),
       );

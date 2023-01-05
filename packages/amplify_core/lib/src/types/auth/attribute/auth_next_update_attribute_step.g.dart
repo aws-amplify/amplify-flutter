@@ -18,7 +18,8 @@ AuthNextUpdateAttributeStep _$AuthNextUpdateAttributeStepFromJson(
           ? null
           : AuthCodeDeliveryDetails.fromJson(
               json['codeDeliveryDetails'] as Map<String, dynamic>),
-      updateAttributeStep: json['updateAttributeStep'] as String,
+      updateAttributeStep: $enumDecode(
+          _$AuthUpdateAttributeStepEnumMap, json['updateAttributeStep']),
     );
 
 Map<String, dynamic> _$AuthNextUpdateAttributeStepToJson(
@@ -33,6 +34,12 @@ Map<String, dynamic> _$AuthNextUpdateAttributeStepToJson(
 
   writeNotNull('additionalInfo', instance.additionalInfo);
   writeNotNull('codeDeliveryDetails', instance.codeDeliveryDetails?.toJson());
-  val['updateAttributeStep'] = instance.updateAttributeStep;
+  val['updateAttributeStep'] =
+      _$AuthUpdateAttributeStepEnumMap[instance.updateAttributeStep]!;
   return val;
 }
+
+const _$AuthUpdateAttributeStepEnumMap = {
+  AuthUpdateAttributeStep.confirmAttributeWithCode: 'confirmAttributeWithCode',
+  AuthUpdateAttributeStep.done: 'done',
+};

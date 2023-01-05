@@ -14,6 +14,7 @@ export '../exception/auth/validation_exception.dart';
 
 /// Attributes
 export 'attribute/auth_next_update_attribute_step.dart';
+export 'attribute/auth_update_attribute_step.dart';
 export 'attribute/auth_user_attribute.dart';
 export 'attribute/auth_user_attribute_key.dart';
 export 'attribute/cognito_user_attribute_key.dart';

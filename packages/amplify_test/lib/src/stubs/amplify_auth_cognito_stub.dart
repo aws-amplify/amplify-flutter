@@ -288,7 +288,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     return UpdateUserAttributeResult(
       isUpdated: true,
       nextStep: AuthNextUpdateAttributeStep(
-        updateAttributeStep: 'DONE',
+        updateAttributeStep: AuthUpdateAttributeStep.done,
         codeDeliveryDetails: _codeDeliveryDetails(_currentUser!),
       ),
     );

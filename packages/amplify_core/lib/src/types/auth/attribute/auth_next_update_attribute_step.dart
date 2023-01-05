@@ -24,13 +24,9 @@ class AuthNextUpdateAttributeStep extends AuthNextStep {
   factory AuthNextUpdateAttributeStep.fromJson(Map<String, Object?> json) =>
       _$AuthNextUpdateAttributeStepFromJson(json);
 
-  /// Represents the steps a user could be in for the user attribute update flow.
-  ///
-  /// Will have a value of `"CONFIRM_ATTRIBUTE_WITH_CODE"` if the user was sent a
-  /// code to enable the update of their user attribute.
-  ///
-  /// Will have a value of `"DONE"` if the flow is completed and no further steps are needed.
-  final String updateAttributeStep;
+  /// Represents the steps a user could be in for the user attribute update
+  /// flow.
+  final AuthUpdateAttributeStep updateAttributeStep;
 
   @override
   Map<String, Object?> toJson() => _$AuthNextUpdateAttributeStepToJson(this);
