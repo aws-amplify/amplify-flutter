@@ -212,20 +212,22 @@ workflows:
       - analyze_flutter
       # TODO: Enable pub_analysis after https://github.com/dart-lang/pana/issues/1020 is 
       # resolved or these are updated to run against unpub
-      # - pub_analysis:
-      #     matrix:
-      #       parameters:
-      #         plugin_threshold: [
-      #             # should be in format <plugin_name>:<threshold>
-      #             "amplify_analytics_pinpoint:10",
-      #             "amplify_api:10",
-      #             "amplify_auth_cognito:10",
-      #             "amplify_authenticator:0",
-      #             "amplify_core:10",
-      #             "amplify_datastore:20",
-      #             "amplify_flutter:20",
-      #             "amplify_storage_s3:10",
-      #           ]
+      - pub_analysis:
+          matrix:
+            parameters:
+              plugin_threshold: [
+                  # should be in format <plugin_name>:<threshold>
+                  # threshold is [0-140] with the value indicating the total acceptable missing points
+                  "amplify_analytics_pinpoint:0",
+                  "amplify_api:0",
+                  "amplify_auth_cognito:0",
+                  "amplify_authenticator:0",
+                  "amplify_core:10",
+                  "amplify_datastore:20",
+                  "amplify_flutter:20",
+                  "amplify_storage_s3:0",
+                  "secure_storage:0",
+                ]
       - unit_test_flutter:
           matrix:
             parameters:
