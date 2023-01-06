@@ -1,21 +1,9 @@
-// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import 'dart:collection';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:meta/meta.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.event_global_fields_manager}
 /// Manages the storage, retrieval, and update of Attributes and Metrics for Events
@@ -33,15 +21,7 @@ import 'package:meta/meta.dart';
 /// {@endtemplate}
 class EventGlobalFieldsManager {
   /// {@macro amplify_analytics_pinpoint_dart.event_global_fields_manager}
-  @visibleForTesting
   EventGlobalFieldsManager();
-
-  static EventGlobalFieldsManager? _instance;
-
-  /// {@macro amplify_analytics_pinpoint_dart.event_global_fields_manager}
-  static EventGlobalFieldsManager getInstance() {
-    return _instance ??= EventGlobalFieldsManager();
-  }
 
   final Map<String, String> _globalAttributes = {};
   final Map<String, double> _globalMetrics = {};

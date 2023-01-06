@@ -1,20 +1,8 @@
-// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
-import 'package:amplify_core/amplify_core.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
@@ -46,7 +34,6 @@ class SessionManager {
   /// The parameters: [onSessionStart] and [onSessionEnd] are callbacks to
   /// allow parent classes to react to session events.
   /// {@endtemplate}
-  @visibleForTesting
   SessionManager({
     required String fixedEndpointId,
     AppLifecycleProvider? appLifecycleProvider,
@@ -56,28 +43,8 @@ class SessionManager {
         _appLifecycleProvider = appLifecycleProvider,
         _onSessionStart = onSessionStart,
         _onSessionEnd = onSessionEnd {
-    _executeStart();
-
     _appLifecycleProvider?.setOnForegroundListener(startSession);
     _appLifecycleProvider?.setOnBackgroundListener(stopSession);
-    _appLifecycleProvider?.startObserving();
-  }
-
-  static SessionManager? _instance;
-
-  /// {@macro amplify_analytics_pinpoint_dart.session_manager_constructor}
-  static SessionManager getInstance({
-    required String fixedEndpointId,
-    AppLifecycleProvider? appLifecycleProvider,
-    required OnSessionUpdated onSessionStart,
-    required OnSessionUpdated onSessionEnd,
-  }) {
-    return _instance ??= SessionManager(
-      fixedEndpointId: fixedEndpointId,
-      appLifecycleProvider: appLifecycleProvider,
-      onSessionStart: onSessionStart,
-      onSessionEnd: onSessionEnd,
-    );
   }
 
   final String _fixedEndpointId;
@@ -90,12 +57,11 @@ class SessionManager {
   /// Get the current session
   Session? get session => _sessionCreator?.session;
 
-  static final AmplifyLogger _logger =
-      AmplifyLogger.category(Category.analytics).createChild('SessionManager');
-
   /// Start a new session
   void startSession() {
-    _executeStop();
+    if (session != null) {
+      stopSession();
+    }
     _executeStart();
   }
 
@@ -130,9 +96,6 @@ class SessionManager {
   /// Stop and delete current session
   void _executeStop() {
     if (_sessionCreator == null) {
-      _logger.warn(
-        'Warning - stop session called without sessionBuilder initialized',
-      );
       return;
     }
 

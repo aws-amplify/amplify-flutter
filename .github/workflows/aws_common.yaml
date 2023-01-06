@@ -12,6 +12,7 @@ on:
       - 'packages/aws_common/**/*.yaml'
       - 'packages/aws_common/lib/**/*'
       - 'packages/aws_common/test/**/*'
+      - '.github/composite_actions/setup_firefox/action.yaml'
       - '.github/workflows/dart_vm.yaml'
       - '.github/workflows/dart_native.yaml'
       - '.github/workflows/dart_ddc.yaml'

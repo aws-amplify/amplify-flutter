@@ -12,6 +12,7 @@ on:
       - 'packages/smithy/goldens/lib2/awsJson1_1/**/*.yaml'
       - 'packages/smithy/goldens/lib2/awsJson1_1/lib/**/*'
       - 'packages/smithy/goldens/lib2/awsJson1_1/test/**/*'
+      - '.github/composite_actions/setup_firefox/action.yaml'
       - '.github/workflows/dart_vm.yaml'
       - '.github/workflows/dart_native.yaml'
       - '.github/workflows/dart_ddc.yaml'

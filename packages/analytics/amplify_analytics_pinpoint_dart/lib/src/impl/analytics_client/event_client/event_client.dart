@@ -1,23 +1,12 @@
-// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+import 'dart:async';
 
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_storage_adapter.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:drift/drift.dart';
-import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
 import 'package:uuid/uuid.dart';
 
@@ -29,9 +18,8 @@ import 'package:uuid/uuid.dart';
 ///
 /// The events sent conform to the [Pinpoint Event](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-events.html) online spec.
 /// {@endtemplate}
-class EventClient {
+class EventClient implements Closeable {
   /// {@macro amplify_analytics_pinpoint_dart.event_client}
-  @visibleForTesting
   EventClient({
     required String appId,
     required String fixedEndpointId,
@@ -42,25 +30,8 @@ class EventClient {
         _fixedEndpointId = fixedEndpointId,
         _pinpointClient = pinpointClient,
         _endpointClient = endpointClient,
-        _storageAdapter = storageAdapter;
-
-  static EventClient? _instance;
-
-  /// {@macro amplify_analytics_pinpoint_dart.event_client}
-  static EventClient getInstance({
-    required String appId,
-    required String fixedEndpointId,
-    required PinpointClient pinpointClient,
-    required EndpointClient endpointClient,
-    required QueryExecutor driftQueryExecutor,
-  }) {
-    return _instance ??= EventClient(
-      appId: appId,
-      fixedEndpointId: fixedEndpointId,
-      pinpointClient: pinpointClient,
-      endpointClient: endpointClient,
-      storageAdapter: EventStorageAdapter.getInstance(driftQueryExecutor),
-    );
+        _storageAdapter = storageAdapter {
+    _listenForFlushEvents();
   }
 
   final EventStorageAdapter _storageAdapter;
@@ -69,7 +40,27 @@ class EventClient {
   final PinpointClient _pinpointClient;
   final EndpointClient _endpointClient;
 
-  final _uuid = const Uuid();
+  /// Controller to queue requests to [flushEvents] so that there is only one
+  /// concurrent request to the database and Pinpoint backend at a time.
+  final StreamController<Completer<void>> _flushEventsController =
+      StreamController();
+
+  Future<void>? _pendingFlushEvent;
+  Future<void> _listenForFlushEvents() async {
+    await for (final completer in _flushEventsController.stream) {
+      try {
+        _pendingFlushEvent = completer.future;
+        await _flushEvents();
+        completer.complete();
+      } on Object catch (e, st) {
+        completer.completeError(e, st);
+      } finally {
+        _pendingFlushEvent = null;
+      }
+    }
+  }
+
+  static const _uuid = Uuid();
 
   static final AmplifyLogger _logger =
       AmplifyLogger.category(Category.analytics).createChild('EventClient');
@@ -81,8 +72,18 @@ class EventClient {
 
   /// Send cached events as a batch to Pinpoint
   /// Parse and response to Pinpoint response
-  Future<void> flushEvents() async {
+  Future<void> flushEvents() {
+    final completer = Completer<void>.sync();
+    _flushEventsController.add(completer);
+    return completer.future;
+  }
+
+  Future<void> _flushEvents() async {
     final storedEvents = await _storageAdapter.retrieveEvents();
+
+    if (storedEvents.isEmpty) {
+      return;
+    }
 
     final eventsMap = <String, Event>{};
     final eventIdsToDelete = <String, int>{};
@@ -183,7 +184,9 @@ class EventClient {
     } finally {
       // Always delete local store of events
       // Unless a retryable exception has been received (see above)
-      await _storageAdapter.deleteEvents(eventIdsToDelete.values);
+      if (eventIdsToDelete.isNotEmpty) {
+        await _storageAdapter.deleteEvents(eventIdsToDelete.values);
+      }
     }
   }
 
@@ -207,5 +210,11 @@ class EventClient {
 
   bool _equalsIgnoreCase(String string1, String string2) {
     return string1.toLowerCase() == string2.toLowerCase();
+  }
+
+  @override
+  Future<void> close() async {
+    await _flushEventsController.close();
+    await _pendingFlushEvent;
   }
 }

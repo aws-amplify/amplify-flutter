@@ -1,23 +1,11 @@
-// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import 'dart:collection';
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
-import 'package:meta/meta.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.endpoint_global_fields_manager}
 /// Manages the storage, retrieval, and update of Attributes and Metrics of a PinpointEndpoint
@@ -29,46 +17,13 @@ import 'package:meta/meta.dart';
 /// {@endtemplate}
 class EndpointGlobalFieldsManager {
   /// {@macro amplify_analytics_pinpoint_dart.endpoint_global_fields_manager}
-  @visibleForTesting
   EndpointGlobalFieldsManager(
-    this._keyValueStore,
+    this._endpointInfoStore,
     this._globalAttributes,
     this._globalMetrics,
   );
 
-  static EndpointGlobalFieldsManager? _instance;
-
-  /// {@macro amplify_analytics_pinpoint_dart.endpoint_global_fields_manager}
-  static Future<EndpointGlobalFieldsManager> getInstance(
-    SecureStorageInterface sharedPrefs,
-  ) async {
-    if (_instance != null) return _instance!;
-
-    /// Retrieve stored GlobalAttributes
-    final cachedAttributes =
-        await sharedPrefs.read(key: _endpointGlobalAttrsKey);
-    final globalAttributes = cachedAttributes == null
-        ? <String, String>{}
-        : (jsonDecode(cachedAttributes) as Map<String, Object?>)
-            .cast<String, String>();
-
-    /// Retrieve stored GlobalMetrics
-    final cachedMetrics =
-        await sharedPrefs.read(key: _endpointGlobalMetricsKey);
-    final globalMetrics = cachedMetrics == null
-        ? <String, double>{}
-        : (jsonDecode(cachedMetrics) as Map<String, Object?>)
-            .cast<String, double>();
-
-    _instance = EndpointGlobalFieldsManager(
-      sharedPrefs,
-      globalAttributes,
-      globalMetrics,
-    );
-    return _instance!;
-  }
-
-  final SecureStorageInterface _keyValueStore;
+  final SecureStorageInterface _endpointInfoStore;
   final Map<String, String> _globalAttributes;
   final Map<String, double> _globalMetrics;
 
@@ -152,7 +107,7 @@ class EndpointGlobalFieldsManager {
   }
 
   Future<void> _saveAttributes() async {
-    await _keyValueStore.write(
+    await _endpointInfoStore.write(
       key: _endpointGlobalAttrsKey,
       value: jsonEncode(_globalAttributes),
     );
@@ -188,7 +143,7 @@ class EndpointGlobalFieldsManager {
   }
 
   Future<void> _saveMetrics() async {
-    await _keyValueStore.write(
+    await _endpointInfoStore.write(
       key: _endpointGlobalMetricsKey,
       value: jsonEncode(_globalMetrics),
     );

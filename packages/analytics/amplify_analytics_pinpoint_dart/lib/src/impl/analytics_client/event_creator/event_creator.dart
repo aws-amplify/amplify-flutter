@@ -1,23 +1,11 @@
-// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_creator/event_global_fields_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/version.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:meta/meta.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.event_creator}
 /// Manage creation of new Events.
@@ -27,24 +15,11 @@ import 'package:meta/meta.dart';
 /// {@endtemplate}
 class EventCreator {
   /// {@macro amplify_analytics_pinpoint_dart.event_creator}
-  @visibleForTesting
   EventCreator({
     required EventGlobalFieldsManager globalFieldsManager,
     DeviceContextInfo? deviceContextInfo,
   })  : _globalFieldsManager = globalFieldsManager,
         _deviceContextInfo = deviceContextInfo;
-
-  static EventCreator? _instance;
-
-  /// {@macro amplify_analytics_pinpoint_dart.event_creator}
-  static EventCreator getInstance({
-    DeviceContextInfo? deviceContextInfo,
-  }) {
-    return _instance ??= EventCreator(
-      globalFieldsManager: EventGlobalFieldsManager.getInstance(),
-      deviceContextInfo: deviceContextInfo,
-    );
-  }
 
   static const int _maxEventTypeLength = 50;
 

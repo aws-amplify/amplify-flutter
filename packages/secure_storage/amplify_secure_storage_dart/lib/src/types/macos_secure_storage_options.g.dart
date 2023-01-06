@@ -27,9 +27,6 @@ class _$MacOSSecureStorageOptionsSerializer
       'useDataProtection',
       serializers.serialize(object.useDataProtection,
           specifiedType: const FullType(bool)),
-      'accessible',
-      serializers.serialize(object.accessible,
-          specifiedType: const FullType(KeychainAttributeAccessible)),
     ];
     Object? value;
     value = object.accessGroup;
@@ -38,6 +35,13 @@ class _$MacOSSecureStorageOptionsSerializer
         ..add('accessGroup')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
+    }
+    value = object.accessible;
+    if (value != null) {
+      result
+        ..add('accessible')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(KeychainAttributeAccessible)));
     }
     return result;
   }
@@ -64,8 +68,8 @@ class _$MacOSSecureStorageOptionsSerializer
           break;
         case 'accessible':
           result.accessible = serializers.deserialize(value,
-                  specifiedType: const FullType(KeychainAttributeAccessible))!
-              as KeychainAttributeAccessible;
+                  specifiedType: const FullType(KeychainAttributeAccessible))
+              as KeychainAttributeAccessible?;
           break;
       }
     }
@@ -80,21 +84,17 @@ class _$MacOSSecureStorageOptions extends MacOSSecureStorageOptions {
   @override
   final String? accessGroup;
   @override
-  final KeychainAttributeAccessible accessible;
+  final KeychainAttributeAccessible? accessible;
 
   factory _$MacOSSecureStorageOptions(
           [void Function(MacOSSecureStorageOptionsBuilder)? updates]) =>
       (new MacOSSecureStorageOptionsBuilder()..update(updates))._build();
 
   _$MacOSSecureStorageOptions._(
-      {required this.useDataProtection,
-      this.accessGroup,
-      required this.accessible})
+      {required this.useDataProtection, this.accessGroup, this.accessible})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         useDataProtection, r'MacOSSecureStorageOptions', 'useDataProtection');
-    BuiltValueNullFieldError.checkNotNull(
-        accessible, r'MacOSSecureStorageOptions', 'accessible');
   }
 
   @override
@@ -186,8 +186,7 @@ class MacOSSecureStorageOptionsBuilder
                 r'MacOSSecureStorageOptions',
                 'useDataProtection'),
             accessGroup: accessGroup,
-            accessible: BuiltValueNullFieldError.checkNotNull(
-                accessible, r'MacOSSecureStorageOptions', 'accessible'));
+            accessible: accessible);
     replace(_$result);
     return _$result;
   }
