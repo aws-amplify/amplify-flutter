@@ -46,3 +46,5 @@ type-map:
       "c-type": "Utf8"
       "dart-type": "Char"
 comments: false
+preamble: |
+    // ignore_for_file: camel_case_types, non_constant_identifier_names, require_trailing_commas, sort_constructors_first

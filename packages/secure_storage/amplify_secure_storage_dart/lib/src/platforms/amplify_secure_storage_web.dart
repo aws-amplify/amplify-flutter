@@ -7,6 +7,7 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/exception/not_available_exception.dart';
 import 'package:amplify_secure_storage_dart/src/exception/secure_storage_exception.dart';
 import 'package:amplify_secure_storage_dart/src/platforms/amplify_secure_storage_in_memory.dart';
+// ignore: implementation_imports
 import 'package:aws_common/src/js/indexed_db.dart';
 
 /// The web implementation of [SecureStorageInterface].
