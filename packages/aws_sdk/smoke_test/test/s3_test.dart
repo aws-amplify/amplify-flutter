@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
@@ -28,10 +29,7 @@ void main() {
       );
     });
 
-    // Modeled after:
-    // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-example-creating-buckets.html
-    test('Creating and using buckets', () async {
-      // Create the bucket
+    Future<String> createBucket() async {
       final bucket = 'mybucket-${Random().nextInt(1 << 30)}';
       await client
           .createBucket(
@@ -43,6 +41,40 @@ void main() {
             ),
           )
           .result;
+      return bucket;
+    }
+
+    Future<void> deleteBucket(String bucket) async {
+      // Delete all objects from the bucket.
+      final output = await client
+          .listObjectsV2(
+            ListObjectsV2Request(bucket: bucket),
+          )
+          .result;
+      expect(output.hasNext, isFalse, reason: 'Expected <1000 items');
+
+      await client
+          .deleteObjects(
+            DeleteObjectsRequest(
+              bucket: bucket,
+              delete: Delete(
+                objects: output.items.contents!
+                    .map((obj) => ObjectIdentifier(key: obj.key!))
+                    .toList(),
+              ),
+            ),
+          )
+          .result;
+
+      // Delete the bucket
+      await client.deleteBucket(DeleteBucketRequest(bucket: bucket)).result;
+    }
+
+    // Modeled after:
+    // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-example-creating-buckets.html
+    test('Creating and using buckets', () async {
+      // Create the bucket
+      final bucket = await createBucket();
 
       const key = 'my-file.json';
       const data = {'data': 'Hello, world'};
@@ -126,6 +158,64 @@ void main() {
         );
         safePrint('Deleted bucket');
       }
+
+      await expectLater(
+        deleteBucket(bucket),
+        throwsA(isA<NoSuchBucket>()),
+      );
+    });
+
+    test('download cancellation', () async {
+      final bucket = await createBucket();
+      addTearDown(() => deleteBucket(bucket));
+
+      const key = 'my-file';
+
+      // Upload a large file
+      {
+        final kilobyte = List.generate(1024, (index) => index);
+        final largeData = () async* {
+          // Generate 100MiB of data
+          for (var i = 0; i < 100 * 1024; i++) {
+            yield kilobyte;
+          }
+        }();
+        final response = await client
+            .putObject(
+              PutObjectRequest(
+                bucket: bucket,
+                key: key,
+                body: largeData,
+              ),
+            )
+            .result;
+        safePrint('Put object: $response');
+      }
+
+      // Download file
+      final response = await client
+          .getObject(
+            GetObjectRequest(bucket: bucket, key: key),
+          )
+          .result;
+      var progress = 0;
+      final subscription = response.body!.listen(
+        (chunk) => progress += chunk.length,
+      );
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+      await subscription.cancel();
+      final progressAfterCancel = progress;
+      expect(
+        progressAfterCancel,
+        lessThan(100 << 20),
+        reason: 'Stream should have been canceled before download completes',
+      );
+      await Future<void>.delayed(const Duration(seconds: 1));
+      expect(
+        progress,
+        progressAfterCancel,
+        reason: 'Stream should not emit further events after canceling',
+      );
     });
   });
 }
