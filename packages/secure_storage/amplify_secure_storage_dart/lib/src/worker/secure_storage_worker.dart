@@ -19,7 +19,7 @@ part 'secure_storage_worker.g.dart';
 abstract class SecureStorageWorker
     extends WorkerBeeBase<SecureStorageRequest, SecureStorageRequest> {
   /// {@macro amplify_secure_storage_dart.secure_storage_worker}
-  SecureStorageWorker() : super(serializers: _serializers);
+  SecureStorageWorker() : super(serializers: serializers);
 
   /// {@macro amplify_secure_storage_dart.secure_storage_worker}
   factory SecureStorageWorker.create() = SecureStorageWorkerImpl;
@@ -76,4 +76,5 @@ abstract class SecureStorageWorker
   SecureStorageAction,
   SecureStorageRequest,
 ])
-final Serializers _serializers = _$_serializers;
+final Serializers serializers =
+    _$serializers; // TODO(dnys1): https://github.com/google/built_value.dart/pull/1202
