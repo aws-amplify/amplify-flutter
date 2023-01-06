@@ -537,7 +537,14 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                             }
                         )
                     }
-                    latch.await()
+                    try {
+                        latch.await()
+                    } catch (e: InterruptedException) {
+                        LOG.error(
+                            "Failed to resolve query predicate due to ${e}. Reverting to original query " +
+                                    "predicate."
+                        )
+                    }
                     resolvedQueryPredicate
                 }
             } catch (e: Exception) {
