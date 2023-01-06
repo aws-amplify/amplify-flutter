@@ -77,7 +77,7 @@ class NativeAuthPlugin(
             return
         }
         MainScope().launch {
-            nativePlugin.fetchAuthSession(true) { session ->
+            nativePlugin.fetchAuthSession() { session ->
                 val couldNotFetchException = UnknownException("Could not fetch")
                 val userPoolTokens = if (session.userPoolTokens != null) {
                     val tokens = FlutterFactory.createAWSCognitoUserPoolTokens(
