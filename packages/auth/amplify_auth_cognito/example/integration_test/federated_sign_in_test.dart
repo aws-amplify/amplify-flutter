@@ -172,7 +172,7 @@ void main() {
     });
 
     asyncTest('can clear federation', (_) async {
-      await federateToIdentityPool();
+      final federateToIdentityPoolResult = await federateToIdentityPool();
 
       await expectLater(
         cognitoPlugin.clearFederationToIdentityPool(),
@@ -182,13 +182,13 @@ void main() {
       final clearedSession = await cognitoPlugin.fetchAuthSession();
       expect(
         clearedSession.identityId,
-        isNull,
-        reason: 'Should clear session',
+        isNot(federateToIdentityPoolResult.identityId),
+        reason: 'Should clear session and refetch',
       );
       expect(
         clearedSession.credentials,
-        isNull,
-        reason: 'Should clear session',
+        isNot(federateToIdentityPoolResult.credentials),
+        reason: 'Should clear session and refetch',
       );
     });
 
