@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+import 'package:amplify_auth_cognito_dart/src/model/session/cognito_auth_session_result.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 part 'cognito_auth_session.g.dart';
@@ -18,27 +19,28 @@ class CognitoAuthSession extends AuthSession
   /// {@macro amplify_auth_cognito.model.cognito_auth_session}
   const CognitoAuthSession({
     required super.isSignedIn,
-    this.credentials,
-    this.userPoolTokens,
-    this.userSub,
-    this.identityId,
-  });
+    CognitoAuthSessionResult<AWSCredentials>? credentialsResult,
+    CognitoAuthSessionResult<CognitoUserPoolTokens>? userPoolTokensResult,
+    CognitoAuthSessionResult<String>? identityIdResult,
+  })  : _credentialsResult = credentialsResult,
+        _userPoolTokensResult = userPoolTokensResult,
+        _identityIdResult = identityIdResult;
 
-  /// {@macro amplify_auth_cognito.model.cognito_auth_session}
-  factory CognitoAuthSession.fromJson(Map<String, Object?> json) =>
-      _$CognitoAuthSessionFromJson(json);
+  final CognitoAuthSessionResult<AWSCredentials>? _credentialsResult;
+  final CognitoAuthSessionResult<CognitoUserPoolTokens>? _userPoolTokensResult;
+  final CognitoAuthSessionResult<String>? _identityIdResult;
 
   /// The AWS credentials.
-  final AWSCredentials? credentials;
+  AWSCredentials? get credentials => _credentialsResult?.value;
 
   /// The User Pool tokens.
-  final CognitoUserPoolTokens? userPoolTokens;
+  CognitoUserPoolTokens? get userPoolTokens => _userPoolTokensResult?.value;
 
   /// The user ID (subject).
-  final String? userSub;
+  String? get userSub => _userPoolTokensResult?.value?.userId;
 
   /// The AWS identity ID.
-  final String? identityId;
+  String? get identityId => _identityIdResult?.value;
 
   @override
   List<Object?> get props => [

@@ -195,13 +195,9 @@ class _NativeAmplifyAuthCognito
   final CognitoAuthStateMachine _stateMachine;
 
   @override
-  Future<NativeAuthSession> fetchAuthSession(
-    bool getAwsCredentials,
-  ) async {
+  Future<NativeAuthSession> fetchAuthSession() async {
     try {
-      final authSession = await _basePlugin.fetchAuthSession(
-        options: CognitoSessionOptions(getAWSCredentials: getAwsCredentials),
-      );
+      final authSession = await _basePlugin.fetchAuthSession();
       final nativeAuthSession = NativeAuthSession(
         isSignedIn: authSession.isSignedIn,
         userSub: authSession.userSub,

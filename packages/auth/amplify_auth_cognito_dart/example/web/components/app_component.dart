@@ -84,11 +84,8 @@ class AppComponent extends StatefulComponent {
       AuthState startingAuthState;
 
       try {
-        final session = await Amplify.Auth.fetchAuthSession(
-          options: const CognitoSessionOptions(
-            getAWSCredentials: true,
-          ),
-        ) as CognitoAuthSession;
+        final session =
+            await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
         startingAuthState =
             session.isSignedIn ? AuthState.authenticated : AuthState.login;
       } on Exception {

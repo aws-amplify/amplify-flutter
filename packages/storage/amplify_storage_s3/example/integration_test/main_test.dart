@@ -26,12 +26,8 @@ class CustomPrefixResolver implements S3PrefixResolver {
     required StorageAccessLevel accessLevel,
     String? identityId,
   }) async {
-    final currentUserIdentityId = ((await Amplify.Auth.fetchAuthSession(
-      options: const CognitoSessionOptions(
-        getAWSCredentials: true,
-      ),
-    )) as CognitoAuthSession)
-        .identityId;
+    final session = await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
+    final currentUserIdentityId = session.identityId;
     switch (accessLevel) {
       case StorageAccessLevel.guest:
         return 'everyone/';
@@ -116,11 +112,7 @@ void main() async {
           username: username1,
           password: password,
         );
-        final user1Session = await Amplify.Auth.fetchAuthSession(
-          options: const CognitoSessionOptions(
-            getAWSCredentials: true,
-          ),
-        );
+        final user1Session = await Amplify.Auth.fetchAuthSession();
         user1IdentityId = (user1Session as CognitoAuthSession).identityId!;
         await Amplify.Auth.signOut();
 

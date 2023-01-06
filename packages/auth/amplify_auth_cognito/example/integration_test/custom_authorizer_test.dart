@@ -115,9 +115,7 @@ void main() {
               final cognitoPlugin = Amplify.Auth.getPlugin(
                 AmplifyAuthCognito.pluginKey,
               );
-              final session = await cognitoPlugin.fetchAuthSession(
-                options: const CognitoSessionOptions(getAWSCredentials: true),
-              );
+              final session = await cognitoPlugin.fetchAuthSession();
               expect(session.credentials, isNotNull);
 
               final restApi = config.api!.awsPlugin!.values
@@ -170,9 +168,7 @@ void main() {
               final cognitoPlugin = Amplify.Auth.getPlugin(
                 AmplifyAuthCognito.pluginKey,
               );
-              final session = await cognitoPlugin.fetchAuthSession(
-                options: const CognitoSessionOptions(getAWSCredentials: true),
-              );
+              final session = await cognitoPlugin.fetchAuthSession();
               expect(session.credentials, isNotNull);
 
               final restApi = config.api!.awsPlugin!.values
@@ -226,9 +222,7 @@ void main() {
               final cognitoPlugin = Amplify.Auth.getPlugin(
                 AmplifyAuthCognito.pluginKey,
               );
-              final session = await cognitoPlugin.fetchAuthSession(
-                options: const CognitoSessionOptions(getAWSCredentials: true),
-              );
+              final session = await cognitoPlugin.fetchAuthSession();
               expect(session.credentials, isNotNull);
 
               final restOperation = Amplify.API.post(

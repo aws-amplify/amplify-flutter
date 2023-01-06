@@ -44,9 +44,7 @@ void main() {
     asyncTest(
       'should return user credentials if getAWSCredentials is true',
       (_) async {
-        final res = await Amplify.Auth.fetchAuthSession(
-          options: const CognitoSessionOptions(getAWSCredentials: true),
-        ) as CognitoAuthSession;
+        final res = await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
 
         expect(res.isSignedIn, isTrue);
         expect(isValidUserSub(res.userSub), isTrue);

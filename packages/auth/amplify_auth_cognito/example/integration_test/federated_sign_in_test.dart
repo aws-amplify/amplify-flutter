@@ -105,9 +105,7 @@ void main() {
 
     asyncTest('replaces unauthenticated identity', (_) async {
       // Get unauthenticated identity
-      final unauthSession = await cognitoPlugin.fetchAuthSession(
-        options: const CognitoSessionOptions(getAWSCredentials: true),
-      );
+      final unauthSession = await cognitoPlugin.fetchAuthSession();
 
       final authSession = await federateToIdentityPool();
       expect(
@@ -124,9 +122,7 @@ void main() {
 
     asyncTest('can specify identity ID', (_) async {
       // Get unauthenticated identity (doesn't matter, just need identity ID)
-      final unauthSession = await cognitoPlugin.fetchAuthSession(
-        options: const CognitoSessionOptions(getAWSCredentials: true),
-      );
+      final unauthSession = await cognitoPlugin.fetchAuthSession();
       final identityId = unauthSession.identityId!;
 
       final signInResult = await cognitoPlugin.signIn(

@@ -94,9 +94,8 @@ void main() {
 
     asyncTest('identity ID should be the same between sessions', (_) async {
       // Get unauthenticated identity
-      final unauthSession = await Amplify.Auth.fetchAuthSession(
-        options: const CognitoSessionOptions(getAWSCredentials: true),
-      ) as CognitoAuthSession;
+      final unauthSession =
+          await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
 
       // Sign in
       {
@@ -108,9 +107,8 @@ void main() {
       }
 
       // Get authenticated identity
-      final authSession = await Amplify.Auth.fetchAuthSession(
-        options: const CognitoSessionOptions(getAWSCredentials: true),
-      ) as CognitoAuthSession;
+      final authSession =
+          await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
       final authenticatedIdentity = authSession.identityId;
       expect(
         authenticatedIdentity,
@@ -132,9 +130,8 @@ void main() {
         expect(signInRes.nextStep.signInStep, 'DONE');
       }
 
-      final newSession = await Amplify.Auth.fetchAuthSession(
-        options: const CognitoSessionOptions(getAWSCredentials: true),
-      ) as CognitoAuthSession;
+      final newSession =
+          await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
       expect(
         newSession.identityId,
         authenticatedIdentity,
