@@ -322,8 +322,8 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     await _eventStorageAdapter.close();
   }
 
-  @visibleForTesting
   /// Retrieve the stored pinpoint endpoint id
+  @visibleForTesting
   static Future<String> retrieveEndpointId({
     required String pinpointAppId,
     required SecureStorageInterface store,
@@ -335,8 +335,8 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
 
     // Attempt migration if version is null.
     if (endpointInformationVersion == null) {
-      await legacyDataProvider?.initialize(pinpointAppId);
-      final legacyEndpointId = await legacyDataProvider?.getEndpointId();
+      final legacyEndpointId =
+          await legacyDataProvider?.getEndpointId(pinpointAppId);
       // Migrate legacy data if it is non-null
       if (legacyEndpointId != null) {
         await store.write(
@@ -370,4 +370,5 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     }
 
     return fixedEndpointId;
+  }
 }

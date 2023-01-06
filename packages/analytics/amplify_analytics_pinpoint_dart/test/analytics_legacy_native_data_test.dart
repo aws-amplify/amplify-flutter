@@ -6,172 +6,115 @@ import 'dart:async';
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_store_keys.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
+import 'package:uuid/uuid.dart';
 
 void main() {
   group('Analytics Legacy Native Data Tests', () {
+    late MockLegacyNativeDataProvider legacyDataProvider;
+    late MockSecureStorage store;
+
+    const appId = 'appId';
+    const legacyEndpointId = 'legacy-endpointId';
+
+    setUp(() {
+      legacyDataProvider = MockLegacyNativeDataProvider();
+      store = MockSecureStorage();
+    });
+
     test('First app load, no legacy data, writes proper values', () async {
-      var readCalls = 0;
-      var writeCalls = 0;
-
-      final legacyDataProvider = MockLegacyNativeDataProvider();
-      final store = MockSecureStorage(
-        writeCallback: (key, value) {
-          // version written
-          if (writeCalls == 0) {
-            expect(key, EndpointStoreKey.version.name);
-            expect(value, EndpointStoreVersion.v1.name);
-          }
-          // endpoint written
-          else if (writeCalls == 1) {
-            expect(key, AmplifyAnalyticsPinpointDart.endpointIdStorageKey);
-          }
-          writeCalls++;
-        },
-        readCallback: (key) {
-          if (key == EndpointStoreKey.version.name) {
-            readCalls++;
-            return null;
-          }
-          fail('Read should not be called: $key');
-        },
-        deleteCallback: (key) {
-          fail('Delete should not be called: $key');
-        },
-      );
+      when(() => legacyDataProvider.getEndpointId(appId))
+          .thenAnswer((_) => Future.value());
 
       await AmplifyAnalyticsPinpointDart.retrieveEndpointId(
-          pinpointAppId: 'appId',
-          store: store,
-          legacyDataProvider: legacyDataProvider);
-
-      expect(writeCalls, 2);
-      expect(readCalls, 1);
-    });
-
-    test('First app load, legacy data, writes proper values', () async {
-      var readCalls = 0;
-      var writeCalls = 0;
-      const endpointId = 'endpointId';
-
-      final legacyDataProvider = MockLegacyNativeDataProvider(
-        endpointId: endpointId,
-      );
-
-      final store = MockSecureStorage(
-        writeCallback: (key, value) {
-          // version written
-          if (writeCalls == 0) {
-            expect(key, EndpointStoreKey.version.name);
-            expect(value, EndpointStoreVersion.v1.name);
-          }
-          // endpoint written
-          else if (writeCalls == 1) {
-            expect(key, AmplifyAnalyticsPinpointDart.endpointIdStorageKey);
-            expect(value, endpointId);
-          }
-          writeCalls++;
-        },
-        readCallback: (key) {
-          if (key == EndpointStoreKey.version.name) {
-            readCalls++;
-            return null;
-          }
-          fail('Read called with wrong key: $key');
-        },
-        deleteCallback: (key) {
-          fail('Delete should not be called: $key');
-        },
-      );
-
-      await AmplifyAnalyticsPinpointDart.retrieveEndpointId(
-          pinpointAppId: 'appId',
-          store: store,
-          legacyDataProvider: legacyDataProvider);
-
-      expect(writeCalls, 2);
-      expect(readCalls, 1);
-    });
-
-    test('Second app load, only read is called', () async {
-      var readCalls = 0;
-
-      final legacyDataProvider = MockLegacyNativeDataProvider(
-        getEndpointIdCallback: () {
-          fail('GetEndpointId should not be called');
-        },
-      );
-      final store = MockSecureStorage(
-        readCallback: (key) {
-          if (key == AmplifyAnalyticsPinpointDart.endpointIdStorageKey) {
-            readCalls++;
-            return 'storedEndpointId';
-          } else if (key == EndpointStoreKey.version.name) {
-            readCalls++;
-            return EndpointStoreVersion.v1.name;
-          }
-          fail('Read called with wrong key: $key');
-        },
-        writeCallback: (key, value) {
-          fail('Write should not be called: $key / $value');
-        },
-        deleteCallback: (key) {
-          fail('Delete should not be called: $key');
-        },
-      );
-
-      await AmplifyAnalyticsPinpointDart.retrieveEndpointId(
-        pinpointAppId: 'appId',
+        pinpointAppId: appId,
         store: store,
         legacyDataProvider: legacyDataProvider,
       );
 
-      expect(readCalls, 2);
+      final storeVersion = await store.read(
+        key: EndpointStoreKey.version.name,
+      );
+      expect(storeVersion, EndpointStoreVersion.v1.name);
+
+      final migratedEndpointId = await store.read(
+        key: AmplifyAnalyticsPinpointDart.endpointIdStorageKey,
+      );
+      expect(migratedEndpointId, isNotNull);
+
+      verify(() => legacyDataProvider.getEndpointId(appId)).called(1);
+    });
+
+    test('First app load, legacy data, writes proper values', () async {
+      when(() => legacyDataProvider.getEndpointId(appId))
+          .thenAnswer((_) => Future.value(legacyEndpointId));
+
+      await AmplifyAnalyticsPinpointDart.retrieveEndpointId(
+        pinpointAppId: appId,
+        store: store,
+        legacyDataProvider: legacyDataProvider,
+      );
+
+      final storeVersion = await store.read(
+        key: EndpointStoreKey.version.name,
+      );
+      expect(storeVersion, EndpointStoreVersion.v1.name);
+
+      final migratedEndpointId = await store.read(
+        key: AmplifyAnalyticsPinpointDart.endpointIdStorageKey,
+      );
+      expect(migratedEndpointId, legacyEndpointId);
+
+      verify(() => legacyDataProvider.getEndpointId(appId)).called(1);
+    });
+
+    test('Second app load, legacy data is ignored', () async {
+      const legacyEndpointId = 'legacy-endpointId';
+      when(() => legacyDataProvider.getEndpointId(appId))
+          .thenAnswer((_) => Future.value(legacyEndpointId));
+
+      final endpointId = const Uuid().v1();
+      store.seedData({
+        EndpointStoreKey.version.name: EndpointStoreVersion.v1.name,
+        AmplifyAnalyticsPinpointDart.endpointIdStorageKey: endpointId
+      });
+
+      await AmplifyAnalyticsPinpointDart.retrieveEndpointId(
+        pinpointAppId: appId,
+        store: store,
+        legacyDataProvider: legacyDataProvider,
+      );
+
+      final migratedEndpointId = await store.read(
+        key: AmplifyAnalyticsPinpointDart.endpointIdStorageKey,
+      );
+      expect(migratedEndpointId, endpointId);
+
+      verifyNever(() => legacyDataProvider.getEndpointId(captureAny()));
     });
   });
 }
 
-class MockLegacyNativeDataProvider implements LegacyNativeDataProvider {
-  MockLegacyNativeDataProvider({
-    this.endpointId,
-    this.getEndpointIdCallback,
-  });
-  final void Function()? getEndpointIdCallback;
+class MockLegacyNativeDataProvider extends Mock
+    implements LegacyNativeDataProvider {}
 
-  final String? endpointId;
+class MockSecureStorage extends Mock implements SecureStorageInterface {
+  MockSecureStorage();
 
-  @override
-  Future<String?> getEndpointId() async {
-    getEndpointIdCallback?.call();
-    return endpointId;
-  }
+  final Map<String, String?> _data = {};
 
-  @override
-  Future<void> initialize(String pinpointAppId) async {}
-}
-
-class MockSecureStorage implements SecureStorageInterface {
-  MockSecureStorage({
-    this.deleteCallback,
-    this.readCallback,
-    this.writeCallback,
-  });
-  final void Function(String)? deleteCallback;
-  final String? Function(String)? readCallback;
-  final void Function(String, String)? writeCallback;
-
-  @override
-  FutureOr<void> delete({required String key}) {
-    deleteCallback?.call(key);
+  void seedData(Map<String, String?> data) {
+    _data.addAll(data);
   }
 
   @override
   FutureOr<String?> read({required String key}) {
-    return readCallback?.call(key);
+    return _data[key];
   }
 
   @override
   FutureOr<void> write({required String key, required String value}) {
-    writeCallback?.call(key, value);
+    _data[key] = value;
   }
 }

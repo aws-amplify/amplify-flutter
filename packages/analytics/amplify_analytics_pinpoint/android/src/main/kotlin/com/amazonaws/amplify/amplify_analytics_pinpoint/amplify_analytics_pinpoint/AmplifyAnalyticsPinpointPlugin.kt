@@ -11,7 +11,7 @@ import io.flutter.embedding.engine.plugins.FlutterPlugin
 class AmplifyAnalyticsPinpointPlugin: FlutterPlugin, Messages.PigeonLegacyDataProvider {
 
     lateinit var context: Context
-    lateinit var sharedPrefs: SharedPreferences
+    var sharedPrefs: SharedPreferences? = null
 
     companion object {
         private const val PINPOINT_SHARED_PREFS_SUFFIX = "515d6767-01b7-49e5-8273-c8d11b0f331d"
@@ -27,16 +27,12 @@ class AmplifyAnalyticsPinpointPlugin: FlutterPlugin, Messages.PigeonLegacyDataPr
         Messages.PigeonLegacyDataProvider.setup(binding.binaryMessenger, null)
     }
 
-    override fun initialize(pinpointAppId: String, result: Messages.Result<Void>){
-        sharedPrefs = context.getSharedPreferences(
+    override fun getEndpointId(pinpointAppId: String, result: Messages.Result<String?>){
+        sharedPrefs = sharedPrefs ?: context.getSharedPreferences(
             "${pinpointAppId}$PINPOINT_SHARED_PREFS_SUFFIX",
             Context.MODE_PRIVATE
         )
-        result.success(null)
-    }
-
-    override fun getEndpointId(result: Messages.Result<String?>){
-        result.success(sharedPrefs.getString(UNIQUE_ID_KEY, null))
+        result.success(sharedPrefs!!.getString(UNIQUE_ID_KEY, null))
     }
 
 }
