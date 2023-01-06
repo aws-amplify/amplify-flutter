@@ -9,11 +9,17 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:path/path.dart' as p;
 
 const exampleApps = {
-  Category.analytics: 'packages/analytics/amplify_analytics_pinpoint/example',
-  Category.api: 'packages/api/amplify_api/example',
-  Category.auth: 'packages/auth/amplify_auth_cognito/example',
-  Category.dataStore: 'packages/amplify_datastore/example',
-  Category.storage: 'packages/storage/amplify_storage_s3/example',
+  Category.analytics: ['packages/analytics/amplify_analytics_pinpoint/example'],
+  Category.api: ['packages/api/amplify_api/example'],
+  Category.auth: [
+    'packages/auth/amplify_auth_cognito/example',
+    'packages/auth/amplify_auth_cognito_dart/example',
+  ],
+  Category.dataStore: ['packages/amplify_datastore/example'],
+  Category.storage: [
+    'packages/storage/amplify_storage_s3/example',
+    'packages/storage/amplify_storage_s3_dart/example',
+  ],
 };
 
 late final Directory repoRoot = () {
@@ -53,39 +59,45 @@ void main() {
 
 final String amplifyconfig = amplifyEnvironments['$mainEnvName']!;
 ''');
-    final exampleConfig = File(
-      p.join(
-        repoRoot.uri.resolve(exampleApps[category]!).path,
-        'lib/amplifyconfiguration.dart',
-      ),
-    );
-    exampleConfig
-      ..createSync(recursive: true)
-      ..writeAsStringSync(config.toString());
 
-    // Upload config to S3
-    final uploadRes = Process.runSync(
-      'aws',
-      [
-        '--profile=${Platform.environment['AWS_PROFILE'] ?? 'default'}',
-        's3',
-        'cp',
-        exampleConfig.path,
-        's3://$bucketName/amplifyconfiguration.dart',
-      ],
-      stdoutEncoding: utf8,
-      stderrEncoding: utf8,
-    );
-    if (uploadRes.exitCode != 0) {
-      stderr.writeln(
-        'Error uploading ${category.name} config to S3: '
-        '${uploadRes.stdout}\n${uploadRes.stderr}',
+    for (var i = 0; i < exampleApps[category]!.length; i++) {
+      final exampleApp = exampleApps[category]![i];
+      final exampleConfig = File(
+        p.join(
+          repoRoot.uri.resolve(exampleApp).path,
+          'lib/amplifyconfiguration.dart',
+        ),
       );
-    } else {
-      stdout.writeln(
-        '${category.name} config successfully uploaded to S3 bucket: '
-        '$bucketName',
-      );
+      exampleConfig
+        ..createSync(recursive: true)
+        ..writeAsStringSync(config.toString());
+
+      if (i == 0) {
+        // Upload config to S3
+        final uploadRes = Process.runSync(
+          'aws',
+          [
+            '--profile=${Platform.environment['AWS_PROFILE'] ?? 'default'}',
+            's3',
+            'cp',
+            exampleConfig.path,
+            's3://$bucketName/amplifyconfiguration.dart',
+          ],
+          stdoutEncoding: utf8,
+          stderrEncoding: utf8,
+        );
+        if (uploadRes.exitCode != 0) {
+          stderr.writeln(
+            'Error uploading ${category.name} config to S3: '
+            '${uploadRes.stdout}\n${uploadRes.stderr}',
+          );
+        } else {
+          stdout.writeln(
+            '${category.name} config successfully uploaded to S3 bucket: '
+            '$bucketName',
+          );
+        }
+      }
     }
   }
 }
