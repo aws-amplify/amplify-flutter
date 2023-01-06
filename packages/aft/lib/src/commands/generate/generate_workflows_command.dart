@@ -71,6 +71,7 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
         if (needsWebTest) ...[ddcWorkflow, dart2JsWorkflow],
       ];
       final workflowPaths = [
+        if (needsWebTest) '.github/composite_actions/setup_firefox/action.yaml',
         ...workflows.map((workflow) => '.github/workflows/$workflow'),
         p.relative(workflowFilepath, from: repoRoot.path),
       ].map((path) => "      - '$path'").join('\n');
