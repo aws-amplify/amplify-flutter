@@ -1,3 +1,8 @@
+## 1.0.0-next.3
+
+### Fixes
+- fix(analytics): Secure storage on Android ([#2530](https://github.com/aws-amplify/amplify-flutter/pull/2530))
+
 ## 1.0.0-next.2
 
 - Minor bug fixes and improvements

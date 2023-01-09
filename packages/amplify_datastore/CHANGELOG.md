@@ -1,3 +1,8 @@
+## 1.0.0-next.3
+
+### Breaking Changes
+- refactor(core)!: Migrate exception types
+
 ## 1.0.0-next.2
 
 - Minor bug fixes and improvements
