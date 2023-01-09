@@ -4,7 +4,7 @@
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 
 /// {@macro amplify_analytics_pinpoint.flutter_path_provider}
-class FlutterPathProvider extends CachedEventsPathProvider {
+class FlutterPathProvider implements CachedEventsPathProvider {
   @override
   Future<String> getApplicationSupportPath() async {
     throw UnsupportedError(

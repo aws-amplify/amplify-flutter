@@ -28,8 +28,10 @@ dev_dependencies:
   amplify_lints:
     path: ../../amplify_lints
   build_runner: ^2.2.0
+  build_test: ^2.1.5
   build_verify: ^3.0.0
   build_version: ^2.0.0
+  build_web_compilers: ^3.2.4
   built_value_generator: 8.4.3
   drift_dev: ^2.2.0+1
   mocktail: ^0.3.0
