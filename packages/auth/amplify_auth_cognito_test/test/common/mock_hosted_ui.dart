@@ -16,6 +16,7 @@ typedef SignInFn = Future<void> Function(
 typedef SignOutFn = Future<void> Function(
   HostedUiPlatform platform,
   CognitoSignOutWithWebUIOptions options,
+  bool isPreferPrivateSession,
 );
 
 HostedUiPlatformFactory createHostedUiFactory({
@@ -52,8 +53,9 @@ class MockHostedUiPlatform extends HostedUiPlatformImpl {
   @override
   Future<void> signOut({
     required CognitoSignOutWithWebUIOptions options,
+    required bool isPreferPrivateSession,
   }) =>
-      _signOut(this, options);
+      _signOut(this, options, isPreferPrivateSession);
 
   @override
   Uri get signInRedirectUri => config.signInRedirectUris.first;
