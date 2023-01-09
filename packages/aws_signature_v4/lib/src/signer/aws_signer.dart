@@ -299,13 +299,14 @@ class AWSSigV4Signer {
       canonicalRequest: canonicalRequest,
       signature: signature,
       method: originalRequest.method,
+      scheme: originalRequest.scheme,
       host: originalRequest.host,
       path: originalRequest.path,
       port: originalRequest.port,
+      queryParameters: queryParameters,
+      headers: headers,
       body: body,
       contentLength: contentLength,
-      headers: headers,
-      queryParameters: queryParameters,
     );
   }
 }
