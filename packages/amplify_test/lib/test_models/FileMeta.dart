@@ -22,8 +22,7 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
-
-/** This is an auto generated class representing the FileMeta type in your schema. */
+/// This is an auto generated class representing the FileMeta type in your schema.
 @immutable
 class FileMeta {
   final String? _name;
@@ -31,72 +30,64 @@ class FileMeta {
   String get name {
     try {
       return _name!;
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
+    } catch (e) {
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
-  
-  const FileMeta._internal({required name}): _name = name;
-  
+
+  const FileMeta._internal({required name}) : _name = name;
+
   factory FileMeta({required String name}) {
-    return FileMeta._internal(
-      name: name);
+    return FileMeta._internal(name: name);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is FileMeta &&
-      _name == other._name;
+    return other is FileMeta && _name == other._name;
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
+
   @override
   String toString() {
-    var buffer = new StringBuffer();
-    
+    var buffer = StringBuffer();
+
     buffer.write("FileMeta {");
     buffer.write("name=" + "$_name");
     buffer.write("}");
-    
+
     return buffer.toString();
   }
-  
-  FileMeta copyWith({String? name}) {
-    return FileMeta._internal(
-      name: name ?? this.name);
-  }
-  
-  FileMeta.fromJson(Map<String, dynamic> json)  
-    : _name = json['name'];
-  
-  Map<String, dynamic> toJson() => {
-    'name': _name
-  };
-  
-  Map<String, Object?> toMap() => {
-    'name': _name
-  };
 
-  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  FileMeta copyWith({String? name}) {
+    return FileMeta._internal(name: name ?? this.name);
+  }
+
+  FileMeta.fromJson(Map<String, dynamic> json) : _name = json['name'];
+
+  Map<String, dynamic> toJson() => {'name': _name};
+
+  Map<String, Object?> toMap() => {'name': _name};
+
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "FileMeta";
     modelSchemaDefinition.pluralName = "FileMetas";
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-      fieldName: 'name',
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
+        fieldName: 'name',
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
   });
 }

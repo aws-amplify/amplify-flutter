@@ -210,7 +210,7 @@ class GraphQLRequestFactory {
       final association = schema.fields?[queryPredicate.field]?.association;
       // TODO(ragingsquirrel3): Change key logic when supporting CPK.
       final associatedTargetName =
-          association?.targetName ?? association?.targetNames?.first;
+          association?.targetNames?.first ?? association?.targetName;
       String fieldName = queryPredicate.field;
       if (queryPredicate.field ==
           '${_lowerCaseFirstCharacter(schema.name)}.$idFieldName') {
@@ -278,8 +278,8 @@ class GraphQLRequestFactory {
     for (var belongsTo in allBelongsTo) {
       String belongsToModelName = belongsTo.name;
       // TODO(ragingsquirrel3): Change key logic when supporting CPK.
-      String? belongsToKey = belongsTo.association?.targetName ??
-          belongsTo.association?.targetNames?.first;
+      String? belongsToKey = belongsTo.association?.targetNames?.first ??
+          belongsTo.association?.targetName;
       String? belongsToValue =
           (modelJson[belongsToModelName] as Map?)?[idFieldName];
 

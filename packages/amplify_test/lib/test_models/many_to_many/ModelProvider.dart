@@ -34,15 +34,20 @@ class ModelProvider implements ModelProviderInterface {
   @override
   String version = "25315a5e375e0bf823bb2d5924460181";
   @override
-  List<ModelSchema> modelSchemas = [FirstMtmRelation.schema, ManyToManyPrimary.schema, ManyToManySecondary.schema, SecondMtmRelation.schema];
+  List<ModelSchema> modelSchemas = [
+    FirstMtmRelation.schema,
+    ManyToManyPrimary.schema,
+    ManyToManySecondary.schema,
+    SecondMtmRelation.schema
+  ];
   static final ModelProvider _instance = ModelProvider();
   @override
   List<ModelSchema> customTypeSchemas = [];
 
   static ModelProvider get instance => _instance;
-  
+
   ModelType getModelTypeByModelName(String modelName) {
-    switch(modelName) {
+    switch (modelName) {
       case "FirstMtmRelation":
         return FirstMtmRelation.classType;
       case "ManyToManyPrimary":
@@ -52,7 +57,9 @@ class ModelProvider implements ModelProviderInterface {
       case "SecondMtmRelation":
         return SecondMtmRelation.classType;
       default:
-        throw Exception("Failed to find model in model provider for model name: " + modelName);
+        throw Exception(
+            "Failed to find model in model provider for model name: " +
+                modelName);
     }
   }
 }
