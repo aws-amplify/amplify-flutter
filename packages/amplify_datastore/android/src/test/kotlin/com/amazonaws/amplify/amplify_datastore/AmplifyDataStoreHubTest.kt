@@ -82,7 +82,7 @@ class AmplifyDataStoreHubTest {
         var metadataMap: HashMap<String, Any>
         val modelMap: HashMap<String, Any> = element["model"] as HashMap<String, Any>
         val serializedData: HashMap<String, Any> = modelMap["serializedData"] as HashMap<String, Any>
-        val modelMetadata = ModelMetadata(modelMap["id"] as String, null, null, null, "Post")
+        val modelMetadata = ModelMetadata(modelMap["id"] as String, null, null, null)
         val modelData = mapOf(
             "id" to serializedData["id"] as String,
             "title" to serializedData["title"] as String,
@@ -136,7 +136,6 @@ class AmplifyDataStoreHubTest {
             metadataMap["_deleted"] as Boolean,
             metadataMap["_version"] as Int,
             time,
-            "Post"
         )
         val modelData = mapOf(
             "id" to serializedData["id"] as String,
