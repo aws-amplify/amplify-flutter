@@ -131,12 +131,18 @@ class HostedUiStateMachine extends HostedUiStateMachineBase {
       final optionsJson = await _secureStorage.read(
         key: _keys[HostedUiKey.options],
       );
-      final options = optionsJson == null
-          ? const CognitoSignOutWithWebUIOptions()
-          : CognitoSignOutWithWebUIOptions.fromJson(
-              jsonDecode(optionsJson) as Map<String, Object?>,
-            );
-      await _platform.signOut(options: options);
+      var options = const CognitoSignOutWithWebUIOptions();
+      var isPreferPrivateSession = false;
+      if (optionsJson != null) {
+        final optionsMap = jsonDecode(optionsJson) as Map<String, Object?>;
+        options = CognitoSignOutWithWebUIOptions.fromJson(optionsMap);
+        isPreferPrivateSession =
+            optionsMap['isPreferPrivateSession'] as bool? ?? false;
+      }
+      await _platform.signOut(
+        options: options,
+        isPreferPrivateSession: isPreferPrivateSession,
+      );
       emit(const HostedUiState.signedOut());
     } on Exception catch (e) {
       dispatch(HostedUiEvent.failed(e));

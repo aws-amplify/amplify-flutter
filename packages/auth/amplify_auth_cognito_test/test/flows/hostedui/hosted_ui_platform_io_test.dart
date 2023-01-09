@@ -67,7 +67,8 @@ void main() {
             addTearDown(() => boundServer.server.close(force: true));
             expect(boundServer.uri, equals(uris[1]));
           }),
-          signOut: (platform, options) => throw UnimplementedError(),
+          signOut: (platform, options, isPreferPrivateSession) =>
+              throw UnimplementedError(),
         );
 
         final server = await HttpServer.bind(
@@ -90,7 +91,8 @@ void main() {
               addTearDown(() => boundServer.server.close(force: true));
             },
           ),
-          signOut: (platform, options) => throw UnimplementedError(),
+          signOut: (platform, options, isPreferPrivateSession) =>
+              throw UnimplementedError(),
         );
 
         await expectLater(
@@ -115,7 +117,8 @@ void main() {
               throwsA(isA<UrlLauncherException>()),
             );
           }),
-          signOut: (platform, options) => throw UnimplementedError(),
+          signOut: (platform, options, isPreferPrivateSession) =>
+              throw UnimplementedError(),
         );
 
         for (final uri in uris) {
