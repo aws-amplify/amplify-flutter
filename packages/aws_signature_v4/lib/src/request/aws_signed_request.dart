@@ -13,6 +13,7 @@ class AWSSignedRequest extends AWSStreamedHttpRequest {
     required this.canonicalRequest,
     required this.signature,
     required super.method,
+    super.scheme,
     required super.host,
     super.port,
     required super.path,
