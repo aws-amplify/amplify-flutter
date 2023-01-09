@@ -22,10 +22,11 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
-/// This is an auto generated class representing the PostWithAuthRules type in your schema.
+
+/** This is an auto generated class representing the PostWithAuthRules type in your schema. */
 @immutable
 class PostWithAuthRules extends Model {
-  static const classType = _PostWithAuthRulesModelType();
+  static const classType = const _PostWithAuthRulesModelType();
   final String id;
   final String? _title;
   final String? _owner;
@@ -34,214 +35,210 @@ class PostWithAuthRules extends Model {
 
   @override
   getInstanceType() => classType;
-
-  @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+  
+  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
   String getId() => id;
-
+  
   PostWithAuthRulesModelIdentifier get modelIdentifier {
-    return PostWithAuthRulesModelIdentifier(id: id);
+      return PostWithAuthRulesModelIdentifier(
+        id: id
+      );
   }
-
+  
   String get title {
     try {
       return _title!;
-    } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
     }
   }
-
+  
   String? get owner {
     return _owner;
   }
-
+  
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
-
+  
   TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
-
-  const PostWithAuthRules._internal(
-      {required this.id, required title, owner, createdAt, updatedAt})
-      : _title = title,
-        _owner = owner,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
-
-  factory PostWithAuthRules(
-      {String? id, required String title, String? owner}) {
+  
+  const PostWithAuthRules._internal({required this.id, required title, owner, createdAt, updatedAt}): _title = title, _owner = owner, _createdAt = createdAt, _updatedAt = updatedAt;
+  
+  factory PostWithAuthRules({String? id, required String title, String? owner}) {
     return PostWithAuthRules._internal(
-        id: id == null ? UUID.getUUID() : id, title: title, owner: owner);
+      id: id == null ? UUID.getUUID() : id,
+      title: title,
+      owner: owner);
   }
-
+  
   bool equals(Object other) {
     return this == other;
   }
-
+  
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is PostWithAuthRules &&
-        id == other.id &&
-        _title == other._title &&
-        _owner == other._owner;
+      id == other.id &&
+      _title == other._title &&
+      _owner == other._owner;
   }
-
+  
   @override
   int get hashCode => toString().hashCode;
-
+  
   @override
   String toString() {
-    var buffer = StringBuffer();
-
+    var buffer = new StringBuffer();
+    
     buffer.write("PostWithAuthRules {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("title=" + "$_title" + ", ");
     buffer.write("owner=" + "$_owner" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
-    buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
+    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
-
+    
     return buffer.toString();
   }
-
+  
   PostWithAuthRules copyWith({String? title, String? owner}) {
     return PostWithAuthRules._internal(
-        id: id, title: title ?? this.title, owner: owner ?? this.owner);
+      id: id,
+      title: title ?? this.title,
+      owner: owner ?? this.owner);
   }
-
-  PostWithAuthRules.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _title = json['title'],
-        _owner = json['owner'],
-        _createdAt = json['createdAt'] != null
-            ? TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? TemporalDateTime.fromString(json['updatedAt'])
-            : null;
-
+  
+  PostWithAuthRules.fromJson(Map<String, dynamic> json)  
+    : id = json['id'],
+      _title = json['title'],
+      _owner = json['owner'],
+      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
+      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
+  
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'title': _title,
-        'owner': _owner,
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
-
+    'id': id, 'title': _title, 'owner': _owner, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+  };
+  
   Map<String, Object?> toMap() => {
-        'id': id,
-        'title': _title,
-        'owner': _owner,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id, 'title': _title, 'owner': _owner, 'createdAt': _createdAt, 'updatedAt': _updatedAt
+  };
 
-  static final QueryModelIdentifier<PostWithAuthRulesModelIdentifier>
-      MODEL_IDENTIFIER =
-      QueryModelIdentifier<PostWithAuthRulesModelIdentifier>();
+  static final QueryModelIdentifier<PostWithAuthRulesModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<PostWithAuthRulesModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField TITLE = QueryField(fieldName: "title");
   static final QueryField OWNER = QueryField(fieldName: "owner");
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "PostWithAuthRules";
     modelSchemaDefinition.pluralName = "PostWithAuthRules";
-
+    
     modelSchemaDefinition.authRules = [
       AuthRule(
-          authStrategy: AuthStrategy.OWNER,
-          ownerField: "owner",
-          identityClaim: "cognito:username",
-          provider: AuthRuleProvider.USERPOOLS,
-          operations: [
-            ModelOperation.CREATE,
-            ModelOperation.UPDATE,
-            ModelOperation.DELETE,
-            ModelOperation.READ
-          ])
+        authStrategy: AuthStrategy.OWNER,
+        ownerField: "owner",
+        identityClaim: "cognito:username",
+        provider: AuthRuleProvider.USERPOOLS,
+        operations: [
+          ModelOperation.CREATE,
+          ModelOperation.UPDATE,
+          ModelOperation.DELETE,
+          ModelOperation.READ
+        ])
     ];
-
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
-
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: PostWithAuthRules.TITLE,
-        isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
-
+      key: PostWithAuthRules.TITLE,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: PostWithAuthRules.OWNER,
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
-
+      key: PostWithAuthRules.OWNER,
+      isRequired: false,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'createdAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
-
+      fieldName: 'createdAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
+    ));
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'updatedAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+      fieldName: 'updatedAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
+    ));
   });
 }
 
 class _PostWithAuthRulesModelType extends ModelType<PostWithAuthRules> {
   const _PostWithAuthRulesModelType();
-
+  
   @override
   PostWithAuthRules fromJson(Map<String, dynamic> jsonData) {
     return PostWithAuthRules.fromJson(jsonData);
   }
+  
+  @override
+  String modelName() {
+    return 'PostWithAuthRules';
+  }
 }
 
-/// This is an auto generated class representing the model identifier
-/// of [PostWithAuthRules] in your schema.
+/**
+ * This is an auto generated class representing the model identifier
+ * of [PostWithAuthRules] in your schema.
+ */
 @immutable
-class PostWithAuthRulesModelIdentifier
-    implements ModelIdentifier<PostWithAuthRules> {
+class PostWithAuthRulesModelIdentifier implements ModelIdentifier<PostWithAuthRules> {
   final String id;
 
-  /// Create an instance of PostWithAuthRulesModelIdentifier using [id] the primary key.
-  const PostWithAuthRulesModelIdentifier({required this.id});
-
+  /** Create an instance of PostWithAuthRulesModelIdentifier using [id] the primary key. */
+  const PostWithAuthRulesModelIdentifier({
+    required this.id});
+  
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
-
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id
+  });
+  
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
-
+    .entries
+    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
+    .toList();
+  
   @override
   String serializeAsString() => serializeAsMap().values.join('#');
-
+  
   @override
   String toString() => 'PostWithAuthRulesModelIdentifier(id: $id)';
-
+  
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
     }
-
-    return other is PostWithAuthRulesModelIdentifier && id == other.id;
+    
+    return other is PostWithAuthRulesModelIdentifier &&
+      id == other.id;
   }
-
+  
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode =>
+    id.hashCode;
 }

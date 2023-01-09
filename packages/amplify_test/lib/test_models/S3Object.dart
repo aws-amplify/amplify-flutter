@@ -23,7 +23,8 @@ import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
-/// This is an auto generated class representing the S3Object type in your schema.
+
+/** This is an auto generated class representing the S3Object type in your schema. */
 @immutable
 class S3Object {
   final String? _bucket;
@@ -34,145 +35,137 @@ class S3Object {
   String get bucket {
     try {
       return _bucket!;
-    } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
     }
   }
-
+  
   String get region {
     try {
       return _region!;
-    } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
     }
   }
-
+  
   String get key {
     try {
       return _key!;
-    } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
     }
   }
-
+  
   FileMeta? get meta {
     return _meta;
   }
-
-  const S3Object._internal(
-      {required bucket, required region, required key, meta})
-      : _bucket = bucket,
-        _region = region,
-        _key = key,
-        _meta = meta;
-
-  factory S3Object(
-      {required String bucket,
-      required String region,
-      required String key,
-      FileMeta? meta}) {
+  
+  const S3Object._internal({required bucket, required region, required key, meta}): _bucket = bucket, _region = region, _key = key, _meta = meta;
+  
+  factory S3Object({required String bucket, required String region, required String key, FileMeta? meta}) {
     return S3Object._internal(
-        bucket: bucket, region: region, key: key, meta: meta);
+      bucket: bucket,
+      region: region,
+      key: key,
+      meta: meta);
   }
-
+  
   bool equals(Object other) {
     return this == other;
   }
-
+  
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is S3Object &&
-        _bucket == other._bucket &&
-        _region == other._region &&
-        _key == other._key &&
-        _meta == other._meta;
+      _bucket == other._bucket &&
+      _region == other._region &&
+      _key == other._key &&
+      _meta == other._meta;
   }
-
+  
   @override
   int get hashCode => toString().hashCode;
-
+  
   @override
   String toString() {
-    var buffer = StringBuffer();
-
+    var buffer = new StringBuffer();
+    
     buffer.write("S3Object {");
     buffer.write("bucket=" + "$_bucket" + ", ");
     buffer.write("region=" + "$_region" + ", ");
     buffer.write("key=" + "$_key" + ", ");
     buffer.write("meta=" + (_meta != null ? _meta!.toString() : "null"));
     buffer.write("}");
-
+    
     return buffer.toString();
   }
-
-  S3Object copyWith(
-      {String? bucket, String? region, String? key, FileMeta? meta}) {
+  
+  S3Object copyWith({String? bucket, String? region, String? key, FileMeta? meta}) {
     return S3Object._internal(
-        bucket: bucket ?? this.bucket,
-        region: region ?? this.region,
-        key: key ?? this.key,
-        meta: meta ?? this.meta);
+      bucket: bucket ?? this.bucket,
+      region: region ?? this.region,
+      key: key ?? this.key,
+      meta: meta ?? this.meta);
   }
-
-  S3Object.fromJson(Map<String, dynamic> json)
-      : _bucket = json['bucket'],
-        _region = json['region'],
-        _key = json['key'],
-        _meta = json['meta']?['serializedData'] != null
-            ? FileMeta.fromJson(
-                Map<String, dynamic>.from(json['meta']['serializedData']))
-            : null;
-
+  
+  S3Object.fromJson(Map<String, dynamic> json)  
+    : _bucket = json['bucket'],
+      _region = json['region'],
+      _key = json['key'],
+      _meta = json['meta']?['serializedData'] != null
+        ? FileMeta.fromJson(new Map<String, dynamic>.from(json['meta']['serializedData']))
+        : null;
+  
   Map<String, dynamic> toJson() => {
-        'bucket': _bucket,
-        'region': _region,
-        'key': _key,
-        'meta': _meta?.toJson()
-      };
+    'bucket': _bucket, 'region': _region, 'key': _key, 'meta': _meta?.toJson()
+  };
+  
+  Map<String, Object?> toMap() => {
+    'bucket': _bucket, 'region': _region, 'key': _key, 'meta': _meta
+  };
 
-  Map<String, Object?> toMap() =>
-      {'bucket': _bucket, 'region': _region, 'key': _key, 'meta': _meta};
-
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "S3Object";
     modelSchemaDefinition.pluralName = "S3Objects";
-
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'bucket',
-        isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
-
+      fieldName: 'bucket',
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'region',
-        isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
-
+      fieldName: 'region',
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-        fieldName: 'key',
-        isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
-
+      fieldName: 'key',
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
-        fieldName: 'meta',
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.embedded,
-            ofCustomTypeName: 'FileMeta')));
+      fieldName: 'meta',
+      isRequired: false,
+      ofType: ModelFieldType(ModelFieldTypeEnum.embedded, ofCustomTypeName: 'FileMeta')
+    ));
   });
 }
