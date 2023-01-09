@@ -21,6 +21,7 @@ class CognitoAuthSessionResult<T>
       : type = CognitoAuthSessionResultType.error,
         _value = null;
 
+  /// The result of the fetch auth session operation.
   final T? _value;
 
   /// The exception that occurred while attempting to retrieve the value.
@@ -31,8 +32,7 @@ class CognitoAuthSessionResult<T>
 
   /// The value which was successfully retrieved.
   ///
-  /// An exception will be thrown [exception] if there was an issue fetching the
-  /// value.
+  /// [exception] will be thrown if there was an issue fetching the value.
   T? get value {
     switch (type) {
       case CognitoAuthSessionResultType.success:
