@@ -72,7 +72,7 @@ class VersionBumpCommand extends AmplifyCommand
     final changelogUpdates = repo.changelogUpdates;
 
     final bumpedPackages = <PackageInfo>[];
-    for (final package in repo.publishablePackages) {
+    for (final package in repo.allPackages.values) {
       final edits = package.pubspecInfo.pubspecYamlEditor.edits;
       if (edits.isNotEmpty) {
         bumpedPackages.add(package);

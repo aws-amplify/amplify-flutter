@@ -348,7 +348,7 @@ class Repo {
         ['version'],
         newVersion.toString(),
       );
-      if (commit.isBreakingChange && type != VersionBumpType.patch) {
+      if (commit.isBreakingChange) {
         // Back-propagate to all dependent packages for breaking changes.
         //
         // Since we set semantic version constraints, only a breaking change
@@ -357,12 +357,14 @@ class Repo {
           'Breaking change. Performing dfs on dependent packages...',
         );
         for (final dependent in allPackages.values.where(
-          (pkg) => pkg.pubspecInfo.pubspec.dependencies.keys.contains(
-            package.name,
-          ),
+          (pkg) =>
+              pkg.pubspecInfo.pubspec.dependencies.keys
+                  .contains(package.name) ||
+              pkg.pubspecInfo.pubspec.devDependencies.keys
+                  .contains(package.name),
         )) {
           logger.verbose('found dependent package ${dependent.name}');
-          if (dependent.isPublishable) {
+          if (dependent.isPublishable && type != VersionBumpType.patch) {
             bumpVersion(
               dependent,
               commit: commit,
@@ -422,7 +424,11 @@ class Repo {
   /// Updates the constraint for [package] in [dependent].
   void updateConstraint(PackageInfo package, PackageInfo dependent) {
     final newVersion = versionChanges.proposedVersion(package.name)!;
-    if (dependent.pubspecInfo.pubspec.dependencies.containsKey(package.name)) {
+    final hasDependency =
+        dependent.pubspecInfo.pubspec.dependencies.containsKey(package.name);
+    final hasDevDependency =
+        dependent.pubspecInfo.pubspec.devDependencies.containsKey(package.name);
+    if (hasDependency || hasDevDependency) {
       final newConstraint = newVersion.amplifyConstraint(
         minVersion: newVersion,
       );
@@ -431,7 +437,10 @@ class Repo {
         'to $newConstraint',
       );
       dependent.pubspecInfo.pubspecYamlEditor.update(
-        ['dependencies', package.name],
+        [
+          if (hasDependency) 'dependencies' else 'dev_dependencies',
+          package.name
+        ],
         newConstraint,
       );
     }
