@@ -73,8 +73,8 @@ void main() {
     group(
       'with alias',
       () {
-        const username = mockPhoneNumber;
-        final password = generatePassword();
+        late String username;
+        late String password;
 
         setUpAll(() async {
           await configureAuth(
@@ -86,16 +86,18 @@ void main() {
         tearDownAll(Amplify.reset);
 
         setUp(() async {
+          username = generatePhoneNumber();
+          password = generatePassword();
           await adminCreateUser(
             username,
             password,
             autoConfirm: true,
             verifyAttributes: true,
             enableMfa: true,
-            attributes: const [
+            attributes: [
               AuthUserAttribute(
                 userAttributeKey: CognitoUserAttributeKey.phoneNumber,
-                value: mockPhoneNumber,
+                value: username,
               ),
             ],
           );
@@ -129,7 +131,7 @@ void main() {
             isA<CognitoSignInDetailsApiBased>().having(
               (details) => details.username,
               'username',
-              mockPhoneNumber,
+              username,
             ),
             reason: 'Should return the phone number alias since it '
                 'was used to sign in',
