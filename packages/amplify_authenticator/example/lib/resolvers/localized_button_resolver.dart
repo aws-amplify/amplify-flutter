@@ -68,12 +68,12 @@ class LocalizedButtonResolver extends ButtonResolver {
 
   @override
   String signInWith(BuildContext context, AuthProvider provider) {
-    return AppLocalizations.of(context).signInWith(provider);
+    return AppLocalizations.of(context).signInWith(provider.name);
   }
 
   @override
   String backTo(BuildContext context, AuthenticatorStep previousStep) {
-    return AppLocalizations.of(context).backTo(previousStep);
+    return AppLocalizations.of(context).backTo(previousStep.name);
   }
 
   @override

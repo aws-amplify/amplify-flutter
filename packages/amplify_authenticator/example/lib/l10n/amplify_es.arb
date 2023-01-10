@@ -13,8 +13,8 @@
     "verify": "Verificar",
     "skip": "Omitir",
     "signOut": "Salir",
-    "backTo": "Regresar al {previousStep, select, signUp{registro}, signIn{inicio de sesión}, confirmSignUp{Confirmar registro}, confirmSignInMfa{Confirmar inicio de sesión} confirmSignInNewPassword{Confirmar inicio de sesión} sendCode{Enviar código} resetPassword{Restablecer contraseña} verifyUser{Verificar usuario} confirmVerifyUser{Confirmar verificación de usuario}}",
-    "signInWith": "Iniciar Sesión con {provider, select, google{Google} facebook{Facebook} amazon{Amazon} apple{Apple}}",
+    "backTo": "Regresar al {previousStep, select, signUp{registro} signIn{inicio de sesión} confirmSignUp{Confirmar registro} confirmSignInMfa{Confirmar inicio de sesión} confirmSignInNewPassword{Confirmar inicio de sesión} sendCode{Enviar código} resetPassword{Restablecer contraseña} verifyUser{Verificar usuario} confirmVerifyUser{Confirmar verificación de usuario} other{ERROR}}",
+    "signInWith": "Iniciar Sesión con {provider, select, google{Google} facebook{Facebook} amazon{Amazon} apple{Apple} other{ERROR}}",
     "us": "Estados Unidos",
     "selectDialCode": "seleccionar país",
     "confirmSignInCustomAuth": "Título de formulario personalizado"
