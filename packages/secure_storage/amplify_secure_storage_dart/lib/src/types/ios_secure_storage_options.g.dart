@@ -23,11 +23,7 @@ class _$IOSSecureStorageOptionsSerializer
   Iterable<Object?> serialize(
       Serializers serializers, IOSSecureStorageOptions object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'accessible',
-      serializers.serialize(object.accessible,
-          specifiedType: const FullType(KeychainAttributeAccessible)),
-    ];
+    final result = <Object?>[];
     Object? value;
     value = object.accessGroup;
     if (value != null) {
@@ -35,6 +31,13 @@ class _$IOSSecureStorageOptionsSerializer
         ..add('accessGroup')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
+    }
+    value = object.accessible;
+    if (value != null) {
+      result
+        ..add('accessible')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(KeychainAttributeAccessible)));
     }
     return result;
   }
@@ -57,8 +60,8 @@ class _$IOSSecureStorageOptionsSerializer
           break;
         case 'accessible':
           result.accessible = serializers.deserialize(value,
-                  specifiedType: const FullType(KeychainAttributeAccessible))!
-              as KeychainAttributeAccessible;
+                  specifiedType: const FullType(KeychainAttributeAccessible))
+              as KeychainAttributeAccessible?;
           break;
       }
     }
@@ -71,17 +74,13 @@ class _$IOSSecureStorageOptions extends IOSSecureStorageOptions {
   @override
   final String? accessGroup;
   @override
-  final KeychainAttributeAccessible accessible;
+  final KeychainAttributeAccessible? accessible;
 
   factory _$IOSSecureStorageOptions(
           [void Function(IOSSecureStorageOptionsBuilder)? updates]) =>
       (new IOSSecureStorageOptionsBuilder()..update(updates))._build();
 
-  _$IOSSecureStorageOptions._({this.accessGroup, required this.accessible})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        accessible, r'IOSSecureStorageOptions', 'accessible');
-  }
+  _$IOSSecureStorageOptions._({this.accessGroup, this.accessible}) : super._();
 
   @override
   IOSSecureStorageOptions rebuild(
@@ -157,9 +156,7 @@ class IOSSecureStorageOptionsBuilder
   _$IOSSecureStorageOptions _build() {
     final _$result = _$v ??
         new _$IOSSecureStorageOptions._(
-            accessGroup: accessGroup,
-            accessible: BuiltValueNullFieldError.checkNotNull(
-                accessible, r'IOSSecureStorageOptions', 'accessible'));
+            accessGroup: accessGroup, accessible: accessible);
     replace(_$result);
     return _$result;
   }

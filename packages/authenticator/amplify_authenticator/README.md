@@ -10,7 +10,7 @@ For production use cases please use the latest, non-tagged versions of amplify-f
 
 ## Example
 
-See the [example](https://github.com/aws-amplify/amplify-flutter/tree/release-candidate/packages/authenticator/amplify_authenticator/example) which showcases many of the customizations available.
+See the [example](https://github.com/aws-amplify/amplify-flutter/tree/next/packages/authenticator/amplify_authenticator/example) which showcases many of the customizations available.
 
 ## Getting Started
 

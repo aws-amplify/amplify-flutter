@@ -21,7 +21,7 @@ jobs:
           # TODO(dnys1): Remove when repo bump to 2.19 happens
           # - 2.19.0
           - stable
-          - dev
+          - beta
     steps:
       - name: Cache Pub dependencies
         uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # 3.0.11

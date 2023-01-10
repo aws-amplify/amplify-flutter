@@ -1,16 +1,5 @@
-// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
 import 'dart:io';
@@ -145,6 +134,16 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     _currentState = state;
   }
 
+  /// Only add an event if the bloc is open.
+  void _safeAdd(WebSocketEvent event) {
+    if (_wsEventController.isClosed ||
+        _currentState is DisconnectedState ||
+        _currentState is PendingDisconnect) {
+      return;
+    }
+    add(event);
+  }
+
   Stream<WebSocketState> _eventTransformer(WebSocketEvent event) async* {
     logger.verbose(event.toString());
     // [WebSocketBloc] Events
@@ -272,9 +271,15 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     );
 
     _currentState.service.init(_currentState).listen(
-      add,
+      // In some cases, the service will keep getting messages during/after
+      // disconnect. Ignore those messages.
+      _safeAdd,
       onError: (Object error, StackTrace st) {
-        _emit(_currentState.failed(error, st));
+        final exception = ApiException(
+          'Exception from WebSocketService.',
+          underlyingException: error.toString(),
+        );
+        _shutdownWithException(exception, st);
       },
     );
 
@@ -493,13 +498,9 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     try {
       final res = await _sendPollRequest();
       await checkPollResponse(res);
-      if (!_wsEventController.isClosed) {
-        add(const PollSuccessEvent());
-      }
+      _safeAdd(const PollSuccessEvent());
     } on Exception catch (e) {
-      if (!_wsEventController.isClosed) {
-        add(PollFailedEvent(e));
-      }
+      _safeAdd(PollFailedEvent(e));
     }
   }
 

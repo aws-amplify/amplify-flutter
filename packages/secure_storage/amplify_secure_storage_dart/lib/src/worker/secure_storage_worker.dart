@@ -1,16 +1,5 @@
-// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
 
@@ -30,7 +19,7 @@ part 'secure_storage_worker.g.dart';
 abstract class SecureStorageWorker
     extends WorkerBeeBase<SecureStorageRequest, SecureStorageRequest> {
   /// {@macro amplify_secure_storage_dart.secure_storage_worker}
-  SecureStorageWorker() : super(serializers: _serializers);
+  SecureStorageWorker() : super(serializers: serializers);
 
   /// {@macro amplify_secure_storage_dart.secure_storage_worker}
   factory SecureStorageWorker.create() = SecureStorageWorkerImpl;
@@ -87,4 +76,5 @@ abstract class SecureStorageWorker
   SecureStorageAction,
   SecureStorageRequest,
 ])
-final Serializers _serializers = _$_serializers;
+final Serializers serializers =
+    _$serializers; // TODO(dnys1): https://github.com/google/built_value.dart/pull/1202

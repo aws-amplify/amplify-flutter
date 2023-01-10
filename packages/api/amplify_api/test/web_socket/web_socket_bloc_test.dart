@@ -1,16 +1,5 @@
-// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
 import 'dart:convert';
@@ -327,12 +316,36 @@ void main() {
       mockPollClient.induceTimeout = false;
     });
 
+    test(
+        'subscribe() ignores a WebSocket message that comes while the bloc is disconnected',
+        () async {
+      final establishCompleter = Completer<void>();
+      final subscribeEvent = SubscribeEvent(
+        subscriptionRequest,
+        establishCompleter.complete,
+      );
+
+      final bloc = getWebSocketBloc();
+      bloc
+          .subscribe(
+            subscribeEvent,
+          )
+          .listen(null);
+      await establishCompleter.future;
+
+      bloc.add(const ShutdownEvent());
+      await bloc.done.future;
+
+      service!.channel.sink.add(mockDataString);
+      await expectLater(service!.channel.sink.done, completes);
+    });
+
     group('should close when', () {
       tearDown(() async {
         bloc = null;
         service = null; // service gets closed in  bloc
       });
-      test('should trigger FailureState on Exception during init', () async {
+      test('triggering FailureState on Exception during init', () async {
         final subscribeEvent = SubscribeEvent(
           subscriptionRequest,
           () {
@@ -358,12 +371,46 @@ void main() {
               isA<DisconnectedState>(),
               isA<ConnectingState>(),
               isA<FailureState>(),
+              isA<PendingDisconnect>(),
+              isA<DisconnectedState>(),
             ],
           ),
         );
 
         bloc.subscribe(
           subscribeEvent,
+        );
+      });
+
+      test('Exception from service and should return error to user', () async {
+        final subscribeEvent = SubscribeEvent(
+          subscriptionRequest,
+          () {
+            service!.channel.sink.addError(Exception('unknown exception'));
+          },
+        );
+        final bloc = getWebSocketBloc();
+
+        expect(
+          bloc.stream,
+          emitsInOrder(
+            [
+              isA<DisconnectedState>(),
+              isA<ConnectingState>(),
+              isA<ConnectedState>(),
+              isA<FailureState>(),
+              isA<PendingDisconnect>(),
+              isA<DisconnectedState>(),
+            ],
+          ),
+        );
+
+        final subscription = bloc.subscribe(
+          subscribeEvent,
+        );
+        expect(
+          subscription,
+          emitsError(isA<ApiException>()),
         );
       });
 

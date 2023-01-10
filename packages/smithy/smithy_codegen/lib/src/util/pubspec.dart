@@ -1,16 +1,5 @@
-// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import 'package:aws_common/aws_common.dart';
 import 'package:path/path.dart' as path;
@@ -35,16 +24,16 @@ class Dependency with AWSEquatable<Dependency> {
 /// All dependencies and the current versions.
 final dependencyVersions = {
   // Dependencies
-  'smithy': const Dependency('^0.5.0', DependencyType.smithy),
-  'smithy_aws': const Dependency('^0.5.0', DependencyType.smithy),
-  'smithy_codegen': const Dependency('^0.5.0', DependencyType.smithy),
-  'aws_common': const Dependency('^0.2.0', DependencyType.aws),
-  'aws_signature_v4': const Dependency('^0.2.0', DependencyType.aws),
+  'smithy': const Dependency('^0.3.0', DependencyType.smithy),
+  'smithy_aws': const Dependency('^0.3.0', DependencyType.smithy),
+  'smithy_codegen': const Dependency('^0.3.0', DependencyType.smithy),
+  'aws_common': const Dependency('^0.3.0', DependencyType.aws),
+  'aws_signature_v4': const Dependency('^0.3.0', DependencyType.aws),
   'built_value': const Dependency('">=8.4.0 <8.5.0"'),
   'built_collection': const Dependency('^5.0.0'),
   'fixnum': const Dependency('^1.0.0'),
   'meta': const Dependency('^1.7.0'),
-  'shelf': const Dependency('^1.1.0'),
+  'shelf': const Dependency('^1.4.0'),
   'shelf_router': const Dependency('^1.1.0'),
   'xml': const Dependency('">=6.1.0 <=6.2.2"'),
 
@@ -54,7 +43,7 @@ final dependencyVersions = {
   'build_web_compilers': const Dependency.dev('^3.2.0'),
   'build_test': const Dependency.dev('^2.1.5'),
   'built_value_generator': const Dependency.dev('8.4.2'),
-  'lints': const Dependency.dev('^1.0.0'),
+  'lints': const Dependency.dev('^2.0.0'),
   'test': const Dependency.dev('^1.16.0'),
 };
 
@@ -76,18 +65,22 @@ class PubspecGenerator implements Generator<String> {
       .map((entry) => entry.key);
 
   String dependencyYaml(String name, Dependency dependency) {
-    if ((dependency.type == DependencyType.smithy ||
-            dependency.type == DependencyType.aws) &&
-        smithyPath != null) {
-      final String relativePath;
-      if (dependency.type == DependencyType.smithy) {
-        relativePath = path.join(smithyPath!, name);
-      } else {
-        relativePath = path.join(smithyPath!, '..', name);
-      }
-      return '''
+    if (dependency.type == DependencyType.smithy ||
+        dependency.type == DependencyType.aws) {
+      if (smithyPath != null) {
+        final String relativePath;
+        if (dependency.type == DependencyType.smithy) {
+          relativePath = path.join(smithyPath!, name);
+        } else {
+          relativePath = path.join(smithyPath!, '..', name);
+        }
+        return '''
   $name:
     path: $relativePath''';
+      }
+      if (dependency.isDevDependency) {
+        return '';
+      }
     }
     return '  $name: ${dependency.semver}';
   }

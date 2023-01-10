@@ -25,7 +25,7 @@ jobs:
           # TODO(dnys1): Remove when repo bump to 2.19 happens
           # - 2.19.0
           - stable
-          - dev
+          - beta
         browser:
           - chrome
           - firefox
@@ -79,6 +79,6 @@ jobs:
           fi
 
       - name: Run Tests
-        if: "always() && steps.bootstrap.conclusion == 'success' && (matrix.sdk == 'dev' || inputs.test-ddc-stable)"
+        if: "always() && steps.bootstrap.conclusion == 'success' && (matrix.sdk == 'beta' || inputs.test-ddc-stable)"
         run: dart run build_runner test --delete-conflicting-outputs -- -p ${{ matrix.browser }} --exclude-tags=no-ddc
         working-directory: ${{ inputs.working-directory }}

@@ -1,16 +1,5 @@
-// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
 import 'dart:convert';
@@ -185,7 +174,12 @@ class MockWebSocketSink extends DelegatingStreamSink<dynamic>
   MockWebSocketSink(super.sink);
 
   @override
-  Future<void> close([int? closeCode, String? closeReason]) => super.close();
+  Future<void> close([int? closeCode, String? closeReason]) async {
+    // The real sink takes some time to close which can cause race conditions.
+    // Mocking that delay here is needed to reproduce/test those conditions.
+    await Future<void>.delayed(const Duration(milliseconds: 10));
+    return super.close();
+  }
 }
 
 class MockWebSocketChannel extends WebSocketChannel {

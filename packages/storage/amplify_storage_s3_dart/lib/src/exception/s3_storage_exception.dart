@@ -1,16 +1,5 @@
-// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
@@ -32,35 +21,10 @@ class S3Exception extends StorageException {
     super.underlyingException,
   });
 
-  /// Creates a [S3Exception] from [UnknownSmithyHttpException] that
-  /// represents an exception returned from S3 service.
-  factory S3Exception.fromUnknownSmithyHttpException(
-    UnknownSmithyHttpException exception,
-  ) {
-    switch (exception.statusCode) {
-      case 400:
-        return S3Exception(
-          'Unexpected client error occurred.',
-          recoverySuggestion: _fileIssueMessage,
-          underlyingException: exception,
-        );
-      case 403:
-        return S3Exception(
-          'S3 access denied when making the API call.',
-          recoverySuggestion: _clientErrorRecoveryMessage,
-          underlyingException: exception,
-        );
-      case 404:
-        return S3Exception.objectNotFoundByKey(exception);
-      default:
-        return S3Exception.unknownServiceException(exception);
-    }
-  }
-
   /// Creates a [S3Exception] from a FileSystemException.
   factory S3Exception.fromFileSystemException(Exception exception) {
     return S3Exception(
-      'Error occurred while reading/write file in the local file system.',
+      'Error occurred while reading/writing file in the local file system.',
       recoverySuggestion: 'Please review the underlying exception.',
       underlyingException: exception,
     );
@@ -72,16 +36,6 @@ class S3Exception extends StorageException {
     return S3Exception(
       'Unknown exception occurred. $extraMessage',
       recoverySuggestion: _fileIssueMessage,
-    );
-  }
-
-  /// Creates a [S3Exception] that represents an unexpected error
-  /// returned from S3 service.
-  factory S3Exception.unknownServiceException([Object? exception]) {
-    return S3Exception(
-      'Unknown service exception occurred.',
-      recoverySuggestion: _fileIssueMessage,
-      underlyingException: exception,
     );
   }
 
@@ -118,25 +72,6 @@ class S3Exception extends StorageException {
     return const S3Exception(
       'Unexpected null body from GetObject.',
       recoverySuggestion: _fileIssueMessage,
-    );
-  }
-
-  /// An exception thrown when the write destination path is not a file (e.g.
-  /// a directory).
-  factory S3Exception.invalidDownloadFilePath() {
-    return const S3Exception(
-      'Invalid destination file path for download.',
-      recoverySuggestion:
-          'Please use `AWSFile.fromPath` constructor to ensure AWSFile has the correct destination file path, and the path points to a valid file, but not a directory.',
-    );
-  }
-
-  /// An exception created on top of [s3.NoSuchKey] or general 404 errors.
-  factory S3Exception.objectNotFoundByKey([Object? exception]) {
-    return S3Exception(
-      'Object is not found in the bucket.',
-      recoverySuggestion: _clientErrorRecoveryMessage,
-      underlyingException: exception,
     );
   }
 
@@ -196,4 +131,84 @@ class S3Exception extends StorageException {
       recoverySuggestion: _fileIssueMessage,
     );
   }
+
+  /// A [StorageLocalFileNotFoundException] thrown when download destination file
+  /// path points to a directory.
+  static const StorageLocalFileNotFoundException
+      downloadDestinationFilePathIsDirectory =
+      StorageLocalFileNotFoundException(
+    'Download destination file path is a directory',
+    recoverySuggestion:
+        'Ensure the path provided with `AWSFile` is pointing to a file, and not a directory.',
+  );
+
+  /// A [StorageLocalFileNotFoundException] thrown when download destination file
+  /// path is `null`.
+  static const StorageLocalFileNotFoundException
+      downloadDestinationFilePathIsNull = StorageLocalFileNotFoundException(
+    'Download destination file path is null',
+    recoverySuggestion: 'Ensure a valid file path with `AWSFile` was provided.',
+  );
+
+  /// Creates a [StorageKeyNotFoundException] from an [Exception]
+  static StorageKeyNotFoundException getKeyNotFoundException(
+    Exception underlyingException,
+  ) =>
+      StorageKeyNotFoundException(
+        'Key is not found.',
+        recoverySuggestion: _clientErrorRecoveryMessage,
+        underlyingException: underlyingException,
+      );
+
+  /// Creates [StorageException] variants from [UnknownSmithyHttpException].
+  static StorageException fromUnknownSmithyHttpException(
+    UnknownSmithyHttpException exception,
+  ) {
+    final statusCode = exception.statusCode;
+
+    if (statusCode ~/ 100 == 3 || statusCode ~/ 100 == 5) {
+      return StorageHttpStatusException(
+        statusCode,
+        recoverySuggestion: _clientErrorRecoveryMessage,
+        underlyingException: exception,
+      );
+    }
+
+    if (statusCode ~/ 100 == 4) {
+      if ([401, 403].contains(statusCode)) {
+        return StorageAccessDeniedException(
+          'S3 access denied when making the API call.',
+          recoverySuggestion: _clientErrorRecoveryMessage,
+          underlyingException: exception,
+        );
+      } else if (statusCode == 404) {
+        return getKeyNotFoundException(exception);
+      } else {
+        return StorageHttpStatusException(
+          statusCode,
+          recoverySuggestion: _clientErrorRecoveryMessage,
+          underlyingException: exception,
+        );
+      }
+    }
+
+    return StorageUnknownException(
+      'Unknown service error.',
+      recoverySuggestion: _fileIssueMessage,
+      underlyingException: exception,
+    );
+  }
+
+  /// Creates a [StorageUnknownException] for a [s3.S3Object] that is missing
+  /// a valid `key`, this exception should not happen normally.
+  static StorageUnknownException getS3ObjectMissingKeyException(
+    s3.S3Object object,
+  ) =>
+      StorageUnknownException(
+        'Missing key in a S3Object: $object',
+        recoverySuggestion: _fileIssueMessage,
+      );
+
+  @override
+  String get runtimeTypeName => 'S3Exception';
 }

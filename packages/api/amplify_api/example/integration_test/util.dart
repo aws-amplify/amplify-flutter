@@ -1,17 +1,5 @@
-/*
- * Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
 
@@ -146,6 +134,27 @@ Future<Blog> addBlog(String name) async {
   return blog;
 }
 
+/// Run a mutation on [Blog] with a partial selection set.
+///
+/// This is used to trigger an error on subscriptions listening for the
+/// full selection set.
+Future<GraphQLResponse<String>> runPartialMutation(String name) async {
+  const graphQLDocument = r'''mutation MyMutation($name: String!) {
+      createBlog(input: {name: $name}) {
+        id
+        name
+      }
+    }''';
+
+  final request = GraphQLRequest<String>(
+    document: graphQLDocument,
+    variables: <String, dynamic>{'name': name},
+    authorizationMode: APIAuthorizationType.userPools,
+  );
+
+  return Amplify.API.mutate(request: request).response;
+}
+
 Future<Post> addPostAndBlog(
   String title,
   int rating,
@@ -225,23 +234,24 @@ Future<StreamSubscription<GraphQLResponse<T>>>
 /// Establish subscription for request, do the mutationFunction, then wait
 /// for the stream event, cancel the operation, return response from event.
 ///
-/// `eventFilter` can be used to ensure completer only called for specific events
-/// as the subscription may get events from other client mutations.
-Future<GraphQLResponse<T?>> establishSubscriptionAndMutate<T>(
+/// `eventFilter` is used to ensure completer only called for specific events
+/// as the subscription may get events from other client mutations (and is likely
+/// in CI).
+Future<GraphQLResponse<T>> establishSubscriptionAndMutate<T>(
   GraphQLRequest<T> subscriptionRequest,
   Future<void> Function() mutationFunction, {
-  bool Function(T?)? eventFilter,
+  required bool Function(GraphQLResponse<T>) eventFilter,
+  bool canFail = false,
 }) async {
-  final dataCompleter = Completer<GraphQLResponse<T?>>();
+  final dataCompleter = Completer<GraphQLResponse<T>>();
   // With stream established, exec callback with stream events.
   final subscription = await getEstablishedSubscriptionOperation<T>(
     subscriptionRequest,
     (event) {
-      if (event.hasErrors) {
+      if (!canFail && event.hasErrors) {
         fail('subscription errors: ${event.errors}');
       }
-      if (!dataCompleter.isCompleted &&
-          (eventFilter == null || eventFilter(event.data))) {
+      if (!dataCompleter.isCompleted && (eventFilter(event))) {
         dataCompleter.complete(event);
       }
     },

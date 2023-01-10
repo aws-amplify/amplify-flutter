@@ -1,16 +1,5 @@
-// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_secure_storage_dart/src/types/ios_secure_storage_options.dart';
 import 'package:amplify_secure_storage_dart/src/types/linux_secure_storage_options.dart';
@@ -56,8 +45,8 @@ abstract class AmplifySecureStorageConfig
       webOptions: WebSecureStorageOptions(),
       windowsOptions: WindowsSecureStorageOptions(),
       linuxOptions: LinuxSecureStorageOptions(),
-      macOSOptions: MacOSSecureStorageOptions(),
-      iOSOptions: IOSSecureStorageOptions(),
+      macOSOptions: MacOSSecureStorageOptions.empty(),
+      iOSOptions: IOSSecureStorageOptions.empty(),
     );
   }
 
@@ -102,6 +91,7 @@ abstract class AmplifySecureStorageConfig
 
   AmplifySecureStorageConfig copyWith({
     String? scope,
+    String? namespace,
     WebSecureStorageOptions? webOptions,
     WindowsSecureStorageOptions? windowsOptions,
     LinuxSecureStorageOptions? linuxOptions,
@@ -110,6 +100,7 @@ abstract class AmplifySecureStorageConfig
   }) {
     return _$AmplifySecureStorageConfig._(
       scope: scope ?? this.scope,
+      namespace: namespace ?? this.namespace,
       webOptions: webOptions ?? this.webOptions,
       windowsOptions: windowsOptions ?? this.windowsOptions,
       linuxOptions: linuxOptions ?? this.linuxOptions,

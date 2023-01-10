@@ -1,3 +1,8 @@
+## 1.0.0-next.3
+
+### Fixes
+- fix(storage): update expected exception types in integ tests
+
 ## 1.0.0-next.2+1
 
 ### Fixes

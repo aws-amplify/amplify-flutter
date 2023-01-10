@@ -1,17 +1,8 @@
-// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api/src/graphql/helpers/graphql_response_decoder.dart';
 import 'package:amplify_api/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -85,5 +76,41 @@ void main() {
         expect(message.messageType, entry.expectedMessageType);
       });
     }
+  });
+
+  group('Error handling', () {
+    test('WebsocketMessage should decode data errors as a list', () {
+      const errorMessage =
+          'Cannot return null for non-nullable type: "AWSDateTime" within parent "Blog" (/onCreateBlog/updatedAt)';
+      final errors = [
+        {
+          'message': errorMessage,
+          'path': ['onCreateBlog', 'updatedAt']
+        }
+      ];
+      final entry = {
+        'id': 'xyz-456',
+        'type': 'data',
+        'payload': {'data': null, 'errors': errors}
+      };
+      final message = WebSocketMessage.fromJson(entry);
+      expect(message.messageType, MessageType.data);
+      expect(
+        message.payload!.toJson()['errors'],
+        errors,
+      );
+
+      /// GraphQLResponseDecoder should handle a payload with errors.
+      final response = GraphQLResponseDecoder.instance.decode<String>(
+        request: GraphQLRequest(
+          document: '',
+        ),
+        response: message.payload!.toJson(),
+      );
+      expect(
+        response.errors.first.message,
+        errorMessage,
+      );
+    });
   });
 }

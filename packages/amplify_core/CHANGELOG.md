@@ -1,3 +1,12 @@
+## 1.0.0-next.3
+
+### Breaking Changes
+- chore(auth)!: Remove `isPreferPrivateSession` from `CognitoSignOutWithWebUIOptions` ([#2538](https://github.com/aws-amplify/amplify-flutter/pull/2538))
+- refactor(auth)!: Align exception types
+- refactor(auth)!: Make SRP failures errors
+- refactor(auth)!: Remove intermediate request types ([#2475](https://github.com/aws-amplify/amplify-flutter/pull/2475))
+- refactor(core)!: Migrate exception types
+
 ## 1.0.0-next.2+1
 
 ### Fixes

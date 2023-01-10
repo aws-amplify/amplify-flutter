@@ -4,3 +4,5 @@ analyzer:
   exclude:
     - '**/*.g.dart'
     - lib/src/sdk/src/**
+  errors:
+    implementation_imports: error #TODO(equartey): Remove when lint is enforced project-wide        
