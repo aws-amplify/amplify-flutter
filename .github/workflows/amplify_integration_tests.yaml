@@ -30,6 +30,7 @@ jobs:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
           persist-credentials: false
+          submodules: true
 
       # Flutter requires Java 11 to build android apps with Gradle.
       - uses: actions/setup-java@de1bb2b0c5634f0fc4438d7aa9944e68f9bf86cc # 3.6.0
@@ -76,6 +77,7 @@ jobs:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
           persist-credentials: false
+          submodules: true
       
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
@@ -115,6 +117,7 @@ jobs:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
           persist-credentials: false
+          submodules: true
       
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
@@ -153,6 +156,7 @@ jobs:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
           persist-credentials: false
+          submodules: true
       
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
@@ -189,6 +193,7 @@ jobs:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
           persist-credentials: false
+          submodules: true
       
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
@@ -225,6 +230,7 @@ jobs:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
           persist-credentials: false
+          submodules: true
 
       - name: Change path restrictions
         run: git config --global core.longpaths true
