@@ -11,7 +11,18 @@ const uppercaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz';
 const digits = '1234567890';
 const symbols = '~/`!@#\$%^&\\"\'*(),._?:;{}|<>';
-const mockPhoneNumber = '+15555551234';
+
+String generatePhoneNumber() {
+  final buf = StringBuffer('+1');
+  for (var i = 0; i < 3; i++) {
+    buf.write(digits[random.nextInt(digits.length)]);
+  }
+  buf.write('55501');
+  for (var i = 0; i < 2; i++) {
+    buf.write(digits[random.nextInt(digits.length)]);
+  }
+  return buf.toString();
+}
 
 String generateEmail() => 'test-amplify-flutter-${uuid()}@test${uuid()}.com';
 

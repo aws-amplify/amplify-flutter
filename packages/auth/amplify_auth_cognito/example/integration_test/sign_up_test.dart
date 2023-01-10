@@ -31,7 +31,7 @@ void main() {
         options: CognitoSignUpOptions(
           userAttributes: {
             CognitoUserAttributeKey.email: generateEmail(),
-            CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
+            CognitoUserAttributeKey.phoneNumber: generatePhoneNumber(),
           },
         ),
       ) as CognitoSignUpResult;
@@ -64,7 +64,7 @@ void main() {
         final options = CognitoSignUpOptions(
           userAttributes: {
             CognitoUserAttributeKey.email: generateEmail(),
-            CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
+            CognitoUserAttributeKey.phoneNumber: generatePhoneNumber(),
           },
         );
         await expectLater(
@@ -90,7 +90,7 @@ void main() {
         final userOneOptions = CognitoSignUpOptions(
           userAttributes: {
             CognitoUserAttributeKey.email: generateEmail(),
-            CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
+            CognitoUserAttributeKey.phoneNumber: generatePhoneNumber(),
           },
         );
         await Amplify.Auth.signUp(
@@ -104,7 +104,7 @@ void main() {
         final userTwoOptions = CognitoSignUpOptions(
           userAttributes: {
             CognitoUserAttributeKey.email: generateEmail(),
-            CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
+            CognitoUserAttributeKey.phoneNumber: generatePhoneNumber(),
           },
         );
         await expectLater(
