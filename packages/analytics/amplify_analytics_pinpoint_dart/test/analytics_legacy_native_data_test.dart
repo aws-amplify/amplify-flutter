@@ -5,10 +5,10 @@ import 'dart:async';
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_store_keys.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
-import 'package:uuid/uuid.dart';
 
 void main() {
   group('Analytics Legacy Native Data Tests', () {
@@ -74,7 +74,7 @@ void main() {
       when(() => legacyDataProvider.getEndpointId(appId))
           .thenAnswer((_) => Future.value(legacyEndpointId));
 
-      final endpointId = const Uuid().v1();
+      final endpointId = UUID.getUUID();
       store.seedData({
         EndpointStoreKey.version.name: EndpointStoreVersion.v1.name,
         AmplifyAnalyticsPinpointDart.endpointIdStorageKey: endpointId
@@ -91,7 +91,7 @@ void main() {
       );
       expect(migratedEndpointId, endpointId);
 
-      verifyNever(() => legacyDataProvider.getEndpointId(captureAny()));
+      verifyNever(() => legacyDataProvider.getEndpointId(any()));
     });
   });
 }

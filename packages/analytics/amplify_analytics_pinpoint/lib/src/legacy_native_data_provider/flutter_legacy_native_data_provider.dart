@@ -7,6 +7,7 @@ import 'dart:io' show Platform;
 import 'package:amplify_analytics_pinpoint/src/legacy_native_data_provider/data_provider.android.dart';
 import 'package:amplify_analytics_pinpoint/src/legacy_native_data_provider/data_provider.ios.dart';
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
+import 'package:aws_common/aws_common.dart';
 
 /// {@template amplify_analytics_pinpoint.flutter_legacy_native_data_provider}
 /// Provides legacy data stored by Amplify Analytics iOS and Android.
@@ -16,7 +17,9 @@ class FlutterLegacyNativeDataProvider implements LegacyNativeDataProvider {
   factory FlutterLegacyNativeDataProvider() {
     LegacyNativeDataProvider? provider;
 
-    if (Platform.isIOS) {
+    if (zIsWeb) {
+      return FlutterLegacyNativeDataProvider._(provider);
+    } else if (Platform.isIOS) {
       provider = DataProviderIos();
     } else if (Platform.isAndroid) {
       provider = DataProviderAndroid();
