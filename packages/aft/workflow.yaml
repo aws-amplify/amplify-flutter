@@ -24,9 +24,14 @@ jobs:
     steps:
       - name: Git Checkout
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
+        with:
+          submodules: true
 
-      - name: Git Submodules
-        run: git submodule update --init
+      # Needed for `git` but only ever used locally.
+      - name: Git Config
+        run: |
+          git config --global user.email "amplify-flutter@amazon.com"
+          git config --global user.name "Amplify Flutter"
 
       - name: Setup Dart
         uses: dart-lang/setup-dart@196f54580e9eee2797c57e85e289339f85e6779d # main
