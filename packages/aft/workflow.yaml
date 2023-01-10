@@ -39,8 +39,8 @@ jobs:
           # Patch libgit2dart (see https://github.com/dart-lang/pub/issues/3563)
           ( cd external/libgit2dart; git apply ../libgit2dart.patch )
           dart pub upgrade
-          mkdir -p .dart_tool/libgit2
-          cp external/libgit2dart/linux/*.so .dart_tool/libgit2
+          mkdir linux
+          cp external/libgit2dart/linux/*.so linux
 
       - name: Run Tests
         working-directory: packages/aft

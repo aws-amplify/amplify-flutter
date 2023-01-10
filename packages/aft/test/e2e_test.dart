@@ -365,7 +365,7 @@ Initial version.
 
       group('bumps versions', () {
         final finalVersions = {
-          'aws_common': '0.1.1',
+          'aws_common': '0.1.0+1',
           'amplify_core': '1.0.0-next.0+1',
           'amplify_auth_cognito_dart': '0.1.1',
           'amplify_auth_cognito': '1.0.0-next.1',
@@ -373,7 +373,7 @@ Initial version.
         };
         final updatedChangelogs = {
           'aws_common': '''
-## 0.1.1
+## 0.1.0+1
 
 ### Fixes
 - fix(aws_common): Fix type
@@ -407,7 +407,7 @@ Initial version.
         final updatedPubspecs = {
           'aws_common': '''
 name: aws_common
-version: 0.1.1
+version: 0.1.0+1
 
 environment:
   sdk: '>=2.17.0 <3.0.0'
