@@ -31,13 +31,11 @@ jobs:
     with:
       working-directory: packages/amplify_core
   native_test:
-    if: ${{ github.event_name == 'push' }}
     needs: test
     uses: ./.github/workflows/dart_native.yaml
     with:
       working-directory: packages/amplify_core
   ddc_test:
-    if: ${{ github.event_name == 'push' }}
     needs: test
     uses: ./.github/workflows/dart_ddc.yaml
     with:

@@ -111,7 +111,6 @@ jobs:
         workflowContents.write(
           '''
   native_test:
-    if: \${{ github.event_name == 'push' }}
     needs: test
     uses: ./.github/workflows/$nativeWorkflow
     with:
@@ -123,7 +122,6 @@ jobs:
           workflowContents.write(
             '''
   ddc_test:
-    if: \${{ github.event_name == 'push' }}
     needs: test
     uses: ./.github/workflows/$ddcWorkflow
     with:
