@@ -31,13 +31,11 @@ jobs:
     with:
       working-directory: packages/smithy/goldens/lib2/restJson1
   native_test:
-    if: ${{ github.event_name == 'push' }}
     needs: test
     uses: ./.github/workflows/dart_native.yaml
     with:
       working-directory: packages/smithy/goldens/lib2/restJson1
   ddc_test:
-    if: ${{ github.event_name == 'push' }}
     needs: test
     uses: ./.github/workflows/dart_ddc.yaml
     with:
