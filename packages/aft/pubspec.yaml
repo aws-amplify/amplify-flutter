@@ -19,7 +19,7 @@ dependencies:
   flutter_tools:
     git:
       url: https://github.com/flutter/flutter.git
-      ref: 117a83a4a7178c328d296748bd93ff388724cb67
+      ref: 7a743c8816fd8ff7df99858c545c1dbe396d1103
       path: packages/flutter_tools
   git: ^2.0.0
   glob: ^2.1.0
