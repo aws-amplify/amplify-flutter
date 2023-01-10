@@ -18,3 +18,24 @@ A CLI tool for managing the Amplify Flutter repository.
   - `get`: Runs `dart pub get`/`flutter pub get` for all packages
   - `upgrade`: Runs `dart pub upgrade`/`flutter pub upgrade` for all packages
   - `publish`: Runs `dart pub publish`/`flutter pub publish` for all packages which need publishing
+- `version-bump`: Bumps version using git history
+
+## Setup
+
+To run some commands, `libgit2` is required and can be installed with the following commands:
+
+```sh
+$ brew install libgit2
+```
+
+```sh
+$ sudo apt-get install libgit2-dev
+```
+
+To activate `aft`, run:
+
+```sh
+$ dart pub global activate -spath packages/aft
+```
+
+A full list of available commands and options can be found by running `aft --help`.

@@ -18,8 +18,7 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
 
   @override
   Future<void> run() async {
-    final allPackages = await this.allPackages;
-    final repoRoot = await rootDir;
+    await super.run();
     for (final package in allPackages.values) {
       if (package.pubspecInfo.pubspec.publishTo == 'none' &&
           !falsePositiveExamples.contains(package.name)) {
@@ -32,13 +31,13 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
         continue;
       }
       final workflowFilepath = p.join(
-        repoRoot.path,
+        rootDir.path,
         '.github',
         'workflows',
         '${package.name}.yaml',
       );
       final workflowFile = File(workflowFilepath);
-      final repoRelativePath = p.relative(package.path, from: repoRoot.path);
+      final repoRelativePath = p.relative(package.path, from: rootDir.path);
       final customWorkflow = File(p.join(package.path, 'workflow.yaml'));
       if (customWorkflow.existsSync()) {
         customWorkflow.copySync(workflowFilepath);
@@ -73,7 +72,7 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
       final workflowPaths = [
         if (needsWebTest) '.github/composite_actions/setup_firefox/action.yaml',
         ...workflows.map((workflow) => '.github/workflows/$workflow'),
-        p.relative(workflowFilepath, from: repoRoot.path),
+        p.relative(workflowFilepath, from: rootDir.path),
       ].map((path) => "      - '$path'").join('\n');
 
       final workflowContents = StringBuffer(

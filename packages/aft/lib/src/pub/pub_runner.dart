@@ -3,7 +3,7 @@
 
 import 'package:aft/aft.dart';
 import 'package:args/command_runner.dart';
-import 'package:cli_util/cli_logging.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:cli_util/cli_util.dart';
 import 'package:flutter_tools/src/base/template.dart';
 import 'package:flutter_tools/src/cache.dart';
@@ -63,20 +63,28 @@ Future<void> runDartPub(
 Future<void> runFlutterPub(
   PubAction action,
   PackageInfo package, {
-  Logger? logger,
+  AWSLogger? logger,
 }) async {
+  logger ??= AWSLogger().createChild('runFlutterPub');
   final flutterRoot = getEnv('FLUTTER_ROOT');
   Cache.flutterRoot = flutterRoot ??
       // Assumes using Dart SDK from Flutter
       path.normalize(
         path.absolute(path.dirname(path.dirname(path.dirname(getSdkPath())))),
       );
-  logger?.trace('Resolved flutter root: ${Cache.flutterRoot}');
+  logger.verbose('Resolved flutter root: ${Cache.flutterRoot}');
   await flutter.runInContext(
     () async {
       final runner = FlutterCommandRunner()
         ..addCommand(
           PackagesGetCommand(action.name, action == PubAction.upgrade),
+        )
+        ..addCommand(
+          PackagesForwardCommand(
+            'publish',
+            'Publish the current package to pub.dartlang.org.',
+            requiresPubspec: true,
+          ),
         );
       await runner.run([action.name, package.path]);
     },
