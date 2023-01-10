@@ -99,7 +99,7 @@ void main() {
                 .having((e) => e.endpoint.user?.userId, 'UserId', userId)
                 .having(
                   (e) => e.endpoint.user?.userAttributes?.toMap() ?? const {},
-                  'Attributes',
+                  'UserAttributes',
                   equals({
                     boolProperty.key: [stringifiedBoolProperty.value],
                     stringProperty.key: [stringProperty.value],
