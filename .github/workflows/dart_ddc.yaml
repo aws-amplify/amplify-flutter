@@ -63,6 +63,8 @@ jobs:
       - name: Setup Firefox
         if: ${{ matrix.browser == 'firefox' }}
         uses: ./.github/composite_actions/setup_firefox
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Bootstrap
         id: bootstrap
