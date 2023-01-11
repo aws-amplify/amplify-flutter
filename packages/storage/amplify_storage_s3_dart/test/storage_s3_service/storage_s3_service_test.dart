@@ -537,8 +537,8 @@ void main() {
             // assert the signer scope is always freshly initiated upon calling
             // `getUrl`
             expect(
-              AWSDateTime(comparingTime).formatFull(),
-              lessThanOrEqualTo(credentialScopeParam.dateTime.formatFull()),
+              comparingTime.isBefore(credentialScopeParam.dateTime.dateTime),
+              isTrue,
             );
 
             expect(capturedParams[2] is S3ServiceConfiguration, isTrue);
