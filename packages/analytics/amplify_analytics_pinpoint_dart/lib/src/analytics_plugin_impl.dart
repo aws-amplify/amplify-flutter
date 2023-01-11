@@ -347,10 +347,12 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
         value: EndpointStoreVersion.v1.name,
       );
     }
+
     // Read the existing ID.
     fixedEndpointId ??= await _endpointInfoStore.read(
       key: endpointIdStorageKey,
     );
+
     // Generate a new ID if one does not exist.
     if (fixedEndpointId == null) {
       fixedEndpointId = uuid();
@@ -359,6 +361,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
         value: fixedEndpointId,
       );
     }
+
     return fixedEndpointId;
   }
 }

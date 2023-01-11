@@ -19,11 +19,10 @@ class FlutterLegacyNativeDataProvider implements LegacyNativeDataProvider {
       return const FlutterLegacyNativeDataProvider._();
     }
 
-    LegacyNativeDataProvider? provider;
-
+    final LegacyNativeDataProvider provider;
     if (Platform.isIOS) {
       provider = DataProviderIos();
-    } else if (Platform.isAndroid) {
+    } else {
       provider = DataProviderAndroid();
     }
 
