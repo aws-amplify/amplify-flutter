@@ -1,3 +1,5 @@
+## 0.6.11 (2023-01-12)
+
 ## 0.6.10 (2022-11-09)
 
 - chore: Bump iOS dependency to 1.28.2 ([#2334](https://github.com/aws-amplify/amplify-flutter/pull/2334))

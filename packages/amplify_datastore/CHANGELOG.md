@@ -1,3 +1,8 @@
+## 0.6.11 (2023-01-12)
+
+- fix(datastore): prevent unhandled exception crashing App rebuilding sync expression ([#2549](https://github.com/aws-amplify/amplify-flutter/pull/2549))
+- fix(datastore): Upgrading from Datastore 0.6.1 to 0.6.8 causes Android app to crash ([#2556](https://github.com/aws-amplify/amplify-flutter/pull/2556))
+
 ## 0.6.10 (2022-11-09)
 
 - chore: Bump iOS dependency to 1.28.2 ([#2334](https://github.com/aws-amplify/amplify-flutter/pull/2334))

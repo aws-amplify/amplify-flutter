@@ -1,3 +1,7 @@
+## 0.6.11 (2023-01-12)
+
+- fix(api): model helpers use targetNames in schemas with CPK enabled ([#2559](https://github.com/aws-amplify/amplify-flutter/pull/2559))
+
 ## 0.6.10 (2022-11-09)
 
 ## 0.6.9 (2022-10-12)
