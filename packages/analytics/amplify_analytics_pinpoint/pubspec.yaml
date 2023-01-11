@@ -35,3 +35,11 @@ dev_dependencies:
   amplify_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+  pigeon: ^4.2.5
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.amazonaws.amplify.amplify_analytics_pinpoint.amplify_analytics_pinpoint
+        pluginClass: AmplifyAnalyticsPinpointPlugin
