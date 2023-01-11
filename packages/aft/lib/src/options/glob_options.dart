@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:aft/aft.dart';
+import 'package:glob/glob.dart';
 
 /// Adds globbing options to a command.
 mixin GlobOptions on AmplifyCommand {
@@ -19,10 +20,10 @@ mixin GlobOptions on AmplifyCommand {
       );
   }
 
-  /// List of packages or components which should be included in versioning.
+  /// List of packages or components which should be included.
   late final include = argResults?['include'] as List<String>? ?? const [];
 
-  /// List of packages or components which should be excluded from versioning.
+  /// List of packages or components which should be excluded.
   late final exclude = argResults?['exclude'] as List<String>? ?? const [];
 
   @override
@@ -31,19 +32,30 @@ mixin GlobOptions on AmplifyCommand {
       super.allPackages.entries.where((entry) {
         final package = entry.value;
         if (include.isNotEmpty) {
+          var explicitlyIncluded = false;
           for (final packageOrComponent in include) {
-            if (package.name == packageOrComponent ||
-                aftConfig.componentForPackage(package.name) ==
-                    packageOrComponent) {
-              return true;
+            // Matches patterns of the form:
+            // - package name, e.g. `amplify_auth_cognito_dart`
+            // - package glob, e.g. `*auth*`
+            // - component name, e.g. `Smithy`
+            final includeGlob = Glob(packageOrComponent);
+            if (includeGlob.matches(package.name) ||
+                packageOrComponent ==
+                    aftConfig.componentForPackage(package.name)) {
+              // Passes include check but may fail exclude.
+              explicitlyIncluded = true;
+              break;
             }
           }
-          return false;
+          if (!explicitlyIncluded) {
+            return false;
+          }
         }
         for (final packageOrComponent in exclude) {
-          if (package.name == packageOrComponent ||
-              aftConfig.componentForPackage(package.name) ==
-                  packageOrComponent) {
+          final excludeGlob = Glob(packageOrComponent);
+          if (excludeGlob.matches(package.name) ||
+              packageOrComponent ==
+                  aftConfig.componentForPackage(package.name)) {
             return false;
           }
         }

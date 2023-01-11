@@ -145,6 +145,12 @@ abstract class AmplifyCommand extends Command<void>
     return config;
   }();
 
+  /// The environment to inject into subcommands.
+  late final Map<String, String> environment = {
+    ...Platform.environment,
+    'AFT_ROOT': rootDir.uri.toFilePath(),
+  };
+
   late final Repo repo = Repo(
     rootDir,
     allPackages: allPackages,

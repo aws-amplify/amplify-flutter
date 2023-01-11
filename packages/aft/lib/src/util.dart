@@ -13,9 +13,9 @@ String? getEnv(String envName) {
   return value == null || value.isEmpty ? null : value;
 }
 
-Never exitError(Object error) {
+Never exitError(Object error, [int exitCode = 1]) {
   stderr.writeln(error);
-  exit(1);
+  exit(exitCode);
 }
 
 typedef ProcessSink = void Function(String);
