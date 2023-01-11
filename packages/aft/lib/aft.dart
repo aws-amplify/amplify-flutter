@@ -7,6 +7,7 @@ export 'src/commands/amplify_command.dart';
 export 'src/commands/bootstrap_command.dart';
 export 'src/commands/clean_command.dart';
 export 'src/commands/deps_command.dart';
+export 'src/commands/exec_command.dart';
 export 'src/commands/generate/generate_command.dart';
 export 'src/commands/link_command.dart';
 export 'src/commands/list_packages_command.dart';
