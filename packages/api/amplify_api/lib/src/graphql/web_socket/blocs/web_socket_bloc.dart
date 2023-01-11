@@ -206,9 +206,13 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   Stream<WebSocketState> _connectionAck(
     ConnectionAckMessageEvent event,
   ) async* {
+    // Connection is already established
+    if (_currentState is ConnectedState) {
+      return;
+    }
     assert(
       _currentState is ConnectingState,
-      'We should never receive an connection ack message while not connecting.',
+      'We should never evaluate a connection ack message while not connecting.',
     );
 
     final timeoutDuration =
