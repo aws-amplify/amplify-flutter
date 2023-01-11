@@ -81,8 +81,8 @@ dependencies {
 
     api amplifyFlutter
 
-    implementation "com.amplifyframework:aws-datastore:2.0.0"
-    implementation "com.amplifyframework:aws-api-appsync:2.0.0"
+    implementation "com.amplifyframework:aws-datastore:2.1.0"
+    implementation "com.amplifyframework:aws-api-appsync:2.1.0"
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:4.0.0'
