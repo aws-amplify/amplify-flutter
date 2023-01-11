@@ -21,8 +21,12 @@ dependencies:
     sdk: flutter
   flutter_test:
     sdk: flutter
-  graphql: 5.1.1
+  graphql: 5.1.2
   stream_transform: ^2.0.0
+
+dependency_overrides:
+  # TODO(dnys1): Remove when `graphql` is updated
+  web_socket_channel: 2.2.0
 
 dev_dependencies:
   amplify_lints: ^1.0.0
