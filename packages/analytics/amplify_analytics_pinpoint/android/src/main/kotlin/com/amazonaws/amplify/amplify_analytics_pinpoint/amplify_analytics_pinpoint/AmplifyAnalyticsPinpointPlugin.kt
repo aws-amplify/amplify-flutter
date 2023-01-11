@@ -25,6 +25,7 @@ class AmplifyAnalyticsPinpointPlugin: FlutterPlugin, Messages.PigeonLegacyDataPr
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         Messages.PigeonLegacyDataProvider.setup(binding.binaryMessenger, null)
+        context = null
     }
 
     override fun getEndpointId(pinpointAppId: String, result: Messages.Result<String?>){

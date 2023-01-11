@@ -2,11 +2,14 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_store_keys.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:drift/drift.dart' show LazyDatabase;
+import 'package:drift/native.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -25,13 +28,16 @@ void main() {
 
     test('First app load, no legacy data, writes proper values', () async {
       when(() => legacyDataProvider.getEndpointId(appId))
-          .thenAnswer((_) => Future.value());
+          .thenAnswer((_) async => null);
 
-      await AmplifyAnalyticsPinpointDart.retrieveEndpointId(
-        pinpointAppId: appId,
-        store: store,
-        legacyDataProvider: legacyDataProvider,
+      final analyticsPlugin = AmplifyAnalyticsPinpointDart(
+        endpointInfoStore: store,
+        legacyNativeDataProvider: legacyDataProvider,
+        dbConnectFunction: ({required String name, FutureOr<String>? path}) {
+          return _openConnection();
+        },
       );
+      await analyticsPlugin.retrieveEndpointId(pinpointAppId: appId);
 
       final storeVersion = await store.read(
         key: EndpointStoreKey.version.name,
@@ -50,11 +56,14 @@ void main() {
       when(() => legacyDataProvider.getEndpointId(appId))
           .thenAnswer((_) => Future.value(legacyEndpointId));
 
-      await AmplifyAnalyticsPinpointDart.retrieveEndpointId(
-        pinpointAppId: appId,
-        store: store,
-        legacyDataProvider: legacyDataProvider,
+      final analyticsPlugin = AmplifyAnalyticsPinpointDart(
+        endpointInfoStore: store,
+        legacyNativeDataProvider: legacyDataProvider,
+        dbConnectFunction: ({required String name, FutureOr<String>? path}) {
+          return _openConnection();
+        },
       );
+      await analyticsPlugin.retrieveEndpointId(pinpointAppId: appId);
 
       final storeVersion = await store.read(
         key: EndpointStoreKey.version.name,
@@ -70,21 +79,23 @@ void main() {
     });
 
     test('Second app load, legacy data is ignored', () async {
-      const legacyEndpointId = 'legacy-endpointId';
       when(() => legacyDataProvider.getEndpointId(appId))
           .thenAnswer((_) => Future.value(legacyEndpointId));
 
-      final endpointId = UUID.getUUID();
+      final endpointId = uuid();
       store.seedData({
         EndpointStoreKey.version.name: EndpointStoreVersion.v1.name,
         AmplifyAnalyticsPinpointDart.endpointIdStorageKey: endpointId
       });
 
-      await AmplifyAnalyticsPinpointDart.retrieveEndpointId(
-        pinpointAppId: appId,
-        store: store,
-        legacyDataProvider: legacyDataProvider,
+      final analyticsPlugin = AmplifyAnalyticsPinpointDart(
+        endpointInfoStore: store,
+        legacyNativeDataProvider: legacyDataProvider,
+        dbConnectFunction: ({required String name, FutureOr<String>? path}) {
+          return _openConnection();
+        },
       );
+      await analyticsPlugin.retrieveEndpointId(pinpointAppId: appId);
 
       final migratedEndpointId = await store.read(
         key: AmplifyAnalyticsPinpointDart.endpointIdStorageKey,
@@ -93,6 +104,14 @@ void main() {
 
       verifyNever(() => legacyDataProvider.getEndpointId(any()));
     });
+  });
+}
+
+LazyDatabase _openConnection() {
+  // the LazyDatabase util lets us find the right location for the file async.
+  return LazyDatabase(() async {
+    final file = File('db.sqlite');
+    return NativeDatabase.createInBackground(file);
   });
 }
 

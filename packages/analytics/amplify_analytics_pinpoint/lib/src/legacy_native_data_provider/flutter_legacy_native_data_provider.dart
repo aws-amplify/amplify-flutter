@@ -15,11 +15,13 @@ import 'package:aws_common/aws_common.dart';
 class FlutterLegacyNativeDataProvider implements LegacyNativeDataProvider {
   /// {@macro amplify_analytics_pinpoint.flutter_legacy_native_data_provider}
   factory FlutterLegacyNativeDataProvider() {
+    if (zIsWeb || !(Platform.isIOS || Platform.isAndroid)) {
+      return const FlutterLegacyNativeDataProvider._();
+    }
+
     LegacyNativeDataProvider? provider;
 
-    if (zIsWeb) {
-      return FlutterLegacyNativeDataProvider._(provider);
-    } else if (Platform.isIOS) {
+    if (Platform.isIOS) {
       provider = DataProviderIos();
     } else if (Platform.isAndroid) {
       provider = DataProviderAndroid();
@@ -28,13 +30,12 @@ class FlutterLegacyNativeDataProvider implements LegacyNativeDataProvider {
     return FlutterLegacyNativeDataProvider._(provider);
   }
 
-  FlutterLegacyNativeDataProvider._(this._nativeDataProvider);
+  const FlutterLegacyNativeDataProvider._([this._nativeDataProvider]);
 
   final LegacyNativeDataProvider? _nativeDataProvider;
 
   @override
   Future<String?> getEndpointId(String pinpointAppId) async {
-    if (_nativeDataProvider == null) return null;
-    return _nativeDataProvider!.getEndpointId(pinpointAppId);
+    return _nativeDataProvider?.getEndpointId(pinpointAppId);
   }
 }

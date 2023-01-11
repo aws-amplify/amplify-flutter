@@ -142,8 +142,6 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
 
     final fixedEndpointId = await retrieveEndpointId(
       pinpointAppId: appId,
-      store: _endpointInfoStore,
-      legacyDataProvider: _legacyNativeDataProvider,
     );
 
     final endpoint = PublicEndpoint(
@@ -324,51 +322,43 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
 
   /// Retrieve the stored pinpoint endpoint id
   @visibleForTesting
-  static Future<String> retrieveEndpointId({
+  Future<String> retrieveEndpointId({
     required String pinpointAppId,
-    required SecureStorageInterface store,
-    LegacyNativeDataProvider? legacyDataProvider,
   }) async {
     // Retrieve Unique ID
     final endpointInformationVersion =
-        await store.read(key: EndpointStoreKey.version.name);
+        await _endpointInfoStore.read(key: EndpointStoreKey.version.name);
 
-    // Attempt migration if version is null.
+    String? fixedEndpointId;
     if (endpointInformationVersion == null) {
       final legacyEndpointId =
-          await legacyDataProvider?.getEndpointId(pinpointAppId);
+          await _legacyNativeDataProvider?.getEndpointId(pinpointAppId);
       // Migrate legacy data if it is non-null
       if (legacyEndpointId != null) {
-        await store.write(
+        fixedEndpointId = legacyEndpointId;
+        await _endpointInfoStore.write(
           key: endpointIdStorageKey,
           value: legacyEndpointId,
         );
       }
       // Update the version to prevent future legacy data migrations.
-      await store.write(
+      await _endpointInfoStore.write(
         key: EndpointStoreKey.version.name,
         value: EndpointStoreVersion.v1.name,
       );
     }
-
     // Read the existing ID.
-    final currentEndpointId = await store.read(
+    fixedEndpointId ??= await _endpointInfoStore.read(
       key: endpointIdStorageKey,
     );
-
-    final String fixedEndpointId;
-
     // Generate a new ID if one does not exist.
-    if (currentEndpointId == null) {
+    if (fixedEndpointId == null) {
       fixedEndpointId = uuid();
-      await store.write(
+      await _endpointInfoStore.write(
         key: endpointIdStorageKey,
         value: fixedEndpointId,
       );
-    } else {
-      fixedEndpointId = currentEndpointId;
     }
-
     return fixedEndpointId;
   }
 }
