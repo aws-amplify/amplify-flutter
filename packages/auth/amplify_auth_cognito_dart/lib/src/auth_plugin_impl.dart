@@ -685,8 +685,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<List<AuthUserAttribute<CognitoUserAttributeKey>>> fetchUserAttributes({
     FetchUserAttributesOptions? options,
   }) async {
-    final credentials = await getCredentials();
-    final tokens = credentials.userPoolTokens!;
+    final tokens = await getUserPoolTokens();
     final resp = await _cognitoIdp
         .getUser(
           cognito.GetUserRequest(
@@ -726,8 +725,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     required List<AuthUserAttribute<AuthUserAttributeKey>> attributes,
     CognitoUpdateUserAttributesOptions? options,
   }) async {
-    final credentials = await getCredentials();
-    final tokens = credentials.userPoolTokens!;
+    final tokens = await getUserPoolTokens();
     final response = await _cognitoIdp
         .updateUserAttributes(
           cognito.UpdateUserAttributesRequest.build(
@@ -773,8 +771,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     required String confirmationCode,
     ConfirmUserAttributeOptions? options,
   }) async {
-    final credentials = await getCredentials();
-    final tokens = credentials.userPoolTokens!;
+    final tokens = await getUserPoolTokens();
     await _cognitoIdp
         .verifyUserAttribute(
           cognito.VerifyUserAttributeRequest(
@@ -793,8 +790,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     required CognitoUserAttributeKey userAttributeKey,
     CognitoResendUserAttributeConfirmationCodeOptions? options,
   }) async {
-    final credentials = await getCredentials();
-    final tokens = credentials.userPoolTokens!;
+    final tokens = await getUserPoolTokens();
     final result = await _cognitoIdp
         .getUserAttributeVerificationCode(
           cognito.GetUserAttributeVerificationCodeRequest(
@@ -821,8 +817,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     // TODO(dnys1): Where does clientMetadata go?
     CognitoUpdatePasswordOptions? options,
   }) async {
-    final credentials = await getCredentials();
-    final tokens = credentials.userPoolTokens!;
+    final tokens = await getUserPoolTokens();
     await _cognitoIdp
         .changePassword(
           cognito.ChangePasswordRequest(
@@ -912,21 +907,24 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<CognitoAuthUser> getCurrentUser({
     AuthUserOptions? options,
   }) async {
-    final credentials = await getCredentials();
-    final tokens = credentials.userPoolTokens!;
+    final credentials = await getCredentialStoreData();
+    final tokens = credentials.userPoolTokens;
+    final signInDetails = credentials.signInDetails;
+    if (tokens == null || signInDetails == null) {
+      throw const SignedOutException('No user is currently signed in');
+    }
     final userId = tokens.idToken.userId;
     final username = tokens.username;
     return CognitoAuthUser(
       userId: userId,
       username: username,
-      signInDetails: credentials.signInDetails!,
+      signInDetails: signInDetails,
     );
   }
 
   @override
   Future<void> rememberDevice() async {
-    final credentials = await getCredentials();
-    final tokens = credentials.userPoolTokens!;
+    final tokens = await getUserPoolTokens();
     final username = tokens.username;
     final deviceSecrets = await _deviceRepo.get(username);
     final deviceKey = deviceSecrets?.deviceKey;
@@ -958,8 +956,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
   @override
   Future<void> forgetDevice([CognitoDevice? device]) async {
-    final credentials = await getCredentials();
-    final tokens = credentials.userPoolTokens!;
+    final tokens = await getUserPoolTokens();
     final username = tokens.username;
     final deviceSecrets = await _deviceRepo.get(username);
     final deviceKey = device?.id ?? deviceSecrets?.deviceKey;
@@ -983,8 +980,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
     String? paginationToken;
     do {
-      final credentials = await getCredentials();
-      final tokens = credentials.userPoolTokens!;
+      final tokens = await getUserPoolTokens();
       const devicePageLimit = 60;
       final resp = await _cognitoIdp
           .listDevices(
@@ -1034,8 +1030,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     // since an unauthenticated user may still be cached.
     final CognitoUserPoolTokens tokens;
     try {
-      final credentials = await getCredentials();
-      tokens = credentials.userPoolTokens!;
+      tokens = await getUserPoolTokens();
     } on SignedOutException {
       _hubEventController.add(AuthHubEvent.signedOut());
       return const CognitoSignOutResult.complete();
@@ -1139,8 +1134,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
   @override
   Future<void> deleteUser() async {
-    final credentials = await getCredentials();
-    final tokens = credentials.userPoolTokens!;
+    final tokens = await getUserPoolTokens();
     await _cognitoIdp
         .deleteUser(
           cognito.DeleteUserRequest(
@@ -1157,19 +1151,27 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       ..add(AuthHubEvent.userDeleted());
   }
 
-  /// Checks for the presence of user pool tokens.
-  ///
-  /// Throws [SignedOutException] if tokens are not present.
+  /// Gets the current credential data in secure storage (which may be
+  /// outdated or expired).
   @visibleForTesting
-  Future<CredentialStoreData> getCredentials() async {
+  Future<CredentialStoreData> getCredentialStoreData() async {
     final credentialState = await stateMachine
         .getOrCreate<CredentialStoreStateMachine>()
         .getCredentialsResult();
-    final userPoolTokens = credentialState.data.userPoolTokens;
+    return credentialState.data;
+  }
+
+  /// Gets the current user pool tokens.
+  ///
+  /// Throws [SignedOutException] if tokens are not present.
+  @visibleForTesting
+  Future<CognitoUserPoolTokens> getUserPoolTokens() async {
+    final authSession = await fetchAuthSession();
+    final userPoolTokens = authSession.userPoolTokens;
     if (userPoolTokens == null) {
       throw const SignedOutException('No user is currently signed in');
     }
-    return credentialState.data;
+    return userPoolTokens;
   }
 
   @override

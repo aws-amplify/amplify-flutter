@@ -85,9 +85,9 @@ void main() {
         );
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
-        await expectLater(plugin.getCredentials(), completes);
+        await expectLater(plugin.getUserPoolTokens(), completes);
         await expectLater(plugin.deleteUser(), completes);
-        expect(plugin.getCredentials(), throwsSignedOutException);
+        expect(plugin.getUserPoolTokens(), throwsSignedOutException);
         expect(hubEvents, emitsThrough(userDeletedEvent));
       });
 
@@ -109,9 +109,9 @@ void main() {
         );
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
-        await expectLater(plugin.getCredentials(), completes);
+        await expectLater(plugin.getUserPoolTokens(), completes);
         await expectLater(plugin.deleteUser(), throwsA(isA<Exception>()));
-        expect(plugin.getCredentials(), completes);
+        expect(plugin.getUserPoolTokens(), completes);
         expect(hubEvents, neverEmits(userDeletedEvent));
         unawaited(hubEventsController.close());
       });
