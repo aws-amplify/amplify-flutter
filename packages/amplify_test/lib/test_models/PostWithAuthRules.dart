@@ -206,6 +206,11 @@ class _PostWithAuthRulesModelType extends ModelType<PostWithAuthRules> {
   PostWithAuthRules fromJson(Map<String, dynamic> jsonData) {
     return PostWithAuthRules.fromJson(jsonData);
   }
+
+  @override
+  String modelName() {
+    return 'PostWithAuthRules';
+  }
 }
 
 /// This is an auto generated class representing the model identifier

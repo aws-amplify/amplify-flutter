@@ -169,6 +169,11 @@ class _StringListTypeModelModelType extends ModelType<StringListTypeModel> {
   StringListTypeModel fromJson(Map<String, dynamic> jsonData) {
     return StringListTypeModel.fromJson(jsonData);
   }
+
+  @override
+  String modelName() {
+    return 'StringListTypeModel';
+  }
 }
 
 /// This is an auto generated class representing the model identifier

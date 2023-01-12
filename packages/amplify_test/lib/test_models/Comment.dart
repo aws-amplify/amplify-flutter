@@ -156,8 +156,7 @@ class Comment extends Model {
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField POST = QueryField(
       fieldName: "post",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (Post).toString()));
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Post'));
   static final QueryField CONTENT = QueryField(fieldName: "content");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
@@ -173,11 +172,8 @@ class Comment extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: Comment.POST,
         isRequired: false,
-        // TODO(Jordan-Nelson): Remove `targetName` when API category has been
-        // updated to support CPK changes. This was added manually.
-        targetName: "postID",
-        targetNames: ["postID"],
-        ofModelName: (Post).toString()));
+        targetNames: ['postID'],
+        ofModelName: 'Post'));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Comment.CONTENT,
@@ -204,6 +200,11 @@ class _CommentModelType extends ModelType<Comment> {
   @override
   Comment fromJson(Map<String, dynamic> jsonData) {
     return Comment.fromJson(jsonData);
+  }
+
+  @override
+  String modelName() {
+    return 'Comment';
   }
 }
 
