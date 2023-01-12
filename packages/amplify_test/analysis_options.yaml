@@ -4,4 +4,4 @@ analyzer:
   errors:
     public_member_api_docs: ignore
   exclude:
-    - lib/test_models/*
+    - lib/test_models/**
