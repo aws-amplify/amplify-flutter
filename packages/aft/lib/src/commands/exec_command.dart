@@ -23,25 +23,26 @@ class ExecCommand extends AmplifyCommand with GlobOptions, FailFastOption {
       usageException('Invalid command. Run `aft exec -- <command>`');
     }
     await linkPackages(allPackages);
-    for (final package in allPackages.values) {
-      // Process command to handle some quirks of bash and how Dart initially
-      // captures these scripts.
-      final command = rawCommand
-          .map((arg) => arg.trim())
-          .where((arg) => arg.isNotEmpty)
-          .map((arg) {
-        // Inject environment variables for inline scripts.
-        //
-        // We use bracket notation (e.g. <VARIABLE>) to prevent bash expansion
-        // and prevent having to deal with proper quotation and escaping.
-        environment.forEach((key, value) {
-          arg = arg.replaceAll('<$key>', value);
-        });
-        return arg;
-      }).toList();
 
+    // Process command to handle some quirks of bash and how Dart initially
+    // captures these scripts.
+    final command = rawCommand
+        .map((arg) => arg.trim())
+        .where((arg) => arg.isNotEmpty)
+        .map((arg) {
+      // Inject environment variables for inline scripts.
+      //
+      // We use bracket notation (e.g. <VARIABLE>) to prevent bash expansion
+      // and prevent having to deal with proper quotation and escaping.
+      environment.forEach((key, value) {
+        arg = arg.replaceAll('<$key>', value);
+      });
+      return arg;
+    }).toList();
+
+    for (final package in allPackages.values) {
       logger.info(
-        'Running `${command.join(' ')}` in "${package.path}"...',
+        'Running "${command.join(' ')}" in "${package.path}"...',
       );
       final result = await execCommand(command, package);
       if (result.exitCode != 0) {
