@@ -19,14 +19,14 @@
 
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
-import 'MtmModelProvider.dart';
+import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the SecondMtmRelation type in your schema. */
+/// This is an auto generated class representing the SecondMtmRelation type in your schema.
 @immutable
 class SecondMtmRelation extends Model {
-  static const classType = const _SecondMtmRelationModelType();
+  static const classType = _SecondMtmRelationModelType();
   final String id;
   final ManyToManyPrimary? _manyToManyPrimary;
   final ManyToManySecondary? _manyToManySecondary;
@@ -36,16 +36,20 @@ class SecondMtmRelation extends Model {
   @override
   getInstanceType() => classType;
 
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+
+  SecondMtmRelationModelIdentifier get modelIdentifier {
+    return SecondMtmRelationModelIdentifier(id: id);
   }
 
   ManyToManyPrimary get manyToManyPrimary {
     try {
       return _manyToManyPrimary!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -58,7 +62,7 @@ class SecondMtmRelation extends Model {
     try {
       return _manyToManySecondary!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -114,7 +118,7 @@ class SecondMtmRelation extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("SecondMtmRelation {");
     buffer.write("id=" + "$id" + ", ");
@@ -137,11 +141,10 @@ class SecondMtmRelation extends Model {
   }
 
   SecondMtmRelation copyWith(
-      {String? id,
-      ManyToManyPrimary? manyToManyPrimary,
+      {ManyToManyPrimary? manyToManyPrimary,
       ManyToManySecondary? manyToManySecondary}) {
     return SecondMtmRelation._internal(
-        id: id ?? this.id,
+        id: id,
         manyToManyPrimary: manyToManyPrimary ?? this.manyToManyPrimary,
         manyToManySecondary: manyToManySecondary ?? this.manyToManySecondary);
   }
@@ -150,12 +153,12 @@ class SecondMtmRelation extends Model {
       : id = json['id'],
         _manyToManyPrimary =
             json['manyToManyPrimary']?['serializedData'] != null
-                ? ManyToManyPrimary.fromJson(new Map<String, dynamic>.from(
+                ? ManyToManyPrimary.fromJson(Map<String, dynamic>.from(
                     json['manyToManyPrimary']['serializedData']))
                 : null,
         _manyToManySecondary =
             json['manyToManySecondary']?['serializedData'] != null
-                ? ManyToManySecondary.fromJson(new Map<String, dynamic>.from(
+                ? ManyToManySecondary.fromJson(Map<String, dynamic>.from(
                     json['manyToManySecondary']['serializedData']))
                 : null,
         _createdAt = json['createdAt'] != null
@@ -173,33 +176,52 @@ class SecondMtmRelation extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'manyToManyPrimary': _manyToManyPrimary,
+        'manyToManySecondary': _manyToManySecondary,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
+  static final QueryModelIdentifier<SecondMtmRelationModelIdentifier>
+      MODEL_IDENTIFIER =
+      QueryModelIdentifier<SecondMtmRelationModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField MANYTOMANYPRIMARY = QueryField(
       fieldName: "manyToManyPrimary",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (ManyToManyPrimary).toString()));
+          ofModelName: 'ManyToManyPrimary'));
   static final QueryField MANYTOMANYSECONDARY = QueryField(
       fieldName: "manyToManySecondary",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (ManyToManySecondary).toString()));
+          ofModelName: 'ManyToManySecondary'));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "SecondMtmRelation";
     modelSchemaDefinition.pluralName = "SecondMtmRelations";
+
+    modelSchemaDefinition.indexes = [
+      ModelIndex(
+          fields: const ["manyToManyPrimaryId"], name: "byManyToManyPrimary"),
+      ModelIndex(
+          fields: const ["manyToManySecondaryId"],
+          name: "byManyToManySecondary")
+    ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: SecondMtmRelation.MANYTOMANYPRIMARY,
         isRequired: true,
-        targetName: "manyToManyPrimaryID",
-        ofModelName: (ManyToManyPrimary).toString()));
+        targetNames: ['manyToManyPrimaryId'],
+        ofModelName: 'ManyToManyPrimary'));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: SecondMtmRelation.MANYTOMANYSECONDARY,
         isRequired: true,
-        targetName: "manyToManySecondaryID",
-        ofModelName: (ManyToManySecondary).toString()));
+        targetNames: ['manyToManySecondaryId'],
+        ofModelName: 'ManyToManySecondary'));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -222,4 +244,47 @@ class _SecondMtmRelationModelType extends ModelType<SecondMtmRelation> {
   SecondMtmRelation fromJson(Map<String, dynamic> jsonData) {
     return SecondMtmRelation.fromJson(jsonData);
   }
+
+  @override
+  String modelName() {
+    return 'SecondMtmRelation';
+  }
+}
+
+/// This is an auto generated class representing the model identifier
+/// of [SecondMtmRelation] in your schema.
+@immutable
+class SecondMtmRelationModelIdentifier
+    implements ModelIdentifier<SecondMtmRelation> {
+  final String id;
+
+  /// Create an instance of SecondMtmRelationModelIdentifier using [id] the primary key.
+  const SecondMtmRelationModelIdentifier({required this.id});
+
+  @override
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+
+  @override
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
+  @override
+  String serializeAsString() => serializeAsMap().values.join('#');
+
+  @override
+  String toString() => 'SecondMtmRelationModelIdentifier(id: $id)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+
+    return other is SecondMtmRelationModelIdentifier && id == other.id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }
