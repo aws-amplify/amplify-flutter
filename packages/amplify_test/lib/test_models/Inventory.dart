@@ -276,6 +276,11 @@ class _InventoryModelType extends ModelType<Inventory> {
   Inventory fromJson(Map<String, dynamic> jsonData) {
     return Inventory.fromJson(jsonData);
   }
+
+  @override
+  String modelName() {
+    return 'Inventory';
+  }
 }
 
 /// This is an auto generated class representing the model identifier
