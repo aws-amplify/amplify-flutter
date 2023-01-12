@@ -1,5 +1,7 @@
 include: package:amplify_lints/library.yaml
 
-analyzer: 
+analyzer:
   errors:
-    implementation_imports: error #TODO(equartey): Remove when lint is enforced project-wide    
+    implementation_imports: error #TODO(equartey): Remove when lint is enforced project-wide
+  exclude:
+    - "**/*.g.dart"

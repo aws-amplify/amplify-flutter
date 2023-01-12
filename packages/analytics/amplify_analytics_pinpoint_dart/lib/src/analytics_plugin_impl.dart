@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_global_fields_manager.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_store_keys.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_storage_adapter.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_creator/event_creator.dart';
@@ -18,7 +19,6 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_db_common_dart/amplify_db_common_dart.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:meta/meta.dart';
-import 'package:uuid/uuid.dart';
 
 /// The Analytics Pinpoint session start event type.
 @visibleForTesting
@@ -41,6 +41,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     CachedEventsPathProvider? pathProvider,
     AppLifecycleProvider? appLifecycleProvider,
     DeviceContextInfoProvider? deviceContextInfoProvider,
+    LegacyNativeDataProvider? legacyNativeDataProvider,
     required Connect dbConnectFunction,
   })  : _endpointInfoStore = endpointInfoStore ??
             AmplifySecureStorageWorker(
@@ -51,6 +52,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
         _pathProvider = pathProvider,
         _appLifecycleProvider = appLifecycleProvider,
         _deviceContextInfoProvider = deviceContextInfoProvider,
+        _legacyNativeDataProvider = legacyNativeDataProvider,
         _dbConnectFunction = dbConnectFunction;
 
   void _ensureConfigured() {
@@ -88,6 +90,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   final CachedEventsPathProvider? _pathProvider;
   final AppLifecycleProvider? _appLifecycleProvider;
   final DeviceContextInfoProvider? _deviceContextInfoProvider;
+  final LegacyNativeDataProvider? _legacyNativeDataProvider;
   final Connect _dbConnectFunction;
 
   static final _logger = AmplifyLogger.category(Category.analytics);
@@ -137,16 +140,9 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
       deviceContextInfo: deviceContextInfo,
     );
 
-    // Retrieve Unique ID
-    final savedFixedEndpointId =
-        await _endpointInfoStore.read(key: endpointIdStorageKey);
-    final fixedEndpointId = savedFixedEndpointId ?? const Uuid().v1();
-    if (savedFixedEndpointId == null) {
-      await _endpointInfoStore.write(
-        key: endpointIdStorageKey,
-        value: fixedEndpointId,
-      );
-    }
+    final fixedEndpointId = await retrieveEndpointId(
+      pinpointAppId: appId,
+    );
 
     final endpoint = PublicEndpoint(
       effectiveDate: DateTime.now().toUtc().toIso8601String(),
@@ -322,5 +318,50 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     _autoEventSubmitter.stop();
     await _eventClient.close();
     await _eventStorageAdapter.close();
+  }
+
+  /// Retrieve the stored pinpoint endpoint id
+  @visibleForTesting
+  Future<String> retrieveEndpointId({
+    required String pinpointAppId,
+  }) async {
+    // Retrieve Unique ID
+    final endpointInformationVersion =
+        await _endpointInfoStore.read(key: EndpointStoreKey.version.name);
+
+    String? fixedEndpointId;
+    if (endpointInformationVersion == null) {
+      final legacyEndpointId =
+          await _legacyNativeDataProvider?.getEndpointId(pinpointAppId);
+      // Migrate legacy data if it is non-null
+      if (legacyEndpointId != null) {
+        fixedEndpointId = legacyEndpointId;
+        await _endpointInfoStore.write(
+          key: endpointIdStorageKey,
+          value: legacyEndpointId,
+        );
+      }
+      // Update the version to prevent future legacy data migrations.
+      await _endpointInfoStore.write(
+        key: EndpointStoreKey.version.name,
+        value: EndpointStoreVersion.v1.name,
+      );
+    }
+
+    // Read the existing ID.
+    fixedEndpointId ??= await _endpointInfoStore.read(
+      key: endpointIdStorageKey,
+    );
+
+    // Generate a new ID if one does not exist.
+    if (fixedEndpointId == null) {
+      fixedEndpointId = uuid();
+      await _endpointInfoStore.write(
+        key: endpointIdStorageKey,
+        value: fixedEndpointId,
+      );
+    }
+
+    return fixedEndpointId;
   }
 }

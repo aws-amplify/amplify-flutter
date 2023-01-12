@@ -116,7 +116,12 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _identifyUser() async {
-    final analyticsUserProfile = AnalyticsUserProfile();
+    final analyticsUserProfile = AWSPinpointUserProfile(
+        userAttributes: AnalyticsProperties()
+          ..addStringProperty('${_userId}_user_stringKey', 'stringValue')
+          ..addIntProperty('${_userId}_user_intKey', 10)
+          ..addDoubleProperty('${_userId}_user_doubleKey', 10)
+          ..addBoolProperty('${_userId}_user_boolKey', false));
     analyticsUserProfile.name = '${_userId}_name';
     analyticsUserProfile.email = '${_userId}_email';
     analyticsUserProfile.plan = '${_userId}_plan';
@@ -132,10 +137,11 @@ class _MyAppState extends State<MyApp> {
     analyticsUserProfile.location = analyticsUserLocation;
 
     final properties = AnalyticsProperties();
-    properties.addStringProperty('${_userId}_stringKey', 'stringValue');
-    properties.addIntProperty('${_userId}_intKey', 10);
-    properties.addDoubleProperty('${_userId}_doubleKey', 10);
-    properties.addBoolProperty('${_userId}_boolKey', false);
+    properties.addStringProperty(
+        '${_userId}_endpoint_stringKey', 'stringValue');
+    properties.addIntProperty('${_userId}_endpoint_intKey', 10);
+    properties.addDoubleProperty('${_userId}_endpoint_doubleKey', 10);
+    properties.addBoolProperty('${_userId}_endpoint_boolKey', false);
 
     analyticsUserProfile.properties = properties;
 

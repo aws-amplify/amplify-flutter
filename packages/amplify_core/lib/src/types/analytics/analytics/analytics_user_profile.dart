@@ -18,14 +18,4 @@ class AnalyticsUserProfile {
     this.location,
     AnalyticsProperties? analyticsProperties,
   }) : properties = analyticsProperties;
-
-  Map<String, Object?> getAllProperties() => {
-        if (name != null) 'name': name,
-        if (email != null) 'email': email,
-        if (plan != null) 'plan': plan,
-        if (location != null) 'location': location!.getAllProperties(),
-        if (properties != null) 'propertiesMap': properties!.getAllProperties(),
-        if (properties != null)
-          'propertiesTypesMap': properties!.getAllPropertiesTypes(),
-      };
 }

@@ -5,7 +5,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:graphql/client.dart';
 import 'package:stream_transform/stream_transform.dart';
 
 import 'types/create_mfa_code_response.dart';
@@ -22,18 +21,45 @@ mutation DeleteUser($username: String!) {
   }
 }''';
 
-Future<GraphQLClient> get _graphQLClient async {
+final _client = AWSHttpClient()..supportedProtocols = SupportedProtocols.http1;
+
+Future<Map<String, Object?>> _graphQL(
+  String document, {
+  Map<String, Object?>? variables,
+}) async {
   final config = await Amplify.asyncConfig;
   final api = config.api!.awsPlugin!.default$!;
-  return GraphQLClient(
-    cache: GraphQLCache(),
-    link: HttpLink(
-      api.endpoint,
-      defaultHeaders: {
-        'x-api-key': api.apiKey!,
-      },
-    ),
+  final response = await _client
+      .send(
+        AWSStreamedHttpRequest.post(
+          Uri.parse(api.endpoint).replace(path: '/graphql'),
+          headers: {
+            'x-api-key': api.apiKey!,
+          },
+          body: HttpPayload.json({
+            'query': document,
+            if (variables != null) 'variables': variables,
+          }),
+        ),
+      )
+      .response;
+  if (response.statusCode != 200) {
+    throw Exception('${response.statusCode}: ${response.body}');
+  }
+  final responseJson =
+      jsonDecode(await response.decodeBody()) as Map<String, Object?>;
+  final result = GraphQLResponse(
+    data: responseJson['data'] as Map<String, Object?>?,
+    errors: (responseJson['errors'] as List?)
+            ?.cast<Map<String, Object?>>()
+            .map(GraphQLResponseError.fromJson)
+            .toList() ??
+        const [],
   );
+  if (result.errors.isNotEmpty) {
+    throw Exception(result.errors);
+  }
+  return result.data!;
 }
 
 /// Deletes a Cognito user in backend infrastructure.
@@ -41,18 +67,14 @@ Future<GraphQLClient> get _graphQLClient async {
 /// This method differs from the Auth.deleteUser API in that
 /// an access token is not required.
 Future<void> deleteUser(String username) async {
-  final client = await _graphQLClient;
-
-  final options = MutationOptions(
-    document: gql(deleteDocument),
+  final result = await _graphQL(
+    deleteDocument,
     variables: <String, dynamic>{
       'username': username,
     },
   );
 
-  final result = await client.mutate(options);
-  final deleteError =
-      result.data?['deleteUser']?['error'] ?? result.exception?.toString();
+  final deleteError = (result['deleteUser'] as Map?)?['error'];
   if (deleteError != null) {
     throw Exception(deleteError);
   }
@@ -79,8 +101,6 @@ Future<void> adminCreateUser(
   bool verifyAttributes = false,
   List<AuthUserAttribute> attributes = const [],
 }) async {
-  final client = await _graphQLClient;
-
   final createUserParams = <String, dynamic>{
     'autoConfirm': autoConfirm,
     'email': attributes
@@ -116,9 +136,8 @@ Future<void> adminCreateUser(
   };
 
   _logger.debug('Creating user "$username" with values: $createUserParams');
-  final options = MutationOptions(
-    document: gql(
-      r'''
+  final result = await _graphQL(
+    r'''
           mutation CreateUser($input: CreateUserInput!) {
             createUser(input: $input) {
               success
@@ -126,7 +145,6 @@ Future<void> adminCreateUser(
             }
           }
       ''',
-    ),
     variables: {
       'input': {
         ...createUserParams,
@@ -135,9 +153,7 @@ Future<void> adminCreateUser(
     },
   );
 
-  final result = await client.mutate(options);
-  final createError =
-      result.data?['createUser']?['error'] ?? result.exception?.toString();
+  final createError = (result['createUser'] as Map?)?['error'];
   if (createError != null) {
     throw Exception(createError);
   }
