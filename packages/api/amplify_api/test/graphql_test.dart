@@ -393,11 +393,13 @@ void main() {
         subscriptionRequest.id,
       );
 
-      initMockConnection(
-        mockWebSocketBloc!,
-        mockWebSocketService!,
-        subscriptionRequest2.id,
-      );
+      mockWebSocketBloc!.stream.listen((event) {
+        final state = event;
+        if (state is ConnectedState) {
+          mockWebSocketService!.channel.sink
+              .add(jsonEncode(startAck(subscriptionRequest2.id)));
+        }
+      });
 
       final subscription = Amplify.API.subscribe(
         subscriptionRequest,

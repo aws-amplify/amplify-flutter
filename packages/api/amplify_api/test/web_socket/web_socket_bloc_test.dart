@@ -170,6 +170,7 @@ void main() {
         emitsInOrder(
           [
             isA<DisconnectedState>(),
+            isA<InitializingState>(),
             isA<ConnectingState>(),
             isA<ConnectedState>(),
             isA<ReconnectingState>(),
@@ -216,6 +217,7 @@ void main() {
         emitsInOrder(
           [
             isA<DisconnectedState>(),
+            isA<InitializingState>(),
             isA<ConnectingState>(),
             isA<ConnectedState>(),
             isA<ReconnectingState>(),
@@ -300,6 +302,7 @@ void main() {
         emitsInOrder(
           [
             isA<DisconnectedState>(),
+            isA<InitializingState>(),
             isA<ConnectingState>(),
             isA<ConnectedState>(),
             isA<ReconnectingState>(),
@@ -369,6 +372,7 @@ void main() {
           emitsInOrder(
             [
               isA<DisconnectedState>(),
+              isA<InitializingState>(),
               isA<ConnectingState>(),
               isA<FailureState>(),
               isA<PendingDisconnect>(),
@@ -396,6 +400,7 @@ void main() {
           emitsInOrder(
             [
               isA<DisconnectedState>(),
+              isA<InitializingState>(),
               isA<ConnectingState>(),
               isA<ConnectedState>(),
               isA<FailureState>(),
@@ -427,6 +432,7 @@ void main() {
           emitsInOrder(
             [
               isA<DisconnectedState>(),
+              isA<InitializingState>(),
               isA<ConnectingState>(),
               isA<ConnectedState>(),
               isA<ReconnectingState>(),

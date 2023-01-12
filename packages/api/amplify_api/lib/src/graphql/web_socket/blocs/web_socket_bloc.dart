@@ -206,10 +206,6 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   Stream<WebSocketState> _connectionAck(
     ConnectionAckMessageEvent event,
   ) async* {
-    // Connection is already established
-    if (_currentState is ConnectedState) {
-      return;
-    }
     assert(
       _currentState is ConnectingState,
       'We should never evaluate a connection ack message while not connecting.',
@@ -268,9 +264,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   // Init connection and add channel events to the event stream.
   Stream<WebSocketState> _init(InitEvent event) async* {
     assert(
-      _currentState is DisconnectedState ||
-          _currentState is ConnectingState ||
-          _currentState is ReconnectingState,
+      _currentState is InitializingState || _currentState is ReconnectingState,
       'Bloc should not be in ${_currentState.runtimeType} when calling init.',
     );
 
@@ -398,7 +392,10 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     // Establish web socket connection first.
     // Registration will then happen after connection ack is received.
     if (currentState is! ConnectedState) {
-      add(const InitEvent());
+      if (currentState is! InitializingState) {
+        yield _currentState.initializing();
+        add(const InitEvent());
+      }
       return;
     }
 

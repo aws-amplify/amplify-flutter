@@ -105,6 +105,66 @@ void main({bool useExistingTestUser = false}) {
             expect(blogFromEvent?.name, equals(name));
           });
 
+          testWidgets(
+              'subscribe() should handle multiple streams synchronously',
+              (WidgetTester tester) async {
+            final readyCompleter = Completer<void>();
+            final readyCompleter2 = Completer<void>();
+            final dataCompleter = Completer<Blog>();
+            final dataCompleter2 = Completer<Blog>();
+
+            final name =
+                'Integration Test Blog - subscription sync test ${uuid()}';
+
+            final subscriptionRequest1 = ModelSubscriptions.onCreate(
+              Blog.classType,
+              authorizationMode: APIAuthorizationType.apiKey,
+            );
+
+            final stream1 = Amplify.API.subscribe(
+              subscriptionRequest1,
+              onEstablished: expectAsync0(readyCompleter.complete),
+            );
+            stream1.listen(
+              ((event) {
+                if (event.data?.name == name) {
+                  final blogFromEvent = event.data;
+                  expect(blogFromEvent?.name, equals(name));
+                  dataCompleter.complete(event.data);
+                }
+              }),
+              onError: (Object e) => fail('Error in subscription stream: $e'),
+            );
+
+            final subscriptionRequest2 = ModelSubscriptions.onCreate(
+              Blog.classType,
+              authorizationMode: APIAuthorizationType.apiKey,
+            );
+
+            final stream2 = Amplify.API.subscribe(
+              subscriptionRequest2,
+              onEstablished: expectAsync0(readyCompleter2.complete),
+            );
+            stream2.listen(
+              ((event) {
+                if (event.data?.name == name) {
+                  final blogFromEvent = event.data;
+                  expect(blogFromEvent?.name, equals(name));
+                  dataCompleter2.complete(event.data);
+                }
+              }),
+              onError: (Object e) => fail('Error in subscription stream: $e'),
+            );
+
+            await readyCompleter.future;
+            await readyCompleter2.future;
+
+            await addBlog(name);
+
+            await dataCompleter.future;
+            await dataCompleter2.future;
+          });
+
           testWidgets('should parse errors within a web socket data message',
               (WidgetTester tester) async {
             final name =
