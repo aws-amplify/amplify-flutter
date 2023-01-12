@@ -12,6 +12,7 @@ on:
       - 'packages/api/amplify_api_dart/**/*.yaml'
       - 'packages/api/amplify_api_dart/lib/**/*'
       - 'packages/api/amplify_api_dart/test/**/*'
+      - '.github/composite_actions/setup_firefox/action.yaml'
       - '.github/workflows/dart_vm.yaml'
       - '.github/workflows/dart_native.yaml'
       - '.github/workflows/dart_ddc.yaml'
