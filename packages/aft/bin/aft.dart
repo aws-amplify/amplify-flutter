@@ -3,33 +3,12 @@
 
 import 'dart:io';
 
-import 'package:aft/aft.dart';
+import 'package:aft/src/command_runner.dart' as command_runner;
 import 'package:args/command_runner.dart';
 
 Future<void> main(List<String> args) async {
-  final runner = CommandRunner<void>('aft', 'Amplify Flutter repo tools')
-    ..argParser.addFlag(
-      'verbose',
-      abbr: 'v',
-      help: 'Prints verbose logs',
-      defaultsTo: false,
-    )
-    ..argParser.addOption(
-      'directory',
-      help: 'Directory to run commands from. Defaults to current directory.',
-      hide: true,
-    )
-    ..addCommand(GenerateCommand())
-    ..addCommand(ListPackagesCommand())
-    ..addCommand(DepsCommand())
-    ..addCommand(LinkCommand())
-    ..addCommand(CleanCommand())
-    ..addCommand(PubCommand())
-    ..addCommand(BootstrapCommand())
-    ..addCommand(VersionBumpCommand())
-    ..addCommand(ExecCommand());
   try {
-    await runner.run(args);
+    await command_runner.run(args);
   } on UsageException catch (e) {
     stderr
       ..writeln(e.message)
@@ -41,10 +20,6 @@ Future<void> main(List<String> args) async {
       ..writeln(st);
     exitCode = 1;
   } finally {
-    // Free up resources before exiting..
-    for (final command in runner.commands.values.whereType<AmplifyCommand>()) {
-      command.close();
-    }
     exit(exitCode);
   }
 }

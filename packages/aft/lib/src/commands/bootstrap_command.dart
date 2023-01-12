@@ -68,25 +68,25 @@ const amplifyEnvironments = <String, String>{};
   Future<void> run() async {
     await super.run();
     await linkPackages(allPackages);
-    await pubAction(
-      action: upgrade ? PubAction.upgrade : PubAction.get,
-      allPackages: allPackages.values.where(
-        // Skip bootstrap for `aft` since it has already had `dart pub upgrade`
-        // run with the native command, and running it again with the embedded
-        // command could cause issues later on, esp. when the native `pub`
-        // command is significantly newer/older than the embedded one.
-        (pkg) => pkg.name != 'aft',
-      ),
-      verbose: verbose,
-      logger: logger,
-      createPubRunner: createPubRunner,
-      httpClient: httpClient,
+
+    final bootstrapPackages = allPackages.values.where(
+      // Skip bootstrap for `aft` since it has already had `dart pub upgrade`
+      // run with the native command, and running it again with the embedded
+      // command could cause issues later on, esp. when the native `pub`
+      // command is significantly newer/older than the embedded one.
+      (pkg) => pkg.name != 'aft',
     );
-    await Future.wait([
-      for (final package in allPackages.values) _createEmptyConfig(package)
-    ]);
+    for (final package in bootstrapPackages) {
+      await pubAction(
+        arguments: [if (upgrade) 'upgrade' else 'get'],
+        package: package,
+      );
+    }
+    await Future.wait(
+      [for (final package in bootstrapPackages) _createEmptyConfig(package)],
+    );
     if (build) {
-      for (final package in allPackages.values) {
+      for (final package in bootstrapPackages) {
         // Only run build_runner for packages which need it for development,
         // i.e. those packages which specify worker JS files in their assets.
         final needsBuild = package.needsBuildRunner &&
@@ -98,6 +98,6 @@ const amplifyEnvironments = <String, String>{};
       }
     }
 
-    stdout.writeln('Repo successfully bootstrapped!');
+    logger.info('Repo successfully bootstrapped!');
   }
 }
