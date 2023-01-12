@@ -13,29 +13,34 @@ import 'package:meta/meta.dart';
 
 import 'MtmModelProvider.dart';
 
-/** This is an auto generated class representing the ManyToManyPrimary type in your schema. */
+/// This is an auto generated class representing the ManyToManyPrimary type in your schema.
 @immutable
 class ManyToManyPrimary extends Model {
-  static const classType = const _ManyToManyPrimaryModelType();
+  static const classType = _ManyToManyPrimaryModelType();
   final String id;
   final String? _name;
   final List<FirstMtmRelation>? _firstMtmToSecondary;
+  final List<SecondMtmRelation>? _secondMtmToSecondary;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
   @override
   _ManyToManyPrimaryModelType getInstanceType() => classType;
 
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() {
-    return id;
+  String getId() => id;
+
+  ManyToManyPrimaryModelIdentifier get modelIdentifier {
+    return ManyToManyPrimaryModelIdentifier(id: id);
   }
 
   String get name {
     try {
       return _name!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -48,6 +53,10 @@ class ManyToManyPrimary extends Model {
     return _firstMtmToSecondary;
   }
 
+  List<SecondMtmRelation>? get secondMtmToSecondary {
+    return _secondMtmToSecondary;
+  }
+
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -56,16 +65,33 @@ class ManyToManyPrimary extends Model {
     return _updatedAt;
   }
 
+  const ManyToManyPrimary._internal(
+      {required this.id,
+      required name,
+      firstMtmToSecondary,
+      secondMtmToSecondary,
+      createdAt,
+      updatedAt})
+      : _name = name,
+        _firstMtmToSecondary = firstMtmToSecondary,
+        _secondMtmToSecondary = secondMtmToSecondary,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
+
   factory ManyToManyPrimary(
       {String? id,
       required String name,
-      List<FirstMtmRelation>? firstMtmToSecondary}) {
+      List<FirstMtmRelation>? firstMtmToSecondary,
+      List<SecondMtmRelation>? secondMtmToSecondary}) {
     return ManyToManyPrimary._internal(
         id: id == null ? UUID.getUUID() : id,
         name: name,
         firstMtmToSecondary: firstMtmToSecondary != null
             ? List<FirstMtmRelation>.unmodifiable(firstMtmToSecondary)
-            : firstMtmToSecondary);
+            : firstMtmToSecondary,
+        secondMtmToSecondary: secondMtmToSecondary != null
+            ? List<SecondMtmRelation>.unmodifiable(secondMtmToSecondary)
+            : secondMtmToSecondary);
   }
 
   const ManyToManyPrimary._internal(
@@ -90,7 +116,9 @@ class ManyToManyPrimary extends Model {
         id == other.id &&
         _name == other._name &&
         DeepCollectionEquality()
-            .equals(_firstMtmToSecondary, other._firstMtmToSecondary);
+            .equals(_firstMtmToSecondary, other._firstMtmToSecondary) &&
+        DeepCollectionEquality()
+            .equals(_secondMtmToSecondary, other._secondMtmToSecondary);
   }
 
   @override
@@ -98,7 +126,7 @@ class ManyToManyPrimary extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write('ManyToManyPrimary {');
     buffer.write('id=' + '$id' + ', ');
@@ -114,11 +142,15 @@ class ManyToManyPrimary extends Model {
   }
 
   ManyToManyPrimary copyWith(
-      {String? id, String? name, List<FirstMtmRelation>? firstMtmToSecondary}) {
+      {String? name,
+      List<FirstMtmRelation>? firstMtmToSecondary,
+      List<SecondMtmRelation>? secondMtmToSecondary}) {
     return ManyToManyPrimary._internal(
-        id: id ?? this.id,
+        id: id,
         name: name ?? this.name,
-        firstMtmToSecondary: firstMtmToSecondary ?? this.firstMtmToSecondary);
+        firstMtmToSecondary: firstMtmToSecondary ?? this.firstMtmToSecondary,
+        secondMtmToSecondary:
+            secondMtmToSecondary ?? this.secondMtmToSecondary);
   }
 
   ManyToManyPrimary.fromJson(Map<String, dynamic> json)
@@ -128,7 +160,14 @@ class ManyToManyPrimary extends Model {
             ? (json['firstMtmToSecondary'] as List)
                 .where((e) => e?['serializedData'] != null)
                 .map((e) => FirstMtmRelation.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
+                    Map<String, dynamic>.from(e['serializedData'])))
+                .toList()
+            : null,
+        _secondMtmToSecondary = json['secondMtmToSecondary'] is List
+            ? (json['secondMtmToSecondary'] as List)
+                .where((e) => e?['serializedData'] != null)
+                .map((e) => SecondMtmRelation.fromJson(
+                    Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null
@@ -144,17 +183,36 @@ class ManyToManyPrimary extends Model {
         'firstMtmToSecondary': _firstMtmToSecondary
             ?.map((FirstMtmRelation? e) => e?.toJson())
             .toList(),
+        'secondMtmToSecondary': _secondMtmToSecondary
+            ?.map((SecondMtmRelation? e) => e?.toJson())
+            .toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryField ID = QueryField(fieldName: 'id');
-  static final QueryField NAME = QueryField(fieldName: 'name');
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'name': _name,
+        'firstMtmToSecondary': _firstMtmToSecondary,
+        'secondMtmToSecondary': _secondMtmToSecondary,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
+  static final QueryModelIdentifier<ManyToManyPrimaryModelIdentifier>
+      MODEL_IDENTIFIER =
+      QueryModelIdentifier<ManyToManyPrimaryModelIdentifier>();
+  static final QueryField ID = QueryField(fieldName: "id");
+  static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField FIRSTMTMTOSECONDARY = QueryField(
       fieldName: 'firstMtmToSecondary',
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (FirstMtmRelation).toString()));
-  static ModelSchema schema =
+          ofModelName: 'FirstMtmRelation'));
+  static final QueryField SECONDMTMTOSECONDARY = QueryField(
+      fieldName: "secondMtmToSecondary",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: 'SecondMtmRelation'));
+  static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = 'ManyToManyPrimary';
     modelSchemaDefinition.pluralName = 'ManyToManyPrimaries';
@@ -169,8 +227,14 @@ class ManyToManyPrimary extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
         key: ManyToManyPrimary.FIRSTMTMTOSECONDARY,
         isRequired: false,
-        ofModelName: (FirstMtmRelation).toString(),
+        ofModelName: 'FirstMtmRelation',
         associatedKey: FirstMtmRelation.MANYTOMANYPRIMARY));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
+        key: ManyToManyPrimary.SECONDMTMTOSECONDARY,
+        isRequired: false,
+        ofModelName: 'SecondMtmRelation',
+        associatedKey: SecondMtmRelation.MANYTOMANYPRIMARY));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -193,4 +257,47 @@ class _ManyToManyPrimaryModelType extends ModelType<ManyToManyPrimary> {
   ManyToManyPrimary fromJson(Map<String, dynamic> jsonData) {
     return ManyToManyPrimary.fromJson(jsonData);
   }
+
+  @override
+  String modelName() {
+    return 'ManyToManyPrimary';
+  }
+}
+
+/// This is an auto generated class representing the model identifier
+/// of [ManyToManyPrimary] in your schema.
+@immutable
+class ManyToManyPrimaryModelIdentifier
+    implements ModelIdentifier<ManyToManyPrimary> {
+  final String id;
+
+  /// Create an instance of ManyToManyPrimaryModelIdentifier using [id] the primary key.
+  const ManyToManyPrimaryModelIdentifier({required this.id});
+
+  @override
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+
+  @override
+  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
+  @override
+  String serializeAsString() => serializeAsMap().values.join('#');
+
+  @override
+  String toString() => 'ManyToManyPrimaryModelIdentifier(id: $id)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+
+    return other is ManyToManyPrimaryModelIdentifier && id == other.id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }

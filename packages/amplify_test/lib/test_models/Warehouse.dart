@@ -191,6 +191,11 @@ class _WarehouseModelType extends ModelType<Warehouse> {
   Warehouse fromJson(Map<String, dynamic> jsonData) {
     return Warehouse.fromJson(jsonData);
   }
+
+  @override
+  String modelName() {
+    return 'Warehouse';
+  }
 }
 
 /// This is an auto generated class representing the model identifier

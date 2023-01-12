@@ -112,7 +112,6 @@ void main() {
           'isReadOnly': false,
           'association': {
             'associationType': 'BelongsTo',
-            'targetName': 'postID',
             'targetNames': ['postID'],
             'associatedType': 'Post'
           },
@@ -199,7 +198,6 @@ void main() {
           'isReadOnly': false,
           'association': {
             'associationType': 'BelongsTo',
-            'targetName': 'blogID',
             'targetNames': ['blogID'],
             'associatedType': 'Blog'
           }
