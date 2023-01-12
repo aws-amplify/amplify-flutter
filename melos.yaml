@@ -201,9 +201,9 @@ scripts:
 
   format: >
     aft exec -- \
-      flutter format --dry-run --set-exit-if-changed .
+      aft format --dry-run --set-exit-if-changed .
   analyze:
-    run: aft exec --fail-fast --include="amplify_analytics_*,amplify_api*,amplify_auth_cognito*,amplify_flutter*,amplify_core*" -- \
+    run: aft exec --fail-fast --include="amplify_analytics_*,amplify_api*,amplify_auth_cognito*,amplify_flutter*" --exclude=amplify_auth_cognito_dart,amplify_analytics_pinpoint_dart -- \
       flutter analyze --no-fatal-infos .
     description: >
       Analyzes all packages and fails if there are any errors.
@@ -214,7 +214,7 @@ scripts:
 
   packages:fix: |
     aft exec -- \
-      flutter analyze --no-fatal-infos --no-fatal-warnings &>/dev/null || true
+      aft analyze --no-fatal-infos --no-fatal-warnings &>/dev/null || true
 
   pod:repo-update:
     run: melos exec -c 8 --scope="*example*,sample_app"  --ignore="*_android_example" "(cd ios && pod repo update)"
