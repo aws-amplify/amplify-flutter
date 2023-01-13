@@ -81,7 +81,7 @@ void main() {
         Token<DependencyManager>(),
         Token<Dispatcher>(),
       ]);
-      dependencyManager.addBuilder<Dispatcher>(() => (_) {});
+      dependencyManager.addInstance<Dispatcher>(EventCompleter.new);
       dependencyManager.addBuilder<NeedsDependencyManagerAndDispatcher>(
         NeedsDependencyManagerAndDispatcher.new,
         token,

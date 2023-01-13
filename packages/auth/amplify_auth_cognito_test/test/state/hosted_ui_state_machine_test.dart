@@ -91,7 +91,7 @@ void main() {
 
     test('getAuthorizationUrl', () async {
       stateMachine
-        ..addInstance<Dispatcher<AuthEvent>>((_) {})
+        ..addInstance<Dispatcher<AuthEvent, AuthState>>(mockDispatcher((_) {}))
         ..addInstance<CognitoOAuthConfig>(hostedUiConfig);
 
       final platform = stateMachine.create(HostedUiPlatform.token);

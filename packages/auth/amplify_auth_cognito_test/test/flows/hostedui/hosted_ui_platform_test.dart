@@ -30,7 +30,9 @@ void main() {
         ..addInstance(hostedUiConfig)
         ..addInstance<SecureStorageInterface>(secureStorage)
         ..addInstance<http.Client>(server.httpClient)
-        ..addInstance<Dispatcher<AuthEvent>>((_) {});
+        ..addInstance<Dispatcher<AuthEvent, AuthState>>(
+          mockDispatcher((event) {}),
+        );
 
       platform = HostedUiPlatform(dependencyManager);
     });

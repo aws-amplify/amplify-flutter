@@ -8,7 +8,8 @@ import 'package:meta/meta.dart';
 
 /// Interface for dispatching an event to a state machine.
 @optionalTypeArgs
-typedef Dispatcher<E extends StateMachineEvent> = FutureOr<void> Function(E);
+typedef Dispatcher<E extends StateMachineEvent, S extends StateMachineState>
+    = EventCompleter<E, S> Function(E);
 
 /// Interface for emitting a state from a state machine.
 abstract class Emitter<S extends StateMachineState> {
@@ -20,10 +21,13 @@ abstract class Emitter<S extends StateMachineState> {
 /// A marker for state machine types to improve DX with generic functions.
 /// {@endtemplate}
 class StateMachineToken<
-    Event extends StateMachineEvent,
-    State extends StateMachineState,
-    M extends StateMachine<Event, State, Manager>,
-    Manager extends StateMachineManager> extends Token<M> {
+    Event extends ManagerEvent,
+    State extends ManagerState,
+    ManagerEvent extends StateMachineEvent,
+    ManagerState extends StateMachineState,
+    Manager extends StateMachineManager<ManagerEvent, ManagerState>,
+    M extends StateMachine<Event, State, ManagerEvent, ManagerState,
+        Manager>> extends Token<M> {
   /// {@macro amplify_core.state_machine_type}
   const StateMachineToken();
 
@@ -36,14 +40,14 @@ class StateMachineToken<
 /// different layers.
 /// {@endtemplate}
 @optionalTypeArgs
-abstract class StateMachineManager<E extends StateMachineEvent>
-    implements DependencyManager, Closeable {
+abstract class StateMachineManager<E extends StateMachineEvent,
+    S extends StateMachineState> implements DependencyManager, Closeable {
   /// {@macro amplify_core.state_machinedispatcher}
   StateMachineManager(
     Map<StateMachineToken, Function> stateMachineBuilders,
     this._dependencyManager,
   ) {
-    addInstance<Dispatcher<E>>(_dispatch);
+    addInstance<Dispatcher<E, S>>(_dispatch);
     addInstance<StateMachineManager>(this);
     addInstance<DependencyManager>(this);
     stateMachineBuilders.forEach((token, builder) {
@@ -53,10 +57,10 @@ abstract class StateMachineManager<E extends StateMachineEvent>
   }
 
   final DependencyManager _dependencyManager;
-  final Map<Type, StateMachine> _stateMachines = {};
+  final Map<StateMachineToken, StateMachine> _stateMachines = {};
 
-  final _eventController = StreamController<EventCompleter<E>>();
-  final StreamController<StateMachineState> _stateController =
+  final _eventController = StreamController<EventCompleter<E, S>>();
+  final StreamController<S> _stateController =
       StreamController.broadcast(sync: true);
   final StreamController<Transition> _transitionController =
       StreamController.broadcast(sync: true);
@@ -69,18 +73,7 @@ abstract class StateMachineManager<E extends StateMachineEvent>
 
   Future<void> _listenForEvents() async {
     await for (final completer in _eventController.stream) {
-      final completion = _dispatch(completer.event);
-      if (!completer.propagate) {
-        // Complete public API dispatch as soon as the event is picked up.
-        //
-        // Side effects should be listened for via the state machine.
-        completer.complete();
-      }
-      try {
-        await completion;
-      } finally {
-        if (completer.propagate) completer.complete();
-      }
+      await _dispatch(completer.event, completer).completed;
     }
   }
 
@@ -116,22 +109,27 @@ abstract class StateMachineManager<E extends StateMachineEvent>
   T expect<T extends Object>([Token<T>? token]) =>
       _dependencyManager.expect<T>(token);
 
-  /// Dispatches an event to the appropriate state machine.
-  FutureOr<void> accept(E event, {bool propagate = false}) {
-    final completer = EventCompleter(
-      event,
-      propagate: propagate,
-    );
+  /// Accepts an event into the state machine queue.
+  ///
+  /// Upon popping off the queue, the returned completer's
+  /// [EventCompleter.accepted] property will complete. Once the event has been
+  /// fully processed by its state machine, the [EventCompleter.completed]
+  /// property will complete with the stopping state reached. At this point,
+  /// the event will have fully processed.
+  EventCompleter<E, S> accept(E event) {
+    final completer = EventCompleter<E, S>(event);
     _eventController.add(completer);
-    return completer.future;
+    return completer;
   }
 
   /// Dispatches an event to the appropriate state machine.
   ///
-  /// For internal use only. Public APIs should use `dispatch` instead.
-  FutureOr<void> _dispatch(E event) {
+  /// For internal use only. Public APIs should use [accept] instead.
+  EventCompleter<E, S> _dispatch(E event, [EventCompleter<E, S>? completer]) {
     final token = mapEventToMachine(event);
-    return getOrCreate(token).accept(event);
+    completer ??= EventCompleter(event);
+    getOrCreate(token).accept(completer);
+    return completer;
   }
 
   /// Maps [event] to its state machine.
@@ -152,12 +150,16 @@ abstract class StateMachineManager<E extends StateMachineEvent>
 /// {@template amplify_core.state_machine}
 /// Base class for state machines.
 /// {@endtemplate}
-abstract class StateMachine<Event extends StateMachineEvent,
-        State extends StateMachineState, Manager extends StateMachineManager>
+abstract class StateMachine<
+        Event extends ManagerEvent,
+        State extends ManagerState,
+        ManagerEvent extends StateMachineEvent,
+        ManagerState extends StateMachineState,
+        Manager extends StateMachineManager<ManagerEvent, ManagerState>>
     with AWSDebuggable, AmplifyLoggerMixin
     implements Emitter<State>, DependencyManager {
   /// {@macro amplify_core.state_machine}
-  StateMachine(this.manager) {
+  StateMachine(this.manager, this._token) {
     addBuilder<AmplifyLogger>(AmplifyLogger.new);
     _init();
   }
@@ -165,9 +167,7 @@ abstract class StateMachine<Event extends StateMachineEvent,
   /// Initializes the state machine by subscribing to the event stream and
   /// registering a callback for internal errors.
   void _init() {
-    // Use `runtimeType` instead of generics. For some reason, having a method
-    // on StateMachineManager to do this generically did not work.
-    manager._stateMachines[runtimeType] = this;
+    manager._stateMachines[_token] = this;
 
     // Registers `this` as the emitter for states of type [S].
     addInstance<Emitter<State>>(this);
@@ -180,9 +180,10 @@ abstract class StateMachine<Event extends StateMachineEvent,
   // blocking on the current event until it has finished processing.
   Future<void> _listenForEvents() async {
     await for (final completer in _eventStream) {
+      completer.accept();
       try {
         final event = completer.event;
-        _currentEvent = event;
+        _currentEvent = event as Event;
         if (!_checkPrecondition(event)) {
           continue;
         }
@@ -192,7 +193,7 @@ abstract class StateMachine<Event extends StateMachineEvent,
       } on Object catch (error, st) {
         _emitError(error, st);
       } finally {
-        completer.complete();
+        completer.complete(_currentState);
       }
     }
   }
@@ -248,22 +249,24 @@ abstract class StateMachine<Event extends StateMachineEvent,
     return true;
   }
 
+  final StateMachineToken _token;
+
+  /// The state machine's manager which exposes functionality related to the
+  /// system of state machines it
   final Manager manager;
 
   /// State controller.
   final StreamController<State> _stateController = StreamController.broadcast();
 
   /// Event controller.
-  final StreamController<EventCompleter<Event>> _eventController =
-      StreamController();
+  final StreamController<EventCompleter> _eventController = StreamController();
 
   /// Transition controller.
   final StreamController<Transition<Event, State>> _transitionController =
       StreamController.broadcast(sync: true);
 
   /// The stream of events added to this state machine.
-  late final Stream<EventCompleter<Event>> _eventStream =
-      _eventController.stream;
+  late final Stream<EventCompleter> _eventStream = _eventController.stream;
 
   /// The initial state of the state machine.
   State get initialState;
@@ -321,17 +324,11 @@ abstract class StateMachine<Event extends StateMachineEvent,
   T create<T extends Object>([Token<T>? token]) => manager.create<T>(token);
 
   /// Adds an event to the state machine.
-  Future<void> accept(Event event) {
-    final completer = EventCompleter(
-      event,
-      propagate: true,
-    );
-    _eventController.add(completer);
-    return completer.future;
-  }
+  void accept(EventCompleter completer) => _eventController.add(completer);
 
   /// Dispatches an event to the state machine.
-  FutureOr<void> dispatch(StateMachineEvent event) => manager._dispatch(event);
+  EventCompleter<ManagerEvent, ManagerState> dispatch(ManagerEvent event) =>
+      manager._dispatch(event);
 
   /// Closes the state machine and all stream controllers.
   @override
