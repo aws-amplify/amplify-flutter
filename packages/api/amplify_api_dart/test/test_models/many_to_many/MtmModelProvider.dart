@@ -12,10 +12,12 @@ import 'package:amplify_core/amplify_core.dart';
 import 'FirstMtmRelation.dart';
 import 'ManyToManyPrimary.dart';
 import 'ManyToManySecondary.dart';
+import 'SecondMtmRelation.dart';
 
 export 'FirstMtmRelation.dart';
 export 'ManyToManyPrimary.dart';
 export 'ManyToManySecondary.dart';
+export 'SecondMtmRelation.dart';
 
 class MtmModelProvider implements ModelProviderInterface {
   @override

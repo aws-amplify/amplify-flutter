@@ -25,7 +25,7 @@ class ManyToManySecondary extends Model {
   final TemporalDateTime? _updatedAt;
 
   @override
-  _ManyToManySecondaryModelType getInstanceType() => classType;
+  getInstanceType() => classType;
 
   @Deprecated(
       '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
@@ -65,6 +65,19 @@ class ManyToManySecondary extends Model {
     return _updatedAt;
   }
 
+  const ManyToManySecondary._internal(
+      {required this.id,
+      required name,
+      firstMtmToPrimary,
+      secondMtmToPrimary,
+      createdAt,
+      updatedAt})
+      : _name = name,
+        _firstMtmToPrimary = firstMtmToPrimary,
+        _secondMtmToPrimary = secondMtmToPrimary,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
+
   factory ManyToManySecondary(
       {String? id,
       required String name,
@@ -80,17 +93,6 @@ class ManyToManySecondary extends Model {
             ? List<SecondMtmRelation>.unmodifiable(secondMtmToPrimary)
             : secondMtmToPrimary);
   }
-
-  const ManyToManySecondary._internal(
-      {required this.id,
-      required name,
-      firstMtmToPrimary,
-      createdAt,
-      updatedAt})
-      : _name = name,
-        _firstMtmToPrimary = firstMtmToPrimary,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
 
   bool equals(Object other) {
     return this == other;
@@ -115,15 +117,15 @@ class ManyToManySecondary extends Model {
   String toString() {
     var buffer = StringBuffer();
 
-    buffer.write('ManyToManySecondary {');
-    buffer.write('id=' + '$id' + ', ');
-    buffer.write('name=' + '$_name' + ', ');
-    buffer.write('createdAt=' +
-        (_createdAt != null ? _createdAt!.format() : 'null') +
-        ', ');
+    buffer.write("ManyToManySecondary {");
+    buffer.write("id=" + "$id" + ", ");
+    buffer.write("name=" + "$_name" + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
     buffer.write(
-        'updatedAt=' + (_updatedAt != null ? _updatedAt!.format() : 'null'));
-    buffer.write('}');
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("}");
 
     return buffer.toString();
   }
@@ -191,7 +193,7 @@ class ManyToManySecondary extends Model {
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField FIRSTMTMTOPRIMARY = QueryField(
-      fieldName: 'firstMtmToPrimary',
+      fieldName: "firstMtmToPrimary",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: 'FirstMtmRelation'));
   static final QueryField SECONDMTMTOPRIMARY = QueryField(
@@ -200,8 +202,8 @@ class ManyToManySecondary extends Model {
           ofModelName: 'SecondMtmRelation'));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = 'ManyToManySecondary';
-    modelSchemaDefinition.pluralName = 'ManyToManySecondaries';
+    modelSchemaDefinition.name = "ManyToManySecondary";
+    modelSchemaDefinition.pluralName = "ManyToManySecondaries";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 

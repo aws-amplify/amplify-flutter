@@ -13,7 +13,7 @@ import 'package:meta/meta.dart';
 import 'MtmModelProvider.dart';
 
 /// This is an auto generated class representing the FirstMtmRelation type in your schema.
-@immutable
+
 class FirstMtmRelation extends Model {
   static const classType = _FirstMtmRelationModelType();
   final String id;
@@ -23,7 +23,7 @@ class FirstMtmRelation extends Model {
   final TemporalDateTime? _updatedAt;
 
   @override
-  _FirstMtmRelationModelType getInstanceType() => classType;
+  getInstanceType() => classType;
 
   @Deprecated(
       '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
@@ -68,16 +68,6 @@ class FirstMtmRelation extends Model {
     return _updatedAt;
   }
 
-  factory FirstMtmRelation(
-      {String? id,
-      required ManyToManyPrimary manyToManyPrimary,
-      required ManyToManySecondary manyToManySecondary}) {
-    return FirstMtmRelation._internal(
-        id: id == null ? UUID.getUUID() : id,
-        manyToManyPrimary: manyToManyPrimary,
-        manyToManySecondary: manyToManySecondary);
-  }
-
   const FirstMtmRelation._internal(
       {required this.id,
       required manyToManyPrimary,
@@ -88,6 +78,16 @@ class FirstMtmRelation extends Model {
         _manyToManySecondary = manyToManySecondary,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
+
+  factory FirstMtmRelation(
+      {String? id,
+      required ManyToManyPrimary manyToManyPrimary,
+      required ManyToManySecondary manyToManySecondary}) {
+    return FirstMtmRelation._internal(
+        id: id == null ? UUID.getUUID() : id,
+        manyToManyPrimary: manyToManyPrimary,
+        manyToManySecondary: manyToManySecondary);
+  }
 
   bool equals(Object other) {
     return this == other;
@@ -109,22 +109,22 @@ class FirstMtmRelation extends Model {
   String toString() {
     var buffer = StringBuffer();
 
-    buffer.write('FirstMtmRelation {');
-    buffer.write('id=' + '$id' + ', ');
-    buffer.write('manyToManyPrimary=' +
-        (_manyToManyPrimary != null ? _manyToManyPrimary!.toString() : 'null') +
-        ', ');
-    buffer.write('manyToManySecondary=' +
+    buffer.write("FirstMtmRelation {");
+    buffer.write("id=" + "$id" + ", ");
+    buffer.write("manyToManyPrimary=" +
+        (_manyToManyPrimary != null ? _manyToManyPrimary!.toString() : "null") +
+        ", ");
+    buffer.write("manyToManySecondary=" +
         (_manyToManySecondary != null
             ? _manyToManySecondary!.toString()
-            : 'null') +
-        ', ');
-    buffer.write('createdAt=' +
-        (_createdAt != null ? _createdAt!.format() : 'null') +
-        ', ');
+            : "null") +
+        ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
     buffer.write(
-        'updatedAt=' + (_updatedAt != null ? _updatedAt!.format() : 'null'));
-    buffer.write('}');
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("}");
 
     return buffer.toString();
   }
@@ -178,17 +178,17 @@ class FirstMtmRelation extends Model {
       QueryModelIdentifier<FirstMtmRelationModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField MANYTOMANYPRIMARY = QueryField(
-      fieldName: 'manyToManyPrimary',
+      fieldName: "manyToManyPrimary",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: 'ManyToManyPrimary'));
   static final QueryField MANYTOMANYSECONDARY = QueryField(
-      fieldName: 'manyToManySecondary',
+      fieldName: "manyToManySecondary",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: 'ManyToManySecondary'));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = 'FirstMtmRelation';
-    modelSchemaDefinition.pluralName = 'FirstMtmRelations';
+    modelSchemaDefinition.name = "FirstMtmRelation";
+    modelSchemaDefinition.pluralName = "FirstMtmRelations";
 
     modelSchemaDefinition.indexes = [
       ModelIndex(
