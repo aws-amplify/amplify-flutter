@@ -25,7 +25,7 @@ class ManyToManyPrimary extends Model {
   final TemporalDateTime? _updatedAt;
 
   @override
-  _ManyToManyPrimaryModelType getInstanceType() => classType;
+  getInstanceType() => classType;
 
   @Deprecated(
       '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
@@ -94,17 +94,6 @@ class ManyToManyPrimary extends Model {
             : secondMtmToSecondary);
   }
 
-  const ManyToManyPrimary._internal(
-      {required this.id,
-      required name,
-      firstMtmToSecondary,
-      createdAt,
-      updatedAt})
-      : _name = name,
-        _firstMtmToSecondary = firstMtmToSecondary,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
-
   bool equals(Object other) {
     return this == other;
   }
@@ -128,15 +117,15 @@ class ManyToManyPrimary extends Model {
   String toString() {
     var buffer = StringBuffer();
 
-    buffer.write('ManyToManyPrimary {');
-    buffer.write('id=' + '$id' + ', ');
-    buffer.write('name=' + '$_name' + ', ');
-    buffer.write('createdAt=' +
-        (_createdAt != null ? _createdAt!.format() : 'null') +
-        ', ');
+    buffer.write("ManyToManyPrimary {");
+    buffer.write("id=" + "$id" + ", ");
+    buffer.write("name=" + "$_name" + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
     buffer.write(
-        'updatedAt=' + (_updatedAt != null ? _updatedAt!.format() : 'null'));
-    buffer.write('}');
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("}");
 
     return buffer.toString();
   }
@@ -205,7 +194,7 @@ class ManyToManyPrimary extends Model {
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField FIRSTMTMTOSECONDARY = QueryField(
-      fieldName: 'firstMtmToSecondary',
+      fieldName: "firstMtmToSecondary",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: 'FirstMtmRelation'));
   static final QueryField SECONDMTMTOSECONDARY = QueryField(
@@ -214,8 +203,8 @@ class ManyToManyPrimary extends Model {
           ofModelName: 'SecondMtmRelation'));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = 'ManyToManyPrimary';
-    modelSchemaDefinition.pluralName = 'ManyToManyPrimaries';
+    modelSchemaDefinition.name = "ManyToManyPrimary";
+    modelSchemaDefinition.pluralName = "ManyToManyPrimaries";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 

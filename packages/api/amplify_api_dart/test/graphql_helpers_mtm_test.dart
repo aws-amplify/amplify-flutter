@@ -65,8 +65,8 @@ void main() {
       final expectedVars = {
         'input': {
           'id': 'firstMtmRelationId',
-          'manyToManyPrimaryID': 'mtmPrimaryId',
-          'manyToManySecondaryID': 'mtmSecondaryId'
+          'manyToManyPrimaryId': 'mtmPrimaryId',
+          'manyToManySecondaryId': 'mtmSecondaryId'
         }
       };
 
@@ -102,8 +102,8 @@ void main() {
       final expectedVars = {
         'input': {
           'id': 'firstMtmRelationId',
-          'manyToManyPrimaryID': 'mtmPrimaryId',
-          'manyToManySecondaryID': 'mtmSecondaryId'
+          'manyToManyPrimaryId': 'mtmPrimaryId',
+          'manyToManySecondaryId': 'mtmSecondaryId'
         },
         'condition': null
       };

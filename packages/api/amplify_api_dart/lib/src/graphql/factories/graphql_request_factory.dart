@@ -215,8 +215,10 @@ class GraphQLRequestFactory {
 
     // e.g. { 'name': { 'eq': 'foo }}
     if (queryPredicate is QueryPredicateOperation) {
+      final association = schema.fields?[queryPredicate.field]?.association;
+      // TODO(ragingsquirrel3): Change key logic when supporting CPK.
       final associatedTargetName =
-          schema.fields?[queryPredicate.field]?.association?.targetName;
+          association?.targetNames?.first ?? association?.targetName;
       var fieldName = queryPredicate.field;
       if (queryPredicate.field ==
           '${_lowerCaseFirstCharacter(schema.name)}.$idFieldName') {
@@ -292,7 +294,9 @@ class GraphQLRequestFactory {
     final allBelongsTo = getBelongsToFieldsFromModelSchema(schema);
     for (final belongsTo in allBelongsTo) {
       final belongsToModelName = belongsTo.name;
-      final belongsToKey = belongsTo.association?.targetName;
+      // TODO(ragingsquirrel3): Change key logic when supporting CPK.
+      final belongsToKey = belongsTo.association?.targetNames?.first ??
+          belongsTo.association?.targetName;
       final belongsToValue =
           (modelJson[belongsToModelName] as Map?)?[idFieldName] as String?;
 

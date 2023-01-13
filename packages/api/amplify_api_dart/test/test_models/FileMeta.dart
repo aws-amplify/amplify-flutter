@@ -13,13 +13,6 @@ import 'package:meta/meta.dart';
 /// This is an auto generated class representing the FileMeta type in your schema.
 @immutable
 class FileMeta {
-  FileMeta.fromJson(Map<String, dynamic> json) : _name = json['name'];
-
-  factory FileMeta({required String name}) {
-    return FileMeta._internal(name: name);
-  }
-
-  const FileMeta._internal({required name}) : _name = name;
   final String? _name;
 
   String get name {
@@ -27,12 +20,18 @@ class FileMeta {
       return _name!;
     } catch (e) {
       throw AmplifyCodeGenModelException(
-        AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion: AmplifyExceptionMessages
-            .codeGenRequiredFieldForceCastRecoverySuggestion,
-        underlyingException: e.toString(),
-      );
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
+  }
+
+  const FileMeta._internal({required name}) : _name = name;
+
+  factory FileMeta({required String name}) {
+    return FileMeta._internal(name: name);
   }
 
   bool equals(Object other) {
@@ -50,11 +49,11 @@ class FileMeta {
 
   @override
   String toString() {
-    final buffer = StringBuffer();
+    var buffer = StringBuffer();
 
-    buffer.write('FileMeta {');
-    buffer.write('name=' + '$_name');
-    buffer.write('}');
+    buffer.write("FileMeta {");
+    buffer.write("name=" + "$_name");
+    buffer.write("}");
 
     return buffer.toString();
   }
@@ -63,20 +62,18 @@ class FileMeta {
     return FileMeta._internal(name: name ?? this.name);
   }
 
+  FileMeta.fromJson(Map<String, dynamic> json) : _name = json['name'];
+
   Map<String, dynamic> toJson() => {'name': _name};
 
-  static ModelSchema schema = Model.defineSchema(
-    define: (ModelSchemaDefinition modelSchemaDefinition) {
-      modelSchemaDefinition.name = 'FileMeta';
-      modelSchemaDefinition.pluralName = 'FileMetas';
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+    modelSchemaDefinition.name = "FileMeta";
+    modelSchemaDefinition.pluralName = "FileMetas";
 
-      modelSchemaDefinition.addField(
-        ModelFieldDefinition.customTypeField(
-          fieldName: 'name',
-          isRequired: true,
-          ofType: ModelFieldType(ModelFieldTypeEnum.string),
-        ),
-      );
-    },
-  );
+    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
+        fieldName: 'name',
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+  });
 }
