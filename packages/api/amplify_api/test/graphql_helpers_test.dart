@@ -378,8 +378,6 @@ void main() {
             'id': id,
             'name': name,
             'createdAt': time,
-            'file': null,
-            'files': null
           }
         };
         const expectedDoc =
@@ -391,6 +389,18 @@ void main() {
         expect(_deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'createBlog');
+      });
+
+      test(
+          'ModelMutations.create() should not include null fields in input variable',
+          () {
+        const name = 'Test Blog';
+
+        final Blog blog = Blog(name: name);
+        final GraphQLRequest<Blog> req = ModelMutations.create<Blog>(blog);
+        final inputVariable = req.variables['input'] as Map<String, dynamic>;
+
+        expect(inputVariable.containsKey('file'), isFalse);
       });
 
       test(
@@ -413,8 +423,6 @@ void main() {
             'id': postId,
             'title': title,
             'rating': rating,
-            'created': null,
-            'likeCount': null,
             'blogID': blogId
           }
         };
