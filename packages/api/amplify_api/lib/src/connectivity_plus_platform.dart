@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_api/src/api_plugin_impl.dart';
+import 'package:amplify_api_dart/amplify_api_dart.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:meta/meta.dart';
 

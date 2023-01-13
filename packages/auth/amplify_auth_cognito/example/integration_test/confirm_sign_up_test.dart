@@ -36,7 +36,7 @@ void main() {
           options: CognitoSignUpOptions(
             userAttributes: {
               CognitoUserAttributeKey.email: generateEmail(),
-              CognitoUserAttributeKey.phoneNumber: mockPhoneNumber
+              CognitoUserAttributeKey.phoneNumber: generatePhoneNumber(),
             },
           ),
         ) as CognitoSignUpResult;

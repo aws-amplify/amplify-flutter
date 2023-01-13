@@ -25,7 +25,8 @@ Future<void> main(List<String> args) async {
     ..addCommand(LinkCommand())
     ..addCommand(CleanCommand())
     ..addCommand(PubCommand())
-    ..addCommand(BootstrapCommand());
+    ..addCommand(BootstrapCommand())
+    ..addCommand(VersionBumpCommand());
   try {
     await runner.run(args);
   } on UsageException catch (e) {

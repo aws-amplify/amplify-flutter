@@ -6,7 +6,7 @@ import 'dart:io';
 
 import 'package:aft/aft.dart';
 import 'package:async/async.dart';
-import 'package:cli_util/cli_logging.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:http/http.dart' as http;
 import 'package:pub/src/http.dart' as pub_http;
 
@@ -18,6 +18,10 @@ enum PubAction {
   upgrade(
     'Upgrades packages and the pubspec.lock file to their latest versions',
     'Successfully upgraded packages',
+  ),
+  publish(
+    'Publishes package to pub.dev',
+    'Successfully published package',
   );
 
   const PubAction(this.description, this.successMessage);
@@ -64,7 +68,7 @@ class PubSubcommand extends AmplifyCommand {
 
   @override
   Future<void> run() async {
-    final allPackages = await this.allPackages;
+    await super.run();
     await pubAction(
       action: action,
       allPackages: allPackages.values,
@@ -87,19 +91,19 @@ Future<void> pubAction({
   required bool verbose,
   required PubCommandRunner Function() createPubRunner,
   required http.Client httpClient,
-  Logger? logger,
+  AWSLogger? logger,
 }) async {
   // Set the internal HTTP client to one that can be reused multiple times.
   pub_http.innerHttpClient = httpClient;
+  logger ??= AWSLogger('pubAction');
 
-  final progress =
-      logger?.progress('Running `pub ${action.name}` in all packages');
+  logger.info('Running `pub ${action.name}` in all packages...');
   final results = <String, Result<void>>{};
   for (final package in allPackages) {
     if (package.skipChecks) {
       continue;
     }
-    final packageProgress = logger?.progress(package.name);
+    logger.info('${package.name}...');
     switch (package.flavor) {
       case PackageFlavor.flutter:
         results[package.name] = await Result.capture(
@@ -122,19 +126,17 @@ Future<void> pubAction({
         );
         break;
     }
-    packageProgress?.finish();
   }
-  progress?.finish(message: action.successMessage, showTiming: true);
 
   final failed = results.entries.where((entry) => entry.value.isError);
   if (failed.isNotEmpty) {
-    logger?.stderr('The following packages failed: ');
+    logger.error('The following packages failed: ');
     for (final failedPackage in failed) {
       final error = failedPackage.value.asError!;
       logger
-        ?..stderr(failedPackage.key)
-        ..stderr(error.error.toString())
-        ..stderr(error.stackTrace.toString());
+        ..error(failedPackage.key)
+        ..error(error.error.toString())
+        ..error(error.stackTrace.toString());
     }
     exitCode = 1;
   }

@@ -5,10 +5,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
-import 'package:cli_util/cli_logging.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:graphs/graphs.dart';
-import 'package:pub_semver/pub_semver.dart';
-import 'package:pubspec_parse/pubspec_parse.dart';
+import 'package:path/path.dart' as p;
 
 /// Command to publish all Dart/Flutter packages in the repo.
 class PublishCommand extends AmplifyCommand {
@@ -49,71 +48,82 @@ class PublishCommand extends AmplifyCommand {
 
     Never fail(String error) {
       logger
-        ..stderr('Could not retrieve package info for ${package.name}: ')
-        ..stderr(error)
-        ..stderr('Retry with `--force` to ignore this error');
+        ..error('Could not retrieve package info for ${package.name}: ')
+        ..error(error)
+        ..error('Retry with `--force` to ignore this error');
       exit(1);
     }
 
-    // Get the currently published version of the package.
-    final uri = Uri.parse(publishTo ?? 'https://pub.dev')
-        .replace(path: '/api/packages/${package.name}');
-    logger.trace('GET $uri');
-    final resp = await httpClient.get(
-      uri,
-      headers: {'Accept': 'application/vnd.pub.v2+json'},
-    );
+    try {
+      final versionInfo = await resolveVersionInfo(package.name);
+      final publishedVersion =
+          versionInfo?.latestPrerelease ?? versionInfo?.latestVersion;
+      if (publishedVersion == null) {
+        logger.info('No published info for package ${package.name}');
+        return package;
+      }
 
-    // Package is unpublished
-    if (resp.statusCode == 404) {
-      return package;
-    }
-    if (resp.statusCode != 200) {
+      final currentVersion = package.pubspecInfo.pubspec.version!;
+      return currentVersion > publishedVersion ? package : null;
+    } on Exception catch (e) {
+      logger.error('Error retrieving info for package ${package.name}', e);
       if (force) {
         return package;
       } else {
-        fail(resp.body);
+        fail(e.toString());
       }
     }
-
-    final respJson = jsonDecode(resp.body) as Map<String, Object?>;
-    final latestVersionStr =
-        (respJson['latest'] as Map?)?['version'] as String?;
-    if (latestVersionStr == null) {
-      if (force) {
-        return package;
-      } else {
-        fail('Could not determine latest version');
-      }
-    }
-
-    final latestVersion = Version.parse(latestVersionStr);
-    return latestVersion < package.pubspecInfo.pubspec.version!
-        ? package
-        : null;
   }
 
   /// Runs pre-publish operations for [package], most importantly any necessary
   /// `build_runner` tasks.
   Future<void> _prePublish(PackageInfo package) async {
-    final progress =
-        logger.progress('Running pre-publish checks for ${package.name}...');
+    logger.info('Running pre-publish checks for ${package.name}...');
+    if (!dryRun) {
+      // Remove any overrides so that `pub` commands resolve against
+      // `pubspec.yaml`, allowing us to verify we've set our constraints
+      // correctly.
+      final pubspecOverrideFile = File(
+        p.join(package.path, 'pubspec_overrides.yaml'),
+      );
+      if (pubspecOverrideFile.existsSync()) {
+        pubspecOverrideFile.deleteSync();
+      }
+    }
+    final res = await Process.run(
+      package.flavor.entrypoint,
+      ['pub', 'upgrade'],
+      stdoutEncoding: utf8,
+      stderrEncoding: utf8,
+      workingDirectory: package.path,
+    );
+    if (res.exitCode != 0) {
+      stdout.write(res.stdout);
+      stderr.write(res.stderr);
+      exit(res.exitCode);
+    }
     await runBuildRunner(package, logger: logger, verbose: verbose);
-    progress.finish(message: 'Success!');
   }
 
   static final _validationStartRegex = RegExp(
     r'Package validation found the following',
   );
   static final _validationConstraintRegex = RegExp(
-    r'\* Your dependency on ".+" should allow more than one version.',
+    r'\* Your dependency on ".+" should allow more than one version\.',
+  );
+  static final _validationCheckedInFilesRegex = RegExp(
+    r'\* \d+ checked-in files? (is|are) ignored by a `\.gitignore`\.',
+  );
+  // TODO(dnys1): Remove when we hit 1.0. For now this is appropriate since
+  // we have 0.x versions depending on 1.x-pre versions.
+  static final _validationPreReleaseRegex = RegExp(
+    r'\* Packages dependent on a pre-release of another package should themselves be published as a pre-release version\.',
   );
   static final _validationErrorRegex = RegExp(r'^\s*\*');
 
   /// Publishes the package using `pub`.
   Future<void> _publish(PackageInfo package) async {
-    final progress = logger
-        .progress('Publishing ${package.name}${dryRun ? ' (dry run)' : ''}...');
+    logger.info('Publishing ${package.name}${dryRun ? ' (dry run)' : ''}...');
     final publishCmd = await Process.start(
       package.flavor.entrypoint,
       [
@@ -122,6 +132,7 @@ class PublishCommand extends AmplifyCommand {
         if (dryRun) '--dry-run',
       ],
       workingDirectory: package.path,
+      runInShell: true,
     );
     final output = StringBuffer();
     publishCmd
@@ -137,52 +148,51 @@ class PublishCommand extends AmplifyCommand {
     final exitCode = await publishCmd.exitCode;
     if (exitCode != 0) {
       // Find any error lines which are not dependency constraint-related.
-      final failures = output
-          .toString()
-          .split('\n')
+      final failures = LineSplitter.split(output.toString())
           .skipWhile((line) => !_validationStartRegex.hasMatch(line))
           .where(_validationErrorRegex.hasMatch)
-          .where((line) => !_validationConstraintRegex.hasMatch(line));
+          .where((line) => !_validationConstraintRegex.hasMatch(line))
+          .where((line) => !_validationPreReleaseRegex.hasMatch(line))
+          .where((line) => !_validationCheckedInFilesRegex.hasMatch(line));
       if (failures.isNotEmpty) {
-        progress.cancel();
         logger
-          ..stderr(
+          ..error(
             'Failed to publish package ${package.name} '
             'due to the following errors: ',
           )
-          ..stderr(failures.join('\n'));
+          ..error(failures.join('\n'));
         exit(exitCode);
       }
     }
-    progress.finish(message: 'Success!');
   }
 
   @override
   Future<void> run() async {
-    final allPackages = await this.allPackages;
-
+    await super.run();
     // Gather packages which can be published.
-    final publishablePackages = (await Future.wait([
-      for (final package in allPackages.values) _checkPublishable(package),
+    final publishablePackages = repo.publishablePackages
+        .where((pkg) => pkg.pubspecInfo.pubspec.publishTo != 'none');
+
+    // Gather packages which need to be published.
+    final packagesNeedingPublish = (await Future.wait([
+      for (final package in publishablePackages) _checkPublishable(package),
     ]))
         .whereType<PackageInfo>()
         .toList();
 
-    // Non-example packages which are being held back
-    final unpublishablePackages = allPackages.values.where(
-      (pkg) =>
-          pkg.pubspecInfo.pubspec.publishTo == null &&
-          !publishablePackages.contains(pkg),
+    // Publishable packages which are being held back.
+    final unpublishablePackages = publishablePackages.where(
+      (pkg) => !packagesNeedingPublish.contains(pkg),
     );
 
-    if (publishablePackages.isEmpty) {
-      logger.stdout('No packages need publishing!');
+    if (packagesNeedingPublish.isEmpty) {
+      logger.info('No packages need publishing!');
       return;
     }
 
     try {
       sortPackagesTopologically<PackageInfo>(
-        publishablePackages,
+        packagesNeedingPublish,
         (pkg) => pkg.pubspecInfo.pubspec,
       );
     } on CycleException<dynamic> {
@@ -194,7 +204,7 @@ class PublishCommand extends AmplifyCommand {
     stdout
       ..writeln('Preparing to publish${dryRun ? ' (dry run)' : ''}: ')
       ..writeln(
-        publishablePackages
+        packagesNeedingPublish
             .map((pkg) => '${pkg.pubspecInfo.pubspec.version} ${pkg.name}')
             .join('\n'),
       )
@@ -213,13 +223,14 @@ class PublishCommand extends AmplifyCommand {
       }
     }
 
-    // Run pre-publish checks before publishing any packages.
-    for (final package in publishablePackages) {
+    // Run pre-publish checks then publish package.
+    //
+    // Do not split up this step. Since packages are iterated in topological
+    // ordering, it is okay for later packages to fail. While this means that
+    // some packages will not be published, it also means that the command
+    // can be re-run to pick up where it left off.
+    for (final package in packagesNeedingPublish) {
       await _prePublish(package);
-    }
-
-    // Publish each package sequentially.
-    for (final package in publishablePackages) {
       await _publish(package);
     }
 
@@ -234,13 +245,13 @@ class PublishCommand extends AmplifyCommand {
 /// Runs `build_runner` for [package].
 Future<void> runBuildRunner(
   PackageInfo package, {
-  required Logger logger,
+  required AWSLogger logger,
   required bool verbose,
 }) async {
   if (!package.needsBuildRunner) {
     return;
   }
-  logger.stdout('Running build_runner for ${package.name}...');
+  logger.info('Running build_runner for ${package.name}...');
   final buildRunnerCmd = await Process.start(
     package.flavor.entrypoint,
     [
@@ -263,34 +274,10 @@ Future<void> runBuildRunner(
       ..captureStderr();
   }
   if (await buildRunnerCmd.exitCode != 0) {
-    logger.stderr('Failed to run `build_runner` for ${package.name}: ');
+    logger.error('Failed to run `build_runner` for ${package.name}: ');
     if (!verbose) {
-      logger.stderr(output.toString());
+      logger.error(output.toString());
     }
     exit(1);
   }
-}
-
-/// Sorts packages in topological order so they may be published in the order
-/// they're sorted.
-///
-/// Packages with inter-dependencies cannot be topologically sorted and will
-/// throw a [CycleException].
-void sortPackagesTopologically<T>(
-  List<T> packages,
-  Pubspec Function(T) getPubspec,
-) {
-  final pubspecs = packages.map(getPubspec);
-  final packageNames = pubspecs.map((el) => el.name).toList();
-  final graph = <String, Iterable<String>>{
-    for (var package in pubspecs)
-      package.name: package.dependencies.keys.where(packageNames.contains),
-  };
-  final ordered = topologicalSort(graph.keys, (key) => graph[key]!);
-  packages.sort((a, b) {
-    // `ordered` is in reverse ordering to our desired publish precedence.
-    return ordered
-        .indexOf(getPubspec(b).name)
-        .compareTo(ordered.indexOf(getPubspec(a).name));
-  });
 }

@@ -25,7 +25,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Git Checkout
-        uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791 # v2.5.0
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
+
+      - name: Git Submodules
+        run: git submodule update --init
 
       - name: Setup Dart
         uses: dart-lang/setup-dart@196f54580e9eee2797c57e85e289339f85e6779d # main
@@ -34,6 +37,8 @@ jobs:
 
       - name: Link Packages
         run: |
+          # Patch libgit2dart (see https://github.com/dart-lang/pub/issues/3563)
+          ( cd packages/aft/external/libgit2dart; git apply ../libgit2dart.patch )
           dart pub global activate -spath packages/aft
           aft link
 

@@ -31,8 +31,8 @@ class CleanCommand extends AmplifyCommand {
         cleanCmd.captureStderr(sink: errors.writeln);
         if (await cleanCmd.exitCode != 0) {
           logger
-            ..stderr('Could not clean ${package.path}: ')
-            ..stderr(errors.toString());
+            ..error('Could not clean ${package.path}: ')
+            ..error(errors.toString());
         }
         break;
       case PackageFlavor.dart:
@@ -43,9 +43,9 @@ class CleanCommand extends AmplifyCommand {
 
   @override
   Future<void> run() async {
+    await super.run();
     await Future.wait([
-      for (final package in (await allPackages).values)
-        _cleanBuildFolder(package)
+      for (final package in allPackages.values) _cleanBuildFolder(package),
     ]);
 
     stdout.writeln('Project successfully cleaned');

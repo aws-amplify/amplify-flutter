@@ -29,7 +29,6 @@ rootProject.allprojects {
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply from: './coverage.gradle'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
 // Logic for finding sibling plugins, from `flutter_tools/gradle/flutter.gradle`
@@ -66,17 +65,12 @@ android {
             returnDefaultValues = true
         }
     }
-    buildTypes {
-        debug {
-            testCoverageEnabled = true
-        }
-    }
 }
 
 dependencies {
     api amplifyFlutter
 
-    implementation 'com.amplifyframework:aws-auth-cognito:2.0.0'
+    implementation 'com.amplifyframework:aws-auth-cognito:2.1.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
     implementation 'androidx.browser:browser:1.4.0'
 

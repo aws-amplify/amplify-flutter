@@ -3,6 +3,6 @@
 
 library amplify_api;
 
-export 'package:amplify_api/src/api_plugin_impl.dart'
+export 'package:amplify_api/src/api_plugin_impl.dart';
+export 'package:amplify_api_dart/amplify_api_dart.dart'
     hide AmplifyAPIDart, ConnectivityPlatform, ConnectivityStatus;
-export 'package:amplify_api/src/api_plugin_impl_flutter.dart';

@@ -3,8 +3,9 @@
 
 import 'dart:async';
 
-import 'package:amplify_api/src/api_plugin_impl.dart' hide ConnectivityPlatform;
 import 'package:amplify_api/src/connectivity_plus_platform.dart';
+import 'package:amplify_api_dart/amplify_api_dart.dart'
+    hide ConnectivityPlatform;
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -33,6 +34,7 @@ class MockConnectivityPlatform extends Mock
 
 void main() {
   group('ConnectivityPlusPlatform', () {
+    // TODO(ragingsquirrel3): change mocking to injection
     // More runtime mocking Connectivity Plus
     final fakePlatform = MockConnectivityPlatform();
     ConnectivityPlatform.instance = fakePlatform;

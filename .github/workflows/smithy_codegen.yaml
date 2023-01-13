@@ -28,7 +28,6 @@ jobs:
     with:
       working-directory: packages/smithy/smithy_codegen
   native_test:
-    if: ${{ github.event_name == 'push' }}
     needs: test
     uses: ./.github/workflows/dart_native.yaml
     with:
