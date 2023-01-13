@@ -281,7 +281,10 @@ class GraphQLRequestFactory {
   ///
   /// When the model has a parent via a belongsTo, the id from the parent is added
   /// as a field similar to "blogID" where the value is `post.blog.id`.
-  Map<String, dynamic> buildInputVariableForMutations(Model model) {
+  Map<String, dynamic> buildInputVariableForMutations(
+    Model model, {
+    required GraphQLRequestOperation operation,
+  }) {
     final schema =
         getModelSchemaByModelName(model.getInstanceType().modelName(), null);
     final modelJson = model.toJson();
@@ -303,10 +306,17 @@ class GraphQLRequestFactory {
       }
     }
 
-    // Remove any relational fields or readonly.
+    // Remove some fields from input.
     final fieldsToRemove = schema.fields!.entries
         .where(
-          (entry) => entry.value.association != null || entry.value.isReadOnly,
+          (entry) =>
+              // relational fields
+              entry.value.association != null ||
+              // read-only
+              entry.value.isReadOnly ||
+              // null values on create operations
+              (operation == GraphQLRequestOperation.create &&
+                  modelJson[entry.value.name] == null),
         )
         .map((entry) => entry.key)
         .toSet();

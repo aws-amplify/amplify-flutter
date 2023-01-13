@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/amplifyconfiguration.dart';
@@ -151,8 +152,15 @@ Future<GraphQLResponse<String>> runPartialMutation(String name) async {
     variables: <String, dynamic>{'name': name},
     authorizationMode: APIAuthorizationType.userPools,
   );
+  final response = await Amplify.API.mutate(request: request).response;
+  expect(response, hasNoGraphQLErrors);
+  // Add to cache so it can be cleaned up with other test artifacts.
+  final responseJson = json.decode(response.data!) as Map<String, dynamic>;
+  final blogFromResponse =
+      Blog.fromJson(responseJson['createBlog'] as Map<String, dynamic>);
+  blogCache.add(blogFromResponse);
 
-  return Amplify.API.mutate(request: request).response;
+  return response;
 }
 
 Future<Post> addPostAndBlog(
