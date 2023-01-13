@@ -60,4 +60,5 @@ addlicense -l apache \
     -ignore '**/goldens/**' \
     -ignore '**/node_modules/**' \
     -ignore '**/sdk/**' \
+    -ignore '**/external/**' \
     $@ $PWD

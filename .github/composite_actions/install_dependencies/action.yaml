@@ -17,6 +17,7 @@ runs:
     #  Install aft from path, links packages and runs build runner where needed.
     - name: Partial aft bootstrap
       run: |
+        git submodule update --init
         flutter pub global activate -spath packages/aft
         flutter pub global run aft link
         flutter pub global run melos exec -c 1 --scope="amplify_secure_storage_dart,amplify_auth_cognito_dart" -- dart run build_runner build --delete-conflicting-outputs

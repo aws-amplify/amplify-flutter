@@ -29,7 +29,6 @@ rootProject.allprojects {
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply from: './coverage.gradle'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
 // Logic for finding sibling plugins, from `flutter_tools/gradle/flutter.gradle`
@@ -65,18 +64,13 @@ android {
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }
-    buildTypes {
-        debug {
-            testCoverageEnabled = true
-        }
-    }
 }
 
 dependencies {
     api amplifyFlutter
 
-    implementation "com.amplifyframework:aws-api:2.0.0"
-    implementation "com.amplifyframework:aws-api-appsync:2.0.0"
+    implementation "com.amplifyframework:aws-api:2.1.0"
+    implementation "com.amplifyframework:aws-api-appsync:2.1.0"
 
     // Do not update before migration of plugin to Dart.
     //noinspection GradleDependency

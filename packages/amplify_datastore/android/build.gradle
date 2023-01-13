@@ -29,7 +29,6 @@ rootProject.allprojects {
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply from: './coverage.gradle'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
 // Logic for finding sibling plugins, from `flutter_tools/gradle/flutter.gradle`
@@ -68,11 +67,6 @@ android {
             includeAndroidResources = true
         }
     }
-    buildTypes {
-        debug {
-            testCoverageEnabled = true
-        }
-    }
 }
 
 dependencies {
@@ -81,8 +75,8 @@ dependencies {
 
     api amplifyFlutter
 
-    implementation "com.amplifyframework:aws-datastore:2.0.0"
-    implementation "com.amplifyframework:aws-api-appsync:2.0.0"
+    implementation "com.amplifyframework:aws-datastore:2.1.0"
+    implementation "com.amplifyframework:aws-api-appsync:2.1.0"
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:4.0.0'

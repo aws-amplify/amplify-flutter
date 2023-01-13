@@ -1,5 +1,8 @@
 targets:
   $default:
+    sources:
+      exclude:
+        - example/**
     builders:
       build_web_compilers:entrypoint:
         release_options:

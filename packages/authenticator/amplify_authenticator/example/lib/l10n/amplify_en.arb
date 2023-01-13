@@ -57,24 +57,22 @@
     "@signOut": {
         "description": "Label of button to sign out the user"
     },
-    "backTo": "Back to {previousStep, select, signUp{Sign Up}, signIn{Sign In}, confirmSignUp{Confirm Sign-up}, confirmSignInMfa{Confirm Sign-in} confirmSignInNewPassword{Confirm Sign-in} sendCode{Send Code} resetPassword{Reset Password} verifyUser{Verify User} confirmVerifyUser{Confirm Verify User}}",
+    "backTo": "Back to {previousStep, select, signUp{Sign Up} signIn{Sign In} confirmSignUp{Confirm Sign-up} confirmSignInMfa{Confirm Sign-in} confirmSignInNewPassword{Confirm Sign-in} sendCode{Send Code} resetPassword{Reset Password} verifyUser{Verify User} confirmVerifyUser{Confirm Verify User} other{ERROR}}",
     "@backTo": {
         "description": "Label of button to return to the previous step",
         "placeholders": {
             "previousStep": {
-                "type": "AuthenticatorStep",
                 "example": "signIn",
                 "description": "The title of the previous step."
             }
         }
     },
-    "signInWith": "Sign In with {provider, select, google{Google} facebook{Facebook} amazon{Amazon} apple{Apple}}",
+    "signInWith": "Sign In with {provider, select, google{Google} facebook{Facebook} amazon{Amazon} apple{Apple} other{ERROR}}",
     "@signInWith": {
         "description": "Label of button to sign in with a social provider",
         "placeholders": {
             "provider": {
-                "type": "AuthProvider",
-                "example": "Google",
+                "example": "google",
                 "description": "The social sign-in provider"
             }
         }

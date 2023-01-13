@@ -39,15 +39,15 @@ class AWSLogger implements Closeable {
   /// {@macro aws_common.logging.aws_logger}
   @protected
   AWSLogger.protected(this._logger) {
-    _init();
+    _init(this);
   }
 
   static bool _initialized = false;
-  static void _init() {
+  static void _init(AWSLogger rootLogger) {
     if (_initialized) return;
     _initialized = true;
     hierarchicalLoggingEnabled = true;
-    AWSLogger().registerPlugin(const SimpleLogPrinter());
+    rootLogger.registerPlugin(const SimpleLogPrinter());
   }
 
   /// The root namespace for all [AWSLogger] instances.

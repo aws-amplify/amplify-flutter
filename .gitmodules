@@ -11,3 +11,6 @@
 	path = packages/smithy/goldens/smithy
 	url = https://github.com/awslabs/smithy.git
 	branch = main
+[submodule "packages/aft/external/libgit2dart"]
+	path = packages/aft/external/libgit2dart
+	url = https://github.com/SkinnyMind/libgit2dart.git

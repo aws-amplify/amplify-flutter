@@ -56,7 +56,9 @@ class GenerateSdkCommand extends AmplifyCommand {
   /// Downloads AWS models from GitHub into a temporary directory.
   Future<Directory> _downloadModels(String ref) async {
     final cloneDir = await Directory.systemTemp.createTemp('models');
-    logger.trace('Cloning models to ${cloneDir.path}');
+    logger
+      ..info('Downloading models...')
+      ..verbose('Cloning models to ${cloneDir.path}');
     await runGit([
       'clone',
       'https://github.com/aws/aws-models.git',
@@ -66,7 +68,7 @@ class GenerateSdkCommand extends AmplifyCommand {
       ['checkout', ref],
       processWorkingDir: cloneDir.path,
     );
-    logger.trace('Successfully cloned models');
+    logger.info('Successfully cloned models');
     return cloneDir;
   }
 
@@ -75,7 +77,7 @@ class GenerateSdkCommand extends AmplifyCommand {
   /// Returns the new directory.
   Future<Directory> _organizeModels(Directory baseDir) async {
     final modelsDir = await Directory.systemTemp.createTemp('models');
-    logger.trace('Organizing models in ${modelsDir.path}');
+    logger.debug('Organizing models in ${modelsDir.path}');
     final services = baseDir.list(followLinks: false).whereType<Directory>();
     await for (final serviceDir in services) {
       final serviceName = p.basename(serviceDir.path);
@@ -88,7 +90,7 @@ class GenerateSdkCommand extends AmplifyCommand {
       }
       final smithyModel = File(p.join(smithyDir.path, 'model.json'));
       final copyToPath = p.join(modelsDir.path, '$serviceName.json');
-      logger.trace('Copying $serviceName.json to $copyToPath');
+      logger.verbose('Copying $serviceName.json to $copyToPath');
       await smithyModel.copy(copyToPath);
     }
     return modelsDir;
@@ -96,6 +98,7 @@ class GenerateSdkCommand extends AmplifyCommand {
 
   @override
   Future<void> run() async {
+    await super.run();
     final args = argResults!;
     final configFilepath = args['config'] as String;
     final configFile = File(configFilepath);
@@ -105,7 +108,7 @@ class GenerateSdkCommand extends AmplifyCommand {
 
     final configYaml = await configFile.readAsString();
     final config = checkedYamlDecode(configYaml, SdkConfig.fromJson);
-    logger.stdout('Got config: $config');
+    logger.verbose('Got config: $config');
 
     final modelsPath = args['models'] as String?;
     final Directory modelsDir;
@@ -191,7 +194,7 @@ class GenerateSdkCommand extends AmplifyCommand {
     }
 
     for (final plugin in config.plugins) {
-      logger.stdout('Running plugin $plugin...');
+      logger.info('Running plugin $plugin...');
       final generatedShapes = ShapeMap(
         Map.fromEntries(
           output.values.expand((out) => out.context.shapes.entries),
@@ -234,10 +237,10 @@ class GenerateSdkCommand extends AmplifyCommand {
     }
 
     logger
-      ..stdout('Successfully generated SDK')
-      ..trace('Make sure to add the following dependencies:');
+      ..info('Successfully generated SDK')
+      ..verbose('Make sure to add the following dependencies:');
     for (final dep in dependencies.toList()..sort()) {
-      logger.trace('- $dep');
+      logger.verbose('- $dep');
     }
   }
 }

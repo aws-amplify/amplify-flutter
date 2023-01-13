@@ -23,7 +23,7 @@ void main() {
   final username = generateUsername();
   final password = generatePassword();
   final email = generateEmail();
-  const phoneNumber = mockPhoneNumber;
+  final phoneNumber = generatePhoneNumber();
   final name = generateNameAttribute();
 
   group('User Attributes', () {
@@ -44,9 +44,9 @@ void main() {
             userAttributeKey: CognitoUserAttributeKey.email,
             value: email,
           ),
-          const AuthUserAttribute(
+          AuthUserAttribute(
             userAttributeKey: CognitoUserAttributeKey.phoneNumber,
-            value: mockPhoneNumber,
+            value: phoneNumber,
           )
         ],
       );

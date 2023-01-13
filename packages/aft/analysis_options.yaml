@@ -5,3 +5,4 @@ analyzer:
     public_member_api_docs: ignore
   exclude:
     - '**/*.g.dart'
+    - external/

@@ -4,6 +4,7 @@
 import 'package:amplify_analytics_pinpoint/src/device_context_info_provider/flutter_device_context_info_provider.dart';
 import 'package:amplify_analytics_pinpoint/src/flutter_app_lifecycle_provider.dart';
 import 'package:amplify_analytics_pinpoint/src/flutter_path_provider/flutter_path_provider.dart';
+import 'package:amplify_analytics_pinpoint/src/legacy_native_data_provider/flutter_legacy_native_data_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_db_common/amplify_db_common.dart' as db_common;
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
@@ -16,9 +17,7 @@ class AmplifyAnalyticsPinpoint extends AmplifyAnalyticsPinpointDart {
   /// {@macro amplify_analytics_pinpoint.analytics_plugin_impl}
   AmplifyAnalyticsPinpoint({
     @visibleForTesting SecureStorageInterface? endpointInfoStore,
-    @visibleForTesting CachedEventsPathProvider? pathProvider,
     @visibleForTesting AppLifecycleProvider? appLifecycleProvider,
-    @visibleForTesting DeviceContextInfoProvider? deviceContextInfoProvider,
   }) : super(
           endpointInfoStore: endpointInfoStore ??
               AmplifySecureStorage(
@@ -26,11 +25,11 @@ class AmplifyAnalyticsPinpoint extends AmplifyAnalyticsPinpointDart {
                   scope: 'analyticsPinpoint',
                 ),
               ),
-          pathProvider: pathProvider ?? FlutterPathProvider(),
+          pathProvider: FlutterPathProvider(),
           appLifecycleProvider:
               appLifecycleProvider ?? FlutterAppLifecycleProvider(),
-          deviceContextInfoProvider: deviceContextInfoProvider ??
-              const FlutterDeviceContextInfoProvider(),
+          deviceContextInfoProvider: const FlutterDeviceContextInfoProvider(),
+          legacyNativeDataProvider: FlutterLegacyNativeDataProvider(),
           dbConnectFunction: db_common.connect,
         );
 }
