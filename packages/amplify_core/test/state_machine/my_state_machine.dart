@@ -56,12 +56,12 @@ class MyState extends StateMachineState<MyType> {
   String get runtimeTypeName => 'MyState';
 }
 
-class MyStateMachine
-    extends StateMachine<MyEvent, MyState, MyStateMachineManager> {
-  MyStateMachine(MyStateMachineManager manager) : super(manager);
+class MyStateMachine extends StateMachine<MyEvent, MyState, StateMachineEvent,
+    StateMachineState, MyStateMachineManager> {
+  MyStateMachine(MyStateMachineManager manager) : super(manager, type);
 
-  static const type = StateMachineToken<MyEvent, MyState, MyStateMachine,
-      MyStateMachineManager>();
+  static const type = StateMachineToken<MyEvent, MyState, StateMachineEvent,
+      StateMachineState, MyStateMachineManager, MyStateMachine>();
 
   @override
   MyState get initialState => const MyState(MyType.initial);
@@ -140,12 +140,17 @@ class WorkerState extends StateMachineState<WorkType> {
   String get runtimeTypeName => 'WorkerState';
 }
 
-class WorkerMachine
-    extends StateMachine<WorkerEvent, WorkerState, StateMachineManager> {
-  WorkerMachine(StateMachineManager manager) : super(manager);
+class WorkerMachine extends StateMachine<WorkerEvent, WorkerState,
+    StateMachineEvent, StateMachineState, MyStateMachineManager> {
+  WorkerMachine(MyStateMachineManager manager) : super(manager, type);
 
-  static const type = StateMachineToken<WorkerEvent, WorkerState, WorkerMachine,
-      StateMachineManager>();
+  static const type = StateMachineToken<
+      WorkerEvent,
+      WorkerState,
+      StateMachineEvent,
+      StateMachineState,
+      MyStateMachineManager,
+      WorkerMachine>();
 
   @override
   WorkerState get initialState => const WorkerState(WorkType.initial);

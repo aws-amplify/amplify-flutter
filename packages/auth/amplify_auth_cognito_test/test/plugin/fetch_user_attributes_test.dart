@@ -65,29 +65,23 @@ final claims = <String, String>{
   customKey: customValue,
 };
 
+final _userPoolTokens = CognitoUserPoolTokens.build(
+  (b) => b
+    ..accessToken = JsonWebToken(
+      header: const JsonWebHeader(algorithm: Algorithm.rsaSha256),
+      claims: JsonWebClaims(
+        customClaims: claims,
+      ),
+      signature: const [],
+    )
+    ..refreshToken = refreshToken
+    ..idToken = idToken,
+);
+
 class MockAmplifyAuthCognito extends AmplifyAuthCognitoDart {
   @override
-  Future<CredentialStoreData> getCredentialStoreData() async {
-    return CredentialStoreData(
-      userPoolTokens: await getUserPoolTokens(),
-      signInDetails: const CognitoSignInDetails.apiBased(username: username),
-    );
-  }
-
-  @override
   Future<CognitoUserPoolTokens> getUserPoolTokens() async {
-    return CognitoUserPoolTokens.build(
-      (b) => b
-        ..accessToken = JsonWebToken(
-          header: const JsonWebHeader(algorithm: Algorithm.rsaSha256),
-          claims: JsonWebClaims(
-            customClaims: claims,
-          ),
-          signature: const [],
-        )
-        ..refreshToken = refreshToken
-        ..idToken = idToken,
-    );
+    return _userPoolTokens;
   }
 }
 

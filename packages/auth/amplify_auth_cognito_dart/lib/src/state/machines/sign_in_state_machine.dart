@@ -20,6 +20,7 @@ import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     hide InvalidParameterException;
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 import 'package:built_collection/built_collection.dart';
@@ -30,14 +31,14 @@ import 'package:meta/meta.dart';
 /// the same pattern of calling `cognitoIdp.InitiateAuth` plus some number of
 /// challenge responses.
 /// {@endtemplate}
-class SignInStateMachine
-    extends StateMachine<SignInEvent, SignInState, CognitoAuthStateMachine> {
+class SignInStateMachine extends StateMachine<SignInEvent, SignInState,
+    AuthEvent, AuthState, CognitoAuthStateMachine> {
   /// {@macro amplify_auth_cognito.sign_in_state_machine}
-  SignInStateMachine(super.manager);
+  SignInStateMachine(CognitoAuthStateMachine manager) : super(manager, type);
 
   /// The [SignInStateMachine] type.
-  static const type = StateMachineToken<SignInEvent, SignInState,
-      SignInStateMachine, CognitoAuthStateMachine>();
+  static const type = StateMachineToken<SignInEvent, SignInState, AuthEvent,
+      AuthState, CognitoAuthStateMachine, SignInStateMachine>();
 
   @override
   String get runtimeTypeName => 'SignInStateMachine';
@@ -602,21 +603,18 @@ class SignInStateMachine
           signInDetails: signInDetails,
         ),
       ),
-    );
+    ).accepted;
 
     // Clear anonymous credentials, if there were any, and fetch authenticated
     // credentials.
     if (hasIdentityPool) {
-      await dispatch(
-        CredentialStoreEvent.clearCredentials(
-          CognitoIdentityPoolKeys(identityPoolConfig!),
-        ),
+      await manager.clearCredentials(
+        CognitoIdentityPoolKeys(identityPoolConfig!),
       );
 
-      await dispatch(const FetchAuthSessionEvent.fetch());
-
-      // Wait for above to propagate and complete successfully.
-      await manager.loadSession();
+      await manager.loadSession(
+        const FetchAuthSessionEvent.fetch(),
+      );
     }
 
     return accessToken;

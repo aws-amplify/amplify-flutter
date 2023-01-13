@@ -53,7 +53,7 @@ abstract class HostedUiPlatform implements Closeable {
 
   /// The state machine dispatcher.
   @protected
-  Dispatcher<AuthEvent> get dispatcher => dependencyManager.expect();
+  Dispatcher<AuthEvent, AuthState> get dispatcher => dependencyManager.expect();
 
   /// The dependency manager, used to retrieve injected dependencies.
   @protected
@@ -259,7 +259,7 @@ abstract class HostedUiPlatform implements Closeable {
         codeVerifier: codeVerifier,
         httpClient: httpClient,
       );
-      return dispatcher(HostedUiEvent.exchange(parameters));
+      return dispatcher(HostedUiEvent.exchange(parameters)).accepted;
     }
 
     // Clear all state from the previous session.

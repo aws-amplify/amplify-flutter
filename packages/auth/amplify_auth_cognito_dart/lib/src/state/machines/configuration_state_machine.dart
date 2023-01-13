@@ -9,23 +9,30 @@ import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_auth_cognito.configuration_state_machine}
 /// Manages configuration of the Auth category.
 /// {@endtemplate}
 class ConfigurationStateMachine extends StateMachine<ConfigurationEvent,
-    ConfigurationState, CognitoAuthStateMachine> {
+    ConfigurationState, AuthEvent, AuthState, CognitoAuthStateMachine> {
   /// {@macro amplify_auth_cognito.configuration_state_machine}
-  ConfigurationStateMachine(super.manager);
+  ConfigurationStateMachine(CognitoAuthStateMachine manager)
+      : super(manager, type);
 
   @override
   ConfigurationState get initialState =>
       const ConfigurationState.notConfigured();
 
   /// The [ConfigurationStateMachine] type.
-  static const type = StateMachineToken<ConfigurationEvent, ConfigurationState,
-      ConfigurationStateMachine, CognitoAuthStateMachine>();
+  static const type = StateMachineToken<
+      ConfigurationEvent,
+      ConfigurationState,
+      AuthEvent,
+      AuthState,
+      CognitoAuthStateMachine,
+      ConfigurationStateMachine>();
 
   @override
   String get runtimeTypeName => 'ConfigurationStateMachine';

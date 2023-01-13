@@ -39,7 +39,8 @@ final defaultDependencies = <Token, DependencyBuilder>{
 /// {@template amplify_auth_cognito.cognito_auth_state_machine}
 /// The state machine for managing auth state and relevant work.
 /// {@endtemplate}
-class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
+class CognitoAuthStateMachine
+    extends StateMachineManager<AuthEvent, AuthState> {
   /// {@macro amplify_auth_cognito.cognito_auth_state_machine}
   CognitoAuthStateMachine({
     DependencyManager? dependencyManager,
@@ -50,7 +51,7 @@ class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
     addInstance<CognitoAuthStateMachine>(this);
   }
 
-  Dispatcher<AuthEvent> get _dispatch => expect();
+  Dispatcher<AuthEvent, AuthState> get _dispatch => expect();
 
   @override
   StateMachineToken mapEventToMachine(AuthEvent event) {
@@ -76,7 +77,7 @@ class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
     CredentialStoreEvent? event,
   ]) async {
     if (event != null) {
-      await _dispatch(event);
+      await _dispatch(event).accepted;
     }
     final machine = getOrCreate(CredentialStoreStateMachine.type);
     final credentialsState =
@@ -103,7 +104,7 @@ class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
     FetchAuthSessionEvent? event,
   ]) async {
     if (event != null) {
-      await _dispatch(event);
+      await _dispatch(event).accepted;
     }
     final machine = getOrCreate(FetchAuthSessionStateMachine.type);
     final sessionState =
@@ -122,7 +123,7 @@ class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
   Future<void> configureHostedUI() async {
     await _dispatch(
       const HostedUiEvent.configure(),
-    );
+    ).accepted;
     final machine = getOrCreate(HostedUiStateMachine.type);
     final configuredState =
         await machine.stream.startWith(machine.currentState).firstWhere(
@@ -138,7 +139,7 @@ class CognitoAuthStateMachine extends StateMachineManager<AuthEvent> {
 
   /// Signs out using the Hosted UI state machine.
   Future<HostedUiState> signOutHostedUI() async {
-    await _dispatch(const HostedUiEvent.signOut());
+    await _dispatch(const HostedUiEvent.signOut()).accepted;
     final machine = getOrCreate(HostedUiStateMachine.type);
     return machine.stream.startWith(machine.currentState).firstWhere(
           (state) => state is HostedUiSignedOut || state is HostedUiFailure,

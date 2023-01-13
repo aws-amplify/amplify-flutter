@@ -137,14 +137,16 @@ void main() {
     group('signIn', () {
       test('completes', () async {
         final client = http.Client();
-        final dispatcher = expectAsync1((event) {
-          expect(event, isA<HostedUiExchange>());
-        });
+        final dispatcher = mockDispatcher(
+          expectAsync1((event) {
+            expect(event, isA<HostedUiExchange>());
+          }),
+        );
         dependencyManager
           ..addInstance(client)
           ..addInstance(mockConfig)
           ..addInstance(hostedUiConfig)
-          ..addInstance<Dispatcher<AuthEvent>>(dispatcher);
+          ..addInstance<Dispatcher<AuthEvent, AuthState>>(dispatcher);
         final hostedUiPlatform = MockHostedUiPlatform(dependencyManager);
 
         final redirect = Uri.parse(redirectUri);

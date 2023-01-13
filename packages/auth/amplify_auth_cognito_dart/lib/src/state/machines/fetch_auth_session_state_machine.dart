@@ -13,6 +13,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart'
     hide NotAuthorizedException;
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     as cognito_idp;
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_auth_cognito.fetch_auth_session_state_machine}
@@ -20,16 +21,19 @@ import 'package:amplify_core/amplify_core.dart';
 /// a Cognito Identity Pool.
 /// {@endtemplate}
 class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
-    FetchAuthSessionState, CognitoAuthStateMachine> {
+    FetchAuthSessionState, AuthEvent, AuthState, CognitoAuthStateMachine> {
   /// {@macro amplify_auth_cognito.fetch_auth_session_state_machine}
-  FetchAuthSessionStateMachine(super.manager);
+  FetchAuthSessionStateMachine(CognitoAuthStateMachine manager)
+      : super(manager, type);
 
   /// The [FetchAuthSessionStateMachine] type.
   static const type = StateMachineToken<
       FetchAuthSessionEvent,
       FetchAuthSessionState,
-      FetchAuthSessionStateMachine,
-      CognitoAuthStateMachine>();
+      AuthEvent,
+      AuthState,
+      CognitoAuthStateMachine,
+      FetchAuthSessionStateMachine>();
 
   @override
   FetchAuthSessionState get initialState => const FetchAuthSessionState.idle();
@@ -431,7 +435,7 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
         federatedIdentity: federatedIdentity,
       );
 
-      await dispatch(
+      await manager.loadCredentials(
         CredentialStoreEvent.storeCredentials(
           CredentialStoreData(
             awsCredentials: awsCredentials,
@@ -439,7 +443,6 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
           ),
         ),
       );
-      await manager.loadCredentials();
 
       return _AwsCredentialsResult(awsCredentials, identityId);
     } on AuthNotAuthorizedException {
@@ -496,14 +499,13 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
             : userPoolTokens.idToken,
       );
 
-      await dispatch(
+      await manager.loadCredentials(
         CredentialStoreEvent.storeCredentials(
           CredentialStoreData(
             userPoolTokens: newTokens,
           ),
         ),
       );
-      await manager.loadCredentials();
 
       return newTokens;
     } on AuthNotAuthorizedException {

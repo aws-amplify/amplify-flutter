@@ -34,44 +34,40 @@ abstract class StateMachineEvent<EventType, StateType>
 /// A [Completer] for [Event]s in a state machine, used to signal processing
 /// of a particular event which otherwise would be fired and forgotten.
 /// {@endtemplate}
-class EventCompleter<Event extends StateMachineEvent>
-    implements Completer<void> {
+class EventCompleter<Event extends StateMachineEvent,
+    State extends StateMachineState> {
   /// {@macro amplify_core.event_completer}
-  EventCompleter(
-    this.event, {
-    required this.propagate,
-  });
+  EventCompleter(this.event);
 
   /// The event to dispatch.
   final Event event;
 
-  /// If `true`, awaits the full propagation of the event before completing.
+  final Completer<void> _acceptedCompleter = Completer();
+  final Completer<State> _completer = Completer();
+
+  /// Completes when the event is accepted by the respective state machine.
   ///
-  /// If `false`, the event completes when picked up by its respective queue
-  /// and future updates must be listened for via the state machine's stream.
-  final bool propagate;
+  /// After this completes, intermediate changes can be listened for on the
+  /// event's state machine.
+  Future<void> get accepted => _acceptedCompleter.future;
 
-  final Completer<void> _completer = Completer();
+  /// Completes with the stopping state emitted after the full propogation
+  /// of this event.
+  Future<State> get completed => _completer.future;
 
-  @override
-  void complete([FutureOr<void>? value]) {
-    if (!isCompleted) {
-      _completer.complete(value);
+  /// Accepts the event by a state machine.
+  void accept() {
+    if (!_acceptedCompleter.isCompleted) {
+      _acceptedCompleter.complete();
     }
   }
 
-  @override
-  void completeError(Object error, [StackTrace? stackTrace]) {
-    if (!isCompleted) {
-      _completer.completeError(error, stackTrace);
+  /// Completes the event propogation with its stopping state.
+  void complete(State state) {
+    if (!_completer.isCompleted) {
+      _completer.complete(state);
     }
   }
-
-  @override
-  Future<void> get future => _completer.future;
-
-  @override
-  bool get isCompleted => _completer.isCompleted;
 }
 
 /// Mixin functionality for error/failure events of a state machine.

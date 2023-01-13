@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_user_ext.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
@@ -14,13 +15,13 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 /// Manages the Hosted UI lifecycle and OIDC flow.
 /// {@endtemplate}
 class HostedUiStateMachine extends StateMachine<HostedUiEvent, HostedUiState,
-    CognitoAuthStateMachine> {
+    AuthEvent, AuthState, CognitoAuthStateMachine> {
   /// {@macro amplify_auth_cognito.hosted_ui_state_machine}
-  HostedUiStateMachine(super.manager);
+  HostedUiStateMachine(CognitoAuthStateMachine manager) : super(manager, type);
 
   /// The [HostedUiStateMachine] type.
-  static const type = StateMachineToken<HostedUiEvent, HostedUiState,
-      HostedUiStateMachine, CognitoAuthStateMachine>();
+  static const type = StateMachineToken<HostedUiEvent, HostedUiState, AuthEvent,
+      AuthState, CognitoAuthStateMachine, HostedUiStateMachine>();
 
   @override
   HostedUiState get initialState => const HostedUiState.notConfigured();
@@ -156,11 +157,9 @@ class HostedUiStateMachine extends StateMachine<HostedUiEvent, HostedUiState,
   /// State machine callback for the [HostedUiCancelSignIn] event.
   Future<void> onCancelSignIn(HostedUiCancelSignIn event) async {
     await _platform.cancelSignIn();
-    await dispatch(
-      CredentialStoreEvent.clearCredentials(_keys),
-    );
-    dispatch(
-      const HostedUiEvent.failed(
+    await manager.clearCredentials(_keys);
+    emit(
+      const HostedUiState.failure(
         UserCancelledException('The user cancelled the sign-in flow'),
       ),
     );

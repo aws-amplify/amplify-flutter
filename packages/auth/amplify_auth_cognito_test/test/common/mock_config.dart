@@ -100,7 +100,17 @@ final awsCredentials = AWSCredentials(
   expiration,
 );
 
+Dispatcher<E, S> mockDispatcher<E extends AuthEvent, S extends AuthState>(
+  FutureOr<void> Function(E event) dispatchFn,
+) {
+  return (E event) {
+    final completer = EventCompleter<E, S>(event)..accept();
+    dispatchFn(event);
+    return completer;
+  };
+}
+
 extension MockDispatch on CognitoAuthStateMachine {
-  FutureOr<void> dispatch(AuthEvent event) =>
-      expect<Dispatcher<AuthEvent>>()(event);
+  EventCompleter<AuthEvent, AuthState> dispatch(AuthEvent event) =>
+      expect<Dispatcher<AuthEvent, AuthState>>()(event);
 }

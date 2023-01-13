@@ -10,6 +10,7 @@ import 'package:amplify_auth_cognito_dart/src/credentials/credential_store_keys.
 import 'package:amplify_auth_cognito_dart/src/credentials/secure_storage_extension.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:meta/meta.dart';
@@ -18,16 +19,19 @@ import 'package:meta/meta.dart';
 /// Manages the loading and storing of auth configuration data.
 /// {@endtemplate}
 class CredentialStoreStateMachine extends StateMachine<CredentialStoreEvent,
-    CredentialStoreState, CognitoAuthStateMachine> {
+    CredentialStoreState, AuthEvent, AuthState, CognitoAuthStateMachine> {
   /// {@macro amplify_auth_cognito.auth_store_state_machine}
-  CredentialStoreStateMachine(super.manager);
+  CredentialStoreStateMachine(CognitoAuthStateMachine manager)
+      : super(manager, type);
 
   /// The [CredentialStoreStateMachine] type.
   static const type = StateMachineToken<
       CredentialStoreEvent,
       CredentialStoreState,
-      CredentialStoreStateMachine,
-      CognitoAuthStateMachine>();
+      AuthEvent,
+      AuthState,
+      CognitoAuthStateMachine,
+      CredentialStoreStateMachine>();
 
   @override
   CredentialStoreState get initialState =>
