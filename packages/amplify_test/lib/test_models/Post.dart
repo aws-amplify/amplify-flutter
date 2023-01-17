@@ -234,14 +234,13 @@ class Post extends Model {
   static final QueryField CREATED = QueryField(fieldName: 'created');
   static final QueryField LIKECOUNT = QueryField(fieldName: 'likeCount');
   static final QueryField BLOG = QueryField(
-      fieldName: 'blog',
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (Blog).toString()));
+      fieldName: "blog",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Blog'));
   static final QueryField COMMENTS = QueryField(
-      fieldName: 'comments',
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (Comment).toString()));
-  static ModelSchema schema =
+      fieldName: "comments",
+      fieldType:
+          ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Comment'));
+  static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = 'Post';
     modelSchemaDefinition.pluralName = 'Posts';
@@ -275,17 +274,13 @@ class Post extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: Post.BLOG,
         isRequired: false,
-        // TODO(Jordan-Nelson): Remove `targetName` when API category has been
-        // updated to support CPK changes. This was added manually.
-        // ignore: deprecated_member_use
-        targetName: 'blogID',
         targetNames: ['blogID'],
-        ofModelName: (Blog).toString()));
+        ofModelName: 'Blog'));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
         key: Post.COMMENTS,
         isRequired: false,
-        ofModelName: (Comment).toString(),
+        ofModelName: 'Comment',
         associatedKey: Comment.POST));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
@@ -308,6 +303,11 @@ class _PostModelType extends ModelType<Post> {
   @override
   Post fromJson(Map<String, dynamic> jsonData) {
     return Post.fromJson(jsonData);
+  }
+
+  @override
+  String modelName() {
+    return 'Post';
   }
 }
 

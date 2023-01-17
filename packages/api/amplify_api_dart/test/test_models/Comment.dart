@@ -15,31 +15,6 @@ import 'ModelProvider.dart';
 /// This is an auto generated class representing the Comment type in your schema.
 @immutable
 class Comment extends Model {
-  Comment.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _post = json['post']?['serializedData'] != null
-            ? Post.fromJson(
-                Map<String, dynamic>.from(json['post']['serializedData']))
-            : null,
-        _content = json['content'],
-        _createdAt = json['createdAt'] != null
-            ? TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? TemporalDateTime.fromString(json['updatedAt'])
-            : null;
-
-  const Comment._internal(
-      {required this.id, post, required content, createdAt, updatedAt})
-      : _post = post,
-        _content = content,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
-
-  factory Comment({String? id, Post? post, required String content}) {
-    return Comment._internal(
-        id: id == null ? UUID.getUUID() : id, post: post, content: content);
-  }
   static const classType = _CommentModelType();
   final String id;
   final Post? _post;
@@ -51,8 +26,7 @@ class Comment extends Model {
   _CommentModelType getInstanceType() => classType;
 
   @Deprecated(
-    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
-  )
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
   String getId() => id;
 
@@ -69,11 +43,11 @@ class Comment extends Model {
       return _content!;
     } catch (e) {
       throw AmplifyCodeGenModelException(
-        AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion: AmplifyExceptionMessages
-            .codeGenRequiredFieldForceCastRecoverySuggestion,
-        underlyingException: e.toString(),
-      );
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
 
@@ -84,6 +58,18 @@ class Comment extends Model {
   TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
+
+  factory Comment({String? id, Post? post, required String content}) {
+    return Comment._internal(
+        id: id == null ? UUID.getUUID() : id, post: post, content: content);
+  }
+
+  const Comment._internal(
+      {required this.id, post, required content, createdAt, updatedAt})
+      : _post = post,
+        _content = content,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
 
   bool equals(Object other) {
     return this == other;
@@ -103,20 +89,17 @@ class Comment extends Model {
 
   @override
   String toString() {
-    final buffer = StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write('Comment {');
     buffer.write('id=' + '$id' + ', ');
     buffer.write('post=' + (_post != null ? _post!.toString() : 'null') + ', ');
     buffer.write('content=' + '$_content' + ', ');
+    buffer.write('createdAt=' +
+        (_createdAt != null ? _createdAt!.format() : 'null') +
+        ', ');
     buffer.write(
-      'createdAt=' +
-          (_createdAt != null ? _createdAt!.format() : 'null') +
-          ', ',
-    );
-    buffer.write(
-      'updatedAt=' + (_updatedAt != null ? _updatedAt!.format() : 'null'),
-    );
+        'updatedAt=' + (_updatedAt != null ? _updatedAt!.format() : 'null'));
     buffer.write('}');
 
     return buffer.toString();
@@ -124,11 +107,22 @@ class Comment extends Model {
 
   Comment copyWith({Post? post, String? content}) {
     return Comment._internal(
-      id: id,
-      post: post ?? this.post,
-      content: content ?? this.content,
-    );
+        id: id, post: post ?? this.post, content: content ?? this.content);
   }
+
+  Comment.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        _post = json['post']?['serializedData'] != null
+            ? Post.fromJson(
+                Map<String, dynamic>.from(json['post']['serializedData']))
+            : null,
+        _content = json['content'],
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null;
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -141,64 +135,43 @@ class Comment extends Model {
   static final QueryModelIdentifier MODEL_IDENTIFIER = QueryModelIdentifier();
   static final QueryField ID = QueryField(fieldName: 'comment.id');
   static final QueryField POST = QueryField(
-    fieldName: 'post',
-    fieldType: ModelFieldType(
-      ModelFieldTypeEnum.model,
-      ofModelName: (Post).toString(),
-    ),
-  );
-  static final QueryField CONTENT = QueryField(fieldName: 'content');
-  static ModelSchema schema = Model.defineSchema(
-    define: (ModelSchemaDefinition modelSchemaDefinition) {
-      modelSchemaDefinition.name = 'Comment';
-      modelSchemaDefinition.pluralName = 'Comments';
+      fieldName: "post",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Post'));
+  static final QueryField CONTENT = QueryField(fieldName: "content");
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+    modelSchemaDefinition.name = 'Comment';
+    modelSchemaDefinition.pluralName = 'Comments';
 
-      modelSchemaDefinition.indexes = [
-        ModelIndex(fields: const ['postID', 'content'], name: 'byPost')
-      ];
+    modelSchemaDefinition.indexes = [
+      ModelIndex(fields: const ['postID', 'content'], name: 'byPost')
+    ];
 
-      modelSchemaDefinition.addField(ModelFieldDefinition.id());
+    modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
-      modelSchemaDefinition.addField(
-        ModelFieldDefinition.belongsTo(
-          key: Comment.POST,
-          isRequired: false,
-          // TODO(Jordan-Nelson): Remove `targetName` when API category has been
-          // updated to support CPK changes. This was added manually.
-          // ignore: deprecated_member_use
-          targetName: 'postID',
-          targetNames: ['postID'],
-          ofModelName: (Post).toString(),
-        ),
-      );
+    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
+        key: Comment.POST,
+        isRequired: false,
+        targetNames: ['postID'],
+        ofModelName: 'Post'));
 
-      modelSchemaDefinition.addField(
-        ModelFieldDefinition.field(
-          key: Comment.CONTENT,
-          isRequired: true,
-          ofType: ModelFieldType(ModelFieldTypeEnum.string),
-        ),
-      );
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+        key: Comment.CONTENT,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
-      modelSchemaDefinition.addField(
-        ModelFieldDefinition.nonQueryField(
-          fieldName: 'createdAt',
-          isRequired: false,
-          isReadOnly: true,
-          ofType: ModelFieldType(ModelFieldTypeEnum.dateTime),
-        ),
-      );
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
 
-      modelSchemaDefinition.addField(
-        ModelFieldDefinition.nonQueryField(
-          fieldName: 'updatedAt',
-          isRequired: false,
-          isReadOnly: true,
-          ofType: ModelFieldType(ModelFieldTypeEnum.dateTime),
-        ),
-      );
-    },
-  );
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+  });
 }
 
 class _CommentModelType extends ModelType<Comment> {
@@ -208,15 +181,21 @@ class _CommentModelType extends ModelType<Comment> {
   Comment fromJson(Map<String, dynamic> jsonData) {
     return Comment.fromJson(jsonData);
   }
+
+  @override
+  String modelName() {
+    return 'Comment';
+  }
 }
 
 /// This is an auto generated class representing the model identifier
 /// of [Comment] in your schema.
 @immutable
 class CommentModelIdentifier implements ModelIdentifier<Comment> {
+  final String id;
+
   /// Create an instance of CommentModelIdentifier using [id] the primary key.
   const CommentModelIdentifier({required this.id});
-  final String id;
 
   @override
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
