@@ -1,3 +1,3 @@
 # amplify_core
 
-This is an internal package containing shared types and methods for use in amplify packages. 
+A core package containing base types and utilities shared across Amplify packages. 
