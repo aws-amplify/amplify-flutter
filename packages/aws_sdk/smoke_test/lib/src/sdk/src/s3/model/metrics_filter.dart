@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library smoke_test.s3.model.metrics_filter; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -8,6 +8,30 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/s3/model/metrics_and_operator.dart'
     as _i2;
 import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i3;
+
+/// The discrete values of [MetricsFilter].
+enum MetricsFilterType<T extends MetricsFilter> {
+  /// The type for [MetricsFilterAccessPointArn].
+  accessPointArn<MetricsFilterAccessPointArn>(r'AccessPointArn'),
+
+  /// The type for [MetricsFilterAnd].
+  and<MetricsFilterAnd>(r'And'),
+
+  /// The type for [MetricsFilterPrefix].
+  prefix<MetricsFilterPrefix>(r'Prefix'),
+
+  /// The type for [MetricsFilterTag].
+  tag<MetricsFilterTag>(r'Tag'),
+
+  /// The type for an unknown value.
+  sdkUnknown<MetricsFilterSdkUnknown>('sdkUnknown');
+
+  /// The discrete values of [MetricsFilter].
+  const MetricsFilterType(this.value);
+
+  /// The Smithy value.
+  final String value;
+}
 
 /// Specifies a metrics configuration filter. The metrics configuration only includes objects that meet the filter's criteria. A filter must be a prefix, an object tag, an access point ARN, or a conjunction (MetricsAndOperator). For more information, see [PutBucketMetricsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketMetricsConfiguration.html).
 abstract class MetricsFilter extends _i1.SmithyUnion<MetricsFilter> {
@@ -43,6 +67,7 @@ abstract class MetricsFilter extends _i1.SmithyUnion<MetricsFilter> {
 
   /// The tag used when evaluating a metrics filter.
   _i3.Tag? get tag => null;
+  MetricsFilterType get type;
   @override
   Object get value => (accessPointArn ?? and ?? prefix ?? tag)!;
   @override
@@ -114,6 +139,8 @@ class MetricsFilterAccessPointArn extends MetricsFilter {
   final String accessPointArn;
 
   @override
+  MetricsFilterType get type => MetricsFilterType.accessPointArn;
+  @override
   String get name => 'AccessPointArn';
 }
 
@@ -123,6 +150,8 @@ class MetricsFilterAnd extends MetricsFilter {
   @override
   final _i2.MetricsAndOperator and;
 
+  @override
+  MetricsFilterType get type => MetricsFilterType.and;
   @override
   String get name => 'And';
 }
@@ -134,6 +163,8 @@ class MetricsFilterPrefix extends MetricsFilter {
   final String prefix;
 
   @override
+  MetricsFilterType get type => MetricsFilterType.prefix;
+  @override
   String get name => 'Prefix';
 }
 
@@ -143,6 +174,8 @@ class MetricsFilterTag extends MetricsFilter {
   @override
   final _i3.Tag tag;
 
+  @override
+  MetricsFilterType get type => MetricsFilterType.tag;
   @override
   String get name => 'Tag';
 }
@@ -158,6 +191,9 @@ class MetricsFilterSdkUnknown extends MetricsFilter {
 
   @override
   final Object value;
+
+  @override
+  MetricsFilterType get type => MetricsFilterType.sdkUnknown;
 }
 
 class MetricsFilterRestXmlSerializer
@@ -192,22 +228,22 @@ class MetricsFilterRestXmlSerializer
     final value = iterator.current as Object;
     switch (key) {
       case 'AccessPointArn':
-        return MetricsFilter.accessPointArn((serializers.deserialize(
+        return MetricsFilterAccessPointArn((serializers.deserialize(
           value,
           specifiedType: const FullType(String),
         ) as String));
       case 'And':
-        return MetricsFilter.and((serializers.deserialize(
+        return MetricsFilterAnd((serializers.deserialize(
           value,
           specifiedType: const FullType(_i2.MetricsAndOperator),
         ) as _i2.MetricsAndOperator));
       case 'Prefix':
-        return MetricsFilter.prefix((serializers.deserialize(
+        return MetricsFilterPrefix((serializers.deserialize(
           value,
           specifiedType: const FullType(String),
         ) as String));
       case 'Tag':
-        return MetricsFilter.tag((serializers.deserialize(
+        return MetricsFilterTag((serializers.deserialize(
           value,
           specifiedType: const FullType(_i3.Tag),
         ) as _i3.Tag));

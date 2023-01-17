@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library smoke_test.s3.model.replication_rule_filter; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -8,6 +8,27 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/s3/model/replication_rule_and_operator.dart'
     as _i2;
 import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i3;
+
+/// The discrete values of [ReplicationRuleFilter].
+enum ReplicationRuleFilterType<T extends ReplicationRuleFilter> {
+  /// The type for [ReplicationRuleFilterAnd].
+  and<ReplicationRuleFilterAnd>(r'And'),
+
+  /// The type for [ReplicationRuleFilterPrefix].
+  prefix<ReplicationRuleFilterPrefix>(r'Prefix'),
+
+  /// The type for [ReplicationRuleFilterTag].
+  tag<ReplicationRuleFilterTag>(r'Tag'),
+
+  /// The type for an unknown value.
+  sdkUnknown<ReplicationRuleFilterSdkUnknown>('sdkUnknown');
+
+  /// The discrete values of [ReplicationRuleFilter].
+  const ReplicationRuleFilterType(this.value);
+
+  /// The Smithy value.
+  final String value;
+}
 
 /// A filter that identifies the subset of objects to which the replication rule applies. A `Filter` must specify exactly one `Prefix`, `Tag`, or an `And` child element.
 abstract class ReplicationRuleFilter
@@ -48,6 +69,7 @@ abstract class ReplicationRuleFilter
   ///
   /// The rule applies only to objects that have the tag in their tag set.
   _i3.Tag? get tag => null;
+  ReplicationRuleFilterType get type;
   @override
   Object get value => (and ?? prefix ?? tag)!;
   @override
@@ -108,6 +130,8 @@ class ReplicationRuleFilterAnd extends ReplicationRuleFilter {
   final _i2.ReplicationRuleAndOperator and;
 
   @override
+  ReplicationRuleFilterType get type => ReplicationRuleFilterType.and;
+  @override
   String get name => 'And';
 }
 
@@ -118,6 +142,8 @@ class ReplicationRuleFilterPrefix extends ReplicationRuleFilter {
   final String prefix;
 
   @override
+  ReplicationRuleFilterType get type => ReplicationRuleFilterType.prefix;
+  @override
   String get name => 'Prefix';
 }
 
@@ -127,6 +153,8 @@ class ReplicationRuleFilterTag extends ReplicationRuleFilter {
   @override
   final _i3.Tag tag;
 
+  @override
+  ReplicationRuleFilterType get type => ReplicationRuleFilterType.tag;
   @override
   String get name => 'Tag';
 }
@@ -142,6 +170,9 @@ class ReplicationRuleFilterSdkUnknown extends ReplicationRuleFilter {
 
   @override
   final Object value;
+
+  @override
+  ReplicationRuleFilterType get type => ReplicationRuleFilterType.sdkUnknown;
 }
 
 class ReplicationRuleFilterRestXmlSerializer
@@ -176,17 +207,17 @@ class ReplicationRuleFilterRestXmlSerializer
     final value = iterator.current as Object;
     switch (key) {
       case 'And':
-        return ReplicationRuleFilter.and((serializers.deserialize(
+        return ReplicationRuleFilterAnd((serializers.deserialize(
           value,
           specifiedType: const FullType(_i2.ReplicationRuleAndOperator),
         ) as _i2.ReplicationRuleAndOperator));
       case 'Prefix':
-        return ReplicationRuleFilter.prefix((serializers.deserialize(
+        return ReplicationRuleFilterPrefix((serializers.deserialize(
           value,
           specifiedType: const FullType(String),
         ) as String));
       case 'Tag':
-        return ReplicationRuleFilter.tag((serializers.deserialize(
+        return ReplicationRuleFilterTag((serializers.deserialize(
           value,
           specifiedType: const FullType(_i3.Tag),
         ) as _i3.Tag));

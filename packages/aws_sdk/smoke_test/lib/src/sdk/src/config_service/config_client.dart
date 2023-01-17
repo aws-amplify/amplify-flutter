@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library smoke_test.config_service.config_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -509,11 +509,16 @@ class ConfigClient {
     _i1.AWSHttpClient? client,
     required String region,
     Uri? baseUri,
-    required _i2.AWSCredentialsProvider credentialsProvider,
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.environment(),
+    List<_i3.HttpRequestInterceptor> requestInterceptors = const [],
+    List<_i3.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _client = client,
         _region = region,
         _baseUri = baseUri,
-        _credentialsProvider = credentialsProvider;
+        _credentialsProvider = credentialsProvider,
+        _requestInterceptors = requestInterceptors,
+        _responseInterceptors = responseInterceptors;
 
   final _i1.AWSHttpClient? _client;
 
@@ -522,6 +527,10 @@ class ConfigClient {
   final Uri? _baseUri;
 
   final _i2.AWSCredentialsProvider _credentialsProvider;
+
+  final List<_i3.HttpRequestInterceptor> _requestInterceptors;
+
+  final List<_i3.HttpResponseInterceptor> _responseInterceptors;
 
   /// Returns the current configuration items for resources that are present in your Config aggregator. The operation also returns a list of resources that are not processed in the current request. If there are no unprocessed resources, the operation returns an empty `unprocessedResourceIdentifiers` list.
   ///
@@ -532,11 +541,14 @@ class ConfigClient {
       batchGetAggregateResourceConfig(
     _i5.BatchGetAggregateResourceConfigRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i6.BatchGetAggregateResourceConfigOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -552,11 +564,14 @@ class ConfigClient {
       batchGetResourceConfig(
     _i8.BatchGetResourceConfigRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i9.BatchGetResourceConfigOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -567,11 +582,14 @@ class ConfigClient {
   _i3.SmithyOperation<void> deleteAggregationAuthorization(
     _i10.DeleteAggregationAuthorizationRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i11.DeleteAggregationAuthorizationOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -586,11 +604,14 @@ class ConfigClient {
   _i3.SmithyOperation<void> deleteConfigRule(
     _i12.DeleteConfigRuleRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i13.DeleteConfigRuleOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -601,11 +622,14 @@ class ConfigClient {
   _i3.SmithyOperation<void> deleteConfigurationAggregator(
     _i14.DeleteConfigurationAggregatorRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i15.DeleteConfigurationAggregatorOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -620,11 +644,14 @@ class ConfigClient {
   _i3.SmithyOperation<void> deleteConfigurationRecorder(
     _i16.DeleteConfigurationRecorderRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i17.DeleteConfigurationRecorderOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -637,11 +664,14 @@ class ConfigClient {
   _i3.SmithyOperation<void> deleteConformancePack(
     _i18.DeleteConformancePackRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i19.DeleteConformancePackOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -654,11 +684,14 @@ class ConfigClient {
   _i3.SmithyOperation<void> deleteDeliveryChannel(
     _i20.DeleteDeliveryChannelRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i21.DeleteDeliveryChannelOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -670,11 +703,14 @@ class ConfigClient {
       deleteEvaluationResults(
     _i23.DeleteEvaluationResultsRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i24.DeleteEvaluationResultsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -689,11 +725,14 @@ class ConfigClient {
   _i3.SmithyOperation<void> deleteOrganizationConfigRule(
     _i25.DeleteOrganizationConfigRuleRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i26.DeleteOrganizationConfigRuleOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -708,11 +747,14 @@ class ConfigClient {
   _i3.SmithyOperation<void> deleteOrganizationConformancePack(
     _i27.DeleteOrganizationConformancePackRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i28.DeleteOrganizationConformancePackOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -723,11 +765,14 @@ class ConfigClient {
   _i3.SmithyOperation<void> deletePendingAggregationRequest(
     _i29.DeletePendingAggregationRequestRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i30.DeletePendingAggregationRequestOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -739,11 +784,14 @@ class ConfigClient {
       deleteRemediationConfiguration(
     _i32.DeleteRemediationConfigurationRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i33.DeleteRemediationConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -757,11 +805,14 @@ class ConfigClient {
       deleteRemediationExceptions(
     _i35.DeleteRemediationExceptionsRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i36.DeleteRemediationExceptionsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -772,11 +823,14 @@ class ConfigClient {
   _i3.SmithyOperation<void> deleteResourceConfig(
     _i37.DeleteResourceConfigRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i38.DeleteResourceConfigOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -787,11 +841,14 @@ class ConfigClient {
   _i3.SmithyOperation<void> deleteRetentionConfiguration(
     _i39.DeleteRetentionConfigurationRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i40.DeleteRetentionConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -802,11 +859,14 @@ class ConfigClient {
   _i3.SmithyOperation<_i41.DeleteStoredQueryResponse> deleteStoredQuery(
     _i42.DeleteStoredQueryRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i43.DeleteStoredQueryOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -823,11 +883,14 @@ class ConfigClient {
   _i3.SmithyOperation<_i44.DeliverConfigSnapshotResponse> deliverConfigSnapshot(
     _i45.DeliverConfigSnapshotRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i46.DeliverConfigSnapshotOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -842,11 +905,14 @@ class ConfigClient {
           int, String>> describeAggregateComplianceByConfigRules(
     _i48.DescribeAggregateComplianceByConfigRulesRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i49.DescribeAggregateComplianceByConfigRulesOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -863,11 +929,14 @@ class ConfigClient {
           String>> describeAggregateComplianceByConformancePacks(
     _i52.DescribeAggregateComplianceByConformancePacksRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i53.DescribeAggregateComplianceByConformancePacksOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -880,11 +949,14 @@ class ConfigClient {
           String>> describeAggregationAuthorizations(
     _i55.DescribeAggregationAuthorizationsRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i56.DescribeAggregationAuthorizationsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -907,11 +979,14 @@ class ConfigClient {
           String>> describeComplianceByConfigRule(
     _i58.DescribeComplianceByConfigRuleRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i59.DescribeComplianceByConfigRuleOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -934,11 +1009,14 @@ class ConfigClient {
           String>> describeComplianceByResource(
     _i61.DescribeComplianceByResourceRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i62.DescribeComplianceByResourceOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -951,11 +1029,14 @@ class ConfigClient {
           String>> describeConfigRuleEvaluationStatus(
     _i64.DescribeConfigRuleEvaluationStatusRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i65.DescribeConfigRuleEvaluationStatusOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -968,11 +1049,14 @@ class ConfigClient {
       describeConfigRules(
     _i67.DescribeConfigRulesRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i68.DescribeConfigRulesOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -985,11 +1069,14 @@ class ConfigClient {
           String>> describeConfigurationAggregatorSourcesStatus(
     _i70.DescribeConfigurationAggregatorSourcesStatusRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i71.DescribeConfigurationAggregatorSourcesStatusOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1002,11 +1089,14 @@ class ConfigClient {
           String>> describeConfigurationAggregators(
     _i73.DescribeConfigurationAggregatorsRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i74.DescribeConfigurationAggregatorsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1020,11 +1110,14 @@ class ConfigClient {
       describeConfigurationRecorderStatus(
     _i76.DescribeConfigurationRecorderStatusRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i77.DescribeConfigurationRecorderStatusOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1038,11 +1131,14 @@ class ConfigClient {
       describeConfigurationRecorders(
     _i79.DescribeConfigurationRecordersRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i80.DescribeConfigurationRecordersOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1057,11 +1153,14 @@ class ConfigClient {
           String>> describeConformancePackCompliance(
     _i82.DescribeConformancePackComplianceRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i83.DescribeConformancePackComplianceOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1076,11 +1175,14 @@ class ConfigClient {
           String>> describeConformancePackStatus(
     _i85.DescribeConformancePackStatusRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i86.DescribeConformancePackStatusOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1093,11 +1195,14 @@ class ConfigClient {
           String>> describeConformancePacks(
     _i88.DescribeConformancePacksRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i89.DescribeConformancePacksOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1111,11 +1216,14 @@ class ConfigClient {
       describeDeliveryChannelStatus(
     _i91.DescribeDeliveryChannelStatusRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i92.DescribeDeliveryChannelStatusOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1129,11 +1237,14 @@ class ConfigClient {
       describeDeliveryChannels(
     _i94.DescribeDeliveryChannelsRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i95.DescribeDeliveryChannelsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1150,11 +1261,14 @@ class ConfigClient {
           int, String>> describeOrganizationConfigRuleStatuses(
     _i97.DescribeOrganizationConfigRuleStatusesRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i98.DescribeOrganizationConfigRuleStatusesOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1175,11 +1289,14 @@ class ConfigClient {
           String>> describeOrganizationConfigRules(
     _i100.DescribeOrganizationConfigRulesRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i101.DescribeOrganizationConfigRulesOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1198,11 +1315,14 @@ class ConfigClient {
           String>> describeOrganizationConformancePackStatuses(
     _i103.DescribeOrganizationConformancePackStatusesRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i104.DescribeOrganizationConformancePackStatusesOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1223,11 +1343,14 @@ class ConfigClient {
           int, String>> describeOrganizationConformancePacks(
     _i106.DescribeOrganizationConformancePacksRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i107.DescribeOrganizationConformancePacksOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1240,11 +1363,14 @@ class ConfigClient {
           String>> describePendingAggregationRequests(
     _i109.DescribePendingAggregationRequestsRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i110.DescribePendingAggregationRequestsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1256,11 +1382,14 @@ class ConfigClient {
       describeRemediationConfigurations(
     _i112.DescribeRemediationConfigurationsRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i113.DescribeRemediationConfigurationsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1279,11 +1408,14 @@ class ConfigClient {
           String>> describeRemediationExceptions(
     _i115.DescribeRemediationExceptionsRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i116.DescribeRemediationExceptionsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1296,11 +1428,14 @@ class ConfigClient {
           String>> describeRemediationExecutionStatus(
     _i118.DescribeRemediationExecutionStatusRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i119.DescribeRemediationExecutionStatusOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1315,11 +1450,14 @@ class ConfigClient {
           String>> describeRetentionConfigurations(
     _i121.DescribeRetentionConfigurationsRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i122.DescribeRetentionConfigurationsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1334,11 +1472,14 @@ class ConfigClient {
           String>> getAggregateComplianceDetailsByConfigRule(
     _i124.GetAggregateComplianceDetailsByConfigRuleRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i125.GetAggregateComplianceDetailsByConfigRuleOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1353,11 +1494,14 @@ class ConfigClient {
           int, String>> getAggregateConfigRuleComplianceSummary(
     _i127.GetAggregateConfigRuleComplianceSummaryRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i128.GetAggregateConfigRuleComplianceSummaryOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1374,11 +1518,14 @@ class ConfigClient {
           String>> getAggregateConformancePackComplianceSummary(
     _i130.GetAggregateConformancePackComplianceSummaryRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i131.GetAggregateConformancePackComplianceSummaryOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1393,11 +1540,14 @@ class ConfigClient {
           int, String>> getAggregateDiscoveredResourceCounts(
     _i133.GetAggregateDiscoveredResourceCountsRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i134.GetAggregateDiscoveredResourceCountsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1409,11 +1559,14 @@ class ConfigClient {
       getAggregateResourceConfig(
     _i136.GetAggregateResourceConfigRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i137.GetAggregateResourceConfigOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1426,11 +1579,14 @@ class ConfigClient {
           String>> getComplianceDetailsByConfigRule(
     _i139.GetComplianceDetailsByConfigRuleRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i140.GetComplianceDetailsByConfigRuleOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1443,11 +1599,14 @@ class ConfigClient {
           String>> getComplianceDetailsByResource(
     _i141.GetComplianceDetailsByResourceRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i142.GetComplianceDetailsByResourceOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1456,11 +1615,16 @@ class ConfigClient {
 
   /// Returns the number of Config rules that are compliant and noncompliant, up to a maximum of 25 for each.
   _i3.SmithyOperation<_i143.GetComplianceSummaryByConfigRuleResponse>
-      getComplianceSummaryByConfigRule({_i1.AWSHttpClient? client}) {
+      getComplianceSummaryByConfigRule({
+    _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
+  }) {
     return _i144.GetComplianceSummaryByConfigRuleOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       const _i3.Unit(),
       client: client ?? _client,
@@ -1472,11 +1636,14 @@ class ConfigClient {
       getComplianceSummaryByResourceType(
     _i146.GetComplianceSummaryByResourceTypeRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i147.GetComplianceSummaryByResourceTypeOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1489,11 +1656,14 @@ class ConfigClient {
           int, String>> getConformancePackComplianceDetails(
     _i149.GetConformancePackComplianceDetailsRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i150.GetConformancePackComplianceDetailsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1508,11 +1678,14 @@ class ConfigClient {
           String>> getConformancePackComplianceSummary(
     _i152.GetConformancePackComplianceSummaryRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i153.GetConformancePackComplianceSummaryOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1523,11 +1696,14 @@ class ConfigClient {
   _i3.SmithyOperation<_i154.GetCustomRulePolicyResponse> getCustomRulePolicy(
     _i155.GetCustomRulePolicyRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i156.GetCustomRulePolicyOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1566,11 +1742,14 @@ class ConfigClient {
           String>> getDiscoveredResourceCounts(
     _i158.GetDiscoveredResourceCountsRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i159.GetDiscoveredResourceCountsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1583,11 +1762,14 @@ class ConfigClient {
           String>> getOrganizationConfigRuleDetailedStatus(
     _i161.GetOrganizationConfigRuleDetailedStatusRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i162.GetOrganizationConfigRuleDetailedStatusOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1602,11 +1784,14 @@ class ConfigClient {
           String>> getOrganizationConformancePackDetailedStatus(
     _i164.GetOrganizationConformancePackDetailedStatusRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i165.GetOrganizationConformancePackDetailedStatusOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1618,11 +1803,14 @@ class ConfigClient {
       getOrganizationCustomRulePolicy(
     _i167.GetOrganizationCustomRulePolicyRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i168.GetOrganizationCustomRulePolicyOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1639,11 +1827,14 @@ class ConfigClient {
           String>> getResourceConfigHistory(
     _i170.GetResourceConfigHistoryRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i171.GetResourceConfigHistoryOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1654,11 +1845,14 @@ class ConfigClient {
   _i3.SmithyOperation<_i172.GetStoredQueryResponse> getStoredQuery(
     _i173.GetStoredQueryRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i174.GetStoredQueryOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1673,11 +1867,14 @@ class ConfigClient {
           int, String>> listAggregateDiscoveredResources(
     _i176.ListAggregateDiscoveredResourcesRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i177.ListAggregateDiscoveredResourcesOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1692,11 +1889,14 @@ class ConfigClient {
           int, String>> listConformancePackComplianceScores(
     _i179.ListConformancePackComplianceScoresRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i180.ListConformancePackComplianceScoresOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1713,11 +1913,14 @@ class ConfigClient {
           String>> listDiscoveredResources(
     _i182.ListDiscoveredResourcesRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i183.ListDiscoveredResourcesOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1730,11 +1933,14 @@ class ConfigClient {
       listStoredQueries(
     _i185.ListStoredQueriesRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i186.ListStoredQueriesOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1747,11 +1953,14 @@ class ConfigClient {
       listTagsForResource(
     _i188.ListTagsForResourceRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i189.ListTagsForResourceOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1763,11 +1972,14 @@ class ConfigClient {
       putAggregationAuthorization(
     _i191.PutAggregationAuthorizationRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i192.PutAggregationAuthorizationOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1790,11 +2002,14 @@ class ConfigClient {
   _i3.SmithyOperation<void> putConfigRule(
     _i193.PutConfigRuleRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i194.PutConfigRuleOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1814,11 +2029,14 @@ class ConfigClient {
       putConfigurationAggregator(
     _i196.PutConfigurationAggregatorRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i197.PutConfigurationAggregatorOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1835,11 +2053,14 @@ class ConfigClient {
   _i3.SmithyOperation<void> putConfigurationRecorder(
     _i198.PutConfigurationRecorderRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i199.PutConfigurationRecorderOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1854,11 +2075,14 @@ class ConfigClient {
   _i3.SmithyOperation<_i200.PutConformancePackResponse> putConformancePack(
     _i201.PutConformancePackRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i202.PutConformancePackOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1875,11 +2099,14 @@ class ConfigClient {
   _i3.SmithyOperation<void> putDeliveryChannel(
     _i203.PutDeliveryChannelRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i204.PutDeliveryChannelOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1890,11 +2117,14 @@ class ConfigClient {
   _i3.SmithyOperation<_i205.PutEvaluationsResponse> putEvaluations(
     _i206.PutEvaluationsRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i207.PutEvaluationsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1906,11 +2136,14 @@ class ConfigClient {
       putExternalEvaluation(
     _i209.PutExternalEvaluationRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i210.PutExternalEvaluationOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1938,11 +2171,14 @@ class ConfigClient {
       putOrganizationConfigRule(
     _i212.PutOrganizationConfigRuleRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i213.PutOrganizationConfigRuleOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1964,11 +2200,14 @@ class ConfigClient {
       putOrganizationConformancePack(
     _i215.PutOrganizationConformancePackRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i216.PutOrganizationConformancePackOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1988,11 +2227,14 @@ class ConfigClient {
       putRemediationConfigurations(
     _i218.PutRemediationConfigurationsRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i219.PutRemediationConfigurationsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -2006,11 +2248,14 @@ class ConfigClient {
       putRemediationExceptions(
     _i221.PutRemediationExceptionsRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i222.PutRemediationExceptionsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -2027,11 +2272,14 @@ class ConfigClient {
   _i3.SmithyOperation<void> putResourceConfig(
     _i223.PutResourceConfigRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i224.PutResourceConfigOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -2045,11 +2293,14 @@ class ConfigClient {
       putRetentionConfiguration(
     _i226.PutRetentionConfigurationRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i227.PutRetentionConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -2060,11 +2311,14 @@ class ConfigClient {
   _i3.SmithyOperation<_i228.PutStoredQueryResponse> putStoredQuery(
     _i229.PutStoredQueryRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i230.PutStoredQueryOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -2082,11 +2336,14 @@ class ConfigClient {
       selectAggregateResourceConfig(
     _i231.SelectAggregateResourceConfigRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i232.SelectAggregateResourceConfigOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -2100,11 +2357,14 @@ class ConfigClient {
       selectResourceConfig(
     _i233.SelectResourceConfigRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i234.SelectResourceConfigOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -2134,11 +2394,14 @@ class ConfigClient {
       startConfigRulesEvaluation(
     _i236.StartConfigRulesEvaluationRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i237.StartConfigRulesEvaluationOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -2151,11 +2414,14 @@ class ConfigClient {
   _i3.SmithyOperation<void> startConfigurationRecorder(
     _i238.StartConfigurationRecorderRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i239.StartConfigurationRecorderOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -2169,11 +2435,14 @@ class ConfigClient {
       startRemediationExecution(
     _i241.StartRemediationExecutionRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i242.StartRemediationExecutionOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -2184,11 +2453,14 @@ class ConfigClient {
   _i3.SmithyOperation<void> stopConfigurationRecorder(
     _i243.StopConfigurationRecorderRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i244.StopConfigurationRecorderOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -2199,11 +2471,14 @@ class ConfigClient {
   _i3.SmithyOperation<void> tagResource(
     _i245.TagResourceRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i246.TagResourceOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -2214,11 +2489,14 @@ class ConfigClient {
   _i3.SmithyOperation<void> untagResource(
     _i247.UntagResourceRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i248.UntagResourceOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
