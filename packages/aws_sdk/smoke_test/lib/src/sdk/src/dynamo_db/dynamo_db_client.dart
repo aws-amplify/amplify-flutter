@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library smoke_test.dynamo_db.dynamo_db_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -332,11 +332,16 @@ class DynamoDbClient {
     _i1.AWSHttpClient? client,
     required String region,
     Uri? baseUri,
-    required _i2.AWSCredentialsProvider credentialsProvider,
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.environment(),
+    List<_i3.HttpRequestInterceptor> requestInterceptors = const [],
+    List<_i3.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _client = client,
         _region = region,
         _baseUri = baseUri,
-        _credentialsProvider = credentialsProvider;
+        _credentialsProvider = credentialsProvider,
+        _requestInterceptors = requestInterceptors,
+        _responseInterceptors = responseInterceptors;
 
   final _i1.AWSHttpClient? _client;
 
@@ -346,6 +351,10 @@ class DynamoDbClient {
 
   final _i2.AWSCredentialsProvider _credentialsProvider;
 
+  final List<_i3.HttpRequestInterceptor> _requestInterceptors;
+
+  final List<_i3.HttpResponseInterceptor> _responseInterceptors;
+
   /// This operation allows you to perform batch reads or writes on data stored in DynamoDB, using PartiQL. Each read statement in a `BatchExecuteStatement` must specify an equality condition on all key attributes. This enforces that each `SELECT` statement in a batch returns at most a single item.
   ///
   /// The entire batch must consist of either read statements or write statements, you cannot mix both in one batch.
@@ -354,11 +363,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i4.BatchExecuteStatementOutput> batchExecuteStatement(
     _i5.BatchExecuteStatementInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i6.BatchExecuteStatementOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -389,11 +401,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i7.BatchGetItemOutput> batchGetItem(
     _i8.BatchGetItemInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i9.BatchGetItemOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -436,11 +451,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i10.BatchWriteItemOutput> batchWriteItem(
     _i11.BatchWriteItemInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i12.BatchWriteItemOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -471,11 +489,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i13.CreateBackupOutput> createBackup(
     _i14.CreateBackupInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i15.CreateBackupOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -517,11 +538,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i16.CreateGlobalTableOutput> createGlobalTable(
     _i17.CreateGlobalTableInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i18.CreateGlobalTableOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -538,11 +562,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i19.CreateTableOutput> createTable(
     _i20.CreateTableInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i21.CreateTableOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -555,11 +582,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i22.DeleteBackupOutput> deleteBackup(
     _i23.DeleteBackupInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i24.DeleteBackupOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -576,11 +606,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i25.DeleteItemOutput> deleteItem(
     _i26.DeleteItemInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i27.DeleteItemOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -599,11 +632,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i28.DeleteTableOutput> deleteTable(
     _i29.DeleteTableInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i30.DeleteTableOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -616,11 +652,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i31.DescribeBackupOutput> describeBackup(
     _i32.DescribeBackupInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i33.DescribeBackupOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -638,11 +677,14 @@ class DynamoDbClient {
       describeContinuousBackups(
     _i35.DescribeContinuousBackupsInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i36.DescribeContinuousBackupsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -654,11 +696,14 @@ class DynamoDbClient {
       describeContributorInsights(
     _i38.DescribeContributorInsightsInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i39.DescribeContributorInsightsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -669,11 +714,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i40.DescribeEndpointsResponse> describeEndpoints(
     _i41.DescribeEndpointsRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i42.DescribeEndpointsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -684,11 +732,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i43.DescribeExportOutput> describeExport(
     _i44.DescribeExportInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i45.DescribeExportOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -701,11 +752,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i46.DescribeGlobalTableOutput> describeGlobalTable(
     _i47.DescribeGlobalTableInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i48.DescribeGlobalTableOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -719,11 +773,14 @@ class DynamoDbClient {
       describeGlobalTableSettings(
     _i50.DescribeGlobalTableSettingsInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i51.DescribeGlobalTableSettingsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -734,11 +791,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i52.DescribeImportOutput> describeImport(
     _i53.DescribeImportInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i54.DescribeImportOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -750,11 +810,14 @@ class DynamoDbClient {
       describeKinesisStreamingDestination(
     _i56.DescribeKinesisStreamingDestinationInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i57.DescribeKinesisStreamingDestinationOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -798,11 +861,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i58.DescribeLimitsOutput> describeLimits(
     _i59.DescribeLimitsInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i60.DescribeLimitsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -815,11 +881,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i61.DescribeTableOutput> describeTable(
     _i62.DescribeTableInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i63.DescribeTableOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -833,11 +902,14 @@ class DynamoDbClient {
       describeTableReplicaAutoScaling(
     _i65.DescribeTableReplicaAutoScalingInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i66.DescribeTableReplicaAutoScalingOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -848,11 +920,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i67.DescribeTimeToLiveOutput> describeTimeToLive(
     _i68.DescribeTimeToLiveInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i69.DescribeTimeToLiveOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -864,11 +939,14 @@ class DynamoDbClient {
       disableKinesisStreamingDestination(
     _i71.KinesisStreamingDestinationInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i72.DisableKinesisStreamingDestinationOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -880,11 +958,14 @@ class DynamoDbClient {
       enableKinesisStreamingDestination(
     _i71.KinesisStreamingDestinationInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i73.EnableKinesisStreamingDestinationOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -899,11 +980,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i74.ExecuteStatementOutput> executeStatement(
     _i75.ExecuteStatementInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i76.ExecuteStatementOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -916,11 +1000,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i77.ExecuteTransactionOutput> executeTransaction(
     _i78.ExecuteTransactionInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i79.ExecuteTransactionOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -932,11 +1019,14 @@ class DynamoDbClient {
       exportTableToPointInTime(
     _i81.ExportTableToPointInTimeInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i82.ExportTableToPointInTimeOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -949,11 +1039,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i83.GetItemOutput> getItem(
     _i84.GetItemInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i85.GetItemOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -964,11 +1057,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i86.ImportTableOutput> importTable(
     _i87.ImportTableInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i88.ImportTableOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -983,11 +1079,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i89.ListBackupsOutput> listBackups(
     _i90.ListBackupsInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i91.ListBackupsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1000,11 +1099,14 @@ class DynamoDbClient {
       listContributorInsights(
     _i93.ListContributorInsightsInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i94.ListContributorInsightsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1016,11 +1118,14 @@ class DynamoDbClient {
       listExports(
     _i96.ListExportsInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i97.ListExportsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1033,11 +1138,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i98.ListGlobalTablesOutput> listGlobalTables(
     _i99.ListGlobalTablesInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i100.ListGlobalTablesOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1049,11 +1157,14 @@ class DynamoDbClient {
       listImports(
     _i102.ListImportsInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i103.ListImportsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1065,11 +1176,14 @@ class DynamoDbClient {
       listTables(
     _i105.ListTablesInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i106.ListTablesOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1082,11 +1196,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i107.ListTagsOfResourceOutput> listTagsOfResource(
     _i108.ListTagsOfResourceInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i109.ListTagsOfResourceOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1107,11 +1224,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i110.PutItemOutput> putItem(
     _i111.PutItemInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i112.PutItemOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1142,11 +1262,14 @@ class DynamoDbClient {
           _i104.BuiltMap<String, _i113.AttributeValue>>> query(
     _i114.QueryInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i115.QueryOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1174,11 +1297,14 @@ class DynamoDbClient {
       restoreTableFromBackup(
     _i117.RestoreTableFromBackupInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i118.RestoreTableFromBackupOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1221,11 +1347,14 @@ class DynamoDbClient {
       restoreTableToPointInTime(
     _i120.RestoreTableToPointInTimeInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i121.RestoreTableToPointInTimeOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1248,11 +1377,14 @@ class DynamoDbClient {
           _i104.BuiltMap<String, _i113.AttributeValue>>> scan(
     _i122.ScanInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i123.ScanOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -1265,11 +1397,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<void> tagResource(
     _i124.TagResourceInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i125.TagResourceOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1290,11 +1425,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i126.TransactGetItemsOutput> transactGetItems(
     _i127.TransactGetItemsInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i128.TransactGetItemsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1330,11 +1468,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i129.TransactWriteItemsOutput> transactWriteItems(
     _i130.TransactWriteItemsInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i131.TransactWriteItemsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1347,11 +1488,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<void> untagResource(
     _i132.UntagResourceInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i133.UntagResourceOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1367,11 +1511,14 @@ class DynamoDbClient {
       updateContinuousBackups(
     _i135.UpdateContinuousBackupsInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i136.UpdateContinuousBackupsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1383,11 +1530,14 @@ class DynamoDbClient {
       updateContributorInsights(
     _i138.UpdateContributorInsightsInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i139.UpdateContributorInsightsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1408,11 +1558,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i140.UpdateGlobalTableOutput> updateGlobalTable(
     _i141.UpdateGlobalTableInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i142.UpdateGlobalTableOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1424,11 +1577,14 @@ class DynamoDbClient {
       updateGlobalTableSettings(
     _i144.UpdateGlobalTableSettingsInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i145.UpdateGlobalTableSettingsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1441,11 +1597,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i146.UpdateItemOutput> updateItem(
     _i147.UpdateItemInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i148.UpdateItemOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1467,11 +1626,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i149.UpdateTableOutput> updateTable(
     _i150.UpdateTableInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i151.UpdateTableOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1485,11 +1647,14 @@ class DynamoDbClient {
       updateTableReplicaAutoScaling(
     _i153.UpdateTableReplicaAutoScalingInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i154.UpdateTableReplicaAutoScalingOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1512,11 +1677,14 @@ class DynamoDbClient {
   _i3.SmithyOperation<_i155.UpdateTimeToLiveOutput> updateTimeToLive(
     _i156.UpdateTimeToLiveInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i157.UpdateTimeToLiveOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,

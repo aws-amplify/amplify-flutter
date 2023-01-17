@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library smoke_test.config_service.model.last_delivery_channel_delete_failed_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 

@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library smoke_test.dynamo_db_streams.dynamo_db_streams_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,11 +41,16 @@ class DynamoDbStreamsClient {
     _i1.AWSHttpClient? client,
     required String region,
     Uri? baseUri,
-    required _i2.AWSCredentialsProvider credentialsProvider,
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.environment(),
+    List<_i3.HttpRequestInterceptor> requestInterceptors = const [],
+    List<_i3.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _client = client,
         _region = region,
         _baseUri = baseUri,
-        _credentialsProvider = credentialsProvider;
+        _credentialsProvider = credentialsProvider,
+        _requestInterceptors = requestInterceptors,
+        _responseInterceptors = responseInterceptors;
 
   final _i1.AWSHttpClient? _client;
 
@@ -55,6 +60,10 @@ class DynamoDbStreamsClient {
 
   final _i2.AWSCredentialsProvider _credentialsProvider;
 
+  final List<_i3.HttpRequestInterceptor> _requestInterceptors;
+
+  final List<_i3.HttpResponseInterceptor> _responseInterceptors;
+
   /// Returns information about a stream, including the current status of the stream, its Amazon Resource Name (ARN), the composition of its shards, and its corresponding DynamoDB table.
   ///
   /// You can call `DescribeStream` at a maximum rate of 10 times per second.
@@ -63,11 +72,14 @@ class DynamoDbStreamsClient {
   _i3.SmithyOperation<_i4.DescribeStreamOutput> describeStream(
     _i5.DescribeStreamInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i6.DescribeStreamOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -82,11 +94,14 @@ class DynamoDbStreamsClient {
   _i3.SmithyOperation<_i7.GetRecordsOutput> getRecords(
     _i8.GetRecordsInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i9.GetRecordsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -99,11 +114,14 @@ class DynamoDbStreamsClient {
   _i3.SmithyOperation<_i10.GetShardIteratorOutput> getShardIterator(
     _i11.GetShardIteratorInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i12.GetShardIteratorOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -116,11 +134,14 @@ class DynamoDbStreamsClient {
   _i3.SmithyOperation<_i13.ListStreamsOutput> listStreams(
     _i14.ListStreamsInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i15.ListStreamsOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,

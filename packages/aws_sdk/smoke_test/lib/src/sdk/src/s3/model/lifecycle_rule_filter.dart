@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library smoke_test.s3.model.lifecycle_rule_filter; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -9,6 +9,35 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/s3/model/lifecycle_rule_and_operator.dart'
     as _i2;
 import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i4;
+
+/// The discrete values of [LifecycleRuleFilter].
+enum LifecycleRuleFilterType<T extends LifecycleRuleFilter> {
+  /// The type for [LifecycleRuleFilterAnd].
+  and<LifecycleRuleFilterAnd>(r'And'),
+
+  /// The type for [LifecycleRuleFilterObjectSizeGreaterThan].
+  objectSizeGreaterThan<LifecycleRuleFilterObjectSizeGreaterThan>(
+      r'ObjectSizeGreaterThan'),
+
+  /// The type for [LifecycleRuleFilterObjectSizeLessThan].
+  objectSizeLessThan<LifecycleRuleFilterObjectSizeLessThan>(
+      r'ObjectSizeLessThan'),
+
+  /// The type for [LifecycleRuleFilterPrefix].
+  prefix<LifecycleRuleFilterPrefix>(r'Prefix'),
+
+  /// The type for [LifecycleRuleFilterTag].
+  tag<LifecycleRuleFilterTag>(r'Tag'),
+
+  /// The type for an unknown value.
+  sdkUnknown<LifecycleRuleFilterSdkUnknown>('sdkUnknown');
+
+  /// The discrete values of [LifecycleRuleFilter].
+  const LifecycleRuleFilterType(this.value);
+
+  /// The Smithy value.
+  final String value;
+}
 
 /// The `Filter` is used to identify objects that a Lifecycle Rule applies to. A `Filter` must have exactly one of `Prefix`, `Tag`, or `And` specified.
 abstract class LifecycleRuleFilter
@@ -55,6 +84,7 @@ abstract class LifecycleRuleFilter
 
   /// This tag must exist in the object's tag set in order for the rule to apply.
   _i4.Tag? get tag => null;
+  LifecycleRuleFilterType get type;
   @override
   Object get value =>
       (and ?? objectSizeGreaterThan ?? objectSizeLessThan ?? prefix ?? tag)!;
@@ -139,6 +169,8 @@ class LifecycleRuleFilterAnd extends LifecycleRuleFilter {
   final _i2.LifecycleRuleAndOperator and;
 
   @override
+  LifecycleRuleFilterType get type => LifecycleRuleFilterType.and;
+  @override
   String get name => 'And';
 }
 
@@ -149,6 +181,9 @@ class LifecycleRuleFilterObjectSizeGreaterThan extends LifecycleRuleFilter {
   @override
   final _i3.Int64 objectSizeGreaterThan;
 
+  @override
+  LifecycleRuleFilterType get type =>
+      LifecycleRuleFilterType.objectSizeGreaterThan;
   @override
   String get name => 'ObjectSizeGreaterThan';
 }
@@ -161,6 +196,9 @@ class LifecycleRuleFilterObjectSizeLessThan extends LifecycleRuleFilter {
   final _i3.Int64 objectSizeLessThan;
 
   @override
+  LifecycleRuleFilterType get type =>
+      LifecycleRuleFilterType.objectSizeLessThan;
+  @override
   String get name => 'ObjectSizeLessThan';
 }
 
@@ -171,6 +209,8 @@ class LifecycleRuleFilterPrefix extends LifecycleRuleFilter {
   final String prefix;
 
   @override
+  LifecycleRuleFilterType get type => LifecycleRuleFilterType.prefix;
+  @override
   String get name => 'Prefix';
 }
 
@@ -180,6 +220,8 @@ class LifecycleRuleFilterTag extends LifecycleRuleFilter {
   @override
   final _i4.Tag tag;
 
+  @override
+  LifecycleRuleFilterType get type => LifecycleRuleFilterType.tag;
   @override
   String get name => 'Tag';
 }
@@ -195,6 +237,9 @@ class LifecycleRuleFilterSdkUnknown extends LifecycleRuleFilter {
 
   @override
   final Object value;
+
+  @override
+  LifecycleRuleFilterType get type => LifecycleRuleFilterType.sdkUnknown;
 }
 
 class LifecycleRuleFilterRestXmlSerializer
@@ -230,28 +275,28 @@ class LifecycleRuleFilterRestXmlSerializer
     final value = iterator.current as Object;
     switch (key) {
       case 'And':
-        return LifecycleRuleFilter.and((serializers.deserialize(
+        return LifecycleRuleFilterAnd((serializers.deserialize(
           value,
           specifiedType: const FullType(_i2.LifecycleRuleAndOperator),
         ) as _i2.LifecycleRuleAndOperator));
       case 'ObjectSizeGreaterThan':
-        return LifecycleRuleFilter.objectSizeGreaterThan(
+        return LifecycleRuleFilterObjectSizeGreaterThan(
             (serializers.deserialize(
           value,
           specifiedType: const FullType(_i3.Int64),
         ) as _i3.Int64));
       case 'ObjectSizeLessThan':
-        return LifecycleRuleFilter.objectSizeLessThan((serializers.deserialize(
+        return LifecycleRuleFilterObjectSizeLessThan((serializers.deserialize(
           value,
           specifiedType: const FullType(_i3.Int64),
         ) as _i3.Int64));
       case 'Prefix':
-        return LifecycleRuleFilter.prefix((serializers.deserialize(
+        return LifecycleRuleFilterPrefix((serializers.deserialize(
           value,
           specifiedType: const FullType(String),
         ) as String));
       case 'Tag':
-        return LifecycleRuleFilter.tag((serializers.deserialize(
+        return LifecycleRuleFilterTag((serializers.deserialize(
           value,
           specifiedType: const FullType(_i4.Tag),
         ) as _i4.Tag));
