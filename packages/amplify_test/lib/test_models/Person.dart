@@ -234,6 +234,11 @@ class _PersonModelType extends ModelType<Person> {
   Person fromJson(Map<String, dynamic> jsonData) {
     return Person.fromJson(jsonData);
   }
+
+  @override
+  String modelName() {
+    return 'Person';
+  }
 }
 
 /// This is an auto generated class representing the model identifier
