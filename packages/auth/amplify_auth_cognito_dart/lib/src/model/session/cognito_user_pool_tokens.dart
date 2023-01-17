@@ -93,8 +93,7 @@ abstract class CognitoUserPoolTokens
   Map<String, Object?> toJson() => _$CognitoUserPoolTokensToJson(this);
 
   @override
-  // ignore: unnecessary_overrides
-  String toString() => super.toString();
+  String toString() => "Instance of 'CognitoUserPoolTokens'";
 }
 
 class _CognitoSignInMethodSerializer

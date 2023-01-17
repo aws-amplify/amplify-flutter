@@ -68,6 +68,14 @@ class EventCompleter<Event extends StateMachineEvent,
       _completer.complete(state);
     }
   }
+
+  /// Completes the event propogation with an error, if the event failed to
+  /// resolve to a meaningful stopping state.
+  void completeError(Object error, StackTrace stackTrace) {
+    if (!_completer.isCompleted) {
+      _completer.completeError(error, stackTrace);
+    }
+  }
 }
 
 /// Mixin functionality for error/failure events of a state machine.

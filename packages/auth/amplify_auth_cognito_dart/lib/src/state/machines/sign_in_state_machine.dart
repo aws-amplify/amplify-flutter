@@ -596,14 +596,12 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState,
       ..refreshToken = refreshToken
       ..idToken = idTokenJwt;
 
-    await dispatch(
-      CredentialStoreEvent.storeCredentials(
-        CredentialStoreData(
-          userPoolTokens: user.userPoolTokens.build(),
-          signInDetails: signInDetails,
-        ),
+    await manager.storeCredentials(
+      CredentialStoreData(
+        userPoolTokens: user.userPoolTokens.build(),
+        signInDetails: signInDetails,
       ),
-    ).accepted;
+    );
 
     // Clear anonymous credentials, if there were any, and fetch authenticated
     // credentials.

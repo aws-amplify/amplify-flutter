@@ -102,7 +102,7 @@ class SignUpStateMachine extends StateMachine<SignUpEvent, SignUpState,
     ).result;
 
     if (resp.userConfirmed) {
-      dispatch(SignUpEvent.succeeded(userId: resp.userSub));
+      emit(SignUpState.success(userId: resp.userSub));
     } else {
       emit(
         SignUpState.needsConfirmation(
@@ -134,7 +134,7 @@ class SignUpStateMachine extends StateMachine<SignUpEvent, SignUpState,
       }),
     ).result;
 
-    dispatch(const SignUpEvent.succeeded());
+    emit(const SignUpState.success());
   }
 
   /// State machine callback for the [SignUpSucceeded] event.

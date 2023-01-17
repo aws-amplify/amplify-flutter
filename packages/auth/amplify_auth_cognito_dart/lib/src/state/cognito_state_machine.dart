@@ -10,7 +10,6 @@ import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
-import 'package:stream_transform/stream_transform.dart';
 
 /// Default state machine builders for [CognitoAuthStateMachine].
 @visibleForTesting
@@ -74,22 +73,24 @@ class CognitoAuthStateMachine
   /// Loads credentials from the credential store (which may be
   /// outdated or expired).
   Future<CredentialStoreData> loadCredentials([
-    CredentialStoreEvent? event,
+    CredentialStoreEvent event =
+        const CredentialStoreEvent.loadCredentialStore(),
   ]) async {
-    if (event != null) {
-      await _dispatch(event).accepted;
-    }
-    final machine = getOrCreate(CredentialStoreStateMachine.type);
-    final credentialsState =
-        await machine.stream.startWith(machine.currentState).firstWhere(
-              (state) =>
-                  state is CredentialStoreSuccess ||
-                  state is CredentialStoreFailure,
-            );
+    final credentialsState = await _dispatch(event).completed;
     if (credentialsState is CredentialStoreFailure) {
       throw credentialsState.exception;
     }
     return (credentialsState as CredentialStoreSuccess).data;
+  }
+
+  /// Stores [credentials] in the credential store.
+  Future<void> storeCredentials(CredentialStoreData credentials) async {
+    final credentialsState = await _dispatch(
+      CredentialStoreEvent.storeCredentials(credentials),
+    ).completed;
+    if (credentialsState is CredentialStoreFailure) {
+      throw credentialsState.exception;
+    }
   }
 
   /// Clears [keys] from the credential store, or all keys if unspecified.
@@ -101,18 +102,9 @@ class CognitoAuthStateMachine
 
   /// Loads the user's current session.
   Future<CognitoAuthSession> loadSession([
-    FetchAuthSessionEvent? event,
+    FetchAuthSessionEvent event = const FetchAuthSessionEvent.fetch(),
   ]) async {
-    if (event != null) {
-      await _dispatch(event).accepted;
-    }
-    final machine = getOrCreate(FetchAuthSessionStateMachine.type);
-    final sessionState =
-        await machine.stream.startWith(machine.currentState).firstWhere(
-              (state) =>
-                  state is FetchAuthSessionSuccess ||
-                  state is FetchAuthSessionFailure,
-            );
+    final sessionState = await _dispatch(event).completed;
     if (sessionState is FetchAuthSessionFailure) {
       throw sessionState.exception;
     }
@@ -121,17 +113,9 @@ class CognitoAuthStateMachine
 
   /// Configures the Hosted UI state machine.
   Future<void> configureHostedUI() async {
-    await _dispatch(
+    final configuredState = await _dispatch(
       const HostedUiEvent.configure(),
-    ).accepted;
-    final machine = getOrCreate(HostedUiStateMachine.type);
-    final configuredState =
-        await machine.stream.startWith(machine.currentState).firstWhere(
-              (state) =>
-                  state is HostedUiSignedIn ||
-                  state is HostedUiSignedOut ||
-                  state is HostedUiFailure,
-            );
+    ).completed;
     if (configuredState is HostedUiFailure) {
       throw configuredState.exception;
     }
@@ -139,10 +123,7 @@ class CognitoAuthStateMachine
 
   /// Signs out using the Hosted UI state machine.
   Future<HostedUiState> signOutHostedUI() async {
-    await _dispatch(const HostedUiEvent.signOut()).accepted;
-    final machine = getOrCreate(HostedUiStateMachine.type);
-    return machine.stream.startWith(machine.currentState).firstWhere(
-          (state) => state is HostedUiSignedOut || state is HostedUiFailure,
-        );
+    return await _dispatch(const HostedUiEvent.signOut()).completed
+        as HostedUiState;
   }
 }

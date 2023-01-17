@@ -334,7 +334,7 @@ class CredentialStoreStateMachine extends StateMachine<CredentialStoreEvent,
 
       await _updateVersion(CredentialStoreVersion.v1);
     }
-    dispatch(const CredentialStoreEvent.loadCredentialStore());
+    return resolve(const CredentialStoreEvent.loadCredentialStore());
   }
 
   /// State machine callback for the [CredentialStoreLoadCredentialStore] event.
@@ -342,7 +342,7 @@ class CredentialStoreStateMachine extends StateMachine<CredentialStoreEvent,
     CredentialStoreLoadCredentialStore event,
   ) async {
     final data = await _loadCredentialStore();
-    dispatch(CredentialStoreEvent.succeeded(data));
+    emit(CredentialStoreState.success(data));
   }
 
   /// State machine callback for the [CredentialStoreStoreCredentials] event.
@@ -351,7 +351,7 @@ class CredentialStoreStateMachine extends StateMachine<CredentialStoreEvent,
   ) async {
     await _storeCredentials(event.data);
     final data = await _loadCredentialStore();
-    dispatch(CredentialStoreEvent.succeeded(data));
+    emit(CredentialStoreState.success(data));
   }
 
   /// State machine callback for the [CredentialStoreClearCredentials] event.
@@ -397,6 +397,6 @@ class CredentialStoreStateMachine extends StateMachine<CredentialStoreEvent,
 
     await _secureStorage.deleteMany(deletions);
     final data = await _loadCredentialStore();
-    dispatch(CredentialStoreEvent.succeeded(data));
+    emit(CredentialStoreState.success(data));
   }
 }
