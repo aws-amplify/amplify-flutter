@@ -503,7 +503,9 @@ extension OperationShapeUtil on OperationShape {
       (p) => p
         ..type = DartTypes.awsCommon.awsHttpClient.boxed
         ..name = 'client'
-        ..location = ParameterLocation.all,
+        ..location = ParameterLocation.run |
+            ParameterLocation.clientConstructor |
+            ParameterLocation.clientMethod,
     );
 
     if (serviceShape.isAwsService) {
@@ -512,7 +514,8 @@ extension OperationShapeUtil on OperationShape {
           ..type = DartTypes.core.string
           ..name = 'region'
           ..required = true
-          ..location = ParameterLocation.constructor,
+          ..location = ParameterLocation.constructor |
+              ParameterLocation.clientConstructor,
       );
 
       // The baseUri field
@@ -520,7 +523,8 @@ extension OperationShapeUtil on OperationShape {
         (p) => p
           ..type = DartTypes.core.uri.boxed
           ..name = 'baseUri'
-          ..location = ParameterLocation.constructor,
+          ..location = ParameterLocation.constructor |
+              ParameterLocation.clientConstructor,
       );
     } else {
       // The baseUri override
@@ -530,7 +534,8 @@ extension OperationShapeUtil on OperationShape {
           ..name = 'baseUri'
           ..isOverride = true
           ..required = true
-          ..location = ParameterLocation.constructor,
+          ..location = ParameterLocation.constructor |
+              ParameterLocation.clientConstructor,
       );
     }
 
@@ -541,7 +546,9 @@ extension OperationShapeUtil on OperationShape {
           ..type = DartTypes.smithyAws.s3ClientConfig
           ..name = 's3ClientConfig'
           ..required = true
-          ..location = ParameterLocation.constructor
+          ..location = ParameterLocation.constructor |
+              ParameterLocation.clientConstructor |
+              ParameterLocation.clientMethod
           ..defaultTo =
               DartTypes.smithyAws.s3ClientConfig.constInstance([]).code,
       );
@@ -552,7 +559,9 @@ extension OperationShapeUtil on OperationShape {
         (p) => p
           ..type = DartTypes.awsSigV4.awsCredentialsProvider
           ..name = 'credentialsProvider'
-          ..location = ParameterLocation.constructor
+          ..location = ParameterLocation.constructor |
+              ParameterLocation.clientConstructor |
+              ParameterLocation.clientMethod
           ..required = true
           ..defaultTo = DartTypes.awsSigV4.awsCredentialsProvider
               .constInstanceNamed('environment', []).code,
@@ -564,7 +573,8 @@ extension OperationShapeUtil on OperationShape {
       (p) => p
         ..type = DartTypes.core.list(DartTypes.smithy.httpRequestInterceptor)
         ..name = 'requestInterceptors'
-        ..location = ParameterLocation.constructor
+        ..location =
+            ParameterLocation.constructor | ParameterLocation.clientConstructor
         ..defaultTo = const Code('const []'),
     );
 
@@ -573,7 +583,8 @@ extension OperationShapeUtil on OperationShape {
       (p) => p
         ..type = DartTypes.core.list(DartTypes.smithy.httpResponseInterceptor)
         ..name = 'responseInterceptors'
-        ..location = ParameterLocation.constructor
+        ..location =
+            ParameterLocation.constructor | ParameterLocation.clientConstructor
         ..defaultTo = const Code('const []'),
     );
   }
@@ -582,7 +593,7 @@ extension OperationShapeUtil on OperationShape {
   /// based off the traits attached to this shape's service.
   Iterable<Field> protocolFields(CodegenContext context) sync* {
     for (final parameter in operationParameters(context)
-        .where((p) => p.location == ParameterLocation.constructor)) {
+        .where((p) => p.location.inConstructor)) {
       yield Field(
         (f) => f
           ..modifier = FieldModifier.final$
@@ -602,7 +613,7 @@ extension OperationShapeUtil on OperationShape {
     bool Function(ConfigParameter) toThis = _defaultToThis,
   }) sync* {
     for (final parameter in operationParameters(context)
-        .where((p) => p.location == ParameterLocation.constructor)) {
+        .where((p) => p.location.inConstructor)) {
       yield Parameter((p) {
         final pToThis = toThis(parameter);
         p
