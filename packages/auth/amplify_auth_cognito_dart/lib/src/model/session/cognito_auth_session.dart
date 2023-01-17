@@ -37,7 +37,13 @@ class CognitoAuthSession extends AuthSession
   CognitoUserPoolTokens? get userPoolTokens => _userPoolTokensResult?.value;
 
   /// The user ID (subject).
-  String? get userSub => _userPoolTokensResult?.value?.userId;
+  String? get userSub {
+    try {
+      return _userPoolTokensResult?.value?.userId;
+    } on Object {
+      return _userPoolTokensResult?.previousValue?.userId;
+    }
+  }
 
   /// The AWS identity ID.
   String? get identityId => _identityIdResult?.value;
