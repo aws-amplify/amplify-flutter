@@ -157,6 +157,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   final HostedUiPlatformFactory? _hostedUiPlatformFactory;
 
   CognitoAuthStateMachine _stateMachine = CognitoAuthStateMachine();
+  StreamSubscription<AuthState>? _stateMachineSubscription;
 
   /// The underlying state machine, for use in subclasses.
   @protected
@@ -190,6 +191,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
   @override
   Future<void> close() async {
+    await _stateMachineSubscription?.cancel();
+    await _stateMachine.close();
     await _hubEventController.close();
   }
 
@@ -212,7 +215,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     if (_initialParameters != null) {
       _stateMachine.addInstance<OAuthParameters>(_initialParameters!);
     }
-    _stateMachine.stream.listen(
+    _stateMachineSubscription = _stateMachine.stream.listen(
       (state) {
         AuthHubEvent? hubEvent;
         if (state is HostedUiSignedIn) {
@@ -329,8 +332,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<CognitoAuthSession> fetchAuthSession({
     CognitoSessionOptions? options,
   }) async {
-    await _stateMachine.accept(FetchAuthSessionEvent.fetch(options)).completed;
-    return _stateMachine.loadSession();
+    return _stateMachine.loadSession(FetchAuthSessionEvent.fetch(options));
   }
 
   /// {@template amplify_auth_cognito_dart.impl.federate_to_identity_pool}
@@ -355,10 +357,9 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       provider: provider,
       options: options,
     );
-    await _stateMachine
-        .accept(FetchAuthSessionEvent.federate(request))
-        .completed;
-    final session = await _stateMachine.loadSession();
+    final session = await _stateMachine.loadSession(
+      FetchAuthSessionEvent.federate(request),
+    );
     return FederateToIdentityPoolResult(
       identityId: session.identityIdResult.value,
       credentials: session.credentialsResult.value,

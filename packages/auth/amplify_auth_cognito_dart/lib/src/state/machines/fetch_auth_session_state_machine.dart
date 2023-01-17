@@ -217,13 +217,12 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
             _isExpired(awsCredentialsExpiration));
 
     if (refreshUserPoolTokens || refreshAwsCredentials) {
-      dispatch(
+      return resolve(
         FetchAuthSessionEvent.refresh(
           refreshUserPoolTokens: refreshUserPoolTokens,
           refreshAwsCredentials: refreshAwsCredentials,
         ),
       );
-      return;
     }
 
     // If refresh is not needed, return data directly from storage
@@ -401,8 +400,8 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
       identityIdResult = AuthResult.success(existingIdentityId!);
     }
 
-    dispatch(
-      FetchAuthSessionEvent.succeeded(
+    emit(
+      FetchAuthSessionState.success(
         CognitoAuthSession(
           isSignedIn: userPoolTokens != null,
           userPoolTokensResult: userPoolTokensResult,
@@ -450,10 +449,8 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
       // refreshed, since they may have been from an authenticated user whose
       // session expired in an identity pool not supporting unauthenticated
       // access and we should prevent further attempts at refreshing.
-      dispatch(
-        CredentialStoreEvent.clearCredentials(
-          CognitoIdentityPoolKeys(identityPoolConfig),
-        ),
+      await manager.clearCredentials(
+        CognitoIdentityPoolKeys(identityPoolConfig),
       );
       rethrow;
     }

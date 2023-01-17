@@ -32,7 +32,7 @@ class StateMachineToken<
   const StateMachineToken();
 
   @override
-  List<Token> get dependencies => const [Token<StateMachineManager>()];
+  List<Token> get dependencies => [Token<Manager>()];
 }
 
 /// {@template amplify_core.state_machinedispatcher}
@@ -48,7 +48,7 @@ abstract class StateMachineManager<E extends StateMachineEvent,
     this._dependencyManager,
   ) {
     addInstance<Dispatcher<E, S>>(_dispatch);
-    addInstance<StateMachineManager>(this);
+    addInstance<StateMachineManager<E, S>>(this);
     addInstance<DependencyManager>(this);
     stateMachineBuilders.forEach((token, builder) {
       addBuilder(builder, token);
@@ -62,14 +62,14 @@ abstract class StateMachineManager<E extends StateMachineEvent,
   final _eventController = StreamController<EventCompleter<E, S>>();
   final StreamController<S> _stateController =
       StreamController.broadcast(sync: true);
-  final StreamController<Transition> _transitionController =
+  final StreamController<Transition<E, S>> _transitionController =
       StreamController.broadcast(sync: true);
 
   /// The unified state stream for all state machines.
-  Stream<StateMachineState> get stream => _stateController.stream;
+  Stream<S> get stream => _stateController.stream;
 
   /// The unified state machine transitions.
-  Stream<Transition> get transitions => _transitionController.stream;
+  Stream<Transition<E, S>> get transitions => _transitionController.stream;
 
   Future<void> _listenForEvents() async {
     await for (final completer in _eventController.stream) {
@@ -183,13 +183,14 @@ abstract class StateMachine<
       completer.accept();
       try {
         final event = completer.event;
+        _currentCompleter = completer;
         _currentEvent = event as Event;
         if (!_checkPrecondition(event)) {
           continue;
         }
         // Resolve in the next event loop since `emit` is synchronous and may
         // fire before listeners are registered.
-        await Future.delayed(Duration.zero, () => resolve(event));
+        await Future<void>.delayed(Duration.zero, () => resolve(event));
       } on Object catch (error, st) {
         _emitError(error, st);
       } finally {
@@ -200,6 +201,9 @@ abstract class StateMachine<
 
   /// The current event being handled by the state machine.
   late Event _currentEvent;
+
+  /// The completer for [_currentEvent].
+  late EventCompleter<ManagerEvent, ManagerState> _currentCompleter;
 
   /// Emits a new state synchronously for the current event.
   @override
@@ -216,7 +220,7 @@ abstract class StateMachine<
     _currentState = state;
   }
 
-  void _emitError(Object error, [StackTrace? st]) {
+  void _emitError(Object error, StackTrace st) {
     logger.error('Emitted error', error, st);
 
     final resolution = resolveError(error, st);
@@ -224,6 +228,7 @@ abstract class StateMachine<
     // Add the error to the state stream if it cannot be resolved to a new
     // state internally.
     if (resolution == null) {
+      _currentCompleter.completeError(error, st);
       _stateController.addError(error, st);
       return;
     }
@@ -231,8 +236,8 @@ abstract class StateMachine<
     emit(resolution);
   }
 
-  /// Checks the precondition on [event] given [currentState]. If it fails,
-  /// return `false` to skip the event.
+  /// Checks the precondition on [event] given [currentState]. If it
+  /// fails, return `false` to skip the event.
   bool _checkPrecondition(Event event) {
     final precondError = event.checkPrecondition(currentState);
     if (precondError != null) {
@@ -241,7 +246,7 @@ abstract class StateMachine<
         '${precondError.precondition}',
       );
       if (precondError.shouldEmit) {
-        _emitError(precondError);
+        _emitError(precondError, StackTrace.current);
       }
       return false;
     }
@@ -259,14 +264,16 @@ abstract class StateMachine<
   final StreamController<State> _stateController = StreamController.broadcast();
 
   /// Event controller.
-  final StreamController<EventCompleter> _eventController = StreamController();
+  final StreamController<EventCompleter<ManagerEvent, ManagerState>>
+      _eventController = StreamController();
 
   /// Transition controller.
   final StreamController<Transition<Event, State>> _transitionController =
       StreamController.broadcast(sync: true);
 
   /// The stream of events added to this state machine.
-  late final Stream<EventCompleter> _eventStream = _eventController.stream;
+  late final Stream<EventCompleter<ManagerEvent, ManagerState>> _eventStream =
+      _eventController.stream;
 
   /// The initial state of the state machine.
   State get initialState;
@@ -324,7 +331,8 @@ abstract class StateMachine<
   T create<T extends Object>([Token<T>? token]) => manager.create<T>(token);
 
   /// Adds an event to the state machine.
-  void accept(EventCompleter completer) => _eventController.add(completer);
+  void accept(EventCompleter<ManagerEvent, ManagerState> completer) =>
+      _eventController.add(completer);
 
   /// Dispatches an event to the state machine.
   EventCompleter<ManagerEvent, ManagerState> dispatch(ManagerEvent event) =>
