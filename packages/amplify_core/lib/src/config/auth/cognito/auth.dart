@@ -21,8 +21,6 @@ class CognitoAuthConfig with AWSEquatable<CognitoAuthConfig>, AWSSerializable {
     this.mfaConfiguration,
     this.mfaTypes,
     this.verificationMechanisms,
-    @Deprecated('Use usernameAttributes instead') this.loginMechanism,
-    @Deprecated('Use usernameAttributes instead') this.loginMechanisms,
   });
 
   @JsonKey(name: 'OAuth')
@@ -33,8 +31,6 @@ class CognitoAuthConfig with AWSEquatable<CognitoAuthConfig>, AWSSerializable {
   )
   final AuthenticationFlowType? authenticationFlowType;
   final List<SocialProvider>? socialProviders;
-  final List<CognitoUserAttributeKey>? loginMechanism;
-  final List<CognitoUserAttributeKey>? loginMechanisms;
   final List<CognitoUserAttributeKey>? usernameAttributes;
   final List<CognitoUserAttributeKey>? signupAttributes;
   final PasswordProtectionSettings? passwordProtectionSettings;
@@ -47,8 +43,6 @@ class CognitoAuthConfig with AWSEquatable<CognitoAuthConfig>, AWSSerializable {
         oAuth,
         authenticationFlowType,
         socialProviders,
-        loginMechanism,
-        loginMechanisms,
         usernameAttributes,
         signupAttributes,
         passwordProtectionSettings,
@@ -64,8 +58,6 @@ class CognitoAuthConfig with AWSEquatable<CognitoAuthConfig>, AWSSerializable {
     CognitoOAuthConfig? oAuth,
     AuthenticationFlowType? authenticationFlowType,
     List<SocialProvider>? socialProviders,
-    List<CognitoUserAttributeKey>? loginMechanism,
-    List<CognitoUserAttributeKey>? loginMechanisms,
     List<CognitoUserAttributeKey>? usernameAttributes,
     List<CognitoUserAttributeKey>? signupAttributes,
     PasswordProtectionSettings? passwordProtectionSettings,
@@ -81,12 +73,6 @@ class CognitoAuthConfig with AWSEquatable<CognitoAuthConfig>, AWSSerializable {
           (this.socialProviders == null
               ? null
               : List.of(this.socialProviders!)),
-      loginMechanism: loginMechanism ??
-          (this.loginMechanism == null ? null : List.of(this.loginMechanism!)),
-      loginMechanisms: loginMechanisms ??
-          (this.loginMechanisms == null
-              ? null
-              : List.of(this.loginMechanisms!)),
       usernameAttributes: usernameAttributes ??
           (this.usernameAttributes == null
               ? null

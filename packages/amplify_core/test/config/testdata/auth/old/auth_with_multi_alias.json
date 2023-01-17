@@ -27,10 +27,6 @@
                 "Auth": {
                     "Default": {
                         "authenticationFlowType": "USER_SRP_AUTH",
-                        "loginMechanism": [
-                            "EMAIL",
-                            "PHONE_NUMBER"
-                        ],
                         "signupAttributes": [
                             "EMAIL",
                             "PHONE_NUMBER"

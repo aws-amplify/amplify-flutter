@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package
+
 part of 'auth.dart';
 
 // **************************************************************************
@@ -38,14 +40,6 @@ CognitoAuthConfig _$CognitoAuthConfigFromJson(Map<String, dynamic> json) =>
           ?.map((e) =>
               const CognitoUserAttributeKeyConverter().fromJson(e as String))
           .toList(),
-      loginMechanism: (json['loginMechanism'] as List<dynamic>?)
-          ?.map((e) =>
-              const CognitoUserAttributeKeyConverter().fromJson(e as String))
-          .toList(),
-      loginMechanisms: (json['loginMechanisms'] as List<dynamic>?)
-          ?.map((e) =>
-              const CognitoUserAttributeKeyConverter().fromJson(e as String))
-          .toList(),
     );
 
 Map<String, dynamic> _$CognitoAuthConfigToJson(CognitoAuthConfig instance) {
@@ -64,16 +58,6 @@ Map<String, dynamic> _$CognitoAuthConfigToJson(CognitoAuthConfig instance) {
       'socialProviders',
       instance.socialProviders
           ?.map((e) => _$SocialProviderEnumMap[e]!)
-          .toList());
-  writeNotNull(
-      'loginMechanism',
-      instance.loginMechanism
-          ?.map(const CognitoUserAttributeKeyConverter().toJson)
-          .toList());
-  writeNotNull(
-      'loginMechanisms',
-      instance.loginMechanisms
-          ?.map(const CognitoUserAttributeKeyConverter().toJson)
           .toList());
   writeNotNull(
       'usernameAttributes',
