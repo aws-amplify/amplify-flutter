@@ -4,10 +4,11 @@
 import 'dart:io';
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/options/glob_options.dart';
 import 'package:path/path.dart' as path;
 
 /// Command to bootstrap/link Dart/Flutter packages in the repo.
-class BootstrapCommand extends AmplifyCommand {
+class BootstrapCommand extends AmplifyCommand with GlobOptions {
   BootstrapCommand() {
     argParser
       ..addFlag(
@@ -67,9 +68,9 @@ const amplifyEnvironments = <String, String>{};
   @override
   Future<void> run() async {
     await super.run();
-    await linkPackages(allPackages);
+    await linkPackages();
 
-    final bootstrapPackages = allPackages.values.where(
+    final bootstrapPackages = commandPackages.values.where(
       // Skip bootstrap for `aft` since it has already had `dart pub upgrade`
       // run with the native command, and running it again with the embedded
       // command could cause issues later on, esp. when the native `pub`
