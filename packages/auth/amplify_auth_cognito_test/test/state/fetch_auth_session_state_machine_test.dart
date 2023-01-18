@@ -47,7 +47,7 @@ void main() {
     const newSecretAccessKey = 'newSecretAccessKey';
 
     Future<void> configureAmplify(AmplifyConfig config) async {
-      await stateMachine.dispatch(ConfigurationEvent.configure(config));
+      stateMachine.dispatch(ConfigurationEvent.configure(config));
       await stateMachine.stream.whereType<Configured>().first;
     }
 

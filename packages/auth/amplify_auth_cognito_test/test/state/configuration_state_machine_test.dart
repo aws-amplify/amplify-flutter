@@ -46,15 +46,15 @@ void main() {
       final configurationStateMachine =
           stateMachine.getOrCreate(ConfigurationStateMachine.type);
 
-      stateMachine.dispatch(const ConfigurationEvent.configure(badConfig));
+      expect(
+        stateMachine
+            .dispatch(const ConfigurationEvent.configure(badConfig))
+            .completed,
+        throwsA(isA<ConfigurationError>()),
+      );
       await expectLater(
-        configurationStateMachine.stream
-            .startWith(configurationStateMachine.currentState),
-        emitsInOrder(<Matcher>[
-          isA<NotConfigured>(),
-          isA<Configuring>(),
-          emitsError(isA<ConfigurationError>()),
-        ]),
+        configurationStateMachine.stream,
+        emitsThrough(emitsError(isA<ConfigurationError>())),
       );
 
       await stateMachine.close();

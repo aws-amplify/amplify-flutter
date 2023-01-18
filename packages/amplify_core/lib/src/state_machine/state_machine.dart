@@ -25,7 +25,7 @@ class StateMachineToken<
     State extends ManagerState,
     ManagerEvent extends StateMachineEvent,
     ManagerState extends StateMachineState,
-    Manager extends StateMachineManager<ManagerEvent, ManagerState>,
+    Manager extends StateMachineManager<ManagerEvent, ManagerState, Manager>,
     M extends StateMachine<Event, State, ManagerEvent, ManagerState,
         Manager>> extends Token<M> {
   /// {@macro amplify_core.state_machine_type}
@@ -40,15 +40,18 @@ class StateMachineToken<
 /// different layers.
 /// {@endtemplate}
 @optionalTypeArgs
-abstract class StateMachineManager<E extends StateMachineEvent,
-    S extends StateMachineState> implements DependencyManager, Closeable {
+abstract class StateMachineManager<
+        E extends StateMachineEvent,
+        S extends StateMachineState,
+        Manager extends StateMachineManager<E, S, Manager>>
+    implements DependencyManager, Closeable {
   /// {@macro amplify_core.state_machinedispatcher}
   StateMachineManager(
     Map<StateMachineToken, Function> stateMachineBuilders,
     this._dependencyManager,
   ) {
     addInstance<Dispatcher<E, S>>(_dispatch);
-    addInstance<StateMachineManager<E, S>>(this);
+    addInstance<Manager>(this as Manager);
     addInstance<DependencyManager>(this);
     stateMachineBuilders.forEach((token, builder) {
       addBuilder(builder, token);
@@ -155,7 +158,8 @@ abstract class StateMachine<
         State extends ManagerState,
         ManagerEvent extends StateMachineEvent,
         ManagerState extends StateMachineState,
-        Manager extends StateMachineManager<ManagerEvent, ManagerState>>
+        Manager extends StateMachineManager<ManagerEvent, ManagerState,
+            Manager>>
     with AWSDebuggable, AmplifyLoggerMixin
     implements Emitter<State>, DependencyManager {
   /// {@macro amplify_core.state_machine}

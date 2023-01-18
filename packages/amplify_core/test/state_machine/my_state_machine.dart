@@ -179,7 +179,8 @@ class WorkerMachine extends StateMachine<WorkerEvent, WorkerState,
   String get runtimeTypeName => 'WorkerMachine';
 }
 
-class MyStateMachineManager extends StateMachineManager {
+class MyStateMachineManager extends StateMachineManager<StateMachineEvent,
+    StateMachineState, MyStateMachineManager> {
   MyStateMachineManager(
     DependencyManager dependencyManager,
   ) : super(_builders, dependencyManager);

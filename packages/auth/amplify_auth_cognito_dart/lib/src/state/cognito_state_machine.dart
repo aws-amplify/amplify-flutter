@@ -39,16 +39,14 @@ final defaultDependencies = <Token, DependencyBuilder>{
 /// The state machine for managing auth state and relevant work.
 /// {@endtemplate}
 class CognitoAuthStateMachine
-    extends StateMachineManager<AuthEvent, AuthState> {
+    extends StateMachineManager<AuthEvent, AuthState, CognitoAuthStateMachine> {
   /// {@macro amplify_auth_cognito.cognito_auth_state_machine}
   CognitoAuthStateMachine({
     DependencyManager? dependencyManager,
   }) : super(
           stateMachineBuilders,
           dependencyManager ?? DependencyManager(defaultDependencies),
-        ) {
-    addInstance<CognitoAuthStateMachine>(this);
-  }
+        );
 
   Dispatcher<AuthEvent, AuthState> get _dispatch => expect();
 

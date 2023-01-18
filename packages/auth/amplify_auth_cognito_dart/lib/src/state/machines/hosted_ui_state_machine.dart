@@ -145,7 +145,7 @@ class HostedUiStateMachine extends StateMachine<HostedUiEvent, HostedUiState,
         provider: provider,
       );
     } on Exception catch (e) {
-      dispatch(HostedUiEvent.failed(e));
+      emit(HostedUiState.failure(e));
     }
   }
 
@@ -169,9 +169,9 @@ class HostedUiStateMachine extends StateMachine<HostedUiEvent, HostedUiState,
   Future<void> onExchange(HostedUiExchange event) async {
     try {
       final tokens = await _platform.exchange(event.parameters);
-      dispatch(HostedUiEvent.succeeded(tokens));
+      return resolve(HostedUiEvent.succeeded(tokens));
     } on Exception catch (e) {
-      dispatch(HostedUiEvent.failed(e));
+      emit(HostedUiState.failure(e));
     }
   }
 
@@ -195,7 +195,7 @@ class HostedUiStateMachine extends StateMachine<HostedUiEvent, HostedUiState,
       );
       emit(const HostedUiState.signedOut());
     } on Exception catch (e) {
-      dispatch(HostedUiEvent.failed(e));
+      emit(HostedUiState.failure(e));
     }
   }
 
@@ -211,12 +211,10 @@ class HostedUiStateMachine extends StateMachine<HostedUiEvent, HostedUiState,
               jsonDecode(provider) as Map<String, Object?>,
             ),
     );
-    dispatch(
-      CredentialStoreEvent.storeCredentials(
-        CredentialStoreData(
-          userPoolTokens: event.tokens,
-          signInDetails: signInDetails,
-        ),
+    await manager.storeCredentials(
+      CredentialStoreData(
+        userPoolTokens: event.tokens,
+        signInDetails: signInDetails,
       ),
     );
 
