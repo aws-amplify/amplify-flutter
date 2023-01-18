@@ -41,6 +41,8 @@ class CognitoAuthSession extends AuthSession
     try {
       return _userPoolTokensResult?.value?.userId;
     } on Object {
+      // If there was an exception fetching userPoolTokens, return the cached
+      // value
       return _userPoolTokensResult?.previousValue?.userId;
     }
   }
