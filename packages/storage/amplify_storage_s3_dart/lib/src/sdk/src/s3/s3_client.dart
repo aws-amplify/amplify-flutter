@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library amplify_storage_s3_dart.s3.s3_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -102,13 +102,18 @@ class S3Client {
     _i1.AWSHttpClient? client,
     required String region,
     Uri? baseUri,
-    required _i2.S3ClientConfig s3ClientConfig,
-    required _i3.AWSCredentialsProvider credentialsProvider,
+    _i2.S3ClientConfig s3ClientConfig = const _i2.S3ClientConfig(),
+    _i3.AWSCredentialsProvider credentialsProvider =
+        const _i3.AWSCredentialsProvider.environment(),
+    List<_i4.HttpRequestInterceptor> requestInterceptors = const [],
+    List<_i4.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _client = client,
         _region = region,
         _baseUri = baseUri,
         _s3ClientConfig = s3ClientConfig,
-        _credentialsProvider = credentialsProvider;
+        _credentialsProvider = credentialsProvider,
+        _requestInterceptors = requestInterceptors,
+        _responseInterceptors = responseInterceptors;
 
   final _i1.AWSHttpClient? _client;
 
@@ -119,6 +124,10 @@ class S3Client {
   final _i2.S3ClientConfig _s3ClientConfig;
 
   final _i3.AWSCredentialsProvider _credentialsProvider;
+
+  final List<_i4.HttpRequestInterceptor> _requestInterceptors;
+
+  final List<_i4.HttpResponseInterceptor> _responseInterceptors;
 
   /// This action aborts a multipart upload. After a multipart upload is aborted, no additional parts can be uploaded using that upload ID. The storage consumed by any previously uploaded parts will be freed. However, if any part uploads are currently in progress, those part uploads might or might not succeed. As a result, it might be necessary to abort a given multipart upload multiple times in order to completely free all storage consumed by all parts.
   ///
@@ -140,12 +149,16 @@ class S3Client {
   _i4.SmithyOperation<_i5.AbortMultipartUploadOutput> abortMultipartUpload(
     _i6.AbortMultipartUploadRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.S3ClientConfig? s3ClientConfig,
+    _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i7.AbortMultipartUploadOperation(
       region: _region,
       baseUri: _baseUri,
-      s3ClientConfig: _s3ClientConfig,
-      credentialsProvider: _credentialsProvider,
+      s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -208,12 +221,16 @@ class S3Client {
       completeMultipartUpload(
     _i9.CompleteMultipartUploadRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.S3ClientConfig? s3ClientConfig,
+    _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i10.CompleteMultipartUploadOperation(
       region: _region,
       baseUri: _baseUri,
-      s3ClientConfig: _s3ClientConfig,
-      credentialsProvider: _credentialsProvider,
+      s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -316,12 +333,16 @@ class S3Client {
   _i4.SmithyOperation<_i11.CopyObjectOutput> copyObject(
     _i12.CopyObjectRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.S3ClientConfig? s3ClientConfig,
+    _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i13.CopyObjectOperation(
       region: _region,
       baseUri: _baseUri,
-      s3ClientConfig: _s3ClientConfig,
-      credentialsProvider: _credentialsProvider,
+      s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -458,12 +479,16 @@ class S3Client {
   _i4.SmithyOperation<_i14.CreateMultipartUploadOutput> createMultipartUpload(
     _i15.CreateMultipartUploadRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.S3ClientConfig? s3ClientConfig,
+    _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i16.CreateMultipartUploadOperation(
       region: _region,
       baseUri: _baseUri,
-      s3ClientConfig: _s3ClientConfig,
-      credentialsProvider: _credentialsProvider,
+      s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -486,12 +511,16 @@ class S3Client {
   _i4.SmithyOperation<_i17.DeleteObjectOutput> deleteObject(
     _i18.DeleteObjectRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.S3ClientConfig? s3ClientConfig,
+    _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i19.DeleteObjectOperation(
       region: _region,
       baseUri: _baseUri,
-      s3ClientConfig: _s3ClientConfig,
-      credentialsProvider: _credentialsProvider,
+      s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -522,12 +551,16 @@ class S3Client {
   _i4.SmithyOperation<_i20.DeleteObjectsOutput> deleteObjects(
     _i21.DeleteObjectsRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.S3ClientConfig? s3ClientConfig,
+    _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i22.DeleteObjectsOperation(
       region: _region,
       baseUri: _baseUri,
-      s3ClientConfig: _s3ClientConfig,
-      credentialsProvider: _credentialsProvider,
+      s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -616,12 +649,16 @@ class S3Client {
   _i4.SmithyOperation<_i23.GetObjectOutput> getObject(
     _i24.GetObjectRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.S3ClientConfig? s3ClientConfig,
+    _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i25.GetObjectOperation(
       region: _region,
       baseUri: _baseUri,
-      s3ClientConfig: _s3ClientConfig,
-      credentialsProvider: _credentialsProvider,
+      s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -690,12 +727,16 @@ class S3Client {
   _i4.SmithyOperation<_i26.HeadObjectOutput> headObject(
     _i27.HeadObjectRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.S3ClientConfig? s3ClientConfig,
+    _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i28.HeadObjectOperation(
       region: _region,
       baseUri: _baseUri,
-      s3ClientConfig: _s3ClientConfig,
-      credentialsProvider: _credentialsProvider,
+      s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -726,12 +767,16 @@ class S3Client {
   _i4.SmithyOperation<_i29.ListMultipartUploadsOutput> listMultipartUploads(
     _i30.ListMultipartUploadsRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.S3ClientConfig? s3ClientConfig,
+    _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i31.ListMultipartUploadsOperation(
       region: _region,
       baseUri: _baseUri,
-      s3ClientConfig: _s3ClientConfig,
-      credentialsProvider: _credentialsProvider,
+      s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -759,12 +804,16 @@ class S3Client {
       _i4.PaginatedResult<_i32.ListObjectsV2Output, int, String>> listObjectsV2(
     _i33.ListObjectsV2Request input, {
     _i1.AWSHttpClient? client,
+    _i2.S3ClientConfig? s3ClientConfig,
+    _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i34.ListObjectsV2Operation(
       region: _region,
       baseUri: _baseUri,
-      s3ClientConfig: _s3ClientConfig,
-      credentialsProvider: _credentialsProvider,
+      s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -796,12 +845,16 @@ class S3Client {
       _i4.PaginatedResult<_i35.BuiltList<_i36.Part>, int, String>> listParts(
     _i37.ListPartsRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.S3ClientConfig? s3ClientConfig,
+    _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i38.ListPartsOperation(
       region: _region,
       baseUri: _baseUri,
-      s3ClientConfig: _s3ClientConfig,
-      credentialsProvider: _credentialsProvider,
+      s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).runPaginated(
       input,
       client: client ?? _client,
@@ -857,12 +910,16 @@ class S3Client {
   _i4.SmithyOperation<_i39.PutObjectOutput> putObject(
     _i40.PutObjectRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.S3ClientConfig? s3ClientConfig,
+    _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i41.PutObjectOperation(
       region: _region,
       baseUri: _baseUri,
-      s3ClientConfig: _s3ClientConfig,
-      credentialsProvider: _credentialsProvider,
+      s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -925,12 +982,16 @@ class S3Client {
   _i4.SmithyOperation<_i42.SelectObjectContentOutput> selectObjectContent(
     _i43.SelectObjectContentRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.S3ClientConfig? s3ClientConfig,
+    _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i44.SelectObjectContentOperation(
       region: _region,
       baseUri: _baseUri,
-      s3ClientConfig: _s3ClientConfig,
-      credentialsProvider: _credentialsProvider,
+      s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -995,12 +1056,16 @@ class S3Client {
   _i4.SmithyOperation<_i45.UploadPartOutput> uploadPart(
     _i46.UploadPartRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.S3ClientConfig? s3ClientConfig,
+    _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i47.UploadPartOperation(
       region: _region,
       baseUri: _baseUri,
-      s3ClientConfig: _s3ClientConfig,
-      credentialsProvider: _credentialsProvider,
+      s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
@@ -1084,12 +1149,16 @@ class S3Client {
   _i4.SmithyOperation<_i48.UploadPartCopyOutput> uploadPartCopy(
     _i49.UploadPartCopyRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.S3ClientConfig? s3ClientConfig,
+    _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i50.UploadPartCopyOperation(
       region: _region,
       baseUri: _baseUri,
-      s3ClientConfig: _s3ClientConfig,
-      credentialsProvider: _credentialsProvider,
+      s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
     ).run(
       input,
       client: client ?? _client,
