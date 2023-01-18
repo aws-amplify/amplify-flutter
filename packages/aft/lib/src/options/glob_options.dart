@@ -27,9 +27,9 @@ mixin GlobOptions on AmplifyCommand {
   late final exclude = argResults?['exclude'] as List<String>? ?? const [];
 
   @override
-  Map<String, PackageInfo> get allPackages {
+  Map<String, PackageInfo> get commandPackages {
     return Map.fromEntries(
-      super.allPackages.entries.where((entry) {
+      super.commandPackages.entries.where((entry) {
         final package = entry.value;
         if (include.isNotEmpty) {
           var explicitlyIncluded = false;

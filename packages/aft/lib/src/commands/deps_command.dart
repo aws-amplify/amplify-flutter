@@ -105,7 +105,7 @@ class _DepsSubcommand extends AmplifyCommand {
 
   Future<void> _run(_DepsAction action) async {
     final globalDependencyConfig = aftConfig.dependencies;
-    for (final package in allPackages.values) {
+    for (final package in commandPackages.values) {
       for (final globalDep in globalDependencyConfig.entries) {
         _checkDependency(
           package,

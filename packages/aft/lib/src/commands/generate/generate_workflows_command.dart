@@ -19,7 +19,7 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
   @override
   Future<void> run() async {
     await super.run();
-    for (final package in allPackages.values) {
+    for (final package in commandPackages.values) {
       if (package.pubspecInfo.pubspec.publishTo == 'none' &&
           !falsePositiveExamples.contains(package.name)) {
         continue;
