@@ -49,11 +49,12 @@ class GlacierClient {
   _i3.SmithyOperation<_i4.ArchiveCreationOutput> uploadArchive(
     _i5.UploadArchiveInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i6.UploadArchiveOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
     ).run(
@@ -65,11 +66,12 @@ class GlacierClient {
   _i3.SmithyOperation<_i7.UploadMultipartPartOutput> uploadMultipartPart(
     _i8.UploadMultipartPartInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i9.UploadMultipartPartOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
     ).run(

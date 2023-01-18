@@ -48,12 +48,14 @@ class S3Client {
   _i4.SmithyOperation<_i5.CopyObjectOutput> copyObject(
     _i6.CopyObjectRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.S3ClientConfig? s3ClientConfig,
+    _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i7.CopyObjectOperation(
       region: _region,
       baseUri: _baseUri,
-      s3ClientConfig: _s3ClientConfig,
-      credentialsProvider: _credentialsProvider,
+      s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
     ).run(
@@ -65,12 +67,14 @@ class S3Client {
   _i4.SmithyOperation<_i8.GetObjectOutput> getObject(
     _i9.GetObjectRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.S3ClientConfig? s3ClientConfig,
+    _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i10.GetObjectOperation(
       region: _region,
       baseUri: _baseUri,
-      s3ClientConfig: _s3ClientConfig,
-      credentialsProvider: _credentialsProvider,
+      s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
     ).run(
