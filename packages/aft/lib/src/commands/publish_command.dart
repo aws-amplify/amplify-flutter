@@ -5,12 +5,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/options/glob_options.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:graphs/graphs.dart';
 import 'package:path/path.dart' as p;
 
 /// Command to publish all Dart/Flutter packages in the repo.
-class PublishCommand extends AmplifyCommand {
+class PublishCommand extends AmplifyCommand with GlobOptions {
   PublishCommand() {
     argParser
       ..addFlag(
@@ -170,7 +171,8 @@ class PublishCommand extends AmplifyCommand {
   Future<void> run() async {
     await super.run();
     // Gather packages which can be published.
-    final publishablePackages = repo.publishablePackages
+    final publishablePackages = repo
+        .publishablePackages(commandPackages)
         .where((pkg) => pkg.pubspecInfo.pubspec.publishTo != 'none');
 
     // Gather packages which need to be published.

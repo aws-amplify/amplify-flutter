@@ -33,9 +33,15 @@ class Repo {
   final AftConfig aftConfig;
 
   /// All packages which can be published to `pub.dev`.
-  late final List<PackageInfo> publishablePackages = UnmodifiableListView(
-    allPackages.values.where((pkg) => pkg.isPublishable).toList(),
-  );
+  List<PackageInfo> publishablePackages([
+    Map<String, PackageInfo>? allPackages,
+  ]) =>
+      UnmodifiableListView(
+        (allPackages ?? this.allPackages)
+            .values
+            .where((pkg) => pkg.isPublishable)
+            .toList(),
+      );
 
   /// The components of the repository.
   late final Map<String, AftRepoComponent> components = () {
@@ -237,7 +243,7 @@ class Repo {
   void bumpAllVersions({
     required GitChanges Function(PackageInfo) changesForPackage,
   }) {
-    final sortedPackages = List.of(publishablePackages);
+    final sortedPackages = List.of(publishablePackages());
     sortPackagesTopologically(
       sortedPackages,
       (PackageInfo pkg) => pkg.pubspecInfo.pubspec,

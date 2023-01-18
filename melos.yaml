@@ -14,27 +14,27 @@ scripts:
   setup_tuneup: >
     flutter pub global activate tuneup
   copy_dummy_config: >
-    aft exec --include="*example*,sample_app" -- \
-      cp -n <AFT_ROOT>/.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart | true
+    melos exec --scope="*example*,sample_app" -- \
+      cp -n "\$MELOS_ROOT_PATH"/.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart | true
 
   build:examples:ios: >
-    aft exec --include="*example*,sample_app" --exclude="*_android*" --fail-fast -- \
+    melos exec -c 1 --scope="*example*,sample_app" --ignore="*_android*" --fail-fast -- \
       flutter build ios --simulator
 
   build:examples:release:ios: >
-    aft exec --include="*example*" --exclude="*_android*" --fail-fast -- \
+    melos exec -c 1 --scope="*example*" --ignore="*_android*" --fail-fast -- \
       flutter build ios --no-codesign
 
   build:examples:android: >
-    aft exec --include="*example*,sample_app" --exclude="*_ios*" --fail-fast -- \
+    melos exec -c 1 --scope="*example*,sample_app" --ignore="*_ios*" --fail-fast -- \
       flutter build apk --debug --verbose
 
   build:examples:release:android: >
-    aft exec --include="*example*" --exclude="*_ios*" --fail-fast -- \
+    melos exec -c 1 --scope="*example*" --ignore="*_ios*" --fail-fast -- \
       flutter build apk --verbose
 
   test:unit:flutter:
-    run: aft exec -- flutter test
+    run: melos exec -c 1 "flutter test"
     description: >
       Runs flutter unit tests in all plugins and example apps. Manually run only, not in CI
     select-package:
@@ -75,7 +75,7 @@ scripts:
   # Analytics
   lint:android:amplify_analytics_pinpoint:
     run: |
-      aft exec --fail-fast -- \
+      melos exec -c 1 --fail-fast -- \
         bash "$PWD/build-support/lint_android.sh"
     description: >
       Lints Android (Kotlin) files against global rules and fails if there are any errors.
@@ -86,7 +86,7 @@ scripts:
   # API
   lint:android:amplify_api:
     run: |
-      aft exec --fail-fast -- \
+      melos exec -c 1 --fail-fast -- \
         bash "$PWD/build-support/lint_android.sh"
     description: >
       Lints Android (Kotlin) files against global rules and fails if there are any errors.
@@ -97,7 +97,7 @@ scripts:
   # AUTH
   lint:android:amplify_auth_cognito:
     run: |
-      aft exec --fail-fast -- \
+      melos exec -c 1 --fail-fast -- \
         bash "$PWD/build-support/lint_android.sh"
     description: >
       Lints Android (Kotlin) files against global rules and fails if there are any errors.
@@ -108,7 +108,7 @@ scripts:
   # CORE
   lint:android:amplify_core:
     run: |
-      aft exec --fail-fast -- \
+      melos exec -c 1 --fail-fast -- \
         bash "$PWD/build-support/lint_android.sh"
     description: >
       Lints Android (Kotlin) files against global rules and fails if there are any errors.
@@ -119,7 +119,7 @@ scripts:
   # DATASTORE
   lint:android:amplify_datastore:
     run: |
-      aft exec --fail-fast -- \
+      melos exec -c 1 --fail-fast -- \
         bash "$PWD/build-support/lint_android.sh"
     description: >
       Lints Android (Kotlin) files against global rules and fails if there are any errors.
@@ -132,7 +132,7 @@ scripts:
   # as amplify_storage_s3_android_example doesn't exist now
   lint:android:amplify_storage_s3:
     run: |
-      aft exec --fail-fast -- \
+      melos exec -c 1 --fail-fast -- \
         bash "$PWD/build-support/lint_android.sh"
     description: >
       Lints Android (Kotlin) files against global rules and fails if there are any errors.
@@ -143,7 +143,7 @@ scripts:
   # AMPLIFY_FLUTTER
   lint:android:amplify_flutter:
     run: |
-      aft exec --fail-fast -- \
+      melos exec -c 1 --fail-fast -- \
         bash "$PWD/build-support/lint_android.sh"
     description: >
       Lints Android (Kotlin) files against global rules and fails if there are any errors.
@@ -158,7 +158,7 @@ scripts:
       - Requires running Android and iOS simulators.
 
   test:integration:android:
-    run: aft exec -- "<AFT_ROOT>/build-support/integ_test.sh -d sdk" $@
+    run: melos exec -c 1 -- "$MELOS_ROOT_PATH/build-support/integ_test.sh -d sdk" $@
     description:
       Run integration tests for a single package on an Android emulator.
       - Run with `--no-select` to run for all applicable packages.
@@ -170,7 +170,7 @@ scripts:
       ignore: "*ios_example"
 
   test:integration:ios:
-    run: aft exec -- "<AFT_ROOT>/build-support/integ_test_ios.sh" $@
+    run: melos exec -c 1 -- "$MELOS_ROOT_PATH/build-support/integ_test_ios.sh" $@
     description: Run integration tests for a single package on an iOS simulator.
       - Run with `--no-select` to run for all applicable packages.
       - Requires launching an iOS simulator prior to execution.
@@ -180,7 +180,7 @@ scripts:
       scope: "*example*"
 
   provision_integration_test_resources:
-    run: aft exec "./tool/provision_integration_test_resources.sh"
+    run: melos exec "./tool/provision_integration_test_resources.sh"
     description:
       Creates and pushes amplify environments necessary to run integration tests in example apps. Runs only on apps with provision script.
       - Requires amplify CLI configured and connected to AWS account.
@@ -200,21 +200,21 @@ scripts:
     ./build-support/codecov.sh -F android-unit-tests
 
   format: >
-    aft exec -- \
-      aft format --dry-run --set-exit-if-changed .
+    aft exec --fail-fast --include="Amplify Flutter" -- \
+      flutter format --dry-run --set-exit-if-changed .
   analyze:
-    run: aft exec --fail-fast --include="amplify_analytics_*,amplify_api*,amplify_auth_cognito*,amplify_flutter*" --exclude=amplify_auth_cognito_dart,amplify_analytics_pinpoint_dart -- \
-      flutter analyze --no-fatal-infos .
+    run: aft exec --fail-fast --include="Amplify Flutter" -- \
+      flutter analyze --no-fatal-infos
     description: >
       Analyzes all packages and fails if there are any errors.
 
   lint:pub: >
-    aft exec -c 5 --fail-fast --no-private --ignore="*example*" -- \
+    melos exec -c 5 --fail-fast --no-private --ignore="*example*" -- \
       flutter pub publish --dry-run
 
   packages:fix: |
-    aft exec -- \
-      aft analyze --no-fatal-infos --no-fatal-warnings &>/dev/null || true
+    melos exec -- \
+      flutter analyze --no-fatal-infos --no-fatal-warnings &>/dev/null || true
 
   pod:repo-update:
     run: melos exec -c 8 --scope="*example*,sample_app"  --ignore="*_android_example" "(cd ios && pod repo update)"
@@ -232,7 +232,7 @@ scripts:
     melos run copy_dummy_config && \
     melos run packages:fix
   postclean: >
-    aft exec -- \
+    melos exec -- \
       rm -rf ./build ./android/.gradle ./ios/.symlinks ./ios/Pods ./ios/Podfile.lock
 dev_dependencies:
   pedantic: ^1.9.0

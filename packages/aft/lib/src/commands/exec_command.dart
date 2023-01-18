@@ -22,7 +22,7 @@ class ExecCommand extends AmplifyCommand with GlobOptions, FailFastOption {
     if (rawCommand.isEmpty) {
       usageException('Invalid command. Run `aft exec -- <command>`');
     }
-    await linkPackages(allPackages);
+    await linkPackages();
 
     // Process command to handle some quirks of bash and how Dart initially
     // captures these scripts.
@@ -40,7 +40,7 @@ class ExecCommand extends AmplifyCommand with GlobOptions, FailFastOption {
       return arg;
     }).toList();
 
-    for (final package in allPackages.values) {
+    for (final package in commandPackages.values) {
       logger.info(
         'Running "${command.join(' ')}" in "${package.path}"...',
       );

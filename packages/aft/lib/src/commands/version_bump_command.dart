@@ -61,7 +61,7 @@ class VersionBumpCommand extends AmplifyCommand
     final changelogUpdates = repo.changelogUpdates;
 
     final bumpedPackages = <PackageInfo>[];
-    for (final package in repo.allPackages.values) {
+    for (final package in commandPackages.values) {
       final edits = package.pubspecInfo.pubspecYamlEditor.edits;
       if (edits.isNotEmpty) {
         bumpedPackages.add(package);
@@ -98,7 +98,7 @@ class VersionBumpCommand extends AmplifyCommand
     await super.run();
 
     // Link packages so that we can run build_runner
-    await linkPackages(repo.allPackages);
+    await linkPackages();
 
     final bumpedPackages = await _updateVersions();
 
