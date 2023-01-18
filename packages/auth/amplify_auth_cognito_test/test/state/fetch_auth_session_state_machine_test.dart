@@ -539,30 +539,92 @@ void main() {
       });
 
       group('no user pool tokens (not signed in)', () {
-        group('fetch', () {
-          setUp(() async {
-            await configureAmplify(config);
-            session = await fetchAuthSession(willRefresh: false);
-          });
+        group('unauthorized access supported', () {
+          group('fetch', () {
+            setUp(() async {
+              await configureAmplify(config);
+              stateMachine.addInstance<CognitoIdentityClient>(
+                MockCognitoIdentityClient(
+                  getId: expectAsync0(
+                    () async => GetIdResponse(identityId: identityId),
+                  ),
+                  getCredentialsForIdentity: expectAsync0(
+                    () async => GetCredentialsForIdentityResponse(
+                      credentials: Credentials(
+                        accessKeyId: newAccessKeyId,
+                        secretKey: newSecretAccessKey,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+              session = await fetchAuthSession(willRefresh: true);
+            });
 
-          test('should return isSignedIn=false', () {
-            expect(session.isSignedIn, isFalse);
-          });
+            test('should return isSignedIn=false', () {
+              expect(session.isSignedIn, isFalse);
+            });
 
-          test('should return null user sub', () {
-            expect(session.userSub, isNull);
-          });
+            test('should return null user sub', () {
+              expect(session.userSub, isNull);
+            });
 
-          test('should return null user pool tokens', () {
-            expect(session.userPoolTokens, isNull);
-          });
+            test('should return null user pool tokens', () {
+              expect(session.userPoolTokens, isNull);
+            });
 
-          test('should return null credentials', () {
-            expect(session.credentials, isNull);
-          });
+            test('should return new credentials', () {
+              final credentials = session.credentials!;
+              expect(credentials.accessKeyId, newAccessKeyId);
+              expect(credentials.secretAccessKey, newSecretAccessKey);
+            });
 
-          test('should return null identityId', () {
-            expect(session.identityId, isNull);
+            test('should return identityId', () {
+              expect(session.identityId, identityId);
+            });
+          });
+        });
+
+        group('unauthorized access not supported', () {
+          group('fetch', () {
+            setUp(() async {
+              await configureAmplify(config);
+              stateMachine.addInstance<CognitoIdentityClient>(
+                MockCognitoIdentityClient(
+                  getId: expectAsync0(
+                    () async => throw _NotAuthorizedException(),
+                  ),
+                ),
+              );
+
+              session = await fetchAuthSession(willRefresh: true);
+            });
+
+            test('should return isSignedIn=false', () {
+              expect(session.isSignedIn, isFalse);
+            });
+
+            test('should return null user sub', () {
+              expect(session.userSub, isNull);
+            });
+
+            test('should return null user pool tokens', () {
+              expect(session.userPoolTokens, isNull);
+            });
+
+            test('should throw when accessing credentials', () {
+              expect(
+                () => session.credentials,
+                throwsA(isA<_NotAuthorizedException>()),
+              );
+            });
+
+            test('should throw when accessing identityId', () {
+              expect(
+                () => session.identityId,
+                throwsA(isA<_NotAuthorizedException>()),
+              );
+            });
           });
         });
       });
@@ -605,7 +667,7 @@ void main() {
 
           test('should throw when accessing identityId', () {
             expect(
-              () => session.credentials,
+              () => session.identityId,
               throwsA(isA<InvalidAccountTypeException>()),
             );
           });
@@ -958,3 +1020,7 @@ void main() {
 
 /// A mock exception when attempting to fetch new credentials.
 class _NetworkException implements Exception {}
+
+/// A mock exception thrown when unauthenticated access is not supported for the
+///  identity pool.
+class _NotAuthorizedException implements Exception {}

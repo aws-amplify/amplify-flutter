@@ -172,8 +172,6 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
     final userPoolTokens = result.data.userPoolTokens;
     final accessTokenExpiration = userPoolTokens?.accessToken.claims.expiration;
     final idTokenExpiration = userPoolTokens?.idToken.claims.expiration;
-    // Only force refresh user pool tokens when we have tokens to refresh and
-    // we are not also refreshing AWS credentials.
     final forceRefreshUserPoolTokens =
         userPoolTokens != null && options.forceRefresh;
     final refreshUserPoolTokens = forceRefreshUserPoolTokens ||
@@ -181,14 +179,14 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
         _isExpired(idTokenExpiration);
 
     final hasIdentityPool = _identityPoolConfig != null;
-    final hasUserPoolTokens = userPoolTokens != null;
     final awsCredentials = result.data.awsCredentials;
     final awsCredentialsExpiration = awsCredentials?.expiration;
     final forceRefreshAwsCredentials = options.forceRefresh;
+    final retrieveAwsCredentials = awsCredentials == null;
     final refreshAwsCredentials = hasIdentityPool &&
-        (forceRefreshAwsCredentials ||
-            _isExpired(awsCredentialsExpiration) ||
-            (hasUserPoolTokens && awsCredentials == null));
+        (retrieveAwsCredentials ||
+            forceRefreshAwsCredentials ||
+            _isExpired(awsCredentialsExpiration));
 
     if (refreshUserPoolTokens || refreshAwsCredentials) {
       dispatch(
@@ -339,7 +337,11 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
       } on Object catch (e) {
         credentialsResult = CognitoAuthSessionResult.error(e);
         // return existing identityId if refreshing credentials fails
-        identityIdResult = CognitoAuthSessionResult.success(identityId);
+        if (identityId != null) {
+          identityIdResult = CognitoAuthSessionResult.success(identityId);
+        } else {
+          identityIdResult = CognitoAuthSessionResult.error(e);
+        }
       }
     } else if (hasIdentityPool) {
       credentialsResult = CognitoAuthSessionResult.success(awsCredentials);
