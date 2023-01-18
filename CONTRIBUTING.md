@@ -69,6 +69,7 @@ $ cd amplify-flutter
 $ dart pub global activate melos
 $ melos bootstrap
 ```
+> Note: If you already cloned the project and forgot `--recurse-submodules`, run `git submodule update --init --recursive`.
 
 > Note: If you don't include `melos` on your path, you may execute `dart pub global run melos bootstrap` instead of the last command above.
 
@@ -138,6 +139,8 @@ _[Skip step 1 to 3 if you have already done this]_
 
 1. Fork aws-amplify/amplify-flutter
 2. Clone your fork locally: `git clone git@github.com:YOUR_GITHUB_USERNAME/amplify-flutter.git --recurse-submodules`
+    > Note: If you already cloned the project and forgot `--recurse-submodules`, run `git submodule update --init --recursive`.
+
 3. Install `melos` by running `dart pub global activate melos`, and run `melos bootstrap` (or `dart pub global run melos bootstrap`) in the repository root
 4. Within your fork, create a new branch based on the issue (e.g. Issue #123) you're addressing - `git checkout -b "group-token/short-token-[branch-name]"` or `git checkout -b "short-token/[branch-name]"`
    - Use grouping tokens at the beginning of the branch names. \_For e.g, if you are working on changes specific to `amplify-ui-components`, then you could start the branch name as `ui-components/...`
