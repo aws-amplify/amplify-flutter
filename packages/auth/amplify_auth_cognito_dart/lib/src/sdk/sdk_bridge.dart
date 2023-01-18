@@ -115,10 +115,12 @@ class WrappedCognitoIdentityClient implements CognitoIdentityClient {
   SmithyOperation<GetCredentialsForIdentityResponse> getCredentialsForIdentity(
     GetCredentialsForIdentityInput input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.getCredentialsForIdentity(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -137,10 +139,12 @@ class WrappedCognitoIdentityClient implements CognitoIdentityClient {
   SmithyOperation<GetIdResponse> getId(
     GetIdInput input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.getId(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -188,10 +192,12 @@ class WrappedCognitoIdentityProviderClient
   SmithyOperation<AssociateSoftwareTokenResponse> associateSoftwareToken(
     AssociateSoftwareTokenRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.associateSoftwareToken(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -210,10 +216,12 @@ class WrappedCognitoIdentityProviderClient
   SmithyOperation<ChangePasswordResponse> changePassword(
     ChangePasswordRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.changePassword(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -232,10 +240,12 @@ class WrappedCognitoIdentityProviderClient
   SmithyOperation<ConfirmDeviceResponse> confirmDevice(
     ConfirmDeviceRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.confirmDevice(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -254,10 +264,12 @@ class WrappedCognitoIdentityProviderClient
   SmithyOperation<ConfirmForgotPasswordResponse> confirmForgotPassword(
     ConfirmForgotPasswordRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.confirmForgotPassword(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -276,10 +288,12 @@ class WrappedCognitoIdentityProviderClient
   SmithyOperation<ConfirmSignUpResponse> confirmSignUp(
     ConfirmSignUpRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.confirmSignUp(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -298,10 +312,12 @@ class WrappedCognitoIdentityProviderClient
   SmithyOperation<void> deleteUser(
     DeleteUserRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.deleteUser(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -320,10 +336,12 @@ class WrappedCognitoIdentityProviderClient
   SmithyOperation<void> forgetDevice(
     ForgetDeviceRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.forgetDevice(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -342,10 +360,12 @@ class WrappedCognitoIdentityProviderClient
   SmithyOperation<ForgotPasswordResponse> forgotPassword(
     ForgotPasswordRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.forgotPassword(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -364,10 +384,12 @@ class WrappedCognitoIdentityProviderClient
   SmithyOperation<GetDeviceResponse> getDevice(
     GetDeviceRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.getDevice(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -386,10 +408,12 @@ class WrappedCognitoIdentityProviderClient
   SmithyOperation<GetUserResponse> getUser(
     GetUserRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.getUser(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -409,10 +433,12 @@ class WrappedCognitoIdentityProviderClient
       getUserAttributeVerificationCode(
     GetUserAttributeVerificationCodeRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.getUserAttributeVerificationCode(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -431,10 +457,12 @@ class WrappedCognitoIdentityProviderClient
   SmithyOperation<GlobalSignOutResponse> globalSignOut(
     GlobalSignOutRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.globalSignOut(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -453,10 +481,12 @@ class WrappedCognitoIdentityProviderClient
   SmithyOperation<InitiateAuthResponse> initiateAuth(
     InitiateAuthRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.initiateAuth(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -475,10 +505,12 @@ class WrappedCognitoIdentityProviderClient
   SmithyOperation<ListDevicesResponse> listDevices(
     ListDevicesRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.listDevices(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -497,10 +529,12 @@ class WrappedCognitoIdentityProviderClient
   SmithyOperation<ResendConfirmationCodeResponse> resendConfirmationCode(
     ResendConfirmationCodeRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.resendConfirmationCode(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -519,10 +553,12 @@ class WrappedCognitoIdentityProviderClient
   SmithyOperation<RespondToAuthChallengeResponse> respondToAuthChallenge(
     RespondToAuthChallengeRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.respondToAuthChallenge(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -541,10 +577,12 @@ class WrappedCognitoIdentityProviderClient
   SmithyOperation<RevokeTokenResponse> revokeToken(
     RevokeTokenRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.revokeToken(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -563,10 +601,12 @@ class WrappedCognitoIdentityProviderClient
   SmithyOperation<SignUpResponse> signUp(
     SignUpRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.signUp(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -585,10 +625,12 @@ class WrappedCognitoIdentityProviderClient
   SmithyOperation<UpdateDeviceStatusResponse> updateDeviceStatus(
     UpdateDeviceStatusRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.updateDeviceStatus(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -607,10 +649,12 @@ class WrappedCognitoIdentityProviderClient
   SmithyOperation<UpdateUserAttributesResponse> updateUserAttributes(
     UpdateUserAttributesRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.updateUserAttributes(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -629,10 +673,12 @@ class WrappedCognitoIdentityProviderClient
   SmithyOperation<VerifySoftwareTokenResponse> verifySoftwareToken(
     VerifySoftwareTokenRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.verifySoftwareToken(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
@@ -651,10 +697,12 @@ class WrappedCognitoIdentityProviderClient
   SmithyOperation<VerifyUserAttributeResponse> verifyUserAttribute(
     VerifyUserAttributeRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) {
     final operation = _base.verifyUserAttribute(
       input,
       client: client,
+      credentialsProvider: credentialsProvider,
     );
     return SmithyOperation(
       operation.operation.then(
