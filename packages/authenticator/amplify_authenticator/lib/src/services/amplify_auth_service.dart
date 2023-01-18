@@ -162,13 +162,15 @@ class AmplifyAuthService implements AuthService {
 
   @override
   Future<bool> isValidSession() async {
+    final res = await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
     try {
-      final res = await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
       return res.userPoolTokens != null;
-    } on SignedOutException {
-      return false;
-    } on Exception {
-      rethrow;
+    } on AWSHttpException {
+      // An AWSHttpException thrown while accessing userPoolTokens indicates
+      // that access and/or id tokens have expired, and cannot be refreshed
+      // due to a network error. In this case the user should be treated as
+      // authenticated to allow for offline use cases.
+      return true;
     }
   }
 
