@@ -128,15 +128,13 @@ void main({bool useExistingTestUser = false}) {
             stream1.listen(
               ((event) {
                 if (event.data?.name == name) {
-                  final blogFromEvent = event.data;
-                  expect(blogFromEvent?.name, equals(name));
                   dataCompleter.complete(event.data);
                 }
               }),
               onError: (Object e) => fail('Error in subscription stream: $e'),
             );
 
-            final subscriptionRequest2 = ModelSubscriptions.onCreate(
+            final subscriptionRequest2 = ModelSubscriptions.onDelete(
               Blog.classType,
               authorizationMode: APIAuthorizationType.apiKey,
             );
@@ -159,10 +157,13 @@ void main({bool useExistingTestUser = false}) {
             await readyCompleter.future;
             await readyCompleter2.future;
 
-            await addBlog(name);
+            final blog = await addBlog(name);
 
-            await dataCompleter.future;
-            await dataCompleter2.future;
+            await expectLater(dataCompleter.future, completes);
+
+            await deleteBlog(blog.id);
+
+            await expectLater(dataCompleter2.future, completes);
           });
 
           testWidgets('should parse errors within a web socket data message',
