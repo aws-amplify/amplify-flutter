@@ -87,7 +87,7 @@ void main() {
             codeDeliveryDetails: CodeDeliveryDetailsType(
               destination: 'dummy destination',
               deliveryMedium: DeliveryMediumType.email,
-              attributeName: 'dummy attribute',
+              attributeName: 'email',
             ),
           ),
         );
@@ -102,7 +102,7 @@ void main() {
               const AuthCodeDeliveryDetails(
                 deliveryMedium: DeliveryMedium.email,
                 destination: 'dummy destination',
-                attributeKey: 'dummy attribute',
+                attributeKey: CognitoUserAttributeKey.email,
               ),
             ),
           ),
@@ -120,7 +120,7 @@ void main() {
             codeDeliveryDetails: CodeDeliveryDetailsType(
               destination: 'dummy destination',
               deliveryMedium: DeliveryMediumType.email,
-              attributeName: 'dummy attribute',
+              attributeName: 'email',
             ),
           ),
         );
@@ -135,7 +135,7 @@ void main() {
               const AuthCodeDeliveryDetails(
                 deliveryMedium: DeliveryMedium.email,
                 destination: 'dummy destination',
-                attributeKey: 'dummy attribute',
+                attributeKey: CognitoUserAttributeKey.email,
               ),
             ),
           ),

@@ -43,11 +43,14 @@ extension ChallengeNameTypeBridge on ChallengeNameType {
 extension CodeDeliveryDetailsBridge on CodeDeliveryDetailsType {
   /// The [AuthCodeDeliveryDetails] representation of `this`.
   AuthCodeDeliveryDetails get asAuthCodeDeliveryDetails {
+    final attributeKey = attributeName == null
+        ? null
+        : CognitoUserAttributeKey.parse(attributeName!);
     return AuthCodeDeliveryDetails(
       destination: destination,
       deliveryMedium:
           deliveryMedium?.asDeliveryMedium ?? DeliveryMedium.unknown,
-      attributeKey: attributeName,
+      attributeKey: attributeKey,
     );
   }
 }

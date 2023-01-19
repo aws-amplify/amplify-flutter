@@ -8,19 +8,6 @@ part of 'reset_password_step.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ResetPasswordStep _$ResetPasswordStepFromJson(Map<String, dynamic> json) =>
-    ResetPasswordStep(
-      additionalInfo: (json['additionalInfo'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
-      codeDeliveryDetails: json['codeDeliveryDetails'] == null
-          ? null
-          : AuthCodeDeliveryDetails.fromJson(
-              json['codeDeliveryDetails'] as Map<String, dynamic>),
-      updateStep:
-          $enumDecode(_$AuthResetPasswordStepEnumMap, json['updateStep']),
-    );
-
 Map<String, dynamic> _$ResetPasswordStepToJson(ResetPasswordStep instance) {
   final val = <String, dynamic>{};
 
@@ -32,7 +19,10 @@ Map<String, dynamic> _$ResetPasswordStepToJson(ResetPasswordStep instance) {
 
   writeNotNull('additionalInfo', instance.additionalInfo);
   writeNotNull('codeDeliveryDetails', instance.codeDeliveryDetails?.toJson());
+  val['hashCode'] = instance.hashCode;
   val['updateStep'] = _$AuthResetPasswordStepEnumMap[instance.updateStep]!;
+  val['props'] = instance.props;
+  val['runtimeTypeName'] = instance.runtimeTypeName;
   return val;
 }
 
