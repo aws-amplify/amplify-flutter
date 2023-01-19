@@ -200,8 +200,8 @@ scripts:
     ./build-support/codecov.sh -F android-unit-tests
 
   format: >
-    aft exec --fail-fast --include="Amplify Flutter" -- \
-      flutter format --dry-run --set-exit-if-changed .
+    aft exec --fail-fast -- \
+      aft format --set-exit-if-changed .
   analyze:
     run: aft exec --fail-fast --include="Amplify Flutter" -- \
       flutter analyze --no-fatal-infos
