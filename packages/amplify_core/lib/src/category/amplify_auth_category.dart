@@ -89,11 +89,6 @@ class AuthCategory<
         PluginResendUserAttributeConfirmationCodeOptions,
         PluginResendUserAttributeConfirmationCodeResult>> extends AmplifyCategory<
     Plugin> {
-  AuthCategory([Plugin? plugin]) : _pluginOverride = plugin;
-
-  final Plugin? _pluginOverride;
-  Plugin get plugin => _pluginOverride ?? defaultPlugin;
-
   @override
   @nonVirtual
   Category get category => Category.auth;
@@ -111,43 +106,7 @@ class AuthCategory<
   ///   return cognitoPlugin.signIn(username: username, password: password);
   /// }
   /// ```
-  AuthCategory<
-      GetPluginAuthUser,
-      GetPluginUserAttributeKey,
-      GetPluginAuthUserAttribute,
-      GetPluginAuthDevice,
-      GetPluginSignUpOptions,
-      GetPluginSignUpResult,
-      GetPluginConfirmSignUpOptions,
-      GetPluginConfirmSignUpResult,
-      GetPluginResendSignUpCodeOptions,
-      GetPluginResendSignUpCodeResult,
-      GetPluginSignInOptions,
-      GetPluginSignInResult,
-      GetPluginConfirmSignInOptions,
-      GetPluginConfirmSignInResult,
-      GetPluginSignOutOptions,
-      GetPluginSignOutResult,
-      GetPluginUpdatePasswordOptions,
-      GetPluginUpdatePasswordResult,
-      GetPluginResetPasswordOptions,
-      GetPluginResetPasswordResult,
-      GetPluginConfirmResetPasswordOptions,
-      GetPluginConfirmResetPasswordResult,
-      GetPluginAuthUserOptions,
-      GetPluginFetchUserAttributeOptions,
-      GetPluginAuthSessionOptions,
-      GetPluginAuthSession,
-      GetPluginSignInWithWebUIOptions,
-      GetPluginSignInWithWebUIResult,
-      GetPluginUpdateUserAttributeOptions,
-      GetPluginUpdateUserAttributeResult,
-      GetPluginUpdateUserAttributesOptions,
-      GetPluginConfirmUserAttributeOptions,
-      GetPluginConfirmUserAttributeResult,
-      GetPluginResendUserAttributeConfirmationCodeOptions,
-      GetPluginResendUserAttributeConfirmationCodeResult,
-      P> getPlugin<
+  P getPlugin<
           GetPluginAuthUser extends AuthUser,
           GetPluginUserAttributeKey extends AuthUserAttributeKey,
           GetPluginAuthUserAttribute extends AuthUserAttribute<
@@ -261,14 +220,12 @@ class AuthCategory<
             P>
         pluginKey,
   ) =>
-      AuthCategory(
-        plugins.singleWhere(
-          (p) => p is P,
-          orElse: () => throw PluginError(
-            'No plugin registered for $pluginKey',
-          ),
-        ) as P,
-      );
+      plugins.singleWhere(
+        (p) => p is P,
+        orElse: () => throw PluginError(
+          'No plugin registered for $pluginKey',
+        ),
+      ) as P;
 
   /// {@template amplify_core.amplify_auth_category.sign_up}
   /// Create a new user with the given [username] and [password].
@@ -278,7 +235,7 @@ class AuthCategory<
     required String password,
     PluginSignUpOptions? options,
   }) =>
-      plugin.signUp(
+      defaultPlugin.signUp(
         username: username,
         password: password,
         options: options,
@@ -293,7 +250,7 @@ class AuthCategory<
     required String confirmationCode,
     PluginConfirmSignUpOptions? options,
   }) =>
-      plugin.confirmSignUp(
+      defaultPlugin.confirmSignUp(
         username: username,
         confirmationCode: confirmationCode,
         options: options,
@@ -311,7 +268,7 @@ class AuthCategory<
     required String username,
     PluginResendSignUpCodeOptions? options,
   }) =>
-      plugin.resendSignUpCode(
+      defaultPlugin.resendSignUpCode(
         username: username,
         options: options,
       );
@@ -327,7 +284,7 @@ class AuthCategory<
     String? password,
     PluginSignInOptions? options,
   }) =>
-      plugin.signIn(
+      defaultPlugin.signIn(
         username: username,
         password: password,
         options: options,
@@ -341,7 +298,7 @@ class AuthCategory<
     required String confirmationValue,
     PluginConfirmSignInOptions? options,
   }) =>
-      plugin.confirmSignIn(
+      defaultPlugin.confirmSignIn(
         confirmationValue: confirmationValue,
         options: options,
       );
@@ -355,7 +312,7 @@ class AuthCategory<
   Future<PluginSignOutResult> signOut({
     PluginSignOutOptions? options,
   }) =>
-      plugin.signOut(options: options);
+      defaultPlugin.signOut(options: options);
 
   /// {@template amplify_core.amplify_auth_category.update_password}
   /// Update the password of the current user.
@@ -369,7 +326,7 @@ class AuthCategory<
     required String newPassword,
     PluginUpdatePasswordOptions? options,
   }) =>
-      plugin.updatePassword(
+      defaultPlugin.updatePassword(
         oldPassword: oldPassword,
         newPassword: newPassword,
         options: options,
@@ -387,7 +344,7 @@ class AuthCategory<
     required String username,
     PluginResetPasswordOptions? options,
   }) =>
-      plugin.resetPassword(
+      defaultPlugin.resetPassword(
         username: username,
         options: options,
       );
@@ -407,7 +364,7 @@ class AuthCategory<
     required String confirmationCode,
     PluginConfirmResetPasswordOptions? options,
   }) =>
-      plugin.confirmResetPassword(
+      defaultPlugin.confirmResetPassword(
         username: username,
         newPassword: newPassword,
         confirmationCode: confirmationCode,
@@ -420,7 +377,7 @@ class AuthCategory<
   Future<PluginAuthUser> getCurrentUser({
     PluginAuthUserOptions? options,
   }) =>
-      plugin.getCurrentUser(options: options);
+      defaultPlugin.getCurrentUser(options: options);
 
   /// {@template amplify_core.amplify_auth_category.fetch_user_attributes}
   /// Fetch all user attributes associated with the current user.
@@ -428,7 +385,7 @@ class AuthCategory<
   Future<List<PluginAuthUserAttribute>> fetchUserAttributes({
     PluginFetchUserAttributeOptions? options,
   }) =>
-      plugin.fetchUserAttributes(options: options);
+      defaultPlugin.fetchUserAttributes(options: options);
 
   /// {@template amplify_core.amplify_auth_category.fetch_auth_session}
   /// Fetch the current auth session.
@@ -440,7 +397,7 @@ class AuthCategory<
   Future<PluginAuthSession> fetchAuthSession({
     PluginAuthSessionOptions? options,
   }) =>
-      plugin.fetchAuthSession(options: options);
+      defaultPlugin.fetchAuthSession(options: options);
 
   /// {@template amplify_core.amplify_auth_category.sign_in_with_web_ui}
   /// Initiate sign in for a web-based flow, e.g. a social provider.
@@ -449,7 +406,7 @@ class AuthCategory<
     AuthProvider? provider,
     PluginSignInWithWebUIOptions? options,
   }) =>
-      plugin.signInWithWebUI(
+      defaultPlugin.signInWithWebUI(
         provider: provider,
         options: options,
       );
@@ -464,7 +421,7 @@ class AuthCategory<
     required String value,
     PluginUpdateUserAttributeOptions? options,
   }) =>
-      plugin.updateUserAttribute(
+      defaultPlugin.updateUserAttribute(
         userAttributeKey: userAttributeKey,
         value: value,
         options: options,
@@ -481,7 +438,7 @@ class AuthCategory<
     required List<PluginAuthUserAttribute> attributes,
     PluginUpdateUserAttributesOptions? options,
   }) =>
-          plugin.updateUserAttributes(
+          defaultPlugin.updateUserAttributes(
             attributes: attributes,
             options: options,
           );
@@ -495,7 +452,7 @@ class AuthCategory<
     required String confirmationCode,
     PluginConfirmUserAttributeOptions? options,
   }) =>
-      plugin.confirmUserAttribute(
+      defaultPlugin.confirmUserAttribute(
         userAttributeKey: userAttributeKey,
         confirmationCode: confirmationCode,
         options: options,
@@ -512,7 +469,7 @@ class AuthCategory<
     required PluginUserAttributeKey userAttributeKey,
     PluginResendUserAttributeConfirmationCodeOptions? options,
   }) =>
-          plugin.resendUserAttributeConfirmationCode(
+          defaultPlugin.resendUserAttributeConfirmationCode(
             userAttributeKey: userAttributeKey,
             options: options,
           );
@@ -520,21 +477,21 @@ class AuthCategory<
   /// {@template amplify_core.amplify_auth_category.remember_device}
   /// Remembers the current device.
   /// {@endtemplate}
-  Future<void> rememberDevice() => plugin.rememberDevice();
+  Future<void> rememberDevice() => defaultPlugin.rememberDevice();
 
   /// {@template amplify_core.amplify_auth_category.forget_device}
   /// Forgets [device], or the current device, if no parameters are given.
   /// {@endtemplate}
   Future<void> forgetDevice([PluginAuthDevice? device]) =>
-      plugin.forgetDevice(device);
+      defaultPlugin.forgetDevice(device);
 
   /// {@template amplify_core.amplify_auth_category.fetch_devices}
   /// Retrieves all tracked devices for the current user.
   /// {@endtemplate}
-  Future<List<PluginAuthDevice>> fetchDevices() => plugin.fetchDevices();
+  Future<List<PluginAuthDevice>> fetchDevices() => defaultPlugin.fetchDevices();
 
   /// {@template amplify_core.amplify_auth_category.delete_user}
   /// Deletes the current authenticated user.
   /// {@endtemplate}
-  Future<void> deleteUser() => plugin.deleteUser();
+  Future<void> deleteUser() => defaultPlugin.deleteUser();
 }

@@ -65,7 +65,7 @@ void main() {
           (await cognitoPlugin.fetchAuthSession()).userPoolTokens!;
       // Clear but do not sign out so that tokens are still valid.
       // ignore: invalid_use_of_protected_member
-      await cognitoPlugin.plugin.stateMachine.dispatch(
+      await cognitoPlugin.stateMachine.dispatch(
         CredentialStoreEvent.clearCredentials(
           CognitoUserPoolKeys(userPoolConfig),
         ),
@@ -139,7 +139,7 @@ void main() {
           (await cognitoPlugin.fetchAuthSession()).userPoolTokens!;
       // Clear but do not sign out so that tokens are still valid.
       // ignore: invalid_use_of_protected_member
-      await cognitoPlugin.plugin.stateMachine.dispatch(
+      await cognitoPlugin.stateMachine.dispatch(
         CredentialStoreEvent.clearCredentials(
           CognitoUserPoolKeys(userPoolConfig),
         ),

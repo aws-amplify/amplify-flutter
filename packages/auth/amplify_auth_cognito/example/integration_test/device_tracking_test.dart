@@ -19,7 +19,6 @@ enum DeviceState { untracked, tracked, remembered }
 
 DeviceMetadataRepository get deviceRepo =>
     Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey)
-        .plugin
         // ignore: invalid_use_of_protected_member
         .stateMachine
         .getOrCreate<DeviceMetadataRepository>();

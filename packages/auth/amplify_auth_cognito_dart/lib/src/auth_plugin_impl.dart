@@ -355,8 +355,15 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   /// - [FederateToIdentityPoolRequest.options]
   /// {@endtemplate}
   Future<FederateToIdentityPoolResult> federateToIdentityPool({
-    required FederateToIdentityPoolRequest request,
+    required String token,
+    required AuthProvider provider,
+    FederateToIdentityPoolOptions? options,
   }) async {
+    final request = FederateToIdentityPoolRequest(
+      token: token,
+      provider: provider,
+      options: options,
+    );
     _stateMachine.dispatch(FetchAuthSessionEvent.federate(request));
     final session = await fetchAuthSession();
     return FederateToIdentityPoolResult(
@@ -1231,62 +1238,4 @@ class _AmplifyAuthCognitoDartPluginKey extends AuthPluginKey<
 
   @override
   String get runtimeTypeName => 'AmplifyAuthCognitoDart';
-}
-
-/// Extensions to [AuthCategory] when using [AmplifyAuthCognitoDart].
-extension AmplifyAuthCognitoDartCategoryExtensions on AuthCategory<
-    CognitoAuthUser,
-    CognitoUserAttributeKey,
-    AuthUserAttribute<CognitoUserAttributeKey>,
-    CognitoDevice,
-    CognitoSignUpOptions,
-    CognitoSignUpResult,
-    CognitoConfirmSignUpOptions,
-    CognitoSignUpResult,
-    CognitoResendSignUpCodeOptions,
-    CognitoResendSignUpCodeResult,
-    CognitoSignInOptions,
-    CognitoSignInResult,
-    CognitoConfirmSignInOptions,
-    CognitoSignInResult,
-    SignOutOptions,
-    SignOutResult,
-    CognitoUpdatePasswordOptions,
-    UpdatePasswordResult,
-    CognitoResetPasswordOptions,
-    CognitoResetPasswordResult,
-    CognitoConfirmResetPasswordOptions,
-    CognitoResetPasswordResult,
-    AuthUserOptions,
-    FetchUserAttributesOptions,
-    CognitoSessionOptions,
-    CognitoAuthSession,
-    CognitoSignInWithWebUIOptions,
-    CognitoSignInResult,
-    CognitoUpdateUserAttributeOptions,
-    UpdateUserAttributeResult,
-    CognitoUpdateUserAttributesOptions,
-    ConfirmUserAttributeOptions,
-    ConfirmUserAttributeResult,
-    CognitoResendUserAttributeConfirmationCodeOptions,
-    ResendUserAttributeConfirmationCodeResult,
-    AmplifyAuthCognitoDart> {
-  /// {@macro amplify_auth_cognito_dart.impl.federate_to_identity_pool}
-  Future<FederateToIdentityPoolResult> federateToIdentityPool({
-    required String token,
-    required AuthProvider provider,
-    FederateToIdentityPoolOptions? options,
-  }) async {
-    final request = FederateToIdentityPoolRequest(
-      token: token,
-      provider: provider,
-      options: options,
-    );
-    return plugin.federateToIdentityPool(request: request);
-  }
-
-  /// {@macro amplify_auth_cognito_dart.impl.clear_federation_to_identity_pool}
-  Future<void> clearFederationToIdentityPool() async {
-    return plugin.clearFederationToIdentityPool();
-  }
 }
