@@ -78,7 +78,7 @@ void main() {
       }
     });
 
-    return bloc!;
+    return bloc!..add(const InitEvent());
   }
 
   group('WebSocketBloc', () {
@@ -168,7 +168,6 @@ void main() {
         emitsInOrder(
           [
             isA<DisconnectedState>(),
-            isA<InitializingState>(),
             isA<ConnectingState>(),
             isA<ConnectedState>(),
             isA<ReconnectingState>(),
@@ -215,7 +214,6 @@ void main() {
         emitsInOrder(
           [
             isA<DisconnectedState>(),
-            isA<InitializingState>(),
             isA<ConnectingState>(),
             isA<ConnectedState>(),
             isA<ReconnectingState>(),
@@ -300,7 +298,6 @@ void main() {
         emitsInOrder(
           [
             isA<DisconnectedState>(),
-            isA<InitializingState>(),
             isA<ConnectingState>(),
             isA<ConnectedState>(),
             isA<ReconnectingState>(),
@@ -365,14 +362,13 @@ void main() {
             subscriptionOptions: subscriptionOptions,
             pollClientOverride: mockPollClient.client,
             connectivity: const MockConnectivity(),
-          );
+          )..add(const InitEvent());
 
           expect(
             bloc.stream,
             emitsInOrder(
               [
                 isA<DisconnectedState>(),
-                isA<InitializingState>(),
                 isA<ConnectingState>(),
                 isA<FailureState>(),
                 isA<PendingDisconnect>(),
@@ -403,7 +399,6 @@ void main() {
           emitsInOrder(
             [
               isA<DisconnectedState>(),
-              isA<InitializingState>(),
               isA<ConnectingState>(),
               isA<ConnectedState>(),
               isA<FailureState>(),
@@ -435,7 +430,6 @@ void main() {
           emitsInOrder(
             [
               isA<DisconnectedState>(),
-              isA<InitializingState>(),
               isA<ConnectingState>(),
               isA<ConnectedState>(),
               isA<ReconnectingState>(),

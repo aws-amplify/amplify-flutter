@@ -171,6 +171,9 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
     );
 
     return _webSocketBlocPool[endpoint.name] ??= createWebSocketBloc(endpoint)
+      // Init web socket connection first.
+      // Registration will then happen after connection ack is received.
+      ..add(const InitEvent())
       ..stream.listen((event) {
         _emitHubEvent(event);
 

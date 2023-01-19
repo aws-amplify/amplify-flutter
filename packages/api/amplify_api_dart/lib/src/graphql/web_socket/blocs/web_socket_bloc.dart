@@ -121,7 +121,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     final subBloc = _saveRequest<T>(event);
 
     // Add subscribe event to [WebSocketBloc]
-    add(RegistrationEvent(event.request));
+    _registration(RegistrationEvent(event.request));
 
     // Return request subscription stream
     return subBloc.responseStream;
@@ -167,8 +167,6 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       yield* _shutdown();
     } else if (event is ReconnectEvent) {
       yield* _reconnect();
-    } else if (event is RegistrationEvent) {
-      yield* _registration(event);
     } else if (event is UnsubscribeEvent) {
       yield* _unsubscribe(event);
     }
@@ -264,7 +262,9 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   // Init connection and add channel events to the event stream.
   Stream<WebSocketState> _init(InitEvent event) async* {
     assert(
-      _currentState is InitializingState || _currentState is ReconnectingState,
+      _currentState is DisconnectedState ||
+          _currentState is ConnectingState ||
+          _currentState is ReconnectingState,
       'Bloc should not be in ${_currentState.runtimeType} when calling init.',
     );
 
@@ -381,21 +381,11 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   /// Sends registration message on ws channel when connected
   /// else init's connection
-  Stream<WebSocketState> _registration(RegistrationEvent event) async* {
+  void _registration(RegistrationEvent event) {
     final currentState = _currentState;
 
     // Wait for connection to finish establishing
-    if (currentState is ConnectingState) {
-      return;
-    }
-
-    // Establish web socket connection first.
-    // Registration will then happen after connection ack is received.
     if (currentState is! ConnectedState) {
-      if (currentState is! InitializingState) {
-        yield _currentState.initializing();
-        add(const InitEvent());
-      }
       return;
     }
 
@@ -413,15 +403,13 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     }
 
     try {
-      await currentState.service.register(
+      currentState.service.register(
         currentState,
         event.request,
       );
     } on Object catch (e, st) {
       subscriptionBloc.addResponseError(e, st);
     }
-    // TODO(dnys1): Yield broken on web debug build.
-    yield* const Stream.empty();
   }
 
   /// Shut down the bloc & clean up

@@ -276,17 +276,16 @@ void main() {
         }
       }''';
 
-  final subscriptionRequest = GraphQLRequest<String>(document: graphQLDocument);
   group('Subscriptions', () {
     final mockClient = MockPollClient();
 
-    Map<String, Object> mockSubscriptionEvent({String? id}) {
-      return {
-        'id': id ?? subscriptionRequest.id,
-        'type': 'data',
-        'payload': {'data': mockSubscriptionData},
-      };
-    }
+    final modelSubscriptionRequest =
+        ModelSubscriptions.onCreate(Post.classType);
+    final mockSubscriptionEvent = {
+      'id': modelSubscriptionRequest.id,
+      'type': 'data',
+      'payload': {'data': mockSubscriptionData},
+    };
 
     setUp(() {
       mockWebSocketService = MockWebSocketService();
@@ -302,29 +301,22 @@ void main() {
         pollClientOverride: mockClient.client,
         connectivity: const ConnectivityPlatform(),
       );
-    });
-
-    test('subscribe() should decode model data', () async {
-      final dataCompleter = Completer<Post>();
-      final modelSubscriptionRequest =
-          ModelSubscriptions.onCreate(Post.classType);
 
       initMockConnection(
         mockWebSocketBloc!,
         mockWebSocketService!,
         modelSubscriptionRequest.id,
       );
+    });
 
-      final mockModelEvent = {
-        'id': modelSubscriptionRequest.id,
-        'type': 'data',
-        'payload': {'data': mockSubscriptionData},
-      };
+    test('subscribe() should decode model data', () async {
+      final dataCompleter = Completer<Post>();
 
       final subscription = Amplify.API.subscribe(
         modelSubscriptionRequest,
         onEstablished: expectAsync0(() {
-          mockWebSocketService!.channel.sink.add(json.encode(mockModelEvent));
+          mockWebSocketService!.channel.sink
+              .add(jsonEncode(startAck(modelSubscriptionRequest.id)));
         }),
       );
 
@@ -342,20 +334,14 @@ void main() {
     });
 
     test('subscribe() should return a subscription stream', () async {
-      final dataCompleter = Completer<String>();
-
-      initMockConnection(
-        mockWebSocketBloc!,
-        mockWebSocketService!,
-        subscriptionRequest.id,
-      );
+      final dataCompleter = Completer<Post>();
 
       final subscription = Amplify.API.subscribe(
-        subscriptionRequest,
+        modelSubscriptionRequest,
         onEstablished: expectAsync0(
           () {
             mockWebSocketService!.channel.sink
-                .add(json.encode(mockSubscriptionEvent()));
+                .add(json.encode(mockSubscriptionEvent));
           },
         ),
       );
@@ -372,7 +358,7 @@ void main() {
     });
 
     test('subscribe() should handle multiple streams synchronously', () async {
-      final dataCompleter = Completer<String>();
+      final dataCompleter = Completer<Post>();
       final dataCompleter2 = Completer<String>();
 
       const onCreatePostDoc = '''subscription MySubscription {
@@ -385,10 +371,16 @@ void main() {
       final subscriptionRequest2 =
           GraphQLRequest<String>(document: onCreatePostDoc);
 
+      final mockSubscriptionEvent2 = {
+        'id': subscriptionRequest2.id,
+        'type': 'data',
+        'payload': {'data': mockSubscriptionData},
+      };
+
       initMockConnection(
         mockWebSocketBloc!,
         mockWebSocketService!,
-        subscriptionRequest.id,
+        modelSubscriptionRequest.id,
       );
 
       mockWebSocketBloc!.stream.listen((event) {
@@ -400,11 +392,11 @@ void main() {
       });
 
       final subscription = Amplify.API.subscribe(
-        subscriptionRequest,
+        modelSubscriptionRequest,
         onEstablished: expectAsync0(
           () {
             mockWebSocketService!.channel.sink
-                .add(json.encode(mockSubscriptionEvent()));
+                .add(json.encode(mockSubscriptionEvent));
           },
         ),
       );
@@ -414,7 +406,7 @@ void main() {
         onEstablished: expectAsync0(
           () {
             mockWebSocketService!.channel.sink.add(
-              json.encode(mockSubscriptionEvent(id: subscriptionRequest2.id)),
+              json.encode(mockSubscriptionEvent2),
             );
           },
         ),
@@ -442,7 +434,7 @@ void main() {
     });
 
     test('subscribe() should emit hub events', () async {
-      final dataCompleter = Completer<String>();
+      final dataCompleter = Completer<Post>();
 
       expect(
         hubEvents,
@@ -457,18 +449,12 @@ void main() {
         ),
       );
 
-      initMockConnection(
-        mockWebSocketBloc!,
-        mockWebSocketService!,
-        subscriptionRequest.id,
-      );
-
       final subscription = Amplify.API.subscribe(
-        subscriptionRequest,
+        modelSubscriptionRequest,
         onEstablished: expectAsync0(
           () {
             mockWebSocketService!.channel.sink
-                .add(json.encode(mockSubscriptionEvent()));
+                .add(json.encode(mockSubscriptionEvent));
           },
         ),
       );
@@ -503,15 +489,9 @@ void main() {
         ),
       );
 
-      initMockConnection(
-        mockWebSocketBloc!,
-        mockWebSocketService!,
-        subscriptionRequest.id,
-      );
-
       Amplify.API
           .subscribe(
-        subscriptionRequest,
+        modelSubscriptionRequest,
         onEstablished: blocReady.complete,
       )
           .listen(
@@ -536,7 +516,7 @@ void main() {
       );
 
       mockWebSocketService!.channel.sink
-          .add(json.encode(mockSubscriptionEvent()));
+          .add(json.encode(mockSubscriptionEvent));
     });
   });
 
@@ -645,6 +625,9 @@ void main() {
           ],
         ),
       );
+
+      final subscriptionRequest =
+          GraphQLRequest<String>(document: graphQLDocument);
 
       initMockConnection(
         mockWebSocketBloc!,

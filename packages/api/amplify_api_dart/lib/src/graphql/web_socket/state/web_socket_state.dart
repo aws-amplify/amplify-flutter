@@ -77,17 +77,6 @@ abstract class WebSocketState {
     );
   }
 
-  /// Move state to [InitializingState]
-  InitializingState initializing() => InitializingState(
-        config,
-        authProviderRepo,
-        networkState,
-        intendedState,
-        service,
-        subscriptionBlocs,
-        options,
-      );
-
   /// Move state to [DisconnectedState]
   DisconnectedState disconnect() => DisconnectedState(
         config,
@@ -261,21 +250,6 @@ class ConnectedState extends WebSocketState {
     timeoutTimer.cancel();
     pollTimer.cancel();
   }
-}
-
-/// State is initializing a connection
-/// Internal state that does not get emitted to the Event Hub
-class InitializingState extends WebSocketState {
-  /// Create a [InitializingState]
-  const InitializingState(
-    super.config,
-    super.authProviderRepo,
-    super.networkState,
-    super.intendedState,
-    super.service,
-    super.subscriptionBlocs,
-    super.options,
-  );
 }
 
 /// State when web socket is not connected to AppSync
