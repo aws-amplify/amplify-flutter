@@ -279,15 +279,17 @@ void main() {
   group('Subscriptions', () {
     final mockClient = MockPollClient();
 
-    final modelSubscriptionRequest =
-        ModelSubscriptions.onCreate(Post.classType);
-    final mockSubscriptionEvent = {
-      'id': modelSubscriptionRequest.id,
-      'type': 'data',
-      'payload': {'data': mockSubscriptionData},
-    };
+    late GraphQLRequest<Post> modelSubscriptionRequest;
+    late Map<String, Object> mockSubscriptionEvent;
 
     setUp(() {
+      modelSubscriptionRequest = ModelSubscriptions.onCreate(Post.classType);
+      mockSubscriptionEvent = {
+        'id': modelSubscriptionRequest.id,
+        'type': 'data',
+        'payload': {'data': mockSubscriptionData},
+      };
+
       mockWebSocketService = MockWebSocketService();
       const subscriptionOptions = GraphQLSubscriptionOptions(
         pollInterval: Duration(seconds: 1),
@@ -301,29 +303,29 @@ void main() {
         pollClientOverride: mockClient.client,
         connectivity: const ConnectivityPlatform(),
       );
+    });
+
+    test('subscribe() should decode model data', () async {
+      final dataCompleter = Completer<Post>();
 
       initMockConnection(
         mockWebSocketBloc!,
         mockWebSocketService!,
         modelSubscriptionRequest.id,
       );
-    });
-
-    test('subscribe() should decode model data', () async {
-      final dataCompleter = Completer<Post>();
 
       final subscription = Amplify.API.subscribe(
         modelSubscriptionRequest,
         onEstablished: expectAsync0(() {
           mockWebSocketService!.channel.sink
-              .add(jsonEncode(startAck(modelSubscriptionRequest.id)));
+              .add(json.encode(mockSubscriptionEvent));
         }),
       );
 
       late StreamSubscription<GraphQLResponse<Post>> streamSub;
       streamSub = subscription.listen(
         expectAsync1((event) {
-          expect(event.data, isA<Post>());
+          expect(event.data, isAIntegrationTestPost);
           dataCompleter.complete(event.data);
         }),
       );
@@ -335,6 +337,12 @@ void main() {
 
     test('subscribe() should return a subscription stream', () async {
       final dataCompleter = Completer<Post>();
+
+      initMockConnection(
+        mockWebSocketBloc!,
+        mockWebSocketService!,
+        modelSubscriptionRequest.id,
+      );
 
       final subscription = Amplify.API.subscribe(
         modelSubscriptionRequest,
@@ -349,7 +357,7 @@ void main() {
       final streamSub = subscription.listen(
         expectAsync1((event) async {
           dataCompleter.complete(event.data);
-          expect(event.data, json.encode(mockSubscriptionData));
+          expect(event.data, isAIntegrationTestPost);
         }),
       );
       await dataCompleter.future;
@@ -381,15 +389,8 @@ void main() {
         mockWebSocketBloc!,
         mockWebSocketService!,
         modelSubscriptionRequest.id,
+        id2: subscriptionRequest2.id,
       );
-
-      mockWebSocketBloc!.stream.listen((event) {
-        final state = event;
-        if (state is ConnectedState) {
-          mockWebSocketService!.channel.sink
-              .add(jsonEncode(startAck(subscriptionRequest2.id)));
-        }
-      });
 
       final subscription = Amplify.API.subscribe(
         modelSubscriptionRequest,
@@ -415,7 +416,7 @@ void main() {
       final streamSub = subscription.listen(
         expectAsync1((event) async {
           dataCompleter.complete(event.data);
-          expect(event.data, json.encode(mockSubscriptionData));
+          expect(event.data, isAIntegrationTestPost);
         }),
       );
 
@@ -447,6 +448,12 @@ void main() {
             disconnectedHubEvent,
           ],
         ),
+      );
+
+      initMockConnection(
+        mockWebSocketBloc!,
+        mockWebSocketService!,
+        modelSubscriptionRequest.id,
       );
 
       final subscription = Amplify.API.subscribe(
@@ -489,6 +496,12 @@ void main() {
         ),
       );
 
+      initMockConnection(
+        mockWebSocketBloc!,
+        mockWebSocketService!,
+        modelSubscriptionRequest.id,
+      );
+
       Amplify.API
           .subscribe(
         modelSubscriptionRequest,
@@ -496,7 +509,7 @@ void main() {
       )
           .listen(
         expectAsync1((event) {
-          expect(event.data, json.encode(mockSubscriptionData));
+          expect(event.data, isAIntegrationTestPost);
         }),
       );
 

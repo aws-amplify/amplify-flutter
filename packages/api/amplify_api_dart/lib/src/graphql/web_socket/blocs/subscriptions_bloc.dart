@@ -125,7 +125,7 @@ class SubscriptionBloc<T>
   ) async* {
     assert(
       _currentState is SubscriptionPendingState,
-      'State should always be init while waiting for start ack.',
+      'State should always be pending while waiting for start ack.',
     );
     logger.verbose('start ack message received for ${event.subscriptionId}');
     _currentState.onEstablished?.call();
