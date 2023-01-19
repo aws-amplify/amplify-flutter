@@ -5,4 +5,3 @@ analyzer:
     public_member_api_docs: ignore
   exclude:
     - lib/**/*.g.dart
-    - test/datstore/testData

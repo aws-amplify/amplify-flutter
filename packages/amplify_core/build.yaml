@@ -6,3 +6,8 @@ targets:
           dart2js_args:
             - --define=dart.vm.product=true
             - --enable-asserts
+      source_gen:combining_builder:
+        options:
+          # TODO(equartey): Remove when customAuthWithSrp & customAuthWithoutSrp are supported by CLI
+          ignore_for_file:
+            - deprecated_member_use_from_same_package 
