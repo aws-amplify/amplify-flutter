@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:test/test.dart';
 
 import '../../common/mock_config.dart';
+import '../../common/mock_dispatcher.dart';
 import '../../common/mock_oauth_server.dart';
 import '../../common/mock_secure_storage.dart';
 
@@ -30,9 +31,7 @@ void main() {
         ..addInstance(hostedUiConfig)
         ..addInstance<SecureStorageInterface>(secureStorage)
         ..addInstance<http.Client>(server.httpClient)
-        ..addInstance<Dispatcher<AuthEvent, AuthState>>(
-          mockDispatcher((event) {}),
-        );
+        ..addInstance<Dispatcher<AuthEvent, AuthState>>(const MockDispatcher());
 
       platform = HostedUiPlatform(dependencyManager);
     });

@@ -13,6 +13,7 @@ import 'package:stream_transform/stream_transform.dart';
 import 'package:test/test.dart';
 
 import '../common/mock_config.dart';
+import '../common/mock_dispatcher.dart';
 import '../common/mock_hosted_ui.dart';
 import '../common/mock_oauth_server.dart';
 import '../common/mock_secure_storage.dart';
@@ -91,7 +92,9 @@ void main() {
 
     test('getAuthorizationUrl', () async {
       stateMachine
-        ..addInstance<Dispatcher<AuthEvent, AuthState>>(mockDispatcher((_) {}))
+        ..addInstance<Dispatcher<AuthEvent, AuthState>>(
+          const MockDispatcher(),
+        )
         ..addInstance<CognitoOAuthConfig>(hostedUiConfig);
 
       final platform = stateMachine.create(HostedUiPlatform.token);

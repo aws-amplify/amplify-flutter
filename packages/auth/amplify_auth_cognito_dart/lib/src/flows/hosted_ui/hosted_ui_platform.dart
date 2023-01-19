@@ -259,7 +259,7 @@ abstract class HostedUiPlatform implements Closeable {
         codeVerifier: codeVerifier,
         httpClient: httpClient,
       );
-      return dispatcher(HostedUiEvent.exchange(parameters)).accepted;
+      return dispatcher.dispatch(HostedUiEvent.exchange(parameters)).accepted;
     }
 
     // Clear all state from the previous session.

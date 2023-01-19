@@ -48,8 +48,6 @@ class CognitoAuthStateMachine
           dependencyManager ?? DependencyManager(defaultDependencies),
         );
 
-  Dispatcher<AuthEvent, AuthState> get _dispatch => expect();
-
   @override
   StateMachineToken mapEventToMachine(AuthEvent event) {
     if (event is ConfigurationEvent) {
@@ -74,7 +72,7 @@ class CognitoAuthStateMachine
     CredentialStoreEvent event =
         const CredentialStoreEvent.loadCredentialStore(),
   ]) async {
-    final credentialsState = await _dispatch(event).completed;
+    final credentialsState = await dispatch(event).completed;
     if (credentialsState is CredentialStoreFailure) {
       throw credentialsState.exception;
     }
@@ -83,7 +81,7 @@ class CognitoAuthStateMachine
 
   /// Stores [credentials] in the credential store.
   Future<void> storeCredentials(CredentialStoreData credentials) async {
-    final credentialsState = await _dispatch(
+    final credentialsState = await dispatch(
       CredentialStoreEvent.storeCredentials(credentials),
     ).completed;
     if (credentialsState is CredentialStoreFailure) {
@@ -102,7 +100,7 @@ class CognitoAuthStateMachine
   Future<CognitoAuthSession> loadSession([
     FetchAuthSessionEvent event = const FetchAuthSessionEvent.fetch(),
   ]) async {
-    final sessionState = await _dispatch(event).completed;
+    final sessionState = await dispatch(event).completed;
     if (sessionState is FetchAuthSessionFailure) {
       throw sessionState.exception;
     }
@@ -111,7 +109,7 @@ class CognitoAuthStateMachine
 
   /// Configures the Hosted UI state machine.
   Future<void> configureHostedUI() async {
-    final configuredState = await _dispatch(
+    final configuredState = await dispatch(
       const HostedUiEvent.configure(),
     ).completed;
     if (configuredState is HostedUiFailure) {
@@ -121,7 +119,7 @@ class CognitoAuthStateMachine
 
   /// Signs out using the Hosted UI state machine.
   Future<HostedUiState> signOutHostedUI() async {
-    return await _dispatch(const HostedUiEvent.signOut()).completed
+    return await dispatch(const HostedUiEvent.signOut()).completed
         as HostedUiState;
   }
 }

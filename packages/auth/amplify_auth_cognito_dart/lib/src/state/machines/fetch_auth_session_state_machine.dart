@@ -433,12 +433,10 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
         federatedIdentity: federatedIdentity,
       );
 
-      await manager.loadCredentials(
-        CredentialStoreEvent.storeCredentials(
-          CredentialStoreData(
-            awsCredentials: awsCredentials,
-            identityId: identityId,
-          ),
+      await manager.storeCredentials(
+        CredentialStoreData(
+          awsCredentials: awsCredentials,
+          identityId: identityId,
         ),
       );
 
@@ -460,7 +458,7 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
     CognitoUserPoolTokens userPoolTokens,
   ) async {
     final deviceSecrets = await getOrCreate(DeviceMetadataRepository.token)
-        .get(CognitoIdToken(userPoolTokens.idToken).username);
+        .get(userPoolTokens.username);
     final refreshRequest = cognito_idp.InitiateAuthRequest.build((b) {
       b
         ..authFlow = cognito_idp.AuthFlowType.refreshTokenAuth
@@ -495,11 +493,9 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
             : userPoolTokens.idToken,
       );
 
-      await manager.loadCredentials(
-        CredentialStoreEvent.storeCredentials(
-          CredentialStoreData(
-            userPoolTokens: newTokens,
-          ),
+      await manager.storeCredentials(
+        CredentialStoreData(
+          userPoolTokens: newTokens,
         ),
       );
 
@@ -515,14 +511,12 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
           break;
       }
       final identityPoolConfig = _identityPoolConfig;
-      dispatch(
-        CredentialStoreEvent.clearCredentials([
-          ...keys,
-          if (identityPoolConfig != null)
-            // Clear associated AWS credentials
-            ...CognitoIdentityPoolKeys(identityPoolConfig),
-        ]),
-      );
+      await manager.clearCredentials([
+        ...keys,
+        if (identityPoolConfig != null)
+          // Clear associated AWS credentials
+          ...CognitoIdentityPoolKeys(identityPoolConfig),
+      ]);
       rethrow;
     }
   }

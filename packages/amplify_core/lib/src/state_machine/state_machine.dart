@@ -8,8 +8,11 @@ import 'package:meta/meta.dart';
 
 /// Interface for dispatching an event to a state machine.
 @optionalTypeArgs
-typedef Dispatcher<E extends StateMachineEvent, S extends StateMachineState>
-    = EventCompleter<E, S> Function(E);
+abstract class Dispatcher<E extends StateMachineEvent,
+    S extends StateMachineState> {
+  /// Dispatches an event.
+  EventCompleter<E, S> dispatch(E event);
+}
 
 /// Interface for emitting a state from a state machine.
 abstract class Emitter<S extends StateMachineState> {
@@ -44,13 +47,13 @@ abstract class StateMachineManager<
         E extends StateMachineEvent,
         S extends StateMachineState,
         Manager extends StateMachineManager<E, S, Manager>>
-    implements DependencyManager, Closeable {
+    implements DependencyManager, Dispatcher<E, S>, Closeable {
   /// {@macro amplify_core.state_machinedispatcher}
   StateMachineManager(
     Map<StateMachineToken, Function> stateMachineBuilders,
     this._dependencyManager,
   ) {
-    addInstance<Dispatcher<E, S>>(_dispatch);
+    addInstance<Dispatcher<E, S>>(this);
     addInstance<Manager>(this as Manager);
     addInstance<DependencyManager>(this);
     stateMachineBuilders.forEach((token, builder) {
@@ -76,7 +79,7 @@ abstract class StateMachineManager<
 
   Future<void> _listenForEvents() async {
     await for (final completer in _eventController.stream) {
-      await _dispatch(completer.event, completer).completed;
+      await dispatch(completer.event, completer).completed;
     }
   }
 
@@ -118,7 +121,7 @@ abstract class StateMachineManager<
   /// [EventCompleter.accepted] property will complete. Once the event has been
   /// fully processed by its state machine, the [EventCompleter.completed]
   /// property will complete with the stopping state reached. At this point,
-  /// the event will have fully processed.
+  /// the event is done processing.
   EventCompleter<E, S> accept(E event) {
     final completer = EventCompleter<E, S>(event);
     _eventController.add(completer);
@@ -128,7 +131,10 @@ abstract class StateMachineManager<
   /// Dispatches an event to the appropriate state machine.
   ///
   /// For internal use only. Public APIs should use [accept] instead.
-  EventCompleter<E, S> _dispatch(E event, [EventCompleter<E, S>? completer]) {
+  @override
+  @protected
+  @visibleForTesting
+  EventCompleter<E, S> dispatch(E event, [EventCompleter<E, S>? completer]) {
     final token = mapEventToMachine(event);
     completer ??= EventCompleter(event);
     getOrCreate(token).accept(completer);
@@ -161,7 +167,10 @@ abstract class StateMachine<
         Manager extends StateMachineManager<ManagerEvent, ManagerState,
             Manager>>
     with AWSDebuggable, AmplifyLoggerMixin
-    implements Emitter<State>, DependencyManager {
+    implements
+        Emitter<State>,
+        Dispatcher<ManagerEvent, ManagerState>,
+        DependencyManager {
   /// {@macro amplify_core.state_machine}
   StateMachine(this.manager, this._token) {
     addBuilder<AmplifyLogger>(AmplifyLogger.new);
@@ -339,8 +348,9 @@ abstract class StateMachine<
       _eventController.add(completer);
 
   /// Dispatches an event to the state machine.
+  @override
   EventCompleter<ManagerEvent, ManagerState> dispatch(ManagerEvent event) =>
-      manager._dispatch(event);
+      manager.dispatch(event);
 
   /// Closes the state machine and all stream controllers.
   @override
