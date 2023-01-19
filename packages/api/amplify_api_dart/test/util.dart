@@ -18,6 +18,8 @@ import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
+import 'test_models/Post.dart';
+
 const testAccessToken = 'test-access-token-123';
 
 class TestIamAuthProvider extends AWSIamAmplifyAuthProvider {
@@ -112,6 +114,12 @@ const mockAckMessage = {
   'payload': {'connectionTimeoutMs': 300000}
 };
 
+final isAIntegrationTestPost = isA<Post>().having(
+  (event) => event.title,
+  'id',
+  contains('Integration Test post'),
+);
+
 /// Hub Event Matchers
 final connectedHubEvent = isA<SubscriptionHubEvent>().having(
   (event) => event.status,
@@ -155,8 +163,9 @@ WebSocketMessage startAck(String subscriptionID) => WebSocketMessage(
 void initMockConnection(
   MockWebSocketBloc bloc,
   MockWebSocketService service,
-  String id,
-) {
+  String id, {
+  String? id2,
+}) {
   bloc.stream.listen((event) {
     final state = event;
     if (state is ConnectingState &&
@@ -164,6 +173,9 @@ void initMockConnection(
       service.channel.sink.add(jsonEncode(mockAckMessage));
     } else if (state is ConnectedState) {
       service.channel.sink.add(jsonEncode(startAck(id)));
+      if (id2 != null) {
+        service.channel.sink.add(jsonEncode(startAck(id2)));
+      }
     }
   });
 }
