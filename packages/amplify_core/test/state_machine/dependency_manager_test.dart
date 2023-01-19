@@ -30,6 +30,14 @@ class NeedsDependencyManagerAndDispatcher {
   final Dispatcher dispatcher;
 }
 
+class MyDispatcher implements Dispatcher {
+  @override
+  EventCompleter<StateMachineEvent, StateMachineState> dispatch(
+    StateMachineEvent event,
+  ) =>
+      EventCompleter(event);
+}
+
 void main() {
   late DependencyManager dependencyManager;
 
@@ -81,7 +89,7 @@ void main() {
         Token<DependencyManager>(),
         Token<Dispatcher>(),
       ]);
-      dependencyManager.addInstance<Dispatcher>(EventCompleter.new);
+      dependencyManager.addBuilder<Dispatcher>(MyDispatcher.new);
       dependencyManager.addBuilder<NeedsDependencyManagerAndDispatcher>(
         NeedsDependencyManagerAndDispatcher.new,
         token,

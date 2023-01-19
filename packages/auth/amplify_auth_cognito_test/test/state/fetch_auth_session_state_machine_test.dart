@@ -55,15 +55,10 @@ void main() {
       bool forceRefresh = false,
       required bool willRefresh,
     }) async {
-      stateMachine.dispatch(
-        FetchAuthSessionEvent.fetch(
-          CognitoSessionOptions(forceRefresh: forceRefresh),
-        ),
-      );
       final sm = stateMachine.getOrCreate(
         FetchAuthSessionStateMachine.type,
       );
-      await expectLater(
+      expect(
         sm.stream.startWith(sm.currentState),
         emitsInOrder(<Matcher>[
           isA<FetchAuthSessionIdle>(),
@@ -72,8 +67,11 @@ void main() {
           isA<FetchAuthSessionSuccess>(),
         ]),
       );
-      final state = sm.currentState as FetchAuthSessionSuccess;
-      return state.session;
+      return stateMachine.loadSession(
+        FetchAuthSessionEvent.fetch(
+          CognitoSessionOptions(forceRefresh: forceRefresh),
+        ),
+      );
     }
 
     setUp(() {

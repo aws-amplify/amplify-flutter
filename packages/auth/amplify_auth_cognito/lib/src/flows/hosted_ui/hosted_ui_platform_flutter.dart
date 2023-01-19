@@ -74,13 +74,13 @@ class HostedUiPlatformImpl extends io.HostedUiPlatformImpl {
         options.isPreferPrivateSession,
         options.browserPackageName,
       );
-      dispatcher(
+      dispatcher.dispatch(
         HostedUiEvent.exchange(
           OAuthParameters.fromJson(queryParameters.cast()),
         ),
       );
     } on Exception catch (e) {
-      dispatcher(const HostedUiEvent.cancelSignIn());
+      dispatcher.dispatch(const HostedUiEvent.cancelSignIn());
       if (e is PlatformException) {
         if (e.code == 'CANCELLED') {
           throw const UserCancelledException(

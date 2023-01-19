@@ -15,6 +15,7 @@ import 'package:http/http.dart' as http;
 import 'package:test/test.dart';
 
 import '../../common/mock_config.dart';
+import '../../common/mock_dispatcher.dart';
 import '../../common/mock_hosted_ui.dart';
 import '../../common/mock_secure_storage.dart';
 
@@ -137,9 +138,10 @@ void main() {
     group('signIn', () {
       test('completes', () async {
         final client = http.Client();
-        final dispatcher = mockDispatcher(
-          expectAsync1((event) {
+        final dispatcher = MockDispatcher(
+          onDispatch: expectAsync1((event) {
             expect(event, isA<HostedUiExchange>());
+            return null;
           }),
         );
         dependencyManager

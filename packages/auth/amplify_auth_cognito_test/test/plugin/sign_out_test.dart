@@ -62,7 +62,6 @@ void main() {
           ),
           HostedUiPlatform.token,
         );
-      stateMachine.transitions.listen(safePrint);
 
       plugin = AmplifyAuthCognitoDart(credentialStorage: secureStorage)
         ..stateMachine = stateMachine;
