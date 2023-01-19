@@ -7,13 +7,13 @@ import 'package:amplify_core/src/types/auth/attribute/auth_next_update_attribute
 /// The current step in the attribute update flow.
 /// {@endtemplate}
 enum AuthUpdateAttributeStep {
-  /// Next step is to confirm the attribute update with a code.
+  /// The next step is to confirm the attribute update with a code.
   ///
-  /// Invoke `Amplify.Auth.confirmUserAttribute` with attribute key and the
-  /// confirmation code delivered to the user specified via the
+  /// Invoke `Amplify.Auth.confirmUserAttribute` with the attribute's key and
+  /// the confirmation code delivered to the user specified via the
   /// [AuthNextUpdateAttributeStep.codeDeliveryDetails] field.
   confirmAttributeWithCode,
 
-  /// Attribute update is complete and there are no remaining steps.
+  /// The attribute update is complete and there are no remaining steps.
   done,
 }
