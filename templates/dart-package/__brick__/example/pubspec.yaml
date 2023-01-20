@@ -1,0 +1,15 @@
+name: {{name}}_example
+description: An example app showcasing the {{name}} package.
+version: 1.0.0
+
+environment:
+  sdk: '{{{dartSdkConstraint}}}'
+
+dependencies:
+  {{name}}:
+    path: ../
+
+dev_dependencies:
+  amplify_lints: ^2.0.0
+  build_runner: ^2.1.4
+  build_web_compilers: ^3.2.1

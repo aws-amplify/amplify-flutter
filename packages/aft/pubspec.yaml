@@ -23,6 +23,7 @@ dependencies:
   libgit2dart:
     path: external/libgit2dart
   markdown: ^5.0.0
+  mason: ^0.1.0-dev.40
   meta: ^1.7.0
   path: any
   pub:
