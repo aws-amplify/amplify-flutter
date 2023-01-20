@@ -5,6 +5,7 @@
 # When it is a flutter repo (check the pubspec.yaml for "sdk: flutter")
 # then "flutter" is called instead of "pub".
 # This assumes that the Flutter SDK has been installed in a previous step.
+echo "Namaste"
 function pub() {
   if grep -Fq "sdk: flutter" "${PWD}/pubspec.yaml"; then
     command flutter pub "$@"
