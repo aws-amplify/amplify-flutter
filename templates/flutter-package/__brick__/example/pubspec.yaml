@@ -1,0 +1,24 @@
+name: {{name}}_example
+description: An example app showcasing the {{name}} package.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '{{{dartSdkConstraint}}}'
+  flutter: '{{{flutterSdkConstraint}}}'
+
+dependencies:
+  amplify_auth_cognito: '{{{amplifyFlutterConstraint}}}'
+  amplify_flutter: '{{{amplifyFlutterConstraint}}}'
+  {{name}}:
+    path: ../
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  amplify_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
