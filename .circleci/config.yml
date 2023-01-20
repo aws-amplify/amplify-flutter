@@ -27,6 +27,7 @@ orbs:
           - run:
               name: Send failure datapoint to cloudwatch
               command: |
+                echo "Hola"
                 payload="{\"jobName\": \"${CIRCLE_JOB}\", \"projectRepoName\": \"${CIRCLE_PROJECT_REPONAME}\"}"
                 echo $payload
                 aws lambda invoke --function-name CircleCIWorkflowFailureHandler --payload "$payload" --cli-binary-format raw-in-base64-out response.json
