@@ -1,0 +1,44 @@
+name: amplify_flutter_package
+description: A starting point for Amplify Flutter packages.
+version: 0.1.0
+
+environment:
+  mason: ">=0.1.0-dev.40 <0.1.0"
+
+# Variables specify dynamic values that your brick depends on.
+# Zero or more variables can be specified for a given brick.
+# Each variable has:
+#  * a type (string, number, boolean, enum, or array)
+#  * an optional short description
+#  * an optional default value
+#  * an optional list of default values (array only)
+#  * an optional prompt phrase used when asking for the variable
+#  * a list of values (enums only)
+vars:
+  name:
+    type: string
+    description: The name of the package
+  path:
+    type: string
+    description: The path relative to the root of the amplify-flutter repo
+  dartSdkConstraint:
+    type: string
+    description: The current Dart SDK constraint for Amplify packages
+  flutterSdkConstraint:
+    type: string
+    description: The current Flutter SDK constraint for Amplify packages
+  amplifyFlutterConstraint:
+    type: string
+    description: The current version constraint for amplify_flutter
+  androidCompileSdkVersion:
+    type: string
+    description: The current Android compileSdkVersion
+  androidMinSdkVersion:
+    type: string
+    description: The current Android minSdkVersion
+  iosMinOsVersion:
+    type: string
+    description: The current iOS minimum OS version
+  macosMinOsVersion:
+    type: string
+    description: The current macOS minimum OS version
