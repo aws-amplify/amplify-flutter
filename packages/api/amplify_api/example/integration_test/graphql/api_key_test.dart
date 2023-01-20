@@ -146,8 +146,6 @@ void main({bool useExistingTestUser = false}) {
             stream2.listen(
               ((event) {
                 if (event.data?.name == name) {
-                  final blogFromEvent = event.data;
-                  expect(blogFromEvent?.name, equals(name));
                   dataCompleter2.complete(event.data);
                 }
               }),

@@ -121,7 +121,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     final subBloc = _saveRequest<T>(event);
 
     // Add subscribe event to [WebSocketBloc]
-    _registration(RegistrationEvent(event.request));
+    _registerSubscriptionRequest(event.request);
 
     // Return request subscription stream
     return subBloc.responseStream;
@@ -380,8 +380,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   }
 
   /// Sends registration message on ws channel when connected
-  /// else init's connection
-  void _registration(RegistrationEvent event) {
+  void _registerSubscriptionRequest(GraphQLRequest<Object?> request) {
     final currentState = _currentState;
 
     // Wait for connection to finish establishing
@@ -391,11 +390,11 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
     // Send Registration messages over the open connection
     assert(
-      currentState.subscriptionBlocs.containsKey(event.request.id),
+      currentState.subscriptionBlocs.containsKey(request.id),
       'We should always have a matching subscription bloc.',
     );
 
-    final subscriptionBloc = currentState.subscriptionBlocs[event.request.id]!;
+    final subscriptionBloc = currentState.subscriptionBlocs[request.id]!;
 
     // Check if subscription has already been setup
     if (subscriptionBloc.currentState is SubscriptionListeningState) {
@@ -405,7 +404,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     try {
       currentState.service.register(
         currentState,
-        event.request,
+        request,
       );
     } on Object catch (e, st) {
       subscriptionBloc.addResponseError(e, st);

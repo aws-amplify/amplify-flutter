@@ -93,14 +93,14 @@ const mockSubscriptionData = {
   'onCreatePost': {
     'id': '49d54440-cb80-4f20-964b-91c142761e82',
     'title':
-        'Integration Test post - subscription create aa779f0d-0c92-4677-af32-e43f71b3eb55',
+        'Test post - subscription create aa779f0d-0c92-4677-af32-e43f71b3eb55',
     'rating': 0,
     'created': null,
     'createdAt': '2022-08-15T18:22:15.410Z',
     'updatedAt': '2022-08-15T18:22:15.410Z',
     'blog': {
       'id': '164bd1f1-544c-40cb-a656-a7563b046e71',
-      'name': 'Integration Test Blog with a post - create',
+      'name': 'Test Blog with a post - create',
       'createdAt': '2022-08-15T18:22:15.164Z',
       'file': null,
       'files': null,
@@ -114,10 +114,10 @@ const mockAckMessage = {
   'payload': {'connectionTimeoutMs': 300000}
 };
 
-final isAIntegrationTestPost = isA<Post>().having(
+final isATestPost = isA<Post>().having(
   (event) => event.title,
   'id',
-  contains('Integration Test post'),
+  contains('Test post'),
 );
 
 /// Hub Event Matchers

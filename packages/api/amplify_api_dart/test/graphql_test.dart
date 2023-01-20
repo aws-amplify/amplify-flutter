@@ -325,7 +325,7 @@ void main() {
       late StreamSubscription<GraphQLResponse<Post>> streamSub;
       streamSub = subscription.listen(
         expectAsync1((event) {
-          expect(event.data, isAIntegrationTestPost);
+          expect(event.data, isATestPost);
           dataCompleter.complete(event.data);
         }),
       );
@@ -357,7 +357,7 @@ void main() {
       final streamSub = subscription.listen(
         expectAsync1((event) async {
           dataCompleter.complete(event.data);
-          expect(event.data, isAIntegrationTestPost);
+          expect(event.data, isATestPost);
         }),
       );
       await dataCompleter.future;
@@ -416,7 +416,7 @@ void main() {
       final streamSub = subscription.listen(
         expectAsync1((event) async {
           dataCompleter.complete(event.data);
-          expect(event.data, isAIntegrationTestPost);
+          expect(event.data, isATestPost);
         }),
       );
 
@@ -509,7 +509,7 @@ void main() {
       )
           .listen(
         expectAsync1((event) {
-          expect(event.data, isAIntegrationTestPost);
+          expect(event.data, isATestPost);
         }),
       );
 
