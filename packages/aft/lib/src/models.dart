@@ -306,12 +306,16 @@ extension DirectoryX on Directory {
       return null;
     }
     final pubspecYaml = pubspecFile.readAsStringSync();
-    final pubspec = Pubspec.parse(pubspecYaml, sourceUrl: pubspecFile.uri);
-    return PubspecInfo(
-      pubspec: pubspec,
-      pubspecYaml: pubspecYaml,
-      uri: pubspecFile.uri,
-    );
+    try {
+      final pubspec = Pubspec.parse(pubspecYaml, sourceUrl: pubspecFile.uri);
+      return PubspecInfo(
+        pubspec: pubspec,
+        pubspecYaml: pubspecYaml,
+        uri: pubspecFile.uri,
+      );
+    } on Object {
+      return null;
+    }
   }
 }
 
@@ -337,6 +341,7 @@ const yamlSerializable = JsonSerializable(
 class AftConfig with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
   const AftConfig({
     this.dependencies = const {},
+    required this.environment,
     this.ignore = const [],
     this.components = const [],
   });
@@ -348,6 +353,9 @@ class AftConfig with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
   /// values which have been vetted by manual review and/or those should be used
   /// consistently across all packages.
   final Map<String, VersionConstraint> dependencies;
+
+  /// The current constraints for Dart + Flutter SDKs.
+  final Environment environment;
 
   /// Packages to ignore in all repo operations.
   final List<String> ignore;
@@ -370,6 +378,91 @@ class AftConfig with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
 
   @override
   Map<String, Object?> toJson() => _$AftConfigToJson(this);
+}
+
+@yamlSerializable
+@_VersionConstraintConverter()
+class Environment with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
+  const Environment({
+    required this.sdk,
+    required this.flutter,
+    required this.android,
+    required this.ios,
+    required this.macOS,
+  });
+
+  factory Environment.fromJson(Map<String, Object?> json) =>
+      _$EnvironmentFromJson(json);
+
+  final VersionConstraint sdk;
+  final VersionConstraint flutter;
+  final AndroidEnvironment android;
+  final IosEnvironment ios;
+  final MacOSEnvironment macOS;
+
+  @override
+  String get runtimeTypeName => 'Environment';
+
+  @override
+  Map<String, Object?> toJson() => _$EnvironmentToJson(this);
+}
+
+@yamlSerializable
+class AndroidEnvironment
+    with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
+  const AndroidEnvironment({
+    required this.compileSdkVersion,
+    required this.minSdkVersion,
+  });
+
+  factory AndroidEnvironment.fromJson(Map<String, Object?> json) =>
+      _$AndroidEnvironmentFromJson(json);
+
+  final String compileSdkVersion;
+  final String minSdkVersion;
+
+  @override
+  String get runtimeTypeName => 'AndroidEnvironment';
+
+  @override
+  Map<String, Object?> toJson() => _$AndroidEnvironmentToJson(this);
+}
+
+@yamlSerializable
+class IosEnvironment with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
+  const IosEnvironment({
+    required this.minOSVersion,
+  });
+
+  factory IosEnvironment.fromJson(Map<String, Object?> json) =>
+      _$IosEnvironmentFromJson(json);
+
+  final String minOSVersion;
+
+  @override
+  String get runtimeTypeName => 'IosEnvironment';
+
+  @override
+  Map<String, Object?> toJson() => _$IosEnvironmentToJson(this);
+}
+
+@yamlSerializable
+class MacOSEnvironment
+    with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
+  const MacOSEnvironment({
+    required this.minOSVersion,
+  });
+
+  factory MacOSEnvironment.fromJson(Map<String, Object?> json) =>
+      _$MacOSEnvironmentFromJson(json);
+
+  final String minOSVersion;
+
+  @override
+  String get runtimeTypeName => 'MacOSEnvironment';
+
+  @override
+  Map<String, Object?> toJson() => _$MacOSEnvironmentToJson(this);
 }
 
 /// Specifies how to propagate version changes within a component.

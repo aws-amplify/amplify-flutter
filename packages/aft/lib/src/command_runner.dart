@@ -35,7 +35,8 @@ Future<void> run(List<String> args) async {
     ..addCommand(PublishCommand())
     ..addCommand(BootstrapCommand())
     ..addCommand(VersionBumpCommand())
-    ..addCommand(ExecCommand());
+    ..addCommand(ExecCommand())
+    ..addCommand(CreateCommand());
 
   try {
     try {
