@@ -142,6 +142,7 @@ orbs:
               name: Update Android version
               command: sed -i -e "s/minSdkVersion .*/minSdkVersion 21/" ./android/app/build.gradle && cat ./android/app/build.gradle
           - setup-amplify-flutter-project
+          - send-metric-on-fail
           - flutter-orb/install_android_gradle:
               app-dir: ./
           - android/create-avd:
@@ -263,7 +264,6 @@ jobs:
       - install_flutter
       - checkout
       - install_melos
-      - send-metric-on-fail
       - run: melos run format
 
   analyze_flutter:
