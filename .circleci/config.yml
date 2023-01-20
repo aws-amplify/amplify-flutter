@@ -221,6 +221,10 @@ commands:
   send-metric-on-fail:
     description: Send failure datapoint to cloudwatch
     steps:
+      - aws-cli/setup:
+          role-session-name: ${CIRCLE_WORKFLOW_JOB_ID}
+          role-arn: ${AWS_ROLE_ARN}
+          session-duration: '2000'
       - run:
           name: Send failure datapoint to cloudwatch
           command: |
