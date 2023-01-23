@@ -10,7 +10,8 @@ import 'package:aws_common/aws_common.dart';
 /// throw an exception if an exception occurred. See [exception] for more
 /// details.
 /// {@endtemplate}
-class AWSResult<T, E extends Object> with AWSEquatable<AWSResult<T, E>> {
+class AWSResult<T, E extends Object>
+    with AWSEquatable<AWSResult<T, E>>, AWSDebuggable {
   /// Creates a failed result.
   const AWSResult.error(E this.exception)
       : type = AWSResultType.error,
@@ -63,4 +64,7 @@ class AWSResult<T, E extends Object> with AWSEquatable<AWSResult<T, E>> {
         exception,
         type,
       ];
+
+  @override
+  String get runtimeTypeName => 'AWSResult';
 }
