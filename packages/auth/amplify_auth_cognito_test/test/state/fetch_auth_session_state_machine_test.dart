@@ -307,7 +307,7 @@ void main() {
                   initiateAuth: expectAsync0(
                     () async => InitiateAuthResponse(
                       authenticationResult: AuthenticationResultType(
-                        accessToken: accessToken.raw,
+                        accessToken: newAccessToken.raw,
                         refreshToken: refreshToken,
                         idToken: newIdToken.raw,
                       ),
@@ -328,7 +328,7 @@ void main() {
 
             test('should return new user pool tokens', () {
               final userPoolTokens = session.userPoolTokensResult.value;
-              expect(userPoolTokens.accessToken, accessToken);
+              expect(userPoolTokens.accessToken, newAccessToken);
               expect(userPoolTokens.idToken, newIdToken);
               expect(userPoolTokens.refreshToken, refreshToken);
             });
@@ -456,7 +456,7 @@ void main() {
                       authenticationResult: AuthenticationResultType(
                         accessToken: newAccessToken.raw,
                         refreshToken: refreshToken,
-                        idToken: idToken.raw,
+                        idToken: newIdToken.raw,
                       ),
                     ),
                   ),
@@ -476,7 +476,7 @@ void main() {
             test('should return new user pool tokens', () {
               final userPoolTokens = session.userPoolTokensResult.value;
               expect(userPoolTokens.accessToken, newAccessToken);
-              expect(userPoolTokens.idToken, idToken);
+              expect(userPoolTokens.idToken, newIdToken);
               expect(userPoolTokens.refreshToken, refreshToken);
             });
 
@@ -935,7 +935,7 @@ void main() {
                   initiateAuth: expectAsync0(
                     () async => InitiateAuthResponse(
                       authenticationResult: AuthenticationResultType(
-                        accessToken: accessToken.raw,
+                        accessToken: newAccessToken.raw,
                         refreshToken: refreshToken,
                         idToken: newIdToken.raw,
                       ),
@@ -956,7 +956,7 @@ void main() {
 
             test('should return new user pool tokens', () {
               final userPoolTokens = session.userPoolTokensResult.value;
-              expect(userPoolTokens.accessToken, accessToken);
+              expect(userPoolTokens.accessToken, newAccessToken);
               expect(userPoolTokens.idToken, newIdToken);
               expect(userPoolTokens.refreshToken, refreshToken);
             });
@@ -1042,7 +1042,7 @@ void main() {
                       authenticationResult: AuthenticationResultType(
                         accessToken: newAccessToken.raw,
                         refreshToken: refreshToken,
-                        idToken: idToken.raw,
+                        idToken: newIdToken.raw,
                       ),
                     ),
                   ),
@@ -1062,7 +1062,7 @@ void main() {
             test('should return new user pool tokens', () {
               final userPoolTokens = session.userPoolTokensResult.value;
               expect(userPoolTokens.accessToken, newAccessToken);
-              expect(userPoolTokens.idToken, idToken);
+              expect(userPoolTokens.idToken, newIdToken);
               expect(userPoolTokens.refreshToken, refreshToken);
             });
 
