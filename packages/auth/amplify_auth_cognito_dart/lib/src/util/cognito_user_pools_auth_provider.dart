@@ -15,27 +15,25 @@ class CognitoUserPoolsAuthProvider extends TokenIdentityAmplifyAuthProvider {
   Future<String> getLatestAuthToken() async {
     final authSession =
         await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
-    final token = authSession.userPoolTokens?.accessToken.raw;
-    if (token == null) {
+    try {
+      return authSession.userPoolTokensResult.value.accessToken.raw;
+    } on AuthNotAuthorizedException {
       throw const AuthNotAuthorizedException(
-        'Unable to fetch access token while authorizing with Cognito User Pools.',
+        'Unable to authorize request with IAM. No AWS credentials.',
       );
     }
-    return token;
   }
 
   @override
   Future<String> getIdentityId() async {
     final authSession =
         await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
-    final identityId = authSession.identityId;
-
-    if (identityId == null) {
+    try {
+      return authSession.identityIdResult.value;
+    } on AuthNotAuthorizedException {
       throw const AuthNotAuthorizedException(
         'Unable to get identityId while authorizing with Cognito User Pools.',
       );
     }
-
-    return identityId;
   }
 }

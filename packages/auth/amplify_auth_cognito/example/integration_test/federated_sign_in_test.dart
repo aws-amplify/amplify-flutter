@@ -62,7 +62,7 @@ void main() {
       expect(signInResult.nextStep.signInStep, 'DONE');
 
       final userPoolTokens =
-          (await cognitoPlugin.fetchAuthSession()).userPoolTokens!;
+          (await cognitoPlugin.fetchAuthSession()).userPoolTokensResult.value;
       // Clear but do not sign out so that tokens are still valid.
       // ignore: invalid_use_of_protected_member
       await cognitoPlugin.plugin.stateMachine.dispatch(
@@ -110,12 +110,12 @@ void main() {
       final authSession = await federateToIdentityPool();
       expect(
         authSession.identityId,
-        unauthSession.identityId,
+        unauthSession.identityIdResult.value,
         reason: 'Should retain unauthenticated identity',
       );
       expect(
         authSession.credentials,
-        isNot(unauthSession.credentials),
+        isNot(unauthSession.credentialsResult.value),
         reason: 'Should get new credentials',
       );
     });
@@ -123,7 +123,7 @@ void main() {
     asyncTest('can specify identity ID', (_) async {
       // Get unauthenticated identity (doesn't matter, just need identity ID)
       final unauthSession = await cognitoPlugin.fetchAuthSession();
-      final identityId = unauthSession.identityId!;
+      final identityId = unauthSession.identityIdResult.value;
 
       final signInResult = await cognitoPlugin.signIn(
         username: username,
@@ -132,7 +132,7 @@ void main() {
       expect(signInResult.nextStep.signInStep, 'DONE');
 
       final userPoolTokens =
-          (await cognitoPlugin.fetchAuthSession()).userPoolTokens!;
+          (await cognitoPlugin.fetchAuthSession()).userPoolTokensResult.value;
       // Clear but do not sign out so that tokens are still valid.
       // ignore: invalid_use_of_protected_member
       await cognitoPlugin.plugin.stateMachine.dispatch(
@@ -179,14 +179,14 @@ void main() {
         completes,
       );
 
-      final clearedSession = await cognitoPlugin.fetchAuthSession();
+      final unauthSession = await cognitoPlugin.fetchAuthSession();
       expect(
-        clearedSession.identityId,
+        unauthSession.identityIdResult.value,
         isNot(federateToIdentityPoolResult.identityId),
         reason: 'Should clear session and refetch',
       );
       expect(
-        clearedSession.credentials,
+        unauthSession.credentialsResult.value,
         isNot(federateToIdentityPoolResult.credentials),
         reason: 'Should clear session and refetch',
       );

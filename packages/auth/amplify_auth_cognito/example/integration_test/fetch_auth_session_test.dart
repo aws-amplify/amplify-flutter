@@ -48,10 +48,13 @@ void main() {
           final res =
               await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
           expect(res.isSignedIn, isTrue);
-          expect(isValidUserSub(res.userSub), isTrue);
-          expect(isValidIdentityId(res.identityId), isTrue);
-          expect(isValidAWSCredentials(res.credentials), isTrue);
-          expect(isValidAWSCognitoUserPoolTokens(res.userPoolTokens), isTrue);
+          expect(isValidUserSub(res.userSubResult.value), isTrue);
+          expect(isValidIdentityId(res.identityIdResult.value), isTrue);
+          expect(isValidAWSCredentials(res.credentialsResult.value), isTrue);
+          expect(
+            isValidAWSCognitoUserPoolTokens(res.userPoolTokensResult.value),
+            isTrue,
+          );
         },
       );
 
@@ -63,10 +66,16 @@ void main() {
             final res =
                 await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
             expect(res.isSignedIn, isFalse);
-            expect(res.userPoolTokens, isNull);
-            expect(res.userSub, isNull);
-            expect(isValidIdentityId(res.identityId), isTrue);
-            expect(isValidAWSCredentials(res.credentials), isTrue);
+            expect(
+              () => res.userPoolTokensResult.value,
+              throwsA(isA<SignedOutException>()),
+            );
+            expect(
+              () => res.userSubResult.value,
+              throwsA(isA<SignedOutException>()),
+            );
+            expect(isValidIdentityId(res.identityIdResult.value), isTrue);
+            expect(isValidAWSCredentials(res.credentialsResult.value), isTrue);
           },
         );
       });

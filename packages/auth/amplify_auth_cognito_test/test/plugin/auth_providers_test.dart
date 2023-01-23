@@ -6,7 +6,7 @@ import 'dart:convert';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
     hide InternalErrorException;
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
-import 'package:amplify_auth_cognito_dart/src/model/session/cognito_auth_session_result.dart';
+import 'package:amplify_auth_cognito_dart/src/model/auth_result.dart';
 import 'package:amplify_auth_cognito_dart/src/util/cognito_iam_auth_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/util/cognito_user_pools_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -30,14 +30,20 @@ class TestAmplifyAuthUserPoolOnly extends AmplifyAuthCognitoDart {
   }) async {
     return CognitoAuthSession(
       isSignedIn: true,
-      userPoolTokensResult: CognitoAuthSessionResult.success(
+      userPoolTokensResult: AuthResult.success(
         CognitoUserPoolTokens(
           accessToken: accessToken,
           idToken: idToken,
           refreshToken: refreshToken,
         ),
       ),
-      credentialsResult: const CognitoAuthSessionResult.error(
+      userSubResult: const AuthResult.success(userSub),
+      credentialsResult: const AuthResult.error(
+        InvalidAccountTypeException.noIdentityPool(
+          recoverySuggestion: 'Register an identity pool using the CLI',
+        ),
+      ),
+      identityIdResult: const AuthResult.error(
         InvalidAccountTypeException.noIdentityPool(
           recoverySuggestion: 'Register an identity pool using the CLI',
         ),

@@ -74,10 +74,9 @@ class AuthPluginCredentialsProviderImpl extends AuthPluginCredentialsProvider {
     // to `fetchAuthSession`.
     await _dispatcher.dispatch(const FetchAuthSessionEvent.fetch());
     final fetchState = await fetchAuthSessionMachine.getLatestResult();
-    final fetchedCredentials = fetchState?.session.credentials;
-    if (fetchedCredentials == null) {
+    if (fetchState == null) {
       throw const InvalidStateException('Could not retrieve AWS credentials');
     }
-    return fetchedCredentials;
+    return fetchState.session.credentialsResult.value;
   }
 }

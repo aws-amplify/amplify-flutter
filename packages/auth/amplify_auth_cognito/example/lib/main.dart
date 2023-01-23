@@ -1,9 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:io';
-
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito_example/screens/confirm_user_attribute.dart';
 import 'package:amplify_auth_cognito_example/screens/update_user_attribute.dart';
@@ -79,9 +76,9 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> _configure() async {
     try {
-      if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-        await Amplify.addPlugin(AmplifyAPI());
-      }
+      // if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+      //   await Amplify.addPlugin(AmplifyAPI());
+      // }
       final secureStorage = AmplifySecureStorage(
         config: AmplifySecureStorageConfig(
           scope: 'auth',

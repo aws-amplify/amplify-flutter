@@ -15,6 +15,14 @@ class SignedOutException extends AuthException {
     super.underlyingException,
   });
 
+  /// Thrown when no user is currently signed in.
+  const SignedOutException.noUserSignedIn({
+    String? recoverySuggestion = 'Call Amplify.Auth.signIn()',
+  }) : this(
+          'No user is currently signed in',
+          recoverySuggestion: recoverySuggestion,
+        );
+
   @override
   String get runtimeTypeName => 'SignedOutException';
 }

@@ -81,6 +81,7 @@ export 'src/types/exception/codegen_exception.dart';
 export 'src/types/exception/error/amplify_error.dart';
 export 'src/types/exception/error/configuration_error.dart';
 export 'src/types/exception/error/plugin_error.dart';
+export 'src/types/exception/network_exception.dart';
 export 'src/types/exception/url_launcher_exception.dart';
 
 /// Model-based types used in datastore and API

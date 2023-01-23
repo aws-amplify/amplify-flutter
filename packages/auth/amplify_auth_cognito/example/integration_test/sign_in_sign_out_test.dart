@@ -109,17 +109,20 @@ void main() {
       // Get authenticated identity
       final authSession =
           await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
-      final authenticatedIdentity = authSession.identityId;
+      final authenticatedIdentity = authSession.identityIdResult;
       expect(
         authenticatedIdentity,
-        isNot(unauthSession.identityId),
+        isNot(unauthSession.identityIdResult.value),
         reason:
             'Unauthenticated identities should be distinct from authenticated '
             'identities, since unauthenticated identities are vended to all '
             'new devices when guest access is enabled but should converge to '
             'a singular authenticated identity across all devices',
       );
-      expect(authSession.credentials, isNot(unauthSession.credentials));
+      expect(
+        authSession.credentialsResult.value,
+        isNot(unauthSession.credentialsResult.value),
+      );
 
       await Amplify.Auth.signOut();
       {
@@ -133,8 +136,8 @@ void main() {
       final newSession =
           await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
       expect(
-        newSession.identityId,
-        authenticatedIdentity,
+        newSession.identityIdResult.value,
+        authenticatedIdentity.value,
         reason: 'Authenticated identity should be the same between sessions',
       );
     });

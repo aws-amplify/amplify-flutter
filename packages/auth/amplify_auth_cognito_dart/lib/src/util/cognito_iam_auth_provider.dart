@@ -24,13 +24,13 @@ class CognitoIamAuthProvider extends AWSIamAmplifyAuthProvider {
     final authSession = await Amplify.Auth.fetchAuthSession(
       options: const CognitoSessionOptions(),
     ) as CognitoAuthSession;
-    final credentials = authSession.credentials;
-    if (credentials == null) {
+    try {
+      return authSession.credentialsResult.value;
+    } on AuthNotAuthorizedException {
       throw const AuthNotAuthorizedException(
         'Unable to authorize request with IAM. No AWS credentials.',
       );
     }
-    return credentials;
   }
 
   /// Signs request with [AWSSigV4Signer] and AWS credentials from [retrieve].

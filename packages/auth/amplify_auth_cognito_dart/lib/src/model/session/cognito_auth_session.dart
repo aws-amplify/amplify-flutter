@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
-import 'package:amplify_auth_cognito_dart/src/model/session/cognito_auth_session_result.dart';
+import 'package:amplify_auth_cognito_dart/src/model/auth_result.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 part 'cognito_auth_session.g.dart';
@@ -19,43 +19,30 @@ class CognitoAuthSession extends AuthSession
   /// {@macro amplify_auth_cognito.model.cognito_auth_session}
   const CognitoAuthSession({
     required super.isSignedIn,
-    CognitoAuthSessionResult<AWSCredentials>? credentialsResult,
-    CognitoAuthSessionResult<CognitoUserPoolTokens>? userPoolTokensResult,
-    CognitoAuthSessionResult<String>? identityIdResult,
-  })  : _credentialsResult = credentialsResult,
-        _userPoolTokensResult = userPoolTokensResult,
-        _identityIdResult = identityIdResult;
-
-  final CognitoAuthSessionResult<AWSCredentials>? _credentialsResult;
-  final CognitoAuthSessionResult<CognitoUserPoolTokens>? _userPoolTokensResult;
-  final CognitoAuthSessionResult<String>? _identityIdResult;
-
-  /// The AWS credentials.
-  AWSCredentials? get credentials => _credentialsResult?.value;
+    required this.userPoolTokensResult,
+    required this.userSubResult,
+    required this.credentialsResult,
+    required this.identityIdResult,
+  });
 
   /// The User Pool tokens.
-  CognitoUserPoolTokens? get userPoolTokens => _userPoolTokensResult?.value;
+  final AuthResult<CognitoUserPoolTokens> userPoolTokensResult;
 
   /// The user ID (subject).
-  String? get userSub {
-    try {
-      return _userPoolTokensResult?.value?.userId;
-    } on Object {
-      // If there was an exception fetching userPoolTokens, return the cached
-      // value
-      return _userPoolTokensResult?.previousValue?.userId;
-    }
-  }
+  final AuthResult<String> userSubResult;
+
+  /// The AWS credentials.
+  final AuthResult<AWSCredentials> credentialsResult;
 
   /// The AWS identity ID.
-  String? get identityId => _identityIdResult?.value;
+  final AuthResult<String> identityIdResult;
 
   @override
   List<Object?> get props => [
-        credentials,
-        userPoolTokens,
-        userSub,
-        identityId,
+        userPoolTokensResult,
+        userSubResult,
+        credentialsResult,
+        identityIdResult,
       ];
 
   @override

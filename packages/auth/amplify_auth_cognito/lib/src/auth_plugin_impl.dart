@@ -200,10 +200,12 @@ class _NativeAmplifyAuthCognito
       final authSession = await _basePlugin.fetchAuthSession();
       final nativeAuthSession = NativeAuthSession(
         isSignedIn: authSession.isSignedIn,
-        userSub: authSession.userSub,
-        identityId: authSession.identityId,
+        userSub: _valueOrNull(() => authSession.userSubResult.value),
+        identityId: _valueOrNull(() => authSession.identityIdResult.value),
       );
-      final userPoolTokens = authSession.userPoolTokens;
+      final userPoolTokens = _valueOrNull(
+        () => authSession.userPoolTokensResult.value,
+      );
       if (userPoolTokens != null) {
         nativeAuthSession.userPoolTokens = NativeUserPoolTokens(
           accessToken: userPoolTokens.accessToken.raw,
@@ -211,7 +213,9 @@ class _NativeAmplifyAuthCognito
           idToken: userPoolTokens.idToken.raw,
         );
       }
-      final awsCredentials = authSession.credentials;
+      final awsCredentials = _valueOrNull(
+        () => authSession.credentialsResult.value,
+      );
       if (awsCredentials != null) {
         nativeAuthSession.awsCredentials = NativeAWSCredentials(
           accessKeyId: awsCredentials.accessKeyId,
@@ -242,6 +246,14 @@ class _NativeAmplifyAuthCognito
 
   @override
   String get runtimeTypeName => '_NativeAmplifyAuthCognito';
+}
+
+T? _valueOrNull<T>(T Function() getValue) {
+  try {
+    return getValue();
+  } on Object {
+    return null;
+  }
 }
 
 class _AmplifyAuthCognitoPluginKey extends AuthPluginKey<

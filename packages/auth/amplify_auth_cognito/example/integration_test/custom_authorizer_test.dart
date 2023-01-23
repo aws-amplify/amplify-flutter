@@ -54,7 +54,7 @@ void main() {
 
           final session =
               await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
-          expect(session.userPoolTokens, isNotNull);
+          expect(session.userPoolTokensResult.value, isNotNull);
 
           final apiUrl = config.api!.awsPlugin!.values
               .singleWhere((e) => e.endpointType == EndpointType.rest)
@@ -79,7 +79,8 @@ void main() {
             ),
             headers: {
               AWSHeaders.accept: 'application/json;charset=utf-8',
-              AWSHeaders.authorization: session.userPoolTokens!.idToken.raw,
+              AWSHeaders.authorization:
+                  session.userPoolTokensResult.value.idToken.raw,
             },
             body: utf8.encode(payload),
           );
@@ -116,7 +117,7 @@ void main() {
                 AmplifyAuthCognito.pluginKey,
               );
               final session = await cognitoPlugin.fetchAuthSession();
-              expect(session.credentials, isNotNull);
+              expect(session.credentialsResult.value, isNotNull);
 
               final restApi = config.api!.awsPlugin!.values
                   .singleWhere((e) => e.endpointType == EndpointType.rest);
@@ -169,7 +170,7 @@ void main() {
                 AmplifyAuthCognito.pluginKey,
               );
               final session = await cognitoPlugin.fetchAuthSession();
-              expect(session.credentials, isNotNull);
+              expect(session.credentialsResult.value, isNotNull);
 
               final restApi = config.api!.awsPlugin!.values
                   .singleWhere((e) => e.endpointType == EndpointType.rest);
@@ -223,7 +224,7 @@ void main() {
                 AmplifyAuthCognito.pluginKey,
               );
               final session = await cognitoPlugin.fetchAuthSession();
-              expect(session.credentials, isNotNull);
+              expect(session.credentialsResult.value, isNotNull);
 
               final restOperation = Amplify.API.post(
                 '/',

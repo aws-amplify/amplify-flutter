@@ -109,22 +109,24 @@ void main() {
           });
 
           test('should return existing user sub', () {
-            expect(session.userSub, userSub);
+            expect(session.userSubResult.value, userSub);
           });
 
           test('should return existing user pool tokens', () {
-            expect(session.userPoolTokens!.accessToken, accessToken);
-            expect(session.userPoolTokens!.idToken, idToken);
-            expect(session.userPoolTokens!.refreshToken, refreshToken);
+            final userPoolTokens = session.userPoolTokensResult.value;
+            expect(userPoolTokens.accessToken, accessToken);
+            expect(userPoolTokens.idToken, idToken);
+            expect(userPoolTokens.refreshToken, refreshToken);
           });
 
           test('should return existing credentials', () {
-            expect(session.credentials!.accessKeyId, accessKeyId);
-            expect(session.credentials!.secretAccessKey, secretAccessKey);
+            final credentials = session.credentialsResult.value;
+            expect(credentials.accessKeyId, accessKeyId);
+            expect(credentials.secretAccessKey, secretAccessKey);
           });
 
           test('should return existing identityId', () {
-            expect(session.identityId, identityId);
+            expect(session.identityIdResult.value, identityId);
           });
         });
       });
@@ -166,32 +168,36 @@ void main() {
             });
 
             test('should return existing user sub', () {
-              expect(session.userSub, userSub);
+              expect(session.userSubResult.value, userSub);
             });
 
             test('should return existing user pool tokens', () {
-              expect(session.userPoolTokens!.accessToken, accessToken);
-              expect(session.userPoolTokens!.idToken, idToken);
-              expect(session.userPoolTokens!.refreshToken, refreshToken);
+              final userPoolTokens = session.userPoolTokensResult.value;
+              expect(userPoolTokens.accessToken, accessToken);
+              expect(userPoolTokens.idToken, idToken);
+              expect(userPoolTokens.refreshToken, refreshToken);
             });
 
             test('should return new credentials', () {
-              final credentials = session.credentials!;
+              final credentials = session.credentialsResult.value;
               expect(credentials.accessKeyId, newAccessKeyId);
               expect(credentials.secretAccessKey, newSecretAccessKey);
             });
 
             test('should return existing identityId', () {
-              expect(session.identityId, identityId);
+              expect(session.identityIdResult.value, identityId);
             });
           });
-          group('error', () {
+
+          group('network error', () {
             setUp(() async {
               await configureAmplify(config);
               stateMachine.addInstance<CognitoIdentityClient>(
                 MockCognitoIdentityClient(
                   getCredentialsForIdentity: expectAsync0(
-                    () async => throw _NetworkException(),
+                    () async => throw AWSHttpException(
+                      AWSHttpRequest.get(Uri()),
+                    ),
                   ),
                 ),
               );
@@ -203,24 +209,77 @@ void main() {
             });
 
             test('should return existing user sub', () {
-              expect(session.userSub, userSub);
+              expect(session.userSubResult.value, userSub);
             });
 
             test('should return existing user pool tokens', () {
-              expect(session.userPoolTokens!.accessToken, accessToken);
-              expect(session.userPoolTokens!.idToken, idToken);
-              expect(session.userPoolTokens!.refreshToken, refreshToken);
+              final userPoolTokens = session.userPoolTokensResult.value;
+              expect(userPoolTokens.accessToken, accessToken);
+              expect(userPoolTokens.idToken, idToken);
+              expect(userPoolTokens.refreshToken, refreshToken);
+            });
+
+            test(
+              'should throw a NetworkException when accessing credentials',
+              () {
+                expect(
+                  () => session.credentialsResult.value,
+                  throwsA(isA<NetworkException>()),
+                );
+              },
+            );
+
+            test(
+              'should throw a NetworkException when accessing identityId',
+              () {
+                expect(
+                  () => session.identityIdResult.value,
+                  throwsA(isA<NetworkException>()),
+                );
+              },
+            );
+          });
+
+          group('unknown error', () {
+            setUp(() async {
+              await configureAmplify(config);
+              stateMachine.addInstance<CognitoIdentityClient>(
+                MockCognitoIdentityClient(
+                  getCredentialsForIdentity: expectAsync0(
+                    () async => throw _ServiceException(),
+                  ),
+                ),
+              );
+              session = await fetchAuthSession(willRefresh: true);
+            });
+
+            test('should return isSignedIn=true', () {
+              expect(session.isSignedIn, isTrue);
+            });
+
+            test('should return existing user sub', () {
+              expect(session.userSubResult.value, userSub);
+            });
+
+            test('should return existing user pool tokens', () {
+              final userPoolTokens = session.userPoolTokensResult.value;
+              expect(userPoolTokens.accessToken, accessToken);
+              expect(userPoolTokens.idToken, idToken);
+              expect(userPoolTokens.refreshToken, refreshToken);
             });
 
             test('should throw when accessing credentials', () {
               expect(
-                () => session.credentials,
-                throwsA(isA<_NetworkException>()),
+                () => session.credentialsResult.value,
+                throwsA(isA<UnknownException>()),
               );
             });
 
-            test('should return existing identityId', () {
-              expect(session.identityId, identityId);
+            test('should throw when accessing identityId', () {
+              expect(
+                () => session.identityIdResult.value,
+                throwsA(isA<UnknownException>()),
+              );
             });
           });
         });
@@ -264,31 +323,36 @@ void main() {
             });
 
             test('should return existing user sub', () {
-              expect(session.userSub, userSub);
+              expect(session.userSubResult.value, userSub);
             });
 
             test('should return new user pool tokens', () {
-              expect(session.userPoolTokens!.accessToken, accessToken);
-              expect(session.userPoolTokens!.idToken, newIdToken);
-              expect(session.userPoolTokens!.refreshToken, refreshToken);
+              final userPoolTokens = session.userPoolTokensResult.value;
+              expect(userPoolTokens.accessToken, accessToken);
+              expect(userPoolTokens.idToken, newIdToken);
+              expect(userPoolTokens.refreshToken, refreshToken);
             });
 
             test('should return existing credentials', () {
-              expect(session.credentials!.accessKeyId, accessKeyId);
-              expect(session.credentials!.secretAccessKey, secretAccessKey);
+              final credentials = session.credentialsResult.value;
+              expect(credentials.accessKeyId, accessKeyId);
+              expect(credentials.secretAccessKey, secretAccessKey);
             });
 
             test('should return existing identityId', () {
-              expect(session.identityId, identityId);
+              expect(session.identityIdResult.value, identityId);
             });
           });
-          group('error', () {
+
+          group('network error', () {
             setUp(() async {
               await configureAmplify(config);
               stateMachine.addInstance<CognitoIdentityProviderClient>(
                 MockCognitoIdentityProviderClient(
                   initiateAuth: expectAsync0(
-                    () async => throw _NetworkException(),
+                    () async => throw AWSHttpException(
+                      AWSHttpRequest.get(Uri()),
+                    ),
                   ),
                 ),
               );
@@ -299,24 +363,70 @@ void main() {
               expect(session.isSignedIn, isTrue);
             });
 
-            test('should return existing user sub', () {
-              expect(session.userSub, userSub);
+            test('should throw when accessing user sub', () {
+              expect(
+                () => session.userSubResult.value,
+                throwsA(isA<NetworkException>()),
+              );
             });
 
             test('should throw when accessing user pool tokens', () {
               expect(
-                () => session.userPoolTokens,
-                throwsA(isA<_NetworkException>()),
+                () => session.userPoolTokensResult.value,
+                throwsA(isA<NetworkException>()),
               );
             });
 
             test('should return existing credentials', () {
-              expect(session.credentials!.accessKeyId, accessKeyId);
-              expect(session.credentials!.secretAccessKey, secretAccessKey);
+              final credentials = session.credentialsResult.value;
+              expect(credentials.accessKeyId, accessKeyId);
+              expect(credentials.secretAccessKey, secretAccessKey);
             });
 
             test('should return existing identityId', () {
-              expect(session.identityId, identityId);
+              expect(session.identityIdResult.value, identityId);
+            });
+          });
+
+          group('unknown error', () {
+            setUp(() async {
+              await configureAmplify(config);
+              stateMachine.addInstance<CognitoIdentityProviderClient>(
+                MockCognitoIdentityProviderClient(
+                  initiateAuth: expectAsync0(
+                    () async => throw _ServiceException(),
+                  ),
+                ),
+              );
+              session = await fetchAuthSession(willRefresh: true);
+            });
+
+            test('should return isSignedIn=true', () {
+              expect(session.isSignedIn, isTrue);
+            });
+
+            test('should throw when accessing user sub', () {
+              expect(
+                () => session.userSubResult.value,
+                throwsA(isA<UnknownException>()),
+              );
+            });
+
+            test('should throw when accessing user pool tokens', () {
+              expect(
+                () => session.userPoolTokensResult.value,
+                throwsA(isA<UnknownException>()),
+              );
+            });
+
+            test('should return existing credentials', () {
+              final credentials = session.credentialsResult.value;
+              expect(credentials.accessKeyId, accessKeyId);
+              expect(credentials.secretAccessKey, secretAccessKey);
+            });
+
+            test('should return existing identityId', () {
+              expect(session.identityIdResult.value, identityId);
             });
           });
         });
@@ -360,31 +470,35 @@ void main() {
             });
 
             test('should return existing user sub', () {
-              expect(session.userSub, userSub);
+              expect(session.userSubResult.value, userSub);
             });
 
             test('should return new user pool tokens', () {
-              expect(session.userPoolTokens!.accessToken, newAccessToken);
-              expect(session.userPoolTokens!.idToken, idToken);
-              expect(session.userPoolTokens!.refreshToken, refreshToken);
+              final userPoolTokens = session.userPoolTokensResult.value;
+              expect(userPoolTokens.accessToken, newAccessToken);
+              expect(userPoolTokens.idToken, idToken);
+              expect(userPoolTokens.refreshToken, refreshToken);
             });
 
             test('should return existing credentials', () {
-              expect(session.credentials!.accessKeyId, accessKeyId);
-              expect(session.credentials!.secretAccessKey, secretAccessKey);
+              final credentials = session.credentialsResult.value;
+              expect(credentials.accessKeyId, accessKeyId);
+              expect(credentials.secretAccessKey, secretAccessKey);
             });
 
             test('should return existing identityId', () {
-              expect(session.identityId, identityId);
+              expect(session.identityIdResult.value, identityId);
             });
           });
-          group('error', () {
+          group('network error', () {
             setUp(() async {
               await configureAmplify(config);
               stateMachine.addInstance<CognitoIdentityProviderClient>(
                 MockCognitoIdentityProviderClient(
                   initiateAuth: expectAsync0(
-                    () async => throw _NetworkException(),
+                    () async => throw AWSHttpException(
+                      AWSHttpRequest.get(Uri()),
+                    ),
                   ),
                 ),
               );
@@ -395,24 +509,70 @@ void main() {
               expect(session.isSignedIn, isTrue);
             });
 
-            test('should return existing user sub', () {
-              expect(session.userSub, userSub);
+            test('should throw when accessing user sub', () {
+              expect(
+                () => session.userSubResult.value,
+                throwsA(isA<NetworkException>()),
+              );
             });
 
             test('should throw when accessing user pool tokens', () {
               expect(
-                () => session.userPoolTokens,
-                throwsA(isA<_NetworkException>()),
+                () => session.userPoolTokensResult.value,
+                throwsA(isA<NetworkException>()),
               );
             });
 
             test('should return existing credentials', () {
-              expect(session.credentials!.accessKeyId, accessKeyId);
-              expect(session.credentials!.secretAccessKey, secretAccessKey);
+              final credentials = session.credentialsResult.value;
+              expect(credentials.accessKeyId, accessKeyId);
+              expect(credentials.secretAccessKey, secretAccessKey);
             });
 
             test('should return existing identityId', () {
-              expect(session.identityId, identityId);
+              expect(session.identityIdResult.value, identityId);
+            });
+          });
+
+          group('unknown error', () {
+            setUp(() async {
+              await configureAmplify(config);
+              stateMachine.addInstance<CognitoIdentityProviderClient>(
+                MockCognitoIdentityProviderClient(
+                  initiateAuth: expectAsync0(
+                    () async => throw _ServiceException(),
+                  ),
+                ),
+              );
+              session = await fetchAuthSession(willRefresh: true);
+            });
+
+            test('should return isSignedIn=true', () {
+              expect(session.isSignedIn, isTrue);
+            });
+
+            test('should throw when accessing user sub', () {
+              expect(
+                () => session.userSubResult.value,
+                throwsA(isA<UnknownException>()),
+              );
+            });
+
+            test('should throw when accessing user pool tokens', () {
+              expect(
+                () => session.userPoolTokensResult.value,
+                throwsA(isA<UnknownException>()),
+              );
+            });
+
+            test('should return existing credentials', () {
+              final credentials = session.credentialsResult.value;
+              expect(credentials.accessKeyId, accessKeyId);
+              expect(credentials.secretAccessKey, secretAccessKey);
+            });
+
+            test('should return existing identityId', () {
+              expect(session.identityIdResult.value, identityId);
             });
           });
         });
@@ -466,41 +626,46 @@ void main() {
           });
 
           test('should return existing user sub', () {
-            expect(session.userSub, userSub);
+            expect(session.userSubResult.value, userSub);
           });
 
           test('should return new user pool tokens', () {
-            expect(session.userPoolTokens!.accessToken, newAccessToken);
-            expect(session.userPoolTokens!.idToken, newIdToken);
-            expect(session.userPoolTokens!.refreshToken, refreshToken);
+            final userPoolTokens = session.userPoolTokensResult.value;
+            expect(userPoolTokens.accessToken, newAccessToken);
+            expect(userPoolTokens.idToken, newIdToken);
+            expect(userPoolTokens.refreshToken, refreshToken);
           });
 
           test('should return new credentials', () {
-            final credentials = session.credentials!;
+            final credentials = session.credentialsResult.value;
             expect(credentials.accessKeyId, newAccessKeyId);
             expect(credentials.secretAccessKey, newSecretAccessKey);
           });
 
           test('should return existing identityId', () {
-            expect(session.identityId, identityId);
+            expect(session.identityIdResult.value, identityId);
           });
         });
 
-        group('error', () {
+        group('network error', () {
           setUp(() async {
             await configureAmplify(config);
             stateMachine
               ..addInstance<CognitoIdentityProviderClient>(
                 MockCognitoIdentityProviderClient(
                   initiateAuth: expectAsync0(
-                    () async => throw _NetworkException(),
+                    () async => throw AWSHttpException(
+                      AWSHttpRequest.get(Uri()),
+                    ),
                   ),
                 ),
               )
               ..addInstance<CognitoIdentityClient>(
                 MockCognitoIdentityClient(
                   getCredentialsForIdentity: expectAsync0(
-                    () async => throw _NetworkException(),
+                    () async => throw AWSHttpException(
+                      AWSHttpRequest.get(Uri()),
+                    ),
                   ),
                 ),
               );
@@ -514,26 +679,89 @@ void main() {
             expect(session.isSignedIn, isTrue);
           });
 
-          test('should return existing user sub', () {
-            expect(session.userSub, userSub);
+          test('should throw when accessing user sub', () {
+            expect(
+              () => session.userSubResult.value,
+              throwsA(isA<NetworkException>()),
+            );
           });
 
           test('should throw when accessing user pool tokens', () {
             expect(
-              () => session.userPoolTokens,
-              throwsA(isA<_NetworkException>()),
+              () => session.userPoolTokensResult.value,
+              throwsA(isA<NetworkException>()),
             );
           });
 
           test('should throw when accessing credentials', () {
             expect(
-              () => session.credentials,
-              throwsA(isA<_NetworkException>()),
+              () => session.credentialsResult.value,
+              throwsA(isA<NetworkException>()),
             );
           });
 
-          test('should return existing identityId', () {
-            expect(session.identityId, identityId);
+          test('should throw when accessing identityId', () {
+            expect(
+              () => session.identityIdResult.value,
+              throwsA(isA<NetworkException>()),
+            );
+          });
+        });
+
+        group('unknown error', () {
+          setUp(() async {
+            await configureAmplify(config);
+            stateMachine
+              ..addInstance<CognitoIdentityProviderClient>(
+                MockCognitoIdentityProviderClient(
+                  initiateAuth: expectAsync0(
+                    () async => throw _ServiceException(),
+                  ),
+                ),
+              )
+              ..addInstance<CognitoIdentityClient>(
+                MockCognitoIdentityClient(
+                  getCredentialsForIdentity: expectAsync0(
+                    () async => throw _ServiceException(),
+                  ),
+                ),
+              );
+            session = await fetchAuthSession(
+              willRefresh: true,
+              forceRefresh: true,
+            );
+          });
+
+          test('should return isSignedIn=true', () {
+            expect(session.isSignedIn, isTrue);
+          });
+
+          test('should throw when accessing user sub', () {
+            expect(
+              () => session.userSubResult.value,
+              throwsA(isA<UnknownException>()),
+            );
+          });
+
+          test('should throw when accessing user pool tokens', () {
+            expect(
+              () => session.userPoolTokensResult.value,
+              throwsA(isA<UnknownException>()),
+            );
+          });
+
+          test('should throw when accessing credentials', () {
+            expect(
+              () => session.credentialsResult.value,
+              throwsA(isA<UnknownException>()),
+            );
+          });
+
+          test('should throw when accessing identityId', () {
+            expect(
+              () => session.identityIdResult.value,
+              throwsA(isA<UnknownException>()),
+            );
           });
         });
       });
@@ -565,22 +793,28 @@ void main() {
               expect(session.isSignedIn, isFalse);
             });
 
-            test('should return null user sub', () {
-              expect(session.userSub, isNull);
+            test('should throw when accessing user sub', () {
+              expect(
+                () => session.userSubResult.value,
+                throwsA(isA<SignedOutException>()),
+              );
             });
 
-            test('should return null user pool tokens', () {
-              expect(session.userPoolTokens, isNull);
+            test('should throw when accessing user pool tokens', () {
+              expect(
+                () => session.userPoolTokensResult.value,
+                throwsA(isA<SignedOutException>()),
+              );
             });
 
             test('should return new credentials', () {
-              final credentials = session.credentials!;
+              final credentials = session.credentialsResult.value;
               expect(credentials.accessKeyId, newAccessKeyId);
               expect(credentials.secretAccessKey, newSecretAccessKey);
             });
 
             test('should return identityId', () {
-              expect(session.identityId, identityId);
+              expect(session.identityIdResult.value, identityId);
             });
           });
         });
@@ -592,7 +826,9 @@ void main() {
               stateMachine.addInstance<CognitoIdentityClient>(
                 MockCognitoIdentityClient(
                   getId: expectAsync0(
-                    () async => throw _NotAuthorizedException(),
+                    () async => throw const AuthNotAuthorizedException(
+                      'Not Authorized',
+                    ),
                   ),
                 ),
               );
@@ -604,25 +840,31 @@ void main() {
               expect(session.isSignedIn, isFalse);
             });
 
-            test('should return null user sub', () {
-              expect(session.userSub, isNull);
+            test('should throw when accessing user sub', () {
+              expect(
+                () => session.userSubResult.value,
+                throwsA(isA<SignedOutException>()),
+              );
             });
 
-            test('should return null user pool tokens', () {
-              expect(session.userPoolTokens, isNull);
+            test('should throw when accessing user pool tokens', () {
+              expect(
+                () => session.userPoolTokensResult.value,
+                throwsA(isA<SignedOutException>()),
+              );
             });
 
             test('should throw when accessing credentials', () {
               expect(
-                () => session.credentials,
-                throwsA(isA<_NotAuthorizedException>()),
+                () => session.credentialsResult.value,
+                throwsA(isA<AuthNotAuthorizedException>()),
               );
             });
 
             test('should throw when accessing identityId', () {
               expect(
-                () => session.identityId,
-                throwsA(isA<_NotAuthorizedException>()),
+                () => session.identityIdResult.value,
+                throwsA(isA<AuthNotAuthorizedException>()),
               );
             });
           });
@@ -649,25 +891,26 @@ void main() {
           });
 
           test('should return existing user sub', () {
-            expect(session.userSub, userSub);
+            expect(session.userSubResult.value, userSub);
           });
 
           test('should return existing user pool tokens', () {
-            expect(session.userPoolTokens!.accessToken, accessToken);
-            expect(session.userPoolTokens!.idToken, idToken);
-            expect(session.userPoolTokens!.refreshToken, refreshToken);
+            final userPoolTokens = session.userPoolTokensResult.value;
+            expect(userPoolTokens.accessToken, accessToken);
+            expect(userPoolTokens.idToken, idToken);
+            expect(userPoolTokens.refreshToken, refreshToken);
           });
 
           test('should throw when accessing credentials', () {
             expect(
-              () => session.credentials,
+              () => session.credentialsResult.value,
               throwsA(isA<InvalidAccountTypeException>()),
             );
           });
 
           test('should throw when accessing identityId', () {
             expect(
-              () => session.identityId,
+              () => session.identityIdResult.value,
               throwsA(isA<InvalidAccountTypeException>()),
             );
           });
@@ -708,36 +951,37 @@ void main() {
             });
 
             test('should return existing user sub', () {
-              expect(session.userSub, userSub);
+              expect(session.userSubResult.value, userSub);
             });
 
             test('should return new user pool tokens', () {
-              expect(session.userPoolTokens!.accessToken, accessToken);
-              expect(session.userPoolTokens!.idToken, newIdToken);
-              expect(session.userPoolTokens!.refreshToken, refreshToken);
+              final userPoolTokens = session.userPoolTokensResult.value;
+              expect(userPoolTokens.accessToken, accessToken);
+              expect(userPoolTokens.idToken, newIdToken);
+              expect(userPoolTokens.refreshToken, refreshToken);
             });
 
             test('should throw when accessing credentials', () {
               expect(
-                () => session.credentials,
+                () => session.credentialsResult.value,
                 throwsA(isA<InvalidAccountTypeException>()),
               );
             });
 
-            test('should throw when identityId', () {
+            test('should throw when accessing identityId', () {
               expect(
-                () => session.identityId,
+                () => session.identityIdResult.value,
                 throwsA(isA<InvalidAccountTypeException>()),
               );
             });
           });
-          group('error', () {
+          group('unknown error', () {
             setUp(() async {
               await configureAmplify(config);
               stateMachine.addInstance<CognitoIdentityProviderClient>(
                 MockCognitoIdentityProviderClient(
                   initiateAuth: expectAsync0(
-                    () async => throw _NetworkException(),
+                    () async => throw _ServiceException(),
                   ),
                 ),
               );
@@ -747,27 +991,30 @@ void main() {
               expect(session.isSignedIn, isTrue);
             });
 
-            test('should return existing user sub', () {
-              expect(session.userSub, userSub);
+            test('should throw when accessing user sub', () {
+              expect(
+                () => session.userSubResult.value,
+                throwsA(isA<UnknownException>()),
+              );
             });
 
             test('should throw when accessing user pool tokens', () {
               expect(
-                () => session.userPoolTokens,
-                throwsA(isA<_NetworkException>()),
+                () => session.userPoolTokensResult.value,
+                throwsA(isA<UnknownException>()),
               );
             });
 
             test('should throw when accessing credentials', () {
               expect(
-                () => session.credentials,
+                () => session.credentialsResult.value,
                 throwsA(isA<InvalidAccountTypeException>()),
               );
             });
 
-            test('should throw when identityId', () {
+            test('should throw when accessing identityId', () {
               expect(
-                () => session.identityId,
+                () => session.identityIdResult.value,
                 throwsA(isA<InvalidAccountTypeException>()),
               );
             });
@@ -809,36 +1056,37 @@ void main() {
             });
 
             test('should return existing user sub', () {
-              expect(session.userSub, userSub);
+              expect(session.userSubResult.value, userSub);
             });
 
             test('should return new user pool tokens', () {
-              expect(session.userPoolTokens!.accessToken, newAccessToken);
-              expect(session.userPoolTokens!.idToken, idToken);
-              expect(session.userPoolTokens!.refreshToken, refreshToken);
+              final userPoolTokens = session.userPoolTokensResult.value;
+              expect(userPoolTokens.accessToken, newAccessToken);
+              expect(userPoolTokens.idToken, idToken);
+              expect(userPoolTokens.refreshToken, refreshToken);
             });
 
             test('should throw when accessing credentials', () {
               expect(
-                () => session.credentials,
+                () => session.credentialsResult.value,
                 throwsA(isA<InvalidAccountTypeException>()),
               );
             });
 
-            test('should throw when identityId', () {
+            test('should throw when accessing identityId', () {
               expect(
-                () => session.identityId,
+                () => session.identityIdResult.value,
                 throwsA(isA<InvalidAccountTypeException>()),
               );
             });
           });
-          group('error', () {
+          group('unknown error', () {
             setUp(() async {
               await configureAmplify(config);
               stateMachine.addInstance<CognitoIdentityProviderClient>(
                 MockCognitoIdentityProviderClient(
                   initiateAuth: expectAsync0(
-                    () async => throw _NetworkException(),
+                    () async => throw _ServiceException(),
                   ),
                 ),
               );
@@ -848,27 +1096,30 @@ void main() {
               expect(session.isSignedIn, isTrue);
             });
 
-            test('should return existing user sub', () {
-              expect(session.userSub, userSub);
+            test('should throw when accessing user sub', () {
+              expect(
+                () => session.userSubResult.value,
+                throwsA(isA<UnknownException>()),
+              );
             });
 
             test('should throw when accessing user pool tokens', () {
               expect(
-                () => session.userPoolTokens,
-                throwsA(isA<_NetworkException>()),
+                () => session.userPoolTokensResult.value,
+                throwsA(isA<UnknownException>()),
               );
             });
 
             test('should throw when accessing credentials', () {
               expect(
-                () => session.credentials,
+                () => session.credentialsResult.value,
                 throwsA(isA<InvalidAccountTypeException>()),
               );
             });
 
             test('should throw when accessing identityId', () {
               expect(
-                () => session.identityId,
+                () => session.identityIdResult.value,
                 throwsA(isA<InvalidAccountTypeException>()),
               );
             });
@@ -911,36 +1162,38 @@ void main() {
           });
 
           test('should return existing user sub', () {
-            expect(session.userSub, userSub);
+            expect(session.userSubResult.value, userSub);
           });
+
           test('should return new user pool tokens', () {
-            expect(session.userPoolTokens!.accessToken, newAccessToken);
-            expect(session.userPoolTokens!.idToken, newIdToken);
-            expect(session.userPoolTokens!.refreshToken, refreshToken);
+            final userPoolTokens = session.userPoolTokensResult.value;
+            expect(userPoolTokens.accessToken, newAccessToken);
+            expect(userPoolTokens.idToken, newIdToken);
+            expect(userPoolTokens.refreshToken, refreshToken);
           });
 
           test('should throw when accessing credentials', () {
             expect(
-              () => session.credentials,
+              () => session.credentialsResult.value,
               throwsA(isA<InvalidAccountTypeException>()),
             );
           });
 
           test('should throw when accessing identityId', () {
             expect(
-              () => session.identityId,
+              () => session.identityIdResult.value,
               throwsA(isA<InvalidAccountTypeException>()),
             );
           });
         });
 
-        group('error', () {
+        group('unknown error', () {
           setUp(() async {
             await configureAmplify(config);
             stateMachine.addInstance<CognitoIdentityProviderClient>(
               MockCognitoIdentityProviderClient(
                 initiateAuth: expectAsync0(
-                  () async => throw _NetworkException(),
+                  () async => throw _ServiceException(),
                 ),
               ),
             );
@@ -954,27 +1207,30 @@ void main() {
             expect(session.isSignedIn, isTrue);
           });
 
-          test('should return existing user sub', () {
-            expect(session.userSub, userSub);
+          test('should throw when accessing user sub', () {
+            expect(
+              () => session.userSubResult.value,
+              throwsA(isA<UnknownException>()),
+            );
           });
 
           test('should throw when accessing user pool tokens', () {
             expect(
-              () => session.userPoolTokens,
-              throwsA(isA<_NetworkException>()),
+              () => session.userPoolTokensResult.value,
+              throwsA(isA<UnknownException>()),
             );
           });
 
           test('should throw when accessing credentials', () {
             expect(
-              () => session.credentials,
+              () => session.credentialsResult.value,
               throwsA(isA<InvalidAccountTypeException>()),
             );
           });
 
           test('should throw when accessing identityId', () {
             expect(
-              () => session.identityId,
+              () => session.identityIdResult.value,
               throwsA(isA<InvalidAccountTypeException>()),
             );
           });
@@ -992,23 +1248,30 @@ void main() {
             expect(session.isSignedIn, isFalse);
           });
 
-          test('should return null user sub', () {
-            expect(session.userSub, isNull);
+          test('should throw when accessing user sub', () {
+            expect(
+              () => session.userSubResult.value,
+              throwsA(isA<SignedOutException>()),
+            );
           });
 
-          test('should return null user pool tokens', () {
-            expect(session.userPoolTokens, isNull);
+          test('should throw when accessing user pool tokens', () {
+            expect(
+              () => session.userPoolTokensResult.value,
+              throwsA(isA<SignedOutException>()),
+            );
           });
+
           test('should throw when accessing credentials', () {
             expect(
-              () => session.credentials,
+              () => session.credentialsResult.value,
               throwsA(isA<InvalidAccountTypeException>()),
             );
           });
 
           test('should throw when accessing identityId', () {
             expect(
-              () => session.identityId,
+              () => session.identityIdResult.value,
               throwsA(isA<InvalidAccountTypeException>()),
             );
           });
@@ -1018,9 +1281,5 @@ void main() {
   });
 }
 
-/// A mock exception when attempting to fetch new credentials.
-class _NetworkException implements Exception {}
-
-/// A mock exception thrown when unauthenticated access is not supported for the
-///  identity pool.
-class _NotAuthorizedException implements Exception {}
+/// A mock exception thrown by a service.
+class _ServiceException implements Exception {}

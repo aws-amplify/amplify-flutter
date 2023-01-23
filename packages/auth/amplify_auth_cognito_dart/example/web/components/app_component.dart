@@ -143,7 +143,9 @@ class AppComponent extends StatefulComponent {
 
   Future<void> _fetchUnAuthCredentials() async {
     final session = await fetchAuthSession();
-    safePrint('sessionToken : ${session.credentials?.sessionToken}');
+    safePrint(
+      'sessionToken : ${session.credentialsResult.value.sessionToken}',
+    );
   }
 
   @override
