@@ -372,7 +372,14 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
 
     final hasIdentityPool = _identityPoolConfig != null;
 
-    if (event.refreshAwsCredentials) {
+    if (!hasIdentityPool) {
+      credentialsResult = const AuthResult<AWSCredentials>.error(
+        InvalidAccountTypeException.noIdentityPool(),
+      );
+      identityIdResult = const AuthResult<String>.error(
+        InvalidAccountTypeException.noIdentityPool(),
+      );
+    } else if (event.refreshAwsCredentials) {
       final idToken = userPoolTokens?.idToken.raw;
       try {
         final awsCredentialsResult = await _retrieveAwsCredentials(
@@ -402,7 +409,7 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
         credentialsResult = AuthResult.error(authException);
         identityIdResult = AuthResult.error(authException);
       }
-    } else if (hasIdentityPool) {
+    } else {
       credentialsResult = awsCredentials != null
           ? AuthResult.success(awsCredentials)
           : const AuthResult.error(
@@ -417,13 +424,6 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
                 'identityId is null, but refreshAwsCredentials was false.',
               ),
             );
-    } else {
-      credentialsResult = const AuthResult<AWSCredentials>.error(
-        InvalidAccountTypeException.noIdentityPool(),
-      );
-      identityIdResult = const AuthResult<String>.error(
-        InvalidAccountTypeException.noIdentityPool(),
-      );
     }
 
     dispatch(
