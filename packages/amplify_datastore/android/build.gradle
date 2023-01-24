@@ -68,8 +68,8 @@ dependencies {
     // Support for Java 8 features
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
-    implementation "com.amplifyframework:aws-datastore:1.37.10"
-    implementation "com.amplifyframework:aws-api-appsync:1.37.10"
+    implementation "com.amplifyframework:aws-datastore:1.37.12"
+    implementation "com.amplifyframework:aws-api-appsync:1.37.12"
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:3.10.0'
