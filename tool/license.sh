@@ -61,4 +61,9 @@ addlicense -l apache \
     -ignore '**/node_modules/**' \
     -ignore '**/sdk/**' \
     -ignore '**/external/**' \
+    -ignore "**/generated_plugins.cmake" \
+    -ignore "**/CMakeLists.txt" \
+    -ignore "**/linux/runner/**" \
+    -ignore "**/windows/runner/**" \
+    -ignore "**/windows/flutter/**" \
     $@ $PWD
