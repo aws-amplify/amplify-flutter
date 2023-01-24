@@ -19,7 +19,7 @@ dependencies:
 
 # The current constraints for SDKs and OSs.
 environment:
-  sdk: '>=2.19.0 <4.0.0'
+  sdk: '>=2.19.0-444 <4.0.0'
   flutter: '>=3.0.0'
   android:
     compileSdkVersion: '33'
