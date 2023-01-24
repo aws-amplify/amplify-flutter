@@ -7,7 +7,7 @@ issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
   sdk: ">=2.19.0-444 <4.0.0"
-  flutter: ">=3.7.0"
+  flutter: ">=3.7.0-0"
 
 dependencies:
   amplify_secure_storage_dart: ">=0.1.4+2 <0.2.0"
