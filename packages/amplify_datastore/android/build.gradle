@@ -35,7 +35,7 @@ apply plugin: 'org.jlleitschuh.gradle.ktlint'
 def amplifyFlutter = project.rootProject.findProject(':amplify_flutter_android')
 
 android {
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 33
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
