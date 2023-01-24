@@ -73,4 +73,12 @@ class AWSFilePlatform extends AWSFile {
       'getChunkedStreamReader is not available in the current platform',
     );
   }
+
+  /// {@macro amplify_core.io.aws_file.open_read}
+  @override
+  Stream<List<int>> openRead([int? start, int? end]) {
+    throw UnimplementedError(
+      'openRead is not available in the current platform',
+    );
+  }
 }
