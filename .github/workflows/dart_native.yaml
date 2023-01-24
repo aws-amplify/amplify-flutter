@@ -60,7 +60,7 @@ jobs:
 
       - name: Bootstrap
         id: bootstrap
-        timeout-minutes: 15 # macOS needs extra time
+        timeout-minutes: 20 # macOS needs extra time
         run: aft bootstrap
 
       - name: Setup Package
