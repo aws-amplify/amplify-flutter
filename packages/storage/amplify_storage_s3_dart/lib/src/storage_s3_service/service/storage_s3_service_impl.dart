@@ -58,7 +58,10 @@ class StorageS3Service {
   static final _defaultS3ClientConfig = smithy_aws.S3ClientConfig(
     signerConfiguration: _defaultS3SignerConfiguration,
   );
-  static final _defaultS3SignerConfiguration = sigv4.S3ServiceConfiguration();
+  // TODO(HuiSF): re-enable signPayload when the signer supports hashing on
+  //  different threads.
+  static final _defaultS3SignerConfiguration =
+      sigv4.S3ServiceConfiguration(signPayload: false);
 
   final String _defaultBucket;
   final String _defaultRegion;
