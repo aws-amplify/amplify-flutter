@@ -230,7 +230,7 @@ extension on String {
 
   String ensureEndsWith(String s) {
     if (!endsWith(s)) {
-      return '${this}$s';
+      return '$this$s';
     }
     return this;
   }
