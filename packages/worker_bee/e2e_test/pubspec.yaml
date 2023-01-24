@@ -3,7 +3,7 @@ description: E2E tests for the worker_bee package.
 publish_to: none
 
 environment:
-  sdk: '>=2.17.0 <3.0.0'
+  sdk: '>=2.19.0 <4.0.0'
 
 dependency_overrides:
   aws_common:
