@@ -447,6 +447,56 @@ void main() {
         await expectLater(uploadDataTask.result, throwsA(isA<S3Exception>()));
         verify(putSmithyOperation.cancel).called(1);
       });
+
+      test('Emitting transferred bytes for uploading progress', () async {
+        const mockEmittedBytes = [1, 2, 3];
+        final completer = Completer<void>();
+
+        const testUploadDataOptions = S3UploadDataOptions(
+          accessLevel: StorageAccessLevel.private,
+        );
+
+        final putSmithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
+        final testPutObjectOutput = s3.PutObjectOutput();
+        when(
+          () => putSmithyOperation.result,
+        ).thenAnswer((_) async {
+          await completer.future;
+          return testPutObjectOutput;
+        });
+        when(
+          putSmithyOperation.cancel,
+        ).thenAnswer((_) async {});
+        when(() => putSmithyOperation.requestProgress).thenAnswer((_) async* {
+          for (final num in mockEmittedBytes) {
+            yield num;
+          }
+          completer.complete();
+        });
+
+        when(
+          () => s3Client.putObject(any()),
+        ).thenAnswer((_) => putSmithyOperation);
+
+        final emittedTransferredBytes = <int>[];
+
+        final uploadDataTask = S3UploadTask.fromAWSFile(
+          testLocalFile,
+          s3Client: s3Client,
+          prefixResolver: testPrefixResolver,
+          bucket: testBucket,
+          key: testKey,
+          options: testUploadDataOptions,
+          logger: logger,
+          transferDatabase: transferDatabase,
+          onProgress: (event) {
+            emittedTransferredBytes.add(event.transferredBytes);
+          },
+        );
+        unawaited(uploadDataTask.start());
+        await uploadDataTask.result;
+        expect(emittedTransferredBytes, containsAllInOrder(mockEmittedBytes));
+      });
     });
 
     group('Uploading AWSFile (> 5MB)', () {

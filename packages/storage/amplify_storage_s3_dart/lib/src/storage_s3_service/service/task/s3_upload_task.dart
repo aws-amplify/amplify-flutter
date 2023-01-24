@@ -304,7 +304,7 @@ class S3UploadTask {
       _putObjectOperation = _s3Client.putObject(putObjectRequest);
 
       _putObjectOperation!.requestProgress.listen((bytesSent) {
-        _transferredBytes += bytesSent;
+        _transferredBytes = bytesSent;
         _emitTransferProgress();
       });
 
