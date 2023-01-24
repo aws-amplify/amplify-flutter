@@ -210,11 +210,27 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
   Future<AuthSession> fetchAuthSession({
     AuthSessionOptions? options,
   }) async {
-    final isSignedIn = _isSignedIn();
+    if (_currentUser == null) {
+      return const CognitoAuthSession(
+        isSignedIn: false,
+        userPoolTokensResult: AuthResult.error(
+          SignedOutException.noUserSignedIn(),
+        ),
+        userSubResult: AuthResult.error(
+          SignedOutException.noUserSignedIn(),
+        ),
+        credentialsResult: AuthResult.error(
+          UnknownException('credentials not available in mocks'),
+        ),
+        identityIdResult: AuthResult.error(
+          UnknownException('identityId not available in mocks'),
+        ),
+      );
+    }
     final userPoolTokens = _currentUser!.userPoolTokens;
     final userSub = _currentUser!.sub;
     return CognitoAuthSession(
-      isSignedIn: isSignedIn,
+      isSignedIn: true,
       userPoolTokensResult: AuthResult.success(userPoolTokens),
       userSubResult: AuthResult.success(userSub),
       credentialsResult: const AuthResult.error(
