@@ -19,8 +19,7 @@ enum AWSConfigValue<T extends Object> {
   /// Defaults to `3`.
   maxAttempts<int>._(
     'AWS_MAX_ATTEMPTS',
-    // TODO(dnys1): Add back when https://github.com/dart-lang/sdk/issues/49245 is resolved.
-    // String.fromEnvironment('AWS_MAX_ATTEMPTS'),
+    String.fromEnvironment('AWS_MAX_ATTEMPTS'),
     3,
     parse: int.parse,
   ),
@@ -30,6 +29,7 @@ enum AWSConfigValue<T extends Object> {
   /// Defaults to `us-east-1`.
   region._(
     'AWS_REGION',
+    String.fromEnvironment('AWS_REGION'),
     'us-east-1',
   ),
 
@@ -38,6 +38,7 @@ enum AWSConfigValue<T extends Object> {
   /// Defaults to `~/.aws/config`.
   configFile._(
     'AWS_CONFIG_FILE',
+    String.fromEnvironment('AWS_CONFIG_FILE'),
     '~/.aws/config',
   ),
 
@@ -46,13 +47,13 @@ enum AWSConfigValue<T extends Object> {
   /// Defaults to `~/.aws/credentials`.
   sharedCredentialsFile._(
     'AWS_SHARED_CREDENTIALS_FILE',
+    String.fromEnvironment('AWS_SHARED_CREDENTIALS_FILE'),
     '~/.aws/credentials',
   );
 
   const AWSConfigValue._(
     this.key,
-    // TODO(dnys1): Add back when https://github.com/dart-lang/sdk/issues/49245 is resolved.
-    // this._fromEnv,
+    this._fromEnv,
     this.defaultValue, {
     T Function(String)? parse,
   }) : _parse = parse ?? _identity;
@@ -63,8 +64,7 @@ enum AWSConfigValue<T extends Object> {
   /// The default value of the configuration parameter.
   final T defaultValue;
 
-  // TODO(dnys1): Add back when https://github.com/dart-lang/sdk/issues/49245 is resolved.
-  // final String? _fromEnv;
+  final String? _fromEnv;
   final T Function(String) _parse;
   String? get _fromPlatformEnv => lookupPlatformEnv(key);
 
@@ -80,11 +80,10 @@ enum AWSConfigValue<T extends Object> {
     } else if (fromOverride is String) {
       return _parse(fromOverride);
     }
-    // TODO(dnys1): Add back when https://github.com/dart-lang/sdk/issues/49245 is resolved.
-    // final fromEnv = _fromEnv;
-    // if (fromEnv != null && fromEnv.isNotEmpty) {
-    //   return _parse(fromEnv);
-    // }
+    final fromEnv = _fromEnv;
+    if (fromEnv != null && fromEnv.isNotEmpty) {
+      return _parse(fromEnv);
+    }
     final fromPlatformEnv = _fromPlatformEnv;
     if (fromPlatformEnv != null && fromPlatformEnv.isNotEmpty) {
       return _parse(fromPlatformEnv);
