@@ -4,7 +4,7 @@ version: 1.0.0
 publish_to: none
 
 environment:
-  sdk: ">=2.19.0 <4.0.0"
+  sdk: ">=2.19.0-444 <4.0.0"
 
 dependencies:
   aws_common: ">=0.4.0 <0.5.0"

@@ -66,7 +66,7 @@ name: $packageName
 version: $version
 
 environment:
-  sdk: '>=2.19.0 <4.0.0'
+  sdk: '>=2.19.0-444 <4.0.0'
 ''',
       );
       if (dependencies != null && dependencies.isNotEmpty) {
@@ -420,14 +420,14 @@ name: aws_common
 version: 0.1.0+1
 
 environment:
-  sdk: '>=2.19.0 <4.0.0'
+  sdk: '>=2.19.0-444 <4.0.0'
 ''',
           'amplify_core': '''
 name: amplify_core
 version: 1.0.0-next.0+1
 
 environment:
-  sdk: '>=2.19.0 <4.0.0'
+  sdk: '>=2.19.0-444 <4.0.0'
 
 dependencies:
   aws_common: "^0.1.0"
@@ -437,7 +437,7 @@ name: amplify_auth_cognito_dart
 version: 0.1.1
 
 environment:
-  sdk: '>=2.19.0 <4.0.0'
+  sdk: '>=2.19.0-444 <4.0.0'
 
 dependencies:
   amplify_core: ">=1.0.0-next.0+1 <1.0.0-next.1"
@@ -448,7 +448,7 @@ name: amplify_auth_cognito
 version: 1.0.0-next.1
 
 environment:
-  sdk: '>=2.19.0 <4.0.0'
+  sdk: '>=2.19.0-444 <4.0.0'
 
 dependencies:
   amplify_auth_cognito_ios: ">=1.0.0-next.1 <1.0.0-next.2"
@@ -461,7 +461,7 @@ name: amplify_auth_cognito_ios
 version: 1.0.0-next.1
 
 environment:
-  sdk: '>=2.19.0 <4.0.0'
+  sdk: '>=2.19.0-444 <4.0.0'
 ''',
         };
 

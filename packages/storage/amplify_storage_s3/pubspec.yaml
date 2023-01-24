@@ -6,7 +6,7 @@ repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/st
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ">=2.19.0 <4.0.0"
+  sdk: ">=2.19.0-444 <4.0.0"
   flutter: ">=3.0.0"
 
 # Helps `pana` since we do not use Flutter plugins for most platforms
