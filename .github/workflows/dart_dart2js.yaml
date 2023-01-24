@@ -18,8 +18,7 @@ jobs:
       matrix:
         sdk:
           # Minimum supported Dart version
-          # TODO(dnys1): Remove when repo bump to 2.19 happens
-          # - 2.19.0
+          - 2.19.0
           - stable
           - beta
         browser:
