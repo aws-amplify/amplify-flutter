@@ -1,3 +1,8 @@
+/**
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 export type AmplifyDependentResourcesAttributes = {
     "function": {
         "apiintegmultiauth131fe55a131fe55aPreSignup": {
