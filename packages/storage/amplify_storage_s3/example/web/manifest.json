@@ -1,6 +1,6 @@
 {
-    "name": "example",
-    "short_name": "example",
+    "name": "amplify_storage_s3_example",
+    "short_name": "amplify_storage_s3_example",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
