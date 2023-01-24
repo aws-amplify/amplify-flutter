@@ -1,3 +1,7 @@
+## 0.6.12 (2023-01-24)
+
+- chore: Bump Android SDK to 1.37.12 ([#2596](https://github.com/aws-amplify/amplify-flutter/pull/2596))
+
 ## 0.6.11 (2023-01-12)
 
 - fix(api): model helpers use targetNames in schemas with CPK enabled ([#2559](https://github.com/aws-amplify/amplify-flutter/pull/2559))

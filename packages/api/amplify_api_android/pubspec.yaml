@@ -1,6 +1,6 @@
 name: amplify_api_android
 description: The method channel implementation for amplify_api on Android
-version: 0.6.11
+version: 0.6.12
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
