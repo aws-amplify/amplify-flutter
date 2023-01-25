@@ -35,4 +35,19 @@ class S3ClientConfig {
   ///
   /// Defaults to [S3ServiceConfiguration.new].
   final S3ServiceConfiguration? signerConfiguration;
+
+  /// Returns a new [S3ClientConfig] with overrides.
+  S3ClientConfig copyWith({
+    bool? usePathStyle,
+    bool? useDualStack,
+    bool? useAcceleration,
+    S3ServiceConfiguration? signerConfiguration,
+  }) {
+    return S3ClientConfig(
+      usePathStyle: usePathStyle ?? this.useAcceleration,
+      useDualStack: useDualStack ?? this.useDualStack,
+      useAcceleration: useAcceleration ?? this.useAcceleration,
+      signerConfiguration: signerConfiguration ?? this.signerConfiguration,
+    );
+  }
 }
