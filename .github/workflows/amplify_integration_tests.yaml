@@ -173,8 +173,8 @@ jobs:
           #!/usr/bin/env bash
           set -eo pipefail
 
-          flutter pub global activate fvm
-          flutter pub global run fvm list
+          dart pub global activate fvm
+          dart pub global run fvm list
           mkdir -p $HOME/fvm/versions
           ln -fs $FLUTTER_ROOT $HOME/fvm/versions/local
 
