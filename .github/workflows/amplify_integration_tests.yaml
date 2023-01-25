@@ -177,9 +177,10 @@ jobs:
           mkdir -p $HOME/fvm/versions
           ln -fs $FLUTTER_ROOT $HOME/fvm/versions/local
 
+          AUTH_DIR=$PWD
           cd $FLUTTER_ROOT
           git bisect start 3.7.0 3.3.0
-          git bisect run ./debug.sh $PWD
+          git bisect run $AUTH_DIR/debug.sh $AUTH_DIR
 
   linux:
     runs-on: ubuntu-latest
