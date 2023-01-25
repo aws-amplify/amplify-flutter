@@ -280,18 +280,11 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
       );
       credentialsResult = AuthResult.success(res.awsCredentials);
       identityIdResult = AuthResult.success(res.identityId);
-    } on AuthException catch (e) {
-      credentialsResult = AuthResult.error(e);
-      identityIdResult = AuthResult.error(e);
-    } on Object catch (e) {
-      final authException = UnknownException(
-        'An unknown exception occurred.',
-        underlyingException: e,
-      );
+    } on Exception catch (e) {
+      final authException = AuthException.fromException(e);
       credentialsResult = AuthResult.error(authException);
       identityIdResult = AuthResult.error(authException);
     }
-
     dispatch(
       FetchAuthSessionEvent.succeeded(
         CognitoAuthSession(
@@ -335,21 +328,8 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
         userPoolTokens = await _refreshUserPoolTokens(userPoolTokens);
         userPoolTokensResult = AuthResult.success(userPoolTokens);
         userSubResult = AuthResult.success(userPoolTokens.userId);
-      } on AuthException catch (e) {
-        userPoolTokensResult = AuthResult.error(e);
-        userSubResult = AuthResult.error(e);
-      } on AWSHttpException catch (e) {
-        final exception = NetworkException(
-          'Refreshing user pool tokens failed due to a network error.',
-          underlyingException: e,
-        );
-        userPoolTokensResult = AuthResult.error(exception);
-        userSubResult = AuthResult.error(exception);
-      } on Object catch (e) {
-        final authException = UnknownException(
-          'An unknown exception occurred.',
-          underlyingException: e,
-        );
+      } on Exception catch (e) {
+        final authException = AuthException.fromException(e);
         userPoolTokensResult = AuthResult.error(authException);
         userSubResult = AuthResult.error(authException);
       }
@@ -391,21 +371,8 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
         awsCredentials = awsCredentialsResult.awsCredentials;
         credentialsResult = AuthResult.success(awsCredentials);
         identityIdResult = AuthResult.success(identityId);
-      } on AuthException catch (e) {
-        credentialsResult = AuthResult.error(e);
-        identityIdResult = AuthResult.error(e);
-      } on AWSHttpException catch (e) {
-        final exception = NetworkException(
-          'Refreshing credentials failed due to a network error.',
-          underlyingException: e,
-        );
-        credentialsResult = AuthResult.error(exception);
-        identityIdResult = AuthResult.error(exception);
-      } on Object catch (e) {
-        final authException = UnknownException(
-          'An unknown exception occurred.',
-          underlyingException: e,
-        );
+      } on Exception catch (e) {
+        final authException = AuthException.fromException(e);
         credentialsResult = AuthResult.error(authException);
         identityIdResult = AuthResult.error(authException);
       }
