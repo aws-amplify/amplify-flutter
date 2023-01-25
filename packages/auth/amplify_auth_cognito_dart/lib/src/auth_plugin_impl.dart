@@ -1065,9 +1065,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     if (_identityPoolConfig != null) {
       // Try to refresh AWS credentials since Cognito requests will require
       // them.
-      await fetchAuthSession(
-        options: const CognitoSessionOptions(),
-      );
+      await fetchAuthSession();
       if (options.globalSignOut) {
         // Revokes the refresh token
         try {
