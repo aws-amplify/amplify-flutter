@@ -214,10 +214,10 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
       return const CognitoAuthSession(
         isSignedIn: false,
         userPoolTokensResult: AuthResult.error(
-          SignedOutException.noUserSignedIn(),
+          SignedOutException('There is no user signed in.'),
         ),
         userSubResult: AuthResult.error(
-          SignedOutException.noUserSignedIn(),
+          SignedOutException('There is no user signed in.'),
         ),
         credentialsResult: AuthResult.error(
           UnknownException('credentials not available in mocks'),
