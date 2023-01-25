@@ -274,10 +274,10 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
       );
       credentialsResult = AuthResult.success(res.awsCredentials);
       identityIdResult = AuthResult.success(res.identityId);
-    } on Exception catch (e) {
+    } on Exception catch (e, s) {
       final authException = AuthException.fromException(e);
-      credentialsResult = AuthResult.error(authException);
-      identityIdResult = AuthResult.error(authException);
+      credentialsResult = AuthResult.error(authException, s);
+      identityIdResult = AuthResult.error(authException, s);
     }
     dispatch(
       FetchAuthSessionEvent.succeeded(
@@ -322,10 +322,10 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
         userPoolTokens = await _refreshUserPoolTokens(userPoolTokens);
         userPoolTokensResult = AuthResult.success(userPoolTokens);
         userSubResult = AuthResult.success(userPoolTokens.userId);
-      } on Exception catch (e) {
+      } on Exception catch (e, s) {
         final authException = AuthException.fromException(e);
-        userPoolTokensResult = AuthResult.error(authException);
-        userSubResult = AuthResult.error(authException);
+        userPoolTokensResult = AuthResult.error(authException, s);
+        userSubResult = AuthResult.error(authException, s);
       }
     } else {
       if (userPoolTokens != null) {
@@ -365,10 +365,10 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
         final awsCredentials = awsCredentialsResult.awsCredentials;
         credentialsResult = AuthResult.success(awsCredentials);
         identityIdResult = AuthResult.success(identityId);
-      } on Exception catch (e) {
+      } on Exception catch (e, s) {
         final authException = AuthException.fromException(e);
-        credentialsResult = AuthResult.error(authException);
-        identityIdResult = AuthResult.error(authException);
+        credentialsResult = AuthResult.error(authException, s);
+        identityIdResult = AuthResult.error(authException, s);
       }
     } else {
       credentialsResult = AuthResult.success(existingAwsCredentials!);

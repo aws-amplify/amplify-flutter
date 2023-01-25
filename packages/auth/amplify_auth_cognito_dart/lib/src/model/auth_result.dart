@@ -8,7 +8,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class AuthResult<T> extends AWSResult<T, AuthException> {
   /// Creates a failed Auth result.
-  const AuthResult.error(super.exception) : super.error();
+  const AuthResult.error(super.exception, [super.stackTrace]) : super.error();
 
   /// Creates a successful Auth result.
   const AuthResult.success(super.value) : super.success();

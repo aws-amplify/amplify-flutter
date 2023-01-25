@@ -10,10 +10,10 @@ import 'package:aws_common/aws_common.dart';
 /// throw an exception if an exception occurred. See [exception] for more
 /// details.
 /// {@endtemplate}
-class AWSResult<T, E extends Object>
+class AWSResult<T, E extends Exception>
     with AWSEquatable<AWSResult<T, E>>, AWSDebuggable {
   /// Creates a failed result.
-  const AWSResult.error(E this.exception)
+  const AWSResult.error(E this.exception, [this.stackTrace])
       : type = AWSResultType.error,
         _value = null;
 
@@ -21,17 +21,17 @@ class AWSResult<T, E extends Object>
   const AWSResult.success(T value)
       : _value = value,
         type = AWSResultType.success,
-        exception = null;
+        exception = null,
+        stackTrace = null;
 
   /// The value of the result, or null.
   final T? _value;
 
   /// The exception that occurred while attempting to retrieve the value.
-  ///
-  /// This object will contains exceptions that occur while trying to obtain or
-  /// refresh this value, such as an [AWSHttpException] if the service cannot be
-  /// reached due to a network error.
   final E? exception;
+
+  /// The original stack trace of [exception], if provided.
+  final StackTrace? stackTrace;
 
   /// Indicates if the result was a success.
   final AWSResultType type;
@@ -46,6 +46,10 @@ class AWSResult<T, E extends Object>
         // value will be non-null since it is required in AWSResult.success.
         return _value!;
       case AWSResultType.error:
+        if (stackTrace != null) {
+          // TODO(dnys1): Chain, instead, so that the current stack trace can
+          /// provide context to the original
+        }
         // ignore: only_throw_errors
         throw exception!;
     }
