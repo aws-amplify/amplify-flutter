@@ -4,8 +4,8 @@ description: Test bed for amplify_flutter_ios
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 environment:
-  sdk: ">=2.19.0-444 <4.0.0"
-  flutter: ">=3.7.0-0"
+  sdk: ">=2.17.0 <4.0.0"
+  flutter: ">=3.0.0"
 
 dependencies:
   amplify_flutter_ios: ">=1.0.0-next.4 <1.0.0-next.5"

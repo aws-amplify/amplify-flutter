@@ -1,0 +1,40 @@
+name: aws_signature_v4
+on:
+  pull_request:
+
+jobs:
+  debug:
+    runs-on: macos-latest
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
+        with:
+          persist-credentials: false
+          submodules: true
+
+      - name: Install dependencies
+        uses: ./.github/composite_actions/install_dependencies
+
+      - name: Fetch Amplify backend configurations
+        uses: ./.github/composite_actions/fetch_backends
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          scope: amplify_auth_cognito_example
+          secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
+
+      - name: Run integration tests
+        working-directory: packages/auth/amplify_auth_cognito/example
+        run: |
+          #!/usr/bin/env bash
+          set -eo pipefail
+
+          flutter pub global activate fvm
+          ln -fs $FLUTTER_ROOT $HOME/fvm/versions/local
+
+          cd $FLUTTER_ROOT
+          git bisect start 3.7.0 3.3.0
+          git bisect run ./debug.sh $PWD
