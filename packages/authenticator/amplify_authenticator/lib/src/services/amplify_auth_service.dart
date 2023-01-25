@@ -174,7 +174,7 @@ class AmplifyAuthService implements AuthService {
       // and cannot be refreshed due to a network error. In this case the user
       // should be treated as authenticated to allow for offline use cases.
       return true;
-    } on Object {
+    } on Exception {
       // Any other exception should be thrown to be handled appropriately.
       rethrow;
     }
