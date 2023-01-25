@@ -12,6 +12,7 @@ import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/transfer
     as transfer;
 import 'package:mocktail/mocktail.dart';
 import 'package:smithy/smithy.dart' as smithy;
+import 'package:smithy_aws/smithy_aws.dart' as smithy_aws;
 import 'package:test/test.dart';
 
 import '../../test_utils/mocks.dart';
@@ -23,6 +24,7 @@ void main() {
     late AWSLogger logger;
     late transfer.TransferDatabase transferDatabase;
     const testBucket = 'fake-bucket';
+    const defaultS3ClientConfig = smithy_aws.S3ClientConfig();
     final testPrefixResolver = TestCustomPrefixResolver();
 
     setUpAll(() {
@@ -71,6 +73,8 @@ void main() {
       registerFallbackValue(
         const transfer.TransferRecordsCompanion(),
       );
+
+      registerFallbackValue(const smithy_aws.S3ClientConfig());
     });
 
     group('Uploading S3DataPayload', () {
@@ -93,12 +97,16 @@ void main() {
             .thenAnswer((_) => Stream.value(1));
 
         when(
-          () => s3Client.putObject(any()),
+          () => s3Client.putObject(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
         ).thenAnswer((_) => smithyOperation);
 
         final uploadDataTask = S3UploadTask.fromDataPayload(
           testDataPayload,
           s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
@@ -114,7 +122,10 @@ void main() {
         expect(result.key, testKey);
 
         final capturedRequest = verify(
-          () => s3Client.putObject(captureAny<s3.PutObjectRequest>()),
+          () => s3Client.putObject(
+            captureAny<s3.PutObjectRequest>(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
         ).captured.last;
 
         expect(capturedRequest is s3.PutObjectRequest, isTrue);
@@ -127,6 +138,60 @@ void main() {
           )}$testKey',
         );
         expect(request.body, testDataPayload);
+      });
+
+      test(
+          'should invoke S3Client.putObject API with correct useAcceleration parameters',
+          () async {
+        const testUploadDataOptions = S3UploadDataOptions(
+          accessLevel: StorageAccessLevel.private,
+          useAccelerateEndpoint: true,
+        );
+        final testPutObjectOutput = s3.PutObjectOutput();
+        final smithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
+
+        when(
+          () => smithyOperation.result,
+        ).thenAnswer((_) async => testPutObjectOutput);
+        when(() => smithyOperation.requestProgress)
+            .thenAnswer((_) => Stream.value(1));
+
+        when(
+          () => s3Client.putObject(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
+        ).thenAnswer((_) => smithyOperation);
+
+        final uploadDataTask = S3UploadTask.fromDataPayload(
+          testDataPayload,
+          s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
+          prefixResolver: testPrefixResolver,
+          bucket: testBucket,
+          key: testKey,
+          options: testUploadDataOptions,
+          logger: logger,
+          transferDatabase: transferDatabase,
+        );
+
+        unawaited(uploadDataTask.start());
+
+        await uploadDataTask.result;
+
+        final capturedS3ClientConfig = verify(
+          () => s3Client.putObject(
+            any(),
+            s3ClientConfig:
+                captureAny<smithy_aws.S3ClientConfig>(named: 's3ClientConfig'),
+          ),
+        ).captured.last;
+
+        expect(
+          capturedS3ClientConfig,
+          isA<smithy_aws.S3ClientConfig>()
+              .having((o) => o.useAcceleration, 'useAcceleration', true),
+        );
       });
 
       test(
@@ -145,12 +210,16 @@ void main() {
           when(() => smithyOperation.requestProgress)
               .thenAnswer((_) => Stream.value(1));
           when(
-            () => s3Client.putObject(any()),
+            () => s3Client.putObject(
+              any(),
+              s3ClientConfig: any(named: 's3ClientConfig'),
+            ),
           ).thenAnswer((_) => smithyOperation);
 
           final uploadDataTask = S3UploadTask.fromDataPayload(
             testDataPayloadBytes,
             s3Client: s3Client,
+            defaultS3ClientConfig: defaultS3ClientConfig,
             prefixResolver: testPrefixResolver,
             bucket: testBucket,
             key: testKey,
@@ -164,7 +233,10 @@ void main() {
           await uploadDataTask.result;
 
           final capturedRequest = verify(
-            () => s3Client.putObject(captureAny<s3.PutObjectRequest>()),
+            () => s3Client.putObject(
+              captureAny<s3.PutObjectRequest>(),
+              s3ClientConfig: any(named: 's3ClientConfig'),
+            ),
           ).captured.last;
 
           expect(
@@ -202,7 +274,10 @@ void main() {
         ).thenAnswer((_) async => testHeadObjectOutput);
 
         when(
-          () => s3Client.putObject(any()),
+          () => s3Client.putObject(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
         ).thenAnswer((_) => putSmithyOperation);
 
         when(
@@ -212,6 +287,7 @@ void main() {
         final uploadDataTask = S3UploadTask.fromDataPayload(
           testDataPayload,
           s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
@@ -248,6 +324,7 @@ void main() {
         final uploadDataTask = S3UploadTask.fromDataPayload(
           testDataPayload,
           s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: prefixResolverThrowsException,
           bucket: testBucket,
           key: testKey,
@@ -272,12 +349,16 @@ void main() {
         );
 
         when(
-          () => s3Client.putObject(any()),
+          () => s3Client.putObject(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
         ).thenThrow(testException);
 
         final uploadDataTask = S3UploadTask.fromDataPayload(
           testDataPayload,
           s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
@@ -317,12 +398,16 @@ void main() {
             .thenAnswer((_) => Stream.value(1));
 
         when(
-          () => s3Client.putObject(any()),
+          () => s3Client.putObject(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
         ).thenAnswer((_) => putSmithyOperation);
 
         final uploadDataTask = S3UploadTask.fromDataPayload(
           testDataPayload,
           s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
@@ -365,12 +450,16 @@ void main() {
             .thenAnswer((_) => Stream.value(1));
 
         when(
-          () => s3Client.putObject(any()),
+          () => s3Client.putObject(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
         ).thenAnswer((_) => smithyOperation);
 
         final uploadDataTask = S3UploadTask.fromAWSFile(
           testLocalFile,
           s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
@@ -386,7 +475,10 @@ void main() {
         expect(result.key, testKey);
 
         final capturedRequest = verify(
-          () => s3Client.putObject(captureAny<s3.PutObjectRequest>()),
+          () => s3Client.putObject(
+            captureAny<s3.PutObjectRequest>(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
         ).captured.last;
 
         expect(capturedRequest is s3.PutObjectRequest, isTrue);
@@ -400,6 +492,60 @@ void main() {
         );
         expect(request.contentType, await testLocalFile.contentType);
         expect(await request.body?.toList(), equals([testBytes]));
+      });
+
+      test(
+          'should invoke S3Client.putObject with correct useAcceleration parameter',
+          () async {
+        const testUploadDataOptions = S3UploadDataOptions(
+          accessLevel: StorageAccessLevel.private,
+          useAccelerateEndpoint: true,
+        );
+        final testPutObjectOutput = s3.PutObjectOutput();
+        final smithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
+
+        when(
+          () => smithyOperation.result,
+        ).thenAnswer((_) async => testPutObjectOutput);
+        when(() => smithyOperation.requestProgress)
+            .thenAnswer((_) => Stream.value(1));
+
+        when(
+          () => s3Client.putObject(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
+        ).thenAnswer((_) => smithyOperation);
+
+        final uploadDataTask = S3UploadTask.fromAWSFile(
+          testLocalFile,
+          s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
+          prefixResolver: testPrefixResolver,
+          bucket: testBucket,
+          key: testKey,
+          options: testUploadDataOptions,
+          logger: logger,
+          transferDatabase: transferDatabase,
+        );
+
+        unawaited(uploadDataTask.start());
+
+        await uploadDataTask.result;
+
+        final capturedS3ClientConfig = verify(
+          () => s3Client.putObject(
+            any(),
+            s3ClientConfig:
+                captureAny<smithy_aws.S3ClientConfig>(named: 's3ClientConfig'),
+          ),
+        ).captured.last;
+
+        expect(
+          capturedS3ClientConfig,
+          isA<smithy_aws.S3ClientConfig>()
+              .having((o) => o.useAcceleration, 'useAcceleration', true),
+        );
       });
 
       test(
@@ -425,12 +571,16 @@ void main() {
             .thenAnswer((_) => Stream.value(1));
 
         when(
-          () => s3Client.putObject(any()),
+          () => s3Client.putObject(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
         ).thenAnswer((_) => putSmithyOperation);
 
         final uploadDataTask = S3UploadTask.fromAWSFile(
           testLocalFile,
           s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
@@ -475,7 +625,10 @@ void main() {
         });
 
         when(
-          () => s3Client.putObject(any()),
+          () => s3Client.putObject(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
         ).thenAnswer((_) => putSmithyOperation);
 
         final emittedTransferredBytes = <int>[];
@@ -483,6 +636,7 @@ void main() {
         final uploadDataTask = S3UploadTask.fromAWSFile(
           testLocalFile,
           s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
@@ -568,7 +722,10 @@ void main() {
         ).thenAnswer((_) async => testUploadPartOutput3);
 
         when(
-          () => s3Client.uploadPart(any()),
+          () => s3Client.uploadPart(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
         ).thenAnswer((invocation) {
           final request =
               invocation.positionalArguments.first as s3.UploadPartRequest;
@@ -616,6 +773,7 @@ void main() {
         final uploadTask = S3UploadTask.fromAWSFile(
           testLocalFile,
           s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
@@ -673,7 +831,10 @@ void main() {
 
         // verify uploadPart calls
         final uploadPartVerification = verify(
-          () => s3Client.uploadPart(captureAny<s3.UploadPartRequest>()),
+          () => s3Client.uploadPart(
+            captureAny<s3.UploadPartRequest>(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
         )..called(3); // 11MB file creates 3 upload part requests
         final capturedUploadPartRequests = uploadPartVerification.captured;
         final partNumbers = <int>[];
@@ -739,6 +900,106 @@ void main() {
       });
 
       test(
+          'should invoke S3Client uploadPart API with correct useAcceleration parameter',
+          () async {
+        final receivedState = <S3TransferState>[];
+        void onProgress(S3TransferProgress progress) {
+          receivedState.add(progress.state);
+        }
+
+        const testUploadDataOptions = S3UploadDataOptions(
+          accessLevel: StorageAccessLevel.protected,
+          useAccelerateEndpoint: true,
+        );
+
+        final testCreateMultipartUploadOutput = s3.CreateMultipartUploadOutput(
+          uploadId: '123',
+        );
+        final createMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.CreateMultipartUploadOutput>();
+
+        when(
+          () => createMultipartUploadSmithyOperation.result,
+        ).thenAnswer((_) async => testCreateMultipartUploadOutput);
+
+        when(
+          () => s3Client.createMultipartUpload(any()),
+        ).thenAnswer((_) => createMultipartUploadSmithyOperation);
+
+        when(
+          () => transferDatabase.insertTransferRecord(any()),
+        ).thenAnswer((_) async => 1);
+
+        final testUploadPartOutput = s3.UploadPartOutput(eTag: 'eTag');
+        final uploadPartSmithyOperation =
+            MockSmithyOperation<s3.UploadPartOutput>();
+
+        when(
+          () => uploadPartSmithyOperation.result,
+        ).thenAnswer((_) async => testUploadPartOutput);
+
+        when(
+          () => s3Client.uploadPart(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
+        ).thenAnswer((_) => uploadPartSmithyOperation);
+
+        final testCompleteMultipartUploadOutput =
+            s3.CompleteMultipartUploadOutput();
+        final completeMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.CompleteMultipartUploadOutput>();
+
+        when(
+          () => completeMultipartUploadSmithyOperation.result,
+        ).thenAnswer((_) async => testCompleteMultipartUploadOutput);
+
+        when(
+          () => s3Client.completeMultipartUpload(any()),
+        ).thenAnswer((_) => completeMultipartUploadSmithyOperation);
+
+        when(
+          () => transferDatabase.deleteTransferRecords(any()),
+        ).thenAnswer((_) async => 1);
+
+        final uploadTask = S3UploadTask.fromAWSFile(
+          testLocalFile,
+          s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
+          prefixResolver: testPrefixResolver,
+          bucket: testBucket,
+          key: testKey,
+          options: testUploadDataOptions,
+          logger: logger,
+          transferDatabase: transferDatabase,
+          onProgress: onProgress,
+        );
+
+        unawaited(uploadTask.start());
+
+        await uploadTask.result;
+
+        // verify uploadPart calls
+        final uploadPartVerification = verify(
+          () => s3Client.uploadPart(
+            any(),
+            s3ClientConfig:
+                captureAny<smithy_aws.S3ClientConfig>(named: 's3ClientConfig'),
+          ),
+        )..called(3); // 11MB file creates 3 upload part requests
+
+        final capturedS3ClientConfigs = uploadPartVerification.captured;
+
+        for (final s3ClientConfig in capturedS3ClientConfigs) {
+          expect(
+            s3ClientConfig,
+            isA<smithy_aws.S3ClientConfig>()
+                .having((o) => o.useAcceleration, 'useAcceleration', true),
+          );
+        }
+      });
+
+      test(
           'should use fallback contentType header when contentType of the data'
           ' payload is not determinable', () async {
         final testLocalFileWithoutContentType = AWSFile.fromData(testBytes);
@@ -774,7 +1035,10 @@ void main() {
         ).thenAnswer((_) async => testUploadPartOutput);
 
         when(
-          () => s3Client.uploadPart(any()),
+          () => s3Client.uploadPart(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
         ).thenAnswer((invocation) => uploadPartSmithyOperation);
 
         final testCompleteMultipartUploadOutput =
@@ -797,6 +1061,7 @@ void main() {
         final uploadTask = S3UploadTask.fromAWSFile(
           testLocalFileWithoutContentType,
           s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
@@ -834,6 +1099,7 @@ void main() {
         final uploadTask = S3UploadTask.fromAWSFile(
           testBadFile,
           s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
@@ -862,6 +1128,7 @@ void main() {
         final uploadTask = S3UploadTask.fromAWSFile(
           testLocalFile,
           s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
@@ -905,6 +1172,7 @@ void main() {
         final uploadTask = S3UploadTask.fromAWSFile(
           testLocalFile,
           s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
@@ -947,6 +1215,7 @@ void main() {
         final uploadTask = S3UploadTask.fromAWSFile(
           testLocalFile,
           s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
@@ -985,7 +1254,10 @@ void main() {
         ).thenAnswer((_) async => testUploadPartOutput);
 
         when(
-          () => s3Client.uploadPart(any()),
+          () => s3Client.uploadPart(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
         ).thenAnswer((_) => uploadPartSmithyOperation);
 
         const testException = smithy.UnknownSmithyHttpException(
@@ -1024,6 +1296,7 @@ void main() {
         final uploadTask = S3UploadTask.fromAWSFile(
           testLocalFile,
           s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
@@ -1058,7 +1331,10 @@ void main() {
           body: 'Access denied!',
         );
         when(
-          () => s3Client.uploadPart(any()),
+          () => s3Client.uploadPart(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
         ).thenThrow(testException);
 
         unawaited(uploadTask.start());
@@ -1112,6 +1388,7 @@ void main() {
         final uploadTask = S3UploadTask.fromAWSFile(
           testLocalFile,
           s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
@@ -1148,7 +1425,10 @@ void main() {
           () => uploadPartSmithyOperation.result,
         ).thenAnswer((_) async => testUploadPartOutput);
         when(
-          () => s3Client.uploadPart(any()),
+          () => s3Client.uploadPart(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
         ).thenAnswer((_) => uploadPartSmithyOperation);
 
         unawaited(uploadTask.start());
@@ -1178,6 +1458,7 @@ void main() {
         final uploadTask = S3UploadTask.fromAWSFile(
           testLocalFile,
           s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
@@ -1208,7 +1489,10 @@ void main() {
 
         final testException = s3.NoSuchUpload();
         when(
-          () => s3Client.uploadPart(any()),
+          () => s3Client.uploadPart(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
         ).thenThrow(testException);
 
         unawaited(uploadTask.start());
@@ -1280,7 +1564,10 @@ void main() {
           ).thenAnswer((_) async {});
 
           when(
-            () => s3Client.uploadPart(any()),
+            () => s3Client.uploadPart(
+              any(),
+              s3ClientConfig: any(named: 's3ClientConfig'),
+            ),
           ).thenAnswer((invocation) {
             final request =
                 invocation.positionalArguments.first as s3.UploadPartRequest;
@@ -1330,6 +1617,7 @@ void main() {
           final uploadTask = S3UploadTask.fromAWSFile(
             testLocalFile,
             s3Client: s3Client,
+            defaultS3ClientConfig: defaultS3ClientConfig,
             prefixResolver: testPrefixResolver,
             bucket: testBucket,
             key: testKey,
@@ -1387,6 +1675,7 @@ void main() {
           final uploadTask = S3UploadTask.fromAWSFile(
             testLocalFile,
             s3Client: s3Client,
+            defaultS3ClientConfig: defaultS3ClientConfig,
             prefixResolver: testPrefixResolver,
             bucket: testBucket,
             key: testKey,
