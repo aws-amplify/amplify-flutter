@@ -3,5 +3,5 @@ set -eo pipefail
 
 pushd $@
 flutter pub get
-flutter test -d macos integration_test/main_test.dart
+flutter test -d macos integration_test/sign_up_test.dart
 popd
