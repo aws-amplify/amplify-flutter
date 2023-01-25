@@ -43,18 +43,22 @@ class AWSResult<T, E extends Object>
   T get value {
     switch (type) {
       case AWSResultType.success:
-        if (_value == null) {
-          // this should not happen since AWSResultType.success requires a non
-          // null value.
-          throw StateError(
-            'null value was provided for a successful AuthResult.',
-          );
-        }
+        // value will be non-null since it is required in AWSResult.success.
         return _value!;
-
       case AWSResultType.error:
         // ignore: only_throw_errors
         throw exception!;
+    }
+  }
+
+  /// The value of the result, or null if there was an error retrieving it.
+  T? get valueOrNull {
+    switch (type) {
+      case AWSResultType.success:
+        // value will be non-null since it is required in AWSResult.success.
+        return _value!;
+      case AWSResultType.error:
+        return null;
     }
   }
 
