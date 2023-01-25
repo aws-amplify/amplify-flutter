@@ -81,7 +81,6 @@ do
     elif flutter test \
         --no-pub \
         -d $deviceId \
-        -v \
         $TARGET;
     then
         resultsList+=(0)
