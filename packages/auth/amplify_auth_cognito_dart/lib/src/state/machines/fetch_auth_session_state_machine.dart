@@ -225,10 +225,10 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
     final AuthResult<String> userSubResult;
     if (userPoolTokens == null) {
       userPoolTokensResult = const AuthResult.error(
-        SignedOutException.noUserSignedIn(),
+        SignedOutException('No user is currently signed in'),
       );
       userSubResult = const AuthResult.error(
-        SignedOutException.noUserSignedIn(),
+        SignedOutException('No user is currently signed in'),
       );
     } else {
       userPoolTokensResult = AuthResult.success(
@@ -297,10 +297,10 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
         CognitoAuthSession(
           isSignedIn: userPoolTokens != null,
           userPoolTokensResult: const AuthResult.error(
-            SignedOutException.noUserSignedIn(),
+            SignedOutException('No user is currently signed in'),
           ),
           userSubResult: const AuthResult.error(
-            SignedOutException.noUserSignedIn(),
+            SignedOutException('No user is currently signed in'),
           ),
           identityIdResult: identityIdResult,
           credentialsResult: credentialsResult,
@@ -359,10 +359,10 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
         userSubResult = AuthResult.success(userPoolTokens.userId);
       } else {
         userPoolTokensResult = const AuthResult.error(
-          SignedOutException.noUserSignedIn(),
+          SignedOutException('No user is currently signed in'),
         );
         userSubResult = const AuthResult.error(
-          SignedOutException.noUserSignedIn(),
+          SignedOutException('No user is currently signed in'),
         );
       }
     }
