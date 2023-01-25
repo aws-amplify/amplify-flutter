@@ -202,16 +202,10 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
     final AuthResult<AWSCredentials> credentialsResult;
     final AuthResult<String> identityIdResult;
     if (hasIdentityPool) {
-      // awsCredentials cannot be non-null if refreshAwsCredentials is false.
+      // awsCredentials & identityId cannot be null if refreshAwsCredentials is
+      // false.
       credentialsResult = AuthResult.success(awsCredentials!);
-      final identityId = result.data.identityId;
-      identityIdResult = identityId != null
-          ? AuthResult.success(identityId)
-          : const AuthResult.error(
-              UnknownException(
-                'identityId is null, but refreshAwsCredentials was false.',
-              ),
-            );
+      identityIdResult = AuthResult.success(result.data.identityId!);
     } else {
       credentialsResult = const AuthResult.error(
         InvalidAccountTypeException.noIdentityPool(),
@@ -347,8 +341,8 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
       }
     }
 
-    var identityId = result.data.identityId;
-    var awsCredentials = result.data.awsCredentials;
+    final existingIdentityId = result.data.identityId;
+    final existingAwsCredentials = result.data.awsCredentials;
 
     final hasIdentityPool = _identityPoolConfig != null;
 
@@ -363,12 +357,12 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
       final idToken = userPoolTokens?.idToken.raw;
       try {
         final awsCredentialsResult = await _retrieveAwsCredentials(
-          existingIdentityId: identityId,
+          existingIdentityId: existingIdentityId,
           federatedIdentity:
               idToken == null ? null : _FederatedIdentity.cognito(idToken),
         );
-        identityId = awsCredentialsResult.identityId;
-        awsCredentials = awsCredentialsResult.awsCredentials;
+        final identityId = awsCredentialsResult.identityId;
+        final awsCredentials = awsCredentialsResult.awsCredentials;
         credentialsResult = AuthResult.success(awsCredentials);
         identityIdResult = AuthResult.success(identityId);
       } on Exception catch (e) {
@@ -377,20 +371,8 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
         identityIdResult = AuthResult.error(authException);
       }
     } else {
-      credentialsResult = awsCredentials != null
-          ? AuthResult.success(awsCredentials)
-          : const AuthResult.error(
-              UnknownException(
-                'awsCredentials is null, but refreshAwsCredentials was false.',
-              ),
-            );
-      identityIdResult = identityId != null
-          ? AuthResult.success(identityId)
-          : const AuthResult.error(
-              UnknownException(
-                'identityId is null, but refreshAwsCredentials was false.',
-              ),
-            );
+      credentialsResult = AuthResult.success(existingAwsCredentials!);
+      identityIdResult = AuthResult.success(existingIdentityId!);
     }
 
     dispatch(
