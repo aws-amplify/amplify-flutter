@@ -174,7 +174,6 @@ jobs:
           set -eo pipefail
 
           dart pub global activate fvm
-          fvm list
           mkdir -p $HOME/fvm/versions
           ln -fs $FLUTTER_ROOT $HOME/fvm/versions/local
 
