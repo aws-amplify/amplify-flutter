@@ -328,7 +328,7 @@ void main() async {
               getProperties: true,
               bytesRange: S3DataBytesRange(
                 start: start,
-                end: 5 * 1024 + 12,
+                end: end,
               ),
             ),
           ).result;

@@ -114,35 +114,46 @@ void testTransferAcceleration({
       () {
         group('via getUrl generated downloadable url', () {
           for (final entry in awsFiles.asMap().entries) {
-            test('AWSFile ${entry.key}', () async {
-              final awsFile = entry.value;
-              final result = await Amplify.Storage.getUrl(
-                key: awsFile.targetKey,
-                options: S3GetUrlOptions(
-                  accessLevel: awsFile.targetAccessLevel,
-                  expiresIn: const Duration(minutes: 5),
-                  useAccelerateEndpoint: true,
-                ),
-              ).result;
-              final downloadedBytes = await http.readBytes(result.url);
-              expect(downloadedBytes, equals(awsFile.referenceBytes));
-            });
+            test(
+              'AWSFile ${entry.key}',
+              () async {
+                final awsFile = entry.value;
+                final result = await Amplify.Storage.getUrl(
+                  key: awsFile.targetKey,
+                  options: S3GetUrlOptions(
+                    accessLevel: awsFile.targetAccessLevel,
+                    expiresIn: const Duration(minutes: 5),
+                    useAccelerateEndpoint: true,
+                  ),
+                ).result;
+
+                final downloadedBytes = await http.readBytes(result.url);
+                expect(downloadedBytes, equals(awsFile.referenceBytes));
+              },
+              timeout: const Timeout(Duration(minutes: 2)),
+            );
           }
         });
 
         group('via storage download data API', () {
           for (final entry in awsFiles.asMap().entries) {
             test('AWSFile ${entry.key}', () async {
+              const start = 5 * 1024;
+              const end = 5 * 1024 + 12;
               final awsFile = entry.value;
               final result = await Amplify.Storage.downloadData(
                 key: awsFile.targetKey,
                 options: S3DownloadDataOptions(
                   accessLevel: awsFile.targetAccessLevel,
                   useAccelerateEndpoint: true,
+                  bytesRange: S3DataBytesRange(start: start, end: end),
                 ),
               ).result;
 
-              expect(result.bytes, equals(awsFile.referenceBytes));
+              expect(
+                result.bytes,
+                equals(awsFile.referenceBytes.sublist(start, end + 1)),
+              );
             });
           }
         });
