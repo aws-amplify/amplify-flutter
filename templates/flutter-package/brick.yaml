@@ -30,9 +30,6 @@ vars:
   amplifyFlutterConstraint:
     type: string
     description: The current version constraint for amplify_flutter
-  androidCompileSdkVersion:
-    type: string
-    description: The current Android compileSdkVersion
   androidMinSdkVersion:
     type: string
     description: The current Android minSdkVersion
