@@ -19,6 +19,9 @@ jobs:
         sdk:
           - stable
           - beta
+        include:
+          - flutter-version: '3.3.0'
+            sdk: stable
     steps:
       - name: Git Checkout
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
@@ -31,6 +34,7 @@ jobs:
         with:
           cache: true
           channel: ${{ matrix.sdk }}
+          flutter-version: ${{ matrix.flutter-version }}
 
       - name: Setup aft
         run: flutter pub global activate -spath packages/aft

@@ -1,23 +1,19 @@
 diff --git a/pubspec.yaml b/pubspec.yaml
-index 5acda72..2123c5c 100644
+index 5acda72..2831e58 100644
 --- a/pubspec.yaml
 +++ b/pubspec.yaml
-@@ -7,8 +7,7 @@ version: 1.2.0
- homepage: https://github.com/SkinnyMind/libgit2dart
+@@ -8,7 +8,6 @@ homepage: https://github.com/SkinnyMind/libgit2dart
  
  environment:
--  sdk: ">=2.18.0 <3.0.0"
+   sdk: ">=2.18.0 <3.0.0"
 -  flutter: ">=3.3.0"
-+  sdk: ">=2.17.0 <3.0.0"
  
  dependencies:
    args: ^2.3.0
-@@ -21,17 +20,7 @@ dependencies:
- dev_dependencies:
-   ffigen: ^6.0.1
+@@ -23,16 +22,6 @@ dev_dependencies:
    lints: ^2.0.0
--  test: ^1.20.0
--
+   test: ^1.20.0
+ 
 -flutter:
 -  plugin:
 -    platforms:
@@ -27,7 +23,7 @@ index 5acda72..2123c5c 100644
 -        pluginClass: Libgit2dartPlugin
 -      windows:
 -        pluginClass: Libgit2dartPlugin
-+  test: ^1.16.0
- 
+-
  ffigen:
    output: "lib/src/bindings/libgit2_bindings.dart"
+   headers:

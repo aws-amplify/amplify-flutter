@@ -17,9 +17,7 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          # macos-latest currently points to macos-11
-          # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idruns-on
-          - macos-12
+          - macos-latest
           - windows-latest
     runs-on: ${{ matrix.os }}
     steps:
