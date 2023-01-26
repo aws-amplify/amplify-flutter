@@ -84,11 +84,8 @@ class AppComponent extends StatefulComponent {
       AuthState startingAuthState;
 
       try {
-        final session = await Amplify.Auth.fetchAuthSession(
-          options: const CognitoSessionOptions(
-            getAWSCredentials: true,
-          ),
-        ) as CognitoAuthSession;
+        final session =
+            await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
         startingAuthState =
             session.isSignedIn ? AuthState.authenticated : AuthState.login;
       } on Exception {
@@ -146,7 +143,9 @@ class AppComponent extends StatefulComponent {
 
   Future<void> _fetchUnAuthCredentials() async {
     final session = await fetchAuthSession();
-    safePrint('sessionToken : ${session.credentials?.sessionToken}');
+    safePrint(
+      'sessionToken : ${session.credentialsResult.value.sessionToken}',
+    );
   }
 
   @override

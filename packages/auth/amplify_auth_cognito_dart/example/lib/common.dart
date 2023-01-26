@@ -75,11 +75,7 @@ Future<void> changePassword({
 }
 
 Future<CognitoAuthSession> fetchAuthSession() async {
-  final res = await Amplify.Auth.fetchAuthSession(
-    options: const CognitoSessionOptions(
-      getAWSCredentials: true,
-    ),
-  );
+  final res = await Amplify.Auth.fetchAuthSession();
   return res as CognitoAuthSession;
 }
 

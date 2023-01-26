@@ -19,16 +19,6 @@ void main() {
     late AuthPluginCredentialsProviderImpl provider;
     late CognitoAuthStateMachine stateMachine;
 
-    // Performs the initial fetch so that credentials cache is hydrated.
-    Future<void> fetchAuthSession() async {
-      await stateMachine.dispatch(
-        const FetchAuthSessionEvent.fetch(
-          CognitoSessionOptions(getAWSCredentials: true),
-        ),
-      );
-      await Future<void>.delayed(Duration.zero);
-    }
-
     setUp(() async {
       stateMachine = CognitoAuthStateMachine()
         ..addBuilder<SecureStorageInterface>(MockSecureStorage.new)
@@ -54,17 +44,11 @@ void main() {
       );
     });
 
-    test('fails with no cached creds', () async {
-      expect(provider.retrieve(), throwsA(isA<InvalidStateException>()));
-    });
-
     test('handles single request', () async {
-      await fetchAuthSession();
       expect(provider.retrieve(), completion(isA<AWSCredentials>()));
     });
 
     test('handles concurrent requests', () async {
-      await fetchAuthSession();
       final allCreds = await Future.wait<AWSCredentials>(
         [
           for (var i = 0; i < 10; i++) provider.retrieve(),
@@ -84,7 +68,6 @@ void main() {
     });
 
     test('fails when fetching from within state machine', () async {
-      await fetchAuthSession();
       expect(
         runZoned(
           () => provider.retrieve(),

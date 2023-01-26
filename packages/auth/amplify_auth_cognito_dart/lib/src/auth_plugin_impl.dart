@@ -351,8 +351,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     _stateMachine.dispatch(FetchAuthSessionEvent.federate(request));
     final session = await fetchAuthSession();
     return FederateToIdentityPoolResult(
-      identityId: session.identityId!,
-      credentials: session.credentials!,
+      identityId: session.identityIdResult.value,
+      credentials: session.credentialsResult.value,
     );
   }
 
@@ -1065,9 +1065,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     if (_identityPoolConfig != null) {
       // Try to refresh AWS credentials since Cognito requests will require
       // them.
-      await fetchAuthSession(
-        options: const CognitoSessionOptions(getAWSCredentials: true),
-      );
+      await fetchAuthSession();
       if (options.globalSignOut) {
         // Revokes the refresh token
         try {
@@ -1167,11 +1165,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   @visibleForTesting
   Future<CognitoUserPoolTokens> getUserPoolTokens() async {
     final authSession = await fetchAuthSession();
-    final userPoolTokens = authSession.userPoolTokens;
-    if (userPoolTokens == null) {
-      throw const SignedOutException('No user is currently signed in');
-    }
-    return userPoolTokens;
+    return authSession.userPoolTokensResult.value;
   }
 
   @override
