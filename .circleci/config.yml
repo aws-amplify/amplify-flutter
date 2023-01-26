@@ -8,7 +8,7 @@ executors:
 
   macos-executor:
     macos:
-      xcode: 13.2
+      xcode: 14.2.0
     working_directory: ~/amplify-flutter
 
 commands:
