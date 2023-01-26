@@ -22,7 +22,6 @@ environment:
   sdk: '>=2.17.0 <4.0.0'
   flutter: '>=3.0.0'
   android:
-    compileSdkVersion: '33'
     minSdkVersion: '24'
   ios:
     minOSVersion: '13.0'

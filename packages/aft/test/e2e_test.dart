@@ -141,10 +141,7 @@ Initial version.
           environment: Environment(
             sdk: VersionConstraint.compatibleWith(Version(2, 17, 0)),
             flutter: VersionConstraint.compatibleWith(Version(3, 0, 0)),
-            android: const AndroidEnvironment(
-              compileSdkVersion: '33',
-              minSdkVersion: '24',
-            ),
+            android: const AndroidEnvironment(minSdkVersion: '24'),
             ios: const IosEnvironment(minOSVersion: '13.0'),
             macOS: const MacOSEnvironment(minOSVersion: '13.0'),
           ),
