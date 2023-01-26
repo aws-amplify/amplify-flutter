@@ -137,7 +137,7 @@ jobs:
       - install_melos
       - run:
           name: Pre-start iOS simulator
-          command: xcrun simctl boot "iPhone 13" || true
+          command: xcrun simctl boot "iPhone 14 Pro Max" || true
       - run:
           name: Build example iOS apps
           command: |

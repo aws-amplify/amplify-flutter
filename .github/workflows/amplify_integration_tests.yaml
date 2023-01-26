@@ -84,7 +84,7 @@ jobs:
 
       - name: Boot iOS Simulator
         run: |
-          xcrun simctl boot "iPhone 13"
+          xcrun simctl boot "iPhone 14 Pro Max"
 
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
