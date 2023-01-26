@@ -18,7 +18,7 @@ jobs:
       matrix:
         sdk:
           # Minimum supported Dart version
-          - 2.19.0
+          - '2.17.0'
           - stable
           - beta
         browser:
@@ -77,6 +77,6 @@ jobs:
           fi
 
       - name: Run Tests
-        if: "always() && steps.bootstrap.conclusion == 'success'"
+        if: "always() && steps.bootstrap.conclusion == 'success' && matrix.sdk != '2.17.0'"
         run: dart run build_runner test --delete-conflicting-outputs -- -p ${{ matrix.browser }} --exclude-tags=no-ddc
         working-directory: ${{ inputs.working-directory }}

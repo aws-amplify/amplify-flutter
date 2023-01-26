@@ -230,6 +230,8 @@ extension on String {
 
   String ensureEndsWith(String s) {
     if (!endsWith(s)) {
+      // TODO(dnys1): Remove when Dart >=2.19 becomes the min SDK
+      // ignore: unnecessary_brace_in_string_interps
       return '${this}$s';
     }
     return this;

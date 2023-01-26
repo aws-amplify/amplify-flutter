@@ -66,4 +66,5 @@ addlicense -l apache \
     -ignore "**/linux/runner/**" \
     -ignore "**/windows/runner/**" \
     -ignore "**/windows/flutter/**" \
+    -ignore "**/amplify/**" \
     $@ $PWD
