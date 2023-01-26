@@ -82,7 +82,7 @@ void main({bool useExistingTestUser = false}) {
           (WidgetTester tester) async {
         const name = 'Integration Test Blog to fetch';
         final blog = await addBlog(name);
-        final req = ModelQueries.get(Blog.classType, blog.id);
+        final req = ModelQueries.get(Blog.classType, blog.modelIdentifier);
         final res = await Amplify.API.query(request: req).response;
         final data = res.data;
         expect(res, hasNoGraphQLErrors);
@@ -226,7 +226,7 @@ void main({bool useExistingTestUser = false}) {
             await Amplify.API.query(request: reqThatShouldWork).response;
         expect(res, hasNoGraphQLErrors);
         expect(res.data?.name, testName);
-        await deleteBlog(res.data!.id);
+        await deleteBlog(res.data!);
       });
     });
 
@@ -314,7 +314,7 @@ void main({bool useExistingTestUser = false}) {
               ModelSubscriptions.onDelete(Blog.classType);
           final eventResponse = await establishSubscriptionAndMutate<Blog>(
             subscriptionRequest,
-            () => deleteBlog(blogToDelete.id),
+            () => deleteBlog(blogToDelete),
             eventFilter: (response) => response.data?.id == blogToDelete.id,
           );
           final blogFromEvent = eventResponse.data;
@@ -336,7 +336,7 @@ void main({bool useExistingTestUser = false}) {
           await subscription.cancel();
 
           // delete the blog, wait for update
-          await deleteBlog(blogToDelete.id);
+          await deleteBlog(blogToDelete);
           await Future<dynamic>.delayed(const Duration(seconds: 5));
         });
 

@@ -189,33 +189,33 @@ Future<Post> addPostAndBlog(
   return data;
 }
 
-Future<Blog?> deleteBlog(String id) async {
+Future<Blog?> deleteBlog(Blog blog) async {
   final request = ModelMutations.deleteById(
     Blog.classType,
-    id,
+    blog.modelIdentifier,
     authorizationMode: APIAuthorizationType.userPools,
   );
   final res = await Amplify.API.mutate(request: request).response;
   expect(res, hasNoGraphQLErrors);
-  blogCache.removeWhere((blog) => blog.id == id);
+  blogCache.removeWhere((blogFromCache) => blogFromCache.id == blog.id);
   return res.data;
 }
 
-Future<Post?> deletePost(String id) async {
+Future<Post?> deletePost(Post post) async {
   final request = ModelMutations.deleteById(
     Post.classType,
-    id,
+    post.modelIdentifier,
     authorizationMode: APIAuthorizationType.userPools,
   );
   final res = await Amplify.API.mutate(request: request).response;
   expect(res, hasNoGraphQLErrors);
-  postCache.removeWhere((post) => post.id == id);
+  postCache.removeWhere((postFromCache) => postFromCache.id == post.id);
   return res.data;
 }
 
 Future<void> deleteTestModels() async {
-  await Future.wait(blogCache.map((blog) => deleteBlog(blog.id)));
-  await Future.wait(postCache.map((post) => deletePost(post.id)));
+  await Future.wait(blogCache.map(deleteBlog));
+  await Future.wait(postCache.map(deletePost));
 }
 
 /// Wait for subscription established for given request.

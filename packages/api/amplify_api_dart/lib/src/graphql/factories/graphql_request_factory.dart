@@ -6,9 +6,9 @@ import 'package:collection/collection.dart';
 
 // ignore_for_file: public_member_api_docs
 
-/// `"id"`, the name of the id field in every compatible model/schema.
-/// Eventually needs to be dynamic to accommodate custom primary keys.
-const idFieldName = 'id';
+/// `"id"`, the name of the id field when a primary key not specified in schema
+/// with `@primaryKey` annotation.
+const _defaultIdFieldName = 'id';
 
 class DocumentInputs {
   const DocumentInputs(this.upper, this.lower);
@@ -230,14 +230,14 @@ class GraphQLRequestFactory {
     // e.g. { 'name': { 'eq': 'foo }}
     if (queryPredicate is QueryPredicateOperation) {
       final association = schema.fields?[queryPredicate.field]?.association;
-      // TODO(ragingsquirrel3): Change key logic when supporting CPK.
       final associatedTargetName =
           association?.targetNames?.first ?? association?.targetName;
       var fieldName = queryPredicate.field;
       if (queryPredicate.field ==
-          '${_lowerCaseFirstCharacter(schema.name)}.$idFieldName') {
-        // check for the IDs where fieldName set to e.g. "blog.id" and convert to "id"
-        fieldName = idFieldName;
+          '${_lowerCaseFirstCharacter(schema.name)}.$_defaultIdFieldName') {
+        // Check for the IDs where fieldName set to e.g. "blog.id" and convert to "id".
+        // This is only needed in older codegen files (without custom primary key).
+        fieldName = _defaultIdFieldName;
       } else if (associatedTargetName != null) {
         // when querying for the ID of another model, use the targetName from the schema
         fieldName = associatedTargetName;
@@ -308,11 +308,24 @@ class GraphQLRequestFactory {
     final allBelongsTo = getBelongsToFieldsFromModelSchema(schema);
     for (final belongsTo in allBelongsTo) {
       final belongsToModelName = belongsTo.name;
-      // TODO(ragingsquirrel3): Change key logic when supporting CPK.
       final belongsToKey = belongsTo.association?.targetNames?.first ??
           belongsTo.association?.targetName;
-      final belongsToValue =
-          (modelJson[belongsToModelName] as Map?)?[idFieldName] as String?;
+
+      // Get the primary key field name from parent schema so it can be taken from
+      // JSON. For schemas with `@primaryKey` defined, it will be the first key in
+      // the index where name is null. If no such definition in schema, use
+      // default primary key "id."
+      final parentSchema = getModelSchemaByModelName(
+        belongsTo.type.ofModelName!,
+        operation,
+      );
+      final primaryKeyIndex = parentSchema.indexes?.firstWhereOrNull(
+        (modelIndex) => modelIndex.name == null,
+      );
+      final parentIdFieldName =
+          primaryKeyIndex?.fields.first ?? _defaultIdFieldName;
+      final belongsToValue = (modelJson[belongsToModelName]
+          as Map?)?[parentIdFieldName] as String?;
 
       // Assign the parent ID if the model has a parent.
       if (belongsToKey != null) {

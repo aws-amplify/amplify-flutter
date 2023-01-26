@@ -12,13 +12,13 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/// This is an auto generated class representing the Comment type in your schema.
+/// This is an auto generated class representing the PostTags type in your schema.
 @immutable
-class Comment extends Model {
-  static const classType = _CommentModelType();
+class PostTags extends Model {
+  static const classType = _PostTagsModelType();
   final String id;
   final Post? _post;
-  final String? _content;
+  final Tag? _tag;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -30,17 +30,26 @@ class Comment extends Model {
   @override
   String getId() => id;
 
-  CommentModelIdentifier get modelIdentifier {
-    return CommentModelIdentifier(id: id);
+  PostTagsModelIdentifier get modelIdentifier {
+    return PostTagsModelIdentifier(id: id);
   }
 
-  Post? get post {
-    return _post;
-  }
-
-  String get content {
+  Post get post {
     try {
-      return _content!;
+      return _post!;
+    } catch (e) {
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
+  }
+
+  Tag get tag {
+    try {
+      return _tag!;
     } catch (e) {
       throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
@@ -59,16 +68,16 @@ class Comment extends Model {
     return _updatedAt;
   }
 
-  const Comment._internal(
-      {required this.id, post, required content, createdAt, updatedAt})
+  const PostTags._internal(
+      {required this.id, required post, required tag, createdAt, updatedAt})
       : _post = post,
-        _content = content,
+        _tag = tag,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory Comment({String? id, Post? post, required String content}) {
-    return Comment._internal(
-        id: id == null ? UUID.getUUID() : id, post: post, content: content);
+  factory PostTags({String? id, required Post post, required Tag tag}) {
+    return PostTags._internal(
+        id: id == null ? UUID.getUUID() : id, post: post, tag: tag);
   }
 
   bool equals(Object other) {
@@ -78,10 +87,10 @@ class Comment extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Comment &&
+    return other is PostTags &&
         id == other.id &&
         _post == other._post &&
-        _content == other._content;
+        _tag == other._tag;
   }
 
   @override
@@ -91,10 +100,10 @@ class Comment extends Model {
   String toString() {
     var buffer = StringBuffer();
 
-    buffer.write("Comment {");
+    buffer.write("PostTags {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("post=" + (_post != null ? _post!.toString() : "null") + ", ");
-    buffer.write("content=" + "$_content" + ", ");
+    buffer.write("tag=" + (_tag != null ? _tag!.toString() : "null") + ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -105,18 +114,21 @@ class Comment extends Model {
     return buffer.toString();
   }
 
-  Comment copyWith({Post? post, String? content}) {
-    return Comment._internal(
-        id: id, post: post ?? this.post, content: content ?? this.content);
+  PostTags copyWith({Post? post, Tag? tag}) {
+    return PostTags._internal(
+        id: id, post: post ?? this.post, tag: tag ?? this.tag);
   }
 
-  Comment.fromJson(Map<String, dynamic> json)
+  PostTags.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _post = json['post']?['serializedData'] != null
             ? Post.fromJson(
                 Map<String, dynamic>.from(json['post']['serializedData']))
             : null,
-        _content = json['content'],
+        _tag = json['tag']?['serializedData'] != null
+            ? Tag.fromJson(
+                Map<String, dynamic>.from(json['tag']['serializedData']))
+            : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -127,40 +139,45 @@ class Comment extends Model {
   Map<String, dynamic> toJson() => {
         'id': id,
         'post': _post?.toJson(),
-        'content': _content,
+        'tag': _tag?.toJson(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryModelIdentifier<CommentModelIdentifier> MODEL_IDENTIFIER =
-      QueryModelIdentifier<CommentModelIdentifier>();
+  static final QueryModelIdentifier<PostTagsModelIdentifier> MODEL_IDENTIFIER =
+      QueryModelIdentifier<PostTagsModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField POST = QueryField(
       fieldName: "post",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
           ofModelName: (Post).toString()));
-  static final QueryField CONTENT = QueryField(fieldName: "content");
+  static final QueryField TAG = QueryField(
+      fieldName: "tag",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (Tag).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Comment";
-    modelSchemaDefinition.pluralName = "Comments";
+    modelSchemaDefinition.name = "PostTags";
+    modelSchemaDefinition.pluralName = "PostTags";
 
     modelSchemaDefinition.indexes = [
-      ModelIndex(fields: const ["postID", "content"], name: "byPost")
+      ModelIndex(fields: const ["postId"], name: "byPost"),
+      ModelIndex(fields: const ["tagId"], name: "byTag")
     ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-        key: Comment.POST,
-        isRequired: false,
-        targetNames: ["postID"],
+        key: PostTags.POST,
+        isRequired: true,
+        targetNames: ["postId"],
         ofModelName: (Post).toString()));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Comment.CONTENT,
+    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
+        key: PostTags.TAG,
         isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        targetNames: ["tagId"],
+        ofModelName: (Tag).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -176,23 +193,23 @@ class Comment extends Model {
   });
 }
 
-class _CommentModelType extends ModelType<Comment> {
-  const _CommentModelType();
+class _PostTagsModelType extends ModelType<PostTags> {
+  const _PostTagsModelType();
 
   @override
-  Comment fromJson(Map<String, dynamic> jsonData) {
-    return Comment.fromJson(jsonData);
+  PostTags fromJson(Map<String, dynamic> jsonData) {
+    return PostTags.fromJson(jsonData);
   }
 }
 
 /// This is an auto generated class representing the model identifier
-/// of [Comment] in your schema.
+/// of [PostTags] in your schema.
 @immutable
-class CommentModelIdentifier implements ModelIdentifier<Comment> {
+class PostTagsModelIdentifier implements ModelIdentifier<PostTags> {
   final String id;
 
-  /// Create an instance of CommentModelIdentifier using [id] the primary key.
-  const CommentModelIdentifier({required this.id});
+  /// Create an instance of PostTagsModelIdentifier using [id] the primary key.
+  const PostTagsModelIdentifier({required this.id});
 
   @override
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
@@ -207,7 +224,7 @@ class CommentModelIdentifier implements ModelIdentifier<Comment> {
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() => 'CommentModelIdentifier(id: $id)';
+  String toString() => 'PostTagsModelIdentifier(id: $id)';
 
   @override
   bool operator ==(Object other) {
@@ -215,7 +232,7 @@ class CommentModelIdentifier implements ModelIdentifier<Comment> {
       return true;
     }
 
-    return other is CommentModelIdentifier && id == other.id;
+    return other is PostTagsModelIdentifier && id == other.id;
   }
 
   @override

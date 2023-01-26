@@ -5,20 +5,17 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
+// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
+
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
-// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
-
-import 'ModelProvider.dart';
-
-/// This is an auto generated class representing the Comment type in your schema.
+/// This is an auto generated class representing the HasOneChild type in your schema.
 @immutable
-class Comment extends Model {
-  static const classType = _CommentModelType();
+class HasOneChild extends Model {
+  static const classType = _HasOneChildModelType();
   final String id;
-  final Post? _post;
-  final String? _content;
+  final String? _name;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -30,25 +27,12 @@ class Comment extends Model {
   @override
   String getId() => id;
 
-  CommentModelIdentifier get modelIdentifier {
-    return CommentModelIdentifier(id: id);
+  HasOneChildModelIdentifier get modelIdentifier {
+    return HasOneChildModelIdentifier(id: id);
   }
 
-  Post? get post {
-    return _post;
-  }
-
-  String get content {
-    try {
-      return _content!;
-    } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
-    }
+  String? get name {
+    return _name;
   }
 
   TemporalDateTime? get createdAt {
@@ -59,16 +43,14 @@ class Comment extends Model {
     return _updatedAt;
   }
 
-  const Comment._internal(
-      {required this.id, post, required content, createdAt, updatedAt})
-      : _post = post,
-        _content = content,
+  const HasOneChild._internal({required this.id, name, createdAt, updatedAt})
+      : _name = name,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory Comment({String? id, Post? post, required String content}) {
-    return Comment._internal(
-        id: id == null ? UUID.getUUID() : id, post: post, content: content);
+  factory HasOneChild({String? id, String? name}) {
+    return HasOneChild._internal(
+        id: id == null ? UUID.getUUID() : id, name: name);
   }
 
   bool equals(Object other) {
@@ -78,10 +60,7 @@ class Comment extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Comment &&
-        id == other.id &&
-        _post == other._post &&
-        _content == other._content;
+    return other is HasOneChild && id == other.id && _name == other._name;
   }
 
   @override
@@ -91,10 +70,9 @@ class Comment extends Model {
   String toString() {
     var buffer = StringBuffer();
 
-    buffer.write("Comment {");
+    buffer.write("HasOneChild {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("post=" + (_post != null ? _post!.toString() : "null") + ", ");
-    buffer.write("content=" + "$_content" + ", ");
+    buffer.write("name=" + "$_name" + ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -105,18 +83,13 @@ class Comment extends Model {
     return buffer.toString();
   }
 
-  Comment copyWith({Post? post, String? content}) {
-    return Comment._internal(
-        id: id, post: post ?? this.post, content: content ?? this.content);
+  HasOneChild copyWith({String? name}) {
+    return HasOneChild._internal(id: id, name: name ?? this.name);
   }
 
-  Comment.fromJson(Map<String, dynamic> json)
+  HasOneChild.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _post = json['post']?['serializedData'] != null
-            ? Post.fromJson(
-                Map<String, dynamic>.from(json['post']['serializedData']))
-            : null,
-        _content = json['content'],
+        _name = json['name'],
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -126,40 +99,25 @@ class Comment extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'post': _post?.toJson(),
-        'content': _content,
+        'name': _name,
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryModelIdentifier<CommentModelIdentifier> MODEL_IDENTIFIER =
-      QueryModelIdentifier<CommentModelIdentifier>();
+  static final QueryModelIdentifier<HasOneChildModelIdentifier>
+      MODEL_IDENTIFIER = QueryModelIdentifier<HasOneChildModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField POST = QueryField(
-      fieldName: "post",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (Post).toString()));
-  static final QueryField CONTENT = QueryField(fieldName: "content");
+  static final QueryField NAME = QueryField(fieldName: "name");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Comment";
-    modelSchemaDefinition.pluralName = "Comments";
-
-    modelSchemaDefinition.indexes = [
-      ModelIndex(fields: const ["postID", "content"], name: "byPost")
-    ];
+    modelSchemaDefinition.name = "HasOneChild";
+    modelSchemaDefinition.pluralName = "HasOneChildren";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-        key: Comment.POST,
-        isRequired: false,
-        targetNames: ["postID"],
-        ofModelName: (Post).toString()));
-
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Comment.CONTENT,
-        isRequired: true,
+        key: HasOneChild.NAME,
+        isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
@@ -176,23 +134,23 @@ class Comment extends Model {
   });
 }
 
-class _CommentModelType extends ModelType<Comment> {
-  const _CommentModelType();
+class _HasOneChildModelType extends ModelType<HasOneChild> {
+  const _HasOneChildModelType();
 
   @override
-  Comment fromJson(Map<String, dynamic> jsonData) {
-    return Comment.fromJson(jsonData);
+  HasOneChild fromJson(Map<String, dynamic> jsonData) {
+    return HasOneChild.fromJson(jsonData);
   }
 }
 
 /// This is an auto generated class representing the model identifier
-/// of [Comment] in your schema.
+/// of [HasOneChild] in your schema.
 @immutable
-class CommentModelIdentifier implements ModelIdentifier<Comment> {
+class HasOneChildModelIdentifier implements ModelIdentifier<HasOneChild> {
   final String id;
 
-  /// Create an instance of CommentModelIdentifier using [id] the primary key.
-  const CommentModelIdentifier({required this.id});
+  /// Create an instance of HasOneChildModelIdentifier using [id] the primary key.
+  const HasOneChildModelIdentifier({required this.id});
 
   @override
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
@@ -207,7 +165,7 @@ class CommentModelIdentifier implements ModelIdentifier<Comment> {
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() => 'CommentModelIdentifier(id: $id)';
+  String toString() => 'HasOneChildModelIdentifier(id: $id)';
 
   @override
   bool operator ==(Object other) {
@@ -215,7 +173,7 @@ class CommentModelIdentifier implements ModelIdentifier<Comment> {
       return true;
     }
 
-    return other is CommentModelIdentifier && id == other.id;
+    return other is HasOneChildModelIdentifier && id == other.id;
   }
 
   @override

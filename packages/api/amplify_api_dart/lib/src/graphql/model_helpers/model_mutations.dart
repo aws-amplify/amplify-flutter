@@ -53,16 +53,19 @@ class ModelMutations {
     );
   }
 
-  /// Generates a request to delete a model by ID.
+  /// Generates a request to delete a model by [ModelIdentifier].
   ///
   /// ```dart
-  /// final request = ModelMutations.deleteById(Todo.classType, 'some-todo-id-123');
+  /// final request = ModelMutations.deleteById(
+  ///   Todo.classType,
+  ///   TodoModelIdentifier(id: 'some-todo-id-123'),
+  /// );
   /// ```
   ///
   /// An optional `where` parameter can be supplied as a condition for the deletion to be evaluated on the server.
   static GraphQLRequest<T> deleteById<T extends Model>(
     ModelType<T> modelType,
-    String id, {
+    ModelIdentifier<T> modelIdentifier, {
     QueryPredicate? where,
     String? apiName,
     APIAuthorizationType? authorizationMode,
@@ -70,7 +73,7 @@ class ModelMutations {
   }) {
     return ModelMutationsFactory.instance.deleteById<T>(
       modelType,
-      id,
+      modelIdentifier,
       where: where,
       apiName: apiName,
       authorizationMode: authorizationMode,

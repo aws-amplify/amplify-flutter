@@ -13,13 +13,13 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/// This is an auto generated class representing the Blog type in your schema.
+/// This is an auto generated class representing the HasManyParentBiDirectionalImplicit type in your schema.
 @immutable
-class Blog extends Model {
-  static const classType = _BlogModelType();
+class HasManyParentBiDirectionalImplicit extends Model {
+  static const classType = _HasManyParentBiDirectionalImplicitModelType();
   final String id;
   final String? _name;
-  final List<Post>? _posts;
+  final List<HasManyChildBiDirectionalImplicit>? _biDirectionalImplicitChildren;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -31,25 +31,16 @@ class Blog extends Model {
   @override
   String getId() => id;
 
-  BlogModelIdentifier get modelIdentifier {
-    return BlogModelIdentifier(id: id);
+  HasManyParentBiDirectionalImplicitModelIdentifier get modelIdentifier {
+    return HasManyParentBiDirectionalImplicitModelIdentifier(id: id);
   }
 
-  String get name {
-    try {
-      return _name!;
-    } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
-    }
+  String? get name {
+    return _name;
   }
 
-  List<Post>? get posts {
-    return _posts;
+  List<HasManyChildBiDirectionalImplicit>? get biDirectionalImplicitChildren {
+    return _biDirectionalImplicitChildren;
   }
 
   TemporalDateTime? get createdAt {
@@ -60,18 +51,28 @@ class Blog extends Model {
     return _updatedAt;
   }
 
-  const Blog._internal(
-      {required this.id, required name, posts, createdAt, updatedAt})
+  const HasManyParentBiDirectionalImplicit._internal(
+      {required this.id,
+      name,
+      biDirectionalImplicitChildren,
+      createdAt,
+      updatedAt})
       : _name = name,
-        _posts = posts,
+        _biDirectionalImplicitChildren = biDirectionalImplicitChildren,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory Blog({String? id, required String name, List<Post>? posts}) {
-    return Blog._internal(
+  factory HasManyParentBiDirectionalImplicit(
+      {String? id,
+      String? name,
+      List<HasManyChildBiDirectionalImplicit>? biDirectionalImplicitChildren}) {
+    return HasManyParentBiDirectionalImplicit._internal(
         id: id == null ? UUID.getUUID() : id,
         name: name,
-        posts: posts != null ? List<Post>.unmodifiable(posts) : posts);
+        biDirectionalImplicitChildren: biDirectionalImplicitChildren != null
+            ? List<HasManyChildBiDirectionalImplicit>.unmodifiable(
+                biDirectionalImplicitChildren)
+            : biDirectionalImplicitChildren);
   }
 
   bool equals(Object other) {
@@ -81,10 +82,11 @@ class Blog extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Blog &&
+    return other is HasManyParentBiDirectionalImplicit &&
         id == other.id &&
         _name == other._name &&
-        DeepCollectionEquality().equals(_posts, other._posts);
+        DeepCollectionEquality().equals(_biDirectionalImplicitChildren,
+            other._biDirectionalImplicitChildren);
   }
 
   @override
@@ -94,7 +96,7 @@ class Blog extends Model {
   String toString() {
     var buffer = StringBuffer();
 
-    buffer.write("Blog {");
+    buffer.write("HasManyParentBiDirectionalImplicit {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("createdAt=" +
@@ -107,21 +109,27 @@ class Blog extends Model {
     return buffer.toString();
   }
 
-  Blog copyWith({String? name, List<Post>? posts}) {
-    return Blog._internal(
-        id: id, name: name ?? this.name, posts: posts ?? this.posts);
+  HasManyParentBiDirectionalImplicit copyWith(
+      {String? name,
+      List<HasManyChildBiDirectionalImplicit>? biDirectionalImplicitChildren}) {
+    return HasManyParentBiDirectionalImplicit._internal(
+        id: id,
+        name: name ?? this.name,
+        biDirectionalImplicitChildren: biDirectionalImplicitChildren ??
+            this.biDirectionalImplicitChildren);
   }
 
-  Blog.fromJson(Map<String, dynamic> json)
+  HasManyParentBiDirectionalImplicit.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
-        _posts = json['posts'] is List
-            ? (json['posts'] as List)
-                .where((e) => e?['serializedData'] != null)
-                .map((e) => Post.fromJson(
-                    Map<String, dynamic>.from(e['serializedData'])))
-                .toList()
-            : null,
+        _biDirectionalImplicitChildren =
+            json['biDirectionalImplicitChildren'] is List
+                ? (json['biDirectionalImplicitChildren'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => HasManyChildBiDirectionalImplicit.fromJson(
+                        Map<String, dynamic>.from(e['serializedData'])))
+                    .toList()
+                : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -132,36 +140,39 @@ class Blog extends Model {
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': _name,
-        'posts': _posts?.map((Post? e) => e?.toJson()).toList(),
+        'biDirectionalImplicitChildren': _biDirectionalImplicitChildren
+            ?.map((HasManyChildBiDirectionalImplicit? e) => e?.toJson())
+            .toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryModelIdentifier<BlogModelIdentifier> MODEL_IDENTIFIER =
-      QueryModelIdentifier<BlogModelIdentifier>();
+  static final QueryModelIdentifier<
+          HasManyParentBiDirectionalImplicitModelIdentifier> MODEL_IDENTIFIER =
+      QueryModelIdentifier<HasManyParentBiDirectionalImplicitModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
-  static final QueryField POSTS = QueryField(
-      fieldName: "posts",
+  static final QueryField BIDIRECTIONALIMPLICITCHILDREN = QueryField(
+      fieldName: "biDirectionalImplicitChildren",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (Post).toString()));
+          ofModelName: (HasManyChildBiDirectionalImplicit).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Blog";
-    modelSchemaDefinition.pluralName = "Blogs";
+    modelSchemaDefinition.name = "HasManyParentBiDirectionalImplicit";
+    modelSchemaDefinition.pluralName = "HasManyParentBiDirectionalImplicits";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Blog.NAME,
-        isRequired: true,
+        key: HasManyParentBiDirectionalImplicit.NAME,
+        isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-        key: Blog.POSTS,
+        key: HasManyParentBiDirectionalImplicit.BIDIRECTIONALIMPLICITCHILDREN,
         isRequired: false,
-        ofModelName: (Post).toString(),
-        associatedKey: Post.BLOG));
+        ofModelName: (HasManyChildBiDirectionalImplicit).toString(),
+        associatedKey: HasManyChildBiDirectionalImplicit.HASMANYPARENT));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -177,23 +188,25 @@ class Blog extends Model {
   });
 }
 
-class _BlogModelType extends ModelType<Blog> {
-  const _BlogModelType();
+class _HasManyParentBiDirectionalImplicitModelType
+    extends ModelType<HasManyParentBiDirectionalImplicit> {
+  const _HasManyParentBiDirectionalImplicitModelType();
 
   @override
-  Blog fromJson(Map<String, dynamic> jsonData) {
-    return Blog.fromJson(jsonData);
+  HasManyParentBiDirectionalImplicit fromJson(Map<String, dynamic> jsonData) {
+    return HasManyParentBiDirectionalImplicit.fromJson(jsonData);
   }
 }
 
 /// This is an auto generated class representing the model identifier
-/// of [Blog] in your schema.
+/// of [HasManyParentBiDirectionalImplicit] in your schema.
 @immutable
-class BlogModelIdentifier implements ModelIdentifier<Blog> {
+class HasManyParentBiDirectionalImplicitModelIdentifier
+    implements ModelIdentifier<HasManyParentBiDirectionalImplicit> {
   final String id;
 
-  /// Create an instance of BlogModelIdentifier using [id] the primary key.
-  const BlogModelIdentifier({required this.id});
+  /// Create an instance of HasManyParentBiDirectionalImplicitModelIdentifier using [id] the primary key.
+  const HasManyParentBiDirectionalImplicitModelIdentifier({required this.id});
 
   @override
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
@@ -208,7 +221,8 @@ class BlogModelIdentifier implements ModelIdentifier<Blog> {
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() => 'BlogModelIdentifier(id: $id)';
+  String toString() =>
+      'HasManyParentBiDirectionalImplicitModelIdentifier(id: $id)';
 
   @override
   bool operator ==(Object other) {
@@ -216,7 +230,8 @@ class BlogModelIdentifier implements ModelIdentifier<Blog> {
       return true;
     }
 
-    return other is BlogModelIdentifier && id == other.id;
+    return other is HasManyParentBiDirectionalImplicitModelIdentifier &&
+        id == other.id;
   }
 
   @override

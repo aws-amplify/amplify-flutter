@@ -6,7 +6,7 @@
 import 'package:amplify_api_dart/src/graphql/factories/graphql_request_factory.dart';
 import 'package:amplify_core/amplify_core.dart';
 
-class ModelQueriesFactory extends ModelQueriesInterface {
+class ModelQueriesFactory {
   // Singleton methods/properties
   // usage: ModelQueriesFactory.instance;
   ModelQueriesFactory._();
@@ -15,15 +15,14 @@ class ModelQueriesFactory extends ModelQueriesInterface {
 
   static ModelQueriesFactory get instance => _instance;
 
-  @override
   GraphQLRequest<T> get<T extends Model>(
     ModelType<T> modelType,
-    String id, {
+    ModelIdentifier<T> modelIdentifier, {
     String? apiName,
     APIAuthorizationType? authorizationMode,
     Map<String, String>? headers,
   }) {
-    final variables = {idFieldName: id};
+    final variables = modelIdentifier.serializeAsMap();
     return GraphQLRequestFactory.instance.buildRequest<T>(
       modelType: modelType,
       variables: variables,
@@ -35,7 +34,6 @@ class ModelQueriesFactory extends ModelQueriesInterface {
     );
   }
 
-  @override
   GraphQLRequest<PaginatedResult<T>> list<T extends Model>(
     ModelType<T> modelType, {
     int? limit,

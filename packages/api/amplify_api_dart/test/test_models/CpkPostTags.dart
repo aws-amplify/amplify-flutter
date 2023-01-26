@@ -12,13 +12,13 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/// This is an auto generated class representing the Comment type in your schema.
+/// This is an auto generated class representing the CpkPostTags type in your schema.
 @immutable
-class Comment extends Model {
-  static const classType = _CommentModelType();
+class CpkPostTags extends Model {
+  static const classType = _CpkPostTagsModelType();
   final String id;
-  final Post? _post;
-  final String? _content;
+  final CpkManyToManyPost? _cpkManyToManyPost;
+  final CpkManyToManyTag? _cpkManyToManyTag;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -30,17 +30,26 @@ class Comment extends Model {
   @override
   String getId() => id;
 
-  CommentModelIdentifier get modelIdentifier {
-    return CommentModelIdentifier(id: id);
+  CpkPostTagsModelIdentifier get modelIdentifier {
+    return CpkPostTagsModelIdentifier(id: id);
   }
 
-  Post? get post {
-    return _post;
-  }
-
-  String get content {
+  CpkManyToManyPost get cpkManyToManyPost {
     try {
-      return _content!;
+      return _cpkManyToManyPost!;
+    } catch (e) {
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
+  }
+
+  CpkManyToManyTag get cpkManyToManyTag {
+    try {
+      return _cpkManyToManyTag!;
     } catch (e) {
       throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
@@ -59,16 +68,25 @@ class Comment extends Model {
     return _updatedAt;
   }
 
-  const Comment._internal(
-      {required this.id, post, required content, createdAt, updatedAt})
-      : _post = post,
-        _content = content,
+  const CpkPostTags._internal(
+      {required this.id,
+      required cpkManyToManyPost,
+      required cpkManyToManyTag,
+      createdAt,
+      updatedAt})
+      : _cpkManyToManyPost = cpkManyToManyPost,
+        _cpkManyToManyTag = cpkManyToManyTag,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory Comment({String? id, Post? post, required String content}) {
-    return Comment._internal(
-        id: id == null ? UUID.getUUID() : id, post: post, content: content);
+  factory CpkPostTags(
+      {String? id,
+      required CpkManyToManyPost cpkManyToManyPost,
+      required CpkManyToManyTag cpkManyToManyTag}) {
+    return CpkPostTags._internal(
+        id: id == null ? UUID.getUUID() : id,
+        cpkManyToManyPost: cpkManyToManyPost,
+        cpkManyToManyTag: cpkManyToManyTag);
   }
 
   bool equals(Object other) {
@@ -78,10 +96,10 @@ class Comment extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Comment &&
+    return other is CpkPostTags &&
         id == other.id &&
-        _post == other._post &&
-        _content == other._content;
+        _cpkManyToManyPost == other._cpkManyToManyPost &&
+        _cpkManyToManyTag == other._cpkManyToManyTag;
   }
 
   @override
@@ -91,10 +109,14 @@ class Comment extends Model {
   String toString() {
     var buffer = StringBuffer();
 
-    buffer.write("Comment {");
+    buffer.write("CpkPostTags {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("post=" + (_post != null ? _post!.toString() : "null") + ", ");
-    buffer.write("content=" + "$_content" + ", ");
+    buffer.write("cpkManyToManyPost=" +
+        (_cpkManyToManyPost != null ? _cpkManyToManyPost!.toString() : "null") +
+        ", ");
+    buffer.write("cpkManyToManyTag=" +
+        (_cpkManyToManyTag != null ? _cpkManyToManyTag!.toString() : "null") +
+        ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -105,18 +127,26 @@ class Comment extends Model {
     return buffer.toString();
   }
 
-  Comment copyWith({Post? post, String? content}) {
-    return Comment._internal(
-        id: id, post: post ?? this.post, content: content ?? this.content);
+  CpkPostTags copyWith(
+      {CpkManyToManyPost? cpkManyToManyPost,
+      CpkManyToManyTag? cpkManyToManyTag}) {
+    return CpkPostTags._internal(
+        id: id,
+        cpkManyToManyPost: cpkManyToManyPost ?? this.cpkManyToManyPost,
+        cpkManyToManyTag: cpkManyToManyTag ?? this.cpkManyToManyTag);
   }
 
-  Comment.fromJson(Map<String, dynamic> json)
+  CpkPostTags.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _post = json['post']?['serializedData'] != null
-            ? Post.fromJson(
-                Map<String, dynamic>.from(json['post']['serializedData']))
+        _cpkManyToManyPost =
+            json['cpkManyToManyPost']?['serializedData'] != null
+                ? CpkManyToManyPost.fromJson(Map<String, dynamic>.from(
+                    json['cpkManyToManyPost']['serializedData']))
+                : null,
+        _cpkManyToManyTag = json['cpkManyToManyTag']?['serializedData'] != null
+            ? CpkManyToManyTag.fromJson(Map<String, dynamic>.from(
+                json['cpkManyToManyTag']['serializedData']))
             : null,
-        _content = json['content'],
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -126,41 +156,49 @@ class Comment extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'post': _post?.toJson(),
-        'content': _content,
+        'cpkManyToManyPost': _cpkManyToManyPost?.toJson(),
+        'cpkManyToManyTag': _cpkManyToManyTag?.toJson(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryModelIdentifier<CommentModelIdentifier> MODEL_IDENTIFIER =
-      QueryModelIdentifier<CommentModelIdentifier>();
+  static final QueryModelIdentifier<CpkPostTagsModelIdentifier>
+      MODEL_IDENTIFIER = QueryModelIdentifier<CpkPostTagsModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField POST = QueryField(
-      fieldName: "post",
+  static final QueryField CPKMANYTOMANYPOST = QueryField(
+      fieldName: "cpkManyToManyPost",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (Post).toString()));
-  static final QueryField CONTENT = QueryField(fieldName: "content");
+          ofModelName: (CpkManyToManyPost).toString()));
+  static final QueryField CPKMANYTOMANYTAG = QueryField(
+      fieldName: "cpkManyToManyTag",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (CpkManyToManyTag).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Comment";
-    modelSchemaDefinition.pluralName = "Comments";
+    modelSchemaDefinition.name = "CpkPostTags";
+    modelSchemaDefinition.pluralName = "CpkPostTags";
 
     modelSchemaDefinition.indexes = [
-      ModelIndex(fields: const ["postID", "content"], name: "byPost")
+      ModelIndex(
+          fields: const ["cpkManyToManyPostId"], name: "byCpkManyToManyPost"),
+      ModelIndex(
+          fields: const ["cpkManyToManyTagId", "cpkManyToManyTaglabel"],
+          name: "byCpkManyToManyTag")
     ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-        key: Comment.POST,
-        isRequired: false,
-        targetNames: ["postID"],
-        ofModelName: (Post).toString()));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Comment.CONTENT,
+        key: CpkPostTags.CPKMANYTOMANYPOST,
         isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        targetNames: ["cpkManyToManyPostId"],
+        ofModelName: (CpkManyToManyPost).toString()));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
+        key: CpkPostTags.CPKMANYTOMANYTAG,
+        isRequired: true,
+        targetNames: ["cpkManyToManyTagId", "cpkManyToManyTaglabel"],
+        ofModelName: (CpkManyToManyTag).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -176,23 +214,23 @@ class Comment extends Model {
   });
 }
 
-class _CommentModelType extends ModelType<Comment> {
-  const _CommentModelType();
+class _CpkPostTagsModelType extends ModelType<CpkPostTags> {
+  const _CpkPostTagsModelType();
 
   @override
-  Comment fromJson(Map<String, dynamic> jsonData) {
-    return Comment.fromJson(jsonData);
+  CpkPostTags fromJson(Map<String, dynamic> jsonData) {
+    return CpkPostTags.fromJson(jsonData);
   }
 }
 
 /// This is an auto generated class representing the model identifier
-/// of [Comment] in your schema.
+/// of [CpkPostTags] in your schema.
 @immutable
-class CommentModelIdentifier implements ModelIdentifier<Comment> {
+class CpkPostTagsModelIdentifier implements ModelIdentifier<CpkPostTags> {
   final String id;
 
-  /// Create an instance of CommentModelIdentifier using [id] the primary key.
-  const CommentModelIdentifier({required this.id});
+  /// Create an instance of CpkPostTagsModelIdentifier using [id] the primary key.
+  const CpkPostTagsModelIdentifier({required this.id});
 
   @override
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
@@ -207,7 +245,7 @@ class CommentModelIdentifier implements ModelIdentifier<Comment> {
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() => 'CommentModelIdentifier(id: $id)';
+  String toString() => 'CpkPostTagsModelIdentifier(id: $id)';
 
   @override
   bool operator ==(Object other) {
@@ -215,7 +253,7 @@ class CommentModelIdentifier implements ModelIdentifier<Comment> {
       return true;
     }
 
-    return other is CommentModelIdentifier && id == other.id;
+    return other is CpkPostTagsModelIdentifier && id == other.id;
   }
 
   @override

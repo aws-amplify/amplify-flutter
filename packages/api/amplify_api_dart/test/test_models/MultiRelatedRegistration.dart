@@ -12,13 +12,13 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/// This is an auto generated class representing the Comment type in your schema.
+/// This is an auto generated class representing the MultiRelatedRegistration type in your schema.
 @immutable
-class Comment extends Model {
-  static const classType = _CommentModelType();
+class MultiRelatedRegistration extends Model {
+  static const classType = _MultiRelatedRegistrationModelType();
   final String id;
-  final Post? _post;
-  final String? _content;
+  final MultiRelatedMeeting? _meeting;
+  final MultiRelatedAttendee? _attendee;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -30,17 +30,26 @@ class Comment extends Model {
   @override
   String getId() => id;
 
-  CommentModelIdentifier get modelIdentifier {
-    return CommentModelIdentifier(id: id);
+  MultiRelatedRegistrationModelIdentifier get modelIdentifier {
+    return MultiRelatedRegistrationModelIdentifier(id: id);
   }
 
-  Post? get post {
-    return _post;
-  }
-
-  String get content {
+  MultiRelatedMeeting get meeting {
     try {
-      return _content!;
+      return _meeting!;
+    } catch (e) {
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
+  }
+
+  MultiRelatedAttendee get attendee {
+    try {
+      return _attendee!;
     } catch (e) {
       throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
@@ -59,16 +68,25 @@ class Comment extends Model {
     return _updatedAt;
   }
 
-  const Comment._internal(
-      {required this.id, post, required content, createdAt, updatedAt})
-      : _post = post,
-        _content = content,
+  const MultiRelatedRegistration._internal(
+      {required this.id,
+      required meeting,
+      required attendee,
+      createdAt,
+      updatedAt})
+      : _meeting = meeting,
+        _attendee = attendee,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory Comment({String? id, Post? post, required String content}) {
-    return Comment._internal(
-        id: id == null ? UUID.getUUID() : id, post: post, content: content);
+  factory MultiRelatedRegistration(
+      {String? id,
+      required MultiRelatedMeeting meeting,
+      required MultiRelatedAttendee attendee}) {
+    return MultiRelatedRegistration._internal(
+        id: id == null ? UUID.getUUID() : id,
+        meeting: meeting,
+        attendee: attendee);
   }
 
   bool equals(Object other) {
@@ -78,10 +96,10 @@ class Comment extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Comment &&
+    return other is MultiRelatedRegistration &&
         id == other.id &&
-        _post == other._post &&
-        _content == other._content;
+        _meeting == other._meeting &&
+        _attendee == other._attendee;
   }
 
   @override
@@ -91,10 +109,13 @@ class Comment extends Model {
   String toString() {
     var buffer = StringBuffer();
 
-    buffer.write("Comment {");
+    buffer.write("MultiRelatedRegistration {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("post=" + (_post != null ? _post!.toString() : "null") + ", ");
-    buffer.write("content=" + "$_content" + ", ");
+    buffer.write(
+        "meeting=" + (_meeting != null ? _meeting!.toString() : "null") + ", ");
+    buffer.write("attendee=" +
+        (_attendee != null ? _attendee!.toString() : "null") +
+        ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -105,18 +126,24 @@ class Comment extends Model {
     return buffer.toString();
   }
 
-  Comment copyWith({Post? post, String? content}) {
-    return Comment._internal(
-        id: id, post: post ?? this.post, content: content ?? this.content);
+  MultiRelatedRegistration copyWith(
+      {MultiRelatedMeeting? meeting, MultiRelatedAttendee? attendee}) {
+    return MultiRelatedRegistration._internal(
+        id: id,
+        meeting: meeting ?? this.meeting,
+        attendee: attendee ?? this.attendee);
   }
 
-  Comment.fromJson(Map<String, dynamic> json)
+  MultiRelatedRegistration.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _post = json['post']?['serializedData'] != null
-            ? Post.fromJson(
-                Map<String, dynamic>.from(json['post']['serializedData']))
+        _meeting = json['meeting']?['serializedData'] != null
+            ? MultiRelatedMeeting.fromJson(
+                Map<String, dynamic>.from(json['meeting']['serializedData']))
             : null,
-        _content = json['content'],
+        _attendee = json['attendee']?['serializedData'] != null
+            ? MultiRelatedAttendee.fromJson(
+                Map<String, dynamic>.from(json['attendee']['serializedData']))
+            : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -126,41 +153,48 @@ class Comment extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'post': _post?.toJson(),
-        'content': _content,
+        'meeting': _meeting?.toJson(),
+        'attendee': _attendee?.toJson(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryModelIdentifier<CommentModelIdentifier> MODEL_IDENTIFIER =
-      QueryModelIdentifier<CommentModelIdentifier>();
+  static final QueryModelIdentifier<MultiRelatedRegistrationModelIdentifier>
+      MODEL_IDENTIFIER =
+      QueryModelIdentifier<MultiRelatedRegistrationModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField POST = QueryField(
-      fieldName: "post",
+  static final QueryField MEETING = QueryField(
+      fieldName: "meeting",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (Post).toString()));
-  static final QueryField CONTENT = QueryField(fieldName: "content");
+          ofModelName: (MultiRelatedMeeting).toString()));
+  static final QueryField ATTENDEE = QueryField(
+      fieldName: "attendee",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (MultiRelatedAttendee).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Comment";
-    modelSchemaDefinition.pluralName = "Comments";
+    modelSchemaDefinition.name = "MultiRelatedRegistration";
+    modelSchemaDefinition.pluralName = "MultiRelatedRegistrations";
 
     modelSchemaDefinition.indexes = [
-      ModelIndex(fields: const ["postID", "content"], name: "byPost")
+      ModelIndex(fields: const ["id"], name: null),
+      ModelIndex(fields: const ["meetingId", "attendeeId"], name: "byMeeting"),
+      ModelIndex(fields: const ["attendeeId", "meetingId"], name: "byAttendee")
     ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-        key: Comment.POST,
-        isRequired: false,
-        targetNames: ["postID"],
-        ofModelName: (Post).toString()));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Comment.CONTENT,
+        key: MultiRelatedRegistration.MEETING,
         isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        targetNames: ["meetingId"],
+        ofModelName: (MultiRelatedMeeting).toString()));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
+        key: MultiRelatedRegistration.ATTENDEE,
+        isRequired: true,
+        targetNames: ["attendeeId"],
+        ofModelName: (MultiRelatedAttendee).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -176,23 +210,25 @@ class Comment extends Model {
   });
 }
 
-class _CommentModelType extends ModelType<Comment> {
-  const _CommentModelType();
+class _MultiRelatedRegistrationModelType
+    extends ModelType<MultiRelatedRegistration> {
+  const _MultiRelatedRegistrationModelType();
 
   @override
-  Comment fromJson(Map<String, dynamic> jsonData) {
-    return Comment.fromJson(jsonData);
+  MultiRelatedRegistration fromJson(Map<String, dynamic> jsonData) {
+    return MultiRelatedRegistration.fromJson(jsonData);
   }
 }
 
 /// This is an auto generated class representing the model identifier
-/// of [Comment] in your schema.
+/// of [MultiRelatedRegistration] in your schema.
 @immutable
-class CommentModelIdentifier implements ModelIdentifier<Comment> {
+class MultiRelatedRegistrationModelIdentifier
+    implements ModelIdentifier<MultiRelatedRegistration> {
   final String id;
 
-  /// Create an instance of CommentModelIdentifier using [id] the primary key.
-  const CommentModelIdentifier({required this.id});
+  /// Create an instance of MultiRelatedRegistrationModelIdentifier using [id] the primary key.
+  const MultiRelatedRegistrationModelIdentifier({required this.id});
 
   @override
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
@@ -207,7 +243,7 @@ class CommentModelIdentifier implements ModelIdentifier<Comment> {
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() => 'CommentModelIdentifier(id: $id)';
+  String toString() => 'MultiRelatedRegistrationModelIdentifier(id: $id)';
 
   @override
   bool operator ==(Object other) {
@@ -215,7 +251,7 @@ class CommentModelIdentifier implements ModelIdentifier<Comment> {
       return true;
     }
 
-    return other is CommentModelIdentifier && id == other.id;
+    return other is MultiRelatedRegistrationModelIdentifier && id == other.id;
   }
 
   @override

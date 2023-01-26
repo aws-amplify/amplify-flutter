@@ -12,13 +12,13 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/// This is an auto generated class representing the Comment type in your schema.
+/// This is an auto generated class representing the BelongsToChildExplicit type in your schema.
 @immutable
-class Comment extends Model {
-  static const classType = _CommentModelType();
+class BelongsToChildExplicit extends Model {
+  static const classType = _BelongsToChildExplicitModelType();
   final String id;
-  final Post? _post;
-  final String? _content;
+  final String? _name;
+  final BelongsToParent? _belongsToParent;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -30,25 +30,16 @@ class Comment extends Model {
   @override
   String getId() => id;
 
-  CommentModelIdentifier get modelIdentifier {
-    return CommentModelIdentifier(id: id);
+  BelongsToChildExplicitModelIdentifier get modelIdentifier {
+    return BelongsToChildExplicitModelIdentifier(id: id);
   }
 
-  Post? get post {
-    return _post;
+  String? get name {
+    return _name;
   }
 
-  String get content {
-    try {
-      return _content!;
-    } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
-    }
+  BelongsToParent? get belongsToParent {
+    return _belongsToParent;
   }
 
   TemporalDateTime? get createdAt {
@@ -59,16 +50,19 @@ class Comment extends Model {
     return _updatedAt;
   }
 
-  const Comment._internal(
-      {required this.id, post, required content, createdAt, updatedAt})
-      : _post = post,
-        _content = content,
+  const BelongsToChildExplicit._internal(
+      {required this.id, name, belongsToParent, createdAt, updatedAt})
+      : _name = name,
+        _belongsToParent = belongsToParent,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory Comment({String? id, Post? post, required String content}) {
-    return Comment._internal(
-        id: id == null ? UUID.getUUID() : id, post: post, content: content);
+  factory BelongsToChildExplicit(
+      {String? id, String? name, BelongsToParent? belongsToParent}) {
+    return BelongsToChildExplicit._internal(
+        id: id == null ? UUID.getUUID() : id,
+        name: name,
+        belongsToParent: belongsToParent);
   }
 
   bool equals(Object other) {
@@ -78,10 +72,10 @@ class Comment extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Comment &&
+    return other is BelongsToChildExplicit &&
         id == other.id &&
-        _post == other._post &&
-        _content == other._content;
+        _name == other._name &&
+        _belongsToParent == other._belongsToParent;
   }
 
   @override
@@ -91,10 +85,12 @@ class Comment extends Model {
   String toString() {
     var buffer = StringBuffer();
 
-    buffer.write("Comment {");
+    buffer.write("BelongsToChildExplicit {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("post=" + (_post != null ? _post!.toString() : "null") + ", ");
-    buffer.write("content=" + "$_content" + ", ");
+    buffer.write("name=" + "$_name" + ", ");
+    buffer.write("belongsToParent=" +
+        (_belongsToParent != null ? _belongsToParent!.toString() : "null") +
+        ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -105,18 +101,21 @@ class Comment extends Model {
     return buffer.toString();
   }
 
-  Comment copyWith({Post? post, String? content}) {
-    return Comment._internal(
-        id: id, post: post ?? this.post, content: content ?? this.content);
+  BelongsToChildExplicit copyWith(
+      {String? name, BelongsToParent? belongsToParent}) {
+    return BelongsToChildExplicit._internal(
+        id: id,
+        name: name ?? this.name,
+        belongsToParent: belongsToParent ?? this.belongsToParent);
   }
 
-  Comment.fromJson(Map<String, dynamic> json)
+  BelongsToChildExplicit.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _post = json['post']?['serializedData'] != null
-            ? Post.fromJson(
-                Map<String, dynamic>.from(json['post']['serializedData']))
+        _name = json['name'],
+        _belongsToParent = json['belongsToParent']?['serializedData'] != null
+            ? BelongsToParent.fromJson(Map<String, dynamic>.from(
+                json['belongsToParent']['serializedData']))
             : null,
-        _content = json['content'],
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -126,41 +125,38 @@ class Comment extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'post': _post?.toJson(),
-        'content': _content,
+        'name': _name,
+        'belongsToParent': _belongsToParent?.toJson(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryModelIdentifier<CommentModelIdentifier> MODEL_IDENTIFIER =
-      QueryModelIdentifier<CommentModelIdentifier>();
+  static final QueryModelIdentifier<BelongsToChildExplicitModelIdentifier>
+      MODEL_IDENTIFIER =
+      QueryModelIdentifier<BelongsToChildExplicitModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField POST = QueryField(
-      fieldName: "post",
+  static final QueryField NAME = QueryField(fieldName: "name");
+  static final QueryField BELONGSTOPARENT = QueryField(
+      fieldName: "belongsToParent",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (Post).toString()));
-  static final QueryField CONTENT = QueryField(fieldName: "content");
+          ofModelName: (BelongsToParent).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Comment";
-    modelSchemaDefinition.pluralName = "Comments";
-
-    modelSchemaDefinition.indexes = [
-      ModelIndex(fields: const ["postID", "content"], name: "byPost")
-    ];
+    modelSchemaDefinition.name = "BelongsToChildExplicit";
+    modelSchemaDefinition.pluralName = "BelongsToChildExplicits";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-        key: Comment.POST,
-        isRequired: false,
-        targetNames: ["postID"],
-        ofModelName: (Post).toString()));
-
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Comment.CONTENT,
-        isRequired: true,
+        key: BelongsToChildExplicit.NAME,
+        isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
+        key: BelongsToChildExplicit.BELONGSTOPARENT,
+        isRequired: false,
+        targetNames: ["belongsToParentID"],
+        ofModelName: (BelongsToParent).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -176,23 +172,25 @@ class Comment extends Model {
   });
 }
 
-class _CommentModelType extends ModelType<Comment> {
-  const _CommentModelType();
+class _BelongsToChildExplicitModelType
+    extends ModelType<BelongsToChildExplicit> {
+  const _BelongsToChildExplicitModelType();
 
   @override
-  Comment fromJson(Map<String, dynamic> jsonData) {
-    return Comment.fromJson(jsonData);
+  BelongsToChildExplicit fromJson(Map<String, dynamic> jsonData) {
+    return BelongsToChildExplicit.fromJson(jsonData);
   }
 }
 
 /// This is an auto generated class representing the model identifier
-/// of [Comment] in your schema.
+/// of [BelongsToChildExplicit] in your schema.
 @immutable
-class CommentModelIdentifier implements ModelIdentifier<Comment> {
+class BelongsToChildExplicitModelIdentifier
+    implements ModelIdentifier<BelongsToChildExplicit> {
   final String id;
 
-  /// Create an instance of CommentModelIdentifier using [id] the primary key.
-  const CommentModelIdentifier({required this.id});
+  /// Create an instance of BelongsToChildExplicitModelIdentifier using [id] the primary key.
+  const BelongsToChildExplicitModelIdentifier({required this.id});
 
   @override
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
@@ -207,7 +205,7 @@ class CommentModelIdentifier implements ModelIdentifier<Comment> {
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() => 'CommentModelIdentifier(id: $id)';
+  String toString() => 'BelongsToChildExplicitModelIdentifier(id: $id)';
 
   @override
   bool operator ==(Object other) {
@@ -215,7 +213,7 @@ class CommentModelIdentifier implements ModelIdentifier<Comment> {
       return true;
     }
 
-    return other is CommentModelIdentifier && id == other.id;
+    return other is BelongsToChildExplicitModelIdentifier && id == other.id;
   }
 
   @override

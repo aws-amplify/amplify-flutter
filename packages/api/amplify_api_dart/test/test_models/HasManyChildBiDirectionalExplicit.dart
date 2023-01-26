@@ -12,13 +12,13 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/// This is an auto generated class representing the Comment type in your schema.
+/// This is an auto generated class representing the HasManyChildBiDirectionalExplicit type in your schema.
 @immutable
-class Comment extends Model {
-  static const classType = _CommentModelType();
+class HasManyChildBiDirectionalExplicit extends Model {
+  static const classType = _HasManyChildBiDirectionalExplicitModelType();
   final String id;
-  final Post? _post;
-  final String? _content;
+  final String? _name;
+  final HasManyParentBiDirectionalExplicit? _hasManyParent;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -30,25 +30,16 @@ class Comment extends Model {
   @override
   String getId() => id;
 
-  CommentModelIdentifier get modelIdentifier {
-    return CommentModelIdentifier(id: id);
+  HasManyChildBiDirectionalExplicitModelIdentifier get modelIdentifier {
+    return HasManyChildBiDirectionalExplicitModelIdentifier(id: id);
   }
 
-  Post? get post {
-    return _post;
+  String? get name {
+    return _name;
   }
 
-  String get content {
-    try {
-      return _content!;
-    } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
-    }
+  HasManyParentBiDirectionalExplicit? get hasManyParent {
+    return _hasManyParent;
   }
 
   TemporalDateTime? get createdAt {
@@ -59,16 +50,21 @@ class Comment extends Model {
     return _updatedAt;
   }
 
-  const Comment._internal(
-      {required this.id, post, required content, createdAt, updatedAt})
-      : _post = post,
-        _content = content,
+  const HasManyChildBiDirectionalExplicit._internal(
+      {required this.id, name, hasManyParent, createdAt, updatedAt})
+      : _name = name,
+        _hasManyParent = hasManyParent,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory Comment({String? id, Post? post, required String content}) {
-    return Comment._internal(
-        id: id == null ? UUID.getUUID() : id, post: post, content: content);
+  factory HasManyChildBiDirectionalExplicit(
+      {String? id,
+      String? name,
+      HasManyParentBiDirectionalExplicit? hasManyParent}) {
+    return HasManyChildBiDirectionalExplicit._internal(
+        id: id == null ? UUID.getUUID() : id,
+        name: name,
+        hasManyParent: hasManyParent);
   }
 
   bool equals(Object other) {
@@ -78,10 +74,10 @@ class Comment extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Comment &&
+    return other is HasManyChildBiDirectionalExplicit &&
         id == other.id &&
-        _post == other._post &&
-        _content == other._content;
+        _name == other._name &&
+        _hasManyParent == other._hasManyParent;
   }
 
   @override
@@ -91,10 +87,12 @@ class Comment extends Model {
   String toString() {
     var buffer = StringBuffer();
 
-    buffer.write("Comment {");
+    buffer.write("HasManyChildBiDirectionalExplicit {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("post=" + (_post != null ? _post!.toString() : "null") + ", ");
-    buffer.write("content=" + "$_content" + ", ");
+    buffer.write("name=" + "$_name" + ", ");
+    buffer.write("hasManyParent=" +
+        (_hasManyParent != null ? _hasManyParent!.toString() : "null") +
+        ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -105,18 +103,22 @@ class Comment extends Model {
     return buffer.toString();
   }
 
-  Comment copyWith({Post? post, String? content}) {
-    return Comment._internal(
-        id: id, post: post ?? this.post, content: content ?? this.content);
+  HasManyChildBiDirectionalExplicit copyWith(
+      {String? name, HasManyParentBiDirectionalExplicit? hasManyParent}) {
+    return HasManyChildBiDirectionalExplicit._internal(
+        id: id,
+        name: name ?? this.name,
+        hasManyParent: hasManyParent ?? this.hasManyParent);
   }
 
-  Comment.fromJson(Map<String, dynamic> json)
+  HasManyChildBiDirectionalExplicit.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _post = json['post']?['serializedData'] != null
-            ? Post.fromJson(
-                Map<String, dynamic>.from(json['post']['serializedData']))
+        _name = json['name'],
+        _hasManyParent = json['hasManyParent']?['serializedData'] != null
+            ? HasManyParentBiDirectionalExplicit.fromJson(
+                Map<String, dynamic>.from(
+                    json['hasManyParent']['serializedData']))
             : null,
-        _content = json['content'],
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -126,41 +128,43 @@ class Comment extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'post': _post?.toJson(),
-        'content': _content,
+        'name': _name,
+        'hasManyParent': _hasManyParent?.toJson(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryModelIdentifier<CommentModelIdentifier> MODEL_IDENTIFIER =
-      QueryModelIdentifier<CommentModelIdentifier>();
+  static final QueryModelIdentifier<
+          HasManyChildBiDirectionalExplicitModelIdentifier> MODEL_IDENTIFIER =
+      QueryModelIdentifier<HasManyChildBiDirectionalExplicitModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField POST = QueryField(
-      fieldName: "post",
+  static final QueryField NAME = QueryField(fieldName: "name");
+  static final QueryField HASMANYPARENT = QueryField(
+      fieldName: "hasManyParent",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (Post).toString()));
-  static final QueryField CONTENT = QueryField(fieldName: "content");
+          ofModelName: (HasManyParentBiDirectionalExplicit).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Comment";
-    modelSchemaDefinition.pluralName = "Comments";
+    modelSchemaDefinition.name = "HasManyChildBiDirectionalExplicit";
+    modelSchemaDefinition.pluralName = "HasManyChildBiDirectionalExplicits";
 
     modelSchemaDefinition.indexes = [
-      ModelIndex(fields: const ["postID", "content"], name: "byPost")
+      ModelIndex(
+          fields: const ["hasManyParentId", "name"], name: "byHasManyParent")
     ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-        key: Comment.POST,
-        isRequired: false,
-        targetNames: ["postID"],
-        ofModelName: (Post).toString()));
-
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Comment.CONTENT,
-        isRequired: true,
+        key: HasManyChildBiDirectionalExplicit.NAME,
+        isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
+        key: HasManyChildBiDirectionalExplicit.HASMANYPARENT,
+        isRequired: false,
+        targetNames: ["hasManyParentId"],
+        ofModelName: (HasManyParentBiDirectionalExplicit).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -176,23 +180,25 @@ class Comment extends Model {
   });
 }
 
-class _CommentModelType extends ModelType<Comment> {
-  const _CommentModelType();
+class _HasManyChildBiDirectionalExplicitModelType
+    extends ModelType<HasManyChildBiDirectionalExplicit> {
+  const _HasManyChildBiDirectionalExplicitModelType();
 
   @override
-  Comment fromJson(Map<String, dynamic> jsonData) {
-    return Comment.fromJson(jsonData);
+  HasManyChildBiDirectionalExplicit fromJson(Map<String, dynamic> jsonData) {
+    return HasManyChildBiDirectionalExplicit.fromJson(jsonData);
   }
 }
 
 /// This is an auto generated class representing the model identifier
-/// of [Comment] in your schema.
+/// of [HasManyChildBiDirectionalExplicit] in your schema.
 @immutable
-class CommentModelIdentifier implements ModelIdentifier<Comment> {
+class HasManyChildBiDirectionalExplicitModelIdentifier
+    implements ModelIdentifier<HasManyChildBiDirectionalExplicit> {
   final String id;
 
-  /// Create an instance of CommentModelIdentifier using [id] the primary key.
-  const CommentModelIdentifier({required this.id});
+  /// Create an instance of HasManyChildBiDirectionalExplicitModelIdentifier using [id] the primary key.
+  const HasManyChildBiDirectionalExplicitModelIdentifier({required this.id});
 
   @override
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
@@ -207,7 +213,8 @@ class CommentModelIdentifier implements ModelIdentifier<Comment> {
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() => 'CommentModelIdentifier(id: $id)';
+  String toString() =>
+      'HasManyChildBiDirectionalExplicitModelIdentifier(id: $id)';
 
   @override
   bool operator ==(Object other) {
@@ -215,7 +222,8 @@ class CommentModelIdentifier implements ModelIdentifier<Comment> {
       return true;
     }
 
-    return other is CommentModelIdentifier && id == other.id;
+    return other is HasManyChildBiDirectionalExplicitModelIdentifier &&
+        id == other.id;
   }
 
   @override

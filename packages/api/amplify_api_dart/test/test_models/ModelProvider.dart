@@ -9,50 +9,254 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+import 'BelongsToChildExplicit.dart';
+import 'BelongsToChildImplicit.dart';
+import 'BelongsToParent.dart';
 import 'Blog.dart';
 import 'Comment.dart';
 import 'CustomOwnerField.dart';
 import 'FileMeta.dart';
+import 'CpkHasManyChildBidirectionalExplicit.dart';
+import 'CpkHasManyChildBidirectionalImplicit.dart';
+import 'CpkHasManyParentBidirectionalExplicit.dart';
+import 'CpkHasManyParentBidirectionalImplicit.dart';
+import 'CpkHasManyUnidirectionalChildExplicit.dart';
+import 'CpkHasManyUnidirectionalChildImplicit.dart';
+import 'CpkHasManyUnidirectionalParent.dart';
+import 'CpkHasOneUnidirectionalChild.dart';
+import 'CpkHasOneUnidirectionalParent.dart';
+import 'CpkInventory.dart';
+import 'CpkManyToManyPost.dart';
+import 'CpkManyToManyTag.dart';
+import 'CpkOneToOneBidirectionalChildExplicitCD.dart';
+import 'CpkOneToOneBidirectionalChildExplicitID.dart';
+import 'CpkOneToOneBidirectionalChildImplicitCD.dart';
+import 'CpkOneToOneBidirectionalChildImplicitID.dart';
+import 'CpkOneToOneBidirectionalParentCD.dart';
+import 'CpkOneToOneBidirectionalParentID.dart';
+import 'CpkPostTags.dart';
+import 'CustomTypeWithAppsyncScalarTypes.dart';
+import 'HasManyChildBiDirectionalExplicit.dart';
+import 'HasManyChildBiDirectionalImplicit.dart';
+import 'HasManyChildExplicit.dart';
+import 'HasManyChildImplicit.dart';
+import 'HasManyParent.dart';
+import 'HasManyParentBiDirectionalExplicit.dart';
+import 'HasManyParentBiDirectionalImplicit.dart';
+import 'HasOneChild.dart';
+import 'HasOneParent.dart';
+import 'ModelWithAppsyncScalarTypes.dart';
+import 'ModelWithCustomType.dart';
+import 'ModelWithEnum.dart';
+import 'MultiRelatedAttendee.dart';
+import 'MultiRelatedMeeting.dart';
+import 'MultiRelatedRegistration.dart';
 import 'Post.dart';
-import 'S3Object.dart';
+import 'PostTags.dart';
+import 'SimpleCustomType.dart';
+import 'Tag.dart';
 
+export 'BelongsToChildExplicit.dart';
+export 'BelongsToChildImplicit.dart';
+export 'BelongsToParent.dart';
 export 'Blog.dart';
 export 'Comment.dart';
 export 'CustomOwnerField.dart';
 export 'FileMeta.dart';
+export 'CpkHasManyChildBidirectionalExplicit.dart';
+export 'CpkHasManyChildBidirectionalImplicit.dart';
+export 'CpkHasManyParentBidirectionalExplicit.dart';
+export 'CpkHasManyParentBidirectionalImplicit.dart';
+export 'CpkHasManyUnidirectionalChildExplicit.dart';
+export 'CpkHasManyUnidirectionalChildImplicit.dart';
+export 'CpkHasManyUnidirectionalParent.dart';
+export 'CpkHasOneUnidirectionalChild.dart';
+export 'CpkHasOneUnidirectionalParent.dart';
+export 'CpkInventory.dart';
+export 'CpkManyToManyPost.dart';
+export 'CpkManyToManyTag.dart';
+export 'CpkOneToOneBidirectionalChildExplicitCD.dart';
+export 'CpkOneToOneBidirectionalChildExplicitID.dart';
+export 'CpkOneToOneBidirectionalChildImplicitCD.dart';
+export 'CpkOneToOneBidirectionalChildImplicitID.dart';
+export 'CpkOneToOneBidirectionalParentCD.dart';
+export 'CpkOneToOneBidirectionalParentID.dart';
+export 'CpkPostTags.dart';
+export 'CustomTypeWithAppsyncScalarTypes.dart';
+export 'EnumField.dart';
+export 'HasManyChildBiDirectionalExplicit.dart';
+export 'HasManyChildBiDirectionalImplicit.dart';
+export 'HasManyChildExplicit.dart';
+export 'HasManyChildImplicit.dart';
+export 'HasManyParent.dart';
+export 'HasManyParentBiDirectionalExplicit.dart';
+export 'HasManyParentBiDirectionalImplicit.dart';
+export 'HasOneChild.dart';
+export 'HasOneParent.dart';
+export 'ModelWithAppsyncScalarTypes.dart';
+export 'ModelWithCustomType.dart';
+export 'ModelWithEnum.dart';
+export 'MultiRelatedAttendee.dart';
+export 'MultiRelatedMeeting.dart';
+export 'MultiRelatedRegistration.dart';
 export 'Post.dart';
-export 'S3Object.dart';
+export 'PostTags.dart';
+export 'SimpleCustomType.dart';
+export 'Tag.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = '6c0a4ed8a5e5e532d6e91fe74ed634ea';
+  String version = "5bb609b6f4dc361bb6c2aaa3e1ee7560";
   @override
   List<ModelSchema> modelSchemas = [
+    // the schemas that are commented out are not needed to run
+    // the example App
+    // BelongsToChildExplicit.schema,
+    // BelongsToChildImplicit.schema,
+    // BelongsToParent.schema,
     Blog.schema,
     Comment.schema,
     CustomOwnerField.schema,
+    // CpkHasManyChildBidirectionalExplicit.schema,
+    // CpkHasManyChildBidirectionalImplicit.schema,
+    // CpkHasManyParentBidirectionalExplicit.schema,
+    // CpkHasManyParentBidirectionalImplicit.schema,
+    // CpkHasManyUnidirectionalChildExplicit.schema,
+    // CpkHasManyUnidirectionalChildImplicit.schema,
+    // CpkHasManyUnidirectionalParent.schema,
+    // CpkHasOneUnidirectionalChild.schema,
+    // CpkHasOneUnidirectionalParent.schema,
+    // CpkInventory.schema,
+    // CpkManyToManyPost.schema,
+    // CpkManyToManyTag.schema,
+    // CpkOneToOneBidirectionalChildExplicitCD.schema,
+    // CpkOneToOneBidirectionalChildExplicitID.schema,
+    // CpkOneToOneBidirectionalChildImplicitCD.schema,
+    // CpkOneToOneBidirectionalChildImplicitID.schema,
+    // CpkOneToOneBidirectionalParentCD.schema,
+    // CpkOneToOneBidirectionalParentID.schema,
+    // CpkPostTags.schema,
+    // HasManyChildBiDirectionalExplicit.schema,
+    // HasManyChildBiDirectionalImplicit.schema,
+    // HasManyChildExplicit.schema,
+    // HasManyChildImplicit.schema,
+    // HasManyParent.schema,
+    // HasManyParentBiDirectionalExplicit.schema,
+    // HasManyParentBiDirectionalImplicit.schema,
+    // HasOneChild.schema,
+    // HasOneParent.schema,
+    ModelWithAppsyncScalarTypes.schema,
+    ModelWithCustomType.schema,
+    ModelWithEnum.schema,
+    // MultiRelatedAttendee.schema,
+    // MultiRelatedMeeting.schema,
+    // MultiRelatedRegistration.schema,
     Post.schema,
+    PostTags.schema,
+    Tag.schema
   ];
   static final ModelProvider _instance = ModelProvider();
   @override
-  List<ModelSchema> customTypeSchemas = [FileMeta.schema, S3Object.schema];
+  List<ModelSchema> customTypeSchemas = [
+    CustomTypeWithAppsyncScalarTypes.schema,
+    SimpleCustomType.schema
+  ];
 
   static ModelProvider get instance => _instance;
 
   ModelType getModelTypeByModelName(String modelName) {
     switch (modelName) {
-      case 'Blog':
+      case "BelongsToChildExplicit":
+        return BelongsToChildExplicit.classType;
+      case "BelongsToChildImplicit":
+        return BelongsToChildImplicit.classType;
+      case "BelongsToParent":
+        return BelongsToParent.classType;
+      case "Blog":
         return Blog.classType;
-      case 'Comment':
+      case "Comment":
         return Comment.classType;
       case "CustomOwnerField":
         return CustomOwnerField.classType;
       case 'Post':
+      case "CpkHasManyChildBidirectionalExplicit":
+        return CpkHasManyChildBidirectionalExplicit.classType;
+      case "CpkHasManyChildBidirectionalImplicit":
+        return CpkHasManyChildBidirectionalImplicit.classType;
+      case "CpkHasManyParentBidirectionalExplicit":
+        return CpkHasManyParentBidirectionalExplicit.classType;
+      case "CpkHasManyParentBidirectionalImplicit":
+        return CpkHasManyParentBidirectionalImplicit.classType;
+      case "CpkHasManyUnidirectionalChildExplicit":
+        return CpkHasManyUnidirectionalChildExplicit.classType;
+      case "CpkHasManyUnidirectionalChildImplicit":
+        return CpkHasManyUnidirectionalChildImplicit.classType;
+      case "CpkHasManyUnidirectionalParent":
+        return CpkHasManyUnidirectionalParent.classType;
+      case "CpkHasOneUnidirectionalChild":
+        return CpkHasOneUnidirectionalChild.classType;
+      case "CpkHasOneUnidirectionalParent":
+        return CpkHasOneUnidirectionalParent.classType;
+      case "CpkInventory":
+        return CpkInventory.classType;
+      case "CpkManyToManyPost":
+        return CpkManyToManyPost.classType;
+      case "CpkManyToManyTag":
+        return CpkManyToManyTag.classType;
+      case "CpkOneToOneBidirectionalChildExplicitCD":
+        return CpkOneToOneBidirectionalChildExplicitCD.classType;
+      case "CpkOneToOneBidirectionalChildExplicitID":
+        return CpkOneToOneBidirectionalChildExplicitID.classType;
+      case "CpkOneToOneBidirectionalChildImplicitCD":
+        return CpkOneToOneBidirectionalChildImplicitCD.classType;
+      case "CpkOneToOneBidirectionalChildImplicitID":
+        return CpkOneToOneBidirectionalChildImplicitID.classType;
+      case "CpkOneToOneBidirectionalParentCD":
+        return CpkOneToOneBidirectionalParentCD.classType;
+      case "CpkOneToOneBidirectionalParentID":
+        return CpkOneToOneBidirectionalParentID.classType;
+      case "CpkPostTags":
+        return CpkPostTags.classType;
+      case "HasManyChildBiDirectionalExplicit":
+        return HasManyChildBiDirectionalExplicit.classType;
+      case "HasManyChildBiDirectionalImplicit":
+        return HasManyChildBiDirectionalImplicit.classType;
+      case "HasManyChildExplicit":
+        return HasManyChildExplicit.classType;
+      case "HasManyChildImplicit":
+        return HasManyChildImplicit.classType;
+      case "HasManyParent":
+        return HasManyParent.classType;
+      case "HasManyParentBiDirectionalExplicit":
+        return HasManyParentBiDirectionalExplicit.classType;
+      case "HasManyParentBiDirectionalImplicit":
+        return HasManyParentBiDirectionalImplicit.classType;
+      case "HasOneChild":
+        return HasOneChild.classType;
+      case "HasOneParent":
+        return HasOneParent.classType;
+      case "ModelWithAppsyncScalarTypes":
+        return ModelWithAppsyncScalarTypes.classType;
+      case "ModelWithCustomType":
+        return ModelWithCustomType.classType;
+      case "ModelWithEnum":
+        return ModelWithEnum.classType;
+      case "MultiRelatedAttendee":
+        return MultiRelatedAttendee.classType;
+      case "MultiRelatedMeeting":
+        return MultiRelatedMeeting.classType;
+      case "MultiRelatedRegistration":
+        return MultiRelatedRegistration.classType;
+      case "Post":
         return Post.classType;
+      case "PostTags":
+        return PostTags.classType;
+      case "Tag":
+        return Tag.classType;
       default:
         throw Exception(
-          'Failed to find model in model provider for model name: ' + modelName,
-        );
+            "Failed to find model in model provider for model name: " +
+                modelName);
     }
   }
 }
