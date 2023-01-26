@@ -2,7 +2,6 @@ name: Amplify Integration Tests
 on:
   push:
     branches: [main, next, stable, feat/**]
-  pull_request:
   schedule:
     # 6am pacific time daily, only runs on default branch
     - cron:  '0 13 * * *'
@@ -149,7 +148,10 @@ jobs:
       fail-fast: false
       matrix:
         scope: 
+          - "amplify_analytics_pinpoint_example"
+          - "amplify_api_example"
           - "amplify_auth_cognito_example"
+          - "amplify_storage_s3_example"
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
@@ -158,6 +160,8 @@ jobs:
       
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
+        with:
+          flutter-version: '3.3.0'
 
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
@@ -168,15 +172,10 @@ jobs:
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
       - name: Run integration tests
-        working-directory: packages/auth/amplify_auth_cognito/example
+        timeout-minutes: 30
         run: |
-          #!/usr/bin/env bash
-          set -eo pipefail
-
-          AUTH_DIR=$PWD
-          cd $FLUTTER_ROOT
-          git bisect start 3.7.0 3.3.0
-          git bisect run $AUTH_DIR/debug.sh $AUTH_DIR
+          flutter config --enable-macos-desktop
+          melos exec -c 1 --scope ${{ matrix.scope }} -- \$MELOS_ROOT_PATH/build-support/integ_test.sh -d macos
 
   linux:
     runs-on: ubuntu-latest
