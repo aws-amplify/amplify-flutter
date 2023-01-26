@@ -111,9 +111,6 @@ jobs:
           name: Run Flutter Unit Tests
           command: melos run test:unit:flutter:plugin << parameters.plugin >>
       - run:
-          name: Upload flutter test coverage
-          command: melos run upload:coverage:flutter
-      - run:
           name: Save test results
           command: |
             mkdir -p ~/test-results/junit/
@@ -149,9 +146,6 @@ jobs:
           name: Run iOS Unit Tests
           command: melos run test:unit:ios:plugin << parameters.plugin >>
       - run:
-          name: Upload iOS test coverage
-          command: melos run upload:coverage:ios
-      - run:
           name: Save test results
           command: |
             mkdir -p ~/test-results/junit/
@@ -186,9 +180,6 @@ jobs:
       - run:
           name: Run Android Unit Tests
           command: melos run test:unit:android:plugin << parameters.plugin >>
-      - run:
-          name: Upload android test coverage
-          command: melos run upload:coverage:android
       - run:
           name: Save test results
           command: |
