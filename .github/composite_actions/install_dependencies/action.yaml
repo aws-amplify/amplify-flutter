@@ -4,7 +4,6 @@ inputs:
   flutter-version:
     required: false
     description: The version of Flutter to run tests against. Defaults to "stable".
-    default: 'stable'
 
 runs:
   using: "composite"
@@ -12,7 +11,8 @@ runs:
     - uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d # 2.8.0
       with:
         cache: true
-        channel: ${{ inputs.flutter-version }}
+        channel: 'stable'
+        flutter-version: ${{ inputs.flutter-version }}
 
     - name: Install Melos
       run: |

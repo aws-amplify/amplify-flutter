@@ -18,7 +18,7 @@ jobs:
       matrix:
         sdk:
           # Minimum supported Dart version
-          - '2.17.0'
+          - '2.18.0'
           - stable
           - beta
         browser:
