@@ -183,6 +183,7 @@ Future<void> getUrlOperation() async {
   final accessLevel = promptStorageAccessLevel(
     'Choose the storage access level associated with the object: ',
   );
+  final useAccelerateEndpoint = promptUseAcceleration();
 
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
   final getUrlOperation = s3Plugin.getUrl(
@@ -193,6 +194,7 @@ Future<void> getUrlOperation() async {
         minutes: 10,
       ),
       checkObjectExistence: true,
+      useAccelerateEndpoint: useAccelerateEndpoint,
     ),
   );
 
@@ -253,6 +255,8 @@ Future<void> downloadFileOperation() async {
   final destinationPath = prompt(
     'Enter the destination file path (ensure the file path is writable): ',
   );
+  final useAccelerateEndpoint = promptUseAcceleration();
+
   final localFile = AWSFile.fromPath(destinationPath);
 
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
@@ -262,6 +266,7 @@ Future<void> downloadFileOperation() async {
     options: S3DownloadFileOptions(
       getProperties: true,
       accessLevel: accessLevel,
+      useAccelerateEndpoint: useAccelerateEndpoint,
     ),
     onProgress: onTransferProgress,
   );
@@ -330,6 +335,7 @@ Future<void> uploadFileOperation() async {
   final file = AWSFile.fromPath(filePath);
 
   final option = prompt('Upload size ${await file.size}, continue? (Y/n): ');
+  final useAccelerateEndpoint = promptUseAcceleration();
 
   if (option.toLowerCase() != 'y') {
     stdout.writeln('Upload canceled.');
@@ -347,6 +353,7 @@ Future<void> uploadFileOperation() async {
       metadata: {
         'nameTag': nameTag,
       },
+      useAccelerateEndpoint: useAccelerateEndpoint,
     ),
   );
 
@@ -506,6 +513,17 @@ StorageAccessLevel promptStorageAccessLevel(String message) {
   }
 
   return accessLevel;
+}
+
+bool promptUseAcceleration() {
+  String input;
+
+  do {
+    input = prompt('Use transfer acceleration for this operation? (y/n): ')
+        .toLowerCase();
+  } while (input != 'y' && input != 'n');
+
+  return input == 'y';
 }
 
 Never exitError(Object error, [StackTrace? stackTrace]) {

@@ -82,6 +82,24 @@ void main() {
 
         expect(await awsFile.contentType, testExternalContentType);
       });
+
+      test('should resolve contentType from the underlying file', () async {
+        final awsFile = AWSFilePlatform.fromFile(
+          testFile,
+        );
+
+        expect(await awsFile.contentType, testContentType);
+      });
+
+      test('should return null as contentType if contentType is unresolvable',
+          () async {
+        final awsFile = AWSFile.fromStream(
+          Stream.value(testBytes),
+          size: testBytes.length,
+        );
+
+        expect(await awsFile.contentType, isNull);
+      });
     });
   });
 }

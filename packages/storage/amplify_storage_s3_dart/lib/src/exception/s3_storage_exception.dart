@@ -7,8 +7,10 @@ import 'package:smithy/smithy.dart';
 
 const _fileIssueMessage =
     'This exception is not expected. Please try again. If the exception persists, please file an issue at https://github.com/aws-amplify/amplify-flutter/issues';
-const _clientErrorRecoveryMessage =
+const _keyNotFoundRecoveryMessage =
     'Please ensure that correct object key is provided, and/or correct `StorageAccessLevel` and `targetIdentityId` are included in the options.';
+const _httpErrorRecoveryMessage =
+    'HTTP error returned from service, please review the `underlyingException` for details.';
 
 /// {@template amplify_storage_s3_dart.s3_storage_exception}
 /// Represents exceptions that may be thrown calling Storage S3 plugin APIs.
@@ -156,7 +158,7 @@ class S3Exception extends StorageException {
   ) =>
       StorageKeyNotFoundException(
         'Key is not found.',
-        recoverySuggestion: _clientErrorRecoveryMessage,
+        recoverySuggestion: _keyNotFoundRecoveryMessage,
         underlyingException: underlyingException,
       );
 
@@ -169,7 +171,7 @@ class S3Exception extends StorageException {
     if (statusCode ~/ 100 == 3 || statusCode ~/ 100 == 5) {
       return StorageHttpStatusException(
         statusCode,
-        recoverySuggestion: _clientErrorRecoveryMessage,
+        recoverySuggestion: _httpErrorRecoveryMessage,
         underlyingException: exception,
       );
     }
@@ -178,7 +180,7 @@ class S3Exception extends StorageException {
       if ([401, 403].contains(statusCode)) {
         return StorageAccessDeniedException(
           'S3 access denied when making the API call.',
-          recoverySuggestion: _clientErrorRecoveryMessage,
+          recoverySuggestion: _httpErrorRecoveryMessage,
           underlyingException: exception,
         );
       } else if (statusCode == 404) {
@@ -186,7 +188,7 @@ class S3Exception extends StorageException {
       } else {
         return StorageHttpStatusException(
           statusCode,
-          recoverySuggestion: _clientErrorRecoveryMessage,
+          recoverySuggestion: _httpErrorRecoveryMessage,
           underlyingException: exception,
         );
       }
