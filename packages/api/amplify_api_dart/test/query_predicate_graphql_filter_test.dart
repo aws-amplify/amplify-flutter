@@ -44,22 +44,26 @@ void main() {
       testQueryPredicateTranslation(queryPredicate, expectedFilter);
     });
 
-    // test('and query with string, and date', () {
-    //   const dateString = '2019-11-23T02:06:50.689000000Z';
-    //   final createdAt = TemporalDateTime(DateTime.parse(dateString));
-    //   final queryPredicate = Blog.ID.eq('id').and(Blog.CREATEDAT.eq(createdAt));
-    //   const expectedFilter = {
-    //     'and': [
-    //       {
-    //         'id': {'eq': 'id'}
-    //       },
-    //       {
-    //         'createdAt': {'eq': dateString}
-    //       },
-    //     ]
-    //   };
-    //   testQueryPredicateTranslation(queryPredicate, expectedFilter);
-    // });
+    test('and query with string, and date', () {
+      const dateString = '2019-11-23T02:06:50.689000000Z';
+      final createdAt = TemporalDateTime(DateTime.parse(dateString));
+      final queryPredicate = Post.ID.eq('id').and(Post.CREATED.eq(createdAt));
+      const expectedFilter = {
+        'and': [
+          {
+            'id': {'eq': 'id'}
+          },
+          {
+            'created': {'eq': dateString}
+          },
+        ]
+      };
+      testQueryPredicateTranslation(
+        queryPredicate,
+        expectedFilter,
+        modelType: Post.classType,
+      );
+    });
 
     test('not query converts to expected filter', () {
       final queryPredicate = not(Blog.ID.eq('id'));
@@ -167,49 +171,65 @@ void main() {
       testQueryPredicateTranslation(queryPredicate, expectedFilter);
     });
 
-    // test('TemporalDateTime query converts to expected filter', () {
-    //   const dateString = '2019-11-23T02:06:50.689000000Z';
-    //   final exampleValue = TemporalDateTime(DateTime.parse(dateString));
-    //   const expectedFilter = {
-    //     'createdAt': {'le': dateString}
-    //   };
-    //   final queryPredicate = Blog.CREATEDAT.le(exampleValue);
+    test('TemporalDateTime query converts to expected filter', () {
+      const dateString = '2019-11-23T02:06:50.689000000Z';
+      final exampleValue = TemporalDateTime(DateTime.parse(dateString));
+      const expectedFilter = {
+        'created': {'le': dateString}
+      };
+      final queryPredicate = Post.CREATED.le(exampleValue);
 
-    //   testQueryPredicateTranslation(queryPredicate, expectedFilter);
-    // });
+      testQueryPredicateTranslation(
+        queryPredicate,
+        expectedFilter,
+        modelType: Post.classType,
+      );
+    });
 
-    // test('TemporalDate query converts to expected filter', () {
-    //   const dateString = '2019-11-23';
-    //   final exampleValue = TemporalDate(DateTime.parse(dateString));
-    //   const expectedFilter = {
-    //     'createdAt': {'le': dateString}
-    //   };
-    //   final queryPredicate = Blog.CREATEDAT.le(exampleValue);
+    test('TemporalDate query converts to expected filter', () {
+      const dateString = '2019-11-23';
+      final exampleValue = TemporalDate(DateTime.parse(dateString));
+      const expectedFilter = {
+        'created': {'le': dateString}
+      };
+      final queryPredicate = Post.CREATED.le(exampleValue);
 
-    //   testQueryPredicateTranslation(queryPredicate, expectedFilter);
-    // });
+      testQueryPredicateTranslation(
+        queryPredicate,
+        expectedFilter,
+        modelType: Post.classType,
+      );
+    });
 
-    // test('TemporalTime query converts to expected filter', () {
-    //   const dateString = '02:06:50.689000000';
-    //   final exampleValue = TemporalTime.fromString(dateString);
-    //   const expectedFilter = {
-    //     'createdAt': {'le': dateString}
-    //   };
-    //   final queryPredicate = Blog.CREATEDAT.le(exampleValue);
+    test('TemporalTime query converts to expected filter', () {
+      const dateString = '02:06:50.689000000';
+      final exampleValue = TemporalTime.fromString(dateString);
+      const expectedFilter = {
+        'created': {'le': dateString}
+      };
+      final queryPredicate = Post.CREATED.le(exampleValue);
 
-    //   testQueryPredicateTranslation(queryPredicate, expectedFilter);
-    // });
+      testQueryPredicateTranslation(
+        queryPredicate,
+        expectedFilter,
+        modelType: Post.classType,
+      );
+    });
 
-    // test('DateTime converted to TemporalDateTime query', () {
-    //   const dateString = '2019-11-23T02:06:50.689000000Z';
-    //   final exampleValue = DateTime.parse(dateString);
-    //   const expectedFilter = {
-    //     'createdAt': {'le': dateString}
-    //   };
-    //   final queryPredicate = Blog.CREATEDAT.le(exampleValue);
+    test('DateTime converted to TemporalDateTime query', () {
+      const dateString = '2019-11-23T02:06:50.689000000Z';
+      final exampleValue = DateTime.parse(dateString);
+      const expectedFilter = {
+        'created': {'le': dateString}
+      };
+      final queryPredicate = Post.CREATED.le(exampleValue);
 
-    //   testQueryPredicateTranslation(queryPredicate, expectedFilter);
-    // });
+      testQueryPredicateTranslation(
+        queryPredicate,
+        expectedFilter,
+        modelType: Post.classType,
+      );
+    });
 
     test('query child by parent ID', () {
       const blogId = 'blog-123';

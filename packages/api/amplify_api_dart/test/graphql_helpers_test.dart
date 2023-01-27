@@ -924,22 +924,23 @@ void main() {
         expect(output, input);
       });
 
-      // test('should translate custom type model', () {
-      //   final input = <String, dynamic>{
-      //     'id': 'xyz456',
-      //     'name': 'Lorem Ipsum',
-      //     'file': {'bucket': 'abc123'}
-      //   };
-      //   final expectedOutput = <String, dynamic>{
-      //     'id': 'xyz456',
-      //     'name': 'Lorem Ipsum',
-      //     'file': {
-      //       'serializedData': {'bucket': 'abc123'}
-      //     }
-      //   };
-      //   final output = transformAppSyncJsonToModelJson(input, Blog.schema);
-      //   expect(output, expectedOutput);
-      // });
+      test('should translate custom type model', () {
+        final input = <String, dynamic>{
+          'id': 'xyz456',
+          'customTypeValue': {'stringValue': 'abc123'}
+        };
+        final expectedOutput = <String, dynamic>{
+          'id': 'xyz456',
+          'customTypeValue': {
+            'serializedData': {'stringValue': 'abc123'}
+          }
+        };
+        final output = transformAppSyncJsonToModelJson(
+          input,
+          ModelWithCustomType.schema,
+        );
+        expect(output, expectedOutput);
+      });
     });
   });
 

@@ -24,11 +24,10 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-
-/** This is an auto generated class representing the Post type in your schema. */
+/// This is an auto generated class representing the Post type in your schema.
 @immutable
 class Post extends Model {
-  static const classType = const _PostModelType();
+  static const classType = _PostModelType();
   final String id;
   final String? _title;
   final int? _rating;
@@ -39,285 +38,310 @@ class Post extends Model {
 
   @override
   getInstanceType() => classType;
-  
-  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
   String getId() => id;
-  
+
   PostModelIdentifier get modelIdentifier {
-      return PostModelIdentifier(
-        id: id
-      );
+    return PostModelIdentifier(id: id);
   }
-  
+
   String get title {
     try {
       return _title!;
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
+    } catch (e) {
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
-  
+
   int get rating {
     try {
       return _rating!;
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
+    } catch (e) {
+      throw AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
-  
+
   Blog? get blog {
     return _blog;
   }
-  
+
   List<Comment>? get comments {
     return _comments;
   }
-  
+
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
-  
+
   TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
-  
-  const Post._internal({required this.id, required title, required rating, blog, comments, createdAt, updatedAt}): _title = title, _rating = rating, _blog = blog, _comments = comments, _createdAt = createdAt, _updatedAt = updatedAt;
-  
-  factory Post({String? id, required String title, required int rating, Blog? blog, List<Comment>? comments}) {
+
+  const Post._internal(
+      {required this.id,
+      required title,
+      required rating,
+      blog,
+      comments,
+      createdAt,
+      updatedAt})
+      : _title = title,
+        _rating = rating,
+        _blog = blog,
+        _comments = comments,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
+
+  factory Post(
+      {String? id,
+      required String title,
+      required int rating,
+      Blog? blog,
+      List<Comment>? comments}) {
     return Post._internal(
-      id: id == null ? UUID.getUUID() : id,
-      title: title,
-      rating: rating,
-      blog: blog,
-      comments: comments != null ? List<Comment>.unmodifiable(comments) : comments);
+        id: id == null ? UUID.getUUID() : id,
+        title: title,
+        rating: rating,
+        blog: blog,
+        comments:
+            comments != null ? List<Comment>.unmodifiable(comments) : comments);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Post &&
-      id == other.id &&
-      _title == other._title &&
-      _rating == other._rating &&
-      _blog == other._blog &&
-      DeepCollectionEquality().equals(_comments, other._comments);
+        id == other.id &&
+        _title == other._title &&
+        _rating == other._rating &&
+        _blog == other._blog &&
+        DeepCollectionEquality().equals(_comments, other._comments);
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
+
   @override
   String toString() {
-    var buffer = new StringBuffer();
-    
+    var buffer = StringBuffer();
+
     buffer.write("Post {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("title=" + "$_title" + ", ");
-    buffer.write("rating=" + (_rating != null ? _rating!.toString() : "null") + ", ");
+    buffer.write(
+        "rating=" + (_rating != null ? _rating!.toString() : "null") + ", ");
     buffer.write("blog=" + (_blog != null ? _blog!.toString() : "null") + ", ");
-    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
-    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
-    
+
     return buffer.toString();
   }
-  
-  Post copyWith({String? title, int? rating, Blog? blog, List<Comment>? comments}) {
-    return Post._internal(
-      id: id,
-      title: title ?? this.title,
-      rating: rating ?? this.rating,
-      blog: blog ?? this.blog,
-      comments: comments ?? this.comments);
-  }
-  
-  Post.fromJson(Map<String, dynamic> json)  
-    : id = json['id'],
-      _title = json['title'],
-      _rating = (json['rating'] as num?)?.toInt(),
-      _blog = json['blog']?['serializedData'] != null
-        ? Blog.fromJson(new Map<String, dynamic>.from(json['blog']['serializedData']))
-        : null,
-      _comments = json['comments'] is List
-        ? (json['comments'] as List)
-          .where((e) => e?['serializedData'] != null)
-          .map((e) => Comment.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
-          .toList()
-        : null,
-      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
-      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
-  
-  Map<String, dynamic> toJson() => {
-    'id': id, 'title': _title, 'rating': _rating, 'blog': _blog?.toJson(), 'comments': _comments?.map((Comment? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
-  };
-  
-  Map<String, Object?> toMap() => {
-    'id': id, 'title': _title, 'rating': _rating, 'blog': _blog, 'comments': _comments, 'createdAt': _createdAt, 'updatedAt': _updatedAt
-  };
 
-  static final QueryModelIdentifier<PostModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<PostModelIdentifier>();
+  Post copyWith(
+      {String? title, int? rating, Blog? blog, List<Comment>? comments}) {
+    return Post._internal(
+        id: id,
+        title: title ?? this.title,
+        rating: rating ?? this.rating,
+        blog: blog ?? this.blog,
+        comments: comments ?? this.comments);
+  }
+
+  Post.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        _title = json['title'],
+        _rating = (json['rating'] as num?)?.toInt(),
+        _blog = json['blog']?['serializedData'] != null
+            ? Blog.fromJson(
+                Map<String, dynamic>.from(json['blog']['serializedData']))
+            : null,
+        _comments = json['comments'] is List
+            ? (json['comments'] as List)
+                .where((e) => e?['serializedData'] != null)
+                .map((e) => Comment.fromJson(
+                    Map<String, dynamic>.from(e['serializedData'])))
+                .toList()
+            : null,
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'title': _title,
+        'rating': _rating,
+        'blog': _blog?.toJson(),
+        'comments': _comments?.map((Comment? e) => e?.toJson()).toList(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
+
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'title': _title,
+        'rating': _rating,
+        'blog': _blog,
+        'comments': _comments,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
+  static final QueryModelIdentifier<PostModelIdentifier> MODEL_IDENTIFIER =
+      QueryModelIdentifier<PostModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField TITLE = QueryField(fieldName: "title");
   static final QueryField RATING = QueryField(fieldName: "rating");
   static final QueryField BLOG = QueryField(
-    fieldName: "blog",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Blog'));
+      fieldName: "blog",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Blog'));
   static final QueryField COMMENTS = QueryField(
-    fieldName: "comments",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Comment'));
-  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+      fieldName: "comments",
+      fieldType:
+          ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Comment'));
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Post";
     modelSchemaDefinition.pluralName = "Posts";
-    
+
     modelSchemaDefinition.authRules = [
       AuthRule(
-        authStrategy: AuthStrategy.PUBLIC,
-        provider: AuthRuleProvider.IAM,
-        operations: [
-          ModelOperation.READ
-        ]),
+          authStrategy: AuthStrategy.PUBLIC,
+          provider: AuthRuleProvider.IAM,
+          operations: [ModelOperation.READ]),
       AuthRule(
-        authStrategy: AuthStrategy.PRIVATE,
-        provider: AuthRuleProvider.IAM,
-        operations: [
-          ModelOperation.READ
-        ]),
+          authStrategy: AuthStrategy.PRIVATE,
+          provider: AuthRuleProvider.IAM,
+          operations: [ModelOperation.READ]),
       AuthRule(
-        authStrategy: AuthStrategy.PRIVATE,
-        provider: AuthRuleProvider.USERPOOLS,
-        operations: [
-          ModelOperation.READ
-        ]),
+          authStrategy: AuthStrategy.PRIVATE,
+          provider: AuthRuleProvider.USERPOOLS,
+          operations: [ModelOperation.READ]),
       AuthRule(
-        authStrategy: AuthStrategy.OWNER,
-        ownerField: "owner",
-        identityClaim: "cognito:username",
-        provider: AuthRuleProvider.USERPOOLS,
-        operations: [
-          ModelOperation.CREATE,
-          ModelOperation.READ,
-          ModelOperation.UPDATE,
-          ModelOperation.DELETE
-        ])
+          authStrategy: AuthStrategy.OWNER,
+          ownerField: "owner",
+          identityClaim: "cognito:username",
+          provider: AuthRuleProvider.USERPOOLS,
+          operations: [
+            ModelOperation.CREATE,
+            ModelOperation.READ,
+            ModelOperation.UPDATE,
+            ModelOperation.DELETE
+          ])
     ];
-    
+
     modelSchemaDefinition.indexes = [
       ModelIndex(fields: const ["blogID"], name: "byBlog")
     ];
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Post.TITLE,
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
+        key: Post.TITLE,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Post.RATING,
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.int)
-    ));
-    
+        key: Post.RATING,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.int)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-      key: Post.BLOG,
-      isRequired: false,
-      targetNames: ['blogID'],
-      ofModelName: 'Blog'
-    ));
-    
+        key: Post.BLOG,
+        isRequired: false,
+        targetNames: ['blogID'],
+        ofModelName: 'Blog'));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-      key: Post.COMMENTS,
-      isRequired: false,
-      ofModelName: 'Comment',
-      associatedKey: Comment.POST
-    ));
-    
+        key: Post.COMMENTS,
+        isRequired: false,
+        ofModelName: 'Comment',
+        associatedKey: Comment.POST));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 
 class _PostModelType extends ModelType<Post> {
   const _PostModelType();
-  
+
   @override
   Post fromJson(Map<String, dynamic> jsonData) {
     return Post.fromJson(jsonData);
   }
-  
+
   @override
   String modelName() {
     return 'Post';
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [Post] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [Post] in your schema.
 @immutable
 class PostModelIdentifier implements ModelIdentifier<Post> {
   final String id;
 
-  /** Create an instance of PostModelIdentifier using [id] the primary key. */
-  const PostModelIdentifier({
-    required this.id});
-  
+  /// Create an instance of PostModelIdentifier using [id] the primary key.
+  const PostModelIdentifier({required this.id});
+
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
-    'id': id
-  });
-  
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-    .entries
-    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
-    .toList();
-  
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
   @override
   String serializeAsString() => serializeAsMap().values.join('#');
-  
+
   @override
   String toString() => 'PostModelIdentifier(id: $id)';
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
     }
-    
-    return other is PostModelIdentifier &&
-      id == other.id;
+
+    return other is PostModelIdentifier && id == other.id;
   }
-  
+
   @override
-  int get hashCode =>
-    id.hashCode;
+  int get hashCode => id.hashCode;
 }
