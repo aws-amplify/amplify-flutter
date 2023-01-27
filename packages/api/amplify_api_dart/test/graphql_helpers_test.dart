@@ -366,6 +366,44 @@ void main() {
         expect(req.headers, _exampleHeaders);
         expect(req.authorizationMode, APIAuthorizationType.function);
       });
+
+      test('ModelQueries.get() should support model with complex identifier',
+          () {
+        final id = uuid();
+        final name = 'foo $id';
+        final req = ModelQueries.get(
+          CpkHasOneUnidirectionalParent.classType,
+          CpkHasOneUnidirectionalParentModelIdentifier(
+            id: id,
+            name: name,
+          ),
+        );
+        const expectedDocument =
+            r'query getCpkHasOneUnidirectionalParent($id: ID!, $name: String!) { getCpkHasOneUnidirectionalParent(id: $id, name: $name) { id name explicitChildID explicitChildName createdAt updatedAt cpkHasOneUnidirectionalParentImplicitChildId cpkHasOneUnidirectionalParentImplicitChildName } }';
+
+        expect(req.document, expectedDocument);
+        expect(_deepEquals(req.variables, {'id': id, 'name': name}), isTrue);
+      });
+
+      test(
+          'ModelQueries.get() should support model with complex identifier and custom primary key',
+          () {
+        final customId = uuid();
+        final name = 'foo $customId';
+        final model =
+            CpkOneToOneBidirectionalParentCD(name: name, customId: customId);
+        final req = ModelQueries.get(
+          CpkOneToOneBidirectionalParentCD.classType,
+          model.modelIdentifier,
+        );
+        const expectedDocument =
+            r'query getCpkHasOneUnidirectionalParent($id: ID!, $name: String!) { getCpkHasOneUnidirectionalParent(id: $id, name: $name) { id name explicitChildID explicitChildName createdAt updatedAt cpkHasOneUnidirectionalParentImplicitChildId cpkHasOneUnidirectionalParentImplicitChildName } }';
+        expect(req.document, expectedDocument);
+        expect(
+          _deepEquals(req.variables, {'customId': customId, 'name': name}),
+          isTrue,
+        );
+      });
     });
 
     group('ModelMutations', () {
@@ -659,6 +697,68 @@ void main() {
         expect(_deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'deleteBlog');
+      });
+
+      test(
+        'ModelMutations.create() should create model with complex identifier and bidirectional children',
+        () {
+          final explicitChild = CpkOneToOneBidirectionalChildExplicitCD(
+            name: 'abc',
+          );
+          final implicitChild = CpkOneToOneBidirectionalChildImplicitCD(
+            name: 'abc',
+          );
+          final customId = uuid();
+          final parentName = 'parent $customId';
+          final parent = CpkOneToOneBidirectionalParentCD(
+            name: parentName,
+            customId: customId,
+            explicitChild: explicitChild,
+            implicitChild: implicitChild,
+          );
+          final req = ModelMutations.create(parent);
+
+          final expectedVars = {
+            'input': <String, dynamic>{
+              'customId': customId,
+              'name': parentName,
+              'cpkOneToOneBidirectionalParentCDImplicitChildId':
+                  implicitChild.id,
+              'cpkOneToOneBidirectionalParentCDImplicitChildName':
+                  implicitChild.name,
+              'cpkOneToOneBidirectionalParentCDExplicitChildId':
+                  explicitChild.id,
+              'cpkOneToOneBidirectionalParentCDExplicitChildName':
+                  explicitChild.name,
+            }
+          };
+          expect(_deepEquals(req.variables, expectedVars), isTrue);
+        },
+      );
+
+      test(
+          'ModelMutations.create() should create child with parent that has complex identifier',
+          () {
+        final customParentId = uuid();
+        final parent = CpkOneToOneBidirectionalParentCD(
+          name: 'foo',
+          customId: customParentId,
+        );
+        final child = CpkOneToOneBidirectionalChildExplicitCD(
+          name: 'bar',
+          belongsToParent: parent,
+        );
+        final req = ModelMutations.create(child);
+
+        final expectedVars = {
+          'input': <String, dynamic>{
+            'id': child.id,
+            'name': child.name,
+            'belongsToParentID': customParentId,
+            'belongsToParentName': parent.name,
+          }
+        };
+        expect(_deepEquals(req.variables, expectedVars), isTrue);
       });
     });
 
