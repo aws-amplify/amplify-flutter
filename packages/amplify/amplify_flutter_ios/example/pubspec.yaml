@@ -8,21 +8,20 @@ environment:
   flutter: ">=3.0.0"
 
 dependencies:
-  amplify_flutter_ios:
-    path: ../
+  amplify_flutter_ios: ">=1.0.0-next.4 <1.0.0-next.5"
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
 
 dev_dependencies:
-  amplify_analytics_pinpoint: 1.0.0-next.0
-  amplify_api: 1.0.0-next.0
-  amplify_auth_cognito: 1.0.0-next.0
-  amplify_core: 1.0.0-next.0
-  amplify_datastore: 1.0.0-next.0
-  amplify_flutter: 1.0.0-next.0
+  amplify_analytics_pinpoint: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_api: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_auth_cognito: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_core: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_datastore: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_flutter: ">=1.0.0-next.4 <1.0.0-next.5"
   amplify_lints: ^2.0.0
-  amplify_storage_s3: 1.0.0-next.0
+  amplify_storage_s3: ">=1.0.0-next.4 <1.0.0-next.5"
   amplify_test:
     path: ../../../amplify_test
   flutter_test:

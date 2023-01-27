@@ -1,3 +1,8 @@
+## 1.0.0-next.4
+
+### Fixes
+- fix(datastore): prevent unhandled exception crashing App rebuilding sync expression
+
 ## 1.0.0-next.3
 
 ### Breaking Changes

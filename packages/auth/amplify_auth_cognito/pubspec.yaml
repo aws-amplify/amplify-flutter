@@ -1,6 +1,6 @@
 name: amplify_auth_cognito
 description: The Amplify Flutter Auth category plugin using the AWS Cognito provider.
-version: 1.0.0-next.3
+version: 1.0.0-next.4
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/auth/amplify_auth_cognito
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -19,11 +19,11 @@ platforms:
   web:
 
 dependencies:
-  amplify_auth_cognito_android: ">=1.0.0-next.3 <1.0.0-next.4"
-  amplify_auth_cognito_dart: ">=0.4.0 <0.5.0"
-  amplify_auth_cognito_ios: ">=1.0.0-next.3 <1.0.0-next.4"
-  amplify_core: ">=1.0.0-next.3 <1.0.0-next.4"
-  amplify_flutter: ">=1.0.0-next.3 <1.0.0-next.4"
+  amplify_auth_cognito_android: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_auth_cognito_dart: ">=0.5.0 <0.6.0"
+  amplify_auth_cognito_ios: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_core: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_flutter: ">=1.0.0-next.4 <1.0.0-next.5"
   amplify_secure_storage: ">=0.1.4+1 <0.2.0"
   async: ^2.8.0
   flutter:
