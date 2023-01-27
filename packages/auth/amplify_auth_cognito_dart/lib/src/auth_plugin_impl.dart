@@ -1031,7 +1031,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     final CognitoUserPoolTokens tokens;
     try {
       tokens = await getUserPoolTokens();
-    } on SignedOutException {
+    } on AuthException {
       _hubEventController.add(AuthHubEvent.signedOut());
       return const CognitoSignOutResult.complete();
     }
@@ -1042,30 +1042,44 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     RevokeTokenException? revokeTokenException;
 
     // Sign out via Hosted UI, if configured.
-    if (tokens.signInMethod == CognitoSignInMethod.hostedUi) {
-      _stateMachine.dispatch(const HostedUiEvent.signOut());
-      final hostedUiResult = await _stateMachine.stream
-          .where(
-            (state) => state is HostedUiSignedOut || state is HostedUiFailure,
-          )
-          .first;
-      if (hostedUiResult is HostedUiFailure) {
-        final exception = hostedUiResult.exception;
-        if (exception is UserCancelledException) {
-          return CognitoSignOutResult.failed(exception);
+    Future<CognitoSignOutResult?> signOutHostedUi() async {
+      if (tokens.signInMethod == CognitoSignInMethod.hostedUi) {
+        _stateMachine.dispatch(const HostedUiEvent.signOut());
+        final hostedUiResult = await _stateMachine.stream
+            .where(
+              (state) => state is HostedUiSignedOut || state is HostedUiFailure,
+            )
+            .first;
+        if (hostedUiResult is HostedUiFailure) {
+          final exception = hostedUiResult.exception;
+          if (exception is UserCancelledException) {
+            return CognitoSignOutResult.failed(exception);
+          }
+          hostedUiException = HostedUiException(
+            underlyingException: hostedUiResult.exception,
+          );
         }
-        hostedUiException = HostedUiException(
-          underlyingException: hostedUiResult.exception,
-        );
+      }
+      return null;
+    }
+
+    // On native platforms, Hosted UI should be logged out first. This gives
+    // users the opportunity to cancel the sign out flow if they wish before
+    // credentials are revoked and cleared.
+    //
+    // On Web, this should be the very last thing to happen. Since we redirect
+    // as a result of signing out Hosted UI, credentials should be revoked and
+    // cleared before this happens.
+    if (!zIsWeb) {
+      final hostedUiResult = await signOutHostedUi();
+      if (hostedUiResult != null) {
+        return hostedUiResult;
       }
     }
 
     // Do not try to send Cognito requests for plugin configs without an
     // Identity Pool, since the requests will fail.
     if (_identityPoolConfig != null) {
-      // Try to refresh AWS credentials since Cognito requests will require
-      // them.
-      await fetchAuthSession();
       if (options.globalSignOut) {
         // Revokes the refresh token
         try {
@@ -1115,11 +1129,24 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     await _stateMachine.dispatch(
       const CredentialStoreEvent.clearCredentials(),
     );
+    await _stateMachine
+        .expect(CredentialStoreStateMachine.type)
+        .getCredentialsResult();
     _hubEventController.add(AuthHubEvent.signedOut());
 
-    if (hostedUiException != null ||
-        globalSignOutException != null ||
-        revokeTokenException != null) {
+    if (globalSignOutException != null || revokeTokenException != null) {
+      return CognitoSignOutResult.partial(
+        hostedUiException: hostedUiException,
+        globalSignOutException: globalSignOutException,
+        revokeTokenException: revokeTokenException,
+      );
+    }
+
+    if (zIsWeb) {
+      await signOutHostedUi();
+    }
+
+    if (hostedUiException != null) {
       return CognitoSignOutResult.partial(
         hostedUiException: hostedUiException,
         globalSignOutException: globalSignOutException,
