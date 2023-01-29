@@ -149,8 +149,10 @@ void main() {
         createdAt
       }
     }''';
-        final GraphQLRequest<String> req =
-            GraphQLRequest(document: doc, variables: <String, String>{id: id});
+        final GraphQLRequest<String> req = GraphQLRequest(
+          document: doc,
+          variables: <String, String>{id: id},
+        );
         final String data = '''{
         "getBlog": {
             "createdAt": "2021-01-01T01:00:00.000000000Z",
@@ -257,7 +259,10 @@ void main() {
             'query listBlogs(\$filter: ModelBlogFilterInput, \$limit: Int, \$nextToken: String) { listBlogs(filter: \$filter, limit: \$limit, nextToken: \$nextToken) { items { $blogSelectionSet } nextToken } }';
         final resultRequest = response.data?.requestForNextResult;
         expect(resultRequest?.document, expectedDocument);
-        expect(resultRequest?.variables['nextToken'], response.data?.nextToken);
+        expect(
+          resultRequest?.variables['nextToken'],
+          response.data?.nextToken,
+        );
         expect(resultRequest?.variables['limit'], limit);
       });
 
@@ -397,7 +402,8 @@ void main() {
           model.modelIdentifier,
         );
         const expectedDocument =
-            r'query getCpkHasOneUnidirectionalParent($id: ID!, $name: String!) { getCpkHasOneUnidirectionalParent(id: $id, name: $name) { id name explicitChildID explicitChildName createdAt updatedAt cpkHasOneUnidirectionalParentImplicitChildId cpkHasOneUnidirectionalParentImplicitChildName } }';
+            r'query getCpkOneToOneBidirectionalParentCD($customId: ID!, $name: String!) { getCpkOneToOneBidirectionalParentCD(customId: $customId, name: $name) { customId name createdAt updatedAt cpkOneToOneBidirectionalParentCDImplicitChildId cpkOneToOneBidirectionalParentCDImplicitChildName cpkOneToOneBidirectionalParentCDExplicitChildId cpkOneToOneBidirectionalParentCDExplicitChildName } }';
+
         expect(req.document, expectedDocument);
         expect(
           _deepEquals(req.variables, {'customId': customId, 'name': name}),
@@ -700,7 +706,7 @@ void main() {
       });
 
       test(
-        'ModelMutations.create() should create model with complex identifier and bidirectional children',
+        'ModelMutations.create() should create model with complex identifier and not include bi-directional children identifiers',
         () {
           final explicitChild = CpkOneToOneBidirectionalChildExplicitCD(
             name: 'abc',
@@ -722,14 +728,6 @@ void main() {
             'input': <String, dynamic>{
               'customId': customId,
               'name': parentName,
-              'cpkOneToOneBidirectionalParentCDImplicitChildId':
-                  implicitChild.id,
-              'cpkOneToOneBidirectionalParentCDImplicitChildName':
-                  implicitChild.name,
-              'cpkOneToOneBidirectionalParentCDExplicitChildId':
-                  explicitChild.id,
-              'cpkOneToOneBidirectionalParentCDExplicitChildName':
-                  explicitChild.name,
             }
           };
           expect(_deepEquals(req.variables, expectedVars), isTrue);

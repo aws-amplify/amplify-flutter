@@ -9,7 +9,16 @@ import 'package:collection/collection.dart';
 /// `"id"`, the name of the id field when a primary key not specified in schema
 /// with `@primaryKey` annotation.
 const _defaultIdFieldName = 'id';
+// other string constants
+const _commaSpace = ', ';
+const _openParen = '(';
+const _closeParen = ')';
 
+/// Contains expressions for mapping request variables to expected places in the
+/// request.
+///
+/// Some examples include ids or indexes for simple queries, filters, and input
+/// variables/conditions for mutations.
 class DocumentInputs {
   const DocumentInputs(this.upper, this.lower);
 
@@ -112,8 +121,35 @@ class GraphQLRequestFactory {
     // build inputs based on request operation
     switch (operation) {
       case GraphQLRequestOperation.get:
-        upperOutput = r'($id: ID!)';
-        lowerOutput = r'(id: $id)';
+        final indexes = schema.indexes;
+        final modelIndex =
+            indexes?.firstWhereOrNull((index) => index.name == null);
+        if (modelIndex != null) {
+          // custom index(es), e.g.
+          // upperOutput: ($customId: ID!, name: String!)
+          // lowerOutput: (customId: $customId, name: $name)
+          final bUpperOutput = StringBuffer(_openParen);
+          final bLowerOutput = StringBuffer(_openParen);
+          for (final field in modelIndex.fields) {
+            final isId = field == modelIndex.fields.first;
+            // Assume type is `String` if not specified as `ID`.
+            final graphQLTypeString = isId ? 'ID' : 'String';
+            bUpperOutput.write('\$$field: $graphQLTypeString!');
+            bLowerOutput.write('$field: \$$field');
+            if (field != modelIndex.fields.last) {
+              bUpperOutput.write(_commaSpace);
+              bLowerOutput.write(_commaSpace);
+            }
+          }
+          bUpperOutput.write(_closeParen);
+          bLowerOutput.write(_closeParen);
+          upperOutput = bUpperOutput.toString();
+          lowerOutput = bLowerOutput.toString();
+        } else {
+          // simple, single identifier
+          upperOutput = r'($id: ID!)';
+          lowerOutput = r'(id: $id)';
+        }
         break;
       case GraphQLRequestOperation.list:
         upperOutput =
@@ -304,17 +340,13 @@ class GraphQLRequestFactory {
         getModelSchemaByModelName(model.getInstanceType().modelName(), null);
     final modelJson = model.toJson();
 
-    // If the model has a parent in the schema, get the ID of parent and field name.
+    // Get the primary key field name from parent schema(s) so it can be taken from
+    // JSON. For schemas with `@primaryKey` defined, it will be the first key in
+    // the index where name is null. If no such definition in schema, use
+    // default primary key "id."
     final allBelongsTo = getBelongsToFieldsFromModelSchema(schema);
     for (final belongsTo in allBelongsTo) {
       final belongsToModelName = belongsTo.name;
-      final belongsToKey = belongsTo.association?.targetNames?.first ??
-          belongsTo.association?.targetName;
-
-      // Get the primary key field name from parent schema so it can be taken from
-      // JSON. For schemas with `@primaryKey` defined, it will be the first key in
-      // the index where name is null. If no such definition in schema, use
-      // default primary key "id."
       final parentSchema = getModelSchemaByModelName(
         belongsTo.type.ofModelName!,
         operation,
@@ -322,18 +354,31 @@ class GraphQLRequestFactory {
       final primaryKeyIndex = parentSchema.indexes?.firstWhereOrNull(
         (modelIndex) => modelIndex.name == null,
       );
-      final parentIdFieldName =
-          primaryKeyIndex?.fields.first ?? _defaultIdFieldName;
-      final belongsToValue = (modelJson[belongsToModelName]
-          as Map?)?[parentIdFieldName] as String?;
 
-      // Assign the parent ID if the model has a parent.
-      if (belongsToKey != null) {
-        modelJson.remove(belongsToModelName);
+      // Traverse parent schema to get expected JSON strings and remove from JSON.
+      // A parent with complex identifier may have multiple keys.
+      var belongsToKeys = belongsTo.association?.targetNames;
+      final legacyTargetName =
+          belongsTo.association?.targetName; // pre-CPK codegen
+      if (belongsToKeys == null && legacyTargetName == null) {
+        // no way to resolve key to write to JSON
+        continue;
+      }
+      belongsToKeys = belongsToKeys ?? [legacyTargetName as String];
+      var i = 0; // needed to track corresponding index field name
+      for (final belongsToKey in belongsToKeys) {
+        final parentIdFieldName =
+            primaryKeyIndex?.fields[i] ?? _defaultIdFieldName;
+        final belongsToValue = (modelJson[belongsToModelName]
+            as Map?)?[parentIdFieldName] as String?;
+
+        // Assign the parent ID(s) if the model has a parent.
         if (belongsToValue != null) {
           modelJson[belongsToKey] = belongsToValue;
         }
+        i++;
       }
+      modelJson.remove(belongsToModelName);
     }
 
     final ownerFieldNames = (schema.authRules ?? [])
