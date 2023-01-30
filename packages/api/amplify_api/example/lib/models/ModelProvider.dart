@@ -22,17 +22,30 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'Blog.dart';
 import 'Comment.dart';
+import 'CpkOneToOneBidirectionalChildExplicitCD.dart';
+import 'CpkOneToOneBidirectionalChildImplicitCD.dart';
+import 'CpkOneToOneBidirectionalParentCD.dart';
 import 'Post.dart';
 
 export 'Blog.dart';
 export 'Comment.dart';
+export 'CpkOneToOneBidirectionalChildExplicitCD.dart';
+export 'CpkOneToOneBidirectionalChildImplicitCD.dart';
+export 'CpkOneToOneBidirectionalParentCD.dart';
 export 'Post.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "c7c4debaf4550d687965261c73055590";
+  String version = "3fb3b6700f6705ce02267281ce067edd";
   @override
-  List<ModelSchema> modelSchemas = [Blog.schema, Comment.schema, Post.schema];
+  List<ModelSchema> modelSchemas = [
+    Blog.schema,
+    Comment.schema,
+    CpkOneToOneBidirectionalChildExplicitCD.schema,
+    CpkOneToOneBidirectionalChildImplicitCD.schema,
+    CpkOneToOneBidirectionalParentCD.schema,
+    Post.schema
+  ];
   static final ModelProvider _instance = ModelProvider();
   @override
   List<ModelSchema> customTypeSchemas = [];
@@ -45,6 +58,12 @@ class ModelProvider implements ModelProviderInterface {
         return Blog.classType;
       case "Comment":
         return Comment.classType;
+      case "CpkOneToOneBidirectionalChildExplicitCD":
+        return CpkOneToOneBidirectionalChildExplicitCD.classType;
+      case "CpkOneToOneBidirectionalChildImplicitCD":
+        return CpkOneToOneBidirectionalChildImplicitCD.classType;
+      case "CpkOneToOneBidirectionalParentCD":
+        return CpkOneToOneBidirectionalParentCD.classType;
       case "Post":
         return Post.classType;
       default:

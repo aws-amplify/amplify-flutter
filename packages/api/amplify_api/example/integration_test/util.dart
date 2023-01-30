@@ -18,6 +18,9 @@ TestUser? testUser;
 // Keep track of what is created here so it can be deleted.
 final blogCache = <Blog>[];
 final postCache = <Post>[];
+final cpkParentCache = <CpkOneToOneBidirectionalParentCD>[];
+final cpkExplicitChildCache = <CpkOneToOneBidirectionalChildExplicitCD>[];
+final cpkImplicitChildCache = <CpkOneToOneBidirectionalChildImplicitCD>[];
 
 class TestUser {
   TestUser({
@@ -135,6 +138,18 @@ Future<Blog> addBlog(String name) async {
   return blog;
 }
 
+Future<CpkOneToOneBidirectionalParentCD> addCpkParent(String name) async {
+  final request = ModelMutations.create(
+    CpkOneToOneBidirectionalParentCD(customId: uuid(), name: name),
+  );
+
+  final response = await Amplify.API.mutate(request: request).response;
+  expect(response, hasNoGraphQLErrors);
+  final cpkParent = response.data!;
+  cpkParentCache.add(cpkParent);
+  return cpkParent;
+}
+
 /// Run a mutation on [Blog] with a partial selection set.
 ///
 /// This is used to trigger an error on subscriptions listening for the
@@ -213,9 +228,56 @@ Future<Post?> deletePost(Post post) async {
   return res.data;
 }
 
+Future<CpkOneToOneBidirectionalParentCD?> deleteCpkParent(
+  CpkOneToOneBidirectionalParentCD cpkParent,
+) async {
+  final request = ModelMutations.deleteById(
+    CpkOneToOneBidirectionalParentCD.classType,
+    cpkParent.modelIdentifier,
+  );
+  final res = await Amplify.API.mutate(request: request).response;
+  expect(res, hasNoGraphQLErrors);
+  cpkParentCache.removeWhere(
+    (cpkParentFromCache) => cpkParentFromCache.customId == cpkParent.customId,
+  );
+  return res.data;
+}
+
+Future<CpkOneToOneBidirectionalChildExplicitCD?> deleteCpkExplicitChild(
+  CpkOneToOneBidirectionalChildExplicitCD cpkExplicitChild,
+) async {
+  final request = ModelMutations.deleteById(
+    CpkOneToOneBidirectionalChildExplicitCD.classType,
+    cpkExplicitChild.modelIdentifier,
+  );
+  final res = await Amplify.API.mutate(request: request).response;
+  expect(res, hasNoGraphQLErrors);
+  cpkExplicitChildCache.removeWhere(
+    (childFromCache) => childFromCache.id == cpkExplicitChild.id,
+  );
+  return res.data;
+}
+
+Future<CpkOneToOneBidirectionalChildImplicitCD?> deleteCpkImplicitChild(
+  CpkOneToOneBidirectionalChildImplicitCD cpkImplicitChild,
+) async {
+  final request = ModelMutations.deleteById(
+    CpkOneToOneBidirectionalChildImplicitCD.classType,
+    cpkImplicitChild.modelIdentifier,
+  );
+  final res = await Amplify.API.mutate(request: request).response;
+  expect(res, hasNoGraphQLErrors);
+  cpkImplicitChildCache.removeWhere(
+    (childFromCache) => childFromCache.id == cpkImplicitChild.id,
+  );
+  return res.data;
+}
+
 Future<void> deleteTestModels() async {
   await Future.wait(blogCache.map(deleteBlog));
   await Future.wait(postCache.map(deletePost));
+  await Future.wait(cpkExplicitChildCache.map(deleteCpkExplicitChild));
+  await Future.wait(cpkImplicitChildCache.map(deleteCpkImplicitChild));
 }
 
 /// Wait for subscription established for given request.

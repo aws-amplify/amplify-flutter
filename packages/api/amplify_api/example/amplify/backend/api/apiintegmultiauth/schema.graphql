@@ -34,3 +34,31 @@ type Comment @model @auth(rules: [
   post: Post @belongsTo(fields: ["postID"])
   content: String!
 }
+
+type CpkOneToOneBidirectionalParentCD @model @auth(rules: [
+  { allow: private, provider: iam}
+]) {
+  customId: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  implicitChild: CpkOneToOneBidirectionalChildImplicitCD @hasOne
+  explicitChild: CpkOneToOneBidirectionalChildExplicitCD @hasOne
+}
+
+type CpkOneToOneBidirectionalChildImplicitCD @model @auth(rules: [
+  { allow: private, provider: iam}
+]) {
+  id: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  belongsToParent: CpkOneToOneBidirectionalParentCD @belongsTo
+}
+
+type CpkOneToOneBidirectionalChildExplicitCD @model @auth(rules: [
+  { allow: private, provider: iam}
+]) {
+  id: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  belongsToParentID: ID
+  belongsToParentName: String
+  belongsToParent: CpkOneToOneBidirectionalParentCD
+    @belongsTo(fields: ["belongsToParentID", "belongsToParentName"])
+}
