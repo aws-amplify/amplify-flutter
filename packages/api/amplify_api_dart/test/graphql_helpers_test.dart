@@ -371,24 +371,6 @@ void main() {
         expect(req.authorizationMode, APIAuthorizationType.function);
       });
 
-      test('ModelQueries.get() should support model with complex identifier',
-          () {
-        final id = uuid();
-        final name = 'foo $id';
-        final req = ModelQueries.get(
-          CpkHasOneUnidirectionalParent.classType,
-          CpkHasOneUnidirectionalParentModelIdentifier(
-            id: id,
-            name: name,
-          ),
-        );
-        const expectedDocument =
-            r'query getCpkHasOneUnidirectionalParent($id: ID!, $name: String!) { getCpkHasOneUnidirectionalParent(id: $id, name: $name) { id name explicitChildID explicitChildName createdAt updatedAt cpkHasOneUnidirectionalParentImplicitChildId cpkHasOneUnidirectionalParentImplicitChildName } }';
-
-        expect(req.document, expectedDocument);
-        expect(deepEquals(req.variables, {'id': id, 'name': name}), isTrue);
-      });
-
       test(
           'ModelQueries.get() should support model with complex identifier and custom primary key',
           () {
