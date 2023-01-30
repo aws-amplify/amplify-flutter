@@ -223,6 +223,9 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         }
         if (state is FetchAuthSessionSuccess) {
           final exception = state.session.userPoolTokensResult.exception;
+          // TODO(Jordan-Nelson): Update list of exceptions once FetchAuthSession
+          /// is updated to only throw SessionExpiredException for expired
+          /// sessions.
           if (exception is UnauthorizedException ||
               exception is AuthNotAuthorizedException ||
               exception is SessionExpiredException) {
