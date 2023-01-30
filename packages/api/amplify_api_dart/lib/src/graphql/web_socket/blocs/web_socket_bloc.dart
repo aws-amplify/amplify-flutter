@@ -14,6 +14,7 @@ import 'package:amplify_api_dart/src/graphql/web_socket/types/web_socket_types.d
 import 'package:amplify_core/amplify_core.dart' hide SubscriptionEvent;
 import 'package:async/async.dart';
 import 'package:meta/meta.dart';
+import 'package:stream_transform/stream_transform.dart';
 
 part '../types/web_socket_event.dart';
 
@@ -47,6 +48,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     final blocStream = _wsEventStream.asyncExpand(_eventTransformer);
     _networkSubscription = _getConnectivityStream();
     _stateSubscription = blocStream.listen(_emit);
+    add(const InitEvent());
   }
 
   @override
@@ -64,9 +66,8 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   /// The stream of bloc state changes.
   ///
   /// Emits the [currentState] followed by all subsequent state changes.
-  Stream<WebSocketState> get stream async* {
-    yield _currentState;
-    yield* _wsStateController.stream;
+  Stream<WebSocketState> get stream {
+    return _wsStateController.stream.startWith(_currentState);
   }
 
   final StreamController<WebSocketEvent> _wsEventController =
@@ -401,14 +402,12 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       return;
     }
 
-    try {
-      currentState.service.register(
-        currentState,
-        request,
-      );
-    } on Object catch (e, st) {
-      subscriptionBloc.addResponseError(e, st);
-    }
+    currentState.service
+        .register(
+          currentState,
+          request,
+        )
+        .onError<Object>(subscriptionBloc.addResponseError);
   }
 
   /// Shut down the bloc & clean up

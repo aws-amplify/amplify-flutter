@@ -160,21 +160,29 @@ WebSocketMessage startAck(String subscriptionID) => WebSocketMessage(
       id: subscriptionID,
     );
 
-void initMockConnection(
-  MockWebSocketBloc bloc,
+void sendMockConnectionAck(
+  WebSocketBloc bloc,
   MockWebSocketService service,
-  String id, {
-  String? id2,
-}) {
+) {
   bloc.stream.listen((event) {
     final state = event;
     if (state is ConnectingState &&
         state.networkState == NetworkState.connected) {
       service.channel.sink.add(jsonEncode(mockAckMessage));
-    } else if (state is ConnectedState) {
-      service.channel.sink.add(jsonEncode(startAck(id)));
-      if (id2 != null) {
-        service.channel.sink.add(jsonEncode(startAck(id2)));
+    }
+  });
+}
+
+void sendMockStartAck(
+  WebSocketBloc bloc,
+  MockWebSocketService service,
+  List<String> ids,
+) {
+  bloc.stream.listen((event) {
+    final state = event;
+    if (state is ConnectedState) {
+      for (final id in ids) {
+        service.channel.sink.add(jsonEncode(startAck(id)));
       }
     }
   });
@@ -227,17 +235,6 @@ class CustomFunctionProvider extends FunctionAuthProvider {
 
   @override
   Future<String?> getLatestAuthToken() async => testFunctionToken;
-}
-
-class MockWebSocketBloc extends WebSocketBloc {
-  MockWebSocketBloc({
-    required super.config,
-    required super.authProviderRepo,
-    required super.wsService,
-    required super.subscriptionOptions,
-    required super.pollClientOverride,
-    required super.connectivity,
-  });
 }
 
 class MockWebSocketService extends AmplifyWebSocketService {

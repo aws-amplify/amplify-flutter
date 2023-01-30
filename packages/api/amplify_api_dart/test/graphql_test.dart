@@ -6,6 +6,7 @@ import 'dart:convert';
 
 import 'package:amplify_api_dart/amplify_api_dart.dart';
 import 'package:amplify_api_dart/src/graphql/providers/app_sync_api_key_auth_provider.dart';
+import 'package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart';
 import 'package:amplify_api_dart/src/util/amplify_api_config.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -129,7 +130,7 @@ final mockHttpClient = MockAWSHttpClient((request, _) async {
 
 MockWebSocketService? mockWebSocketService;
 
-MockWebSocketBloc? mockWebSocketBloc;
+WebSocketBloc? mockWebSocketBloc;
 
 class MockAmplifyAPI extends AmplifyAPIDart {
   MockAmplifyAPI({
@@ -139,7 +140,7 @@ class MockAmplifyAPI extends AmplifyAPIDart {
   });
 
   @override
-  MockWebSocketBloc createWebSocketBloc(EndpointConfig endpoint) {
+  WebSocketBloc createWebSocketBloc(EndpointConfig endpoint) {
     return mockWebSocketBloc!;
   }
 }
@@ -295,7 +296,7 @@ void main() {
         pollInterval: Duration(seconds: 1),
       );
 
-      mockWebSocketBloc = MockWebSocketBloc(
+      mockWebSocketBloc = WebSocketBloc(
         config: testApiKeyConfig,
         authProviderRepo: getTestAuthProviderRepo(),
         wsService: mockWebSocketService!,
@@ -303,15 +304,17 @@ void main() {
         pollClientOverride: mockClient.client,
         connectivity: const ConnectivityPlatform(),
       );
+
+      sendMockConnectionAck(mockWebSocketBloc!, mockWebSocketService!);
     });
 
     test('subscribe() should decode model data', () async {
       final dataCompleter = Completer<Post>();
 
-      initMockConnection(
+      sendMockStartAck(
         mockWebSocketBloc!,
         mockWebSocketService!,
-        modelSubscriptionRequest.id,
+        [modelSubscriptionRequest.id],
       );
 
       final subscription = Amplify.API.subscribe(
@@ -338,10 +341,10 @@ void main() {
     test('subscribe() should return a subscription stream', () async {
       final dataCompleter = Completer<Post>();
 
-      initMockConnection(
+      sendMockStartAck(
         mockWebSocketBloc!,
         mockWebSocketService!,
-        modelSubscriptionRequest.id,
+        [modelSubscriptionRequest.id],
       );
 
       final subscription = Amplify.API.subscribe(
@@ -385,11 +388,10 @@ void main() {
         'payload': {'data': mockSubscriptionData},
       };
 
-      initMockConnection(
+      sendMockStartAck(
         mockWebSocketBloc!,
         mockWebSocketService!,
-        modelSubscriptionRequest.id,
-        id2: subscriptionRequest2.id,
+        [modelSubscriptionRequest.id, subscriptionRequest2.id],
       );
 
       final subscription = Amplify.API.subscribe(
@@ -450,10 +452,10 @@ void main() {
         ),
       );
 
-      initMockConnection(
+      sendMockStartAck(
         mockWebSocketBloc!,
         mockWebSocketService!,
-        modelSubscriptionRequest.id,
+        [modelSubscriptionRequest.id],
       );
 
       final subscription = Amplify.API.subscribe(
@@ -496,10 +498,10 @@ void main() {
         ),
       );
 
-      initMockConnection(
+      sendMockStartAck(
         mockWebSocketBloc!,
         mockWebSocketService!,
-        modelSubscriptionRequest.id,
+        [modelSubscriptionRequest.id],
       );
 
       Amplify.API
@@ -613,7 +615,7 @@ void main() {
       );
       final mockClient = MockPollClient(maxFailAttempts: 10);
 
-      mockWebSocketBloc = MockWebSocketBloc(
+      mockWebSocketBloc = WebSocketBloc(
         config: testApiKeyConfig,
         authProviderRepo: getTestAuthProviderRepo(),
         wsService: mockWebSocketService!,
@@ -642,10 +644,14 @@ void main() {
       final subscriptionRequest =
           GraphQLRequest<String>(document: graphQLDocument);
 
-      initMockConnection(
+      sendMockConnectionAck(
         mockWebSocketBloc!,
         mockWebSocketService!,
-        subscriptionRequest.id,
+      );
+      sendMockStartAck(
+        mockWebSocketBloc!,
+        mockWebSocketService!,
+        [subscriptionRequest.id],
       );
 
       Amplify.API

@@ -17,7 +17,7 @@ const mockConnectionAck =
     ConnectionAckMessageEvent(ConnectionAckMessagePayload(300000));
 
 void main() {
-  late MockWebSocketBloc? bloc;
+  late WebSocketBloc? bloc;
   late MockWebSocketService? service;
 
   late MockPollClient mockPollClient;
@@ -50,14 +50,14 @@ void main() {
   const subscriptionOptions =
       GraphQLSubscriptionOptions(pollInterval: Duration(seconds: 1));
 
-  MockWebSocketBloc getWebSocketBloc({bool noConnectivity = false}) {
+  WebSocketBloc getWebSocketBloc({bool noConnectivity = false}) {
     if (!noConnectivity) {
       mockNetworkStreamController = StreamController<ConnectivityStatus>();
     }
     mockPollClient = MockPollClient();
     service = MockWebSocketService();
 
-    bloc = MockWebSocketBloc(
+    bloc = WebSocketBloc(
       config: testApiKeyConfig,
       authProviderRepo: getTestAuthProviderRepo(),
       wsService: service!,
@@ -68,17 +68,10 @@ void main() {
           : const MockConnectivity(),
     );
 
-    bloc!.stream.listen((event) async {
-      final state = event;
-      if (state is ConnectingState &&
-          state.networkState == NetworkState.connected) {
-        service!.channel.sink.add(jsonEncode(mockAckMessage));
-      } else if (state is ConnectedState) {
-        service!.channel.sink.add(jsonEncode(startAck(subscriptionRequest.id)));
-      }
-    });
+    sendMockConnectionAck(bloc!, service!);
+    sendMockStartAck(bloc!, service!, [subscriptionRequest.id]);
 
-    return bloc!..add(const InitEvent());
+    return bloc!;
   }
 
   group('WebSocketBloc', () {
@@ -355,14 +348,14 @@ void main() {
 
           final badService = MockWebSocketService(badInit: true);
           mockNetworkStreamController = StreamController<ConnectivityStatus>();
-          final bloc = MockWebSocketBloc(
+          final bloc = WebSocketBloc(
             config: testApiKeyConfig,
             authProviderRepo: getTestAuthProviderRepo(),
             wsService: badService,
             subscriptionOptions: subscriptionOptions,
             pollClientOverride: mockPollClient.client,
             connectivity: const MockConnectivity(),
-          )..add(const InitEvent());
+          );
 
           expect(
             bloc.stream,
