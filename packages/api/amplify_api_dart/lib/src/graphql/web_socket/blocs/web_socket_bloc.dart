@@ -14,6 +14,7 @@ import 'package:amplify_api_dart/src/graphql/web_socket/types/web_socket_types.d
 import 'package:amplify_core/amplify_core.dart' hide SubscriptionEvent;
 import 'package:async/async.dart';
 import 'package:meta/meta.dart';
+import 'package:stream_transform/stream_transform.dart';
 
 part '../types/web_socket_event.dart';
 
@@ -47,6 +48,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     final blocStream = _wsEventStream.asyncExpand(_eventTransformer);
     _networkSubscription = _getConnectivityStream();
     _stateSubscription = blocStream.listen(_emit);
+    add(const InitEvent());
   }
 
   @override
@@ -64,9 +66,8 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   /// The stream of bloc state changes.
   ///
   /// Emits the [currentState] followed by all subsequent state changes.
-  Stream<WebSocketState> get stream async* {
-    yield _currentState;
-    yield* _wsStateController.stream;
+  Stream<WebSocketState> get stream {
+    return _wsStateController.stream.startWith(_currentState);
   }
 
   final StreamController<WebSocketEvent> _wsEventController =
@@ -121,7 +122,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     final subBloc = _saveRequest<T>(event);
 
     // Add subscribe event to [WebSocketBloc]
-    add(RegistrationEvent(event.request));
+    _registerSubscriptionRequest(event.request);
 
     // Return request subscription stream
     return subBloc.responseStream;
@@ -167,8 +168,6 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       yield* _shutdown();
     } else if (event is ReconnectEvent) {
       yield* _reconnect();
-    } else if (event is RegistrationEvent) {
-      yield* _registration(event);
     } else if (event is UnsubscribeEvent) {
       yield* _unsubscribe(event);
     }
@@ -208,7 +207,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   ) async* {
     assert(
       _currentState is ConnectingState,
-      'We should never receive an connection ack message while not connecting.',
+      'We should never evaluate a connection ack message while not connecting.',
     );
 
     final timeoutDuration =
@@ -382,45 +381,33 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   }
 
   /// Sends registration message on ws channel when connected
-  /// else init's connection
-  Stream<WebSocketState> _registration(RegistrationEvent event) async* {
+  void _registerSubscriptionRequest(GraphQLRequest<Object?> request) {
     final currentState = _currentState;
 
     // Wait for connection to finish establishing
-    if (currentState is ConnectingState) {
-      return;
-    }
-
-    // Establish web socket connection first.
-    // Registration will then happen after connection ack is received.
     if (currentState is! ConnectedState) {
-      add(const InitEvent());
       return;
     }
 
     // Send Registration messages over the open connection
     assert(
-      currentState.subscriptionBlocs.containsKey(event.request.id),
+      currentState.subscriptionBlocs.containsKey(request.id),
       'We should always have a matching subscription bloc.',
     );
 
-    final subscriptionBloc = currentState.subscriptionBlocs[event.request.id]!;
+    final subscriptionBloc = currentState.subscriptionBlocs[request.id]!;
 
     // Check if subscription has already been setup
     if (subscriptionBloc.currentState is SubscriptionListeningState) {
       return;
     }
 
-    try {
-      await currentState.service.register(
-        currentState,
-        event.request,
-      );
-    } on Object catch (e, st) {
-      subscriptionBloc.addResponseError(e, st);
-    }
-    // TODO(dnys1): Yield broken on web debug build.
-    yield* const Stream.empty();
+    currentState.service
+        .register(
+          currentState,
+          request,
+        )
+        .onError<Object>(subscriptionBloc.addResponseError);
   }
 
   /// Shut down the bloc & clean up

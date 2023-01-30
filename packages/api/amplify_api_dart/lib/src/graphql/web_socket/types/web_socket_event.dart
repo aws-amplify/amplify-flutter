@@ -108,15 +108,6 @@ class SubscribeEvent<T> extends WebSocketEvent {
   final void Function()? onEstablished;
 }
 
-/// Registration event to send to AppSync, triggers a start ack
-class RegistrationEvent extends WebSocketEvent {
-  /// Send a [GraphQLRequest] to register with AppSync
-  const RegistrationEvent(this.request);
-
-  /// Underlying request used in forming a registration message
-  final GraphQLRequest<Object?> request;
-}
-
 /// Unsubscribe event to remove registration from AppSync and remove from bloc
 class UnsubscribeEvent extends WebSocketEvent {
   /// Provide the GraphQLRequest to unsubscribe
