@@ -7,6 +7,8 @@ import 'dart:math';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
+import 'package:amplify_storage_s3_dart/src/storage_s3_service/service/task/part_size_util.dart'
+    as part_size_util;
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/transfer_record.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/transfer.dart'
@@ -121,9 +123,6 @@ class S3UploadTask {
           transferDatabase: transferDatabase,
         );
 
-  // https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html
-  static const _minPartSize = 5 * 1024 * 1024; // 5MB
-  static const _maxNumberOfParts = 10000;
   // Took reference from amplify-js
   static const _maxNumParallelTasks = 4;
 
@@ -150,10 +149,12 @@ class S3UploadTask {
   smithy.SmithyOperation<s3.PutObjectOutput>? _putObjectOperation;
 
   // fields used to manage the multipart upload process
+  bool _isAWSFileStream = false;
   late final ChunkedStreamReader<int> _fileReader;
   late final StreamController<_CompletedSubtask> _subtasksStreamController;
   late final StreamSubscription<_CompletedSubtask> _subtasksStreamSubscription;
   late final int _lastPartSize;
+  late final int _optimalPartSize;
   late final String _multipartUploadId;
   late final int _expectedNumOfSubtasks;
   final _ongoingSubtasks = <int, _OngoingSubtask>{};
@@ -207,10 +208,12 @@ class S3UploadTask {
         _completeUploadWithError(error, stackTrace);
       }
 
-      if (_fileSize <= _minPartSize) {
-        // S3 multipart upload requires minimum part size to be 5MB. Multipart
-        // upload cannot be initiated for a file with size less than 5MB so use
-        // putObject
+      if (_fileSize > part_size_util.maxSingleObjectSize) {
+        _completeUploadWithError(S3Exception.uploadSourceIsTooLarge());
+        return;
+      }
+
+      if (_fileSize < part_size_util.minPartSize) {
         unawaited(
           _startPutObject(
             S3DataPayload.streaming(
@@ -360,17 +363,13 @@ class S3UploadTask {
     // 1. check if can initiate multipart upload with the given file size
     // and create a multipart upload and set its id to _multipartUploadId
     try {
-      _expectedNumOfSubtasks = (_fileSize / _minPartSize).ceil();
-      _lastPartSize =
-          _fileSize - _minPartSize * (_fileSize / _minPartSize).floor();
-
-      if (_expectedNumOfSubtasks > _maxNumberOfParts) {
-        throw S3Exception.uploadSourceIsTooLarge();
-      }
-
       _isMultipartUpload = true;
+      _optimalPartSize = part_size_util.calculateOptimalPartSize(_fileSize);
+      _expectedNumOfSubtasks = (_fileSize / _optimalPartSize).ceil();
+      _lastPartSize =
+          _fileSize - _optimalPartSize * (_fileSize / _optimalPartSize).floor();
 
-      _fileReader = localFile.getChunkedStreamReader();
+      await _checkIfAWSFileStream(localFile);
       await _createMultiPartUpload(localFile);
     } on Exception catch (error, stackTrace) {
       _completeUploadWithError(error, stackTrace);
@@ -381,8 +380,8 @@ class S3UploadTask {
     _subtasksStreamController = StreamController(
       onListen: () {
         // 3. start the multipart uploading
-        unawaited(_startNextUploadPartsBatch());
         _state = S3TransferState.inProgress;
+        unawaited(_startNextUploadPartsBatch());
         _emitTransferProgress();
         _determineUploadModeCompleter.complete();
       },
@@ -534,11 +533,17 @@ class S3UploadTask {
     // create a new batching Completer to start the current batching
     _uploadPartBatchingCompleter = Completer();
 
-    final numToBatch = min(
-      _maxNumParallelTasks - _numOfOngoingSubtasks,
-      _expectedNumOfSubtasks -
-          (_numOfCompletedSubtasks + _numOfOngoingSubtasks),
-    );
+    // If the AWSFile is backed by a stream, and the optimal part size is
+    // greater than 5MiB, upload chunks one by one.
+    // Otherwise maximum 4 parts of the file can uploaded in parallel.
+    final numToBatch =
+        _isAWSFileStream && _optimalPartSize > part_size_util.minPartSize
+            ? 1
+            : min(
+                _maxNumParallelTasks - _numOfOngoingSubtasks,
+                _expectedNumOfSubtasks -
+                    (_numOfCompletedSubtasks + _numOfOngoingSubtasks),
+              );
 
     _state = S3TransferState.inProgress;
 
@@ -550,7 +555,7 @@ class S3UploadTask {
           request: _handleUploadPart(
             partNumber: ongoingSubtask.partNumber,
             uploadPartRequest: _uploadPart(
-              partBody: Stream.value(ongoingSubtask.partBodyChunk),
+              partBody: ongoingSubtask.partBody,
               partNumber: ongoingSubtask.partNumber,
             ),
           ),
@@ -572,15 +577,31 @@ class S3UploadTask {
   Future<void> _startNextUploadPart({
     required int partNumber,
   }) async {
-    final chunk = await _fileReader.readChunk(_minPartSize);
+    late Stream<List<int>> Function() chunkGetter;
+
+    // If the AWSFile is backed by a stream of bytes, read chunks one by one
+    // using the chunked stream reader
+    if (_isAWSFileStream) {
+      final chunk = await _fileReader.readChunk(_optimalPartSize);
+      chunkGetter = () => Stream.value(chunk);
+    }
+    // otherwise allow reading parts in parallel
+    else {
+      chunkGetter = () => _localFile!.openRead(
+            (partNumber - 1) * _optimalPartSize,
+            partNumber == _expectedNumOfSubtasks
+                ? _fileSize
+                : partNumber * _optimalPartSize,
+          );
+    }
 
     _ongoingSubtasks[partNumber] = _OngoingSubtask(
-      partBodyChunk: chunk,
+      partBodyGetter: chunkGetter,
       partNumber: partNumber,
       request: _handleUploadPart(
         partNumber: partNumber,
         uploadPartRequest: _uploadPart(
-          partBody: Stream.value(chunk),
+          partBody: chunkGetter(),
           partNumber: partNumber,
         ),
       ),
@@ -624,8 +645,9 @@ class S3UploadTask {
 
       return _CompletedSubtask(
         partNumber: partNumber,
-        transferredBytes:
-            partNumber == _expectedNumOfSubtasks ? _lastPartSize : _minPartSize,
+        transferredBytes: partNumber == _expectedNumOfSubtasks
+            ? _lastPartSize
+            : _optimalPartSize,
         eTag: eTag,
       );
     } on smithy.UnknownSmithyHttpException catch (error) {
@@ -703,6 +725,15 @@ class S3UploadTask {
     _emitTransferProgress();
     _uploadCompleter.completeError(error, stackTrace);
   }
+
+  Future<void> _checkIfAWSFileStream(AWSFile file) async {
+    try {
+      file.openRead(0, 1);
+    } on InvalidFileException {
+      _isAWSFileStream = true;
+      _fileReader = file.getChunkedStreamReader();
+    }
+  }
 }
 
 class _CompletedSubtask {
@@ -720,22 +751,23 @@ class _CompletedSubtask {
 
 class _OngoingSubtask {
   _OngoingSubtask({
-    required this.partBodyChunk,
+    required Stream<List<int>> Function() partBodyGetter,
     required this.partNumber,
     required this.request,
-  });
+  }) : _partBodyGetter = partBodyGetter;
 
-  final List<int> partBodyChunk;
+  final Stream<List<int>> Function() _partBodyGetter;
   final int partNumber;
   final Future<void> request;
 
+  Stream<List<int>> get partBody => _partBodyGetter();
+
   _OngoingSubtask copyWith({
-    List<int>? partBodyChunk,
     int? partNumber,
     Future<void>? request,
   }) {
     return _OngoingSubtask(
-      partBodyChunk: partBodyChunk ?? this.partBodyChunk,
+      partBodyGetter: _partBodyGetter,
       partNumber: partNumber ?? this.partNumber,
       request: request ?? this.request,
     );
