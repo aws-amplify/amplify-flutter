@@ -221,10 +221,13 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         if (state is SignInSuccess) {
           hubEvent = AuthHubEvent.signedIn(state.user.authUser);
         }
-        if (state is FetchAuthSessionFailure &&
-            (state.exception is UnauthorizedException ||
-                state.exception is AuthNotAuthorizedException)) {
-          hubEvent = AuthHubEvent.sessionExpired();
+        if (state is FetchAuthSessionSuccess) {
+          final exception = state.session.userPoolTokensResult.exception;
+          if (exception is UnauthorizedException ||
+              exception is AuthNotAuthorizedException ||
+              exception is SessionExpiredException) {
+            hubEvent = AuthHubEvent.sessionExpired();
+          }
         }
 
         if (hubEvent != null) {
