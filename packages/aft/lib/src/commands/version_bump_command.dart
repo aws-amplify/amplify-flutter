@@ -55,7 +55,7 @@ class VersionBumpCommand extends AmplifyCommand
   late final bool preview = argResults!['preview'] as bool;
 
   GitChanges _changesForPackage(PackageInfo package) {
-    final baseRef = this.baseRef ?? repo.latestBumpRef(package.name);
+    final baseRef = this.baseRef ?? repo.latestBumpRef(package);
     if (baseRef == null) {
       exitError(
         'No previous version bumps for package (${package.name}). '
@@ -131,13 +131,17 @@ class VersionBumpCommand extends AmplifyCommand
 
     logger.info('Version successfully bumped');
     // Stage changes
+    final publishableBumpedPackages =
+        bumpedPackages.where((pkg) => pkg.isPublishable).toList();
     final mergedChangelog = Changelog.empty().makeVersionEntry(
       commits: {
-        for (final package in bumpedPackages)
+        for (final package in publishableBumpedPackages)
           ...?repo.changelogUpdates[package]?.commits,
       },
     );
-    final updatedComponents = List.of(bumpedPackages.map((pkg) => pkg.name));
+    final updatedComponents = List.of(
+      publishableBumpedPackages.map((pkg) => pkg.name),
+    );
     for (final component in repo.components.values) {
       final componentPackages =
           component.packages.map((pkg) => pkg.name).toList();
