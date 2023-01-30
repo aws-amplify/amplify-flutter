@@ -13,7 +13,7 @@ typedef ConflictHandler = ConflictResolutionDecision Function(ConflictData);
 
 /// An implementation of [AmplifyDataStore] that uses method channels.
 class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
-  dynamic _allModelsStreamFromMethodChannel = null;
+  dynamic _allModelsStreamFromMethodChannel;
 
   List<DataStoreSyncExpression>? _syncExpressions;
 

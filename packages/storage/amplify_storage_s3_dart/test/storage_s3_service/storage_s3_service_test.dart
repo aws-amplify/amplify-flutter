@@ -537,8 +537,8 @@ void main() {
             // assert the signer scope is always freshly initiated upon calling
             // `getUrl`
             expect(
-              AWSDateTime(comparingTime).formatFull(),
-              lessThanOrEqualTo(credentialScopeParam.dateTime.formatFull()),
+              comparingTime.isBefore(credentialScopeParam.dateTime.dateTime),
+              isTrue,
             );
 
             expect(capturedParams[2] is S3ServiceConfiguration, isTrue);
@@ -637,6 +637,48 @@ void main() {
           '${await testPrefixResolver.resolvePrefix(
             accessLevel: testOptions.accessLevel,
           )}$testKey',
+        );
+      });
+
+      test('generate transfer acceleration enabled URL', () async {
+        const testOptions = S3GetUrlOptions(
+          accessLevel: StorageAccessLevel.private,
+          useAccelerateEndpoint: true,
+        );
+
+        when(
+          () => awsSigV4Signer.presign(
+            any(),
+            credentialScope: any(named: 'credentialScope'),
+            serviceConfiguration: any(named: 'serviceConfiguration'),
+            expiresIn: any(named: 'expiresIn'),
+          ),
+        ).thenAnswer((_) async => testUrl);
+
+        await storageS3Service.getUrl(
+          key: testKey,
+          options: testOptions,
+        );
+
+        final capturedParams = verify(
+          () => awsSigV4Signer.presign(
+            captureAny<AWSHttpRequest>(),
+            credentialScope:
+                captureAny<AWSCredentialScope>(named: 'credentialScope'),
+            expiresIn: captureAny<Duration>(named: 'expiresIn'),
+            serviceConfiguration: captureAny<S3ServiceConfiguration>(
+              named: 'serviceConfiguration',
+            ),
+          ),
+        ).captured;
+
+        expect(
+          capturedParams[0],
+          isA<AWSHttpRequest>().having(
+            (o) => o.uri.host,
+            'AWSHttpRequest URI',
+            contains('.s3-accelerate.'),
+          ),
         );
       });
     });

@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library smoke_test.dynamo_db.model.batch_get_item_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,7 +37,7 @@ abstract class BatchGetItemOutput
             ) =>
               MapEntry(
                 key,
-                value.map((el) => _i5.BuiltMap(value)),
+                value.map((el) => _i5.BuiltMap(el)),
               ))),
       unprocessedKeys:
           unprocessedKeys == null ? null : _i5.BuiltMap(unprocessedKeys),

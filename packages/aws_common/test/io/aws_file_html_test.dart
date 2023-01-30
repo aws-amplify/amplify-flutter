@@ -93,6 +93,42 @@ void main() {
 
         expect(await awsFile.contentType, testExternalContentType);
       });
+
+      test('should resolve contentType from underlying html File', () async {
+        final awsFile = AWSFilePlatform.fromFile(
+          testFile,
+        );
+
+        expect(await awsFile.contentType, testFile.type);
+      });
+
+      test('should resolve contentType from underlying html Blob', () async {
+        final awsFile = AWSFilePlatform.fromBlob(
+          testBlob,
+        );
+
+        expect(await awsFile.contentType, testBlob.type);
+      });
+
+      test(
+          'should resolve contentType from the blob that is resolved from the path',
+          () async {
+        final awsFile = AWSFilePlatform.fromPath(
+          testFilePath,
+        );
+
+        expect(await awsFile.contentType, testFile.type);
+      });
+
+      test('should return null as contentType if contentType is unresolvable',
+          () async {
+        final awsFile = AWSFile.fromStream(
+          Stream.value(testBytes),
+          size: testBytes.length,
+        );
+
+        expect(await awsFile.contentType, isNull);
+      });
     });
   });
 }

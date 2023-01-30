@@ -36,11 +36,7 @@ dev_dependencies:
   convert: ^3.0.0
   http: ^0.13.0
   smithy:
-    hosted: https://pub.dillonnys.com
-    version: ^0.5.0
   smithy_aws:
-    hosted: https://pub.dillonnys.com
-    version: ^0.5.0
   stream_transform: ^2.0.0
   test: ^1.16.0
   worker_bee:

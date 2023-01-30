@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library smoke_test.s3.operation.list_parts_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -72,10 +72,14 @@ class ListPartsOperation extends _i1.PaginatedHttpOperation<
     _i6.S3ClientConfig s3ClientConfig = const _i6.S3ClientConfig(),
     _i7.AWSCredentialsProvider credentialsProvider =
         const _i7.AWSCredentialsProvider.environment(),
+    List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
+    List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
         _baseUri = baseUri,
         _s3ClientConfig = s3ClientConfig,
-        _credentialsProvider = credentialsProvider;
+        _credentialsProvider = credentialsProvider,
+        _requestInterceptors = requestInterceptors,
+        _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
@@ -84,20 +88,22 @@ class ListPartsOperation extends _i1.PaginatedHttpOperation<
     _i6.RestXmlProtocol(
       serializers: _i8.serializers,
       builderFactories: _i8.builderFactories,
-      requestInterceptors: [
-        const _i1.WithHost(),
-        _i6.WithSigV4(
-          region: _region,
-          service: _i9.AWSService.s3,
-          credentialsProvider: _credentialsProvider,
-          serviceConfiguration: _s3ClientConfig.signerConfiguration ??
-              _i7.S3ServiceConfiguration(),
-        ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.3.0'),
-        const _i6.WithSdkInvocationId(),
-        const _i6.WithSdkRequest(),
-      ],
-      responseInterceptors: [],
+      requestInterceptors: <_i1.HttpRequestInterceptor>[
+            const _i1.WithHost(),
+            _i6.WithSigV4(
+              region: _region,
+              service: _i9.AWSService.s3,
+              credentialsProvider: _credentialsProvider,
+              serviceConfiguration: _s3ClientConfig.signerConfiguration ??
+                  _i7.S3ServiceConfiguration(),
+            ),
+            const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
+            const _i6.WithSdkInvocationId(),
+            const _i6.WithSdkRequest(),
+          ] +
+          _requestInterceptors,
+      responseInterceptors:
+          <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
       noErrorWrapping: true,
     )
   ];
@@ -114,6 +120,10 @@ class ListPartsOperation extends _i1.PaginatedHttpOperation<
   final _i6.S3ClientConfig _s3ClientConfig;
 
   final _i7.AWSCredentialsProvider _credentialsProvider;
+
+  final List<_i1.HttpRequestInterceptor> _requestInterceptors;
+
+  final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
   _i1.HttpRequest buildRequest(_i2.ListPartsRequest input) =>

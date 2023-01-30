@@ -53,7 +53,7 @@ interface StorageIntegrationTestEnvironmentProps
 
 export class StorageIntegrationTestStack extends IntegrationTestStack<
   StorageIntegrationTestEnvironmentProps,
-  StorageIntgrationTestEnvironment
+  StorageIntegrationTestEnvironment
 > {
   constructor(
     scope: Construct,
@@ -70,15 +70,15 @@ export class StorageIntegrationTestStack extends IntegrationTestStack<
 
   protected buildEnvironments(
     environments: StorageIntegrationTestEnvironmentProps[]
-  ): StorageIntgrationTestEnvironment[] {
+  ): StorageIntegrationTestEnvironment[] {
     return environments.map(
       (environment) =>
-        new StorageIntgrationTestEnvironment(this, this.baseName, environment)
+        new StorageIntegrationTestEnvironment(this, this.baseName, environment)
     );
   }
 }
 
-class StorageIntgrationTestEnvironment extends IntegrationTestStackEnvironment<StorageIntegrationTestEnvironmentProps> {
+class StorageIntegrationTestEnvironment extends IntegrationTestStackEnvironment<StorageIntegrationTestEnvironmentProps> {
   constructor(
     scope: Construct,
     baseName: string,
@@ -89,6 +89,7 @@ class StorageIntgrationTestEnvironment extends IntegrationTestStackEnvironment<S
     // Create the bucket
 
     const bucket = new s3.Bucket(this, "Bucket", {
+      transferAcceleration: true,
       removalPolicy: RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
       enforceSSL: true,

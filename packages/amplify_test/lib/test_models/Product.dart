@@ -215,6 +215,11 @@ class _ProductModelType extends ModelType<Product> {
   Product fromJson(Map<String, dynamic> jsonData) {
     return Product.fromJson(jsonData);
   }
+
+  @override
+  String modelName() {
+    return 'Product';
+  }
 }
 
 /// This is an auto generated class representing the model identifier

@@ -8,7 +8,7 @@ use aws.protocols#httpChecksum
 use smithy.test#httpRequestTests
 use smithy.test#httpResponseTests
 
-@service(sdkId: "Custom Service")
+@service(sdkId: "Custom")
 @restJson1
 service CustomService {
     operations: [
@@ -77,7 +77,8 @@ Tests the behavior of @httpChecksum combined with @httpChecksumRequired as descr
 """)
 @http(method: "POST", uri: "/reallyRequired")
 @httpChecksum(
-    requestChecksumRequired: true
+    requestChecksumRequired: true,
+    requestAlgorithmMember: "checksumAlgorithm"
 )
 @httpChecksumRequired
 operation HttpChecksumReallyRequired {
@@ -86,6 +87,9 @@ operation HttpChecksumReallyRequired {
 
 @input
 structure HttpChecksumReallyRequiredInput {
+    @httpHeader("x-amz-request-algorithm")
+    checksumAlgorithm: ChecksumAlgorithm
+
     @httpPayload
     content: Blob
 }
@@ -96,7 +100,8 @@ Tests the behavior of @httpChecksum combined with @httpChecksumRequired as descr
 """)
 @http(method: "POST", uri: "/reallyNotRequired")
 @httpChecksum(
-    requestChecksumRequired: false
+    requestChecksumRequired: false,
+    requestAlgorithmMember: "checksumAlgorithm"
 )
 @httpChecksumRequired
 operation HttpChecksumReallyNotRequired {
@@ -105,6 +110,9 @@ operation HttpChecksumReallyNotRequired {
 
 @input
 structure HttpChecksumReallyNotRequiredInput {
+    @httpHeader("x-amz-request-algorithm")
+    checksumAlgorithm: ChecksumAlgorithm
+
     @httpPayload
     content: Blob
 }
@@ -213,7 +221,7 @@ apply HttpChecksumRequiredWithMember @httpRequestTests([
         }
     },
     {
-        id: "HttpChecksumRequiredWithMemberWithSHA1",
+        id: "HttpChecksumRequiredWithMemberWithCRC32C",
         documentation: "Adds a CRC32C checksum when that algorithm is provided",
         protocol: restJson1,
         method: "POST",

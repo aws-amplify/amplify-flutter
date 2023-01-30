@@ -15,33 +15,6 @@ import 'ModelProvider.dart';
 /// This is an auto generated class representing the S3Object type in your schema.
 @immutable
 class S3Object {
-  factory S3Object(
-      {required String bucket,
-      required String region,
-      required String key,
-      FileMeta? meta}) {
-    return S3Object._internal(
-        bucket: bucket, region: region, key: key, meta: meta);
-  }
-  S3Object.fromJson(Map<String, dynamic> json)
-      : _bucket = json['bucket'],
-        _region = json['region'],
-        _key = json['key'],
-        _meta = json['meta']?['serializedData'] != null
-            ? FileMeta.fromJson(
-                Map<String, dynamic>.from(json['meta']['serializedData']),
-              )
-            : null;
-
-  const S3Object._internal({
-    required bucket,
-    required region,
-    required key,
-    meta,
-  })  : _bucket = bucket,
-        _region = region,
-        _key = key,
-        _meta = meta;
   final String? _bucket;
   final String? _region;
   final String? _key;
@@ -52,11 +25,11 @@ class S3Object {
       return _bucket!;
     } catch (e) {
       throw AmplifyCodeGenModelException(
-        AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion: AmplifyExceptionMessages
-            .codeGenRequiredFieldForceCastRecoverySuggestion,
-        underlyingException: e.toString(),
-      );
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
 
@@ -65,11 +38,11 @@ class S3Object {
       return _region!;
     } catch (e) {
       throw AmplifyCodeGenModelException(
-        AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion: AmplifyExceptionMessages
-            .codeGenRequiredFieldForceCastRecoverySuggestion,
-        underlyingException: e.toString(),
-      );
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
 
@@ -78,16 +51,32 @@ class S3Object {
       return _key!;
     } catch (e) {
       throw AmplifyCodeGenModelException(
-        AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-        recoverySuggestion: AmplifyExceptionMessages
-            .codeGenRequiredFieldForceCastRecoverySuggestion,
-        underlyingException: e.toString(),
-      );
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
 
   FileMeta? get meta {
     return _meta;
+  }
+
+  const S3Object._internal(
+      {required bucket, required region, required key, meta})
+      : _bucket = bucket,
+        _region = region,
+        _key = key,
+        _meta = meta;
+
+  factory S3Object(
+      {required String bucket,
+      required String region,
+      required String key,
+      FileMeta? meta}) {
+    return S3Object._internal(
+        bucket: bucket, region: region, key: key, meta: meta);
   }
 
   bool equals(Object other) {
@@ -109,31 +98,35 @@ class S3Object {
 
   @override
   String toString() {
-    final buffer = StringBuffer();
+    var buffer = StringBuffer();
 
-    buffer.write('S3Object {');
-    buffer.write('bucket=' + '$_bucket' + ', ');
-    buffer.write('region=' + '$_region' + ', ');
-    buffer.write('key=' + '$_key' + ', ');
-    buffer.write('meta=' + (_meta != null ? _meta!.toString() : 'null'));
-    buffer.write('}');
+    buffer.write("S3Object {");
+    buffer.write("bucket=" + "$_bucket" + ", ");
+    buffer.write("region=" + "$_region" + ", ");
+    buffer.write("key=" + "$_key" + ", ");
+    buffer.write("meta=" + (_meta != null ? _meta!.toString() : "null"));
+    buffer.write("}");
 
     return buffer.toString();
   }
 
-  S3Object copyWith({
-    String? bucket,
-    String? region,
-    String? key,
-    FileMeta? meta,
-  }) {
+  S3Object copyWith(
+      {String? bucket, String? region, String? key, FileMeta? meta}) {
     return S3Object._internal(
-      bucket: bucket ?? this.bucket,
-      region: region ?? this.region,
-      key: key ?? this.key,
-      meta: meta ?? this.meta,
-    );
+        bucket: bucket ?? this.bucket,
+        region: region ?? this.region,
+        key: key ?? this.key,
+        meta: meta ?? this.meta);
   }
+
+  S3Object.fromJson(Map<String, dynamic> json)
+      : _bucket = json['bucket'],
+        _region = json['region'],
+        _key = json['key'],
+        _meta = json['meta']?['serializedData'] != null
+            ? FileMeta.fromJson(
+                Map<String, dynamic>.from(json['meta']['serializedData']))
+            : null;
 
   Map<String, dynamic> toJson() => {
         'bucket': _bucket,
@@ -142,45 +135,30 @@ class S3Object {
         'meta': _meta?.toJson()
       };
 
-  static ModelSchema schema = Model.defineSchema(
-    define: (ModelSchemaDefinition modelSchemaDefinition) {
-      modelSchemaDefinition.name = 'S3Object';
-      modelSchemaDefinition.pluralName = 'S3Objects';
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+    modelSchemaDefinition.name = "S3Object";
+    modelSchemaDefinition.pluralName = "S3Objects";
 
-      modelSchemaDefinition.addField(
-        ModelFieldDefinition.customTypeField(
-          fieldName: 'bucket',
-          isRequired: true,
-          ofType: ModelFieldType(ModelFieldTypeEnum.string),
-        ),
-      );
+    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
+        fieldName: 'bucket',
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
-      modelSchemaDefinition.addField(
-        ModelFieldDefinition.customTypeField(
-          fieldName: 'region',
-          isRequired: true,
-          ofType: ModelFieldType(ModelFieldTypeEnum.string),
-        ),
-      );
+    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
+        fieldName: 'region',
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
-      modelSchemaDefinition.addField(
-        ModelFieldDefinition.customTypeField(
-          fieldName: 'key',
-          isRequired: true,
-          ofType: ModelFieldType(ModelFieldTypeEnum.string),
-        ),
-      );
+    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
+        fieldName: 'key',
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
-      modelSchemaDefinition.addField(
-        ModelFieldDefinition.embedded(
-          fieldName: 'meta',
-          isRequired: false,
-          ofType: ModelFieldType(
-            ModelFieldTypeEnum.embedded,
-            ofCustomTypeName: 'FileMeta',
-          ),
-        ),
-      );
-    },
-  );
+    modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
+        fieldName: 'meta',
+        isRequired: false,
+        ofType: ModelFieldType(ModelFieldTypeEnum.embedded,
+            ofCustomTypeName: 'FileMeta')));
+  });
 }

@@ -8,6 +8,24 @@ import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/enum_strin
     as _i2;
 import 'package:smithy/smithy.dart' as _i1;
 
+/// The discrete values of [EnumUnion].
+enum EnumUnionType<T extends EnumUnion> {
+  /// The type for [EnumUnionFirst].
+  first<EnumUnionFirst>(r'first'),
+
+  /// The type for [EnumUnionSecond].
+  second<EnumUnionSecond>(r'second'),
+
+  /// The type for an unknown value.
+  sdkUnknown<EnumUnionSdkUnknown>('sdkUnknown');
+
+  /// The discrete values of [EnumUnion].
+  const EnumUnionType(this.value);
+
+  /// The Smithy value.
+  final String value;
+}
+
 abstract class EnumUnion extends _i1.SmithyUnion<EnumUnion> {
   const EnumUnion._();
 
@@ -26,6 +44,7 @@ abstract class EnumUnion extends _i1.SmithyUnion<EnumUnion> {
 
   _i2.EnumString? get first => null;
   _i2.EnumString? get second => null;
+  EnumUnionType get type;
   @override
   Object get value => (first ?? second)!;
   @override
@@ -76,6 +95,8 @@ class EnumUnionFirst extends EnumUnion {
   final _i2.EnumString first;
 
   @override
+  EnumUnionType get type => EnumUnionType.first;
+  @override
   String get name => 'first';
 }
 
@@ -85,6 +106,8 @@ class EnumUnionSecond extends EnumUnion {
   @override
   final _i2.EnumString second;
 
+  @override
+  EnumUnionType get type => EnumUnionType.second;
   @override
   String get name => 'second';
 }
@@ -100,6 +123,9 @@ class EnumUnionSdkUnknown extends EnumUnion {
 
   @override
   final Object value;
+
+  @override
+  EnumUnionType get type => EnumUnionType.sdkUnknown;
 }
 
 class EnumUnionRestJson1Serializer
@@ -132,12 +158,12 @@ class EnumUnionRestJson1Serializer
     final value = iterator.current as Object;
     switch (key) {
       case 'first':
-        return EnumUnion.first((serializers.deserialize(
+        return EnumUnionFirst((serializers.deserialize(
           value,
           specifiedType: const FullType(_i2.EnumString),
         ) as _i2.EnumString));
       case 'second':
-        return EnumUnion.second((serializers.deserialize(
+        return EnumUnionSecond((serializers.deserialize(
           value,
           specifiedType: const FullType(_i2.EnumString),
         ) as _i2.EnumString));

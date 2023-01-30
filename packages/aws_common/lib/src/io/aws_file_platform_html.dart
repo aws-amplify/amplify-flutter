@@ -125,18 +125,24 @@ class AWSFilePlatform extends AWSFile {
           return externalContentType;
         }
 
-        String blobType;
+        String? blobType;
 
         final file = _inputFile ?? _inputBlob;
+        final path = super.path;
+
         if (file != null) {
           blobType = file.type;
-        } else {
+        } else if (path != null) {
           blobType = (await _resolvedBlob).type;
         }
 
         // on Web blob.type may return an empty string
         // https://developer.mozilla.org/en-US/docs/Web/API/Blob/type#value
-        return blobType.isEmpty ? null : blobType;
+        if (blobType != null) {
+          return blobType.isEmpty ? null : blobType;
+        }
+
+        return blobType;
       });
 
   Future<Blob> get _resolvedBlob async {
