@@ -134,14 +134,14 @@ apply FooError @httpResponseTests([
         id: "AwsJson10FooErrorUsingXAmznErrorTypeWithUri",
         documentation: """
             Some X-Amzn-Errortype headers contain URLs. Clients need to split the URL on ':' and take \
-            only the first half of the string. For example, 'ValidationException:http://internal.amazon.com/coral/com.amazon.coral.validate/'
+            only the first half of the string. For example, 'ValidationException:http://internal.amazon.com/example/com.amazon.example.validate/'
             is to be interpreted as 'ValidationException'.
 
             For an example service see Amazon Polly.""",
         protocol: awsJson1_0,
         code: 500,
         headers: {
-            "X-Amzn-Errortype": "FooError:http://internal.amazon.com/coral/com.amazon.coral.validate/",
+            "X-Amzn-Errortype": "FooError:http://internal.amazon.com/example/com.amazon.example.validate/",
         },
         appliesTo: "client",
     },
@@ -153,7 +153,7 @@ apply FooError @httpResponseTests([
         protocol: awsJson1_0,
         code: 500,
         headers: {
-            "X-Amzn-Errortype": "aws.protocoltests.json10#FooError:http://internal.amazon.com/coral/com.amazon.coral.validate/",
+            "X-Amzn-Errortype": "aws.protocoltests.json10#FooError:http://internal.amazon.com/example/com.amazon.example.validate/",
         },
         appliesTo: "client",
     },
@@ -207,7 +207,7 @@ apply FooError @httpResponseTests([
         },
         body: """
               {
-                  "code": "aws.protocoltests.json10#FooError:http://internal.amazon.com/coral/com.amazon.coral.validate/"
+                  "code": "aws.protocoltests.json10#FooError:http://internal.amazon.com/example/com.amazon.example.validate/"
               }""",
         bodyMediaType: "application/json",
         appliesTo: "client",
@@ -257,7 +257,7 @@ apply FooError @httpResponseTests([
         },
         body: """
               {
-                  "__type": "aws.protocoltests.json10#FooError:http://internal.amazon.com/coral/com.amazon.coral.validate/"
+                  "__type": "aws.protocoltests.json10#FooError:http://internal.amazon.com/example/com.amazon.example.validate/"
               }""",
         bodyMediaType: "application/json",
         appliesTo: "client",

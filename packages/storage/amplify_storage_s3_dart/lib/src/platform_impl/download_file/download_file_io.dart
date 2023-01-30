@@ -27,10 +27,12 @@ S3DownloadFileOperation downloadFile({
       ? S3DownloadDataOptions(
           accessLevel: s3Options.accessLevel,
           getProperties: s3Options.getProperties,
+          useAccelerateEndpoint: s3Options.useAccelerateEndpoint,
         )
       : S3DownloadDataOptions.forIdentity(
           targetIdentityId,
           getProperties: s3Options.getProperties,
+          useAccelerateEndpoint: s3Options.useAccelerateEndpoint,
         );
 
   late final String destinationPath;

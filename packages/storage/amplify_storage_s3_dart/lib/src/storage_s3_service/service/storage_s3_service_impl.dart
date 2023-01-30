@@ -12,10 +12,10 @@ import 'package:amplify_storage_s3_dart/src/sdk/src/s3/common/endpoint_resolver.
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/transfer.dart'
     as transfer;
-import 'package:aws_signature_v4/aws_signature_v4.dart';
+import 'package:aws_signature_v4/aws_signature_v4.dart' as sigv4;
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart' as smithy;
-import 'package:smithy_aws/smithy_aws.dart';
+import 'package:smithy_aws/smithy_aws.dart' as smithy_aws;
 
 /// Zone value symbol for testing.
 @visibleForTesting
@@ -49,14 +49,16 @@ class StorageS3Service {
             ),
         _prefixResolver = prefixResolver,
         _logger = logger,
-        // dependencyManager.get() => AWSSigV4Signer is used for unit tests
+        // dependencyManager.get() => sigv4.AWSSigV4Signer is used for unit tests
         _awsSigV4Signer = dependencyManager.get() ??
-            AWSSigV4Signer(credentialsProvider: credentialsProvider),
+            sigv4.AWSSigV4Signer(credentialsProvider: credentialsProvider),
         _dependencyManager = dependencyManager,
         _serviceStartingTime = DateTime.now();
 
-  static const _defaultS3ClientConfig = S3ClientConfig();
-  static final _defaultS3SignerConfiguration = S3ServiceConfiguration();
+  static final _defaultS3ClientConfig = smithy_aws.S3ClientConfig(
+    signerConfiguration: _defaultS3SignerConfiguration,
+  );
+  static final _defaultS3SignerConfiguration = sigv4.S3ServiceConfiguration();
 
   final String _defaultBucket;
   final String _defaultRegion;
@@ -64,11 +66,11 @@ class StorageS3Service {
   final s3.S3Client _defaultS3Client;
   final S3PrefixResolver _prefixResolver;
   final AWSLogger _logger;
-  final AWSSigV4Signer _awsSigV4Signer;
+  final sigv4.AWSSigV4Signer _awsSigV4Signer;
   final DependencyManager _dependencyManager;
   final DateTime _serviceStartingTime;
 
-  AWSCredentialScope get _signerScope => AWSCredentialScope(
+  sigv4.AWSCredentialScope get _signerScope => sigv4.AWSCredentialScope(
         region: _defaultRegion,
         service: AWSService.s3,
       );
@@ -185,7 +187,7 @@ class StorageS3Service {
   }
 
   /// Takes in input from [AmplifyStorageS3Dart.getUrl] API to create a
-  /// `GET` [AWSHttpRequest], then `presign` it with [AWSSigV4Signer], and
+  /// `GET` [AWSHttpRequest], then `presign` it with [sigv4.AWSSigV4Signer], and
   /// returns a [S3GetUrlResult] containing the presigned [Uri].
   ///
   /// {@macro storage.s3_service.throw_exception_unknown_smithy_exception}
@@ -218,8 +220,15 @@ class StorageS3Service {
     );
     final keyToGetUrl = '$resolvedPrefix$key';
 
-    final host =
-        '$_defaultBucket.${_getS3EndpointHost(region: _defaultRegion)}';
+    var host = '$_defaultBucket.${_getS3EndpointHost(region: _defaultRegion)}';
+
+    if (options.useAccelerateEndpoint) {
+      // https: //docs.aws.amazon.com/AmazonS3/latest/userguide/transfer-acceleration-getting-started.html
+      host = host
+          .replaceFirst(RegExp('$_defaultRegion\\.'), '')
+          .replaceFirst(RegExp(r'\.s3\.'), '.s3-accelerate.');
+    }
+
     final urlRequest = AWSHttpRequest.get(
       Uri.https(host, keyToGetUrl),
       headers: {
@@ -262,6 +271,7 @@ class StorageS3Service {
   }) {
     final downloadDataTask = S3DownloadTask(
       s3Client: _defaultS3Client,
+      defaultS3ClientConfig: _defaultS3ClientConfig,
       bucket: _defaultBucket,
       key: key,
       options: options,
@@ -293,6 +303,7 @@ class StorageS3Service {
     final uploadDataTask = S3UploadTask.fromDataPayload(
       dataPayload,
       s3Client: _defaultS3Client,
+      defaultS3ClientConfig: _defaultS3ClientConfig,
       bucket: _defaultBucket,
       key: key,
       options: options,
@@ -326,6 +337,7 @@ class StorageS3Service {
     final uploadDataTask = S3UploadTask.fromAWSFile(
       localFile,
       s3Client: _defaultS3Client,
+      defaultS3ClientConfig: _defaultS3ClientConfig,
       bucket: _defaultBucket,
       key: key,
       options: uploadDataOptions,

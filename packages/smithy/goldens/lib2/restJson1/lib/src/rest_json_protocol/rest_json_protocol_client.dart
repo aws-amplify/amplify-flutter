@@ -83,100 +83,102 @@ import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_content_typ
     as _i83;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_content_type_with_payload_input.dart'
     as _i85;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_double_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_content_type_without_body_empty_input_input.dart'
     as _i88;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_float_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_double_input.dart'
     as _i90;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_integer_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_float_input.dart'
     as _i92;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_list_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_integer_input.dart'
     as _i94;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_long_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_list_input.dart'
     as _i96;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_map_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_long_input.dart'
     as _i98;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_request_body_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_map_input.dart'
     as _i100;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_short_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_request_body_input.dart'
     as _i102;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_string_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_short_input.dart'
     as _i104;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_body_date_time_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_string_input.dart'
     as _i106;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_body_default_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_body_date_time_input.dart'
     as _i108;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_body_http_date_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_body_default_input.dart'
     as _i110;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_header_date_time_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_body_http_date_input.dart'
     as _i112;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_header_default_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_header_date_time_input.dart'
     as _i114;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_header_epoch_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_header_default_input.dart'
     as _i116;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_path_default_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_header_epoch_input.dart'
     as _i118;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_path_epoch_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_path_default_input.dart'
     as _i120;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_path_http_date_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_path_epoch_input.dart'
     as _i122;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_query_default_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_path_http_date_input.dart'
     as _i124;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_query_epoch_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_query_default_input.dart'
     as _i126;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_query_http_date_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_query_epoch_input.dart'
     as _i128;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_union_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_timestamp_query_http_date_input.dart'
     as _i130;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/media_type_header_input.dart'
-    as _i133;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/media_type_header_output.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/malformed_union_input.dart'
     as _i132;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/media_type_header_input.dart'
+    as _i135;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/media_type_header_output.dart'
+    as _i134;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/no_input_and_output_output.dart'
-    as _i136;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/null_and_empty_headers_io.dart'
     as _i138;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/null_and_empty_headers_io.dart'
+    as _i140;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/omits_null_serializes_empty_string_input.dart'
-    as _i141;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/post_player_action_input.dart'
-    as _i144;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/post_player_action_output.dart'
     as _i143;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/post_union_with_json_name_input.dart'
-    as _i147;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/post_union_with_json_name_output.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/post_player_action_input.dart'
     as _i146;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/query_idempotency_token_auto_fill_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/post_player_action_output.dart'
+    as _i145;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/post_union_with_json_name_input.dart'
     as _i149;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/query_params_as_string_list_map_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/post_union_with_json_name_output.dart'
+    as _i148;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/query_idempotency_token_auto_fill_input.dart'
     as _i151;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/query_precedence_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/query_params_as_string_list_map_input.dart'
     as _i153;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/recursive_shapes_input_output.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/query_precedence_input.dart'
     as _i155;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/response_code_http_fallback_input_output.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/recursive_shapes_input_output.dart'
     as _i157;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/response_code_required_output.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/response_code_http_fallback_input_output.dart'
     as _i159;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/simple_scalar_properties_input_output.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/response_code_required_output.dart'
     as _i161;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/streaming_traits_input_output.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/simple_scalar_properties_input_output.dart'
     as _i163;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/streaming_traits_require_length_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/streaming_traits_input_output.dart'
     as _i165;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/streaming_traits_with_media_type_input_output.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/streaming_traits_require_length_input.dart'
     as _i167;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/streaming_traits_with_media_type_input_output.dart'
+    as _i169;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/string_payload_input.dart'
     as _i50;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/test_body_structure_input_output.dart'
-    as _i169;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/test_no_payload_input_output.dart'
     as _i171;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/test_payload_blob_input_output.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/test_no_payload_input_output.dart'
     as _i173;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/test_payload_structure_input_output.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/test_payload_blob_input_output.dart'
     as _i175;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/timestamp_format_headers_io.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/test_payload_structure_input_output.dart'
     as _i177;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/timestamp_format_headers_io.dart'
+    as _i179;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/union_input_output.dart'
     as _i68;
 import 'package:rest_json1_v2/src/rest_json_protocol/operation/all_query_string_types_operation.dart'
@@ -263,100 +265,102 @@ import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_content
     as _i84;
 import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_content_type_with_payload_operation.dart'
     as _i86;
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_content_type_without_body_empty_input_operation.dart'
+    as _i89;
 import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_content_type_without_body_operation.dart'
     as _i87;
 import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_double_operation.dart'
-    as _i89;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_float_operation.dart'
     as _i91;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_integer_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_float_operation.dart'
     as _i93;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_list_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_integer_operation.dart'
     as _i95;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_long_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_list_operation.dart'
     as _i97;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_map_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_long_operation.dart'
     as _i99;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_request_body_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_map_operation.dart'
     as _i101;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_short_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_request_body_operation.dart'
     as _i103;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_string_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_short_operation.dart'
     as _i105;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_body_date_time_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_string_operation.dart'
     as _i107;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_body_default_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_body_date_time_operation.dart'
     as _i109;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_body_http_date_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_body_default_operation.dart'
     as _i111;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_header_date_time_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_body_http_date_operation.dart'
     as _i113;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_header_default_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_header_date_time_operation.dart'
     as _i115;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_header_epoch_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_header_default_operation.dart'
     as _i117;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_path_default_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_header_epoch_operation.dart'
     as _i119;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_path_epoch_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_path_default_operation.dart'
     as _i121;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_path_http_date_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_path_epoch_operation.dart'
     as _i123;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_query_default_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_path_http_date_operation.dart'
     as _i125;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_query_epoch_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_query_default_operation.dart'
     as _i127;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_query_http_date_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_query_epoch_operation.dart'
     as _i129;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_union_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_timestamp_query_http_date_operation.dart'
     as _i131;
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/malformed_union_operation.dart'
+    as _i133;
 import 'package:rest_json1_v2/src/rest_json_protocol/operation/media_type_header_operation.dart'
-    as _i134;
+    as _i136;
 import 'package:rest_json1_v2/src/rest_json_protocol/operation/no_input_and_no_output_operation.dart'
-    as _i135;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/no_input_and_output_operation.dart'
     as _i137;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/null_and_empty_headers_client_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/no_input_and_output_operation.dart'
     as _i139;
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/null_and_empty_headers_client_operation.dart'
+    as _i141;
 import 'package:rest_json1_v2/src/rest_json_protocol/operation/null_and_empty_headers_server_operation.dart'
-    as _i140;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/omits_null_serializes_empty_string_operation.dart'
     as _i142;
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/omits_null_serializes_empty_string_operation.dart'
+    as _i144;
 import 'package:rest_json1_v2/src/rest_json_protocol/operation/post_player_action_operation.dart'
-    as _i145;
+    as _i147;
 import 'package:rest_json1_v2/src/rest_json_protocol/operation/post_union_with_json_name_operation.dart'
-    as _i148;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/query_idempotency_token_auto_fill_operation.dart'
     as _i150;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/query_params_as_string_list_map_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/query_idempotency_token_auto_fill_operation.dart'
     as _i152;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/query_precedence_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/query_params_as_string_list_map_operation.dart'
     as _i154;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/recursive_shapes_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/query_precedence_operation.dart'
     as _i156;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/response_code_http_fallback_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/recursive_shapes_operation.dart'
     as _i158;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/response_code_required_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/response_code_http_fallback_operation.dart'
     as _i160;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/simple_scalar_properties_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/response_code_required_operation.dart'
     as _i162;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/streaming_traits_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/simple_scalar_properties_operation.dart'
     as _i164;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/streaming_traits_require_length_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/streaming_traits_operation.dart'
     as _i166;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/streaming_traits_with_media_type_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/streaming_traits_require_length_operation.dart'
     as _i168;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/test_body_structure_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/streaming_traits_with_media_type_operation.dart'
     as _i170;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/test_no_payload_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/test_body_structure_operation.dart'
     as _i172;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/test_payload_blob_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/test_no_payload_operation.dart'
     as _i174;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/test_payload_structure_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/test_payload_blob_operation.dart'
     as _i176;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/timestamp_format_headers_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/test_payload_structure_operation.dart'
     as _i178;
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/timestamp_format_headers_operation.dart'
+    as _i180;
 import 'package:rest_json1_v2/src/rest_json_protocol/operation/unit_input_and_output_operation.dart'
-    as _i179;
+    as _i181;
 import 'package:smithy/smithy.dart' as _i2;
 
 /// A REST JSON service that sends JSON requests and responses.
@@ -1043,11 +1047,26 @@ class RestJsonProtocolClient {
     );
   }
 
-  _i2.SmithyOperation<void> malformedDouble(
-    _i88.MalformedDoubleInput input, {
+  _i2.SmithyOperation<void> malformedContentTypeWithoutBodyEmptyInput(
+    _i88.MalformedContentTypeWithoutBodyEmptyInputInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i89.MalformedDoubleOperation(
+    return _i89.MalformedContentTypeWithoutBodyEmptyInputOperation(
+      region: _region,
+      baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
+  }
+
+  _i2.SmithyOperation<void> malformedDouble(
+    _i90.MalformedDoubleInput input, {
+    _i1.AWSHttpClient? client,
+  }) {
+    return _i91.MalformedDoubleOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1059,10 +1078,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> malformedFloat(
-    _i90.MalformedFloatInput input, {
+    _i92.MalformedFloatInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i91.MalformedFloatOperation(
+    return _i93.MalformedFloatOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1074,10 +1093,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> malformedInteger(
-    _i92.MalformedIntegerInput input, {
+    _i94.MalformedIntegerInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i93.MalformedIntegerOperation(
+    return _i95.MalformedIntegerOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1089,10 +1108,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> malformedList(
-    _i94.MalformedListInput input, {
+    _i96.MalformedListInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i95.MalformedListOperation(
+    return _i97.MalformedListOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1104,10 +1123,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> malformedLong(
-    _i96.MalformedLongInput input, {
+    _i98.MalformedLongInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i97.MalformedLongOperation(
+    return _i99.MalformedLongOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1119,10 +1138,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> malformedMap(
-    _i98.MalformedMapInput input, {
+    _i100.MalformedMapInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i99.MalformedMapOperation(
+    return _i101.MalformedMapOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1134,10 +1153,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> malformedRequestBody(
-    _i100.MalformedRequestBodyInput input, {
+    _i102.MalformedRequestBodyInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i101.MalformedRequestBodyOperation(
+    return _i103.MalformedRequestBodyOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1149,10 +1168,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> malformedShort(
-    _i102.MalformedShortInput input, {
+    _i104.MalformedShortInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i103.MalformedShortOperation(
+    return _i105.MalformedShortOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1164,10 +1183,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> malformedString(
-    _i104.MalformedStringInput input, {
+    _i106.MalformedStringInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i105.MalformedStringOperation(
+    return _i107.MalformedStringOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1179,10 +1198,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> malformedTimestampBodyDateTime(
-    _i106.MalformedTimestampBodyDateTimeInput input, {
+    _i108.MalformedTimestampBodyDateTimeInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i107.MalformedTimestampBodyDateTimeOperation(
+    return _i109.MalformedTimestampBodyDateTimeOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1194,10 +1213,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> malformedTimestampBodyDefault(
-    _i108.MalformedTimestampBodyDefaultInput input, {
+    _i110.MalformedTimestampBodyDefaultInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i109.MalformedTimestampBodyDefaultOperation(
+    return _i111.MalformedTimestampBodyDefaultOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1209,10 +1228,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> malformedTimestampBodyHttpDate(
-    _i110.MalformedTimestampBodyHttpDateInput input, {
+    _i112.MalformedTimestampBodyHttpDateInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i111.MalformedTimestampBodyHttpDateOperation(
+    return _i113.MalformedTimestampBodyHttpDateOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1224,10 +1243,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> malformedTimestampHeaderDateTime(
-    _i112.MalformedTimestampHeaderDateTimeInput input, {
+    _i114.MalformedTimestampHeaderDateTimeInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i113.MalformedTimestampHeaderDateTimeOperation(
+    return _i115.MalformedTimestampHeaderDateTimeOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1239,10 +1258,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> malformedTimestampHeaderDefault(
-    _i114.MalformedTimestampHeaderDefaultInput input, {
+    _i116.MalformedTimestampHeaderDefaultInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i115.MalformedTimestampHeaderDefaultOperation(
+    return _i117.MalformedTimestampHeaderDefaultOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1254,10 +1273,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> malformedTimestampHeaderEpoch(
-    _i116.MalformedTimestampHeaderEpochInput input, {
+    _i118.MalformedTimestampHeaderEpochInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i117.MalformedTimestampHeaderEpochOperation(
+    return _i119.MalformedTimestampHeaderEpochOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1269,10 +1288,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> malformedTimestampPathDefault(
-    _i118.MalformedTimestampPathDefaultInput input, {
+    _i120.MalformedTimestampPathDefaultInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i119.MalformedTimestampPathDefaultOperation(
+    return _i121.MalformedTimestampPathDefaultOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1284,10 +1303,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> malformedTimestampPathEpoch(
-    _i120.MalformedTimestampPathEpochInput input, {
+    _i122.MalformedTimestampPathEpochInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i121.MalformedTimestampPathEpochOperation(
+    return _i123.MalformedTimestampPathEpochOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1299,10 +1318,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> malformedTimestampPathHttpDate(
-    _i122.MalformedTimestampPathHttpDateInput input, {
+    _i124.MalformedTimestampPathHttpDateInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i123.MalformedTimestampPathHttpDateOperation(
+    return _i125.MalformedTimestampPathHttpDateOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1314,10 +1333,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> malformedTimestampQueryDefault(
-    _i124.MalformedTimestampQueryDefaultInput input, {
+    _i126.MalformedTimestampQueryDefaultInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i125.MalformedTimestampQueryDefaultOperation(
+    return _i127.MalformedTimestampQueryDefaultOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1329,10 +1348,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> malformedTimestampQueryEpoch(
-    _i126.MalformedTimestampQueryEpochInput input, {
+    _i128.MalformedTimestampQueryEpochInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i127.MalformedTimestampQueryEpochOperation(
+    return _i129.MalformedTimestampQueryEpochOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1344,10 +1363,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> malformedTimestampQueryHttpDate(
-    _i128.MalformedTimestampQueryHttpDateInput input, {
+    _i130.MalformedTimestampQueryHttpDateInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i129.MalformedTimestampQueryHttpDateOperation(
+    return _i131.MalformedTimestampQueryHttpDateOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1359,10 +1378,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> malformedUnion(
-    _i130.MalformedUnionInput input, {
+    _i132.MalformedUnionInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i131.MalformedUnionOperation(
+    return _i133.MalformedUnionOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1374,11 +1393,11 @@ class RestJsonProtocolClient {
   }
 
   /// This example ensures that mediaType strings are base64 encoded in headers.
-  _i2.SmithyOperation<_i132.MediaTypeHeaderOutput> mediaTypeHeader(
-    _i133.MediaTypeHeaderInput input, {
+  _i2.SmithyOperation<_i134.MediaTypeHeaderOutput> mediaTypeHeader(
+    _i135.MediaTypeHeaderInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i134.MediaTypeHeaderOperation(
+    return _i136.MediaTypeHeaderOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1391,7 +1410,7 @@ class RestJsonProtocolClient {
 
   /// The example tests how requests and responses are serialized when there's no request or response payload because the operation has no input or output. While this should be rare, code generators must support this.
   _i2.SmithyOperation<void> noInputAndNoOutput({_i1.AWSHttpClient? client}) {
-    return _i135.NoInputAndNoOutputOperation(
+    return _i137.NoInputAndNoOutputOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1403,9 +1422,9 @@ class RestJsonProtocolClient {
   }
 
   /// The example tests how requests and responses are serialized when there's no request or response payload because the operation has no input and the output is empty. While this should be rare, code generators must support this.
-  _i2.SmithyOperation<_i136.NoInputAndOutputOutput> noInputAndOutput(
+  _i2.SmithyOperation<_i138.NoInputAndOutputOutput> noInputAndOutput(
       {_i1.AWSHttpClient? client}) {
-    return _i137.NoInputAndOutputOperation(
+    return _i139.NoInputAndOutputOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1417,11 +1436,11 @@ class RestJsonProtocolClient {
   }
 
   /// Null and empty headers are not sent over the wire.
-  _i2.SmithyOperation<_i138.NullAndEmptyHeadersIo> nullAndEmptyHeadersClient(
-    _i138.NullAndEmptyHeadersIo input, {
+  _i2.SmithyOperation<_i140.NullAndEmptyHeadersIo> nullAndEmptyHeadersClient(
+    _i140.NullAndEmptyHeadersIo input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i139.NullAndEmptyHeadersClientOperation(
+    return _i141.NullAndEmptyHeadersClientOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1433,11 +1452,11 @@ class RestJsonProtocolClient {
   }
 
   /// Null and empty headers are not sent over the wire.
-  _i2.SmithyOperation<_i138.NullAndEmptyHeadersIo> nullAndEmptyHeadersServer(
-    _i138.NullAndEmptyHeadersIo input, {
+  _i2.SmithyOperation<_i140.NullAndEmptyHeadersIo> nullAndEmptyHeadersServer(
+    _i140.NullAndEmptyHeadersIo input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i140.NullAndEmptyHeadersServerOperation(
+    return _i142.NullAndEmptyHeadersServerOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1450,10 +1469,10 @@ class RestJsonProtocolClient {
 
   /// Omits null, but serializes empty string value.
   _i2.SmithyOperation<void> omitsNullSerializesEmptyString(
-    _i141.OmitsNullSerializesEmptyStringInput input, {
+    _i143.OmitsNullSerializesEmptyStringInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i142.OmitsNullSerializesEmptyStringOperation(
+    return _i144.OmitsNullSerializesEmptyStringOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1465,11 +1484,11 @@ class RestJsonProtocolClient {
   }
 
   /// This operation defines a union with a Unit member.
-  _i2.SmithyOperation<_i143.PostPlayerActionOutput> postPlayerAction(
-    _i144.PostPlayerActionInput input, {
+  _i2.SmithyOperation<_i145.PostPlayerActionOutput> postPlayerAction(
+    _i146.PostPlayerActionInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i145.PostPlayerActionOperation(
+    return _i147.PostPlayerActionOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1481,11 +1500,11 @@ class RestJsonProtocolClient {
   }
 
   /// This operation defines a union that uses jsonName on some members.
-  _i2.SmithyOperation<_i146.PostUnionWithJsonNameOutput> postUnionWithJsonName(
-    _i147.PostUnionWithJsonNameInput input, {
+  _i2.SmithyOperation<_i148.PostUnionWithJsonNameOutput> postUnionWithJsonName(
+    _i149.PostUnionWithJsonNameInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i148.PostUnionWithJsonNameOperation(
+    return _i150.PostUnionWithJsonNameOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1498,10 +1517,10 @@ class RestJsonProtocolClient {
 
   /// Automatically adds idempotency tokens.
   _i2.SmithyOperation<void> queryIdempotencyTokenAutoFill(
-    _i149.QueryIdempotencyTokenAutoFillInput input, {
+    _i151.QueryIdempotencyTokenAutoFillInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i150.QueryIdempotencyTokenAutoFillOperation(
+    return _i152.QueryIdempotencyTokenAutoFillOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1513,10 +1532,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> queryParamsAsStringListMap(
-    _i151.QueryParamsAsStringListMapInput input, {
+    _i153.QueryParamsAsStringListMapInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i152.QueryParamsAsStringListMapOperation(
+    return _i154.QueryParamsAsStringListMapOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1528,10 +1547,10 @@ class RestJsonProtocolClient {
   }
 
   _i2.SmithyOperation<void> queryPrecedence(
-    _i153.QueryPrecedenceInput input, {
+    _i155.QueryPrecedenceInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i154.QueryPrecedenceOperation(
+    return _i156.QueryPrecedenceOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1543,11 +1562,11 @@ class RestJsonProtocolClient {
   }
 
   /// Recursive shapes
-  _i2.SmithyOperation<_i155.RecursiveShapesInputOutput> recursiveShapes(
-    _i155.RecursiveShapesInputOutput input, {
+  _i2.SmithyOperation<_i157.RecursiveShapesInputOutput> recursiveShapes(
+    _i157.RecursiveShapesInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i156.RecursiveShapesOperation(
+    return _i158.RecursiveShapesOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1558,12 +1577,12 @@ class RestJsonProtocolClient {
     );
   }
 
-  _i2.SmithyOperation<_i157.ResponseCodeHttpFallbackInputOutput>
+  _i2.SmithyOperation<_i159.ResponseCodeHttpFallbackInputOutput>
       responseCodeHttpFallback(
-    _i157.ResponseCodeHttpFallbackInputOutput input, {
+    _i159.ResponseCodeHttpFallbackInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i158.ResponseCodeHttpFallbackOperation(
+    return _i160.ResponseCodeHttpFallbackOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1574,9 +1593,9 @@ class RestJsonProtocolClient {
     );
   }
 
-  _i2.SmithyOperation<_i159.ResponseCodeRequiredOutput> responseCodeRequired(
+  _i2.SmithyOperation<_i161.ResponseCodeRequiredOutput> responseCodeRequired(
       {_i1.AWSHttpClient? client}) {
-    return _i160.ResponseCodeRequiredOperation(
+    return _i162.ResponseCodeRequiredOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1587,12 +1606,12 @@ class RestJsonProtocolClient {
     );
   }
 
-  _i2.SmithyOperation<_i161.SimpleScalarPropertiesInputOutput>
+  _i2.SmithyOperation<_i163.SimpleScalarPropertiesInputOutput>
       simpleScalarProperties(
-    _i161.SimpleScalarPropertiesInputOutput input, {
+    _i163.SimpleScalarPropertiesInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i162.SimpleScalarPropertiesOperation(
+    return _i164.SimpleScalarPropertiesOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1604,11 +1623,11 @@ class RestJsonProtocolClient {
   }
 
   /// This examples serializes a streaming blob shape in the request body. In this example, no JSON document is synthesized because the payload is not a structure or a union type.
-  _i2.SmithyOperation<_i163.StreamingTraitsInputOutput> streamingTraits(
-    _i163.StreamingTraitsInputOutput input, {
+  _i2.SmithyOperation<_i165.StreamingTraitsInputOutput> streamingTraits(
+    _i165.StreamingTraitsInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i164.StreamingTraitsOperation(
+    return _i166.StreamingTraitsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1621,10 +1640,10 @@ class RestJsonProtocolClient {
 
   /// This examples serializes a streaming blob shape with a required content length in the request body. In this example, no JSON document is synthesized because the payload is not a structure or a union type.
   _i2.SmithyOperation<void> streamingTraitsRequireLength(
-    _i165.StreamingTraitsRequireLengthInput input, {
+    _i167.StreamingTraitsRequireLengthInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i166.StreamingTraitsRequireLengthOperation(
+    return _i168.StreamingTraitsRequireLengthOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1636,12 +1655,12 @@ class RestJsonProtocolClient {
   }
 
   /// This examples serializes a streaming media-typed blob shape in the request body. This examples uses a `@mediaType` trait on the payload to force a custom content-type to be serialized.
-  _i2.SmithyOperation<_i167.StreamingTraitsWithMediaTypeInputOutput>
+  _i2.SmithyOperation<_i169.StreamingTraitsWithMediaTypeInputOutput>
       streamingTraitsWithMediaType(
-    _i167.StreamingTraitsWithMediaTypeInputOutput input, {
+    _i169.StreamingTraitsWithMediaTypeInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i168.StreamingTraitsWithMediaTypeOperation(
+    return _i170.StreamingTraitsWithMediaTypeOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1653,11 +1672,11 @@ class RestJsonProtocolClient {
   }
 
   /// This example operation serializes a structure in the HTTP body. It should ensure Content-Type: application/json is used in all requests and that an "empty" body is an empty JSON document ({}).
-  _i2.SmithyOperation<_i169.TestBodyStructureInputOutput> testBodyStructure(
-    _i169.TestBodyStructureInputOutput input, {
+  _i2.SmithyOperation<_i171.TestBodyStructureInputOutput> testBodyStructure(
+    _i171.TestBodyStructureInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i170.TestBodyStructureOperation(
+    return _i172.TestBodyStructureOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1669,11 +1688,11 @@ class RestJsonProtocolClient {
   }
 
   /// This example operation serializes a request without an HTTP body. These tests are to ensure we do not attach a body or related headers (Content-Length, Content-Type) to operations that semantically cannot produce an HTTP body.
-  _i2.SmithyOperation<_i171.TestNoPayloadInputOutput> testNoPayload(
-    _i171.TestNoPayloadInputOutput input, {
+  _i2.SmithyOperation<_i173.TestNoPayloadInputOutput> testNoPayload(
+    _i173.TestNoPayloadInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i172.TestNoPayloadOperation(
+    return _i174.TestNoPayloadOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1685,11 +1704,11 @@ class RestJsonProtocolClient {
   }
 
   /// This example operation serializes a payload targeting a blob. The Blob shape is not structured content and we cannot make assumptions about what data will be sent. This test ensures only a generic "Content-Type: application/octet-stream" header is used, and that we are not treating an empty body as an empty JSON document.
-  _i2.SmithyOperation<_i173.TestPayloadBlobInputOutput> testPayloadBlob(
-    _i173.TestPayloadBlobInputOutput input, {
+  _i2.SmithyOperation<_i175.TestPayloadBlobInputOutput> testPayloadBlob(
+    _i175.TestPayloadBlobInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i174.TestPayloadBlobOperation(
+    return _i176.TestPayloadBlobOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1701,12 +1720,12 @@ class RestJsonProtocolClient {
   }
 
   /// This example operation serializes a payload targeting a structure. This enforces the same requirements as TestBodyStructure but with the body specified by the @httpPayload trait.
-  _i2.SmithyOperation<_i175.TestPayloadStructureInputOutput>
+  _i2.SmithyOperation<_i177.TestPayloadStructureInputOutput>
       testPayloadStructure(
-    _i175.TestPayloadStructureInputOutput input, {
+    _i177.TestPayloadStructureInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i176.TestPayloadStructureOperation(
+    return _i178.TestPayloadStructureOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1718,11 +1737,11 @@ class RestJsonProtocolClient {
   }
 
   /// This example tests how timestamp request and response headers are serialized.
-  _i2.SmithyOperation<_i177.TimestampFormatHeadersIo> timestampFormatHeaders(
-    _i177.TimestampFormatHeadersIo input, {
+  _i2.SmithyOperation<_i179.TimestampFormatHeadersIo> timestampFormatHeaders(
+    _i179.TimestampFormatHeadersIo input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i178.TimestampFormatHeadersOperation(
+    return _i180.TimestampFormatHeadersOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1735,7 +1754,7 @@ class RestJsonProtocolClient {
 
   /// This test is similar to NoInputAndNoOutput, but uses explicit Unit types.
   _i2.SmithyOperation<void> unitInputAndOutput({_i1.AWSHttpClient? client}) {
-    return _i179.UnitInputAndOutputOperation(
+    return _i181.UnitInputAndOutputOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,

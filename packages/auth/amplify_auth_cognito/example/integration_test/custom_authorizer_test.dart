@@ -54,7 +54,7 @@ void main() {
 
           final session =
               await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
-          expect(session.userPoolTokens, isNotNull);
+          expect(session.userPoolTokensResult.value, isNotNull);
 
           final apiUrl = config.api!.awsPlugin!.values
               .singleWhere((e) => e.endpointType == EndpointType.rest)
@@ -79,7 +79,8 @@ void main() {
             ),
             headers: {
               AWSHeaders.accept: 'application/json;charset=utf-8',
-              AWSHeaders.authorization: session.userPoolTokens!.idToken.raw,
+              AWSHeaders.authorization:
+                  session.userPoolTokensResult.value.idToken.raw,
             },
             body: utf8.encode(payload),
           );
@@ -115,10 +116,8 @@ void main() {
               final cognitoPlugin = Amplify.Auth.getPlugin(
                 AmplifyAuthCognito.pluginKey,
               );
-              final session = await cognitoPlugin.fetchAuthSession(
-                options: const CognitoSessionOptions(getAWSCredentials: true),
-              );
-              expect(session.credentials, isNotNull);
+              final session = await cognitoPlugin.fetchAuthSession();
+              expect(session.credentialsResult.value, isNotNull);
 
               final restApi = config.api!.awsPlugin!.values
                   .singleWhere((e) => e.endpointType == EndpointType.rest);
@@ -170,10 +169,8 @@ void main() {
               final cognitoPlugin = Amplify.Auth.getPlugin(
                 AmplifyAuthCognito.pluginKey,
               );
-              final session = await cognitoPlugin.fetchAuthSession(
-                options: const CognitoSessionOptions(getAWSCredentials: true),
-              );
-              expect(session.credentials, isNotNull);
+              final session = await cognitoPlugin.fetchAuthSession();
+              expect(session.credentialsResult.value, isNotNull);
 
               final restApi = config.api!.awsPlugin!.values
                   .singleWhere((e) => e.endpointType == EndpointType.rest);
@@ -226,10 +223,8 @@ void main() {
               final cognitoPlugin = Amplify.Auth.getPlugin(
                 AmplifyAuthCognito.pluginKey,
               );
-              final session = await cognitoPlugin.fetchAuthSession(
-                options: const CognitoSessionOptions(getAWSCredentials: true),
-              );
-              expect(session.credentials, isNotNull);
+              final session = await cognitoPlugin.fetchAuthSession();
+              expect(session.credentialsResult.value, isNotNull);
 
               final restOperation = Amplify.API.post(
                 '/',

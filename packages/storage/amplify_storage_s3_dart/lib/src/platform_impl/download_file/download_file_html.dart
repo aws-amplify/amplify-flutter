@@ -51,10 +51,12 @@ Future<S3DownloadFileResult> _downloadFromUrl({
         ? S3GetUrlOptions(
             accessLevel: s3Options.accessLevel,
             checkObjectExistence: true,
+            useAccelerateEndpoint: s3Options.useAccelerateEndpoint,
           )
         : S3GetUrlOptions.forIdentity(
             targetIdentityId,
             checkObjectExistence: true,
+            useAccelerateEndpoint: s3Options.useAccelerateEndpoint,
           ),
   ))
       .url;

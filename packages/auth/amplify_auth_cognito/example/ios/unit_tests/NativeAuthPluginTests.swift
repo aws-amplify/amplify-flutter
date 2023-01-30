@@ -51,7 +51,7 @@ class NativeAuthPluginTests: XCTestCase {
         let binaryMessenger = MockBinaryMessenger(isSignedIn: isSignedIn)
         let nativePlugin = NativeAuthPlugin(binaryMessenger: binaryMessenger)
         let expectation = expectation(description: "fetchAuthSession completes")
-        nativePlugin.fetchAuthSessionGetAwsCredentials(NSNumber(booleanLiteral: true)) {
+        nativePlugin.fetchAuthSession() {
             session, error in
             defer { expectation.fulfill() }
             

@@ -28,6 +28,13 @@ abstract class AuthException extends AmplifyException with AWSDebuggable {
         underlyingException: e.underlyingException,
       );
     }
+    if (e is AWSHttpException) {
+      return NetworkException(
+        'The request failed due to a network error.',
+        recoverySuggestion: 'Ensure that you have an active network connection',
+        underlyingException: e,
+      );
+    }
     String message;
     try {
       message = (e as dynamic).message as String;

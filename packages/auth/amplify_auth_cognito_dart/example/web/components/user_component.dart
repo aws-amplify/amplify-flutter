@@ -26,11 +26,14 @@ class UserComponent extends StatefulComponent {
     setState(() {
       _showSession = true;
       rows = [
-        ['userSub', session.userSub ?? 'null'],
-        ['accessToken', session.userPoolTokens?.accessToken.raw ?? 'null'],
-        ['idToken', session.userPoolTokens?.idToken.raw ?? 'null'],
-        ['refreshToken', session.userPoolTokens?.refreshToken ?? 'null'],
-        ['credential session', session.credentials?.sessionToken ?? 'null'],
+        ['userSub', session.userSubResult.value],
+        ['accessToken', session.userPoolTokensResult.value.accessToken.raw],
+        ['idToken', session.userPoolTokensResult.value.idToken.raw],
+        ['refreshToken', session.userPoolTokensResult.value.refreshToken],
+        [
+          'credential session',
+          session.credentialsResult.value.sessionToken ?? 'null'
+        ],
         ...devices.map((device) => device.asCognitoDevice).map(
               (device) => [
                 'Device: ${device.id}',

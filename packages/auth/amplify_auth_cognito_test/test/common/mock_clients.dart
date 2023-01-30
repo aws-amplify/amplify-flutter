@@ -106,6 +106,7 @@ class MockCognitoIdentityProviderClient
   SmithyOperation<AssociateSoftwareTokenResponse> associateSoftwareToken(
     AssociateSoftwareTokenRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_associateSoftwareToken);
 
@@ -113,6 +114,7 @@ class MockCognitoIdentityProviderClient
   SmithyOperation<ChangePasswordResponse> changePassword(
     ChangePasswordRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_changePassword);
 
@@ -120,6 +122,7 @@ class MockCognitoIdentityProviderClient
   SmithyOperation<ConfirmDeviceResponse> confirmDevice(
     ConfirmDeviceRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_confirmDevice);
 
@@ -127,6 +130,7 @@ class MockCognitoIdentityProviderClient
   SmithyOperation<ConfirmForgotPasswordResponse> confirmForgotPassword(
     ConfirmForgotPasswordRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_confirmForgotPassword);
 
@@ -134,6 +138,7 @@ class MockCognitoIdentityProviderClient
   SmithyOperation<ConfirmSignUpResponse> confirmSignUp(
     ConfirmSignUpRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_confirmSignUp);
 
@@ -141,6 +146,7 @@ class MockCognitoIdentityProviderClient
   SmithyOperation<void> deleteUser(
     DeleteUserRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_deleteUser);
 
@@ -148,6 +154,7 @@ class MockCognitoIdentityProviderClient
   SmithyOperation<void> forgetDevice(
     ForgetDeviceRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_forgetDevice);
 
@@ -155,6 +162,7 @@ class MockCognitoIdentityProviderClient
   SmithyOperation<ForgotPasswordResponse> forgotPassword(
     ForgotPasswordRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_forgotPassword);
 
@@ -162,6 +170,7 @@ class MockCognitoIdentityProviderClient
   SmithyOperation<GetDeviceResponse> getDevice(
     GetDeviceRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_getDevice);
 
@@ -169,6 +178,7 @@ class MockCognitoIdentityProviderClient
   SmithyOperation<GetUserResponse> getUser(
     GetUserRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_getUser);
 
@@ -177,6 +187,7 @@ class MockCognitoIdentityProviderClient
       getUserAttributeVerificationCode(
     GetUserAttributeVerificationCodeRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
           _mockIfProvided(_getUserAttributeVerificationCode);
 
@@ -184,6 +195,7 @@ class MockCognitoIdentityProviderClient
   SmithyOperation<GlobalSignOutResponse> globalSignOut(
     GlobalSignOutRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_globalSignOut);
 
@@ -191,6 +203,7 @@ class MockCognitoIdentityProviderClient
   SmithyOperation<InitiateAuthResponse> initiateAuth(
     InitiateAuthRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_initiateAuth);
 
@@ -198,6 +211,7 @@ class MockCognitoIdentityProviderClient
   SmithyOperation<ListDevicesResponse> listDevices(
     ListDevicesRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_listDevices);
 
@@ -205,6 +219,7 @@ class MockCognitoIdentityProviderClient
   SmithyOperation<ResendConfirmationCodeResponse> resendConfirmationCode(
     ResendConfirmationCodeRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_resendConfirmationCode);
 
@@ -212,6 +227,7 @@ class MockCognitoIdentityProviderClient
   SmithyOperation<RespondToAuthChallengeResponse> respondToAuthChallenge(
     RespondToAuthChallengeRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_respondToAuthChallenge);
 
@@ -219,6 +235,7 @@ class MockCognitoIdentityProviderClient
   SmithyOperation<RevokeTokenResponse> revokeToken(
     RevokeTokenRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_revokeToken);
 
@@ -226,6 +243,7 @@ class MockCognitoIdentityProviderClient
   SmithyOperation<SignUpResponse> signUp(
     SignUpRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_signUp);
 
@@ -233,6 +251,7 @@ class MockCognitoIdentityProviderClient
   SmithyOperation<UpdateDeviceStatusResponse> updateDeviceStatus(
     UpdateDeviceStatusRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_updateDeviceStatus);
 
@@ -240,6 +259,7 @@ class MockCognitoIdentityProviderClient
   SmithyOperation<UpdateUserAttributesResponse> updateUserAttributes(
     UpdateUserAttributesRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_updateUserAttributes);
 
@@ -247,6 +267,7 @@ class MockCognitoIdentityProviderClient
   SmithyOperation<VerifySoftwareTokenResponse> verifySoftwareToken(
     VerifySoftwareTokenRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_verifySoftwareToken);
 
@@ -254,6 +275,7 @@ class MockCognitoIdentityProviderClient
   SmithyOperation<VerifyUserAttributeResponse> verifyUserAttribute(
     VerifyUserAttributeRequest input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_verifyUserAttribute);
 }
@@ -274,6 +296,7 @@ class MockCognitoIdentityClient implements CognitoIdentityClient {
   SmithyOperation<GetCredentialsForIdentityResponse> getCredentialsForIdentity(
     GetCredentialsForIdentityInput input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_getCredentialsForIdentity);
 
@@ -281,6 +304,7 @@ class MockCognitoIdentityClient implements CognitoIdentityClient {
   SmithyOperation<GetIdResponse> getId(
     GetIdInput input, {
     AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(_getId);
 }

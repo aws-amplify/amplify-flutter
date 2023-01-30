@@ -71,11 +71,12 @@ class CognitoIdentityClient {
       getCredentialsForIdentity(
     _i5.GetCredentialsForIdentityInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i6.GetCredentialsForIdentityOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
     ).run(
@@ -90,11 +91,12 @@ class CognitoIdentityClient {
   _i3.SmithyOperation<_i7.GetIdResponse> getId(
     _i8.GetIdInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i9.GetIdOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
     ).run(

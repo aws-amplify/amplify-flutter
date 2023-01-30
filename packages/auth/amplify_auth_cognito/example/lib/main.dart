@@ -163,9 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _fetchAuthSession() async {
-    final authSession = await Amplify.Auth.fetchAuthSession(
-      options: const CognitoSessionOptions(getAWSCredentials: true),
-    ) as CognitoAuthSession;
+    final authSession = await Amplify.Auth.fetchAuthSession();
     _logger.info(
       prettyPrintJson(authSession.toJson()),
     );

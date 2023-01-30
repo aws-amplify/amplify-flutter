@@ -10,6 +10,24 @@ import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/recursive_
     as _i3;
 import 'package:smithy/smithy.dart' as _i1;
 
+/// The discrete values of [RecursiveUnionOne].
+enum RecursiveUnionOneType<T extends RecursiveUnionOne> {
+  /// The type for [RecursiveUnionOneString].
+  string<RecursiveUnionOneString>(r'string'),
+
+  /// The type for [RecursiveUnionOneUnion].
+  union<RecursiveUnionOneUnion>(r'union'),
+
+  /// The type for an unknown value.
+  sdkUnknown<RecursiveUnionOneSdkUnknown>('sdkUnknown');
+
+  /// The discrete values of [RecursiveUnionOne].
+  const RecursiveUnionOneType(this.value);
+
+  /// The Smithy value.
+  final String value;
+}
+
 abstract class RecursiveUnionOne extends _i1.SmithyUnion<RecursiveUnionOne> {
   const RecursiveUnionOne._();
 
@@ -30,6 +48,7 @@ abstract class RecursiveUnionOne extends _i1.SmithyUnion<RecursiveUnionOne> {
 
   _i2.RecursiveEnumString? get string => null;
   _i3.RecursiveUnionTwo? get union => null;
+  RecursiveUnionOneType get type;
   @override
   Object get value => (string ?? union)!;
   @override
@@ -80,6 +99,8 @@ class RecursiveUnionOneString extends RecursiveUnionOne {
   final _i2.RecursiveEnumString string;
 
   @override
+  RecursiveUnionOneType get type => RecursiveUnionOneType.string;
+  @override
   String get name => 'string';
 }
 
@@ -89,6 +110,8 @@ class RecursiveUnionOneUnion extends RecursiveUnionOne {
   @override
   final _i3.RecursiveUnionTwo union;
 
+  @override
+  RecursiveUnionOneType get type => RecursiveUnionOneType.union;
   @override
   String get name => 'union';
 }
@@ -104,6 +127,9 @@ class RecursiveUnionOneSdkUnknown extends RecursiveUnionOne {
 
   @override
   final Object value;
+
+  @override
+  RecursiveUnionOneType get type => RecursiveUnionOneType.sdkUnknown;
 }
 
 class RecursiveUnionOneRestJson1Serializer
@@ -136,12 +162,12 @@ class RecursiveUnionOneRestJson1Serializer
     final value = iterator.current as Object;
     switch (key) {
       case 'string':
-        return RecursiveUnionOne.string((serializers.deserialize(
+        return RecursiveUnionOneString((serializers.deserialize(
           value,
           specifiedType: const FullType(_i2.RecursiveEnumString),
         ) as _i2.RecursiveEnumString));
       case 'union':
-        return RecursiveUnionOne.union((serializers.deserialize(
+        return RecursiveUnionOneUnion((serializers.deserialize(
           value,
           specifiedType: const FullType(_i3.RecursiveUnionTwo),
         ) as _i3.RecursiveUnionTwo));

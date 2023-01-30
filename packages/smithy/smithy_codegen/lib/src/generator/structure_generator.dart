@@ -147,110 +147,6 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
           ..name = '_',
       );
 
-  /// Whether [symbol] requires transformation in the factory constructor.
-  bool _requiresTransformation(Reference symbol) {
-    return symbol.url == BuiltValueType.collectionUrl ||
-        symbol.url == BuiltValueType.jsonUrl;
-  }
-
-  /// Recursively converts `dart:core` types like lists, maps, and sets into the
-  /// built value types expected by constructors.
-  Expression _constructorExpressionForSymbol(
-    Reference symbol,
-    String name, {
-    bool? isNullable,
-  }) {
-    Expression ref = refer(name);
-    if (!_requiresTransformation(symbol)) {
-      return ref;
-    }
-    isNullable ??= symbol.typeRef.isNullable!;
-    final types = symbol.typeRef.types;
-    switch (symbol.symbol) {
-      case 'BuiltList':
-      case 'BuiltSet':
-        final childSymbol = types.single;
-        if (_requiresTransformation(childSymbol)) {
-          final childExpression = _constructorExpressionForSymbol(
-            childSymbol,
-            'el',
-          );
-          ref = ref.property('map').call([
-            Method(
-              (m) => m
-                ..requiredParameters.add(Parameter((p) => p.name = 'el'))
-                ..body = (childSymbol.typeRef.isNullable!
-                        ? refer('el')
-                            .equalTo(literalNull)
-                            .conditional(literalNull, childExpression)
-                        : childExpression)
-                    .code,
-            ).closure,
-          ]);
-        }
-        break;
-      case 'BuiltMap':
-        final valueSymbol = types[1];
-        if (_requiresTransformation(valueSymbol)) {
-          final childExpression = _constructorExpressionForSymbol(
-            valueSymbol,
-            'value',
-          );
-          final valueExpression = valueSymbol.typeRef.isNullable!
-              ? refer('value')
-                  .equalTo(literalNull)
-                  .conditional(literalNull, childExpression)
-              : childExpression;
-          ref = ref.property('map').call([
-            Method(
-              (m) => m
-                ..requiredParameters.addAll([
-                  Parameter((p) => p.name = 'key'),
-                  Parameter((p) => p.name = 'value'),
-                ])
-                ..body = DartTypes.core.mapEntry
-                    .newInstance([refer('key'), valueExpression]).code,
-            ).closure,
-          ]);
-        }
-        break;
-      case 'BuiltListMultimap':
-      case 'BuiltSetMultimap':
-        final valueSymbol = types[1];
-        if (_requiresTransformation(valueSymbol)) {
-          final childExpression = _constructorExpressionForSymbol(
-            valueSymbol,
-            'value',
-          );
-          final valueExpression = refer('value').property('map').call([
-            Method(
-              (m) => m
-                ..requiredParameters.add(Parameter((p) => p.name = 'el'))
-                ..body = (valueSymbol.typeRef.isNullable!
-                        ? refer('el')
-                            .equalTo(literalNull)
-                            .conditional(literalNull, childExpression)
-                        : childExpression)
-                    .code,
-            ).closure,
-          ]);
-          ref = ref.property('map').call([
-            Method(
-              (m) => m
-                ..requiredParameters.addAll([
-                  Parameter((p) => p.name = 'key'),
-                  Parameter((p) => p.name = 'value'),
-                ])
-                ..body = DartTypes.core.mapEntry
-                    .newInstance([refer('key'), valueExpression]).code,
-            ).closure,
-          ]);
-        }
-        break;
-    }
-    return refer(symbol.symbol!, symbol.url).newInstance([ref]);
-  }
-
   /// The parameter-based factory constructor.
   Constructor get factoryConstructor {
     final body = Block((b) {
@@ -261,20 +157,10 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
         final defaultValue = _defaultValueAssignment(member);
         final isNullable =
             memberSymbol.typeRef.isNullable! && defaultValue == null;
-        if (_requiresTransformation(memberSymbol)) {
-          final expression = _constructorExpressionForSymbol(
-            memberSymbol,
-            propertyName,
-            isNullable: isNullable,
-          );
-          memberExpressions[propertyName] = isNullable
-              ? refer(propertyName)
-                  .equalTo(literalNull)
-                  .conditional(literalNull, expression)
-              : expression;
-        } else {
-          memberExpressions[propertyName] = refer(propertyName);
-        }
+        memberExpressions[propertyName] = memberSymbol.transformToInternal(
+          name: propertyName,
+          isNullable: isNullable,
+        );
         if (defaultValue != null) {
           b.statements.add(defaultValue);
         }
@@ -323,60 +209,11 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
           ..redirect = builtSymbol,
       );
 
-  /// Transforms `built_collection` symbols to their `dart:core` counterpart,
-  /// e.g. BuiltList -> List, BuiltSet -> Set, etc for use in factory
-  /// constructors so that users do not need to concern themselves with built
-  /// types when constructing instances.
-  Reference _transformBuiltSymbol(Reference ref) {
-    if (!_requiresTransformation(ref)) {
-      return ref;
-    }
-    final Reference transformed;
-    switch (ref.symbol!) {
-      case 'JsonObject':
-        transformed = DartTypes.core.object;
-        break;
-      case 'BuiltList':
-        transformed = DartTypes.core.list(
-          _transformBuiltSymbol(ref.typeRef.types.single),
-        );
-        break;
-      case 'BuiltSet':
-        transformed = DartTypes.core.set(
-          _transformBuiltSymbol(ref.typeRef.types.single),
-        );
-        break;
-      case 'BuiltMap':
-        transformed = DartTypes.core.map(
-          _transformBuiltSymbol(ref.typeRef.types[0]),
-          _transformBuiltSymbol(ref.typeRef.types[1]),
-        );
-        break;
-      case 'BuiltListMultimap':
-        transformed = DartTypes.core.map(
-          _transformBuiltSymbol(ref.typeRef.types[0]),
-          DartTypes.core.list(_transformBuiltSymbol(ref.typeRef.types[1])),
-        );
-        break;
-      case 'BuiltSetMultimap':
-        transformed = DartTypes.core.map(
-          _transformBuiltSymbol(ref.typeRef.types[0]),
-          DartTypes.core.set(_transformBuiltSymbol(ref.typeRef.types[1])),
-        );
-        break;
-      default:
-        throw ArgumentError('Bad type: ${ref.symbol}');
-    }
-    return transformed.typeRef.rebuild(
-      (t) => t.isNullable = ref.typeRef.isNullable!,
-    );
-  }
-
   /// Creates a constructor [Parameter] for [member].
   Parameter _memberParameter(MemberShape member) {
     final deprecatedAnnotation = member.deprecatedAnnotation ??
         context.shapeFor(member.target).deprecatedAnnotation;
-    final symbol = _transformBuiltSymbol(memberSymbols[member]!);
+    final symbol = memberSymbols[member]!.transformFromInternal();
     final defaultValue = member.defaultValue(context);
     final isNullable = symbol.typeRef.isNullable! ||
         defaultValue != null ||

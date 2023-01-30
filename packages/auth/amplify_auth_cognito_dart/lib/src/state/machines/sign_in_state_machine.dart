@@ -613,11 +613,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
         ),
       );
 
-      await dispatch(
-        const FetchAuthSessionEvent.fetch(
-          CognitoSessionOptions(getAWSCredentials: true),
-        ),
-      );
+      await dispatch(const FetchAuthSessionEvent.fetch());
 
       // Wait for above to propagate and complete successfully.
       await expect(FetchAuthSessionStateMachine.type).getLatestResult();

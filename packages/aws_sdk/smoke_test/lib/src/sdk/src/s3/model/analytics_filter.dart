@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library smoke_test.s3.model.analytics_filter; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -8,6 +8,27 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/s3/model/analytics_and_operator.dart'
     as _i2;
 import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i3;
+
+/// The discrete values of [AnalyticsFilter].
+enum AnalyticsFilterType<T extends AnalyticsFilter> {
+  /// The type for [AnalyticsFilterAnd].
+  and<AnalyticsFilterAnd>(r'And'),
+
+  /// The type for [AnalyticsFilterPrefix].
+  prefix<AnalyticsFilterPrefix>(r'Prefix'),
+
+  /// The type for [AnalyticsFilterTag].
+  tag<AnalyticsFilterTag>(r'Tag'),
+
+  /// The type for an unknown value.
+  sdkUnknown<AnalyticsFilterSdkUnknown>('sdkUnknown');
+
+  /// The discrete values of [AnalyticsFilter].
+  const AnalyticsFilterType(this.value);
+
+  /// The Smithy value.
+  final String value;
+}
 
 /// The filter used to describe a set of objects for analyses. A filter must have exactly one prefix, one tag, or one conjunction (AnalyticsAndOperator). If no filter is provided, all objects will be considered in any analysis.
 abstract class AnalyticsFilter extends _i1.SmithyUnion<AnalyticsFilter> {
@@ -37,6 +58,7 @@ abstract class AnalyticsFilter extends _i1.SmithyUnion<AnalyticsFilter> {
 
   /// The tag to use when evaluating an analytics filter.
   _i3.Tag? get tag => null;
+  AnalyticsFilterType get type;
   @override
   Object get value => (and ?? prefix ?? tag)!;
   @override
@@ -97,6 +119,8 @@ class AnalyticsFilterAnd extends AnalyticsFilter {
   final _i2.AnalyticsAndOperator and;
 
   @override
+  AnalyticsFilterType get type => AnalyticsFilterType.and;
+  @override
   String get name => 'And';
 }
 
@@ -107,6 +131,8 @@ class AnalyticsFilterPrefix extends AnalyticsFilter {
   final String prefix;
 
   @override
+  AnalyticsFilterType get type => AnalyticsFilterType.prefix;
+  @override
   String get name => 'Prefix';
 }
 
@@ -116,6 +142,8 @@ class AnalyticsFilterTag extends AnalyticsFilter {
   @override
   final _i3.Tag tag;
 
+  @override
+  AnalyticsFilterType get type => AnalyticsFilterType.tag;
   @override
   String get name => 'Tag';
 }
@@ -131,6 +159,9 @@ class AnalyticsFilterSdkUnknown extends AnalyticsFilter {
 
   @override
   final Object value;
+
+  @override
+  AnalyticsFilterType get type => AnalyticsFilterType.sdkUnknown;
 }
 
 class AnalyticsFilterRestXmlSerializer
@@ -164,17 +195,17 @@ class AnalyticsFilterRestXmlSerializer
     final value = iterator.current as Object;
     switch (key) {
       case 'And':
-        return AnalyticsFilter.and((serializers.deserialize(
+        return AnalyticsFilterAnd((serializers.deserialize(
           value,
           specifiedType: const FullType(_i2.AnalyticsAndOperator),
         ) as _i2.AnalyticsAndOperator));
       case 'Prefix':
-        return AnalyticsFilter.prefix((serializers.deserialize(
+        return AnalyticsFilterPrefix((serializers.deserialize(
           value,
           specifiedType: const FullType(String),
         ) as String));
       case 'Tag':
-        return AnalyticsFilter.tag((serializers.deserialize(
+        return AnalyticsFilterTag((serializers.deserialize(
           value,
           specifiedType: const FullType(_i3.Tag),
         ) as _i3.Tag));

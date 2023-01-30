@@ -44,11 +44,12 @@ class ApiGatewayClient {
       _i3.PaginatedResult<_i4.BuiltList<_i5.RestApi>, int, String>> getRestApis(
     _i6.GetRestApisRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i7.GetRestApisOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
     ).runPaginated(
