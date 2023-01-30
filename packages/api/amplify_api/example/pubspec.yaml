@@ -10,21 +10,12 @@ environment:
   flutter: ">=3.0.0"
 
 dependencies:
-  amplify_api:
-    # When depending on this package from a real application you should use:
-    #   amplify_api: ^x.y.z
-    # See https://dart.dev/tools/pub/dependencies#version-constraints
-    # The example app is bundled with the plugin so we use a path dependency on
-    # the parent directory to use the current plugin's version.
-    path: ../
-  amplify_auth_cognito:
-    path: ../../../auth/amplify_auth_cognito
-  amplify_authenticator:
-    path: ../../../authenticator/amplify_authenticator
-  amplify_flutter:
-    path: ../../../amplify/amplify_flutter
+  amplify_api: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_auth_cognito: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_authenticator: ">=1.0.0-next.3 <1.0.0-next.4"
+  amplify_flutter: ">=1.0.0-next.4 <1.0.0-next.5"
   async: ^2.8.0
-  aws_common: ^0.2.0
+  aws_common: ">=0.4.0 <0.5.0"
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

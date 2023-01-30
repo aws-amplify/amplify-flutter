@@ -1,3 +1,11 @@
+## 1.0.0-next.3
+
+### Fixes
+- fix(authenticator): ARB syntax ([#2560](https://github.com/aws-amplify/amplify-flutter/pull/2560))
+
+### Breaking Changes
+- fix(auth)!: Fetch Auth Session offline behavior ([#2585](https://github.com/aws-amplify/amplify-flutter/pull/2585))
+
 ## 1.0.0-next.2
 
 ### Fixes
