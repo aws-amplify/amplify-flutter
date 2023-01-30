@@ -10,32 +10,21 @@ environment:
   flutter: ">=3.0.0"
 
 dependencies:
-  amplify_analytics_pinpoint:
-    # When depending on this package from a real application you should use:
-    #   amplify_analytics_pinpoint: ^x.y.z
-    # See https://dart.dev/tools/pub/dependencies#version-constraints
-    # The example app is bundled with the plugin so we use a path dependency on
-    # the parent directory to use the current plugin's version.
-    path: ../
-  amplify_api:
-    path: ../../../api/amplify_api
-  amplify_auth_cognito:
-    path: ../../../auth/amplify_auth_cognito
-  amplify_flutter:
-    path: ../../../amplify/amplify_flutter
+  amplify_analytics_pinpoint: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_api: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_auth_cognito: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_flutter: ">=1.0.0-next.4 <1.0.0-next.5"
 
   flutter:
     sdk: flutter
 
 dev_dependencies:
-  amplify_analytics_pinpoint_dart:
-    path: ../../amplify_analytics_pinpoint_dart
+  amplify_analytics_pinpoint_dart: ">=0.1.2+2 <0.2.0"
   amplify_lints:
     path: ../../../amplify_lints
   amplify_test:
     path: ../../../amplify_test
-  aws_common:
-    path: ../../../aws_common
+  aws_common: ">=0.4.0 <0.5.0"
   build_runner: ^2.3.2
   built_value: ">=8.4.0 <8.5.0"
   flutter_test:

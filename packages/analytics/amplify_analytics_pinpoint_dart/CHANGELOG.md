@@ -1,3 +1,8 @@
+## 0.1.3
+
+### Features
+- feat(analytics): Legacy data migration of Pinpoint Endpoint ID ([#2489](https://github.com/aws-amplify/amplify-flutter/pull/2489))
+
 ## 0.1.2+1
 
 - Minor bug fixes and improvements

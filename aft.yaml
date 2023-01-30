@@ -49,12 +49,29 @@ components:
     summary: amplify_core
     propagate: none
     packages:
-    - amplify_auth_cognito_dart
     - amplify_analytics_pinpoint_dart
+    - amplify_api_dart
+    - amplify_auth_cognito_dart
     - amplify_storage_s3_dart
   - name: Amplify UI
     packages:
     - amplify_authenticator
+  - name: DB Common
+    summary: amplify_db_common
+    packages:
+    - amplify_db_common
+    - amplify_db_common_dart
+  - name: Secure Storage
+    summary: amplify_secure_storage
+    packages:
+    - amplify_secure_storage
+    - amplify_secure_storage_dart
+  - name: AWS Common
+    summary: aws_common
+    propagate: none
+    packages:
+    - aws_common
+    - aws_signature_v4
   - name: Smithy
     summary: smithy
     packages:

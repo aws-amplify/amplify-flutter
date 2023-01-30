@@ -8,12 +8,9 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
-  smithy:
-    path: ../../../smithy
-  smithy_aws:
-    path: ../../../smithy_aws
-  aws_common:
-    path: ../../../../aws_common
+  smithy: ">=0.4.0+1 <0.5.0"
+  smithy_aws: ">=0.4.0+1 <0.5.0"
+  aws_common: ">=0.4.0 <0.5.0"
   built_value: ">=8.4.0 <8.5.0"
   fixnum: ^1.0.0
   built_collection: ^5.0.0
@@ -21,8 +18,7 @@ dependencies:
   xml: ">=6.1.0 <=6.2.2"
   shelf_router: ^1.1.0
   shelf: ^1.4.0
-  aws_signature_v4:
-    path: ../../../../aws_signature_v4
+  aws_signature_v4: ">=0.3.1+2 <0.4.0"
 
 dependency_overrides:
   smithy:
