@@ -173,7 +173,6 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
     return _webSocketBlocPool[endpoint.name] ??= createWebSocketBloc(endpoint)
       ..stream.listen((event) {
         _emitHubEvent(event);
-
         if (event is PendingDisconnect) {
           _webSocketBlocPool.remove(endpoint.name);
         }
