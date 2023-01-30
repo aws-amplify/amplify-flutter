@@ -7,12 +7,11 @@ import 'package:amplify_api_dart/amplify_api_dart.dart';
 import 'package:amplify_api_dart/src/graphql/helpers/graphql_response_decoder.dart';
 import 'package:amplify_api_dart/src/graphql/utils.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:collection/collection.dart';
 import 'package:test/test.dart';
 
 import 'test_models/ModelProvider.dart';
+import 'util.dart';
 
-final _deepEquals = const DeepCollectionEquality().equals;
 const _exampleApiName = 'myApi456';
 const _exampleHeaders = {'testKey': 'testVal'};
 
@@ -69,7 +68,7 @@ void main() {
         );
 
         expect(req.document, expected);
-        expect(_deepEquals(req.variables, {'id': id}), isTrue);
+        expect(deepEquals(req.variables, {'id': id}), isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'getBlog');
       });
@@ -387,7 +386,7 @@ void main() {
             r'query getCpkHasOneUnidirectionalParent($id: ID!, $name: String!) { getCpkHasOneUnidirectionalParent(id: $id, name: $name) { id name explicitChildID explicitChildName createdAt updatedAt cpkHasOneUnidirectionalParentImplicitChildId cpkHasOneUnidirectionalParentImplicitChildName } }';
 
         expect(req.document, expectedDocument);
-        expect(_deepEquals(req.variables, {'id': id, 'name': name}), isTrue);
+        expect(deepEquals(req.variables, {'id': id, 'name': name}), isTrue);
       });
 
       test(
@@ -406,7 +405,7 @@ void main() {
 
         expect(req.document, expectedDocument);
         expect(
-          _deepEquals(req.variables, {'customId': customId, 'name': name}),
+          deepEquals(req.variables, {'customId': customId, 'name': name}),
           isTrue,
         );
       });
@@ -427,7 +426,7 @@ void main() {
         final GraphQLRequest<Blog> req = ModelMutations.create<Blog>(blog);
 
         expect(req.document, expectedDoc);
-        expect(_deepEquals(req.variables, expectedVars), isTrue);
+        expect(deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'createBlog');
       });
@@ -472,7 +471,7 @@ void main() {
         final GraphQLRequest<Post> req = ModelMutations.create<Post>(post);
 
         expect(req.document, expectedDoc);
-        expect(_deepEquals(req.variables, expectedVars), isTrue);
+        expect(deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Post.classType);
         expect(req.decodePath, 'createPost');
       });
@@ -525,7 +524,7 @@ void main() {
         final GraphQLRequest<Blog> req = ModelMutations.delete<Blog>(blog);
 
         expect(req.document, expectedDoc);
-        expect(_deepEquals(req.variables, expectedVars), isTrue);
+        expect(deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'deleteBlog');
       });
@@ -564,7 +563,7 @@ void main() {
         );
 
         expect(req.document, expectedDoc);
-        expect(_deepEquals(req.variables, expectedVars), isTrue);
+        expect(deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'deleteBlog');
       });
@@ -603,7 +602,7 @@ void main() {
         final GraphQLRequest<Blog> req = ModelMutations.update<Blog>(blog);
 
         expect(req.document, expectedDoc);
-        expect(_deepEquals(req.variables, expectedVars), isTrue);
+        expect(deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'updateBlog');
       });
@@ -636,7 +635,7 @@ void main() {
         final GraphQLRequest<Post> req = ModelMutations.update<Post>(post);
 
         expect(req.document, expectedDoc);
-        expect(_deepEquals(req.variables, expectedVars), isTrue);
+        expect(deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Post.classType);
         expect(req.decodePath, 'updatePost');
       });
@@ -660,7 +659,7 @@ void main() {
             ModelMutations.update(blog, where: Blog.NAME.lt('zzz'));
 
         expect(req.document, expectedDoc);
-        expect(_deepEquals(req.variables, expectedVars), isTrue);
+        expect(deepEquals(req.variables, expectedVars), isTrue);
       });
 
       test('ModelQueries.update() should support additional request parameters',
@@ -700,7 +699,7 @@ void main() {
         );
 
         expect(req.document, expectedDoc);
-        expect(_deepEquals(req.variables, expectedVars), isTrue);
+        expect(deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'deleteBlog');
       });
@@ -730,7 +729,7 @@ void main() {
               'name': parentName,
             }
           };
-          expect(_deepEquals(req.variables, expectedVars), isTrue);
+          expect(deepEquals(req.variables, expectedVars), isTrue);
         },
       );
 
@@ -756,7 +755,7 @@ void main() {
             'belongsToParentName': parent.name,
           }
         };
-        expect(_deepEquals(req.variables, expectedVars), isTrue);
+        expect(deepEquals(req.variables, expectedVars), isTrue);
       });
     });
 

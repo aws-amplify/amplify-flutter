@@ -1,12 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_api_dart/src/graphql/factories/graphql_request_factory.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:test/test.dart';
 
 import 'graphql_helpers_test.dart';
 import 'test_models/ModelProvider.dart';
+import 'util.dart';
 
 enum Size { small, medium, large }
 
@@ -19,19 +19,8 @@ void main() {
       );
     });
 
-    // helper method for all the tests
-    void testQueryPredicateTranslation(
-      QueryPredicate? queryPredicate,
-      Map<String, dynamic>? expectedFilter, {
-      ModelType modelType = Blog.classType,
-    }) {
-      final resultFilter = GraphQLRequestFactory.instance
-          .queryPredicateToGraphQLFilter(queryPredicate, modelType);
-      expect(resultFilter, expectedFilter);
-    }
-
     test('should be null safe', () {
-      testQueryPredicateTranslation(null, null);
+      testQueryPredicateTranslation(null, null, modelType: Blog.classType);
     });
 
     test('simple query predicate converts to expected filter', () {
@@ -41,7 +30,11 @@ void main() {
       };
 
       final queryPredicate = Blog.NAME.eq(expectedTitle);
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      testQueryPredicateTranslation(
+        queryPredicate,
+        expectedFilter,
+        modelType: Blog.classType,
+      );
     });
 
     test('and query with string, and date', () {
@@ -72,7 +65,11 @@ void main() {
           'id': {'eq': 'id'}
         }
       };
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      testQueryPredicateTranslation(
+        queryPredicate,
+        expectedFilter,
+        modelType: Blog.classType,
+      );
     });
 
     test(
@@ -122,7 +119,11 @@ void main() {
           }
         ]
       };
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      testQueryPredicateTranslation(
+        queryPredicate,
+        expectedFilter,
+        modelType: Blog.classType,
+      );
     });
 
     test('nested and(or()) operator converts to expected filter', () {
@@ -145,7 +146,11 @@ void main() {
           }
         ]
       };
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      testQueryPredicateTranslation(
+        queryPredicate,
+        expectedFilter,
+        modelType: Blog.classType,
+      );
     });
 
     test('nested or(and()) operator converts to expected filter', () {
@@ -168,7 +173,11 @@ void main() {
           },
         ]
       };
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      testQueryPredicateTranslation(
+        queryPredicate,
+        expectedFilter,
+        modelType: Blog.classType,
+      );
     });
 
     test('TemporalDateTime query converts to expected filter', () {

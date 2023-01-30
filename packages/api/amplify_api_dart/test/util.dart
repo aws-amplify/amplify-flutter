@@ -4,6 +4,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:amplify_api_dart/src/graphql/factories/graphql_request_factory.dart';
 import 'package:amplify_api_dart/src/graphql/providers/app_sync_api_key_auth_provider.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/services/web_socket_service.dart';
@@ -14,6 +15,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
 import 'package:aws_common/testing.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
+import 'package:collection/collection.dart';
 import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -314,3 +316,16 @@ class MockConnectivity extends ConnectivityPlatform {
   Stream<ConnectivityStatus> get onConnectivityChanged =>
       mockNetworkStreamController.stream;
 }
+
+/// Ensures a query predicate converts to JSON correctly.
+void testQueryPredicateTranslation(
+  QueryPredicate? queryPredicate,
+  Map<String, dynamic>? expectedFilter, {
+  required ModelType modelType,
+}) {
+  final resultFilter = GraphQLRequestFactory.instance
+      .queryPredicateToGraphQLFilter(queryPredicate, modelType);
+  expect(resultFilter, expectedFilter);
+}
+
+final deepEquals = const DeepCollectionEquality().equals;
