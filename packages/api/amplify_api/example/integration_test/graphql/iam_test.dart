@@ -212,13 +212,8 @@ void main({bool useExistingTestUser = false}) {
         // would do if that was the auth mode.
         final authSession =
             await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
-        final accessToken = authSession.userPoolTokens?.accessToken.raw;
-        if (accessToken == null) {
-          throw const AuthNotAuthorizedException(
-            'Could not get access token from cognito.',
-            recoverySuggestion: 'Ensure test user signed in.',
-          );
-        }
+        final accessToken =
+            authSession.userPoolTokensResult.value.accessToken.raw;
         final headers = {AWSHeaders.authorization: accessToken};
         final reqThatShouldWork = GraphQLRequest<Blog>(
           document: reqThatFails.document,

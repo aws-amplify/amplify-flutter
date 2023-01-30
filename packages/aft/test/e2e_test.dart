@@ -283,7 +283,7 @@ Initial version.
           for (final entry in packages.entries) {
             test(entry.key, () {
               final package = repo.allPackages[entry.key]!;
-              final lastBump = repo.latestBumpRef(package.name);
+              final lastBump = repo.latestBumpRef(package);
               expect(lastBump, packageBumps[package.name]);
 
               final numCommits = entry.value;

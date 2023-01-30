@@ -13,9 +13,20 @@ class ParameterLocation {
 
   final int val;
 
+  /// The parameter is configurable via the operation constructor.
   static const ParameterLocation constructor = ParameterLocation._(1 << 0);
+
+  /// The parameter is configurable via the operation's `run` method.
   static const ParameterLocation run = ParameterLocation._(1 << 1);
-  static final ParameterLocation all = constructor | run;
+
+  /// The parameter should be configurable via the service client's constructor,
+  /// which overrides the value for all client methods.
+  static const ParameterLocation clientConstructor =
+      ParameterLocation._(1 << 2);
+
+  /// The parameter should be configurable via the service client method to
+  /// override the value for the operation.
+  static const ParameterLocation clientMethod = ParameterLocation._(1 << 3);
 
   ParameterLocation operator |(ParameterLocation other) =>
       ParameterLocation._(val | other.val);
@@ -31,6 +42,8 @@ class ParameterLocation {
 
   bool get inConstructor => this & constructor == constructor;
   bool get inRun => this & run == run;
+  bool get inClientConstructor => this & clientConstructor == clientConstructor;
+  bool get inClientMethod => this & clientMethod == clientMethod;
 }
 
 abstract class ConfigParameter

@@ -147,7 +147,7 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
             request: AuthFetchSessionRequest(options: options ?? AuthFetchSessionRequest.Options()),
             resultListener: listener
         )
-        nativeAuthPlugin.fetchAuthSessionGetAwsCredentials(true) { session, error in
+        nativeAuthPlugin.fetchAuthSession() { session, error in
             guard let session = session else {
                 let authError: AuthError = .unknown(
                     error?.localizedDescription ?? "Could not complete native request",

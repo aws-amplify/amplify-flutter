@@ -179,7 +179,7 @@ void main() {
         testCase: const _i2.HttpResponseTestCase(
           id: 'AwsJson11FooErrorUsingXAmznErrorTypeWithUri',
           documentation:
-              'Some X-Amzn-Errortype headers contain URLs. Clients need to split the URL on \':\' and take only the first half of the string. For example, \'ValidationException:http://internal.amazon.com/coral/com.amazon.coral.validate/\'\nis to be interpreted as \'ValidationException\'.\n\nFor an example service see Amazon Polly.',
+              'Some X-Amzn-Errortype headers contain URLs. Clients need to split the URL on \':\' and take only the first half of the string. For example, \'ValidationException:http://internal.amazon.com/example/com.amazon.example.validate/\'\nis to be interpreted as \'ValidationException\'.\n\nFor an example service see Amazon Polly.',
           protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsJson1_1',
@@ -192,7 +192,7 @@ void main() {
           vendorParams: {},
           headers: {
             'X-Amzn-Errortype':
-                'FooError:http://internal.amazon.com/coral/com.amazon.coral.validate/'
+                'FooError:http://internal.amazon.com/example/com.amazon.example.validate/'
           },
           forbidHeaders: [],
           requireHeaders: [],
@@ -238,7 +238,7 @@ void main() {
           vendorParams: {},
           headers: {
             'X-Amzn-Errortype':
-                'aws.protocoltests.restjson#FooError:http://internal.amazon.com/coral/com.amazon.coral.validate/'
+                'aws.protocoltests.restjson#FooError:http://internal.amazon.com/example/com.amazon.example.validate/'
           },
           forbidHeaders: [],
           requireHeaders: [],
@@ -364,7 +364,7 @@ void main() {
           ),
           authScheme: null,
           body:
-              '{\n    "code": "aws.protocoltests.restjson#FooError:http://internal.amazon.com/coral/com.amazon.coral.validate/"\n}',
+              '{\n    "code": "aws.protocoltests.restjson#FooError:http://internal.amazon.com/example/com.amazon.example.validate/"\n}',
           bodyMediaType: 'application/json',
           params: {},
           vendorParamsShape: null,
@@ -493,7 +493,7 @@ void main() {
           ),
           authScheme: null,
           body:
-              '{\n    "__type": "aws.protocoltests.restjson#FooError:http://internal.amazon.com/coral/com.amazon.coral.validate/"\n}',
+              '{\n    "__type": "aws.protocoltests.restjson#FooError:http://internal.amazon.com/example/com.amazon.example.validate/"\n}',
           bodyMediaType: 'application/json',
           params: {},
           vendorParamsShape: null,

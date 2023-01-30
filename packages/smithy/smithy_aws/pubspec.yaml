@@ -1,6 +1,6 @@
 name: smithy_aws
 description: Smithy runtime for AWS clients with utilities for endpoint resolution, retry behavior, and SigV4 signing.
-version: 0.4.0
+version: 0.4.1
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/next
 repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/smithy/smithy_aws
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -9,8 +9,8 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
-  aws_common: ">=0.3.5+1 <0.4.0"
-  aws_signature_v4: ">=0.3.1+1 <0.4.0"
+  aws_common: ">=0.4.0 <0.5.0"
+  aws_signature_v4: ">=0.3.1+2 <0.4.0"
   built_collection: ^5.0.0
   built_value: ">=8.4.0 <8.5.0"
   collection: ^1.15.0
@@ -21,7 +21,7 @@ dependencies:
   json_annotation: ^4.7.0
   meta: ^1.7.0
   path: ^1.8.0
-  smithy: ">=0.4.0 <0.5.0"
+  smithy: ">=0.4.0+1 <0.5.0"
   xml: ">=6.1.0 <=6.2.2"
 
 dev_dependencies:

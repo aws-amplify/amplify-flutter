@@ -35,7 +35,7 @@ abstract class NativeAuthPlugin {
   void exchange(Map<String, String> params);
 
   @async
-  NativeAuthSession fetchAuthSession(bool getAwsCredentials);
+  NativeAuthSession fetchAuthSession();
 }
 
 @HostApi()

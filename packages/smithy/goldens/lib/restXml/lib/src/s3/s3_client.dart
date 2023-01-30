@@ -52,12 +52,14 @@ class S3Client {
   _i4.SmithyOperation<_i5.GetBucketLocationOutput> getBucketLocation(
     _i6.GetBucketLocationRequest input, {
     _i1.AWSHttpClient? client,
+    _i2.S3ClientConfig? s3ClientConfig,
+    _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i7.GetBucketLocationOperation(
       region: _region,
       baseUri: _baseUri,
-      s3ClientConfig: _s3ClientConfig,
-      credentialsProvider: _credentialsProvider,
+      s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
     ).run(
@@ -70,12 +72,14 @@ class S3Client {
       listObjectsV2(
     _i9.ListObjectsV2Request input, {
     _i1.AWSHttpClient? client,
+    _i2.S3ClientConfig? s3ClientConfig,
+    _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i10.ListObjectsV2Operation(
       region: _region,
       baseUri: _baseUri,
-      s3ClientConfig: _s3ClientConfig,
-      credentialsProvider: _credentialsProvider,
+      s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
     ).runPaginated(

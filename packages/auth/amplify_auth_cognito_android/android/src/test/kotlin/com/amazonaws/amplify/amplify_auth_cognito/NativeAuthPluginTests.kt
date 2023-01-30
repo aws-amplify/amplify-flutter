@@ -10,6 +10,7 @@ import org.junit.Test
 import org.mockito.kotlin.any
 import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.check
+import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 
@@ -20,9 +21,9 @@ internal class NativeAuthPluginTests {
         val nativeAuthPlugin = NativeAuthPluginBindingsPigeon.NativeAuthPlugin(mockBinaryMessenger)
         val mockCallback =
             mock<NativeAuthPluginBindingsPigeon.NativeAuthPlugin.Reply<NativeAuthPluginBindingsPigeon.NativeAuthSession>>()
-        nativeAuthPlugin.fetchAuthSession(true, mockCallback)
+        nativeAuthPlugin.fetchAuthSession(mockCallback)
         val callback = argumentCaptor<BinaryMessenger.BinaryReply>()
-        verify(mockBinaryMessenger).send(any(), any(), callback.capture())
+        verify(mockBinaryMessenger).send(any(), eq(null), callback.capture())
         val codec = NativeAuthPluginBindingsPigeon.NativeAuthPlugin.getCodec()
         val authSession = NativeAuthPluginBindingsPigeon.NativeAuthSession.Builder().apply {
             setIsSignedIn(isSignedIn)

@@ -70,9 +70,13 @@ Future<void> main() async {
     stdout
       ..writeln('Session Details')
       ..writeln('---------------')
-      ..writeln('Access Token: ${session.userPoolTokens?.accessToken.raw}')
-      ..writeln('Refresh Token: ${session.userPoolTokens?.refreshToken}')
-      ..writeln('ID Token: ${session.userPoolTokens?.idToken.raw}')
+      ..writeln(
+        'Access Token: ${session.userPoolTokensResult.value.accessToken.raw}',
+      )
+      ..writeln(
+        'Refresh Token: ${session.userPoolTokensResult.value.refreshToken}',
+      )
+      ..writeln('ID Token: ${session.userPoolTokensResult.value.idToken.raw}')
       ..writeln();
 
     final attributes = await fetchUserAttributes();

@@ -5,6 +5,10 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 'cognito_session_options.g.dart';
 
+const _getAWSCredentialsDeprecation = '`getAWSCredentials` is ignored. AWS '
+    'Credentials will always be retrieved. `credentialsResult` will contain '
+    'the result of retrieving credentials, which may be an error';
+
 /// {@template amplify_auth_cognito.model.cognito_session_options}
 /// Cognito options for `Amplify.Auth.fetchAuthSession`.
 /// {@endtemplate}
@@ -13,7 +17,8 @@ class CognitoSessionOptions extends AuthSessionOptions
     with AWSEquatable<CognitoSessionOptions>, AWSDebuggable {
   /// {@macro amplify_auth_cognito.model.cognito_session_options}
   const CognitoSessionOptions({
-    this.getAWSCredentials = false,
+    // ignore: avoid_unused_constructor_parameters
+    @Deprecated(_getAWSCredentialsDeprecation) bool? getAWSCredentials = false,
     super.forceRefresh = false,
   });
 
@@ -21,17 +26,8 @@ class CognitoSessionOptions extends AuthSessionOptions
   factory CognitoSessionOptions.fromJson(Map<String, Object?> json) =>
       _$CognitoSessionOptionsFromJson(json);
 
-  /// Whether to retrieve AWS credentials as part of the session fetching.
-  ///
-  /// If no AWS credentials are currently present, and this is `true`, a new
-  /// set of temporary credentials will be requested using the registered
-  /// Cognito Identity Pool.
-  ///
-  /// Defaults to `false`.
-  final bool getAWSCredentials;
-
   @override
-  List<Object?> get props => [getAWSCredentials, forceRefresh];
+  List<Object?> get props => [forceRefresh];
 
   @override
   String get runtimeTypeName => 'CognitoSessionOptions';

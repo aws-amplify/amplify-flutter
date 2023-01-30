@@ -7,10 +7,6 @@
 [submodule "packages/secure_storage/amplify_secure_storage_dart/external/libsecret"]
 	path = packages/secure_storage/amplify_secure_storage_dart/external/libsecret
 	url = https://github.com/GNOME/libsecret.git
-[submodule "packages/smithy/goldens/smithy"]
-	path = packages/smithy/goldens/smithy
-	url = https://github.com/awslabs/smithy.git
-	branch = main
 [submodule "packages/aft/external/libgit2dart"]
 	path = packages/aft/external/libgit2dart
 	url = https://github.com/SkinnyMind/libgit2dart.git

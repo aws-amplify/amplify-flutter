@@ -8,6 +8,7 @@ import 'package:amplify_auth_cognito_dart/src/credentials/auth_plugin_credential
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
+import 'package:amplify_auth_cognito_dart/src/model/auth_result.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart'
     hide NotAuthorizedException;
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
@@ -171,11 +172,8 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
     final userPoolTokens = result.data.userPoolTokens;
     final accessTokenExpiration = userPoolTokens?.accessToken.claims.expiration;
     final idTokenExpiration = userPoolTokens?.idToken.claims.expiration;
-    // Only force refresh user pool tokens when we have tokens to refresh and
-    // we are not also refreshing AWS credentials.
-    final forceRefreshUserPoolTokens = userPoolTokens != null &&
-        options.forceRefresh &&
-        !options.getAWSCredentials;
+    final forceRefreshUserPoolTokens =
+        userPoolTokens != null && options.forceRefresh;
     final refreshUserPoolTokens = forceRefreshUserPoolTokens ||
         _isExpired(accessTokenExpiration) ||
         _isExpired(idTokenExpiration);
@@ -183,44 +181,66 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
     final hasIdentityPool = _identityPoolConfig != null;
     final awsCredentials = result.data.awsCredentials;
     final awsCredentialsExpiration = awsCredentials?.expiration;
-    // Only force a refresh of AWS credentials if `getAwsCredentials` is also
-    // true in order to allow the case of just refreshing the user pool tokens.
-    final forceRefreshAwsCredentials =
-        options.getAWSCredentials && options.forceRefresh;
-    final refreshAwsCredentials =
-        forceRefreshAwsCredentials || _isExpired(awsCredentialsExpiration);
-    final retrieveAwsCredentials =
-        awsCredentials == null && options.getAWSCredentials;
-    if ((refreshAwsCredentials || retrieveAwsCredentials) && !hasIdentityPool) {
-      throw const InvalidAccountTypeException.noIdentityPool(
-        recoverySuggestion:
-            'Register an identity pool using the CLI or set getAWSCredentials '
-            'to false',
-      );
-    }
+    final forceRefreshAwsCredentials = options.forceRefresh;
+    final retrieveAwsCredentials = awsCredentials == null;
+    final refreshAwsCredentials = hasIdentityPool &&
+        (retrieveAwsCredentials ||
+            forceRefreshAwsCredentials ||
+            _isExpired(awsCredentialsExpiration));
 
-    if (refreshUserPoolTokens ||
-        refreshAwsCredentials ||
-        retrieveAwsCredentials) {
+    if (refreshUserPoolTokens || refreshAwsCredentials) {
       dispatch(
         FetchAuthSessionEvent.refresh(
           refreshUserPoolTokens: refreshUserPoolTokens,
-          refreshAwsCredentials:
-              refreshAwsCredentials || retrieveAwsCredentials,
+          refreshAwsCredentials: refreshAwsCredentials,
         ),
       );
       return;
     }
 
     // If refresh is not needed, return data directly from storage
+    final AuthResult<AWSCredentials> credentialsResult;
+    final AuthResult<String> identityIdResult;
+    if (hasIdentityPool) {
+      // awsCredentials & identityId cannot be null if refreshAwsCredentials is
+      // false.
+      credentialsResult = AuthResult.success(awsCredentials!);
+      identityIdResult = AuthResult.success(result.data.identityId!);
+    } else {
+      credentialsResult = const AuthResult.error(
+        InvalidAccountTypeException.noIdentityPool(),
+      );
+      identityIdResult = const AuthResult.error(
+        InvalidAccountTypeException.noIdentityPool(),
+      );
+    }
+
+    final AuthResult<CognitoUserPoolTokens> userPoolTokensResult;
+    final AuthResult<String> userSubResult;
+    if (userPoolTokens == null) {
+      userPoolTokensResult = const AuthResult.error(
+        SignedOutException('No user is currently signed in'),
+      );
+      userSubResult = const AuthResult.error(
+        SignedOutException('No user is currently signed in'),
+      );
+    } else {
+      userPoolTokensResult = AuthResult.success(
+        userPoolTokens,
+      );
+      userSubResult = AuthResult.success(
+        userPoolTokens.userId,
+      );
+    }
+
     emit(
       FetchAuthSessionState.success(
         CognitoAuthSession(
           isSignedIn: userPoolTokens != null,
-          userPoolTokens: userPoolTokens,
-          credentials: awsCredentials,
-          userSub: userPoolTokens?.idToken.userId,
-          identityId: result.data.identityId,
+          userPoolTokensResult: userPoolTokensResult,
+          userSubResult: userSubResult,
+          credentialsResult: credentialsResult,
+          identityIdResult: identityIdResult,
         ),
       ),
     );
@@ -239,22 +259,38 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
       );
     }
 
-    final awsCredentialsResult = await _retrieveAwsCredentials(
-      existingIdentityId: event.request.options?.developerProvidedIdentityId ??
-          result.data.identityId,
-      federatedIdentity: _FederatedIdentity(
-        event.request.provider,
-        event.request.token,
-      ),
-    );
+    AuthResult<AWSCredentials> credentialsResult;
+    AuthResult<String> identityIdResult;
+
+    try {
+      final res = await _retrieveAwsCredentials(
+        existingIdentityId:
+            event.request.options?.developerProvidedIdentityId ??
+                result.data.identityId,
+        federatedIdentity: _FederatedIdentity(
+          event.request.provider,
+          event.request.token,
+        ),
+      );
+      credentialsResult = AuthResult.success(res.awsCredentials);
+      identityIdResult = AuthResult.success(res.identityId);
+    } on Exception catch (e, s) {
+      final authException = AuthException.fromException(e);
+      credentialsResult = AuthResult.error(authException, s);
+      identityIdResult = AuthResult.error(authException, s);
+    }
     dispatch(
       FetchAuthSessionEvent.succeeded(
         CognitoAuthSession(
           isSignedIn: userPoolTokens != null,
-          userPoolTokens: userPoolTokens,
-          userSub: userPoolTokens?.userId,
-          identityId: awsCredentialsResult.identityId,
-          credentials: awsCredentialsResult.awsCredentials,
+          userPoolTokensResult: const AuthResult.error(
+            SignedOutException('No user is currently signed in'),
+          ),
+          userSubResult: const AuthResult.error(
+            SignedOutException('No user is currently signed in'),
+          ),
+          identityIdResult: identityIdResult,
+          credentialsResult: credentialsResult,
         ),
       ),
     );
@@ -265,9 +301,12 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
     final result = await getOrCreate(CredentialStoreStateMachine.type)
         .getCredentialsResult();
 
+    AuthResult<CognitoUserPoolTokens> userPoolTokensResult;
+    AuthResult<String> userSubResult;
+    AuthResult<AWSCredentials> credentialsResult;
+    AuthResult<String> identityIdResult;
+
     var userPoolTokens = result.data.userPoolTokens;
-    var identityId = result.data.identityId;
-    var awsCredentials = result.data.awsCredentials;
     if (event.refreshUserPoolTokens) {
       if (userPoolTokens == null) {
         dispatch(
@@ -279,27 +318,71 @@ class FetchAuthSessionStateMachine extends FetchAuthSessionStateMachineBase {
         );
         return;
       }
-      userPoolTokens = await _refreshUserPoolTokens(userPoolTokens);
+      try {
+        userPoolTokens = await _refreshUserPoolTokens(userPoolTokens);
+        userPoolTokensResult = AuthResult.success(userPoolTokens);
+        userSubResult = AuthResult.success(userPoolTokens.userId);
+      } on Exception catch (e, s) {
+        final authException = AuthException.fromException(e);
+        userPoolTokensResult = AuthResult.error(authException, s);
+        userSubResult = AuthResult.error(authException, s);
+      }
+    } else {
+      if (userPoolTokens != null) {
+        userPoolTokensResult = AuthResult.success(userPoolTokens);
+        userSubResult = AuthResult.success(userPoolTokens.userId);
+      } else {
+        userPoolTokensResult = const AuthResult.error(
+          SignedOutException('No user is currently signed in'),
+        );
+        userSubResult = const AuthResult.error(
+          SignedOutException('No user is currently signed in'),
+        );
+      }
     }
-    if (event.refreshAwsCredentials) {
-      final idToken = userPoolTokens?.idToken.raw;
-      final awsCredentialsResult = await _retrieveAwsCredentials(
-        existingIdentityId: identityId,
-        federatedIdentity:
-            idToken == null ? null : _FederatedIdentity.cognito(idToken),
+
+    final existingIdentityId = result.data.identityId;
+    final existingAwsCredentials = result.data.awsCredentials;
+
+    final hasIdentityPool = _identityPoolConfig != null;
+
+    if (!hasIdentityPool) {
+      credentialsResult = const AuthResult<AWSCredentials>.error(
+        InvalidAccountTypeException.noIdentityPool(),
       );
-      identityId = awsCredentialsResult.identityId;
-      awsCredentials = awsCredentialsResult.awsCredentials;
+      identityIdResult = const AuthResult<String>.error(
+        InvalidAccountTypeException.noIdentityPool(),
+      );
+    } else if (event.refreshAwsCredentials) {
+      final idToken = userPoolTokens?.idToken.raw;
+      try {
+        final awsCredentialsResult = await _retrieveAwsCredentials(
+          existingIdentityId: existingIdentityId,
+          federatedIdentity:
+              idToken == null ? null : _FederatedIdentity.cognito(idToken),
+        );
+        final identityId = awsCredentialsResult.identityId;
+        final awsCredentials = awsCredentialsResult.awsCredentials;
+        credentialsResult = AuthResult.success(awsCredentials);
+        identityIdResult = AuthResult.success(identityId);
+      } on Exception catch (e, s) {
+        final authException = AuthException.fromException(e);
+        credentialsResult = AuthResult.error(authException, s);
+        identityIdResult = AuthResult.error(authException, s);
+      }
+    } else {
+      credentialsResult = AuthResult.success(existingAwsCredentials!);
+      identityIdResult = AuthResult.success(existingIdentityId!);
     }
 
     dispatch(
       FetchAuthSessionEvent.succeeded(
         CognitoAuthSession(
           isSignedIn: userPoolTokens != null,
-          userPoolTokens: userPoolTokens,
-          userSub: userPoolTokens?.idToken.userId,
-          identityId: identityId,
-          credentials: awsCredentials,
+          userPoolTokensResult: userPoolTokensResult,
+          userSubResult: userSubResult,
+          identityIdResult: identityIdResult,
+          credentialsResult: credentialsResult,
         ),
       ),
     );

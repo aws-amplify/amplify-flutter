@@ -17,6 +17,8 @@ import 'package:integration_test/integration_test.dart';
 import 'package:path/path.dart' as path;
 
 import 'content_type_infer/content_type_infer.dart';
+import 'transfer_acceleration/test_acceleration_config.dart';
+import 'transfer_acceleration/transfer_acceleration.dart';
 
 class CustomPrefixResolver implements S3PrefixResolver {
   const CustomPrefixResolver();
@@ -26,12 +28,8 @@ class CustomPrefixResolver implements S3PrefixResolver {
     required StorageAccessLevel accessLevel,
     String? identityId,
   }) async {
-    final currentUserIdentityId = ((await Amplify.Auth.fetchAuthSession(
-      options: const CognitoSessionOptions(
-        getAWSCredentials: true,
-      ),
-    )) as CognitoAuthSession)
-        .identityId;
+    final session = await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
+    final currentUserIdentityId = session.identityIdResult.value;
     switch (accessLevel) {
       case StorageAccessLevel.guest:
         return 'everyone/';
@@ -116,12 +114,9 @@ void main() async {
           username: username1,
           password: password,
         );
-        final user1Session = await Amplify.Auth.fetchAuthSession(
-          options: const CognitoSessionOptions(
-            getAWSCredentials: true,
-          ),
-        );
-        user1IdentityId = (user1Session as CognitoAuthSession).identityId!;
+        final user1Session = await Amplify.Auth.fetchAuthSession();
+        user1IdentityId =
+            (user1Session as CognitoAuthSession).identityIdResult.value;
         await Amplify.Auth.signOut();
 
         await Amplify.Auth.signIn(
@@ -333,7 +328,7 @@ void main() async {
               getProperties: true,
               bytesRange: S3DataBytesRange(
                 start: start,
-                end: 5 * 1024 + 12,
+                end: end,
               ),
             ),
           ).result;
@@ -445,6 +440,27 @@ void main() async {
         testContentTypeInferTest(
           smallFileBytes: testBytes,
           largeFileBytes: testLargeFileBytes,
+        );
+
+        testTransferAcceleration(
+          dataPayloads: [
+            TestTransferAccelerationConfig(
+              targetKey: 'transfer-acceleration-datapayload-${uuid()}',
+              targetAccessLevel: StorageAccessLevel.guest,
+              uploadSource: S3DataPayload.bytes(
+                testBytes,
+              ),
+              referenceBytes: testBytes,
+            ),
+          ],
+          awsFiles: [
+            TestTransferAccelerationConfig(
+              targetKey: 'transfer-acceleration-awsfile-${uuid()}',
+              targetAccessLevel: StorageAccessLevel.private,
+              uploadSource: AWSFile.fromData(testLargeFileBytes),
+              referenceBytes: testLargeFileBytes,
+            )
+          ],
         );
       });
 

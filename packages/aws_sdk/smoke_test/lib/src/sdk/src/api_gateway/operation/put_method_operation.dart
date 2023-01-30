@@ -1,4 +1,4 @@
-// Generated with smithy-dart 0.3.0. DO NOT MODIFY.
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 
 library smoke_test.api_gateway.operation.put_method_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,9 +37,13 @@ class PutMethodOperation extends _i1.HttpOperation<_i2.PutMethodRequestPayload,
     Uri? baseUri,
     _i4.AWSCredentialsProvider credentialsProvider =
         const _i4.AWSCredentialsProvider.environment(),
+    List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
+    List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
         _baseUri = baseUri,
-        _credentialsProvider = credentialsProvider;
+        _credentialsProvider = credentialsProvider,
+        _requestInterceptors = requestInterceptors,
+        _responseInterceptors = responseInterceptors;
 
   @override
   late final List<
@@ -48,23 +52,25 @@ class PutMethodOperation extends _i1.HttpOperation<_i2.PutMethodRequestPayload,
     _i5.RestJson1Protocol(
       serializers: _i6.serializers,
       builderFactories: _i6.builderFactories,
-      requestInterceptors: [
-        const _i1.WithHost(),
-        const _i1.WithContentLength(),
-        _i5.WithSigV4(
-          region: _region,
-          service: _i7.AWSService.apiGateway,
-          credentialsProvider: _credentialsProvider,
-        ),
-        const _i1.WithUserAgent('aws-sdk-dart/0.3.0'),
-        const _i5.WithSdkInvocationId(),
-        const _i5.WithSdkRequest(),
-        const _i1.WithHeader(
-          'Accept',
-          'application/json',
-        ),
-      ],
-      responseInterceptors: [],
+      requestInterceptors: <_i1.HttpRequestInterceptor>[
+            const _i1.WithHost(),
+            const _i1.WithContentLength(),
+            _i5.WithSigV4(
+              region: _region,
+              service: _i7.AWSService.apiGateway,
+              credentialsProvider: _credentialsProvider,
+            ),
+            const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
+            const _i5.WithSdkInvocationId(),
+            const _i5.WithSdkRequest(),
+            const _i1.WithHeader(
+              'Accept',
+              'application/json',
+            ),
+          ] +
+          _requestInterceptors,
+      responseInterceptors:
+          <_i1.HttpResponseInterceptor>[] + _responseInterceptors,
     )
   ];
 
@@ -78,6 +84,10 @@ class PutMethodOperation extends _i1.HttpOperation<_i2.PutMethodRequestPayload,
   final Uri? _baseUri;
 
   final _i4.AWSCredentialsProvider _credentialsProvider;
+
+  final List<_i1.HttpRequestInterceptor> _requestInterceptors;
+
+  final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
   _i1.HttpRequest buildRequest(_i2.PutMethodRequest input) =>

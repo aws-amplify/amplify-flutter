@@ -195,19 +195,15 @@ class _NativeAmplifyAuthCognito
   final CognitoAuthStateMachine _stateMachine;
 
   @override
-  Future<NativeAuthSession> fetchAuthSession(
-    bool getAwsCredentials,
-  ) async {
+  Future<NativeAuthSession> fetchAuthSession() async {
     try {
-      final authSession = await _basePlugin.fetchAuthSession(
-        options: CognitoSessionOptions(getAWSCredentials: getAwsCredentials),
-      );
+      final authSession = await _basePlugin.fetchAuthSession();
       final nativeAuthSession = NativeAuthSession(
         isSignedIn: authSession.isSignedIn,
-        userSub: authSession.userSub,
-        identityId: authSession.identityId,
+        userSub: authSession.userSubResult.valueOrNull,
+        identityId: authSession.identityIdResult.valueOrNull,
       );
-      final userPoolTokens = authSession.userPoolTokens;
+      final userPoolTokens = authSession.userPoolTokensResult.valueOrNull;
       if (userPoolTokens != null) {
         nativeAuthSession.userPoolTokens = NativeUserPoolTokens(
           accessToken: userPoolTokens.accessToken.raw,
@@ -215,7 +211,7 @@ class _NativeAmplifyAuthCognito
           idToken: userPoolTokens.idToken.raw,
         );
       }
-      final awsCredentials = authSession.credentials;
+      final awsCredentials = authSession.credentialsResult.valueOrNull;
       if (awsCredentials != null) {
         nativeAuthSession.awsCredentials = NativeAWSCredentials(
           accessKeyId: awsCredentials.accessKeyId,

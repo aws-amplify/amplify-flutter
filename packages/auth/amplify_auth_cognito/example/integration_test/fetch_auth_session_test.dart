@@ -19,64 +19,69 @@ void main() {
     final username = generateUsername();
     final password = generatePassword();
 
-    setUpAll(() async {
-      await configureAuth();
+    group('unauthenticated access enabled', () {
+      setUpAll(() async {
+        await configureAuth();
 
-      await adminCreateUser(
-        username,
-        password,
-        autoConfirm: true,
-        verifyAttributes: true,
+        await adminCreateUser(
+          username,
+          password,
+          autoConfirm: true,
+          verifyAttributes: true,
+        );
+      });
+
+      tearDownAll(Amplify.reset);
+
+      setUp(() async {
+        await signOutUser();
+        final res = await Amplify.Auth.signIn(
+          username: username,
+          password: password,
+        );
+        expect(res.isSignedIn, isTrue);
+      });
+
+      asyncTest(
+        'should return user credentials',
+        (_) async {
+          final res =
+              await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
+          expect(res.isSignedIn, isTrue);
+          expect(isValidUserSub(res.userSubResult.value), isTrue);
+          expect(isValidIdentityId(res.identityIdResult.value), isTrue);
+          expect(isValidAWSCredentials(res.credentialsResult.value), isTrue);
+          expect(
+            isValidAWSCognitoUserPoolTokens(res.userPoolTokensResult.value),
+            isTrue,
+          );
+        },
       );
+
+      group('user is signed out', () {
+        asyncTest(
+          'should return isSignedIn as false with credentials present',
+          (_) async {
+            await Amplify.Auth.signOut();
+            final res =
+                await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
+            expect(res.isSignedIn, isFalse);
+            expect(
+              () => res.userPoolTokensResult.value,
+              throwsA(isA<SignedOutException>()),
+            );
+            expect(
+              () => res.userSubResult.value,
+              throwsA(isA<SignedOutException>()),
+            );
+            expect(isValidIdentityId(res.identityIdResult.value), isTrue);
+            expect(isValidAWSCredentials(res.credentialsResult.value), isTrue);
+          },
+        );
+      });
     });
 
-    tearDownAll(Amplify.reset);
-
-    setUp(() async {
-      await signOutUser();
-      final res = await Amplify.Auth.signIn(
-        username: username,
-        password: password,
-      );
-      expect(res.isSignedIn, isTrue);
-    });
-
-    asyncTest(
-      'should return user credentials if getAWSCredentials is true',
-      (_) async {
-        final res = await Amplify.Auth.fetchAuthSession(
-          options: const CognitoSessionOptions(getAWSCredentials: true),
-        ) as CognitoAuthSession;
-
-        expect(res.isSignedIn, isTrue);
-        expect(isValidUserSub(res.userSub), isTrue);
-        expect(isValidIdentityId(res.identityId), isTrue);
-        expect(isValidAWSCredentials(res.credentials), isTrue);
-        expect(isValidAWSCognitoUserPoolTokens(res.userPoolTokens), isTrue);
-      },
-    );
-
-    asyncTest(
-      'should return user credentials without getAWSCredentials',
-      (_) async {
-        final res = await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
-
-        expect(res.isSignedIn, isTrue);
-        expect(isValidUserSub(res.userSub), isTrue);
-        expect(isValidIdentityId(res.identityId), isTrue);
-        expect(isValidAWSCredentials(res.credentials), isTrue);
-        expect(isValidAWSCognitoUserPoolTokens(res.userPoolTokens), isTrue);
-      },
-    );
-
-    asyncTest(
-      'should return isSignedIn as false if the user is signed out',
-      (_) async {
-        await Amplify.Auth.signOut();
-
-        final res = await Amplify.Auth.fetchAuthSession();
-        expect(res.isSignedIn, isFalse);
-      },
-    );
+    // TODO(Jordan-Nelson): add tests for unauthenticated access NOT enabled
+    // and user pool only.
   });
 }

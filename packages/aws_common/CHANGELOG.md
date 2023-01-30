@@ -1,3 +1,8 @@
+## 0.4.0
+
+### Fixes
+- fix(aws_common): AWSFile contentType getter should not throw exception
+
 ## 0.3.5+1
 
 - Minor bug fixes and improvements

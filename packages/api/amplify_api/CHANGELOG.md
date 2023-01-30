@@ -1,3 +1,9 @@
+## 1.0.0-next.4
+
+### Fixes
+- fix(api): do not include null values in ModelMutations.create ([#2504](https://github.com/aws-amplify/amplify-flutter/pull/2504))
+- fix(api): model helpers use targetNames in schemas with CPK enabled ([#2559](https://github.com/aws-amplify/amplify-flutter/pull/2559))
+
 ## 1.0.0-next.3
 
 ### Breaking Changes

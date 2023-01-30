@@ -13,10 +13,12 @@ class S3GetUrlOptions extends StorageGetUrlOptions {
     StorageAccessLevel accessLevel = StorageAccessLevel.guest,
     Duration expiresIn = const Duration(minutes: 15),
     bool checkObjectExistence = false,
+    bool useAccelerateEndpoint = false,
   }) : this._(
           accessLevel: accessLevel,
           expiresIn: expiresIn,
           checkObjectExistence: checkObjectExistence,
+          useAccelerateEndpoint: useAccelerateEndpoint,
         );
 
   const S3GetUrlOptions._({
@@ -24,6 +26,7 @@ class S3GetUrlOptions extends StorageGetUrlOptions {
     this.expiresIn = const Duration(days: 1),
     this.checkObjectExistence = false,
     this.targetIdentityId,
+    this.useAccelerateEndpoint = false,
   });
 
   /// {@macro storage.amplify_storage_s3.get_url_options}
@@ -34,11 +37,13 @@ class S3GetUrlOptions extends StorageGetUrlOptions {
     String targetIdentityId, {
     Duration expiresIn = const Duration(days: 1),
     bool checkObjectExistence = false,
+    bool useAccelerateEndpoint = false,
   }) : this._(
           accessLevel: StorageAccessLevel.protected,
           expiresIn: expiresIn,
           checkObjectExistence: checkObjectExistence,
           targetIdentityId: targetIdentityId,
+          useAccelerateEndpoint: useAccelerateEndpoint,
         );
 
   /// Specifies the period of time that the generated url expires in.
@@ -52,4 +57,7 @@ class S3GetUrlOptions extends StorageGetUrlOptions {
   ///
   /// This can be set by using [S3GetUrlOptions.forIdentity].
   final String? targetIdentityId;
+
+  /// {@macro storage.amplify_storage_s3.transfer_acceleration}
+  final bool useAccelerateEndpoint;
 }

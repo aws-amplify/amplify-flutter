@@ -86,22 +86,23 @@ class Repo {
   /// The libgit repository.
   late final Repository repo = Repository.open(rootDir.path);
 
-  /// Returns the latest version bump commit for [packageOrComponent], or `null`
-  /// if no such commit exists.
+  /// Returns the latest version bump commit for [package], or `null` if no such
+  /// commit exists.
   ///
-  /// This is the marker of the last time [packageOrComponent] was released and
-  /// is used as the base git reference for calculating changes relevant to this
-  /// version bump.
-  String? latestBumpRef(String packageOrComponent) {
-    final component = components[packageOrComponent]?.name ??
+  /// This is the marker of the last time [package] was released and is used as
+  /// the base git reference for calculating changes relevant to this version
+  /// bump.
+  String? latestBumpRef(PackageInfo package) {
+    final packageName = package.name;
+    final component = components[packageName]?.name ??
         components.values
             .firstWhereOrNull(
               (component) => component.packages
                   .map((pkg) => pkg.name)
-                  .contains(packageOrComponent),
+                  .contains(packageName),
             )
             ?.name ??
-        packageOrComponent;
+        packageName;
     var commit = Commit.lookup(repo: repo, oid: repo.head.target);
     while (commit.parents.isNotEmpty) {
       final commitMessage = CommitMessage.parse(
@@ -111,7 +112,10 @@ class Repo {
         commitTimeSecs: commit.time,
       );
       if (commitMessage is VersionCommitMessage &&
+          // Check both the component and the package since the definition of
+          // components can change over time.
           (commitMessage.updatedComponents.contains(component) ||
+              commitMessage.updatedComponents.contains(packageName) ||
               commitMessage.updatedComponents.isEmpty)) {
         return commitMessage.sha;
       }

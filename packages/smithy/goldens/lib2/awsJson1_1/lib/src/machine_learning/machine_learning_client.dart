@@ -43,11 +43,12 @@ class MachineLearningClient {
   _i3.SmithyOperation<_i4.PredictOutput> predict(
     _i5.PredictInput input, {
     _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
     return _i6.PredictOperation(
       region: _region,
       baseUri: _baseUri,
-      credentialsProvider: _credentialsProvider,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
       requestInterceptors: _requestInterceptors,
       responseInterceptors: _responseInterceptors,
     ).run(

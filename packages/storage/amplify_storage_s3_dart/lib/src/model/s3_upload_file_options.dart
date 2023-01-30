@@ -13,6 +13,7 @@ class S3UploadFileOptions extends StorageUploadFileOptions {
     super.accessLevel = StorageAccessLevel.guest,
     this.getProperties = false,
     this.metadata,
+    this.useAccelerateEndpoint = false,
   });
 
   /// The metadata attached to the object to be uploaded.
@@ -21,4 +22,7 @@ class S3UploadFileOptions extends StorageUploadFileOptions {
   /// Whether to retrieve properties for the uploaded object using the
   /// `getProperties` API.
   final bool getProperties;
+
+  /// {@macro storage.amplify_storage_s3.transfer_acceleration}
+  final bool useAccelerateEndpoint;
 }

@@ -1,3 +1,11 @@
+## 0.1.5
+
+### Fixes
+- fix(storage): incorrect transferred bytes emitted from upload task
+
+### Features
+- feat(storage): allow configuring transfer acceleration
+
 ## 0.1.4+1
 
 - Minor bug fixes and improvements
