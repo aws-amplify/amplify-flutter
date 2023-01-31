@@ -1,3 +1,8 @@
+## 1.0.0-next.4
+
+### Breaking Changes
+- fix(auth)!: Fetch Auth Session offline behavior ([#2585](https://github.com/aws-amplify/amplify-flutter/pull/2585))
+
 ## 1.0.0-next.3
 
 - Minor bug fixes and improvements

@@ -10,8 +10,7 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
-  amplify_db_common_dart:
-    path: ../
+  amplify_db_common_dart: ">=0.2.0+1 <0.3.0"
   drift: ">=2.3.0 <2.4.0"
   example_common:
     path: ../../../example_common

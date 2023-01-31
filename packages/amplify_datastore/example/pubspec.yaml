@@ -12,18 +12,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  amplify_datastore:
-    # When depending on this package from a real application you should use:
-    #   amplify_datastore: ^x.y.z
-    # See https://dart.dev/tools/pub/dependencies#version-constraints
-    # The example app is bundled with the plugin so we use a path dependency on
-    # the parent directory to use the current plugin's version.
-    path: ../
+  amplify_datastore: ">=1.0.0-next.4 <1.0.0-next.5"
   # Uncomment the below lines to enable online sync
   # amplify_api:
   #   path: ../../api/amplify_api
-  amplify_flutter:
-    path: ../../amplify/amplify_flutter
+  amplify_flutter: ">=1.0.0-next.4 <1.0.0-next.5"
   flutter_driver:
     sdk: flutter
   integration_test:

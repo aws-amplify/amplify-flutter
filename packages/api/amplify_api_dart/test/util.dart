@@ -18,6 +18,8 @@ import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
+import 'test_models/Post.dart';
+
 const testAccessToken = 'test-access-token-123';
 
 class TestIamAuthProvider extends AWSIamAmplifyAuthProvider {
@@ -91,14 +93,14 @@ const mockSubscriptionData = {
   'onCreatePost': {
     'id': '49d54440-cb80-4f20-964b-91c142761e82',
     'title':
-        'Integration Test post - subscription create aa779f0d-0c92-4677-af32-e43f71b3eb55',
+        'Test post - subscription create aa779f0d-0c92-4677-af32-e43f71b3eb55',
     'rating': 0,
     'created': null,
     'createdAt': '2022-08-15T18:22:15.410Z',
     'updatedAt': '2022-08-15T18:22:15.410Z',
     'blog': {
       'id': '164bd1f1-544c-40cb-a656-a7563b046e71',
-      'name': 'Integration Test Blog with a post - create',
+      'name': 'Test Blog with a post - create',
       'createdAt': '2022-08-15T18:22:15.164Z',
       'file': null,
       'files': null,
@@ -111,6 +113,12 @@ const mockAckMessage = {
   'type': 'connection_ack',
   'payload': {'connectionTimeoutMs': 300000}
 };
+
+final isATestPost = isA<Post>().having(
+  (event) => event.title,
+  'id',
+  contains('Test post'),
+);
 
 /// Hub Event Matchers
 final connectedHubEvent = isA<SubscriptionHubEvent>().having(
@@ -152,18 +160,30 @@ WebSocketMessage startAck(String subscriptionID) => WebSocketMessage(
       id: subscriptionID,
     );
 
-void initMockConnection(
-  MockWebSocketBloc bloc,
+void sendMockConnectionAck(
+  WebSocketBloc bloc,
   MockWebSocketService service,
-  String id,
 ) {
   bloc.stream.listen((event) {
     final state = event;
     if (state is ConnectingState &&
         state.networkState == NetworkState.connected) {
       service.channel.sink.add(jsonEncode(mockAckMessage));
-    } else if (state is ConnectedState) {
-      service.channel.sink.add(jsonEncode(startAck(id)));
+    }
+  });
+}
+
+void sendMockStartAck(
+  WebSocketBloc bloc,
+  MockWebSocketService service,
+  List<String> ids,
+) {
+  bloc.stream.listen((event) {
+    final state = event;
+    if (state is ConnectedState) {
+      for (final id in ids) {
+        service.channel.sink.add(jsonEncode(startAck(id)));
+      }
     }
   });
 }
@@ -215,17 +235,6 @@ class CustomFunctionProvider extends FunctionAuthProvider {
 
   @override
   Future<String?> getLatestAuthToken() async => testFunctionToken;
-}
-
-class MockWebSocketBloc extends WebSocketBloc {
-  MockWebSocketBloc({
-    required super.config,
-    required super.authProviderRepo,
-    required super.wsService,
-    required super.subscriptionOptions,
-    required super.pollClientOverride,
-    required super.connectivity,
-  });
 }
 
 class MockWebSocketService extends AmplifyWebSocketService {

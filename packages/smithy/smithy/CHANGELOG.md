@@ -1,3 +1,8 @@
+## 0.4.0+1
+
+### Features
+- feat(smithy_aws): add copyWith to S3ClientConfig
+
 ## 0.4.0
 
 ### Breaking Changes
