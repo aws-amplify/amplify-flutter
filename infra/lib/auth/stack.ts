@@ -361,6 +361,18 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
     );
     userPool.grant(deleteUserLambda, "cognito-idp:AdminDeleteUser");
 
+    const deleteDeviceLambda = new lambda_nodejs.NodejsFunction(
+      this,
+      "delete-device",
+      {
+        runtime: lambda.Runtime.NODEJS_18_X,
+        environment: {
+          USER_POOL_ID: userPool.userPoolId,
+        },
+      }
+    );
+    userPool.grant(deleteDeviceLambda, "cognito-idp:AdminForgetDevice");
+
     // Add the GraphQL resolvers
 
     const mfaCodesSource = graphQLApi.addDynamoDbDataSource(
@@ -410,6 +422,18 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
     deleteUserSource.createResolver({
       typeName: "Mutation",
       fieldName: "deleteUser",
+      requestMappingTemplate: appsync.MappingTemplate.lambdaRequest(),
+      responseMappingTemplate: appsync.MappingTemplate.lambdaResult(),
+    });
+
+    // Mutation.deleteDevice
+    const deleteDeviceSource = graphQLApi.addLambdaDataSource(
+      "GraphQLApiDeleteDeviceLambda",
+      deleteDeviceLambda
+    );
+    deleteDeviceSource.createResolver({
+      typeName: "Mutation",
+      fieldName: "deleteDevice",
       requestMappingTemplate: appsync.MappingTemplate.lambdaRequest(),
       responseMappingTemplate: appsync.MappingTemplate.lambdaResult(),
     });
