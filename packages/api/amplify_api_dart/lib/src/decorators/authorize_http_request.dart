@@ -55,7 +55,7 @@ Future<AWSBaseHttpRequest> authorizeHttpRequest(
           : AWSService.apiGatewayManagementApi; // resolves to "execute-api"
       // Do not sign body for REST to avoid CORS issue on web.
       final serviceConfiguration =
-          isGraphQL ? null : const ServiceConfiguration(signBody: false);
+          isGraphQL ? null : ServiceConfiguration(signBody: false);
 
       final authorizedRequest = await authProvider.authorizeRequest(
         request,
