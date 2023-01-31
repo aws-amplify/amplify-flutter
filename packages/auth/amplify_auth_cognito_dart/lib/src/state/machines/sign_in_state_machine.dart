@@ -18,7 +18,7 @@ import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart'
 import 'package:amplify_auth_cognito_dart/src/model/cognito_user.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
-    hide InvalidParameterException;
+    hide InvalidParameterException, ResourceNotFoundException;
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -791,12 +791,12 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState,
     }
 
     // Respond to Cognito and evaluate the returned response.
-    await _respondToChallenge(respondRequest, event?.clientMetadata);
-    return _processChallenge();
+    return _respondToChallenge(respondRequest, event?.clientMetadata);
   }
 
-  /// Inner handle to send the response returned from [respondToAuthChallenge].
-  Future<void> _respondToChallenge(
+  /// Inner handle to send the request returned from [respondToAuthChallenge]
+  /// and process its response.
+  Future<SignInState> _respondToChallenge(
     RespondToAuthChallengeRequest respondRequest,
     Map<String, String>? clientMetadata,
   ) async {
@@ -807,15 +807,36 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState,
         ..clientMetadata.replace(clientMetadata ?? const <String, String>{}),
     );
 
-    final challengeResp = await cognitoIdentityProvider
-        .respondToAuthChallenge(respondRequest)
-        .result;
+    try {
+      final challengeResp = await cognitoIdentityProvider
+          .respondToAuthChallenge(respondRequest)
+          .result;
 
-    // Update flow state
-    _authenticationResult = challengeResp.authenticationResult;
-    _challengeName = challengeResp.challengeName;
-    _challengeParameters = challengeResp.challengeParameters ?? BuiltMap();
-    _session = challengeResp.session;
+      // Update flow state
+      _authenticationResult = challengeResp.authenticationResult;
+      _challengeName = challengeResp.challengeName;
+      _challengeParameters = challengeResp.challengeParameters ?? BuiltMap();
+      _session = challengeResp.session;
+
+      return _processChallenge();
+    } on ResourceNotFoundException {
+      // For device flows, retry with normal SRP sign-in when the device is not
+      // found. This protects against the case where a device has been removed
+      // in Cognito but exists in the local cache.
+      if (_challengeName == ChallengeNameType.passwordVerifier &&
+          user.deviceSecrets != null) {
+        user.deviceSecrets = null;
+        await getOrCreate(DeviceMetadataRepository.token)
+            .remove(user.username!);
+
+        final respondRequest = await respondToAuthChallenge(
+          _challengeName!,
+          _challengeParameters,
+        );
+        return _respondToChallenge(respondRequest!, clientMetadata);
+      }
+      rethrow;
+    }
   }
 
   /// Updates the CognitoUser from challege parameters.
