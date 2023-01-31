@@ -167,7 +167,7 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
     // has a fixed rate limit which can easily be exceeded when deploying concurrent
     // stacks and their WAF associations.
     wafAssociations.forEach((assoc, index) => {
-      if (index > 0) assoc.addDependsOn(wafAssociations[index - 1]);
+      if (index > 0) assoc.addDependency(wafAssociations[index - 1]);
     });
   }
 
