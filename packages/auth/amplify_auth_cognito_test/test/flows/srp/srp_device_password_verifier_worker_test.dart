@@ -42,12 +42,12 @@ void main() {
           )
           ..parameters = SignInParameters(
             (p) => p
-              ..username = username
-              ..password = password,
+              ..username = srpUsername
+              ..password = srpPassword,
           )
           ..challengeParameters = BuiltMap({
-            CognitoConstants.challengeParamUsername: username,
-            CognitoConstants.challengeParamUserIdForSrp: username,
+            CognitoConstants.challengeParamUsername: srpUsername,
+            CognitoConstants.challengeParamUserIdForSrp: srpUsername,
             CognitoConstants.challengeParamSecretBlock: secretBlock,
             CognitoConstants.challengeParamSalt: salt,
             CognitoConstants.challengeParamSrpB: publicB,
@@ -86,8 +86,8 @@ void main() {
           )
           ..parameters = SignInParameters(
             (p) => p
-              ..username = username
-              ..password = password,
+              ..username = srpUsername
+              ..password = srpPassword,
           )
           ..challengeParameters = BuiltMap(<String, String>{}),
       );
