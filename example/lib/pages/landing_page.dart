@@ -15,9 +15,9 @@
 
 import 'package:flutter/material.dart';
 
-import '../Views/SignInView.dart';
-import '../Views/SignUpView.dart';
-import 'MainPage.dart';
+import '../Views/sign_in_view.dart';
+import '../Views/sign_up_view.dart';
+import 'main_page.dart';
 
 class LandingPage extends StatefulWidget {
   LandingPage({Key? key}) : super(key: key);
