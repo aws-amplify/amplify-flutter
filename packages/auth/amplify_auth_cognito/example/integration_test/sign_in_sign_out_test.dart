@@ -103,7 +103,7 @@ void main() {
           username: username,
           password: password,
         );
-        expect(signInRes.nextStep.signInStep, 'DONE');
+        expect(signInRes.nextStep.signInStep, AuthSignInStep.done);
       }
 
       // Get authenticated identity
@@ -130,7 +130,7 @@ void main() {
           username: username,
           password: password,
         );
-        expect(signInRes.nextStep.signInStep, 'DONE');
+        expect(signInRes.nextStep.signInStep, AuthSignInStep.done);
       }
 
       final newSession =

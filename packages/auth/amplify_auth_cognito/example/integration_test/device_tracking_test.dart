@@ -19,7 +19,6 @@ enum DeviceState { untracked, tracked, remembered }
 
 DeviceMetadataRepository get deviceRepo =>
     Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey)
-        .plugin
         // ignore: invalid_use_of_protected_member
         .stateMachine
         .getOrCreate<DeviceMetadataRepository>();
@@ -77,7 +76,7 @@ void main() {
           password: password,
         );
         if (signInRes.nextStep.signInStep ==
-            'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE') {
+            AuthSignInStep.confirmSignInWithSmsMfaCode) {
           final confirmSignInRes = await Amplify.Auth.confirmSignIn(
             confirmationValue: await otpResult.code,
           );
@@ -157,7 +156,7 @@ void main() {
           );
           expect(
             res.nextStep.signInStep,
-            'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE',
+            AuthSignInStep.confirmSignInWithSmsMfaCode,
             reason: 'Subsequent sign-in attempts should require MFA',
           );
         });

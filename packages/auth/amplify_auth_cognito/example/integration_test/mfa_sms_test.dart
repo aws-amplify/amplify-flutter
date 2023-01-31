@@ -49,13 +49,13 @@ void main() {
         );
         expect(
           signInRes.nextStep.signInStep,
-          'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE',
+          AuthSignInStep.confirmSignInWithSmsMfaCode,
         );
 
         final confirmRes = await Amplify.Auth.confirmSignIn(
           confirmationValue: await otpResult.code,
         );
-        expect(confirmRes.nextStep.signInStep, 'DONE');
+        expect(confirmRes.nextStep.signInStep, AuthSignInStep.done);
       });
     },
   );

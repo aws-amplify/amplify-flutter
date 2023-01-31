@@ -2,10 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'auth_next_sign_up_step.g.dart';
 
-@zAmplifySerializable
+@JsonSerializable(
+  includeIfNull: false,
+  explicitToJson: true,
+  // TODO(dnys1): Fix generic serialization
+  createFactory: false,
+)
 class AuthNextSignUpStep extends AuthNextStep
     with AWSEquatable<AuthNextSignUpStep>, AWSDebuggable {
   const AuthNextSignUpStep({
@@ -14,10 +20,7 @@ class AuthNextSignUpStep extends AuthNextStep
     required this.signUpStep,
   });
 
-  factory AuthNextSignUpStep.fromJson(Map<String, Object?> json) =>
-      _$AuthNextSignUpStepFromJson(json);
-
-  final String signUpStep;
+  final AuthSignUpStep signUpStep;
 
   @override
   List<Object?> get props => [

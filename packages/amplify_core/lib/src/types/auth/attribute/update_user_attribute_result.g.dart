@@ -8,17 +8,12 @@ part of 'update_user_attribute_result.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-UpdateUserAttributeResult _$UpdateUserAttributeResultFromJson(
-        Map<String, dynamic> json) =>
-    UpdateUserAttributeResult(
-      isUpdated: json['isUpdated'] as bool,
-      nextStep: AuthNextUpdateAttributeStep.fromJson(
-          json['nextStep'] as Map<String, dynamic>),
-    );
-
 Map<String, dynamic> _$UpdateUserAttributeResultToJson(
         UpdateUserAttributeResult instance) =>
     <String, dynamic>{
+      'hashCode': instance.hashCode,
       'isUpdated': instance.isUpdated,
       'nextStep': instance.nextStep.toJson(),
+      'props': instance.props,
+      'runtimeTypeName': instance.runtimeTypeName,
     };

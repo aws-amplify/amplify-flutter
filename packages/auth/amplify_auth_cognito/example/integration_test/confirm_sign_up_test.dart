@@ -43,7 +43,7 @@ void main() {
         expect(signUpResult.isSignUpComplete, false);
         expect(
           signUpResult.nextStep.codeDeliveryDetails?.deliveryMedium,
-          'SMS',
+          DeliveryMedium.sms,
         );
         expect(signUpResult.userId, isNotNull);
       }
@@ -78,7 +78,7 @@ void main() {
           username: username,
           password: password,
         );
-        expect(signInResult.nextStep.signInStep, 'CONFIRM_SIGN_UP');
+        expect(signInResult.nextStep.signInStep, AuthSignInStep.confirmSignUp);
 
         // Confirm sign up and complete sign in
         final confirmResult = await Amplify.Auth.confirmSignUp(
@@ -91,7 +91,7 @@ void main() {
           username: username,
           password: password,
         );
-        expect(signInComplete.nextStep.signInStep, 'DONE');
+        expect(signInComplete.nextStep.signInStep, AuthSignInStep.done);
       });
 
       asyncTest('can resend sign up code', (_) async {
@@ -109,7 +109,10 @@ void main() {
         final resendResult = await Amplify.Auth.resendSignUpCode(
           username: username,
         );
-        expect(resendResult.codeDeliveryDetails.deliveryMedium, 'SMS');
+        expect(
+          resendResult.codeDeliveryDetails.deliveryMedium,
+          DeliveryMedium.sms,
+        );
 
         final confirmResult = await Amplify.Auth.confirmSignUp(
           username: username,

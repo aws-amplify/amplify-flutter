@@ -2,13 +2,19 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'resend_user_attribute_confirmation_code_result.g.dart';
 
 /// {@template amplify_core.resend_user_attribute_confirmation_code_result}
 /// Wraps the result of a resend user confirmation code operation.
 /// {@endtemplate}
-@zAmplifySerializable
+@JsonSerializable(
+  includeIfNull: false,
+  explicitToJson: true,
+  // TODO(dnys1): Fix generic serialization
+  createFactory: false,
+)
 class ResendUserAttributeConfirmationCodeResult
     with
         AWSEquatable<ResendUserAttributeConfirmationCodeResult>,
@@ -18,11 +24,6 @@ class ResendUserAttributeConfirmationCodeResult
   const ResendUserAttributeConfirmationCodeResult({
     required this.codeDeliveryDetails,
   });
-
-  factory ResendUserAttributeConfirmationCodeResult.fromJson(
-    Map<String, Object?> json,
-  ) =>
-      _$ResendUserAttributeConfirmationCodeResultFromJson(json);
 
   /// Contains the delivery details of the confirmation code that was sent to
   /// the user.

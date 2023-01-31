@@ -84,7 +84,7 @@ void main() {
           userAttributeKey: CognitoUserAttributeKey.name,
           value: updatedName,
         );
-        expect(res.nextStep.updateAttributeStep, 'DONE');
+        expect(res.nextStep.updateAttributeStep, AuthUpdateAttributeStep.done);
 
         final userAttributes = await Amplify.Auth.fetchUserAttributes();
         expect(
