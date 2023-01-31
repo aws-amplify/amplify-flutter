@@ -42,6 +42,15 @@ class WorkerBee {
 
   /// The path to the hive containing this worker, relative to the package root.
   final String hivePath;
+
+  /// Adds [obj] to the list of transfer objects when serializing on Web.
+  ///
+  /// Should only be called from a built_value `Serializer`.
+  static void transfer(Object obj) {
+    final transfer = Zone.current[#transfer] as List<Object>;
+    // ignore: cascade_invocations
+    transfer.add(obj);
+  }
 }
 
 /// {@template worker_bee.worker_hive}
