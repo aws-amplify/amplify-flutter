@@ -6,7 +6,6 @@ analyzer:
     strict-inference: true
   errors:
     depend_on_referenced_packages: error               # To prevent issues publishing.
-    implementation_imports: ignore                     # This is okay for libraries (as opposed to apps), especially when referencing our own packages.
 
 linter:
   rules:
