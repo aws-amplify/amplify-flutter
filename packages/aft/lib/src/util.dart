@@ -49,7 +49,8 @@ extension ProcessUtil on Process {
   }
 }
 
-/// Performs a depth-first search on [graph] calling [visit] for every node.
+/// Performs a depth-first search on [graph] calling [visit] for every node in
+/// the order visited (pre-order).
 ///
 /// If [root] is specified, the search is started there.
 void dfs<Node>(
@@ -87,11 +88,24 @@ void sortPackagesTopologically<T>(
 ) {
   final pubspecs = packages.map(getPubspec);
   final packageNames = pubspecs.map((el) => el.name).toList();
-  final graph = <String, Iterable<String>>{
-    for (var package in pubspecs)
-      package.name: package.dependencies.keys.where(packageNames.contains),
+  final directGraph = <String, List<String>>{
+    for (final package in pubspecs)
+      package.name:
+          package.dependencies.keys.where(packageNames.contains).toList(),
   };
-  final ordered = topologicalSort(graph.keys, (key) => graph[key]!);
+  final transitiveGraph = <String, Set<String>>{
+    for (final package in pubspecs) package.name: {},
+  };
+  for (final package in pubspecs) {
+    dfs<String>(directGraph, root: package.name, (dependency) {
+      if (dependency == package.name) return;
+      transitiveGraph[package.name]!.add(dependency);
+    });
+  }
+  final ordered = topologicalSort(
+    transitiveGraph.keys,
+    (key) => transitiveGraph[key]!,
+  );
   packages.sort((a, b) {
     // `ordered` is in reverse ordering to our desired publish precedence.
     return ordered

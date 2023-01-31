@@ -13,30 +13,44 @@ final throwsCyclicError = throwsA(isA<CycleException<dynamic>>());
 void main() {
   group('publish', () {
     group('sort packages', () {
-      test('', () {
-        //     b
-        //   /   \
+      test('resolves direct and transitive deps', () {
+        //     b       e --> f
+        //   /   \   /
         // a       d
-        //   \   /
-        //     c
+        //   \   /   \
+        //     c       g
         //
-        // e  -->  *f (external package)
+        // h  -->  *i (external package)
         final packages = [
           _dummyPackage('a', deps: ['b', 'c']),
           _dummyPackage('b', deps: ['d']),
           _dummyPackage('c', deps: ['d']),
-          _dummyPackage('d', deps: []),
+          _dummyPackage('d', deps: ['e', 'g']),
           _dummyPackage('e', deps: ['f']),
+          _dummyPackage('f', deps: []),
+          _dummyPackage('g', deps: []),
+          _dummyPackage('h', deps: ['i']),
         ]..shuffle();
         final packageNames = packages.map((el) => el.name).toList();
         sortPackagesTopologically<Pubspec>(packages, (pkg) => pkg);
 
+        final requirements = <String, List<String>>{
+          'a': ['b', 'c', 'd', 'e', 'f', 'g'],
+          'b': ['d', 'e', 'f', 'g'],
+          'c': ['d', 'e', 'f', 'g'],
+          'd': ['e', 'f', 'g'],
+          'e': ['f'],
+          'f': [],
+          'g': [],
+          'h': ['i'],
+        };
+
         final published = <String>{};
         for (final package in packages) {
-          final dependencies = package.dependencies;
-          for (final dependency in dependencies.keys) {
-            final isExternal = !packageNames.contains(dependency);
-            final isPublished = published.contains(dependency);
+          final packageReqs = requirements[package.name]!;
+          for (final requirement in packageReqs) {
+            final isExternal = !packageNames.contains(requirement);
+            final isPublished = published.contains(requirement);
             expect(isExternal || isPublished, isTrue);
           }
           published.add(package.name);
