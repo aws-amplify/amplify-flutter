@@ -1,9 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import * as appsync from "@aws-cdk/aws-appsync-alpha";
 import * as cdk from "aws-cdk-lib";
 import { Duration, Expiration, RemovalPolicy, Stack } from "aws-cdk-lib";
+import * as appsync from "aws-cdk-lib/aws-appsync";
 import * as cognito from "aws-cdk-lib/aws-cognito";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as iam from "aws-cdk-lib/aws-iam";
@@ -15,10 +15,10 @@ import * as pinpoint from "aws-cdk-lib/aws-pinpoint";
 import { Construct } from "constructs";
 import * as path from "path";
 import {
-    AmplifyCategory,
-    IntegrationTestStack,
-    IntegrationTestStackEnvironment,
-    IntegrationTestStackEnvironmentProps
+  AmplifyCategory,
+  IntegrationTestStack,
+  IntegrationTestStackEnvironment,
+  IntegrationTestStackEnvironmentProps
 } from "../common";
 
 export class AnalyticsIntegrationTestStack extends IntegrationTestStack<
@@ -175,7 +175,7 @@ class AnalyticsIntegrationTestStackEnvironment extends IntegrationTestStackEnvir
     const authorizationType = appsync.AuthorizationType.API_KEY;
     const graphQLApi = new appsync.GraphqlApi(this, "GraphQLApi", {
       name: this.name,
-      schema: appsync.Schema.fromAsset(
+      schema: appsync.SchemaFile.fromAsset(
         path.resolve(__dirname, "schema.graphql")
       ),
       authorizationConfig: {
@@ -194,7 +194,7 @@ class AnalyticsIntegrationTestStackEnvironment extends IntegrationTestStackEnvir
 
     graphQLApi
       .addDynamoDbDataSource("GraphQLApiGetRecord", recordsTable)
-      .createResolver({
+      .createResolver("QueryGetRecordResolver", {
         typeName: "Query",
         fieldName: "getRecord",
         requestMappingTemplate: appsync.MappingTemplate.dynamoDbGetItem(
@@ -206,7 +206,7 @@ class AnalyticsIntegrationTestStackEnvironment extends IntegrationTestStackEnvir
 
     graphQLApi
       .addDynamoDbDataSource("GraphQLApiListRecords", recordsTable)
-      .createResolver({
+      .createResolver("QueryListRecordsResolver", {
         typeName: "Query",
         fieldName: "listRecords",
         requestMappingTemplate: appsync.MappingTemplate.dynamoDbScanTable(),
@@ -215,7 +215,7 @@ class AnalyticsIntegrationTestStackEnvironment extends IntegrationTestStackEnvir
 
     graphQLApi
       .addDynamoDbDataSource("GraphQLApiCreateRecord", recordsTable)
-      .createResolver({
+      .createResolver("MutationCreateRecordResolver", {
         typeName: "Mutation",
         fieldName: "createRecord",
         requestMappingTemplate: appsync.MappingTemplate.dynamoDbPutItem(
@@ -232,7 +232,7 @@ class AnalyticsIntegrationTestStackEnvironment extends IntegrationTestStackEnvir
       this,
       "kinesis-consumer",
       {
-        runtime: lambda.Runtime.NODEJS_16_X,
+        runtime: lambda.Runtime.NODEJS_18_X,
         environment: {
           GRAPHQL_API_ENDPOINT: graphQLApi.graphqlUrl,
           GRAPHQL_API_KEY: graphQLApi.apiKey!,

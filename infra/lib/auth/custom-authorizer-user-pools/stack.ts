@@ -30,7 +30,7 @@ export class CustomAuthorizerUserPoolsStackEnvironment extends IntegrationTestSt
       this,
       "auto-confirm",
       {
-        runtime: lambda.Runtime.NODEJS_16_X,
+        runtime: lambda.Runtime.NODEJS_18_X,
       }
     );
 
@@ -65,7 +65,7 @@ export class CustomAuthorizerUserPoolsStackEnvironment extends IntegrationTestSt
     // Create the API Gateway and proxy handler
 
     const apiHandler = new lambda_nodejs.NodejsFunction(this, "api-handler", {
-      runtime: lambda.Runtime.NODEJS_16_X,
+      runtime: lambda.Runtime.NODEJS_18_X,
     });
 
     const apiGateway = new apigw.LambdaRestApi(this, "API", {
