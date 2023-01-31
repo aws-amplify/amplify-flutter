@@ -41,10 +41,13 @@ class MockCognitoIdentityProviderClient
     Future<GetUserAttributeVerificationCodeResponse> Function()?
         getUserAttributeVerificationCode,
     Future<GlobalSignOutResponse> Function()? globalSignOut,
-    Future<InitiateAuthResponse> Function()? initiateAuth,
+    Future<InitiateAuthResponse> Function(InitiateAuthRequest)? initiateAuth,
     Future<ListDevicesResponse> Function()? listDevices,
     Future<ResendConfirmationCodeResponse> Function()? resendConfirmationCode,
-    Future<RespondToAuthChallengeResponse> Function()? respondToAuthChallenge,
+    Future<RespondToAuthChallengeResponse> Function(
+      RespondToAuthChallengeRequest,
+    )?
+        respondToAuthChallenge,
     Future<RevokeTokenResponse> Function()? revokeToken,
     Future<SignUpResponse> Function()? signUp,
     Future<UpdateDeviceStatusResponse> Function()? updateDeviceStatus,
@@ -89,12 +92,14 @@ class MockCognitoIdentityProviderClient
   final Future<GetUserAttributeVerificationCodeResponse> Function()?
       _getUserAttributeVerificationCode;
   final Future<GlobalSignOutResponse> Function()? _globalSignOut;
-  final Future<InitiateAuthResponse> Function()? _initiateAuth;
+  final Future<InitiateAuthResponse> Function(InitiateAuthRequest)?
+      _initiateAuth;
   final Future<ListDevicesResponse> Function()? _listDevices;
   final Future<ResendConfirmationCodeResponse> Function()?
       _resendConfirmationCode;
-  final Future<RespondToAuthChallengeResponse> Function()?
-      _respondToAuthChallenge;
+  final Future<RespondToAuthChallengeResponse> Function(
+    RespondToAuthChallengeRequest,
+  )? _respondToAuthChallenge;
   final Future<RevokeTokenResponse> Function()? _revokeToken;
   final Future<SignUpResponse> Function()? _signUp;
   final Future<UpdateDeviceStatusResponse> Function()? _updateDeviceStatus;
@@ -205,7 +210,9 @@ class MockCognitoIdentityProviderClient
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
   }) =>
-      _mockIfProvided(_initiateAuth);
+      _mockIfProvided(
+        _initiateAuth == null ? null : () => _initiateAuth!(input),
+      );
 
   @override
   SmithyOperation<ListDevicesResponse> listDevices(
@@ -229,7 +236,11 @@ class MockCognitoIdentityProviderClient
     AWSHttpClient? client,
     AWSCredentialsProvider? credentialsProvider,
   }) =>
-      _mockIfProvided(_respondToAuthChallenge);
+      _mockIfProvided(
+        _respondToAuthChallenge == null
+            ? null
+            : () => _respondToAuthChallenge!(input),
+      );
 
   @override
   SmithyOperation<RevokeTokenResponse> revokeToken(

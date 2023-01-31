@@ -69,6 +69,7 @@ const idToken = JsonWebToken(
   signature: [],
 );
 const username = 'username';
+const password = 'password';
 const userSub = 'userSub';
 const accessKeyId = 'accessKeyId';
 const secretAccessKey = 'secretAccessKey';
