@@ -15,7 +15,7 @@
 
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:sample_app/Pages/LandingPage.dart';
+import 'package:sample_app/Pages/landing_page.dart';
 
 class UserView extends StatefulWidget {
   @override
