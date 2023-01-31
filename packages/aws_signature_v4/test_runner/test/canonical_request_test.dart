@@ -55,7 +55,7 @@ void main() {
       final path = uri.path;
       final canonicalPath = CanonicalPath.canonicalize(
         path,
-        serviceConfiguration: const BaseServiceConfiguration(),
+        serviceConfiguration: BaseServiceConfiguration(),
       );
       expect(path, '');
       expect(canonicalPath, '/');

@@ -2,10 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
+import 'package:aws_signature_v4/src/request/chunk_hash.dart';
 import 'package:aws_signature_v4/src/version.dart';
+import 'package:aws_signature_v4/src/workers/hash_worker.dart';
 import 'package:meta/meta.dart';
 
 /// {@template aws_signature_v4.service_configuration}
@@ -19,7 +22,7 @@ import 'package:meta/meta.dart';
 @sealed
 abstract class ServiceConfiguration {
   /// {@macro aws_signature_v4.service_configuration}
-  const factory ServiceConfiguration({
+  factory ServiceConfiguration({
     bool? normalizePath,
     bool? omitSessionToken,
     bool? doubleEncodePathSegments,
@@ -109,14 +112,24 @@ abstract class ServiceConfiguration {
 /// {@template aws_signature_v4.base_service_configuration}
 /// The base service configuration for AWS services.
 /// {@endtemplate}
-class BaseServiceConfiguration extends ServiceConfiguration {
+class BaseServiceConfiguration extends ServiceConfiguration
+    with AWSDebuggable, AWSLoggerMixin {
   /// {@macro aws_signature_v4.base_service_configuration}
-  const BaseServiceConfiguration({
+  BaseServiceConfiguration({
     super.normalizePath,
     super.omitSessionToken,
     super.doubleEncodePathSegments,
     super.signBody,
   }) : super._();
+
+  /// The worker for hashing payload chunks.
+  @protected
+  final worker = HashWorker.create();
+  late final _workerInit = worker.spawn();
+  var _currentWorkerRequest = 0;
+
+  @override
+  String get runtimeTypeName => 'BaseServiceConfiguration';
 
   @override
   void applySigned(
@@ -176,7 +189,8 @@ class BaseServiceConfiguration extends ServiceConfiguration {
   }) async {
     if (request is AWSStreamedHttpRequest) {
       final payload = await request.bodyBytes;
-      return payloadEncoder.convert(payload);
+      final hashResponse = await hashChunk(payload);
+      return hashResponse.hash;
     }
     return hashPayloadSync(request, presignedUrl: presignedUrl);
   }
@@ -189,7 +203,42 @@ class BaseServiceConfiguration extends ServiceConfiguration {
     if (request is! AWSHttpRequest) {
       throw ArgumentError('Streaming requests cannot be hashed synchronously.');
     }
-    return payloadEncoder.convert(request.bodyBytes);
+    return hashChunkSync(request.bodyBytes).hash;
+  }
+
+  /// Hashes a chunk asynchronously using [payloadEncoder].
+  ///
+  /// This is generally preferred over [hashChunkSync] as it allows the
+  /// operation to be moved off the main thread.
+  @protected
+  Future<ChunkHash> hashChunk(
+    Uint8List chunk, [
+    @visibleForTesting int? id,
+  ]) async {
+    try {
+      await _workerInit;
+      final request = HashWorkerRequest(
+        (b) => b
+          ..id = id ?? _currentWorkerRequest++
+          ..chunk = chunk,
+      );
+      worker.add(request);
+      final response = await worker.stream.firstWhere(
+        (res) => res.id == request.id,
+      );
+      return ChunkHash(response.chunk, response.hash);
+    } on Object catch (e, st) {
+      logger
+        ..error('Could not hash request using worker', e, st)
+        ..error('Falling back to synchronous signing');
+      return Future(() => hashChunkSync(chunk));
+    }
+  }
+
+  /// Hashes a chunk synchronously using [payloadEncoder].
+  @protected
+  ChunkHash hashChunkSync(Uint8List chunk) {
+    return ChunkHash(chunk, payloadEncoder.convert(chunk));
   }
 
   @override

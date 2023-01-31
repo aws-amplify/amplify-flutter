@@ -11,3 +11,6 @@ pubspec.lock
 
 coverage/
 doc/
+
+*.js
+*.js.map

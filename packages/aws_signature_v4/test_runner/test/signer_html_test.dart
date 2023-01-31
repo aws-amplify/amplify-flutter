@@ -28,6 +28,7 @@ Future<void> main() async {
       await runZoned(
         signerTest.run,
         zoneValues: {
+          // ignore: invalid_use_of_internal_member
           zSigningTest: true,
         },
       );

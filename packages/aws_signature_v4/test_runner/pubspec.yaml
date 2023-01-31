@@ -1,0 +1,27 @@
+name: aws_signature_v4_tests
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependency_overrides:
+  aws_common:
+    path: ../../aws_common
+
+dev_dependencies:
+  amplify_lints:
+    path: ../../amplify_lints
+  async: ^2.8.0
+  aws_common:
+    path: ../../aws_common
+  aws_signature_v4:
+    path: ../
+  build_runner: ^2.0.0
+  build_test: ^2.1.5
+  build_web_compilers: ^3.2.0
+  collection: ^1.15.0
+  json_annotation: ^4.6.0
+  json_serializable: 6.5.4
+  path: ^1.8.0
+  stream_channel: ^2.1.0
+  test: ^1.16.0

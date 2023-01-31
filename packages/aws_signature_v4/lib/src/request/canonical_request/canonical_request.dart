@@ -28,9 +28,9 @@ class CanonicalRequest {
     required AWSCredentialScope credentialScope,
     required int contentLength,
     required String payloadHash,
-    ServiceConfiguration serviceConfiguration =
-        const BaseServiceConfiguration(),
+    ServiceConfiguration? serviceConfiguration,
   }) {
+    serviceConfiguration ??= BaseServiceConfiguration();
     final headers = Map.of(request.headers);
     final queryParameters = Map.of(request.queryParameters);
 
@@ -70,9 +70,9 @@ class CanonicalRequest {
     required Duration expiresIn,
     int contentLength = 0,
     String payloadHash = emptyPayloadHash,
-    ServiceConfiguration serviceConfiguration =
-        const BaseServiceConfiguration(),
+    ServiceConfiguration? serviceConfiguration,
   }) {
+    serviceConfiguration ??= BaseServiceConfiguration();
     final headers = Map.of(request.headers);
     // Include header for signing since it will be included by the HTTP client
     // of the end user.

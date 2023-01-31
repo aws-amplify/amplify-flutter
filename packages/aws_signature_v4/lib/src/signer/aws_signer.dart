@@ -42,13 +42,13 @@ class AWSSigV4Signer {
   Future<Uri> presign(
     AWSHttpRequest request, {
     required AWSCredentialScope credentialScope,
-    ServiceConfiguration serviceConfiguration =
-        const BaseServiceConfiguration(),
+    ServiceConfiguration? serviceConfiguration,
     required Duration expiresIn,
   }) async {
     return signZoned(() async {
+      serviceConfiguration ??= BaseServiceConfiguration();
       final credentials = await credentialsProvider.retrieve();
-      final payloadHash = await serviceConfiguration.hashPayload(
+      final payloadHash = await serviceConfiguration!.hashPayload(
         request,
         presignedUrl: true,
       );
@@ -57,7 +57,7 @@ class AWSSigV4Signer {
         credentials,
         request,
         credentialScope: credentialScope,
-        serviceConfiguration: serviceConfiguration,
+        serviceConfiguration: serviceConfiguration!,
         payloadHash: payloadHash,
         contentLength: contentLength,
         expiresIn: expiresIn,
@@ -70,16 +70,16 @@ class AWSSigV4Signer {
   Uri presignSync(
     AWSHttpRequest request, {
     required AWSCredentialScope credentialScope,
-    ServiceConfiguration serviceConfiguration =
-        const BaseServiceConfiguration(),
+    ServiceConfiguration? serviceConfiguration,
     required Duration expiresIn,
   }) {
     return signZoned(() {
+      serviceConfiguration ??= BaseServiceConfiguration();
       final credentials = credentialsProvider.retrieve();
       if (credentials is! AWSCredentials) {
         throw ArgumentError('Must use presign');
       }
-      final payloadHash = serviceConfiguration.hashPayloadSync(
+      final payloadHash = serviceConfiguration!.hashPayloadSync(
         request,
         presignedUrl: true,
       );
@@ -88,7 +88,7 @@ class AWSSigV4Signer {
         credentials,
         request,
         credentialScope: credentialScope,
-        serviceConfiguration: serviceConfiguration,
+        serviceConfiguration: serviceConfiguration!,
         payloadHash: payloadHash,
         contentLength: contentLength,
         expiresIn: expiresIn,
@@ -101,12 +101,12 @@ class AWSSigV4Signer {
   Future<AWSSignedRequest> sign(
     AWSBaseHttpRequest request, {
     required AWSCredentialScope credentialScope,
-    ServiceConfiguration serviceConfiguration =
-        const BaseServiceConfiguration(),
+    ServiceConfiguration? serviceConfiguration,
   }) async {
     return signZoned(() async {
+      serviceConfiguration ??= BaseServiceConfiguration();
       final credentials = await credentialsProvider.retrieve();
-      final payloadHash = await serviceConfiguration.hashPayload(
+      final payloadHash = await serviceConfiguration!.hashPayload(
         request,
         presignedUrl: false,
       );
@@ -115,7 +115,7 @@ class AWSSigV4Signer {
         credentials,
         request,
         credentialScope: credentialScope,
-        serviceConfiguration: serviceConfiguration,
+        serviceConfiguration: serviceConfiguration!,
         payloadHash: payloadHash,
         contentLength: contentLength,
         presignedUrl: false,
@@ -127,10 +127,10 @@ class AWSSigV4Signer {
   AWSSignedRequest signSync(
     AWSBaseHttpRequest request, {
     required AWSCredentialScope credentialScope,
-    ServiceConfiguration serviceConfiguration =
-        const BaseServiceConfiguration(),
+    ServiceConfiguration? serviceConfiguration,
   }) {
     return signZoned(() {
+      serviceConfiguration ??= BaseServiceConfiguration();
       final credentials = credentialsProvider.retrieve();
       if (credentials is! AWSCredentials) {
         throw ArgumentError('Must use sign');
@@ -138,7 +138,7 @@ class AWSSigV4Signer {
       final contentLength = request.hasContentLength
           ? request.contentLength as int
           : throw ArgumentError('Must use sign');
-      final payloadHash = serviceConfiguration.hashPayloadSync(
+      final payloadHash = serviceConfiguration!.hashPayloadSync(
         request,
         presignedUrl: false,
       );
@@ -146,7 +146,7 @@ class AWSSigV4Signer {
         credentials,
         request,
         credentialScope: credentialScope,
-        serviceConfiguration: serviceConfiguration,
+        serviceConfiguration: serviceConfiguration!,
         payloadHash: payloadHash,
         contentLength: contentLength,
         presignedUrl: false,
@@ -160,8 +160,7 @@ class AWSSigV4Signer {
     required AWSCredentialScope credentialScope,
     required String payloadHash,
     required int contentLength,
-    ServiceConfiguration serviceConfiguration =
-        const BaseServiceConfiguration(),
+    required ServiceConfiguration serviceConfiguration,
     Duration? expiresIn,
     required bool presignedUrl,
   }) {
