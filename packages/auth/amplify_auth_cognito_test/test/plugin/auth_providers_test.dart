@@ -173,7 +173,7 @@ void main() {
         );
         final authorizedRequest = await authProvider.authorizeRequest(
           inputRequest,
-          options: const IamAuthProviderOptions(
+          options: IamAuthProviderOptions(
             region: region,
             service: AWSService.apiGateway,
             serviceConfiguration: ServiceConfiguration(signBody: false),
