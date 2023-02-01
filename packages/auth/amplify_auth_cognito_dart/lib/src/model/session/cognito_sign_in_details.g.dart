@@ -92,3 +92,17 @@ Map<String, dynamic> _$CognitoSignInDetailsHostedUiToJson(
   writeNotNull('provider', instance.provider?.toJson());
   return val;
 }
+
+CognitoSignInDetailsFederated _$CognitoSignInDetailsFederatedFromJson(
+        Map<String, dynamic> json) =>
+    CognitoSignInDetailsFederated(
+      token: json['token'] as String,
+      provider: AuthProvider.fromJson(json['provider'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$CognitoSignInDetailsFederatedToJson(
+        CognitoSignInDetailsFederated instance) =>
+    <String, dynamic>{
+      'token': instance.token,
+      'provider': instance.provider.toJson(),
+    };
