@@ -74,6 +74,44 @@ void main() {
       );
     }
 
+    Future<FederateToIdentityPoolResult> federateToIdentityPool({
+      required String token,
+      required AuthProvider provider,
+      String? developerProvidedIdentityId,
+      required bool willRefresh,
+    }) async {
+      final sm = stateMachine.getOrCreate(
+        FetchAuthSessionStateMachine.type,
+      );
+      final expectation = expectLater(
+        sm.stream,
+        emitsInOrder(<Matcher>[
+          isA<FetchAuthSessionFetching>(),
+          if (willRefresh) isA<FetchAuthSessionRefreshing>(),
+          anyOf(
+            isA<FetchAuthSessionSuccess>(),
+            isA<FetchAuthSessionFailure>(),
+          ),
+        ]),
+      );
+      final session = await stateMachine.loadSession(
+        FetchAuthSessionEvent.federate(
+          FederateToIdentityPoolRequest(
+            provider: provider,
+            token: token,
+            options: FederateToIdentityPoolOptions(
+              developerProvidedIdentityId: developerProvidedIdentityId,
+            ),
+          ),
+        ),
+      );
+      await expectation;
+      return FederateToIdentityPoolResult(
+        identityId: session.identityIdResult.value,
+        credentials: session.credentialsResult.value,
+      );
+    }
+
     setUp(() {
       secureStorage = MockSecureStorage();
       stateMachine = CognitoAuthStateMachine()
@@ -868,6 +906,196 @@ void main() {
           });
         });
       });
+
+      group('federate to identity pool', () {
+        const token1 = 'token1';
+        const token2 = 'token2';
+        const provider = AuthProvider.custom('test');
+
+        group('signed out', () {
+          setUp(() async {
+            await configureAmplify(config);
+
+            var expiration = DateTime.now();
+            stateMachine.addInstance<CognitoIdentityClient>(
+              MockCognitoIdentityClient(
+                getId: () async => GetIdResponse(identityId: identityId),
+                getCredentialsForIdentity: () async {
+                  // When tests complete too fast, DateTime.now() is the same
+                  // in between calls, so for each call, add an ever increasing
+                  // duration to extend the duration beyond what it was
+                  // previously.
+                  expiration = expiration.add(const Duration(hours: 1));
+                  return GetCredentialsForIdentityResponse(
+                    credentials: Credentials(
+                      accessKeyId: accessKeyId,
+                      secretKey: secretAccessKey,
+                      sessionToken: sessionToken,
+                      expiration: expiration,
+                    ),
+                  );
+                },
+              ),
+            );
+          });
+
+          test('can federate', () async {
+            final session = await federateToIdentityPool(
+              token: token1,
+              provider: provider,
+              willRefresh: false,
+            );
+            expect(session.identityId, identityId);
+            expect(
+              session.credentials.accessKeyId,
+              accessKeyId,
+            );
+            expect(
+              session.credentials.secretAccessKey,
+              secretAccessKey,
+            );
+            expect(
+              session.credentials.sessionToken,
+              sessionToken,
+            );
+            expect(
+              session.credentials.expiration,
+              isNotNull,
+            );
+          });
+
+          test('can refresh federation with same token', () async {
+            final firstSession = await federateToIdentityPool(
+              token: token1,
+              provider: provider,
+              willRefresh: false,
+            );
+            final newSession = await federateToIdentityPool(
+              token: token1,
+              provider: provider,
+              willRefresh: true,
+            );
+            expect(newSession.identityId, firstSession.identityId);
+            expect(
+              newSession.credentials,
+              isNot(firstSession.credentials),
+            );
+          });
+
+          test('can refresh federation with new token', () async {
+            final firstSession = await federateToIdentityPool(
+              token: token1,
+              provider: provider,
+              willRefresh: false,
+            );
+            final newSession = await federateToIdentityPool(
+              token: token2,
+              provider: provider,
+              willRefresh: true,
+            );
+            expect(newSession.identityId, firstSession.identityId);
+            expect(
+              newSession.credentials,
+              isNot(firstSession.credentials),
+            );
+          });
+
+          test('can refresh via refresh event', () async {
+            final session = await federateToIdentityPool(
+              token: token1,
+              provider: provider,
+              willRefresh: false,
+            );
+            final completion = await stateMachine
+                .dispatch(
+                  const FetchAuthSessionEvent.refresh(
+                    refreshUserPoolTokens: false,
+                    refreshAwsCredentials: true,
+                  ),
+                )
+                .completed;
+            if (completion is! FetchAuthSessionSuccess) {
+              fail('Refresh failed: $completion');
+            }
+            final identityId = completion.session.identityIdResult.valueOrNull;
+            expect(
+              identityId,
+              session.identityId,
+            );
+            final credentials =
+                completion.session.credentialsResult.valueOrNull;
+            expect(
+              credentials,
+              isNot(session.credentials),
+            );
+          });
+
+          test('can federate after failure', () async {
+            final originalClient = stateMachine.expect<CognitoIdentityClient>();
+            stateMachine.addInstance<CognitoIdentityClient>(
+              MockCognitoIdentityClient(
+                getId: () async => throw Exception(),
+              ),
+            );
+            await expectLater(
+              federateToIdentityPool(
+                token: token1,
+                provider: provider,
+                willRefresh: false,
+              ),
+              throwsA(isA<AuthException>()),
+            );
+            stateMachine.addInstance(originalClient);
+            await expectLater(
+              federateToIdentityPool(
+                token: token1,
+                provider: provider,
+                willRefresh: false,
+              ),
+              completes,
+            );
+          });
+
+          test('can provide identity id', () async {
+            const developerProvidedIdentityId = 'developerProvidedIdentityId';
+            final firstSession = await federateToIdentityPool(
+              token: token1,
+              provider: provider,
+              developerProvidedIdentityId: developerProvidedIdentityId,
+              willRefresh: false,
+            );
+            expect(firstSession.identityId, developerProvidedIdentityId);
+            final newSession = await federateToIdentityPool(
+              token: token1,
+              provider: provider,
+              willRefresh: true,
+            );
+            expect(newSession.identityId, firstSession.identityId);
+            expect(
+              newSession.credentials,
+              isNot(firstSession.credentials),
+            );
+          });
+        });
+
+        group('signed in', () {
+          setUp(() async {
+            seedStorage(secureStorage, userPoolKeys: userPoolKeys);
+            await configureAmplify(config);
+          });
+
+          test('cannot federate while signed into user pool', () async {
+            await expectLater(
+              federateToIdentityPool(
+                token: token1,
+                provider: provider,
+                willRefresh: false,
+              ),
+              throwsA(isA<InvalidStateException>()),
+            );
+          });
+        });
+      });
     });
     group('User Pool Only Config', () {
       setUp(() {
@@ -1273,6 +1501,26 @@ void main() {
               throwsA(isA<InvalidAccountTypeException>()),
             );
           });
+        });
+      });
+
+      group('federate to identity pool', () {
+        const token = 'token1';
+        const provider = AuthProvider.custom('test');
+
+        setUp(() async {
+          await configureAmplify(config);
+        });
+
+        test('cannot federate without identity pool config', () async {
+          await expectLater(
+            federateToIdentityPool(
+              token: token,
+              provider: provider,
+              willRefresh: false,
+            ),
+            throwsA(isA<InvalidAccountTypeException>()),
+          );
         });
       });
     });

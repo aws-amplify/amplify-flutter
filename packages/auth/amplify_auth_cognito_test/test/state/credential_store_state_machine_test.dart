@@ -4,6 +4,7 @@
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/credential_store_keys.dart';
+import 'package:amplify_auth_cognito_dart/src/model/session/cognito_sign_in_details.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
@@ -254,6 +255,64 @@ void main() {
         expect(result.awsCredentials?.secretAccessKey, newSecretAccessKey);
         expect(result.awsCredentials?.sessionToken, isNull);
         expect(result.awsCredentials?.expiration, isNull);
+
+        await stateMachine.close();
+      });
+
+      test('federation', () async {
+        seedStorage(secureStorage, identityPoolKeys: identityPoolKeys);
+        await stateMachine
+            .dispatch(
+              const CredentialStoreEvent.migrateLegacyCredentialStore(),
+            )
+            .completed;
+        final result = await stateMachine.loadCredentials();
+
+        expect(result.awsCredentials, isNotNull);
+        expect(result.awsCredentials?.accessKeyId, accessKeyId);
+        expect(result.awsCredentials?.secretAccessKey, secretAccessKey);
+        expect(result.awsCredentials?.sessionToken, sessionToken);
+        expect(result.awsCredentials?.expiration, expiration);
+        expect(result.signInDetails, isNull);
+
+        const provider = AuthProvider.custom('custom');
+        const providerToken = '12345';
+        await stateMachine.storeCredentials(
+          CredentialStoreData(
+            awsCredentials: AWSCredentials(
+              accessKeyId,
+              secretAccessKey,
+              sessionToken,
+              expiration,
+            ),
+            identityId: identityId,
+            signInDetails: const CognitoSignInDetailsFederated(
+              provider: provider,
+              token: providerToken,
+            ),
+          ),
+        );
+
+        final newResult = await stateMachine.loadCredentials();
+        expect(newResult.awsCredentials, isNotNull);
+        expect(newResult.awsCredentials?.accessKeyId, accessKeyId);
+        expect(newResult.awsCredentials?.secretAccessKey, secretAccessKey);
+        expect(newResult.awsCredentials?.sessionToken, sessionToken);
+        expect(newResult.awsCredentials?.expiration, expiration);
+        expect(
+          newResult.signInDetails,
+          isA<CognitoSignInDetailsFederated>()
+              .having(
+                (details) => details.provider,
+                'provider',
+                provider,
+              )
+              .having(
+                (details) => details.token,
+                'token',
+                providerToken,
+              ),
+        );
 
         await stateMachine.close();
       });
