@@ -38,6 +38,37 @@ void main() {
     final username = generateUsername();
     final password = generatePassword();
 
+    Future<CognitoUserPoolTokens> getUserPoolTokens() async {
+      final signInResult = await cognitoPlugin.signIn(
+        username: username,
+        password: password,
+      );
+      expect(signInResult.nextStep.signInStep, AuthSignInStep.done);
+
+      final signInSession = await cognitoPlugin.fetchAuthSession();
+      final userPoolTokens = signInSession.userPoolTokensResult.value;
+      // Clear but do not sign out so that tokens are still valid.
+      // ignore: invalid_use_of_protected_member
+      await cognitoPlugin.stateMachine.clearCredentials();
+
+      return userPoolTokens;
+    }
+
+    Future<FederateToIdentityPoolResult> federateToIdentityPool() async {
+      final userPoolTokens = await getUserPoolTokens();
+      return cognitoPlugin.federateToIdentityPool(
+        token: userPoolTokens.idToken.raw,
+        provider: provider,
+      );
+    }
+
+    Future<void> clearFederation() async {
+      try {
+        await cognitoPlugin.clearFederationToIdentityPool();
+        // ignore: avoid_catches_without_on_clauses
+      } catch (_) {}
+    }
+
     setUpAll(() async {
       await configureAuth();
       await adminCreateUser(
@@ -47,33 +78,16 @@ void main() {
         verifyAttributes: true,
       );
 
+      await clearFederation();
       await signOutUser();
     });
 
     tearDownAll(Amplify.reset);
 
-    tearDown(signOutUser);
-
-    Future<FederateToIdentityPoolResult> federateToIdentityPool() async {
-      final signInResult = await cognitoPlugin.signIn(
-        username: username,
-        password: password,
-      );
-      expect(signInResult.nextStep.signInStep, AuthSignInStep.done);
-
-      final userPoolTokens =
-          (await cognitoPlugin.fetchAuthSession()).userPoolTokensResult.value;
-      // Clear but do not sign out so that tokens are still valid.
-      // ignore: invalid_use_of_protected_member
-      await cognitoPlugin.stateMachine.clearCredentials(
-        CognitoUserPoolKeys(userPoolConfig),
-      );
-
-      return cognitoPlugin.federateToIdentityPool(
-        token: userPoolTokens.idToken.raw,
-        provider: provider,
-      );
-    }
+    tearDown(() async {
+      await clearFederation();
+      await signOutUser();
+    });
 
     asyncTest('throws when signed in', (_) async {
       final signInResult = await cognitoPlugin.signIn(
@@ -102,14 +116,18 @@ void main() {
     });
 
     asyncTest('replaces unauthenticated identity', (_) async {
+      final userPoolTokens = await getUserPoolTokens();
+
       // Get unauthenticated identity
       final unauthSession = await cognitoPlugin.fetchAuthSession();
-
-      final authSession = await federateToIdentityPool();
+      final authSession = await cognitoPlugin.federateToIdentityPool(
+        token: userPoolTokens.idToken.raw,
+        provider: provider,
+      );
       expect(
         authSession.identityId,
-        unauthSession.identityIdResult.value,
-        reason: 'Should retain unauthenticated identity',
+        isNot(unauthSession.identityIdResult.value),
+        reason: 'Should replace unauthenticated identity',
       );
       expect(
         authSession.credentials,
@@ -193,6 +211,56 @@ void main() {
         cognitoPlugin.clearFederationToIdentityPool(),
         completes,
         reason: 'Clearing with no federation is a no-op',
+      );
+    });
+
+    asyncTest('isSignedIn=true when federated', (_) async {
+      await federateToIdentityPool();
+
+      final session = await cognitoPlugin.fetchAuthSession();
+      expect(
+        session.isSignedIn,
+        isTrue,
+        reason: 'API requirement',
+      );
+      await expectLater(
+        cognitoPlugin.getCurrentUser(),
+        throwsA(isA<InvalidStateException>()),
+        reason: 'API requirement. getCurrentUser should throw '
+            'even though isSignedIn=true',
+      );
+    });
+
+    asyncTest('refreshes federated identity when expired', (_) async {
+      final session = await federateToIdentityPool();
+
+      // Update expiration to now.
+      // ignore: invalid_use_of_protected_member
+      final stateMachine = cognitoPlugin.stateMachine;
+      final credentials = await stateMachine.loadCredentials();
+      await stateMachine.storeCredentials(
+        CredentialStoreData(
+          identityId: session.identityId,
+          awsCredentials: AWSCredentials(
+            session.credentials.accessKeyId,
+            session.credentials.secretAccessKey,
+            session.credentials.sessionToken,
+            DateTime.now(),
+          ),
+          signInDetails: credentials.signInDetails,
+        ),
+      );
+
+      final newSession = await cognitoPlugin.fetchAuthSession();
+      expect(
+        newSession.identityIdResult.value,
+        session.identityId,
+        reason: 'Identity ID should not have changed during refresh',
+      );
+      expect(
+        newSession.credentialsResult.value,
+        isNot(session.credentials),
+        reason: 'Credentials should have been refreshed',
       );
     });
   });
