@@ -62,11 +62,11 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
 
     // Creates a WAF association on `this` so that they can be chained later
     // and do not block the concurrent creation of environments.
-    const associateWithWaf = (resourceArn: string) => {
+    const associateWithWaf = (name: string, resourceArn: string) => {
       wafAssociations.push(
         new wafv2.CfnWebACLAssociation(
           this,
-          `WAFAssociation${wafAssociations.length}`,
+          `WAFAssociation-${name}`,
           {
             resourceArn,
             webAclArn: waf.attrArn,
