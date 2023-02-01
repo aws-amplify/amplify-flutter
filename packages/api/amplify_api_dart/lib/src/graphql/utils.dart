@@ -184,3 +184,26 @@ Map<String, dynamic> transformAppSyncJsonToModelJson(
 
   return input;
 }
+
+/// Returns a String to represent a [GraphQL primitive](https://graphql.org/graphql-js/basic-types/).
+String getGraphQLTypeForField(ModelSchema schema, String fieldName) {
+  final modelFieldType = schema.fields?.values
+      .firstWhere((modelField) => modelField.name == fieldName)
+      .type
+      .fieldType;
+
+  switch (modelFieldType) {
+    case ModelFieldTypeEnum.string:
+      return 'String';
+    case ModelFieldTypeEnum.int:
+      return 'Int';
+    case ModelFieldTypeEnum.double:
+      return 'Float';
+    case ModelFieldTypeEnum.bool:
+      return 'Boolean';
+    default:
+      throw ApiException(
+        'Unable to determine GraphQL primitive type for $modelFieldType',
+      );
+  }
+}

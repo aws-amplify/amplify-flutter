@@ -132,8 +132,8 @@ class GraphQLRequestFactory {
           final bLowerOutput = StringBuffer(_openParen);
           for (final field in modelIndex.fields) {
             final isId = field == modelIndex.fields.first;
-            // Assume type is `String` if not specified as `ID`.
-            final graphQLTypeString = isId ? 'ID' : 'String';
+            final graphQLTypeString =
+                isId ? 'ID' : getGraphQLTypeForField(schema, field);
             bUpperOutput.write('\$$field: $graphQLTypeString!');
             bLowerOutput.write('$field: \$$field');
             if (field != modelIndex.fields.last) {
