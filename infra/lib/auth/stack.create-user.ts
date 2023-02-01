@@ -20,6 +20,7 @@ interface CreateUserInput {
 
 interface CreateUserResponse {
   success: boolean;
+  cognitoUsername?: string;
   error?: string;
 }
 
@@ -45,6 +46,7 @@ export const handler: lambda.AppSyncResolverHandler<
   };
 
   console.log(`Creating user ${username}...`);
+  let cognitoUsername: string;
   try {
     const createUserParams: cognito.AdminCreateUserCommandInput = {
       ...baseParams,
@@ -60,6 +62,7 @@ export const handler: lambda.AppSyncResolverHandler<
       new cognito.AdminCreateUserCommand(createUserParams)
     );
     console.log(`Successfully created user: ${username}`, resp);
+    cognitoUsername = resp.User!.Username!;
   } catch (err: any) {
     console.error(`Could not create user ${username}`, err);
     return {
@@ -141,5 +144,6 @@ export const handler: lambda.AppSyncResolverHandler<
 
   return {
     success: true,
+    cognitoUsername,
   };
 };

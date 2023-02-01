@@ -3,6 +3,7 @@
 
 import * as cdk from "aws-cdk-lib";
 import { CfnOutput } from "aws-cdk-lib";
+import * as cognito from "aws-cdk-lib/aws-cognito";
 import * as wafv2 from "aws-cdk-lib/aws-wafv2";
 import { Construct } from "constructs";
 import { AnalyticsIntegrationTestStack } from "./analytics/stack";
@@ -91,29 +92,41 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         customDomain,
       });
     }
+
+    const deviceTrackingOptIn: cognito.DeviceTracking = {
+      // Trust remembered devices (allow MFA bypass)
+      challengeRequiredOnNewDevice: true,
+      // Opt-in to tracking
+      deviceOnlyRememberedOnUserPrompt: true,
+    };
+    const deviceTrackingAlways: cognito.DeviceTracking = {
+      // Trust remembered devices (allow MFA bypass)
+      challengeRequiredOnNewDevice: true,
+      // Always track
+      deviceOnlyRememberedOnUserPrompt: false,
+    }
     const auth = new AuthIntegrationTestStack(this, [
       { associateWithWaf, type: "FULL", environmentName: "main" },
       {
         associateWithWaf,
         type: "FULL",
         environmentName: "device-tracking-always",
-        deviceTracking: {
-          // Trust remembered devices (allow MFA bypass)
-          challengeRequiredOnNewDevice: true,
-          // Always track
-          deviceOnlyRememberedOnUserPrompt: false,
-        },
+        deviceTracking: deviceTrackingAlways,
       },
       {
         associateWithWaf,
         type: "FULL",
         environmentName: "device-tracking-opt-in",
-        deviceTracking: {
-          // Trust remembered devices (allow MFA bypass)
-          challengeRequiredOnNewDevice: true,
-          // Opt-in to tracking
-          deviceOnlyRememberedOnUserPrompt: true,
-        },
+        deviceTracking: deviceTrackingOptIn,
+      },
+      {
+        associateWithWaf,
+        type: "FULL",
+        environmentName: "device-tracking-email-alias",
+        deviceTracking: deviceTrackingAlways,
+        signInAliases: {
+          email: true,
+        }
       },
       {
         associateWithWaf,
