@@ -8,6 +8,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:meta/meta.dart';
 
 part 'cognito_sign_in_details.g.dart';
 
@@ -20,6 +21,10 @@ enum CognitoSignInType {
 
   /// {@macro amplify_auth_cognito_dart.cognito_sign_in_details_hosted_ui}
   hostedUi,
+
+  /// {@macro amplify_auth_cognito_dart.cognito_sign_in_details_federated}
+  @internal
+  federated,
 }
 
 /// {@template amplify_auth_cognito_dart.cognito_sign_in_details}
@@ -39,6 +44,8 @@ abstract class CognitoSignInDetails extends SignInDetails {
         return CognitoSignInDetailsApiBased.fromJson(json);
       case CognitoSignInType.hostedUi:
         return CognitoSignInDetailsHostedUi.fromJson(json);
+      case CognitoSignInType.federated:
+        return CognitoSignInDetailsFederated.fromJson(json);
     }
   }
 
@@ -115,6 +122,36 @@ class CognitoSignInDetailsHostedUi extends CognitoSignInDetails
   Map<String, Object?> toJson() => {
         'signInType': signInType.name,
         ..._$CognitoSignInDetailsHostedUiToJson(this),
+      };
+}
+
+/// {@template amplify_auth_cognito_dart.cognito_sign_in_details_federated}
+/// Sign in details for federation to a Cognito Identity Pool.
+/// {@endtemplate}
+@internal
+@zAmplifySerializable
+class CognitoSignInDetailsFederated extends CognitoSignInDetails
+    with AWSSerializable<Map<String, Object?>> {
+  /// {@macro amplify_auth_cognito_dart.cognito_sign_in_details_federated}
+  const CognitoSignInDetailsFederated({
+    required this.token,
+    required this.provider,
+  }) : super(CognitoSignInType.federated);
+
+  /// {@macro amplify_auth_cognito_dart.cognito_sign_in_details_federated}
+  factory CognitoSignInDetailsFederated.fromJson(Map<String, Object?> json) =>
+      _$CognitoSignInDetailsFederatedFromJson(json);
+
+  /// The third-party OIDC token.
+  final String token;
+
+  /// The third-party authentication provider.
+  final AuthProvider provider;
+
+  @override
+  Map<String, Object?> toJson() => {
+        'signInType': signInType.name,
+        ..._$CognitoSignInDetailsFederatedToJson(this),
       };
 }
 

@@ -11,6 +11,7 @@ import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters_stub.dart'
     if (dart.library.html) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters_html.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_user_ext.dart';
+import 'package:amplify_auth_cognito_dart/src/model/session/cognito_sign_in_details.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_up_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
@@ -927,8 +928,14 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     AuthUserOptions? options,
   }) async {
     final credentials = await stateMachine.loadCredentials();
-    final tokens = credentials.userPoolTokens;
     final signInDetails = credentials.signInDetails;
+    // Per the `federateToIdentityPool` design, users cannot access user pool
+    // methods while federated. They must first clear federation to the
+    // identity pool and then sign into the user pool normally.
+    if (signInDetails is CognitoSignInDetailsFederated) {
+      throw const InvalidStateException.federatedToIdentityPool();
+    }
+    final tokens = credentials.userPoolTokens;
     if (tokens == null || signInDetails == null) {
       throw const SignedOutException('No user is currently signed in');
     }
@@ -1050,7 +1057,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     final CognitoUserPoolTokens tokens;
     try {
       tokens = await getUserPoolTokens();
-    } on AuthException {
+    } on SignedOutException {
       _hubEventController.add(AuthHubEvent.signedOut());
       return const CognitoSignOutResult.complete();
     }
@@ -1185,9 +1192,18 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
   /// Gets the current user pool tokens.
   ///
-  /// Throws [SignedOutException] if tokens are not present.
+  /// Throws [SignedOutException] if tokens are not present or
+  /// [InvalidStateException] if the user is currently federated to an identity
+  /// pool.
+  ///
+  /// Throws [AuthException] for all other exceptions encountered fetching the
+  /// user pool tokens.
   @visibleForTesting
   Future<CognitoUserPoolTokens> getUserPoolTokens() async {
+    final credentialState = await stateMachine.loadCredentials();
+    if (credentialState.signInDetails is CognitoSignInDetailsFederated) {
+      throw const InvalidStateException.federatedToIdentityPool();
+    }
     final authSession = await fetchAuthSession();
     return authSession.userPoolTokensResult.value;
   }

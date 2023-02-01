@@ -9,6 +9,7 @@ import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/credential_store_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/secure_storage_extension.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
+import 'package:amplify_auth_cognito_dart/src/model/session/cognito_sign_in_details.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -208,6 +209,20 @@ class CredentialStoreStateMachine extends StateMachine<CredentialStoreEvent,
           expiration,
         );
       }
+      final providerJson = await _secureStorage.read(
+        key: keys[CognitoIdentityPoolKey.provider],
+      );
+      final token = await _secureStorage.read(
+        key: keys[CognitoIdentityPoolKey.idToken],
+      );
+      if (providerJson != null && token != null) {
+        signInDetails = CognitoSignInDetailsFederated(
+          provider: AuthProvider.fromJson(
+            jsonDecode(providerJson) as Map<String, Object?>,
+          ),
+          token: token,
+        );
+      }
     }
 
     return CredentialStoreData(
@@ -291,6 +306,15 @@ class CredentialStoreStateMachine extends StateMachine<CredentialStoreEvent,
         } else {
           deletions.add(keys[CognitoIdentityPoolKey.expiration]);
         }
+      }
+      if (signInDetails is CognitoSignInDetailsFederated) {
+        items[keys[CognitoIdentityPoolKey.provider]] =
+            jsonEncode(signInDetails.provider.toJson());
+        items[keys[CognitoIdentityPoolKey.idToken]] = signInDetails.token;
+      } else {
+        deletions
+          ..add(keys[CognitoIdentityPoolKey.provider])
+          ..add(keys[CognitoIdentityPoolKey.idToken]);
       }
     }
     await _secureStorage.writeMany(items);
