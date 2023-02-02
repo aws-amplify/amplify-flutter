@@ -93,7 +93,7 @@ class S3DownloadTask {
 
   // the subscription to `S3Client.getObject` returned stream body.
   // It gets reassigned when pause/resume.
-  late StreamSubscription<List<int>> _bytesSubscription;
+  StreamSubscription<List<int>>? _bytesSubscription;
 
   // The completer to ensure `pause`, `resume` and `cancel` to be executed
   // at correct moment.
@@ -171,9 +171,11 @@ class S3DownloadTask {
 
     _resetPauseCompleter();
 
-    // TODO(HuiSF): when it's ready, invoke `AWSHttpOperation.cancel` here
-    //  to cancel the underlying http request
-    await _bytesSubscription.cancel();
+    // Calling cancel of the SmithyOperation returned by getObject cannot
+    // cancel the underlying HTTP request, cancel on the body stream instead.
+    await _bytesSubscription?.cancel();
+    _bytesSubscription = null;
+
     _state = S3TransferState.paused;
     _emitTransferProgress();
     _pauseCompleter?.complete();
@@ -233,11 +235,12 @@ class S3DownloadTask {
 
     _state = S3TransferState.canceled;
 
-    // TODO(HuiSF): when it's ready, invoke `AWSHttpOperation.cancel` here
-    //  to cancel the underlying http request
-    await _bytesSubscription.cancel();
-    _emitTransferProgress();
+    // Calling cancel of the SmithyOperation returned by getObject cannot
+    // cancel the underlying HTTP request, cancel on the body stream instead.
+    await _bytesSubscription?.cancel();
+    _bytesSubscription = null;
 
+    _emitTransferProgress();
     _downloadCompleter.completeError(
       S3Exception.controllableOperationCanceled(),
     );

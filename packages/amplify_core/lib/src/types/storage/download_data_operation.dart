@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/storage/base/storage_controllable_operation.dart';
 
 import 'base/storage_operation.dart';
 
@@ -12,9 +13,7 @@ abstract class StorageDownloadDataOperation<
         Request extends StorageDownloadDataRequest,
         Result extends StorageDownloadDataResult>
     extends StorageOperation<Request, Result>
-// TODO(HuiSF): re-enable controllable APIs when SmithyOperation.cancel
-// can cancel underlying http request.
-/* implements StorageResumableOperation, StorageCancelableOperation */ {
+    implements StorageResumableOperation, StorageCancelableOperation {
   /// {@macro amplify_core.storage.download_data_operation}
   StorageDownloadDataOperation({
     required super.request,

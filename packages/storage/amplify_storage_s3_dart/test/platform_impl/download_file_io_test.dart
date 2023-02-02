@@ -295,36 +295,34 @@ void main() {
       });
     });
 
-    // TODO(HuiSF): re-enable controllable APIs when SmithyOperation.cancel
-    // can cancel underlying http request.
-    // test(
-    //     'returned S3DownloadFileOperation pause resume and cancel APIs should interact with S3DownloadTask',
-    //     () async {
-    //   when(() => downloadTask.result).thenAnswer((_) async => testItem);
-    //   when(downloadTask.pause).thenAnswer((_) async {});
-    //   when(downloadTask.resume).thenAnswer((_) async {});
-    //   when(downloadTask.cancel).thenAnswer((_) async {});
+    test(
+        'returned S3DownloadFileOperation pause resume and cancel APIs should interact with S3DownloadTask',
+        () async {
+      when(() => downloadTask.result).thenAnswer((_) async => testItem);
+      when(downloadTask.pause).thenAnswer((_) async {});
+      when(downloadTask.resume).thenAnswer((_) async {});
+      when(downloadTask.cancel).thenAnswer((_) async {});
 
-    //   final downloadFileOperation = downloadFile(
-    //     request: StorageDownloadFileRequest(
-    //       key: testKey,
-    //       localFile: AWSFile.fromPath('path'),
-    //     ),
-    //     s3pluginConfig: testS3pluginConfig,
-    //     storageS3Service: storageS3Service,
-    //     appPathProvider: appPathProvider,
-    //     onProgress: (progress) {
-    //       expectedProgress = progress;
-    //     },
-    //   );
+      final downloadFileOperation = downloadFile(
+        request: StorageDownloadFileRequest(
+          key: testKey,
+          localFile: AWSFile.fromPath('path'),
+        ),
+        s3pluginConfig: testS3pluginConfig,
+        storageS3Service: storageS3Service,
+        appPathProvider: appPathProvider,
+        onProgress: (progress) {
+          expectedProgress = progress;
+        },
+      );
 
-    //   await downloadFileOperation.pause();
-    //   await downloadFileOperation.resume();
-    //   await downloadFileOperation.cancel();
+      await downloadFileOperation.pause();
+      await downloadFileOperation.resume();
+      await downloadFileOperation.cancel();
 
-    //   verify(downloadTask.pause).called(1);
-    //   verify(downloadTask.resume).called(1);
-    //   verify(downloadTask.cancel).called(1);
-    // });
+      verify(downloadTask.pause).called(1);
+      verify(downloadTask.resume).called(1);
+      verify(downloadTask.cancel).called(1);
+    });
   });
 }

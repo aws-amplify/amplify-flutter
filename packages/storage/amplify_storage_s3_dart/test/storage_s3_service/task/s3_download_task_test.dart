@@ -228,13 +228,18 @@ void main() {
 
     group('pause API()', () {
       test('it should pause the task', () async {
+        var bodyStreamHasBeenCanceled = false;
         const testOptions = S3DownloadDataOptions();
         final testGetObjectOutput = GetObjectOutput(
           contentLength: Int64(1024),
           body: Stream<List<int>>.periodic(
             const Duration(microseconds: 200),
             (_) => [101],
-          ).take(1024),
+          ).take(1024).asBroadcastStream(
+            onCancel: (StreamSubscription<List<int>> subscription) {
+              bodyStreamHasBeenCanceled = true;
+            },
+          ),
         );
         final smithyOperation = MockSmithyOperation<GetObjectOutput>();
         final receivedState = <S3TransferState>[];
@@ -262,10 +267,13 @@ void main() {
           },
         );
 
+        // pause only takes effect after `start` gets called.
+        // pause can be called without having to wait for start to complete.
         unawaited(downloadTask.start());
         await downloadTask.pause();
 
         expect(receivedState.last, S3TransferState.paused);
+        expect(bodyStreamHasBeenCanceled, isTrue);
       });
     });
 
@@ -381,13 +389,18 @@ void main() {
 
     group('cancel API()', () {
       test('it should cancel the task', () async {
+        var bodyStreamHasBeenCanceled = false;
         const testOptions = S3DownloadDataOptions();
         final testGetObjectOutput = GetObjectOutput(
           contentLength: Int64(1024),
           body: Stream<List<int>>.periodic(
             const Duration(microseconds: 200),
             (_) => [101],
-          ).take(1024),
+          ).take(1024).asBroadcastStream(
+            onCancel: (StreamSubscription<List<int>> subscription) {
+              bodyStreamHasBeenCanceled = true;
+            },
+          ),
         );
         final smithyOperation = MockSmithyOperation<GetObjectOutput>();
         final receivedState = <S3TransferState>[];
@@ -420,6 +433,7 @@ void main() {
         await downloadTask.cancel();
         expect(receivedState.last, S3TransferState.canceled);
         expect(downloadTask.result, throwsA(isA<S3Exception>()));
+        expect(bodyStreamHasBeenCanceled, isTrue);
       });
     });
 
@@ -551,6 +565,8 @@ void main() {
               },
             );
 
+            // pause only takes effect after `start` gets called.
+            // pause can be called without having to wait for start to complete.
             unawaited(downloadTask.start());
             await downloadTask.pause();
 
