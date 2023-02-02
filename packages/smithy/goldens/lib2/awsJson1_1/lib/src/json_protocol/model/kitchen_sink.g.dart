@@ -133,44 +133,35 @@ class _$KitchenSink extends KitchenSink {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc(
-                    $jc(
-                        $jc(
-                            $jc(
-                                $jc(
-                                    $jc(
-                                        $jc(
-                                            $jc(
-                                                $jc(
-                                                    $jc(
-                                                        $jc(
-                                                            $jc(
-                                                                $jc(
-                                                                    $jc(
-                                                                        $jc(
-                                                                            $jc($jc($jc($jc($jc($jc($jc($jc(0, blob.hashCode), boolean.hashCode), double_.hashCode), emptyStruct.hashCode), float.hashCode), httpdateTimestamp.hashCode), integer.hashCode),
-                                                                                iso8601Timestamp.hashCode),
-                                                                            jsonValue.hashCode),
-                                                                        listOfLists.hashCode),
-                                                                    listOfMapsOfStrings.hashCode),
-                                                                listOfStrings.hashCode),
-                                                            listOfStructs.hashCode),
-                                                        long.hashCode),
-                                                    mapOfListsOfStrings.hashCode),
-                                                mapOfMaps.hashCode),
-                                            mapOfStrings.hashCode),
-                                        mapOfStructs.hashCode),
-                                    recursiveList.hashCode),
-                                recursiveMap.hashCode),
-                            recursiveStruct.hashCode),
-                        simpleStruct.hashCode),
-                    string.hashCode),
-                structWithJsonName.hashCode),
-            timestamp.hashCode),
-        unixTimestamp.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, blob.hashCode);
+    _$hash = $jc(_$hash, boolean.hashCode);
+    _$hash = $jc(_$hash, double_.hashCode);
+    _$hash = $jc(_$hash, emptyStruct.hashCode);
+    _$hash = $jc(_$hash, float.hashCode);
+    _$hash = $jc(_$hash, httpdateTimestamp.hashCode);
+    _$hash = $jc(_$hash, integer.hashCode);
+    _$hash = $jc(_$hash, iso8601Timestamp.hashCode);
+    _$hash = $jc(_$hash, jsonValue.hashCode);
+    _$hash = $jc(_$hash, listOfLists.hashCode);
+    _$hash = $jc(_$hash, listOfMapsOfStrings.hashCode);
+    _$hash = $jc(_$hash, listOfStrings.hashCode);
+    _$hash = $jc(_$hash, listOfStructs.hashCode);
+    _$hash = $jc(_$hash, long.hashCode);
+    _$hash = $jc(_$hash, mapOfListsOfStrings.hashCode);
+    _$hash = $jc(_$hash, mapOfMaps.hashCode);
+    _$hash = $jc(_$hash, mapOfStrings.hashCode);
+    _$hash = $jc(_$hash, mapOfStructs.hashCode);
+    _$hash = $jc(_$hash, recursiveList.hashCode);
+    _$hash = $jc(_$hash, recursiveMap.hashCode);
+    _$hash = $jc(_$hash, recursiveStruct.hashCode);
+    _$hash = $jc(_$hash, simpleStruct.hashCode);
+    _$hash = $jc(_$hash, string.hashCode);
+    _$hash = $jc(_$hash, structWithJsonName.hashCode);
+    _$hash = $jc(_$hash, timestamp.hashCode);
+    _$hash = $jc(_$hash, unixTimestamp.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 }
 
@@ -446,4 +437,4 @@ class KitchenSinkBuilder implements Builder<KitchenSink, KitchenSinkBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint

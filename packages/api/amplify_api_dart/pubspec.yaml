@@ -10,10 +10,10 @@ environment:
 
 dependencies:
   amplify_core: ">=1.0.0-next.4 <1.0.0-next.5"
-  async: ^2.8.0
+  async: ^2.10.0
   aws_common: ">=0.4.0 <0.5.0"
   collection: ^1.15.0
-  json_annotation: ^4.6.0
+  json_annotation: ">=4.8.0 <4.9.0"
   meta: ^1.7.0
   plugin_platform_interface: ^2.0.0
   stream_transform: ^2.0.1

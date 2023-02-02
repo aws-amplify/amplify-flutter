@@ -18,7 +18,7 @@ dependencies:
   crclib: ^3.0.0
   crypto: ^3.0.0
   intl: ^0.17.0
-  json_annotation: ^4.7.0
+  json_annotation: ">=4.8.0 <4.9.0"
   meta: ^1.7.0
   path: ^1.8.0
   smithy: ">=0.4.0+1 <0.5.0"
@@ -28,10 +28,10 @@ dev_dependencies:
   amplify_lints:
     path: ../../amplify_lints
   build_runner: ^2.1.7
-  built_value_generator: 8.4.2
+  built_value_generator: 8.4.3
   file: ^6.1.2
   glob: ^2.0.2
-  json_serializable: 6.5.4
+  json_serializable: 6.6.1
   pubspec_parse: ^1.2.0
   test: ^1.16.0
   yaml: ^3.1.0

@@ -108,51 +108,28 @@ class _$ImportTableDescription extends ImportTableDescription {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc(
-                    $jc(
-                        $jc(
-                            $jc(
-                                $jc(
-                                    $jc(
-                                        $jc(
-                                            $jc(
-                                                $jc(
-                                                    $jc(
-                                                        $jc(
-                                                            $jc(
-                                                                $jc(
-                                                                    $jc(
-                                                                        $jc(
-                                                                            $jc(
-                                                                                0,
-                                                                                clientToken
-                                                                                    .hashCode),
-                                                                            cloudWatchLogGroupArn
-                                                                                .hashCode),
-                                                                        endTime
-                                                                            .hashCode),
-                                                                    errorCount
-                                                                        .hashCode),
-                                                                failureCode
-                                                                    .hashCode),
-                                                            failureMessage
-                                                                .hashCode),
-                                                        importArn.hashCode),
-                                                    importStatus.hashCode),
-                                                importedItemCount.hashCode),
-                                            inputCompressionType.hashCode),
-                                        inputFormat.hashCode),
-                                    inputFormatOptions.hashCode),
-                                processedItemCount.hashCode),
-                            processedSizeBytes.hashCode),
-                        s3BucketSource.hashCode),
-                    startTime.hashCode),
-                tableArn.hashCode),
-            tableCreationParameters.hashCode),
-        tableId.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, clientToken.hashCode);
+    _$hash = $jc(_$hash, cloudWatchLogGroupArn.hashCode);
+    _$hash = $jc(_$hash, endTime.hashCode);
+    _$hash = $jc(_$hash, errorCount.hashCode);
+    _$hash = $jc(_$hash, failureCode.hashCode);
+    _$hash = $jc(_$hash, failureMessage.hashCode);
+    _$hash = $jc(_$hash, importArn.hashCode);
+    _$hash = $jc(_$hash, importStatus.hashCode);
+    _$hash = $jc(_$hash, importedItemCount.hashCode);
+    _$hash = $jc(_$hash, inputCompressionType.hashCode);
+    _$hash = $jc(_$hash, inputFormat.hashCode);
+    _$hash = $jc(_$hash, inputFormatOptions.hashCode);
+    _$hash = $jc(_$hash, processedItemCount.hashCode);
+    _$hash = $jc(_$hash, processedSizeBytes.hashCode);
+    _$hash = $jc(_$hash, s3BucketSource.hashCode);
+    _$hash = $jc(_$hash, startTime.hashCode);
+    _$hash = $jc(_$hash, tableArn.hashCode);
+    _$hash = $jc(_$hash, tableCreationParameters.hashCode);
+    _$hash = $jc(_$hash, tableId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 }
 
@@ -344,4 +321,4 @@ class ImportTableDescriptionBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint

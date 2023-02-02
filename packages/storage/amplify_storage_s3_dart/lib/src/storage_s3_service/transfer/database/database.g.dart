@@ -3,6 +3,97 @@
 part of 'database.dart';
 
 // ignore_for_file: type=lint
+class $TransferRecordsTable extends TransferRecords
+    with TableInfo<$TransferRecordsTable, TransferRecord> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TransferRecordsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _uploadIdMeta =
+      const VerificationMeta('uploadId');
+  @override
+  late final GeneratedColumn<String> uploadId = GeneratedColumn<String>(
+      'upload_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _objectKeyMeta =
+      const VerificationMeta('objectKey');
+  @override
+  late final GeneratedColumn<String> objectKey = GeneratedColumn<String>(
+      'object_key', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<String> createdAt = GeneratedColumn<String>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, uploadId, objectKey, createdAt];
+  @override
+  String get aliasedName => _alias ?? 'transfer_records';
+  @override
+  String get actualTableName => 'transfer_records';
+  @override
+  VerificationContext validateIntegrity(Insertable<TransferRecord> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('upload_id')) {
+      context.handle(_uploadIdMeta,
+          uploadId.isAcceptableOrUnknown(data['upload_id']!, _uploadIdMeta));
+    } else if (isInserting) {
+      context.missing(_uploadIdMeta);
+    }
+    if (data.containsKey('object_key')) {
+      context.handle(_objectKeyMeta,
+          objectKey.isAcceptableOrUnknown(data['object_key']!, _objectKeyMeta));
+    } else if (isInserting) {
+      context.missing(_objectKeyMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  TransferRecord map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TransferRecord(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      uploadId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}upload_id'])!,
+      objectKey: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}object_key'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}created_at'])!,
+    );
+  }
+
+  @override
+  $TransferRecordsTable createAlias(String alias) {
+    return $TransferRecordsTable(attachedDatabase, alias);
+  }
+}
+
 class TransferRecord extends DataClass implements Insertable<TransferRecord> {
   /// The record id.
   final int id;
@@ -164,97 +255,6 @@ class TransferRecordsCompanion extends UpdateCompanion<TransferRecord> {
           ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
-  }
-}
-
-class $TransferRecordsTable extends TransferRecords
-    with TableInfo<$TransferRecordsTable, TransferRecord> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $TransferRecordsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _uploadIdMeta =
-      const VerificationMeta('uploadId');
-  @override
-  late final GeneratedColumn<String> uploadId = GeneratedColumn<String>(
-      'upload_id', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _objectKeyMeta =
-      const VerificationMeta('objectKey');
-  @override
-  late final GeneratedColumn<String> objectKey = GeneratedColumn<String>(
-      'object_key', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _createdAtMeta =
-      const VerificationMeta('createdAt');
-  @override
-  late final GeneratedColumn<String> createdAt = GeneratedColumn<String>(
-      'created_at', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  @override
-  List<GeneratedColumn> get $columns => [id, uploadId, objectKey, createdAt];
-  @override
-  String get aliasedName => _alias ?? 'transfer_records';
-  @override
-  String get actualTableName => 'transfer_records';
-  @override
-  VerificationContext validateIntegrity(Insertable<TransferRecord> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('upload_id')) {
-      context.handle(_uploadIdMeta,
-          uploadId.isAcceptableOrUnknown(data['upload_id']!, _uploadIdMeta));
-    } else if (isInserting) {
-      context.missing(_uploadIdMeta);
-    }
-    if (data.containsKey('object_key')) {
-      context.handle(_objectKeyMeta,
-          objectKey.isAcceptableOrUnknown(data['object_key']!, _objectKeyMeta));
-    } else if (isInserting) {
-      context.missing(_objectKeyMeta);
-    }
-    if (data.containsKey('created_at')) {
-      context.handle(_createdAtMeta,
-          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
-    } else if (isInserting) {
-      context.missing(_createdAtMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  TransferRecord map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return TransferRecord(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      uploadId: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}upload_id'])!,
-      objectKey: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}object_key'])!,
-      createdAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}created_at'])!,
-    );
-  }
-
-  @override
-  $TransferRecordsTable createAlias(String alias) {
-    return $TransferRecordsTable(attachedDatabase, alias);
   }
 }
 

@@ -8,7 +8,7 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
-  async: ^2.8.0
+  async: ^2.10.0
   aws_common: ">=0.4.0 <0.5.0"
   aws_signature_v4: ">=0.3.1+2 <0.4.0"
   built_value: ">=8.4.0 <8.5.0"

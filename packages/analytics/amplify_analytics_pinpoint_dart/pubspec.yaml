@@ -16,7 +16,7 @@ dependencies:
   aws_signature_v4: ">=0.3.1+2 <0.4.0"
   built_collection: ^5.0.0
   built_value: ">=8.4.0 <8.5.0"
-  drift: ">=2.3.0 <2.4.0"
+  drift: ">=2.5.0 <2.6.0"
   intl: ^0.17.0
   meta: ^1.7.0
   path: ^1.8.0
@@ -30,7 +30,7 @@ dev_dependencies:
   build_runner: ^2.2.0
   build_verify: ^3.0.0
   build_version: ^2.0.0
-  built_value_generator: 8.4.2
+  built_value_generator: 8.4.3
   drift_dev: ^2.2.0+1
   mocktail: ^0.3.0
   test: ^1.16.0

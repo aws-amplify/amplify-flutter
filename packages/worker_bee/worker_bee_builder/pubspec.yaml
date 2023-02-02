@@ -10,9 +10,9 @@ environment:
 
 dependencies:
   analyzer: ^5.1.0
-  async: ^2.8.0
+  async: ^2.10.0
   build: ^2.2.1
-  code_builder: 4.3.0
+  code_builder: 4.4.0
   collection: ^1.15.0
   dart_style: ^2.2.1
   meta: ^1.7.0

@@ -109,46 +109,26 @@ class _$PutIntegrationRequest extends PutIntegrationRequest {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc(
-                    $jc(
-                        $jc(
-                            $jc(
-                                $jc(
-                                    $jc(
-                                        $jc(
-                                            $jc(
-                                                $jc(
-                                                    $jc(
-                                                        $jc(
-                                                            $jc(
-                                                                $jc(
-                                                                    $jc(
-                                                                        0,
-                                                                        cacheKeyParameters
-                                                                            .hashCode),
-                                                                    cacheNamespace
-                                                                        .hashCode),
-                                                                connectionId
-                                                                    .hashCode),
-                                                            connectionType
-                                                                .hashCode),
-                                                        contentHandling
-                                                            .hashCode),
-                                                    credentials.hashCode),
-                                                httpMethod.hashCode),
-                                            integrationHttpMethod.hashCode),
-                                        passthroughBehavior.hashCode),
-                                    requestParameters.hashCode),
-                                requestTemplates.hashCode),
-                            resourceId.hashCode),
-                        restApiId.hashCode),
-                    timeoutInMillis.hashCode),
-                tlsConfig.hashCode),
-            type.hashCode),
-        uri.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, cacheKeyParameters.hashCode);
+    _$hash = $jc(_$hash, cacheNamespace.hashCode);
+    _$hash = $jc(_$hash, connectionId.hashCode);
+    _$hash = $jc(_$hash, connectionType.hashCode);
+    _$hash = $jc(_$hash, contentHandling.hashCode);
+    _$hash = $jc(_$hash, credentials.hashCode);
+    _$hash = $jc(_$hash, httpMethod.hashCode);
+    _$hash = $jc(_$hash, integrationHttpMethod.hashCode);
+    _$hash = $jc(_$hash, passthroughBehavior.hashCode);
+    _$hash = $jc(_$hash, requestParameters.hashCode);
+    _$hash = $jc(_$hash, requestTemplates.hashCode);
+    _$hash = $jc(_$hash, resourceId.hashCode);
+    _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, timeoutInMillis.hashCode);
+    _$hash = $jc(_$hash, tlsConfig.hashCode);
+    _$hash = $jc(_$hash, type.hashCode);
+    _$hash = $jc(_$hash, uri.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 }
 
@@ -416,37 +396,23 @@ class _$PutIntegrationRequestPayload extends PutIntegrationRequestPayload {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc(
-                    $jc(
-                        $jc(
-                            $jc(
-                                $jc(
-                                    $jc(
-                                        $jc(
-                                            $jc(
-                                                $jc(
-                                                    $jc(
-                                                        $jc(
-                                                            0,
-                                                            cacheKeyParameters
-                                                                .hashCode),
-                                                        cacheNamespace
-                                                            .hashCode),
-                                                    connectionId.hashCode),
-                                                connectionType.hashCode),
-                                            contentHandling.hashCode),
-                                        credentials.hashCode),
-                                    integrationHttpMethod.hashCode),
-                                passthroughBehavior.hashCode),
-                            requestParameters.hashCode),
-                        requestTemplates.hashCode),
-                    timeoutInMillis.hashCode),
-                tlsConfig.hashCode),
-            type.hashCode),
-        uri.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, cacheKeyParameters.hashCode);
+    _$hash = $jc(_$hash, cacheNamespace.hashCode);
+    _$hash = $jc(_$hash, connectionId.hashCode);
+    _$hash = $jc(_$hash, connectionType.hashCode);
+    _$hash = $jc(_$hash, contentHandling.hashCode);
+    _$hash = $jc(_$hash, credentials.hashCode);
+    _$hash = $jc(_$hash, integrationHttpMethod.hashCode);
+    _$hash = $jc(_$hash, passthroughBehavior.hashCode);
+    _$hash = $jc(_$hash, requestParameters.hashCode);
+    _$hash = $jc(_$hash, requestTemplates.hashCode);
+    _$hash = $jc(_$hash, timeoutInMillis.hashCode);
+    _$hash = $jc(_$hash, tlsConfig.hashCode);
+    _$hash = $jc(_$hash, type.hashCode);
+    _$hash = $jc(_$hash, uri.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 }
 
@@ -610,4 +576,4 @@ class PutIntegrationRequestPayloadBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint

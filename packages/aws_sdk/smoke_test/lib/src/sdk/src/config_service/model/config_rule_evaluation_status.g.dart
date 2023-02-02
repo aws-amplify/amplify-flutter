@@ -93,42 +93,24 @@ class _$ConfigRuleEvaluationStatus extends ConfigRuleEvaluationStatus {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc(
-                    $jc(
-                        $jc(
-                            $jc(
-                                $jc(
-                                    $jc(
-                                        $jc(
-                                            $jc(
-                                                $jc(
-                                                    $jc(
-                                                        $jc(
-                                                            $jc(
-                                                                0,
-                                                                configRuleArn
-                                                                    .hashCode),
-                                                            configRuleId
-                                                                .hashCode),
-                                                        configRuleName
-                                                            .hashCode),
-                                                    firstActivatedTime
-                                                        .hashCode),
-                                                firstEvaluationStarted
-                                                    .hashCode),
-                                            lastDeactivatedTime.hashCode),
-                                        lastDebugLogDeliveryStatus.hashCode),
-                                    lastDebugLogDeliveryStatusReason.hashCode),
-                                lastDebugLogDeliveryTime.hashCode),
-                            lastErrorCode.hashCode),
-                        lastErrorMessage.hashCode),
-                    lastFailedEvaluationTime.hashCode),
-                lastFailedInvocationTime.hashCode),
-            lastSuccessfulEvaluationTime.hashCode),
-        lastSuccessfulInvocationTime.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, configRuleArn.hashCode);
+    _$hash = $jc(_$hash, configRuleId.hashCode);
+    _$hash = $jc(_$hash, configRuleName.hashCode);
+    _$hash = $jc(_$hash, firstActivatedTime.hashCode);
+    _$hash = $jc(_$hash, firstEvaluationStarted.hashCode);
+    _$hash = $jc(_$hash, lastDeactivatedTime.hashCode);
+    _$hash = $jc(_$hash, lastDebugLogDeliveryStatus.hashCode);
+    _$hash = $jc(_$hash, lastDebugLogDeliveryStatusReason.hashCode);
+    _$hash = $jc(_$hash, lastDebugLogDeliveryTime.hashCode);
+    _$hash = $jc(_$hash, lastErrorCode.hashCode);
+    _$hash = $jc(_$hash, lastErrorMessage.hashCode);
+    _$hash = $jc(_$hash, lastFailedEvaluationTime.hashCode);
+    _$hash = $jc(_$hash, lastFailedInvocationTime.hashCode);
+    _$hash = $jc(_$hash, lastSuccessfulEvaluationTime.hashCode);
+    _$hash = $jc(_$hash, lastSuccessfulInvocationTime.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 }
 
@@ -280,4 +262,4 @@ class ConfigRuleEvaluationStatusBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint

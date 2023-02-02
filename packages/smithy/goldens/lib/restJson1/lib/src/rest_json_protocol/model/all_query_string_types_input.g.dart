@@ -108,50 +108,28 @@ class _$AllQueryStringTypesInput extends AllQueryStringTypesInput {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc(
-                    $jc(
-                        $jc(
-                            $jc(
-                                $jc(
-                                    $jc(
-                                        $jc(
-                                            $jc(
-                                                $jc(
-                                                    $jc(
-                                                        $jc(
-                                                            $jc(
-                                                                $jc(
-                                                                    $jc(
-                                                                        $jc(
-                                                                            $jc(
-                                                                                0,
-                                                                                queryBoolean
-                                                                                    .hashCode),
-                                                                            queryBooleanList
-                                                                                .hashCode),
-                                                                        queryByte
-                                                                            .hashCode),
-                                                                    queryDouble
-                                                                        .hashCode),
-                                                                queryDoubleList
-                                                                    .hashCode),
-                                                            queryEnum.hashCode),
-                                                        queryEnumList.hashCode),
-                                                    queryFloat.hashCode),
-                                                queryInteger.hashCode),
-                                            queryIntegerList.hashCode),
-                                        queryIntegerSet.hashCode),
-                                    queryLong.hashCode),
-                                queryParamsMapOfStringList.hashCode),
-                            queryShort.hashCode),
-                        queryString.hashCode),
-                    queryStringList.hashCode),
-                queryStringSet.hashCode),
-            queryTimestamp.hashCode),
-        queryTimestampList.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, queryBoolean.hashCode);
+    _$hash = $jc(_$hash, queryBooleanList.hashCode);
+    _$hash = $jc(_$hash, queryByte.hashCode);
+    _$hash = $jc(_$hash, queryDouble.hashCode);
+    _$hash = $jc(_$hash, queryDoubleList.hashCode);
+    _$hash = $jc(_$hash, queryEnum.hashCode);
+    _$hash = $jc(_$hash, queryEnumList.hashCode);
+    _$hash = $jc(_$hash, queryFloat.hashCode);
+    _$hash = $jc(_$hash, queryInteger.hashCode);
+    _$hash = $jc(_$hash, queryIntegerList.hashCode);
+    _$hash = $jc(_$hash, queryIntegerSet.hashCode);
+    _$hash = $jc(_$hash, queryLong.hashCode);
+    _$hash = $jc(_$hash, queryParamsMapOfStringList.hashCode);
+    _$hash = $jc(_$hash, queryShort.hashCode);
+    _$hash = $jc(_$hash, queryString.hashCode);
+    _$hash = $jc(_$hash, queryStringList.hashCode);
+    _$hash = $jc(_$hash, queryStringSet.hashCode);
+    _$hash = $jc(_$hash, queryTimestamp.hashCode);
+    _$hash = $jc(_$hash, queryTimestampList.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 }
 
@@ -425,4 +403,4 @@ class AllQueryStringTypesInputPayloadBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint
