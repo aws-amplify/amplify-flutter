@@ -6,7 +6,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:flutter/material.dart';
 
-import '/models/model_provider.dart';
+import 'models/ModelProvider.dart';
 import 'amplifyconfiguration.dart';
 
 void main() {
