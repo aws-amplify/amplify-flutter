@@ -136,14 +136,16 @@ abstract class AmplifyCommand extends Command<void>
   }();
 
   /// The global `aft` configuration for the repo.
-  late final AftConfig aftConfig = () {
-    final configFile = File(p.join(rootDir.path, 'aft.yaml'));
+  ///
+  /// Should not be `late final` to allow re-reading from disk, e.g. when
+  /// updated as part of a command.
+  AftConfig get aftConfig {
+    final configFile = File(aftConfigPath);
     assert(configFile.existsSync(), 'Could not find aft.yaml');
     final configYaml = configFile.readAsStringSync();
     final config = checkedYamlDecode(configYaml, AftConfig.fromJson);
-    logger.verbose('$config');
     return config;
-  }();
+  }
 
   late final Repo repo = Repo(
     rootDir,

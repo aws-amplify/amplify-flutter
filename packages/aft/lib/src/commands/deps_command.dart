@@ -71,17 +71,11 @@ class _DepsSubcommand extends AmplifyCommand {
     if (localDep is! HostedDependency) {
       return;
     }
-    bool satisfiesGlobalConstraint;
     final globalConstraint = globalDep.value;
-    if (globalConstraint is Version) {
-      satisfiesGlobalConstraint = globalDep.value == localDep.version;
-    } else {
-      final localConstraint = localDep.version;
-      // Packages are not allowed to diverge from `aft.yaml`, even to specify
-      // more precise constraints.
-      satisfiesGlobalConstraint =
-          globalConstraint.difference(localConstraint).isEmpty;
-    }
+    final localConstraint = localDep.version;
+    // Packages are not allowed to diverge from `aft.yaml`, even to specify
+    // more precise constraints.
+    final satisfiesGlobalConstraint = globalConstraint == localConstraint;
     if (!satisfiesGlobalConstraint) {
       switch (action) {
         case _DepsAction.check:
@@ -162,7 +156,13 @@ class _DepsUpdateCommand extends _DepsSubcommand {
     for (final entry in globalDependencyConfig.entries) {
       final package = entry.key;
       final versionConstraint = entry.value;
-      VersionConstraint? newVersionConstraint;
+
+      void updateConstraint(VersionConstraint newVersionConstraint) {
+        aftEditor.update(
+          ['dependencies', package],
+          newVersionConstraint.toString(),
+        );
+      }
 
       // Get the currently published version of the package.
       try {
@@ -179,53 +179,93 @@ class _DepsUpdateCommand extends _DepsSubcommand {
           // For pinned versions, update them to the latest version (do not
           // create a range).
           if (latestVersion != versionConstraint) {
-            newVersionConstraint = maxBy(
-              [versionConstraint, latestVersion],
-              (v) => v,
+            updateConstraint(
+              maxBy(
+                [versionConstraint, latestVersion],
+                (v) => v,
+              )!,
             );
           }
         } else {
-          // For ranged versions, bump the upper bound to the latest version,
-          // keeping the lower bound valid.
+          // For ranged versions:
+          // - If the range specifies a lower bound only, e.g. `^1.0.0`, do
+          //   nothing but warn if a new breaking change is available.
+          // - If the range specifies a sliding window for a single minor
+          //   version, e.g. `>=1.1.0 <1.2.0`, and the latest version is greater
+          //   than the upper bound, slide the window.
+          // - If the range specifies a window larger than a single minor
+          //   version, keep the lower bound and move the upper bound unless
+          //   it's a major version bump.
           versionConstraint as VersionRange;
           final lowerBound = versionConstraint.min;
           final includeLowerBound = versionConstraint.includeMin;
           final upperBound = versionConstraint.max;
-          final includeUpperBound = upperBound == null || upperBound.includeMax;
-          final newUpperBound = maxBy(
-            [if (upperBound != null) upperBound, latestVersion],
-            (v) => v,
-          )!;
-          final updateVersion = newUpperBound != lowerBound &&
-              (upperBound == null || upperBound.compareTo(newUpperBound) < 0);
-          if (updateVersion) {
-            newVersionConstraint = VersionRange(
-              min: lowerBound,
-              includeMin: includeLowerBound,
-              max: newUpperBound,
-              includeMax: includeUpperBound,
+          final includeUpperBound = versionConstraint.includeMax;
+          if (lowerBound == null || upperBound == null) {
+            throw ArgumentError.value(
+              lowerBound,
+              'lowerBound',
+              'Constaints without a lower or upper bound are not supported',
             );
           }
+          // ^1.0.0
+          if (versionConstraint ==
+              VersionConstraint.compatibleWith(lowerBound)) {
+            if (latestVersion > upperBound) {
+              logger.warn(
+                'Breaking change detected for $package: $latestVersion '
+                '(current constraint: $versionConstraint)',
+              );
+            }
+            continue;
+          }
+          // ">=1.1.0 <1.2.0"
+          if (lowerBound.major == upperBound.major &&
+              lowerBound.minor == upperBound.minor - 1 &&
+              includeLowerBound &&
+              !includeUpperBound) {
+            if (latestVersion < upperBound) {
+              continue;
+            }
+            updateConstraint(
+              VersionRange(
+                min: Version(latestVersion.major, latestVersion.minor, 0),
+                includeMin: true,
+                max: Version(latestVersion.major, latestVersion.minor + 1, 0),
+                includeMax: false,
+              ),
+            );
+            continue;
+          }
+          // ">=1.1.0 <1.4.3"
+          if (latestVersion >= lowerBound.nextBreaking) {
+            logger.warn(
+              'Breaking change detected for $package: $latestVersion '
+              '(current constraint: $versionConstraint)',
+            );
+            continue;
+          }
+          updateConstraint(
+            VersionRange(
+              min: lowerBound,
+              includeMin: includeLowerBound,
+              max: latestVersion,
+              includeMax: includeUpperBound,
+            ),
+          );
         }
       } on Exception catch (e) {
         failedUpdates.add('$package: $e');
         continue;
       }
-
-      if (newVersionConstraint != null) {
-        aftEditor.update(
-          ['dependencies', package],
-          newVersionConstraint.toString(),
-        );
-      }
     }
 
-    if (aftEditor.edits.isNotEmpty) {
+    final hasUpdates = aftEditor.edits.isNotEmpty;
+    if (hasUpdates) {
       File(aftConfigPath).writeAsStringSync(
         aftEditor.toString(),
         flush: true,
       );
-      logger.info(action.successMessage);
     } else {
       logger.info('No dependencies updated');
     }
@@ -235,6 +275,8 @@ class _DepsUpdateCommand extends _DepsSubcommand {
       exitCode = 1;
     }
 
-    await _run(_DepsAction.apply);
+    if (hasUpdates && failedUpdates.isEmpty) {
+      await _run(_DepsAction.apply);
+    }
   }
 }
