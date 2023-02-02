@@ -16,7 +16,7 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:sample_app/Views/error_view.dart';
+import 'package:sample_app/views/error_view.dart';
 
 class SignUpView extends StatefulWidget {
   @override

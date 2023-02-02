@@ -16,9 +16,9 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:flutter/material.dart';
-import 'package:sample_app/Views/image_line_item.dart';
-import 'package:sample_app/Views/image_uploader.dart';
-import 'package:sample_app/Views/user_view.dart';
+import 'package:sample_app/views/image_line_item.dart';
+import 'package:sample_app/views/image_uploader.dart';
+import 'package:sample_app/views/user_view.dart';
 
 class MainPage extends StatefulWidget {
   @override
