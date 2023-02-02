@@ -26,11 +26,11 @@ class AWSHttpClientImpl extends AWSHttpClient {
     required StreamController<int> responseProgressController,
     required AbortController abortController,
     required CancelableCompleter<AWSBaseHttpResponse> completer,
-    required Future<void> cancelTrigger,
+    required Completer<void> cancelTrigger,
   }) async {
     void Function()? onCancel;
     unawaited(
-      cancelTrigger.then((_) {
+      cancelTrigger.future.then((_) {
         logger.verbose('Canceling request');
         onCancel?.call();
       }),
@@ -65,10 +65,12 @@ class AWSHttpClientImpl extends AWSHttpClient {
           requestProgressController.add(requestBytesRead);
         },
         onDone: () {
-          logger.verbose('Request sent');
+          if (!cancelTrigger.isCompleted) {
+            logger.verbose('Request sent');
+          }
           requestProgressController.close();
         },
-      ).takeUntil(cancelTrigger);
+      ).takeUntil(cancelTrigger.future);
       Object body;
       if (request.scheme == 'http' ||
           supportedProtocols.supports(AlpnProtocol.http1_1)) {
@@ -90,13 +92,24 @@ class AWSHttpClientImpl extends AWSHttpClient {
       );
 
       final streamView = resp.body;
-      final bodyController = StreamController<List<int>>(sync: true);
+      final bodyController = StreamController<List<int>>(
+        sync: true,
+        // In downstream operations, we may only have access to the body stream
+        // so we need to allow cancellation via the subscription.
+        onCancel: () {
+          logger.verbose('Subscription canceled');
+          if (!cancelTrigger.isCompleted) {
+            cancelTrigger.complete();
+          }
+        },
+      );
       onCancel = () {
         if (!bodyController.isClosed) {
           bodyController
             ..addError(const CancellationException())
             ..close();
         }
+        responseProgressController.close();
       };
       unawaited(
         streamView.progress.forward(
@@ -113,7 +126,9 @@ class AWSHttpClientImpl extends AWSHttpClient {
         body: bodyController.stream.tap(
           null,
           onDone: () {
-            logger.verbose('Response received');
+            if (!cancelTrigger.isCompleted) {
+              logger.verbose('Response received');
+            }
             onCancel = null;
             responseProgressController.close();
           },
@@ -167,7 +182,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
       responseProgressController: responseProgressController,
       abortController: abortController,
       completer: completer,
-      cancelTrigger: cancelTrigger.future,
+      cancelTrigger: cancelTrigger,
     ).catchError(
       (Object e, st) => completer.completeError(
         AWSHttpException(request, e),

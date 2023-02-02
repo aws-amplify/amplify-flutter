@@ -15,6 +15,14 @@ import 'http_server.dart';
 Future<void> hybridMain(StreamChannel<Object?> channel) =>
     clientHybridMain(channel, _handleH1, _handleH2);
 
+final kilobyte = List.generate(1024, (index) => index);
+Stream<List<int>> get largeData async* {
+  // Generate 10MB of data
+  for (var i = 0; i < 10 * 1024; i++) {
+    yield kilobyte;
+  }
+}
+
 Future<void> _handleH1(
   StreamChannel<Object?> channel,
   HttpRequest request,
@@ -26,16 +34,27 @@ Future<void> _handleH1(
     return request.response.close();
   }
   if (path == 'headers') {
-    await Future<void>.delayed(const Duration(milliseconds: 100));
     return request.response.close();
   }
-  request.response
-    ..contentLength = -1
-    ..add([1, 2, 3, 4, 5]);
   if (path == 'body') {
-    await Future<void>.delayed(const Duration(milliseconds: 100));
+    request.response.headers.contentLength = 1024 * 1024 * 10;
+    var done = false;
+    unawaited(
+      request.response.done.then((_) {
+        done = true;
+      }),
+    );
+    await for (final chunk in largeData) {
+      if (done) break;
+      request.response.add(chunk);
+      await request.response.flush();
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+    }
+    return request.response.close();
+  } else {
+    request.response.add([1, 2, 3, 4, 5]);
+    return request.response.close();
   }
-  return request.response.close();
 }
 
 Future<void> _handleH2(
@@ -53,12 +72,21 @@ Future<void> _handleH2(
     );
   }
   if (path == 'headers') {
-    return channel.sink.done;
+    return;
   }
-  request.sendHeaders([Header.ascii(':status', '200')]);
+  request.sendHeaders([
+    Header.ascii(':status', '200'),
+  ]);
   if (path == 'body') {
-    request.sendData([1, 2, 3, 4, 5]);
-    return channel.sink.done;
+    var done = false;
+    request.onTerminated = (_) {
+      done = true;
+    };
+    await for (final chunk in largeData) {
+      if (done) break;
+      request.sendData(chunk);
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+    }
   } else {
     request.sendData([1, 2, 3, 4, 5], endStream: true);
   }
