@@ -10,44 +10,78 @@ import 'package:amplify_auth_cognito_dart/src/credentials/credential_store_keys.
 import 'package:amplify_auth_cognito_dart/src/credentials/secure_storage_extension.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
-import 'package:amplify_auth_cognito_dart/src/state/machines/generated/credential_store_state_machine_base.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:meta/meta.dart';
-import 'package:stream_transform/stream_transform.dart';
 
 /// {@template amplify_auth_cognito.auth_store_state_machine}
 /// Manages the loading and storing of auth configuration data.
 /// {@endtemplate}
-class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
+class CredentialStoreStateMachine extends StateMachine<CredentialStoreEvent,
+    CredentialStoreState, AuthEvent, AuthState, CognitoAuthStateMachine> {
   /// {@macro amplify_auth_cognito.auth_store_state_machine}
-  CredentialStoreStateMachine(super.manager);
+  CredentialStoreStateMachine(CognitoAuthStateMachine manager)
+      : super(manager, type);
 
   /// The [CredentialStoreStateMachine] type.
-  static const type = StateMachineToken<CredentialStoreEvent,
-      CredentialStoreState, CredentialStoreStateMachine>();
+  static const type = StateMachineToken<
+      CredentialStoreEvent,
+      CredentialStoreState,
+      AuthEvent,
+      AuthState,
+      CognitoAuthStateMachine,
+      CredentialStoreStateMachine>();
+
+  @override
+  CredentialStoreState get initialState =>
+      const CredentialStoreState.notConfigured();
 
   @override
   String get runtimeTypeName => 'CredentialStoreStateMachine';
 
   SecureStorageInterface get _secureStorage => getOrCreate();
 
-  /// Gets the current credentials result.
-  Future<CredentialStoreSuccess> getCredentialsResult() async {
-    // Wait for any pending events to be processed and their initial states to
-    // fire. Helps protect against the case where we call `credentialStoreMachine.clear()`
-    // in the same loop as `credentialStoreMachine.get()`, we want the second
-    // call to fail.
-    await Future<void>.delayed(Duration.zero);
-    final credentialsState = await stream.startWith(currentState).firstWhere(
-          (state) =>
-              state is CredentialStoreFailure ||
-              state is CredentialStoreSuccess,
-        );
-    if (credentialsState is CredentialStoreFailure) {
-      throw credentialsState.exception;
+  @override
+  Future<void> resolve(CredentialStoreEvent event) async {
+    switch (event.type) {
+      case CredentialStoreEventType.loadCredentialStore:
+        event as CredentialStoreLoadCredentialStore;
+        emit(const CredentialStoreState.loadingStoredCredentials());
+        await onLoadCredentialStore(event);
+        return;
+      case CredentialStoreEventType.migrateLegacyCredentialStore:
+        event as CredentialStoreMigrateLegacyCredentialStore;
+        emit(const CredentialStoreState.migratingLegacyStore());
+        await onMigrateLegacyCredentialStore(event);
+        return;
+      case CredentialStoreEventType.storeCredentials:
+        event as CredentialStoreStoreCredentials;
+        emit(const CredentialStoreState.storingCredentials());
+        await onStoreCredentials(event);
+        return;
+      case CredentialStoreEventType.clearCredentials:
+        event as CredentialStoreClearCredentials;
+        emit(const CredentialStoreState.clearingCredentials());
+        await onClearCredentials(event);
+        return;
+      case CredentialStoreEventType.succeeded:
+        event as CredentialStoreSucceeded;
+        emit(CredentialStoreState.success(event.data));
+        return;
+      case CredentialStoreEventType.failed:
+        event as CredentialStoreFailed;
+        emit(CredentialStoreState.failure(event.exception));
+        return;
     }
-    return credentialsState as CredentialStoreSuccess;
+  }
+
+  @override
+  CredentialStoreState? resolveError(Object error, [StackTrace? st]) {
+    if (error is Exception) {
+      return CredentialStoreFailure(error);
+    }
+    return null;
   }
 
   /// Fetches the current credential store version.
@@ -263,7 +297,8 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
     await _secureStorage.deleteMany(deletions);
   }
 
-  @override
+  /// State machine callback for the
+  /// [CredentialStoreMigrateLegacyCredentialStore] event.
   Future<void> onMigrateLegacyCredentialStore(
     CredentialStoreMigrateLegacyCredentialStore event,
   ) async {
@@ -299,27 +334,27 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
 
       await _updateVersion(CredentialStoreVersion.v1);
     }
-    dispatch(const CredentialStoreEvent.loadCredentialStore());
+    return resolve(const CredentialStoreEvent.loadCredentialStore());
   }
 
-  @override
+  /// State machine callback for the [CredentialStoreLoadCredentialStore] event.
   Future<void> onLoadCredentialStore(
     CredentialStoreLoadCredentialStore event,
   ) async {
     final data = await _loadCredentialStore();
-    dispatch(CredentialStoreEvent.succeeded(data));
+    emit(CredentialStoreState.success(data));
   }
 
-  @override
+  /// State machine callback for the [CredentialStoreStoreCredentials] event.
   Future<void> onStoreCredentials(
     CredentialStoreStoreCredentials event,
   ) async {
     await _storeCredentials(event.data);
     final data = await _loadCredentialStore();
-    dispatch(CredentialStoreEvent.succeeded(data));
+    emit(CredentialStoreState.success(data));
   }
 
-  @override
+  /// State machine callback for the [CredentialStoreClearCredentials] event.
   Future<void> onClearCredentials(
     CredentialStoreClearCredentials event,
   ) async {
@@ -362,6 +397,6 @@ class CredentialStoreStateMachine extends CredentialStoreStateMachineBase {
 
     await _secureStorage.deleteMany(deletions);
     final data = await _loadCredentialStore();
-    dispatch(CredentialStoreEvent.succeeded(data));
+    emit(CredentialStoreState.success(data));
   }
 }

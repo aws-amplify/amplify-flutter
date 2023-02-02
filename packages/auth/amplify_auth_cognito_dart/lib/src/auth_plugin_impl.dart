@@ -157,6 +157,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   final HostedUiPlatformFactory? _hostedUiPlatformFactory;
 
   CognitoAuthStateMachine _stateMachine = CognitoAuthStateMachine();
+  StreamSubscription<AuthState>? _stateMachineSubscription;
 
   /// The underlying state machine, for use in subclasses.
   @protected
@@ -190,6 +191,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
   @override
   Future<void> close() async {
+    await _stateMachineSubscription?.cancel();
+    await _stateMachine.close();
     await _hubEventController.close();
   }
 
@@ -212,7 +215,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     if (_initialParameters != null) {
       _stateMachine.addInstance<OAuthParameters>(_initialParameters!);
     }
-    _stateMachine.stream.listen(
+    _stateMachineSubscription = _stateMachine.stream.listen(
       (state) {
         AuthHubEvent? hubEvent;
         if (state is HostedUiSignedIn) {
@@ -270,8 +273,11 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       throw ConfigurationError('No Cognito plugin config detected');
     }
 
-    if (_stateMachine.getOrCreate(AuthStateMachine.type).currentState.type !=
-        AuthStateType.notConfigured) {
+    if (_stateMachine
+            .getOrCreate(ConfigurationStateMachine.type)
+            .currentState
+            .type !=
+        ConfigurationStateType.notConfigured) {
       throw const AmplifyAlreadyConfiguredException(
         'Amplify has already been configured and re-configuration is not supported.',
         recoverySuggestion:
@@ -280,18 +286,18 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     }
 
     await _init();
-    _stateMachine.dispatch(AuthEvent.configure(config));
+    await _stateMachine.accept(ConfigurationEvent.configure(config)).accepted;
 
     await for (final state
-        in _stateMachine.expect(AuthStateMachine.type).stream) {
+        in _stateMachine.expect(ConfigurationStateMachine.type).stream) {
       switch (state.type) {
-        case AuthStateType.notConfigured:
-        case AuthStateType.configuring:
+        case ConfigurationStateType.notConfigured:
+        case ConfigurationStateType.configuring:
           continue;
-        case AuthStateType.configured:
+        case ConfigurationStateType.configured:
           return;
-        case AuthStateType.failure:
-          throw (state as AuthFailure).exception;
+        case ConfigurationStateType.failure:
+          throw (state as ConfigureFailure).exception;
       }
     }
   }
@@ -326,26 +332,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<CognitoAuthSession> fetchAuthSession({
     CognitoSessionOptions? options,
   }) async {
-    _stateMachine.dispatch(FetchAuthSessionEvent.fetch(options));
-
-    await for (final state
-        in _stateMachine.expect(FetchAuthSessionStateMachine.type).stream) {
-      switch (state.type) {
-        case FetchAuthSessionStateType.idle:
-        case FetchAuthSessionStateType.fetching:
-        case FetchAuthSessionStateType.refreshing:
-          continue;
-        case FetchAuthSessionStateType.success:
-          state as FetchAuthSessionSuccess;
-          return state.session;
-        case FetchAuthSessionStateType.failure:
-          state as FetchAuthSessionFailure;
-          throw state.exception;
-      }
-    }
-
-    // This should never happen.
-    throw const UnknownException('fetchAuthSession could not be completed');
+    return _stateMachine.loadSession(FetchAuthSessionEvent.fetch(options));
   }
 
   /// {@template amplify_auth_cognito_dart.impl.federate_to_identity_pool}
@@ -370,8 +357,9 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       provider: provider,
       options: options,
     );
-    _stateMachine.dispatch(FetchAuthSessionEvent.federate(request));
-    final session = await fetchAuthSession();
+    final session = await _stateMachine.loadSession(
+      FetchAuthSessionEvent.federate(request),
+    );
     return FederateToIdentityPoolResult(
       identityId: session.identityIdResult.value,
       credentials: session.credentialsResult.value,
@@ -388,14 +376,10 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     if (identityPoolConfig == null) {
       throw const InvalidAccountTypeException.noIdentityPool();
     }
-    await _stateMachine.dispatch(
-      CredentialStoreEvent.clearCredentials(
-        CognitoIdentityPoolKeys(identityPoolConfig),
-      ),
+    await _stateMachine.clearCredentials(
+      CognitoIdentityPoolKeys(identityPoolConfig),
     );
-    await _stateMachine
-        .expect(CredentialStoreStateMachine.type)
-        .getCredentialsResult();
+    await _stateMachine.loadCredentials();
   }
 
   @override
@@ -407,13 +391,15 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
     // Create a new state machine which will close the previous one and cancel
     // any pending sign-ins.
-    final stateMachine = _stateMachine.create(HostedUiStateMachine.type)
-      ..dispatch(
-        HostedUiEvent.signIn(
-          options: options,
-          provider: provider,
-        ),
-      );
+    final stateMachine = _stateMachine.create(HostedUiStateMachine.type);
+    await _stateMachine
+        .accept(
+          HostedUiEvent.signIn(
+            options: options,
+            provider: provider,
+          ),
+        )
+        .accepted;
 
     await for (final state in stateMachine.stream) {
       switch (state.type) {
@@ -448,18 +434,20 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     required String password,
     CognitoSignUpOptions? options,
   }) async {
-    _stateMachine.dispatch(
-      SignUpEvent.initiate(
-        parameters: SignUpParameters(
-          (p) => p
-            ..username = username
-            ..password = password,
-        ),
-        clientMetadata: options?.clientMetadata,
-        userAttributes: options?.userAttributes,
-        validationData: options?.validationData,
-      ),
-    );
+    await _stateMachine
+        .accept(
+          SignUpEvent.initiate(
+            parameters: SignUpParameters(
+              (p) => p
+                ..username = username
+                ..password = password,
+            ),
+            clientMetadata: options?.clientMetadata,
+            userAttributes: options?.userAttributes,
+            validationData: options?.validationData,
+          ),
+        )
+        .accepted;
 
     await for (final state
         in _stateMachine.expect(SignUpStateMachine.type).stream) {
@@ -503,13 +491,15 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     required String confirmationCode,
     CognitoConfirmSignUpOptions? options,
   }) async {
-    _stateMachine.dispatch(
-      SignUpEvent.confirm(
-        username: username,
-        confirmationCode: confirmationCode,
-        clientMetadata: options?.clientMetadata,
-      ),
-    );
+    await _stateMachine
+        .accept(
+          SignUpEvent.confirm(
+            username: username,
+            confirmationCode: confirmationCode,
+            clientMetadata: options?.clientMetadata,
+          ),
+        )
+        .accepted;
 
     await for (final state
         in _stateMachine.expect(SignUpStateMachine.type).stream) {
@@ -591,17 +581,19 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     // Create a new state machine for every call since it caches values
     // internally on each run.
     final stream = _stateMachine.create(SignInStateMachine.type).stream;
-    _stateMachine.dispatch(
-      SignInEvent.initiate(
-        authFlowType: options.authFlowType,
-        parameters: SignInParameters(
-          (p) => p
-            ..username = username
-            ..password = password,
-        ),
-        clientMetadata: options.clientMetadata,
-      ),
-    );
+    await _stateMachine
+        .accept(
+          SignInEvent.initiate(
+            authFlowType: options.authFlowType,
+            parameters: SignInParameters(
+              (p) => p
+                ..username = username
+                ..password = password,
+            ),
+            clientMetadata: options.clientMetadata,
+          ),
+        )
+        .accepted;
 
     await for (final state in stream) {
       switch (state.type) {
@@ -659,13 +651,15 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     CognitoConfirmSignInOptions? options,
   }) async {
     options ??= const CognitoConfirmSignInOptions();
-    _stateMachine.dispatch(
-      SignInEvent.respondToChallenge(
-        answer: confirmationValue,
-        clientMetadata: options.clientMetadata,
-        userAttributes: options.userAttributes,
-      ),
-    );
+    await _stateMachine
+        .accept(
+          SignInEvent.respondToChallenge(
+            answer: confirmationValue,
+            clientMetadata: options.clientMetadata,
+            userAttributes: options.userAttributes,
+          ),
+        )
+        .accepted;
 
     final stream = _stateMachine.expect(SignInStateMachine.type).stream;
     await for (final state in stream) {
@@ -932,7 +926,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<CognitoAuthUser> getCurrentUser({
     AuthUserOptions? options,
   }) async {
-    final credentials = await getCredentialStoreData();
+    final credentials = await stateMachine.loadCredentials();
     final tokens = credentials.userPoolTokens;
     final signInDetails = credentials.signInDetails;
     if (tokens == null || signInDetails == null) {
@@ -1069,12 +1063,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     // Sign out via Hosted UI, if configured.
     Future<CognitoSignOutResult?> signOutHostedUi() async {
       if (tokens.signInMethod == CognitoSignInMethod.hostedUi) {
-        _stateMachine.dispatch(const HostedUiEvent.signOut());
-        final hostedUiResult = await _stateMachine.stream
-            .where(
-              (state) => state is HostedUiSignedOut || state is HostedUiFailure,
-            )
-            .first;
+        final hostedUiResult = await _stateMachine.signOutHostedUI();
         if (hostedUiResult is HostedUiFailure) {
           final exception = hostedUiResult.exception;
           if (exception is UserCancelledException) {
@@ -1151,12 +1140,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     }
 
     // Credentials are cleared for all partial sign out cases.
-    await _stateMachine.dispatch(
-      const CredentialStoreEvent.clearCredentials(),
-    );
-    await _stateMachine
-        .expect(CredentialStoreStateMachine.type)
-        .getCredentialsResult();
+    await _stateMachine.clearCredentials();
     _hubEventController.add(AuthHubEvent.signedOut());
 
     if (globalSignOutException != null || revokeTokenException != null) {
@@ -1192,23 +1176,11 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
           ),
         )
         .result;
-    await _stateMachine.dispatch(
-      const CredentialStoreEvent.clearCredentials(),
-    );
+    await _stateMachine.clearCredentials();
     await _deviceRepo.remove(tokens.username);
     _hubEventController
       ..add(AuthHubEvent.signedOut())
       ..add(AuthHubEvent.userDeleted());
-  }
-
-  /// Gets the current credential data in secure storage (which may be
-  /// outdated or expired).
-  @visibleForTesting
-  Future<CredentialStoreData> getCredentialStoreData() async {
-    final credentialState = await stateMachine
-        .getOrCreate<CredentialStoreStateMachine>()
-        .getCredentialsResult();
-    return credentialState.data;
   }
 
   /// Gets the current user pool tokens.

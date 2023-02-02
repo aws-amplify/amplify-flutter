@@ -31,13 +31,14 @@ import 'package:meta/meta.dart';
 /// the same pattern of calling `cognitoIdp.InitiateAuth` plus some number of
 /// challenge responses.
 /// {@endtemplate}
-class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
+class SignInStateMachine extends StateMachine<SignInEvent, SignInState,
+    AuthEvent, AuthState, CognitoAuthStateMachine> {
   /// {@macro amplify_auth_cognito.sign_in_state_machine}
-  SignInStateMachine(super.manager);
+  SignInStateMachine(CognitoAuthStateMachine manager) : super(manager, type);
 
   /// The [SignInStateMachine] type.
-  static const type =
-      StateMachineToken<SignInEvent, SignInState, SignInStateMachine>();
+  static const type = StateMachineToken<SignInEvent, SignInState, AuthEvent,
+      AuthState, CognitoAuthStateMachine, SignInStateMachine>();
 
   @override
   String get runtimeTypeName => 'SignInStateMachine';
@@ -595,28 +596,23 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState> {
       ..refreshToken = refreshToken
       ..idToken = idTokenJwt;
 
-    await dispatch(
-      CredentialStoreEvent.storeCredentials(
-        CredentialStoreData(
-          userPoolTokens: user.userPoolTokens.build(),
-          signInDetails: signInDetails,
-        ),
+    await manager.storeCredentials(
+      CredentialStoreData(
+        userPoolTokens: user.userPoolTokens.build(),
+        signInDetails: signInDetails,
       ),
     );
 
     // Clear anonymous credentials, if there were any, and fetch authenticated
     // credentials.
     if (hasIdentityPool) {
-      await dispatch(
-        CredentialStoreEvent.clearCredentials(
-          CognitoIdentityPoolKeys(identityPoolConfig!),
-        ),
+      await manager.clearCredentials(
+        CognitoIdentityPoolKeys(identityPoolConfig!),
       );
 
-      await dispatch(const FetchAuthSessionEvent.fetch());
-
-      // Wait for above to propagate and complete successfully.
-      await expect(FetchAuthSessionStateMachine.type).getLatestResult();
+      await manager.loadSession(
+        const FetchAuthSessionEvent.fetch(),
+      );
     }
 
     return accessToken;

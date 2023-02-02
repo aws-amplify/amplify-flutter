@@ -47,23 +47,18 @@ void main() {
     const newSecretAccessKey = 'newSecretAccessKey';
 
     Future<void> configureAmplify(AmplifyConfig config) async {
-      stateMachine.dispatch(AuthEvent.configure(config));
-      await stateMachine.stream.whereType<AuthConfigured>().first;
+      stateMachine.dispatch(ConfigurationEvent.configure(config));
+      await stateMachine.stream.whereType<Configured>().first;
     }
 
     Future<CognitoAuthSession> fetchAuthSession({
       bool forceRefresh = false,
       required bool willRefresh,
     }) async {
-      stateMachine.dispatch(
-        FetchAuthSessionEvent.fetch(
-          CognitoSessionOptions(forceRefresh: forceRefresh),
-        ),
-      );
       final sm = stateMachine.getOrCreate(
         FetchAuthSessionStateMachine.type,
       );
-      await expectLater(
+      expect(
         sm.stream.startWith(sm.currentState),
         emitsInOrder(<Matcher>[
           isA<FetchAuthSessionIdle>(),
@@ -72,8 +67,11 @@ void main() {
           isA<FetchAuthSessionSuccess>(),
         ]),
       );
-      final state = sm.currentState as FetchAuthSessionSuccess;
-      return state.session;
+      return stateMachine.loadSession(
+        FetchAuthSessionEvent.fetch(
+          CognitoSessionOptions(forceRefresh: forceRefresh),
+        ),
+      );
     }
 
     setUp(() {

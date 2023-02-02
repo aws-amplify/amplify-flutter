@@ -1,0 +1,7 @@
+@startuml
+
+abstract class StateMachineEvent {
+  + type: String
+}
+
+@enduml

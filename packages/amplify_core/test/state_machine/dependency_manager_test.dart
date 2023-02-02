@@ -32,7 +32,10 @@ class NeedsDependencyManagerAndDispatcher {
 
 class MyDispatcher implements Dispatcher {
   @override
-  void dispatch(StateMachineEvent event) {}
+  EventCompleter<StateMachineEvent, StateMachineState> dispatch(
+    StateMachineEvent event,
+  ) =>
+      EventCompleter(event);
 }
 
 void main() {

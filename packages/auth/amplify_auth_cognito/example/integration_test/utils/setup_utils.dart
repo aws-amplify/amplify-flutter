@@ -20,6 +20,9 @@ Future<void> configureAuth({
   );
   await Amplify.addPlugins([authPlugin, ...additionalPlugins]);
   await Amplify.configure(config ?? amplifyconfig);
+  addTearDown(
+    Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey).close,
+  );
   addTearDown(Amplify.reset);
 }
 
