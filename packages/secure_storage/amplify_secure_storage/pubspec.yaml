@@ -24,7 +24,7 @@ dev_dependencies:
     path: ../../amplify_lints
   flutter_test:
     sdk: flutter
-  pigeon: ^3.1.6
+  pigeon: ^7.1.5
 
 flutter:
   plugin:

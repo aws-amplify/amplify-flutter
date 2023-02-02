@@ -3,6 +3,8 @@
 
 // To regenerate, run `make pigeons`.
 
+// ignore_for_file: avoid_positional_boolean_parameters
+
 import 'package:pigeon/pigeon.dart';
 
 @ConfigurePigeon(
@@ -10,9 +12,6 @@ import 'package:pigeon/pigeon.dart';
     dartOut: 'lib/src/messages.cupertino.g.dart',
     // TODO(Jordan-Nelson): Switch to use swift when it
     // is no longer considered experimental.
-    objcOptions: ObjcOptions(
-      header: 'Messages.h',
-    ),
     objcHeaderOut: '../amplify_secure_storage/macos/Classes/pigeons/Messages.h',
     objcSourceOut: '../amplify_secure_storage/macos/Classes/pigeons/Messages.m',
     copyrightHeader: 'pigeons/copyright.txt',
