@@ -54,8 +54,15 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
       // Determine workflows used
       final analyzeAndTestWorkflow =
           isDartPackage ? 'dart_vm.yaml' : 'flutter_vm.yaml';
-      final needsNativeTest =
-          isDartPackage && package.unitTestDirectory != null;
+      final needsNativeTest = isDartPackage &&
+          package.unitTestDirectory != null &&
+          // `native_test` explicitly skips the `build_test` since it does
+          // not need to be tested cross-platform. If this is the only test
+          // a package has, skip native tests altogether.
+          package.unitTestDirectory!
+              .listSync()
+              .where((f) => p.basename(f.path) != 'ensure_build_test.dart')
+              .isNotEmpty;
       final needsWebTest =
           package.pubspecInfo.pubspec.devDependencies.containsKey('build_test');
       final workflows = [
@@ -111,10 +118,10 @@ jobs:
       working-directory: $repoRelativePath
 ''',
         );
-
-        if (needsWebTest) {
-          workflowContents.write(
-            '''
+      }
+      if (needsWebTest) {
+        workflowContents.write(
+          '''
   ddc_test:
     needs: test
     uses: ./.github/workflows/$ddcWorkflow
@@ -126,8 +133,7 @@ jobs:
     with:
       working-directory: $repoRelativePath
 ''',
-          );
-        }
+        );
       }
       workflowFile.writeAsStringSync(workflowContents.toString());
 
