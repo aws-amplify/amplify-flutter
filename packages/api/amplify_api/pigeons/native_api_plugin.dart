@@ -6,7 +6,6 @@
 @ConfigurePigeon(
   PigeonOptions(
     copyrightHeader: '../../../tool/license.txt',
-    dartOptions: DartOptions(),
     dartOut: 'lib/src/native_Api_plugin.dart',
     javaOptions: JavaOptions(
       className: 'NativeApiPluginBindings',
@@ -15,7 +14,7 @@
     javaOut:
         '../amplify_api_android/android/src/main/kotlin/com/amazonaws/amplify/amplify_api/NativeApiPluginBindings.java',
     objcOptions: ObjcOptions(
-      header: 'NativeApiPlugin.h',
+      headerIncludePath: 'NativeApiPlugin.h',
     ),
     objcHeaderOut: '../amplify_api_ios/ios/Classes/NativeApiPlugin.h',
     objcSourceOut: '../amplify_api_ios/ios/Classes/NativeApiPlugin.m',
