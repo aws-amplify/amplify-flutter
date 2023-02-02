@@ -1,4 +1,4 @@
-name: aws_signature_v4_tests
+name: aws_signature_v4_test
 publish_to: none
 
 environment:
