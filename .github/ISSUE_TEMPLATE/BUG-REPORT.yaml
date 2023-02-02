@@ -72,60 +72,20 @@ body:
           required: false
         - label: Linux
           required: false
-  - type: dropdown
-    id: androidAPILevel
+  - type: input
+    id: flutter-version
     attributes:
-      label: Android Device/Emulator API Level
-      description: "If applicable, please mark the API level of the Android device or emulator with which this issue occurs."
-      multiple: true
-      options:
-        - API 16 - 20
-        - API 21
-        - API 22
-        - API 23
-        - API 24
-        - API 25
-        - API 26
-        - API 27
-        - API 28
-        - API 29
-        - API 30
-        - API 31
-        - API 32+
-  - type: textarea
-    id: environment
-    attributes:
-      label: Environment
-      description: "Please provide details of your Flutter build environment (`flutter doctor`)."
-      placeholder: |
-        Paste the output of running `flutter doctor` here
-      render: bash
-    validations:
-      required: true
-  - type: textarea
-    id: dependencies
-    attributes:
-      label: Dependencies
-      description: "Please provide your project's dependency versions (`flutter pub deps --no-dev --style=compact`)."
-      placeholder: |
-        Paste the output of running `flutter pub deps --no-dev --style=compact` here
-      render: bash
+      label: "Flutter Version"
+      description: "Please share which version of Flutter you're using (found using `flutter --version`)."
+      placeholder: "3.3.10"
     validations:
       required: true
   - type: input
-    id: device
+    id: amplify-version
     attributes:
-      label: Device
-      description: "Which device(s) did you experience the issue on? (or `N/A` if not applicable)"
-      placeholder: "iPhone 12, Pixel 5, MacBook"
-    validations:
-      required: true
-  - type: input
-    id: os
-    attributes:
-      label: OS
-      description: "Which operating system(s) did you experience the issue on? (or `N/A` if not applicable)"
-      placeholder: "iOS 15.1, Android 11, macOS 12.1, Chrome 101"
+      label: Amplify Flutter Version
+      description: "The version of the Amplify Flutter libraries you're currently using."
+      placeholder: "0.6.10"
     validations:
       required: true
   - type: dropdown
@@ -140,32 +100,21 @@ body:
         - Custom Pipeline
     validations:
       required: true
-  - type: input
-    id: cli-version
-    attributes:
-      label: CLI Version
-      description: "Which version of the Amplify CLI are you running? (`amplify -v`)"
-      placeholder: "9.1.0"
   - type: textarea
-    id: additional-context
+    id: schema
     attributes:
-      label: Additional Context
-      description: > 
-        Please add any other context about the problem here. If you are currently using a custom deployment
-        pipeline, it is helpful to understand how your cloud resources might differ from those provisioned by
-        the Amplify CLI, for example.
-      placeholder: "No additional context provided"
+      label: Schema
+      description: If your issue is related to GraphQL API or DataStore, please share your `schema.graphql`.
+      placeholder: |
+        # This "input" configures a global authorization rule to enable public access to
+        # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+        input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+        type Todo @model {
+          id: ID!
+          name: String!
+          description: String
+        }
+      render: GraphQL
     validations:
       required: false
-  - type: textarea
-    id: amplify-config
-    attributes:
-      label: Amplify Config
-      description: Please provide a sanitized version of your Amplify config.
-      placeholder: |
-        {
-          "UserAgent": "aws-amplify-cli/2.0",
-          "Version": "1.0"
-        }
-    validations:
-      required: true
