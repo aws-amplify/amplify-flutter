@@ -3,3 +3,4 @@ include: package:amplify_lints/library.yaml
 analyzer:
   exclude:
     - '**/*.mocks.dart'
+    - lib/src/native_api_plugin.dart
