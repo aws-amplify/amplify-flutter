@@ -40,7 +40,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0
-  pigeon: ^3.1.6
+  pigeon: ^7.1.5
 
 # The following section is specific to Flutter.
 flutter:
