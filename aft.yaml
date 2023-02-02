@@ -10,7 +10,7 @@ dependencies:
   built_value: ">=8.4.0 <8.5.0"
   built_value_generator: 8.4.3
   code_builder: 4.4.0
-  drift: ">=2.5.0 <2.6.0"
+  drift: ">=2.4.0 <2.6.0"
   json_annotation: ">=4.8.0 <4.9.0"
   json_serializable: 6.6.1
   mime: ^1.0.0
