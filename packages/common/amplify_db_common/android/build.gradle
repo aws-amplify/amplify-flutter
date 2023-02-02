@@ -47,5 +47,5 @@ android {
 
 dependencies {
     // Keep in sync with: https://github.com/simolus3/sqlite3.dart/blob/main/sqlite3_flutter_libs/android/build.gradle
-    implementation 'eu.simonbinder:sqlite3-native-library:3.39.3+1'
+    implementation 'eu.simonbinder:sqlite3-native-library:3.40.0'
 }

@@ -15,7 +15,7 @@ Common utilities for working with databases such as SQLite.
   s.license          = { :file => '../LICENSE' }
 
   # Keep in sync with: https://github.com/simolus3/sqlite3.dart/blob/main/sqlite3_flutter_libs/macos/sqlite3_flutter_libs.podspec
-  s.dependency 'sqlite3', '~> 3.39.3'
+  s.dependency 'sqlite3', '~> 3.40.0'
   s.dependency 'sqlite3/fts5'
   s.dependency 'sqlite3/perf-threadsafe'
   s.dependency 'sqlite3/rtree'
