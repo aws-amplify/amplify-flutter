@@ -142,7 +142,7 @@ void main() {
               final signer = AWSSigV4Signer(
                 credentialsProvider: AuthPluginCredentialsProviderImpl(
                   // ignore: invalid_use_of_protected_member
-                  cognitoPlugin.plugin.stateMachine,
+                  cognitoPlugin.stateMachine,
                 ),
               );
               final scope = AWSCredentialScope(
@@ -195,7 +195,7 @@ void main() {
               final signer = AWSSigV4Signer(
                 credentialsProvider: AuthPluginCredentialsProviderImpl(
                   // ignore: invalid_use_of_protected_member
-                  cognitoPlugin.plugin.stateMachine,
+                  cognitoPlugin.stateMachine,
                 ),
               );
               final scope = AWSCredentialScope(

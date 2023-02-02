@@ -64,7 +64,8 @@ class UserAttributeComponent extends StatefulComponent {
           ),
         );
         if (!res.isUpdated) {
-          if (res.nextStep.codeDeliveryDetails?.deliveryMedium == 'EMAIL') {
+          if (res.nextStep.codeDeliveryDetails?.deliveryMedium ==
+              DeliveryMedium.email) {
             onConfirm(AuthState.confirmEmail);
           } else {
             onConfirm(AuthState.confirmPhone);
@@ -90,7 +91,7 @@ class UserAttributeComponent extends StatefulComponent {
         final firstUnconfirmedAttr =
             res.entries.firstWhere((el) => !el.value.isUpdated).value;
         if (firstUnconfirmedAttr.nextStep.codeDeliveryDetails?.deliveryMedium ==
-            'EMAIL') {
+            DeliveryMedium.email) {
           onConfirm(AuthState.confirmEmail);
         } else {
           onConfirm(AuthState.confirmPhone);

@@ -47,7 +47,7 @@ void main() {
       expect(signInRes.isSignedIn, isFalse);
       expect(
         signInRes.nextStep.signInStep,
-        'CONFIRM_SIGN_IN_WITH_SMS_MFA_CODE',
+        AuthSignInStep.confirmSignInWithSmsMfaCode,
       );
     });
 

@@ -85,7 +85,7 @@ class _UpdateUserAttributesScreenState
           .where(
             (element) =>
                 element.value.nextStep.updateAttributeStep ==
-                'CONFIRM_ATTRIBUTE_WITH_CODE',
+                AuthUpdateAttributeStep.confirmAttributeWithCode,
           )
           .map((element) => element.key)
           .toList();
