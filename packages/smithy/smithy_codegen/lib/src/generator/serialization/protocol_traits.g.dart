@@ -63,14 +63,15 @@ class _$ProtocolTraits extends ProtocolTraits {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc($jc($jc(0, wireName.hashCode), namespace.hashCode),
-                    attributeMembers.hashCode),
-                flattenedMembers.hashCode),
-            memberNamespaces.hashCode),
-        memberWireNames.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, wireName.hashCode);
+    _$hash = $jc(_$hash, namespace.hashCode);
+    _$hash = $jc(_$hash, attributeMembers.hashCode);
+    _$hash = $jc(_$hash, flattenedMembers.hashCode);
+    _$hash = $jc(_$hash, memberNamespaces.hashCode);
+    _$hash = $jc(_$hash, memberWireNames.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -217,7 +218,11 @@ class _$HttpPayload extends HttpPayload {
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, symbol.hashCode), member.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, symbol.hashCode);
+    _$hash = $jc(_$hash, member.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -325,7 +330,11 @@ class _$HttpPrefixHeaders extends HttpPrefixHeaders {
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, trait.hashCode), member.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, trait.hashCode);
+    _$hash = $jc(_$hash, member.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -464,14 +473,15 @@ class _$HttpInputTraits extends HttpInputTraits {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc($jc($jc(0, httpLabels.hashCode), hostLabel.hashCode),
-                    httpQuery.hashCode),
-                httpQueryParams.hashCode),
-            httpHeaders.hashCode),
-        httpPrefixHeaders.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, httpLabels.hashCode);
+    _$hash = $jc(_$hash, hostLabel.hashCode);
+    _$hash = $jc(_$hash, httpQuery.hashCode);
+    _$hash = $jc(_$hash, httpQueryParams.hashCode);
+    _$hash = $jc(_$hash, httpHeaders.hashCode);
+    _$hash = $jc(_$hash, httpPrefixHeaders.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -637,8 +647,12 @@ class _$HttpOutputTraits extends HttpOutputTraits {
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, httpResponseCode.hashCode), httpHeaders.hashCode),
-        httpPrefixHeaders.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, httpResponseCode.hashCode);
+    _$hash = $jc(_$hash, httpHeaders.hashCode);
+    _$hash = $jc(_$hash, httpPrefixHeaders.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -790,16 +804,16 @@ class _$HttpErrorTraits extends HttpErrorTraits {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc(
-                    $jc($jc($jc(0, shapeId.hashCode), kind.hashCode),
-                        symbol.hashCode),
-                    retryConfig.hashCode),
-                statusCode.hashCode),
-            httpHeaders.hashCode),
-        httpPrefixHeaders.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, shapeId.hashCode);
+    _$hash = $jc(_$hash, kind.hashCode);
+    _$hash = $jc(_$hash, symbol.hashCode);
+    _$hash = $jc(_$hash, retryConfig.hashCode);
+    _$hash = $jc(_$hash, statusCode.hashCode);
+    _$hash = $jc(_$hash, httpHeaders.hashCode);
+    _$hash = $jc(_$hash, httpPrefixHeaders.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -968,10 +982,13 @@ class _$PaginationItem extends PaginationItem {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc($jc($jc(0, member.hashCode), isNullable.hashCode),
-            buildExpression.hashCode),
-        symbol.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, member.hashCode);
+    _$hash = $jc(_$hash, isNullable.hashCode);
+    _$hash = $jc(_$hash, buildExpression.hashCode);
+    _$hash = $jc(_$hash, symbol.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -1119,20 +1136,17 @@ class _$PaginatedTraits extends PaginatedTraits {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc(
-                    $jc(
-                        $jc(
-                            $jc($jc(0, inputTokenPath.hashCode),
-                                inputToken.hashCode),
-                            outputTokenPath.hashCode),
-                        outputToken.hashCode),
-                    pageSizePath.hashCode),
-                pageSize.hashCode),
-            itemsPath.hashCode),
-        items.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, inputTokenPath.hashCode);
+    _$hash = $jc(_$hash, inputToken.hashCode);
+    _$hash = $jc(_$hash, outputTokenPath.hashCode);
+    _$hash = $jc(_$hash, outputToken.hashCode);
+    _$hash = $jc(_$hash, pageSizePath.hashCode);
+    _$hash = $jc(_$hash, pageSize.hashCode);
+    _$hash = $jc(_$hash, itemsPath.hashCode);
+    _$hash = $jc(_$hash, items.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -1264,4 +1278,4 @@ class PaginatedTraitsBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint

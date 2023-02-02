@@ -3,6 +3,71 @@
 part of 'drift_tables.dart';
 
 // ignore_for_file: type=lint
+class $DriftJsonStringsTable extends DriftJsonStrings
+    with TableInfo<$DriftJsonStringsTable, DriftJsonString> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DriftJsonStringsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _jsonStringMeta =
+      const VerificationMeta('jsonString');
+  @override
+  late final GeneratedColumn<String> jsonString = GeneratedColumn<String>(
+      'json_string', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, jsonString];
+  @override
+  String get aliasedName => _alias ?? 'drift_json_strings';
+  @override
+  String get actualTableName => 'drift_json_strings';
+  @override
+  VerificationContext validateIntegrity(Insertable<DriftJsonString> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('json_string')) {
+      context.handle(
+          _jsonStringMeta,
+          jsonString.isAcceptableOrUnknown(
+              data['json_string']!, _jsonStringMeta));
+    } else if (isInserting) {
+      context.missing(_jsonStringMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  DriftJsonString map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DriftJsonString(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      jsonString: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}json_string'])!,
+    );
+  }
+
+  @override
+  $DriftJsonStringsTable createAlias(String alias) {
+    return $DriftJsonStringsTable(attachedDatabase, alias);
+  }
+}
+
 class DriftJsonString extends DataClass implements Insertable<DriftJsonString> {
   /// Identifies object in the SQL database
   final int id;
@@ -113,71 +178,6 @@ class DriftJsonStringsCompanion extends UpdateCompanion<DriftJsonString> {
           ..write('jsonString: $jsonString')
           ..write(')'))
         .toString();
-  }
-}
-
-class $DriftJsonStringsTable extends DriftJsonStrings
-    with TableInfo<$DriftJsonStringsTable, DriftJsonString> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $DriftJsonStringsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _jsonStringMeta =
-      const VerificationMeta('jsonString');
-  @override
-  late final GeneratedColumn<String> jsonString = GeneratedColumn<String>(
-      'json_string', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  @override
-  List<GeneratedColumn> get $columns => [id, jsonString];
-  @override
-  String get aliasedName => _alias ?? 'drift_json_strings';
-  @override
-  String get actualTableName => 'drift_json_strings';
-  @override
-  VerificationContext validateIntegrity(Insertable<DriftJsonString> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('json_string')) {
-      context.handle(
-          _jsonStringMeta,
-          jsonString.isAcceptableOrUnknown(
-              data['json_string']!, _jsonStringMeta));
-    } else if (isInserting) {
-      context.missing(_jsonStringMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  DriftJsonString map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return DriftJsonString(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      jsonString: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}json_string'])!,
-    );
-  }
-
-  @override
-  $DriftJsonStringsTable createAlias(String alias) {
-    return $DriftJsonStringsTable(attachedDatabase, alias);
   }
 }
 

@@ -25,7 +25,7 @@ dependencies:
   amplify_core: ">=1.0.0-next.4 <1.0.0-next.5"
   amplify_flutter: ">=1.0.0-next.4 <1.0.0-next.5"
   amplify_secure_storage: ">=0.1.4+1 <0.2.0"
-  async: ^2.8.0
+  async: ^2.10.0
   flutter:
     sdk: flutter
   flutter_web_plugins:

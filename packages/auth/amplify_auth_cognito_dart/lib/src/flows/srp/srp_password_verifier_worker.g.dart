@@ -197,18 +197,17 @@ class _$SrpPasswordVerifierMessage extends SrpPasswordVerifierMessage {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc(
-                    $jc(
-                        $jc($jc($jc(0, initResult.hashCode), clientId.hashCode),
-                            clientSecret.hashCode),
-                        poolId.hashCode),
-                    deviceKey.hashCode),
-                parameters.hashCode),
-            challengeParameters.hashCode),
-        timestamp.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, initResult.hashCode);
+    _$hash = $jc(_$hash, clientId.hashCode);
+    _$hash = $jc(_$hash, clientSecret.hashCode);
+    _$hash = $jc(_$hash, poolId.hashCode);
+    _$hash = $jc(_$hash, deviceKey.hashCode);
+    _$hash = $jc(_$hash, parameters.hashCode);
+    _$hash = $jc(_$hash, challengeParameters.hashCode);
+    _$hash = $jc(_$hash, timestamp.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -323,4 +322,4 @@ class SrpPasswordVerifierMessageBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint

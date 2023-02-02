@@ -107,51 +107,28 @@ class _$ExportDescription extends ExportDescription {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc(
-                    $jc(
-                        $jc(
-                            $jc(
-                                $jc(
-                                    $jc(
-                                        $jc(
-                                            $jc(
-                                                $jc(
-                                                    $jc(
-                                                        $jc(
-                                                            $jc(
-                                                                $jc(
-                                                                    $jc(
-                                                                        $jc(
-                                                                            $jc(
-                                                                                0,
-                                                                                billedSizeBytes
-                                                                                    .hashCode),
-                                                                            clientToken
-                                                                                .hashCode),
-                                                                        endTime
-                                                                            .hashCode),
-                                                                    exportArn
-                                                                        .hashCode),
-                                                                exportFormat
-                                                                    .hashCode),
-                                                            exportManifest
-                                                                .hashCode),
-                                                        exportStatus.hashCode),
-                                                    exportTime.hashCode),
-                                                failureCode.hashCode),
-                                            failureMessage.hashCode),
-                                        itemCount.hashCode),
-                                    s3Bucket.hashCode),
-                                s3BucketOwner.hashCode),
-                            s3Prefix.hashCode),
-                        s3SseAlgorithm.hashCode),
-                    s3SseKmsKeyId.hashCode),
-                startTime.hashCode),
-            tableArn.hashCode),
-        tableId.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, billedSizeBytes.hashCode);
+    _$hash = $jc(_$hash, clientToken.hashCode);
+    _$hash = $jc(_$hash, endTime.hashCode);
+    _$hash = $jc(_$hash, exportArn.hashCode);
+    _$hash = $jc(_$hash, exportFormat.hashCode);
+    _$hash = $jc(_$hash, exportManifest.hashCode);
+    _$hash = $jc(_$hash, exportStatus.hashCode);
+    _$hash = $jc(_$hash, exportTime.hashCode);
+    _$hash = $jc(_$hash, failureCode.hashCode);
+    _$hash = $jc(_$hash, failureMessage.hashCode);
+    _$hash = $jc(_$hash, itemCount.hashCode);
+    _$hash = $jc(_$hash, s3Bucket.hashCode);
+    _$hash = $jc(_$hash, s3BucketOwner.hashCode);
+    _$hash = $jc(_$hash, s3Prefix.hashCode);
+    _$hash = $jc(_$hash, s3SseAlgorithm.hashCode);
+    _$hash = $jc(_$hash, s3SseKmsKeyId.hashCode);
+    _$hash = $jc(_$hash, startTime.hashCode);
+    _$hash = $jc(_$hash, tableArn.hashCode);
+    _$hash = $jc(_$hash, tableId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 }
 
@@ -315,4 +292,4 @@ class ExportDescriptionBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint

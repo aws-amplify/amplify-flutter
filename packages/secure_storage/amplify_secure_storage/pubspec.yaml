@@ -11,7 +11,7 @@ environment:
 
 dependencies:
   amplify_secure_storage_dart: ">=0.1.4+2 <0.2.0"
-  async: ^2.8.0
+  async: ^2.10.0
   file: ^6.0.0
   flutter:
     sdk: flutter

@@ -197,44 +197,49 @@ class _$WriteGetObjectResponseRequest extends WriteGetObjectResponseRequest {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc(
-                    $jc(
-                        $jc(
-                            $jc(
-                                $jc(
-                                    $jc(
-                                        $jc(
-                                            $jc(
-                                                $jc(
-                                                    $jc(
-                                                        $jc(
-                                                            $jc(
-                                                                $jc(
-                                                                    $jc(
-                                                                        $jc(
-                                                                            $jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc(0, acceptRanges.hashCode), body.hashCode), bucketKeyEnabled.hashCode), cacheControl.hashCode), checksumCrc32.hashCode), checksumCrc32C.hashCode), checksumSha1.hashCode), checksumSha256.hashCode), contentDisposition.hashCode), contentEncoding.hashCode), contentLanguage.hashCode), contentLength.hashCode), contentRange.hashCode), contentType.hashCode), deleteMarker.hashCode), eTag.hashCode), errorCode.hashCode), errorMessage.hashCode), expiration.hashCode), expires.hashCode), lastModified.hashCode),
-                                                                                metadata.hashCode),
-                                                                            missingMeta.hashCode),
-                                                                        objectLockLegalHoldStatus.hashCode),
-                                                                    objectLockMode.hashCode),
-                                                                objectLockRetainUntilDate.hashCode),
-                                                            partsCount.hashCode),
-                                                        replicationStatus.hashCode),
-                                                    requestCharged.hashCode),
-                                                requestRoute.hashCode),
-                                            requestToken.hashCode),
-                                        restore.hashCode),
-                                    serverSideEncryption.hashCode),
-                                sseCustomerAlgorithm.hashCode),
-                            sseCustomerKeyMd5.hashCode),
-                        ssekmsKeyId.hashCode),
-                    statusCode.hashCode),
-                storageClass.hashCode),
-            tagCount.hashCode),
-        versionId.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, acceptRanges.hashCode);
+    _$hash = $jc(_$hash, body.hashCode);
+    _$hash = $jc(_$hash, bucketKeyEnabled.hashCode);
+    _$hash = $jc(_$hash, cacheControl.hashCode);
+    _$hash = $jc(_$hash, checksumCrc32.hashCode);
+    _$hash = $jc(_$hash, checksumCrc32C.hashCode);
+    _$hash = $jc(_$hash, checksumSha1.hashCode);
+    _$hash = $jc(_$hash, checksumSha256.hashCode);
+    _$hash = $jc(_$hash, contentDisposition.hashCode);
+    _$hash = $jc(_$hash, contentEncoding.hashCode);
+    _$hash = $jc(_$hash, contentLanguage.hashCode);
+    _$hash = $jc(_$hash, contentLength.hashCode);
+    _$hash = $jc(_$hash, contentRange.hashCode);
+    _$hash = $jc(_$hash, contentType.hashCode);
+    _$hash = $jc(_$hash, deleteMarker.hashCode);
+    _$hash = $jc(_$hash, eTag.hashCode);
+    _$hash = $jc(_$hash, errorCode.hashCode);
+    _$hash = $jc(_$hash, errorMessage.hashCode);
+    _$hash = $jc(_$hash, expiration.hashCode);
+    _$hash = $jc(_$hash, expires.hashCode);
+    _$hash = $jc(_$hash, lastModified.hashCode);
+    _$hash = $jc(_$hash, metadata.hashCode);
+    _$hash = $jc(_$hash, missingMeta.hashCode);
+    _$hash = $jc(_$hash, objectLockLegalHoldStatus.hashCode);
+    _$hash = $jc(_$hash, objectLockMode.hashCode);
+    _$hash = $jc(_$hash, objectLockRetainUntilDate.hashCode);
+    _$hash = $jc(_$hash, partsCount.hashCode);
+    _$hash = $jc(_$hash, replicationStatus.hashCode);
+    _$hash = $jc(_$hash, requestCharged.hashCode);
+    _$hash = $jc(_$hash, requestRoute.hashCode);
+    _$hash = $jc(_$hash, requestToken.hashCode);
+    _$hash = $jc(_$hash, restore.hashCode);
+    _$hash = $jc(_$hash, serverSideEncryption.hashCode);
+    _$hash = $jc(_$hash, sseCustomerAlgorithm.hashCode);
+    _$hash = $jc(_$hash, sseCustomerKeyMd5.hashCode);
+    _$hash = $jc(_$hash, ssekmsKeyId.hashCode);
+    _$hash = $jc(_$hash, statusCode.hashCode);
+    _$hash = $jc(_$hash, storageClass.hashCode);
+    _$hash = $jc(_$hash, tagCount.hashCode);
+    _$hash = $jc(_$hash, versionId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 }
 
@@ -556,4 +561,4 @@ class WriteGetObjectResponseRequestBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint

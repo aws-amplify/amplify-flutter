@@ -14,7 +14,7 @@ dependencies:
   amplify_auth_cognito: ">=1.0.0-next.4 <1.0.0-next.5"
   amplify_authenticator: ">=1.0.0-next.3 <1.0.0-next.4"
   amplify_flutter: ">=1.0.0-next.4 <1.0.0-next.5"
-  async: ^2.8.0
+  async: ^2.10.0
   aws_common: ">=0.4.0 <0.5.0"
 
   # The following adds the Cupertino Icons font to your application.

@@ -9,7 +9,7 @@ import amplify_secure_storage
 import connectivity_plus
 import device_info_plus
 import package_info_plus
-import path_provider_macos
+import path_provider_foundation
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   AmplifySecureStoragePlugin.register(with: registry.registrar(forPlugin: "AmplifySecureStoragePlugin"))

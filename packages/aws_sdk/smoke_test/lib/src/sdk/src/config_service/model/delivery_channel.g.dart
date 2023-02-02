@@ -55,16 +55,15 @@ class _$DeliveryChannel extends DeliveryChannel {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc(
-                    $jc($jc(0, configSnapshotDeliveryProperties.hashCode),
-                        name.hashCode),
-                    s3BucketName.hashCode),
-                s3KeyPrefix.hashCode),
-            s3KmsKeyArn.hashCode),
-        snsTopicArn.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, configSnapshotDeliveryProperties.hashCode);
+    _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, s3BucketName.hashCode);
+    _$hash = $jc(_$hash, s3KeyPrefix.hashCode);
+    _$hash = $jc(_$hash, s3KmsKeyArn.hashCode);
+    _$hash = $jc(_$hash, snsTopicArn.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 }
 
@@ -165,4 +164,4 @@ class DeliveryChannelBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint

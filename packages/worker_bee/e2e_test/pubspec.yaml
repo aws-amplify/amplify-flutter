@@ -20,7 +20,7 @@ dev_dependencies:
   build_web_compilers: ^3.2.3
   built_collection: ^5.0.0
   built_value: ">=8.4.0 <8.5.0"
-  built_value_generator: 8.4.2
+  built_value_generator: 8.4.3
   e2e:
     path: ../e2e
   meta: ^1.7.0
