@@ -67,11 +67,13 @@ void main() {
           isA<FetchAuthSessionSuccess>(),
         ]),
       );
-      return stateMachine.loadSession(
+      final sessionState =
+          await stateMachine.dispatchAndComplete<FetchAuthSessionSuccess>(
         FetchAuthSessionEvent.fetch(
           CognitoSessionOptions(forceRefresh: forceRefresh),
         ),
       );
+      return sessionState.session;
     }
 
     Future<FederateToIdentityPoolResult> federateToIdentityPool({
@@ -94,7 +96,8 @@ void main() {
           ),
         ]),
       );
-      final session = await stateMachine.loadSession(
+      final sessionState =
+          await stateMachine.dispatchAndComplete<FetchAuthSessionSuccess>(
         FetchAuthSessionEvent.federate(
           FederateToIdentityPoolRequest(
             provider: provider,
@@ -106,6 +109,7 @@ void main() {
         ),
       );
       await expectation;
+      final session = sessionState.session;
       return FederateToIdentityPoolResult(
         identityId: session.identityIdResult.value,
         credentials: session.credentialsResult.value,

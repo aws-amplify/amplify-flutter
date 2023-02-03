@@ -610,9 +610,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState,
         CognitoIdentityPoolKeys(identityPoolConfig!),
       );
 
-      await manager.loadSession(
-        const FetchAuthSessionEvent.fetch(),
-      );
+      await manager.loadSession();
     }
 
     return accessToken;

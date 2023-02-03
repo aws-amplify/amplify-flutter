@@ -333,7 +333,11 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<CognitoAuthSession> fetchAuthSession({
     CognitoSessionOptions? options,
   }) async {
-    return _stateMachine.loadSession(FetchAuthSessionEvent.fetch(options));
+    final sessionState =
+        await _stateMachine.acceptAndComplete<FetchAuthSessionSuccess>(
+      FetchAuthSessionEvent.fetch(options),
+    );
+    return sessionState.session;
   }
 
   /// {@template amplify_auth_cognito_dart.impl.federate_to_identity_pool}
@@ -358,9 +362,11 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       provider: provider,
       options: options,
     );
-    final session = await _stateMachine.loadSession(
+    final sessionState =
+        await _stateMachine.acceptAndComplete<FetchAuthSessionSuccess>(
       FetchAuthSessionEvent.federate(request),
     );
+    final session = sessionState.session;
     return FederateToIdentityPoolResult(
       identityId: session.identityIdResult.value,
       credentials: session.credentialsResult.value,
@@ -377,10 +383,11 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     if (identityPoolConfig == null) {
       throw const InvalidAccountTypeException.noIdentityPool();
     }
-    await _stateMachine.clearCredentials(
-      CognitoIdentityPoolKeys(identityPoolConfig),
+    await stateMachine.acceptAndComplete(
+      CredentialStoreEvent.clearCredentials(
+        CognitoIdentityPoolKeys(identityPoolConfig),
+      ),
     );
-    await _stateMachine.loadCredentials();
   }
 
   @override
@@ -927,7 +934,11 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<CognitoAuthUser> getCurrentUser({
     AuthUserOptions? options,
   }) async {
-    final credentials = await stateMachine.loadCredentials();
+    final credentialsState =
+        await stateMachine.acceptAndComplete<CredentialStoreSuccess>(
+      const CredentialStoreEvent.loadCredentialStore(),
+    );
+    final credentials = credentialsState.data;
     final signInDetails = credentials.signInDetails;
     // Per the `federateToIdentityPool` design, users cannot access user pool
     // methods while federated. They must first clear federation to the
@@ -1147,7 +1158,9 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     }
 
     // Credentials are cleared for all partial sign out cases.
-    await _stateMachine.clearCredentials();
+    await stateMachine.acceptAndComplete(
+      const CredentialStoreEvent.clearCredentials(),
+    );
     _hubEventController.add(AuthHubEvent.signedOut());
 
     if (globalSignOutException != null || revokeTokenException != null) {
@@ -1183,7 +1196,9 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
           ),
         )
         .result;
-    await _stateMachine.clearCredentials();
+    await stateMachine.acceptAndComplete(
+      const CredentialStoreEvent.clearCredentials(),
+    );
     await _deviceRepo.remove(tokens.username);
     _hubEventController
       ..add(AuthHubEvent.signedOut())
