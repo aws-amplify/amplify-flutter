@@ -32,7 +32,7 @@ You will use the Amplify CLI tool for that.  Please read the
 README.md contained within the root of this project to learn
 about what you'll need to do.
  */
-// import 'amplifyconfiguration.dart';
+import 'amplifyconfiguration.dart';
 
 void main() {
   runApp(MyApp());
@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
 
     // Initialize AmplifyFlutter
     try {
-      await Amplify.configure('amplifyconfig');
+      await Amplify.configure(amplifyconfig);
     } on AmplifyAlreadyConfiguredException {
       print(
           "Amplify was already configured. Looks like app restarted on android.");
