@@ -1,13 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_storage_s3/amplify_storage_s3.dart';
-import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_api/amplify_api.dart';
-import '/models/ModelProvider.dart';
-import 'amplifyconfiguration.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_datastore/amplify_datastore.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_storage_s3/amplify_storage_s3.dart';
+import 'package:flutter/material.dart';
 
+import 'models/ModelProvider.dart';
+import 'amplifyconfiguration.dart';
 
 void main() {
   runApp(const MyApp());
@@ -66,20 +66,20 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _configureAmplify() async {
-    if(!Amplify.isConfigured) {
+    if (!Amplify.isConfigured) {
       print("Configuring amplify");
       AmplifyAuthCognito auth = AmplifyAuthCognito();
       AmplifyStorageS3 storage = AmplifyStorageS3();
       AmplifyAnalyticsPinpoint analytics = AmplifyAnalyticsPinpoint();
       Amplify.addPlugin(AmplifyAPI(modelProvider: ModelProvider.instance));
       AmplifyDataStore datastorePlugin =
-      AmplifyDataStore(modelProvider: ModelProvider.instance);
+          AmplifyDataStore(modelProvider: ModelProvider.instance);
 
       try {
         await Amplify.addPlugins([auth, storage, analytics, datastorePlugin]);
         await Amplify.configure(amplifyconfig);
         print("Done configuring amplify");
-      } on AmplifyException catch (e)  {
+      } on AmplifyException catch (e) {
         print(e);
         print("Expected to fail cause there's no real amplifyconfig file");
       }
