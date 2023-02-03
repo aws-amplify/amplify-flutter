@@ -5,6 +5,7 @@ type Query {
 type Mutation {
   createUser(input: CreateUserInput!): CreateUserResponse @aws_api_key
   deleteUser(username: String!): DeleteUserResponse @aws_api_key
+  deleteDevice(input: DeleteDeviceInput!): DeleteDeviceResponse @aws_api_key
   createMFACode(input: CreateMFACodeInput!): MFACode @aws_api_key
 }
 
@@ -48,4 +49,14 @@ input CreateMFACodeInput {
 type MFACode {
   username: String!
   code: String!
+}
+
+input DeleteDeviceInput {
+  username: String!
+  deviceKey: String!
+}
+
+type DeleteDeviceResponse {
+  success: Boolean!
+  error: String
 }

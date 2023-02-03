@@ -45,8 +45,8 @@ void main() {
 
         stateMachine.addInstance<CognitoIdentityProviderClient>(
           MockCognitoIdentityProviderClient(
-            initiateAuth: expectAsync0(
-              () async => throw const AuthNotAuthorizedException(
+            initiateAuth: expectAsync1(
+              (_) async => throw const AuthNotAuthorizedException(
                 'Refresh Token has expired.',
               ),
             ),

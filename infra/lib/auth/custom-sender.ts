@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as encryptionSdk from "@aws-crypto/client-node";
-import * as b64 from "base64-js";
 import fetch from "node-fetch";
 
 // Code adapted from:
@@ -23,7 +22,7 @@ const keyring = new encryptionSdk.KmsKeyringNode({
  * @returns The plaintext (decrypted) code.
  */
 const decryptCode = async (code: string): Promise<string> => {
-  const { plaintext } = await decrypt(keyring, b64.toByteArray(code!));
+  const { plaintext } = await decrypt(keyring, Buffer.from(code, "base64"));
   return plaintext.toString("ascii");
 };
 

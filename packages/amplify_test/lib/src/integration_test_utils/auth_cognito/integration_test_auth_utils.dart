@@ -80,6 +80,31 @@ Future<void> deleteUser(String username) async {
   }
 }
 
+/// Deletes a Cognito device identified by [deviceKey].
+Future<void> deleteDevice(String username, String deviceKey) async {
+  final result = await _graphQL(
+    r'''
+mutation DeleteDevice($input: DeleteDeviceInput!) {
+  deleteDevice(input: $input) {
+    error
+    success
+  }
+}
+''',
+    variables: <String, dynamic>{
+      'input': {
+        'username': username,
+        'deviceKey': deviceKey,
+      },
+    },
+  );
+
+  final deleteError = (result['deleteDevice'] as Map?)?['error'];
+  if (deleteError != null) {
+    throw Exception(deleteError);
+  }
+}
+
 /// Creates a Cognito user in backend infrastructure. This documention describes
 /// how each parameter is expected to be used in the backend .
 ///

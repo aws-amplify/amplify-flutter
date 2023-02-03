@@ -129,14 +129,26 @@ void main() {
 
       asyncTest('multiple logins use the same device key', (_) async {
         final deviceKey = await getDeviceKey();
+        expect(deviceKey, isNotNull);
         await signOutUser();
         await signIn();
         expect(await getDeviceKey(), deviceKey);
       });
+
+      asyncTest('can login when device is removed in Cognito', (_) async {
+        final deviceKey = await getDeviceKey();
+        expect(deviceKey, isNotNull);
+        await signOutUser();
+        await deleteDevice(username!, deviceKey!);
+        await expectLater(signIn(), completes);
+        final newDeviceKey = await getDeviceKey();
+        expect(newDeviceKey, isNotNull);
+        expect(newDeviceKey, isNot(deviceKey));
+      });
     });
 
     group(
-      'Opt-In (Device Tracking)',
+      'Opt-In (MFA)',
       () {
         setUpAll(() async {
           await configureAuth(
@@ -175,6 +187,17 @@ void main() {
             reason: 'Subsequent sign-in attempts should not require MFA',
           );
         });
+
+        asyncTest('can login when device is removed in Cognito', (_) async {
+          final deviceKey = await getDeviceKey();
+          expect(deviceKey, isNotNull);
+          await signOutUser();
+          await deleteDevice(username!, deviceKey!);
+          await expectLater(signIn(enableMfa: true), completes);
+          final newDeviceKey = await getDeviceKey();
+          expect(newDeviceKey, isNotNull);
+          expect(newDeviceKey, isNot(deviceKey));
+        });
       },
     );
 
@@ -207,13 +230,25 @@ void main() {
 
       asyncTest('multiple logins use the same device key', (_) async {
         final deviceKey = await getDeviceKey();
+        expect(deviceKey, isNotNull);
         await signOutUser();
         await signIn();
         expect(await getDeviceKey(), deviceKey);
       });
+
+      asyncTest('can login when device is removed in Cognito', (_) async {
+        final deviceKey = await getDeviceKey();
+        expect(deviceKey, isNotNull);
+        await signOutUser();
+        await deleteDevice(username!, deviceKey!);
+        await expectLater(signIn(), completes);
+        final newDeviceKey = await getDeviceKey();
+        expect(newDeviceKey, isNotNull);
+        expect(newDeviceKey, isNot(deviceKey));
+      });
     });
 
-    group('Always (Device Tracking)', () {
+    group('Always (MFA)', () {
       setUpAll(() async {
         await configureAuth(
           additionalPlugins: [AmplifyAPI()],
@@ -235,6 +270,17 @@ void main() {
           isTrue,
           reason: 'Subsequent sign-in attempts should not require MFA',
         );
+      });
+
+      asyncTest('can login when device is removed in Cognito', (_) async {
+        final deviceKey = await getDeviceKey();
+        expect(deviceKey, isNotNull);
+        await signOutUser();
+        await deleteDevice(username!, deviceKey!);
+        await expectLater(signIn(enableMfa: true), completes);
+        final newDeviceKey = await getDeviceKey();
+        expect(newDeviceKey, isNotNull);
+        expect(newDeviceKey, isNot(deviceKey));
       });
     });
   });

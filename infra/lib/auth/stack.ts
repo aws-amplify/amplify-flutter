@@ -1,9 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import * as appsync from "@aws-cdk/aws-appsync-alpha";
 import * as cdk from "aws-cdk-lib";
 import { Duration, Expiration, RemovalPolicy } from "aws-cdk-lib";
+import * as appsync from "aws-cdk-lib/aws-appsync";
 import * as cognito from "aws-cdk-lib/aws-cognito";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as iam from "aws-cdk-lib/aws-iam";
@@ -128,7 +128,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
     const authorizationType = appsync.AuthorizationType.API_KEY;
     const graphQLApi = new appsync.GraphqlApi(this, "GraphQLApi", {
       name: this.name,
-      schema: appsync.Schema.fromAsset(
+      schema: appsync.SchemaFile.fromAsset(
         path.resolve(__dirname, "schema.graphql")
       ),
       authorizationConfig: {
@@ -151,7 +151,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       this,
       "create-auth-challenge",
       {
-        runtime: lambda.Runtime.NODEJS_16_X,
+        runtime: lambda.Runtime.NODEJS_18_X,
       }
     );
 
@@ -159,7 +159,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       this,
       "define-auth-challenge",
       {
-        runtime: lambda.Runtime.NODEJS_16_X,
+        runtime: lambda.Runtime.NODEJS_18_X,
       }
     );
 
@@ -167,7 +167,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       this,
       "verify-auth-challenge",
       {
-        runtime: lambda.Runtime.NODEJS_16_X,
+        runtime: lambda.Runtime.NODEJS_18_X,
       }
     );
 
@@ -183,7 +183,12 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       this,
       "custom-sms-sender",
       {
-        runtime: lambda.Runtime.NODEJS_16_X,
+        runtime: lambda.Runtime.NODEJS_18_X,
+        bundling: {
+          nodeModules: [
+            "@aws-crypto/client-node"
+          ],
+        },
         environment: {
           GRAPHQL_API_ENDPOINT: graphQLApi.graphqlUrl,
           GRAPHQL_API_KEY: graphQLApi.apiKey!,
@@ -198,7 +203,12 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       this,
       "custom-email-sender",
       {
-        runtime: lambda.Runtime.NODEJS_16_X,
+        runtime: lambda.Runtime.NODEJS_18_X,
+        bundling: {
+          nodeModules: [
+            "@aws-crypto/client-node"
+          ],
+        },
         environment: {
           GRAPHQL_API_ENDPOINT: graphQLApi.graphqlUrl,
           GRAPHQL_API_KEY: graphQLApi.apiKey!,
@@ -335,7 +345,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       this,
       "create-user",
       {
-        runtime: lambda.Runtime.NODEJS_16_X,
+        runtime: lambda.Runtime.NODEJS_18_X,
         environment: {
           USER_POOL_ID: userPool.userPoolId,
         },
@@ -353,13 +363,25 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       this,
       "delete-user",
       {
-        runtime: lambda.Runtime.NODEJS_16_X,
+        runtime: lambda.Runtime.NODEJS_18_X,
         environment: {
           USER_POOL_ID: userPool.userPoolId,
         },
       }
     );
     userPool.grant(deleteUserLambda, "cognito-idp:AdminDeleteUser");
+
+    const deleteDeviceLambda = new lambda_nodejs.NodejsFunction(
+      this,
+      "delete-device",
+      {
+        runtime: lambda.Runtime.NODEJS_18_X,
+        environment: {
+          USER_POOL_ID: userPool.userPoolId,
+        },
+      }
+    );
+    userPool.grant(deleteDeviceLambda, "cognito-idp:AdminForgetDevice");
 
     // Add the GraphQL resolvers
 
@@ -369,7 +391,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
     );
 
     // Mutation.createMFACode
-    mfaCodesSource.createResolver({
+    mfaCodesSource.createResolver("MutationCreateMFACodeResolver", {
       typeName: "Mutation",
       fieldName: "createMFACode",
       requestMappingTemplate: appsync.MappingTemplate.dynamoDbPutItem(
@@ -383,7 +405,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
     });
 
     // Query.listMFACodes
-    mfaCodesSource.createResolver({
+    mfaCodesSource.createResolver("QueryListMFACodesResolver", {
       typeName: "Query",
       fieldName: "listMFACodes",
       requestMappingTemplate: appsync.MappingTemplate.dynamoDbScanTable(),
@@ -395,7 +417,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       "GraphQLApiCreateUserLambda",
       createUserLambda
     );
-    createUserSource.createResolver({
+    createUserSource.createResolver("MutationCreateUserResolver", {
       typeName: "Mutation",
       fieldName: "createUser",
       requestMappingTemplate: appsync.MappingTemplate.lambdaRequest(),
@@ -407,9 +429,21 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       "GraphQLApiDeleteUserLambda",
       deleteUserLambda
     );
-    deleteUserSource.createResolver({
+    deleteUserSource.createResolver("MutationDeleteUserResolver", {
       typeName: "Mutation",
       fieldName: "deleteUser",
+      requestMappingTemplate: appsync.MappingTemplate.lambdaRequest(),
+      responseMappingTemplate: appsync.MappingTemplate.lambdaResult(),
+    });
+
+    // Mutation.deleteDevice
+    const deleteDeviceSource = graphQLApi.addLambdaDataSource(
+      "GraphQLApiDeleteDeviceLambda",
+      deleteDeviceLambda
+    );
+    deleteDeviceSource.createResolver("MutationDeleteDeviceResolver", {
+      typeName: "Mutation",
+      fieldName: "deleteDevice",
       requestMappingTemplate: appsync.MappingTemplate.lambdaRequest(),
       responseMappingTemplate: appsync.MappingTemplate.lambdaResult(),
     });

@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { KinesisStreamEvent, KinesisStreamHandler } from "aws-lambda";
+import type { KinesisStreamEvent, KinesisStreamHandler } from "aws-lambda";
 import fetch from "node-fetch";
 
 const GRAPHQL_API_ENDPOINT = process.env.GRAPHQL_API_ENDPOINT!;

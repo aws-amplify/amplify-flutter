@@ -35,12 +35,12 @@ void main() {
           ..poolId = 'us-east-1_$poolName'
           ..parameters = SignInParameters(
             (p) => p
-              ..username = username
-              ..password = password,
+              ..username = srpUsername
+              ..password = srpPassword,
           )
           ..challengeParameters = BuiltMap({
-            CognitoConstants.challengeParamUsername: username,
-            CognitoConstants.challengeParamUserIdForSrp: username,
+            CognitoConstants.challengeParamUsername: srpUsername,
+            CognitoConstants.challengeParamUserIdForSrp: srpUsername,
             CognitoConstants.challengeParamSecretBlock: secretBlock,
             CognitoConstants.challengeParamSalt: salt,
             CognitoConstants.challengeParamSrpB: publicB,
@@ -76,8 +76,8 @@ void main() {
           ..poolId = 'us-east-1_$poolName'
           ..parameters = SignInParameters(
             (p) => p
-              ..username = username
-              ..password = password,
+              ..username = srpUsername
+              ..password = srpPassword,
           )
           ..challengeParameters = BuiltMap(<String, String>{})
           ..timestamp = DateTime.utc(2017, 6, 15, 7),

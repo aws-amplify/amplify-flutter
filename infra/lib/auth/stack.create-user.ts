@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as cognito from "@aws-sdk/client-cognito-identity-provider";
-import * as lambda from "aws-lambda";
+import type * as lambda from "aws-lambda";
 
 interface CreateUserInput {
   input: {
@@ -42,7 +42,7 @@ export const handler: lambda.AppSyncResolverHandler<
   const baseParams = {
     UserPoolId: USER_POOL_ID,
     Username: username,
-  }
+  };
 
   console.log(`Creating user ${username}...`);
   try {
