@@ -30,9 +30,9 @@ extension DartPubAction on PubCommandRunner {
     String? errorMessage;
     final command = [
       'pub',
-      ...arguments,
       '--directory',
       package.path,
+      ...arguments,
     ];
     try {
       code = await run(command);
