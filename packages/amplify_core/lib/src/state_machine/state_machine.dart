@@ -128,6 +128,21 @@ abstract class StateMachineManager<
     return completer;
   }
 
+  /// Accepts an event into the state machine queue and awaits its completion.
+  ///
+  /// See also:
+  /// - [accept] which returns an [EventCompleter] instead of a [Future].
+  Future<SuccessState> acceptAndComplete<SuccessState extends S>(
+    E event,
+  ) async {
+    final completer = accept(event);
+    final state = await completer.completed;
+    if (state is ErrorState) {
+      throw state.exception;
+    }
+    return state as SuccessState;
+  }
+
   /// Dispatches an event to the appropriate state machine.
   ///
   /// For internal use only. Public APIs should use [accept] instead.
@@ -139,6 +154,22 @@ abstract class StateMachineManager<
     completer ??= EventCompleter(event);
     getOrCreate(token).accept(completer);
     return completer;
+  }
+
+  /// Dispatches an event to the appropriate state machine and awaits its
+  /// completion.
+  ///
+  /// See also:
+  /// - [dispatch] which returns an [EventCompleter] instead of a [Future].
+  Future<SuccessState> dispatchAndComplete<SuccessState extends S>(
+    E event,
+  ) async {
+    final completer = dispatch(event);
+    final state = await completer.completed;
+    if (state is ErrorState) {
+      throw state.exception;
+    }
+    return state as SuccessState;
   }
 
   /// Maps [event] to its state machine.

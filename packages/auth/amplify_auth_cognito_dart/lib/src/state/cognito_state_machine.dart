@@ -68,53 +68,36 @@ class CognitoAuthStateMachine
 
   /// Loads credentials from the credential store (which may be
   /// outdated or expired).
-  Future<CredentialStoreData> loadCredentials([
-    CredentialStoreEvent event =
-        const CredentialStoreEvent.loadCredentialStore(),
-  ]) async {
-    final credentialsState = await dispatch(event).completed;
-    if (credentialsState is CredentialStoreFailure) {
-      throw credentialsState.exception;
-    }
-    return (credentialsState as CredentialStoreSuccess).data;
+  Future<CredentialStoreData> loadCredentials() async {
+    final credentialsState = await dispatchAndComplete<CredentialStoreSuccess>(
+      const CredentialStoreEvent.loadCredentialStore(),
+    );
+    return credentialsState.data;
   }
 
   /// Stores [credentials] in the credential store.
   Future<void> storeCredentials(CredentialStoreData credentials) async {
-    final credentialsState = await dispatch(
+    await dispatchAndComplete(
       CredentialStoreEvent.storeCredentials(credentials),
-    ).completed;
-    if (credentialsState is CredentialStoreFailure) {
-      throw credentialsState.exception;
-    }
+    );
   }
 
   /// Clears [keys] from the credential store, or all keys if unspecified.
   Future<void> clearCredentials([Iterable<String> keys = const []]) async {
-    await loadCredentials(
-      CredentialStoreEvent.clearCredentials(keys),
-    );
+    await dispatchAndComplete(CredentialStoreEvent.clearCredentials(keys));
   }
 
   /// Loads the user's current session.
-  Future<CognitoAuthSession> loadSession([
-    FetchAuthSessionEvent event = const FetchAuthSessionEvent.fetch(),
-  ]) async {
-    final sessionState = await dispatch(event).completed;
-    if (sessionState is FetchAuthSessionFailure) {
-      throw sessionState.exception;
-    }
-    return (sessionState as FetchAuthSessionSuccess).session;
+  Future<CognitoAuthSession> loadSession() async {
+    final sessionState = await dispatchAndComplete<FetchAuthSessionSuccess>(
+      const FetchAuthSessionEvent.fetch(),
+    );
+    return sessionState.session;
   }
 
   /// Configures the Hosted UI state machine.
   Future<void> configureHostedUI() async {
-    final configuredState = await dispatch(
-      const HostedUiEvent.configure(),
-    ).completed;
-    if (configuredState is HostedUiFailure) {
-      throw configuredState.exception;
-    }
+    await dispatchAndComplete(const HostedUiEvent.configure());
   }
 
   /// Signs out using the Hosted UI state machine.
