@@ -114,13 +114,9 @@ class ConfigurationStateMachine extends StateMachine<ConfigurationEvent,
       );
     }
 
-    waiters.add(
-      manager.loadCredentials(
-        const CredentialStoreEvent.migrateLegacyCredentialStore(),
-      ),
-    );
+    waiters.add(manager.loadCredentials());
 
-    unawaited(_waitForConfiguration(cognitoConfig, waiters));
+    await _waitForConfiguration(cognitoConfig, waiters);
   }
 
   Future<void> _waitForConfiguration(
@@ -129,10 +125,10 @@ class ConfigurationStateMachine extends StateMachine<ConfigurationEvent,
   ) async {
     try {
       await Future.wait<void>(futures, eagerError: true);
-      dispatch(ConfigurationEvent.configureSucceeded(config));
+      emit(ConfigurationState.configured(config));
     } on Exception catch (e) {
-      dispatch(
-        ConfigurationEvent.configureFailed(AuthException.fromException(e)),
+      emit(
+        ConfigurationState.failure(AuthException.fromException(e)),
       );
     }
   }
