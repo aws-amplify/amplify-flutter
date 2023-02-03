@@ -28,6 +28,7 @@ input CreateUserInput {
 
 type CreateUserResponse {
   success: Boolean!
+  cognitoUsername: String
   error: String
 }
 

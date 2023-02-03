@@ -618,21 +618,28 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState,
     return accessToken;
   }
 
-  /// Runs the authentication flow to its stopping state, either a successful
-  /// login, a failure, or a challenge state which requires user input.
-  Future<void> run(SignInInitiate event) async {
-    emit(const SignInState.initiating());
-
-    // Collect current user info which may influence SRP flow.
+  /// Loads device secrets for the current user and attaches them to the current
+  /// [user].
+  Future<void> _loadDeviceSecrets() async {
     try {
-      final deviceSecrets = await getOrCreate(DeviceMetadataRepository.token)
-          .get(event.parameters.username);
+      final deviceSecrets =
+          await getOrCreate(DeviceMetadataRepository.token).get(user.username!);
       if (deviceSecrets != null) {
         user.deviceSecrets = deviceSecrets.toBuilder();
       }
     } on Exception catch (e, st) {
       logger.debug('Could not retrieve credentials', e, st);
     }
+  }
+
+  /// Runs the authentication flow to its stopping state, either a successful
+  /// login, a failure, or a challenge state which requires user input.
+  Future<void> run(SignInInitiate event) async {
+    emit(const SignInState.initiating());
+
+    // Collect current user info which may influence SRP flow.
+    user.username = event.parameters.username;
+    await _loadDeviceSecrets();
 
     final initRequest = await initiate(event);
     final initResponse =
@@ -753,7 +760,7 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState,
       return SignInState.success(user.build());
     }
 
-    _updateUser(_challengeParameters);
+    await _updateUser(_challengeParameters);
 
     // Query the state machine for a response given potential user input in
     // `event`.
@@ -840,9 +847,16 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState,
   }
 
   /// Updates the CognitoUser from challege parameters.
-  void _updateUser(BuiltMap<String, String> challengeParameters) {
-    user.username ??=
+  Future<void> _updateUser(BuiltMap<String, String> challengeParameters) async {
+    // If a Cognito response returned a different username than what was used
+    // to login, refresh the device secrets so that they are included in future
+    // requests.
+    final cognitoUsername =
         challengeParameters[CognitoConstants.challengeParamUsername];
+    if (cognitoUsername != null && cognitoUsername != user.username) {
+      user.username = cognitoUsername;
+      await _loadDeviceSecrets();
+    }
   }
 
   @override

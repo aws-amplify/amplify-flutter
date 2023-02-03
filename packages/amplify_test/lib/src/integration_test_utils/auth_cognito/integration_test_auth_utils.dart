@@ -118,7 +118,7 @@ mutation DeleteDevice($input: DeleteDeviceInput!) {
 /// The [verifyAttributes] flag will verify the email and phone, and should be used
 /// if tests need to bypass the verification step.
 /// The [attributes] list passes additional attributes.
-Future<void> adminCreateUser(
+Future<String> adminCreateUser(
   String username,
   String password, {
   bool autoConfirm = false,
@@ -166,6 +166,7 @@ Future<void> adminCreateUser(
           mutation CreateUser($input: CreateUserInput!) {
             createUser(input: $input) {
               success
+              cognitoUsername
               error
             }
           }
@@ -182,6 +183,8 @@ Future<void> adminCreateUser(
   if (createError != null) {
     throw Exception(createError);
   }
+
+  return (result['createUser'] as Map)['cognitoUsername'] as String;
 }
 
 class OtpResult {

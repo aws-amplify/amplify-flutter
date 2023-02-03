@@ -35,7 +35,7 @@ export interface AuthBaseEnvironmentProps
   /**
    * Associates `resourceArn` with the shared WAF.
    */
-  associateWithWaf: (resourceArn: string) => void;
+  associateWithWaf: (name: string, resourceArn: string) => void;
 
   /**
    * The type of environment to build.
@@ -321,8 +321,8 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       }
     );
 
-    associateWithWaf(graphQLApi.arn);
-    associateWithWaf(userPool.userPoolArn);
+    associateWithWaf(`${this.environmentName}GraphQL`, graphQLApi.arn);
+    associateWithWaf(`${this.environmentName}UserPool`, userPool.userPoolArn);
 
     // Create the DynamoDB table to store MFA codes for AppSync subscriptions
 
