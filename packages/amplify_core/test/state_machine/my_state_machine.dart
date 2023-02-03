@@ -71,7 +71,7 @@ class MyStateMachine extends StateMachine<MyEvent, MyState, StateMachineEvent,
     if (fail) {
       throw Exception();
     } else {
-      dispatch(const MyEvent(MyType.success));
+      emit(const MyState(MyType.success));
     }
   }
 
@@ -91,7 +91,7 @@ class MyStateMachine extends StateMachine<MyEvent, MyState, StateMachineEvent,
         break;
       case MyType.delegateWork:
         await manager.delegateWork();
-        dispatch(const MyEvent(MyType.success));
+        emit(const MyState(MyType.success));
     }
   }
 

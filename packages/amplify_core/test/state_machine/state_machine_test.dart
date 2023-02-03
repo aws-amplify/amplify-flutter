@@ -82,5 +82,29 @@ void main() {
         );
       });
     });
+
+    test('queues calls to accept appropriately', () async {
+      final tryWork1 = stateMachine.accept(const MyEvent(MyType.tryWork));
+      final delegate = stateMachine.accept(
+        const MyEvent(MyType.delegateWork),
+      );
+      final tryWork2 = stateMachine.accept(const MyEvent(MyType.tryWork));
+      await expectLater(
+        stateMachine.stream,
+        emitsInOrder([
+          const MyState(MyType.tryWork),
+          const MyState(MyType.error),
+          const MyState(MyType.delegateWork),
+          const WorkerState(WorkType.doWork),
+          const WorkerState(WorkType.success),
+          const MyState(MyType.success),
+          const MyState(MyType.tryWork),
+          const MyState(MyType.error),
+        ]),
+      );
+      expect(await tryWork1.completed, const MyState(MyType.error));
+      expect(await delegate.completed, const MyState(MyType.success));
+      expect(await tryWork2.completed, const MyState(MyType.error));
+    });
   });
 }
