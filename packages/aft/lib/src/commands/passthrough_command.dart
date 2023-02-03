@@ -16,7 +16,7 @@ class PassthroughCommand extends AmplifyCommand {
   String get description => '';
 
   @override
-  String get name => '';
+  String get name => arguments.first;
 
   @override
   Future<void> run() async {
