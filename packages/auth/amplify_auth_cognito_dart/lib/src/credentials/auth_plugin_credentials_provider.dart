@@ -68,9 +68,7 @@ class AuthPluginCredentialsProviderImpl extends AuthPluginCredentialsProvider {
     // or refresh existing ones if needed, but do not initiate an
     // unauthenticated session since that should be handled via an explicit call
     // to `fetchAuthSession`.
-    final session = await _manager.loadSession(
-      const FetchAuthSessionEvent.fetch(),
-    );
+    final session = await _manager.loadSession();
     return session.credentialsResult.value;
   }
 }
