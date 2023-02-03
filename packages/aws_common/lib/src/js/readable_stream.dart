@@ -401,7 +401,7 @@ extension StreamToReadableStream on Stream<List<int>> {
             controller.enqueue(Uint8List.fromList(chunk));
           } on Object catch (e, st) {
             await queue.cancel();
-            // Allow error to propogate before closing.
+            // Allow error to propagate before closing.
             scheduleMicrotask(() {
               try {
                 controller.close();

@@ -51,7 +51,7 @@ class EventCompleter<Event extends StateMachineEvent,
   /// event's state machine.
   Future<void> get accepted => _acceptedCompleter.future;
 
-  /// Completes with the stopping state emitted after the full propogation
+  /// Completes with the stopping state emitted after the full propagation
   /// of this event.
   Future<State> get completed => _completer.future;
 
@@ -62,14 +62,14 @@ class EventCompleter<Event extends StateMachineEvent,
     }
   }
 
-  /// Completes the event propogation with its stopping state.
+  /// Completes the event propagation with its stopping state.
   void complete(State state) {
     if (!_completer.isCompleted) {
       _completer.complete(state);
     }
   }
 
-  /// Completes the event propogation with an error, if the event failed to
+  /// Completes the event propagation with an error, if the event failed to
   /// resolve to a meaningful stopping state.
   void completeError(Object error, StackTrace stackTrace) {
     if (!_completer.isCompleted) {
