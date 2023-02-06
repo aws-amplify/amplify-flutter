@@ -36,8 +36,10 @@ abstract class AWSOperation<T extends Object?>
   @override
   Future<void> cancel() => _cancelMemo.runOnce(() async {
         if (operation.isCanceled || operation.isCompleted) {
+          logger.verbose('Operation complete. Calling onCancel...');
           return _onCancel?.call();
         }
+        logger.verbose('Operation canceled.');
         return operation.cancel();
       });
 

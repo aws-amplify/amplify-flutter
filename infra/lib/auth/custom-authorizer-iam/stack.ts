@@ -55,12 +55,12 @@ export class CustomAuthorizerIamStackEnvironment extends IntegrationTestStackEnv
       const hostedZone = route53.HostedZone.fromLookup(this, "HostedZone", {
         domainName: customDomain,
       });
-      const certificate = new acm.DnsValidatedCertificate(
+      const certificate = new acm.Certificate(
         this,
         "SslCertificate",
         {
-          hostedZone,
           domainName,
+          validation: acm.CertificateValidation.fromDns(hostedZone),
         }
       );
       domainProperties = {
@@ -76,7 +76,7 @@ export class CustomAuthorizerIamStackEnvironment extends IntegrationTestStackEnv
     // Create the API Gateway and proxy handler
 
     const apiHandler = new lambda_nodejs.NodejsFunction(this, "api-handler", {
-      runtime: lambda.Runtime.NODEJS_16_X,
+      runtime: lambda.Runtime.NODEJS_18_X,
     });
 
     const apiGateway = new apigw.LambdaRestApi(this, "API", {

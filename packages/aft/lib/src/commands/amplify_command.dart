@@ -101,7 +101,7 @@ abstract class AmplifyCommand extends Command<void>
   }();
 
   /// All packages in the Amplify Flutter repo.
-  late final Map<String, PackageInfo> allPackages = () {
+  late final Map<String, PackageInfo> repoPackages = () {
     final allDirs = rootDir
         .listSync(recursive: true, followLinks: false)
         .whereType<Directory>();
@@ -129,6 +129,12 @@ abstract class AmplifyCommand extends Command<void>
     });
   }();
 
+  /// All packages included in this command's operation.
+  ///
+  /// This may be overriden by mixins such that it is a subset of
+  /// [repoPackages].
+  late final Map<String, PackageInfo> commandPackages = repoPackages;
+
   /// The absolute path to the `aft.yaml` document.
   late final String aftConfigPath = () {
     final rootDir = this.rootDir;
@@ -145,9 +151,15 @@ abstract class AmplifyCommand extends Command<void>
     return config;
   }();
 
+  /// The environment to inject into subcommands.
+  late final Map<String, String> environment = {
+    ...Platform.environment,
+    'AFT_ROOT': rootDir.uri.toFilePath(),
+  };
+
   late final Repo repo = Repo(
     rootDir,
-    allPackages: allPackages,
+    allPackages: repoPackages,
     aftConfig: aftConfig,
     logger: logger,
   );

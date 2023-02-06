@@ -52,7 +52,7 @@ void main() {
         );
         expect(
           res.nextStep.signInStep,
-          'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE',
+          AuthSignInStep.confirmSignInWithCustomChallenge,
         );
 
         final additionalInfo = res.nextStep.additionalInfo ?? const {};
@@ -136,7 +136,7 @@ void main() {
         );
         expect(
           res.nextStep.signInStep,
-          'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE',
+          AuthSignInStep.confirmSignInWithCustomChallenge,
         );
 
         final additionalInfo = res.nextStep.additionalInfo ?? const {};

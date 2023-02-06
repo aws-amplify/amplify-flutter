@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as cognito from "@aws-sdk/client-cognito-identity-provider";
-import * as lambda from "aws-lambda";
+import type * as lambda from "aws-lambda";
 
 interface DeleteUserRequest {
   username: string;

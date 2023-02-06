@@ -33,7 +33,7 @@ abstract class AuthService {
 
   Future<ResetPasswordResult> resetPassword(String username);
 
-  Future<UpdatePasswordResult> confirmResetPassword(
+  Future<ResetPasswordResult> confirmResetPassword(
     String username,
     String code,
     String newPassword,
@@ -186,7 +186,7 @@ class AmplifyAuthService implements AuthService {
   }
 
   @override
-  Future<UpdatePasswordResult> confirmResetPassword(
+  Future<ResetPasswordResult> confirmResetPassword(
     String username,
     String code,
     String newPassword,

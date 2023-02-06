@@ -1,8 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
-    hide AuthState;
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:cognito_example/common.dart';
 import 'package:example_common/example_common.dart';
@@ -64,7 +63,8 @@ class UserAttributeComponent extends StatefulComponent {
           ),
         );
         if (!res.isUpdated) {
-          if (res.nextStep.codeDeliveryDetails?.deliveryMedium == 'EMAIL') {
+          if (res.nextStep.codeDeliveryDetails?.deliveryMedium ==
+              DeliveryMedium.email) {
             onConfirm(AuthState.confirmEmail);
           } else {
             onConfirm(AuthState.confirmPhone);
@@ -90,7 +90,7 @@ class UserAttributeComponent extends StatefulComponent {
         final firstUnconfirmedAttr =
             res.entries.firstWhere((el) => !el.value.isUpdated).value;
         if (firstUnconfirmedAttr.nextStep.codeDeliveryDetails?.deliveryMedium ==
-            'EMAIL') {
+            DeliveryMedium.email) {
           onConfirm(AuthState.confirmEmail);
         } else {
           onConfirm(AuthState.confirmPhone);

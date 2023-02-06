@@ -23,8 +23,8 @@ SrpInitResult get initResult => SrpInitResult((b) {
         ..publicA = SrpHelper.g.modPow(a, SrpHelper.N);
     });
 
-const username = 'User5';
-const password = 'Password1!';
+const srpUsername = 'User5';
+const srpPassword = 'Password1!';
 const poolName = 'Pj8nlkpKR';
 const salt = 'b704a27deb8cf5efec43a40eac5b60d2';
 const publicB =
@@ -75,11 +75,11 @@ void main() {
     group('createPasswordClaim', () {
       test('authenticateUser', () {
         final claim = SrpHelper.createPasswordClaim(
-          userId: username,
+          userId: srpUsername,
           parameters: SignInParameters(
             (b) => b
-              ..username = username
-              ..password = password,
+              ..username = srpUsername
+              ..password = srpPassword,
           ),
           initResult: initResult,
           encodedSalt: salt,
@@ -98,11 +98,11 @@ void main() {
 
         expect(
           () => SrpHelper.createPasswordClaim(
-            userId: username,
+            userId: srpUsername,
             parameters: SignInParameters(
               (b) => b
-                ..username = username
-                ..password = password,
+                ..username = srpUsername
+                ..password = srpPassword,
             ),
             initResult: initResult,
             encodedSalt: salt,
@@ -120,11 +120,11 @@ void main() {
 
         expect(
           () => SrpHelper.createPasswordClaim(
-            userId: username,
+            userId: srpUsername,
             parameters: SignInParameters(
               (b) => b
-                ..username = username
-                ..password = password,
+                ..username = srpUsername
+                ..password = srpPassword,
             ),
             initResult: initResult,
             encodedSalt: salt,

@@ -31,7 +31,7 @@ abstract class AuthPluginInterface<
         PluginResetPasswordOptions extends ResetPasswordOptions,
         PluginResetPasswordResult extends ResetPasswordResult,
         PluginConfirmResetPasswordOptions extends ConfirmResetPasswordOptions,
-        PluginConfirmResetPasswordResult extends UpdatePasswordResult,
+        PluginConfirmResetPasswordResult extends ResetPasswordResult,
         PluginAuthUserOptions extends AuthUserOptions,
         PluginFetchUserAttributeOptions extends FetchUserAttributesOptions,
         PluginAuthSessionOptions extends AuthSessionOptions,

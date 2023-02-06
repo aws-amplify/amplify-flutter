@@ -18,14 +18,14 @@ import 'package:smithy/smithy.dart';
 /// Bridging helpers for [ChallengeNameType].
 extension ChallengeNameTypeBridge on ChallengeNameType {
   /// The sign in step corresponding to this challenge.
-  CognitoSignInStep get signInStep {
+  AuthSignInStep get signInStep {
     switch (this) {
       case ChallengeNameType.customChallenge:
-        return CognitoSignInStep.confirmSignInWithCustomChallenge;
+        return AuthSignInStep.confirmSignInWithCustomChallenge;
       case ChallengeNameType.newPasswordRequired:
-        return CognitoSignInStep.confirmSignInWithNewPassword;
+        return AuthSignInStep.confirmSignInWithNewPassword;
       case ChallengeNameType.smsMfa:
-        return CognitoSignInStep.confirmSignInWithSmsMfaCode;
+        return AuthSignInStep.confirmSignInWithSmsMfaCode;
       case ChallengeNameType.adminNoSrpAuth:
       case ChallengeNameType.selectMfaType:
       case ChallengeNameType.passwordVerifier:
@@ -43,11 +43,29 @@ extension ChallengeNameTypeBridge on ChallengeNameType {
 extension CodeDeliveryDetailsBridge on CodeDeliveryDetailsType {
   /// The [AuthCodeDeliveryDetails] representation of `this`.
   AuthCodeDeliveryDetails get asAuthCodeDeliveryDetails {
+    final attributeKey = attributeName == null
+        ? null
+        : CognitoUserAttributeKey.parse(attributeName!);
     return AuthCodeDeliveryDetails(
       destination: destination,
-      deliveryMedium: deliveryMedium?.value,
-      attributeName: attributeName,
+      deliveryMedium:
+          deliveryMedium?.asDeliveryMedium ?? DeliveryMedium.unknown,
+      attributeKey: attributeKey,
     );
+  }
+}
+
+/// Bridging helpers for [DeliveryMediumType].
+extension DeliveryMediumTypeBridge on DeliveryMediumType {
+  /// The [DeliveryMedium] representation of `this`.
+  DeliveryMedium get asDeliveryMedium {
+    switch (this) {
+      case DeliveryMediumType.sms:
+        return DeliveryMedium.sms;
+      case DeliveryMediumType.email:
+        return DeliveryMedium.email;
+    }
+    throw StateError('Unknown delivery medium: $this');
   }
 }
 

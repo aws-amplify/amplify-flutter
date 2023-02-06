@@ -59,16 +59,14 @@ void main() {
         username: username,
         password: password,
       );
-      expect(signInResult.nextStep.signInStep, 'DONE');
+      expect(signInResult.nextStep.signInStep, AuthSignInStep.done);
 
       final userPoolTokens =
           (await cognitoPlugin.fetchAuthSession()).userPoolTokensResult.value;
       // Clear but do not sign out so that tokens are still valid.
       // ignore: invalid_use_of_protected_member
-      await cognitoPlugin.plugin.stateMachine.dispatch(
-        CredentialStoreEvent.clearCredentials(
-          CognitoUserPoolKeys(userPoolConfig),
-        ),
+      await cognitoPlugin.stateMachine.clearCredentials(
+        CognitoUserPoolKeys(userPoolConfig),
       );
 
       return cognitoPlugin.federateToIdentityPool(
@@ -82,7 +80,7 @@ void main() {
         username: username,
         password: password,
       );
-      expect(signInResult.nextStep.signInStep, 'DONE');
+      expect(signInResult.nextStep.signInStep, AuthSignInStep.done);
 
       await expectLater(
         cognitoPlugin.federateToIdentityPool(
@@ -129,16 +127,14 @@ void main() {
         username: username,
         password: password,
       );
-      expect(signInResult.nextStep.signInStep, 'DONE');
+      expect(signInResult.nextStep.signInStep, AuthSignInStep.done);
 
       final userPoolTokens =
           (await cognitoPlugin.fetchAuthSession()).userPoolTokensResult.value;
       // Clear but do not sign out so that tokens are still valid.
       // ignore: invalid_use_of_protected_member
-      await cognitoPlugin.plugin.stateMachine.dispatch(
-        CredentialStoreEvent.clearCredentials(
-          CognitoUserPoolKeys(userPoolConfig),
-        ),
+      await cognitoPlugin.stateMachine.clearCredentials(
+        CognitoUserPoolKeys(userPoolConfig),
       );
 
       final session = await cognitoPlugin.federateToIdentityPool(

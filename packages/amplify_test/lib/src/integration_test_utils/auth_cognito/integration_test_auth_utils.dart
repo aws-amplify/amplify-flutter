@@ -80,6 +80,31 @@ Future<void> deleteUser(String username) async {
   }
 }
 
+/// Deletes a Cognito device identified by [deviceKey].
+Future<void> deleteDevice(String username, String deviceKey) async {
+  final result = await _graphQL(
+    r'''
+mutation DeleteDevice($input: DeleteDeviceInput!) {
+  deleteDevice(input: $input) {
+    error
+    success
+  }
+}
+''',
+    variables: <String, dynamic>{
+      'input': {
+        'username': username,
+        'deviceKey': deviceKey,
+      },
+    },
+  );
+
+  final deleteError = (result['deleteDevice'] as Map?)?['error'];
+  if (deleteError != null) {
+    throw Exception(deleteError);
+  }
+}
+
 /// Creates a Cognito user in backend infrastructure. This documention describes
 /// how each parameter is expected to be used in the backend .
 ///
@@ -93,7 +118,7 @@ Future<void> deleteUser(String username) async {
 /// The [verifyAttributes] flag will verify the email and phone, and should be used
 /// if tests need to bypass the verification step.
 /// The [attributes] list passes additional attributes.
-Future<void> adminCreateUser(
+Future<String> adminCreateUser(
   String username,
   String password, {
   bool autoConfirm = false,
@@ -141,6 +166,7 @@ Future<void> adminCreateUser(
           mutation CreateUser($input: CreateUserInput!) {
             createUser(input: $input) {
               success
+              cognitoUsername
               error
             }
           }
@@ -157,6 +183,8 @@ Future<void> adminCreateUser(
   if (createError != null) {
     throw Exception(createError);
   }
+
+  return (result['createUser'] as Map)['cognitoUsername'] as String;
 }
 
 class OtpResult {

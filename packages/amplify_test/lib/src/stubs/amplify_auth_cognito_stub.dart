@@ -7,7 +7,6 @@ import 'dart:core';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
-import 'package:amplify_auth_cognito_dart/src/model/auth_result.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 const usernameExistsException = UsernameExistsException(
@@ -47,6 +46,9 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
 
   AuthCodeDeliveryDetails _codeDeliveryDetails(MockCognitoUser user) =>
       AuthCodeDeliveryDetails(
+        deliveryMedium: user.phoneNumber != null
+            ? DeliveryMedium.phone
+            : DeliveryMedium.email,
         destination: user.email ?? user.phoneNumber ?? 'S****@g***.com',
       );
 
@@ -80,7 +82,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
       return CognitoSignUpResult(
         isSignUpComplete: false,
         nextStep: AuthNextSignUpStep(
-          signUpStep: 'CONFIRM_SIGN_UP_STEP',
+          signUpStep: AuthSignUpStep.confirmSignUp,
           codeDeliveryDetails: _codeDeliveryDetails(newUser),
         ),
       );
@@ -99,7 +101,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     }
     return const CognitoSignUpResult(
       isSignUpComplete: true,
-      nextStep: AuthNextSignUpStep(signUpStep: 'DONE'),
+      nextStep: AuthNextSignUpStep(signUpStep: AuthSignUpStep.done),
     );
   }
 
@@ -133,7 +135,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     _currentUser = user;
     return CognitoSignInResult(
       isSignedIn: _isSignedIn(),
-      nextStep: const AuthNextSignInStep(signInStep: 'DONE'),
+      nextStep: const AuthNextSignInStep(signInStep: AuthSignInStep.done),
     );
   }
 
@@ -145,7 +147,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     await Future<void>.delayed(delay);
     return CognitoSignInResult(
       isSignedIn: _isSignedIn(),
-      nextStep: const AuthNextSignInStep(signInStep: 'DONE'),
+      nextStep: const AuthNextSignInStep(signInStep: AuthSignInStep.done),
     );
   }
 
@@ -179,14 +181,14 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     return CognitoResetPasswordResult(
       isPasswordReset: true,
       nextStep: ResetPasswordStep(
-        updateStep: 'DONE',
+        updateStep: AuthResetPasswordStep.done,
         codeDeliveryDetails: _codeDeliveryDetails(user),
       ),
     );
   }
 
   @override
-  Future<UpdatePasswordResult> confirmResetPassword({
+  Future<CognitoResetPasswordResult> confirmResetPassword({
     required String username,
     required String newPassword,
     required String confirmationCode,
@@ -203,7 +205,12 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     MockCognitoUser updatedUser = user.copyWith(password: newPassword);
     _users[username] = updatedUser;
     _currentUser = updatedUser;
-    return const UpdatePasswordResult();
+    return const CognitoResetPasswordResult(
+      isPasswordReset: true,
+      nextStep: ResetPasswordStep(
+        updateStep: AuthResetPasswordStep.done,
+      ),
+    );
   }
 
   @override
@@ -316,7 +323,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     return UpdateUserAttributeResult(
       isUpdated: true,
       nextStep: AuthNextUpdateAttributeStep(
-        updateAttributeStep: 'DONE',
+        updateAttributeStep: AuthUpdateAttributeStep.done,
         codeDeliveryDetails: _codeDeliveryDetails(_currentUser!),
       ),
     );

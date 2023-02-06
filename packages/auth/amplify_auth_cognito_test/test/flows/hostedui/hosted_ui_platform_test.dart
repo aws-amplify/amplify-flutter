@@ -3,6 +3,7 @@
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:http/http.dart' as http;
@@ -30,7 +31,7 @@ void main() {
         ..addInstance(hostedUiConfig)
         ..addInstance<SecureStorageInterface>(secureStorage)
         ..addInstance<http.Client>(server.httpClient)
-        ..addInstance<Dispatcher>(const DispatchListener());
+        ..addInstance<Dispatcher<AuthEvent, AuthState>>(const MockDispatcher());
 
       platform = HostedUiPlatform(dependencyManager);
     });

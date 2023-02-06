@@ -36,7 +36,9 @@ class _ConfirmSignUpWidgetState extends State<ConfirmSignUpWidget> {
         'Confirm Sign Up Status = ${res.nextStep.signUpStep}',
       );
       widget.changeDisplay(
-        res.nextStep.signUpStep != 'DONE' ? 'SHOW_CONFIRM' : 'SHOW_SIGN_IN',
+        res.nextStep.signUpStep != AuthSignUpStep.done
+            ? 'SHOW_CONFIRM'
+            : 'SHOW_SIGN_IN',
       );
     } on Exception catch (e) {
       widget.setError(e);

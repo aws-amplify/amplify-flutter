@@ -8,15 +8,9 @@ part of 'sign_up_result.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SignUpResult _$SignUpResultFromJson(Map<String, dynamic> json) => SignUpResult(
-      isSignUpComplete: json['isSignUpComplete'] as bool,
-      nextStep:
-          AuthNextSignUpStep.fromJson(json['nextStep'] as Map<String, dynamic>),
-      userId: json['userId'] as String?,
-    );
-
 Map<String, dynamic> _$SignUpResultToJson(SignUpResult instance) {
   final val = <String, dynamic>{
+    'hashCode': instance.hashCode,
     'isSignUpComplete': instance.isSignUpComplete,
     'nextStep': instance.nextStep.toJson(),
   };
@@ -28,5 +22,7 @@ Map<String, dynamic> _$SignUpResultToJson(SignUpResult instance) {
   }
 
   writeNotNull('userId', instance.userId);
+  val['props'] = instance.props;
+  val['runtimeTypeName'] = instance.runtimeTypeName;
   return val;
 }

@@ -34,7 +34,7 @@ enum HostedUiEventType {
 
 /// Discrete events of the hosted UI state machine.
 abstract class HostedUiEvent
-    extends StateMachineEvent<HostedUiEventType, HostedUiStateType> {
+    extends AuthEvent<HostedUiEventType, HostedUiStateType> {
   const HostedUiEvent._();
 
   /// {@macro amplify_auth_cognito.hosted_ui_configure}

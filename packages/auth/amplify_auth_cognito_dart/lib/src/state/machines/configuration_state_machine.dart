@@ -9,23 +9,33 @@ import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
-import 'package:amplify_auth_cognito_dart/src/state/machines/generated/auth_state_machine_base.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_auth_cognito.auth_state_machine}
+/// {@template amplify_auth_cognito.configuration_state_machine}
 /// Manages configuration of the Auth category.
 /// {@endtemplate}
-class AuthStateMachine extends AuthStateMachineBase {
-  /// {@macro amplify_auth_cognito.auth_state_machine}
-  AuthStateMachine(super.manager);
-
-  /// The [AuthStateMachine] type.
-  static const type =
-      StateMachineToken<AuthEvent, AuthState, AuthStateMachine>();
+class ConfigurationStateMachine extends StateMachine<ConfigurationEvent,
+    ConfigurationState, AuthEvent, AuthState, CognitoAuthStateMachine> {
+  /// {@macro amplify_auth_cognito.configuration_state_machine}
+  ConfigurationStateMachine(CognitoAuthStateMachine manager)
+      : super(manager, type);
 
   @override
-  String get runtimeTypeName => 'AuthStateMachine';
+  ConfigurationState get initialState =>
+      const ConfigurationState.notConfigured();
+
+  /// The [ConfigurationStateMachine] type.
+  static const type = StateMachineToken<
+      ConfigurationEvent,
+      ConfigurationState,
+      AuthEvent,
+      AuthState,
+      CognitoAuthStateMachine,
+      ConfigurationStateMachine>();
+
+  @override
+  String get runtimeTypeName => 'ConfigurationStateMachine';
 
   /// The credentials provider for SDK calls.
   AuthPluginCredentialsProvider get _credentialsProvider => getOrCreate(
@@ -33,8 +43,36 @@ class AuthStateMachine extends AuthStateMachineBase {
       );
 
   @override
-  Future<void> onConfigure(AuthConfigure event) async {
-    // InitializeAuthConfiguration
+  Future<void> resolve(ConfigurationEvent event) async {
+    switch (event.type) {
+      case ConfigurationEventType.configure:
+        final castEvent = event as Configure;
+        emit(const ConfigurationState.configuring());
+        await onConfigure(castEvent);
+        return;
+      case ConfigurationEventType.configureSucceeded:
+        final castEvent = event as ConfigureSucceeded;
+        emit(ConfigurationState.configured(event.config));
+        await onConfigureSucceeded(castEvent);
+        return;
+      case ConfigurationEventType.configureFailed:
+        final castEvent = event as ConfigureFailed;
+        emit(ConfigurationState.failure(castEvent.exception));
+        await onConfigureFailed(castEvent);
+        return;
+    }
+  }
+
+  @override
+  ConfigurationState? resolveError(Object error, [StackTrace? st]) {
+    if (error is Exception) {
+      return ConfigureFailure(error);
+    }
+    return null;
+  }
+
+  /// State machine callback for the [Configure] event.
+  Future<void> onConfigure(Configure event) async {
     final cognitoConfig = event.config.auth?.awsPlugin;
     if (cognitoConfig == null) {
       throw ConfigurationError('No Cognito plugin config available');
@@ -61,22 +99,7 @@ class AuthStateMachine extends AuthStateMachineBase {
     final hostedUiConfig = config.hostedUiConfig;
     if (hostedUiConfig != null) {
       addInstance(hostedUiConfig);
-
-      dispatch(const HostedUiEvent.configure());
-      final hostedUiConfigured = Completer<void>.sync();
-      subscribeTo(
-        HostedUiStateMachine.type,
-        (HostedUiState state) {
-          if ((state is HostedUiSignedIn || state is HostedUiSignedOut) &&
-              !hostedUiConfigured.isCompleted) {
-            hostedUiConfigured.complete();
-          }
-          if (state is HostedUiFailure && !hostedUiConfigured.isCompleted) {
-            hostedUiConfigured.completeError(state.exception);
-          }
-        },
-      );
-      waiters.add(hostedUiConfigured.future);
+      waiters.add(manager.configureHostedUI());
     }
 
     final identityPoolConfig = config.identityPoolConfig;
@@ -91,20 +114,11 @@ class AuthStateMachine extends AuthStateMachineBase {
       );
     }
 
-    dispatch(const CredentialStoreEvent.migrateLegacyCredentialStore());
-
-    final credentialStoreConfigured = Completer<void>.sync();
-    subscribeTo(CredentialStoreStateMachine.type, (state) {
-      if (state is CredentialStoreSuccess &&
-          !credentialStoreConfigured.isCompleted) {
-        credentialStoreConfigured.complete();
-      }
-      if (state is CredentialStoreFailure &&
-          !credentialStoreConfigured.isCompleted) {
-        credentialStoreConfigured.completeError(state.exception);
-      }
-    });
-    waiters.add(credentialStoreConfigured.future);
+    waiters.add(
+      manager.loadCredentials(
+        const CredentialStoreEvent.migrateLegacyCredentialStore(),
+      ),
+    );
 
     unawaited(_waitForConfiguration(cognitoConfig, waiters));
   }
@@ -115,15 +129,17 @@ class AuthStateMachine extends AuthStateMachineBase {
   ) async {
     try {
       await Future.wait<void>(futures, eagerError: true);
-      dispatch(AuthEvent.configureSucceeded(config));
+      dispatch(ConfigurationEvent.configureSucceeded(config));
     } on Exception catch (e) {
-      dispatch(AuthEvent.configureFailed(AuthException.fromException(e)));
+      dispatch(
+        ConfigurationEvent.configureFailed(AuthException.fromException(e)),
+      );
     }
   }
 
-  @override
-  Future<void> onConfigureSucceeded(AuthConfigureSucceeded event) async {}
+  /// State machine callback for the [ConfigureSucceeded] event.
+  Future<void> onConfigureSucceeded(ConfigureSucceeded event) async {}
 
-  @override
-  Future<void> onConfigureFailed(AuthConfigureFailed event) async {}
+  /// State machine callback for the [ConfigureFailed] event.
+  Future<void> onConfigureFailed(ConfigureFailed event) async {}
 }

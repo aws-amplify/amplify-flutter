@@ -56,8 +56,10 @@ void clientTest(
           client = debugClient..supportedProtocols = supportedProtocols;
         });
         tearDown(() async {
-          httpServerChannel.sink.add(null);
-          // await Future<void>.delayed(const Duration(seconds: 30));
+          httpServerChannel.sink.rejectErrors().add(null);
+        });
+        tearDownAll(() async {
+          // await Future<void>.delayed(const Duration(seconds: 60));
         });
 
         testCases(

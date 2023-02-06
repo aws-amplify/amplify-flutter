@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// Discrete state types of the sign up flow.
@@ -26,7 +27,7 @@ enum SignUpStateType {
 }
 
 /// Discrete states of the sign up flow.
-abstract class SignUpState extends StateMachineState<SignUpStateType> {
+abstract class SignUpState extends AuthState<SignUpStateType> {
   const SignUpState._();
 
   /// {@macro amplify_auth_cognito.sign_up_not_started}
@@ -124,7 +125,7 @@ class SignUpConfirming extends SignUpState {
 /// {@template amplify_auth_cognito.sign_up_success}
 /// The user successfully signed up.
 /// {@endtemplate}
-class SignUpSuccess extends SignUpState {
+class SignUpSuccess extends SignUpState with SuccessState {
   /// {@macro amplify_auth_cognito.sign_up_success}
   const SignUpSuccess({
     this.userId,

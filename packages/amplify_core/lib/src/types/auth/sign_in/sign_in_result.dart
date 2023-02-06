@@ -24,18 +24,6 @@ class SignInResult<Key extends AuthUserAttributeKey>
     required this.nextStep,
   });
 
-  factory SignInResult.fromJson(
-    Map<String, Object?> json,
-    Key Function(String) fromJsonKey,
-  ) =>
-      SignInResult<Key>(
-        isSignedIn: json['isSignedIn'] as bool,
-        nextStep: AuthNextSignInStep<Key>.fromJson(
-          json['nextStep'] as Map<String, Object?>,
-          fromJsonKey,
-        ),
-      );
-
   final bool isSignedIn;
   final AuthNextSignInStep<Key> nextStep;
 

@@ -69,7 +69,8 @@ class _UpdateUserAttributeScreenState extends State<UpdateUserAttributeScreen> {
         userAttributeKey: userAttributeKey,
         value: _valueController.text,
       );
-      if (res.nextStep.updateAttributeStep == 'CONFIRM_ATTRIBUTE_WITH_CODE') {
+      if (res.nextStep.updateAttributeStep ==
+          AuthUpdateAttributeStep.confirmAttributeWithCode) {
         _showInfo(
           'Confirmation Code Sent via '
           '${res.nextStep.codeDeliveryDetails?.deliveryMedium}',

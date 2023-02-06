@@ -200,20 +200,13 @@ scripts:
     ./build-support/codecov.sh -F android-unit-tests
 
   format: >
-    melos exec -c 1 -- \
-      flutter format --dry-run --set-exit-if-changed .
+    aft exec --fail-fast -- \
+      aft format --set-exit-if-changed .
   analyze:
-    run: melos exec -c 1 --fail-fast -- \
+    run: aft exec --fail-fast --include="Amplify Flutter" -- \
       flutter analyze --no-fatal-infos
     description: >
       Analyzes all packages and fails if there are any errors.
-    select-package:
-      scope:
-        - amplify_analytics_*
-        - amplify_api*
-        - amplify_auth_cognito*
-        - amplify_flutter*
-        - amplify_core*
 
   lint:pub: >
     melos exec -c 5 --fail-fast --no-private --ignore="*example*" -- \

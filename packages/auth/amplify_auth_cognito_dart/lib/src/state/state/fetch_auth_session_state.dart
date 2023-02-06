@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// Discrete state types of the fetch auth session state machine.
@@ -24,7 +25,7 @@ enum FetchAuthSessionStateType {
 
 /// Discrete states of the fetch auth session state machine.
 abstract class FetchAuthSessionState
-    extends StateMachineState<FetchAuthSessionStateType> {
+    extends AuthState<FetchAuthSessionStateType> {
   const FetchAuthSessionState._();
 
   /// {@macro amplify_auth_cognito.fetch_auth_session_idle}
@@ -95,7 +96,7 @@ class FetchAuthSessionRefreshing extends FetchAuthSessionState {
 /// {@template amplify_auth_cognito.fetch_auth_session_success}
 /// The state machine successfully fetched the current auth session.
 /// {@endtemplate}
-class FetchAuthSessionSuccess extends FetchAuthSessionState {
+class FetchAuthSessionSuccess extends FetchAuthSessionState with SuccessState {
   /// {@macro amplify_auth_cognito.fetch_auth_session_success}
   const FetchAuthSessionSuccess(this.session) : super._();
 

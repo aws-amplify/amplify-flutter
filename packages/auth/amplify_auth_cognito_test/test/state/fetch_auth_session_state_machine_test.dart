@@ -47,23 +47,18 @@ void main() {
     const newSecretAccessKey = 'newSecretAccessKey';
 
     Future<void> configureAmplify(AmplifyConfig config) async {
-      stateMachine.dispatch(AuthEvent.configure(config));
-      await stateMachine.stream.whereType<AuthConfigured>().first;
+      stateMachine.dispatch(ConfigurationEvent.configure(config));
+      await stateMachine.stream.whereType<Configured>().first;
     }
 
     Future<CognitoAuthSession> fetchAuthSession({
       bool forceRefresh = false,
       required bool willRefresh,
     }) async {
-      stateMachine.dispatch(
-        FetchAuthSessionEvent.fetch(
-          CognitoSessionOptions(forceRefresh: forceRefresh),
-        ),
-      );
       final sm = stateMachine.getOrCreate(
         FetchAuthSessionStateMachine.type,
       );
-      await expectLater(
+      expect(
         sm.stream.startWith(sm.currentState),
         emitsInOrder(<Matcher>[
           isA<FetchAuthSessionIdle>(),
@@ -72,8 +67,11 @@ void main() {
           isA<FetchAuthSessionSuccess>(),
         ]),
       );
-      final state = sm.currentState as FetchAuthSessionSuccess;
-      return state.session;
+      return stateMachine.loadSession(
+        FetchAuthSessionEvent.fetch(
+          CognitoSessionOptions(forceRefresh: forceRefresh),
+        ),
+      );
     }
 
     setUp(() {
@@ -304,8 +302,8 @@ void main() {
               await configureAmplify(config);
               stateMachine.addInstance<CognitoIdentityProviderClient>(
                 MockCognitoIdentityProviderClient(
-                  initiateAuth: expectAsync0(
-                    () async => InitiateAuthResponse(
+                  initiateAuth: expectAsync1(
+                    (_) async => InitiateAuthResponse(
                       authenticationResult: AuthenticationResultType(
                         accessToken: newAccessToken.raw,
                         refreshToken: refreshToken,
@@ -349,8 +347,8 @@ void main() {
               await configureAmplify(config);
               stateMachine.addInstance<CognitoIdentityProviderClient>(
                 MockCognitoIdentityProviderClient(
-                  initiateAuth: expectAsync0(
-                    () async => throw AWSHttpException(
+                  initiateAuth: expectAsync1(
+                    (_) async => throw AWSHttpException(
                       AWSHttpRequest.get(Uri()),
                     ),
                   ),
@@ -393,8 +391,8 @@ void main() {
               await configureAmplify(config);
               stateMachine.addInstance<CognitoIdentityProviderClient>(
                 MockCognitoIdentityProviderClient(
-                  initiateAuth: expectAsync0(
-                    () async => throw _ServiceException(),
+                  initiateAuth: expectAsync1(
+                    (_) async => throw _ServiceException(),
                   ),
                 ),
               );
@@ -451,8 +449,8 @@ void main() {
               await configureAmplify(config);
               stateMachine.addInstance<CognitoIdentityProviderClient>(
                 MockCognitoIdentityProviderClient(
-                  initiateAuth: expectAsync0(
-                    () async => InitiateAuthResponse(
+                  initiateAuth: expectAsync1(
+                    (_) async => InitiateAuthResponse(
                       authenticationResult: AuthenticationResultType(
                         accessToken: newAccessToken.raw,
                         refreshToken: refreshToken,
@@ -495,8 +493,8 @@ void main() {
               await configureAmplify(config);
               stateMachine.addInstance<CognitoIdentityProviderClient>(
                 MockCognitoIdentityProviderClient(
-                  initiateAuth: expectAsync0(
-                    () async => throw AWSHttpException(
+                  initiateAuth: expectAsync1(
+                    (_) async => throw AWSHttpException(
                       AWSHttpRequest.get(Uri()),
                     ),
                   ),
@@ -539,8 +537,8 @@ void main() {
               await configureAmplify(config);
               stateMachine.addInstance<CognitoIdentityProviderClient>(
                 MockCognitoIdentityProviderClient(
-                  initiateAuth: expectAsync0(
-                    () async => throw _ServiceException(),
+                  initiateAuth: expectAsync1(
+                    (_) async => throw _ServiceException(),
                   ),
                 ),
               );
@@ -592,8 +590,8 @@ void main() {
             stateMachine
               ..addInstance<CognitoIdentityProviderClient>(
                 MockCognitoIdentityProviderClient(
-                  initiateAuth: expectAsync0(
-                    () async => InitiateAuthResponse(
+                  initiateAuth: expectAsync1(
+                    (_) async => InitiateAuthResponse(
                       authenticationResult: AuthenticationResultType(
                         accessToken: newAccessToken.raw,
                         refreshToken: refreshToken,
@@ -653,8 +651,8 @@ void main() {
             stateMachine
               ..addInstance<CognitoIdentityProviderClient>(
                 MockCognitoIdentityProviderClient(
-                  initiateAuth: expectAsync0(
-                    () async => throw AWSHttpException(
+                  initiateAuth: expectAsync1(
+                    (_) async => throw AWSHttpException(
                       AWSHttpRequest.get(Uri()),
                     ),
                   ),
@@ -714,8 +712,8 @@ void main() {
             stateMachine
               ..addInstance<CognitoIdentityProviderClient>(
                 MockCognitoIdentityProviderClient(
-                  initiateAuth: expectAsync0(
-                    () async => throw _ServiceException(),
+                  initiateAuth: expectAsync1(
+                    (_) async => throw _ServiceException(),
                   ),
                 ),
               )
@@ -932,8 +930,8 @@ void main() {
               await configureAmplify(config);
               stateMachine.addInstance<CognitoIdentityProviderClient>(
                 MockCognitoIdentityProviderClient(
-                  initiateAuth: expectAsync0(
-                    () async => InitiateAuthResponse(
+                  initiateAuth: expectAsync1(
+                    (_) async => InitiateAuthResponse(
                       authenticationResult: AuthenticationResultType(
                         accessToken: newAccessToken.raw,
                         refreshToken: refreshToken,
@@ -980,8 +978,8 @@ void main() {
               await configureAmplify(config);
               stateMachine.addInstance<CognitoIdentityProviderClient>(
                 MockCognitoIdentityProviderClient(
-                  initiateAuth: expectAsync0(
-                    () async => throw _ServiceException(),
+                  initiateAuth: expectAsync1(
+                    (_) async => throw _ServiceException(),
                   ),
                 ),
               );
@@ -1037,8 +1035,8 @@ void main() {
               await configureAmplify(config);
               stateMachine.addInstance<CognitoIdentityProviderClient>(
                 MockCognitoIdentityProviderClient(
-                  initiateAuth: expectAsync0(
-                    () async => InitiateAuthResponse(
+                  initiateAuth: expectAsync1(
+                    (_) async => InitiateAuthResponse(
                       authenticationResult: AuthenticationResultType(
                         accessToken: newAccessToken.raw,
                         refreshToken: refreshToken,
@@ -1085,8 +1083,8 @@ void main() {
               await configureAmplify(config);
               stateMachine.addInstance<CognitoIdentityProviderClient>(
                 MockCognitoIdentityProviderClient(
-                  initiateAuth: expectAsync0(
-                    () async => throw _ServiceException(),
+                  initiateAuth: expectAsync1(
+                    (_) async => throw _ServiceException(),
                   ),
                 ),
               );
@@ -1140,8 +1138,8 @@ void main() {
             await configureAmplify(config);
             stateMachine.addInstance<CognitoIdentityProviderClient>(
               MockCognitoIdentityProviderClient(
-                initiateAuth: expectAsync0(
-                  () async => InitiateAuthResponse(
+                initiateAuth: expectAsync1(
+                  (_) async => InitiateAuthResponse(
                     authenticationResult: AuthenticationResultType(
                       accessToken: newAccessToken.raw,
                       refreshToken: refreshToken,
@@ -1192,8 +1190,8 @@ void main() {
             await configureAmplify(config);
             stateMachine.addInstance<CognitoIdentityProviderClient>(
               MockCognitoIdentityProviderClient(
-                initiateAuth: expectAsync0(
-                  () async => throw _ServiceException(),
+                initiateAuth: expectAsync1(
+                  (_) async => throw _ServiceException(),
                 ),
               ),
             );

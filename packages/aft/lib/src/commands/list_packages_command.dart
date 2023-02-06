@@ -14,7 +14,7 @@ class ListPackagesCommand extends AmplifyCommand {
   @override
   Future<void> run() async {
     await super.run();
-    for (final package in allPackages.keys) {
+    for (final package in commandPackages.keys) {
       logger.info(package);
     }
   }

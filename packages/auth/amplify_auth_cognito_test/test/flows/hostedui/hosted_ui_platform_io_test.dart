@@ -8,6 +8,7 @@ import 'dart:io';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_io.dart';
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:http/http.dart' as http;
@@ -137,16 +138,17 @@ void main() {
     group('signIn', () {
       test('completes', () async {
         final client = http.Client();
-        final dispatcher = DispatchListener(
+        final dispatcher = MockDispatcher(
           onDispatch: expectAsync1((event) {
             expect(event, isA<HostedUiExchange>());
+            return null;
           }),
         );
         dependencyManager
           ..addInstance(client)
           ..addInstance(mockConfig)
           ..addInstance(hostedUiConfig)
-          ..addInstance<Dispatcher>(dispatcher);
+          ..addInstance<Dispatcher<AuthEvent, AuthState>>(dispatcher);
         final hostedUiPlatform = MockHostedUiPlatform(dependencyManager);
 
         final redirect = Uri.parse(redirectUri);

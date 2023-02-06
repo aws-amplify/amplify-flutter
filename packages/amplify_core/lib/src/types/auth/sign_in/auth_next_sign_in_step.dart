@@ -2,10 +2,17 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'auth_next_sign_in_step.g.dart';
 
-@zAmplifyGenericSerializable
+@JsonSerializable(
+  genericArgumentFactories: true,
+  includeIfNull: false,
+  explicitToJson: true,
+  // TODO(dnys1): Fix generic serialization
+  createFactory: false,
+)
 class AuthNextSignInStep<Key extends AuthUserAttributeKey> extends AuthNextStep
     with
         // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49484
@@ -18,16 +25,7 @@ class AuthNextSignInStep<Key extends AuthUserAttributeKey> extends AuthNextStep
     this.missingAttributes = const [],
   });
 
-  factory AuthNextSignInStep.fromJson(
-    Map<String, Object?> json,
-    Key Function(String) fromJsonKey,
-  ) =>
-      _$AuthNextSignInStepFromJson<Key>(
-        json,
-        (key) => fromJsonKey(key as String),
-      );
-
-  final String signInStep;
+  final AuthSignInStep signInStep;
 
   /// Attributes which are required in your backend but have not yet been
   /// provided as part of the sign-in/sign-up flow for this user.

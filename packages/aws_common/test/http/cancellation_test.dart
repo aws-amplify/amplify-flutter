@@ -39,13 +39,49 @@ void main() {
         final request = AWSHttpRequest.get(createUri('/body'));
         final operation = client().send(request);
         final response = await operation.response;
-        await expectLater(operation.cancel(), completes);
+        await Future<void>.delayed(const Duration(milliseconds: 200));
         expect(operation.requestProgress, emitsDone);
         expect(operation.responseProgress, emitsDone);
         expect(
           response.body,
           emitsThrough(emitsError(isA<CancellationException>())),
         );
+        await expectLater(operation.cancel(), completes);
+      });
+
+      test('can be cancelled via body subscription', () async {
+        final request = AWSHttpRequest.get(createUri('/body'));
+        final operation = client().send(request);
+        final response = await operation.response;
+        final subscription = response.body.listen(null);
+        await Future<void>.delayed(const Duration(milliseconds: 100));
+        expect(
+          operation.requestProgress,
+          emitsDone,
+        );
+        expect(
+          operation.responseProgress,
+          emitsDone,
+        );
+        await subscription.cancel();
+      });
+
+      test('can be cancelled via split body subscription', () async {
+        final request = AWSHttpRequest.get(createUri('/body'));
+        final operation = client().send(request);
+        final response = await operation.response;
+        final subscription = response.split().listen(null);
+        await Future<void>.delayed(const Duration(milliseconds: 100));
+        expect(
+          operation.requestProgress,
+          emitsDone,
+        );
+        expect(
+          operation.responseProgress,
+          emitsDone,
+        );
+        await subscription.cancel();
+        await response.close();
       });
 
       test(
