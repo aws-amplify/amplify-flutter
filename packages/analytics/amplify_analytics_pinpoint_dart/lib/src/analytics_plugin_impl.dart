@@ -4,7 +4,6 @@
 import 'dart:async';
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_storage_adapter.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/string_database/dart_string_database.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/session_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/stoppable_timer.dart';
@@ -66,7 +65,6 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   late final EndpointClient _endpointClient;
   late final EventClient _eventClient;
   late final SessionManager _sessionManager;
-  late final EventStorageAdapter _eventStorageAdapter;
   late final StoppableTimer _autoEventSubmitter;
 
   final SecureStorageInterface _endpointInfoStore;
@@ -213,6 +211,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     _ensureConfigured();
     await _eventClient.recordEvent(
       eventType: event.name,
+      session: _sessionManager.session,
       properties: event.properties,
     );
   }
@@ -251,6 +250,5 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     _isConfigured = false;
     _autoEventSubmitter.stop();
     await _eventClient.close();
-    await _eventStorageAdapter.close();
   }
 }

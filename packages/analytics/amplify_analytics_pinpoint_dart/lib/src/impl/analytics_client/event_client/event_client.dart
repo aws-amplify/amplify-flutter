@@ -237,6 +237,7 @@ class EventClient implements Closeable {
 
   @override
   Future<void> close() async {
+    await _storageAdapter.close();
     await _flushEventsController.close();
     await _pendingFlushEvent;
   }
