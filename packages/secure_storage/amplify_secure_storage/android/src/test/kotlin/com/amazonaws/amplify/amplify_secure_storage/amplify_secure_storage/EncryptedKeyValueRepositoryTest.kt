@@ -1,6 +1,7 @@
 package com.amazonaws.amplify.amplify_secure_storage.amplify_secure_storage
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import androidx.test.core.app.ApplicationProvider
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -15,7 +16,8 @@ import org.robolectric.annotation.Config
 @Config(manifest = Config.NONE, sdk = [23,33])
 class EncryptedKeyValueRepositoryTest {
     private var context: Context = ApplicationProvider.getApplicationContext()
-    private var repo: EncryptedKeyValueRepository = EncryptedKeyValueRepository(context, "test")
+
+    private var repo: EncryptedKeyValueRepository = TestEncryptedKeyValueRepository(context, "test")
 
     private fun clearNoBackUpDir() {
         repo.initializationFlagFile.delete()
@@ -46,7 +48,7 @@ class EncryptedKeyValueRepositoryTest {
         repo.put("key_1", "val_1")
         assertEquals("val_1", repo.get("key_1"))
 
-        val repo2 = EncryptedKeyValueRepository(context, "test")
+        val repo2 = TestEncryptedKeyValueRepository(context, "test")
         assertEquals("val_1", repo2.get("key_1"))
     }
 
@@ -57,8 +59,22 @@ class EncryptedKeyValueRepositoryTest {
 
         clearNoBackUpDir() // simulate a re-install by clearing the no backup dir
 
-        val repo2 = EncryptedKeyValueRepository(context, "test")
+        val repo2 = TestEncryptedKeyValueRepository(context, "test")
         assertNull(repo2.get("key_1"))
     }
 
+}
+
+class TestEncryptedKeyValueRepository(
+    private val context: Context,
+    sharedPreferencesName: String,
+): EncryptedKeyValueRepository(context, sharedPreferencesName) {
+
+    /**
+     * Override removeSharedPreferencesFile in test because File().delete() will not clear
+     * data in test environment.
+     */
+    override fun removeSharedPreferencesFile() {
+        context.getSharedPreferences("test", MODE_PRIVATE).edit().clear().commit()
+    }
 }

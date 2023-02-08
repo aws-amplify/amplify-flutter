@@ -4,8 +4,8 @@
 package com.amazonaws.amplify.amplify_secure_storage.amplify_secure_storage
 
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.annotation.VisibleForTesting
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV
@@ -13,24 +13,45 @@ import androidx.security.crypto.EncryptedSharedPreferences.PrefValueEncryptionSc
 import androidx.security.crypto.MasterKeys
 import java.io.File
 
-class EncryptedKeyValueRepository(
+open class EncryptedKeyValueRepository(
     private val context: Context,
     private val sharedPreferencesName: String,
 ) : KeyValueRepository {
 
     private val sharedPreferences: SharedPreferences by lazy {
-        // Attempt to remove previous SharedPreferences file if not initialized.
-        if (!initializationFlagFile.exists()) {
-            context.getSharedPreferences(sharedPreferencesName, MODE_PRIVATE).edit().clear().commit()
+        val isInitialized = initializationFlagFile.exists()
+        if (!isInitialized) {
+            // TODO(Jordan-Nelson): Remove when fix for https://github.com/google/tink/issues/534 is
+            // available in a stable version of androidx.security:security-crypto
+            Log.i(
+                "AmplifySecureStorage",
+                "Attempting to create new EncryptedSharedPreferences file for scope $sharedPreferencesName. " +
+            "NOTE: This will result in an expected FileNotFoundException message from AndroidKeysetManager. " +
+            "This can be safely ignored."
+            )
+            // Attempt to remove previous SharedPreferences file if not initialized.
+            removeSharedPreferencesFile()
             initializationFlagFile.createNewFile()
         }
-        EncryptedSharedPreferences.create(
+        val sharedPreferences = EncryptedSharedPreferences.create(
             sharedPreferencesName,
             MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
             context,
             AES256_SIV,
             AES256_GCM
         )
+        if (!isInitialized) {
+            // TODO(Jordan-Nelson): Remove when fix for https://github.com/google/tink/issues/534 is
+            // available in a stable version of androidx.security:security-crypto
+            Log.i(
+                "AmplifySecureStorage",
+                "EncryptedSharedPreferences was initialized Successfully for scope $sharedPreferencesName. " +
+                "You can safely ignore the FileNotFoundException log from AndroidKeysetManager. " +
+                "This is an expected when creating a new EncryptedSharedPreferences instance and " +
+                "will be removed in a future release."
+            )
+        }
+        sharedPreferences
     }
 
     private val editor: SharedPreferences.Editor by lazy {
@@ -51,6 +72,11 @@ class EncryptedKeyValueRepository(
             remove(dataKey)
             apply()
         }
+    }
+
+    @VisibleForTesting
+    open fun removeSharedPreferencesFile() {
+        File("${context.filesDir.parent}/shared_prefs/$sharedPreferencesName.xml").delete()
     }
 
     /**
