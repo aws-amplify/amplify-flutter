@@ -21,18 +21,13 @@ open class EncryptedKeyValueRepository(
     private val sharedPreferences: SharedPreferences by lazy {
         val isInitialized = initializationFlagFile.exists()
         if (!isInitialized) {
-            // TODO(Jordan-Nelson): Remove when fix for https://github.com/google/tink/issues/534 is
-            // available in a stable version of androidx.security:security-crypto
-            Log.i(
-                "AmplifySecureStorage",
-                "Attempting to create new EncryptedSharedPreferences file for scope $sharedPreferencesName. " +
-            "NOTE: This will result in an expected FileNotFoundException message from AndroidKeysetManager. " +
-            "This can be safely ignored."
-            )
             // Attempt to remove previous SharedPreferences file if not initialized.
             removeSharedPreferencesFile()
             initializationFlagFile.createNewFile()
         }
+        // TODO(Jordan-Nelson): Remove when fix for https://github.com/google/tink/issues/534 is
+        // available in a stable version of androidx.security:security-crypto
+        if (!isInitialized) Log.i("AmplifySecureStorage", preInitMessage)
         val sharedPreferences = EncryptedSharedPreferences.create(
             sharedPreferencesName,
             MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
@@ -40,19 +35,29 @@ open class EncryptedKeyValueRepository(
             AES256_SIV,
             AES256_GCM
         )
-        if (!isInitialized) {
-            // TODO(Jordan-Nelson): Remove when fix for https://github.com/google/tink/issues/534 is
-            // available in a stable version of androidx.security:security-crypto
-            Log.i(
-                "AmplifySecureStorage",
-                "EncryptedSharedPreferences was initialized Successfully for scope $sharedPreferencesName. " +
-                "You can safely ignore the FileNotFoundException log from AndroidKeysetManager. " +
-                "This is an expected when creating a new EncryptedSharedPreferences instance and " +
-                "will be removed in a future release."
-            )
-        }
+        // TODO(Jordan-Nelson): Remove when fix for https://github.com/google/tink/issues/534 is
+        // available in a stable version of androidx.security:security-crypto
+        if (!isInitialized) Log.i("AmplifySecureStorage", postInitMessage)
         sharedPreferences
     }
+
+    private val preInitMessage =
+        """    
+            Attempting to initialize EncryptedSharedPreferences file for scope: $sharedPreferencesName
+            *****************************************************************************************************
+            * NOTE: This will result in a FileNotFoundException log message from AndroidKeysetManager.
+            * This is expected when creating a new EncryptedSharedPreferences instance and can be safely ignored.
+            *****************************************************************************************************
+        """.trimIndent()
+
+    private val postInitMessage =
+        """
+            Successfully initialized EncryptedSharedPreferences for scope $sharedPreferencesName.
+            *****************************************************************************************************
+            * NOTE: You can safely ignore the FileNotFoundException log message from AndroidKeysetManager.
+            * This is expected when creating a new EncryptedSharedPreferences instance and can be safely ignored.
+            *****************************************************************************************************
+        """.trimIndent()
 
     private val editor: SharedPreferences.Editor by lazy {
         sharedPreferences.edit()
