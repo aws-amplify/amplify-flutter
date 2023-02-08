@@ -26,8 +26,6 @@ class DummyPathProvider implements AppPathProvider {
   }
 }
 
-// ignore: invalid_annotation_target
-
 void main() {
   group('downloadFile() html implementation', () {
     late StorageS3Service storageS3Service;
