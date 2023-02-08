@@ -9,13 +9,18 @@ import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:aws_signature_v4/src/workers/hash_worker.dart';
 import 'package:aws_signature_v4/src/workers/hash_worker.worker.vm.dart'
     if (dart.library.js_util) 'package:aws_signature_v4/src/workers/hash_worker.worker.js.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
+
+class MockWorker extends Mock implements HashWorkerImpl {}
+
+final HashWorker mockWorker = MockWorker();
 
 // ignore: subtype_of_sealed_class
 class FakeServiceConfiguration extends BaseServiceConfiguration {
   @override
   // ignore: overridden_fields
-  final HashWorker worker = FakeHashWorker();
+  final HashWorker worker = mockWorker;
 }
 
 // ignore: subtype_of_sealed_class
@@ -27,14 +32,7 @@ class FakeS3ServiceConfiguration extends S3ServiceConfiguration {
 
   @override
   // ignore: overridden_fields
-  final HashWorker worker = FakeHashWorker();
-}
-
-class FakeHashWorker extends HashWorkerImpl {
-  @override
-  Future<void> spawn({String? jsEntrypoint}) {
-    return Future.error('could not spawn');
-  }
+  final HashWorker worker = mockWorker;
 }
 
 void main() {
@@ -45,6 +43,8 @@ void main() {
   const doubleEncodedPath = '/spaced%2520path/test%2524file.txt';
 
   group('ServiceConfiguration', () {
+    setUp(resetMocktailState);
+
     group('base', () {
       final serviceConfiguration = BaseServiceConfiguration();
 
@@ -67,12 +67,15 @@ void main() {
       });
 
       test('can hash request when worker fails', () async {
+        when(mockWorker.spawn).thenAnswer(
+          (_) => Future.error('could not spawn'),
+        );
         final serviceConfiguration = FakeServiceConfiguration();
         // ignore: invalid_use_of_protected_member
         final chunkHash = await serviceConfiguration.hashChunk(
           Uint8List(0),
-          -1,
         );
+        verify(mockWorker.spawn).called(1);
         expect(chunkHash.hash, emptyPayloadHash);
       });
     });
@@ -99,6 +102,9 @@ void main() {
       });
 
       test('can hash request when worker fails', () async {
+        when(mockWorker.spawn).thenAnswer(
+          (_) => Future.error('could not spawn'),
+        );
         final serviceConfiguration = FakeS3ServiceConfiguration(
           signPayload: true,
           chunked: true,
@@ -106,8 +112,8 @@ void main() {
         // ignore: invalid_use_of_protected_member
         final chunkHash = await serviceConfiguration.hashChunk(
           Uint8List(0),
-          -1,
         );
+        verify(mockWorker.spawn).called(1);
         expect(chunkHash.hash, emptyPayloadHash);
       });
     });

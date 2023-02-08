@@ -211,15 +211,12 @@ class BaseServiceConfiguration extends ServiceConfiguration
   /// This is generally preferred over [hashChunkSync] as it allows the
   /// operation to be moved off the main thread.
   @protected
-  Future<ChunkHash> hashChunk(
-    Uint8List chunk, [
-    @visibleForTesting int? id,
-  ]) async {
+  Future<ChunkHash> hashChunk(Uint8List chunk) async {
     try {
       await _workerInit;
       final request = HashWorkerRequest(
         (b) => b
-          ..id = id ?? _currentWorkerRequest++
+          ..id = _currentWorkerRequest++
           ..chunk = chunk,
       );
       worker.add(request);
