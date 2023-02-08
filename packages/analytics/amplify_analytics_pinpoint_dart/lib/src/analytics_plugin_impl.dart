@@ -2,17 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_global_fields_manager.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_store_keys.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_storage_adapter.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/dart_queued_item_store.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_creator/event_creator.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_creator/event_global_fields_manager.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/string_database/dart_string_database.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/session_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/stoppable_timer.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
@@ -69,16 +62,10 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   /// Storage key for the static Pinpoint endpoint id
   @visibleForTesting
   static const String endpointIdStorageKey = 'UniqueId';
-  static const String _endpointGlobalAttrsKey = 'EndpointGlobalAttributesKey';
-  static const String _endpointGlobalMetricsKey = 'EndpointGlobalMetricsKey';
 
-  late final EventCreator _eventCreator;
   late final EndpointClient _endpointClient;
   late final EventClient _eventClient;
   late final SessionManager _sessionManager;
-  late final EndpointGlobalFieldsManager _endpointGlobalFieldsManager;
-  late final EventGlobalFieldsManager _eventGlobalFieldsManager =
-      EventGlobalFieldsManager();
   late final EventStorageAdapter _eventStorageAdapter;
   late final StoppableTimer _autoEventSubmitter;
 
@@ -105,7 +92,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     }
 
     final pinpointConfig = config.analytics!.awsPlugin!;
-    final appId = pinpointConfig.pinpointAnalytics.appId;
+    final pinpointAppId = pinpointConfig.pinpointAnalytics.appId;
     final region = pinpointConfig.pinpointAnalytics.region;
 
     // Prepare PinpointClient
@@ -126,98 +113,53 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     final deviceContextInfo =
         await _deviceContextInfoProvider?.getDeviceInfoDetails();
 
-    _eventCreator = EventCreator(
-      globalFieldsManager: _eventGlobalFieldsManager,
+    _endpointClient = await EndpointClient.create(
+      pinpointAppId: pinpointAppId,
+      pinpointClient: pinpointClient,
+      endpointInfoStore: _endpointInfoStore,
+      legacyNativeDataProvider: _legacyNativeDataProvider,
       deviceContextInfo: deviceContextInfo,
     );
 
-    final fixedEndpointId = await retrieveEndpointId(
-      pinpointAppId: appId,
-    );
-
-    final endpoint = PublicEndpoint(
-      effectiveDate: DateTime.now().toUtc().toIso8601String(),
-      demographic: EndpointDemographic(
-        appVersion: deviceContextInfo?.appVersion,
-        locale: deviceContextInfo?.locale,
-        make: deviceContextInfo?.make,
-        model: deviceContextInfo?.model,
-        modelVersion: deviceContextInfo?.modelVersion,
-        platform: deviceContextInfo?.platform?.name,
-        platformVersion: deviceContextInfo?.platformVersion,
-        timezone: deviceContextInfo?.timezone,
-      ),
-      location: EndpointLocation(
-        country: deviceContextInfo?.countryCode,
-      ),
-    );
-
-    /// Retrieve stored GlobalAttributes
-    final cachedAttributes =
-        await _endpointInfoStore.read(key: _endpointGlobalAttrsKey);
-    final globalAttributes = cachedAttributes == null
-        ? <String, String>{}
-        : (jsonDecode(cachedAttributes) as Map<String, Object?>)
-            .cast<String, String>();
-
-    /// Retrieve stored GlobalMetrics
-    final cachedMetrics =
-        await _endpointInfoStore.read(key: _endpointGlobalMetricsKey);
-    final globalMetrics = cachedMetrics == null
-        ? <String, double>{}
-        : (jsonDecode(cachedMetrics) as Map<String, Object?>)
-            .cast<String, double>();
-
-    _endpointGlobalFieldsManager = EndpointGlobalFieldsManager(
-      _endpointInfoStore,
-      globalAttributes,
-      globalMetrics,
-    );
-
-    _endpointClient = EndpointClient(
-      appId,
-      fixedEndpointId,
-      pinpointClient,
-      _endpointGlobalFieldsManager,
-      endpoint.toBuilder(),
-    );
     unawaited(
       Amplify.asyncConfig.then((_) {
         _endpointClient.updateEndpoint();
       }),
     );
 
-    final eventStoragePath = await _pathProvider?.getApplicationSupportPath();
-    final eventStore = DartQueuedItemStore(eventStoragePath);
-    _eventStorageAdapter = EventStorageAdapter(eventStore);
+    final driftStoragePath = await _pathProvider?.getApplicationSupportPath();
+    final driftQueryExecutor = _dbConnectFunction(
+      name: 'analytics_cached_events',
+      path: driftStoragePath,
+    );
 
+    final stringDatabase = DartStringDatabase(driftQueryExecutor);
     _eventClient = EventClient(
-      appId: appId,
-      fixedEndpointId: fixedEndpointId,
+      pinpointAppId: pinpointAppId,
+      deviceContextInfo: deviceContextInfo,
       pinpointClient: pinpointClient,
       endpointClient: _endpointClient,
-      storageAdapter: _eventStorageAdapter,
+      eventDatabase: stringDatabase,
     );
 
     _sessionManager = SessionManager(
-      fixedEndpointId: fixedEndpointId,
+      fixedEndpointId: _endpointClient.fixedEndpointId,
       appLifecycleProvider: _appLifecycleProvider,
-      onSessionStart: (sb) async {
+      onSessionStart: (session) async {
         _logger.debug('Session started');
         if (!_analyticsEnabled) return;
         await _eventClient.recordEvent(
-          _eventCreator.createPinpointEvent(
-            zSessionStartEventType,
-            sb,
-          ),
+          eventType: zSessionStartEventType,
+          session: session,
         );
         await _eventClient.flushEvents();
       },
-      onSessionEnd: (sb) async {
+      onSessionEnd: (session) async {
         _logger.debug('Session ended');
         if (!_analyticsEnabled) return;
         await _eventClient.recordEvent(
-          _eventCreator.createPinpointEvent(zSessionStopEventType, sb),
+          eventType: zSessionStopEventType,
+          session: session,
         );
         await _eventClient.flushEvents();
       },
@@ -269,12 +211,10 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     required AnalyticsEvent event,
   }) async {
     _ensureConfigured();
-    final pinpointEvent = _eventCreator.createPinpointEvent(
-      event.name,
-      _sessionManager.session,
-      event,
+    await _eventClient.recordEvent(
+      eventType: event.name,
+      properties: event.properties,
     );
-    await _eventClient.recordEvent(pinpointEvent);
   }
 
   @override
@@ -282,7 +222,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     required AnalyticsProperties globalProperties,
   }) async {
     _ensureConfigured();
-    _eventCreator.registerGlobalProperties(globalProperties);
+    await _eventClient.registerGlobalProperties(globalProperties);
   }
 
   @override
@@ -290,7 +230,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     List<String> propertyNames = const <String>[],
   }) async {
     _ensureConfigured();
-    _eventCreator.unregisterGlobalProperties(propertyNames);
+    await _eventClient.unregisterGlobalProperties(propertyNames);
   }
 
   @override
@@ -300,6 +240,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   }) async {
     _ensureConfigured();
     await _endpointClient.setUser(userId, userProfile);
+    await _endpointClient.updateEndpoint();
   }
 
   @override
@@ -311,50 +252,5 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     _autoEventSubmitter.stop();
     await _eventClient.close();
     await _eventStorageAdapter.close();
-  }
-
-  /// Retrieve the stored pinpoint endpoint id
-  @visibleForTesting
-  Future<String> retrieveEndpointId({
-    required String pinpointAppId,
-  }) async {
-    // Retrieve Unique ID
-    final endpointInformationVersion =
-        await _endpointInfoStore.read(key: EndpointStoreKey.version.name);
-
-    String? fixedEndpointId;
-    if (endpointInformationVersion == null) {
-      final legacyEndpointId =
-          await _legacyNativeDataProvider?.getEndpointId(pinpointAppId);
-      // Migrate legacy data if it is non-null
-      if (legacyEndpointId != null) {
-        fixedEndpointId = legacyEndpointId;
-        await _endpointInfoStore.write(
-          key: endpointIdStorageKey,
-          value: legacyEndpointId,
-        );
-      }
-      // Update the version to prevent future legacy data migrations.
-      await _endpointInfoStore.write(
-        key: EndpointStoreKey.version.name,
-        value: EndpointStoreVersion.v1.name,
-      );
-    }
-
-    // Read the existing ID.
-    fixedEndpointId ??= await _endpointInfoStore.read(
-      key: endpointIdStorageKey,
-    );
-
-    // Generate a new ID if one does not exist.
-    if (fixedEndpointId == null) {
-      fixedEndpointId = uuid();
-      await _endpointInfoStore.write(
-        key: endpointIdStorageKey,
-        value: fixedEndpointId,
-      );
-    }
-
-    return fixedEndpointId;
   }
 }

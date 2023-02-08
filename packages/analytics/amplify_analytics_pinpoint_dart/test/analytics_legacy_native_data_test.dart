@@ -6,6 +6,7 @@
 import 'dart:async';
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_id_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_store_keys.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
@@ -17,7 +18,7 @@ void main() {
     late MockLegacyNativeDataProvider legacyDataProvider;
     late MockSecureStorage store;
 
-    const appId = 'appId';
+    const pinpointAppId = 'appId';
     const legacyEndpointId = 'legacy-endpointId';
 
     setUp(() {
@@ -26,14 +27,15 @@ void main() {
     });
 
     test('First app load, no legacy data, writes proper values', () async {
-      when(() => legacyDataProvider.getEndpointId(appId))
+      when(() => legacyDataProvider.getEndpointId(pinpointAppId))
           .thenAnswer((_) async => null);
 
-      final analyticsPlugin = AmplifyAnalyticsPinpointDart(
-        endpointInfoStore: store,
+      final endpointIdManager = EndpointIdManager(
+        store: store,
         legacyNativeDataProvider: legacyDataProvider,
+        pinpointAppId: pinpointAppId,
       );
-      await analyticsPlugin.retrieveEndpointId(pinpointAppId: appId);
+      expect(await endpointIdManager.retrieveEndpointId(), isNotNull);
 
       final storeVersion = await store.read(
         key: EndpointStoreKey.version.name,
@@ -45,18 +47,19 @@ void main() {
       );
       expect(migratedEndpointId, isNotNull);
 
-      verify(() => legacyDataProvider.getEndpointId(appId)).called(1);
+      verify(() => legacyDataProvider.getEndpointId(pinpointAppId)).called(1);
     });
 
     test('First app load, legacy data, writes proper values', () async {
-      when(() => legacyDataProvider.getEndpointId(appId))
+      when(() => legacyDataProvider.getEndpointId(pinpointAppId))
           .thenAnswer((_) => Future.value(legacyEndpointId));
 
-      final analyticsPlugin = AmplifyAnalyticsPinpointDart(
-        endpointInfoStore: store,
+      final endpointIdManager = EndpointIdManager(
+        store: store,
         legacyNativeDataProvider: legacyDataProvider,
+        pinpointAppId: pinpointAppId,
       );
-      await analyticsPlugin.retrieveEndpointId(pinpointAppId: appId);
+      expect(await endpointIdManager.retrieveEndpointId(), legacyEndpointId);
 
       final storeVersion = await store.read(
         key: EndpointStoreKey.version.name,
@@ -68,11 +71,11 @@ void main() {
       );
       expect(migratedEndpointId, legacyEndpointId);
 
-      verify(() => legacyDataProvider.getEndpointId(appId)).called(1);
+      verify(() => legacyDataProvider.getEndpointId(pinpointAppId)).called(1);
     });
 
     test('Second app load, legacy data is ignored', () async {
-      when(() => legacyDataProvider.getEndpointId(appId))
+      when(() => legacyDataProvider.getEndpointId(pinpointAppId))
           .thenAnswer((_) => Future.value(legacyEndpointId));
 
       final endpointId = uuid();
@@ -81,11 +84,12 @@ void main() {
         AmplifyAnalyticsPinpointDart.endpointIdStorageKey: endpointId
       });
 
-      final analyticsPlugin = AmplifyAnalyticsPinpointDart(
-        endpointInfoStore: store,
+      final endpointIdManager = EndpointIdManager(
+        store: store,
         legacyNativeDataProvider: legacyDataProvider,
+        pinpointAppId: pinpointAppId,
       );
-      await analyticsPlugin.retrieveEndpointId(pinpointAppId: appId);
+      expect(await endpointIdManager.retrieveEndpointId(), endpointId);
 
       final migratedEndpointId = await store.read(
         key: AmplifyAnalyticsPinpointDart.endpointIdStorageKey,

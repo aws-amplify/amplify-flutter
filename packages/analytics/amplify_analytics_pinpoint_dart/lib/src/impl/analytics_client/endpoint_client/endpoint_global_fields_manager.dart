@@ -6,6 +6,7 @@ import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:meta/meta.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.endpoint_global_fields_manager}
 /// Manages the storage, retrieval, and update of Attributes and Metrics of a PinpointEndpoint
@@ -17,15 +18,43 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 /// {@endtemplate}
 class EndpointGlobalFieldsManager {
   /// {@macro amplify_analytics_pinpoint_dart.endpoint_global_fields_manager}
+  @visibleForTesting
   EndpointGlobalFieldsManager(
     this._endpointInfoStore,
-    this._globalAttributes,
-    this._globalMetrics,
   );
 
+  /// {@macro amplify_analytics_pinpoint_dart.endpoint_global_fields_manager}
+  static Future<EndpointGlobalFieldsManager> create(
+    SecureStorageInterface endpointInfoStore,
+  ) async {
+    final fieldsManager = EndpointGlobalFieldsManager(endpointInfoStore);
+    await fieldsManager.init();
+    return fieldsManager;
+  }
+
+  /// {@macro amplify_analytics_pinpoint_dart.endpoint_global_fields_manager}
+  @visibleForTesting
+  Future<void> init() async {
+    /// Retrieve stored GlobalAttributes
+    final cachedAttributes =
+        await _endpointInfoStore.read(key: _endpointGlobalAttrsKey);
+    _globalAttributes = cachedAttributes == null
+        ? <String, String>{}
+        : (jsonDecode(cachedAttributes) as Map<String, Object?>)
+            .cast<String, String>();
+
+    /// Retrieve stored GlobalMetrics
+    final cachedMetrics =
+        await _endpointInfoStore.read(key: _endpointGlobalMetricsKey);
+    _globalMetrics = cachedMetrics == null
+        ? <String, double>{}
+        : (jsonDecode(cachedMetrics) as Map<String, Object?>)
+            .cast<String, double>();
+  }
+
   final SecureStorageInterface _endpointInfoStore;
-  final Map<String, String> _globalAttributes;
-  final Map<String, double> _globalMetrics;
+  late final Map<String, String> _globalAttributes;
+  late final Map<String, double> _globalMetrics;
 
   // Internal variables
   static final AmplifyLogger _logger =

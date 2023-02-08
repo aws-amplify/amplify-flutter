@@ -4,6 +4,9 @@
 /// Amplify Analytics Pinpoint
 library amplify_analytics_pinpoint;
 
+/// For Push Notifications
+export 'package:amplify_analytics_pinpoint/src/device_context_info_provider/flutter_device_context_info_provider.dart';
+
 /// Overridable Flutter injected dependencies
 export 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart'
     show AppLifecycleProvider, AWSPinpointUserProfile;

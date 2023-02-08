@@ -3,9 +3,14 @@
 
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/aws_pinpoint_user_profile.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_global_fields_manager.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_id_manager.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/legacy_native_data_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:meta/meta.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.endpoint_client}
 /// Manages fields of a Pinpoint Endpoint local object.
@@ -16,25 +21,77 @@ import 'package:built_collection/built_collection.dart';
 /// {@endtemplate}
 class EndpointClient {
   /// {@macro amplify_analytics_pinpoint_dart.endpoint_client}
-  EndpointClient(
-    this._appId,
-    this._fixedEndpointId,
-    this._pinpointClient,
-    this._globalFieldsManager,
-    this._endpointBuilder,
-  );
+  @visibleForTesting
+  EndpointClient({
+    required String pinpointAppId,
+    required PinpointClient pinpointClient,
+    DeviceContextInfo? deviceContextInfo,
+  })  : _pinpointAppId = pinpointAppId,
+        _pinpointClient = pinpointClient,
+        _endpointBuilder = PublicEndpoint(
+          effectiveDate: DateTime.now().toUtc().toIso8601String(),
+          demographic: EndpointDemographic(
+            appVersion: deviceContextInfo?.appVersion,
+            locale: deviceContextInfo?.locale,
+            make: deviceContextInfo?.make,
+            model: deviceContextInfo?.model,
+            modelVersion: deviceContextInfo?.modelVersion,
+            platform: deviceContextInfo?.platform?.name,
+            platformVersion: deviceContextInfo?.platformVersion,
+            timezone: deviceContextInfo?.timezone,
+          ),
+          location: EndpointLocation(
+            country: deviceContextInfo?.countryCode,
+          ),
+        ).toBuilder();
 
-  final String _appId;
+  /// {@macro amplify_analytics_pinpoint_dart.endpoint_client}
+  @visibleForTesting
+  Future<void> init({
+    required SecureStorageInterface endpointInfoStore,
+    LegacyNativeDataProvider? legacyNativeDataProvider,
+  }) async {
+    final endpointIdManager = EndpointIdManager(
+      store: endpointInfoStore,
+      legacyNativeDataProvider: legacyNativeDataProvider,
+    );
+    _fixedEndpointId = await endpointIdManager.retrieveEndpointId();
+
+    _globalFieldsManager =
+        await EndpointGlobalFieldsManager.create(endpointInfoStore);
+  }
+
+  /// {@macro amplify_analytics_pinpoint_dart.endpoint_client}
+  static Future<EndpointClient> create({
+    required String pinpointAppId,
+    required PinpointClient pinpointClient,
+    required SecureStorageInterface endpointInfoStore,
+    DeviceContextInfo? deviceContextInfo,
+    LegacyNativeDataProvider? legacyNativeDataProvider,
+  }) async {
+    final endpointClient = EndpointClient(
+      pinpointAppId: pinpointAppId,
+      pinpointClient: pinpointClient,
+      deviceContextInfo: deviceContextInfo,
+    );
+    await endpointClient.init(
+      endpointInfoStore: endpointInfoStore,
+      legacyNativeDataProvider: legacyNativeDataProvider,
+    );
+    return endpointClient;
+  }
+
+  late final String _fixedEndpointId;
+  late final EndpointGlobalFieldsManager _globalFieldsManager;
+
+  final String _pinpointAppId;
   final PinpointClient _pinpointClient;
-
-  final String _fixedEndpointId;
-
-  /// Retrieve unique id for identifying the Endpoint on this device
-  String get fixedEndpointId => _fixedEndpointId;
 
   // Current Endpoint being managed
   final PublicEndpointBuilder _endpointBuilder;
-  final EndpointGlobalFieldsManager _globalFieldsManager;
+
+  /// Retrieve unique id for identifying the Endpoint on this device
+  String get fixedEndpointId => _fixedEndpointId;
 
   /// Add an attribute that will be sent with all future events
   Future<void> addAttribute(String name, String value) async =>
@@ -52,6 +109,18 @@ class EndpointClient {
   Future<void> removeMetric(String name) async =>
       _globalFieldsManager.removeMetric(name);
 
+  /// Set provided fields of the Endpoint
+  void setFields({
+    ChannelType? channelType,
+    String? address,
+    String? optOut,
+  }) {
+    _endpointBuilder
+      ..channelType = channelType
+      ..address = address
+      ..optOut = optOut;
+  }
+
   /// Update the UserProfile object of the EndpointProfile.
   ///
   /// Copies the fields of [userProfile]
@@ -61,9 +130,6 @@ class EndpointClient {
     AnalyticsUserProfile userProfile,
   ) async {
     final newUserBuilder = EndpointUserBuilder()..userId = userId;
-
-    // TODO(fjnoyp): introduce a new AWSPinpointUserProfile subclass of AnalyticsUserProfile
-    // Which will contain 'userAttributes' that will be stored on EndpointUserBuilder
 
     // The [AnalyticsUserProfile] name, email, and plan fields are added as regular attributes to the local Endpoint
     if (userProfile.name != null) {
@@ -118,8 +184,6 @@ class EndpointClient {
     }
 
     _endpointBuilder.user = newUserBuilder;
-
-    await updateEndpoint();
   }
 
   /// Return Endpoint instance
@@ -142,7 +206,7 @@ class EndpointClient {
     await _pinpointClient
         .updateEndpoint(
           UpdateEndpointRequest(
-            applicationId: _appId,
+            applicationId: _pinpointAppId,
             endpointId: _fixedEndpointId,
             endpointRequest: _endpointToRequest(getPublicEndpoint()),
           ),

@@ -16,14 +16,13 @@ import 'package:amplify_core/amplify_core.dart';
 class EventCreator {
   /// {@macro amplify_analytics_pinpoint_dart.event_creator}
   EventCreator({
-    required EventGlobalFieldsManager globalFieldsManager,
     DeviceContextInfo? deviceContextInfo,
-  })  : _globalFieldsManager = globalFieldsManager,
-        _deviceContextInfo = deviceContextInfo;
+  }) : _deviceContextInfo = deviceContextInfo;
 
   static const int _maxEventTypeLength = 50;
 
-  final EventGlobalFieldsManager _globalFieldsManager;
+  final EventGlobalFieldsManager _globalFieldsManager =
+      EventGlobalFieldsManager();
   final DeviceContextInfo? _deviceContextInfo;
 
   /// Create a Pinpoint [Event] from a [AnalyticsEvent] received from the public API
@@ -31,7 +30,7 @@ class EventCreator {
   Event createPinpointEvent(
     String eventType,
     Session? session, [
-    AnalyticsEvent? analyticsEvent,
+    AnalyticsProperties? analyticsProperties,
   ]) {
     if (eventType.length > _maxEventTypeLength) {
       throw const AnalyticsException(
@@ -54,9 +53,9 @@ class EventCreator {
       ..metrics.addAll(_globalFieldsManager.globalMetrics);
 
     /// Read attributes and metrics from [analyticsEvent]
-    if (analyticsEvent != null) {
-      eventBuilder.attributes.addAll(analyticsEvent.properties.attributes);
-      eventBuilder.metrics.addAll(analyticsEvent.properties.metrics);
+    if (analyticsProperties != null) {
+      eventBuilder.attributes.addAll(analyticsProperties.attributes);
+      eventBuilder.metrics.addAll(analyticsProperties.metrics);
     }
 
     return eventBuilder.build();

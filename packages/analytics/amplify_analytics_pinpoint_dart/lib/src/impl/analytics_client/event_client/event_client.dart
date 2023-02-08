@@ -3,8 +3,11 @@
 
 import 'dart:async';
 
-import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
+import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_storage_adapter.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/string_database/index_db/in_memory_string_db.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/string_database/string_database.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_creator/event_creator.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:smithy/smithy.dart';
@@ -20,24 +23,29 @@ import 'package:smithy/smithy.dart';
 class EventClient implements Closeable {
   /// {@macro amplify_analytics_pinpoint_dart.event_client}
   EventClient({
-    required String appId,
-    required String fixedEndpointId,
+    required String pinpointAppId,
     required PinpointClient pinpointClient,
     required EndpointClient endpointClient,
-    required EventStorageAdapter storageAdapter,
-  })  : _appId = appId,
-        _fixedEndpointId = fixedEndpointId,
+    StringDatabase? eventDatabase,
+    DeviceContextInfo? deviceContextInfo,
+  })  : _pinpointAppId = pinpointAppId,
+        _fixedEndpointId = endpointClient.fixedEndpointId,
         _pinpointClient = pinpointClient,
         _endpointClient = endpointClient,
-        _storageAdapter = storageAdapter {
+        _storageAdapter =
+            EventStorageAdapter(eventDatabase ?? InMemoryStringDb()),
+        _eventCreator = EventCreator(
+          deviceContextInfo: deviceContextInfo,
+        ) {
     _listenForFlushEvents();
   }
 
   final EventStorageAdapter _storageAdapter;
-  final String _appId;
+  final String _pinpointAppId;
   final String _fixedEndpointId;
   final PinpointClient _pinpointClient;
   final EndpointClient _endpointClient;
+  final EventCreator _eventCreator;
 
   /// Controller to queue requests to [flushEvents] so that there is only one
   /// concurrent request to the database and Pinpoint backend at a time.
@@ -62,13 +70,36 @@ class EventClient implements Closeable {
   static final AmplifyLogger _logger =
       AmplifyLogger.category(Category.analytics).createChild('EventClient');
 
-  /// Received events are NEVER sent immediately but cached to be sent in a batch
-  Future<void> recordEvent(Event event) async {
-    await _storageAdapter.saveEvent(event);
+  /// Record event to be sent in the next event batch on [flushEvents]
+  Future<void> recordEvent({
+    required String eventType,
+    Session? session,
+    AnalyticsProperties? properties,
+  }) async {
+    final pinpointEvent = _eventCreator.createPinpointEvent(
+      eventType,
+      session,
+      properties,
+    );
+    await _storageAdapter.saveEvent(pinpointEvent);
+  }
+
+  /// Register [AnalyticsProperties] to be sent with all future events
+  Future<void> registerGlobalProperties(
+    AnalyticsProperties globalProperties,
+  ) async {
+    return _eventCreator.registerGlobalProperties(globalProperties);
+  }
+
+  /// Unregister [AnalyticsProperties] to not be sent with all future events
+  Future<void> unregisterGlobalProperties(
+    List<String> propertyNames,
+  ) async {
+    return _eventCreator.unregisterGlobalProperties(propertyNames);
   }
 
   /// Send cached events as a batch to Pinpoint
-  /// Parse and response to Pinpoint response
+  /// Delete cached events that have been successfully sent
   Future<void> flushEvents() {
     final completer = Completer<void>.sync();
     _flushEventsController.add(completer);
@@ -103,7 +134,7 @@ class EventClient implements Closeable {
       final result = await _pinpointClient
           .putEvents(
             PutEventsRequest(
-              applicationId: _appId,
+              applicationId: _pinpointAppId,
               eventsRequest: EventsRequest(batchItem: batchItems),
             ),
           )
