@@ -3,6 +3,7 @@
 
 import 'dart:async';
 
+// ignore: implementation_imports
 import 'package:amplify_db_common_dart/src/connect_io.dart' as base;
 import 'package:drift/drift.dart';
 import 'package:path_provider/path_provider.dart';
