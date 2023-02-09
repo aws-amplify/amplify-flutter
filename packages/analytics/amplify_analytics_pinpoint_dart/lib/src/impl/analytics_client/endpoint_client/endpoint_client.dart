@@ -54,6 +54,7 @@ class EndpointClient {
     final endpointIdManager = EndpointIdManager(
       store: endpointInfoStore,
       legacyNativeDataProvider: legacyNativeDataProvider,
+      pinpointAppId: _pinpointAppId,
     );
     _fixedEndpointId = await endpointIdManager.retrieveEndpointId();
 
@@ -109,17 +110,10 @@ class EndpointClient {
   Future<void> removeMetric(String name) async =>
       _globalFieldsManager.removeMetric(name);
 
-  /// Set provided fields of the Endpoint
-  void setFields({
-    ChannelType? channelType,
-    String? address,
-    String? optOut,
-  }) {
-    _endpointBuilder
-      ..channelType = channelType
-      ..address = address
-      ..optOut = optOut;
-  }
+  set channelType(ChannelType? channelType) =>
+      _endpointBuilder.channelType = channelType;
+  set address(String? address) => _endpointBuilder.address = address;
+  set optOut(String? optOut) => _endpointBuilder.optOut = optOut;
 
   /// Update the UserProfile object of the EndpointProfile.
   ///

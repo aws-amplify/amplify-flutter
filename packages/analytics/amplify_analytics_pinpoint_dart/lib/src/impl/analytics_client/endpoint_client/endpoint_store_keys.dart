@@ -5,6 +5,21 @@
 enum EndpointStoreKey {
   /// The current version of the endpoint version store
   version,
+
+  /// Global attributes key attached to endpoint
+  // Use upper case to support legacy naming
+  // ignore: constant_identifier_names
+  EndpointGlobalAttributesKey,
+
+  /// Global metrics key attached to endpoint
+  // Use upper case to support legacy naming
+  // ignore: constant_identifier_names
+  EndpointGlobalMetricsKey,
+
+  /// Key for storing the Endpoint Id
+  // Use upper case to support legacy naming
+  // ignore: constant_identifier_names
+  UniqueId,
 }
 
 /// The endpoint store version.
