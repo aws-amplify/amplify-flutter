@@ -13,6 +13,9 @@ category_dir=$(echo $plugin | cut -d'_' -f 2)
 if [[ "$plugin" =~ "amplify_flutter" ]]; then
     category_dir="amplify" 
 fi
+if [[ "$plugin" =~ "amplify_secure_storage" ]]; then
+    category_dir="secure_storage" 
+fi
 
 set +e
 set -o pipefail

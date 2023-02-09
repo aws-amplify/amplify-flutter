@@ -43,9 +43,14 @@ android {
     defaultConfig {
         minSdkVersion 23
     }
+
+    testOptions.unitTests.includeAndroidResources = true
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.security:security-crypto:1.0.0'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.robolectric:robolectric:4.9'
+    testImplementation 'androidx.test:core-ktx:1.5.0'
 }

@@ -247,6 +247,7 @@ workflows:
                   "amplify_auth_cognito",
                   "amplify_datastore",
                   "amplify_flutter",
+                  "amplify_secure_storage",
                 ]
       - unit_test_ios:
           matrix:
