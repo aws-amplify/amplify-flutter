@@ -84,7 +84,7 @@ jobs:
 
       - name: Boot iOS Simulator
         run: |
-          xcrun simctl boot "iPhone 13"
+          xcrun simctl boot "iPhone 14 Pro Max"
 
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
@@ -160,6 +160,8 @@ jobs:
       
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
+        with:
+          flutter-version: '3.3.0'
 
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends

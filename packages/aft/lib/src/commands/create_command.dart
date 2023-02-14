@@ -68,8 +68,6 @@ class CreateCommand extends AmplifyCommand {
         repoPackages['amplify_flutter']!.version.amplifyConstraint();
     final dartSdkConstraint = aftConfig.environment.sdk.toString();
     final flutterSdkConstraint = aftConfig.environment.flutter.toString();
-    final androidCompileSdkVersion =
-        aftConfig.environment.android.compileSdkVersion;
     final androidMinSdkVersion = aftConfig.environment.android.minSdkVersion;
     final iosMinOsVersion = aftConfig.environment.ios.minOSVersion;
     final macosMinOsVersion = aftConfig.environment.macOS.minOSVersion;
@@ -86,7 +84,6 @@ class CreateCommand extends AmplifyCommand {
         'amplifyFlutterConstraint': amplifyFlutterConstraint,
         'dartSdkConstraint': dartSdkConstraint,
         'flutterSdkConstraint': flutterSdkConstraint,
-        'androidCompileSdkVersion': androidCompileSdkVersion,
         'androidMinSdkVersion': androidMinSdkVersion,
         'iosMinOsVersion': iosMinOsVersion,
         'macosMinOsVersion': macosMinOsVersion,

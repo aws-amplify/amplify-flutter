@@ -109,7 +109,7 @@ version: ${pubspec.version?.canonicalizedVersion ?? '0.1.0'}
 ${smithyPath == null ? pubspec.publishTo != null ? 'publish_to: ${pubspec.publishTo}\n' : '' : 'publish_to: none\n'}${pubspec.homepage != null ? 'homepage: ${pubspec.homepage}\n' : ''}
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ">=2.18.0 <4.0.0"
 
 dependencies:
 $dependenciesBlock

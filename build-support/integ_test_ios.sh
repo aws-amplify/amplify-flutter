@@ -64,7 +64,7 @@ if xcodebuild -workspace ios/Runner.xcworkspace -list -json | jq -e '.workspace.
     xcodebuild \
         -workspace ios/Runner.xcworkspace \
         -scheme RunnerTests \
-        -destination "platform=iOS Simulator,name=iPhone 12 Pro Max" \
+        -destination "platform=iOS Simulator,name=iPhone 14 Pro Max" \
         test
 else
     testsList+=("$TARGET")
