@@ -1,6 +1,6 @@
 {
-    "name": "example",
-    "short_name": "example",
+    "name": "amplify_analytics_pinpoint_example",
+    "short_name": "amplify_analytics_pinpoint_example",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

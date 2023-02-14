@@ -2,10 +2,6 @@ name: Dart (DDC)
 on:
   workflow_call:
     inputs:
-      test-ddc-stable:
-        description: Whether the package should be tested on DDC (stable)
-        required: true
-        type: boolean
       working-directory:
         description: The working directory relative to the repo root
         required: true
@@ -22,8 +18,7 @@ jobs:
       matrix:
         sdk:
           # Minimum supported Dart version
-          # TODO(dnys1): Remove when repo bump to 2.19 happens
-          # - 2.19.0
+          - '2.18.0'
           - stable
           - beta
         browser:
@@ -82,6 +77,6 @@ jobs:
           fi
 
       - name: Run Tests
-        if: "always() && steps.bootstrap.conclusion == 'success' && (matrix.sdk == 'beta' || inputs.test-ddc-stable)"
+        if: "always() && steps.bootstrap.conclusion == 'success' && matrix.sdk != '2.18.0'"
         run: dart run build_runner test --delete-conflicting-outputs -- -p ${{ matrix.browser }} --exclude-tags=no-ddc
         working-directory: ${{ inputs.working-directory }}

@@ -103,11 +103,9 @@ AndroidEnvironment _$AndroidEnvironmentFromJson(Map json) => $checkedCreate(
       ($checkedConvert) {
         $checkKeys(
           json,
-          allowedKeys: const ['compileSdkVersion', 'minSdkVersion'],
+          allowedKeys: const ['minSdkVersion'],
         );
         final val = AndroidEnvironment(
-          compileSdkVersion:
-              $checkedConvert('compileSdkVersion', (v) => v as String),
           minSdkVersion: $checkedConvert('minSdkVersion', (v) => v as String),
         );
         return val;
@@ -116,7 +114,6 @@ AndroidEnvironment _$AndroidEnvironmentFromJson(Map json) => $checkedCreate(
 
 Map<String, dynamic> _$AndroidEnvironmentToJson(AndroidEnvironment instance) =>
     <String, dynamic>{
-      'compileSdkVersion': instance.compileSdkVersion,
       'minSdkVersion': instance.minSdkVersion,
     };
 

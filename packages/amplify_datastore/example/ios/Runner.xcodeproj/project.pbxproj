@@ -3,53 +3,63 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
-		2EBC3F746CF541ABA2D5E4AD /* Pods_unit_tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68116B16BA96DBBC833ACD60 /* Pods_unit_tests.framework */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
+		3DAAF541FFDF2AF1B80B336C /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8B7F726624D3188AFDAB963 /* Pods_Runner.framework */; };
+		4B4F4F202982D0CB00204FE6 /* DataStoreHubEventStreamHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F4F172982D0C500204FE6 /* DataStoreHubEventStreamHandlerTests.swift */; };
+		4B4F4F212982D0CB00204FE6 /* ModelSchemaEquatableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F4F182982D0C600204FE6 /* ModelSchemaEquatableExtensions.swift */; };
+		4B4F4F222982D0CB00204FE6 /* AmplifySerializedModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F4F192982D0C700204FE6 /* AmplifySerializedModelUnitTests.swift */; };
+		4B4F4F232982D0CB00204FE6 /* QueryPaginationUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F4F1A2982D0C700204FE6 /* QueryPaginationUnitTests.swift */; };
+		4B4F4F242982D0CB00204FE6 /* GetJsonFromFileUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F4F1B2982D0C800204FE6 /* GetJsonFromFileUtil.swift */; };
+		4B4F4F252982D0CB00204FE6 /* QueryPredicateBuilderUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F4F1C2982D0C800204FE6 /* QueryPredicateBuilderUnitTests.swift */; };
+		4B4F4F262982D0CB00204FE6 /* AmplifyModelSchemaUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F4F1D2982D0C900204FE6 /* AmplifyModelSchemaUnitTests.swift */; };
+		4B4F4F272982D0CB00204FE6 /* QuerySortBuilderUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F4F1E2982D0CA00204FE6 /* QuerySortBuilderUnitTests.swift */; };
+		4B4F4F282982D0CB00204FE6 /* DataStorePluginUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F4F1F2982D0CB00204FE6 /* DataStorePluginUnitTests.swift */; };
+		4B4F4F4B2982D1E000204FE6 /* instance_no_predicate.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F2D2982D1E000204FE6 /* instance_no_predicate.json */; };
+		4B4F4F4C2982D1E000204FE6 /* SchemaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F4F2E2982D1E000204FE6 /* SchemaData.swift */; };
+		4B4F4F4D2982D1E000204FE6 /* custom_type_schema_maps.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F302982D1E000204FE6 /* custom_type_schema_maps.json */; };
+		4B4F4F4E2982D1E000204FE6 /* serialized_model_maps.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F312982D1E000204FE6 /* serialized_model_maps.json */; };
+		4B4F4F4F2982D1E000204FE6 /* model_schema_maps.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F322982D1E000204FE6 /* model_schema_maps.json */; };
+		4B4F4F502982D1E000204FE6 /* FlutterSerializedModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4F4F332982D1E000204FE6 /* FlutterSerializedModelData.swift */; };
+		4B4F4F512982D1E000204FE6 /* relation_model_identifier_equals.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F362982D1E000204FE6 /* relation_model_identifier_equals.json */; };
+		4B4F4F522982D1E000204FE6 /* complex_nested.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F372982D1E000204FE6 /* complex_nested.json */; };
+		4B4F4F532982D1E000204FE6 /* bool_and_double_operands.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F382982D1E000204FE6 /* bool_and_double_operands.json */; };
+		4B4F4F542982D1E100204FE6 /* model_identifier_not_equals.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F392982D1E000204FE6 /* model_identifier_not_equals.json */; };
+		4B4F4F552982D1E100204FE6 /* rating_greater_or_equal.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F3A2982D1E000204FE6 /* rating_greater_or_equal.json */; };
+		4B4F4F562982D1E100204FE6 /* model_identifier_equals.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F3B2982D1E000204FE6 /* model_identifier_equals.json */; };
+		4B4F4F572982D1E100204FE6 /* group_with_only_and.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F3C2982D1E000204FE6 /* group_with_only_and.json */; };
+		4B4F4F582982D1E100204FE6 /* mixed_with_not.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F3D2982D1E000204FE6 /* mixed_with_not.json */; };
+		4B4F4F592982D1E100204FE6 /* group_mixed_and_or.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F3E2982D1E000204FE6 /* group_mixed_and_or.json */; };
+		4B4F4F5A2982D1E100204FE6 /* query_predicate_constant_all.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F3F2982D1E000204FE6 /* query_predicate_constant_all.json */; };
+		4B4F4F5B2982D1E100204FE6 /* id_not_equals.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F402982D1E000204FE6 /* id_not_equals.json */; };
+		4B4F4F5C2982D1E100204FE6 /* model_identifier_group_equals.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F412982D1E000204FE6 /* model_identifier_group_equals.json */; };
+		4B4F4F5D2982D1E100204FE6 /* negate_complex_predicate.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F422982D1E000204FE6 /* negate_complex_predicate.json */; };
+		4B4F4F5E2982D1E100204FE6 /* model_identifier_group_not_equals.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F432982D1E000204FE6 /* model_identifier_group_not_equals.json */; };
+		4B4F4F5F2982D1E100204FE6 /* only_model_name.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F452982D1E000204FE6 /* only_model_name.json */; };
+		4B4F4F602982D1E100204FE6 /* 2_results.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F462982D1E000204FE6 /* 2_results.json */; };
+		4B4F4F612982D1E100204FE6 /* model_name_with_all_query_parameters.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F472982D1E000204FE6 /* model_name_with_all_query_parameters.json */; };
+		4B4F4F622982D1E100204FE6 /* 1_result.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F482982D1E000204FE6 /* 1_result.json */; };
+		4B4F4F632982D1E100204FE6 /* instance_without_predicate.json in Resources */ = {isa = PBXBuildFile; fileRef = 4B4F4F4A2982D1E000204FE6 /* instance_without_predicate.json */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
-		8197696BDA13A6F056FADB82 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87D329E64A2B20511B081279 /* Pods_Runner.framework */; };
-		847189C22565F41700D6798A /* SchemaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847189C12565F41700D6798A /* SchemaData.swift */; };
-		847189C72565F81B00D6798A /* ModelSchemaEquatableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847189C52565F81B00D6798A /* ModelSchemaEquatableExtensions.swift */; };
-		847189C82565F81B00D6798A /* AmplifyModelSchemaUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847189C62565F81B00D6798A /* AmplifyModelSchemaUnitTests.swift */; };
-		847189D82565FAF200D6798A /* model_schema_maps.json in Resources */ = {isa = PBXBuildFile; fileRef = 847189D72565FAF200D6798A /* model_schema_maps.json */; };
-		84A03068257714C0007106B9 /* AmplifySerializedModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A03067257714C0007106B9 /* AmplifySerializedModelUnitTests.swift */; };
-		84A0307D25771DEC007106B9 /* FlutterSerializedModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0307C25771DEC007106B9 /* FlutterSerializedModelData.swift */; };
-		84A0308225771E15007106B9 /* serialized_model_maps.json in Resources */ = {isa = PBXBuildFile; fileRef = 84A0308125771E15007106B9 /* serialized_model_maps.json */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
-		9C44723B2559F95300557CB1 /* instance_no_predicate.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C44723A2559F95300557CB1 /* instance_no_predicate.json */; };
-		9CD33317256ED83700C1CC2A /* DataStoreHubEventStreamHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD33316256ED83700C1CC2A /* DataStoreHubEventStreamHandlerTests.swift */; };
-		B409DD21254A02EE006AECDB /* DataStorePluginUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B409DD20254A02EE006AECDB /* DataStorePluginUnitTests.swift */; };
-		B409DE1F254A218A006AECDB /* 2_results.json in Resources */ = {isa = PBXBuildFile; fileRef = B409DE1C254A218A006AECDB /* 2_results.json */; };
-		B409DE20254A218A006AECDB /* only_model_name.json in Resources */ = {isa = PBXBuildFile; fileRef = B409DE1D254A218A006AECDB /* only_model_name.json */; };
-		B409DE21254A218A006AECDB /* model_name_with_all_query_parameters.json in Resources */ = {isa = PBXBuildFile; fileRef = B409DE1E254A218A006AECDB /* model_name_with_all_query_parameters.json */; };
-		B409DE75254BAC5A006AECDB /* GetJsonFromFileUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B409DE74254BAC5A006AECDB /* GetJsonFromFileUtil.swift */; };
-		B4A5C37E2548A5D000B9E501 /* QuerySortBuilderUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A5C37D2548A5D000B9E501 /* QuerySortBuilderUnitTests.swift */; };
-		B4A5C3F42548C7B500B9E501 /* QueryPaginationUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A5C3F32548C7B500B9E501 /* QueryPaginationUnitTests.swift */; };
-		B4A5C4482548E4CF00B9E501 /* QueryPredicateBuilderUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A5C4472548E4CF00B9E501 /* QueryPredicateBuilderUnitTests.swift */; };
-		B4A5C4512548EF9A00B9E501 /* id_not_equals.json in Resources */ = {isa = PBXBuildFile; fileRef = B4A5C4502548EF9A00B9E501 /* id_not_equals.json */; };
-		B4A5C45A2548F00900B9E501 /* group_with_only_and.json in Resources */ = {isa = PBXBuildFile; fileRef = B4A5C4542548F00900B9E501 /* group_with_only_and.json */; };
-		B4A5C45B2548F00900B9E501 /* mixed_with_not.json in Resources */ = {isa = PBXBuildFile; fileRef = B4A5C4552548F00900B9E501 /* mixed_with_not.json */; };
-		B4A5C45C2548F00900B9E501 /* rating_greater_or_equal.json in Resources */ = {isa = PBXBuildFile; fileRef = B4A5C4562548F00900B9E501 /* rating_greater_or_equal.json */; };
-		B4A5C45D2548F00900B9E501 /* group_mixed_and_or.json in Resources */ = {isa = PBXBuildFile; fileRef = B4A5C4572548F00900B9E501 /* group_mixed_and_or.json */; };
-		B4A5C45E2548F00900B9E501 /* negate_complex_predicate.json in Resources */ = {isa = PBXBuildFile; fileRef = B4A5C4582548F00900B9E501 /* negate_complex_predicate.json */; };
-		B4A5C45F2548F00900B9E501 /* complex_nested.json in Resources */ = {isa = PBXBuildFile; fileRef = B4A5C4592548F00900B9E501 /* complex_nested.json */; };
-		B4A5C4672549009900B9E501 /* bool_and_double_operands.json in Resources */ = {isa = PBXBuildFile; fileRef = B4A5C4662549009900B9E501 /* bool_and_double_operands.json */; };
-		B4FD354C255D0A9D00A4E699 /* 1_result.json in Resources */ = {isa = PBXBuildFile; fileRef = B4FD354B255D0A9D00A4E699 /* 1_result.json */; };
-		D30253A827A1A89E0067A915 /* query_predicate_constant_all.json in Resources */ = {isa = PBXBuildFile; fileRef = D30253A727A1A89E0067A915 /* query_predicate_constant_all.json */; };
-		D3255F0326E81E3300063A15 /* custom_type_schema_maps.json in Resources */ = {isa = PBXBuildFile; fileRef = D3255F0226E81E3300063A15 /* custom_type_schema_maps.json */; };
-		D3B1E07D283EB5DD0004F964 /* model_identifier_group_equals.json in Resources */ = {isa = PBXBuildFile; fileRef = D3B1E07C283EB5DD0004F964 /* model_identifier_group_equals.json */; };
-		D3B1E07F283EB5F20004F964 /* model_identifier_group_not_equals.json in Resources */ = {isa = PBXBuildFile; fileRef = D3B1E07E283EB5F20004F964 /* model_identifier_group_not_equals.json */; };
-		D3B1E081283EB6040004F964 /* model_identifier_not_equals.json in Resources */ = {isa = PBXBuildFile; fileRef = D3B1E080283EB6040004F964 /* model_identifier_not_equals.json */; };
-		D3B1E082283EB8080004F964 /* model_identifier_equals.json in Resources */ = {isa = PBXBuildFile; fileRef = D3B1E07B283EB5BC0004F964 /* model_identifier_equals.json */; };
-		D3B1E08428625F0D0004F964 /* relation_model_identifier_equals.json in Resources */ = {isa = PBXBuildFile; fileRef = D3B1E08328625F0D0004F964 /* relation_model_identifier_equals.json */; };
-		FB228242255D4C95004BFCC0 /* instance_without_predicate.json in Resources */ = {isa = PBXBuildFile; fileRef = FB228241255D4C95004BFCC0 /* instance_without_predicate.json */; };
+		D1EF6FEC18D5D2C67CCFDFD2 /* Pods_unit_tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A37E356E771291D4579AA91A /* Pods_unit_tests.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4B4F4F102982D06800204FE6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 97C146ED1CF9000F007C117D;
+			remoteInfo = Runner;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		9705A1C41CF9048500538489 /* Embed Frameworks */ = {
@@ -67,24 +77,49 @@
 /* Begin PBXFileReference section */
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
-		277FCD305AE32B7F43C892DF /* Pods-unit_tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.debug.xcconfig"; path = "Target Support Files/Pods-unit_tests/Pods-unit_tests.debug.xcconfig"; sourceTree = "<group>"; };
-		36E2FE7426F3C4F485B9461C /* Pods-unit_tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.debug.xcconfig"; path = "Target Support Files/Pods-unit_tests/Pods-unit_tests.debug.xcconfig"; sourceTree = "<group>"; };
+		341204343CFBD467B8CEC415 /* Pods-unit_tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.release.xcconfig"; path = "Target Support Files/Pods-unit_tests/Pods-unit_tests.release.xcconfig"; sourceTree = "<group>"; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
-		50F6880996E66CE24DED7C12 /* Pods-unit_tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.release.xcconfig"; path = "Target Support Files/Pods-unit_tests/Pods-unit_tests.release.xcconfig"; sourceTree = "<group>"; };
-		68116B16BA96DBBC833ACD60 /* Pods_unit_tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_unit_tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B4F4F0C2982D06800204FE6 /* unit_tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = unit_tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B4F4F162982D0C400204FE6 /* unit_tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "unit_tests-Bridging-Header.h"; sourceTree = "<group>"; };
+		4B4F4F172982D0C500204FE6 /* DataStoreHubEventStreamHandlerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStoreHubEventStreamHandlerTests.swift; sourceTree = "<group>"; };
+		4B4F4F182982D0C600204FE6 /* ModelSchemaEquatableExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelSchemaEquatableExtensions.swift; sourceTree = "<group>"; };
+		4B4F4F192982D0C700204FE6 /* AmplifySerializedModelUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmplifySerializedModelUnitTests.swift; sourceTree = "<group>"; };
+		4B4F4F1A2982D0C700204FE6 /* QueryPaginationUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryPaginationUnitTests.swift; sourceTree = "<group>"; };
+		4B4F4F1B2982D0C800204FE6 /* GetJsonFromFileUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetJsonFromFileUtil.swift; sourceTree = "<group>"; };
+		4B4F4F1C2982D0C800204FE6 /* QueryPredicateBuilderUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryPredicateBuilderUnitTests.swift; sourceTree = "<group>"; };
+		4B4F4F1D2982D0C900204FE6 /* AmplifyModelSchemaUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmplifyModelSchemaUnitTests.swift; sourceTree = "<group>"; };
+		4B4F4F1E2982D0CA00204FE6 /* QuerySortBuilderUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuerySortBuilderUnitTests.swift; sourceTree = "<group>"; };
+		4B4F4F1F2982D0CB00204FE6 /* DataStorePluginUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStorePluginUnitTests.swift; sourceTree = "<group>"; };
+		4B4F4F2D2982D1E000204FE6 /* instance_no_predicate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = instance_no_predicate.json; sourceTree = "<group>"; };
+		4B4F4F2E2982D1E000204FE6 /* SchemaData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaData.swift; sourceTree = "<group>"; };
+		4B4F4F302982D1E000204FE6 /* custom_type_schema_maps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = custom_type_schema_maps.json; sourceTree = "<group>"; };
+		4B4F4F312982D1E000204FE6 /* serialized_model_maps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = serialized_model_maps.json; sourceTree = "<group>"; };
+		4B4F4F322982D1E000204FE6 /* model_schema_maps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_schema_maps.json; sourceTree = "<group>"; };
+		4B4F4F332982D1E000204FE6 /* FlutterSerializedModelData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlutterSerializedModelData.swift; sourceTree = "<group>"; };
+		4B4F4F362982D1E000204FE6 /* relation_model_identifier_equals.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = relation_model_identifier_equals.json; sourceTree = "<group>"; };
+		4B4F4F372982D1E000204FE6 /* complex_nested.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = complex_nested.json; sourceTree = "<group>"; };
+		4B4F4F382982D1E000204FE6 /* bool_and_double_operands.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bool_and_double_operands.json; sourceTree = "<group>"; };
+		4B4F4F392982D1E000204FE6 /* model_identifier_not_equals.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_identifier_not_equals.json; sourceTree = "<group>"; };
+		4B4F4F3A2982D1E000204FE6 /* rating_greater_or_equal.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = rating_greater_or_equal.json; sourceTree = "<group>"; };
+		4B4F4F3B2982D1E000204FE6 /* model_identifier_equals.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_identifier_equals.json; sourceTree = "<group>"; };
+		4B4F4F3C2982D1E000204FE6 /* group_with_only_and.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = group_with_only_and.json; sourceTree = "<group>"; };
+		4B4F4F3D2982D1E000204FE6 /* mixed_with_not.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mixed_with_not.json; sourceTree = "<group>"; };
+		4B4F4F3E2982D1E000204FE6 /* group_mixed_and_or.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = group_mixed_and_or.json; sourceTree = "<group>"; };
+		4B4F4F3F2982D1E000204FE6 /* query_predicate_constant_all.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = query_predicate_constant_all.json; sourceTree = "<group>"; };
+		4B4F4F402982D1E000204FE6 /* id_not_equals.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = id_not_equals.json; sourceTree = "<group>"; };
+		4B4F4F412982D1E000204FE6 /* model_identifier_group_equals.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_identifier_group_equals.json; sourceTree = "<group>"; };
+		4B4F4F422982D1E000204FE6 /* negate_complex_predicate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = negate_complex_predicate.json; sourceTree = "<group>"; };
+		4B4F4F432982D1E000204FE6 /* model_identifier_group_not_equals.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_identifier_group_not_equals.json; sourceTree = "<group>"; };
+		4B4F4F452982D1E000204FE6 /* only_model_name.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = only_model_name.json; sourceTree = "<group>"; };
+		4B4F4F462982D1E000204FE6 /* 2_results.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 2_results.json; sourceTree = "<group>"; };
+		4B4F4F472982D1E000204FE6 /* model_name_with_all_query_parameters.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_name_with_all_query_parameters.json; sourceTree = "<group>"; };
+		4B4F4F482982D1E000204FE6 /* 1_result.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 1_result.json; sourceTree = "<group>"; };
+		4B4F4F4A2982D1E000204FE6 /* instance_without_predicate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = instance_without_predicate.json; sourceTree = "<group>"; };
+		513D66DA8B182E3FFDF8750D /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		77ABD2C0019FF122B2F16E44 /* Pods-unit_tests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.profile.xcconfig"; path = "Target Support Files/Pods-unit_tests/Pods-unit_tests.profile.xcconfig"; sourceTree = "<group>"; };
-		79C83A6EA942A387ED62AF42 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
+		7A205B25C076AD0D2D0AEBA9 /* Pods-unit_tests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.profile.xcconfig"; path = "Target Support Files/Pods-unit_tests/Pods-unit_tests.profile.xcconfig"; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
-		847189C12565F41700D6798A /* SchemaData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaData.swift; sourceTree = "<group>"; };
-		847189C52565F81B00D6798A /* ModelSchemaEquatableExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelSchemaEquatableExtensions.swift; sourceTree = "<group>"; };
-		847189C62565F81B00D6798A /* AmplifyModelSchemaUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmplifyModelSchemaUnitTests.swift; sourceTree = "<group>"; };
-		847189D72565FAF200D6798A /* model_schema_maps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_schema_maps.json; sourceTree = "<group>"; };
-		84A03067257714C0007106B9 /* AmplifySerializedModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplifySerializedModelUnitTests.swift; sourceTree = "<group>"; };
-		84A0307C25771DEC007106B9 /* FlutterSerializedModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlutterSerializedModelData.swift; sourceTree = "<group>"; };
-		84A0308125771E15007106B9 /* serialized_model_maps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = serialized_model_maps.json; sourceTree = "<group>"; };
-		87D329E64A2B20511B081279 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
 		97C146EE1CF9000F007C117D /* Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,85 +127,138 @@
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9C44723A2559F95300557CB1 /* instance_no_predicate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = instance_no_predicate.json; sourceTree = "<group>"; };
-		9CD33316256ED83700C1CC2A /* DataStoreHubEventStreamHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStoreHubEventStreamHandlerTests.swift; sourceTree = "<group>"; };
-		B409DD20254A02EE006AECDB /* DataStorePluginUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStorePluginUnitTests.swift; sourceTree = "<group>"; };
-		B409DE1C254A218A006AECDB /* 2_results.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 2_results.json; sourceTree = "<group>"; };
-		B409DE1D254A218A006AECDB /* only_model_name.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = only_model_name.json; sourceTree = "<group>"; };
-		B409DE1E254A218A006AECDB /* model_name_with_all_query_parameters.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_name_with_all_query_parameters.json; sourceTree = "<group>"; };
-		B409DE74254BAC5A006AECDB /* GetJsonFromFileUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetJsonFromFileUtil.swift; sourceTree = "<group>"; };
-		B4A5C37B2548A5D000B9E501 /* unit_tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = unit_tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B4A5C37D2548A5D000B9E501 /* QuerySortBuilderUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuerySortBuilderUnitTests.swift; sourceTree = "<group>"; };
-		B4A5C37F2548A5D000B9E501 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B4A5C3F32548C7B500B9E501 /* QueryPaginationUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryPaginationUnitTests.swift; sourceTree = "<group>"; };
-		B4A5C4472548E4CF00B9E501 /* QueryPredicateBuilderUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryPredicateBuilderUnitTests.swift; sourceTree = "<group>"; };
-		B4A5C4502548EF9A00B9E501 /* id_not_equals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = id_not_equals.json; sourceTree = "<group>"; };
-		B4A5C4542548F00900B9E501 /* group_with_only_and.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = group_with_only_and.json; sourceTree = "<group>"; };
-		B4A5C4552548F00900B9E501 /* mixed_with_not.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mixed_with_not.json; sourceTree = "<group>"; };
-		B4A5C4562548F00900B9E501 /* rating_greater_or_equal.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = rating_greater_or_equal.json; sourceTree = "<group>"; };
-		B4A5C4572548F00900B9E501 /* group_mixed_and_or.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = group_mixed_and_or.json; sourceTree = "<group>"; };
-		B4A5C4582548F00900B9E501 /* negate_complex_predicate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = negate_complex_predicate.json; sourceTree = "<group>"; };
-		B4A5C4592548F00900B9E501 /* complex_nested.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = complex_nested.json; sourceTree = "<group>"; };
-		B4A5C4662549009900B9E501 /* bool_and_double_operands.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = bool_and_double_operands.json; sourceTree = "<group>"; };
-		B4FD354B255D0A9D00A4E699 /* 1_result.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = 1_result.json; sourceTree = "<group>"; };
-		B65FCE49BFB0E9D6F51F47EA /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
-		B8F88CC4CFC43169A3129743 /* Pods-unit_tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.release.xcconfig"; path = "Target Support Files/Pods-unit_tests/Pods-unit_tests.release.xcconfig"; sourceTree = "<group>"; };
-		D30253A727A1A89E0067A915 /* query_predicate_constant_all.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = query_predicate_constant_all.json; sourceTree = "<group>"; };
-		D3255F0226E81E3300063A15 /* custom_type_schema_maps.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = custom_type_schema_maps.json; sourceTree = "<group>"; };
-		D3B1E07B283EB5BC0004F964 /* model_identifier_equals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; lineEnding = 0; path = model_identifier_equals.json; sourceTree = "<group>"; };
-		D3B1E07C283EB5DD0004F964 /* model_identifier_group_equals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = model_identifier_group_equals.json; sourceTree = "<group>"; };
-		D3B1E07E283EB5F20004F964 /* model_identifier_group_not_equals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = model_identifier_group_not_equals.json; sourceTree = "<group>"; };
-		D3B1E080283EB6040004F964 /* model_identifier_not_equals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = model_identifier_not_equals.json; sourceTree = "<group>"; };
-		D3B1E08328625F0D0004F964 /* relation_model_identifier_equals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = relation_model_identifier_equals.json; sourceTree = "<group>"; };
-		D5D88DACD96D3CAC9BEBB076 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
-		ED11E4916E10B172A89EC7E9 /* Pods-unit_tests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.profile.xcconfig"; path = "Target Support Files/Pods-unit_tests/Pods-unit_tests.profile.xcconfig"; sourceTree = "<group>"; };
-		FB228241255D4C95004BFCC0 /* instance_without_predicate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = instance_without_predicate.json; sourceTree = "<group>"; };
+		A37E356E771291D4579AA91A /* Pods_unit_tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_unit_tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3E29A17FD3F47C25483D6A9 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
+		BD7FC2B06011119963768F41 /* Pods-unit_tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.debug.xcconfig"; path = "Target Support Files/Pods-unit_tests/Pods-unit_tests.debug.xcconfig"; sourceTree = "<group>"; };
+		C8B7F726624D3188AFDAB963 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D582C30A02F5DFE41E389713 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4B4F4F092982D06800204FE6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1EF6FEC18D5D2C67CCFDFD2 /* Pods_unit_tests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		97C146EB1CF9000F007C117D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8197696BDA13A6F056FADB82 /* Pods_Runner.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B4A5C3782548A5D000B9E501 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2EBC3F746CF541ABA2D5E4AD /* Pods_unit_tests.framework in Frameworks */,
+				3DAAF541FFDF2AF1B80B336C /* Pods_Runner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		417D1066DD09FB788918BC67 /* Pods */ = {
+		4B4F4F0D2982D06800204FE6 /* unit_tests */ = {
 			isa = PBXGroup;
 			children = (
-				79C83A6EA942A387ED62AF42 /* Pods-Runner.debug.xcconfig */,
-				B65FCE49BFB0E9D6F51F47EA /* Pods-Runner.release.xcconfig */,
-				D5D88DACD96D3CAC9BEBB076 /* Pods-Runner.profile.xcconfig */,
-				277FCD305AE32B7F43C892DF /* Pods-unit_tests.debug.xcconfig */,
-				50F6880996E66CE24DED7C12 /* Pods-unit_tests.release.xcconfig */,
-				77ABD2C0019FF122B2F16E44 /* Pods-unit_tests.profile.xcconfig */,
-				36E2FE7426F3C4F485B9461C /* Pods-unit_tests.debug.xcconfig */,
-				B8F88CC4CFC43169A3129743 /* Pods-unit_tests.release.xcconfig */,
-				ED11E4916E10B172A89EC7E9 /* Pods-unit_tests.profile.xcconfig */,
+				4B4F4F2B2982D1E000204FE6 /* resources */,
+				4B4F4F1D2982D0C900204FE6 /* AmplifyModelSchemaUnitTests.swift */,
+				4B4F4F192982D0C700204FE6 /* AmplifySerializedModelUnitTests.swift */,
+				4B4F4F172982D0C500204FE6 /* DataStoreHubEventStreamHandlerTests.swift */,
+				4B4F4F1F2982D0CB00204FE6 /* DataStorePluginUnitTests.swift */,
+				4B4F4F1B2982D0C800204FE6 /* GetJsonFromFileUtil.swift */,
+				4B4F4F182982D0C600204FE6 /* ModelSchemaEquatableExtensions.swift */,
+				4B4F4F1A2982D0C700204FE6 /* QueryPaginationUnitTests.swift */,
+				4B4F4F1C2982D0C800204FE6 /* QueryPredicateBuilderUnitTests.swift */,
+				4B4F4F1E2982D0CA00204FE6 /* QuerySortBuilderUnitTests.swift */,
+				4B4F4F162982D0C400204FE6 /* unit_tests-Bridging-Header.h */,
 			);
-			path = Pods;
+			path = unit_tests;
 			sourceTree = "<group>";
 		};
-		847189D62565FAF200D6798A /* modelSchema */ = {
+		4B4F4F2B2982D1E000204FE6 /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				84A0308125771E15007106B9 /* serialized_model_maps.json */,
-				847189D72565FAF200D6798A /* model_schema_maps.json */,
-				D3255F0226E81E3300063A15 /* custom_type_schema_maps.json */,
+				4B4F4F2C2982D1E000204FE6 /* delete */,
+				4B4F4F2E2982D1E000204FE6 /* SchemaData.swift */,
+				4B4F4F2F2982D1E000204FE6 /* modelSchema */,
+				4B4F4F332982D1E000204FE6 /* FlutterSerializedModelData.swift */,
+				4B4F4F342982D1E000204FE6 /* query */,
+				4B4F4F492982D1E000204FE6 /* save */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		4B4F4F2C2982D1E000204FE6 /* delete */ = {
+			isa = PBXGroup;
+			children = (
+				4B4F4F2D2982D1E000204FE6 /* instance_no_predicate.json */,
+			);
+			path = delete;
+			sourceTree = "<group>";
+		};
+		4B4F4F2F2982D1E000204FE6 /* modelSchema */ = {
+			isa = PBXGroup;
+			children = (
+				4B4F4F302982D1E000204FE6 /* custom_type_schema_maps.json */,
+				4B4F4F312982D1E000204FE6 /* serialized_model_maps.json */,
+				4B4F4F322982D1E000204FE6 /* model_schema_maps.json */,
 			);
 			path = modelSchema;
+			sourceTree = "<group>";
+		};
+		4B4F4F342982D1E000204FE6 /* query */ = {
+			isa = PBXGroup;
+			children = (
+				4B4F4F352982D1E000204FE6 /* predicates */,
+				4B4F4F442982D1E000204FE6 /* api */,
+			);
+			path = query;
+			sourceTree = "<group>";
+		};
+		4B4F4F352982D1E000204FE6 /* predicates */ = {
+			isa = PBXGroup;
+			children = (
+				4B4F4F362982D1E000204FE6 /* relation_model_identifier_equals.json */,
+				4B4F4F372982D1E000204FE6 /* complex_nested.json */,
+				4B4F4F382982D1E000204FE6 /* bool_and_double_operands.json */,
+				4B4F4F392982D1E000204FE6 /* model_identifier_not_equals.json */,
+				4B4F4F3A2982D1E000204FE6 /* rating_greater_or_equal.json */,
+				4B4F4F3B2982D1E000204FE6 /* model_identifier_equals.json */,
+				4B4F4F3C2982D1E000204FE6 /* group_with_only_and.json */,
+				4B4F4F3D2982D1E000204FE6 /* mixed_with_not.json */,
+				4B4F4F3E2982D1E000204FE6 /* group_mixed_and_or.json */,
+				4B4F4F3F2982D1E000204FE6 /* query_predicate_constant_all.json */,
+				4B4F4F402982D1E000204FE6 /* id_not_equals.json */,
+				4B4F4F412982D1E000204FE6 /* model_identifier_group_equals.json */,
+				4B4F4F422982D1E000204FE6 /* negate_complex_predicate.json */,
+				4B4F4F432982D1E000204FE6 /* model_identifier_group_not_equals.json */,
+			);
+			path = predicates;
+			sourceTree = "<group>";
+		};
+		4B4F4F442982D1E000204FE6 /* api */ = {
+			isa = PBXGroup;
+			children = (
+				4B4F4F452982D1E000204FE6 /* only_model_name.json */,
+				4B4F4F462982D1E000204FE6 /* 2_results.json */,
+				4B4F4F472982D1E000204FE6 /* model_name_with_all_query_parameters.json */,
+				4B4F4F482982D1E000204FE6 /* 1_result.json */,
+			);
+			path = api;
+			sourceTree = "<group>";
+		};
+		4B4F4F492982D1E000204FE6 /* save */ = {
+			isa = PBXGroup;
+			children = (
+				4B4F4F4A2982D1E000204FE6 /* instance_without_predicate.json */,
+			);
+			path = save;
+			sourceTree = "<group>";
+		};
+		859357C7513BC7F2B16A3929 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C8B7F726624D3188AFDAB963 /* Pods_Runner.framework */,
+				A37E356E771291D4579AA91A /* Pods_unit_tests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		9740EEB11CF90186004384FC /* Flutter */ = {
@@ -187,12 +275,12 @@
 		97C146E51CF9000F007C117D = {
 			isa = PBXGroup;
 			children = (
-				B4A5C37C2548A5D000B9E501 /* unit_tests */,
 				9740EEB11CF90186004384FC /* Flutter */,
-				417D1066DD09FB788918BC67 /* Pods */,
-				97C146EF1CF9000F007C117D /* Products */,
 				97C146F01CF9000F007C117D /* Runner */,
-				FEBC70E6F9891D9A6C7016AE /* Frameworks */,
+				4B4F4F0D2982D06800204FE6 /* unit_tests */,
+				97C146EF1CF9000F007C117D /* Products */,
+				FEDB8A9C310B000361844E57 /* Pods */,
+				859357C7513BC7F2B16A3929 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -200,7 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				97C146EE1CF9000F007C117D /* Runner.app */,
-				B4A5C37B2548A5D000B9E501 /* unit_tests.xctest */,
+				4B4F4F0C2982D06800204FE6 /* unit_tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -220,118 +308,54 @@
 			path = Runner;
 			sourceTree = "<group>";
 		};
-		9C44723D255A090900557CB1 /* delete */ = {
+		FEDB8A9C310B000361844E57 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9C44723A2559F95300557CB1 /* instance_no_predicate.json */,
+				A3E29A17FD3F47C25483D6A9 /* Pods-Runner.debug.xcconfig */,
+				513D66DA8B182E3FFDF8750D /* Pods-Runner.release.xcconfig */,
+				D582C30A02F5DFE41E389713 /* Pods-Runner.profile.xcconfig */,
+				BD7FC2B06011119963768F41 /* Pods-unit_tests.debug.xcconfig */,
+				341204343CFBD467B8CEC415 /* Pods-unit_tests.release.xcconfig */,
+				7A205B25C076AD0D2D0AEBA9 /* Pods-unit_tests.profile.xcconfig */,
 			);
-			path = delete;
-			sourceTree = "<group>";
-		};
-		B409DE1A254A2118006AECDB /* predicates */ = {
-			isa = PBXGroup;
-			children = (
-				B4A5C4662549009900B9E501 /* bool_and_double_operands.json */,
-				B4A5C4592548F00900B9E501 /* complex_nested.json */,
-				B4A5C4572548F00900B9E501 /* group_mixed_and_or.json */,
-				B4A5C4542548F00900B9E501 /* group_with_only_and.json */,
-				B4A5C4502548EF9A00B9E501 /* id_not_equals.json */,
-				B4A5C4552548F00900B9E501 /* mixed_with_not.json */,
-				B4A5C4582548F00900B9E501 /* negate_complex_predicate.json */,
-				B4A5C4562548F00900B9E501 /* rating_greater_or_equal.json */,
-				D30253A727A1A89E0067A915 /* query_predicate_constant_all.json */,
-				D3B1E07B283EB5BC0004F964 /* model_identifier_equals.json */,
-				D3B1E07C283EB5DD0004F964 /* model_identifier_group_equals.json */,
-				D3B1E07E283EB5F20004F964 /* model_identifier_group_not_equals.json */,
-				D3B1E080283EB6040004F964 /* model_identifier_not_equals.json */,
-				D3B1E08328625F0D0004F964 /* relation_model_identifier_equals.json */,
-			);
-			path = predicates;
-			sourceTree = "<group>";
-		};
-		B409DE1B254A2134006AECDB /* api */ = {
-			isa = PBXGroup;
-			children = (
-				B409DE1C254A218A006AECDB /* 2_results.json */,
-				B409DE1E254A218A006AECDB /* model_name_with_all_query_parameters.json */,
-				B409DE1D254A218A006AECDB /* only_model_name.json */,
-				B4FD354B255D0A9D00A4E699 /* 1_result.json */,
-			);
-			path = api;
-			sourceTree = "<group>";
-		};
-		B4A5C37C2548A5D000B9E501 /* unit_tests */ = {
-			isa = PBXGroup;
-			children = (
-				84A03067257714C0007106B9 /* AmplifySerializedModelUnitTests.swift */,
-				847189C62565F81B00D6798A /* AmplifyModelSchemaUnitTests.swift */,
-				847189C52565F81B00D6798A /* ModelSchemaEquatableExtensions.swift */,
-				B409DD20254A02EE006AECDB /* DataStorePluginUnitTests.swift */,
-				B409DE74254BAC5A006AECDB /* GetJsonFromFileUtil.swift */,
-				B4A5C37F2548A5D000B9E501 /* Info.plist */,
-				B4A5C3F32548C7B500B9E501 /* QueryPaginationUnitTests.swift */,
-				B4A5C4472548E4CF00B9E501 /* QueryPredicateBuilderUnitTests.swift */,
-				B4A5C37D2548A5D000B9E501 /* QuerySortBuilderUnitTests.swift */,
-				B4A5C44E2548EF7800B9E501 /* resources */,
-				9CD33316256ED83700C1CC2A /* DataStoreHubEventStreamHandlerTests.swift */,
-			);
-			path = unit_tests;
-			sourceTree = "<group>";
-		};
-		B4A5C44E2548EF7800B9E501 /* resources */ = {
-			isa = PBXGroup;
-			children = (
-				FB2B5E73255CDBFA00518204 /* save */,
-				847189C12565F41700D6798A /* SchemaData.swift */,
-				84A0307C25771DEC007106B9 /* FlutterSerializedModelData.swift */,
-				847189D62565FAF200D6798A /* modelSchema */,
-				9C44723D255A090900557CB1 /* delete */,
-				B4A5C44F2548EF8200B9E501 /* query */,
-			);
-			path = resources;
-			sourceTree = "<group>";
-		};
-		B4A5C44F2548EF8200B9E501 /* query */ = {
-			isa = PBXGroup;
-			children = (
-				B409DE1B254A2134006AECDB /* api */,
-				B409DE1A254A2118006AECDB /* predicates */,
-			);
-			path = query;
-			sourceTree = "<group>";
-		};
-		FB2B5E73255CDBFA00518204 /* save */ = {
-			isa = PBXGroup;
-			children = (
-				FB228241255D4C95004BFCC0 /* instance_without_predicate.json */,
-			);
-			path = save;
-			sourceTree = "<group>";
-		};
-		FEBC70E6F9891D9A6C7016AE /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				87D329E64A2B20511B081279 /* Pods_Runner.framework */,
-				68116B16BA96DBBC833ACD60 /* Pods_unit_tests.framework */,
-			);
-			name = Frameworks;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4B4F4F0B2982D06800204FE6 /* unit_tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4B4F4F152982D06800204FE6 /* Build configuration list for PBXNativeTarget "unit_tests" */;
+			buildPhases = (
+				9BD2D11F37C9DEB9FC8ABFDD /* [CP] Check Pods Manifest.lock */,
+				4B4F4F082982D06800204FE6 /* Sources */,
+				4B4F4F092982D06800204FE6 /* Frameworks */,
+				4B4F4F0A2982D06800204FE6 /* Resources */,
+				B005D689F79B10ED3CD79FE7 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4B4F4F112982D06800204FE6 /* PBXTargetDependency */,
+			);
+			name = unit_tests;
+			productName = unit_tests;
+			productReference = 4B4F4F0C2982D06800204FE6 /* unit_tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		97C146ED1CF9000F007C117D /* Runner */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97C147051CF9000F007C117D /* Build configuration list for PBXNativeTarget "Runner" */;
 			buildPhases = (
-				10E7C1138048819AB5054797 /* [CP] Check Pods Manifest.lock */,
+				9E8CD173197F252BDAF37D47 /* [CP] Check Pods Manifest.lock */,
 				9740EEB61CF901F6004384FC /* Run Script */,
 				97C146EA1CF9000F007C117D /* Sources */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
 				97C146EC1CF9000F007C117D /* Resources */,
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
-				DA21F913CA17E836467B2467 /* [CP] Embed Pods Frameworks */,
+				82ADDCADC3B57E544B433718 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -342,41 +366,24 @@
 			productReference = 97C146EE1CF9000F007C117D /* Runner.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B4A5C37A2548A5D000B9E501 /* unit_tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B4A5C3802548A5D000B9E501 /* Build configuration list for PBXNativeTarget "unit_tests" */;
-			buildPhases = (
-				C7F7CC4D59E65BCFA6EBCEE9 /* [CP] Check Pods Manifest.lock */,
-				B4A5C3772548A5D000B9E501 /* Sources */,
-				B4A5C3782548A5D000B9E501 /* Frameworks */,
-				B4A5C3792548A5D000B9E501 /* Resources */,
-				C014450D07C30C53AF976323 /* [CP] Embed Pods Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = unit_tests;
-			productName = unit_tests;
-			productReference = B4A5C37B2548A5D000B9E501 /* unit_tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		97C146E61CF9000F007C117D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1210;
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1300;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
+					4B4F4F0B2982D06800204FE6 = {
+						CreatedOnToolsVersion = 14.2;
+						LastSwiftMigration = 1420;
+						TestTargetID = 97C146ED1CF9000F007C117D;
+					};
 					97C146ED1CF9000F007C117D = {
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 1100;
-					};
-					B4A5C37A2548A5D000B9E501 = {
-						CreatedOnToolsVersion = 12.1;
 					};
 				};
 			};
@@ -394,12 +401,42 @@
 			projectRoot = "";
 			targets = (
 				97C146ED1CF9000F007C117D /* Runner */,
-				B4A5C37A2548A5D000B9E501 /* unit_tests */,
+				4B4F4F0B2982D06800204FE6 /* unit_tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4B4F4F0A2982D06800204FE6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B4F4F4D2982D1E000204FE6 /* custom_type_schema_maps.json in Resources */,
+				4B4F4F5E2982D1E100204FE6 /* model_identifier_group_not_equals.json in Resources */,
+				4B4F4F582982D1E100204FE6 /* mixed_with_not.json in Resources */,
+				4B4F4F572982D1E100204FE6 /* group_with_only_and.json in Resources */,
+				4B4F4F562982D1E100204FE6 /* model_identifier_equals.json in Resources */,
+				4B4F4F522982D1E000204FE6 /* complex_nested.json in Resources */,
+				4B4F4F5D2982D1E100204FE6 /* negate_complex_predicate.json in Resources */,
+				4B4F4F612982D1E100204FE6 /* model_name_with_all_query_parameters.json in Resources */,
+				4B4F4F552982D1E100204FE6 /* rating_greater_or_equal.json in Resources */,
+				4B4F4F542982D1E100204FE6 /* model_identifier_not_equals.json in Resources */,
+				4B4F4F602982D1E100204FE6 /* 2_results.json in Resources */,
+				4B4F4F4E2982D1E000204FE6 /* serialized_model_maps.json in Resources */,
+				4B4F4F5F2982D1E100204FE6 /* only_model_name.json in Resources */,
+				4B4F4F5B2982D1E100204FE6 /* id_not_equals.json in Resources */,
+				4B4F4F622982D1E100204FE6 /* 1_result.json in Resources */,
+				4B4F4F5A2982D1E100204FE6 /* query_predicate_constant_all.json in Resources */,
+				4B4F4F4B2982D1E000204FE6 /* instance_no_predicate.json in Resources */,
+				4B4F4F532982D1E000204FE6 /* bool_and_double_operands.json in Resources */,
+				4B4F4F592982D1E100204FE6 /* group_mixed_and_or.json in Resources */,
+				4B4F4F4F2982D1E000204FE6 /* model_schema_maps.json in Resources */,
+				4B4F4F632982D1E100204FE6 /* instance_without_predicate.json in Resources */,
+				4B4F4F512982D1E000204FE6 /* relation_model_identifier_equals.json in Resources */,
+				4B4F4F5C2982D1E100204FE6 /* model_identifier_group_equals.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		97C146EC1CF9000F007C117D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -411,63 +448,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B4A5C3792548A5D000B9E501 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D3B1E081283EB6040004F964 /* model_identifier_not_equals.json in Resources */,
-				B4A5C4672549009900B9E501 /* bool_and_double_operands.json in Resources */,
-				D3255F0326E81E3300063A15 /* custom_type_schema_maps.json in Resources */,
-				D3B1E082283EB8080004F964 /* model_identifier_equals.json in Resources */,
-				B4A5C4512548EF9A00B9E501 /* id_not_equals.json in Resources */,
-				84A0308225771E15007106B9 /* serialized_model_maps.json in Resources */,
-				847189D82565FAF200D6798A /* model_schema_maps.json in Resources */,
-				B4A5C45F2548F00900B9E501 /* complex_nested.json in Resources */,
-				FB228242255D4C95004BFCC0 /* instance_without_predicate.json in Resources */,
-				B4FD354C255D0A9D00A4E699 /* 1_result.json in Resources */,
-				B4A5C45C2548F00900B9E501 /* rating_greater_or_equal.json in Resources */,
-				B409DE20254A218A006AECDB /* only_model_name.json in Resources */,
-				B4A5C45D2548F00900B9E501 /* group_mixed_and_or.json in Resources */,
-				B4A5C45B2548F00900B9E501 /* mixed_with_not.json in Resources */,
-				9C44723B2559F95300557CB1 /* instance_no_predicate.json in Resources */,
-				D3B1E08428625F0D0004F964 /* relation_model_identifier_equals.json in Resources */,
-				B409DE21254A218A006AECDB /* model_name_with_all_query_parameters.json in Resources */,
-				B409DE1F254A218A006AECDB /* 2_results.json in Resources */,
-				D3B1E07D283EB5DD0004F964 /* model_identifier_group_equals.json in Resources */,
-				B4A5C45E2548F00900B9E501 /* negate_complex_predicate.json in Resources */,
-				D30253A827A1A89E0067A915 /* query_predicate_constant_all.json in Resources */,
-				B4A5C45A2548F00900B9E501 /* group_with_only_and.json in Resources */,
-				D3B1E07F283EB5F20004F964 /* model_identifier_group_not_equals.json in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		10E7C1138048819AB5054797 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Runner-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		3B06AD1E1E4923F5004D2608 /* Thin Binary */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -480,8 +466,26 @@
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin";
 		};
+		82ADDCADC3B57E544B433718 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		9740EEB61CF901F6004384FC /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -494,24 +498,7 @@
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build";
 		};
-		C014450D07C30C53AF976323 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-unit_tests/Pods-unit_tests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-unit_tests/Pods-unit_tests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-unit_tests/Pods-unit_tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C7F7CC4D59E65BCFA6EBCEE9 /* [CP] Check Pods Manifest.lock */ = {
+		9BD2D11F37C9DEB9FC8ABFDD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -533,26 +520,66 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DA21F913CA17E836467B2467 /* [CP] Embed Pods Frameworks */ = {
+		9E8CD173197F252BDAF37D47 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Runner-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B005D689F79B10ED3CD79FE7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-unit_tests/Pods-unit_tests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-unit_tests/Pods-unit_tests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-unit_tests/Pods-unit_tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4B4F4F082982D06800204FE6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B4F4F262982D0CB00204FE6 /* AmplifyModelSchemaUnitTests.swift in Sources */,
+				4B4F4F232982D0CB00204FE6 /* QueryPaginationUnitTests.swift in Sources */,
+				4B4F4F4C2982D1E000204FE6 /* SchemaData.swift in Sources */,
+				4B4F4F502982D1E000204FE6 /* FlutterSerializedModelData.swift in Sources */,
+				4B4F4F282982D0CB00204FE6 /* DataStorePluginUnitTests.swift in Sources */,
+				4B4F4F272982D0CB00204FE6 /* QuerySortBuilderUnitTests.swift in Sources */,
+				4B4F4F202982D0CB00204FE6 /* DataStoreHubEventStreamHandlerTests.swift in Sources */,
+				4B4F4F242982D0CB00204FE6 /* GetJsonFromFileUtil.swift in Sources */,
+				4B4F4F222982D0CB00204FE6 /* AmplifySerializedModelUnitTests.swift in Sources */,
+				4B4F4F252982D0CB00204FE6 /* QueryPredicateBuilderUnitTests.swift in Sources */,
+				4B4F4F212982D0CB00204FE6 /* ModelSchemaEquatableExtensions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		97C146EA1CF9000F007C117D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -562,25 +589,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B4A5C3772548A5D000B9E501 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9CD33317256ED83700C1CC2A /* DataStoreHubEventStreamHandlerTests.swift in Sources */,
-				B409DE75254BAC5A006AECDB /* GetJsonFromFileUtil.swift in Sources */,
-				847189C82565F81B00D6798A /* AmplifyModelSchemaUnitTests.swift in Sources */,
-				84A0307D25771DEC007106B9 /* FlutterSerializedModelData.swift in Sources */,
-				B4A5C3F42548C7B500B9E501 /* QueryPaginationUnitTests.swift in Sources */,
-				847189C22565F41700D6798A /* SchemaData.swift in Sources */,
-				B4A5C4482548E4CF00B9E501 /* QueryPredicateBuilderUnitTests.swift in Sources */,
-				847189C72565F81B00D6798A /* ModelSchemaEquatableExtensions.swift in Sources */,
-				B409DD21254A02EE006AECDB /* DataStorePluginUnitTests.swift in Sources */,
-				84A03068257714C0007106B9 /* AmplifySerializedModelUnitTests.swift in Sources */,
-				B4A5C37E2548A5D000B9E501 /* QuerySortBuilderUnitTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4B4F4F112982D06800204FE6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 97C146ED1CF9000F007C117D /* Runner */;
+			targetProxy = 4B4F4F102982D06800204FE6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		97C146FA1CF9000F007C117D /* Main.storyboard */ = {
@@ -659,26 +676,124 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = WFF8222WQ3;
+				DEVELOPMENT_TEAM = 6NFV336UD2;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Flutter",
-				);
 				INFOPLIST_FILE = Runner/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Flutter",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.amazonaws.amplify.amplifyDataStoreExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.amazonaws.amplify.amplifyDatastoreExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Profile;
+		};
+		4B4F4F122982D06800204FE6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BD7FC2B06011119963768F41 /* Pods-unit_tests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.amazonaws.amplify.amplifyDatastoreExample.unit-tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "unit_tests/unit_tests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Runner.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Runner";
+			};
+			name = Debug;
+		};
+		4B4F4F132982D06800204FE6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 341204343CFBD467B8CEC415 /* Pods-unit_tests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.amazonaws.amplify.amplifyDatastoreExample.unit-tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "unit_tests/unit_tests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Runner.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Runner";
+			};
+			name = Release;
+		};
+		4B4F4F142982D06800204FE6 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A205B25C076AD0D2D0AEBA9 /* Pods-unit_tests.profile.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.amazonaws.amplify.amplifyDatastoreExample.unit-tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "unit_tests/unit_tests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Runner.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Runner";
 			};
 			name = Profile;
 		};
@@ -796,22 +911,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = WFF8222WQ3;
+				DEVELOPMENT_TEAM = 6NFV336UD2;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Flutter",
-				);
 				INFOPLIST_FILE = Runner/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Flutter",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.amazonaws.amplify.amplifyDataStoreExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.amazonaws.amplify.amplifyDatastoreExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -827,22 +935,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = WFF8222WQ3;
+				DEVELOPMENT_TEAM = 6NFV336UD2;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Flutter",
-				);
 				INFOPLIST_FILE = Runner/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Flutter",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.amazonaws.amplify.amplifyDataStoreExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.amazonaws.amplify.amplifyDatastoreExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -850,93 +951,19 @@
 			};
 			name = Release;
 		};
-		B4A5C3812548A5D000B9E501 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 36E2FE7426F3C4F485B9461C /* Pods-unit_tests.debug.xcconfig */;
-			buildSettings = {
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = unit_tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.amazonaws.amplify.amplify-datastore-unit-tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		B4A5C3822548A5D000B9E501 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B8F88CC4CFC43169A3129743 /* Pods-unit_tests.release.xcconfig */;
-			buildSettings = {
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = unit_tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.amazonaws.amplify.amplify-datastore-unit-tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		B4A5C3832548A5D000B9E501 /* Profile */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = ED11E4916E10B172A89EC7E9 /* Pods-unit_tests.profile.xcconfig */;
-			buildSettings = {
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = unit_tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.amazonaws.amplify.amplify-datastore-unit-tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Profile;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4B4F4F152982D06800204FE6 /* Build configuration list for PBXNativeTarget "unit_tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B4F4F122982D06800204FE6 /* Debug */,
+				4B4F4F132982D06800204FE6 /* Release */,
+				4B4F4F142982D06800204FE6 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		97C146E91CF9000F007C117D /* Build configuration list for PBXProject "Runner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -953,16 +980,6 @@
 				97C147061CF9000F007C117D /* Debug */,
 				97C147071CF9000F007C117D /* Release */,
 				249021D4217E4FDB00AE95B9 /* Profile */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B4A5C3802548A5D000B9E501 /* Build configuration list for PBXNativeTarget "unit_tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B4A5C3812548A5D000B9E501 /* Debug */,
-				B4A5C3822548A5D000B9E501 /* Release */,
-				B4A5C3832548A5D000B9E501 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

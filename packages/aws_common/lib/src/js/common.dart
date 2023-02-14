@@ -302,6 +302,7 @@ extension PropsMessageChannel on MessageChannel {
 
 /// Browser-based JSON utilities.
 @JS()
+@staticInterop
 class JSON {
   /// Stringifies a JSON-like object.
   external static String stringify(Object? object);

@@ -47,7 +47,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4B630B4528492F3D00690624"
+               BlueprintIdentifier = "4B4F4EF52982C73D00204FE6"
                BuildableName = "RunnerTests.xctest"
                BlueprintName = "RunnerTests"
                ReferencedContainer = "container:Runner.xcodeproj">
@@ -57,7 +57,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4B630B5328492F5100690624"
+               BlueprintIdentifier = "4B4F4EE72982C72B00204FE6"
                BuildableName = "unit_tests.xctest"
                BlueprintName = "unit_tests"
                ReferencedContainer = "container:Runner.xcodeproj">

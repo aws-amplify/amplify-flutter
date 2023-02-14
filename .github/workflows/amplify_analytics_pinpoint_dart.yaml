@@ -13,6 +13,7 @@ on:
       - 'packages/analytics/amplify_analytics_pinpoint_dart/lib/**/*'
       - 'packages/analytics/amplify_analytics_pinpoint_dart/test/**/*'
       - '.github/workflows/dart_vm.yaml'
+      - '.github/workflows/dart_native.yaml'
       - '.github/workflows/amplify_analytics_pinpoint_dart.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
@@ -24,5 +25,10 @@ permissions: read-all
 jobs:
   test:
     uses: ./.github/workflows/dart_vm.yaml
+    with:
+      working-directory: packages/analytics/amplify_analytics_pinpoint_dart
+  native_test:
+    needs: test
+    uses: ./.github/workflows/dart_native.yaml
     with:
       working-directory: packages/analytics/amplify_analytics_pinpoint_dart

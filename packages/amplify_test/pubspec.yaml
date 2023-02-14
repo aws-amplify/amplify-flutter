@@ -5,8 +5,8 @@ homepage: https://github.com/aws-amplify/amplify-flutter
 publish_to: none
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
-  flutter: ">=3.0.0"
+  sdk: ">=2.18.0 <4.0.0"
+  flutter: ">=3.3.0"
 
 dependencies:
   amplify_api: ">=1.0.0-next.4 <1.0.0-next.5"

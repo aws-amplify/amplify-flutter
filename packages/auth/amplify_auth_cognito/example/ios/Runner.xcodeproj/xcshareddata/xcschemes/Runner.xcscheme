@@ -26,9 +26,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES"
-      onlyGenerateCoverageForSpecifiedTargets = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
@@ -38,26 +36,7 @@
             ReferencedContainer = "container:Runner.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <CodeCoverageTargets>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CCD5B2E572C4D61484D007F080A455C5"
-            BuildableName = "amplify_auth_cognito.framework"
-            BlueprintName = "amplify_auth_cognito"
-            ReferencedContainer = "container:Pods/Pods.xcodeproj">
-         </BuildableReference>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6233D5834CC19CF4A04CFE9A9DA676DA"
-            BuildableName = "amplify_core.framework"
-            BlueprintName = "amplify_core"
-            ReferencedContainer = "container:Pods/Pods.xcodeproj">
-         </BuildableReference>
-      </CodeCoverageTargets>
       <TestPlans>
-         <TestPlanReference
-            reference = "container:RunnerTests/RunnerTests.xctestplan">
-         </TestPlanReference>
          <TestPlanReference
             reference = "container:unit_tests/unit_tests.xctestplan"
             default = "YES">
@@ -65,10 +44,22 @@
       </TestPlans>
       <Testables>
          <TestableReference
-            skipped = "NO">
+            skipped = "NO"
+            parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4B27DFE8283FFA0700E69719"
+               BlueprintIdentifier = "4B4F4F672982D45E00204FE6"
+               BuildableName = "unit_tests.xctest"
+               BlueprintName = "unit_tests"
+               ReferencedContainer = "container:Runner.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4B4F4F792982D4D700204FE6"
                BuildableName = "RunnerTests.xctest"
                BlueprintName = "RunnerTests"
                ReferencedContainer = "container:Runner.xcodeproj">

@@ -411,14 +411,12 @@ class Environment with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
 class AndroidEnvironment
     with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
   const AndroidEnvironment({
-    required this.compileSdkVersion,
     required this.minSdkVersion,
   });
 
   factory AndroidEnvironment.fromJson(Map<String, Object?> json) =>
       _$AndroidEnvironmentFromJson(json);
 
-  final String compileSdkVersion;
   final String minSdkVersion;
 
   @override
