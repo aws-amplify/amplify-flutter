@@ -18,18 +18,18 @@ class DartQueuedItemStore implements QueuedItemStore, Closeable {
   }
 
   @override
-  FutureOr<Iterable<QueuedItem>> get(int maxToGet) {
-    throw UnimplementedError('getStrings() has not been implemented.');
+  FutureOr<Iterable<QueuedItem>> getCount(int count) {
+    throw UnimplementedError('getCount() has not been implemented.');
   }
 
   @override
-  FutureOr<void> add(String string) {
-    throw UnimplementedError('addString() has not been implemented.');
+  FutureOr<void> addItem(String string) {
+    throw UnimplementedError('addItem() has not been implemented.');
   }
 
   @override
   FutureOr<void> deleteItems(Iterable<QueuedItem> items) {
-    throw UnimplementedError('deleteStrings() has not been implemented.');
+    throw UnimplementedError('deleteItems() has not been implemented.');
   }
 
   @override

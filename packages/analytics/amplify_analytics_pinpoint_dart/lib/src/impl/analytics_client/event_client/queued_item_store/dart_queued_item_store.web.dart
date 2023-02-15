@@ -32,9 +32,9 @@ class DartQueuedItemStore
   String get runtimeTypeName => 'DartQueuedItemStore';
 
   @override
-  Future<void> add(String string) async {
+  Future<void> addItem(String string) async {
     final db = await _database;
-    await db.add(string);
+    await db.addItem(string);
   }
 
   @override
@@ -44,9 +44,9 @@ class DartQueuedItemStore
   }
 
   @override
-  Future<Iterable<QueuedItem>> get(int maxToGet) async {
+  Future<Iterable<QueuedItem>> getCount(int count) async {
     final db = await _database;
-    return db.get(maxToGet);
+    return db.getCount(count);
   }
 
   /// Clear IndexedDB data

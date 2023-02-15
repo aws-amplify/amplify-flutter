@@ -17,7 +17,7 @@ class InMemoryQueuedItemStore implements QueuedItemStore {
   final Queue<QueuedItem> _database = Queue();
 
   @override
-  void add(String string) {
+  void addItem(String string) {
     _database.add(
       QueuedItem(
         id: _nextId,
@@ -28,8 +28,8 @@ class InMemoryQueuedItemStore implements QueuedItemStore {
   }
 
   @override
-  Iterable<QueuedItem> get(int maxToGet) {
-    return _database.take(maxToGet);
+  Iterable<QueuedItem> getCount(int count) {
+    return _database.take(count);
   }
 
   @override

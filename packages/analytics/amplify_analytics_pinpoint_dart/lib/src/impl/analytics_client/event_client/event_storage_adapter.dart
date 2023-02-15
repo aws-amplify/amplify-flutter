@@ -47,7 +47,7 @@ class EventStorageAdapter implements Closeable {
       );
     }
 
-    await _db.add(jsonString);
+    await _db.addItem(jsonString);
   }
 
   /// Retrieve Events from device storage.
@@ -57,7 +57,7 @@ class EventStorageAdapter implements Closeable {
     int maxEventCount = _maxEventsInBatch,
   }) async {
     // Raw objects read from storage
-    final queuedItems = await _db.get(maxEventCount);
+    final queuedItems = await _db.getCount(maxEventCount);
 
     // Convert raw objects to Event
     final storedEvents = <StoredEvent>[];

@@ -53,15 +53,15 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
   }
 
   @override
-  Future<void> add(String value) async {
+  Future<void> addItem(String value) async {
     await into(driftStrings).insert(DriftStringsCompanion(value: Value(value)));
   }
 
   @override
-  Future<Iterable<QueuedItem>> get(int maxToGet) async {
+  Future<Iterable<QueuedItem>> getCount(int count) async {
     final statement = (select(driftStrings)
       ..orderBy([(v) => OrderingTerm.asc(v.id)])
-      ..limit(maxToGet));
+      ..limit(count));
 
     final retrievedJsonStrings = await statement.get();
     return retrievedJsonStrings.map(

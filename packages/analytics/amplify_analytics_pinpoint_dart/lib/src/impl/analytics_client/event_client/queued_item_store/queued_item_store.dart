@@ -6,10 +6,10 @@ import 'dart:async';
 /// Database for storing strings
 abstract class QueuedItemStore {
   /// Insert an item to the end of the queue.
-  FutureOr<void> add(String string);
+  FutureOr<void> addItem(String string);
 
   /// Get the first [count] items from the queue.
-  FutureOr<Iterable<QueuedItem>> get(int count);
+  FutureOr<Iterable<QueuedItem>> getCount(int count);
 
   /// Delete [items] from the store.
   FutureOr<void> deleteItems(Iterable<QueuedItem> items);

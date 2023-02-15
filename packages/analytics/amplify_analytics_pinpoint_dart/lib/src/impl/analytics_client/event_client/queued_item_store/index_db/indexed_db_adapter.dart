@@ -8,6 +8,7 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_
 import 'package:amplify_core/amplify_core.dart';
 // ignore: implementation_imports
 import 'package:aws_common/src/js/indexed_db.dart';
+import 'package:collection/collection.dart';
 
 // TODO(kylechen): Consider merging/refactoring with existing 'amplify_secure_storage_web - _IndexedDBStorage' class
 /// {@template amplify_analytics_pinpoint_dart.indexed_db_adapter}
@@ -64,25 +65,25 @@ class IndexedDbAdapter implements QueuedItemStore {
   }
 
   @override
-  Future<void> add(String string) async {
+  Future<void> addItem(String string) async {
     await _databaseOpenEvent;
-    await _getObjectStore().push({'string': string}).future;
+    await _getObjectStore().push({'value': string}).future;
   }
 
   @override
-  Future<Iterable<QueuedItem>> get([int? maxToGet]) async {
+  Future<Iterable<QueuedItem>> getCount([int? count]) async {
     final readValues = <QueuedItem>[];
 
     await _databaseOpenEvent;
     final store = _getObjectStore();
-    final request = store.getAll(null, maxToGet);
+    final request = store.getAll(null, count);
 
     await request.future;
 
     for (final elem in request.result) {
       final value = elem as Object;
       final id = getProperty<int>(value, 'id');
-      final string = getProperty<String>(value, 'string');
+      final string = getProperty<String>(value, 'value');
       readValues.add(
         QueuedItem(id: id, value: string),
       );
@@ -92,32 +93,19 @@ class IndexedDbAdapter implements QueuedItemStore {
 
   @override
   Future<void> deleteItems(Iterable<QueuedItem> items) async {
+    if (items.isEmpty) return;
+
     final idsToDelete = items.map((item) => item.id);
-    if (idsToDelete.isEmpty) return;
 
     await _databaseOpenEvent;
     final store = _getObjectStore();
 
-    // First id in the sequential keyRange to delete
-    var start = idsToDelete.first;
-
-    // The last id in the sequential keyRange to delete
-    var previous = idsToDelete.first - 1;
-
-    for (final id in idsToDelete) {
-      // If the previous id is not sequential with current id
-      // Then delete the current range
-      if (previous != id - 1) {
-        store.deleteByKeyRange(
-          IDBKeyRange.bound(start, previous),
+    final ranges = idsToDelete.splitBetween((a, b) => b != a + 1).map(
+          (range) => IDBKeyRange.bound(range.first, range.last),
         );
-        start = id;
-      }
-      previous = id;
-    }
-    await store
-        .deleteByKeyRange(IDBKeyRange.bound(start, idsToDelete.last))
-        .future;
+    await Future.wait<void>(
+      ranges.map((range) => store.deleteByKeyRange(range).future),
+    );
   }
 
   /// Clear the database
@@ -141,7 +129,7 @@ class IndexedDbAdapter implements QueuedItemStore {
       final openRequest = indexedDB!.open('test', 1);
       await openRequest.future;
       return true;
-    } on Exception {
+    } on Object {
       return false;
     }
   }

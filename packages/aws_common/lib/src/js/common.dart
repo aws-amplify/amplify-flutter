@@ -8,6 +8,7 @@ import 'dart:js_util' as js_util;
 
 import 'package:aws_common/src/util/recase.dart';
 import 'package:js/js.dart';
+import 'package:js/js_util.dart';
 import 'package:meta/meta.dart';
 
 /// The JS `undefined`.
@@ -379,11 +380,5 @@ Object? dartify(Object? o) {
 /// Convert a dart map to a JS object
 @internal
 Object mapToJSObj(Map<Object, Object> a) {
-  final Object object = js_util.newObject();
-  a.forEach((k, v) {
-    final key = k;
-    final value = v;
-    js_util.setProperty(object, key, value);
-  });
-  return object;
+  return _convertToJs(jsify(a))!;
 }

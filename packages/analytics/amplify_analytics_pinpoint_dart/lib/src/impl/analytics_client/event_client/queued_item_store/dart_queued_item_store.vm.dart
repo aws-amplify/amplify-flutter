@@ -12,14 +12,22 @@ import 'package:meta/meta.dart';
 /// {@macro amplify_analytics_pinpoint_dart.dart_queued_item_store}
 class DartQueuedItemStore implements QueuedItemStore, Closeable {
   /// {@macro amplify_analytics_pinpoint_dart.dart_queued_item_store}
-  DartQueuedItemStore(String? storagePath)
-      : _database = DriftQueuedItemStore(storagePath!);
+  factory DartQueuedItemStore(String? storagePath) {
+    assert(
+      storagePath != null,
+      'null storagePath provided to DartQueuedItemStore',
+    );
+    final database = DriftQueuedItemStore(storagePath!);
+    return DartQueuedItemStore._(database);
+  }
+
+  DartQueuedItemStore._(this._database);
 
   final DriftQueuedItemStore _database;
 
   @override
-  Future<void> add(String string) {
-    return _database.add(string);
+  Future<void> addItem(String string) {
+    return _database.addItem(string);
   }
 
   @override
@@ -28,8 +36,8 @@ class DartQueuedItemStore implements QueuedItemStore, Closeable {
   }
 
   @override
-  Future<Iterable<QueuedItem>> get(int maxToGet) {
-    return _database.get(maxToGet);
+  Future<Iterable<QueuedItem>> getCount(int count) {
+    return _database.getCount(count);
   }
 
   @override
