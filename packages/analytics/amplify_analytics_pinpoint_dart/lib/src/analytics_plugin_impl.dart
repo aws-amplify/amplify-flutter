@@ -4,7 +4,8 @@
 import 'dart:async';
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/string_database/dart_string_database.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/dart_queued_item_store.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/queued_item_store.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/session_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/stoppable_timer.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
@@ -125,19 +126,14 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
       }),
     );
 
-    final driftStoragePath = await _pathProvider?.getApplicationSupportPath();
-    final driftQueryExecutor = _dbConnectFunction(
-      name: 'analytics_cached_events',
-      path: driftStoragePath,
-    );
-
-    final stringDatabase = DartStringDatabase(driftQueryExecutor);
+    final eventStoragePath = await _pathProvider?.getApplicationSupportPath();
+    final eventStore = DartQueuedItemStore(eventStoragePath);
     _eventClient = EventClient(
       pinpointAppId: pinpointAppId,
       deviceContextInfo: deviceContextInfo,
       pinpointClient: pinpointClient,
       endpointClient: _endpointClient,
-      eventDatabase: stringDatabase,
+      eventStore: eventStore,
     );
 
     _sessionManager = SessionManager(
