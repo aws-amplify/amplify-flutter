@@ -16,6 +16,7 @@ typedef SignInFn = Future<void> Function(
 typedef SignOutFn = Future<void> Function(
   HostedUiPlatform platform,
   CognitoSignOutWithWebUIOptions options,
+  // ignore: avoid_positional_boolean_parameters
   bool isPreferPrivateSession,
 );
 
