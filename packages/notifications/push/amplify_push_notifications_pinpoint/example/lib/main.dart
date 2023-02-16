@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'amplifyconfiguration.dart';
 
 void main() {
+  AmplifyLogger().logLevel = LogLevel.info;
   runApp(const MyApp());
 }
 
@@ -33,7 +34,7 @@ class _MyAppState extends State<MyApp> {
       final authPlugin = AmplifyAuthCognito();
 
       await Amplify.addPlugins([authPlugin, notificationsPlugin]);
-
+      print("Amplify.isConfigured -> ${Amplify.isConfigured}");
       if (!Amplify.isConfigured) await Amplify.configure(amplifyconfig);
       setState(() {
         isConfigured = true;

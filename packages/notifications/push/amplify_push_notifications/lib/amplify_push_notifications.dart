@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   bool _isConfigured = false;
   final MethodChannel _methodChannel =
-      const MethodChannel('com.amazonaws.amplify/push_notification_plugin');
+      const MethodChannel('com.amazonaws.amplify/push_notifications_plugin');
   final AmplifyLogger _logger = AmplifyLogger.category(Category.notifications)
       .createChild('AmplifyPushNotification');
   final ServiceProviderClient serviceProviderClient;
@@ -67,6 +67,9 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
           .invokeMethod<String>('registerForRemoteNotifications');
       _logger.info(
           "Successfully registered device to receive remote notifications");
+    } on MissingPluginException {
+      _logger.info(
+          "_registerForRemoteNotifications on Android is not implemented");
     } catch (e) {
       _logger.error(
         "Error when registering device to receive remote notifications: $e",

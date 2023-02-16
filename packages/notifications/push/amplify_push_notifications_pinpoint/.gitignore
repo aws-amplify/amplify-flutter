@@ -28,3 +28,6 @@ migrate_working_dir/
 .dart_tool/
 .packages
 build/
+
+#Firebase Messaging related
+example/android/app/google-services.json

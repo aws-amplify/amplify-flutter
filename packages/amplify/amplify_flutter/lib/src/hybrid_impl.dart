@@ -25,6 +25,7 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
       [
         ...API.plugins,
         ...Auth.plugins,
+        ...Notifications.plugins,
         ...Analytics.plugins,
         ...Storage.plugins,
         ...DataStore.plugins,
