@@ -10,7 +10,6 @@ dependencies:
   amplify_auth_cognito_dart: ">=0.6.0 <0.7.0"
   amplify_core: ">=1.0.0-next.5 <1.0.0-next.6"
   amplify_secure_storage_dart: ">=0.1.4+2 <0.2.0"
-  args: ^2.4.0
   example_common:
     path: ../../../example_common
 
@@ -36,12 +35,13 @@ dev_dependencies:
   browser_launcher: ^1.1.1
   build_runner: ^2.1.4
   build_web_compilers: ^3.2.1
-  checks: ^0.2.1
+  checks: ^0.2.0
   cli_script: ^0.3.0
-  io: ^1.0.4
-  mime: ^1.0.4
+  io: ^1.0.0
+  mime: ^1.0.0
   path: ^1.8.0
   shelf: ^1.4.0
+  shelf_web_socket: ^1.0.3
+  stream_channel: ^2.1.1
   test: ^1.22.0
-  webdriver: ^3.0.1
-  webkit_inspection_protocol: ^1.2.0
+  webdriver: ^3.0.0

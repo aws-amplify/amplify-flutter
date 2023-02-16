@@ -8,8 +8,12 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'amplifyconfiguration.dart';
 
 Future<void> configure({
+  String? environmentName,
   HostedUiPlatformFactory? hostedUiPlatformFactory,
 }) async {
+  if (Amplify.isConfigured) {
+    return;
+  }
   await Amplify.addPlugin(
     AmplifyAuthCognitoDart(
       credentialStorage: AmplifySecureStorageWorker(
@@ -25,7 +29,7 @@ Future<void> configure({
     ),
   );
 
-  const environmentName = String.fromEnvironment(
+  environmentName ??= const String.fromEnvironment(
     'AMPLIFY_ENVIRONMENT',
     defaultValue: 'main',
   );

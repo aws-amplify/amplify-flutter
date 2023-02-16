@@ -17,6 +17,9 @@ const int chromedriverPort = 4444;
 /// The URI of chromedriver.
 final Uri driverUri = Uri.parse('http://localhost:$chromedriverPort/');
 
+/// The URI for the RPC server, used to drive VM tests.
+final Uri rpcUri = Uri.parse('ws://localhost:4321');
+
 final bool isCI = Platform.environment.containsKey('CI');
 final AmplifyConfig config = AmplifyConfig.fromJson(
   jsonDecode(amplifyEnvironments['hosted-ui']!) as Map<String, Object?>,
