@@ -5,6 +5,8 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
+part 'credential_store_state.g.dart';
+
 /// Discrete state types of the credential store state machine.
 enum CredentialStoreStateType {
   /// {@macro amplify_auth_cognito.credential_store_not_configured}
@@ -181,7 +183,11 @@ class CredentialStoreFailure extends CredentialStoreState with ErrorState {
 /// {@template amplify_auth_cognito_dart.credential_store_state.credential_store_data}
 /// Data stored by the Credential Store.
 /// {@endtemplate}
-class CredentialStoreData with AWSEquatable<CredentialStoreData> {
+@zAmplifySerializable
+class CredentialStoreData
+    with
+        AWSEquatable<CredentialStoreData>,
+        AWSSerializable<Map<String, Object?>> {
   /// {@macro amplify_auth_cognito_dart.credential_store_state.credential_store_data}
   const CredentialStoreData({
     this.identityId,
@@ -189,6 +195,10 @@ class CredentialStoreData with AWSEquatable<CredentialStoreData> {
     this.userPoolTokens,
     this.signInDetails,
   });
+
+  /// {@macro amplify_auth_cognito_dart.credential_store_state.credential_store_data}
+  factory CredentialStoreData.fromJson(Map<String, Object?> json) =>
+      _$CredentialStoreDataFromJson(json);
 
   /// AWS Identity ID
   final String? identityId;
@@ -209,4 +219,7 @@ class CredentialStoreData with AWSEquatable<CredentialStoreData> {
         userPoolTokens,
         signInDetails,
       ];
+
+  @override
+  Map<String, Object?> toJson() => _$CredentialStoreDataToJson(this);
 }
