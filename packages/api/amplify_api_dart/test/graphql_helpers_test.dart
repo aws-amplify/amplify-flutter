@@ -382,14 +382,41 @@ void main() {
           CpkOneToOneBidirectionalParentCD.classType,
           model.modelIdentifier,
         );
-        const expectedDocument =
-            r'query getCpkOneToOneBidirectionalParentCD($customId: ID!, $name: String!) { getCpkOneToOneBidirectionalParentCD(customId: $customId, name: $name) { customId name createdAt updatedAt cpkOneToOneBidirectionalParentCDImplicitChildId cpkOneToOneBidirectionalParentCDImplicitChildName cpkOneToOneBidirectionalParentCDExplicitChildId cpkOneToOneBidirectionalParentCDExplicitChildName } }';
+        final expectedDocument =
+            'query getCpkOneToOneBidirectionalParentCD { getCpkOneToOneBidirectionalParentCD(customId: "$customId", name: "$name") { customId name createdAt updatedAt cpkOneToOneBidirectionalParentCDImplicitChildId cpkOneToOneBidirectionalParentCDImplicitChildName cpkOneToOneBidirectionalParentCDExplicitChildId cpkOneToOneBidirectionalParentCDExplicitChildName } }';
 
         expect(req.document, expectedDocument);
         expect(
           deepEquals(req.variables, {'customId': customId, 'name': name}),
           isTrue,
         );
+      });
+
+      test('ModelQueries.get() should support model with CPK and int indexes',
+          () {
+        final customId = uuid();
+        final name = 'foo $customId';
+        final model = CpkIntIndexes(name: name, fieldA: 1, fieldB: 2);
+        final req = ModelQueries.get(
+          CpkIntIndexes.classType,
+          model.modelIdentifier,
+        );
+        final expectedDocument =
+            'query getCpkIntIndexes { getCpkIntIndexes(name: "$name", fieldA: 1, fieldB: 2) { name fieldA fieldB createdAt updatedAt } }';
+
+        expect(req.document, expectedDocument);
+      });
+
+      test('ModelQueries.get() should support model with int primary key', () {
+        final model = CpkIntPrimaryKey(intAsId: 1, fieldA: 2, fieldB: 3);
+        final req = ModelQueries.get(
+          CpkIntPrimaryKey.classType,
+          model.modelIdentifier,
+        );
+        const expectedDocument =
+            'query getCpkIntPrimaryKey { getCpkIntPrimaryKey(intAsId: 1, fieldA: 2, fieldB: 3) { intAsId fieldA fieldB createdAt updatedAt } }';
+
+        expect(req.document, expectedDocument);
       });
     });
 

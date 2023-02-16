@@ -13,6 +13,8 @@ import 'Blog.dart';
 import 'Comment.dart';
 import 'CustomOwnerField.dart';
 import 'FileMeta.dart';
+import 'CpkIntIndexes.dart';
+import 'CpkIntPrimaryKey.dart';
 import 'CpkOneToOneBidirectionalChildExplicitCD.dart';
 import 'CpkOneToOneBidirectionalChildImplicitCD.dart';
 import 'CpkOneToOneBidirectionalParentCD.dart';
@@ -28,6 +30,8 @@ export 'Blog.dart';
 export 'Comment.dart';
 export 'CustomOwnerField.dart';
 export 'FileMeta.dart';
+export 'CpkIntIndexes.dart';
+export 'CpkIntPrimaryKey.dart';
 export 'CpkOneToOneBidirectionalChildExplicitCD.dart';
 export 'CpkOneToOneBidirectionalChildImplicitCD.dart';
 export 'CpkOneToOneBidirectionalParentCD.dart';
@@ -50,6 +54,8 @@ class ModelProvider implements ModelProviderInterface {
     Blog.schema,
     Comment.schema,
     CustomOwnerField.schema,
+    CpkIntIndexes.schema,
+    CpkIntPrimaryKey.schema,
     CpkOneToOneBidirectionalChildExplicitCD.schema,
     CpkOneToOneBidirectionalChildImplicitCD.schema,
     CpkOneToOneBidirectionalParentCD.schema,
@@ -76,6 +82,10 @@ class ModelProvider implements ModelProviderInterface {
         return Comment.classType;
       case "CustomOwnerField":
         return CustomOwnerField.classType;
+      case "CpkIntIndexes":
+        return CpkIntIndexes.classType;
+      case "CpkIntPrimaryKey":
+        return CpkIntPrimaryKey.classType;
       case "CpkOneToOneBidirectionalChildExplicitCD":
         return CpkOneToOneBidirectionalChildExplicitCD.classType;
       case "CpkOneToOneBidirectionalChildImplicitCD":

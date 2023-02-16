@@ -113,6 +113,7 @@ class GraphQLRequestFactory {
   DocumentInputs _buildDocumentInputs(
     ModelSchema schema,
     GraphQLRequestOperation operation,
+    ModelIdentifier? modelIdentifier,
   ) {
     var upperOutput = '';
     var lowerOutput = '';
@@ -126,24 +127,23 @@ class GraphQLRequestFactory {
             indexes?.firstWhereOrNull((index) => index.name == null);
         if (modelIndex != null) {
           // custom index(es), e.g.
-          // upperOutput: ($customId: ID!, name: String!)
-          // lowerOutput: (customId: $customId, name: $name)
-          final bUpperOutput = StringBuffer(_openParen);
+          // upperOutput: no change (empty string)
+          // lowerOutput: (customId: 'abc-123, name: 'lorem')
+
+          // Do not reference variables because scalar types not available in
+          // codegen. Instead, just write the value to the document.
           final bLowerOutput = StringBuffer(_openParen);
           for (final field in modelIndex.fields) {
-            final isId = field == modelIndex.fields.first;
-            final graphQLTypeString =
-                isId ? 'ID' : getGraphQLTypeForField(schema, field);
-            bUpperOutput.write('\$$field: $graphQLTypeString!');
-            bLowerOutput.write('$field: \$$field');
+            var value = modelIdentifier!.serializeAsMap()[field];
+            if (value is String) {
+              value = '"$value"';
+            }
+            bLowerOutput.write('$field: $value');
             if (field != modelIndex.fields.last) {
-              bUpperOutput.write(_commaSpace);
               bLowerOutput.write(_commaSpace);
             }
           }
-          bUpperOutput.write(_closeParen);
           bLowerOutput.write(_closeParen);
-          upperOutput = bUpperOutput.toString();
           lowerOutput = bLowerOutput.toString();
         } else {
           // simple, single identifier
@@ -186,6 +186,7 @@ class GraphQLRequestFactory {
   GraphQLRequest<T> buildRequest<T extends Model>({
     required ModelType modelType,
     Model? model,
+    ModelIdentifier? modelIdentifier,
     required GraphQLRequestType requestType,
     required GraphQLRequestOperation requestOperation,
     required Map<String, dynamic> variables,
@@ -205,7 +206,8 @@ class GraphQLRequestFactory {
     // e.g. "get" or "list"
     final requestOperationVal = requestOperation.name;
     // e.g. "{upper: "($id: ID!)", lower: "(id: $id)"}"
-    final documentInputs = _buildDocumentInputs(schema, requestOperation);
+    final documentInputs =
+        _buildDocumentInputs(schema, requestOperation, modelIdentifier);
     // e.g. "id name createdAt" - fields to retrieve
     final fields = _getSelectionSetFromModelSchema(schema, requestOperation);
     // e.g. "getBlog"

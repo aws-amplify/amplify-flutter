@@ -133,3 +133,15 @@ type CpkOneToOneBidirectionalChildExplicitCD @model {
   belongsToParent: CpkOneToOneBidirectionalParentCD
     @belongsTo(fields: ["belongsToParentID", "belongsToParentName"])
 }
+
+type CpkIntIndexes @model @auth(rules: [{allow: owner}]) {
+  name: String! @primaryKey(sortKeyFields: ["fieldA", "fieldB"]),
+  fieldA: Int!,
+  fieldB: Int!,
+}
+
+type CpkIntPrimaryKey @model @auth(rules: [{allow: owner}]) {
+  intAsId: Int! @primaryKey(sortKeyFields: ["fieldA", "fieldB"]),
+  fieldA: Int!,
+  fieldB: Int!,
+}

@@ -25,6 +25,7 @@ class ModelQueriesFactory {
     final variables = modelIdentifier.serializeAsMap();
     return GraphQLRequestFactory.instance.buildRequest<T>(
       modelType: modelType,
+      modelIdentifier: modelIdentifier,
       variables: variables,
       requestType: GraphQLRequestType.query,
       requestOperation: GraphQLRequestOperation.get,
