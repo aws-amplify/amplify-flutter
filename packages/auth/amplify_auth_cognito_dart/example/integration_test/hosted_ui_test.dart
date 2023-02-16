@@ -4,21 +4,20 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+import 'package:amplify_auth_cognito_test/hosted_ui/hosted_ui_client.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:checks/checks.dart';
+import 'package:cognito_example/amplifyconfiguration.dart';
 import 'package:io/io.dart';
-import 'package:json_rpc_2/json_rpc_2.dart';
 import 'package:test/test.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:webdriver/async_io.dart';
 
 import 'common.dart';
 
 final ProcessManager manager = ProcessManager();
 
-Future<RpcServer> runApp() async {
+Future<HostedUIClient> runApp() async {
   if (!isCI) {
     await manager.spawnBackgroundInTest('chromedriver', [
       '--port=$chromedriverPort',
@@ -28,53 +27,10 @@ Future<RpcServer> runApp() async {
     'dart',
     ['integration_test/hosted_ui.dart'],
   );
-  await application.stdout.first;
-  return RpcServer.connect();
-}
-
-class RpcServer {
-  RpcServer._(this._client);
-
-  static Future<RpcServer> connect() async {
-    final socket = WebSocketChannel.connect(rpcUri);
-    final client = Client(socket.cast<String>());
-    unawaited(client.listen());
-
-    await client.sendRequest('configure', {
-      'environmentName': 'hosted-ui',
-    });
-    return RpcServer._(client);
-  }
-
-  final Client _client;
-
-  Future<String> signInWithWebUI() async {
-    final resp = await _client.sendRequest('signInWithWebUI', {
-      'provider': AuthProvider.cognito.toJson(),
-    });
-    if (resp is! String) {
-      throw Exception('Invalid response: $resp');
-    }
-    return resp;
-  }
-
-  Future<CredentialStoreData> getCredentials() async {
-    final resp = await _client.sendRequest('getCredentials');
-    if (resp is! Map<Object?, Object?>) {
-      throw Exception('Invalid response: $resp');
-    }
-    return CredentialStoreData.fromJson(resp.cast());
-  }
-
-  Future<String> signOutWithWebUI({bool globalSignOut = false}) async {
-    final resp = await _client.sendRequest('signOutWithWebUI', {
-      'globalSignOut': globalSignOut,
-    });
-    if (resp is! String) {
-      throw Exception('Invalid response: $resp');
-    }
-    return resp;
-  }
+  await application.stdout.first; // Wait for server to connect.
+  return HostedUIClient.connect(
+    amplifyEnvironments['hosted-ui']!,
+  );
 }
 
 /// Tests Hosted UI on VM by driving `hosted_ui.dart` via an RPC server.
@@ -88,7 +44,7 @@ void main() {
     'HostedUI',
     () {
       group('VM', () {
-        late RpcServer application;
+        late HostedUIClient application;
         late WebDriver driver;
         late String username;
         late String password;

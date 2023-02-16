@@ -320,9 +320,20 @@ window.open = function(url, target) {
   Future<CredentialStoreData> getCredentials() async {
     final json = await executeAsync(
       r'''
+const [
+  databaseName,
+
+  // Callback is the last argument passed to the function. It must be called 
+  // with the result of this function in order to complete.
+  callback,
+] = arguments;
+
+// From `amplify_secure_storage_web.dart`
+const databaseVersion = 1;
 const storeName = 'default.store';
+
 const db = await new Promise((resolve, reject) => {
-  const request = indexedDB.open('dart-auth-test', 1);
+  const request = indexedDB.open(databaseName, databaseVersion);
   request.onsuccess = (req) => {
     resolve(req.target.result);
   };
@@ -356,12 +367,9 @@ await new Promise((resolve, reject) => {
   };
 });
 
-// Callback is the last argument passed to the function. It must be called with
-// the result in order to complete.
-const callback = arguments[0];
 callback(JSON.stringify(items));
 ''',
-      [],
+      [webDatabaseName],
     ) as String;
     final data =
         (jsonDecode(json) as Map<String, Object?>).cast<String, String?>();
