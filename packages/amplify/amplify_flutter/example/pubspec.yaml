@@ -36,6 +36,7 @@ dependency_overrides:
     path: ../../../secure_storage/amplify_secure_storage
   amplify_secure_storage_dart:
     path: ../../../secure_storage/amplify_secure_storage_dart
+  async: ^2.10.0
   aws_common:
     path: ../../../aws_common
   aws_signature_v4:

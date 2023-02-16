@@ -19,6 +19,9 @@ dependencies:
     sdk: flutter
   go_router: ^5.0.5
 
+dependency_overrides:
+  async: ^2.10.0
+
 dev_dependencies:
   amplify_lints:
     path: ../../../amplify_lints

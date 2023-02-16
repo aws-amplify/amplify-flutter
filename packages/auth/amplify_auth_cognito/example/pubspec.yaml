@@ -17,6 +17,9 @@ dependencies:
     sdk: flutter
   go_router: ^3.0.0
 
+dependency_overrides:
+  async: ^2.10.0
+
 dev_dependencies:
   amplify_auth_cognito_dart: ">=0.6.0 <0.7.0"
   amplify_lints:
