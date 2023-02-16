@@ -7,8 +7,8 @@ environment:
   sdk: ">=2.18.0 <4.0.0"
 
 dependencies:
-  amplify_auth_cognito_dart: ">=0.5.0 <0.6.0"
-  amplify_core: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_auth_cognito_dart: ">=0.6.0 <0.7.0"
+  amplify_core: ">=1.0.0-next.5 <1.0.0-next.6"
   amplify_secure_storage_dart: ">=0.1.4+2 <0.2.0"
   example_common:
     path: ../../../example_common

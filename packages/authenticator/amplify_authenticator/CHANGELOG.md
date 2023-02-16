@@ -1,3 +1,11 @@
+## 1.0.0-next.4
+
+### Breaking Changes
+- refactor(auth)!: Make reset password step an enum
+- refactor(auth)!: Make sign-in step an enum
+- refactor(auth)!: Make sign-up step an enum
+- refactor(auth)!: State machine facade ([#2482](https://github.com/aws-amplify/amplify-flutter/pull/2482))
+
 ## 1.0.0-next.3
 
 ### Fixes

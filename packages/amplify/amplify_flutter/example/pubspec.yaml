@@ -6,12 +6,12 @@ environment:
   sdk: ">=2.18.0 <4.0.0"
 
 dependencies:
-  amplify_analytics_pinpoint: ">=1.0.0-next.4 <1.0.0-next.5"
-  amplify_api: ">=1.0.0-next.4 <1.0.0-next.5"
-  amplify_auth_cognito: ">=1.0.0-next.4 <1.0.0-next.5"
-  amplify_datastore: ">=1.0.0-next.4 <1.0.0-next.5"
-  amplify_flutter: ">=1.0.0-next.4 <1.0.0-next.5"
-  amplify_storage_s3: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_analytics_pinpoint: ">=1.0.0-next.5 <1.0.0-next.6"
+  amplify_api: ">=1.0.0-next.5 <1.0.0-next.6"
+  amplify_auth_cognito: ">=1.0.0-next.5 <1.0.0-next.6"
+  amplify_datastore: ">=1.0.0-next.5 <1.0.0-next.6"
+  amplify_flutter: ">=1.0.0-next.5 <1.0.0-next.6"
+  amplify_storage_s3: ">=1.0.0-next.5 <1.0.0-next.6"
   flutter:
     sdk: flutter
 

@@ -5,5 +5,5 @@ environment:
   sdk: ">=2.18.0 <3.0.0"
 
 dependencies:
-  amplify_core: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_core: ">=1.0.0-next.5 <1.0.0-next.6"
   path: any

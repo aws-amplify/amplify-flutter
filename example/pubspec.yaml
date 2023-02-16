@@ -7,10 +7,10 @@ environment:
   flutter: ">=3.3.0"
 
 dependencies:
-  amplify_flutter: ">=1.0.0-next.4 <1.0.0-next.5"
-  amplify_analytics_pinpoint: ">=1.0.0-next.4 <1.0.0-next.5"
-  amplify_auth_cognito: ">=1.0.0-next.4 <1.0.0-next.5"
-  amplify_storage_s3: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_flutter: ">=1.0.0-next.5 <1.0.0-next.6"
+  amplify_analytics_pinpoint: ">=1.0.0-next.5 <1.0.0-next.6"
+  amplify_auth_cognito: ">=1.0.0-next.5 <1.0.0-next.6"
+  amplify_storage_s3: ">=1.0.0-next.5 <1.0.0-next.6"
   file_picker: ^5.0.0
   flutter:
     sdk: flutter

@@ -1,3 +1,7 @@
+## 0.1.3+3
+
+- Minor bug fixes and improvements
+
 ## 0.1.3+2
 
 - Minor bug fixes and improvements
