@@ -3,14 +3,14 @@
 
 import 'dart:math';
 
-import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 final random = Random();
 
 const uppercaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz';
 const digits = '1234567890';
-const symbols = '~/`!@#\$%^&\\"\'*(),._?:;{}|<>';
+const symbols = '~/`!@#\$%^&*(),._?:;{}|<>';
 
 String generatePhoneNumber() {
   final buf = StringBuffer('+1');
