@@ -20,6 +20,7 @@ class AmplifyPushNotificationsAndroidPlugin: FlutterPlugin, MethodCallHandler {
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "com.amazonaws.amplify/push_notifications_plugin")
     channel.setMethodCallHandler(this)
+    NativeToDartEventManager.initializeWithMethodChannel(channel)
   }
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull _result: Result) {

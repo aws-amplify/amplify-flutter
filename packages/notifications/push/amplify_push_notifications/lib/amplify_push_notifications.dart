@@ -1,5 +1,6 @@
 library amplify_push_notifications;
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
@@ -12,6 +13,8 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   final AmplifyLogger _logger = AmplifyLogger.category(Category.notifications)
       .createChild('AmplifyPushNotification');
   final ServiceProviderClient serviceProviderClient;
+  final StreamController<RemotePushMessage> _foregroundEventStreamController =
+      StreamController<RemotePushMessage>.broadcast();
 
   AmplifyPushNotifications({required this.serviceProviderClient});
 
@@ -62,6 +65,10 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     _isConfigured = true;
   }
 
+  @override
+  Stream<RemotePushMessage> onForegroundNotificationReceived() =>
+      _foregroundEventStreamController.stream;
+
   Future<void> _registerForRemoteNotifications() async {
     try {
       await _methodChannel
@@ -91,7 +98,9 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
           print(
             "NOTIFICATION HANDLING API | Plugin received foreground notification: $decodedContent",
           );
-
+          _foregroundEventStreamController.sink.add(
+            RemotePushMessage.fromJson(decodedContent),
+          );
           break;
         case "BACKGROUND_MESSAGE_RECEIVED":
           print(
