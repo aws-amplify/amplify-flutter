@@ -51,7 +51,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
     required CognitoSignInWithWebUIOptions options,
     AuthProvider? provider,
   }) async {
-    final signInUrl = getSignInUri(provider: provider).toString();
+    final signInUrl = (await getSignInUri(provider: provider)).toString();
     await launchUrl(signInUrl);
   }
 

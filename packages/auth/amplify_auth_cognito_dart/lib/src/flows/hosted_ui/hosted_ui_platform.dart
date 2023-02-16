@@ -95,27 +95,30 @@ abstract class HostedUiPlatform implements Closeable {
   @protected
   @visibleForTesting
   @nonVirtual
-  Uri getSignInUri({
+  Future<Uri> getSignInUri({
     Uri? redirectUri,
     AuthProvider? provider,
-  }) {
+  }) async {
     final state = generateState();
     final codeVerifier = createCodeVerifier();
     final nonce = generateState();
 
-    _secureStorage
-      ..write(
-        key: _keys[HostedUiKey.state],
-        value: state,
-      )
-      ..write(
-        key: _keys[HostedUiKey.codeVerifier],
-        value: codeVerifier,
-      )
-      ..write(
-        key: _keys[HostedUiKey.nonce],
-        value: nonce,
-      );
+    await Future.wait<void>(
+      [
+        _secureStorage.write(
+          key: _keys[HostedUiKey.state],
+          value: state,
+        ),
+        _secureStorage.write(
+          key: _keys[HostedUiKey.codeVerifier],
+          value: codeVerifier,
+        ),
+        _secureStorage.write(
+          key: _keys[HostedUiKey.nonce],
+          value: nonce,
+        ),
+      ].map(Future.value),
+    );
 
     _authCodeGrant = createGrant(
       config,
@@ -247,7 +250,7 @@ abstract class HostedUiPlatform implements Closeable {
   }
 
   /// Called during initialization when old state is found in [_secureStorage].
-  Future<void> onFoundState({
+  Future<OAuthParameters> onFoundState({
     required String state,
     required String codeVerifier,
   }) async {
@@ -259,16 +262,19 @@ abstract class HostedUiPlatform implements Closeable {
         codeVerifier: codeVerifier,
         httpClient: httpClient,
       );
-      return dispatcher.dispatch(HostedUiEvent.exchange(parameters)).accepted;
+      return parameters;
     }
 
     // Clear all state from the previous session.
     _authCodeGrant = null;
-    _secureStorage
-      ..delete(key: _keys[HostedUiKey.state])
-      ..delete(key: _keys[HostedUiKey.codeVerifier])
-      ..delete(key: _keys[HostedUiKey.nonce])
-      ..delete(key: _keys[HostedUiKey.options]);
+    await Future.wait<void>(
+      [
+        _secureStorage.delete(key: _keys[HostedUiKey.state]),
+        _secureStorage.delete(key: _keys[HostedUiKey.codeVerifier]),
+        _secureStorage.delete(key: _keys[HostedUiKey.nonce]),
+        _secureStorage.delete(key: _keys[HostedUiKey.options]),
+      ].map(Future.value),
+    );
 
     throw const SignedOutException('The user is currently signed out');
   }

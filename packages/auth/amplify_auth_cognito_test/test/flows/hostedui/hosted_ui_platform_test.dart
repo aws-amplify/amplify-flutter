@@ -63,7 +63,7 @@ void main() {
 
       test('missing state throws', () async {
         final parameters = await server.authorize(
-          platform.getSignInUri(
+          await platform.getSignInUri(
             redirectUri: Uri.parse(redirectUri),
           ),
         );
@@ -80,7 +80,7 @@ void main() {
 
       test('mismatched state throws', () async {
         final parameters = await server.authorize(
-          platform.getSignInUri(
+          await platform.getSignInUri(
             redirectUri: Uri.parse(redirectUri),
           ),
         );
@@ -106,7 +106,7 @@ void main() {
         dependencyManager.addInstance<http.Client>(server.httpClient);
         platform = HostedUiPlatform(dependencyManager);
         final parameters = await server.authorize(
-          platform.getSignInUri(
+          await platform.getSignInUri(
             redirectUri: Uri.parse(redirectUri),
           ),
         );
@@ -119,7 +119,7 @@ void main() {
 
       test('succeeds with nonce', () async {
         final parameters = await server.authorize(
-          platform.getSignInUri(
+          await platform.getSignInUri(
             redirectUri: Uri.parse(redirectUri),
           ),
         );
