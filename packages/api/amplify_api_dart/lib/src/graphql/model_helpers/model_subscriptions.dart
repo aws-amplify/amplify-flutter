@@ -18,12 +18,14 @@ class ModelSubscriptions {
     String? apiName,
     APIAuthorizationType? authorizationMode,
     Map<String, String>? headers,
+    QueryPredicate? where,
   }) {
     return ModelSubscriptionsFactory.instance.onCreate<T>(
       modelType,
       apiName: apiName,
       authorizationMode: authorizationMode,
       headers: headers,
+      where: where,
     );
   }
 
@@ -37,12 +39,14 @@ class ModelSubscriptions {
     String? apiName,
     APIAuthorizationType? authorizationMode,
     Map<String, String>? headers,
+    QueryPredicate? where,
   }) {
     return ModelSubscriptionsFactory.instance.onUpdate<T>(
       modelType,
       apiName: apiName,
       authorizationMode: authorizationMode,
       headers: headers,
+      where: where,
     );
   }
 
@@ -56,12 +60,14 @@ class ModelSubscriptions {
     String? apiName,
     APIAuthorizationType? authorizationMode,
     Map<String, String>? headers,
+    QueryPredicate? where,
   }) {
     return ModelSubscriptionsFactory.instance.onDelete<T>(
       modelType,
       apiName: apiName,
       authorizationMode: authorizationMode,
       headers: headers,
+      where: where,
     );
   }
 }

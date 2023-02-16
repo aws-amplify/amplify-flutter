@@ -119,7 +119,8 @@ class GraphQLRequestFactory {
       case GraphQLRequestOperation.onCreate:
       case GraphQLRequestOperation.onUpdate:
       case GraphQLRequestOperation.onDelete:
-        // upperOutput and lowerOutput already '', done
+        upperOutput = '(\$filter: ModelSubscription${modelName}FilterInput)';
+        lowerOutput = r'(filter: $filter)';
         break;
       default:
         throw const ApiException(
@@ -196,6 +197,17 @@ class GraphQLRequestFactory {
     return <String, dynamic>{
       'input': input,
       'condition': condition,
+    };
+  }
+
+  Map<String, dynamic> buildVariablesForSubscriptionRequest({
+    required ModelType modelType,
+    QueryPredicate? where,
+  }) {
+    final filter = GraphQLRequestFactory.instance
+        .queryPredicateToGraphQLFilter(where, modelType);
+    return <String, dynamic>{
+      'filter': filter,
     };
   }
 
