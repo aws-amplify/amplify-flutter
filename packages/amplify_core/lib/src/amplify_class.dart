@@ -48,6 +48,9 @@ abstract class AmplifyClass {
   /// The Amplify event hub.
   final AmplifyHub Hub = AmplifyHub();
 
+  /// The Notifications category.
+  final NotificationsCategory Notifications = NotificationsCategory();
+
   /// Shared dependencies for use across categories.
   @protected
   @visibleForTesting
