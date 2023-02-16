@@ -28,9 +28,9 @@ void main() {
     });
 
     const manyToManyPrimarySelectionSet =
-        'manyToManyPrimary { id name createdAt updatedAt }';
+        'manyToManyPrimary { id name createdAt updatedAt } manyToManyPrimaryId';
     const manyToManySecondarySelectionSet =
-        'manyToManySecondary { id name createdAt updatedAt }';
+        'manyToManySecondary { id name createdAt updatedAt } manyToManySecondaryId';
 
     const mtmRelationSelectionSet = 'id createdAt updatedAt '
         '$manyToManyPrimarySelectionSet '

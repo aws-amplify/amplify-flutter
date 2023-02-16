@@ -70,6 +70,19 @@ class GraphQLRequestFactory {
           ignoreParents: true,
         ); // always format like a get, stop traversing parents
         fields.add('${belongsTo.name} { $parentSelectionSet }');
+
+        // Include the ID key(s) itself in selection set. This is ignored while
+        // deserializing response because model will use ID nested in `parentSelectionSet`.
+        // However, including the ID in selection set allows subscriptions that
+        // filter by these ID to be triggered by these mutations.
+        var belongsToKeys = belongsTo.association?.targetNames;
+        if (belongsToKeys == null &&
+            belongsTo.association?.targetName != null) {
+          belongsToKeys = [belongsTo.association?.targetName as String];
+        }
+        if (belongsToKeys != null) {
+          fields.addAll(belongsToKeys);
+        }
       }
     }
 
