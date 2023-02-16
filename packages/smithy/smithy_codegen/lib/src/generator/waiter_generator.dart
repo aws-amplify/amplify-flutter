@@ -3,6 +3,7 @@
 
 import 'package:aws_common/aws_common.dart';
 import 'package:code_builder/code_builder.dart';
+// ignore: implementation_imports
 import 'package:jmespath/src/parser.dart';
 import 'package:smithy/ast.dart';
 import 'package:smithy_codegen/src/generator/generation_context.dart';

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.amplify_secure_storage_example">
+    package="com.amazonaws.amplify.amplify_secure_storage_example">
    <application
         android:label="amplify_secure_storage_example"
         android:name="${applicationName}"

@@ -6,6 +6,7 @@ A CLI tool for managing the Amplify Flutter repository.
 
 - `bootstrap`/`bs`: Sets up repo for development work
 - `clean`: Cleans temporary files and build artifacts for all packages
+- `create`: Creates new Amplify packages and plugins
 - `deps`: Manages dependencies of all packages in the repo
   - `check`: Checks dependencies against `aft.yaml`, for use in CI
   - `update`: Updates dependency constraints in `aft.yaml` to match latest in `pub.dev`

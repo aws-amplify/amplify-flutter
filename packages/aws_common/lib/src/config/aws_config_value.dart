@@ -19,7 +19,7 @@ enum AWSConfigValue<T extends Object> {
   /// Defaults to `3`.
   maxAttempts<int>._(
     'AWS_MAX_ATTEMPTS',
-    // TODO(dnys1): Add back when https://github.com/dart-lang/sdk/issues/49245 is resolved.
+    // TODO(dnys1): Add back when Dart >=2.19 becomes the min SDK.
     // String.fromEnvironment('AWS_MAX_ATTEMPTS'),
     3,
     parse: int.parse,
@@ -51,7 +51,7 @@ enum AWSConfigValue<T extends Object> {
 
   const AWSConfigValue._(
     this.key,
-    // TODO(dnys1): Add back when https://github.com/dart-lang/sdk/issues/49245 is resolved.
+    // TODO(dnys1): Add back when Dart >=2.19 becomes the min SDK.
     // this._fromEnv,
     this.defaultValue, {
     T Function(String)? parse,
@@ -63,7 +63,7 @@ enum AWSConfigValue<T extends Object> {
   /// The default value of the configuration parameter.
   final T defaultValue;
 
-  // TODO(dnys1): Add back when https://github.com/dart-lang/sdk/issues/49245 is resolved.
+  // TODO(dnys1): Add back when Dart >=2.19 becomes the min SDK.
   // final String? _fromEnv;
   final T Function(String) _parse;
   String? get _fromPlatformEnv => lookupPlatformEnv(key);
@@ -80,7 +80,7 @@ enum AWSConfigValue<T extends Object> {
     } else if (fromOverride is String) {
       return _parse(fromOverride);
     }
-    // TODO(dnys1): Add back when https://github.com/dart-lang/sdk/issues/49245 is resolved.
+    // TODO(dnys1): Add back when Dart >=2.19 becomes the min SDK.
     // final fromEnv = _fromEnv;
     // if (fromEnv != null && fromEnv.isNotEmpty) {
     //   return _parse(fromEnv);

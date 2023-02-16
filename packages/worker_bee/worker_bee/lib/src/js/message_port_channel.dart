@@ -3,6 +3,7 @@
 
 import 'dart:async';
 
+// ignore: implementation_imports
 import 'package:aws_common/src/js/common.dart';
 import 'package:built_value/serializer.dart';
 import 'package:worker_bee/src/exception/worker_bee_exception.dart';

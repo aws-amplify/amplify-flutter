@@ -18,6 +18,17 @@ dependencies:
   uuid: ">=3.0.6 <=3.0.7"
   xml: ">=6.1.0 <=6.2.2"
 
+# The current constraints for SDKs and OSs.
+environment:
+  sdk: '>=2.18.0 <4.0.0'
+  flutter: '>=3.3.0'
+  android:
+    minSdkVersion: '24'
+  ios:
+    minOSVersion: '13.0'
+  macOS:
+    minOSVersion: '10.15'
+
 # Packages to ignore in all repo operations.
 ignore:
   - synthetic_package

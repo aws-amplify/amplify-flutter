@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:aws_common/aws_common.dart';
-import 'package:aws_common/src/http/aws_http_response.dart';
 import 'package:smithy/smithy.dart';
 
 /// {@template smithy_aws.interceptors.check_partial_response}

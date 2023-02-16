@@ -1,0 +1,20 @@
+name: amplify_dart_package
+description: A starting point for Amplify Dart packages.
+version: 0.1.0
+
+environment:
+  mason: ">=0.1.0-dev.40 <0.1.0"
+
+vars:
+  name:
+    type: string
+    description: The name of the package
+  path:
+    type: string
+    description: The path relative to the root of the amplify-flutter repo
+  dartSdkConstraint:
+    type: string
+    description: The current Dart SDK constraint for Amplify packages
+  amplifyCoreConstraint:
+    type: string
+    description: The current version constraint for amplify_core
