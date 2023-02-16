@@ -1,11 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:io';
-
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/dart_queued_item_store.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/queued_item_store.dart';
-import 'package:amplify_core/amplify_core.dart';
 
 import 'package:test/test.dart';
 
@@ -14,18 +11,11 @@ void main() {
 
   group('DartQueuedItemStore ', () {
     setUpAll(() {
-      String? path;
-      if (!zIsWeb) {
-        final tempDir = Directory('queued_item_store_test');
-        addTearDown(() async {
-          await db.close();
-          tempDir.deleteSync(recursive: true);
-        });
-        path = tempDir.path;
-      } else {
-        addTearDown(() async => await db.clear());
-      }
-      db = DartQueuedItemStore(path);
+      db = DartQueuedItemStore('/tmp');
+    });
+
+    tearDownAll(() async {
+      await db.clear();
     });
 
     setUp(() async {
