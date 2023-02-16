@@ -35,14 +35,30 @@ mixin JSEnum on Enum {
 @JS()
 external GlobalScope get self;
 
-/// The window object of the current context.
-@JS()
-external Window? get window;
+/// The [Window] object of the current context.
+///
+/// Throws a [StateError] if unavailable in this context.
+Window get window {
+  final window = js_util.getProperty<Window?>(self, 'window');
+  if (window == null) {
+    throw StateError('window is not available in this context');
+  }
+  return window;
+}
 
+/// {@template aws_common.js.window}
 /// The Window interface represents a window containing a DOM document.
+/// {@endtemplate}
 @JS()
 @staticInterop
 abstract class Window implements GlobalScope {}
+
+/// {@macro aws_common.js.window}
+extension PropsWindow on Window {
+  /// Loads a specified resource into a new or existing browsing context
+  /// (that is, a tab, a window, or an iframe) under a specified name.
+  external void open([String? url, String? target]);
+}
 
 /// A function which handles DOM events.
 typedef EventHandler<T extends Event> = void Function(T event);
@@ -211,6 +227,10 @@ abstract class Location {}
 extension PropsLocation on Location {
   /// The entire URL.
   external String get href;
+
+  /// Returns a string containing the canonical form of the origin of the
+  /// specific location.
+  external String get origin;
 }
 
 /// {@template worker_bee.js.interop.worker_init}
