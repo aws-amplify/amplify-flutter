@@ -1,14 +1,11 @@
 {
   "dart.runPubGetOnPubspecChanges": "always",
-  "dart.analysisExcludedFolders": [
-    "templates"
-  ],
+  "[dart]": {
+    "editor.rulers": [80]
+  },
   "files.insertFinalNewline": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
-    "source.organizeImports": true,
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "source.organizeImports": true
   }
 }
