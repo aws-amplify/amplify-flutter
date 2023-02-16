@@ -11,6 +11,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.3.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
     }
 }
 
@@ -48,6 +49,7 @@ android {
     dependencies {
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
         testImplementation 'org.mockito:mockito-core:5.0.0'
+
     }
 
     testOptions {
@@ -61,4 +63,13 @@ android {
             }
         }
     }
+}
+
+// Logic for finding sibling plugins, from `flutter_tools/gradle/flutter.gradle`
+def amplifyFlutter = project.rootProject.findProject(':amplify_flutter_android')
+
+dependencies {
+    api amplifyFlutter
+    api "com.google.firebase:firebase-messaging:23.1.0"
+
 }
