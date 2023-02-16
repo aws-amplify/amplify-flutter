@@ -18,7 +18,10 @@ void main() {
       if (!zIsWeb) {
         final tempDir =
             Directory.systemTemp.createTempSync('amplify_analytics');
-        addTearDown(() => tempDir.deleteSync(recursive: true));
+        addTearDown(() async {
+          await db.close();
+          tempDir.deleteSync(recursive: true);
+        });
         path = tempDir.path;
       } else {
         addTearDown(() async => await db.clear());
@@ -64,7 +67,7 @@ void main() {
         await db.addItem(value);
       }
 
-      final readItems = await getAll();
+      final readItems = await db.getCount(100);
       final readValues = readItems.map((e) => e.value);
       expect(readValues, values);
     });

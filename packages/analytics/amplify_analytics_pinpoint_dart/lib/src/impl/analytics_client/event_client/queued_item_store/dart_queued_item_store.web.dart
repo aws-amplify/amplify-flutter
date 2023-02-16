@@ -19,13 +19,12 @@ class DartQueuedItemStore
   late final Future<QueuedItemStore> _database = () async {
     if (await IndexedDbAdapter.checkIsIndexedDBSupported()) {
       return IndexedDbAdapter();
-    } else {
-      logger.warn(
-        'IndexedDB is not available. '
-        'Falling back to in-memory storage.',
-      );
-      return InMemoryQueuedItemStore();
     }
+    logger.warn(
+      'IndexedDB is not available. '
+      'Falling back to in-memory storage.',
+    );
+    return InMemoryQueuedItemStore();
   }();
 
   @override

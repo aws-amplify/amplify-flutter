@@ -15,7 +15,7 @@ class DartQueuedItemStore implements QueuedItemStore, Closeable {
   factory DartQueuedItemStore(String? storagePath) {
     assert(
       storagePath != null,
-      'null storagePath provided to DartQueuedItemStore',
+      'A storage path is required on VM for locating the DB',
     );
     final database = DriftQueuedItemStore(storagePath!);
     return DartQueuedItemStore._(database);
