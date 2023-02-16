@@ -1,17 +1,35 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:convert';
-
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
 import 'amplifyconfiguration.dart';
 
-AmplifyConfig loadConfig() {
-  return AmplifyConfig.fromJson(
-    jsonDecode(amplifyconfig) as Map<String, Object?>,
+Future<void> configure({
+  HostedUiPlatformFactory? hostedUiPlatformFactory,
+}) async {
+  await Amplify.addPlugin(
+    AmplifyAuthCognitoDart(
+      credentialStorage: AmplifySecureStorageWorker(
+        config: AmplifySecureStorageConfig.byNamespace(
+          namespace: 'dart-auth-test',
+        ).rebuild((config) {
+          // enabling useDataProtection requires adding the app to an
+          // app group, which requires setting a development team
+          config.macOSOptions.useDataProtection = false;
+        }),
+      ),
+      hostedUiPlatformFactory: hostedUiPlatformFactory,
+    ),
   );
+
+  const environmentName = String.fromEnvironment(
+    'AMPLIFY_ENVIRONMENT',
+    defaultValue: 'main',
+  );
+  await Amplify.configure(amplifyEnvironments[environmentName]!);
 }
 
 Future<SignInResult> signIn({
@@ -139,8 +157,9 @@ Future<ResendUserAttributeConfirmationCodeResult>
   );
 }
 
-Future<void> signOut({required bool globalSignOut}) async {
-  await Amplify.Auth.signOut(
+Future<CognitoSignOutResult> signOut({required bool globalSignOut}) async {
+  final plugin = Amplify.Auth.getPlugin(AmplifyAuthCognitoDart.pluginKey);
+  return plugin.signOut(
     options: SignOutOptions(globalSignOut: globalSignOut),
   );
 }
