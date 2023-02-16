@@ -29,7 +29,7 @@ abstract class AWSProtocolTrait implements ProtocolDefinitionTrait {
   List<AlpnProtocol> get eventStreamHttp =>
       _eventStreamHttp?.whereType<AlpnProtocol>().toList() ?? http;
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   final TimestampFormat timestampFormat;
 
   @override
@@ -49,10 +49,10 @@ abstract class AWSProtocolTrait implements ProtocolDefinitionTrait {
   AWSProtocolTrait get value => this;
 
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   final bool noInlineDocumentSupport;
 
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   List<ShapeId> get traits;
 }
