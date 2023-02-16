@@ -10,6 +10,3 @@ export 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.
 
 /// Category Implementation
 export 'src/analytics_plugin_impl.dart';
-
-/// For Push Notifications
-export 'src/device_context_info_provider/flutter_device_context_info_provider.dart';

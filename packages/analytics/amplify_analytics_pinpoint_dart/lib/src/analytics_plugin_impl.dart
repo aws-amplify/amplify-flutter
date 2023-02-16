@@ -4,8 +4,9 @@
 import 'dart:async';
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/dart_queued_item_store.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/queued_item_store.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/session_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/stoppable_timer.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
