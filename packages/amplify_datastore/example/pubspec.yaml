@@ -26,6 +26,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
 
+dependency_overrides:
+  async: ^2.10.0
+
 dev_dependencies:
   amplify_test:
     path: ../../amplify_test

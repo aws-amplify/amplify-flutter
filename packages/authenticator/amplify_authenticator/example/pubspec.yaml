@@ -36,6 +36,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+dependency_overrides:
+  async: ^2.10.0
+
 dev_dependencies:
   amplify_api: ">=1.0.0-next.5 <1.0.0-next.6"
   amplify_authenticator_test:

@@ -24,6 +24,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+dependency_overrides:
+  async: ^2.10.0
+
 dev_dependencies:
   amplify_lints: 
     path: ../../../amplify_lints
