@@ -51,6 +51,11 @@ class AmplifyClassImpl extends AmplifyClass {
         );
       case Category.hub:
         throw UnimplementedError();
+      case Category.notifications:
+        return Notifications.addPlugin(
+          plugin.cast(),
+          authProviderRepo: authProviderRepo,
+        );
     }
   }
 
