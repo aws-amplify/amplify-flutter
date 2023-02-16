@@ -44,6 +44,7 @@ export 'src/plugin/amplify_auth_plugin_interface.dart';
 export 'src/plugin/amplify_datastore_plugin_interface.dart';
 export 'src/plugin/amplify_plugin_interface.dart';
 export 'src/plugin/amplify_plugin_key.dart';
+export 'src/plugin/amplify_push_notifications_plugin_interface.dart';
 export 'src/plugin/amplify_storage_plugin_interface.dart';
 
 /// State Machine
@@ -95,6 +96,9 @@ export 'src/types/models/model_index.dart';
 export 'src/types/models/model_provider.dart';
 export 'src/types/models/model_schema.dart';
 export 'src/types/models/model_schema_definition.dart';
+
+/// Notifications
+export 'src/types/notifications/notification_types.dart';
 
 /// Query
 export 'src/types/query/query_exception.dart';
