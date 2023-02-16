@@ -16,6 +16,8 @@ public class AmplifyPushNotificationsIosPlugin: NSObject, FlutterPlugin {
         let _channel = FlutterMethodChannel(name: "com.amazonaws.amplify/push_notifications_plugin", binaryMessenger: registrar.messenger())
         let instance = AmplifyPushNotificationsIosPlugin(channel: _channel)
         registrar.addMethodCallDelegate(instance, channel: _channel)
+        registrar.addApplicationDelegate(instance)
+
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -28,8 +30,6 @@ public class AmplifyPushNotificationsIosPlugin: NSObject, FlutterPlugin {
         let this = AmplifyPushNotificationsIosPlugin.self
         switch method {
         case "registerForRemoteNotifications": do {
-            print("registerForRemoteNotifications")
-
             UIApplication.shared.registerForRemoteNotifications()
             UNUserNotificationCenter.current().delegate = self
             
@@ -42,7 +42,6 @@ public class AmplifyPushNotificationsIosPlugin: NSObject, FlutterPlugin {
         }
     }
     
-    // TODO: Debug why this is not being called
     public func application(_ application: UIApplication,
                             didRegisterForRemoteNotificationsWithDeviceToken
                             deviceToken: Data) {

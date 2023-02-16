@@ -33,7 +33,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     AmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
-    print("configuring");
     // Parse config values from amplifyconfiguration.json
     if (config == null ||
         config.analytics == null ||
