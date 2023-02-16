@@ -21,6 +21,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool isConfigured = false;
+  bool isForegroundListernerInitialized = false;
+  RemotePushMessage? foregroundMessage;
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> _configureAmplify() async {
@@ -79,6 +81,38 @@ class _MyAppState extends State<MyApp> {
             ),
             if (isConfigured)
               const Text("Push notification plugin has been configured"),
+            const Divider(
+              height: 20,
+            ),
+            headerText('Notification Handling APIs'),
+            ElevatedButton(
+              onPressed: () async {
+                try {
+                  final foregroundStream =
+                      Amplify.Notifications.onForegroundNotificationReceived();
+                  foregroundStream.listen((event) {
+                    setState(() {
+                      foregroundMessage = event;
+                    });
+                  });
+                  setState(() {
+                    isForegroundListernerInitialized = true;
+                  });
+                } catch (e) {
+                  print(e.toString());
+                }
+              },
+              child: const Text('onForegroundNotificationReceived'),
+            ),
+            if (isForegroundListernerInitialized)
+              const Text("Foreground event listener initialized!"),
+            ListTile(
+              title: Text(
+                foregroundMessage == null
+                    ? "No foreground message yet"
+                    : "Title: ${foregroundMessage!.content?.title?.toString() ?? ""}",
+              ),
+            ),
           ],
         )),
       ),
