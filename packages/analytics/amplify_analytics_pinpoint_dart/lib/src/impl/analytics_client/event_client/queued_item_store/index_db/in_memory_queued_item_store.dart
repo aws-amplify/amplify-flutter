@@ -14,29 +14,28 @@ class InMemoryQueuedItemStore implements QueuedItemStore {
 
   /// The next ID that should be used when adding an item in the DB
   int _nextId = 0;
-  final Queue<QueuedItem> _database = Queue();
+  final LinkedHashMap<int, QueuedItem> _database =
+      LinkedHashMap<int, QueuedItem>();
 
   @override
   void addItem(String string) {
-    _database.add(
-      QueuedItem(
-        id: _nextId,
-        value: string,
-      ),
+    _database[_nextId] = QueuedItem(
+      id: _nextId,
+      value: string,
     );
     _nextId++;
   }
 
   @override
   Iterable<QueuedItem> getCount(int count) {
-    return _database.take(count);
+    return _database.values.take(count);
   }
 
   @override
   void deleteItems(Iterable<QueuedItem> items) {
-    final idsToDelete = items.map((item) => item.id);
-    final hashSet = HashSet<int>.from(idsToDelete);
-    _database.removeWhere((item) => hashSet.contains(item.id));
+    for (final item in items.toList()) {
+      _database.remove(item.id);
+    }
   }
 
   @override

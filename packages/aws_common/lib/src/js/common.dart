@@ -376,9 +376,3 @@ Object? dartify(Object? o) {
   }
   return o;
 }
-
-/// Convert a dart map to a JS object
-@internal
-Object mapToJSObj(Map<Object, Object> a) {
-  return _convertToJs(jsify(a))!;
-}
