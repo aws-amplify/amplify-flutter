@@ -4,23 +4,22 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_analytics_pinpoint_dart/src/impl/drift/drift_tables.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/queued_item_store.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/common/serializers.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:built_value/serializer.dart';
-import 'package:drift/drift.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.event_storage_adapter}
 /// Present interface for saving/retrieving PinpointEvents.
-///
-/// Interacts with underlying device storage using the Drift package.
 /// {@endtemplate}
 class EventStorageAdapter implements Closeable {
   /// {@macro amplify_analytics_pinpoint_dart.event_storage_adapter}
-  factory EventStorageAdapter(QueryExecutor driftQueryExecutor) {
-    final db = DriftDatabaseJsonStrings(driftQueryExecutor);
+  EventStorageAdapter(this._db);
 
+  /// Underlying database used to store Events
+  final QueuedItemStore _db;
+  late final Serializers _serializers = () {
     // Create Serializer
     // jsonDecode JsonString -> Map
     // Serializer Map -> Actual Class Instance
@@ -29,15 +28,8 @@ class EventStorageAdapter implements Closeable {
       serializerBuilder.addBuilderFactory(entry.key, entry.value);
     }
     final builtSerializers = serializerBuilder.build();
-
-    return EventStorageAdapter._(db, builtSerializers);
-  }
-
-  EventStorageAdapter._(this._db, this._serializers);
-
-  /// Underlying drift database used to store Events
-  final DriftDatabaseJsonStrings _db;
-  final Serializers _serializers;
+    return builtSerializers;
+  }();
 
   /// Pinpoint max event size
   static const int _maxEventKbSize = 1000;
@@ -55,7 +47,7 @@ class EventStorageAdapter implements Closeable {
       );
     }
 
-    await _db.addJsonString(jsonString);
+    await _db.addItem(jsonString);
   }
 
   /// Retrieve Events from device storage.
@@ -64,42 +56,43 @@ class EventStorageAdapter implements Closeable {
   Future<List<StoredEvent>> retrieveEvents({
     int maxEventCount = _maxEventsInBatch,
   }) async {
-    // Raw objects read from Drift storage
-    final driftJsonStrings = await _db.getJsonStrings(maxEventCount);
+    // Raw objects read from storage
+    final queuedItems = await _db.getCount(maxEventCount);
 
     // Convert raw objects to Event
     final storedEvents = <StoredEvent>[];
-    for (final driftJsonString in driftJsonStrings) {
-      final storedEvent = StoredEvent(driftJsonString, _serializers);
+    for (final item in queuedItems) {
+      final storedEvent = StoredEvent(item, _serializers);
       storedEvents.add(storedEvent);
     }
     return storedEvents;
   }
 
-  /// Delete Events by their DriftId in device storage
-  Future<void> deleteEvents(Iterable<int> idsToDelete) async {
-    await _db.deleteJsonStrings(idsToDelete);
+  /// Delete Events from device storage
+  Future<void> deleteEvents(Iterable<StoredEvent> items) async {
+    final queuedItems = items.map((item) => item.data);
+    return _db.deleteItems(queuedItems);
   }
 
   @override
   Future<void> close() async {
-    await _db.close();
+    return _db.close();
   }
 }
 
 /// Wrapper class around [Event]
 /// Includes DriftId to identify that event for deletion when calling deleteEvents()
 class StoredEvent {
-  /// Create StoredEvent from [DriftJsonString]
-  factory StoredEvent(DriftJsonString data, Serializers serializers) {
-    final event = serializers.deserialize(jsonDecode(data.jsonString)) as Event;
-    return StoredEvent._(data.id, event);
+  /// Create StoredEvent from [QueuedItem]
+  factory StoredEvent(QueuedItem data, Serializers serializers) {
+    final event = serializers.deserialize(jsonDecode(data.value)) as Event;
+    return StoredEvent._(data, event);
   }
 
-  StoredEvent._(this.id, this.event);
+  StoredEvent._(this.data, this.event);
 
-  /// The Drift ID
-  final int id;
+  /// Underlying [QueuedItem]
+  final QueuedItem data;
 
   /// Underlying Event object
   final Event event;

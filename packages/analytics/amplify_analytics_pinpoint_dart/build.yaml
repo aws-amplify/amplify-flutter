@@ -1,0 +1,8 @@
+targets:
+  $default:
+    builders:
+      build_web_compilers:entrypoint:
+        release_options:
+          dart2js_args:
+            - --define=dart.vm.product=true
+            - --enable-asserts

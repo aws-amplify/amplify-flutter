@@ -6,7 +6,6 @@ import 'package:amplify_analytics_pinpoint/src/flutter_app_lifecycle_provider.da
 import 'package:amplify_analytics_pinpoint/src/flutter_path_provider/flutter_path_provider.dart';
 import 'package:amplify_analytics_pinpoint/src/legacy_native_data_provider/flutter_legacy_native_data_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
-import 'package:amplify_db_common/amplify_db_common.dart' as db_common;
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:meta/meta.dart';
 
@@ -30,6 +29,5 @@ class AmplifyAnalyticsPinpoint extends AmplifyAnalyticsPinpointDart {
               appLifecycleProvider ?? FlutterAppLifecycleProvider(),
           deviceContextInfoProvider: const FlutterDeviceContextInfoProvider(),
           legacyNativeDataProvider: FlutterLegacyNativeDataProvider(),
-          dbConnectFunction: db_common.connect,
         );
 }

@@ -8,7 +8,6 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:smithy/smithy.dart';
-import 'package:uuid/uuid.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.event_client}
 /// Manages storage and flush of analytics events
@@ -60,8 +59,6 @@ class EventClient implements Closeable {
     }
   }
 
-  static const _uuid = Uuid();
-
   static final AmplifyLogger _logger =
       AmplifyLogger.category(Category.analytics).createChild('EventClient');
 
@@ -85,24 +82,19 @@ class EventClient implements Closeable {
       return;
     }
 
-    final eventsMap = <String, Event>{};
-    final eventIdsToDelete = <String, int>{};
+    final eventsToSend = <String, Event>{};
+    final eventsToDelete = <String, StoredEvent>{};
 
     for (final storedEvent in storedEvents) {
-      final id = _uuid.v1();
-      // Assign unique id to every event we will send
-      eventsMap[id] = storedEvent.event;
-
-      // Mapping EventId -> StoredEventId to help with deleting cached events
-      // EventId identifies if event was sent to Pinpoint successfully
-      // StoredEventId identifies cached event
-      eventIdsToDelete[id] = storedEvent.id;
+      final id = storedEvent.data.id.toString();
+      eventsToSend[id] = storedEvent.event;
+      eventsToDelete[id] = storedEvent;
     }
 
     // The Event batch to be sent to Pinpoint
     final batch = EventsBatch(
       endpoint: _endpointClient.getPublicEndpoint(),
-      events: eventsMap,
+      events: eventsToSend,
     );
 
     final batchItems = {_fixedEndpointId: batch};
@@ -158,18 +150,18 @@ class EventClient implements Closeable {
             _logger.warn(
               'putEvents - recoverable issue, will attempt to resend: $eventID in next FlushEvents',
             );
-            eventIdsToDelete.remove(eventID);
+            eventsToDelete.remove(eventID);
           }
         }
       });
     } on BadRequestException catch (e) {
-      _handleRecoverableException(e, eventIdsToDelete);
+      _handleRecoverableException(e, eventsToDelete);
     } on InternalServerErrorException catch (e) {
-      _handleRecoverableException(e, eventIdsToDelete);
+      _handleRecoverableException(e, eventsToDelete);
     } on NotFoundException catch (e) {
-      _handleRecoverableException(e, eventIdsToDelete);
+      _handleRecoverableException(e, eventsToDelete);
     } on TooManyRequestsException catch (e) {
-      _handleRecoverableException(e, eventIdsToDelete);
+      _handleRecoverableException(e, eventsToDelete);
     } on PayloadTooLargeException catch (e) {
       _logger
         ..warn('putEvents - exception encountered: ', e)
@@ -184,8 +176,8 @@ class EventClient implements Closeable {
     } finally {
       // Always delete local store of events
       // Unless a retryable exception has been received (see above)
-      if (eventIdsToDelete.isNotEmpty) {
-        await _storageAdapter.deleteEvents(eventIdsToDelete.values);
+      if (eventsToDelete.isNotEmpty) {
+        await _storageAdapter.deleteEvents(eventsToDelete.values);
       }
     }
   }
@@ -193,7 +185,7 @@ class EventClient implements Closeable {
   // If exception is recoverable, do not delete eventIds from local cache
   void _handleRecoverableException(
     SmithyHttpException e,
-    Map<String, int> eventIdsToDelete,
+    Map<String, StoredEvent> eventIdsToDelete,
   ) {
     _logger
       ..warn('putEvents - exception encountered: ', e)
