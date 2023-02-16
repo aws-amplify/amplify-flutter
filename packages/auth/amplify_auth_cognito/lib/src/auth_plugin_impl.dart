@@ -106,8 +106,8 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
     try {
       await nativeBridge.addPlugin();
     } on PlatformException catch (e) {
-      if (e.code == 'AmplifyAlreadyConfiguredException' ||
-          e.code == 'AlreadyConfiguredException') {
+      if (e.code.contains('AmplifyAlreadyConfiguredException') ||
+          e.code.contains('AlreadyConfiguredException')) {
         throw const AmplifyAlreadyConfiguredException(
           AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
           recoverySuggestion:
