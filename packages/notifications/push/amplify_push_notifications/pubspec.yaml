@@ -1,0 +1,37 @@
+name: amplify_push_notifications
+description: A new Flutter plugin project.
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: ">=3.0.0-240.0.dev <4.0.0"
+  flutter: ">=2.5.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  amplify_push_notifications_android: ">=1.0.0-next.0 <1.0.0-next.1"
+  amplify_push_notifications_ios: ">=1.0.0-next.0 <1.0.0-next.1"
+  amplify_secure_storage: ^0.1.0
+  amplify_core: ">=1.0.0-next.0 <1.0.0-next.1"
+  aws_common: ^0.2.0
+  aws_signature_v4: ^0.2.0
+  built_collection: ^5.0.0
+  built_value: ">=8.4.0 <8.5.0"
+
+dev_dependencies:
+  amplify_lints: ^2.0.0
+  amplify_test:
+    path: ../../../amplify_test
+  build_runner: ^2.0.0
+  built_value_generator: 8.4.1
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        default_package: amplify_push_notifications_android
+      ios:
+        default_package: amplify_push_notifications_ios
