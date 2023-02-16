@@ -6,12 +6,16 @@ import amplify_flutter_ios
 public class AmplifyPushNotificationsIosPlugin: NSObject, FlutterPlugin {
     
     var _result:FlutterResult!
-    
+    let channel:FlutterMethodChannel?;
+
+    public init(channel:FlutterMethodChannel) {
+        self.channel = channel
+    }
     
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let channel = FlutterMethodChannel(name: "com.amazonaws.amplify/push_notifications_plugin", binaryMessenger: registrar.messenger())
-        let instance = AmplifyPushNotificationsIosPlugin()
-        registrar.addMethodCallDelegate(instance, channel: channel)
+        let _channel = FlutterMethodChannel(name: "com.amazonaws.amplify/push_notifications_plugin", binaryMessenger: registrar.messenger())
+        let instance = AmplifyPushNotificationsIosPlugin(channel: _channel)
+        registrar.addMethodCallDelegate(instance, channel: _channel)
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -55,6 +59,28 @@ public class AmplifyPushNotificationsIosPlugin: NSObject, FlutterPlugin {
                             error: Error) {
         print("error getting token : \(error)")
     }
+    
+    public func application(
+        _ application: UIApplication,
+        didReceiveRemoteNotification userInfo: [AnyHashable : Any],
+        fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) -> Bool {
+            let remoteMessage:String
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: userInfo)
+                remoteMessage = String(data: jsonData, encoding: .utf8) ?? ""
+            } catch {
+                print("something went wrong with parsing json")
+                return false
+            }
+            if UIApplication.shared.applicationState == .active  {
+                self.channel?.invokeMethod("FOREGROUND_MESSAGE_RECEIVED",arguments: remoteMessage);
+            }else{
+                // TODO: Add background notification handling logic
+            }
+            
+            completionHandler(.noData)
+            return true
+        }
     
 }
 extension Data {
