@@ -1,3 +1,8 @@
+## 0.4.0+2
+
+### Fixes
+- fix(http): Cancel streamed responses ([#2545](https://github.com/aws-amplify/amplify-flutter/pull/2545))
+
 ## 0.4.0+1
 
 ### Features

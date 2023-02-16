@@ -1,3 +1,7 @@
+## 2.0.2
+
+- Enforce `implementation_imports` to align with `package:lints`
+
 ## 2.0.1
 
 - Fix package analysis issues

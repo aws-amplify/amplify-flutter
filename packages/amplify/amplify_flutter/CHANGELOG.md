@@ -1,3 +1,22 @@
+## 1.0.0-next.5
+
+### Breaking Changes
+- chore(auth)!: Change `AuthCodeDeliveryDetails.attributeKey` to be of type `AuthUserAttributeKey`
+- refactor(auth)!: Make attribute update step an enum
+- refactor(auth)!: Make reset password step an enum
+- refactor(auth)!: Make sign-in step an enum
+- refactor(auth)!: Make sign-up step an enum
+- refactor(auth)!: Remove category->plugin indirection for `getPlugin`
+- refactor(auth)!: State machine facade ([#2482](https://github.com/aws-amplify/amplify-flutter/pull/2482))
+
+### Features
+- feat(analytics): Use indexedDB on Web ([#2600](https://github.com/aws-amplify/amplify-flutter/pull/2600))
+- feat(storage): enable pause and cancel APIs for download operations
+
+### Fixes
+- fix(api): Web Socket Multiple Requests Synchronously ([#2567](https://github.com/aws-amplify/amplify-flutter/pull/2567))
+- fix(auth): `federateToIdentityPool` discrepancies
+
 ## 1.0.0-next.4
 
 ### Breaking Changes

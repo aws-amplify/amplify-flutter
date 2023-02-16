@@ -1,3 +1,8 @@
+## 0.1.4+2
+
+### Fixes
+- fix(secure_storage): clear SharedPreferences on first app launch after install ([#2637](https://github.com/aws-amplify/amplify-flutter/pull/2637))
+
 ## 0.1.4+1
 
 - Minor bug fixes and improvements
