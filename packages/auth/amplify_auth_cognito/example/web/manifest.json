@@ -1,6 +1,6 @@
 {
-    "name": "example",
-    "short_name": "example",
+    "name": "amplify_auth_cognito_example",
+    "short_name": "amplify_auth_cognito_example",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

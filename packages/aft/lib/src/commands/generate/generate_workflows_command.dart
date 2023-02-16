@@ -54,16 +54,8 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
           isDartPackage ? 'dart_vm.yaml' : 'flutter_vm.yaml';
       final needsNativeTest =
           isDartPackage && package.unitTestDirectory != null;
-      // Packages which are failing in DDC stable due to staticInterop issues
-      // TODO(dnys1): Remove when Dart 2.19 is stable
-      const failingDdcStable = [
-        'amplify_auth_cognito_test',
-        'amplify_secure_storage_test',
-      ];
       final needsWebTest =
           package.pubspecInfo.pubspec.devDependencies.containsKey('build_test');
-      final testDdcStable =
-          needsWebTest && !failingDdcStable.contains(package.name);
       final workflows = [
         analyzeAndTestWorkflow,
         if (needsNativeTest) nativeWorkflow,
@@ -126,7 +118,6 @@ jobs:
     uses: ./.github/workflows/$ddcWorkflow
     with:
       working-directory: $repoRelativePath
-      test-ddc-stable: $testDdcStable
   dart2js_test:
     needs: test
     uses: ./.github/workflows/$dart2JsWorkflow
