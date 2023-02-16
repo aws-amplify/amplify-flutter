@@ -38,7 +38,7 @@ class EndpointGlobalFieldsManager {
   Future<void> init() async {
     /// Retrieve stored GlobalAttributes
     final cachedAttributes = await _endpointInfoStore.read(
-      key: EndpointStoreKey.EndpointGlobalAttributesKey.name,
+      key: EndpointStoreKey.endpointGlobalAttributesKey.name,
     );
     _globalAttributes = cachedAttributes == null
         ? <String, String>{}
@@ -47,7 +47,7 @@ class EndpointGlobalFieldsManager {
 
     /// Retrieve stored GlobalMetrics
     final cachedMetrics = await _endpointInfoStore.read(
-      key: EndpointStoreKey.EndpointGlobalMetricsKey.name,
+      key: EndpointStoreKey.endpointGlobalMetricsKey.name,
     );
     _globalMetrics = cachedMetrics == null
         ? <String, double>{}
@@ -137,7 +137,7 @@ class EndpointGlobalFieldsManager {
 
   Future<void> _saveAttributes() async {
     await _endpointInfoStore.write(
-      key: EndpointStoreKey.EndpointGlobalAttributesKey.name,
+      key: EndpointStoreKey.endpointGlobalAttributesKey.name,
       value: jsonEncode(_globalAttributes),
     );
   }
@@ -173,7 +173,7 @@ class EndpointGlobalFieldsManager {
 
   Future<void> _saveMetrics() async {
     await _endpointInfoStore.write(
-      key: EndpointStoreKey.EndpointGlobalMetricsKey.name,
+      key: EndpointStoreKey.endpointGlobalMetricsKey.name,
       value: jsonEncode(_globalMetrics),
     );
   }

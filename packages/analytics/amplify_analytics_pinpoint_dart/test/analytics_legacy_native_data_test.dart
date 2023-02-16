@@ -14,7 +14,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Analytics Legacy Native Data Tests', () {
+  group('LegacyNativeDataProvider ', () {
     late MockLegacyNativeDataProvider legacyDataProvider;
     late MockSecureStorage store;
 

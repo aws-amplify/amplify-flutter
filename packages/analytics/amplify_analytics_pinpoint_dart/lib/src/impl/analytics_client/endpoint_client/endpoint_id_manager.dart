@@ -36,14 +36,14 @@ class EndpointIdManager {
 
     // Read the existing ID.
     fixedEndpointId ??= await _store.read(
-      key: EndpointStoreKey.UniqueId.name,
+      key: EndpointStoreKey.endpointId.name,
     );
 
     // Generate a new ID if one does not exist.
     if (fixedEndpointId == null) {
       fixedEndpointId = uuid();
       await _store.write(
-        key: EndpointStoreKey.UniqueId.name,
+        key: EndpointStoreKey.endpointId.name,
         value: fixedEndpointId,
       );
     }
@@ -65,7 +65,7 @@ class EndpointIdManager {
       if (legacyEndpointId != null) {
         fixedEndpointId = legacyEndpointId;
         await _store.write(
-          key: EndpointStoreKey.UniqueId.name,
+          key: EndpointStoreKey.endpointId.name,
           value: legacyEndpointId,
         );
       }

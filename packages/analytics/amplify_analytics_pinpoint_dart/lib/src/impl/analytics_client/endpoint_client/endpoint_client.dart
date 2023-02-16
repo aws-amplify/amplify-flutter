@@ -45,7 +45,8 @@ class EndpointClient {
           ),
         ).toBuilder();
 
-  /// {@macro amplify_analytics_pinpoint_dart.endpoint_client}
+  /// Initialize [EndpointClient] by retrieving the endpoint id and
+  /// initializing the [EndpointGlobalFieldsManager]
   @visibleForTesting
   Future<void> init({
     required SecureStorageInterface endpointInfoStore,
@@ -62,7 +63,7 @@ class EndpointClient {
         await EndpointGlobalFieldsManager.create(endpointInfoStore);
   }
 
-  /// {@macro amplify_analytics_pinpoint_dart.endpoint_client}
+  /// Create and initialize an [EndpointClient]
   static Future<EndpointClient> create({
     required String pinpointAppId,
     required PinpointClient pinpointClient,
