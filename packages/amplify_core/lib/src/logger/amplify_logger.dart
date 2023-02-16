@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 
 /// {@macro aws_common.logging.aws_logger}
@@ -18,8 +17,8 @@ class AmplifyLogger extends AWSLogger {
     if (!namespace.startsWith(rootNamespace)) {
       namespace = '$rootNamespace.$namespace';
     }
-    return (AWSLogger.activeLoggers[namespace] ??=
-        AmplifyLogger._(Logger(namespace))) as AmplifyLogger;
+    return (AWSLogger.activeLoggers[namespace] ??= AmplifyLogger._(namespace))
+        as AmplifyLogger;
   }
 
   /// Creates a [AmplifyLogger] for the Amplify [category].
@@ -28,7 +27,7 @@ class AmplifyLogger extends AWSLogger {
   factory AmplifyLogger.category(Category category) =>
       AmplifyLogger().createChild(category.name);
 
-  AmplifyLogger._(Logger logger) : super.protected(logger);
+  AmplifyLogger._(String namespace) : super.protected(namespace);
 
   /// The root namespace for all [AmplifyLogger] instances.
   static const rootNamespace = '${AWSLogger.rootNamespace}.Amplify';
