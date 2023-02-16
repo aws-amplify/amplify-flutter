@@ -3,7 +3,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// Base Class for Analytics Exceptions
+/// Base Class for Push Notification Exceptions
 class PushNotificationException extends AmplifyException {
   const PushNotificationException(
     super.message, {

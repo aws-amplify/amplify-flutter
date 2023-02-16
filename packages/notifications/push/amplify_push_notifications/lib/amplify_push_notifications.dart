@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 library amplify_push_notifications;
 
 import 'dart:async';
@@ -6,7 +9,16 @@ import 'dart:convert';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
 
+/// {@template amplify_push_notifications.amplify_push_notifications}
+/// Implementation of the Amplify Push Notifications category.
+///
+/// - Concrete implementation of the Plugin Interface
+/// - Communicates with native layer
+/// {@endtemplate}
 class AmplifyPushNotifications extends PushNotificationsPluginInterface {
+  /// {@macro amplify_push_notifications.amplify_push_notifications}
+  AmplifyPushNotifications({required this.serviceProviderClient});
+
   bool _isConfigured = false;
   final MethodChannel _methodChannel =
       const MethodChannel('com.amazonaws.amplify/push_notifications_plugin');
@@ -15,8 +27,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   final ServiceProviderClient serviceProviderClient;
   final StreamController<RemotePushMessage> _foregroundEventStreamController =
       StreamController<RemotePushMessage>.broadcast();
-
-  AmplifyPushNotifications({required this.serviceProviderClient});
 
   @override
   Future<void> configure({
