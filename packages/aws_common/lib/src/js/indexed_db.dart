@@ -6,7 +6,6 @@ library amplify_secure_storage_dart.js.indexed_db;
 
 import 'dart:async';
 import 'dart:js_util' as js_util;
-import 'dart:js_util';
 
 import 'package:aws_common/src/js/common.dart';
 import 'package:js/js.dart';
@@ -168,7 +167,7 @@ extension PropsIDBDatabase on IDBDatabase {
     return js_util.callMethod(
       this,
       'createObjectStore',
-      [name, jsify(params)],
+      [name, js_util.jsify(params)],
     );
   }
 }
@@ -208,7 +207,7 @@ extension PropsIDBObjectStore on IDBObjectStore {
   ///
   /// This is for adding new records to an object store created with keyPath set and autoincrement = true
   IDBRequest<void> push(Map<Object, Object> item) =>
-      js_util.callMethod(this, 'add', [jsify(item)]);
+      js_util.callMethod(this, 'add', [js_util.jsify(item)]);
 
   /// Returns an [IDBRequest] object, and, in a separate thread, deletes the
   /// store object selected by the specified key.

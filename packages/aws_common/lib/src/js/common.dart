@@ -8,8 +8,6 @@ import 'dart:js_util' as js_util;
 
 import 'package:aws_common/src/util/recase.dart';
 import 'package:js/js.dart';
-import 'package:js/js_util.dart';
-import 'package:meta/meta.dart';
 
 /// The JS `undefined`.
 @JS()

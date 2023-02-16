@@ -28,12 +28,12 @@ class InMemoryQueuedItemStore implements QueuedItemStore {
 
   @override
   Iterable<QueuedItem> getCount(int count) {
-    return _database.values.take(count);
+    return _database.values.take(count).toList();
   }
 
   @override
   void deleteItems(Iterable<QueuedItem> items) {
-    for (final item in items.toList()) {
+    for (final item in items) {
       _database.remove(item.id);
     }
   }

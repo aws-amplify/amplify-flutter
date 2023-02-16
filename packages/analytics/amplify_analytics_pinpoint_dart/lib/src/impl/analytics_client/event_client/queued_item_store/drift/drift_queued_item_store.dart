@@ -10,7 +10,7 @@ import 'package:drift/drift.dart';
 part 'drift_queued_item_store.g.dart';
 
 /// SQL schema of data stored in DriftDatabase
-class DriftStrings extends Table {
+class DriftQueuedItems extends Table {
   /// Identifies object in the SQL database
   IntColumn get id => integer().autoIncrement()();
 
@@ -19,9 +19,9 @@ class DriftStrings extends Table {
 }
 
 /// {@template amplify_analytics_pinpoint_dart.drift_queued_item_store}
-/// Drift class for managing stored [DriftStrings]
+/// Drift class for managing stored [DriftQueuedItems]
 /// {@endtemplate}
-@DriftDatabase(tables: [DriftStrings])
+@DriftDatabase(tables: [DriftQueuedItems])
 class DriftQueuedItemStore extends _$DriftQueuedItemStore
     implements QueuedItemStore {
   /// {@macro amplify_analytics_pinpoint_dart.drift_queued_item_store}
@@ -46,7 +46,7 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
         await m.createAll();
       },
       onUpgrade: (Migrator m, int from, int to) async {
-        // Note: From schemaVersion 1->2 we renamed DriftJsonStrings to DriftStrings before the GA release
+        // Note: From schemaVersion 1->2 we renamed DriftJsonStrings to DriftQueuedItems before the GA release
         await m.createAll();
       },
     );
@@ -54,20 +54,21 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
 
   @override
   Future<void> addItem(String value) async {
-    await into(driftStrings).insert(DriftStringsCompanion(value: Value(value)));
+    await into(driftQueuedItems)
+        .insert(DriftQueuedItemsCompanion(value: Value(value)));
   }
 
   @override
   Future<Iterable<QueuedItem>> getCount(int count) async {
-    final statement = (select(driftStrings)
+    final statement = (select(driftQueuedItems)
       ..orderBy([(v) => OrderingTerm.asc(v.id)])
       ..limit(count));
 
-    final retrievedJsonStrings = await statement.get();
-    return retrievedJsonStrings.map(
-      (driftString) => QueuedItem(
-        id: driftString.id,
-        value: driftString.value,
+    final retrievedItems = await statement.get();
+    return retrievedItems.map(
+      (item) => QueuedItem(
+        id: item.id,
+        value: item.value,
       ),
     );
   }
@@ -75,13 +76,13 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
   @override
   Future<void> deleteItems(Iterable<QueuedItem> items) async {
     final idsToDelete = items.map((item) => item.id);
-    final statement = delete(driftStrings)
+    final statement = delete(driftQueuedItems)
       ..where((t) => t.id.isIn(idsToDelete));
     await statement.go();
   }
 
   @override
   Future<void> clear() {
-    return delete(driftStrings).go();
+    return delete(driftQueuedItems).go();
   }
 }

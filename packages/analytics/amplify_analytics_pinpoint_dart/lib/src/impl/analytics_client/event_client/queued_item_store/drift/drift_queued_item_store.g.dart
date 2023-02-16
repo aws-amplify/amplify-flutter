@@ -3,12 +3,12 @@
 part of 'drift_queued_item_store.dart';
 
 // ignore_for_file: type=lint
-class $DriftStringsTable extends DriftStrings
-    with TableInfo<$DriftStringsTable, DriftString> {
+class $DriftQueuedItemsTable extends DriftQueuedItems
+    with TableInfo<$DriftQueuedItemsTable, DriftQueuedItem> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $DriftStringsTable(this.attachedDatabase, [this._alias]);
+  $DriftQueuedItemsTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -26,11 +26,11 @@ class $DriftStringsTable extends DriftStrings
   @override
   List<GeneratedColumn> get $columns => [id, value];
   @override
-  String get aliasedName => _alias ?? 'drift_strings';
+  String get aliasedName => _alias ?? 'drift_queued_items';
   @override
-  String get actualTableName => 'drift_strings';
+  String get actualTableName => 'drift_queued_items';
   @override
-  VerificationContext validateIntegrity(Insertable<DriftString> instance,
+  VerificationContext validateIntegrity(Insertable<DriftQueuedItem> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -49,9 +49,9 @@ class $DriftStringsTable extends DriftStrings
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  DriftString map(Map<String, dynamic> data, {String? tablePrefix}) {
+  DriftQueuedItem map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return DriftString(
+    return DriftQueuedItem(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       value: attachedDatabase.typeMapping
@@ -60,18 +60,18 @@ class $DriftStringsTable extends DriftStrings
   }
 
   @override
-  $DriftStringsTable createAlias(String alias) {
-    return $DriftStringsTable(attachedDatabase, alias);
+  $DriftQueuedItemsTable createAlias(String alias) {
+    return $DriftQueuedItemsTable(attachedDatabase, alias);
   }
 }
 
-class DriftString extends DataClass implements Insertable<DriftString> {
+class DriftQueuedItem extends DataClass implements Insertable<DriftQueuedItem> {
   /// Identifies object in the SQL database
   final int id;
 
   /// The string value stored for this object
   final String value;
-  const DriftString({required this.id, required this.value});
+  const DriftQueuedItem({required this.id, required this.value});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -80,17 +80,17 @@ class DriftString extends DataClass implements Insertable<DriftString> {
     return map;
   }
 
-  DriftStringsCompanion toCompanion(bool nullToAbsent) {
-    return DriftStringsCompanion(
+  DriftQueuedItemsCompanion toCompanion(bool nullToAbsent) {
+    return DriftQueuedItemsCompanion(
       id: Value(id),
       value: Value(value),
     );
   }
 
-  factory DriftString.fromJson(Map<String, dynamic> json,
+  factory DriftQueuedItem.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return DriftString(
+    return DriftQueuedItem(
       id: serializer.fromJson<int>(json['id']),
       value: serializer.fromJson<String>(json['value']),
     );
@@ -104,13 +104,13 @@ class DriftString extends DataClass implements Insertable<DriftString> {
     };
   }
 
-  DriftString copyWith({int? id, String? value}) => DriftString(
+  DriftQueuedItem copyWith({int? id, String? value}) => DriftQueuedItem(
         id: id ?? this.id,
         value: value ?? this.value,
       );
   @override
   String toString() {
-    return (StringBuffer('DriftString(')
+    return (StringBuffer('DriftQueuedItem(')
           ..write('id: $id, ')
           ..write('value: $value')
           ..write(')'))
@@ -122,23 +122,23 @@ class DriftString extends DataClass implements Insertable<DriftString> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is DriftString &&
+      (other is DriftQueuedItem &&
           other.id == this.id &&
           other.value == this.value);
 }
 
-class DriftStringsCompanion extends UpdateCompanion<DriftString> {
+class DriftQueuedItemsCompanion extends UpdateCompanion<DriftQueuedItem> {
   final Value<int> id;
   final Value<String> value;
-  const DriftStringsCompanion({
+  const DriftQueuedItemsCompanion({
     this.id = const Value.absent(),
     this.value = const Value.absent(),
   });
-  DriftStringsCompanion.insert({
+  DriftQueuedItemsCompanion.insert({
     this.id = const Value.absent(),
     required String value,
   }) : value = Value(value);
-  static Insertable<DriftString> custom({
+  static Insertable<DriftQueuedItem> custom({
     Expression<int>? id,
     Expression<String>? value,
   }) {
@@ -148,8 +148,8 @@ class DriftStringsCompanion extends UpdateCompanion<DriftString> {
     });
   }
 
-  DriftStringsCompanion copyWith({Value<int>? id, Value<String>? value}) {
-    return DriftStringsCompanion(
+  DriftQueuedItemsCompanion copyWith({Value<int>? id, Value<String>? value}) {
+    return DriftQueuedItemsCompanion(
       id: id ?? this.id,
       value: value ?? this.value,
     );
@@ -169,7 +169,7 @@ class DriftStringsCompanion extends UpdateCompanion<DriftString> {
 
   @override
   String toString() {
-    return (StringBuffer('DriftStringsCompanion(')
+    return (StringBuffer('DriftQueuedItemsCompanion(')
           ..write('id: $id, ')
           ..write('value: $value')
           ..write(')'))
@@ -179,10 +179,11 @@ class DriftStringsCompanion extends UpdateCompanion<DriftString> {
 
 abstract class _$DriftQueuedItemStore extends GeneratedDatabase {
   _$DriftQueuedItemStore(QueryExecutor e) : super(e);
-  late final $DriftStringsTable driftStrings = $DriftStringsTable(this);
+  late final $DriftQueuedItemsTable driftQueuedItems =
+      $DriftQueuedItemsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [driftStrings];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [driftQueuedItems];
 }
