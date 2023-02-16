@@ -1,17 +1,21 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_test/hosted_ui/hosted_ui_common.dart';
 import 'package:amplify_auth_cognito_test/hosted_ui/hosted_ui_server.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:json_rpc_2/json_rpc_2.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-/// A client for interacting with a [HostedUIServer].
-class HostedUIClient {
-  HostedUIClient._(this._client);
+/// A client for interacting with a [HostedUiServer].
+class HostedUiClient implements Closeable {
+  HostedUiClient._(this._client);
 
-  /// Connects to a running [HostedUIServer].
-  static Future<HostedUIClient> connect(String amplifyConfig) async {
+  /// Connects to a running [HostedUiServer].
+  static Future<HostedUiClient> connect(String amplifyConfig) async {
     final socket = WebSocketChannel.connect(rpcUri);
     final client = Client(socket.cast<String>());
     unawaited(client.listen());
@@ -19,7 +23,7 @@ class HostedUIClient {
     await client.sendRequest('configure', {
       'config': amplifyConfig,
     });
-    return HostedUIClient._(client);
+    return HostedUiClient._(client);
   }
 
   final Client _client;
@@ -53,5 +57,10 @@ class HostedUIClient {
       throw Exception('Invalid response: $resp');
     }
     return resp;
+  }
+
+  @override
+  Future<void> close() async {
+    await _client.close();
   }
 }

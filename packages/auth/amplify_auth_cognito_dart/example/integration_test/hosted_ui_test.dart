@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_auth_cognito_test/hosted_ui/hosted_ui_client.dart';
+import 'package:amplify_auth_cognito_test/hosted_ui/hosted_ui_common.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:checks/checks.dart';
@@ -17,7 +18,7 @@ import 'common.dart';
 
 final ProcessManager manager = ProcessManager();
 
-Future<HostedUIClient> runApp() async {
+Future<HostedUiClient> runApp() async {
   if (!isCI) {
     await manager.spawnBackgroundInTest('chromedriver', [
       '--port=$chromedriverPort',
@@ -28,7 +29,7 @@ Future<HostedUIClient> runApp() async {
     ['integration_test/hosted_ui.dart'],
   );
   await application.stdout.first; // Wait for server to connect.
-  return HostedUIClient.connect(
+  return HostedUiClient.connect(
     amplifyEnvironments['hosted-ui']!,
   );
 }
@@ -44,7 +45,7 @@ void main() {
     'HostedUI',
     () {
       group('VM', () {
-        late HostedUIClient application;
+        late HostedUiClient application;
         late WebDriver driver;
         late String username;
         late String password;
@@ -62,7 +63,8 @@ void main() {
           await adminCreateUser(username, password, autoConfirm: true);
           addTearDown(() => deleteUser(username));
 
-          driver = await launchChrome();
+          driver = await createWebDriver();
+          addTearDown(driver.quit);
         });
 
         test('sign in / sign out', () async {

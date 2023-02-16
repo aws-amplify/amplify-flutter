@@ -21,8 +21,8 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 /// handling requests from the test driver.
 ///
 /// This acts very similarly to `flutter_driver`.
-class HostedUIServer implements Closeable {
-  HostedUIServer._(this._server, this._rpcServer) {
+class HostedUiServer implements Closeable {
+  HostedUiServer._(this._server, this._rpcServer) {
     _rpcServer
       ..registerMethod('configure', _configure)
       ..registerMethod('signIn', _signIn)
@@ -37,7 +37,7 @@ class HostedUIServer implements Closeable {
   static final _logger = AWSLogger().createChild('HostedUIServer');
 
   /// Launches a Hosted UI server on the default [rpcUri].
-  static Future<HostedUIServer> launch() async {
+  static Future<HostedUiServer> launch() async {
     final completer = StreamChannelCompleter<String>();
     final wsHandler = webSocketHandler((dynamic webSocket) {
       webSocket as WebSocketChannel;
@@ -56,7 +56,14 @@ class HostedUIServer implements Closeable {
     final server = await shelf_io.serve(handler, rpcUri.host, rpcUri.port);
     final rpcServer = Server(completer.channel);
 
-    return HostedUIServer._(server, rpcServer);
+    final hostedUiServer = HostedUiServer._(server, rpcServer);
+    unawaited(
+      completer.channel.sink.done.then((_) {
+        hostedUiServer.close();
+      }),
+    );
+
+    return hostedUiServer;
   }
 
   final HttpServer _server;
@@ -145,6 +152,8 @@ class HostedUIServer implements Closeable {
 
   @override
   Future<void> close() async {
+    // ignore: invalid_use_of_visible_for_testing_member
+    await Amplify.reset();
     await _rpcServer.close();
     await _server.close(force: true);
   }
@@ -153,7 +162,7 @@ class HostedUIServer implements Closeable {
 class _HostedUiPlatform extends HostedUiPlatformImpl {
   _HostedUiPlatform(super.dependencyManager, this._server);
 
-  final HostedUIServer _server;
+  final HostedUiServer _server;
 
   @override
   Future<void> launchUrl(String url) async {

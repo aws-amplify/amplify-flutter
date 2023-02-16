@@ -8,6 +8,7 @@ import 'dart:io';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 // ignore: invalid_use_of_internal_member,implementation_imports
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
+import 'package:amplify_auth_cognito_test/hosted_ui/hosted_ui_common.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:checks/checks.dart';
@@ -174,7 +175,8 @@ Future<void> main() async {
             addTearDown(() => deleteUser(username));
 
             logger.info('Launching Chrome...');
-            driver = await launchChrome();
+            driver = await createWebDriver();
+            addTearDown(driver.quit);
 
             await driver.get(applicationUri);
           });
