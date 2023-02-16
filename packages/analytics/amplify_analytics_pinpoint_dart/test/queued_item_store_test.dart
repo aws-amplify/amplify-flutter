@@ -16,8 +16,7 @@ void main() {
     setUpAll(() {
       String? path;
       if (!zIsWeb) {
-        final tempDir =
-            Directory.systemTemp.createTempSync('amplify_analytics');
+        final tempDir = Directory('queued_item_store_test');
         addTearDown(() async {
           await db.close();
           tempDir.deleteSync(recursive: true);
