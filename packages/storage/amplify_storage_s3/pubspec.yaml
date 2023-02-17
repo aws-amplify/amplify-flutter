@@ -22,7 +22,7 @@ dependencies:
   path: any
 
 dev_dependencies:
-  amplify_lints: ^1.0.0
+  amplify_lints: ">=1.0.0 <3.0.0"
   amplify_test:
     path: ../../amplify_test
   flutter_test:
