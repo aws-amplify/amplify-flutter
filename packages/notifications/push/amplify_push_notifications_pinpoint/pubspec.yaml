@@ -1,21 +1,17 @@
 name: amplify_push_notifications_pinpoint
-description: A new Flutter plugin project.
+description: Push Notifications Pinpoint Flutter plugin
 version: 0.0.1
-homepage:
+homepage: https://docs.amplify.aws/lib/q/platform/flutter/
+issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ">=3.0.0-240.0.dev <4.0.0"
-  flutter: ">=2.5.0"
+  sdk: ">=2.17.0 <3.0.0"
+  flutter: ">=3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  amplify_secure_storage: ">=0.1.4+1 <0.2.0"
   amplify_core: ">=1.0.0-next.4 <1.0.0-next.5"
-  amplify_flutter: ">=1.0.0-next.1 <1.0.0-next.2"
-  aws_common: ^0.2.0
-  amplify_auth_cognito:
-    path: ../../../auth/amplify_auth_cognito
   amplify_push_notifications:
     path: ../amplify_push_notifications
 

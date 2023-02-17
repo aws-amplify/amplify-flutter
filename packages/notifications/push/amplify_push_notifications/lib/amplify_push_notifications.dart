@@ -25,8 +25,9 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   final AmplifyLogger _logger = AmplifyLogger.category(Category.notifications)
       .createChild('AmplifyPushNotification');
   final ServiceProviderClient serviceProviderClient;
-  final StreamController<RemotePushMessage> _foregroundEventStreamController =
-      StreamController<RemotePushMessage>.broadcast();
+  final StreamController<PushNotificationMessage>
+      _foregroundEventStreamController =
+      StreamController<PushNotificationMessage>.broadcast();
 
   @override
   Future<void> configure({
@@ -34,9 +35,8 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     // Parse config values from amplifyconfiguration.json
-    if (config == null ||
-        config.analytics == null ||
-        config.analytics?.awsPlugin == null) {
+    final analyticsConfig = config?.analytics?.awsPlugin;
+    if (analyticsConfig == null) {
       throw const AnalyticsException('No Pinpoint plugin config available');
     }
 
@@ -47,7 +47,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       // Register native listeners for token generation and notification handling
       _methodChannel.setMethodCallHandler(_nativeToDartMethodCallHandler);
 
-      // TODO: Listen to token changes and update Pinpoint
+      // TODO(Samaritan1011001): Listen to token changes and update Pinpoint
       // onNewToken().then(
       //   (stream) => stream.listen(
       //     (address) async {
@@ -58,7 +58,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       // );
 
       // Initialize Endpoint Client
-      await serviceProviderClient.init(
+      serviceProviderClient.init(
         config: config,
         authProviderRepo: authProviderRepo,
       );
@@ -75,7 +75,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   }
 
   @override
-  Stream<RemotePushMessage> onForegroundNotificationReceived() =>
+  Stream<PushNotificationMessage> onForegroundNotificationReceived() =>
       _foregroundEventStreamController.stream;
 
   Future<void> _registerForRemoteNotifications() async {
@@ -108,7 +108,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
             "NOTIFICATION HANDLING API | Plugin received foreground notification: $decodedContent",
           );
           _foregroundEventStreamController.sink.add(
-            RemotePushMessage.fromJson(decodedContent),
+            PushNotificationMessage.fromJson(decodedContent),
           );
           break;
         case "BACKGROUND_MESSAGE_RECEIVED":
@@ -129,10 +129,12 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     }
   }
 
-  Future<void> _registerDevice({String? address}) async {
+  Future<void> _registerDevice({String? deviceToken}) async {
     try {
-      address = address ?? await getToken();
-      if (address != null) await serviceProviderClient.registerDevice(address);
+      deviceToken = deviceToken ?? await _getToken();
+      if (deviceToken != null) {
+        serviceProviderClient.registerDevice(deviceToken);
+      }
       _logger.info("Successfully registered device with the servvice provider");
     } catch (e) {
       _logger.error(
@@ -141,7 +143,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     }
   }
 
-  Future<String?> getToken() async {
+  Future<String?> _getToken() async {
     try {
       String? token = await _methodChannel.invokeMethod<String>('getToken');
       if (token != null) {

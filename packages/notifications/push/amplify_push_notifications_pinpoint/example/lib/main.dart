@@ -22,7 +22,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool isConfigured = false;
   bool isForegroundListernerInitialized = false;
-  RemotePushMessage? foregroundMessage;
+  PushNotificationMessage? foregroundMessage;
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> _configureAmplify() async {

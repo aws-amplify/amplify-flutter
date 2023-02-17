@@ -48,7 +48,7 @@ enum Category {
   storage,
 
   /// Notifications
-  notifications
+  notifications,
 }
 
 extension CategoryName on Category {
