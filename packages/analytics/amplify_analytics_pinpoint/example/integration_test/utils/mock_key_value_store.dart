@@ -12,7 +12,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 /// between relaunches (e.g. between test groups).
 final SecureStorageInterface mockEndpointInfoStore = _MockEndpointInfoStore()
   ..write(
-    key: AmplifyAnalyticsPinpointDart.endpointIdStorageKey,
+    key: EndpointStoreKey.endpointId.name,
     value: mockEndpointId,
   );
 final String mockEndpointId = uuid();
