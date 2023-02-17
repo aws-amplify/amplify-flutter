@@ -13,13 +13,17 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
   HostedUiPlatformImpl(super.dependencyManager) : super.protected();
 
   /// The base URL
-  String get baseUrl => url.join(window.location.origin, '/');
+  String get _baseUrl {
+    final baseElement = document.querySelector('base');
+    final basePath = baseElement?.getAttribute('href') ?? '/';
+    return url.join(window.location.origin, basePath);
+  }
 
   Never _noSuitableRedirect({required bool signIn}) {
     final inOut = signIn ? 'in' : 'out';
     throw InvalidUserPoolConfigurationException(
-      'No sign $inOut redirect URLs registered for base URL: $baseUrl. '
-      'Add a sign $inOut redirect URL on that starts with "$baseUrl". See '
+      'No sign $inOut redirect URLs registered for base URL: $_baseUrl. '
+      'Add a sign $inOut redirect URL on that starts with "$_baseUrl". See '
       'the docs for more info: '
       'https://docs.amplify.aws/lib/auth/signin_web_ui/q/platform/flutter/',
     );
@@ -27,13 +31,13 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
 
   @override
   Uri get signInRedirectUri => config.signInRedirectUris.firstWhere(
-        (uri) => uri.toString().startsWith(baseUrl),
+        (uri) => uri.toString().startsWith(_baseUrl),
         orElse: () => _noSuitableRedirect(signIn: true),
       );
 
   @override
   Uri get signOutRedirectUri => config.signOutRedirectUris.firstWhere(
-        (uri) => uri.toString().startsWith(baseUrl),
+        (uri) => uri.toString().startsWith(_baseUrl),
         orElse: () => _noSuitableRedirect(signIn: false),
       );
 

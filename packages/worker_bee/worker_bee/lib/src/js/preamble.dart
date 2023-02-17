@@ -13,9 +13,7 @@ import 'package:worker_bee/src/serializers/serializers.dart';
 import 'package:worker_bee/worker_bee.dart';
 
 /// {@macro worker_bee.is_web_worker}
-bool get isWebWorker {
-  return window == null;
-}
+bool get isWebWorker => zIsWebWorker;
 
 /// {@macro worker_bee.current_uri}
 Uri get currentUri {
