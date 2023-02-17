@@ -13,6 +13,7 @@ dependencies:
   drift: ">=2.4.0 <2.6.0"
   json_annotation: ">=4.8.0 <4.9.0"
   json_serializable: 6.6.1
+  intl: ">=0.17.0 <1.0.0"
   mime: ^1.0.0
   pigeon: ^7.1.5
   uuid: ">=3.0.6 <=3.0.7"

@@ -21,7 +21,7 @@ dependencies:
   crypto: ^3.0.1
   fixnum: ^1.0.0
   http: ^0.13.4
-  intl: ^0.17.0
+  intl: ">=0.17.0 <1.0.0"
   js: ^0.6.4
   json_annotation: ">=4.8.0 <4.9.0"
   meta: ^1.7.0
