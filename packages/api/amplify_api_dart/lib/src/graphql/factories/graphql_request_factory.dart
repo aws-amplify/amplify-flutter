@@ -78,7 +78,7 @@ class GraphQLRequestFactory {
         var belongsToKeys = belongsTo.association?.targetNames;
         if (belongsToKeys == null &&
             belongsTo.association?.targetName != null) {
-          belongsToKeys = [belongsTo.association?.targetName as String];
+          belongsToKeys = [belongsTo.association!.targetName as String];
         }
         if (belongsToKeys != null) {
           fields.addAll(belongsToKeys);
