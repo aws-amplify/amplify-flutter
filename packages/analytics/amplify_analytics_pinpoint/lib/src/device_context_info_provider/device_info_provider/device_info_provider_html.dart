@@ -15,12 +15,10 @@ Future<DeviceInfo> getDeviceInfo() async {
     final webInfo = await deviceInfo.webBrowserInfo;
     return DeviceInfo(
       make: webInfo.vendor,
-      // vendor of the browser
       model: webInfo.browserName.toString(),
       modelVersion: osIdentifier.split('/')[1],
-      // version of browser
       platform: DevicePlatform.web,
-      platformVersion: webInfo.platform, // version of browser?
+      platformVersion: webInfo.platform,
     );
   } on PlatformException {
     return const DeviceInfo(

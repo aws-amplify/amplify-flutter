@@ -10,7 +10,6 @@ import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:meta/meta.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.endpoint_client}
 /// Manages fields of a Pinpoint Endpoint local object.
@@ -21,8 +20,7 @@ import 'package:meta/meta.dart';
 /// {@endtemplate}
 class EndpointClient {
   /// {@macro amplify_analytics_pinpoint_dart.endpoint_client}
-  @visibleForTesting
-  EndpointClient({
+  EndpointClient._({
     required String pinpointAppId,
     required PinpointClient pinpointClient,
     DeviceContextInfo? deviceContextInfo,
@@ -46,9 +44,8 @@ class EndpointClient {
         ).toBuilder();
 
   /// Initialize [EndpointClient] by retrieving the endpoint id and
-  /// initializing the [EndpointGlobalFieldsManager]
-  @visibleForTesting
-  Future<void> init({
+  /// initializing the [EndpointGlobalFieldsManager].
+  Future<void> _init({
     required SecureStorageInterface endpointInfoStore,
     LegacyNativeDataProvider? legacyNativeDataProvider,
   }) async {
@@ -71,12 +68,12 @@ class EndpointClient {
     DeviceContextInfo? deviceContextInfo,
     LegacyNativeDataProvider? legacyNativeDataProvider,
   }) async {
-    final endpointClient = EndpointClient(
+    final endpointClient = EndpointClient._(
       pinpointAppId: pinpointAppId,
       pinpointClient: pinpointClient,
       deviceContextInfo: deviceContextInfo,
     );
-    await endpointClient.init(
+    await endpointClient._init(
       endpointInfoStore: endpointInfoStore,
       legacyNativeDataProvider: legacyNativeDataProvider,
     );
