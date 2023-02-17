@@ -86,16 +86,16 @@ class EventClient implements Closeable {
   }
 
   /// Register [AnalyticsProperties] to be sent with all future events
-  Future<void> registerGlobalProperties(
+  void registerGlobalProperties(
     AnalyticsProperties globalProperties,
-  ) async {
+  ) {
     return _eventCreator.registerGlobalProperties(globalProperties);
   }
 
   /// Unregister [AnalyticsProperties] to not be sent with all future events
-  Future<void> unregisterGlobalProperties(
+  void unregisterGlobalProperties(
     List<String> propertyNames,
-  ) async {
+  ) {
     return _eventCreator.unregisterGlobalProperties(propertyNames);
   }
 

@@ -43,7 +43,7 @@ void main() {
       expect(storeVersion, EndpointStoreVersion.v1.name);
 
       final migratedEndpointId = await store.read(
-        key: AmplifyAnalyticsPinpointDart.endpointIdStorageKey,
+        key: EndpointStoreKey.endpointId.name,
       );
       expect(migratedEndpointId, isNotNull);
 
@@ -67,7 +67,7 @@ void main() {
       expect(storeVersion, EndpointStoreVersion.v1.name);
 
       final migratedEndpointId = await store.read(
-        key: AmplifyAnalyticsPinpointDart.endpointIdStorageKey,
+        key: EndpointStoreKey.endpointId.name,
       );
       expect(migratedEndpointId, legacyEndpointId);
 
@@ -81,7 +81,7 @@ void main() {
       final endpointId = uuid();
       store.seedData({
         EndpointStoreKey.version.name: EndpointStoreVersion.v1.name,
-        AmplifyAnalyticsPinpointDart.endpointIdStorageKey: endpointId
+        EndpointStoreKey.endpointId.name: endpointId
       });
 
       final endpointIdManager = EndpointIdManager(
@@ -92,7 +92,7 @@ void main() {
       expect(await endpointIdManager.retrieveEndpointId(), endpointId);
 
       final migratedEndpointId = await store.read(
-        key: AmplifyAnalyticsPinpointDart.endpointIdStorageKey,
+        key: EndpointStoreKey.endpointId.name,
       );
       expect(migratedEndpointId, endpointId);
 

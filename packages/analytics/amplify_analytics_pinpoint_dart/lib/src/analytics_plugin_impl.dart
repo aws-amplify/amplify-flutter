@@ -60,10 +60,6 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   var _isConfigured = false;
   var _analyticsEnabled = false;
 
-  /// Storage key for the static Pinpoint endpoint id
-  @visibleForTesting
-  static const String endpointIdStorageKey = 'UniqueId';
-
   late final EndpointClient _endpointClient;
   late final EventClient _eventClient;
   late final SessionManager _sessionManager;
@@ -218,7 +214,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     required AnalyticsProperties globalProperties,
   }) async {
     _ensureConfigured();
-    await _eventClient.registerGlobalProperties(globalProperties);
+    _eventClient.registerGlobalProperties(globalProperties);
   }
 
   @override
@@ -226,7 +222,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     List<String> propertyNames = const <String>[],
   }) async {
     _ensureConfigured();
-    await _eventClient.unregisterGlobalProperties(propertyNames);
+    _eventClient.unregisterGlobalProperties(propertyNames);
   }
 
   @override

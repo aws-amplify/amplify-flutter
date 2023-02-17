@@ -14,9 +14,11 @@ Future<DeviceInfo> getDeviceInfo() async {
   try {
     final webInfo = await deviceInfo.webBrowserInfo;
     return DeviceInfo(
-      make: webInfo.vendor, // vendor of the browser
+      make: webInfo.vendor,
+      // vendor of the browser
       model: webInfo.browserName.toString(),
-      modelVersion: osIdentifier.split('/')[1], // version of browser
+      modelVersion: osIdentifier.split('/')[1],
+      // version of browser
       platform: DevicePlatform.web,
       platformVersion: webInfo.platform, // version of browser?
     );

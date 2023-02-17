@@ -17,6 +17,7 @@ class FlutterAppLifecycleProvider extends WidgetsBindingObserver
   @override
   void setOnForegroundListener(void Function() onForeground) =>
       _onForeground = onForeground;
+
   @override
   void setOnBackgroundListener(void Function() onBackground) =>
       _onBackground = onBackground;
