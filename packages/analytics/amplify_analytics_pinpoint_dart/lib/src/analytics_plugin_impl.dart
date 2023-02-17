@@ -10,13 +10,13 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoi
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_store_keys.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_storage_adapter.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/dart_queued_item_store.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_creator/event_creator.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_creator/event_global_fields_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/session_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/stoppable_timer.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_db_common_dart/amplify_db_common_dart.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:meta/meta.dart';
 
@@ -42,7 +42,6 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     AppLifecycleProvider? appLifecycleProvider,
     DeviceContextInfoProvider? deviceContextInfoProvider,
     LegacyNativeDataProvider? legacyNativeDataProvider,
-    required Connect dbConnectFunction,
   })  : _endpointInfoStore = endpointInfoStore ??
             AmplifySecureStorageWorker(
               config: AmplifySecureStorageConfig(
@@ -52,8 +51,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
         _pathProvider = pathProvider,
         _appLifecycleProvider = appLifecycleProvider,
         _deviceContextInfoProvider = deviceContextInfoProvider,
-        _legacyNativeDataProvider = legacyNativeDataProvider,
-        _dbConnectFunction = dbConnectFunction;
+        _legacyNativeDataProvider = legacyNativeDataProvider;
 
   void _ensureConfigured() {
     if (!_isConfigured) {
@@ -91,7 +89,6 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   final AppLifecycleProvider? _appLifecycleProvider;
   final DeviceContextInfoProvider? _deviceContextInfoProvider;
   final LegacyNativeDataProvider? _legacyNativeDataProvider;
-  final Connect _dbConnectFunction;
 
   static final _logger = AmplifyLogger.category(Category.analytics);
 
@@ -128,12 +125,6 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
 
     final deviceContextInfo =
         await _deviceContextInfoProvider?.getDeviceInfoDetails();
-
-    final driftStoragePath = await _pathProvider?.getApplicationSupportPath();
-    final driftQueryExecutor = _dbConnectFunction(
-      name: 'analytics_cached_events',
-      path: driftStoragePath,
-    );
 
     _eventCreator = EventCreator(
       globalFieldsManager: _eventGlobalFieldsManager,
@@ -196,7 +187,9 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
       }),
     );
 
-    _eventStorageAdapter = EventStorageAdapter(driftQueryExecutor);
+    final eventStoragePath = await _pathProvider?.getApplicationSupportPath();
+    final eventStore = DartQueuedItemStore(eventStoragePath);
+    _eventStorageAdapter = EventStorageAdapter(eventStore);
 
     _eventClient = EventClient(
       appId: appId,

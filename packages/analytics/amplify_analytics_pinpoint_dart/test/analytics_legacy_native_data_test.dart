@@ -1,15 +1,14 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+@TestOn('vm')
+
 import 'dart:async';
-import 'dart:io';
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_store_keys.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
-import 'package:drift/drift.dart' show LazyDatabase;
-import 'package:drift/native.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -33,9 +32,6 @@ void main() {
       final analyticsPlugin = AmplifyAnalyticsPinpointDart(
         endpointInfoStore: store,
         legacyNativeDataProvider: legacyDataProvider,
-        dbConnectFunction: ({required String name, FutureOr<String>? path}) {
-          return _openConnection();
-        },
       );
       await analyticsPlugin.retrieveEndpointId(pinpointAppId: appId);
 
@@ -59,9 +55,6 @@ void main() {
       final analyticsPlugin = AmplifyAnalyticsPinpointDart(
         endpointInfoStore: store,
         legacyNativeDataProvider: legacyDataProvider,
-        dbConnectFunction: ({required String name, FutureOr<String>? path}) {
-          return _openConnection();
-        },
       );
       await analyticsPlugin.retrieveEndpointId(pinpointAppId: appId);
 
@@ -91,9 +84,6 @@ void main() {
       final analyticsPlugin = AmplifyAnalyticsPinpointDart(
         endpointInfoStore: store,
         legacyNativeDataProvider: legacyDataProvider,
-        dbConnectFunction: ({required String name, FutureOr<String>? path}) {
-          return _openConnection();
-        },
       );
       await analyticsPlugin.retrieveEndpointId(pinpointAppId: appId);
 
@@ -104,14 +94,6 @@ void main() {
 
       verifyNever(() => legacyDataProvider.getEndpointId(any()));
     });
-  });
-}
-
-LazyDatabase _openConnection() {
-  // the LazyDatabase util lets us find the right location for the file async.
-  return LazyDatabase(() async {
-    final file = File('db.sqlite');
-    return NativeDatabase.createInBackground(file);
   });
 }
 
