@@ -6,25 +6,25 @@ import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
-/// Enum indicating the state of the app session
+/// Enum indicating the state of the app session.
 enum SessionState {
-  /// App is not active (backgrounded)
+  /// App is not active (backgrounded).
   inactive,
 
-  /// App is running (foregrounded)
+  /// App is running (foregrounded).
   active,
 
-  /// App is paused
+  /// App is paused.
   paused,
 }
 
-/// Function that listens to Session lifecycle updates
+/// Function that listens to Session lifecycle updates.
 typedef OnSessionUpdated = void Function(Session);
 
 /// {@template amplify_analytics_pinpoint_dart.session_manager}
 /// Manage creation and deletion of current Session.
 ///
-/// Updates session based on App foreground/background events
+/// Updates session based on App foreground/background events.
 /// Used for provisioning Events sent to Pinpoint with a Session.
 /// {@endtemplate}
 class SessionManager {
@@ -54,10 +54,10 @@ class SessionManager {
 
   _SessionCreator? _sessionCreator;
 
-  /// Get the current session
+  /// Get the current session.
   Session? get session => _sessionCreator?.session;
 
-  /// Start a new session
+  /// Start a new session.
   void startSession() {
     if (session != null) {
       stopSession();
@@ -65,35 +65,35 @@ class SessionManager {
     _executeStart();
   }
 
-  /// Stop the current session
+  /// Stop the current session.
   void stopSession() {
     _executeStop();
   }
 
-  /// Start auto tracking sessions
+  /// Start auto tracking sessions.
   void startSessionTracking() {
     _appLifecycleProvider?.startObserving();
   }
 
-  /// Stop auto tracking sessions
+  /// Stop auto tracking sessions.
   void stopSessionTracking() {
     _appLifecycleProvider?.stopObserving();
   }
 
-  /// Get the current session state
+  /// Get the current session state.
   SessionState getSessionState() {
     if (_sessionCreator == null) return SessionState.inactive;
 
     return SessionState.active;
   }
 
-  /// Start a session
+  /// Start a session.
   void _executeStart() {
     _sessionCreator = _SessionCreator.createSession(_fixedEndpointId);
     _onSessionStart(_sessionCreator!.session);
   }
 
-  /// Stop and delete current session
+  /// Stop and delete current session.
   void _executeStop() {
     if (_sessionCreator == null) {
       return;

@@ -26,13 +26,13 @@ class StoppableTimer {
   final Duration _duration;
   final void Function() _callback;
 
-  /// Start the timer
+  /// Start the timer.
   void start() {
     if (_timer.isActive) return;
     _timer = Timer.periodic(_duration, (Timer t) => _callback());
   }
 
-  /// Stop the timer
+  /// Stop the timer.
   void stop() {
     _timer.cancel();
   }

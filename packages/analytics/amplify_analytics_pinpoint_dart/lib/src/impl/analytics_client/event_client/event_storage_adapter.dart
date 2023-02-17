@@ -17,7 +17,7 @@ class EventStorageAdapter implements Closeable {
   /// {@macro amplify_analytics_pinpoint_dart.event_storage_adapter}
   EventStorageAdapter(this._db);
 
-  /// Underlying database used to store Events
+  /// Underlying database used to store Events.
   final QueuedItemStore _db;
   late final Serializers _serializers = () {
     // Create Serializer
@@ -31,13 +31,13 @@ class EventStorageAdapter implements Closeable {
     return builtSerializers;
   }();
 
-  /// Pinpoint max event size
+  /// Pinpoint max event size.
   static const int _maxEventKbSize = 1000;
 
-  /// Pinpoint max events per event flush batch
+  /// Pinpoint max events per event flush batch.
   static const int _maxEventsInBatch = 100;
 
-  /// Serialize and save Event to device storage
+  /// Serialize and save Event to device storage.
   Future<void> saveEvent(Event event) async {
     final jsonString = jsonEncode(_serializers.serialize(event));
 
@@ -68,7 +68,7 @@ class EventStorageAdapter implements Closeable {
     return storedEvents;
   }
 
-  /// Delete Events from device storage
+  /// Delete Events from device storage.
   Future<void> deleteEvents(Iterable<StoredEvent> items) async {
     final queuedItems = items.map((item) => item.data);
     return _db.deleteItems(queuedItems);
@@ -80,10 +80,10 @@ class EventStorageAdapter implements Closeable {
   }
 }
 
-/// Wrapper class around [Event]
-/// Includes DriftId to identify that event for deletion when calling deleteEvents()
+/// Wrapper class around [Event].
+/// Includes DriftId to identify that event for deletion when calling deleteEvents().
 class StoredEvent {
-  /// Create StoredEvent from [QueuedItem]
+  /// Create StoredEvent from [QueuedItem].
   factory StoredEvent(QueuedItem data, Serializers serializers) {
     final event = serializers.deserialize(jsonDecode(data.value)) as Event;
     return StoredEvent._(data, event);
@@ -91,9 +91,9 @@ class StoredEvent {
 
   StoredEvent._(this.data, this.event);
 
-  /// Underlying [QueuedItem]
+  /// Underlying [QueuedItem].
   final QueuedItem data;
 
-  /// Underlying Event object
+  /// Underlying Event object.
   final Event event;
 }

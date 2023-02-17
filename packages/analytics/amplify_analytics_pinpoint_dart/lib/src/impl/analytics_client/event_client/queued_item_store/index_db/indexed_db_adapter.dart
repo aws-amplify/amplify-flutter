@@ -12,18 +12,18 @@ import 'package:collection/collection.dart';
 
 // TODO(kylechen): Consider merging/refactoring with existing 'amplify_secure_storage_web - _IndexedDBStorage' class
 /// {@template amplify_analytics_pinpoint_dart.indexed_db_adapter}
-/// Provide indexDB methods for storing/retrieving Strings
+/// Provide indexDB methods for storing/retrieving Strings.
 /// {@endtemplate}
 class IndexedDbAdapter implements QueuedItemStore {
   /// {@macro amplify_analytics_pinpoint_dart.indexed_db_adapter}
   IndexedDbAdapter();
 
-  /// The name of the database
+  /// The name of the database.
   ///
   /// Reference: https://www.w3.org/TR/IndexedDB/#name
   String get databaseName => 'amplify_analytics_pinpoint';
 
-  /// The name of the object store
+  /// The name of the object store.
   ///
   /// Reference: https://www.w3.org/TR/IndexedDB/#object-store-name
   final storeName = 'analytics_cached_events';
@@ -108,7 +108,7 @@ class IndexedDbAdapter implements QueuedItemStore {
     );
   }
 
-  /// Clear the database
+  /// Clear the database.
   @override
   Future<void> clear() async {
     await _databaseOpenEvent;
@@ -118,7 +118,7 @@ class IndexedDbAdapter implements QueuedItemStore {
   @override
   void close() {}
 
-  /// Check that IndexDB will work on this device
+  /// Check that IndexDB will work on this device.
   static Future<bool> checkIsIndexedDBSupported() async {
     if (indexedDB == null) {
       return false;

@@ -7,7 +7,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.endpoint_info_store}
-/// Manages retrieval, storage, and management of Pinpoint Endpoint id
+/// Manages retrieval, storage, and management of Pinpoint Endpoint id.
 /// {@endtemplate}
 class EndpointIdManager {
   /// {@macro amplify_analytics_pinpoint_dart.endpoint_info_store}
@@ -23,7 +23,7 @@ class EndpointIdManager {
   final LegacyNativeDataProvider? _legacyNativeDataProvider;
   final String? _pinpointAppId;
 
-  /// Retrieve the stored pinpoint endpoint id
+  /// Retrieve the stored pinpoint endpoint id.
   Future<String> retrieveEndpointId() async {
     String? fixedEndpointId;
 

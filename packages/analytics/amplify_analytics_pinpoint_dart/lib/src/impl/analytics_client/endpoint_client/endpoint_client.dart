@@ -60,7 +60,7 @@ class EndpointClient {
         await EndpointGlobalFieldsManager.create(endpointInfoStore);
   }
 
-  /// Create and initialize an [EndpointClient]
+  /// Create and initialize an [EndpointClient].
   static Future<EndpointClient> create({
     required String pinpointAppId,
     required PinpointClient pinpointClient,
@@ -89,22 +89,22 @@ class EndpointClient {
   // Current Endpoint being managed
   final PublicEndpointBuilder _endpointBuilder;
 
-  /// Retrieve unique id for identifying the Endpoint on this device
+  /// Retrieve unique id for identifying the Endpoint on this device.
   String get fixedEndpointId => _fixedEndpointId;
 
-  /// Add an attribute that will be sent with all future events
+  /// Add an attribute that will be sent with all future events.
   Future<void> addAttribute(String name, String value) async =>
       _globalFieldsManager.addAttribute(name, value);
 
-  /// Remove an attribute so it is not sent with all future events
+  /// Remove an attribute so it is not sent with all future events.
   Future<void> removeAttribute(String name) async =>
       _globalFieldsManager.removeAttribute(name);
 
-  /// Add a metric that will be sent with all future events
+  /// Add a metric that will be sent with all future events.
   Future<void> addMetric(String name, double value) async =>
       _globalFieldsManager.addMetric(name, value);
 
-  /// Remove a metric so it is not sent with all future events
+  /// Remove a metric so it is not sent with all future events.
   Future<void> removeMetric(String name) async =>
       _globalFieldsManager.removeMetric(name);
 
@@ -159,8 +159,8 @@ class EndpointClient {
       }
     }
 
-    // Note that the [copyFromProfile]'s properties are copied to Endpoint metrics/attributes
-    // Instead of the [EndpointUserBuilder] object
+    // Note that the [copyFromProfile]'s properties are copied to Endpoint metrics/attributes.
+    // Instead of the [EndpointUserBuilder] object.
     if (userProfile.properties != null) {
       await _globalFieldsManager
           .addAttributes(userProfile.properties!.attributes);
@@ -178,8 +178,8 @@ class EndpointClient {
     _endpointBuilder.user = newUserBuilder;
   }
 
-  /// Return Endpoint instance
-  /// Copy globalAttributes and globalMetrics into EndpointBuilder before build()
+  /// Return Endpoint instance.
+  /// Copy globalAttributes and globalMetrics into EndpointBuilder before build().
   PublicEndpoint getPublicEndpoint() {
     // Attributes must be sent with map value type List<String>, not String
     final attributes = <String, List<String>>{};
@@ -193,7 +193,7 @@ class EndpointClient {
     return _endpointBuilder.build();
   }
 
-  /// Send local Endpoint instance to AWS Pinpoint
+  /// Send local Endpoint instance to AWS Pinpoint.
   Future<void> updateEndpoint() async {
     await _pinpointClient
         .updateEndpoint(
@@ -206,7 +206,7 @@ class EndpointClient {
         .result;
   }
 
-  /// Create an EndpointRequest object from a local Endpoint instance
+  /// Create an EndpointRequest object from a local Endpoint instance.
   EndpointRequest _endpointToRequest(PublicEndpoint publicEndpoint) {
     return EndpointRequest.build(
       (b) => b

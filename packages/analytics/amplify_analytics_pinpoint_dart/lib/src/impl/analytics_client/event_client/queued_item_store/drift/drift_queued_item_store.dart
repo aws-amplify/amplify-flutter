@@ -9,17 +9,17 @@ import 'package:drift/drift.dart';
 
 part 'drift_queued_item_store.g.dart';
 
-/// SQL schema of data stored in DriftDatabase
+/// SQL schema of data stored in DriftDatabase.
 class DriftQueuedItems extends Table {
-  /// Identifies object in the SQL database
+  /// Identifies object in the SQL database.
   IntColumn get id => integer().autoIncrement()();
 
-  /// The string value stored for this object
+  /// The string value stored for this object.
   TextColumn get value => text()();
 }
 
 /// {@template amplify_analytics_pinpoint_dart.drift_queued_item_store}
-/// Drift class for managing stored [DriftQueuedItems]
+/// Drift class for managing stored [DriftQueuedItems].
 /// {@endtemplate}
 @DriftDatabase(tables: [DriftQueuedItems])
 class DriftQueuedItemStore extends _$DriftQueuedItemStore

@@ -48,7 +48,7 @@ class DartQueuedItemStore
     return db.getCount(count);
   }
 
-  /// Clear IndexedDB data
+  /// Clear IndexedDB data.
   @override
   @visibleForTesting
   Future<void> clear() async {

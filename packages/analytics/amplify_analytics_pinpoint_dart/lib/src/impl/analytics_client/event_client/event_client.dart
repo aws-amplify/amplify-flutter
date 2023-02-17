@@ -14,7 +14,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:smithy/smithy.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.event_client}
-/// Manages storage and flush of analytics events
+/// Manages storage and flush of analytics events.
 ///
 /// - Uses [EventStorageAdapter] to cache analytics events
 /// - Uses [PinpointClient] to flush analytics events to AWS Pinpoint
@@ -71,7 +71,7 @@ class EventClient implements Closeable {
   static final AmplifyLogger _logger =
       AmplifyLogger.category(Category.analytics).createChild('EventClient');
 
-  /// Record event to be sent in the next event batch on [flushEvents]
+  /// Record event to be sent in the next event batch on [flushEvents].
   Future<void> recordEvent({
     required String eventType,
     Session? session,
@@ -85,22 +85,22 @@ class EventClient implements Closeable {
     await _eventStorage.saveEvent(pinpointEvent);
   }
 
-  /// Register [AnalyticsProperties] to be sent with all future events
+  /// Register [AnalyticsProperties] to be sent with all future events.
   void registerGlobalProperties(
     AnalyticsProperties globalProperties,
   ) {
     return _eventCreator.registerGlobalProperties(globalProperties);
   }
 
-  /// Unregister [AnalyticsProperties] to not be sent with all future events
+  /// Unregister [AnalyticsProperties] to not be sent with all future events.
   void unregisterGlobalProperties(
     List<String> propertyNames,
   ) {
     return _eventCreator.unregisterGlobalProperties(propertyNames);
   }
 
-  /// Send cached events as a batch to Pinpoint
-  /// Delete cached events that have been successfully sent
+  /// Send cached events as a batch to Pinpoint.
+  /// Delete cached events that have been successfully sent.
   Future<void> flushEvents() {
     final completer = Completer<void>.sync();
     _flushEventsController.add(completer);

@@ -18,6 +18,6 @@ class AWSPinpointUserProfile extends AnalyticsUserProfile {
     required this.userAttributes,
   });
 
-  /// Analytics attributes for the Pinpoint User
+  /// Analytics attributes for the Pinpoint User.
   final AnalyticsProperties userAttributes;
 }

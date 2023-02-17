@@ -25,8 +25,8 @@ const zSessionStopEventType = '_session.stop';
 /// {@template amplify_analytics_pinpoint_dart.amplify_analytics_pinpoint_dart}
 /// The AWS Pinpoint Dart implementation of the Amplify Analytics category.
 ///
-/// - Validates and parses inputs
-/// - Receives and provides external Flutter Provider implementations
+/// - Validates and parses inputs.
+/// - Receives and provides external Flutter Provider implementations.
 /// {@endtemplate}
 class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   /// {@macro amplify_analytics_pinpoint_dart.amplify_analytics_pinpoint_dart}
@@ -67,7 +67,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
 
   final SecureStorageInterface _endpointInfoStore;
 
-  /// External Flutter Provider implementations
+  /// External Flutter Provider implementations.
   final CachedEventsPathProvider? _pathProvider;
   final AppLifecycleProvider? _appLifecycleProvider;
   final DeviceContextInfoProvider? _deviceContextInfoProvider;
