@@ -117,106 +117,6 @@ jobs:
         working-directory: packages/aws_signature_v4
         run: dart test -p chrome
   job_004:
-    name: "unit_test; Dart beta; PKG: packages/aws_common; `dart test`, `dart test -p chrome`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:beta;packages:packages/aws_common;commands:test_0-test_1"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:beta;packages:packages/aws_common
-            os:ubuntu-latest;pub-cache-hosted;sdk:beta
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
-        with:
-          sdk: beta
-      - id: checkout
-        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
-      - id: packages_aws_common_pub_upgrade
-        name: packages/aws_common; dart pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: packages/aws_common
-        run: dart pub upgrade
-      - name: packages/aws_common; dart test
-        if: "always() && steps.packages_aws_common_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/aws_common
-        run: dart test
-      - name: "packages/aws_common; dart test -p chrome"
-        if: "always() && steps.packages_aws_common_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/aws_common
-        run: dart test -p chrome
-  job_005:
-    name: "unit_test; Dart beta; PKG: packages/aws_signature_v4; `git submodule update --init`, `dart test`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:beta;packages:packages/aws_signature_v4;commands:command-test_0"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:beta;packages:packages/aws_signature_v4
-            os:ubuntu-latest;pub-cache-hosted;sdk:beta
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
-        with:
-          sdk: beta
-      - id: checkout
-        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
-      - id: packages_aws_signature_v4_pub_upgrade
-        name: packages/aws_signature_v4; dart pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: packages/aws_signature_v4
-        run: dart pub upgrade
-      - name: "packages/aws_signature_v4; git submodule update --init"
-        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/aws_signature_v4
-        run: git submodule update --init
-      - name: packages/aws_signature_v4; dart test
-        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/aws_signature_v4
-        run: dart test
-  job_006:
-    name: "unit_test; Dart beta; PKG: packages/aws_signature_v4; `git submodule update --init`, `dart test`, `dart test -p chrome`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@4504faf7e9bcf8f3ed0bc863c4e1d21499ab8ef8
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:beta;packages:packages/aws_signature_v4;commands:command-test_0-test_1"
-          restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:beta;packages:packages/aws_signature_v4
-            os:ubuntu-latest;pub-cache-hosted;sdk:beta
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
-        with:
-          sdk: beta
-      - id: checkout
-        uses: actions/checkout@d0651293c4a5a52e711f25b41b05b2212f385d28
-      - id: packages_aws_signature_v4_pub_upgrade
-        name: packages/aws_signature_v4; dart pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: packages/aws_signature_v4
-        run: dart pub upgrade
-      - name: "packages/aws_signature_v4; git submodule update --init"
-        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/aws_signature_v4
-        run: git submodule update --init
-      - name: packages/aws_signature_v4; dart test
-        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/aws_signature_v4
-        run: dart test
-      - name: "packages/aws_signature_v4; dart test -p chrome"
-        if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
-        working-directory: packages/aws_signature_v4
-        run: dart test -p chrome
-  job_007:
     name: "unit_test; Dart stable; PKG: packages/aws_common; `dart test`, `dart test -p chrome`"
     runs-on: ubuntu-latest
     steps:
@@ -248,7 +148,7 @@ jobs:
         if: "always() && steps.packages_aws_common_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_common
         run: dart test -p chrome
-  job_008:
+  job_005:
     name: "unit_test; Dart stable; PKG: packages/aws_signature_v4; `git submodule update --init`, `dart test`"
     runs-on: ubuntu-latest
     steps:
@@ -280,7 +180,7 @@ jobs:
         if: "always() && steps.packages_aws_signature_v4_pub_upgrade.conclusion == 'success'"
         working-directory: packages/aws_signature_v4
         run: dart test
-  job_009:
+  job_006:
     name: "unit_test; Dart stable; PKG: packages/aws_signature_v4; `git submodule update --init`, `dart test`, `dart test -p chrome`"
     runs-on: ubuntu-latest
     steps:
