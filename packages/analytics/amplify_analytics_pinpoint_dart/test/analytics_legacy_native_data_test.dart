@@ -6,7 +6,7 @@
 import 'dart:async';
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_id_manager.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_store_keys.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:mocktail/mocktail.dart';
@@ -29,12 +29,16 @@ void main() {
       when(() => legacyDataProvider.getEndpointId(pinpointAppId))
           .thenAnswer((_) async => null);
 
-      final endpointIdManager = EndpointIdManager(
+      final endpointIdManager = EndpointInfoStoreManager(
         store: store,
         legacyNativeDataProvider: legacyDataProvider,
-        pinpointAppId: pinpointAppId,
       );
-      expect(await endpointIdManager.retrieveEndpointId(), isNotNull);
+      expect(
+        await endpointIdManager.retrieveEndpointId(
+          pinpointAppId: pinpointAppId,
+        ),
+        isNotNull,
+      );
 
       final storeVersion = await store.read(
         key: EndpointStoreKey.version.name,
@@ -53,12 +57,16 @@ void main() {
       when(() => legacyDataProvider.getEndpointId(pinpointAppId))
           .thenAnswer((_) => Future.value(legacyEndpointId));
 
-      final endpointIdManager = EndpointIdManager(
+      final endpointIdManager = EndpointInfoStoreManager(
         store: store,
         legacyNativeDataProvider: legacyDataProvider,
-        pinpointAppId: pinpointAppId,
       );
-      expect(await endpointIdManager.retrieveEndpointId(), legacyEndpointId);
+      expect(
+        await endpointIdManager.retrieveEndpointId(
+          pinpointAppId: pinpointAppId,
+        ),
+        legacyEndpointId,
+      );
 
       final storeVersion = await store.read(
         key: EndpointStoreKey.version.name,
@@ -83,12 +91,16 @@ void main() {
         EndpointStoreKey.endpointId.name: endpointId
       });
 
-      final endpointIdManager = EndpointIdManager(
+      final endpointIdManager = EndpointInfoStoreManager(
         store: store,
         legacyNativeDataProvider: legacyDataProvider,
-        pinpointAppId: pinpointAppId,
       );
-      expect(await endpointIdManager.retrieveEndpointId(), endpointId);
+      expect(
+        await endpointIdManager.retrieveEndpointId(
+          pinpointAppId: pinpointAppId,
+        ),
+        endpointId,
+      );
 
       final migratedEndpointId = await store.read(
         key: EndpointStoreKey.endpointId.name,

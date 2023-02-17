@@ -6,30 +6,43 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interf
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
-/// {@template amplify_analytics_pinpoint_dart.endpoint_info_store}
-/// Manages retrieval, storage, and management of Pinpoint Endpoint id.
+import 'endpoint_global_fields_manager.dart';
+
+/// Storage scope for Endpoint info.
+/// Used to determine where Endpoint info is stored.
+enum EndpointStorageScope {
+  ///
+  analyticsPinpoint,
+}
+
+/// {@template amplify_analytics_pinpoint_dart.endpoint_store_manager}
+/// Manages retrieval, storage, and management of Pinpoint Endpoint id and fields
 /// {@endtemplate}
-class EndpointIdManager {
-  /// {@macro amplify_analytics_pinpoint_dart.endpoint_info_store}
-  EndpointIdManager({
+class EndpointInfoStoreManager {
+  /// {@macro amplify_analytics_pinpoint_dart.endpoint_store_manager}
+  EndpointInfoStoreManager({
     required SecureStorageInterface store,
     LegacyNativeDataProvider? legacyNativeDataProvider,
-    String? pinpointAppId,
   })  : _store = store,
-        _legacyNativeDataProvider = legacyNativeDataProvider,
-        _pinpointAppId = pinpointAppId;
+        _legacyNativeDataProvider = legacyNativeDataProvider;
 
   final SecureStorageInterface _store;
   final LegacyNativeDataProvider? _legacyNativeDataProvider;
-  final String? _pinpointAppId;
 
-  /// Retrieve the stored pinpoint endpoint id.
-  Future<String> retrieveEndpointId() async {
+  /// Fields of the Pinpoint Endpoint
+  late final Future<EndpointGlobalFieldsManager> endpointFields = () async {
+    return EndpointGlobalFieldsManager.create(_store);
+  }();
+
+  /// Retrieve the stored pinpoint endpoint id
+  Future<String> retrieveEndpointId({
+    String? pinpointAppId,
+  }) async {
     String? fixedEndpointId;
 
-    if (_pinpointAppId != null && _legacyNativeDataProvider != null) {
+    if (pinpointAppId != null && _legacyNativeDataProvider != null) {
       fixedEndpointId = await _retrieveAndManageLegacyEndpointId(
-        _pinpointAppId!,
+        pinpointAppId,
         _legacyNativeDataProvider!,
       );
     }

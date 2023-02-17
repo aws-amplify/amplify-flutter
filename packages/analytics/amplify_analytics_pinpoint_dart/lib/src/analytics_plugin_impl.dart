@@ -31,21 +31,21 @@ const zSessionStopEventType = '_session.stop';
 class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   /// {@macro amplify_analytics_pinpoint_dart.amplify_analytics_pinpoint_dart}
   AmplifyAnalyticsPinpointDart({
-    SecureStorageInterface? endpointInfoStore,
     CachedEventsPathProvider? pathProvider,
     AppLifecycleProvider? appLifecycleProvider,
     DeviceContextInfoProvider? deviceContextInfoProvider,
-    LegacyNativeDataProvider? legacyNativeDataProvider,
-  })  : _endpointInfoStore = endpointInfoStore ??
-            AmplifySecureStorageWorker(
-              config: AmplifySecureStorageConfig(
-                scope: 'analyticsPinpoint',
-              ),
-            ),
-        _pathProvider = pathProvider,
+    EndpointInfoStoreManager? endpointInfoStoreManager,
+  })  : _pathProvider = pathProvider,
         _appLifecycleProvider = appLifecycleProvider,
         _deviceContextInfoProvider = deviceContextInfoProvider,
-        _legacyNativeDataProvider = legacyNativeDataProvider;
+        _endpointInfoStoreManager = endpointInfoStoreManager ??
+            EndpointInfoStoreManager(
+              store: AmplifySecureStorageWorker(
+                config: AmplifySecureStorageConfig(
+                  scope: EndpointStorageScope.analyticsPinpoint.name,
+                ),
+              ),
+            );
 
   void _ensureConfigured() {
     if (!_isConfigured) {
@@ -65,13 +65,11 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   late final SessionManager _sessionManager;
   late final StoppableTimer _autoEventSubmitter;
 
-  final SecureStorageInterface _endpointInfoStore;
-
-  /// External Flutter Provider implementations.
+  /// External Flutter Provider implementations
   final CachedEventsPathProvider? _pathProvider;
   final AppLifecycleProvider? _appLifecycleProvider;
   final DeviceContextInfoProvider? _deviceContextInfoProvider;
-  final LegacyNativeDataProvider? _legacyNativeDataProvider;
+  final EndpointInfoStoreManager _endpointInfoStoreManager;
 
   static final _logger = AmplifyLogger.category(Category.analytics);
 
@@ -112,8 +110,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     _endpointClient = await EndpointClient.create(
       pinpointAppId: pinpointAppId,
       pinpointClient: pinpointClient,
-      endpointInfoStore: _endpointInfoStore,
-      legacyNativeDataProvider: _legacyNativeDataProvider,
+      endpointInfoStoreManager: _endpointInfoStoreManager,
       deviceContextInfo: deviceContextInfo,
     );
 

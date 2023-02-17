@@ -3,12 +3,10 @@
 
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/aws_pinpoint_user_profile.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_global_fields_manager.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_id_manager.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/legacy_native_data_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:built_collection/built_collection.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.endpoint_client}
@@ -46,27 +44,21 @@ class EndpointClient {
   /// Initialize [EndpointClient] by retrieving the endpoint id and
   /// initializing the [EndpointGlobalFieldsManager].
   Future<void> _init({
-    required SecureStorageInterface endpointInfoStore,
-    LegacyNativeDataProvider? legacyNativeDataProvider,
+    required EndpointInfoStoreManager endpointInfoStoreManager,
   }) async {
-    final endpointIdManager = EndpointIdManager(
-      store: endpointInfoStore,
-      legacyNativeDataProvider: legacyNativeDataProvider,
+    _fixedEndpointId = await endpointInfoStoreManager.retrieveEndpointId(
       pinpointAppId: _pinpointAppId,
     );
-    _fixedEndpointId = await endpointIdManager.retrieveEndpointId();
 
-    _globalFieldsManager =
-        await EndpointGlobalFieldsManager.create(endpointInfoStore);
+    _globalFieldsManager = await endpointInfoStoreManager.endpointFields;
   }
 
   /// Create and initialize an [EndpointClient].
   static Future<EndpointClient> create({
     required String pinpointAppId,
     required PinpointClient pinpointClient,
-    required SecureStorageInterface endpointInfoStore,
+    required EndpointInfoStoreManager endpointInfoStoreManager,
     DeviceContextInfo? deviceContextInfo,
-    LegacyNativeDataProvider? legacyNativeDataProvider,
   }) async {
     final endpointClient = EndpointClient._(
       pinpointAppId: pinpointAppId,
@@ -74,8 +66,7 @@ class EndpointClient {
       deviceContextInfo: deviceContextInfo,
     );
     await endpointClient._init(
-      endpointInfoStore: endpointInfoStore,
-      legacyNativeDataProvider: legacyNativeDataProvider,
+      endpointInfoStoreManager: endpointInfoStoreManager,
     );
     return endpointClient;
   }

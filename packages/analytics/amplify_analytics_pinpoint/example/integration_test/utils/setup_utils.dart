@@ -41,7 +41,7 @@ Future<void> configureAnalytics({
     ),
     AmplifyAnalyticsPinpoint(
       appLifecycleProvider: appLifecycleProvider,
-      endpointInfoStore: mockEndpointInfoStore,
+      endpointInfoStoreManager: mockEndpointInfoStoreManager,
     ),
     AmplifyAPI(),
   ]);
