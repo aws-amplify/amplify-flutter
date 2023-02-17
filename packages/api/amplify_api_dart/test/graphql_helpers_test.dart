@@ -426,7 +426,7 @@ void main() {
           }
         };
         const expectedDoc =
-            'mutation createPost(\$input: CreatePostInput!, \$condition:  ModelPostConditionInput) { createPost(input: \$input, condition: \$condition) { id title rating created likeCount createdAt updatedAt blog { $blogSelectionSet } } }';
+            'mutation createPost(\$input: CreatePostInput!, \$condition:  ModelPostConditionInput) { createPost(input: \$input, condition: \$condition) { id title rating created likeCount createdAt updatedAt blog { $blogSelectionSet } blogID } }';
         final GraphQLRequest<Post> req = ModelMutations.create<Post>(post);
 
         expect(req.document, expectedDoc);
@@ -599,7 +599,7 @@ void main() {
           'condition': null
         };
         const expectedDoc =
-            'mutation updatePost(\$input: UpdatePostInput!, \$condition:  ModelPostConditionInput) { updatePost(input: \$input, condition: \$condition) { id title rating created likeCount createdAt updatedAt blog { $blogSelectionSet } } }';
+            'mutation updatePost(\$input: UpdatePostInput!, \$condition:  ModelPostConditionInput) { updatePost(input: \$input, condition: \$condition) { id title rating created likeCount createdAt updatedAt blog { $blogSelectionSet } blogID } }';
         final GraphQLRequest<Post> req = ModelMutations.update<Post>(post);
 
         expect(req.document, expectedDoc);
