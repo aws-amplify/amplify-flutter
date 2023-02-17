@@ -322,6 +322,10 @@ class GraphQLRequestFactory {
       }
     }
 
+    final ownerFieldNames = (schema.authRules ?? [])
+        .where((authRule) => authRule.ownerField != null)
+        .map((authRule) => authRule.ownerField!)
+        .toSet();
     // Remove some fields from input.
     final fieldsToRemove = schema.fields!.entries
         .where(
@@ -330,8 +334,9 @@ class GraphQLRequestFactory {
               entry.value.association != null ||
               // read-only
               entry.value.isReadOnly ||
-              // null values on create operations
+              // null values for owner fields on create operations
               (operation == GraphQLRequestOperation.create &&
+                  ownerFieldNames.contains(entry.value.name) &&
                   modelJson[entry.value.name] == null),
         )
         .map((entry) => entry.key)

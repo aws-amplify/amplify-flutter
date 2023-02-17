@@ -377,6 +377,8 @@ void main() {
             'id': id,
             'name': name,
             'createdAt': time,
+            'file': null,
+            'files': null
           }
         };
         const expectedDoc =
@@ -391,15 +393,15 @@ void main() {
       });
 
       test(
-          'ModelMutations.create() should not include null fields in input variable',
+          'ModelMutations.create() should not include null values for owner fields',
           () {
-        const name = 'Test Blog';
-
-        final Blog blog = Blog(name: name);
-        final GraphQLRequest<Blog> req = ModelMutations.create<Blog>(blog);
+        const name = 'Test with owner field';
+        final customOwnerField = CustomOwnerField(name: name);
+        final GraphQLRequest<CustomOwnerField> req =
+            ModelMutations.create<CustomOwnerField>(customOwnerField);
         final inputVariable = req.variables['input'] as Map<String, dynamic>;
 
-        expect(inputVariable.containsKey('file'), isFalse);
+        expect(inputVariable.containsKey('owners'), isFalse);
       });
 
       test(
@@ -422,6 +424,8 @@ void main() {
             'id': postId,
             'title': title,
             'rating': rating,
+            'created': null,
+            'likeCount': null,
             'blogID': blogId
           }
         };
