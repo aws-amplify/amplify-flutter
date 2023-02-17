@@ -40,9 +40,9 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
       ? config.iOSOptions.accessGroup
       : config.macOSOptions.accessGroup;
 
-  KeychainAttributeAccessible? get _accessible => Platform.isIOS
-      ? config.iOSOptions.accessible
-      : config.macOSOptions.accessible;
+  Pointer<CFString>? get _accessible => Platform.isIOS
+      ? config.iOSOptions.accessible?.toCFStringRef()
+      : config.macOSOptions.accessible?.toCFStringRef();
 
   bool get _useDataProtection =>
       Platform.isMacOS && config.macOSOptions.useDataProtection;
@@ -51,9 +51,9 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
   void write({required String key, required String value}) {
     return using((Arena arena) {
       try {
-        _add(key: key, value: value, arena: arena);
-      } on DuplicateItemException {
         _update(key: key, value: value, arena: arena);
+      } on ItemNotFoundException {
+        _add(key: key, value: value, arena: arena);
       }
     });
   }
@@ -103,7 +103,10 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     final query = _createCFDictionary(map: baseQueryAttributes, arena: arena);
     final data = _createCFData(value: value, arena: arena);
     final attributes = _createCFDictionary(
-      map: {security.kSecValueData: data},
+      map: {
+        security.kSecValueData: data,
+        if (_accessible != null) security.kSecAttrAccessible: _accessible!,
+      },
       arena: arena,
     );
     final status = security.SecItemUpdate(query, attributes);
@@ -126,6 +129,7 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     final query = _createCFDictionary(
       map: {
         ...baseQueryAttributes,
+        if (_accessible != null) security.kSecAttrAccessible: _accessible!,
         security.kSecValueData: secret,
       },
       arena: arena,
@@ -188,6 +192,7 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     final query = _createCFDictionary(
       map: {
         ...baseQueryAttributes,
+        if (_accessible != null) security.kSecAttrAccessible: _accessible!,
         security.kSecMatchLimit: security.kSecMatchLimitOne,
         security.kSecReturnData: security.kCFBooleanTrue,
       },
@@ -223,8 +228,6 @@ class AmplifySecureStorageCupertino extends AmplifySecureStorageInterface {
     return {
       security.kSecClass: security.kSecClassGenericPassword,
       security.kSecAttrService: service,
-      if (_accessible != null)
-        security.kSecAttrAccessible: _accessible!.toCFStringRef(),
       if (key != null)
         security.kSecAttrAccount: _createCFString(value: key, arena: arena),
       if (_accessGroup != null)
