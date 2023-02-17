@@ -46,9 +46,9 @@ extension KeychainAttributeAccessibleX on KeychainAttributeAccessible {
   CFStringRef toCFStringRef() {
     switch (this) {
       case KeychainAttributeAccessible.accessibleAfterFirstUnlock:
-        return security.kSecAttrAccessibleWhenUnlocked;
+        return security.kSecAttrAccessibleAfterFirstUnlock;
       case KeychainAttributeAccessible.accessibleAfterFirstUnlockThisDeviceOnly:
-        return security.kSecAttrAccessibleWhenUnlockedThisDeviceOnly;
+        return security.kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly;
       case KeychainAttributeAccessible.accessibleWhenPasscodeSetThisDeviceOnly:
         return security.kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly;
       case KeychainAttributeAccessible.accessibleWhenUnlocked:
