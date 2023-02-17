@@ -12,12 +12,12 @@ abstract class PushNotificationsPluginInterface extends AmplifyPluginInterface {
   Category get category => Category.notifications;
 
   /// {@macro amplify_core.amplify_notifications_category.get_permission_status}
-  Future<PushPermissionRequestStatus> getPermissionStatus() {
+  Future<PushNotificationPermissionRequestStatus> getPermissionStatus() {
     throw UnimplementedError('getPermissionStatus() has not been implemented');
   }
 
   /// {@macro amplify_core.amplify_notifications_category.request_permissions}
-  Future<PushPermissionRequestStatus> requestPermissions(
+  Future<PushNotificationPermissionRequestStatus> requestPermissions(
       {bool? alert = true, bool? badge = true, bool? sound = true}) {
     throw UnimplementedError('requestPermissions() has not been implemented');
   }
@@ -28,7 +28,7 @@ abstract class PushNotificationsPluginInterface extends AmplifyPluginInterface {
   }
 
   /// {@macro amplify_core.amplify_notifications_category.on_foreground_notification_received}
-  Stream<RemotePushMessage> onForegroundNotificationReceived() {
+  Stream<PushNotificationMessage> onForegroundNotificationReceived() {
     throw UnimplementedError(
         'onForegroundNotificationReceived() has not been implemented');
   }
@@ -40,12 +40,12 @@ abstract class PushNotificationsPluginInterface extends AmplifyPluginInterface {
   }
 
   /// {@macro amplify_core.amplify_notifications_category.on_notification_opened}
-  Stream<RemotePushMessage> onNotificationOpened() {
+  Stream<PushNotificationMessage> onNotificationOpened() {
     throw UnimplementedError('onNotificationOpened() has not been implemented');
   }
 
   /// {@macro amplify_core.amplify_notifications_category.get_launch_notification}
-  Future<RemotePushMessage?> getLaunchNotification() {
+  Future<PushNotificationMessage?> getLaunchNotification() {
     throw UnimplementedError(
         'getLaunchNotification() has not been implemented');
   }

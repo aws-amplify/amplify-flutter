@@ -8,10 +8,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   amplify_push_notifications_pinpoint:
     path: ../
-
   cupertino_icons: ^1.0.2
   amplify_flutter:
     path: ../../../../amplify/amplify_flutter

@@ -10,85 +10,56 @@ class NotificationsCategory
   Category get category => Category.notifications;
 
   /// {@template amplify_core.amplify_notifications_category.get_permission_status}
-  /// Obtain the current Push Notifications permission status
+  /// Returns the current permission status
   /// {@endtemplate}
-  Future<PushPermissionRequestStatus> getPermissionStatus() {
-    return plugins.length == 1
-        ? plugins[0].getPermissionStatus()
-        : throw _pluginNotAddedException('Notifications');
-  }
+  Future<PushNotificationPermissionRequestStatus> getPermissionStatus() =>
+      defaultPlugin.getPermissionStatus();
 
   /// {@template amplify_core.amplify_notifications_category.request_permissions}
-  /// Request to show a permission dialog to users
+  /// Returns the status after requesting to show a permission dialog to users
   /// {@endtemplate}
-  Future<PushPermissionRequestStatus> requestPermissions(
-      {bool? alert = true, bool? badge = true, bool? sound = true}) {
-    return plugins.length == 1
-        ? plugins[0]
-            .requestPermissions(alert: alert, badge: badge, sound: sound)
-        : throw _pluginNotAddedException('Notifications');
-  }
+  Future<PushNotificationPermissionRequestStatus> requestPermissions(
+          {bool? alert = true, bool? badge = true, bool? sound = true}) =>
+      defaultPlugin.requestPermissions(
+          alert: alert, badge: badge, sound: sound);
 
   /// {@template amplify_core.amplify_notifications_category.on_token_received}
-  /// Listen to token changes received
+  /// Returns a stream of token that may be updated by the OS.
   /// {@endtemplate}
-  Stream<String> onTokenReceived() {
-    return plugins.length == 1
-        ? plugins[0].onTokenReceived()
-        : throw _pluginNotAddedException('Notifications');
-  }
+  Stream<String> onTokenReceived() => defaultPlugin.onTokenReceived();
 
   /// {@template amplify_core.amplify_notifications_category.on_foreground_notification_received}
-  /// Listen to notifications when the app is in foreground
+  /// Returns a stream of Push Notifications as the device receives them when the app is in the foreground
   /// {@endtemplate}
-  Stream<RemotePushMessage> onForegroundNotificationReceived() {
-    return plugins.length == 1
-        ? plugins[0].onForegroundNotificationReceived()
-        : throw _pluginNotAddedException('Notifications');
-  }
+  Stream<PushNotificationMessage> onForegroundNotificationReceived() =>
+      defaultPlugin.onForegroundNotificationReceived();
 
   /// {@template amplify_core.amplify_notifications_category.on_background_notification_received}
-  /// Listen to notifications when the app is in background/killed
+  /// Returns a stream of Push Notifications as the device receives them when the app is in the background or killed states
   /// {@endtemplate}
-  void onBackgroundNotificationReceived(RemoteMessageCallback callback) {
-    return plugins.length == 1
-        ? plugins[0].onBackgroundNotificationReceived(callback)
-        : throw _pluginNotAddedException('Notifications');
-  }
+  void onBackgroundNotificationReceived(RemoteMessageCallback callback) =>
+      defaultPlugin.onBackgroundNotificationReceived(callback);
 
   /// {@template amplify_core.amplify_notifications_category.on_notification_opened}
-  /// Listen to notification open event when the app is in background
+  /// Returns a stream of Push Notifications that caused the app to open
   /// {@endtemplate}
-  Stream<RemotePushMessage> onNotificationOpened() {
-    return plugins.length == 1
-        ? plugins[0].onNotificationOpened()
-        : throw _pluginNotAddedException('Notifications');
-  }
+  Stream<PushNotificationMessage> onNotificationOpened() =>
+      defaultPlugin.onNotificationOpened();
 
   /// {@template amplify_core.amplify_notifications_category.get_launch_notification}
-  /// Obtain the notification that launched the app
+  /// Returns the Push Notification that caused the app to launch from a killed state
   /// {@endtemplate}
-  Future<RemotePushMessage?> getLaunchNotification() {
-    return plugins.length == 1
-        ? plugins[0].getLaunchNotification()
-        : throw _pluginNotAddedException('Notifications');
-  }
+  Future<PushNotificationMessage?> getLaunchNotification() =>
+      defaultPlugin.getLaunchNotification();
 
   /// {@template amplify_core.amplify_notifications_category.get_badge_count}
-  /// Get the badge count for the app
+  /// Returns the current badge count of the app
   /// {@endtemplate}
-  Future<int> getBadgeCount() {
-    return plugins.length == 1
-        ? plugins[0].getBadgeCount()
-        : throw _pluginNotAddedException('Notifications');
-  }
+  Future<int> getBadgeCount() => defaultPlugin.getBadgeCount();
 
   /// {@template amplify_core.amplify_notifications_category.set_badge_count}
-  /// Set the badge count for the app
+  /// Sets the given badge count for the app
   /// {@endtemplate}
-  Future<void> setBadgeCount(int badgeCount) {
-    return plugins.length == 1
-        ? plugins[0].setBadgeCount(badgeCount)
-        : throw _pluginNotAddedException('Notifications');
-  }
+  Future<void> setBadgeCount(int badgeCount) =>
+      defaultPlugin.setBadgeCount(badgeCount);
 }

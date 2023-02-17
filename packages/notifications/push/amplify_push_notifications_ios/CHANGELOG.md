@@ -1,3 +1,3 @@
 ## 0.0.1
 
-* TODO: Describe initial release.
+- Initial implementation of amplify_push_notifications_ios package.
