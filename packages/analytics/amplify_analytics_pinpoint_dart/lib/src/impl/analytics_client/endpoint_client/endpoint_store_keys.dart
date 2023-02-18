@@ -4,7 +4,7 @@
 /// Keys used to store info about the endpoint version store.
 enum EndpointStoreKey {
   /// The current version of the endpoint version store.
-  version,
+  endpointStoreVersion,
 
   /// Global attributes key attached to endpoint.
   endpointGlobalAttributesKey,
