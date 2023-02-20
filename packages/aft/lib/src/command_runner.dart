@@ -5,6 +5,7 @@ import 'package:aft/aft.dart';
 import 'package:aft/src/commands/passthrough_command.dart';
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
+import 'package:collection/collection.dart';
 
 /// Passes through the command specified by [args] to either `dart`/`flutter`
 /// depending on the package in the current working directory.
@@ -49,6 +50,10 @@ Future<void> run(List<String> args) async {
       final argResults = runner.argParser.parse(args);
       // If we cannot resolve a command, try a passthrough to `dart`/`flutter`.
       if (argResults.command == null) {
+        if (argResults.arguments.firstOrNull?.startsWith('--') ?? false) {
+          runner.printUsage();
+          return;
+        }
         return await passthrough(argResults.arguments);
       }
       await runner.runCommand(argResults);
