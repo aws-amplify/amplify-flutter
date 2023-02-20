@@ -69,7 +69,7 @@ class EndpointInfoStoreManager {
   ) async {
     // Retrieve Unique ID
     final endpointInformationVersion =
-        await _store.read(key: EndpointStoreKey.version.name);
+        await _store.read(key: EndpointStoreKey.endpointStoreVersion.name);
 
     String? fixedEndpointId;
     if (endpointInformationVersion == null) {
@@ -84,7 +84,7 @@ class EndpointInfoStoreManager {
       }
       // Update the version to prevent future legacy data migrations.
       await _store.write(
-        key: EndpointStoreKey.version.name,
+        key: EndpointStoreKey.endpointStoreVersion.name,
         value: EndpointStoreVersion.v1.name,
       );
     }

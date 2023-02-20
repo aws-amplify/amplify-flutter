@@ -6,11 +6,13 @@
 import 'dart:async';
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_store_keys.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
+
+import 'common/mock_legacy_native_data_provider.dart';
+import 'common/mock_secure_storage.dart';
 
 void main() {
   group('LegacyNativeDataProvider ', () {
@@ -41,7 +43,7 @@ void main() {
       );
 
       final storeVersion = await store.read(
-        key: EndpointStoreKey.version.name,
+        key: EndpointStoreKey.endpointStoreVersion.name,
       );
       expect(storeVersion, EndpointStoreVersion.v1.name);
 
@@ -69,7 +71,7 @@ void main() {
       );
 
       final storeVersion = await store.read(
-        key: EndpointStoreKey.version.name,
+        key: EndpointStoreKey.endpointStoreVersion.name,
       );
       expect(storeVersion, EndpointStoreVersion.v1.name);
 
@@ -87,7 +89,8 @@ void main() {
 
       final endpointId = uuid();
       store.seedData({
-        EndpointStoreKey.version.name: EndpointStoreVersion.v1.name,
+        EndpointStoreKey.endpointStoreVersion.name:
+            EndpointStoreVersion.v1.name,
         EndpointStoreKey.endpointId.name: endpointId
       });
 
@@ -110,27 +113,4 @@ void main() {
       verifyNever(() => legacyDataProvider.getEndpointId(any()));
     });
   });
-}
-
-class MockLegacyNativeDataProvider extends Mock
-    implements LegacyNativeDataProvider {}
-
-class MockSecureStorage extends Mock implements SecureStorageInterface {
-  MockSecureStorage();
-
-  final Map<String, String?> _data = {};
-
-  void seedData(Map<String, String?> data) {
-    _data.addAll(data);
-  }
-
-  @override
-  FutureOr<String?> read({required String key}) {
-    return _data[key];
-  }
-
-  @override
-  FutureOr<void> write({required String key, required String value}) {
-    _data[key] = value;
-  }
 }
