@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_analytics_pinpoint/src/device_context_info_provider/flutter_device_context_info_provider.dart';
+import 'package:amplify_analytics_pinpoint/src/flutter_analytics_client.dart';
 import 'package:amplify_analytics_pinpoint/src/flutter_app_lifecycle_provider.dart';
 import 'package:amplify_analytics_pinpoint/src/flutter_endpoint_info_store_manager.dart';
 import 'package:amplify_analytics_pinpoint/src/flutter_path_provider/flutter_path_provider.dart';
@@ -16,13 +17,10 @@ class AmplifyAnalyticsPinpoint extends AmplifyAnalyticsPinpointDart {
   /// {@macro amplify_analytics_pinpoint.analytics_plugin_impl}
   AmplifyAnalyticsPinpoint({
     @visibleForTesting AppLifecycleProvider? appLifecycleProvider,
-    @visibleForTesting EndpointInfoStoreManager? endpointInfoStoreManager,
+    AnalyticsClient? analyticsClient,
   }) : super(
-          pathProvider: FlutterPathProvider(),
           appLifecycleProvider:
               appLifecycleProvider ?? FlutterAppLifecycleProvider(),
-          deviceContextInfoProvider: const FlutterDeviceContextInfoProvider(),
-          endpointInfoStoreManager:
-              endpointInfoStoreManager ?? FlutterEndpointInfoStoreManager(),
-  );
+          analyticsClient: analyticsClient ?? FlutterAnalyticsClient(),
+        );
 }
