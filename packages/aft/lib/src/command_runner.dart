@@ -27,6 +27,12 @@ Future<void> run(List<String> args) async {
       help: 'Directory to run commands from. Defaults to current directory.',
       hide: true,
     )
+    ..argParser.addOption(
+      'config',
+      help: 'The path to the aft configuration file, relative to the root '
+          'directory. If provided, the given configuration is merged into '
+          'the root configuration file.',
+    )
     ..addCommand(GenerateCommand())
     ..addCommand(ListPackagesCommand())
     ..addCommand(ConstraintsCommand())
