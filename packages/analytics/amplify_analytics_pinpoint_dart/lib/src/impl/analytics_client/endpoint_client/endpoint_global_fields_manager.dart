@@ -7,7 +7,6 @@ import 'dart:convert';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_store_keys.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
-import 'package:meta/meta.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.endpoint_global_fields_manager}
 /// Manages the storage, retrieval, and update of Attributes and Metrics of a PinpointEndpoint.
@@ -37,7 +36,7 @@ class EndpointGlobalFieldsManager {
   Future<void> _init() async {
     // Retrieve stored GlobalAttributes.
     final cachedAttributes = await _endpointInfoStore.read(
-      key: EndpointStoreKey.endpointGlobalAttributesKey.name,
+      key: EndpointStoreKey.globalAttributesKey.name,
     );
     _globalAttributes = cachedAttributes == null
         ? <String, String>{}
@@ -46,7 +45,7 @@ class EndpointGlobalFieldsManager {
 
     // Retrieve stored GlobalMetrics.
     final cachedMetrics = await _endpointInfoStore.read(
-      key: EndpointStoreKey.endpointGlobalMetricsKey.name,
+      key: EndpointStoreKey.globalMetricsKey.name,
     );
     _globalMetrics = cachedMetrics == null
         ? <String, double>{}
@@ -136,7 +135,7 @@ class EndpointGlobalFieldsManager {
 
   Future<void> _saveAttributes() async {
     await _endpointInfoStore.write(
-      key: EndpointStoreKey.endpointGlobalAttributesKey.name,
+      key: EndpointStoreKey.globalAttributesKey.name,
       value: jsonEncode(_globalAttributes),
     );
   }
@@ -172,7 +171,7 @@ class EndpointGlobalFieldsManager {
 
   Future<void> _saveMetrics() async {
     await _endpointInfoStore.write(
-      key: EndpointStoreKey.endpointGlobalMetricsKey.name,
+      key: EndpointStoreKey.globalMetricsKey.name,
       value: jsonEncode(_globalMetrics),
     );
   }
