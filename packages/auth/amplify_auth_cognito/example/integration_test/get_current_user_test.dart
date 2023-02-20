@@ -87,7 +87,7 @@ void main() {
         setUp(() async {
           username = generatePhoneNumber();
           password = generatePassword();
-          await adminCreateUser(
+          final cognitoUsername = await adminCreateUser(
             username,
             password,
             autoConfirm: true,
@@ -102,7 +102,7 @@ void main() {
           );
           addTearDown(() => deleteUser(username));
 
-          final code = getOtpCodes().first;
+          final code = await getOtpCode(cognitoUsername);
           final signInRes = await Amplify.Auth.signIn(
             username: username,
             password: password,
@@ -112,7 +112,7 @@ void main() {
             AuthSignInStep.confirmSignInWithSmsMfaCode,
           );
           final confirmSignInRes = await Amplify.Auth.confirmSignIn(
-            confirmationValue: await code,
+            confirmationValue: await code.code,
           );
           expect(confirmSignInRes.isSignedIn, isTrue);
         });
