@@ -9,7 +9,6 @@ environment:
 
 dependencies:
   amplify_flutter_ios: ">=1.0.0-next.5 <1.0.0-next.6"
-  cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
 
