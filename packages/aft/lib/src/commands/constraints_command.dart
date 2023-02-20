@@ -9,48 +9,47 @@ import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
 import 'package:yaml_edit/yaml_edit.dart';
 
-enum _DepsAction {
+enum _ConstraintsAction {
   check(
-    'Checks whether all dependency constraints in the repo match '
-        'the global dependency config',
-    'All dependencies matched!',
+    'Checks whether all constraints in the repo match the global config',
+    'All constraints matched!',
   ),
   update(
-    'Updates dependency constraints in aft.yaml to match the latest in pub',
-    'Dependencies successfully updated!',
+    'Updates constraints in aft.yaml to match the latest in pub',
+    'Constraints successfully updated!',
   ),
   apply(
-    'Applies dependency constraints throughout the repo to match those '
-        'in the global dependency config',
-    'Dependencies successfully applied!',
+    'Applies constraints throughout the repo to match those '
+        'in the global config',
+    'Constraints successfully applied!',
   );
 
-  const _DepsAction(this.description, this.successMessage);
+  const _ConstraintsAction(this.description, this.successMessage);
 
   final String description;
   final String successMessage;
 }
 
 /// Command to manage dependencies across all Dart/Flutter packages in the repo.
-class DepsCommand extends AmplifyCommand {
-  DepsCommand() {
-    addSubcommand(_DepsSubcommand(_DepsAction.check));
-    addSubcommand(_DepsSubcommand(_DepsAction.apply));
-    addSubcommand(_DepsUpdateCommand());
+class ConstraintsCommand extends AmplifyCommand {
+  ConstraintsCommand() {
+    addSubcommand(_ConstraintsSubcommand(_ConstraintsAction.check));
+    addSubcommand(_ConstraintsSubcommand(_ConstraintsAction.apply));
+    addSubcommand(_ConstraintsUpdateCommand());
   }
 
   @override
   String get description =>
-      'Manage dependencies across all packages in the Amplify Flutter repo';
+      'Manage constraints across all packages in the Amplify Flutter repo';
 
   @override
-  String get name => 'deps';
+  String get name => 'constraints';
 }
 
-class _DepsSubcommand extends AmplifyCommand {
-  _DepsSubcommand(this.action);
+class _ConstraintsSubcommand extends AmplifyCommand {
+  _ConstraintsSubcommand(this.action);
 
-  final _DepsAction action;
+  final _ConstraintsAction action;
 
   @override
   String get description => action.description;
@@ -60,6 +59,70 @@ class _DepsSubcommand extends AmplifyCommand {
 
   final _mismatchedDependencies = <String>[];
 
+  /// Checks the [local] constraint against the [global] and returns whether
+  /// an update is required.
+  void _checkConstraint(
+    PackageInfo package,
+    List<String> dependencyPath,
+    VersionConstraint global,
+    VersionConstraint local,
+  ) {
+    // Packages are not allowed to diverge from `aft.yaml`, even to specify
+    // more precise constraints.
+    final satisfiesGlobalConstraint = global == local;
+    if (satisfiesGlobalConstraint) {
+      return;
+    }
+    switch (action) {
+      case _ConstraintsAction.check:
+        final dependencyName = dependencyPath.last;
+        _mismatchedDependencies.add(
+          '${package.path}\n'
+          'Mismatched `$dependencyName`:\n'
+          'Expected $global\n'
+          'Found $local\n',
+        );
+        return;
+      case _ConstraintsAction.apply:
+      case _ConstraintsAction.update:
+        package.pubspecInfo.pubspecYamlEditor.update(
+          dependencyPath,
+          global.toString(),
+        );
+    }
+  }
+
+  /// Checks the package's environment constraints against the global config.
+  void _checkEnvironment(
+    PackageInfo package,
+    Map<String, VersionConstraint?> environment,
+    Environment globalEnvironment,
+  ) {
+    // Check Dart SDK contraint
+    final globalSdkConstraint = globalEnvironment.sdk;
+    final localSdkConstraint = environment['sdk'] ?? VersionConstraint.any;
+    _checkConstraint(
+      package,
+      ['environment', 'sdk'],
+      globalSdkConstraint,
+      localSdkConstraint,
+    );
+
+    // Check Flutter SDK constraint
+    if (package.flavor == PackageFlavor.flutter) {
+      final globalFlutterConstraint = globalEnvironment.flutter;
+      final localFlutterConstraint =
+          environment['flutter'] ?? VersionConstraint.any;
+      _checkConstraint(
+        package,
+        ['environment', 'flutter'],
+        globalFlutterConstraint,
+        localFlutterConstraint,
+      );
+    }
+  }
+
+  /// Checks the package's dependency constraints against the global config.
   void _checkDependency(
     PackageInfo package,
     Map<String, Dependency> dependencies,
@@ -67,39 +130,29 @@ class _DepsSubcommand extends AmplifyCommand {
     MapEntry<String, VersionConstraint> globalDep,
   ) {
     final dependencyName = globalDep.key;
+    final globalDepConstraint = globalDep.value;
     final localDep = dependencies[dependencyName];
     if (localDep is! HostedDependency) {
       return;
     }
-    final globalConstraint = globalDep.value;
-    final localConstraint = localDep.version;
-    // Packages are not allowed to diverge from `aft.yaml`, even to specify
-    // more precise constraints.
-    final satisfiesGlobalConstraint = globalConstraint == localConstraint;
-    if (!satisfiesGlobalConstraint) {
-      switch (action) {
-        case _DepsAction.check:
-          _mismatchedDependencies.add(
-            '${package.path}\n'
-            'Mismatched ${dependencyType.description} ($dependencyName):\n'
-            'Expected ${globalDep.value}\n'
-            'Found ${localDep.version}\n',
-          );
-          break;
-        case _DepsAction.apply:
-        case _DepsAction.update:
-          package.pubspecInfo.pubspecYamlEditor.update(
-            [dependencyType.key, dependencyName],
-            '${globalDep.value}',
-          );
-          break;
-      }
-    }
+    final localDepConstraint = localDep.version;
+    _checkConstraint(
+      package,
+      [dependencyType.key, dependencyName],
+      globalDepConstraint,
+      localDepConstraint,
+    );
   }
 
-  Future<void> _run(_DepsAction action) async {
+  Future<void> _run(_ConstraintsAction action) async {
     final globalDependencyConfig = aftConfig.dependencies;
+    final globalEnvironmentConfig = aftConfig.environment;
     for (final package in commandPackages.values) {
+      _checkEnvironment(
+        package,
+        package.pubspecInfo.pubspec.environment ?? const {},
+        globalEnvironmentConfig,
+      );
       for (final globalDep in globalDependencyConfig.entries) {
         _checkDependency(
           package,
@@ -143,8 +196,8 @@ class _DepsSubcommand extends AmplifyCommand {
   }
 }
 
-class _DepsUpdateCommand extends _DepsSubcommand {
-  _DepsUpdateCommand() : super(_DepsAction.update);
+class _ConstraintsUpdateCommand extends _ConstraintsSubcommand {
+  _ConstraintsUpdateCommand() : super(_ConstraintsAction.update);
 
   @override
   Future<void> run() async {
@@ -276,7 +329,7 @@ class _DepsUpdateCommand extends _DepsSubcommand {
     }
 
     if (hasUpdates && failedUpdates.isEmpty) {
-      await _run(_DepsAction.apply);
+      await _run(_ConstraintsAction.apply);
     }
   }
 }

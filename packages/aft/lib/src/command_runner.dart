@@ -29,7 +29,7 @@ Future<void> run(List<String> args) async {
     )
     ..addCommand(GenerateCommand())
     ..addCommand(ListPackagesCommand())
-    ..addCommand(DepsCommand())
+    ..addCommand(ConstraintsCommand())
     ..addCommand(LinkCommand())
     ..addCommand(CleanCommand())
     ..addCommand(PublishCommand())
