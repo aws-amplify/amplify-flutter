@@ -86,13 +86,7 @@ return ${allocate(DartTypes.awsCommon.zDebugMode)} ? '$_workersJsPath' : '$_mini
     final basePath = baseUri.pathSegments
         .takeWhile((segment) => segment != 'test')
         .map(Uri.encodeComponent)
-        .join('/');
-    final testDir = Uri(
-      scheme: baseUri.scheme,
-      host: baseUri.host,
-      port: baseUri.port,
-      path: '\$basePath/test',
-    );'''),
+        .join('/');'''),
       declareConst('relativePath')
           .assign(
             DartTypes.awsCommon.zDebugMode.conditional(
@@ -101,14 +95,16 @@ return ${allocate(DartTypes.awsCommon.zDebugMode)} ? '$_workersJsPath' : '$_mini
             ),
           )
           .statement,
-      literalList([
-        refer('relativePath'),
-        refer('testDir')
-            .property('resolve')
-            .call([refer('relativePath')])
-            .property('toString')
-            .call([]),
-      ]).returned.statement,
+      const Code(r'''
+    final testRelativePath = Uri(
+      scheme: baseUri.scheme,
+      host: baseUri.host,
+      port: baseUri.port,
+      path: '$basePath/test/$relativePath',
+    ).toString();'''),
+      literalList([refer('relativePath'), refer('testRelativePath')])
+          .returned
+          .statement,
     ]);
   }
 
