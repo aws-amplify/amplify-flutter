@@ -62,6 +62,11 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Update constraints
+        if: matrix.sdk == 'beta'
+        shell: bash
+        run: aft --config=aft.beta.yaml constraints apply
+
       - name: Bootstrap
         id: bootstrap
         timeout-minutes: 10

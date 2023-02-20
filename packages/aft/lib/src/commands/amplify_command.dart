@@ -161,7 +161,7 @@ abstract class AmplifyCommand extends Command<void>
     var configYaml = _loadFile(aftConfigPath);
 
     // Merge in the extra config options if provided.
-    final extraConfig = globalResults!['config'] as String?;
+    final extraConfig = globalResults?['config'] as String?;
     if (extraConfig != null) {
       final extraConfigYaml = _loadFile(p.join(rootDir.path, extraConfig));
       final rootEditor = YamlEditor(configYaml)
