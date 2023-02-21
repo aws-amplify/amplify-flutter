@@ -363,7 +363,7 @@ class Repo {
                   .contains(package.name),
         )) {
           logger.verbose('found dependent package ${dependent.name}');
-          if (dependent.isPublishable && type != VersionBumpType.patch) {
+          if (dependent.isPublishable) {
             bumpVersion(
               dependent,
               commit: commit,
@@ -432,7 +432,7 @@ class Repo {
         minVersion: newVersion,
       );
       logger.verbose(
-        'Bumping dependency on ${dependent.name} in ${package.name} '
+        'Bumping dependency on ${package.name} in ${dependent.name} '
         'to $newConstraint',
       );
       dependent.pubspecInfo.pubspecYamlEditor.update(
