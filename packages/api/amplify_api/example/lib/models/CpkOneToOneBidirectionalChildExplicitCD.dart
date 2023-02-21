@@ -21,18 +21,15 @@
 
 import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/// This is an auto generated class representing the Post type in your schema.
+/// This is an auto generated class representing the CpkOneToOneBidirectionalChildExplicitCD type in your schema.
 @immutable
-class Post extends Model {
-  static const classType = _PostModelType();
+class CpkOneToOneBidirectionalChildExplicitCD extends Model {
+  static const classType = _CpkOneToOneBidirectionalChildExplicitCDModelType();
   final String id;
-  final String? _title;
-  final int? _rating;
-  final Blog? _blog;
-  final List<Comment>? _comments;
+  final String? _name;
+  final CpkOneToOneBidirectionalParentCD? _belongsToParent;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -44,13 +41,10 @@ class Post extends Model {
   @override
   String getId() => id;
 
-  PostModelIdentifier get modelIdentifier {
-    return PostModelIdentifier(id: id);
-  }
-
-  String get title {
+  CpkOneToOneBidirectionalChildExplicitCDModelIdentifier get modelIdentifier {
     try {
-      return _title!;
+      return CpkOneToOneBidirectionalChildExplicitCDModelIdentifier(
+          id: id, name: _name!);
     } catch (e) {
       throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
@@ -61,9 +55,9 @@ class Post extends Model {
     }
   }
 
-  int get rating {
+  String get name {
     try {
-      return _rating!;
+      return _name!;
     } catch (e) {
       throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
@@ -74,12 +68,8 @@ class Post extends Model {
     }
   }
 
-  Blog? get blog {
-    return _blog;
-  }
-
-  List<Comment>? get comments {
-    return _comments;
+  CpkOneToOneBidirectionalParentCD? get belongsToParent {
+    return _belongsToParent;
   }
 
   TemporalDateTime? get createdAt {
@@ -90,34 +80,21 @@ class Post extends Model {
     return _updatedAt;
   }
 
-  const Post._internal(
-      {required this.id,
-      required title,
-      required rating,
-      blog,
-      comments,
-      createdAt,
-      updatedAt})
-      : _title = title,
-        _rating = rating,
-        _blog = blog,
-        _comments = comments,
+  const CpkOneToOneBidirectionalChildExplicitCD._internal(
+      {required this.id, required name, belongsToParent, createdAt, updatedAt})
+      : _name = name,
+        _belongsToParent = belongsToParent,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory Post(
+  factory CpkOneToOneBidirectionalChildExplicitCD(
       {String? id,
-      required String title,
-      required int rating,
-      Blog? blog,
-      List<Comment>? comments}) {
-    return Post._internal(
+      required String name,
+      CpkOneToOneBidirectionalParentCD? belongsToParent}) {
+    return CpkOneToOneBidirectionalChildExplicitCD._internal(
         id: id == null ? UUID.getUUID() : id,
-        title: title,
-        rating: rating,
-        blog: blog,
-        comments:
-            comments != null ? List<Comment>.unmodifiable(comments) : comments);
+        name: name,
+        belongsToParent: belongsToParent);
   }
 
   bool equals(Object other) {
@@ -127,12 +104,10 @@ class Post extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Post &&
+    return other is CpkOneToOneBidirectionalChildExplicitCD &&
         id == other.id &&
-        _title == other._title &&
-        _rating == other._rating &&
-        _blog == other._blog &&
-        DeepCollectionEquality().equals(_comments, other._comments);
+        _name == other._name &&
+        _belongsToParent == other._belongsToParent;
   }
 
   @override
@@ -142,12 +117,12 @@ class Post extends Model {
   String toString() {
     var buffer = StringBuffer();
 
-    buffer.write("Post {");
+    buffer.write("CpkOneToOneBidirectionalChildExplicitCD {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("title=" + "$_title" + ", ");
-    buffer.write(
-        "rating=" + (_rating != null ? _rating!.toString() : "null") + ", ");
-    buffer.write("blog=" + (_blog != null ? _blog!.toString() : "null") + ", ");
+    buffer.write("name=" + "$_name" + ", ");
+    buffer.write("belongsToParent=" +
+        (_belongsToParent != null ? _belongsToParent!.toString() : "null") +
+        ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -158,30 +133,21 @@ class Post extends Model {
     return buffer.toString();
   }
 
-  Post copyWith(
-      {String? title, int? rating, Blog? blog, List<Comment>? comments}) {
-    return Post._internal(
+  CpkOneToOneBidirectionalChildExplicitCD copyWith(
+      {CpkOneToOneBidirectionalParentCD? belongsToParent}) {
+    return CpkOneToOneBidirectionalChildExplicitCD._internal(
         id: id,
-        title: title ?? this.title,
-        rating: rating ?? this.rating,
-        blog: blog ?? this.blog,
-        comments: comments ?? this.comments);
+        name: name,
+        belongsToParent: belongsToParent ?? this.belongsToParent);
   }
 
-  Post.fromJson(Map<String, dynamic> json)
+  CpkOneToOneBidirectionalChildExplicitCD.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _title = json['title'],
-        _rating = (json['rating'] as num?)?.toInt(),
-        _blog = json['blog']?['serializedData'] != null
-            ? Blog.fromJson(
-                Map<String, dynamic>.from(json['blog']['serializedData']))
-            : null,
-        _comments = json['comments'] is List
-            ? (json['comments'] as List)
-                .where((e) => e?['serializedData'] != null)
-                .map((e) => Comment.fromJson(
-                    Map<String, dynamic>.from(e['serializedData'])))
-                .toList()
+        _name = json['name'],
+        _belongsToParent = json['belongsToParent']?['serializedData'] != null
+            ? CpkOneToOneBidirectionalParentCD.fromJson(
+                Map<String, dynamic>.from(
+                    json['belongsToParent']['serializedData']))
             : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
@@ -192,94 +158,59 @@ class Post extends Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'title': _title,
-        'rating': _rating,
-        'blog': _blog?.toJson(),
-        'comments': _comments?.map((Comment? e) => e?.toJson()).toList(),
+        'name': _name,
+        'belongsToParent': _belongsToParent?.toJson(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
   Map<String, Object?> toMap() => {
         'id': id,
-        'title': _title,
-        'rating': _rating,
-        'blog': _blog,
-        'comments': _comments,
+        'name': _name,
+        'belongsToParent': _belongsToParent,
         'createdAt': _createdAt,
         'updatedAt': _updatedAt
       };
 
-  static final QueryModelIdentifier<PostModelIdentifier> MODEL_IDENTIFIER =
-      QueryModelIdentifier<PostModelIdentifier>();
+  static final QueryModelIdentifier<
+          CpkOneToOneBidirectionalChildExplicitCDModelIdentifier>
+      MODEL_IDENTIFIER = QueryModelIdentifier<
+          CpkOneToOneBidirectionalChildExplicitCDModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField TITLE = QueryField(fieldName: "title");
-  static final QueryField RATING = QueryField(fieldName: "rating");
-  static final QueryField BLOG = QueryField(
-      fieldName: "blog",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Blog'));
-  static final QueryField COMMENTS = QueryField(
-      fieldName: "comments",
-      fieldType:
-          ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Comment'));
+  static final QueryField NAME = QueryField(fieldName: "name");
+  static final QueryField BELONGSTOPARENT = QueryField(
+      fieldName: "belongsToParent",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: 'CpkOneToOneBidirectionalParentCD'));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Post";
-    modelSchemaDefinition.pluralName = "Posts";
+    modelSchemaDefinition.name = "CpkOneToOneBidirectionalChildExplicitCD";
+    modelSchemaDefinition.pluralName =
+        "CpkOneToOneBidirectionalChildExplicitCDS";
 
     modelSchemaDefinition.authRules = [
       AuthRule(
-          authStrategy: AuthStrategy.PUBLIC,
-          provider: AuthRuleProvider.IAM,
-          operations: [ModelOperation.READ]),
-      AuthRule(
           authStrategy: AuthStrategy.PRIVATE,
           provider: AuthRuleProvider.IAM,
-          operations: [ModelOperation.READ]),
-      AuthRule(
-          authStrategy: AuthStrategy.PRIVATE,
-          provider: AuthRuleProvider.USERPOOLS,
-          operations: [ModelOperation.READ]),
-      AuthRule(
-          authStrategy: AuthStrategy.OWNER,
-          ownerField: "owner",
-          identityClaim: "cognito:username",
-          provider: AuthRuleProvider.USERPOOLS,
-          operations: [
-            ModelOperation.CREATE,
-            ModelOperation.READ,
-            ModelOperation.UPDATE,
-            ModelOperation.DELETE
-          ])
+          operations: [ModelOperation.READ])
     ];
 
     modelSchemaDefinition.indexes = [
-      ModelIndex(fields: const ["blogID"], name: "byBlog")
+      ModelIndex(fields: const ["id", "name"], name: null)
     ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Post.TITLE,
+        key: CpkOneToOneBidirectionalChildExplicitCD.NAME,
         isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Post.RATING,
-        isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.int)));
-
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-        key: Post.BLOG,
+        key: CpkOneToOneBidirectionalChildExplicitCD.BELONGSTOPARENT,
         isRequired: false,
-        targetNames: ['blogID'],
-        ofModelName: 'Blog'));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-        key: Post.COMMENTS,
-        isRequired: false,
-        ofModelName: 'Comment',
-        associatedKey: Comment.POST));
+        targetNames: ['belongsToParentID', 'belongsToParentName'],
+        ofModelName: 'CpkOneToOneBidirectionalParentCD'));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -295,31 +226,38 @@ class Post extends Model {
   });
 }
 
-class _PostModelType extends ModelType<Post> {
-  const _PostModelType();
+class _CpkOneToOneBidirectionalChildExplicitCDModelType
+    extends ModelType<CpkOneToOneBidirectionalChildExplicitCD> {
+  const _CpkOneToOneBidirectionalChildExplicitCDModelType();
 
   @override
-  Post fromJson(Map<String, dynamic> jsonData) {
-    return Post.fromJson(jsonData);
+  CpkOneToOneBidirectionalChildExplicitCD fromJson(
+      Map<String, dynamic> jsonData) {
+    return CpkOneToOneBidirectionalChildExplicitCD.fromJson(jsonData);
   }
 
   @override
   String modelName() {
-    return 'Post';
+    return 'CpkOneToOneBidirectionalChildExplicitCD';
   }
 }
 
 /// This is an auto generated class representing the model identifier
-/// of [Post] in your schema.
+/// of [CpkOneToOneBidirectionalChildExplicitCD] in your schema.
 @immutable
-class PostModelIdentifier implements ModelIdentifier<Post> {
+class CpkOneToOneBidirectionalChildExplicitCDModelIdentifier
+    implements ModelIdentifier<CpkOneToOneBidirectionalChildExplicitCD> {
   final String id;
+  final String name;
 
-  /// Create an instance of PostModelIdentifier using [id] the primary key.
-  const PostModelIdentifier({required this.id});
+  /// Create an instance of CpkOneToOneBidirectionalChildExplicitCDModelIdentifier using [id] the primary key.
+  /// And [name] the sort key.
+  const CpkOneToOneBidirectionalChildExplicitCDModelIdentifier(
+      {required this.id, required this.name});
 
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+  Map<String, dynamic> serializeAsMap() =>
+      (<String, dynamic>{'id': id, 'name': name});
 
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
@@ -331,7 +269,8 @@ class PostModelIdentifier implements ModelIdentifier<Post> {
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() => 'PostModelIdentifier(id: $id)';
+  String toString() =>
+      'CpkOneToOneBidirectionalChildExplicitCDModelIdentifier(id: $id, name: $name)';
 
   @override
   bool operator ==(Object other) {
@@ -339,9 +278,11 @@ class PostModelIdentifier implements ModelIdentifier<Post> {
       return true;
     }
 
-    return other is PostModelIdentifier && id == other.id;
+    return other is CpkOneToOneBidirectionalChildExplicitCDModelIdentifier &&
+        id == other.id &&
+        name == other.name;
   }
 
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode => id.hashCode ^ name.hashCode;
 }

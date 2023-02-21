@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_catches_without_on_clauses, prefer_const_literals_to_create_immutables, prefer_single_quotes, inference_failure_on_untyped_parameter
+
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -8,14 +10,14 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
-// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
+// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously, field_initializer_not_assignable, argument_type_not_assignable
 
 import 'ModelProvider.dart';
 
-/// This is an auto generated class representing the Comment type in your schema.
+/** This is an auto generated class representing the Comment type in your schema. */
 @immutable
 class Comment extends Model {
-  static const classType = _CommentModelType();
+  static const classType = const _CommentModelType();
   final String id;
   final Post? _post;
   final String? _content;
@@ -25,13 +27,9 @@ class Comment extends Model {
   @override
   getInstanceType() => classType;
 
-  @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() => id;
-
-  CommentModelIdentifier get modelIdentifier {
-    return CommentModelIdentifier(id: id);
+  String getId() {
+    return id;
   }
 
   Post? get post {
@@ -42,7 +40,7 @@ class Comment extends Model {
     try {
       return _content!;
     } catch (e) {
-      throw AmplifyCodeGenModelException(
+      throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -89,7 +87,7 @@ class Comment extends Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("Comment {");
     buffer.write("id=" + "$id" + ", ");
@@ -105,16 +103,18 @@ class Comment extends Model {
     return buffer.toString();
   }
 
-  Comment copyWith({Post? post, String? content}) {
+  Comment copyWith({String? id, Post? post, String? content}) {
     return Comment._internal(
-        id: id, post: post ?? this.post, content: content ?? this.content);
+        id: id ?? this.id,
+        post: post ?? this.post,
+        content: content ?? this.content);
   }
 
   Comment.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _post = json['post']?['serializedData'] != null
             ? Post.fromJson(
-                Map<String, dynamic>.from(json['post']['serializedData']))
+                new Map<String, dynamic>.from(json['post']['serializedData']))
             : null,
         _content = json['content'],
         _createdAt = json['createdAt'] != null
@@ -132,8 +132,6 @@ class Comment extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryModelIdentifier<CommentModelIdentifier> MODEL_IDENTIFIER =
-      QueryModelIdentifier<CommentModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField POST = QueryField(
       fieldName: "post",
@@ -145,8 +143,26 @@ class Comment extends Model {
     modelSchemaDefinition.name = "Comment";
     modelSchemaDefinition.pluralName = "Comments";
 
-    modelSchemaDefinition.indexes = [
-      ModelIndex(fields: const ["postID", "content"], name: "byPost")
+    modelSchemaDefinition.authRules = [
+      AuthRule(
+          authStrategy: AuthStrategy.PRIVATE,
+          provider: AuthRuleProvider.IAM,
+          operations: [ModelOperation.READ]),
+      AuthRule(
+          authStrategy: AuthStrategy.PRIVATE,
+          provider: AuthRuleProvider.USERPOOLS,
+          operations: [ModelOperation.READ]),
+      AuthRule(
+          authStrategy: AuthStrategy.OWNER,
+          ownerField: "owner",
+          identityClaim: "cognito:username",
+          provider: AuthRuleProvider.USERPOOLS,
+          operations: [
+            ModelOperation.CREATE,
+            ModelOperation.READ,
+            ModelOperation.UPDATE,
+            ModelOperation.DELETE
+          ])
     ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
@@ -154,7 +170,10 @@ class Comment extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: Comment.POST,
         isRequired: false,
-        targetNames: ["postID"],
+        // TODO(Jordan-Nelson): Remove `targetName` when API category has been
+        // updated to support CPK changes. This was added manually.
+        // ignore: deprecated_member_use
+        targetName: "postID",
         ofModelName: (Post).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
@@ -183,41 +202,4 @@ class _CommentModelType extends ModelType<Comment> {
   Comment fromJson(Map<String, dynamic> jsonData) {
     return Comment.fromJson(jsonData);
   }
-}
-
-/// This is an auto generated class representing the model identifier
-/// of [Comment] in your schema.
-@immutable
-class CommentModelIdentifier implements ModelIdentifier<Comment> {
-  final String id;
-
-  /// Create an instance of CommentModelIdentifier using [id] the primary key.
-  const CommentModelIdentifier({required this.id});
-
-  @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
-
-  @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
-
-  @override
-  String serializeAsString() => serializeAsMap().values.join('#');
-
-  @override
-  String toString() => 'CommentModelIdentifier(id: $id)';
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-
-    return other is CommentModelIdentifier && id == other.id;
-  }
-
-  @override
-  int get hashCode => id.hashCode;
 }

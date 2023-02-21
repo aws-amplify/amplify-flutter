@@ -7,12 +7,11 @@ import 'package:amplify_api_dart/amplify_api_dart.dart';
 import 'package:amplify_api_dart/src/graphql/helpers/graphql_response_decoder.dart';
 import 'package:amplify_api_dart/src/graphql/utils.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:collection/collection.dart';
 import 'package:test/test.dart';
 
 import 'test_models/ModelProvider.dart';
+import 'util.dart';
 
-final _deepEquals = const DeepCollectionEquality().equals;
 const _exampleApiName = 'myApi456';
 const _exampleHeaders = {'testKey': 'testVal'};
 
@@ -54,20 +53,22 @@ void main() {
         MockAmplifyAPI(modelProvider: ModelProvider.instance),
       );
     });
-    const blogSelectionSet =
-        'id name createdAt file { bucket region key meta { name } } files { bucket region key meta { name } } updatedAt';
+    const blogSelectionSet = 'id name createdAt updatedAt';
 
     group('ModelQueries', () {
       test('ModelQueries.get() should build a valid request', () {
         final id = uuid();
+        final blog = Blog(id: id, name: 'Lorem ipsum $id');
         const expected =
             'query getBlog(\$id: ID!) { getBlog(id: \$id) { $blogSelectionSet } }';
 
-        final GraphQLRequest<Blog> req =
-            ModelQueries.get<Blog>(Blog.classType, id);
+        final GraphQLRequest<Blog> req = ModelQueries.get<Blog>(
+          Blog.classType,
+          blog.modelIdentifier,
+        );
 
         expect(req.document, expected);
-        expect(_deepEquals(req.variables, {'id': id}), isTrue);
+        expect(deepEquals(req.variables, {'id': id}), isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'getBlog');
       });
@@ -75,9 +76,10 @@ void main() {
       test('ModelQueries.get() should support additional request parameters',
           () {
         final id = uuid();
+        final blog = Blog(id: id, name: 'Lorem ipsum $id');
         final req = ModelQueries.get(
           Blog.classType,
-          id,
+          blog.modelIdentifier,
           apiName: _exampleApiName,
           headers: _exampleHeaders,
           authorizationMode: APIAuthorizationType.function,
@@ -92,8 +94,9 @@ void main() {
           'ModelQueries.get() returns a GraphQLRequest<Blog> when provided a modelType',
           () async {
         final id = uuid();
+        final blog = Blog(id: id, name: 'Lorem ipsum $id');
         final GraphQLRequest<Blog> req =
-            ModelQueries.get<Blog>(Blog.classType, id);
+            ModelQueries.get<Blog>(Blog.classType, blog.modelIdentifier);
         final String data = '''{
         "getBlog": {
             "createdAt": "2021-01-01T01:00:00.000000000Z",
@@ -145,8 +148,10 @@ void main() {
         createdAt
       }
     }''';
-        final GraphQLRequest<String> req =
-            GraphQLRequest(document: doc, variables: <String, String>{id: id});
+        final GraphQLRequest<String> req = GraphQLRequest(
+          document: doc,
+          variables: <String, String>{id: id},
+        );
         final String data = '''{
         "getBlog": {
             "createdAt": "2021-01-01T01:00:00.000000000Z",
@@ -253,7 +258,10 @@ void main() {
             'query listBlogs(\$filter: ModelBlogFilterInput, \$limit: Int, \$nextToken: String) { listBlogs(filter: \$filter, limit: \$limit, nextToken: \$nextToken) { items { $blogSelectionSet } nextToken } }';
         final resultRequest = response.data?.requestForNextResult;
         expect(resultRequest?.document, expectedDocument);
-        expect(resultRequest?.variables['nextToken'], response.data?.nextToken);
+        expect(
+          resultRequest?.variables['nextToken'],
+          response.data?.nextToken,
+        );
         expect(resultRequest?.variables['limit'], limit);
       });
 
@@ -362,24 +370,64 @@ void main() {
         expect(req.headers, _exampleHeaders);
         expect(req.authorizationMode, APIAuthorizationType.function);
       });
+
+      test(
+          'ModelQueries.get() should support model with complex identifier and custom primary key',
+          () {
+        final customId = uuid();
+        final name = 'foo $customId';
+        final model =
+            CpkOneToOneBidirectionalParentCD(name: name, customId: customId);
+        final req = ModelQueries.get(
+          CpkOneToOneBidirectionalParentCD.classType,
+          model.modelIdentifier,
+        );
+        final expectedDocument =
+            'query getCpkOneToOneBidirectionalParentCD { getCpkOneToOneBidirectionalParentCD(customId: "$customId", name: "$name") { customId name createdAt updatedAt cpkOneToOneBidirectionalParentCDImplicitChildId cpkOneToOneBidirectionalParentCDImplicitChildName cpkOneToOneBidirectionalParentCDExplicitChildId cpkOneToOneBidirectionalParentCDExplicitChildName } }';
+
+        expect(req.document, expectedDocument);
+        expect(
+          deepEquals(req.variables, {'customId': customId, 'name': name}),
+          isTrue,
+        );
+      });
+
+      test('ModelQueries.get() should support model with CPK and int indexes',
+          () {
+        final customId = uuid();
+        final name = 'foo $customId';
+        final model = CpkIntIndexes(name: name, fieldA: 1, fieldB: 2);
+        final req = ModelQueries.get(
+          CpkIntIndexes.classType,
+          model.modelIdentifier,
+        );
+        final expectedDocument =
+            'query getCpkIntIndexes { getCpkIntIndexes(name: "$name", fieldA: 1, fieldB: 2) { name fieldA fieldB createdAt updatedAt } }';
+
+        expect(req.document, expectedDocument);
+      });
+
+      test('ModelQueries.get() should support model with int primary key', () {
+        final model = CpkIntPrimaryKey(intAsId: 1, fieldA: 2, fieldB: 3);
+        final req = ModelQueries.get(
+          CpkIntPrimaryKey.classType,
+          model.modelIdentifier,
+        );
+        const expectedDocument =
+            'query getCpkIntPrimaryKey { getCpkIntPrimaryKey(intAsId: 1, fieldA: 2, fieldB: 3) { intAsId fieldA fieldB createdAt updatedAt } }';
+
+        expect(req.document, expectedDocument);
+      });
     });
 
     group('ModelMutations', () {
       test('ModelMutations.create() should build a valid request', () {
         final id = uuid();
         const name = 'Test Blog';
-        const time = '2021-08-03T16:39:18.000000651Z';
-        final createdAt = TemporalDateTime.fromString(time);
 
-        final Blog blog = Blog(id: id, name: name, createdAt: createdAt);
+        final Blog blog = Blog(id: id, name: name);
         final expectedVars = {
-          'input': {
-            'id': id,
-            'name': name,
-            'createdAt': time,
-            'file': null,
-            'files': null
-          }
+          'input': {'id': id, 'name': name}
         };
         const expectedDoc =
             'mutation createBlog(\$input: CreateBlogInput!, \$condition:  ModelBlogConditionInput) { createBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
@@ -387,7 +435,7 @@ void main() {
         final GraphQLRequest<Blog> req = ModelMutations.create<Blog>(blog);
 
         expect(req.document, expectedDoc);
-        expect(_deepEquals(req.variables, expectedVars), isTrue);
+        expect(deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'createBlog');
       });
@@ -409,9 +457,7 @@ void main() {
           () {
         final blogId = uuid();
         const name = 'Test Blog';
-        const time = '2021-08-03T16:39:18.000000651Z';
-        final createdAt = TemporalDateTime.fromString(time);
-        final Blog blog = Blog(id: blogId, name: name, createdAt: createdAt);
+        final Blog blog = Blog(id: blogId, name: name);
 
         final postId = uuid();
         const title = 'Lorem Ipsum';
@@ -425,16 +471,15 @@ void main() {
             'title': title,
             'rating': rating,
             'created': null,
-            'likeCount': null,
             'blogID': blogId
           }
         };
         const expectedDoc =
-            'mutation createPost(\$input: CreatePostInput!, \$condition:  ModelPostConditionInput) { createPost(input: \$input, condition: \$condition) { id title rating created likeCount createdAt updatedAt blog { $blogSelectionSet } blogID } }';
+            'mutation createPost(\$input: CreatePostInput!, \$condition:  ModelPostConditionInput) { createPost(input: \$input, condition: \$condition) { id title rating created createdAt updatedAt blog { $blogSelectionSet } blogID } }';
         final GraphQLRequest<Post> req = ModelMutations.create<Post>(post);
 
         expect(req.document, expectedDoc);
-        expect(_deepEquals(req.variables, expectedVars), isTrue);
+        expect(deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Post.classType);
         expect(req.decodePath, 'createPost');
       });
@@ -474,10 +519,8 @@ void main() {
       test('ModelMutations.delete() should build a valid request', () {
         final id = uuid();
         const name = 'Test Blog';
-        const time = '2021-08-03T16:39:18.000000651Z';
-        final createdAt = TemporalDateTime.fromString(time);
 
-        final Blog blog = Blog(id: id, name: name, createdAt: createdAt);
+        final Blog blog = Blog(id: id, name: name);
 
         final expectedVars = {
           'input': {'id': id},
@@ -489,7 +532,7 @@ void main() {
         final GraphQLRequest<Blog> req = ModelMutations.delete<Blog>(blog);
 
         expect(req.document, expectedDoc);
-        expect(_deepEquals(req.variables, expectedVars), isTrue);
+        expect(deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'deleteBlog');
       });
@@ -513,6 +556,7 @@ void main() {
 
       test('ModelMutations.deleteById() should build a valid request', () {
         final id = uuid();
+        final blog = Blog(id: id, name: 'Lorem ipsum $id');
 
         final expectedVars = {
           'input': {'id': id},
@@ -521,11 +565,13 @@ void main() {
         const expectedDoc =
             'mutation deleteBlog(\$input: DeleteBlogInput!, \$condition:  ModelBlogConditionInput) { deleteBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
 
-        final GraphQLRequest<Blog> req =
-            ModelMutations.deleteById<Blog>(Blog.classType, id);
+        final GraphQLRequest<Blog> req = ModelMutations.deleteById<Blog>(
+          Blog.classType,
+          blog.modelIdentifier,
+        );
 
         expect(req.document, expectedDoc);
-        expect(_deepEquals(req.variables, expectedVars), isTrue);
+        expect(deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'deleteBlog');
       });
@@ -534,9 +580,10 @@ void main() {
           'ModelQueries.deleteById() should support additional request parameters',
           () {
         final id = uuid();
+        final blog = Blog(id: id, name: 'Lorem ipsum $id');
         final req = ModelMutations.deleteById(
           Blog.classType,
-          id,
+          blog.modelIdentifier,
           apiName: _exampleApiName,
           headers: _exampleHeaders,
           authorizationMode: APIAuthorizationType.function,
@@ -550,19 +597,11 @@ void main() {
       test('ModelMutations.update() should build a valid request', () {
         final id = uuid();
         const name = 'Test Blog';
-        const time = '2021-08-03T16:39:18.000000651Z';
-        final createdAt = TemporalDateTime.fromString(time);
 
-        final Blog blog = Blog(id: id, name: name, createdAt: createdAt);
+        final Blog blog = Blog(id: id, name: name);
 
         final expectedVars = {
-          'input': {
-            'id': id,
-            'name': name,
-            'createdAt': time,
-            'file': null,
-            'files': null
-          },
+          'input': {'id': id, 'name': name},
           'condition': null
         };
         const expectedDoc =
@@ -571,7 +610,7 @@ void main() {
         final GraphQLRequest<Blog> req = ModelMutations.update<Blog>(blog);
 
         expect(req.document, expectedDoc);
-        expect(_deepEquals(req.variables, expectedVars), isTrue);
+        expect(deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'updateBlog');
       });
@@ -581,9 +620,7 @@ void main() {
           () {
         final blogId = uuid();
         const name = 'Test Blog';
-        const time = '2021-08-03T16:39:18.000000651Z';
-        final createdAt = TemporalDateTime.fromString(time);
-        final Blog blog = Blog(id: blogId, name: name, createdAt: createdAt);
+        final Blog blog = Blog(id: blogId, name: name);
 
         final postId = uuid();
         const title = 'Lorem Ipsum';
@@ -597,17 +634,16 @@ void main() {
             'title': title,
             'rating': rating,
             'created': null,
-            'likeCount': null,
             'blogID': blogId
           },
           'condition': null
         };
         const expectedDoc =
-            'mutation updatePost(\$input: UpdatePostInput!, \$condition:  ModelPostConditionInput) { updatePost(input: \$input, condition: \$condition) { id title rating created likeCount createdAt updatedAt blog { $blogSelectionSet } blogID } }';
+            'mutation updatePost(\$input: UpdatePostInput!, \$condition:  ModelPostConditionInput) { updatePost(input: \$input, condition: \$condition) { id title rating created createdAt updatedAt blog { $blogSelectionSet } blogID } }';
         final GraphQLRequest<Post> req = ModelMutations.update<Post>(post);
 
         expect(req.document, expectedDoc);
-        expect(_deepEquals(req.variables, expectedVars), isTrue);
+        expect(deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Post.classType);
         expect(req.decodePath, 'updatePost');
       });
@@ -617,29 +653,21 @@ void main() {
           () {
         final id = uuid();
         const name = 'Test Blog';
-        const time = '2021-08-03T16:39:18.000000651Z';
-        final createdAt = TemporalDateTime.fromString(time);
-        final Blog blog = Blog(id: id, name: name, createdAt: createdAt);
+        final Blog blog = Blog(id: id, name: name);
         final expectedVars = {
-          'input': {
-            'id': id,
-            'name': name,
-            'createdAt': time,
-            'file': null,
-            'files': null
-          },
+          'input': {'id': id, 'name': name},
           'condition': {
-            'createdAt': {'lt': time}
+            'name': {'lt': 'zzz'}
           }
         };
         const expectedDoc =
             'mutation updateBlog(\$input: UpdateBlogInput!, \$condition:  ModelBlogConditionInput) { updateBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
 
         final GraphQLRequest<Blog> req =
-            ModelMutations.update(blog, where: Blog.CREATEDAT.lt(createdAt));
+            ModelMutations.update(blog, where: Blog.NAME.lt('zzz'));
 
         expect(req.document, expectedDoc);
-        expect(_deepEquals(req.variables, expectedVars), isTrue);
+        expect(deepEquals(req.variables, expectedVars), isTrue);
       });
 
       test('ModelQueries.update() should support additional request parameters',
@@ -663,13 +691,11 @@ void main() {
           () {
         final id = uuid();
         const name = 'Test Blog';
-        const time = '2021-08-03T16:39:18.000000651Z';
-        final createdAt = TemporalDateTime.fromString(time);
-        final Blog blog = Blog(id: id, name: name, createdAt: createdAt);
+        final Blog blog = Blog(id: id, name: name);
         final expectedVars = {
           'input': {'id': id},
           'condition': {
-            'createdAt': {'lt': time}
+            'name': {'lt': 'zzz'}
           }
         };
         const expectedDoc =
@@ -677,13 +703,71 @@ void main() {
 
         final GraphQLRequest<Blog> req = ModelMutations.delete<Blog>(
           blog,
-          where: Blog.CREATEDAT.lt(createdAt),
+          where: Blog.NAME.lt('zzz'),
         );
 
         expect(req.document, expectedDoc);
-        expect(_deepEquals(req.variables, expectedVars), isTrue);
+        expect(deepEquals(req.variables, expectedVars), isTrue);
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'deleteBlog');
+      });
+
+      test(
+        'ModelMutations.create() should create model with complex identifier and not include bi-directional children identifiers',
+        () {
+          final explicitChild = CpkOneToOneBidirectionalChildExplicitCD(
+            name: 'abc',
+          );
+          final implicitChild = CpkOneToOneBidirectionalChildImplicitCD(
+            name: 'abc',
+          );
+          final customId = uuid();
+          final parentName = 'parent $customId';
+          final parent = CpkOneToOneBidirectionalParentCD(
+            name: parentName,
+            customId: customId,
+            explicitChild: explicitChild,
+            implicitChild: implicitChild,
+          );
+          final req = ModelMutations.create(parent);
+
+          final expectedVars = {
+            'input': <String, dynamic>{
+              'customId': customId,
+              'name': parentName,
+              'cpkOneToOneBidirectionalParentCDImplicitChildId': null,
+              'cpkOneToOneBidirectionalParentCDImplicitChildName': null,
+              'cpkOneToOneBidirectionalParentCDExplicitChildId': null,
+              'cpkOneToOneBidirectionalParentCDExplicitChildName': null
+            }
+          };
+          expect(deepEquals(req.variables, expectedVars), isTrue);
+        },
+      );
+
+      test(
+          'ModelMutations.create() should create child with parent that has complex identifier',
+          () {
+        final customParentId = uuid();
+        final parent = CpkOneToOneBidirectionalParentCD(
+          name: 'foo',
+          customId: customParentId,
+        );
+        final child = CpkOneToOneBidirectionalChildExplicitCD(
+          name: 'bar',
+          belongsToParent: parent,
+        );
+        final req = ModelMutations.create(child);
+
+        final expectedVars = {
+          'input': <String, dynamic>{
+            'id': child.id,
+            'name': child.name,
+            'belongsToParentID': customParentId,
+            'belongsToParentName': parent.name,
+          }
+        };
+        expect(deepEquals(req.variables, expectedVars), isTrue);
       });
     });
 
@@ -952,17 +1036,18 @@ void main() {
       test('should translate custom type model', () {
         final input = <String, dynamic>{
           'id': 'xyz456',
-          'name': 'Lorem Ipsum',
-          'file': {'bucket': 'abc123'}
+          'customTypeValue': {'stringValue': 'abc123'}
         };
         final expectedOutput = <String, dynamic>{
           'id': 'xyz456',
-          'name': 'Lorem Ipsum',
-          'file': {
-            'serializedData': {'bucket': 'abc123'}
+          'customTypeValue': {
+            'serializedData': {'stringValue': 'abc123'}
           }
         };
-        final output = transformAppSyncJsonToModelJson(input, Blog.schema);
+        final output = transformAppSyncJsonToModelJson(
+          input,
+          ModelWithCustomType.schema,
+        );
         expect(output, expectedOutput);
       });
     });
@@ -975,9 +1060,13 @@ void main() {
 
     test('should handle no ModelProvider instance', () async {
       await Amplify.addPlugin(MockAmplifyAPI());
+      final blog = Blog(name: 'lorem ipsum example');
 
       try {
-        ModelQueries.get<Blog>(Blog.classType, '');
+        ModelQueries.get<Blog>(
+          Blog.classType,
+          blog.modelIdentifier,
+        );
       } on ApiException catch (e) {
         expect(e.message, 'No modelProvider found');
         expect(

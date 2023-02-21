@@ -1,77 +1,25 @@
 {
-  "function": {
-    "apiintegmultiauth131fe55a131fe55aPreSignup": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "apiintegmultiauth0aef1d4a": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": []
-    }
-  },
-  "auth": {
-    "apiintegmultiauth131fe55a131fe55a": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "apiintegmultiauth131fe55a131fe55aPreSignup",
-          "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        }
-      ],
-      "customAuth": false,
-      "frontendAuthConfig": {
-        "socialProviders": [],
-        "usernameAttributes": [],
-        "signupAttributes": [],
-        "passwordProtectionSettings": {
-          "passwordPolicyMinLength": 8,
-          "passwordPolicyCharacters": []
-        },
-        "mfaConfiguration": "OFF",
-        "mfaTypes": [
-          "SMS"
-        ],
-        "verificationMechanisms": [
-          "EMAIL"
-        ]
-      }
-    }
-  },
   "api": {
     "apiintegmultiauth": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
-          "category": "auth",
-          "resourceName": "apiintegmultiauth131fe55a131fe55a",
           "attributes": [
             "UserPoolId"
-          ]
+          ],
+          "category": "auth",
+          "resourceName": "apiintegmultiauth131fe55a131fe55a"
         }
       ],
       "output": {
         "authConfig": {
-          "defaultAuthentication": {
-            "authenticationType": "AWS_IAM"
-          },
           "additionalAuthenticationProviders": [
             {
-              "authenticationType": "API_KEY",
               "apiKeyConfig": {
-                "apiKeyExpirationDays": 365,
                 "apiKeyExpirationDate": "2023-08-25T16:39:38.191Z",
+                "apiKeyExpirationDays": 365,
                 "description": "test"
-              }
+              },
+              "authenticationType": "API_KEY"
             },
             {
               "authenticationType": "AMAZON_COGNITO_USER_POOLS",
@@ -79,21 +27,107 @@
                 "userPoolId": "authapiintegmultiauth131fe55a131fe55a"
               }
             }
-          ]
+          ],
+          "defaultAuthentication": {
+            "authenticationType": "AWS_IAM"
+          }
         }
-      }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
     },
     "multiAuthRest": {
-      "service": "API Gateway",
-      "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
-          "category": "function",
-          "resourceName": "apiintegmultiauth0aef1d4a",
           "attributes": [
             "Name",
             "Arn"
-          ]
+          ],
+          "category": "function",
+          "resourceName": "apiintegmultiauth0aef1d4a"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "auth": {
+    "apiintegmultiauth131fe55a131fe55a": {
+      "customAuth": false,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "apiintegmultiauth131fe55a131fe55aPreSignup",
+          "triggerProvider": "Cognito"
+        }
+      ],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [],
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
+    }
+  },
+  "function": {
+    "apiintegmultiauth0aef1d4a": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "apiintegmultiauth131fe55a131fe55aPreSignup": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_apiintegmultiauth0aef1d4a_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "apiintegmultiauth0aef1d4a"
+        }
+      ]
+    },
+    "AMPLIFY_function_apiintegmultiauth0aef1d4a_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "apiintegmultiauth0aef1d4a"
+        }
+      ]
+    },
+    "AMPLIFY_function_apiintegmultiauth131fe55a131fe55aPreSignup_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "apiintegmultiauth131fe55a131fe55aPreSignup"
+        }
+      ]
+    },
+    "AMPLIFY_function_apiintegmultiauth131fe55a131fe55aPreSignup_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "apiintegmultiauth131fe55a131fe55aPreSignup"
         }
       ]
     }

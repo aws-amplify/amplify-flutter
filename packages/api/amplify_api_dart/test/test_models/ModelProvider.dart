@@ -11,48 +11,99 @@ import 'package:amplify_core/amplify_core.dart';
 
 import 'Blog.dart';
 import 'Comment.dart';
+import 'CpkIntIndexes.dart';
+import 'CpkIntPrimaryKey.dart';
+import 'CpkOneToOneBidirectionalChildExplicitCD.dart';
+import 'CpkOneToOneBidirectionalChildImplicitCD.dart';
+import 'CpkOneToOneBidirectionalParentCD.dart';
 import 'CustomOwnerField.dart';
-import 'FileMeta.dart';
+import 'CustomTypeWithAppsyncScalarTypes.dart';
+import 'ModelWithAppsyncScalarTypes.dart';
+import 'ModelWithCustomType.dart';
 import 'Post.dart';
-import 'S3Object.dart';
+import 'PostTags.dart';
+import 'SimpleCustomType.dart';
+import 'Tag.dart';
 
 export 'Blog.dart';
 export 'Comment.dart';
+export 'CpkIntIndexes.dart';
+export 'CpkIntPrimaryKey.dart';
+export 'CpkOneToOneBidirectionalChildExplicitCD.dart';
+export 'CpkOneToOneBidirectionalChildImplicitCD.dart';
+export 'CpkOneToOneBidirectionalParentCD.dart';
 export 'CustomOwnerField.dart';
-export 'FileMeta.dart';
+export 'CustomTypeWithAppsyncScalarTypes.dart';
+export 'EnumField.dart';
+export 'ModelWithAppsyncScalarTypes.dart';
+export 'ModelWithCustomType.dart';
 export 'Post.dart';
-export 'S3Object.dart';
+export 'PostTags.dart';
+export 'SimpleCustomType.dart';
+export 'Tag.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = '6c0a4ed8a5e5e532d6e91fe74ed634ea';
+  String version = "5bb609b6f4dc361bb6c2aaa3e1ee7560";
   @override
   List<ModelSchema> modelSchemas = [
+    // the schemas that are commented out are not needed to run
+    // the example App
     Blog.schema,
     Comment.schema,
+    CpkIntIndexes.schema,
+    CpkIntPrimaryKey.schema,
+    CpkOneToOneBidirectionalChildExplicitCD.schema,
+    CpkOneToOneBidirectionalChildImplicitCD.schema,
+    CpkOneToOneBidirectionalParentCD.schema,
     CustomOwnerField.schema,
+    ModelWithAppsyncScalarTypes.schema,
+    ModelWithCustomType.schema,
     Post.schema,
+    PostTags.schema,
+    Tag.schema
   ];
   static final ModelProvider _instance = ModelProvider();
   @override
-  List<ModelSchema> customTypeSchemas = [FileMeta.schema, S3Object.schema];
+  List<ModelSchema> customTypeSchemas = [
+    CustomTypeWithAppsyncScalarTypes.schema,
+    SimpleCustomType.schema
+  ];
 
   static ModelProvider get instance => _instance;
 
   ModelType getModelTypeByModelName(String modelName) {
     switch (modelName) {
-      case 'Blog':
+      case "Blog":
         return Blog.classType;
-      case 'Comment':
+      case "Comment":
         return Comment.classType;
+      case "CpkIntIndexes":
+        return CpkIntIndexes.classType;
+      case "CpkIntPrimaryKey":
+        return CpkIntPrimaryKey.classType;
+      case "CpkOneToOneBidirectionalChildExplicitCD":
+        return CpkOneToOneBidirectionalChildExplicitCD.classType;
+      case "CpkOneToOneBidirectionalChildImplicitCD":
+        return CpkOneToOneBidirectionalChildImplicitCD.classType;
+      case "CpkOneToOneBidirectionalParentCD":
+        return CpkOneToOneBidirectionalParentCD.classType;
       case "CustomOwnerField":
         return CustomOwnerField.classType;
-      case 'Post':
+      case "ModelWithAppsyncScalarTypes":
+        return ModelWithAppsyncScalarTypes.classType;
+      case "ModelWithCustomType":
+        return ModelWithCustomType.classType;
+      case "Post":
         return Post.classType;
+      case "PostTags":
+        return PostTags.classType;
+      case "Tag":
+        return Tag.classType;
       default:
         throw Exception(
-          'Failed to find model in model provider for model name: ' + modelName,
-        );
+            "Failed to find model in model provider for model name: " +
+                modelName);
     }
   }
 }

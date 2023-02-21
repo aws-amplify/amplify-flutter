@@ -8,7 +8,6 @@ export 'package:retry/retry.dart' show RetryOptions;
 export 'auth/api_auth_provider.dart';
 export 'auth/api_authorization_type.dart';
 export 'exceptions/api_exception.dart';
-export 'graphql/graphql_helpers.dart';
 export 'graphql/graphql_operation.dart';
 export 'graphql/graphql_request.dart';
 export 'graphql/graphql_request_type.dart';
