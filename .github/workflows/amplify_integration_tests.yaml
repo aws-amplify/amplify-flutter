@@ -81,7 +81,7 @@ jobs:
           target: google_apis
           arch: x86_64
           # -no-snapshot-save + default options: https://github.com/reactivecircus/android-emulator-runner#configurations
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -logcat '*:e' -debug all -verbose
           script: melos exec -c 1 --scope ${{ matrix.scope }} -- small=true \$MELOS_ROOT_PATH/build-support/integ_test.sh -d emulator-5554  --retries 1
 
   ios:
