@@ -244,6 +244,9 @@ void main({bool useExistingTestUser = false}) {
         expect(data, equals(cpkParent));
       });
 
+      /// parent: { customId, name } // complex identifier
+      /// child: { belongsToParent } // references parent by complex identifier
+      /// get(child) -> child populated with parent that has customId and name
       testWidgets(
           'should GET a child and include parent with complex identifier and custom primary key',
           (WidgetTester tester) async {

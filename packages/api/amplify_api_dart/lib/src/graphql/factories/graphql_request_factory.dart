@@ -273,10 +273,11 @@ class GraphQLRequestFactory {
       var fieldName = queryPredicate.field;
       if (queryPredicate.field ==
           '${_lowerCaseFirstCharacter(schema.name)}.$_defaultIdFieldName') {
-        // Check for the IDs where fieldName set to e.g. "blog.id" and convert to "id".
-        // This is only needed in older codegen files (without CPK).
+        // very old schemas where fieldName is "blog.id"
         fieldName = _defaultIdFieldName;
       } else if (associatedTargetName != null) {
+        // most schemas from more recent CLI codegen versions
+
         // when querying for the ID of another model, use the targetName from the schema
         fieldName = associatedTargetName;
       }
