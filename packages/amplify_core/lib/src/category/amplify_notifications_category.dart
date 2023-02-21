@@ -18,7 +18,7 @@ class NotificationsCategory
   /// {@template amplify_core.amplify_notifications_category.request_permissions}
   /// Returns the status after requesting to show a permission dialog to users
   /// {@endtemplate}
-  Future<PushNotificationPermissionRequestStatus> requestPermissions(
+  Future<bool> requestPermissions(
           {bool? alert = true, bool? badge = true, bool? sound = true}) =>
       defaultPlugin.requestPermissions(
           alert: alert, badge: badge, sound: sound);

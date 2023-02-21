@@ -1,6 +1,5 @@
 package com.amazonaws.amplify.amplify_push_notifications_android
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.annotation.NonNull
 import com.amazonaws.amplify.AtomicResult
@@ -17,7 +16,8 @@ import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry
 
 /** AmplifyPushNotificationsAndroidPlugin */
-class AmplifyPushNotificationsAndroidPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegistry.NewIntentListener {
+class AmplifyPushNotificationsAndroidPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
+    PluginRegistry.NewIntentListener {
 
     companion object {
         private val TAG = "AmplifyPushNotificationsAndroidPlugin"
@@ -48,28 +48,15 @@ class AmplifyPushNotificationsAndroidPlugin : FlutterPlugin, MethodCallHandler, 
         PushNotificationEventsStreamHandler.initialize(flutterPluginBinding.binaryMessenger)
 
     }
-    @SuppressLint("LongLogTag")
-//    private fun setUpEventChannels(binaryMessenger: BinaryMessenger) {
-//        Log.d(TAG, "Setting up event channels")
-//
-//        eventChannels.forEach { eventChannelName ->
-//            val eventChannel = EventChannel(
-//                binaryMessenger, eventChannelName
-//            )
-//            Log.d(TAG, "eventChannel $eventChannelName ")
-//
-//            eventChannel.setStreamHandler(eventsStreamHandler)
-//        }
-//    }
 
-    private fun sendEvent(event: PushNotificationsEvent){
+    private fun sendEvent(event: PushNotificationsEvent) {
         PushNotificationEventsStreamHandler.sendEvent(event)
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull _result: Result) {
         val result = AtomicResult(_result, call.method)
         when (call.method) {
-
+            // TODO: Add methodcall handling for other things
         }
     }
 
@@ -82,8 +69,7 @@ class AmplifyPushNotificationsAndroidPlugin : FlutterPlugin, MethodCallHandler, 
             }
             // Get new FCM registration token
             val token = task.result
-            val hashMap : HashMap<String, Any?>
-                    = HashMap()
+            val hashMap: HashMap<String, Any?> = HashMap()
             hashMap["token"] = token
             sendEvent(
                 PushNotificationsEvent(NativeEvent.TOKEN_RECEIVED, hashMap)
@@ -95,15 +81,20 @@ class AmplifyPushNotificationsAndroidPlugin : FlutterPlugin, MethodCallHandler, 
 
     override fun onNewIntent(intent: Intent): Boolean {
         Log.d(TAG, "onNewIntent in push plugin $intent")
+
+        // TODO: "Decide if we need to add a flag for notification open"
 //        val appOpenedThroughTap = intent.getBooleanExtra("appOpenedThroughTap", false)
 
-//        if(appOpenedThroughTap){
-            val remoteMessage = RemoteMessage(intent.extras)
-            val remoteMessageBundle = getBundleFromRemoteMessage(remoteMessage)
-            val notificationHashMap = convertBundleToHashMap(remoteMessageBundle)
-            Log.d(TAG, "Send onNotificationOpened message received event: $notificationHashMap")
-            PushNotificationEventsStreamHandler.sendEvent(PushNotificationsEvent(NativeEvent.NOTIFICATION_OPENED,notificationHashMap))
-//        }
+        val remoteMessage = RemoteMessage(intent.extras)
+        val remoteMessageBundle = getBundleFromRemoteMessage(remoteMessage)
+        val notificationHashMap = convertBundleToHashMap(remoteMessageBundle)
+        Log.d(TAG, "Send onNotificationOpened message received event: $notificationHashMap")
+        PushNotificationEventsStreamHandler.sendEvent(
+            PushNotificationsEvent(
+                NativeEvent.NOTIFICATION_OPENED,
+                notificationHashMap
+            )
+        )
         return true
     }
 

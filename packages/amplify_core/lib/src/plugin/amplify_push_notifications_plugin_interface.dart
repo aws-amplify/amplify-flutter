@@ -17,7 +17,7 @@ abstract class PushNotificationsPluginInterface extends AmplifyPluginInterface {
   }
 
   /// {@macro amplify_core.amplify_notifications_category.request_permissions}
-  Future<PushNotificationPermissionRequestStatus> requestPermissions(
+  Future<bool> requestPermissions(
       {bool? alert = true, bool? badge = true, bool? sound = true}) {
     throw UnimplementedError('requestPermissions() has not been implemented');
   }
