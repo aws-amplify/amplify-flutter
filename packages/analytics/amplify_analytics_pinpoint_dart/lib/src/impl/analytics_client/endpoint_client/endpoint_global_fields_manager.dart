@@ -4,11 +4,12 @@
 import 'dart:collection';
 import 'dart:convert';
 
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_store_keys.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.endpoint_global_fields_manager}
-/// Manages the storage, retrieval, and update of Attributes and Metrics of a PinpointEndpoint
+/// Manages the storage, retrieval, and update of Attributes and Metrics of a PinpointEndpoint.
 ///
 /// - Attributes are String/Bool
 /// - Metrics are Double/Int
@@ -17,31 +18,57 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 /// {@endtemplate}
 class EndpointGlobalFieldsManager {
   /// {@macro amplify_analytics_pinpoint_dart.endpoint_global_fields_manager}
-  EndpointGlobalFieldsManager(
+  EndpointGlobalFieldsManager._(
     this._endpointInfoStore,
-    this._globalAttributes,
-    this._globalMetrics,
   );
 
+  /// Create and initialize an [EndpointGlobalFieldsManager].
+  static Future<EndpointGlobalFieldsManager> create(
+    SecureStorageInterface endpointInfoStore,
+  ) async {
+    final fieldsManager = EndpointGlobalFieldsManager._(endpointInfoStore);
+    await fieldsManager._init();
+    return fieldsManager;
+  }
+
+  /// Initialize [EndpointGlobalFieldsManager] by retrieving
+  /// the stored attributes and metrics in storage.
+  Future<void> _init() async {
+    // Retrieve stored GlobalAttributes.
+    final cachedAttributes = await _endpointInfoStore.read(
+      key: EndpointStoreKey.globalAttributesKey.name,
+    );
+    _globalAttributes = cachedAttributes == null
+        ? <String, String>{}
+        : (jsonDecode(cachedAttributes) as Map<String, Object?>)
+            .cast<String, String>();
+
+    // Retrieve stored GlobalMetrics.
+    final cachedMetrics = await _endpointInfoStore.read(
+      key: EndpointStoreKey.globalMetricsKey.name,
+    );
+    _globalMetrics = cachedMetrics == null
+        ? <String, double>{}
+        : (jsonDecode(cachedMetrics) as Map<String, Object?>)
+            .cast<String, double>();
+  }
+
   final SecureStorageInterface _endpointInfoStore;
-  final Map<String, String> _globalAttributes;
-  final Map<String, double> _globalMetrics;
+  late final Map<String, String> _globalAttributes;
+  late final Map<String, double> _globalMetrics;
 
   // Internal variables
   static final AmplifyLogger _logger =
       AmplifyLogger.category(Category.analytics)
           .createChild('EndpointGlobalFieldsManager');
 
-  /// Get GlobalAttributes managed by this instance
+  /// Get GlobalAttributes managed by this instance.
   UnmodifiableMapView<String, String> get globalAttributes =>
       UnmodifiableMapView(_globalAttributes);
 
-  /// Get GlobalMetrics managed by this instance
+  /// Get GlobalMetrics managed by this instance.
   UnmodifiableMapView<String, double> get globalMetrics =>
       UnmodifiableMapView(_globalMetrics);
-
-  static const String _endpointGlobalAttrsKey = 'EndpointGlobalAttributesKey';
-  static const String _endpointGlobalMetricsKey = 'EndpointGlobalMetricsKey';
 
   /// {@template amplify_analytics_pinpoint_dart.endpoint_global_fields_manager_limits_by_pinpoint}
   /// Limits defined by Pinpoint.
@@ -77,7 +104,7 @@ class EndpointGlobalFieldsManager {
     return value;
   }
 
-  /// Add multiple attributes
+  /// Add multiple attributes.
   Future<void> addAttributes(Map<String, String> attributes) async {
     attributes.forEach((key, value) {
       if (_globalAttributes.length + _globalMetrics.length < _maxAttributes) {
@@ -90,7 +117,7 @@ class EndpointGlobalFieldsManager {
     await _saveAttributes();
   }
 
-  /// Add an attribute by [key] with value of [value]
+  /// Add an attribute by [key] with value of [value].
   Future<void> addAttribute(String key, String value) async {
     if (_globalAttributes.length + _globalMetrics.length < _maxAttributes) {
       _globalAttributes[_processKey(key)] = _processAttributeValue(value);
@@ -100,7 +127,7 @@ class EndpointGlobalFieldsManager {
     }
   }
 
-  /// Remove an attribute by [key]
+  /// Remove an attribute by [key].
   Future<void> removeAttribute(String key) async {
     _globalAttributes.remove(key);
     await _saveAttributes();
@@ -108,12 +135,12 @@ class EndpointGlobalFieldsManager {
 
   Future<void> _saveAttributes() async {
     await _endpointInfoStore.write(
-      key: _endpointGlobalAttrsKey,
+      key: EndpointStoreKey.globalAttributesKey.name,
       value: jsonEncode(_globalAttributes),
     );
   }
 
-  /// Add multiple metrics
+  /// Add multiple metrics.
   Future<void> addMetrics(Map<String, double> metrics) async {
     metrics.forEach((key, value) {
       if (_globalAttributes.length + _globalMetrics.length < _maxAttributes) {
@@ -126,7 +153,7 @@ class EndpointGlobalFieldsManager {
     await _saveMetrics();
   }
 
-  /// Add a metric by [key] with value of [value]
+  /// Add a metric by [key] with value of [value].
   Future<void> addMetric(String key, double value) async {
     if (_globalAttributes.length + _globalMetrics.length < _maxAttributes) {
       _globalMetrics[_processKey(key)] = value;
@@ -136,7 +163,7 @@ class EndpointGlobalFieldsManager {
     }
   }
 
-  /// Remove a metric by [key]
+  /// Remove a metric by [key].
   Future<void> removeMetric(String key) async {
     _globalMetrics.remove(key);
     await _saveMetrics();
@@ -144,7 +171,7 @@ class EndpointGlobalFieldsManager {
 
   Future<void> _saveMetrics() async {
     await _endpointInfoStore.write(
-      key: _endpointGlobalMetricsKey,
+      key: EndpointStoreKey.globalMetricsKey.name,
       value: jsonEncode(_globalMetrics),
     );
   }

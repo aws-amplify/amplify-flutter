@@ -1,3 +1,19 @@
+## 0.6.0
+
+### Breaking Changes
+- chore(auth)!: Change `AuthCodeDeliveryDetails.attributeKey` to be of type `AuthUserAttributeKey`
+- refactor(auth)!: Make attribute update step an enum
+- refactor(auth)!: Make reset password step an enum
+- refactor(auth)!: Make sign-in step an enum
+- refactor(auth)!: Make sign-up step an enum
+- refactor(auth)!: Remove category->plugin indirection for `getPlugin`
+- refactor(auth)!: State machine facade ([#2482](https://github.com/aws-amplify/amplify-flutter/pull/2482))
+
+### Fixes
+- fix(auth): Device tracking with alias
+- fix(auth): Retry sign-in on `ResourceNotFoundException` for device tracking
+- fix(auth): `federateToIdentityPool` discrepancies
+
 ## 0.5.0
 
 ### Fixes

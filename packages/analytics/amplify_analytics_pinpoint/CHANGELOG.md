@@ -1,3 +1,8 @@
+## 1.0.0-next.5
+
+### Features
+- feat(analytics): Use indexedDB on Web ([#2600](https://github.com/aws-amplify/amplify-flutter/pull/2600))
+
 ## 1.0.0-next.4
 
 ### Features

@@ -9,7 +9,7 @@ import 'package:amplify_auth_cognito/src/native_auth_plugin.g.dart';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 // ignore: implementation_imports
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_stub.dart'
-    if (dart.library.html) 'flows/hosted_ui/hosted_ui_platform_html.dart'
+    if (dart.library.html) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_html.dart'
     if (dart.library.ui) 'flows/hosted_ui/hosted_ui_platform_flutter.dart';
 // ignore: implementation_imports
 import 'package:amplify_auth_cognito_dart/src/state/machines/hosted_ui_state_machine.dart';
@@ -106,8 +106,8 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
     try {
       await nativeBridge.addPlugin();
     } on PlatformException catch (e) {
-      if (e.code == 'AmplifyAlreadyConfiguredException' ||
-          e.code == 'AlreadyConfiguredException') {
+      if (e.code.contains('AmplifyAlreadyConfiguredException') ||
+          e.code.contains('AlreadyConfiguredException')) {
         throw const AmplifyAlreadyConfiguredException(
           AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
           recoverySuggestion:

@@ -1,3 +1,8 @@
+## 0.1.6
+
+### Features
+- feat(storage): enable pause and cancel APIs for download operations
+
 ## 0.1.5
 
 ### Fixes

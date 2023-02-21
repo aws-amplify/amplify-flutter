@@ -185,7 +185,7 @@ export const createAmplifyConfig = (
   }
   const auth: any = {};
   if (authConfig) {
-    const { identityPoolConfig, userPoolConfig } = authConfig;
+    const { identityPoolConfig, userPoolConfig, hostedUiConfig } = authConfig;
     const identityPool: any = {};
     if (identityPoolConfig) {
       identityPool.CredentialsProvider = {
@@ -230,6 +230,16 @@ export const createAmplifyConfig = (
         },
       };
     }
+    const oauth: any = {};
+    if (hostedUiConfig) {
+      oauth.OAuth = {
+        WebDomain: hostedUiConfig.webDomain,
+        AppClientId: userPoolConfig!.userPoolClientId,
+        SignInRedirectURI: hostedUiConfig.signInRedirectUris.join(","),
+        SignOutRedirectURI: hostedUiConfig.signOutRedirectUris.join(","),
+        Scopes: hostedUiConfig.scopes,
+      }
+    }
     auth.auth = {
       plugins: {
         awsCognitoAuthPlugin: {
@@ -241,6 +251,7 @@ export const createAmplifyConfig = (
           ...storage,
           Auth: {
             Default: {
+              ...oauth,
               authenticationFlowType: "USER_SRP_AUTH",
               usernameAttributes: [],
               signupAttributes: [],
@@ -311,6 +322,12 @@ export type AuthConfig = {
     userPoolId: string;
     userPoolClientId: string;
   };
+  hostedUiConfig?: {
+    webDomain: string;
+    signInRedirectUris: string[];
+    signOutRedirectUris: string[];
+    scopes: string[];
+  },
   identityPoolConfig?: {
     identityPoolId: string;
   };

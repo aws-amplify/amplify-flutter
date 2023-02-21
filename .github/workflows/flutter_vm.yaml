@@ -36,6 +36,11 @@ jobs:
       - name: Setup aft
         run: flutter pub global activate -spath packages/aft
 
+      - name: Update constraints
+        if: matrix.sdk == 'beta'
+        shell: bash
+        run: aft --config=aft.beta.yaml constraints apply
+
       - name: Bootstrap
         id: bootstrap
         timeout-minutes: 10

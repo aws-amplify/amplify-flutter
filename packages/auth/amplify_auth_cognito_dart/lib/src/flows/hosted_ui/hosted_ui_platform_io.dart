@@ -211,10 +211,11 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
 
     _localServer = await localConnect(signInUris);
     try {
-      final signInUrl = getSignInUri(
+      final signInUrl = (await getSignInUri(
         provider: provider,
         redirectUri: _localServer!.uri,
-      ).toString();
+      ))
+          .toString();
       await launchUrl(signInUrl);
 
       final server = _localServer?.server;

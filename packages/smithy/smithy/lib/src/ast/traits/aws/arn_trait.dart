@@ -32,7 +32,7 @@ class ArnTrait with AWSSerializable implements Trait<ArnTrait> {
   final bool? absolute;
   final String template;
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   List<String> get labels => _parseLabels(template);
 
   @override

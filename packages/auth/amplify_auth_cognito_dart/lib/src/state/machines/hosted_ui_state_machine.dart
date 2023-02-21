@@ -101,13 +101,12 @@ class HostedUiStateMachine extends StateMachine<HostedUiEvent, HostedUiState,
       key: _keys[HostedUiKey.codeVerifier],
     );
     if (state != null && codeVerifier != null) {
-      dispatch(
+      return resolve(
         HostedUiEvent.foundState(
           state: state,
           codeVerifier: codeVerifier,
         ),
       );
-      return;
     }
 
     emit(const HostedUiState.signedOut());
@@ -116,29 +115,33 @@ class HostedUiStateMachine extends StateMachine<HostedUiEvent, HostedUiState,
   /// State machine callback for the [HostedUiFoundState] event.
   Future<void> onFoundState(HostedUiFoundState event) async {
     try {
-      await _platform.onFoundState(
+      final parameters = await _platform.onFoundState(
         state: event.state,
         codeVerifier: event.codeVerifier,
+      );
+      return resolve(
+        HostedUiEvent.exchange(parameters),
       );
     } on SignedOutException {
       emit(const HostedUiState.signedOut());
     }
   }
 
-  Future<void> _handleSignIn(HostedUiSignIn event) async {
+  /// State machine callback for the [HostedUiSignIn] event.
+  Future<void> onSignIn(HostedUiSignIn event) async {
     try {
-      _secureStorage.write(
+      await _secureStorage.write(
         key: _keys[HostedUiKey.options],
         value: jsonEncode(event.options),
       );
       final provider = event.provider;
       if (provider != null) {
-        _secureStorage.write(
+        await _secureStorage.write(
           key: _keys[HostedUiKey.provider],
           value: jsonEncode(provider),
         );
       } else {
-        _secureStorage.delete(key: _keys[HostedUiKey.provider]);
+        await _secureStorage.delete(key: _keys[HostedUiKey.provider]);
       }
       await _platform.signIn(
         options: event.options,
@@ -147,11 +150,6 @@ class HostedUiStateMachine extends StateMachine<HostedUiEvent, HostedUiState,
     } on Exception catch (e) {
       emit(HostedUiState.failure(e));
     }
-  }
-
-  /// State machine callback for the [HostedUiSignIn] event.
-  Future<void> onSignIn(HostedUiSignIn event) async {
-    unawaited(_handleSignIn(event));
   }
 
   /// State machine callback for the [HostedUiCancelSignIn] event.

@@ -9,7 +9,6 @@ import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
-import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
 import 'utils/test_utils.dart';
 import 'utils/validation_utils.dart';
@@ -88,7 +87,7 @@ void main() {
         setUp(() async {
           username = generatePhoneNumber();
           password = generatePassword();
-          await adminCreateUser(
+          final cognitoUsername = await adminCreateUser(
             username,
             password,
             autoConfirm: true,
@@ -103,7 +102,7 @@ void main() {
           );
           addTearDown(() => deleteUser(username));
 
-          final code = getOtpCodes().first;
+          final code = await getOtpCode(cognitoUsername);
           final signInRes = await Amplify.Auth.signIn(
             username: username,
             password: password,
@@ -113,7 +112,7 @@ void main() {
             AuthSignInStep.confirmSignInWithSmsMfaCode,
           );
           final confirmSignInRes = await Amplify.Auth.confirmSignIn(
-            confirmationValue: await code,
+            confirmationValue: await code.code,
           );
           expect(confirmSignInRes.isSignedIn, isTrue);
         });

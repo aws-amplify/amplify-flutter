@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as cdk from "aws-cdk-lib";
-import { Duration, Expiration, RemovalPolicy } from "aws-cdk-lib";
+import { Duration, Expiration, Fn, RemovalPolicy } from "aws-cdk-lib";
 import * as appsync from "aws-cdk-lib/aws-appsync";
 import * as cognito from "aws-cdk-lib/aws-cognito";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
@@ -55,6 +55,13 @@ export interface AuthFullEnvironmentProps {
    * Aliases allowed for sign in.
    */
   signInAliases?: cognito.SignInAliases;
+
+  /**
+   * Whether Hosted UI is enabled.
+   *
+   * @default false
+   */
+  enableHostedUI?: boolean;
 }
 
 export interface AuthCustomAuthorizerEnvironmentProps {
@@ -121,7 +128,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
   ) {
     super(scope, baseName, props);
 
-    const { associateWithWaf } = props;
+    const { associateWithWaf, enableHostedUI = false } = props;
 
     // Create the GraphQL API for admin actions
 
@@ -185,9 +192,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       {
         runtime: lambda.Runtime.NODEJS_18_X,
         bundling: {
-          nodeModules: [
-            "@aws-crypto/client-node"
-          ],
+          nodeModules: ["@aws-crypto/client-node"],
         },
         environment: {
           GRAPHQL_API_ENDPOINT: graphQLApi.graphqlUrl,
@@ -205,9 +210,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       {
         runtime: lambda.Runtime.NODEJS_18_X,
         bundling: {
-          nodeModules: [
-            "@aws-crypto/client-node"
-          ],
+          nodeModules: ["@aws-crypto/client-node"],
         },
         environment: {
           GRAPHQL_API_ENDPOINT: graphQLApi.graphqlUrl,
@@ -253,12 +256,53 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       deviceTracking: props.deviceTracking,
     });
 
+    let oAuth: cognito.OAuthSettings | undefined;
+    let webDomain: cognito.UserPoolDomain | undefined;
+    const signInRedirectUris = [
+      "authtest:/",
+      "http://localhost:3000/",
+    ];
+    const signOutRedirectUris = [
+      "authtest:/",
+      "http://localhost:3000/",
+    ];
+    const scopes = [
+      cognito.OAuthScope.PHONE,
+      cognito.OAuthScope.EMAIL,
+      cognito.OAuthScope.OPENID,
+      cognito.OAuthScope.PROFILE,
+      cognito.OAuthScope.COGNITO_ADMIN,
+    ];
+    if (enableHostedUI) {
+      oAuth = {
+        flows: {
+          authorizationCodeGrant: true,
+          implicitCodeGrant: false,
+          clientCredentials: false,
+        },
+        callbackUrls: signInRedirectUris,
+        logoutUrls: signOutRedirectUris,
+        scopes,
+      };
+      webDomain = userPool.addDomain("Domain", {
+        cognitoDomain: {
+          // Construct a unique domain prefix so that it does not conflict with other projects.
+          domainPrefix: Fn.join("-", [
+            this.environmentName,
+            // https://stackoverflow.com/questions/54897459/how-to-set-semi-random-name-for-s3-bucket-using-cloud-formation
+            Fn.select(0, Fn.split("-", Fn.select(2, Fn.split("/", this.stackId)))),
+          ]),
+        },
+      });
+    }
+    const disableOAuth = !enableHostedUI;
     const userPoolClient = userPool.addClient("UserPoolClient", {
       authFlows: {
         userSrp: true,
         custom: true,
       },
-      disableOAuth: true,
+      disableOAuth,
+      oAuth,
     });
 
     // Create the Cognito Identity Pool
@@ -471,5 +515,14 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
         },
       },
     };
+
+    if (webDomain) {
+      this.config.authConfig!.hostedUiConfig = {
+        webDomain: webDomain.baseUrl(),
+        signInRedirectUris,
+        signOutRedirectUris,
+        scopes: scopes.map((scope) => scope.scopeName),
+      };
+    }
   }
 }

@@ -1,6 +1,6 @@
 name: amplify_authenticator
 description: A prebuilt Sign In and Sign Up experience for the Amplify Auth category
-version: 1.0.0-next.3
+version: 1.0.0-next.4
 homepage: https://ui.docs.amplify.aws/flutter/connected-components/authenticator
 repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/authenticator/amplify_authenticator
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -10,26 +10,25 @@ environment:
   flutter: ">=3.3.0"
 
 dependencies:
-  amplify_auth_cognito: ">=1.0.0-next.4 <1.0.0-next.5"
-  amplify_core: ">=1.0.0-next.4 <1.0.0-next.5"
-  amplify_flutter: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_auth_cognito: ">=1.0.0-next.5 <1.0.0-next.6"
+  amplify_core: ">=1.0.0-next.5 <1.0.0-next.6"
+  amplify_flutter: ">=1.0.0-next.5 <1.0.0-next.6"
   async: ^2.10.0
-  aws_common: ">=0.4.0 <0.5.0"
+  aws_common: ">=0.4.0+1 <0.5.0"
   collection: ^1.15.0
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  intl: ^0.17.0
+  intl: ">=0.17.0 <1.0.0"
   meta: ^1.7.0
-  smithy: ">=0.4.0+1 <0.5.0"
+  smithy: ">=0.4.0+2 <0.5.0"
   stream_transform: ^2.0.0
 
 dev_dependencies:
   amplify_authenticator_test:
     path: ../amplify_authenticator_test
-  amplify_lints:
-    path: ../../amplify_lints
+  amplify_lints: ">=2.0.2 <2.1.0"
   amplify_test:
     path: ../../amplify_test
   flutter_test:

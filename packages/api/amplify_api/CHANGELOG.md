@@ -1,3 +1,8 @@
+## 1.0.0-next.5
+
+### Fixes
+- fix(api): Web Socket Multiple Requests Synchronously ([#2567](https://github.com/aws-amplify/amplify-flutter/pull/2567))
+
 ## 1.0.0-next.4
 
 ### Fixes

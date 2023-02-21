@@ -5,6 +5,7 @@ import 'package:aft/aft.dart';
 import 'package:aft/src/commands/passthrough_command.dart';
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
+import 'package:collection/collection.dart';
 
 /// Passes through the command specified by [args] to either `dart`/`flutter`
 /// depending on the package in the current working directory.
@@ -27,9 +28,15 @@ Future<void> run(List<String> args) async {
       help: 'Directory to run commands from. Defaults to current directory.',
       hide: true,
     )
+    ..argParser.addOption(
+      'config',
+      help: 'The path to the aft configuration file, relative to the root '
+          'directory. If provided, the given configuration is merged into '
+          'the root configuration file.',
+    )
     ..addCommand(GenerateCommand())
     ..addCommand(ListPackagesCommand())
-    ..addCommand(DepsCommand())
+    ..addCommand(ConstraintsCommand())
     ..addCommand(LinkCommand())
     ..addCommand(CleanCommand())
     ..addCommand(PublishCommand())
@@ -43,6 +50,10 @@ Future<void> run(List<String> args) async {
       final argResults = runner.argParser.parse(args);
       // If we cannot resolve a command, try a passthrough to `dart`/`flutter`.
       if (argResults.command == null) {
+        if (argResults.arguments.firstOrNull?.startsWith('--') ?? false) {
+          runner.printUsage();
+          return;
+        }
         return await passthrough(argResults.arguments);
       }
       await runner.runCommand(argResults);
