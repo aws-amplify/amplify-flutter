@@ -109,7 +109,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       _onNotificationOpened;
 
   @override
-  void onNotificationReceivedInBackground(RemoteMessageCallback callback) {
+  void onNotificationReceivedInBackground(OnRemoteMessageCallback callback) {
     throw UnimplementedError(
       'onNotificationReceivedInBackground() has not been implemented.',
     );

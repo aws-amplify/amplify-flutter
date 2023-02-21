@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
     // setState to update our non-existent appearance.
     if (!mounted) return;
     try {
-      var notificationsPlugin = AmplifyPushNotificaitonsPinpoint();
+      var notificationsPlugin = AmplifyPushNotificationsPinpoint();
       final authPlugin = AmplifyAuthCognito();
 
       await Amplify.addPlugins([authPlugin, notificationsPlugin]);

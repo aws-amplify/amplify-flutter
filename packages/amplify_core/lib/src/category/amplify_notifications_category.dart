@@ -35,9 +35,9 @@ class NotificationsCategory
       defaultPlugin.onNotificationReceivedInForeground;
 
   /// {@template amplify_core.amplify_notifications_category.on_background_notification_received}
-  /// Sets a [RemoteMessageCallback] that to be called when device receives push notification when the App is in the background.
+  /// Sets a [OnRemoteMessageCallback] that to be called when device receives push notification when the App is in the background.
   /// {@endtemplate}
-  void onNotificationReceivedInBackground(RemoteMessageCallback callback) =>
+  void onNotificationReceivedInBackground(OnRemoteMessageCallback callback) =>
       defaultPlugin.onNotificationReceivedInBackground(callback);
 
   /// {@template amplify_core.amplify_notifications_category.on_notification_opened}
