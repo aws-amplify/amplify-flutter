@@ -8,7 +8,7 @@ import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.dart_queued_item_store}
-/// Stores strings using IndexedDB for web and Drift for all other platforms
+/// Stores strings using IndexedDB for web and Drift for all other platforms.
 /// {@endtemplate}
 class DartQueuedItemStore implements QueuedItemStore, Closeable {
   /// {@macro amplify_analytics_pinpoint_dart.dart_queued_item_store}

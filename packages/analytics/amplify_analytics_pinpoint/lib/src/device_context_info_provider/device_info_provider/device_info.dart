@@ -18,18 +18,18 @@ class DeviceInfo {
     this.platformVersion,
   });
 
-  /// Manufacturer
+  /// Manufacturer.
   final String? make;
 
-  /// Model name or number of device
+  /// Model name or number of device.
   final String? model;
 
-  /// Model version of device
+  /// Model version of device.
   final String? modelVersion;
 
   /// Platform: iOS/Android, etc.
   final DevicePlatform? platform;
 
-  /// Version of platform
+  /// Version of platform.
   final String? platformVersion;
 }

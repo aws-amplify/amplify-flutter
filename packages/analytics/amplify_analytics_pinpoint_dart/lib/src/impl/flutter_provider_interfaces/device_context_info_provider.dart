@@ -4,7 +4,7 @@
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.device_context_info_provider}
-/// Provide information required for Pinpoint EndpointDemographic object
+/// Provide information required for Pinpoint EndpointDemographic object.
 ///
 /// For more details see Pinpoint [Endpoint](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html) online spec.
 /// {@endtemplate}
@@ -14,7 +14,7 @@ abstract class DeviceContextInfoProvider {
 }
 
 /// {@template amplify_analytics_pinpoint_dart.device_context_info}
-/// Data representation of all device information sent to Pinpoint EndpointDemographic
+/// Data representation of all device information sent to Pinpoint EndpointDemographic.
 ///
 /// For more details see Pinpoint [Endpoint](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html) online spec.
 /// {@endtemplate}
@@ -68,23 +68,23 @@ class DeviceContextInfo {
 
   static const int _maxFieldLength = 50;
 
-  /// ISO 3166-1, Alpha-2, Alpha-3 country code format
+  /// ISO 3166-1, Alpha-2, Alpha-3 country code format.
   ///
-  /// Ex: US or USA
+  /// Ex: US or USA.
   ///
   /// {@template amplify_analytics_pinpoint_dart.device_context_info.sent_to_pinpoint_endpoint}
   /// Sent as a field to Pinpoint [Endpoint](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html).
   /// {@endtemplate}
   final String? countryCode;
 
-  /// IETF BCP 47 locale format
+  /// IETF BCP 47 locale format.
   ///
-  /// Ex: en_US es_419 haw_US
+  /// Ex: en_US es_419 haw_US.
   ///
   /// {@macro amplify_analytics_pinpoint_dart.device_context_info.sent_to_pinpoint_endpoint}
   final String? locale;
 
-  /// tz database timezone name
+  /// tz database timezone name.
   ///
   /// Due to complexities with tz database, this field is not auto-set!
   ///
@@ -99,38 +99,38 @@ class DeviceContextInfo {
   /// {@endtemplate}
   final String? appName;
 
-  /// The package name of the app
+  /// The package name of the app.
   ///
   /// {@macro amplify_analytics_pinpoint_dart.device_context_info.sent_to_pinpoint_event}
   final String? appPackageName;
 
-  /// Version of the app
+  /// Version of the app.
   ///
   /// {@macro amplify_analytics_pinpoint_dart.device_context_info.sent_to_pinpoint_endpoint}
   final String? appVersion;
 
-  /// Manufacturer such as Apple or Samsung
+  /// Manufacturer such as Apple or Samsung.
   ///
   /// {@macro amplify_analytics_pinpoint_dart.device_context_info.sent_to_pinpoint_endpoint}
   final String? make;
 
-  /// Model name or number of device
+  /// Model name or number of device.
   ///
-  /// Ex: iPhone SM-G900F
+  /// Ex: iPhone SM-G900F.
   /// {@macro amplify_analytics_pinpoint_dart.device_context_info.sent_to_pinpoint_endpoint}
   final String? model;
 
-  /// Model version
+  /// Model version.
   ///
   /// {@macro amplify_analytics_pinpoint_dart.device_context_info.sent_to_pinpoint_endpoint}
   final String? modelVersion;
 
-  /// Version of the platform
+  /// Version of the platform.
   ///
   /// {@macro amplify_analytics_pinpoint_dart.device_context_info.sent_to_pinpoint_endpoint}
   final String? platformVersion;
 
-  /// Platform of the device
+  /// Platform of the device.
   ///
   /// {@macro amplify_analytics_pinpoint_dart.device_context_info.sent_to_pinpoint_endpoint}
   final DevicePlatform? platform;

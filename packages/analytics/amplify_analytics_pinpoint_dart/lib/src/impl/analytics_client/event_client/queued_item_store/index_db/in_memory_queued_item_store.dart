@@ -6,13 +6,13 @@ import 'dart:collection';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/queued_item_store.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.in_memory_queued_item_store}
-/// Stores string elements in device memory
+/// Stores string elements in device memory.
 /// {@endtemplate}
 class InMemoryQueuedItemStore implements QueuedItemStore {
   /// {@macro amplify_analytics_pinpoint_dart.in_memory_queued_item_store}
   InMemoryQueuedItemStore();
 
-  /// The next ID that should be used when adding an item in the DB
+  /// The next ID that should be used when adding an item in the DB.
   int _nextId = 0;
   final LinkedHashMap<int, QueuedItem> _database =
       LinkedHashMap<int, QueuedItem>();

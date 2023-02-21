@@ -3,14 +3,18 @@
 
 import 'dart:async';
 
+import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_storage_adapter.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/index_db/in_memory_queued_item_store.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/queued_item_store.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_creator/event_creator.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:smithy/smithy.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.event_client}
-/// Manages storage and flush of analytics events
+/// Manages storage and flush of analytics events.
 ///
 /// - Uses [EventStorageAdapter] to cache analytics events
 /// - Uses [PinpointClient] to flush analytics events to AWS Pinpoint
@@ -20,24 +24,29 @@ import 'package:smithy/smithy.dart';
 class EventClient implements Closeable {
   /// {@macro amplify_analytics_pinpoint_dart.event_client}
   EventClient({
-    required String appId,
-    required String fixedEndpointId,
+    required String pinpointAppId,
     required PinpointClient pinpointClient,
     required EndpointClient endpointClient,
-    required EventStorageAdapter storageAdapter,
-  })  : _appId = appId,
-        _fixedEndpointId = fixedEndpointId,
+    QueuedItemStore? eventStore,
+    DeviceContextInfo? deviceContextInfo,
+  })  : _pinpointAppId = pinpointAppId,
+        _fixedEndpointId = endpointClient.fixedEndpointId,
         _pinpointClient = pinpointClient,
         _endpointClient = endpointClient,
-        _storageAdapter = storageAdapter {
+        _eventStorage =
+            EventStorageAdapter(eventStore ?? InMemoryQueuedItemStore()),
+        _eventCreator = EventCreator(
+          deviceContextInfo: deviceContextInfo,
+        ) {
     _listenForFlushEvents();
   }
 
-  final EventStorageAdapter _storageAdapter;
-  final String _appId;
+  final EventStorageAdapter _eventStorage;
+  final String _pinpointAppId;
   final String _fixedEndpointId;
   final PinpointClient _pinpointClient;
   final EndpointClient _endpointClient;
+  final EventCreator _eventCreator;
 
   /// Controller to queue requests to [flushEvents] so that there is only one
   /// concurrent request to the database and Pinpoint backend at a time.
@@ -62,13 +71,36 @@ class EventClient implements Closeable {
   static final AmplifyLogger _logger =
       AmplifyLogger.category(Category.analytics).createChild('EventClient');
 
-  /// Received events are NEVER sent immediately but cached to be sent in a batch
-  Future<void> recordEvent(Event event) async {
-    await _storageAdapter.saveEvent(event);
+  /// Record event to be sent in the next event batch on [flushEvents].
+  Future<void> recordEvent({
+    required String eventType,
+    Session? session,
+    AnalyticsProperties? properties,
+  }) async {
+    final pinpointEvent = _eventCreator.createPinpointEvent(
+      eventType,
+      session,
+      properties,
+    );
+    await _eventStorage.saveEvent(pinpointEvent);
   }
 
-  /// Send cached events as a batch to Pinpoint
-  /// Parse and response to Pinpoint response
+  /// Register [AnalyticsProperties] to be sent with all future events.
+  void registerGlobalProperties(
+    AnalyticsProperties globalProperties,
+  ) {
+    return _eventCreator.registerGlobalProperties(globalProperties);
+  }
+
+  /// Unregister [AnalyticsProperties] to not be sent with all future events.
+  void unregisterGlobalProperties(
+    List<String> propertyNames,
+  ) {
+    return _eventCreator.unregisterGlobalProperties(propertyNames);
+  }
+
+  /// Send cached events as a batch to Pinpoint.
+  /// Delete cached events that have been successfully sent.
   Future<void> flushEvents() {
     final completer = Completer<void>.sync();
     _flushEventsController.add(completer);
@@ -76,7 +108,7 @@ class EventClient implements Closeable {
   }
 
   Future<void> _flushEvents() async {
-    final storedEvents = await _storageAdapter.retrieveEvents();
+    final storedEvents = await _eventStorage.retrieveEvents();
 
     if (storedEvents.isEmpty) {
       return;
@@ -103,7 +135,7 @@ class EventClient implements Closeable {
       final result = await _pinpointClient
           .putEvents(
             PutEventsRequest(
-              applicationId: _appId,
+              applicationId: _pinpointAppId,
               eventsRequest: EventsRequest(batchItem: batchItems),
             ),
           )
@@ -177,7 +209,7 @@ class EventClient implements Closeable {
       // Always delete local store of events
       // Unless a retryable exception has been received (see above)
       if (eventsToDelete.isNotEmpty) {
-        await _storageAdapter.deleteEvents(eventsToDelete.values);
+        await _eventStorage.deleteEvents(eventsToDelete.values);
       }
     }
   }
@@ -206,6 +238,7 @@ class EventClient implements Closeable {
 
   @override
   Future<void> close() async {
+    await _eventStorage.close();
     await _flushEventsController.close();
     await _pendingFlushEvent;
   }

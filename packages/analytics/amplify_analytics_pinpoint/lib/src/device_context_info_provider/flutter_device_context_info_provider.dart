@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 /// {@template amplify_analytics_pinpoint.flutter_device_context_info_provider}
-/// Provide information required for Pinpoint EndpointDemographic object
+/// Provide information required for Pinpoint EndpointDemographic object.
 ///
 /// For more details see Pinpoint [Endpoint](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html) online spec.
 /// {@endtemplate}
