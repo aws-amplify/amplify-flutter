@@ -31,8 +31,7 @@ class _MyAppState extends State<MyApp> {
     // setState to update our non-existent appearance.
     if (!mounted) return;
     try {
-      AmplifyPushNotificaitonsPinpoint notificationsPlugin =
-          AmplifyPushNotificaitonsPinpoint();
+      var notificationsPlugin = AmplifyPushNotificaitonsPinpoint();
       final authPlugin = AmplifyAuthCognito();
 
       await Amplify.addPlugins([authPlugin, notificationsPlugin]);
@@ -46,7 +45,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Widget headerText(String title) => Padding(
-        padding: const EdgeInsets.only(top: 16.0),
+        padding: const EdgeInsets.only(top: 16),
         child: Center(
           child: Text(
             title,
@@ -66,54 +65,55 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Amplify Push Notifications Pinpoint Example'),
         ),
         body: Center(
-            child: ListView(
-          children: [
-            const Divider(
-              height: 20,
-            ),
-            headerText('Configuration APIs'),
-            ElevatedButton(
-              onPressed: () async {
-                await _configureAmplify();
-              },
-              child: const Text('configure'),
-            ),
-            if (isConfigured)
-              const Text("Push notification plugin has been configured"),
-            const Divider(
-              height: 20,
-            ),
-            headerText('Notification Handling APIs'),
-            ElevatedButton(
-              onPressed: () async {
-                try {
-                  final foregroundStream =
-                      Amplify.Notifications.onForegroundNotificationReceived();
-                  foregroundStream.listen((event) {
-                    setState(() {
-                      foregroundMessage = event;
-                    });
-                  });
-                  setState(() {
-                    isForegroundListernerInitialized = true;
-                  });
-                } catch (e) {
-                  print(e.toString());
-                }
-              },
-              child: const Text('onForegroundNotificationReceived'),
-            ),
-            if (isForegroundListernerInitialized)
-              const Text("Foreground event listener initialized!"),
-            ListTile(
-              title: Text(
-                foregroundMessage == null
-                    ? "No foreground message yet"
-                    : "Title: ${foregroundMessage!.content?.title?.toString() ?? ""}",
+          child: ListView(
+            children: [
+              const Divider(
+                height: 20,
               ),
-            ),
-          ],
-        )),
+              headerText('Configuration APIs'),
+              ElevatedButton(
+                onPressed: () async {
+                  await _configureAmplify();
+                },
+                child: const Text('configure'),
+              ),
+              if (isConfigured)
+                const Text('Push notification plugin has been configured'),
+              const Divider(
+                height: 20,
+              ),
+              headerText('Notification Handling APIs'),
+              ElevatedButton(
+                onPressed: () async {
+                  try {
+                    final foregroundStream = Amplify
+                        .Notifications.onNotificationReceivedInForeground;
+                    foregroundStream.listen((event) {
+                      setState(() {
+                        foregroundMessage = event;
+                      });
+                    });
+                    setState(() {
+                      isForegroundListernerInitialized = true;
+                    });
+                  } catch (e) {
+                    print(e.toString());
+                  }
+                },
+                child: const Text('onForegroundNotificationReceived'),
+              ),
+              if (isForegroundListernerInitialized)
+                const Text('Foreground event listener initialized!'),
+              ListTile(
+                title: Text(
+                  foregroundMessage == null
+                      ? 'No foreground message yet'
+                      : "Title: ${foregroundMessage!.content?.title?.toString() ?? ""}",
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

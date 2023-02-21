@@ -8,6 +8,8 @@ import android.os.Bundle
 import com.google.firebase.messaging.RemoteMessage
 import org.json.JSONException
 import org.json.JSONObject
+import com.amplifyframework.pushnotifications.pinpoint.utils.NotificationPayload
+import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsConstants
 
 
 fun getBundleFromRemoteMessage(remoteMessage: RemoteMessage): Bundle {
@@ -29,10 +31,7 @@ fun getBundleFromRemoteMessage(remoteMessage: RemoteMessage): Bundle {
 }
 
 fun isPushNotificationIntent(intent: Intent?): Boolean {
-    if (intent?.extras?.containsKey("google.message_id") == true) {
-        return true
-    }
-    return false
+    return intent?.extras?.containsKey("google.message_id") == true
 }
 
 private fun getBundleFromData(data: Map<String, String>): Bundle {
@@ -65,6 +64,44 @@ private fun getBundleFromNotification(notification: RemoteMessage.Notification):
     return bundle
 }
 
+
+fun getPayloadFromRemoteMessage(remoteMessage: RemoteMessage): NotificationPayload {
+    val messageId = remoteMessage.messageId
+    val senderId = remoteMessage.senderId
+    val sendTime = remoteMessage.sentTime
+    val data = remoteMessage.data
+    val body = remoteMessage.notification?.body
+        ?: data[PushNotificationsConstants.MESSAGE_ATTRIBUTE_KEY]
+        ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_BODY]
+    val title = remoteMessage.notification?.title
+        ?: data[PushNotificationsConstants.TITLE_ATTRIBUTE_KEY]
+        ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_TITLE]
+    val imageUrl = remoteMessage.notification?.imageUrl?.toString()
+        ?: data[PushNotificationsConstants.IMAGEURL_ATTRIBUTE_KEY]
+        ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_IMAGEURL]
+    val action: HashMap<String, String> = HashMap()
+    data[PushNotificationsConstants.PINPOINT_OPENAPP]?.let {
+        action.put(PushNotificationsConstants.PINPOINT_OPENAPP, it)
+    }
+    data[PushNotificationsConstants.PINPOINT_URL]?.let {
+        // force HTTPS URL scheme
+        val urlHttps = it.replaceFirst("http://", "https://")
+        action.put(PushNotificationsConstants.PINPOINT_URL, urlHttps)
+    }
+    data[PushNotificationsConstants.PINPOINT_DEEPLINK]?.let {
+        action.put(PushNotificationsConstants.PINPOINT_DEEPLINK, it)
+    }
+
+    return NotificationPayload {
+        notification(messageId, senderId, sendTime)
+        notificationContent(title, body, imageUrl)
+        notificationOptions(PushNotificationsConstants.DEFAULT_NOTIFICATION_CHANNEL_ID)
+        tapAction(action)
+        silentPush = data[PushNotificationsConstants.PINPOINT_NOTIFICATION_SILENTPUSH].equals("1")
+        rawData = HashMap(remoteMessage.data)
+    }
+}
+
 // TODO: Revisit over the JSON functions to update them if needed
 fun convertBundleToJson(bundle: Bundle): JSONObject? {
     return try {
@@ -88,4 +125,17 @@ fun convertJSONObject(bundle: Bundle): JSONObject {
         }
     }
     return json
+}
+
+fun convertBundleToHashMap(bundle: Bundle): HashMap<String, Any?> {
+    val hashMap = hashMapOf<String, Any?>()
+    for (key in bundle.keySet()) {
+        val value = bundle.get(key)
+        if (value is Bundle) {
+            hashMap[key] = convertBundleToHashMap(value)
+        } else {
+            hashMap[key] = value
+        }
+    }
+    return hashMap
 }

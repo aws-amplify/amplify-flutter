@@ -23,12 +23,12 @@ abstract class PushNotificationsPluginInterface extends AmplifyPluginInterface {
   }
 
   /// {@macro amplify_core.amplify_notifications_category.on_token_received}
-  Stream<String> onTokenReceived() {
+  Stream<String> get onTokenReceived {
     throw UnimplementedError('onTokenReceived() has not been implemented');
   }
 
   /// {@macro amplify_core.amplify_notifications_category.on_foreground_notification_received}
-  Stream<PushNotificationMessage> onForegroundNotificationReceived() {
+  Stream<PushNotificationMessage> get onNotificationReceivedInForeground {
     throw UnimplementedError(
         'onForegroundNotificationReceived() has not been implemented');
   }
@@ -40,7 +40,7 @@ abstract class PushNotificationsPluginInterface extends AmplifyPluginInterface {
   }
 
   /// {@macro amplify_core.amplify_notifications_category.on_notification_opened}
-  Stream<PushNotificationMessage> onNotificationOpened() {
+  Stream<PushNotificationMessage> get onNotificationOpened {
     throw UnimplementedError('onNotificationOpened() has not been implemented');
   }
 
