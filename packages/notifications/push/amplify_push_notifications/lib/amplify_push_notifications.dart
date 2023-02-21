@@ -53,7 +53,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         .map((event) {
       print('🚀 Dart FOREGROUND_MESSAGE_RECEIVED: ${event['payload']}');
       // TODO convert raw event to RemotePushMessage
-      return PushNotificationMessage();
+      return PushNotificationMessage.fromJson(event['payload'] as Map);
     });
 
     // _onBackgroundNotificationReceived = _backgroundNotificationEventChannel
