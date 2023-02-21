@@ -11,8 +11,8 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-import 'common/mock_legacy_native_data_provider.dart';
 import 'common/mock_secure_storage.dart';
+import 'common/mocktail_mocks.dart';
 
 void main() {
   group('LegacyNativeDataProvider ', () {

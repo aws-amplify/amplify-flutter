@@ -19,14 +19,14 @@ class _MockEndpointInfoStoreManager extends EndpointInfoStoreManager {
 ///
 /// Should be static to mimic the behavior of iOS/Android which persist keys
 /// between relaunches (e.g. between test groups).
-final SecureStorageInterface _mockEndpointInfoStore = _MockEndpointInfoStore()
+final SecureStorageInterface _mockEndpointInfoStore = _MockSecureStorage()
   ..write(
     key: EndpointStoreKey.endpointId.name,
     value: mockEndpointId,
   );
 final String mockEndpointId = uuid();
 
-class _MockEndpointInfoStore extends SecureStorageInterface {
+class _MockSecureStorage extends SecureStorageInterface {
   final _storage = <String, String>{};
 
   @override

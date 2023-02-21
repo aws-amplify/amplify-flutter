@@ -4,6 +4,7 @@
 import 'dart:collection';
 
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/queued_item_store.dart';
+import 'package:meta/meta.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.in_memory_queued_item_store}
 /// Stores string elements in device memory.
@@ -45,4 +46,11 @@ class InMemoryQueuedItemStore implements QueuedItemStore {
 
   @override
   void close() {}
+
+  /// Reset all internal values for next unit test
+  @visibleForTesting
+  void reset() {
+    clear();
+    _nextId = 0;
+  }
 }
