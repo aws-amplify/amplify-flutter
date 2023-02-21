@@ -4,10 +4,27 @@
 library amplify_push_notifications;
 
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/services.dart';
+
+const _methodChannel =
+    MethodChannel('com.amazonaws.amplify/push_notification/method');
+const _tokenReceivedEventChannel = EventChannel(
+  'com.amazonaws.amplify/push_notification/event/TOKEN_RECEIVED',
+);
+const _notificationOpenedEventChannel = EventChannel(
+  'com.amazonaws.amplify/push_notification/event/NOTIFICATION_OPENED',
+);
+// const _launchNotificationOpenedEventChannel = EventChannel(
+//   'com.amazonaws.amplify/push_notification/event/LAUNCH_NOTIFICATION_OPENED',
+// );
+// const _backgroundNotificationEventChannel = EventChannel(
+//   'com.amazonaws.amplify/push_notification/event/BACKGROUND_MESSAGE_RECEIVED',
+// );
+const _foregroundNotificationEventChannel = EventChannel(
+  'com.amazonaws.amplify/push_notification/event/FOREGROUND_MESSAGE_RECEIVED',
+);
 
 /// {@template amplify_push_notifications.amplify_push_notifications}
 /// Implementation of the Amplify Push Notifications category.
@@ -17,17 +34,85 @@ import 'package:flutter/services.dart';
 /// {@endtemplate}
 class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   /// {@macro amplify_push_notifications.amplify_push_notifications}
-  AmplifyPushNotifications({required this.serviceProviderClient});
+  AmplifyPushNotifications({
+    required ServiceProviderClient serviceProviderClient,
+  }) : _serviceProviderClient = serviceProviderClient {
+    _onTokenReceived = _tokenReceivedEventChannel
+        .receiveBroadcastStream('TOKEN_RECEIVED')
+        .cast<Map<Object?, Object?>>()
+        .map((event) {
+      print('🚀 Dart TOKEN_RECEIVED: $event');
+      final deviceToken =
+          (event['payload'] as Map<Object?, Object?>?)?['token'] as String;
+      return deviceToken;
+    });
 
-  bool _isConfigured = false;
-  final MethodChannel _methodChannel =
-      const MethodChannel('com.amazonaws.amplify/push_notifications_plugin');
+    _onForegroundNotificationReceived = _foregroundNotificationEventChannel
+        .receiveBroadcastStream('FOREGROUND_MESSAGE_RECEIVED')
+        .cast<Map<Object?, Object?>>()
+        .map((event) {
+      print('🚀 Dart FOREGROUND_MESSAGE_RECEIVED: ${event['payload']}');
+      // TODO convert raw event to RemotePushMessage
+      return PushNotificationMessage();
+    });
+
+    // _onBackgroundNotificationReceived = _backgroundNotificationEventChannel
+    //     .receiveBroadcastStream('BACKGROUND_MESSAGE_RECEIVED')
+    //     .cast<Map<Object?, Object?>>()
+    //     .map((event) {
+    //   print('🚀 Dart BACKGROUND_MESSAGE_RECEIVED: $event');
+    //   final completionHandlerId = (event['payload']
+    //       as Map<Object?, Object?>?)?['completionHandlerId'] as String;
+    //   _methodChannel.invokeMethod('completeNotification', completionHandlerId);
+    //   // TODO convert raw event to RemotePushMessage
+    //   return PushNotificationMessage();
+    // });
+
+    _onNotificationOpened = _notificationOpenedEventChannel
+        .receiveBroadcastStream('NOTIFICATION_OPENED')
+        .cast<Map<Object?, Object?>>()
+        .map((event) {
+      print('🚀 Dart NOTIFICATION_OPENED: $event');
+      // TODO convert raw event to RemotePushMessage
+      return PushNotificationMessage();
+    });
+
+    // _onLaunchNotificationOpened = _launchNotificationOpenedEventChannel
+    //     .receiveBroadcastStream('LAUNCH_NOTIFICATION_OPENED')
+    //     .cast<Map<Object?, Object?>>()
+    //     .map((event) {
+    //   print('🚀 Dart LAUNCH_NOTIFICATION_OPENED: $event');
+    //   // TODO convert raw event to RemotePushMessage
+    //   return PushNotificationMessage();
+    // });
+  }
+
   final AmplifyLogger _logger = AmplifyLogger.category(Category.notifications)
       .createChild('AmplifyPushNotification');
-  final ServiceProviderClient serviceProviderClient;
-  final StreamController<PushNotificationMessage>
-      _foregroundEventStreamController =
-      StreamController<PushNotificationMessage>.broadcast();
+  final ServiceProviderClient _serviceProviderClient;
+
+  late final Stream<String> _onTokenReceived;
+  late final Stream<PushNotificationMessage> _onForegroundNotificationReceived;
+  late final Stream<PushNotificationMessage> _onBackgroundNotificationReceived;
+  late final Stream<PushNotificationMessage> _onNotificationOpened;
+  late final Stream<PushNotificationMessage> _onLaunchNotificationOpened;
+
+  bool _isConfigured = false;
+
+  @override
+  Stream<String> get onTokenReceived => _onTokenReceived;
+
+  @override
+  Stream<PushNotificationMessage> get onNotificationReceivedInForeground =>
+      _onForegroundNotificationReceived;
+
+  // @override
+  // Stream<PushNotificationMessage> get onNotificationReceivedInBackground =>
+  //     _onBackgroundNotificationReceived;
+
+  @override
+  Stream<PushNotificationMessage> get onNotificationOpened =>
+      _onNotificationOpened;
 
   @override
   Future<void> configure({
@@ -41,12 +126,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     }
 
     if (!_isConfigured) {
-      // Register FCM and APNS if auto-registeration is enabled
-      await _registerForRemoteNotifications();
-
-      // Register native listeners for token generation and notification handling
-      _methodChannel.setMethodCallHandler(_nativeToDartMethodCallHandler);
-
       // TODO(Samaritan1011001): Listen to token changes and update Pinpoint
       // onNewToken().then(
       //   (stream) => stream.listen(
@@ -57,102 +136,98 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       //   ),
       // );
 
+      onTokenReceived.listen(tokenReceivedListener);
+      onNotificationReceivedInForeground.listen(foregroundNotificationListener);
+      onNotificationOpened.listen(notificationOpenedListener);
       // Initialize Endpoint Client
-      serviceProviderClient.init(
+      _serviceProviderClient.init(
         config: config,
         authProviderRepo: authProviderRepo,
       );
     }
 
-    // Register with service provider
-    await _registerDevice();
-
     // TODO: Register the callback dispatcher
 
-    _logger.info("CONFIGURE API | Successfully configure push notifications");
+    _logger.info('CONFIGURE API | Successfully configure push notifications');
 
     _isConfigured = true;
   }
 
+  void foregroundNotificationListener(
+    PushNotificationMessage pushNotificationMessage,
+  ) {
+    _logger.info(
+      'Successfully listrening to foreground events: $pushNotificationMessage',
+    );
+
+    // TODO(Samaritan1011001): Record Analytics
+  }
+
+  void backgroundNotificationListener(
+    PushNotificationMessage pushNotificationMessage,
+  ) {
+    // TODO(Samaritan1011001): Record Analytics
+  }
+
+  void notificationOpenedListener(
+    PushNotificationMessage pushNotificationMessage,
+  ) {
+    _logger.info(
+      'Successfully listrening to notification opened events: $pushNotificationMessage',
+    );
+    // TODO(Samaritan1011001): Record Analytics
+  }
+
+  String tokenReceivedListener(
+    String address,
+  ) {
+    _logger.info('Successfully fetched the address: $address');
+    _registerDevice(address);
+    return address;
+  }
+
+  Future<void> _registerDevice(String address) async {
+    try {
+      _serviceProviderClient.registerDevice(address);
+      _logger.info('Successfully registered device with the servvice provider');
+    } on Exception catch (e) {
+      _logger.error(
+        'Error when registering device with the service provider: $e',
+      );
+    }
+  }
+
+  // @override
+  // Future<bool> requestPermissions({
+  //   bool? alert = true,
+  //   bool? badge = true,
+  //   bool? sound = true,
+  // }) async {
+  //   return await _methodChannel.invokeMethod<bool>('requestPermissions', {
+  //         'alert': alert,
+  //         'badge': badge,
+  //         'sound': sound,
+  //       }) ??
+  //       false;
+  // }
+
   @override
-  Stream<PushNotificationMessage> onForegroundNotificationReceived() =>
-      _foregroundEventStreamController.stream;
+  Future<PushNotificationMessage?> getLaunchNotification() async {
+    final n = await _methodChannel
+        .invokeMethod<Map<Object?, Object?>>('getLaunchNotification');
 
-  Future<void> _registerForRemoteNotifications() async {
-    try {
-      await _methodChannel
-          .invokeMethod<String>('registerForRemoteNotifications');
-      _logger.info(
-          "Successfully registered device to receive remote notifications");
-    } on MissingPluginException {
-      _logger.info(
-          "_registerForRemoteNotifications on Android is not implemented");
-    } catch (e) {
-      _logger.error(
-        "Error when registering device to receive remote notifications: $e",
-      );
-    }
+    print('🚀 Launch notification: $n');
+
+    return PushNotificationMessage();
   }
 
-  Future<dynamic> _nativeToDartMethodCallHandler(MethodCall methodCall) async {
-    try {
-      final decodedContent = jsonDecode(methodCall.arguments);
-      switch (methodCall.method) {
-        case "NEW_TOKEN":
-          print(
-            "TOKENS API | Plugin received a new device token: $decodedContent",
-          );
-          break;
-        case "FOREGROUND_MESSAGE_RECEIVED":
-          print(
-            "NOTIFICATION HANDLING API | Plugin received foreground notification: $decodedContent",
-          );
-          _foregroundEventStreamController.sink.add(
-            PushNotificationMessage.fromJson(decodedContent),
-          );
-          break;
-        case "BACKGROUND_MESSAGE_RECEIVED":
-          print(
-            "NOTIFICATION HANDLING API | Plugin received background notification: $decodedContent",
-          );
-          break;
-        case "NOTIFICATION_OPENED_APP":
-          print(
-            "NOTIFICATION HANDLING API | Plugin received notificaiton tapped event: $decodedContent",
-          );
-          break;
-        default:
-          break;
-      }
-    } catch (e) {
-      _logger.error("Error in native-dart method handler $e");
-    }
+  @override
+  Future<int> getBadgeCount() async {
+    return await _methodChannel.invokeMethod<int>('getBadgeCount') ?? 0;
   }
 
-  Future<void> _registerDevice({String? deviceToken}) async {
-    try {
-      deviceToken = deviceToken ?? await _getToken();
-      if (deviceToken != null) {
-        serviceProviderClient.registerDevice(deviceToken);
-      }
-      _logger.info("Successfully registered device with the servvice provider");
-    } catch (e) {
-      _logger.error(
-        "Error when registering device with the servvice provider: $e",
-      );
-    }
-  }
-
-  Future<String?> _getToken() async {
-    try {
-      String? token = await _methodChannel.invokeMethod<String>('getToken');
-      if (token != null) {
-        print("TOKEN API |  Successfully retreived device token: $token");
-        return token;
-      }
-    } catch (e) {
-      _logger.error("Error when getting device token: $e");
-    }
-    return null;
+  @override
+  Future<void> setBadgeCount(int badgeCount) async {
+    await _methodChannel.invokeMethod('setBadgeCount', badgeCount);
   }
 }

@@ -20,7 +20,7 @@ class PushNotificationMessage with AWSDebuggable {
   });
 
   // TODO(Samaritan1011001): Find common and required fields
-  PushNotificationMessage.fromJson(Map<String, dynamic> json) {
+  PushNotificationMessage.fromJson(Map<Object, dynamic> json) {
     messageId = cast<String>(json['messageId']);
     senderId = cast<String>(json['sender']);
     sentTime = cast<DateTime>(json['sentTime']);
