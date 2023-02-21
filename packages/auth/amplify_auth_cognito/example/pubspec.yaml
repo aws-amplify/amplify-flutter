@@ -19,15 +19,19 @@ dependencies:
 
 dependency_overrides:
   async: ^2.10.0
+  meta: ^1.9.0
+  test_api: ^0.4.0
 
 dev_dependencies:
   amplify_auth_cognito_dart: ">=0.6.0 <0.7.0"
+  amplify_auth_cognito_test: any
   amplify_lints:
     path: ../../../amplify_lints
   amplify_test:
     path: ../../../amplify_test
   async: ^2.10.0
   aws_signature_v4: ">=0.3.1+2 <0.4.0"
+  checks: ^0.2.0
   collection: any
   flutter_driver:
     sdk: flutter
@@ -35,7 +39,11 @@ dev_dependencies:
     sdk: flutter
   integration_test:
     sdk: flutter
-  test: any
+  io: ^1.0.0
+  test: ^1.22.0
+  webdriver: ^3.0.0
+  webview_flutter: ^4.0.0
+  webview_flutter_wkwebview: ^3.1.0
 
 flutter:
   uses-material-design: true

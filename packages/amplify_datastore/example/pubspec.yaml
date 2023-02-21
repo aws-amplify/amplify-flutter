@@ -12,10 +12,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  amplify_api: ">=1.0.0-next.5 <1.0.0-next.6"
   amplify_datastore: ">=1.0.0-next.5 <1.0.0-next.6"
-  # Uncomment the below lines to enable online sync
-  # amplify_api:
-  #   path: ../../api/amplify_api
   amplify_flutter: ">=1.0.0-next.5 <1.0.0-next.6"
   flutter_driver:
     sdk: flutter

@@ -10,7 +10,7 @@
 import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
+import 'package:meta/meta.dart';
 
 /// This is an auto generated class representing the Contact type in your schema.
 @immutable

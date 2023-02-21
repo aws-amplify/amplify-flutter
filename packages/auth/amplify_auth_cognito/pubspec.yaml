@@ -28,8 +28,6 @@ dependencies:
   async: ^2.10.0
   flutter:
     sdk: flutter
-  flutter_web_plugins:
-    sdk: flutter
   meta: ^1.7.0
   path: ^1.8.0
   plugin_platform_interface: ^2.0.0

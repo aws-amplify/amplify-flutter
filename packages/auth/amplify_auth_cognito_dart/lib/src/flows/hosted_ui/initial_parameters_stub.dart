@@ -7,4 +7,4 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 /// The initial parameters passed to the application, used on Web to capture
 /// query parameters of a redirect.
 /// {@endtemplate}
-OAuthParameters? get initialParameters => null;
+const OAuthParameters? initialParameters = null;

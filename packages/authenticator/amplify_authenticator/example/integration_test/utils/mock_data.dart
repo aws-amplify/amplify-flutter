@@ -15,13 +15,6 @@ const symbols = '~/`!@#\$%^&\\"\'*(),._?:;{}|<>';
 const String mockPhoneNumber = '+15555551234';
 const String mockCode = '12345';
 
-String generateEmail() => 'flutter-email-${randomNumber()}@test.com';
-
-String generatePassword() =>
-    uuid.v4() +
-    uppercaseLetters[random.nextInt(uppercaseLetters.length)] +
-    symbols[random.nextInt(symbols.length)];
-
 /// generates a fake US phone number using a reserved number in the North America
 ///
 /// See https://en.wikipedia.org/wiki/Fictitious_telephone_number#North_American_Numbering_Plan
@@ -39,8 +32,6 @@ PhoneNumber generateFrenchPhoneNumber() => PhoneNumber(
       areaCode: '1',
       phoneNumber: '9900${randomPhoneDigits(4)}',
     );
-
-String generateUsername() => 'flutter-user-${randomNumber()}';
 
 int randomNumber() => random.nextInt(1 << 30);
 

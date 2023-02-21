@@ -3,9 +3,7 @@
 
 import 'dart:async';
 
-import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:cognito_example/amplifyconfiguration.dart';
 import 'package:cognito_example/common.dart';
 import 'package:example_common/example_common.dart';
 
@@ -56,14 +54,15 @@ class AppState {
 /// main app component
 class AppComponent extends StatefulComponent {
   AppState appState = AppState();
+  late AmplifyConfig config;
 
   String? _error;
 
   Future<void> _configureAmplify() async {
     if (Amplify.isConfigured) return;
     try {
-      await Amplify.addPlugin(AmplifyAuthCognitoDart());
-      await Amplify.configure(amplifyconfig);
+      await configure();
+      config = await Amplify.asyncConfig;
 
       Amplify.Hub.listen(HubChannel.Auth, (AuthHubEvent event) {
         if (event.type == AuthHubEventType.signedIn) {
@@ -84,10 +83,8 @@ class AppComponent extends StatefulComponent {
       AuthState startingAuthState;
 
       try {
-        final session =
-            await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
-        startingAuthState =
-            session.isSignedIn ? AuthState.authenticated : AuthState.login;
+        await Amplify.Auth.getCurrentUser();
+        startingAuthState = AuthState.authenticated;
       } on Exception {
         startingAuthState = AuthState.login;
       }
@@ -190,10 +187,13 @@ class AppComponent extends StatefulComponent {
                       );
                     },
                   ),
-                  ButtonComponent(
-                    innerHtml: 'Login with Amazon',
-                    onClick: () => hostedSignIn(provider: AuthProvider.amazon),
-                  ),
+                  if (config.auth!.awsPlugin!.auth!.default$!.oAuth != null)
+                    ButtonComponent(
+                      id: 'hostedUiLogin',
+                      innerHtml: 'Login with Hosted UI',
+                      onClick: () =>
+                          hostedSignIn(provider: AuthProvider.cognito),
+                    ),
                   ButtonComponent(
                     innerHtml: 'Fetch Guess Token',
                     onClick: _fetchUnAuthCredentials,

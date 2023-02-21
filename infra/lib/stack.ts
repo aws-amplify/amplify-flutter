@@ -138,6 +138,12 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
       },
       {
         associateWithWaf,
+        type: "FULL",
+        environmentName: "hosted-ui",
+        enableHostedUI: true,
+      },
+      {
+        associateWithWaf,
         type: "CUSTOM_AUTHORIZER_USER_POOLS",
         environmentName: "custom-authorizer-user-pools",
       },

@@ -18,7 +18,7 @@ import '../common/mock_hosted_ui.dart';
 import '../common/mock_oauth_server.dart';
 import '../common/mock_secure_storage.dart';
 
-late Completer<String> _launchUrl;
+late Completer<Uri> _launchUrl;
 
 class MockHostedUiPlatform extends HostedUiPlatform {
   MockHostedUiPlatform(super.dependencyManager) : super.protected();
@@ -28,7 +28,7 @@ class MockHostedUiPlatform extends HostedUiPlatform {
     required CognitoSignInWithWebUIOptions options,
     AuthProvider? provider,
   }) async {
-    final signInUrl = getSignInUri(provider: provider).toString();
+    final signInUrl = await getSignInUri(provider: provider);
     _launchUrl.complete(signInUrl);
   }
 
@@ -98,7 +98,7 @@ void main() {
         ..addInstance<CognitoOAuthConfig>(hostedUiConfig);
 
       final platform = stateMachine.create(HostedUiPlatform.token);
-      final authorizationUri = platform.getSignInUri();
+      final authorizationUri = await platform.getSignInUri();
 
       expect(authorizationUri.pathSegments.last, 'authorize');
 
@@ -265,8 +265,7 @@ void main() {
         );
 
         stateMachine.dispatch(const HostedUiEvent.signIn());
-        final params =
-            await server.authorize(Uri.parse(await _launchUrl.future));
+        final params = await server.authorize(await _launchUrl.future);
         stateMachine.dispatch(HostedUiEvent.exchange(params));
 
         expect(
@@ -314,8 +313,7 @@ void main() {
         stateMachine.dispatch(
           const HostedUiEvent.signIn(provider: provider),
         );
-        final params =
-            await server.authorize(Uri.parse(await _launchUrl.future));
+        final params = await server.authorize(await _launchUrl.future);
         stateMachine.dispatch(HostedUiEvent.exchange(params));
 
         expect(
@@ -364,7 +362,7 @@ void main() {
         );
 
         stateMachine.dispatch(const HostedUiEvent.signIn());
-        await server.authorize(Uri.parse(await _launchUrl.future));
+        await server.authorize(await _launchUrl.future);
 
         final state = await secureStorage.read(key: keys[HostedUiKey.state]);
         stateMachine.dispatch(
@@ -399,7 +397,7 @@ void main() {
         );
 
         stateMachine.dispatch(const HostedUiEvent.signIn());
-        await server.authorize(Uri.parse(await _launchUrl.future));
+        await server.authorize(await _launchUrl.future);
         stateMachine.dispatch(
           HostedUiEvent.exchange(
             OAuthParameters(
@@ -501,7 +499,7 @@ void main() {
                 AuthProvider? provider,
               ) async {
                 final signInUrl =
-                    platform.getSignInUri(provider: provider).toString();
+                    await platform.getSignInUri(provider: provider);
                 _launchUrl.complete(signInUrl);
               },
               signOut: expectAsync3((
@@ -531,8 +529,7 @@ void main() {
             ),
           ),
         );
-        final params =
-            await server.authorize(Uri.parse(await _launchUrl.future));
+        final params = await server.authorize(await _launchUrl.future);
         stateMachine.dispatch(HostedUiEvent.exchange(params));
 
         await expectLater(

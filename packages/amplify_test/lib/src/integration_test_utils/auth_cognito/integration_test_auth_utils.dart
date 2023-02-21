@@ -4,7 +4,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:stream_transform/stream_transform.dart';
 
 import 'types/create_mfa_code_response.dart';

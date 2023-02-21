@@ -4,9 +4,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_flutter/amplify_flutter.dart';
-
-export 'package:amplify_flutter/src/amplify_impl.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 /// A stub of [Amplify] that holds the config in memory and
 /// does nothing else to register plugins.

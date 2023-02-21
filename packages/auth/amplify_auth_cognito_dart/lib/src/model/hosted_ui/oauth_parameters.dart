@@ -195,6 +195,27 @@ abstract class OAuthParameters
         as OAuthParameters;
   }
 
+  /// Parses OAuth parameters from a [uri].
+  static OAuthParameters? fromUri(Uri uri) {
+    final parameters = {...uri.queryParameters};
+
+    // Handle fragment as well e.g. /#/auth?code=...&state=...
+    final fragment = uri.fragment;
+    final parts = fragment.split('?');
+    if (parts.length == 2) {
+      parameters.addAll(Uri.splitQueryString(parts[1]));
+    }
+
+    // Only a redirect if it contains this combination of parameters.
+    // https://www.rfc-editor.org/rfc/rfc6749#section-4.1.2
+    // https://www.rfc-editor.org/rfc/rfc6749#section-4.1.3
+    if (parameters.containsKey('state') &&
+        (parameters.containsKey('code') || parameters.containsKey('error'))) {
+      return OAuthParameters.fromJson(parameters);
+    }
+    return null;
+  }
+
   @BuiltValueHook(finalizeBuilder: true)
   static void _finalize(OAuthParametersBuilder b) {
     if ((b.code == null && b.error == null) || b.state == null) {
