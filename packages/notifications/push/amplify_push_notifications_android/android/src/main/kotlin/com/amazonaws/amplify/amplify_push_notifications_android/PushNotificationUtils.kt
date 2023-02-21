@@ -5,12 +5,13 @@ package com.amazonaws.amplify.amplify_push_notifications_android
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import com.amplifyframework.pushnotifications.pinpoint.utils.NotificationPayload
+import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsConstants
 import com.google.firebase.messaging.RemoteMessage
 import org.json.JSONException
 import org.json.JSONObject
-import com.amplifyframework.pushnotifications.pinpoint.utils.NotificationPayload
-import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsConstants
 
+// TODO: Revisit this file and remove un-used functions
 
 fun getBundleFromRemoteMessage(remoteMessage: RemoteMessage): Bundle {
     val bundle = Bundle()

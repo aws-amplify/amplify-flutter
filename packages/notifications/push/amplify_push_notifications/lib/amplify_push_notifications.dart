@@ -16,12 +16,12 @@ const _tokenReceivedEventChannel = EventChannel(
 const _notificationOpenedEventChannel = EventChannel(
   'com.amazonaws.amplify/push_notification/event/NOTIFICATION_OPENED',
 );
-// const _launchNotificationOpenedEventChannel = EventChannel(
-//   'com.amazonaws.amplify/push_notification/event/LAUNCH_NOTIFICATION_OPENED',
-// );
-// const _backgroundNotificationEventChannel = EventChannel(
-//   'com.amazonaws.amplify/push_notification/event/BACKGROUND_MESSAGE_RECEIVED',
-// );
+const _launchNotificationOpenedEventChannel = EventChannel(
+  'com.amazonaws.amplify/push_notification/event/LAUNCH_NOTIFICATION_OPENED',
+);
+const _backgroundNotificationEventChannel = EventChannel(
+  'com.amazonaws.amplify/push_notification/event/BACKGROUND_MESSAGE_RECEIVED',
+);
 const _foregroundNotificationEventChannel = EventChannel(
   'com.amazonaws.amplify/push_notification/event/FOREGROUND_MESSAGE_RECEIVED',
 );
@@ -56,17 +56,18 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       return PushNotificationMessage.fromJson(event['payload'] as Map);
     });
 
-    // _onBackgroundNotificationReceived = _backgroundNotificationEventChannel
-    //     .receiveBroadcastStream('BACKGROUND_MESSAGE_RECEIVED')
-    //     .cast<Map<Object?, Object?>>()
-    //     .map((event) {
-    //   print('🚀 Dart BACKGROUND_MESSAGE_RECEIVED: $event');
-    //   final completionHandlerId = (event['payload']
-    //       as Map<Object?, Object?>?)?['completionHandlerId'] as String;
-    //   _methodChannel.invokeMethod('completeNotification', completionHandlerId);
-    //   // TODO convert raw event to RemotePushMessage
-    //   return PushNotificationMessage();
-    // });
+    // TODO: Enable background API
+    _onBackgroundNotificationReceived = _backgroundNotificationEventChannel
+        .receiveBroadcastStream('BACKGROUND_MESSAGE_RECEIVED')
+        .cast<Map<Object?, Object?>>()
+        .map((event) {
+      print('🚀 Dart BACKGROUND_MESSAGE_RECEIVED: $event');
+      final completionHandlerId = (event['payload']
+          as Map<Object?, Object?>?)?['completionHandlerId'] as String;
+      _methodChannel.invokeMethod('completeNotification', completionHandlerId);
+      // TODO convert raw event to RemotePushMessage
+      return PushNotificationMessage();
+    });
 
     _onNotificationOpened = _notificationOpenedEventChannel
         .receiveBroadcastStream('NOTIFICATION_OPENED')
@@ -77,14 +78,16 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       return PushNotificationMessage();
     });
 
-    // _onLaunchNotificationOpened = _launchNotificationOpenedEventChannel
-    //     .receiveBroadcastStream('LAUNCH_NOTIFICATION_OPENED')
-    //     .cast<Map<Object?, Object?>>()
-    //     .map((event) {
-    //   print('🚀 Dart LAUNCH_NOTIFICATION_OPENED: $event');
-    //   // TODO convert raw event to RemotePushMessage
-    //   return PushNotificationMessage();
-    // });
+    // TODO: Enable launch notification API
+
+    _onLaunchNotificationOpened = _launchNotificationOpenedEventChannel
+        .receiveBroadcastStream('LAUNCH_NOTIFICATION_OPENED')
+        .cast<Map<Object?, Object?>>()
+        .map((event) {
+      print('🚀 Dart LAUNCH_NOTIFICATION_OPENED: $event');
+      // TODO convert raw event to RemotePushMessage
+      return PushNotificationMessage();
+    });
   }
 
   final AmplifyLogger _logger = AmplifyLogger.category(Category.notifications)
@@ -126,19 +129,11 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     }
 
     if (!_isConfigured) {
-      // TODO(Samaritan1011001): Listen to token changes and update Pinpoint
-      // onNewToken().then(
-      //   (stream) => stream.listen(
-      //     (address) async {
-      //       // Register with service provider
-      //       await _registerDevice(address: address);
-      //     },
-      //   ),
-      // );
-
-      onTokenReceived.listen(tokenReceivedListener);
-      onNotificationReceivedInForeground.listen(foregroundNotificationListener);
-      onNotificationOpened.listen(notificationOpenedListener);
+      // Initialize listeners
+      onTokenReceived.listen(_tokenReceivedListener);
+      onNotificationReceivedInForeground
+          .listen(_foregroundNotificationListener);
+      onNotificationOpened.listen(_notificationOpenedListener);
       // Initialize Endpoint Client
       _serviceProviderClient.init(
         config: config,
@@ -153,7 +148,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     _isConfigured = true;
   }
 
-  void foregroundNotificationListener(
+  void _foregroundNotificationListener(
     PushNotificationMessage pushNotificationMessage,
   ) {
     _logger.info(
@@ -163,13 +158,13 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     // TODO(Samaritan1011001): Record Analytics
   }
 
-  void backgroundNotificationListener(
+  void _backgroundNotificationListener(
     PushNotificationMessage pushNotificationMessage,
   ) {
     // TODO(Samaritan1011001): Record Analytics
   }
 
-  void notificationOpenedListener(
+  void _notificationOpenedListener(
     PushNotificationMessage pushNotificationMessage,
   ) {
     _logger.info(
@@ -178,7 +173,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     // TODO(Samaritan1011001): Record Analytics
   }
 
-  String tokenReceivedListener(
+  String _tokenReceivedListener(
     String address,
   ) {
     _logger.info('Successfully fetched the address: $address');
@@ -197,19 +192,19 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     }
   }
 
-  // @override
-  // Future<bool> requestPermissions({
-  //   bool? alert = true,
-  //   bool? badge = true,
-  //   bool? sound = true,
-  // }) async {
-  //   return await _methodChannel.invokeMethod<bool>('requestPermissions', {
-  //         'alert': alert,
-  //         'badge': badge,
-  //         'sound': sound,
-  //       }) ??
-  //       false;
-  // }
+  @override
+  Future<bool> requestPermissions({
+    bool? alert = true,
+    bool? badge = true,
+    bool? sound = true,
+  }) async {
+    return await _methodChannel.invokeMethod<bool>('requestPermissions', {
+          'alert': alert,
+          'badge': badge,
+          'sound': sound,
+        }) ??
+        false;
+  }
 
   @override
   Future<PushNotificationMessage?> getLaunchNotification() async {
