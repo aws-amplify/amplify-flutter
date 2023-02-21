@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 import 'package:amplify_api_dart/src/graphql/utils.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:collection/collection.dart';
 
 // ignore_for_file: public_member_api_docs
 
@@ -322,6 +323,10 @@ class GraphQLRequestFactory {
       }
     }
 
+    final ownerFieldNames = (schema.authRules ?? [])
+        .map((authRule) => authRule.ownerField)
+        .whereNotNull()
+        .toSet();
     // Remove some fields from input.
     final fieldsToRemove = schema.fields!.entries
         .where(
@@ -330,8 +335,9 @@ class GraphQLRequestFactory {
               entry.value.association != null ||
               // read-only
               entry.value.isReadOnly ||
-              // null values on create operations
+              // null values for owner fields on create operations
               (operation == GraphQLRequestOperation.create &&
+                  ownerFieldNames.contains(entry.value.name) &&
                   modelJson[entry.value.name] == null),
         )
         .map((entry) => entry.key)

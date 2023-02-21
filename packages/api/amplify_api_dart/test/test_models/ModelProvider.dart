@@ -11,12 +11,14 @@ import 'package:amplify_core/amplify_core.dart';
 
 import 'Blog.dart';
 import 'Comment.dart';
+import 'CustomOwnerField.dart';
 import 'FileMeta.dart';
 import 'Post.dart';
 import 'S3Object.dart';
 
 export 'Blog.dart';
 export 'Comment.dart';
+export 'CustomOwnerField.dart';
 export 'FileMeta.dart';
 export 'Post.dart';
 export 'S3Object.dart';
@@ -28,6 +30,7 @@ class ModelProvider implements ModelProviderInterface {
   List<ModelSchema> modelSchemas = [
     Blog.schema,
     Comment.schema,
+    CustomOwnerField.schema,
     Post.schema,
   ];
   static final ModelProvider _instance = ModelProvider();
@@ -42,6 +45,8 @@ class ModelProvider implements ModelProviderInterface {
         return Blog.classType;
       case 'Comment':
         return Comment.classType;
+      case "CustomOwnerField":
+        return CustomOwnerField.classType;
       case 'Post':
         return Post.classType;
       default:
