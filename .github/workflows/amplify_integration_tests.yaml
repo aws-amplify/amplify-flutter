@@ -28,6 +28,9 @@ jobs:
           - "amplify_datastore_example"
           - "amplify_storage_s3_example"
           - "amplify_db_common_example"
+        api-level:
+          - 24
+          - 33
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
@@ -51,12 +54,34 @@ jobs:
           scope: ${{ matrix.scope }}
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
+      - name: Cache AVD
+        id: avd-cache
+        uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # 3.0.11
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-${{ matrix.api-level }}
+
+      - name: Create AVD and generate snapshot
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@50986b1464923454c95e261820bc626f38490ec0 # 2.27.0
+        with:
+          api-level: ${{ matrix.api-level }}
+          target: google_apis
+          arch: x86_64
+          script: echo "Generated AVD snapshot for caching."
+
       - name: Run Android integration tests
         uses: reactivecircus/android-emulator-runner@50986b1464923454c95e261820bc626f38490ec0 # 2.27.0
         # Make the timeout a little longer and add retry due to delay from starting emulator.
         timeout-minutes: 60
         with:
-          api-level: 32
+          api-level: ${{ matrix.api-level }}
+          target: google_apis
+          arch: x86_64
+          # -no-snapshot-save + default options: https://github.com/reactivecircus/android-emulator-runner#configurations
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
           script: melos exec -c 1 --scope ${{ matrix.scope }} -- small=true \$MELOS_ROOT_PATH/build-support/integ_test.sh -d emulator-5554  --retries 1
 
   ios:
