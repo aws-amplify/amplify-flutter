@@ -5,6 +5,6 @@ import 'dart:async';
 
 import '../notification_types.dart';
 
-typedef RemoteMessageCallback = FutureOr<void> Function(
+typedef OnRemoteMessageCallback = FutureOr<void> Function(
   PushNotificationMessage remotePushMessage,
 );

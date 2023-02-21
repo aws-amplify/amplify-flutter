@@ -34,9 +34,9 @@ abstract class PushNotificationsPluginInterface extends AmplifyPluginInterface {
   }
 
   /// {@macro amplify_core.amplify_notifications_category.on_background_notification_received}
-  void onBackgroundNotificationReceived(RemoteMessageCallback callback) {
+  void onNotificationReceivedInBackground(OnRemoteMessageCallback callback) {
     throw UnimplementedError(
-        'onBackgroundNotificationReceived() has not been implemented');
+        'onNotificationReceivedInBackground() has not been implemented');
   }
 
   /// {@macro amplify_core.amplify_notifications_category.on_notification_opened}
