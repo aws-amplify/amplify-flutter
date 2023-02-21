@@ -9,6 +9,7 @@ import android.content.Intent
 import android.util.Log
 import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsUtils
 import com.google.firebase.messaging.RemoteMessage
+import io.flutter.view.FlutterMain
 
 
 class PushNotificationReceiver : BroadcastReceiver() {
@@ -38,9 +39,9 @@ class PushNotificationReceiver : BroadcastReceiver() {
                         PushNotificationsUtils(context).showNotification(payload, AmplifyPushNotificationsAndroidPlugin::class.java)
 
                         // TODO: Start a background headless service
-//                        FlutterMain.startInitialization(context)
-//                        FlutterMain.ensureInitializationComplete(context, null)
-//                        PushNotificationBackgroundService.enqueueWork(context, it)
+                        FlutterMain.startInitialization(context)
+                        FlutterMain.ensureInitializationComplete(context, null)
+                        PushNotificationBackgroundService.enqueueWork(context, it)
 
                     } catch (exception: Exception) {
                         Log.e(TAG, "Something went wrong while starting headless task $exception")

@@ -4,9 +4,16 @@
 library amplify_push_notifications;
 
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_push_notifications/callback_dispatcher.dart';
 import 'package:flutter/services.dart';
+
+@pragma('vm:entry-point')
+void globalBGHandler(PushNotificationMessage pushNotificationMessage) {
+  print('globalBGHandler was called');
+}
 
 const _methodChannel =
     MethodChannel('com.amazonaws.amplify/push_notification/method');
@@ -126,19 +133,14 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     }
 
     if (!_isConfigured) {
-      // TODO(Samaritan1011001): Listen to token changes and update Pinpoint
-      // onNewToken().then(
-      //   (stream) => stream.listen(
-      //     (address) async {
-      //       // Register with service provider
-      //       await _registerDevice(address: address);
-      //     },
-      //   ),
-      // );
+      // Register the callback dispatcher
+      await _registerCallbackDispatcher();
 
       onTokenReceived.listen(tokenReceivedListener);
       onNotificationReceivedInForeground.listen(foregroundNotificationListener);
       onNotificationOpened.listen(notificationOpenedListener);
+      await onBackgroundNotificationReceived(globalBGHandler);
+
       // Initialize Endpoint Client
       _serviceProviderClient.init(
         config: config,
@@ -151,6 +153,21 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     _logger.info('CONFIGURE API | Successfully configure push notifications');
 
     _isConfigured = true;
+  }
+
+  Future<void> _registerCallbackDispatcher() async {
+    try {
+      final callback = PluginUtilities.getCallbackHandle(callbackDispatcher);
+      await _methodChannel.invokeMethod<void>(
+        'initializeService',
+        <dynamic>[callback?.toRawHandle()],
+      );
+      _logger.info('Successfully registered callback dispatcher');
+    } on Exception catch (e) {
+      _logger.error(
+        'Error when registering callback dispatcher: $e',
+      );
+    }
   }
 
   void foregroundNotificationListener(
@@ -210,6 +227,27 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   //       }) ??
   //       false;
   // }
+
+  @override
+  Future<void> onBackgroundNotificationReceived(
+    RemoteMessageCallback callback,
+  ) async {
+    try {
+      final userCallback = PluginUtilities.getCallbackHandle(callback);
+      _logger.info('Successfully registered notification handling callback');
+
+      await _methodChannel.invokeMethod(
+        'registerBGUserGivenCallback',
+        <dynamic>[
+          userCallback?.toRawHandle(),
+        ],
+      );
+    } on Exception catch (e) {
+      _logger.error(
+        'Error when registering notification handling callback: $e',
+      );
+    }
+  }
 
   @override
   Future<PushNotificationMessage?> getLaunchNotification() async {

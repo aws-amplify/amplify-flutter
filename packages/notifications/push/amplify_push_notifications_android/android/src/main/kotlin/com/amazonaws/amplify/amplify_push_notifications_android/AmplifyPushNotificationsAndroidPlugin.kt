@@ -1,6 +1,7 @@
 package com.amazonaws.amplify.amplify_push_notifications_android
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import androidx.annotation.NonNull
 import com.amazonaws.amplify.AtomicResult
@@ -12,15 +13,21 @@ import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.MethodCall
+import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry
 
 /** AmplifyPushNotificationsAndroidPlugin */
 class AmplifyPushNotificationsAndroidPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegistry.NewIntentListener {
+    private lateinit var context: Context
+    private lateinit var methodChannel: MethodChannel
 
     companion object {
         private val TAG = "AmplifyPushNotificationsAndroidPlugin"
+        val CALLBACK_DISPATCHER_HANDLE_KEY = "callback_dispatch_handler"
+        val SHARED_PREFERENCES_KEY = "amplify_push_notification_plugin_cache"
+        val BG_USER_CALLBACK_HANDLE_KEY = "bg_user_callback_handle"
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
@@ -44,23 +51,15 @@ class AmplifyPushNotificationsAndroidPlugin : FlutterPlugin, MethodCallHandler, 
     }
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-//        eventsStreamHandler = PushNotificationEventsStreamHandler()
+        methodChannel = MethodChannel(
+            flutterPluginBinding.binaryMessenger,
+            "com.amazonaws.amplify/push_notification/method"
+        )
+        methodChannel.setMethodCallHandler(this)
         PushNotificationEventsStreamHandler.initialize(flutterPluginBinding.binaryMessenger)
-
+        context = flutterPluginBinding.applicationContext
     }
-    @SuppressLint("LongLogTag")
-//    private fun setUpEventChannels(binaryMessenger: BinaryMessenger) {
-//        Log.d(TAG, "Setting up event channels")
-//
-//        eventChannels.forEach { eventChannelName ->
-//            val eventChannel = EventChannel(
-//                binaryMessenger, eventChannelName
-//            )
-//            Log.d(TAG, "eventChannel $eventChannelName ")
-//
-//            eventChannel.setStreamHandler(eventsStreamHandler)
-//        }
-//    }
+
 
     private fun sendEvent(event: PushNotificationsEvent){
         PushNotificationEventsStreamHandler.sendEvent(event)
@@ -69,8 +68,30 @@ class AmplifyPushNotificationsAndroidPlugin : FlutterPlugin, MethodCallHandler, 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull _result: Result) {
         val result = AtomicResult(_result, call.method)
         when (call.method) {
-
+            "initializeService" -> {
+                val args = call.arguments<ArrayList<*>>()
+                // Simply stores the callback handle for the callback dispatcher
+                registerCallbackToCache(context, args, CALLBACK_DISPATCHER_HANDLE_KEY)
+                result.success(true)
+            }
+            "registerBGUserGivenCallback" -> {
+                val args = call.arguments<ArrayList<*>>()
+                registerCallbackToCache(context, args, BG_USER_CALLBACK_HANDLE_KEY)
+            }
         }
+    }
+
+    private fun registerCallbackToCache(
+        context: Context,
+        args: ArrayList<*>?,
+        callbackKey: String
+    ) {
+        Log.d(TAG, "Initializing PushNotificationService ${args!![0]}")
+        val callbackHandle = args[0] as Long
+        context.getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE)
+            .edit()
+            .putLong(callbackKey, callbackHandle)
+            .apply()
     }
 
     private fun refreshToken() {
@@ -108,5 +129,7 @@ class AmplifyPushNotificationsAndroidPlugin : FlutterPlugin, MethodCallHandler, 
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+        methodChannel.setMethodCallHandler(null)
+
     }
 }
