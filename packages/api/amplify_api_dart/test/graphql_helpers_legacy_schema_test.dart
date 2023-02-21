@@ -140,7 +140,7 @@ void main() {
           }
         };
         const expectedDoc =
-            'mutation createPost(\$input: CreatePostInput!, \$condition:  ModelPostConditionInput) { createPost(input: \$input, condition: \$condition) { id title rating createdAt updatedAt blog { $blogSelectionSet } } }';
+            'mutation createPost(\$input: CreatePostInput!, \$condition:  ModelPostConditionInput) { createPost(input: \$input, condition: \$condition) { id title rating createdAt updatedAt blog { $blogSelectionSet } blogID } }';
         final GraphQLRequest<Post> req = ModelMutations.create<Post>(post);
 
         expect(req.document, expectedDoc);

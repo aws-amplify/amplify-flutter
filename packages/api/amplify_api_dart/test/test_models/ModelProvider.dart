@@ -11,13 +11,12 @@ import 'package:amplify_core/amplify_core.dart';
 
 import 'Blog.dart';
 import 'Comment.dart';
-import 'CustomOwnerField.dart';
-import 'FileMeta.dart';
 import 'CpkIntIndexes.dart';
 import 'CpkIntPrimaryKey.dart';
 import 'CpkOneToOneBidirectionalChildExplicitCD.dart';
 import 'CpkOneToOneBidirectionalChildImplicitCD.dart';
 import 'CpkOneToOneBidirectionalParentCD.dart';
+import 'CustomOwnerField.dart';
 import 'CustomTypeWithAppsyncScalarTypes.dart';
 import 'ModelWithAppsyncScalarTypes.dart';
 import 'ModelWithCustomType.dart';
@@ -28,13 +27,12 @@ import 'Tag.dart';
 
 export 'Blog.dart';
 export 'Comment.dart';
-export 'CustomOwnerField.dart';
-export 'FileMeta.dart';
 export 'CpkIntIndexes.dart';
 export 'CpkIntPrimaryKey.dart';
 export 'CpkOneToOneBidirectionalChildExplicitCD.dart';
 export 'CpkOneToOneBidirectionalChildImplicitCD.dart';
 export 'CpkOneToOneBidirectionalParentCD.dart';
+export 'CustomOwnerField.dart';
 export 'CustomTypeWithAppsyncScalarTypes.dart';
 export 'EnumField.dart';
 export 'ModelWithAppsyncScalarTypes.dart';
@@ -53,12 +51,12 @@ class ModelProvider implements ModelProviderInterface {
     // the example App
     Blog.schema,
     Comment.schema,
-    CustomOwnerField.schema,
     CpkIntIndexes.schema,
     CpkIntPrimaryKey.schema,
     CpkOneToOneBidirectionalChildExplicitCD.schema,
     CpkOneToOneBidirectionalChildImplicitCD.schema,
     CpkOneToOneBidirectionalParentCD.schema,
+    CustomOwnerField.schema,
     ModelWithAppsyncScalarTypes.schema,
     ModelWithCustomType.schema,
     Post.schema,
@@ -80,8 +78,6 @@ class ModelProvider implements ModelProviderInterface {
         return Blog.classType;
       case "Comment":
         return Comment.classType;
-      case "CustomOwnerField":
-        return CustomOwnerField.classType;
       case "CpkIntIndexes":
         return CpkIntIndexes.classType;
       case "CpkIntPrimaryKey":
@@ -92,6 +88,8 @@ class ModelProvider implements ModelProviderInterface {
         return CpkOneToOneBidirectionalChildImplicitCD.classType;
       case "CpkOneToOneBidirectionalParentCD":
         return CpkOneToOneBidirectionalParentCD.classType;
+      case "CustomOwnerField":
+        return CustomOwnerField.classType;
       case "ModelWithAppsyncScalarTypes":
         return ModelWithAppsyncScalarTypes.classType;
       case "ModelWithCustomType":

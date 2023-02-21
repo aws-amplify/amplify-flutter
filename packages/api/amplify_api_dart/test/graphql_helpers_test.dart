@@ -427,7 +427,7 @@ void main() {
 
         final Blog blog = Blog(id: id, name: name);
         final expectedVars = {
-          'input': {'id': id, 'name': name, 'file': null, 'files': null}
+          'input': {'id': id, 'name': name}
         };
         const expectedDoc =
             'mutation createBlog(\$input: CreateBlogInput!, \$condition:  ModelBlogConditionInput) { createBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
@@ -471,12 +471,11 @@ void main() {
             'title': title,
             'rating': rating,
             'created': null,
-            'likeCount': null,
             'blogID': blogId
           }
         };
         const expectedDoc =
-            'mutation createPost(\$input: CreatePostInput!, \$condition:  ModelPostConditionInput) { createPost(input: \$input, condition: \$condition) { id title rating createdAt updatedAt blog { $blogSelectionSet } blogID } }';
+            'mutation createPost(\$input: CreatePostInput!, \$condition:  ModelPostConditionInput) { createPost(input: \$input, condition: \$condition) { id title rating created createdAt updatedAt blog { $blogSelectionSet } blogID } }';
         final GraphQLRequest<Post> req = ModelMutations.create<Post>(post);
 
         expect(req.document, expectedDoc);
@@ -736,6 +735,10 @@ void main() {
             'input': <String, dynamic>{
               'customId': customId,
               'name': parentName,
+              'cpkOneToOneBidirectionalParentCDImplicitChildId': null,
+              'cpkOneToOneBidirectionalParentCDImplicitChildName': null,
+              'cpkOneToOneBidirectionalParentCDExplicitChildId': null,
+              'cpkOneToOneBidirectionalParentCDExplicitChildName': null
             }
           };
           expect(deepEquals(req.variables, expectedVars), isTrue);

@@ -145,3 +145,10 @@ type CpkIntPrimaryKey @model @auth(rules: [{allow: owner}]) {
   fieldA: Int!,
   fieldB: Int!,
 }
+
+type CustomOwnerField @model @auth(rules: [{ allow: private }, { allow: owner, ownerField: "owners" }]) {
+  id: ID!
+  name: String!
+  owners: [String]
+  private: String @auth(rules: [{ allow: owner, ownerField: "owners" }])
+}
