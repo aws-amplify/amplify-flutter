@@ -3,8 +3,11 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+/// {@template amplify_core.push.push_notifications_exception}
 /// Base Class for Push Notification Exceptions
-class PushNotificationException extends AmplifyException {
+/// {@endtemplate}
+class PushNotificationException extends AmplifyException with AWSDebuggable {
+  /// {@macro amplify_core.push.push_notifications_exception}
   const PushNotificationException(
     super.message, {
     super.recoverySuggestion,

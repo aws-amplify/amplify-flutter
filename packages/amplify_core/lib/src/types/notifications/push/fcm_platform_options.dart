@@ -3,16 +3,21 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-class FcmPlatformOptions with AWSDebuggable {
-  String? channelId;
-
+/// {@template amplify_core.push.fcm_platform_options}
+/// Holds FCM specific push notification options
+/// {@endtemplate}
+class FcmPlatformOptions
+    with AWSDebuggable, AWSSerializable<Map<String, Object?>> {
+  /// {@macro amplify_core.push.fcm_platform_options}
   FcmPlatformOptions({this.channelId});
 
-  @override
-  String toString() {
-    return 'FcmPlatformOptions{channelId: $channelId}';
-  }
+  String? channelId;
 
   @override
   String get runtimeTypeName => 'FcmPlatformOptions';
+
+  @override
+  Map<String, Object?> toJson() => {
+        'channelId': channelId,
+      };
 }

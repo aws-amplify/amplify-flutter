@@ -41,7 +41,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         .receiveBroadcastStream('TOKEN_RECEIVED')
         .cast<Map<Object?, Object?>>()
         .map((event) {
-      print('🚀 Dart TOKEN_RECEIVED: $event');
       final deviceToken =
           (event['payload'] as Map<Object?, Object?>?)?['token'] as String;
       return deviceToken;
@@ -51,7 +50,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         .receiveBroadcastStream('FOREGROUND_MESSAGE_RECEIVED')
         .cast<Map<Object?, Object?>>()
         .map((event) {
-      print('🚀 Dart FOREGROUND_MESSAGE_RECEIVED: ${event['payload']}');
       // TODO convert raw event to RemotePushMessage
       return PushNotificationMessage.fromJson(event['payload'] as Map);
     });
@@ -61,7 +59,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         .receiveBroadcastStream('BACKGROUND_MESSAGE_RECEIVED')
         .cast<Map<Object?, Object?>>()
         .map((event) {
-      print('🚀 Dart BACKGROUND_MESSAGE_RECEIVED: $event');
       final completionHandlerId = (event['payload']
           as Map<Object?, Object?>?)?['completionHandlerId'] as String;
       _methodChannel.invokeMethod('completeNotification', completionHandlerId);
@@ -73,7 +70,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         .receiveBroadcastStream('NOTIFICATION_OPENED')
         .cast<Map<Object?, Object?>>()
         .map((event) {
-      print('🚀 Dart NOTIFICATION_OPENED: $event');
       // TODO convert raw event to RemotePushMessage
       return PushNotificationMessage();
     });
@@ -84,7 +80,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         .receiveBroadcastStream('LAUNCH_NOTIFICATION_OPENED')
         .cast<Map<Object?, Object?>>()
         .map((event) {
-      print('🚀 Dart LAUNCH_NOTIFICATION_OPENED: $event');
       // TODO convert raw event to RemotePushMessage
       return PushNotificationMessage();
     });
@@ -109,13 +104,16 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   Stream<PushNotificationMessage> get onNotificationReceivedInForeground =>
       _onForegroundNotificationReceived;
 
-  // @override
-  // Stream<PushNotificationMessage> get onNotificationReceivedInBackground =>
-  //     _onBackgroundNotificationReceived;
-
   @override
   Stream<PushNotificationMessage> get onNotificationOpened =>
       _onNotificationOpened;
+
+  @override
+  void onNotificationReceivedInBackground(RemoteMessageCallback callback) {
+    throw UnimplementedError(
+      'onNotificationReceivedInBackground() has not been implemented.',
+    );
+  }
 
   @override
   Future<void> configure({
@@ -208,10 +206,8 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
   @override
   Future<PushNotificationMessage?> getLaunchNotification() async {
-    final n = await _methodChannel
+    await _methodChannel
         .invokeMethod<Map<Object?, Object?>>('getLaunchNotification');
-
-    print('🚀 Launch notification: $n');
 
     return PushNotificationMessage();
   }

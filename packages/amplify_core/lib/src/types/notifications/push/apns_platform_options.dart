@@ -3,16 +3,21 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-class ApnsPlatformOptions with AWSDebuggable {
-  String? subtitle;
-
+/// {@template amplify_core.push.apns_platform_options}
+/// Holds APNS specific push notification options
+/// {@endtemplate}
+class ApnsPlatformOptions
+    with AWSDebuggable, AWSSerializable<Map<String, Object?>> {
+  /// {@macro amplify_core.push.apns_platform_options}
   ApnsPlatformOptions({this.subtitle});
 
-  @override
-  String toString() {
-    return 'ApnsPlatformOptions{subtitle: $subtitle}';
-  }
+  String? subtitle;
 
   @override
   String get runtimeTypeName => 'ApnsPlatformOptions';
+
+  @override
+  Map<String, Object?> toJson() => {
+        'subTitle': subtitle,
+      };
 }

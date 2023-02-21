@@ -3,14 +3,12 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-class PushNotificationMessage with AWSDebuggable {
-  String? messageId;
-  String? senderId;
-  DateTime? sentTime;
-
-  PushNotificationMessageContent? content;
-  Map<Object?, Object?>? data;
-
+/// {@template amplify_core.push.push_notification_message}
+/// Holds certain identifiers of the Push Notification message along with it's [content] and [data]
+/// {@endtemplate}
+class PushNotificationMessage
+    with AWSDebuggable, AWSSerializable<Map<String, Object?>> {
+  /// {@macro amplify_core.push.push_notification_message}
   PushNotificationMessage({
     this.messageId,
     this.senderId,
@@ -18,6 +16,12 @@ class PushNotificationMessage with AWSDebuggable {
     this.content,
     this.data,
   });
+
+  String? messageId;
+  String? senderId;
+  DateTime? sentTime;
+  PushNotificationMessageContent? content;
+  Map<Object?, Object?>? data;
 
   // TODO(Samaritan1011001): Find common and required fields
   PushNotificationMessage.fromJson(Map<Object?, Object?> json) {
@@ -71,7 +75,7 @@ class PushNotificationMessage with AWSDebuggable {
       try {
         return (x as U);
       } on TypeError catch (_) {
-        print('TypeCastError when trying to cast $x to $U!');
+        safePrint('TypeCastError when trying to cast $x to $U!');
         return null;
       }
     }
@@ -79,4 +83,13 @@ class PushNotificationMessage with AWSDebuggable {
 
   @override
   String get runtimeTypeName => 'PushNotificationMessage';
+
+  @override
+  Map<String, Object?> toJson() => {
+        'messageId': messageId,
+        'senderId': senderId,
+        'sentTime': sentTime,
+        'content': content,
+        'data': data,
+      };
 }
