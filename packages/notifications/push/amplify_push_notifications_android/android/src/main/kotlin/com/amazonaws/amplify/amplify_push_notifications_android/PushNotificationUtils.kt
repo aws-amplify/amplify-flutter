@@ -103,30 +103,6 @@ fun getPayloadFromRemoteMessage(remoteMessage: RemoteMessage): NotificationPaylo
     }
 }
 
-// TODO: Revisit over the JSON functions to update them if needed
-fun convertBundleToJson(bundle: Bundle): JSONObject? {
-    return try {
-        return convertJSONObject(bundle)
-    } catch (e: JSONException) {
-        null
-    }
-}
-
-fun convertJSONObject(bundle: Bundle): JSONObject {
-    val json = JSONObject()
-    val keys = bundle.keySet()
-    for (key in keys) {
-        val value = bundle[key]
-        if (value is Bundle) {
-            json.put(key, convertJSONObject(value))
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            json.put(key, JSONObject.wrap(value))
-        } else {
-            json.put(key, value)
-        }
-    }
-    return json
-}
 
 fun convertBundleToHashMap(bundle: Bundle): HashMap<String, Any?> {
     val hashMap = hashMapOf<String, Any?>()
