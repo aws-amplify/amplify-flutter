@@ -9,7 +9,7 @@ class PushNotificationMessage with AWSDebuggable {
   DateTime? sentTime;
 
   PushNotificationMessageContent? content;
-  Map<String, dynamic>? data;
+  Map<Object?, Object?>? data;
 
   PushNotificationMessage({
     this.messageId,
@@ -20,15 +20,15 @@ class PushNotificationMessage with AWSDebuggable {
   });
 
   // TODO(Samaritan1011001): Find common and required fields
-  PushNotificationMessage.fromJson(Map<Object, dynamic> json) {
+  PushNotificationMessage.fromJson(Map<Object?, Object?> json) {
     messageId = cast<String>(json['messageId']);
     senderId = cast<String>(json['sender']);
     sentTime = cast<DateTime>(json['sentTime']);
-    data = cast<Map<String, dynamic>>(json['data']);
+    data = cast<Map<Object?, Object?>?>(json['data']);
 
     if (json.containsKey('aps')) {
       Map<String, dynamic>? alert =
-          cast<Map<String, dynamic>>(json['aps']['alert']);
+          cast<Map<String, dynamic>>((json['aps'] as Map)['alert']);
 
       if (alert != null) {
         content = PushNotificationMessageContent(
@@ -36,10 +36,10 @@ class PushNotificationMessage with AWSDebuggable {
           body: cast<String>(alert['body']),
           imageUrl: data != null ? cast<String>(data!['media-url']) : null,
           deeplinkUrl: data != null && data!['pinpoint'] != null
-              ? cast<String>(data!['pinpoint']['deeplink'])
+              ? cast<String>((data!['pinpoint'] as Map)['deeplink'])
               : null,
           goToUrl: data != null && data!['pinpoint'] != null
-              ? cast<String>(data!['pinpoint']['deeplink'])
+              ? cast<String>((data!['pinpoint'] as Map)['deeplink'])
               : null,
           // TODO(Samaritan1011001): Find where the subtitle is in the dictionary
           // apnsOptions: ApnsPlatformOptions(
@@ -48,7 +48,6 @@ class PushNotificationMessage with AWSDebuggable {
         );
       }
     } else if (data != null) {
-      print('data in -> $data');
       content = PushNotificationMessageContent(
         title: cast<String>(data!['pinpoint.notification.title']),
         body: cast<String>(data!['pinpoint.notification.body']),
