@@ -8,8 +8,8 @@ environment:
   flutter: ">=3.3.0"
 
 dependencies:
-  amplify_api: ">=1.0.0-next.5 <1.0.0-next.6"
-  amplify_flutter: ">=1.0.0-next.5 <1.0.0-next.6"
+  amplify_api: ">=1.0.0-next.5+1 <1.0.0-next.6"
+  amplify_flutter: ">=1.0.0-next.5+1 <1.0.0-next.6"
   flutter:
     sdk: flutter
 

@@ -1,3 +1,8 @@
+## 0.2.0
+
+### Breaking Changes
+- fix(secure_storage)!: use correct values for `kSecAttrAccessible` ([#2649](https://github.com/aws-amplify/amplify-flutter/pull/2649))
+
 ## 0.1.4+3
 
 - Minor bug fixes and improvements
