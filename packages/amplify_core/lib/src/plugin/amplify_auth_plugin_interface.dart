@@ -20,7 +20,6 @@ abstract class AuthPluginInterface<
         PluginConfirmSignupResult extends SignUpResult,
         PluginResendSignUpCodeOptions extends ResendSignUpCodeOptions,
         PluginResendSignUpCodeResult extends ResendSignUpCodeResult,
-        PluginSignInOptions extends SignInOptions,
         PluginSignInResult extends SignInResult<PluginUserAttributeKey>,
         PluginConfirmSignInOptions extends ConfirmSignInOptions,
         PluginConfirmSignInResult extends SignInResult<PluginUserAttributeKey>,
@@ -80,7 +79,7 @@ abstract class AuthPluginInterface<
   Future<PluginSignInResult> signIn({
     required String username,
     String? password,
-    PluginSignInOptions? options,
+    SignInOptions? options,
   }) {
     throw UnimplementedError('signIn() has not been implemented');
   }

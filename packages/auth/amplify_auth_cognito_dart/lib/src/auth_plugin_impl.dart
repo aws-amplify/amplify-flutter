@@ -57,7 +57,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         CognitoSignUpResult,
         CognitoResendSignUpCodeOptions,
         CognitoResendSignUpCodeResult,
-        CognitoSignInOptions,
         CognitoSignInResult,
         CognitoConfirmSignInOptions,
         CognitoSignInResult,
@@ -104,7 +103,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       CognitoSignUpResult,
       CognitoResendSignUpCodeOptions,
       CognitoResendSignUpCodeResult,
-      CognitoSignInOptions,
       CognitoSignInResult,
       CognitoConfirmSignInOptions,
       CognitoSignInResult,
@@ -575,9 +573,15 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<CognitoSignInResult> signIn({
     required String username,
     String? password,
-    CognitoSignInOptions? options,
+    SignInOptions? options,
   }) async {
-    options ??= const CognitoSignInOptions();
+    final pluginOptions =
+        options?.pluginOptions ?? const CognitoSignInPluginOptions();
+    if (pluginOptions is! CognitoSignInPluginOptions) {
+      throw ArgumentError(
+        'Invalid pluginOptions. Only CognitoSignInPluginOptions are supported.',
+      );
+    }
 
     // Create a new state machine for every call since it caches values
     // internally on each run.
@@ -585,13 +589,13 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     await _stateMachine
         .accept(
           SignInEvent.initiate(
-            authFlowType: options.authFlowType,
+            authFlowType: pluginOptions.authFlowType,
             parameters: SignInParameters(
               (p) => p
                 ..username = username
                 ..password = password,
             ),
-            clientMetadata: options.clientMetadata,
+            clientMetadata: pluginOptions.clientMetadata,
           ),
         )
         .accepted;
@@ -1111,7 +1115,6 @@ class _AmplifyAuthCognitoDartPluginKey extends AuthPluginKey<
     CognitoSignUpResult,
     CognitoResendSignUpCodeOptions,
     CognitoResendSignUpCodeResult,
-    CognitoSignInOptions,
     CognitoSignInResult,
     CognitoConfirmSignInOptions,
     CognitoSignInResult,

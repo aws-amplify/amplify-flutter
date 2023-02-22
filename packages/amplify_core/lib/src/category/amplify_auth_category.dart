@@ -27,7 +27,6 @@ class AuthCategory<
     PluginConfirmSignUpResult extends SignUpResult,
     PluginResendSignUpCodeOptions extends ResendSignUpCodeOptions,
     PluginResendSignUpCodeResult extends ResendSignUpCodeResult,
-    PluginSignInOptions extends SignInOptions,
     PluginSignInResult extends SignInResult<PluginUserAttributeKey>,
     PluginConfirmSignInOptions extends ConfirmSignInOptions,
     PluginConfirmSignInResult extends SignInResult<PluginUserAttributeKey>,
@@ -63,7 +62,6 @@ class AuthCategory<
         PluginConfirmSignUpResult,
         PluginResendSignUpCodeOptions,
         PluginResendSignUpCodeResult,
-        PluginSignInOptions,
         PluginSignInResult,
         PluginConfirmSignInOptions,
         PluginConfirmSignInResult,
@@ -118,7 +116,6 @@ class AuthCategory<
           GetPluginConfirmSignUpResult extends SignUpResult,
           GetPluginResendSignUpCodeOptions extends ResendSignUpCodeOptions,
           GetPluginResendSignUpCodeResult extends ResendSignUpCodeResult,
-          GetPluginSignInOptions extends SignInOptions,
           GetPluginSignInResult extends SignInResult<GetPluginUserAttributeKey>,
           GetPluginConfirmSignInOptions extends ConfirmSignInOptions,
           GetPluginConfirmSignInResult extends SignInResult<
@@ -156,7 +153,6 @@ class AuthCategory<
               GetPluginConfirmSignUpResult,
               GetPluginResendSignUpCodeOptions,
               GetPluginResendSignUpCodeResult,
-              GetPluginSignInOptions,
               GetPluginSignInResult,
               GetPluginConfirmSignInOptions,
               GetPluginConfirmSignInResult,
@@ -192,7 +188,6 @@ class AuthCategory<
             GetPluginConfirmSignUpResult,
             GetPluginResendSignUpCodeOptions,
             GetPluginResendSignUpCodeResult,
-            GetPluginSignInOptions,
             GetPluginSignInResult,
             GetPluginConfirmSignInOptions,
             GetPluginConfirmSignInResult,
@@ -282,7 +277,7 @@ class AuthCategory<
   Future<PluginSignInResult> signIn({
     required String username,
     String? password,
-    PluginSignInOptions? options,
+    SignInOptions? options,
   }) =>
       defaultPlugin.signIn(
         username: username,
