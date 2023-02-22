@@ -189,7 +189,7 @@ class WorkerMachine extends StateMachine<WorkerEvent, WorkerState,
         break;
       case WorkType.doWork:
         await Future<void>.delayed(Duration.zero);
-        dispatch(const WorkerEvent(WorkType.success));
+        dispatch(const WorkerEvent(WorkType.success)).ignore();
         break;
     }
   }
@@ -213,7 +213,7 @@ class MyStateMachineManager extends StateMachineManager<StateMachineEvent,
   ) : super(_builders, dependencyManager);
 
   Future<void> delegateWork() async {
-    dispatch(const WorkerEvent(WorkType.doWork));
+    dispatch(const WorkerEvent(WorkType.doWork)).ignore();
     final machine = getOrCreate(WorkerMachine.type);
     await for (final state in machine.stream) {
       switch (state.type) {

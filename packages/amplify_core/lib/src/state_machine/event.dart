@@ -86,4 +86,10 @@ class EventCompleter<Event extends StateMachineEvent,
       _completer.completeError(error, stackTrace);
     }
   }
+
+  /// Ignores the result of the event completer.
+  ///
+  /// Since state machine methods are marked with `@useResult`, this allows
+  /// opting into fire-and-forget behavior explicitly.
+  void ignore() {}
 }
