@@ -28,7 +28,7 @@ void main() {
       final configurationStateMachine =
           stateMachine.getOrCreate(ConfigurationStateMachine.type);
 
-      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
       await expectLater(
         configurationStateMachine.stream
             .startWith(configurationStateMachine.currentState),
@@ -64,7 +64,7 @@ void main() {
       final configurationStateMachine =
           stateMachine.getOrCreate(ConfigurationStateMachine.type);
 
-      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
       await expectLater(
         configurationStateMachine.stream
             .startWith(configurationStateMachine.currentState),
@@ -75,7 +75,7 @@ void main() {
         ]),
       );
 
-      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
       expect(
         configurationStateMachine.stream,
         emitsDone,

@@ -181,8 +181,8 @@ loginButton.click();
       rethrow;
     }
     final oauthParameters = await _oauthParameters.future;
-    dispatcher.dispatch(
-      HostedUiEvent.exchange(oauthParameters),
+    unawaited(
+      dispatcher.dispatchAndComplete(HostedUiEvent.exchange(oauthParameters)),
     );
   }
 
