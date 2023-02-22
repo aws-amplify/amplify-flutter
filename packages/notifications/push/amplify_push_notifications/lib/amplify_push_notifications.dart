@@ -139,7 +139,8 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
       // Initialize listeners
       onTokenReceived.listen(_tokenReceivedListener);
-      onNotificationReceivedInForeground.listen(foregroundNotificationListener);
+      onNotificationReceivedInForeground
+          .listen(_foregroundNotificationListener);
       onNotificationOpened.listen(_notificationOpenedListener);
       await onBackgroundNotificationReceived(globalBGHandler);
 
@@ -172,7 +173,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     }
   }
 
-  void foregroundNotificationListener(
+  void _foregroundNotificationListener(
     PushNotificationMessage pushNotificationMessage,
   ) {
     _logger.info(
