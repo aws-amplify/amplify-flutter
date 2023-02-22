@@ -31,6 +31,10 @@ jobs:
         api-level:
           - 24
           - 33
+        target:
+          - google_apis
+        arch:
+          - x86_64
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
@@ -61,15 +65,16 @@ jobs:
           path: |
             ~/.android/avd/*
             ~/.android/adb*
-          key: avd-${{ matrix.api-level }}
+          key: avd-${{ matrix.api-level }}-${{ matrix.arch }}-${{ matrix.target }}
 
       - name: Create AVD and generate snapshot
         if: steps.avd-cache.outputs.cache-hit != 'true'
         uses: reactivecircus/android-emulator-runner@50986b1464923454c95e261820bc626f38490ec0 # 2.27.0
         with:
           api-level: ${{ matrix.api-level }}
-          target: google_apis
-          arch: x86_64
+          target: ${{ matrix.target }}
+          arch: ${{ matrix.arch }}
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -logcat '*:e *:s'
           script: echo "Generated AVD snapshot for caching."
 
       - name: Run Android integration tests
@@ -78,8 +83,8 @@ jobs:
         timeout-minutes: 60
         with:
           api-level: ${{ matrix.api-level }}
-          target: google_apis
-          arch: x86_64
+          target: ${{ matrix.target }}
+          arch: ${{ matrix.arch }}
           # -no-snapshot-save + default options: https://github.com/reactivecircus/android-emulator-runner#configurations
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -logcat '*:e *:s'
           script: melos exec -c 1 --scope ${{ matrix.scope }} -- small=true \$MELOS_ROOT_PATH/build-support/integ_test.sh -d emulator-5554  --retries 1
