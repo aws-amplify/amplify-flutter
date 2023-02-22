@@ -18,6 +18,7 @@ dependencies:
   logging: ^1.0.0
   meta: ^1.7.0
   retry: ^3.1.0
+  stack_trace: ^1.10.0
   uuid: ">=3.0.6 <=3.0.7"
 
 dev_dependencies:

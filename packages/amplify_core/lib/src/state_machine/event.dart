@@ -37,10 +37,20 @@ abstract class StateMachineEvent<EventType, StateType>
 class EventCompleter<Event extends StateMachineEvent,
     State extends StateMachineState> {
   /// {@macro amplify_core.event_completer}
-  EventCompleter(this.event);
+  EventCompleter(this.event, [StackTrace? stackTrace])
+      : stackTrace = stackTrace ?? StackTrace.current;
 
   /// The event to dispatch.
   final Event event;
+
+  /// The stack trace from when [event] was created.
+  ///
+  /// When exceptions are raised from within the state machines, the origin of
+  /// the exception should be traceable back to the API called which kicked off
+  /// this event. Since there may be multiple async gaps between the API call
+  /// and a state machine failure, it is necessary to capture the stack trace
+  /// here and chain it with later stack traces.
+  final StackTrace stackTrace;
 
   final Completer<void> _acceptedCompleter = Completer();
   final Completer<State> _completer = Completer();
@@ -76,11 +86,4 @@ class EventCompleter<Event extends StateMachineEvent,
       _completer.completeError(error, stackTrace);
     }
   }
-}
-
-/// Mixin functionality for error/failure events of a state machine.
-mixin ErrorEvent<EventType, StateType>
-    on StateMachineEvent<EventType, StateType> {
-  /// The exception which triggered this event.
-  Exception get exception;
 }

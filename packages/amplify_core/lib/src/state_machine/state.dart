@@ -24,4 +24,7 @@ mixin SuccessState<StateType> on StateMachineState<StateType> {}
 mixin ErrorState<StateType> on StateMachineState<StateType> {
   /// The exception which triggered this state.
   Exception get exception;
+
+  /// The stack trace for [exception].
+  StackTrace get stackTrace;
 }
