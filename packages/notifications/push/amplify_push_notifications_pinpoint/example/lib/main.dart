@@ -23,6 +23,8 @@ class _MyAppState extends State<MyApp> {
   bool isConfigured = false;
   bool isForegroundListernerInitialized = false;
   PushNotificationMessage? foregroundMessage;
+  PushNotificationPermissionRequestStatus? getPermissionStatus;
+  bool? requestPermissionsResult;
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> _configureAmplify() async {
@@ -31,7 +33,7 @@ class _MyAppState extends State<MyApp> {
     // setState to update our non-existent appearance.
     if (!mounted) return;
     try {
-      var notificationsPlugin = AmplifyPushNotificationsPinpoint();
+      final notificationsPlugin = AmplifyPushNotificationsPinpoint();
       final authPlugin = AmplifyAuthCognito();
 
       await Amplify.addPlugins([authPlugin, notificationsPlugin]);
@@ -39,7 +41,7 @@ class _MyAppState extends State<MyApp> {
       setState(() {
         isConfigured = true;
       });
-    } catch (e) {
+    } on Exception catch (e) {
       print(e.toString());
     }
   }
@@ -82,6 +84,36 @@ class _MyAppState extends State<MyApp> {
               const Divider(
                 height: 20,
               ),
+              headerText('Permissions APIs'),
+              ElevatedButton(
+                onPressed: () async {
+                  final status =
+                      await Amplify.Notifications.getPermissionStatus();
+                  setState(() {
+                    getPermissionStatus = status;
+                  });
+                },
+                child: const Text('getPermissionStatus'),
+              ),
+              if (getPermissionStatus != null)
+                Text('Perimission status: $getPermissionStatus'),
+              ElevatedButton(
+                onPressed: () async {
+                  final result =
+                      await Amplify.Notifications.requestPermissions();
+                  setState(() {
+                    requestPermissionsResult = result;
+                  });
+                },
+                child: const Text('requestPermissions'),
+              ),
+              if (requestPermissionsResult != null)
+                Text(
+                  'Requesting Perimission result: $requestPermissionsResult',
+                ),
+              const Divider(
+                height: 20,
+              ),
               headerText('Notification Handling APIs'),
               ElevatedButton(
                 onPressed: () async {
@@ -96,7 +128,7 @@ class _MyAppState extends State<MyApp> {
                     setState(() {
                       isForegroundListernerInitialized = true;
                     });
-                  } catch (e) {
+                  } on Exception catch (e) {
                     print(e.toString());
                   }
                 },

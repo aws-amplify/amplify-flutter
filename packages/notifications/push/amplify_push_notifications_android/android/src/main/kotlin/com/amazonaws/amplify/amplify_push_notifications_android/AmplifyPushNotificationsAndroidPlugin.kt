@@ -3,9 +3,15 @@
 
 package com.amazonaws.amplify.amplify_push_notifications_android
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.annotation.NonNull
+import androidx.core.app.ActivityCompat
 import com.amazonaws.amplify.AtomicResult
+import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.PermissionRequestResult
+import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.PushNotificationPermission
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.RemoteMessage
@@ -14,23 +20,38 @@ import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.MethodCall
+import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+private const val TAG = "AmplifyPushNotificationsAndroidPlugin"
+const val SHARED_PREFERENCES_KEY = "amplify_push_notification_plugin_cache"
+const val PREF_PREVIOUSLY_DENIED = "wasPermissionPreviouslyDenied"
+private const val PERMISSION = "android.permission.POST_NOTIFICATIONS"
+const val METHOD_CHANNEL = "com.amazonaws.amplify/push_notification/method"
 
 /** AmplifyPushNotificationsAndroidPlugin */
 class AmplifyPushNotificationsAndroidPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     PluginRegistry.NewIntentListener {
+    private val scope: CoroutineScope = CoroutineScope(Dispatchers.Main)
+    private lateinit var context: Context
+    private var mainActivity: Activity? = null
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var channel: MethodChannel
 
-    companion object {
-        private val TAG = "AmplifyPushNotificationsAndroidPlugin"
-    }
+
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         binding.addOnNewIntentListener(this)
 
         // TODO: also fetchToken on app resume
         refreshToken()
+        this.mainActivity = binding.activity
+
 
     }
 
@@ -43,13 +64,21 @@ class AmplifyPushNotificationsAndroidPlugin : FlutterPlugin, MethodCallHandler, 
     }
 
     override fun onDetachedFromActivity() {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
+        this.mainActivity = null
+
     }
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-//        eventsStreamHandler = PushNotificationEventsStreamHandler()
         PushNotificationEventsStreamHandler.initialize(flutterPluginBinding.binaryMessenger)
-
+        context = flutterPluginBinding.applicationContext
+        sharedPreferences =
+            context.getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE)
+        channel = MethodChannel(
+            flutterPluginBinding.binaryMessenger,
+            METHOD_CHANNEL
+        )
+        channel.setMethodCallHandler(this)
     }
 
     private fun sendEvent(event: PushNotificationsEvent) {
@@ -60,6 +89,49 @@ class AmplifyPushNotificationsAndroidPlugin : FlutterPlugin, MethodCallHandler, 
         val result = AtomicResult(_result, call.method)
         when (call.method) {
             // TODO: Add methodcall handling for other things
+            "getPermissionStatus" -> {
+                Log.d(TAG, "getting permission status")
+                val permission = PushNotificationPermission(context)
+                // If permission has already been granted
+                if (permission.hasRequiredPermission) {
+                    return result.success(PushNotificationPermissionStatus.granted.name)
+                }
+                // If the shouldShowRequestPermissionRationale flag is true, permission must have been
+                // denied once (and only once) previously
+                if (shouldShowRequestPermissionRationale()
+                ) {
+                    return result.success(PushNotificationPermissionStatus.shouldRequestWithRationale.name)
+                }
+                // If the shouldShowRequestPermissionRationale flag is false and the permission was
+                // already previously denied then user has denied permissions twice
+                if (sharedPreferences.getBoolean(PREF_PREVIOUSLY_DENIED, false)) {
+                    return result.success(PushNotificationPermissionStatus.denied.name)
+                }
+                // Otherwise it's never been requested (or user could have dismissed the request without
+                // explicitly denying)
+                result.success(PushNotificationPermissionStatus.notRequested.name)
+            }
+            "requestPermissions" -> {
+                scope.launch {
+                    val res = PushNotificationPermission(context).requestPermission()
+
+                    if (res is PermissionRequestResult.Granted) {
+                        result.success(true)
+                    } else {
+                        // If permission was not granted and the shouldShowRequestPermissionRationale flag
+                        // is true then user must have denied for the first time. We will set the
+                        // wasPermissionPreviouslyDenied value to true only in this scenario since it's
+                        // possible to dismiss the permission request without explicitly denying as well.
+                        if (shouldShowRequestPermissionRationale()) {
+                            with(sharedPreferences.edit()) {
+                                putBoolean(PREF_PREVIOUSLY_DENIED, true)
+                                apply()
+                            }
+                        }
+                        result.success(false)
+                    }
+                }
+            }
         }
     }
 
@@ -102,5 +174,13 @@ class AmplifyPushNotificationsAndroidPlugin : FlutterPlugin, MethodCallHandler, 
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+        channel.setMethodCallHandler(null)
+    }
+
+    private fun shouldShowRequestPermissionRationale(): Boolean {
+        return ActivityCompat.shouldShowRequestPermissionRationale(
+            mainActivity!!,
+            PERMISSION
+        )
     }
 }

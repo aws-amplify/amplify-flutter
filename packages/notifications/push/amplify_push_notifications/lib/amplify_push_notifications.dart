@@ -191,6 +191,17 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   }
 
   @override
+  Future<PushNotificationPermissionRequestStatus> getPermissionStatus() async {
+    final result =
+        await _methodChannel.invokeMethod<String>('getPermissionStatus');
+    if (result == null) {
+      _logger.error('getting the permisssion status returned null');
+      return PushNotificationPermissionRequestStatus.notRequested;
+    }
+    return PushNotificationPermissionRequestStatus.values.byName(result);
+  }
+
+  @override
   Future<bool> requestPermissions({
     bool? alert = true,
     bool? badge = true,

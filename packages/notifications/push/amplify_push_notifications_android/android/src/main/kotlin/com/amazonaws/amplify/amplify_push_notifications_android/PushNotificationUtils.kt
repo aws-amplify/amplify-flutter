@@ -11,6 +11,13 @@ import com.google.firebase.messaging.RemoteMessage
 
 // TODO: Revisit this file and remove un-used functions
 
+enum class PushNotificationPermissionStatus {
+    notRequested,
+    shouldRequestWithRationale,
+    granted,
+    denied,
+}
+
 fun getBundleFromRemoteMessage(remoteMessage: RemoteMessage): Bundle {
     val bundle = Bundle()
     bundle.putString("collapseKey", remoteMessage.collapseKey)

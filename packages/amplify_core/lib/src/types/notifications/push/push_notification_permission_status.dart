@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 enum PushNotificationPermissionRequestStatus {
+  notRequested,
+  shouldRequestWithRationale,
   granted,
   denied,
-  undetermined,
 }
