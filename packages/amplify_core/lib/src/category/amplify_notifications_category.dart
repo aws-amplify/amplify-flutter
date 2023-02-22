@@ -10,55 +10,55 @@ class NotificationsCategory
   Category get category => Category.notifications;
 
   /// {@template amplify_core.amplify_notifications_category.get_permission_status}
-  /// Returns the current permission status
+  /// Returns a [Future] of [PushNotificationPermissionRequestStatus].
   /// {@endtemplate}
   Future<PushNotificationPermissionRequestStatus> getPermissionStatus() =>
       defaultPlugin.getPermissionStatus();
 
   /// {@template amplify_core.amplify_notifications_category.request_permissions}
-  /// Returns the status after requesting to show a permission dialog to users
+  /// Requests push notifications permissions with configurable options, [alert], [badge] and [sound], and returns a bool value as the requesting result.
   /// {@endtemplate}
-  Future<PushNotificationPermissionRequestStatus> requestPermissions(
+  Future<bool> requestPermissions(
           {bool? alert = true, bool? badge = true, bool? sound = true}) =>
       defaultPlugin.requestPermissions(
           alert: alert, badge: badge, sound: sound);
 
   /// {@template amplify_core.amplify_notifications_category.on_token_received}
-  /// Returns a stream of token that may be updated by the OS.
+  /// Returns a stream of [PushNotificationMessage] as the device receives them when the App is in the foreground.
   /// {@endtemplate}
   Stream<String> get onTokenReceived => defaultPlugin.onTokenReceived;
 
   /// {@template amplify_core.amplify_notifications_category.on_foreground_notification_received}
-  /// Returns a stream of Push Notifications as the device receives them when the app is in the foreground
+  /// Returns a stream of [PushNotificationMessage] as the device receives them when the App is in the foreground.
   /// {@endtemplate}
   Stream<PushNotificationMessage> get onNotificationReceivedInForeground =>
       defaultPlugin.onNotificationReceivedInForeground;
 
   /// {@template amplify_core.amplify_notifications_category.on_background_notification_received}
-  /// Returns a stream of Push Notifications as the device receives them when the app is in the background or killed states
+  /// Sets a [OnRemoteMessageCallback] that to be called when device receives push notification when the App is in the background.
   /// {@endtemplate}
-  void onBackgroundNotificationReceived(RemoteMessageCallback callback) =>
-      defaultPlugin.onBackgroundNotificationReceived(callback);
+  void onNotificationReceivedInBackground(OnRemoteMessageCallback callback) =>
+      defaultPlugin.onNotificationReceivedInBackground(callback);
 
   /// {@template amplify_core.amplify_notifications_category.on_notification_opened}
-  /// Returns a stream of Push Notifications that caused the app to open
+  /// Returns a stream of [PushNotificationMessage] that an end user has tapped on to open the App.
   /// {@endtemplate}
   Stream<PushNotificationMessage> get onNotificationOpened =>
       defaultPlugin.onNotificationOpened;
 
   /// {@template amplify_core.amplify_notifications_category.get_launch_notification}
-  /// Returns the Push Notification that caused the app to launch from a killed state
+  /// Returns a [Future] of [PushNotificationMessage] that an end user has tapped on to launch the App from terminated state. If there is no such a [PushNotificationMessage] it returns a [Future] of `null`.
   /// {@endtemplate}
   Future<PushNotificationMessage?> getLaunchNotification() =>
       defaultPlugin.getLaunchNotification();
 
   /// {@template amplify_core.amplify_notifications_category.get_badge_count}
-  /// Returns the current badge count of the app
+  /// Returns a [Future] of [int] as the current number displayed in the app icon badge. This method takes effect only on iOS.
   /// {@endtemplate}
   Future<int> getBadgeCount() => defaultPlugin.getBadgeCount();
 
   /// {@template amplify_core.amplify_notifications_category.set_badge_count}
-  /// Sets the given badge count for the app
+  /// Sets [badgeCount] as the number displayed in the App icon badge. This method takes effect only on iOS.
   /// {@endtemplate}
   Future<void> setBadgeCount(int badgeCount) =>
       defaultPlugin.setBadgeCount(badgeCount);

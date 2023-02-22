@@ -1,16 +1,15 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+
 package com.amazonaws.amplify.amplify_push_notifications_android
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import com.google.firebase.messaging.RemoteMessage
-import org.json.JSONException
-import org.json.JSONObject
 import com.amplifyframework.pushnotifications.pinpoint.utils.NotificationPayload
 import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsConstants
+import com.google.firebase.messaging.RemoteMessage
 
+// TODO: Revisit this file and remove un-used functions
 
 fun getBundleFromRemoteMessage(remoteMessage: RemoteMessage): Bundle {
     val bundle = Bundle()
@@ -102,30 +101,6 @@ fun getPayloadFromRemoteMessage(remoteMessage: RemoteMessage): NotificationPaylo
     }
 }
 
-// TODO: Revisit over the JSON functions to update them if needed
-fun convertBundleToJson(bundle: Bundle): JSONObject? {
-    return try {
-        return convertJSONObject(bundle)
-    } catch (e: JSONException) {
-        null
-    }
-}
-
-fun convertJSONObject(bundle: Bundle): JSONObject {
-    val json = JSONObject()
-    val keys = bundle.keySet()
-    for (key in keys) {
-        val value = bundle[key]
-        if (value is Bundle) {
-            json.put(key, convertJSONObject(value))
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            json.put(key, JSONObject.wrap(value))
-        } else {
-            json.put(key, value)
-        }
-    }
-    return json
-}
 
 fun convertBundleToHashMap(bundle: Bundle): HashMap<String, Any?> {
     val hashMap = hashMapOf<String, Any?>()

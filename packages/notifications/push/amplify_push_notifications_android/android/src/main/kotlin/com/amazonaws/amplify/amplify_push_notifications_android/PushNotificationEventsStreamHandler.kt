@@ -1,6 +1,8 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.amazonaws.amplify.amplify_push_notifications_android
 
-import io.flutter.Log
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.EventChannel
 
@@ -55,14 +57,11 @@ class PushNotificationEventsStreamHandler {
                 val eventChannel = EventChannel(
                     binaryMessenger, eventChannelName
                 )
-                Log.d(TAG, "eventChannel $eventChannelName ")
-
                 eventChannel.setStreamHandler(this)
             }
         }
 
         override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
-            Log.d(TAG, "listening to event channels")
             if (arguments is String) {
                 eventSinks[arguments] = events
                 flushEvents(eventName = arguments)
@@ -93,6 +92,7 @@ class PushNotificationEventsStreamHandler {
             }
         }
 
+        // TODO: Figure out how to sendError
 //    fun sendError(event: NativeEvent, error: FlutterError) {
 //        eventSinks[event.eventName]?.error(event.eventName, error.message, error.details)
 //    }

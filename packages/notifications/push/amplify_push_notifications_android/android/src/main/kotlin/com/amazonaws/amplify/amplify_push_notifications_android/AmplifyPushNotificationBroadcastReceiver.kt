@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.amazonaws.amplify.amplify_push_notifications_android
 
 
@@ -11,7 +14,7 @@ import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsUt
 import com.google.firebase.messaging.RemoteMessage
 import io.flutter.view.FlutterMain
 
-
+// TODO: This BroadcastReceiver needs to be replaced by the Firebase Service
 class PushNotificationReceiver : BroadcastReceiver() {
     companion object {
         private val TAG = "PushNotificationReceiver"
@@ -28,15 +31,21 @@ class PushNotificationReceiver : BroadcastReceiver() {
                     Log.d(TAG, "Send foreground message received event: $notificationHashMap")
 
                     PushNotificationEventsStreamHandler.sendEvent(
-                        PushNotificationsEvent(NativeEvent.FOREGROUND_MESSAGE_RECEIVED,notificationHashMap)
+                        PushNotificationsEvent(
+                            NativeEvent.FOREGROUND_MESSAGE_RECEIVED,
+                            notificationHashMap
+                        )
                     )
                 } else {
                     Log.d(TAG, "App is in background, start background service and enqueue work")
                     try {
 
                         val payload = getPayloadFromRemoteMessage(remoteMessage)
-                        // TODO: Use PushNotification Utils from the native team
-                        PushNotificationsUtils(context).showNotification(payload, AmplifyPushNotificationsAndroidPlugin::class.java)
+                        // TODO: Check how to add a flag to indicate app was opened by a notificaiton
+                        PushNotificationsUtils(context).showNotification(
+                            payload,
+                            AmplifyPushNotificationsAndroidPlugin::class.java
+                        )
 
                         // TODO: Start a background headless service
                         FlutterMain.startInitialization(context)

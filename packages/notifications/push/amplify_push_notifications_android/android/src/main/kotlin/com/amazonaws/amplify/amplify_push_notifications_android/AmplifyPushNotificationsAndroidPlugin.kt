@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.amazonaws.amplify.amplify_push_notifications_android
 
 import android.annotation.SuppressLint
@@ -103,8 +106,7 @@ class AmplifyPushNotificationsAndroidPlugin : FlutterPlugin, MethodCallHandler, 
             }
             // Get new FCM registration token
             val token = task.result
-            val hashMap : HashMap<String, Any?>
-                    = HashMap()
+            val hashMap: HashMap<String, Any?> = HashMap()
             hashMap["token"] = token
             sendEvent(
                 PushNotificationsEvent(NativeEvent.TOKEN_RECEIVED, hashMap)
@@ -116,15 +118,20 @@ class AmplifyPushNotificationsAndroidPlugin : FlutterPlugin, MethodCallHandler, 
 
     override fun onNewIntent(intent: Intent): Boolean {
         Log.d(TAG, "onNewIntent in push plugin $intent")
+
+        // TODO: "Decide if we need to add a flag for notification open"
 //        val appOpenedThroughTap = intent.getBooleanExtra("appOpenedThroughTap", false)
 
-//        if(appOpenedThroughTap){
-            val remoteMessage = RemoteMessage(intent.extras)
-            val remoteMessageBundle = getBundleFromRemoteMessage(remoteMessage)
-            val notificationHashMap = convertBundleToHashMap(remoteMessageBundle)
-            Log.d(TAG, "Send onNotificationOpened message received event: $notificationHashMap")
-            PushNotificationEventsStreamHandler.sendEvent(PushNotificationsEvent(NativeEvent.NOTIFICATION_OPENED,notificationHashMap))
-//        }
+        val remoteMessage = RemoteMessage(intent.extras)
+        val remoteMessageBundle = getBundleFromRemoteMessage(remoteMessage)
+        val notificationHashMap = convertBundleToHashMap(remoteMessageBundle)
+        Log.d(TAG, "Send onNotificationOpened message received event: $notificationHashMap")
+        PushNotificationEventsStreamHandler.sendEvent(
+            PushNotificationsEvent(
+                NativeEvent.NOTIFICATION_OPENED,
+                notificationHashMap
+            )
+        )
         return true
     }
 
