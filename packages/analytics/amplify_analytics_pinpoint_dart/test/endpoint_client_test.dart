@@ -1,21 +1,24 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:test/test.dart';
 
 import 'common/mock_device_context_info.dart';
-import 'common/mock_endpoint_info_store.dart';
 import 'common/mock_endpoint_values.dart';
+import 'common/mock_secure_storage.dart';
 import 'common/mock_values.dart';
 import 'common/mocktail_mocks.dart';
 
 void main() {
   late final EndpointClient endpointClient;
   late final MockPinpointClient pinpointClient;
+  final mockEndpointId = uuid();
 
   group('EndpointClient ', () {
     setUpAll(() async {
@@ -30,7 +33,17 @@ void main() {
 
       pinpointClient = MockPinpointClient();
 
-      endpointClient = await EndpointClient.create(
+      final mockStore = MockSecureStorage()
+        ..write(
+          key: pinpointAppId + EndpointStoreKey.endpointId.name,
+          value: mockEndpointId,
+        );
+      final mockEndpointInfoStoreManager =
+          EndpointInfoStoreManager(store: mockStore);
+
+      await mockEndpointInfoStoreManager.init(pinpointAppId: pinpointAppId);
+
+      endpointClient = EndpointClient(
         pinpointAppId: pinpointAppId,
         pinpointClient: pinpointClient,
         endpointInfoStoreManager: mockEndpointInfoStoreManager,

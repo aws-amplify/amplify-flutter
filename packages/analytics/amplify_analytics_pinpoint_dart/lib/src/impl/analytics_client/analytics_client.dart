@@ -1,23 +1,24 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/dart_queued_item_store.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/cached_events_path_provider.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/queued_item_store.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/pinpoint_client.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:meta/meta.dart';
 
-///
+/// A builder class that constructs [eventClient] and [endpointClient].
 class AnalyticsClient {
-  ///
-
+  /// Create an instance.
   AnalyticsClient({
-    CachedEventsPathProvider? pathProvider,
     DeviceContextInfoProvider? deviceContextInfoProvider,
     EndpointInfoStoreManager? endpointInfoStoreManager,
-  })  : _pathProvider = pathProvider,
-        _deviceContextInfoProvider = deviceContextInfoProvider,
+  })  : _deviceContextInfoProvider = deviceContextInfoProvider,
         _endpointInfoStoreManager = endpointInfoStoreManager ??
             EndpointInfoStoreManager(
               store: AmplifySecureStorageWorker(
@@ -27,28 +28,22 @@ class AnalyticsClient {
               ),
             );
 
-  final CachedEventsPathProvider? _pathProvider;
   final DeviceContextInfoProvider? _deviceContextInfoProvider;
   final EndpointInfoStoreManager _endpointInfoStoreManager;
 
-  ///
-  Future<void> init({
+  /// Allows mocking of [PinpointClient] for unit tests
+  @visibleForTesting
+  Future<void> initWithClient({
     required String pinpointAppId,
-    required String region,
-    required AWSCredentialsProvider authProvider,
+    required PinpointClient pinpointClient,
+    QueuedItemStore? eventStore,
   }) async {
-    final eventStoragePath = await _pathProvider?.getApplicationSupportPath();
-    final eventStore = DartQueuedItemStore(eventStoragePath);
-
-    final pinpointClient = PinpointClient(
-      region: region,
-      credentialsProvider: authProvider,
-    );
-
     final deviceContextInfo =
         await _deviceContextInfoProvider?.getDeviceInfoDetails();
 
-    endpointClient = await EndpointClient.create(
+    await _endpointInfoStoreManager.init(pinpointAppId: pinpointAppId);
+
+    endpointClient = EndpointClient(
       pinpointAppId: pinpointAppId,
       pinpointClient: pinpointClient,
       endpointInfoStoreManager: _endpointInfoStoreManager,
@@ -61,6 +56,25 @@ class AnalyticsClient {
       endpointClient: endpointClient,
       eventStore: eventStore,
       deviceContextInfo: deviceContextInfo,
+    );
+  }
+
+  /// Async initialize the [eventClient] and [endpointClient].
+  /// Requires missing values typically provided in plugin configure.
+  Future<void> init({
+    required String pinpointAppId,
+    required String region,
+    required AWSCredentialsProvider authProvider,
+    DartQueuedItemStore? eventStore,
+  }) async {
+    final pinpointClient = PinpointClient(
+      region: region,
+      credentialsProvider: authProvider,
+    );
+    await initWithClient(
+      pinpointAppId: pinpointAppId,
+      pinpointClient: pinpointClient,
+      eventStore: eventStore,
     );
   }
 
@@ -83,9 +97,9 @@ class AnalyticsClient {
   }
    */
 
-  ///
+  /// Client for interacting with Pinpoint Endpoint
   late final EndpointClient endpointClient;
 
-  ///
+  /// Client for sending Pinpoint Events
   late final EventClient eventClient;
 }

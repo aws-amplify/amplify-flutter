@@ -2,19 +2,22 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_store_keys.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_storage_adapter.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/index_db/in_memory_queued_item_store.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/common/serializers.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/version.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:built_value/serializer.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import 'common/mock_device_context_info.dart';
-import 'common/mock_endpoint_info_store.dart';
 import 'common/mock_event_values.dart';
+import 'common/mock_secure_storage.dart';
 import 'common/mock_values.dart';
 import 'common/mocktail_mocks.dart';
 
@@ -23,6 +26,7 @@ void main() {
   late MockPinpointClient pinpointClient;
   late EndpointClient endpointClient;
   late InMemoryQueuedItemStore eventStore;
+  final mockEndpointId = uuid();
 
   // For deserializing stored events
   late final jsonSerializers = () {
@@ -49,7 +53,16 @@ void main() {
 
       pinpointClient = MockPinpointClient();
 
-      endpointClient = await EndpointClient.create(
+      final mockStore = MockSecureStorage()
+        ..write(
+          key: pinpointAppId + EndpointStoreKey.endpointId.name,
+          value: mockEndpointId,
+        );
+      final mockEndpointInfoStoreManager =
+          EndpointInfoStoreManager(store: mockStore);
+      await mockEndpointInfoStoreManager.init(pinpointAppId: pinpointAppId);
+
+      endpointClient = EndpointClient(
         pinpointAppId: pinpointAppId,
         pinpointClient: pinpointClient,
         endpointInfoStoreManager: mockEndpointInfoStoreManager,

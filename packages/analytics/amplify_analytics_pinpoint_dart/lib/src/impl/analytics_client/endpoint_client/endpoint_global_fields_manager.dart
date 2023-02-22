@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_store_keys.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:meta/meta.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.endpoint_global_fields_manager}
 /// Manages the storage, retrieval, and update of Attributes and Metrics of a PinpointEndpoint.

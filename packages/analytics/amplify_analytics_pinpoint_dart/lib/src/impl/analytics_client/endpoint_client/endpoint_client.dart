@@ -18,12 +18,15 @@ import 'package:built_collection/built_collection.dart';
 /// {@endtemplate}
 class EndpointClient {
   /// {@macro amplify_analytics_pinpoint_dart.endpoint_client}
-  EndpointClient._({
+  EndpointClient({
     required String pinpointAppId,
     required PinpointClient pinpointClient,
+    required EndpointInfoStoreManager endpointInfoStoreManager,
     DeviceContextInfo? deviceContextInfo,
   })  : _pinpointAppId = pinpointAppId,
         _pinpointClient = pinpointClient,
+        _fixedEndpointId = endpointInfoStoreManager.endpointId,
+        _globalFieldsManager = endpointInfoStoreManager.endpointFields,
         _endpointBuilder = PublicEndpoint(
           effectiveDate: DateTime.now().toUtc().toIso8601String(),
           demographic: EndpointDemographic(
@@ -40,36 +43,6 @@ class EndpointClient {
             country: deviceContextInfo?.countryCode,
           ),
         ).toBuilder();
-
-  /// Initialize [EndpointClient] by retrieving the endpoint id and
-  /// initializing the [EndpointGlobalFieldsManager].
-  Future<void> _init({
-    required EndpointInfoStoreManager endpointInfoStoreManager,
-  }) async {
-    _fixedEndpointId = await endpointInfoStoreManager.retrieveEndpointId(
-      pinpointAppId: _pinpointAppId,
-    );
-
-    _globalFieldsManager = await endpointInfoStoreManager.endpointFields;
-  }
-
-  /// Create and initialize an [EndpointClient].
-  static Future<EndpointClient> create({
-    required String pinpointAppId,
-    required PinpointClient pinpointClient,
-    required EndpointInfoStoreManager endpointInfoStoreManager,
-    DeviceContextInfo? deviceContextInfo,
-  }) async {
-    final endpointClient = EndpointClient._(
-      pinpointAppId: pinpointAppId,
-      pinpointClient: pinpointClient,
-      deviceContextInfo: deviceContextInfo,
-    );
-    await endpointClient._init(
-      endpointInfoStoreManager: endpointInfoStoreManager,
-    );
-    return endpointClient;
-  }
 
   late final String _fixedEndpointId;
   late final EndpointGlobalFieldsManager _globalFieldsManager;

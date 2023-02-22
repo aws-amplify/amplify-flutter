@@ -4,9 +4,9 @@
 import 'dart:async';
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/analytics_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_client.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/dart_queued_item_store.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/session_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/stoppable_timer.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -29,9 +29,11 @@ const zSessionStopEventType = '_session.stop';
 class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   /// {@macro amplify_analytics_pinpoint_dart.amplify_analytics_pinpoint_dart}
   AmplifyAnalyticsPinpointDart({
+    CachedEventsPathProvider? pathProvider,
     AppLifecycleProvider? appLifecycleProvider,
     AnalyticsClient? analyticsClient,
   })  : _appLifecycleProvider = appLifecycleProvider,
+        _pathProvider = pathProvider,
         _analyticsClient = analyticsClient ?? AnalyticsClient();
 
   void _ensureConfigured() {
@@ -55,6 +57,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   /// External Flutter Provider implementations
   final AppLifecycleProvider? _appLifecycleProvider;
   final AnalyticsClient _analyticsClient;
+  final CachedEventsPathProvider? _pathProvider;
 
   static final _logger = AmplifyLogger.category(Category.analytics);
 
@@ -84,10 +87,14 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
       );
     }
 
+    final eventStoragePath = await _pathProvider?.getApplicationSupportPath();
+    final eventStore = DartQueuedItemStore(eventStoragePath);
+
     await _analyticsClient.init(
       pinpointAppId: pinpointAppId,
       region: region,
       authProvider: authProvider,
+      eventStore: eventStore,
     );
 
     _endpointClient = _analyticsClient.endpointClient;

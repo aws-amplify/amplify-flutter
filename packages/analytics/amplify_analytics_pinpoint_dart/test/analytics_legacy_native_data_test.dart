@@ -35,20 +35,20 @@ void main() {
         store: store,
         legacyNativeDataProvider: legacyDataProvider,
       );
+      await endpointIdManager.init(pinpointAppId: pinpointAppId);
+
       expect(
-        await endpointIdManager.retrieveEndpointId(
-          pinpointAppId: pinpointAppId,
-        ),
+        endpointIdManager.endpointId,
         isNotNull,
       );
 
       final storeVersion = await store.read(
-        key: EndpointStoreKey.endpointStoreVersion.name,
+        key: EndpointStoreKey.version.name,
       );
       expect(storeVersion, EndpointStoreVersion.v1.name);
 
       final migratedEndpointId = await store.read(
-        key: EndpointStoreKey.endpointId.name,
+        key: pinpointAppId + EndpointStoreKey.endpointId.name,
       );
       expect(migratedEndpointId, isNotNull);
 
@@ -63,20 +63,19 @@ void main() {
         store: store,
         legacyNativeDataProvider: legacyDataProvider,
       );
+      await endpointIdManager.init(pinpointAppId: pinpointAppId);
       expect(
-        await endpointIdManager.retrieveEndpointId(
-          pinpointAppId: pinpointAppId,
-        ),
+        endpointIdManager.endpointId,
         legacyEndpointId,
       );
 
       final storeVersion = await store.read(
-        key: EndpointStoreKey.endpointStoreVersion.name,
+        key: EndpointStoreKey.version.name,
       );
       expect(storeVersion, EndpointStoreVersion.v1.name);
 
       final migratedEndpointId = await store.read(
-        key: EndpointStoreKey.endpointId.name,
+        key: pinpointAppId + EndpointStoreKey.endpointId.name,
       );
       expect(migratedEndpointId, legacyEndpointId);
 
@@ -89,24 +88,23 @@ void main() {
 
       final endpointId = uuid();
       store.seedData({
-        EndpointStoreKey.endpointStoreVersion.name:
-            EndpointStoreVersion.v1.name,
-        EndpointStoreKey.endpointId.name: endpointId
+        EndpointStoreKey.version.name: EndpointStoreVersion.v1.name,
+        pinpointAppId + EndpointStoreKey.endpointId.name: endpointId
       });
 
       final endpointIdManager = EndpointInfoStoreManager(
         store: store,
         legacyNativeDataProvider: legacyDataProvider,
       );
+      await endpointIdManager.init(pinpointAppId: pinpointAppId);
+
       expect(
-        await endpointIdManager.retrieveEndpointId(
-          pinpointAppId: pinpointAppId,
-        ),
+        endpointIdManager.endpointId,
         endpointId,
       );
 
       final migratedEndpointId = await store.read(
-        key: EndpointStoreKey.endpointId.name,
+        key: pinpointAppId + EndpointStoreKey.endpointId.name,
       );
       expect(migratedEndpointId, endpointId);
 

@@ -1,6 +1,5 @@
 import 'package:amplify_analytics_pinpoint/src/device_context_info_provider/flutter_device_context_info_provider.dart';
 import 'package:amplify_analytics_pinpoint/src/flutter_endpoint_info_store_manager.dart';
-import 'package:amplify_analytics_pinpoint/src/flutter_path_provider/flutter_path_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.flutter_endpoint_store_manager}
@@ -12,7 +11,6 @@ class FlutterAnalyticsClient extends AnalyticsClient {
   FlutterAnalyticsClient({
     FlutterEndpointInfoStoreManager? endpointInfoStoreManager,
   }) : super(
-          pathProvider: FlutterPathProvider(),
           deviceContextInfoProvider: const FlutterDeviceContextInfoProvider(),
           endpointInfoStoreManager:
               endpointInfoStoreManager ?? FlutterEndpointInfoStoreManager(),

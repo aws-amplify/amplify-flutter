@@ -6,20 +6,11 @@ import 'dart:async';
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 
-/// Mock of [EndpointInfoStoreManager] that uses a static
-/// mocked [SecureStorageInterface] for storage.
-final EndpointInfoStoreManager mockEndpointInfoStoreManager =
-    _MockEndpointInfoStoreManager();
-
-class _MockEndpointInfoStoreManager extends EndpointInfoStoreManager {
-  _MockEndpointInfoStoreManager() : super(store: _mockEndpointInfoStore);
-}
-
 /// Static key/value storage for use in integration tests.
 ///
 /// Should be static to mimic the behavior of iOS/Android which persist keys
 /// between relaunches (e.g. between test groups).
-final SecureStorageInterface _mockEndpointInfoStore = _MockSecureStorage()
+final SecureStorageInterface mockEndpointInfoStore = _MockSecureStorage()
   ..write(
     key: EndpointStoreKey.endpointId.name,
     value: mockEndpointId,
