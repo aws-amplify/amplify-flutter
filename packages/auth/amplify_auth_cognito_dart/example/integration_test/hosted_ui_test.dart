@@ -12,7 +12,7 @@ import 'package:checks/checks.dart';
 import 'package:cognito_example/amplifyconfiguration.dart';
 import 'package:io/io.dart';
 import 'package:test/test.dart';
-import 'package:webdriver/async_io.dart';
+import 'package:webdriver/async_io.dart' hide LogLevel;
 
 import 'common.dart';
 
@@ -52,6 +52,7 @@ void main() {
 
         setUp(() async {
           application = await runApp();
+          addTearDown(application.close);
 
           await Amplify.configure(jsonEncode(config));
           addTearDown(Amplify.reset);

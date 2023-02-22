@@ -310,9 +310,7 @@ window.open = function(url, target) {
     await signOutButton.click();
 
     logger.info('REDIRECTING TO SIGN OUT');
-    await driver.locationChanges.firstWhere(
-      (uri) => uri.host == 'localhost' && uri.path == '/auth',
-    );
+    await driver.locationChanges.firstWhere((uri) => uri.host == 'localhost');
     logger.info('REDIRECTED AFTER SIGN OUT');
 
     await waitFor(const By.id('loginForm'));
