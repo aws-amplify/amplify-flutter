@@ -44,12 +44,12 @@ void main() {
           userConfirmed: true,
         ),
       );
-      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
       await stateMachine.stream.whereType<Configured>().first;
 
       stateMachine
         ..addInstance<CognitoIdentityProviderClient>(client)
-        ..dispatch(signUpEvent);
+        ..dispatch(signUpEvent).ignore();
 
       expect(
         stateMachine.stream.whereType<SignUpState>(),
@@ -72,12 +72,12 @@ void main() {
         ),
         confirmSignUp: () async => ConfirmSignUpResponse(),
       );
-      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
       await stateMachine.stream.whereType<Configured>().first;
 
       stateMachine
         ..addInstance<CognitoIdentityProviderClient>(client)
-        ..dispatch(signUpEvent);
+        ..dispatch(signUpEvent).ignore();
 
       await expectLater(
         stateMachine.stream.whereType<SignUpState>(),
@@ -91,12 +91,14 @@ void main() {
         ]),
       );
 
-      stateMachine.dispatch(
-        const SignUpEvent.confirm(
-          username: username,
-          confirmationCode: '12345',
-        ),
-      );
+      stateMachine
+          .dispatch(
+            const SignUpEvent.confirm(
+              username: username,
+              confirmationCode: '12345',
+            ),
+          )
+          .ignore();
       expect(
         stateMachine.stream.whereType<SignUpState>(),
         emitsInOrder(<Matcher>[
@@ -110,12 +112,12 @@ void main() {
       var client = MockCognitoIdentityProviderClient(
         signUp: () async => throw _SignUpException(),
       );
-      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
       await stateMachine.stream.whereType<Configured>().first;
 
       stateMachine
         ..addInstance<CognitoIdentityProviderClient>(client)
-        ..dispatch(signUpEvent);
+        ..dispatch(signUpEvent).ignore();
 
       await expectLater(
         stateMachine.stream.whereType<SignUpState>(),
@@ -137,7 +139,7 @@ void main() {
       );
       stateMachine
         ..addInstance<CognitoIdentityProviderClient>(client)
-        ..dispatch(signUpEvent);
+        ..dispatch(signUpEvent).ignore();
 
       expect(
         stateMachine.stream.whereType<SignUpState>(),
