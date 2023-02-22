@@ -3,7 +3,6 @@
 
 import 'package:amplify_auth_cognito_dart/src/model/sign_up_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
-import 'package:amplify_core/amplify_core.dart';
 
 /// Discrete event types of the sign up flow.
 enum SignUpEventType {
@@ -15,9 +14,6 @@ enum SignUpEventType {
 
   /// {@macro amplify_auth_cognito.sign_up_succeeded}
   succeeded,
-
-  /// {@macro amplify_auth_cognito.sign_up_failed}
-  failed,
 }
 
 /// Discrete events of the sign up flow.
@@ -43,9 +39,6 @@ abstract class SignUpEvent extends AuthEvent<SignUpEventType, SignUpStateType> {
   const factory SignUpEvent.succeeded({
     String? userId,
   }) = SignUpSucceeded;
-
-  /// {@macro amplify_auth_cognito.sign_up_failed}
-  const factory SignUpEvent.failed(Exception exception) = SignUpFailed;
 
   @override
   String get runtimeTypeName => 'SignUpEvent';
@@ -141,22 +134,4 @@ class SignUpSucceeded extends SignUpEvent {
 
   @override
   List<Object?> get props => [type, userId];
-}
-
-/// {@template amplify_auth_cognito.sign_up_failed}
-/// A failure in a sign up/confirm sign up event.
-/// {@endtemplate}
-class SignUpFailed extends SignUpEvent with ErrorEvent {
-  /// {@macro amplify_auth_cognito.sign_up_failed}
-  const SignUpFailed(this.exception) : super._();
-
-  /// The exception thrown signing up.
-  @override
-  final Exception exception;
-
-  @override
-  SignUpEventType get type => SignUpEventType.failed;
-
-  @override
-  List<Object?> get props => [type, exception];
 }

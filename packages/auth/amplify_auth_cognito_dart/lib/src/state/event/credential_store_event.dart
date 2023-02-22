@@ -19,9 +19,6 @@ enum CredentialStoreEventType {
 
   /// {@macro amplify_auth_cognito.credential_store_succeeded}
   succeeded,
-
-  /// {@macro amplify_auth_cognito.credential_store_failed}
-  failed,
 }
 
 /// {@template amplify_auth_cognito.credential_store_event}
@@ -49,10 +46,6 @@ abstract class CredentialStoreEvent
   /// {@macro amplify_auth_cognito.credential_store_succeeded}
   const factory CredentialStoreEvent.succeeded(CredentialStoreData data) =
       CredentialStoreSucceeded;
-
-  /// {@macro amplify_auth_cognito.credential_store_failed}
-  const factory CredentialStoreEvent.failed(Exception exception) =
-      CredentialStoreFailed;
 
   @override
   PreconditionException? checkPrecondition(
@@ -197,31 +190,6 @@ class CredentialStoreSucceeded extends CredentialStoreEvent {
         'Credential store is not configured',
       );
     }
-    return null;
-  }
-}
-
-/// {@template amplify_auth_cognito.credential_store_failed}
-/// Failure in a credential store task.
-/// {@endtemplate}
-class CredentialStoreFailed extends CredentialStoreEvent with ErrorEvent {
-  /// {@macro amplify_auth_cognito.credential_store_failed}
-  const CredentialStoreFailed(this.exception) : super._();
-
-  /// The credential store exception.
-  @override
-  final Exception exception;
-
-  @override
-  CredentialStoreEventType get type => CredentialStoreEventType.failed;
-
-  @override
-  List<Object?> get props => [type, exception];
-
-  @override
-  PreconditionException? checkPrecondition(
-    CredentialStoreState currentState,
-  ) {
     return null;
   }
 }

@@ -15,8 +15,8 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_auth_cognito.configuration_state_machine}
 /// Manages configuration of the Auth category.
 /// {@endtemplate}
-class ConfigurationStateMachine extends StateMachine<ConfigurationEvent,
-    ConfigurationState, AuthEvent, AuthState, CognitoAuthStateMachine> {
+class ConfigurationStateMachine
+    extends AuthStateMachine<ConfigurationEvent, ConfigurationState> {
   /// {@macro amplify_auth_cognito.configuration_state_machine}
   ConfigurationStateMachine(CognitoAuthStateMachine manager)
       : super(manager, type);
@@ -55,18 +55,13 @@ class ConfigurationStateMachine extends StateMachine<ConfigurationEvent,
         emit(ConfigurationState.configured(event.config));
         await onConfigureSucceeded(castEvent);
         return;
-      case ConfigurationEventType.configureFailed:
-        final castEvent = event as ConfigureFailed;
-        emit(ConfigurationState.failure(castEvent.exception));
-        await onConfigureFailed(castEvent);
-        return;
     }
   }
 
   @override
-  ConfigurationState? resolveError(Object error, [StackTrace? st]) {
+  ConfigurationState? resolveError(Object error, StackTrace st) {
     if (error is Exception) {
-      return ConfigureFailure(error);
+      return ConfigureFailure(error, st);
     }
     return null;
   }
@@ -123,19 +118,10 @@ class ConfigurationStateMachine extends StateMachine<ConfigurationEvent,
     CognitoPluginConfig config,
     List<Future<void>> futures,
   ) async {
-    try {
-      await Future.wait<void>(futures, eagerError: true);
-      emit(ConfigurationState.configured(config));
-    } on Exception catch (e) {
-      emit(
-        ConfigurationState.failure(AuthException.fromException(e)),
-      );
-    }
+    await Future.wait<void>(futures, eagerError: true);
+    emit(ConfigurationState.configured(config));
   }
 
   /// State machine callback for the [ConfigureSucceeded] event.
   Future<void> onConfigureSucceeded(ConfigureSucceeded event) async {}
-
-  /// State machine callback for the [ConfigureFailed] event.
-  Future<void> onConfigureFailed(ConfigureFailed event) async {}
 }

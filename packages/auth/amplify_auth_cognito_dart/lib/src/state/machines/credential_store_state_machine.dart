@@ -16,12 +16,12 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:meta/meta.dart';
 
-/// {@template amplify_auth_cognito.auth_store_state_machine}
+/// {@template amplify_auth_cognito.credential_store_state_machine}
 /// Manages the loading and storing of auth configuration data.
 /// {@endtemplate}
-class CredentialStoreStateMachine extends StateMachine<CredentialStoreEvent,
-    CredentialStoreState, AuthEvent, AuthState, CognitoAuthStateMachine> {
-  /// {@macro amplify_auth_cognito.auth_store_state_machine}
+class CredentialStoreStateMachine
+    extends AuthStateMachine<CredentialStoreEvent, CredentialStoreState> {
+  /// {@macro amplify_auth_cognito.credential_store_state_machine}
   CredentialStoreStateMachine(CognitoAuthStateMachine manager)
       : super(manager, type);
 
@@ -65,17 +65,13 @@ class CredentialStoreStateMachine extends StateMachine<CredentialStoreEvent,
         event as CredentialStoreSucceeded;
         emit(CredentialStoreState.success(event.data));
         return;
-      case CredentialStoreEventType.failed:
-        event as CredentialStoreFailed;
-        emit(CredentialStoreState.failure(event.exception));
-        return;
     }
   }
 
   @override
-  CredentialStoreState? resolveError(Object error, [StackTrace? st]) {
+  CredentialStoreState? resolveError(Object error, StackTrace st) {
     if (error is Exception) {
-      return CredentialStoreFailure(error);
+      return CredentialStoreFailure(error, st);
     }
     return null;
   }

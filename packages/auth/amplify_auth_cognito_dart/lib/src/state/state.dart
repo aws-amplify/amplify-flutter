@@ -16,6 +16,7 @@ export 'event/fetch_auth_session_event.dart';
 export 'event/hosted_ui_event.dart';
 export 'event/sign_in_event.dart';
 export 'event/sign_up_event.dart';
+export 'machines/auth_state_machine.dart';
 export 'machines/configuration_state_machine.dart';
 export 'machines/credential_store_state_machine.dart';
 export 'machines/fetch_auth_session_state_machine.dart';

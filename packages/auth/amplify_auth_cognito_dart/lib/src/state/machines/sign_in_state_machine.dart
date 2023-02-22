@@ -31,8 +31,7 @@ import 'package:meta/meta.dart';
 /// the same pattern of calling `cognitoIdp.InitiateAuth` plus some number of
 /// challenge responses.
 /// {@endtemplate}
-class SignInStateMachine extends StateMachine<SignInEvent, SignInState,
-    AuthEvent, AuthState, CognitoAuthStateMachine> {
+class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
   /// {@macro amplify_auth_cognito.sign_in_state_machine}
   SignInStateMachine(CognitoAuthStateMachine manager) : super(manager, type);
 
@@ -878,18 +877,13 @@ class SignInStateMachine extends StateMachine<SignInEvent, SignInState,
         event as SignInSucceeded;
         emit(SignInState.success(event.user));
         return;
-      case SignInEventType.failed:
-        // TODO(dnys1): Transition to challenge state for CodeMismatchException
-        event as SignInFailed;
-        emit(SignInState.failure(event.exception));
-        return;
     }
   }
 
   @override
-  SignInState? resolveError(Object error, [StackTrace? st]) {
+  SignInState? resolveError(Object error, StackTrace st) {
     if (error is Exception) {
-      return SignInFailure(error);
+      return SignInFailure(error, st);
     }
     return null;
   }

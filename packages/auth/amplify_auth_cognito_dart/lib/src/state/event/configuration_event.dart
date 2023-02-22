@@ -13,9 +13,6 @@ enum ConfigurationEventType {
 
   /// {@macro amplify_auth_cognito.configuration_event.configure_succeeded}
   configureSucceeded,
-
-  /// {@macro amplify_auth_cognito.configuration_event.configure_failed}
-  configureFailed,
 }
 
 /// {@template amplify_auth_cognito.auth_event}
@@ -32,10 +29,6 @@ abstract class ConfigurationEvent
   const factory ConfigurationEvent.configureSucceeded(
     CognitoPluginConfig config,
   ) = ConfigureSucceeded;
-
-  /// {@macro amplify_auth_cognito.configuration_event.configure_failed}
-  const factory ConfigurationEvent.configureFailed(Exception exception) =
-      ConfigureFailed;
 
   @override
   PreconditionException? checkPrecondition(ConfigurationState currentState) =>
@@ -94,22 +87,4 @@ class ConfigureSucceeded extends ConfigurationEvent {
 
   @override
   List<Object?> get props => [type, config];
-}
-
-/// {@template amplify_auth_cognito.configuration_event.configure_failed}
-/// An exception occurred during configuration of the Auth plugin.
-/// {@endtemplate}
-class ConfigureFailed extends ConfigurationEvent with ErrorEvent {
-  /// {@macro amplify_auth_cognito.configuration_event.configure_failed}
-  const ConfigureFailed(this.exception) : super._();
-
-  /// The configuration exception.
-  @override
-  final Exception exception;
-
-  @override
-  ConfigurationEventType get type => ConfigurationEventType.configureFailed;
-
-  @override
-  List<Object?> get props => [type, exception];
 }
