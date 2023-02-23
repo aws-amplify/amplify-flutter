@@ -205,7 +205,9 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   }
 
   @override
-  Future<PushNotificationMessage?> getLaunchNotification() async {
+  PushNotificationMessage? get launchNotification => PushNotificationMessage();
+
+  Future<PushNotificationMessage?> _getLaunchNotification() async {
     await _methodChannel
         .invokeMethod<Map<Object?, Object?>>('getLaunchNotification');
 

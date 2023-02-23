@@ -45,9 +45,8 @@ abstract class PushNotificationsPluginInterface extends AmplifyPluginInterface {
   }
 
   /// {@macro amplify_core.amplify_notifications_category.get_launch_notification}
-  Future<PushNotificationMessage?> getLaunchNotification() {
-    throw UnimplementedError(
-        'getLaunchNotification() has not been implemented');
+  PushNotificationMessage? get launchNotification {
+    throw UnimplementedError('launchNotification has not been implemented');
   }
 
   /// {@macro amplify_core.amplify_notifications_category.get_badge_count}

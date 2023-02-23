@@ -6,6 +6,6 @@
   "files.insertFinalNewline": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
-    "source.organizeImports": true,
+    "source.organizeImports": true
   }
 }
