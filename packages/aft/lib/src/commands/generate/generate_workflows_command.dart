@@ -24,10 +24,13 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
           !falsePositiveExamples.contains(package.name)) {
         continue;
       }
-      // Some packages contain only native code/dependencies and do not need
-      // to be tested by Dart/Flutter analyze or test.
+      // Some packages do not need to be tested.
       final libDir = Directory(p.join(package.path, 'lib'));
-      if (!libDir.existsSync()) {
+      final androidTestDir =
+          Directory(p.join(package.path, 'android/src/test'));
+      final hasLibDir = libDir.existsSync();
+      final needsAndroidTest = androidTestDir.existsSync();
+      if (!hasLibDir && !needsAndroidTest) {
         continue;
       }
       final workflowFilepath = p.join(
@@ -48,6 +51,7 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
       const ddcWorkflow = 'dart_ddc.yaml';
       const dart2JsWorkflow = 'dart_dart2js.yaml';
       const nativeWorkflow = 'dart_native.yaml';
+      const androidWorkflow = 'flutter_android.yaml';
 
       // Determine workflows used
       final analyzeAndTestWorkflow =
@@ -57,18 +61,28 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
       final needsWebTest =
           package.pubspecInfo.pubspec.devDependencies.containsKey('build_test');
       final workflows = [
-        analyzeAndTestWorkflow,
+        if (hasLibDir) analyzeAndTestWorkflow,
         if (needsNativeTest) nativeWorkflow,
         if (needsWebTest) ...[ddcWorkflow, dart2JsWorkflow],
+        if (needsAndroidTest) androidWorkflow,
       ];
       final workflowPaths = [
         if (needsWebTest) '.github/composite_actions/setup_firefox/action.yaml',
         ...workflows.map((workflow) => '.github/workflows/$workflow'),
         p.relative(workflowFilepath, from: rootDir.path),
-      ].map((path) => "      - '$path'").join('\n');
+      ];
+      final nativePlatformPaths = [
+        if (needsAndroidTest) ...['android/**/*', 'example/android/**/*']
+      ]
+          .map(
+            (packageRelativePath) => '$repoRelativePath/$packageRelativePath',
+          )
+          .toList();
+      final additionalPaths = nativePlatformPaths + workflowPaths;
+      final additionalPathString =
+          additionalPaths.map((path) => "      - '$path'").join('\n');
 
-      final workflowContents = StringBuffer(
-        '''
+      final workflowContents = StringBuffer('''
 # Generated with aft. To update, run: `aft generate workflows`
 name: ${package.name}
 on:
@@ -83,7 +97,7 @@ on:
       - '$repoRelativePath/**/*.yaml'
       - '$repoRelativePath/lib/**/*'
       - '$repoRelativePath/test/**/*'
-$workflowPaths
+$additionalPathString
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
@@ -92,12 +106,17 @@ defaults:
 permissions: read-all
 
 jobs:
+''');
+      if (hasLibDir) {
+        workflowContents.write(
+          '''
   test:
     uses: ./.github/workflows/$analyzeAndTestWorkflow
     with:
       working-directory: $repoRelativePath
 ''',
-      );
+        );
+      }
 
       if (needsNativeTest) {
         workflowContents.write(
@@ -127,6 +146,18 @@ jobs:
           );
         }
       }
+
+      if (needsAndroidTest) {
+        workflowContents.write(
+          '''
+  android_test:
+    uses: ./.github/workflows/$androidWorkflow
+    with:
+      working-directory: $repoRelativePath
+''',
+        );
+      }
+
       workflowFile.writeAsStringSync(workflowContents.toString());
     }
   }

@@ -6,13 +6,17 @@ on:
       - main
       - stable
       - next
+      - chore/android-unit
   pull_request:
     paths:
       - 'packages/secure_storage/amplify_secure_storage/**/*.dart'
       - 'packages/secure_storage/amplify_secure_storage/**/*.yaml'
       - 'packages/secure_storage/amplify_secure_storage/lib/**/*'
       - 'packages/secure_storage/amplify_secure_storage/test/**/*'
+      - 'packages/secure_storage/amplify_secure_storage/android/**/*'
+      - 'packages/secure_storage/amplify_secure_storage/example/android/**/*'
       - '.github/workflows/flutter_vm.yaml'
+      - '.github/workflows/flutter_android.yaml'
       - '.github/workflows/amplify_secure_storage.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
@@ -24,5 +28,9 @@ permissions: read-all
 jobs:
   test:
     uses: ./.github/workflows/flutter_vm.yaml
+    with:
+      working-directory: packages/secure_storage/amplify_secure_storage
+  android_test:
+    uses: ./.github/workflows/flutter_android.yaml
     with:
       working-directory: packages/secure_storage/amplify_secure_storage
