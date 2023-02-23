@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
     // setState to update our non-existent appearance.
     if (!mounted) return;
     try {
-      var notificationsPlugin = AmplifyPushNotificationsPinpoint();
+      final notificationsPlugin = AmplifyPushNotificationsPinpoint();
       final authPlugin = AmplifyAuthCognito();
 
       await Amplify.addPlugins([authPlugin, notificationsPlugin]);
@@ -39,8 +39,8 @@ class _MyAppState extends State<MyApp> {
       setState(() {
         isConfigured = true;
       });
-    } catch (e) {
-      print(e.toString());
+    } on Exception {
+      // print(e.toString());
     }
   }
 
@@ -96,8 +96,8 @@ class _MyAppState extends State<MyApp> {
                     setState(() {
                       isForegroundListernerInitialized = true;
                     });
-                  } catch (e) {
-                    print(e.toString());
+                  } on Exception {
+                    // print(e.toString());
                   }
                 },
                 child: const Text('onForegroundNotificationReceived'),

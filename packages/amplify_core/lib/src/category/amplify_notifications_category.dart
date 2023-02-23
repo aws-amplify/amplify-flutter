@@ -10,21 +10,36 @@ class NotificationsCategory
   Category get category => Category.notifications;
 
   /// {@template amplify_core.amplify_notifications_category.get_permission_status}
-  /// Returns a [Future] of [PushNotificationPermissionRequestStatus].
+  /// Returns the current Push Notificaiton permission status.
+  ///
+  /// The status can be one of the following:
+  /// 1. notRequested - Android only status to indicate push permissions dialogue has not been requested
+  /// 2. shouldRequestWithRationale - show a rationale message on why the app needs to send push notifications
+  /// 3. granted - end user has granted the request for the app to send push notifications
+  /// 4. denied - end user has denied the request for the app to send push notifications
   /// {@endtemplate}
   Future<PushNotificationPermissionRequestStatus> getPermissionStatus() =>
       defaultPlugin.getPermissionStatus();
 
   /// {@template amplify_core.amplify_notifications_category.request_permissions}
-  /// Requests push notifications permissions with configurable options, [alert], [badge] and [sound], and returns a bool value as the requesting result.
+  /// Requests push notifications permissions with configurable options.
+  ///
+  /// Options include [alert], [badge] and [sound].
+  /// It returns true if granted or false if denied.
   /// {@endtemplate}
-  Future<bool> requestPermissions(
-          {bool? alert = true, bool? badge = true, bool? sound = true}) =>
+  Future<bool> requestPermissions({
+    bool? alert = true,
+    bool? badge = true,
+    bool? sound = true,
+  }) =>
       defaultPlugin.requestPermissions(
-          alert: alert, badge: badge, sound: sound);
+        alert: alert,
+        badge: badge,
+        sound: sound,
+      );
 
   /// {@template amplify_core.amplify_notifications_category.on_token_received}
-  /// Returns a stream of [PushNotificationMessage] as the device receives them when the App is in the foreground.
+  /// Returns a stream of new device token.
   /// {@endtemplate}
   Stream<String> get onTokenReceived => defaultPlugin.onTokenReceived;
 
@@ -35,7 +50,8 @@ class NotificationsCategory
       defaultPlugin.onNotificationReceivedInForeground;
 
   /// {@template amplify_core.amplify_notifications_category.on_background_notification_received}
-  /// Sets a [OnRemoteMessageCallback] that to be called when device receives push notification when the App is in the background.
+  /// Sets a [OnRemoteMessageCallback] that is to be called when device receives push notification
+  /// and the App is in the background.
   /// {@endtemplate}
   void onNotificationReceivedInBackground(OnRemoteMessageCallback callback) =>
       defaultPlugin.onNotificationReceivedInBackground(callback);
@@ -47,13 +63,16 @@ class NotificationsCategory
       defaultPlugin.onNotificationOpened;
 
   /// {@template amplify_core.amplify_notifications_category.get_launch_notification}
-  /// Returns a [Future] of [PushNotificationMessage] that an end user has tapped on to launch the App from terminated state. If there is no such a [PushNotificationMessage] it returns a [Future] of `null`.
+  /// Returns a [PushNotificationMessage] or null depending on what action launched the app.
+  ///
+  /// It will return the notification if the app was launched from the terminated state by an end user tapped on it
+  /// else will return `null` if the app was opened by any other means.
   /// {@endtemplate}
-  Future<PushNotificationMessage?> getLaunchNotification() =>
-      defaultPlugin.getLaunchNotification();
+  PushNotificationMessage? get launchNotification =>
+      defaultPlugin.launchNotification;
 
   /// {@template amplify_core.amplify_notifications_category.get_badge_count}
-  /// Returns a [Future] of [int] as the current number displayed in the app icon badge. This method takes effect only on iOS.
+  /// Returns the current number displayed in the app icon badge. This method takes effect only on iOS.
   /// {@endtemplate}
   Future<int> getBadgeCount() => defaultPlugin.getBadgeCount();
 
