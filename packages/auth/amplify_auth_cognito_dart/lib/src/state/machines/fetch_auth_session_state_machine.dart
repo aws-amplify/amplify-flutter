@@ -470,7 +470,7 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
       );
 
       return _AwsCredentialsResult(awsCredentials, identityId);
-    } on AuthNotAuthorizedException {
+    } on AuthNotAuthorizedException catch (e, st) {
       // If expired credentials were cached and trying to refresh them throws
       // a NotAuthorizedException, clear any AWS credentials which were being
       // refreshed, since they may have been from an authenticated user whose
@@ -479,7 +479,10 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
       await manager.clearCredentials(
         CognitoIdentityPoolKeys(identityPoolConfig),
       );
-      rethrow;
+      Error.throwWithStackTrace(
+        e.toSessionExpired('The AWS credentials could not be retrieved'),
+        st,
+      );
     }
   }
 
@@ -529,7 +532,7 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
       );
 
       return newTokens;
-    } on AuthNotAuthorizedException {
+    } on AuthNotAuthorizedException catch (e, st) {
       late Iterable<String> keys;
       switch (userPoolTokens.signInMethod) {
         case CognitoSignInMethod.default$:
@@ -546,7 +549,10 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
           // Clear associated AWS credentials
           ...CognitoIdentityPoolKeys(identityPoolConfig),
       ]);
-      rethrow;
+      Error.throwWithStackTrace(
+        e.toSessionExpired('The tokens could not be refreshed'),
+        st,
+      );
     }
   }
 }
@@ -559,6 +565,20 @@ extension on CredentialStoreData {
       signInDetails is CognitoSignInDetailsFederated
           ? const InvalidStateException.federatedToIdentityPool()
           : const SignedOutException('No user is currently signed in'),
+    );
+  }
+}
+
+extension on AuthNotAuthorizedException {
+  /// In the fetch auth session state machine, all [AuthNotAuthorizedException]s
+  /// are mapped to [SessionExpiredException]s, since the only time they would
+  /// be thrown is due to expired/revoked credentials being used.
+  SessionExpiredException toSessionExpired(String message) {
+    return SessionExpiredException(
+      message,
+      recoverySuggestion:
+          'Invoke Amplify.Auth.signIn to re-authenticate the user',
+      underlyingException: underlyingException,
     );
   }
 }
