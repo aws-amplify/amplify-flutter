@@ -26,11 +26,23 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
       }
       // Some packages do not need to be tested.
       final libDir = Directory(p.join(package.path, 'lib'));
-      final androidTestDir =
-          Directory(p.join(package.path, 'android/src/test'));
+      final internalAndroidTestDir =
+          Directory(p.join(package.path, 'android', 'src', 'test'));
+      final externalAndroidPackageTestDir = Directory(
+        p.join('${package.path}_android', 'android', 'src', 'test'),
+      );
+      final androidExampleDir = Directory(
+        p.join(package.path, 'example', 'android'),
+      );
       final hasLibDir = libDir.existsSync();
-      final needsAndroidTest = androidTestDir.existsSync();
-      if (!hasLibDir && !needsAndroidTest) {
+      final internalAndroidTestsDirExists = internalAndroidTestDir.existsSync();
+      final externalAndroidPackageTestDirExists =
+          externalAndroidPackageTestDir.existsSync();
+      final androidExampleDirExists = androidExampleDir.existsSync();
+      final hasAndroidTests = androidExampleDirExists &&
+          (internalAndroidTestsDirExists ||
+              externalAndroidPackageTestDirExists);
+      if (!hasLibDir) {
         continue;
       }
       final workflowFilepath = p.join(
@@ -47,6 +59,8 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
         continue;
       }
       final isDartPackage = package.flavor == PackageFlavor.dart;
+      final needsAndroidTest =
+          hasAndroidTests && package.flavor == PackageFlavor.flutter;
 
       const ddcWorkflow = 'dart_ddc.yaml';
       const dart2JsWorkflow = 'dart_dart2js.yaml';
@@ -78,11 +92,17 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
             (packageRelativePath) => '$repoRelativePath/$packageRelativePath',
           )
           .toList();
-      final additionalPaths = nativePlatformPaths + workflowPaths;
+      final androidExternalPackagePaths = [
+        if (externalAndroidPackageTestDirExists)
+          '${repoRelativePath}_android/**/*'
+      ];
+      final additionalPaths =
+          nativePlatformPaths + androidExternalPackagePaths + workflowPaths;
       final additionalPathString =
           additionalPaths.map((path) => "      - '$path'").join('\n');
 
-      final workflowContents = StringBuffer('''
+      final workflowContents = StringBuffer(
+        '''
 # Generated with aft. To update, run: `aft generate workflows`
 name: ${package.name}
 on:
@@ -106,17 +126,12 @@ defaults:
 permissions: read-all
 
 jobs:
-''');
-      if (hasLibDir) {
-        workflowContents.write(
-          '''
   test:
     uses: ./.github/workflows/$analyzeAndTestWorkflow
     with:
       working-directory: $repoRelativePath
 ''',
-        );
-      }
+      );
 
       if (needsNativeTest) {
         workflowContents.write(

@@ -6,13 +6,18 @@ on:
       - main
       - stable
       - next
+      - chore/android-unit
   pull_request:
     paths:
       - 'packages/amplify/amplify_flutter/**/*.dart'
       - 'packages/amplify/amplify_flutter/**/*.yaml'
       - 'packages/amplify/amplify_flutter/lib/**/*'
       - 'packages/amplify/amplify_flutter/test/**/*'
+      - 'packages/amplify/amplify_flutter/android/**/*'
+      - 'packages/amplify/amplify_flutter/example/android/**/*'
+      - 'packages/amplify/amplify_flutter_android/**/*'
       - '.github/workflows/flutter_vm.yaml'
+      - '.github/workflows/flutter_android.yaml'
       - '.github/workflows/amplify_flutter.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
@@ -24,5 +29,9 @@ permissions: read-all
 jobs:
   test:
     uses: ./.github/workflows/flutter_vm.yaml
+    with:
+      working-directory: packages/amplify/amplify_flutter
+  android_test:
+    uses: ./.github/workflows/flutter_android.yaml
     with:
       working-directory: packages/amplify/amplify_flutter

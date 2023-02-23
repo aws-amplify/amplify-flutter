@@ -53,7 +53,6 @@ jobs:
 
       - name: run Android unit tests
         run: |
-          cd example/android
           packageName=$(sed 's:.*/::' <<< ${{ inputs.working-directory }})
           gradle :"$packageName":testDebugUnitTest
-        working-directory: ${{ inputs.working-directory }}
+        working-directory: ${{ inputs.working-directory }}/example/android
