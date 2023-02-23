@@ -78,7 +78,7 @@ final _userPoolTokens = CognitoUserPoolTokens.build(
     ..idToken = idToken,
 );
 
-class MockAmplifyAuthCognito extends AmplifyAuthCognitoDart {
+class MockCognitoAuthStateMachine extends CognitoAuthStateMachine {
   @override
   Future<CognitoUserPoolTokens> getUserPoolTokens() async {
     return _userPoolTokens;
@@ -93,7 +93,7 @@ void main() {
 
   group('fetchUserAttributes', () {
     setUp(() {
-      stateMachine = CognitoAuthStateMachine()
+      stateMachine = MockCognitoAuthStateMachine()
         ..addInstance<CognitoIdentityProviderClient>(
           MockCognitoIdentityProviderClient(
             getUser: () async => GetUserResponse(
@@ -105,6 +105,7 @@ void main() {
             ),
           ),
         );
+      plugin = AmplifyAuthCognitoDart()..stateMachine = stateMachine;
     });
 
     tearDown(() async {
@@ -112,8 +113,6 @@ void main() {
     });
 
     test('converts user attributes correctly', () async {
-      plugin = MockAmplifyAuthCognito()..stateMachine = stateMachine;
-
       final res = await plugin.fetchUserAttributes();
       final expected = [
         AuthUserAttribute(
