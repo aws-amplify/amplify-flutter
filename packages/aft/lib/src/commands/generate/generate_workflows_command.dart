@@ -29,6 +29,10 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
       // parent package, e.g. `amplify_flutter`, and do not require a workflow
       // of their own.
       final libDir = Directory(p.join(package.path, 'lib'));
+      if (!libDir.existsSync()) {
+        continue;
+      }
+
       final internalAndroidTestDir =
           Directory(p.join(package.path, 'android', 'src', 'test'));
       final externalAndroidPackageTestDir = Directory(
@@ -37,7 +41,6 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
       final androidExampleDir = Directory(
         p.join(package.path, 'example', 'android'),
       );
-      final hasLibDir = libDir.existsSync();
       final internalAndroidTestsDirExists = internalAndroidTestDir.existsSync();
       final externalAndroidPackageTestDirExists =
           externalAndroidPackageTestDir.existsSync();
@@ -45,9 +48,6 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
       final hasAndroidTests = androidExampleDirExists &&
           (internalAndroidTestsDirExists ||
               externalAndroidPackageTestDirExists);
-      if (!hasLibDir) {
-        continue;
-      }
       final workflowFilepath = p.join(
         rootDir.path,
         '.github',
@@ -78,31 +78,15 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
       final needsWebTest =
           package.pubspecInfo.pubspec.devDependencies.containsKey('build_test');
       final workflows = [
-        if (hasLibDir) analyzeAndTestWorkflow,
+        analyzeAndTestWorkflow,
         if (needsNativeTest) nativeWorkflow,
         if (needsWebTest) ...[ddcWorkflow, dart2JsWorkflow],
-        if (needsAndroidTest) androidWorkflow,
       ];
       final workflowPaths = [
         if (needsWebTest) '.github/composite_actions/setup_firefox/action.yaml',
         ...workflows.map((workflow) => '.github/workflows/$workflow'),
         p.relative(workflowFilepath, from: rootDir.path),
-      ];
-      final nativePlatformPaths = [
-        if (needsAndroidTest) ...['android/**/*', 'example/android/**/*']
-      ]
-          .map(
-            (packageRelativePath) => '$repoRelativePath/$packageRelativePath',
-          )
-          .toList();
-      final androidExternalPackagePaths = [
-        if (externalAndroidPackageTestDirExists)
-          '${repoRelativePath}_android/**/*'
-      ];
-      final additionalPaths =
-          nativePlatformPaths + androidExternalPackagePaths + workflowPaths;
-      final additionalPathString =
-          additionalPaths.map((path) => "      - '$path'").join('\n');
+      ].map((path) => "      - '$path'").join('\n');
 
       final workflowContents = StringBuffer(
         '''
@@ -120,7 +104,7 @@ on:
       - '$repoRelativePath/**/*.yaml'
       - '$repoRelativePath/lib/**/*'
       - '$repoRelativePath/test/**/*'
-$additionalPathString
+$workflowPaths
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
@@ -165,16 +149,61 @@ jobs:
         }
       }
 
-      if (needsAndroidTest) {
-        workflowContents.write(
-          '''
-  android_test:
+      workflowFile.writeAsStringSync(workflowContents.toString());
+
+      // Add workflow for Android unit tests if needed
+      if (!needsAndroidTest) {
+        continue;
+      }
+      final androidWorkflowFilepath = p.join(
+        rootDir.path,
+        '.github',
+        'workflows',
+        '${package.name}_android.yaml',
+      );
+
+      final androidExternalPackagePaths = [
+        if (externalAndroidPackageTestDirExists)
+          '${repoRelativePath}_android/**/*'
+      ];
+      final androidWorkflowPaths = [
+        '.github/workflows/$androidWorkflow',
+        p.relative(androidWorkflowFilepath, from: rootDir.path)
+      ];
+      final androidPathString =
+          (androidExternalPackagePaths + androidWorkflowPaths)
+              .map((path) => "      - '$path'")
+              .join('\n');
+
+      final androidWorkflowFile = File(androidWorkflowFilepath);
+      final androidWorkflowContents = '''
+# Generated with aft. To update, run: `aft generate workflows`
+name: ${package.name} Android
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - next
+  pull_request:
+    paths:
+      - '$repoRelativePath/**/*.yaml'
+      - '$repoRelativePath/android/**/*'
+      - '$repoRelativePath/example/android/**/*'
+$androidPathString
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  test:
     uses: ./.github/workflows/$androidWorkflow
     with:
       working-directory: $repoRelativePath
-''',
-        );
-      }
+''';
 
       workflowFile.writeAsStringSync(workflowContents.toString());
 

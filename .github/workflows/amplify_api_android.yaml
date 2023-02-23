@@ -1,5 +1,5 @@
 # Generated with aft. To update, run: `aft generate workflows`
-name: amplify_api
+name: amplify_api Android
 on:
   push:
     branches:
@@ -8,12 +8,12 @@ on:
       - next
   pull_request:
     paths:
-      - 'packages/api/amplify_api/**/*.dart'
       - 'packages/api/amplify_api/**/*.yaml'
-      - 'packages/api/amplify_api/lib/**/*'
-      - 'packages/api/amplify_api/test/**/*'
-      - '.github/workflows/flutter_vm.yaml'
-      - '.github/workflows/amplify_api.yaml'
+      - 'packages/api/amplify_api/android/**/*'
+      - 'packages/api/amplify_api/example/android/**/*'
+      - 'packages/api/amplify_api_android/**/*'
+      - '.github/workflows/flutter_android.yaml'
+      - '.github/workflows/amplify_api_android.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
@@ -23,6 +23,6 @@ permissions: read-all
 
 jobs:
   test:
-    uses: ./.github/workflows/flutter_vm.yaml
+    uses: ./.github/workflows/flutter_android.yaml
     with:
       working-directory: packages/api/amplify_api
