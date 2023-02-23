@@ -9,7 +9,7 @@ import 'common/endpoint_global_fields_storage.dart';
 import 'common/mock_secure_storage.dart';
 import 'common/mocktail_mocks.dart';
 
-/// Test instances of AnalyticsClients does not change stored values of other instance
+/// Test instances of AnalyticsClients do not change the stored values of other instance
 void main() {
   group('Multiple AnalyticsClients ', () {
     const analyticsPinpointAppId = 'analyticsPinpointAppId';

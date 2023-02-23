@@ -12,9 +12,11 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:meta/meta.dart';
 
-/// A builder class that constructs [eventClient] and [endpointClient].
+/// {@template amplify_analytics_pinpoint.analytics_client}
+/// A builder class that constructs and exposes the [eventClient] and [endpointClient] for interacting with Pinpoint.
+/// {@endtemplate}
 class AnalyticsClient {
-  /// Create an instance.
+  /// {@macro amplify_analytics_pinpoint.analytics_client}
   AnalyticsClient({
     DeviceContextInfoProvider? deviceContextInfoProvider,
     EndpointInfoStoreManager? endpointInfoStoreManager,
@@ -77,25 +79,6 @@ class AnalyticsClient {
       eventStore: eventStore,
     );
   }
-
-  /*
-  static Future<AnalyticsClient> create({
-    required String pinpointAppId,
-    required String region,
-    required AWSCredentialsProvider authProvider,
-    CachedEventsPathProvider? pathProvider,
-    EndpointInfoStoreManager? endpointInfoStoreManager,
-    DeviceContextInfoProvider? deviceContextInfoProvider,
-  }) async {
-    final analyticsClient = AnalyticsClient();
-    await analyticsClient.init(
-      pinpointAppId: pinpointAppId,
-      region: region,
-      authProvider: authProvider,
-    );
-    return analyticsClient;
-  }
-   */
 
   /// Client for interacting with Pinpoint Endpoint
   late final EndpointClient endpointClient;

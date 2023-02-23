@@ -9,7 +9,7 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interf
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
-/// Storage scope for Endpoint info.
+/// Storage scope for [EndpointInfoStoreManager].
 /// Used to determine where Endpoint info is stored.
 enum EndpointStorageScope {
   ///
@@ -19,34 +19,11 @@ enum EndpointStorageScope {
   pushNotifications,
 }
 
-/// Ensure Endpoint data is accessed with pinpointId prefix
-class _EndpointStore implements SecureStorageInterface {
-  _EndpointStore(this._pinpointAppId, this._store);
-
-  final String _pinpointAppId;
-  final SecureStorageInterface _store;
-
-  @override
-  FutureOr<void> delete({required String key}) {
-    return _store.delete(key: _pinpointAppId + key);
-  }
-
-  @override
-  FutureOr<String?> read({required String key}) {
-    return _store.read(key: _pinpointAppId + key);
-  }
-
-  @override
-  FutureOr<void> write({required String key, required String value}) {
-    return _store.write(key: _pinpointAppId + key, value: value);
-  }
-}
-
-/// {@template amplify_analytics_pinpoint_dart.endpoint_store_manager}
-/// Manages retrieval, storage, and management of Pinpoint Endpoint id and fields
+/// {@template amplify_analytics_pinpoint_dart.endpoint_info_store_manager}
+/// Manages and provides Pinpoint Endpoint id and global fields
 /// {@endtemplate}
 class EndpointInfoStoreManager {
-  /// {@macro amplify_analytics_pinpoint_dart.endpoint_store_manager}
+  /// {@macro amplify_analytics_pinpoint_dart.endpoint_info_store_manager}
   EndpointInfoStoreManager({
     required SecureStorageInterface store,
     LegacyNativeDataProvider? legacyNativeDataProvider,
@@ -65,7 +42,7 @@ class EndpointInfoStoreManager {
 
   var _isInit = false;
 
-  /// Initialize inner fields that require pinpointAppId to function
+  /// Initialize endpoint id and global fields.
   Future<void> init({required String pinpointAppId}) async {
     if (_isInit) return;
 
@@ -78,13 +55,13 @@ class EndpointInfoStoreManager {
     _isInit = true;
   }
 
-  /// Fields of the Pinpoint Endpoint
+  /// Fields of the Pinpoint Endpoint.
   late final EndpointGlobalFieldsManager endpointFields;
 
-  /// Stored Pinpoint Endpoint id
+  /// Stored Pinpoint Endpoint id.
   late final String endpointId;
 
-  /// Retrieve the stored pinpoint endpoint id
+  /// Retrieve the stored pinpoint endpoint id.
   Future<String> _retrieveEndpointId() async {
     final storeVersion = await _store.read(
       key: EndpointStoreKey.version.name,
@@ -123,5 +100,28 @@ class EndpointInfoStoreManager {
       );
     }
     return fixedEndpointId;
+  }
+}
+
+/// Ensure Endpoint data is accessed with pinpointId prefix.
+class _EndpointStore implements SecureStorageInterface {
+  _EndpointStore(this._pinpointAppId, this._store);
+
+  final String _pinpointAppId;
+  final SecureStorageInterface _store;
+
+  @override
+  FutureOr<void> delete({required String key}) {
+    return _store.delete(key: _pinpointAppId + key);
+  }
+
+  @override
+  FutureOr<String?> read({required String key}) {
+    return _store.read(key: _pinpointAppId + key);
+  }
+
+  @override
+  FutureOr<void> write({required String key, required String value}) {
+    return _store.write(key: _pinpointAppId + key, value: value);
   }
 }

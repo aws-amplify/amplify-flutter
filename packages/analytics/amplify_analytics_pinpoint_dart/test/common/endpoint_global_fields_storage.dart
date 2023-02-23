@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_store_keys.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
+/// Retrieve attributes map from [SecureStorageInterface]
 Future<Map<String, String>> getStoredAttributes(
   SecureStorageInterface storage, {
   String appId = '',
@@ -18,6 +19,7 @@ Future<Map<String, String>> getStoredAttributes(
           .cast<String, String>();
 }
 
+/// Retrieve metrics map from [SecureStorageInterface]
 Future<Map<String, double>> getStoredMetrics(
   SecureStorageInterface storage, {
   String appId = '',
