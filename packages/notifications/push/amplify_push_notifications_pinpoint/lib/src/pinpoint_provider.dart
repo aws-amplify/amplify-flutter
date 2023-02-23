@@ -6,20 +6,20 @@ import 'package:amplify_core/amplify_core.dart';
 // TODO(Samaritan1011001): Complete the implementation using Analytics Client
 class PinpointProvider extends ServiceProviderClient {
   @override
-  void init({
+  Future<void> init({
     AmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
-  }) {
+  }) async {
     // TODO(Samaritan1011001): implement init
   }
 
   @override
-  void recordNotificationEvent({required AnalyticsEvent event}) {
+  Future<void> recordNotificationEvent({required AnalyticsEvent event}) async {
     // TODO(Samaritan1011001): implement recordNotificationEvent
   }
 
   @override
-  void registerDevice(String deviceToken) {
+  Future<void> registerDevice(String deviceToken) async {
     // TODO(Samaritan1011001): implement registerDevice
   }
 }

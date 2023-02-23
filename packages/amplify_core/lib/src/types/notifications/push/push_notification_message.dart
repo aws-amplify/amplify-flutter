@@ -27,8 +27,11 @@ class PushNotificationMessage
   PushNotificationMessage.fromJson(Map<Object?, Object?> json) {
     messageId = json['messageId'] as String?;
     senderId = json['sender'] as String?;
-    final sentTimeStr = json['sentTime'] as String?;
-    sentTime = sentTimeStr == null ? null : DateTime.parse(sentTimeStr);
+
+    // TODO: Figure put what format is sentTime and how to parse it
+    // final sentTimeInt = json['sentTime'] as int?;
+    // sentTime =
+    //     sentTimeInt == null ? null : DateTime.parse(sentTimeInt.toString());
     data = json['data'] as Map<Object?, Object?>;
 
     final aps = json['aps'] as Map?;
