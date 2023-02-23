@@ -43,7 +43,7 @@ Future<void> configureAnalytics({
       appLifecycleProvider: appLifecycleProvider,
       analyticsClient: AnalyticsClient(
         endpointInfoStoreManager:
-            EndpointInfoStoreManager(store: mockEndpointInfoStore),
+            EndpointInfoStoreManager(store: mockPersistedSecuredStorage),
       ),
     ),
     AmplifyAPI(),

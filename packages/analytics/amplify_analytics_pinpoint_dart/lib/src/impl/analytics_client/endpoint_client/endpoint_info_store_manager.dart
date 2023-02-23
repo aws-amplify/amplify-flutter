@@ -59,6 +59,10 @@ class EndpointInfoStoreManager {
   late final String _pinpointAppId;
   late final _EndpointStore _endpointStore;
 
+  static final AmplifyLogger _logger =
+      AmplifyLogger.category(Category.analytics)
+          .createChild('EndpointInfoStoreManager');
+
   var _isInit = false;
 
   /// Initialize inner fields that require pinpointAppId to function
@@ -82,8 +86,6 @@ class EndpointInfoStoreManager {
 
   /// Retrieve the stored pinpoint endpoint id
   Future<String> _retrieveEndpointId() async {
-    String? fixedEndpointId;
-
     final storeVersion = await _store.read(
       key: EndpointStoreKey.version.name,
     );
@@ -91,11 +93,14 @@ class EndpointInfoStoreManager {
     // Migration: null -> v1.
     if (storeVersion == null) {
       if (_legacyNativeDataProvider != null) {
-        fixedEndpointId = await _retrieveAndManageLegacyEndpointId(
-          appId: _pinpointAppId,
-          storeVersion: storeVersion,
-          dataProvider: _legacyNativeDataProvider!,
-        );
+        final legacyEndpointId =
+            await _legacyNativeDataProvider!.getEndpointId(_pinpointAppId);
+        if (legacyEndpointId != null) {
+          await _endpointStore.write(
+            key: EndpointStoreKey.endpointId.name,
+            value: legacyEndpointId,
+          );
+        }
       }
       await _store.write(
         key: EndpointStoreKey.version.name,
@@ -104,37 +109,18 @@ class EndpointInfoStoreManager {
     }
 
     // Read the existing ID.
-    fixedEndpointId ??= await _endpointStore.read(
+    var fixedEndpointId = await _endpointStore.read(
       key: EndpointStoreKey.endpointId.name,
     );
 
     // Generate a new ID if one does not exist.
     if (fixedEndpointId == null) {
+      _logger.info('No EndpointId found, generating a new one.');
       fixedEndpointId = uuid();
       await _endpointStore.write(
         key: EndpointStoreKey.endpointId.name,
         value: fixedEndpointId,
       );
-    }
-    return fixedEndpointId;
-  }
-
-  Future<String?> _retrieveAndManageLegacyEndpointId({
-    required String appId,
-    String? storeVersion,
-    required LegacyNativeDataProvider dataProvider,
-  }) async {
-    String? fixedEndpointId;
-    if (storeVersion == null) {
-      final legacyEndpointId = await dataProvider.getEndpointId(appId);
-      // Migrate legacy data if it is non-null
-      if (legacyEndpointId != null) {
-        fixedEndpointId = legacyEndpointId;
-        await _endpointStore.write(
-          key: EndpointStoreKey.endpointId.name,
-          value: legacyEndpointId,
-        );
-      }
     }
     return fixedEndpointId;
   }
