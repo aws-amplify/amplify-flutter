@@ -41,8 +41,8 @@ class _MyAppState extends State<MyApp> {
       setState(() {
         isConfigured = true;
       });
-    } on Exception catch (e) {
-      print(e.toString());
+    } on Exception {
+      // print(e.toString());
     }
   }
 
@@ -88,7 +88,7 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                 onPressed: () async {
                   final status =
-                      await Amplify.Notifications.getPermissionStatus();
+                      await Amplify.Notifications.Push.getPermissionStatus();
                   setState(() {
                     getPermissionStatus = status;
                   });
@@ -100,7 +100,7 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                 onPressed: () async {
                   final result =
-                      await Amplify.Notifications.requestPermissions();
+                      await Amplify.Notifications.Push.requestPermissions();
                   setState(() {
                     requestPermissionsResult = result;
                   });
@@ -119,7 +119,7 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () async {
                   try {
                     final foregroundStream = Amplify
-                        .Notifications.onNotificationReceivedInForeground;
+                        .Notifications.Push.onNotificationReceivedInForeground;
                     foregroundStream.listen((event) {
                       setState(() {
                         foregroundMessage = event;
@@ -128,8 +128,8 @@ class _MyAppState extends State<MyApp> {
                     setState(() {
                       isForegroundListernerInitialized = true;
                     });
-                  } on Exception catch (e) {
-                    print(e.toString());
+                  } on Exception {
+                    // print(e.toString());
                   }
                 },
                 child: const Text('onForegroundNotificationReceived'),
@@ -140,7 +140,7 @@ class _MyAppState extends State<MyApp> {
                 title: Text(
                   foregroundMessage == null
                       ? 'No foreground message yet'
-                      : "Title: ${foregroundMessage!.content?.title?.toString() ?? ""}",
+                      : "Title: ${foregroundMessage!.title?.toString() ?? ""}",
                 ),
               ),
             ],

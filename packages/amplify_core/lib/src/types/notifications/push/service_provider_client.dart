@@ -7,12 +7,12 @@ import 'package:amplify_core/amplify_core.dart';
 /// Abstract class that a new service provider class must subclass and implement concrete functionality
 /// {@endtemplate}
 abstract class ServiceProviderClient {
-  void init({
+  Future<void> init({
     AmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   });
-  void registerDevice(String deviceToken);
-  void recordNotificationEvent({
+  Future<void> registerDevice(String deviceToken);
+  Future<void> recordNotificationEvent({
     required AnalyticsEvent event,
   });
 }

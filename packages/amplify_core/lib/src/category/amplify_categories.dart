@@ -14,6 +14,7 @@ part 'amplify_analytics_category.dart';
 part 'amplify_api_category.dart';
 part 'amplify_datastore_category.dart';
 part 'amplify_notifications_category.dart';
+part 'amplify_push_notifications_category.dart';
 part 'amplify_storage_category.dart';
 
 String _errorMsgPluginNotAdded(String pluginName) =>
@@ -47,8 +48,8 @@ enum Category {
   /// Upload and download files from the cloud
   storage,
 
-  /// Notifications
-  notifications,
+  /// Push Notifications
+  notificationsPush,
 }
 
 extension CategoryName on Category {
@@ -66,8 +67,8 @@ extension CategoryName on Category {
         return 'Hub';
       case Category.storage:
         return 'Storage';
-      case Category.notifications:
-        return 'Notifications';
+      case Category.notificationsPush:
+        return 'PushNotifications';
     }
   }
 }
