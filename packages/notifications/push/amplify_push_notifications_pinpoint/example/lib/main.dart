@@ -87,7 +87,7 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () async {
                   try {
                     final foregroundStream = Amplify
-                        .Notifications.onNotificationReceivedInForeground;
+                        .Notifications.Push.onNotificationReceivedInForeground;
                     foregroundStream.listen((event) {
                       setState(() {
                         foregroundMessage = event;
@@ -108,7 +108,7 @@ class _MyAppState extends State<MyApp> {
                 title: Text(
                   foregroundMessage == null
                       ? 'No foreground message yet'
-                      : "Title: ${foregroundMessage!.content?.title?.toString() ?? ""}",
+                      : "Title: ${foregroundMessage!.title?.toString() ?? ""}",
                 ),
               ),
             ],
