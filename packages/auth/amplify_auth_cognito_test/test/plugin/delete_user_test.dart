@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
@@ -86,9 +88,12 @@ void main() {
         );
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
-        await expectLater(plugin.getUserPoolTokens(), completes);
+        await expectLater(plugin.stateMachine.getUserPoolTokens(), completes);
         await expectLater(plugin.deleteUser(), completes);
-        expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+        expect(
+          plugin.stateMachine.getUserPoolTokens(),
+          throwsSignedOutException,
+        );
         expect(hubEvents, emitsThrough(userDeletedEvent));
       });
 
@@ -110,9 +115,9 @@ void main() {
         );
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
-        await expectLater(plugin.getUserPoolTokens(), completes);
+        await expectLater(plugin.stateMachine.getUserPoolTokens(), completes);
         await expectLater(plugin.deleteUser(), throwsA(isA<Exception>()));
-        expect(plugin.getUserPoolTokens(), completes);
+        expect(plugin.stateMachine.getUserPoolTokens(), completes);
         expect(hubEvents, neverEmits(userDeletedEvent));
         unawaited(hubEventsController.close());
       });

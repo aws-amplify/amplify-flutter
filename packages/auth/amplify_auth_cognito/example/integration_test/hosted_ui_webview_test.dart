@@ -102,7 +102,7 @@ void main() {
           throwsA(isA<SignedOutException>()),
         );
         await expectLater(
-          plugin.getUserPoolTokens(),
+          plugin.stateMachine.getUserPoolTokens(),
           throwsA(isA<SignedOutException>()),
         );
       }
