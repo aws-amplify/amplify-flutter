@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'dart:async';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart'
@@ -128,12 +130,15 @@ void main() {
         );
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
-        await expectLater(plugin.getUserPoolTokens(), completes);
+        await expectLater(plugin.stateMachine.getUserPoolTokens(), completes);
         await expectLater(
           plugin.signOut(),
           completion(isA<CognitoCompleteSignOut>()),
         );
-        expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+        expect(
+          plugin.stateMachine.getUserPoolTokens(),
+          throwsSignedOutException,
+        );
         expect(hubEvents, emitsSignOutEvent);
       });
 
@@ -156,7 +161,7 @@ void main() {
         );
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
-        await expectLater(plugin.getUserPoolTokens(), completes);
+        await expectLater(plugin.stateMachine.getUserPoolTokens(), completes);
         await expectLater(
           plugin.signOut(
             options: const SignOutOptions(globalSignOut: true),
@@ -184,7 +189,10 @@ void main() {
                 ),
           ),
         );
-        expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+        expect(
+          plugin.stateMachine.getUserPoolTokens(),
+          throwsSignedOutException,
+        );
         expect(hubEvents, emitsSignOutEvent);
       });
 
@@ -206,7 +214,7 @@ void main() {
         );
         stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
-        await expectLater(plugin.getUserPoolTokens(), completes);
+        await expectLater(plugin.stateMachine.getUserPoolTokens(), completes);
         await expectLater(
           plugin.signOut(
             options: const SignOutOptions(globalSignOut: true),
@@ -234,7 +242,10 @@ void main() {
                 ),
           ),
         );
-        expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+        expect(
+          plugin.stateMachine.getUserPoolTokens(),
+          throwsSignedOutException,
+        );
         expect(hubEvents, emitsSignOutEvent);
       });
 
@@ -266,12 +277,15 @@ void main() {
           );
           stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
-          await expectLater(plugin.getUserPoolTokens(), completes);
+          await expectLater(plugin.stateMachine.getUserPoolTokens(), completes);
           await expectLater(
             plugin.signOut(),
             completion(isA<CognitoCompleteSignOut>()),
           );
-          expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+          expect(
+            plugin.stateMachine.getUserPoolTokens(),
+            throwsSignedOutException,
+          );
           expect(hubEvents, emitsSignOutEvent);
         });
 
@@ -294,7 +308,7 @@ void main() {
           );
           stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
-          await expectLater(plugin.getUserPoolTokens(), completes);
+          await expectLater(plugin.stateMachine.getUserPoolTokens(), completes);
           await expectLater(
             plugin.signOut(
               options: const SignOutOptions(globalSignOut: true),
@@ -307,7 +321,10 @@ void main() {
               ),
             ),
           );
-          expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+          expect(
+            plugin.stateMachine.getUserPoolTokens(),
+            throwsSignedOutException,
+          );
           expect(hubEvents, emitsSignOutEvent);
         });
 
@@ -329,7 +346,7 @@ void main() {
           );
           stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
-          await expectLater(plugin.getUserPoolTokens(), completes);
+          await expectLater(plugin.stateMachine.getUserPoolTokens(), completes);
           await expectLater(
             plugin.signOut(
               options: const SignOutOptions(globalSignOut: true),
@@ -342,7 +359,10 @@ void main() {
               ),
             ),
           );
-          expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+          expect(
+            plugin.stateMachine.getUserPoolTokens(),
+            throwsSignedOutException,
+          );
           expect(hubEvents, emitsSignOutEvent);
         });
 
@@ -378,7 +398,7 @@ void main() {
           );
           stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
 
-          await expectLater(plugin.getUserPoolTokens(), completes);
+          await expectLater(plugin.stateMachine.getUserPoolTokens(), completes);
           await expectLater(
             plugin.signOut(),
             completion(
@@ -393,7 +413,10 @@ void main() {
               ),
             ),
           );
-          expect(plugin.getUserPoolTokens(), throwsSignedOutException);
+          expect(
+            plugin.stateMachine.getUserPoolTokens(),
+            throwsSignedOutException,
+          );
           expect(hubEvents, emitsSignOutEvent);
         });
 
@@ -426,7 +449,10 @@ void main() {
               authProviderRepo: testAuthRepo,
             );
 
-            await expectLater(plugin.getUserPoolTokens(), completes);
+            await expectLater(
+              plugin.stateMachine.getUserPoolTokens(),
+              completes,
+            );
             await expectLater(
               plugin.signOut(),
               completion(
@@ -438,7 +464,7 @@ void main() {
               ),
             );
             expect(
-              plugin.getUserPoolTokens(),
+              plugin.stateMachine.getUserPoolTokens(),
               completes,
               reason: 'Credentials were not cleared',
             );
