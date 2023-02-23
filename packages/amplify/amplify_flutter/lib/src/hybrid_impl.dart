@@ -25,7 +25,7 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
       [
         ...API.plugins,
         ...Auth.plugins,
-        ...Notifications.plugins,
+        ...Notifications.Push.plugins,
         ...Analytics.plugins,
         ...Storage.plugins,
         ...DataStore.plugins,
@@ -84,7 +84,7 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
       } else if (plugin is APIPluginInterface) {
         await API.addPlugin(plugin, authProviderRepo: authProviderRepo);
       } else if (plugin is PushNotificationsPluginInterface) {
-        await Notifications.addPlugin(
+        await Notifications.Push.addPlugin(
           plugin,
           authProviderRepo: authProviderRepo,
         );

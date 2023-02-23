@@ -39,8 +39,8 @@ class _MyAppState extends State<MyApp> {
       setState(() {
         isConfigured = true;
       });
-    } on Exception catch (e) {
-      print(e.toString());
+    } on Exception {
+      // print(e.toString());
     }
   }
 
@@ -87,7 +87,7 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () async {
                   try {
                     final foregroundStream = Amplify
-                        .Notifications.onNotificationReceivedInForeground;
+                        .Notifications.Push.onNotificationReceivedInForeground;
                     foregroundStream.listen((event) {
                       setState(() {
                         foregroundMessage = event;
@@ -96,8 +96,8 @@ class _MyAppState extends State<MyApp> {
                     setState(() {
                       isForegroundListernerInitialized = true;
                     });
-                  } on Exception catch (e) {
-                    print(e.toString());
+                  } on Exception {
+                    // print(e.toString());
                   }
                 },
                 child: const Text('onForegroundNotificationReceived'),
@@ -108,7 +108,7 @@ class _MyAppState extends State<MyApp> {
                 title: Text(
                   foregroundMessage == null
                       ? 'No foreground message yet'
-                      : "Title: ${foregroundMessage!.content?.title?.toString() ?? ""}",
+                      : "Title: ${foregroundMessage!.title?.toString() ?? ""}",
                 ),
               ),
             ],

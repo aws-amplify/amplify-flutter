@@ -17,15 +17,19 @@ void callbackDispatcher() {
   );
   // ignore: cascade_invocations
   backgroundChannel.setMethodCallHandler((MethodCall call) async {
-    final args = call.arguments as List<dynamic>;
-    final callback = PluginUtilities.getCallbackFromHandle(
-      CallbackHandle.fromRawHandle(args as int),
-    );
-    assert(callback != null);
+    try {
+      final args = call.arguments as List<dynamic>;
+      final callback = PluginUtilities.getCallbackFromHandle(
+        CallbackHandle.fromRawHandle(args[0] as int),
+      );
+      assert(callback != null);
 
-    // print("user callback is being invoked");
-    // TODO: Pass along the notification from the broadcast receiver
-    callback!(PushNotificationMessage());
+      print('user callback is being invoked');
+      // TODO: Pass along the notification from the broadcast receiver
+      callback!(PushNotificationMessage());
+    } on Exception catch (e) {
+      print('Exception in background channel -. $e');
+    }
   });
 
   print('CallbackDispatcher was initialized');
