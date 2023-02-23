@@ -2,13 +2,23 @@
 // SPDX-License-Identifier: Apache-2.0
 import 'package:amplify_api_dart/src/graphql/utils.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:collection/collection.dart';
 
 // ignore_for_file: public_member_api_docs
 
-/// `"id"`, the name of the id field in every compatible model/schema.
-/// Eventually needs to be dynamic to accommodate custom primary keys.
-const idFieldName = 'id';
+/// `"id"`, the name of the id field when a primary key not specified in schema
+/// with `@primaryKey` annotation.
+const _defaultIdFieldName = 'id';
+// other string constants
+const _commaSpace = ', ';
+const _openParen = '(';
+const _closeParen = ')';
 
+/// Contains expressions for mapping request variables to expected places in the
+/// request.
+///
+/// Some examples include ids or indexes for simple queries, filters, and input
+/// variables/conditions for mutations.
 class DocumentInputs {
   const DocumentInputs(this.upper, this.lower);
 
@@ -103,6 +113,7 @@ class GraphQLRequestFactory {
   DocumentInputs _buildDocumentInputs(
     ModelSchema schema,
     GraphQLRequestOperation operation,
+    ModelIdentifier? modelIdentifier,
   ) {
     var upperOutput = '';
     var lowerOutput = '';
@@ -111,8 +122,34 @@ class GraphQLRequestFactory {
     // build inputs based on request operation
     switch (operation) {
       case GraphQLRequestOperation.get:
-        upperOutput = r'($id: ID!)';
-        lowerOutput = r'(id: $id)';
+        final indexes = schema.indexes;
+        final modelIndex =
+            indexes?.firstWhereOrNull((index) => index.name == null);
+        if (modelIndex != null) {
+          // custom index(es), e.g.
+          // upperOutput: no change (empty string)
+          // lowerOutput: (customId: 'abc-123, name: 'lorem')
+
+          // Do not reference variables because scalar types not available in
+          // codegen. Instead, just write the value to the document.
+          final bLowerOutput = StringBuffer(_openParen);
+          for (final field in modelIndex.fields) {
+            var value = modelIdentifier!.serializeAsMap()[field];
+            if (value is String) {
+              value = '"$value"';
+            }
+            bLowerOutput.write('$field: $value');
+            if (field != modelIndex.fields.last) {
+              bLowerOutput.write(_commaSpace);
+            }
+          }
+          bLowerOutput.write(_closeParen);
+          lowerOutput = bLowerOutput.toString();
+        } else {
+          // simple, single identifier
+          upperOutput = r'($id: ID!)';
+          lowerOutput = r'(id: $id)';
+        }
         break;
       case GraphQLRequestOperation.list:
         upperOutput =
@@ -150,6 +187,7 @@ class GraphQLRequestFactory {
   GraphQLRequest<T> buildRequest<T extends Model>({
     required ModelType modelType,
     Model? model,
+    ModelIdentifier? modelIdentifier,
     required GraphQLRequestType requestType,
     required GraphQLRequestOperation requestOperation,
     required Map<String, dynamic> variables,
@@ -169,7 +207,8 @@ class GraphQLRequestFactory {
     // e.g. "get" or "list"
     final requestOperationVal = requestOperation.name;
     // e.g. "{upper: "($id: ID!)", lower: "(id: $id)"}"
-    final documentInputs = _buildDocumentInputs(schema, requestOperation);
+    final documentInputs =
+        _buildDocumentInputs(schema, requestOperation, modelIdentifier);
     // e.g. "id name createdAt" - fields to retrieve
     final fields = _getSelectionSetFromModelSchema(schema, requestOperation);
     // e.g. "getBlog"
@@ -241,15 +280,16 @@ class GraphQLRequestFactory {
     // e.g. { 'name': { 'eq': 'foo }}
     if (queryPredicate is QueryPredicateOperation) {
       final association = schema.fields?[queryPredicate.field]?.association;
-      // TODO(ragingsquirrel3): Change key logic when supporting CPK.
       final associatedTargetName =
           association?.targetNames?.first ?? association?.targetName;
       var fieldName = queryPredicate.field;
       if (queryPredicate.field ==
-          '${_lowerCaseFirstCharacter(schema.name)}.$idFieldName') {
-        // check for the IDs where fieldName set to e.g. "blog.id" and convert to "id"
-        fieldName = idFieldName;
+          '${_lowerCaseFirstCharacter(schema.name)}.$_defaultIdFieldName') {
+        // very old schemas where fieldName is "blog.id"
+        fieldName = _defaultIdFieldName;
       } else if (associatedTargetName != null) {
+        // most schemas from more recent CLI codegen versions
+
         // when querying for the ID of another model, use the targetName from the schema
         fieldName = associatedTargetName;
       }
@@ -315,25 +355,51 @@ class GraphQLRequestFactory {
         getModelSchemaByModelName(model.getInstanceType().modelName(), null);
     final modelJson = model.toJson();
 
-    // If the model has a parent in the schema, get the ID of parent and field name.
+    // Get the primary key field name from parent schema(s) so it can be taken from
+    // JSON. For schemas with `@primaryKey` defined, it will be the first key in
+    // the index where name is null. If no such definition in schema, use
+    // default primary key "id."
     final allBelongsTo = getBelongsToFieldsFromModelSchema(schema);
     for (final belongsTo in allBelongsTo) {
       final belongsToModelName = belongsTo.name;
-      // TODO(ragingsquirrel3): Change key logic when supporting CPK.
-      final belongsToKey = belongsTo.association?.targetNames?.first ??
-          belongsTo.association?.targetName;
-      final belongsToValue =
-          (modelJson[belongsToModelName] as Map?)?[idFieldName] as String?;
+      final parentSchema = getModelSchemaByModelName(
+        belongsTo.type.ofModelName!,
+        operation,
+      );
+      final primaryKeyIndex = parentSchema.indexes?.firstWhereOrNull(
+        (modelIndex) => modelIndex.name == null,
+      );
 
-      // Assign the parent ID if the model has a parent.
-      if (belongsToKey != null) {
-        modelJson.remove(belongsToModelName);
+      // Traverse parent schema to get expected JSON strings and remove from JSON.
+      // A parent with complex identifier may have multiple keys.
+      var belongsToKeys = belongsTo.association?.targetNames;
+      final legacyTargetName =
+          belongsTo.association?.targetName; // pre-CPK codegen
+      if (belongsToKeys == null && legacyTargetName == null) {
+        // no way to resolve key to write to JSON
+        continue;
+      }
+      belongsToKeys = belongsToKeys ?? [legacyTargetName as String];
+      var i = 0; // needed to track corresponding index field name
+      for (final belongsToKey in belongsToKeys) {
+        final parentIdFieldName =
+            primaryKeyIndex?.fields[i] ?? _defaultIdFieldName;
+        final belongsToValue = (modelJson[belongsToModelName]
+            as Map?)?[parentIdFieldName] as String?;
+
+        // Assign the parent ID(s) if the model has a parent.
         if (belongsToValue != null) {
           modelJson[belongsToKey] = belongsToValue;
         }
+        i++;
       }
+      modelJson.remove(belongsToModelName);
     }
 
+    final ownerFieldNames = (schema.authRules ?? [])
+        .map((authRule) => authRule.ownerField)
+        .whereNotNull()
+        .toSet();
     // Remove some fields from input.
     final fieldsToRemove = schema.fields!.entries
         .where(
@@ -342,8 +408,9 @@ class GraphQLRequestFactory {
               entry.value.association != null ||
               // read-only
               entry.value.isReadOnly ||
-              // null values on create operations
+              // null values for owner fields on create operations
               (operation == GraphQLRequestOperation.create &&
+                  ownerFieldNames.contains(entry.value.name) &&
                   modelJson[entry.value.name] == null),
         )
         .map((entry) => entry.key)

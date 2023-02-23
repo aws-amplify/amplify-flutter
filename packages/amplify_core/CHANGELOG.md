@@ -1,3 +1,8 @@
+## 1.0.0-next.5+1
+
+### Fixes
+- fix(api): include parent IDs in selection set for model helpers ([#2655](https://github.com/aws-amplify/amplify-flutter/pull/2655))
+
 ## 1.0.0-next.5
 
 ### Breaking Changes

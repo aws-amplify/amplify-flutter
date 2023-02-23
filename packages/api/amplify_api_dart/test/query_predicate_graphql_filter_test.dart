@@ -1,12 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_api_dart/src/graphql/factories/graphql_request_factory.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:test/test.dart';
 
 import 'graphql_helpers_test.dart';
 import 'test_models/ModelProvider.dart';
+import 'util.dart';
 
 enum Size { small, medium, large }
 
@@ -19,19 +19,8 @@ void main() {
       );
     });
 
-    // helper method for all the tests
-    void testQueryPredicateTranslation(
-      QueryPredicate? queryPredicate,
-      Map<String, dynamic>? expectedFilter, {
-      ModelType modelType = Blog.classType,
-    }) {
-      final resultFilter = GraphQLRequestFactory.instance
-          .queryPredicateToGraphQLFilter(queryPredicate, modelType);
-      expect(resultFilter, expectedFilter);
-    }
-
     test('should be null safe', () {
-      testQueryPredicateTranslation(null, null);
+      testQueryPredicateTranslation(null, null, modelType: Blog.classType);
     });
 
     test('simple query predicate converts to expected filter', () {
@@ -41,24 +30,32 @@ void main() {
       };
 
       final queryPredicate = Blog.NAME.eq(expectedTitle);
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      testQueryPredicateTranslation(
+        queryPredicate,
+        expectedFilter,
+        modelType: Blog.classType,
+      );
     });
 
     test('and query with string, and date', () {
       const dateString = '2019-11-23T02:06:50.689000000Z';
       final createdAt = TemporalDateTime(DateTime.parse(dateString));
-      final queryPredicate = Blog.ID.eq('id').and(Blog.CREATEDAT.eq(createdAt));
+      final queryPredicate = Post.ID.eq('id').and(Post.CREATED.eq(createdAt));
       const expectedFilter = {
         'and': [
           {
             'id': {'eq': 'id'}
           },
           {
-            'createdAt': {'eq': dateString}
+            'created': {'eq': dateString}
           },
         ]
       };
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      testQueryPredicateTranslation(
+        queryPredicate,
+        expectedFilter,
+        modelType: Post.classType,
+      );
     });
 
     test('not query converts to expected filter', () {
@@ -68,7 +65,11 @@ void main() {
           'id': {'eq': 'id'}
         }
       };
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      testQueryPredicateTranslation(
+        queryPredicate,
+        expectedFilter,
+        modelType: Blog.classType,
+      );
     });
 
     test(
@@ -118,7 +119,11 @@ void main() {
           }
         ]
       };
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      testQueryPredicateTranslation(
+        queryPredicate,
+        expectedFilter,
+        modelType: Blog.classType,
+      );
     });
 
     test('nested and(or()) operator converts to expected filter', () {
@@ -141,7 +146,11 @@ void main() {
           }
         ]
       };
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      testQueryPredicateTranslation(
+        queryPredicate,
+        expectedFilter,
+        modelType: Blog.classType,
+      );
     });
 
     test('nested or(and()) operator converts to expected filter', () {
@@ -164,51 +173,71 @@ void main() {
           },
         ]
       };
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      testQueryPredicateTranslation(
+        queryPredicate,
+        expectedFilter,
+        modelType: Blog.classType,
+      );
     });
 
     test('TemporalDateTime query converts to expected filter', () {
       const dateString = '2019-11-23T02:06:50.689000000Z';
       final exampleValue = TemporalDateTime(DateTime.parse(dateString));
       const expectedFilter = {
-        'createdAt': {'le': dateString}
+        'created': {'le': dateString}
       };
-      final queryPredicate = Blog.CREATEDAT.le(exampleValue);
+      final queryPredicate = Post.CREATED.le(exampleValue);
 
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      testQueryPredicateTranslation(
+        queryPredicate,
+        expectedFilter,
+        modelType: Post.classType,
+      );
     });
 
     test('TemporalDate query converts to expected filter', () {
       const dateString = '2019-11-23';
       final exampleValue = TemporalDate(DateTime.parse(dateString));
       const expectedFilter = {
-        'createdAt': {'le': dateString}
+        'created': {'le': dateString}
       };
-      final queryPredicate = Blog.CREATEDAT.le(exampleValue);
+      final queryPredicate = Post.CREATED.le(exampleValue);
 
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      testQueryPredicateTranslation(
+        queryPredicate,
+        expectedFilter,
+        modelType: Post.classType,
+      );
     });
 
     test('TemporalTime query converts to expected filter', () {
       const dateString = '02:06:50.689000000';
       final exampleValue = TemporalTime.fromString(dateString);
       const expectedFilter = {
-        'createdAt': {'le': dateString}
+        'created': {'le': dateString}
       };
-      final queryPredicate = Blog.CREATEDAT.le(exampleValue);
+      final queryPredicate = Post.CREATED.le(exampleValue);
 
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      testQueryPredicateTranslation(
+        queryPredicate,
+        expectedFilter,
+        modelType: Post.classType,
+      );
     });
 
     test('DateTime converted to TemporalDateTime query', () {
       const dateString = '2019-11-23T02:06:50.689000000Z';
       final exampleValue = DateTime.parse(dateString);
       const expectedFilter = {
-        'createdAt': {'le': dateString}
+        'created': {'le': dateString}
       };
-      final queryPredicate = Blog.CREATEDAT.le(exampleValue);
+      final queryPredicate = Post.CREATED.le(exampleValue);
 
-      testQueryPredicateTranslation(queryPredicate, expectedFilter);
+      testQueryPredicateTranslation(
+        queryPredicate,
+        expectedFilter,
+        modelType: Post.classType,
+      );
     });
 
     test('query child by parent ID', () {

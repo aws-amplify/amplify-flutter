@@ -1,6 +1,6 @@
 name: aws_signature_v4
 description: Dart implementation of the AWS Signature Version 4 algorithm, for communication with AWS services.
-version: 0.3.1+3
+version: 0.3.1+4
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/aws_signature_v4
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues

@@ -86,7 +86,7 @@ void main({bool useExistingTestUser = false}) {
         // clean up the comment
         final deleteCommentReq = ModelMutations.deleteById(
           Comment.classType,
-          createdComment.id,
+          createdComment.modelIdentifier,
           authorizationMode: APIAuthorizationType.userPools,
         );
         await Amplify.API.mutate(request: deleteCommentReq).response;
@@ -195,7 +195,7 @@ void main({bool useExistingTestUser = false}) {
         final updateRes = await Amplify.API.mutate(request: req).response;
         expect(updateRes.data, isNull);
         // query again to ensure it still unchanged
-        final getReq = ModelQueries.get(Blog.classType, blog.id);
+        final getReq = ModelQueries.get(Blog.classType, blog.modelIdentifier);
         final res = await Amplify.API.query(request: getReq).response;
         expect(res, hasNoGraphQLErrors);
         expect(res.data?.name, oldName);
@@ -205,10 +205,10 @@ void main({bool useExistingTestUser = false}) {
           (WidgetTester tester) async {
         const name = 'Integration Test Blog - delete';
         final blog = await addBlog(name);
-        final data = await deleteBlog(blog.id);
+        final data = await deleteBlog(blog);
         expect(data, equals(blog));
 
-        final checkReq = ModelQueries.get(Blog.classType, blog.id);
+        final checkReq = ModelQueries.get(Blog.classType, blog.modelIdentifier);
         final checkRes = await Amplify.API.query(request: checkReq).response;
         expect(checkRes.data, isNull);
       });
@@ -219,7 +219,7 @@ void main({bool useExistingTestUser = false}) {
         const rating = 0;
         final post = await addPostAndBlog(title, rating);
 
-        final mutatedPost = await deletePost(post.id);
+        final mutatedPost = await deletePost(post);
         expect(mutatedPost?.title, equals(title));
       });
 
@@ -238,7 +238,7 @@ void main({bool useExistingTestUser = false}) {
         final deleteRes = await Amplify.API.mutate(request: req).response;
         expect(deleteRes.data, isNull);
         // query again to ensure it still exists
-        final getReq = ModelQueries.get(Blog.classType, blog.id);
+        final getReq = ModelQueries.get(Blog.classType, blog.modelIdentifier);
         final res = await Amplify.API.query(request: getReq).response;
         expect(res, hasNoGraphQLErrors);
         expect(res.data?.name, name);

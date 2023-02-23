@@ -245,15 +245,14 @@ void main() {
     });
   });
   group('Model Helpers', () {
-    const blogSelectionSet =
-        'id name createdAt file { bucket region key meta { name } } files { bucket region key meta { name } } updatedAt';
+    const blogSelectionSet = 'id name createdAt updatedAt';
 
     test('Query returns proper response.data for Models', () async {
       const expectedDoc =
           'query getBlog(\$id: ID!) { getBlog(id: \$id) { $blogSelectionSet } }';
       const decodePath = 'getBlog';
-
-      final req = ModelQueries.get<Blog>(Blog.classType, _modelQueryId);
+      final blog = Blog(id: _modelQueryId, name: 'Lorem ipsum $_modelQueryId');
+      final req = ModelQueries.get<Blog>(Blog.classType, blog.modelIdentifier);
 
       final operation = Amplify.API.query(request: req);
       final res = await operation.response;

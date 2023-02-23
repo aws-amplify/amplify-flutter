@@ -9,7 +9,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
-// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously, implicit_dynamic_parameter, implicit_dynamic_map_literal, implicit_dynamic_type
+// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
 import 'ModelProvider.dart';
 
@@ -21,14 +21,14 @@ class Post extends Model {
   final String? _title;
   final int? _rating;
   final TemporalDateTime? _created;
-  final int? _likeCount;
   final Blog? _blog;
   final List<Comment>? _comments;
+  final List<PostTags>? _tags;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
   @override
-  _PostModelType getInstanceType() => classType;
+  getInstanceType() => classType;
 
   @Deprecated(
       '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
@@ -69,16 +69,16 @@ class Post extends Model {
     return _created;
   }
 
-  int? get likeCount {
-    return _likeCount;
-  }
-
   Blog? get blog {
     return _blog;
   }
 
   List<Comment>? get comments {
     return _comments;
+  }
+
+  List<PostTags>? get tags {
+    return _tags;
   }
 
   TemporalDateTime? get createdAt {
@@ -89,43 +89,43 @@ class Post extends Model {
     return _updatedAt;
   }
 
-  factory Post(
-      {String? id,
-      required String title,
-      required int rating,
-      TemporalDateTime? created,
-      int? likeCount,
-      Blog? blog,
-      List<Comment>? comments}) {
-    return Post._internal(
-        id: id == null ? UUID.getUUID() : id,
-        title: title,
-        rating: rating,
-        created: created,
-        likeCount: likeCount,
-        blog: blog,
-        comments:
-            comments != null ? List<Comment>.unmodifiable(comments) : comments);
-  }
-
   const Post._internal(
       {required this.id,
       required title,
       required rating,
       created,
-      likeCount,
       blog,
       comments,
+      tags,
       createdAt,
       updatedAt})
       : _title = title,
         _rating = rating,
         _created = created,
-        _likeCount = likeCount,
         _blog = blog,
         _comments = comments,
+        _tags = tags,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
+
+  factory Post(
+      {String? id,
+      required String title,
+      required int rating,
+      TemporalDateTime? created,
+      Blog? blog,
+      List<Comment>? comments,
+      List<PostTags>? tags}) {
+    return Post._internal(
+        id: id == null ? UUID.getUUID() : id,
+        title: title,
+        rating: rating,
+        created: created,
+        blog: blog,
+        comments:
+            comments != null ? List<Comment>.unmodifiable(comments) : comments,
+        tags: tags != null ? List<PostTags>.unmodifiable(tags) : tags);
+  }
 
   bool equals(Object other) {
     return this == other;
@@ -139,9 +139,9 @@ class Post extends Model {
         _title == other._title &&
         _rating == other._rating &&
         _created == other._created &&
-        _likeCount == other._likeCount &&
         _blog == other._blog &&
-        DeepCollectionEquality().equals(_comments, other._comments);
+        DeepCollectionEquality().equals(_comments, other._comments) &&
+        DeepCollectionEquality().equals(_tags, other._tags);
   }
 
   @override
@@ -151,23 +151,20 @@ class Post extends Model {
   String toString() {
     var buffer = StringBuffer();
 
-    buffer.write('Post {');
-    buffer.write('id=' + '$id' + ', ');
-    buffer.write('title=' + '$_title' + ', ');
+    buffer.write("Post {");
+    buffer.write("id=" + "$id" + ", ");
+    buffer.write("title=" + "$_title" + ", ");
     buffer.write(
-        'rating=' + (_rating != null ? _rating!.toString() : 'null') + ', ');
+        "rating=" + (_rating != null ? _rating!.toString() : "null") + ", ");
     buffer.write(
-        'created=' + (_created != null ? _created!.format() : 'null') + ', ');
-    buffer.write('likeCount=' +
-        (_likeCount != null ? _likeCount!.toString() : 'null') +
-        ', ');
-    buffer.write('blog=' + (_blog != null ? _blog!.toString() : 'null') + ', ');
-    buffer.write('createdAt=' +
-        (_createdAt != null ? _createdAt!.format() : 'null') +
-        ', ');
+        "created=" + (_created != null ? _created!.format() : "null") + ", ");
+    buffer.write("blog=" + (_blog != null ? _blog!.toString() : "null") + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
     buffer.write(
-        'updatedAt=' + (_updatedAt != null ? _updatedAt!.format() : 'null'));
-    buffer.write('}');
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("}");
 
     return buffer.toString();
   }
@@ -176,17 +173,17 @@ class Post extends Model {
       {String? title,
       int? rating,
       TemporalDateTime? created,
-      int? likeCount,
       Blog? blog,
-      List<Comment>? comments}) {
+      List<Comment>? comments,
+      List<PostTags>? tags}) {
     return Post._internal(
         id: id,
         title: title ?? this.title,
         rating: rating ?? this.rating,
         created: created ?? this.created,
-        likeCount: likeCount ?? this.likeCount,
         blog: blog ?? this.blog,
-        comments: comments ?? this.comments);
+        comments: comments ?? this.comments,
+        tags: tags ?? this.tags);
   }
 
   Post.fromJson(Map<String, dynamic> json)
@@ -196,7 +193,6 @@ class Post extends Model {
         _created = json['created'] != null
             ? TemporalDateTime.fromString(json['created'])
             : null,
-        _likeCount = (json['likeCount'] as num?)?.toInt(),
         _blog = json['blog']?['serializedData'] != null
             ? Blog.fromJson(
                 Map<String, dynamic>.from(json['blog']['serializedData']))
@@ -205,6 +201,13 @@ class Post extends Model {
             ? (json['comments'] as List)
                 .where((e) => e?['serializedData'] != null)
                 .map((e) => Comment.fromJson(
+                    Map<String, dynamic>.from(e['serializedData'])))
+                .toList()
+            : null,
+        _tags = json['tags'] is List
+            ? (json['tags'] as List)
+                .where((e) => e?['serializedData'] != null)
+                .map((e) => PostTags.fromJson(
                     Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
             : null,
@@ -220,33 +223,38 @@ class Post extends Model {
         'title': _title,
         'rating': _rating,
         'created': _created?.format(),
-        'likeCount': _likeCount,
         'blog': _blog?.toJson(),
         'comments': _comments?.map((Comment? e) => e?.toJson()).toList(),
+        'tags': _tags?.map((PostTags? e) => e?.toJson()).toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryModelIdentifier MODEL_IDENTIFIER = QueryModelIdentifier();
-  static final QueryField ID = QueryField(fieldName: 'post.id');
-  static final QueryField TITLE = QueryField(fieldName: 'title');
-  static final QueryField RATING = QueryField(fieldName: 'rating');
-  static final QueryField CREATED = QueryField(fieldName: 'created');
-  static final QueryField LIKECOUNT = QueryField(fieldName: 'likeCount');
+  static final QueryModelIdentifier<PostModelIdentifier> MODEL_IDENTIFIER =
+      QueryModelIdentifier<PostModelIdentifier>();
+  static final QueryField ID = QueryField(fieldName: "id");
+  static final QueryField TITLE = QueryField(fieldName: "title");
+  static final QueryField RATING = QueryField(fieldName: "rating");
+  static final QueryField CREATED = QueryField(fieldName: "created");
   static final QueryField BLOG = QueryField(
       fieldName: "blog",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Blog'));
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (Blog).toString()));
   static final QueryField COMMENTS = QueryField(
       fieldName: "comments",
-      fieldType:
-          ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Comment'));
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (Comment).toString()));
+  static final QueryField TAGS = QueryField(
+      fieldName: "tags",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (PostTags).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = 'Post';
-    modelSchemaDefinition.pluralName = 'Posts';
+    modelSchemaDefinition.name = "Post";
+    modelSchemaDefinition.pluralName = "Posts";
 
     modelSchemaDefinition.indexes = [
-      ModelIndex(fields: const ['blogID'], name: 'byBlog')
+      ModelIndex(fields: const ["blogID"], name: "byBlog")
     ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
@@ -266,22 +274,23 @@ class Post extends Model {
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Post.LIKECOUNT,
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.int)));
-
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: Post.BLOG,
         isRequired: false,
-        targetNames: ['blogID'],
-        ofModelName: 'Blog'));
+        targetNames: ["blogID"],
+        ofModelName: (Blog).toString()));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
         key: Post.COMMENTS,
         isRequired: false,
-        ofModelName: 'Comment',
+        ofModelName: (Comment).toString(),
         associatedKey: Comment.POST));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
+        key: Post.TAGS,
+        isRequired: false,
+        ofModelName: (PostTags).toString(),
+        associatedKey: PostTags.POST));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -303,11 +312,6 @@ class _PostModelType extends ModelType<Post> {
   @override
   Post fromJson(Map<String, dynamic> jsonData) {
     return Post.fromJson(jsonData);
-  }
-
-  @override
-  String modelName() {
-    return 'Post';
   }
 }
 

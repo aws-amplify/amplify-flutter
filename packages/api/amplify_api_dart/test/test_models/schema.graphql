@@ -1,0 +1,154 @@
+input AMPLIFY {
+  globalAuthRule: AuthRule = { allow: public }
+}
+
+type Blog @model {
+  id: ID!
+  name: String!
+  posts: [Post] @hasMany(indexName: "byBlog", fields: ["id"])
+}
+
+type Post @model {
+  id: ID!
+  title: String!
+  rating: Int!
+  created: AWSDateTime
+  blogID: ID @index(name: "byBlog")
+  blog: Blog @belongsTo(fields: ["blogID"])
+  comments: [Comment] @hasMany(indexName: "byPost", fields: ["id"])
+  tags: [Tag] @manyToMany(relationName: "PostTags")
+}
+
+type Comment @model {
+  id: ID!
+  postID: ID! @index(name: "byPost", sortKeyFields: ["content"])
+  post: Post @belongsTo(fields: ["postID"])
+  content: String!
+}
+
+type Tag @model {
+  id: ID!
+  label: String!
+  posts: [Post] @manyToMany(relationName: "PostTags")
+}
+
+type ModelWithAppsyncScalarTypes @model {
+  id: ID!
+  stringValue: String
+  altStringValue: String
+  listOfStringValue: [String]
+  intValue: Int
+  altIntValue: Int
+  listOfIntValue: [Int]
+  floatValue: Float
+  listOfFloatValue: [Float]
+  booleanValue: Boolean
+  listOfBooleanValue: [Boolean]
+  awsDateValue: AWSDate
+  listOfAWSDateValue: [AWSDate]
+  awsTimeValue: AWSTime
+  listOfAWSTimeValue: [AWSTime]
+  awsDateTimeValue: AWSDateTime
+  listOfAWSDateTimeValue: [AWSDateTime]
+  awsTimestampValue: AWSTimestamp
+  listOfAWSTimestampValue: [AWSTimestamp]
+  awsEmailValue: AWSEmail
+  listOfAWSEmailValue: [AWSEmail]
+  awsJsonValue: AWSJSON
+  listOfAWSJsonValue: [AWSJSON]
+  awsPhoneValue: AWSPhone
+  listOfAWSPhoneValue: [AWSPhone]
+  awsURLValue: AWSURL
+  listOfAWSURLValue: [AWSURL]
+  awsIPAddressValue: AWSIPAddress
+  listOfAWSIPAddressValue: [AWSIPAddress]
+}
+
+enum EnumField {
+  yes
+  no
+}
+
+type ModelWithCustomType @model {
+  id: ID!
+  customTypeValue: CustomTypeWithAppsyncScalarTypes
+  listOfCustomTypeValue: [CustomTypeWithAppsyncScalarTypes]
+}
+
+type CustomTypeWithAppsyncScalarTypes {
+  stringValue: String
+  listOfStringValue: [String]
+  intValue: Int
+  listOfIntValue: [Int]
+  floatValue: Float
+  listOfFloatValue: [Float]
+  booleanValue: Boolean
+  listOfBooleanValue: [Boolean]
+  awsDateValue: AWSDate
+  listOfAWSDateValue: [AWSDate]
+  awsDateTimeValue: AWSDateTime
+  listOfAWSDateTimeValue: [AWSDateTime]
+  awsTimeValue: AWSTime
+  listOfAWSTimeValue: [AWSTime]
+  awsTimestampValue: AWSTimestamp
+  listOfAWSTimestampValue: [AWSTimestamp]
+  awsEmailValue: AWSEmail
+  listOfAWSEmailValue: [AWSEmail]
+  awsJsonValue: AWSJSON
+  listOfAWSJsonValue: [AWSJSON]
+  awsPhoneValue: AWSPhone
+  listOfAWSPhoneValue: [AWSPhone]
+  awsURLValue: AWSURL
+  listOfAWSURLValue: [AWSURL]
+  awsIPAddressValue: AWSIPAddress
+  listOfAWSIPAddressValue: [AWSIPAddress]
+  enumValue: EnumField
+  listOfEnumValue: [EnumField]
+  customTypeValue: SimpleCustomType
+  listOfCustomTypeValue: [SimpleCustomType]
+}
+
+type SimpleCustomType {
+  foo: String!
+}
+
+type CpkOneToOneBidirectionalParentCD @model {
+  customId: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  implicitChild: CpkOneToOneBidirectionalChildImplicitCD @hasOne
+  explicitChild: CpkOneToOneBidirectionalChildExplicitCD @hasOne
+}
+
+type CpkOneToOneBidirectionalChildImplicitCD @model {
+  id: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  belongsToParent: CpkOneToOneBidirectionalParentCD @belongsTo
+}
+
+type CpkOneToOneBidirectionalChildExplicitCD @model {
+  id: ID! @primaryKey(sortKeyFields: ["name"])
+  name: String!
+  belongsToParentID: ID
+  belongsToParentName: String
+  belongsToParent: CpkOneToOneBidirectionalParentCD
+    @belongsTo(fields: ["belongsToParentID", "belongsToParentName"])
+}
+
+type CpkIntIndexes @model @auth(rules: [{allow: owner}]) {
+  name: String! @primaryKey(sortKeyFields: ["fieldA", "fieldB"]),
+  fieldA: Int!,
+  fieldB: Int!,
+}
+
+type CpkIntPrimaryKey @model @auth(rules: [{allow: owner}]) {
+  intAsId: Int! @primaryKey(sortKeyFields: ["fieldA", "fieldB"]),
+  fieldA: Int!,
+  fieldB: Int!,
+}
+
+type CustomOwnerField @model @auth(rules: [{ allow: private }, { allow: owner, ownerField: "owners" }]) {
+  id: ID!
+  name: String!
+  owners: [String]
+  private: String @auth(rules: [{ allow: owner, ownerField: "owners" }])
+}
