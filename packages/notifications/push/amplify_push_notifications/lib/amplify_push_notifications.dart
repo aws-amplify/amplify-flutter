@@ -85,8 +85,9 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     });
   }
 
-  final AmplifyLogger _logger = AmplifyLogger.category(Category.notifications)
-      .createChild('AmplifyPushNotification');
+  final AmplifyLogger _logger =
+      AmplifyLogger.category(Category.notificationsPush)
+          .createChild('AmplifyPushNotification');
   final ServiceProviderClient _serviceProviderClient;
 
   late final Stream<String> _onTokenReceived;
@@ -133,7 +134,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
           .listen(_foregroundNotificationListener);
       onNotificationOpened.listen(_notificationOpenedListener);
       // Initialize Endpoint Client
-      _serviceProviderClient.init(
+      await _serviceProviderClient.init(
         config: config,
         authProviderRepo: authProviderRepo,
       );
@@ -181,7 +182,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
   Future<void> _registerDevice(String address) async {
     try {
-      _serviceProviderClient.registerDevice(address);
+      await _serviceProviderClient.registerDevice(address);
       _logger.info('Successfully registered device with the servvice provider');
     } on Exception catch (e) {
       _logger.error(
