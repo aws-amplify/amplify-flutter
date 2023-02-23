@@ -17,8 +17,11 @@ abstract class PushNotificationsPluginInterface extends AmplifyPluginInterface {
   }
 
   /// {@macro amplify_core.amplify_notifications_category.request_permissions}
-  Future<bool> requestPermissions(
-      {bool? alert = true, bool? badge = true, bool? sound = true}) {
+  Future<bool> requestPermissions({
+    bool? alert = true,
+    bool? badge = true,
+    bool? sound = true,
+  }) {
     throw UnimplementedError('requestPermissions() has not been implemented');
   }
 
@@ -44,7 +47,7 @@ abstract class PushNotificationsPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('onNotificationOpened() has not been implemented');
   }
 
-  /// {@macro amplify_core.amplify_notifications_category.get_launch_notification}
+  /// {@macro amplify_core.amplify_notifications_category.launch_notification}
   PushNotificationMessage? get launchNotification {
     throw UnimplementedError('launchNotification has not been implemented');
   }

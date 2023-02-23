@@ -88,16 +88,18 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
         // TODO: "Decide if we need to add a flag for notification open"
 //        val appOpenedThroughTap = intent.getBooleanExtra("appOpenedThroughTap", false)
 
-        val remoteMessage = RemoteMessage(intent.extras)
-        val remoteMessageBundle = getBundleFromRemoteMessage(remoteMessage)
-        val notificationHashMap = convertBundleToHashMap(remoteMessageBundle)
-        Log.d(TAG, "Send onNotificationOpened message received event: $notificationHashMap")
-        PushNotificationEventsStreamHandler.sendEvent(
-            PushNotificationsEvent(
-                NativeEvent.NOTIFICATION_OPENED,
-                notificationHashMap
+        intent.extras?.let{
+            val remoteMessage = RemoteMessage(it)
+            val remoteMessageBundle = getBundleFromRemoteMessage(remoteMessage)
+            val notificationHashMap = convertBundleToHashMap(remoteMessageBundle)
+            Log.d(TAG, "Send onNotificationOpened message received event: $notificationHashMap")
+            PushNotificationEventsStreamHandler.sendEvent(
+                PushNotificationsEvent(
+                    NativeEvent.NOTIFICATION_OPENED,
+                    notificationHashMap
+                )
             )
-        )
+        }
         return true
     }
 
