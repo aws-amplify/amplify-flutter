@@ -264,6 +264,9 @@ class GraphQLRequestFactory {
     required ModelType modelType,
     QueryPredicate? where,
   }) {
+    if (where == null) {
+      return {};
+    }
     final filter = GraphQLRequestFactory.instance
         .queryPredicateToGraphQLFilter(where, modelType);
     return <String, dynamic>{

@@ -30,7 +30,7 @@ class ModelSubscriptionsFactory {
     );
     return GraphQLRequestFactory.instance.buildRequest<T>(
       modelType: modelType,
-      variables: where != null ? variables : {},
+      variables: variables,
       requestType: GraphQLRequestType.subscription,
       requestOperation: GraphQLRequestOperation.onCreate,
       apiName: apiName,
@@ -54,7 +54,7 @@ class ModelSubscriptionsFactory {
     );
     return GraphQLRequestFactory.instance.buildRequest<T>(
       modelType: modelType,
-      variables: where != null ? variables : {},
+      variables: variables,
       requestType: GraphQLRequestType.subscription,
       requestOperation: GraphQLRequestOperation.onUpdate,
       apiName: apiName,
@@ -78,7 +78,7 @@ class ModelSubscriptionsFactory {
     );
     return GraphQLRequestFactory.instance.buildRequest<T>(
       modelType: modelType,
-      variables: where != null ? variables : {},
+      variables: variables,
       requestType: GraphQLRequestType.subscription,
       requestOperation: GraphQLRequestOperation.onDelete,
       apiName: apiName,
