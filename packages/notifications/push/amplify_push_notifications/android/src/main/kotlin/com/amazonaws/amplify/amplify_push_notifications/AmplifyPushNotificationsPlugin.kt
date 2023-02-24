@@ -6,6 +6,7 @@ package com.amazonaws.amplify.amplify_push_notifications
 import android.content.Intent
 import androidx.annotation.NonNull
 import com.amazonaws.amplify.AtomicResult
+import com.amazonaws.amplify.asMap
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.RemoteMessage
@@ -47,7 +48,6 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
     }
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-//        eventsStreamHandler = PushNotificationEventsStreamHandler()
         PushNotificationEventsStreamHandler.initialize(flutterPluginBinding.binaryMessenger)
 
     }
@@ -82,6 +82,7 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
     }
 
 
+    // TODO: update this function to be more robust
     override fun onNewIntent(intent: Intent): Boolean {
         Log.d(TAG, "onNewIntent in push plugin $intent")
 
@@ -90,8 +91,7 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
 
         intent.extras?.let{
             val remoteMessage = RemoteMessage(it)
-            val remoteMessageBundle = getBundleFromRemoteMessage(remoteMessage)
-            val notificationHashMap = convertBundleToHashMap(remoteMessageBundle)
+            val notificationHashMap = remoteMessage.asMap<String, Any>();
             Log.d(TAG, "Send onNotificationOpened message received event: $notificationHashMap")
             PushNotificationEventsStreamHandler.sendEvent(
                 PushNotificationsEvent(

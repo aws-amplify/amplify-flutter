@@ -39,8 +39,8 @@ class _MyAppState extends State<MyApp> {
       setState(() {
         isConfigured = true;
       });
-    } on Exception {
-      // print(e.toString());
+    } on Exception catch (e) {
+      safePrint(e.toString());
     }
   }
 

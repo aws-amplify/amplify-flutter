@@ -86,7 +86,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   }
 
   final AmplifyLogger _logger =
-      AmplifyLogger.category(Category.notificationsPush)
+      AmplifyLogger.category(Category.pushNotifications)
           .createChild('AmplifyPushNotification');
   final ServiceProviderClient _serviceProviderClient;
 
@@ -127,18 +127,24 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       throw const AnalyticsException('No Pinpoint plugin config available');
     }
 
-    if (!_isConfigured) {
-      // Initialize listeners
-      onTokenReceived.listen(_tokenReceivedListener);
-      onNotificationReceivedInForeground
-          .listen(_foregroundNotificationListener);
-      onNotificationOpened.listen(_notificationOpenedListener);
-      // Initialize Endpoint Client
-      await _serviceProviderClient.init(
-        config: config,
-        authProviderRepo: authProviderRepo,
-      );
+    if (_isConfigured) {
+      return;
     }
+
+    // Block configure if registering device is not complete
+    final deviceToken = await onTokenReceived.first;
+    await _registerDevice(deviceToken);
+
+    // Initialize listeners
+    onTokenReceived.listen(_tokenReceivedListener);
+    onNotificationReceivedInForeground.listen(_foregroundNotificationListener);
+    onNotificationOpened.listen(_notificationOpenedListener);
+
+    // Initialize Endpoint Client
+    await _serviceProviderClient.init(
+      config: config,
+      authProviderRepo: authProviderRepo,
+    );
 
     // TODO: Register the callback dispatcher
 
@@ -172,11 +178,12 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     // TODO(Samaritan1011001): Record Analytics
   }
 
-  String _tokenReceivedListener(
+  Future<String> _tokenReceivedListener(
     String address,
-  ) {
+  ) async {
     _logger.info('Successfully fetched the address: $address');
-    _registerDevice(address);
+    await _registerDevice(address);
+
     return address;
   }
 
@@ -184,9 +191,10 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     try {
       await _serviceProviderClient.registerDevice(address);
       _logger.info('Successfully registered device with the servvice provider');
-    } on Exception catch (e) {
-      _logger.error(
-        'Error when registering device with the service provider: $e',
+      // return true;
+    } on Exception {
+      throw const PushNotificationException(
+        'Error when registering device with the service provider: ',
       );
     }
   }

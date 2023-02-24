@@ -9,7 +9,7 @@ import 'package:meta/meta.dart';
 abstract class PushNotificationsPluginInterface extends AmplifyPluginInterface {
   @override
   @nonVirtual
-  Category get category => Category.notificationsPush;
+  Category get category => Category.pushNotifications;
 
   /// {@macro amplify_core.amplify_notifications_category.get_permission_status}
   Future<PushNotificationPermissionRequestStatus> getPermissionStatus() {

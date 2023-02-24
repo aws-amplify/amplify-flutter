@@ -9,17 +9,17 @@ import 'package:amplify_core/amplify_core.dart';
 class FcmPlatformOptions
     with AWSDebuggable, AWSSerializable<Map<String, Object?>> {
   /// {@macro amplify_core.push.fcm_platform_options}
-  FcmPlatformOptions({
+  const FcmPlatformOptions({
     this.channelId,
     this.messageId,
     this.senderId,
     this.sentTime,
   });
 
-  String? channelId;
-  String? messageId;
-  String? senderId;
-  DateTime? sentTime;
+  final String? channelId;
+  final String? messageId;
+  final String? senderId;
+  final DateTime? sentTime;
 
   @override
   String get runtimeTypeName => 'FcmPlatformOptions';
@@ -27,5 +27,8 @@ class FcmPlatformOptions
   @override
   Map<String, Object?> toJson() => {
         'channelId': channelId,
+        'messageId': messageId,
+        'senderId': senderId,
+        'sentTime': sentTime,
       };
 }
