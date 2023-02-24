@@ -124,9 +124,7 @@ loginButton.click();
       [],
     );
 
-    await locationChanges.firstWhere(
-      (uri) => uri.host == 'localhost' && uri.path == '/auth',
-    );
+    await locationChanges.firstWhere((uri) => uri.host == 'localhost');
   }
 }
 

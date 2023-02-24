@@ -51,7 +51,10 @@ abstract class SignUpState extends AuthState<SignUpStateType> {
   }) = SignUpSuccess;
 
   /// {@macro amplify_auth_cognito.sign_up_failure}
-  const factory SignUpState.failure(Exception exception) = SignUpFailure;
+  const factory SignUpState.failure(
+    Exception exception,
+    StackTrace stackTrace,
+  ) = SignUpFailure;
 
   @override
   String get runtimeTypeName => 'SignUpState';
@@ -146,15 +149,18 @@ class SignUpSuccess extends SignUpState with SuccessState {
 /// {@endtemplate}
 class SignUpFailure extends SignUpState with ErrorState {
   /// {@macro amplify_auth_cognito.sign_up_failure}
-  const SignUpFailure(this.exception) : super._();
+  const SignUpFailure(this.exception, this.stackTrace) : super._();
 
   /// The exception thrown during sign up.
   @override
   final Exception exception;
 
   @override
+  final StackTrace stackTrace;
+
+  @override
   SignUpStateType get type => SignUpStateType.failure;
 
   @override
-  List<Object?> get props => [type, exception];
+  List<Object?> get props => [type, exception, stackTrace];
 }

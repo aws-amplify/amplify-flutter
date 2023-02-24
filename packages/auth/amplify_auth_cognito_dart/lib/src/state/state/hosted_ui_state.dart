@@ -51,7 +51,10 @@ abstract class HostedUiState extends AuthState<HostedUiStateType> {
   const factory HostedUiState.signedIn(AuthUser user) = HostedUiSignedIn;
 
   /// {@macro amplify_auth_cognito.hosted_ui_failure}
-  const factory HostedUiState.failure(Exception exception) = HostedUiFailure;
+  const factory HostedUiState.failure(
+    Exception exception,
+    StackTrace stackTrace,
+  ) = HostedUiFailure;
 
   @override
   String get runtimeTypeName => 'HostedUiState';
@@ -149,14 +152,17 @@ class HostedUiSignedIn extends HostedUiState with SuccessState {
 /// {@endtemplate}
 class HostedUiFailure extends HostedUiState with ErrorState {
   /// {@macro amplify_auth_cognito.hosted_ui_failure}
-  const HostedUiFailure(this.exception) : super._();
+  const HostedUiFailure(this.exception, this.stackTrace) : super._();
 
   /// The Hosted UI exception.
   @override
   final Exception exception;
 
   @override
-  List<Object?> get props => [type, exception];
+  final StackTrace stackTrace;
+
+  @override
+  List<Object?> get props => [type, exception, stackTrace];
 
   @override
   HostedUiStateType get type => HostedUiStateType.failure;

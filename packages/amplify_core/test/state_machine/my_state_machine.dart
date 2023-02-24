@@ -56,6 +56,16 @@ class MyState extends StateMachineState<MyType> {
   String get runtimeTypeName => 'MyState';
 }
 
+class MyErrorState extends MyState with ErrorState {
+  const MyErrorState(this.exception, this.stackTrace) : super(MyType.error);
+
+  @override
+  final Exception exception;
+
+  @override
+  final StackTrace stackTrace;
+}
+
 class MyStateMachine extends StateMachine<MyEvent, MyState, StateMachineEvent,
     StateMachineState, MyStateMachineManager> {
   MyStateMachine(MyStateMachineManager manager) : super(manager, type);
@@ -96,8 +106,11 @@ class MyStateMachine extends StateMachine<MyEvent, MyState, StateMachineEvent,
   }
 
   @override
-  MyState? resolveError(Object error, [StackTrace? st]) {
-    return const MyState(MyType.error);
+  MyState? resolveError(Object error, StackTrace st) {
+    if (error is Exception) {
+      return MyErrorState(error, st);
+    }
+    return null;
   }
 
   @override
@@ -140,6 +153,17 @@ class WorkerState extends StateMachineState<WorkType> {
   String get runtimeTypeName => 'WorkerState';
 }
 
+class WorkerErrorState extends WorkerState with ErrorState {
+  const WorkerErrorState(this.exception, this.stackTrace)
+      : super(WorkType.error);
+
+  @override
+  final Exception exception;
+
+  @override
+  final StackTrace stackTrace;
+}
+
 class WorkerMachine extends StateMachine<WorkerEvent, WorkerState,
     StateMachineEvent, StateMachineState, MyStateMachineManager> {
   WorkerMachine(MyStateMachineManager manager) : super(manager, type);
@@ -171,8 +195,11 @@ class WorkerMachine extends StateMachine<WorkerEvent, WorkerState,
   }
 
   @override
-  WorkerState? resolveError(Object error, [StackTrace? st]) {
-    return const WorkerState(WorkType.error);
+  WorkerState? resolveError(Object error, StackTrace st) {
+    if (error is Exception) {
+      return WorkerErrorState(error, st);
+    }
+    return null;
   }
 
   @override

@@ -61,8 +61,10 @@ abstract class CredentialStoreState
       CredentialStoreSuccess;
 
   /// {@macro amplify_auth_cognito.credential_store_failure}
-  const factory CredentialStoreState.failure(Exception exception) =
-      CredentialStoreFailure;
+  const factory CredentialStoreState.failure(
+    Exception exception,
+    StackTrace stackTrace,
+  ) = CredentialStoreFailure;
 
   @override
   String get runtimeTypeName => 'CredentialStoreState';
@@ -167,17 +169,20 @@ class CredentialStoreSuccess extends CredentialStoreState with SuccessState {
 /// {@endtemplate}
 class CredentialStoreFailure extends CredentialStoreState with ErrorState {
   /// {@macro amplify_auth_cognito.credential_store_failure}
-  const CredentialStoreFailure(this.exception) : super._();
+  const CredentialStoreFailure(this.exception, this.stackTrace) : super._();
 
   /// The exception thrown during credential storage.
   @override
   final Exception exception;
 
   @override
+  final StackTrace stackTrace;
+
+  @override
   CredentialStoreStateType get type => CredentialStoreStateType.failure;
 
   @override
-  List<Object?> get props => [type, exception];
+  List<Object?> get props => [type, exception, stackTrace];
 }
 
 /// {@template amplify_auth_cognito_dart.credential_store_state.credential_store_data}

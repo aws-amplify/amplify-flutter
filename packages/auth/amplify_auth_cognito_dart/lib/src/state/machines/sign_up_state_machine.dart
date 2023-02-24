@@ -10,8 +10,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_auth_cognito.sign_up_state_machine}
 /// Manages user sign up with Cognito.
 /// {@endtemplate}
-class SignUpStateMachine extends StateMachine<SignUpEvent, SignUpState,
-    AuthEvent, AuthState, CognitoAuthStateMachine> {
+class SignUpStateMachine extends AuthStateMachine<SignUpEvent, SignUpState> {
   /// {@macro amplify_auth_cognito.sign_up_state_machine}
   SignUpStateMachine(CognitoAuthStateMachine manager) : super(manager, type);
 
@@ -46,18 +45,13 @@ class SignUpStateMachine extends StateMachine<SignUpEvent, SignUpState,
         emit(SignUpState.success(userId: event.userId));
         await onSucceeded(event);
         break;
-      case SignUpEventType.failed:
-        event as SignUpFailed;
-        emit(SignUpState.failure(event.exception));
-        await onFailed(event);
-        break;
     }
   }
 
   @override
-  SignUpState? resolveError(Object error, [StackTrace? st]) {
+  SignUpState? resolveError(Object error, StackTrace st) {
     if (error is Exception) {
-      return SignUpFailure(error);
+      return SignUpFailure(error, st);
     }
     return null;
   }
@@ -139,7 +133,4 @@ class SignUpStateMachine extends StateMachine<SignUpEvent, SignUpState,
 
   /// State machine callback for the [SignUpSucceeded] event.
   Future<void> onSucceeded(SignUpSucceeded event) async {}
-
-  /// State machine callback for the [SignUpFailed] event.
-  Future<void> onFailed(SignUpFailed event) async {}
 }
