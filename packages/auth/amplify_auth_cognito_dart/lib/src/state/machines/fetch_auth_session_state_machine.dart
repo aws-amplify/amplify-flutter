@@ -20,8 +20,8 @@ import 'package:amplify_core/amplify_core.dart';
 /// Fetches the user's auth session from the credential store and, optionally,
 /// a Cognito Identity Pool.
 /// {@endtemplate}
-class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
-    FetchAuthSessionState, AuthEvent, AuthState, CognitoAuthStateMachine> {
+class FetchAuthSessionStateMachine
+    extends AuthStateMachine<FetchAuthSessionEvent, FetchAuthSessionState> {
   /// {@macro amplify_auth_cognito.fetch_auth_session_state_machine}
   FetchAuthSessionStateMachine(CognitoAuthStateMachine manager)
       : super(manager, type);
@@ -75,17 +75,13 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
         event as FetchAuthSessionSucceeded;
         emit(FetchAuthSessionState.success(event.session));
         break;
-      case FetchAuthSessionEventType.failed:
-        event as FetchAuthSessionFailed;
-        emit(FetchAuthSessionState.failure(event.exception));
-        break;
     }
   }
 
   @override
-  FetchAuthSessionState? resolveError(Object error, [StackTrace? st]) {
+  FetchAuthSessionState? resolveError(Object error, StackTrace st) {
     if (error is Exception) {
-      return FetchAuthSessionFailure(error);
+      return FetchAuthSessionFailure(error, st);
     }
     return null;
   }
@@ -350,12 +346,8 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
     var userPoolTokens = result.userPoolTokens;
     if (event.refreshUserPoolTokens) {
       if (userPoolTokens == null) {
-        return emit(
-          const FetchAuthSessionState.failure(
-            UnknownException(
-              'No user pool tokens available for refresh',
-            ),
-          ),
+        throw const UnknownException(
+          'No user pool tokens available for refresh',
         );
       }
       try {

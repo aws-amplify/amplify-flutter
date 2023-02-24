@@ -39,8 +39,10 @@ abstract class ConfigurationState extends AuthState<ConfigurationStateType> {
       Configured;
 
   /// {@macro amplify_auth_cognito.configuration_state.configure_failure}
-  const factory ConfigurationState.failure(Exception exception) =
-      ConfigureFailure;
+  const factory ConfigurationState.failure(
+    Exception exception,
+    StackTrace stackTrace,
+  ) = ConfigureFailure;
 
   @override
   String get runtimeTypeName => 'ConfigurationState';
@@ -96,15 +98,18 @@ class Configured extends ConfigurationState with SuccessState {
 /// {@endtemplate}
 class ConfigureFailure extends ConfigurationState with ErrorState {
   /// {@macro amplify_auth_cognito.configuration_state.configure_failure}
-  const ConfigureFailure(this.exception);
+  const ConfigureFailure(this.exception, this.stackTrace);
 
   /// The exception thrown during configuration.
   @override
   final Exception exception;
 
   @override
+  final StackTrace stackTrace;
+
+  @override
   ConfigurationStateType get type => ConfigurationStateType.failure;
 
   @override
-  List<Object?> get props => [type, exception];
+  List<Object?> get props => [type, exception, stackTrace];
 }
