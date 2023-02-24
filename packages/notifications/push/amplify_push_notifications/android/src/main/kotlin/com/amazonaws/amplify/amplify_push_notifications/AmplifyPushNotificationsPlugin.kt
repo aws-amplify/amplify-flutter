@@ -91,7 +91,8 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
 
         intent.extras?.let{
             val remoteMessage = RemoteMessage(it)
-            val notificationHashMap = remoteMessage.asMap<String, Any>();
+            val notificationHashMap = convertBundleToHashMap(remoteMessage.asBundle())
+
             Log.d(TAG, "Send onNotificationOpened message received event: $notificationHashMap")
             PushNotificationEventsStreamHandler.sendEvent(
                 PushNotificationsEvent(

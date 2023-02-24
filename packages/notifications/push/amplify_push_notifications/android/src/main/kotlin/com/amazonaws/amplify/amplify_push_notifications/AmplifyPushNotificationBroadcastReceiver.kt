@@ -29,7 +29,8 @@ class PushNotificationReceiver : BroadcastReceiver() {
             val remoteMessage = RemoteMessage(it.extras)
 
             if (isAppInForeground(context)) {
-                val notificationHashMap = remoteMessage.asMap<String, Any>()
+                // TODO: Reduce conversions
+                val notificationHashMap = convertBundleToHashMap(remoteMessage.asBundle())
                 Log.d(TAG, "Send foreground message received event: $notificationHashMap")
 
                 PushNotificationEventsStreamHandler.sendEvent(
