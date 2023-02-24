@@ -75,3 +75,52 @@ fun convertBundleToHashMap(bundle: Bundle): HashMap<String, Any?> {
     }
     return hashMap
 }
+
+// TODO: Revisit and remove the below functions to keep one conversion function
+fun RemoteMessage.asBundle(): Bundle {
+    val bundle = Bundle()
+    bundle.putString("collapseKey", this.collapseKey)
+    bundle.putString("sender", this.from)
+    bundle.putString("messageId", this.messageId)
+    bundle.putString("messageType", this.messageType)
+    bundle.putLong("sentTime", this.sentTime)
+    bundle.putString("destination", this.to)
+    bundle.putInt("ttl", this.ttl)
+    if (this.data.isNotEmpty()) {
+        bundle.putBundle("data", getBundleFromData(this.data))
+    }
+    this.notification?.let {
+        bundle.putBundle("notification", getBundleFromNotification(it))
+    }
+    return bundle
+}
+
+private fun getBundleFromData(data: Map<String, String>): Bundle {
+    val bundle = Bundle()
+    for ((key, value) in data.orEmpty()) {
+        bundle.putString(key, value)
+    }
+    return bundle
+}
+
+private fun getBundleFromNotification(notification: RemoteMessage.Notification): Bundle {
+    val bundle = Bundle()
+    notification.title?.let { bundle.putString("title", it) }
+    notification.titleLocalizationKey?.let { bundle.putString("titleLocalizationKey", it) }
+    notification.titleLocalizationArgs?.let { bundle.putStringArray("titleLocalizationArgs", it) }
+    notification.body?.let { bundle.putString("body", it) }
+    notification.bodyLocalizationKey?.let { bundle.putString("bodyLocalizationKey", it) }
+    notification.bodyLocalizationArgs?.let { bundle.putStringArray("bodyLocalizationArgs", it) }
+    notification.channelId?.let { bundle.putString("channelId", it) }
+    notification.clickAction?.let { bundle.putString("clickAction", it) }
+    notification.color?.let { bundle.putString("color", it) }
+    notification.icon?.let { bundle.putString("icon", it) }
+    notification.imageUrl?.let { bundle.putString("imageUrl", it.toString()) }
+    notification.link?.let { bundle.putString("link", it.toString()) }
+    notification.notificationCount?.let { bundle.putInt("notificationCount", it) }
+    notification.notificationPriority?.let { bundle.putInt("notificationPriority", it) }
+    notification.sound?.let { bundle.putString("sound", it) }
+    notification.ticker?.let { bundle.putString("ticker", it) }
+    notification.visibility?.let { bundle.putInt("visibility", it) }
+    return bundle
+}
