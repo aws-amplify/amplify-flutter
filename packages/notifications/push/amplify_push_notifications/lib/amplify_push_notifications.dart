@@ -11,8 +11,9 @@ import 'package:amplify_push_notifications/callback_dispatcher.dart';
 import 'package:flutter/services.dart';
 
 @pragma('vm:entry-point')
-void globalBGHandler(PushNotificationMessage pushNotificationMessage) {
-  print('globalBGHandler was called');
+void _internalBgHandler(PushNotificationMessage pushNotificationMessage) {
+  // TODO: Record Analytics
+  print('Record Analytics in _internalBgHandler');
 }
 
 const _methodChannel =
@@ -117,13 +118,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       _onNotificationOpened;
 
   @override
-  void onNotificationReceivedInBackground(OnRemoteMessageCallback callback) {
-    throw UnimplementedError(
-      'onNotificationReceivedInBackground() has not been implemented.',
-    );
-  }
-
-  @override
   Future<void> configure({
     AmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
@@ -143,7 +137,10 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       onNotificationReceivedInForeground
           .listen(_foregroundNotificationListener);
       onNotificationOpened.listen(_notificationOpenedListener);
-      await onBackgroundNotificationReceived(globalBGHandler);
+      await _registerBgCallback(
+        'registerBgInternalCallback',
+        _internalBgHandler,
+      );
 
       // Initialize Endpoint Client
       await _serviceProviderClient.init(
@@ -181,12 +178,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       'Successfully listrening to foreground events: $pushNotificationMessage',
     );
 
-    // TODO(Samaritan1011001): Record Analytics
-  }
-
-  void _backgroundNotificationListener(
-    PushNotificationMessage pushNotificationMessage,
-  ) {
     // TODO(Samaritan1011001): Record Analytics
   }
 
@@ -233,17 +224,24 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   }
 
   @override
-  Future<void> onBackgroundNotificationReceived(
+  Future<void> onNotificationReceivedInBackground(
+    OnRemoteMessageCallback callback,
+  ) async {
+    await _registerBgCallback('registerBgExternalCallback', callback);
+  }
+
+  Future<void> _registerBgCallback(
+    String method,
     OnRemoteMessageCallback callback,
   ) async {
     try {
-      final userCallback = PluginUtilities.getCallbackHandle(callback);
+      final callbackHandle = PluginUtilities.getCallbackHandle(callback);
       _logger.info('Successfully registered notification handling callback');
 
       await _methodChannel.invokeMethod(
-        'registerBGUserGivenCallback',
+        method,
         <dynamic>[
-          userCallback?.toRawHandle(),
+          callbackHandle?.toRawHandle(),
         ],
       );
     } on Exception catch (e) {

@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Handler
 import android.util.Log
 import androidx.core.app.JobIntentService
-import com.amazonaws.amplify.amplify_push_notifications.AmplifyPushNotificationsPlugin
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.dart.DartExecutor
 import io.flutter.plugin.common.MethodCall
@@ -114,28 +113,27 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
     override fun onHandleWork(intent: Intent) {
 
         Log.d(TAG, "Handling work @ PushNotificationBackgroundService...")
-        val callbackKey =
-            AmplifyPushNotificationsPlugin.BG_USER_CALLBACK_HANDLE_KEY
-        Log.d(TAG, "callbackKey $callbackKey")
+        val bgExternalCallbackHandle =
+            getCallbackHandleForKey(AmplifyPushNotificationsPlugin.BG_EXTERNAL_CALLBACK_HANDLE_KEY)
+        val bgInternalCallbackHandle =
+            getCallbackHandleForKey(AmplifyPushNotificationsPlugin.BG_INTERNAL_CALLBACK_HANDLE_KEY)
 
-        val callbackHandle = mContext.getSharedPreferences(
-            AmplifyPushNotificationsPlugin.SHARED_PREFERENCES_KEY,
-            Context.MODE_PRIVATE
-        )
-            .getLong(callbackKey, 0)
-        if (callbackHandle == 0L) {
-            Log.e(TAG, "Fatal: no user callback registered")
+        if (bgInternalCallbackHandle == 0L) {
+            Log.e(TAG, "Fatal: no internal callback registered")
             return
         }
 
 
-        var callbackHandleList = listOf(callbackHandle)
+        val callbackHandleList = listOf(bgInternalCallbackHandle, bgExternalCallbackHandle)
         synchronized(sServiceStarted) {
             if (!sServiceStarted.get()) {
                 // Queue up geofencing events while background isolate is starting
                 queue.add(callbackHandleList)
             } else {
-                Log.d(TAG, "callbackHandle when calling the background channel: $callbackHandle")
+                Log.d(
+                    TAG,
+                    "callbackHandle when calling the background channels: $callbackHandleList"
+                )
 
                 // Callback method name is intentionally left blank.
                 Handler(mContext.mainLooper).post {
@@ -146,6 +144,18 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
                 }
             }
         }
+    }
+
+    @SuppressLint("LongLogTag")
+    private fun getCallbackHandleForKey(callbackKey: String): Long {
+
+        Log.d(TAG, "callbackKey $callbackKey")
+
+        return mContext.getSharedPreferences(
+            AmplifyPushNotificationsPlugin.SHARED_PREFERENCES_KEY,
+            MODE_PRIVATE
+        )
+            .getLong(callbackKey, 0)
     }
 
     override fun onCreate() {

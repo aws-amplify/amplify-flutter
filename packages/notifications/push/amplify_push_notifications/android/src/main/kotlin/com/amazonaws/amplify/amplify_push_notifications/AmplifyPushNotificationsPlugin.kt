@@ -3,7 +3,6 @@
 
 package com.amazonaws.amplify.amplify_push_notifications
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import androidx.annotation.NonNull
@@ -30,7 +29,9 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
     companion object {
         val CALLBACK_DISPATCHER_HANDLE_KEY = "callback_dispatch_handler"
         val SHARED_PREFERENCES_KEY = "amplify_push_notification_plugin_cache"
-        val BG_USER_CALLBACK_HANDLE_KEY = "bg_user_callback_handle"
+        val BG_EXTERNAL_CALLBACK_HANDLE_KEY = "bg_user_callback_handle"
+        val BG_INTERNAL_CALLBACK_HANDLE_KEY = "bg_internal_callback_handle"
+
         private val TAG = "AmplifyPushNotificationsPlugin"
     }
 
@@ -78,9 +79,13 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
                 registerCallbackToCache(context, args, CALLBACK_DISPATCHER_HANDLE_KEY)
                 result.success(true)
             }
-            "registerBGUserGivenCallback" -> {
+            "registerBgExternalCallback" -> {
                 val args = call.arguments<ArrayList<*>>()
-                registerCallbackToCache(context, args, BG_USER_CALLBACK_HANDLE_KEY)
+                registerCallbackToCache(context, args, BG_EXTERNAL_CALLBACK_HANDLE_KEY)
+            }
+            "registerBgInternalCallback" -> {
+                val args = call.arguments<ArrayList<*>>()
+                registerCallbackToCache(context, args, BG_INTERNAL_CALLBACK_HANDLE_KEY)
             }
         }
     }
@@ -90,8 +95,8 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
         args: ArrayList<*>?,
         callbackKey: String
     ) {
-        Log.d(TAG, "Initializing PushNotificationService ${args!![0]}")
-        val callbackHandle = args[0] as Long
+        Log.d(TAG, "Registering callback function with key $callbackKey")
+        val callbackHandle = args?.get(0) as Long
         context.getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE)
             .edit()
             .putLong(callbackKey, callbackHandle)

@@ -7,6 +7,11 @@ import 'package:flutter/material.dart';
 
 import 'amplifyconfiguration.dart';
 
+@pragma('vm:entry-point')
+void bgHandler(PushNotificationMessage pushNotificationMessage) {
+  print('BG handler invoked');
+}
+
 void main() {
   AmplifyLogger().logLevel = LogLevel.info;
   runApp(const MyApp());
@@ -22,6 +27,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool isConfigured = false;
   bool isForegroundListernerInitialized = false;
+  bool isBackgroundListernerInitialized = false;
+
   PushNotificationMessage? foregroundMessage;
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -111,6 +118,25 @@ class _MyAppState extends State<MyApp> {
                       : "Title: ${foregroundMessage!.title?.toString() ?? ""}",
                 ),
               ),
+              ElevatedButton(
+                onPressed: () async {
+                  try {
+                    Amplify.Notifications.Push
+                        .onNotificationReceivedInBackground(
+                      bgHandler,
+                    );
+
+                    setState(() {
+                      isBackgroundListernerInitialized = true;
+                    });
+                  } on Exception {
+                    // print(e.toString());
+                  }
+                },
+                child: const Text('onNotificationReceivedInBackground'),
+              ),
+              if (isBackgroundListernerInitialized)
+                const Text('Background event listener initialized!'),
             ],
           ),
         ),
