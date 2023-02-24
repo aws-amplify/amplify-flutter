@@ -7,7 +7,6 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_test/amplify_test.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -20,17 +19,6 @@ void main() {
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
 
-  final authenticator = Authenticator(
-    child: MaterialApp(
-      builder: Authenticator.builder(),
-      home: const Scaffold(
-        body: Center(
-          child: SignOutButton(),
-        ),
-      ),
-    ),
-  );
-
   group('sign-in-sms-mfa', () {
     late PhoneNumber phoneNumber;
     late String password;
@@ -38,14 +26,14 @@ void main() {
     // Given I'm running the example "ui/components/authenticator/sign-in-sms-mfa.feature"
     setUpAll(() async {
       await loadConfiguration(
-        'ui/components/authenticator/sign-in-sms-mfa',
+        environmentName: 'sign-in-with-phone',
       );
     });
 
     setUp(() async {
       phoneNumber = generateUSPhoneNumber();
       password = generatePassword();
-      await adminCreateUser(
+      final cognitoUsername = await adminCreateUser(
         phoneNumber.toE164(),
         password,
         autoConfirm: true,
@@ -58,17 +46,15 @@ void main() {
           ),
         ],
       );
+      addTearDown(() => deleteUser(cognitoUsername));
     });
 
-    tearDown(() async {
-      await signOut();
-      await deleteUser(phoneNumber.toE164());
-    });
+    tearDown(signOut);
 
     // Scenario: Sign in using a valid phone number and SMS MFA
     testWidgets('Sign in using a valid phone number and SMS MFA',
         (tester) async {
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      await loadAuthenticator(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
 
@@ -92,7 +78,7 @@ void main() {
 
     // Scenario: Redirect to sign in page
     testWidgets('Redirect to sign in page', (tester) async {
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      await loadAuthenticator(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
 
@@ -119,7 +105,7 @@ void main() {
 
     // Scenario: Incorrect SMS code
     testWidgets('Incorrect SMS code', (tester) async {
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      await loadAuthenticator(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
 
@@ -151,7 +137,7 @@ void main() {
     // Scenario: Sign in with unknown credentials
     testWidgets('Sign in with unknown credentials', (tester) async {
       final phoneNumber = generateUSPhoneNumber();
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      await loadAuthenticator(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
 
       // When I select my country code
@@ -167,7 +153,7 @@ void main() {
       await signInPage.submitSignIn();
 
       // Then I see "User does not exist"
-      await signInPage.expectUserNotFound();
+      signInPage.expectUserNotFound();
     });
   });
 }

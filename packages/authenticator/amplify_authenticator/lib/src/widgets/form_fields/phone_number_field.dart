@@ -3,7 +3,7 @@
 
 part of '../form_field.dart';
 
-class AuthenticatorPhoneField<FieldType>
+class AuthenticatorPhoneField<FieldType extends Enum>
     extends AuthenticatorFormField<FieldType, String> {
   const AuthenticatorPhoneField({
     Key? key,
@@ -45,7 +45,7 @@ class AuthenticatorPhoneField<FieldType>
   }
 }
 
-class _AuthenticatorPhoneFieldState<FieldType>
+class _AuthenticatorPhoneFieldState<FieldType extends Enum>
     extends AuthenticatorFormFieldState<FieldType, String,
         AuthenticatorPhoneField<FieldType>>
     with

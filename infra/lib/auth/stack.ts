@@ -16,7 +16,7 @@ import {
   AmplifyCategory,
   IntegrationTestStack,
   IntegrationTestStackEnvironment,
-  IntegrationTestStackEnvironmentProps
+  IntegrationTestStackEnvironmentProps,
 } from "../common";
 import { CustomAuthorizerIamStackEnvironment } from "./custom-authorizer-iam/stack";
 import { CustomAuthorizerUserPoolsStackEnvironment } from "./custom-authorizer-user-pools/stack";
@@ -57,11 +57,25 @@ export interface AuthFullEnvironmentProps {
   signInAliases?: cognito.SignInAliases;
 
   /**
+   * Standard attributes to collect on sign up.
+   *
+   * @default ["email", "phone_number"]
+   */
+  standardAttributes?: cognito.StandardAttributes;
+
+  /**
    * Whether Hosted UI is enabled.
    *
    * @default false
    */
   enableHostedUI?: boolean;
+
+  /**
+   * Whether to auto-confirm users.
+   *
+   * @default false
+   */
+  autoConfirm?: boolean;
 }
 
 export interface AuthCustomAuthorizerEnvironmentProps {
@@ -128,7 +142,21 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
   ) {
     super(scope, baseName, props);
 
-    const { associateWithWaf, enableHostedUI = false } = props;
+    const {
+      associateWithWaf,
+      enableHostedUI = false,
+      signInAliases,
+      standardAttributes = {
+        email: {
+          mutable: true,
+          required: true,
+        },
+        phoneNumber: {
+          mutable: true,
+          required: true,
+        },
+      },
+    } = props;
 
     // Create the GraphQL API for admin actions
 
@@ -222,35 +250,55 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
     graphQLApi.grantMutation(customEmailSender);
     customSenderKmsKey.grantDecrypt(customEmailSender);
 
+    const additionalTriggers: Omit<
+      cognito.UserPoolTriggers,
+      | "createAuthChallenge"
+      | "defineAuthChallenge"
+      | "verifyAuthChallengeResponse"
+      | "customSmsSender"
+      | "customEmailSender"
+    > = {};
+    if (props.autoConfirm) {
+      additionalTriggers.preSignUp = new lambda_nodejs.NodejsFunction(
+        this,
+        "pre-sign-up",
+        {
+          runtime: lambda.Runtime.NODEJS_18_X,
+        }
+      );
+    }
+
     // Create the Cognito User Pool
 
+    const mfa = standardAttributes.phoneNumber?.required
+      ? cognito.Mfa.OPTIONAL
+      : cognito.Mfa.OFF;
+    const accountRecovery = standardAttributes.phoneNumber?.required
+      ? cognito.AccountRecovery.EMAIL_AND_PHONE_WITHOUT_MFA
+      : cognito.AccountRecovery.EMAIL_ONLY;
+    const verificationMechanisms: string[] = ["EMAIL"];
+    if (standardAttributes.phoneNumber?.required) {
+      verificationMechanisms.push("PHONE_NUMBER");
+    }
     const userPool = new cognito.UserPool(this, "UserPool", {
       userPoolName: this.name,
       removalPolicy: RemovalPolicy.DESTROY,
       selfSignUpEnabled: true,
-      accountRecovery: cognito.AccountRecovery.EMAIL_AND_PHONE_WITHOUT_MFA,
+      accountRecovery,
       autoVerify: {
         email: true,
         phone: true,
       },
-      mfa: cognito.Mfa.OPTIONAL,
-      signInAliases: props.signInAliases,
-      standardAttributes: {
-        email: {
-          mutable: true,
-          required: true,
-        },
-        phoneNumber: {
-          mutable: true,
-          required: true,
-        },
-      },
+      mfa,
+      signInAliases,
+      standardAttributes,
       lambdaTriggers: {
         createAuthChallenge,
         defineAuthChallenge,
         verifyAuthChallengeResponse,
         customSmsSender,
         customEmailSender,
+        ...additionalTriggers,
       },
       customSenderKmsKey,
       deviceTracking: props.deviceTracking,
@@ -258,14 +306,8 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
 
     let oAuth: cognito.OAuthSettings | undefined;
     let webDomain: cognito.UserPoolDomain | undefined;
-    const signInRedirectUris = [
-      "authtest:/",
-      "http://localhost:3000/",
-    ];
-    const signOutRedirectUris = [
-      "authtest:/",
-      "http://localhost:3000/",
-    ];
+    const signInRedirectUris = ["authtest:/", "http://localhost:3000/"];
+    const signOutRedirectUris = ["authtest:/", "http://localhost:3000/"];
     const scopes = [
       cognito.OAuthScope.PHONE,
       cognito.OAuthScope.EMAIL,
@@ -290,7 +332,10 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
           domainPrefix: Fn.join("-", [
             this.environmentName,
             // https://stackoverflow.com/questions/54897459/how-to-set-semi-random-name-for-s3-bucket-using-cloud-formation
-            Fn.select(0, Fn.split("-", Fn.select(2, Fn.split("/", this.stackId)))),
+            Fn.select(
+              0,
+              Fn.split("-", Fn.select(2, Fn.split("/", this.stackId)))
+            ),
           ]),
         },
       });
@@ -509,6 +554,10 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
         userPoolConfig: {
           userPoolId: userPool.userPoolId,
           userPoolClientId: userPoolClient.userPoolClientId,
+          standardAttributes,
+          signInAliases,
+          mfa,
+          verificationMechanisms,
         },
         identityPoolConfig: {
           identityPoolId: identityPool.ref,

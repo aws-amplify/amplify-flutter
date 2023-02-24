@@ -4,10 +4,8 @@
 // This test follows the Amplify UI feature "sign-in-with-username"
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-username.feature
 
-import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_test/amplify_test.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -19,22 +17,11 @@ void main() {
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
 
-  final authenticator = Authenticator(
-    child: MaterialApp(
-      builder: Authenticator.builder(),
-      home: const Scaffold(
-        body: Center(
-          child: SignOutButton(),
-        ),
-      ),
-    ),
-  );
-
   group('sign-in-with-username', () {
     // Given I'm running the example "ui/components/authenticator/sign-in-with-username.feature"
     setUpAll(() async {
       await loadConfiguration(
-        'ui/components/authenticator/sign-in-with-username',
+        environmentName: 'sign-in-with-username',
       );
     });
 
@@ -42,7 +29,7 @@ void main() {
 
     // Scenario: Sign in with unknown credentials
     testWidgets('Sign in with unknown credentials', (tester) async {
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      await loadAuthenticator(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
       signInPage.expectUsername();
 
@@ -55,20 +42,22 @@ void main() {
       // And I click the "Sign in" button
       await signInPage.submitSignIn();
 
-      await signInPage.expectUserNotFound();
+      signInPage.expectUserNotFound();
     });
 
     // Scenario: Sign in with confirmed credentials
     testWidgets('Sign in with confirmed credentials', (tester) async {
       final username = generateUsername();
       final password = generatePassword();
-      await adminCreateUser(
+      final cognitoUsername = await adminCreateUser(
         username,
         password,
         autoConfirm: true,
         verifyAttributes: true,
       );
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      addTearDown(() => deleteUser(cognitoUsername));
+
+      await loadAuthenticator(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
       signInPage.expectUsername();
 
@@ -90,13 +79,15 @@ void main() {
         (tester) async {
       final username = generateUsername();
       final password = generatePassword();
-      await adminCreateUser(
+      final cognitoUsername = await adminCreateUser(
         username,
         password,
         autoConfirm: true,
         verifyAttributes: true,
       );
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      addTearDown(() => deleteUser(cognitoUsername));
+
+      await loadAuthenticator(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
       signInPage.expectUsername();
 
@@ -124,8 +115,10 @@ void main() {
         (tester) async {
       final username = generateUsername();
       final password = generatePassword();
-      await adminCreateUser(username, password);
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      final cognitoUsername = await adminCreateUser(username, password);
+      addTearDown(() => deleteUser(cognitoUsername));
+
+      await loadAuthenticator(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
       signInPage.expectUsername();
@@ -143,45 +136,47 @@ void main() {
       await confirmSignInPage.expectConfirmSignInNewPasswordIsPresent();
       confirmSignInPage.expectNewPasswordIsPresent();
     });
-  });
 
-  testWidgets(
-      'Sign in with confirmed credentials after a failed attempt with bad credentials',
-      (tester) async {
-    final username = generateUsername();
-    final password = generatePassword();
-    await adminCreateUser(
-      username,
-      password,
-      autoConfirm: true,
-      verifyAttributes: true,
-    );
-    await loadAuthenticator(tester: tester, authenticator: authenticator);
-    SignInPage signInPage = SignInPage(tester: tester);
-    signInPage.expectUsername();
+    testWidgets(
+        'Sign in with confirmed credentials after a failed attempt with bad credentials',
+        (tester) async {
+      final username = generateUsername();
+      final password = generatePassword();
+      final cognitoUsername = await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        verifyAttributes: true,
+      );
+      addTearDown(() => deleteUser(cognitoUsername));
 
-    // When I type my "username"
-    await signInPage.enterUsername('bad_username');
+      await loadAuthenticator(tester: tester);
+      SignInPage signInPage = SignInPage(tester: tester);
+      signInPage.expectUsername();
 
-    // And I type my bad password
-    await signInPage.enterPassword(password);
+      // When I type my "username"
+      await signInPage.enterUsername('bad_username');
 
-    // And I click the "Sign in" button
-    await signInPage.submitSignIn();
+      // And I type my bad password
+      await signInPage.enterPassword(password);
 
-    /// Then I see UserNotFound exception banner
-    await signInPage.expectUserNotFound();
+      // And I click the "Sign in" button
+      await signInPage.submitSignIn();
 
-    // Then I type the correct username
-    await signInPage.enterUsername(username);
+      /// Then I see UserNotFound exception banner
+      signInPage.expectUserNotFound();
 
-    // Then I type the correct password
-    await signInPage.enterPassword(password);
+      // Then I type the correct username
+      await signInPage.enterUsername(username);
 
-    // And I click the "Sign in" button
-    await signInPage.submitSignIn();
+      // Then I type the correct password
+      await signInPage.enterPassword(password);
 
-    // Then I am signed in
-    await signInPage.expectAuthenticated();
+      // And I click the "Sign in" button
+      await signInPage.submitSignIn();
+
+      // Then I am signed in
+      await signInPage.expectAuthenticated();
+    });
   });
 }

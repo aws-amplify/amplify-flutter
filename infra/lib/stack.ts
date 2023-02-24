@@ -9,12 +9,12 @@ import { Construct } from "constructs";
 import { AnalyticsIntegrationTestStack } from "./analytics/stack";
 import {
   AuthIntegrationTestStack,
-  AuthIntegrationTestStackEnvironmentProps
+  AuthIntegrationTestStackEnvironmentProps,
 } from "./auth/stack";
 import { IntegrationTestStack } from "./common";
 import {
   StorageAccessLevel,
-  StorageIntegrationTestStack
+  StorageIntegrationTestStack,
 } from "./storage/stack";
 
 export class AmplifyFlutterIntegStack extends cdk.Stack {
@@ -65,14 +65,10 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
     // and do not block the concurrent creation of environments.
     const associateWithWaf = (name: string, resourceArn: string) => {
       wafAssociations.push(
-        new wafv2.CfnWebACLAssociation(
-          this,
-          `WAFAssociation-${name}`,
-          {
-            resourceArn,
-            webAclArn: waf.attrArn,
-          }
-        )
+        new wafv2.CfnWebACLAssociation(this, `WAFAssociation-${name}`, {
+          resourceArn,
+          webAclArn: waf.attrArn,
+        })
       );
     };
 
@@ -104,7 +100,7 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
       challengeRequiredOnNewDevice: true,
       // Always track
       deviceOnlyRememberedOnUserPrompt: false,
-    }
+    };
     const auth = new AuthIntegrationTestStack(this, [
       { associateWithWaf, type: "FULL", environmentName: "main" },
       {
@@ -126,7 +122,21 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         deviceTracking: deviceTrackingAlways,
         signInAliases: {
           email: true,
-        }
+        },
+      },
+      {
+        associateWithWaf,
+        type: "FULL",
+        environmentName: "sign-in-with-username",
+        signInAliases: {
+          username: true,
+        },
+        standardAttributes: {
+          email: {
+            mutable: true,
+            required: true,
+          },
+        },
       },
       {
         associateWithWaf,
@@ -134,6 +144,50 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         environmentName: "sign-in-with-phone",
         signInAliases: {
           phone: true,
+        },
+        standardAttributes: {
+          phoneNumber: {
+            mutable: true,
+            required: true,
+          },
+        },
+      },
+      {
+        associateWithWaf,
+        type: "FULL",
+        environmentName: "sign-in-with-email",
+        signInAliases: {
+          email: true,
+        },
+        standardAttributes: {
+          email: {
+            mutable: true,
+            required: true,
+          },
+        },
+      },
+      {
+        associateWithWaf,
+        type: "FULL",
+        environmentName: "sign-in-with-email-or-phone",
+        signInAliases: {
+          phone: true,
+          email: true,
+        },
+      },
+      {
+        associateWithWaf,
+        type: "FULL",
+        environmentName: "sign-in-with-email-lambda-trigger",
+        signInAliases: {
+          email: true,
+        },
+        autoConfirm: true,
+        standardAttributes: {
+          email: {
+            mutable: true,
+            required: true,
+          },
         },
       },
       {

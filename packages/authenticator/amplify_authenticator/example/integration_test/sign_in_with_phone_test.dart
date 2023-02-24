@@ -5,11 +5,9 @@
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-username.feature
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -22,17 +20,6 @@ void main() {
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
 
-  final authenticator = Authenticator(
-    child: MaterialApp(
-      builder: Authenticator.builder(),
-      home: const Scaffold(
-        body: Center(
-          child: SignOutButton(),
-        ),
-      ),
-    ),
-  );
-
   group('sign-in-with-phone', () {
     late PhoneNumber phoneNumber;
     late String password;
@@ -40,7 +27,7 @@ void main() {
     // Given I'm running the example "ui/components/authenticator/sign-in-with-phone.feature"
     setUpAll(() async {
       await loadConfiguration(
-        'ui/components/authenticator/sign-in-with-phone',
+        environmentName: 'sign-in-with-phone',
       );
     });
 
@@ -49,14 +36,12 @@ void main() {
       password = generatePassword();
     });
 
-    tearDown(() async {
-      await Amplify.Auth.signOut();
-    });
+    tearDown(signOut);
 
     // Scenario: Sign in with unknown credentials
     testWidgets('Sign in with unknown credentials', (tester) async {
       final phoneNumber = generateUSPhoneNumber();
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      await loadAuthenticator(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
 
       // When I select my country code
@@ -72,7 +57,7 @@ void main() {
       await signInPage.submitSignIn();
 
       // Then I see "User does not exist"
-      await signInPage.expectUserNotFound();
+      signInPage.expectUserNotFound();
     });
 
     // Scenario: Sign in with unconfirmed credentials
@@ -89,7 +74,7 @@ void main() {
           },
         ),
       );
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      await loadAuthenticator(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
 
@@ -114,7 +99,7 @@ void main() {
     // Scenario: Sign in with confirmed credentials then sign out
     testWidgets('Sign in with confirmed credentials then sign out',
         (tester) async {
-      await adminCreateUser(
+      final cognitoUsername = await adminCreateUser(
         phoneNumber.toE164(),
         password,
         autoConfirm: true,
@@ -126,7 +111,9 @@ void main() {
           ),
         ],
       );
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      addTearDown(() => deleteUser(cognitoUsername));
+
+      await loadAuthenticator(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
       signInPage.expectUsername(label: 'Phone Number');
 
@@ -147,14 +134,12 @@ void main() {
 
       // Then I see "Sign in"
       signInPage.expectUsername(label: 'Phone Number');
-
-      await deleteUser(phoneNumber.toE164());
     });
 
     // Scenario: Sign in with force change password credentials
     testWidgets('Sign in with force change password credentials',
         (tester) async {
-      await adminCreateUser(
+      final cognitoUsername = await adminCreateUser(
         phoneNumber.toE164(),
         password,
         attributes: [
@@ -164,7 +149,9 @@ void main() {
           ),
         ],
       );
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      addTearDown(() => deleteUser(cognitoUsername));
+
+      await loadAuthenticator(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
       signInPage.expectUsername(label: 'Phone Number');
@@ -181,8 +168,6 @@ void main() {
       /// Then I see "Change Password"
       await confirmSignInPage.expectConfirmSignInNewPasswordIsPresent();
       confirmSignInPage.expectNewPasswordIsPresent();
-
-      await deleteUser(phoneNumber.toE164());
     });
   });
 }

@@ -1,15 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// This test follows the Amplify UI feature "verify-user"
-// https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/verify-user.feature
-
-import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -21,39 +16,37 @@ void main() {
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
 
-  final authenticator = Authenticator(
-    child: MaterialApp(
-      builder: Authenticator.builder(),
-      home: const Scaffold(
-        body: Center(
-          child: SignOutButton(),
-        ),
-      ),
-    ),
-  );
-
   group('verify-user', () {
     // Given I'm running the example "ui/components/authenticator/verify-user"
     setUpAll(() async {
       await loadConfiguration(
-        'ui/components/authenticator/verify-user',
+        environmentName: 'sign-in-with-email',
       );
     });
 
-    tearDown(() async {
-      await Amplify.Auth.signOut();
-    });
+    tearDown(signOut);
 
     // Scenario: Redirect to "Verify" page
     testWidgets('Redirect to "Verify" page', (tester) async {
       SignInPage signInPage = SignInPage(tester: tester);
       VerifyUserPage verifyUserPage = VerifyUserPage(tester: tester);
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      await loadAuthenticator(tester: tester);
 
       final username = generateEmail();
       final password = generatePassword();
 
-      await adminCreateUser(username, password, autoConfirm: true);
+      final cognitoUsername = await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        attributes: [
+          AuthUserAttribute(
+            userAttributeKey: CognitoUserAttributeKey.email,
+            value: username,
+          ),
+        ],
+      );
+      addTearDown(() => deleteUser(cognitoUsername));
 
       // When I type my "email" with status "UNVERIFIED"
       await signInPage.enterUsername(username);
@@ -75,12 +68,23 @@ void main() {
     testWidgets('Skip verify account', (tester) async {
       SignInPage signInPage = SignInPage(tester: tester);
       VerifyUserPage verifyUserPage = VerifyUserPage(tester: tester);
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      await loadAuthenticator(tester: tester);
 
       final username = generateEmail();
       final password = generatePassword();
 
-      await adminCreateUser(username, password, autoConfirm: true);
+      final cognitoUsername = await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        attributes: [
+          AuthUserAttribute(
+            userAttributeKey: CognitoUserAttributeKey.email,
+            value: username,
+          ),
+        ],
+      );
+      addTearDown(() => deleteUser(cognitoUsername));
 
       // When I type my "email" with status "UNVERIFIED"
       await signInPage.enterUsername(username);
@@ -108,12 +112,23 @@ void main() {
       ConfirmVerifyUserPage confirmVerifyUserPage = ConfirmVerifyUserPage(
         tester: tester,
       );
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      await loadAuthenticator(tester: tester);
 
       final username = generateEmail();
       final password = generatePassword();
 
-      await adminCreateUser(username, password, autoConfirm: true);
+      final cognitoUsername = await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        attributes: [
+          AuthUserAttribute(
+            userAttributeKey: CognitoUserAttributeKey.email,
+            value: username,
+          ),
+        ],
+      );
+      addTearDown(() => deleteUser(cognitoUsername));
 
       // When I type my "email" with status "UNVERIFIED"
       await signInPage.enterUsername(username);
@@ -143,12 +158,23 @@ void main() {
     testWidgets('Auth.signIn does not redirect to "Verify" page',
         (tester) async {
       SignInPage signInPage = SignInPage(tester: tester);
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      await loadAuthenticator(tester: tester);
 
       final username = generateEmail();
       final password = generatePassword();
 
-      await adminCreateUser(username, password, autoConfirm: true);
+      final cognitoUsername = await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        attributes: [
+          AuthUserAttribute(
+            userAttributeKey: CognitoUserAttributeKey.email,
+            value: username,
+          ),
+        ],
+      );
+      addTearDown(() => deleteUser(cognitoUsername));
 
       // When I sign in with username and password.
       await Amplify.Auth.signIn(username: username, password: password);

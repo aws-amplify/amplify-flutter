@@ -4,7 +4,13 @@
 /// A library containing test utilities for the Authenticator.
 library amplify_authenticator_test;
 
+export 'src/finders/authenticated_app_finder.dart';
 export 'src/finders/authenticator_finder.dart';
+export 'src/finders/confirm_signin_finder.dart';
+export 'src/finders/confirm_signup_finder.dart';
+export 'src/finders/signin_finder.dart';
+export 'src/finders/signup_finder.dart';
+export 'src/finders/widgets_finder.dart';
 export 'src/mock_authenticator_app.dart';
 export 'src/pages/authenticator_page.dart';
 export 'src/pages/confirm_sign_in_page.dart';

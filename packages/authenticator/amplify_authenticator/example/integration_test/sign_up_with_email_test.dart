@@ -1,10 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_test/amplify_test.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -19,22 +17,11 @@ void main() {
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
 
-  final authenticator = Authenticator(
-    child: MaterialApp(
-      builder: Authenticator.builder(),
-      home: const Scaffold(
-        body: Center(
-          child: SignOutButton(),
-        ),
-      ),
-    ),
-  );
-
   group('sign-up-with-email', () {
-    // Given I'm running the example "ui/components/authenticator/sign-up-with-username"
+    // Given I'm running the example "ui/components/authenticator/sign-up-with-email"
     setUpAll(() async {
       await loadConfiguration(
-        'ui/components/authenticator/sign-up-with-email',
+        environmentName: 'sign-in-with-email',
       );
     });
 
@@ -42,7 +29,7 @@ void main() {
     testWidgets('Login mechanism set to "email"', (tester) async {
       SignUpPage signUpPage = SignUpPage(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      await loadAuthenticator(tester: tester);
       await signInPage.navigateToSignUp();
 
       // Then I see "Email" as an input field
@@ -61,7 +48,7 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
 
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      await loadAuthenticator(tester: tester);
       await signInPage.navigateToSignUp();
 
       // TODO: Clarify requirements
