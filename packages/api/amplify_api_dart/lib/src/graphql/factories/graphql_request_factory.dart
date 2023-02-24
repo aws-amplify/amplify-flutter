@@ -212,7 +212,11 @@ class GraphQLRequestFactory {
     final requestOperationVal = requestOperation.name;
     // e.g. "{upper: "($id: ID!)", lower: "(id: $id)"}"
     final documentInputs = _buildDocumentInputs(
-        schema, requestOperation, modelIdentifier, hasSubFilter);
+      schema,
+      requestOperation,
+      modelIdentifier,
+      hasSubFilter,
+    );
     // e.g. "id name createdAt" - fields to retrieve
     final fields = _getSelectionSetFromModelSchema(schema, requestOperation);
     // e.g. "getBlog"
