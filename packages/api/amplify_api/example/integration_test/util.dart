@@ -138,6 +138,23 @@ Future<Blog> addBlog(String name) async {
   return blog;
 }
 
+// declare utility which creates post with title and blog as parameter
+Future<Post> addPost(String name, Blog blog) async {
+  final request = ModelMutations.create(
+    Post(
+      title: name,
+      blog: blog,
+      rating: 3,
+    ),
+    authorizationMode: APIAuthorizationType.userPools,
+  );
+  final response = await Amplify.API.mutate(request: request).response;
+  expect(response, hasNoGraphQLErrors);
+  final post = response.data!;
+  postCache.add(post);
+  return post;
+}
+
 Future<CpkOneToOneBidirectionalParentCD> addCpkParent(String name) async {
   final request = ModelMutations.create(
     CpkOneToOneBidirectionalParentCD(customId: uuid(), name: name),

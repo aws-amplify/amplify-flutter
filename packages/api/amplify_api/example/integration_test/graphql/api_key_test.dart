@@ -93,6 +93,7 @@ void main({bool useExistingTestUser = false}) {
             final subscriptionRequest = ModelSubscriptions.onCreate(
               Blog.classType,
               authorizationMode: APIAuthorizationType.apiKey,
+              where: Blog.NAME.eq(name),
             );
 
             final eventResponse = await establishSubscriptionAndMutate<Blog>(
@@ -162,6 +163,32 @@ void main({bool useExistingTestUser = false}) {
             await deleteBlog(blog);
 
             await expectLater(dataCompleter2.future, completes);
+          });
+
+          testWidgets('should support where clause when using Model helpers',
+              (WidgetTester tester) async {
+            final blogName =
+                'Integration Test Blog - subscription filter ${uuid()}';
+
+            final postTitle =
+                'Integration Test Post - subscription filter ${uuid()}';
+
+            final blog = await addBlog(blogName);
+
+            final subscriptionRequest = ModelSubscriptions.onCreate(
+              Post.classType,
+              authorizationMode: APIAuthorizationType.userPools,
+              where: Post.TITLE.eq(postTitle),
+            );
+
+            final eventResponse = await establishSubscriptionAndMutate<Post>(
+              subscriptionRequest,
+              () => addPost(postTitle, blog),
+              eventFilter: (response) => response.data?.title == postTitle,
+            );
+            final blogFromEvent = eventResponse.data;
+
+            expect(blogFromEvent?.title, equals(postTitle));
           });
 
           testWidgets('should parse errors within a web socket data message',

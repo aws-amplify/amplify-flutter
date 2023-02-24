@@ -114,6 +114,7 @@ class GraphQLRequestFactory {
     ModelSchema schema,
     GraphQLRequestOperation operation,
     ModelIdentifier? modelIdentifier,
+    bool hasSubFilter,
   ) {
     var upperOutput = '';
     var lowerOutput = '';
@@ -169,8 +170,10 @@ class GraphQLRequestFactory {
       case GraphQLRequestOperation.onCreate:
       case GraphQLRequestOperation.onUpdate:
       case GraphQLRequestOperation.onDelete:
-        upperOutput = '(\$filter: ModelSubscription${modelName}FilterInput)';
-        lowerOutput = r'(filter: $filter)';
+        if (hasSubFilter) {
+          upperOutput = '(\$filter: ModelSubscription${modelName}FilterInput)';
+          lowerOutput = r'(filter: $filter)';
+        }
         break;
       default:
         throw const ApiException(
@@ -195,6 +198,7 @@ class GraphQLRequestFactory {
     APIAuthorizationType? authorizationMode,
     Map<String, String>? headers,
     int depth = 0,
+    bool hasSubFilter = false,
   }) {
     // retrieve schema from ModelType and validate required properties
     final schema =
@@ -207,8 +211,8 @@ class GraphQLRequestFactory {
     // e.g. "get" or "list"
     final requestOperationVal = requestOperation.name;
     // e.g. "{upper: "($id: ID!)", lower: "(id: $id)"}"
-    final documentInputs =
-        _buildDocumentInputs(schema, requestOperation, modelIdentifier);
+    final documentInputs = _buildDocumentInputs(
+        schema, requestOperation, modelIdentifier, hasSubFilter);
     // e.g. "id name createdAt" - fields to retrieve
     final fields = _getSelectionSetFromModelSchema(schema, requestOperation);
     // e.g. "getBlog"

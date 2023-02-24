@@ -30,12 +30,13 @@ class ModelSubscriptionsFactory {
     );
     return GraphQLRequestFactory.instance.buildRequest<T>(
       modelType: modelType,
-      variables: variables,
+      variables: where != null ? variables : {},
       requestType: GraphQLRequestType.subscription,
       requestOperation: GraphQLRequestOperation.onCreate,
       apiName: apiName,
       authorizationMode: authorizationMode,
       headers: headers,
+      hasSubFilter: where != null,
     );
   }
 
@@ -53,12 +54,13 @@ class ModelSubscriptionsFactory {
     );
     return GraphQLRequestFactory.instance.buildRequest<T>(
       modelType: modelType,
-      variables: variables,
+      variables: where != null ? variables : {},
       requestType: GraphQLRequestType.subscription,
       requestOperation: GraphQLRequestOperation.onUpdate,
       apiName: apiName,
       authorizationMode: authorizationMode,
       headers: headers,
+      hasSubFilter: where != null,
     );
   }
 
@@ -76,12 +78,13 @@ class ModelSubscriptionsFactory {
     );
     return GraphQLRequestFactory.instance.buildRequest<T>(
       modelType: modelType,
-      variables: variables,
+      variables: where != null ? variables : {},
       requestType: GraphQLRequestType.subscription,
       requestOperation: GraphQLRequestOperation.onDelete,
       apiName: apiName,
       authorizationMode: authorizationMode,
       headers: headers,
+      hasSubFilter: where != null,
     );
   }
 }
