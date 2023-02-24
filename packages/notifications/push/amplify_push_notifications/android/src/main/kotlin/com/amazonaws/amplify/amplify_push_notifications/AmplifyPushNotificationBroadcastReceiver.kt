@@ -4,23 +4,20 @@
 package com.amazonaws.amplify.amplify_push_notifications
 
 
-import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.amazonaws.amplify.asMap
 import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsUtils
 import com.google.firebase.messaging.RemoteMessage
 
 // TODO: This BroadcastReceiver needs to be replaced by the Firebase Service
 class PushNotificationReceiver : BroadcastReceiver() {
     companion object {
-        private val TAG = "PushNotificationReceiver"
+        private val TAG = "NotificationReceiver"
     }
-
-    @SuppressLint("LongLogTag")
+    
     override fun onReceive(context: Context, intent: Intent?) {
         intent?.let {
             if (!it.isPushNotificationIntent()) {

@@ -4,7 +4,13 @@
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_core.push.service_provider_client}
-/// Abstract class that a new service provider class must subclass and implement concrete functionality
+/// A base class for new service providers to implement and add functionality
+///
+/// Service Providers are AWS services that link with FCM/APNS to send push notifications.
+/// The methods will be called within the plugin in the following scenarios,
+/// 1. init - when the plugin is being configured
+/// 2. registerDevice - also when the plugin is being configured
+/// 3. recordNotificationEvent - when a notification related event occurs such as notification received or opened
 /// {@endtemplate}
 abstract class ServiceProviderClient {
   Future<void> init({
@@ -13,6 +19,7 @@ abstract class ServiceProviderClient {
   });
   Future<void> registerDevice(String deviceToken);
   Future<void> recordNotificationEvent({
+    // TODO: Should this be a push notification specific type?
     required AnalyticsEvent event,
   });
 }
