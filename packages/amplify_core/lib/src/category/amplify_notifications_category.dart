@@ -7,5 +7,6 @@ part of amplify_interface;
 /// Top-Level Category for Notifications that holds a reference to Push Notifications
 /// {@endtemplate}
 class NotificationsCategory {
+  // ignore: non_constant_identifier_names
   final PushNotificationsCategory Push = PushNotificationsCategory();
 }
