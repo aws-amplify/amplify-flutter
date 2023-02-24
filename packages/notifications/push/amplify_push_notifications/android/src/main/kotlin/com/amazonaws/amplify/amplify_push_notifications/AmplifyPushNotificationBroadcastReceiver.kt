@@ -10,6 +10,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.amazonaws.amplify.asMap
 import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsUtils
 import com.google.firebase.messaging.RemoteMessage
 
@@ -22,38 +23,39 @@ class PushNotificationReceiver : BroadcastReceiver() {
     @SuppressLint("LongLogTag")
     override fun onReceive(context: Context, intent: Intent?) {
         intent?.let {
-            if (isPushNotificationIntent(it)) {
-                val remoteMessage = RemoteMessage(it.extras)
-                val remoteMessageBundle = getBundleFromRemoteMessage(remoteMessage)
-                if (isAppInForeground(context)) {
-                    val notificationHashMap = convertBundleToHashMap(remoteMessageBundle)
-                    Log.d(TAG, "Send foreground message received event: $notificationHashMap")
+            if (!it.isPushNotificationIntent()) {
+                return
+            }
+            val remoteMessage = RemoteMessage(it.extras)
 
-                    PushNotificationEventsStreamHandler.sendEvent(
-                        PushNotificationsEvent(
-                            NativeEvent.FOREGROUND_MESSAGE_RECEIVED,
-                            notificationHashMap
-                        )
+            if (isAppInForeground(context)) {
+                val notificationHashMap = remoteMessage.asMap<String, Any>()
+                Log.d(TAG, "Send foreground message received event: $notificationHashMap")
+
+                PushNotificationEventsStreamHandler.sendEvent(
+                    PushNotificationsEvent(
+                        NativeEvent.FOREGROUND_MESSAGE_RECEIVED,
+                        notificationHashMap
                     )
-                } else {
-                    Log.d(TAG, "App is in background, start background service and enqueue work")
-                    try {
+                )
+            } else {
+                Log.d(TAG, "App is in background, start background service and enqueue work")
+                try {
 
-                        val payload = getPayloadFromRemoteMessage(remoteMessage)
-                        // TODO: Check how to add a flag to indicate app was opened by a notificaiton
-                        PushNotificationsUtils(context).showNotification(
-                            payload,
-                            AmplifyPushNotificationsPlugin::class.java
-                        )
+                    val payload = remoteMessage.asPayload()
+                    // TODO: Check how to add a flag to indicate app was opened by a notificaiton
+                    PushNotificationsUtils(context).showNotification(
+                        payload,
+                        AmplifyPushNotificationsPlugin::class.java
+                    )
 
-                        // TODO: Start a background headless service
+                    // TODO: Start a background headless service
 //                        FlutterMain.startInitialization(context)
 //                        FlutterMain.ensureInitializationComplete(context, null)
 //                        PushNotificationBackgroundService.enqueueWork(context, it)
 
-                    } catch (exception: Exception) {
-                        Log.e(TAG, "Something went wrong while starting headless task $exception")
-                    }
+                } catch (exception: Exception) {
+                    Log.e(TAG, "Something went wrong while starting headless task $exception")
                 }
             }
         }

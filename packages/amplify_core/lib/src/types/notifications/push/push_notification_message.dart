@@ -27,7 +27,7 @@ class PushNotificationMessage
   String? goToUrl;
   FcmPlatformOptions? fcmOptions;
   ApnsPlatformOptions? apnsOptions;
-  Map<Object?, Object?> data = const {};
+  Map<Object?, Object?> data = {};
 
   // TODO(Samaritan1011001): Find common and required fields
   PushNotificationMessage.fromJson(Map<Object?, Object?> json) {

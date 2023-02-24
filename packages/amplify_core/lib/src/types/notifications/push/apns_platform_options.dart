@@ -9,9 +9,9 @@ import 'package:amplify_core/amplify_core.dart';
 class ApnsPlatformOptions
     with AWSDebuggable, AWSSerializable<Map<String, Object?>> {
   /// {@macro amplify_core.push.apns_platform_options}
-  ApnsPlatformOptions({this.subtitle});
+  const ApnsPlatformOptions({this.subtitle});
 
-  String? subtitle;
+  final String? subtitle;
 
   @override
   String get runtimeTypeName => 'ApnsPlatformOptions';

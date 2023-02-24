@@ -49,7 +49,7 @@ enum Category {
   storage,
 
   /// Push Notifications
-  notificationsPush,
+  pushNotifications,
 }
 
 extension CategoryName on Category {
@@ -67,7 +67,7 @@ extension CategoryName on Category {
         return 'Hub';
       case Category.storage:
         return 'Storage';
-      case Category.notificationsPush:
+      case Category.pushNotifications:
         return 'PushNotifications';
     }
   }

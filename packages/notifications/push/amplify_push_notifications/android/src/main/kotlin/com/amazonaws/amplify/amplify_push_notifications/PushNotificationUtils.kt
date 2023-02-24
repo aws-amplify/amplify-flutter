@@ -7,75 +7,33 @@ import android.content.Intent
 import android.os.Bundle
 import com.amplifyframework.pushnotifications.pinpoint.utils.NotificationPayload
 import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsConstants
+import com.amplifyframework.pushnotifications.pinpoint.utils.toNotificationsPayload
 import com.google.firebase.messaging.RemoteMessage
 
 // TODO: Revisit this file and remove un-used functions
 
-fun getBundleFromRemoteMessage(remoteMessage: RemoteMessage): Bundle {
-    val bundle = Bundle()
-    bundle.putString("collapseKey", remoteMessage.collapseKey)
-    bundle.putString("sender", remoteMessage.from)
-    bundle.putString("messageId", remoteMessage.messageId)
-    bundle.putString("messageType", remoteMessage.messageType)
-    bundle.putLong("sentTime", remoteMessage.sentTime)
-    bundle.putString("destination", remoteMessage.to)
-    bundle.putInt("ttl", remoteMessage.ttl)
-    if (remoteMessage.data.isNotEmpty()) {
-        bundle.putBundle("data", getBundleFromData(remoteMessage.data))
-    }
-    remoteMessage.notification?.let {
-        bundle.putBundle("notification", getBundleFromNotification(it))
-    }
-    return bundle
+private const val PAYLOAD_KEY = "payload"
+
+fun Intent.isPushNotificationIntent(): Boolean {
+    return this.extras?.containsKey("google.message_id") == true
+}
+fun RemoteMessage.isRemoteMessageSupported(): Boolean {
+    return !this.data[PushNotificationsConstants.PINPOINT_CAMPAIGN_CAMPAIGN_ID].isNullOrEmpty() or
+            !this.data[PushNotificationsConstants.JOURNEY_ID].isNullOrEmpty()
 }
 
-fun isPushNotificationIntent(intent: Intent?): Boolean {
-    return intent?.extras?.containsKey("google.message_id") == true
-}
-
-private fun getBundleFromData(data: Map<String, String>): Bundle {
-    val bundle = Bundle()
-    for ((key, value) in data.orEmpty()) {
-        bundle.putString(key, value)
-    }
-    return bundle
-}
-
-private fun getBundleFromNotification(notification: RemoteMessage.Notification): Bundle {
-    val bundle = Bundle()
-    notification.title?.let { bundle.putString("title", it) }
-    notification.titleLocalizationKey?.let { bundle.putString("titleLocalizationKey", it) }
-    notification.titleLocalizationArgs?.let { bundle.putStringArray("titleLocalizationArgs", it) }
-    notification.body?.let { bundle.putString("body", it) }
-    notification.bodyLocalizationKey?.let { bundle.putString("bodyLocalizationKey", it) }
-    notification.bodyLocalizationArgs?.let { bundle.putStringArray("bodyLocalizationArgs", it) }
-    notification.channelId?.let { bundle.putString("channelId", it) }
-    notification.clickAction?.let { bundle.putString("clickAction", it) }
-    notification.color?.let { bundle.putString("color", it) }
-    notification.icon?.let { bundle.putString("icon", it) }
-    notification.imageUrl?.let { bundle.putString("imageUrl", it.toString()) }
-    notification.link?.let { bundle.putString("link", it.toString()) }
-    notification.notificationCount?.let { bundle.putInt("notificationCount", it) }
-    notification.notificationPriority?.let { bundle.putInt("notificationPriority", it) }
-    notification.sound?.let { bundle.putString("sound", it) }
-    notification.ticker?.let { bundle.putString("ticker", it) }
-    notification.visibility?.let { bundle.putInt("visibility", it) }
-    return bundle
-}
-
-
-fun getPayloadFromRemoteMessage(remoteMessage: RemoteMessage): NotificationPayload {
-    val messageId = remoteMessage.messageId
-    val senderId = remoteMessage.senderId
-    val sendTime = remoteMessage.sentTime
-    val data = remoteMessage.data
-    val body = remoteMessage.notification?.body
+fun RemoteMessage.asPayload(): NotificationPayload {
+    val messageId = this.messageId
+    val senderId = this.senderId
+    val sendTime = this.sentTime
+    val data = this.data
+    val body = this.notification?.body
         ?: data[PushNotificationsConstants.MESSAGE_ATTRIBUTE_KEY]
         ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_BODY]
-    val title = remoteMessage.notification?.title
+    val title = this.notification?.title
         ?: data[PushNotificationsConstants.TITLE_ATTRIBUTE_KEY]
         ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_TITLE]
-    val imageUrl = remoteMessage.notification?.imageUrl?.toString()
+    val imageUrl = this.notification?.imageUrl?.toString()
         ?: data[PushNotificationsConstants.IMAGEURL_ATTRIBUTE_KEY]
         ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_IMAGEURL]
     val action: HashMap<String, String> = HashMap()
@@ -97,10 +55,13 @@ fun getPayloadFromRemoteMessage(remoteMessage: RemoteMessage): NotificationPaylo
         notificationOptions(PushNotificationsConstants.DEFAULT_NOTIFICATION_CHANNEL_ID)
         tapAction(action)
         silentPush = data[PushNotificationsConstants.PINPOINT_NOTIFICATION_SILENTPUSH].equals("1")
-        rawData = HashMap(remoteMessage.data)
+        rawData = HashMap(data)
     }
 }
 
+fun getPayloadFromExtras(extras: Bundle?): NotificationPayload? {
+    return extras?.getBundle(PAYLOAD_KEY)?.toNotificationsPayload()
+}
 
 fun convertBundleToHashMap(bundle: Bundle): HashMap<String, Any?> {
     val hashMap = hashMapOf<String, Any?>()
