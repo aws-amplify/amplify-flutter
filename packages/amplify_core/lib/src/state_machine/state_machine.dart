@@ -5,6 +5,7 @@ import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
+import 'package:stack_trace/stack_trace.dart';
 
 /// Interface for dispatching an event to a state machine.
 @optionalTypeArgs
@@ -138,7 +139,7 @@ abstract class StateMachineManager<
     final completer = accept(event);
     final state = await completer.completed;
     if (state is ErrorState) {
-      throw state.exception;
+      Error.throwWithStackTrace(state.exception, state.stackTrace);
     }
     return state as SuccessState;
   }
@@ -167,7 +168,7 @@ abstract class StateMachineManager<
     final completer = dispatch(event);
     final state = await completer.completed;
     if (state is ErrorState) {
-      throw state.exception;
+      Error.throwWithStackTrace(state.exception, state.stackTrace);
     }
     return state as SuccessState;
   }
@@ -264,16 +265,23 @@ abstract class StateMachine<
     _currentState = state;
   }
 
-  void _emitError(Object error, StackTrace st) {
-    logger.error('Emitted error', error, st);
+  /// Emits an [error] and corresponding [stackTrace].
+  void _emitError(Object error, StackTrace stackTrace) {
+    // Chain the stack trace of [_currentEvent]'s creation and the state machine
+    // error to create a full picture of the error's lifecycle.
+    final eventTrace = Trace.from(_currentCompleter.stackTrace);
+    final stateMachineTrace = Trace.from(stackTrace);
+    stackTrace = Chain([stateMachineTrace, eventTrace]);
 
-    final resolution = resolveError(error, st);
+    logger.error('Emitted error', error, stackTrace);
+
+    final resolution = resolveError(error, stackTrace);
 
     // Add the error to the state stream if it cannot be resolved to a new
     // state internally.
     if (resolution == null) {
-      _currentCompleter.completeError(error, st);
-      _stateController.addError(error, st);
+      _currentCompleter.completeError(error, stackTrace);
+      _stateController.addError(error, stackTrace);
       return;
     }
 
@@ -334,7 +342,7 @@ abstract class StateMachine<
   ///
   /// If the error cannot be resolved, return `null` and the error will be
   /// rethrown.
-  State? resolveError(Object error, [StackTrace? st]);
+  State? resolveError(Object error, StackTrace st);
 
   /// Logger for the state machine.
   @override

@@ -22,9 +22,6 @@ enum SignInEventType {
 
   /// {@macro amplify_auth_cognito.sign_in_succeeded}
   succeeded,
-
-  /// {@macro amplify_auth_cognito.sign_in_failed}
-  failed,
 }
 
 /// {@template amplify_auth_cognito.sign_in_event}
@@ -53,9 +50,6 @@ abstract class SignInEvent extends AuthEvent<SignInEventType, SignInStateType> {
 
   /// {@macro amplify_auth_cognito.sign_in_succeeded}
   const factory SignInEvent.succeeded(CognitoUser user) = SignInSucceeded;
-
-  /// {@macro amplify_auth_cognito.sign_in_failed}
-  const factory SignInEvent.failed(Exception exception) = SignInFailed;
 
   @override
   PreconditionException? checkPrecondition(SignInState currentState) => null;
@@ -187,35 +181,6 @@ class SignInSucceeded extends SignInEvent {
   PreconditionException? checkPrecondition(SignInState currentState) {
     if (currentState.type == SignInStateType.success) {
       return const AuthPreconditionException('Auth flow was already completed');
-    }
-    return null;
-  }
-}
-
-/// {@template amplify_auth_cognito.sign_in_failed}
-/// Failure in the auth flow.
-/// {@endtemplate}
-class SignInFailed extends SignInEvent with ErrorEvent {
-  /// {@macro amplify_auth_cognito.sign_in_failed}
-  const SignInFailed(this.exception) : super._();
-
-  /// The sign in flow exception.
-  @override
-  final Exception exception;
-
-  @override
-  SignInEventType get type => SignInEventType.failed;
-
-  @override
-  List<Object?> get props => [type, exception];
-
-  @override
-  PreconditionException? checkPrecondition(SignInState currentState) {
-    if (currentState.type == SignInStateType.failure) {
-      return const AuthPreconditionException(
-        'Auth flow already completed with error',
-        shouldEmit: false,
-      );
     }
     return null;
   }

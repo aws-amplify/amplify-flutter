@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:stack_trace/stack_trace.dart';
 import 'package:test/test.dart';
 
 import 'my_state_machine.dart';
@@ -36,12 +37,90 @@ void main() {
       );
     });
 
-    test('handles errors', () {
-      stateMachine.accept(const MyEvent(MyType.tryWork));
-      expect(
-        stateMachine.stream,
-        emitsThrough(const MyState(MyType.error)),
-      );
+    group('handles errors', () {
+      /// Creates a matcher originating at StateMachineManager.[method].
+      ///
+      /// The state machine should chain stack traces such that both the
+      /// creation of the event and the exception are visible in the same trace.
+      Matcher matchesChain(String method) {
+        // On Web, stack traces are handled differently. While they are still
+        // chained, method names and types are represented different so there
+        // isn't much use trying to pin down specifics here.
+        if (zIsWeb) return isA<StackTrace>();
+        return isA<Chain>().having(
+          (chain) => chain.traces.map((trace) => trace.toString()),
+          'traces',
+          containsAllInOrder([
+            contains('MyStateMachine.doWork'),
+            contains('StateMachineManager.$method'),
+          ]),
+        );
+      }
+
+      test('emitted from stream', () {
+        expect(
+          stateMachine.stream,
+          emitsThrough(
+            isA<MyErrorState>().having(
+              (s) => s.stackTrace,
+              'stackTrace',
+              matchesChain('accept'),
+            ),
+          ),
+        );
+        stateMachine.accept(const MyEvent(MyType.tryWork));
+      });
+
+      test('accept', () async {
+        final completion =
+            await stateMachine.accept(const MyEvent(MyType.tryWork)).completed;
+        expect(
+          completion,
+          isA<MyErrorState>().having(
+            (s) => s.stackTrace,
+            'stackTrace',
+            matchesChain('accept'),
+          ),
+        );
+      });
+
+      test('acceptAndComplete', () async {
+        try {
+          await stateMachine.acceptAndComplete(const MyEvent(MyType.tryWork));
+          fail(
+            'acceptAndComplete should rethrow the exception from the '
+            'state machine',
+          );
+        } on Exception catch (_, st) {
+          expect(st, matchesChain('acceptAndComplete'));
+        }
+      });
+
+      test('dispatch', () async {
+        final completion = await stateMachine
+            .dispatch(const MyEvent(MyType.tryWork))
+            .completed;
+        expect(
+          completion,
+          isA<MyErrorState>().having(
+            (s) => s.stackTrace,
+            'stackTrace',
+            matchesChain('dispatch'),
+          ),
+        );
+      });
+
+      test('dispatchAndComplete', () async {
+        try {
+          await stateMachine.dispatchAndComplete(const MyEvent(MyType.tryWork));
+          fail(
+            'dispatchAndComplete should rethrow the exception from the '
+            'state machine',
+          );
+        } on Exception catch (_, st) {
+          expect(st, matchesChain('dispatchAndComplete'));
+        }
+      });
     });
 
     group('subscribeTo', () {

@@ -18,9 +18,6 @@ enum FetchAuthSessionEventType {
 
   /// {@macro amplify_auth_cognito.fetch_auth_session_succeeded}
   succeeded,
-
-  /// {@macro amplify_auth_cognito.fetch_auth_session_failed}
-  failed,
 }
 
 /// Discrete events of the fetch auth session state machine.
@@ -48,11 +45,6 @@ abstract class FetchAuthSessionEvent
   const factory FetchAuthSessionEvent.succeeded(
     CognitoAuthSession session,
   ) = FetchAuthSessionSucceeded;
-
-  /// {@macro amplify_auth_cognito.fetch_auth_session_failed}
-  const factory FetchAuthSessionEvent.failed(
-    Exception exception,
-  ) = FetchAuthSessionFailed;
 
   @override
   String get runtimeTypeName => 'FetchAuthSessionEvent';
@@ -179,22 +171,4 @@ class FetchAuthSessionSucceeded extends FetchAuthSessionEvent {
 
   @override
   List<Object?> get props => [type, session];
-}
-
-/// {@template amplify_auth_cognito.fetch_auth_session_failed}
-/// Fetching the current user's auth session failed.
-/// {@endtemplate}
-class FetchAuthSessionFailed extends FetchAuthSessionEvent with ErrorEvent {
-  /// {@macro amplify_auth_cognito.fetch_auth_session_failed}
-  const FetchAuthSessionFailed(this.exception) : super._();
-
-  /// The exception thrown fetching credentials.
-  @override
-  final Exception exception;
-
-  @override
-  FetchAuthSessionEventType get type => FetchAuthSessionEventType.failed;
-
-  @override
-  List<Object?> get props => [type, exception];
 }
