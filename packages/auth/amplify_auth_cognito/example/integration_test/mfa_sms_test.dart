@@ -32,7 +32,7 @@ void main() {
         final username = generateUsername();
         final password = generatePassword();
 
-        final otpResult = await getOtpCode(username);
+        final otpResult = await getOtpCode(UserAttribute.username(username));
 
         await adminCreateUser(
           username,

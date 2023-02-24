@@ -34,12 +34,13 @@ export class CustomAuthorizerUserPoolsStackEnvironment extends IntegrationTestSt
       }
     );
 
+    const mfa = cognito.Mfa.OFF;
     const userPool = new cognito.UserPool(this, "UserPool", {
       userPoolName: this.name,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       selfSignUpEnabled: true,
       accountRecovery: cognito.AccountRecovery.NONE,
-      mfa: cognito.Mfa.OFF,
+      mfa,
       lambdaTriggers: {
         preSignUp: autoConfirmTrigger,
       },
@@ -92,6 +93,7 @@ export class CustomAuthorizerUserPoolsStackEnvironment extends IntegrationTestSt
         userPoolConfig: {
           userPoolId: userPool.userPoolId,
           userPoolClientId: userPoolClient.userPoolClientId,
+          mfa,
         },
       },
     };

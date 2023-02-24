@@ -5,7 +5,6 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -17,21 +16,10 @@ void main() {
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
 
-  final authenticator = Authenticator(
-    child: MaterialApp(
-      builder: Authenticator.builder(),
-      home: const Scaffold(
-        body: Center(
-          child: SignOutButton(),
-        ),
-      ),
-    ),
-  );
-
   group('sign out', () {
     setUpAll(() async {
       await loadConfiguration(
-        'ui/components/authenticator/sign-in-with-email',
+        environmentName: 'sign-in-with-username',
       );
     });
 
@@ -41,13 +29,15 @@ void main() {
     testWidgets('Sign out with Auth.signOut()', (tester) async {
       final username = generateEmail();
       final password = generatePassword();
-      await adminCreateUser(
+      final cognitoUsername = await adminCreateUser(
         username,
         password,
         autoConfirm: true,
         verifyAttributes: true,
       );
-      await loadAuthenticator(tester: tester, authenticator: authenticator);
+      addTearDown(() => deleteUser(cognitoUsername));
+
+      await loadAuthenticator(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
 
       // When I sign in with "username" and "password"

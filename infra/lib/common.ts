@@ -3,6 +3,7 @@
 
 import * as cdk from "aws-cdk-lib";
 import { Fn, RemovalPolicy } from "aws-cdk-lib";
+import * as cognito from "aws-cdk-lib/aws-cognito";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
 import { StorageAccessLevel } from "./storage/stack";
@@ -198,6 +199,7 @@ export const createAmplifyConfig = (
       };
     }
     const userPool: any = {};
+    let defaultAuth: any = {};
     if (userPoolConfig) {
       userPool.CognitoUserPool = {
         Default: {
@@ -205,6 +207,43 @@ export const createAmplifyConfig = (
           AppClientId: userPoolConfig.userPoolClientId,
           Region: region,
         },
+      };
+      const {
+        standardAttributes,
+        signInAliases,
+        mfa,
+        verificationMechanisms = [],
+      } = userPoolConfig;
+      const userNameAttributes: string[] = [];
+      if (signInAliases?.email) {
+        userNameAttributes.push("email");
+      }
+      if (signInAliases?.phone) {
+        userNameAttributes.push("phone_number");
+      }
+      const signupAttributes: string[] = [];
+      if (standardAttributes?.email?.required) {
+        signupAttributes.push("email");
+      }
+      if (standardAttributes?.phoneNumber?.required) {
+        signupAttributes.push("phone_number");
+      }
+      defaultAuth = {
+        authenticationFlowType: "USER_SRP_AUTH",
+        usernameAttributes: userNameAttributes,
+        signupAttributes: signupAttributes,
+        passwordProtectionSettings: {
+          passwordPolicyMinLength: 8,
+          passwordPolicyCharacters: [
+            "REQUIRES_LOWERCASE",
+            "REQUIRES_UPPERCASE",
+            "REQUIRES_NUMBERS",
+            "REQUIRES_SYMBOLS",
+          ],
+        },
+        mfaConfiguration: mfa,
+        mfaTypes: ["SMS"],
+        verificationMechanisms: verificationMechanisms,
       };
     }
     const pinpointConfig: any = {};
@@ -238,7 +277,7 @@ export const createAmplifyConfig = (
         SignInRedirectURI: hostedUiConfig.signInRedirectUris.join(","),
         SignOutRedirectURI: hostedUiConfig.signOutRedirectUris.join(","),
         Scopes: hostedUiConfig.scopes,
-      }
+      };
     }
     auth.auth = {
       plugins: {
@@ -252,21 +291,7 @@ export const createAmplifyConfig = (
           Auth: {
             Default: {
               ...oauth,
-              authenticationFlowType: "USER_SRP_AUTH",
-              usernameAttributes: [],
-              signupAttributes: [],
-              passwordProtectionSettings: {
-                passwordPolicyMinLength: 8,
-                passwordPolicyCharacters: [
-                  "REQUIRES_LOWERCASE",
-                  "REQUIRES_UPPERCASE",
-                  "REQUIRES_NUMBERS",
-                  "REQUIRES_SYMBOLS",
-                ],
-              },
-              mfaConfiguration: "OPTIONAL",
-              mfaTypes: ["SMS"],
-              verificationMechanisms: ["EMAIL", "PHONE_NUMBER"],
+              ...defaultAuth,
             },
           },
         },
@@ -321,13 +346,17 @@ export type AuthConfig = {
   userPoolConfig?: {
     userPoolId: string;
     userPoolClientId: string;
+    signInAliases?: cognito.SignInAliases;
+    standardAttributes?: cognito.StandardAttributes;
+    mfa: cognito.Mfa;
+    verificationMechanisms?: string[];
   };
   hostedUiConfig?: {
     webDomain: string;
     signInRedirectUris: string[];
     signOutRedirectUris: string[];
     scopes: string[];
-  },
+  };
   identityPoolConfig?: {
     identityPoolId: string;
   };

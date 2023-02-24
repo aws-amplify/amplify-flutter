@@ -14,6 +14,7 @@ const exampleApps = {
   Category.auth: [
     'packages/auth/amplify_auth_cognito/example',
     'packages/auth/amplify_auth_cognito_dart/example',
+    'packages/authenticator/amplify_authenticator/example',
   ],
   Category.dataStore: ['packages/amplify_datastore/example'],
   Category.storage: [

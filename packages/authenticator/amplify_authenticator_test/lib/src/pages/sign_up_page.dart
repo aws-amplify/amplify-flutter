@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+// ignore: implementation_imports
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator_test/src/pages/authenticator_page.dart';
 import 'package:flutter/material.dart';

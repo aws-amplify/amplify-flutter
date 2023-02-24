@@ -44,7 +44,7 @@ part 'form_fields/verify_user_form_field.dart';
 /// - [ConfirmSignUpFormField]
 /// - [VerifyUserFormField]
 /// {@endtemplate}
-abstract class AuthenticatorFormField<FieldType, FieldValue>
+abstract class AuthenticatorFormField<FieldType extends Enum, FieldValue>
     extends AuthenticatorComponent<
         AuthenticatorFormField<FieldType, FieldValue>> {
   /// {@macro amplify_authenticator.authenticator_form_field}
@@ -99,8 +99,8 @@ abstract class AuthenticatorFormField<FieldType, FieldValue>
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(EnumProperty('field', field));
-    properties.add(EnumProperty('titleKey', titleKey));
-    properties.add(EnumProperty('hintTextKey', hintTextKey));
+    properties.add(DiagnosticsProperty('titleKey', titleKey));
+    properties.add(DiagnosticsProperty('hintTextKey', hintTextKey));
     properties.add(StringProperty('title', title));
     properties.add(StringProperty('hintText', hintText));
     properties.add(ObjectFlagProperty<FormFieldValidator<FieldValue>?>.has(
@@ -113,7 +113,7 @@ abstract class AuthenticatorFormField<FieldType, FieldValue>
   }
 }
 
-abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
+abstract class AuthenticatorFormFieldState<FieldType extends Enum, FieldValue,
         T extends AuthenticatorFormField<FieldType, FieldValue>>
     extends AuthenticatorComponentState<T> {
   @nonVirtual

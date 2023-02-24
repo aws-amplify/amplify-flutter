@@ -20,7 +20,7 @@ void main() {
     tearDownAll(Amplify.reset);
 
     Future<void> signIn() async {
-      final otpResult = await getOtpCode(username);
+      final otpResult = await getOtpCode(UserAttribute.username(username));
       final signInRes = await Amplify.Auth.signIn(
         username: username,
         password: password,
@@ -62,7 +62,7 @@ void main() {
     asyncTest('can reset password', (_) async {
       await signOutUser();
 
-      final otpResult = await getOtpCode(username);
+      final otpResult = await getOtpCode(UserAttribute.username(username));
       final resetPasswordRes = await Amplify.Auth.resetPassword(
         username: username,
       );

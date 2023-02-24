@@ -21,7 +21,7 @@ class AuthenticatorCheckbox<T extends AuthenticatorCheckbox<T>>
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(EnumProperty('labelKey', labelKey));
+    properties.add(DiagnosticsProperty('labelKey', labelKey));
   }
 
   @override

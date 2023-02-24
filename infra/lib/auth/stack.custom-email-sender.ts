@@ -21,9 +21,9 @@ export const handler: CustomEmailSenderTriggerHandler = async (
   }
 
   const { userName } = event;
-  const { code } = event.request;
+  const { code, userAttributes } = event.request;
 
-  await decryptAndBroadcastCode(userName, code!);
+  await decryptAndBroadcastCode(userName, code!, userAttributes);
 
   return event;
 };

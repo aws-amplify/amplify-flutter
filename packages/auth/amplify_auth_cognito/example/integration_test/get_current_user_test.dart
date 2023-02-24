@@ -102,7 +102,9 @@ void main() {
           );
           addTearDown(() => deleteUser(username));
 
-          final code = await getOtpCode(cognitoUsername);
+          final code = await getOtpCode(
+            UserAttribute.username(cognitoUsername),
+          );
           final signInRes = await Amplify.Auth.signIn(
             username: username,
             password: password,

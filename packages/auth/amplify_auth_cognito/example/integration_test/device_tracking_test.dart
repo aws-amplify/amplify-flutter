@@ -96,7 +96,9 @@ void main() {
       }
 
       if (enableMfa) {
-        final otpResult = await getOtpCode(cognitoUsername);
+        final otpResult = await getOtpCode(
+          UserAttribute.username(cognitoUsername),
+        );
         final signInRes = await Amplify.Auth.signIn(
           username: username!,
           password: password,

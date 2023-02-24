@@ -29,10 +29,9 @@ void main() {
   );
 
   group('unprotected routes', () {
-    // Given I'm running the example "ui/components/authenticator/sign-in-with-email.feature"
     setUpAll(() async {
       await loadConfiguration(
-        'ui/components/authenticator/sign-in-with-email',
+        environmentName: 'sign-in-with-username',
       );
     });
 
@@ -40,14 +39,16 @@ void main() {
 
     // Scenario: Sign in then sign out
     testWidgets('Sign in then sign out', (tester) async {
-      final username = generateEmail();
+      final username = generateUsername();
       final password = generatePassword();
-      await adminCreateUser(
+      final cognitoUsername = await adminCreateUser(
         username,
         password,
         autoConfirm: true,
         verifyAttributes: true,
       );
+      addTearDown(() => deleteUser(cognitoUsername));
+
       SignInPage signInPage = SignInPage(tester: tester);
       RouteAPage routeAPage = RouteAPage(tester: tester);
       RouteBPage routeBPage = RouteBPage(tester: tester);
@@ -61,10 +62,10 @@ void main() {
       // when I navigate to route B
       await routeAPage.navigateToRouteB();
 
-      // then I should see the sign in page with email as the username
-      signInPage.expectUsername(label: 'Email');
+      // then I should see the sign in page
+      signInPage.expectUsername();
 
-      // When I type my "email" with status "CONFIRMED"
+      // When I type my "username" with status "CONFIRMED"
       await signInPage.enterUsername(username);
 
       // And I type my password
@@ -79,8 +80,8 @@ void main() {
       // And I click the "Sign out" button
       await signInPage.submitSignOut();
 
-      // then I should see the sign in page with email as the username
-      signInPage.expectUsername(label: 'Email');
+      // then I should see the sign in page
+      signInPage.expectUsername();
     });
   });
 }
