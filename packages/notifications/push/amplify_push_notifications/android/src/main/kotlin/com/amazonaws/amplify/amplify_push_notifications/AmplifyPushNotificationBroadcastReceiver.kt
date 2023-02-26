@@ -17,7 +17,7 @@ class PushNotificationReceiver : BroadcastReceiver() {
     companion object {
         private val TAG = "NotificationReceiver"
     }
-    
+
     override fun onReceive(context: Context, intent: Intent?) {
         intent?.let {
             if (!it.isPushNotificationIntent()) {
