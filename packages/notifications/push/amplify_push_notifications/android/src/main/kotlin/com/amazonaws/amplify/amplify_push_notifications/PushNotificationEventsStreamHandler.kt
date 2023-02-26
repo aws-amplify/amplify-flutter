@@ -50,10 +50,8 @@ class PushNotificationEventsStreamHandler constructor(
     }
 
     override fun onListen(arguments: Any?, sink: EventSink?) {
-
         eventSink = sink
         flushEvents()
-
     }
 
     override fun onCancel(arguments: Any?) {
@@ -115,7 +113,6 @@ class StreamHandlers {
                 binaryMessenger,
                 NativeEvent.BACKGROUND_MESSAGE_RECEIVED,
             )
-
         }
     }
 }
