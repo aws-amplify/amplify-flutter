@@ -30,12 +30,7 @@ class PushNotificationReceiver : BroadcastReceiver() {
                 val notificationHashMap = convertBundleToHashMap(remoteMessage.asBundle())
                 Log.d(TAG, "Send foreground message received event: $notificationHashMap")
 
-                PushNotificationEventsStreamHandler.sendEvent(
-                    PushNotificationsEvent(
-                        NativeEvent.FOREGROUND_MESSAGE_RECEIVED,
-                        notificationHashMap
-                    )
-                )
+                StreamHandlers.foregroundReceivedStreamHandler.send(notificationHashMap)
             } else {
                 Log.d(TAG, "App is in background, start background service and enqueue work")
                 try {
@@ -43,8 +38,7 @@ class PushNotificationReceiver : BroadcastReceiver() {
                     val payload = remoteMessage.asPayload()
                     // TODO: Check how to add a flag to indicate app was opened by a notificaiton
                     PushNotificationsUtils(context).showNotification(
-                        payload,
-                        AmplifyPushNotificationsPlugin::class.java
+                        payload, AmplifyPushNotificationsPlugin::class.java
                     )
 
                     // TODO: Start a background headless service
