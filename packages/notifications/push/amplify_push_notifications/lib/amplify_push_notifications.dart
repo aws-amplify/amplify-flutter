@@ -132,15 +132,15 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       return;
     }
 
-    // Block configure if registering device is not complete
-    // final deviceToken = await onTokenReceived.first;
-    // await _registerDevice(deviceToken);
-
     // Initialize Endpoint Client
     await _serviceProviderClient.init(
       config: config,
       authProviderRepo: authProviderRepo,
     );
+
+    // Block configure if registering device is not complete
+    final deviceToken = await onTokenReceived.first;
+    await _registerDevice(deviceToken);
 
     // Initialize listeners
     onTokenReceived.listen(_tokenReceivedListener);
