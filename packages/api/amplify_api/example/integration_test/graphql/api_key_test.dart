@@ -175,20 +175,25 @@ void main({bool useExistingTestUser = false}) {
 
             final blog = await addBlog(blogName);
 
+            // TODO(equartey): Replace this statement when Model object supports parent id field.
+            final pred = const QueryField(fieldName: 'blogID').eq(blog.id);
+
             final subscriptionRequest = ModelSubscriptions.onCreate(
               Post.classType,
               authorizationMode: APIAuthorizationType.userPools,
-              where: Post.TITLE.eq(postTitle),
+              where: pred,
             );
 
-            final eventResponse = await establishSubscriptionAndMutate<Post>(
+            final stream = Amplify.API.subscribe(
               subscriptionRequest,
-              () => addPost(postTitle, blog),
-              eventFilter: (response) => response.data?.title == postTitle,
+              onEstablished: () => addPost(postTitle, blog),
             );
-            final blogFromEvent = eventResponse.data;
 
-            expect(blogFromEvent?.title, equals(postTitle));
+            stream.listen((event) {
+              final postFromEvent = event.data;
+
+              expect(postFromEvent?.title, equals(postTitle));
+            });
           });
 
           testWidgets('should parse errors within a web socket data message',
