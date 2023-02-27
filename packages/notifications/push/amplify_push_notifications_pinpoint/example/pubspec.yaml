@@ -6,20 +6,20 @@ environment:
   sdk: ">=2.18.1 <3.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
+  amplify_auth_cognito: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_flutter:
+    path: ../../../../amplify/amplify_flutter
   amplify_push_notifications_pinpoint:
     path: ../
   cupertino_icons: ^1.0.2
-  amplify_flutter:
-    path: ../../../../amplify/amplify_flutter
-  amplify_auth_cognito: ">=1.0.0-next.4 <1.0.0-next.5"
+  flutter:
+    sdk: flutter
   http: ^0.13.5
 
 dev_dependencies:
+  amplify_lints: ^1.0.0
   flutter_test:
     sdk: flutter
-  amplify_lints: ^1.0.0
 
 flutter:
   uses-material-design: true

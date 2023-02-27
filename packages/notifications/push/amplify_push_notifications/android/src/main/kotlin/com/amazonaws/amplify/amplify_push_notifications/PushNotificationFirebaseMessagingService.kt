@@ -13,11 +13,6 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
      * FCM registration token is initially generated so this is where you would retrieve the token.
      */
     override fun onNewToken(token: String) {
-        val hashMap: HashMap<String, Any?> = HashMap()
-        hashMap["token"] = token
-        PushNotificationEventsStreamHandler.sendEvent(
-            PushNotificationsEvent(NativeEvent.TOKEN_RECEIVED, hashMap)
-        )
-
+        StreamHandlers.tokenReceivedStreamHandler.send(mapOf("token" to token))
     }
 }

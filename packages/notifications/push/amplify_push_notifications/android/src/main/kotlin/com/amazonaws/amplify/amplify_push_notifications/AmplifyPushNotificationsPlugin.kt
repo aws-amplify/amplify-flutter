@@ -26,6 +26,7 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
     private lateinit var context: Context
     private lateinit var methodChannel: MethodChannel
 
+    private var activityBinding: ActivityPluginBinding? = null
     companion object {
         val CALLBACK_DISPATCHER_HANDLE_KEY = "callback_dispatch_handler"
         val SHARED_PREFERENCES_KEY = "amplify_push_notification_plugin_cache"
@@ -36,6 +37,8 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+        activityBinding = binding
+        onNewIntent(binding.activity.intent)
         binding.addOnNewIntentListener(this)
 
         // TODO: also fetchToken on app resume
@@ -44,15 +47,17 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
     }
 
     override fun onDetachedFromActivityForConfigChanges() {
-        TODO("Not yet implemented")
+        activityBinding?.removeOnNewIntentListener(this)
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-        TODO("Not yet implemented")
+        activityBinding = binding
+        binding.addOnNewIntentListener(this)
     }
 
     override fun onDetachedFromActivity() {
-        TODO("Not yet implemented")
+        activityBinding?.removeOnNewIntentListener(this)
+        activityBinding = null
     }
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
@@ -61,14 +66,13 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
             "com.amazonaws.amplify/push_notification/method"
         )
         methodChannel.setMethodCallHandler(this)
-        PushNotificationEventsStreamHandler.initialize(flutterPluginBinding.binaryMessenger)
         context = flutterPluginBinding.applicationContext
+        StreamHandlers.initialize(flutterPluginBinding.binaryMessenger)
     }
 
-
-    private fun sendEvent(event: PushNotificationsEvent){
-        PushNotificationEventsStreamHandler.sendEvent(event)
-    }
+//    private fun sendEvent(event: PushNotificationsEvent) {
+//        tokenReceivedStreamHandler.sendEvent(event)
+//    }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull _result: Result) {
         val result = AtomicResult(_result, call.method)
@@ -114,31 +118,32 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
             val token = task.result
             val hashMap: HashMap<String, Any?> = HashMap()
             hashMap["token"] = token
-            sendEvent(
-                PushNotificationsEvent(NativeEvent.TOKEN_RECEIVED, hashMap)
+            StreamHandlers.tokenReceivedStreamHandler.send(
+                hashMap
             )
         })
 
     }
 
 
+    // TODO: update this function to be more robust
     override fun onNewIntent(intent: Intent): Boolean {
         Log.d(TAG, "onNewIntent in push plugin $intent")
 
         // TODO: "Decide if we need to add a flag for notification open"
 //        val appOpenedThroughTap = intent.getBooleanExtra("appOpenedThroughTap", false)
 
-        intent.extras?.let{
+        intent.extras?.let {
             val remoteMessage = RemoteMessage(it)
-            val remoteMessageBundle = getBundleFromRemoteMessage(remoteMessage)
-            val notificationHashMap = convertBundleToHashMap(remoteMessageBundle)
+            val notificationHashMap = remoteMessage.asPayload().asChannelMap()
+
             Log.d(TAG, "Send onNotificationOpened message received event: $notificationHashMap")
-            PushNotificationEventsStreamHandler.sendEvent(
-                PushNotificationsEvent(
-                    NativeEvent.NOTIFICATION_OPENED,
-                    notificationHashMap
-                )
-            )
+//            PushNotificationEventsStreamHandler.sendEvent(
+//                PushNotificationsEvent(
+//                    NativeEvent.NOTIFICATION_OPENED,
+//                    notificationHashMap
+//                )
+//            )
         }
         return true
     }

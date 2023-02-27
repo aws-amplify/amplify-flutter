@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import 'dart:async';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -46,8 +49,8 @@ class _MyAppState extends State<MyApp> {
       setState(() {
         isConfigured = true;
       });
-    } on Exception {
-      // print(e.toString());
+    } on Exception catch (e) {
+      safePrint(e.toString());
     }
   }
 
