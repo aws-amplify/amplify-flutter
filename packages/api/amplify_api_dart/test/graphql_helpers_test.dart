@@ -774,7 +774,7 @@ void main() {
     group('ModelSubScriptions', () {
       test('ModelSubscriptions.onCreate() should build a valid request', () {
         const expected =
-            'subscription onCreateBlog { onCreateBlog { $blogSelectionSet } }';
+            'subscription onCreateBlog(\$filter: ModelSubscriptionBlogFilterInput) { onCreateBlog(filter: \$filter) { $blogSelectionSet } }';
         final GraphQLRequest<Blog> req =
             ModelSubscriptions.onCreate<Blog>(Blog.classType);
 
@@ -810,7 +810,7 @@ void main() {
 
       test('ModelSubscriptions.onUpdate() should build a valid request', () {
         const expected =
-            'subscription onUpdateBlog { onUpdateBlog { $blogSelectionSet } }';
+            'subscription onUpdateBlog(\$filter: ModelSubscriptionBlogFilterInput) { onUpdateBlog(filter: \$filter) { $blogSelectionSet } }';
         final GraphQLRequest<Blog> req =
             ModelSubscriptions.onUpdate<Blog>(Blog.classType);
 
@@ -846,7 +846,7 @@ void main() {
 
       test('ModelSubscriptions.onDelete() should build a valid request', () {
         const expected =
-            'subscription onDeleteBlog { onDeleteBlog { $blogSelectionSet } }';
+            'subscription onDeleteBlog(\$filter: ModelSubscriptionBlogFilterInput) { onDeleteBlog(filter: \$filter) { $blogSelectionSet } }';
         final GraphQLRequest<Blog> req =
             ModelSubscriptions.onDelete<Blog>(Blog.classType);
 
