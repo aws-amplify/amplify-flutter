@@ -114,7 +114,6 @@ class GraphQLRequestFactory {
     ModelSchema schema,
     GraphQLRequestOperation operation,
     ModelIdentifier? modelIdentifier,
-    bool hasSubFilter,
   ) {
     var upperOutput = '';
     var lowerOutput = '';
@@ -170,10 +169,8 @@ class GraphQLRequestFactory {
       case GraphQLRequestOperation.onCreate:
       case GraphQLRequestOperation.onUpdate:
       case GraphQLRequestOperation.onDelete:
-        if (hasSubFilter) {
-          upperOutput = '(\$filter: ModelSubscription${modelName}FilterInput)';
-          lowerOutput = r'(filter: $filter)';
-        }
+        upperOutput = '(\$filter: ModelSubscription${modelName}FilterInput)';
+        lowerOutput = r'(filter: $filter)';
         break;
       default:
         throw const ApiException(
@@ -215,7 +212,6 @@ class GraphQLRequestFactory {
       schema,
       requestOperation,
       modelIdentifier,
-      hasSubFilter,
     );
     // e.g. "id name createdAt" - fields to retrieve
     final fields = _getSelectionSetFromModelSchema(schema, requestOperation);
@@ -264,6 +260,9 @@ class GraphQLRequestFactory {
     required ModelType modelType,
     QueryPredicate? where,
   }) {
+    if (where == null) {
+      return {};
+    }
     final filter = GraphQLRequestFactory.instance
         .queryPredicateToGraphQLFilter(where, modelType);
     return <String, dynamic>{

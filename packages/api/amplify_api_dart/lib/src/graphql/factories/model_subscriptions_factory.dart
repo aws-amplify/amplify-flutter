@@ -36,7 +36,6 @@ class ModelSubscriptionsFactory {
       apiName: apiName,
       authorizationMode: authorizationMode,
       headers: headers,
-      hasSubFilter: where != null,
     );
   }
 
@@ -60,7 +59,6 @@ class ModelSubscriptionsFactory {
       apiName: apiName,
       authorizationMode: authorizationMode,
       headers: headers,
-      hasSubFilter: where != null,
     );
   }
 
@@ -84,7 +82,6 @@ class ModelSubscriptionsFactory {
       apiName: apiName,
       authorizationMode: authorizationMode,
       headers: headers,
-      hasSubFilter: where != null,
     );
   }
 }
