@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat
 import com.amazonaws.amplify.AtomicResult
 import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.PermissionRequestResult
 import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.PushNotificationPermission
+import com.amazonaws.amplify.asMap
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.RemoteMessage
@@ -157,6 +158,7 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
     }
 
 
+    // TODO: update this function to be more robust
     override fun onNewIntent(intent: Intent): Boolean {
         Log.d(TAG, "onNewIntent in push plugin $intent")
 
@@ -165,8 +167,8 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
 
         intent.extras?.let{
             val remoteMessage = RemoteMessage(it)
-            val remoteMessageBundle = getBundleFromRemoteMessage(remoteMessage)
-            val notificationHashMap = convertBundleToHashMap(remoteMessageBundle)
+            val notificationHashMap = convertBundleToHashMap(remoteMessage.asBundle())
+
             Log.d(TAG, "Send onNotificationOpened message received event: $notificationHashMap")
             PushNotificationEventsStreamHandler.sendEvent(
                 PushNotificationsEvent(

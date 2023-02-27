@@ -7,8 +7,6 @@ part of amplify_interface;
 /// Top-Level Category for Notifications that holds a reference to Push Notifications
 /// {@endtemplate}
 class NotificationsCategory {
-  /// {@template amplify_core.amplify_notifications_category.Push}
-  /// Returns a singleton instance of PushNotificaitonsCategory
-  /// {@endtemplate}
-  PushNotificationsCategory get Push => PushNotificationsCategory();
+  // ignore: non_constant_identifier_names
+  final PushNotificationsCategory Push = PushNotificationsCategory();
 }

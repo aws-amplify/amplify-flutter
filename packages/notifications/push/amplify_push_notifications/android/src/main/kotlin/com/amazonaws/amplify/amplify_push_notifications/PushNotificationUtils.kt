@@ -7,37 +7,92 @@ import android.content.Intent
 import android.os.Bundle
 import com.amplifyframework.pushnotifications.pinpoint.utils.NotificationPayload
 import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsConstants
+import com.amplifyframework.pushnotifications.pinpoint.utils.toNotificationsPayload
 import com.google.firebase.messaging.RemoteMessage
 
 // TODO: Revisit this file and remove un-used functions
 
-enum class PushNotificationPermissionStatus {
-    notRequested,
-    shouldRequestWithRationale,
-    granted,
-    denied,
+private const val PAYLOAD_KEY = "payload"
+
+fun Intent.isPushNotificationIntent(): Boolean {
+    return this.extras?.containsKey("google.message_id") == true
+}
+fun RemoteMessage.isRemoteMessageSupported(): Boolean {
+    return !this.data[PushNotificationsConstants.PINPOINT_CAMPAIGN_CAMPAIGN_ID].isNullOrEmpty() or
+            !this.data[PushNotificationsConstants.JOURNEY_ID].isNullOrEmpty()
 }
 
-fun getBundleFromRemoteMessage(remoteMessage: RemoteMessage): Bundle {
-    val bundle = Bundle()
-    bundle.putString("collapseKey", remoteMessage.collapseKey)
-    bundle.putString("sender", remoteMessage.from)
-    bundle.putString("messageId", remoteMessage.messageId)
-    bundle.putString("messageType", remoteMessage.messageType)
-    bundle.putLong("sentTime", remoteMessage.sentTime)
-    bundle.putString("destination", remoteMessage.to)
-    bundle.putInt("ttl", remoteMessage.ttl)
-    if (remoteMessage.data.isNotEmpty()) {
-        bundle.putBundle("data", getBundleFromData(remoteMessage.data))
+fun RemoteMessage.asPayload(): NotificationPayload {
+    val messageId = this.messageId
+    val senderId = this.senderId
+    val sendTime = this.sentTime
+    val data = this.data
+    val body = this.notification?.body
+        ?: data[PushNotificationsConstants.MESSAGE_ATTRIBUTE_KEY]
+        ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_BODY]
+    val title = this.notification?.title
+        ?: data[PushNotificationsConstants.TITLE_ATTRIBUTE_KEY]
+        ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_TITLE]
+    val imageUrl = this.notification?.imageUrl?.toString()
+        ?: data[PushNotificationsConstants.IMAGEURL_ATTRIBUTE_KEY]
+        ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_IMAGEURL]
+    val action: HashMap<String, String> = HashMap()
+    data[PushNotificationsConstants.PINPOINT_OPENAPP]?.let {
+        action.put(PushNotificationsConstants.PINPOINT_OPENAPP, it)
     }
-    remoteMessage.notification?.let {
+    data[PushNotificationsConstants.PINPOINT_URL]?.let {
+        // force HTTPS URL scheme
+        val urlHttps = it.replaceFirst("http://", "https://")
+        action.put(PushNotificationsConstants.PINPOINT_URL, urlHttps)
+    }
+    data[PushNotificationsConstants.PINPOINT_DEEPLINK]?.let {
+        action.put(PushNotificationsConstants.PINPOINT_DEEPLINK, it)
+    }
+
+    return NotificationPayload {
+        notification(messageId, senderId, sendTime)
+        notificationContent(title, body, imageUrl)
+        notificationOptions(PushNotificationsConstants.DEFAULT_NOTIFICATION_CHANNEL_ID)
+        tapAction(action)
+        silentPush = data[PushNotificationsConstants.PINPOINT_NOTIFICATION_SILENTPUSH].equals("1")
+        rawData = HashMap(data)
+    }
+}
+
+fun getPayloadFromExtras(extras: Bundle?): NotificationPayload? {
+    return extras?.getBundle(PAYLOAD_KEY)?.toNotificationsPayload()
+}
+
+fun convertBundleToHashMap(bundle: Bundle): HashMap<String, Any?> {
+    val hashMap = hashMapOf<String, Any?>()
+    for (key in bundle.keySet()) {
+        val value = bundle.get(key)
+        if (value is Bundle) {
+            hashMap[key] = convertBundleToHashMap(value)
+        } else {
+            hashMap[key] = value
+        }
+    }
+    return hashMap
+}
+
+// TODO: Revisit and remove the below functions to keep one conversion function
+fun RemoteMessage.asBundle(): Bundle {
+    val bundle = Bundle()
+    bundle.putString("collapseKey", this.collapseKey)
+    bundle.putString("sender", this.from)
+    bundle.putString("messageId", this.messageId)
+    bundle.putString("messageType", this.messageType)
+    bundle.putLong("sentTime", this.sentTime)
+    bundle.putString("destination", this.to)
+    bundle.putInt("ttl", this.ttl)
+    if (this.data.isNotEmpty()) {
+        bundle.putBundle("data", getBundleFromData(this.data))
+    }
+    this.notification?.let {
         bundle.putBundle("notification", getBundleFromNotification(it))
     }
     return bundle
-}
-
-fun isPushNotificationIntent(intent: Intent?): Boolean {
-    return intent?.extras?.containsKey("google.message_id") == true
 }
 
 private fun getBundleFromData(data: Map<String, String>): Bundle {
@@ -68,56 +123,4 @@ private fun getBundleFromNotification(notification: RemoteMessage.Notification):
     notification.ticker?.let { bundle.putString("ticker", it) }
     notification.visibility?.let { bundle.putInt("visibility", it) }
     return bundle
-}
-
-
-fun getPayloadFromRemoteMessage(remoteMessage: RemoteMessage): NotificationPayload {
-    val messageId = remoteMessage.messageId
-    val senderId = remoteMessage.senderId
-    val sendTime = remoteMessage.sentTime
-    val data = remoteMessage.data
-    val body = remoteMessage.notification?.body
-        ?: data[PushNotificationsConstants.MESSAGE_ATTRIBUTE_KEY]
-        ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_BODY]
-    val title = remoteMessage.notification?.title
-        ?: data[PushNotificationsConstants.TITLE_ATTRIBUTE_KEY]
-        ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_TITLE]
-    val imageUrl = remoteMessage.notification?.imageUrl?.toString()
-        ?: data[PushNotificationsConstants.IMAGEURL_ATTRIBUTE_KEY]
-        ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_IMAGEURL]
-    val action: HashMap<String, String> = HashMap()
-    data[PushNotificationsConstants.PINPOINT_OPENAPP]?.let {
-        action.put(PushNotificationsConstants.PINPOINT_OPENAPP, it)
-    }
-    data[PushNotificationsConstants.PINPOINT_URL]?.let {
-        // force HTTPS URL scheme
-        val urlHttps = it.replaceFirst("http://", "https://")
-        action.put(PushNotificationsConstants.PINPOINT_URL, urlHttps)
-    }
-    data[PushNotificationsConstants.PINPOINT_DEEPLINK]?.let {
-        action.put(PushNotificationsConstants.PINPOINT_DEEPLINK, it)
-    }
-
-    return NotificationPayload {
-        notification(messageId, senderId, sendTime)
-        notificationContent(title, body, imageUrl)
-        notificationOptions(PushNotificationsConstants.DEFAULT_NOTIFICATION_CHANNEL_ID)
-        tapAction(action)
-        silentPush = data[PushNotificationsConstants.PINPOINT_NOTIFICATION_SILENTPUSH].equals("1")
-        rawData = HashMap(remoteMessage.data)
-    }
-}
-
-
-fun convertBundleToHashMap(bundle: Bundle): HashMap<String, Any?> {
-    val hashMap = hashMapOf<String, Any?>()
-    for (key in bundle.keySet()) {
-        val value = bundle.get(key)
-        if (value is Bundle) {
-            hashMap[key] = convertBundleToHashMap(value)
-        } else {
-            hashMap[key] = value
-        }
-    }
-    return hashMap
 }

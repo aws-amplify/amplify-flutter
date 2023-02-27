@@ -38,10 +38,10 @@ val eventChannels = listOf(
 
 data class PushNotificationsEvent(
     val event: NativeEvent,
-    val payload: HashMap<String, Any?>
+    val payload: Map<String, Any?>
 ) {
-    fun toMap(): HashMap<String, Any> {
-        return hashMapOf(
+    fun toMap(): Map<String, Any> {
+        return mapOf(
             "eventType" to event.eventName,
             "payload" to payload
         )

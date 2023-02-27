@@ -1,6 +1,6 @@
 name: amplify_push_notifications_pinpoint
 description: Push Notifications Pinpoint Flutter plugin
-version: 0.0.1
+version: 1.0.0-next.0
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
@@ -9,11 +9,10 @@ environment:
   flutter: ">=3.0.0"
 
 dependencies:
+  amplify_core: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_push_notifications: ">=1.0.0-next.0 <1.0.0-next.1"
   flutter:
     sdk: flutter
-  amplify_core: ">=1.0.0-next.4 <1.0.0-next.5"
-  amplify_push_notifications:
-    path: ../amplify_push_notifications
 
 dev_dependencies:
   amplify_lints: ^2.0.0
