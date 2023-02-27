@@ -176,7 +176,8 @@ void main({bool useExistingTestUser = false}) {
             final blog = await addBlog(blogName);
 
             // TODO(equartey): Replace this statement when Model object supports parent id field.
-            final pred = const QueryField(fieldName: 'blogID').eq(blog.id);
+            final pred =
+                const QueryField<String>(fieldName: 'blogID').eq(blog.id);
 
             final subscriptionRequest = ModelSubscriptions.onCreate(
               Post.classType,
