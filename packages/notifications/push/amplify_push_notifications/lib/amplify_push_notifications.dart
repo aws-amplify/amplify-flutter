@@ -6,10 +6,9 @@ library amplify_push_notifications;
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_push_notifications/src/native_push_notifications_plugin.dart';
 import 'package:flutter/services.dart';
 
-const _methodChannel =
-    MethodChannel('com.amazonaws.amplify/push_notification/method');
 const _tokenReceivedEventChannel = EventChannel(
   'com.amazonaws.amplify/push_notification/event/TOKEN_RECEIVED',
 );
@@ -36,8 +35,8 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   /// {@macro amplify_push_notifications.amplify_push_notifications}
   AmplifyPushNotifications({
     required ServiceProviderClient serviceProviderClient,
-  }) : _serviceProviderClient = serviceProviderClient {
-    print('AmplifyPushNotifications constructor');
+  })  : _serviceProviderClient = serviceProviderClient,
+        _nativePlugin = NativePushNotificationsPlugin() {
     _onTokenReceived = _tokenReceivedEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
@@ -62,7 +61,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         .map((event) {
       final completionHandlerId = (event['payload']
           as Map<Object?, Object?>?)?['completionHandlerId'] as String;
-      _methodChannel.invokeMethod('completeNotification', completionHandlerId);
+      _nativePlugin.completeNotification(completionHandlerId);
       // TODO convert raw event to RemotePushMessage
       return PushNotificationMessage();
     });
@@ -90,6 +89,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       AmplifyLogger.category(Category.pushNotifications)
           .createChild('AmplifyPushNotification');
   final ServiceProviderClient _serviceProviderClient;
+  final NativePushNotificationsPlugin _nativePlugin;
 
   late final Stream<String> _onTokenReceived;
   late final Stream<PushNotificationMessage> _onForegroundNotificationReceived;
@@ -206,32 +206,45 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     bool alert = true,
     bool badge = true,
     bool sound = true,
-  }) async {
-    return await _methodChannel.invokeMethod<bool>('requestPermissions', {
-          'alert': alert,
-          'badge': badge,
-          'sound': sound,
-        }) ??
-        false;
+  }) {
+    return _nativePlugin.requestPermissions(
+      PermissionsOptions(
+        alert: true,
+        sound: true,
+        badge: true,
+      ),
+    );
+  }
+
+  @override
+  Future<PushNotificationPermissionRequestStatus> getPermissionStatus() async {
+    final result = await _nativePlugin.getPermissionStatus();
+
+    if (result == 'Authorized') {
+      return PushNotificationPermissionRequestStatus.granted;
+    } else if (result == 'Denied') {
+      return PushNotificationPermissionRequestStatus.denied;
+    }
+
+    return PushNotificationPermissionRequestStatus.shouldShowWithRationale;
   }
 
   @override
   PushNotificationMessage? get launchNotification => PushNotificationMessage();
 
   Future<PushNotificationMessage?> _getLaunchNotification() async {
-    await _methodChannel
-        .invokeMethod<Map<Object?, Object?>>('getLaunchNotification');
+    await _nativePlugin.getLaunchNotification();
 
     return PushNotificationMessage();
   }
 
   @override
-  Future<int> getBadgeCount() async {
-    return await _methodChannel.invokeMethod<int>('getBadgeCount') ?? 0;
+  Future<int> getBadgeCount() {
+    return _nativePlugin.getBadgeCount();
   }
 
   @override
   Future<void> setBadgeCount(int badgeCount) async {
-    await _methodChannel.invokeMethod('setBadgeCount', badgeCount);
+    await _nativePlugin.setBadgeCount(badgeCount);
   }
 }
