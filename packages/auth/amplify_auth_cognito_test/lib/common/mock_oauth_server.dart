@@ -5,11 +5,10 @@ import 'dart:convert';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/crypto/oauth.dart';
+import 'package:amplify_auth_cognito_test/common/jwt.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:http/http.dart';
 import 'package:http/testing.dart';
-
-import 'jwt.dart';
 
 class _Request {
   _Request({
