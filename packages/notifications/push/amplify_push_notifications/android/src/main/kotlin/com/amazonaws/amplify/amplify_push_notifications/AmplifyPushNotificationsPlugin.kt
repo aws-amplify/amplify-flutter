@@ -22,12 +22,14 @@ import io.flutter.plugin.common.PluginRegistry
 class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     PluginRegistry.NewIntentListener {
 
-
+    private var activityBinding: ActivityPluginBinding? = null
     companion object {
         private val TAG = "AmplifyPushNotificationsPlugin"
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+        activityBinding = binding
+        onNewIntent(binding.activity.intent)
         binding.addOnNewIntentListener(this)
 
         // TODO: also fetchToken on app resume
@@ -36,15 +38,17 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
     }
 
     override fun onDetachedFromActivityForConfigChanges() {
-        TODO("Not yet implemented")
+        activityBinding?.removeOnNewIntentListener(this)
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-        TODO("Not yet implemented")
+        activityBinding = binding
+        binding.addOnNewIntentListener(this)
     }
 
     override fun onDetachedFromActivity() {
-        TODO("Not yet implemented")
+        activityBinding?.removeOnNewIntentListener(this)
+        activityBinding = null
     }
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
@@ -90,7 +94,7 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
 
         intent.extras?.let {
             val remoteMessage = RemoteMessage(it)
-            val notificationHashMap = convertBundleToHashMap(remoteMessage.asBundle())
+            val notificationHashMap = remoteMessage.asPayload().asChannelMap()
 
             Log.d(TAG, "Send onNotificationOpened message received event: $notificationHashMap")
 //            PushNotificationEventsStreamHandler.sendEvent(

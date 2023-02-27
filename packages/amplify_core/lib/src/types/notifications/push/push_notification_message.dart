@@ -37,10 +37,10 @@ class PushNotificationMessage
     //     sentTimeInt == null ? null : DateTime.parse(sentTimeInt.toString());
     data = json['data'] as Map<Object?, Object?>;
 
+    // TODO: standardize iOS json with Android, apnsOption can be the only difference
     final aps = json['aps'] as Map?;
     if (aps != null) {
       final alert = aps['alert'] as Map<String, dynamic>?;
-
       if (alert != null) {
         title = alert['title'] as String?;
         body = alert['body'] as String?;
@@ -57,17 +57,20 @@ class PushNotificationMessage
         // ),
       }
     } else {
-      title = data['pinpoint.notification.title'] as String?;
-      body = data['pinpoint.notification.body'] as String?;
-      imageUrl = data['pinpoint.notification.imageUrl'] as String?;
-      deeplinkUrl = data['pinpoint.deeplink'] as String?;
-      goToUrl = data['pinpoint.url'] as String?;
+      final fcmOptionsMap = json['fcmOptions'] as Map<Object?, Object?>?;
+      title = json['title'] as String?;
+      body = json['body'] as String?;
+      imageUrl = json['imageUrl'] as String?;
+      deeplinkUrl = json['deeplinkUrl'] as String?;
+      goToUrl = json['goToUrl'] as String?;
       // TODO(Samaritan1011001): Find where the channelId is in the dictionary
-      // fcmOptions: FcmPlatformOptions(
-      //   channelId: cast<String>(data!['pinpoint.notification.imageSmallIconUrl']),
-      //   messageId : json['messageId'] as String?,
-      //   senderId : json['sender'] as String?,
-      // ),
+      if (fcmOptionsMap != null) {
+        fcmOptions = FcmPlatformOptions(
+          channelId: fcmOptionsMap['channelId'] as String?,
+          messageId: fcmOptionsMap['messageId'] as String?,
+          senderId: fcmOptionsMap['sender'] as String?,
+        );
+      }
     }
   }
 
