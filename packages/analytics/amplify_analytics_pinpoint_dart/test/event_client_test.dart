@@ -68,6 +68,9 @@ void main() {
         endpointInfoStoreManager: mockEndpointInfoStoreManager,
         deviceContextInfo: mockDeviceContextInfo,
       );
+    });
+
+    setUp(() {
       eventStore = InMemoryQueuedItemStore();
 
       eventClient = EventClient(
@@ -77,9 +80,7 @@ void main() {
         eventStore: eventStore,
         deviceContextInfo: mockDeviceContextInfo,
       );
-    });
 
-    setUp(() {
       when(() => pinpointClient.putEvents(any<PutEventsRequest>())).thenReturn(
         mockSmithyOperation(
           () => PutEventsResponse(
@@ -90,7 +91,6 @@ void main() {
     });
 
     tearDown(() {
-      eventStore.reset();
       resetMocktailState();
       reset(pinpointClient);
     });

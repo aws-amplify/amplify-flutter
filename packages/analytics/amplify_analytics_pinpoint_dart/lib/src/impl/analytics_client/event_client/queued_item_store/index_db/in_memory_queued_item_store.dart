@@ -46,11 +46,4 @@ class InMemoryQueuedItemStore implements QueuedItemStore {
 
   @override
   void close() {}
-
-  /// Reset all internal values for next unit test
-  @visibleForTesting
-  void reset() {
-    clear();
-    _nextId = 0;
-  }
 }
