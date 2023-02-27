@@ -48,7 +48,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     });
 
     _onForegroundNotificationReceived = _foregroundNotificationEventChannel
-        .receiveBroadcastStream('FOREGROUND_MESSAGE_RECEIVED')
+        .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
         .map((event) {
       // TODO convert raw event to RemotePushMessage
@@ -57,7 +57,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
     // TODO: Enable background API
     _onBackgroundNotificationReceived = _backgroundNotificationEventChannel
-        .receiveBroadcastStream('BACKGROUND_MESSAGE_RECEIVED')
+        .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
         .map((event) {
       final completionHandlerId = (event['payload']
@@ -68,7 +68,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     });
 
     _onNotificationOpened = _notificationOpenedEventChannel
-        .receiveBroadcastStream('NOTIFICATION_OPENED')
+        .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
         .map((event) {
       // TODO convert raw event to RemotePushMessage
@@ -78,7 +78,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     // TODO: Enable launch notification API
 
     _onLaunchNotificationOpened = _launchNotificationOpenedEventChannel
-        .receiveBroadcastStream('LAUNCH_NOTIFICATION_OPENED')
+        .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
         .map((event) {
       // TODO convert raw event to RemotePushMessage
