@@ -4,12 +4,10 @@
 package com.amazonaws.amplify.amplify_push_notifications
 
 
-import android.app.ActivityManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.amazonaws.amplify.asMap
 import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsUtils
 import com.google.firebase.messaging.RemoteMessage
 
@@ -30,7 +28,7 @@ class PushNotificationReceiver : BroadcastReceiver() {
                 val notificationHashMap = remoteMessage.asPayload().asChannelMap()
                 Log.d(TAG, "Send foreground message received event: $notificationHashMap")
 
-                StreamHandlers.foregroundReceivedStreamHandler.send(notificationHashMap)
+                StreamHandlers.foregroundMessageReceived.send(notificationHashMap)
             } else {
                 Log.d(TAG, "App is in background, start background service and enqueue work")
                 try {

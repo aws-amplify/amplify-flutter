@@ -77,7 +77,7 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
             val token = task.result
             val hashMap: HashMap<String, Any?> = HashMap()
             hashMap["token"] = token
-            StreamHandlers.tokenReceivedStreamHandler.send(
+            StreamHandlers.tokenReceived.send(
                 hashMap
             )
         })
