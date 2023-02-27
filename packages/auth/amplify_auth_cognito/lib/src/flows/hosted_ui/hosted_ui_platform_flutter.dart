@@ -66,7 +66,7 @@ class HostedUiPlatformImpl extends io.HostedUiPlatformImpl {
     if (!_isMobile) {
       return super.signIn(options: options, provider: provider);
     }
-    final signInUri = getSignInUri(provider: provider);
+    final signInUri = await getSignInUri(provider: provider);
     try {
       final queryParameters = await _nativeAuthBridge.signInWithUrl(
         signInUri.toString(),
