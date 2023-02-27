@@ -4,22 +4,24 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_db_common_dart/amplify_db_common_dart.dart'
     as db_common;
+import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/database_stub.dart'
+    as stub;
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/tables.dart';
+import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/transfer_record.dart'
+    as data;
 import 'package:drift/drift.dart';
 import 'package:meta/meta.dart';
 
-part 'database.g.dart';
+part 'database_io.g.dart';
 
 /// The name of database file created to persist [TransferRecords].
 @internal
 const dataBaseName = 'amplify_storage_transfer_records';
 
-/// {@template amplify_storage_s3_dart.transfer_database}
-/// Database to persist [TransferRecords] created by Storage S3 plugin upload
-/// operations.
-/// {@endtemplate}
+/// {@macro amplify_storage_s3_dart.transfer_database}
 @DriftDatabase(tables: [TransferRecords])
-class TransferDatabase extends _$TransferDatabase {
+class TransferDatabase extends _$TransferDatabase
+    implements stub.TransferDatabase {
   /// {@macro amplify_storage_s3_dart.transfer_database}
   TransferDatabase(
     db_common.Connect connect,
@@ -31,7 +33,7 @@ class TransferDatabase extends _$TransferDatabase {
           ),
         );
 
-  /// Token to identify [TransferDatabase] instance.
+  /// {@macro amplify_storage_s3_dart.transfer_database_token}
   static const token = Token<TransferDatabase>(
     [Token<db_common.Connect>(), Token<AppPathProvider>()],
   );
@@ -40,9 +42,8 @@ class TransferDatabase extends _$TransferDatabase {
   @override
   int get schemaVersion => 1;
 
-  /// Gets a list of multiple upload records that are created earlier than
-  /// [dateTime].
-  Future<List<TransferRecord>> getMultipartUploadRecordsCreatedBefore(
+  @override
+  Future<List<data.TransferRecord>> getMultipartUploadRecordsCreatedBefore(
     DateTime dateTime,
   ) {
     return (select(transferRecords, distinct: true)
@@ -51,16 +52,28 @@ class TransferDatabase extends _$TransferDatabase {
               dateTime.toIso8601String(),
             ),
           ))
+        .map(
+          (e) => data.TransferRecord(
+            objectKey: e.objectKey,
+            uploadId: e.uploadId,
+            createdAt: DateTime.parse(e.createdAt),
+          ),
+        )
         .get();
   }
 
-  /// Inserts [entry], a [TransferRecordsCompanion], to the database.
-  Future<int> insertTransferRecord(TransferRecordsCompanion entry) {
-    return into(transferRecords).insert(entry);
+  @override
+  Future<String> insertTransferRecord(data.TransferRecord record) async {
+    final entry = TransferRecordsCompanion.insert(
+      uploadId: record.uploadId,
+      objectKey: record.objectKey,
+      createdAt: record.createdAt.toIso8601String(),
+    );
+    final value = await into(transferRecords).insert(entry);
+    return value.toString();
   }
 
-  /// Deletes [TransferRecords] from the database where
-  /// [TransferRecords.uploadId] is equal to [uploadId].
+  @override
   Future<int> deleteTransferRecords(String uploadId) {
     return (delete(transferRecords)
           ..where((tbl) => tbl.uploadId.equals(uploadId)))

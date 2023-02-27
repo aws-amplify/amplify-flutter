@@ -8,6 +8,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
+import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/transfer_record.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/transfer.dart'
     as transfer;
 import 'package:mocktail/mocktail.dart';
@@ -71,7 +72,11 @@ void main() {
       );
 
       registerFallbackValue(
-        const transfer.TransferRecordsCompanion(),
+        TransferRecord(
+          uploadId: 'uploadId',
+          objectKey: 'dummy key',
+          createdAt: DateTime(2022, 1, 1),
+        ),
       );
 
       registerFallbackValue(const smithy_aws.S3ClientConfig());
@@ -698,8 +703,8 @@ void main() {
         ).thenAnswer((_) => createMultipartUploadSmithyOperation);
 
         when(
-          () => transferDatabase.insertTransferRecord(any()),
-        ).thenAnswer((_) async => 1);
+          () => transferDatabase.insertTransferRecord(any<TransferRecord>()),
+        ).thenAnswer((_) async => '1');
 
         final testUploadPartOutput1 = s3.UploadPartOutput(eTag: 'eTag-part-1');
         final testUploadPartOutput2 = s3.UploadPartOutput(eTag: 'eTag-part-2');
@@ -817,13 +822,13 @@ void main() {
         );
         final capturedTransferDBInsertParam = verify(
           () => transferDatabase.insertTransferRecord(
-            captureAny<transfer.TransferRecordsCompanion>(),
+            captureAny<TransferRecord>(),
           ),
         ).captured.last;
         expect(
           capturedTransferDBInsertParam,
-          isA<transfer.TransferRecordsCompanion>().having(
-            (o) => o.uploadId.value,
+          isA<TransferRecord>().having(
+            (o) => o.uploadId,
             'uploadId',
             testMultipartUploadId,
           ),
@@ -928,7 +933,7 @@ void main() {
 
         when(
           () => transferDatabase.insertTransferRecord(any()),
-        ).thenAnswer((_) async => 1);
+        ).thenAnswer((_) async => '1');
 
         final testUploadPartOutput = s3.UploadPartOutput(eTag: 'eTag');
         final uploadPartSmithyOperation =
@@ -1024,7 +1029,7 @@ void main() {
 
         when(
           () => transferDatabase.insertTransferRecord(any()),
-        ).thenAnswer((_) async => 1);
+        ).thenAnswer((_) async => '1');
 
         final testUploadPartOutput = s3.UploadPartOutput(eTag: 'eTag-part-1');
         final uploadPartSmithyOperation =
@@ -1243,7 +1248,7 @@ void main() {
 
         when(
           () => transferDatabase.insertTransferRecord(any()),
-        ).thenAnswer((_) async => 1);
+        ).thenAnswer((_) async => '1');
 
         final testUploadPartOutput = s3.UploadPartOutput(eTag: 'eTag-part-1');
         final uploadPartSmithyOperation =
@@ -1324,7 +1329,7 @@ void main() {
 
         when(
           () => transferDatabase.insertTransferRecord(any()),
-        ).thenAnswer((_) async => 1);
+        ).thenAnswer((_) async => '1');
 
         const testException = smithy.UnknownSmithyHttpException(
           statusCode: 403,
@@ -1415,7 +1420,7 @@ void main() {
 
         when(
           () => transferDatabase.insertTransferRecord(any()),
-        ).thenAnswer((_) async => 1);
+        ).thenAnswer((_) async => '1');
 
         final testUploadPartOutput = s3.UploadPartOutput(eTag: null);
         final uploadPartSmithyOperation =
@@ -1485,7 +1490,7 @@ void main() {
 
         when(
           () => transferDatabase.insertTransferRecord(any()),
-        ).thenAnswer((_) async => 1);
+        ).thenAnswer((_) async => '1');
 
         final testException = s3.NoSuchUpload();
         when(
@@ -1551,7 +1556,7 @@ void main() {
 
           when(
             () => transferDatabase.insertTransferRecord(any()),
-          ).thenAnswer((_) async => 1);
+          ).thenAnswer((_) async => '1');
 
           when(
             uploadPartSmithyOperation1.cancel,
