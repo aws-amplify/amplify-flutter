@@ -5,15 +5,12 @@ package com.amazonaws.amplify.amplify_push_notifications
 
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.EventChannel
+import io.flutter.plugin.common.EventChannel.EventSink
 
 private const val channelNamePrefix = "com.amazonaws.amplify/push_notification"
 
 enum class NativeEvent {
-    TOKEN_RECEIVED,
-    NOTIFICATION_OPENED,
-    LAUNCH_NOTIFICATION_OPENED,
-    FOREGROUND_MESSAGE_RECEIVED,
-    BACKGROUND_MESSAGE_RECEIVED;
+    TOKEN_RECEIVED, NOTIFICATION_OPENED, LAUNCH_NOTIFICATION_OPENED, FOREGROUND_MESSAGE_RECEIVED, BACKGROUND_MESSAGE_RECEIVED;
 
     val eventName: String
         get() = when (this) {
@@ -28,81 +25,94 @@ enum class NativeEvent {
         get() = "$channelNamePrefix/event/$eventName"
 }
 
-val eventChannels = listOf(
-    NativeEvent.TOKEN_RECEIVED.eventChannelName,
-    NativeEvent.NOTIFICATION_OPENED.eventChannelName,
-    NativeEvent.LAUNCH_NOTIFICATION_OPENED.eventChannelName,
-    NativeEvent.FOREGROUND_MESSAGE_RECEIVED.eventChannelName,
-    NativeEvent.BACKGROUND_MESSAGE_RECEIVED.eventChannelName
-)
-
 data class PushNotificationsEvent(
-    val event: NativeEvent,
-    val payload: Map<String, Any?>
+    val event: NativeEvent, val payload: Map<String, Any?>
 ) {
     fun toMap(): Map<String, Any> {
         return mapOf(
-            "eventType" to event.eventName,
-            "payload" to payload
+            "eventType" to event.eventName, "payload" to payload
         )
     }
 }
 
-class PushNotificationEventsStreamHandler {
-    companion object : EventChannel.StreamHandler {
-        private val TAG = "PushNotificationEventsStreamHandler"
+class PushNotificationEventsStreamHandler constructor(
+    binaryMessenger: BinaryMessenger, associatedNativeEvent: NativeEvent
+) : EventChannel.StreamHandler {
 
-        fun initialize(binaryMessenger: BinaryMessenger) {
-            eventChannels.forEach { eventChannelName ->
-                val eventChannel = EventChannel(
-                    binaryMessenger, eventChannelName
-                )
-                eventChannel.setStreamHandler(this)
-            }
+    private val eventChannel = EventChannel(
+        binaryMessenger, associatedNativeEvent.eventChannelName
+    )
+    private var eventSink: EventSink? = null
+    private val _associatedNativeEvent = associatedNativeEvent
+
+    init {
+        eventChannel.setStreamHandler(this)
+    }
+
+    override fun onListen(arguments: Any?, sink: EventSink?) {
+        eventSink = sink
+        flushEvents()
+    }
+
+    override fun onCancel(arguments: Any?) {
+        if (arguments is String) {
+            eventSink = null
+            eventQueue.clear()
         }
+    }
 
-        override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
-            if (arguments is String) {
-                eventSinks[arguments] = events
-                flushEvents(eventName = arguments)
-            }
+    private val eventQueue = mutableListOf<PushNotificationsEvent>()
+
+    fun send(payload: Map<String, Any?>) {
+        val event = PushNotificationsEvent(_associatedNativeEvent, payload)
+        eventSink?.success(event.toMap()) ?: run {
+            eventQueue.add(event)
         }
+    }
 
-        override fun onCancel(arguments: Any?) {
-            if (arguments is String) {
-                eventSinks[arguments] = null
-                eventQueues[arguments]?.clear()
-            }
-
-        }
-
-        private val eventQueues = mapOf(
-            NativeEvent.TOKEN_RECEIVED.eventName to mutableListOf<PushNotificationsEvent>(),
-            NativeEvent.NOTIFICATION_OPENED.eventName to mutableListOf(),
-            NativeEvent.FOREGROUND_MESSAGE_RECEIVED.eventName to mutableListOf(),
-            NativeEvent.BACKGROUND_MESSAGE_RECEIVED.eventName to mutableListOf(),
-            NativeEvent.LAUNCH_NOTIFICATION_OPENED.eventName to mutableListOf()
-        )
-        private val eventSinks = mutableMapOf<String, EventChannel.EventSink?>()
-
-
-        fun sendEvent(event: PushNotificationsEvent) {
-            eventSinks[event.event.eventName]?.success(event.toMap()) ?: run {
-                eventQueues[event.event.eventName]?.add(event)
-            }
-        }
-
-        // TODO: Figure out how to sendError
+    // TODO: Figure out how to sendError
 //    fun sendError(event: NativeEvent, error: FlutterError) {
 //        eventSinks[event.eventName]?.error(event.eventName, error.message, error.details)
 //    }
 
-        private fun flushEvents(eventName: String) {
-            eventSinks[eventName]?.let {
-                while (eventQueues[eventName]?.isEmpty() == false) {
-                    it.success(eventQueues[eventName]?.removeFirst()?.toMap())
-                }
+    private fun flushEvents() {
+        eventSink?.let {
+            while (eventQueue.isNotEmpty()) {
+                it.success(eventQueue.removeFirst().toMap())
             }
+        }
+    }
+}
+
+class StreamHandlers {
+    companion object {
+        lateinit var tokenReceivedStreamHandler: PushNotificationEventsStreamHandler
+        lateinit var notificationOpenedStreamHandler: PushNotificationEventsStreamHandler
+        lateinit var launchNotificationOpenedStreamHandler: PushNotificationEventsStreamHandler
+        lateinit var foregroundReceivedStreamHandler: PushNotificationEventsStreamHandler
+        lateinit var backgroundReceivedStreamHandler: PushNotificationEventsStreamHandler
+
+        fun initialize(binaryMessenger: BinaryMessenger) {
+            tokenReceivedStreamHandler = PushNotificationEventsStreamHandler(
+                binaryMessenger,
+                NativeEvent.TOKEN_RECEIVED,
+            )
+            notificationOpenedStreamHandler = PushNotificationEventsStreamHandler(
+                binaryMessenger,
+                NativeEvent.NOTIFICATION_OPENED,
+            )
+            launchNotificationOpenedStreamHandler = PushNotificationEventsStreamHandler(
+                binaryMessenger,
+                NativeEvent.LAUNCH_NOTIFICATION_OPENED,
+            )
+            foregroundReceivedStreamHandler = PushNotificationEventsStreamHandler(
+                binaryMessenger,
+                NativeEvent.FOREGROUND_MESSAGE_RECEIVED,
+            )
+            backgroundReceivedStreamHandler = PushNotificationEventsStreamHandler(
+                binaryMessenger,
+                NativeEvent.BACKGROUND_MESSAGE_RECEIVED,
+            )
         }
     }
 }

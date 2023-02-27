@@ -37,8 +37,9 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   AmplifyPushNotifications({
     required ServiceProviderClient serviceProviderClient,
   }) : _serviceProviderClient = serviceProviderClient {
+    print('AmplifyPushNotifications constructor');
     _onTokenReceived = _tokenReceivedEventChannel
-        .receiveBroadcastStream('TOKEN_RECEIVED')
+        .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
         .map((event) {
       final deviceToken =
@@ -132,19 +133,19 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     }
 
     // Block configure if registering device is not complete
-    final deviceToken = await onTokenReceived.first;
-    await _registerDevice(deviceToken);
-
-    // Initialize listeners
-    onTokenReceived.listen(_tokenReceivedListener);
-    onNotificationReceivedInForeground.listen(_foregroundNotificationListener);
-    onNotificationOpened.listen(_notificationOpenedListener);
+    // final deviceToken = await onTokenReceived.first;
+    // await _registerDevice(deviceToken);
 
     // Initialize Endpoint Client
     await _serviceProviderClient.init(
       config: config,
       authProviderRepo: authProviderRepo,
     );
+
+    // Initialize listeners
+    onTokenReceived.listen(_tokenReceivedListener);
+    onNotificationReceivedInForeground.listen(_foregroundNotificationListener);
+    onNotificationOpened.listen(_notificationOpenedListener);
 
     // TODO: Register the callback dispatcher
 

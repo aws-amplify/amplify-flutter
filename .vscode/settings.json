@@ -1,7 +1,7 @@
 {
   "dart.runPubGetOnPubspecChanges": "always",
   "[dart]": {
-    "editor.rulers": [120]
+    "editor.rulers": [80]
   },
   "files.insertFinalNewline": true,
   "editor.codeActionsOnSave": {

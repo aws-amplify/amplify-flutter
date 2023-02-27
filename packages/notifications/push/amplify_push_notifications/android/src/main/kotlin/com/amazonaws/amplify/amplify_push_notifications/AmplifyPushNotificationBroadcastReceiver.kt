@@ -9,6 +9,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.amazonaws.amplify.asMap
 import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsUtils
 import com.google.firebase.messaging.RemoteMessage
 
@@ -17,34 +18,27 @@ class PushNotificationReceiver : BroadcastReceiver() {
     companion object {
         private val TAG = "NotificationReceiver"
     }
-    
+
     override fun onReceive(context: Context, intent: Intent?) {
         intent?.let {
             if (!it.isPushNotificationIntent()) {
                 return
             }
+            val utils = PushNotificationsUtils(context)
             val remoteMessage = RemoteMessage(it.extras)
-
-            if (isAppInForeground(context)) {
-                // TODO: Reduce conversions
-                val notificationHashMap = convertBundleToHashMap(remoteMessage.asBundle())
+            if (utils.isAppInForeground()) {
+                val notificationHashMap = remoteMessage.asPayload().asChannelMap()
                 Log.d(TAG, "Send foreground message received event: $notificationHashMap")
 
-                PushNotificationEventsStreamHandler.sendEvent(
-                    PushNotificationsEvent(
-                        NativeEvent.FOREGROUND_MESSAGE_RECEIVED,
-                        notificationHashMap
-                    )
-                )
+                StreamHandlers.foregroundReceivedStreamHandler.send(notificationHashMap)
             } else {
                 Log.d(TAG, "App is in background, start background service and enqueue work")
                 try {
 
                     val payload = remoteMessage.asPayload()
                     // TODO: Check how to add a flag to indicate app was opened by a notificaiton
-                    PushNotificationsUtils(context).showNotification(
-                        payload,
-                        AmplifyPushNotificationsPlugin::class.java
+                    utils.showNotification(
+                        payload, AmplifyPushNotificationsPlugin::class.java
                     )
 
                     // TODO: Start a background headless service
@@ -57,22 +51,5 @@ class PushNotificationReceiver : BroadcastReceiver() {
                 }
             }
         }
-    }
-
-    private fun isAppInForeground(context: Context): Boolean {
-        // Gets a list of running processes.
-        val processes =
-            (context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).runningAppProcesses
-
-        // On some versions of android the first item in the list is what runs in the foreground, but this is not true
-        // on all versions. Check the process importance to see if the app is in the foreground.
-        val packageName = context.applicationContext.packageName
-        for (appProcess in processes) {
-            val processName = appProcess.processName
-            if (appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND && processName == packageName) {
-                return true
-            }
-        }
-        return false
     }
 }
