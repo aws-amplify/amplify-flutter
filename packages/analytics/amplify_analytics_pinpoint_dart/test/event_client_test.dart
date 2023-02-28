@@ -53,11 +53,11 @@ void main() {
 
       pinpointClient = MockPinpointClient();
 
-      final mockStore = MockSecureStorage()
-        ..write(
-          key: pinpointAppId + EndpointStoreKey.endpointId.name,
-          value: mockEndpointId,
-        );
+      final mockStore = MockSecureStorage();
+      EndpointStore(pinpointAppId, mockStore).write(
+        key: EndpointStoreKey.endpointId.name,
+        value: mockEndpointId,
+      );
       final mockEndpointInfoStoreManager =
           EndpointInfoStoreManager(store: mockStore);
       await mockEndpointInfoStoreManager.init(pinpointAppId: pinpointAppId);

@@ -36,22 +36,10 @@ class EndpointGlobalFieldsManager {
   /// the stored attributes and metrics in storage.
   Future<void> _init() async {
     // Retrieve stored GlobalAttributes.
-    final cachedAttributes = await _endpointInfoStore.read(
-      key: EndpointStoreKey.globalAttributesKey.name,
-    );
-    _globalAttributes = cachedAttributes == null
-        ? <String, String>{}
-        : (jsonDecode(cachedAttributes) as Map<String, Object?>)
-            .cast<String, String>();
+    _globalAttributes = await getStoredAttributes(_endpointInfoStore);
 
     // Retrieve stored GlobalMetrics.
-    final cachedMetrics = await _endpointInfoStore.read(
-      key: EndpointStoreKey.globalMetricsKey.name,
-    );
-    _globalMetrics = cachedMetrics == null
-        ? <String, double>{}
-        : (jsonDecode(cachedMetrics) as Map<String, Object?>)
-            .cast<String, double>();
+    _globalMetrics = await getStoredMetrics(_endpointInfoStore);
   }
 
   final SecureStorageInterface _endpointInfoStore;
@@ -185,5 +173,33 @@ class EndpointGlobalFieldsManager {
       'Max number of $maxAttributes reached for Endpoint attributes + metrics, \n',
       'Ignoring attribute with key: "$key". \n',
     );
+  }
+
+  /// Retrieve attributes map stored as json in [storage].
+  @visibleForTesting
+  static Future<Map<String, String>> getStoredAttributes(
+    SecureStorageInterface storage,
+  ) async {
+    final cachedAttributes = await storage.read(
+      key: EndpointStoreKey.globalAttributesKey.name,
+    );
+    return cachedAttributes == null
+        ? <String, String>{}
+        : (jsonDecode(cachedAttributes) as Map<String, Object?>)
+            .cast<String, String>();
+  }
+
+  /// Retrieve metrics map stored as json in [storage].
+  @visibleForTesting
+  static Future<Map<String, double>> getStoredMetrics(
+    SecureStorageInterface storage,
+  ) async {
+    final cachedMetrics = await storage.read(
+      key: EndpointStoreKey.globalMetricsKey.name,
+    );
+    return cachedMetrics == null
+        ? <String, double>{}
+        : (jsonDecode(cachedMetrics) as Map<String, Object?>)
+            .cast<String, double>();
   }
 }

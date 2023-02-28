@@ -1,11 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_global_fields_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_store_keys.dart';
 import 'package:test/test.dart';
 
-import 'common/endpoint_global_fields_storage.dart';
 import 'common/mock_secure_storage.dart';
 import 'common/mock_values.dart';
 
@@ -20,11 +20,16 @@ void main() {
     const appIdB = 'appIdB';
 
     late MockSecureStorage store;
+    late EndpointStore endpointStoreA;
+    late EndpointStore endpointStoreB;
     late EndpointInfoStoreManager storeManagerA;
     late EndpointInfoStoreManager storeManagerB;
 
     setUp(() async {
       store = MockSecureStorage();
+
+      endpointStoreA = EndpointStore(appIdA, store);
+      endpointStoreB = EndpointStore(appIdB, store);
 
       storeManagerA = EndpointInfoStoreManager(
         store: store,
@@ -50,11 +55,11 @@ void main() {
 
       // Verify storage location
       final storedEndpointIdA =
-          await store.read(key: appIdA + EndpointStoreKey.endpointId.name);
+          await endpointStoreA.read(key: EndpointStoreKey.endpointId.name);
       expect(storedEndpointIdA, endpointIdA);
 
       final storedEndpointIdB =
-          await store.read(key: appIdB + EndpointStoreKey.endpointId.name);
+          await endpointStoreB.read(key: EndpointStoreKey.endpointId.name);
       expect(storedEndpointIdB, endpointIdB);
     });
 
@@ -65,15 +70,18 @@ void main() {
       await endpointFields.addAttribute(stringProperty, stringValue);
       await endpointFields.addMetric(doubleProperty, doubleValue);
 
-      final attributesA = await getStoredAttributes(appId: appIdA, store);
-      final metricsA = await getStoredMetrics(appId: appIdA, store);
+      final attributesA =
+          await EndpointGlobalFieldsManager.getStoredAttributes(endpointStoreA);
+      final metricsA =
+          await EndpointGlobalFieldsManager.getStoredMetrics(endpointStoreA);
 
       expect(attributesA[stringProperty], stringValue);
       expect(metricsA[doubleProperty], doubleValue);
 
-      final attributesB = await getStoredAttributes(appId: appIdB, store);
-      final metricsB = await getStoredMetrics(appId: appIdB, store);
-
+      final attributesB =
+          await EndpointGlobalFieldsManager.getStoredAttributes(endpointStoreB);
+      final metricsB =
+          await EndpointGlobalFieldsManager.getStoredMetrics(endpointStoreB);
       expect(attributesB, isEmpty);
       expect(metricsB, isEmpty);
     });

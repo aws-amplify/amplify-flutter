@@ -18,6 +18,7 @@ void main() {
   group('LegacyNativeDataProvider ', () {
     late MockLegacyNativeDataProvider legacyDataProvider;
     late MockSecureStorage store;
+    late EndpointStore endpointStore;
 
     const pinpointAppId = 'appId';
     const legacyEndpointId = 'legacy-endpointId';
@@ -25,6 +26,7 @@ void main() {
     setUp(() {
       legacyDataProvider = MockLegacyNativeDataProvider();
       store = MockSecureStorage();
+      endpointStore = EndpointStore(pinpointAppId, store);
     });
 
     test('First app load, no legacy data, writes proper values', () async {
@@ -47,8 +49,8 @@ void main() {
       );
       expect(storeVersion, EndpointStoreVersion.v1.name);
 
-      final migratedEndpointId = await store.read(
-        key: pinpointAppId + EndpointStoreKey.endpointId.name,
+      final migratedEndpointId = await endpointStore.read(
+        key: EndpointStoreKey.endpointId.name,
       );
       expect(migratedEndpointId, isNotNull);
 
@@ -74,8 +76,8 @@ void main() {
       );
       expect(storeVersion, EndpointStoreVersion.v1.name);
 
-      final migratedEndpointId = await store.read(
-        key: pinpointAppId + EndpointStoreKey.endpointId.name,
+      final migratedEndpointId = await endpointStore.read(
+        key: EndpointStoreKey.endpointId.name,
       );
       expect(migratedEndpointId, legacyEndpointId);
 
@@ -87,10 +89,11 @@ void main() {
           .thenAnswer((_) => Future.value(legacyEndpointId));
 
       final endpointId = uuid();
-      store.seedData({
-        EndpointStoreKey.version.name: EndpointStoreVersion.v1.name,
-        pinpointAppId + EndpointStoreKey.endpointId.name: endpointId
-      });
+      store.write(
+          key: EndpointStoreKey.version.name,
+          value: EndpointStoreVersion.v1.name);
+      endpointStore.write(
+          key: EndpointStoreKey.endpointId.name, value: endpointId);
 
       final endpointIdManager = EndpointInfoStoreManager(
         store: store,
@@ -103,8 +106,8 @@ void main() {
         endpointId,
       );
 
-      final migratedEndpointId = await store.read(
-        key: pinpointAppId + EndpointStoreKey.endpointId.name,
+      final migratedEndpointId = await endpointStore.read(
+        key: EndpointStoreKey.endpointId.name,
       );
       expect(migratedEndpointId, endpointId);
 

@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_global_fields_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/index_db/in_memory_queued_item_store.dart';
 import 'package:test/test.dart';
 
-import 'common/endpoint_global_fields_storage.dart';
 import 'common/mock_secure_storage.dart';
 import 'common/mocktail_mocks.dart';
 
@@ -15,8 +15,7 @@ void main() {
     const analyticsPinpointAppId = 'analyticsPinpointAppId';
     const notificationsPinpointAppId = 'notificationsPinpointAppId';
 
-    late final MockSecureStorage analyticsStore;
-    late final MockSecureStorage notificationsStore;
+    late final MockSecureStorage store;
 
     late final InMemoryQueuedItemStore analyticsEventStore;
     late final InMemoryQueuedItemStore notificationsEventStore;
@@ -25,14 +24,14 @@ void main() {
     late final AnalyticsClient notificationsClient;
 
     setUpAll(() async {
-      analyticsStore = MockSecureStorage();
+      store = MockSecureStorage();
 
       final analyticsPinpointClient = MockPinpointClient();
       analyticsEventStore = InMemoryQueuedItemStore();
 
       analyticsClient = AnalyticsClient(
         endpointInfoStoreManager: EndpointInfoStoreManager(
-          store: analyticsStore,
+          store: store,
         ),
       );
       await analyticsClient.initWithClient(
@@ -41,14 +40,12 @@ void main() {
         eventStore: analyticsEventStore,
       );
 
-      notificationsStore = MockSecureStorage();
-
       final notificationsPinpointClient = MockPinpointClient();
       notificationsEventStore = InMemoryQueuedItemStore();
 
       notificationsClient = AnalyticsClient(
         endpointInfoStoreManager: EndpointInfoStoreManager(
-          store: notificationsStore,
+          store: store,
         ),
       );
       await notificationsClient.initWithClient(
@@ -78,19 +75,24 @@ void main() {
       await analyticsEndpointClient.addAttribute(attributeKey, attributeValue);
       await analyticsEndpointClient.addMetric(metricKey, metricValue);
 
-      final analyticsAttributes = await getStoredAttributes(
-        appId: analyticsPinpointAppId,
+      final analyticsStore = EndpointStore(analyticsPinpointAppId, store);
+
+      final analyticsAttributes =
+          await EndpointGlobalFieldsManager.getStoredAttributes(
         analyticsStore,
       );
       final analyticsMetrics =
-          await getStoredMetrics(appId: analyticsPinpointAppId, analyticsStore);
+          await EndpointGlobalFieldsManager.getStoredMetrics(analyticsStore);
 
-      final notificationsAttributes = await getStoredAttributes(
-        appId: notificationsPinpointAppId,
+      final notificationsStore =
+          EndpointStore(notificationsPinpointAppId, store);
+
+      final notificationsAttributes =
+          await EndpointGlobalFieldsManager.getStoredAttributes(
         notificationsStore,
       );
-      final notificationsMetrics = await getStoredMetrics(
-        appId: notificationsPinpointAppId,
+      final notificationsMetrics =
+          await EndpointGlobalFieldsManager.getStoredMetrics(
         notificationsStore,
       );
 

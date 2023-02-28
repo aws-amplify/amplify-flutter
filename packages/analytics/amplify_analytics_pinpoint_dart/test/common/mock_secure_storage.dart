@@ -11,10 +11,6 @@ class MockSecureStorage extends Mock implements SecureStorageInterface {
 
   final Map<String, String?> _data = {};
 
-  void seedData(Map<String, String?> data) {
-    _data.addAll(data);
-  }
-
   @override
   FutureOr<String?> read({required String key}) {
     return _data[key];

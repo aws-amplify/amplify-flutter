@@ -20,7 +20,7 @@ enum EndpointStorageScope {
 }
 
 /// {@template amplify_analytics_pinpoint_dart.endpoint_info_store_manager}
-/// Manages and provides Pinpoint Endpoint id and global fields
+/// Manages and provides Pinpoint Endpoint id and global fields.
 /// {@endtemplate}
 class EndpointInfoStoreManager {
   /// {@macro amplify_analytics_pinpoint_dart.endpoint_info_store_manager}
@@ -34,7 +34,7 @@ class EndpointInfoStoreManager {
   final LegacyNativeDataProvider? _legacyNativeDataProvider;
 
   late final String _pinpointAppId;
-  late final _EndpointStore _endpointStore;
+  late final EndpointStore _endpointStore;
 
   static final AmplifyLogger _logger =
       AmplifyLogger.category(Category.analytics)
@@ -47,7 +47,7 @@ class EndpointInfoStoreManager {
     if (_isInit) return;
 
     _pinpointAppId = pinpointAppId;
-    _endpointStore = _EndpointStore(_pinpointAppId, _store);
+    _endpointStore = EndpointStore(_pinpointAppId, _store);
 
     endpointFields = await EndpointGlobalFieldsManager.create(_endpointStore);
     endpointId = await _retrieveEndpointId();
@@ -103,9 +103,12 @@ class EndpointInfoStoreManager {
   }
 }
 
-/// Ensure Endpoint data is accessed with pinpointId prefix.
-class _EndpointStore implements SecureStorageInterface {
-  _EndpointStore(this._pinpointAppId, this._store);
+/// {@template amplify_analytics_pinpoint_dart.endpoint_store}
+/// Ensures Endpoint data is accessed with pinpointId prefix.
+/// {@endtemplate}
+class EndpointStore implements SecureStorageInterface {
+  /// {@macro amplify_analytics_pinpoint_dart.endpoint_store}
+  EndpointStore(this._pinpointAppId, this._store);
 
   final String _pinpointAppId;
   final SecureStorageInterface _store;

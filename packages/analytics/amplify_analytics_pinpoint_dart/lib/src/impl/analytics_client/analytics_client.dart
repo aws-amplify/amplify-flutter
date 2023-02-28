@@ -12,11 +12,11 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:meta/meta.dart';
 
-/// {@template amplify_analytics_pinpoint.analytics_client}
+/// {@template amplify_analytics_pinpoint_dart.analytics_client}
 /// A builder class that constructs and exposes the [eventClient] and [endpointClient] for interacting with Pinpoint.
 /// {@endtemplate}
 class AnalyticsClient {
-  /// {@macro amplify_analytics_pinpoint.analytics_client}
+  /// {@macro amplify_analytics_pinpoint_dart.analytics_client}
   AnalyticsClient({
     DeviceContextInfoProvider? deviceContextInfoProvider,
     EndpointInfoStoreManager? endpointInfoStoreManager,

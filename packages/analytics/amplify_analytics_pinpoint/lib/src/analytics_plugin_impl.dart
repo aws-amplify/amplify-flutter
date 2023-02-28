@@ -14,7 +14,7 @@ class AmplifyAnalyticsPinpoint extends AmplifyAnalyticsPinpointDart {
   /// {@macro amplify_analytics_pinpoint.analytics_plugin_impl}
   AmplifyAnalyticsPinpoint({
     @visibleForTesting AppLifecycleProvider? appLifecycleProvider,
-    AnalyticsClient? analyticsClient,
+    @visibleForTesting AnalyticsClient? analyticsClient,
   }) : super(
           pathProvider: FlutterPathProvider(),
           appLifecycleProvider:

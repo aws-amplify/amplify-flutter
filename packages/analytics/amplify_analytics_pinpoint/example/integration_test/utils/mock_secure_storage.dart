@@ -19,27 +19,35 @@ final SecureStorageInterface mockPersistedSecuredStorage = () {
   final pinpointAppId =
       amplifyConfig.analytics!.awsPlugin!.pinpointAnalytics.appId;
 
-  final storage = _MockSecureStorage()
-    ..write(
-      key: pinpointAppId + EndpointStoreKey.endpointId.name,
-      value: mockEndpointId,
-    );
+  final storage = _MockSecureStorage();
+
+  EndpointStore(pinpointAppId, storage).write(
+    key: EndpointStoreKey.endpointId.name,
+    value: mockEndpointId,
+  );
 
   return storage;
 }();
 
 final String mockEndpointId = uuid();
 
-class _MockSecureStorage extends SecureStorageInterface {
-  final _storage = <String, String>{};
+class _MockSecureStorage implements SecureStorageInterface {
+  _MockSecureStorage();
+
+  final Map<String, String?> _data = {};
 
   @override
-  Future<void> delete({required String key}) async => _storage.remove(key);
+  FutureOr<String?> read({required String key}) {
+    return _data[key];
+  }
 
   @override
-  Future<String?> read({required String key}) async => _storage[key];
+  FutureOr<void> write({required String key, required String value}) {
+    _data[key] = value;
+  }
 
   @override
-  Future<void> write({required String key, required String value}) async =>
-      _storage[key] = value;
+  FutureOr<void> delete({required String key}) {
+    _data.remove(key);
+  }
 }
