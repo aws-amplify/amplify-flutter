@@ -5,6 +5,7 @@
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-username.feature
 
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -13,6 +14,7 @@ import 'config.dart';
 import 'utils/test_utils.dart';
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
@@ -33,6 +35,14 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       signInPage.expectUsername();
 
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          emitsDone,
+        ]),
+      );
+
       // When I type my "username" with status "UNKNOWN"
       await signInPage.enterUsername('UNKNOWN');
 
@@ -43,6 +53,8 @@ void main() {
       await signInPage.submitSignIn();
 
       signInPage.expectUserNotFound();
+
+      await tester.bloc.close();
     });
 
     // Scenario: Sign in with confirmed credentials
@@ -61,6 +73,15 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       signInPage.expectUsername();
 
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          isA<AuthenticatedState>(),
+          emitsDone,
+        ]),
+      );
+
       // When I type my "username"
       await signInPage.enterUsername(username);
 
@@ -72,6 +93,8 @@ void main() {
 
       /// Then I see "Sign out"
       await signInPage.expectAuthenticated();
+
+      await tester.bloc.close();
     });
 
     // Scenario: Sign in with confirmed credentials then sign out
@@ -91,6 +114,16 @@ void main() {
       SignInPage signInPage = SignInPage(tester: tester);
       signInPage.expectUsername();
 
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          isA<AuthenticatedState>(),
+          UnauthenticatedState.signIn,
+          emitsDone,
+        ]),
+      );
+
       // When I type my "username" with status "UNKNOWN"
       await signInPage.enterUsername(username);
 
@@ -108,6 +141,8 @@ void main() {
 
       // Then I see "Sign in"
       signInPage.expectUsername();
+
+      await tester.bloc.close();
     });
 
     // Scenario: Sign in with force change password credentials
@@ -123,6 +158,15 @@ void main() {
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
       signInPage.expectUsername();
 
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          UnauthenticatedState.confirmSignInNewPassword,
+          emitsDone,
+        ]),
+      );
+
       // When I type my "username"
       await signInPage.enterUsername(username);
 
@@ -135,6 +179,8 @@ void main() {
       /// Then I see "Change Password"
       await confirmSignInPage.expectConfirmSignInNewPasswordIsPresent();
       confirmSignInPage.expectNewPasswordIsPresent();
+
+      await tester.bloc.close();
     });
 
     testWidgets(
@@ -153,6 +199,15 @@ void main() {
       await loadAuthenticator(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
       signInPage.expectUsername();
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          isA<AuthenticatedState>(),
+          emitsDone,
+        ]),
+      );
 
       // When I type my "username"
       await signInPage.enterUsername('bad_username');
@@ -177,6 +232,8 @@ void main() {
 
       // Then I am signed in
       await signInPage.expectAuthenticated();
+
+      await tester.bloc.close();
     });
   });
 }

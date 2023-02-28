@@ -47,9 +47,6 @@ class UnauthenticatedState extends AuthState
   static const confirmResetPassword =
       UnauthenticatedState(step: AuthenticatorStep.confirmResetPassword);
 
-  static const verifyUser =
-      UnauthenticatedState(step: AuthenticatorStep.verifyUser);
-
   @override
   List<Object?> get props => [step];
 

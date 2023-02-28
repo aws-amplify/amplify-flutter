@@ -5,6 +5,7 @@
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-username.feature
 
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -13,6 +14,7 @@ import 'config.dart';
 import 'utils/test_utils.dart';
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
@@ -30,8 +32,20 @@ void main() {
       SignUpPage signUpPage = SignUpPage(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
       await loadAuthenticator(tester: tester);
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          UnauthenticatedState.signUp,
+          emitsDone,
+        ]),
+      );
+
       await signInPage.navigateToSignUp();
       signUpPage.expectUserNameIsPresent();
+
+      await tester.bloc.close();
     });
 
     // Scenario: "Email" is included from `aws_cognito_verification_mechanisms`
@@ -40,6 +54,16 @@ void main() {
       SignUpPage signUpPage = SignUpPage(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
       await loadAuthenticator(tester: tester);
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          UnauthenticatedState.signUp,
+          emitsDone,
+        ]),
+      );
+
       await signInPage.navigateToSignUp();
       signUpPage.expectEmailIsPresent();
     });
@@ -49,8 +73,20 @@ void main() {
       SignUpPage signUpPage = SignUpPage(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
       await loadAuthenticator(tester: tester);
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          UnauthenticatedState.signUp,
+          emitsDone,
+        ]),
+      );
+
       await signInPage.navigateToSignUp();
       signUpPage.expectPhoneIsNotPresent();
+
+      await tester.bloc.close();
     });
 
     // Scenario: Sign up a new username & password
@@ -60,6 +96,17 @@ void main() {
       ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
 
       await loadAuthenticator(tester: tester);
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          UnauthenticatedState.signUp,
+          UnauthenticatedState.confirmSignUp,
+          emitsDone,
+        ]),
+      );
+
       await signInPage.navigateToSignUp();
 
       // TODO: Clarify requirements
@@ -78,6 +125,8 @@ void main() {
 
       await confirmSignUpPage.expectConfirmSignUpIsPresent();
       confirmSignUpPage.expectConfirmationCodeIsPresent();
+
+      await tester.bloc.close();
     });
 
     // Scenario: Username field autocompletes username

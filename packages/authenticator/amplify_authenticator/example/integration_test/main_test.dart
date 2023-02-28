@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -25,6 +26,7 @@ import 'unprotected_routes_test.dart' as unprotected_routes_tests;
 import 'verify_user_test.dart' as verify_user_tests;
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('Authenticator', () {

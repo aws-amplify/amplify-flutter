@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/keys.dart';
+import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator/src/state/inherited_authenticator_state.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -55,5 +57,14 @@ Future<void> signOut() async {
     await Amplify.Auth.signOut();
   } on Object {
     // OK
+  }
+}
+
+extension BlocAccess on WidgetTester {
+  /// The [StateMachineBloc] of the running Authenticator.
+  StateMachineBloc get bloc {
+    final inheritedBloc =
+        widget<InheritedAuthBloc>(find.byKey(keyInheritedAuthBloc));
+    return inheritedBloc.authBloc;
   }
 }

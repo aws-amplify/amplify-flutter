@@ -12,6 +12,7 @@ import 'config.dart';
 import 'utils/test_utils.dart';
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
@@ -38,6 +39,17 @@ void main() {
       addTearDown(() => deleteUser(cognitoUsername));
 
       await loadAuthenticator(tester: tester);
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          isA<AuthenticatedState>(),
+          UnauthenticatedState.signIn,
+          emitsDone,
+        ]),
+      );
+
       SignInPage signInPage = SignInPage(tester: tester);
 
       // When I sign in with "username" and "password"
@@ -52,6 +64,8 @@ void main() {
 
       // Then I see "Sign in"
       signInPage.expectStep(AuthenticatorStep.signIn);
+
+      await tester.bloc.close();
     });
   });
 }

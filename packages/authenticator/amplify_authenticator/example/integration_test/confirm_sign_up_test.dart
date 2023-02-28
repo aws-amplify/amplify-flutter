@@ -3,6 +3,7 @@
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -14,6 +15,7 @@ import 'utils/test_utils.dart';
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/confirm-sign-up.feature
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
@@ -37,6 +39,16 @@ void main() {
         final SignInPage signInPage = SignInPage(tester: tester);
 
         await loadAuthenticator(tester: tester);
+
+        expect(
+          tester.bloc.stream,
+          emitsInOrder([
+            UnauthenticatedState.signIn,
+            UnauthenticatedState.signUp,
+            UnauthenticatedState.confirmSignUp,
+            emitsDone,
+          ]),
+        );
 
         final username = generateEmail();
         final password = generatePassword();
@@ -66,6 +78,8 @@ void main() {
 
         // Then I see "Username/client id combination not found."
         confirmSignUpPage.expectInvalidVerificationCode();
+
+        await tester.bloc.close();
       },
     );
 
@@ -78,6 +92,17 @@ void main() {
       final SignInPage signInPage = SignInPage(tester: tester);
 
       await loadAuthenticator(tester: tester);
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          UnauthenticatedState.signUp,
+          UnauthenticatedState.confirmSignUp,
+          isA<AuthenticatedState>(),
+          emitsDone,
+        ]),
+      );
 
       final username = generateEmail();
       final password = generatePassword();
@@ -108,6 +133,8 @@ void main() {
 
       // Then I see "Sign out"
       await signInPage.expectAuthenticated();
+
+      await tester.bloc.close();
     });
 
     // Scenario: User is already confirmed and then clicks Resend Code

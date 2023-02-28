@@ -480,7 +480,10 @@ class StateMachineBloc
   }
 
   Stream<AuthState> _changeScreen(AuthenticatorStep step) async* {
-    yield UnauthenticatedState(step: step);
+    final currentState = _currentState;
+    if (currentState is! UnauthenticatedState || currentState.step != step) {
+      yield UnauthenticatedState(step: step);
+    }
     // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
     yield* const Stream.empty();
   }

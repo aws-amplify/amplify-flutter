@@ -83,6 +83,17 @@ void main() {
       addTearDown(() => deleteUser(cognitoUsername));
 
       await loadAuthenticator(tester: tester, authenticator: authenticator);
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          isA<AuthenticatedState>(),
+          UnauthenticatedState.signIn,
+          emitsDone,
+        ]),
+      );
+
       final SignInPage signInPage = SignInPage(tester: tester);
       signInPage.expectUsername(label: 'Email');
 
@@ -103,6 +114,8 @@ void main() {
 
       // Then I see "Sign in"
       signInPage.expectUsername(label: 'Email');
+
+      await tester.bloc.close();
     });
   });
 }

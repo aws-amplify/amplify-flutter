@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
@@ -12,6 +11,7 @@ import 'config.dart';
 import 'utils/test_utils.dart';
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
@@ -32,6 +32,15 @@ void main() {
       VerifyUserPage verifyUserPage = VerifyUserPage(tester: tester);
       await loadAuthenticator(tester: tester);
 
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          isA<VerifyUserFlow>(),
+          emitsDone,
+        ]),
+      );
+
       final username = generateEmail();
       final password = generatePassword();
 
@@ -57,11 +66,10 @@ void main() {
       // And I click the "Sign in" button
       await signInPage.submitSignIn();
 
-      // Wait for verify user state
-      await verifyUserPage.expectState(UnauthenticatedState.verifyUser);
-
       // Then I see "Account recovery requires verified contact information"
       verifyUserPage.expectTitleIsVisible();
+
+      await tester.bloc.close();
     });
 
     // Scenario: Skip verify account
@@ -70,6 +78,23 @@ void main() {
       VerifyUserPage verifyUserPage = VerifyUserPage(tester: tester);
       await loadAuthenticator(tester: tester);
 
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          isA<VerifyUserFlow>().having(
+            (state) => state.unverifiedAttributeKeys,
+            'unverifiedAttributeKeys',
+            unorderedEquals([
+              CognitoUserAttributeKey.email,
+              CognitoUserAttributeKey.phoneNumber,
+            ]),
+          ),
+          isA<AuthenticatedState>(),
+          emitsDone,
+        ]),
+      );
+
       final username = generateEmail();
       final password = generatePassword();
 
@@ -95,14 +120,13 @@ void main() {
       // And I click the "Sign in" button
       await signInPage.submitSignIn();
 
-      // Wait for verify user state
-      await verifyUserPage.expectState(UnauthenticatedState.verifyUser);
-
       // And I click the "Skip" button
       await verifyUserPage.tapSkipButton();
 
       // Then I see "Sign out"
       await signInPage.expectAuthenticated();
+
+      await tester.bloc.close();
     });
 
     // Scenario: Redirect to "Confirm Verify" page
@@ -114,6 +138,27 @@ void main() {
       );
       await loadAuthenticator(tester: tester);
 
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          isA<VerifyUserFlow>().having(
+            (state) => state.unverifiedAttributeKeys,
+            'unverifiedAttributeKeys',
+            unorderedEquals([
+              CognitoUserAttributeKey.email,
+              CognitoUserAttributeKey.phoneNumber,
+            ]),
+          ),
+          isA<AttributeVerificationSent>().having(
+            (state) => state.userAttributeKey,
+            'userAttributeKey',
+            CognitoUserAttributeKey.email,
+          ),
+          emitsDone,
+        ]),
+      );
+
       final username = generateEmail();
       final password = generatePassword();
 
@@ -138,9 +183,6 @@ void main() {
 
       // And I click the "Sign in" button
       await signInPage.submitSignIn();
-
-      // Wait for verify user state
-      await verifyUserPage.expectState(UnauthenticatedState.verifyUser);
 
       // And I see "Account recovery requires verified contact information"
       verifyUserPage.expectTitleIsVisible();
@@ -153,12 +195,23 @@ void main() {
 
       // Then I see "Code"
       confirmVerifyUserPage.expectCodeFieldIsPresent();
+
+      await tester.bloc.close();
     });
 
     testWidgets('Auth.signIn does not redirect to "Verify" page',
         (tester) async {
       SignInPage signInPage = SignInPage(tester: tester);
       await loadAuthenticator(tester: tester);
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          isA<AuthenticatedState>(),
+          emitsDone,
+        ]),
+      );
 
       final username = generateEmail();
       final password = generatePassword();
@@ -183,6 +236,8 @@ void main() {
 
       // Then I see "Sign out"
       await signInPage.expectAuthenticated();
+
+      await tester.bloc.close();
     });
   });
 }
