@@ -11,8 +11,11 @@ mixin AuthenticatorRadioField<FieldType extends Enum, FieldValue,
     on AuthenticatorFormFieldState<FieldType, FieldValue, T>
     implements SelectableConfig<InputResolverKey, FieldValue> {
   @override
+  FieldValue get initialValue;
+
+  @override
   FieldValue get selectionValue => _selectionValue;
-  late FieldValue _selectionValue = selections.first.value;
+  late FieldValue _selectionValue = initialValue;
 
   @override
   Widget buildFormField(BuildContext context) {
@@ -38,12 +41,18 @@ mixin AuthenticatorRadioField<FieldType extends Enum, FieldValue,
                   setState(() {
                     _selectionValue = value;
                   });
+                  onChanged(value);
                 }
-                if (selectionValue != null) onChanged(selectionValue!);
               },
               activeColor: Theme.of(context).primaryColor,
             ),
-          )
+            onTap: () {
+              setState(() {
+                _selectionValue = selection.value;
+              });
+              onChanged(selection.value);
+            },
+          ),
       ],
     );
   }

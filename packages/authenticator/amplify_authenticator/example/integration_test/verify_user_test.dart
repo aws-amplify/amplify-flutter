@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'config.dart';
+import 'utils/mock_data.dart';
 import 'utils/test_utils.dart';
 
 void main() {
@@ -21,6 +23,7 @@ void main() {
     setUpAll(() async {
       await loadConfiguration(
         environmentName: 'sign-in-with-email',
+        additionalConfigs: [AmplifyAPI()],
       );
     });
 
@@ -155,6 +158,7 @@ void main() {
             'userAttributeKey',
             CognitoUserAttributeKey.email,
           ),
+          isA<AuthenticatedState>(),
           emitsDone,
         ]),
       );
@@ -184,6 +188,8 @@ void main() {
       // And I click the "Sign in" button
       await signInPage.submitSignIn();
 
+      final code = await getOtpCode(UserAttribute.email(username));
+
       // And I see "Account recovery requires verified contact information"
       verifyUserPage.expectTitleIsVisible();
 
@@ -195,6 +201,101 @@ void main() {
 
       // Then I see "Code"
       confirmVerifyUserPage.expectCodeFieldIsPresent();
+
+      await confirmVerifyUserPage.enterCode(await code.code);
+
+      await confirmVerifyUserPage.submitConfirmationCode();
+
+      confirmVerifyUserPage.expectNoError();
+
+      await confirmVerifyUserPage.expectAuthenticated();
+
+      await tester.bloc.close();
+    });
+
+    testWidgets('Can confirm phone number attribute', (tester) async {
+      final signInPage = SignInPage(tester: tester);
+      final verifyUserPage = VerifyUserPage(tester: tester);
+      final confirmVerifyUserPage = ConfirmVerifyUserPage(
+        tester: tester,
+      );
+      await loadAuthenticator(tester: tester);
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          isA<VerifyUserFlow>().having(
+            (state) => state.unverifiedAttributeKeys,
+            'unverifiedAttributeKeys',
+            unorderedEquals([
+              CognitoUserAttributeKey.email,
+              CognitoUserAttributeKey.phoneNumber,
+            ]),
+          ),
+          isA<AttributeVerificationSent>().having(
+            (state) => state.userAttributeKey,
+            'userAttributeKey',
+            CognitoUserAttributeKey.phoneNumber,
+          ),
+          isA<AuthenticatedState>(),
+          emitsDone,
+        ]),
+      );
+
+      final username = generateEmail();
+      final phoneNumber = generateUSPhoneNumber();
+      final password = generatePassword();
+
+      final cognitoUsername = await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        attributes: [
+          AuthUserAttribute(
+            userAttributeKey: CognitoUserAttributeKey.email,
+            value: username,
+          ),
+          AuthUserAttribute(
+            userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+            value: phoneNumber.toE164(),
+          ),
+        ],
+      );
+      addTearDown(() => deleteUser(cognitoUsername));
+
+      // When I type my "email" with status "UNVERIFIED"
+      await signInPage.enterUsername(username);
+
+      // And I type my password
+      await signInPage.enterPassword(password);
+
+      // And I click the "Sign in" button
+      await signInPage.submitSignIn();
+
+      final code = await getOtpCode(
+        UserAttribute.phone(phoneNumber.toE164()),
+      );
+
+      // And I see "Account recovery requires verified contact information"
+      verifyUserPage.expectTitleIsVisible();
+
+      // And I click the "Email" radio button
+      await verifyUserPage.selectAttribute('Phone Number');
+
+      // And I click the "Verify" button
+      await verifyUserPage.tapVerifyButton();
+
+      // Then I see "Code"
+      confirmVerifyUserPage.expectCodeFieldIsPresent();
+
+      await confirmVerifyUserPage.enterCode(await code.code);
+
+      await confirmVerifyUserPage.submitConfirmationCode();
+
+      confirmVerifyUserPage.expectNoError();
+
+      await confirmVerifyUserPage.expectAuthenticated();
 
       await tester.bloc.close();
     });
