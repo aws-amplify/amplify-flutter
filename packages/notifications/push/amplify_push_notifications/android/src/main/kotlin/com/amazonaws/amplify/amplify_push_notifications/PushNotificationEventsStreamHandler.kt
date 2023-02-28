@@ -55,10 +55,8 @@ class PushNotificationEventsStreamHandler constructor(
     }
 
     override fun onCancel(arguments: Any?) {
-        if (arguments is String) {
-            eventSink = null
-            eventQueue.clear()
-        }
+        eventSink = null
+        eventQueue.clear()
     }
 
     private val eventQueue = mutableListOf<PushNotificationsEvent>()
@@ -86,30 +84,30 @@ class PushNotificationEventsStreamHandler constructor(
 
 class StreamHandlers {
     companion object {
-        lateinit var tokenReceivedStreamHandler: PushNotificationEventsStreamHandler
-        lateinit var notificationOpenedStreamHandler: PushNotificationEventsStreamHandler
-        lateinit var launchNotificationOpenedStreamHandler: PushNotificationEventsStreamHandler
-        lateinit var foregroundReceivedStreamHandler: PushNotificationEventsStreamHandler
-        lateinit var backgroundReceivedStreamHandler: PushNotificationEventsStreamHandler
+        lateinit var tokenReceived: PushNotificationEventsStreamHandler
+        lateinit var notificationOpened: PushNotificationEventsStreamHandler
+        lateinit var launchNotificationOpened: PushNotificationEventsStreamHandler
+        lateinit var foregroundMessageReceived: PushNotificationEventsStreamHandler
+        lateinit var backgroundMessageReceived: PushNotificationEventsStreamHandler
 
         fun initialize(binaryMessenger: BinaryMessenger) {
-            tokenReceivedStreamHandler = PushNotificationEventsStreamHandler(
+            tokenReceived = PushNotificationEventsStreamHandler(
                 binaryMessenger,
                 NativeEvent.TOKEN_RECEIVED,
             )
-            notificationOpenedStreamHandler = PushNotificationEventsStreamHandler(
+            notificationOpened = PushNotificationEventsStreamHandler(
                 binaryMessenger,
                 NativeEvent.NOTIFICATION_OPENED,
             )
-            launchNotificationOpenedStreamHandler = PushNotificationEventsStreamHandler(
+            launchNotificationOpened = PushNotificationEventsStreamHandler(
                 binaryMessenger,
                 NativeEvent.LAUNCH_NOTIFICATION_OPENED,
             )
-            foregroundReceivedStreamHandler = PushNotificationEventsStreamHandler(
+            foregroundMessageReceived = PushNotificationEventsStreamHandler(
                 binaryMessenger,
                 NativeEvent.FOREGROUND_MESSAGE_RECEIVED,
             )
-            backgroundReceivedStreamHandler = PushNotificationEventsStreamHandler(
+            backgroundMessageReceived = PushNotificationEventsStreamHandler(
                 binaryMessenger,
                 NativeEvent.BACKGROUND_MESSAGE_RECEIVED,
             )

@@ -72,8 +72,8 @@ fun NotificationPayload.asChannelMap(): Map<String, Any?> {
     )
 }
 
-fun getPayloadFromExtras(extras: Bundle?): NotificationPayload? {
-    return extras?.getBundle(PAYLOAD_KEY)?.toNotificationsPayload()
+fun Bundle.asPayloadFromExtras(): NotificationPayload? {
+    return this.getBundle(PAYLOAD_KEY)?.toNotificationsPayload()
 }
 
 fun Intent.isPushNotificationIntent(): Boolean {

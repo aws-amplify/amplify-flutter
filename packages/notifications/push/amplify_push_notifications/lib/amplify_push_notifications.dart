@@ -56,7 +56,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     });
 
     _onForegroundNotificationReceived = _foregroundNotificationEventChannel
-        .receiveBroadcastStream('FOREGROUND_MESSAGE_RECEIVED')
+        .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
         .map((event) {
       // TODO convert raw event to RemotePushMessage
@@ -65,7 +65,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
     // TODO: Enable background API
     _onBackgroundNotificationReceived = _backgroundNotificationEventChannel
-        .receiveBroadcastStream('BACKGROUND_MESSAGE_RECEIVED')
+        .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
         .map((event) {
       final completionHandlerId = (event['payload']
@@ -76,7 +76,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     });
 
     _onNotificationOpened = _notificationOpenedEventChannel
-        .receiveBroadcastStream('NOTIFICATION_OPENED')
+        .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
         .map((event) {
       // TODO convert raw event to RemotePushMessage
@@ -86,7 +86,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     // TODO: Enable launch notification API
 
     _onLaunchNotificationOpened = _launchNotificationOpenedEventChannel
-        .receiveBroadcastStream('LAUNCH_NOTIFICATION_OPENED')
+        .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
         .map((event) {
       // TODO convert raw event to RemotePushMessage
@@ -135,6 +135,16 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     // Register the callback dispatcher
     await _registerCallbackDispatcher();
 
+    // Initialize Endpoint Client
+    await _serviceProviderClient.init(
+      config: config,
+      authProviderRepo: authProviderRepo,
+    );
+
+    // Block configure if registering device is not complete
+    final deviceToken = await onTokenReceived.first;
+    await _registerDevice(deviceToken);
+
     // Initialize listeners
     onTokenReceived.listen(_tokenReceivedListener);
     onNotificationReceivedInForeground.listen(_foregroundNotificationListener);
@@ -142,12 +152,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     await _registerBgCallback(
       'registerBgInternalCallback',
       _internalBgHandler,
-    );
-
-    // Initialize Endpoint Client
-    await _serviceProviderClient.init(
-      config: config,
-      authProviderRepo: authProviderRepo,
     );
 
     // TODO: Register the callback dispatcher
