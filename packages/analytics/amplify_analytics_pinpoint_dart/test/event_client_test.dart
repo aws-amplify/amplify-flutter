@@ -13,6 +13,7 @@ import 'package:amplify_analytics_pinpoint_dart/src/version.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:built_value/serializer.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:smithy/smithy.dart';
 import 'package:test/test.dart';
 
 import 'common/mock_device_context_info.dart';
@@ -369,9 +370,6 @@ void main() {
         'flushEvents does not delete events if pinpointClient throws retryable exception',
         () async {
       await eventClient.recordEvent(
-        eventType: successEventType,
-      );
-      await eventClient.recordEvent(
         eventType: failEventType,
       );
 
@@ -379,7 +377,7 @@ void main() {
 
       when(
         () => mockOperation.result,
-      ).thenThrow(BadRequestException());
+      ).thenThrow(const SmithyHttpException(statusCode: 500, body: ''));
 
       when(() => pinpointClient.putEvents(any<PutEventsRequest>()))
           .thenReturn(mockOperation);
@@ -387,15 +385,12 @@ void main() {
       await eventClient.flushEvents();
 
       final items = eventStore.getCount(100);
-      expect(items.length, 2);
+      expect(items.length, 1);
     });
 
     test(
         'flushEvents deletes events if pinpointClient throws non retryable exception',
         () async {
-      await eventClient.recordEvent(
-        eventType: successEventType,
-      );
       await eventClient.recordEvent(
         eventType: failEventType,
       );
@@ -413,6 +408,81 @@ void main() {
 
       final items = eventStore.getCount(100);
       expect(items.length, 0);
+    });
+
+    test(
+        'flushEvents does not delete events if pinpointClient fails from AWSHttpException',
+        () async {
+      await eventClient.recordEvent(
+        eventType: failEventType,
+      );
+
+      final mockOperation = MockSmithyOperation<PutEventsResponse>();
+
+      when(
+        () => mockOperation.result,
+      ).thenThrow(MockAWSHttpException());
+
+      when(() => pinpointClient.putEvents(any<PutEventsRequest>()))
+          .thenReturn(mockOperation);
+
+      await eventClient.flushEvents();
+
+      final items = eventStore.getCount(100);
+      expect(items.length, 1);
+    });
+
+    test('flushEvents deletes events that fail >3 times', () async {
+      await eventClient.recordEvent(
+        eventType: failEventType,
+      );
+
+      final mockOperation = MockSmithyOperation<PutEventsResponse>();
+
+      when(
+        () => mockOperation.result,
+      ).thenThrow(const SmithyHttpException(statusCode: 500, body: ''));
+
+      when(() => pinpointClient.putEvents(any<PutEventsRequest>()))
+          .thenReturn(mockOperation);
+
+      await eventClient.flushEvents();
+      await eventClient.flushEvents();
+      await eventClient.flushEvents();
+
+      var items = eventStore.getCount(100);
+      expect(items.length, 1);
+
+      await eventClient.flushEvents();
+
+      items = eventStore.getCount(100);
+      expect(items.length, 0);
+    });
+
+    test(
+        'flushEvents does not delete events that fail >3 times if they are AWSHttpException',
+        () async {
+      await eventClient.recordEvent(
+        eventType: failEventType,
+      );
+
+      final mockOperation = MockSmithyOperation<PutEventsResponse>();
+
+      when(
+        () => mockOperation.result,
+      ).thenThrow(MockAWSHttpException());
+
+      when(() => pinpointClient.putEvents(any<PutEventsRequest>()))
+          .thenReturn(mockOperation);
+
+      await eventClient.flushEvents();
+      await eventClient.flushEvents();
+      await eventClient.flushEvents();
+      await eventClient.flushEvents();
+      await eventClient.flushEvents();
+
+      final items = eventStore.getCount(100);
+      expect(items.length, 1);
     });
   });
 }

@@ -202,9 +202,10 @@ class EventClient implements Closeable {
       if (e.statusCode != null && _isRetryable(e.statusCode!)) {
         _handleRecoverableException(e, eventsToDelete);
       }
-    } on AWSHttpException catch (e) {
+    } on AWSHttpException {
       // AWSHttpException indicates request did not complete
-      _handleRecoverableException(e, eventsToDelete);
+      // Due to no internet.  These exceptions are always retryable.
+      eventsToDelete.clear();
     } on Exception catch (e) {
       _logger
         ..warn('putEvents - exception encountered: ', e)
@@ -235,7 +236,7 @@ class EventClient implements Closeable {
   }
 
   void _removeRetryableEvents(Map<String, StoredEvent> eventsToDelete) {
-    for (final eventId in eventsToDelete.keys) {
+    for (final eventId in eventsToDelete.keys.toList()) {
       if (_shouldEventRetry(eventId)) {
         eventsToDelete.remove(eventId);
       }
