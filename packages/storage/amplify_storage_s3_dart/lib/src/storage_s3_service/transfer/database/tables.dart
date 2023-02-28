@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/database.dart';
+import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/database_io.dart';
 import 'package:drift/drift.dart';
 
 /// Schema of the TransferRecords table in SQLite

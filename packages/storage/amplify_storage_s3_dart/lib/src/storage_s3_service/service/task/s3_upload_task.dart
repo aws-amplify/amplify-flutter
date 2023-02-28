@@ -8,6 +8,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
+import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/transfer_record.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/transfer.dart'
     as transfer;
 import 'package:async/async.dart';
@@ -463,8 +464,6 @@ class S3UploadTask {
         ..metadata.addAll(_options.metadata ?? const {});
     });
 
-    final createdAt = DateTime.now().toIso8601String();
-
     try {
       final output = await _s3Client.createMultipartUpload(request).result;
       final uploadId = output.uploadId;
@@ -473,10 +472,10 @@ class S3UploadTask {
         throw S3Exception.unexpectedMultipartUploadId();
       } else {
         await _transferDatabase.insertTransferRecord(
-          transfer.TransferRecordsCompanion.insert(
+          TransferRecord(
             uploadId: uploadId,
             objectKey: _resolvedKey,
-            createdAt: createdAt,
+            createdAt: DateTime.now(),
           ),
         );
         _multipartUploadId = uploadId;
