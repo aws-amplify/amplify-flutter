@@ -1,16 +1,18 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.amazonaws.amplify.amplify_push_notifications
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
 import android.util.Log
 import androidx.core.app.JobIntentService
+import com.google.firebase.messaging.RemoteMessage
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.dart.DartExecutor
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import io.flutter.plugin.common.PluginRegistry
 import io.flutter.view.FlutterCallbackInformation
 import io.flutter.view.FlutterMain
 import java.util.*
@@ -24,7 +26,7 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
 
     companion object {
         @JvmStatic
-        private val TAG = "PushNotificationBackgroundService"
+        private val TAG = "PushBackgroundService"
 
         @JvmStatic
         private val JOB_ID = UUID.randomUUID().mostSignificantBits.toInt()
@@ -35,21 +37,13 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
         @JvmStatic
         private val sServiceStarted = AtomicBoolean(false)
 
-        @JvmStatic
-        private lateinit var sPluginRegistrantCallback: PluginRegistry.PluginRegistrantCallback
 
         @JvmStatic
         fun enqueueWork(context: Context, work: Intent) {
             enqueueWork(context, PushNotificationBackgroundService::class.java, JOB_ID, work)
         }
-
-        @JvmStatic
-        fun setPluginRegistrant(callback: PluginRegistry.PluginRegistrantCallback) {
-            sPluginRegistrantCallback = callback
-        }
     }
 
-    @SuppressLint("LongLogTag")
     private fun startPushNotificationService(context: Context) {
         synchronized(sServiceStarted) {
             mContext = context
@@ -109,10 +103,14 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
         result.success(null)
     }
 
-    @SuppressLint("LongLogTag")
     override fun onHandleWork(intent: Intent) {
-
         Log.d(TAG, "Handling work @ PushNotificationBackgroundService...")
+        if (!intent.isPushNotificationIntent()) {
+            return
+        }
+        val remoteMessage = RemoteMessage(intent.extras)
+        val notificationMap = remoteMessage.asPayload().asChannelMap()
+
         val bgExternalCallbackHandle =
             getCallbackHandleForKey(AmplifyPushNotificationsPlugin.BG_EXTERNAL_CALLBACK_HANDLE_KEY)
         val bgInternalCallbackHandle =
@@ -123,18 +121,21 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
             return
         }
 
-
-        val callbackHandleList = listOf(bgInternalCallbackHandle, bgExternalCallbackHandle)
+        val callbackHandleList = listOf(
+            mapOf(
+                "handle" to bgInternalCallbackHandle,
+                "notification" to notificationMap
+            ),
+            mapOf(
+                "handle" to bgExternalCallbackHandle,
+                "notification" to notificationMap
+            )
+        )
         synchronized(sServiceStarted) {
             if (!sServiceStarted.get()) {
                 // Queue up geofencing events while background isolate is starting
                 queue.add(callbackHandleList)
             } else {
-                Log.d(
-                    TAG,
-                    "callbackHandle when calling the background channels: $callbackHandleList"
-                )
-
                 // Callback method name is intentionally left blank.
                 Handler(mContext.mainLooper).post {
                     mBackgroundChannel.invokeMethod(
@@ -146,11 +147,8 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
         }
     }
 
-    @SuppressLint("LongLogTag")
     private fun getCallbackHandleForKey(callbackKey: String): Long {
-
         Log.d(TAG, "callbackKey $callbackKey")
-
         return mContext.getSharedPreferences(
             AmplifyPushNotificationsPlugin.SHARED_PREFERENCES_KEY,
             MODE_PRIVATE
@@ -162,5 +160,4 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
         super.onCreate()
         startPushNotificationService(this)
     }
-
 }

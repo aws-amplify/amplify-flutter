@@ -7,12 +7,31 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_push_notifications_pinpoint/amplify_push_notifications_pinpoint.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'amplifyconfiguration.dart';
 
+String globalBgCallbackKey = 'globalBgCallbackCountKey';
+
+// TODO: Drawback app needs to be restarted for a new version of this function to be registered
 @pragma('vm:entry-point')
-void bgHandler(PushNotificationMessage pushNotificationMessage) {
-  print('BG handler invoked');
+void bgHandler(PushNotificationMessage pushNotificationMessage) async {
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+    print('BG handler invoked');
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.reload();
+    var globalBgCallbackCount = prefs.getInt(globalBgCallbackKey);
+    globalBgCallbackCount =
+        globalBgCallbackCount != null ? (globalBgCallbackCount + 1) : 0;
+    await prefs.setInt(
+      globalBgCallbackKey,
+      globalBgCallbackCount,
+    );
+    print('globalBgCallbackCount in handler -> $globalBgCallbackCount');
+  } on Exception catch (e) {
+    print(' error in handler: $e');
+  }
 }
 
 void main() {
@@ -31,8 +50,22 @@ class _MyAppState extends State<MyApp> {
   bool isConfigured = false;
   bool isForegroundListernerInitialized = false;
   bool isBackgroundListernerInitialized = false;
+  int globalBgCallbackCount = 0;
 
   PushNotificationMessage? foregroundMessage;
+
+  Future<int> getAndUpdateCallbackCounts() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.reload();
+      globalBgCallbackCount = prefs.getInt(globalBgCallbackKey) ?? 0;
+      print('globalBgCallbackCount -> $globalBgCallbackCount');
+      return globalBgCallbackCount;
+    } on Exception catch (e) {
+      print('Error when get call $e');
+      return 0;
+    }
+  }
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> _configureAmplify() async {
@@ -44,11 +77,13 @@ class _MyAppState extends State<MyApp> {
       final notificationsPlugin = AmplifyPushNotificationsPinpoint();
       final authPlugin = AmplifyAuthCognito();
 
-      await Amplify.addPlugins([authPlugin, notificationsPlugin]);
-      if (!Amplify.isConfigured) await Amplify.configure(amplifyconfig);
-      setState(() {
-        isConfigured = true;
-      });
+      if (!Amplify.isConfigured) {
+        await Amplify.addPlugins([authPlugin, notificationsPlugin]);
+        await Amplify.configure(amplifyconfig);
+        setState(() {
+          isConfigured = true;
+        });
+      }
     } on Exception catch (e) {
       safePrint(e.toString());
     }
@@ -79,6 +114,33 @@ class _MyAppState extends State<MyApp> {
             children: [
               const Divider(
                 height: 20,
+              ),
+              FutureBuilder<int>(
+                future: getAndUpdateCallbackCounts(),
+                builder: (
+                  BuildContext context,
+                  AsyncSnapshot<int> snapshot,
+                ) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return ListTile(
+                      title: Text(
+                        'Background callback count: ${snapshot.data}',
+                      ),
+                    );
+                  } else {
+                    return const ListTile(
+                      title: Text(
+                        'Background callback count:0',
+                      ),
+                    );
+                  }
+                },
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {});
+                },
+                child: const Text('Refresh count'),
               ),
               headerText('Configuration APIs'),
               ElevatedButton(

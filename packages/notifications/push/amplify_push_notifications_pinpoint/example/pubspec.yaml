@@ -15,6 +15,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.5
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   amplify_lints: ^1.0.0

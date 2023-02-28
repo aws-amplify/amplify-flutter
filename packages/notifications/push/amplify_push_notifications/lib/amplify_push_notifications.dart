@@ -11,9 +11,10 @@ import 'package:amplify_push_notifications/callback_dispatcher.dart';
 import 'package:flutter/services.dart';
 
 @pragma('vm:entry-point')
-void _internalBgHandler(PushNotificationMessage pushNotificationMessage) {
+Future<void> _internalBgHandler(
+  PushNotificationMessage pushNotificationMessage,
+) async {
   // TODO: Record Analytics
-  print('Record Analytics in _internalBgHandler');
 }
 
 const _methodChannel =
@@ -58,12 +59,11 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     _onForegroundNotificationReceived = _foregroundNotificationEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
-        .map((event) {
-      // TODO convert raw event to RemotePushMessage
-      return PushNotificationMessage.fromJson(event['payload'] as Map);
-    });
+        .map(
+          (event) => PushNotificationMessage.fromJson(event['payload'] as Map),
+        );
 
-    // TODO: Enable background API
+    // TODO: Enable background API for iOS
     _onBackgroundNotificationReceived = _backgroundNotificationEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
@@ -208,7 +208,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     try {
       await _serviceProviderClient.registerDevice(address);
       _logger.info('Successfully registered device with the servvice provider');
-      // return true;
     } on Exception {
       throw const PushNotificationException(
         'Error when registering device with the service provider: ',

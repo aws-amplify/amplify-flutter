@@ -40,10 +40,10 @@ class PushNotificationReceiver : BroadcastReceiver() {
                         payload, AmplifyPushNotificationsPlugin::class.java
                     )
 
-                    // TODO: Start a background headless service
-                        FlutterMain.startInitialization(context)
-                        FlutterMain.ensureInitializationComplete(context, null)
-                        PushNotificationBackgroundService.enqueueWork(context, it)
+
+                    FlutterMain.startInitialization(context)
+                    FlutterMain.ensureInitializationComplete(context, null)
+                    PushNotificationBackgroundService.enqueueWork(context, it)
 
                 } catch (exception: Exception) {
                     Log.e(TAG, "Something went wrong while starting headless task $exception")
