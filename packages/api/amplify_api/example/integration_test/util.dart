@@ -139,12 +139,12 @@ Future<Blog> addBlog(String name) async {
 }
 
 // declare utility which creates post with title and blog as parameter
-Future<Post> addPost(String name, Blog blog) async {
+Future<Post> addPost(String name, int rating, Blog blog) async {
   final request = ModelMutations.create(
     Post(
       title: name,
       blog: blog,
-      rating: 3,
+      rating: rating,
     ),
     authorizationMode: APIAuthorizationType.userPools,
   );
@@ -201,24 +201,7 @@ Future<Post> addPostAndBlog(
 ) async {
   const name = 'Integration Test Blog with a post - create';
   final createdBlog = await addBlog(name);
-
-  final post = Post(title: title, rating: rating, blog: createdBlog);
-  final createPostReq = ModelMutations.create(
-    post,
-    authorizationMode: APIAuthorizationType.userPools,
-  );
-  final createPostRes =
-      await Amplify.API.mutate(request: createPostReq).response;
-  expect(createPostRes, hasNoGraphQLErrors);
-  final data = createPostRes.data;
-  if (data == null) {
-    throw Exception(
-      'Null response while creating post. Response errors: ${createPostRes.errors}',
-    );
-  }
-  postCache.add(data);
-
-  return data;
+  return addPost(title, rating, createdBlog);
 }
 
 Future<Blog?> deleteBlog(Blog blog) async {

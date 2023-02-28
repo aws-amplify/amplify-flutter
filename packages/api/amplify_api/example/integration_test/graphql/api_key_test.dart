@@ -181,13 +181,13 @@ void main({bool useExistingTestUser = false}) {
 
             final subscriptionRequest = ModelSubscriptions.onCreate(
               Post.classType,
-              authorizationMode: APIAuthorizationType.userPools,
+              authorizationMode: APIAuthorizationType.apiKey,
               where: pred,
             );
 
             final stream = Amplify.API.subscribe(
               subscriptionRequest,
-              onEstablished: () => addPost(postTitle, blog),
+              onEstablished: () => addPost(postTitle, 3, blog),
             );
 
             stream.listen((event) {

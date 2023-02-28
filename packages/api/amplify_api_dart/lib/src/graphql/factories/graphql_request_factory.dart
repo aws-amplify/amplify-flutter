@@ -114,6 +114,7 @@ class GraphQLRequestFactory {
     ModelSchema schema,
     GraphQLRequestOperation operation,
     ModelIdentifier? modelIdentifier,
+    Map<String, dynamic> variables,
   ) {
     var upperOutput = '';
     var lowerOutput = '';
@@ -169,8 +170,10 @@ class GraphQLRequestFactory {
       case GraphQLRequestOperation.onCreate:
       case GraphQLRequestOperation.onUpdate:
       case GraphQLRequestOperation.onDelete:
-        upperOutput = '(\$filter: ModelSubscription${modelName}FilterInput)';
-        lowerOutput = r'(filter: $filter)';
+        if (variables.containsKey('filter')) {
+          upperOutput = '(\$filter: ModelSubscription${modelName}FilterInput)';
+          lowerOutput = r'(filter: $filter)';
+        }
         break;
       default:
         throw const ApiException(
@@ -195,7 +198,6 @@ class GraphQLRequestFactory {
     APIAuthorizationType? authorizationMode,
     Map<String, String>? headers,
     int depth = 0,
-    bool hasSubFilter = false,
   }) {
     // retrieve schema from ModelType and validate required properties
     final schema =
@@ -212,6 +214,7 @@ class GraphQLRequestFactory {
       schema,
       requestOperation,
       modelIdentifier,
+      variables,
     );
     // e.g. "id name createdAt" - fields to retrieve
     final fields = _getSelectionSetFromModelSchema(schema, requestOperation);

@@ -774,11 +774,12 @@ void main() {
     group('ModelSubScriptions', () {
       test('ModelSubscriptions.onCreate() should build a valid request', () {
         const expected =
-            'subscription onCreateBlog(\$filter: ModelSubscriptionBlogFilterInput) { onCreateBlog(filter: \$filter) { $blogSelectionSet } }';
+            'subscription onCreateBlog { onCreateBlog { $blogSelectionSet } }';
         final GraphQLRequest<Blog> req =
             ModelSubscriptions.onCreate<Blog>(Blog.classType);
 
         expect(req.document, expected);
+        expect(req.variables, <String, dynamic>{});
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'onCreateBlog');
       });
@@ -786,6 +787,8 @@ void main() {
       test(
           'ModelSubscriptions.onCreate() should support additional request parameters',
           () {
+        const expected =
+            'subscription onCreateBlog(\$filter: ModelSubscriptionBlogFilterInput) { onCreateBlog(filter: \$filter) { $blogSelectionSet } }';
         final req = ModelSubscriptions.onCreate(
           Blog.classType,
           apiName: _exampleApiName,
@@ -799,6 +802,7 @@ void main() {
           }
         };
 
+        expect(req.document, expected);
         expect(req.apiName, _exampleApiName);
         expect(req.headers, _exampleHeaders);
         expect(req.authorizationMode, APIAuthorizationType.function);
@@ -810,7 +814,7 @@ void main() {
 
       test('ModelSubscriptions.onUpdate() should build a valid request', () {
         const expected =
-            'subscription onUpdateBlog(\$filter: ModelSubscriptionBlogFilterInput) { onUpdateBlog(filter: \$filter) { $blogSelectionSet } }';
+            'subscription onUpdateBlog { onUpdateBlog { $blogSelectionSet } }';
         final GraphQLRequest<Blog> req =
             ModelSubscriptions.onUpdate<Blog>(Blog.classType);
 
@@ -846,7 +850,7 @@ void main() {
 
       test('ModelSubscriptions.onDelete() should build a valid request', () {
         const expected =
-            'subscription onDeleteBlog(\$filter: ModelSubscriptionBlogFilterInput) { onDeleteBlog(filter: \$filter) { $blogSelectionSet } }';
+            'subscription onDeleteBlog { onDeleteBlog { $blogSelectionSet } }';
         final GraphQLRequest<Blog> req =
             ModelSubscriptions.onDelete<Blog>(Blog.classType);
 
