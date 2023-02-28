@@ -37,11 +37,13 @@ class _MyAppState extends State<MyApp> {
       final notificationsPlugin = AmplifyPushNotificationsPinpoint();
       final authPlugin = AmplifyAuthCognito();
 
-      await Amplify.addPlugins([authPlugin, notificationsPlugin]);
-      if (!Amplify.isConfigured) await Amplify.configure(amplifyconfig);
-      setState(() {
-        isConfigured = true;
-      });
+      if (!Amplify.isConfigured) {
+        await Amplify.addPlugins([authPlugin, notificationsPlugin]);
+        await Amplify.configure(amplifyconfig);
+        setState(() {
+          isConfigured = true;
+        });
+      }
     } on Exception catch (e) {
       safePrint(e.toString());
     }

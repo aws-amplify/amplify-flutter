@@ -139,8 +139,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     );
 
     // Block configure if registering device is not complete
-    final deviceToken = await onTokenReceived.first;
-    await _registerDevice(deviceToken);
+    await _checkAndRegisterToken();
 
     // Initialize listeners
     onTokenReceived.listen(_tokenReceivedListener);
@@ -152,6 +151,24 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     _logger.info('CONFIGURE API | Successfully configure push notifications');
 
     _isConfigured = true;
+  }
+
+  @override
+  Future<void> reset() async {
+    if (!_isConfigured) {
+      return;
+    }
+    _isConfigured = false;
+  }
+
+  Future<void> _checkAndRegisterToken() async {
+    try {
+      final deviceToken = await onTokenReceived.first;
+      await _registerDevice(deviceToken);
+    } on Exception {
+      throw const PushNotificationException(
+          'No Pinpoint plugin config available');
+    }
   }
 
   void _foregroundNotificationListener(
@@ -192,7 +209,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     try {
       await _serviceProviderClient.registerDevice(address);
       _logger.info('Successfully registered device with the servvice provider');
-      // return true;
     } on Exception {
       throw const PushNotificationException(
         'Error when registering device with the service provider: ',

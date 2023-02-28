@@ -10,7 +10,7 @@ import io.flutter.plugin.common.EventChannel.EventSink
 private const val channelNamePrefix = "com.amazonaws.amplify/push_notification"
 
 enum class NativeEvent {
-    TOKEN_RECEIVED, NOTIFICATION_OPENED, LAUNCH_NOTIFICATION_OPENED, FOREGROUND_MESSAGE_RECEIVED, BACKGROUND_MESSAGE_RECEIVED;
+    TOKEN_RECEIVED, NOTIFICATION_OPENED, LAUNCH_NOTIFICATION_OPENED, FOREGROUND_MESSAGE_RECEIVED, BACKGROUND_MESSAGE_RECEIVED, ERROR;
 
     val eventName: String
         get() = when (this) {
@@ -19,6 +19,7 @@ enum class NativeEvent {
             LAUNCH_NOTIFICATION_OPENED -> "LAUNCH_NOTIFICATION_OPENED"
             FOREGROUND_MESSAGE_RECEIVED -> "FOREGROUND_MESSAGE_RECEIVED"
             BACKGROUND_MESSAGE_RECEIVED -> "BACKGROUND_MESSAGE_RECEIVED"
+            ERROR -> "ERROR"
         }
 
     val eventChannelName: String
@@ -69,14 +70,35 @@ class PushNotificationEventsStreamHandler constructor(
     }
 
     // TODO: Figure out how to sendError
-//    fun sendError(event: NativeEvent, error: FlutterError) {
-//        eventSinks[event.eventName]?.error(event.eventName, error.message, error.details)
-//    }
+    fun sendError(exception: Exception) {
+        val exceptionMap = mapOf(
+            "associatedNativeEventName" to _associatedNativeEvent.eventName,
+            "message" to exception.message,
+            "details" to null
+        )
+        eventSink?.error(
+            exceptionMap["associatedNativeEventName"],
+            exceptionMap["message"],
+            exceptionMap["details"]
+        ) ?: run {
+            eventQueue.add(PushNotificationsEvent(NativeEvent.ERROR, exceptionMap))
+        }
+    }
 
     private fun flushEvents() {
         eventSink?.let {
             while (eventQueue.isNotEmpty()) {
-                it.success(eventQueue.removeFirst().toMap())
+                val eventFromQueue = eventQueue.removeFirst()
+                if (eventFromQueue.event.eventName == NativeEvent.ERROR.eventName) {
+                    val exception = eventFromQueue.payload
+                    it.error(
+                        exception["associatedNativeEventName"] as String?,
+                        exception["message"] as String?,
+                        exception["details"] as String?,
+                    )
+                } else {
+                    it.success(eventFromQueue.toMap())
+                }
             }
         }
     }
