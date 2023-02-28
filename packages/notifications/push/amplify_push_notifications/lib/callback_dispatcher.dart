@@ -10,6 +10,8 @@ import 'package:flutter/services.dart';
 const _backgroundChannel = MethodChannel(
   'plugins.flutter.io/amplify_push_notification_plugin_background',
 );
+final AmplifyLogger _logger = AmplifyLogger.category(Category.pushNotifications)
+    .createChild('AmplifyPushNotification');
 
 /// CallbackDispatcher is a standalone function that must reside in the
 /// global scope with the vm:entry-point annotation.
@@ -21,32 +23,35 @@ const _backgroundChannel = MethodChannel(
 /// through WidgetsFlutterBinding.ensureInitialized()
 @pragma('vm:entry-point')
 void callbackDispatcher() {
-  print('CallbackDispatcher was called');
-
   WidgetsFlutterBinding.ensureInitialized();
 
-  // ignore: cascade_invocations
-  _backgroundChannel.setMethodCallHandler((MethodCall call) async {
-    final args = call.arguments as List<dynamic>;
-    for (final element in args) {
-      print('CallbackDispatcher element: $element');
-
-      final callback = PluginUtilities.getCallbackFromHandle(
-        // ignore: avoid_dynamic_calls
-        CallbackHandle.fromRawHandle(element['handle'] as int),
-      );
-      assert(callback != null, 'Callback not found');
-
-      // ignore: avoid_dynamic_calls
-      callback!(
-        // ignore: avoid_dynamic_calls
-        PushNotificationMessage.fromJson(element['notification'] as Map),
-      );
-    }
-  });
-
-  print('CallbackDispatcher was initialized');
-
   _backgroundChannel
-      .invokeMethod('PushNotificationBackgroundService.initialized');
+    ..setMethodCallHandler((MethodCall call) async {
+      // TODO(Samaritan1011001): Record Analytics
+
+      final callbackInfo = call.arguments as Map<Object?, Object?>;
+      // Call the external callback only if it is registered
+      final externalHandle = callbackInfo['externalHandle'] as int?;
+      if (externalHandle == null) {
+        return;
+      }
+      final externalCallback = PluginUtilities.getCallbackFromHandle(
+        CallbackHandle.fromRawHandle(externalHandle),
+      );
+      if (externalCallback == null) {
+        _logger.debug('Could not locate callback for handle: $externalHandle');
+        return;
+      }
+      if (externalCallback is! OnRemoteMessageCallback) {
+        throw StateError(
+          'Invalid callback type: ${externalCallback.runtimeType}',
+        );
+      }
+      await externalCallback(
+        PushNotificationMessage.fromJson(
+          callbackInfo['notification'] as Map,
+        ),
+      );
+    })
+    ..invokeMethod('callbackDispatcherInitialized');
 }

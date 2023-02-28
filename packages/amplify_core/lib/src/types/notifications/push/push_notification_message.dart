@@ -29,15 +29,9 @@ class PushNotificationMessage
   ApnsPlatformOptions? apnsOptions;
   Map<Object?, Object?> data = {};
 
-  // TODO(Samaritan1011001): Find common and required fields
   PushNotificationMessage.fromJson(Map<Object?, Object?> json) {
-    // TODO: Figure put what format is sentTime and how to parse it
-    // final sentTimeInt = json['sentTime'] as int?;
-    // sentTime =
-    //     sentTimeInt == null ? null : DateTime.parse(sentTimeInt.toString());
-    data = json['data'] as Map<Object?, Object?>;
+    data = (json['data'] as Map<Object?, Object?>?) ?? {};
 
-    // TODO: standardize iOS json with Android, apnsOption can be the only difference
     final aps = json['aps'] as Map<Object?, Object?>?;
     if (aps != null) {
       final alert = aps['alert'] as Map<Object?, Object?>?;
@@ -51,10 +45,7 @@ class PushNotificationMessage
           deeplinkUrl = pinpointData['deeplink'] as String?;
           goToUrl = deeplinkUrl;
         }
-        // TODO(Samaritan1011001): Find where the subtitle is in the dictionary
-        // apnsOptions: ApnsPlatformOptions(
-        //   subtitle: cast<String>(json['aps']['content-available'])
-        // ),
+        apnsOptions = ApnsPlatformOptions(subtitle: aps['subtitle'] as String);
       }
     } else {
       final fcmOptionsMap = json['fcmOptions'] as Map<Object?, Object?>?;
@@ -63,12 +54,16 @@ class PushNotificationMessage
       imageUrl = json['imageUrl'] as String?;
       deeplinkUrl = json['deeplinkUrl'] as String?;
       goToUrl = json['goToUrl'] as String?;
-      // TODO(Samaritan1011001): Find where the channelId is in the dictionary
       if (fcmOptionsMap != null) {
+        final sentTimeInt = fcmOptionsMap['sentTime'] as int?;
+        final sentTime = sentTimeInt == null
+            ? null
+            : DateTime.fromMillisecondsSinceEpoch(sentTimeInt);
         fcmOptions = FcmPlatformOptions(
           channelId: fcmOptionsMap['channelId'] as String?,
           messageId: fcmOptionsMap['messageId'] as String?,
           senderId: fcmOptionsMap['sender'] as String?,
+          sentTime: sentTime,
         );
       }
     }

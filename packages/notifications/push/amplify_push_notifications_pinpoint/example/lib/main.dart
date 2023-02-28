@@ -13,7 +13,7 @@ import 'amplifyconfiguration.dart';
 
 String globalBgCallbackKey = 'globalBgCallbackCountKey';
 
-// TODO: Drawback app needs to be restarted for a new version of this function to be registered
+// TODO: Drawback: app needs to be restarted for a new version of this function to be registered
 @pragma('vm:entry-point')
 void bgHandler(PushNotificationMessage pushNotificationMessage) async {
   try {
@@ -23,7 +23,7 @@ void bgHandler(PushNotificationMessage pushNotificationMessage) async {
     await prefs.reload();
     var globalBgCallbackCount = prefs.getInt(globalBgCallbackKey);
     globalBgCallbackCount =
-        globalBgCallbackCount != null ? (globalBgCallbackCount + 1) : 0;
+        globalBgCallbackCount != null ? (globalBgCallbackCount + 1) : 1;
     await prefs.setInt(
       globalBgCallbackKey,
       globalBgCallbackCount,
@@ -32,6 +32,7 @@ void bgHandler(PushNotificationMessage pushNotificationMessage) async {
   } on Exception catch (e) {
     print(' error in handler: $e');
   }
+  return;
 }
 
 void main() {
@@ -50,23 +51,39 @@ class _MyAppState extends State<MyApp> {
   bool isConfigured = false;
   bool isForegroundListernerInitialized = false;
   bool isBackgroundListernerInitialized = false;
+  bool notificationOpenedListernerInitialized = false;
   int globalBgCallbackCount = 0;
 
   PushNotificationMessage? foregroundMessage;
-  PushNotificationPermissionRequestStatus? getPermissionStatus;
+  PushNotificationMessage? notificaitonOpenedMessage;
+  PushNotificationPermissionStatus? getPermissionStatus;
   bool? requestPermissionsResult;
+  PushNotificationMessage? launchNotificaitonAvailable;
 
   Future<int> getAndUpdateCallbackCounts() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.reload();
       globalBgCallbackCount = prefs.getInt(globalBgCallbackKey) ?? 0;
-      print('globalBgCallbackCount -> $globalBgCallbackCount');
+      // print('globalBgCallbackCount -> $globalBgCallbackCount');
       return globalBgCallbackCount;
     } on Exception catch (e) {
       print('Error when get call $e');
       return 0;
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _configureAmplify();
+  }
+
+  void getLaunchNotif() {
+    setState(() {
+      launchNotificaitonAvailable =
+          Amplify.Notifications.Push.launchNotification;
+    });
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -79,11 +96,13 @@ class _MyAppState extends State<MyApp> {
       final notificationsPlugin = AmplifyPushNotificationsPinpoint();
       final authPlugin = AmplifyAuthCognito();
 
-      await Amplify.addPlugins([authPlugin, notificationsPlugin]);
-      if (!Amplify.isConfigured) await Amplify.configure(amplifyconfig);
-      setState(() {
-        isConfigured = true;
-      });
+      if (!Amplify.isConfigured) {
+        await Amplify.addPlugins([authPlugin, notificationsPlugin]);
+        await Amplify.configure(amplifyconfig);
+        setState(() {
+          isConfigured = true;
+        });
+      }
     } on Exception catch (e) {
       print(e.toString());
     }
@@ -115,45 +134,45 @@ class _MyAppState extends State<MyApp> {
               const Divider(
                 height: 20,
               ),
-              FutureBuilder<int>(
-                future: getAndUpdateCallbackCounts(),
-                builder: (
-                  BuildContext context,
-                  AsyncSnapshot<int> snapshot,
-                ) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return ListTile(
-                      title: Text(
-                        'Background callback count: ${snapshot.data}',
-                      ),
-                    );
-                  } else {
-                    return const ListTile(
-                      title: Text(
-                        'Background callback count:0',
-                      ),
-                    );
-                  }
-                },
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {});
-                },
-                child: const Text('Refresh count'),
-              ),
-              headerText('Configuration APIs'),
-              ElevatedButton(
-                onPressed: () async {
-                  await _configureAmplify();
-                },
-                child: const Text('configure'),
-              ),
-              if (isConfigured)
-                const Text('Push notification plugin has been configured'),
-              const Divider(
-                height: 20,
-              ),
+              // FutureBuilder<int>(
+              //   future: getAndUpdateCallbackCounts(),
+              //   builder: (
+              //     BuildContext context,
+              //     AsyncSnapshot<int> snapshot,
+              //   ) {
+              //     if (snapshot.connectionState == ConnectionState.done) {
+              //       return ListTile(
+              //         title: Text(
+              //           'Background callback count: ${snapshot.data}',
+              //         ),
+              //       );
+              //     } else {
+              //       return const ListTile(
+              //         title: Text(
+              //           'Background callback count:0',
+              //         ),
+              //       );
+              //     }
+              //   },
+              // ),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     setState(() {});
+              //   },
+              //   child: const Text('Refresh count'),
+              // ),
+              // headerText('Configuration APIs'),
+              // ElevatedButton(
+              //   onPressed: () async {
+              //     await _configureAmplify();
+              //   },
+              //   child: const Text('configure'),
+              // ),
+              // if (isConfigured)
+              //   const Text('Push notification plugin has been configured'),
+              // const Divider(
+              //   height: 20,
+              // ),
               headerText('Permissions APIs'),
               ElevatedButton(
                 onPressed: () async {
@@ -187,22 +206,18 @@ class _MyAppState extends State<MyApp> {
               headerText('Notification Handling APIs'),
               ElevatedButton(
                 onPressed: () async {
-                  try {
-                    final foregroundStream = Amplify
-                        .Notifications.Push.onNotificationReceivedInForeground;
-                    foregroundStream.listen((event) {
-                      setState(() {
-                        foregroundMessage = event;
-                      });
-                    });
+                  final foregroundStream = Amplify
+                      .Notifications.Push.onNotificationReceivedInForeground;
+                  foregroundStream.listen((event) {
                     setState(() {
-                      isForegroundListernerInitialized = true;
+                      foregroundMessage = event;
                     });
-                  } on Exception catch (e) {
-                    print(e.toString());
-                  }
+                  });
+                  setState(() {
+                    isForegroundListernerInitialized = true;
+                  });
                 },
-                child: const Text('onForegroundNotificationReceived'),
+                child: const Text('onNotificationReceivedInForeground'),
               ),
               if (isForegroundListernerInitialized)
                 const Text('Foreground event listener initialized!'),
@@ -232,6 +247,40 @@ class _MyAppState extends State<MyApp> {
               ),
               if (isBackgroundListernerInitialized)
                 const Text('Background event listener initialized!'),
+              ElevatedButton(
+                onPressed: () async {
+                  final notificaitonOpenedStream =
+                      Amplify.Notifications.Push.onNotificationOpened;
+                  notificaitonOpenedStream.listen((event) {
+                    setState(() {
+                      notificaitonOpenedMessage = event;
+                    });
+                  });
+                  setState(() {
+                    notificationOpenedListernerInitialized = true;
+                  });
+                },
+                child: const Text('onNotificationOpened'),
+              ),
+              if (notificationOpenedListernerInitialized)
+                const Text('OnNotificationOpened event listener initialized!'),
+              ListTile(
+                title: Text(
+                  notificaitonOpenedMessage == null
+                      ? 'No OnNotificationOpened message yet'
+                      : "Title: ${notificaitonOpenedMessage!.title?.toString() ?? ""}",
+                ),
+              ),
+              ElevatedButton(
+                onPressed: getLaunchNotif,
+                child: const Text('get Launch Notification'),
+              ),
+              if (launchNotificaitonAvailable != null)
+                ListTile(
+                  title: Text(
+                    'launchNotificaitonAvailable: $launchNotificaitonAvailable',
+                  ),
+                ),
             ],
           ),
         ),

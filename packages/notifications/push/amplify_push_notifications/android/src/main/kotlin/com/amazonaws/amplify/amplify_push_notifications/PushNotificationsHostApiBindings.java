@@ -36,14 +36,25 @@ public class PushNotificationsHostApiBindings {
   }
 
   public enum PermissionStatus {
-    SHOULD_REQUEST(0),
-    SHOULD_EXPLAIN_THEN_REQUEST(1),
+    NOT_REQUESTED(0),
+    SHOULD_REQUEST_WITH_RATIONALE(1),
     GRANTED(2),
     DENIED(3);
 
     private final int index;
 
     private PermissionStatus(final int index) {
+      this.index = index;
+    }
+  }
+
+  public enum CallbackType {
+    DISPATCHER(0),
+    EXTERNAL_FUNCTION(1);
+
+    private final int index;
+
+    private CallbackType(final int index) {
       this.index = index;
     }
   }
@@ -254,6 +265,14 @@ public class PushNotificationsHostApiBindings {
           new ArrayList<Object>(Collections.singletonList(withPayloadArg)),
           channelReply -> callback.reply(null));
     }
+    public void onLaunchNotificationOpened(@NonNull Map<Object, Object> withPayloadArg, Reply<Void> callback) {
+      BasicMessageChannel<Object> channel =
+          new BasicMessageChannel<>(
+              binaryMessenger, "dev.flutter.pigeon.PushNotificationsFlutterApi.onLaunchNotificationOpened", getCodec());
+      channel.send(
+          new ArrayList<Object>(Collections.singletonList(withPayloadArg)),
+          channelReply -> callback.reply(null));
+    }
   }
 
   private static class PushNotificationsHostApiCodec extends StandardMessageCodec {
@@ -294,13 +313,12 @@ public class PushNotificationsHostApiBindings {
 
     void requestPermissions(@NonNull PermissionsOptions withPermissionOptions, Result<Boolean> result);
 
-    @Nullable 
-    Map<Object, Object> getLaunchNotification();
-
     @NonNull 
     Long getBadgeCount();
 
     void setBadgeCount(@NonNull Long withBadgeCount);
+
+    void registerCallbackFunction(@NonNull Long callbackHandle, @NonNull CallbackType callbackType);
 
     /** The codec used by PushNotificationsHostApi. */
     static MessageCodec<Object> getCodec() {
@@ -381,27 +399,6 @@ public class PushNotificationsHostApiBindings {
       {
         BasicMessageChannel<Object> channel =
             new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.PushNotificationsHostApi.getLaunchNotification", getCodec());
-        if (api != null) {
-          channel.setMessageHandler(
-              (message, reply) -> {
-                ArrayList<Object> wrapped = new ArrayList<Object>();
-                try {
-                  Map<Object, Object> output = api.getLaunchNotification();
-                  wrapped.add(0, output);
-                } catch (Error | RuntimeException exception) {
-                  ArrayList<Object> wrappedError = wrapError(exception);
-                  wrapped = wrappedError;
-                }
-                reply.reply(wrapped);
-              });
-        } else {
-          channel.setMessageHandler(null);
-        }
-      }
-      {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
                 binaryMessenger, "dev.flutter.pigeon.PushNotificationsHostApi.getBadgeCount", getCodec());
         if (api != null) {
           channel.setMessageHandler(
@@ -436,6 +433,37 @@ public class PushNotificationsHostApiBindings {
                     throw new NullPointerException("withBadgeCountArg unexpectedly null.");
                   }
                   api.setBadgeCount((withBadgeCountArg == null) ? null : withBadgeCountArg.longValue());
+                  wrapped.add(0, null);
+                } catch (Error | RuntimeException exception) {
+                  ArrayList<Object> wrappedError = wrapError(exception);
+                  wrapped = wrappedError;
+                }
+                reply.reply(wrapped);
+              });
+        } else {
+          channel.setMessageHandler(null);
+        }
+      }
+      {
+        BasicMessageChannel<Object> channel =
+            new BasicMessageChannel<>(
+                binaryMessenger, "dev.flutter.pigeon.PushNotificationsHostApi.registerCallbackFunction", getCodec());
+        if (api != null) {
+          channel.setMessageHandler(
+              (message, reply) -> {
+                ArrayList<Object> wrapped = new ArrayList<Object>();
+                try {
+                  ArrayList<Object> args = (ArrayList<Object>) message;
+                  assert args != null;
+                  Number callbackHandleArg = (Number) args.get(0);
+                  if (callbackHandleArg == null) {
+                    throw new NullPointerException("callbackHandleArg unexpectedly null.");
+                  }
+                  CallbackType callbackTypeArg = args.get(1) == null ? null : CallbackType.values()[(int) args.get(1)];
+                  if (callbackTypeArg == null) {
+                    throw new NullPointerException("callbackTypeArg unexpectedly null.");
+                  }
+                  api.registerCallbackFunction((callbackHandleArg == null) ? null : callbackHandleArg.longValue(), callbackTypeArg);
                   wrapped.add(0, null);
                 } catch (Error | RuntimeException exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);

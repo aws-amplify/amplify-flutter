@@ -5,8 +5,12 @@
 /// Enum to indicate the state of the current push notification permissions.
 /// {@endtemplate}
 enum PushNotificationPermissionStatus {
-  shouldRequest,
-  shouldExplainThenRequest,
-  granted,
-  denied,
+  shouldRequest('should_request'),
+  shouldExplainThenRequest('shoudl_explain_then_request'),
+  granted('granted'),
+  denied('denied');
+
+  const PushNotificationPermissionStatus(this.name);
+
+  final String name;
 }
