@@ -90,10 +90,13 @@ void main() {
 
       final endpointId = uuid();
       store.write(
-          key: EndpointStoreKey.version.name,
-          value: EndpointStoreVersion.v1.name);
+        key: EndpointStoreKey.version.name,
+        value: EndpointStoreVersion.v1.name,
+      );
       endpointStore.write(
-          key: EndpointStoreKey.endpointId.name, value: endpointId);
+        key: EndpointStoreKey.endpointId.name,
+        value: endpointId,
+      );
 
       final endpointIdManager = EndpointInfoStoreManager(
         store: store,

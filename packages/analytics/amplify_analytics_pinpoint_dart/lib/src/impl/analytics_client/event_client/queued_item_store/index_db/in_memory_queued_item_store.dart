@@ -4,7 +4,6 @@
 import 'dart:collection';
 
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/queued_item_store.dart';
-import 'package:meta/meta.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.in_memory_queued_item_store}
 /// Stores string elements in device memory.

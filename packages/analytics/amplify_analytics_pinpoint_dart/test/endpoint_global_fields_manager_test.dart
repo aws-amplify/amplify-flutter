@@ -56,7 +56,8 @@ void main() {
       expect(fieldsManager.globalAttributes[attrKey1], attrValue1);
 
       final storedAttrs = await EndpointGlobalFieldsManager.getStoredAttributes(
-          mockSecureStorage);
+        mockSecureStorage,
+      );
       expect(storedAttrs[attrKey1], attrValue1);
     });
 
@@ -70,7 +71,8 @@ void main() {
       expect(fieldsManager.globalAttributes[attrKey2], attrValue2);
 
       final storedAttrs = await EndpointGlobalFieldsManager.getStoredAttributes(
-          mockSecureStorage);
+        mockSecureStorage,
+      );
       expect(storedAttrs[attrKey1], attrValue1);
       expect(storedAttrs[attrKey2], attrValue2);
     });
@@ -112,7 +114,8 @@ void main() {
       expect(fieldsManager.globalAttributes[attrKey2], attrValue2);
 
       final storedAttrs = await EndpointGlobalFieldsManager.getStoredAttributes(
-          mockSecureStorage);
+        mockSecureStorage,
+      );
       expect(storedAttrs.containsKey(attrKey1), false);
       expect(storedAttrs[attrKey2], attrValue2);
     });
@@ -157,7 +160,8 @@ void main() {
       // Validate stored attributes are truncated.
       final storedAttributes =
           await EndpointGlobalFieldsManager.getStoredAttributes(
-              mockSecureStorage);
+        mockSecureStorage,
+      );
       expect(storedAttributes[storedAttrKey], storedAttrValue);
     });
 
@@ -202,7 +206,8 @@ void main() {
       expect(fieldsManager.globalAttributes.containsKey(attrKey1), false);
 
       final storedAttrs = await EndpointGlobalFieldsManager.getStoredAttributes(
-          mockSecureStorage);
+        mockSecureStorage,
+      );
       expect(storedAttrs.containsKey(attrKey1), false);
 
       await fieldsManager.addMetric(metricKey1, metricValue1);
