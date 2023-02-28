@@ -23,3 +23,5 @@ class MockPinpointClient extends Mock implements PinpointClient {}
 
 class MockLegacyNativeDataProvider extends Mock
     implements LegacyNativeDataProvider {}
+
+class MockSmithyOperation<T> extends Mock implements SmithyOperation<T> {}

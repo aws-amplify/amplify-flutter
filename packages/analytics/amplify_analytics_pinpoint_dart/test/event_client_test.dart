@@ -375,8 +375,14 @@ void main() {
         eventType: failEventType,
       );
 
+      final mockOperation = MockSmithyOperation<PutEventsResponse>();
+
+      when(
+        () => mockOperation.result,
+      ).thenThrow(BadRequestException());
+
       when(() => pinpointClient.putEvents(any<PutEventsRequest>()))
-          .thenThrow(BadRequestException());
+          .thenReturn(mockOperation);
 
       await eventClient.flushEvents();
 
@@ -394,8 +400,14 @@ void main() {
         eventType: failEventType,
       );
 
+      final mockOperation = MockSmithyOperation<PutEventsResponse>();
+
+      when(
+        () => mockOperation.result,
+      ).thenThrow(PayloadTooLargeException());
+
       when(() => pinpointClient.putEvents(any<PutEventsRequest>()))
-          .thenThrow(PayloadTooLargeException());
+          .thenReturn(mockOperation);
 
       await eventClient.flushEvents();
 
