@@ -139,6 +139,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     );
 
     // Block configure if registering device is not complete
+    // TODO: Catch and throw exceptions originating from token or device registration
     final deviceToken = await onTokenReceived.first;
     await _registerDevice(deviceToken);
 
@@ -202,9 +203,9 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
   @override
   Future<bool> requestPermissions({
-    bool? alert = true,
-    bool? badge = true,
-    bool? sound = true,
+    bool alert = true,
+    bool badge = true,
+    bool sound = true,
   }) async {
     return await _methodChannel.invokeMethod<bool>('requestPermissions', {
           'alert': alert,

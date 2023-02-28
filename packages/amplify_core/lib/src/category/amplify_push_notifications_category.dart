@@ -30,9 +30,9 @@ class PushNotificationsCategory
   /// It returns true if granted or false if denied.
   /// {@endtemplate}
   Future<bool> requestPermissions({
-    bool? alert = true,
-    bool? badge = true,
-    bool? sound = true,
+    bool alert = true,
+    bool badge = true,
+    bool sound = true,
   }) =>
       defaultPlugin.requestPermissions(
         alert: alert,
