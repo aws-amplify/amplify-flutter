@@ -14,6 +14,12 @@ import com.google.firebase.messaging.RemoteMessage
 
 private const val PAYLOAD_KEY = "payload"
 
+enum class PushNotificationPermissionStatus {
+    notRequested,
+    shouldRequestWithRationale,
+    granted,
+    denied,
+}
 
 fun RemoteMessage.asPayload(): NotificationPayload {
     val messageId = this.messageId

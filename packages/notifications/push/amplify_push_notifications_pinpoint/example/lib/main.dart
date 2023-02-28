@@ -53,6 +53,8 @@ class _MyAppState extends State<MyApp> {
   int globalBgCallbackCount = 0;
 
   PushNotificationMessage? foregroundMessage;
+  PushNotificationPermissionRequestStatus? getPermissionStatus;
+  bool? requestPermissionsResult;
 
   Future<int> getAndUpdateCallbackCounts() async {
     try {
@@ -151,6 +153,36 @@ class _MyAppState extends State<MyApp> {
               ),
               if (isConfigured)
                 const Text('Push notification plugin has been configured'),
+              const Divider(
+                height: 20,
+              ),
+              headerText('Permissions APIs'),
+              ElevatedButton(
+                onPressed: () async {
+                  final status =
+                      await Amplify.Notifications.Push.getPermissionStatus();
+                  setState(() {
+                    getPermissionStatus = status;
+                  });
+                },
+                child: const Text('getPermissionStatus'),
+              ),
+              if (getPermissionStatus != null)
+                Text('Perimission status: $getPermissionStatus'),
+              ElevatedButton(
+                onPressed: () async {
+                  final result =
+                      await Amplify.Notifications.Push.requestPermissions();
+                  setState(() {
+                    requestPermissionsResult = result;
+                  });
+                },
+                child: const Text('requestPermissions'),
+              ),
+              if (requestPermissionsResult != null)
+                Text(
+                  'Requesting Perimission result: $requestPermissionsResult',
+                ),
               const Divider(
                 height: 20,
               ),

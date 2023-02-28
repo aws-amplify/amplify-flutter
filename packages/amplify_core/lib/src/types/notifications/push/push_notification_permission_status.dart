@@ -6,7 +6,7 @@
 /// {@endtemplate}
 enum PushNotificationPermissionRequestStatus {
   notRequested,
-  shouldShowWithRationale,
+  shouldRequestWithRationale,
   granted,
   denied,
 }
