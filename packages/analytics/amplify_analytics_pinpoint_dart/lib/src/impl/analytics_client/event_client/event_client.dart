@@ -107,6 +107,8 @@ class EventClient implements Closeable {
     return completer.future;
   }
 
+  final _failedEventIds = <String, int>{};
+
   Future<void> _flushEvents() async {
     final storedEvents = await _eventStorage.retrieveEvents();
 
@@ -172,28 +174,23 @@ class EventClient implements Closeable {
           'putEvents - no EventsItemResponse response received from Pinpoint',
         );
       }
-      eventsItemResponse?.forEach((eventID, eventItemResponse) {
+      eventsItemResponse?.forEach((eventId, eventItemResponse) {
         if (!_equalsIgnoreCase(eventItemResponse.message ?? '', 'Accepted')) {
           _logger.warn(
-            'putEvents - issue with eventId: $eventID \n $eventItemResponse',
+            'putEvents - issue with eventId: $eventId \n $eventItemResponse',
           );
 
-          if (_isRetryable(eventItemResponse.message ?? '')) {
+          if (_isRetryable(eventItemResponse.statusCode)) {
             _logger.warn(
-              'putEvents - recoverable issue, will attempt to resend: $eventID in next FlushEvents',
+              'putEvents - recoverable issue, will attempt to resend: $eventId in next FlushEvents',
             );
-            eventsToDelete.remove(eventID);
+
+            if (_shouldEventRetry(eventId)) {
+              eventsToDelete.remove(eventId);
+            }
           }
         }
       });
-    } on BadRequestException catch (e) {
-      _handleRecoverableException(e, eventsToDelete);
-    } on InternalServerErrorException catch (e) {
-      _handleRecoverableException(e, eventsToDelete);
-    } on NotFoundException catch (e) {
-      _handleRecoverableException(e, eventsToDelete);
-    } on TooManyRequestsException catch (e) {
-      _handleRecoverableException(e, eventsToDelete);
     } on PayloadTooLargeException catch (e) {
       _logger
         ..warn('putEvents - exception encountered: ', e)
@@ -201,6 +198,13 @@ class EventClient implements Closeable {
             'Pinpoint event batch limits exceeded: 100 events / 4 mb total size / 1 mb max size per event \n '
             'Reduce your event size or change number of events in a batch')
         ..warn('Unrecoverable issue, deleting cache for local event batch');
+    } on SmithyHttpException catch (e) {
+      if (e.statusCode != null && _isRetryable(e.statusCode!)) {
+        _handleRecoverableException(e, eventsToDelete);
+      }
+    } on AWSHttpException catch (e) {
+      // AWSHttpException indicates request did not complete
+      _handleRecoverableException(e, eventsToDelete);
     } on Exception catch (e) {
       _logger
         ..warn('putEvents - exception encountered: ', e)
@@ -216,20 +220,37 @@ class EventClient implements Closeable {
 
   // If exception is recoverable, do not delete eventIds from local cache
   void _handleRecoverableException(
-    SmithyHttpException e,
-    Map<String, StoredEvent> eventIdsToDelete,
+    Exception e,
+    Map<String, StoredEvent> eventsToDelete,
   ) {
     _logger
       ..warn('putEvents - exception encountered: ', e)
       ..warn('Recoverable issue, will attempt to resend event batch');
-    eventIdsToDelete.clear();
+    // Attempt to retry all events unless some events reached fail limit
+    _removeRetryableEvents(eventsToDelete);
   }
 
-  bool _isRetryable(String? message) {
-    return message != null &&
-        !_equalsIgnoreCase(message, 'ValidationException') &&
-        !_equalsIgnoreCase(message, 'SerializationException') &&
-        !_equalsIgnoreCase(message, 'BadRequestException');
+  bool _isRetryable(int statusCode) {
+    return 500 <= statusCode && statusCode < 600;
+  }
+
+  void _removeRetryableEvents(Map<String, StoredEvent> eventsToDelete) {
+    for (final eventId in eventsToDelete.keys) {
+      if (_shouldEventRetry(eventId)) {
+        eventsToDelete.remove(eventId);
+      }
+    }
+  }
+
+  bool _shouldEventRetry(String eventId) {
+    final timesFailed = (_failedEventIds[eventId] ?? 0) + 1;
+    if (timesFailed > 3) {
+      _logger.warn('Event fail limit reached, deleting event.');
+      return false;
+    } else {
+      _failedEventIds[eventId] = timesFailed;
+      return true;
+    }
   }
 
   bool _equalsIgnoreCase(String string1, String string2) {
