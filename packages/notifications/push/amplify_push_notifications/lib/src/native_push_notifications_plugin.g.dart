@@ -18,6 +18,11 @@ enum PermissionStatus {
   denied,
 }
 
+enum CallbackType {
+  dispatcher,
+  externalFunction,
+}
+
 class PermissionsOptions {
   PermissionsOptions({
     required this.alert,
@@ -124,6 +129,27 @@ abstract class PushNotificationsFlutterApi {
           assert(arg_withPayload != null,
               'Argument for dev.flutter.pigeon.PushNotificationsFlutterApi.onNotificationReceivedInBackground was null, expected non-null Map<Object?, Object?>.');
           await api.onNotificationReceivedInBackground(arg_withPayload!);
+          return;
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.PushNotificationsFlutterApi.onLaunchNotificationOpened',
+          codec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        channel.setMessageHandler(null);
+      } else {
+        channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+              'Argument for dev.flutter.pigeon.PushNotificationsFlutterApi.onLaunchNotificationOpened was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final Map<Object?, Object?>? arg_withPayload =
+              (args[0] as Map<Object?, Object?>?)?.cast<Object?, Object?>();
+          assert(arg_withPayload != null,
+              'Argument for dev.flutter.pigeon.PushNotificationsFlutterApi.onLaunchNotificationOpened was null, expected non-null Map<Object?, Object?>.');
+          api.onLaunchNotificationOpened(arg_withPayload!);
           return;
         });
       }
@@ -278,6 +304,31 @@ class PushNotificationsHostApi {
         binaryMessenger: _binaryMessenger);
     final List<Object?>? replyList =
         await channel.send(<Object?>[arg_withBadgeCount]) as List<Object?>?;
+    if (replyList == null) {
+      throw PlatformException(
+        code: 'channel-error',
+        message: 'Unable to establish connection on channel.',
+      );
+    } else if (replyList.length > 1) {
+      throw PlatformException(
+        code: replyList[0]! as String,
+        message: replyList[1] as String?,
+        details: replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
+
+  Future<void> registerCallbackFunction(
+      int arg_callbackHandle, CallbackType arg_callbackType) async {
+    final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.PushNotificationsHostApi.registerCallbackFunction',
+        codec,
+        binaryMessenger: _binaryMessenger);
+    final List<Object?>? replyList = await channel
+            .send(<Object?>[arg_callbackHandle, arg_callbackType.index])
+        as List<Object?>?;
     if (replyList == null) {
       throw PlatformException(
         code: 'channel-error',
