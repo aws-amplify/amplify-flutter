@@ -33,18 +33,18 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
         continue;
       }
 
-      final internalAndroidTestDir =
+      final appFacingAndroidTestDir =
           Directory(p.join(package.path, 'android', 'src', 'test'));
-      final externalAndroidPackageTestDir = Directory(
+      final platformAndroidPackageTestDir = Directory(
         p.join('${package.path}_android', 'android', 'src', 'test'),
-      );
+      ); // federated _android package
       final androidExampleDir = Directory(
         p.join(package.path, 'example', 'android'),
       );
       final appFacingPackageAndroidTestsDirExists =
-          internalAndroidTestDir.existsSync();
-      final platformPackageAndroidTestDirExists = externalAndroidPackageTestDir
-          .existsSync(); // federated _android package
+          appFacingAndroidTestDir.existsSync();
+      final platformPackageAndroidTestDirExists =
+          platformAndroidPackageTestDir.existsSync();
       final androidExampleDirExists = androidExampleDir.existsSync();
       final hasAndroidTests = androidExampleDirExists &&
           (appFacingPackageAndroidTestsDirExists ||
