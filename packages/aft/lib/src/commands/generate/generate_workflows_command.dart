@@ -182,6 +182,7 @@ on:
       - main
       - stable
       - next
+      - chore/android-unit-revision
   pull_request:
     paths:
       - '$repoRelativePath/**/*.yaml'
