@@ -179,7 +179,6 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
     }
 
     private fun refreshToken() {
-
         // TODO: Add logic to cache token and only send back if it's new
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
@@ -193,7 +192,6 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
                 hashMap
             )
         })
-
     }
 
 

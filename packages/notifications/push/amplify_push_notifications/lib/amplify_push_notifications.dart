@@ -142,9 +142,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     );
 
     // Block configure if registering device is not complete
-    // TODO: Catch and throw exceptions originating from token or device registration
-    final deviceToken = await onTokenReceived.first;
-    await _registerDevice(deviceToken);
+    await _checkAndRegisterToken();
 
     // Initialize listeners
     onTokenReceived.listen(_tokenReceivedListener);
@@ -173,6 +171,25 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     } on Exception catch (e) {
       _logger.error(
         'Error when registering callback dispatcher: $e',
+      );
+    }
+  }
+
+  @override
+  Future<void> reset() async {
+    if (!_isConfigured) {
+      return;
+    }
+    _isConfigured = false;
+  }
+
+  Future<void> _checkAndRegisterToken() async {
+    try {
+      final deviceToken = await onTokenReceived.first;
+      await _registerDevice(deviceToken);
+    } on Exception catch (e) {
+      throw PushNotificationException(
+        e.toString(),
       );
     }
   }
@@ -209,9 +226,9 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     try {
       await _serviceProviderClient.registerDevice(address);
       _logger.info('Successfully registered device with the servvice provider');
-    } on Exception {
-      throw const PushNotificationException(
-        'Error when registering device with the service provider: ',
+    } on Exception catch (e) {
+      throw PushNotificationException(
+        e.toString(),
       );
     }
   }
