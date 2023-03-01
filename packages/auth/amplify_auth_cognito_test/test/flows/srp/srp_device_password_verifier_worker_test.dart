@@ -11,12 +11,13 @@ import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_device_password_veri
 import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/respond_to_auth_challenge_request.dart';
+import 'package:amplify_auth_cognito_test/common/mock_config.dart'
+    hide username;
 import 'package:amplify_core/amplify_core.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:test/test.dart';
 import 'package:worker_bee/worker_bee.dart';
 
-import '../../common/mock_config.dart' hide username;
 import 'srp_helper_test.dart';
 
 void main() {

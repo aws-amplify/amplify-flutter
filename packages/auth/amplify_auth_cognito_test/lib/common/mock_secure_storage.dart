@@ -3,9 +3,8 @@
 
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/credential_store_keys.dart';
+import 'package:amplify_auth_cognito_test/common/mock_config.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
-
-import 'mock_config.dart';
 
 class MockSecureStorage implements SecureStorageInterface {
   final Map<String, String> _storage = {};
