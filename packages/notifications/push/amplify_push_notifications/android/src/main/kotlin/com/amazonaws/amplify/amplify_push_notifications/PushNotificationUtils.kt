@@ -3,12 +3,16 @@
 
 package com.amazonaws.amplify.amplify_push_notifications
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.amplifyframework.pushnotifications.pinpoint.utils.NotificationPayload
 import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsConstants
 import com.amplifyframework.pushnotifications.pinpoint.utils.toNotificationsPayload
 import com.google.firebase.messaging.RemoteMessage
+
+private const val PAYLOAD_KEY = "payload"
 
 enum class PushNotificationPermissionStatus {
     notRequested,
@@ -78,3 +82,27 @@ fun Intent.isPushNotificationIntent(): Boolean {
     return this.extras?.containsKey("google.message_id") == true
 }
 
+fun Bundle.asPayload(): NotificationPayload? {
+    return this.getBundle(PAYLOAD_KEY)?.toNotificationsPayload()
+}
+
+fun Context.getLaunchActivityClass(): Class<*>? {
+    val packageName = this.packageName
+    val launchIntent = this.packageManager.getLaunchIntentForPackage(packageName)
+    launchIntent?.component?.className?.let {
+        try {
+            return Class.forName(it)
+        } catch (e: Exception) {
+            Log.e(
+                "PushNotificationUtils",
+                "Unable to find launch activity class"
+            )
+        }
+    }
+    return null
+}
+
+fun RemoteMessage.isSupported(): Boolean {
+    return !this.data[PushNotificationsConstants.PINPOINT_CAMPAIGN_CAMPAIGN_ID].isNullOrEmpty() or
+            !this.data[PushNotificationsConstants.JOURNEY_ID].isNullOrEmpty()
+}

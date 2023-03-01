@@ -14,7 +14,6 @@ import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.Permiss
 import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.PushNotificationPermission
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.messaging.RemoteMessage
 import io.flutter.Log
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -72,63 +71,69 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull _result: Result) {
         val result = AtomicResult(_result, call.method)
-        when (call.method) {
-            "initializeService" -> {
-                val args = call.arguments<ArrayList<*>>()
-                registerCallbackToCache(context, args, CALLBACK_DISPATCHER_HANDLE_KEY)
-                result.success(true)
-            }
-            "registerBgExternalCallback" -> {
-                val args = call.arguments<ArrayList<*>>()
-                registerCallbackToCache(context, args, BG_EXTERNAL_CALLBACK_HANDLE_KEY)
-            }
-            "registerBgInternalCallback" -> {
-                val args = call.arguments<ArrayList<*>>()
-                registerCallbackToCache(context, args, BG_INTERNAL_CALLBACK_HANDLE_KEY)
-            }
-            // TODO: Add methodcall handling for other things
-            "getPermissionStatus" -> {
-                Log.d(TAG, "getting permission status")
-                val permission = PushNotificationPermission(context)
-                // If permission has already been granted
-                if (permission.hasRequiredPermission) {
-                    return result.success(PushNotificationPermissionStatus.granted.name)
+        try {
+            when (call.method) {
+                "initializeService" -> {
+                    val args = call.arguments<ArrayList<*>>()
+                    registerCallbackToCache(context, args, CALLBACK_DISPATCHER_HANDLE_KEY)
+                    result.success(true)
                 }
-                // If the shouldShowRequestPermissionRationale flag is true, permission must have been
-                // denied once (and only once) previously
-                if (shouldShowRequestPermissionRationale()) {
-                    return result.success(PushNotificationPermissionStatus.shouldRequestWithRationale.name)
+                "registerBgExternalCallback" -> {
+                    val args = call.arguments<ArrayList<*>>()
+                    registerCallbackToCache(context, args, BG_EXTERNAL_CALLBACK_HANDLE_KEY)
+                    result.success(true)
                 }
-                // If the shouldShowRequestPermissionRationale flag is false and the permission was
-                // already previously denied then user has denied permissions twice
-                if (sharedPreferences.getBoolean(PREF_PREVIOUSLY_DENIED, false)) {
-                    return result.success(PushNotificationPermissionStatus.denied.name)
+                "registerBgInternalCallback" -> {
+                    val args = call.arguments<ArrayList<*>>()
+                    registerCallbackToCache(context, args, BG_INTERNAL_CALLBACK_HANDLE_KEY)
+                    result.success(true)
                 }
-                // Otherwise it's never been requested (or user could have dismissed the request without
-                // explicitly denying)
-                result.success(PushNotificationPermissionStatus.notRequested.name)
-            }
-            "requestPermissions" -> {
-                scope.launch {
-                    val res = PushNotificationPermission(context).requestPermission()
+                // TODO: Add methodcall handling for other things
+                "getPermissionStatus" -> {
+                    Log.d(TAG, "getting permission status")
+                    val permission = PushNotificationPermission(context)
+                    // If permission has already been granted
+                    if (permission.hasRequiredPermission) {
+                        return result.success(PushNotificationPermissionStatus.granted.name)
+                    }
+                    // If the shouldShowRequestPermissionRationale flag is true, permission must have been
+                    // denied once (and only once) previously
+                    if (shouldShowRequestPermissionRationale()) {
+                        return result.success(PushNotificationPermissionStatus.shouldRequestWithRationale.name)
+                    }
+                    // If the shouldShowRequestPermissionRationale flag is false and the permission was
+                    // already previously denied then user has denied permissions twice
+                    if (sharedPreferences.getBoolean(PREF_PREVIOUSLY_DENIED, false)) {
+                        return result.success(PushNotificationPermissionStatus.denied.name)
+                    }
+                    // Otherwise it's never been requested (or user could have dismissed the request without
+                    // explicitly denying)
+                    result.success(PushNotificationPermissionStatus.notRequested.name)
+                }
+                "requestPermissions" -> {
+                    scope.launch {
+                        val res = PushNotificationPermission(context).requestPermission()
 
-                    if (res is PermissionRequestResult.Granted) {
-                        result.success(true)
-                    } else {
-                        // If permission was not granted and the shouldShowRequestPermissionRationale flag
-                        // is true then user must have denied for the first time. We will set the
-                        // wasPermissionPreviouslyDenied value to true only in this scenario since it's
-                        // possible to dismiss the permission request without explicitly denying as well.
-                        if (shouldShowRequestPermissionRationale()) {
-                            with(sharedPreferences.edit()) {
-                                putBoolean(PREF_PREVIOUSLY_DENIED, true)
-                                apply()
+                        if (res is PermissionRequestResult.Granted) {
+                            result.success(true)
+                        } else {
+                            // If permission was not granted and the shouldShowRequestPermissionRationale flag
+                            // is true then user must have denied for the first time. We will set the
+                            // wasPermissionPreviouslyDenied value to true only in this scenario since it's
+                            // possible to dismiss the permission request without explicitly denying as well.
+                            if (shouldShowRequestPermissionRationale()) {
+                                with(sharedPreferences.edit()) {
+                                    putBoolean(PREF_PREVIOUSLY_DENIED, true)
+                                    apply()
+                                }
                             }
+                            result.success(false)
                         }
-                        result.success(false)
                     }
                 }
             }
+        } catch (exception: Exception) {
+            result.error("MethodChannelError", exception.message, exception.stackTrace)
         }
     }
 
@@ -157,24 +162,17 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
         })
     }
 
-    // TODO: update this function to be more robust
     override fun onNewIntent(intent: Intent): Boolean {
         Log.d(TAG, "onNewIntent in push plugin $intent")
-
-        // TODO: "Decide if we need to add a flag for notification open"
-//        val appOpenedThroughTap = intent.getBooleanExtra("appOpenedThroughTap", false)
-
         intent.extras?.let {
-            val remoteMessage = RemoteMessage(it)
-            val notificationHashMap = remoteMessage.asPayload().asChannelMap()
-
-            Log.d(TAG, "Send onNotificationOpened message received event: $notificationHashMap")
-//            PushNotificationEventsStreamHandler.sendEvent(
-//                PushNotificationsEvent(
-//                    NativeEvent.NOTIFICATION_OPENED,
-//                    notificationHashMap
-//                )
-//            )
+            val payload = it.asPayload()
+            if (payload != null) {
+                val notificationHashMap = payload.asChannelMap()
+                Log.d(TAG, "Send onNotificationOpened message received event: $notificationHashMap")
+                StreamHandlers.notificationOpened.send(
+                    notificationHashMap
+                )
+            }
         }
         return true
     }

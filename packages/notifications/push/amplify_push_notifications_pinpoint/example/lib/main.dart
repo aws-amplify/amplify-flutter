@@ -50,9 +50,11 @@ class _MyAppState extends State<MyApp> {
   bool isConfigured = false;
   bool isForegroundListernerInitialized = false;
   bool isBackgroundListernerInitialized = false;
+  bool notificationOpenedListernerInitialized = false;
   int globalBgCallbackCount = 0;
 
   PushNotificationMessage? foregroundMessage;
+  PushNotificationMessage? notificaitonOpenedMessage;
   PushNotificationPermissionRequestStatus? getPermissionStatus;
   bool? requestPermissionsResult;
 
@@ -240,6 +242,30 @@ class _MyAppState extends State<MyApp> {
               ),
               if (isBackgroundListernerInitialized)
                 const Text('Background event listener initialized!'),
+              ElevatedButton(
+                onPressed: () async {
+                  final notificaitonOpenedStream =
+                      Amplify.Notifications.Push.onNotificationOpened;
+                  notificaitonOpenedStream.listen((event) {
+                    setState(() {
+                      notificaitonOpenedMessage = event;
+                    });
+                  });
+                  setState(() {
+                    notificationOpenedListernerInitialized = true;
+                  });
+                },
+                child: const Text('onNotificationOpened'),
+              ),
+              if (notificationOpenedListernerInitialized)
+                const Text('OnNotificationOpened event listener initialized!'),
+              ListTile(
+                title: Text(
+                  notificaitonOpenedMessage == null
+                      ? 'No OnNotificationOpened message yet'
+                      : "Title: ${notificaitonOpenedMessage!.title?.toString() ?? ""}",
+                ),
+              ),
             ],
           ),
         ),

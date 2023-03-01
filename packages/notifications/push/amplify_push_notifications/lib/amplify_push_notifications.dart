@@ -46,7 +46,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   AmplifyPushNotifications({
     required ServiceProviderClient serviceProviderClient,
   }) : _serviceProviderClient = serviceProviderClient {
-    print('AmplifyPushNotifications constructor');
+    // Receive and emit only distinct device tokens
     _onTokenReceived = _tokenReceivedEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
@@ -54,7 +54,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       final deviceToken =
           (event['payload'] as Map<Object?, Object?>?)?['token'] as String;
       return deviceToken;
-    });
+    }).distinct();
 
     _onForegroundNotificationReceived = _foregroundNotificationEventChannel
         .receiveBroadcastStream()
@@ -78,10 +78,9 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     _onNotificationOpened = _notificationOpenedEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
-        .map((event) {
-      // TODO convert raw event to RemotePushMessage
-      return PushNotificationMessage();
-    });
+        .map(
+          (event) => PushNotificationMessage.fromJson(event['payload'] as Map),
+        );
 
     // TODO: Enable launch notification API
 
@@ -136,13 +135,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     await _registerCallbackDispatcher();
 
     // Initialize Endpoint Client
-    await _serviceProviderClient.init(
-      config: config,
-      authProviderRepo: authProviderRepo,
-    );
-
-    // Block configure if registering device is not complete
-    await _checkAndRegisterToken();
+    await _initiliazeServiceClientAndRegisterDevice(config, authProviderRepo);
 
     // Initialize listeners
     onTokenReceived.listen(_tokenReceivedListener);
@@ -181,8 +174,16 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     _isConfigured = false;
   }
 
-  Future<void> _checkAndRegisterToken() async {
+  Future<void> _initiliazeServiceClientAndRegisterDevice(
+    AmplifyConfig? config,
+    AmplifyAuthProviderRepository authProviderRepo,
+  ) async {
     try {
+      await _serviceProviderClient.init(
+        config: config,
+        authProviderRepo: authProviderRepo,
+      );
+
       final deviceToken = await onTokenReceived.first;
       await _registerDevice(deviceToken);
     } on Exception catch (e) {
@@ -269,7 +270,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   ) async {
     try {
       final callbackHandle = PluginUtilities.getCallbackHandle(callback);
-      _logger.info('Successfully registered notification handling callback');
 
       await _methodChannel.invokeMethod(
         method,
@@ -277,6 +277,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
           callbackHandle?.toRawHandle(),
         ],
       );
+      _logger.info('Successfully registered notification handling callback');
     } on Exception catch (e) {
       _logger.error(
         'Error when registering notification handling callback: $e',

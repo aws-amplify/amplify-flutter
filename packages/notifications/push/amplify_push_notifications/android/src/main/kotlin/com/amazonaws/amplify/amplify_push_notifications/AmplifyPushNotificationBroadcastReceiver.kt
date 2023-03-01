@@ -33,9 +33,8 @@ class PushNotificationReceiver : BroadcastReceiver() {
                 Log.d(TAG, "App is in background, start background service and enqueue work")
                 try {
                     val payload = remoteMessage.asPayload()
-                    // TODO: Check how to add a flag to indicate app was opened by a notificaiton
                     utils.showNotification(
-                        payload, AmplifyPushNotificationsPlugin::class.java
+                        payload, context.getLaunchActivityClass()
                     )
                     FlutterMain.startInitialization(context)
                     FlutterMain.ensureInitializationComplete(context, null)
@@ -46,4 +45,5 @@ class PushNotificationReceiver : BroadcastReceiver() {
             }
         }
     }
+
 }
