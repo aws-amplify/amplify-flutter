@@ -7,7 +7,7 @@ import amplify_flutter_ios
 public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, NativePushNotificationsPlugin {
     var remoteNotificationCompletionHandlers: [String: (UIBackgroundFetchResult) -> Void] = [:]
     // Set to true if the App was awaken in the background by a remote notification from the terminated state
-    var awakenInBackground = false
+    var awakenInBackgroundAndHasNotLaunched = false
 
     // The notification that an end user has tapped on and luanch the App from
     //   1. terminated state
