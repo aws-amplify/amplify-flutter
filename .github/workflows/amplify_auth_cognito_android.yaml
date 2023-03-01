@@ -6,6 +6,7 @@ on:
       - main
       - stable
       - next
+      - chore/android-unit-revision
   pull_request:
     paths:
       - 'packages/auth/amplify_auth_cognito/**/*.yaml'
