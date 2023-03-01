@@ -27,6 +27,12 @@ class _MyAppState extends State<MyApp> {
   bool isForegroundListernerInitialized = false;
   PushNotificationMessage? foregroundMessage;
 
+  @override
+  void initState() {
+    super.initState();
+    _configureAmplify();
+  }
+
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> _configureAmplify() async {
     // If the widget was removed from the tree while the asynchronous platform

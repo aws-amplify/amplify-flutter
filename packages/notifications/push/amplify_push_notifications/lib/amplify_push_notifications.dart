@@ -165,9 +165,10 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     try {
       final deviceToken = await onTokenReceived.first;
       await _registerDevice(deviceToken);
-    } on Exception {
-      throw const PushNotificationException(
-          'No Pinpoint plugin config available');
+    } on Exception catch (e) {
+      throw PushNotificationException(
+        e.toString(),
+      );
     }
   }
 
@@ -209,18 +210,18 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     try {
       await _serviceProviderClient.registerDevice(address);
       _logger.info('Successfully registered device with the servvice provider');
-    } on Exception {
-      throw const PushNotificationException(
-        'Error when registering device with the service provider: ',
+    } on Exception catch (e) {
+      throw PushNotificationException(
+        e.toString(),
       );
     }
   }
 
   @override
   Future<bool> requestPermissions({
-    bool? alert = true,
-    bool? badge = true,
-    bool? sound = true,
+    bool alert = true,
+    bool badge = true,
+    bool sound = true,
   }) async {
     return await _methodChannel.invokeMethod<bool>('requestPermissions', {
           'alert': alert,

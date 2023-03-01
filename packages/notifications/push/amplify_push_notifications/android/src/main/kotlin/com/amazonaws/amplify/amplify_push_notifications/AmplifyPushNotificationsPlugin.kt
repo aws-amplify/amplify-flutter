@@ -68,23 +68,19 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
     }
 
     private fun refreshToken() {
-        StreamHandlers.tokenReceived.sendError(
-            Exception("test")
-        )
         // TODO: Add logic to cache token and only send back if it's new
-//        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-//            if (!task.isSuccessful) {
-//                return@OnCompleteListener
-//            }
-//            // Get new FCM registration token
-//            val token = task.result
-//            val hashMap: HashMap<String, Any?> = HashMap()
-//            hashMap["token"] = token
-//            StreamHandlers.tokenReceived.send(
-//                hashMap
-//            )
-//        })
-
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                return@OnCompleteListener
+            }
+            // Get new FCM registration token
+            val token = task.result
+            val hashMap: HashMap<String, Any?> = HashMap()
+            hashMap["token"] = token
+            StreamHandlers.tokenReceived.send(
+                hashMap
+            )
+        })
     }
 
 
