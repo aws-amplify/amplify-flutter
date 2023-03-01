@@ -8,6 +8,7 @@ import 'package:amplify_storage_s3_example/amplifyconfiguration.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+// Tests https://github.com/aws-amplify/amplify-flutter/issues/2711
 void main() {
   test('GetURL incorrect signing for special characters', () async {
     final authPlugin = AmplifyAuthCognito(
@@ -21,6 +22,7 @@ void main() {
     final storagePlugin = AmplifyStorageS3();
     await Amplify.addPlugins([authPlugin, storagePlugin]);
     await Amplify.configure(amplifyconfig);
+    addTearDown(Amplify.reset);
 
     final username = generateUsername();
     final password = generatePassword();
