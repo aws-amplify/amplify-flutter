@@ -44,6 +44,7 @@ extension AmplifyPushNotificationsPlugin {
             // We record this notification as the launch notification.
             else {
                 launchNotification = remoteNotification
+                sharedEventsStreamHandlers.launchNotificationOpened.sendEvent(payload: remoteNotification)
             }
         }
 
@@ -86,8 +87,10 @@ extension AmplifyPushNotificationsPlugin {
             } else {
                 sharedEventsStreamHandlers.notificationOpened.sendEvent(payload: userInfo)
             }
+            completionHandler(.noData)
         case .active:
             sharedEventsStreamHandlers.foregroundMessageReceived.sendEvent(payload: userInfo)
+            completionHandler(.noData)
         @unknown default: break // we don't handle any possible new state added in the future for now
         }
 
