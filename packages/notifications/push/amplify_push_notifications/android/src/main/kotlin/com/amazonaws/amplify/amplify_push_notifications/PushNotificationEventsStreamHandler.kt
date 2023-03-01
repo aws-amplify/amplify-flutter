@@ -3,6 +3,7 @@
 
 package com.amazonaws.amplify.amplify_push_notifications
 
+import io.flutter.Log
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.EventChannel.EventSink
@@ -51,11 +52,14 @@ class PushNotificationEventsStreamHandler constructor(
     }
 
     override fun onListen(arguments: Any?, sink: EventSink?) {
+        Log.d("test", "onListen: $sink")
         eventSink = sink
         flushEvents()
     }
 
     override fun onCancel(arguments: Any?) {
+        Log.d("test", "onCancel:")
+
         eventSink = null
         eventQueue.clear()
     }
@@ -64,12 +68,12 @@ class PushNotificationEventsStreamHandler constructor(
 
     fun send(payload: Map<String, Any?>) {
         val event = PushNotificationsEvent(_associatedNativeEvent, payload)
+        Log.d("test", "eventSink: $eventSink")
         eventSink?.success(event.toMap()) ?: run {
             eventQueue.add(event)
         }
     }
 
-    // TODO: Figure out how to sendError
     fun sendError(exception: Exception) {
         val exceptionMap = mapOf(
             "associatedNativeEventName" to _associatedNativeEvent.eventName,

@@ -154,6 +154,7 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
                 task.exception?.let { StreamHandlers.tokenReceived.sendError(it) }
                 return@OnCompleteListener
             }
+            Log.d(TAG, "token: ${task.result}")
             StreamHandlers.tokenReceived.send(
                 mapOf(
                     "token" to task.result
@@ -166,6 +167,8 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
         Log.d(TAG, "onNewIntent in push plugin $intent")
         intent.extras?.let {
             val payload = it.asPayload()
+            Log.d(TAG, "payload in onNewIntent $payload")
+
             if (payload != null) {
                 val notificationHashMap = payload.asChannelMap()
                 Log.d(TAG, "Send onNotificationOpened message received event: $notificationHashMap")

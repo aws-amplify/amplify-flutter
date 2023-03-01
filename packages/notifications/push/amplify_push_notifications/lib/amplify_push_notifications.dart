@@ -132,19 +132,19 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     }
 
     // Register the callback dispatcher
-    await _registerCallbackDispatcher();
+    // await _registerCallbackDispatcher();
 
     // Initialize Endpoint Client
-    await _initiliazeServiceClientAndRegisterDevice(config, authProviderRepo);
+    // await _initiliazeServiceClientAndRegisterDevice(config, authProviderRepo);
 
     // Initialize listeners
-    onTokenReceived.listen(_tokenReceivedListener);
-    onNotificationReceivedInForeground.listen(_foregroundNotificationListener);
+    // onTokenReceived.listen(_tokenReceivedListener);
+    // onNotificationReceivedInForeground.listen(_foregroundNotificationListener);
     onNotificationOpened.listen(_notificationOpenedListener);
-    await _registerBgCallback(
-      'registerBgInternalCallback',
-      _internalBgHandler,
-    );
+    // await _registerBgCallback(
+    //   'registerBgInternalCallback',
+    //   _internalBgHandler,
+    // );
 
     _logger.info('CONFIGURE API | Successfully configure push notifications');
 

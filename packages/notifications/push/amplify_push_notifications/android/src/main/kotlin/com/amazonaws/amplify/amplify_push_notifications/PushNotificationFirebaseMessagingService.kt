@@ -4,6 +4,7 @@
 package com.amazonaws.amplify.amplify_push_notifications
 
 import android.content.Intent
+import android.os.Handler
 import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsUtils
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -59,9 +60,12 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
                 utils.showNotification(
                     payload, baseContext.getLaunchActivityClass()
                 )
-                FlutterMain.startInitialization(baseContext)
-                FlutterMain.ensureInitializationComplete(baseContext, null)
-                PushNotificationBackgroundService.enqueueWork(baseContext, remoteMessage.toIntent())
+                Handler(baseContext.mainLooper).post {
+                    FlutterMain.startInitialization(baseContext)
+                    FlutterMain.ensureInitializationComplete(baseContext, null)
+                    PushNotificationBackgroundService.enqueueWork(baseContext, remoteMessage.toIntent())
+                }
+
             } catch (exception: Exception) {
                 android.util.Log.e(TAG, "Something went wrong while starting headless task $exception")
             }
