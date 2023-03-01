@@ -33,14 +33,6 @@ enum NativeEvent {
     }
 }
 
-let eventChannels = [
-    NativeEvent.tokenReceived.eventChannelName,
-    NativeEvent.notificationOpened.eventChannelName,
-    NativeEvent.launchNotificationOpened.eventChannelName,
-    NativeEvent.foregroundMessageReceived.eventChannelName,
-    NativeEvent.backgroundMessageReceived.eventChannelName
-]
-
 enum AmplifyPushNotificationsEvent {
     case payload(payload: [AnyHashable: Any])
     case error(error: FlutterError)
@@ -48,12 +40,10 @@ enum AmplifyPushNotificationsEvent {
 
 class PushNotificationEventsStreamHandler: NSObject, FlutterStreamHandler {
     private let eventChannel: FlutterEventChannel
-    private let streamEventType: NativeEvent
     private var eventQueue: [AmplifyPushNotificationsEvent] = []
     private var eventSink: FlutterEventSink?
 
     init(eventType: NativeEvent, binaryMessenger: FlutterBinaryMessenger) {
-        self.streamEventType = eventType
         eventChannel = FlutterEventChannel(name: eventType.eventChannelName, binaryMessenger: binaryMessenger)
         super.init()
         eventChannel.setStreamHandler(self)
@@ -78,7 +68,7 @@ class PushNotificationEventsStreamHandler: NSObject, FlutterStreamHandler {
 
     func sendEvent(payload: [AnyHashable: Any]) {
         if let eventSink = eventSink {
-            eventSink(createEventMap(payload: payload))
+            eventSink(payload)
         } else {
             eventQueue.append(
                 AmplifyPushNotificationsEvent.payload(payload: payload)
@@ -101,37 +91,23 @@ class PushNotificationEventsStreamHandler: NSObject, FlutterStreamHandler {
             while(!eventQueue.isEmpty) {
                 switch eventQueue.removeFirst() {
                 case .payload(let payload):
-                    eventSink(createEventMap(payload: payload))
+                    eventSink(payload)
                 case .error(let error):
                     eventSink(error)
                 }
             }
         }
     }
-
-    private func createEventMap(payload: [AnyHashable: Any]) -> [AnyHashable: Any] {
-        return [
-            "eventType": streamEventType.eventName,
-            "payload": payload
-        ]
-    }
 }
 
 struct EventsStreamHandlers {
-    static let shared = EventsStreamHandlers()
-    static var binaryMessenger: FlutterBinaryMessenger?
-
     let tokenReceived: PushNotificationEventsStreamHandler
     let notificationOpened: PushNotificationEventsStreamHandler
     let launchNotificationOpened: PushNotificationEventsStreamHandler
     let foregroundMessageReceived: PushNotificationEventsStreamHandler
     let backgroundMessageReceived:PushNotificationEventsStreamHandler
 
-    private init() {
-        guard let binaryMessenger = EventsStreamHandlers.binaryMessenger else {
-            fatalError("Called EventsStreamHandlers.shared without setting EventsStreamHandlers.binaryMessenger");
-        }
-
+    init(binaryMessenger: FlutterBinaryMessenger) {
         tokenReceived = PushNotificationEventsStreamHandler(
             eventType: .tokenReceived, binaryMessenger: binaryMessenger
         )

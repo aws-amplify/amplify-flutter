@@ -23,10 +23,8 @@ public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, NativePush
 
     public static func register(with registrar: FlutterPluginRegistrar) {
         let messenger = registrar.messenger()
-
-        EventsStreamHandlers.binaryMessenger = messenger
         let pluginInstance = AmplifyPushNotificationsPlugin(
-            sharedEventsStreamHandlers: EventsStreamHandlers.shared
+            sharedEventsStreamHandlers: EventsStreamHandlers(binaryMessenger: messenger)
         )
 
         NativePushNotificationsPluginSetup(messenger, pluginInstance)
@@ -74,13 +72,13 @@ public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, NativePush
         }
 
         UNUserNotificationCenter.current().requestAuthorization(options: options) { granted, error in
-            if (error != nil) {
+            if let error = error {
                 completion(
                     nil,
                     FlutterError(
                         code: "RequsetPermissionsError",
                         message: "Error occurred requesting notitication center authorization.",
-                        details: error?.localizedDescription
+                        details: error.localizedDescription
                     )
                 )
             } else {
@@ -89,16 +87,15 @@ public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, NativePush
         }
     }
 
-    public func getLaunchNotification(completion: @escaping ([AnyHashable : Any]?, FlutterError?) -> Void) {
+    public func getLaunchNotificationWithError(_ error: AutoreleasingUnsafeMutablePointer<FlutterError?>) -> [AnyHashable : Any]? {
         let launchNotification = self.launchNotification
         self.launchNotification = nil
-        completion(launchNotification, nil)
+        return launchNotification
     }
 
 
-    public func getBadgeCount(completion: @escaping (NSNumber?, FlutterError?) -> Void) {
-        let badgeCount = UIApplication.shared.applicationIconBadgeNumber
-        completion(badgeCount as NSNumber, nil)
+    public func getBadgeCountWithError(_ error: AutoreleasingUnsafeMutablePointer<FlutterError?>) -> NSNumber? {
+        return UIApplication.shared.applicationIconBadgeNumber as NSNumber
     }
 
     public func setBadgeCountWithBadgeCount(_ withBadgeCount: NSNumber, error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {

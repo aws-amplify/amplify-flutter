@@ -19,16 +19,15 @@
     objcSourceOut: 'ios/Classes/NativePushNotificationsPlugin.m',
   ),
 )
-
 library push_notifications_plugin;
 
 import 'package:pigeon/pigeon.dart';
 
 class PermissionsOptions {
   PermissionsOptions({
-    this.alert = true,
-    this.sound = true,
-    this.badge = true,
+    required this.alert,
+    required this.sound,
+    required this.badge,
   });
 
   bool alert;
@@ -44,10 +43,8 @@ abstract class NativePushNotificationsPlugin {
   @async
   bool requestPermissions(PermissionsOptions withPermissionOptions);
 
-  @async
   Map<Object?, Object?>? getLaunchNotification();
 
-  @async
   int getBadgeCount();
 
   void setBadgeCount(int withBadgeCount);

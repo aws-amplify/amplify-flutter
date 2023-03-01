@@ -169,11 +169,11 @@ void NativePushNotificationsPluginSetup(id<FlutterBinaryMessenger> binaryMesseng
         binaryMessenger:binaryMessenger
         codec:NativePushNotificationsPluginGetCodec()        ];
     if (api) {
-      NSCAssert([api respondsToSelector:@selector(getLaunchNotificationWithCompletion:)], @"NativePushNotificationsPlugin api (%@) doesn't respond to @selector(getLaunchNotificationWithCompletion:)", api);
+      NSCAssert([api respondsToSelector:@selector(getLaunchNotificationWithError:)], @"NativePushNotificationsPlugin api (%@) doesn't respond to @selector(getLaunchNotificationWithError:)", api);
       [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
-        [api getLaunchNotificationWithCompletion:^(NSDictionary<id, id> *_Nullable output, FlutterError *_Nullable error) {
-          callback(wrapResult(output, error));
-        }];
+        FlutterError *error;
+        NSDictionary<id, id> *output = [api getLaunchNotificationWithError:&error];
+        callback(wrapResult(output, error));
       }];
     }
     else {
@@ -187,11 +187,11 @@ void NativePushNotificationsPluginSetup(id<FlutterBinaryMessenger> binaryMesseng
         binaryMessenger:binaryMessenger
         codec:NativePushNotificationsPluginGetCodec()        ];
     if (api) {
-      NSCAssert([api respondsToSelector:@selector(getBadgeCountWithCompletion:)], @"NativePushNotificationsPlugin api (%@) doesn't respond to @selector(getBadgeCountWithCompletion:)", api);
+      NSCAssert([api respondsToSelector:@selector(getBadgeCountWithError:)], @"NativePushNotificationsPlugin api (%@) doesn't respond to @selector(getBadgeCountWithError:)", api);
       [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
-        [api getBadgeCountWithCompletion:^(NSNumber *_Nullable output, FlutterError *_Nullable error) {
-          callback(wrapResult(output, error));
-        }];
+        FlutterError *error;
+        NSNumber *output = [api getBadgeCountWithError:&error];
+        callback(wrapResult(output, error));
       }];
     }
     else {

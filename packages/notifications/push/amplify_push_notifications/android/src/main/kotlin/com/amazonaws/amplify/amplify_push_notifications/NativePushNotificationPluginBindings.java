@@ -133,8 +133,8 @@ public class NativePushNotificationPluginBindings {
   public interface NativePushNotificationsPlugin {
     void getPermissionStatus(Result<String> result);
     void requestPermissions(@NonNull PermissionsOptions withPermissionOptions, Result<Boolean> result);
-    void getLaunchNotification(Result<Map<Object, Object>> result);
-    void getBadgeCount(Result<Long> result);
+    @Nullable Map<Object, Object> getLaunchNotification();
+    @NonNull Long getBadgeCount();
     void setBadgeCount(@NonNull Long withBadgeCount);
     void completeNotification(@NonNull String withCompletionHandlerId);
 
@@ -215,23 +215,13 @@ public class NativePushNotificationPluginBindings {
           channel.setMessageHandler((message, reply) -> {
             Map<String, Object> wrapped = new HashMap<>();
             try {
-              Result<Map<Object, Object>> resultCallback = new Result<Map<Object, Object>>() {
-                public void success(Map<Object, Object> result) {
-                  wrapped.put("result", result);
-                  reply.reply(wrapped);
-                }
-                public void error(Throwable error) {
-                  wrapped.put("error", wrapError(error));
-                  reply.reply(wrapped);
-                }
-              };
-
-              api.getLaunchNotification(resultCallback);
+              Map<Object, Object> output = api.getLaunchNotification();
+              wrapped.put("result", output);
             }
             catch (Error | RuntimeException exception) {
               wrapped.put("error", wrapError(exception));
-              reply.reply(wrapped);
             }
+            reply.reply(wrapped);
           });
         } else {
           channel.setMessageHandler(null);
@@ -244,23 +234,13 @@ public class NativePushNotificationPluginBindings {
           channel.setMessageHandler((message, reply) -> {
             Map<String, Object> wrapped = new HashMap<>();
             try {
-              Result<Long> resultCallback = new Result<Long>() {
-                public void success(Long result) {
-                  wrapped.put("result", result);
-                  reply.reply(wrapped);
-                }
-                public void error(Throwable error) {
-                  wrapped.put("error", wrapError(error));
-                  reply.reply(wrapped);
-                }
-              };
-
-              api.getBadgeCount(resultCallback);
+              Long output = api.getBadgeCount();
+              wrapped.put("result", output);
             }
             catch (Error | RuntimeException exception) {
               wrapped.put("error", wrapError(exception));
-              reply.reply(wrapped);
             }
+            reply.reply(wrapped);
           });
         } else {
           channel.setMessageHandler(null);

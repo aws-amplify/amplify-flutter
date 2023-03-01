@@ -30,8 +30,9 @@ NSObject<FlutterMessageCodec> *NativePushNotificationsPluginGetCodec(void);
 @protocol NativePushNotificationsPlugin
 - (void)getPermissionStatusWithCompletion:(void(^)(NSString *_Nullable, FlutterError *_Nullable))completion;
 - (void)requestPermissionsWithPermissionOptions:(PermissionsOptions *)withPermissionOptions completion:(void(^)(NSNumber *_Nullable, FlutterError *_Nullable))completion;
-- (void)getLaunchNotificationWithCompletion:(void(^)(NSDictionary<id, id> *_Nullable, FlutterError *_Nullable))completion;
-- (void)getBadgeCountWithCompletion:(void(^)(NSNumber *_Nullable, FlutterError *_Nullable))completion;
+- (nullable NSDictionary<id, id> *)getLaunchNotificationWithError:(FlutterError *_Nullable *_Nonnull)error;
+/// @return `nil` only when `error != nil`.
+- (nullable NSNumber *)getBadgeCountWithError:(FlutterError *_Nullable *_Nonnull)error;
 - (void)setBadgeCountWithBadgeCount:(NSNumber *)withBadgeCount error:(FlutterError *_Nullable *_Nonnull)error;
 - (void)completeNotificationWithCompletionHandlerId:(NSString *)withCompletionHandlerId error:(FlutterError *_Nullable *_Nonnull)error;
 @end

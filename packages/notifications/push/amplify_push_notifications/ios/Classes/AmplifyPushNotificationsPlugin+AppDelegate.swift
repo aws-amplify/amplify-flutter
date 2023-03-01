@@ -24,10 +24,9 @@ extension AmplifyPushNotificationsPlugin {
             if application.applicationState == .background {
                 awakenInBackground = true
             }
-
             // When the App is launched (from terminated state) by tapping on a notification
             // This happens when remote notifications background mode is NOT enabled
-            if application.applicationState != .background {
+            else {
                 launchNotification = remoteNotification
             }
         }
@@ -49,7 +48,8 @@ extension AmplifyPushNotificationsPlugin {
         didReceiveRemoteNotification userInfo: [AnyHashable : Any],
         fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
     ) -> Bool {
-        if UIApplication.shared.applicationState == .background {
+        switch UIApplication.shared.applicationState {
+        case .background:
             let completionHandlerId = UUID().uuidString
             var userInfoCopy = userInfo
 
@@ -57,20 +57,21 @@ extension AmplifyPushNotificationsPlugin {
             userInfoCopy[completionHandlerIdKey] = completionHandlerId
 
             sharedEventsStreamHandlers.backgroundMessageReceived.sendEvent(payload: userInfoCopy)
-        } else if UIApplication.shared.applicationState == .inactive {
+        case .inactive:
             // If the App has been awaken in the background by remote notification from terminated state,
             // when the App is entering foreground from background the first time by tapping on a notification,
             // we treat this tapped notification as the launch notitification, this only happens when
             // remote notification background mode is enabled.
-            if (awakenInBackground) {
+            if awakenInBackground {
                 awakenInBackground = false
                 launchNotification = userInfo
                 sharedEventsStreamHandlers.launchNotificationOpened.sendEvent(payload: userInfo)
             } else {
                 sharedEventsStreamHandlers.notificationOpened.sendEvent(payload: userInfo)
             }
-        } else {
+        case .active:
             sharedEventsStreamHandlers.foregroundMessageReceived.sendEvent(payload: userInfo)
+        @unknown default: break // we don't handle any possible new state added in the future for now
         }
 
         return true

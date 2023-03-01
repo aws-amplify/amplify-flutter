@@ -107,8 +107,7 @@ class NativePushNotificationsPlugin {
   }
 
   Future<bool> requestPermissions(
-    PermissionsOptions arg_withPermissionOptions,
-  ) async {
+      PermissionsOptions arg_withPermissionOptions) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
       'dev.flutter.pigeon.NativePushNotificationsPlugin.requestPermissions',
       codec,
