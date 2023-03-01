@@ -27,3 +27,4 @@ jobs:
     uses: ./.github/workflows/flutter_android.yaml
     with:
       working-directory: packages/amplify/amplify_flutter
+      package-name: amplify_flutter

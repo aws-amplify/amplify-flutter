@@ -6,6 +6,10 @@ on:
         description: The working directory relative to the repo root
         required: true
         type: string
+      package-name:
+        description: The working directory relative to the repo root
+        required: true
+        type: string
 
 jobs:
   test:
@@ -25,13 +29,6 @@ jobs:
 
       - name: Git Submodules
         run: git submodule update --init
-
-      # - name: Setup Gradle
-      #   uses: gradle/gradle-build-action@6095a76664413da4c8c134ee32e8a8ae900f0f1f # 2.4.0
-      #   with:
-      #     # Compile issue requires older gradle version.
-      #     # https://stackoverflow.com/questions/75461819/script-c-src-flutter-packages-flutter-tools-gradle-flutter-gradle-line-912
-      #     gradle-version: 7.5
 
       - name: Setup Flutter
         uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d # 2.8.0
@@ -53,9 +50,8 @@ jobs:
         timeout-minutes: 10
         run: aft bootstrap
 
-      - name: run Android unit tests
+      - name: Run Android unit tests
         run: |
           flutter build apk --debug --verbose
-          packageName=$(sed 's:.*/::' <<< ${{ inputs.working-directory }})
-          ./gradlew :"$packageName":testDebugUnitTest
+          ./gradlew :"${{ inputs.package-name}}":testDebugUnitTest
         working-directory: ${{ inputs.working-directory }}/example/android

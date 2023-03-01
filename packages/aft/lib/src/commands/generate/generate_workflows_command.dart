@@ -24,7 +24,10 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
           !falsePositiveExamples.contains(package.name)) {
         continue;
       }
-      // Some packages do not need to be tested.
+      // Packages without a `lib/` folder generally contain only native code,
+      // e.g. `amplify_flutter_android`. These packages are tested via their
+      // parent package, e.g. `amplify_flutter`, and do not require a workflow
+      // of their own.
       final libDir = Directory(p.join(package.path, 'lib'));
       if (!libDir.existsSync()) {
         continue;
@@ -38,13 +41,14 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
       final androidExampleDir = Directory(
         p.join(package.path, 'example', 'android'),
       );
-      final internalAndroidTestsDirExists = internalAndroidTestDir.existsSync();
-      final externalAndroidPackageTestDirExists =
-          externalAndroidPackageTestDir.existsSync();
+      final appFacingPackageAndroidTestsDirExists =
+          internalAndroidTestDir.existsSync();
+      final platformPackageAndroidTestDirExists = externalAndroidPackageTestDir
+          .existsSync(); // federated _android package
       final androidExampleDirExists = androidExampleDir.existsSync();
       final hasAndroidTests = androidExampleDirExists &&
-          (internalAndroidTestsDirExists ||
-              externalAndroidPackageTestDirExists);
+          (appFacingPackageAndroidTestsDirExists ||
+              platformPackageAndroidTestDirExists);
       final workflowFilepath = p.join(
         rootDir.path,
         '.github',
@@ -65,7 +69,6 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
       const ddcWorkflow = 'dart_ddc.yaml';
       const dart2JsWorkflow = 'dart_dart2js.yaml';
       const nativeWorkflow = 'dart_native.yaml';
-      const androidWorkflow = 'flutter_android.yaml';
 
       // Determine workflows used
       final analyzeAndTestWorkflow =
@@ -149,33 +152,48 @@ jobs:
       workflowFile.writeAsStringSync(workflowContents.toString());
 
       // Add workflow for Android unit tests if needed
-      if (!needsAndroidTest) {
-        continue;
+      if (needsAndroidTest) {
+        await generateAndroidUnitTestWorkflow(
+          packageName: package.name,
+          repoRelativePath: repoRelativePath,
+          platformPackageAndroidTestDirExists:
+              platformPackageAndroidTestDirExists,
+        );
       }
-      final androidWorkflowFilepath = p.join(
-        rootDir.path,
-        '.github',
-        'workflows',
-        '${package.name}_android.yaml',
-      );
+    }
+  }
 
-      final androidExternalPackagePaths = [
-        if (externalAndroidPackageTestDirExists)
-          '${repoRelativePath}_android/**/*'
-      ];
-      final androidWorkflowPaths = [
-        '.github/workflows/$androidWorkflow',
-        p.relative(androidWorkflowFilepath, from: rootDir.path)
-      ];
-      final androidPathString =
-          (androidExternalPackagePaths + androidWorkflowPaths)
-              .map((path) => "      - '$path'")
-              .join('\n');
+  Future<void> generateAndroidUnitTestWorkflow({
+    required String packageName,
+    required String repoRelativePath,
+    required bool platformPackageAndroidTestDirExists,
+  }) async {
+    const androidWorkflow = 'flutter_android.yaml';
 
-      final androidWorkflowFile = File(androidWorkflowFilepath);
-      final androidWorkflowContents = '''
+    final androidWorkflowFilepath = p.join(
+      rootDir.path,
+      '.github',
+      'workflows',
+      '${packageName}_android.yaml',
+    );
+
+    final androidExternalPackagePaths = [
+      if (platformPackageAndroidTestDirExists)
+        '${repoRelativePath}_android/**/*'
+    ];
+    final androidWorkflowPaths = [
+      '.github/workflows/$androidWorkflow',
+      p.relative(androidWorkflowFilepath, from: rootDir.path)
+    ];
+    final androidPathString =
+        (androidExternalPackagePaths + androidWorkflowPaths)
+            .map((path) => "      - '$path'")
+            .join('\n');
+
+    final androidWorkflowFile = File(androidWorkflowFilepath);
+    final androidWorkflowContents = '''
 # Generated with aft. To update, run: `aft generate workflows`
-name: ${package.name} Android
+name: $packageName Android
 on:
   push:
     branches:
@@ -201,9 +219,9 @@ jobs:
     uses: ./.github/workflows/$androidWorkflow
     with:
       working-directory: $repoRelativePath
+      package-name: $packageName
 ''';
 
-      androidWorkflowFile.writeAsStringSync(androidWorkflowContents);
-    }
+    androidWorkflowFile.writeAsStringSync(androidWorkflowContents);
   }
 }

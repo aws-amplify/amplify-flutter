@@ -26,3 +26,4 @@ jobs:
     uses: ./.github/workflows/flutter_android.yaml
     with:
       working-directory: packages/amplify_datastore
+      package-name: amplify_datastore
