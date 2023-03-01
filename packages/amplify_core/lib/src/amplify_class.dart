@@ -38,6 +38,9 @@ abstract class AmplifyClass {
   /// The Amplify event hub.
   final AmplifyHub Hub = AmplifyHub();
 
+  /// The Notifications category.
+  final NotificationsCategory Notifications = NotificationsCategory();
+
   var _configCompleter = Completer<AmplifyConfig>();
 
   /// Adds one plugin at a time. Note: this method can only
