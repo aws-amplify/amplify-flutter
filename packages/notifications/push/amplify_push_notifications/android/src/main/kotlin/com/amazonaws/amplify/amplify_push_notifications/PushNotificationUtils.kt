@@ -10,10 +10,6 @@ import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsCo
 import com.amplifyframework.pushnotifications.pinpoint.utils.toNotificationsPayload
 import com.google.firebase.messaging.RemoteMessage
 
-// TODO: Revisit this file and remove un-used functions
-
-private const val PAYLOAD_KEY = "payload"
-
 enum class PushNotificationPermissionStatus {
     notRequested,
     shouldRequestWithRationale,
@@ -78,15 +74,7 @@ fun NotificationPayload.asChannelMap(): Map<String, Any?> {
     )
 }
 
-fun Bundle.asPayloadFromExtras(): NotificationPayload? {
-    return this.getBundle(PAYLOAD_KEY)?.toNotificationsPayload()
-}
-
 fun Intent.isPushNotificationIntent(): Boolean {
     return this.extras?.containsKey("google.message_id") == true
 }
 
-fun RemoteMessage.isRemoteMessageSupported(): Boolean {
-    return !this.data[PushNotificationsConstants.PINPOINT_CAMPAIGN_CAMPAIGN_ID].isNullOrEmpty() or
-            !this.data[PushNotificationsConstants.JOURNEY_ID].isNullOrEmpty()
-}

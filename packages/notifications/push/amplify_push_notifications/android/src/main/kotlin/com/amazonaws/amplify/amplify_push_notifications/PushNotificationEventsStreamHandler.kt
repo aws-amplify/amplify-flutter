@@ -89,6 +89,7 @@ class PushNotificationEventsStreamHandler constructor(
         eventSink?.let {
             while (eventQueue.isNotEmpty()) {
                 val eventFromQueue = eventQueue.removeFirst()
+                // Check if it is an Error event and handle accordingly by using .error method
                 if (eventFromQueue.event.eventName == NativeEvent.ERROR.eventName) {
                     val exception = eventFromQueue.payload
                     it.error(

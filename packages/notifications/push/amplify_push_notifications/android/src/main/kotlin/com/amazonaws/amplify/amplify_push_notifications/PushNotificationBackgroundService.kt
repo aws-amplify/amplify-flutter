@@ -14,10 +14,10 @@ import io.flutter.embedding.engine.dart.DartExecutor
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.view.FlutterCallbackInformation
-import io.flutter.view.FlutterMain
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.collections.ArrayDeque
+import io.flutter.embedding.engine.loader.FlutterLoader
 
 class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIntentService() {
     private val queue = ArrayDeque<List<Any>>()
@@ -73,12 +73,10 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
 
                 val args = DartExecutor.DartCallback(
                     context.assets,
-                    FlutterMain.findAppBundlePath(context)!!,
+                    FlutterLoader().findAppBundlePath(),
                     callbackInfo
                 )
                 sBackgroundFlutterEngine!!.dartExecutor.executeDartCallback(args)
-//                TODO: Implement isolate holder service
-//                IsolateHolderService.setBackgroundFlutterEngine(sBackgroundFlutterEngine)
             }
         }
         mBackgroundChannel = MethodChannel(
@@ -92,6 +90,7 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
         when (call.method) {
             "PushNotificationBackgroundService.initialized" -> {
                 synchronized(sServiceStarted) {
+                    // If events were added to the queue when the service was initializing, emits those
                     while (!queue.isEmpty()) {
                         mBackgroundChannel.invokeMethod("", queue.removeFirst())
                     }

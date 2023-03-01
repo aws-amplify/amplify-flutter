@@ -55,42 +55,19 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         activityBinding = binding
-        onNewIntent(binding.activity.intent)
+        this.mainActivity = binding.activity
         binding.addOnNewIntentListener(this)
-
         // TODO: also fetchToken on app resume
         refreshToken()
-        this.mainActivity = binding.activity
-
-
-    }
-
-    override fun onDetachedFromActivityForConfigChanges() {
-        activityBinding?.removeOnNewIntentListener(this)
-    }
-
-    override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-        activityBinding = binding
-        binding.addOnNewIntentListener(this)
-    }
-
-    override fun onDetachedFromActivity() {
-//        TODO("Not yet implemented")
-        this.mainActivity = null
-        activityBinding?.removeOnNewIntentListener(this)
-        activityBinding = null
     }
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         context = flutterPluginBinding.applicationContext
         StreamHandlers.initialize(flutterPluginBinding.binaryMessenger)
-
-        context = flutterPluginBinding.applicationContext
         sharedPreferences =
             context.getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE)
         channel = MethodChannel(
-            flutterPluginBinding.binaryMessenger,
-            METHOD_CHANNEL
+            flutterPluginBinding.binaryMessenger, METHOD_CHANNEL
         )
         channel.setMethodCallHandler(this)
     }
@@ -105,7 +82,6 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
         when (call.method) {
             "initializeService" -> {
                 val args = call.arguments<ArrayList<*>>()
-                // Simply stores the callback handle for the callback dispatcher
                 registerCallbackToCache(context, args, CALLBACK_DISPATCHER_HANDLE_KEY)
                 result.success(true)
             }
@@ -127,8 +103,7 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
                 }
                 // If the shouldShowRequestPermissionRationale flag is true, permission must have been
                 // denied once (and only once) previously
-                if (shouldShowRequestPermissionRationale()
-                ) {
+                if (shouldShowRequestPermissionRationale()) {
                     return result.success(PushNotificationPermissionStatus.shouldRequestWithRationale.name)
                 }
                 // If the shouldShowRequestPermissionRationale flag is false and the permission was
@@ -166,34 +141,28 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
 
 
     private fun registerCallbackToCache(
-        context: Context,
-        args: ArrayList<*>?,
-        callbackKey: String
+        context: Context, args: ArrayList<*>?, callbackKey: String
     ) {
         Log.d(TAG, "Registering callback function with key $callbackKey")
         val callbackHandle = args?.get(0) as Long
-        context.getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE)
-            .edit()
-            .putLong(callbackKey, callbackHandle)
-            .apply()
+        context.getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE).edit()
+            .putLong(callbackKey, callbackHandle).apply()
     }
 
     private fun refreshToken() {
         // TODO: Add logic to cache token and only send back if it's new
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
+                task.exception?.let { StreamHandlers.tokenReceived.sendError(it) }
                 return@OnCompleteListener
             }
-            // Get new FCM registration token
-            val token = task.result
-            val hashMap: HashMap<String, Any?> = HashMap()
-            hashMap["token"] = token
             StreamHandlers.tokenReceived.send(
-                hashMap
+                mapOf(
+                    "token" to task.result
+                )
             )
         })
     }
-
 
     // TODO: update this function to be more robust
     override fun onNewIntent(intent: Intent): Boolean {
@@ -217,15 +186,29 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
         return true
     }
 
+    private fun shouldShowRequestPermissionRationale(): Boolean {
+        return ActivityCompat.shouldShowRequestPermissionRationale(
+            mainActivity!!, PERMISSION
+        )
+    }
+
+    override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
+        activityBinding = binding
+        this.mainActivity = binding.activity
+        binding.addOnNewIntentListener(this)
+    }
+
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
     }
 
-    private fun shouldShowRequestPermissionRationale(): Boolean {
-        return ActivityCompat.shouldShowRequestPermissionRationale(
-            mainActivity!!,
-            PERMISSION
-        )
+    override fun onDetachedFromActivity() {
+        this.mainActivity = null
+        activityBinding?.removeOnNewIntentListener(this)
+        activityBinding = null
+    }
 
+    override fun onDetachedFromActivityForConfigChanges() {
+        activityBinding?.removeOnNewIntentListener(this)
     }
 }

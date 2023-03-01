@@ -10,7 +10,7 @@ import android.content.Intent
 import android.util.Log
 import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsUtils
 import com.google.firebase.messaging.RemoteMessage
-import io.flutter.view.FlutterMain
+import io.flutter.embedding.engine.loader.FlutterLoader
 
 // TODO: This BroadcastReceiver needs to be replaced by the Firebase Service
 class PushNotificationReceiver : BroadcastReceiver() {
@@ -28,23 +28,19 @@ class PushNotificationReceiver : BroadcastReceiver() {
             if (utils.isAppInForeground()) {
                 val notificationHashMap = remoteMessage.asPayload().asChannelMap()
                 Log.d(TAG, "Send foreground message received event: $notificationHashMap")
-
                 StreamHandlers.foregroundMessageReceived.send(notificationHashMap)
             } else {
                 Log.d(TAG, "App is in background, start background service and enqueue work")
                 try {
-
                     val payload = remoteMessage.asPayload()
                     // TODO: Check how to add a flag to indicate app was opened by a notificaiton
                     utils.showNotification(
                         payload, AmplifyPushNotificationsPlugin::class.java
                     )
-
-
-                    FlutterMain.startInitialization(context)
-                    FlutterMain.ensureInitializationComplete(context, null)
+                    val flutterLoader = FlutterLoader()
+                    flutterLoader.startInitialization(context)
+                    flutterLoader.ensureInitializationComplete(context, null)
                     PushNotificationBackgroundService.enqueueWork(context, it)
-
                 } catch (exception: Exception) {
                     Log.e(TAG, "Something went wrong while starting headless task $exception")
                 }
