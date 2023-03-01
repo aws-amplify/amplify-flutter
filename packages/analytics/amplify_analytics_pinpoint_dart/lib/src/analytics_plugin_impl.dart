@@ -9,9 +9,7 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/dart_queued_item_store.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/session_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/stoppable_timer.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:meta/meta.dart';
 
 /// The Analytics Pinpoint session start event type.
@@ -31,21 +29,12 @@ const zSessionStopEventType = '_session.stop';
 class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   /// {@macro amplify_analytics_pinpoint_dart.amplify_analytics_pinpoint_dart}
   AmplifyAnalyticsPinpointDart({
-    SecureStorageInterface? endpointInfoStore,
     CachedEventsPathProvider? pathProvider,
     AppLifecycleProvider? appLifecycleProvider,
-    DeviceContextInfoProvider? deviceContextInfoProvider,
-    LegacyNativeDataProvider? legacyNativeDataProvider,
-  })  : _endpointInfoStore = endpointInfoStore ??
-            AmplifySecureStorageWorker(
-              config: AmplifySecureStorageConfig(
-                scope: 'analyticsPinpoint',
-              ),
-            ),
+    AnalyticsClient? analyticsClient,
+  })  : _appLifecycleProvider = appLifecycleProvider,
         _pathProvider = pathProvider,
-        _appLifecycleProvider = appLifecycleProvider,
-        _deviceContextInfoProvider = deviceContextInfoProvider,
-        _legacyNativeDataProvider = legacyNativeDataProvider;
+        _analyticsClient = analyticsClient ?? AnalyticsClient();
 
   void _ensureConfigured() {
     if (!_isConfigured) {
@@ -65,13 +54,10 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   late final SessionManager _sessionManager;
   late final StoppableTimer _autoEventSubmitter;
 
-  final SecureStorageInterface _endpointInfoStore;
-
-  /// External Flutter Provider implementations.
-  final CachedEventsPathProvider? _pathProvider;
+  /// External Flutter Provider implementations
   final AppLifecycleProvider? _appLifecycleProvider;
-  final DeviceContextInfoProvider? _deviceContextInfoProvider;
-  final LegacyNativeDataProvider? _legacyNativeDataProvider;
+  final AnalyticsClient _analyticsClient;
+  final CachedEventsPathProvider? _pathProvider;
 
   static final _logger = AmplifyLogger.category(Category.analytics);
 
@@ -101,36 +87,23 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
       );
     }
 
-    final pinpointClient = PinpointClient(
-      region: region,
-      credentialsProvider: authProvider,
-    );
+    final eventStoragePath = await _pathProvider?.getApplicationSupportPath();
+    final eventStore = DartQueuedItemStore(eventStoragePath);
 
-    final deviceContextInfo =
-        await _deviceContextInfoProvider?.getDeviceInfoDetails();
-
-    _endpointClient = await EndpointClient.create(
+    await _analyticsClient.init(
       pinpointAppId: pinpointAppId,
-      pinpointClient: pinpointClient,
-      endpointInfoStore: _endpointInfoStore,
-      legacyNativeDataProvider: _legacyNativeDataProvider,
-      deviceContextInfo: deviceContextInfo,
+      region: region,
+      authProvider: authProvider,
+      eventStore: eventStore,
     );
+
+    _endpointClient = _analyticsClient.endpointClient;
+    _eventClient = _analyticsClient.eventClient;
 
     unawaited(
       Amplify.asyncConfig.then((_) {
         _endpointClient.updateEndpoint();
       }),
-    );
-
-    final eventStoragePath = await _pathProvider?.getApplicationSupportPath();
-    final eventStore = DartQueuedItemStore(eventStoragePath);
-    _eventClient = EventClient(
-      pinpointAppId: pinpointAppId,
-      deviceContextInfo: deviceContextInfo,
-      pinpointClient: pinpointClient,
-      endpointClient: _endpointClient,
-      eventStore: eventStore,
     );
 
     _sessionManager = SessionManager(

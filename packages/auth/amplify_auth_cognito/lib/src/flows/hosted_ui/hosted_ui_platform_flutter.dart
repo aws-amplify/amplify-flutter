@@ -66,7 +66,7 @@ class HostedUiPlatformImpl extends io.HostedUiPlatformImpl {
     if (!_isMobile) {
       return super.signIn(options: options, provider: provider);
     }
-    final signInUri = getSignInUri(provider: provider);
+    final signInUri = await getSignInUri(provider: provider);
     try {
       final queryParameters = await _nativeAuthBridge.signInWithUrl(
         signInUri.toString(),
@@ -74,13 +74,17 @@ class HostedUiPlatformImpl extends io.HostedUiPlatformImpl {
         options.isPreferPrivateSession,
         options.browserPackageName,
       );
-      dispatcher.dispatch(
-        HostedUiEvent.exchange(
-          OAuthParameters.fromJson(queryParameters.cast()),
+      unawaited(
+        dispatcher.dispatchAndComplete(
+          HostedUiEvent.exchange(
+            OAuthParameters.fromJson(queryParameters.cast()),
+          ),
         ),
       );
     } on Exception catch (e) {
-      dispatcher.dispatch(const HostedUiEvent.cancelSignIn());
+      unawaited(
+        dispatcher.dispatchAndComplete(const HostedUiEvent.cancelSignIn()),
+      );
       if (e is PlatformException) {
         if (e.code == 'CANCELLED') {
           throw const UserCancelledException(

@@ -6,6 +6,7 @@ import 'dart:async';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/auth_plugin_credentials_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
+import 'package:amplify_auth_cognito_dart/src/model/session/cognito_sign_in_details.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:http/http.dart' as http;
@@ -18,8 +19,9 @@ final stateMachineBuilders = <StateMachineToken, Function>{
   CredentialStoreStateMachine.type: CredentialStoreStateMachine.new,
   FetchAuthSessionStateMachine.type: FetchAuthSessionStateMachine.new,
   HostedUiStateMachine.type: HostedUiStateMachine.new,
-  SignUpStateMachine.type: SignUpStateMachine.new,
   SignInStateMachine.type: SignInStateMachine.new,
+  SignOutStateMachine.type: SignOutStateMachine.new,
+  SignUpStateMachine.type: SignUpStateMachine.new,
 };
 
 AWSHttpClient _makeAwsHttpClient() =>
@@ -58,10 +60,12 @@ class CognitoAuthStateMachine
       return FetchAuthSessionStateMachine.type;
     } else if (event is HostedUiEvent) {
       return HostedUiStateMachine.type;
-    } else if (event is SignUpEvent) {
-      return SignUpStateMachine.type;
     } else if (event is SignInEvent) {
       return SignInStateMachine.type;
+    } else if (event is SignOutEvent) {
+      return SignOutStateMachine.type;
+    } else if (event is SignUpEvent) {
+      return SignUpStateMachine.type;
     }
     throw StateError('Unhandled event: $event');
   }
@@ -104,5 +108,22 @@ class CognitoAuthStateMachine
   Future<HostedUiState> signOutHostedUI() async {
     return await dispatch(const HostedUiEvent.signOut()).completed
         as HostedUiState;
+  }
+
+  /// Gets the current user pool tokens.
+  ///
+  /// Throws [SignedOutException] if tokens are not present or
+  /// [InvalidStateException] if the user is currently federated to an identity
+  /// pool.
+  ///
+  /// Throws [AuthException] for all other exceptions encountered fetching the
+  /// user pool tokens.
+  Future<CognitoUserPoolTokens> getUserPoolTokens() async {
+    final credentialState = await loadCredentials();
+    if (credentialState.signInDetails is CognitoSignInDetailsFederated) {
+      throw const InvalidStateException.federatedToIdentityPool();
+    }
+    final authSession = await loadSession();
+    return authSession.userPoolTokensResult.value;
   }
 }

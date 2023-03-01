@@ -141,45 +141,4 @@ void main() {
       );
     });
   });
-
-  group('signOut', () {
-    setUpAll(() async {
-      await configureAuth();
-    });
-
-    setUp(() async {
-      await signOutUser();
-    });
-
-    tearDownAll(Amplify.reset);
-
-    asyncTest('should sign a user out', (_) async {
-      final username = generateUsername();
-      final password = generatePassword();
-
-      await adminCreateUser(
-        username,
-        password,
-        autoConfirm: true,
-        verifyAttributes: true,
-      );
-
-      await Amplify.Auth.signIn(username: username, password: password);
-      final authSession = await Amplify.Auth.fetchAuthSession();
-      expect(authSession.isSignedIn, isTrue);
-
-      await Amplify.Auth.signOut();
-      final finalAuthSession = await Amplify.Auth.fetchAuthSession();
-      expect(finalAuthSession.isSignedIn, isFalse);
-    });
-
-    asyncTest(
-      'should not throw even if there is no user to sign out',
-      (_) async {
-        final authSession = await Amplify.Auth.fetchAuthSession();
-        expect(authSession.isSignedIn, isFalse);
-        await expectLater(Amplify.Auth.signOut(), completes);
-      },
-    );
-  });
 }

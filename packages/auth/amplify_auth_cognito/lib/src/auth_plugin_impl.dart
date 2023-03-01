@@ -233,7 +233,11 @@ class _NativeAmplifyAuthCognito
     final oauthParameters = OAuthParameters.fromJson(params.cast());
     final hostedUiStateMachine = _stateMachine.get(HostedUiStateMachine.type);
     if (hostedUiStateMachine != null) {
-      _stateMachine.accept(HostedUiEvent.exchange(oauthParameters));
+      unawaited(
+        _stateMachine.acceptAndComplete(
+          HostedUiEvent.exchange(oauthParameters),
+        ),
+      );
     } else {
       // Cache them as initial route parameters.
       _stateMachine.addInstance(oauthParameters);

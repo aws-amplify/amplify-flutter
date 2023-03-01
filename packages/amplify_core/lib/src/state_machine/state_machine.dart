@@ -9,10 +9,26 @@ import 'package:stack_trace/stack_trace.dart';
 
 /// Interface for dispatching an event to a state machine.
 @optionalTypeArgs
-abstract class Dispatcher<E extends StateMachineEvent,
-    S extends StateMachineState> {
-  /// Dispatches an event.
+mixin Dispatcher<E extends StateMachineEvent, S extends StateMachineState> {
+  /// Dispatches an event to the appropriate state machine.
+  @useResult
   EventCompleter<E, S> dispatch(E event);
+
+  /// Dispatches an event to the appropriate state machine and awaits its
+  /// completion.
+  ///
+  /// See also:
+  /// - [dispatch] which returns an [EventCompleter] instead of a [Future].
+  Future<SuccessState> dispatchAndComplete<SuccessState extends S>(
+    E event,
+  ) async {
+    final completer = dispatch(event);
+    final state = await completer.completed;
+    if (state is ErrorState) {
+      Error.throwWithStackTrace(state.exception, state.stackTrace);
+    }
+    return state as SuccessState;
+  }
 }
 
 /// Interface for emitting a state from a state machine.
@@ -48,7 +64,8 @@ abstract class StateMachineManager<
         E extends StateMachineEvent,
         S extends StateMachineState,
         Manager extends StateMachineManager<E, S, Manager>>
-    implements DependencyManager, Dispatcher<E, S>, Closeable {
+    with Dispatcher<E, S>
+    implements DependencyManager, Closeable {
   /// {@macro amplify_core.state_machinedispatcher}
   StateMachineManager(
     Map<StateMachineToken, Function> stateMachineBuilders,
@@ -123,6 +140,7 @@ abstract class StateMachineManager<
   /// fully processed by its state machine, the [EventCompleter.completed]
   /// property will complete with the stopping state reached. At this point,
   /// the event is done processing.
+  @useResult
   EventCompleter<E, S> accept(E event) {
     final completer = EventCompleter<E, S>(event);
     _eventController.add(completer);
@@ -150,6 +168,7 @@ abstract class StateMachineManager<
   @override
   @protected
   @visibleForTesting
+  @useResult
   EventCompleter<E, S> dispatch(E event, [EventCompleter<E, S>? completer]) {
     final token = mapEventToMachine(event);
     completer ??= EventCompleter(event);
@@ -157,21 +176,13 @@ abstract class StateMachineManager<
     return completer;
   }
 
-  /// Dispatches an event to the appropriate state machine and awaits its
-  /// completion.
-  ///
-  /// See also:
-  /// - [dispatch] which returns an [EventCompleter] instead of a [Future].
+  @override
+  @protected
+  @visibleForTesting
   Future<SuccessState> dispatchAndComplete<SuccessState extends S>(
     E event,
-  ) async {
-    final completer = dispatch(event);
-    final state = await completer.completed;
-    if (state is ErrorState) {
-      Error.throwWithStackTrace(state.exception, state.stackTrace);
-    }
-    return state as SuccessState;
-  }
+  ) =>
+      super.dispatchAndComplete(event);
 
   /// Maps [event] to its state machine.
   StateMachineToken mapEventToMachine(E event);
@@ -388,8 +399,15 @@ abstract class StateMachine<
 
   /// Dispatches an event to the state machine.
   @override
+  @useResult
   EventCompleter<ManagerEvent, ManagerState> dispatch(ManagerEvent event) =>
       manager.dispatch(event);
+
+  @override
+  Future<SuccessState> dispatchAndComplete<SuccessState extends ManagerState>(
+    ManagerEvent event,
+  ) =>
+      manager.dispatchAndComplete(event);
 
   /// Closes the state machine and all stream controllers.
   @override

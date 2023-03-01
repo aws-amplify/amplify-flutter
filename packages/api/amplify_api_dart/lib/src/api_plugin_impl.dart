@@ -29,7 +29,6 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
   })  : _baseHttpClient = baseHttpClient,
         _connectivity = connectivity {
     authProviders.forEach(registerAuthProvider);
-    Amplify.Hub.addChannel(HubChannel.Api, _hubEventController.stream);
   }
 
   late final AWSApiPluginConfig _apiConfig;
@@ -94,6 +93,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
     _apiConfig = apiConfig;
     _authProviderRepo = authProviderRepo;
     _registerApiPluginAuthProviders();
+    Amplify.Hub.addChannel(HubChannel.Api, _hubEventController.stream);
   }
 
   /// Register AmplifyAuthProviders that are specific to API category (API key,
