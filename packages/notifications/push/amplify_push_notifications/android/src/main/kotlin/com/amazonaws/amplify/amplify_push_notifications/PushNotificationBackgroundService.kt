@@ -14,10 +14,10 @@ import io.flutter.embedding.engine.dart.DartExecutor
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.view.FlutterCallbackInformation
+import io.flutter.view.FlutterMain
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.collections.ArrayDeque
-import io.flutter.embedding.engine.loader.FlutterLoader
 
 class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIntentService() {
     private val queue = ArrayDeque<List<Any>>()
@@ -62,7 +62,6 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
                     Log.e(TAG, "Fatal: no callback registered")
                     return
                 }
-
                 val callbackInfo =
                     FlutterCallbackInformation.lookupCallbackInformation(callbackHandle)
                 if (callbackInfo == null) {
@@ -73,7 +72,7 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
 
                 val args = DartExecutor.DartCallback(
                     context.assets,
-                    FlutterLoader().findAppBundlePath(),
+                    FlutterMain.findAppBundlePath(),
                     callbackInfo
                 )
                 sBackgroundFlutterEngine!!.dartExecutor.executeDartCallback(args)

@@ -153,8 +153,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       _internalBgHandler,
     );
 
-    // TODO: Register the callback dispatcher
-
     _logger.info('CONFIGURE API | Successfully configure push notifications');
 
     _isConfigured = true;

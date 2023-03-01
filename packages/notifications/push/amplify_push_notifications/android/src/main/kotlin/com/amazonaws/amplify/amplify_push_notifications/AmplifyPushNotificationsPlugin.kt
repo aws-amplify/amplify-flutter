@@ -40,8 +40,6 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
     private var mainActivity: Activity? = null
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var channel: MethodChannel
-
-
     private var activityBinding: ActivityPluginBinding? = null
 
     companion object {
@@ -71,11 +69,6 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
         )
         channel.setMethodCallHandler(this)
     }
-
-
-//    private fun sendEvent(event: PushNotificationsEvent) {
-//        tokenReceivedStreamHandler.sendEvent(event)
-//    }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull _result: Result) {
         val result = AtomicResult(_result, call.method)

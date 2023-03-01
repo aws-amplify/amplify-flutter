@@ -10,7 +10,7 @@ import android.content.Intent
 import android.util.Log
 import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsUtils
 import com.google.firebase.messaging.RemoteMessage
-import io.flutter.embedding.engine.loader.FlutterLoader
+import io.flutter.view.FlutterMain
 
 // TODO: This BroadcastReceiver needs to be replaced by the Firebase Service
 class PushNotificationReceiver : BroadcastReceiver() {
@@ -37,9 +37,8 @@ class PushNotificationReceiver : BroadcastReceiver() {
                     utils.showNotification(
                         payload, AmplifyPushNotificationsPlugin::class.java
                     )
-                    val flutterLoader = FlutterLoader()
-                    flutterLoader.startInitialization(context)
-                    flutterLoader.ensureInitializationComplete(context, null)
+                    FlutterMain.startInitialization(context)
+                    FlutterMain.ensureInitializationComplete(context, null)
                     PushNotificationBackgroundService.enqueueWork(context, it)
                 } catch (exception: Exception) {
                     Log.e(TAG, "Something went wrong while starting headless task $exception")
