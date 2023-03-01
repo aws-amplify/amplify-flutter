@@ -93,7 +93,6 @@ void main({bool useExistingTestUser = false}) {
             final subscriptionRequest = ModelSubscriptions.onCreate(
               Blog.classType,
               authorizationMode: APIAuthorizationType.apiKey,
-              where: Blog.NAME.eq(name),
             );
 
             final eventResponse = await establishSubscriptionAndMutate<Blog>(
@@ -167,6 +166,7 @@ void main({bool useExistingTestUser = false}) {
 
           testWidgets('should support where clause when using Model helpers',
               (WidgetTester tester) async {
+            final dataCompleter = Completer<Post>();
             final blogName =
                 'Integration Test Blog - subscription filter ${uuid()}';
 
@@ -175,14 +175,9 @@ void main({bool useExistingTestUser = false}) {
 
             final blog = await addBlog(blogName);
 
-            // TODO(equartey): Replace this statement when Model object supports parent id field.
-            final pred =
-                const QueryField<String>(fieldName: 'blogID').eq(blog.id);
-
             final subscriptionRequest = ModelSubscriptions.onCreate(
               Post.classType,
-              authorizationMode: APIAuthorizationType.apiKey,
-              where: pred,
+              where: Post.BLOG.eq(blog.id),
             );
 
             final stream = Amplify.API.subscribe(
@@ -190,11 +185,18 @@ void main({bool useExistingTestUser = false}) {
               onEstablished: () => addPost(postTitle, 3, blog),
             );
 
-            stream.listen((event) {
-              final postFromEvent = event.data;
+            stream.listen(
+              (event) {
+                final postFromEvent = event.data;
 
-              expect(postFromEvent?.title, equals(postTitle));
-            });
+                expect(postFromEvent?.title, equals(postTitle));
+
+                dataCompleter.complete(postFromEvent);
+              },
+              onError: (Object e) => fail('Error in subscription stream: $e'),
+            );
+
+            await dataCompleter.future;
           });
 
           testWidgets('should parse errors within a web socket data message',
