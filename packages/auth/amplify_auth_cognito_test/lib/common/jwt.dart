@@ -2,8 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
-
-import 'mock_config.dart';
+import 'package:amplify_auth_cognito_test/common/mock_config.dart';
 
 enum TokenType { access, id }
 

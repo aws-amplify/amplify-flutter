@@ -6,15 +6,14 @@ import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
+import 'package:amplify_auth_cognito_test/common/jwt.dart';
+import 'package:amplify_auth_cognito_test/common/mock_clients.dart';
+import 'package:amplify_auth_cognito_test/common/mock_config.dart';
+import 'package:amplify_auth_cognito_test/common/mock_secure_storage.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:test/test.dart';
-
-import '../common/jwt.dart';
-import '../common/mock_clients.dart';
-import '../common/mock_config.dart';
-import '../common/mock_secure_storage.dart';
 
 void main() {
   group('FetchAuthSessionStateMachine', () {
@@ -47,7 +46,7 @@ void main() {
     const newSecretAccessKey = 'newSecretAccessKey';
 
     Future<void> configureAmplify(AmplifyConfig config) async {
-      stateMachine.dispatch(ConfigurationEvent.configure(config));
+      stateMachine.dispatch(ConfigurationEvent.configure(config)).ignore();
       await stateMachine.stream.whereType<Configured>().first;
     }
 

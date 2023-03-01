@@ -12,7 +12,8 @@ const testAppClientId = 'appClientId';
 const testIdentityPoolId = 'identityPoolId';
 const testRegion = 'region';
 const scopes = ['profile'];
-const redirectUri = 'http://localhost:9999/';
+const testUrlScheme = 'authtest';
+const redirectUri = '$testUrlScheme:/,http://localhost:9999/';
 const webDomain = 'example.com';
 const hostedUiConfig = CognitoOAuthConfig(
   appClientId: testAppClientId,

@@ -4,13 +4,12 @@
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_up_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
+import 'package:amplify_auth_cognito_test/common/mock_clients.dart';
+import 'package:amplify_auth_cognito_test/common/mock_config.dart';
+import 'package:amplify_auth_cognito_test/common/mock_secure_storage.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:test/test.dart';
-
-import '../common/mock_clients.dart';
-import '../common/mock_config.dart';
-import '../common/mock_secure_storage.dart';
 
 void main() {
   group('SignUpStateMachine', () {
@@ -44,12 +43,12 @@ void main() {
           userConfirmed: true,
         ),
       );
-      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
       await stateMachine.stream.whereType<Configured>().first;
 
       stateMachine
         ..addInstance<CognitoIdentityProviderClient>(client)
-        ..dispatch(signUpEvent);
+        ..dispatch(signUpEvent).ignore();
 
       expect(
         stateMachine.stream.whereType<SignUpState>(),
@@ -72,12 +71,12 @@ void main() {
         ),
         confirmSignUp: () async => ConfirmSignUpResponse(),
       );
-      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
       await stateMachine.stream.whereType<Configured>().first;
 
       stateMachine
         ..addInstance<CognitoIdentityProviderClient>(client)
-        ..dispatch(signUpEvent);
+        ..dispatch(signUpEvent).ignore();
 
       await expectLater(
         stateMachine.stream.whereType<SignUpState>(),
@@ -91,12 +90,14 @@ void main() {
         ]),
       );
 
-      stateMachine.dispatch(
-        const SignUpEvent.confirm(
-          username: username,
-          confirmationCode: '12345',
-        ),
-      );
+      stateMachine
+          .dispatch(
+            const SignUpEvent.confirm(
+              username: username,
+              confirmationCode: '12345',
+            ),
+          )
+          .ignore();
       expect(
         stateMachine.stream.whereType<SignUpState>(),
         emitsInOrder(<Matcher>[
@@ -110,12 +111,12 @@ void main() {
       var client = MockCognitoIdentityProviderClient(
         signUp: () async => throw _SignUpException(),
       );
-      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
       await stateMachine.stream.whereType<Configured>().first;
 
       stateMachine
         ..addInstance<CognitoIdentityProviderClient>(client)
-        ..dispatch(signUpEvent);
+        ..dispatch(signUpEvent).ignore();
 
       await expectLater(
         stateMachine.stream.whereType<SignUpState>(),
@@ -137,7 +138,7 @@ void main() {
       );
       stateMachine
         ..addInstance<CognitoIdentityProviderClient>(client)
-        ..dispatch(signUpEvent);
+        ..dispatch(signUpEvent).ignore();
 
       expect(
         stateMachine.stream.whereType<SignUpState>(),

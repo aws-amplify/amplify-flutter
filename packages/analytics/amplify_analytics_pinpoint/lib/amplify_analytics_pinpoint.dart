@@ -10,3 +10,9 @@ export 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.
 
 /// Category Implementation.
 export 'src/analytics_plugin_impl.dart';
+
+/// Push Notifications
+export 'src/flutter_analytics_client.dart';
+
+/// Cognito Auth endpoint management
+export 'src/flutter_endpoint_info_store_manager.dart';

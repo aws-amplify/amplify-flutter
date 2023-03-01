@@ -3,13 +3,12 @@
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
+import 'package:amplify_auth_cognito_test/common/mock_config.dart';
+import 'package:amplify_auth_cognito_test/common/mock_secure_storage.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:test/test.dart';
-
-import '../common/mock_config.dart';
-import '../common/mock_secure_storage.dart';
 
 const badConfig = AmplifyConfig();
 
@@ -28,7 +27,7 @@ void main() {
       final configurationStateMachine =
           stateMachine.getOrCreate(ConfigurationStateMachine.type);
 
-      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
       await expectLater(
         configurationStateMachine.stream
             .startWith(configurationStateMachine.currentState),
@@ -64,7 +63,7 @@ void main() {
       final configurationStateMachine =
           stateMachine.getOrCreate(ConfigurationStateMachine.type);
 
-      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
       await expectLater(
         configurationStateMachine.stream
             .startWith(configurationStateMachine.currentState),
@@ -75,7 +74,7 @@ void main() {
         ]),
       );
 
-      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig));
+      stateMachine.dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
       expect(
         configurationStateMachine.stream,
         emitsDone,

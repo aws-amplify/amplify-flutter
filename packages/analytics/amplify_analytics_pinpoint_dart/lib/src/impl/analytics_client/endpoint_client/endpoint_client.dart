@@ -3,12 +3,10 @@
 
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/aws_pinpoint_user_profile.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_global_fields_manager.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_id_manager.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/legacy_native_data_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:built_collection/built_collection.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.endpoint_client}
@@ -20,12 +18,15 @@ import 'package:built_collection/built_collection.dart';
 /// {@endtemplate}
 class EndpointClient {
   /// {@macro amplify_analytics_pinpoint_dart.endpoint_client}
-  EndpointClient._({
+  EndpointClient({
     required String pinpointAppId,
     required PinpointClient pinpointClient,
+    required EndpointInfoStoreManager endpointInfoStoreManager,
     DeviceContextInfo? deviceContextInfo,
   })  : _pinpointAppId = pinpointAppId,
         _pinpointClient = pinpointClient,
+        _fixedEndpointId = endpointInfoStoreManager.endpointId,
+        _globalFieldsManager = endpointInfoStoreManager.endpointFields,
         _endpointBuilder = PublicEndpoint(
           effectiveDate: DateTime.now().toUtc().toIso8601String(),
           demographic: EndpointDemographic(
@@ -42,43 +43,6 @@ class EndpointClient {
             country: deviceContextInfo?.countryCode,
           ),
         ).toBuilder();
-
-  /// Initialize [EndpointClient] by retrieving the endpoint id and
-  /// initializing the [EndpointGlobalFieldsManager].
-  Future<void> _init({
-    required SecureStorageInterface endpointInfoStore,
-    LegacyNativeDataProvider? legacyNativeDataProvider,
-  }) async {
-    final endpointIdManager = EndpointIdManager(
-      store: endpointInfoStore,
-      legacyNativeDataProvider: legacyNativeDataProvider,
-      pinpointAppId: _pinpointAppId,
-    );
-    _fixedEndpointId = await endpointIdManager.retrieveEndpointId();
-
-    _globalFieldsManager =
-        await EndpointGlobalFieldsManager.create(endpointInfoStore);
-  }
-
-  /// Create and initialize an [EndpointClient].
-  static Future<EndpointClient> create({
-    required String pinpointAppId,
-    required PinpointClient pinpointClient,
-    required SecureStorageInterface endpointInfoStore,
-    DeviceContextInfo? deviceContextInfo,
-    LegacyNativeDataProvider? legacyNativeDataProvider,
-  }) async {
-    final endpointClient = EndpointClient._(
-      pinpointAppId: pinpointAppId,
-      pinpointClient: pinpointClient,
-      deviceContextInfo: deviceContextInfo,
-    );
-    await endpointClient._init(
-      endpointInfoStore: endpointInfoStore,
-      legacyNativeDataProvider: legacyNativeDataProvider,
-    );
-    return endpointClient;
-  }
 
   late final String _fixedEndpointId;
   late final EndpointGlobalFieldsManager _globalFieldsManager;

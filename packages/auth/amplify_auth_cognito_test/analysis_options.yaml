@@ -2,6 +2,8 @@ include: package:amplify_lints/library.yaml
 
 analyzer:
   errors:
+    implementation_imports: ignore
     invalid_use_of_internal_member: ignore
+    public_member_api_docs: ignore
   exclude:
     - '**/*.g.dart'
