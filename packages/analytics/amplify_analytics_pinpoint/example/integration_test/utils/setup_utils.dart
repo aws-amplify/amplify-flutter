@@ -24,7 +24,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'mock_key_value_store.dart';
+import 'mock_secure_storage.dart';
 import 'test_event.dart';
 
 Future<void> configureAnalytics({
@@ -41,7 +41,10 @@ Future<void> configureAnalytics({
     ),
     AmplifyAnalyticsPinpoint(
       appLifecycleProvider: appLifecycleProvider,
-      endpointInfoStore: mockEndpointInfoStore,
+      analyticsClient: AnalyticsClient(
+        endpointInfoStoreManager:
+            EndpointInfoStoreManager(store: mockPersistedSecuredStorage),
+      ),
     ),
     AmplifyAPI(),
   ]);

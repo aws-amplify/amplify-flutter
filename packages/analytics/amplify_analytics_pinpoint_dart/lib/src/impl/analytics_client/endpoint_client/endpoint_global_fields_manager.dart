@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_store_keys.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:meta/meta.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.endpoint_global_fields_manager}
 /// Manages the storage, retrieval, and update of Attributes and Metrics of a PinpointEndpoint.
@@ -35,22 +36,10 @@ class EndpointGlobalFieldsManager {
   /// the stored attributes and metrics in storage.
   Future<void> _init() async {
     // Retrieve stored GlobalAttributes.
-    final cachedAttributes = await _endpointInfoStore.read(
-      key: EndpointStoreKey.globalAttributesKey.name,
-    );
-    _globalAttributes = cachedAttributes == null
-        ? <String, String>{}
-        : (jsonDecode(cachedAttributes) as Map<String, Object?>)
-            .cast<String, String>();
+    _globalAttributes = await getStoredAttributes(_endpointInfoStore);
 
     // Retrieve stored GlobalMetrics.
-    final cachedMetrics = await _endpointInfoStore.read(
-      key: EndpointStoreKey.globalMetricsKey.name,
-    );
-    _globalMetrics = cachedMetrics == null
-        ? <String, double>{}
-        : (jsonDecode(cachedMetrics) as Map<String, Object?>)
-            .cast<String, double>();
+    _globalMetrics = await getStoredMetrics(_endpointInfoStore);
   }
 
   final SecureStorageInterface _endpointInfoStore;
@@ -74,32 +63,35 @@ class EndpointGlobalFieldsManager {
   /// Limits defined by Pinpoint.
   /// For more details see Pinpoint [Endpoint](https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-endpoints.html) online spec.
   /// {@endtemplate}
-  static const int _maxKeyLength = 50;
+  @visibleForTesting
+  static const int maxKeyLength = 50;
 
   /// {@macro amplify_analytics_pinpoint_dart.endpoint_global_fields_manager_limits_by_pinpoint}
-  static const int _maxAttributeValueLength = 100;
+  @visibleForTesting
+  static const int maxAttributeValueLength = 100;
 
   /// {@macro amplify_analytics_pinpoint_dart.endpoint_global_fields_manager_limits_by_pinpoint}
-  static const int _maxAttributes = 20;
+  @visibleForTesting
+  static const int maxAttributes = 20;
 
   String _processKey(String key) {
-    if (key.length > _maxKeyLength) {
+    if (key.length > maxKeyLength) {
       _logger.warn(
         'The key: "$key" ',
-        'has been trimmed to a length of $_maxKeyLength characters.',
+        'has been trimmed to a length of $maxKeyLength characters.',
       );
-      return key.substring(0, _maxKeyLength);
+      return key.substring(0, maxKeyLength);
     }
     return key;
   }
 
   String _processAttributeValue(String value) {
-    if (value.length > _maxAttributeValueLength) {
+    if (value.length > maxAttributeValueLength) {
       _logger.warn(
         'The attribute value: "$value" ',
-        'has been trimmed to a length of $_maxAttributeValueLength characters.',
+        'has been trimmed to a length of $maxAttributeValueLength characters.',
       );
-      return value.substring(0, _maxAttributeValueLength);
+      return value.substring(0, maxAttributeValueLength);
     }
     return value;
   }
@@ -107,7 +99,7 @@ class EndpointGlobalFieldsManager {
   /// Add multiple attributes.
   Future<void> addAttributes(Map<String, String> attributes) async {
     attributes.forEach((key, value) {
-      if (_globalAttributes.length + _globalMetrics.length < _maxAttributes) {
+      if (_globalAttributes.length + _globalMetrics.length < maxAttributes) {
         _globalAttributes[_processKey(key)] = _processAttributeValue(value);
       } else {
         _warnMaxAttributeMetric(key);
@@ -119,7 +111,7 @@ class EndpointGlobalFieldsManager {
 
   /// Add an attribute by [key] with value of [value].
   Future<void> addAttribute(String key, String value) async {
-    if (_globalAttributes.length + _globalMetrics.length < _maxAttributes) {
+    if (_globalAttributes.length + _globalMetrics.length < maxAttributes) {
       _globalAttributes[_processKey(key)] = _processAttributeValue(value);
       await _saveAttributes();
     } else {
@@ -143,7 +135,7 @@ class EndpointGlobalFieldsManager {
   /// Add multiple metrics.
   Future<void> addMetrics(Map<String, double> metrics) async {
     metrics.forEach((key, value) {
-      if (_globalAttributes.length + _globalMetrics.length < _maxAttributes) {
+      if (_globalAttributes.length + _globalMetrics.length < maxAttributes) {
         _globalMetrics[_processKey(key)] = value;
       } else {
         _warnMaxAttributeMetric(key);
@@ -155,7 +147,7 @@ class EndpointGlobalFieldsManager {
 
   /// Add a metric by [key] with value of [value].
   Future<void> addMetric(String key, double value) async {
-    if (_globalAttributes.length + _globalMetrics.length < _maxAttributes) {
+    if (_globalAttributes.length + _globalMetrics.length < maxAttributes) {
       _globalMetrics[_processKey(key)] = value;
       await _saveMetrics();
     } else {
@@ -178,8 +170,36 @@ class EndpointGlobalFieldsManager {
 
   void _warnMaxAttributeMetric(String key) {
     _logger.warn(
-      'Max number of $_maxAttributes reached for Endpoint attributes + metrics, \n',
+      'Max number of $maxAttributes reached for Endpoint attributes + metrics, \n',
       'Ignoring attribute with key: "$key". \n',
     );
+  }
+
+  /// Retrieve attributes map stored as json in [storage].
+  @visibleForTesting
+  static Future<Map<String, String>> getStoredAttributes(
+    SecureStorageInterface storage,
+  ) async {
+    final cachedAttributes = await storage.read(
+      key: EndpointStoreKey.globalAttributesKey.name,
+    );
+    return cachedAttributes == null
+        ? <String, String>{}
+        : (jsonDecode(cachedAttributes) as Map<String, Object?>)
+            .cast<String, String>();
+  }
+
+  /// Retrieve metrics map stored as json in [storage].
+  @visibleForTesting
+  static Future<Map<String, double>> getStoredMetrics(
+    SecureStorageInterface storage,
+  ) async {
+    final cachedMetrics = await storage.read(
+      key: EndpointStoreKey.globalMetricsKey.name,
+    );
+    return cachedMetrics == null
+        ? <String, double>{}
+        : (jsonDecode(cachedMetrics) as Map<String, Object?>)
+            .cast<String, double>();
   }
 }
