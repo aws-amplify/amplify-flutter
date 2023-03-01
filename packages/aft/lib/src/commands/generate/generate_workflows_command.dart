@@ -177,7 +177,7 @@ jobs:
       '${packageName}_android.yaml',
     );
 
-    final androidExternalPackagePaths = [
+    final androidPlatformPackagePaths = [
       if (platformPackageAndroidTestDirExists)
         '${repoRelativePath}_android/**/*'
     ];
@@ -186,7 +186,7 @@ jobs:
       p.relative(androidWorkflowFilepath, from: rootDir.path)
     ];
     final androidPathString =
-        (androidExternalPackagePaths + androidWorkflowPaths)
+        (androidPlatformPackagePaths + androidWorkflowPaths)
             .map((path) => "      - '$path'")
             .join('\n');
 
