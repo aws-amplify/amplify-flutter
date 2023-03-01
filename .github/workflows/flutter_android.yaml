@@ -55,6 +55,7 @@ jobs:
 
       - name: run Android unit tests
         run: |
+          flutter build apk --debug --verbose
           packageName=$(sed 's:.*/::' <<< ${{ inputs.working-directory }})
           ./gradlew :"$packageName":testDebugUnitTest
         working-directory: ${{ inputs.working-directory }}/example/android
