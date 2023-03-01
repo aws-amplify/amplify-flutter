@@ -107,7 +107,7 @@ class EventClient implements Closeable {
     return completer.future;
   }
 
-  final _failedEventIds = <String, int>{};
+  final _numFailuresByEvent = <String, int>{};
 
   Future<void> _flushEvents() async {
     final storedEvents = await _eventStorage.retrieveEvents();
@@ -180,14 +180,12 @@ class EventClient implements Closeable {
             'putEvents - issue with eventId: $eventId \n $eventItemResponse',
           );
 
-          if (_isRetryable(eventItemResponse.statusCode)) {
+          if (_isRetryable(eventItemResponse.statusCode) &&
+              _shouldEventRetry(eventId)) {
             _logger.warn(
               'putEvents - recoverable issue, will attempt to resend: $eventId in next FlushEvents',
             );
-
-            if (_shouldEventRetry(eventId)) {
-              eventsToDelete.remove(eventId);
-            }
+            eventsToDelete.remove(eventId);
           }
         }
       });
@@ -244,12 +242,12 @@ class EventClient implements Closeable {
   }
 
   bool _shouldEventRetry(String eventId) {
-    final timesFailed = (_failedEventIds[eventId] ?? 0) + 1;
+    final timesFailed = (_numFailuresByEvent[eventId] ?? 0) + 1;
     if (timesFailed > 3) {
       _logger.warn('Event fail limit reached, deleting event.');
       return false;
     } else {
-      _failedEventIds[eventId] = timesFailed;
+      _numFailuresByEvent[eventId] = timesFailed;
       return true;
     }
   }
