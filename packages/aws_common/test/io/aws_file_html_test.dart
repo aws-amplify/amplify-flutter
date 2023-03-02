@@ -5,7 +5,9 @@
 
 import 'dart:convert';
 import 'dart:html' as html;
+import 'dart:typed_data';
 
+import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_common/web.dart';
 import 'package:test/test.dart';
@@ -129,6 +131,77 @@ void main() {
 
         expect(await awsFile.contentType, isNull);
       });
+    });
+
+    group('openRead() API', () {
+      test(
+        'throws exception when the AWSFile is initiated with fromStream constructor',
+        () {
+          final testFile = AWSFile.fromStream(
+            Stream.value(testBytes),
+            size: testBytes.length,
+          );
+
+          expect(testFile.openRead, throwsA(isA<InvalidFileException>()));
+        },
+      );
+
+      test('returns streams over the underlying file', () async {
+        final bytesBuffer = BytesBuilder();
+        final awsFile = AWSFilePlatform.fromFile(testFile);
+
+        final collectedBytes1 = await collectBytes(awsFile.openRead(0, 5));
+        final collectedBytes2 = await collectBytes(awsFile.openRead(5));
+
+        expect(collectedBytes1.length, 5);
+        expect(collectedBytes2.length, testBytes.length - 5);
+
+        bytesBuffer
+          ..add(collectedBytes1)
+          ..add(collectedBytes2);
+
+        expect(bytesBuffer.takeBytes(), equals(testBytes));
+      });
+
+      test('returns streams over the underlying bytes', () async {
+        final bytesBuffer = BytesBuilder();
+        final awsFile = AWSFile.fromData(testBytes);
+
+        final collectedBytes1 = await collectBytes(awsFile.openRead(0, 10));
+        final collectedBytes2 = await collectBytes(awsFile.openRead(10, 13));
+        final collectedBytes3 = await collectBytes(awsFile.openRead(13));
+
+        expect(collectedBytes1.length, 10);
+        expect(collectedBytes2.length, 3);
+        expect(collectedBytes3.length, testBytes.length - 13);
+
+        bytesBuffer
+          ..add(collectedBytes1)
+          ..add(collectedBytes2)
+          ..add(collectedBytes3);
+
+        expect(bytesBuffer.takeBytes(), equals(testBytes));
+      });
+
+      test(
+        'returns streams over the underlying file pointed by the path',
+        () async {
+          final bytesBuffer = BytesBuilder();
+          final awsFile = AWSFile.fromPath(testFilePath);
+
+          final collectedBytes1 = await collectBytes(awsFile.openRead(0, 20));
+          final collectedBytes2 = await collectBytes(awsFile.openRead(20));
+
+          expect(collectedBytes1.length, 20);
+          expect(collectedBytes2.length, testBytes.length - 20);
+
+          bytesBuffer
+            ..add(collectedBytes1)
+            ..add(collectedBytes2);
+
+          expect(bytesBuffer.takeBytes(), equals(testBytes));
+        },
+      );
     });
   });
 }

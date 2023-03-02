@@ -125,14 +125,23 @@ abstract class AWSFile {
 
   final String? _contentType;
 
-  /// {@template amplify_core.io.aws_file.chunked_reader}
-  /// Returns a [ChunkedStreamReader] over the stream of bytes of the file.
-  /// {@endtemplate}
-  ChunkedStreamReader<int> getChunkedStreamReader();
-
   /// Size of the file.
   Future<int> get size;
 
   /// The content type of the file if provided.
   Future<String?> get contentType async => _contentType;
+
+  /// {@template amplify_core.io.aws_file.chunked_reader}
+  /// Returns a [ChunkedStreamReader] over the stream of bytes of the file.
+  /// {@endtemplate}
+  ChunkedStreamReader<int> getChunkedStreamReader();
+
+  /// {@template amplify_core.io.aws_file.open_read}
+  /// Creates a new independent Stream for the contents of this file starting
+  /// from [start] and ending at [end].
+  ///
+  /// Throws [InvalidFileException] if the [AWSFile] is initiated using
+  /// [AWSFile.fromStream].
+  /// {@endtemplate}
+  Stream<List<int>> openRead([int? start, int? end]);
 }

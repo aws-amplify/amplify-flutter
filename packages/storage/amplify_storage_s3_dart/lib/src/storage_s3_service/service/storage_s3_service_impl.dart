@@ -58,7 +58,10 @@ class StorageS3Service {
   static final _defaultS3ClientConfig = smithy_aws.S3ClientConfig(
     signerConfiguration: _defaultS3SignerConfiguration,
   );
-  static final _defaultS3SignerConfiguration = sigv4.S3ServiceConfiguration();
+  // TODO(HuiSF): re-enable signPayload when the signer supports hashing on
+  //  different threads.
+  static final _defaultS3SignerConfiguration =
+      sigv4.S3ServiceConfiguration(signPayload: false);
 
   final String _defaultBucket;
   final String _defaultRegion;
@@ -218,7 +221,10 @@ class StorageS3Service {
       accessLevel: options.accessLevel,
       identityId: options.targetIdentityId,
     );
-    final keyToGetUrl = '$resolvedPrefix$key';
+    var keyToGetUrl = '$resolvedPrefix$key';
+    if (!keyToGetUrl.startsWith('/')) {
+      keyToGetUrl = '/$keyToGetUrl';
+    }
 
     var host = '$_defaultBucket.${_getS3EndpointHost(region: _defaultRegion)}';
 
@@ -229,11 +235,10 @@ class StorageS3Service {
           .replaceFirst(RegExp(r'\.s3\.'), '.s3-accelerate.');
     }
 
-    final urlRequest = AWSHttpRequest.get(
-      Uri.https(host, keyToGetUrl),
-      headers: {
-        AWSHeaders.host: host,
-      },
+    final urlRequest = AWSHttpRequest.raw(
+      method: AWSHttpMethod.get,
+      host: host,
+      path: keyToGetUrl,
     );
 
     return S3GetUrlResult(
