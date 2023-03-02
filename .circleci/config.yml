@@ -64,8 +64,7 @@ jobs:
       - install_flutter
       - checkout
       - install_aft
-      - install_melos
-      - run: melos run format
+      - run: aft run format
 
   analyze_flutter:
     executor: docker-executor
@@ -73,10 +72,9 @@ jobs:
       - install_flutter
       - checkout
       - install_aft
-      - install_melos
       - run:
           name: Analyze Dart/Flutter Code
-          command: melos run analyze --no-select
+          command: aft run analyze --include=flutter -- --no-fatal-infos
 
   pub_analysis:
     executor: docker-executor
@@ -103,13 +101,12 @@ jobs:
       - install_flutter
       - checkout
       - install_aft
-      - install_melos
       - run:
           name: Install junitreport for JUnit XML reports
           command: flutter pub global activate junitreport
       - run:
           name: Run Flutter Unit Tests
-          command: melos run test:unit:flutter:plugin << parameters.plugin >>
+          command: aft run test:unit:flutter --include=<< parameters.plugin >>
       - run:
           name: Save test results
           command: |
@@ -134,17 +131,15 @@ jobs:
       - install_flutter
       - checkout
       - install_aft
-      - install_melos
       - run:
           name: Pre-start iOS simulator
           command: xcrun simctl boot "iPhone 14 Pro Max" || true
       - run:
           name: Build example iOS apps
-          command: |
-            melos run build:example:ios << parameters.plugin >>
+          command: aft run build:example:ios --include='**<< parameters.plugin >>**'
       - run:
           name: Run iOS Unit Tests
-          command: melos run test:unit:ios:plugin << parameters.plugin >>
+          command: aft run test:unit:ios --include=<< parameters.plugin >>
       - run:
           name: Save test results
           command: |
@@ -168,18 +163,16 @@ jobs:
       - install_flutter
       - checkout
       - install_aft
-      - install_melos
       - run:
           name: Build example APKs
-          command: |
-            melos run build:example:android << parameters.plugin >>
+          command: aft run build:example:android --include='**<< parameters.plugin >>**'
           no_output_timeout: 20m
       # - run:
       #     name: Run lint checks
       #     command: melos run lint:android:<< parameters.plugin >>
       - run:
           name: Run Android Unit Tests
-          command: melos run test:unit:android:plugin << parameters.plugin >>
+          command: aft run test:unit:android --include=<< parameters.plugin >>
       - run:
           name: Save test results
           command: |
