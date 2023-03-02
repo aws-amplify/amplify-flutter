@@ -61,12 +61,7 @@ Available scripts:
     ]).allPaths(aftConfig);
     logger.verbose(
       '''
-Executing script:
-
----
-${script.run}
----
-
+Executing script: $scriptName
 with arguments: $arguments
 for package paths:
 ${commandPaths.map((path) => '- $path').join('\n')}
@@ -87,10 +82,17 @@ set -euo pipefail
 $renderedScript
 '''
             .trim();
+        logger.verbose(
+          '''
+Full script:
+
+$fullScript
+''',
+        );
         final tempFile = File.fromUri(tempDir.uri.resolve('script.sh'))
           ..createSync()
           ..writeAsStringSync(fullScript);
-        logger.info('Running $scriptName script in: $commandPath');
+        logger.info('Running `$scriptName` script in: $commandPath');
         final result = await execCommand(
           ['sh', tempFile.path, ...arguments],
           workingDirectory: commandPath,
