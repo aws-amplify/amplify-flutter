@@ -16,6 +16,7 @@ import 'package:smithy/smithy.dart' as smithy;
 import 'package:smithy_aws/smithy_aws.dart' as smithy_aws;
 import 'package:test/test.dart';
 
+import '../../test_utils/io_mocks.dart';
 import '../../test_utils/mocks.dart';
 import '../../test_utils/test_custom_prefix_resolver.dart';
 
@@ -907,11 +908,6 @@ void main() {
       test(
           'should invoke S3Client uploadPart API with correct useAcceleration parameter',
           () async {
-        final receivedState = <S3TransferState>[];
-        void onProgress(S3TransferProgress progress) {
-          receivedState.add(progress.state);
-        }
-
         const testUploadDataOptions = S3UploadDataOptions(
           accessLevel: StorageAccessLevel.protected,
           useAccelerateEndpoint: true,
@@ -977,7 +973,6 @@ void main() {
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
-          onProgress: onProgress,
         );
 
         unawaited(uploadTask.start());
@@ -1095,12 +1090,144 @@ void main() {
         );
       });
 
+      group('when AWSFile is backed by', () {
+        late AWSFile testLocalFile;
+
+        setUpAll(() {
+          final createMultipartUploadSmithyOperation =
+              MockSmithyOperation<s3.CreateMultipartUploadOutput>();
+          when(
+            () => createMultipartUploadSmithyOperation.result,
+          ).thenAnswer(
+            (_) async => s3.CreateMultipartUploadOutput(
+              uploadId: '123',
+            ),
+          );
+          when(
+            () => s3Client.createMultipartUpload(any()),
+          ).thenAnswer((_) => createMultipartUploadSmithyOperation);
+          when(
+            () => transferDatabase.insertTransferRecord(any()),
+          ).thenAnswer((_) async => '1');
+
+          final uploadPartSmithyOperation =
+              MockSmithyOperation<s3.UploadPartOutput>();
+          when(
+            () => uploadPartSmithyOperation.result,
+          ).thenAnswer((_) async => s3.UploadPartOutput(eTag: 'eTag'));
+          when(
+            () => s3Client.uploadPart(
+              any(),
+              s3ClientConfig: any(named: 's3ClientConfig'),
+            ),
+          ).thenAnswer((_) => uploadPartSmithyOperation);
+
+          final completeMultipartUploadSmithyOperation =
+              MockSmithyOperation<s3.CompleteMultipartUploadOutput>();
+
+          when(
+            () => completeMultipartUploadSmithyOperation.result,
+          ).thenAnswer((_) async => s3.CompleteMultipartUploadOutput());
+          when(
+            () => s3Client.completeMultipartUpload(any()),
+          ).thenAnswer((_) => completeMultipartUploadSmithyOperation);
+
+          when(
+            () => transferDatabase.deleteTransferRecords(any()),
+          ).thenAnswer((_) async => 1);
+        });
+
+        setUp(() {
+          testLocalFile = MockAWSFile();
+
+          when(() => testLocalFile.contentType)
+              .thenAnswer((_) async => 'image/jpg');
+        });
+
+        test(
+            'stream, should invoke AWSFile.getChunkedStreamReader reading chunks',
+            () async {
+          final mockChunkedStreamReader = MockChunkedStreamReader();
+          // file is backed by stream
+          when(() => testLocalFile.openRead(any(), any()))
+              .thenThrow(const InvalidFileException());
+          when(() => testLocalFile.size).thenAnswer(
+            (invocation) async => 11 * 1024 * 1024, // 11MiB
+          );
+          when(testLocalFile.getChunkedStreamReader)
+              .thenAnswer((invocation) => mockChunkedStreamReader);
+          when(() => mockChunkedStreamReader.readChunk(any()))
+              .thenAnswer((invocation) async => [1]);
+
+          final uploadTask = S3UploadTask.fromAWSFile(
+            testLocalFile,
+            s3Client: s3Client,
+            defaultS3ClientConfig: defaultS3ClientConfig,
+            prefixResolver: testPrefixResolver,
+            bucket: testBucket,
+            key: testKey,
+            options: const S3UploadDataOptions(),
+            logger: logger,
+            transferDatabase: transferDatabase,
+          );
+
+          unawaited(uploadTask.start());
+          await uploadTask.result;
+
+          verify(() => testLocalFile.openRead(any(), any())).called(
+            1, // 1 call to check if the file is backed by a platform file
+          );
+          verify(
+            testLocalFile.getChunkedStreamReader,
+          ).called(1);
+          verify(
+            () => mockChunkedStreamReader.readChunk(any()),
+          ).called(3); // 3 parts => 3 reads
+          verifyNever(testLocalFile.openRead);
+        });
+
+        test(
+          'platform file, should invoke AWSFile.openRead reading chunks',
+          () async {
+            // file is backed by platform File
+            when(() => testLocalFile.openRead(any(), any()))
+                .thenAnswer((invocation) => Stream.value([1]));
+            when(() => testLocalFile.size).thenAnswer(
+              (invocation) async => 11 * 1024 * 1024, // 11MiB
+            );
+
+            final uploadTask = S3UploadTask.fromAWSFile(
+              testLocalFile,
+              s3Client: s3Client,
+              defaultS3ClientConfig: defaultS3ClientConfig,
+              prefixResolver: testPrefixResolver,
+              bucket: testBucket,
+              key: testKey,
+              options: const S3UploadDataOptions(),
+              logger: logger,
+              transferDatabase: transferDatabase,
+            );
+
+            unawaited(uploadTask.start());
+            await uploadTask.result;
+
+            verify(() => testLocalFile.openRead(any(), any())).called(
+              1 // 1 call to check if the file is backed by a platform file
+                  +
+                  3, // 3 calls to read the chunks,
+            );
+          },
+        );
+      });
+
       test(
           'should throw exception if the file to be upload is too large to initiate a multipart upload',
           () async {
         late S3TransferState finalState;
-        final testBadFile =
-            AWSFile.fromStream(Stream.value([]), size: 10001 * 5 * 1024 * 1024);
+        final testBadFile = AWSFile.fromStream(
+          Stream.value([]),
+          size: 5 * 1024 * 1024 * 1024 * 1024 + 1, // > 5TiB
+        );
         final uploadTask = S3UploadTask.fromAWSFile(
           testBadFile,
           s3Client: s3Client,
@@ -1530,6 +1657,7 @@ void main() {
       });
 
       group('Control APIs', () {
+        final testLocalFile = AWSFile.fromData(testBytes);
         final testUploadPartOutput1 = s3.UploadPartOutput(eTag: 'eTag-part-1');
         final testUploadPartOutput2 = s3.UploadPartOutput(eTag: 'eTag-part-2');
         final testUploadPartOutput3 = s3.UploadPartOutput(eTag: 'eTag-part-3');

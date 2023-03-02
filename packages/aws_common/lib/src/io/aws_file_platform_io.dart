@@ -37,8 +37,8 @@ class AWSFilePlatform extends AWSFile {
     super.contentType,
     required int size,
   })  : _stream = inputStream,
-        _size = size,
         _inputFile = null,
+        _size = size,
         super.protected();
 
   /// {@macro amplify_core.io.aws_file.from_path}
@@ -79,11 +79,6 @@ class AWSFilePlatform extends AWSFile {
   }
 
   @override
-  ChunkedStreamReader<int> getChunkedStreamReader() {
-    return ChunkedStreamReader(stream);
-  }
-
-  @override
   Future<int> get size async {
     final size = _size;
     if (size != null) {
@@ -113,4 +108,29 @@ class AWSFilePlatform extends AWSFile {
 
         return null;
       });
+
+  @override
+  ChunkedStreamReader<int> getChunkedStreamReader() {
+    return ChunkedStreamReader(stream);
+  }
+
+  @override
+  Stream<List<int>> openRead([int? start, int? end]) {
+    final file = _inputFile;
+    if (file != null) {
+      return File(file.path).openRead(start, end);
+    }
+
+    final bytes = super.bytes;
+    if (bytes != null) {
+      return Stream.value(
+        bytes.sublist(start ?? 0, end),
+      );
+    }
+
+    throw const InvalidFileException(
+      recoverySuggestion:
+          'Cannot use `openRead` with an AWSFile that is initiated with a stream.',
+    );
+  }
 }
