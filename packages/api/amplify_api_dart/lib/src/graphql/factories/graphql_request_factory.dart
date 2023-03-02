@@ -114,6 +114,7 @@ class GraphQLRequestFactory {
     ModelSchema schema,
     GraphQLRequestOperation operation,
     ModelIdentifier? modelIdentifier,
+    Map<String, dynamic> variables,
   ) {
     var upperOutput = '';
     var lowerOutput = '';
@@ -169,7 +170,11 @@ class GraphQLRequestFactory {
       case GraphQLRequestOperation.onCreate:
       case GraphQLRequestOperation.onUpdate:
       case GraphQLRequestOperation.onDelete:
-        // upperOutput and lowerOutput already '', done
+        // Only add filter variable when present to support older backends that do not support filtering.
+        if (variables.containsKey('filter')) {
+          upperOutput = '(\$filter: ModelSubscription${modelName}FilterInput)';
+          lowerOutput = r'(filter: $filter)';
+        }
         break;
       default:
         throw const ApiException(
@@ -206,8 +211,12 @@ class GraphQLRequestFactory {
     // e.g. "get" or "list"
     final requestOperationVal = requestOperation.name;
     // e.g. "{upper: "($id: ID!)", lower: "(id: $id)"}"
-    final documentInputs =
-        _buildDocumentInputs(schema, requestOperation, modelIdentifier);
+    final documentInputs = _buildDocumentInputs(
+      schema,
+      requestOperation,
+      modelIdentifier,
+      variables,
+    );
     // e.g. "id name createdAt" - fields to retrieve
     final fields = _getSelectionSetFromModelSchema(schema, requestOperation);
     // e.g. "getBlog"
@@ -248,6 +257,20 @@ class GraphQLRequestFactory {
     return <String, dynamic>{
       'input': input,
       'condition': condition,
+    };
+  }
+
+  Map<String, dynamic> buildVariablesForSubscriptionRequest({
+    required ModelType modelType,
+    QueryPredicate? where,
+  }) {
+    if (where == null) {
+      return {};
+    }
+    final filter = GraphQLRequestFactory.instance
+        .queryPredicateToGraphQLFilter(where, modelType);
+    return <String, dynamic>{
+      'filter': filter,
     };
   }
 

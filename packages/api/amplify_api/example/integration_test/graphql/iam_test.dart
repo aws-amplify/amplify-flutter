@@ -443,6 +443,43 @@ void main({bool useExistingTestUser = false}) {
           expect(postFromEvent?.title, equals(title));
         });
 
+        testWidgets('should support where clause when using Model helpers',
+            (WidgetTester tester) async {
+          final blog1 = await addBlog(
+            'Integration Test Blog - subscription filter ${uuid()}',
+          );
+          final blog2 = await addBlog(
+            'Integration Test Blog - subscription filter ${uuid()}',
+          );
+
+          final postTitle1 =
+              'Integration Test Post - subscription filter ${uuid()}';
+          final postTitle2 =
+              'Integration Test Post - subscription filter ${uuid()}';
+
+          final subscriptionRequest = ModelSubscriptions.onCreate(
+            Post.classType,
+            where: Post.BLOG.eq(blog2.id),
+          );
+
+          final stream = Amplify.API.subscribe(
+            subscriptionRequest,
+            onEstablished: () {
+              addPost(postTitle1, 3, blog1);
+              addPost(postTitle2, 3, blog2);
+            },
+          );
+
+          stream.listen(
+            expectAsync1((event) {
+              final postFromEvent = event.data;
+
+              expect(postFromEvent?.title, equals(postTitle2));
+            }),
+            onError: (Object e) => fail('Error in subscription stream: $e'),
+          );
+        });
+
         testWidgets(
             'stream should emit response with error when subscription fails',
             (WidgetTester tester) async {

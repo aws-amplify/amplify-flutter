@@ -779,6 +779,7 @@ void main() {
             ModelSubscriptions.onCreate<Blog>(Blog.classType);
 
         expect(req.document, expected);
+        expect(req.variables, <String, dynamic>{});
         expect(req.modelType, Blog.classType);
         expect(req.decodePath, 'onCreateBlog');
       });
@@ -786,16 +787,29 @@ void main() {
       test(
           'ModelSubscriptions.onCreate() should support additional request parameters',
           () {
+        const expected =
+            'subscription onCreateBlog(\$filter: ModelSubscriptionBlogFilterInput) { onCreateBlog(filter: \$filter) { $blogSelectionSet } }';
         final req = ModelSubscriptions.onCreate(
           Blog.classType,
           apiName: _exampleApiName,
           headers: _exampleHeaders,
           authorizationMode: APIAuthorizationType.function,
+          where: Blog.NAME.eq('sample'),
         );
+        final expectedFilter = {
+          'filter': {
+            'name': {'eq': 'sample'}
+          }
+        };
 
+        expect(req.document, expected);
         expect(req.apiName, _exampleApiName);
         expect(req.headers, _exampleHeaders);
         expect(req.authorizationMode, APIAuthorizationType.function);
+        expect(
+          req.variables,
+          expectedFilter,
+        );
       });
 
       test('ModelSubscriptions.onUpdate() should build a valid request', () {
@@ -817,11 +831,21 @@ void main() {
           apiName: _exampleApiName,
           headers: _exampleHeaders,
           authorizationMode: APIAuthorizationType.function,
+          where: Blog.NAME.eq('sample'),
         );
+        final expectedFilter = {
+          'filter': {
+            'name': {'eq': 'sample'}
+          }
+        };
 
         expect(req.apiName, _exampleApiName);
         expect(req.headers, _exampleHeaders);
         expect(req.authorizationMode, APIAuthorizationType.function);
+        expect(
+          req.variables,
+          expectedFilter,
+        );
       });
 
       test('ModelSubscriptions.onDelete() should build a valid request', () {
@@ -843,11 +867,21 @@ void main() {
           apiName: _exampleApiName,
           headers: _exampleHeaders,
           authorizationMode: APIAuthorizationType.function,
+          where: Blog.NAME.eq('sample'),
         );
+        final expectedFilter = {
+          'filter': {
+            'name': {'eq': 'sample'}
+          }
+        };
 
         expect(req.apiName, _exampleApiName);
         expect(req.headers, _exampleHeaders);
         expect(req.authorizationMode, APIAuthorizationType.function);
+        expect(
+          req.variables,
+          expectedFilter,
+        );
       });
     });
 

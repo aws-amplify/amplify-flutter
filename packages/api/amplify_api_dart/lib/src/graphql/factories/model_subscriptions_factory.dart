@@ -21,10 +21,16 @@ class ModelSubscriptionsFactory {
     String? apiName,
     APIAuthorizationType? authorizationMode,
     Map<String, String>? headers,
+    QueryPredicate? where,
   }) {
+    final variables =
+        GraphQLRequestFactory.instance.buildVariablesForSubscriptionRequest(
+      modelType: modelType,
+      where: where,
+    );
     return GraphQLRequestFactory.instance.buildRequest<T>(
       modelType: modelType,
-      variables: <String, dynamic>{},
+      variables: variables,
       requestType: GraphQLRequestType.subscription,
       requestOperation: GraphQLRequestOperation.onCreate,
       apiName: apiName,
@@ -38,10 +44,16 @@ class ModelSubscriptionsFactory {
     String? apiName,
     APIAuthorizationType? authorizationMode,
     Map<String, String>? headers,
+    QueryPredicate? where,
   }) {
+    final variables =
+        GraphQLRequestFactory.instance.buildVariablesForSubscriptionRequest(
+      modelType: modelType,
+      where: where,
+    );
     return GraphQLRequestFactory.instance.buildRequest<T>(
       modelType: modelType,
-      variables: <String, dynamic>{},
+      variables: variables,
       requestType: GraphQLRequestType.subscription,
       requestOperation: GraphQLRequestOperation.onUpdate,
       apiName: apiName,
@@ -55,10 +67,16 @@ class ModelSubscriptionsFactory {
     String? apiName,
     APIAuthorizationType? authorizationMode,
     Map<String, String>? headers,
+    QueryPredicate? where,
   }) {
+    final variables =
+        GraphQLRequestFactory.instance.buildVariablesForSubscriptionRequest(
+      modelType: modelType,
+      where: where,
+    );
     return GraphQLRequestFactory.instance.buildRequest<T>(
       modelType: modelType,
-      variables: <String, dynamic>{},
+      variables: variables,
       requestType: GraphQLRequestType.subscription,
       requestOperation: GraphQLRequestOperation.onDelete,
       apiName: apiName,
