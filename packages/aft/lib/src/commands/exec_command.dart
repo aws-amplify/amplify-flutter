@@ -44,7 +44,10 @@ class ExecCommand extends AmplifyCommand with GlobOptions, FailFastOption {
       logger.info(
         'Running "${command.join(' ')}" in "${package.path}"...',
       );
-      final result = await execCommand(command, package);
+      final result = await execCommand(
+        command,
+        workingDirectory: package.path,
+      );
       if (result.exitCode != 0) {
         if (failFast) {
           exitError(
@@ -60,19 +63,19 @@ class ExecCommand extends AmplifyCommand with GlobOptions, FailFastOption {
 }
 
 extension ExecCommandFn on AmplifyCommand {
-  /// Executes a [command] in the given [package] using
+  /// Executes a [command] from the given [workingDirectory] using
   /// [ProcessStartMode.inheritStdio] and returns the result.
   Future<ProcessResult> execCommand(
-    List<String> command,
-    PackageInfo package,
-  ) async {
+    List<String> command, {
+    required String workingDirectory,
+  }) async {
     final proc = await Process.start(
       command.first,
       command.length > 1 ? command.sublist(1) : const [],
       mode: ProcessStartMode.inheritStdio,
       includeParentEnvironment: true,
       environment: environment,
-      workingDirectory: package.path,
+      workingDirectory: workingDirectory,
     );
     return ProcessResult(proc.pid, await proc.exitCode, null, null);
   }
