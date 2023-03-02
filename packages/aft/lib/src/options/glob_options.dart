@@ -41,7 +41,7 @@ mixin GlobOptions on AmplifyCommand {
             final includeGlob = Glob(packageOrComponent);
             if (includeGlob.matches(package.name) ||
                 packageOrComponent ==
-                    aftConfig.componentForPackage(package.name)) {
+                    rawAftConfig.componentForPackage(package.name)) {
               // Passes include check but may fail exclude.
               explicitlyIncluded = true;
               break;
@@ -55,7 +55,7 @@ mixin GlobOptions on AmplifyCommand {
           final excludeGlob = Glob(packageOrComponent);
           if (excludeGlob.matches(package.name) ||
               packageOrComponent ==
-                  aftConfig.componentForPackage(package.name)) {
+                  rawAftConfig.componentForPackage(package.name)) {
             return false;
           }
         }

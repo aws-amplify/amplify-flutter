@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'models.dart';
+part of 'raw_config.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-AftConfig _$AftConfigFromJson(Map json) => $checkedCreate(
-      'AftConfig',
+RawAftConfig _$RawAftConfigFromJson(Map json) => $checkedCreate(
+      'RawAftConfig',
       json,
       ($checkedConvert) {
         $checkKeys(
@@ -16,17 +16,18 @@ AftConfig _$AftConfigFromJson(Map json) => $checkedCreate(
             'dependencies',
             'environment',
             'ignore',
-            'components'
+            'components',
+            'scripts'
           ],
         );
-        final val = AftConfig(
+        final val = RawAftConfig(
           dependencies: $checkedConvert(
               'dependencies',
               (v) =>
                   (v as Map?)?.map(
                     (k, e) => MapEntry(
                         k as String,
-                        const _VersionConstraintConverter()
+                        const VersionConstraintConverter()
                             .fromJson(e as String)),
                   ) ??
                   const {}),
@@ -41,21 +42,33 @@ AftConfig _$AftConfigFromJson(Map json) => $checkedCreate(
               'components',
               (v) =>
                   (v as List<dynamic>?)
-                      ?.map((e) => AftComponent.fromJson(
+                      ?.map((e) => RawAftComponent.fromJson(
                           Map<String, Object?>.from(e as Map)))
                       .toList() ??
                   const []),
+          scripts: $checkedConvert(
+              'scripts',
+              (v) =>
+                  (v as Map?)?.map(
+                    (k, e) => MapEntry(
+                        k as String,
+                        AftScript.fromJson(
+                            Map<String, Object?>.from(e as Map))),
+                  ) ??
+                  const {}),
         );
         return val;
       },
     );
 
-Map<String, dynamic> _$AftConfigToJson(AftConfig instance) => <String, dynamic>{
+Map<String, dynamic> _$RawAftConfigToJson(RawAftConfig instance) =>
+    <String, dynamic>{
       'dependencies': instance.dependencies.map(
-          (k, e) => MapEntry(k, const _VersionConstraintConverter().toJson(e))),
-      'environment': instance.environment,
+          (k, e) => MapEntry(k, const VersionConstraintConverter().toJson(e))),
+      'environment': instance.environment.toJson(),
       'ignore': instance.ignore,
-      'components': instance.components,
+      'components': instance.components.map((e) => e.toJson()).toList(),
+      'scripts': instance.scripts.map((k, e) => MapEntry(k, e.toJson())),
     };
 
 Environment _$EnvironmentFromJson(Map json) => $checkedCreate(
@@ -68,9 +81,9 @@ Environment _$EnvironmentFromJson(Map json) => $checkedCreate(
         );
         final val = Environment(
           sdk: $checkedConvert('sdk',
-              (v) => const _VersionConstraintConverter().fromJson(v as String)),
+              (v) => const VersionConstraintConverter().fromJson(v as String)),
           flutter: $checkedConvert('flutter',
-              (v) => const _VersionConstraintConverter().fromJson(v as String)),
+              (v) => const VersionConstraintConverter().fromJson(v as String)),
           android: $checkedConvert(
               'android',
               (v) => AndroidEnvironment.fromJson(
@@ -90,11 +103,11 @@ Environment _$EnvironmentFromJson(Map json) => $checkedCreate(
 
 Map<String, dynamic> _$EnvironmentToJson(Environment instance) =>
     <String, dynamic>{
-      'sdk': const _VersionConstraintConverter().toJson(instance.sdk),
-      'flutter': const _VersionConstraintConverter().toJson(instance.flutter),
-      'android': instance.android,
-      'ios': instance.ios,
-      'macOS': instance.macOS,
+      'sdk': const VersionConstraintConverter().toJson(instance.sdk),
+      'flutter': const VersionConstraintConverter().toJson(instance.flutter),
+      'android': instance.android.toJson(),
+      'ios': instance.ios.toJson(),
+      'macOS': instance.macOS.toJson(),
     };
 
 AndroidEnvironment _$AndroidEnvironmentFromJson(Map json) => $checkedCreate(
@@ -157,15 +170,15 @@ Map<String, dynamic> _$MacOSEnvironmentToJson(MacOSEnvironment instance) =>
       'minOSVersion': instance.minOSVersion,
     };
 
-AftComponent _$AftComponentFromJson(Map json) => $checkedCreate(
-      'AftComponent',
+RawAftComponent _$RawAftComponentFromJson(Map json) => $checkedCreate(
+      'RawAftComponent',
       json,
       ($checkedConvert) {
         $checkKeys(
           json,
           allowedKeys: const ['name', 'summary', 'packages', 'propagate'],
         );
-        final val = AftComponent(
+        final val = RawAftComponent(
           name: $checkedConvert('name', (v) => v as String),
           summary: $checkedConvert('summary', (v) => v as String?),
           packages: $checkedConvert('packages',
@@ -180,7 +193,7 @@ AftComponent _$AftComponentFromJson(Map json) => $checkedCreate(
       },
     );
 
-Map<String, dynamic> _$AftComponentToJson(AftComponent instance) =>
+Map<String, dynamic> _$RawAftComponentToJson(RawAftComponent instance) =>
     <String, dynamic>{
       'name': instance.name,
       'summary': instance.summary,
@@ -230,4 +243,34 @@ Map<String, dynamic> _$SdkConfigToJson(SdkConfig instance) => <String, dynamic>{
       'apis': instance.apis.map((k, e) =>
           MapEntry(k, e?.map(const ShapeIdConverter().toJson).toList())),
       'plugins': instance.plugins,
+    };
+
+AftScript _$AftScriptFromJson(Map json) => $checkedCreate(
+      'AftScript',
+      json,
+      ($checkedConvert) {
+        $checkKeys(
+          json,
+          allowedKeys: const ['run', 'description', 'from', 'fail-fast'],
+        );
+        final val = AftScript(
+          run: $checkedConvert('run', (v) => v as String),
+          description: $checkedConvert('description', (v) => v as String?),
+          from: $checkedConvert(
+              'from',
+              (v) => v == null
+                  ? const PackageSelector.development()
+                  : const PackageSelectorConverter().fromJson(v)),
+          failFast: $checkedConvert('fail-fast', (v) => v as bool? ?? false),
+        );
+        return val;
+      },
+      fieldKeyMap: const {'failFast': 'fail-fast'},
+    );
+
+Map<String, dynamic> _$AftScriptToJson(AftScript instance) => <String, dynamic>{
+      'run': instance.run,
+      'description': instance.description,
+      'from': const PackageSelectorConverter().toJson(instance.from),
+      'fail-fast': instance.failFast,
     };
