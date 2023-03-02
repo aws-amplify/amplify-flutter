@@ -170,6 +170,7 @@ class GraphQLRequestFactory {
       case GraphQLRequestOperation.onCreate:
       case GraphQLRequestOperation.onUpdate:
       case GraphQLRequestOperation.onDelete:
+        // Only add filter variable when present to support older backends that do not support filtering.
         if (variables.containsKey('filter')) {
           upperOutput = '(\$filter: ModelSubscription${modelName}FilterInput)';
           lowerOutput = r'(filter: $filter)';
