@@ -20,35 +20,23 @@ import 'package:aft/aft.dart';
 import 'package:aft/src/repo.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:git/git.dart' as git;
-import 'package:libgit2dart/libgit2dart.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
-
-class MockRepo extends Repo {
-  MockRepo(
-    super.rootDir, {
-    required this.repo,
-    required super.aftConfig,
-    super.logger,
-  }) : super(allPackages: {});
-
-  @override
-  final Repository repo;
-}
 
 void main() {
   final logger = AWSLogger()..logLevel = LogLevel.verbose;
 
   group('Repo', () {
     late Repo repo;
+    late Directory repoDir;
     late String baseRef;
     final packageBumps = <String, String>{};
 
     Future<String> runGit(List<String> args) async {
       final result = await git.runGit(
         args,
-        processWorkingDir: repo.rootDir.path,
+        processWorkingDir: repoDir.path,
       );
       return (result.stdout as String).trim();
     }
@@ -59,7 +47,7 @@ void main() {
       Version? version,
     }) {
       version ??= Version(0, 1, 0);
-      final packagePath = p.join(repo.rootDir.path, 'packages', packageName);
+      final packagePath = p.join(repoDir.path, 'packages', packageName);
       final pubspec = StringBuffer(
         '''
 name: $packageName
@@ -88,15 +76,12 @@ Initial version.
         ..createSync(recursive: true)
         ..writeAsStringSync(changelog);
 
-      final package = PackageInfo(
+      return PackageInfo(
         name: packageName,
         path: packagePath,
         pubspecInfo: PubspecInfo.fromUri(pubspecUri),
         flavor: PackageFlavor.dart,
       );
-
-      repo.allPackages[packageName] = package;
-      return package;
     }
 
     Future<String> makeChange(
@@ -105,7 +90,7 @@ Initial version.
       Map<String, String>? trailers,
     }) async {
       for (final package in packages) {
-        final newDir = Directory(p.join(repo.rootDir.path, 'packages', package))
+        final newDir = Directory(p.join(repoDir.path, 'packages', package))
             .createTempSync();
         File(p.join(newDir.path, 'file.txt')).createSync();
       }
@@ -123,30 +108,8 @@ Initial version.
     }
 
     setUp(() async {
-      final gitDir = Directory.systemTemp.createTempSync('aft');
-      repo = MockRepo(
-        gitDir,
-        repo: Repository.init(path: gitDir.path),
-        logger: logger,
-        aftConfig: AftConfig(
-          components: const [
-            AftComponent(
-              name: 'Amplify Flutter',
-              packages: [
-                'amplify_auth_cognito',
-                'amplify_auth_cognito_ios',
-              ],
-            ),
-          ],
-          environment: Environment(
-            sdk: VersionConstraint.compatibleWith(Version(2, 17, 0)),
-            flutter: VersionConstraint.compatibleWith(Version(3, 0, 0)),
-            android: const AndroidEnvironment(minSdkVersion: '24'),
-            ios: const IosEnvironment(minOSVersion: '13.0'),
-            macOS: const MacOSEnvironment(minOSVersion: '13.0'),
-          ),
-        ),
-      );
+      repoDir = Directory.systemTemp.createTempSync('aft');
+      await runGit(['init']);
       await runGit(
         ['commit', '--allow-empty', '-m', 'Initial commit'],
       );
@@ -165,7 +128,7 @@ Initial version.
       final coreConstraint = VersionConstraint.compatibleWith(coreVersion);
 
       setUp(() async {
-        createPackage(
+        final amplifyAuthCognito = createPackage(
           'amplify_auth_cognito',
           version: nextVersion,
           dependencies: {
@@ -175,8 +138,11 @@ Initial version.
             'aws_common': coreConstraint,
           },
         );
-        createPackage('amplify_auth_cognito_ios', version: nextVersion);
-        createPackage(
+        final amplifyAuthCognitoIos = createPackage(
+          'amplify_auth_cognito_ios',
+          version: nextVersion,
+        );
+        final amplifyAuthCognitoDart = createPackage(
           'amplify_auth_cognito_dart',
           version: coreVersion,
           dependencies: {
@@ -184,14 +150,53 @@ Initial version.
             'aws_common': coreConstraint,
           },
         );
-        createPackage(
+        final amplifyCore = createPackage(
           'amplify_core',
           version: nextVersion,
           dependencies: {
             'aws_common': coreConstraint,
           },
         );
-        createPackage('aws_common', version: coreVersion);
+        final awsCommon = createPackage('aws_common', version: coreVersion);
+
+        final allPackages = [
+          amplifyAuthCognito,
+          amplifyAuthCognitoIos,
+          amplifyAuthCognitoDart,
+          amplifyCore,
+          awsCommon,
+        ];
+        repo = Repo(
+          AftConfig(
+            rootDirectory: repoDir.uri,
+            workingDirectory: Directory.current.uri,
+            allPackages: {
+              for (final package in allPackages) package.name: package,
+            },
+            components: {
+              'Amplify Flutter': AftComponent(
+                name: 'Amplify Flutter',
+                packages: [
+                  amplifyAuthCognito,
+                  amplifyAuthCognitoIos,
+                ],
+                packageGraph: {
+                  'amplify_auth_cognito': [amplifyAuthCognitoIos],
+                  'amplify_auth_cognito_ios': [],
+                },
+                propagate: VersionPropagation.minor,
+              ),
+            },
+            environment: Environment(
+              sdk: VersionConstraint.compatibleWith(Version(2, 17, 0)),
+              flutter: VersionConstraint.compatibleWith(Version(3, 0, 0)),
+              android: const AndroidEnvironment(minSdkVersion: '24'),
+              ios: const IosEnvironment(minOSVersion: '13.0'),
+              macOS: const MacOSEnvironment(minOSVersion: '13.0'),
+            ),
+          ),
+          logger: logger,
+        );
 
         await runGit(['add', '.']);
         await runGit(['commit', '-m', 'Add packages']);

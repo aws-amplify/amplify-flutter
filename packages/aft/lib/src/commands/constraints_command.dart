@@ -145,8 +145,8 @@ class _ConstraintsSubcommand extends AmplifyCommand {
   }
 
   Future<void> _run(_ConstraintsAction action) async {
-    final globalDependencyConfig = aftConfig.dependencies;
-    final globalEnvironmentConfig = aftConfig.environment;
+    final globalDependencyConfig = rawAftConfig.dependencies;
+    final globalEnvironmentConfig = rawAftConfig.environment;
     for (final package in commandPackages.values) {
       _checkEnvironment(
         package,
@@ -202,7 +202,7 @@ class _ConstraintsUpdateCommand extends _ConstraintsSubcommand {
   @override
   Future<void> run() async {
     await super.run();
-    final globalDependencyConfig = aftConfig.dependencies;
+    final globalDependencyConfig = rawAftConfig.dependencies;
 
     final aftEditor = YamlEditor(aftConfigYaml);
     final failedUpdates = <String>[];

@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
@@ -10,6 +9,7 @@ import 'package:aft/src/repo.dart';
 import 'package:args/command_runner.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:checked_yaml/checked_yaml.dart';
+import 'package:collection/collection.dart';
 import 'package:git/git.dart' as git;
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
@@ -109,22 +109,14 @@ abstract class AmplifyCommand extends Command<void>
         .whereType<Directory>();
     final allPackages = <PackageInfo>[];
     for (final dir in allDirs) {
-      final pubspecInfo = dir.pubspec;
-      if (pubspecInfo == null) {
+      final package = PackageInfo.fromDirectory(dir);
+      if (package == null) {
         continue;
       }
-      final pubspec = pubspecInfo.pubspec;
-      if (aftConfig.ignore.contains(pubspec.name)) {
+      if (rawAftConfig.ignore.contains(package.name)) {
         continue;
       }
-      allPackages.add(
-        PackageInfo(
-          name: pubspec.name,
-          path: dir.path,
-          pubspecInfo: pubspecInfo,
-          flavor: pubspec.flavor,
-        ),
-      );
+      allPackages.add(package);
     }
     return UnmodifiableMapView({
       for (final package in allPackages..sort()) package.name: package,
@@ -157,7 +149,7 @@ abstract class AmplifyCommand extends Command<void>
   ///
   /// Should not be `late final` to allow re-reading from disk, e.g. when
   /// updated as part of a command.
-  AftConfig get aftConfig {
+  RawAftConfig get rawAftConfig {
     var configYaml = _loadFile(aftConfigPath);
 
     // Merge in the extra config options if provided.
@@ -169,8 +161,53 @@ abstract class AmplifyCommand extends Command<void>
       configYaml = rootEditor.toString();
     }
 
-    final config = checkedYamlDecode(configYaml, AftConfig.fromJson);
+    final config = checkedYamlDecode(configYaml, RawAftConfig.fromJson);
     return config;
+  }
+
+  /// The processed `aft` configuration for the repo with packages and
+  /// components linked.
+  AftConfig get aftConfig {
+    final rawConfig = rawAftConfig;
+    final components = Map.fromEntries(
+      rawConfig.components.map((component) {
+        final summaryPackage =
+            component.summary == null ? null : repoPackages[component.summary]!;
+        final packages =
+            component.packages.map((name) => repoPackages[name]!).toList();
+        final packageGraph = UnmodifiableMapView({
+          for (final package in packages)
+            package.name: package.pubspecInfo.pubspec.dependencies.keys
+                .map(
+                  (packageName) => packages.firstWhereOrNull(
+                    (pkg) => pkg.name == packageName,
+                  ),
+                )
+                .whereType<PackageInfo>()
+                .toList(),
+        });
+        return MapEntry(
+          component.name,
+          AftComponent(
+            name: component.name,
+            summary: summaryPackage,
+            packages: packages,
+            packageGraph: packageGraph,
+            propagate: component.propagate,
+          ),
+        );
+      }),
+    );
+    return AftConfig(
+      rootDirectory: rootDir.uri,
+      workingDirectory: workingDirectory.uri,
+      allPackages: repoPackages,
+      dependencies: rawConfig.dependencies,
+      environment: rawConfig.environment,
+      ignore: rawConfig.ignore,
+      components: components,
+      scripts: rawConfig.scripts,
+    );
   }
 
   /// The environment to inject into subcommands.
@@ -180,9 +217,7 @@ abstract class AmplifyCommand extends Command<void>
   };
 
   late final Repo repo = Repo(
-    rootDir,
-    allPackages: repoPackages,
-    aftConfig: aftConfig,
+    aftConfig,
     logger: logger,
   );
 
@@ -264,7 +299,7 @@ abstract class AmplifyCommand extends Command<void>
     if (globalResults?['verbose'] as bool? ?? false) {
       AWSLogger().logLevel = LogLevel.verbose;
     }
-    logger.verbose('Got configuration: $aftConfig');
+    logger.verbose('Got configuration: $rawAftConfig');
   }
 
   @override
