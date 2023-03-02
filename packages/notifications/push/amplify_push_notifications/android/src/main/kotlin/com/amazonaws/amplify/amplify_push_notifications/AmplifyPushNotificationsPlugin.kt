@@ -7,6 +7,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Handler
 import androidx.annotation.NonNull
 import androidx.core.app.ActivityCompat
 import com.amazonaws.amplify.AtomicResult
@@ -51,6 +52,8 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+        Log.d(TAG, "onAttachedToActivity called")
+
         activityBinding = binding
         this.mainActivity = binding.activity
         binding.addOnNewIntentListener(this)
@@ -148,18 +151,22 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
     }
 
     private fun refreshToken() {
+        Log.d(TAG, "Fetching token")
+
         // TODO: Add logic to cache token and only send back if it's new
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                task.exception?.let { StreamHandlers.tokenReceived.sendError(it) }
-                return@OnCompleteListener
-            }
-            Log.d(TAG, "token: ${task.result}")
-            StreamHandlers.tokenReceived.send(
-                mapOf(
-                    "token" to task.result
+            Handler(context.mainLooper).post {
+                if (!task.isSuccessful) {
+                    task.exception?.let { StreamHandlers.tokenReceived.sendError(it) }
+                    return@post
+                }
+                Log.d(TAG, "token: ${task.result}")
+                StreamHandlers.tokenReceived.send(
+                    mapOf(
+                        "token" to task.result
+                    )
                 )
-            )
+            }
         })
     }
 
@@ -172,6 +179,11 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
             if (payload != null) {
                 val notificationHashMap = payload.asChannelMap()
                 Log.d(TAG, "Send onNotificationOpened message received event: $notificationHashMap")
+                Log.d(
+                    "test",
+                    "tokenReceived code when calling send: ${StreamHandlers.tokenReceived.hashCode()}"
+                )
+
                 StreamHandlers.notificationOpened.send(
                     notificationHashMap
                 )

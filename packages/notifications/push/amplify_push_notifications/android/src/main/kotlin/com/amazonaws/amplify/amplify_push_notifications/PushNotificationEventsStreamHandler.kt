@@ -44,11 +44,11 @@ class PushNotificationEventsStreamHandler constructor(
     private val eventChannel = EventChannel(
         binaryMessenger, associatedNativeEvent.eventChannelName
     )
-    private var eventSink: EventSink? = null
     private val _associatedNativeEvent = associatedNativeEvent
-
+    private var eventSink: EventSink?
     init {
         eventChannel.setStreamHandler(this)
+        eventSink = null
     }
 
     override fun onListen(arguments: Any?, sink: EventSink?) {
@@ -71,6 +71,8 @@ class PushNotificationEventsStreamHandler constructor(
         Log.d("test", "eventSink: $eventSink")
         eventSink?.success(event.toMap()) ?: run {
             eventQueue.add(event)
+            Log.d("test", "eventQueue: ${eventQueue.count()}")
+
         }
     }
 
@@ -90,54 +92,75 @@ class PushNotificationEventsStreamHandler constructor(
     }
 
     private fun flushEvents() {
-        eventSink?.let {
-            while (eventQueue.isNotEmpty()) {
-                val eventFromQueue = eventQueue.removeFirst()
-                // Check if it is an Error event and handle accordingly by using .error method
-                if (eventFromQueue.event.eventName == NativeEvent.ERROR.eventName) {
-                    val exception = eventFromQueue.payload
-                    it.error(
-                        exception["associatedNativeEventName"] as String?,
-                        exception["message"] as String?,
-                        exception["details"] as String?,
-                    )
-                } else {
-                    it.success(eventFromQueue.toMap())
+        Log.d("test", "Queue count: ${eventQueue.count()} when flushing with sink: $eventSink")
+        try {
+            eventSink?.let {
+                while (eventQueue.isNotEmpty()) {
+                    val eventFromQueue = eventQueue.removeFirst()
+                    // Check if it is an Error event and handle accordingly by using .error method
+                    if (eventFromQueue.event.eventName == NativeEvent.ERROR.eventName) {
+                        val exception = eventFromQueue.payload
+                        it.error(
+                            exception["associatedNativeEventName"] as String?,
+                            exception["message"] as String?,
+                            exception["details"] as String?,
+                        )
+                    } else {
+                        Log.d("test", "Successful flushing")
+                        it.success(eventFromQueue.toMap())
+                    }
                 }
             }
+        }catch (e: Exception){
+            Log.d("error when flushing: ", e.toString())
         }
     }
 }
 
 class StreamHandlers {
     companion object {
+        @JvmStatic
         lateinit var tokenReceived: PushNotificationEventsStreamHandler
+        @JvmStatic
         lateinit var notificationOpened: PushNotificationEventsStreamHandler
+        @JvmStatic
         lateinit var launchNotificationOpened: PushNotificationEventsStreamHandler
+        @JvmStatic
         lateinit var foregroundMessageReceived: PushNotificationEventsStreamHandler
+        @JvmStatic
         lateinit var backgroundMessageReceived: PushNotificationEventsStreamHandler
 
+        @JvmStatic
+        private var isInit: Boolean = false
+
+        @JvmStatic
         fun initialize(binaryMessenger: BinaryMessenger) {
-            tokenReceived = PushNotificationEventsStreamHandler(
-                binaryMessenger,
-                NativeEvent.TOKEN_RECEIVED,
-            )
-            notificationOpened = PushNotificationEventsStreamHandler(
-                binaryMessenger,
-                NativeEvent.NOTIFICATION_OPENED,
-            )
-            launchNotificationOpened = PushNotificationEventsStreamHandler(
-                binaryMessenger,
-                NativeEvent.LAUNCH_NOTIFICATION_OPENED,
-            )
-            foregroundMessageReceived = PushNotificationEventsStreamHandler(
-                binaryMessenger,
-                NativeEvent.FOREGROUND_MESSAGE_RECEIVED,
-            )
-            backgroundMessageReceived = PushNotificationEventsStreamHandler(
-                binaryMessenger,
-                NativeEvent.BACKGROUND_MESSAGE_RECEIVED,
-            )
+            if(!isInit){
+                tokenReceived = PushNotificationEventsStreamHandler(
+                    binaryMessenger,
+                    NativeEvent.TOKEN_RECEIVED
+                )
+                notificationOpened = PushNotificationEventsStreamHandler(
+                    binaryMessenger,
+                    NativeEvent.NOTIFICATION_OPENED
+                )
+                launchNotificationOpened = PushNotificationEventsStreamHandler(
+                    binaryMessenger,
+                    NativeEvent.LAUNCH_NOTIFICATION_OPENED
+                )
+                foregroundMessageReceived = PushNotificationEventsStreamHandler(
+                    binaryMessenger,
+                    NativeEvent.FOREGROUND_MESSAGE_RECEIVED
+                )
+                backgroundMessageReceived = PushNotificationEventsStreamHandler(
+                    binaryMessenger,
+                    NativeEvent.BACKGROUND_MESSAGE_RECEIVED
+                )
+
+                Log.d("test", "tokenReceived code when initializing: ${tokenReceived.hashCode()}")
+                isInit = true
+            }
+
         }
     }
 }

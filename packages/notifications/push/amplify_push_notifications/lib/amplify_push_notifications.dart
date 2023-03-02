@@ -15,6 +15,7 @@ Future<void> _internalBgHandler(
   PushNotificationMessage pushNotificationMessage,
 ) async {
   // TODO: Record Analytics
+  print('_internalBgHandler called');
 }
 
 const _methodChannel =
@@ -53,6 +54,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         .map((event) {
       final deviceToken =
           (event['payload'] as Map<Object?, Object?>?)?['token'] as String;
+      print('Device Token in stream initializer: $deviceToken');
       return deviceToken;
     }).distinct();
 
@@ -79,8 +81,16 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
         .map(
-          (event) => PushNotificationMessage.fromJson(event['payload'] as Map),
-        );
+      (event) {
+        try {
+          print('_notificationOpenedEventChannel stream initializer:');
+          return PushNotificationMessage.fromJson(event['payload'] as Map);
+        } catch (e) {
+          print('_notificationOpenedEventChannel error: $e');
+        }
+        return PushNotificationMessage();
+      },
+    );
 
     // TODO: Enable launch notification API
 
@@ -132,19 +142,19 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     }
 
     // Register the callback dispatcher
-    // await _registerCallbackDispatcher();
+    await _registerCallbackDispatcher();
 
     // Initialize Endpoint Client
-    // await _initiliazeServiceClientAndRegisterDevice(config, authProviderRepo);
+    await _initiliazeServiceClientAndRegisterDevice(config, authProviderRepo);
 
     // Initialize listeners
-    // onTokenReceived.listen(_tokenReceivedListener);
-    // onNotificationReceivedInForeground.listen(_foregroundNotificationListener);
+    onTokenReceived.listen(_tokenReceivedListener);
+    onNotificationReceivedInForeground.listen(_foregroundNotificationListener);
     onNotificationOpened.listen(_notificationOpenedListener);
-    // await _registerBgCallback(
-    //   'registerBgInternalCallback',
-    //   _internalBgHandler,
-    // );
+    await _registerBgCallback(
+      'registerBgInternalCallback',
+      _internalBgHandler,
+    );
 
     _logger.info('CONFIGURE API | Successfully configure push notifications');
 
@@ -216,7 +226,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     String address,
   ) async {
     _logger.info('Successfully fetched the address: $address');
-    await _registerDevice(address);
+    // await _registerDevice(address);
 
     return address;
   }
