@@ -46,20 +46,18 @@ class PushNotificationEventsStreamHandler constructor(
     )
     private val _associatedNativeEvent = associatedNativeEvent
     private var eventSink: EventSink?
+
     init {
         eventChannel.setStreamHandler(this)
         eventSink = null
     }
 
     override fun onListen(arguments: Any?, sink: EventSink?) {
-        Log.d("test", "onListen: $sink")
         eventSink = sink
         flushEvents()
     }
 
     override fun onCancel(arguments: Any?) {
-        Log.d("test", "onCancel:")
-
         eventSink = null
         eventQueue.clear()
     }
@@ -68,11 +66,8 @@ class PushNotificationEventsStreamHandler constructor(
 
     fun send(payload: Map<String, Any?>) {
         val event = PushNotificationsEvent(_associatedNativeEvent, payload)
-        Log.d("test", "eventSink: $eventSink")
         eventSink?.success(event.toMap()) ?: run {
             eventQueue.add(event)
-            Log.d("test", "eventQueue: ${eventQueue.count()}")
-
         }
     }
 
@@ -92,7 +87,6 @@ class PushNotificationEventsStreamHandler constructor(
     }
 
     private fun flushEvents() {
-        Log.d("test", "Queue count: ${eventQueue.count()} when flushing with sink: $eventSink")
         try {
             eventSink?.let {
                 while (eventQueue.isNotEmpty()) {
@@ -106,13 +100,12 @@ class PushNotificationEventsStreamHandler constructor(
                             exception["details"] as String?,
                         )
                     } else {
-                        Log.d("test", "Successful flushing")
                         it.success(eventFromQueue.toMap())
                     }
                 }
             }
-        }catch (e: Exception){
-            Log.d("error when flushing: ", e.toString())
+        } catch (e: Exception) {
+            Log.e("error when flushing: ", e.toString())
         }
     }
 }
@@ -121,46 +114,37 @@ class StreamHandlers {
     companion object {
         @JvmStatic
         lateinit var tokenReceived: PushNotificationEventsStreamHandler
+
         @JvmStatic
         lateinit var notificationOpened: PushNotificationEventsStreamHandler
+
         @JvmStatic
         lateinit var launchNotificationOpened: PushNotificationEventsStreamHandler
+
         @JvmStatic
         lateinit var foregroundMessageReceived: PushNotificationEventsStreamHandler
+
         @JvmStatic
         lateinit var backgroundMessageReceived: PushNotificationEventsStreamHandler
 
-        @JvmStatic
-        private var isInit: Boolean = false
 
         @JvmStatic
         fun initialize(binaryMessenger: BinaryMessenger) {
-            if(!isInit){
-                tokenReceived = PushNotificationEventsStreamHandler(
-                    binaryMessenger,
-                    NativeEvent.TOKEN_RECEIVED
-                )
-                notificationOpened = PushNotificationEventsStreamHandler(
-                    binaryMessenger,
-                    NativeEvent.NOTIFICATION_OPENED
-                )
-                launchNotificationOpened = PushNotificationEventsStreamHandler(
-                    binaryMessenger,
-                    NativeEvent.LAUNCH_NOTIFICATION_OPENED
-                )
-                foregroundMessageReceived = PushNotificationEventsStreamHandler(
-                    binaryMessenger,
-                    NativeEvent.FOREGROUND_MESSAGE_RECEIVED
-                )
-                backgroundMessageReceived = PushNotificationEventsStreamHandler(
-                    binaryMessenger,
-                    NativeEvent.BACKGROUND_MESSAGE_RECEIVED
-                )
-
-                Log.d("test", "tokenReceived code when initializing: ${tokenReceived.hashCode()}")
-                isInit = true
-            }
-
+            tokenReceived = PushNotificationEventsStreamHandler(
+                binaryMessenger, NativeEvent.TOKEN_RECEIVED
+            )
+            notificationOpened = PushNotificationEventsStreamHandler(
+                binaryMessenger, NativeEvent.NOTIFICATION_OPENED
+            )
+            launchNotificationOpened = PushNotificationEventsStreamHandler(
+                binaryMessenger, NativeEvent.LAUNCH_NOTIFICATION_OPENED
+            )
+            foregroundMessageReceived = PushNotificationEventsStreamHandler(
+                binaryMessenger, NativeEvent.FOREGROUND_MESSAGE_RECEIVED
+            )
+            backgroundMessageReceived = PushNotificationEventsStreamHandler(
+                binaryMessenger, NativeEvent.BACKGROUND_MESSAGE_RECEIVED
+            )
         }
     }
 }

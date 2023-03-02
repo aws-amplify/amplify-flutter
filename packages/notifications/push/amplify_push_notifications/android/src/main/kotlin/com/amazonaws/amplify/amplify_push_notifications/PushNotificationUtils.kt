@@ -15,10 +15,7 @@ import com.google.firebase.messaging.RemoteMessage
 private const val PAYLOAD_KEY = "payload"
 
 enum class PushNotificationPermissionStatus {
-    notRequested,
-    shouldRequestWithRationale,
-    granted,
-    denied,
+    notRequested, shouldRequestWithRationale, granted, denied,
 }
 
 fun RemoteMessage.asPayload(): NotificationPayload {
@@ -26,12 +23,10 @@ fun RemoteMessage.asPayload(): NotificationPayload {
     val senderId = this.senderId
     val sendTime = this.sentTime
     val data = this.data
-    val body = this.notification?.body
-        ?: data[PushNotificationsConstants.MESSAGE_ATTRIBUTE_KEY]
-        ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_BODY]
-    val title = this.notification?.title
-        ?: data[PushNotificationsConstants.TITLE_ATTRIBUTE_KEY]
-        ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_TITLE]
+    val body = this.notification?.body ?: data[PushNotificationsConstants.MESSAGE_ATTRIBUTE_KEY]
+    ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_BODY]
+    val title = this.notification?.title ?: data[PushNotificationsConstants.TITLE_ATTRIBUTE_KEY]
+    ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_TITLE]
     val imageUrl = this.notification?.imageUrl?.toString()
         ?: data[PushNotificationsConstants.IMAGEURL_ATTRIBUTE_KEY]
         ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_IMAGEURL]
@@ -55,8 +50,7 @@ fun RemoteMessage.asPayload(): NotificationPayload {
         notificationContent(title, body, imageUrl)
         notificationOptions(PushNotificationsConstants.DEFAULT_NOTIFICATION_CHANNEL_ID)
         tapAction(action)
-        silentPush =
-            data[PushNotificationsConstants.PINPOINT_NOTIFICATION_SILENTPUSH].equals("1")
+        silentPush = data[PushNotificationsConstants.PINPOINT_NOTIFICATION_SILENTPUSH].equals("1")
         rawData = HashMap(data)
     }
 }
@@ -69,9 +63,7 @@ fun NotificationPayload.asChannelMap(): Map<String, Any?> {
         "goToUrl" to this.action[PushNotificationsConstants.PINPOINT_URL],
         "deeplinkUrl" to this.action[PushNotificationsConstants.PINPOINT_DEEPLINK],
         "fcmOptions" to mapOf(
-            "senderId" to senderId,
-            "messageId" to messageId,
-            "sentTime" to sendTime
+            "senderId" to senderId, "messageId" to messageId, "sentTime" to sendTime
             // TODO: add channelId if needed
         ),
         "data" to this.rawData
@@ -94,8 +86,7 @@ fun Context.getLaunchActivityClass(): Class<*>? {
             return Class.forName(it)
         } catch (e: Exception) {
             Log.e(
-                "PushNotificationUtils",
-                "Unable to find launch activity class"
+                "PushNotificationUtils", "Unable to find launch activity class"
             )
         }
     }
@@ -103,6 +94,5 @@ fun Context.getLaunchActivityClass(): Class<*>? {
 }
 
 fun RemoteMessage.isSupported(): Boolean {
-    return !this.data[PushNotificationsConstants.PINPOINT_CAMPAIGN_CAMPAIGN_ID].isNullOrEmpty() or
-            !this.data[PushNotificationsConstants.JOURNEY_ID].isNullOrEmpty()
+    return !this.data[PushNotificationsConstants.PINPOINT_CAMPAIGN_CAMPAIGN_ID].isNullOrEmpty() or !this.data[PushNotificationsConstants.JOURNEY_ID].isNullOrEmpty()
 }

@@ -29,8 +29,6 @@ void callbackDispatcher() {
   _backgroundChannel.setMethodCallHandler((MethodCall call) async {
     final args = call.arguments as List<dynamic>;
     for (final element in args) {
-      print('CallbackDispatcher element: $element');
-
       final callback = PluginUtilities.getCallbackFromHandle(
         // ignore: avoid_dynamic_calls
         CallbackHandle.fromRawHandle(element['handle'] as int),
@@ -38,7 +36,7 @@ void callbackDispatcher() {
       assert(callback != null, 'Callback not found');
 
       // ignore: avoid_dynamic_calls
-      callback!(
+      await callback!(
         // ignore: avoid_dynamic_calls
         PushNotificationMessage.fromJson(element['notification'] as Map),
       );

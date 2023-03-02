@@ -32,6 +32,7 @@ void bgHandler(PushNotificationMessage pushNotificationMessage) async {
   } on Exception catch (e) {
     print(' error in handler: $e');
   }
+  return;
 }
 
 void main() {
@@ -57,6 +58,7 @@ class _MyAppState extends State<MyApp> {
   PushNotificationMessage? notificaitonOpenedMessage;
   PushNotificationPermissionRequestStatus? getPermissionStatus;
   bool? requestPermissionsResult;
+  PushNotificationMessage? launchNotificaitonAvailable;
 
   Future<int> getAndUpdateCallbackCounts() async {
     try {
@@ -75,6 +77,13 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _configureAmplify();
+  }
+
+  void getLaunchNotif() {
+    setState(() {
+      launchNotificaitonAvailable =
+          Amplify.Notifications.Push.launchNotification;
+    });
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -266,6 +275,16 @@ class _MyAppState extends State<MyApp> {
                       : "Title: ${notificaitonOpenedMessage!.title?.toString() ?? ""}",
                 ),
               ),
+              ElevatedButton(
+                onPressed: getLaunchNotif,
+                child: const Text('get Launch Notification'),
+              ),
+              if (launchNotificaitonAvailable != null)
+                ListTile(
+                  title: Text(
+                    'launchNotificaitonAvailable: $launchNotificaitonAvailable',
+                  ),
+                ),
             ],
           ),
         ),

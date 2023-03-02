@@ -54,7 +54,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         .map((event) {
       final deviceToken =
           (event['payload'] as Map<Object?, Object?>?)?['token'] as String;
-      print('Device Token in stream initializer: $deviceToken');
       return deviceToken;
     }).distinct();
 
@@ -81,26 +80,16 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
         .map(
-      (event) {
-        try {
-          print('_notificationOpenedEventChannel stream initializer:');
-          return PushNotificationMessage.fromJson(event['payload'] as Map);
-        } catch (e) {
-          print('_notificationOpenedEventChannel error: $e');
-        }
-        return PushNotificationMessage();
-      },
-    );
+          (event) => PushNotificationMessage.fromJson(event['payload'] as Map),
+        );
 
     // TODO: Enable launch notification API
-
     _onLaunchNotificationOpened = _launchNotificationOpenedEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
-        .map((event) {
-      // TODO convert raw event to RemotePushMessage
-      return PushNotificationMessage();
-    });
+        .map(
+          (event) => PushNotificationMessage.fromJson(event['payload'] as Map),
+        );
   }
 
   final AmplifyLogger _logger =
@@ -113,6 +102,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   late final Stream<PushNotificationMessage> _onBackgroundNotificationReceived;
   late final Stream<PushNotificationMessage> _onNotificationOpened;
   late final Stream<PushNotificationMessage> _onLaunchNotificationOpened;
+  PushNotificationMessage? _launchNotification;
 
   bool _isConfigured = false;
 
@@ -135,7 +125,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     if (_isConfigured) {
       return;
     }
-    // Parse config values from amplifyconfiguration.json
+    // TODO Parse config values from amplifyconfiguration.json for notifications
     final analyticsConfig = config?.analytics?.awsPlugin;
     if (analyticsConfig == null) {
       throw const AnalyticsException('No Pinpoint plugin config available');
@@ -155,7 +145,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       'registerBgInternalCallback',
       _internalBgHandler,
     );
-
     _logger.info('CONFIGURE API | Successfully configure push notifications');
 
     _isConfigured = true;
@@ -217,17 +206,17 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     PushNotificationMessage pushNotificationMessage,
   ) {
     _logger.info(
-      'Successfully listrening to notification opened events: $pushNotificationMessage',
+      'Successfully listrening to launch notificationOpened events: $pushNotificationMessage',
     );
     // TODO(Samaritan1011001): Record Analytics
+    _launchNotification = pushNotificationMessage;
   }
 
   Future<String> _tokenReceivedListener(
     String address,
   ) async {
     _logger.info('Successfully fetched the address: $address');
-    // await _registerDevice(address);
-
+    await _registerDevice(address);
     return address;
   }
 
@@ -296,13 +285,10 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   }
 
   @override
-  PushNotificationMessage? get launchNotification => PushNotificationMessage();
-
-  Future<PushNotificationMessage?> _getLaunchNotification() async {
-    await _methodChannel
-        .invokeMethod<Map<Object?, Object?>>('getLaunchNotification');
-
-    return PushNotificationMessage();
+  PushNotificationMessage? get launchNotification {
+    final notificationHolder = _launchNotification;
+    _launchNotification = null;
+    return notificationHolder;
   }
 
   @override

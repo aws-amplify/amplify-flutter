@@ -13,7 +13,6 @@ import androidx.core.app.ActivityCompat
 import com.amazonaws.amplify.AtomicResult
 import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.PermissionRequestResult
 import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.PushNotificationPermission
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import io.flutter.Log
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -52,10 +51,9 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
-        Log.d(TAG, "onAttachedToActivity called")
-
         activityBinding = binding
         this.mainActivity = binding.activity
+        onNewIntent(binding.activity.intent)
         binding.addOnNewIntentListener(this)
         // TODO: also fetchToken on app resume
         refreshToken()
@@ -151,39 +149,26 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
     }
 
     private fun refreshToken() {
-        Log.d(TAG, "Fetching token")
-
-        // TODO: Add logic to cache token and only send back if it's new
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             Handler(context.mainLooper).post {
                 if (!task.isSuccessful) {
                     task.exception?.let { StreamHandlers.tokenReceived.sendError(it) }
                     return@post
                 }
-                Log.d(TAG, "token: ${task.result}")
                 StreamHandlers.tokenReceived.send(
                     mapOf(
                         "token" to task.result
                     )
                 )
             }
-        })
+        }
     }
 
     override fun onNewIntent(intent: Intent): Boolean {
-        Log.d(TAG, "onNewIntent in push plugin $intent")
         intent.extras?.let {
             val payload = it.asPayload()
-            Log.d(TAG, "payload in onNewIntent $payload")
-
             if (payload != null) {
                 val notificationHashMap = payload.asChannelMap()
-                Log.d(TAG, "Send onNotificationOpened message received event: $notificationHashMap")
-                Log.d(
-                    "test",
-                    "tokenReceived code when calling send: ${StreamHandlers.tokenReceived.hashCode()}"
-                )
-
                 StreamHandlers.notificationOpened.send(
                     notificationHashMap
                 )

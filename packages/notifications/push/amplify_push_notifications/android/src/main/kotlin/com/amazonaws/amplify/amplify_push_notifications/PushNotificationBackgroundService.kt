@@ -51,29 +51,24 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
                 sBackgroundFlutterEngine = FlutterEngine(context)
 
                 val callbackHandle = context.getSharedPreferences(
-                    AmplifyPushNotificationsPlugin.SHARED_PREFERENCES_KEY,
-                    Context.MODE_PRIVATE
-                )
-                    .getLong(
-                        AmplifyPushNotificationsPlugin.CALLBACK_DISPATCHER_HANDLE_KEY,
-                        0
+                    AmplifyPushNotificationsPlugin.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE
+                ).getLong(
+                        AmplifyPushNotificationsPlugin.CALLBACK_DISPATCHER_HANDLE_KEY, 0
                     )
                 if (callbackHandle == 0L) {
-                    Log.e(TAG, "Fatal: no callback registered")
+                    Log.e(TAG, "Warning: no callback registered")
                     return
                 }
                 val callbackInfo =
                     FlutterCallbackInformation.lookupCallbackInformation(callbackHandle)
                 if (callbackInfo == null) {
-                    Log.e(TAG, "Fatal: failed to find callback")
+                    Log.e(TAG, "Error: failed to find callback")
                     return
                 }
                 Log.i(TAG, "Starting PushNotificationBackgroundService...")
 
                 val args = DartExecutor.DartCallback(
-                    context.assets,
-                    FlutterMain.findAppBundlePath(),
-                    callbackInfo
+                    context.assets, FlutterMain.findAppBundlePath(), callbackInfo
                 )
                 sBackgroundFlutterEngine!!.dartExecutor.executeDartCallback(args)
             }
@@ -115,18 +110,15 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
             getCallbackHandleForKey(AmplifyPushNotificationsPlugin.BG_INTERNAL_CALLBACK_HANDLE_KEY)
 
         if (bgInternalCallbackHandle == 0L) {
-            Log.e(TAG, "Fatal: no internal callback registered")
+            Log.e(TAG, "Warning: no internal callback registered")
             return
         }
 
         val callbackHandleList = listOf(
             mapOf(
-                "handle" to bgInternalCallbackHandle,
-                "notification" to notificationMap
-            ),
-            mapOf(
-                "handle" to bgExternalCallbackHandle,
-                "notification" to notificationMap
+                "handle" to bgInternalCallbackHandle, "notification" to notificationMap
+            ), mapOf(
+                "handle" to bgExternalCallbackHandle, "notification" to notificationMap
             )
         )
         synchronized(sServiceStarted) {
@@ -137,8 +129,7 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
                 // Callback method name is intentionally left blank.
                 Handler(mContext.mainLooper).post {
                     mBackgroundChannel.invokeMethod(
-                        "",
-                        callbackHandleList
+                        "", callbackHandleList
                     )
                 }
             }
@@ -146,12 +137,9 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
     }
 
     private fun getCallbackHandleForKey(callbackKey: String): Long {
-        Log.d(TAG, "callbackKey $callbackKey")
         return mContext.getSharedPreferences(
-            AmplifyPushNotificationsPlugin.SHARED_PREFERENCES_KEY,
-            MODE_PRIVATE
-        )
-            .getLong(callbackKey, 0)
+            AmplifyPushNotificationsPlugin.SHARED_PREFERENCES_KEY, MODE_PRIVATE
+        ).getLong(callbackKey, 0)
     }
 
     override fun onCreate() {
