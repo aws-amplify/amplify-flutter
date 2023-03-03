@@ -141,10 +141,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     onTokenReceived.listen(_tokenReceivedListener);
     onNotificationReceivedInForeground.listen(_foregroundNotificationListener);
     onNotificationOpened.listen(_notificationOpenedListener);
-    await _registerBgCallback(
-      'registerBgInternalCallback',
-      _internalBgHandler,
-    );
+
     _logger.info('CONFIGURE API | Successfully configure push notifications');
 
     _isConfigured = true;
@@ -273,7 +270,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       await _methodChannel.invokeMethod(
         method,
         <dynamic>[
-          callbackHandle?.toRawHandle(),
+          callbackHandle!.toRawHandle(),
         ],
       );
       _logger.info('Successfully registered notification handling callback');

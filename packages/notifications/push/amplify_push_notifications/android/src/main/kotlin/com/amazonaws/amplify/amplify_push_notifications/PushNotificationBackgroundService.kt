@@ -51,6 +51,11 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
         }
     }
 
+    override fun onCreate() {
+        super.onCreate()
+        startPushNotificationService(this)
+    }
+
     private fun startPushNotificationService(context: Context) {
         synchronized(serviceStarted) {
             if (backgroundFlutterEngine == null) {
@@ -96,7 +101,7 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
                 synchronized(serviceStarted) {
                     // If events were added to the queue when the service was initializing, emits those
                     while (!queue.isEmpty()) {
-                        backgroundChannel.invokeMethod("", queue.removeFirst())
+                        backgroundChannel.invokeMethod("", queue.removeFirst()[0])
                     }
 
                     // The background engine has now started and ready to receive events
@@ -116,46 +121,35 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
         val remoteMessage = RemoteMessage(intent.extras)
         val notificationMap = remoteMessage.asPayload().asChannelMap()
 
-        val bgExternalCallbackHandle =
-            getCallbackHandleForKey(PushNotificationConstants.BG_EXTERNAL_CALLBACK_HANDLE_KEY)
-        val bgInternalCallbackHandle =
-            getCallbackHandleForKey(PushNotificationConstants.BG_INTERNAL_CALLBACK_HANDLE_KEY)
+        val bgExternalCallbackHandle = baseContext.getSharedPreferences(
+            PushNotificationConstants.SHARED_PREFERENCES_KEY, MODE_PRIVATE
+        ).getLong(PushNotificationConstants.BG_EXTERNAL_CALLBACK_HANDLE_KEY, 0)
 
-        if (bgInternalCallbackHandle == 0L) {
-            Log.w(TAG, "Warning: no internal callback registered")
-            return
+        // Check and assign the handle
+        val callbackInfo: Map<String, Any> = if (bgExternalCallbackHandle == 0L) {
+            Log.i(TAG, "no external callback registered")
+            mapOf(
+                "notification" to notificationMap
+            )
+        } else {
+            mapOf(
+                "externalHandle" to bgExternalCallbackHandle, "notification" to notificationMap
+            )
         }
 
-        val callbackHandleList = listOf(
-            mapOf(
-                "handle" to bgInternalCallbackHandle, "notification" to notificationMap
-            ), mapOf(
-                "handle" to bgExternalCallbackHandle, "notification" to notificationMap
-            )
-        )
+        Log.d(TAG, "callback info: $callbackInfo")
         synchronized(serviceStarted) {
             if (!serviceStarted.get()) {
                 // Queue up geofencing events while background isolate is starting
-                queue.add(callbackHandleList)
+                queue.add(listOf(callbackInfo))
             } else {
                 // Callback method name is intentionally left blank.
                 Handler(baseContext.mainLooper).post {
                     backgroundChannel.invokeMethod(
-                        "", callbackHandleList
+                        "", callbackInfo
                     )
                 }
             }
         }
-    }
-
-    private fun getCallbackHandleForKey(callbackKey: String): Long {
-        return baseContext.getSharedPreferences(
-            PushNotificationConstants.SHARED_PREFERENCES_KEY, MODE_PRIVATE
-        ).getLong(callbackKey, 0)
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        startPushNotificationService(this)
     }
 }

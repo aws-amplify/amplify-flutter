@@ -23,23 +23,28 @@ const _backgroundChannel = MethodChannel(
 void callbackDispatcher() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // ignore: cascade_invocations
   _backgroundChannel
     ..setMethodCallHandler((MethodCall call) async {
-      final args = call.arguments as List<dynamic>;
-      for (final element in args.cast<Map<Object?, Object?>>()) {
-        final callback = PluginUtilities.getCallbackFromHandle(
-          CallbackHandle.fromRawHandle(element['handle'] as int),
+      // TODO(Samaritan1011001): Record Analytics
+
+      final callbackInfo = call.arguments as Map<Object?, Object?>;
+      // Call the external callback only if the callback is registered
+      if (callbackInfo.containsKey('externalHandle')) {
+        final externalCallback = PluginUtilities.getCallbackFromHandle(
+          CallbackHandle.fromRawHandle(callbackInfo['externalHandle'] as int),
         );
-        if (callback == null) {
-          throw StateError('Callback not found');
+        if (externalCallback != null) {
+          if (externalCallback is! OnRemoteMessageCallback) {
+            throw StateError(
+              'Invalid callback type: ${externalCallback.runtimeType}',
+            );
+          }
+          await externalCallback(
+            PushNotificationMessage.fromJson(
+              callbackInfo['notification'] as Map,
+            ),
+          );
         }
-        if (callback is! OnRemoteMessageCallback) {
-          throw StateError('Invalid callback type: ${callback.runtimeType}');
-        }
-        await callback(
-          PushNotificationMessage.fromJson(element['notification'] as Map),
-        );
       }
     })
     ..invokeMethod('PushNotificationBackgroundService.initialized');

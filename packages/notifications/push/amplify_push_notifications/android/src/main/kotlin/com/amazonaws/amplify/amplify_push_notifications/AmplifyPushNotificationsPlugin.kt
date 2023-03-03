@@ -158,15 +158,6 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Ac
                     )
                     result.success(true)
                 }
-                "registerBgInternalCallback" -> {
-                    val args = call.arguments<ArrayList<*>>()
-                    registerCallbackToCache(
-                        applicationContext!!,
-                        args,
-                        PushNotificationConstants.BG_INTERNAL_CALLBACK_HANDLE_KEY
-                    )
-                    result.success(true)
-                }
                 "getPermissionStatus" -> {
                     val permission = PushNotificationPermission(applicationContext!!)
                     // If permission has already been granted
