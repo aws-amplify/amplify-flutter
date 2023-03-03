@@ -36,25 +36,18 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
         .map((payload) {
-      final deviceToken = payload['token'] as String;
-      return deviceToken;
-    });
+      return payload['token'] as String;
+    }).distinct();
 
     _onForegroundNotificationReceived = _foregroundNotificationEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
-        .map((payload) {
-      // TODO convert raw event to RemotePushMessage
-      return PushNotificationMessage.fromJson(payload);
-    });
+        .map(PushNotificationMessage.fromJson);
 
     _onNotificationOpened = _notificationOpenedEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
-        .map((payload) {
-      // TODO convert raw event to RemotePushMessage
-      return PushNotificationMessage.fromJson(payload);
-    });
+        .map(PushNotificationMessage.fromJson);
   }
 
   final AmplifyLogger _logger =
@@ -68,7 +61,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   late final Stream<PushNotificationMessage> _onForegroundNotificationReceived;
   late final Stream<PushNotificationMessage> _onNotificationOpened;
 
-  bool _isConfigured = false;
+  var _isConfigured = false;
 
   @override
   Stream<String> get onTokenReceived => _onTokenReceived;
@@ -91,7 +84,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     AmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
-    // Parse config values from amplifyconfiguration.json
     final analyticsConfig = config?.analytics?.awsPlugin;
     if (analyticsConfig == null) {
       throw const AnalyticsException('No Pinpoint plugin config available');
@@ -107,61 +99,12 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       authProviderRepo: authProviderRepo,
     );
 
-    // Block configure if registering device is not complete
-    // TODO: Catch and throw exceptions originating from token or device registration
-    final deviceToken = await onTokenReceived.first;
-    await _registerDevice(deviceToken);
+    await _registerDeviceWhenConfigure();
+    _attachEventChannelListeners();
 
-    // Initialize listeners
-    onTokenReceived.listen(_tokenReceivedListener);
-    onNotificationReceivedInForeground.listen(_foregroundNotificationListener);
-    onNotificationOpened.listen(_notificationOpenedListener);
-
-    // TODO: Register the callback dispatcher
-
-    _logger.info('CONFIGURE API | Successfully configure push notifications');
+    // TODO(Samaritan1011001): Register the callback dispatcher for Android
 
     _isConfigured = true;
-  }
-
-  void _foregroundNotificationListener(
-    PushNotificationMessage pushNotificationMessage,
-  ) {
-    _logger.info(
-      'Successfully listrening to foreground events: $pushNotificationMessage',
-    );
-
-    // TODO(Samaritan1011001): Record Analytics
-  }
-
-  void _notificationOpenedListener(
-    PushNotificationMessage pushNotificationMessage,
-  ) {
-    _logger.info(
-      'Successfully listrening to notification opened events: $pushNotificationMessage',
-    );
-    // TODO(Samaritan1011001): Record Analytics
-  }
-
-  Future<String> _tokenReceivedListener(
-    String address,
-  ) async {
-    _logger.info('Successfully fetched the address: $address');
-    await _registerDevice(address);
-
-    return address;
-  }
-
-  Future<void> _registerDevice(String address) async {
-    try {
-      await _serviceProviderClient.registerDevice(address);
-      _logger.info('Successfully registered device with the servvice provider');
-      // return true;
-    } on Exception {
-      throw const PushNotificationException(
-        'Error when registering device with the service provider: ',
-      );
-    }
   }
 
   @override
@@ -212,6 +155,75 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   @override
   Future<void> setBadgeCount(int badgeCount) async {
     await _hostApi.setBadgeCount(badgeCount);
+  }
+
+  void _foregroundNotificationListener(
+    PushNotificationMessage pushNotificationMessage,
+  ) {
+    // TODO(Samaritan1011001): Record Analytics
+  }
+
+  void _notificationOpenedListener(
+    PushNotificationMessage pushNotificationMessage,
+  ) {
+    // TODO(Samaritan1011001): Record Analytics
+  }
+
+  void _tokenReceivedListener(String deviceToken) {
+    unawaited(_registerDevice(deviceToken));
+  }
+
+  Future<void> _registerDevice(String address) async {
+    try {
+      await _serviceProviderClient.registerDevice(address);
+      _logger.info('Successfully registered device with the service provider');
+      // return true;
+    } on Exception {
+      throw const PushNotificationException(
+        'Error when registering device with the service provider: ',
+      );
+    }
+  }
+
+  Future<void> _registerDeviceWhenConfigure() async {
+    late String deviceToken;
+
+    try {
+      deviceToken = await onTokenReceived.first;
+    } on Exception catch (error) {
+      // the error mostly like is the App doesn't have corresponding
+      // capability to request a push notification device token
+      throw PushNotificationException(
+        'Error occurred awaiting for device token to register device with Pinpoint',
+        recoverySuggestion: 'Please review the underlying exception',
+        underlyingException: error,
+      );
+    }
+
+    await _registerDevice(deviceToken);
+  }
+
+  void _attachEventChannelListeners() {
+    // Initialize listeners
+    onTokenReceived.listen(_tokenReceivedListener).onError((Object error) {
+      _logger.error(
+        'Unexpected error $error received from onTokenReceived event channel.',
+      );
+    });
+    onNotificationReceivedInForeground
+        .listen(_foregroundNotificationListener)
+        .onError((Object error) {
+      _logger.error(
+        'Unexpected error $error received from onNotificationReceivedInForeground event channel.',
+      );
+    });
+    onNotificationOpened
+        .listen(_notificationOpenedListener)
+        .onError((Object error) {
+      _logger.error(
+        'Unexpected error $error received from onNotificationOpened event channel.',
+      );
+    });
   }
 }
 
