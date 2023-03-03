@@ -12,7 +12,8 @@ import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsCo
 import com.amplifyframework.pushnotifications.pinpoint.utils.toNotificationsPayload
 import com.google.firebase.messaging.RemoteMessage
 
-private const val PAYLOAD_KEY = "payload"
+
+private const val TAG = "PushNotificationUtils"
 
 enum class PushNotificationPermissionStatus {
     notRequested, shouldRequestWithRationale, granted, denied,
@@ -75,7 +76,7 @@ fun Intent.isPushNotificationIntent(): Boolean {
 }
 
 fun Bundle.asPayload(): NotificationPayload? {
-    return this.getBundle(PAYLOAD_KEY)?.toNotificationsPayload()
+    return this.getBundle(PushNotificationConstants.PAYLOAD_KEY)?.toNotificationsPayload()
 }
 
 fun Context.getLaunchActivityClass(): Class<*>? {
@@ -86,7 +87,7 @@ fun Context.getLaunchActivityClass(): Class<*>? {
             return Class.forName(it)
         } catch (e: Exception) {
             Log.e(
-                "PushNotificationUtils", "Unable to find launch activity class"
+                TAG, "Unable to find launch activity class: $e"
             )
         }
     }

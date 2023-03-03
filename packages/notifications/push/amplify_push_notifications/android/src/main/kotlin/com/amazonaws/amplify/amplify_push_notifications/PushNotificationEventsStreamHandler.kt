@@ -8,9 +8,7 @@ import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.EventChannel.EventSink
 
-private val TAG = "PushNotificationEventsStreamHandler"
-
-private const val channelNamePrefix = "com.amazonaws.amplify/push_notification"
+private const val TAG = "PushNotificationEventsStreamHandler"
 
 enum class NativeEvent {
     TOKEN_RECEIVED, NOTIFICATION_OPENED, LAUNCH_NOTIFICATION_OPENED, FOREGROUND_MESSAGE_RECEIVED, BACKGROUND_MESSAGE_RECEIVED, ERROR;
@@ -26,7 +24,7 @@ enum class NativeEvent {
         }
 
     val eventChannelName: String
-        get() = "$channelNamePrefix/event/$eventName"
+        get() = "${PushNotificationConstants.CHANNEL_NAME_PREFIX}/event/$eventName"
 }
 
 data class PushNotificationsEvent(
@@ -56,13 +54,11 @@ class PushNotificationEventsStreamHandler constructor(
     }
 
     override fun onListen(arguments: Any?, sink: EventSink?) {
-        Log.d(TAG, "Listening to events | sink used: ${sink.hashCode()}")
         eventSink = sink
         flushEvents()
     }
 
     override fun onCancel(arguments: Any?) {
-        Log.d(TAG, "Listening canceled")
         eventSink = null
         eventQueue.clear()
     }
@@ -71,12 +67,8 @@ class PushNotificationEventsStreamHandler constructor(
 
     fun send(payload: Map<String, Any?>) {
         val event = PushNotificationsEvent(_associatedNativeEvent, payload)
-        Log.d(TAG, "Sending the event: ${event.event.eventName}")
-        Log.d(TAG, "event sink when sending: $eventSink")
-
         eventSink?.success(event.toMap()) ?: run {
             eventQueue.add(event)
-            Log.d(TAG, "Event sink is null, adding to queue with count: ${eventQueue.count()}")
         }
     }
 
@@ -114,7 +106,7 @@ class PushNotificationEventsStreamHandler constructor(
                 }
             }
         } catch (e: Exception) {
-            Log.e("error when flushing: ", e.toString())
+            Log.e(TAG, "error when flushing event queue: $e")
         }
     }
 }
@@ -163,12 +155,13 @@ class StreamHandlers {
 
         @JvmStatic
         fun initEventChannels(binaryMessenger: BinaryMessenger) {
-            tokenReceived.initEventChannel(binaryMessenger)
-            notificationOpened.initEventChannel(binaryMessenger)
-            launchNotificationOpened.initEventChannel(binaryMessenger)
-            foregroundMessageReceived.initEventChannel(binaryMessenger)
-            backgroundMessageReceived.initEventChannel(binaryMessenger)
-
+            if (isInitStreamHandlers) {
+                tokenReceived.initEventChannel(binaryMessenger)
+                notificationOpened.initEventChannel(binaryMessenger)
+                launchNotificationOpened.initEventChannel(binaryMessenger)
+                foregroundMessageReceived.initEventChannel(binaryMessenger)
+                backgroundMessageReceived.initEventChannel(binaryMessenger)
+            }
         }
     }
 }

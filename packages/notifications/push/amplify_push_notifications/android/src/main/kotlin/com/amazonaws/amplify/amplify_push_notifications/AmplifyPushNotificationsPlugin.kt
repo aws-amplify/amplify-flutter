@@ -27,9 +27,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-const val PREF_PREVIOUSLY_DENIED = "wasPermissionPreviouslyDenied"
-private const val PERMISSION = "android.permission.POST_NOTIFICATIONS"
-const val METHOD_CHANNEL = "com.amazonaws.amplify/push_notification/method"
+
+private const val TAG = "AmplifyPushNotificationsPlugin"
 
 /** AmplifyPushNotificationsPlugin */
 class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
@@ -43,14 +42,8 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
     private var mainBinaryMessenger: BinaryMessenger? = null
 
     companion object {
-        val CALLBACK_DISPATCHER_HANDLE_KEY = "callback_dispatch_handler"
-        val SHARED_PREFERENCES_KEY = "amplify_push_notification_plugin_cache"
-        val BG_EXTERNAL_CALLBACK_HANDLE_KEY = "bg_user_callback_handle"
-        val BG_INTERNAL_CALLBACK_HANDLE_KEY = "bg_internal_callback_handle"
 
-        private val TAG = "AmplifyPushNotificationsPlugin"
     }
-
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         mainBinaryMessenger?.let {
             StreamHandlers.initStreamHandlers()
@@ -58,23 +51,19 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
         }
         activityBinding = binding
         this.mainActivity = binding.activity
-//        onNewIntent(binding.activity.intent)
+        onNewIntent(binding.activity.intent)
         binding.addOnNewIntentListener(this)
         // TODO: also fetchToken on app resume
         refreshToken()
     }
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        Log.d(
-            TAG,
-            "Attached to engine with binaryMessenger: ${flutterPluginBinding.binaryMessenger}"
-        )
         mainBinaryMessenger = flutterPluginBinding.binaryMessenger
         context = flutterPluginBinding.applicationContext
         sharedPreferences =
-            context.getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE)
+            context.getSharedPreferences(PushNotificationConstants.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE)
         channel = MethodChannel(
-            flutterPluginBinding.binaryMessenger, METHOD_CHANNEL
+            flutterPluginBinding.binaryMessenger, PushNotificationConstants.METHOD_CHANNEL
         )
         channel.setMethodCallHandler(this)
     }
@@ -86,10 +75,6 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
-        Log.d(
-            TAG,
-            "Detached from engine with binaryMessenger: ${binding.binaryMessenger.hashCode()}"
-        )
         channel.setMethodCallHandler(null)
     }
 
@@ -109,22 +94,21 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
             when (call.method) {
                 "initializeService" -> {
                     val args = call.arguments<ArrayList<*>>()
-                    registerCallbackToCache(context, args, CALLBACK_DISPATCHER_HANDLE_KEY)
+                    registerCallbackToCache(context, args, PushNotificationConstants.CALLBACK_DISPATCHER_HANDLE_KEY)
                     result.success(true)
                 }
                 "registerBgExternalCallback" -> {
                     val args = call.arguments<ArrayList<*>>()
-                    registerCallbackToCache(context, args, BG_EXTERNAL_CALLBACK_HANDLE_KEY)
+                    registerCallbackToCache(context, args, PushNotificationConstants.BG_EXTERNAL_CALLBACK_HANDLE_KEY)
                     result.success(true)
                 }
                 "registerBgInternalCallback" -> {
                     val args = call.arguments<ArrayList<*>>()
-                    registerCallbackToCache(context, args, BG_INTERNAL_CALLBACK_HANDLE_KEY)
+                    registerCallbackToCache(context, args, PushNotificationConstants.BG_INTERNAL_CALLBACK_HANDLE_KEY)
                     result.success(true)
                 }
                 // TODO: Add methodcall handling for other things
                 "getPermissionStatus" -> {
-                    Log.d(TAG, "getting permission status")
                     val permission = PushNotificationPermission(context)
                     // If permission has already been granted
                     if (permission.hasRequiredPermission) {
@@ -137,7 +121,7 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
                     }
                     // If the shouldShowRequestPermissionRationale flag is false and the permission was
                     // already previously denied then user has denied permissions twice
-                    if (sharedPreferences.getBoolean(PREF_PREVIOUSLY_DENIED, false)) {
+                    if (sharedPreferences.getBoolean(PushNotificationConstants.PREF_PREVIOUSLY_DENIED, false)) {
                         return result.success(PushNotificationPermissionStatus.denied.name)
                     }
                     // Otherwise it's never been requested (or user could have dismissed the request without
@@ -157,7 +141,7 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
                             // possible to dismiss the permission request without explicitly denying as well.
                             if (shouldShowRequestPermissionRationale()) {
                                 with(sharedPreferences.edit()) {
-                                    putBoolean(PREF_PREVIOUSLY_DENIED, true)
+                                    putBoolean(PushNotificationConstants.PREF_PREVIOUSLY_DENIED, true)
                                     apply()
                                 }
                             }
@@ -175,20 +159,19 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
     private fun registerCallbackToCache(
         context: Context, args: ArrayList<*>?, callbackKey: String
     ) {
-        Log.d(TAG, "Registering callback function with key $callbackKey")
+        Log.i(TAG, "Registering callback function with key $callbackKey")
         val callbackHandle = args?.get(0) as Long
-        context.getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE).edit()
+        context.getSharedPreferences(PushNotificationConstants.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE).edit()
             .putLong(callbackKey, callbackHandle).apply()
     }
 
     private fun refreshToken() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-//            Handler(context.mainLooper).post {
             if (!task.isSuccessful) {
                 task.exception?.let { StreamHandlers.tokenReceived.sendError(it) }
                 return@addOnCompleteListener
             }
-            Log.d(TAG, task.result)
+            Log.i(TAG, task.result)
             StreamHandlers.tokenReceived.send(
                 mapOf(
                     "token" to task.result
@@ -197,18 +180,13 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
         }
     }
 
-
     // TODO: 1. This gets called with intent only when a specific notification is tapped and not when the group is tapped
     //      2. The intent here is the last notification device got rather than the one that was tapped
     override fun onNewIntent(intent: Intent): Boolean {
         intent.extras?.let {
             val payload = it.asPayload()
-            Log.d(TAG, "onNewIntent Push payload: ${payload?.title}")
-
             if (payload != null) {
                 val notificationHashMap = payload.asChannelMap()
-                Log.d(TAG, "notificationHashMap in onNewIntent Push called: $notificationHashMap")
-
                 StreamHandlers.notificationOpened.send(
                     notificationHashMap
                 )
@@ -219,7 +197,7 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
 
     private fun shouldShowRequestPermissionRationale(): Boolean {
         return ActivityCompat.shouldShowRequestPermissionRationale(
-            mainActivity!!, PERMISSION
+            mainActivity!!, PushNotificationConstants.PERMISSION
         )
     }
 }

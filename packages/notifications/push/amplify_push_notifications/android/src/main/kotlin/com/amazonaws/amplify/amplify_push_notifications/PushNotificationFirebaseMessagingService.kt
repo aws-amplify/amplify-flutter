@@ -11,8 +11,7 @@ import com.google.firebase.messaging.RemoteMessage
 import io.flutter.Log
 import io.flutter.view.FlutterMain
 
-private val TAG = "PushNotificationFirebaseMessagingService"
-private const val ACTION_NEW_TOKEN = "com.google.firebase.messaging.NEW_TOKEN"
+private const val TAG = "PushNotificationFirebaseMessagingService"
 
 class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
 
@@ -35,7 +34,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun handleIntent(intent: Intent) {
         // If the intent is for a new token, just forward intent to Firebase SDK
-        if (intent.action == ACTION_NEW_TOKEN) {
+        if (intent.action == PushNotificationConstants.ACTION_NEW_TOKEN) {
 //            Log.i(TAG, "Received new token intent")
             super.handleIntent(intent)
             return
@@ -53,39 +52,32 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         baseContext?.let {
-            Handler(it.mainLooper).post{
+            Handler(it.mainLooper).post {
 
-            if (utils.isAppInForeground()) {
-                Log.d(
-                    TAG,
-                    "Received FOREGROUND notification, sending to dart via stream handler with id: ${StreamHandlers.foregroundMessageReceived.hashCode()}"
-                )
-                val notificationHashMap = remoteMessage.asPayload().asChannelMap()
-                StreamHandlers.foregroundMessageReceived.send(notificationHashMap)
-            } else {
-                try {
-                    val payload = remoteMessage.asPayload()
-                    utils.showNotification(
-                        payload, it.getLaunchActivityClass()
-                    )
-
-                    Log.d(
-                        TAG, "App is in background, start background service and enqueue work"
-                    )
-                    FlutterMain.startInitialization(it)
-                    FlutterMain.ensureInitializationComplete(it, null)
-                    PushNotificationBackgroundService.enqueueWork(
-                        it,
-                        remoteMessage.toIntent()
-                    )
-
-
-                } catch (exception: Exception) {
-                    android.util.Log.e(
-                        TAG, "Something went wrong while starting headless task $exception"
-                    )
+                if (utils.isAppInForeground()) {
+                    val notificationHashMap = remoteMessage.asPayload().asChannelMap()
+                    StreamHandlers.foregroundMessageReceived.send(notificationHashMap)
+                } else {
+                    try {
+                        val payload = remoteMessage.asPayload()
+                        utils.showNotification(
+                            payload, it.getLaunchActivityClass()
+                        )
+                        Log.i(
+                            TAG, "App is in background, start background service and enqueue work"
+                        )
+                        FlutterMain.startInitialization(it)
+                        FlutterMain.ensureInitializationComplete(it, null)
+                        PushNotificationBackgroundService.enqueueWork(
+                            it,
+                            remoteMessage.toIntent()
+                        )
+                    } catch (exception: Exception) {
+                        Log.e(
+                            TAG, "Something went wrong while starting background engine $exception"
+                        )
+                    }
                 }
-            }
             }
         }
     }

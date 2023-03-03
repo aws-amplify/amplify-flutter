@@ -3,16 +3,13 @@
 
 package com.amazonaws.amplify.amplify_push_notifications
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.getIntent
 import android.os.Handler
 import android.util.Log
 import androidx.core.app.JobIntentService
 import com.google.firebase.messaging.RemoteMessage
 import io.flutter.embedding.engine.FlutterEngine
-import io.flutter.embedding.engine.FlutterShellArgs
 import io.flutter.embedding.engine.dart.DartExecutor
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -22,6 +19,7 @@ import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.collections.ArrayDeque
 
+private const val TAG = "PushBackgroundService"
 
 class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIntentService() {
     private val queue = ArrayDeque<List<Any>>()
@@ -29,8 +27,6 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
     private lateinit var mContext: Context
 
     companion object {
-        @JvmStatic
-        private val TAG = "PushBackgroundService"
 
         @JvmStatic
         private val JOB_ID = UUID.randomUUID().mostSignificantBits.toInt()
@@ -40,7 +36,6 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
 
         @JvmStatic
         private val sServiceStarted = AtomicBoolean(false)
-
 
         @JvmStatic
         fun enqueueWork(context: Context, work: Intent) {
@@ -54,12 +49,12 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
             if (sBackgroundFlutterEngine == null) {
 
                 val callbackHandle = context.getSharedPreferences(
-                    AmplifyPushNotificationsPlugin.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE
+                    PushNotificationConstants.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE
                 ).getLong(
-                    AmplifyPushNotificationsPlugin.CALLBACK_DISPATCHER_HANDLE_KEY, 0
+                    PushNotificationConstants.CALLBACK_DISPATCHER_HANDLE_KEY, 0
                 )
                 if (callbackHandle == 0L) {
-                    Log.e(TAG, "Warning: no callback registered")
+                    Log.w(TAG, "Warning: no callback registered")
                     return
                 }
                 val callbackInfo =
@@ -70,12 +65,6 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
                 }
                 Log.i(TAG, "Starting PushNotificationBackgroundService...")
 
-//                var shellArgs: FlutterShellArgs? = null
-//                    // Supports both Flutter Activity types:
-//                    //    io.flutter.embedding.android.FlutterFragmentActivity
-//                    //    io.flutter.embedding.android.FlutterActivity
-//                    // We could use `getFlutterShellArgs()` but this is only available on `FlutterActivity`.
-//                    shellArgs = FlutterShellArgs.fromIntent(mainActivity.intent)
                 sBackgroundFlutterEngine = FlutterEngine(context)
 
                 val args = DartExecutor.DartCallback(
@@ -108,7 +97,7 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
     }
 
     override fun onHandleWork(intent: Intent) {
-        Log.d(TAG, "Handling work @ PushNotificationBackgroundService...")
+        Log.i(TAG, "Handling work @ PushNotificationBackgroundService...")
         if (!intent.isPushNotificationIntent()) {
             return
         }
@@ -116,12 +105,12 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
         val notificationMap = remoteMessage.asPayload().asChannelMap()
 
         val bgExternalCallbackHandle =
-            getCallbackHandleForKey(AmplifyPushNotificationsPlugin.BG_EXTERNAL_CALLBACK_HANDLE_KEY)
+            getCallbackHandleForKey(PushNotificationConstants.BG_EXTERNAL_CALLBACK_HANDLE_KEY)
         val bgInternalCallbackHandle =
-            getCallbackHandleForKey(AmplifyPushNotificationsPlugin.BG_INTERNAL_CALLBACK_HANDLE_KEY)
+            getCallbackHandleForKey(PushNotificationConstants.BG_INTERNAL_CALLBACK_HANDLE_KEY)
 
         if (bgInternalCallbackHandle == 0L) {
-            Log.e(TAG, "Warning: no internal callback registered")
+            Log.w(TAG, "Warning: no internal callback registered")
             return
         }
 
@@ -149,7 +138,7 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
 
     private fun getCallbackHandleForKey(callbackKey: String): Long {
         return mContext.getSharedPreferences(
-            AmplifyPushNotificationsPlugin.SHARED_PREFERENCES_KEY, MODE_PRIVATE
+            PushNotificationConstants.SHARED_PREFERENCES_KEY, MODE_PRIVATE
         ).getLong(callbackKey, 0)
     }
 

@@ -15,7 +15,6 @@ Future<void> _internalBgHandler(
   PushNotificationMessage pushNotificationMessage,
 ) async {
   // TODO: Record Analytics
-  print('_internalBgHandler called');
 }
 
 const _methodChannel =
@@ -185,7 +184,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       );
 
       final deviceToken = await onTokenReceived.first;
-      print('Device Token got once: $deviceToken');
+      _logger.info('Device Token: $deviceToken');
       await _registerDevice(deviceToken);
     } on Exception catch (e) {
       throw PushNotificationException(
