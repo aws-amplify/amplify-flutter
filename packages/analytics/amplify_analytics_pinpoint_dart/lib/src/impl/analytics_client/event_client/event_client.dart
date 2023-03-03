@@ -181,7 +181,7 @@ class EventClient implements Closeable {
           );
 
           if (_isRetryable(eventItemResponse.statusCode) &&
-              _shouldEventRetry(eventId)) {
+              _shouldRetryEvent(eventId)) {
             _logger.warn(
               'putEvents - recoverable issue, will attempt to resend: $eventId in next FlushEvents',
             );
@@ -198,12 +198,23 @@ class EventClient implements Closeable {
         ..warn('Unrecoverable issue, deleting cache for local event batch');
     } on SmithyHttpException catch (e) {
       if (e.statusCode != null && _isRetryable(e.statusCode!)) {
-        _handleRecoverableException(e, eventsToDelete);
+        eventsToDelete.removeWhere((eventId, _) => _shouldRetryEvent(eventId));
+        _logRecoverableException(e);
       }
-    } on AWSHttpException {
+      // TODO(kylecheng): convert to AnalyticsException and log warning
+      // Convert status codes based on pinpoint api reference:
+      // https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-events.html
+      // Follow logic structure of:
+      // https://github.com/aws-amplify/amplify-flutter/blob/next/packages/storage/amplify_storage_s3_dart/lib/src/exception/s3_storage_exception.dart#L166
+      else {
+        _logger.warn('Unrecoverable HttpException Encountered', e);
+      }
+    } on AWSHttpException catch (e) {
       // AWSHttpException indicates request did not complete
-      // Due to no internet.  These exceptions are always retryable.
+      // Due to no internet or unable to reach server.
+      // These exceptions are always retryable.
       eventsToDelete.clear();
+      _logRecoverableException(e);
     } on Exception catch (e) {
       _logger
         ..warn('putEvents - exception encountered: ', e)
@@ -218,38 +229,26 @@ class EventClient implements Closeable {
   }
 
   // If exception is recoverable, do not delete eventIds from local cache
-  void _handleRecoverableException(
-    Exception e,
-    Map<String, StoredEvent> eventsToDelete,
-  ) {
+  void _logRecoverableException(Exception e) {
     _logger
       ..warn('putEvents - exception encountered: ', e)
       ..warn('Recoverable issue, will attempt to resend event batch');
-    // Attempt to retry all events unless some events reached fail limit
-    _removeRetryableEvents(eventsToDelete);
   }
 
   bool _isRetryable(int statusCode) {
-    return 500 <= statusCode && statusCode < 600;
+    // Pinpoint service policy is for 500-599 status codes to be retryable
+    return statusCode >= 500 && statusCode < 600;
   }
 
-  void _removeRetryableEvents(Map<String, StoredEvent> eventsToDelete) {
-    for (final eventId in eventsToDelete.keys.toList()) {
-      if (_shouldEventRetry(eventId)) {
-        eventsToDelete.remove(eventId);
-      }
-    }
-  }
-
-  bool _shouldEventRetry(String eventId) {
-    final timesFailed = (_numFailuresByEvent[eventId] ?? 0) + 1;
-    if (timesFailed > 3) {
-      _logger.warn('Event fail limit reached, deleting event.');
+  bool _shouldRetryEvent(String eventId) {
+    final timesFailed = _numFailuresByEvent[eventId] ?? 0;
+    if (timesFailed >= 3) {
+      _logger.warn('Retry limit exceeded, deleting event: $eventId');
+      _numFailuresByEvent.remove(eventId);
       return false;
-    } else {
-      _numFailuresByEvent[eventId] = timesFailed;
-      return true;
     }
+    _numFailuresByEvent[eventId] = timesFailed + 1;
+    return true;
   }
 
   bool _equalsIgnoreCase(String string1, String string2) {
