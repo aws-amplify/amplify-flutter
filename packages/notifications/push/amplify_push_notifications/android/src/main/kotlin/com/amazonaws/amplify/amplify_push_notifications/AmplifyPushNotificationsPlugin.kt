@@ -7,7 +7,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.os.Handler
 import androidx.annotation.NonNull
 import androidx.core.app.ActivityCompat
 import com.amazonaws.amplify.AtomicResult
@@ -18,6 +17,7 @@ import io.flutter.Log
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
+import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
@@ -40,6 +40,7 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var channel: MethodChannel
     private var activityBinding: ActivityPluginBinding? = null
+    private var mainBinaryMessenger: BinaryMessenger? = null
 
     companion object {
         val CALLBACK_DISPATCHER_HANDLE_KEY = "callback_dispatch_handler"
@@ -51,23 +52,55 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+        mainBinaryMessenger?.let {
+            StreamHandlers.initStreamHandlers()
+            StreamHandlers.initEventChannels(it)
+        }
         activityBinding = binding
         this.mainActivity = binding.activity
-        onNewIntent(binding.activity.intent)
+//        onNewIntent(binding.activity.intent)
         binding.addOnNewIntentListener(this)
         // TODO: also fetchToken on app resume
         refreshToken()
     }
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+        Log.d(
+            TAG,
+            "Attached to engine with binaryMessenger: ${flutterPluginBinding.binaryMessenger}"
+        )
+        mainBinaryMessenger = flutterPluginBinding.binaryMessenger
         context = flutterPluginBinding.applicationContext
-        StreamHandlers.initialize(flutterPluginBinding.binaryMessenger)
         sharedPreferences =
             context.getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE)
         channel = MethodChannel(
             flutterPluginBinding.binaryMessenger, METHOD_CHANNEL
         )
         channel.setMethodCallHandler(this)
+    }
+
+    override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
+        activityBinding = binding
+        this.mainActivity = binding.activity
+        binding.addOnNewIntentListener(this)
+    }
+
+    override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+        Log.d(
+            TAG,
+            "Detached from engine with binaryMessenger: ${binding.binaryMessenger.hashCode()}"
+        )
+        channel.setMethodCallHandler(null)
+    }
+
+    override fun onDetachedFromActivity() {
+        this.mainActivity = null
+        activityBinding?.removeOnNewIntentListener(this)
+        activityBinding = null
+    }
+
+    override fun onDetachedFromActivityForConfigChanges() {
+        activityBinding?.removeOnNewIntentListener(this)
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull _result: Result) {
@@ -150,25 +183,32 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
 
     private fun refreshToken() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-            Handler(context.mainLooper).post {
-                if (!task.isSuccessful) {
-                    task.exception?.let { StreamHandlers.tokenReceived.sendError(it) }
-                    return@post
-                }
-                StreamHandlers.tokenReceived.send(
-                    mapOf(
-                        "token" to task.result
-                    )
-                )
+//            Handler(context.mainLooper).post {
+            if (!task.isSuccessful) {
+                task.exception?.let { StreamHandlers.tokenReceived.sendError(it) }
+                return@addOnCompleteListener
             }
+            Log.d(TAG, task.result)
+            StreamHandlers.tokenReceived.send(
+                mapOf(
+                    "token" to task.result
+                )
+            )
         }
     }
 
+
+    // TODO: 1. This gets called with intent only when a specific notification is tapped and not when the group is tapped
+    //      2. The intent here is the last notification device got rather than the one that was tapped
     override fun onNewIntent(intent: Intent): Boolean {
         intent.extras?.let {
             val payload = it.asPayload()
+            Log.d(TAG, "onNewIntent Push payload: ${payload?.title}")
+
             if (payload != null) {
                 val notificationHashMap = payload.asChannelMap()
+                Log.d(TAG, "notificationHashMap in onNewIntent Push called: $notificationHashMap")
+
                 StreamHandlers.notificationOpened.send(
                     notificationHashMap
                 )
@@ -181,25 +221,5 @@ class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Activit
         return ActivityCompat.shouldShowRequestPermissionRationale(
             mainActivity!!, PERMISSION
         )
-    }
-
-    override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-        activityBinding = binding
-        this.mainActivity = binding.activity
-        binding.addOnNewIntentListener(this)
-    }
-
-    override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
-        channel.setMethodCallHandler(null)
-    }
-
-    override fun onDetachedFromActivity() {
-        this.mainActivity = null
-        activityBinding?.removeOnNewIntentListener(this)
-        activityBinding = null
-    }
-
-    override fun onDetachedFromActivityForConfigChanges() {
-        activityBinding?.removeOnNewIntentListener(this)
     }
 }

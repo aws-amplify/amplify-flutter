@@ -9,8 +9,9 @@ import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsUt
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import io.flutter.Log
+import io.flutter.view.FlutterMain
 
-private val TAG = PushNotificationFirebaseMessagingService::class.java.simpleName
+private val TAG = "PushNotificationFirebaseMessagingService"
 private const val ACTION_NEW_TOKEN = "com.google.firebase.messaging.NEW_TOKEN"
 
 class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
@@ -28,20 +29,21 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
      */
     override fun onNewToken(token: String) {
         Log.d(TAG, "Received new token in onNewToken")
+        StreamHandlers.initStreamHandlers()
         StreamHandlers.tokenReceived.send(mapOf("token" to token))
     }
 
     override fun handleIntent(intent: Intent) {
         // If the intent is for a new token, just forward intent to Firebase SDK
         if (intent.action == ACTION_NEW_TOKEN) {
-            Log.i(TAG, "Received new token intent")
+//            Log.i(TAG, "Received new token intent")
             super.handleIntent(intent)
             return
         }
         val remoteMessage = RemoteMessage(intent.extras)
         // If we can't handle the message type coming in, just forward the intent to Firebase SDK
         if (!remoteMessage.isSupported()) {
-            Log.i(TAG, "Message payload is not supported")
+            Log.d(TAG, "Message payload is not supported")
             super.handleIntent(intent)
             return
         }
@@ -51,37 +53,39 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         baseContext?.let {
-            Handler(it.mainLooper).post {
-                if (utils.isAppInForeground()) {
-                    val notificationHashMap = remoteMessage.asPayload().asChannelMap()
-                    StreamHandlers.foregroundMessageReceived.send(notificationHashMap)
-                } else {
+            Handler(it.mainLooper).post{
 
-                    try {
-                        val payload = remoteMessage.asPayload()
-                        utils.showNotification(
-                            payload, baseContext.getLaunchActivityClass()
-                        )
+            if (utils.isAppInForeground()) {
+                Log.d(
+                    TAG,
+                    "Received FOREGROUND notification, sending to dart via stream handler with id: ${StreamHandlers.foregroundMessageReceived.hashCode()}"
+                )
+                val notificationHashMap = remoteMessage.asPayload().asChannelMap()
+                StreamHandlers.foregroundMessageReceived.send(notificationHashMap)
+            } else {
+                try {
+                    val payload = remoteMessage.asPayload()
+                    utils.showNotification(
+                        payload, it.getLaunchActivityClass()
+                    )
 
-                        // TODO: Starting an isolate leaves the listeners of eventChannels created
-                        //  with the MAIN FlutterEngine behind, hence no killed state support yet
-                        Log.i(
-                            TAG, "App is in background, start background service and enqueue work"
-                        )
-//                        FlutterMain.startInitialization(baseContext)
-//                        FlutterMain.ensureInitializationComplete(baseContext, null)
-//                        PushNotificationBackgroundService.enqueueWork(
-//                            baseContext,
-//                            remoteMessage.toIntent()
-//                        )
+                    Log.d(
+                        TAG, "App is in background, start background service and enqueue work"
+                    )
+                    FlutterMain.startInitialization(it)
+                    FlutterMain.ensureInitializationComplete(it, null)
+                    PushNotificationBackgroundService.enqueueWork(
+                        it,
+                        remoteMessage.toIntent()
+                    )
 
 
-                    } catch (exception: Exception) {
-                        android.util.Log.e(
-                            TAG, "Something went wrong while starting headless task $exception"
-                        )
-                    }
+                } catch (exception: Exception) {
+                    android.util.Log.e(
+                        TAG, "Something went wrong while starting headless task $exception"
+                    )
                 }
+            }
             }
         }
     }

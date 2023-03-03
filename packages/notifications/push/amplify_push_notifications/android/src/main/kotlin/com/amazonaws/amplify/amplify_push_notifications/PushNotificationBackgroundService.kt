@@ -3,13 +3,16 @@
 
 package com.amazonaws.amplify.amplify_push_notifications
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.getIntent
 import android.os.Handler
 import android.util.Log
 import androidx.core.app.JobIntentService
 import com.google.firebase.messaging.RemoteMessage
 import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.embedding.engine.FlutterShellArgs
 import io.flutter.embedding.engine.dart.DartExecutor
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -18,6 +21,7 @@ import io.flutter.view.FlutterMain
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.collections.ArrayDeque
+
 
 class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIntentService() {
     private val queue = ArrayDeque<List<Any>>()
@@ -48,13 +52,12 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
         synchronized(sServiceStarted) {
             mContext = context
             if (sBackgroundFlutterEngine == null) {
-                sBackgroundFlutterEngine = FlutterEngine(context)
 
                 val callbackHandle = context.getSharedPreferences(
                     AmplifyPushNotificationsPlugin.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE
                 ).getLong(
-                        AmplifyPushNotificationsPlugin.CALLBACK_DISPATCHER_HANDLE_KEY, 0
-                    )
+                    AmplifyPushNotificationsPlugin.CALLBACK_DISPATCHER_HANDLE_KEY, 0
+                )
                 if (callbackHandle == 0L) {
                     Log.e(TAG, "Warning: no callback registered")
                     return
@@ -66,6 +69,14 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
                     return
                 }
                 Log.i(TAG, "Starting PushNotificationBackgroundService...")
+
+//                var shellArgs: FlutterShellArgs? = null
+//                    // Supports both Flutter Activity types:
+//                    //    io.flutter.embedding.android.FlutterFragmentActivity
+//                    //    io.flutter.embedding.android.FlutterActivity
+//                    // We could use `getFlutterShellArgs()` but this is only available on `FlutterActivity`.
+//                    shellArgs = FlutterShellArgs.fromIntent(mainActivity.intent)
+                sBackgroundFlutterEngine = FlutterEngine(context)
 
                 val args = DartExecutor.DartCallback(
                     context.assets, FlutterMain.findAppBundlePath(), callbackInfo

@@ -13,7 +13,7 @@ import 'amplifyconfiguration.dart';
 
 String globalBgCallbackKey = 'globalBgCallbackCountKey';
 
-// TODO: Drawback app needs to be restarted for a new version of this function to be registered
+// TODO: Drawback: app needs to be restarted for a new version of this function to be registered
 @pragma('vm:entry-point')
 void bgHandler(PushNotificationMessage pushNotificationMessage) async {
   try {
@@ -65,7 +65,7 @@ class _MyAppState extends State<MyApp> {
       final prefs = await SharedPreferences.getInstance();
       await prefs.reload();
       globalBgCallbackCount = prefs.getInt(globalBgCallbackKey) ?? 0;
-      print('globalBgCallbackCount -> $globalBgCallbackCount');
+      // print('globalBgCallbackCount -> $globalBgCallbackCount');
       return globalBgCallbackCount;
     } on Exception catch (e) {
       print('Error when get call $e');

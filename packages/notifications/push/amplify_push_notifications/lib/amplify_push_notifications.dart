@@ -138,6 +138,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     await _initiliazeServiceClientAndRegisterDevice(config, authProviderRepo);
 
     // Initialize listeners
+    _logger.info('Initializing plugin listeners');
     onTokenReceived.listen(_tokenReceivedListener);
     onNotificationReceivedInForeground.listen(_foregroundNotificationListener);
     onNotificationOpened.listen(_notificationOpenedListener);
@@ -184,6 +185,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       );
 
       final deviceToken = await onTokenReceived.first;
+      print('Device Token got once: $deviceToken');
       await _registerDevice(deviceToken);
     } on Exception catch (e) {
       throw PushNotificationException(
@@ -196,7 +198,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     PushNotificationMessage pushNotificationMessage,
   ) {
     _logger.info(
-      'Successfully listrening to foreground events: $pushNotificationMessage',
+      'Successfully listrening to FOREGROUND events in the plugin',
     );
 
     // TODO(Samaritan1011001): Record Analytics
@@ -206,7 +208,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     PushNotificationMessage pushNotificationMessage,
   ) {
     _logger.info(
-      'Successfully listrening to launch notificationOpened events: $pushNotificationMessage',
+      'Successfully listrening to NOTIFICATIONOPENED events: $pushNotificationMessage',
     );
     // TODO(Samaritan1011001): Record Analytics
     _launchNotification = pushNotificationMessage;
@@ -215,7 +217,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   Future<String> _tokenReceivedListener(
     String address,
   ) async {
-    _logger.info('Successfully fetched the address: $address');
+    _logger.info('Successfully RECEIVED TOKEN: $address');
     await _registerDevice(address);
     return address;
   }
@@ -223,7 +225,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   Future<void> _registerDevice(String address) async {
     try {
       await _serviceProviderClient.registerDevice(address);
-      _logger.info('Successfully registered device with the servvice provider');
+      _logger.info('Successfully registered device with the service provider');
     } on Exception catch (e) {
       throw PushNotificationException(
         e.toString(),
@@ -236,7 +238,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     final result =
         await _methodChannel.invokeMethod<String>('getPermissionStatus');
     if (result == null) {
-      _logger.error('getting the permisssion status returned null');
       return PushNotificationPermissionRequestStatus.notRequested;
     }
     return PushNotificationPermissionRequestStatus.values.byName(result);
