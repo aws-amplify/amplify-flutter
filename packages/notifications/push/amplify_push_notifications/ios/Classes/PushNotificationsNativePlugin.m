@@ -268,23 +268,6 @@ void PushNotificationsHostApiSetup(id<FlutterBinaryMessenger> binaryMessenger, N
   {
     FlutterBasicMessageChannel *channel =
       [[FlutterBasicMessageChannel alloc]
-        initWithName:@"dev.flutter.pigeon.PushNotificationsHostApi.getLaunchNotification"
-        binaryMessenger:binaryMessenger
-        codec:PushNotificationsHostApiGetCodec()];
-    if (api) {
-      NSCAssert([api respondsToSelector:@selector(getLaunchNotificationWithError:)], @"PushNotificationsHostApi api (%@) doesn't respond to @selector(getLaunchNotificationWithError:)", api);
-      [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
-        FlutterError *error;
-        NSDictionary<id, id> *output = [api getLaunchNotificationWithError:&error];
-        callback(wrapResult(output, error));
-      }];
-    } else {
-      [channel setMessageHandler:nil];
-    }
-  }
-  {
-    FlutterBasicMessageChannel *channel =
-      [[FlutterBasicMessageChannel alloc]
         initWithName:@"dev.flutter.pigeon.PushNotificationsHostApi.getBadgeCount"
         binaryMessenger:binaryMessenger
         codec:PushNotificationsHostApiGetCodec()];

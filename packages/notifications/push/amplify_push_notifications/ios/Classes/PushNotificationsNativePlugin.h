@@ -56,7 +56,6 @@ NSObject<FlutterMessageCodec> *PushNotificationsHostApiGetCodec(void);
 @protocol PushNotificationsHostApi
 - (void)getPermissionStatusWithCompletion:(void (^)(GetPermissionStatusResult *_Nullable, FlutterError *_Nullable))completion;
 - (void)requestPermissionsWithPermissionOptions:(PermissionsOptions *)withPermissionOptions completion:(void (^)(NSNumber *_Nullable, FlutterError *_Nullable))completion;
-- (nullable NSDictionary<id, id> *)getLaunchNotificationWithError:(FlutterError *_Nullable *_Nonnull)error;
 /// @return `nil` only when `error != nil`.
 - (nullable NSNumber *)getBadgeCountWithError:(FlutterError *_Nullable *_Nonnull)error;
 - (void)setBadgeCountWithBadgeCount:(NSNumber *)withBadgeCount error:(FlutterError *_Nullable *_Nonnull)error;

@@ -40,10 +40,9 @@ extension AmplifyPushNotificationsPlugin {
                 awokeInBackgroundButHasNotLaunched = true
             }
             // This happens when end user tapped on a notification to open the host App and the host App
-            // was not capable or not able to wake up in the background.
-            // We record this notification as the launch notification.
+            // was not capable or not able to wake up in the background
+            // We record this notification as the launch notification and send to Flutter
             else {
-                launchNotification = remoteNotification
                 flutterApi.onLaunchNotificationOpened(withPayload: remoteNotification) { _ in }
             }
         }
@@ -77,10 +76,9 @@ extension AmplifyPushNotificationsPlugin {
             }
         case .inactive:
             // If the App was awaken but has not been launched, we record the tapped notification
-            // as the launch notification
+            // as the launch notification and send to Flutter
             if awokeInBackgroundButHasNotLaunched {
                 awokeInBackgroundButHasNotLaunched = false
-                launchNotification = userInfo
                 flutterApi.onLaunchNotificationOpened(withPayload: userInfo) { _ in }
             } else {
                 sharedEventsStreamHandlers.notificationOpened.sendEvent(payload: userInfo)

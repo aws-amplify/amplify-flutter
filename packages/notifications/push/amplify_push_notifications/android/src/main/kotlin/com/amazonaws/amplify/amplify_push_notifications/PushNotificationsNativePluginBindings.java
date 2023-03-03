@@ -302,9 +302,6 @@ public class PushNotificationsHostApiBindings {
 
     void requestPermissions(@NonNull PermissionsOptions withPermissionOptions, Result<Boolean> result);
 
-    @Nullable 
-    Map<Object, Object> getLaunchNotification();
-
     @NonNull 
     Long getBadgeCount();
 
@@ -381,27 +378,6 @@ public class PushNotificationsHostApiBindings {
                   ArrayList<Object> wrappedError = wrapError(exception);
                   reply.reply(wrappedError);
                 }
-              });
-        } else {
-          channel.setMessageHandler(null);
-        }
-      }
-      {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.PushNotificationsHostApi.getLaunchNotification", getCodec());
-        if (api != null) {
-          channel.setMessageHandler(
-              (message, reply) -> {
-                ArrayList<Object> wrapped = new ArrayList<Object>();
-                try {
-                  Map<Object, Object> output = api.getLaunchNotification();
-                  wrapped.add(0, output);
-                } catch (Error | RuntimeException exception) {
-                  ArrayList<Object> wrappedError = wrapError(exception);
-                  wrapped = wrappedError;
-                }
-                reply.reply(wrapped);
               });
         } else {
           channel.setMessageHandler(null);

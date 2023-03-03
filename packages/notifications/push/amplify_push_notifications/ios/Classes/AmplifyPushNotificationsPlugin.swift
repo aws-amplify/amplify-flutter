@@ -10,12 +10,6 @@ public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, PushNotifi
     // Set to true if the App was awaken in the background by a remote notification from the terminated state
     var awokeInBackgroundButHasNotLaunched = false
 
-    // The notification that an end user has tapped on to luanch the App from
-    //   1. terminated state
-    //   2. has been awaken in the background from the terminated state
-    // Can be null and set only when 1 or 2 is satisfied
-    var launchNotification: [AnyHashable: Any]?
-
     let sharedEventsStreamHandlers: EventsStreamHandlers
     let flutterApi: PushNotificationsFlutterApi
 
@@ -87,13 +81,6 @@ public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, PushNotifi
             }
         }
     }
-
-    public func getLaunchNotificationWithError(_ error: AutoreleasingUnsafeMutablePointer<FlutterError?>) -> [AnyHashable : Any]? {
-        let launchNotification = self.launchNotification
-        self.launchNotification = nil
-        return launchNotification
-    }
-
 
     public func getBadgeCountWithError(_ error: AutoreleasingUnsafeMutablePointer<FlutterError?>) -> NSNumber? {
         return UIApplication.shared.applicationIconBadgeNumber as NSNumber

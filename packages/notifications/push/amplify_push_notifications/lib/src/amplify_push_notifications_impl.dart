@@ -32,6 +32,11 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   })  : _serviceProviderClient = serviceProviderClient,
         _hostApi = PushNotificationsHostApi(),
         _flutterApi = _PushNotificationsFlutterApi() {
+    _flutterApi.registerOnLaunchNotificationOpenedCallback((remotePushMessage) {
+      _launchNotification = remotePushMessage;
+      _launchNotificationForAnalytics = remotePushMessage;
+    });
+
     _onTokenReceived = _tokenReceivedEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
@@ -62,6 +67,15 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   late final Stream<PushNotificationMessage> _onNotificationOpened;
 
   var _isConfigured = false;
+  PushNotificationMessage? _launchNotification;
+  PushNotificationMessage? _launchNotificationForAnalytics;
+
+  @override
+  PushNotificationMessage? get launchNotification {
+    final result = _launchNotification;
+    _launchNotification = null;
+    return result;
+  }
 
   @override
   Stream<String> get onTokenReceived => _onTokenReceived;
@@ -101,6 +115,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
     await _registerDeviceWhenConfigure();
     _attachEventChannelListeners();
+    await _recordAnalyticsForLaunchNotification();
 
     // TODO(Samaritan1011001): Register the callback dispatcher for Android
 
@@ -136,15 +151,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       case PermissionStatus.notRequested:
         return PushNotificationPermissionRequestStatus.notRequested;
     }
-  }
-
-  @override
-  PushNotificationMessage? get launchNotification => PushNotificationMessage();
-
-  Future<PushNotificationMessage?> _getLaunchNotification() async {
-    await _hostApi.getLaunchNotification();
-
-    return PushNotificationMessage();
   }
 
   @override
@@ -224,6 +230,16 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         'Unexpected error $error received from onNotificationOpened event channel.',
       );
     });
+  }
+
+  Future<void> _recordAnalyticsForLaunchNotification() async {
+    if (_launchNotificationForAnalytics == null) {
+      return;
+    }
+
+    // TODO(Samaritan1011001): integrate analytic recodEvent
+
+    _launchNotificationForAnalytics = null;
   }
 }
 

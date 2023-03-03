@@ -65,8 +65,6 @@ abstract class PushNotificationsHostApi {
   @async
   bool requestPermissions(PermissionsOptions withPermissionOptions);
 
-  Map<Object?, Object?>? getLaunchNotification();
-
   int getBadgeCount();
 
   void setBadgeCount(int withBadgeCount);
