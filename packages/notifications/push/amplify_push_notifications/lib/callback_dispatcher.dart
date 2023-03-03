@@ -27,16 +27,17 @@ void callbackDispatcher() {
   _backgroundChannel
     ..setMethodCallHandler((MethodCall call) async {
       final args = call.arguments as List<dynamic>;
-      for (final element in args) {
+      for (final element in args.cast<Map<Object?, Object?>>()) {
         final callback = PluginUtilities.getCallbackFromHandle(
-          // ignore: avoid_dynamic_calls
           CallbackHandle.fromRawHandle(element['handle'] as int),
         );
-        assert(callback != null, 'Callback not found');
-
-        // ignore: avoid_dynamic_calls
-        await callback!(
-          // ignore: avoid_dynamic_calls
+        if (callback == null) {
+          throw StateError('Callback not found');
+        }
+        if (callback is! OnRemoteMessageCallback) {
+          throw StateError('Invalid callback type: ${callback.runtimeType}');
+        }
+        await callback(
           PushNotificationMessage.fromJson(element['notification'] as Map),
         );
       }

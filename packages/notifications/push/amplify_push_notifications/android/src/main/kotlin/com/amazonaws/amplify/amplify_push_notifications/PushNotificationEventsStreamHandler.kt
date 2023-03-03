@@ -8,7 +8,6 @@ import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.EventChannel.EventSink
 
-private const val TAG = "PushNotificationEventsStreamHandler"
 
 enum class NativeEvent {
     TOKEN_RECEIVED, NOTIFICATION_OPENED, LAUNCH_NOTIFICATION_OPENED, FOREGROUND_MESSAGE_RECEIVED, BACKGROUND_MESSAGE_RECEIVED, ERROR;
@@ -44,6 +43,10 @@ class PushNotificationEventsStreamHandler constructor(
     private lateinit var eventChannel: EventChannel
     private val _associatedNativeEvent = associatedNativeEvent
     private var eventSink: EventSink? = null
+
+    private companion object{
+        const val TAG = "PushNotificationEventsStreamHandler"
+    }
 
     fun initEventChannel(binaryMessenger: BinaryMessenger) {
         eventChannel = EventChannel(
@@ -131,8 +134,15 @@ class StreamHandlers {
         @JvmStatic
         var isInitStreamHandlers: Boolean = false
 
+        /**
+         * Method to initialize only the stream handlers so events can be queued up
+         *
+         * Separating the initialization methods allows for stream handler initialization useful
+         * for queuing work when binary messenger is not ready e.g FirebaseService's onNewToken
+         */
         @JvmStatic
         fun initStreamHandlers() {
+            // Should only be initialized once
             if (!isInitStreamHandlers) {
                 tokenReceived = PushNotificationEventsStreamHandler(
                     NativeEvent.TOKEN_RECEIVED
@@ -153,6 +163,9 @@ class StreamHandlers {
             }
         }
 
+        /**
+         * Method to initialize the event channels when the binary messenger is available
+         */
         @JvmStatic
         fun initEventChannels(binaryMessenger: BinaryMessenger) {
             if (isInitStreamHandlers) {

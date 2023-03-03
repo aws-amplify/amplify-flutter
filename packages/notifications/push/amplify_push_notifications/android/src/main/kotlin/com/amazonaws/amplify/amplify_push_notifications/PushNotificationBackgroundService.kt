@@ -19,20 +19,28 @@ import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.collections.ArrayDeque
 
-private const val TAG = "PushBackgroundService"
 
 class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIntentService() {
+
+    /**
+     * The work queue
+     */
     private val queue = ArrayDeque<List<Any>>()
+
+    /**
+     * The Background Channel that is used to send messages to the callback dispatcher
+     */
     private lateinit var backgroundChannel: MethodChannel
-    private lateinit var mContext: Context
 
     companion object {
+
+        private const val TAG = "PushBackgroundService"
 
         @JvmStatic
         private val JOB_ID = UUID.randomUUID().mostSignificantBits.toInt()
 
         @JvmStatic
-        private var sBackgroundFlutterEngine: FlutterEngine? = null
+        private var backgroundFlutterEngine: FlutterEngine? = null
 
         @JvmStatic
         private val serviceStarted = AtomicBoolean(false)
@@ -45,8 +53,7 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
 
     private fun startPushNotificationService(context: Context) {
         synchronized(serviceStarted) {
-            mContext = context
-            if (sBackgroundFlutterEngine == null) {
+            if (backgroundFlutterEngine == null) {
 
                 val callbackHandle = context.getSharedPreferences(
                     PushNotificationConstants.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE
@@ -65,16 +72,19 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
                 }
                 Log.i(TAG, "Starting PushNotificationBackgroundService...")
 
-                sBackgroundFlutterEngine = FlutterEngine(context)
+                // Create a background Flutter Engine
+                backgroundFlutterEngine = FlutterEngine(context)
 
                 val args = DartExecutor.DartCallback(
                     context.assets, FlutterMain.findAppBundlePath(), callbackInfo
                 )
-                sBackgroundFlutterEngine!!.dartExecutor.executeDartCallback(args)
+
+                // DartCallback must only be executed after the engine has been created
+                backgroundFlutterEngine!!.dartExecutor.executeDartCallback(args)
             }
         }
         backgroundChannel = MethodChannel(
-            sBackgroundFlutterEngine!!.dartExecutor.binaryMessenger,
+            backgroundFlutterEngine!!.dartExecutor.binaryMessenger,
             "plugins.flutter.io/amplify_push_notification_plugin_background"
         )
         backgroundChannel.setMethodCallHandler(this)
@@ -88,6 +98,8 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
                     while (!queue.isEmpty()) {
                         backgroundChannel.invokeMethod("", queue.removeFirst())
                     }
+
+                    // The background engine has now started and ready to receive events
                     serviceStarted.set(true)
                 }
             }
@@ -127,7 +139,7 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
                 queue.add(callbackHandleList)
             } else {
                 // Callback method name is intentionally left blank.
-                Handler(mContext.mainLooper).post {
+                Handler(baseContext.mainLooper).post {
                     backgroundChannel.invokeMethod(
                         "", callbackHandleList
                     )
@@ -137,7 +149,7 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
     }
 
     private fun getCallbackHandleForKey(callbackKey: String): Long {
-        return mContext.getSharedPreferences(
+        return baseContext.getSharedPreferences(
             PushNotificationConstants.SHARED_PREFERENCES_KEY, MODE_PRIVATE
         ).getLong(callbackKey, 0)
     }

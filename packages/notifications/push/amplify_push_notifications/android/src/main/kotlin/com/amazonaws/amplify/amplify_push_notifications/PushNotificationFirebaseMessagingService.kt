@@ -11,11 +11,18 @@ import com.google.firebase.messaging.RemoteMessage
 import io.flutter.Log
 import io.flutter.view.FlutterMain
 
-private const val TAG = "PushNotificationFirebaseMessagingService"
 
 class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
 
+    private companion object {
+        const val TAG = "PushNotificationFirebaseMessagingService"
+    }
+
+    /**
+     * The utils that provides methods like showNotification
+     */
     private lateinit var utils: PushNotificationsUtils
+
     override fun onCreate() {
         super.onCreate()
         utils = PushNotificationsUtils(baseContext)
@@ -50,6 +57,9 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
         onMessageReceived(remoteMessage)
     }
 
+    /**
+     * Method to handle and forward messages received in foreground & background using isolates and event channels
+     */
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         baseContext?.let {
             Handler(it.mainLooper).post {

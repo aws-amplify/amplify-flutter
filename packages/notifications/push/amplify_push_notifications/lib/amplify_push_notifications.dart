@@ -134,7 +134,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     await _registerCallbackDispatcher();
 
     // Initialize Endpoint Client
-    await _initiliazeServiceClientAndRegisterDevice(config, authProviderRepo);
+    await _initiliazeServiceClientAndRegisterDevice(config!, authProviderRepo);
 
     // Initialize listeners
     _logger.info('Initializing plugin listeners');
@@ -174,7 +174,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   }
 
   Future<void> _initiliazeServiceClientAndRegisterDevice(
-    AmplifyConfig? config,
+    AmplifyConfig config,
     AmplifyAuthProviderRepository authProviderRepo,
   ) async {
     try {

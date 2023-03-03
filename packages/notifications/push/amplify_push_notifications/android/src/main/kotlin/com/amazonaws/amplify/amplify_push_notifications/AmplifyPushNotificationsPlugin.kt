@@ -37,11 +37,12 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Ac
         /**
          * The scope in which to spawn tasks which should not be awaited from the main thread.
          */
-        val scope = CoroutineScope(Dispatchers.IO) + CoroutineName("amplify_flutter.PushNotifications")
+        val scope =
+            CoroutineScope(Dispatchers.IO) + CoroutineName("amplify_flutter.PushNotifications")
     }
 
     /**
-     * The user's main activity, used to launch custom tabs.
+     * The user's main activity.
      */
     private var mainActivity: Activity? = null
 
@@ -55,8 +56,15 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Ac
      */
     private var applicationContext: Context? = null
 
+    /**
+     * Shared Preference used to persist callback handles.
+     */
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var channel: MethodChannel
+
+    /**
+     * Main engine's binary messenger holder.
+     */
     private var mainBinaryMessenger: BinaryMessenger? = null
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
@@ -185,7 +193,8 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Ac
                 }
                 "requestPermissions" -> {
                     scope.launch {
-                        val res = PushNotificationPermission(applicationContext!!).requestPermission()
+                        val res =
+                            PushNotificationPermission(applicationContext!!).requestPermission()
 
                         if (res is PermissionRequestResult.Granted) {
                             result.success(true)
