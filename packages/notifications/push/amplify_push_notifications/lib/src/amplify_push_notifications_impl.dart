@@ -254,5 +254,9 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
     for (final callback in _onLaunchNotificationOpenedCallbacks) {
       callback(PushNotificationMessage.fromJson(payload));
     }
+
+    // these callbacks are called only once as onLaunchNotificationOpened can
+    // only happen once
+    _onLaunchNotificationOpenedCallbacks.clear();
   }
 }
