@@ -28,11 +28,7 @@ fun RemoteMessage.asPayload(): NotificationPayload {
     ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_BODY]
     val title = this.notification?.title ?: data[PushNotificationsConstants.TITLE_ATTRIBUTE_KEY]
     ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_TITLE]
-    val imageUrl = this.notification?.imageUrl?.toString()
-        ?: data[PushNotificationsConstants.IMAGEURL_ATTRIBUTE_KEY]
-        ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_IMAGEURL]
-
-
+    val imageUrl = this.notification?.imageUrl?.toString() ?: data[PushNotificationsConstants.IMAGEURL_ATTRIBUTE_KEY] ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_IMAGEURL]
     val action: HashMap<String, String> = HashMap()
     data[PushNotificationsConstants.PINPOINT_OPENAPP]?.let {
         action.put(PushNotificationsConstants.PINPOINT_OPENAPP, it)
@@ -65,15 +61,14 @@ fun NotificationPayload.asChannelMap(): Map<String, Any?> {
         "deeplinkUrl" to this.action[PushNotificationsConstants.PINPOINT_DEEPLINK],
         "fcmOptions" to mapOf(
             "senderId" to senderId, "messageId" to messageId, "sentTime" to sendTime
-            // TODO: add channelId if needed
+            // TODO(Samaritan1011001): add channelId if needed
         ),
         "data" to this.rawData
     )
 }
 
-fun Intent.isPushNotificationIntent(): Boolean {
-    return this.extras?.containsKey("google.message_id") == true
-}
+val Intent.isPushNotificationIntent: Boolean
+    get() = extras?.containsKey("google.message_id") ?: false
 
 fun Bundle.asPayload(): NotificationPayload? {
     return this.getBundle(PushNotificationConstants.PAYLOAD_KEY)?.toNotificationsPayload()
@@ -94,6 +89,6 @@ fun Context.getLaunchActivityClass(): Class<*>? {
     return null
 }
 
-fun RemoteMessage.isSupported(): Boolean {
-    return !this.data[PushNotificationsConstants.PINPOINT_CAMPAIGN_CAMPAIGN_ID].isNullOrEmpty() or !this.data[PushNotificationsConstants.JOURNEY_ID].isNullOrEmpty()
-}
+val RemoteMessage.isSupported: Boolean
+    get() = !this.data[PushNotificationsConstants.PINPOINT_CAMPAIGN_CAMPAIGN_ID].isNullOrEmpty() or !this.data[PushNotificationsConstants.JOURNEY_ID].isNullOrEmpty()
+

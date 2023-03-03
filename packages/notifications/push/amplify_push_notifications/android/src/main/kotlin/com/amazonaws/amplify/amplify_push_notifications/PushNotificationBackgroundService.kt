@@ -23,7 +23,7 @@ private const val TAG = "PushBackgroundService"
 
 class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIntentService() {
     private val queue = ArrayDeque<List<Any>>()
-    private lateinit var mBackgroundChannel: MethodChannel
+    private lateinit var backgroundChannel: MethodChannel
     private lateinit var mContext: Context
 
     companion object {
@@ -35,7 +35,7 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
         private var sBackgroundFlutterEngine: FlutterEngine? = null
 
         @JvmStatic
-        private val sServiceStarted = AtomicBoolean(false)
+        private val serviceStarted = AtomicBoolean(false)
 
         @JvmStatic
         fun enqueueWork(context: Context, work: Intent) {
@@ -44,7 +44,7 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
     }
 
     private fun startPushNotificationService(context: Context) {
-        synchronized(sServiceStarted) {
+        synchronized(serviceStarted) {
             mContext = context
             if (sBackgroundFlutterEngine == null) {
 
@@ -73,22 +73,22 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
                 sBackgroundFlutterEngine!!.dartExecutor.executeDartCallback(args)
             }
         }
-        mBackgroundChannel = MethodChannel(
+        backgroundChannel = MethodChannel(
             sBackgroundFlutterEngine!!.dartExecutor.binaryMessenger,
             "plugins.flutter.io/amplify_push_notification_plugin_background"
         )
-        mBackgroundChannel.setMethodCallHandler(this)
+        backgroundChannel.setMethodCallHandler(this)
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         when (call.method) {
             "PushNotificationBackgroundService.initialized" -> {
-                synchronized(sServiceStarted) {
+                synchronized(serviceStarted) {
                     // If events were added to the queue when the service was initializing, emits those
                     while (!queue.isEmpty()) {
-                        mBackgroundChannel.invokeMethod("", queue.removeFirst())
+                        backgroundChannel.invokeMethod("", queue.removeFirst())
                     }
-                    sServiceStarted.set(true)
+                    serviceStarted.set(true)
                 }
             }
             else -> result.notImplemented()
@@ -98,7 +98,7 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
 
     override fun onHandleWork(intent: Intent) {
         Log.i(TAG, "Handling work @ PushNotificationBackgroundService...")
-        if (!intent.isPushNotificationIntent()) {
+        if (!intent.isPushNotificationIntent) {
             return
         }
         val remoteMessage = RemoteMessage(intent.extras)
@@ -121,14 +121,14 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
                 "handle" to bgExternalCallbackHandle, "notification" to notificationMap
             )
         )
-        synchronized(sServiceStarted) {
-            if (!sServiceStarted.get()) {
+        synchronized(serviceStarted) {
+            if (!serviceStarted.get()) {
                 // Queue up geofencing events while background isolate is starting
                 queue.add(callbackHandleList)
             } else {
                 // Callback method name is intentionally left blank.
                 Handler(mContext.mainLooper).post {
-                    mBackgroundChannel.invokeMethod(
+                    backgroundChannel.invokeMethod(
                         "", callbackHandleList
                     )
                 }

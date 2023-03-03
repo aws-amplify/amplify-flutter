@@ -14,7 +14,7 @@ import 'package:flutter/services.dart';
 Future<void> _internalBgHandler(
   PushNotificationMessage pushNotificationMessage,
 ) async {
-  // TODO: Record Analytics
+  // TODO(Samaritan1011001): Record Analytics
 }
 
 const _methodChannel =
@@ -63,7 +63,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
           (event) => PushNotificationMessage.fromJson(event['payload'] as Map),
         );
 
-    // TODO: Enable background API for iOS
+    // TODO(Samaritan1011001): Enable background API for iOS
     _onBackgroundNotificationReceived = _backgroundNotificationEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
@@ -71,7 +71,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       final completionHandlerId = (event['payload']
           as Map<Object?, Object?>?)?['completionHandlerId'] as String;
       _methodChannel.invokeMethod('completeNotification', completionHandlerId);
-      // TODO convert raw event to RemotePushMessage
+      // TODO(Samaritan1011001): convert raw event to RemotePushMessage
       return PushNotificationMessage();
     });
 
@@ -124,7 +124,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     if (_isConfigured) {
       return;
     }
-    // TODO Parse config values from amplifyconfiguration.json for notifications
+    // TODO(Samaritan1011001) Parse config values from amplifyconfiguration.json for notifications
     final analyticsConfig = config?.analytics?.awsPlugin;
     if (analyticsConfig == null) {
       throw const AnalyticsException('No Pinpoint plugin config available');

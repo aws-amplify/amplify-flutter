@@ -41,7 +41,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
         }
         val remoteMessage = RemoteMessage(intent.extras)
         // If we can't handle the message type coming in, just forward the intent to Firebase SDK
-        if (!remoteMessage.isSupported()) {
+        if (!remoteMessage.isSupported) {
             Log.d(TAG, "Message payload is not supported")
             super.handleIntent(intent)
             return
