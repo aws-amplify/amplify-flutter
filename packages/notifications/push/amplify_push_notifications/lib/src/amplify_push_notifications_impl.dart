@@ -6,7 +6,7 @@ library amplify_push_notifications;
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_push_notifications/src/native_push_notifications_plugin.dart';
+import 'package:amplify_push_notifications/src/native_push_notifications_plugin.g.dart';
 import 'package:flutter/services.dart';
 
 const _tokenReceivedEventChannel = EventChannel(
@@ -14,12 +14,6 @@ const _tokenReceivedEventChannel = EventChannel(
 );
 const _notificationOpenedEventChannel = EventChannel(
   'com.amazonaws.amplify/push_notification/event/NOTIFICATION_OPENED',
-);
-const _launchNotificationOpenedEventChannel = EventChannel(
-  'com.amazonaws.amplify/push_notification/event/LAUNCH_NOTIFICATION_OPENED',
-);
-const _backgroundNotificationEventChannel = EventChannel(
-  'com.amazonaws.amplify/push_notification/event/BACKGROUND_MESSAGE_RECEIVED',
 );
 const _foregroundNotificationEventChannel = EventChannel(
   'com.amazonaws.amplify/push_notification/event/FOREGROUND_MESSAGE_RECEIVED',
@@ -29,14 +23,15 @@ const _foregroundNotificationEventChannel = EventChannel(
 /// Implementation of the Amplify Push Notifications category.
 ///
 /// - Concrete implementation of the Plugin Interface
-/// - Communicates with native module via [NativePushNotificationsPlugin]
+/// - Communicates with native module via [PushNotificationsHostApi]
 /// {@endtemplate}
 class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   /// {@macro amplify_push_notifications.amplify_push_notifications}
   AmplifyPushNotifications({
     required ServiceProviderClient serviceProviderClient,
   })  : _serviceProviderClient = serviceProviderClient,
-        _nativePlugin = NativePushNotificationsPlugin() {
+        _hostApi = PushNotificationsHostApi(),
+        _flutterApi = _PushNotificationsFlutterApi() {
     _onTokenReceived = _tokenReceivedEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
@@ -53,28 +48,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       return PushNotificationMessage.fromJson(payload);
     });
 
-    // TODO: Enable background API
-    _onBackgroundNotificationReceived = _backgroundNotificationEventChannel
-        .receiveBroadcastStream()
-        .cast<Map<Object?, Object?>>()
-        .map((payload) {
-      final completionHandlerId = payload['completionHandlerId'] as String;
-      _nativePlugin.completeNotification(completionHandlerId);
-      // TODO convert raw event to RemotePushMessage
-      return PushNotificationMessage.fromJson(payload);
-    });
-
     _onNotificationOpened = _notificationOpenedEventChannel
-        .receiveBroadcastStream()
-        .cast<Map<Object?, Object?>>()
-        .map((payload) {
-      // TODO convert raw event to RemotePushMessage
-      return PushNotificationMessage.fromJson(payload);
-    });
-
-    // TODO: Enable launch notification API
-
-    _onLaunchNotificationOpened = _launchNotificationOpenedEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
         .map((payload) {
@@ -87,13 +61,12 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       AmplifyLogger.category(Category.pushNotifications)
           .createChild('AmplifyPushNotification');
   final ServiceProviderClient _serviceProviderClient;
-  final NativePushNotificationsPlugin _nativePlugin;
+  final PushNotificationsHostApi _hostApi;
+  final _PushNotificationsFlutterApi _flutterApi;
 
   late final Stream<String> _onTokenReceived;
   late final Stream<PushNotificationMessage> _onForegroundNotificationReceived;
-  late final Stream<PushNotificationMessage> _onBackgroundNotificationReceived;
   late final Stream<PushNotificationMessage> _onNotificationOpened;
-  late final Stream<PushNotificationMessage> _onLaunchNotificationOpened;
 
   bool _isConfigured = false;
 
@@ -110,9 +83,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
   @override
   void onNotificationReceivedInBackground(OnRemoteMessageCallback callback) {
-    throw UnimplementedError(
-      'onNotificationReceivedInBackground() has not been implemented.',
-    );
+    _flutterApi.registerOnReceivedInBackgroundCallback(callback);
   }
 
   @override
@@ -163,12 +134,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     // TODO(Samaritan1011001): Record Analytics
   }
 
-  void _backgroundNotificationListener(
-    PushNotificationMessage pushNotificationMessage,
-  ) {
-    // TODO(Samaritan1011001): Record Analytics
-  }
-
   void _notificationOpenedListener(
     PushNotificationMessage pushNotificationMessage,
   ) {
@@ -205,44 +170,89 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     bool badge = true,
     bool sound = true,
   }) {
-    return _nativePlugin.requestPermissions(
+    return _hostApi.requestPermissions(
       PermissionsOptions(
-        alert: true,
-        sound: true,
-        badge: true,
+        alert: alert,
+        sound: badge,
+        badge: sound,
       ),
     );
   }
 
   @override
   Future<PushNotificationPermissionRequestStatus> getPermissionStatus() async {
-    final result = await _nativePlugin.getPermissionStatus();
+    final result = await _hostApi.getPermissionStatus();
 
-    if (result == 'Authorized') {
-      return PushNotificationPermissionRequestStatus.granted;
-    } else if (result == 'Denied') {
-      return PushNotificationPermissionRequestStatus.denied;
+    switch (result.status) {
+      case PermissionStatus.denied:
+        return PushNotificationPermissionRequestStatus.denied;
+      case PermissionStatus.granted:
+        return PushNotificationPermissionRequestStatus.granted;
+      case PermissionStatus.shouldRequestWithRationale:
+        return PushNotificationPermissionRequestStatus.shouldShowWithRationale;
+      case PermissionStatus.notRequested:
+        return PushNotificationPermissionRequestStatus.notRequested;
     }
-
-    return PushNotificationPermissionRequestStatus.shouldShowWithRationale;
   }
 
   @override
   PushNotificationMessage? get launchNotification => PushNotificationMessage();
 
   Future<PushNotificationMessage?> _getLaunchNotification() async {
-    await _nativePlugin.getLaunchNotification();
+    await _hostApi.getLaunchNotification();
 
     return PushNotificationMessage();
   }
 
   @override
   Future<int> getBadgeCount() {
-    return _nativePlugin.getBadgeCount();
+    return _hostApi.getBadgeCount();
   }
 
   @override
   Future<void> setBadgeCount(int badgeCount) async {
-    await _nativePlugin.setBadgeCount(badgeCount);
+    await _hostApi.setBadgeCount(badgeCount);
+  }
+}
+
+class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
+  _PushNotificationsFlutterApi() {
+    PushNotificationsFlutterApi.setup(this);
+  }
+
+  final _onNotificationReceivedInBackgroundCallbacks =
+      <OnRemoteMessageCallback>[];
+  final _onLaunchNotificationOpenedCallbacks = <OnRemoteMessageCallback>[];
+
+  void registerOnReceivedInBackgroundCallback(
+    OnRemoteMessageCallback callback,
+  ) {
+    _onNotificationReceivedInBackgroundCallbacks.add(callback);
+  }
+
+  void registerOnLaunchNotificationOpenedCallback(
+    OnRemoteMessageCallback callback,
+  ) {
+    _onLaunchNotificationOpenedCallbacks.add(callback);
+  }
+
+  @override
+  Future<void> onNotificationReceivedInBackground(
+    Map<Object?, Object?> payload,
+  ) async {
+    await Future.wait(
+      _onNotificationReceivedInBackgroundCallbacks.map(
+        (callback) async {
+          await callback(PushNotificationMessage.fromJson(payload));
+        },
+      ),
+    );
+  }
+
+  @override
+  void onLaunchNotificationOpened(Map<Object?, Object?> payload) {
+    for (final callback in _onLaunchNotificationOpenedCallbacks) {
+      callback(PushNotificationMessage.fromJson(payload));
+    }
   }
 }

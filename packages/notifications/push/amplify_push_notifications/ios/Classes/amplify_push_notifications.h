@@ -4,6 +4,6 @@
 #ifndef amplify_push_notifications_h
 #define amplify_push_notifications_h
 
-#import "NativePushNotificationsPlugin.h"
+#import "PushNotificationsNativePlugin.h"
 
 #endif /* amplify_push_notifications_h */

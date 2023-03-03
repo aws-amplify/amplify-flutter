@@ -3,76 +3,79 @@
 
 import Flutter
 import amplify_flutter_ios
+import AmplifyUtilsNotifications
 
-public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, NativePushNotificationsPlugin {
+public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, PushNotificationsHostApi {
     var remoteNotificationCompletionHandlers: [String: (UIBackgroundFetchResult) -> Void] = [:]
     // Set to true if the App was awaken in the background by a remote notification from the terminated state
-    var awakenInBackgroundAndHasNotLaunched = false
+    var awokeInBackgroundButHasNotLaunched = false
 
-    // The notification that an end user has tapped on and luanch the App from
+    // The notification that an end user has tapped on to luanch the App from
     //   1. terminated state
     //   2. has been awaken in the background from the terminated state
     // Can be null and set only when 1 or 2 is satisfied
     var launchNotification: [AnyHashable: Any]?
 
     let sharedEventsStreamHandlers: EventsStreamHandlers
+    let flutterApi: PushNotificationsFlutterApi
 
-    private init(sharedEventsStreamHandlers: EventsStreamHandlers) {
+    private init(
+        sharedEventsStreamHandlers: EventsStreamHandlers,
+        flutterApi: PushNotificationsFlutterApi
+    ) {
         self.sharedEventsStreamHandlers = sharedEventsStreamHandlers
+        self.flutterApi = flutterApi
     }
 
     public static func register(with registrar: FlutterPluginRegistrar) {
         let messenger = registrar.messenger()
         let pluginInstance = AmplifyPushNotificationsPlugin(
-            sharedEventsStreamHandlers: EventsStreamHandlers(binaryMessenger: messenger)
+            sharedEventsStreamHandlers: EventsStreamHandlers(binaryMessenger: messenger),
+            flutterApi: PushNotificationsFlutterApi(binaryMessenger: messenger)
         )
 
-        NativePushNotificationsPluginSetup(messenger, pluginInstance)
+        PushNotificationsHostApiSetup(messenger, pluginInstance)
 
         registrar.addApplicationDelegate(pluginInstance)
     }
 
-    public func getPermissionStatus(completion: @escaping (String?, FlutterError?) -> Void) {
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
-            var status: String
-
-            switch settings.authorizationStatus {
+    public func getPermissionStatus(completion: @escaping (GetPermissionStatusResult?, FlutterError?) -> Void) {
+        Task {
+            switch await AUNotificationPermissions.status {
             case .notDetermined:
-                status = "NotDetermined"
+                completion(.make(with: .shouldRequestWithRationale), nil)
             case .denied:
-                status = "Denied"
+                completion(.make(with: .denied), nil)
             case .authorized:
-                status = "Authorized"
-            case .ephemeral:
-                status = "Ephemeral"
-            case .provisional:
-                status = "Provisional"
+                completion(.make(with: .granted), nil)
+            case .ephemeral, .provisional:
+                completion(nil, FlutterError(code: "UnsupportedPermissionStatus", message: nil, details: nil))
             @unknown default:
-                status = "NotDetermined"
+                completion(nil, FlutterError(code: "UnsupportedPermissionStatus", message: nil, details: nil))
             }
-
-            completion(status, nil)
         }
     }
 
-
     public func requestPermissions(withPermissionOptions: PermissionsOptions, completion: @escaping (NSNumber?, FlutterError?) -> Void) {
-        var options: UNAuthorizationOptions = []
+        Task {
+            var options: UNAuthorizationOptions = []
 
-        if withPermissionOptions.alert.boolValue {
-            options.insert(.alert)
-        }
+            if withPermissionOptions.alert.boolValue {
+                options.insert(.alert)
+            }
 
-        if withPermissionOptions.badge.boolValue {
-            options.insert(.badge)
-        }
+            if withPermissionOptions.badge.boolValue {
+                options.insert(.badge)
+            }
 
-        if withPermissionOptions.sound.boolValue {
-            options.insert(.sound)
-        }
+            if withPermissionOptions.sound.boolValue {
+                options.insert(.sound)
+            }
 
-        UNUserNotificationCenter.current().requestAuthorization(options: options) { granted, error in
-            if let error = error {
+            do {
+                let granted = try await AUNotificationPermissions.request(options)
+                completion(granted as NSNumber, nil)
+            } catch {
                 completion(
                     nil,
                     FlutterError(
@@ -81,8 +84,6 @@ public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, NativePush
                         details: error.localizedDescription
                     )
                 )
-            } else {
-                completion(granted as NSNumber, nil)
             }
         }
     }
@@ -100,12 +101,5 @@ public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, NativePush
 
     public func setBadgeCountWithBadgeCount(_ withBadgeCount: NSNumber, error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
         UIApplication.shared.applicationIconBadgeNumber = withBadgeCount.intValue
-    }
-
-    public func completeNotification(withCompletionHandlerId: String, error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
-        if let completionHandler = remoteNotificationCompletionHandlers[withCompletionHandlerId] {
-            completionHandler(.noData)
-            remoteNotificationCompletionHandlers.removeValue(forKey: withCompletionHandlerId)
-        }
     }
 }

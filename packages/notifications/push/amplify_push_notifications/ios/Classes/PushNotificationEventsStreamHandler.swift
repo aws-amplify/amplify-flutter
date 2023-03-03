@@ -9,9 +9,7 @@ private let channelNamePrefix = "com.amazonaws.amplify/push_notification/"
 enum NativeEvent {
     case tokenReceived
     case notificationOpened
-    case launchNotificationOpened
     case foregroundMessageReceived
-    case backgroundMessageReceived
 
     var eventName: String {
         switch self {
@@ -19,12 +17,8 @@ enum NativeEvent {
             return "TOKEN_RECEIVED"
         case .notificationOpened:
             return "NOTIFICATION_OPENED"
-        case .launchNotificationOpened:
-            return "LAUNCH_NOTIFICATION_OPENED"
         case .foregroundMessageReceived:
             return "FOREGROUND_MESSAGE_RECEIVED"
-        case .backgroundMessageReceived:
-            return "BACKGROUND_MESSAGE_RECEIVED"
         }
     }
 
@@ -103,9 +97,7 @@ class PushNotificationEventsStreamHandler: NSObject, FlutterStreamHandler {
 struct EventsStreamHandlers {
     let tokenReceived: PushNotificationEventsStreamHandler
     let notificationOpened: PushNotificationEventsStreamHandler
-    let launchNotificationOpened: PushNotificationEventsStreamHandler
     let foregroundMessageReceived: PushNotificationEventsStreamHandler
-    let backgroundMessageReceived:PushNotificationEventsStreamHandler
 
     init(binaryMessenger: FlutterBinaryMessenger) {
         tokenReceived = PushNotificationEventsStreamHandler(
@@ -114,14 +106,8 @@ struct EventsStreamHandlers {
         notificationOpened = PushNotificationEventsStreamHandler(
             eventType: .notificationOpened, binaryMessenger: binaryMessenger
         )
-        launchNotificationOpened = PushNotificationEventsStreamHandler(
-            eventType: .launchNotificationOpened, binaryMessenger: binaryMessenger
-        )
         foregroundMessageReceived = PushNotificationEventsStreamHandler(
             eventType: .foregroundMessageReceived, binaryMessenger: binaryMessenger
-        )
-        backgroundMessageReceived = PushNotificationEventsStreamHandler(
-            eventType: .backgroundMessageReceived, binaryMessenger: binaryMessenger
         )
     }
 }

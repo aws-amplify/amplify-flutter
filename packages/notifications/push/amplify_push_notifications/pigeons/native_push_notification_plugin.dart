@@ -4,19 +4,18 @@
 @ConfigurePigeon(
   PigeonOptions(
     copyrightHeader: '../../../../tool/license.txt',
-    dartOptions: DartOptions(),
-    dartOut: 'lib/src/native_push_notifications_plugin.dart',
+    dartOut: 'lib/src/native_push_notifications_plugin.g.dart',
     javaOptions: JavaOptions(
-      className: 'NativePushNotificationPluginBindings',
+      className: 'PushNotificationsHostApiBindings',
       package: 'com.amazonaws.amplify.amplify_push_notifications',
     ),
     javaOut:
-        'android/src/main/kotlin/com/amazonaws/amplify/amplify_push_notifications/NativePushNotificationPluginBindings.java',
+        'android/src/main/kotlin/com/amazonaws/amplify/amplify_push_notifications/PushNotificationsNativePluginBindings.java',
     objcOptions: ObjcOptions(
-      header: 'NativePushNotificationsPlugin.h',
+      headerIncludePath: 'PushNotificationsNativePlugin.h',
     ),
-    objcHeaderOut: 'ios/Classes/NativePushNotificationsPlugin.h',
-    objcSourceOut: 'ios/Classes/NativePushNotificationsPlugin.m',
+    objcHeaderOut: 'ios/Classes/PushNotificationsNativePlugin.h',
+    objcSourceOut: 'ios/Classes/PushNotificationsNativePlugin.m',
   ),
 )
 library push_notifications_plugin;
@@ -35,10 +34,33 @@ class PermissionsOptions {
   bool badge;
 }
 
-@HostApi()
-abstract class NativePushNotificationsPlugin {
+class GetPermissionStatusResult {
+  GetPermissionStatusResult({
+    required this.status,
+  });
+
+  final PermissionStatus status;
+}
+
+enum PermissionStatus {
+  notRequested,
+  shouldRequestWithRationale,
+  granted,
+  denied,
+}
+
+@FlutterApi()
+abstract class PushNotificationsFlutterApi {
   @async
-  String getPermissionStatus();
+  void onNotificationReceivedInBackground(Map<Object?, Object?> withPayload);
+
+  void onLaunchNotificationOpened(Map<Object?, Object?> withPayload);
+}
+
+@HostApi()
+abstract class PushNotificationsHostApi {
+  @async
+  GetPermissionStatusResult getPermissionStatus();
 
   @async
   bool requestPermissions(PermissionsOptions withPermissionOptions);
@@ -48,6 +70,4 @@ abstract class NativePushNotificationsPlugin {
   int getBadgeCount();
 
   void setBadgeCount(int withBadgeCount);
-
-  void completeNotification(String withCompletionHandlerId);
 }
