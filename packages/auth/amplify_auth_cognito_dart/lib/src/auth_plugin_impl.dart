@@ -52,7 +52,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         AuthUserAttribute<CognitoUserAttributeKey>,
         CognitoDevice,
         CognitoSignUpResult,
-        CognitoConfirmSignUpOptions,
         CognitoSignUpResult,
         CognitoResendSignUpCodeOptions,
         CognitoResendSignUpCodeResult,
@@ -97,7 +96,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       AuthUserAttribute<CognitoUserAttributeKey>,
       CognitoDevice,
       CognitoSignUpResult,
-      CognitoConfirmSignUpOptions,
       CognitoSignUpResult,
       CognitoResendSignUpCodeOptions,
       CognitoResendSignUpCodeResult,
@@ -511,14 +509,20 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<CognitoSignUpResult> confirmSignUp({
     required String username,
     required String confirmationCode,
-    CognitoConfirmSignUpOptions? options,
+    ConfirmSignUpOptions? options,
   }) async {
+    options ??= const ConfirmSignUpOptions();
+    final pluginOptions = validatePluginOptions(
+      options.pluginOptions,
+      defaultOptions: const CognitoConfirmSignUpPluginOptions(),
+      requiredTypeName: 'CognitoConfirmSignUpPluginOptions',
+    );
     await _stateMachine
         .accept(
           SignUpEvent.confirm(
             username: username,
             confirmationCode: confirmationCode,
-            clientMetadata: options?.clientMetadata,
+            clientMetadata: pluginOptions.clientMetadata,
           ),
         )
         .accepted;
@@ -1131,7 +1135,6 @@ class _AmplifyAuthCognitoDartPluginKey extends AuthPluginKey<
     AuthUserAttribute<CognitoUserAttributeKey>,
     CognitoDevice,
     CognitoSignUpResult,
-    CognitoConfirmSignUpOptions,
     CognitoSignUpResult,
     CognitoResendSignUpCodeOptions,
     CognitoResendSignUpCodeResult,

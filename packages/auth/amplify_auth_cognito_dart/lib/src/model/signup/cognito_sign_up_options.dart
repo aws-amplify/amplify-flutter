@@ -38,19 +38,6 @@ class CognitoSignUpOptions extends SignUpOptions {
         validationData: validationData,
       );
 
-  /// Creates a copy of `this` with the given parameters overridden.
-  CognitoSignUpOptions copyWith({
-    Map<CognitoUserAttributeKey, String>? userAttributes,
-    Map<String, String>? validationData,
-    Map<String, String>? clientMetadata,
-  }) {
-    return CognitoSignUpOptions(
-      userAttributes: userAttributes ?? this.userAttributes,
-      clientMetadata: clientMetadata ?? this.clientMetadata,
-      validationData: validationData ?? this.validationData,
-    );
-  }
-
   @override
   String get runtimeTypeName => 'CognitoSignUpOptions';
 

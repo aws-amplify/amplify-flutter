@@ -22,7 +22,6 @@ class AuthCategory<
     PluginAuthUserAttribute extends AuthUserAttribute<PluginUserAttributeKey>,
     PluginAuthDevice extends AuthDevice,
     PluginSignUpResult extends SignUpResult,
-    PluginConfirmSignUpOptions extends ConfirmSignUpOptions,
     PluginConfirmSignUpResult extends SignUpResult,
     PluginResendSignUpCodeOptions extends ResendSignUpCodeOptions,
     PluginResendSignUpCodeResult extends ResendSignUpCodeResult,
@@ -56,7 +55,6 @@ class AuthCategory<
         PluginAuthUserAttribute,
         PluginAuthDevice,
         PluginSignUpResult,
-        PluginConfirmSignUpOptions,
         PluginConfirmSignUpResult,
         PluginResendSignUpCodeOptions,
         PluginResendSignUpCodeResult,
@@ -109,7 +107,6 @@ class AuthCategory<
               GetPluginUserAttributeKey>,
           GetPluginAuthDevice extends AuthDevice,
           GetPluginSignUpResult extends SignUpResult,
-          GetPluginConfirmSignUpOptions extends ConfirmSignUpOptions,
           GetPluginConfirmSignUpResult extends SignUpResult,
           GetPluginResendSignUpCodeOptions extends ResendSignUpCodeOptions,
           GetPluginResendSignUpCodeResult extends ResendSignUpCodeResult,
@@ -145,7 +142,6 @@ class AuthCategory<
               GetPluginAuthUserAttribute,
               GetPluginAuthDevice,
               GetPluginSignUpResult,
-              GetPluginConfirmSignUpOptions,
               GetPluginConfirmSignUpResult,
               GetPluginResendSignUpCodeOptions,
               GetPluginResendSignUpCodeResult,
@@ -179,7 +175,6 @@ class AuthCategory<
             GetPluginAuthUserAttribute,
             GetPluginAuthDevice,
             GetPluginSignUpResult,
-            GetPluginConfirmSignUpOptions,
             GetPluginConfirmSignUpResult,
             GetPluginResendSignUpCodeOptions,
             GetPluginResendSignUpCodeResult,
@@ -238,7 +233,7 @@ class AuthCategory<
   Future<PluginConfirmSignUpResult> confirmSignUp({
     required String username,
     required String confirmationCode,
-    PluginConfirmSignUpOptions? options,
+    ConfirmSignUpOptions? options,
   }) =>
       defaultPlugin.confirmSignUp(
         username: username,

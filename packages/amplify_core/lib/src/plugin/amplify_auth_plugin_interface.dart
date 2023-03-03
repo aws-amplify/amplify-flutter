@@ -15,7 +15,6 @@ abstract class AuthPluginInterface<
         PluginAuthUserAttribute extends AuthUserAttribute<PluginUserAttributeKey>,
         PluginAuthDevice extends AuthDevice,
         PluginSignUpResult extends SignUpResult,
-        PluginConfirmSignUpOptions extends ConfirmSignUpOptions,
         PluginConfirmSignupResult extends SignUpResult,
         PluginResendSignUpCodeOptions extends ResendSignUpCodeOptions,
         PluginResendSignUpCodeResult extends ResendSignUpCodeResult,
@@ -61,7 +60,7 @@ abstract class AuthPluginInterface<
   Future<PluginConfirmSignupResult> confirmSignUp({
     required String username,
     required String confirmationCode,
-    PluginConfirmSignUpOptions? options,
+    ConfirmSignUpOptions? options,
   }) {
     throw UnimplementedError('confirmSignUp() has not been implemented');
   }
