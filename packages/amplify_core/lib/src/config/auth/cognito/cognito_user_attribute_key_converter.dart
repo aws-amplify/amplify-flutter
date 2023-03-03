@@ -18,3 +18,22 @@ class CognitoUserAttributeKeyConverter
     return object.key.toUpperCase();
   }
 }
+
+class CognitoUserAttributeMapConverter
+    implements
+        JsonConverter<Map<CognitoUserAttributeKey, String>,
+            Map<String, String>> {
+  const CognitoUserAttributeMapConverter();
+
+  @override
+  Map<CognitoUserAttributeKey, String> fromJson(Map<String, String> json) =>
+      json.map(
+        (key, value) => MapEntry(CognitoUserAttributeKey.parse(key), value),
+      );
+
+  @override
+  Map<String, String> toJson(Map<CognitoUserAttributeKey, String> object) =>
+      object.map(
+        (key, value) => MapEntry(key.toJson(), value),
+      );
+}

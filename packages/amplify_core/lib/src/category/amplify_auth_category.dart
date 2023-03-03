@@ -21,7 +21,6 @@ class AuthCategory<
     PluginUserAttributeKey extends AuthUserAttributeKey,
     PluginAuthUserAttribute extends AuthUserAttribute<PluginUserAttributeKey>,
     PluginAuthDevice extends AuthDevice,
-    PluginSignUpOptions extends SignUpOptions,
     PluginSignUpResult extends SignUpResult,
     PluginConfirmSignUpOptions extends ConfirmSignUpOptions,
     PluginConfirmSignUpResult extends SignUpResult,
@@ -56,7 +55,6 @@ class AuthCategory<
         PluginUserAttributeKey,
         PluginAuthUserAttribute,
         PluginAuthDevice,
-        PluginSignUpOptions,
         PluginSignUpResult,
         PluginConfirmSignUpOptions,
         PluginConfirmSignUpResult,
@@ -110,7 +108,6 @@ class AuthCategory<
           GetPluginAuthUserAttribute extends AuthUserAttribute<
               GetPluginUserAttributeKey>,
           GetPluginAuthDevice extends AuthDevice,
-          GetPluginSignUpOptions extends SignUpOptions,
           GetPluginSignUpResult extends SignUpResult,
           GetPluginConfirmSignUpOptions extends ConfirmSignUpOptions,
           GetPluginConfirmSignUpResult extends SignUpResult,
@@ -147,7 +144,6 @@ class AuthCategory<
               GetPluginUserAttributeKey,
               GetPluginAuthUserAttribute,
               GetPluginAuthDevice,
-              GetPluginSignUpOptions,
               GetPluginSignUpResult,
               GetPluginConfirmSignUpOptions,
               GetPluginConfirmSignUpResult,
@@ -182,7 +178,6 @@ class AuthCategory<
             GetPluginUserAttributeKey,
             GetPluginAuthUserAttribute,
             GetPluginAuthDevice,
-            GetPluginSignUpOptions,
             GetPluginSignUpResult,
             GetPluginConfirmSignUpOptions,
             GetPluginConfirmSignUpResult,
@@ -228,7 +223,7 @@ class AuthCategory<
   Future<PluginSignUpResult> signUp({
     required String username,
     required String password,
-    PluginSignUpOptions? options,
+    SignUpOptions? options,
   }) =>
       defaultPlugin.signUp(
         username: username,

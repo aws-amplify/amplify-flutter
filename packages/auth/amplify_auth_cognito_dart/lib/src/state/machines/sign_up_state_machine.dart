@@ -69,7 +69,7 @@ class SignUpStateMachine extends AuthStateMachine<SignUpEvent, SignUpState> {
             ..userAttributes.addAll(
               event.userAttributes.entries.map(
                 (attr) => AttributeType(
-                  name: attr.key,
+                  name: attr.key.key,
                   value: attr.value,
                 ),
               ),

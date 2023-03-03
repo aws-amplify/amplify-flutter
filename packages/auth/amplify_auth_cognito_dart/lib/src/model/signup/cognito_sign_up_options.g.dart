@@ -8,8 +8,11 @@ part of 'cognito_sign_up_options.dart';
 
 CognitoSignUpOptions _$CognitoSignUpOptionsFromJson(
         Map<String, dynamic> json) =>
-    CognitoSignUpOptions._(
-      userAttributes: _userAttributesFromJson(json['userAttributes'] as Map?),
+    CognitoSignUpOptions(
+      userAttributes: json['userAttributes'] == null
+          ? const {}
+          : const CognitoUserAttributeMapConverter()
+              .fromJson(json['userAttributes'] as Map<String, String>),
       validationData: (json['validationData'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, e as String),
       ),
@@ -19,18 +22,28 @@ CognitoSignUpOptions _$CognitoSignUpOptionsFromJson(
     );
 
 Map<String, dynamic> _$CognitoSignUpOptionsToJson(
-    CognitoSignUpOptions instance) {
-  final val = <String, dynamic>{
-    'userAttributes': instance.userAttributes,
-  };
+        CognitoSignUpOptions instance) =>
+    <String, dynamic>{
+      'userAttributes': const CognitoUserAttributeMapConverter()
+          .toJson(instance.userAttributes),
+      'validationData': instance.validationData,
+      'clientMetadata': instance.clientMetadata,
+    };
 
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
+CognitoSignUpPluginOptions _$CognitoSignUpPluginOptionsFromJson(
+        Map<String, dynamic> json) =>
+    CognitoSignUpPluginOptions(
+      clientMetadata: (json['clientMetadata'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ),
+      validationData: (json['validationData'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ),
+    );
 
-  writeNotNull('validationData', instance.validationData);
-  writeNotNull('clientMetadata', instance.clientMetadata);
-  return val;
-}
+Map<String, dynamic> _$CognitoSignUpPluginOptionsToJson(
+        CognitoSignUpPluginOptions instance) =>
+    <String, dynamic>{
+      'clientMetadata': instance.clientMetadata,
+      'validationData': instance.validationData,
+    };

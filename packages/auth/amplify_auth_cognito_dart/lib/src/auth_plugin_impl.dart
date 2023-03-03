@@ -51,7 +51,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         CognitoUserAttributeKey,
         AuthUserAttribute<CognitoUserAttributeKey>,
         CognitoDevice,
-        CognitoSignUpOptions,
         CognitoSignUpResult,
         CognitoConfirmSignUpOptions,
         CognitoSignUpResult,
@@ -97,7 +96,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       CognitoUserAttributeKey,
       AuthUserAttribute<CognitoUserAttributeKey>,
       CognitoDevice,
-      CognitoSignUpOptions,
       CognitoSignUpResult,
       CognitoConfirmSignUpOptions,
       CognitoSignUpResult,
@@ -128,6 +126,25 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       CognitoResendUserAttributeConfirmationCodeOptions,
       ResendUserAttributeConfirmationCodeResult,
       AmplifyAuthCognitoDart> pluginKey = _AmplifyAuthCognitoDartPluginKey();
+
+  /// Validates [pluginOptions] is an instance of [T]
+  @protected
+  static T validatePluginOptions<T>(
+    Object? pluginOptions, {
+    required T defaultOptions,
+    required String requiredTypeName,
+  }) {
+    if (pluginOptions == null) {
+      return defaultOptions;
+    }
+    if (pluginOptions is! T) {
+      throw ArgumentError(
+        'Expected pluginOptions with type "$requiredTypeName" but got: '
+        '$pluginOptions',
+      );
+    }
+    return pluginOptions as T;
+  }
 
   /// Capture the initial parameters on instantiation of this class.
   ///
@@ -431,8 +448,14 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<CognitoSignUpResult> signUp({
     required String username,
     required String password,
-    CognitoSignUpOptions? options,
+    SignUpOptions? options,
   }) async {
+    options ??= const SignUpOptions();
+    final pluginOptions = validatePluginOptions(
+      options.pluginOptions,
+      defaultOptions: const CognitoSignUpPluginOptions(),
+      requiredTypeName: 'CognitoSignUpPluginOptions',
+    );
     await _stateMachine
         .accept(
           SignUpEvent.initiate(
@@ -441,9 +464,9 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
                 ..username = username
                 ..password = password,
             ),
-            clientMetadata: options?.clientMetadata,
-            userAttributes: options?.userAttributes,
-            validationData: options?.validationData,
+            userAttributes: options.userAttributes,
+            clientMetadata: pluginOptions.clientMetadata,
+            validationData: pluginOptions.validationData,
           ),
         )
         .accepted;
@@ -575,13 +598,11 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     String? password,
     SignInOptions? options,
   }) async {
-    final pluginOptions =
-        options?.pluginOptions ?? const CognitoSignInPluginOptions();
-    if (pluginOptions is! CognitoSignInPluginOptions) {
-      throw ArgumentError(
-        'Invalid pluginOptions. Only CognitoSignInPluginOptions are supported.',
-      );
-    }
+    final pluginOptions = validatePluginOptions(
+      options?.pluginOptions,
+      defaultOptions: const CognitoSignInPluginOptions(),
+      requiredTypeName: 'CognitoSignInPluginOptions',
+    );
 
     // Create a new state machine for every call since it caches values
     // internally on each run.
@@ -1109,7 +1130,6 @@ class _AmplifyAuthCognitoDartPluginKey extends AuthPluginKey<
     CognitoUserAttributeKey,
     AuthUserAttribute<CognitoUserAttributeKey>,
     CognitoDevice,
-    CognitoSignUpOptions,
     CognitoSignUpResult,
     CognitoConfirmSignUpOptions,
     CognitoSignUpResult,
