@@ -19,7 +19,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     /**
-     * The utils that provides methods like showNotification
+     * Shared utilities from Amplify Android
      */
     private lateinit var utils: PushNotificationsUtils
 
@@ -41,8 +41,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun handleIntent(intent: Intent) {
         // If the intent is for a new token, just forward intent to Firebase SDK
-        if (intent.action == PushNotificationConstants.ACTION_NEW_TOKEN) {
-//            Log.i(TAG, "Received new token intent")
+        if (intent.action == PushNotificationPluginConstants.ACTION_NEW_TOKEN) {
             super.handleIntent(intent)
             return
         }
@@ -63,7 +62,6 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         baseContext?.let {
             Handler(it.mainLooper).post {
-
                 if (utils.isAppInForeground()) {
                     val notificationHashMap = remoteMessage.asPayload().asChannelMap()
                     StreamHandlers.foregroundMessageReceived.send(notificationHashMap)

@@ -26,8 +26,6 @@ import io.flutter.plugin.common.PluginRegistry
 import kotlinx.coroutines.*
 
 
-private const val TAG = "AmplifyPushNotificationsPlugin"
-
 /** AmplifyPushNotificationsPlugin */
 open class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     PluginRegistry.NewIntentListener {
@@ -54,16 +52,20 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Ac
     /**
      * The application context.
      */
-    private var applicationContext: Context? = null
+    private lateinit var applicationContext: Context
 
     /**
      * Shared Preference used to persist callback handles.
      */
     private lateinit var sharedPreferences: SharedPreferences
+
+    /**
+     * Method Channel for the plugin.
+     */
     private lateinit var channel: MethodChannel
 
     /**
-     * Main engine's binary messenger holder.
+     * Main engine's binary messenger.
      */
     private var mainBinaryMessenger: BinaryMessenger? = null
 
@@ -71,12 +73,12 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Ac
         mainBinaryMessenger = flutterPluginBinding.binaryMessenger
         applicationContext = flutterPluginBinding.applicationContext
         sharedPreferences =
-            applicationContext!!.getSharedPreferences(
-                PushNotificationConstants.SHARED_PREFERENCES_KEY,
+            applicationContext.getSharedPreferences(
+                PushNotificationPluginConstants.SHARED_PREFERENCES_KEY,
                 Context.MODE_PRIVATE
             )
         channel = MethodChannel(
-            flutterPluginBinding.binaryMessenger, PushNotificationConstants.METHOD_CHANNEL
+            flutterPluginBinding.binaryMessenger, PushNotificationPluginConstants.METHOD_CHANNEL
         )
         channel.setMethodCallHandler(this)
     }
@@ -143,23 +145,23 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Ac
                 "initializeService" -> {
                     val args = call.arguments<ArrayList<*>>()
                     registerCallbackToCache(
-                        applicationContext!!,
+                        applicationContext,
                         args,
-                        PushNotificationConstants.CALLBACK_DISPATCHER_HANDLE_KEY
+                        PushNotificationPluginConstants.CALLBACK_DISPATCHER_HANDLE_KEY
                     )
                     result.success(true)
                 }
                 "registerBgExternalCallback" -> {
                     val args = call.arguments<ArrayList<*>>()
                     registerCallbackToCache(
-                        applicationContext!!,
+                        applicationContext,
                         args,
-                        PushNotificationConstants.BG_EXTERNAL_CALLBACK_HANDLE_KEY
+                        PushNotificationPluginConstants.BG_EXTERNAL_CALLBACK_HANDLE_KEY
                     )
                     result.success(true)
                 }
                 "getPermissionStatus" -> {
-                    val permission = PushNotificationPermission(applicationContext!!)
+                    val permission = PushNotificationPermission(applicationContext)
                     // If permission has already been granted
                     if (permission.hasRequiredPermission) {
                         return result.success(PushNotificationPermissionStatus.granted.name)
@@ -172,7 +174,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Ac
                     // If the shouldShowRequestPermissionRationale flag is false and the permission was
                     // already previously denied then user has denied permissions twice
                     if (sharedPreferences.getBoolean(
-                            PushNotificationConstants.PREF_PREVIOUSLY_DENIED,
+                            PushNotificationPluginConstants.PREF_PREVIOUSLY_DENIED,
                             false
                         )
                     ) {
@@ -185,7 +187,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Ac
                 "requestPermissions" -> {
                     scope.launch {
                         val res =
-                            PushNotificationPermission(applicationContext!!).requestPermission()
+                            PushNotificationPermission(applicationContext).requestPermission()
 
                         if (res is PermissionRequestResult.Granted) {
                             result.success(true)
@@ -197,7 +199,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Ac
                             if (shouldShowRequestPermissionRationale()) {
                                 with(sharedPreferences.edit()) {
                                     putBoolean(
-                                        PushNotificationConstants.PREF_PREVIOUSLY_DENIED,
+                                        PushNotificationPluginConstants.PREF_PREVIOUSLY_DENIED,
                                         true
                                     )
                                     apply()
@@ -222,7 +224,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Ac
             Log.i(TAG, "Registering callback function with key $callbackKey")
             val callbackHandle = it[0] as Long
             context.getSharedPreferences(
-                PushNotificationConstants.SHARED_PREFERENCES_KEY,
+                PushNotificationPluginConstants.SHARED_PREFERENCES_KEY,
                 Context.MODE_PRIVATE
             ).edit()
                 .putLong(callbackKey, callbackHandle).apply()
@@ -246,7 +248,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Ac
 
     private fun shouldShowRequestPermissionRationale(): Boolean {
         return ActivityCompat.shouldShowRequestPermissionRationale(
-            mainActivity!!, PushNotificationConstants.PERMISSION
+            mainActivity!!, PushNotificationPluginConstants.PERMISSION
         )
     }
 }

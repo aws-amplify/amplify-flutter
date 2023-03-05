@@ -193,19 +193,12 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   void _foregroundNotificationListener(
     PushNotificationMessage pushNotificationMessage,
   ) {
-    _logger.info(
-      'Successfully listrening to FOREGROUND events in the plugin',
-    );
-
     // TODO(Samaritan1011001): Record Analytics
   }
 
   void _notificationOpenedListener(
     PushNotificationMessage pushNotificationMessage,
   ) {
-    _logger.info(
-      'Successfully listrening to NOTIFICATIONOPENED events: $pushNotificationMessage',
-    );
     // TODO(Samaritan1011001): Record Analytics
     _launchNotification = pushNotificationMessage;
   }

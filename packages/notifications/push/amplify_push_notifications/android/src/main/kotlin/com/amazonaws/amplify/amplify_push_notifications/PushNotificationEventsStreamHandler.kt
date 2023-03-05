@@ -23,7 +23,7 @@ enum class NativeEvent {
         }
 
     val eventChannelName: String
-        get() = "${PushNotificationConstants.CHANNEL_NAME_PREFIX}/event/$eventName"
+        get() = "${PushNotificationPluginConstants.CHANNEL_NAME_PREFIX}/event/$eventName"
 }
 
 data class PushNotificationsEvent(
@@ -123,13 +123,7 @@ class StreamHandlers {
         lateinit var notificationOpened: PushNotificationEventsStreamHandler
 
         @JvmStatic
-        lateinit var launchNotificationOpened: PushNotificationEventsStreamHandler
-
-        @JvmStatic
         lateinit var foregroundMessageReceived: PushNotificationEventsStreamHandler
-
-        @JvmStatic
-        lateinit var backgroundMessageReceived: PushNotificationEventsStreamHandler
 
         @JvmStatic
         var isInitStreamHandlers: Boolean = false
@@ -150,14 +144,8 @@ class StreamHandlers {
                 notificationOpened = PushNotificationEventsStreamHandler(
                     NativeEvent.NOTIFICATION_OPENED
                 )
-                launchNotificationOpened = PushNotificationEventsStreamHandler(
-                    NativeEvent.LAUNCH_NOTIFICATION_OPENED
-                )
                 foregroundMessageReceived = PushNotificationEventsStreamHandler(
                     NativeEvent.FOREGROUND_MESSAGE_RECEIVED
-                )
-                backgroundMessageReceived = PushNotificationEventsStreamHandler(
-                    NativeEvent.BACKGROUND_MESSAGE_RECEIVED
                 )
                 isInitStreamHandlers = true
             }
@@ -171,9 +159,7 @@ class StreamHandlers {
             if (isInitStreamHandlers) {
                 tokenReceived.initEventChannel(binaryMessenger)
                 notificationOpened.initEventChannel(binaryMessenger)
-                launchNotificationOpened.initEventChannel(binaryMessenger)
                 foregroundMessageReceived.initEventChannel(binaryMessenger)
-                backgroundMessageReceived.initEventChannel(binaryMessenger)
             }
         }
     }

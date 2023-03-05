@@ -32,18 +32,16 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
      */
     private lateinit var backgroundChannel: MethodChannel
 
+    private var backgroundFlutterEngine: FlutterEngine? = null
+
+    private val serviceStarted = AtomicBoolean(false)
+
     companion object {
 
         private const val TAG = "PushBackgroundService"
 
         @JvmStatic
         private val JOB_ID = UUID.randomUUID().mostSignificantBits.toInt()
-
-        @JvmStatic
-        private var backgroundFlutterEngine: FlutterEngine? = null
-
-        @JvmStatic
-        private val serviceStarted = AtomicBoolean(false)
 
         @JvmStatic
         fun enqueueWork(context: Context, work: Intent) {
@@ -61,12 +59,12 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
             if (backgroundFlutterEngine == null) {
 
                 val callbackHandle = context.getSharedPreferences(
-                    PushNotificationConstants.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE
+                    PushNotificationPluginConstants.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE
                 ).getLong(
-                    PushNotificationConstants.CALLBACK_DISPATCHER_HANDLE_KEY, 0
+                    PushNotificationPluginConstants.CALLBACK_DISPATCHER_HANDLE_KEY, 0
                 )
                 if (callbackHandle == 0L) {
-                    Log.w(TAG, "Warning: no callback registered")
+                    Log.w(TAG, "Warning: Background service could not start. Callback dispatcher not found.")
                     return
                 }
                 val callbackInfo =
@@ -75,7 +73,7 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
                     Log.e(TAG, "Error: failed to find callback")
                     return
                 }
-                Log.i(TAG, "Starting PushNotificationBackgroundService...")
+                Log.i(TAG, "Starting PushNotificationBackgroundService")
 
                 // Create a background Flutter Engine
                 backgroundFlutterEngine = FlutterEngine(context)
@@ -90,20 +88,19 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
         }
         backgroundChannel = MethodChannel(
             backgroundFlutterEngine!!.dartExecutor.binaryMessenger,
-            "plugins.flutter.io/amplify_push_notification_plugin_background"
+            PushNotificationPluginConstants.BACKGROUND_METHOD_CHANNEL,
         )
         backgroundChannel.setMethodCallHandler(this)
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         when (call.method) {
-            "PushNotificationBackgroundService.initialized" -> {
+            "callbackDispatcherInitialized" -> {
                 synchronized(serviceStarted) {
                     // If events were added to the queue when the service was initializing, emits those
                     while (!queue.isEmpty()) {
                         backgroundChannel.invokeMethod("", queue.removeFirst()[0])
                     }
-
                     // The background engine has now started and ready to receive events
                     serviceStarted.set(true)
                 }
@@ -114,36 +111,34 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
     }
 
     override fun onHandleWork(intent: Intent) {
-        Log.i(TAG, "Handling work @ PushNotificationBackgroundService...")
-        if (!intent.isPushNotificationIntent) {
-            return
-        }
-        val remoteMessage = RemoteMessage(intent.extras)
-        val notificationMap = remoteMessage.asPayload().asChannelMap()
+        Log.i(TAG, "Handling work in PushNotificationBackgroundService")
 
-        val bgExternalCallbackHandle = baseContext.getSharedPreferences(
-            PushNotificationConstants.SHARED_PREFERENCES_KEY, MODE_PRIVATE
-        ).getLong(PushNotificationConstants.BG_EXTERNAL_CALLBACK_HANDLE_KEY, 0)
+        val remoteMessage = RemoteMessage(intent.extras)
+        val notificationPayload = remoteMessage.asPayload().asChannelMap()
+
+        val externalCallbackHandle = baseContext.getSharedPreferences(
+            PushNotificationPluginConstants.SHARED_PREFERENCES_KEY, MODE_PRIVATE
+        ).getLong(PushNotificationPluginConstants.BG_EXTERNAL_CALLBACK_HANDLE_KEY, 0)
 
         // Check and assign the handle
-        val callbackInfo: Map<String, Any> = if (bgExternalCallbackHandle == 0L) {
+        val callbackInfo: Map<String, Any> = if (externalCallbackHandle == 0L) {
             Log.i(TAG, "no external callback registered")
             mapOf(
-                "notification" to notificationMap
+                "notification" to notificationPayload
             )
         } else {
             mapOf(
-                "externalHandle" to bgExternalCallbackHandle, "notification" to notificationMap
+                "externalHandle" to externalCallbackHandle, "notification" to notificationPayload
             )
         }
 
         Log.d(TAG, "callback info: $callbackInfo")
         synchronized(serviceStarted) {
             if (!serviceStarted.get()) {
-                // Queue up geofencing events while background isolate is starting
+                // Queue up notification events while background isolate is starting
                 queue.add(listOf(callbackInfo))
             } else {
-                // Callback method name is intentionally left blank.
+                // Background method channel handle only a single method hence leaving the method name empty.
                 Handler(baseContext.mainLooper).post {
                     backgroundChannel.invokeMethod(
                         "", callbackInfo

@@ -47,5 +47,5 @@ void callbackDispatcher() {
         }
       }
     })
-    ..invokeMethod('PushNotificationBackgroundService.initialized');
+    ..invokeMethod('callbackDispatcherInitialized');
 }

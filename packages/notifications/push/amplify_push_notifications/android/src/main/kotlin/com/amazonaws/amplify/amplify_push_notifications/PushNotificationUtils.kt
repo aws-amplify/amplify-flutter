@@ -67,11 +67,9 @@ fun NotificationPayload.asChannelMap(): Map<String, Any?> {
     )
 }
 
-val Intent.isPushNotificationIntent: Boolean
-    get() = extras?.containsKey("google.message_id") ?: false
 
 fun Bundle.asPayload(): NotificationPayload? {
-    return this.getBundle(PushNotificationConstants.PAYLOAD_KEY)?.toNotificationsPayload()
+    return this.getBundle(PushNotificationPluginConstants.PAYLOAD_KEY)?.toNotificationsPayload()
 }
 
 fun Context.getLaunchActivityClass(): Class<*>? {
@@ -89,6 +87,7 @@ fun Context.getLaunchActivityClass(): Class<*>? {
     return null
 }
 
+// TODO(Samaritan1011001): update the check to use PINPOINT_PREFIX
 val RemoteMessage.isSupported: Boolean
     get() = !this.data[PushNotificationsConstants.PINPOINT_CAMPAIGN_CAMPAIGN_ID].isNullOrEmpty() or !this.data[PushNotificationsConstants.JOURNEY_ID].isNullOrEmpty()
 
