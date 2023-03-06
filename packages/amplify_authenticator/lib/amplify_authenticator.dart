@@ -360,7 +360,7 @@ class Authenticator extends StatefulWidget {
   // Padding around each authenticator view
   final EdgeInsets padding;
 
-  /// A method to build a custom UI for the autenticator
+  /// A method to build a custom UI for the authenticator
   ///
   /// {@macro amplify_authenticator.custom_builder}
   final AuthenticatorBuilder? authenticatorBuilder;
@@ -762,23 +762,22 @@ class _AuthenticatorBody extends StatelessWidget {
     return _AuthStateBuilder(
       child: child,
       builder: (state, child) {
+        if (state is AuthenticatedState) return child;
         return Navigator(
           onPopPage: (_, dynamic __) => true,
           pages: [
-            if (state is AuthenticatedState) MaterialPage<void>(child: child),
-            if (state is! AuthenticatedState)
-              MaterialPage<void>(
-                child: ScaffoldMessenger(
-                  key: _AuthenticatorState.scaffoldMessengerKey,
-                  child: Scaffold(
-                    body: SizedBox.expand(
-                      child: child is AuthenticatorScreen
-                          ? SingleChildScrollView(child: child)
-                          : child,
-                    ),
+            MaterialPage<void>(
+              child: ScaffoldMessenger(
+                key: _AuthenticatorState.scaffoldMessengerKey,
+                child: Scaffold(
+                  body: SizedBox.expand(
+                    child: child is AuthenticatorScreen
+                        ? SingleChildScrollView(child: child)
+                        : child,
                   ),
                 ),
               ),
+            ),
           ],
         );
       },

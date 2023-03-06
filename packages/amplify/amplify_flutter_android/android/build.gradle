@@ -27,7 +27,6 @@ rootProject.allprojects {
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply from: './coverage.gradle'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
 def amplifyCore = findProject(':amplify_core')
@@ -62,17 +61,12 @@ android {
             includeAndroidResources = true
         }
     }
-    buildTypes {
-        debug {
-            testCoverageEnabled = true
-        }
-    }
 }
 
 dependencies {
     api amplifyCore
 
-    implementation 'com.amplifyframework:core:1.37.2'
+    implementation 'com.amplifyframework:core:1.37.12'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'
 
     testImplementation 'junit:junit:4.13.2'
@@ -81,6 +75,6 @@ dependencies {
     testImplementation 'androidx.test:core:1.4.0'
     testImplementation 'org.robolectric:robolectric:4.3.1'
     testImplementation 'com.google.code.gson:gson:2.8.6'
-    testImplementation 'com.amplifyframework:aws-auth-cognito:1.37.2'
+    testImplementation 'com.amplifyframework:aws-auth-cognito:1.37.12'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.9'
 }

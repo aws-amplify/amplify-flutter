@@ -19,12 +19,12 @@ The top level module for Amplify Flutter.
 
 | Category       | Android | iOS | Web | Windows | MacOS | Linux |
 | -------------- | :-----: | :-: | :-: | :-----: | :---: | :---: |
-| Analytics      |   🔴    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
-| API (REST)     |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
-| API (GraphQL)  |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| Analytics      |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
+| API (REST)     |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
+| API (GraphQL)  |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
 | Authentication |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
 | DataStore      |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
-| Storage        |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| Storage        |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
 
 ## Getting Started
 

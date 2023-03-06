@@ -15,10 +15,8 @@
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api/src/graphql/graphql_response_decoder.dart';
-import 'package:amplify_api/src/graphql/utils.dart';
 import 'package:amplify_api/src/method_channel_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:amplify_test/test_models/many_to_many/MtmModelProvider.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -87,8 +85,8 @@ void main() {
       final expectedVars = {
         'input': {
           'id': 'firstMtmRelationId',
-          'manyToManyPrimaryID': 'mtmPrimaryId',
-          'manyToManySecondaryID': 'mtmSecondaryId'
+          'manyToManyPrimaryId': 'mtmPrimaryId',
+          'manyToManySecondaryId': 'mtmSecondaryId'
         }
       };
 
@@ -123,8 +121,8 @@ void main() {
       final expectedVars = {
         'input': {
           'id': 'firstMtmRelationId',
-          'manyToManyPrimaryID': 'mtmPrimaryId',
-          'manyToManySecondaryID': 'mtmSecondaryId'
+          'manyToManyPrimaryId': 'mtmPrimaryId',
+          'manyToManySecondaryId': 'mtmSecondaryId'
         },
         'condition': null
       };

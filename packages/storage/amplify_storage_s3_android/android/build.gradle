@@ -27,7 +27,6 @@ rootProject.allprojects {
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply from: './coverage.gradle'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
 def amplifyCore = findProject(':amplify_core')
@@ -52,15 +51,10 @@ android {
         xmlReport false
         htmlReport false
     }
-    buildTypes {
-        debug {
-            testCoverageEnabled = true
-        }
-    }
 }
 
 dependencies {
     api amplifyCore
 
-    implementation 'com.amplifyframework:aws-storage-s3:1.37.2'
+    implementation 'com.amplifyframework:aws-storage-s3:1.37.12'
 }

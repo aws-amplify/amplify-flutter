@@ -146,6 +146,10 @@
                 "description": "The field which can be filled."
             }
         }
+    },    
+    "usernameRequirements": "Username must only contain alphanumeric characters and symbols.",
+    "@usernameRequirements": {
+        "description": "Warning for when username requirements are not met."
     },
     "passwordRequirementsPreamble": "Password must include:",
     "@passwordRequirementsPreamble": {

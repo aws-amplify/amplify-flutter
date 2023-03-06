@@ -280,12 +280,11 @@ class Post extends Model {
   static final QueryField LIKECOUNT = QueryField(fieldName: "likeCount");
   static final QueryField BLOG = QueryField(
       fieldName: "blog",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (Blog).toString()));
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Blog'));
   static final QueryField COMMENTS = QueryField(
       fieldName: "comments",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (Comment).toString()));
+      fieldType:
+          ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Comment'));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Post";
@@ -320,16 +319,13 @@ class Post extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: Post.BLOG,
         isRequired: false,
-        // TODO(Jordan-Nelson): Remove `targetName` when API category has been
-        // updated to support CPK changes. This was added manually.
-        targetName: "blogID",
-        targetNames: ["blogID"],
-        ofModelName: (Blog).toString()));
+        targetNames: ['blogID'],
+        ofModelName: 'Blog'));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
         key: Post.COMMENTS,
         isRequired: false,
-        ofModelName: (Comment).toString(),
+        ofModelName: 'Comment',
         associatedKey: Comment.POST));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
@@ -352,6 +348,11 @@ class _PostModelType extends ModelType<Post> {
   @override
   Post fromJson(Map<String, dynamic> jsonData) {
     return Post.fromJson(jsonData);
+  }
+
+  @override
+  String modelName() {
+    return 'Post';
   }
 }
 

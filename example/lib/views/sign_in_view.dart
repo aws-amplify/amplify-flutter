@@ -16,7 +16,7 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
-import 'ErrorView.dart';
+import 'error_view.dart';
 
 class SignInView extends StatefulWidget {
   @override

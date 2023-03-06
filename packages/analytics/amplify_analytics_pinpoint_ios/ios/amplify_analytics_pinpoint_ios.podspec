@@ -15,8 +15,8 @@ This code is the iOS part of the Amplify Flutter Pinpoint Analytics Plugin.  The
   s.source = { :git => 'https://github.com/aws-amplify/amplify-flutter.git' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'Amplify', '1.28.0'
-  s.dependency 'AmplifyPlugins/AWSPinpointAnalyticsPlugin', '1.28.0'
+  s.dependency 'Amplify', '1.28.3'
+  s.dependency 'AmplifyPlugins/AWSPinpointAnalyticsPlugin', '1.28.3'
   s.dependency 'amplify_core'
   s.platform = :ios, '11.0'
 
