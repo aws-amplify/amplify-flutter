@@ -29,6 +29,6 @@ class FcmPlatformOptions
         'channelId': channelId,
         'messageId': messageId,
         'senderId': senderId,
-        'sentTime': sentTime,
+        'sentTime': sentTime?.toIso8601String(),
       };
 }

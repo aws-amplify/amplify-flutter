@@ -19,39 +19,6 @@ enum class PushNotificationPermissionStatus {
     notRequested, shouldRequestWithRationale, granted, denied,
 }
 
-fun RemoteMessage.asPayload(): NotificationPayload {
-    val messageId = messageId
-    val senderId = senderId
-    val sendTime = sentTime
-    val data = data
-    val body = notification?.body ?: data[PushNotificationsConstants.MESSAGE_ATTRIBUTE_KEY]
-    ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_BODY]
-    val title = notification?.title ?: data[PushNotificationsConstants.TITLE_ATTRIBUTE_KEY]
-    ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_TITLE]
-    val imageUrl = notification?.imageUrl?.toString() ?: data[PushNotificationsConstants.IMAGEURL_ATTRIBUTE_KEY] ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_IMAGEURL]
-    val action: HashMap<String, String> = HashMap()
-    data[PushNotificationsConstants.PINPOINT_OPENAPP]?.let {
-        action.put(PushNotificationsConstants.PINPOINT_OPENAPP, it)
-    }
-    data[PushNotificationsConstants.PINPOINT_URL]?.let {
-        // force HTTPS URL scheme
-        val urlHttps = it.replaceFirst("http://", "https://")
-        action[PushNotificationsConstants.PINPOINT_URL] = urlHttps
-    }
-    data[PushNotificationsConstants.PINPOINT_DEEPLINK]?.let {
-        action[PushNotificationsConstants.PINPOINT_DEEPLINK] = it
-    }
-
-    return NotificationPayload {
-        notification(messageId, senderId, sendTime)
-        notificationContent(title, body, imageUrl)
-        notificationOptions(PushNotificationsConstants.DEFAULT_NOTIFICATION_CHANNEL_ID)
-        tapAction(action)
-        silentPush = data[PushNotificationsConstants.PINPOINT_NOTIFICATION_SILENTPUSH].equals("1")
-        rawData = HashMap(data)
-    }
-}
-
 fun NotificationPayload.asChannelMap(): Map<String, Any?> {
     return mapOf(
         "title" to title,
@@ -65,18 +32,18 @@ fun NotificationPayload.asChannelMap(): Map<String, Any?> {
             "sentTime" to sendTime,
             "channelId" to channelId,
         ),
-        "data" to this.rawData
+        "data" to rawData
     )
 }
 
 
 fun Bundle.asPayload(): NotificationPayload? {
-    return this.getBundle(PushNotificationPluginConstants.PAYLOAD_KEY)?.toNotificationsPayload()
+    return getBundle(PushNotificationPluginConstants.PAYLOAD_KEY)?.toNotificationsPayload()
 }
 
 fun Context.getLaunchActivityClass(): Class<*>? {
-    val packageName = this.packageName
-    val launchIntent = this.packageManager.getLaunchIntentForPackage(packageName)
+    val packageName = packageName
+    val launchIntent = packageManager.getLaunchIntentForPackage(packageName)
     launchIntent?.component?.className?.let {
         try {
             return Class.forName(it)
@@ -89,7 +56,6 @@ fun Context.getLaunchActivityClass(): Class<*>? {
     return null
 }
 
-// TODO(Samaritan1011001): update the check to use PINPOINT_PREFIX
 val RemoteMessage.isSupported: Boolean
-    get() = !this.data[PushNotificationsConstants.PINPOINT_CAMPAIGN_CAMPAIGN_ID].isNullOrEmpty() or !this.data[PushNotificationsConstants.JOURNEY_ID].isNullOrEmpty()
+    get() = data.any { it.key.contains(PushNotificationsConstants.PINPOINT_PREFIX) }
 

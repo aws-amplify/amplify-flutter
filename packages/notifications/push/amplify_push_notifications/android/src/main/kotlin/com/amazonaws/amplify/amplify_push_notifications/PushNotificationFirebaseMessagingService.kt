@@ -6,6 +6,7 @@ package com.amazonaws.amplify.amplify_push_notifications
 import android.content.Intent
 import android.os.Handler
 import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsUtils
+import com.amplifyframework.pushnotifications.pinpoint.utils.processRemoteMessage
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import io.flutter.Log
@@ -63,14 +64,15 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
         baseContext?.let {
             Handler(it.mainLooper).post {
                 if (utils.isAppInForeground()) {
-                    val notificationHashMap = remoteMessage.asPayload().asChannelMap()
+                    val notificationHashMap = processRemoteMessage(remoteMessage).asChannelMap()
                     StreamHandlers.foregroundMessageReceived.send(notificationHashMap)
                 } else {
                     try {
-                        val payload = remoteMessage.asPayload()
+                        val payload = processRemoteMessage(remoteMessage)
                         utils.showNotification(
                             payload, it.getLaunchActivityClass()
                         )
+
                         Log.i(
                             TAG, "App is in background, start background service and enqueue work"
                         )

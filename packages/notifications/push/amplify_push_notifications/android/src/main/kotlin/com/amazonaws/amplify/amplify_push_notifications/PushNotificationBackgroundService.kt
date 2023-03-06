@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Handler
 import android.util.Log
 import androidx.core.app.JobIntentService
+import com.amplifyframework.pushnotifications.pinpoint.utils.processRemoteMessage
 import com.google.firebase.messaging.RemoteMessage
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.dart.DartExecutor
@@ -114,7 +115,7 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
         Log.i(TAG, "Handling work in PushNotificationBackgroundService")
 
         val remoteMessage = RemoteMessage(intent.extras)
-        val notificationPayload = remoteMessage.asPayload().asChannelMap()
+        val notificationPayload = processRemoteMessage(remoteMessage).asChannelMap()
 
         val externalCallbackHandle = baseContext.getSharedPreferences(
             PushNotificationPluginConstants.SHARED_PREFERENCES_KEY, MODE_PRIVATE
