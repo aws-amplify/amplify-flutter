@@ -56,6 +56,6 @@ fun Context.getLaunchActivityClass(): Class<*>? {
     return null
 }
 
-val RemoteMessage.isSupported: Boolean
-    get() = data.any { it.key.contains(PushNotificationsConstants.PINPOINT_PREFIX) }
+val Bundle.isSupported: Boolean
+    get() = keySet().any { it.contains(PushNotificationsConstants.PINPOINT_PREFIX) }
 

@@ -4,6 +4,7 @@
 package com.amazonaws.amplify.amplify_push_notifications
 
 import android.content.Intent
+import android.os.Bundle
 import android.os.Handler
 import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsUtils
 import com.amplifyframework.pushnotifications.pinpoint.utils.processRemoteMessage
@@ -46,47 +47,45 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
             super.handleIntent(intent)
             return
         }
-        val remoteMessage = RemoteMessage(intent.extras)
+        val extras = intent.extras ?: Bundle()
         // If we can't handle the message type coming in, just forward the intent to Firebase SDK
-        if (!remoteMessage.isSupported) {
+        if (!extras.isSupported) {
             Log.d(TAG, "Message payload is not supported")
             super.handleIntent(intent)
             return
         }
         // Otherwise, try to handle the message
-        onMessageReceived(remoteMessage)
+        onMessageReceived(RemoteMessage(intent.extras))
     }
 
     /**
      * Method to handle and forward messages received in foreground & background using isolates and event channels
      */
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        baseContext?.let {
-            Handler(it.mainLooper).post {
-                if (utils.isAppInForeground()) {
-                    val notificationHashMap = processRemoteMessage(remoteMessage).asChannelMap()
-                    StreamHandlers.foregroundMessageReceived.send(notificationHashMap)
-                } else {
-                    try {
-                        val payload = processRemoteMessage(remoteMessage)
-                        utils.showNotification(
-                            payload, it.getLaunchActivityClass()
-                        )
+        Handler(baseContext.mainLooper).post {
+            val payload = processRemoteMessage(remoteMessage)
+            if (utils.isAppInForeground()) {
+                val notificationHashMap = payload.asChannelMap()
+                StreamHandlers.foregroundMessageReceived.send(notificationHashMap)
+            } else {
+                try {
+                    utils.showNotification(
+                        payload, baseContext.getLaunchActivityClass()
+                    )
 
-                        Log.i(
-                            TAG, "App is in background, start background service and enqueue work"
-                        )
-                        FlutterMain.startInitialization(it)
-                        FlutterMain.ensureInitializationComplete(it, null)
-                        PushNotificationBackgroundService.enqueueWork(
-                            it,
-                            remoteMessage.toIntent()
-                        )
-                    } catch (exception: Exception) {
-                        Log.e(
-                            TAG, "Something went wrong while starting background engine $exception"
-                        )
-                    }
+                    Log.i(
+                        TAG, "App is in background, start background service and enqueue work"
+                    )
+                    FlutterMain.startInitialization(baseContext)
+                    FlutterMain.ensureInitializationComplete(baseContext, null)
+                    PushNotificationBackgroundService.enqueueWork(
+                        baseContext,
+                        remoteMessage.toIntent()
+                    )
+                } catch (exception: Exception) {
+                    Log.e(
+                        TAG, "Something went wrong while starting background engine $exception"
+                    )
                 }
             }
         }
