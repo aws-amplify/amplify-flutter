@@ -20,15 +20,15 @@ enum class PushNotificationPermissionStatus {
 }
 
 fun RemoteMessage.asPayload(): NotificationPayload {
-    val messageId = this.messageId
-    val senderId = this.senderId
-    val sendTime = this.sentTime
-    val data = this.data
-    val body = this.notification?.body ?: data[PushNotificationsConstants.MESSAGE_ATTRIBUTE_KEY]
+    val messageId = messageId
+    val senderId = senderId
+    val sendTime = sentTime
+    val data = data
+    val body = notification?.body ?: data[PushNotificationsConstants.MESSAGE_ATTRIBUTE_KEY]
     ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_BODY]
-    val title = this.notification?.title ?: data[PushNotificationsConstants.TITLE_ATTRIBUTE_KEY]
+    val title = notification?.title ?: data[PushNotificationsConstants.TITLE_ATTRIBUTE_KEY]
     ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_TITLE]
-    val imageUrl = this.notification?.imageUrl?.toString() ?: data[PushNotificationsConstants.IMAGEURL_ATTRIBUTE_KEY] ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_IMAGEURL]
+    val imageUrl = notification?.imageUrl?.toString() ?: data[PushNotificationsConstants.IMAGEURL_ATTRIBUTE_KEY] ?: data[PushNotificationsConstants.PINPOINT_NOTIFICATION_IMAGEURL]
     val action: HashMap<String, String> = HashMap()
     data[PushNotificationsConstants.PINPOINT_OPENAPP]?.let {
         action.put(PushNotificationsConstants.PINPOINT_OPENAPP, it)
@@ -54,14 +54,16 @@ fun RemoteMessage.asPayload(): NotificationPayload {
 
 fun NotificationPayload.asChannelMap(): Map<String, Any?> {
     return mapOf(
-        "title" to this.title,
-        "body" to this.body,
-        "imageUrl" to this.imageUrl,
-        "goToUrl" to this.action[PushNotificationsConstants.PINPOINT_URL],
-        "deeplinkUrl" to this.action[PushNotificationsConstants.PINPOINT_DEEPLINK],
+        "title" to title,
+        "body" to body,
+        "imageUrl" to imageUrl,
+        "goToUrl" to action[PushNotificationsConstants.PINPOINT_URL],
+        "deeplinkUrl" to action[PushNotificationsConstants.PINPOINT_DEEPLINK],
         "fcmOptions" to mapOf(
-            "senderId" to senderId, "messageId" to messageId, "sentTime" to sendTime
-            // TODO(Samaritan1011001): add channelId if needed
+            "senderId" to senderId,
+            "messageId" to messageId,
+            "sentTime" to sendTime,
+            "channelId" to channelId,
         ),
         "data" to this.rawData
     )

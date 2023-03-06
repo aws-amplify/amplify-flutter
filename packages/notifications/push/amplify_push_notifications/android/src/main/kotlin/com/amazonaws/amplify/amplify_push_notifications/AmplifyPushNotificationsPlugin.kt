@@ -96,7 +96,6 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Ac
         }
         binding.addOnNewIntentListener(this)
         onNewIntent(binding.activity.intent)
-        // TODO(Samaritan1011001): also fetchToken on app resume
         refreshToken()
     }
 
