@@ -24,5 +24,5 @@ jobs:
   test:
     uses: ./.github/workflows/flutter_android.yaml
     with:
-      working-directory: packages/secure_storage/amplify_secure_storage
+      working-directory: packages/secure_storage/amplify_secure_storage/example/android
       package-name: amplify_secure_storage

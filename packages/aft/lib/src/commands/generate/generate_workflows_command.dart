@@ -32,23 +32,6 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
       if (!libDir.existsSync()) {
         continue;
       }
-
-      final appFacingAndroidTestDir =
-          Directory(p.join(package.path, 'android', 'src', 'test'));
-      final platformAndroidPackageTestDir = Directory(
-        p.join('${package.path}_android', 'android', 'src', 'test'),
-      ); // federated _android package
-      final androidExampleDir = Directory(
-        p.join(package.path, 'example', 'android'),
-      );
-      final appFacingPackageAndroidTestsDirExists =
-          appFacingAndroidTestDir.existsSync();
-      final platformPackageAndroidTestDirExists =
-          platformAndroidPackageTestDir.existsSync();
-      final androidExampleDirExists = androidExampleDir.existsSync();
-      final hasAndroidTests = androidExampleDirExists &&
-          (appFacingPackageAndroidTestsDirExists ||
-              platformPackageAndroidTestDirExists);
       final workflowFilepath = p.join(
         rootDir.path,
         '.github',
@@ -63,8 +46,6 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
         continue;
       }
       final isDartPackage = package.flavor == PackageFlavor.dart;
-      final needsAndroidTest =
-          hasAndroidTests && package.flavor == PackageFlavor.flutter;
 
       const ddcWorkflow = 'dart_ddc.yaml';
       const dart2JsWorkflow = 'dart_dart2js.yaml';
@@ -148,33 +129,48 @@ jobs:
           );
         }
       }
-
       workflowFile.writeAsStringSync(workflowContents.toString());
 
-      // Add workflow for Android unit tests if needed
-      if (needsAndroidTest) {
-        await generateAndroidUnitTestWorkflow(
-          packageName: package.name,
-          repoRelativePath: repoRelativePath,
-          platformPackageAndroidTestDirExists:
-              platformPackageAndroidTestDirExists,
-        );
-      }
+      await generateAndroidUnitTestWorkflow(
+        package: package,
+        repoRelativePath: repoRelativePath,
+      );
     }
   }
 
+  /// If a package has Android unit tests, generate a separate workflow for them.
   Future<void> generateAndroidUnitTestWorkflow({
-    required String packageName,
+    required PackageInfo package,
     required String repoRelativePath,
-    required bool platformPackageAndroidTestDirExists,
   }) async {
     const androidWorkflow = 'flutter_android.yaml';
+
+    final appFacingAndroidTestDir =
+        Directory(p.join(package.path, 'android', 'src', 'test'));
+    final platformAndroidPackageTestDir = Directory(
+      p.join('${package.path}_android', 'android', 'src', 'test'),
+    ); // federated _android package
+    final androidExampleDir = Directory(
+      p.join(package.path, 'example', 'android'),
+    );
+    final appFacingPackageAndroidTestsDirExists =
+        appFacingAndroidTestDir.existsSync();
+    final platformPackageAndroidTestDirExists =
+        platformAndroidPackageTestDir.existsSync();
+    final androidExampleDirExists = androidExampleDir.existsSync();
+    final hasAndroidTests = androidExampleDirExists &&
+        (appFacingPackageAndroidTestsDirExists ||
+            platformPackageAndroidTestDirExists);
+
+    if (package.flavor != PackageFlavor.flutter || !hasAndroidTests) {
+      return;
+    }
 
     final androidWorkflowFilepath = p.join(
       rootDir.path,
       '.github',
       'workflows',
-      '${packageName}_android.yaml',
+      '${package.name}_android.yaml',
     );
 
     final androidPlatformPackagePaths = [
@@ -193,7 +189,7 @@ jobs:
     final androidWorkflowFile = File(androidWorkflowFilepath);
     final androidWorkflowContents = '''
 # Generated with aft. To update, run: `aft generate workflows`
-name: $packageName Android
+name: ${package.name} Android
 on:
   push:
     branches:
@@ -217,8 +213,8 @@ jobs:
   test:
     uses: ./.github/workflows/$androidWorkflow
     with:
-      working-directory: $repoRelativePath
-      package-name: $packageName
+      working-directory: $repoRelativePath/example/android
+      package-name: ${package.name}
 ''';
 
       workflowFile.writeAsStringSync(workflowContents.toString());
