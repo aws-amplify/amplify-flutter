@@ -5,6 +5,7 @@ import 'amplify_plugin_config.dart';
 import 'analytics/pinpoint_config.dart';
 import 'api/aws_api_config.dart';
 import 'auth/cognito_config.dart';
+import 'notifications/notifications_pinpoint_config.dart';
 import 'storage/s3_config.dart';
 
 /// Default plugins known to Amplify. Users can register additional plugins
@@ -15,6 +16,9 @@ const _defaultPlugins = <AmplifyPluginConfigFactory>[
 
   // Analytics
   PinpointPluginConfigFactory(),
+
+  // Notifications
+  NotificationsPinpointPluginConfigFactory(),
 
   // Auth
   CognitoPluginConfigFactory(),

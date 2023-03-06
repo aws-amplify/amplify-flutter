@@ -26,6 +26,9 @@ class AmplifyConfig with AWSEquatable<AmplifyConfig>, AWSSerializable {
   /// The Auth category configuration, if available.
   final AuthConfig? auth;
 
+  /// The Notifications category configuration, if available.
+  final NotificationsConfig? notifications;
+
   /// The Storage category configuration, if available.
   final StorageConfig? storage;
 
@@ -36,6 +39,7 @@ class AmplifyConfig with AWSEquatable<AmplifyConfig>, AWSSerializable {
     this.api,
     this.analytics,
     this.auth,
+    this.notifications,
     this.storage,
   });
 
@@ -46,6 +50,7 @@ class AmplifyConfig with AWSEquatable<AmplifyConfig>, AWSSerializable {
         api,
         analytics,
         auth,
+        notifications,
         storage,
       ];
 
@@ -56,6 +61,7 @@ class AmplifyConfig with AWSEquatable<AmplifyConfig>, AWSSerializable {
     ApiConfig? api,
     AnalyticsConfig? analytics,
     AuthConfig? auth,
+    NotificationsConfig? notifications,
     StorageConfig? storage,
   }) {
     return AmplifyConfig(
@@ -64,6 +70,7 @@ class AmplifyConfig with AWSEquatable<AmplifyConfig>, AWSSerializable {
       api: api ?? this.api,
       analytics: analytics ?? this.analytics,
       auth: auth ?? this.auth,
+      notifications: notifications ?? this.notifications,
       storage: storage ?? this.storage,
     );
   }

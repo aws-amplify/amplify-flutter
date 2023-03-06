@@ -125,9 +125,11 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       return;
     }
     // TODO(Samaritan1011001) Parse config values from amplifyconfiguration.json for notifications
-    final analyticsConfig = config?.analytics?.awsPlugin;
-    if (analyticsConfig == null) {
-      throw const AnalyticsException('No Pinpoint plugin config available');
+    final notificationsConfig = config?.notifications?.awsPlugin;
+    if (notificationsConfig == null) {
+      throw const PushNotificationException(
+        'No Push Notification Pinpoint plugin config available',
+      );
     }
 
     // Register the callback dispatcher

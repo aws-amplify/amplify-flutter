@@ -24,6 +24,7 @@ export 'src/config/analytics/analytics_config.dart';
 export 'src/config/api/api_config.dart';
 export 'src/config/auth/auth_config.dart';
 export 'src/config/config_map.dart';
+export 'src/config/notifications/notifications_config.dart';
 export 'src/config/storage/storage_config.dart';
 
 /// HTTP
