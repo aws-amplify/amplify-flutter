@@ -7,7 +7,7 @@ on:
         required: true
         type: string
       package-name:
-        description: The working directory relative to the repo root
+        description: The name of the app-facing package being tested
         required: true
         type: string
 
@@ -35,7 +35,6 @@ jobs:
         with:
           cache: true
           channel: ${{ matrix.sdk }}
-          flutter-version: ${{ matrix.flutter-version }}
 
       - name: Setup aft
         run: flutter pub global activate -spath packages/aft
@@ -54,4 +53,4 @@ jobs:
         run: |
           flutter build apk --debug --verbose
           ./gradlew :"${{ inputs.package-name}}":testDebugUnitTest
-        working-directory: ${{ inputs.working-directory }}/example/android
+        working-directory: ${{ inputs.working-directory }}
