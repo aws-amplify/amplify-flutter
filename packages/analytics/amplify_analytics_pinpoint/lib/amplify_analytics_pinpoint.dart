@@ -12,10 +12,11 @@ export 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.
 
         /// For Push Notifications.
         // TODO(kylecheng): export via SecureStorage instead.
-        EndpointInfoStoreManager;
+        EndpointInfoStoreManager,
 
-/// For calls to SetChannelType().
-export 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/channel_type.dart';
+        /// For calls to SetChannelType().
+        ChannelType,
+        ChannelTypeHelpers;
 
 /// Category Implementation.
 export 'src/analytics_plugin_impl.dart';
