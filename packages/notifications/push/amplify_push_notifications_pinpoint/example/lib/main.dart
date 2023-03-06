@@ -23,7 +23,7 @@ void bgHandler(PushNotificationMessage pushNotificationMessage) async {
     await prefs.reload();
     var globalBgCallbackCount = prefs.getInt(globalBgCallbackKey);
     globalBgCallbackCount =
-        globalBgCallbackCount != null ? (globalBgCallbackCount + 1) : 0;
+        globalBgCallbackCount != null ? (globalBgCallbackCount + 1) : 1;
     await prefs.setInt(
       globalBgCallbackKey,
       globalBgCallbackCount,
