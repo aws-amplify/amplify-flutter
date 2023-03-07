@@ -46,7 +46,7 @@ jobs:
 
       - name: Bootstrap
         id: bootstrap
-        timeout-minutes: 10
+        timeout-minutes: 20 # macOS needs extra time
         run: aft bootstrap
 
       - name: Run iOS unit tests
