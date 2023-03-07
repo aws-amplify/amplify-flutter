@@ -435,10 +435,7 @@ abstract class _ConfirmSignInFormFieldState<FieldValue>
 
   @override
   Iterable<String>? get autofillHints {
-    //Checks for override value
     if (widget.autofillHints != null) return widget.autofillHints;
-
-    //Returns default value
     switch (widget.field) {
       case ConfirmSignInField.code:
         return const [

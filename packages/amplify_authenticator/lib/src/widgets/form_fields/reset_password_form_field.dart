@@ -179,10 +179,7 @@ class _ResetPasswordFormFieldState extends AuthenticatorFormFieldState<
 
   @override
   Iterable<String>? get autofillHints {
-    //Checks for override value
     if (widget.autofillHints != null) return widget.autofillHints;
-
-    //Returns default value
     switch (widget.field) {
       case ResetPasswordField.verificationCode:
         return const [
